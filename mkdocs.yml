@@ -1,0 +1,69 @@
+site_name: James Gray's Hands-On AI Cookbook
+site_description: Practical guides for AI/ML - prompting, agents, and platform integrations
+site_author: James Gray
+
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  font:
+    text: Inter
+    code: Roboto Mono
+  features:
+    - search.highlight
+    - search.suggest
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_css:
+  - assets/stylesheets/custom.css
+
+nav:
+  - Home: README.md
+  - How-To Guides:
+    - how-to/README.md
+    - Prompting: how-to/prompting/README.md
+    - Agents: how-to/agents/README.md
+    - Integrations: how-to/integrations/README.md
+  - Topics:
+    - topics/README.md
+    - Prompt Engineering: topics/prompt-engineering/README.md
+    - Agents & Tools: topics/agents-and-tools/README.md
+    - Platforms:
+      - topics/platforms/README.md
+      - OpenAI: topics/platforms/openai/README.md
+      - Claude: topics/platforms/claude/README.md
+      - Gemini: topics/platforms/gemini/README.md
+      - M365 Copilot: topics/platforms/m365-copilot/README.md
+  - Patterns: patterns/README.md
+  - Troubleshooting: troubleshooting/README.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - tables
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername/cookbook
+  generator: false

@@ -1,0 +1,31 @@
+:root {
+  --md-primary-fg-color: #282828;
+  --md-primary-fg-color--light: #3d3d3d;
+  --md-primary-fg-color--dark: #1a1a1a;
+  --md-accent-fg-color: #DDF222;
+  --md-accent-fg-color--transparent: rgba(221, 242, 34, 0.1);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #282828;
+  --md-accent-fg-color: #DDF222;
+}
+
+/* Accent color for links and highlights */
+.md-typeset a {
+  color: #282828;
+}
+
+.md-typeset a:hover {
+  color: #DDF222;
+}
+
+/* Navigation active state */
+.md-nav__item--active > .md-nav__link {
+  color: #DDF222;
+}
+
+/* Search highlight */
+.md-search-result__article--document {
+  border-left-color: #DDF222;
+}
