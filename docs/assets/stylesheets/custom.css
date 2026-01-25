@@ -32,11 +32,11 @@
 
 /* Subtle nav background for visual separation */
 .md-sidebar--primary {
-  background-color: #fafafa;
+  background-color: #f3f3f3;
 }
 
 .md-sidebar--primary .md-sidebar__scrollwrap {
-  background-color: #fafafa;
+  background-color: #f3f3f3;
 }
 
 [data-md-color-scheme="slate"] .md-sidebar--primary,
