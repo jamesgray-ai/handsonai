@@ -52,14 +52,27 @@ nav:
     - Integrations: how-to/integrations/README.md
   - Topics:
     - topics/README.md
-    - Prompt Engineering: topics/prompt-engineering/README.md
-    - Agents & Tools: topics/agents-and-tools/README.md
+    - Prompt Engineering:
+      - Overview: topics/prompt-engineering/README.md
+      - Resources: topics/prompt-engineering/resources.md
+    - Agents & Tools:
+      - Overview: topics/agents-and-tools/README.md
+      - Resources: topics/agents-and-tools/resources.md
     - Platforms:
       - topics/platforms/README.md
-      - OpenAI: topics/platforms/openai/README.md
-      - Claude: topics/platforms/claude/README.md
-      - Gemini: topics/platforms/gemini/README.md
-      - M365 Copilot: topics/platforms/m365-copilot/README.md
+      - Resources: topics/platforms/resources.md
+      - OpenAI:
+        - Overview: topics/platforms/openai/README.md
+        - Resources: topics/platforms/openai/resources.md
+      - Claude:
+        - Overview: topics/platforms/claude/README.md
+        - Resources: topics/platforms/claude/resources.md
+      - Gemini:
+        - Overview: topics/platforms/gemini/README.md
+        - Resources: topics/platforms/gemini/resources.md
+      - M365 Copilot:
+        - Overview: topics/platforms/m365-copilot/README.md
+        - Resources: topics/platforms/m365-copilot/resources.md
   - Patterns: patterns/README.md
   - Troubleshooting: troubleshooting/README.md
 
