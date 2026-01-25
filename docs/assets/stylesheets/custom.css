@@ -20,8 +20,14 @@
   color: #DDF222;
 }
 
-/* Navigation active state */
+/* Navigation active state - charcoal for readability on light gray */
 .md-nav__item--active > .md-nav__link {
+  color: #282828;
+  font-weight: 600;
+}
+
+/* Hover state - lime accent */
+.md-nav__link:hover {
   color: #DDF222;
 }
 
