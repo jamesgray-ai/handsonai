@@ -63,3 +63,18 @@
 [data-md-color-scheme="slate"] .md-sidebar--primary .md-sidebar__scrollwrap {
   background-color: #1a1a1a !important;
 }
+
+/* Remove the scroll shadow/gradient that hides text on dark sidebar */
+.md-sidebar--primary .md-sidebar__scrollwrap::before {
+  background: linear-gradient(to bottom, #282828, transparent) !important;
+}
+
+/* Also handle the inner container */
+.md-sidebar--primary .md-sidebar__inner {
+  background: transparent !important;
+}
+
+/* Fix any scroll indicators */
+.md-sidebar__scrollwrap {
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
