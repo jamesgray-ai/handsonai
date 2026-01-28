@@ -13,9 +13,9 @@ Create a GitHub repository to store and version your AI prompts, skills, and ref
 
 **Setup Guides (complete in order):**
 
-1. [Git Installation](../../getting-started/git-install.md) — Install Git on your machine
-2. [Editor Setup](../../getting-started/editor-setup.md) — Install Cursor or VS Code
-3. [GitHub Setup](../../getting-started/github-setup.md) — Create account and clone repositories
+1. [Git Installation](../../fundamentals/developer-setup/git-install.md) — Install Git on your machine
+2. [Editor Setup](../../fundamentals/developer-setup/editor-setup.md) — Install Cursor or VS Code
+3. [GitHub Setup](../../fundamentals/developer-setup/github-setup.md) — Create account and clone repositories
 
 ## Lesson: Configure Your AI Code Editor
 
@@ -23,7 +23,7 @@ Set up Claude Code for AI-assisted development in your editor and terminal.
 
 **Setup Guide:**
 
-- [Claude Code Setup](../../getting-started/claude-code-install.md) — Install extension and CLI, configure your environment
+- [Claude Code Setup](../../platforms/claude/getting-started/claude-code-install.md) — Install extension and CLI, configure your environment
 
 ## Lesson: Implement Voice-to-Text for Hands-Free AI Collaboration
 
@@ -31,7 +31,7 @@ Enable voice input for hands-free AI collaboration.
 
 **Setup Guide:**
 
-- [Voice-to-Text Setup](../../getting-started/voice-to-text-setup.md) — Configure Wispr Flow and Claude Desktop Quick Entry
+- [Voice-to-Text Setup](../../fundamentals/developer-setup/voice-to-text-setup.md) — Configure Wispr Flow and Claude Desktop Quick Entry
 
 ## Lesson: Build Your AI Operations Registry
 
@@ -39,7 +39,7 @@ Create your central hub for managing all AI operations across your business.
 
 **Setup Guide:**
 
-- [Notion Registry Setup](../../getting-started/notion-registry-setup.md) — Duplicate the Notion database templates and customize for your business
+- [Notion Registry Setup](../../fundamentals/developer-setup/notion-registry-setup.md) — Duplicate the Notion database templates and customize for your business
 
 ## Lesson: Configure MCP Server Connections
 
@@ -55,8 +55,8 @@ Configure Claude to work effectively with your context.
 
 **Setup Guides:**
 
-- [Claude Projects Setup](../../getting-started/claude-projects-setup.md) — Organize your AI work with projects
-- [Claude Personalization Setup](../../getting-started/claude-personalization-setup.md) — Configure Claude to understand your context
+- [Claude Projects Setup](../../platforms/claude/getting-started/claude-projects-setup.md) — Organize your AI work with projects
+- [Claude Personalization Setup](../../platforms/claude/getting-started/claude-personalization-setup.md) — Configure Claude to understand your context
 
 ## Questions?
 

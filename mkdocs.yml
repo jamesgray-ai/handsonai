@@ -67,58 +67,63 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started:
-    - getting-started/index.md
-    - Claude Code Installation: getting-started/claude-code-install.md
-    - Claude Projects: getting-started/claude-projects-setup.md
-    - Claude Personalization: getting-started/claude-personalization-setup.md
-    - Editor Setup: getting-started/editor-setup.md
-    - Git Installation: getting-started/git-install.md
-    - GitHub Setup: getting-started/github-setup.md
-    - Notion Registry: getting-started/notion-registry-setup.md
-    - Voice to Text: getting-started/voice-to-text-setup.md
+  - Platforms:
+    - platforms/index.md
+    - Claude:
+      - platforms/claude/index.md
+      - Getting Started:
+        - Claude Code Installation: platforms/claude/getting-started/claude-code-install.md
+        - Claude Projects: platforms/claude/getting-started/claude-projects-setup.md
+        - Claude Personalization: platforms/claude/getting-started/claude-personalization-setup.md
+      - Scheduling (macOS): platforms/claude/scheduling-macos.md
+      - Scheduling (Windows): platforms/claude/scheduling-windows.md
+      - Topics:
+        - Overview: platforms/claude/topics/README.md
+        - Resources: platforms/claude/topics/resources.md
+      - Questions: platforms/claude/questions/README.md
+    - OpenAI / ChatGPT:
+      - platforms/openai/index.md
+      - Topics:
+        - Overview: platforms/openai/topics/README.md
+        - Resources: platforms/openai/topics/resources.md
+      - Questions: platforms/openai/questions/README.md
+    - Google Gemini:
+      - platforms/gemini/index.md
+      - Topics:
+        - Overview: platforms/gemini/topics/README.md
+        - Resources: platforms/gemini/topics/resources.md
+      - Questions: platforms/gemini/questions/README.md
+    - M365 Copilot:
+      - platforms/m365-copilot/index.md
+      - Topics:
+        - Overview: platforms/m365-copilot/topics/README.md
+        - Resources: platforms/m365-copilot/topics/resources.md
+  - Fundamentals:
+    - fundamentals/index.md
+    - Developer Setup:
+      - Git Installation: fundamentals/developer-setup/git-install.md
+      - GitHub Setup: fundamentals/developer-setup/github-setup.md
+      - Editor Setup: fundamentals/developer-setup/editor-setup.md
+      - Voice to Text: fundamentals/developer-setup/voice-to-text-setup.md
+      - Notion Registry: fundamentals/developer-setup/notion-registry-setup.md
+    - Prompt Engineering:
+      - Overview: fundamentals/prompt-engineering/README.md
+      - Resources: fundamentals/prompt-engineering/resources.md
+    - Agents & Tools:
+      - Overview: fundamentals/agents-and-tools/README.md
+      - Resources: fundamentals/agents-and-tools/resources.md
+    - Patterns: fundamentals/patterns/README.md
+  - How-To Guides:
+    - how-to/README.md
+    - Prompting: how-to/prompting/README.md
+    - Agents: how-to/agents/README.md
+    - Integrations: how-to/integrations/README.md
   - Questions:
     - questions/README.md
     - Prompting:
       - questions/prompting/README.md
       - What is a system prompt?: questions/prompting/what-is-a-system-prompt.md
     - Agents: questions/agents/README.md
-    - Platforms:
-      - questions/platforms/README.md
-      - OpenAI: questions/platforms/openai/README.md
-      - Claude: questions/platforms/claude/README.md
-      - Gemini: questions/platforms/gemini/README.md
-  - How-To Guides:
-    - how-to/README.md
-    - Prompting: how-to/prompting/README.md
-    - Agents: how-to/agents/README.md
-    - Integrations: how-to/integrations/README.md
-  - Topics:
-    - topics/README.md
-    - Prompt Engineering:
-      - Overview: topics/prompt-engineering/README.md
-      - Resources: topics/prompt-engineering/resources.md
-    - Agents & Tools:
-      - Overview: topics/agents-and-tools/README.md
-      - Resources: topics/agents-and-tools/resources.md
-      - Scheduling (macOS): topics/agents-and-tools/scheduling-macos.md
-      - Scheduling (Windows): topics/agents-and-tools/scheduling-windows.md
-    - Platforms:
-      - topics/platforms/README.md
-      - Resources: topics/platforms/resources.md
-      - OpenAI:
-        - Overview: topics/platforms/openai/README.md
-        - Resources: topics/platforms/openai/resources.md
-      - Claude:
-        - Overview: topics/platforms/claude/README.md
-        - Resources: topics/platforms/claude/resources.md
-      - Gemini:
-        - Overview: topics/platforms/gemini/README.md
-        - Resources: topics/platforms/gemini/resources.md
-      - M365 Copilot:
-        - Overview: topics/platforms/m365-copilot/README.md
-        - Resources: topics/platforms/m365-copilot/resources.md
-  - Patterns: patterns/README.md
   - Troubleshooting:
     - troubleshooting/README.md
     - Scheduling Issues: troubleshooting/scheduling-issues.md

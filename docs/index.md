@@ -11,6 +11,14 @@ Practical guides, courses, and reference materials for building with AI. Learn t
 
 <div class="grid cards" markdown>
 
+-   :material-robot:{ .lg .middle } **Platforms**
+
+    ---
+
+    Platform-specific setup, topics, and Q&A
+
+    [:octicons-arrow-right-24: Choose your platform](platforms/)
+
 -   :material-school:{ .lg .middle } **Courses**
 
     ---
@@ -19,13 +27,13 @@ Practical guides, courses, and reference materials for building with AI. Learn t
 
     [:octicons-arrow-right-24: Browse courses](courses/)
 
--   :material-rocket-launch:{ .lg .middle } **Getting Started**
+-   :material-lightbulb:{ .lg .middle } **Fundamentals**
 
     ---
 
-    Set up your AI builder tools and environment
+    Cross-platform concepts, developer setup, and patterns
 
-    [:octicons-arrow-right-24: Setup guides](getting-started/)
+    [:octicons-arrow-right-24: Core concepts](fundamentals/)
 
 -   :material-help-circle:{ .lg .middle } **Questions**
 
@@ -35,14 +43,6 @@ Practical guides, courses, and reference materials for building with AI. Learn t
 
     [:octicons-arrow-right-24: Find answers](questions/)
 
--   :material-book-open:{ .lg .middle } **Topics**
-
-    ---
-
-    Deep dives into AI concepts and platforms
-
-    [:octicons-arrow-right-24: Explore topics](topics/)
-
 </div>
 
 ## Quick Links
@@ -50,18 +50,12 @@ Practical guides, courses, and reference materials for building with AI. Learn t
 | I want to... | Go here |
 |-------------|---------|
 | Learn Claude Code from scratch | [Builders Course](courses/builders/) |
-| Set up Claude Code | [Installation Guide](getting-started/claude-code-install.md) |
+| Set up Claude Code | [Installation Guide](platforms/claude/getting-started/claude-code-install.md) |
 | Understand system prompts | [What is a system prompt?](questions/prompting/what-is-a-system-prompt.md) |
-| Schedule AI agents | [Scheduling Subagents](topics/agents-and-tools/scheduling-macos.md) |
+| Schedule AI agents | [Scheduling Subagents](platforms/claude/scheduling-macos.md) |
+| Set up Git and GitHub | [Developer Setup](fundamentals/developer-setup/git-install.md) |
 | Solve a specific problem | [How-To Guides](how-to/) |
 | Fix an error | [Troubleshooting](troubleshooting/) |
-
-## Platforms Covered
-
-- **Claude** - Anthropic's Claude models, Claude Code, MCP, tool use
-- **OpenAI** - GPT models, Assistants API, function calling
-- **Gemini** - Google's Gemini models and Vertex AI
-- **M365 Copilot** - Microsoft 365 Copilot and Azure OpenAI
 
 ## About
 

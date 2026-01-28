@@ -18,11 +18,11 @@ Questions about building AI agents, function calling, tool use, and multi-step w
 
 ### Platforms
 
-Platform-specific questions for OpenAI, Claude, Gemini, and other AI providers.
+Platform-specific questions are organized under each platform:
 
-- [OpenAI Questions](./platforms/openai/README.md)
-- [Claude Questions](./platforms/claude/README.md)
-- [Gemini Questions](./platforms/gemini/README.md)
+- [OpenAI Questions](../platforms/openai/questions/README.md)
+- [Claude Questions](../platforms/claude/questions/README.md)
+- [Gemini Questions](../platforms/gemini/questions/README.md)
 
 ## All Questions
 
@@ -35,5 +35,5 @@ Platform-specific questions for OpenAI, Claude, Gemini, and other AI providers.
 Check our other resources:
 
 - [How-To Guides](../how-to/README.md) - Step-by-step instructions for specific tasks
-- [Topics](../topics/README.md) - In-depth explanations of concepts
+- [Fundamentals](../fundamentals/) - In-depth explanations of concepts
 - [Troubleshooting](../troubleshooting/README.md) - Solutions to common errors

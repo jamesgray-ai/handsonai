@@ -1,14 +1,12 @@
 # Platform Questions
 
-Platform-specific questions for AI providers and their APIs.
+Platform-specific questions are now organized under each platform:
 
-## Platforms
-
-- [OpenAI](./openai/README.md) - GPT models, Assistants API, and OpenAI-specific features
-- [Claude](./claude/README.md) - Anthropic's Claude models and API
-- [Gemini](./gemini/README.md) - Google's Gemini models and Vertex AI
+- [OpenAI Questions](../../platforms/openai/questions/README.md)
+- [Claude Questions](../../platforms/claude/questions/README.md)
+- [Gemini Questions](../../platforms/gemini/questions/README.md)
 
 ## Related Resources
 
-- [Platform Topics](../../topics/platforms/README.md)
+- [Platforms Overview](../../platforms/)
 - [Integration How-To Guides](../../how-to/integrations/README.md)

@@ -8,7 +8,7 @@ Set up your Claude Code subagents to run automatically on a schedule—like a re
 
 ## Prerequisites
 
-- Claude Code installed and authenticated (see [Claude Code Setup Guide](../../getting-started/claude-code-install.md))
+- Claude Code installed and authenticated (see [Claude Code Setup Guide](getting-started/claude-code-install.md))
 - **A subagent already created** with its configuration in a markdown file
 
 ## Important: Update Your CLAUDE.md First

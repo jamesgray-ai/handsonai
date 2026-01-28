@@ -10,5 +10,5 @@ Questions about writing effective prompts, system messages, and prompt engineeri
 
 ## Related Resources
 
-- [Prompt Engineering Topic](../../topics/prompt-engineering/README.md)
+- [Prompt Engineering Topic](../../fundamentals/prompt-engineering/README.md)
 - [Prompting How-To Guides](../../how-to/prompting/README.md)

@@ -10,5 +10,5 @@ Questions specific to Google's Gemini models and Vertex AI.
 
 ## Related Resources
 
-- [Gemini Platform Topic](../../../topics/platforms/gemini/README.md)
+- [Gemini Topics](../topics/README.md)
 - [Integration How-To Guides](../../../how-to/integrations/README.md)

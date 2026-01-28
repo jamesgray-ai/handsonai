@@ -40,11 +40,11 @@ Patterns for graceful failure and recovery.
 
 ## Adding a Pattern
 
-Patterns use the [topic template](../_templates/topic-template.md). Focus on:
+Patterns use the [topic template](../../_templates/topic-template.md). Focus on:
 
 1. **Problem** - When to use this pattern
 2. **Solution** - The pattern structure
 3. **Example** - Working implementation
 4. **Variations** - Common adaptations
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.

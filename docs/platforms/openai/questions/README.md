@@ -1,6 +1,6 @@
-# Claude Questions
+# OpenAI Questions
 
-Questions specific to Anthropic's Claude models and API.
+Questions specific to OpenAI's GPT models, Assistants API, and platform features.
 
 ## Questions
 
@@ -10,5 +10,5 @@ Questions specific to Anthropic's Claude models and API.
 
 ## Related Resources
 
-- [Claude Platform Topic](../../../topics/platforms/claude/README.md)
+- [OpenAI Topics](../topics/README.md)
 - [Integration How-To Guides](../../../how-to/integrations/README.md)

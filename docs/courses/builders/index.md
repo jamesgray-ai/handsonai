@@ -46,7 +46,7 @@ Transform from a Claude user into a Claude builder through hands-on experience w
 
 ### Tools You'll Use
 
-All tools have setup guides in [Getting Started](../../getting-started/):
+Setup guides are available under [Claude](../../platforms/claude/) and [Fundamentals](../../fundamentals/):
 
 - Claude.ai (web + desktop app)
 - GitHub
@@ -60,7 +60,7 @@ All tools have setup guides in [Getting Started](../../getting-started/):
 ## Getting Started
 
 1. Start with [Week 0: Course Orientation](week-0.md) materials
-2. Complete the [Getting Started](../../getting-started/) setup guides
+2. Complete the [Claude setup guides](../../platforms/claude/) and [developer setup](../../fundamentals/developer-setup/git-install.md)
 3. Join the Maven cohort for live sessions
 
 ## Instructor
