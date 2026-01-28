@@ -1,11 +1,13 @@
 ---
-title: Hands-On AI
-description: Practical guides, courses, and reference materials for building with AI
+title: Hands-on AI for Builders
+description: Practical guides, courses, and reference materials for people who build with AI
 ---
 
-# Hands-On AI
+# Hands-on AI for Builders
 
-Practical guides, courses, and reference materials for building with AI. Learn to build real AI systems—prompting, agents, automation, and more.
+For business-oriented innovators who turn ideas into real outcomes using cutting-edge AI tools. If you're outcome-driven, curious, and focused on applying what's available — this site is for you.
+
+**The builder mindset:** systems thinker, leverage-first, fast iterator. Ship something that works, then make it better.
 
 ## Start Here
 
@@ -50,7 +52,7 @@ Practical guides, courses, and reference materials for building with AI. Learn t
 | I want to... | Go here |
 |-------------|---------|
 | Learn Claude Code from scratch | [Builders Course](courses/builders/) |
-| Set up Claude Code | [Installation Guide](platforms/claude/getting-started/claude-code-install.md) |
+| Set up Claude Code | [Installation Guide](fundamentals/developer-setup/claude-code-install.md) |
 | Understand system prompts | [What is a system prompt?](questions/prompting/what-is-a-system-prompt.md) |
 | Schedule AI agents | [Scheduling Subagents](platforms/claude/subagents/scheduling-subagents-macos.md) |
 | Set up Git and GitHub | [Developer Setup](fundamentals/developer-setup/git-install.md) |
