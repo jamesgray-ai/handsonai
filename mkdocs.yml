@@ -3,8 +3,8 @@ site_url: https://handsonai.info/
 site_description: Practical guides, courses, and reference materials for building with AI
 site_author: James Gray
 
-repo_name: jamesgray-ai/cookbook
-repo_url: https://github.com/jamesgray-ai/cookbook
+repo_name: jamesgray-ai/handsonai
+repo_url: https://github.com/jamesgray-ai/handsonai
 
 theme:
   name: material
