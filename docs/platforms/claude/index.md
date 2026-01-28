@@ -28,8 +28,7 @@ Run Claude agents on a schedule:
 
 | Guide | Description |
 |-------|-------------|
-| [Scheduling Subagents (macOS)](subagents/scheduling-subagents-macos.md) | Set up automated agents with launchd |
-| [Scheduling Subagents (Windows)](subagents/scheduling-subagents-windows.md) | Set up automated agents with Task Scheduler |
+| [Scheduling Subagents](subagents/scheduling-subagents.md) | Set up automated agents on macOS or Windows |
 | [Troubleshooting](subagents/scheduling-subagent-issues.md) | Common scheduling issues and fixes |
 
 ## Topics

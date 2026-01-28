@@ -54,7 +54,7 @@ For curious, outcome-driven innovators who think in systems, move fast, and turn
 | Learn Claude Code from scratch | [Builders Course](courses/builders/) |
 | Set up Claude Code | [Installation Guide](fundamentals/developer-setup/claude-code-install.md) |
 | Understand system prompts | [What is a system prompt?](questions/prompting/what-is-a-system-prompt.md) |
-| Schedule AI agents | [Scheduling Subagents](platforms/claude/subagents/scheduling-subagents-macos.md) |
+| Schedule AI agents | [Scheduling Subagents](platforms/claude/subagents/scheduling-subagents.md) |
 | Set up Git and GitHub | [Developer Setup](fundamentals/developer-setup/git-install.md) |
 | Solve a specific problem | [How-To Guides](how-to/) |
 | Fix an error | [Troubleshooting](troubleshooting/) |

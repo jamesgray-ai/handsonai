@@ -77,8 +77,7 @@ nav:
         - Claude Projects: platforms/claude/projects/claude-projects-setup.md
       - Questions: platforms/claude/questions/README.md
       - Subagents:
-        - Scheduling (macOS): platforms/claude/subagents/scheduling-subagents-macos.md
-        - Scheduling (Windows): platforms/claude/subagents/scheduling-subagents-windows.md
+        - Scheduling Subagents: platforms/claude/subagents/scheduling-subagents.md
         - Troubleshooting: platforms/claude/subagents/scheduling-subagent-issues.md
       - Topics:
         - Overview: platforms/claude/topics/README.md
