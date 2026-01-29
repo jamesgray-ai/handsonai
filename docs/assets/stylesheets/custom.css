@@ -130,6 +130,10 @@
   background-color: var(--md-primary-fg-color);
 }
 
+.md-social__link:hover {
+  color: #DDF222;
+}
+
 /* Table of contents active */
 .md-nav__link--passed,
 .md-nav__link:focus {
