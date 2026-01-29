@@ -1,0 +1,11 @@
+{
+  "name": "hbr-content-suite",
+  "description": "A complete pipeline for creating, editing, and publishing HBR-quality business articles. Includes a tech executive writer, HBR editor, publication formatter, and editorial criteria skill.",
+  "version": "1.0.0",
+  "author": {
+    "name": "James Gray"
+  },
+  "homepage": "https://handsonai.info/plugins/",
+  "license": "MIT",
+  "keywords": ["writing", "editing", "publishing", "hbr", "business"]
+}

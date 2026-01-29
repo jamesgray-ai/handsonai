@@ -45,6 +45,14 @@ For curious, outcome-driven innovators who think in systems, move fast, and turn
 
     [:octicons-arrow-right-24: Find answers](questions/)
 
+-   :material-puzzle-outline:{ .lg .middle } **Plugins**
+
+    ---
+
+    Pre-built Claude Code agents and skills you can install in one command
+
+    [:octicons-arrow-right-24: Browse plugins](plugins/)
+
 </div>
 
 ## Quick Links
@@ -57,6 +65,7 @@ For curious, outcome-driven innovators who think in systems, move fast, and turn
 | Schedule AI agents | [Scheduling Subagents](platforms/claude/subagents/scheduling-subagents.md) |
 | Set up Git and GitHub | [Developer Setup](fundamentals/developer-setup/git-install.md) |
 | Solve a specific problem | [How-To Guides](how-to/) |
+| Install Claude Code plugins | [Plugin Marketplace](plugins/) |
 | Fix an error | [Troubleshooting](troubleshooting/) |
 
 ## About

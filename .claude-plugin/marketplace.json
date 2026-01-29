@@ -1,0 +1,24 @@
+{
+  "name": "handsonai",
+  "owner": {
+    "name": "James Gray"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for AI builders from handsonai.info",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "hbr-content-suite",
+      "source": "./plugins/hbr-content-suite",
+      "description": "Complete HBR-quality content pipeline: write, edit, and publish business articles",
+      "version": "1.0.0"
+    },
+    {
+      "name": "ai-research-agents",
+      "source": "./plugins/ai-research-agents",
+      "description": "AI industry research agents for news, productivity case studies, and daily Claude briefings",
+      "version": "1.0.0"
+    }
+  ]
+}

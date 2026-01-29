@@ -1,0 +1,11 @@
+{
+  "name": "ai-research-agents",
+  "description": "Three research agents for staying current on AI: broad news scanning, productivity case study research, and daily Claude/Anthropic briefings.",
+  "version": "1.0.0",
+  "author": {
+    "name": "James Gray"
+  },
+  "homepage": "https://handsonai.info/plugins/",
+  "license": "MIT",
+  "keywords": ["research", "news", "ai", "productivity", "claude"]
+}

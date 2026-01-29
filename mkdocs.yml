@@ -99,6 +99,9 @@ nav:
       - Topics:
         - Overview: platforms/openai/topics/README.md
         - Resources: platforms/openai/topics/resources.md
+  - Plugins:
+    - plugins/index.md
+    - Getting Started: plugins/getting-started.md
   - Fundamentals:
     - fundamentals/index.md
     - Agents & Tools:
