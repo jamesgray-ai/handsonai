@@ -56,7 +56,7 @@ The `.claude/` directory is the **development/local** copy (used for repo-local 
 2. Copy into `plugins/<plugin-name>/agents/` (or `skills/`)
 3. Bump `version` in `plugins/<plugin-name>/.claude-plugin/plugin.json` (MINOR for new, PATCH for update)
 4. Bump `version` for that plugin in `.claude-plugin/marketplace.json`
-5. Update the plugin's section on `docs/plugins/index.md`
+5. Update the plugin's section on `docs/plugins/index.md` — add the agent/skill to the table with a GitHub link (see linking convention below)
 6. Commit and push
 
 ### Creating a new plugin
@@ -75,8 +75,17 @@ The `.claude/` directory is the **development/local** copy (used for repo-local 
    ```
 3. Write `plugin.json` with name, description, version, author, keywords
 4. Add a new entry to `.claude-plugin/marketplace.json`
-5. Add a grid card + collapsible detail section to `docs/plugins/index.md`
+5. Add a grid card + collapsible detail section to `docs/plugins/index.md` — include GitHub links for every agent and skill (see linking convention below)
 6. Commit and push
+
+### Catalog page linking convention
+
+Every agent and skill name in the `docs/plugins/index.md` tables **must** link to its source on GitHub so students can read the full details:
+
+- **Agents** → link to the `.md` file: `[`agent-name`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/<plugin>/agents/<agent>.md)`
+- **Skills** → link to the skill directory: `[`skill-name`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/<plugin>/skills/<skill>/)`
+
+This applies every time an agent or skill is added to the marketplace.
 
 ### Versioning convention
 

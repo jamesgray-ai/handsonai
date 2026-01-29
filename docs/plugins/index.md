@@ -63,15 +63,15 @@ Then install any plugin below with a single command.
 
     | Agent | What it does |
     |-------|-------------|
-    | `tech-executive-writer` | Writes business-focused content about AI and technology. LinkedIn posts, magazine articles, executive briefs, and thought leadership pieces. Translates complex technical concepts for non-technical audiences. |
-    | `hbr-editor` | Reviews drafts against HBR editorial standards. Provides prescriptive feedback on structure, evidence quality, voice, and argument strength. |
-    | `hbr-publisher` | Formats finalized articles for web publication and PDF distribution. Handles SEO metadata, social snippets, and professional layout. |
+    | [`tech-executive-writer`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/hbr-content-suite/agents/tech-executive-writer.md) | Writes business-focused content about AI and technology. LinkedIn posts, magazine articles, executive briefs, and thought leadership pieces. Translates complex technical concepts for non-technical audiences. |
+    | [`hbr-editor`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/hbr-content-suite/agents/hbr-editor.md) | Reviews drafts against HBR editorial standards. Provides prescriptive feedback on structure, evidence quality, voice, and argument strength. |
+    | [`hbr-publisher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/hbr-content-suite/agents/hbr-publisher.md) | Formats finalized articles for web publication and PDF distribution. Handles SEO metadata, social snippets, and professional layout. |
 
 ??? info "Skills included"
 
     | Skill | What it does |
     |-------|-------------|
-    | `editing-hbr-articles` | Loads HBR editorial criteria for article editing. Used by the `hbr-editor` agent to apply specific standards for openings, evidence, voice, and length. Includes a reference file with cut/replace patterns and source quality hierarchy. |
+    | [`editing-hbr-articles`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/hbr-content-suite/skills/editing-hbr-articles/) | Loads HBR editorial criteria for article editing. Used by the `hbr-editor` agent to apply specific standards for openings, evidence, voice, and length. Includes a reference file with cut/replace patterns and source quality hierarchy. |
 
 ??? example "Recommended workflow"
 
@@ -99,9 +99,9 @@ Then install any plugin below with a single command.
 
     | Agent | What it does |
     |-------|-------------|
-    | `ai-news-researcher` | Scans news outlets, blogs, YouTube channels, podcasts, and communities for the latest AI developments. Categorizes findings by product releases, research, company updates, and community highlights. |
-    | `ai-productivity-researcher` | Finds documented case studies of companies using AI for productivity gains. Prioritizes HBR-caliber sources with quantified outcomes. Outputs structured case study briefs. |
-    | `claude-research-daily` | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork. Covers official announcements, tech news, video content, tutorials, and community discussions from the last 24 hours. |
+    | [`ai-news-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/ai-research-agents/agents/ai-news-researcher.md) | Scans news outlets, blogs, YouTube channels, podcasts, and communities for the latest AI developments. Categorizes findings by product releases, research, company updates, and community highlights. |
+    | [`ai-productivity-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/ai-research-agents/agents/ai-productivity-researcher.md) | Finds documented case studies of companies using AI for productivity gains. Prioritizes HBR-caliber sources with quantified outcomes. Outputs structured case study briefs. |
+    | [`claude-research-daily`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/ai-research-agents/agents/claude-research-daily.md) | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork. Covers official announcements, tech news, video content, tutorials, and community discussions from the last 24 hours. |
 
 ??? example "Example usage"
 
@@ -124,11 +124,11 @@ Then install any plugin below with a single command.
 
     | Skill | What it does |
     |-------|-------------|
-    | `naming-workflows` | Generates consistent, outcome-focused names and descriptions for business workflows. Follows domain-specific naming patterns (Sales, Marketing, Product, etc.) and creates entries in the Notion Workflows database. |
-    | `writing-workflow-sops` | Writes Standard Operating Procedure documentation for workflows. Adapts SOP templates for Manual, Augmented, and Automated workflow types. Saves SOPs to Notion workflow page bodies. |
-    | `writing-process-guides` | Writes Business Process Guide documentation explaining when, why, and how to execute a complete business process with its component workflows. Covers strategic context while linking to individual SOPs for tactical details. |
-    | `registering-skills` | Registers or updates Claude Skills in the Notion AI Assets database. Extracts metadata from SKILL.md frontmatter, generates Quick Start Prompts, and handles duplicate detection. |
-    | `syncing-skills-to-github` | Syncs skills from `~/.claude/skills/` to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Assets with GitHub URLs. |
+    | [`naming-workflows`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-operations-registry/skills/naming-workflows/) | Generates consistent, outcome-focused names and descriptions for business workflows. Follows domain-specific naming patterns (Sales, Marketing, Product, etc.) and creates entries in the Notion Workflows database. |
+    | [`writing-workflow-sops`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-operations-registry/skills/writing-workflow-sops/) | Writes Standard Operating Procedure documentation for workflows. Adapts SOP templates for Manual, Augmented, and Automated workflow types. Saves SOPs to Notion workflow page bodies. |
+    | [`writing-process-guides`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-operations-registry/skills/writing-process-guides/) | Writes Business Process Guide documentation explaining when, why, and how to execute a complete business process with its component workflows. Covers strategic context while linking to individual SOPs for tactical details. |
+    | [`registering-skills`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-operations-registry/skills/registering-skills/) | Registers or updates Claude Skills in the Notion AI Assets database. Extracts metadata from SKILL.md frontmatter, generates Quick Start Prompts, and handles duplicate detection. |
+    | [`syncing-skills-to-github`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-operations-registry/skills/syncing-skills-to-github/) | Syncs skills from `~/.claude/skills/` to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Assets with GitHub URLs. |
 
 ??? example "Recommended workflow"
 
