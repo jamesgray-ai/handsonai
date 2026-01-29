@@ -27,65 +27,43 @@ This tells Claude Code where to find the Hands-on AI plugins. It does not instal
 
 ## Step 2: Install a Plugin
 
-Choose the plugin that matches your workflow:
+Browse the [Plugin Marketplace](./) to find a plugin that matches your workflow. Each plugin lists the agents and skills it includes.
 
-=== "HBR Content Suite"
+To install a plugin, use the install command shown on the marketplace page:
 
-    ```bash
-    /plugin install hbr-content-suite@handsonai
-    ```
+```bash
+/plugin install <plugin-name>@handsonai
+```
 
-    Installs 3 agents and 1 skill for writing, editing, and publishing business articles.
+For example:
 
-=== "AI Research Agents"
-
-    ```bash
-    /plugin install ai-research-agents@handsonai
-    ```
-
-    Installs 3 research agents for AI news, productivity case studies, and daily Claude briefings.
+```bash
+/plugin install hbr-content-suite@handsonai
+```
 
 After installing, the plugin's agents and skills are available in your Claude Code session.
 
+!!! tip
+    You can install as many plugins as you like. They don't conflict with each other.
+
 ## Step 3: Use Plugin Commands
 
-Installed plugins add agents and skills that Claude Code can use automatically. Here's what each plugin provides:
-
-### HBR Content Suite
-
-| Command type | Name | How to trigger |
-|-------------|------|----------------|
-| Agent | `tech-executive-writer` | Ask Claude to write business content about a technical topic |
-| Agent | `hbr-editor` | Ask Claude to review or edit an article for HBR quality |
-| Agent | `hbr-publisher` | Ask Claude to prepare a finalized article for publication |
-| Skill | `editing-hbr-articles` | Loaded automatically by the `hbr-editor` agent |
+Installed plugins add agents and skills that Claude Code can use automatically. You don't need to call them by name — just describe what you need and Claude will use the right agent or skill.
 
 **Example prompts:**
 
 - "Write a LinkedIn post about how RAG is transforming enterprise search"
-- "Review this article against HBR editorial standards"
-- "Prepare this article for web publication and create a PDF version"
-
-### AI Research Agents
-
-| Command type | Name | How to trigger |
-|-------------|------|----------------|
-| Agent | `ai-news-researcher` | Ask Claude about recent AI news or developments |
-| Agent | `ai-productivity-researcher` | Ask Claude for AI productivity case studies |
-| Agent | `claude-research-daily` | Ask Claude for the latest Claude/Anthropic updates |
-
-**Example prompts:**
-
 - "What's new in AI today?"
-- "Find examples of companies using AI agents for customer support"
-- "What are the latest Claude Code features?"
+- "Write an SOP for the Email Response Drafting workflow"
+
+Each plugin on the [marketplace page](./) includes a recommended workflow and example prompts so you know exactly what to ask.
 
 ## Updating Plugins
 
 When a plugin is updated with new agents, skills, or improvements, pull the latest version:
 
 ```bash
-/plugin update hbr-content-suite@handsonai
+/plugin update <plugin-name>@handsonai
 ```
 
 Or update all installed plugins at once:
@@ -99,7 +77,7 @@ Or update all installed plugins at once:
 To remove a plugin you no longer need:
 
 ```bash
-/plugin uninstall hbr-content-suite@handsonai
+/plugin uninstall <plugin-name>@handsonai
 ```
 
 To remove the marketplace entirely:
