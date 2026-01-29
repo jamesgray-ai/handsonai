@@ -27,7 +27,7 @@ This tells Claude Code where to find the Hands-on AI plugins. It does not instal
 
 ## Step 2: Install a Plugin
 
-Browse the [Plugin Marketplace](./) to find a plugin that matches your workflow. Each plugin lists the agents and skills it includes.
+Browse the [Plugin Marketplace](index.md#available-plugins) to find a plugin that matches your workflow. Each plugin lists the agents and skills it includes.
 
 To install a plugin, use the install command shown on the marketplace page:
 
@@ -56,7 +56,7 @@ Installed plugins add agents and skills that Claude Code can use automatically. 
 - "What's new in AI today?"
 - "Write an SOP for the Email Response Drafting workflow"
 
-Each plugin on the [marketplace page](./) includes a recommended workflow and example prompts so you know exactly what to ask.
+Each plugin on the [marketplace page](index.md#available-plugins) includes a recommended workflow and example prompts so you know exactly what to ask.
 
 ## Updating Plugins
 
