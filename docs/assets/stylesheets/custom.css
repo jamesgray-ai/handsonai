@@ -83,6 +83,10 @@
   background-color: var(--md-accent-fg-color--transparent);
 }
 
+.md-typeset a > code {
+  color: inherit;
+}
+
 [data-md-color-scheme="default"] .md-typeset code {
   background-color: #f5f5f5;
 }
@@ -140,95 +144,157 @@
   color: var(--md-accent-fg-color);
 }
 
-/* Admonitions — brand accent #DDF222 */
-.md-typeset .admonition,
-.md-typeset details,
-.md-typeset .admonition.info,
-.md-typeset details.info,
-.md-typeset .admonition.example,
-.md-typeset details.example,
-.md-typeset .admonition.tip,
-.md-typeset details.tip,
-.md-typeset .admonition.note,
-.md-typeset details.note,
-.md-typeset .admonition.warning,
-.md-typeset details.warning,
-.md-typeset .admonition.abstract,
-.md-typeset details.abstract,
-.md-typeset .admonition.question,
-.md-typeset details.question,
-.md-typeset .admonition.success,
-.md-typeset details.success,
-.md-typeset .admonition.failure,
-.md-typeset details.failure,
-.md-typeset .admonition.danger,
-.md-typeset details.danger,
-.md-typeset .admonition.bug,
-.md-typeset details.bug,
-.md-typeset .admonition.quote,
-.md-typeset details.quote {
-  border-color: #DDF222;
+/* Admonitions — neutral frame, #DDF222 icon only
+   Icon carries the brand accent; border and background stay scheme-neutral */
+
+/* Custom admonition icons — robot, lightning, play-circle, recycle */
+:root {
+  --md-admonition-icon--agents:
+    url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z"/></svg>');
+  --md-admonition-icon--skills:
+    url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7,2V13H10V22L17,10H13L17,2H7Z"/></svg>');
+  --md-admonition-icon--usage:
+    url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,16.5V7.5L16,12M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20Z"/></svg>');
+  --md-admonition-icon--workflow:
+    url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,6V9L16,5L12,1V4C7.58,4 4,7.58 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12C6,8.69 8.69,6 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12C18,15.31 15.31,18 12,18V15L8,19L12,23V20C16.42,20 20,16.42 20,12C20,10.43 19.54,8.97 18.76,7.74Z"/></svg>');
 }
 
+.md-typeset .agents > .admonition-title::before,
+.md-typeset .agents > summary::before {
+  -webkit-mask-image: var(--md-admonition-icon--agents);
+  mask-image: var(--md-admonition-icon--agents);
+}
+
+.md-typeset .skills > .admonition-title::before,
+.md-typeset .skills > summary::before {
+  -webkit-mask-image: var(--md-admonition-icon--skills);
+  mask-image: var(--md-admonition-icon--skills);
+}
+
+.md-typeset .usage > .admonition-title::before,
+.md-typeset .usage > summary::before {
+  -webkit-mask-image: var(--md-admonition-icon--usage);
+  mask-image: var(--md-admonition-icon--usage);
+}
+
+.md-typeset .workflow > .admonition-title::before,
+.md-typeset .workflow > summary::before {
+  -webkit-mask-image: var(--md-admonition-icon--workflow);
+  mask-image: var(--md-admonition-icon--workflow);
+}
+
+/* Border — light mode */
+.md-typeset .admonition,
+.md-typeset details,
+.md-typeset .admonition.info,     .md-typeset details.info,
+.md-typeset .admonition.example,  .md-typeset details.example,
+.md-typeset .admonition.tip,      .md-typeset details.tip,
+.md-typeset .admonition.note,     .md-typeset details.note,
+.md-typeset .admonition.warning,  .md-typeset details.warning,
+.md-typeset .admonition.abstract, .md-typeset details.abstract,
+.md-typeset .admonition.question, .md-typeset details.question,
+.md-typeset .admonition.success,  .md-typeset details.success,
+.md-typeset .admonition.failure,  .md-typeset details.failure,
+.md-typeset .admonition.danger,   .md-typeset details.danger,
+.md-typeset .admonition.bug,      .md-typeset details.bug,
+.md-typeset .admonition.quote,    .md-typeset details.quote,
+.md-typeset .admonition.agents,   .md-typeset details.agents,
+.md-typeset .admonition.skills,   .md-typeset details.skills,
+.md-typeset .admonition.usage,    .md-typeset details.usage,
+.md-typeset .admonition.workflow,  .md-typeset details.workflow {
+  border-color: #d0d0d0;
+}
+
+/* Border — dark mode */
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details,
+[data-md-color-scheme="slate"] .md-typeset .admonition.info,     [data-md-color-scheme="slate"] .md-typeset details.info,
+[data-md-color-scheme="slate"] .md-typeset .admonition.example,  [data-md-color-scheme="slate"] .md-typeset details.example,
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip,      [data-md-color-scheme="slate"] .md-typeset details.tip,
+[data-md-color-scheme="slate"] .md-typeset .admonition.note,     [data-md-color-scheme="slate"] .md-typeset details.note,
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning,  [data-md-color-scheme="slate"] .md-typeset details.warning,
+[data-md-color-scheme="slate"] .md-typeset .admonition.abstract, [data-md-color-scheme="slate"] .md-typeset details.abstract,
+[data-md-color-scheme="slate"] .md-typeset .admonition.question, [data-md-color-scheme="slate"] .md-typeset details.question,
+[data-md-color-scheme="slate"] .md-typeset .admonition.success,  [data-md-color-scheme="slate"] .md-typeset details.success,
+[data-md-color-scheme="slate"] .md-typeset .admonition.failure,  [data-md-color-scheme="slate"] .md-typeset details.failure,
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger,   [data-md-color-scheme="slate"] .md-typeset details.danger,
+[data-md-color-scheme="slate"] .md-typeset .admonition.bug,      [data-md-color-scheme="slate"] .md-typeset details.bug,
+[data-md-color-scheme="slate"] .md-typeset .admonition.quote,    [data-md-color-scheme="slate"] .md-typeset details.quote,
+[data-md-color-scheme="slate"] .md-typeset .admonition.agents,   [data-md-color-scheme="slate"] .md-typeset details.agents,
+[data-md-color-scheme="slate"] .md-typeset .admonition.skills,   [data-md-color-scheme="slate"] .md-typeset details.skills,
+[data-md-color-scheme="slate"] .md-typeset .admonition.usage,    [data-md-color-scheme="slate"] .md-typeset details.usage,
+[data-md-color-scheme="slate"] .md-typeset .admonition.workflow,  [data-md-color-scheme="slate"] .md-typeset details.workflow {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Title bar background — light mode */
 .md-typeset .admonition > .admonition-title,
 .md-typeset details > summary,
-.md-typeset .info > .admonition-title,
-.md-typeset .info > summary,
-.md-typeset .example > .admonition-title,
-.md-typeset .example > summary,
-.md-typeset .tip > .admonition-title,
-.md-typeset .tip > summary,
-.md-typeset .note > .admonition-title,
-.md-typeset .note > summary,
-.md-typeset .warning > .admonition-title,
-.md-typeset .warning > summary,
-.md-typeset .abstract > .admonition-title,
-.md-typeset .abstract > summary,
-.md-typeset .question > .admonition-title,
-.md-typeset .question > summary,
-.md-typeset .success > .admonition-title,
-.md-typeset .success > summary,
-.md-typeset .failure > .admonition-title,
-.md-typeset .failure > summary,
-.md-typeset .danger > .admonition-title,
-.md-typeset .danger > summary,
-.md-typeset .bug > .admonition-title,
-.md-typeset .bug > summary,
-.md-typeset .quote > .admonition-title,
-.md-typeset .quote > summary {
-  background-color: rgba(221, 242, 34, 0.1);
+.md-typeset .info > .admonition-title,     .md-typeset .info > summary,
+.md-typeset .example > .admonition-title,  .md-typeset .example > summary,
+.md-typeset .tip > .admonition-title,      .md-typeset .tip > summary,
+.md-typeset .note > .admonition-title,     .md-typeset .note > summary,
+.md-typeset .warning > .admonition-title,  .md-typeset .warning > summary,
+.md-typeset .abstract > .admonition-title, .md-typeset .abstract > summary,
+.md-typeset .question > .admonition-title, .md-typeset .question > summary,
+.md-typeset .success > .admonition-title,  .md-typeset .success > summary,
+.md-typeset .failure > .admonition-title,  .md-typeset .failure > summary,
+.md-typeset .danger > .admonition-title,   .md-typeset .danger > summary,
+.md-typeset .bug > .admonition-title,      .md-typeset .bug > summary,
+.md-typeset .quote > .admonition-title,    .md-typeset .quote > summary,
+.md-typeset .agents > .admonition-title,   .md-typeset .agents > summary,
+.md-typeset .skills > .admonition-title,   .md-typeset .skills > summary,
+.md-typeset .usage > .admonition-title,    .md-typeset .usage > summary,
+.md-typeset .workflow > .admonition-title,  .md-typeset .workflow > summary {
+  background-color: rgba(0, 0, 0, 0.04);
   color: var(--md-default-fg-color);
 }
 
+/* Title bar background — dark mode */
+[data-md-color-scheme="slate"] .md-typeset .admonition > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details > summary,
+[data-md-color-scheme="slate"] .md-typeset .info > .admonition-title,     [data-md-color-scheme="slate"] .md-typeset .info > summary,
+[data-md-color-scheme="slate"] .md-typeset .example > .admonition-title,  [data-md-color-scheme="slate"] .md-typeset .example > summary,
+[data-md-color-scheme="slate"] .md-typeset .tip > .admonition-title,      [data-md-color-scheme="slate"] .md-typeset .tip > summary,
+[data-md-color-scheme="slate"] .md-typeset .note > .admonition-title,     [data-md-color-scheme="slate"] .md-typeset .note > summary,
+[data-md-color-scheme="slate"] .md-typeset .warning > .admonition-title,  [data-md-color-scheme="slate"] .md-typeset .warning > summary,
+[data-md-color-scheme="slate"] .md-typeset .abstract > .admonition-title, [data-md-color-scheme="slate"] .md-typeset .abstract > summary,
+[data-md-color-scheme="slate"] .md-typeset .question > .admonition-title, [data-md-color-scheme="slate"] .md-typeset .question > summary,
+[data-md-color-scheme="slate"] .md-typeset .success > .admonition-title,  [data-md-color-scheme="slate"] .md-typeset .success > summary,
+[data-md-color-scheme="slate"] .md-typeset .failure > .admonition-title,  [data-md-color-scheme="slate"] .md-typeset .failure > summary,
+[data-md-color-scheme="slate"] .md-typeset .danger > .admonition-title,   [data-md-color-scheme="slate"] .md-typeset .danger > summary,
+[data-md-color-scheme="slate"] .md-typeset .bug > .admonition-title,      [data-md-color-scheme="slate"] .md-typeset .bug > summary,
+[data-md-color-scheme="slate"] .md-typeset .quote > .admonition-title,    [data-md-color-scheme="slate"] .md-typeset .quote > summary,
+[data-md-color-scheme="slate"] .md-typeset .agents > .admonition-title,   [data-md-color-scheme="slate"] .md-typeset .agents > summary,
+[data-md-color-scheme="slate"] .md-typeset .skills > .admonition-title,   [data-md-color-scheme="slate"] .md-typeset .skills > summary,
+[data-md-color-scheme="slate"] .md-typeset .usage > .admonition-title,    [data-md-color-scheme="slate"] .md-typeset .usage > summary,
+[data-md-color-scheme="slate"] .md-typeset .workflow > .admonition-title,  [data-md-color-scheme="slate"] .md-typeset .workflow > summary {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Icon — brand accent in both modes */
 .md-typeset .admonition > .admonition-title::before,
 .md-typeset details > summary::before,
-.md-typeset .info > .admonition-title::before,
-.md-typeset .info > summary::before,
-.md-typeset .example > .admonition-title::before,
-.md-typeset .example > summary::before,
-.md-typeset .tip > .admonition-title::before,
-.md-typeset .tip > summary::before,
-.md-typeset .note > .admonition-title::before,
-.md-typeset .note > summary::before,
-.md-typeset .warning > .admonition-title::before,
-.md-typeset .warning > summary::before,
-.md-typeset .abstract > .admonition-title::before,
-.md-typeset .abstract > summary::before,
-.md-typeset .question > .admonition-title::before,
-.md-typeset .question > summary::before,
-.md-typeset .success > .admonition-title::before,
-.md-typeset .success > summary::before,
-.md-typeset .failure > .admonition-title::before,
-.md-typeset .failure > summary::before,
-.md-typeset .danger > .admonition-title::before,
-.md-typeset .danger > summary::before,
-.md-typeset .bug > .admonition-title::before,
-.md-typeset .bug > summary::before,
-.md-typeset .quote > .admonition-title::before,
-.md-typeset .quote > summary::before {
+.md-typeset .info > .admonition-title::before,     .md-typeset .info > summary::before,
+.md-typeset .example > .admonition-title::before,  .md-typeset .example > summary::before,
+.md-typeset .tip > .admonition-title::before,      .md-typeset .tip > summary::before,
+.md-typeset .note > .admonition-title::before,     .md-typeset .note > summary::before,
+.md-typeset .warning > .admonition-title::before,  .md-typeset .warning > summary::before,
+.md-typeset .abstract > .admonition-title::before,  .md-typeset .abstract > summary::before,
+.md-typeset .question > .admonition-title::before,  .md-typeset .question > summary::before,
+.md-typeset .success > .admonition-title::before,   .md-typeset .success > summary::before,
+.md-typeset .failure > .admonition-title::before,   .md-typeset .failure > summary::before,
+.md-typeset .danger > .admonition-title::before,    .md-typeset .danger > summary::before,
+.md-typeset .bug > .admonition-title::before,       .md-typeset .bug > summary::before,
+.md-typeset .quote > .admonition-title::before,     .md-typeset .quote > summary::before,
+.md-typeset .agents > .admonition-title::before,    .md-typeset .agents > summary::before,
+.md-typeset .skills > .admonition-title::before,    .md-typeset .skills > summary::before,
+.md-typeset .usage > .admonition-title::before,     .md-typeset .usage > summary::before,
+.md-typeset .workflow > .admonition-title::before,   .md-typeset .workflow > summary::before {
   background-color: #DDF222;
 }
 
+/* Chevron — neutral in both modes */
 .md-typeset details > summary::after {
   background-color: var(--md-default-fg-color);
 }

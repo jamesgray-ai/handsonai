@@ -27,7 +27,7 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
 /plugin install course-examples@handsonai
 ```
 
-??? info "Agents included"
+??? agents "Agents included"
 
     | Agent | What it does |
     |-------|-------------|
@@ -38,13 +38,13 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
     | [`ai-productivity-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/ai-productivity-researcher.md) | Finds documented case studies of companies using AI for productivity gains. Prioritizes HBR-caliber sources with quantified outcomes. Outputs structured case study briefs. |
     | [`claude-research-daily`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/claude-research-daily.md) | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork. Covers official announcements, tech news, video content, tutorials, and community discussions from the last 24 hours. |
 
-??? info "Skills included"
+??? skills "Skills included"
 
     | Skill | What it does |
     |-------|-------------|
     | [`editing-hbr-articles`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/course-examples/skills/editing-hbr-articles/) | Loads HBR editorial criteria for article editing. Used by the `hbr-editor` agent to apply specific standards for openings, evidence, voice, and length. Includes a reference file with cut/replace patterns and source quality hierarchy. |
 
-??? example "Example usage"
+??? usage "Example usage"
 
     ```
     "Write a LinkedIn article about how RAG is changing enterprise search"
@@ -76,7 +76,7 @@ Document, name, register, and sync AI operational workflows and skills.
 /plugin install ai-operations-registry@handsonai
 ```
 
-??? info "Skills included"
+??? skills "Skills included"
 
     | Skill | What it does |
     |-------|-------------|
@@ -86,7 +86,7 @@ Document, name, register, and sync AI operational workflows and skills.
     | [`registering-skills`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-operations-registry/skills/registering-skills/) | Registers or updates Claude Skills in the Notion AI Assets database. Extracts metadata from SKILL.md frontmatter, generates Quick Start Prompts, and handles duplicate detection. |
     | [`syncing-skills-to-github`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-operations-registry/skills/syncing-skills-to-github/) | Syncs skills from `~/.claude/skills/` to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Assets with GitHub URLs. |
 
-??? example "Recommended workflow"
+??? workflow "Recommended workflow"
 
     1. **Name** — Use `naming-workflows` to create a consistent workflow entry in Notion
     2. **Document** — Use `writing-workflow-sops` to write the SOP for each workflow
