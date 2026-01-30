@@ -13,6 +13,7 @@ Essential tools for your AI builder workflow:
 
 | Guide | Description |
 |-------|-------------|
+| [Terminal Basics](developer-setup/terminal-basics.md) | Command line essentials |
 | [Git Installation](developer-setup/git-install.md) | Version control foundation |
 | [GitHub Setup](developer-setup/github-setup.md) | Repository hosting and collaboration |
 | [Editor Setup](developer-setup/editor-setup.md) | Configure Cursor or VS Code |
