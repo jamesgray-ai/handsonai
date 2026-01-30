@@ -81,24 +81,24 @@ nav:
         - Troubleshooting: platforms/claude/subagents/scheduling-subagent-issues.md
       - Topics:
         - Overview: platforms/claude/topics/README.md
-        - Resources: platforms/claude/topics/resources.md
+      - Resources: platforms/claude/topics/resources.md
     - Google Gemini:
       - platforms/google-gemini/index.md
       - Questions: platforms/google-gemini/questions/README.md
       - Topics:
         - Overview: platforms/google-gemini/topics/README.md
-        - Resources: platforms/google-gemini/topics/resources.md
+      - Resources: platforms/google-gemini/topics/resources.md
     - M365 Copilot:
       - platforms/m365-copilot/index.md
       - Topics:
         - Overview: platforms/m365-copilot/topics/README.md
-        - Resources: platforms/m365-copilot/topics/resources.md
+      - Resources: platforms/m365-copilot/topics/resources.md
     - OpenAI:
       - platforms/openai/index.md
       - Questions: platforms/openai/questions/README.md
       - Topics:
         - Overview: platforms/openai/topics/README.md
-        - Resources: platforms/openai/topics/resources.md
+      - Resources: platforms/openai/topics/resources.md
   - Plugins:
     - plugins/index.md
     - Getting Started: plugins/getting-started.md
