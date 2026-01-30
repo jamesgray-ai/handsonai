@@ -5,17 +5,30 @@ description: Pre-built Claude Code plugins with agents and skills you can instal
 
 # Plugin Marketplace
 
-Pre-built Claude Code agents and skills, bundled by theme. Install a plugin and get a complete toolkit for that workflow.
+## Why Plugins?
+
+Out of the box, Claude is a generalist. It can write, research, and analyze — but it doesn't know your standards, your workflows, or your preferred formats. Every time you start a new conversation, you'd need to re-explain how you want things done.
+
+**Plugins solve this.** Each plugin packages domain expertise — writing standards, naming conventions, research processes, editorial criteria — into a format Claude can use automatically. Install a plugin once and Claude gains that expertise across every session.
+
+A plugin bundles two types of components:
+
+- **Agents** — Expert personalities that Claude activates automatically. Ask for a LinkedIn post and Claude brings in a writing specialist. Ask for an AI news briefing and a research specialist takes over. You just describe what you need.
+- **Skills** — Step-by-step workflows that teach Claude specific tasks. A skill might encode your editorial standards, your workflow naming conventions, or your documentation templates. Claude follows these instructions consistently every time.
+
+**The result:** Instead of writing long prompts to explain what you want, you describe your goal in plain language and Claude applies the right expertise automatically.
+
+New to plugins? Start with the [Getting Started guide](getting-started.md) for a step-by-step walkthrough, or browse the available plugins below.
 
 ## Add This Marketplace
 
-Run this once to register the Hands-on AI marketplace with your Claude Code installation:
+In your Claude Code session, type this once to register the Hands-on AI marketplace:
 
 ```bash
 /plugin marketplace add jamesgray-ai/handsonai
 ```
 
-Then install any plugin below with a single command.
+Then install any plugin below with a single command. All `/plugin` commands are typed inside Claude Code, not in a regular terminal.
 
 ---
 
@@ -27,7 +40,7 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
 /plugin install course-examples@handsonai
 ```
 
-??? agents "Agents included"
+???+ agents "Agents included"
 
     | Agent | What it does |
     |-------|-------------|
@@ -38,16 +51,16 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
     | [`ai-productivity-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/ai-productivity-researcher.md) | Finds documented case studies of companies using AI for productivity gains. Prioritizes HBR-caliber sources with quantified outcomes. Outputs structured case study briefs. |
     | [`claude-research-daily`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/claude-research-daily.md) | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork. Covers official announcements, tech news, video content, tutorials, and community discussions from the last 24 hours. |
 
-??? skills "Skills included"
+???+ skills "Skills included"
 
     | Skill | What it does |
     |-------|-------------|
     | [`editing-hbr-articles`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/course-examples/skills/editing-hbr-articles/) | Loads HBR editorial criteria for article editing. Used by the `hbr-editor` agent to apply specific standards for openings, evidence, voice, and length. Includes a reference file with cut/replace patterns and source quality hierarchy. |
 
-??? usage "Example usage"
+???+ usage "Example usage"
 
     ```
-    "Write a LinkedIn article about how RAG is changing enterprise search"
+    "Write a LinkedIn post about how RAG is transforming enterprise search"
     → tech-executive-writer drafts the article
 
     "Review this article for HBR quality"
@@ -71,6 +84,9 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
 ## :material-clipboard-text-outline: AI Registry
 
 Document, name, register, and sync AI operational workflows and skills.
+
+!!! note
+    This plugin requires a Notion account and the [Notion MCP connector](../fundamentals/developer-setup/notion-registry-setup.md). Without it, Claude can follow the naming and writing conventions but cannot save entries to Notion.
 
 ```bash
 /plugin install ai-registry@handsonai

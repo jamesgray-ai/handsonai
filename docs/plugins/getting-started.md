@@ -5,16 +5,20 @@ description: How to add the Hands-on AI marketplace, install plugins, and use th
 
 # Getting Started with Plugins
 
-This guide walks you through adding the Hands-on AI plugin marketplace, installing your first plugin, and using the agents and skills it provides.
+Plugins give Claude domain expertise — writing standards, naming conventions, research processes — that it applies automatically. This guide walks you through installing your first plugin in three steps.
+
+Not sure what plugins are? Read the [Plugin Marketplace overview](index.md#why-plugins) first.
 
 ## Prerequisites
 
 - **Claude Code** installed and working ([Installation Guide](../fundamentals/developer-setup/claude-code-install.md))
-- An active **Claude Pro, Team, or Enterprise** subscription
+- An active **Claude Pro, Max, Team, or Enterprise** subscription (plugins are not available on the free plan)
 
 ## Step 1: Add the Marketplace
 
-A marketplace is a repository that hosts one or more plugins. You only need to add it once.
+A marketplace is a collection of plugins hosted online. Adding it tells Claude Code where to find plugins you can install. You only need to add it once.
+
+In your Claude Code session, type:
 
 ```bash
 /plugin marketplace add jamesgray-ai/handsonai
@@ -27,9 +31,9 @@ This tells Claude Code where to find the Hands-on AI plugins. It does not instal
 
 ## Step 2: Install a Plugin
 
-Browse the [Plugin Marketplace](index.md#available-plugins) to find a plugin that matches your workflow. Each plugin lists the agents and skills it includes.
+Browse the [Plugin Marketplace](index.md) to find a plugin that matches your workflow. Each plugin lists the agents and skills it includes.
 
-To install a plugin, use the install command shown on the marketplace page:
+To install a plugin, type the install command shown on the marketplace page in your Claude Code session:
 
 ```bash
 /plugin install <plugin-name>@handsonai
@@ -38,7 +42,7 @@ To install a plugin, use the install command shown on the marketplace page:
 For example:
 
 ```bash
-/plugin install hbr-content-suite@handsonai
+/plugin install course-examples@handsonai
 ```
 
 After installing, the plugin's agents and skills are available in your Claude Code session.
@@ -56,7 +60,10 @@ Installed plugins add agents and skills that Claude Code can use automatically. 
 - "What's new in AI today?"
 - "Write an SOP for the Email Response Drafting workflow"
 
-Each plugin on the [marketplace page](index.md#available-plugins) includes a recommended workflow and example prompts so you know exactly what to ask.
+Each plugin on the [marketplace page](index.md) includes a recommended workflow and example prompts so you know exactly what to ask.
+
+!!! tip "Want to use plugins outside Claude Code?"
+    Skills from plugins also work in Claude.ai, Claude Cowork, and the Claude API. See [Using Plugins](using-plugins.md) for setup instructions on every platform.
 
 ## Updating Plugins
 
@@ -102,15 +109,17 @@ Check the plugin name is spelled correctly and includes the `@handsonai` suffix:
 
 ```bash
 # Correct
-/plugin install hbr-content-suite@handsonai
+/plugin install course-examples@handsonai
 
 # Wrong — missing marketplace suffix
-/plugin install hbr-content-suite
+/plugin install course-examples
 ```
 
 ### "Permission denied" or authentication errors
 
-The marketplace repository is public. If you see authentication errors, check your GitHub CLI configuration:
+The marketplace is public. If you see authentication errors, check your GitHub CLI configuration ([GitHub Setup guide](../fundamentals/developer-setup/github-setup.md)).
+
+Run this in your **terminal** (not inside Claude Code):
 
 ```bash
 gh auth status

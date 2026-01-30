@@ -102,6 +102,7 @@ nav:
   - Plugins:
     - plugins/index.md
     - Getting Started: plugins/getting-started.md
+    - Using Plugins: plugins/using-plugins.md
   - Fundamentals:
     - fundamentals/index.md
     - Agents & Tools:
