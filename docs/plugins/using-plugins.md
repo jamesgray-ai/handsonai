@@ -91,54 +91,75 @@ Claude.ai supports skills through a ZIP upload process. You can take any plugin 
 
 ### Upload a plugin skill to Claude.ai
 
-**1. Download the skill folder from GitHub**
+**1. Find the skill on your machine**
 
-Each skill is a folder containing an instruction file (`SKILL.md`) and optional reference material. To download one:
-
-1. [Download the repository ZIP](https://github.com/jamesgray-ai/handsonai/archive/refs/heads/main.zip) (this downloads all plugins at once)
-2. Unzip the download and find your skill folder inside `plugins/<plugin-name>/skills/<skill-name>/`
-
-For example, the `editing-hbr-articles` skill is at:
+After adding the marketplace (`/plugin marketplace add jamesgray-ai/handsonai`), all plugin skills are stored locally at:
 
 ```
-plugins/course-examples/skills/editing-hbr-articles/
+~/.claude/plugins/marketplaces/handsonai/plugins/<plugin-name>/skills/<skill-name>/
 ```
 
-This folder contains `SKILL.md` and a `references/` directory.
+Each skill is a folder containing `SKILL.md` and optional reference files.
 
-**2. Verify the skill name**
+**2. Zip the skill folder**
 
-Open the `SKILL.md` file in a text editor. Near the top, you'll see a `name:` field — check that it uses only lowercase letters, numbers, and hyphens (e.g., `editing-hbr-articles`).
+=== "Terminal command (quick)"
 
-**3. Zip the skill folder**
+    Open Terminal and paste this command, replacing `<plugin-name>` and `<skill-name>` with the actual names:
 
-Right-click the skill folder (e.g., `editing-hbr-articles`) and compress it into a `.zip` file.
+    ```bash
+    cd ~/.claude/plugins/marketplaces/handsonai/plugins/<plugin-name>/skills && \
+      zip -r ~/Desktop/<skill-name>.zip <skill-name>/
+    ```
+
+    Concrete example for `editing-hbr-articles`:
+
+    ```bash
+    cd ~/.claude/plugins/marketplaces/handsonai/plugins/course-examples/skills && \
+      zip -r ~/Desktop/editing-hbr-articles.zip editing-hbr-articles/
+    ```
+
+    The ZIP file appears on your Desktop.
+
+=== "Finder (visual)"
+
+    1. Open Finder
+    2. From the menu bar, click **Go → Go to Folder...** (or press **Cmd + Shift + G**)
+    3. Paste this path and press Enter:
+       ```
+       ~/.claude/plugins/marketplaces/handsonai/plugins/
+       ```
+    4. Open the plugin folder (e.g., `course-examples`), then `skills`
+    5. Right-click the skill folder (e.g., `editing-hbr-articles`) and choose **Compress**
 
 !!! warning "Common mistake"
     Zip the **folder itself**, not the individual files inside it. When you open the ZIP, you should see a single folder (e.g., `editing-hbr-articles/`) — not loose files.
 
-**4. Upload to Claude.ai**
+**3. Upload to Claude.ai**
 
 Go to **Settings > Capabilities > Upload skill**. Select your `.zip` file.
 
-**5. Toggle the skill on**
+**4. Toggle the skill on**
 
 Find your uploaded skill in the Skills list and enable it.
 
-**6. Start using it**
+**5. Start using it**
 
 Open a new chat and describe your need. Claude automatically uses the skill when relevant.
 
 ### Walkthrough: `editing-hbr-articles` in Claude.ai
 
-Here's a concrete example using the `editing-hbr-articles` skill — the most portable skill in the marketplace since it has no external dependencies:
+The `editing-hbr-articles` skill is the most portable skill in the marketplace — no external dependencies.
 
-1. [Download the repository ZIP](https://github.com/jamesgray-ai/handsonai/archive/refs/heads/main.zip) and extract it
-2. Find the folder `plugins/course-examples/skills/editing-hbr-articles/` — it contains `SKILL.md` and `references/editorial-criteria.md`
-3. Right-click the `editing-hbr-articles` folder and compress it to a ZIP
-4. In Claude.ai, go to **Settings > Capabilities** and upload the ZIP
-5. Toggle the skill on
-6. Open a new chat and say: **"Edit this article for HBR quality"** — then paste your draft
+- **Plugin:** `course-examples`
+- **Path:** `~/.claude/plugins/marketplaces/handsonai/plugins/course-examples/skills/editing-hbr-articles/`
+- **Contents:** `SKILL.md` and `references/editorial-criteria.md`
+- **Terminal zip command:**
+  ```bash
+  cd ~/.claude/plugins/marketplaces/handsonai/plugins/course-examples/skills && \
+    zip -r ~/Desktop/editing-hbr-articles.zip editing-hbr-articles/
+  ```
+- **Test prompt in Claude.ai:** "Edit this article for HBR quality" — then paste your draft
 
 Claude applies the editorial criteria from the skill's reference file automatically.
 
@@ -293,11 +314,18 @@ If the plugin appears but agents don't activate, try being more explicit in your
 - The `name` field in `SKILL.md` frontmatter must use only **lowercase letters, numbers, and hyphens**
 - The ZIP file should not exceed the upload size limit
 
-### "Can't find skill files to download"
+### "Can't find skill files"
 
-All skills are available on GitHub. Browse the [Plugin Marketplace](index.md) and click any skill name to go directly to its source folder.
+If you've added the marketplace, skill files are on your machine at:
 
-Direct URL pattern:
+```
+~/.claude/plugins/marketplaces/handsonai/plugins/<plugin-name>/skills/<skill-name>/
+```
+
+!!! tip "Not sure which plugin a skill belongs to?"
+    Run `/plugin list` in Claude Code to see all installed plugins with their skills listed.
+
+You can also browse skill source files on GitHub. The [Plugin Marketplace](index.md) links each skill name directly to its source folder, or use this URL pattern:
 
 ```
 https://github.com/jamesgray-ai/handsonai/tree/main/plugins/<plugin-name>/skills/<skill-name>/

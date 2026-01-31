@@ -79,6 +79,24 @@ Or update all installed plugins at once:
 /plugin update --all
 ```
 
+## Enabling Auto-Updates
+
+By default, Claude Code only auto-updates **official Anthropic marketplaces**. Third-party marketplaces like Hands-on AI have auto-updates disabled, so you won't receive new agents, skills, or fixes automatically.
+
+To enable auto-updates for the Hands-on AI marketplace:
+
+1. Run `/plugin` to open the plugin manager
+2. Select the **Marketplaces** tab
+3. Choose **handsonai** from the list
+4. Select **Enable auto-update**
+
+Once enabled, Claude Code refreshes the marketplace and updates installed plugins each time it starts. If any plugins were updated, you'll see a notification suggesting you restart Claude Code.
+
+!!! tip
+    You can still update manually at any time with `/plugin update --all` — auto-update just makes it happen automatically at startup.
+
+For more details on auto-update behavior and environment variables, see the official [Configure auto-updates](https://code.claude.com/docs/en/discover-plugins#configure-auto-updates) documentation.
+
 ## Uninstalling
 
 To remove a plugin you no longer need:
