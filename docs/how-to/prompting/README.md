@@ -9,13 +9,7 @@ Guides for prompt engineering techniques and best practices.
 
 ## Guides
 
-*Guides will be listed here as they are added.*
-
-<!-- Example format:
-- [How to Write System Prompts](./write-system-prompts.md) - `all`
-- [How to Use Few-Shot Examples](./few-shot-examples.md) - `all`
-- [How to Structure Complex Prompts](./structure-complex-prompts.md) - `all`
--->
+- [How to Find AI Workflow Opportunities](./ai-workflow-opportunity-finder.md) — Discover where AI can automate, augment, or orchestrate your workflows
 
 ## Topics Covered
 

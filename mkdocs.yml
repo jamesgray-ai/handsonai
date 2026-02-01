@@ -129,7 +129,9 @@ nav:
     - Overview: how-to/README.md
     - Agents: how-to/agents/README.md
     - Integrations: how-to/integrations/README.md
-    - Prompting: how-to/prompting/README.md
+    - Prompting:
+      - how-to/prompting/README.md
+      - Find AI Workflow Opportunities: how-to/prompting/ai-workflow-opportunity-finder.md
   - Questions:
     - Overview: questions/README.md
     - Agents: questions/agents/README.md
