@@ -1,16 +1,44 @@
+---
+title: "[Topic] Resources"
+description: "Recommended docs, tutorials, courses, and community links for [topic]"
+---
+
 # [Topic] Resources
 
-Recommended articles, docs, and courses for [topic].
+Recommended docs, tutorials, and community links for [topic].
 
-| Resource | Type | Note |
-|----------|------|------|
-| [Example Title](https://example.com) | Article | Brief note on why it's useful |
+## Get Started
 
-## Types
+| Resource | Description |
+|----------|-------------|
+| [Resource Title](https://example.com) | Brief description of why it's useful |
 
-- **Article** - Blog posts, Substack, newsletters
-- **Docs** - Official documentation
-- **Course** - Video courses, tutorials
-- **Video** - YouTube, conference talks
-- **Tool** - Useful tools and utilities
-- **Paper** - Research papers
+## Documentation
+
+| Resource | Description |
+|----------|-------------|
+| [Resource Title](https://example.com) | Brief description of why it's useful |
+
+## Learn
+
+| Resource | Description |
+|----------|-------------|
+| [Resource Title](https://example.com) | Brief description of why it's useful |
+
+## Developer Resources
+
+| Resource | Description |
+|----------|-------------|
+| [Resource Title](https://example.com) | Brief description of why it's useful |
+
+## Community
+
+| Resource | Description |
+|----------|-------------|
+| [Resource Title](https://example.com) | Brief description of why it's useful |
+
+## Watch
+
+| Resource | Description |
+|----------|-------------|
+| [Resource Title](https://example.com) | Brief description of why it's useful |
