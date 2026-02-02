@@ -80,6 +80,8 @@ nav:
         - Claude Personalization: platforms/claude/getting-started/claude-personalization-setup.md
       - Projects:
         - Claude Projects: platforms/claude/projects/claude-projects-setup.md
+      - Skills:
+        - Discover Your Best Claude Skills: platforms/claude/skills/skills-discovery-meta-prompt.md
       - Questions: platforms/claude/questions/README.md
       - Subagents:
         - Scheduling Subagents: platforms/claude/subagents/scheduling-subagents.md
