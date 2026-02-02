@@ -14,14 +14,17 @@ howto_steps:
   - name: Customize databases
     text: Edit select fields in each database to match your business areas, workflow categories, and asset types.
   - name: Connect your AI tools
-    text: Add the Notion connector from your Claude or ChatGPT account settings under Connected Apps.
+    text: Add the Notion connector from your AI tool's account settings under Connected Apps.
 ---
 
 # AI Registry Setup
 
 The AI Registry is a Notion workspace template that gives you a structured system for tracking your business processes, workflows, AI assets, and connected applications. It serves as the central hub for your AI operations — a single place to document what you're building, how it works, and what tools are involved.
 
-This registry is also the foundation for the [AI Registry plugin](../../plugins/index.md#ai-registry), a set of Claude Code skills that can read from and write to your registry automatically. Once your registry is set up and connected, Claude can name workflows, write SOPs, register skills, and keep everything in sync — all without leaving your terminal.
+This registry is also the foundation for the [AI Registry plugin](../../plugins/index.md#ai-registry), a set of Claude Code skills that can read from and write to your registry automatically. Once your registry is set up and connected, Claude can name workflows, write SOPs, register skills, and keep everything in sync — anywhere on the Claude platform.
+
+!!! note "Platform support"
+    The AI Registry plugin is powered by Claude Agent skills, which are currently only supported on the **Claude** platform. Agent skills are an open standard, and many companies are already working to adopt them — as support broadens, the same skills will work across tools. The Notion connector ([Step 7](#step-7-connect-your-ai-tools)) works on both Claude and ChatGPT for basic read/write access.
 
 ## Prerequisites
 
@@ -83,6 +86,11 @@ To let your AI tools read and update the registry, connect Notion using the buil
 - **ChatGPT** — Add the Notion connection from Connected Apps in your settings
 
 Once connected, your AI tool can search, read, and update your registry databases directly. No custom configuration or API keys required.
+
+!!! info "Plugin automation requires Claude"
+    The Notion connector above gives both Claude and ChatGPT basic access to your registry. However, the [AI Registry plugin](#using-the-ai-registry-plugin) — which automates naming workflows, writing SOPs, registering skills, and more — is powered by Claude Agent skills, which are currently only supported on the **Claude** platform.
+
+    Agent skills are an open standard, and many companies are already working to adopt them into their AI platforms. As support broadens, the same skills will work across tools without needing to be rewritten.
 
 ## Understanding the Registry Structure
 
@@ -161,9 +169,8 @@ See the [AI Registry plugin page](../../plugins/index.md#ai-registry) for full d
 
 - **Add your first process** — Start with one business domain you know well
 - **Document existing workflows** — Capture what you're already doing before adding AI
+- **Find AI opportunities** — Use the [AI Workflow Opportunity Finder](../../how-to/prompting/ai-workflow-opportunity-finder.md) to identify where AI can add value
+- **Deconstruct workflows** — Break workflows into AI building blocks with the [Workflow Deconstruction Meta-Prompt](../../how-to/prompting/workflow-deconstruction-meta-prompt.md)
 - **Install the plugin** — Set up the [AI Registry plugin](../../plugins/index.md#ai-registry) to automate registry updates
 - **Explore other setup guides** — Continue with [Claude Code Installation](claude-code-install.md) if you haven't already
 
-## Questions?
-
-Post in Slack or attend office hours for setup support.
