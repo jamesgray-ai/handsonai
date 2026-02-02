@@ -23,12 +23,12 @@ This builds directly on the concepts from the course lessons on workflow deconst
 1. **Copy the prompt** from the [code block below](#the-meta-prompt)
 2. **Paste it into your preferred AI tool** (Claude, ChatGPT, Gemini, M365 Copilot)
 3. **Press Enter to send it** — the model will read the instructions and start Phase 1 by asking you about your business scenario
-4. **Provide your business scenario** and high-level steps when the model asks
+4. **Describe your workflow or your problem** — you can walk through a process you already follow, or describe a gap or pain point you need a workflow for. Both work.
 5. **Answer the model's clarifying questions** one at a time — it will work through each step systematically
 6. **Receive your workflow analysis** and executable prompt as the final output
 
 !!! tip "Start with a workflow you actually do"
-    Real workflows produce the best results. The model will surface hidden steps and assumptions you've internalized — that's much harder with hypothetical processes.
+    Real workflows produce the best results. The model will surface hidden steps and assumptions you've internalized — that's much harder with hypothetical processes. If you don't have an existing workflow but have a clear problem to solve, that works too — the model will help you design one.
 
 ### Example: What the first exchange looks like
 
@@ -44,6 +44,22 @@ After you paste the prompt, the model will start Phase 1 by asking about your sc
 
 From there, the model takes your rough steps and systematically breaks each one down — uncovering the sub-steps, decisions, data, and context you didn't think to mention.
 
+### Example: Starting with a problem instead of a workflow
+
+You don't need an existing process to use this prompt. If you have a gap or pain point, describe that — the model will help you design a workflow from scratch:
+
+> **Model:** Let's start by understanding the workflow you want to deconstruct. First — what's the business scenario? What's the objective of this workflow, and why does it matter?
+>
+> **You:** I don't really have a workflow for this — it's more of a problem. People sign up for my online course but a lot of them never finish. I have no way to know who's dropping off, when they stop engaging, or how to follow up. I'm just losing students and I don't find out until it's too late.
+>
+> **Model:** Got it — so this isn't an existing process to break down, it's a gap you need to fill. Let me make sure I understand the problem before we design a solution. A few questions: What does "signing up" look like — is there a registration step, a payment, or both? And when you say people don't finish, do you have any data on where they tend to drop off, or is that part of the problem — you just don't know?
+>
+> **You:** They register and pay through my course platform. I can see completion rates in the dashboard but I don't check it regularly, and there's no alert or trigger when someone stops. I only notice if I happen to look.
+>
+> **Model:** That's clear. So the core gap is: no systematic way to detect drop-offs and no follow-up process when they happen. Let me propose a candidate workflow that would solve this, and you can tell me what fits and what doesn't.
+
+From there, the model proposes a step-by-step workflow to address the problem, asks you to react and refine, and then continues into the deep dive just like any other workflow.
+
 ### Not sure which workflow to try?
 
 Pick something you do regularly and could describe to a colleague over coffee. Here are some examples students have used:
@@ -54,8 +70,9 @@ Pick something you do regularly and could describe to a colleague over coffee. H
 - **Content publishing pipeline** — drafting, editing, formatting, scheduling, and distributing across channels
 - **Candidate screening** — reviewing applications, initial outreach, scheduling interviews, and tracking status
 - **Vendor evaluation** — gathering proposals, comparing against criteria, scoring, and recommending a decision
+- **Course enrollment follow-up** — people start signing up but don't finish, and there's no process to detect drop-offs or send reminders
 
-You don't need to know all the steps before you start — that's what the prompt helps you figure out. Even "I onboard new clients and it takes forever" is enough to begin.
+You don't need to know all the steps before you start — that's what the prompt helps you figure out. Even "I onboard new clients and it takes forever" is enough to begin. You can also start with a problem instead of a workflow — "People drop off during enrollment and I have no way to follow up" is a perfectly valid starting point.
 
 ## The Meta Prompt
 
@@ -74,7 +91,7 @@ Before asking me anything, check if you have access to any project files, memory
 
 Ask me for:
 
-1. **Business scenario and objective** — What is the workflow for? What outcome does it produce? Why does it matter?
+1. **Business scenario and objective** — What is the workflow for? What outcome does it produce? Why does it matter? (If you don't have an existing workflow — you have a problem you want to solve or a gap you want to fill — describe that instead.)
 2. **The workflow** — What process do I want to break down? Give me permission to describe it roughly — you'll help me refine it.
 3. **High-level steps** — What are the main steps I already know? (Incomplete and messy is fine — we'll clean it up together.)
 4. **Who executes this today** — Is this just me, a team, or a mix? Are there handoffs between people?
@@ -82,6 +99,8 @@ Ask me for:
 Ask these one at a time.
 
 **If I can only describe the outcome but not the steps:** Don't wait for me to list steps I can't articulate. Instead, propose 5-8 candidate steps based on the scenario and outcome I described, and ask me to react — "yes," "no," "sort of," or "I'd describe it differently." Use my reactions to build the step list collaboratively.
+
+**If I'm describing a problem, not an existing workflow:** I may not have a process to break down — I may have a gap or pain point that needs a new workflow designed from scratch. In that case, don't force me through questions 2-4 as written. Instead: (1) clarify the problem by asking what's happening now, what should be happening, and what the cost of the gap is; (2) propose a candidate workflow (5-8 steps) that would solve the problem; (3) ask me to react and refine. Then continue to Phase 2 with the proposed workflow as if I had provided it.
 
 **Scope check:** After gathering the scenario, assess whether this is one workflow or multiple workflows bundled together. If it looks like more than one (e.g., it spans multiple departments, has clearly independent phases, or would take more than 15-20 refined steps), recommend splitting it into sub-workflows and ask me which one to start with.
 
