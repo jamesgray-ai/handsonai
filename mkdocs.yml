@@ -86,6 +86,7 @@ nav:
       - Questions:
         - Overview: platforms/claude/questions/README.md
         - Best way to name agent skills?: platforms/claude/questions/what-is-the-best-way-to-name-claude-agent-skills.md
+        - Schedule an automated subagent: platforms/claude/questions/how-do-i-schedule-an-automated-claude-subagent.md
       - Subagents:
         - Scheduling Subagents: platforms/claude/subagents/scheduling-subagents.md
         - Troubleshooting: platforms/claude/subagents/scheduling-subagent-issues.md
@@ -146,6 +147,10 @@ nav:
       - Autonomous Agent: how-to/workflow-examples/autonomous-agent.md
   - Questions:
     - Overview: questions/README.md
+    - Strategy:
+      - Overview: questions/strategy/README.md
+      - Find workflows worth applying AI to: questions/strategy/how-do-i-find-workflows-worth-applying-ai-to.md
+      - Identify the right AI tools for a workflow: questions/strategy/how-do-i-identify-the-right-ai-tools-for-a-workflow.md
     - Agents: questions/agents/README.md
     - Prompting:
       - Overview: questions/prompting/README.md

@@ -15,6 +15,12 @@ Questions about writing effective prompts, system messages, and prompt engineeri
 
 [Browse Prompting Questions](./prompting/README.md)
 
+### Strategy
+
+Questions about AI strategy, workflow analysis, opportunity identification, and business-level AI decisions.
+
+[Browse Strategy Questions](./strategy/README.md)
+
 ### Agents
 
 Questions about building AI agents, function calling, tool use, and multi-step workflows.
@@ -34,7 +40,10 @@ Platform-specific questions are organized under each platform:
 | Question | Category | Platforms |
 |----------|----------|-----------|
 | [What is a system prompt?](./prompting/what-is-a-system-prompt.md) | Prompting | `openai` `claude` `gemini` |
+| [How do I find workflows worth applying AI to?](./strategy/how-do-i-find-workflows-worth-applying-ai-to.md) | Strategy | `openai` `claude` `gemini` |
+| [How do I identify the right AI tools for a workflow?](./strategy/how-do-i-identify-the-right-ai-tools-for-a-workflow.md) | Strategy | `openai` `claude` `gemini` |
 | [What is the best way to name Claude agent skills?](../platforms/claude/questions/what-is-the-best-way-to-name-claude-agent-skills.md) | Claude | `claude` |
+| [How do I schedule an automated Claude subagent?](../platforms/claude/questions/how-do-i-schedule-an-automated-claude-subagent.md) | Claude | `claude` |
 
 ## Can't Find Your Answer?
 
