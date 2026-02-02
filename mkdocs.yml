@@ -137,6 +137,11 @@ nav:
       - Find AI Workflow Opportunities: how-to/prompting/ai-workflow-opportunity-finder.md
       - Deconstruct Workflows into AI Building Blocks: how-to/prompting/workflow-deconstruction-meta-prompt.md
       - Write Custom Workspace Instructions: how-to/prompting/workspace-instructions-meta-prompt.md
+    - Workflows:
+      - Overview: how-to/workflow-examples/README.md
+      - Deterministic Automation: how-to/workflow-examples/deterministic-automation.md
+      - AI Collaborative: how-to/workflow-examples/ai-collaborative.md
+      - Autonomous Agent: how-to/workflow-examples/autonomous-agent.md
   - Questions:
     - Overview: questions/README.md
     - Agents: questions/agents/README.md

@@ -1,11 +1,11 @@
 {
   "name": "course-examples",
   "description": "Working examples of Claude Code agents and skills from the Hands-on AI cohort courses. Includes HBR content writing, editing, and publishing agents, AI research agents, and an editorial criteria skill.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "James Gray"
   },
   "homepage": "https://handsonai.info/plugins/",
   "license": "MIT",
-  "keywords": ["course", "examples", "agents", "skills", "hbr", "research"]
+  "keywords": ["course", "examples", "agents", "skills", "hbr", "research", "workflows", "automation", "collaborative", "autonomous"]
 }

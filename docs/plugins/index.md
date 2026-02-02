@@ -57,12 +57,14 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
     | [`ai-news-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/ai-news-researcher.md) | Scans news outlets, blogs, YouTube channels, podcasts, and communities for the latest AI developments. Categorizes findings by product releases, research, company updates, and community highlights. |
     | [`ai-productivity-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/ai-productivity-researcher.md) | Finds documented case studies of companies using AI for productivity gains. Prioritizes HBR-caliber sources with quantified outcomes. Outputs structured case study briefs. |
     | [`claude-research-daily`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/claude-research-daily.md) | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork. Covers official announcements, tech news, video content, tutorials, and community discussions from the last 24 hours. |
+    | [`meeting-prep-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/meeting-prep-researcher.md) | Researches meeting attendees and companies, then produces a structured prep brief with profiles, talking points, and suggested questions. |
 
 ???+ skills "Skills included"
 
     | Skill | What it does |
     |-------|-------------|
     | [`editing-hbr-articles`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/course-examples/skills/editing-hbr-articles/) | Loads HBR editorial criteria for article editing. Used by the `hbr-editor` agent to apply specific standards for openings, evidence, voice, and length. Includes a reference file with cut/replace patterns and source quality hierarchy. |
+    | [`meeting-prep-research`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/course-examples/skills/meeting-prep-research/) | Step-by-step research workflow for meeting preparation. Guides the meeting-prep-researcher agent through attendee research, company analysis, and prep brief generation. |
 
 ???+ usage "Example usage"
 
@@ -84,6 +86,9 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
 
     "What's the latest news about Claude?"
     → claude-research-daily produces a 24-hour brief on all things Claude
+
+    "I have a meeting with Sarah Chen from Acme Corp tomorrow. Help me prepare."
+    → meeting-prep-researcher researches the attendee and company, produces a prep brief
     ```
 
 ---
@@ -140,7 +145,7 @@ Document, name, register, and sync AI operational workflows and skills.
 
 | Plugin | Agents | Skills | Install command |
 |--------|--------|--------|----------------|
-| `course-examples` | 6 | 1 | `/plugin install course-examples@handsonai` |
+| `course-examples` | 7 | 2 | `/plugin install course-examples@handsonai` |
 | `ai-registry` | 0 | 5 | `/plugin install ai-registry@handsonai` |
 
 All plugins are maintained in the [handsonai GitHub repository](https://github.com/jamesgray-ai/handsonai).
