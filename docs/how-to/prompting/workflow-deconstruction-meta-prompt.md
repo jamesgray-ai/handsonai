@@ -13,7 +13,7 @@ You can't operationalize AI on a process you don't understand. Before you can bu
 
 This meta prompt walks you through that deconstruction interactively. You provide the business scenario and rough steps — the model handles the structured analysis, applies the 4-question framework (discrete steps, decision points, data flows, context needs) plus failure modes, maps each step to AI building blocks, and generates three deliverables:
 
-1. A **Workflow Analysis Document** — the full decomposition with autonomy classifications, dependencies, and tool requirements
+1. A **Workflow Analysis Document** — the full decomposition with autonomy classifications, AI building block mapping, and a prioritized build sequence
 2. A **Baseline Workflow Prompt** — a ready-to-use prompt that works on any platform; this is your starting point that will evolve as you build skills
 3. A **Skill Build Recommendations** — actionable specs for reusable skills you can build to automate recurring steps
 
