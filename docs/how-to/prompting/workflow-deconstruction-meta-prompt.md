@@ -11,10 +11,11 @@ description: Use this meta prompt to break down any business workflow into discr
 
 You can't operationalize AI on a process you don't understand. Before you can build an AI-powered workflow, you need to break it down into discrete steps, identify the decision points and data flows, and map each step to the right level of AI assistance.
 
-This meta prompt walks you through that deconstruction interactively. You provide the business scenario and rough steps — the model handles the structured analysis, applies the 4-question framework (discrete steps, decision points, data flows, context needs) plus failure modes, maps each step to AI building blocks, and generates two deliverables:
+This meta prompt walks you through that deconstruction interactively. You provide the business scenario and rough steps — the model handles the structured analysis, applies the 4-question framework (discrete steps, decision points, data flows, context needs) plus failure modes, maps each step to AI building blocks, and generates three deliverables:
 
 1. A **Workflow Analysis Document** — the full decomposition with autonomy classifications, dependencies, and tool requirements
 2. An **Executable Markdown Workflow Prompt** — a ready-to-use prompt you can save, version control, and hand to your team
+3. A **Skill Build Recommendations** — actionable specs for reusable skills you can build to automate recurring steps
 
 This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If you haven't covered those yet, complete them first — this prompt assumes familiarity with the 4-question framework and the six building blocks (Prompt, Context, Skill, Agent, MCP, Project).
 
@@ -77,7 +78,7 @@ You don't need to know all the steps before you start — that's what the prompt
 ## The Meta Prompt
 
 ```text
-You are an expert Workflow Designer and Prompt Engineer who specializes in deconstructing business workflows for AI operationalization. Your job is to help me break down a business workflow into discrete steps, map each step to AI building blocks, and produce two deliverables: a Workflow Analysis Document and an Executable Markdown Workflow Prompt.
+You are an expert Workflow Designer and Prompt Engineer who writes clear, precise instructions that language models can execute reliably. You specialize in deconstructing business workflows for AI operationalization. Your job is to help me break down a business workflow into discrete steps, map each step to AI building blocks, and produce three deliverables: a Workflow Analysis Document, an Executable Markdown Workflow Prompt, and Skill Build Recommendations.
 
 Work through the following four phases in order. Ask one question at a time during interactive phases. Wait for my response before moving on.
 
@@ -232,6 +233,45 @@ The executable prompt should be:
 - Ready for version control (clean Markdown, no ambiguity)
 - Ready for team adoption (clear enough that a colleague could run it)
 
+### Deliverable 3: Skill Build Recommendations
+
+Based on the workflow analysis, recommend which reusable skills the user should build. Focus on steps that are:
+- Repeatable (executed frequently with similar patterns)
+- Mechanical (follow clear rules, not creative judgment)
+- Consistent (should produce the same output structure every time)
+
+For each recommended skill, provide:
+
+**Skill Name**
+- A short, action-oriented name (2-4 words, lowercase with hyphens)
+
+**Purpose**
+- What this skill does in 1-2 sentences
+- When to invoke it (trigger scenarios)
+
+**Inputs**
+- What information the skill needs to run
+- Format requirements
+
+**Outputs**
+- What the skill produces
+- Structure and format
+
+**Workflow Steps**
+- The specific steps the skill executes (derived from the workflow analysis)
+
+**Integration Points**
+- External tools, databases, or APIs the skill connects to
+- MCP servers it would use (if any)
+
+**Priority**
+- High / Medium / Low based on frequency of use and automation value
+
+**Quick Start Prompt**
+- A one-sentence prompt the user could paste to invoke this skill
+
+Present skills in priority order (highest value first). If no steps qualify as good skill candidates, explain why and note that the workflow may be better served by a single prompt or agent rather than reusable skills.
+
 ---
 
 ## General Instructions
@@ -251,7 +291,7 @@ After pasting the prompt, here's how the conversation typically unfolds:
 1. **Phase 1 — Scenario Discovery** — The model asks about your business scenario, objective, steps, and who's involved. If you can only describe the outcome ("I onboard new clients"), that's fine — the model will propose candidate steps and let you react. It will also check whether your workflow is really one workflow or should be split into smaller pieces.
 2. **Phase 2 — Deep Dive** — The model works through each step one by one, asking about sub-steps, decision points, data flows, context needs, and failure modes. This is where most of the insight happens — expect the model to find steps you forgot, assumptions you didn't realize you were making, and exception paths you've never documented. At the end, you'll see the step sequence and dependencies mapped out.
 3. **Phase 3 — Building Block Mapping** — The model classifies each refined step on the autonomy spectrum and maps it to AI building blocks. You'll see a table and get a chance to adjust before final output.
-4. **Phase 4 — Output Generation** — You receive two documents: a full workflow analysis (including a recommended implementation order so you know what to build first) and an executable Markdown prompt you can save, share, and iterate on.
+4. **Phase 4 — Output Generation** — You receive three documents: a full workflow analysis (including a recommended implementation order so you know what to build first), an executable Markdown prompt you can save and iterate on, and skill build recommendations that tell you which reusable skills to create.
 
 Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive. The executable prompt is ready to use immediately — paste it into a new conversation to run the workflow.
 
@@ -261,7 +301,7 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 - **Include the messy details.** "Sometimes I skip this step if the client is a repeat customer" is exactly the kind of decision logic the model needs to capture.
 - **Don't over-prepare your steps.** The model is designed to work with rough, incomplete descriptions. Let it do the work of refining and organizing.
 - **On Claude:** Mention that you're using Claude so the model can identify where Skills are the right building block for reusable routines.
-- **Save both outputs.** The workflow analysis is your reference document. The executable prompt is what you actually use. Keep them together in version control or a shared folder.
+- **Save all three outputs.** The workflow analysis is your reference document. The executable prompt is what you actually run. The skill recommendations tell you what to build next. Keep them together in version control or a shared folder.
 - **Iterate the executable prompt.** Run it once, see what works and what doesn't, then refine. The first version is a strong draft, not a final product.
 
 ## Related
