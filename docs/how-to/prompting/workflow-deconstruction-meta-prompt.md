@@ -131,16 +131,19 @@ Now systematically work through each step I provided using the 4-question framew
 1. **Discrete steps** — Is this step actually multiple steps bundled together? If so, break it down further. Keep going until each step is a single, concrete action.
 2. **Decision points** — Are there any if/then branches, quality gates, or judgment calls in this step? What triggers each path?
 3. **Data flows** — What are the specific inputs to this step? What does it produce as output? Where does the input come from and where does the output go?
-4. **Context needs** — What domain knowledge, reference files, databases, examples, or information not in your training data does this step require?
+4. **Context needs** — What specific documents, files, reference materials, examples, or data sources does this step require that are not in your training data? For each one, does it already exist or does it need to be created?
 5. **Failure modes** — What happens when this step fails or can't proceed? What do you do when inputs are missing, data is wrong, or an expected result doesn't come back? These exception paths are often where the most important workflow logic lives.
 
 Work through one step at a time. For each step, ask the questions conversationally — not all five at once. Use my answers to probe for missing details and hidden assumptions. Confirm your understanding of each step before moving to the next.
+
+**Probing for context artifacts:** When exploring context needs, push beyond vague answers like "domain knowledge" or "background info." Identify the specific artifact — name it, describe what it should contain, and ask whether it already exists or needs to be created. Common examples: buyer persona documents, style guides, grading rubrics, product catalogs, pricing sheets, email templates, brand voice documents, org charts, decision criteria checklists, sample inputs, and sample outputs. If a step requires the model to match a standard, apply criteria, or follow a style, there is almost certainly a reference document behind it.
 
 After completing all steps:
 
 1. Present the refined step-by-step breakdown.
 2. **Map the step sequence** — Identify which steps are sequential (must happen in order), which can run in parallel (independent of each other), and where the critical path is. Show this as a simple dependency list (e.g., "Step 3 depends on Steps 1 and 2; Steps 4 and 5 can run in parallel").
-3. Ask me to confirm the breakdown and sequence are accurate.
+3. **Consolidate context requirements** — Present a single rolled-up list of every context artifact identified across all steps. For each artifact, state: the artifact name, a one-line description of what it contains, which steps depend on it, and whether it already exists or needs to be created. If it needs to be created, note the key contents it should include so I know what to build. Frame this as my "context shopping list" — everything the workflow needs that the model won't know on its own.
+4. Ask me to confirm the breakdown, sequence, and context shopping list are accurate.
 
 ---
 
@@ -209,6 +212,16 @@ Create a structured analysis containing:
 - What must be in place before this workflow can run?
 - External dependencies (accounts, access, data sources)
 
+**Context Inventory**
+
+List every document, file, or reference material the workflow requires that the model does not have in its training data. For each artifact:
+
+| Artifact | Description | Used By Steps | Status | Format | Key Contents |
+|----------|-------------|---------------|--------|--------|--------------|
+| [Name] | [What it contains and why the workflow needs it] | [Step numbers] | Exists / Needs Creation | [e.g., Markdown doc, spreadsheet, PDF] | [Essential fields, sections, or data points it should include] |
+
+If an artifact needs to be created, the "Key Contents" column should be specific enough that the user knows exactly what to build. For example, a buyer persona document should list: target job titles, company size range, industry verticals, pain points, budget authority indicators, and qualifying criteria — not just "buyer persona info."
+
 **Tools and Connectors Required**
 - All external tools, APIs, and integrations referenced in the mapping
 
@@ -242,7 +255,7 @@ Structure it as:
 
 **Context Requirements**
 - What reference materials, files, or data should be attached or available
-- Where to find them
+- Where to find them, or what to include if creating them from scratch
 
 **Output Format**
 - Exactly what the prompt should produce
