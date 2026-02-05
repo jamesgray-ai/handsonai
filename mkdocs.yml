@@ -138,7 +138,11 @@ nav:
     - Prompting:
       - how-to/prompting/README.md
       - Find AI Workflow Opportunities: how-to/prompting/ai-workflow-opportunity-finder.md
-      - Deconstruct Workflows into AI Building Blocks: how-to/prompting/workflow-deconstruction-meta-prompt.md
+      - Deconstruct Workflows:
+        - Overview: how-to/prompting/workflow-deconstruction-meta-prompt.md
+        - "Step 1 — Discovery & Deep Dive": how-to/prompting/workflow-deconstruction-discovery.md
+        - "Step 2 — Analysis & Mapping": how-to/prompting/workflow-deconstruction-analysis.md
+        - "Step 3 — Output Generation": how-to/prompting/workflow-deconstruction-outputs.md
       - Write Custom Workspace Instructions: how-to/prompting/workspace-instructions-meta-prompt.md
     - Workflows:
       - Overview: how-to/workflow-examples/README.md

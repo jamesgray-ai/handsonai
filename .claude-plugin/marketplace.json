@@ -19,6 +19,12 @@
       "source": "./plugins/ai-registry",
       "description": "Skills for documenting, naming, registering, and syncing AI operational workflows and skills",
       "version": "2.0.0"
+    },
+    {
+      "name": "workflow-deconstruction",
+      "source": "./plugins/workflow-deconstruction",
+      "description": "Deconstruct business workflows into AI building blocks with an orchestrator agent and three-skill chain",
+      "version": "1.0.0"
     }
   ]
 }
