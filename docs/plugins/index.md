@@ -141,11 +141,62 @@ Document, name, register, and sync AI operational workflows and skills.
 
 ---
 
+## :material-sitemap: Workflow Deconstruction
+
+Deconstruct business workflows into AI building blocks. Includes an orchestrator agent and a three-skill chain that walks you through discovery, analysis, and output generation — producing a Workflow Blueprint, Analysis Document, Baseline Prompt, and Skill Recommendations.
+
+```bash
+/plugin install workflow-deconstruction@handsonai
+```
+
+???+ agents "Agents included"
+
+    | Agent | What it does |
+    |-------|-------------|
+    | [`workflow-deconstructor`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/workflow-deconstruction/agents/workflow-deconstructor.md) | Orchestrates the full three-step workflow deconstruction process. Runs discovery, analysis, and output generation sequentially with file-based handoffs between stages. |
+
+???+ skills "Skills included"
+
+    | Skill | What it does |
+    |-------|-------------|
+    | [`workflow-discovery`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/workflow-deconstruction/skills/workflow-discovery/) | Interactively discovers and decomposes a business workflow into a structured Workflow Blueprint using the 4-question framework + failure modes. |
+    | [`workflow-analysis`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/workflow-deconstruction/skills/workflow-analysis/) | Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces a Workflow Analysis Document. |
+    | [`workflow-output-generation`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/workflow-deconstruction/skills/workflow-output-generation/) | Generates a ready-to-use Baseline Workflow Prompt and Skill Build Recommendations from a Workflow Analysis Document. |
+
+???+ usage "Example usage"
+
+    ```
+    "I want to deconstruct my client onboarding workflow"
+    → workflow-deconstructor walks you through the full process
+
+    "Help me figure out which parts of my reporting process could be automated with AI"
+    → workflow-deconstructor decomposes the process and maps AI building blocks
+
+    "People keep dropping off during enrollment. Help me build a workflow for that."
+    → workflow-deconstructor designs a workflow from the problem and produces deliverables
+    ```
+
+    You can also invoke skills individually if you prefer to work step-by-step across separate conversations:
+
+    ```
+    "Use workflow-discovery to break down my expense reporting process"
+    → Produces outputs/expense-reporting-blueprint.md
+
+    "Use workflow-analysis on my blueprint"
+    → Reads the blueprint, produces outputs/expense-reporting-analysis.md
+
+    "Use workflow-output-generation on my analysis"
+    → Produces the baseline prompt and skill recommendations
+    ```
+
+---
+
 ## Quick Reference
 
 | Plugin | Agents | Skills | Install command |
 |--------|--------|--------|----------------|
 | `course-examples` | 7 | 2 | `/plugin install course-examples@handsonai` |
 | `ai-registry` | 0 | 5 | `/plugin install ai-registry@handsonai` |
+| `workflow-deconstruction` | 1 | 3 | `/plugin install workflow-deconstruction@handsonai` |
 
 All plugins are maintained in the [handsonai GitHub repository](https://github.com/jamesgray-ai/handsonai).

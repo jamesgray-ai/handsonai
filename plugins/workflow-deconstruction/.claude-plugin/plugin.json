@@ -1,0 +1,11 @@
+{
+  "name": "workflow-deconstruction",
+  "description": "Deconstruct business workflows into AI building blocks. Includes three skills (discovery, analysis, output generation) and an orchestrator agent that runs the full process with file-based handoffs.",
+  "version": "1.0.0",
+  "author": {
+    "name": "James Gray"
+  },
+  "homepage": "https://handsonai.info/plugins/",
+  "license": "MIT",
+  "keywords": ["workflow", "deconstruction", "building-blocks", "prompt-engineering", "analysis", "automation", "skills", "agents"]
+}
