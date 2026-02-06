@@ -8,7 +8,7 @@ description: Use this prompt template to discover where AI can help automate, au
 > **Platforms:** `claude` `openai` `gemini`
 
 !!! info "Business-First AI Framework — Phase 1: Discover"
-    This guide is **Phase 1** of the [Business-First AI Framework](../../framework.md) — discovering where AI fits in your workflows.
+    This guide is **Phase 1** of the [Business-First AI Framework](../../business-first-ai-framework.md) — discovering where AI fits in your workflows.
 
 ## Why This Matters
 
@@ -178,6 +178,6 @@ Most people discover 5–15 opportunities across the three categories. Don't try
 ## Related
 
 - **Next step:** Ready to act on an opportunity? Use the [Workflow Deconstruction guide](workflow-deconstruction-meta-prompt.md) (Phase 2) to break it into AI building blocks.
-- [Business-First AI Framework](../../framework.md) — the full three-phase methodology
+- [Business-First AI Framework](../../business-first-ai-framework.md) — the full three-phase methodology
 - [Prompt Engineering Fundamentals](../../fundamentals/prompt-engineering/README.md)
 - [Agents & Tools Overview](../../fundamentals/agents-and-tools/README.md)

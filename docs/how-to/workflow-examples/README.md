@@ -6,7 +6,7 @@ description: Three worked examples showing the spectrum of AI involvement in wor
 # Workflow Examples
 
 !!! info "Business-First AI Framework — Phase 3: Build"
-    These examples are **Phase 3** of the [Business-First AI Framework](../../framework.md) — building AI workflows from your deconstruction outputs. More build guides are coming — this section will grow with content on building prompts, skills, agents, and multi-agent workflows.
+    These examples are **Phase 3** of the [Business-First AI Framework](../../business-first-ai-framework.md) — building AI workflows from your deconstruction outputs. More build guides are coming — this section will grow with content on building prompts, skills, agents, and multi-agent workflows.
 
 Not all AI workflows are created equal. The right level of AI involvement depends on the task — some workflows need rigid, repeatable automation; others need AI that can research, reason, and iterate with a human; and some work best when an agent handles everything end-to-end.
 

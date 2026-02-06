@@ -73,7 +73,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Business-First AI Framework:
-    - Overview: framework.md
+    - Overview: business-first-ai-framework.md
     - "Phase 1 — Discover": how-to/prompting/ai-workflow-opportunity-finder.md
     - "Phase 2 — Deconstruct":
       - Overview: how-to/prompting/workflow-deconstruction-meta-prompt.md

@@ -8,7 +8,7 @@ description: Use this three-prompt series to break down any business workflow in
 > **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 !!! info "Business-First AI Framework — Phase 2: Deconstruct"
-    This guide is **Phase 2** of the [Business-First AI Framework](../../framework.md) — deconstructing workflows into AI building blocks.
+    This guide is **Phase 2** of the [Business-First AI Framework](../../business-first-ai-framework.md) — deconstructing workflows into AI building blocks.
 
 ## Why This Matters
 
@@ -20,7 +20,7 @@ This series of prompts walks you through that deconstruction interactively. You 
 2. A **Baseline Workflow Prompt** — a ready-to-use prompt that works on any platform; this is your starting point that will evolve as you build skills
 3. **Skill Build Recommendations** — actionable specs for reusable skills you can build to automate recurring steps
 
-This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../../framework.md#key-concepts) for quick definitions before starting.
+This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../../business-first-ai-framework.md#key-concepts) for quick definitions before starting.
 
 ## The Three-Prompt Approach
 
@@ -402,6 +402,6 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 
 - **Previous step:** Not sure which workflow to deconstruct? Start with the [AI Workflow Opportunity Finder](ai-workflow-opportunity-finder.md) (Phase 1) to identify your best candidates.
 - **Next step:** Ready to build? See the [Workflow Examples](../workflow-examples/README.md) (Phase 3) for worked examples across the autonomy spectrum.
-- [Business-First AI Framework](../../framework.md) — the full three-phase methodology
+- [Business-First AI Framework](../../business-first-ai-framework.md) — the full three-phase methodology
 - [Prompt Engineering Fundamentals](../../fundamentals/prompt-engineering/README.md)
 - [Agents & Tools Overview](../../fundamentals/agents-and-tools/README.md)
