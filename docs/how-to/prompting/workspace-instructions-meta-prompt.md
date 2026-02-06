@@ -211,5 +211,5 @@ Most students go from "I'm not sure what I want" to finished instructions in 10-
 
 - [Set Up Claude Projects](../../platforms/claude/projects/claude-projects-setup.md) — How to create and configure Claude Projects
 - [What Is a System Prompt?](../../questions/prompting/what-is-a-system-prompt.md) — Understanding how custom instructions work under the hood
-- [Deconstruct Workflows into AI Building Blocks](./workflow-deconstruction-meta-prompt.md) — Break down workflows before building workspaces for them
+- [Deconstruct Workflows](../../business-first-ai-framework/deconstruct/index.md) — Break down workflows before building workspaces for them
 - [Prompt Engineering Fundamentals](../../fundamentals/prompt-engineering/README.md)

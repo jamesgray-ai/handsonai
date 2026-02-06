@@ -41,7 +41,7 @@ For the full details on how marketplaces and plugin installation work, see the o
 
 ## :material-rocket-launch: Business First AI
 
-The [Business-First AI Framework](../business-first-ai-framework.md) as executable Claude Code skills. Discover AI workflow opportunities (Phase 1), deconstruct workflows into AI building blocks (Phase 2), and build with worked examples across the autonomy spectrum (Phase 3).
+The [Business-First AI Framework](../business-first-ai-framework/index.md) as executable Claude Code skills. Discover AI workflow opportunities (Phase 1), deconstruct workflows into AI building blocks (Phase 2), and build with worked examples across the autonomy spectrum (Phase 3).
 
 ```bash
 /plugin install business-first-ai@handsonai

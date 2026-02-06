@@ -5,9 +5,9 @@ description: Classify workflow steps on the autonomy spectrum, map them to AI bu
 
 # Step 2 — Analysis & Mapping
 
-> **Part of:** [Deconstruct Workflows into AI Building Blocks](workflow-deconstruction-meta-prompt.md)
+> **Part of:** [Deconstruct Workflows](index.md)
 
-This is the second of three prompts. It takes the **Workflow Blueprint** file from [Step 1](workflow-deconstruction-discovery.md), classifies each step on the autonomy spectrum, maps it to AI building blocks, and produces a complete **Workflow Analysis Document** — the first major deliverable. You'll save that document and use it as input for [Step 3](workflow-deconstruction-outputs.md).
+This is the second of three prompts. It takes the **Workflow Blueprint** file from [Step 1](discovery.md), classifies each step on the autonomy spectrum, maps it to AI building blocks, and produces a complete **Workflow Analysis Document** — the first major deliverable. You'll save that document and use it as input for [Step 3](outputs.md).
 
 ## How to Use This
 
@@ -144,7 +144,7 @@ For each priority tier, list the specific steps and what the student needs to bu
 
 After presenting the Workflow Analysis Document, tell me:
 
-> **Next step:** Download (or copy and save) the Workflow Analysis Document file. Then go to [Step 3 — Output Generation](https://handsonai.info/how-to/prompting/workflow-deconstruction-outputs/), copy that prompt into a new conversation, and upload or paste the Analysis Document when the model asks for it.
+> **Next step:** Download (or copy and save) the Workflow Analysis Document file. Then go to [Step 3 — Output Generation](https://handsonai.info/business-first-ai-framework/deconstruct/outputs/), copy that prompt into a new conversation, and upload or paste the Analysis Document when the model asks for it.
 
 ---
 
@@ -169,4 +169,4 @@ The **Workflow Analysis Document** (Deliverable 1) contains:
 - **Tools and connectors** — external integrations required
 - **Recommended implementation order** — prioritized build sequence (quick wins first, complex agent steps last)
 
-This Analysis Document is the input for [Step 3 — Output Generation](workflow-deconstruction-outputs.md), where the model generates your ready-to-use workflow prompt and skill build recommendations.
+This Analysis Document is the input for [Step 3 — Output Generation](outputs.md), where the model generates your ready-to-use workflow prompt and skill build recommendations.

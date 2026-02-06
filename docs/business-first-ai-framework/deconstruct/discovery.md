@@ -5,9 +5,9 @@ description: Interactively discover and decompose a business workflow into a str
 
 # Step 1 — Discovery & Deep Dive
 
-> **Part of:** [Deconstruct Workflows into AI Building Blocks](workflow-deconstruction-meta-prompt.md)
+> **Part of:** [Deconstruct Workflows](index.md)
 
-This is the first of three prompts that break down a business workflow so you can power it with AI. This prompt handles **scenario discovery** (understanding your workflow) and the **deep dive** (decomposing each step using the 5-question framework). It produces a **Workflow Blueprint** — a Markdown file you'll save and use as input for [Step 2](workflow-deconstruction-analysis.md).
+This is the first of three prompts that break down a business workflow so you can power it with AI. This prompt handles **scenario discovery** (understanding your workflow) and the **deep dive** (decomposing each step using the 5-question framework). It produces a **Workflow Blueprint** — a Markdown file you'll save and use as input for [Step 2](analysis.md).
 
 ## How to Use This
 
@@ -166,7 +166,7 @@ For each artifact:
 
 After presenting the Blueprint, tell me:
 
-> **Next step:** Download (or copy and save) the Workflow Blueprint file. Then go to [Step 2 — Analysis & Mapping](https://handsonai.info/how-to/prompting/workflow-deconstruction-analysis/), copy that prompt into a new conversation, and upload or paste the Blueprint when the model asks for it.
+> **Next step:** Download (or copy and save) the Workflow Blueprint file. Then go to [Step 2 — Analysis & Mapping](https://handsonai.info/business-first-ai-framework/deconstruct/analysis/), copy that prompt into a new conversation, and upload or paste the Blueprint when the model asks for it.
 
 ---
 
@@ -188,4 +188,4 @@ The Workflow Blueprint captures:
 - **Step sequence and dependencies** — what's sequential, what's parallel, where the critical path is
 - **Context shopping list** — every artifact the workflow needs, with status and key contents
 
-This Blueprint is the input for [Step 2 — Analysis & Mapping](workflow-deconstruction-analysis.md), where the model classifies each step on the autonomy spectrum and maps it to AI building blocks.
+This Blueprint is the input for [Step 2 — Analysis & Mapping](analysis.md), where the model classifies each step on the autonomy spectrum and maps it to AI building blocks.

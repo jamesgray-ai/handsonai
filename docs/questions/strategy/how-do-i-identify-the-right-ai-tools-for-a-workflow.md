@@ -13,7 +13,7 @@ author: James Gray
 
 ## The Full Answer
 
-You can't choose the right AI tools for a workflow you don't fully understand. The [Business-First AI Framework](../../business-first-ai-framework.md) addresses this with a structured approach: discover opportunities first, then deconstruct workflows into building blocks before selecting tools.
+You can't choose the right AI tools for a workflow you don't fully understand. The [Business-First AI Framework](../../business-first-ai-framework/index.md) addresses this with a structured approach: discover opportunities first, then deconstruct workflows into building blocks before selecting tools.
 
 Most people jump straight to tool selection — "Should I use an agent? Do I need an API?" — before they've properly decomposed what the workflow actually involves. The result is over-engineered solutions for simple problems, or under-powered tools for complex ones.
 
@@ -34,7 +34,7 @@ Not every step needs AI. The deconstruction also classifies each step on an auto
 
 ## How to Get Started
 
-Use the [Workflow Deconstruction Meta-Prompt](../../how-to/prompting/workflow-deconstruction-meta-prompt.md) to run through this process interactively. Paste it into any AI tool and it will:
+Use the [Deconstruct Workflows](../../business-first-ai-framework/deconstruct/index.md) to run through this process interactively. Paste it into any AI tool and it will:
 
 1. **Discover your scenario** — understand the workflow objective and rough steps
 2. **Deep dive into each step** — apply the 5-question framework
@@ -50,7 +50,7 @@ Use the [Workflow Deconstruction Meta-Prompt](../../how-to/prompting/workflow-de
 - Use the 5-question framework: discrete steps, decision points, data flows, context needs, and failure modes
 - Map each step to one of six building blocks: Prompt, Context, Skill, Agent, MCP, or Project
 - Not every step needs AI — the autonomy classification helps you see which steps are candidates and which should stay manual
-- Use the [Workflow Deconstruction Meta-Prompt](../../how-to/prompting/workflow-deconstruction-meta-prompt.md) to run through this process interactively
+- Use the [Deconstruct Workflows](../../business-first-ai-framework/deconstruct/index.md) to run through this process interactively
 
 ## Related Questions
 

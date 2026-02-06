@@ -1,14 +1,14 @@
 ---
-title: How to Find AI Workflow Opportunities
+title: Discover AI Workflow Opportunities
 description: Use this prompt template to discover where AI can help automate, augment, or orchestrate your workflows.
 ---
 
-# How to Find AI Workflow Opportunities
+# Discover AI Workflow Opportunities
 
 > **Platforms:** `claude` `openai` `gemini`
 
 !!! info "Business-First AI Framework — Phase 1: Discover"
-    This guide is **Phase 1** of the [Business-First AI Framework](../../business-first-ai-framework.md) — discovering where AI fits in your workflows.
+    This guide is **Phase 1** of the [Business-First AI Framework](index.md) — discovering where AI fits in your workflows.
 
 ## What This Is
 
@@ -47,7 +47,7 @@ Use this if you're working in Claude, ChatGPT, Gemini, or M365 Copilot.
 
 ### Option B: Claude skill
 
-Use this if you're on the Claude platform (Claude Code, Claude.ai, or Cowork). The `finding-ai-opportunities` skill from the [Business First AI plugin](../../plugins/business-first-ai.md) runs the same process interactively.
+Use this if you're on the Claude platform (Claude Code, Claude.ai, or Cowork). The `finding-ai-opportunities` skill from the [Business First AI plugin](../plugins/business-first-ai.md) runs the same process interactively.
 
 **Claude Code or Cowork** — install the plugin and the skill is available immediately:
 
@@ -65,7 +65,7 @@ Use this if you're on the Claude platform (Claude Code, Claude.ai, or Cowork). T
 2. **Upload it** in Claude.ai under **Settings > Capabilities > Upload skill**
 3. **Start a new chat** with the same prompt above — Claude uses the skill automatically
 
-For detailed upload instructions, see [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web).
+For detailed upload instructions, see [Using Skills in Claude.ai](../plugins/using-plugins.md#using-skills-in-claudeai-web).
 
 Both options follow the same three-step process and produce the same structured report. Choose whichever fits your workflow.
 
@@ -187,7 +187,7 @@ Most people discover 5–15 opportunities across the three categories. Don't try
 
 ## Related
 
-- **Next step:** Ready to act on an opportunity? Use the [Workflow Deconstruction guide](workflow-deconstruction-meta-prompt.md) (Phase 2) to break it into AI building blocks.
-- [Business-First AI Framework](../../business-first-ai-framework.md) — the full three-phase methodology
-- [Prompt Engineering Fundamentals](../../fundamentals/prompt-engineering/README.md)
-- [Agents & Tools Overview](../../fundamentals/agents-and-tools/README.md)
+- **Next step:** Ready to act on an opportunity? Use the [Deconstruct Workflows guide](deconstruct/index.md) (Phase 2) to break it into AI building blocks.
+- [Business-First AI Framework](index.md) — the full three-phase methodology
+- [Prompt Engineering Fundamentals](../fundamentals/prompt-engineering/README.md)
+- [Agents & Tools Overview](../fundamentals/agents-and-tools/README.md)

@@ -9,7 +9,7 @@ Guides for prompt engineering techniques and best practices.
 
 ## Guides
 
-- [How to Find AI Workflow Opportunities](./ai-workflow-opportunity-finder.md) — Discover where AI can automate, augment, or orchestrate your workflows
+- [Discover AI Workflow Opportunities](../../business-first-ai-framework/discover.md) — Discover where AI can automate, augment, or orchestrate your workflows
 
 ## Topics Covered
 

@@ -113,5 +113,5 @@ To adapt: identify tasks where you spend significant time gathering information 
 
 - [Deterministic Automation Workflow Example](./deterministic-automation.md) — when AI follows fixed rules with no judgment needed
 - [Autonomous Agent Workflow Example](./autonomous-agent.md) — when AI executes end-to-end with minimal supervision
-- [Find AI Workflow Opportunities](../prompting/ai-workflow-opportunity-finder.md) — discover which workflows are candidates for AI collaboration
-- [Deconstruct Workflows into AI Building Blocks](../prompting/workflow-deconstruction-meta-prompt.md) — break down workflows into AI-ready steps
+- [Discover AI Workflow Opportunities](../discover.md) — discover which workflows are candidates for AI collaboration
+- [Deconstruct Workflows](../deconstruct/index.md) — break down workflows into AI-ready steps
