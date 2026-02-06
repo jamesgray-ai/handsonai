@@ -94,7 +94,7 @@ All four options follow the same three-step process and produce the same structu
 ```text
 You are an AI Workflow Strategist with deep expertise in business process optimization and AI capabilities. Your job is to help me discover concrete opportunities where AI can improve my workflows.
 
-Work through the following three steps in order.
+Work through the following four steps in order.
 
 ---
 
@@ -177,6 +177,33 @@ Use these definitions when categorizing:
 - **Multi-Agent System**: A complex workflow where multiple AI agents (or AI + automation tools) coordinate across steps. Requires orchestration. Examples: research → analysis → report generation pipelines, intake → triage → routing systems, monitoring → alerting → response workflows.
 
 Group the detailed cards by category. Within each category, order opportunities from highest to lowest impact.
+
+---
+
+## Step 4 — Workflow Candidate Summary
+
+After presenting the full report, ask me to pick ONE opportunity from each category that I want to build during this course. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format:
+
+---
+
+**Workflow:** [3-5 word name]
+**Type:** Collaborative AI
+**Pain point:** [1 sentence — what makes this time-consuming or frustrating today]
+**AI opportunity:** [1 sentence — how AI could help]
+
+**Workflow:** [3-5 word name]
+**Type:** Deterministic Automation
+**Pain point:** [1 sentence]
+**AI opportunity:** [1 sentence]
+
+**Workflow:** [3-5 word name]
+**Type:** Autonomous Agent
+**Pain point:** [1 sentence]
+**AI opportunity:** [1 sentence]
+
+---
+
+This summary is my assignment deliverable — format it so I can copy it directly into my course submission.
 ```
 
 ## What to Expect
@@ -186,8 +213,9 @@ After pasting the prompt, here's what typically happens:
 1. **Step 1** — The AI reviews what it knows about you and presents a summary. Correct anything that's wrong and fill in gaps.
 2. **Step 2** — The AI asks you a series of questions. Answer as specifically as you can — concrete examples produce better recommendations than general descriptions.
 3. **Step 3** — You receive a structured report with a summary table and detailed cards for each opportunity, grouped by category.
+4. **Step 4** — You pick one opportunity from each category to build during the course, and the AI formats a **Workflow Candidate Summary** you can copy directly into your assignment submission.
 
-Most people discover 5–15 opportunities across the three categories. Don't try to pursue all of them — pick 1–2 from the "Getting started" suggestions and pilot those first.
+Most people discover 5–15 opportunities across the three categories. You'll pick three to build during the course — one from each category.
 
 ### How to Prioritize
 

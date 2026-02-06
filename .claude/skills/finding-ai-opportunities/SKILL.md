@@ -13,7 +13,7 @@ Discover concrete opportunities where AI can improve your workflows. Produces a 
 
 ## Workflow
 
-Work through three steps in order:
+Work through four steps in order:
 
 ### Step 1 — Memory & History Scan
 
@@ -46,6 +46,31 @@ Ask these questions **one at a time** — not as a list. Use the user's answers 
 ### Step 3 — Opportunity Analysis & Report
 
 Once you can identify at least 3 concrete, specific opportunities with enough detail to fill the card format below, produce the structured report.
+
+### Step 4 — Workflow Candidate Summary
+
+After presenting the full report, ask the user to pick ONE opportunity from each category that they want to build during the course. Once they've chosen, produce a **Workflow Candidate Summary** in this exact format:
+
+---
+
+**Workflow:** [3-5 word name]
+**Type:** Collaborative AI
+**Pain point:** [1 sentence — what makes this time-consuming or frustrating today]
+**AI opportunity:** [1 sentence — how AI could help]
+
+**Workflow:** [3-5 word name]
+**Type:** Deterministic Automation
+**Pain point:** [1 sentence]
+**AI opportunity:** [1 sentence]
+
+**Workflow:** [3-5 word name]
+**Type:** Autonomous Agent
+**Pain point:** [1 sentence]
+**AI opportunity:** [1 sentence]
+
+---
+
+Append this summary to the output file under a `## Workflow Candidate Summary` heading.
 
 ## Output
 
@@ -99,4 +124,4 @@ Use these definitions when categorizing:
 - Use a conversational flow — let answers guide follow-up questions naturally
 - Push for concrete examples over vague descriptions
 - Be specific in recommendations: "AI could draft the weekly status email from your Jira board data" beats "AI could help with reporting"
-- After writing the report, tell the user: "Opportunity report saved to `outputs/ai-opportunity-report.md`. Pick 1-2 opportunities to pilot first — start with Collaborative AI if you're new to AI, or Deterministic Workflows if you've identified a process you repeat often."
+- After writing the report, ask the user to pick their three candidates (one per category) for Step 4. Once they've chosen, append the Workflow Candidate Summary to the output file and tell the user: "Opportunity report and Workflow Candidate Summary saved to `outputs/ai-opportunity-report.md`. Your candidate summary is ready to copy into your course assignment."

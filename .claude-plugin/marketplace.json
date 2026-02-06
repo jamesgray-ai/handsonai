@@ -12,7 +12,7 @@
       "name": "business-first-ai",
       "source": "./plugins/business-first-ai",
       "description": "The Business-First AI Framework — discover AI opportunities, deconstruct workflows, and build with worked examples",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     {
       "name": "ai-registry",
