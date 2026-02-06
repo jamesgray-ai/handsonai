@@ -169,8 +169,8 @@ See the [AI Registry plugin page](../../plugins/index.md#ai-registry) for full d
 
 - **Add your first process** — Start with one business domain you know well
 - **Document existing workflows** — Capture what you're already doing before adding AI
-- **Find AI opportunities** — Use the [AI Workflow Opportunity Finder](../../how-to/prompting/ai-workflow-opportunity-finder.md) to identify where AI can add value
-- **Deconstruct workflows** — Break workflows into AI building blocks with the [Workflow Deconstruction Meta-Prompt](../../how-to/prompting/workflow-deconstruction-meta-prompt.md)
+- **Find AI opportunities** — Use the [Discover AI Workflow Opportunities](../../business-first-ai-framework/discover.md) guide to identify where AI can add value
+- **Deconstruct workflows** — Break workflows into AI building blocks with the [Deconstruct Workflows](../../business-first-ai-framework/deconstruct/index.md) guide
 - **Install the plugin** — Set up the [AI Registry plugin](../../plugins/index.md#ai-registry) to automate registry updates
 - **Explore other setup guides** — Continue with [Claude Code Installation](claude-code-install.md) if you haven't already
 

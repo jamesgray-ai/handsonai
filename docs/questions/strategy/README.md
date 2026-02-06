@@ -16,5 +16,5 @@ Questions about AI strategy, workflow analysis, opportunity identification, and 
 
 ## Related Resources
 
-- [AI Workflow Opportunity Finder](../../how-to/prompting/ai-workflow-opportunity-finder.md)
-- [Workflow Deconstruction Meta-Prompt](../../how-to/prompting/workflow-deconstruction-meta-prompt.md)
+- [Discover AI Workflow Opportunities](../../business-first-ai-framework/discover.md)
+- [Deconstruct Workflows](../../business-first-ai-framework/deconstruct/index.md)

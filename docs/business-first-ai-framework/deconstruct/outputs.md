@@ -5,9 +5,9 @@ description: Generate a ready-to-use Baseline Workflow Prompt and Skill Build Re
 
 # Step 3 — Output Generation
 
-> **Part of:** [Deconstruct Workflows into AI Building Blocks](workflow-deconstruction-meta-prompt.md)
+> **Part of:** [Deconstruct Workflows](index.md)
 
-This is the final prompt in the three-part series. It takes the **Workflow Analysis Document** from [Step 2](workflow-deconstruction-analysis.md) and produces your two remaining deliverables: a **Baseline Workflow Prompt** you can paste into any AI tool to run the workflow, and **Skill Build Recommendations** showing which reusable skills to build and what they replace.
+This is the final prompt in the three-part series. It takes the **Workflow Analysis Document** from [Step 2](analysis.md) and produces your two remaining deliverables: a **Baseline Workflow Prompt** you can paste into any AI tool to run the workflow, and **Skill Build Recommendations** showing which reusable skills to build and what they replace.
 
 ## How to Use This
 

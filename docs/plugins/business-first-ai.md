@@ -5,7 +5,7 @@ description: The Business-First AI Framework as executable Claude Code skills â€
 
 # Business First AI
 
-This plugin implements the [Business-First AI Framework](../business-first-ai-framework.md) as executable Claude Code skills. It covers all three phases: discover where AI fits in your workflows, deconstruct those workflows into AI building blocks, and build with worked examples across the autonomy spectrum. Install it to get a complete toolkit for going from "where should I use AI?" to working AI workflows.
+This plugin implements the [Business-First AI Framework](../business-first-ai-framework/index.md) as executable Claude Code skills. It covers all three phases: discover where AI fits in your workflows, deconstruct those workflows into AI building blocks, and build with worked examples across the autonomy spectrum. Install it to get a complete toolkit for going from "where should I use AI?" to working AI workflows.
 
 ## Install
 

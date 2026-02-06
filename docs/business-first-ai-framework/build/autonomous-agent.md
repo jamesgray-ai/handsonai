@@ -161,7 +161,7 @@ To adapt: identify the distinct phases of your workflow and the specialist exper
 
 - [Deterministic Automation Workflow Example](./deterministic-automation.md) — when AI follows fixed rules with no judgment needed
 - [AI Collaborative Workflow Example](./ai-collaborative.md) — when AI and human iterate together
-- [Find AI Workflow Opportunities](../prompting/ai-workflow-opportunity-finder.md) — discover which workflows are candidates for autonomous agents
-- [Deconstruct Workflows into AI Building Blocks](../prompting/workflow-deconstruction-meta-prompt.md) — break down workflows into agent-ready steps
+- [Discover AI Workflow Opportunities](../discover.md) — discover which workflows are candidates for autonomous agents
+- [Deconstruct Workflows](../deconstruct/index.md) — break down workflows into agent-ready steps
 - [Plugin Marketplace](../../plugins/index.md) — browse all agents and skills used in this pipeline
 - [Claude Code Subagents Documentation](https://code.claude.com/docs/en/sub-agents) — official guide to creating and using subagents in Claude Code

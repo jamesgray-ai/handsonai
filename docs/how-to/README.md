@@ -14,7 +14,7 @@ Problem-focused guides that help you accomplish specific tasks.
 | [Prompting](./prompting/) | Prompt engineering techniques |
 | [Agents](./agents/) | Agent and tool use guides |
 | [Integrations](./integrations/) | Platform integration guides |
-| [Workflow Examples](./workflow-examples/) | Worked examples across the AI automation spectrum |
+| [Build Workflows](../business-first-ai-framework/build/index.md) | Worked examples across the AI automation spectrum |
 
 ## All Guides
 

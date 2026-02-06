@@ -1,14 +1,14 @@
 ---
-title: How to Deconstruct Workflows into AI Building Blocks
+title: Deconstruct Workflows
 description: Use this three-prompt series to break down any business workflow into discrete steps, map AI building blocks, and generate an executable workflow prompt.
 ---
 
-# How to Deconstruct Workflows into AI Building Blocks
+# Deconstruct Workflows
 
 > **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 !!! info "Business-First AI Framework — Phase 2: Deconstruct"
-    This guide is **Phase 2** of the [Business-First AI Framework](../../business-first-ai-framework.md) — deconstructing workflows into AI building blocks.
+    This guide is **Phase 2** of the [Business-First AI Framework](../index.md) — deconstructing workflows into AI building blocks.
 
 ## What This Is
 
@@ -30,7 +30,7 @@ This series of prompts walks you through that deconstruction interactively. You 
 2. A **Baseline Workflow Prompt** — a ready-to-use prompt that works on any platform; this is your starting point that will evolve as you build skills
 3. **Skill Build Recommendations** — actionable specs for reusable skills you can build to automate recurring steps
 
-This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../../business-first-ai-framework.md#key-concepts) for quick definitions before starting.
+This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../index.md#key-concepts) for quick definitions before starting.
 
 ## The Three-Prompt Approach
 
@@ -38,9 +38,9 @@ The workflow deconstruction is split into three focused prompts. Each prompt pro
 
 | Step | Prompt | What it does | Produces |
 |------|--------|-------------|----------|
-| 1 | [Discovery & Deep Dive](workflow-deconstruction-discovery.md) | Discover the workflow, decompose every step | **Workflow Blueprint** |
-| 2 | [Analysis & Mapping](workflow-deconstruction-analysis.md) | Classify steps, map AI building blocks | **Workflow Analysis Document** |
-| 3 | [Output Generation](workflow-deconstruction-outputs.md) | Generate the executable prompt and skill specs | **Baseline Prompt** + **Skill Recommendations** |
+| 1 | [Discovery & Deep Dive](discovery.md) | Discover the workflow, decompose every step | **Workflow Blueprint** |
+| 2 | [Analysis & Mapping](analysis.md) | Classify steps, map AI building blocks | **Workflow Analysis Document** |
+| 3 | [Output Generation](outputs.md) | Generate the executable prompt and skill specs | **Baseline Prompt** + **Skill Recommendations** |
 
 **Between each step:** Download (or copy and save) the output artifact as a Markdown file, then upload or paste it into the next conversation. Each prompt starts by asking you to provide the previous step's output. The files use a consistent naming convention: `[workflow-name]-blueprint.md`, `[workflow-name]-analysis.md`, `[workflow-name]-prompt.md`, and `[workflow-name]-skill-recs.md`.
 
@@ -58,11 +58,11 @@ There are two ways to run Phase 2, depending on which tools you use:
 
 Use this if you're working in Claude, ChatGPT, Gemini, or M365 Copilot. Copy each prompt into a new conversation and work through the three steps sequentially.
 
-1. **Go to [Step 1 — Discovery & Deep Dive](workflow-deconstruction-discovery.md)** — Copy the prompt, start a new conversation in your AI tool, paste the prompt, and describe your workflow
+1. **Go to [Step 1 — Discovery & Deep Dive](discovery.md)** — Copy the prompt, start a new conversation in your AI tool, paste the prompt, and describe your workflow
 2. **Save the Workflow Blueprint** — Download the `.md` file the model produces (or copy the output and save it as `[workflow-name]-blueprint.md`)
-3. **Go to [Step 2 — Analysis & Mapping](workflow-deconstruction-analysis.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your Blueprint file when the model asks for it
+3. **Go to [Step 2 — Analysis & Mapping](analysis.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your Blueprint file when the model asks for it
 4. **Save the Workflow Analysis Document** — Download `[workflow-name]-analysis.md`
-5. **Go to [Step 3 — Output Generation](workflow-deconstruction-outputs.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your Analysis Document when the model asks for it
+5. **Go to [Step 3 — Output Generation](outputs.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your Analysis Document when the model asks for it
 6. **Save your final deliverables** — Download `[workflow-name]-prompt.md` and `[workflow-name]-skill-recs.md`
 
 !!! tip "Start with a workflow you actually do"
@@ -143,9 +143,9 @@ You don't need to know all the steps before you start — that's what the prompt
 
 ## What to Expect
 
-1. **[Step 1 — Discovery & Deep Dive](workflow-deconstruction-discovery.md)** (~15-25 minutes) — The model asks about your business scenario, objective, steps, and who's involved. Then it works through each step one by one, asking about sub-steps, decision points, data flows, context needs, and failure modes. For later steps, it switches to a "propose and react" pattern — presenting hypotheses for you to correct, which is faster and surfaces more detail. Produces a **Workflow Blueprint**.
-2. **[Step 2 — Analysis & Mapping](workflow-deconstruction-analysis.md)** (~5-10 minutes) — The model classifies each refined step on the autonomy spectrum and maps it to AI building blocks. You review the mapping table and adjust. Produces a **Workflow Analysis Document**.
-3. **[Step 3 — Output Generation](workflow-deconstruction-outputs.md)** (~5-10 minutes) — The model generates your baseline workflow prompt and skill build recommendations. Mostly generative — 1-2 clarifying questions at most. Produces the **Baseline Workflow Prompt** and **Skill Build Recommendations**.
+1. **[Step 1 — Discovery & Deep Dive](discovery.md)** (~15-25 minutes) — The model asks about your business scenario, objective, steps, and who's involved. Then it works through each step one by one, asking about sub-steps, decision points, data flows, context needs, and failure modes. For later steps, it switches to a "propose and react" pattern — presenting hypotheses for you to correct, which is faster and surfaces more detail. Produces a **Workflow Blueprint**.
+2. **[Step 2 — Analysis & Mapping](analysis.md)** (~5-10 minutes) — The model classifies each refined step on the autonomy spectrum and maps it to AI building blocks. You review the mapping table and adjust. Produces a **Workflow Analysis Document**.
+3. **[Step 3 — Output Generation](outputs.md)** (~5-10 minutes) — The model generates your baseline workflow prompt and skill build recommendations. Mostly generative — 1-2 clarifying questions at most. Produces the **Baseline Workflow Prompt** and **Skill Build Recommendations**.
 
 Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive. The baseline prompt is ready to use immediately — paste it into a new conversation to run the workflow.
 
@@ -410,8 +410,8 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 
 ## Related
 
-- **Previous step:** Not sure which workflow to deconstruct? Start with the [AI Workflow Opportunity Finder](ai-workflow-opportunity-finder.md) (Phase 1) to identify your best candidates.
-- **Next step:** Ready to build? See the [Workflow Examples](../workflow-examples/README.md) (Phase 3) for worked examples across the autonomy spectrum.
-- [Business-First AI Framework](../../business-first-ai-framework.md) — the full three-phase methodology
+- **Previous step:** Not sure which workflow to deconstruct? Start with the [Discover AI Workflow Opportunities](../discover.md) (Phase 1) to identify your best candidates.
+- **Next step:** Ready to build? See the [Build Workflows](../build/index.md) (Phase 3) for worked examples across the autonomy spectrum.
+- [Business-First AI Framework](../index.md) — the full three-phase methodology
 - [Prompt Engineering Fundamentals](../../fundamentals/prompt-engineering/README.md)
 - [Agents & Tools Overview](../../fundamentals/agents-and-tools/README.md)

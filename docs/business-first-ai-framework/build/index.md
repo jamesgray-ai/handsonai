@@ -1,12 +1,12 @@
 ---
-title: Workflow Examples
+title: Build Workflows
 description: Three worked examples showing the spectrum of AI involvement in workflows — from deterministic automation to fully autonomous agents.
 ---
 
-# Workflow Examples
+# Build Workflows
 
 !!! info "Business-First AI Framework — Phase 3: Build"
-    These examples are **Phase 3** of the [Business-First AI Framework](../../business-first-ai-framework.md) — building AI workflows from your deconstruction outputs. More build guides are coming — this section will grow with content on building prompts, skills, agents, and multi-agent workflows.
+    These examples are **Phase 3** of the [Business-First AI Framework](../index.md) — building AI workflows from your deconstruction outputs. More build guides are coming — this section will grow with content on building prompts, skills, agents, and multi-agent workflows.
 
 Not all AI workflows are created equal. The right level of AI involvement depends on the task — some workflows need rigid, repeatable automation; others need AI that can research, reason, and iterate with a human; and some work best when an agent handles everything end-to-end.
 
@@ -85,6 +85,6 @@ These are the working building blocks included across all three examples. Each o
 
 ## Related
 
-- [Find AI Workflow Opportunities](../prompting/ai-workflow-opportunity-finder.md) — discover which of your workflows are candidates for AI
-- [Deconstruct Workflows into AI Building Blocks](../prompting/workflow-deconstruction-meta-prompt.md) — break down workflows into automatable steps
+- [Discover AI Workflow Opportunities](../discover.md) — discover which of your workflows are candidates for AI
+- [Deconstruct Workflows](../deconstruct/index.md) — break down workflows into automatable steps
 - [Plugin Marketplace](../../plugins/index.md) — browse all available plugins

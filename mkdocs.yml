@@ -49,7 +49,16 @@ plugins:
       enable_creation_date: true
       fallback_to_build_date: true
   - redirects:
-      redirect_maps: {}
+      redirect_maps:
+        how-to/prompting/ai-workflow-opportunity-finder.md: business-first-ai-framework/discover.md
+        how-to/prompting/workflow-deconstruction-meta-prompt.md: business-first-ai-framework/deconstruct/index.md
+        how-to/prompting/workflow-deconstruction-discovery.md: business-first-ai-framework/deconstruct/discovery.md
+        how-to/prompting/workflow-deconstruction-analysis.md: business-first-ai-framework/deconstruct/analysis.md
+        how-to/prompting/workflow-deconstruction-outputs.md: business-first-ai-framework/deconstruct/outputs.md
+        how-to/workflow-examples/README.md: business-first-ai-framework/build/index.md
+        how-to/workflow-examples/deterministic-automation.md: business-first-ai-framework/build/deterministic-automation.md
+        how-to/workflow-examples/ai-collaborative.md: business-first-ai-framework/build/ai-collaborative.md
+        how-to/workflow-examples/autonomous-agent.md: business-first-ai-framework/build/autonomous-agent.md
 
 markdown_extensions:
   - admonition
@@ -73,18 +82,18 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Business-First AI Framework:
-    - Overview: business-first-ai-framework.md
-    - "Phase 1 — Discover": how-to/prompting/ai-workflow-opportunity-finder.md
+    - Overview: business-first-ai-framework/index.md
+    - "Phase 1 — Discover": business-first-ai-framework/discover.md
     - "Phase 2 — Deconstruct":
-      - Overview: how-to/prompting/workflow-deconstruction-meta-prompt.md
-      - "Step 1 — Discovery & Deep Dive": how-to/prompting/workflow-deconstruction-discovery.md
-      - "Step 2 — Analysis & Mapping": how-to/prompting/workflow-deconstruction-analysis.md
-      - "Step 3 — Output Generation": how-to/prompting/workflow-deconstruction-outputs.md
+      - Overview: business-first-ai-framework/deconstruct/index.md
+      - "Step 1 — Discovery & Deep Dive": business-first-ai-framework/deconstruct/discovery.md
+      - "Step 2 — Analysis & Mapping": business-first-ai-framework/deconstruct/analysis.md
+      - "Step 3 — Output Generation": business-first-ai-framework/deconstruct/outputs.md
     - "Phase 3 — Build":
-      - Overview: how-to/workflow-examples/README.md
-      - Deterministic Automation: how-to/workflow-examples/deterministic-automation.md
-      - AI Collaborative: how-to/workflow-examples/ai-collaborative.md
-      - Autonomous Agent: how-to/workflow-examples/autonomous-agent.md
+      - Overview: business-first-ai-framework/build/index.md
+      - Deterministic Automation: business-first-ai-framework/build/deterministic-automation.md
+      - AI Collaborative: business-first-ai-framework/build/ai-collaborative.md
+      - Autonomous Agent: business-first-ai-framework/build/autonomous-agent.md
   - Platforms:
     - Overview: platforms/index.md
     - Claude:
