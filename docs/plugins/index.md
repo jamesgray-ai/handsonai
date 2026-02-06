@@ -51,20 +51,20 @@ Working examples of agents and skills from the Hands-on AI cohort courses.
 
     | Agent | What it does |
     |-------|-------------|
-    | [`tech-executive-writer`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/tech-executive-writer.md) | Writes business-focused content about AI and technology. LinkedIn posts, magazine articles, executive briefs, and thought leadership pieces. Translates complex technical concepts for non-technical audiences. |
-    | [`hbr-editor`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/hbr-editor.md) | Reviews drafts against HBR editorial standards. Provides prescriptive feedback on structure, evidence quality, voice, and argument strength. |
-    | [`hbr-publisher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/hbr-publisher.md) | Formats finalized articles for web publication and PDF distribution. Handles SEO metadata, social snippets, and professional layout. |
-    | [`ai-news-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/ai-news-researcher.md) | Scans news outlets, blogs, YouTube channels, podcasts, and communities for the latest AI developments. Categorizes findings by product releases, research, company updates, and community highlights. |
-    | [`ai-productivity-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/ai-productivity-researcher.md) | Finds documented case studies of companies using AI for productivity gains. Prioritizes HBR-caliber sources with quantified outcomes. Outputs structured case study briefs. |
-    | [`claude-research-daily`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/claude-research-daily.md) | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork. Covers official announcements, tech news, video content, tutorials, and community discussions from the last 24 hours. |
-    | [`meeting-prep-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/course-examples/agents/meeting-prep-researcher.md) | Researches meeting attendees and companies, then produces a structured prep brief with profiles, talking points, and suggested questions. |
+    | [`tech-executive-writer`](course-examples.md#tech-executive-writer) | Writes business-focused content about AI and technology. LinkedIn posts, magazine articles, executive briefs, and thought leadership pieces. Translates complex technical concepts for non-technical audiences. |
+    | [`hbr-editor`](course-examples.md#hbr-editor) | Reviews drafts against HBR editorial standards. Provides prescriptive feedback on structure, evidence quality, voice, and argument strength. |
+    | [`hbr-publisher`](course-examples.md#hbr-publisher) | Formats finalized articles for web publication and PDF distribution. Handles SEO metadata, social snippets, and professional layout. |
+    | [`ai-news-researcher`](course-examples.md#ai-news-researcher) | Scans news outlets, blogs, YouTube channels, podcasts, and communities for the latest AI developments. Categorizes findings by product releases, research, company updates, and community highlights. |
+    | [`ai-productivity-researcher`](course-examples.md#ai-productivity-researcher) | Finds documented case studies of companies using AI for productivity gains. Prioritizes HBR-caliber sources with quantified outcomes. Outputs structured case study briefs. |
+    | [`claude-research-daily`](course-examples.md#claude-research-daily) | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork. Covers official announcements, tech news, video content, tutorials, and community discussions from the last 24 hours. |
+    | [`meeting-prep-researcher`](course-examples.md#meeting-prep-researcher) | Researches meeting attendees and companies, then produces a structured prep brief with profiles, talking points, and suggested questions. |
 
 ???+ skills "Skills included"
 
     | Skill | What it does |
     |-------|-------------|
-    | [`editing-hbr-articles`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/course-examples/skills/editing-hbr-articles/) | Loads HBR editorial criteria for article editing. Used by the `hbr-editor` agent to apply specific standards for openings, evidence, voice, and length. Includes a reference file with cut/replace patterns and source quality hierarchy. |
-    | [`meeting-prep-research`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/course-examples/skills/meeting-prep-research/) | Step-by-step research workflow for meeting preparation. Guides the meeting-prep-researcher agent through attendee research, company analysis, and prep brief generation. |
+    | [`editing-hbr-articles`](course-examples.md#editing-hbr-articles) | Loads HBR editorial criteria for article editing. Used by the `hbr-editor` agent to apply specific standards for openings, evidence, voice, and length. Includes a reference file with cut/replace patterns and source quality hierarchy. |
+    | [`meeting-prep-research`](course-examples.md#meeting-prep-research) | Step-by-step research workflow for meeting preparation. Guides the meeting-prep-researcher agent through attendee research, company analysis, and prep brief generation. |
 
 ???+ usage "Example usage"
 
@@ -108,11 +108,11 @@ Document, name, register, and sync AI operational workflows and skills.
 
     | Skill | What it does |
     |-------|-------------|
-    | [`naming-workflows`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-registry/skills/naming-workflows/) | Generates consistent, outcome-focused names and descriptions for business workflows. Follows domain-specific naming patterns (Sales, Marketing, Product, etc.) and creates entries in the Notion Workflows database. |
-    | [`writing-workflow-sops`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-registry/skills/writing-workflow-sops/) | Writes Standard Operating Procedure documentation for workflows. Adapts SOP templates for Manual, Augmented, and Automated workflow types. Saves SOPs to Notion workflow page bodies. |
-    | [`writing-process-guides`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-registry/skills/writing-process-guides/) | Writes Business Process Guide documentation explaining when, why, and how to execute a complete business process with its component workflows. Covers strategic context while linking to individual SOPs for tactical details. |
-    | [`registering-skills`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-registry/skills/registering-skills/) | Registers or updates Claude Skills in the Notion AI Assets database. Extracts metadata from SKILL.md frontmatter, generates Quick Start Prompts, and handles duplicate detection. |
-    | [`syncing-skills-to-github`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/ai-registry/skills/syncing-skills-to-github/) | Syncs skills from `~/.claude/skills/` to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Assets with GitHub URLs. |
+    | [`naming-workflows`](ai-registry.md#naming-workflows) | Generates consistent, outcome-focused names and descriptions for business workflows. Follows domain-specific naming patterns (Sales, Marketing, Product, etc.) and creates entries in the Notion Workflows database. |
+    | [`writing-workflow-sops`](ai-registry.md#writing-workflow-sops) | Writes Standard Operating Procedure documentation for workflows. Adapts SOP templates for Manual, Augmented, and Automated workflow types. Saves SOPs to Notion workflow page bodies. |
+    | [`writing-process-guides`](ai-registry.md#writing-process-guides) | Writes Business Process Guide documentation explaining when, why, and how to execute a complete business process with its component workflows. Covers strategic context while linking to individual SOPs for tactical details. |
+    | [`registering-skills`](ai-registry.md#registering-skills) | Registers or updates Claude Skills in the Notion AI Assets database. Extracts metadata from SKILL.md frontmatter, generates Quick Start Prompts, and handles duplicate detection. |
+    | [`syncing-skills-to-github`](ai-registry.md#syncing-skills-to-github) | Syncs skills from `~/.claude/skills/` to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Assets with GitHub URLs. |
 
 ??? workflow "Recommended workflow"
 
@@ -153,15 +153,15 @@ Deconstruct business workflows into AI building blocks. Includes an orchestrator
 
     | Agent | What it does |
     |-------|-------------|
-    | [`workflow-deconstructor`](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/workflow-deconstruction/agents/workflow-deconstructor.md) | Orchestrates the full three-step workflow deconstruction process. Runs discovery, analysis, and output generation sequentially with file-based handoffs between stages. |
+    | [`workflow-deconstructor`](workflow-deconstruction.md#workflow-deconstructor) | Orchestrates the full three-step workflow deconstruction process. Runs discovery, analysis, and output generation sequentially with file-based handoffs between stages. |
 
 ???+ skills "Skills included"
 
     | Skill | What it does |
     |-------|-------------|
-    | [`workflow-discovery`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/workflow-deconstruction/skills/workflow-discovery/) | Interactively discovers and decomposes a business workflow into a structured Workflow Blueprint using the 4-question framework + failure modes. |
-    | [`workflow-analysis`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/workflow-deconstruction/skills/workflow-analysis/) | Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces a Workflow Analysis Document. |
-    | [`workflow-output-generation`](https://github.com/jamesgray-ai/handsonai/tree/main/plugins/workflow-deconstruction/skills/workflow-output-generation/) | Generates a ready-to-use Baseline Workflow Prompt and Skill Build Recommendations from a Workflow Analysis Document. |
+    | [`workflow-discovery`](workflow-deconstruction.md#workflow-discovery) | Interactively discovers and decomposes a business workflow into a structured Workflow Blueprint using the 4-question framework + failure modes. |
+    | [`workflow-analysis`](workflow-deconstruction.md#workflow-analysis) | Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces a Workflow Analysis Document. |
+    | [`workflow-output-generation`](workflow-deconstruction.md#workflow-output-generation) | Generates a ready-to-use Baseline Workflow Prompt and Skill Build Recommendations from a Workflow Analysis Document. |
 
 ???+ usage "Example usage"
 

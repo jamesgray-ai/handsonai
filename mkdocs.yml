@@ -114,6 +114,9 @@ nav:
     - Marketplace: plugins/index.md
     - Getting Started: plugins/getting-started.md
     - Using Plugins: plugins/using-plugins.md
+    - Course Examples: plugins/course-examples.md
+    - AI Registry: plugins/ai-registry.md
+    - Workflow Deconstruction: plugins/workflow-deconstruction.md
   - Fundamentals:
     - Overview: fundamentals/index.md
     - Agents & Tools:
