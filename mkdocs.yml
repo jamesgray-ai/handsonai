@@ -134,13 +134,13 @@ nav:
     - Agents & Tools:
       - Overview: fundamentals/agents-and-tools/README.md
       - Resources: fundamentals/agents-and-tools/resources.md
-    - Builder Setup:
+    - Builder Stack Setup:
       - Terminal Basics: fundamentals/developer-setup/terminal-basics.md
       - Claude Code Installation: fundamentals/developer-setup/claude-code-install.md
       - Editor Setup: fundamentals/developer-setup/editor-setup.md
       - Git Installation: fundamentals/developer-setup/git-install.md
       - GitHub Setup: fundamentals/developer-setup/github-setup.md
-      - Notion Registry: fundamentals/developer-setup/notion-registry-setup.md
+      - AI Registry: fundamentals/developer-setup/notion-registry-setup.md
       - Voice to Text: fundamentals/developer-setup/voice-to-text-setup.md
     - Patterns: fundamentals/patterns/README.md
     - Prompt Engineering:
