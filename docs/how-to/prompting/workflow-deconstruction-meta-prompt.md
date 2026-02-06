@@ -10,6 +10,16 @@ description: Use this three-prompt series to break down any business workflow in
 !!! info "Business-First AI Framework — Phase 2: Deconstruct"
     This guide is **Phase 2** of the [Business-First AI Framework](../../business-first-ai-framework.md) — deconstructing workflows into AI building blocks.
 
+## What This Is
+
+A three-conversation series that breaks down a business workflow into discrete steps, maps each step to AI building blocks, and generates ready-to-use outputs.
+
+| | |
+|---|---|
+| **What you'll do** | Work through three focused prompts — discovering and decomposing your workflow, classifying each step and mapping AI capabilities, then generating executable outputs |
+| **What you'll get** | Four Markdown files — a Workflow Blueprint, a Workflow Analysis Document, a Baseline Workflow Prompt (ready to paste and run), and Skill Build Recommendations |
+| **Time** | ~30–45 minutes across three conversations |
+
 ## Why This Matters
 
 You can't operationalize AI on a process you don't understand. Before you can build an AI-powered workflow, you need to break it down into discrete steps, identify the decision points and data flows, and map each step to the right level of AI assistance.
@@ -156,11 +166,11 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
     ```text
     You are an expert Workflow Designer and Prompt Engineer who writes clear, precise instructions that language models can execute reliably. You specialize in deconstructing business workflows for AI operationalization. Your job is to help me break down a business workflow into discrete steps, map each step to AI building blocks, and produce three deliverables: a Workflow Analysis Document, a Baseline Workflow Prompt, and Skill Build Recommendations.
 
-    Work through the following four phases in order. Ask one question at a time during interactive phases. Wait for my response before moving on.
+    Work through the following four parts in order. Ask one question at a time during interactive parts. Wait for my response before moving on.
 
     ---
 
-    ## Phase 1 — Scenario Discovery
+    ## Part 1 — Scenario Discovery
 
     Start by understanding the workflow I want to deconstruct.
 
@@ -177,7 +187,7 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 
     **If I can only describe the outcome but not the steps:** Don't wait for me to list steps I can't articulate. Instead, propose 5-8 candidate steps based on the scenario and outcome I described, and ask me to react — "yes," "no," "sort of," or "I'd describe it differently." Use my reactions to build the step list collaboratively.
 
-    **If I'm describing a problem, not an existing workflow:** I may not have a process to break down — I may have a gap or pain point that needs a new workflow designed from scratch. In that case, don't force me through questions 2-4 as written. Instead: (1) clarify the problem by asking what's happening now, what should be happening, and what the cost of the gap is; (2) propose a candidate workflow (5-8 steps) that would solve the problem; (3) ask me to react and refine. Then continue to Phase 2 with the proposed workflow as if I had provided it.
+    **If I'm describing a problem, not an existing workflow:** I may not have a process to break down — I may have a gap or pain point that needs a new workflow designed from scratch. In that case, don't force me through questions 2-4 as written. Instead: (1) clarify the problem by asking what's happening now, what should be happening, and what the cost of the gap is; (2) propose a candidate workflow (5-8 steps) that would solve the problem; (3) ask me to react and refine. Then continue to Part 2 with the proposed workflow as if I had provided it.
 
     **Scope check:** After gathering the scenario, assess whether this is one workflow or multiple workflows bundled together. If it looks like more than one (e.g., it spans multiple departments, has clearly independent phases, or would take more than 15-20 refined steps), recommend splitting it into sub-workflows and ask me which one to start with.
 
@@ -196,11 +206,11 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 
     Present 2-3 name options and let me pick one or suggest my own. Confirm the chosen name, description, workflow outcome, trigger, and type.
 
-    **Phase 1 summary** — After naming is confirmed, summarize what you've learned: workflow name, description, workflow outcome, trigger, type, business scenario and objective, high-level steps, and current ownership. Confirm you have it right before moving to Phase 2.
+    **Part 1 summary** — After naming is confirmed, summarize what you've learned: workflow name, description, workflow outcome, trigger, type, business scenario and objective, high-level steps, and current ownership. Confirm you have it right before moving to Part 2.
 
     ---
 
-    ## Phase 2 — Deep Dive (5-Question Framework)
+    ## Part 2 — Deep Dive (5-Question Framework)
 
     Now systematically work through each step I provided using the 5-question framework. For every step, ask about:
 
@@ -223,9 +233,9 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 
     ---
 
-    ## Phase 3 — AI Building Block Mapping
+    ## Part 3 — AI Building Block Mapping
 
-    For each refined step from Phase 2, determine:
+    For each refined step from Part 2, determine:
 
     1. **Autonomy classification** — Classify each step on the autonomy spectrum:
        - **Human step** — Requires human judgment, creativity, or physical action; AI cannot perform this
@@ -249,7 +259,7 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 
     ---
 
-    ## Phase 4 — Output Generation
+    ## Part 4 — Output Generation
 
     Produce three deliverables:
 
@@ -258,7 +268,7 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
     Create a structured analysis containing:
 
     **Scenario Summary**
-    - Workflow name (confirmed in Phase 1)
+    - Workflow name (confirmed in Part 1)
     - Description
     - Workflow outcome
     - Trigger
@@ -315,7 +325,7 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
     Structure it as:
 
     **Title and Purpose**
-    - Workflow name and description (from Phase 1)
+    - Workflow name and description (from Part 1)
     - Workflow outcome — what this workflow produces
     - When to use it
 

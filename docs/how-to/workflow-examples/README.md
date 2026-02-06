@@ -12,6 +12,16 @@ Not all AI workflows are created equal. The right level of AI involvement depend
 
 These three examples show the spectrum in practice. Each includes a real-world scenario, working building blocks you can install and use, and guidance on when to apply the pattern to your own work.
 
+## What This Is
+
+Worked examples showing complete AI-powered workflows at three levels of the autonomy spectrum — deterministic automation, AI collaborative, and autonomous agent.
+
+| | |
+|---|---|
+| **What you'll find** | Three fully built workflow examples, each showing the complete set of building blocks (prompts, context, skills, agents, MCP connectors) that make it work |
+| **What you'll do** | Study these examples to understand how the building blocks from Phase 2 come together, then use them as templates for building your own workflows |
+| **Time** | Self-paced reference (no guided conversation) |
+
 ## Why This Matters
 
 Most people start using AI the same way: paste something into a chat, get a response, use it or don't. That works for simple tasks, but it misses the bigger picture. AI can operate at different levels of autonomy, and matching the right level to the right task is what separates "I use ChatGPT sometimes" from "AI is integrated into how I work."

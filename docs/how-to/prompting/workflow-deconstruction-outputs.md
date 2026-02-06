@@ -46,17 +46,17 @@ I have a Workflow Analysis Document from a previous conversation. I'll paste it 
 
 ---
 
-## Step 1 — Paste Your Analysis Document
+## Part 1 — Paste Your Analysis Document
 
 Say: "Upload your Workflow Analysis Document file, or paste its contents below, then press Enter."
 
-Wait for me to provide it. After receiving the document, confirm you've read it by summarizing: the workflow name, the number of steps, how many are AI-eligible, and the recommended implementation order. Then proceed to Step 2.
+Wait for me to provide it. After receiving the document, confirm you've read it by summarizing: the workflow name, the number of steps, how many are AI-eligible, and the recommended implementation order. Then proceed to Part 2.
 
 If anything in the Analysis Document is ambiguous or seems incomplete, ask me to clarify before generating outputs. Do not guess at missing information.
 
 ---
 
-## Step 2 — Generate Baseline Workflow Prompt
+## Part 2 — Generate Baseline Workflow Prompt
 
 Generate a ready-to-use Markdown prompt that someone could paste into any AI tool to execute this workflow. This is the **baseline version** — it spells out every step in full so it works on any platform (Claude, ChatGPT, Gemini, M365 Copilot). As the user builds skills from the recommendations below, they'll update this prompt to invoke those skills instead of repeating the logic inline.
 
@@ -97,7 +97,7 @@ Generate the prompt as a downloadable Markdown file. If your platform doesn't su
 
 ---
 
-## Step 3 — Generate Skill Build Recommendations
+## Part 3 — Generate Skill Build Recommendations
 
 Based on the Workflow Analysis Document, recommend which reusable skills I should build. Focus on steps that are:
 - Repeatable (executed frequently with similar patterns)

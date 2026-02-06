@@ -10,6 +10,16 @@ description: Use this prompt template to discover where AI can help automate, au
 !!! info "Business-First AI Framework — Phase 1: Discover"
     This guide is **Phase 1** of the [Business-First AI Framework](../../business-first-ai-framework.md) — discovering where AI fits in your workflows.
 
+## What This Is
+
+A structured audit that helps you find where AI fits in your work. The AI scans what it already knows about you, interviews you about your workflows, then analyzes the results to surface opportunities you'd miss on your own.
+
+| | |
+|---|---|
+| **What you'll do** | Walk through a guided conversation covering your role, tasks, and pain points |
+| **What you'll get** | A prioritized report of AI opportunities across three levels — Collaborative AI, Deterministic Workflows, and Multi-Agent Systems — with concrete next steps for each |
+| **Time** | ~20–30 minutes for the full conversation |
+
 ## Why This Matters
 
 Most people adopt AI by reacting to problems — they reach for ChatGPT when they're stuck on an email or ask Claude to summarize a document. That's useful, but it misses the bigger picture.
@@ -67,11 +77,11 @@ Both options follow the same three-step process and produce the same structured 
 ```text
 You are an AI Workflow Strategist with deep expertise in business process optimization and AI capabilities. Your job is to help me discover concrete opportunities where AI can improve my workflows.
 
-Work through the following three phases in order.
+Work through the following three steps in order.
 
 ---
 
-## Phase 1 — Memory & History Scan
+## Step 1 — Memory & History Scan
 
 Before asking me anything, review everything you already know about me from our conversation history, your memory, project files, or any other context available to you.
 
@@ -83,13 +93,13 @@ From that context, identify and list:
 - Tools and platforms I use regularly
 - Any goals or priorities I've shared
 
-Present your findings as a brief summary so I can confirm or correct them before we continue. If you have no prior context about me, say so and move directly to Phase 2.
+Present your findings as a brief summary so I can confirm or correct them before we continue. If you have no prior context about me, say so and move directly to Step 2.
 
 ---
 
-## Phase 2 — Targeted Discovery Interview
+## Step 2 — Targeted Discovery Interview
 
-Based on gaps in your understanding (or starting from scratch if Phase 1 had no context), ask me focused questions to build a complete picture. Cover these areas:
+Based on gaps in your understanding (or starting from scratch if Step 1 had no context), ask me focused questions to build a complete picture. Cover these areas:
 
 1. **Role & responsibilities** — What is your role? What are you accountable for?
 2. **Repetitive tasks** — What tasks do you perform daily or weekly that feel repetitive, tedious, or low-value?
@@ -103,7 +113,7 @@ Ask these questions conversationally — not all at once. Use my answers to ask 
 
 ---
 
-## Phase 3 — Opportunity Analysis & Report
+## Step 3 — Opportunity Analysis & Report
 
 Once you have sufficient context, produce a structured report.
 
@@ -156,9 +166,9 @@ Group the detailed cards by category. Within each category, order opportunities 
 
 After pasting the prompt, here's what typically happens:
 
-1. **Phase 1** — The AI reviews what it knows about you and presents a summary. Correct anything that's wrong and fill in gaps.
-2. **Phase 2** — The AI asks you a series of questions. Answer as specifically as you can — concrete examples produce better recommendations than general descriptions.
-3. **Phase 3** — You receive a structured report with a summary table and detailed cards for each opportunity, grouped by category.
+1. **Step 1** — The AI reviews what it knows about you and presents a summary. Correct anything that's wrong and fill in gaps.
+2. **Step 2** — The AI asks you a series of questions. Answer as specifically as you can — concrete examples produce better recommendations than general descriptions.
+3. **Step 3** — You receive a structured report with a summary table and detailed cards for each opportunity, grouped by category.
 
 Most people discover 5–15 opportunities across the three categories. Don't try to pursue all of them — pick 1–2 from the "Getting started" suggestions and pilot those first.
 

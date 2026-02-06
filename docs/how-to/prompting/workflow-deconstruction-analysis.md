@@ -47,15 +47,15 @@ I have a Workflow Blueprint from a previous conversation. I'll paste it when you
 
 ---
 
-## Step 1 — Paste Your Blueprint
+## Part 1 — Paste Your Blueprint
 
 Say: "Upload your Workflow Blueprint file, or paste its contents below, then press Enter."
 
-Wait for me to provide it. After receiving the Blueprint, confirm you've read it by summarizing: the workflow name, the number of steps, and the workflow outcome. Then proceed to Step 2.
+Wait for me to provide it. After receiving the Blueprint, confirm you've read it by summarizing: the workflow name, the number of steps, and the workflow outcome. Then proceed to Part 2.
 
 ---
 
-## Step 2 — AI Building Block Mapping
+## Part 2 — AI Building Block Mapping
 
 For each refined step from the Blueprint, determine:
 
@@ -81,7 +81,7 @@ Present the mapping as a clear table, then walk me through your reasoning for an
 
 ---
 
-## Step 3 — Generate Workflow Analysis Document
+## Part 3 — Generate Workflow Analysis Document
 
 After I confirm the mapping, produce the complete **Workflow Analysis Document** as a Markdown file.
 
