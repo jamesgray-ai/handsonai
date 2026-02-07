@@ -193,7 +193,7 @@ After presenting the AI Building Block Map, tell me:
 
 ## What This Prompt Produces
 
-The **AI Building Block Map** (Deliverable 1) contains:
+The **AI Building Block Map** contains:
 
 - **Scenario summary** — workflow metadata from the Workflow Definition
 - **Decomposition table** — every step with autonomy classification, decision points, failure modes, data flows, context needs, and AI building block mapping

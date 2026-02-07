@@ -3,7 +3,7 @@ name: finding-ai-opportunities
 description: >
   Discover where AI can improve your workflows through a structured audit.
   Produces a prioritized report of opportunities across three categories:
-  Collaborative AI, Deterministic Workflows, and Multi-Agent Systems.
+  Deterministic Workflows, Collaborative AI, and Autonomous Agents.
   This is Phase 1 of the Business-First AI Framework.
 ---
 
@@ -51,24 +51,22 @@ Once you can identify at least 3 concrete, specific opportunities with enough de
 
 After presenting the full report, ask the user to pick ONE opportunity from each category that they want to build during the course. Once they've chosen, produce a **Workflow Candidate Summary** in this exact format:
 
----
+```markdown
+- **Workflow:** [name]
+- **Type:** Deterministic
+- **Pain point:** [1 sentence]
+- **AI opportunity:** [1 sentence]
 
-**Workflow:** [3-5 word name]
-**Type:** Collaborative AI
-**Pain point:** [1 sentence — what makes this time-consuming or frustrating today]
-**AI opportunity:** [1 sentence — how AI could help]
+- **Workflow:** [name]
+- **Type:** Collaborative AI
+- **Pain point:** [1 sentence]
+- **AI opportunity:** [1 sentence]
 
-**Workflow:** [3-5 word name]
-**Type:** Deterministic Automation
-**Pain point:** [1 sentence]
-**AI opportunity:** [1 sentence]
-
-**Workflow:** [3-5 word name]
-**Type:** Autonomous Agent
-**Pain point:** [1 sentence]
-**AI opportunity:** [1 sentence]
-
----
+- **Workflow:** [name]
+- **Type:** Autonomous Agent
+- **Pain point:** [1 sentence]
+- **AI opportunity:** [1 sentence]
+```
 
 Append this summary to the output file under a `## Workflow Candidate Summary` heading.
 
@@ -82,7 +80,7 @@ The report must include:
 
 | # | Opportunity | Category | Impact |
 |---|------------|----------|--------|
-| 1 | [Name] | Collaborative AI / Deterministic Workflow / Multi-Agent System | High / Medium / Low |
+| 1 | [Name] | Deterministic Workflow / Collaborative AI / Autonomous Agent | High / Medium / Low |
 
 ### Detailed Opportunity Cards
 
@@ -94,7 +92,7 @@ For each opportunity:
 
 **[#] [Opportunity Name]**
 
-**Category:** Collaborative AI | Deterministic Workflow | Multi-Agent System
+**Category:** Deterministic Workflow | Collaborative AI | Autonomous Agent
 
 **Why it's a good candidate:**
 [What characteristics make this well-suited for AI — repetitive, pattern-based, language-heavy, clear inputs/outputs, etc.]
@@ -114,9 +112,9 @@ For each opportunity:
 
 Use these definitions when categorizing:
 
-- **Collaborative AI**: Human and AI work together in real time. The human drives the process; AI contributes suggestions, drafts, analysis, or feedback. Examples: co-writing, brainstorming, code review, data analysis.
 - **Deterministic Workflow**: A repeatable process with clear inputs, rules, and outputs that AI can execute reliably with minimal supervision. Examples: formatting reports, processing forms, generating routine communications, data transformation.
-- **Multi-Agent System**: A complex workflow where multiple AI agents (or AI + automation tools) coordinate across steps. Requires orchestration. Examples: research-then-write pipelines, intake-triage-routing systems, monitoring-alerting-response workflows.
+- **Collaborative AI**: Human and AI work together in real time. The human drives the process; AI contributes suggestions, drafts, analysis, or feedback. Examples: co-writing, brainstorming, code review, data analysis.
+- **Autonomous Agent**: A goal-driven workflow where AI plans and executes steps autonomously. The agent reasons about what to do, calls tools as needed, and adapts its approach. Ranges from a single agent handling a complex task to multi-agent systems where specialized agents coordinate across steps. Examples: competitor monitoring and alerting, research → analysis → report pipelines, intake → triage → routing systems.
 
 ## Guidelines
 

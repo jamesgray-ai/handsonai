@@ -19,9 +19,9 @@ Find which workflows are candidates for AI.
 
 Before you can apply AI to anything, you need to know *where* it fits. Phase 1 is a structured audit of your workflows that produces a prioritized list of opportunities across three categories:
 
-- **Collaborative AI** — Tasks where you and AI work together in real time (drafting, brainstorming, reviewing)
 - **Deterministic Workflows** — Repeatable processes with clear inputs and outputs that AI can execute reliably with little supervision
-- **Multi-Agent Systems** — Complex workflows where multiple AI agents coordinate across steps
+- **Collaborative AI** — Tasks where you and AI work together in real time (drafting, brainstorming, reviewing)
+- **Autonomous Agents** — Goal-driven workflows where AI plans and executes steps autonomously
 
 The audit uses a three-step process: scan what AI already knows about your work, interview you to fill gaps, then produce a categorized report with specific opportunities and actionable first steps.
 
@@ -81,9 +81,9 @@ Quick reference for the framework's vocabulary:
 
 | Category | Description | Example |
 |----------|-------------|---------|
-| **Collaborative AI** | Human and AI work together in real time | Co-writing, brainstorming, code review |
 | **Deterministic Workflow** | Repeatable process AI executes with minimal supervision | Formatting reports, processing forms |
-| **Multi-Agent System** | Multiple AI agents coordinate across steps | Research → analysis → report pipelines |
+| **Collaborative AI** | Human and AI work together in real time | Co-writing, brainstorming, code review |
+| **Autonomous Agent** | AI plans and executes steps autonomously | Competitor monitoring, research → report pipelines |
 
 ### Five-Question Framework
 
