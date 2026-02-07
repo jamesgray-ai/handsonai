@@ -28,5 +28,4 @@ Platform-specific documentation and guides.
 
 ## Related
 
-- [Integration How-Tos](../../how-to/integrations/)
-- [Troubleshooting](../../troubleshooting/)
+- [Agentic Building Blocks](../agentic-building-blocks/index.md)

@@ -8,12 +8,12 @@ Hands-On AI (handsonai.info) — the consolidated site for James Gray's AI cours
 
 ## Repository Structure
 
+- `docs/agentic-building-blocks/` - The six AI building blocks (Prompts, Context, Projects, Skills, Agents, MCP)
+- `docs/business-first-ai-framework/` - Three-phase methodology (Discover, Deconstruct, Build)
 - `docs/platforms/` - Platform-specific content (Claude, OpenAI, Gemini, M365 Copilot)
-- `docs/fundamentals/` - Cross-platform concepts, builder setup, patterns
+- `docs/builder-setup/` - Developer tool installation guides (terminal, Git, editor, Claude Code)
+- `docs/patterns/` - Reusable patterns and best practices
 - `docs/courses/` - Structured course content (builders, leaders)
-- `docs/questions/` - AEO-optimized Q&A content
-- `docs/how-to/` - Problem-focused guides
-- `docs/troubleshooting/` - Common issues and solutions
 - `docs/overrides/main.html` - FAQPage JSON-LD schema injection for AEO
 - `docs/_templates/` - Content templates for contributors
 - `.claude/agents/` - Claude Code subagent definitions (local/development copies)

@@ -13,7 +13,7 @@ Set up your Claude environment:
 
 | Guide | Description |
 |-------|-------------|
-| [Claude Code Installation](../../fundamentals/developer-setup/claude-code-install.md) | Install the CLI and VS Code extension |
+| [Claude Code Installation](../../builder-setup/claude-code-install.md) | Install the CLI and VS Code extension |
 | [Claude Personalization](getting-started/claude-personalization-setup.md) | Configure Claude to understand your context |
 
 ## Projects

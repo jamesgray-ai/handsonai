@@ -11,12 +11,11 @@ Thank you for contributing to Hands-On AI! This guide explains how to add new co
 
 | Section | Location | Purpose |
 |---------|----------|---------|
-| Getting Started | `getting-started/` | Tool setup and installation guides |
-| Questions | `questions/` | Answer specific questions (AEO-optimized) |
-| How-To Guides | `how-to/` | Solve specific problems |
-| Topics | `topics/` | Explain concepts in depth |
+| Agentic Building Blocks | `agentic-building-blocks/` | The six AI building blocks (Prompts, Context, Projects, Skills, Agents, MCP) |
+| Business-First AI Framework | `business-first-ai-framework/` | Three-phase methodology (Discover, Deconstruct, Build) |
+| Platforms | `platforms/` | Platform-specific content (Claude, OpenAI, Gemini, M365 Copilot) |
+| Builder Setup | `builder-setup/` | Tool setup and installation guides |
 | Patterns | `patterns/` | Document reusable approaches |
-| Troubleshooting | `troubleshooting/` | Fix common errors |
 | Courses | `courses/` | Structured learning paths (course-specific) |
 
 ## Content Types and Templates
@@ -42,7 +41,7 @@ Questions are optimized for Answer Engine Optimization (AEO) - making content ea
 
 ### How to Add a Question
 
-1. Copy `_templates/question-template.md` to the appropriate subdirectory in `questions/`
+1. Copy `_templates/question-template.md` to the appropriate subdirectory (e.g., `agentic-building-blocks/prompts/questions/` or `platforms/claude/questions/`)
 2. Name the file as a URL-friendly version of the question: `how-do-i-handle-rate-limits.md`
 3. Fill in all sections:
    - **YAML frontmatter** - Machine-readable metadata (includes `short_answer` for JSON-LD schema)
@@ -91,7 +90,7 @@ author: Your Name
 
 ## Adding a How-To Guide
 
-1. Copy `_templates/how-to-template.md` to the appropriate subdirectory in `how-to/`
+1. Copy `_templates/how-to-template.md` to the appropriate subdirectory under the relevant section
 2. Name the file descriptively: `stream-responses.md`, `handle-rate-limits.md`
 3. Fill in all sections of the template
 4. Add a link to the section's README.md index

@@ -108,7 +108,7 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) as ex
 Document, name, register, and sync AI operational workflows and skills.
 
 !!! note
-    This plugin requires a Notion account and the [Notion MCP connector](../fundamentals/developer-setup/notion-registry-setup.md). Without it, Claude can follow the naming and writing conventions but cannot save entries to Notion.
+    This plugin requires a Notion account and the [Notion MCP connector](../builder-setup/notion-registry-setup.md). Without it, Claude can follow the naming and writing conventions but cannot save entries to Notion.
 
 ```bash
 /plugin install ai-registry@handsonai

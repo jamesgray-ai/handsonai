@@ -13,9 +13,9 @@ Create a GitHub repository to store and version your AI prompts, skills, and ref
 
 **Setup Guides (complete in order):**
 
-1. [Git Installation](../../fundamentals/developer-setup/git-install.md) — Install Git on your machine
-2. [Editor Setup](../../fundamentals/developer-setup/editor-setup.md) — Install Cursor or VS Code
-3. [GitHub Setup](../../fundamentals/developer-setup/github-setup.md) — Create account and clone repositories
+1. [Git Installation](../../builder-setup/git-install.md) — Install Git on your machine
+2. [Editor Setup](../../builder-setup/editor-setup.md) — Install Cursor or VS Code
+3. [GitHub Setup](../../builder-setup/github-setup.md) — Create account and clone repositories
 
 ## Lesson: Configure Your AI Code Editor
 
@@ -23,7 +23,7 @@ Set up Claude Code for AI-assisted development in your editor and terminal.
 
 **Setup Guide:**
 
-- [Claude Code Setup](../../fundamentals/developer-setup/claude-code-install.md) — Install extension and CLI, configure your environment
+- [Claude Code Setup](../../builder-setup/claude-code-install.md) — Install extension and CLI, configure your environment
 
 ## Lesson: Implement Voice-to-Text for Hands-Free AI Collaboration
 
@@ -31,7 +31,7 @@ Enable voice input for hands-free AI collaboration.
 
 **Setup Guide:**
 
-- [Voice-to-Text Setup](../../fundamentals/developer-setup/voice-to-text-setup.md) — Configure Wispr Flow and Claude Desktop Quick Entry
+- [Voice-to-Text Setup](../../builder-setup/voice-to-text-setup.md) — Configure Wispr Flow and Claude Desktop Quick Entry
 
 ## Lesson: Build Your AI Registry
 
@@ -39,7 +39,7 @@ Create your central hub for managing all AI operations across your business.
 
 **Setup Guide:**
 
-- [Notion Registry Setup](../../fundamentals/developer-setup/notion-registry-setup.md) — Duplicate the Notion database templates and customize for your business
+- [Notion Registry Setup](../../builder-setup/notion-registry-setup.md) — Duplicate the Notion database templates and customize for your business
 
 ## Lesson: Configure MCP Server Connections
 

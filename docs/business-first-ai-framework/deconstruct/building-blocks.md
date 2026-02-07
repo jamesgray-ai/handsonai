@@ -7,6 +7,9 @@ description: Classify workflow steps on the autonomy spectrum, map them to AI bu
 
 > **Part of:** [Deconstruct Workflows](index.md)
 
+!!! tip "New to the six building blocks?"
+    See the [Agentic Building Blocks](../../agentic-building-blocks/index.md) reference for definitions, examples, and cross-platform comparisons.
+
 ## What This Is
 
 A classification step where AI takes your Workflow Definition and determines what level of AI assistance each step needs — from fully human to fully autonomous — and maps each step to the specific AI building blocks required.

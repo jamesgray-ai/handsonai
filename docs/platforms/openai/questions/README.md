@@ -16,4 +16,4 @@ Questions specific to OpenAI's GPT models, Assistants API, and platform features
 ## Related Resources
 
 - [OpenAI Topics](../topics/README.md)
-- [Integration How-To Guides](../../../how-to/integrations/README.md)
+- [Agentic Building Blocks](../../../agentic-building-blocks/index.md)

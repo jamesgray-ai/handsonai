@@ -106,6 +106,8 @@ Used to decompose each workflow step:
 | **MCP (Model Context Protocol)** | A connector that lets AI access external tools, services, or databases on your behalf |
 | **Project** | A persistent workspace grouping prompts, context, skills, and agents |
 
+For detailed definitions and cross-platform examples, see [Agentic Building Blocks](../agentic-building-blocks/index.md).
+
 ### Autonomy Spectrum
 
 | Level | Description |

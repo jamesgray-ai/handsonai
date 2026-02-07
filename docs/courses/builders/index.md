@@ -52,7 +52,7 @@ By the end of the course, you'll have five production-ready assets: 5+ Skills, 3
 - GitHub, Cursor or VS Code, Chrome installed
 - macOS or Windows with admin access to install software
 
-Setup guides are available under [Builder Setup](../../fundamentals/developer-setup/claude-code-install.md) in the Fundamentals section.
+Setup guides are available under [Builder Setup](../../builder-setup/claude-code-install.md).
 
 ## Instructor
 

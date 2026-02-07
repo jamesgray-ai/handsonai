@@ -187,5 +187,5 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 - **Previous step:** Not sure which workflow to deconstruct? Start with the [Discover AI Workflow Opportunities](../discover.md) (Phase 1) to identify your best candidates.
 - **Next step:** Ready to build? See the [Build Workflows](../build/index.md) (Phase 3) for worked examples across the autonomy spectrum.
 - [Business-First AI Framework](../index.md) — the full three-phase methodology
-- [Prompt Engineering Fundamentals](../../fundamentals/prompt-engineering/README.md)
-- [Agents & Tools Overview](../../fundamentals/agents-and-tools/README.md)
+- [Prompts](../../agentic-building-blocks/prompts/index.md)
+- [Agents](../../agentic-building-blocks/agents/index.md)

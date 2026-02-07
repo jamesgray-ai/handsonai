@@ -235,5 +235,5 @@ Most people discover 5–15 opportunities across the three categories. You'll pi
 
 - **Next step:** Ready to act on an opportunity? Use the [Deconstruct Workflows guide](deconstruct/index.md) (Phase 2) to break it into AI building blocks.
 - [Business-First AI Framework](index.md) — the full three-phase methodology
-- [Prompt Engineering Fundamentals](../fundamentals/prompt-engineering/README.md)
-- [Agents & Tools Overview](../fundamentals/agents-and-tools/README.md)
+- [Prompts](../agentic-building-blocks/prompts/index.md)
+- [Agents](../agentic-building-blocks/agents/index.md)

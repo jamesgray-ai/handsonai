@@ -50,6 +50,7 @@ plugins:
       fallback_to_build_date: true
   - redirects:
       redirect_maps:
+        # Legacy how-to redirects (unchanged destinations)
         how-to/prompting/ai-workflow-opportunity-finder.md: business-first-ai-framework/discover.md
         how-to/prompting/workflow-deconstruction-meta-prompt.md: business-first-ai-framework/deconstruct/index.md
         how-to/prompting/workflow-deconstruction-discovery.md: business-first-ai-framework/deconstruct/workflow-definition.md
@@ -62,6 +63,52 @@ plugins:
         how-to/workflow-examples/deterministic-automation.md: business-first-ai-framework/build/deterministic-automation.md
         how-to/workflow-examples/ai-collaborative.md: business-first-ai-framework/build/ai-collaborative.md
         how-to/workflow-examples/autonomous-agent.md: business-first-ai-framework/build/autonomous-agent.md
+        # Legacy how-to workspace instructions → new location
+        how-to/prompting/workspace-instructions-meta-prompt.md: agentic-building-blocks/projects/workspace-instructions-meta-prompt.md
+        # Fundamentals building blocks → new top-level locations
+        fundamentals/agentic-building-blocks/README.md: agentic-building-blocks/index.md
+        fundamentals/agentic-building-blocks/prompts/README.md: agentic-building-blocks/prompts/index.md
+        fundamentals/agentic-building-blocks/prompts/prompt-engineering/README.md: agentic-building-blocks/prompts/prompt-engineering/index.md
+        fundamentals/agentic-building-blocks/prompts/prompt-engineering/resources.md: agentic-building-blocks/prompts/prompt-engineering/resources.md
+        fundamentals/agentic-building-blocks/projects/README.md: agentic-building-blocks/projects/index.md
+        fundamentals/agentic-building-blocks/projects/workspace-instructions-meta-prompt.md: agentic-building-blocks/projects/workspace-instructions-meta-prompt.md
+        fundamentals/agentic-building-blocks/agents/README.md: agentic-building-blocks/agents/index.md
+        fundamentals/agentic-building-blocks/agents/resources.md: agentic-building-blocks/agents/resources.md
+        # Older fundamentals paths → new locations
+        fundamentals/projects/README.md: agentic-building-blocks/projects/index.md
+        fundamentals/projects/workspace-instructions-meta-prompt.md: agentic-building-blocks/projects/workspace-instructions-meta-prompt.md
+        fundamentals/agents-and-tools/README.md: agentic-building-blocks/agents/index.md
+        fundamentals/agents-and-tools/resources.md: agentic-building-blocks/agents/resources.md
+        fundamentals/prompt-engineering/README.md: agentic-building-blocks/prompts/prompt-engineering/index.md
+        fundamentals/prompt-engineering/resources.md: agentic-building-blocks/prompts/prompt-engineering/resources.md
+        # Fundamentals builder setup → new top-level builder-setup
+        fundamentals/developer-setup/terminal-basics.md: builder-setup/terminal-basics.md
+        fundamentals/developer-setup/claude-code-install.md: builder-setup/claude-code-install.md
+        fundamentals/developer-setup/editor-setup.md: builder-setup/editor-setup.md
+        fundamentals/developer-setup/git-install.md: builder-setup/git-install.md
+        fundamentals/developer-setup/github-setup.md: builder-setup/github-setup.md
+        fundamentals/developer-setup/notion-registry-setup.md: builder-setup/notion-registry-setup.md
+        fundamentals/developer-setup/voice-to-text-setup.md: builder-setup/voice-to-text-setup.md
+        # Fundamentals patterns → new top-level patterns
+        fundamentals/patterns/README.md: patterns/index.md
+        # Fundamentals index → building blocks (best landing page)
+        fundamentals/index.md: agentic-building-blocks/index.md
+        fundamentals/topics-overview.md: agentic-building-blocks/index.md
+        # Questions → new locations
+        questions/prompting/what-is-a-system-prompt.md: agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md
+        questions/strategy/how-do-i-find-workflows-worth-applying-ai-to.md: business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to.md
+        questions/strategy/how-do-i-identify-the-right-ai-tools-for-a-workflow.md: business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow.md
+        questions/README.md: agentic-building-blocks/index.md
+        questions/prompting/README.md: agentic-building-blocks/prompts/index.md
+        questions/agents/README.md: agentic-building-blocks/agents/index.md
+        questions/strategy/README.md: business-first-ai-framework/index.md
+        questions/platforms/README.md: platforms/index.md
+        # Eliminated sections → best available destinations
+        how-to/README.md: agentic-building-blocks/index.md
+        how-to/agents/README.md: agentic-building-blocks/agents/index.md
+        how-to/integrations/README.md: platforms/index.md
+        how-to/prompting/README.md: agentic-building-blocks/prompts/index.md
+        troubleshooting/README.md: platforms/claude/subagents/scheduling-subagent-issues.md
 
 markdown_extensions:
   - admonition
@@ -97,6 +144,27 @@ nav:
       - Deterministic Automation: business-first-ai-framework/build/deterministic-automation.md
       - AI Collaborative: business-first-ai-framework/build/ai-collaborative.md
       - Autonomous Agent: business-first-ai-framework/build/autonomous-agent.md
+    - Questions:
+      - Find workflows worth applying AI to: business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to.md
+      - Identify the right AI tools for a workflow: business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow.md
+  - Agentic Building Blocks:
+    - Overview: agentic-building-blocks/index.md
+    - Prompts:
+      - Overview: agentic-building-blocks/prompts/index.md
+      - Prompt Engineering:
+        - Overview: agentic-building-blocks/prompts/prompt-engineering/index.md
+        - Resources: agentic-building-blocks/prompts/prompt-engineering/resources.md
+      - Questions:
+        - What is a system prompt?: agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md
+    - Context: agentic-building-blocks/context/index.md
+    - Projects:
+      - Overview: agentic-building-blocks/projects/index.md
+      - Project Instructions: agentic-building-blocks/projects/workspace-instructions-meta-prompt.md
+    - Skills: agentic-building-blocks/skills/index.md
+    - Agents:
+      - Overview: agentic-building-blocks/agents/index.md
+      - Resources: agentic-building-blocks/agents/resources.md
+    - MCP: agentic-building-blocks/mcp/index.md
   - Platforms:
     - Overview: platforms/index.md
     - Claude:
@@ -141,42 +209,15 @@ nav:
     - Using Plugins: plugins/using-plugins.md
     - Business-First AI: plugins/business-first-ai.md
     - AI Registry: plugins/ai-registry.md
-  - Fundamentals:
-    - Overview: fundamentals/index.md
-    - Agents & Tools:
-      - Overview: fundamentals/agents-and-tools/README.md
-      - Resources: fundamentals/agents-and-tools/resources.md
-    - Builder Stack Setup:
-      - Terminal Basics: fundamentals/developer-setup/terminal-basics.md
-      - Claude Code Installation: fundamentals/developer-setup/claude-code-install.md
-      - Editor Setup: fundamentals/developer-setup/editor-setup.md
-      - Git Installation: fundamentals/developer-setup/git-install.md
-      - GitHub Setup: fundamentals/developer-setup/github-setup.md
-      - AI Registry: fundamentals/developer-setup/notion-registry-setup.md
-      - Voice to Text: fundamentals/developer-setup/voice-to-text-setup.md
-    - Patterns: fundamentals/patterns/README.md
-    - Prompt Engineering:
-      - Overview: fundamentals/prompt-engineering/README.md
-      - Resources: fundamentals/prompt-engineering/resources.md
-  - How-To Guides:
-    - Overview: how-to/README.md
-    - Agents: how-to/agents/README.md
-    - Integrations: how-to/integrations/README.md
-    - Prompting:
-      - how-to/prompting/README.md
-      - Write Custom Workspace Instructions: how-to/prompting/workspace-instructions-meta-prompt.md
-  - Questions:
-    - Overview: questions/README.md
-    - Strategy:
-      - Overview: questions/strategy/README.md
-      - Find workflows worth applying AI to: questions/strategy/how-do-i-find-workflows-worth-applying-ai-to.md
-      - Identify the right AI tools for a workflow: questions/strategy/how-do-i-identify-the-right-ai-tools-for-a-workflow.md
-    - Agents: questions/agents/README.md
-    - Prompting:
-      - Overview: questions/prompting/README.md
-      - What is a system prompt?: questions/prompting/what-is-a-system-prompt.md
-  - Troubleshooting:
-    - Overview: troubleshooting/README.md
+  - Builder Setup:
+    - Terminal Basics: builder-setup/terminal-basics.md
+    - Claude Code Installation: builder-setup/claude-code-install.md
+    - Editor Setup: builder-setup/editor-setup.md
+    - Git Installation: builder-setup/git-install.md
+    - GitHub Setup: builder-setup/github-setup.md
+    - AI Registry: builder-setup/notion-registry-setup.md
+    - Voice to Text: builder-setup/voice-to-text-setup.md
+  - Patterns: patterns/index.md
   - Courses:
     - Overview: courses/index.md
     - Agentic AI for Leaders: courses/leaders/index.md

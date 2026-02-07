@@ -226,4 +226,4 @@ Start by running the baseline prompt on a real scenario. See what works, refine 
 
 Keep all four files together — in a folder, a repo, or wherever you store your workflow documentation. You can share any of these with your instructor or team for feedback.
 
-For more on building skills and agents, see [Agents & Tools Overview](../../fundamentals/agents-and-tools/README.md).
+For more on building skills and agents, see [Agents](../../agentic-building-blocks/agents/index.md).

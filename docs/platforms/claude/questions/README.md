@@ -17,4 +17,4 @@ Questions specific to Anthropic's Claude models and API.
 ## Related Resources
 
 - [Claude Topics](../topics/README.md)
-- [Integration How-To Guides](../../../how-to/integrations/README.md)
+- [Agentic Building Blocks](../../../agentic-building-blocks/index.md)

@@ -11,7 +11,7 @@ Not sure what plugins are? Read the [Plugin Marketplace overview](index.md#why-p
 
 ## Prerequisites
 
-- **Claude Code** installed and working ([Installation Guide](../fundamentals/developer-setup/claude-code-install.md))
+- **Claude Code** installed and working ([Installation Guide](../builder-setup/claude-code-install.md))
 - An active **Claude Pro, Max, Team, or Enterprise** subscription (plugins are not available on the free plan)
 
 ## Step 1: Add the Marketplace
@@ -135,7 +135,7 @@ Check the plugin name is spelled correctly and includes the `@handsonai` suffix:
 
 ### "Permission denied" or authentication errors
 
-The marketplace is public. If you see authentication errors, check your GitHub CLI configuration ([GitHub Setup guide](../fundamentals/developer-setup/github-setup.md)).
+The marketplace is public. If you see authentication errors, check your GitHub CLI configuration ([GitHub Setup guide](../builder-setup/github-setup.md)).
 
 Run this in your **terminal** (not inside Claude Code):
 

@@ -8,7 +8,7 @@ description: Document, name, register, and sync AI operational workflows and ski
 Skills for building a structured registry of your AI workflows and skills. This plugin gives Claude the conventions for naming workflows, writing documentation (SOPs and process guides), registering skills in Notion, and syncing everything to GitHub. Use it to build an organized, searchable inventory of your AI operations.
 
 !!! note "Prerequisites"
-    This plugin requires a **Notion account** and the **Notion MCP connector**. Without it, Claude can follow the naming and documentation conventions but cannot save entries to Notion. See [Notion Registry Setup](../fundamentals/developer-setup/notion-registry-setup.md) for configuration instructions.
+    This plugin requires a **Notion account** and the **Notion MCP connector**. Without it, Claude can follow the naming and documentation conventions but cannot save entries to Notion. See [Notion Registry Setup](../builder-setup/notion-registry-setup.md) for configuration instructions.
 
 ## Install
 
@@ -241,7 +241,7 @@ These skills work best in sequence, building from naming through to version cont
 No. Each skill works independently. Start with `naming-workflows` if you're building a registry from scratch, or `registering-skills` if you just want to track your existing Claude Skills.
 
 **What if I don't have Notion set up?**
-Claude will still follow the naming conventions, SOP templates, and documentation patterns — it just won't save to Notion. See [Notion Registry Setup](../fundamentals/developer-setup/notion-registry-setup.md) to configure the MCP connector.
+Claude will still follow the naming conventions, SOP templates, and documentation patterns — it just won't save to Notion. See [Notion Registry Setup](../builder-setup/notion-registry-setup.md) to configure the MCP connector.
 
 **What's the difference between a Process Guide and an SOP?**
 A Process Guide is strategic: when to execute, why it matters, what order the workflows go in. An SOP is tactical: step-by-step instructions for executing a single workflow. Think of the Process Guide as the playbook and SOPs as the play pages.

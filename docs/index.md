@@ -21,29 +21,21 @@ Guides, patterns, ready-made tools, and direct answers — everything you need t
 
     [:octicons-arrow-right-24: Choose your platform](platforms/)
 
--   :material-lightbulb:{ .lg .middle } **Fundamentals**
+-   :material-lightbulb:{ .lg .middle } **Agentic Building Blocks**
 
     ---
 
-    Core concepts that apply across every AI tool — prompt engineering, agents, patterns, and developer setup
+    The six components of every AI workflow — prompts, context, projects, skills, agents, and MCP
 
-    [:octicons-arrow-right-24: Core concepts](fundamentals/)
+    [:octicons-arrow-right-24: Building blocks](agentic-building-blocks/)
 
--   :material-help-circle:{ .lg .middle } **Questions & Answers**
-
-    ---
-
-    Straight answers to the questions people actually ask about AI
-
-    [:octicons-arrow-right-24: Find answers](questions/)
-
--   :material-wrench:{ .lg .middle } **How-To Guides**
+-   :material-wrench:{ .lg .middle } **Builder Setup**
 
     ---
 
-    Step-by-step solutions to specific problems — agents, integrations, and prompting techniques
+    Essential tools for your AI builder workflow — terminal, Git, editor, Claude Code, and more
 
-    [:octicons-arrow-right-24: Solve a problem](how-to/)
+    [:octicons-arrow-right-24: Set up your stack](builder-setup/claude-code-install.md)
 
 -   :material-puzzle-outline:{ .lg .middle } **Plugins**
 
@@ -67,13 +59,12 @@ Guides, patterns, ready-made tools, and direct answers — everything you need t
 
 | I want to... | Go here |
 |-------------|---------|
-| Set up Claude Code | [Installation Guide](fundamentals/developer-setup/claude-code-install.md) |
-| Understand system prompts | [What is a system prompt?](questions/prompting/what-is-a-system-prompt.md) |
+| Set up Claude Code | [Installation Guide](builder-setup/claude-code-install.md) |
+| Understand system prompts | [What is a system prompt?](agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md) |
 | Schedule AI agents | [Scheduling Subagents](platforms/claude/subagents/scheduling-subagents.md) |
-| Set up Git and GitHub | [Developer Setup](fundamentals/developer-setup/git-install.md) |
-| Solve a specific problem | [How-To Guides](how-to/) |
+| Set up Git and GitHub | [Git Installation](builder-setup/git-install.md) |
+| Learn the six AI building blocks | [Agentic Building Blocks](agentic-building-blocks/) |
 | Install Claude Code plugins | [Plugin Marketplace](plugins/) |
-| Fix an error | [Troubleshooting](troubleshooting/) |
 | Take a structured course | [Courses](courses/) |
 
 ## About

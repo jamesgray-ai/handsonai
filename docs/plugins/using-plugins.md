@@ -70,7 +70,7 @@ The format is `/plugin-name:skill-name`.
 | `business-first-ai` | `/business-first-ai:editing-hbr-articles` | Loads HBR editorial criteria for article editing |
 
 !!! note
-    Skills from the `ai-registry` plugin require the [Notion MCP connector](../fundamentals/developer-setup/notion-registry-setup.md) to be configured. Without it, Claude can follow the naming conventions and draft the output, but cannot read from or write to Notion.
+    Skills from the `ai-registry` plugin require the [Notion MCP connector](../builder-setup/notion-registry-setup.md) to be configured. Without it, Claude can follow the naming conventions and draft the output, but cannot read from or write to Notion.
 
 ### Checking what's installed
 
@@ -335,4 +335,4 @@ https://github.com/jamesgray-ai/handsonai/tree/main/plugins/<plugin-name>/skills
 
 - [Getting Started](getting-started.md) — install your first plugin (if you haven't already)
 - [Plugin Marketplace](index.md) — browse available plugins and see what each one does
-- [Notion Registry setup](../fundamentals/developer-setup/notion-registry-setup.md) — required for `ai-registry` skills that save to Notion
+- [Notion Registry setup](../builder-setup/notion-registry-setup.md) — required for `ai-registry` skills that save to Notion

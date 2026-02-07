@@ -16,4 +16,4 @@ Questions specific to Google's Gemini models and Vertex AI.
 ## Related Resources
 
 - [Gemini Topics](../topics/README.md)
-- [Integration How-To Guides](../../../how-to/integrations/README.md)
+- [Agentic Building Blocks](../../../agentic-building-blocks/index.md)
