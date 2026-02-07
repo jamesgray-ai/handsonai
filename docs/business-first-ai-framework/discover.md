@@ -86,6 +86,9 @@ There are four ways to run Phase 1, depending on which tools you use:
 
 All four options follow the same three-step process and produce the same structured report. Choose whichever fits your workflow.
 
+!!! tip "Classify opportunities with the six primitives"
+    Once you've identified opportunities, use the [six use case primitives](../use-cases/index.md) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — to classify what type of AI work each one involves. This makes it easier to find examples and choose the right building blocks.
+
 !!! tip "Best results come from rich context"
     The more the AI knows about your actual work, the better the recommendations. If possible, use a tool where you've had many prior conversations or uploaded relevant documents.
 

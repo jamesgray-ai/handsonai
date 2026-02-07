@@ -72,5 +72,6 @@ Context makes prompts smarter. Projects organize context persistently so you don
 ## Related
 
 - [Agentic Building Blocks](../index.md) — Context in the context of all six building blocks
+- [AI Use Cases](../../use-cases/index.md) — what teams build with context, organized by six primitives
 - [Prompts](../prompts/index.md) — the instructions that context enhances
 - [Projects](../projects/index.md) — where context becomes persistent and organized

@@ -29,4 +29,6 @@ Concepts for building AI agents and implementing tool use.
 ## Related
 
 - [Agentic Building Blocks](../index.md)
+- [AI Use Cases](../../use-cases/index.md) — what teams build with agents, organized by six primitives
+- [Automation Use Cases](../../use-cases/automation.md) — the highest-autonomy use cases powered by agents
 - [Patterns](../../patterns/index.md)

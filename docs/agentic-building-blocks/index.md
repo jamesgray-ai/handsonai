@@ -271,6 +271,10 @@ A project is an active workspace — it provides standing instructions, persiste
 - [MCP](mcp/index.md) — connecting AI to external systems
 - [Patterns](../patterns/index.md) — reusable approaches across building blocks
 
+**Use cases:**
+
+- [AI Use Cases](../use-cases/index.md) — what teams build with these blocks, organized by six primitives
+
 **Platform-specific guides:**
 
 - [Claude Projects](../platforms/claude/projects/claude-projects-setup.md) — setting up the Project block on Claude

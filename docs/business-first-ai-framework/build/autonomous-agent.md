@@ -161,6 +161,9 @@ To adapt: identify the distinct phases of your workflow and the specialist exper
 
 - [Deterministic Automation Workflow Example](./deterministic-automation.md) — when AI follows fixed rules with no judgment needed
 - [AI Collaborative Workflow Example](./ai-collaborative.md) — when AI and human iterate together
+- [Content Creation Use Cases](../../use-cases/content-creation.md) — more examples of AI-powered content workflows
+- [Research Use Cases](../../use-cases/research.md) — more examples of AI-powered research workflows
+- [Automation Use Cases](../../use-cases/automation.md) — turning multi-agent pipelines into scheduled operations
 - [Discover AI Workflow Opportunities](../discover.md) — discover which workflows are candidates for autonomous agents
 - [Deconstruct Workflows](../deconstruct/index.md) — break down workflows into agent-ready steps
 - [Plugin Marketplace](../../plugins/index.md) — browse all agents and skills used in this pipeline

@@ -113,5 +113,7 @@ To adapt: identify tasks where you spend significant time gathering information 
 
 - [Deterministic Automation Workflow Example](./deterministic-automation.md) — when AI follows fixed rules with no judgment needed
 - [Autonomous Agent Workflow Example](./autonomous-agent.md) — when AI executes end-to-end with minimal supervision
+- [Research Use Cases](../../use-cases/research.md) — more examples of AI-powered research workflows like meeting prep
+- [Ideation & Strategy Use Cases](../../use-cases/ideation-and-strategy.md) — collaborative brainstorming and planning with AI
 - [Discover AI Workflow Opportunities](../discover.md) — discover which workflows are candidates for AI collaboration
 - [Deconstruct Workflows](../deconstruct/index.md) — break down workflows into AI-ready steps

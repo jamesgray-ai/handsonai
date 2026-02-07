@@ -136,5 +136,7 @@ To adapt: identify the **input criteria** (the persona equivalent), the **evalua
 
 - [AI Collaborative Workflow Example](./ai-collaborative.md) — when AI needs to research, reason, and iterate with a human
 - [Autonomous Agent Workflow Example](./autonomous-agent.md) — when AI executes end-to-end with minimal supervision
+- [Research Use Cases](../../use-cases/research.md) — more examples of AI-powered research workflows
+- [Automation Use Cases](../../use-cases/automation.md) — turning deterministic workflows into scheduled pipelines
 - [Discover AI Workflow Opportunities](../discover.md) — discover which of your workflows are candidates for automation
 - [Deconstruct Workflows](../deconstruct/index.md) — break down complex workflows into automatable steps

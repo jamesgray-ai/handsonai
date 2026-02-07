@@ -108,6 +108,10 @@ Used to decompose each workflow step:
 
 For detailed definitions and cross-platform examples, see [Agentic Building Blocks](../agentic-building-blocks/index.md).
 
+### Six Use Case Primitives
+
+When classifying opportunities from Phase 1, it helps to know what **type** of AI work each one involves. The [six use case primitives](../use-cases/index.md) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — provide a classification system for the opportunities you discover.
+
 ### Autonomy Spectrum
 
 | Level | Description |

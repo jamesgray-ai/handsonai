@@ -165,6 +165,14 @@ nav:
       - Overview: agentic-building-blocks/agents/index.md
       - Resources: agentic-building-blocks/agents/resources.md
     - MCP: agentic-building-blocks/mcp/index.md
+  - Use Cases:
+    - Overview: use-cases/index.md
+    - Content Creation: use-cases/content-creation.md
+    - Research: use-cases/research.md
+    - Coding: use-cases/coding.md
+    - Data Analysis: use-cases/data-analysis.md
+    - Ideation & Strategy: use-cases/ideation-and-strategy.md
+    - Automation: use-cases/automation.md
   - Platforms:
     - Overview: platforms/index.md
     - Claude:

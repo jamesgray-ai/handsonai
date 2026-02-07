@@ -85,6 +85,7 @@ These are the working building blocks included across all three examples. Each o
 
 ## Related
 
+- [AI Use Cases](../../use-cases/index.md) — browse use cases by type (content creation, research, coding, data analysis, ideation, automation)
 - [Discover AI Workflow Opportunities](../discover.md) — discover which of your workflows are candidates for AI
 - [Deconstruct Workflows](../deconstruct/index.md) — break down workflows into automatable steps
 - [Plugin Marketplace](../../plugins/index.md) — browse all available plugins

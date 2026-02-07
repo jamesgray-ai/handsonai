@@ -29,6 +29,14 @@ Guides, patterns, ready-made tools, and direct answers — everything you need t
 
     [:octicons-arrow-right-24: Building blocks](agentic-building-blocks/)
 
+-   :material-target:{ .lg .middle } **Use Cases**
+
+    ---
+
+    Six primitives that cover what teams build with AI — content creation, research, coding, data analysis, ideation, and automation
+
+    [:octicons-arrow-right-24: Explore use cases](use-cases/)
+
 -   :material-wrench:{ .lg .middle } **Builder Setup**
 
     ---
@@ -64,6 +72,7 @@ Guides, patterns, ready-made tools, and direct answers — everything you need t
 | Schedule AI agents | [Scheduling Subagents](platforms/claude/subagents/scheduling-subagents.md) |
 | Set up Git and GitHub | [Git Installation](builder-setup/git-install.md) |
 | Learn the six AI building blocks | [Agentic Building Blocks](agentic-building-blocks/) |
+| Explore AI use cases by type | [Use Case Primitives](use-cases/) |
 | Install Claude Code plugins | [Plugin Marketplace](plugins/) |
 | Take a structured course | [Courses](courses/) |
 

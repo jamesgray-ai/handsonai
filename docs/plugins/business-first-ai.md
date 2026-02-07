@@ -515,7 +515,7 @@ The plugin covers the full Business-First AI Framework. Here's the recommended p
 ## FAQ
 
 **Which phase should I start with?**
-Start with Phase 1 (Discover) if you're not sure where AI fits in your work. Start with Phase 2 (Deconstruct) if you already know which workflow you want to automate. Start with Phase 3 (Build) if you want to study working examples before deconstructing your own workflows.
+Start with Phase 1 (Discover) if you're not sure where AI fits in your work. Browse [AI Use Cases](../use-cases/index.md) to see what types of work AI handles — content creation, research, coding, data analysis, ideation, and automation. Start with Phase 2 (Deconstruct) if you already know which workflow you want to automate. Start with Phase 3 (Build) if you want to study working examples before deconstructing your own workflows.
 
 **Can I start from a problem instead of a workflow?**
 Yes. Tell the `workflow-deconstructor` agent about your problem (e.g., "people keep dropping off during enrollment") and it will propose a candidate workflow for you to refine during discovery.

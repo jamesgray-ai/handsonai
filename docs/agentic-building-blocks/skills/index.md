@@ -75,6 +75,7 @@ The `SKILL.md` file contains the instructions. The `references/` folder holds an
 ## Related
 
 - [Agentic Building Blocks](../index.md) — Skills in the context of all six building blocks
+- [AI Use Cases](../../use-cases/index.md) — what teams build with skills, organized by six primitives
 - [Prompts](../prompts/index.md) — the foundation that skills build on
 - [Agents](../agents/index.md) — autonomous systems that invoke skills as part of multi-step workflows
 - [Plugin Marketplace](../../plugins/index.md) — pre-built skills you can install

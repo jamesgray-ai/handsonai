@@ -152,7 +152,9 @@ From there, the model proposes a step-by-step workflow to address the problem, a
 
 ### Not sure which workflow to try?
 
-Pick something you do regularly and could describe to a colleague over coffee. Here are some examples students have used:
+Browse the [AI Use Cases](../../use-cases/index.md) section for inspiration — it organizes examples by type (content creation, research, coding, data analysis, ideation, and automation) with department-specific scenarios.
+
+Or pick something you do regularly and could describe to a colleague over coffee. Here are some examples students have used:
 
 - **Weekly team status reporting** — gathering updates from multiple sources, synthesizing, and distributing a summary
 - **New client onboarding** — intake, account setup, kickoff scheduling, and initial deliverables

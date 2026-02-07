@@ -10,6 +10,7 @@ Hands-On AI (handsonai.info) — the consolidated site for James Gray's AI cours
 
 - `docs/agentic-building-blocks/` - The six AI building blocks (Prompts, Context, Projects, Skills, Agents, MCP)
 - `docs/business-first-ai-framework/` - Three-phase methodology (Discover, Deconstruct, Build)
+- `docs/use-cases/` - Six use case primitives (Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, Automation)
 - `docs/platforms/` - Platform-specific content (Claude, OpenAI, Gemini, M365 Copilot)
 - `docs/builder-setup/` - Developer tool installation guides (terminal, Git, editor, Claude Code)
 - `docs/patterns/` - Reusable patterns and best practices
