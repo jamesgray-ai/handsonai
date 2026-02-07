@@ -31,12 +31,12 @@ Once you've identified opportunities, use the [Deconstruct Workflows](../../busi
 4. **Pick 1-2 opportunities** to pilot first — don't try to pursue everything at once
 
 !!! tip "Start with Collaborative AI"
-    If you're new to AI, start with Collaborative AI opportunities — they're the easiest to try and lowest risk. Move to Deterministic Workflows once you've identified a process you repeat often. Explore Multi-Agent Systems when you have experience with the other two categories.
+    If you're new to AI, start with Collaborative AI opportunities — they're the easiest to try and lowest risk. Move to Deterministic Workflows once you've identified a process you repeat often. Explore Autonomous Agents when you have experience with the other two categories.
 
 ## Key Takeaways
 
 - Don't wait for problems — proactively audit your workflows to find AI opportunities
-- Think in three categories: collaborative AI, deterministic workflows, and multi-agent systems
+- Think in three categories: deterministic workflows, collaborative AI, and autonomous agents
 - Use the [Discover AI Workflow Opportunities](../../business-first-ai-framework/discover.md) meta prompt to run a structured audit
 - The richer context your AI has about your work, the better the recommendations
 - Start small — pick 1-2 opportunities and pilot them before scaling

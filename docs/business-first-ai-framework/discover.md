@@ -5,7 +5,7 @@ description: Use this prompt template to discover where AI can help automate, au
 
 # Discover AI Workflow Opportunities
 
-> **Platforms:** `claude` `openai` `gemini`
+> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 !!! info "Business-First AI Framework — Phase 1: Discover"
     This guide is **Phase 1** of the [Business-First AI Framework](index.md) — discovering where AI fits in your workflows.
@@ -17,7 +17,7 @@ A structured audit that helps you find where AI fits in your work. The AI scans 
 | | |
 |---|---|
 | **What you'll do** | Walk through a guided conversation covering your role, tasks, and pain points |
-| **What you'll get** | A prioritized report of AI opportunities across three levels — Collaborative AI, Deterministic Workflows, and Multi-Agent Systems — with concrete next steps for each |
+| **What you'll get** | A prioritized report of AI opportunities across three levels — Deterministic Workflows, Collaborative AI, and Autonomous Agents — with concrete next steps for each |
 | **Time** | ~20–30 minutes for the full conversation |
 
 ## Why This Matters
@@ -28,9 +28,9 @@ A proactive audit of your workflows can reveal opportunities you'd never notice 
 
 This prompt template guides an AI through a structured analysis of your work and produces a categorized report of opportunities across three levels:
 
-- **Collaborative AI** — Tasks where you and AI work together in real time (drafting, brainstorming, reviewing)
 - **Deterministic Workflows** — Repeatable processes that AI can execute reliably with little or no supervision
-- **Multi-Agent Systems** — Complex workflows where multiple AI agents coordinate to handle different steps
+- **Collaborative AI** — Tasks where you and AI work together in real time (drafting, brainstorming, reviewing)
+- **Autonomous Agents** — Goal-driven workflows where AI plans and executes steps autonomously, from single agents to multi-agent systems
 
 ## How to Use This
 
@@ -40,10 +40,10 @@ There are four ways to run Phase 1, depending on which tools you use:
 
     Use this if you're working in ChatGPT, Gemini, M365 Copilot, or any AI chat tool.
 
-    1. **Make sure memory is enabled** in your AI tool of choice — this lets the AI draw on everything it knows about you from past conversations
+    1. **If your AI tool has a memory or personalization feature, make sure it's enabled** — this lets the AI draw on what it knows about you from past conversations. If it doesn't, that's fine — the interview in Step 2 will gather everything it needs
     2. **Copy the prompt** from the [Prompt Template](#the-prompt-template) section below
     3. **Paste it into any conversation** — the AI will automatically scan its memory for context about your role, tasks, and workflows
-    4. **Review the output** and pick one or two opportunities to pilot first
+    4. **Review the output**, pick one opportunity from each category, and save the Workflow Candidate Summary
 
 === "Claude Code"
 
@@ -140,7 +140,7 @@ Start with a table listing every opportunity:
 
 | # | Opportunity | Category | Impact |
 |---|------------|----------|--------|
-| 1 | [Name] | Collaborative AI / Deterministic Workflow / Multi-Agent System | High / Medium / Low |
+| 1 | [Name] | Deterministic Workflow / Collaborative AI / Autonomous Agent | High / Medium / Low |
 
 ### Detailed Opportunity Cards
 
@@ -150,7 +150,7 @@ Then for each opportunity, provide a detailed card in this format:
 
 **[#] [Opportunity Name]**
 
-**Category:** Collaborative AI | Deterministic Workflow | Multi-Agent System
+**Category:** Deterministic Workflow | Collaborative AI | Autonomous Agent
 
 **Why it's a good candidate:**
 [What characteristics of this task make it well-suited for AI — e.g., it's repetitive, pattern-based, language-heavy, has clear inputs/outputs, etc.]
@@ -170,11 +170,11 @@ Then for each opportunity, provide a detailed card in this format:
 
 Use these definitions when categorizing:
 
-- **Collaborative AI**: Human and AI work together in real time. The human drives the process; AI contributes suggestions, drafts, analysis, or feedback. Examples: co-writing, brainstorming, code review, data analysis.
-
 - **Deterministic Workflow**: A repeatable process with clear inputs, rules, and outputs that AI can execute reliably with minimal supervision. Examples: formatting reports, processing forms, generating routine communications, data transformation.
 
-- **Multi-Agent System**: A complex workflow where multiple AI agents (or AI + automation tools) coordinate across steps. Requires orchestration. Examples: research → analysis → report generation pipelines, intake → triage → routing systems, monitoring → alerting → response workflows.
+- **Collaborative AI**: Human and AI work together in real time. The human drives the process; AI contributes suggestions, drafts, analysis, or feedback. Examples: co-writing, brainstorming, code review, data analysis.
+
+- **Autonomous Agent**: A goal-driven workflow where AI plans and executes steps autonomously. The agent reasons about what to do, calls tools as needed, and adapts its approach. Ranges from a single agent handling a complex task to multi-agent systems where specialized agents coordinate across steps. Examples: competitor monitoring and alerting, research → analysis → report pipelines, intake → triage → routing systems.
 
 Group the detailed cards by category. Within each category, order opportunities from highest to lowest impact.
 
@@ -182,28 +182,29 @@ Group the detailed cards by category. Within each category, order opportunities 
 
 ## Step 4 — Workflow Candidate Summary
 
-After presenting the full report, ask me to pick ONE opportunity from each category that I want to build during this course. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format:
+After presenting the full report, ask me to pick ONE opportunity from each category that I want to build during this course. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format, wrapped in a markdown code block so I can copy it easily:
 
----
+```markdown
+- **Workflow:** [name]
+- **Type:** Deterministic
+- **Pain point:** [1 sentence]
+- **AI opportunity:** [1 sentence]
+- **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
 
-**Workflow:** [3-5 word name]
-**Type:** Collaborative AI
-**Pain point:** [1 sentence — what makes this time-consuming or frustrating today]
-**AI opportunity:** [1 sentence — how AI could help]
+- **Workflow:** [name]
+- **Type:** Collaborative AI
+- **Pain point:** [1 sentence]
+- **AI opportunity:** [1 sentence]
+- **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
 
-**Workflow:** [3-5 word name]
-**Type:** Deterministic Automation
-**Pain point:** [1 sentence]
-**AI opportunity:** [1 sentence]
+- **Workflow:** [name]
+- **Type:** Autonomous Agent
+- **Pain point:** [1 sentence]
+- **AI opportunity:** [1 sentence]
+- **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
+```
 
-**Workflow:** [3-5 word name]
-**Type:** Autonomous Agent
-**Pain point:** [1 sentence]
-**AI opportunity:** [1 sentence]
-
----
-
-This summary is my assignment deliverable — format it so I can copy it directly into my course submission.
+This summary is my assignment deliverable — present it inside a code block so I can copy it directly into my course submission. For each "Why it matters" line, use what you learned about my priorities and goals during the interview to explain why this workflow is worth building.
 ```
 
 ## What to Expect
@@ -221,7 +222,7 @@ Most people discover 5–15 opportunities across the three categories. You'll pi
 
 - **Start with Collaborative AI** opportunities if you're new to AI — they're the easiest to try and lowest risk
 - **Move to Deterministic Workflows** once you've identified a process you repeat often — the time savings compound quickly
-- **Explore Multi-Agent Systems** when you have experience with the other two categories and need to automate complex, multi-step processes
+- **Explore Autonomous Agents** when you have experience with the other two categories and need to automate complex, multi-step processes
 
 ## Tips for Better Results
 

@@ -24,11 +24,12 @@ A three-conversation series that breaks down a business workflow into discrete s
 
 You can't operationalize AI on a process you don't understand. Before you can build an AI-powered workflow, you need to break it down into discrete steps, identify the decision points and data flows, and map each step to the right level of AI assistance.
 
-This series of prompts walks you through that deconstruction interactively. You provide the business scenario and rough steps — the model handles the structured analysis, applies the 5-question framework (discrete steps, decision points, data flows, context needs, failure modes), maps each step to AI building blocks, and generates three deliverables:
+This series of prompts walks you through that deconstruction interactively. You provide the business scenario and rough steps — the model handles the structured analysis, applies the 5-question framework (discrete steps, decision points, data flows, context needs, failure modes), maps each step to AI building blocks, and produces four deliverables:
 
-1. An **AI Building Block Map** — the full decomposition with autonomy classifications, AI building block mapping, a context inventory of every resource the workflow needs (documents, files, data sources, system access), and a prioritized build sequence
-2. A **Baseline Workflow Prompt** — a ready-to-use prompt that works on any platform; this is your starting point that will evolve as you build skills
-3. **Skill Specs** — actionable specs for reusable skills you can build to automate recurring steps
+1. A **Workflow Definition** — the structured breakdown of your workflow into refined steps, with decision points, data flows, context needs, and failure modes captured for every step
+2. An **AI Building Block Map** — autonomy classifications, AI building block mapping, a context inventory of every resource the workflow needs (documents, files, data sources, system access), and a prioritized build sequence
+3. A **Baseline Workflow Prompt** — a ready-to-use prompt that works on any platform; this is your starting point that will evolve as you build skills
+4. **Skill Specs** — actionable specs for reusable skills you can build to automate recurring steps
 
 This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../index.md#key-concepts) for quick definitions before starting.
 
@@ -40,7 +41,7 @@ The workflow deconstruction is split into three focused prompts. Each prompt pro
 |------|--------|-------------|----------|
 | 1 | [Workflow Definition](workflow-definition.md) | Discover the workflow, decompose every step | **Workflow Definition** |
 | 2 | [AI Building Blocks](building-blocks.md) | Classify steps, map AI building blocks | **AI Building Block Map** |
-| 3 | [Prompt & Skill Specs](prompt-skill-specs.md) | Generate the self-contained executable prompt (with execution context) and skill specs | **Baseline Prompt** + **Skill Specs** |
+| 3 | [Prompt & Skill Specs](prompt-skill-specs.md) | Generate the self-contained executable prompt (with execution context) and skill specs | **Baseline Workflow Prompt** + **Skill Specs** |
 
 **Between each step:** Download (or copy and save) the output artifact as a Markdown file, then upload or paste it into the next conversation. Each prompt starts by asking you to provide the previous step's output. The files use a consistent naming convention: `[workflow-name]-definition.md`, `[workflow-name]-building-blocks.md`, `[workflow-name]-prompt.md`, and `[workflow-name]-skill-specs.md`.
 
@@ -113,6 +114,11 @@ All four options follow the same process and produce the same deliverables. Choo
 
 !!! tip "Keep your files together"
     By the end you'll have four Markdown files: `[name]-definition.md`, `[name]-building-blocks.md`, `[name]-prompt.md`, and `[name]-skill-specs.md`. Keep them in a single folder — they form a complete record of your workflow deconstruction. You can share any of these files with your instructor for feedback, put them in version control, or hand them to a colleague.
+
+!!! tip "Markdown renders as formatted text"
+    Markdown (`.md`) files are plain text with lightweight formatting — headings, bold, lists, tables. Many tools render them automatically: GitHub, Notion, VS Code, and most code editors show the formatted version when you open the file. You can also paste Markdown into Google Docs or Notion and it converts on the fly.
+
+    If you'd prefer a polished document, ask your AI tool: "Convert this to a Word document" or "Reformat this as a PDF." The content is the same — Markdown is just the most portable starting format because it works everywhere and is easy to version-control.
 
 ### Example: What the first exchange looks like
 

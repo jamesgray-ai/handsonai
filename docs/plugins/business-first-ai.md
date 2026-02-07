@@ -95,7 +95,7 @@ Find which workflows are candidates for AI.
 
 #### `finding-ai-opportunities`
 
-**What it does:** Runs a structured audit of your workflows to discover where AI can help. Produces a prioritized report of opportunities across three categories: Collaborative AI, Deterministic Workflows, and Multi-Agent Systems.
+**What it does:** Runs a structured audit of your workflows to discover where AI can help. Produces a prioritized report of opportunities across three categories: Deterministic Workflows, Collaborative AI, and Autonomous Agents.
 
 **When to use it:** Use this when you want to figure out where AI fits in your work. Especially useful when you're new to AI and need a starting point, or when you want a systematic review rather than ad-hoc experimentation.
 

@@ -196,11 +196,11 @@ After presenting both files, summarize what I now have:
 
 ## What This Prompt Produces
 
-### Baseline Workflow Prompt (Deliverable 2)
+### Baseline Workflow Prompt
 
 A ready-to-paste prompt that works on any AI platform. Every step is spelled out in full — no skills or shortcuts required. This is your starting point. As you build skills from the recommendations, you'll update this prompt to call those skills instead of repeating the logic inline.
 
-### Skill Specs (Deliverable 3)
+### Skill Specs
 
 Actionable specs for each recommended skill, including:
 
