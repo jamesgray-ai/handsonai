@@ -25,6 +25,82 @@
          <lastmod>2026-02-07</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/agentic-building-blocks/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/resources/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/context/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/mcp/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/projects/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/projects/workspace-instructions-meta-prompt/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/prompts/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/resources/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/prompts/questions/what-is-a-system-prompt/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/skills/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/builder-setup/claude-code-install/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/builder-setup/editor-setup/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/builder-setup/git-install/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/builder-setup/github-setup/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/builder-setup/notion-registry-setup/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/builder-setup/terminal-basics/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/builder-setup/voice-to-text-setup/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/business-first-ai-framework/</loc>
          <lastmod>2026-02-07</lastmod>
     </url>
@@ -62,6 +138,14 @@
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/deconstruct/workflow-definition/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/</loc>
+         <lastmod>2026-02-07</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/</loc>
          <lastmod>2026-02-07</lastmod>
     </url>
     <url>
@@ -117,79 +201,7 @@
          <lastmod>2026-02-07</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/fundamentals/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/topics-overview/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/agents-and-tools/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/agents-and-tools/resources/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/developer-setup/claude-code-install/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/developer-setup/editor-setup/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/developer-setup/git-install/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/developer-setup/github-setup/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/developer-setup/notion-registry-setup/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/developer-setup/terminal-basics/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/developer-setup/voice-to-text-setup/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/patterns/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/prompt-engineering/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/fundamentals/prompt-engineering/resources/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/how-to/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/how-to/agents/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/how-to/integrations/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/how-to/prompting/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/how-to/prompting/workspace-instructions-meta-prompt/</loc>
+         <loc>https://handsonai.info/patterns/</loc>
          <lastmod>2026-02-07</lastmod>
     </url>
     <url>
@@ -314,42 +326,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/plugins/using-plugins/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/agents/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/platforms/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/prompting/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/prompting/what-is-a-system-prompt/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/strategy/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/strategy/how-do-i-find-workflows-worth-applying-ai-to/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/questions/strategy/how-do-i-identify-the-right-ai-tools-for-a-workflow/</loc>
-         <lastmod>2026-02-07</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/troubleshooting/</loc>
          <lastmod>2026-02-07</lastmod>
     </url>
 </urlset>
