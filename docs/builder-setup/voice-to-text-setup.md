@@ -107,8 +107,7 @@ Claude Desktop launches with your transcribed prompt and responds.
 ## Next Steps
 
 - Practice dictating a few prompts to get comfortable
-- Review the course slide deck for detailed walkthrough
-- Post in Slack if you encounter issues
+- Explore the official documentation for your chosen tool
 
 ## Resources
 

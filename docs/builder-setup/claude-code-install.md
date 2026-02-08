@@ -1,6 +1,6 @@
 ---
-title: Claude Code Installation Guide
-description: Install Claude Code extension and CLI on macOS, Linux, or Windows with step-by-step instructions
+title: AI Coding CLI Installation Guide
+description: Install Claude Code and other AI coding CLIs (OpenAI Codex, Gemini CLI) on macOS, Linux, or Windows
 schema_type: HowTo
 howto_steps:
   - name: Install the Claude Code extension
@@ -15,11 +15,11 @@ howto_steps:
     text: Run 'claude --version' to confirm the CLI is working, then start an interactive session.
 ---
 
-# Claude Code Setup Guide
+# AI Coding CLI Setup Guide
 
 Quick reference for setting up Claude Code in your editor and terminal.
 
-**Official docs:** [claude.ai/code/docs/quickstart](https://code.claude.com/docs/en/quickstart)
+**Official docs:** [code.claude.com/docs/en/quickstart](https://code.claude.com/docs/en/quickstart)
 
 ## Prerequisites
 
@@ -28,6 +28,9 @@ Quick reference for setting up Claude Code in your editor and terminal.
 - Claude Pro, Max, or Team subscription
 
 ## Part 1: Install the Claude Code Extension
+
+!!! tip "Already done?"
+    If you installed the Claude Code extension during Step 2 (Editor Setup), skip to Part 2.
 
 The Claude Code extension works the same in both Cursor and VS Code.
 
@@ -66,7 +69,9 @@ curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del in
 
 ## Set Up Your PATH
 
-After installation, you may need to configure your PATH so the `claude` command works from any directory.
+Your PATH is a list of folders your computer checks when you type a command. If Claude Code's folder isn't in that list, your terminal won't recognize the `claude` command.
+
+After installation, you may need to configure your PATH so `claude` works from any directory.
 
 ### macOS / Linux
 
@@ -106,10 +111,12 @@ To add it manually:
 4. Click New and add %USERPROFILE%\.local\bin
 5. Restart your terminal
 
-Other things to note on Windows:
-You need https://git-scm.com/downloads/win installed (provides Git Bash, which Claude Code requires).
-If Git Bash isn't detected, you may also need to set:
-$env:CLAUDE_CODE_GIT_BASH_PATH="C:\Program Files\Git\bin\bash.exe"
+!!! note "Windows users"
+    You need [Git for Windows](https://git-scm.com/downloads/win) installed — it provides Git Bash, which Claude Code requires. If Git Bash isn't detected, open PowerShell and run:
+
+    ```powershell
+    $env:CLAUDE_CODE_GIT_BASH_PATH="C:\Program Files\Git\bin\bash.exe"
+    ```
 
 ## Log In
 
@@ -131,10 +138,10 @@ Test that everything is working:
 claude --version
 ```
 
-Then start an interactive session:
+Then start a conversation with Claude:
 
 ```bash
-cd /path/to/your/project
+cd ~/Desktop/my-project  # replace with your actual project folder
 claude
 ```
 
@@ -182,11 +189,62 @@ Ask Claude a question to confirm it's working:
 
 ## Next Steps
 
-- Review the course slide deck for detailed walkthrough
-- Try the common workflows in the official docs
-- Post in Slack if you encounter issues
+- Explore the [Claude Code documentation](https://code.claude.com/docs/en/quickstart) for more workflows
+- Try asking Claude to explain a project, commit changes, or write tests
 
 ## Resources
 
 - [Claude Code Quickstart](https://code.claude.com/docs/en/quickstart)
 - [Claude Code CLI Reference](https://code.claude.com/docs/en/cli-reference)
+
+---
+
+## Other AI Coding CLIs
+
+Claude Code is the primary CLI covered in this cookbook, but you may also want to install these alternatives.
+
+### OpenAI Codex CLI
+
+OpenAI's command-line coding agent.
+
+**Prerequisites:** Requires [Node.js](https://nodejs.org/) 22+ (which includes npm, the package manager used to install it) and an OpenAI API key.
+
+**Install (macOS / Linux):**
+
+```bash
+npm install -g @openai/codex
+```
+
+**Verify:**
+
+```bash
+codex --version
+```
+
+**Authenticate:**
+
+```bash
+export OPENAI_API_KEY="your-api-key"
+```
+
+See the [Codex CLI documentation](https://github.com/openai/codex) for full setup.
+
+### Gemini CLI
+
+Google's command-line AI coding assistant.
+
+**Prerequisites:** Requires [Node.js](https://nodejs.org/) 18+ (which includes npm) and a Google account.
+
+**Install (macOS / Linux):**
+
+```bash
+npm install -g @google/gemini-cli
+```
+
+**Verify:**
+
+```bash
+gemini --version
+```
+
+See the [Gemini CLI documentation](https://github.com/google-gemini/gemini-cli) for full setup.

@@ -21,7 +21,7 @@ Get comfortable with the command line before diving into developer tools.
 
 The terminal is a text-based way to talk to your computer. Instead of clicking through menus and windows, you type commands and press Enter.
 
-Why does this matter for this course? Most developer tools — Git, Claude Code, package managers — are designed to run from the terminal. Every setup guide that follows assumes you can open a terminal and type a command.
+Why does this matter? Most developer tools — Git, Claude Code, and other builder tools — are designed to run from the terminal. Every setup guide that follows assumes you can open a terminal and type a command.
 
 The good news: you only need a handful of commands to get started.
 
@@ -44,6 +44,9 @@ The good news: you only need a handful of commands to get started.
     You'll see a window with a line ending in `>` and a blinking cursor. That's your **prompt** — it means the terminal is ready for a command.
 
 ## Open the Terminal in Your Editor
+
+!!! note "Come back after Step 2"
+    This section requires a code editor. If you're following the [Builder Stack Setup Guide](index.md) in order, complete Step 2 (Editor Setup) first, then return here.
 
 Once you have Cursor or VS Code installed, you can use the terminal directly inside your editor. This is where you'll spend most of your time — running commands without switching windows.
 
@@ -91,7 +94,7 @@ These are the commands you'll use most often. macOS/Linux and Windows PowerShell
 
 ## Try It Yourself
 
-Open your terminal and follow along. This short exercise builds muscle memory with commands you'll use throughout the course.
+Open your terminal and follow along. This short exercise builds muscle memory with commands you'll use throughout these guides.
 
 === "macOS / Linux"
 
@@ -194,7 +197,7 @@ Start typing a file or folder name and press ++tab++. The terminal will auto-com
 
 **"command not found" or "not recognized"**
 
-- The tool you're trying to use isn't installed, or it isn't in your PATH
+- The tool you're trying to use isn't installed, or your system doesn't know where to find it
 - Follow the relevant installation guide, then try again
 
 **"Permission denied"**

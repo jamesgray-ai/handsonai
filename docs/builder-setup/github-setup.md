@@ -11,12 +11,13 @@ howto_steps:
 
 # GitHub Setup Guide
 
-Quick reference for setting up GitHub and version control for your AI assets.
+Quick reference for setting up GitHub for your projects.
 
 ## Prerequisites
 
 - Email address for GitHub account
-- Cursor or VS Code installed
+- Cursor or VS Code installed (see [Editor Setup Guide](editor-setup.md))
+- Git installed (see [Git Installation Guide](git-install.md))
 
 ## 1. Create a GitHub Account
 
@@ -29,13 +30,13 @@ Quick reference for setting up GitHub and version control for your AI assets.
 
 ## 2. Clone a Repository
 
-Use your code editor to clone course repositories.
+Use your code editor to download (clone) repositories from GitHub.
 
 ### In Cursor or VS Code
 
 1. Open the Command Palette (Cmd/Ctrl + Shift + P)
 2. Type **Git: Clone**
-3. Paste the repository URL (e.g., `https://github.com/jamesgray-ai/claude-for-builders.git`)
+3. Paste the repository URL (e.g., `https://github.com/username/project-name.git`)
 4. Choose a local folder location
 5. Open the cloned repository when prompted
 
@@ -83,9 +84,8 @@ Claude Code handles the Git commands for you.
 
 ## Next Steps
 
-- Review the course slide deck for detailed walkthrough with screenshots
-- Set up Claude Code CLI to manage Git operations
-- Post in Slack if you encounter issues
+- Install Claude Code to manage Git operations with natural language (see [AI Coding CLIs Guide](claude-code-install.md))
+- Try cloning a public repository to practice the workflow
 
 ## Resources
 
