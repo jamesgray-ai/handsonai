@@ -159,16 +159,16 @@ Names are always 2-4 words, noun phrases (not verb phrases), in Title Case.
 !!! info "Migration note"
     This skill replaces `registering-skills` (v2.0.0). It handles all AI building block types — Skills, Agents, Prompts, and Context MDs — using the same registration workflow. If you previously used `registering-skills`, update your plugin to v3.0.0.
 
-**What it does:** Registers or updates any AI building block — Skills, Agents, Prompts, or Context MDs — in your Notion AI Assets database. Automatically resolves the asset type from your request, extracts metadata from the appropriate source file, generates a Quick Start Prompt, checks for duplicates, and creates or updates the registry entry.
+**What it does:** Registers or updates any AI building block — Skills, Agents, Prompts, or Context MDs — in your Notion AI Building Blocks database. Automatically resolves the asset type from your request, extracts metadata from the appropriate source file, generates a Quick Start Prompt, checks for duplicates, and creates or updates the registry entry.
 
-**When to use it:** Use this immediately after creating, packaging, or updating any Claude building block to keep your AI Assets database current. Also useful for batch-registering multiple building blocks at once (which can mix asset types).
+**When to use it:** Use this immediately after creating, packaging, or updating any Claude building block to keep your AI Building Blocks database current. Also useful for batch-registering multiple building blocks at once (which can mix asset types).
 
 **How it works:**
 
 1. Claude resolves the asset type from your request (keywords, file paths, or asks if ambiguous)
 2. Claude reads metadata from the appropriate source — `SKILL.md` frontmatter for skills, agent `.md` files for agents, or user input for prompts and context MDs
 3. Claude generates a Quick Start Prompt — a single, copy-paste-ready sentence that demonstrates the building block's primary use case (Context MDs typically skip this)
-4. Claude searches your Notion AI Assets database for an existing entry with the exact same name (to prevent duplicates)
+4. Claude searches your Notion AI Building Blocks database for an existing entry with the exact same name (to prevent duplicates)
 5. If found: updates the existing entry with the latest description and Quick Start Prompt
 6. If not found: creates a new entry with name, description, asset type, platform (Claude), and Quick Start Prompt
 
@@ -178,7 +178,7 @@ For batch registration, Claude searches for each building block individually fir
 
     "Register the email-response-drafting skill in Notion"
     → Reads the SKILL.md, generates a Quick Start Prompt, checks for
-      duplicates, and creates or updates the AI Assets entry
+      duplicates, and creates or updates the AI Building Blocks entry
 
     "Register the cookbook-question-answerer agent in Notion"
     → Reads the agent .md file, generates a Quick Start Prompt, and
@@ -188,7 +188,7 @@ For batch registration, Claude searches for each building block individually fir
     → Batch processes every building block, reporting X created and
       Y updated (broken down by asset type)
 
-**What you'll get:** An entry (or updated entry) in your Notion AI Assets database with: name, description, asset type (Skill, Agent, Prompt, or Context MD), platform, Quick Start Prompt, and GitHub URL (if applicable).
+**What you'll get:** An entry (or updated entry) in your Notion AI Building Blocks database with: name, description, asset type (Skill, Agent, Prompt, or Context MD), platform, Quick Start Prompt, and GitHub URL (if applicable).
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003; (Notion MCP required)
 
@@ -196,7 +196,7 @@ For batch registration, Claude searches for each building block individually fir
 
 #### `syncing-skills-to-github`
 
-**What it does:** Syncs Claude Skills from your local `~/.claude/skills/` directory to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Assets with GitHub URLs.
+**What it does:** Syncs Claude Skills from your local `~/.claude/skills/` directory to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Building Blocks with GitHub URLs.
 
 **When to use it:** Use this after creating or updating skills locally, after exporting skills from cloud to local, or as part of a weekly batch sync. This is Part 2 of the export-to-sync workflow (Part 1 is exporting skills from the cloud to your local machine).
 
@@ -208,7 +208,7 @@ For batch registration, Claude searches for each building block individually fir
 4. **Generate** semantic commit messages with prefixes: `[CREATE]`, `[UPDATE]`, `[FIX]`, `[SYNC]`, `[RETIRE]`
 5. **Commit** changes to the local git repository
 6. **Push** to GitHub remote
-7. **Update** Notion AI Assets database with GitHub URLs and set status to "Deployed"
+7. **Update** Notion AI Building Blocks database with GitHub URLs and set status to "Deployed"
 8. **Regenerate** the README.md skill index
 
 **Three usage modes:**
@@ -228,7 +228,7 @@ For batch registration, Claude searches for each building block individually fir
     → Previews the changes and generated commit message, asks for
       confirmation before proceeding
 
-**What you'll get:** Skills committed and pushed to GitHub with descriptive commit messages, Notion AI Assets entries updated with GitHub URLs, and an auto-generated README index.
+**What you'll get:** Skills committed and pushed to GitHub with descriptive commit messages, Notion AI Building Blocks entries updated with GitHub URLs, and an auto-generated README index.
 
 **Platform compatibility:** Claude Code &#10003; (requires terminal access and git credentials)
 
@@ -241,7 +241,7 @@ These skills work best in sequence, building from naming through to version cont
 1. **Name your workflow** — Use `naming-workflows` to create a consistent entry in Notion
 2. **Document the procedure** — Use `writing-workflow-sops` to write the SOP for the workflow
 3. **Connect workflows** — Use `writing-process-guides` to document how workflows fit together in a business process
-4. **Register your building blocks** — Use `registering-building-blocks` to track Skills, Agents, Prompts, and Context MDs in the AI Assets database
+4. **Register your building blocks** — Use `registering-building-blocks` to track Skills, Agents, Prompts, and Context MDs in the AI Building Blocks database
 5. **Version control everything** — Use `syncing-skills-to-github` to push skills to GitHub with Notion tracking
 
 ## FAQ

@@ -1,6 +1,6 @@
 ---
 name: syncing-skills-to-github
-description: Sync Claude Agent Skills from ~/.claude/skills/ (local) to GitHub repository using git commands. Skills are stored in a flat directory structure. Commits changes, pushes to remote, and updates Notion AI Assets with GitHub URLs. Designed for Claude Code with access to terminal and git credentials.
+description: Sync Claude Agent Skills from ~/.claude/skills/ (local) to GitHub repository using git commands. Skills are stored in a flat directory structure. Commits changes, pushes to remote, and updates Notion AI Building Blocks with GitHub URLs. Designed for Claude Code with access to terminal and git credentials.
 ---
 
 # Syncing Skills to GitHub
@@ -24,7 +24,7 @@ Trigger this skill after:
 4. **Generate** semantic commit messages based on changes
 5. **Commit** to local git repository
 6. **Push** to GitHub remote
-7. **Update** Notion AI Assets database with GitHub URLs
+7. **Update** Notion AI Building Blocks database with GitHub URLs
 8. **Report** summary of sync operation
 
 ## Prerequisites
@@ -36,7 +36,7 @@ Trigger this skill after:
 - Remote: `git@github.com:jamesgray007/agent-skills.git` or `https://github.com/jamesgray007/agent-skills.git`
 
 ### Notion
-- AI Assets database ID: `2d5edcfd-b924-80cf-a0a0-000ba0164e40`
+- AI Building Blocks database ID: `2d5edcfd-b924-80cf-a0a0-000ba0164e40`
 - Notion API access configured
 
 ### Directory Structure
@@ -186,7 +186,7 @@ git push origin main
 # git push --force origin main
 ```
 
-### Step 7: Update Notion AI Assets
+### Step 7: Update Notion AI Building Blocks
 
 For each skill that was synced, update the GitHub URL in Notion.
 
@@ -194,7 +194,7 @@ For each skill that was synced, update the GitHub URL in Notion.
 
 For each changed skill directory (e.g., "exporting-skills-from-claude"):
 
-1. **Search for the skill in Notion AI Assets:**
+1. **Search for the skill in Notion AI Building Blocks:**
    - Use tool: `Notion:notion-search`
    - Parameters:
      - `query`: The skill directory name (e.g., "exporting-skills-from-claude")
@@ -225,7 +225,7 @@ For each changed skill directory (e.g., "exporting-skills-from-claude"):
      ```
 
 5. **Handle errors:**
-   - If skill not found in search: Log warning "⚠️ {skill-name} not found in AI Assets"
+   - If skill not found in search: Log warning "⚠️ {skill-name} not found in AI Building Blocks"
    - If update fails: Log error with details
    - Continue with next skill regardless
 
@@ -302,7 +302,7 @@ Generating commit message...
 📝 Commit: abc123f
 🔗 https://github.com/jamesgray007/agent-skills/tree/main/writing-linkedin-posts
 
-[Updating Notion AI Assets...]
+[Updating Notion AI Building Blocks...]
 ✅ Updated GitHub URL in Notion
 
 Complete!
@@ -349,7 +349,7 @@ Generating commit message...
 📝 Commit: def456g
 🔗 https://github.com/jamesgray007/agent-skills
 
-[Updating Notion AI Assets for 3 skills...]
+[Updating Notion AI Building Blocks for 3 skills...]
 ✅ Updated exporting-skills-from-claude
 ✅ Updated writing-linkedin-posts
 ✅ Updated creating-video-content
@@ -458,7 +458,7 @@ Would you like me to show the conflicts?
 
 Skills synced to GitHub: 3
 Notion updates failed: 1
-- exporting-skills-from-claude (not found in AI Assets)
+- exporting-skills-from-claude (not found in AI Building Blocks)
 
 GitHub URL: https://github.com/jamesgray007/agent-skills
 
@@ -523,10 +523,10 @@ Local (~/.claude/skills/)
     ↓ [Sync] ← This skill
 GitHub (github.com/jamesgray007/agent-skills)
     ↓ [Update URLs]
-Notion (AI Assets database)
+Notion (AI Building Blocks database)
 ```
 
-### With Notion AI Assets
+### With Notion AI Building Blocks
 After successful GitHub sync:
 - Updates GitHub property with URL
 - Sets Status to "Deployed"
@@ -568,7 +568,7 @@ User: Create a skill for aggregating HubSpot metrics for weekly reviews
 
 Claude: [Creates skill in Claude.ai]
 [Skill saved to /mnt/skills/user/hubspot-metrics-aggregation/]
-[Registered in Notion AI Assets]
+[Registered in Notion AI Building Blocks]
 ```
 
 **End of Day (Claude Desktop):**
@@ -670,7 +670,7 @@ Claude: [Detects changes in importing-maven-students]
 - Claude Code (terminal access with git credentials)
 - Git installed and configured
 - GitHub repository: `jamesgray007/agent-skills`
-- Notion API access for AI Assets database
+- Notion API access for AI Building Blocks database
 - Bash shell for git commands
 
 ## Notes

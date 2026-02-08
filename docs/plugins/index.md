@@ -121,15 +121,15 @@ Document, name, register, and sync AI operational workflows and skills.
     | [`naming-workflows`](ai-registry.md#naming-workflows) | Generates consistent, outcome-focused names and descriptions for business workflows. Follows domain-specific naming patterns (Sales, Marketing, Product, etc.) and creates entries in the Notion Workflows database. |
     | [`writing-workflow-sops`](ai-registry.md#writing-workflow-sops) | Writes Standard Operating Procedure documentation for workflows. Adapts SOP templates for Manual, Augmented, and Automated workflow types. Saves SOPs to Notion workflow page bodies. |
     | [`writing-process-guides`](ai-registry.md#writing-process-guides) | Writes Business Process Guide documentation explaining when, why, and how to execute a complete business process with its component workflows. Covers strategic context while linking to individual SOPs for tactical details. |
-    | [`registering-building-blocks`](ai-registry.md#registering-building-blocks) | Registers or updates AI building blocks (Skills, Agents, Prompts, Context MDs) in the Notion AI Assets database. Resolves asset type automatically, extracts metadata, generates Quick Start Prompts, and handles duplicate detection. |
-    | [`syncing-skills-to-github`](ai-registry.md#syncing-skills-to-github) | Syncs skills from `~/.claude/skills/` to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Assets with GitHub URLs. |
+    | [`registering-building-blocks`](ai-registry.md#registering-building-blocks) | Registers or updates AI building blocks (Skills, Agents, Prompts, Context MDs) in the Notion AI Building Blocks database. Resolves asset type automatically, extracts metadata, generates Quick Start Prompts, and handles duplicate detection. |
+    | [`syncing-skills-to-github`](ai-registry.md#syncing-skills-to-github) | Syncs skills from `~/.claude/skills/` to a GitHub repository. Detects changes, generates semantic commit messages, pushes to remote, and updates Notion AI Building Blocks with GitHub URLs. |
 
 ??? workflow "Recommended workflow"
 
     1. **Name** — Use `naming-workflows` to create a consistent workflow entry in Notion
     2. **Document** — Use `writing-workflow-sops` to write the SOP for each workflow
     3. **Connect** — Use `writing-process-guides` to document how workflows fit together in a business process
-    4. **Register** — Use `registering-building-blocks` to track building blocks in Notion AI Assets
+    4. **Register** — Use `registering-building-blocks` to track building blocks in Notion AI Building Blocks
     5. **Sync** — Use `syncing-skills-to-github` to version-control everything in GitHub
 
     ```
@@ -143,7 +143,7 @@ Document, name, register, and sync AI operational workflows and skills.
     → writing-process-guides documents the end-to-end process
 
     "Register the email-response-drafting skill in Notion"
-    → registering-building-blocks adds it to the AI Assets database
+    → registering-building-blocks adds it to the AI Building Blocks database
 
     "Sync all changed skills to GitHub"
     → syncing-skills-to-github commits and pushes with Notion tracking
