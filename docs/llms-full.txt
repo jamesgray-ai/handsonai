@@ -1,32 +1,175 @@
 # Hands-on AI Cookbook — Full Content Directory
-> Practical guides, courses, and reference materials for building with AI
+> Curated AI knowledge for builders. Apply AI faster. Accelerate business impact.
 > Author: James Gray — AI instructor at UC Berkeley, former CIO/CPO
 
 ---
 
 ## Homepage
 - URL: https://handsonai.info/
-- Summary: Central hub for the Hands-on AI Cookbook. Browse platform guides (Claude, ChatGPT, Gemini, Copilot), fundamentals (prompt engineering, agents, patterns), Q&A, how-to guides, plugins, and structured courses. Includes quick-start links for common tasks like installing Claude Code, setting up Git, and scheduling AI agents.
+- Summary: Central hub for the Hands-on AI Cookbook. Browse the Business-First AI Framework, six Agentic Building Blocks (Prompts, Context, Projects, Skills, Agents, MCP), six Use Case primitives, platform guides (Claude, ChatGPT, Gemini, Copilot), plugins, builder setup guides, patterns, and structured courses. Includes quick-start links for common tasks like installing Claude Code, setting up Git, and scheduling AI agents.
 
 ---
 
-## Courses
+## Business-First AI Framework
 
-### Claude and Claude Code for Builders
-- URL: https://handsonai.info/courses/builders/
-- Summary: A 5-week cohort course on Maven that transforms Claude users into Claude builders. Covers the full AI builder stack: Claude Skills, subagents, browser automation, and agentic coding. Students build 5+ Skills, 3+ Subagents, browser automations, and a capstone project. Aimed at operational leaders, builder-founders, and AI-first professionals. Requires Claude Pro/Max subscription and macOS or Windows.
+### Overview
+- URL: https://handsonai.info/business-first-ai-framework/
+- Summary: A three-phase methodology for applying AI to business workflows: Discover opportunities, Deconstruct workflows into AI building blocks, and Build across the autonomy spectrum (deterministic automation, AI collaborative, autonomous agent).
 
-### Hands-on Agentic AI for Leaders
-- URL: https://handsonai.info/courses/leaders/
-- Summary: A 4-week cohort course on Maven for leaders and non-technical professionals. Covers AI-powered workflows, agent building blocks, browser automation, and multi-platform deployment across ChatGPT, Claude, M365 Copilot, and Google Workspace. Students complete 26 hands-on projects and ship workflows saving 5-10 hours weekly. No coding experience required.
+### Phase 1 — Discover
+- URL: https://handsonai.info/business-first-ai-framework/discover/
+- Summary: Structured audit to find workflows worth applying AI to. Guides users through identifying high-impact AI opportunities using a scoring rubric based on frequency, time cost, and AI suitability.
+
+### Phase 2 — Deconstruct
+- URL: https://handsonai.info/business-first-ai-framework/deconstruct/
+- Summary: Three-step process for breaking workflows into AI building blocks. Covers workflow definition, building block mapping, and prompt/skill spec generation.
+
+#### Step 1 — Workflow Definition
+- URL: https://handsonai.info/business-first-ai-framework/deconstruct/workflow-definition/
+- Summary: Interactive discovery process that decomposes a business workflow into structured steps with inputs, outputs, decision points, and handoffs.
+
+#### Step 2 — AI Building Blocks
+- URL: https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/
+- Summary: Maps each workflow step to AI building blocks on the autonomy spectrum — from simple prompts through context, projects, skills, agents, and MCP integrations.
+
+#### Step 3 — Prompt & Skill Specs
+- URL: https://handsonai.info/business-first-ai-framework/deconstruct/prompt-skill-specs/
+- Summary: Generates a ready-to-use Baseline Workflow Prompt and Skill Specifications from the AI Building Block Map.
+
+### Phase 3 — Build
+- URL: https://handsonai.info/business-first-ai-framework/build/
+- Summary: Three worked examples showing how to build AI workflows at different autonomy levels, from deterministic automation to fully autonomous agents.
+
+#### Deterministic Automation
+- URL: https://handsonai.info/business-first-ai-framework/build/deterministic-automation/
+- Summary: Building reliable, repeatable AI workflows using structured prompts and templates. Focuses on predictable outputs with minimal AI judgment.
+
+#### AI Collaborative
+- URL: https://handsonai.info/business-first-ai-framework/build/ai-collaborative/
+- Summary: Building workflows where AI and humans collaborate, with clear handoff points and human review stages. The middle of the autonomy spectrum.
+
+#### Autonomous Agent
+- URL: https://handsonai.info/business-first-ai-framework/build/autonomous-agent/
+- Summary: Building fully autonomous AI agents that execute multi-step workflows with minimal human intervention. Covers agent design, tool integration, and monitoring.
+
+### Questions
+- Find workflows worth applying AI to: https://handsonai.info/business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/
+- Identify the right AI tools for a workflow: https://handsonai.info/business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/
+
+---
+
+## Agentic Building Blocks
+
+### Overview
+- URL: https://handsonai.info/agentic-building-blocks/
+- Summary: The six building blocks for AI-powered workflows, arranged along an autonomy spectrum from simple to complex: Prompts, Context, Projects, Skills, Agents, and MCP (Model Context Protocol).
+
+### Prompts
+- URL: https://handsonai.info/agentic-building-blocks/prompts/
+- Summary: The foundational building block. Covers prompt design, structured prompting, and techniques that work across all AI platforms.
+
+#### Prompt Engineering
+- URL: https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/
+- Summary: Techniques for effective prompting — system prompts, structured prompting, iterative refinement, and platform-specific considerations.
+
+### Context
+- URL: https://handsonai.info/agentic-building-blocks/context/
+- Summary: How to provide AI with the right background information — documents, data, conversation history, and persistent context files (CLAUDE.md, custom instructions).
+
+### Projects
+- URL: https://handsonai.info/agentic-building-blocks/projects/
+- Summary: Organizing AI work into projects with persistent context, instructions, and shared resources. Covers Claude Projects, ChatGPT Projects, and Gemini Gems.
+
+#### Project Instructions
+- URL: https://handsonai.info/agentic-building-blocks/projects/workspace-instructions-meta-prompt/
+- Summary: Meta-prompt for generating workspace instructions that tell AI how to behave within a specific project or domain.
+
+### Skills
+- URL: https://handsonai.info/agentic-building-blocks/skills/
+- Summary: Reusable, step-by-step workflows that teach AI specific tasks — from content creation to data analysis to operational processes.
+
+### Agents
+- URL: https://handsonai.info/agentic-building-blocks/agents/
+- Summary: Autonomous AI systems that combine multiple building blocks to execute complex, multi-step workflows with minimal human intervention.
+
+#### Agent Resources
+- URL: https://handsonai.info/agentic-building-blocks/agents/resources/
+- Summary: Curated resources for building and deploying AI agents — frameworks, tutorials, and reference implementations.
+
+### MCP (Model Context Protocol)
+- URL: https://handsonai.info/agentic-building-blocks/mcp/
+- Summary: Connecting AI to external tools and services using the Model Context Protocol. Covers MCP servers, tool integration, and real-world connection patterns.
+
+### Questions
+- What is a system prompt?: https://handsonai.info/agentic-building-blocks/prompts/questions/what-is-a-system-prompt/
+
+---
+
+## Use Cases
+
+### Overview
+- URL: https://handsonai.info/use-cases/
+- Summary: Six AI use case primitives that cover how organizations actually deploy AI — adapted from enterprise deployment analysis and made platform-agnostic. Each primitive maps to specific building blocks and worked examples.
+
+### Content Creation
+- URL: https://handsonai.info/use-cases/content-creation/
+- Summary: Using AI for writing, editing, repurposing, and producing content across formats — articles, social posts, emails, presentations, and multimedia.
+
+### Research
+- URL: https://handsonai.info/use-cases/research/
+- Summary: Using AI for information gathering, synthesis, competitive analysis, market research, and knowledge management.
+
+### Coding
+- URL: https://handsonai.info/use-cases/coding/
+- Summary: Using AI for software development — code generation, debugging, refactoring, documentation, and development workflow automation.
+
+### Data Analysis
+- URL: https://handsonai.info/use-cases/data-analysis/
+- Summary: Using AI for data exploration, visualization, reporting, and extracting insights from structured and unstructured data.
+
+### Ideation & Strategy
+- URL: https://handsonai.info/use-cases/ideation-and-strategy/
+- Summary: Using AI for brainstorming, strategic planning, scenario analysis, decision support, and creative problem-solving.
+
+### Automation
+- URL: https://handsonai.info/use-cases/automation/
+- Summary: Using AI for operational automation — scheduling, monitoring, integration, and end-to-end workflow execution with minimal human intervention.
 
 ---
 
 ## Platform Guides
 
+### Overview
+- URL: https://handsonai.info/platforms/
+- Summary: Platform-specific guides, topics, questions, and resources organized by AI provider.
+
 ### Claude
 - URL: https://handsonai.info/platforms/claude/
-- Summary: Everything for working with Anthropic's Claude — installation guides, personalization setup, project organization, subagent scheduling, and troubleshooting. Covers Claude Code CLI, VS Code extension, and MCP integrations.
+- Summary: Everything for working with Anthropic's Claude — personalization setup, project organization, skills discovery, subagent scheduling, and troubleshooting. Covers Claude Code CLI, VS Code extension, and MCP integrations.
+
+#### Claude Personalization
+- URL: https://handsonai.info/platforms/claude/getting-started/claude-personalization-setup/
+- Summary: Setting up Claude's personalization features to customize AI behavior, preferences, and defaults for your workflow.
+
+#### Claude Projects
+- URL: https://handsonai.info/platforms/claude/projects/claude-projects-setup/
+- Summary: Creating and managing Claude Projects — persistent workspaces with custom instructions, uploaded context, and shared resources.
+
+#### Discover Your Best Claude Skills
+- URL: https://handsonai.info/platforms/claude/skills/skills-discovery-meta-prompt/
+- Summary: Meta-prompt for discovering which Claude Skills would be most valuable for your specific workflows and use cases.
+
+#### Scheduling Subagents
+- URL: https://handsonai.info/platforms/claude/subagents/scheduling-subagents/
+- Summary: Setting up automated, scheduled Claude Code subagents using macOS launchd or Windows Task Scheduler. Covers cron-like scheduling, logging, and permissions.
+
+#### Subagent Troubleshooting
+- URL: https://handsonai.info/platforms/claude/subagents/scheduling-subagent-issues/
+- Summary: Common issues and solutions when running scheduled Claude Code subagents — PATH problems, authentication, permissions, and logging.
+
+#### Questions
+- Best way to name agent skills?: https://handsonai.info/platforms/claude/questions/what-is-the-best-way-to-name-claude-agent-skills/
+- Schedule an automated subagent: https://handsonai.info/platforms/claude/questions/how-do-i-schedule-an-automated-claude-subagent/
 
 ### OpenAI / ChatGPT
 - URL: https://handsonai.info/platforms/openai/
@@ -42,90 +185,84 @@
 
 ---
 
-## Fundamentals
+## Plugins
 
-### Overview
-- URL: https://handsonai.info/fundamentals/
-- Summary: Cross-platform concepts and tools that apply across all AI platforms. Includes builder setup guides, prompt engineering, agents & tools, and reusable patterns.
+### Marketplace
+- URL: https://handsonai.info/plugins/
+- Summary: Browse and install pre-built Claude Code plugins with agents and skills. Explains plugin concepts (agents, skills, commands, hooks, MCP servers) and lists available plugins: Business-First AI (8 agents, 6 skills, 3 prompts) and AI Registry (5 skills).
 
-### Prompt Engineering
-- URL: https://handsonai.info/fundamentals/prompt-engineering/
-- Summary: Techniques for effective prompting that work across all AI models. Covers system prompts, structured prompting, and iterative refinement.
+### Getting Started with Plugins
+- URL: https://handsonai.info/plugins/getting-started/
+- Summary: Step-by-step walkthrough for installing and using Claude Code plugins from the Hands-on AI marketplace. Covers marketplace registration, plugin installation, and first use.
 
-### Agents & Tools
-- URL: https://handsonai.info/fundamentals/agents-and-tools/
-- Summary: Concepts and patterns for building autonomous AI systems. Covers agent architectures, tool usage, and multi-agent coordination.
+### Using Plugins
+- URL: https://handsonai.info/plugins/using-plugins/
+- Summary: Guide to working with installed plugins — invoking agents, using skills, managing plugin configurations, and understanding platform compatibility.
 
-### Patterns
-- URL: https://handsonai.info/fundamentals/patterns/
-- Summary: Reusable AI implementation patterns and best practices. Common approaches for structuring AI workflows and outputs.
+### Business-First AI Plugin
+- URL: https://handsonai.info/plugins/business-first-ai/
+- Summary: The Business-First AI Framework as executable Claude Code components. Includes 8 agents (workflow deconstructor, tech-executive writer, HBR editor/publisher, AI productivity researcher, meeting prep researcher, AI news researcher, Claude research daily), 6 skills (finding AI opportunities, workflow discovery/analysis/output generation, editing HBR articles, preparing meeting briefs), and 3 prompts (LinkedIn prospect research, buyer persona, quick meeting prep).
+
+### AI Registry Plugin
+- URL: https://handsonai.info/plugins/ai-registry/
+- Summary: Skills for building a structured registry of AI workflows and building blocks. Includes 5 skills: naming workflows, writing workflow SOPs, writing process guides, registering building blocks (Skills, Agents, Prompts, Context MDs) in Notion, and syncing skills to GitHub. Requires Notion MCP connector.
 
 ---
 
 ## Builder Setup Guides
 
 ### Terminal Basics
-- URL: https://handsonai.info/fundamentals/developer-setup/terminal-basics/
+- URL: https://handsonai.info/builder-setup/terminal-basics/
 - Summary: Introduction to the command line for beginners. Covers opening the terminal on macOS and Windows, essential commands (pwd, ls, cd, mkdir), paths, tab completion, and the integrated terminal in Cursor/VS Code.
 
+### Claude Code Installation
+- URL: https://handsonai.info/builder-setup/claude-code-install/
+- Summary: Complete setup guide for Claude Code — VS Code extension installation, CLI installation on macOS/Linux/Windows, PATH configuration, authentication, verification, and essential commands reference.
+
+### Editor Setup
+- URL: https://handsonai.info/builder-setup/editor-setup/
+- Summary: Installing Cursor or VS Code as your code editor. Comparison table, download links, and verification steps for both options.
+
 ### Git Installation
-- URL: https://handsonai.info/fundamentals/developer-setup/git-install/
+- URL: https://handsonai.info/builder-setup/git-install/
 - Summary: Step-by-step guide to installing Git on macOS (Xcode tools or Homebrew) and Windows (git-scm.com installer). Covers verification, identity configuration, and troubleshooting.
 
 ### GitHub Setup
-- URL: https://handsonai.info/fundamentals/developer-setup/github-setup/
+- URL: https://handsonai.info/builder-setup/github-setup/
 - Summary: Creating a GitHub account, cloning repositories, and understanding core Git concepts (commit, push, pull, staging). Shows how to use Claude Code for Git operations.
 
-### Editor Setup
-- URL: https://handsonai.info/fundamentals/developer-setup/editor-setup/
-- Summary: Installing Cursor or VS Code as your code editor. Comparison table, download links, and verification steps for both options.
-
-### Claude Code Installation
-- URL: https://handsonai.info/fundamentals/developer-setup/claude-code-install/
-- Summary: Complete setup guide for Claude Code — VS Code extension installation, CLI installation on macOS/Linux/Windows, PATH configuration, authentication, verification, and essential commands reference.
-
-### Notion AI Registry Setup
-- URL: https://handsonai.info/fundamentals/developer-setup/notion-registry-setup/
-- Summary: Setting up the AI Registry Notion template for tracking business processes, workflows, AI assets, and connected apps. Covers template duplication, database customization, AI tool connection, and the companion AI Registry plugin.
+### AI Registry Setup
+- URL: https://handsonai.info/builder-setup/notion-registry-setup/
+- Summary: Setting up the AI Registry Notion template for tracking business processes, workflows, AI building blocks, and connected apps. Covers template duplication, database customization, AI tool connection, and the companion AI Registry plugin.
 
 ### Voice to Text Setup
-- URL: https://handsonai.info/fundamentals/developer-setup/voice-to-text-setup/
+- URL: https://handsonai.info/builder-setup/voice-to-text-setup/
 - Summary: Setting up voice input using Wispr Flow (cross-platform) or Claude Desktop Quick Entry (macOS only). Covers installation, configuration, and troubleshooting for hands-free AI collaboration.
 
 ---
 
-## Questions & Answers
-
-### What is a system prompt?
-- URL: https://handsonai.info/questions/prompting/what-is-a-system-prompt/
-- Summary: Explains system prompts — instructions given to AI models that define behavior, personality, and constraints for entire conversations. Includes a Python code example using the OpenAI API and covers use cases like personas, constraints, context setting, and rules.
+## Patterns
+- URL: https://handsonai.info/patterns/
+- Summary: Reusable AI implementation patterns and best practices. Common approaches for structuring AI workflows and outputs.
 
 ---
 
-## How-To Guides
+## Courses
 
 ### Overview
-- URL: https://handsonai.info/how-to/
-- Summary: Problem-focused guides organized by category — agents, integrations, and prompting techniques. Step-by-step solutions to specific AI implementation challenges.
+- URL: https://handsonai.info/courses/
+- Summary: Structured cohort courses on Maven for learning AI hands-on — one for leaders and non-technical professionals, one for builders who want to create AI-powered tools and workflows.
+
+### Agentic AI for Leaders
+- URL: https://handsonai.info/courses/leaders/
+- Summary: A 4-week cohort course on Maven for leaders and non-technical professionals. Covers AI-powered workflows, agent building blocks, browser automation, and multi-platform deployment across ChatGPT, Claude, M365 Copilot, and Google Workspace. Students complete 26 hands-on projects and ship workflows saving 5-10 hours weekly. No coding experience required.
+
+### Claude for Builders
+- URL: https://handsonai.info/courses/builders/
+- Summary: A 5-week cohort course on Maven that transforms Claude users into Claude builders. Covers the full AI builder stack: Claude Skills, subagents, browser automation, and agentic coding. Students build 5+ Skills, 3+ Subagents, browser automations, and a capstone project. Aimed at operational leaders, builder-founders, and AI-first professionals. Requires Claude Pro/Max subscription and macOS or Windows.
 
 ---
 
-## Plugins
-
-### Marketplace
-- URL: https://handsonai.info/plugins/
-- Summary: Browse and install pre-built Claude Code plugins with agents and skills. Explains plugin concepts (agents, skills, commands, hooks, MCP servers) and lists available plugins with installation commands.
-
-### Getting Started with Plugins
-- URL: https://handsonai.info/plugins/getting-started/
-- Summary: Step-by-step walkthrough for installing and using Claude Code plugins from the Hands-on AI marketplace.
-
-### Using Plugins
-- URL: https://handsonai.info/plugins/using-plugins/
-- Summary: Guide to working with installed plugins — invoking agents, using skills, and managing plugin configurations.
-
----
-
-## Troubleshooting
-- URL: https://handsonai.info/troubleshooting/
-- Summary: Common issues and solutions for AI tools, developer setup, and course-related problems.
+## Wall of Love
+- URL: https://handsonai.info/wall-of-love/
+- Summary: Testimonials and feedback from students, course graduates, and community members about their experience with Hands-on AI courses and resources.

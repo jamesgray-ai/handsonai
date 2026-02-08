@@ -1,5 +1,5 @@
 # Hands-on AI Cookbook
-> Practical guides, courses, and reference materials for building with AI
+> Curated AI knowledge for builders. Apply AI faster. Accelerate business impact.
 
 ## Author
 - James Gray — AI instructor at UC Berkeley, former CIO/CPO, Maven course instructor
@@ -7,48 +7,63 @@
 - LinkedIn: https://www.linkedin.com/in/jamesgray/
 - Newsletter: https://graymatter.jamesgray.ai
 
-## Courses
-- Claude and Claude Code for Builders: https://handsonai.info/courses/builders/
-- Hands-on Agentic AI for Leaders: https://handsonai.info/courses/leaders/
+## Business-First AI Framework
+- Overview: https://handsonai.info/business-first-ai-framework/
+- Phase 1 — Discover: https://handsonai.info/business-first-ai-framework/discover/
+- Phase 2 — Deconstruct: https://handsonai.info/business-first-ai-framework/deconstruct/
+- Phase 3 — Build: https://handsonai.info/business-first-ai-framework/build/
+
+## Agentic Building Blocks
+- Overview: https://handsonai.info/agentic-building-blocks/
+- Prompts: https://handsonai.info/agentic-building-blocks/prompts/
+- Context: https://handsonai.info/agentic-building-blocks/context/
+- Projects: https://handsonai.info/agentic-building-blocks/projects/
+- Skills: https://handsonai.info/agentic-building-blocks/skills/
+- Agents: https://handsonai.info/agentic-building-blocks/agents/
+- MCP: https://handsonai.info/agentic-building-blocks/mcp/
+
+## Use Cases
+- Overview: https://handsonai.info/use-cases/
+- Content Creation: https://handsonai.info/use-cases/content-creation/
+- Research: https://handsonai.info/use-cases/research/
+- Coding: https://handsonai.info/use-cases/coding/
+- Data Analysis: https://handsonai.info/use-cases/data-analysis/
+- Ideation & Strategy: https://handsonai.info/use-cases/ideation-and-strategy/
+- Automation: https://handsonai.info/use-cases/automation/
 
 ## Platform Guides
+- Overview: https://handsonai.info/platforms/
 - Claude: https://handsonai.info/platforms/claude/
 - OpenAI / ChatGPT: https://handsonai.info/platforms/openai/
 - Google Gemini: https://handsonai.info/platforms/google-gemini/
 - Microsoft 365 Copilot: https://handsonai.info/platforms/m365-copilot/
 
-## Fundamentals
-- Overview: https://handsonai.info/fundamentals/
-- Prompt Engineering: https://handsonai.info/fundamentals/prompt-engineering/
-- Agents & Tools: https://handsonai.info/fundamentals/agents-and-tools/
-- Patterns: https://handsonai.info/fundamentals/patterns/
-
-## Builder Setup
-- Terminal Basics: https://handsonai.info/fundamentals/developer-setup/terminal-basics/
-- Git Installation: https://handsonai.info/fundamentals/developer-setup/git-install/
-- GitHub Setup: https://handsonai.info/fundamentals/developer-setup/github-setup/
-- Editor Setup: https://handsonai.info/fundamentals/developer-setup/editor-setup/
-- Claude Code Installation: https://handsonai.info/fundamentals/developer-setup/claude-code-install/
-- Notion Registry: https://handsonai.info/fundamentals/developer-setup/notion-registry-setup/
-- Voice to Text: https://handsonai.info/fundamentals/developer-setup/voice-to-text-setup/
-
-## Questions & Answers
-- Overview: https://handsonai.info/questions/
-- What is a system prompt?: https://handsonai.info/questions/prompting/what-is-a-system-prompt/
-
-## How-To Guides
-- Overview: https://handsonai.info/how-to/
-- Agents: https://handsonai.info/how-to/agents/
-- Integrations: https://handsonai.info/how-to/integrations/
-- Prompting: https://handsonai.info/how-to/prompting/
-
 ## Plugins
 - Marketplace: https://handsonai.info/plugins/
 - Getting Started: https://handsonai.info/plugins/getting-started/
 - Using Plugins: https://handsonai.info/plugins/using-plugins/
+- Business-First AI: https://handsonai.info/plugins/business-first-ai/
+- AI Registry: https://handsonai.info/plugins/ai-registry/
 
-## Troubleshooting
-- Overview: https://handsonai.info/troubleshooting/
+## Builder Setup
+- Terminal Basics: https://handsonai.info/builder-setup/terminal-basics/
+- Claude Code Installation: https://handsonai.info/builder-setup/claude-code-install/
+- Editor Setup: https://handsonai.info/builder-setup/editor-setup/
+- Git Installation: https://handsonai.info/builder-setup/git-install/
+- GitHub Setup: https://handsonai.info/builder-setup/github-setup/
+- AI Registry Setup: https://handsonai.info/builder-setup/notion-registry-setup/
+- Voice to Text: https://handsonai.info/builder-setup/voice-to-text-setup/
+
+## Patterns
+- Overview: https://handsonai.info/patterns/
+
+## Courses
+- Overview: https://handsonai.info/courses/
+- Agentic AI for Leaders: https://handsonai.info/courses/leaders/
+- Claude for Builders: https://handsonai.info/courses/builders/
+
+## Wall of Love
+- https://handsonai.info/wall-of-love/
 
 ## Full Content
 - See llms-full.txt for page summaries: https://handsonai.info/llms-full.txt
