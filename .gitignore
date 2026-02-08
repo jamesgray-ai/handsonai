@@ -29,3 +29,6 @@ dist/
 # Temporary files
 *.tmp
 *.temp
+
+# Generated at build time
+docs/whats-new.md
