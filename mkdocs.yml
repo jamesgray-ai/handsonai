@@ -109,6 +109,7 @@ plugins:
         how-to/integrations/README.md: platforms/index.md
         how-to/prompting/README.md: agentic-building-blocks/prompts/index.md
         troubleshooting/README.md: platforms/claude/subagents/scheduling-subagent-issues.md
+        ask.md: index.md
 
 markdown_extensions:
   - admonition
@@ -131,7 +132,6 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Ask a Question: ask.md
   - Business-First AI Framework:
     - Overview: business-first-ai-framework/index.md
     - "Phase 1 — Discover": business-first-ai-framework/discover.md

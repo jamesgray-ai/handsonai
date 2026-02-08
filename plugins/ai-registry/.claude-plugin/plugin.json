@@ -1,7 +1,7 @@
 {
   "name": "ai-registry",
   "description": "Skills for documenting, naming, registering, and syncing AI operational workflows and skills. Includes SOP writing, process guide creation, workflow naming conventions, skill registration in Notion, and GitHub sync.",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": {
     "name": "James Gray"
   },

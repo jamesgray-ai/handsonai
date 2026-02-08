@@ -155,8 +155,8 @@ agent-skills/
 
 ## Integration Points
 
-**With registering-skills**:
-- Register skill in Notion → Auto-sync to GitHub
+**With registering-building-blocks**:
+- Register building block in Notion → Auto-sync to GitHub
 
 **With skill-creator**:
 - Create skill → Trigger sync to GitHub
