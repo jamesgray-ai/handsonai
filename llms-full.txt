@@ -263,6 +263,6 @@
 
 ---
 
-## Wall of Love
-- URL: https://handsonai.info/wall-of-love/
-- Summary: Testimonials and feedback from students, course graduates, and community members about their experience with Hands-on AI courses and resources.
+## What People Built
+- URL: https://handsonai.info/what-people-built/
+- Summary: Real stories from people who used the Hands-on AI Cookbook to build with AI. Features a Notion-powered gallery of approved testimonials and an embedded submission form for sharing outcomes.

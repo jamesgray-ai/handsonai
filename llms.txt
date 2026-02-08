@@ -62,8 +62,8 @@
 - Agentic AI for Leaders: https://handsonai.info/courses/leaders/
 - Claude for Builders: https://handsonai.info/courses/builders/
 
-## Wall of Love
-- https://handsonai.info/wall-of-love/
+## What People Built
+- https://handsonai.info/what-people-built/
 
 ## Full Content
 - See llms-full.txt for page summaries: https://handsonai.info/llms-full.txt
