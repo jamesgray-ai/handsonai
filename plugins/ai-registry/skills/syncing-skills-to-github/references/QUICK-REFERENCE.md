@@ -31,7 +31,7 @@
 5. **README**: Auto-generated skill index
 6. **Commit**: Detailed commit message created
 7. **Push**: Changes pushed to GitHub
-8. **Notion**: GitHub URLs updated in AI Assets
+8. **Notion**: GitHub URLs updated in AI Building Blocks
 
 ## Repository Information
 
@@ -72,7 +72,7 @@ Skills updated:
 ## Notion Integration
 
 After each sync:
-- **Search**: AI Assets database for each synced skill
+- **Search**: AI Building Blocks database for each synced skill
 - **Update**: GitHub property with skill URL
 - **Format**: `https://github.com/jamesgray007/agent-skills/tree/main/skills/[skill-name]`
 - **Not Found**: Offer to register skill first
@@ -151,7 +151,7 @@ agent-skills/
 ✅ README.md generated  
 ✅ Commit created with message  
 ✅ Push to GitHub successful  
-✅ Notion AI Assets updated  
+✅ Notion AI Building Blocks updated  
 
 ## Integration Points
 
@@ -176,7 +176,7 @@ agent-skills/
 1. Create or update skill in Claude
 2. Say: "Sync to GitHub"
 3. Verify success message
-4. Check Notion AI Assets for GitHub URL
+4. Check Notion AI Building Blocks for GitHub URL
 5. (Optional) Pull to desktop clone
 
 ## Best Practices

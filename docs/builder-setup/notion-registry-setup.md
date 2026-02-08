@@ -1,6 +1,6 @@
 ---
 title: AI Registry Setup in Notion
-description: Set up the Notion AI Registry template to track business processes, workflows, and AI assets
+description: Set up the Notion AI Registry template to track business processes, workflows, and AI building blocks
 schema_type: HowTo
 howto_steps:
   - name: Get Notion
@@ -10,7 +10,7 @@ howto_steps:
   - name: Duplicate the template
     text: Click the Duplicate button in the top-right corner to copy the template to your workspace.
   - name: Review sample entries
-    text: Explore the four databases (Business Processes, Workflows, AI Assets, Apps) to understand the structure.
+    text: Explore the four databases (Business Processes, Workflows, AI Building Blocks, Apps) to understand the structure.
   - name: Customize databases
     text: Edit select fields in each database to match your business areas, workflow categories, and asset types.
   - name: Connect your AI tools
@@ -19,7 +19,7 @@ howto_steps:
 
 # AI Registry Setup
 
-The AI Registry is a Notion workspace template that gives you a structured system for tracking your business processes, workflows, AI assets, and connected applications. It serves as the central hub for your AI operations — a single place to document what you're building, how it works, and what tools are involved.
+The AI Registry is a Notion workspace template that gives you a structured system for tracking your business processes, workflows, AI building blocks, and connected applications. It serves as the central hub for your AI operations — a single place to document what you're building, how it works, and what tools are involved.
 
 This registry is also the foundation for the [AI Registry plugin](../plugins/index.md#ai-registry), a set of Claude Code skills that can read from and write to your registry automatically. Once your registry is set up and connected, Claude can name workflows, write SOPs, register skills, and keep everything in sync — anywhere on the Claude platform.
 
@@ -62,7 +62,7 @@ Select the workspace you want to copy the template into. The entire page — inc
 The template includes sample entries in each database so you can see how they work together. Explore a few entries to understand the structure:
 
 - Click into a **Business Process** to see its linked workflows
-- Click into a **Workflow** to see its linked AI assets and apps
+- Click into a **Workflow** to see its linked AI building blocks and apps
 - Notice how relations connect everything together
 
 When you're ready, delete the sample entries and start adding your own.
@@ -73,7 +73,7 @@ Tailor the registry to your business. Each database comes with sensible defaults
 
 - **Business Processes** — Edit the **Domain** select field to match your business areas (Sales, Marketing, Product, Operations, etc.)
 - **Workflows** — Update **Status** and **Type** options to fit your workflow categories
-- **AI Assets** — Customize **Asset Type** options (Skill, Prompt, Agent, Project, Context MD, etc.)
+- **AI Building Blocks** — Customize **Asset Type** options (Skill, Prompt, Agent, Project, Context MD, etc.)
 - **Apps** — Configure **Type** options for your integration patterns (API, MCP Server, Native Integration, Webhook, etc.)
 
 To edit a select field: click any cell with that property, then click **"Edit property"** to add, rename, or remove options.
@@ -100,7 +100,7 @@ Once connected, your AI tool can search, read, and update your registry database
 |----------|---------|------------|
 | **Business Processes** | High-level business functions and their domains | Domain, LOB, Description |
 | **Workflows** | Specific workflows within each process | Status, Type, Trigger, Process Outcome |
-| **AI Assets** | Skills, prompts, agents, and other AI components | Asset Type, Platform, Status, Dependencies |
+| **AI Building Blocks** | Skills, prompts, agents, and other AI components | Asset Type, Platform, Status, Dependencies |
 | **Apps** | Connected applications and integrations | Type, Auth Type, Connection Status |
 
 ### How Relations Work
@@ -108,12 +108,12 @@ Once connected, your AI tool can search, read, and update your registry database
 The databases are linked to show how your operations connect:
 
 ```
-Business Process → Workflows → AI Assets
+Business Process → Workflows → AI Building Blocks
                             ↘ Apps
 ```
 
 - Each **Business Process** contains multiple **Workflows**
-- Each **Workflow** can use multiple **AI Assets** and **Apps**
+- Each **Workflow** can use multiple **AI Building Blocks** and **Apps**
 - Changes propagate automatically through relations
 
 ## Using the AI Registry Plugin
@@ -131,7 +131,7 @@ The plugin includes five skills that automate common registry tasks:
 | `naming-workflows` | Generates consistent, outcome-focused workflow names and creates entries in the Workflows database |
 | `writing-workflow-sops` | Writes Standard Operating Procedure documentation for each workflow |
 | `writing-process-guides` | Documents how workflows fit together within a business process |
-| `registering-building-blocks` | Registers AI building blocks (Skills, Agents, Prompts, Context MDs) in the AI Assets database |
+| `registering-building-blocks` | Registers AI building blocks (Skills, Agents, Prompts, Context MDs) in the AI Building Blocks database |
 | `syncing-skills-to-github` | Commits skills to GitHub and updates Notion with repository URLs |
 
 ### Recommended workflow
@@ -139,7 +139,7 @@ The plugin includes five skills that automate common registry tasks:
 1. **Name** — Ask Claude to name a workflow and it creates a Notion entry
 2. **Document** — Ask Claude to write the SOP for that workflow
 3. **Connect** — Ask Claude to write a process guide linking workflows together
-4. **Register** — Ask Claude to register any skills you've built in the AI Assets database
+4. **Register** — Ask Claude to register any skills you've built in the AI Building Blocks database
 5. **Sync** — Ask Claude to push skills to GitHub with version tracking
 
 See the [AI Registry plugin page](../plugins/index.md#ai-registry) for full details and usage examples.

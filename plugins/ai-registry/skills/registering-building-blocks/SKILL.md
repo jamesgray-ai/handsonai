@@ -1,11 +1,11 @@
 ---
 name: registering-building-blocks
-description: Register or update AI building blocks (Skills, Agents, Prompts, Context MDs) in the Notion AI Assets database. Use this skill immediately after creating, packaging, or updating any Claude building block to add or update it in the AI Assets tracking database. Triggers after skill creation, agent creation, prompt authoring, context MD updates, or when user asks to register/add/track a building block in Notion.
+description: Register or update AI building blocks (Skills, Agents, Prompts, Context MDs) in the Notion AI Building Blocks database. Use this skill immediately after creating, packaging, or updating any Claude building block to add or update it in the AI Building Blocks tracking database. Triggers after skill creation, agent creation, prompt authoring, context MD updates, or when user asks to register/add/track a building block in Notion.
 ---
 
 # Registering AI Building Blocks
 
-After creating, packaging, or updating any AI building block — Skill, Agent, Prompt, or Context MD — register or update it in the AI Assets database.
+After creating, packaging, or updating any AI building block — Skill, Agent, Prompt, or Context MD — register or update it in the AI Building Blocks database.
 
 ## Asset Type Resolution
 
