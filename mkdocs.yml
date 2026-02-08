@@ -131,6 +131,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Ask a Question: ask.md
   - Business-First AI Framework:
     - Overview: business-first-ai-framework/index.md
     - "Phase 1 — Discover": business-first-ai-framework/discover.md
