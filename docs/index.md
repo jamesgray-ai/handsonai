@@ -11,20 +11,6 @@ I built this open-source cookbook because I believe AI knowledge should be free 
 
 Practical guides, patterns, ready-made tools, and direct answers — everything you need to move from experimenting with AI to getting real results. Browse by platform, look up a topic, or work through a structured course.
 
-## Got a question?
-
-<div class="grid cards" markdown>
-
--   :material-chat-question:{ .lg .middle } **Ask a Question**
-
-    ---
-
-    Can't find what you're looking for? Submit your question and I'll write an answer for the cookbook — your questions help everyone learn faster.
-
-    [Ask your question :material-arrow-right:](https://jamesgray007.notion.site/301edcfdb924805693e7c7ab6aea589b?pvs=105){ .md-button .md-button--primary target="_blank" }
-
-</div>
-
 ## Browse the Cookbook
 
 <div class="grid cards" markdown>

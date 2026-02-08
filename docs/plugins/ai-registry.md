@@ -154,21 +154,25 @@ Names are always 2-4 words, noun phrases (not verb phrases), in Title Case.
 
 ---
 
-#### `registering-skills`
+#### `registering-building-blocks`
 
-**What it does:** Registers or updates Claude Skills in your Notion AI Assets database. Extracts metadata from the skill's SKILL.md file, generates a Quick Start Prompt, checks for duplicates, and creates or updates the registry entry.
+!!! info "Migration note"
+    This skill replaces `registering-skills` (v2.0.0). It handles all AI building block types — Skills, Agents, Prompts, and Context MDs — using the same registration workflow. If you previously used `registering-skills`, update your plugin to v3.0.0.
 
-**When to use it:** Use this immediately after creating, packaging, or updating any Claude Skill to keep your AI Assets database current. Also useful for batch-registering multiple skills at once.
+**What it does:** Registers or updates any AI building block — Skills, Agents, Prompts, or Context MDs — in your Notion AI Assets database. Automatically resolves the asset type from your request, extracts metadata from the appropriate source file, generates a Quick Start Prompt, checks for duplicates, and creates or updates the registry entry.
+
+**When to use it:** Use this immediately after creating, packaging, or updating any Claude building block to keep your AI Assets database current. Also useful for batch-registering multiple building blocks at once (which can mix asset types).
 
 **How it works:**
 
-1. Claude reads the SKILL.md frontmatter to extract the skill name and description
-2. Claude generates a Quick Start Prompt — a single, copy-paste-ready sentence that demonstrates the skill's primary use case
-3. Claude searches your Notion AI Assets database for an existing entry with the exact same name (to prevent duplicates)
-4. If found: updates the existing entry with the latest description and Quick Start Prompt
-5. If not found: creates a new entry with name, description, asset type (Skill), platform (Claude), and Quick Start Prompt
+1. Claude resolves the asset type from your request (keywords, file paths, or asks if ambiguous)
+2. Claude reads metadata from the appropriate source — `SKILL.md` frontmatter for skills, agent `.md` files for agents, or user input for prompts and context MDs
+3. Claude generates a Quick Start Prompt — a single, copy-paste-ready sentence that demonstrates the building block's primary use case (Context MDs typically skip this)
+4. Claude searches your Notion AI Assets database for an existing entry with the exact same name (to prevent duplicates)
+5. If found: updates the existing entry with the latest description and Quick Start Prompt
+6. If not found: creates a new entry with name, description, asset type, platform (Claude), and Quick Start Prompt
 
-For batch registration, Claude searches for each skill individually first, builds separate update and create lists, then processes them.
+For batch registration, Claude searches for each building block individually first, builds separate update and create lists, then processes them.
 
 **Example prompts:**
 
@@ -176,10 +180,15 @@ For batch registration, Claude searches for each skill individually first, build
     → Reads the SKILL.md, generates a Quick Start Prompt, checks for
       duplicates, and creates or updates the AI Assets entry
 
-    "Register all skills in the ~/.claude/skills/ directory"
-    → Batch processes every skill, reporting X created and Y updated
+    "Register the cookbook-question-answerer agent in Notion"
+    → Reads the agent .md file, generates a Quick Start Prompt, and
+      creates an entry with Asset Type = "Agent"
 
-**What you'll get:** An entry (or updated entry) in your Notion AI Assets database with: name, description, asset type, platform, Quick Start Prompt, and GitHub URL (if applicable).
+    "Register all skills and agents in Notion"
+    → Batch processes every building block, reporting X created and
+      Y updated (broken down by asset type)
+
+**What you'll get:** An entry (or updated entry) in your Notion AI Assets database with: name, description, asset type (Skill, Agent, Prompt, or Context MD), platform, Quick Start Prompt, and GitHub URL (if applicable).
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003; (Notion MCP required)
 
@@ -232,13 +241,13 @@ These skills work best in sequence, building from naming through to version cont
 1. **Name your workflow** — Use `naming-workflows` to create a consistent entry in Notion
 2. **Document the procedure** — Use `writing-workflow-sops` to write the SOP for the workflow
 3. **Connect workflows** — Use `writing-process-guides` to document how workflows fit together in a business process
-4. **Register your skills** — Use `registering-skills` to track Claude Skills in the AI Assets database
+4. **Register your building blocks** — Use `registering-building-blocks` to track Skills, Agents, Prompts, and Context MDs in the AI Assets database
 5. **Version control everything** — Use `syncing-skills-to-github` to push skills to GitHub with Notion tracking
 
 ## FAQ
 
 **Do I need all five skills?**
-No. Each skill works independently. Start with `naming-workflows` if you're building a registry from scratch, or `registering-skills` if you just want to track your existing Claude Skills.
+No. Each skill works independently. Start with `naming-workflows` if you're building a registry from scratch, or `registering-building-blocks` if you just want to track your existing Claude building blocks (skills, agents, prompts, etc.).
 
 **What if I don't have Notion set up?**
 Claude will still follow the naming conventions, SOP templates, and documentation patterns — it just won't save to Notion. See [Notion Registry Setup](../builder-setup/notion-registry-setup.md) to configure the MCP connector.

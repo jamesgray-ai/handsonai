@@ -131,7 +131,7 @@ The plugin includes five skills that automate common registry tasks:
 | `naming-workflows` | Generates consistent, outcome-focused workflow names and creates entries in the Workflows database |
 | `writing-workflow-sops` | Writes Standard Operating Procedure documentation for each workflow |
 | `writing-process-guides` | Documents how workflows fit together within a business process |
-| `registering-skills` | Registers Claude skills in the AI Assets database with metadata |
+| `registering-building-blocks` | Registers AI building blocks (Skills, Agents, Prompts, Context MDs) in the AI Assets database |
 | `syncing-skills-to-github` | Commits skills to GitHub and updates Notion with repository URLs |
 
 ### Recommended workflow

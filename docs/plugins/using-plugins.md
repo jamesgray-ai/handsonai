@@ -182,7 +182,7 @@ Most skills work fully across Claude Code, Claude.ai, Claude Desktop, and Cowork
 | `naming-workflows` | **Full** | **Full** | **Full** | Reads/writes Notion across all platforms |
 | `writing-workflow-sops` | **Full** | **Full** | **Full** | Reads/writes Notion across all platforms |
 | `writing-process-guides` | **Full** | **Full** | **Full** | Reads/writes Notion across all platforms |
-| `registering-skills` | **Full** | **Full** | **Full** | Reads/writes Notion across all platforms |
+| `registering-building-blocks` | **Full** | **Full** | **Full** | Reads/writes Notion across all platforms |
 | `syncing-skills-to-github` | **Full** | No | No | Requires terminal + git access |
 
 ## Using Plugins in Claude Cowork
@@ -275,7 +275,7 @@ Both support the same plugin format and skill files. If you're not comfortable w
     ```
 
     !!! note
-        MCP-dependent skills (like `registering-skills` or `syncing-skills-to-github`) won't work via the raw API since they require tool integrations that the API alone doesn't provide.
+        MCP-dependent skills (like `registering-building-blocks` or `syncing-skills-to-github`) won't work via the raw API since they require tool integrations that the API alone doesn't provide.
 
 ## Platform Summary
 

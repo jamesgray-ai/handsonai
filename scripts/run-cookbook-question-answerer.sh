@@ -19,7 +19,7 @@ cd "$PROJECT_DIR"
 
 # Run the subagent (using full path for launchd compatibility)
 # --dangerously-skip-permissions allows headless operation with tool use
-/Users/jamesgray/.local/bin/claude --agent cookbook-question-answerer --dangerously-skip-permissions >> "$LOG_FILE" 2>&1
+/Users/jamesgray/.local/bin/claude --agent cookbook-question-answerer -p "Process all new questions from the Notion Questions database" --dangerously-skip-permissions --verbose >> "$LOG_FILE" 2>&1
 
 echo "" >> "$LOG_FILE"
 echo "Finished: $(date)" >> "$LOG_FILE"
