@@ -103,7 +103,7 @@ Structure your findings as follows:
 
 After completing your research, you MUST save your findings to a markdown file:
 
-1. **File Location**: Save to `./ai-news-reports/` directory (create it if it doesn't exist)
+1. **File Location**: Save to `./outputs/ai-news-reports/` directory (create it if it doesn't exist)
 2. **File Naming**: Use the format `ai-news-YYYY-MM-DD.md` (e.g., `ai-news-2026-01-26.md`)
 3. **Process**:
    - First, compile all your findings using the Output Format below

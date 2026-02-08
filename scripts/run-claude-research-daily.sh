@@ -3,7 +3,7 @@
 # Runs the subagent and logs output for troubleshooting
 
 # Store logs in the project folder for easy access
-PROJECT_DIR="/Users/jamesgray/code/course-resources"
+PROJECT_DIR="/Users/jamesgray/code/handsonai"
 LOG_DIR="$PROJECT_DIR/logs/scheduled"
 mkdir -p "$LOG_DIR"
 
