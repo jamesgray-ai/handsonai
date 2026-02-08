@@ -87,6 +87,7 @@ See what others are saying on the [Wall of Love](wall-of-love.md).
 | Explore AI use cases by type | [Use Case Primitives](use-cases/) |
 | Install Claude Code plugins | [Plugin Marketplace](plugins/) |
 | Take a structured course | [Courses](courses/) |
+| See recent updates | [What's New](whats-new.md) |
 
 ## About
 
