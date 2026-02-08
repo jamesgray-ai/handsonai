@@ -21,7 +21,7 @@ howto_steps:
 
 The AI Registry is a Notion workspace template that gives you a structured system for tracking your business processes, workflows, AI building blocks, and connected applications. It serves as the central hub for your AI operations — a single place to document what you're building, how it works, and what tools are involved.
 
-This registry is also the foundation for the [AI Registry plugin](../plugins/index.md#ai-registry), a set of Claude Code skills that can read from and write to your registry automatically. Once your registry is set up and connected, Claude can name workflows, write SOPs, register skills, and keep everything in sync — anywhere on the Claude platform.
+This registry is also the foundation for the [AI Registry plugin](../plugins/index.md#ai-registry), a set of Claude Code skills that can read from and write to your registry automatically. Once your registry is set up and connected, Claude can name workflows, write SOPs (Standard Operating Procedures), register skills, and keep everything in sync — anywhere on the Claude platform.
 
 !!! note "Platform support"
     The AI Registry plugin is powered by Claude Agent skills, which are currently only supported on the **Claude** platform. Agent skills are an open standard, and many companies are already working to adopt them — as support broadens, the same skills will work across tools. The Notion connector ([Step 7](#step-7-connect-your-ai-tools)) works on both Claude and ChatGPT for basic read/write access.
@@ -118,7 +118,7 @@ Business Process → Workflows → AI Building Blocks
 
 ## Using the AI Registry Plugin
 
-Once your registry is connected via MCP, install the companion plugin to let Claude work with it directly:
+Once your registry is connected via the Notion connector, install the companion plugin to let Claude work with it directly:
 
 ```bash
 /plugin install ai-registry@handsonai
@@ -153,7 +153,7 @@ See the [AI Registry plugin page](../plugins/index.md#ai-registry) for full deta
 
 **Can't find the template?**
 
-- The template must be shared publicly. Contact the course instructor if the link doesn't work.
+- The template must be shared publicly. If the link doesn't work, check for updates on [GitHub](https://github.com/jamesgray-ai/handsonai/issues).
 
 **AI tool can't see your registry?**
 

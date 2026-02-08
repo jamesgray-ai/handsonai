@@ -47,7 +47,7 @@ Master AI. Master yourself. Build what matters. That's what [Graymatter](https:/
 
     Essential tools for your AI builder workflow — terminal, Git, editor, Claude Code, and more
 
-    [:octicons-arrow-right-24: Set up your stack](builder-setup/claude-code-install.md)
+    [:octicons-arrow-right-24: Set up your stack](builder-setup/index.md)
 
 -   :material-puzzle-outline:{ .lg .middle } **Plugins**
 

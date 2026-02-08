@@ -58,7 +58,7 @@ brew install git
 
 ### Important Settings During Install
 
-- **Default editor**: Choose your preferred editor or keep the default
+- **Default editor**: Select **VS Code** or **Cursor** if listed — avoid the default (Vim) unless you're familiar with it
 - **PATH environment**: Select "Git from the command line and also from 3rd-party software" (recommended)
 - **Line endings**: Select "Checkout Windows-style, commit Unix-style line endings" (recommended)
 
@@ -81,7 +81,7 @@ git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
 ```
 
-Use the same email address associated with your GitHub account.
+Use the email address you plan to use for your GitHub account (set up in the next step).
 
 ## Troubleshooting
 
@@ -100,9 +100,8 @@ Use the same email address associated with your GitHub account.
 
 ## Next Steps
 
-- Set up your GitHub account (see GitHub Setup Guide)
-- Install your code editor (see Editor Setup Guide)
-- Post in Slack if you encounter issues
+- Set up your GitHub account (see [GitHub Setup Guide](github-setup.md))
+- Install Claude Code (see [Claude Code Installation Guide](claude-code-install.md))
 
 ## Resources
 
