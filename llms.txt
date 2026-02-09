@@ -9,9 +9,9 @@
 
 ## Business-First AI Framework
 - Overview: https://handsonai.info/business-first-ai-framework/
-- Phase 1 — Discover: https://handsonai.info/business-first-ai-framework/discover/
-- Phase 2 — Deconstruct: https://handsonai.info/business-first-ai-framework/deconstruct/
-- Phase 3 — Build: https://handsonai.info/business-first-ai-framework/build/
+- Step 1 — Discover Workflows: https://handsonai.info/business-first-ai-framework/discover/
+- Step 2 — Deconstruct Workflows: https://handsonai.info/business-first-ai-framework/deconstruct/
+- Step 3 — Build Workflows: https://handsonai.info/business-first-ai-framework/build/
 
 ## Agentic Building Blocks
 - Overview: https://handsonai.info/agentic-building-blocks/
