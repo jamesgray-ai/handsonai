@@ -177,6 +177,7 @@ nav:
       - Overview: agentic-building-blocks/skills/index.md
       - Questions:
         - Difference between a skill and an agent: agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code.md
+        - Do plugin skills conflict with custom skills?: agentic-building-blocks/skills/questions/do-plugin-skills-conflict-with-custom-skills.md
     - Agents:
       - Overview: agentic-building-blocks/agents/index.md
       - Resources: agentic-building-blocks/agents/resources.md

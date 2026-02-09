@@ -90,6 +90,8 @@ To enable auto-updates for the Hands-on AI marketplace:
 3. Choose **handsonai** from the list
 4. Select **Enable auto-update**
 
+![Plugin manager showing the Marketplaces tab with the handsonai marketplace selected and the auto-update option highlighted](../assets/images/plugin-auto-update.png)
+
 Once enabled, Claude Code refreshes the marketplace and updates installed plugins each time it starts. If any plugins were updated, you'll see a notification suggesting you restart Claude Code.
 
 !!! tip
