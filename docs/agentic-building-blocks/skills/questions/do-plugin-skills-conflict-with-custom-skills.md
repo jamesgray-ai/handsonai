@@ -22,8 +22,6 @@ Claude Code stores skills in four separate locations, each with a different scop
 | Project | `.claude/skills/<skill-name>/SKILL.md` | This project only |
 | Plugin | `<plugin>/skills/<skill-name>/SKILL.md` | Where plugin is enabled |
 
-<!-- TODO: Add screenshot showing the skill hierarchy -->
-
 When skills at different levels share the same name, higher-priority locations win: enterprise overrides personal, personal overrides project. But plugin skills are different — they use a **namespaced identifier** in the format `plugin-name:skill-name`. This means a plugin skill like `business-first-ai:editing-hbr-articles` can never collide with a personal skill you named `editing-hbr-articles`. They are treated as entirely separate skills.
 
 This namespacing also means you can safely install multiple plugins from different developers without worrying about name collisions between them. A skill called `writing-posts` in one plugin is `plugin-a:writing-posts`, while the same name in another plugin is `plugin-b:writing-posts` — both exist independently.
