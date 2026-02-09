@@ -106,9 +106,9 @@ How you provide context depends on your platform and how often you run the workf
 | **Attached to a conversation** | One-off runs, infrequent workflows | Drag and drop files when you paste the prompt |
 | **In a Project** | Frequent workflows (weekly+) | Upload as project files that persist across conversations. See [Projects](projects.md). |
 | **Connected via MCP** | Live data from apps and databases | AI reads directly from the source — no manual export needed. See [MCP](mcp.md). |
-| **In CONTEXT.md files** | Developer workflows (Claude Code) | Markdown files named `CONTEXT.md` placed in your project folder — Claude Code reads them automatically when you start a conversation |
+| **In CONTEXT.md files** | Developer workflows (Claude Code) | Markdown files named `CONTEXT.md` placed in your project folder — Claude Code (an AI coding tool that runs in the terminal) reads them automatically when you start a conversation |
 
-If you ran the [Prompt](prompt.md) step, your Build outputs include an **Execution Context** section that recommends which approach fits your workflow based on how many context files you have and how often you'll run it.
+When you run the [Prompt](prompt.md) step later, the generated output will include a **Where to Run** section that recommends which approach fits your workflow based on how many context files you have and how often you'll run it.
 
 ## Testing Your Context
 
@@ -118,4 +118,4 @@ If the output is noticeably worse without an artifact, it's essential — keep i
 
 ## What's Next
 
-With your context artifacts created, set up a [Project](projects.md) workspace if your workflow runs frequently, or proceed directly to building your [Prompt](prompt.md).
+With your context artifacts created, set up a [Project](projects.md) workspace if your workflow runs frequently, then build [Skills](skills.md) for complex steps before generating your [Prompt](prompt.md).

@@ -29,7 +29,7 @@ This series of prompts walks you through that deconstruction interactively. You 
 1. A **Workflow Definition** — the structured breakdown of your workflow into refined steps, with decision points, data flows, context needs, and failure modes captured for every step
 2. An **AI Building Block Map** — autonomy classifications, AI building block mapping, a context inventory of every resource the workflow needs (documents, files, data sources, system access), and prerequisites
 
-This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../index.md#key-concepts) for quick definitions before starting.
+This builds directly on the concepts of workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../index.md#key-concepts) for quick definitions before starting.
 
 ## The Two-Prompt Approach
 
@@ -42,7 +42,7 @@ The workflow deconstruction is split into two focused prompts. Each prompt produ
 
 **Between steps:** Download (or copy and save) the output artifact as a Markdown file, then upload or paste it into the next conversation. Each prompt starts by asking you to provide the previous step's output. The files use a consistent naming convention: `[workflow-name]-definition.md` and `[workflow-name]-building-blocks.md`.
 
-**Ready to build?** After Step 2, take your AI Building Block Map to [Step 3 — Build Workflows](../build/index.md) to generate your executable prompt, skill specs, and everything else you need to run the workflow.
+**Ready to build?** After Step 2, take your AI Building Block Map to [Step 3 — Build Workflows](../build/index.md) to build skills, generate your executable prompt, and everything else you need to run the workflow.
 
 ## How to Use This
 
@@ -56,7 +56,7 @@ There are two ways to run this: as **prompts** in any AI tool, or with the **Cla
     2. **Save the Workflow Definition** — Download the `.md` file the model produces (or copy the output and save it as `[workflow-name]-definition.md`)
     3. **Go to [Map AI Building Blocks](building-blocks.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your Workflow Definition file
     4. **Save the AI Building Block Map** — Download `[workflow-name]-building-blocks.md`
-    5. **Go to [Build Workflows](../build/prompt.md)** — Copy the Build prompt, start a **new** conversation, paste the prompt, then upload or paste your AI Building Block Map
+    5. **Go to [Build Workflows](../build/index.md)** — Build skills from your artifacts, generate your executable prompt, and everything else you need to run the workflow
 
 === "Claude Platform"
 
@@ -93,7 +93,7 @@ Both options follow the same process and produce the same deliverables.
     Real workflows produce the best results. The model will surface hidden steps and assumptions you've internalized — that's much harder with hypothetical processes. If you don't have an existing workflow but have a clear problem to solve, that works too — the model will help you design one.
 
 !!! tip "Keep your files together"
-    By the end of Step 2 you'll have two Markdown files: `[name]-definition.md` and `[name]-building-blocks.md`. After Step 3 (Build), you'll also have `[name]-prompt.md` and `[name]-skill-specs.md`. Keep them in a single folder — they form a complete record of your workflow deconstruction. You can share any of these files with your team for feedback, put them in version control, or hand them to a colleague.
+    By the end of Step 2 you'll have two Markdown files: `[name]-definition.md` and `[name]-building-blocks.md`. After Step 3 (Build), you'll also have `[name]-prompt.md` plus any skills you built. Keep them in a single folder — they form a complete record of your workflow deconstruction. You can share any of these files with your team for feedback, put them in version control, or hand them to a colleague.
 
 !!! tip "Markdown renders as formatted text"
     Markdown (`.md`) files are plain text with lightweight formatting — headings, bold, lists, tables. Many tools render them automatically: GitHub, Notion, VS Code, and most code editors show the formatted version when you open the file. You can also paste Markdown into Google Docs or Notion and it converts on the fly.
@@ -151,7 +151,7 @@ You don't need to know all the steps before you start — that's what the prompt
 1. **[Break Down Your Workflow](workflow-definition.md)** (~15-25 minutes) — The model asks about your business scenario, objective, steps, and who's involved. Then it works through each step one by one, asking about sub-steps, decision points, data flows, context needs, and failure modes. For later steps, it switches to a "propose and react" pattern — presenting hypotheses for you to correct, which is faster and surfaces more detail. Produces a **Workflow Definition**.
 2. **[Map AI Building Blocks](building-blocks.md)** (~5-10 minutes) — The model classifies each refined step on the autonomy spectrum and maps it to AI building blocks. You review the mapping table and adjust. Produces an **AI Building Block Map**.
 
-Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive. After Step 2, take your AI Building Block Map to [Step 3 — Build Workflows](../build/index.md) to generate your executable prompt and everything else you need.
+Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive. After Step 2, take your AI Building Block Map to [Step 3 — Build Workflows](../build/index.md) to build skills, generate your executable prompt, and everything else you need.
 
 ## Tips for Better Results
 

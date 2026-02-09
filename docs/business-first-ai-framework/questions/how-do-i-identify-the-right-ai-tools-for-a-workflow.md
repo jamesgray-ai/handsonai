@@ -25,7 +25,7 @@ Once you have the refined step-by-step breakdown, map each step to one of six AI
 |---------------|------------|----------------|
 | **Prompt** | A well-crafted instruction that tells the model what to do | Single-step tasks with clear inputs and outputs |
 | **Context** | Background information, reference docs, or examples | Steps that need domain knowledge or specific data |
-| **Skill** | A reusable, parameterized routine the model can invoke | Repeatable tasks you'll run many times |
+| **Skill** | A reusable routine — give it inputs, it follows a defined process, it produces consistent outputs | Repeatable tasks you'll run many times |
 | **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work | Complex steps requiring judgment and tool use |
 | **MCP (Model Context Protocol)** | A connector to external tools, APIs, or databases | Steps that need to read from or write to external systems |
 | **Project** | A persistent workspace grouping prompts, context, skills, and agents | Organizing everything for a specific workflow |

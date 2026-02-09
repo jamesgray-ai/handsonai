@@ -18,7 +18,7 @@ The most common question at this point is: **"Where do I run this? How do I run 
 | Agent + skills + MCP | **Command an agent** — give a goal, it plans and executes | Claude Code subagents, OpenAI Agents, Google Agents, M365 Copilot Agents |
 | Any of the above + a schedule | **Automate** — recurring trigger, runs without you | Claude Code + launchd / Task Scheduler |
 
-If you ran the [Prompt](prompt.md) step, your Build outputs include an **Execution Context** section — it recommends whether to run your workflow in a normal chat or a project, based on how many context files you have and how often you'll run it. Use that as your starting point. If you don't have that output, the guidance below will help you decide.
+If you ran the [Prompt](prompt.md) step, your Build outputs include a **Where to Run** section — it recommends whether to run your workflow in a normal chat or a project, based on how many context files you have and how often you'll run it. Use that as your starting point. If you don't have that output, the guidance below will help you decide.
 
 ---
 
@@ -154,11 +154,11 @@ Use this table to figure out which building block to adjust based on what went w
 | The AI needs to make decisions you can't predict in advance | Convert from prompt to **agent** — let the AI plan its own approach |
 | The workflow should run without you triggering it | Add **scheduling** — automate with a recurring trigger |
 
-This maps directly back to [Going Further](index.md#going-further) in the Build overview — iterating is climbing the building block ladder based on what the workflow actually needs.
+This maps directly back to the [Build overview](index.md#what-youll-do-next) — iterating is climbing the building block ladder based on what the workflow actually needs.
 
 ## Related
 
-- [Going Further](index.md#going-further) — when to add skills, agents, and MCP beyond a basic prompt
-- [Worked Examples](deterministic-automation.md) — see each execution pattern in action
+- [Build overview](index.md#what-youll-do-next) — the full seven-step build process including skills, agents, and MCP
+- Worked Examples — [Deterministic Automation](deterministic-automation.md), [AI Collaborative](ai-collaborative.md), [Autonomous Agent](autonomous-agent.md)
 - [Scheduling Subagents](../../platforms/claude/subagents/scheduling-subagents.md) — full automation setup guide
 - [Agentic Building Blocks](../../agentic-building-blocks/index.md) — platform-specific implementation details

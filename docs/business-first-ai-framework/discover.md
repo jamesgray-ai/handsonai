@@ -175,7 +175,7 @@ Group the detailed cards by category. Within each category, order opportunities 
 
 ## Step 4 — Workflow Candidate Summary
 
-After presenting the full report, ask me to pick ONE opportunity from each category that I want to build during this course. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format, wrapped in a markdown code block so I can copy it easily:
+After presenting the full report, ask me to pick ONE opportunity from each category that I want to build first. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format, wrapped in a markdown code block so I can copy it easily:
 
 ```markdown
 - **Workflow:** [name]
@@ -197,7 +197,7 @@ After presenting the full report, ask me to pick ONE opportunity from each categ
 - **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
 ```
 
-This summary is my assignment deliverable — present it inside a code block so I can copy it directly into my course submission. For each "Why it matters" line, use what you learned about my priorities and goals during the interview to explain why this workflow is worth building.
+Present this inside a code block so I can copy and save it easily. For each "Why it matters" line, use what you learned about my priorities and goals during the interview to explain why this workflow is worth building.
 ```
 
 ## What to Expect
@@ -207,9 +207,9 @@ After pasting the prompt, here's what typically happens:
 1. **Step 1** — The AI reviews what it knows about you and presents a summary. Correct anything that's wrong and fill in gaps.
 2. **Step 2** — The AI asks you a series of questions. Answer as specifically as you can — concrete examples produce better recommendations than general descriptions.
 3. **Step 3** — You receive a structured report with a summary table and detailed cards for each opportunity, grouped by category.
-4. **Step 4** — You pick one opportunity from each category to build during the course, and the AI formats a **Workflow Candidate Summary** you can copy directly into your assignment submission.
+4. **Step 4** — You pick one opportunity from each category to build first, and the AI formats a **Workflow Candidate Summary** you can copy and save.
 
-Most people discover 5–15 opportunities across the three categories. You'll pick three to build during the course — one from each category.
+Most people discover 5–15 opportunities across the three categories. Pick three to start with — one from each category.
 
 ### How to Prioritize
 

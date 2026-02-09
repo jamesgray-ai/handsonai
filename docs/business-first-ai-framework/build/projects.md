@@ -22,7 +22,7 @@ A project is a persistent workspace that groups your context, prompts, and conve
 
 ## When to Use a Project vs. a Normal Chat
 
-Not every workflow needs a project. Use the Execution Context recommendation from your AI Building Block Map as your starting point:
+Not every workflow needs a project. Use the Where to Run recommendation from your AI Building Block Map as your starting point:
 
 **Normal chat** — Best when:
 
@@ -60,4 +60,4 @@ The prompt is self-contained. Someone could paste it into a normal chat with the
 
 ## What's Next
 
-With your workspace ready, build the [Prompt](prompt.md) that drives your workflow.
+With your workspace ready, build [Skills](skills.md) for complex steps, then generate the [Prompt](prompt.md) that drives your workflow.

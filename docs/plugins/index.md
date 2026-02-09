@@ -67,7 +67,7 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) as ex
     | [`finding-ai-opportunities`](business-first-ai.md#finding-ai-opportunities) | 1 | Structured audit of your workflows to discover where AI can help. Produces a categorized opportunity report. |
     | [`discovering-workflows`](business-first-ai.md#discovering-workflows) | 2 | Interactively discovers and decomposes a business workflow into a structured Workflow Definition. |
     | [`deconstructing-workflows`](business-first-ai.md#deconstructing-workflows) | 2 | Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces an AI Building Block Map. |
-    | [`building-workflows`](business-first-ai.md#building-workflows) | 3 | Turns your AI Building Block Map into executable outputs — a Baseline Workflow Prompt, Skill Specs, and build guidance. |
+    | [`building-workflows`](business-first-ai.md#building-workflows) | 3 | Turns your AI Building Block Map into a Baseline Workflow Prompt and build guidance. If you built skills first, generates a skill-aware prompt that references them. |
     | [`editing-hbr-articles`](business-first-ai.md#editing-hbr-articles) | 3 | HBR editorial criteria for article editing. Used by the `hbr-editor` agent. |
     | [`preparing-meeting-briefs`](business-first-ai.md#preparing-meeting-briefs) | 3 | Structured research workflow for meeting preparation. Used by the `meeting-prep-researcher` agent. |
 

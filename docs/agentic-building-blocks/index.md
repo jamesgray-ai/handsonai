@@ -29,7 +29,7 @@ These are platform-agnostic concepts. Every major AI platform implements them, t
 | **Prompt** | A well-crafted instruction that tells the model what to do | Single use | Low |
 | **Context** | Background information, reference docs, or examples the model needs | Per conversation or persistent | Low |
 | **Project** | A persistent workspace grouping prompts, context, skills, and agents | Persistent | Medium |
-| **Skill** | A reusable, parameterized routine the model can invoke | Persistent and reusable | Medium |
+| **Skill** | A reusable routine — give it inputs, it follows a defined process, it produces consistent outputs | Persistent and reusable | Medium |
 | **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work | Session-based or persistent | High |
 | **MCP** | A connector that lets AI access external tools, services, or databases | Persistent | High |
 
@@ -266,7 +266,7 @@ A project is an active workspace — it provides standing instructions, persiste
 - [Prompts](prompts/index.md) — the Prompt building block, with prompt engineering techniques
 - [Context](context/index.md) — background information and reference materials
 - [Projects](projects/index.md) — project workspaces with memory, knowledge bases, and custom instructions
-- [Skills](skills/index.md) — reusable, parameterized routines
+- [Skills](skills/index.md) — reusable routines the AI invokes when relevant
 - [Agents](agents/index.md) — concepts for the Agent building block
 - [MCP](mcp/index.md) — connecting AI to external systems
 - [Patterns](../patterns/index.md) — reusable approaches across building blocks

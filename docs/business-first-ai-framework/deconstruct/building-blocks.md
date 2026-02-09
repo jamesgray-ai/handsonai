@@ -85,7 +85,7 @@ For each refined step from the Workflow Definition, determine:
 2. **AI building block** — Map each AI-assisted step to one or more of these six building blocks:
    - **Prompt** — A well-crafted instruction that tells the model what to do for this step
    - **Context** — Background information, reference documents, examples, or data the model needs to perform the step well
-   - **Skill** — A reusable, parameterized routine the model can invoke (on Claude, this is a Claude Code Skill; on other platforms, this maps to custom instructions, GPTs, or Gems)
+   - **Skill** — A reusable routine the model can invoke — give it inputs, it follows a defined process, it produces consistent outputs (on Claude, this is a Claude Code Skill; on other platforms, this maps to custom instructions, GPTs, or Gems)
    - **Agent** — An autonomous AI that plans, uses tools, and executes multi-step work with minimal supervision
    - **MCP (Model Context Protocol)** — A connector that gives the model access to external tools, APIs, databases, or services
    - **Project** — A persistent workspace that groups prompts, context, skills, and agents for a specific workflow
@@ -155,9 +155,9 @@ Prioritize the AI-eligible steps into a build sequence:
 1. **Quick wins** — Deterministic steps with clear inputs/outputs that can be automated with a Prompt or Context alone. Start here.
 2. **High-value semi-autonomous steps** — Steps where AI does most of the work but needs a human review gate. Build these next.
 3. **Complex agent steps** — Fully autonomous steps requiring Agents, MCP connectors, or multi-tool orchestration. Tackle these last.
-For each priority tier, list the specific steps and what the student needs to build (e.g., "Write a prompt for Step 3," "Set up an MCP connector for Step 7").
+For each priority tier, list the specific steps and what needs to be built (e.g., "Write a prompt for Step 3," "Set up an MCP connector for Step 7").
 
-### Execution Context
+### Where to Run
 
 Recommend where the Baseline Workflow Prompt should be run:
 
@@ -176,13 +176,13 @@ Recommend where the Baseline Workflow Prompt should be run:
 
 State the recommendation, the reasoning, and list the specific context files to attach (chat) or pre-load in the project.
 
-**Important:** The Baseline Workflow Prompt is always self-contained — it contains all workflow logic regardless of execution context. A project provides pre-loaded context and conversation memory, but never contains the workflow logic. The prompt IS the workflow.
+**Important:** The Baseline Workflow Prompt is always self-contained — it contains all workflow logic regardless of where you run it. A project provides pre-loaded context and conversation memory, but never contains the workflow logic. The prompt IS the workflow.
 
 ---
 
 After presenting the AI Building Block Map, tell me:
 
-> **Next step:** Download (or copy and save) the AI Building Block Map file. Then go to [Step 3 — Build Workflows](https://handsonai.info/business-first-ai-framework/build/prompt/), copy that prompt into a new conversation, and upload or paste the AI Building Block Map when the model asks for it.
+> **Next step:** Download (or copy and save) the AI Building Block Map file. Then go to [Step 3 — Build Workflows](https://handsonai.info/business-first-ai-framework/build/) to build skills from your artifacts, generate your executable prompt, and everything else you need to run the workflow.
 
 ---
 
@@ -191,7 +191,7 @@ After presenting the AI Building Block Map, tell me:
 - If the Workflow Definition is missing information needed for classification, ask me to clarify before guessing.
 - If I mention I'm using Claude, note where Skills would be the appropriate building block for reusable routines.
 - Explain your reasoning for any non-obvious classifications.
-- Use plain language. Avoid jargon unless the student introduced it.
+- Use plain language. Avoid jargon unless I introduced it.
 ```
 
 ## What This Prompt Produces
@@ -206,4 +206,4 @@ The **AI Building Block Map** contains:
 - **Context inventory** — every piece of context the workflow needs, with status and key contents
 - **Tools and connectors** — external integrations required
 
-This AI Building Block Map is the input for [Step 3 — Build Workflows](../build/prompt.md), where the model generates your ready-to-use Baseline Prompt, Skill Specs, recommended implementation order, and execution context.
+This AI Building Block Map is the input for [Step 3 — Build Workflows](../build/index.md), where you build skills, generate your Baseline Prompt, and everything else you need to run the workflow.

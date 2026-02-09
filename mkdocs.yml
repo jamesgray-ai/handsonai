@@ -148,8 +148,8 @@ nav:
       - Overview: business-first-ai-framework/build/index.md
       - Context: business-first-ai-framework/build/context.md
       - Projects: business-first-ai-framework/build/projects.md
-      - Prompt: business-first-ai-framework/build/prompt.md
       - Skills: business-first-ai-framework/build/skills.md
+      - Prompt: business-first-ai-framework/build/prompt.md
       - Agents: business-first-ai-framework/build/agents.md
       - MCP: business-first-ai-framework/build/mcp.md
       - Run: business-first-ai-framework/build/run.md

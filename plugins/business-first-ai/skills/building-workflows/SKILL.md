@@ -1,28 +1,29 @@
 ---
 name: building-workflows
 description: >
-  Turn your AI Building Block Map into executable outputs — a Baseline Workflow Prompt, Skill Specs,
-  and build guidance. Use when the user has a completed AI Building Block Map and wants the Build
-  deliverables. This is the Build step in the workflow deconstruction series.
+  Turn your AI Building Block Map into a Baseline Workflow Prompt and build guidance. If the user
+  has already built skills, generates a skill-aware prompt that references them instead of spelling
+  out those steps inline. Use when the user has a completed AI Building Block Map and wants to
+  generate the prompt. This is the Build step in the workflow deconstruction series.
 ---
 
 # Workflow Build
 
-Take an AI Building Block Map and produce the Build deliverables: a Baseline Workflow Prompt, Skill Specs, Recommended Implementation Order, and Execution Context.
+Take an AI Building Block Map and produce the Build deliverable: a Baseline Workflow Prompt with Recommended Implementation Order and Where to Run. If the user has already built skills, the prompt references them instead of spelling out those steps inline.
 
 ## Workflow
 
 1. **Load AI Building Block Map** — Read the AI Building Block Map from `outputs/[workflow-name]-building-blocks.md`. If the user specifies a file path, use that. Otherwise, look for the most recent AI Building Block Map in `outputs/`.
 2. **Confirm understanding** — Summarize the workflow name, step count, how many are AI-eligible, and the building blocks identified. Ask the user to confirm before proceeding.
 3. **Clarify if needed** — If anything in the AI Building Block Map is ambiguous, ask before generating. Maximum 1-2 clarifying questions.
+3b. **Check for existing skills** — Ask: "Did you build any skills for this workflow? If yes, list each skill name and which steps it covers." If skills exist, note them for prompt generation — replace covered steps with skill invocations instead of inline instructions.
 4. **Check for existing AI instructions** — Before generating, check the Context Inventory for any artifacts that contain existing prompt instructions, project instructions, or system prompts from AI tools the user already uses for this workflow. These contain workflow logic that must be included in the Baseline Prompt — not referenced, but actually included. If such artifacts exist but their content is not in the AI Building Block Map, ask the user to paste or upload them.
-5. **Generate Baseline Workflow Prompt** — Produce a ready-to-use, self-contained prompt and write it to the output file. Include an Execution Context section advising where to run the prompt (normal chat vs. project).
-6. **Generate Skill Specs** — Produce skill specs and write them to the output file.
-7. **Write SOP to Notion (if available)** — After both deliverables are generated, check if the Notion MCP server is accessible AND this workflow was registered in the Discover step. If so, offer to write the workflow SOP to the Notion page using the `writing-workflow-sops` approach: pass the workflow name to locate the page, use the Baseline Prompt's procedure steps as the primary input, and write the formatted SOP to the page body. If Notion is not available or the workflow was not registered, skip this step.
+5. **Generate Baseline Workflow Prompt** — Produce a ready-to-use, self-contained prompt and write it to the output file. Include a Where to Run section advising where to run the prompt (normal chat vs. project). For any step covered by a skill the user provided, replace the inline instructions with a brief description of the task (the skill handles the details automatically). Keep full instructions only for steps NOT covered by a skill.
+6. **Write SOP to Notion (if available)** — After the prompt is generated, check if the Notion MCP server is accessible AND this workflow was registered in the Discover step. If so, offer to write the workflow SOP to the Notion page using the `writing-workflow-sops` approach: pass the workflow name to locate the page, use the Baseline Prompt's procedure steps as the primary input, and write the formatted SOP to the page body. If Notion is not available or the workflow was not registered, skip this step.
 
 ## Outputs
 
-Write two files:
+Write one file:
 
 ### `outputs/[workflow-name]-prompt.md` — Baseline Workflow Prompt
 
@@ -37,7 +38,7 @@ The prompt must be: self-contained, specific, version-control ready, team-adopti
 
 **Self-contained means:** The prompt contains every instruction the model needs to execute the workflow. It never says "open this project" or "follow those instructions." If existing AI instructions drive a step, those instructions are written into the prompt.
 
-**Execution Context** — Include a section advising where to run the prompt (normal chat vs. project), which files to attach or pre-load, and why. The prompt instructions are the same regardless of execution context — the project provides file staging convenience, not workflow logic.
+**Where to Run** — Include a section advising where to run the prompt (normal chat vs. project), which files to attach or pre-load, and why. The prompt instructions are the same regardless of where you run it — the project provides file staging convenience, not workflow logic.
 
 Recommend where the Baseline Workflow Prompt should be run:
 
@@ -46,22 +47,7 @@ Recommend where the Baseline Workflow Prompt should be run:
 
 State the recommendation, the reasoning, and list the specific context files to attach (chat) or pre-load in the project.
 
-**Important:** The Baseline Workflow Prompt is always self-contained — it contains all workflow logic regardless of execution context. A project provides pre-loaded context and conversation memory, but never contains the workflow logic. The prompt IS the workflow.
-
-### `outputs/[workflow-name]-skill-specs.md` — Skill Specs
-
-For each recommended skill:
-- **Skill Name** — 2-4 words, lowercase with hyphens
-- **Purpose** — What it does, when to invoke it
-- **Inputs** — What it needs, format requirements
-- **Outputs** — What it produces, structure and format
-- **Workflow Steps** — Specific steps it executes
-- **Replaces Steps** — Which baseline prompt step numbers it replaces, how the invocation changes
-- **Integration Points** — External tools, APIs, MCP servers
-- **Priority** — High / Medium / Low
-- **Quick Start Prompt** — One-sentence invocation
-
-Present skills in priority order. If no steps qualify as good skill candidates, explain why.
+**Important:** The Baseline Workflow Prompt is always self-contained — it contains all workflow logic regardless of where you run it. A project provides pre-loaded context and conversation memory, but never contains the workflow logic. The prompt IS the workflow.
 
 ### Recommended Implementation Order
 
@@ -77,5 +63,5 @@ For each priority tier, list the specific steps and what needs to be built (e.g.
 
 - If the user mentions Claude, note where Claude Code Skills are the appropriate implementation
 - Use plain language; avoid jargon unless the user introduced it
-- After writing both files, tell the user: "Outputs saved to `outputs/[name]-prompt.md` and `outputs/[name]-skill-specs.md`. Your Build deliverables are ready."
-- Summarize the four files produced across Deconstruct and Build so the user has a clear inventory of their deliverables
+- After writing the file, tell the user: "Output saved to `outputs/[name]-prompt.md`. Your Baseline Workflow Prompt is ready."
+- Summarize the three files produced across Deconstruct and Build so the user has a clear inventory of their deliverables

@@ -137,7 +137,7 @@ Break workflows into AI building blocks.
 
 1. **Discover** (`discovering-workflows`) — Interactive conversation where you describe your workflow. The agent probes for missing steps, decision points, data flows, and failure modes. Produces a Workflow Definition.
 2. **Deconstruct** (`deconstructing-workflows`) — Reads the Workflow Definition, classifies each step on an autonomy spectrum (Human → AI-Deterministic → AI-Semi-Autonomous → AI-Autonomous), and maps to AI building blocks. Produces the AI Building Block Map.
-3. **Build** (`building-workflows`) — Reads the AI Building Block Map and generates a ready-to-use prompt plus specs for which steps should become dedicated skills. Produces the Baseline Prompt and Skill Specs.
+3. **Build** (`building-workflows`) — Reads the AI Building Block Map and generates a ready-to-use prompt. If the user has already built skills, generates a skill-aware prompt that references them. Produces the Baseline Prompt.
 
 Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/lead-qualification-definition.md`).
 
@@ -159,12 +159,11 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
       autonomy level, and identifies quick wins vs. complex
       automation opportunities
 
-**What you'll get:** Four files in `outputs/`:
+**What you'll get:** Three files in `outputs/`:
 
 1. **Workflow Definition** — `[name]-definition.md` — structured decomposition of every step
 2. **AI Building Block Map** — `[name]-building-blocks.md` — autonomy classification and AI building block mapping
-3. **Baseline Workflow Prompt** — `[name]-prompt.md` — ready-to-use prompt with numbered steps
-4. **Skill Specs** — `[name]-skill-specs.md` — specs for which steps should become dedicated skills
+3. **Baseline Workflow Prompt** — `[name]-prompt.md` — ready-to-use prompt with numbered steps (skill-aware if you built skills first)
 
 ---
 
@@ -248,41 +247,33 @@ Turn your AI Building Block Map into working AI workflows.
 
 #### `building-workflows`
 
-**What it does:** Turns your AI Building Block Map into executable outputs — a Baseline Workflow Prompt, Skill Specs, and build guidance. This is the Build step.
+**What it does:** Turns your AI Building Block Map into a Baseline Workflow Prompt and build guidance. If you've already built skills, generates a skill-aware prompt that references them instead of spelling out those steps inline. This is the Build step.
 
-**When to use it:** Use this when you have a completed AI Building Block Map (from the Deconstruct step) and want the Build deliverables — a prompt you can run immediately and specs for which steps should become dedicated skills.
+**When to use it:** Use this when you have a completed AI Building Block Map (from the Deconstruct step) and want to generate your Baseline Workflow Prompt — a prompt you can run immediately. If you built skills first, the prompt references them.
 
 **How it works:**
 
 1. **Load AI Building Block Map** — Claude reads the AI Building Block Map from `outputs/`
 2. **Confirm understanding** — Claude summarizes the workflow, step count, AI-eligible steps, and implementation order. You confirm before proceeding.
-3. **Generate Baseline Workflow Prompt** — A self-contained, ready-to-use prompt with:
+3. **Check for existing skills** — If you built skills already, list them and Claude generates a prompt that references them instead of spelling out those steps.
+4. **Generate Baseline Workflow Prompt** — A self-contained, ready-to-use prompt with:
     - Title, purpose, and when to use it
     - Numbered steps, each labeled (AI) or (Human)
     - Input requirements with format specifications
     - Context requirements (what to attach when running the prompt)
     - Output format with structure specifications
-4. **Generate Skill Specs** — For each step that should become a dedicated skill:
-    - Skill name, purpose, inputs, outputs
-    - Which baseline prompt steps it replaces
-    - Integration points (external tools, APIs, MCP servers)
-    - Priority level (High / Medium / Low)
-    - Quick Start Prompt for invoking the skill
 
 **Example prompts:**
 
     "Use building-workflows on my building blocks"
-    → Reads the most recent AI Building Block Map, generates the prompt
-      and skill specs
+    → Reads the most recent AI Building Block Map and generates the
+      Baseline Workflow Prompt
 
-    "Generate the deliverables for expense-reporting"
-    → Reads outputs/expense-reporting-building-blocks.md and produces both
-      output files
+    "Generate the prompt for expense-reporting"
+    → Reads outputs/expense-reporting-building-blocks.md and produces
+      the prompt file
 
-**What you'll get:** Two files:
-
-1. **Baseline Workflow Prompt** (`outputs/[name]-prompt.md`) — A self-contained prompt you can run immediately. Steps are labeled (AI) or (Human), includes all input/context/output requirements.
-2. **Skill Specs** (`outputs/[name]-skill-specs.md`) — Specs for each recommended skill, in priority order, with Quick Start Prompts.
+**What you'll get:** A **Baseline Workflow Prompt** (`outputs/[name]-prompt.md`) — a self-contained prompt you can run immediately. Steps are labeled (AI) or (Human), includes all input/context/output requirements. If you built skills first, the prompt references them instead of spelling out those steps.
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
 

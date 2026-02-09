@@ -1,6 +1,6 @@
 ---
 title: Build Workflows
-description: Turn your AI Building Block Map into a working workflow — from context and prompts through skills, agents, and MCP connections.
+description: Turn your AI Building Block Map into a working workflow — from context and skills through prompts, agents, and MCP connections.
 ---
 
 # Build Workflows
@@ -19,7 +19,7 @@ These two files are your blueprint. The AI Building Block Map tells you *exactly
 
 ## What You'll Do Next
 
-For most workflows, the build process is four actions. You can complete it in an afternoon.
+The build process has seven steps. Your AI Building Block Map tells you which ones your workflow needs — work through each step that applies.
 
 ### 1. Create your context
 
@@ -29,32 +29,53 @@ Start with items marked "Needs Creation." The Context Inventory's "Key Contents"
 
 **[Context guide](context.md)** — what context looks like, how to create what's missing, and where to store it
 
-### 2. Generate your prompt
+### 2. Set up a project workspace (if running frequently)
 
-This is the core action. You'll use AI to turn your `[name]-building-blocks.md` file into two new deliverables:
+If your AI Building Block Map's Where to Run recommends a project workspace — typically when you run the workflow weekly or more and have 3+ context files — set one up now. A project pre-loads your context so you just paste the prompt and go, no re-attaching files every time.
 
-- A **Baseline Workflow Prompt** (`[name]-prompt.md`) — a ready-to-use prompt with numbered steps, each labeled as AI or Human. This IS your workflow. Paste it into any AI tool and it runs.
-- **Skill Specs** (`[name]-skill-specs.md`) — recommendations for which steps could become reusable skills (optional — you can build these later or not at all)
+Skip this step if the Where to Run recommends normal chat, or if you're not sure yet — you can always move to a project later.
 
-Here's exactly how:
+**[Projects guide](projects.md)** — when to use a project vs. a normal chat, and how to set one up
 
-1. Go to the **[Prompt](prompt.md)** page
-2. **Copy the prompt** from the code block on that page
-3. **Open a new conversation** in any AI tool — Claude, ChatGPT, Gemini, or M365 Copilot
-4. **Paste the prompt** you copied and press Enter
-5. The AI will ask you for your AI Building Block Map — **upload or paste your `[name]-building-blocks.md` file**
-6. The AI reads your file, may ask 1-2 clarifying questions, then **generates both deliverables**
-7. **Save both files** — download them or copy the output and save as `[name]-prompt.md` and `[name]-skill-specs.md`
+### 3. Build your skills (recommended)
 
-**[Prompt guide](prompt.md)** — the full prompt template, step-by-step instructions, and what the outputs contain
+Your AI Building Block Map already identifies which steps should become reusable skills — and it contains everything you need to build them. The decomposition table has each step's purpose, inputs, outputs, decision logic, and failure modes — that's all the raw material a skill needs. You'll paste the Building Block Map into any AI tool that supports agent skills and ask it to build a skill for each candidate step.
 
-### 3. Run it on a real scenario
+Each skill you build makes the prompt you'll generate in the next step shorter and smarter — the prompt invokes your skills by name instead of spelling out every instruction.
 
-Now take the `[name]-prompt.md` file the AI just generated for you. This is your workflow — ready to use.
+Skip this step if your platform doesn't support agent skills or you want to start with a standalone prompt — the Prompt step generates the full baseline with every step spelled out.
 
-1. **Open a new conversation** in your AI tool
+**[Skills guide](skills.md)** — step-by-step instructions for identifying skill candidates, building them from your existing artifacts, and integrating them with your prompt
+
+### 4. Generate your prompt
+
+Paste the prompt template (from the Prompt page) into any AI tool along with your AI Building Block Map. If you built skills, list them when the AI asks — it generates a prompt that references your skills instead of spelling out those steps. If you didn't build skills, the AI generates the full baseline with every step spelled out. Save as `[name]-prompt.md`.
+
+**[Prompt guide](prompt.md)** — the full prompt template, step-by-step instructions, and what the output contains
+
+### 5. Build agents (if your Building Block Map calls for them)
+
+Check your AI Building Block Map for steps tagged with "Agent" in the AI Building Blocks column. These are steps where the AI needs to plan its own approach, use tools, and adapt based on what it finds — more than a prompt can handle. If you have agent steps, build them now.
+
+Skip this step if no steps are tagged with "Agent" in your Building Block Map.
+
+**[Agents guide](agents.md)** — when you need an agent vs. when a prompt is enough
+
+### 6. Connect external tools with MCP (if your workflow needs them)
+
+Check the **Tools and Connectors Required** section of your AI Building Block Map. If your workflow needs to read from or write to external systems — databases, APIs, browsers, project management tools — you'll wire those connections using MCP (Model Context Protocol). Set up the MCP connections now so they're available when you run the workflow.
+
+Skip this step if your Building Block Map doesn't list any external tools or connectors.
+
+**[MCP guide](mcp.md)** — what MCP provides and how to connect your workflow to external tools
+
+### 7. Run it on a real scenario
+
+Now take the `[name]-prompt.md` file the AI generated for you. This is your workflow — ready to use.
+
+1. **Open a new conversation** in your AI tool (or open your project workspace if you set one up in step 2)
 2. **Paste the contents of `[name]-prompt.md`** and press Enter
-3. **Attach any context files** listed in the prompt's Context Requirements section (these are the artifacts from action 1)
+3. **Attach any context files** listed in the prompt's Context Requirements section (these are the artifacts from step 1 — already pre-loaded if you're using a project)
 4. **Provide the inputs** the prompt asks for — the Input Requirements section tells you exactly what's needed
 5. **Review the output**
 
@@ -62,7 +83,7 @@ The first run is a test, not a final product. You're looking for: Did the output
 
 **[Run guide](run.md)** — how to choose between a normal chat and a project, and how to troubleshoot first-run issues
 
-### 4. Iterate based on what you see
+### After the first run: iterate
 
 After your first run, you'll know what works and what doesn't. The most common issue is generic output — the AI didn't have enough context about your specific business. The fix is usually adding more context files (reference materials, examples of good output, or rules the AI should follow).
 
@@ -79,60 +100,31 @@ Use this table to figure out what to adjust:
 
 ---
 
-**That's it for most workflows.** These four actions get you from "I have these Markdown files" to "I have a working AI workflow." You now have four files:
+**You now have three core files:**
 
 | File | From | What it is |
 |------|------|-----------|
 | `[name]-definition.md` | Deconstruct | Your Workflow Definition — the raw decomposition |
 | `[name]-building-blocks.md` | Deconstruct | Your AI Building Block Map — the analysis and blueprint |
 | `[name]-prompt.md` | Build | Your Baseline Workflow Prompt — **paste this to run the workflow** |
-| `[name]-skill-specs.md` | Build | Your Skill Specs — what to build next and in what order |
 
-Many workflows stay at this level permanently — a prompt plus context, pasted into a chat whenever you need it. That's a feature, not a limitation.
+Plus any skills, agents, MCP connections, and context artifacts you built along the way.
 
-If your workflow needs more — a persistent workspace, reusable skills, autonomous agents, or connections to external tools — keep reading.
+Many workflows stay at the prompt-plus-context level permanently — pasted into a chat whenever you need it. That's a feature, not a limitation.
 
-## Going Further
+## Quick Reference
 
-### Setting up a project workspace
+| Step | Guide | When to use |
+|------|-------|-------------|
+| 1 | [Context](context.md) | Always |
+| 2 | [Projects](projects.md) | When Where to Run recommends a project workspace |
+| 3 | [Skills](skills.md) | Recommended — when Building Block Map tags steps with "Skill" |
+| 4 | [Prompt](prompt.md) | Always |
+| 5 | [Agents](agents.md) | When Building Block Map tags steps with "Agent" |
+| 6 | [MCP](mcp.md) | When Building Block Map lists external tools or connectors |
+| 7 | [Run](run.md) | Always |
 
-If you run this workflow frequently (weekly or more) and you're attaching the same context files every time, move it into a project. A project pre-loads your context so you just paste the prompt and go — no re-attaching files.
-
-**[Projects guide](projects.md)** — when to use a project vs. a normal chat, and how to set one up
-
-### Building skills
-
-Your Build outputs include Skill Specs — recommendations for which workflow steps could become reusable skills. A skill codifies expertise for a specific step so the prompt can invoke it by name instead of re-explaining the process every time. You don't need to build skills right away — start with the prompt, and add skills later for steps where you want more consistent, expert-level output.
-
-**[Skills guide](skills.md)** — when to build skills and how to turn a Skill Spec into a working skill
-
-### Using agents
-
-Some workflow steps need more than a script to follow — they need the AI to plan its own approach, use tools, and adapt based on what it finds. If your AI Building Block Map tags steps with "Agent," those steps are candidates for autonomous execution. Agents are the most advanced building block and are optional for most workflows.
-
-**[Agents guide](agents.md)** — when you need an agent vs. when a prompt is enough
-
-### Connecting to external tools with MCP
-
-If your workflow needs to read from or write to external systems — databases, APIs, browsers, project management tools — you'll wire those connections using MCP (Model Context Protocol). MCP is the bridge between AI and your tools. Check the "Tools and Connectors Required" section of your AI Building Block Map to see if you need it.
-
-**[MCP guide](mcp.md)** — what MCP provides and how to connect your workflow to external tools
-
-## The Full Build Process
-
-Here's the complete picture — all seven steps. Most workflows only need steps 1, 2, 3, and 7. Work through whichever steps your Building Block Map calls for:
-
-| Step | What | What you'll do | When to use |
-|------|------|---------------|-------------|
-| 1 | [Context](context.md) | Create the context your workflow needs — documents, data, rules, and examples | Always — every workflow benefits from explicit context |
-| 2 | [Projects](projects.md) | Set up a persistent workspace with pre-loaded context | When running the workflow frequently (weekly+) with 3+ context files |
-| 3 | [Prompt](prompt.md) | Generate a self-contained Baseline Workflow Prompt and Skill Specs | Always — the prompt is your workflow |
-| 4 | [Skills](skills.md) | Build reusable routines for steps requiring domain expertise | When your Skill Specs recommend skill candidates |
-| 5 | [Agents](agents.md) | Build autonomous agents for steps that need planning and adaptive execution | When your Building Block Map tags steps with "Agent" |
-| 6 | [MCP](mcp.md) | Connect AI to external tools, databases, and services | When steps require external tool access |
-| 7 | [Run](run.md) | Execute the workflow — paste and run, run in a project, command an agent, or automate on a schedule | Always — this is where you test and iterate |
-
-Each building block page cross-references the corresponding [Agentic Building Blocks](../../agentic-building-blocks/index.md) page for platform-specific implementation details.
+Each building block guide cross-references the corresponding [Agentic Building Blocks](../../agentic-building-blocks/index.md) page for platform-specific implementation details.
 
 ## Worked Examples
 

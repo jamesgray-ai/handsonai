@@ -27,7 +27,7 @@ The prompt uses a **5-question framework** (discrete steps, decision points, dat
 
 ## How to Use This
 
-There are two ways to run Step 1, depending on which tools you use:
+There are two ways to run this, depending on which tools you use:
 
 ### Option A: Prompt template (any AI tool)
 
@@ -36,7 +36,7 @@ There are two ways to run Step 1, depending on which tools you use:
 3. **Press Enter** — the model will read the instructions and ask about your business scenario
 4. **Answer the questions** — describe your workflow or problem, then work through the deep dive
 5. **Download the Workflow Definition** the model produces at the end — it will be a Markdown file named `[workflow-name]-definition.md` (e.g., `lead-qualification-definition.md`)
-6. **Keep this file** — you'll upload or paste it into Step 2, and you can share it with your instructor for feedback
+6. **Keep this file** — you'll upload or paste it into Step 2, and you can share it with your team for feedback
 
 ### Option B: Claude skill
 
@@ -66,7 +66,7 @@ Work through the following two parts in order. Ask one question at a time during
 
 Start by understanding the workflow I want to deconstruct.
 
-Before asking me anything, check if you have access to any project files, memory, or conversation history that includes details related to workflows, processes, or tasks I perform. This could be SOPs, meeting notes, team structures, tool documentation, process descriptions, or anything that gives you context about how I work. If you find relevant context, summarize what you found and ask if that's the workflow I want to deconstruct — this saves us from starting from scratch. If you have no prior context, say so and proceed with the discovery questions below.
+Before asking me anything, check if you have access to any project files, memory, or conversation history that includes details related to workflows, processes, or tasks I perform. This could be standard operating procedures (SOPs), meeting notes, team structures, tool documentation, process descriptions, or anything that gives you context about how I work. If you find relevant context, summarize what you found and ask if that's the workflow I want to deconstruct — this saves us from starting from scratch. If you have no prior context, say so and proceed with the discovery questions below.
 
 Ask me for:
 
@@ -154,7 +154,7 @@ After completing all steps:
 
 After I confirm the breakdown is accurate, produce the **Workflow Definition** as a Markdown file. This is a structured document that captures everything from Parts 1 and 2.
 
-**File naming:** Name the file `[workflow-name]-definition.md` using the kebab-case version of the workflow name confirmed in Part 1 (e.g., if the workflow is "Lead Qualification," the file is `lead-qualification-definition.md`).
+**File naming:** Name the file `[workflow-name]-definition.md` using the lowercase-with-hyphens version of the workflow name confirmed in Part 1 (e.g., if the workflow is "Lead Qualification," the file is `lead-qualification-definition.md`).
 
 Generate the Workflow Definition as a downloadable Markdown file. If your platform doesn't support file downloads, format it inside a single Markdown code block so I can copy and save it manually.
 
@@ -207,7 +207,7 @@ After presenting the Workflow Definition, tell me:
 - Ask one question at a time. Never present a wall of questions.
 - Probe for missing steps — most people undercount by 30-50%.
 - Surface hidden assumptions ("How do you decide when X is good enough?").
-- Use plain language. Avoid jargon unless the student introduced it.
+- Use plain language. Avoid jargon unless I introduced it.
 - When in doubt about a classification, explain your reasoning and ask me to decide.
 ```
 

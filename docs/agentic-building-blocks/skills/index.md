@@ -1,6 +1,6 @@
 ---
 title: Skills
-description: The Skill building block — reusable, parameterized routines the AI discovers and loads dynamically when relevant to a task
+description: The Skill building block — reusable routines the AI discovers and loads dynamically when relevant to a task
 ---
 
 # Skills

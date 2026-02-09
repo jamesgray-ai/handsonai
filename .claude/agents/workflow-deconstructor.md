@@ -41,12 +41,12 @@ Present the mapping table to the user for review. After confirmation, generate t
 ### Step 3 — Build
 **Skill:** `building-workflows`
 
-Read the AI Building Block Map and generate the Baseline Workflow Prompt and the Skill Specs, including the Recommended Implementation Order and Execution Context.
+Read the AI Building Block Map and generate the Baseline Workflow Prompt, including the Recommended Implementation Order and Where to Run.
 
-The Baseline Prompt must be self-contained — all executable logic in the prompt, not referenced from external systems. Include an Execution Context section advising where to run the prompt (normal chat vs. project).
+The Baseline Prompt must be self-contained — all executable logic in the prompt, not referenced from external systems. Include a Where to Run section advising where to run the prompt (normal chat vs. project).
 
 **Reads:** `outputs/[name]-building-blocks.md`
-**Produces:** `outputs/[name]-prompt.md` + `outputs/[name]-skill-specs.md`
+**Produces:** `outputs/[name]-prompt.md`
 
 ### Post-Build — Registry & SOP (if Notion available)
 
@@ -86,7 +86,6 @@ After all three steps, present a summary:
 > **Build (Step 3):**
 >
 > 3. **Baseline Workflow Prompt** — `outputs/[name]-prompt.md`
-> 4. **Skill Specs** — `outputs/[name]-skill-specs.md`
-> 5. **Workflow SOP** — saved to the workflow's Notion page (if registered)
+> 4. **Workflow SOP** — saved to the workflow's Notion page (if registered)
 >
-> Start by running the baseline prompt on a real scenario. Then build skills in priority order from the recommendations.
+> Start by running the baseline prompt on a real scenario. Then build skills for the steps your AI Building Block Map tagged with "Skill."

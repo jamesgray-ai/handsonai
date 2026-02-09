@@ -62,12 +62,12 @@ Each step gets mapped to one or more of the **six AI building blocks**: Prompt, 
 
 Turn your AI Building Block Map into a working AI workflow.
 
-Step 2 produces an AI Building Block Map — the analysis. Step 3 is where that analysis becomes real. The build process walks you through creating context artifacts, setting up a workspace, generating an executable prompt, and optionally building skills, agents, and MCP connections.
+Step 2 produces an AI Building Block Map — the analysis. Step 3 is where that analysis becomes real. The build process walks you through creating context artifacts, building skills for complex steps, generating an executable prompt, and optionally adding agents and MCP connections.
 
 The [Build Workflows](build/index.md) section includes:
 
 - A **Build Decision Framework** — when a prompt is enough, when to add skills, when you need agents, when to wire MCP
-- **Six building block guides** — Context, Projects, Prompt, Skills, Agents, MCP
+- **Six building block guides** — Context, Projects, Skills, Prompt, Agents, MCP
 - **Three worked examples** across the autonomy spectrum — deterministic automation, collaborative workflows, and fully autonomous multi-agent pipelines
 
 **[See Step 3 — Build Workflows](build/index.md)**
@@ -102,7 +102,7 @@ Used to decompose each workflow step:
 |-------|-----------|
 | **Prompt** | A well-crafted instruction that tells the model what to do |
 | **Context** | Background information, reference docs, or examples the model needs |
-| **Skill** | A reusable, parameterized routine the model can invoke |
+| **Skill** | A reusable routine the model can invoke — give it inputs, it follows a defined process, it produces consistent outputs |
 | **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work |
 | **MCP (Model Context Protocol)** | A connector that lets AI access external tools, services, or databases on your behalf |
 | **Project** | A persistent workspace grouping prompts, context, skills, and agents |
@@ -127,9 +127,9 @@ When classifying opportunities from Step 1, it helps to know what **type** of AI
 1. **Start with the [Opportunity Finder](discover.md)** to identify your best candidates
 2. **Pick your highest-impact opportunity** — don't try to pursue everything at once
 3. **Run it through the [Deconstruction process](deconstruct/index.md)** to break it into AI building blocks
-4. **[Build](build/index.md)** your workflow — generate an executable prompt, create context artifacts, and add skills or agents as needed
+4. **[Build](build/index.md)** your workflow — create context artifacts, build skills for complex steps, then generate an executable prompt
 5. **Test the Baseline Prompt** on a real scenario — paste the generated prompt into any AI tool and run the workflow
-6. **Build skills in priority order** from the Skill Specs — each skill you build replaces steps in the baseline prompt, making the workflow progressively more automated
+6. **Iterate** — refine the prompt, build additional skills, or add agents based on what works
 
 ## Tools
 

@@ -50,9 +50,10 @@ The [Autonomous Agent](autonomous-agent.md) worked example shows a multi-agent p
 
 1. **Look at your Building Block Map** for steps tagged with "Agent"
 2. **Group related steps** — Contiguous steps with the same expertise domain become one agent
-3. **Write the agent's system prompt** using those steps — describe the agent's role, what it knows, and what it does
+3. **Write the agent's instructions** — Describe the agent's role, what it knows, and what it does. Think of it as writing a job description: "You are a researcher who finds case studies from business publications. You search for companies with quantified outcomes and produce structured briefs." Your Building Block Map's Action, Decision Points, and Context Needed columns give you most of this.
 4. **Define human review gates** — Where should the agent pause for your approval?
 5. **Test with a real scenario** — Run the agent on actual inputs and evaluate the output
+
 
 ## Agent Anatomy
 
@@ -61,10 +62,12 @@ What an agent definition contains:
 - **Name** — What the agent is called (e.g., `meeting-prep-researcher`)
 - **Description** — When to activate this agent and what it does
 - **Model** — Which AI model to use (affects capability and cost)
-- **System prompt** — The agent's role, expertise, process, and constraints
+- **Instructions** (also called a "system prompt") — The agent's role, expertise, process, and constraints — written in plain language, just like you'd brief a new team member
 
 For platform-specific implementation details, see [Agentic Building Blocks > Agents](../../agentic-building-blocks/agents/index.md).
 
+The [Autonomous Agent](autonomous-agent.md) worked example shows a complete multi-agent pipeline with 4 specialized agents, including the full instructions for each one.
+
 ## What's Next
 
-If your workflow requires external tool access (databases, APIs, browsers), see [MCP](mcp.md) for connecting AI to your tools. Otherwise, test your baseline prompt and build incrementally.
+If your workflow requires external tool access (databases, APIs, browsers), see [MCP](mcp.md) for connecting AI to your tools. Otherwise, [run your workflow](run.md) on a real scenario and build incrementally.
