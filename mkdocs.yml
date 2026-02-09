@@ -173,7 +173,10 @@ nav:
     - Projects:
       - Overview: agentic-building-blocks/projects/index.md
       - Project Instructions: agentic-building-blocks/projects/workspace-instructions-meta-prompt.md
-    - Skills: agentic-building-blocks/skills/index.md
+    - Skills:
+      - Overview: agentic-building-blocks/skills/index.md
+      - Questions:
+        - Difference between a skill and an agent: agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code.md
     - Agents:
       - Overview: agentic-building-blocks/agents/index.md
       - Resources: agentic-building-blocks/agents/resources.md
