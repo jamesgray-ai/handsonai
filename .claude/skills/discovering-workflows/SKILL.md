@@ -3,7 +3,7 @@ name: discovering-workflows
 description: >
   Interactively discover and decompose a business workflow into a structured Workflow Definition.
   Use when the user wants to deconstruct a workflow, break down a business process, or start
-  the workflow deconstruction process. This is Step 1 of 3 in the workflow deconstruction series.
+  the workflow deconstruction process. This is Step 1 of 2 in the Deconstruct step.
 ---
 
 # Workflow Definition
@@ -22,10 +22,10 @@ Interactively discover a business workflow and decompose every step into a struc
    - Data flows (inputs, outputs, sources, destinations)
    - Context needs (specific documents, files, reference materials)
    - Failure modes (what happens when this step fails)
-   When probing context needs, distinguish between **reference materials** (documents, files, data the model reads) and **executable instructions** (prompts, project instructions, system prompts the model follows). For any step where AI is already being used, ask specifically for existing prompt instructions or configurations — these contain workflow logic that must be included in the Baseline Prompt.
+   When probing context needs, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions, project instructions, or system prompts — these contain workflow logic that must be included in the Baseline Prompt.
 6. **Propose and react** — For steps 4+, propose a hypothesis across all 5 dimensions and ask "What's right, what's wrong, what am I missing?" instead of asking each question individually.
 7. **Map sequence** — After all steps, identify sequential vs. parallel steps and the critical path.
-8. **Consolidate context** — Present a rolled-up "context shopping list" of every artifact the workflow needs. For each artifact, include its type (Reference Material or Executable Instructions). Artifacts typed as "Executable Instructions" contain workflow logic that must be included in the Baseline Workflow Prompt.
+8. **Consolidate context** — Present a rolled-up "context shopping list" of every piece of context the workflow needs — documents, data, rules, examples, and any other knowledge from the user's domain that the model doesn't have.
 9. **Generate Workflow Definition** — Produce the structured Workflow Definition and write it to the output file.
 
 ## Output
@@ -44,7 +44,7 @@ For each step: number, name, action, sub-steps, decision points, data in/out, co
 - Sequential steps, parallel steps, critical path, dependency map
 
 ### Context Shopping List
-For each artifact: name, type (Reference Material / Executable Instructions), description, used by steps, status (Exists/Needs Creation), key contents
+For each artifact: name, description, used by steps, status (Exists/Needs Creation), key contents
 
 ## Guidelines
 
@@ -53,4 +53,4 @@ For each artifact: name, type (Reference Material / Executable Instructions), de
 - Surface hidden assumptions ("How do you decide when X is good enough?")
 - Use plain language; avoid jargon unless the user introduced it
 - Push beyond vague context answers like "domain knowledge" — identify the specific artifact
-- After writing the Workflow Definition file, tell the user: "Workflow Definition saved to `outputs/[name]-definition.md`. Ready for Step 2 — AI Building Blocks."
+- After writing the Workflow Definition file, tell the user: "Workflow Definition saved to `outputs/[name]-definition.md`. Ready to map AI building blocks."

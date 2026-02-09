@@ -8,7 +8,7 @@ __pycache__/
 # Build outputs
 site/
 _site/
-build/
+/build/
 dist/
 
 # IDE

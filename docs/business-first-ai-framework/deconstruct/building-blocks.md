@@ -1,9 +1,9 @@
 ---
-title: "Step 2 — AI Building Blocks"
+title: Map AI Building Blocks
 description: Classify workflow steps on the autonomy spectrum, map them to AI building blocks, and produce a complete AI Building Block Map.
 ---
 
-# Step 2 — AI Building Blocks
+# Map AI Building Blocks
 
 > **Part of:** [Deconstruct Workflows](index.md)
 
@@ -38,11 +38,11 @@ There are two ways to run Step 2, depending on which tools you use:
 4. **Upload or paste your Workflow Definition file** (`[workflow-name]-definition.md`) from Step 1
 5. **Review the mapping** — the model will present its analysis and ask for adjustments
 6. **Download the AI Building Block Map** the model produces at the end — it will be a Markdown file named `[workflow-name]-building-blocks.md`
-7. **Keep this file** — you'll upload or paste it into Step 3, and you can share it with your instructor for feedback
+7. **Keep this file** — you'll use it in Step 3 — Build Workflows, and you can share it with your team for feedback
 
 ### Option B: Claude skill
 
-Use the `analyzing-workflows` skill from the [Business-First AI plugin](../../plugins/business-first-ai.md). It reads the Workflow Definition from Step 1, runs the analysis, and saves the AI Building Block Map automatically.
+Use the `deconstructing-workflows` skill from the [Business-First AI plugin](../../plugins/business-first-ai.md). It reads the Workflow Definition from Step 1, runs the analysis, and saves the AI Building Block Map automatically.
 
 - **Claude Code or Cowork** — install the plugin (`/plugin install business-first-ai@handsonai`) and start with:
     ```
@@ -50,7 +50,7 @@ Use the `analyzing-workflows` skill from the [Business-First AI plugin](../../pl
     Classify each step and map it to AI building blocks.
     ```
     The AI Building Block Map is saved to `outputs/[workflow-name]-building-blocks.md`.
-- **Claude.ai** — zip the `analyzing-workflows` skill folder and upload it via **Settings > Capabilities > Upload skill**, then start a new chat with: "Analyze this Workflow Definition and map each step to AI building blocks." Upload or paste your Workflow Definition when prompted. See [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web) for detailed instructions.
+- **Claude.ai** — zip the `deconstructing-workflows` skill folder and upload it via **Settings > Capabilities > Upload skill**, then start a new chat with: "Analyze this Workflow Definition and map each step to AI building blocks." Upload or paste your Workflow Definition when prompted. See [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web) for detailed instructions.
 
 !!! tip "This step is mostly analytical"
     Unlike Step 1's extended back-and-forth, this conversation is shorter. The model does the heavy lifting — classifying steps, mapping building blocks, and generating the AI Building Block Map. Expect 5-10 minutes of light interaction.
@@ -139,11 +139,11 @@ Generate the AI Building Block Map as a downloadable Markdown file. If your plat
 
 ### Context Inventory
 
-List every document, file, reference material, or executable instruction the workflow requires that the model does not have in its training data. For each artifact:
+List every piece of context the workflow requires that the model does not have in its training data — documents, data, rules, examples, and any other knowledge from the user's domain. For each artifact:
 
-| Artifact | Type | Description | Used By Steps | Status | Format | Key Contents |
-|----------|------|-------------|---------------|--------|--------|--------------|
-| [Name] | Reference Material / Executable Instructions | [What it contains and why the workflow needs it] | [Step numbers] | Exists / Needs Creation | [e.g., Markdown doc, spreadsheet, PDF] | [Essential fields, sections, or data points it should include] |
+| Artifact | Description | Used By Steps | Status | Format | Key Contents |
+|----------|-------------|---------------|--------|--------|--------------|
+| [Name] | [What it contains and why the workflow needs it] | [Step numbers] | Exists / Needs Creation | [e.g., Markdown doc, spreadsheet, CSV, PDF] | [Essential fields, sections, or data points it should include] |
 
 If an artifact needs to be created, the "Key Contents" column should be specific enough that the user knows exactly what to build. For example, a buyer persona document should list: target job titles, company size range, industry verticals, pain points, budget authority indicators, and qualifying criteria — not just "buyer persona info."
 
@@ -176,13 +176,13 @@ Recommend where the Baseline Workflow Prompt should be run:
 
 State the recommendation, the reasoning, and list the specific context files to attach (chat) or pre-load in the project.
 
-**Important:** The Baseline Workflow Prompt is always self-contained — it contains all executable instructions regardless of execution context. A project provides file staging and general domain context, but never contains the workflow logic. The prompt IS the workflow.
+**Important:** The Baseline Workflow Prompt is always self-contained — it contains all workflow logic regardless of execution context. A project provides pre-loaded context and conversation memory, but never contains the workflow logic. The prompt IS the workflow.
 
 ---
 
 After presenting the AI Building Block Map, tell me:
 
-> **Next step:** Download (or copy and save) the AI Building Block Map file. Then go to [Step 3 — Prompt & Skill Specs](https://handsonai.info/business-first-ai-framework/deconstruct/prompt-skill-specs/), copy that prompt into a new conversation, and upload or paste the AI Building Block Map when the model asks for it.
+> **Next step:** Download (or copy and save) the AI Building Block Map file. Then go to [Step 3 — Build Workflows](https://handsonai.info/business-first-ai-framework/build/prompt/), copy that prompt into a new conversation, and upload or paste the AI Building Block Map when the model asks for it.
 
 ---
 
@@ -203,9 +203,7 @@ The **AI Building Block Map** contains:
 - **Autonomy spectrum summary** — steps grouped by classification level
 - **Step sequence and dependencies** — sequential vs. parallel execution paths
 - **Prerequisites** — what must be in place before the workflow can run
-- **Context inventory** — every resource the workflow needs, typed as reference material or executable instructions, with status and key contents
+- **Context inventory** — every piece of context the workflow needs, with status and key contents
 - **Tools and connectors** — external integrations required
-- **Recommended implementation order** — prioritized build sequence (quick wins first, complex agent steps last)
-- **Execution context** — where to run the Baseline Workflow Prompt (normal chat vs. project), with reasoning and file lists
 
-This AI Building Block Map is the input for [Step 3 — Prompt & Skill Specs](prompt-skill-specs.md), where the model generates your ready-to-use Baseline Prompt and Skill Specs.
+This AI Building Block Map is the input for [Step 3 — Build Workflows](../build/prompt.md), where the model generates your ready-to-use Baseline Prompt, Skill Specs, recommended implementation order, and execution context.

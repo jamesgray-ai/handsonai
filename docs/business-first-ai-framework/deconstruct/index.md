@@ -1,119 +1,99 @@
 ---
 title: Deconstruct Workflows
-description: Use this three-prompt series to break down any business workflow into discrete steps, map AI building blocks, and generate an executable workflow prompt.
+description: Use this two-prompt series to break down any business workflow into discrete steps and map AI building blocks.
 ---
 
 # Deconstruct Workflows
 
 > **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
-!!! info "Business-First AI Framework — Phase 2: Deconstruct"
-    This guide is **Phase 2** of the [Business-First AI Framework](../index.md) — deconstructing workflows into AI building blocks.
+!!! info "Business-First AI Framework — Step 2: Deconstruct Workflows"
+    This guide is **Step 2** of the [Business-First AI Framework](../index.md) — deconstructing workflows into AI building blocks.
 
 ## What This Is
 
-A three-conversation series that breaks down a business workflow into discrete steps, maps each step to AI building blocks, and generates ready-to-use outputs.
+A two-conversation series that breaks down a business workflow into discrete steps and maps each step to AI building blocks.
 
 | | |
 |---|---|
-| **What you'll do** | Work through three focused prompts — discovering and decomposing your workflow, classifying each step and mapping AI capabilities, then generating executable outputs |
-| **What you'll get** | Four Markdown files — a Workflow Definition, an AI Building Block Map, a Baseline Workflow Prompt (self-contained and ready to paste and run, with guidance on where to execute it), and Skill Specs |
-| **Time** | ~30–45 minutes across three conversations |
+| **What you'll do** | Work through two focused prompts — discovering and decomposing your workflow, then classifying each step and mapping AI capabilities |
+| **What you'll get** | Two Markdown files — a Workflow Definition and an AI Building Block Map |
+| **Time** | ~20-35 minutes across two conversations |
 
 ## Why This Matters
 
 You can't operationalize AI on a process you don't understand. Before you can build an AI-powered workflow, you need to break it down into discrete steps, identify the decision points and data flows, and map each step to the right level of AI assistance.
 
-This series of prompts walks you through that deconstruction interactively. You provide the business scenario and rough steps — the model handles the structured analysis, applies the 5-question framework (discrete steps, decision points, data flows, context needs, failure modes), maps each step to AI building blocks, and produces four deliverables:
+This series of prompts walks you through that deconstruction interactively. You provide the business scenario and rough steps — the model handles the structured analysis, applies the 5-question framework (discrete steps, decision points, data flows, context needs, failure modes), and maps each step to AI building blocks. The two deliverables:
 
 1. A **Workflow Definition** — the structured breakdown of your workflow into refined steps, with decision points, data flows, context needs, and failure modes captured for every step
-2. An **AI Building Block Map** — autonomy classifications, AI building block mapping, a context inventory of every resource the workflow needs (documents, files, data sources, system access), and a prioritized build sequence
-3. A **Baseline Workflow Prompt** — a ready-to-use prompt that works on any platform; this is your starting point that will evolve as you build skills
-4. **Skill Specs** — actionable specs for reusable skills you can build to automate recurring steps
+2. An **AI Building Block Map** — autonomy classifications, AI building block mapping, a context inventory of every resource the workflow needs (documents, files, data sources, system access), and prerequisites
 
 This builds directly on the concepts from the course lessons on workflow deconstruction and AI building blocks. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../index.md#key-concepts) for quick definitions before starting.
 
-## The Three-Prompt Approach
+## The Two-Prompt Approach
 
-The workflow deconstruction is split into three focused prompts. Each prompt produces a structured artifact that feeds the next:
+The workflow deconstruction is split into two focused prompts. Each prompt produces a structured artifact that feeds the next:
 
 | Step | Prompt | What it does | Produces |
 |------|--------|-------------|----------|
-| 1 | [Workflow Definition](workflow-definition.md) | Discover the workflow, decompose every step | **Workflow Definition** |
-| 2 | [AI Building Blocks](building-blocks.md) | Classify steps, map AI building blocks | **AI Building Block Map** |
-| 3 | [Prompt & Skill Specs](prompt-skill-specs.md) | Generate the self-contained executable prompt (with execution context) and skill specs | **Baseline Workflow Prompt** + **Skill Specs** |
+| 1 | [Break Down Your Workflow](workflow-definition.md) | Discover the workflow, decompose every step | **Workflow Definition** |
+| 2 | [Map AI Building Blocks](building-blocks.md) | Classify steps, map AI building blocks | **AI Building Block Map** |
 
-**Between each step:** Download (or copy and save) the output artifact as a Markdown file, then upload or paste it into the next conversation. Each prompt starts by asking you to provide the previous step's output. The files use a consistent naming convention: `[workflow-name]-definition.md`, `[workflow-name]-building-blocks.md`, `[workflow-name]-prompt.md`, and `[workflow-name]-skill-specs.md`.
+**Between steps:** Download (or copy and save) the output artifact as a Markdown file, then upload or paste it into the next conversation. Each prompt starts by asking you to provide the previous step's output. The files use a consistent naming convention: `[workflow-name]-definition.md` and `[workflow-name]-building-blocks.md`.
+
+**Ready to build?** After Step 2, take your AI Building Block Map to [Step 3 — Build Workflows](../build/index.md) to generate your executable prompt, skill specs, and everything else you need to run the workflow.
 
 ## How to Use This
 
-There are four ways to run Phase 2, depending on which tools you use:
+There are two ways to run this: as **prompts** in any AI tool, or with the **Claude platform** plugin.
 
 === "Any AI Tool"
 
-    Use this if you're working in ChatGPT, Gemini, M365 Copilot, or any AI chat tool. Copy each prompt into a new conversation and work through the three steps sequentially.
+    Works with ChatGPT, Gemini, M365 Copilot, Claude, or any AI chat tool. Copy each prompt into a new conversation and work through the two parts sequentially.
 
-    1. **Go to [Step 1 — Workflow Definition](workflow-definition.md)** — Copy the prompt, start a new conversation, paste the prompt, and describe your workflow
+    1. **Go to [Break Down Your Workflow](workflow-definition.md)** — Copy the prompt, start a new conversation, paste the prompt, and describe your workflow
     2. **Save the Workflow Definition** — Download the `.md` file the model produces (or copy the output and save it as `[workflow-name]-definition.md`)
-    3. **Go to [Step 2 — AI Building Blocks](building-blocks.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your Workflow Definition file
+    3. **Go to [Map AI Building Blocks](building-blocks.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your Workflow Definition file
     4. **Save the AI Building Block Map** — Download `[workflow-name]-building-blocks.md`
-    5. **Go to [Step 3 — Prompt & Skill Specs](prompt-skill-specs.md)** — Copy that prompt, start a **new** conversation, paste the prompt, then upload or paste your AI Building Block Map
-    6. **Save your final deliverables** — Download `[workflow-name]-prompt.md` and `[workflow-name]-skill-specs.md`
+    5. **Go to [Build Workflows](../build/prompt.md)** — Copy the Build prompt, start a **new** conversation, paste the prompt, then upload or paste your AI Building Block Map
 
-=== "Claude Code"
+=== "Claude Platform"
 
-    Use this if you have Claude Code installed. The `workflow-deconstructor` **agent** from the [Business-First AI plugin](../../plugins/business-first-ai.md) orchestrates all three steps automatically — running discovery, analysis, and output generation in sequence with file-based handoffs between stages.
+    Install the [Business-First AI plugin](../../plugins/business-first-ai.md) and the `workflow-deconstructor` agent orchestrates the full process — running discovery, analysis, and build in sequence with file-based handoffs between stages.
 
-    1. **Install the plugin** — `/plugin install business-first-ai@handsonai`
-    2. **Start with this prompt:**
-        ```
-        I want to deconstruct my [workflow name] workflow into AI building
-        blocks. Walk me through the full process.
-        ```
-        The `workflow-deconstructor` agent activates and walks you through all three steps.
-    3. **Review the outputs** — deliverables are saved to the `outputs/` directory
+    **Install the plugin:**
 
-    You can also run individual steps using the skills directly: `discovering-workflows`, `analyzing-workflows`, `generating-workflow-outputs`.
+    ```bash
+    /plugin install business-first-ai@handsonai
+    ```
 
-=== "Cowork"
+    **Start with this prompt:**
 
-    Use this if you have Claude Desktop on macOS. The `workflow-deconstructor` agent works in Cowork the same way it does in Claude Code — orchestrating all three steps automatically through a visual interface.
+    ```
+    I want to deconstruct my [workflow name] workflow into AI building
+    blocks. Walk me through the full process.
+    ```
 
-    1. **Add the plugin to Cowork** — click the **+** button, select **Add plugins...**, and upload the plugin ZIP
-    2. **Start with this prompt:**
-        ```
-        I want to deconstruct my [workflow name] workflow into AI building
-        blocks. Walk me through the full process.
-        ```
-    3. **Review the outputs** — deliverables are saved to the `outputs/` directory
+    **Review the outputs** — deliverables are saved to the `outputs/` directory. You can also run individual steps using the skills directly: `discovering-workflows`, `deconstructing-workflows`, `building-workflows`.
 
-    You can also run individual steps using the skills directly: `discovering-workflows`, `analyzing-workflows`, `generating-workflow-outputs`.
+    The plugin works on three Claude interfaces:
 
-    For Cowork setup details, see [Using Plugins in Cowork](../../plugins/using-plugins.md#using-plugins-in-claude-cowork).
+    | Interface | How to install | Notes |
+    |-----------|---------------|-------|
+    | **Claude Code** | Run `/plugin install` in the terminal | Full agent + skill support |
+    | **Cowork** | Click **+** > **Add plugins...** > upload the plugin ZIP | Same capabilities, visual interface |
+    | **Claude.ai** | Upload skill ZIPs under **Settings > Capabilities > Upload skill** | Skills only — the orchestrator agent doesn't work in Claude.ai, so you run skills individually with manual handoffs ([details](../../plugins/using-plugins.md#using-skills-in-claudeai-web)) |
 
-=== "Claude.ai"
+    For setup details, see [Using Plugins](../../plugins/using-plugins.md).
 
-    Use this if you prefer working in the Claude.ai web interface. You'll upload individual skills as ZIP files and run the three steps in separate conversations.
-
-    **Prerequisites:** You need Claude Code installed first to access the skill files. Install the plugin in Claude Code (`/plugin install business-first-ai@handsonai`), then follow these steps:
-
-    1. **Find the skills folder** — `~/.claude/plugins/marketplaces/handsonai/plugins/business-first-ai/skills/`
-    2. **Zip each skill** you want to use (`discovering-workflows`, `analyzing-workflows`, `generating-workflow-outputs`)
-    3. **Upload each skill** in Claude.ai under **Settings > Capabilities > Upload skill**
-    4. **Run each step in a separate conversation**, saving the output file between steps
-
-    For detailed upload instructions, see [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web).
-
-    !!! warning "The orchestrator agent doesn't work in Claude.ai"
-        The `workflow-deconstructor` agent (which orchestrates all three steps in one session) only works in Claude Code or Cowork. In Claude.ai, you run the three skills individually and pass the output files between conversations — same process, just manual handoffs.
-
-All four options follow the same process and produce the same deliverables. Choose whichever fits your setup.
+Both options follow the same process and produce the same deliverables.
 
 !!! tip "Start with a workflow you actually do"
     Real workflows produce the best results. The model will surface hidden steps and assumptions you've internalized — that's much harder with hypothetical processes. If you don't have an existing workflow but have a clear problem to solve, that works too — the model will help you design one.
 
 !!! tip "Keep your files together"
-    By the end you'll have four Markdown files: `[name]-definition.md`, `[name]-building-blocks.md`, `[name]-prompt.md`, and `[name]-skill-specs.md`. Keep them in a single folder — they form a complete record of your workflow deconstruction. You can share any of these files with your instructor for feedback, put them in version control, or hand them to a colleague.
+    By the end of Step 2 you'll have two Markdown files: `[name]-definition.md` and `[name]-building-blocks.md`. After Step 3 (Build), you'll also have `[name]-prompt.md` and `[name]-skill-specs.md`. Keep them in a single folder — they form a complete record of your workflow deconstruction. You can share any of these files with your team for feedback, put them in version control, or hand them to a colleague.
 
 !!! tip "Markdown renders as formatted text"
     Markdown (`.md`) files are plain text with lightweight formatting — headings, bold, lists, tables. Many tools render them automatically: GitHub, Notion, VS Code, and most code editors show the formatted version when you open the file. You can also paste Markdown into Google Docs or Notion and it converts on the fly.
@@ -168,11 +148,10 @@ You don't need to know all the steps before you start — that's what the prompt
 
 ## What to Expect
 
-1. **[Step 1 — Workflow Definition](workflow-definition.md)** (~15-25 minutes) — The model asks about your business scenario, objective, steps, and who's involved. Then it works through each step one by one, asking about sub-steps, decision points, data flows, context needs, and failure modes. For later steps, it switches to a "propose and react" pattern — presenting hypotheses for you to correct, which is faster and surfaces more detail. Produces a **Workflow Definition**.
-2. **[Step 2 — AI Building Blocks](building-blocks.md)** (~5-10 minutes) — The model classifies each refined step on the autonomy spectrum and maps it to AI building blocks. You review the mapping table and adjust. Produces an **AI Building Block Map**.
-3. **[Step 3 — Prompt & Skill Specs](prompt-skill-specs.md)** (~5-10 minutes) — The model generates your Baseline Workflow Prompt and Skill Specs. Mostly generative — 1-2 clarifying questions at most. Produces the **Baseline Workflow Prompt** and **Skill Specs**.
+1. **[Break Down Your Workflow](workflow-definition.md)** (~15-25 minutes) — The model asks about your business scenario, objective, steps, and who's involved. Then it works through each step one by one, asking about sub-steps, decision points, data flows, context needs, and failure modes. For later steps, it switches to a "propose and react" pattern — presenting hypotheses for you to correct, which is faster and surfaces more detail. Produces a **Workflow Definition**.
+2. **[Map AI Building Blocks](building-blocks.md)** (~5-10 minutes) — The model classifies each refined step on the autonomy spectrum and maps it to AI building blocks. You review the mapping table and adjust. Produces an **AI Building Block Map**.
 
-Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive. The baseline prompt is ready to use immediately — paste it into a new conversation to run the workflow.
+Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive. After Step 2, take your AI Building Block Map to [Step 3 — Build Workflows](../build/index.md) to generate your executable prompt and everything else you need.
 
 ## Tips for Better Results
 
@@ -181,13 +160,13 @@ Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep
 - **Don't over-prepare your steps.** The model is designed to work with rough, incomplete descriptions. Let it do the work of refining and organizing.
 - **On Claude:** Mention that you're using Claude so the model can identify where Skills are the right building block for reusable routines.
 - **Gather your context resources early.** The model will identify specific resources the workflow needs — documents like buyer personas and style guides, but also spreadsheets, databases, CRM access, application credentials, and sample data. If you already have these, have them ready. If you don't, the analysis will tell you exactly what to create or set up and what each resource should contain.
-- **Save all four files.** The Workflow Definition and AI Building Block Map are your reference material. The baseline prompt is what you run today — update it as you build skills. The Skill Specs tell you what to build and which prompt steps each skill replaces. Keep them together in a folder or version control.
-- **Iterate the executable prompt.** Run it once, see what works and what doesn't, then refine. The first version is a strong draft, not a final product.
+- **Save your files.** The Workflow Definition and AI Building Block Map are your reference material. Keep them together in a folder or version control — you'll use them in Step 3 (Build).
+- **Iterate the executable prompt.** Once you generate it in Step 3, run it once, see what works and what doesn't, then refine. The first version is a strong draft, not a final product.
 
 ## Related
 
-- **Previous step:** Not sure which workflow to deconstruct? Start with the [Discover AI Workflow Opportunities](../discover.md) (Phase 1) to identify your best candidates.
-- **Next step:** Ready to build? See the [Build Workflows](../build/index.md) (Phase 3) for worked examples across the autonomy spectrum.
-- [Business-First AI Framework](../index.md) — the full three-phase methodology
+- **Previous step:** Not sure which workflow to deconstruct? Start with [Discover Workflows](../discover.md) (Step 1) to identify your best candidates.
+- **Next step:** Ready to build? Go to [Build Workflows](../build/index.md) (Step 3) to turn your AI Building Block Map into an executable prompt, skills, agents, and more.
+- [Business-First AI Framework](../index.md) — the full three-step methodology
 - [Prompts](../../agentic-building-blocks/prompts/index.md)
 - [Agents](../../agentic-building-blocks/agents/index.md)

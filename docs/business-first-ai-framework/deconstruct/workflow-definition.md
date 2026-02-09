@@ -1,9 +1,9 @@
 ---
-title: "Step 1 — Workflow Definition"
+title: Break Down Your Workflow
 description: Interactively discover and decompose a business workflow into a structured Workflow Definition ready for AI building block analysis.
 ---
 
-# Step 1 — Workflow Definition
+# Break Down Your Workflow
 
 > **Part of:** [Deconstruct Workflows](index.md)
 
@@ -139,17 +139,13 @@ This is more efficient and produces better results — correcting a wrong assump
 
 **Probing for context artifacts:** When exploring context needs, push beyond vague answers like "domain knowledge" or "background info." Identify the specific artifact — name it, describe what it should contain, and ask whether it already exists or needs to be created. Common examples: buyer persona documents, style guides, grading rubrics, product catalogs, pricing sheets, email templates, brand voice documents, org charts, decision criteria checklists, sample inputs, and sample outputs. If a step requires the model to match a standard, apply criteria, or follow a style, there is almost certainly a reference document behind it.
 
-**Probing for executable instructions:** For any step where AI is already being used, ask specifically: "Do you have existing prompt instructions, project instructions, custom assistant configurations, or system prompts that tell the AI what to do at this step? If so, I'll need to see those — they contain the workflow logic that belongs in your Baseline Prompt." Distinguish between:
-- **Reference materials** — documents, files, data, or examples the model reads to inform its work (PDFs, CSVs, spreadsheets, style guides)
-- **Executable instructions** — prompts, project instructions, system prompts, or custom assistant configurations that tell the model what to do and how to do it
-
-Reference materials are context the model consumes. Executable instructions are logic the model follows. Both matter, but they serve different purposes in the final prompt.
+**Probing for existing AI instructions:** For any step where AI is already being used, ask specifically: "Do you have existing prompt instructions, project instructions, custom assistant configurations, or system prompts that tell the AI what to do at this step? If so, I'll need to see those — they contain workflow logic that belongs in your Baseline Prompt." Existing prompts and instructions are context too — they capture decisions about how the workflow should run.
 
 After completing all steps:
 
 1. Present the refined step-by-step breakdown.
 2. **Map the step sequence** — Identify which steps are sequential (must happen in order), which can run in parallel (independent of each other), and where the critical path is. Show this as a simple dependency list (e.g., "Step 3 depends on Steps 1 and 2; Steps 4 and 5 can run in parallel").
-3. **Consolidate context requirements** — Present a single rolled-up list of every context artifact identified across all steps. For each artifact, state: the artifact name, its type (Reference Material or Executable Instructions), a one-line description of what it contains, which steps depend on it, and whether it already exists or needs to be created. If it needs to be created, note the key contents it should include so I know what to build. Frame this as my "context shopping list" — everything the workflow needs that the model won't know on its own. Artifacts typed as "Executable Instructions" contain workflow logic that must be included in the Baseline Workflow Prompt. Artifacts typed as "Reference Material" are context files the model reads.
+3. **Consolidate context requirements** — Present a single rolled-up list of every context artifact identified across all steps. For each artifact, state: the artifact name, a one-line description of what it contains, which steps depend on it, and whether it already exists or needs to be created. If it needs to be created, note the key contents it should include so I know what to build. Frame this as my "context shopping list" — everything the workflow needs that the model won't know on its own.
 4. Ask me to confirm the breakdown, sequence, and context shopping list are accurate.
 
 ---
@@ -193,7 +189,6 @@ For each step:
 ### Context Shopping List
 For each artifact:
 - Artifact name
-- Type (Reference Material / Executable Instructions)
 - Description (what it contains)
 - Used by steps (step numbers)
 - Status (Exists / Needs Creation)
@@ -203,7 +198,7 @@ For each artifact:
 
 After presenting the Workflow Definition, tell me:
 
-> **Next step:** Download (or copy and save) the Workflow Definition file. Then go to [Step 2 — AI Building Blocks](https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/), copy that prompt into a new conversation, and upload or paste the Workflow Definition when the model asks for it.
+> **Next step:** Download (or copy and save) the Workflow Definition file. Then go to [Map AI Building Blocks](https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/), copy that prompt into a new conversation, and upload or paste the Workflow Definition when the model asks for it.
 
 ---
 
@@ -223,6 +218,6 @@ The Workflow Definition captures:
 - **Scenario metadata** — name, description, outcome, trigger, type, objective, owners
 - **Refined step-by-step breakdown** — each step with action, sub-steps, decision points, data in/out, context needs, failure modes
 - **Step sequence and dependencies** — what's sequential, what's parallel, where the critical path is
-- **Context shopping list** — every artifact the workflow needs, typed as reference material or executable instructions, with status and key contents
+- **Context shopping list** — every artifact the workflow needs, with status and key contents
 
-This Workflow Definition is the input for [Step 2 — AI Building Blocks](building-blocks.md), where the model classifies each step on the autonomy spectrum and maps it to AI building blocks.
+This Workflow Definition is the input for [Map AI Building Blocks](building-blocks.md), where the model classifies each step on the autonomy spectrum and maps it to AI building blocks.

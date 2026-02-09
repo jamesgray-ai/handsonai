@@ -13,13 +13,13 @@ author: James Gray
 
 ## The Full Answer
 
-Most people adopt AI reactively — they reach for ChatGPT when stuck on an email or ask Claude to summarize a document. That's useful, but it misses the bigger picture. The [Business-First AI Framework](../index.md) provides a structured three-phase approach to this question — discover where AI fits, deconstruct those workflows into building blocks, then build.
+Most people adopt AI reactively — they reach for ChatGPT when stuck on an email or ask Claude to summarize a document. That's useful, but it misses the bigger picture. The [Business-First AI Framework](../index.md) provides a structured three-step approach to this question — discover where AI fits, deconstruct those workflows into building blocks, then build.
 
 A proactive, structured audit of your workflows will reveal opportunities you'd never notice in the moment: repetitive tasks that could run on autopilot, decisions that benefit from an AI collaborator, and multi-step processes that could be orchestrated end-to-end.
 
 The key is thinking in three categories. **Collaborative AI** covers tasks where you and AI work together in real time — drafting, brainstorming, reviewing, analyzing. **Deterministic workflows** are repeatable processes with clear inputs and outputs that AI can execute reliably with little supervision — formatting reports, processing forms, generating routine communications. **Multi-agent systems** are complex workflows where multiple AI agents coordinate across steps — research-to-report pipelines, intake-to-triage systems, monitoring-to-response workflows.
 
-To run the audit, use the [Discover AI Workflow Opportunities](../discover.md) — a meta prompt that guides an AI through a three-phase process: scanning what it already knows about your work, interviewing you to fill gaps, then producing a categorized report with specific opportunities and actionable first steps.
+To run the audit, use the [Discover AI Workflow Opportunities](../discover.md) — a meta prompt that guides an AI through a three-step process: scanning what it already knows about your work, interviewing you to fill gaps, then producing a categorized report with specific opportunities and actionable first steps.
 
 Once you've identified opportunities, use the [Deconstruct Workflows](../deconstruct/index.md) to break individual workflows into AI building blocks and understand exactly where automation fits.
 

@@ -55,10 +55,11 @@ plugins:
         how-to/prompting/workflow-deconstruction-meta-prompt.md: business-first-ai-framework/deconstruct/index.md
         how-to/prompting/workflow-deconstruction-discovery.md: business-first-ai-framework/deconstruct/workflow-definition.md
         how-to/prompting/workflow-deconstruction-analysis.md: business-first-ai-framework/deconstruct/building-blocks.md
-        how-to/prompting/workflow-deconstruction-outputs.md: business-first-ai-framework/deconstruct/prompt-skill-specs.md
+        how-to/prompting/workflow-deconstruction-outputs.md: business-first-ai-framework/build/prompt.md
         business-first-ai-framework/deconstruct/discovery.md: business-first-ai-framework/deconstruct/workflow-definition.md
         business-first-ai-framework/deconstruct/analysis.md: business-first-ai-framework/deconstruct/building-blocks.md
-        business-first-ai-framework/deconstruct/outputs.md: business-first-ai-framework/deconstruct/prompt-skill-specs.md
+        business-first-ai-framework/deconstruct/outputs.md: business-first-ai-framework/build/prompt.md
+        business-first-ai-framework/deconstruct/prompt-skill-specs.md: business-first-ai-framework/build/prompt.md
         how-to/workflow-examples/README.md: business-first-ai-framework/build/index.md
         how-to/workflow-examples/deterministic-automation.md: business-first-ai-framework/build/deterministic-automation.md
         how-to/workflow-examples/ai-collaborative.md: business-first-ai-framework/build/ai-collaborative.md
@@ -138,17 +139,24 @@ nav:
   - "What's New": whats-new.md
   - Business-First AI Framework:
     - Overview: business-first-ai-framework/index.md
-    - "Phase 1 — Discover": business-first-ai-framework/discover.md
-    - "Phase 2 — Deconstruct":
+    - Discover Workflows: business-first-ai-framework/discover.md
+    - Deconstruct Workflows:
       - Overview: business-first-ai-framework/deconstruct/index.md
-      - "Step 1 — Workflow Definition": business-first-ai-framework/deconstruct/workflow-definition.md
-      - "Step 2 — AI Building Blocks": business-first-ai-framework/deconstruct/building-blocks.md
-      - "Step 3 — Prompt & Skill Specs": business-first-ai-framework/deconstruct/prompt-skill-specs.md
-    - "Phase 3 — Build":
+      - Break Down Your Workflow: business-first-ai-framework/deconstruct/workflow-definition.md
+      - Map AI Building Blocks: business-first-ai-framework/deconstruct/building-blocks.md
+    - Build Workflows:
       - Overview: business-first-ai-framework/build/index.md
-      - Deterministic Automation: business-first-ai-framework/build/deterministic-automation.md
-      - AI Collaborative: business-first-ai-framework/build/ai-collaborative.md
-      - Autonomous Agent: business-first-ai-framework/build/autonomous-agent.md
+      - Context: business-first-ai-framework/build/context.md
+      - Projects: business-first-ai-framework/build/projects.md
+      - Prompt: business-first-ai-framework/build/prompt.md
+      - Skills: business-first-ai-framework/build/skills.md
+      - Agents: business-first-ai-framework/build/agents.md
+      - MCP: business-first-ai-framework/build/mcp.md
+      - Run: business-first-ai-framework/build/run.md
+      - "Worked Examples":
+        - Deterministic Automation: business-first-ai-framework/build/deterministic-automation.md
+        - AI Collaborative: business-first-ai-framework/build/ai-collaborative.md
+        - Autonomous Agent: business-first-ai-framework/build/autonomous-agent.md
     - Questions:
       - Find workflows worth applying AI to: business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to.md
       - Identify the right AI tools for a workflow: business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow.md

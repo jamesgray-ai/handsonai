@@ -5,7 +5,7 @@ description: The Business-First AI Framework as executable Claude Code skills �
 
 # Business-First AI
 
-This plugin implements the [Business-First AI Framework](../business-first-ai-framework/index.md) as executable Claude Code agents and skills. It covers all three phases: discover where AI fits in your workflows, deconstruct those workflows into AI building blocks, and build with worked examples across the autonomy spectrum. Install it to get a complete toolkit for going from "where should I use AI?" to working AI workflows.
+This plugin implements the [Business-First AI Framework](../business-first-ai-framework/index.md) as executable Claude Code agents and skills. It covers all three steps: discover where AI fits in your workflows, deconstruct those workflows into AI building blocks, and build working AI workflows — from context and prompts through skills, agents, and MCP connections. Install it to get a complete toolkit for going from "where should I use AI?" to working AI workflows.
 
 ## Install
 
@@ -28,8 +28,8 @@ How you use this plugin depends on your platform:
 
     **Recommended path:**
 
-    1. Say *"Help me find AI opportunities in my workflows"* → the `finding-ai-opportunities` skill runs Phase 1
-    2. Say *"I want to deconstruct my [workflow] into AI building blocks"* → the `workflow-deconstructor` agent orchestrates all of Phase 2
+    1. Say *"Help me find AI opportunities in my workflows"* → the `finding-ai-opportunities` skill runs Step 1
+    2. Say *"I want to deconstruct my [workflow] into AI building blocks"* → the `workflow-deconstructor` agent orchestrates Steps 2 and 3
     3. Review your outputs in the `outputs/` folder
 
 === "Cowork"
@@ -39,7 +39,7 @@ How you use this plugin depends on your platform:
 
     1. **Open Cowork** — launch Claude Desktop and click **Cowork** in the sidebar
     2. **Add the plugin** — click the **+** button, select **Add plugins...**, then upload the plugin ZIP
-    3. **Use the same prompts as Claude Code** — say *"Help me find AI opportunities in my workflows"* for Phase 1, or *"I want to deconstruct my [workflow] into AI building blocks"* for Phase 2. Claude uses the plugin automatically.
+    3. **Use the same prompts as Claude Code** — say *"Help me find AI opportunities in my workflows"* for Step 1, or *"I want to deconstruct my [workflow] into AI building blocks"* for Step 2. Claude uses the plugin automatically.
 
     For detailed Cowork setup, see [Using Plugins in Cowork](using-plugins.md#using-plugins-in-claude-cowork).
 
@@ -60,7 +60,7 @@ How you use this plugin depends on your platform:
     For detailed upload instructions, see [Using Skills in Claude.ai](using-plugins.md#using-skills-in-claudeai-web).
 
     !!! warning "Agents don't work in Claude.ai"
-        The `workflow-deconstructor` agent (which orchestrates all three Phase 2 steps) only works in Claude Code or Cowork. In Claude.ai, upload and run the three Phase 2 skills individually: `discovering-workflows` → `analyzing-workflows` → `generating-workflow-outputs`.
+        The `workflow-deconstructor` agent (which orchestrates all steps in one session) only works in Claude Code or Cowork. In Claude.ai, upload and run the skills individually: `discovering-workflows` → `deconstructing-workflows` → `building-workflows`.
 
 ### Platform Compatibility
 
@@ -69,8 +69,8 @@ How you use this plugin depends on your platform:
 | `finding-ai-opportunities` | Skill | Yes | Yes | Yes |
 | `workflow-deconstructor` | Agent | Yes | Yes | No |
 | `discovering-workflows` | Skill | Yes | Yes | Yes |
-| `analyzing-workflows` | Skill | Yes | Yes | Yes |
-| `generating-workflow-outputs` | Skill | Yes | Yes | Yes |
+| `deconstructing-workflows` | Skill | Yes | Yes | Yes |
+| `building-workflows` | Skill | Yes | Yes | Yes |
 | `tech-executive-writer` | Agent | Yes | Yes | No |
 | `hbr-editor` | Agent | Yes | Yes | No |
 | `hbr-publisher` | Agent | Yes | Yes | No |
@@ -87,7 +87,7 @@ Agents activate automatically in Claude Code when your prompt matches. In Cowork
 
 ---
 
-### Phase 1 — Discover
+### Step 1 — Discover Workflows
 
 Find which workflows are candidates for AI.
 
@@ -121,7 +121,7 @@ Find which workflows are candidates for AI.
 
 ---
 
-### Phase 2 — Deconstruct
+### Step 2 — Deconstruct Workflows
 
 Break workflows into AI building blocks.
 
@@ -129,15 +129,15 @@ Break workflows into AI building blocks.
 
 #### `workflow-deconstructor`
 
-**What it does:** Orchestrates the full three-step workflow deconstruction process. Runs discovery, analysis, and output generation sequentially, with file-based handoffs between stages so you can also run each step individually in separate conversations.
+**What it does:** Orchestrates the end-to-end Discover, Deconstruct, and Build process. Runs discovery, analysis, and build sequentially, with file-based handoffs between stages so you can also run each step individually in separate conversations.
 
-**When to use it:** Use this when you want to go through the entire deconstruction process in one session. The agent manages the flow between steps, saves intermediate files, and keeps you involved at each stage. If you prefer to work step-by-step across separate conversations, invoke the individual skills instead.
+**When to use it:** Use this when you want to go through the entire process in one session. The agent manages the flow between steps, saves intermediate files, and keeps you involved at each stage. If you prefer to work step-by-step across separate conversations, invoke the individual skills instead.
 
 **How it works:** The agent runs three skills in sequence:
 
-1. **Workflow Definition** (`discovering-workflows`) — Interactive conversation where you describe your workflow. The agent probes for missing steps, decision points, data flows, and failure modes. Produces a Workflow Definition.
-2. **AI Building Blocks** (`analyzing-workflows`) — Reads the Workflow Definition, classifies each step on an autonomy spectrum (Human → AI-Deterministic → AI-Semi-Autonomous → AI-Autonomous), and maps to AI building blocks. Produces the AI Building Block Map.
-3. **Prompt & Skill Specs** (`generating-workflow-outputs`) — Reads the AI Building Block Map and generates a ready-to-use prompt plus specs for which steps should become dedicated skills. Produces the Baseline Prompt and Skill Specs.
+1. **Discover** (`discovering-workflows`) — Interactive conversation where you describe your workflow. The agent probes for missing steps, decision points, data flows, and failure modes. Produces a Workflow Definition.
+2. **Deconstruct** (`deconstructing-workflows`) — Reads the Workflow Definition, classifies each step on an autonomy spectrum (Human → AI-Deterministic → AI-Semi-Autonomous → AI-Autonomous), and maps to AI building blocks. Produces the AI Building Block Map.
+3. **Build** (`building-workflows`) — Reads the AI Building Block Map and generates a ready-to-use prompt plus specs for which steps should become dedicated skills. Produces the Baseline Prompt and Skill Specs.
 
 Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/lead-qualification-definition.md`).
 
@@ -146,7 +146,7 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
     "I want to deconstruct my client onboarding workflow"
     → Walks you through all three steps, asking questions during
       discovery, presenting the analysis for review, and generating
-      the final deliverables
+      the build deliverables
 
     "People keep dropping off during enrollment. Help me build
     a workflow for that."
@@ -170,7 +170,7 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 
 #### `discovering-workflows`
 
-**What it does:** Interactively discovers and decomposes a business workflow into a structured Workflow Definition. This is Step 1 of 3 in the workflow deconstruction series.
+**What it does:** Interactively discovers and decomposes a business workflow into a structured Workflow Definition. This is Step 1 of 2 in the Deconstruct step.
 
 **When to use it:** Use this when you want to thoroughly document a workflow before analyzing it for AI readiness. Also useful standalone when you just need a structured breakdown of a complex process — even without planning to automate it.
 
@@ -206,9 +206,9 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 
 ---
 
-#### `analyzing-workflows`
+#### `deconstructing-workflows`
 
-**What it does:** Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces an AI Building Block Map. This is Step 2 of 3 in the workflow deconstruction series.
+**What it does:** Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces an AI Building Block Map. This is Step 2 of 2 in the Deconstruct step.
 
 **When to use it:** Use this when you have a Workflow Definition (from Step 1) and want to analyze which steps can be automated, which need human oversight, and what AI tools are required.
 
@@ -226,7 +226,7 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 
 **Example prompts:**
 
-    "Use analyzing-workflows on my workflow definition"
+    "Use deconstructing-workflows on my workflow definition"
     → Reads the most recent Workflow Definition, classifies each step,
       presents the mapping table, and generates the AI Building Block Map
 
@@ -234,17 +234,23 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
     → Reads outputs/lead-qualification-definition.md and produces
       the AI Building Block Map
 
-**What you'll get:** An AI Building Block Map (`outputs/[name]-building-blocks.md`) containing: scenario summary, step-by-step decomposition table (with autonomy level and AI building blocks for each step), autonomy spectrum summary, step sequence and dependencies, prerequisites, context inventory, tools and connectors required, and recommended implementation order (quick wins first).
+**What you'll get:** An AI Building Block Map (`outputs/[name]-building-blocks.md`) containing: scenario summary, step-by-step decomposition table (with autonomy level and AI building blocks for each step), autonomy spectrum summary, step sequence and dependencies, prerequisites, context inventory, and tools and connectors required.
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
 
 ---
 
-#### `generating-workflow-outputs`
+### Step 3 — Build Workflows
 
-**What it does:** Generates a ready-to-use Baseline Workflow Prompt and Skill Specs from an AI Building Block Map. This is Step 3 of 3 in the workflow deconstruction series.
+Turn your AI Building Block Map into working AI workflows.
 
-**When to use it:** Use this when you have a completed AI Building Block Map (from Step 2) and want the final, actionable deliverables — a prompt you can run immediately and specs for which steps should become dedicated skills.
+---
+
+#### `building-workflows`
+
+**What it does:** Turns your AI Building Block Map into executable outputs — a Baseline Workflow Prompt, Skill Specs, and build guidance. This is the Build step.
+
+**When to use it:** Use this when you have a completed AI Building Block Map (from the Deconstruct step) and want the Build deliverables — a prompt you can run immediately and specs for which steps should become dedicated skills.
 
 **How it works:**
 
@@ -265,7 +271,7 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 
 **Example prompts:**
 
-    "Use generating-workflow-outputs on my building blocks"
+    "Use building-workflows on my building blocks"
     → Reads the most recent AI Building Block Map, generates the prompt
       and skill specs
 
@@ -279,12 +285,6 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 2. **Skill Specs** (`outputs/[name]-skill-specs.md`) — Specs for each recommended skill, in priority order, with Quick Start Prompts.
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
-
----
-
-### Phase 3 — Build
-
-Turn deconstruction outputs into working AI workflows.
 
 ---
 
@@ -509,19 +509,19 @@ Agents for staying current on AI developments.
 The plugin covers the full Business-First AI Framework. Here's the recommended path:
 
 1. **Discover** — Run `finding-ai-opportunities` to audit your workflows and identify where AI creates the most value
-2. **Deconstruct** — Pick your highest-impact opportunity and run it through the `workflow-deconstructor` agent (or use the three skills individually: `discovering-workflows` → `analyzing-workflows` → `generating-workflow-outputs`)
-3. **Build** — Use the Baseline Workflow Prompt on a real scenario, then build skills in priority order from the recommendations. Study the Phase 3 agents and skills as working examples.
+2. **Deconstruct** — Pick your highest-impact opportunity and run it through the `workflow-deconstructor` agent (or use the skills individually: `discovering-workflows` → `deconstructing-workflows` → `building-workflows`)
+3. **Build** — Use the Baseline Workflow Prompt on a real scenario, then build skills in priority order from the recommendations. Study the Step 3 agents and skills as working examples.
 
 ## FAQ
 
-**Which phase should I start with?**
-Start with Phase 1 (Discover) if you're not sure where AI fits in your work. Browse [AI Use Cases](../use-cases/index.md) to see what types of work AI handles — content creation, research, coding, data analysis, ideation, and automation. Start with Phase 2 (Deconstruct) if you already know which workflow you want to automate. Start with Phase 3 (Build) if you want to study working examples before deconstructing your own workflows.
+**Which step should I start with?**
+Start with Step 1 (Discover) if you're not sure where AI fits in your work. Browse [AI Use Cases](../use-cases/index.md) to see what types of work AI handles — content creation, research, coding, data analysis, ideation, and automation. Start with Step 2 (Deconstruct) if you already know which workflow you want to automate. Start with Step 3 (Build) if you want to study working examples before deconstructing your own workflows.
 
 **Can I start from a problem instead of a workflow?**
 Yes. Tell the `workflow-deconstructor` agent about your problem (e.g., "people keep dropping off during enrollment") and it will propose a candidate workflow for you to refine during discovery.
 
 **What if I lose context mid-conversation?**
-The file-based handoffs mean you can continue in a new conversation. Just invoke the next skill and point it at the file from the previous step (e.g., "Use analyzing-workflows on outputs/lead-qualification-definition.md").
+The file-based handoffs mean you can continue in a new conversation. Just invoke the next skill and point it at the file from the previous step (e.g., "Use deconstructing-workflows on outputs/lead-qualification-definition.md").
 
 **What are AI building blocks?**
 The categories used during analysis: Prompt (single instruction), Context (reference material), Skill (multi-step workflow), Agent (autonomous personality), MCP (external tool connection), and Project (workspace configuration). Each step gets mapped to one or more of these.

@@ -1,21 +1,24 @@
 ---
-title: "Step 3 — Prompt & Skill Specs"
-description: Generate a ready-to-use Baseline Workflow Prompt and Skill Specs from your AI Building Block Map.
+title: Prompt
+description: Turn your AI Building Block Map into a ready-to-use Baseline Workflow Prompt and Skill Specs.
 ---
 
-# Step 3 — Prompt & Skill Specs
+# Prompt
 
-> **Part of:** [Deconstruct Workflows](index.md)
+> **Part of:** [Build Workflows](index.md)
+
+!!! tip "New to prompts as a building block?"
+    See [Agentic Building Blocks > Prompts](../../agentic-building-blocks/prompts/index.md) for prompt engineering guidance and cross-platform techniques.
 
 ## What This Is
 
-The final step that turns your analysis into action. AI reads your AI Building Block Map and generates two ready-to-use deliverables: a prompt you can paste into any AI tool to execute the workflow today, and a set of skill specs for reusable skills to build over time.
+The step that turns your analysis into action. AI reads your AI Building Block Map and generates two ready-to-use deliverables: a prompt you can paste into any AI tool to execute the workflow today, and a set of skill specs for reusable skills to build over time.
 
 | | |
 |---|---|
-| **What you'll do** | Upload your AI Building Block Map from Step 2, answer 1–2 clarifying questions, then review the generated outputs |
+| **What you'll do** | Upload your AI Building Block Map from the Deconstruct step, answer 1-2 clarifying questions, then review the generated outputs |
 | **What you'll get** | A **Baseline Workflow Prompt** (ready to paste and run) and **Skill Specs** (what to build next and in what order) |
-| **Time** | ~5–10 minutes (mostly generative — the AI does the heavy lifting) |
+| **Time** | ~5-10 minutes (mostly generative — the AI does the heavy lifting) |
 
 ## Why This Matters
 
@@ -25,20 +28,20 @@ The Skill Specs show you how to evolve that prompt over time. Each skill you bui
 
 ## How to Use This
 
-There are two ways to run Step 3, depending on which tools you use:
+There are two ways to generate your prompt, depending on which tools you use:
 
 ### Option A: Prompt template (any AI tool)
 
 1. **Copy the prompt** from the code block below
 2. **Paste it into a new conversation** in your preferred AI tool
 3. **Press Enter** — the model will ask you to upload or paste your AI Building Block Map
-4. **Upload or paste your AI Building Block Map file** (`[workflow-name]-building-blocks.md`) from Step 2
+4. **Upload or paste your AI Building Block Map file** (`[workflow-name]-building-blocks.md`) from the Deconstruct step
 5. **Review the outputs** — the model may ask 1-2 clarifying questions, then generates both deliverables
 6. **Download both files** — the Baseline Workflow Prompt and Skill Specs
 
 ### Option B: Claude skill
 
-Use the `generating-workflow-outputs` skill from the [Business-First AI plugin](../../plugins/business-first-ai.md). It reads the AI Building Block Map from Step 2 and generates both deliverables automatically.
+Use the `building-workflows` skill from the [Business-First AI plugin](../../plugins/business-first-ai.md). It reads the AI Building Block Map and generates both deliverables automatically.
 
 - **Claude Code or Cowork** — install the plugin (`/plugin install business-first-ai@handsonai`) and start with:
     ```
@@ -46,7 +49,7 @@ Use the `generating-workflow-outputs` skill from the [Business-First AI plugin](
     from the AI Building Block Map in outputs/[workflow-name]-building-blocks.md.
     ```
     Both deliverables are saved to the `outputs/` directory.
-- **Claude.ai** — zip the `generating-workflow-outputs` skill folder and upload it via **Settings > Capabilities > Upload skill**, then start a new chat with: "Generate a Baseline Workflow Prompt and Skill Specs from this AI Building Block Map." Upload or paste your AI Building Block Map when prompted. See [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web) for detailed instructions.
+- **Claude.ai** — zip the `building-workflows` skill folder and upload it via **Settings > Capabilities > Upload skill**, then start a new chat with: "Generate a Baseline Workflow Prompt and Skill Specs from this AI Building Block Map." Upload or paste your AI Building Block Map when prompted. See [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web) for detailed instructions.
 
 !!! tip "This step is mostly generative"
     The heavy analytical work is done. The model reads your AI Building Block Map and produces two structured outputs with minimal interaction. Expect 5-10 minutes.
@@ -64,7 +67,7 @@ I have an AI Building Block Map from a previous conversation. I'll paste it when
 
 Say: "Upload your AI Building Block Map file, or paste its contents below, then press Enter."
 
-Wait for me to provide it. After receiving the document, confirm you've read it by summarizing: the workflow name, the number of steps, how many are AI-eligible, and the recommended implementation order. Then proceed to Part 2.
+Wait for me to provide it. After receiving the document, confirm you've read it by summarizing: the workflow name, the number of steps, how many are AI-eligible, and the AI building blocks identified. Then proceed to Part 2.
 
 If anything in the AI Building Block Map is ambiguous or seems incomplete, ask me to clarify before generating outputs. Do not guess at missing information.
 
@@ -74,7 +77,7 @@ If anything in the AI Building Block Map is ambiguous or seems incomplete, ask m
 
 Generate a ready-to-use Markdown prompt that someone could paste into any AI tool to execute this workflow. This is the **baseline version** — it spells out every step in full so it works on any platform (Claude, ChatGPT, Gemini, M365 Copilot). As the user builds skills from the recommendations below, they'll update this prompt to invoke those skills instead of repeating the logic inline.
 
-**Before generating the prompt, check the Context Inventory for any artifacts typed as "Executable Instructions."** These contain workflow logic that must be included in the Baseline Prompt — not referenced, but actually included. If the AI Building Block Map indicates executable instructions exist (e.g., existing project instructions, system prompts, or custom assistant configurations) but their content is not in the AI Building Block Map, ask the user to paste or upload those instructions now. The Baseline Prompt cannot reference external systems for its core logic — it must be self-contained.
+**Before generating the prompt, check the Context Inventory for any artifacts that contain existing AI instructions** — prompts, project instructions, system prompts, or custom assistant configurations the user already has. These contain workflow logic that must be included in the Baseline Prompt — not referenced, but actually included. If such artifacts exist but their content is not in the AI Building Block Map, ask the user to paste or upload them now. The Baseline Prompt cannot reference external systems for its core logic — it must be self-contained.
 
 Structure it as:
 
@@ -108,6 +111,13 @@ The prompt should be:
 - Ready for team adoption (clear enough that a colleague could run it)
 
 **Self-contained means:** The prompt contains every instruction the model needs to execute the workflow. It never says "open this project" or "follow those instructions" or "refer to the project instructions." If existing AI instructions drive a step, those instructions are written into the prompt. A reader who has never seen the AI Building Block Map or Workflow Definition can execute this prompt successfully.
+
+**Recommended Implementation Order**
+Prioritize the AI-eligible steps into a build sequence:
+1. **Quick wins** — Deterministic steps with clear inputs/outputs that can be automated with a Prompt or Context alone. Start here.
+2. **High-value semi-autonomous steps** — Steps where AI does most of the work but needs a human review gate. Build these next.
+3. **Complex agent steps** — Fully autonomous steps requiring Agents, MCP connectors, or multi-tool orchestration. Tackle these last.
+For each priority tier, list the specific steps and what to build.
 
 **Execution Context**
 - Where to run this prompt (normal chat vs. project), based on the AI Building Block Map's recommendation
@@ -174,16 +184,16 @@ Generate the recommendations as a downloadable Markdown file. If your platform d
 
 After presenting both files, summarize what I now have:
 
-> **Workflow deconstruction complete.** You now have four files:
+> **Build complete.** You now have four files:
 >
-> 1. `[workflow-name]-definition.md` — your Workflow Definition (from Step 1)
-> 2. `[workflow-name]-building-blocks.md` — your AI Building Block Map (from Step 2)
+> 1. `[workflow-name]-definition.md` — your Workflow Definition (from Deconstruct)
+> 2. `[workflow-name]-building-blocks.md` — your AI Building Block Map (from Deconstruct)
 > 3. `[workflow-name]-prompt.md` — your Baseline Workflow Prompt (ready to use)
 > 4. `[workflow-name]-skill-specs.md` — your Skill Specs (what to build next)
 >
 > Start by running the baseline prompt on a real scenario. Then build skills in priority order from the recommendations.
 
-**Write workflow SOP (Claude users, optional):** If you registered this workflow to the AI Registry in Step 1, you can now generate a Standard Operating Procedure and save it to the workflow's Notion page. Use the `writing-workflow-sops` skill from the AI Registry plugin — it reads the workflow entry from Notion, uses the Baseline Prompt's procedure steps as input, and writes a formatted SOP (overview, prerequisites, trigger, step-by-step procedure, outputs, quality checks, troubleshooting) directly to the page body. This gives your workflow a complete home in Notion: metadata in the properties, SOP in the page content, and deliverable files in your local folder.
+**Write workflow SOP (Claude users, optional):** If you registered this workflow to the AI Registry in the Discover phase, you can now generate a Standard Operating Procedure and save it to the workflow's Notion page. Use the `writing-workflow-sops` skill from the AI Registry plugin — it reads the workflow entry from Notion, uses the Baseline Prompt's procedure steps as input, and writes a formatted SOP (overview, prerequisites, trigger, step-by-step procedure, outputs, quality checks, troubleshooting) directly to the page body. This gives your workflow a complete home in Notion: metadata in the properties, SOP in the page content, and deliverable files in your local folder.
 
 ---
 
@@ -213,17 +223,17 @@ Actionable specs for each recommended skill, including:
 
 ## What's Next
 
-You now have four Markdown files from the full workflow deconstruction:
+You now have four Markdown files from the full workflow deconstruction and build:
 
 | File | What it is | What to do with it |
 |------|-----------|-------------------|
-| `[name]-definition.md` | Workflow Definition (Step 1) | Reference — the raw decomposition you can revisit |
-| `[name]-building-blocks.md` | AI Building Block Map (Step 2) | Reference — the full analysis with building block mapping |
-| `[name]-prompt.md` | Baseline Workflow Prompt (Step 3) | **Use this** — paste it into a new conversation to run the workflow |
-| `[name]-skill-specs.md` | Skill Specs (Step 3) | **Build from this** — your roadmap for reusable skills |
+| `[name]-definition.md` | Workflow Definition (Deconstruct) | Reference — the raw decomposition you can revisit |
+| `[name]-building-blocks.md` | AI Building Block Map (Deconstruct) | Reference — the full analysis with building block mapping |
+| `[name]-prompt.md` | Baseline Workflow Prompt (Build) | **Use this** — paste it into a new conversation to run the workflow |
+| `[name]-skill-specs.md` | Skill Specs (Build) | **Build from this** — your roadmap for reusable skills |
 
 Start by running the baseline prompt on a real scenario. See what works, refine what doesn't, then build skills in priority order. Each skill you build makes the baseline prompt shorter and more reliable.
 
-Keep all four files together — in a folder, a repo, or wherever you store your workflow documentation. You can share any of these with your instructor or team for feedback.
+Keep all four files together — in a folder, a repo, or wherever you store your workflow documentation. You can share any of these with your team for feedback.
 
-For more on building skills and agents, see [Agents](../../agentic-building-blocks/agents/index.md).
+For next steps on building skills and agents, see [Skills](skills.md) and [Agents](agents.md).
