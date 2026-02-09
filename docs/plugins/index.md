@@ -41,7 +41,7 @@ For the full details on how marketplaces and plugin installation work, see the o
 
 ## :material-rocket-launch: Business-First AI
 
-The [Business-First AI Framework](../business-first-ai-framework/index.md) as executable Claude Code skills. Discover AI workflow opportunities (Phase 1), deconstruct workflows into AI building blocks (Phase 2), and build with worked examples across the autonomy spectrum (Phase 3).
+The [Business-First AI Framework](../business-first-ai-framework/index.md) as executable Claude Code skills. Discover AI workflow opportunities (Step 1), deconstruct workflows into AI building blocks (Step 2), and build working AI workflows (Step 3).
 
 ```bash
 /plugin install business-first-ai@handsonai
@@ -49,9 +49,9 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) as ex
 
 ???+ agents "Agents included (8)"
 
-    | Agent | Phase | What it does |
+    | Agent | Step | What it does |
     |-------|-------|-------------|
-    | [`workflow-deconstructor`](business-first-ai.md#workflow-deconstructor) | 2 | Orchestrates the full three-step workflow deconstruction process. Runs discovery, analysis, and output generation sequentially with file-based handoffs between stages. |
+    | [`workflow-deconstructor`](business-first-ai.md#workflow-deconstructor) | 1-3 | Orchestrates the end-to-end Discover, Deconstruct, and Build process. Runs discovery, analysis, and build sequentially with file-based handoffs between stages. |
     | [`tech-executive-writer`](business-first-ai.md#tech-executive-writer) | 3 | Writes business-focused content about AI and technology. LinkedIn posts, magazine articles, executive briefs, and thought leadership pieces. |
     | [`hbr-editor`](business-first-ai.md#hbr-editor) | 3 | Reviews drafts against HBR editorial standards. Provides prescriptive feedback on structure, evidence quality, voice, and argument strength. |
     | [`hbr-publisher`](business-first-ai.md#hbr-publisher) | 3 | Formats finalized articles for web publication and PDF distribution. Handles SEO metadata, social snippets, and professional layout. |
@@ -62,12 +62,12 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) as ex
 
 ???+ skills "Skills included (6)"
 
-    | Skill | Phase | What it does |
+    | Skill | Step | What it does |
     |-------|-------|-------------|
     | [`finding-ai-opportunities`](business-first-ai.md#finding-ai-opportunities) | 1 | Structured audit of your workflows to discover where AI can help. Produces a categorized opportunity report. |
     | [`discovering-workflows`](business-first-ai.md#discovering-workflows) | 2 | Interactively discovers and decomposes a business workflow into a structured Workflow Definition. |
-    | [`analyzing-workflows`](business-first-ai.md#analyzing-workflows) | 2 | Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces an AI Building Block Map. |
-    | [`generating-workflow-outputs`](business-first-ai.md#generating-workflow-outputs) | 2 | Generates a ready-to-use Baseline Workflow Prompt and Skill Specs from an AI Building Block Map. |
+    | [`deconstructing-workflows`](business-first-ai.md#deconstructing-workflows) | 2 | Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces an AI Building Block Map. |
+    | [`building-workflows`](business-first-ai.md#building-workflows) | 3 | Turns your AI Building Block Map into a Baseline Workflow Prompt and build guidance. If you built skills first, generates a skill-aware prompt that references them. |
     | [`editing-hbr-articles`](business-first-ai.md#editing-hbr-articles) | 3 | HBR editorial criteria for article editing. Used by the `hbr-editor` agent. |
     | [`preparing-meeting-briefs`](business-first-ai.md#preparing-meeting-briefs) | 3 | Structured research workflow for meeting preparation. Used by the `meeting-prep-researcher` agent. |
 

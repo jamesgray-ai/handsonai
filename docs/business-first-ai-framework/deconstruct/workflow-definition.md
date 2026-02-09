@@ -1,9 +1,9 @@
 ---
-title: "Step 1 — Workflow Definition"
+title: Break Down Your Workflow
 description: Interactively discover and decompose a business workflow into a structured Workflow Definition ready for AI building block analysis.
 ---
 
-# Step 1 — Workflow Definition
+# Break Down Your Workflow
 
 > **Part of:** [Deconstruct Workflows](index.md)
 
@@ -27,7 +27,7 @@ The prompt uses a **5-question framework** (discrete steps, decision points, dat
 
 ## How to Use This
 
-There are two ways to run Step 1, depending on which tools you use:
+There are two ways to run this, depending on which tools you use:
 
 ### Option A: Prompt template (any AI tool)
 
@@ -36,7 +36,7 @@ There are two ways to run Step 1, depending on which tools you use:
 3. **Press Enter** — the model will read the instructions and ask about your business scenario
 4. **Answer the questions** — describe your workflow or problem, then work through the deep dive
 5. **Download the Workflow Definition** the model produces at the end — it will be a Markdown file named `[workflow-name]-definition.md` (e.g., `lead-qualification-definition.md`)
-6. **Keep this file** — you'll upload or paste it into Step 2, and you can share it with your instructor for feedback
+6. **Keep this file** — you'll upload or paste it into Step 2, and you can share it with your team for feedback
 
 ### Option B: Claude skill
 
@@ -66,7 +66,7 @@ Work through the following two parts in order. Ask one question at a time during
 
 Start by understanding the workflow I want to deconstruct.
 
-Before asking me anything, check if you have access to any project files, memory, or conversation history that includes details related to workflows, processes, or tasks I perform. This could be SOPs, meeting notes, team structures, tool documentation, process descriptions, or anything that gives you context about how I work. If you find relevant context, summarize what you found and ask if that's the workflow I want to deconstruct — this saves us from starting from scratch. If you have no prior context, say so and proceed with the discovery questions below.
+Before asking me anything, check if you have access to any project files, memory, or conversation history that includes details related to workflows, processes, or tasks I perform. This could be standard operating procedures (SOPs), meeting notes, team structures, tool documentation, process descriptions, or anything that gives you context about how I work. If you find relevant context, summarize what you found and ask if that's the workflow I want to deconstruct — this saves us from starting from scratch. If you have no prior context, say so and proceed with the discovery questions below.
 
 Ask me for:
 
@@ -139,17 +139,13 @@ This is more efficient and produces better results — correcting a wrong assump
 
 **Probing for context artifacts:** When exploring context needs, push beyond vague answers like "domain knowledge" or "background info." Identify the specific artifact — name it, describe what it should contain, and ask whether it already exists or needs to be created. Common examples: buyer persona documents, style guides, grading rubrics, product catalogs, pricing sheets, email templates, brand voice documents, org charts, decision criteria checklists, sample inputs, and sample outputs. If a step requires the model to match a standard, apply criteria, or follow a style, there is almost certainly a reference document behind it.
 
-**Probing for executable instructions:** For any step where AI is already being used, ask specifically: "Do you have existing prompt instructions, project instructions, custom assistant configurations, or system prompts that tell the AI what to do at this step? If so, I'll need to see those — they contain the workflow logic that belongs in your Baseline Prompt." Distinguish between:
-- **Reference materials** — documents, files, data, or examples the model reads to inform its work (PDFs, CSVs, spreadsheets, style guides)
-- **Executable instructions** — prompts, project instructions, system prompts, or custom assistant configurations that tell the model what to do and how to do it
-
-Reference materials are context the model consumes. Executable instructions are logic the model follows. Both matter, but they serve different purposes in the final prompt.
+**Probing for existing AI instructions:** For any step where AI is already being used, ask specifically: "Do you have existing prompt instructions, project instructions, custom assistant configurations, or system prompts that tell the AI what to do at this step? If so, I'll need to see those — they contain workflow logic that belongs in your Baseline Prompt." Existing prompts and instructions are context too — they capture decisions about how the workflow should run.
 
 After completing all steps:
 
 1. Present the refined step-by-step breakdown.
 2. **Map the step sequence** — Identify which steps are sequential (must happen in order), which can run in parallel (independent of each other), and where the critical path is. Show this as a simple dependency list (e.g., "Step 3 depends on Steps 1 and 2; Steps 4 and 5 can run in parallel").
-3. **Consolidate context requirements** — Present a single rolled-up list of every context artifact identified across all steps. For each artifact, state: the artifact name, its type (Reference Material or Executable Instructions), a one-line description of what it contains, which steps depend on it, and whether it already exists or needs to be created. If it needs to be created, note the key contents it should include so I know what to build. Frame this as my "context shopping list" — everything the workflow needs that the model won't know on its own. Artifacts typed as "Executable Instructions" contain workflow logic that must be included in the Baseline Workflow Prompt. Artifacts typed as "Reference Material" are context files the model reads.
+3. **Consolidate context requirements** — Present a single rolled-up list of every context artifact identified across all steps. For each artifact, state: the artifact name, a one-line description of what it contains, which steps depend on it, and whether it already exists or needs to be created. If it needs to be created, note the key contents it should include so I know what to build. Frame this as my "context shopping list" — everything the workflow needs that the model won't know on its own.
 4. Ask me to confirm the breakdown, sequence, and context shopping list are accurate.
 
 ---
@@ -158,7 +154,7 @@ After completing all steps:
 
 After I confirm the breakdown is accurate, produce the **Workflow Definition** as a Markdown file. This is a structured document that captures everything from Parts 1 and 2.
 
-**File naming:** Name the file `[workflow-name]-definition.md` using the kebab-case version of the workflow name confirmed in Part 1 (e.g., if the workflow is "Lead Qualification," the file is `lead-qualification-definition.md`).
+**File naming:** Name the file `[workflow-name]-definition.md` using the lowercase-with-hyphens version of the workflow name confirmed in Part 1 (e.g., if the workflow is "Lead Qualification," the file is `lead-qualification-definition.md`).
 
 Generate the Workflow Definition as a downloadable Markdown file. If your platform doesn't support file downloads, format it inside a single Markdown code block so I can copy and save it manually.
 
@@ -193,7 +189,6 @@ For each step:
 ### Context Shopping List
 For each artifact:
 - Artifact name
-- Type (Reference Material / Executable Instructions)
 - Description (what it contains)
 - Used by steps (step numbers)
 - Status (Exists / Needs Creation)
@@ -203,7 +198,7 @@ For each artifact:
 
 After presenting the Workflow Definition, tell me:
 
-> **Next step:** Download (or copy and save) the Workflow Definition file. Then go to [Step 2 — AI Building Blocks](https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/), copy that prompt into a new conversation, and upload or paste the Workflow Definition when the model asks for it.
+> **Next step:** Download (or copy and save) the Workflow Definition file. Then go to [Map AI Building Blocks](https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/), copy that prompt into a new conversation, and upload or paste the Workflow Definition when the model asks for it.
 
 ---
 
@@ -212,7 +207,7 @@ After presenting the Workflow Definition, tell me:
 - Ask one question at a time. Never present a wall of questions.
 - Probe for missing steps — most people undercount by 30-50%.
 - Surface hidden assumptions ("How do you decide when X is good enough?").
-- Use plain language. Avoid jargon unless the student introduced it.
+- Use plain language. Avoid jargon unless I introduced it.
 - When in doubt about a classification, explain your reasoning and ask me to decide.
 ```
 
@@ -223,6 +218,6 @@ The Workflow Definition captures:
 - **Scenario metadata** — name, description, outcome, trigger, type, objective, owners
 - **Refined step-by-step breakdown** — each step with action, sub-steps, decision points, data in/out, context needs, failure modes
 - **Step sequence and dependencies** — what's sequential, what's parallel, where the critical path is
-- **Context shopping list** — every artifact the workflow needs, typed as reference material or executable instructions, with status and key contents
+- **Context shopping list** — every artifact the workflow needs, with status and key contents
 
-This Workflow Definition is the input for [Step 2 — AI Building Blocks](building-blocks.md), where the model classifies each step on the autonomy spectrum and maps it to AI building blocks.
+This Workflow Definition is the input for [Map AI Building Blocks](building-blocks.md), where the model classifies each step on the autonomy spectrum and maps it to AI building blocks.

@@ -1,6 +1,6 @@
 ---
 title: Business-First AI Framework
-description: A three-phase methodology for finding where AI fits in your business, deconstructing workflows into building blocks, and turning those outputs into working AI workflows
+description: A three-step methodology for finding where AI fits in your business, deconstructing workflows into building blocks, and turning those outputs into working AI workflows
 ---
 
 # Business-First AI Framework
@@ -11,13 +11,13 @@ Most AI adoption starts with the technology — "we have ChatGPT, where should w
 
 ## The Framework
 
-Three phases, each with a structured process:
+Three steps, each with a structured process:
 
-### Phase 1: Discover
+### Step 1: Discover Workflows
 
 Find which workflows are candidates for AI.
 
-Before you can apply AI to anything, you need to know *where* it fits. Phase 1 is a structured audit of your workflows that produces a prioritized list of opportunities across three categories:
+Before you can apply AI to anything, you need to know *where* it fits. Step 1 is a structured audit of your workflows that produces a prioritized list of opportunities across three categories:
 
 - **Deterministic Workflows** — Repeatable processes with clear inputs and outputs that AI can execute reliably with little supervision
 - **Collaborative AI** — Tasks where you and AI work together in real time (drafting, brainstorming, reviewing)
@@ -25,22 +25,21 @@ Before you can apply AI to anything, you need to know *where* it fits. Phase 1 i
 
 The audit uses a three-step process: scan what AI already knows about your work, interview you to fill gaps, then produce a categorized report with specific opportunities and actionable first steps.
 
-**Two ways to run Phase 1:**
+**Two ways to run Step 1:**
 
 - **Any AI tool** — Copy the [Discover AI Workflow Opportunities](discover.md) prompt into Claude, ChatGPT, Gemini, or M365 Copilot
 - **Claude platform** — Use the `finding-ai-opportunities` skill from the [Business-First AI plugin](../plugins/business-first-ai.md) in Claude Code, Claude.ai, or Cowork ([setup guide](../plugins/using-plugins.md))
 
 ---
 
-### Phase 2: Deconstruct
+### Step 2: Deconstruct Workflows
 
 Give your workflow clear structure — then identify the building blocks to turn it into a working AI workflow.
 
-Once you've identified a workflow worth automating, Phase 2 deconstructs it so you understand every step, decision point, and dependency. With that structure in place, you map each step to the right AI building blocks. The three-step pipeline:
+Once you've identified a workflow worth automating, Step 2 deconstructs it so you understand every step, decision point, and dependency. With that structure in place, you map each step to the right AI building blocks. The two-part process:
 
-1. **Workflow Definition** — Interactively decompose the workflow into refined steps, surfacing hidden sub-steps, decision points, data flows, context needs, and failure modes
-2. **AI Building Blocks** — Classify each step on the autonomy spectrum (Human → Deterministic → Semi-Autonomous → Autonomous) and map to AI building blocks
-3. **Prompt & Skill Specs** — Generate a ready-to-use Baseline Workflow Prompt (a prompt you can paste into any AI tool to run the workflow) and Skill Specs
+1. **Break down your workflow** — Interactively decompose the workflow into refined steps, surfacing hidden sub-steps, decision points, data flows, context needs, and failure modes
+2. **Map AI building blocks** — Classify each step on the autonomy spectrum (Human → Deterministic → Semi-Autonomous → Autonomous) and map to AI building blocks
 
 The deconstruction uses the **five-question framework** to break down each step:
 
@@ -52,24 +51,26 @@ The deconstruction uses the **five-question framework** to break down each step:
 
 Each step gets mapped to one or more of the **six AI building blocks**: Prompt, Context, Skill, Agent, MCP, or Project.
 
-**Two ways to run Phase 2:**
+**Two ways to run Step 2:**
 
 - **Any AI tool** — Copy the [Deconstruct Workflows](deconstruct/index.md) prompts into Claude, ChatGPT, Gemini, or M365 Copilot
 - **Claude platform** — Use the `workflow-deconstructor` agent or individual deconstruction skills from the [Business-First AI plugin](../plugins/business-first-ai.md) in Claude Code, Claude.ai, or Cowork ([setup guide](../plugins/using-plugins.md))
 
 ---
 
-### Phase 3: Build
+### Step 3: Build Workflows
 
-Turn your deconstruction outputs into working AI workflows.
+Turn your AI Building Block Map into a working AI workflow.
 
-Phase 2 produces two actionable deliverables: a Baseline Workflow Prompt you can run immediately, and Skill Specs that tell you what to build next. Phase 3 is where those become real.
+Step 2 produces an AI Building Block Map — the analysis. Step 3 is where that analysis becomes real. The build process walks you through creating context artifacts, building skills for complex steps, generating an executable prompt, and optionally adding agents and MCP connections.
 
-The [Build Workflows](build/index.md) examples show three worked examples across the autonomy spectrum — from deterministic automation to collaborative workflows to fully autonomous multi-agent pipelines. Each includes working building blocks you can install and study.
+The [Build Workflows](build/index.md) section includes:
 
-This section will grow with guides on building prompts, skills, agents, and multi-agent workflows from deconstruction output.
+- A **Build Decision Framework** — when a prompt is enough, when to add skills, when you need agents, when to wire MCP
+- **Six building block guides** — Context, Projects, Skills, Prompt, Agents, MCP
+- **Three worked examples** across the autonomy spectrum — deterministic automation, collaborative workflows, and fully autonomous multi-agent pipelines
 
-**[See Phase 3 — Build Workflows](build/index.md)**
+**[See Step 3 — Build Workflows](build/index.md)**
 
 ---
 
@@ -101,7 +102,7 @@ Used to decompose each workflow step:
 |-------|-----------|
 | **Prompt** | A well-crafted instruction that tells the model what to do |
 | **Context** | Background information, reference docs, or examples the model needs |
-| **Skill** | A reusable, parameterized routine the model can invoke |
+| **Skill** | A reusable routine the model can invoke — give it inputs, it follows a defined process, it produces consistent outputs |
 | **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work |
 | **MCP (Model Context Protocol)** | A connector that lets AI access external tools, services, or databases on your behalf |
 | **Project** | A persistent workspace grouping prompts, context, skills, and agents |
@@ -110,7 +111,7 @@ For detailed definitions and cross-platform examples, see [Agentic Building Bloc
 
 ### Six Use Case Primitives
 
-When classifying opportunities from Phase 1, it helps to know what **type** of AI work each one involves. The [six use case primitives](../use-cases/index.md) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — provide a classification system for the opportunities you discover.
+When classifying opportunities from Step 1, it helps to know what **type** of AI work each one involves. The [six use case primitives](../use-cases/index.md) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — provide a classification system for the opportunities you discover.
 
 ### Autonomy Spectrum
 
@@ -126,12 +127,13 @@ When classifying opportunities from Phase 1, it helps to know what **type** of A
 1. **Start with the [Opportunity Finder](discover.md)** to identify your best candidates
 2. **Pick your highest-impact opportunity** — don't try to pursue everything at once
 3. **Run it through the [Deconstruction process](deconstruct/index.md)** to break it into AI building blocks
-4. **Test the Baseline Prompt** on a real scenario — paste the generated prompt into any AI tool and run the workflow
-5. **Build skills in priority order** from the Skill Specs — each skill you build replaces steps in the baseline prompt, making the workflow progressively more automated
+4. **[Build](build/index.md)** your workflow — create context artifacts, build skills for complex steps, then generate an executable prompt
+5. **Test the Baseline Prompt** on a real scenario — paste the generated prompt into any AI tool and run the workflow
+6. **Iterate** — refine the prompt, build additional skills, or add agents based on what works
 
 ## Tools
 
-For Claude platform users (Claude Code, Claude.ai, or Cowork), the [Business-First AI plugin](../plugins/business-first-ai.md) implements all three phases as executable skills you can run interactively:
+For Claude platform users (Claude Code, Claude.ai, or Cowork), the [Business-First AI plugin](../plugins/business-first-ai.md) implements all three steps as executable skills you can run interactively:
 
 ```bash
 /plugin install business-first-ai@handsonai

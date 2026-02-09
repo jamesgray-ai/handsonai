@@ -7,8 +7,8 @@ description: Use this prompt template to discover where AI can help automate, au
 
 > **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
-!!! info "Business-First AI Framework — Phase 1: Discover"
-    This guide is **Phase 1** of the [Business-First AI Framework](index.md) — discovering where AI fits in your workflows.
+!!! info "Business-First AI Framework — Step 1: Discover Workflows"
+    This guide is **Step 1** of the [Business-First AI Framework](index.md) — discovering where AI fits in your workflows.
 
 ## What This Is
 
@@ -34,57 +34,47 @@ This prompt template guides an AI through a structured analysis of your work and
 
 ## How to Use This
 
-There are four ways to run Phase 1, depending on which tools you use:
+There are two ways to run this: as a **prompt** in any AI tool, or with the **Claude platform** plugin.
 
 === "Any AI Tool"
 
-    Use this if you're working in ChatGPT, Gemini, M365 Copilot, or any AI chat tool.
+    Works with ChatGPT, Gemini, M365 Copilot, Claude, or any AI chat tool.
 
-    1. **If your AI tool has a memory or personalization feature, make sure it's enabled** — this lets the AI draw on what it knows about you from past conversations. If it doesn't, that's fine — the interview in Step 2 will gather everything it needs
+    1. **If your AI tool has a memory or personalization feature, make sure it's enabled** — this lets the AI draw on what it knows about you from past conversations. If it doesn't, that's fine — the interview will gather everything it needs
     2. **Copy the prompt** from the [Prompt Template](#the-prompt-template) section below
     3. **Paste it into any conversation** — the AI will automatically scan its memory for context about your role, tasks, and workflows
     4. **Review the output**, pick one opportunity from each category, and save the Workflow Candidate Summary
 
-=== "Claude Code"
+=== "Claude Platform"
 
-    Use this if you have Claude Code installed. The `finding-ai-opportunities` skill from the [Business-First AI plugin](../plugins/business-first-ai.md) runs the same process interactively.
+    Install the [Business-First AI plugin](../plugins/business-first-ai.md) and the `finding-ai-opportunities` skill runs automatically when you describe what you need.
 
-    1. **Install the plugin** — `/plugin install business-first-ai@handsonai`
-    2. **Start with this prompt:**
-        ```
-        I'd like to find AI opportunities in my workflows. Help me audit
-        what I do and identify where AI could help.
-        ```
-    3. **Review the output** — the report is saved to `outputs/ai-opportunity-report.md`
+    **Install the plugin:**
 
-=== "Cowork"
+    ```bash
+    /plugin install business-first-ai@handsonai
+    ```
 
-    Use this if you have Claude Desktop on macOS. The `finding-ai-opportunities` skill works in Cowork the same way it does in Claude Code — through a visual interface with no terminal required.
+    **Start with this prompt:**
 
-    1. **Add the plugin to Cowork** — click the **+** button, select **Add plugins...**, and upload the plugin ZIP
-    2. **Start with this prompt:**
-        ```
-        I'd like to find AI opportunities in my workflows. Help me audit
-        what I do and identify where AI could help.
-        ```
-    3. **Review the output** — the report is saved to `outputs/ai-opportunity-report.md`
+    ```
+    I'd like to find AI opportunities in my workflows. Help me audit
+    what I do and identify where AI could help.
+    ```
 
-    For Cowork setup details, see [Using Plugins in Cowork](../plugins/using-plugins.md#using-plugins-in-claude-cowork).
+    **Review the output** — the report is saved to `outputs/ai-opportunity-report.md`
 
-=== "Claude.ai"
+    The plugin works on three Claude interfaces:
 
-    Use this if you prefer working in the Claude.ai web interface. You'll upload the skill as a ZIP file.
+    | Interface | How to install | Notes |
+    |-----------|---------------|-------|
+    | **Claude Code** | Run `/plugin install` in the terminal | Full skill support |
+    | **Cowork** | Click **+** > **Add plugins...** > upload the plugin ZIP | Same capabilities, visual interface |
+    | **Claude.ai** | Upload the skill ZIP under **Settings > Capabilities > Upload skill** | Requires Claude Code installed first to access skill files ([details](../plugins/using-plugins.md#using-skills-in-claudeai-web)) |
 
-    **Prerequisites:** You need Claude Code installed first to access the skill files. Install the plugin in Claude Code (`/plugin install business-first-ai@handsonai`), then follow these steps:
+    For setup details, see [Using Plugins](../plugins/using-plugins.md).
 
-    1. **Find the skill folder** — `~/.claude/plugins/marketplaces/handsonai/plugins/business-first-ai/skills/finding-ai-opportunities/`
-    2. **Zip the folder**
-    3. **Upload it** in Claude.ai under **Settings > Capabilities > Upload skill**
-    4. **Start a new chat** with the same prompt above — Claude uses the skill automatically
-
-    For detailed upload instructions, see [Using Skills in Claude.ai](../plugins/using-plugins.md#using-skills-in-claudeai-web).
-
-All four options follow the same three-step process and produce the same structured report. Choose whichever fits your workflow.
+Both options follow the same process and produce the same structured report.
 
 !!! tip "Classify opportunities with the six primitives"
     Once you've identified opportunities, use the [six use case primitives](../use-cases/index.md) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — to classify what type of AI work each one involves. This makes it easier to find examples and choose the right building blocks.
@@ -185,7 +175,7 @@ Group the detailed cards by category. Within each category, order opportunities 
 
 ## Step 4 — Workflow Candidate Summary
 
-After presenting the full report, ask me to pick ONE opportunity from each category that I want to build during this course. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format, wrapped in a markdown code block so I can copy it easily:
+After presenting the full report, ask me to pick ONE opportunity from each category that I want to build first. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format, wrapped in a markdown code block so I can copy it easily:
 
 ```markdown
 - **Workflow:** [name]
@@ -207,7 +197,7 @@ After presenting the full report, ask me to pick ONE opportunity from each categ
 - **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
 ```
 
-This summary is my assignment deliverable — present it inside a code block so I can copy it directly into my course submission. For each "Why it matters" line, use what you learned about my priorities and goals during the interview to explain why this workflow is worth building.
+Present this inside a code block so I can copy and save it easily. For each "Why it matters" line, use what you learned about my priorities and goals during the interview to explain why this workflow is worth building.
 ```
 
 ## What to Expect
@@ -217,9 +207,9 @@ After pasting the prompt, here's what typically happens:
 1. **Step 1** — The AI reviews what it knows about you and presents a summary. Correct anything that's wrong and fill in gaps.
 2. **Step 2** — The AI asks you a series of questions. Answer as specifically as you can — concrete examples produce better recommendations than general descriptions.
 3. **Step 3** — You receive a structured report with a summary table and detailed cards for each opportunity, grouped by category.
-4. **Step 4** — You pick one opportunity from each category to build during the course, and the AI formats a **Workflow Candidate Summary** you can copy directly into your assignment submission.
+4. **Step 4** — You pick one opportunity from each category to build first, and the AI formats a **Workflow Candidate Summary** you can copy and save.
 
-Most people discover 5–15 opportunities across the three categories. You'll pick three to build during the course — one from each category.
+Most people discover 5–15 opportunities across the three categories. Pick three to start with — one from each category.
 
 ### How to Prioritize
 
@@ -236,7 +226,7 @@ Most people discover 5–15 opportunities across the three categories. You'll pi
 
 ## Related
 
-- **Next step:** Ready to act on an opportunity? Use the [Deconstruct Workflows guide](deconstruct/index.md) (Phase 2) to break it into AI building blocks.
-- [Business-First AI Framework](index.md) — the full three-phase methodology
+- **Next step:** Ready to act on an opportunity? Use the [Deconstruct Workflows guide](deconstruct/index.md) (Step 2) to break it into AI building blocks.
+- [Business-First AI Framework](index.md) — the full three-step methodology
 - [Prompts](../agentic-building-blocks/prompts/index.md)
 - [Agents](../agentic-building-blocks/agents/index.md)

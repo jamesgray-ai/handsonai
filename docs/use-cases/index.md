@@ -10,7 +10,7 @@ OpenAI's analysis of over 600 enterprise AI deployments found that nearly all us
 *The six primitives and department examples in this section are adapted from OpenAI's [Identifying and Scaling AI Use Cases: How Early Adopters Focus Their AI Efforts](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) and made platform-agnostic.*
 
 !!! tip "Connecting to the Framework"
-    The [Business-First AI Framework](../business-first-ai-framework/index.md) helps you **find** opportunities (Phase 1 — Discover) and **deconstruct** them into building blocks (Phase 2). Use these six primitives to **classify** the opportunities you find — they tell you what type of AI work each opportunity involves, which makes choosing the right building blocks easier.
+    The [Business-First AI Framework](../business-first-ai-framework/index.md) helps you **find** opportunities (Step 1 — Discover) and **deconstruct** them into building blocks (Step 2). Use these six primitives to **classify** the opportunities you find — they tell you what type of AI work each opportunity involves, which makes choosing the right building blocks easier.
 
 ## The Six Primitives
 
@@ -111,7 +111,7 @@ Primitives help you browse use cases by category. Building blocks help you assem
 ## Related
 
 - [Business-First AI Framework](../business-first-ai-framework/index.md) — find and prioritize AI opportunities
-- [Phase 1 — Discover](../business-first-ai-framework/discover.md) — structured audit to surface workflow candidates
+- [Discover Workflows](../business-first-ai-framework/discover.md) — structured audit to surface workflow candidates
 - [Agentic Building Blocks](../agentic-building-blocks/index.md) — the six components for implementing AI workflows
-- [Phase 3 — Build](../business-first-ai-framework/build/index.md) — worked examples across the autonomy spectrum
+- [Build Workflows](../business-first-ai-framework/build/index.md) — worked examples across the autonomy spectrum
 - [Plugin Marketplace](../plugins/index.md) — pre-built agents and skills you can install

@@ -4,7 +4,7 @@ description: >
   Discover where AI can improve your workflows through a structured audit.
   Produces a prioritized report of opportunities across three categories:
   Deterministic Workflows, Collaborative AI, and Autonomous Agents.
-  This is Phase 1 of the Business-First AI Framework.
+  This is Step 1 of the Business-First AI Framework.
 ---
 
 # Finding AI Opportunities

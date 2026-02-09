@@ -14,31 +14,31 @@
 
 ### Overview
 - URL: https://handsonai.info/business-first-ai-framework/
-- Summary: A three-phase methodology for applying AI to business workflows: Discover opportunities, Deconstruct workflows into AI building blocks, and Build across the autonomy spectrum (deterministic automation, AI collaborative, autonomous agent).
+- Summary: A three-step methodology for applying AI to business workflows: Discover opportunities, Deconstruct workflows into AI building blocks, and Build across the autonomy spectrum (deterministic automation, AI collaborative, autonomous agent).
 
-### Phase 1 — Discover
+### Step 1 — Discover Workflows
 - URL: https://handsonai.info/business-first-ai-framework/discover/
 - Summary: Structured audit to find workflows worth applying AI to. Guides users through identifying high-impact AI opportunities using a scoring rubric based on frequency, time cost, and AI suitability.
 
-### Phase 2 — Deconstruct
+### Step 2 — Deconstruct Workflows
 - URL: https://handsonai.info/business-first-ai-framework/deconstruct/
-- Summary: Three-step process for breaking workflows into AI building blocks. Covers workflow definition, building block mapping, and prompt/skill spec generation.
+- Summary: Two-part process for breaking workflows into AI building blocks. Covers workflow definition and building block mapping.
 
-#### Step 1 — Workflow Definition
+#### Break Down Your Workflow
 - URL: https://handsonai.info/business-first-ai-framework/deconstruct/workflow-definition/
 - Summary: Interactive discovery process that decomposes a business workflow into structured steps with inputs, outputs, decision points, and handoffs.
 
-#### Step 2 — AI Building Blocks
+#### Map AI Building Blocks
 - URL: https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/
 - Summary: Maps each workflow step to AI building blocks on the autonomy spectrum — from simple prompts through context, projects, skills, agents, and MCP integrations.
 
-#### Step 3 — Prompt & Skill Specs
-- URL: https://handsonai.info/business-first-ai-framework/deconstruct/prompt-skill-specs/
-- Summary: Generates a ready-to-use Baseline Workflow Prompt and Skill Specifications from the AI Building Block Map.
-
-### Phase 3 — Build
+### Step 3 — Build Workflows
 - URL: https://handsonai.info/business-first-ai-framework/build/
-- Summary: Three worked examples showing how to build AI workflows at different autonomy levels, from deterministic automation to fully autonomous agents.
+- Summary: Turn your AI Building Block Map into a working workflow. Includes a Build Decision Framework, six building block guides (Context, Projects, Prompt, Skills, Agents, MCP), a Run guide (execution patterns, first run, iterating), and three worked examples across the autonomy spectrum.
+
+#### Run Workflows
+- URL: https://handsonai.info/business-first-ai-framework/build/run/
+- Summary: How to execute your AI workflow. Covers four execution patterns — paste and run in a normal chat, run in a project, command an agent, automate on a schedule — plus guidance on your first run and iterating based on results.
 
 #### Deterministic Automation
 - URL: https://handsonai.info/business-first-ai-framework/build/deterministic-automation/

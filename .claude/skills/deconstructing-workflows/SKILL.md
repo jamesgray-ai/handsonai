@@ -1,9 +1,9 @@
 ---
-name: analyzing-workflows
+name: deconstructing-workflows
 description: >
   Classify workflow steps on the autonomy spectrum, map them to AI building blocks, and produce
   an AI Building Block Map. Use when the user has a Workflow Definition and wants to analyze
-  it for AI operationalization. This is Step 2 of 3 in the workflow deconstruction series.
+  it for AI operationalization. This is Step 2 of 2 in the Deconstruct step.
 ---
 
 # Workflow Analysis
@@ -53,17 +53,9 @@ The AI Building Block Map must include:
 
 ### Tools and Connectors Required
 
-### Recommended Implementation Order
-1. **Quick wins** — Deterministic steps automatable with Prompt or Context alone
-2. **High-value semi-autonomous steps** — AI does most work, human review gate
-3. **Complex agent steps** — Fully autonomous, requiring Agents/MCP/multi-tool orchestration
-
-### Execution Context
-Recommend where the Baseline Workflow Prompt should be run (normal chat vs. project workspace). Normal chat for infrequent workflows with few context files. Project workspace for frequent workflows with multiple context files or where conversation memory is valuable. State the recommendation, reasoning, and specific context files to attach or pre-load. The Baseline Workflow Prompt is always self-contained — the project provides file staging, not workflow logic.
-
 ## Guidelines
 
 - If the Workflow Definition is missing information needed for classification, ask the user to clarify
 - If the user mentions they're using Claude, note where Skills are the appropriate building block
 - Explain reasoning for non-obvious classifications
-- After writing the AI Building Block Map, tell the user: "AI Building Block Map saved to `outputs/[name]-building-blocks.md`. Ready for Step 3 — Prompt & Skill Specs."
+- After writing the AI Building Block Map, tell the user: "AI Building Block Map saved to `outputs/[name]-building-blocks.md`. Ready for Step 3 — Build."

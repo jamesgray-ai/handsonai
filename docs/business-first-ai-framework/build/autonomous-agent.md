@@ -19,7 +19,7 @@ An autonomous agent workflow is one where AI handles the entire process — from
 
 ### Characteristics
 
-- **Multi-agent** — different agents handle different phases, each with domain expertise
+- **Multi-agent** — different agents handle different stages, each with domain expertise
 - **Pipeline-structured** — output from one agent becomes input to the next
 - **Skill-enhanced** — the editor agent loads the `editing-hbr-articles` skill to apply codified editorial standards during its editing pass
 - **Self-reviewing** — the editor agent applies quality criteria from that skill before the human sees the draft
@@ -31,7 +31,7 @@ An autonomous agent workflow is one where AI handles the entire process — from
 Use autonomous agent workflows when the task:
 
 - Requires multiple distinct capabilities (research, writing, editing, formatting)
-- Follows a pipeline where each phase has clear inputs and outputs
+- Follows a pipeline where each stage has clear inputs and outputs
 - Benefits from specialist expertise at each stage
 - Produces a deliverable that should meet professional standards
 - Can include a human review gate without breaking the flow
@@ -87,7 +87,7 @@ graph TD
 
 ## The Pipeline in Detail
 
-| Phase | Agent/Component | Input | Output | What Makes It Autonomous |
+| Stage | Agent/Component | Input | Output | What Makes It Autonomous |
 |-------|----------------|-------|--------|--------------------------|
 | Research | `ai-productivity-researcher` | Goal prompt | Structured case study briefs | Agent decides which sources to search and which cases meet the quality bar |
 | Writing | `tech-executive-writer` | Research briefs | Full article draft | Agent structures the narrative, chooses which cases to feature, and adapts tone for the audience |
@@ -136,11 +136,11 @@ This is a deliberate design choice. The pipeline is autonomous enough to produce
 
 === "Adapting Without Claude Code"
 
-    This pipeline is designed for Claude Code's multi-agent orchestration. Without it, you can still replicate the workflow manually by running each phase as a separate conversation:
+    This pipeline is designed for Claude Code's multi-agent orchestration. Without it, you can still replicate the workflow manually by running each stage as a separate conversation:
 
-    1. **Research phase** — In any AI tool with web search, prompt: *"Find 5-7 documented case studies of companies successfully using AI agents, with quantified business outcomes. Prioritize sources from HBR, McKinsey, Forrester, or major business publications."*
-    2. **Writing phase** — In a new conversation, paste the research output and prompt: *"Write a 2,500-3,500 word article for a business leadership audience about these companies' AI agent implementations. Use an HBR editorial style."*
-    3. **Editing phase** — In a new conversation, paste the draft and prompt: *"Edit this article to HBR publication standards. Focus on: opening hook, evidence quality, active voice, and cutting redundancy."*
+    1. **Research stage** — In any AI tool with web search, prompt: *"Find 5-7 documented case studies of companies successfully using AI agents, with quantified business outcomes. Prioritize sources from HBR, McKinsey, Forrester, or major business publications."*
+    2. **Writing stage** — In a new conversation, paste the research output and prompt: *"Write a 2,500-3,500 word article for a business leadership audience about these companies' AI agent implementations. Use an HBR editorial style."*
+    3. **Editing stage** — In a new conversation, paste the draft and prompt: *"Edit this article to HBR publication standards. Focus on: opening hook, evidence quality, active voice, and cutting redundancy."*
     4. **Review** — Read the edited draft yourself.
     5. **Publishing** — Format manually or use your preferred publishing tools.
 
@@ -148,14 +148,14 @@ This is a deliberate design choice. The pipeline is autonomous enough to produce
 
 ## Adapting This Example
 
-The HBR article pipeline is one application, but the multi-agent orchestration pattern applies to any workflow where different phases require different expertise:
+The HBR article pipeline is one application, but the multi-agent orchestration pattern applies to any workflow where different stages require different expertise:
 
 - **Client deliverable pipeline** — researcher gathers data → analyst produces insights → writer creates the report → reviewer checks quality → designer formats the final document
 - **Sales proposal generation** — researcher profiles the prospect → writer drafts the proposal → pricing specialist adds numbers → reviewer ensures accuracy → formatter produces the PDF
 - **Course content creation** — researcher gathers source material → instructional designer structures the lesson → writer creates slides and exercises → editor reviews for clarity → publisher formats for the LMS
 - **Competitive intelligence reports** — scanner monitors competitor channels → analyst identifies key changes → writer summarizes findings → editor ensures accuracy → distributor sends to stakeholders
 
-To adapt: identify the distinct phases of your workflow and the specialist expertise each phase requires. If you'd assign different people to different phases in a team setting, those phases are candidates for different agents.
+To adapt: identify the distinct stages of your workflow and the specialist expertise each stage requires. If you'd assign different people to different stages in a team setting, those stages are candidates for different agents.
 
 ## Related
 
