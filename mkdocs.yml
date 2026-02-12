@@ -255,8 +255,12 @@ nav:
   - Patterns: patterns/index.md
   - Courses:
     - Overview: courses/index.md
-    - Agentic AI for Leaders: courses/leaders/index.md
-    - Claude for Builders: courses/builders/index.md
+    - Agentic AI for Leaders:
+      - Overview: courses/leaders/index.md
+      - Syllabus: courses/leaders/syllabus.md
+    - Claude for Builders:
+      - Overview: courses/builders/index.md
+      - Syllabus: courses/builders/syllabus.md
   - What People Built: what-people-built.md
 
 

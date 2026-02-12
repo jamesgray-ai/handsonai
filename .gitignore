@@ -32,6 +32,10 @@ dist/
 
 # Generated at build time
 docs/whats-new.md
+docs/courses/builders/syllabus.md
+docs/courses/leaders/syllabus.md
+docs/courses/builders/lessons/
+docs/courses/leaders/lessons/
 
 # Local drafts and working files
 outputs/

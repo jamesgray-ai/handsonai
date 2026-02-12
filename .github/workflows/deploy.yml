@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 6 * * *'  # Nightly at 6 AM UTC (1 AM ET / 10 PM PT)
 
 permissions:
   contents: write
@@ -28,6 +30,11 @@ jobs:
         run: python scripts/generate_whats_new.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate syllabus pages
+        run: python scripts/generate_syllabi.py
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
 
       - name: Deploy to GitHub Pages
         run: mkdocs gh-deploy --force
