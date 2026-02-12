@@ -22,12 +22,11 @@ Set up your Claude environment:
 |-------|-------------|
 | [Claude Projects](projects/claude-projects-setup.md) | Organize your AI work with projects |
 
-## Subagents
-
-Run Claude agents on a schedule:
+## Agents
 
 | Guide | Description |
 |-------|-------------|
+| [Building Agents on Claude](agents/building-agents.md) | Custom subagents and agent teams for workflow automation |
 | [Scheduling Subagents](subagents/scheduling-subagents.md) | Set up automated agents on macOS or Windows |
 | [Troubleshooting](subagents/scheduling-subagent-issues.md) | Common scheduling issues and fixes |
 

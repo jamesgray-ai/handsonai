@@ -51,7 +51,7 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) as ex
 
     | Agent | Step | What it does |
     |-------|-------|-------------|
-    | [`workflow-deconstructor`](business-first-ai.md#workflow-deconstructor) | 1-3 | Orchestrates the end-to-end Discover, Deconstruct, and Build process. Runs discovery, analysis, and build sequentially with file-based handoffs between stages. |
+    | [`workflow-deconstructor`](business-first-ai.md#workflow-deconstructor) | 1-3 | Orchestrates the end-to-end Discover, Deconstruct, and Build process. Runs candidate discovery, deep deconstruction, design, and build sequentially with file-based handoffs. |
     | [`tech-executive-writer`](business-first-ai.md#tech-executive-writer) | 3 | Writes business-focused content about AI and technology. LinkedIn posts, magazine articles, executive briefs, and thought leadership pieces. |
     | [`hbr-editor`](business-first-ai.md#hbr-editor) | 3 | Reviews drafts against HBR editorial standards. Provides prescriptive feedback on structure, evidence quality, voice, and argument strength. |
     | [`hbr-publisher`](business-first-ai.md#hbr-publisher) | 3 | Formats finalized articles for web publication and PDF distribution. Handles SEO metadata, social snippets, and professional layout. |
@@ -60,14 +60,13 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) as ex
     | [`ai-news-researcher`](business-first-ai.md#ai-news-researcher) | Utility | Scans news outlets, blogs, YouTube channels, podcasts, and communities for the latest AI developments. |
     | [`claude-research-daily`](business-first-ai.md#claude-research-daily) | Utility | Produces a daily brief on Anthropic, Claude, Claude Code, and Cowork from the last 24 hours. |
 
-???+ skills "Skills included (6)"
+???+ skills "Skills included (5)"
 
     | Skill | Step | What it does |
     |-------|-------|-------------|
-    | [`finding-ai-opportunities`](business-first-ai.md#finding-ai-opportunities) | 1 | Structured audit of your workflows to discover where AI can help. Produces a categorized opportunity report. |
-    | [`discovering-workflows`](business-first-ai.md#discovering-workflows) | 2 | Interactively discovers and decomposes a business workflow into a structured Workflow Definition. |
-    | [`deconstructing-workflows`](business-first-ai.md#deconstructing-workflows) | 2 | Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces an AI Building Block Map. |
-    | [`building-workflows`](business-first-ai.md#building-workflows) | 3 | Turns your AI Building Block Map into a Baseline Workflow Prompt and build guidance. If you built skills first, generates a skill-aware prompt that references them. |
+    | [`discovering-workflows`](business-first-ai.md#discovering-workflows) | 1 | Structured audit of your workflows to discover where AI can help. Produces a categorized opportunity report with structured workflow candidates. |
+    | [`deconstructing-workflows`](business-first-ai.md#deconstructing-workflows) | 2 | Interactively deconstructs a business workflow into a structured Workflow Definition using the 5-question framework. |
+    | [`building-workflows`](business-first-ai.md#building-workflows) | 3 | Designs the AI implementation (execution pattern, building blocks, skill candidates, agent configs) and constructs the Baseline Workflow Prompt. |
     | [`editing-hbr-articles`](business-first-ai.md#editing-hbr-articles) | 3 | HBR editorial criteria for article editing. Used by the `hbr-editor` agent. |
     | [`preparing-meeting-briefs`](business-first-ai.md#preparing-meeting-briefs) | 3 | Structured research workflow for meeting preparation. Used by the `meeting-prep-researcher` agent. |
 
@@ -82,8 +81,8 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) as ex
 ???+ usage "Example usage"
 
     ```
-    "Help me find where AI can improve my workflows"
-    → finding-ai-opportunities runs a structured audit and produces an opportunity report
+    "Help me discover AI workflow opportunities"
+    → discovering-workflows runs a structured audit and produces an opportunity report
 
     "I want to deconstruct my client onboarding workflow"
     → workflow-deconstructor walks you through the full deconstruction process
@@ -155,7 +154,7 @@ Document, name, register, and sync AI operational workflows and skills.
 
 | Plugin | Agents | Skills | Prompts | Install command |
 |--------|--------|--------|---------|----------------|
-| `business-first-ai` | 8 | 6 | 3 | `/plugin install business-first-ai@handsonai` |
+| `business-first-ai` | 8 | 5 | 3 | `/plugin install business-first-ai@handsonai` |
 | `ai-registry` | 0 | 5 | 0 | `/plugin install ai-registry@handsonai` |
 
 All plugins are maintained in the [handsonai GitHub repository](https://github.com/jamesgray-ai/handsonai).

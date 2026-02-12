@@ -28,18 +28,15 @@ The audit uses a three-step process: scan what AI already knows about your work,
 **Two ways to run Step 1:**
 
 - **Any AI tool** — Copy the [Discover AI Workflow Opportunities](discover.md) prompt into Claude, ChatGPT, Gemini, or M365 Copilot
-- **Claude platform** — Use the `finding-ai-opportunities` skill from the [Business-First AI plugin](../plugins/business-first-ai.md) in Claude Code, Claude.ai, or Cowork ([setup guide](../plugins/using-plugins.md))
+- **Claude platform** — Use the `discovering-workflows` skill from the [Business-First AI plugin](../plugins/business-first-ai.md) in Claude Code, Claude.ai, or Cowork ([setup guide](../plugins/using-plugins.md))
 
 ---
 
 ### Step 2: Deconstruct Workflows
 
-Give your workflow clear structure — then identify the building blocks to turn it into a working AI workflow.
+Give your workflow clear structure through deep decomposition.
 
-Once you've identified a workflow worth automating, Step 2 deconstructs it so you understand every step, decision point, and dependency. With that structure in place, you map each step to the right AI building blocks. The two-part process:
-
-1. **Break down your workflow** — Interactively decompose the workflow into refined steps, surfacing hidden sub-steps, decision points, data flows, context needs, and failure modes
-2. **Map AI building blocks** — Classify each step on the autonomy spectrum (Human → Deterministic → Semi-Autonomous → Autonomous) and map to AI building blocks
+Once you've identified a workflow worth automating, Step 2 deconstructs it so you understand every step, decision point, and dependency. You describe your workflow — rough and incomplete is fine — and the model interviews you to surface every hidden step, data handoff, and failure mode.
 
 The deconstruction uses the **five-question framework** to break down each step:
 
@@ -49,24 +46,31 @@ The deconstruction uses the **five-question framework** to break down each step:
 4. What context, documents, or reference materials does this step need?
 5. What happens when this step fails?
 
-Each step gets mapped to one or more of the **six AI building blocks**: Prompt, Context, Skill, Agent, MCP, or Project.
+The deliverable is a **Workflow Definition** — a structured breakdown of your workflow into refined steps, with decision points, data flows, context needs, and failure modes captured for every step. The context needs and failure modes captured here directly inform design decisions in Step 3.
 
 **Two ways to run Step 2:**
 
-- **Any AI tool** — Copy the [Deconstruct Workflows](deconstruct/index.md) prompts into Claude, ChatGPT, Gemini, or M365 Copilot
-- **Claude platform** — Use the `workflow-deconstructor` agent or individual deconstruction skills from the [Business-First AI plugin](../plugins/business-first-ai.md) in Claude Code, Claude.ai, or Cowork ([setup guide](../plugins/using-plugins.md))
+- **Any AI tool** — Copy the [Deconstruct Workflows](deconstruct/index.md) prompt into Claude, ChatGPT, Gemini, or M365 Copilot
+- **Claude platform** — Use the `workflow-deconstructor` agent or individual skills from the [Business-First AI plugin](../plugins/business-first-ai.md) in Claude Code, Claude.ai, or Cowork ([setup guide](../plugins/using-plugins.md))
 
 ---
 
 ### Step 3: Build Workflows
 
-Turn your AI Building Block Map into a working AI workflow.
+Design your AI implementation, construct the components, and run the workflow.
 
-Step 2 produces an AI Building Block Map — the analysis. Step 3 is where that analysis becomes real. The build process walks you through creating context artifacts, building skills for complex steps, generating an executable prompt, and optionally adding agents and MCP connections.
+Step 2 produces a Workflow Definition — the analysis. Step 3 is where that analysis becomes a working AI workflow through three parts:
+
+1. **3.1: Design** — Choose an execution pattern (Prompt → Skill-Powered Prompt → Single Agent → Multi-Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents when needed. Produces an AI Building Block Spec — a platform-agnostic blueprint.
+
+2. **3.2: Construct** — Build only what your execution pattern requires. The AI Building Block Spec tells you exactly which components to create — context, skills, prompts, agents, MCP connections — and in what order.
+
+3. **3.3: Run** — Execute the workflow on a real scenario, then iterate based on results.
 
 The [Build Workflows](build/index.md) section includes:
 
-- A **Build Decision Framework** — when a prompt is enough, when to add skills, when you need agents, when to wire MCP
+- **3.1: Design** — execution pattern spectrum, autonomy classification, building block mapping, skill candidate identification, agent configuration
+- **Pattern-specific Construct paths** — each execution pattern shows only the steps that apply
 - **Six building block guides** — Context, Projects, Skills, Prompt, Agents, MCP
 - **Three worked examples** across the autonomy spectrum — deterministic automation, collaborative workflows, and fully autonomous multi-agent pipelines
 
@@ -122,14 +126,26 @@ When classifying opportunities from Step 1, it helps to know what **type** of AI
 | **Semi-Autonomous** | AI does most of the work; human reviews at key checkpoints |
 | **Autonomous** | AI executes end-to-end, including decisions and tool use |
 
+### Execution Pattern Spectrum
+
+Every AI workflow falls somewhere on this spectrum. The right pattern depends on what your workflow actually needs:
+
+| Pattern | Description | Signals |
+|---------|-------------|---------|
+| **Prompt** | Single self-contained prompt, all logic inline | Sequential steps, human drives the process and provides all inputs |
+| **Skill-Powered Prompt** | Prompt invoking reusable skills | Repeatable sub-routines, moderate complexity |
+| **Single Agent** | One autonomous agent with tool access | Tool use, autonomous decisions, multi-step reasoning |
+| **Multi-Agent** | Specialized agents in a pipeline | Multiple expertise domains, parallel execution, review gates |
+
 ## Getting Started
 
 1. **Start with the [Opportunity Finder](discover.md)** to identify your best candidates
 2. **Pick your highest-impact opportunity** — don't try to pursue everything at once
-3. **Run it through the [Deconstruction process](deconstruct/index.md)** to break it into AI building blocks
-4. **[Build](build/index.md)** your workflow — create context artifacts, build skills for complex steps, then generate an executable prompt
-5. **Test the Baseline Prompt** on a real scenario — paste the generated prompt into any AI tool and run the workflow
-6. **Iterate** — refine the prompt, build additional skills, or add agents based on what works
+3. **Run it through the [Deconstruction process](deconstruct/index.md)** to break it into discrete steps
+4. **[Design](build/design.md)** your AI workflow — choose an execution pattern, classify steps, map building blocks
+5. **[Build](build/index.md)** the components your execution pattern requires — context, skills, prompts, agents, MCP connections
+6. **Test on a real scenario** — paste the generated prompt into any AI tool and run the workflow
+7. **Iterate** — refine the prompt, build additional skills, or add agents based on what works
 
 ## Tools
 

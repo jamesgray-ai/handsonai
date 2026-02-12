@@ -1,56 +1,126 @@
 ---
 name: discovering-workflows
 description: >
-  Interactively discover and decompose a business workflow into a structured Workflow Definition.
-  Use when the user wants to deconstruct a workflow, break down a business process, or start
-  the workflow deconstruction process. This is Step 1 of 2 in the Deconstruct step.
+  Discover where AI can improve your workflows through a structured audit.
+  Scans memory and conversation history, interviews you about your work,
+  then produces a prioritized opportunity report with structured workflow
+  candidates ready for the Deconstruct step.
+  This is Step 1 of the Business-First AI Framework.
 ---
 
-# Workflow Definition
+# Discovering Workflows
 
-Interactively discover a business workflow and decompose every step into a structured Workflow Definition using the 5-question framework.
+Discover concrete opportunities where AI can improve your workflows. Produces a categorized opportunity report with a summary table, detailed opportunity cards, and a structured workflow candidate list.
 
 ## Workflow
 
-1. **Scenario discovery** — Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If the user describes a problem instead of a workflow, propose a candidate workflow for them to react to.
-2. **Scope check** — Assess whether this is one workflow or multiple bundled together. If multiple, recommend splitting and ask which to start with.
-3. **Name the workflow** — Present 2-3 name options following naming conventions (2-4 word noun phrase, Title Case). Confirm name, description, outcome, trigger, and type.
-4. **Register to Workflows database (if Notion is available)** — After naming is confirmed, check if the Notion MCP server is accessible. If so, create a row in the Workflows database with: Name, Description, Process Outcome, Type, Trigger, Status = "Under Development". Ask the user which Business Process domain this belongs to (or leave blank). If Notion is not available, skip this step silently and continue to the deep dive.
-5. **Deep dive** — Work through each step using the 5-question framework:
-   - Discrete steps (is this actually multiple steps?)
-   - Decision points (if/then branches, quality gates)
-   - Data flows (inputs, outputs, sources, destinations)
-   - Context needs (specific documents, files, reference materials)
-   - Failure modes (what happens when this step fails)
-   When probing context needs, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions, project instructions, or system prompts — these contain workflow logic that must be included in the Baseline Prompt.
-6. **Propose and react** — For steps 4+, propose a hypothesis across all 5 dimensions and ask "What's right, what's wrong, what am I missing?" instead of asking each question individually.
-7. **Map sequence** — After all steps, identify sequential vs. parallel steps and the critical path.
-8. **Consolidate context** — Present a rolled-up "context shopping list" of every piece of context the workflow needs — documents, data, rules, examples, and any other knowledge from the user's domain that the model doesn't have.
-9. **Generate Workflow Definition** — Produce the structured Workflow Definition and write it to the output file.
+Work through four steps in order:
+
+### Step 1 — Memory & History Scan
+
+Before asking any questions, review everything you already know about the user from conversation history, memory, project files, or any other available context.
+
+Identify and list:
+- Their role, responsibilities, and domain
+- Recurring tasks or requests they perform
+- Pain points, frustrations, or bottlenecks they've mentioned
+- Workflows or processes they've described or demonstrated
+- Tools and platforms they use regularly
+- Any goals or priorities they've shared
+
+Present your findings as a brief summary so the user can confirm or correct them before continuing. If you have no prior context, say so and move directly to Step 2.
+
+### Step 2 — Targeted Discovery Interview
+
+Based on gaps in your understanding (or starting from scratch), ask focused questions to build a complete picture. Cover these areas:
+
+1. **Role & responsibilities** — What is your role? What are you accountable for?
+2. **Repetitive tasks** — What tasks do you perform daily or weekly that feel repetitive, tedious, or low-value?
+3. **Information synthesis** — Where do you spend time gathering, combining, or making sense of information from multiple sources?
+4. **Multi-step processes** — What workflows involve multiple handoffs, approvals, or sequential steps?
+5. **Quality & consistency** — Where do errors, inconsistencies, or quality issues tend to creep in?
+6. **Communication overhead** — What recurring communications (status updates, reports, summaries) take more time than they should?
+7. **Decision-making** — What decisions require you to weigh multiple factors or reference past precedents?
+
+Ask these questions **one at a time** — not as a list. Use the user's answers to ask smart follow-up questions. Probe for concrete examples: "I spend 30 minutes every Monday formatting a status report from three Jira boards" is far more useful than "I do reporting." Continue until you can identify at least 3 concrete opportunities — typically 5-10 questions, fewer if the memory scan provided strong context.
+
+### Step 3 — Opportunity Analysis & Report
+
+Once you can identify at least 3 concrete, specific opportunities with enough detail to fill the card format below, produce the structured report.
+
+### Step 4 — Workflow Candidate Summary
+
+After presenting the full report, ask the user to pick their top workflow candidates — the ones they want to build. Once they've chosen, produce a **Workflow Candidate Summary** with structured metadata for each candidate:
+
+For each candidate:
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | 2-4 word noun phrase, Title Case |
+| **Description** | One sentence describing what this workflow does |
+| **Category** | Deterministic Workflow / Collaborative AI / Autonomous Agent |
+| **Pain point** | What's slow, error-prone, or manual today |
+| **AI opportunity** | Specific description of what AI would do |
+| **Frequency** | Daily / Weekly / Monthly / Ad-hoc |
+| **Priority** | High / Medium / Low |
+| **Reasoning** | Why this priority level — based on impact, frequency, and feasibility |
+
+Append this summary to the output file under a `## Workflow Candidate Summary` heading. Recommend which candidate to deconstruct first, with reasoning.
 
 ## Output
 
-Write the Workflow Definition to `outputs/[workflow-name]-definition.md` where `[workflow-name]` is the kebab-case workflow name (e.g., `lead-qualification`).
+Write the report to `outputs/ai-opportunity-report.md`. Create the `outputs/` directory if it doesn't exist.
 
-The Blueprint must include:
+The report must include:
 
-### Scenario Metadata
-- Workflow name, description, outcome, trigger, type, business objective, current owner(s)
+### Summary Table
 
-### Refined Steps
-For each step: number, name, action, sub-steps, decision points, data in/out, context needs, failure modes
+| # | Opportunity | Category | Impact |
+|---|------------|----------|--------|
+| 1 | [Name] | Deterministic Workflow / Collaborative AI / Autonomous Agent | High / Medium / Low |
 
-### Step Sequence and Dependencies
-- Sequential steps, parallel steps, critical path, dependency map
+### Detailed Opportunity Cards
 
-### Context Shopping List
-For each artifact: name, description, used by steps, status (Exists/Needs Creation), key contents
+Group cards by category. Within each category, order from highest to lowest impact.
+
+For each opportunity:
+
+---
+
+**[#] [Opportunity Name]**
+
+**Category:** Deterministic Workflow | Collaborative AI | Autonomous Agent
+
+**Why it's a good candidate:**
+[What characteristics make this well-suited for AI — repetitive, pattern-based, language-heavy, clear inputs/outputs, etc.]
+
+**Current pain point:**
+[What's slow, error-prone, inconsistent, or draining about how this is done today]
+
+**How AI helps:**
+[Specific, concrete description — what AI takes as input, what it produces, how it fits into the workflow]
+
+**Getting started:**
+[A practical, low-effort first step achievable this week]
+
+---
+
+### Category Definitions
+
+Use these definitions when categorizing:
+
+- **Deterministic Workflow**: A repeatable process with clear inputs, rules, and outputs that AI can execute reliably with minimal supervision. Examples: formatting reports, processing forms, generating routine communications, data transformation.
+- **Collaborative AI**: Human and AI work together in real time. The human drives the process; AI contributes suggestions, drafts, analysis, or feedback. Examples: co-writing, brainstorming, code review, data analysis.
+- **Autonomous Agent**: A goal-driven workflow where AI plans and executes steps autonomously. The agent reasons about what to do, calls tools as needed, and adapts its approach. Ranges from a single agent handling a complex task to multi-agent systems where specialized agents coordinate across steps. Examples: competitor monitoring and alerting, research → analysis → report pipelines, intake → triage → routing systems.
+
+### Workflow Candidate Summary
+
+(Appended after user selects candidates — see Step 4 format above)
 
 ## Guidelines
 
 - Ask one question at a time — never present a wall of questions
-- Probe for missing steps — most people undercount by 30-50%
-- Surface hidden assumptions ("How do you decide when X is good enough?")
-- Use plain language; avoid jargon unless the user introduced it
-- Push beyond vague context answers like "domain knowledge" — identify the specific artifact
-- After writing the Workflow Definition file, tell the user: "Workflow Definition saved to `outputs/[name]-definition.md`. Ready to map AI building blocks."
+- Use a conversational flow — let answers guide follow-up questions naturally
+- Push for concrete examples over vague descriptions
+- Be specific in recommendations: "AI could draft the weekly status email from your Jira board data" beats "AI could help with reporting"
+- After writing the report, ask the user to pick their candidates for Step 4. Once they've chosen, append the Workflow Candidate Summary and tell the user: "Opportunity report and workflow candidates saved to `outputs/ai-opportunity-report.md`. Pick a candidate and start the Deconstruct step to break it down."

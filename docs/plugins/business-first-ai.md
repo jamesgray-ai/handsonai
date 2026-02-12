@@ -28,7 +28,7 @@ How you use this plugin depends on your platform:
 
     **Recommended path:**
 
-    1. Say *"Help me find AI opportunities in my workflows"* → the `finding-ai-opportunities` skill runs Step 1
+    1. Say *"Help me discover AI workflow opportunities"* → the `discovering-workflows` skill runs Step 1
     2. Say *"I want to deconstruct my [workflow] into AI building blocks"* → the `workflow-deconstructor` agent orchestrates Steps 2 and 3
     3. Review your outputs in the `outputs/` folder
 
@@ -39,7 +39,7 @@ How you use this plugin depends on your platform:
 
     1. **Open Cowork** — launch Claude Desktop and click **Cowork** in the sidebar
     2. **Add the plugin** — click the **+** button, select **Add plugins...**, then upload the plugin ZIP
-    3. **Use the same prompts as Claude Code** — say *"Help me find AI opportunities in my workflows"* for Step 1, or *"I want to deconstruct my [workflow] into AI building blocks"* for Step 2. Claude uses the plugin automatically.
+    3. **Use the same prompts as Claude Code** — say *"Help me discover AI workflow opportunities"* for Step 1, or *"I want to deconstruct my [workflow] into AI building blocks"* for Step 2. Claude uses the plugin automatically.
 
     For detailed Cowork setup, see [Using Plugins in Cowork](using-plugins.md#using-plugins-in-claude-cowork).
 
@@ -53,7 +53,7 @@ How you use this plugin depends on your platform:
 
     1. **Install the plugin in Claude Code** — `/plugin install business-first-ai@handsonai`
     2. **Find the skill folder** — navigate to `~/.claude/plugins/marketplaces/handsonai/plugins/business-first-ai/skills/`
-    3. **Zip the skill** you want (e.g., the `finding-ai-opportunities` folder)
+    3. **Zip the skill** you want (e.g., the `discovering-workflows` folder)
     4. **Upload it** in Claude.ai under **Settings > Capabilities > Upload skill**
     5. **Start a new chat** — Claude uses the skill automatically
 
@@ -66,7 +66,6 @@ How you use this plugin depends on your platform:
 
 | Component | Type | Claude Code | Cowork | Claude.ai |
 |-----------|------|:-----------:|:------:|:---------:|
-| `finding-ai-opportunities` | Skill | Yes | Yes | Yes |
 | `workflow-deconstructor` | Agent | Yes | Yes | No |
 | `discovering-workflows` | Skill | Yes | Yes | Yes |
 | `deconstructing-workflows` | Skill | Yes | Yes | Yes |
@@ -87,57 +86,21 @@ Agents activate automatically in Claude Code when your prompt matches. In Cowork
 
 ---
 
-### Step 1 — Discover Workflows
-
-Find which workflows are candidates for AI.
-
----
-
-#### `finding-ai-opportunities`
-
-**What it does:** Runs a structured audit of your workflows to discover where AI can help. Produces a prioritized report of opportunities across three categories: Deterministic Workflows, Collaborative AI, and Autonomous Agents.
-
-**When to use it:** Use this when you want to figure out where AI fits in your work. Especially useful when you're new to AI and need a starting point, or when you want a systematic review rather than ad-hoc experimentation.
-
-**How it works:**
-
-1. **Memory & history scan** — Claude reviews everything it knows about you from prior conversations, memory, and project files. Presents findings for you to confirm or correct.
-2. **Targeted discovery interview** — Claude asks focused questions one at a time about your role, repetitive tasks, information synthesis, multi-step processes, quality issues, communication overhead, and decision-making. Follows up based on your answers.
-3. **Opportunity analysis & report** — Produces a summary table and detailed opportunity cards grouped by category, ordered by impact.
-
-**Example prompts:**
-
-    "Help me find where AI can improve my workflows"
-    → Runs the full three-step audit and produces a categorized
-      opportunity report
-
-    "I want to figure out which parts of my job could benefit from AI"
-    → Interactive discovery session followed by a structured report
-      with specific, actionable recommendations
-
-**What you'll get:** An opportunity report (`outputs/ai-opportunity-report.md`) with a summary table and detailed cards for each opportunity. Each card includes: why it's a good candidate, the current pain point, how AI helps (specifically), and a practical first step.
-
-**Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
-
----
-
-### Step 2 — Deconstruct Workflows
-
-Break workflows into AI building blocks.
+### Step 1–3 — Full Orchestration
 
 ---
 
 #### `workflow-deconstructor`
 
-**What it does:** Orchestrates the end-to-end Discover, Deconstruct, and Build process. Runs discovery, analysis, and build sequentially, with file-based handoffs between stages so you can also run each step individually in separate conversations.
+**What it does:** Orchestrates the end-to-end Discover, Deconstruct, and Build process. Runs candidate discovery, deep deconstruction, design, and build sequentially, with file-based handoffs between stages so you can also run each step individually in separate conversations.
 
 **When to use it:** Use this when you want to go through the entire process in one session. The agent manages the flow between steps, saves intermediate files, and keeps you involved at each stage. If you prefer to work step-by-step across separate conversations, invoke the individual skills instead.
 
 **How it works:** The agent runs three skills in sequence:
 
-1. **Discover** (`discovering-workflows`) — Interactive conversation where you describe your workflow. The agent probes for missing steps, decision points, data flows, and failure modes. Produces a Workflow Definition.
-2. **Deconstruct** (`deconstructing-workflows`) — Reads the Workflow Definition, classifies each step on an autonomy spectrum (Human → AI-Deterministic → AI-Semi-Autonomous → AI-Autonomous), and maps to AI building blocks. Produces the AI Building Block Map.
-3. **Build** (`building-workflows`) — Reads the AI Building Block Map and generates a ready-to-use prompt. If the user has already built skills, generates a skill-aware prompt that references them. Produces the Baseline Prompt.
+1. **Discover** (`discovering-workflows`) — Audit your workflows, interview you about your work, and produce an opportunity report with structured candidates. If you already know which workflow to deconstruct, this step is brief.
+2. **Deconstruct** (`deconstructing-workflows`) — Interactive deep-dive that decomposes the workflow into refined steps using the 5-question framework. Produces the Workflow Definition.
+3. **Build** (`building-workflows`) — Design phase: choose an execution pattern, classify steps, map building blocks, identify skill candidates, configure agents. Construct phase: generate the Baseline Workflow Prompt and auto-generate skills/agents on the Claude platform.
 
 Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/lead-qualification-definition.md`).
 
@@ -151,27 +114,70 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
     "People keep dropping off during enrollment. Help me build
     a workflow for that."
     → Starts from a problem description, proposes a candidate
-      workflow, then deconstructs it into building blocks
+      workflow, then deconstructs and designs it
 
     "Help me figure out which parts of my weekly reporting process
     could be automated with AI"
-    → Decomposes the reporting process, classifies each step by
-      autonomy level, and identifies quick wins vs. complex
-      automation opportunities
+    → Decomposes the reporting process, chooses an execution pattern,
+      and identifies quick wins vs. complex automation opportunities
 
-**What you'll get:** Three files in `outputs/`:
+**What you'll get:** Multiple files in `outputs/`:
 
-1. **Workflow Definition** — `[name]-definition.md` — structured decomposition of every step
-2. **AI Building Block Map** — `[name]-building-blocks.md` — autonomy classification and AI building block mapping
-3. **Baseline Workflow Prompt** — `[name]-prompt.md` — ready-to-use prompt with numbered steps (skill-aware if you built skills first)
+1. **Opportunity Report** — `ai-opportunity-report.md` — categorized opportunities with structured workflow candidates (if generated)
+2. **Workflow Definition** — `[name]-definition.md` — structured decomposition of every step
+3. **AI Building Block Spec** — `[name]-building-block-spec.md` — execution pattern, autonomy classifications, building block mapping, skill candidates, agent configs
+4. **Baseline Workflow Prompt** — `[name]-prompt.md` — ready-to-use prompt (skill-aware if applicable)
+
+Plus auto-generated skills and agents on the Claude platform when the execution pattern calls for them.
+
+---
+
+### Step 1 — Discover Workflows
+
+Find which workflows are candidates for AI.
 
 ---
 
 #### `discovering-workflows`
 
-**What it does:** Interactively discovers and decomposes a business workflow into a structured Workflow Definition. This is Step 1 of 2 in the Deconstruct step.
+**What it does:** Runs a structured audit of your workflows to discover where AI can help. Scans memory and conversation history, interviews you about your work, then produces a prioritized opportunity report with structured workflow candidates ready for the Deconstruct step.
 
-**When to use it:** Use this when you want to thoroughly document a workflow before analyzing it for AI readiness. Also useful standalone when you just need a structured breakdown of a complex process — even without planning to automate it.
+**When to use it:** Use this when you want to figure out where AI fits in your work. Especially useful when you're new to AI and need a starting point, or when you want a systematic review before choosing which workflow to deconstruct.
+
+**How it works:**
+
+1. **Memory & history scan** — Claude reviews everything it knows about you from prior conversations, memory, and project files. Presents findings for you to confirm or correct.
+2. **Targeted discovery interview** — Claude asks focused questions one at a time about your role, repetitive tasks, information synthesis, multi-step processes, quality issues, communication overhead, and decision-making. Follows up based on your answers.
+3. **Opportunity analysis & report** — Produces a summary table and detailed opportunity cards grouped by category (Deterministic Workflows, Collaborative AI, Autonomous Agents), ordered by impact.
+4. **Workflow candidate summary** — You pick your top candidates, and Claude produces structured metadata for each: name, description, category, pain point, AI opportunity, frequency, priority, and reasoning. Recommends which to deconstruct first.
+
+**Example prompts:**
+
+    "Help me discover AI workflow opportunities"
+    → Runs the full audit and produces a categorized opportunity
+      report with structured workflow candidates
+
+    "I want to figure out which parts of my job could benefit from AI"
+    → Interactive discovery session followed by a structured report
+      with specific, actionable recommendations
+
+**What you'll get:** An opportunity report (`outputs/ai-opportunity-report.md`) with a summary table, detailed cards for each opportunity, and a structured workflow candidate summary with metadata for each candidate you select.
+
+**Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
+
+---
+
+### Step 2 — Deconstruct Workflows
+
+Break workflows into structured definitions.
+
+---
+
+#### `deconstructing-workflows`
+
+**What it does:** Interactively deconstructs a business workflow into a structured Workflow Definition using the 5-question framework. This is the Deconstruct step.
+
+**When to use it:** Use this when you want to thoroughly document a workflow's steps, decisions, data flows, and failure modes. Also useful standalone when you just need a structured breakdown of a complex process — even without planning to automate it.
 
 **How it works:**
 
@@ -191,7 +197,7 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 
 **Example prompts:**
 
-    "Use discovering-workflows to break down my expense reporting process"
+    "Use deconstructing-workflows to break down my expense reporting process"
     → Interactive discovery session producing
       outputs/expense-reporting-definition.md
 
@@ -205,75 +211,52 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 
 ---
 
-#### `deconstructing-workflows`
-
-**What it does:** Classifies workflow steps on the autonomy spectrum, maps them to AI building blocks, and produces an AI Building Block Map. This is Step 2 of 2 in the Deconstruct step.
-
-**When to use it:** Use this when you have a Workflow Definition (from Step 1) and want to analyze which steps can be automated, which need human oversight, and what AI tools are required.
-
-**How it works:**
-
-1. **Load Workflow Definition** — Claude reads the Workflow Definition file from `outputs/`
-2. **Confirm understanding** — Claude summarizes the workflow and asks you to confirm before proceeding
-3. **Classify each step** — For every step, Claude determines:
-    - **Autonomy level**: Human / AI-Deterministic / AI-Semi-Autonomous / AI-Autonomous
-    - **AI building block(s)**: Prompt, Context, Skill, Agent, MCP, Project
-    - **Tools and connectors**: External tools, APIs, and integrations needed
-    - **Human-in-the-loop gates**: Where human review is recommended
-4. **Present mapping** — Claude shows the classification as a table and walks through reasoning for non-obvious decisions. You can adjust classifications.
-5. **Generate AI Building Block Map** — After your confirmation, Claude produces the complete AI Building Block Map
-
-**Example prompts:**
-
-    "Use deconstructing-workflows on my workflow definition"
-    → Reads the most recent Workflow Definition, classifies each step,
-      presents the mapping table, and generates the AI Building Block Map
-
-    "Analyze the lead-qualification workflow for AI readiness"
-    → Reads outputs/lead-qualification-definition.md and produces
-      the AI Building Block Map
-
-**What you'll get:** An AI Building Block Map (`outputs/[name]-building-blocks.md`) containing: scenario summary, step-by-step decomposition table (with autonomy level and AI building blocks for each step), autonomy spectrum summary, step sequence and dependencies, prerequisites, context inventory, and tools and connectors required.
-
-**Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
-
----
-
 ### Step 3 — Build Workflows
 
-Turn your AI Building Block Map into working AI workflows.
+Design your AI implementation and construct the workflow.
 
 ---
 
 #### `building-workflows`
 
-**What it does:** Turns your AI Building Block Map into a Baseline Workflow Prompt and build guidance. If you've already built skills, generates a skill-aware prompt that references them instead of spelling out those steps inline. This is the Build step.
+**What it does:** Takes a Workflow Definition and runs the full Build process: Design (execution pattern, autonomy classification, building block mapping, skill candidates, agent configuration) and Construct (Baseline Workflow Prompt, auto-generated skills and agents on Claude). This is the Build step.
 
-**When to use it:** Use this when you have a completed AI Building Block Map (from the Deconstruct step) and want to generate your Baseline Workflow Prompt — a prompt you can run immediately. If you built skills first, the prompt references them.
+**When to use it:** Use this when you have a Workflow Definition (from the Deconstruct step) and want to design and build your AI workflow. The Design phase produces the AI Building Block Spec; the Construct phase generates everything you need to run the workflow.
 
 **How it works:**
 
-1. **Load AI Building Block Map** — Claude reads the AI Building Block Map from `outputs/`
-2. **Confirm understanding** — Claude summarizes the workflow, step count, AI-eligible steps, and implementation order. You confirm before proceeding.
-3. **Check for existing skills** — If you built skills already, list them and Claude generates a prompt that references them instead of spelling out those steps.
-4. **Generate Baseline Workflow Prompt** — A self-contained, ready-to-use prompt with:
-    - Title, purpose, and when to use it
-    - Numbered steps, each labeled (AI) or (Human)
-    - Input requirements with format specifications
-    - Context requirements (what to attach when running the prompt)
-    - Output format with structure specifications
+**Design phase:**
+
+1. **Load Workflow Definition** — Claude reads the Workflow Definition from `outputs/`
+2. **Confirm understanding** — Claude summarizes the workflow and asks you to confirm
+3. **Execution pattern assessment** — Claude walks you through the four execution patterns (Prompt, Skill-Powered Prompt, Single Agent, Multi-Agent) and recommends one based on your workflow's needs
+4. **Classify each step** — Autonomy level, AI building blocks, tools, human review gates
+5. **Identify skill candidates** — Steps tagged for skill creation with generation-ready detail
+6. **Agent configuration** (when applicable) — Platform-agnostic agent blueprint
+7. **Generate AI Building Block Spec** — Complete design document
+
+**Construct phase:**
+
+8. **Pattern-specific build path** — Only the steps relevant to your chosen execution pattern
+9. **Generate Baseline Workflow Prompt** — Self-contained, ready-to-use prompt
+10. **Auto-generate skills and agents** (Claude platform) — SKILL.md and agent .md files from the Design output
 
 **Example prompts:**
 
-    "Use building-workflows on my building blocks"
-    → Reads the most recent AI Building Block Map and generates the
-      Baseline Workflow Prompt
+    "Use building-workflows on my workflow definition"
+    → Reads the most recent Workflow Definition, runs Design and
+      Construct, produces all build deliverables
 
-    "Generate the prompt for expense-reporting"
-    → Reads outputs/expense-reporting-building-blocks.md and produces
-      the prompt file
+    "Design and build the expense-reporting workflow"
+    → Reads outputs/expense-reporting-definition.md, recommends
+      an execution pattern, and generates the full build output
 
-**What you'll get:** A **Baseline Workflow Prompt** (`outputs/[name]-prompt.md`) — a self-contained prompt you can run immediately. Steps are labeled (AI) or (Human), includes all input/context/output requirements. If you built skills first, the prompt references them instead of spelling out those steps.
+**What you'll get:**
+
+- **AI Building Block Spec** (`outputs/[name]-building-block-spec.md`) — execution pattern, step classifications, skill candidates, agent configs, implementation order
+- **Baseline Workflow Prompt** (`outputs/[name]-prompt.md`) — self-contained prompt you can run immediately
+- **Skills** (`.claude/skills/*/SKILL.md`) — auto-generated on Claude platform when applicable
+- **Agents** (`.claude/agents/*.md`) — auto-generated on Claude platform when applicable
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
 
@@ -499,8 +482,8 @@ Agents for staying current on AI developments.
 
 The plugin covers the full Business-First AI Framework. Here's the recommended path:
 
-1. **Discover** — Run `finding-ai-opportunities` to audit your workflows and identify where AI creates the most value
-2. **Deconstruct** — Pick your highest-impact opportunity and run it through the `workflow-deconstructor` agent (or use the skills individually: `discovering-workflows` → `deconstructing-workflows` → `building-workflows`)
+1. **Discover** — Run `discovering-workflows` to audit your workflows and identify where AI creates the most value
+2. **Deconstruct** — Pick your highest-impact candidate and run it through the `workflow-deconstructor` agent (or use the skills individually: `deconstructing-workflows` → `building-workflows`)
 3. **Build** — Use the Baseline Workflow Prompt on a real scenario, then build skills in priority order from the recommendations. Study the Step 3 agents and skills as working examples.
 
 ## FAQ

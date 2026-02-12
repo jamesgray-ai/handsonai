@@ -18,7 +18,7 @@ Without MCP, the AI only knows what you paste into the conversation. With MCP, i
 
 | | |
 |---|---|
-| **What you'll do** | Review your Building Block Map for steps requiring external tool access, then configure the MCP connections those steps need |
+| **What you'll do** | Review your Building Block Spec for steps requiring external tool access, then configure the MCP connections those steps need |
 | **What you'll get** | Working connections between your AI workflow and external systems |
 | **Time** | 10-30 minutes per connection (varies by tool complexity) |
 
@@ -27,13 +27,13 @@ Without MCP, the AI only knows what you paste into the conversation. With MCP, i
 
 ## When You Need MCP
 
-Look at your AI Building Block Map:
+Look at your AI Building Block Spec:
 
 - Steps tagged with **"MCP"** in the AI Building Block(s) column
 - The **Tools and Connectors Required** section lists every external integration
 - Steps requiring **web browsing, database access, file system access, or API calls**
 
-If your Building Block Map doesn't tag any steps with MCP, skip this page and go straight to [Run](run.md).
+If your Building Block Spec doesn't tag any steps with MCP, skip this page and go straight to [Run](run.md).
 
 ## What Configuring MCP Looks Like
 
@@ -81,11 +81,11 @@ After setup, the AI can search your databases, create pages, and update records 
 
 ## How MCP Connects to Your Workflow
 
-1. **Check "Tools and Connectors Required"** in your Building Block Map — each external tool listed needs a connection
+1. **Check "Tools and Connectors Required"** in your Building Block Spec — each external tool listed needs a connection
 2. **Start with one connection** — Pick the single external system your workflow depends on most. Get that working before adding more.
 3. **Identify available servers** — Many common tools already have pre-built MCP servers or connectors. See [Agentic Building Blocks > MCP](../../agentic-building-blocks/mcp/index.md) for available options and setup guides.
 4. **Configure and test** — Follow the setup steps for your platform, then verify the AI can read from and write to the external system before running the full workflow
-5. **Add more as needed** — Once your first connection works, add others from your Building Block Map's requirements list
+5. **Add more as needed** — Once your first connection works, add others from your Building Block Spec's requirements list
 
 ## What's Next
 

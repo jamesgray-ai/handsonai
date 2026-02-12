@@ -1,14 +1,11 @@
 ---
-title: Discover AI Workflow Opportunities
+title: "Step 1: Discover Workflows"
 description: Use this prompt template to discover where AI can help automate, augment, or orchestrate your workflows.
 ---
 
-# Discover AI Workflow Opportunities
+# Step 1: Discover Workflows
 
 > **Platforms:** `claude` `openai` `gemini` `m365-copilot`
-
-!!! info "Business-First AI Framework — Step 1: Discover Workflows"
-    This guide is **Step 1** of the [Business-First AI Framework](index.md) — discovering where AI fits in your workflows.
 
 ## What This Is
 
@@ -47,7 +44,7 @@ There are two ways to run this: as a **prompt** in any AI tool, or with the **Cl
 
 === "Claude Platform"
 
-    Install the [Business-First AI plugin](../plugins/business-first-ai.md) and the `finding-ai-opportunities` skill runs automatically when you describe what you need.
+    Install the [Business-First AI plugin](../plugins/business-first-ai.md) and the `discovering-workflows` skill runs automatically when you describe what you need.
 
     **Install the plugin:**
 
@@ -58,7 +55,7 @@ There are two ways to run this: as a **prompt** in any AI tool, or with the **Cl
     **Start with this prompt:**
 
     ```
-    I'd like to find AI opportunities in my workflows. Help me audit
+    I'd like to discover AI workflow opportunities. Help me audit
     what I do and identify where AI could help.
     ```
 
@@ -175,29 +172,28 @@ Group the detailed cards by category. Within each category, order opportunities 
 
 ## Step 4 — Workflow Candidate Summary
 
-After presenting the full report, ask me to pick ONE opportunity from each category that I want to build first. Once I've chosen, produce a **Workflow Candidate Summary** in this exact format, wrapped in a markdown code block so I can copy it easily:
+After presenting the full report, ask me to pick my top workflow candidates — the ones I want to build. Once I've chosen, produce a **Workflow Candidate Summary** with structured metadata for each candidate, wrapped in a markdown code block so I can copy it easily:
 
 ```markdown
-- **Workflow:** [name]
-- **Type:** Deterministic
-- **Pain point:** [1 sentence]
-- **AI opportunity:** [1 sentence]
-- **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
+## Workflow Candidate Summary
 
-- **Workflow:** [name]
-- **Type:** Collaborative AI
-- **Pain point:** [1 sentence]
-- **AI opportunity:** [1 sentence]
-- **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
+### [Workflow Name]
+- **Description:** [One sentence describing what this workflow does]
+- **Category:** Deterministic Workflow / Collaborative AI / Autonomous Agent
+- **Pain point:** [What's slow, error-prone, or manual today]
+- **AI opportunity:** [Specific description of what AI would do]
+- **Frequency:** Daily / Weekly / Monthly / Ad-hoc
+- **Priority:** High / Medium / Low
+- **Reasoning:** [Why this priority — based on impact, frequency, and feasibility]
 
-- **Workflow:** [name]
-- **Type:** Autonomous Agent
-- **Pain point:** [1 sentence]
-- **AI opportunity:** [1 sentence]
-- **Why it matters:** [1 sentence explaining why this workflow is worth building for my work]
+### [Workflow Name]
+...
+
+### Recommended Starting Point
+[Which candidate to deconstruct first and why]
 ```
 
-Present this inside a code block so I can copy and save it easily. For each "Why it matters" line, use what you learned about my priorities and goals during the interview to explain why this workflow is worth building.
+Present this inside a code block so I can copy and save it easily. Use what you learned about my priorities, goals, and pain points during the interview to inform the reasoning and recommendation.
 ```
 
 ## What to Expect
@@ -226,7 +222,7 @@ Most people discover 5–15 opportunities across the three categories. Pick thre
 
 ## Related
 
-- **Next step:** Ready to act on an opportunity? Use the [Deconstruct Workflows guide](deconstruct/index.md) (Step 2) to break it into AI building blocks.
+- **Next step:** Ready to act on an opportunity? Use the [Deconstruct Workflows guide](deconstruct/index.md) (Step 2) to break it into discrete steps.
 - [Business-First AI Framework](index.md) — the full three-step methodology
 - [Prompts](../agentic-building-blocks/prompts/index.md)
 - [Agents](../agentic-building-blocks/agents/index.md)

@@ -22,7 +22,7 @@ A project is a persistent workspace that groups your context, prompts, and conve
 
 ## When to Use a Project vs. a Normal Chat
 
-Not every workflow needs a project. Use the Where to Run recommendation from your AI Building Block Map as your starting point:
+Not every workflow needs a project. Use the Where to Run recommendation from your AI Building Block Spec as your starting point:
 
 **Normal chat** — Best when:
 

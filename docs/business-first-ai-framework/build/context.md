@@ -14,11 +14,11 @@ description: Create the context your workflow needs — the documents, data, rul
 
 Context is all the knowledge the AI needs to do your workflow well but doesn't have within the model itself. Your company's style guide, your buyer persona, your CRM data, your scoring rubric — the AI has broad general knowledge, but it doesn't know your specific business. Context bridges that gap. Without the right context, even a perfect prompt produces generic output.
 
-Your AI Building Block Map includes a **Context Inventory** — a table listing every piece of context the workflow needs. This page shows you how to create the ones that don't exist yet.
+Your AI Building Block Spec includes a **Context Inventory** — a table listing every piece of context the workflow needs. This page shows you how to create the ones that don't exist yet.
 
 | | |
 |---|---|
-| **What you'll do** | Open your Building Block Map's Context Inventory, identify which artifacts need creation, and create them |
+| **What you'll do** | Open your Building Block Spec's Context Inventory, identify which artifacts need creation, and create them |
 | **What you'll get** | A set of context artifacts ready to attach or pre-load when running your workflow |
 | **Time** | Varies by artifact count (15-60 minutes for most workflows) |
 
@@ -88,12 +88,12 @@ Specialized information about your industry or field that the AI's general train
 
 ## How to Create Missing Context
 
-Your Building Block Map's Context Inventory identifies what the workflow needs and whether each item already exists or needs to be created. To fill the gaps:
+Your Building Block Spec's Context Inventory identifies what the workflow needs and whether each item already exists or needs to be created. To fill the gaps:
 
-1. **Open your Building Block Map** — Find the Context Inventory table from your [AI Building Block Map](../deconstruct/building-blocks.md)
+1. **Open your Building Block Spec** — Find the Context Inventory table from your [AI Building Block Spec](design.md)
 2. **Focus on "Needs Creation" items** — These are the gaps you need to fill
 3. **Start with rules and criteria** — Scoring rubrics, qualification criteria, and decision logic are often required for the workflow to function correctly. Without them, the AI guesses instead of following your standards.
-4. **Use the "Key Contents" column as your outline** — The Building Block Map already identified what each artifact should contain. A buyer persona artifact might list: target job titles, company size range, industry verticals, pain points, and qualifying criteria. Use that as your drafting checklist.
+4. **Use the "Key Contents" column as your outline** — The Building Block Spec already identified what each artifact should contain. A buyer persona artifact might list: target job titles, company size range, industry verticals, pain points, and qualifying criteria. Use that as your drafting checklist.
 5. **Create each artifact** — Most context works well as a standalone Markdown file (e.g., `buyer-persona.md`, `scoring-rubric.md`). Data exports work as CSV or spreadsheet files.
 6. **Then fill in background knowledge** — Documents like style guides and product specs improve output quality but aren't usually blockers. Create these after the critical pieces are in place.
 

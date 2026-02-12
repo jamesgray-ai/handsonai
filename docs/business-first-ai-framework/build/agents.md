@@ -16,7 +16,7 @@ The agent decision framework. Not every workflow needs an agent — many work pe
 
 | | |
 |---|---|
-| **What you'll do** | Review your Building Block Map for steps tagged "Agent," decide whether to build agents, then design the first one |
+| **What you'll do** | Review your Building Block Spec for steps tagged "Agent," decide whether to build agents, then design the first one |
 | **What you'll get** | A clear decision on agent vs. prompt for each workflow step, and agent definitions for steps that need autonomous execution |
 | **Time** | 15-30 minutes per agent |
 
@@ -48,11 +48,12 @@ The [Autonomous Agent](autonomous-agent.md) worked example shows a multi-agent p
 
 ## Building Your First Agent
 
-1. **Look at your Building Block Map** for steps tagged with "Agent"
+1. **Look at your Building Block Spec** for steps tagged with "Agent"
 2. **Group related steps** — Contiguous steps with the same expertise domain become one agent
-3. **Write the agent's instructions** — Describe the agent's role, what it knows, and what it does. Think of it as writing a job description: "You are a researcher who finds case studies from business publications. You search for companies with quantified outcomes and produce structured briefs." Your Building Block Map's Action, Decision Points, and Context Needed columns give you most of this.
+3. **Write the agent's instructions** — Describe the agent's role, what it knows, and what it does. Think of it as writing a job description: "You are a researcher who finds case studies from business publications. You search for companies with quantified outcomes and produce structured briefs." Your Building Block Spec's Action, Decision Points, and Context Needed columns give you most of this.
 4. **Define human review gates** — Where should the agent pause for your approval?
 5. **Test with a real scenario** — Run the agent on actual inputs and evaluate the output
+6. **Register and commit** — Add the agent to your [AI Registry](../../plugins/ai-registry.md) Notion database and commit the agent `.md` file to your GitHub repository
 
 
 ## Agent Anatomy
@@ -63,8 +64,20 @@ What an agent definition contains:
 - **Description** — When to activate this agent and what it does
 - **Model** — Which AI model to use (affects capability and cost)
 - **Instructions** (also called a "system prompt") — The agent's role, expertise, process, and constraints — written in plain language, just like you'd brief a new team member
+- **Tools** — What the agent can interact with to carry out its work — web search, file access, APIs, databases, MCP servers, or other external services. Without tools, an agent is just a prompt. Tools are what give agents the ability to take action in the world.
 
-For platform-specific implementation details, see [Agentic Building Blocks > Agents](../../agentic-building-blocks/agents/index.md).
+## Build on Your Platform
+
+The Design phase produced a platform-agnostic agent blueprint — name, description, instructions, model, and tools. How you build that agent depends on which platform you're using. Each platform has its own agent system with different capabilities and configuration approaches.
+
+| Platform | Agent guide |
+|---|---|
+| Claude | [Building Agents on Claude](../../platforms/claude/agents/building-agents.md) |
+| OpenAI | [Building Agents on OpenAI](../../platforms/openai/agents/building-agents.md) |
+| Google Gemini | [Building Agents on Google](../../platforms/google-gemini/agents/building-agents.md) |
+| M365 Copilot | [Building Agents on M365 Copilot](../../platforms/m365-copilot/agents/building-agents.md) |
+
+Each guide shows how to translate your Design blueprint into a working agent on that platform — where each component goes, what tools are available, and links to official documentation.
 
 The [Autonomous Agent](autonomous-agent.md) worked example shows a complete multi-agent pipeline with 4 specialized agents, including the full instructions for each one.
 

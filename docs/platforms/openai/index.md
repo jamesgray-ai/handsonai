@@ -7,6 +7,12 @@ description: Guides for OpenAI GPT models, Assistants API, and function calling
 
 Guides and resources for working with OpenAI's GPT models.
 
+## Agents
+
+| Guide | Description |
+|-------|-------------|
+| [Building Agents on OpenAI](agents/building-agents.md) | ChatGPT Agent Mode, AgentKit, Agents SDK, and Frontier |
+
 ## Topics
 
 - [OpenAI Overview](topics/README.md)

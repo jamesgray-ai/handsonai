@@ -16,13 +16,13 @@ Build reusable skills before generating your prompt, so the prompt can reference
 
 | | |
 |---|---|
-| **What you'll do** | Identify skill candidates from your AI Building Block Map, then build each one by giving Claude your Deconstruct artifacts — the analysis you've already done provides everything it needs |
+| **What you'll do** | Identify skill candidates from your AI Building Block Spec, then build each one by giving Claude your Workflow Definition and Building Block Spec — the analysis you've already done provides everything it needs |
 | **What you'll get** | Reusable skills that your Baseline Workflow Prompt can invoke instead of spelling out every step |
 | **Time** | ~10-15 minutes per skill (the heavy analysis is already in your artifacts) |
 
 ## Identify Skill Candidates
 
-Open your AI Building Block Map (`[name]-building-blocks.md`) and scan the step table. Look for steps that meet these criteria:
+Open your AI Building Block Spec (`[name]-building-block-spec.md`) and scan the step table. Look for steps that meet these criteria:
 
 - **Repeatable** — the step runs frequently with similar patterns
 - **Requires domain expertise** — getting it right depends on specialized knowledge (scoring rubrics, extraction frameworks, editorial criteria)
@@ -52,18 +52,18 @@ Not every step needs a dedicated skill:
 
 ## Build Your First Skill
 
-Your Deconstruct artifacts already contain everything a skill needs. You spent 20-30 minutes producing a rich Workflow Definition and AI Building Block Map — building a skill is just giving Claude that context and asking it to create the skill.
+Your deliverables from Deconstruct and Design already contain everything a skill needs. You spent time producing a rich Workflow Definition and AI Building Block Spec — building a skill is just giving Claude that context and asking it to create the skill.
 
 ### How to build a skill
 
-1. **Pick your highest-priority skill candidate** — Open your AI Building Block Map (`[name]-building-blocks.md`) and find the steps tagged with "Skill" in the AI Building Blocks column. Start with the one in the highest priority tier from the Recommended Implementation Order.
-2. **Ask Claude to create a skill** — Claude's built-in skill creation process will guide you through it. When you start, paste or upload your AI Building Block Map and Workflow Definition — they contain everything Claude needs.
-3. **Point Claude at the right step** — Tell it which step to build: *"Create a skill for Step 4 — Score and Qualify Prospects. Here's my AI Building Block Map and Workflow Definition from the Deconstruct step."*
+1. **Pick your highest-priority skill candidate** — Open your AI Building Block Spec (`[name]-building-block-spec.md`) and find the steps tagged with "Skill" in the AI Building Blocks column. Start with the one in the highest priority tier from the Recommended Implementation Order.
+2. **Ask Claude to create a skill** — Claude's built-in skill creation process will guide you through it. When you start, paste or upload your AI Building Block Spec and Workflow Definition — they contain everything Claude needs.
+3. **Point Claude at the right step** — Tell it which step to build: *"Create a skill for Step 4 — Score and Qualify Prospects. Here's my AI Building Block Spec and Workflow Definition from the Design phase."*
 4. **Let your artifacts do the work** — Claude will ask questions as it builds the skill. Most answers are already in your files:
 
     | When Claude asks about... | Paste or point to... |
     |---|---|
-    | What the skill does | Step name + Action column in your Building Block Map |
+    | What the skill does | Step name + Action column in your Building Block Spec |
     | Inputs and format | Data In column |
     | Expected outputs | Data Out column |
     | Step-by-step process | Action + Decision Points columns, plus the detailed sub-steps in your Workflow Definition |
@@ -72,10 +72,11 @@ Your Deconstruct artifacts already contain everything a skill needs. You spent 2
     | External tools or connections | Tools and Connectors Required section |
 
 5. **Test with real data** — run the skill on actual inputs from your workflow and compare to what you'd produce manually. Refine until the output matches your standards.
-6. **Repeat** for additional skill candidates — focus on the top 1-3. You can always build more later.
+6. **Register and commit** — add the skill to your [AI Registry](../../plugins/ai-registry.md) Notion database (name, type, description, workflow) and commit the `SKILL.md` file to your GitHub repository. This keeps your building block inventory current and your source files versioned.
+7. **Repeat** for additional skill candidates — focus on the top 1-3. You can always build more later.
 
 !!! tip "Paste the whole file"
-    You don't have to extract individual columns. Paste your entire AI Building Block Map when you start — Claude will pull what it needs. Add the Workflow Definition too if the step has complex sub-steps or exception paths.
+    You don't have to extract individual columns. Paste your entire AI Building Block Spec when you start — Claude will pull what it needs. Add the Workflow Definition too if the step has complex sub-steps or exception paths.
 
 ## How Skills Integrate with Your Prompt
 

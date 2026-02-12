@@ -14,7 +14,7 @@ An interactive conversation where AI helps you break down a workflow into its co
 | | |
 |---|---|
 | **What you'll do** | Describe your workflow (or problem), then answer focused questions as the AI probes each step for sub-steps, decision points, data flows, context needs, and failure modes |
-| **What you'll get** | A **Workflow Definition** — a structured Markdown file that captures everything discovered, ready for [Step 2](building-blocks.md) |
+| **What you'll get** | A **Workflow Definition** — a structured Markdown file that captures everything discovered, ready for the [Design phase](../build/design.md) |
 | **Time** | ~15–25 minutes of interactive conversation |
 
 ## Why This Matters
@@ -40,15 +40,15 @@ There are two ways to run this, depending on which tools you use:
 
 ### Option B: Claude skill
 
-Use the `discovering-workflows` skill from the [Business-First AI plugin](../../plugins/business-first-ai.md). It runs the same discovery and deep dive process and saves the Workflow Definition to a file automatically.
+Use the `deconstructing-workflows` skill from the [Business-First AI plugin](../../plugins/business-first-ai.md). It runs the same deep dive process and saves the Workflow Definition to a file automatically.
 
 - **Claude Code or Cowork** — install the plugin (`/plugin install business-first-ai@handsonai`) and start with:
     ```
-    I want to discover and decompose my [workflow name] workflow.
+    I want to deconstruct my [workflow name] workflow.
     Help me build a Workflow Definition.
     ```
     The Workflow Definition is saved to `outputs/[workflow-name]-definition.md`.
-- **Claude.ai** — zip the `discovering-workflows` skill folder and upload it via **Settings > Capabilities > Upload skill**, then start a new chat with the same prompt above. See [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web) for detailed instructions.
+- **Claude.ai** — zip the `deconstructing-workflows` skill folder and upload it via **Settings > Capabilities > Upload skill**, then start a new chat with the same prompt above. See [Using Skills in Claude.ai](../../plugins/using-plugins.md#using-skills-in-claudeai-web) for detailed instructions.
 
 !!! tip "Budget ~15-25 minutes for this conversation"
     This step covers the most interactive part of the process. The model will ask about your scenario, help you refine your steps, then systematically probe each step for sub-steps, decisions, data flows, context needs, and failure modes. The depth here directly determines the quality of everything that follows.
@@ -81,9 +81,23 @@ Ask these one at a time.
 
 **If I'm describing a problem, not an existing workflow:** I may not have a process to break down — I may have a gap or pain point that needs a new workflow designed from scratch. In that case, don't force me through questions 2-4 as written. Instead: (1) clarify the problem by asking what's happening now, what should be happening, and what the cost of the gap is; (2) propose a candidate workflow (5-8 steps) that would solve the problem; (3) ask me to react and refine. Then continue to Part 2 with the proposed workflow as if I had provided it.
 
-**Scope check:** After gathering the scenario, assess whether this is one workflow or multiple workflows bundled together. If it looks like more than one (e.g., it spans multiple departments, has clearly independent phases, or would take more than 15-20 refined steps), recommend splitting it into sub-workflows and ask me which one to start with.
+**Scope check — one trigger, one deliverable:** After gathering the scenario, test whether this is actually one workflow or several bundled together. A workflow has exactly **one trigger** (what kicks it off) and **one deliverable** (the tangible output it produces). Apply these diagnostic questions:
 
-**Name the workflow** — After gathering scenario details (or after proposing a candidate workflow for problem-based inputs), name the workflow before summarizing. Follow these rules:
+1. **Triggers** — Does this process start from a single trigger, or does it have multiple independent starting points? If different parts are kicked off by different events (e.g., "when a new lead comes in" vs. "at the end of each week"), those are likely separate workflows.
+2. **Deliverables** — Does it produce one deliverable, or does it produce several distinct outputs at different points? If someone receives a deliverable midway through and the process continues toward a different output, the boundary between those deliverables is probably a workflow boundary.
+3. **Timeframes** — Does the entire process happen in one sitting or execution window? If parts run daily but other parts run weekly, or if there's a significant wait between phases (hours, days), those are often separate workflows.
+4. **Step count** — Based on what you've heard so far, would this likely expand to more than 15-20 refined steps? That's a signal it may be multiple workflows.
+
+**If the scope check reveals multiple workflows:** Don't proceed directly to the deep dive. Instead:
+
+1. Map out the separate workflows you see — give each one a working name, its trigger, and its deliverable
+2. Present this breakdown to me: "Based on what you've described, I think this is actually [N] separate workflows: [list with trigger/deliverable for each]"
+3. Ask me to confirm or adjust the boundaries
+4. Ask which workflow I want to deconstruct first — recommend starting with the one that runs most frequently or has the most pain
+
+Then continue with naming and the deep dive for the chosen workflow only.
+
+**Name the workflow** — After the scope check passes (or after choosing a single workflow to focus on), name the workflow before summarizing. Follow these rules:
 
 - **Workflow name**: 2-4 words, noun phrase (not verb phrase), Title Case. Pattern: `[Subject] [Action/Purpose]`. Must be self-explanatory without context.
   - Good: "Lead Qualification", "Newsletter Distribution", "Student Onboarding"
@@ -198,7 +212,7 @@ For each artifact:
 
 After presenting the Workflow Definition, tell me:
 
-> **Next step:** Download (or copy and save) the Workflow Definition file. Then go to [Map AI Building Blocks](https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/), copy that prompt into a new conversation, and upload or paste the Workflow Definition when the model asks for it.
+> **Next step:** Download (or copy and save) the Workflow Definition file. Then go to [Design Your AI Workflow](https://handsonai.info/business-first-ai-framework/build/design/), copy that prompt into a new conversation, and upload or paste the Workflow Definition when the model asks for it.
 
 ---
 
@@ -220,4 +234,4 @@ The Workflow Definition captures:
 - **Step sequence and dependencies** — what's sequential, what's parallel, where the critical path is
 - **Context shopping list** — every artifact the workflow needs, with status and key contents
 
-This Workflow Definition is the input for [Map AI Building Blocks](building-blocks.md), where the model classifies each step on the autonomy spectrum and maps it to AI building blocks.
+This Workflow Definition is the input for the [Design phase](../build/design.md) in Step 3 — Build, where the model chooses an execution pattern, classifies each step on the autonomy spectrum, and maps it to AI building blocks.

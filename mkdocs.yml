@@ -62,10 +62,11 @@ plugins:
         how-to/prompting/ai-workflow-opportunity-finder.md: business-first-ai-framework/discover.md
         how-to/prompting/workflow-deconstruction-meta-prompt.md: business-first-ai-framework/deconstruct/index.md
         how-to/prompting/workflow-deconstruction-discovery.md: business-first-ai-framework/deconstruct/workflow-definition.md
-        how-to/prompting/workflow-deconstruction-analysis.md: business-first-ai-framework/deconstruct/building-blocks.md
+        how-to/prompting/workflow-deconstruction-analysis.md: business-first-ai-framework/build/design.md
         how-to/prompting/workflow-deconstruction-outputs.md: business-first-ai-framework/build/prompt.md
         business-first-ai-framework/deconstruct/discovery.md: business-first-ai-framework/deconstruct/workflow-definition.md
-        business-first-ai-framework/deconstruct/analysis.md: business-first-ai-framework/deconstruct/building-blocks.md
+        business-first-ai-framework/deconstruct/analysis.md: business-first-ai-framework/build/design.md
+        business-first-ai-framework/deconstruct/building-blocks.md: business-first-ai-framework/build/design.md
         business-first-ai-framework/deconstruct/outputs.md: business-first-ai-framework/build/prompt.md
         business-first-ai-framework/deconstruct/prompt-skill-specs.md: business-first-ai-framework/build/prompt.md
         how-to/workflow-examples/README.md: business-first-ai-framework/build/index.md
@@ -148,20 +149,26 @@ nav:
   - Blog: blog/index.md
   - Business-First AI Framework:
     - Overview: business-first-ai-framework/index.md
-    - Discover Workflows: business-first-ai-framework/discover.md
-    - Deconstruct Workflows:
+    - Use AI as Your Coach:
+      - Overview: business-first-ai-framework/coach.md
+      - Framework Coach Guide: business-first-ai-framework/framework-coach.md
+    - "Step 1: Discover Workflows": business-first-ai-framework/discover.md
+    - "Step 2: Deconstruct Workflows":
       - Overview: business-first-ai-framework/deconstruct/index.md
       - Break Down Your Workflow: business-first-ai-framework/deconstruct/workflow-definition.md
-      - Map AI Building Blocks: business-first-ai-framework/deconstruct/building-blocks.md
-    - Build Workflows:
+    - "Step 3: Build Workflows":
       - Overview: business-first-ai-framework/build/index.md
-      - Context: business-first-ai-framework/build/context.md
-      - Projects: business-first-ai-framework/build/projects.md
-      - Skills: business-first-ai-framework/build/skills.md
-      - Prompt: business-first-ai-framework/build/prompt.md
-      - Agents: business-first-ai-framework/build/agents.md
-      - MCP: business-first-ai-framework/build/mcp.md
-      - Run: business-first-ai-framework/build/run.md
+      - "3.1: Design":
+        - Design Your AI Workflow: business-first-ai-framework/build/design.md
+      - "3.2: Construct":
+        - Context: business-first-ai-framework/build/context.md
+        - Projects: business-first-ai-framework/build/projects.md
+        - Skills: business-first-ai-framework/build/skills.md
+        - Prompt: business-first-ai-framework/build/prompt.md
+        - Agents: business-first-ai-framework/build/agents.md
+        - MCP: business-first-ai-framework/build/mcp.md
+      - "3.3: Run":
+        - Run: business-first-ai-framework/build/run.md
       - "Worked Examples":
         - Deterministic Automation: business-first-ai-framework/build/deterministic-automation.md
         - AI Collaborative: business-first-ai-framework/build/ai-collaborative.md
@@ -207,6 +214,10 @@ nav:
         - Claude Personalization: platforms/claude/getting-started/claude-personalization-setup.md
       - Projects:
         - Claude Projects: platforms/claude/projects/claude-projects-setup.md
+      - Agents:
+        - Building Agents on Claude: platforms/claude/agents/building-agents.md
+        - Scheduling Subagents: platforms/claude/subagents/scheduling-subagents.md
+        - Troubleshooting: platforms/claude/subagents/scheduling-subagent-issues.md
       - Skills:
         - Discover Your Best Claude Skills: platforms/claude/skills/skills-discovery-meta-prompt.md
         - Resources: platforms/claude/skills/resources.md
@@ -214,25 +225,28 @@ nav:
         - Overview: platforms/claude/questions/README.md
         - Best way to name agent skills?: platforms/claude/questions/what-is-the-best-way-to-name-claude-agent-skills.md
         - Schedule an automated subagent: platforms/claude/questions/how-do-i-schedule-an-automated-claude-subagent.md
-      - Subagents:
-        - Scheduling Subagents: platforms/claude/subagents/scheduling-subagents.md
-        - Troubleshooting: platforms/claude/subagents/scheduling-subagent-issues.md
       - Topics:
         - Overview: platforms/claude/topics/README.md
       - Resources: platforms/claude/topics/resources.md
     - Google Gemini:
       - Overview: platforms/google-gemini/index.md
+      - Agents:
+        - Building Agents on Google: platforms/google-gemini/agents/building-agents.md
       - Questions: platforms/google-gemini/questions/README.md
       - Topics:
         - Overview: platforms/google-gemini/topics/README.md
       - Resources: platforms/google-gemini/topics/resources.md
     - M365 Copilot:
       - Overview: platforms/m365-copilot/index.md
+      - Agents:
+        - Building Agents on M365 Copilot: platforms/m365-copilot/agents/building-agents.md
       - Topics:
         - Overview: platforms/m365-copilot/topics/README.md
       - Resources: platforms/m365-copilot/topics/resources.md
     - OpenAI:
       - Overview: platforms/openai/index.md
+      - Agents:
+        - Building Agents on OpenAI: platforms/openai/agents/building-agents.md
       - Questions: platforms/openai/questions/README.md
       - Topics:
         - Overview: platforms/openai/topics/README.md

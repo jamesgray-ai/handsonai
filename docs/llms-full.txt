@@ -28,13 +28,13 @@
 - URL: https://handsonai.info/business-first-ai-framework/deconstruct/workflow-definition/
 - Summary: Interactive discovery process that decomposes a business workflow into structured steps with inputs, outputs, decision points, and handoffs.
 
-#### Map AI Building Blocks
-- URL: https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/
-- Summary: Maps each workflow step to AI building blocks on the autonomy spectrum — from simple prompts through context, projects, skills, agents, and MCP integrations.
-
 ### Step 3 — Build Workflows
 - URL: https://handsonai.info/business-first-ai-framework/build/
-- Summary: Turn your AI Building Block Map into a working workflow. Includes a Build Decision Framework, six building block guides (Context, Projects, Prompt, Skills, Agents, MCP), a Run guide (execution patterns, first run, iterating), and three worked examples across the autonomy spectrum.
+- Summary: Design and build a working AI workflow from your Workflow Definition. Three phases — Design (execution pattern spectrum, autonomy classification, building block mapping, agent configuration), Construct (pattern-specific build path with context, skills, prompt, agents, MCP), and Run (execution, iteration, scaling).
+
+#### Design Your AI Workflow
+- URL: https://handsonai.info/business-first-ai-framework/build/design/
+- Summary: Choose an execution pattern (Prompt, Skill-Powered Prompt, Single Agent, Multi-Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents. Produces a platform-agnostic AI Building Block Spec.
 
 #### Run Workflows
 - URL: https://handsonai.info/business-first-ai-framework/build/run/
@@ -201,7 +201,7 @@
 
 ### Business-First AI Plugin
 - URL: https://handsonai.info/plugins/business-first-ai/
-- Summary: The Business-First AI Framework as executable Claude Code components. Includes 8 agents (workflow deconstructor, tech-executive writer, HBR editor/publisher, AI productivity researcher, meeting prep researcher, AI news researcher, Claude research daily), 6 skills (finding AI opportunities, workflow discovery/analysis/output generation, editing HBR articles, preparing meeting briefs), and 3 prompts (LinkedIn prospect research, buyer persona, quick meeting prep).
+- Summary: The Business-First AI Framework as executable Claude Code components. Includes 8 agents (workflow deconstructor, tech-executive writer, HBR editor/publisher, AI productivity researcher, meeting prep researcher, AI news researcher, Claude research daily), 5 skills (discovering workflows, deconstructing workflows, building workflows, editing HBR articles, preparing meeting briefs), and 3 prompts (LinkedIn prospect research, buyer persona, quick meeting prep).
 
 ### AI Registry Plugin
 - URL: https://handsonai.info/plugins/ai-registry/

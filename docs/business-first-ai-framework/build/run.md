@@ -127,7 +127,7 @@ For the full setup guide, see [Scheduling Subagents](../../platforms/claude/suba
 
 ## Your First Run
 
-The first run is a test, not a production run. Expect to iterate.
+The first run is a test, not a production run. You're testing whether the building blocks you constructed in [3.2 Construct](index.md#32-construct) actually produce the output you need.
 
 **What to evaluate:**
 
@@ -140,9 +140,13 @@ The first run is a test, not a production run. Expect to iterate.
 
 - **Generic output** — the AI doesn't have enough context. Add reference materials, examples, or style guides.
 - **Steps skipped or wrong** — the prompt instructions are too vague. Make the steps more explicit.
-- **AI asks for information it should know** — a context file is missing. Check your Context Inventory from the Building Block Map.
+- **AI asks for information it should know** — a context file is missing. Check your Context Inventory from the AI Building Block Spec.
 
-## Iterating After the First Run
+## Test, Iterate, Repeat
+
+Building an AI workflow is a cycle: **run → evaluate → adjust → run again.** Each run is a test. When the output isn't right, go back to [3.2 Construct](index.md#32-construct), adjust the building block that's responsible, and test again.
+
+Most workflows need 2-4 iterations before they produce reliably good results. This is expected — you're tuning the building blocks to your specific business context, and that takes a few passes.
 
 Use this table to figure out which building block to adjust based on what went wrong:
 
@@ -154,11 +158,11 @@ Use this table to figure out which building block to adjust based on what went w
 | The AI needs to make decisions you can't predict in advance | Convert from prompt to **agent** — let the AI plan its own approach |
 | The workflow should run without you triggering it | Add **scheduling** — automate with a recurring trigger |
 
-This maps directly back to the [Build overview](index.md#what-youll-do-next) — iterating is climbing the building block ladder based on what the workflow actually needs.
+This maps directly back to the [Build overview](index.md#32-construct) — iterating is climbing the building block ladder based on what the workflow actually needs.
 
 ## Related
 
-- [Build overview](index.md#what-youll-do-next) — the full seven-step build process including skills, agents, and MCP
+- [Build overview](index.md#32-construct) — the full build process including design, skills, agents, and MCP
 - Worked Examples — [Deterministic Automation](deterministic-automation.md), [AI Collaborative](ai-collaborative.md), [Autonomous Agent](autonomous-agent.md)
 - [Scheduling Subagents](../../platforms/claude/subagents/scheduling-subagents.md) — full automation setup guide
 - [Agentic Building Blocks](../../agentic-building-blocks/index.md) — platform-specific implementation details

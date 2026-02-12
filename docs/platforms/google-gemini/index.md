@@ -7,6 +7,12 @@ description: Guides for Google's Gemini models and Vertex AI
 
 Guides and resources for working with Google's Gemini models.
 
+## Agents
+
+| Guide | Description |
+|-------|-------------|
+| [Building Agents on Google](agents/building-agents.md) | Agent Designer (no-code) and Agent Development Kit for custom agents |
+
 ## Topics
 
 - [Gemini Overview](topics/README.md)

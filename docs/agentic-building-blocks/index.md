@@ -18,7 +18,7 @@ The blocks progress from simple to complex:
 These are platform-agnostic concepts. Every major AI platform implements them, though the names and interfaces differ. Understanding the blocks gives you a mental model that transfers across tools — you can evaluate any platform by asking "how does it handle prompts, context, projects, skills, agents, and external connections?"
 
 !!! tip "Using building blocks for workflow analysis"
-    The [Business-First AI Framework](../business-first-ai-framework/index.md) uses these six blocks as the analysis tool in [Deconstruct Workflows](../business-first-ai-framework/deconstruct/building-blocks.md), where each step of a workflow gets mapped to the building blocks it needs.
+    The [Business-First AI Framework](../business-first-ai-framework/index.md) uses these six blocks as the analysis tool in [Design Your AI Workflow](../business-first-ai-framework/build/design.md), where each step of a workflow gets mapped to the building blocks it needs.
 
 ![Agentic AI Building Blocks — the six components from Prompt through MCP](../assets/images/agentic-building-blocks.png)
 
@@ -257,7 +257,7 @@ A project is an active workspace — it provides standing instructions, persiste
 **Framework and courses:**
 
 - [Business-First AI Framework](../business-first-ai-framework/index.md) — applies building blocks to workflow analysis
-- [Deconstruct Workflows — AI Building Blocks](../business-first-ai-framework/deconstruct/building-blocks.md) — mapping workflow steps to blocks
+- [Design Your AI Workflow](../business-first-ai-framework/build/design.md) — mapping workflow steps to building blocks
 - [Agentic AI for Leaders](../courses/leaders/index.md) — course covering AI strategy and building blocks
 - [Claude for Builders](../courses/builders/index.md) — hands-on course building with these blocks
 
