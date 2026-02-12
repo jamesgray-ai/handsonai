@@ -133,7 +133,15 @@
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/business-first-ai-framework/coach/</loc>
+         <lastmod>2026-02-12</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/business-first-ai-framework/discover/</loc>
+         <lastmod>2026-02-12</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/framework-coach/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
@@ -154,6 +162,10 @@
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/context/</loc>
+         <lastmod>2026-02-12</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/build/design/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
@@ -182,10 +194,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/deconstruct/</loc>
-         <lastmod>2026-02-12</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/business-first-ai-framework/deconstruct/building-blocks/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
@@ -661,6 +669,10 @@
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/platforms/claude/agents/building-agents/</loc>
+         <lastmod>2026-02-12</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/platforms/claude/getting-started/claude-personalization-setup/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
@@ -709,6 +721,10 @@
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/platforms/google-gemini/agents/building-agents/</loc>
+         <lastmod>2026-02-12</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/platforms/google-gemini/questions/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
@@ -725,6 +741,10 @@
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/platforms/m365-copilot/agents/building-agents/</loc>
+         <lastmod>2026-02-12</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/platforms/m365-copilot/topics/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
@@ -734,6 +754,10 @@
     </url>
     <url>
          <loc>https://handsonai.info/platforms/openai/</loc>
+         <lastmod>2026-02-12</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/platforms/openai/agents/building-agents/</loc>
          <lastmod>2026-02-12</lastmod>
     </url>
     <url>
