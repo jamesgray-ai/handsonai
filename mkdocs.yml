@@ -257,15 +257,7 @@ nav:
     - Using Plugins: plugins/using-plugins.md
     - Business-First AI: plugins/business-first-ai.md
     - AI Registry: plugins/ai-registry.md
-  - Builder Stack Setup:
-    - Overview: builder-setup/index.md
-    - "Step 1 — Terminal Basics": builder-setup/terminal-basics.md
-    - "Step 2 — AI Code Editor": builder-setup/editor-setup.md
-    - "Step 3 — Git": builder-setup/git-install.md
-    - "Step 4 — GitHub": builder-setup/github-setup.md
-    - "Step 5 — AI Coding CLIs": builder-setup/claude-code-install.md
-    - "Step 6 — AI Registry": builder-setup/notion-registry-setup.md
-    - "Step 7 — Voice to Text": builder-setup/voice-to-text-setup.md
+  - Builder Stack Setup: builder-setup/index.md
   - Patterns: patterns/index.md
   - Courses:
     - Overview: courses/index.md
