@@ -1,18 +1,55 @@
 ---
 title: Building Agents on Google
-description: How to build agents on Google's Gemini platform — Agent Designer for no-code workflows and the Agent Development Kit for custom development.
+description: How to build agents on Google's Gemini platform — Workspace Studio for natural-language automation, Agent Designer for no-code workflows, and the Agent Development Kit for custom development.
 ---
 
 # Building Agents on Google
 
 > **Part of:** [Build Workflows > Agents](../../../business-first-ai-framework/build/agents.md)
 
-Google offers two approaches to building agents on the Gemini platform, each suited to different audiences and complexity levels.
+Google offers three approaches to building agents on the Gemini platform, ranging from natural-language automation to full programmatic control.
 
 | Approach | Best for | Complexity |
 |----------|----------|------------|
+| [Workspace Studio](#workspace-studio) | Non-technical users automating everyday work across Workspace apps | Lowest — describe what you want in natural language |
 | [Agent Designer](#agent-designer) | Business users who want to build agents without writing code | Low — no-code/low-code visual interface |
 | [Agent Development Kit (ADK)](#agent-development-kit-adk) | Developers building custom agents for deployment on Vertex AI | Higher — open-source framework, full programmatic control |
+
+## Workspace Studio
+
+Workspace Studio is Google's natural-language automation platform built into Workspace. It lets anyone create automated workflows across Gmail, Drive, Sheets, and other Workspace apps by describing what they want in plain language — no coding or visual builder required.
+
+**Official docs:** [Workspace Studio](https://workspace.google.com/studio/)
+
+### What you can build
+
+- Automated workflows for everyday tasks — email triage, meeting summaries, cross-app data transfer, report generation
+- Multi-step automations that connect Workspace apps with third-party services
+
+### How it works
+
+1. **Describe** — tell Gemini what you want to automate in natural language
+2. **Generate** — Gemini creates a workflow from your description
+3. **Refine** — adjust the flow using pre-configured steps and connectors
+4. **Manage** — run, monitor, and edit workflows directly within Workspace apps
+
+### Key capabilities
+
+- Create automations using natural language — no code, no visual builder
+- Pre-configured steps for common Workspace actions (send email, create doc, update sheet)
+- Manage workflows in-app from Gmail, Chat, and Drive
+- Third-party connectors for tools like Asana, Jira, Salesforce, and Mailchimp
+- Included with Google Workspace Business and Enterprise plans
+
+### Mapping your Design blueprint
+
+| Design blueprint | Workspace Studio |
+|-----------------|------------------|
+| **Name** | Workflow name in Studio |
+| **Description** | Natural language description of the automation |
+| **Instructions** | The plain-language prompt that generates the workflow |
+| **Model** | Gemini (built-in, not configurable) |
+| **Tools** | Workspace app actions and third-party connectors |
 
 ## Agent Designer
 
