@@ -300,6 +300,13 @@
   background-color: var(--md-default-fg-color);
 }
 
+/* Nav section labels — make collapsible section titles readable in dark mode */
+[data-md-color-scheme="slate"] .md-nav__item--nested > .md-nav__container > a,
+[data-md-color-scheme="slate"] .md-nav__item--nested > .md-nav__container > label,
+[data-md-color-scheme="slate"] .md-nav > .md-nav__title {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* Typography - Inter font weight adjustments */
 .md-typeset h1,
 .md-typeset h2,
