@@ -26,6 +26,8 @@ Hands-On AI (handsonai.info) — the consolidated site for James Gray's AI cours
 - `.claude/skills/` - Claude Code skill definitions (local/development copies)
 - `.claude-plugin/marketplace.json` - Plugin marketplace manifest
 - `plugins/` - Distributable plugin bundles (agents + skills grouped by theme)
+- `mcp-server/migrations/` - Cloudflare D1 schema migrations
+- `mcp-server/scripts/analytics-query.ts` - CLI for querying MCP analytics via Cloudflare REST API
 - `scripts/` - Wrapper scripts for scheduled subagents
 - `outputs/` - Local working directory for agent outputs (gitignored)
 - `specs/` - Local working directory for feature specs (gitignored)
@@ -179,6 +181,40 @@ The `docs/resources/` section hosts curated resource pages for external PDFs and
 5. Update any existing pages that linked to the external PDF URL to point to the new resource page instead
 
 The MCP server indexes resource pages automatically — no changes to `build-index.ts` or `tools.ts` needed (the `resources` section mapping is already configured).
+
+## MCP Server Analytics
+
+The MCP server (`mcp-server/`) logs tool calls and resource reads to a Cloudflare D1 database (`handsonai-mcp-analytics`) for content gap analysis. Analytics is non-blocking — failures never affect MCP responses.
+
+### Key files
+
+- `mcp-server/src/analytics.ts` — `logEvent()`, `sanitizeParams()`, `getResultSize()` functions
+- `mcp-server/src/index.ts` — `ctx.waitUntil()` instrumentation in the fetch handler
+- `mcp-server/migrations/` — D1 schema migrations (applied via `wrangler d1 migrations apply`)
+- `mcp-server/scripts/analytics-query.ts` — CLI for querying analytics (`npm run analytics <command>`)
+- `mcp-server/.env.example` — Required env vars for the CLI script
+- `docs/use-the-cookbook/ask/index.md` — Privacy disclosure ("Analytics & Privacy" section)
+
+### What's logged
+
+Tool name, sanitized params (query/path only, max 200 chars), result size, error status, duration, User-Agent, and country. Only `tools/call` and `resources/read` methods — protocol handshakes (`initialize`, `ping`, `tools/list`) are excluded. No PII is collected.
+
+### CLI commands
+
+Run from `mcp-server/`: `npm run analytics <command> [--days=N]`
+
+Commands: `top-queries`, `tool-usage`, `daily-volume`, `top-pages`, `errors`, `zero-results`, `clients`, `raw-sql` (SELECT only).
+
+### Adding a new migration
+
+1. Create `mcp-server/migrations/NNNN_description.sql`
+2. Apply locally: `wrangler d1 migrations apply handsonai-mcp-analytics --local`
+3. Test with `wrangler dev`
+4. Apply to production: `wrangler d1 migrations apply handsonai-mcp-analytics --remote`
+
+### Deployment
+
+After changes to `mcp-server/src/`: run `wrangler deploy` from `mcp-server/`. The D1 database ID is in `wrangler.toml` (not a secret).
 
 ## Scheduling Subagents
 
