@@ -17,6 +17,7 @@ const VALID_SECTIONS = [
   "builder-setup",
   "plugins",
   "ai-engineering",
+  "resources",
   "courses",
   "blog",
   "general",

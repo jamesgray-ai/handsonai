@@ -29,7 +29,7 @@ Recommended docs, tutorials, and community links for Claude Agent Skills.
 
 | Resource | Description |
 |----------|-------------|
-| [A Complete Guide to Building Skills for Claude](https://claude.com/blog/complete-guide-to-building-skills-for-claude) ([PDF](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf)) | In-depth blog guide covering structure, testing, and distribution |
+| [A Complete Guide to Building Skills for Claude](https://claude.com/blog/complete-guide-to-building-skills-for-claude) ([PDF](../../../resources/anthropic-skills-guide.md)) | In-depth blog guide covering structure, testing, and distribution |
 | [Equipping Agents for the Real World with Agent Skills](https://claude.com/blog/equipping-agents-for-the-real-world-with-agent-skills) | Engineering blog — architecture, progressive disclosure, and best practices |
 | [Improving Frontend Design through Skills](https://claude.com/blog/improving-frontend-design-through-skills) | Applied AI team case study — using Skills to move beyond generic AI-generated aesthetics |
 | [How to Create Skills](https://claude.com/blog/how-to-create-skills-key-steps-limitations-and-examples) | Key steps, limitations, and examples — structured 5-step creation guide |

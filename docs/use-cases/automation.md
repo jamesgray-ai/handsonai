@@ -13,7 +13,7 @@ This is the highest-autonomy primitive. Automation typically builds on the other
 
 Automation delivers the largest time savings because it eliminates recurring manual work entirely. But it also requires the most upfront investment in configuration, testing, and monitoring — you're trusting AI to act independently, so the instructions, guardrails, and error handling need to be robust.
 
-*Automation is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
+*Automation is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report.md) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
 
 ## Key Characteristics
 

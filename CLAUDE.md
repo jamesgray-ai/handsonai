@@ -18,6 +18,7 @@ Hands-On AI (handsonai.info) — the consolidated site for James Gray's AI cours
 - `docs/builder-setup/` - Developer tool installation guides (terminal, Git, editor, Claude Code)
 - `docs/patterns/` - Reusable patterns and best practices
 - `docs/courses/` - Structured course content (builders, leaders)
+- `docs/resources/` - Curated resource pages for external PDFs/reports (with local PDF copies in `docs/assets/pdfs/`)
 - `docs/blog/` - Blog posts (MkDocs Material blog plugin); posts go in `posts/` subdirectory
 - `docs/overrides/main.html` - FAQPage JSON-LD schema injection for AEO
 - `docs/_templates/` - Content templates for contributors
@@ -164,6 +165,20 @@ This directs users to human-readable documentation instead of raw source code. E
 - Adding a new agent/skill to a plugin = bump MINOR (e.g., 1.0.0 → 1.1.0)
 - Updating an existing agent/skill = bump PATCH (e.g., 1.1.0 → 1.1.1)
 - Breaking changes (renaming, removing, restructuring) = bump MAJOR
+
+## Adding a PDF Resource
+
+The `docs/resources/` section hosts curated resource pages for external PDFs and reports. Each PDF gets a markdown page (for MCP search indexing) and a local copy (to prevent link rot).
+
+### Adding a new resource
+
+1. Download the PDF to `docs/assets/pdfs/<descriptive-filename>.pdf`
+2. Create a resource page at `docs/resources/<slug>.md` with frontmatter (`title`, `description`), source attribution, "Why This Matters" section, "Key Takeaways" bullets, "How the Cookbook Uses This" cross-links, and a download button linking to `../assets/pdfs/<filename>.pdf`
+3. Add the page to `docs/resources/index.md` catalog table
+4. Add the page to the `nav:` section in `mkdocs.yml` under "Use the Cookbook > Resources"
+5. Update any existing pages that linked to the external PDF URL to point to the new resource page instead
+
+The MCP server indexes resource pages automatically — no changes to `build-index.ts` or `tools.ts` needed (the `resources` section mapping is already configured).
 
 ## Scheduling Subagents
 

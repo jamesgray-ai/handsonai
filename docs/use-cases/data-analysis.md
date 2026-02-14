@@ -13,7 +13,7 @@ This primitive covers any workflow where the primary output is an insight derive
 
 Data analysis is often the highest-value primitive for teams that have data but lack the time or technical skills to extract meaning from it. AI dramatically lowers the barrier to working with data, letting anyone ask questions of their datasets in plain language.
 
-*Data Analysis is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
+*Data Analysis is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report.md) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
 
 ## Key Characteristics
 

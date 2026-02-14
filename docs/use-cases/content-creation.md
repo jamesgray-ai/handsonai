@@ -13,7 +13,7 @@ This primitive covers any workflow where the primary output is a piece of conten
 
 Content creation use cases scale from simple (rewriting an email for a different audience) to complex (generating a complete content calendar with drafts for each piece, adapted to platform-specific requirements).
 
-*Content Creation is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
+*Content Creation is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report.md) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
 
 ## Key Characteristics
 

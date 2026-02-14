@@ -162,6 +162,11 @@ nav:
       - Using Plugins: use-the-cookbook/build/using-plugins.md
       - Business-First AI: use-the-cookbook/build/business-first-ai.md
       - AI Registry: use-the-cookbook/build/ai-registry.md
+    - Resources:
+      - resources/index.md
+      - resources/openai-use-cases-report.md
+      - resources/anthropic-coding-trends.md
+      - resources/anthropic-skills-guide.md
     - Learn (Courses): courses/index.md
   - "What's New": whats-new.md
   - Blog: blog/index.md
