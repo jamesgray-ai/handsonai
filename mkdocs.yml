@@ -212,6 +212,15 @@ nav:
         - Do plugin skills conflict with custom skills?: agentic-building-blocks/skills/questions/do-plugin-skills-conflict-with-custom-skills.md
     - Agents:
       - Overview: agentic-building-blocks/agents/index.md
+      - Capability Patterns:
+        - Overview: agentic-building-blocks/agents/capability-patterns/index.md
+        - Reflection: agentic-building-blocks/agents/capability-patterns/reflection.md
+        - Tool Use: agentic-building-blocks/agents/capability-patterns/tool-use.md
+        - Planning: agentic-building-blocks/agents/capability-patterns/planning.md
+        - Multi-Agent Collaboration: agentic-building-blocks/agents/capability-patterns/multi-agent-collaboration.md
+        - Memory: agentic-building-blocks/agents/capability-patterns/memory.md
+        - Guardrails: agentic-building-blocks/agents/capability-patterns/guardrails.md
+        - Human-in-the-Loop: agentic-building-blocks/agents/capability-patterns/human-in-the-loop.md
       - Resources: agentic-building-blocks/agents/resources.md
     - MCP: agentic-building-blocks/mcp/index.md
   - AI Engineering:

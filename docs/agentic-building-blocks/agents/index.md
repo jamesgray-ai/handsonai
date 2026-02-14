@@ -9,13 +9,7 @@ Concepts for building AI agents and implementing tool use.
 
 ## Topics
 
-*Topics will be listed here as they are added.*
-
-<!-- Example format:
-- [Function Calling Basics](./function-calling-basics.md)
-- [Agent Architectures](./agent-architectures.md)
-- [Tool Design Patterns](./tool-design-patterns.md)
--->
+- [Agent Capability Patterns](./capability-patterns/index.md) — Seven architectural patterns that make agents effective: Reflection, Tool Use, Planning, Multi-Agent Collaboration, Memory, Guardrails, and Human-in-the-Loop
 
 ## Key Concepts
 
