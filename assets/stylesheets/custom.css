@@ -320,3 +320,49 @@
   width: auto;
   max-width: none;
 }
+
+/* About page — headshot */
+.about-headshot {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  float: right;
+  margin: 0 0 1rem 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .about-headshot {
+    float: none;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* About page — social icon bar */
+.about-social {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.about-social-icon {
+  display: inline-flex;
+  text-decoration: none !important;
+  font-size: 1.75rem;
+  color: var(--md-default-fg-color--light) !important;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.about-social-icon:hover {
+  color: #DDF222 !important;
+  transform: scale(1.15);
+}
+
+[data-md-color-scheme="slate"] .about-social-icon {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-md-color-scheme="slate"] .about-social-icon:hover {
+  color: #DDF222 !important;
+}
