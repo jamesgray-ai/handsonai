@@ -59,4 +59,4 @@ print(response.choices[0].message.content)
 
 - [Prompts](../index.md) — the Prompt building block overview
 - [Prompt Engineering](../prompt-engineering/index.md) — core prompting techniques
-- [Agentic Building Blocks](../../index.md) — all six building blocks
+- [Agentic Building Blocks](../../index.md) — all seven building blocks

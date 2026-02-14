@@ -62,7 +62,7 @@
 
 ### Overview
 - URL: https://handsonai.info/agentic-building-blocks/
-- Summary: The six building blocks for AI-powered workflows, arranged along an autonomy spectrum from simple to complex: Prompts, Context, Projects, Skills, Agents, and MCP (Model Context Protocol).
+- Summary: The seven building blocks for AI-powered workflows, arranged along an autonomy spectrum from simple to complex: Model, Prompts, Context, Projects, Skills, Agents, and MCP (Model Context Protocol).
 
 ### Prompts
 - URL: https://handsonai.info/agentic-building-blocks/prompts/

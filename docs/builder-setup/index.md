@@ -178,7 +178,7 @@ With your builder stack in place, you're ready to start building with AI.
 
     ---
 
-    Understand the six components of every AI workflow — prompts, context, projects, skills, agents, and MCP (connections to external tools).
+    Understand the seven components of every AI workflow — models, prompts, context, projects, skills, agents, and MCP (connections to external tools).
 
     [:octicons-arrow-right-24: Agentic Building Blocks](../agentic-building-blocks/index.md)
 

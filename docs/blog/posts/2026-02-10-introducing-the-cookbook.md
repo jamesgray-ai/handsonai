@@ -49,8 +49,9 @@ The cookbook includes [six use case primitives](../../use-cases/index.md) — [C
 
 ### Layer 3: The Building Blocks
 
-Every AI workflow — from a single prompt to a multi-agent pipeline — is assembled from six building blocks:
+Every AI workflow — from a single prompt to a multi-agent pipeline — is assembled from seven building blocks:
 
+- **[Model](../../agentic-building-blocks/models/index.md)** — The AI engine that powers everything
 - **[Prompt](../../agentic-building-blocks/prompts/index.md)** — Instructions you give the AI
 - **[Context](../../agentic-building-blocks/context/index.md)** — Background knowledge the AI needs (your data, your docs, your domain)
 - **[Project](../../agentic-building-blocks/projects/index.md)** — A persistent workspace that holds everything together
@@ -58,7 +59,7 @@ Every AI workflow — from a single prompt to a multi-agent pipeline — is asse
 - **[Agent](../../agentic-building-blocks/agents/index.md)** — An autonomous AI that plans and executes multi-step work
 - **[MCP](../../agentic-building-blocks/mcp/index.md)** — A connector that lets AI access external tools and data
 
-These are platform-agnostic concepts. The cookbook maps each block across Claude, ChatGPT, Gemini, and M365 Copilot in a single [comparison table](../../agentic-building-blocks/index.md). So instead of learning four different systems, you learn the six blocks once and apply them everywhere.
+These are platform-agnostic concepts. The cookbook maps each block across Claude, ChatGPT, Gemini, and M365 Copilot in a single [comparison table](../../agentic-building-blocks/index.md). So instead of learning four different systems, you learn the seven blocks once and apply them everywhere.
 
 This is the vocabulary that makes AI adoption repeatable. Once you understand building blocks, you can look at any workflow and say: "This needs a skill with context and an MCP connection" — regardless of which platform you're using.
 

@@ -7,7 +7,7 @@ description: Choose an execution pattern, classify steps on the autonomy spectru
 
 > **Part of:** [Build Workflows](index.md)
 
-!!! tip "New to the six building blocks?"
+!!! tip "New to the seven building blocks?"
     See the [Agentic Building Blocks](../../agentic-building-blocks/index.md) reference for definitions, examples, and cross-platform comparisons.
 
 ## What This Is
@@ -69,10 +69,11 @@ For each step in your Workflow Definition, classify it on the autonomy spectrum:
 
 ## Building Block Mapping
 
-Map each AI-assisted step to one or more of the six building blocks:
+Map each AI-assisted step to one or more of the seven building blocks:
 
 | Block | What It Is | When to Use It |
 |-------|-----------|----------------|
+| **Model** | The AI engine that processes inputs and generates outputs | When the task requires specific capabilities (reasoning, multimodal, speed) that influence model choice |
 | **Prompt** | A well-crafted instruction that tells the model what to do for this step | Every AI step needs at least a prompt |
 | **Context** | Background information, reference documents, examples, or data the model needs | When the step requires domain-specific knowledge not in the model's training |
 | **Skill** | A reusable routine — give it inputs, it follows a defined process, it produces consistent outputs | When a step has complex logic that recurs across workflows |
@@ -213,7 +214,8 @@ For each refined step from the Workflow Definition, determine:
    - **AI step (semi-autonomous)** — AI handles most of the work but needs human review at key checkpoints
    - **AI step (fully autonomous / agentic)** — AI executes end-to-end, including decisions and tool use, with no human in the loop
 
-2. **AI building block** — Map each AI-assisted step to one or more of these six building blocks:
+2. **AI building block** — Map each AI-assisted step to one or more of these seven building blocks:
+   - **Model** — The AI engine for this step; choose based on the step's requirements (speed, reasoning depth, multimodal)
    - **Prompt** — A well-crafted instruction that tells the model what to do for this step
    - **Context** — Background information, reference documents, examples, or data the model needs to perform the step well
    - **Skill** — A reusable routine the model can invoke — give it inputs, it follows a defined process, it produces consistent outputs (on Claude, this is a Claude Code Skill; on other platforms, this maps to custom instructions, GPTs, or Gems)

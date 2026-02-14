@@ -107,7 +107,7 @@ Think of it this way: context engineering is the practice; context graphs are on
 ## Related
 
 - [AI Engineering](index.md) — the parent discipline
-- [Agentic Building Blocks](../agentic-building-blocks/index.md) — the six components context engineering operates on
+- [Agentic Building Blocks](../agentic-building-blocks/index.md) — the seven components context engineering operates on
 - [Prompts](../agentic-building-blocks/prompts/index.md) — the most fundamental building block, and a key component of context engineering
 - [Context](../agentic-building-blocks/context/index.md) — the data and knowledge component
 - [Context Graphs](../agentic-building-blocks/context/context-graphs.md) — structured reasoning graphs, an advanced technique within context engineering

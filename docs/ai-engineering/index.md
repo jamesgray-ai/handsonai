@@ -29,6 +29,6 @@ A useful analogy: the building blocks are like construction materials (wood, ste
 
 ## Related
 
-- [Agentic Building Blocks](../agentic-building-blocks/index.md) — the six components that AI engineering practices operate on
+- [Agentic Building Blocks](../agentic-building-blocks/index.md) — the seven components that AI engineering practices operate on
 - [Patterns](../patterns/index.md) — reusable approaches across building blocks
 - [AI Use Cases](../use-cases/index.md) — what teams build with these practices, organized by six primitives

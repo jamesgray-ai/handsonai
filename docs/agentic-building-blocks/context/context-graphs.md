@@ -117,7 +117,7 @@ Context graphs intersect with every other building block:
 
 - [Context Engineering](../../ai-engineering/context-engineering.md) — the broader discipline; context graphs are an advanced technique within it
 - [Context](index.md) — the Context building block overview
-- [Agentic Building Blocks](../index.md) — Context Graphs in the context of all six building blocks
+- [Agentic Building Blocks](../index.md) — Context Graphs in the context of all seven building blocks
 - [AI Use Cases](../../use-cases/index.md) — what teams build with context, organized by six primitives
 - [Agents](../agents/index.md) — autonomous workflows that benefit most from structured context
 - [MCP](../mcp/index.md) — the protocol for connecting agents to external context sources
