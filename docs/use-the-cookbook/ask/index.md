@@ -89,11 +89,11 @@ ChatGPT supports remote MCP servers as apps. Available on Plus, Pro, Team, Enter
 
 ## Connect from Cursor
 
-Cursor supports MCP servers via the Command Palette or a JSON configuration file.
+Cursor supports MCP servers via the Command Palette or the Settings UI.
 
 **Option 1 — Command Palette:**
 
-Open the Command Palette (++cmd+shift+p++ on Mac, ++ctrl+shift+p++ on Windows/Linux) and search for **MCP: Add Server**. Select **HTTP** as the transport type, enter `https://mcp.handsonai.info/mcp` as the URL, and name it `handsonai-cookbook`.
+Open the Command Palette (++cmd+shift+p++ on Mac, ++ctrl+shift+p++ on Windows/Linux) and search for **View: Open MCP Settings**. Cursor will open a `mcp.json` file — paste the configuration shown below, then save.
 
 **Option 2 — Settings UI:**
 
