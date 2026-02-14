@@ -190,6 +190,7 @@ The MCP server (`mcp-server/`) logs tool calls and resource reads to a Cloudflar
 
 - `mcp-server/src/analytics.ts` — `logEvent()`, `sanitizeParams()`, `getResultSize()` functions
 - `mcp-server/src/index.ts` — `ctx.waitUntil()` instrumentation in the fetch handler
+- `mcp-server/src/dashboard.ts` — Analytics dashboard: auth, 11 API endpoints, HTML UI with Chart.js
 - `mcp-server/migrations/` — D1 schema migrations (applied via `wrangler d1 migrations apply`)
 - `mcp-server/scripts/analytics-query.ts` — CLI for querying analytics (`npm run analytics <command>`)
 - `mcp-server/.env.example` — Required env vars for the CLI script
@@ -215,6 +216,12 @@ Commands: `top-queries`, `tool-usage`, `daily-volume`, `top-pages`, `errors`, `z
 ### Deployment
 
 After changes to `mcp-server/src/`: run `wrangler deploy` from `mcp-server/`. The D1 database ID is in `wrangler.toml` (not a secret).
+
+### Analytics Dashboard
+
+Live at `mcp.handsonai.info/dashboard` (custom domain configured in `wrangler.toml`). Admin-only, cookie-based auth via `ANALYTICS_TOKEN` Worker secret. Visit `/dashboard?token=<token>` once to set cookie, then bookmark `/dashboard`.
+
+For local dev: create `mcp-server/.dev.vars` with `ANALYTICS_TOKEN=<test-value>`, then `wrangler dev`. The `.dev.vars` file is gitignored by Wrangler defaults.
 
 ## Scheduling Subagents
 
