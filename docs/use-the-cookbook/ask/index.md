@@ -1,6 +1,6 @@
 ---
 title: MCP Server
-description: Connect to the Hands-on AI Cookbook from Claude, ChatGPT, Claude Code, and other MCP-compatible tools
+description: Connect to the Hands-on AI Cookbook from Claude, ChatGPT, Claude Code, Cursor, VS Code, and other MCP-compatible tools
 ---
 
 # MCP Server
@@ -76,6 +76,64 @@ ChatGPT supports remote MCP servers as apps. Available on Plus, Pro, Team, Enter
 
 !!! note "Enable per conversation"
     The app must be explicitly added to each new chat session via Developer Mode. It works in both regular chat and Deep Research mode.
+
+## Connect from Cursor
+
+Cursor supports MCP servers via the Command Palette or a JSON configuration file.
+
+**Option 1 — Command Palette:**
+
+Open the Command Palette (++cmd+shift+p++ on Mac, ++ctrl+shift+p++ on Windows/Linux) and search for **MCP: Add Server**. Select **HTTP** as the transport type, enter `https://mcp.handsonai.info/mcp` as the URL, and name it `handsonai-cookbook`.
+
+**Option 2 — Settings UI:**
+
+1. Go to **Settings** → **MCP**
+2. Click **+ Add new global MCP server**
+3. Cursor will open a `mcp.json` file — paste this configuration:
+
+```json
+{
+  "mcpServers": {
+    "handsonai-cookbook": {
+      "url": "https://mcp.handsonai.info/mcp"
+    }
+  }
+}
+```
+
+4. Save the file — Cursor will detect it and show the server in the MCP panel
+
+You should see a green indicator next to "handsonai-cookbook" in the MCP settings panel. The cookbook tools will be available in Cursor's Agent mode.
+
+## Connect from VS Code
+
+VS Code (with GitHub Copilot) supports MCP servers via workspace or user settings.
+
+**Option 1 — User settings (available in all projects):**
+
+Open the Command Palette (++cmd+shift+p++ on Mac, ++ctrl+shift+p++ on Windows/Linux) and search for **MCP: Add Server**. Select **HTTP** as the transport type, enter `https://mcp.handsonai.info/mcp` as the URL, and name it `handsonai-cookbook`.
+
+**Option 2 — Manual JSON configuration:**
+
+Add the following to your VS Code `settings.json` (user or workspace):
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "handsonai-cookbook": {
+        "type": "http",
+        "url": "https://mcp.handsonai.info/mcp"
+      }
+    }
+  }
+}
+```
+
+The cookbook tools will be available in GitHub Copilot's Agent mode (the `@` chat mode).
+
+!!! tip "Requires GitHub Copilot"
+    MCP support in VS Code requires GitHub Copilot (Free, Pro, or Business). Make sure you have the GitHub Copilot extension installed and are signed in.
 
 ## Connect from Other MCP Clients
 
