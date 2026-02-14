@@ -309,26 +309,36 @@
 
 ---
 
-## Plugins
+## Use the Cookbook
 
-### Marketplace
-- URL: https://handsonai.info/plugins/
+### Overview
+- URL: https://handsonai.info/use-the-cookbook/
+- Summary: Three ways to use the cookbook: Ask (MCP Server for instant answers), Build (install pre-built plugins), and Learn (structured cohort courses).
+
+### Ask (MCP Server)
+- URL: https://handsonai.info/use-the-cookbook/ask/
+- Summary: Connect to the Hands-on AI Cookbook MCP server from Claude, ChatGPT, Claude Code, or any MCP-compatible tool. Get cookbook-informed answers directly in your AI tools — no API keys required.
+
+### Build (Plugins)
+
+#### Marketplace
+- URL: https://handsonai.info/use-the-cookbook/build/
 - Summary: Browse and install pre-built Claude Code plugins with agents and skills. Explains plugin concepts (agents, skills, commands, hooks, MCP servers) and lists available plugins: Business-First AI (8 agents, 6 skills, 3 prompts) and AI Registry (5 skills).
 
-### Getting Started with Plugins
-- URL: https://handsonai.info/plugins/getting-started/
+#### Getting Started with Plugins
+- URL: https://handsonai.info/use-the-cookbook/build/getting-started/
 - Summary: Step-by-step walkthrough for installing and using Claude Code plugins from the Hands-on AI marketplace. Covers marketplace registration, plugin installation, and first use.
 
-### Using Plugins
-- URL: https://handsonai.info/plugins/using-plugins/
+#### Using Plugins
+- URL: https://handsonai.info/use-the-cookbook/build/using-plugins/
 - Summary: Guide to working with installed plugins — invoking agents, using skills, managing plugin configurations, and understanding platform compatibility.
 
-### Business-First AI Plugin
-- URL: https://handsonai.info/plugins/business-first-ai/
+#### Business-First AI Plugin
+- URL: https://handsonai.info/use-the-cookbook/build/business-first-ai/
 - Summary: The Business-First AI Framework as executable Claude Code components. Includes 8 agents (workflow deconstructor, tech-executive writer, HBR editor/publisher, AI productivity researcher, meeting prep researcher, AI news researcher, Claude research daily), 5 skills (discovering workflows, deconstructing workflows, building workflows, editing HBR articles, preparing meeting briefs), and 3 prompts (LinkedIn prospect research, buyer persona, quick meeting prep).
 
-### AI Registry Plugin
-- URL: https://handsonai.info/plugins/ai-registry/
+#### AI Registry Plugin
+- URL: https://handsonai.info/use-the-cookbook/build/ai-registry/
 - Summary: Skills for building a structured registry of AI workflows and building blocks. Includes 5 skills: naming workflows, writing workflow SOPs, writing process guides, registering building blocks (Skills, Agents, Prompts, Context MDs) in Notion, and syncing skills to GitHub. Requires Notion MCP connector.
 
 ---

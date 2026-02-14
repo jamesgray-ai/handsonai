@@ -42,12 +42,15 @@
 - Google Gemini: https://handsonai.info/platforms/google-gemini/
 - Microsoft 365 Copilot: https://handsonai.info/platforms/m365-copilot/
 
-## Plugins
-- Marketplace: https://handsonai.info/plugins/
-- Getting Started: https://handsonai.info/plugins/getting-started/
-- Using Plugins: https://handsonai.info/plugins/using-plugins/
-- Business-First AI: https://handsonai.info/plugins/business-first-ai/
-- AI Registry: https://handsonai.info/plugins/ai-registry/
+## Use the Cookbook
+- Overview: https://handsonai.info/use-the-cookbook/
+- Ask (MCP Server): https://handsonai.info/use-the-cookbook/ask/
+- Build (Plugins):
+  - Marketplace: https://handsonai.info/use-the-cookbook/build/
+  - Getting Started: https://handsonai.info/use-the-cookbook/build/getting-started/
+  - Using Plugins: https://handsonai.info/use-the-cookbook/build/using-plugins/
+  - Business-First AI: https://handsonai.info/use-the-cookbook/build/business-first-ai/
+  - AI Registry: https://handsonai.info/use-the-cookbook/build/ai-registry/
 
 ## Builder Setup
 - Terminal Basics: https://handsonai.info/builder-setup/terminal-basics/

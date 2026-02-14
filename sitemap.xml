@@ -9,10 +9,6 @@
          <lastmod>2026-02-14</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/mcp-server/</loc>
-         <lastmod>2026-02-14</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/what-people-built/</loc>
          <lastmod>2026-02-14</lastmod>
     </url>
@@ -913,26 +909,6 @@
          <lastmod>2026-02-14</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/plugins/</loc>
-         <lastmod>2026-02-14</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/plugins/ai-registry/</loc>
-         <lastmod>2026-02-14</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/plugins/business-first-ai/</loc>
-         <lastmod>2026-02-14</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/plugins/getting-started/</loc>
-         <lastmod>2026-02-14</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/plugins/using-plugins/</loc>
-         <lastmod>2026-02-14</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/use-cases/</loc>
          <lastmod>2026-02-14</lastmod>
     </url>
@@ -982,6 +958,34 @@
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/research/</loc>
+         <lastmod>2026-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/use-the-cookbook/</loc>
+         <lastmod>2026-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/use-the-cookbook/ask/</loc>
+         <lastmod>2026-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/use-the-cookbook/build/</loc>
+         <lastmod>2026-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/use-the-cookbook/build/ai-registry/</loc>
+         <lastmod>2026-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/use-the-cookbook/build/business-first-ai/</loc>
+         <lastmod>2026-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/use-the-cookbook/build/getting-started/</loc>
+         <lastmod>2026-02-14</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/use-the-cookbook/build/using-plugins/</loc>
          <lastmod>2026-02-14</lastmod>
     </url>
     <url>
