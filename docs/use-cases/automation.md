@@ -99,3 +99,4 @@ Automation delivers the largest time savings because it eliminates recurring man
 - [Skills](../agentic-building-blocks/skills/index.md) — reusable routines that agents invoke during automation
 - [Scheduling Subagents](../platforms/claude/subagents/scheduling-subagents.md) — how to schedule automated agents on Claude
 - [Build Workflows](../business-first-ai-framework/build/index.md) — worked examples including autonomous agent workflows
+- [Automation Resources](automation-resources.md) — curated reports, guides, and references

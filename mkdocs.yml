@@ -220,12 +220,17 @@ nav:
   - Use Cases:
     - Overview: use-cases/index.md
     - Content Creation: use-cases/content-creation.md
+    - Content Creation Resources: use-cases/content-creation-resources.md
     - Research: use-cases/research.md
+    - Research Resources: use-cases/research-resources.md
     - Coding: use-cases/coding.md
     - Coding Resources: use-cases/coding-resources.md
     - Data Analysis: use-cases/data-analysis.md
+    - Data Analysis Resources: use-cases/data-analysis-resources.md
     - Ideation & Strategy: use-cases/ideation-and-strategy.md
+    - Ideation & Strategy Resources: use-cases/ideation-and-strategy-resources.md
     - Automation: use-cases/automation.md
+    - Automation Resources: use-cases/automation-resources.md
   - Platforms:
     - Overview: platforms/index.md
     - Claude:

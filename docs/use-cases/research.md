@@ -98,3 +98,4 @@ Research becomes particularly powerful when paired with MCP connections to your 
 - [MCP](../agentic-building-blocks/mcp/index.md) — connecting AI to external data sources for live research
 - [Context](../agentic-building-blocks/context/index.md) — providing source documents and background knowledge
 - [Automation](automation.md) — running research workflows on a schedule
+- [Research Resources](research-resources.md) — curated reports, guides, and references

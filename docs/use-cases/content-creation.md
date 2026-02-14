@@ -98,3 +98,4 @@ Content creation use cases scale from simple (rewriting an email for a different
 - [Context](../agentic-building-blocks/context/index.md) — providing brand voice, style guides, and examples
 - [Skills](../agentic-building-blocks/skills/index.md) — packaging content creation workflows for reuse
 - [Projects](../agentic-building-blocks/projects/index.md) — persistent workspaces for recurring content workflows
+- [Content Creation Resources](content-creation-resources.md) — curated reports, guides, and references

@@ -98,3 +98,4 @@ Data analysis is often the highest-value primitive for teams that have data but 
 - [Skills](../agentic-building-blocks/skills/index.md) — packaging analysis workflows for repeatable use
 - [Coding](coding.md) — when the goal is the analysis tool itself, not the insight
 - [Automation](automation.md) — running analysis workflows on a schedule
+- [Data Analysis Resources](data-analysis-resources.md) — curated reports, guides, and references
