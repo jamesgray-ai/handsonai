@@ -247,9 +247,6 @@ nav:
         - Human-in-the-Loop: agentic-building-blocks/agents/capability-patterns/human-in-the-loop.md
       - Resources: agentic-building-blocks/agents/resources.md
     - MCP: agentic-building-blocks/mcp/index.md
-  - AI Engineering:
-    - Overview: ai-engineering/index.md
-    - Context Engineering: ai-engineering/context-engineering.md
   - Use Cases:
     - Overview: use-cases/index.md
     - Content Creation: use-cases/content-creation.md
@@ -309,6 +306,9 @@ nav:
       - Topics:
         - Overview: platforms/openai/topics/README.md
       - Resources: platforms/openai/topics/resources.md
+  - AI Engineering:
+    - Overview: ai-engineering/index.md
+    - Context Engineering: ai-engineering/context-engineering.md
   - Builder Stack Setup:
     - builder-setup/index.md
     - "Step 1 — Terminal Basics": builder-setup/terminal-basics.md
