@@ -108,3 +108,16 @@ Once connected, try asking your AI assistant:
 - "Show me the automation use case"
 
 The AI will use the cookbook MCP tools to pull relevant content and answer with cookbook knowledge.
+
+## Analytics & Privacy
+
+!!! info "No personally identifiable information is collected"
+    This MCP server **does not collect personally identifiable information**. There are no user accounts, no IP addresses, no cookies, no tracking identifiers, and no conversation content stored — ever. We cannot identify who you are or what you asked your AI assistant.
+
+    **What is logged:** Each MCP tool call records the tool name, search keywords or page path requested, a timestamp, approximate country (from Cloudflare's network), client type (User-Agent header), and response time. Only tool calls and resource reads are logged — protocol handshake messages are not.
+
+    **Why:** We use this aggregate data to understand which topics people search for most and where content gaps exist, so we can create new pages and improve existing ones. The goal is to make the cookbook more useful for everyone.
+
+    **Retention:** Analytics data is retained for 12 months, then deleted.
+
+    **Storage:** Data is stored in a private database accessible only to the cookbook maintainer. It is never shared, sold, or used for advertising.

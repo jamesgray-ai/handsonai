@@ -7,7 +7,8 @@
     "build:index": "tsx scripts/build-index.ts",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "build": "wrangler deploy --dry-run --outdir=dist"
+    "build": "wrangler deploy --dry-run --outdir=dist",
+    "analytics": "tsx scripts/analytics-query.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250214.0",

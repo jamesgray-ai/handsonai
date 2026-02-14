@@ -5,13 +5,14 @@
  * Serves cookbook content via 7 tools and 1 resource.
  */
 
-import type { ContentIndex, JsonRpcRequest, JsonRpcResponse } from "./types.js";
+import type { ContentIndex, Env, JsonRpcRequest, JsonRpcResponse } from "./types.js";
 import {
   TOOL_DEFINITIONS,
   RESOURCE_DEFINITION,
   handleToolCall,
   handleResourceRead,
 } from "./tools.js";
+import { logEvent, sanitizeParams, getResultSize } from "./analytics.js";
 import contentIndex from "../content-index.json";
 
 const index = contentIndex as ContentIndex;
@@ -120,7 +121,7 @@ function handleMethod(
 }
 
 export default {
-  async fetch(request: Request): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     try {
       const url = new URL(request.url);
 
@@ -179,7 +180,50 @@ export default {
           return new Response(null, { status: 202, headers: CORS_HEADERS });
         }
 
-        return handleMethod(body.method, body.params, body.id);
+        const start = Date.now();
+        const response = handleMethod(body.method, body.params, body.id);
+        const durationMs = Date.now() - start;
+
+        // Only log tools/call and resources/read — skip protocol handshake noise
+        if (body.method === "tools/call" || body.method === "resources/read") {
+          const toolName =
+            body.method === "tools/call" && typeof body.params?.name === "string"
+              ? body.params.name
+              : null;
+
+          const responseClone = response.clone();
+          ctx.waitUntil(
+            (async () => {
+              let responseBody: unknown;
+              try {
+                responseBody = await responseClone.json();
+              } catch (err) {
+                console.error("[analytics] Failed to parse response JSON:", err);
+                return;
+              }
+
+              const rpcBody = responseBody as { error?: unknown; result?: { isError?: boolean } };
+              const isError = !!(rpcBody.error || rpcBody.result?.isError);
+              const errorMsg = rpcBody.error
+                ? JSON.stringify(rpcBody.error)
+                : null;
+
+              await logEvent(env.DB, {
+                method: body.method,
+                toolName,
+                params: sanitizeParams(body.method, body.params),
+                resultSize: getResultSize(responseBody),
+                isError,
+                errorMsg,
+                durationMs,
+                userAgent: request.headers.get("user-agent"),
+                cfCountry: (request as unknown as { cf?: { country?: string } }).cf?.country ?? null,
+              });
+            })()
+          );
+        }
+
+        return response;
       }
 
       return new Response("Not found", { status: 404, headers: CORS_HEADERS });

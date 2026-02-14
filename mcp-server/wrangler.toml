@@ -4,3 +4,9 @@ compatibility_date = "2025-01-01"
 
 [observability]
 enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "handsonai-mcp-analytics"
+database_id = "504a3253-1e9c-47c6-9eb4-900fb40e619c"
+migrations_dir = "migrations"
