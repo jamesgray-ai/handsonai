@@ -9,6 +9,10 @@ The Hands-on AI Cookbook is available as an MCP (Model Context Protocol) server,
 
 **MCP server URL:** `https://mcp.handsonai.info/mcp`
 
+![Hands-on AI Cookbook MCP connector enabled in Claude showing available connectors list](../../assets/images/claude-mcp-connector-hands-on-ai-cookbook.png){ width="600" }
+
+*The Hands-on AI Cookbook connector enabled in Claude. This works in any AI tool that supports MCP — see below for setup instructions for Claude, ChatGPT, Cursor, VS Code, and more.*
+
 ## What You Get
 
 The MCP server gives your AI assistant access to:
