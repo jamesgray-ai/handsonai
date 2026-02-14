@@ -300,7 +300,17 @@ nav:
     - "Step 5 — AI Coding CLIs": builder-setup/claude-code-install.md
     - "Step 6 — AI Registry": builder-setup/notion-registry-setup.md
     - "Step 7 — Voice to Text": builder-setup/voice-to-text-setup.md
-  - Patterns: patterns/index.md
+  - Patterns:
+    - Overview: patterns/index.md
+    - Workflow Architecture Patterns:
+        - Overview: patterns/workflow-architecture/index.md
+        - Augmented LLM: patterns/workflow-architecture/augmented-llm.md
+        - Prompt Chaining: patterns/workflow-architecture/prompt-chaining.md
+        - Routing: patterns/workflow-architecture/routing.md
+        - Parallelization: patterns/workflow-architecture/parallelization.md
+        - Orchestrator-Workers: patterns/workflow-architecture/orchestrator-workers.md
+        - Evaluator-Optimizer: patterns/workflow-architecture/evaluator-optimizer.md
+        - Autonomous Agents: patterns/workflow-architecture/autonomous-agents.md
   - Courses:
     - Overview: courses/index.md
     - Agentic AI for Leaders:

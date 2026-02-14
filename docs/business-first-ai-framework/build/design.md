@@ -53,6 +53,9 @@ Work through these five questions in order. The first "yes" tells you the minimu
 
 Most workflows start as Prompt or Skill-Powered Prompt and evolve toward agents as you add automation. Start simple, upgrade when you hit limits.
 
+!!! info "Deeper architectural patterns"
+    For detailed implementation blueprints (prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer, and autonomous agents), see [Workflow Architecture Patterns](../../patterns/workflow-architecture/index.md).
+
 ## Autonomy Classification
 
 For each step in your Workflow Definition, classify it on the autonomy spectrum:

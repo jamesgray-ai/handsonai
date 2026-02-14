@@ -1,29 +1,17 @@
 ---
 title: AI Patterns and Best Practices
-description: Reusable patterns for prompting, agents, integrations, and error handling in AI systems
+description: Reusable patterns for workflow architecture, prompting, agents, integrations, and error handling in AI systems
 ---
 
 # Patterns
 
-Reusable patterns and best practices for AI/ML development.
+Reusable patterns and best practices for designing and building AI-powered systems.
 
-## Patterns
+## Workflow Architecture Patterns
 
-*Patterns will be listed here as they are added.*
+Seven architectural patterns for AI workflows, ranging from simple augmented LLMs to fully autonomous agents. Use these patterns to choose the right level of complexity for your workflow.
 
-<!-- Example format:
-### Prompting Patterns
-- [System Prompt Structure](./system-prompt-structure.md)
-- [Few-Shot Template](./few-shot-template.md)
-
-### Agent Patterns
-- [ReAct Loop](./react-loop.md)
-- [Tool Error Recovery](./tool-error-recovery.md)
-
-### Integration Patterns
-- [Retry with Backoff](./retry-with-backoff.md)
-- [Streaming Handler](./streaming-handler.md)
--->
+[Explore Workflow Architecture Patterns :material-arrow-right:](workflow-architecture/index.md){ .md-button }
 
 ## Categories
 
@@ -33,7 +21,7 @@ Patterns for structuring and optimizing prompts. See the [Prompt Engineering](..
 
 ### Agent Patterns
 
-Patterns for building reliable AI agents.
+Patterns for building reliable AI agents. See [Agent Capability Patterns](../agentic-building-blocks/agents/capability-patterns/index.md) for seven patterns that make agents effective.
 
 ### Integration Patterns
 
