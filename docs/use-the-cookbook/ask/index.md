@@ -35,7 +35,13 @@ Claude supports remote MCP servers as custom connectors across all its products.
 3. Enter the MCP server URL: `https://mcp.handsonai.info/mcp`
 4. Click **Add**
 
-To use it in a conversation, click the **+** button in the chat input area, select **Connectors**, and toggle the Hands-on AI Cookbook connector on.
+To use it in a conversation, click the **+** button in the chat input area, select **Connectors**, and toggle the Hands-on AI Cookbook connector on. The first time Claude uses the connector, you'll see a permission prompt — click **Always allow** so it can search the cookbook without asking each time.
+
+![Claude permission prompt asking to allow Search cookbook from Hands-on AI Cookbook](../../assets/images/claude-mcp-tool-permission-prompt-hands-on-ai-cookbook.png){ width="600" }
+
+You can manage permissions for each tool individually in **Settings** → **Connectors** → **Hands-on AI Cookbook**. From there, set each tool to always allow, ask every time, or deny — giving you full control over what Claude can access.
+
+![Claude Settings showing per-tool permissions for the Hands-on AI Cookbook MCP connector](../../assets/images/claude-mcp-tool-permissions-settings-hands-on-ai-cookbook.png){ width="600" }
 
 !!! tip "Works on Pro, Max, Team, and Enterprise plans"
     Custom connectors are available on all paid Claude plans. Team and Enterprise owners configure connectors in **Organization settings** → **Connectors**, then members enable them individually in their personal settings.
