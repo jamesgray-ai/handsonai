@@ -27,7 +27,7 @@ This prompt walks you through that deconstruction interactively. You provide the
 
 The context needs and failure modes captured here directly inform design decisions in the next step — they tell you what context to create, what tools to connect, and where human review gates are needed.
 
-This builds directly on the concepts of workflow deconstruction. If terms like the "5-question framework" or "six building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../index.md#key-concepts) for quick definitions before starting.
+This builds directly on the concepts of workflow deconstruction. If terms like the "5-question framework" or "seven building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../index.md#key-concepts) for quick definitions before starting.
 
 ## How to Use This
 

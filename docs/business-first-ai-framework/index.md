@@ -100,10 +100,11 @@ Used to decompose each workflow step:
 4. **Context needs** — What documents, files, or reference materials are required?
 5. **Failure modes** — What happens when this step fails?
 
-### Six AI Building Blocks
+### Seven AI Building Blocks
 
 | Block | What It Is |
 |-------|-----------|
+| **Model** | The AI engine that processes inputs and generates outputs |
 | **Prompt** | A well-crafted instruction that tells the model what to do |
 | **Context** | Background information, reference docs, or examples the model needs |
 | **Skill** | A reusable routine the model can invoke — give it inputs, it follows a defined process, it produces consistent outputs |

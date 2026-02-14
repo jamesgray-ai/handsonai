@@ -77,7 +77,7 @@ Good projects have:
 
 ## Related
 
-- [Agentic Building Blocks](../index.md) — Projects in the context of all six building blocks
+- [Agentic Building Blocks](../index.md) — Projects in the context of all seven building blocks
 - [AI Use Cases](../../use-cases/index.md) — what teams build with projects, organized by six primitives
 - [Prompts](../prompts/index.md) — techniques for the prompts that go inside projects
 - [Business-First AI Framework](../../business-first-ai-framework/index.md) — uses projects as a building block in workflow analysis

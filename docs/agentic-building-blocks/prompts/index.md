@@ -73,7 +73,7 @@ Not every prompt needs all four elements. A simple question needs only the task.
 ## Related
 
 - [Context Engineering](../../ai-engineering/context-engineering.md) — the broader discipline that prompt engineering is part of
-- [Agentic Building Blocks](../index.md) — Prompts in the context of all six building blocks
+- [Agentic Building Blocks](../index.md) — Prompts in the context of all seven building blocks
 - [AI Use Cases](../../use-cases/index.md) — see how prompts are used across content creation, research, coding, data analysis, ideation, and automation
 - [Projects](../projects/index.md) — where prompts become persistent custom instructions
 - [Patterns](../../patterns/index.md) — reusable prompt structures

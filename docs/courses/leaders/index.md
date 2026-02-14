@@ -26,7 +26,7 @@ From AI user to AI builder in 30 days. This cohort-based course goes beyond Chat
 ## What You'll Learn
 
 - Systematize AI-powered workflows with version-controlled asset libraries and opportunity catalogs
-- Master agentic frameworks including the autonomy spectrum, six building blocks, and twelve architecture patterns
+- Master agentic frameworks including the autonomy spectrum, seven building blocks, and twelve architecture patterns
 - Build prompt workflows and project workspaces with memory systems and custom instructions across platforms
 - Develop agent skills that package your expertise for reusable task execution
 - Create browser automation workflows that execute multi-step web tasks hands-free

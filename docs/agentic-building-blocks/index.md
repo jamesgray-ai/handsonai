@@ -1,6 +1,6 @@
 ---
 title: Agentic AI Building Blocks
-description: The six components of agentic AI workflows — Prompt, Context, Project, Skill, Agent, and MCP
+description: The seven components of agentic AI workflows — Model, Prompt, Context, Project, Skill, Agent, and MCP
 ---
 
 # Agentic AI Building Blocks
@@ -9,23 +9,24 @@ description: The six components of agentic AI workflows — Prompt, Context, Pro
 
 ## Overview
 
-The six AI building blocks are a shared vocabulary for describing the components of any AI workflow. Whether you're writing a single prompt or orchestrating a multi-agent pipeline, every AI workflow is assembled from some combination of these six pieces.
+The seven AI building blocks are a shared vocabulary for describing the components of any AI workflow. Whether you're writing a single prompt or orchestrating a multi-agent pipeline, every AI workflow is assembled from some combination of these seven pieces.
 
 The blocks progress from simple to complex:
 
-**Prompt** → **Context** → **Project** → **Skill** → **Agent** → **MCP**
+**Model** → **Prompt** → **Context** → **Project** → **Skill** → **Agent** → **MCP**
 
-These are platform-agnostic concepts. Every major AI platform implements them, though the names and interfaces differ. Understanding the blocks gives you a mental model that transfers across tools — you can evaluate any platform by asking "how does it handle prompts, context, projects, skills, agents, and external connections?"
+These are platform-agnostic concepts. Every major AI platform implements them, though the names and interfaces differ. Understanding the blocks gives you a mental model that transfers across tools — you can evaluate any platform by asking "how does it handle models, prompts, context, projects, skills, agents, and external connections?"
 
 !!! tip "Using building blocks for workflow analysis"
-    The [Business-First AI Framework](../business-first-ai-framework/index.md) uses these six blocks as the analysis tool in [Design Your AI Workflow](../business-first-ai-framework/build/design.md), where each step of a workflow gets mapped to the building blocks it needs.
+    The [Business-First AI Framework](../business-first-ai-framework/index.md) uses these seven blocks as the analysis tool in [Design Your AI Workflow](../business-first-ai-framework/build/design.md), where each step of a workflow gets mapped to the building blocks it needs.
 
-![Agentic AI Building Blocks — the six components from Prompt through MCP](../assets/images/agentic-building-blocks.png)
+![Agentic AI Building Blocks — the seven components from Model through MCP](../assets/images/agentic-building-blocks.png)
 
 ## Summary
 
 | Block | What It Is | Persistence | Complexity |
 |-------|-----------|-------------|------------|
+| **Model** | The AI engine that processes inputs and generates outputs | Persistent (platform-managed) | Foundation |
 | **Prompt** | A well-crafted instruction that tells the model what to do | Single use | Low |
 | **Context** | Background information, reference docs, or examples the model needs | Per conversation or persistent | Low |
 | **Project** | A persistent workspace grouping prompts, context, skills, and agents | Persistent | Medium |
@@ -33,7 +34,34 @@ These are platform-agnostic concepts. Every major AI platform implements them, t
 | **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work | Session-based or persistent | High |
 | **MCP** | A connector that lets AI access external tools, services, or databases | Persistent | High |
 
-## The Six Building Blocks
+## The Seven Building Blocks
+
+### Model
+
+The AI engine that processes inputs and generates outputs. Models are trained on data and come in different capability tiers — from fast, lightweight models for simple tasks to deep reasoning models for complex analysis.
+
+**Key characteristics:**
+
+- The foundation all other blocks operate on — every AI interaction requires a model
+- Come in capability tiers: fast models for speed, reasoning models for depth
+- Have defined context windows and vary by modality (text, code, vision, audio)
+
+**When to use it:** Every AI interaction uses a model. The key decision is choosing the *right* model — matching model capabilities to your task requirements.
+
+**Example:** Using a fast model for high-volume email classification, and a reasoning model for complex strategy analysis that requires nuanced judgment.
+
+**Cross-platform implementations:**
+
+| Platform | How It Works |
+|----------|-------------|
+| Claude | Multiple model tiers (fast, balanced, reasoning); select via model picker or API |
+| OpenAI (ChatGPT) | Multiple model tiers (fast, balanced, reasoning); select via model picker or API |
+| Gemini | Multiple model tiers (fast, balanced); select via model picker or API |
+| M365 Copilot | Models managed by Microsoft; limited user selection |
+
+**Relationship to other blocks:** Model is the engine — prompts steer it, context informs it, skills package routines for it, agents orchestrate it, and MCP connects it to external systems.
+
+---
 
 ### Prompt
 
@@ -205,12 +233,13 @@ An open standard for connecting AI assistants to external systems where data liv
 
 The building blocks build on each other. Here's how a workflow grows as you adopt more blocks:
 
-1. **Start with a Prompt** — Write clear instructions for what you want done
-2. **Add Context** — Attach reference materials so the model has what it needs
-3. **Organize in a Project** — Group your prompt and context so they persist across conversations
-4. **Package as a Skill** — Turn the prompt + context into a reusable routine you can invoke with different inputs
-5. **Connect with MCP** — Give the skill access to external data and tools
-6. **Orchestrate with an Agent** — Let an autonomous AI run the skill, use MCP connections, and handle multi-step workflows
+1. **Choose a Model** — Select the right AI engine for your task (speed vs. depth, modality, cost)
+2. **Start with a Prompt** — Write clear instructions for what you want done
+3. **Add Context** — Attach reference materials so the model has what it needs
+4. **Organize in a Project** — Group your prompt and context so they persist across conversations
+5. **Package as a Skill** — Turn the prompt + context into a reusable routine you can invoke with different inputs
+6. **Connect with MCP** — Give the skill access to external data and tools
+7. **Orchestrate with an Agent** — Let an autonomous AI run the skill, use MCP connections, and handle multi-step workflows
 
 ### Worked example: Weekly Client Status Report
 
@@ -227,10 +256,11 @@ The building blocks build on each other. Here's how a workflow grows as you adop
 
 ## Platform Comparison
 
-All six building blocks across all four platforms in one view:
+All seven building blocks across all four platforms in one view:
 
 | Building Block | Claude | OpenAI (ChatGPT) | Gemini | M365 Copilot |
 |---------------|--------|-------------------|--------|--------------|
+| **Model** | Multiple tiers (fast, balanced, reasoning) | Multiple tiers (fast, balanced, reasoning) | Multiple tiers (fast, balanced) | Microsoft-managed |
 | **Prompt** | Conversation messages, system prompts | Conversation messages, system prompts | Conversation messages | Chat messages |
 | **Context** | File attachments, project knowledge | File uploads, GPT knowledge files | File uploads, Drive, NotebookLM | Microsoft Graph, documents |
 | **Project** | Claude Projects | Custom GPTs, ChatGPT Projects | Gems | Copilot agents |
@@ -243,7 +273,7 @@ All six building blocks across all four platforms in one view:
 **"Skills and agents are the same thing."**
 Skills are routines — they do one specific thing when invoked. Agents are autonomous — they decide what to do, plan steps, and invoke skills (among other tools) to accomplish goals. A skill is a tool; an agent is the one using the toolbox.
 
-**"You need all six blocks for every workflow."**
+**"You need all seven blocks for every workflow."**
 Most workflows need two or three blocks. A well-written prompt with good context handles many tasks. Only add blocks when the workflow genuinely requires them.
 
 **"MCP is a Claude-only technology."**
@@ -263,6 +293,7 @@ A project is an active workspace — it provides standing instructions, persiste
 
 **Fundamentals deep-dives:**
 
+- [Model](models/index.md) — the AI engine that powers everything
 - [Prompts](prompts/index.md) — the Prompt building block, with prompt engineering techniques
 - [Context](context/index.md) — background information and reference materials
 - [Projects](projects/index.md) — project workspaces with memory, knowledge bases, and custom instructions

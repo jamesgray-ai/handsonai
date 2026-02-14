@@ -178,6 +178,7 @@ nav:
       - Identify the right AI tools for a workflow: business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow.md
   - Agentic Building Blocks:
     - Overview: agentic-building-blocks/index.md
+    - Model: agentic-building-blocks/models/index.md
     - Prompts:
       - Overview: agentic-building-blocks/prompts/index.md
       - Prompt Engineering:

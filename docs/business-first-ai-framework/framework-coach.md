@@ -130,10 +130,11 @@ Build has three parts: **3.1 Design**, **3.2 Construct**, and **3.3 Run**.
 | **Semi-Autonomous** | AI does most of the work; human reviews at key checkpoints |
 | **Autonomous** | AI executes end-to-end, including decisions and tool use |
 
-**Six AI Building Blocks:**
+**Seven AI Building Blocks:**
 
 | Block | What It Is |
 |-------|-----------|
+| **Model** | The AI engine that processes inputs and generates outputs |
 | **Prompt** | A well-crafted instruction that tells the model what to do |
 | **Context** | Background information, reference docs, or examples the model needs |
 | **Skill** | A reusable routine — give it inputs, it follows a defined process, produces consistent outputs |
@@ -255,6 +256,6 @@ When the user needs more depth on a specific topic, fetch the raw Markdown from 
 
 | Topic | Description | Raw Markdown URL |
 |-------|-------------|-----------------|
-| Agentic Building Blocks | Definitions and cross-platform details for all six blocks | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/agentic-building-blocks/index.md` |
+| Agentic Building Blocks | Definitions and cross-platform details for all seven blocks | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/agentic-building-blocks/index.md` |
 | AI Use Cases | Six use case primitives with examples | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/use-cases/index.md` |
 | Agents by platform | Platform-specific agent building guides | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/agentic-building-blocks/agents/index.md` |

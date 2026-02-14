@@ -29,7 +29,7 @@ Master AI. Master yourself. Build what matters. That's what [Graymatter](https:/
 
     ---
 
-    The six components of every AI workflow — prompts, context, projects, skills, agents, and MCP
+    The seven components of every AI workflow — models, prompts, context, projects, skills, agents, and MCP
 
     [:octicons-arrow-right-24: Building blocks](agentic-building-blocks/)
 
@@ -92,7 +92,7 @@ See [What People Built](what-people-built.md) with the cookbook.
 | Understand system prompts | [What is a system prompt?](agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md) |
 | Schedule AI agents | [Scheduling Subagents](platforms/claude/subagents/scheduling-subagents.md) |
 | Set up Git and GitHub | [Git Installation](builder-setup/git-install.md) |
-| Learn the six AI building blocks | [Agentic Building Blocks](agentic-building-blocks/) |
+| Learn the seven AI building blocks | [Agentic Building Blocks](agentic-building-blocks/) |
 | Explore AI use cases by type | [Use Case Primitives](use-cases/) |
 | Install Claude Code plugins | [Plugin Marketplace](plugins/) |
 | Take a structured course | [Courses](courses/) |
