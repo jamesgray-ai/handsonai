@@ -13,7 +13,7 @@ A marketing manager writing an Excel formula, a data analyst creating a SQL quer
 
 Coding is the primitive where AI agents are most mature. Modern AI coding agents can plan an approach, write code, run tests, debug failures, and iterate — handling multi-file changes across entire projects with minimal human guidance.
 
-*Coding is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
+*Coding is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report.md) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
 
 ## Key Characteristics
 

@@ -13,7 +13,7 @@ This primitive covers any workflow where the primary output is structured knowle
 
 Research becomes particularly powerful when paired with MCP connections to your actual data sources — the AI can pull from your CRM, project management tools, internal wikis, and external databases rather than relying solely on web search or uploaded documents.
 
-*Research is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
+*Research is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report.md) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
 
 ## Key Characteristics
 

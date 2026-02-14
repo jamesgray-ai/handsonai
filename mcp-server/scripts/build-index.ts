@@ -24,6 +24,7 @@ const SECTION_MAP: Record<string, string> = {
   "patterns": "patterns",
   "courses": "courses",
   "ai-engineering": "ai-engineering",
+  "resources": "resources",
   "blog": "blog",
 };
 
@@ -37,6 +38,7 @@ const SECTION_LABELS: Record<string, string> = {
   patterns: "Patterns",
   courses: "Courses",
   "ai-engineering": "AI Engineering",
+  resources: "Resources",
   blog: "Blog",
   general: "General",
 };

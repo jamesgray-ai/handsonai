@@ -7,7 +7,7 @@ description: Six use case primitives that cover what teams actually build with A
 
 OpenAI's analysis of over 600 enterprise AI deployments found that nearly all use cases fall into six primitives. These primitives describe the **type of work** AI does, not the tools or platforms involved. Understanding them helps you classify your own workflows and find the right building blocks faster.
 
-*The six primitives and department examples in this section are adapted from OpenAI's [Identifying and Scaling AI Use Cases: How Early Adopters Focus Their AI Efforts](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) and made platform-agnostic.*
+*The six primitives and department examples in this section are adapted from OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report.md) and made platform-agnostic.*
 
 !!! tip "Connecting to the Framework"
     The [Business-First AI Framework](../business-first-ai-framework/index.md) helps you **find** opportunities (Step 1 — Discover) and **deconstruct** them into building blocks (Step 2). Use these six primitives to **classify** the opportunities you find — they tell you what type of AI work each opportunity involves, which makes choosing the right building blocks easier.

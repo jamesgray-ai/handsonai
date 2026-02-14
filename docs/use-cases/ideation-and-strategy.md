@@ -13,7 +13,7 @@ This primitive covers any workflow where the primary output is a set of ideas, a
 
 Unlike the other primitives where AI executes work, ideation and strategy is about augmenting your thinking. The AI brings breadth (more options than you'd generate alone), structure (frameworks and evaluation criteria), and perspective (challenging assumptions you didn't realize you were making).
 
-*Ideation & Strategy is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](https://cdn.openai.com/business-guides-and-resources/identifying-and-scaling-ai-use-cases.pdf) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
+*Ideation & Strategy is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report.md) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../agentic-building-blocks/index.md).*
 
 ## Key Characteristics
 
