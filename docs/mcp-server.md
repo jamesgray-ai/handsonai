@@ -1,11 +1,13 @@
 ---
 title: MCP Server
-description: Connect to the Hands-on AI Cookbook from Claude, ChatGPT, Gemini, Cursor, and other MCP-compatible tools
+description: Connect to the Hands-on AI Cookbook from Claude, ChatGPT, Claude Code, and other MCP-compatible tools
 ---
 
 # MCP Server
 
-The Hands-on AI Cookbook is available as an MCP (Model Context Protocol) server, so you can get cookbook-informed answers directly in your AI tools.
+The Hands-on AI Cookbook is available as an MCP (Model Context Protocol) server, so you can get cookbook-informed answers directly in your AI tools — no API keys or authentication required.
+
+**MCP server URL:** `https://mcp.handsonai.info/mcp`
 
 ## What You Get
 
@@ -18,7 +20,27 @@ The MCP server gives your AI assistant access to:
 - **Q&A lookup** with quick answers from the cookbook's question pages
 - **Setup guides** for every tool in the Builder Stack
 
-## Connect from Claude Code
+## Connect from Claude
+
+Claude supports remote MCP servers as custom connectors across all its products. Add the connector once, and it's available in Claude chat, Claude Desktop, and Cowork.
+
+### Claude (claude.ai) and Claude Desktop
+
+1. Go to **Settings** → **Connectors**
+2. Scroll to the bottom and click **Add custom connector**
+3. Enter the MCP server URL: `https://mcp.handsonai.info/mcp`
+4. Click **Add**
+
+To use it in a conversation, click the **+** button in the chat input area, select **Connectors**, and toggle the Hands-on AI Cookbook connector on.
+
+!!! tip "Works on Pro, Max, Team, and Enterprise plans"
+    Custom connectors are available on all paid Claude plans. Team and Enterprise owners configure connectors in **Organization settings** → **Connectors**, then members enable them individually in their personal settings.
+
+### Claude Cowork
+
+Once you've added the connector using the steps above, it's automatically available in Cowork. When Cowork runs a task, it can use the cookbook connector to search for relevant content, look up setup guides, or reference building block definitions.
+
+### Claude Code
 
 Run this command in your terminal:
 
@@ -26,32 +48,34 @@ Run this command in your terminal:
 claude mcp add handsonai-cookbook --transport http https://mcp.handsonai.info/mcp
 ```
 
-That's it. Claude Code will now have access to all cookbook tools.
+That's it. Claude Code will now have access to all cookbook tools in every conversation.
 
-## Connect from Claude Desktop
+## Connect from ChatGPT
 
-Add this to your Claude Desktop MCP config file:
+ChatGPT supports remote MCP servers as apps. Available on Plus, Pro, Team, Enterprise, and Edu plans.
 
-=== "macOS"
+**Enable Developer Mode (one-time setup):**
 
-    Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
+1. Go to **Settings** → **Apps**
+2. Under **Advanced settings**, toggle **Developer Mode** on
 
-=== "Windows"
+**Add the app:**
 
-    Edit `%APPDATA%\Claude\claude_desktop_config.json`:
+1. In **Settings** → **Apps**, click **Create app**
+2. Fill in:
+    - **Name:** Hands-on AI Cookbook
+    - **URL:** `https://mcp.handsonai.info/mcp`
+3. Check the box confirming you trust this application
+4. Click **Create**
 
-```json
-{
-  "mcpServers": {
-    "handsonai-cookbook": {
-      "type": "streamable-http",
-      "url": "https://mcp.handsonai.info/mcp"
-    }
-  }
-}
-```
+**Use it in a conversation:**
 
-Restart Claude Desktop after saving.
+1. Start a new chat
+2. Click **+** → **More** → **Developer Mode**
+3. Select the Hands-on AI Cookbook app to enable it
+
+!!! note "Enable per conversation"
+    The app must be explicitly added to each new chat session via Developer Mode. It works in both regular chat and Deep Research mode.
 
 ## Connect from Other MCP Clients
 
@@ -59,7 +83,7 @@ Any MCP client that supports Streamable HTTP transport can connect:
 
 - **URL:** `https://mcp.handsonai.info/mcp`
 - **Transport:** Streamable HTTP (POST with JSON-RPC 2.0)
-- **Authentication:** None required (public)
+- **Authentication:** None required (public, read-only)
 
 ## Available Tools
 
