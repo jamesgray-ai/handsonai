@@ -1,5 +1,6 @@
 export interface Env {
   DB: D1Database;
+  ANALYTICS_TOKEN: string;
 }
 
 export interface Page {

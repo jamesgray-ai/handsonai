@@ -10,3 +10,8 @@ binding = "DB"
 database_name = "handsonai-mcp-analytics"
 database_id = "504a3253-1e9c-47c6-9eb4-900fb40e619c"
 migrations_dir = "migrations"
+
+# Custom domain — Cloudflare auto-creates the DNS record on deploy
+[[routes]]
+pattern = "mcp.handsonai.info"
+custom_domain = true

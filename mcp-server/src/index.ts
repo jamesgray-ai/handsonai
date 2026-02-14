@@ -13,6 +13,7 @@ import {
   handleResourceRead,
 } from "./tools.js";
 import { logEvent, sanitizeParams, getResultSize } from "./analytics.js";
+import { authenticateDashboard, handleAnalyticsAPI, getDashboardHTML } from "./dashboard.js";
 import contentIndex from "../content-index.json";
 
 const index = contentIndex as ContentIndex;
@@ -138,6 +139,20 @@ export default {
           version: SERVER_INFO.version,
           pages: index.pageCount,
         });
+      }
+
+      // Dashboard and analytics API
+      if (url.pathname === "/dashboard" || url.pathname.startsWith("/api/analytics/")) {
+        const authResponse = await authenticateDashboard(request, url, env);
+        if (authResponse) return authResponse;
+
+        if (url.pathname === "/dashboard") {
+          return new Response(getDashboardHTML(), {
+            headers: { "Content-Type": "text/html" },
+          });
+        }
+
+        return handleAnalyticsAPI(url, env);
       }
 
       // MCP endpoint
