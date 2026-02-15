@@ -78,6 +78,20 @@
   text-decoration: none;
 }
 
+/* Grid card accent bar */
+.md-typeset .grid.cards > ul > li {
+  border-left: 3px solid rgba(221, 242, 34, 0.7);
+}
+.md-typeset .grid.cards > ul > li:hover {
+  border-left-color: #DDF222;
+}
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li {
+  border-left-color: rgba(221, 242, 34, 0.6);
+}
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li:hover {
+  border-left-color: #DDF222;
+}
+
 /* Code block styling */
 .md-typeset code {
   background-color: var(--md-accent-fg-color--transparent);
@@ -204,6 +218,7 @@
 .md-typeset .admonition.usage,    .md-typeset details.usage,
 .md-typeset .admonition.workflow,  .md-typeset details.workflow {
   border-color: #d0d0d0;
+  border-left: 3px solid rgba(221, 242, 34, 0.7);
 }
 
 /* Border — dark mode */
@@ -226,6 +241,7 @@
 [data-md-color-scheme="slate"] .md-typeset .admonition.usage,    [data-md-color-scheme="slate"] .md-typeset details.usage,
 [data-md-color-scheme="slate"] .md-typeset .admonition.workflow,  [data-md-color-scheme="slate"] .md-typeset details.workflow {
   border-color: rgba(255, 255, 255, 0.15);
+  border-left: 3px solid rgba(221, 242, 34, 0.6);
 }
 
 /* Title bar background — light mode */
