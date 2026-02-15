@@ -6,19 +6,19 @@
 
 :root {
   --feed-accent: #DDF222;
-  --feed-card-bg: rgba(221, 242, 34, 0.04);
-  --feed-card-bg-hover: rgba(221, 242, 34, 0.08);
-  --feed-card-border: rgba(221, 242, 34, 0.2);
-  --feed-card-border-hover: rgba(221, 242, 34, 0.5);
-  --feed-accent-bar: rgba(221, 242, 34, 0.6);
+  --feed-card-bg: transparent;
+  --feed-card-bg-hover: rgba(0, 0, 0, 0.02);
+  --feed-card-border: rgba(0, 0, 0, 0.08);
+  --feed-card-border-hover: rgba(0, 0, 0, 0.15);
+  --feed-accent-bar: rgba(221, 242, 34, 0.7);
 }
 
 [data-md-color-scheme="slate"] {
-  --feed-card-bg: rgba(221, 242, 34, 0.03);
-  --feed-card-bg-hover: rgba(221, 242, 34, 0.06);
-  --feed-card-border: rgba(221, 242, 34, 0.12);
-  --feed-card-border-hover: rgba(221, 242, 34, 0.35);
-  --feed-accent-bar: rgba(221, 242, 34, 0.5);
+  --feed-card-bg: transparent;
+  --feed-card-bg-hover: rgba(255, 255, 255, 0.03);
+  --feed-card-border: rgba(255, 255, 255, 0.08);
+  --feed-card-border-hover: rgba(255, 255, 255, 0.15);
+  --feed-accent-bar: rgba(221, 242, 34, 0.6);
 }
 
 /* ==========================================================================
@@ -58,7 +58,7 @@
   background: var(--feed-card-bg-hover);
   border-color: var(--feed-card-border-hover);
   border-left-color: var(--feed-accent);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 [data-md-color-scheme="slate"] .feed-teaser__card:hover {
@@ -175,7 +175,7 @@
   background: var(--feed-card-bg-hover);
   border-color: var(--feed-card-border-hover);
   border-left-color: var(--feed-accent);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 [data-md-color-scheme="slate"] .feed-card:hover {
@@ -237,14 +237,14 @@
   font-size: 0.75em;
   padding: 0.2em 0.6em;
   border-radius: 1em;
-  background-color: rgba(221, 242, 34, 0.1);
+  background-color: rgba(0, 0, 0, 0.05);
   color: var(--md-default-fg-color);
   opacity: 0.7;
   align-self: flex-start;
 }
 
 [data-md-color-scheme="slate"] .feed-card__category {
-  background-color: rgba(221, 242, 34, 0.08);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Loading / empty states */
