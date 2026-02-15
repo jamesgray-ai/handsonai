@@ -41,6 +41,9 @@ theme:
 extra_css:
   - assets/stylesheets/custom.css
 
+hooks:
+  - docs/hooks/recent_posts.py
+
 plugins:
   - search
   - blog:
@@ -51,6 +54,17 @@ plugins:
       archive: true
       draft_on_serve: true
       draft_if_future_date: true
+  - rss:
+      match_path: blog/posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+      feed_title: "Hands-on AI Cookbook Changelog"
+      feed_description: "Latest updates from the Hands-on AI Cookbook — new content, plugins, and platform guides."
+      abstract_chars_count: 150
+      abstract_delimiter: "<!-- more -->"
+      use_material_blog: true
   - minify:
       minify_html: true
   - git-revision-date-localized:
@@ -129,6 +143,8 @@ plugins:
         plugins/ai-registry.md: use-the-cookbook/build/ai-registry.md
         # MCP Server → Use the Cookbook / Ask
         mcp-server.md: use-the-cookbook/ask/index.md
+        # What's New → Changelog
+        whats-new.md: blog/index.md
 
 markdown_extensions:
   - admonition
@@ -169,8 +185,7 @@ nav:
       - resources/anthropic-coding-trends.md
       - resources/anthropic-skills-guide.md
     - Learn (Courses): courses/index.md
-  - "What's New": whats-new.md
-  - Blog: blog/index.md
+  - Changelog: blog/index.md
   - Business-First AI Framework:
     - Overview: business-first-ai-framework/index.md
     - Use AI as Your Coach:
@@ -346,6 +361,9 @@ extra:
     provider: google
     property: G-4YB89PWFET
   social:
+    - icon: material/rss
+      link: /feed_rss_created.xml
+      name: Subscribe to Changelog (RSS)
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/jamesgray/
     - icon: fontawesome/solid/newspaper

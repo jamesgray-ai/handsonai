@@ -9,7 +9,11 @@ description: Curated AI knowledge for builders. Apply AI faster. Accelerate busi
 
 This cookbook lives at the intersection of **people, business, and technology** — because real innovation happens when all three move together. It's not just about AI tools. It's about accelerating how you think, how you work, and what you build.
 
+**Built for leaders, professionals, entrepreneurs, and founders** who are ready to get hands-on with AI. You don't need a technical background — just a willingness to roll up your sleeves. That hands-on mindset is what drives real innovation, and this site is designed to make AI practical and accessible so you can start creating value and impact right away.
+
 Practical guides, patterns, ready-made tools, and direct answers — everything you need to move from experimenting with AI to getting real results. Browse by platform, look up a topic, or work through a structured course.
+
+<!-- latest-updates -->
 
 ## Browse the Cookbook
 
@@ -94,8 +98,7 @@ See [What People Built](what-people-built.md) with the cookbook.
 | Explore AI use cases by type | [Use Case Primitives](use-cases/) |
 | Install Claude Code plugins | [Plugin Marketplace](use-the-cookbook/build/) |
 | Take a structured course | [Courses](courses/) |
-| Read the latest blog posts | [Blog](blog/index.md) |
-| See recent updates | [What's New](whats-new.md) |
+| See recent updates | [Changelog](blog/index.md) |
 
 ## About
 

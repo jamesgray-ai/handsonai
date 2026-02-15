@@ -1,8 +1,12 @@
 ---
-title: Blog
-description: Insights, walkthroughs, and updates from the Hands-on AI Cookbook
+title: Changelog
+description: Recent updates to the Hands-on AI Cookbook — new content, plugins, and platform guides.
 ---
 
-# Blog
+# Changelog
 
-Insights, walkthroughs, and updates from the Hands-on AI Cookbook. New posts publish alongside the [Graymatter newsletter](https://graymatter.jamesgray.ai).
+Recent updates to the Hands-on AI Cookbook. Subscribe via RSS to stay current.
+
+[:material-rss: Subscribe via RSS](/feed_rss_created.xml){ .md-button }
+
+For long-form articles and deep dives, visit the [Graymatter newsletter](https://graymatter.jamesgray.ai).

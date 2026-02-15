@@ -26,11 +26,6 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate What's New page
-        run: python scripts/generate_whats_new.py
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Generate syllabus pages
         run: python scripts/generate_syllabi.py
         env:
