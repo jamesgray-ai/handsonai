@@ -20,8 +20,6 @@ These are platform-agnostic concepts. Every major AI platform implements them, t
 !!! tip "Using building blocks for workflow analysis"
     The [Business-First AI Framework](../business-first-ai-framework/index.md) uses these seven blocks as the analysis tool in [Design Your AI Workflow](../business-first-ai-framework/build/design.md), where each step of a workflow gets mapped to the building blocks it needs.
 
-![Agentic AI Building Blocks — the seven components from Model through MCP](../assets/images/agentic-building-blocks.png)
-
 ## Summary
 
 | Block | What It Is | Persistence | Complexity |
