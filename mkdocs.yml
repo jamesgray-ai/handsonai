@@ -40,9 +40,14 @@ theme:
 
 extra_css:
   - assets/stylesheets/custom.css
+  - assets/stylesheets/feed.css
+
+extra_javascript:
+  - assets/javascripts/feed.js
 
 hooks:
   - docs/hooks/recent_posts.py
+  - docs/hooks/feed_teaser.py
 
 plugins:
   - search
@@ -185,6 +190,7 @@ nav:
       - resources/anthropic-coding-trends.md
       - resources/anthropic-skills-guide.md
     - Learn (Courses): courses/index.md
+  - Curated Feed: feed/index.md
   - Changelog: blog/index.md
   - Business-First AI Framework:
     - Overview: business-first-ai-framework/index.md
