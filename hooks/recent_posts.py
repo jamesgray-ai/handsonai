@@ -74,7 +74,10 @@ def on_page_markdown(markdown, page, config, files):
 
     items = []
     for date, title, description, url in entries:
-        date_str = date.strftime("%b %d")
+        if date.hour or date.minute:
+            date_str = date.strftime("%b %d, %-I:%M %p")
+        else:
+            date_str = date.strftime("%b %d")
         desc_html = f'<span style="opacity: 0.75;">{description}</span>' if description else ""
         items.append(
             f'<div style="border-left: 3px solid {BRAND_COLOR}; padding: 0.4em 0 0.4em 1em; margin-bottom: 0.75em;">'
