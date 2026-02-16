@@ -53,11 +53,16 @@
   text-decoration: underline;
   text-decoration-color: rgba(0, 0, 0, 0.2);
   text-underline-offset: 2px;
+  padding: 1px 3px;
+  margin: -1px -3px;
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
 }
 
 .md-typeset a:hover {
   color: var(--md-primary-fg-color);
   text-decoration-color: var(--md-primary-fg-color);
+  background-color: rgba(221, 242, 34, 0.15);
 }
 
 [data-md-color-scheme="slate"] .md-typeset a {
@@ -67,6 +72,7 @@
 [data-md-color-scheme="slate"] .md-typeset a:hover {
   color: #ffffff;
   text-decoration-color: #ffffff;
+  background-color: rgba(221, 242, 34, 0.12);
 }
 
 /* Don't underline nav, header, card, or button links */
