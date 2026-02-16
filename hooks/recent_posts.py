@@ -31,11 +31,19 @@ def _parse_blog_posts(docs_dir):
     for md_file in posts_dir.glob("*.md"):
         text = md_file.read_text(encoding="utf-8")
 
-        # Extract date from frontmatter
-        date_match = re.search(r"^date:\s*(\d{4}-\d{2}-\d{2})", text, re.MULTILINE)
+        # Extract date (with optional time) from frontmatter
+        date_match = re.search(
+            r"^date:\s*(\d{4}-\d{2}-\d{2})(?:T(\d{2}:\d{2}:\d{2}))?",
+            text, re.MULTILINE,
+        )
         if not date_match:
             continue
-        date = datetime.strptime(date_match.group(1), "%Y-%m-%d")
+        date_str = date_match.group(1)
+        time_str = date_match.group(2)
+        if time_str:
+            date = datetime.strptime(f"{date_str}T{time_str}", "%Y-%m-%dT%H:%M:%S")
+        else:
+            date = datetime.strptime(date_str, "%Y-%m-%d")
 
         # Extract description from frontmatter
         desc_match = re.search(r'^description:\s*["\'](.+?)["\']', text, re.MULTILINE)
