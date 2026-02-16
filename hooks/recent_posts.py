@@ -6,6 +6,17 @@ from pathlib import Path
 
 
 PLACEHOLDER = "<!-- latest-updates -->"
+
+
+def _slugify(title):
+    """Convert a post title to a URL slug matching MkDocs Material blog behavior."""
+    slug = title.lower()
+    slug = re.sub(r"[^\w\s-]", "", slug)  # Remove punctuation
+    slug = re.sub(r"[\s_]+", "-", slug)   # Spaces/underscores to hyphens
+    slug = re.sub(r"-+", "-", slug)       # Collapse multiple hyphens
+    return slug.strip("-")
+
+
 MAX_ENTRIES = 5
 BRAND_COLOR = "#DDF222"
 
@@ -34,9 +45,8 @@ def _parse_blog_posts(docs_dir):
         title_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
         title = title_match.group(1).strip() if title_match else md_file.stem
 
-        # MkDocs Material blog generates: blog/<yyyy>/<mm>/<dd>/<slug>/
-        slug = md_file.stem
-        slug = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", slug)
+        # MkDocs Material blog generates slug from the post title, not filename
+        slug = _slugify(title)
         url = f"/blog/{date.strftime('%Y/%m/%d')}/{slug}/"
 
         entries.append((date, title, description, url))

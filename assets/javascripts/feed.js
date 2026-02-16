@@ -5,15 +5,10 @@
 (function () {
   "use strict";
 
-  var container = document.getElementById("feed-container");
-  if (!container) return;
-
-  var filtersEl = document.getElementById("feed-filters");
-  var metaEl = document.getElementById("feed-meta");
-  var gridEl = document.getElementById("feed-grid");
-
   var STORAGE_KEY = "feed-read";
   var FEED_URL = "/assets/data/feed.json";
+
+  var filtersEl, metaEl, gridEl;
 
   // --- Read tracking (localStorage) ---
 
@@ -127,6 +122,11 @@
   // --- Main ---
 
   function init() {
+    filtersEl = document.getElementById("feed-filters");
+    metaEl = document.getElementById("feed-meta");
+    gridEl = document.getElementById("feed-grid");
+    if (!gridEl) return;
+
     gridEl.textContent = "";
     gridEl.appendChild(el("p", "feed-loading", "Loading feed..."));
 
@@ -187,10 +187,10 @@
       });
   }
 
-  // MkDocs Material instant navigation: re-run on page change
+  // MkDocs Material instant navigation: re-run on every page change
   if (typeof document$ !== "undefined") {
     document$.subscribe(function () {
-      if (document.getElementById("feed-container")) init();
+      init();
     });
   } else {
     init();
