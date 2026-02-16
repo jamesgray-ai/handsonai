@@ -117,11 +117,6 @@
       card.appendChild(header);
 
       card.appendChild(el("div", "feed-card__title", item.title));
-
-      if (item.excerpt) {
-        card.appendChild(el("div", "feed-card__excerpt", item.excerpt));
-      }
-
       card.appendChild(el("span", "feed-card__category", item.category));
       cardsDiv.appendChild(card);
     });
