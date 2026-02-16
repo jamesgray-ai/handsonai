@@ -1,7 +1,8 @@
 """MkDocs hook to inject recent changelog entries into the homepage."""
 
 import re
-from datetime import datetime
+import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -15,6 +16,22 @@ def _slugify(title):
     slug = re.sub(r"[\s_]+", "-", slug)   # Spaces/underscores to hyphens
     slug = re.sub(r"-+", "-", slug)       # Collapse multiple hyphens
     return slug.strip("-")
+
+
+def _git_commit_datetime(file_path):
+    """Get the first (oldest) commit datetime for a file, as local time."""
+    try:
+        result = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--follow", "--format=%aI", "--", str(file_path)],
+            capture_output=True, text=True, timeout=5,
+        )
+        lines = result.stdout.strip().splitlines()
+        if lines:
+            # Last line is the first commit (oldest); use it as the publish time
+            return datetime.fromisoformat(lines[-1])
+    except (subprocess.TimeoutExpired, OSError):
+        pass
+    return None
 
 
 MAX_ENTRIES = 5
@@ -31,19 +48,19 @@ def _parse_blog_posts(docs_dir):
     for md_file in posts_dir.glob("*.md"):
         text = md_file.read_text(encoding="utf-8")
 
-        # Extract date (with optional time) from frontmatter
-        date_match = re.search(
-            r"^date:\s*(\d{4}-\d{2}-\d{2})(?:T(\d{2}:\d{2}:\d{2}))?",
-            text, re.MULTILINE,
-        )
+        # Extract date from frontmatter (used for URL path and as fallback)
+        date_match = re.search(r"^date:\s*(\d{4}-\d{2}-\d{2})", text, re.MULTILINE)
         if not date_match:
             continue
-        date_str = date_match.group(1)
-        time_str = date_match.group(2)
-        if time_str:
-            date = datetime.strptime(f"{date_str}T{time_str}", "%Y-%m-%dT%H:%M:%S")
+        frontmatter_date = datetime.strptime(date_match.group(1), "%Y-%m-%d")
+
+        # Use git commit timestamp for precise ordering and display
+        git_dt = _git_commit_datetime(md_file)
+        if git_dt:
+            # Strip timezone info for consistent display
+            display_date = git_dt.replace(tzinfo=None)
         else:
-            date = datetime.strptime(date_str, "%Y-%m-%d")
+            display_date = frontmatter_date
 
         # Extract description from frontmatter
         desc_match = re.search(r'^description:\s*["\'](.+?)["\']', text, re.MULTILINE)
@@ -53,11 +70,11 @@ def _parse_blog_posts(docs_dir):
         title_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
         title = title_match.group(1).strip() if title_match else md_file.stem
 
-        # MkDocs Material blog generates slug from the post title, not filename
+        # MkDocs Material blog generates URL from frontmatter date + title slug
         slug = _slugify(title)
-        url = f"/blog/{date.strftime('%Y/%m/%d')}/{slug}/"
+        url = f"/blog/{frontmatter_date.strftime('%Y/%m/%d')}/{slug}/"
 
-        entries.append((date, title, description, url))
+        entries.append((display_date, title, description, url))
 
     entries.sort(key=lambda e: e[0], reverse=True)
     return entries[:MAX_ENTRIES]
