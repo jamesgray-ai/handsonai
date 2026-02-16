@@ -1,36 +1,24 @@
 """MkDocs hook to inject curated feed teaser into the homepage.
 
-Renders a row per Inoreader folder, each showing up to 4 items as horizontal cards.
+Renders the 6 most recent items as a flat grid with category badges.
 """
 
 import html
 import json
-from collections import OrderedDict
 from pathlib import Path
 
 PLACEHOLDER = "<!-- curated-feed -->"
-ITEMS_PER_FOLDER = 4
+TEASER_COUNT = 6
 
 
-def _load_feed_data(docs_dir):
-    """Load feed.json and return (categories, items) grouped by folder."""
+def _load_feed_items(docs_dir):
+    """Load feed.json and return the first TEASER_COUNT items."""
     feed_path = Path(docs_dir) / "assets" / "data" / "feed.json"
     if not feed_path.is_file():
-        return {}
+        return []
 
     data = json.loads(feed_path.read_text(encoding="utf-8"))
-    items = data.get("items", [])
-
-    # Group items by category, preserving order from JSON (newest first)
-    grouped = OrderedDict()
-    for item in items:
-        cat = item.get("category", "Other")
-        if cat not in grouped:
-            grouped[cat] = []
-        if len(grouped[cat]) < ITEMS_PER_FOLDER:
-            grouped[cat].append(item)
-
-    return grouped
+    return data.get("items", [])[:TEASER_COUNT]
 
 
 def _time_ago(iso_string):
@@ -51,53 +39,42 @@ def _time_ago(iso_string):
 
 
 def on_page_markdown(markdown, page, config, files):
-    """Replace the curated-feed placeholder with a row-per-folder layout."""
+    """Replace the curated-feed placeholder with a flat grid of recent items."""
     if PLACEHOLDER not in markdown:
         return markdown
 
-    grouped = _load_feed_data(config["docs_dir"])
-    if not grouped:
+    items = _load_feed_items(config["docs_dir"])
+    if not items:
         return markdown.replace(PLACEHOLDER, "")
 
-    sections = []
-    for category, items in grouped.items():
-        cat_escaped = html.escape(category)
+    cards = '<div class="feed-teaser__row">\n'
+    for item in items:
+        title = html.escape(item.get("title", "Untitled"))
+        url = html.escape(item.get("url", "#"))
+        source = html.escape(item.get("source", ""))
+        category = html.escape(item.get("category", ""))
+        time_str = _time_ago(item.get("published", ""))
 
-        # Folder header with "View all" link
-        section = (
-            f'<div style="display: flex; align-items: baseline; justify-content: space-between;">'
-            f'<h3 class="feed-teaser__heading">{cat_escaped}</h3>'
-            f'<a href="/feed/?category={cat_escaped}" '
-            f'style="font-size: 0.82em; opacity: 0.6; white-space: nowrap;">View all &rarr;</a>'
-            f'</div>\n'
+        cards += (
+            f'<a href="{url}" target="_blank" rel="noopener" '
+            f'class="feed-teaser__card">'
         )
-        section += '<div class="feed-teaser__row">\n'
+        if category:
+            cards += f'<span class="feed-teaser__category">{category}</span>'
+        cards += f'<span class="feed-teaser__meta">{source}'
+        if time_str:
+            cards += f" &middot; {time_str}"
+        cards += "</span>"
+        cards += f'<span class="feed-teaser__title">{title}</span>'
+        cards += "</a>\n"
 
-        for item in items:
-            title = html.escape(item.get("title", "Untitled"))
-            url = html.escape(item.get("url", "#"))
-            source = html.escape(item.get("source", ""))
-            time_str = _time_ago(item.get("published", ""))
-
-            section += (
-                f'<a href="{url}" target="_blank" rel="noopener" '
-                f'class="feed-teaser__card">'
-                f'<span class="feed-teaser__meta">{source}'
-            )
-            if time_str:
-                section += f" &middot; {time_str}"
-            section += "</span>"
-            section += f'<span class="feed-teaser__title">{title}</span>'
-            section += "</a>\n"
-
-        section += "</div>\n"
-        sections.append(section)
+    cards += "</div>\n"
 
     teaser_html = (
         '<h2 id="curated-feed">Curated AI Feed</h2>\n'
         '<p style="opacity: 0.7;">I follow dozens of AI sources so you don\'t have to. '
         "Here's what matters most right now.</p>\n"
-        + "\n".join(sections)
+        + cards
         + '\n<p><a href="/feed/" style="font-weight: 600;">View full feed &rarr;</a></p>\n'
     )
 
