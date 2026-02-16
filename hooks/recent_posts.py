@@ -54,11 +54,11 @@ def _parse_blog_posts(docs_dir):
             continue
         frontmatter_date = datetime.strptime(date_match.group(1), "%Y-%m-%d")
 
-        # Use git commit timestamp for precise ordering and display
+        # Use git commit timestamp converted to UTC for precise ordering and display
         git_dt = _git_commit_datetime(md_file)
         if git_dt:
-            # Strip timezone info for consistent display
-            display_date = git_dt.replace(tzinfo=None)
+            utc_dt = git_dt.astimezone(timezone.utc).replace(tzinfo=None)
+            display_date = utc_dt
         else:
             display_date = frontmatter_date
 
@@ -92,7 +92,7 @@ def on_page_markdown(markdown, page, config, files):
     items = []
     for date, title, description, url in entries:
         if date.hour or date.minute:
-            date_str = date.strftime("%b %d, %-I:%M %p")
+            date_str = date.strftime("%b %d, %-I:%M %p") + " UTC"
         else:
             date_str = date.strftime("%b %d")
         desc_html = f'<span style="opacity: 0.75;">{description}</span>' if description else ""
