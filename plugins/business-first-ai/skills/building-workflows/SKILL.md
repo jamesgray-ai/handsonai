@@ -99,15 +99,15 @@ Take a Workflow Definition and produce the Build deliverables: an AI Building Bl
    1. Create context (from Context Inventory)
    2. Build skills for tagged candidates
    3. Connect external tools with MCP (from Tools and Connectors section)
-   4. Build the agent (Claude: auto-generate agent .md from agent config; other platforms: configure using the blueprint)
+   4. Build the agent (Claude: auto-generate agent .md from agent config; other platforms: see step 14 for platform-specific implementation)
    5. → Run
 
    **Multi-Agent pattern:**
    1. Create context (from Context Inventory)
    2. Build skills for tagged candidates
    3. Connect external tools with MCP (from Tools and Connectors section)
-   4. Build each specialist agent (Claude: auto-generate agent .md files)
-   5. Build the orchestrator (Claude: auto-generate orchestrator agent)
+   4. Build each specialist agent (Claude: auto-generate agent .md files; other platforms: see step 14 for platform-specific implementation)
+   5. Build the orchestrator (Claude: auto-generate orchestrator agent; other platforms: see step 14 for orchestration setup)
    6. → Run
 
 9. **Check for existing skills** — Ask: "Did you build any skills for this workflow? If yes, list each skill name and which steps it covers." If skills exist, note them for prompt generation.
@@ -115,7 +115,35 @@ Take a Workflow Definition and produce the Build deliverables: an AI Building Bl
 11. **Generate Baseline Workflow Prompt** — Produce a ready-to-use, self-contained prompt and write to `outputs/[workflow-name]-prompt.md`. For any step covered by a skill, replace inline instructions with a brief description. Keep full instructions only for steps NOT covered by a skill.
 12. **Auto-generate skills** (Claude platform, Skill-Powered/Agent patterns) — For each skill candidate, generate a `SKILL.md` file in `.claude/skills/[skill-name]/SKILL.md` based on the skill candidate specs from the Design phase.
 13. **Auto-generate agent files** (Claude platform, Agent patterns) — For each agent documented in the Design phase, generate an agent `.md` file in `.claude/agents/[agent-name].md` based on the agent configuration.
-14. **Write SOP to Notion (if available)** — After the prompt is generated, check if the Notion MCP server is accessible AND this workflow was registered during the Deconstruct step. If so, offer to write the workflow SOP to the Notion page.
+14. **Platform-specific implementation guide** (Agent patterns, non-Claude platforms) — If the execution pattern is Single Agent or Multi-Agent AND the user is not building on Claude, ask:
+    - "Which platform are you building on?" (OpenAI, Google Gemini, M365 Copilot)
+    - "Do you prefer a GUI-based or code-based approach?"
+
+    Then generate `outputs/[workflow-name]-implementation-guide.md` containing:
+
+    **GUI path** — For each agent, numbered steps showing where each blueprint component goes in the platform's visual builder:
+    - OpenAI AgentKit: Agent name, Settings > Description, Instructions node, Model dropdown, Tool nodes
+    - Google Agent Designer: Agent name, description, Chat pane instructions, model settings, tool connections
+    - Google Workspace Studio: Workflow name, description, prompt field, connectors
+    - M365 Copilot Studio: Agent name, description, Instructions section, Actions section
+
+    **Code path** — For each agent, ready-to-use code/config:
+    - OpenAI Agents SDK: Python using `from agents import Agent` with `name`, `instructions`, `model`, `tools`
+    - Google ADK: Python using `from google.adk.agents import Agent` with `name`, `instruction` (singular), `model`, `tools`
+    - M365 Copilot: JSON declarative agent manifest with `name`, `description`, `instructions`, `capabilities`
+
+    **Multi-agent orchestration** (if applicable):
+    - OpenAI: `handoffs` parameter or AgentKit canvas connections
+    - Google ADK: `sub_agents` parameter
+    - M365 Copilot: Agent-to-agent communication or Copilot Studio workflow connections
+
+    Include links to the cookbook's platform-specific building-agents guide and official platform docs.
+
+    Tell the user: "Platform implementation guide saved to `outputs/[workflow-name]-implementation-guide.md`."
+
+    If the user IS building on Claude, skip this step — Claude agents were already generated in step 13.
+
+15. **Write SOP to Notion (if available)** — After the prompt is generated, check if the Notion MCP server is accessible AND this workflow was registered during the Deconstruct step. If so, offer to write the workflow SOP to the Notion page.
 
 ## Outputs
 
@@ -146,6 +174,14 @@ Structure:
 - **Where to Run** — Normal chat vs. project recommendation
 
 The prompt must be: self-contained, specific, version-control ready, team-adoption ready.
+
+### Optional: `outputs/[workflow-name]-implementation-guide.md` — Platform Implementation Guide (non-Claude agent patterns)
+
+For agent-based workflows on non-Claude platforms. Contains:
+- GUI walkthrough: step-by-step field mapping for the platform's visual builder
+- Code implementation: agent configs in the platform's native format (Python, JSON)
+- Multi-agent orchestration setup (if applicable)
+- Links to cookbook platform guide and official docs
 
 ### Optional: Skills and Agent files (Claude platform)
 

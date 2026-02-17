@@ -51,6 +51,18 @@ Workspace Studio is Google's natural-language automation platform built into Wor
 | **Model** | Gemini (built-in, not configurable) |
 | **Tools** | Workspace app actions and third-party connectors |
 
+### Example: Implementing your Design blueprint
+
+Here's how a research analyst agent from the Design phase maps to Workspace Studio:
+
+1. **Name** → Enter the workflow name (e.g., "Company Research Brief") when creating a new automation
+2. **Description** → Describe what the automation does: "Researches a company and produces a structured brief in Google Docs"
+3. **Instructions** → In the prompt field, describe the full workflow in natural language: "When I provide a company name, search for the company, find recent news and key products, then create a Google Doc with a structured brief containing: company overview, key products/services, recent news, and relevant insights."
+4. **Model** → Gemini is built-in and not configurable — Workspace Studio uses the default Gemini model
+5. **Tools** → Workspace Studio auto-connects Workspace apps. Add third-party connectors (Jira, Salesforce) from the connectors menu if your workflow needs them
+
+Workspace Studio is best suited for the **Prompt** execution pattern — describe what you want, Gemini generates the automation, and you refine it conversationally.
+
 ## Agent Designer
 
 Agent Designer is a no-code, low-code platform within Gemini Enterprise for building AI agents using natural language and a visual workflow editor.
@@ -86,6 +98,18 @@ The interface has two main sections:
 | **Instructions** | Natural language instructions in the chat pane, refined conversationally |
 | **Model** | Gemini model selection (configured in the Designer) |
 | **Tools** | Google and third-party tool connections (Gmail, Drive, Jira, etc.) |
+
+### Example: Implementing your Design blueprint
+
+Here's how a research analyst agent from the Design phase maps to Agent Designer:
+
+1. **Name** → Enter `research-analyst` as the agent name when creating a new agent
+2. **Description** → Add the agent's purpose in the description field: "Researches companies and produces structured briefs"
+3. **Instructions** → In the **Chat pane**, describe your agent: "You are a research analyst who investigates companies. Search for the company, visit key pages, and summarize findings with sections for company overview, key products/services, recent news, and relevant insights." Refine conversationally until the agent behavior matches your blueprint.
+4. **Model** → Select the Gemini model version in the **Designer pane** settings (e.g., Gemini 2.0 Flash for speed, Gemini 2.5 Pro for complex reasoning)
+5. **Tools** → In the **Designer pane**, connect tools — add Google Search for web research, Gmail for email actions, or Jira for issue tracking
+
+For multi-agent workflows, create a primary agent and add subagents in the Designer pane. Each subagent gets its own name, instructions, and tools. The primary agent coordinates by delegating tasks to subagents based on your orchestration pattern.
 
 ## Agent Development Kit (ADK)
 
@@ -132,6 +156,53 @@ ADK agents can use:
 | **Instructions** | Agent instructions defined programmatically |
 | **Model** | Model configuration (Gemini recommended, others supported) |
 | **Tools** | Built-in tools, Google Cloud tools, MCP tools, or custom integrations |
+
+### Example: Implementing your Design blueprint
+
+Here's how a research analyst agent from the Design phase looks in the ADK:
+
+```python
+from google.adk.agents import Agent
+from google.adk.tools import google_search
+
+research_agent = Agent(
+    name="research_analyst",
+    model="gemini-2.0-flash",
+    instruction=(  # Note: ADK uses "instruction" (singular), not "instructions"
+        "You are a research analyst who investigates companies "
+        "and produces structured briefs. Search for the company, "
+        "visit key pages, and summarize findings with sections for: "
+        "company overview, key products/services, recent news, "
+        "and relevant insights."
+    ),
+    tools=[google_search],
+)
+```
+
+!!! warning "ADK naming difference"
+    ADK uses `instruction` (singular), not `instructions` (plural). This is a common source of errors when translating from other platforms.
+
+For multi-agent workflows, use the `sub_agents` parameter:
+
+```python
+from google.adk.agents import Agent
+
+writer_agent = Agent(
+    name="brief_writer",
+    model="gemini-2.0-flash",
+    instruction="You write structured company briefs from research notes...",
+)
+
+research_agent = Agent(
+    name="research_analyst",
+    model="gemini-2.0-flash",
+    instruction="You research companies. After gathering findings, delegate to the writer...",
+    tools=[google_search],
+    sub_agents=[writer_agent],
+)
+```
+
+**Official reference:** [ADK quickstart](https://docs.cloud.google.com/agent-builder/agent-development-kit/quickstart)
 
 ## What's Next
 

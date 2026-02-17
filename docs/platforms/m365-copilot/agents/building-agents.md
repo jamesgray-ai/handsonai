@@ -66,6 +66,38 @@ Declarative agents run within Microsoft 365 Copilot and Microsoft 365 apps — T
 | **Model** | Copilot's built-in foundation models (not configurable) |
 | **Tools** | Custom actions (API integrations) + custom knowledge (Microsoft 365 data sources, connectors) |
 
+### Example: Implementing your Design blueprint (Copilot Studio)
+
+Here's how a research analyst agent from the Design phase maps to Copilot Studio's visual builder:
+
+1. **Name** → Enter `Research Analyst` as the agent name when creating a new declarative agent
+2. **Description** → Add the agent's scenario description: "Researches companies and produces structured briefs for the team"
+3. **Instructions** → In the **Instructions** section, paste your agent instructions: "You are a research analyst who investigates companies and produces structured briefs. When asked about a company, search for information and summarize findings with sections for: company overview, key products/services, recent news, and relevant insights."
+4. **Model** → Copilot's built-in foundation models are used automatically — no model selection needed
+5. **Tools** → In the **Actions** section, add connectors: enable **Web Search** for research, add **SharePoint** knowledge sources for internal data, or configure **API plugins** for external system access
+
+### Example: Implementing your Design blueprint (JSON manifest)
+
+For developers using the Microsoft 365 Agents Toolkit, the same agent is defined as a declarative JSON manifest:
+
+```json
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+  "name": "Research Analyst",
+  "description": "Researches companies and produces structured briefs",
+  "instructions": "You are a research analyst who investigates companies and produces structured briefs. When asked about a company, search for information and summarize findings with sections for: company overview, key products/services, recent news, and relevant insights.",
+  "capabilities": [
+    { "name": "WebSearch" }
+  ],
+  "conversation_starters": [
+    { "text": "Research Acme Corp and write a brief" },
+    { "text": "What can you tell me about Contoso Ltd?" }
+  ]
+}
+```
+
+To add knowledge sources (SharePoint, OneDrive) or API actions, add them to the manifest's `capabilities` and `actions` arrays. See the [Agents Toolkit documentation](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-toolkit-overview) for the full schema.
+
 ## Custom Engine Agents
 
 Custom engine agents are fully customized AI assistants. You bring your own orchestrator, choose your own models, and host the agent outside of Microsoft 365. This gives you full control over workflows, business logic, and integrations — but you're responsible for compliance, security, and hosting.

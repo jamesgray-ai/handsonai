@@ -63,6 +63,18 @@ Business-oriented users who want to create agent workflows visually. AgentKit br
 | **Model** | Model selection in the Builder |
 | **Tools** | Tool nodes connected in the visual workflow |
 
+### Example: Implementing your Design blueprint
+
+Here's how a research analyst agent from the Design phase maps to AgentKit's Agent Builder interface:
+
+1. **Name** → Enter `research-analyst` in the **Agent name** field at the top of the Builder
+2. **Description** → Open **Settings** and add the agent's purpose in the **Description** field: "Researches companies and produces structured briefs"
+3. **Instructions** → Click the **Instructions** node on the canvas and paste your agent instructions: "You are a research analyst who investigates companies and produces structured briefs. Search for the company, visit key pages, and summarize findings."
+4. **Model** → In **Settings**, select `gpt-4o` from the **Model** dropdown
+5. **Tools** → Drag **Tool** nodes onto the canvas and connect them to your agent — add **Web Search** for research and **Code Interpreter** for data analysis
+
+For multi-agent workflows, add additional agent nodes to the canvas and connect them with handoff edges. Each agent gets its own instructions, model, and tools. The canvas visually represents the orchestration flow.
+
 ## Agents SDK
 
 The Agents SDK is a developer library for building agentic applications with full programmatic control. Agents can use tools, hand off to other specialized agents, stream partial results, and maintain execution traces.
@@ -95,6 +107,51 @@ The Agents SDK is a developer library for building agentic applications with ful
 | **Tools** | Tool definitions and integrations |
 
 For multi-agent workflows, the SDK's handoff mechanism maps directly to the agent handoffs defined in your Design blueprint.
+
+### Example: Implementing your Design blueprint
+
+Here's how a research analyst agent from the Design phase looks in the Agents SDK:
+
+```python
+from agents import Agent, Runner
+from agents.tool import WebSearchTool
+
+research_agent = Agent(
+    name="research-analyst",
+    instructions=(
+        "You are a research analyst who investigates companies "
+        "and produces structured briefs. Search for the company, "
+        "visit key pages, and summarize findings with sections for: "
+        "company overview, key products/services, recent news, "
+        "and relevant insights."
+    ),
+    model="gpt-4o",
+    tools=[WebSearchTool()],
+)
+
+result = Runner.run_sync(research_agent, "Research Acme Corp")
+print(result.final_output)
+```
+
+For multi-agent workflows, use the `handoffs` parameter to let agents delegate to each other:
+
+```python
+writer_agent = Agent(
+    name="brief-writer",
+    instructions="You write structured company briefs from research notes...",
+    model="gpt-4o",
+)
+
+research_agent = Agent(
+    name="research-analyst",
+    instructions="You research companies. After gathering findings, hand off to the writer...",
+    model="gpt-4o",
+    tools=[WebSearchTool()],
+    handoffs=[writer_agent],
+)
+```
+
+**Official reference:** [Agents SDK quickstart](https://developers.openai.com/api/docs/guides/agents-sdk)
 
 ## Frontier
 
