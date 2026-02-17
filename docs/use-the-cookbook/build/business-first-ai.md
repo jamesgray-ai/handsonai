@@ -112,7 +112,7 @@ Agents activate automatically in Claude Code when your prompt matches. In Cowork
 
 1. **Discover** (`discovering-workflows`) — Audit your workflows, interview you about your work, and produce an opportunity report with structured candidates. If you already know which workflow to deconstruct, this step is brief.
 2. **Deconstruct** (`deconstructing-workflows`) — Interactive deep-dive that decomposes the workflow into refined steps using the 5-question framework. Produces the Workflow Definition.
-3. **Build** (`building-workflows`) — Design phase: choose an execution pattern, classify steps, map building blocks, identify skill candidates, configure agents. Construct phase: generate the Baseline Workflow Prompt and auto-generate skills/agents on the Claude platform.
+3. **Build** (`building-workflows`) — Design phase: choose an execution pattern, classify steps, map building blocks, identify skill candidates, configure agents. Construct phase: generate the Baseline Workflow Prompt, auto-generate skills/agents on the Claude platform, and produce a platform-specific implementation guide for non-Claude platforms (OpenAI, Gemini, M365 Copilot).
 
 Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/lead-qualification-definition.md`).
 
@@ -237,7 +237,7 @@ Design your AI implementation and construct the workflow.
 
 **Command:** `/business-first-ai:build-workflow`
 
-**What it does:** Takes a Workflow Definition and runs the full Build process: Design (execution pattern, autonomy classification, building block mapping, skill candidates, agent configuration) and Construct (Baseline Workflow Prompt, auto-generated skills and agents on Claude). This is the Build step.
+**What it does:** Takes a Workflow Definition and runs the full Build process: Design (execution pattern, autonomy classification, building block mapping, skill candidates, agent configuration) and Construct (Baseline Workflow Prompt, auto-generated skills and agents on Claude, platform-specific implementation guide for non-Claude platforms). This is the Build step.
 
 **When to use it:** Use this when you have a Workflow Definition (from the Deconstruct step) and want to design and build your AI workflow. The Design phase produces the AI Building Block Spec; the Construct phase generates everything you need to run the workflow.
 
@@ -258,6 +258,7 @@ Design your AI implementation and construct the workflow.
 8. **Pattern-specific build path** — Only the steps relevant to your chosen execution pattern
 9. **Generate Baseline Workflow Prompt** — Self-contained, ready-to-use prompt
 10. **Auto-generate skills and agents** (Claude platform) — SKILL.md and agent .md files from the Design output
+11. **Platform-specific implementation guide** (non-Claude agent patterns) — GUI walkthroughs and code examples for OpenAI, Gemini, or M365 Copilot
 
 **Example prompts:**
 
@@ -273,6 +274,7 @@ Design your AI implementation and construct the workflow.
 
 - **AI Building Block Spec** (`outputs/[name]-building-block-spec.md`) — execution pattern, step classifications, skill candidates, agent configs, implementation order
 - **Baseline Workflow Prompt** (`outputs/[name]-prompt.md`) — self-contained prompt you can run immediately
+- **Platform Implementation Guide** (`outputs/[name]-implementation-guide.md`, when applicable) — GUI walkthrough and code/config for your chosen platform
 - **Skills** (`.claude/skills/*/SKILL.md`) — auto-generated on Claude platform when applicable
 - **Agents** (`.claude/agents/*.md`) — auto-generated on Claude platform when applicable
 
