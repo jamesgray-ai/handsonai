@@ -389,7 +389,19 @@
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/courses/builders/lessons/apply-cowork-to-knowledge-work-tasks/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-and-ship-features-with-claude-code/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/build-and-test-a-collaborative-ai-workflow/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/build-and-test-a-deterministic-automated-workflow/</loc>
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
@@ -402,6 +414,14 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-your-first-claude-code-subagent/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/build-your-personal-cowork-task-library/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/compare-workflow-patterns-and-plan-your-workflow-portfolio/</loc>
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
@@ -433,7 +453,19 @@
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/builders/lessons/deploy-your-application-to-production/</loc>
+         <loc>https://handsonai.info/courses/builders/lessons/deploy-your-application-prototype-to-production/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/design-a-collaborative-workflow-with-the-build-framework/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/design-a-deterministic-workflow-with-the-build-framework/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/design-a-product-vision-brief-with-claude-code/</loc>
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
@@ -441,7 +473,11 @@
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/builders/lessons/develop-product-requirement-documents-from-business-ideas/</loc>
+         <loc>https://handsonai.info/courses/builders/lessons/develop-product-requirement-documents-from-vision-briefs/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/distinguish-deterministic-and-collaborative-workflow-patterns/</loc>
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
@@ -477,35 +513,15 @@
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/builders/lessons/lesson-61-automate-web-tasks-with-claude-in-chrome/</loc>
-         <lastmod>2026-02-18</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/lesson-62-build-complete-browser-automation-workflows/</loc>
-         <lastmod>2026-02-18</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/lesson-63-implement-scheduled-and-event-driven-workflows/</loc>
-         <lastmod>2026-02-18</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/lesson-91-choose-your-capstone-project-focus/</loc>
-         <lastmod>2026-02-18</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/lesson-92-design-capstone-implementation-plan/</loc>
-         <lastmod>2026-02-18</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/lesson-93-collaborate-with-claude-cowork-bonus/</loc>
-         <lastmod>2026-02-18</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/courses/builders/lessons/set-up-your-ai-workflow-registry/</loc>
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/ship-your-skills-for-reuse/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/builders/lessons/understand-how-cowork-delegates-tasks-to-claude/</loc>
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
@@ -918,6 +934,10 @@
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/</loc>
+         <lastmod>2026-02-18</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/product-engineering/architecture-decisions/</loc>
          <lastmod>2026-02-18</lastmod>
     </url>
     <url>
