@@ -60,6 +60,8 @@ plugins:
       draft_on_serve: true
       draft_if_future_date: true
   - rss:
+      feeds_filenames:
+        rss_created: rss.xml
       match_path: blog/posts/.*
       date_from_meta:
         as_creation: date
@@ -395,7 +397,7 @@ extra:
     property: G-4YB89PWFET
   social:
     - icon: material/rss
-      link: /feed_rss_created.xml
+      link: /rss.xml
       name: Subscribe to Changelog (RSS)
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/jamesgray/

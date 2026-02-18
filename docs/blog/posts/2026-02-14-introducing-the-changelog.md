@@ -15,7 +15,7 @@ The Hands-on AI Cookbook now has a dedicated **Changelog** and a new **MCP serve
 
 ## Changelog with RSS
 
-Subscribe via [RSS](/feed_rss_created.xml) to get updates in your feed reader, or check the [Changelog](/blog/) anytime. Updates also post to Slack for active cohort members.
+Subscribe via [RSS](/rss.xml) to get updates in your feed reader, or check the [Changelog](/blog/) anytime. Updates also post to Slack for active cohort members.
 
 This replaces the old "What's New" page with something more intentional — short, curated entries that tell you what changed and why it matters.
 
