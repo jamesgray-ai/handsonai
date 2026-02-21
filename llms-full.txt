@@ -345,9 +345,9 @@
 - URL: https://handsonai.info/builder-setup/terminal-basics/
 - Summary: Introduction to the command line for beginners. Covers opening the terminal on macOS and Windows, essential commands (pwd, ls, cd, mkdir), paths, tab completion, and the integrated terminal in Cursor/VS Code.
 
-### Claude Code Installation
-- URL: https://handsonai.info/builder-setup/claude-code-install/
-- Summary: Complete setup guide for Claude Code — VS Code extension installation, CLI installation on macOS/Linux/Windows, PATH configuration, authentication, verification, and essential commands reference.
+### CLI Setup Guide
+- URL: https://handsonai.info/builder-setup/cli/
+- Summary: Setup guide for developer CLIs — Claude Code, OpenAI Codex CLI, Gemini CLI, and GitHub CLI. Covers installation on macOS/Linux/Windows, PATH configuration, authentication, and verification.
 
 ### Editor Setup
 - URL: https://handsonai.info/builder-setup/editor-setup/

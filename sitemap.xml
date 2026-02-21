@@ -225,7 +225,7 @@
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/builder-setup/claude-code-install/</loc>
+         <loc>https://handsonai.info/builder-setup/cli/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
@@ -513,10 +513,6 @@
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/agentic-system-tracing/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-agent-capability-patterns/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
@@ -609,11 +605,11 @@
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/configure-ai-memory-systems-2/</loc>
+         <loc>https://handsonai.info/courses/leaders/lessons/configure-ai-memory-systems/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/configure-ai-memory-systems/</loc>
+         <loc>https://handsonai.info/courses/leaders/lessons/configure-ai-powered-code-editor-2/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
@@ -622,18 +618,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/configure-claude-personalization-and-memory-settings/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/configure-voice-to-text-for-ai-collaboration/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/configure-your-ai-code-editor/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/configure-your-ai-personalization-settings-2/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
@@ -646,10 +630,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/course-takeways-and-your-next-steps/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/course-wrap-up-next-steps/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
@@ -681,15 +661,19 @@
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/courses/leaders/lessons/implement-version-control-for-your-ai-building-blocks-2/</loc>
+         <lastmod>2026-02-21</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/courses/leaders/lessons/implement-version-control-for-your-ai-building-blocks/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/implement-voice-to-text-for-hands-free-ai-collaboration/</loc>
+         <loc>https://handsonai.info/courses/leaders/lessons/implement-voice-to-text-for-hands-free-ai-collaboration-2/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/monitor-and-manage-agentic-systems/</loc>
+         <loc>https://handsonai.info/courses/leaders/lessons/implement-voice-to-text-for-hands-free-ai-collaboration/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
@@ -706,10 +690,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/understand-the-agentic-ai-landscape-and-ai-building-blocks/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/version-control-your-ai-assets/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>

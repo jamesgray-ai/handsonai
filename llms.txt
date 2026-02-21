@@ -53,7 +53,7 @@
 
 ## Builder Setup
 - Terminal Basics: https://handsonai.info/builder-setup/terminal-basics/
-- Claude Code Installation: https://handsonai.info/builder-setup/claude-code-install/
+- CLI Setup Guide: https://handsonai.info/builder-setup/cli/
 - Editor Setup: https://handsonai.info/builder-setup/editor-setup/
 - Git Installation: https://handsonai.info/builder-setup/git-install/
 - GitHub Setup: https://handsonai.info/builder-setup/github-setup/
