@@ -44,7 +44,7 @@
 
 ## Use the Cookbook
 - Overview: https://handsonai.info/use-the-cookbook/
-- MCP Server: https://handsonai.info/use-the-cookbook/ask/
+- MCP Server: https://handsonai.info/mcp-server/
 - Build (Plugins):
   - Marketplace: https://handsonai.info/use-the-cookbook/build/
   - Using Plugins: https://handsonai.info/use-the-cookbook/build/using-plugins/

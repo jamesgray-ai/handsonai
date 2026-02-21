@@ -316,7 +316,7 @@
 - Summary: Three ways to use the cookbook: MCP Server (for instant answers), Build (install pre-built plugins), and Learn (structured cohort courses).
 
 ### MCP Server
-- URL: https://handsonai.info/use-the-cookbook/ask/
+- URL: https://handsonai.info/mcp-server/
 - Summary: Connect to the Hands-on AI Cookbook MCP server from Claude, ChatGPT, Claude Code, or any MCP-compatible tool. Get cookbook-informed answers directly in your AI tools — no API keys required.
 
 ### Build (Plugins)
