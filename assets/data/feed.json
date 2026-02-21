@@ -1,11 +1,91 @@
 {
-  "updated": "2026-02-21T01:17:00.202398+00:00",
+  "updated": "2026-02-21T05:01:26.542261+00:00",
   "categories": [
     "Claude",
     "Google",
     "Microsoft"
   ],
   "items": [
+    {
+      "title": "Agentic AI Transforms Chip Design Engineering - Design News",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQblJDMHBvMmdyWVlvejBQVGQzUHowWE5vWTNQZXZSZkpvcnJDVjhYUVhCczhYeEJPcFRPcDhicjlfeVNMY1d6NDl4VWpqWWQzYl9SNUYxejVzZGZfTkFXLUlwZ3lncjRUc0dwV2lvVnZ6TUotb2JSRHhjejlWeVZFTDVfSlpFbUtBNGtBd1otdUg?oc=5",
+      "source": "artificial intelligence - Google News",
+      "published": "2026-02-21T03:46:50+00:00",
+      "category": "Google",
+      "excerpt": "Agentic AI Transforms Chip Design Engineering Design News"
+    },
+    {
+      "title": "Oklahoma lawmakers debate AI restrictions to protect children - KSWO 7News",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPZE1pMHRFbFRPUWh2Y0pDR05iWkhWMVhnbzFsbnI4R2R2ZXp1MlR5WnRWb1daMERhUnRKVWlpS2NIbE5jUHRkVkRpODI0eUx3WmpreW1FOWJ5bDBuUU5KN0oxUTRBaC01bjA4Zk5SN0xXbG85enhpSGVQTlA2cWo4QzhaZ3owR0o4bExiekxzLTZ0a3dqLVHSAaoBQVVfeXFMUFhEQVFpSF8tZFVvbUpiZ1pTRTI1LW1OMWtQWDJDU3NfckpjakRVVmRsSExGSExfc2FUWFJOdllUTzVoSHUyM2JqY25LLVpYZ1NpUkJlam81dDhSdF9HOHFYLV9wYmVGUTJzLV9lT2RCRERULVlwVVh2ZlU3UDdicUl2Sk8xT2dSZTdGdk5OcFNsc082R3RHbjhlOGk0YjlkVkpURmc4azVFb0E?oc=5",
+      "source": "artificial intelligence - Google News",
+      "published": "2026-02-21T03:46:00+00:00",
+      "category": "Google",
+      "excerpt": "Oklahoma lawmakers debate AI restrictions to protect children KSWO 7News"
+    },
+    {
+      "title": "Microsoft Gaming CEO resigns, putting former head of its AI team in charge - AV Club",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPLW52a1pBdnZWdGZHSWVTWXRTa3p3NHlGcElKcEVVMU9malhPeXp2YkduYlNCcUp5c25DcVViNzJyLWNqa0YzbXR4UkF0T3dVVS1Kazc0NzQ5LUZEYzQ2dkMzcDVMWVpwbzFVVzM5VVliNHJWUXYydzVPelJSZ2NiSjZn?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-21T03:35:16+00:00",
+      "category": "Microsoft",
+      "excerpt": "Microsoft Gaming CEO resigns, putting former head of its AI team in charge AV Club"
+    },
+    {
+      "title": "Microsoft Gaming's New CEO Wants To Embrace AI Without \"Soulless AI Slop\" - TechPowerUp",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdzBJaS1FRkZ3czZZZ0taOXhNeF9DX2Q4ZlJWMGV2ZFR3cUlFSi0xQ21KeWFIeWlQNnljU1c1TURXVXd4RlViQ2FLSmFUZGZQU0NTWVBseVpQWGJrd2pJcS15LUNtUmozcmJtM3hEVE5ZRElwMFdGd3BrQ2F3dkxqOW4tSGZ4bFRQbXlWZjJwUTFnY3RoR1NjdzU1bjBONDBoRTJGZ0VGcl_SAa4BQVVfeXFMTjhVT1JMRFN3WkNzLUN0WTF0NUl4dnVsRm52eTM0VVpNWFgzUDd0NDBqbWlCNmZaVWdPLUh5UlNSZmZFNFc5c1d6OFpXVGRjMndwdmx4RWhoU3d5YlVCU0Q5TnZhLUNNam1sN1FJX05aUkxuR1R1Y2UwTW9xeWctYmNtdHpaUGYwM25TMXhuWWM3Rnp1eDV1VzVKMWxEbzZiZjdiWUxyRHRBdDA5NlBR?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-21T03:25:46+00:00",
+      "category": "Microsoft",
+      "excerpt": "Microsoft Gaming's New CEO Wants To Embrace AI Without \"Soulless AI Slop\" TechPowerUp"
+    },
+    {
+      "title": "Is the share market headed toward a \u2018SaaS-pocalypse\u2019 \u2013 and what would that mean? - The Guardian",
+      "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPZ2JmUEN4NDdnWFdKOGxqVFY5M0d0SGJOTTNUZ1RkSlEteWg1V0lnX2YyWkEyQ0E1U09WVFpTQWlPMURpTmF4bnlaOVNfcHh5MXI3a29qbXpjbm9GOWttZlNQSl9NNm5JVDQ2dG91amlhaDJkVnVXNkIyOHBqdXdKMUhRd2lEVVlQbVpLOWFFajdmNVNGOFpaNVZkNWVRaGdnTDY4Sm5tWlJWSEhLcUJCdmZPUlJnRmhqcDV6UjMtMEtTejhITXc?oc=5",
+      "source": "artificial intelligence - Google News",
+      "published": "2026-02-21T03:25:00+00:00",
+      "category": "Google",
+      "excerpt": "Is the share market headed toward a \u2018SaaS-pocalypse\u2019 \u2013 and what would that mean? The Guardian"
+    },
+    {
+      "title": "Addressing Bias, Privacy, Security, and Patient Autonomy in Artificial Intelligence (AI)-Driven Healthcare: A Review of Current Guidelines - Cureus",
+      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQa3dadE1CeFMxX0hidGZDX3dOSlFPcFptQW5UWUVOQUNTVlNHZW9lREw1ak54WGlublFxZFIzd0RnT2dMQWRSejRjWGo4a1pkdHE2TXJ5aWJxM0hfdURTRWVZaWw3UGk2TUtlN2ZsRjlYVW0zbXdjWkx2ZHVtZ1V3ZUhZV3libVJiaFdDRGJ4c2ctb2ZtVG81QmlOTy16ZmttSkNaQXRXODJ0UkU1UE1lS3ctMjBwMU5lNTlFODFZdzA5bVgzTDVPamoyY0gySW5WZ1ZzcFFzNHBfOTFSYXdxWmhfWUZZQmJreW90TC1QTV83TW83M21haHFsVm1uZW55?oc=5",
+      "source": "artificial intelligence - Google News",
+      "published": "2026-02-21T02:27:53+00:00",
+      "category": "Google",
+      "excerpt": "Addressing Bias, Privacy, Security, and Patient Autonomy in Artificial Intelligence (AI)-Driven Healthcare: A Review of Current Guidelines Cureus"
+    },
+    {
+      "title": "New Microsoft Gaming CEO Has No Tolerance For \u2018Bad AI\u2019 - Insider Gaming",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQb3RuZllGallwZDhlWVBGVHRCbm5XX01HYlNGM2lqMndpNXFnR1BDZ3d2UjlCeG5rQ0NlZjFNWG5YeV9zaVNzT2lCRk1mX3BjQ3V2Nm9Rd2JQYndpN1V6M2dybS1RV2pQcWxfVmhIWmZHQVZ6ZlNDbXVoWl8tRlNUR01vZHd2Zkk?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-21T01:41:12+00:00",
+      "category": "Microsoft",
+      "excerpt": "New Microsoft Gaming CEO Has No Tolerance For \u2018Bad AI\u2019 Insider Gaming"
+    },
+    {
+      "title": "Microsoft shake-up hits high-profile, less-profitable division - The Seattle Times",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPaXhsTWt0MlVxcDFDNWl2SmZFY3h3RWNRcnRzM2gxMUJxN25MOVlMZzN0bDBZd1hzNjJrZHV5RXBHdDM3TTBSTzlfRG12MEZMM3pkY2N6SU9jV21Scl9PTkpScHpFcUsxTFFiUjVZUGFrTUMweDZmZTUxR09XRjFfQU9ybDgycVFyQjFBMDAzOHB2d21EaG1pclRERHNUUjRhTUE0dG1DUC1QMk9sdU53Q1ozZnI1dzVOaGFMQ2pFaw?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-21T01:37:44+00:00",
+      "category": "Microsoft",
+      "excerpt": "Microsoft shake-up hits high-profile, less-profitable division The Seattle Times"
+    },
+    {
+      "title": "Microsoft\u2019s Copilot AI Read Your Confidential Emails \u2014 And Lawyers Should Be Paying Attention - LawFuel",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQNDR4WEltaU5YRElhNmVFcDJhNVhSaDRBc1RRX3Z6S3FuejRDYXNrUDN6Y3k1T2pMWmFZQ09vNExJeTY5U0R6N0FhZThOa0tMeGpIQmEydHE5amE4bzBoalozaXpPdDFiSWF6cGRtcmVDNHB0aWtBZUR2WjRBV1VmN2xSQ3pLYUtOOXJhTEpPcTZzWnlyVDVsZUZOZUhHSWRkU1lqSURrSk53eEZ6NHBDQTRYeWFGUQ?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-21T00:56:29+00:00",
+      "category": "Microsoft",
+      "excerpt": "Microsoft\u2019s Copilot AI Read Your Confidential Emails \u2014 And Lawyers Should Be Paying Attention LawFuel"
+    },
+    {
+      "title": "Itasca PD investigate sexually explicit, deep fake images of ISD students, staff - NBC 5 Dallas-Fort Worth",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZ21zbUNVQ1BtNGhFcnE0Qk1adlhHTjRMODlHVTktQm9TLVZSajZLOWFmNkRBV0h6Zi0yMWQ1bzNCOGh2bXpzQVpneF9UZDRuRGJlYWpyRWlpTnJKVzhWVmtxaTBESjdabThmYlpERHQxa0VhQXVsV25xa01SeTlNZXp4c3A3N0ltNzY5VjFWQVBpcFZtMzV6b2kwQjBWRm9O0gGoAUFVX3lxTE85Vk9LMUVIczZxM3ZDZTBmeEhyVTZmMlVJRVpvS1F0LXVwd2hzNEI1QjkxWjNYUDNSbXpyVThtQW8xd0EyZ1JSR0ktNWJod1ptMnNHMGhPWTd1cjVleDZ5czYtcy1IT1Y2SV81a016M0N0bmdFbDQ4WEE4dXF6UjFEUWdnLTBCdDVHaXEzT2tLVmFDdFRyNlJJdUVrajdJZEhTU1ZCdnpmNw?oc=5",
+      "source": "artificial intelligence - Google News",
+      "published": "2026-02-21T00:40:26+00:00",
+      "category": "Google",
+      "excerpt": "Itasca PD investigate sexually explicit, deep fake images of ISD students, staff NBC 5 Dallas-Fort Worth"
+    },
     {
       "title": "Eight trends defining how software gets built in 2026",
       "url": "https://claude.com/blog/eight-trends-defining-how-software-gets-built-in-2026",
@@ -47,12 +127,20 @@
       "excerpt": "CEO of Mistral AI says warnings about extreme risks of artificial intelligence are often 'distraction tactics' Le Monde.fr"
     },
     {
-      "title": "New Microsoft Gaming, Xbox CEO: Asha Sharma on Great Games, AI Use - Variety",
+      "title": "Wikipedia Founder Sees No Threat From Musk\u2019s Grokipedia - Bloomberg Law News",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPMk1oUXpFeFE1NkxSNnRCUl9nQkQ5OXZjQklCOU1qQnRVMi1pRjZ0NkI5UTlhVEtNenQ0M0pIQUJfZWV3eHJzaUUxcS1wREV3QnZsX2VkQllTY29XWVhkVXlILWFMV2Z4YW01X1Q4QTB0dFUxYUVrOGhUOElBVldUcDcycE8zZGt1ZFcydzNOTWhVMGQ0aTZtVl9KRWd6TmNmT3dVWHJBdVhtczZt?oc=5",
+      "source": "artificial intelligence - Google News",
+      "published": "2026-02-21T00:00:00+00:00",
+      "category": "Google",
+      "excerpt": "Wikipedia Founder Sees No Threat From Musk\u2019s Grokipedia Bloomberg Law News"
+    },
+    {
+      "title": "New Microsoft Gaming CEO Asha Sharma on What Makes a \u2018Great Game,\u2019 Having \u2018No Tolerance for Bad AI\u2019 and Replacing Phil Spencer - Variety",
       "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOdGlSSVZBc25ISHFMWXd1OE13VWk5MWNpdlNTY1B0RHk0Wkd5RC1LNzdRU3EyRVRNY191VjVtUzN5T3NGMVYza3ZXMmNsajhkYk9zSlVYcHdya1FmcUZISUdnT0QtcElCb3F2QUZpVkttaVRJZ1UxWTFkQjh0YndwN01TYkZJSU5ZNXNCYm16RDMydkVrVU9ZNkJ4eF90a193?oc=5",
       "source": "\"microsoft ai\" - Google News",
       "published": "2026-02-20T23:57:00+00:00",
       "category": "Microsoft",
-      "excerpt": "New Microsoft Gaming, Xbox CEO: Asha Sharma on Great Games, AI Use Variety"
+      "excerpt": "New Microsoft Gaming CEO Asha Sharma on What Makes a \u2018Great Game,\u2019 Having \u2018No Tolerance for Bad AI\u2019 and Replacing Phil Spencer Variety"
     },
     {
       "title": "NIST agentic AI initiative looks to get handle on security - Federal News Network",
@@ -109,6 +197,14 @@
       "published": "2026-02-20T23:09:39+00:00",
       "category": "Google",
       "excerpt": "In the News: Jena Zangs on AI Safety Within Academic Institutions Newsroom | University of St. Thomas"
+    },
+    {
+      "title": "Exclusive: Clippy explains what he knows about Microsoft's big Xbox shakeup - Polygon",
+      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFA5TnUyQWFueW1wMmdmalFRV0VmTVNCZ1RUVjRYaWQwVmRRY1hiLWpYOUE1QWZPdTRyS2NsMGxxR21Pd0hfTi11aGV3LWdRb0d6bFlfdVEzcnJUZER6MVNhTU5MZWJSQkxTQm85cFRn?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-20T23:09:23+00:00",
+      "category": "Microsoft",
+      "excerpt": "Exclusive: Clippy explains what he knows about Microsoft's big Xbox shakeup Polygon"
     },
     {
       "title": "Multi-Agent Systems Move Business AI From Chatbot to Operations - PYMNTS.com",
@@ -197,6 +293,14 @@
       "published": "2026-02-20T22:22:00+00:00",
       "category": "Microsoft",
       "excerpt": "Microsoft Valuation Hits Decade-Low: Citigroup Issues Rare \"Buy\" Alert Amid AI Volatility FinancialContent"
+    },
+    {
+      "title": "Xbox head Phil Spencer is retiring, and Microsoft's head of AI is taking over - XDA",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQMEhaV0h6Q3RjeTBqYlZ2SkpSNDZZTE5zaUxiNmthT25Va25xT0t5U19RcHpxcGpGdGZsbGZpZFhxdU1oU2w3a1NpQ1RkaTc1d3pYZjhSM3pXeHUyX1YtbDNfX2ZQLTJsOXpKUGtueWJpTzU4MGdEVHRqYWxZVUl4bHNMaXpldVllNmNVVFdaaUZDYkxmbXdrOUgxUE9ua0ItWEVGVzlRc1RROEE?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-20T22:16:46+00:00",
+      "category": "Microsoft",
+      "excerpt": "Xbox head Phil Spencer is retiring, and Microsoft's head of AI is taking over XDA"
     },
     {
       "title": "Artificial Intelligence 'Bill of Rights' - ABC7 WWSB",
@@ -319,6 +423,14 @@
       "excerpt": "Pros and Cons of Artificial Intelligence A Wealth of Common Sense"
     },
     {
+      "title": "Asha Sharma named EVP and CEO, Microsoft Gaming - The Official Microsoft Blog",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQS1VtZm12R2hDWHFNYnRMVUhMNEppdFIwV1laVUZuNmNVb1VKdmh6dThBbGV2Z0RnanNTekNxZ1JXMHB0bEtleWN6RElmNkdQQnFPUjlvbC1JM0NWV2dEd0pSUDNhbVZ4b05ENHlZQi1ocTVQVnl1MUpZdlNnUDVwczVwR2N4dkIxWGtTMWdwVmlNZ25MU3c?oc=5",
+      "source": "\"microsoft ai\" - Google News",
+      "published": "2026-02-20T21:30:32+00:00",
+      "category": "Microsoft",
+      "excerpt": "Asha Sharma named EVP and CEO, Microsoft Gaming The Official Microsoft Blog"
+    },
+    {
       "title": "Xbox head Phil Spencer retires, president Sarah Bond resigns; Microsoft AI exec to take on the top job - Stevivor",
       "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQYncyMTU4OUdKRWpxOVdXall1LTJJVS01dXpRR0VwbjRMM3MyeHRwYnpMb2k1SHhFSGlmdlVCbktoeFhFbEpSMnp2OWNQcktZYnQ4TWpMSzhZcDRGa25lTEN6akpQb1RGeVM2R1lMUEw0NTZGNEgtQ21FbEFBcUVHVFJickYxSVladHJtRzRURHJtRnJzd0gtd084MjkxeGlYOGVJQjNPU0NqMDBlTFdJMVkyblhNcWtRZ3RBTGdXVkFxaXlhSFE?oc=5",
       "source": "\"microsoft ai\" - Google News",
@@ -423,12 +535,12 @@
       "excerpt": "Xbox\u2019s New Boss Promises Not To Flood It With \u2018Soulless AI Slop\u2019 Kotaku"
     },
     {
-      "title": "Microsoft Copilot ignored sensitivity labels twice in eight months \u2014 and no DLP stack caught either one - Venturebeat",
+      "title": "Microsoft Copilot ignored sensitivity labels twice in eight months \u2014 and no DLP stack caught either one - VentureBeat",
       "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPV0xSMVNYQ0hTM2d1QlhFc0ZONld3YklkYlhzLU41Z3NPcjhCQ1M0MEFsY05TSVJpeWVwbGc1U2ltN3hld0xGckhLOXI1SkVZQURlWGpBbERiYTlFSVNjUXliVzZ4amI5bWxEQVhlZmMzMFNjRXk0YmtSUWUyMjhWcUs1OUNEaTFRZzVEajNFelNwQkxFMGJEUjFDenQ1ejBIeFNhemNfblZCbVVESjdF?oc=5",
       "source": "\"microsoft ai\" - Google News",
       "published": "2026-02-20T20:56:42+00:00",
       "category": "Microsoft",
-      "excerpt": "Microsoft Copilot ignored sensitivity labels twice in eight months \u2014 and no DLP stack caught either one Venturebeat"
+      "excerpt": "Microsoft Copilot ignored sensitivity labels twice in eight months \u2014 and no DLP stack caught either one VentureBeat"
     },
     {
       "title": "Xbox CEO Phil Spencer retires, Sarah Bond resigns, Microsoft AI - TweakTown",
@@ -693,118 +805,6 @@
       "published": "2026-02-20T18:41:40+00:00",
       "category": "Google",
       "excerpt": "Massachusetts Guardsman advances AI innovation through fellowship army.mil"
-    },
-    {
-      "title": "Artificial intelligence-generated synthetic data for cancer research and clinical trials - Nature",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFA4dndJV3ROVm51VXJMbzNMSUxGajIwUldzWXdoeEZqZHJHdDRyVFk3UDh5T2lYTUcyZ04tdDF6b3hXTGk5U2NuWFZRM1NXLUwzTEhxVjFiQWU0dXowVDdB?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T18:39:08+00:00",
-      "category": "Google",
-      "excerpt": "Artificial intelligence-generated synthetic data for cancer research and clinical trials Nature"
-    },
-    {
-      "title": "'God-Like' Attack Machines: AI Agents Ignore Security Policies - Dark Reading | Security",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNR25MQmdkeFJzUkZBd3pXbjVXWUViYUJEUXF6aWstM0RxTkREWndMX0o0QzJlZ012N2I1OS1GbUZvV3J1MHBVTnRkWXF5U1g4dDVLYWhhRjVlSzBXMi1YUU10ZTFSWm5hcnZwNFV2WkxMUkw2RHFZenJyTkFzdWxvakxjeUNkanZQX2VF?oc=5",
-      "source": "\"microsoft ai\" - Google News",
-      "published": "2026-02-20T18:36:51+00:00",
-      "category": "Microsoft",
-      "excerpt": "'God-Like' Attack Machines: AI Agents Ignore Security Policies Dark Reading | Security"
-    },
-    {
-      "title": "Massachusetts Guardsman Collaborates With Top AI Researchers in Prestigious Fellowship - nationalguard.mil",
-      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQald0SlFvTU5renFrODNTWGhGTHdzX0lRQmtfLVRBZ2tua2pUOW1VSHlOWGlUZWpxMXM2b2UzaTFzaFRtLVZJQTVnQnRJbGdBS0dNbmsydnRBRjR0eWc4Y0xnSHRVT0h1SUhnYWdINWFOb0FvTEJFUVpiUmY0Y0FlYW15aWJ4d2FtcTZXeVgyUVltNmRHZVJ2SWlLRjNvUmNOczJ2OUlKcVc5YXJ3b3drazZVMHdLRGwzZGsxLWFDSUtUd003WjNTdEpVSGVQU1dCT1d0QXBlaFB5Yzg5?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T18:35:47+00:00",
-      "category": "Google",
-      "excerpt": "Massachusetts Guardsman Collaborates With Top AI Researchers in Prestigious Fellowship nationalguard.mil"
-    },
-    {
-      "title": "One-Third of Consumers Question Need to Adopt AI Capabilities - Convenience Store News",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBtcXdfeHBZVV9xLUI3RV9oeHNIUDhlMmtLUXVWZE1VeGdWRmp0cG5wY2NLdzRRMUlUMmIyRlNreUtuOUZTOTdrY3RNZldxWU5HMEJXWVhDaFRJX3JLSWNLVno3WGs0aExFTllKSzNiMjZLQnhIYzNSU2FOcDE0VVE?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T18:22:37+00:00",
-      "category": "Google",
-      "excerpt": "One-Third of Consumers Question Need to Adopt AI Capabilities Convenience Store News"
-    },
-    {
-      "title": "How States Are Using AI for Compliance Enforcement in 2026 - MultiState",
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQNzFEWDNMc2NrSU11cmlFUkkxdmZGeGdmRS1GRDNiRlY4em1POElpalhnQXlfRjN0T1lmNHZGYjFVaUthd200SjM5cVFUdU0zZWNsYlg2aXlYUFFpLWpkamVzMEtUUlFtSi1SbDB6V1BVUFpmU1VMX01EMDVkejl0RjVlLTY2c1FHZTlnQ0ZINEpuai1VbkhOVElVWEVwRUpsN2lTRQ?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T18:18:30+00:00",
-      "category": "Google",
-      "excerpt": "How States Are Using AI for Compliance Enforcement in 2026 MultiState"
-    },
-    {
-      "title": "Bill limiting AI access for minors advances from Senate tech committee - KOSU",
-      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPejlKS1FwbTA4WDVHaVF4cVdZRDNZaTNjT2pRN3hZMmRiTEFQWHItZDZKM2JzNWQ4SmxCR2VvT0JqMk9TVFFoX3R1ZmlQUjctSE16UENtclc2bkNFR2ZjeXp2aTBFUURPXzl4TmcwUmk1VkY1NVlyQVdZREJSdUJCNEVENzZlS09tZHZkaC1KNVNIRmExSjlsVWtNV2plZF9LVXY3X3loSnJvbUgtMXF0RA?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:59:30+00:00",
-      "category": "Google",
-      "excerpt": "Bill limiting AI access for minors advances from Senate tech committee KOSU"
-    },
-    {
-      "title": "AI Stocks and the New Tech Cycle: Lessons From Past Booms and Busts - Morningstar Canada",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQeVlPUFVwQVpmWlZSSk1Bb3RvUk9SR1RnLTkwWTYyMXdpc004NmM4RnhxSEFQc2F3b0h6MDYzQTZxanB1RDY5Z3A0TUJMWTljak9UcVNMRWxRZzFqTXVaY0tXRkV1SUNPNzE3dkk4czV2bTE5UGpwY2E2WWNLR2lfTDBJZVVXTjRNMDVHQ2RMMWprbm14WFNWMmFR?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:50:35+00:00",
-      "category": "Google",
-      "excerpt": "AI Stocks and the New Tech Cycle: Lessons From Past Booms and Busts Morningstar Canada"
-    },
-    {
-      "title": "AI \u2018blind spot\u2019 could let criminals take over self-driving cars - futurity.org",
-      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBPYzFiRGM0X3NXT1c1bmo0SE5nMWN5dEc3eWhyNUlXUEh4aG1vR2Z2bG1sbk02UkpDbU5XVkhTUEJxelpYbnBldFdvSU1iRmJ4dnBPMk41QW12Tl8tWlFDOWt0Tl9TWENpeEVabTRocDBZdEU?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:46:24+00:00",
-      "category": "Google",
-      "excerpt": "AI \u2018blind spot\u2019 could let criminals take over self-driving cars futurity.org"
-    },
-    {
-      "title": "AI and machine learning are the future of Wi-Fi management: WBA report - Telecompetitor",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZGFOb3MzY3VvMHVYSVZ4YzE3Zi1XWndDSFRuV09jZC1vNG50TmxTbFlzeW5RVUFJbjZ2XzFsVmtTN3llNTlndDh1MDZ6dk1xTnBlUE5YNHRteF9pY2dnVlprRHZzZzBfLWZ3eWp1alU5dUlMVDA0cF9DYjVrMWVTZjJ0c2hJcDNldXIwREI0U1YzYXBNYjJwbkZUbENhVUdLZTBn?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:45:00+00:00",
-      "category": "Google",
-      "excerpt": "AI and machine learning are the future of Wi-Fi management: WBA report Telecompetitor"
-    },
-    {
-      "title": "Tensions between the Pentagon and AI giant Anthropic reach a boiling point - NBC News",
-      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQUE9qakdVaThMUHNCaTRVTURScFk1c0lNVl9FYm9xSjdILTZqS3lZcGlqa0F3TlQ2Y1plcF9ZYW01UFZ2b3FaMEpVb243T3M5cGp5a1FuWEdVd3RyMTFxVEt3VkJaMDJ2TF9EdmpZZjNtamtxZkFkRkNvQ1NFek8zNUNTd003R2NkcmJzQjVGMkN4S25t?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:43:20+00:00",
-      "category": "Google",
-      "excerpt": "Tensions between the Pentagon and AI giant Anthropic reach a boiling point NBC News"
-    },
-    {
-      "title": "AI Stocks and the New Tech Cycle: Lessons From Past Booms and Busts - Morningstar Canada",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOMlRRQVZObWNnRDF6X0hfX0FZWU9PTkNZNkE0SmFBUklfOVgwT2ZYa2RSbWR5bDV2UGtyQXo1WGV0SDIzbU44b3F2dWI3UTNPOFZtdFlOcmRpQ3lPWElKeVNiTHlKanlmbXBZUDRyXzhHVUpxcDZPSlh1eHhMWVJYcG94ejM3Nm11ZHUxU3FZTDhjSmVmUG5vZGxR?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:37:30+00:00",
-      "category": "Google",
-      "excerpt": "AI Stocks and the New Tech Cycle: Lessons From Past Booms and Busts Morningstar Canada"
-    },
-    {
-      "title": "Your own voice could be your biggest privacy threat. How can we stop AI technologies exploiting it? - Live Science",
-      "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQU0V5THJLWnp4ZHJEMzZjb0tpY3hxd0VHR0tZMlFFWC1rcTN4cy04Vjg2QWI1Ykc3eDM2MjBDb2tnTEthWkthdVFSb1NveXBUcnR2TWQ1aHFtQnQxYjg3cXFEd2dENkJsNzFLUzdIbUo5VVh4d0NoUWJheElBUWhwT3lTaDJrclY1WURhNUNsSzZxWHJlWjVJMjJZN1E0R2NNenk4SW5DMkJJcjd4QW0zSkZxenZZZmFZRWVEZ3loNk5LSjFhbE80OEYyRGs0cFQ4R0p1VWZJZ1ZROWROVV9yMXM2WXgwWllDWjFpc1laSl9OZw?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:30:00+00:00",
-      "category": "Google",
-      "excerpt": "Your own voice could be your biggest privacy threat. How can we stop AI technologies exploiting it? Live Science"
-    },
-    {
-      "title": "My Top Artificial Intelligence (AI) Stock to Buy in 2026 - The Globe and Mail",
-      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOd1cwamJKakNoR0hfaXdKLWJqNDRDX2V3STAtTTVJTDFlM0pUUXpEMnpzUk1CanpPLV9TZkctOWtRVmx6RHdmNmlKbktFMExSN21vdjN0UjJMMVZyajZhc2dQRzM0eWNxV3dJc1B4cTNHZkRLMGljdU11Nlo0ejliRWV1WE1MTWVLcWlEVVJMSTNmVEpWcjFDYUExOENzNjBVQ3M3OTFoNWZUQXJQck9hYVJMd08wck1RZzBaX21IVlFvU3Y1Q3Q5M0c0MUE?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:28:14+00:00",
-      "category": "Google",
-      "excerpt": "My Top Artificial Intelligence (AI) Stock to Buy in 2026 The Globe and Mail"
-    },
-    {
-      "title": "Exploring AI in the APAC retail sector - AI News",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQSm1PMUFSeGhsOEsyejJZUmh5NG11dTR3a09aUlF0WEZtWlFUekFSYjZLNGNmYjItLWZaVjZVTTZwclVnOXpRSW5MYWQ4WXgyWl90NWRkT1Z6OTZsbFp5SEljcThucVJJRzZQanVLZkViQ01kN2E0SEdGNjl2YllhN2FUNkxyMUw3UUlCZmZXRTlxZw?oc=5",
-      "source": "artificial intelligence - Google News",
-      "published": "2026-02-20T17:20:48+00:00",
-      "category": "Google",
-      "excerpt": "Exploring AI in the APAC retail sector AI News"
     }
   ]
 }

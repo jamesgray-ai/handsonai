@@ -385,10 +385,6 @@
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/builders/lessons/build-your-ai-operations-registry/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-your-first-claude-code-subagent/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
@@ -402,22 +398,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/compose-agent-systems-from-workflow-specifications/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/configure-ai-memory-systems/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/configure-ai-powered-code-editor/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/configure-claude-personalization-and-memory-settings/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/configure-your-ai-personalization-settings/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
@@ -469,14 +449,6 @@
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/builders/lessons/implement-version-control-for-your-ai-building-blocks/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/implement-voice-to-text-for-hands-free-ai-collaboration/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/courses/builders/lessons/lesson-101-present-capstone-projects-to-cohort/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
@@ -486,10 +458,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/lesson-103-synthesize-course-themes-and-next-steps/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/builders/lessons/set-up-your-ai-workflow-registry/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
@@ -625,6 +593,10 @@
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/courses/leaders/lessons/build-your-ai-operations-registry-2/</loc>
+         <lastmod>2026-02-21</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-your-ai-operations-registry/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
@@ -722,10 +694,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/schedule-and-automate-ai-workflow-execution/</loc>
-         <lastmod>2026-02-21</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/set-up-your-ai-workflow-registry/</loc>
          <lastmod>2026-02-21</lastmod>
     </url>
     <url>
