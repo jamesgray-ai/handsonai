@@ -71,7 +71,7 @@
 ## Courses
 - Overview: https://handsonai.info/courses/
 - Agentic AI for Leaders: https://handsonai.info/courses/leaders/
-- Claude for Builders — AI Workflows and Agentic Coding: https://handsonai.info/courses/builders/
+- Claude for Builders — AI Workflows and Product Prototyping: https://handsonai.info/courses/builders/
 
 ## What People Built
 - https://handsonai.info/what-people-built/
