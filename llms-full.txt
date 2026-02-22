@@ -431,9 +431,9 @@
 - URL: https://handsonai.info/courses/leaders/
 - Summary: A 4-week cohort course on Maven for leaders and non-technical professionals. Covers AI-powered workflows, agent building blocks, browser automation, and multi-platform deployment across ChatGPT, Claude, M365 Copilot, and Google Workspace. Students complete 26 hands-on projects and ship workflows saving 5-10 hours weekly. No coding experience required.
 
-### Claude for Builders
+### Claude for Builders: AI Workflows and Agentic Coding
 - URL: https://handsonai.info/courses/builders/
-- Summary: A 5-week cohort course on Maven that transforms Claude users into Claude builders. Covers the full AI builder stack: Claude Skills, subagents, browser automation, and agentic coding. Students build 5+ Skills, 3+ Subagents, browser automations, and a capstone project. Aimed at operational leaders, builder-founders, and AI-first professionals. Requires Claude Pro/Max subscription and macOS or Windows.
+- Summary: A 5-week cohort course on Maven that transforms Claude users into Claude builders. Covers AI workflows and agentic coding: Claude Skills, subagents, browser automation, and the full AI builder stack. Students build 5+ Skills, 3+ Subagents, browser automations, and a capstone project. Aimed at operational leaders, builder-founders, and AI-first professionals. Requires Claude Pro/Max subscription and macOS or Windows.
 
 ---
 
