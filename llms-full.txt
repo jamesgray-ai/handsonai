@@ -14,10 +14,10 @@
 
 ### Overview
 - URL: https://handsonai.info/business-first-ai-framework/
-- Summary: A three-step methodology for applying AI to business workflows: Discover opportunities, Deconstruct workflows into AI building blocks, and Build across the autonomy spectrum (deterministic automation, AI collaborative, autonomous agent).
+- Summary: A three-step methodology for applying AI to business workflows: Analyze opportunities, Deconstruct workflows into AI building blocks, and Build across the autonomy spectrum (deterministic automation, AI collaborative, autonomous agent).
 
-### Step 1 — Discover Workflows
-- URL: https://handsonai.info/business-first-ai-framework/discover/
+### Step 1 — Analyze Workflows
+- URL: https://handsonai.info/business-first-ai-framework/analyze/
 - Summary: Structured audit to find workflows worth applying AI to. Guides users through identifying high-impact AI opportunities using a scoring rubric based on frequency, time cost, and AI suitability.
 
 ### Step 2 — Deconstruct Workflows
@@ -331,7 +331,7 @@
 
 #### Business-First AI Plugin
 - URL: https://handsonai.info/use-the-cookbook/build/business-first-ai/
-- Summary: The Business-First AI Framework as executable Claude Code components. Includes 8 agents (workflow deconstructor, tech-executive writer, HBR editor/publisher, AI productivity researcher, meeting prep researcher, AI news researcher, Claude research daily), 5 skills (discovering workflows, deconstructing workflows, building workflows, editing HBR articles, preparing meeting briefs), and 3 prompts (LinkedIn prospect research, buyer persona, quick meeting prep).
+- Summary: The Business-First AI Framework as executable Claude Code components. Includes 8 agents (workflow deconstructor, tech-executive writer, HBR editor/publisher, AI productivity researcher, meeting prep researcher, AI news researcher, Claude research daily), 5 skills (analyzing workflows, deconstructing workflows, building workflows, editing HBR articles, preparing meeting briefs), and 3 prompts (LinkedIn prospect research, buyer persona, quick meeting prep).
 
 #### AI Registry Plugin
 - URL: https://handsonai.info/use-the-cookbook/build/ai-registry/

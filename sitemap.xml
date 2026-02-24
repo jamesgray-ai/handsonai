@@ -261,11 +261,11 @@
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/business-first-ai-framework/coach/</loc>
+         <loc>https://handsonai.info/business-first-ai-framework/analyze/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/business-first-ai-framework/discover/</loc>
+         <loc>https://handsonai.info/business-first-ai-framework/coach/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
@@ -365,6 +365,10 @@
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/courses/builders/lessons/analyze-workflow-candidates/</loc>
+         <lastmod>2026-02-24</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/courses/builders/lessons/apply-cowork-to-knowledge-work-tasks/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
@@ -457,10 +461,6 @@
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/courses/builders/lessons/discover-workflow-candidates/</loc>
-         <lastmod>2026-02-24</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/courses/builders/lessons/distinguish-deterministic-and-collaborative-workflow-patterns/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
@@ -538,6 +538,10 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-the-anatomy-of-an-ai-agent/</loc>
+         <lastmod>2026-02-24</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/leaders/lessons/analyze-workflow-candidates/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>
@@ -646,10 +650,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/design-autonomous-workflows-with-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/discover-workflow-candidates/</loc>
          <lastmod>2026-02-24</lastmod>
     </url>
     <url>

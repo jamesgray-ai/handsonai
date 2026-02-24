@@ -9,7 +9,7 @@
 
 ## Business-First AI Framework
 - Overview: https://handsonai.info/business-first-ai-framework/
-- Step 1 — Discover Workflows: https://handsonai.info/business-first-ai-framework/discover/
+- Step 1 — Analyze Workflows: https://handsonai.info/business-first-ai-framework/analyze/
 - Step 2 — Deconstruct Workflows: https://handsonai.info/business-first-ai-framework/deconstruct/
 - Step 3 — Build Workflows: https://handsonai.info/business-first-ai-framework/build/
 
