@@ -50,7 +50,6 @@ extra_javascript:
 
 hooks:
   - docs/hooks/recent_posts.py
-  - docs/hooks/feed_teaser.py
 
 plugins:
   - search

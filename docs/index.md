@@ -7,37 +7,61 @@ description: Curated AI knowledge for builders. Apply AI faster. Accelerate busi
 
 *Curated by [James Gray](about.md)*
 
-This cookbook lives at the intersection of **people, business, and technology** — because real innovation happens when all three move together. It's not just about AI tools. It's about accelerating how you think, how you work, and what you build.
+Built for **leaders, professionals, entrepreneurs, and founders** at the intersection of people, business, and technology. No technical background required — just a willingness to get hands-on with AI and start creating real impact.
 
-**Built for leaders, professionals, entrepreneurs, and founders** who are ready to get hands-on with AI. You don't need a technical background — just a willingness to roll up your sleeves. That hands-on mindset is what drives real innovation, and this site is designed to make AI practical and accessible so you can start creating value and impact right away.
+Practical guides, patterns, ready-made tools, and direct answers to move you from experimenting with AI to getting results. Browse by topic, work through a structured course, or jump straight to the tools.
 
-Practical guides, patterns, ready-made tools, and direct answers — everything you need to move from experimenting with AI to getting real results. Browse by platform, look up a topic, or work through a structured course.
+<div class="grid cards grid-3col" markdown>
 
-<div class="grid cards" markdown>
-
--   :material-chat-question:{ .lg .middle } **MCP Server**
+-   :material-compass-outline:{ .lg .middle } **Learn the Framework**
 
     ---
 
-    Ask the cookbook directly inside Claude, ChatGPT, or any MCP-compatible tool. Connect once, ask anytime.
+    Start with the 3-step method for applying AI to your work. No code required.
 
-    [:octicons-arrow-right-24: Connect now](mcp-server/index.md)
+    [:octicons-arrow-right-24: Get started](business-first-ai-framework/index.md)
 
--   :material-puzzle-outline:{ .lg .middle } **Agents & Skills**
+-   :material-book-open-variant:{ .lg .middle } **Explore by Topic**
 
     ---
 
-    Pre-built agents, skills, and prompts that give your AI tool domain expertise it doesn't have out of the box.
+    Browse building blocks, use cases, and platform guides at your own pace.
 
-    [:octicons-arrow-right-24: Browse agents & skills](use-the-cookbook/build/index.md)
+    [:octicons-arrow-right-24: Browse topics](agentic-building-blocks/index.md)
+
+-   :material-toolbox-outline:{ .lg .middle } **Get the Tools**
+
+    ---
+
+    Connect the MCP server, install agents & skills, or set up your builder stack.
+
+    [:octicons-arrow-right-24: See tools](use-the-cookbook/index.md)
 
 </div>
 
----
+<div class="grid cards" markdown>
+
+-   :material-account-group:{ .lg .middle } **Hands-on Agentic AI for Leaders**
+
+    ---
+
+    From AI user to AI builder in 30 days. For leaders and professionals — no coding experience required.
+
+    [:octicons-arrow-right-24: Learn more](courses/leaders/index.md)
+
+-   :material-wrench:{ .lg .middle } **Claude for Builders**
+
+    ---
+
+    From Claude user to Claude builder in 5 weeks. Build production-grade AI systems and ship applications.
+
+    [:octicons-arrow-right-24: Learn more](courses/builders/index.md)
+
+</div>
+
+> See [what others have built](what-people-built.md) with the cookbook.
 
 <!-- latest-updates -->
-
-<!-- curated-feed -->
 
 ---
 
