@@ -2,1022 +2,1058 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://handsonai.info/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/CONTRIBUTING/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/about/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/what-people-built/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/frameworks/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/guardrails/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/human-in-the-loop/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/memory/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/multi-agent-collaboration/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/planning/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/reflection/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/agents/capability-patterns/tool-use/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/decentralized/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/evaluator-optimizer/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/group-chat/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/handoff/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/hierarchical/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/parallel/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/router/</loc>
+         <lastmod>2026-02-25</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/agentic-building-blocks/agents/orchestration-patterns/sequential/</loc>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/api/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/context/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/context/context-graphs/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/mcp/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/mcp/questions/how-do-i-connect-an-mcp-server-to-claude-code/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/models/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/projects/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/projects/workspace-instructions-meta-prompt/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/chain-of-thought/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/contextual-prompting/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/direct-instruction/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/emotional-prompting/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/few-shot-learning/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/multi-turn-conversation/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/output-formatting/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/real-world-constraints/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/reframing-prompts/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/role-prompting/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/self-consistency-and-reflection/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/style-unbundling/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/summarization-and-distillation/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/prompt-engineering/zero-shot-prompting/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/prompts/questions/what-is-a-system-prompt/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/sdk/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/skills/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/skills/questions/do-plugin-skills-conflict-with-custom-skills/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/ai-engineering/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/ai-engineering/context-engineering/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/10/i-built-an-open-source-ai-cookbook-for-builders-heres-whats-inside/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/14/introducing-the-changelog-and-mcp-server/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/15/slash-commands-for-all-plugin-skills/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/16/new-plugin-agentic-coding/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/16/new-example-content-calendar-planning/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/16/agentic-coding-plugin-stronger-prds-and-vision-briefs/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/18/product--engineering-section-adrs-and-platform-agent-examples/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/19/step-3-redesigned-skills-drive-the-build/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/2026/02/19/build-workflows-v31-expanded-agents-matrix-and-streamlined-architecture-decisions/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/cli/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/editor-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/git-install/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/github-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/notion-registry-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/terminal-basics/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/builder-setup/voice-to-text-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/analyze/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/coach/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/framework-coach/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/ai-collaborative/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/autonomous-agent/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/construct/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/design/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/deterministic-automation/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/build/run/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/deconstruct/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/examples/content-calendar-planning/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/_syllabus_body/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/syllabus/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/week-1/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-agent-capability-patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-agent-orchestration-patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-claude-code-subagent-architecture-and-use-cases/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-claude-code-subagent-execution-traces/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-the-anatomy-of-an-agent-skill/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-the-anatomy-of-an-ai-agent/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-the-software-development-lifecycle-with-claude-code/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/analyze-workflow-candidates/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/apply-cowork-to-knowledge-work-tasks/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-and-ship-features-with-claude-code/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-and-test-a-collaborative-ai-workflow/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-and-test-a-deterministic-automated-workflow/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-autonomous-workflows-with-claude-code-agent-teams/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-browser-workflows-with-claude-in-chrome/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-reusable-agent-skills-with-claude/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-your-ai-operations-registry/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-your-claude-project-with-memory-and-knowledge-base/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-your-first-claude-code-subagent/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/build-your-personal-cowork-task-library/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/compare-workflow-patterns-and-plan-your-workflow-portfolio/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/compose-agent-systems-from-workflow-specifications/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/configure-ai-powered-code-editor/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/configure-claude-mcp-server-connections-and-desktop-integrations/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/configure-claude-personalization-and-memory-settings/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/deconstruct-your-workflows-into-structured-specifications/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/deploy-your-application-prototype-to-production/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/design-a-collaborative-workflow-with-the-build-framework/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/design-a-deterministic-workflow-with-the-build-framework/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/design-a-product-vision-brief-with-claude-code/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/design-autonomous-workflows-with-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/develop-product-requirement-documents-from-vision-briefs/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/distinguish-deterministic-and-collaborative-workflow-patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/evaluate-pull-requests-with-claude-code-in-github/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/implement-agent-orchestration-patterns-in-claude-code/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/implement-scheduled-execution-for-claude-code-subagents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/implement-version-control-for-your-ai-building-blocks/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/implement-voice-to-text-for-hands-free-ai-collaboration/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/ship-your-skills-for-reuse/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/understand-how-cowork-delegates-tasks-to-claude/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/lessons/understand-the-agentic-ai-landscape-and-ai-building-blocks/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/builders/week-1/mcp-connectors-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/_syllabus_body/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/setup-checklist/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/syllabus/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-agent-capability-patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-agent-orchestration-patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-claude-code-subagent-architecture-and-use-cases/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-claude-code-subagent-execution-traces/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-the-anatomy-of-an-agent-skill/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-the-anatomy-of-an-ai-agent/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/analyze-workflow-candidates/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-a-collaborative-ai-workflow/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-a-deterministic-automated-workflow/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-agent-workflows-visually-with-openai-agentkit/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-agent-workflows-with-openai-agents-sdk/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-autonomous-agents-with-chatgpt-agent-mode/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-autonomous-agents-with-google-gemini-enterprise/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-autonomous-agents-with-google-workspace-flows/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-autonomous-agents-with-m365-copilot-studio-lite/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-autonomous-agents-with-m365-copilot-studio/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-autonomous-workflows-with-claude-code-agent-teams/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-browser-workflows-with-chatgpt-atlas/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-browser-workflows-with-claude-in-chrome/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-browser-workflows-with-google-chrome/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-conversational-agent-ux-with-openai-chatkit/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-deterministic-agents-with-m365-copilot-agent-flows/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-reusable-agent-skills-with-claude/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-your-ai-operations-registry/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-your-claude-project-with-memory-and-knowledge-base/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-your-first-claude-code-subagent/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/compose-agent-systems-from-workflow-specifications/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/configure-ai-memory-systems/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/configure-ai-powered-code-editor/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/configure-your-ai-personalization-settings/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/connect-ai-to-your-business-apps-via-mcp/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/course-takeways-and-your-next-steps/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/deconstruct-your-workflows-into-structured-specifications/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/design-autonomous-workflows-with-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/distinguish-workflow-execution-patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/evaluate-agentic-systems/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/implement-agent-orchestration-patterns-in-claude-code/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/implement-scheduled-execution-for-claude-code-subagents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/implement-version-control-for-your-ai-building-blocks/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/implement-voice-to-text-for-hands-free-ai-collaboration/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/schedule-and-automate-ai-workflow-execution/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/ship-your-agentic-ai-repository/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/ship-your-skills-for-reuse/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/understand-the-agentic-ai-landscape-and-ai-building-blocks/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/questions/corporate-ai-training/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/feed/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/mcp-server/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/augmented-llm/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/autonomous-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/evaluator-optimizer/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/orchestrator-workers/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/parallelization/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/prompt-chaining/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/patterns/workflow-architecture/routing/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/overview/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/agents/building-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/getting-started/claude-personalization-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/projects/claude-projects-setup/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/questions/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/questions/how-do-i-schedule-an-automated-claude-subagent/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/questions/what-is-the-best-way-to-name-claude-agent-skills/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/skills/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/skills/skills-discovery-meta-prompt/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/subagents/scheduling-subagent-issues/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/subagents/scheduling-subagents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/topics/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/claude/topics/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/google-gemini/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/google-gemini/agents/building-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/google-gemini/questions/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/google-gemini/topics/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/google-gemini/topics/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/m365-copilot/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/m365-copilot/agents/building-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/m365-copilot/topics/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/m365-copilot/topics/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/openai/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/openai/agents/building-agents/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/openai/questions/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/openai/topics/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/platforms/openai/topics/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/architecture-decisions/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/requirements/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/roadmapping/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/sdlc/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/stakeholder-management/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/tracking/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/product-engineering/user-stories/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/resources/anthropic-coding-trends/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/resources/anthropic-skills-guide/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/resources/openai-use-cases-report/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/automation/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/automation/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/coding/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/coding/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/content-creation/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/content-creation/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/data-analysis/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/data-analysis/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/ideation-and-strategy/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/ideation-and-strategy/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/research/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-cases/research/resources/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/build/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/build/agentic-coding/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/build/ai-registry/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/build/ai-workflow-examples/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/build/business-first-ai/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/build/using-plugins/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/archive/2026/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/category/new-content/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/category/plugins/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/category/platform-updates/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/category/business-first-ai-framework/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/blog/category/announcements/</loc>
-         <lastmod>2026-02-24</lastmod>
+         <lastmod>2026-02-25</lastmod>
     </url>
 </urlset>
