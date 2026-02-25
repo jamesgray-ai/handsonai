@@ -45,6 +45,9 @@ Consider a customer exchange request — a customer wants to return a product an
 
 No single pattern makes this workflow possible. Their combination is what turns a basic chatbot into a capable agent.
 
+!!! tip "Looking for multi-agent coordination?"
+    Capability patterns describe what *individual* agents can do. For how *multiple* agents coordinate — sequential pipelines, parallel fan-out, hierarchical delegation, and more — see [Orchestration Patterns](../orchestration-patterns/index.md).
+
 ## Where to Start
 
 **Understanding agent concepts?** Start with [Reflection](reflection.md) — it's the simplest pattern to grasp and demonstrates the core idea of iterative improvement.

@@ -288,6 +288,16 @@ nav:
         - Memory: agentic-building-blocks/agents/capability-patterns/memory.md
         - Guardrails: agentic-building-blocks/agents/capability-patterns/guardrails.md
         - Human-in-the-Loop: agentic-building-blocks/agents/capability-patterns/human-in-the-loop.md
+      - Orchestration Patterns:
+        - Overview: agentic-building-blocks/agents/orchestration-patterns/index.md
+        - Sequential: agentic-building-blocks/agents/orchestration-patterns/sequential.md
+        - Parallel: agentic-building-blocks/agents/orchestration-patterns/parallel.md
+        - Router: agentic-building-blocks/agents/orchestration-patterns/router.md
+        - Hierarchical: agentic-building-blocks/agents/orchestration-patterns/hierarchical.md
+        - Handoff: agentic-building-blocks/agents/orchestration-patterns/handoff.md
+        - Evaluator-Optimizer: agentic-building-blocks/agents/orchestration-patterns/evaluator-optimizer.md
+        - Group Chat: agentic-building-blocks/agents/orchestration-patterns/group-chat.md
+        - Decentralized: agentic-building-blocks/agents/orchestration-patterns/decentralized.md
       - Resources: agentic-building-blocks/agents/resources.md
     - MCP:
       - Overview: agentic-building-blocks/mcp/index.md

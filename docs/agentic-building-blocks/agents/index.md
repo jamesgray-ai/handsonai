@@ -34,6 +34,7 @@ For guidance on deciding *whether* your workflow needs an agent, see [Build Work
 
 - [Programming Frameworks](./frameworks.md) — SDKs and frameworks for building agents programmatically across platforms
 - [Agent Capability Patterns](./capability-patterns/index.md) — Seven architectural patterns that make agents effective: Reflection, Tool Use, Planning, Multi-Agent Collaboration, Memory, Guardrails, and Human-in-the-Loop
+- [Agent Orchestration Patterns](./orchestration-patterns/index.md) — Eight coordination topologies for multi-agent systems: Sequential, Parallel, Router, Hierarchical, Handoff, Evaluator-Optimizer, Group Chat, and Decentralized
 
 ## Key Concepts
 

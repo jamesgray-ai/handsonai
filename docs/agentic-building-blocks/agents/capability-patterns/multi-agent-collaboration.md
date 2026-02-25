@@ -40,6 +40,9 @@ Common architectures:
 - **Debate pattern** — Two or more agents argue different perspectives, and a judge agent selects or synthesizes the best answer.
 - **Peer collaboration** — Agents communicate as equals, each contributing their expertise to a shared workspace.
 
+!!! tip "Deep dive: Orchestration Patterns"
+    For detailed coverage of each coordination topology — including selection guides, diagrams, and platform examples — see [Orchestration Patterns](../orchestration-patterns/index.md).
+
 The key design decisions are:
 
 1. **How many agents?** — Use the minimum number needed. More agents means more coordination overhead.

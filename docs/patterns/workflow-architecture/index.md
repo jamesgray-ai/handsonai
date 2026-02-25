@@ -99,4 +99,5 @@ The [Build > Design](../../business-first-ai-framework/build/design.md) phase of
 - [Build > Design Your AI Workflow](../../business-first-ai-framework/build/design.md) — choose an execution pattern for your workflow
 - [Agents](../../agentic-building-blocks/agents/index.md) — concepts for building AI agents
 - [Agent Capability Patterns](../../agentic-building-blocks/agents/capability-patterns/index.md) — behavioral patterns (reflection, tool use, planning, etc.)
+- [Agent Orchestration Patterns](../../agentic-building-blocks/agents/orchestration-patterns/index.md) — multi-agent coordination topologies (sequential, parallel, hierarchical, etc.)
 - [Patterns Overview](../index.md)
