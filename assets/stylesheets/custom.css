@@ -344,13 +344,13 @@
 }
 
 /* Homepage — 3-column pathway cards */
-.grid-3col {
-  grid-template-columns: repeat(3, 1fr) !important;
+.md-typeset .grid.grid-3col {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 @media (max-width: 600px) {
-  .grid-3col {
-    grid-template-columns: 1fr !important;
+  .md-typeset .grid.grid-3col {
+    grid-template-columns: 1fr;
   }
 }
 
