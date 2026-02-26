@@ -273,6 +273,10 @@
          <lastmod>2026-02-26</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/blog/2026/02/26/plugin-marketplace-moved-to-dedicated-repo/</loc>
+         <lastmod>2026-02-26</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/builder-setup/</loc>
          <lastmod>2026-02-26</lastmod>
     </url>
@@ -1041,11 +1045,11 @@
          <lastmod>2026-02-26</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/blog/category/new-content/</loc>
+         <loc>https://handsonai.info/blog/category/plugins/</loc>
          <lastmod>2026-02-26</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/blog/category/plugins/</loc>
+         <loc>https://handsonai.info/blog/category/new-content/</loc>
          <lastmod>2026-02-26</lastmod>
     </url>
     <url>
@@ -1058,6 +1062,14 @@
     </url>
     <url>
          <loc>https://handsonai.info/blog/category/announcements/</loc>
+         <lastmod>2026-02-26</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/blog/page/2/</loc>
+         <lastmod>2026-02-26</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/blog/archive/2026/page/2/</loc>
          <lastmod>2026-02-26</lastmod>
     </url>
 </urlset>
