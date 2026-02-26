@@ -37,6 +37,12 @@ def _git_commit_datetime(file_path):
 MAX_ENTRIES = 5
 BRAND_COLOR = "#DDF222"
 
+# Category styling: (border_color, chip_label, chip_bg, chip_text)
+CATEGORY_STYLES = {
+    "AI News": ("#BBBDC7", "AI News", "#BBBDC7", "#202621"),
+}
+DEFAULT_STYLE = (BRAND_COLOR, "Cookbook", BRAND_COLOR, "#202621")
+
 
 def _parse_blog_posts(docs_dir):
     """Scan blog/posts/ for markdown files and extract date, title, description, and URL."""
@@ -66,6 +72,10 @@ def _parse_blog_posts(docs_dir):
         desc_match = re.search(r'^description:\s*["\'](.+?)["\']', text, re.MULTILINE)
         description = desc_match.group(1) if desc_match else ""
 
+        # Extract first category from frontmatter
+        cat_match = re.search(r'^categories:\s*\n\s*-\s*(.+)', text, re.MULTILINE)
+        category = cat_match.group(1).strip().strip('"\'') if cat_match else ""
+
         # Extract title from first H1
         title_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
         title = title_match.group(1).strip() if title_match else md_file.stem
@@ -74,7 +84,7 @@ def _parse_blog_posts(docs_dir):
         slug = _slugify(title)
         url = f"/blog/{frontmatter_date.strftime('%Y/%m/%d')}/{slug}/"
 
-        entries.append((display_date, title, description, url))
+        entries.append((display_date, title, description, url, category))
 
     entries.sort(key=lambda e: e[0], reverse=True)
     return entries[:MAX_ENTRIES]
@@ -90,15 +100,22 @@ def on_page_markdown(markdown, page, config, files):
         return markdown.replace(PLACEHOLDER, "")
 
     items = []
-    for date, title, description, url in entries:
+    for date, title, description, url, category in entries:
         if date.hour or date.minute:
             date_str = date.strftime("%b %d, %-I:%M %p") + " UTC"
         else:
             date_str = date.strftime("%b %d")
+        border_color, chip_label, chip_bg, chip_text = CATEGORY_STYLES.get(category, DEFAULT_STYLE)
+        chip_html = (
+            f'<span style="display: inline-block; font-size: 0.7em; font-weight: 600;'
+            f' padding: 1px 8px; border-radius: 9999px; margin-left: 0.5em;'
+            f' background: {chip_bg}; color: {chip_text}; vertical-align: middle;'
+            f' opacity: 0.85;">{chip_label}</span>'
+        )
         desc_html = f'<span style="opacity: 0.75;">{description}</span>' if description else ""
         items.append(
-            f'<div style="border-left: 3px solid {BRAND_COLOR}; padding: 0.4em 0 0.4em 1em; margin-bottom: 0.75em;">'
-            f'<strong style="opacity: 0.5; font-size: 0.85em;">{date_str}</strong><br>'
+            f'<div style="border-left: 3px solid {border_color}; padding: 0.4em 0 0.4em 1em; margin-bottom: 0.75em;">'
+            f'<strong style="opacity: 0.5; font-size: 0.85em;">{date_str}</strong>{chip_html}<br>'
             f'<a href="{url}" style="font-weight: 600;">{title}</a><br>'
             f'{desc_html}'
             f'</div>'
