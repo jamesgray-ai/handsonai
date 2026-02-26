@@ -343,17 +343,6 @@
   max-width: none;
 }
 
-/* Homepage — 3-column pathway cards */
-.md-typeset .grid.grid-3col {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-@media (max-width: 600px) {
-  .md-typeset .grid.grid-3col {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* About page — headshot */
 .about-headshot {
   width: 180px;
