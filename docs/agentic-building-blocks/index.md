@@ -1,6 +1,6 @@
 ---
 title: Agentic AI Building Blocks
-description: The nine components of agentic AI workflows — Model, Prompt, Context, Project, Skill, Agent, MCP, API, and SDK
+description: The ten components of agentic AI workflows — Model, Prompt, Context, Project, Memory, Skill, Agent, MCP, API, and SDK
 ---
 
 # Agentic AI Building Blocks
@@ -9,30 +9,57 @@ description: The nine components of agentic AI workflows — Model, Prompt, Cont
 
 ## Overview
 
-The nine AI building blocks are a shared vocabulary for describing the components of any AI workflow. Whether you're writing a single prompt, calling a model from code, or orchestrating a multi-agent pipeline, every AI workflow is assembled from some combination of these nine pieces.
+The ten AI building blocks are a shared vocabulary for describing the components of any AI workflow. Whether you're writing a single prompt, calling a model from code, or orchestrating a multi-agent pipeline, every AI workflow is assembled from some combination of these ten building blocks.
 
-**Model** · **Prompt** · **Context** · **Project** · **Skill** · **Agent** · **MCP** · **API** · **SDK**
+Ten blocks across three layers:
 
-These are platform-agnostic concepts. Every major AI platform implements them, though the names and interfaces differ. Understanding the blocks gives you a mental model that transfers across tools — you can evaluate any platform by asking "how does it handle models, prompts, context, projects, skills, agents, external connections, APIs, and development frameworks?"
+- **Intelligence** — Model, Context, Project, Memory
+- **Orchestration** — Prompt, Skill, Agent
+- **Integration** — MCP, API, SDK
+
+These are platform-agnostic concepts. Every major AI platform implements them, though the names and interfaces differ. Understanding the blocks gives you a mental model that transfers across tools — you can evaluate any platform by asking "how does it handle models, prompts, context, projects, memory, skills, agents, external connections, APIs, and development frameworks?"
 
 !!! tip "Using building blocks for workflow analysis"
     The [Business-First AI Framework](../business-first-ai-framework/index.md) uses these building blocks as the analysis tool in [Design Your AI Workflow](../business-first-ai-framework/build/design.md), where each step of a workflow gets mapped to the building blocks it needs.
 
-## Summary
+<div class="grid cards single-column" markdown>
 
-| Block | What It Is | Persistence |
-|-------|-----------|-------------|
-| **Model** | The AI engine that processes inputs and generates outputs | Persistent (platform-managed) |
-| **Prompt** | A well-crafted instruction that tells the model what to do | Single use |
-| **Context** | Background information, reference docs, or examples the model needs | Per conversation or persistent |
-| **Project** | A persistent workspace grouping prompts, context, skills, and agents | Persistent |
-| **Skill** | A reusable routine — give it inputs, it follows a defined process, it produces consistent outputs | Persistent and reusable |
-| **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work | Session-based or persistent |
-| **MCP** | A connector that lets AI access external tools, services, or databases | Persistent |
-| **API** | Programmatic interfaces for accessing AI models and cloud services | Persistent (key-based) |
-| **SDK** | Frameworks and toolkits for building AI workflows in code | Persistent |
+-   :material-brain:{ .lg .middle } **Intelligence**
 
-## The Nine Building Blocks
+    ---
+
+    *The persistent foundation: engine, knowledge, and workspace powering every interaction.*
+
+    - **[Model](models/index.md)** — The AI engine that processes inputs and generates outputs
+    - **[Context](context/index.md)** — Background information and reference material
+    - **[Project](projects/index.md)** — Persistent workspace grouping prompts, context, and skills
+    - **[Memory](memory/index.md)** — Accumulated knowledge from past interactions
+
+-   :material-cog-outline:{ .lg .middle } **Orchestration**
+
+    ---
+
+    *The execution layer: instructions, routines, and autonomous agents that direct and do the work.*
+
+    - **[Prompt](prompts/index.md)** — Natural language instructions to the model
+    - **[Skill](skills/index.md)** — Reusable routine with defined inputs and outputs
+    - **[Agent](agents/index.md)** — Autonomous AI that plans, uses tools, and executes multi-step work
+
+-   :material-connection:{ .lg .middle } **Integration**
+
+    ---
+
+    *The connection layer: protocols, interfaces, and frameworks that bridge AI to external systems and code.*
+
+    - **[MCP](mcp/index.md)** — Connector to external tools, services, and databases
+    - **[API](api/index.md)** — Programmatic interface for accessing AI models
+    - **[SDK](sdk/index.md)** — Frameworks and toolkits for building AI workflows in code
+
+</div>
+
+## Intelligence
+
+*The persistent foundation: engine, knowledge, and workspace powering every interaction.*
 
 ### Model
 
@@ -58,33 +85,6 @@ The AI engine that processes inputs and generates outputs. Models are trained on
 | M365 Copilot | Models managed by Microsoft; limited user selection |
 
 **Relationship to other blocks:** Model is the engine — prompts steer it, context informs it, skills package routines for it, agents orchestrate it, MCP connects it to external systems, APIs expose it to code, and SDKs provide frameworks for orchestrating it.
-
----
-
-### Prompt
-
-Instructions you provide to an AI in natural language during a conversation. Prompts are ephemeral, conversational, and reactive — you provide context and direction in the moment.
-
-**Key characteristics:**
-
-- The most fundamental building block — every AI interaction starts with a prompt
-- Can range from a single sentence to a detailed multi-section instruction
-- Ephemeral by default: conversational and reactive, used in the moment
-
-**When to use it:** Any time you interact with an AI model. A good prompt is sufficient for many tasks without needing other blocks.
-
-**Example:** "Summarize this quarterly sales report in three bullet points, highlighting the biggest change from last quarter."
-
-**Cross-platform implementations:**
-
-| Platform | How It Works |
-|----------|-------------|
-| Claude | Message in conversation, system prompt, or project instructions |
-| OpenAI (ChatGPT) | Message in conversation, system prompt, or Custom GPT instructions |
-| Gemini | Message in conversation or Gem instructions |
-| M365 Copilot | Message in chat, or prompt within a Copilot agent |
-
-**Relationship to other blocks:** Prompts are the foundation — context enhances them, skills package them for reuse, and agents chain them together.
 
 ---
 
@@ -139,6 +139,64 @@ Self-contained workspaces with their own chat histories and knowledge bases that
 | M365 Copilot | Copilot agents with knowledge sources and instructions |
 
 **Relationship to other blocks:** Projects are containers — they hold the prompts, context, and skills a workflow needs, making the whole package reusable.
+
+---
+
+### Memory
+
+Accumulated knowledge from past interactions — preferences, decisions, facts, and patterns that the AI retains and retrieves when relevant. Memory makes AI persistent rather than stateless.
+
+**Key characteristics:**
+
+- System-managed, not user-curated — the AI decides what to remember
+- Persists across conversations — survives session boundaries
+- Grows over time — more interactions produce richer memory
+
+**When to use it:** When repeating context to the AI is friction — preferences, project conventions, communication style — or when the AI should adapt to how you work over time.
+
+**Example:** After several conversations about a project, the AI remembers your preferred report format, the client's communication preferences, and that last week's deliverable was delayed — without you re-explaining any of it.
+
+**Cross-platform implementations:**
+
+| Platform | How It Works |
+|----------|-------------|
+| Claude | Claude memory, CLAUDE.md project memory, conversation continuity |
+| OpenAI (ChatGPT) | ChatGPT Memory, custom instructions persistence |
+| Gemini | Conversation memory, Gems with learned preferences |
+| M365 Copilot | Microsoft Graph as implicit memory, organizational knowledge |
+
+**Relationship to other blocks:** Memory complements context — context is knowledge you provide, memory is knowledge the AI accumulates. Projects organize context; memory adds learned persistence on top.
+
+---
+
+## Orchestration
+
+*The execution layer: instructions, routines, and autonomous agents that direct and do the work.*
+
+### Prompt
+
+Instructions you provide to an AI in natural language during a conversation. Prompts are ephemeral, conversational, and reactive — you provide context and direction in the moment.
+
+**Key characteristics:**
+
+- The most fundamental building block — every AI interaction starts with a prompt
+- Can range from a single sentence to a detailed multi-section instruction
+- Ephemeral by default: conversational and reactive, used in the moment
+
+**When to use it:** Any time you interact with an AI model. A good prompt is sufficient for many tasks without needing other blocks.
+
+**Example:** "Summarize this quarterly sales report in three bullet points, highlighting the biggest change from last quarter."
+
+**Cross-platform implementations:**
+
+| Platform | How It Works |
+|----------|-------------|
+| Claude | Message in conversation, system prompt, or project instructions |
+| OpenAI (ChatGPT) | Message in conversation, system prompt, or Custom GPT instructions |
+| Gemini | Message in conversation or Gem instructions |
+| M365 Copilot | Message in chat, or prompt within a Copilot agent |
+
+**Relationship to other blocks:** Prompts are the foundation — context enhances them, skills package them for reuse, and agents chain them together.
 
 ---
 
@@ -198,6 +256,10 @@ A system where an LLM controls workflow execution to achieve a goal.
 **Relationship to other blocks:** Agents orchestrate the other blocks — they use prompts, draw on context, invoke skills, and connect to external systems through MCP.
 
 ---
+
+## Integration
+
+*The connection layer: protocols, interfaces, and frameworks that bridge AI to external systems and code.*
 
 ### MCP (Model Context Protocol)
 
@@ -286,11 +348,12 @@ The building blocks are composable — combine the ones your workflow needs. Her
 2. **Start with a Prompt** — Write clear instructions for what you want done
 3. **Add Context** — Attach reference materials so the model has what it needs
 4. **Organize in a Project** — Group your prompt and context so they persist across conversations
-5. **Package as a Skill** — Turn the prompt + context into a reusable routine you can invoke with different inputs
-6. **Connect with MCP** — Give the skill access to external data and tools
-7. **Orchestrate with an Agent** — Let an autonomous AI run the skill, use MCP connections, and handle multi-step workflows
-8. **Call via API** — Integrate the workflow into an application or automated pipeline by calling the model programmatically
-9. **Build with an SDK** — Use a framework to orchestrate agents, manage tool use, and coordinate multi-agent pipelines in code
+5. **Build Memory** — Let the AI accumulate preferences, patterns, and knowledge across conversations
+6. **Package as a Skill** — Turn the prompt + context into a reusable routine you can invoke with different inputs
+7. **Connect with MCP** — Give the skill access to external data and tools
+8. **Orchestrate with an Agent** — Let an autonomous AI run the skill, use MCP connections, and handle multi-step workflows
+9. **Call via API** — Integrate the workflow into an application or automated pipeline by calling the model programmatically
+10. **Build with an SDK** — Use a framework to orchestrate agents, manage tool use, and coordinate multi-agent pipelines in code
 
 ### Worked example: Weekly Client Status Report
 
@@ -299,6 +362,7 @@ The building blocks are composable — combine the ones your workflow needs. Her
 | **Prompt only** | You paste "Write a status report for Client X covering this week's deliverables..." into a chat every Monday |
 | **+ Context** | You attach the client's project brief and last week's report so the model has history |
 | **+ Project** | You create a "Client Reports" project with the brief, templates, and standing instructions pre-loaded |
+| **+ Memory** | The project remembers your preferred report format, the client's communication preferences, and that last week's deliverable was delayed — no need to re-explain |
 | **+ Skill** | You package "generate weekly status report" as a skill — now you just invoke it with this week's updates |
 | **+ MCP** | The skill pulls this week's completed tasks from your project management tool and time entries from your time tracker |
 | **+ Agent** | An agent runs every Monday: gathers data via MCP, generates the report using the skill, drafts an email, and flags anything that needs your review |
@@ -309,7 +373,7 @@ The building blocks are composable — combine the ones your workflow needs. Her
 
 ## Platform Comparison
 
-All nine building blocks across all four platforms in one view:
+All ten building blocks across all four platforms in one view:
 
 | Building Block | Claude | OpenAI (ChatGPT) | Gemini | M365 Copilot |
 |---------------|--------|-------------------|--------|--------------|
@@ -317,6 +381,7 @@ All nine building blocks across all four platforms in one view:
 | **Prompt** | Conversation messages, system prompts | Conversation messages, system prompts | Conversation messages | Chat messages |
 | **Context** | File attachments, project knowledge | File uploads, GPT knowledge files | File uploads, Drive, NotebookLM | Microsoft Graph, documents |
 | **Project** | Claude Projects | Custom GPTs, ChatGPT Projects | Gems | Copilot agents |
+| **Memory** | Claude memory, CLAUDE.md | ChatGPT Memory | Conversation memory | Microsoft Graph |
 | **Skill** | Claude Code Skills | Not yet available | Not yet available | Not yet available |
 | **Agent** | Claude Code agents, Cowork | Assistants API, GPTs with Actions | Extensions | Copilot agents with plugins |
 | **MCP** | MCP servers | Function calling, Actions | Extensions, function calling | Connectors, plugins |
@@ -328,11 +393,14 @@ All nine building blocks across all four platforms in one view:
 **"Skills and agents are the same thing."**
 Skills are routines — they do one specific thing when invoked. Agents are autonomous — they decide what to do, plan steps, and invoke skills (among other tools) to accomplish goals. A skill is a tool; an agent is the one using the toolbox.
 
-**"You need all nine blocks for every workflow."**
+**"You need all ten blocks for every workflow."**
 Most workflows need two or three blocks. A well-written prompt with good context handles many tasks. Only add blocks when the workflow genuinely requires them.
 
 **"APIs and SDKs are the same thing."**
 An API is a raw interface — you send a request, you get a response. An SDK is a framework that builds on APIs, adding patterns for orchestration, tool use, memory, and multi-agent coordination. You can use APIs without an SDK, but SDKs make complex workflows much easier to build.
+
+**"Memory and context are the same thing."**
+Context is knowledge you provide — files, docs, examples attached to a conversation. Memory is knowledge the AI accumulates — preferences, past decisions, and patterns learned over time. You curate context; the AI manages memory.
 
 **"A project is just a folder."**
 A project is an active workspace — it provides standing instructions, persistent context, and conversation continuity. It shapes how the AI behaves for every conversation within it, not just where files are stored.
@@ -352,6 +420,7 @@ A project is an active workspace — it provides standing instructions, persiste
 - [Prompts](prompts/index.md) — the Prompt building block, with prompt engineering techniques
 - [Context](context/index.md) — background information and reference materials
 - [Projects](projects/index.md) — project workspaces with memory, knowledge bases, and custom instructions
+- [Memory](memory/index.md) — accumulated knowledge from past interactions
 - [Skills](skills/index.md) — reusable routines the AI invokes when relevant
 - [Agents](agents/index.md) — concepts for the Agent building block
 - [MCP](mcp/index.md) — connecting AI to external systems

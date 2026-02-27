@@ -93,7 +93,7 @@ SDK is the code-first orchestration layer:
 
 ## Related
 
-- [Agentic Building Blocks](../index.md) — SDK in the context of all nine building blocks
+- [Agentic Building Blocks](../index.md) — SDK in the context of all ten building blocks
 - [API](../api/index.md) — the raw programmatic interfaces that SDKs abstract over
 - [Agents](../agents/index.md) — the building block that SDKs implement in code
 - [Agent Capability Patterns](../agents/capability-patterns/index.md) — architectural patterns that SDKs help implement

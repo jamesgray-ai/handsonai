@@ -132,17 +132,18 @@ Build has three parts: **3.1 Design**, **3.2 Construct**, and **3.3 Run**.
 | **Semi-Autonomous** | AI does most of the work; human reviews at key checkpoints |
 | **Autonomous** | AI executes end-to-end, including decisions and tool use |
 
-**Nine AI Building Blocks:**
+**Ten AI Building Blocks:**
 
 | Block | What It Is |
 |-------|-----------|
 | **Model** | The AI engine that processes inputs and generates outputs |
 | **Prompt** | A well-crafted instruction that tells the model what to do |
 | **Context** | Background information, reference docs, or examples the model needs |
+| **Project** | A persistent workspace grouping prompts, context, skills, and agents |
+| **Memory** | Accumulated knowledge from past interactions — preferences, decisions, and patterns the AI retains |
 | **Skill** | A reusable routine — give it inputs, it follows a defined process, produces consistent outputs |
 | **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work |
 | **MCP** | A connector giving AI access to external tools, APIs, databases |
-| **Project** | A persistent workspace grouping prompts, context, skills, and agents |
 | **API** | Programmatic interfaces for accessing AI models and cloud services |
 | **SDK** | Frameworks and toolkits for building AI workflows in code |
 
@@ -263,6 +264,6 @@ When the user needs more depth on a specific topic, fetch the raw Markdown from 
 
 | Topic | Description | Raw Markdown URL |
 |-------|-------------|-----------------|
-| Agentic Building Blocks | Definitions and cross-platform details for all nine blocks | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/agentic-building-blocks/index.md` |
+| Agentic Building Blocks | Definitions and cross-platform details for all ten blocks | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/agentic-building-blocks/index.md` |
 | AI Use Cases | Six use case primitives with examples | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/use-cases/index.md` |
 | Agents by platform | Platform-specific agent building guides | `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/docs/agentic-building-blocks/agents/index.md` |

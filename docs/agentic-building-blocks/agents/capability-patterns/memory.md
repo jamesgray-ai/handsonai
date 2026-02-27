@@ -5,6 +5,9 @@ description: How AI agents store and retrieve information across interactions, e
 
 # Memory
 
+!!! tip "Memory as a building block"
+    This page covers Memory as an **agent capability pattern** — the specific mechanisms agents use to store and retrieve information. For the broader concept of Memory as a platform-level building block, see [Memory](../../memory/index.md).
+
 ## What It Is
 
 Memory is a pattern where an agent stores information from past interactions and retrieves it when relevant to current tasks. Without memory, every conversation starts from scratch — the agent has no knowledge of previous interactions, decisions, or user preferences. With memory, the agent builds up context over time, becoming more useful and personalized with each interaction.

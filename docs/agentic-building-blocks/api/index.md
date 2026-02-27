@@ -84,7 +84,7 @@ API is the programmatic bridge between your code and AI capabilities:
 
 ## Related
 
-- [Agentic Building Blocks](../index.md) — API in the context of all nine building blocks
+- [Agentic Building Blocks](../index.md) — API in the context of all ten building blocks
 - [SDK](../sdk/index.md) — frameworks that provide higher-level abstractions over APIs
 - [MCP](../mcp/index.md) — the protocol that connects AI to external systems (often backed by APIs)
 - [Agents](../agents/index.md) — autonomous systems that use APIs to call models and tools

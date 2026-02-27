@@ -17,7 +17,7 @@ This file is your input. Build has three parts:
 - **3.2: Construct** — build the components
 - **3.3: Run** — launch and operate the workflow
 
-![Step 3: Build Workflow — Design, Construct, and Run phases showing the flow from Workflow Definition through plan mode collaboration, AI Building Block Spec approval, two Construct paths (you build or model builds), and Run/Test via the launch guide](../../assets/images/build-workflow-design-construct-run-diagram.png)
+![Step 3: Build Workflow — Design, Construct, and Run phases showing the flow from Workflow Definition through plan mode collaboration, AI Building Block Spec approval, two Construct paths (you build or model builds), and Run/Test via the launch guide](../../assets/images/ai-workflow-build-design-construct-run-steps.jpg)
 
 ## 3.1: Design
 

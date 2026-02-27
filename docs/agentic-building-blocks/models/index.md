@@ -100,7 +100,7 @@ Model is the foundation — the engine everything else runs on:
 
 ## Related
 
-- [Agentic Building Blocks](../index.md) — Model in the context of all nine building blocks
+- [Agentic Building Blocks](../index.md) — Model in the context of all ten building blocks
 - [AI Use Cases](../../use-cases/index.md) — what teams build with these blocks, organized by six primitives
 - [Prompts](../prompts/index.md) — the instructions that steer the model
 - [Context](../context/index.md) — the knowledge that informs the model

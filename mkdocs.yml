@@ -242,70 +242,72 @@ nav:
       - Identify the right AI tools for a workflow: business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow.md
   - Agentic Building Blocks:
     - Overview: agentic-building-blocks/index.md
-    - Model: agentic-building-blocks/models/index.md
-    - Prompts:
-      - Overview: agentic-building-blocks/prompts/index.md
-      - Prompt Engineering:
-        - Overview: agentic-building-blocks/prompts/prompt-engineering/index.md
-        - Zero-Shot Prompting: agentic-building-blocks/prompts/prompt-engineering/zero-shot-prompting.md
-        - Few-Shot Learning: agentic-building-blocks/prompts/prompt-engineering/few-shot-learning.md
-        - Chain-of-Thought: agentic-building-blocks/prompts/prompt-engineering/chain-of-thought.md
-        - Direct Instruction: agentic-building-blocks/prompts/prompt-engineering/direct-instruction.md
-        - Contextual Prompting: agentic-building-blocks/prompts/prompt-engineering/contextual-prompting.md
-        - Role Prompting: agentic-building-blocks/prompts/prompt-engineering/role-prompting.md
-        - Output Formatting: agentic-building-blocks/prompts/prompt-engineering/output-formatting.md
-        - Multi-Turn Conversation: agentic-building-blocks/prompts/prompt-engineering/multi-turn-conversation.md
-        - Self-Consistency and Reflection: agentic-building-blocks/prompts/prompt-engineering/self-consistency-and-reflection.md
-        - Emotional Prompting: agentic-building-blocks/prompts/prompt-engineering/emotional-prompting.md
-        - Reframing Prompts: agentic-building-blocks/prompts/prompt-engineering/reframing-prompts.md
-        - Style Unbundling: agentic-building-blocks/prompts/prompt-engineering/style-unbundling.md
-        - Summarization and Distillation: agentic-building-blocks/prompts/prompt-engineering/summarization-and-distillation.md
-        - Real-World Constraints: agentic-building-blocks/prompts/prompt-engineering/real-world-constraints.md
-        - Resources: agentic-building-blocks/prompts/prompt-engineering/resources.md
-      - Questions:
-        - What is a system prompt?: agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md
-    - Context:
-      - Overview: agentic-building-blocks/context/index.md
-      - Context Graphs: agentic-building-blocks/context/context-graphs.md
-    - Projects:
-      - Overview: agentic-building-blocks/projects/index.md
-      - Project Instructions: agentic-building-blocks/projects/workspace-instructions-meta-prompt.md
-    - Skills:
-      - Overview: agentic-building-blocks/skills/index.md
-      - Questions:
-        - Difference between a skill and an agent: agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code.md
-        - Do plugin skills conflict with custom skills?: agentic-building-blocks/skills/questions/do-plugin-skills-conflict-with-custom-skills.md
-    - Agents:
-      - Overview: agentic-building-blocks/agents/index.md
-      - Programming Frameworks: agentic-building-blocks/agents/frameworks.md
-      - Capability Patterns:
-        - Overview: agentic-building-blocks/agents/capability-patterns/index.md
-        - Reflection: agentic-building-blocks/agents/capability-patterns/reflection.md
-        - Tool Use: agentic-building-blocks/agents/capability-patterns/tool-use.md
-        - Planning: agentic-building-blocks/agents/capability-patterns/planning.md
-        - Multi-Agent Collaboration: agentic-building-blocks/agents/capability-patterns/multi-agent-collaboration.md
-        - Memory: agentic-building-blocks/agents/capability-patterns/memory.md
-        - Guardrails: agentic-building-blocks/agents/capability-patterns/guardrails.md
-        - Human-in-the-Loop: agentic-building-blocks/agents/capability-patterns/human-in-the-loop.md
-      - Orchestration Patterns:
-        - Overview: agentic-building-blocks/agents/orchestration-patterns/index.md
-        - Sequential: agentic-building-blocks/agents/orchestration-patterns/sequential.md
-        - Parallel: agentic-building-blocks/agents/orchestration-patterns/parallel.md
-        - Router: agentic-building-blocks/agents/orchestration-patterns/router.md
-        - Hierarchical: agentic-building-blocks/agents/orchestration-patterns/hierarchical.md
-        - Handoff: agentic-building-blocks/agents/orchestration-patterns/handoff.md
-        - Evaluator-Optimizer: agentic-building-blocks/agents/orchestration-patterns/evaluator-optimizer.md
-        - Group Chat: agentic-building-blocks/agents/orchestration-patterns/group-chat.md
-        - Decentralized: agentic-building-blocks/agents/orchestration-patterns/decentralized.md
-      - Resources: agentic-building-blocks/agents/resources.md
-    - MCP:
-      - Overview: agentic-building-blocks/mcp/index.md
-      - Questions:
-        - How do I connect an MCP server to Claude Code: agentic-building-blocks/mcp/questions/how-do-i-connect-an-mcp-server-to-claude-code.md
-    - API:
-      - Overview: agentic-building-blocks/api/index.md
-    - SDK:
-      - Overview: agentic-building-blocks/sdk/index.md
+    - Intelligence:
+      - Model: agentic-building-blocks/models/index.md
+      - Context:
+        - Overview: agentic-building-blocks/context/index.md
+        - Context Graphs: agentic-building-blocks/context/context-graphs.md
+      - Projects:
+        - Overview: agentic-building-blocks/projects/index.md
+        - Project Instructions: agentic-building-blocks/projects/workspace-instructions-meta-prompt.md
+      - Memory: agentic-building-blocks/memory/index.md
+    - Orchestration:
+      - Prompts:
+        - Overview: agentic-building-blocks/prompts/index.md
+        - Prompt Engineering:
+          - Overview: agentic-building-blocks/prompts/prompt-engineering/index.md
+          - Zero-Shot Prompting: agentic-building-blocks/prompts/prompt-engineering/zero-shot-prompting.md
+          - Few-Shot Learning: agentic-building-blocks/prompts/prompt-engineering/few-shot-learning.md
+          - Chain-of-Thought: agentic-building-blocks/prompts/prompt-engineering/chain-of-thought.md
+          - Direct Instruction: agentic-building-blocks/prompts/prompt-engineering/direct-instruction.md
+          - Contextual Prompting: agentic-building-blocks/prompts/prompt-engineering/contextual-prompting.md
+          - Role Prompting: agentic-building-blocks/prompts/prompt-engineering/role-prompting.md
+          - Output Formatting: agentic-building-blocks/prompts/prompt-engineering/output-formatting.md
+          - Multi-Turn Conversation: agentic-building-blocks/prompts/prompt-engineering/multi-turn-conversation.md
+          - Self-Consistency and Reflection: agentic-building-blocks/prompts/prompt-engineering/self-consistency-and-reflection.md
+          - Emotional Prompting: agentic-building-blocks/prompts/prompt-engineering/emotional-prompting.md
+          - Reframing Prompts: agentic-building-blocks/prompts/prompt-engineering/reframing-prompts.md
+          - Style Unbundling: agentic-building-blocks/prompts/prompt-engineering/style-unbundling.md
+          - Summarization and Distillation: agentic-building-blocks/prompts/prompt-engineering/summarization-and-distillation.md
+          - Real-World Constraints: agentic-building-blocks/prompts/prompt-engineering/real-world-constraints.md
+          - Resources: agentic-building-blocks/prompts/prompt-engineering/resources.md
+        - Questions:
+          - What is a system prompt?: agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md
+      - Skills:
+        - Overview: agentic-building-blocks/skills/index.md
+        - Questions:
+          - Difference between a skill and an agent: agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code.md
+          - Do plugin skills conflict with custom skills?: agentic-building-blocks/skills/questions/do-plugin-skills-conflict-with-custom-skills.md
+      - Agents:
+        - Overview: agentic-building-blocks/agents/index.md
+        - Programming Frameworks: agentic-building-blocks/agents/frameworks.md
+        - Capability Patterns:
+          - Overview: agentic-building-blocks/agents/capability-patterns/index.md
+          - Reflection: agentic-building-blocks/agents/capability-patterns/reflection.md
+          - Tool Use: agentic-building-blocks/agents/capability-patterns/tool-use.md
+          - Planning: agentic-building-blocks/agents/capability-patterns/planning.md
+          - Multi-Agent Collaboration: agentic-building-blocks/agents/capability-patterns/multi-agent-collaboration.md
+          - Memory: agentic-building-blocks/agents/capability-patterns/memory.md
+          - Guardrails: agentic-building-blocks/agents/capability-patterns/guardrails.md
+          - Human-in-the-Loop: agentic-building-blocks/agents/capability-patterns/human-in-the-loop.md
+        - Orchestration Patterns:
+          - Overview: agentic-building-blocks/agents/orchestration-patterns/index.md
+          - Sequential: agentic-building-blocks/agents/orchestration-patterns/sequential.md
+          - Parallel: agentic-building-blocks/agents/orchestration-patterns/parallel.md
+          - Router: agentic-building-blocks/agents/orchestration-patterns/router.md
+          - Hierarchical: agentic-building-blocks/agents/orchestration-patterns/hierarchical.md
+          - Handoff: agentic-building-blocks/agents/orchestration-patterns/handoff.md
+          - Evaluator-Optimizer: agentic-building-blocks/agents/orchestration-patterns/evaluator-optimizer.md
+          - Group Chat: agentic-building-blocks/agents/orchestration-patterns/group-chat.md
+          - Decentralized: agentic-building-blocks/agents/orchestration-patterns/decentralized.md
+        - Resources: agentic-building-blocks/agents/resources.md
+    - Integration:
+      - MCP:
+        - Overview: agentic-building-blocks/mcp/index.md
+        - Questions:
+          - How do I connect an MCP server to Claude Code: agentic-building-blocks/mcp/questions/how-do-i-connect-an-mcp-server-to-claude-code.md
+      - API: agentic-building-blocks/api/index.md
+      - SDK: agentic-building-blocks/sdk/index.md
   - Use Cases:
     - Overview: use-cases/index.md
     - Content Creation:

@@ -59,7 +59,7 @@ The Run Guide is your bridge from Construct to [Run (3.3)](run.md) — follow it
 
 ## What Gets Built
 
-The model constructs from the nine AI building blocks — but only the ones your workflow needs:
+The model constructs from the ten AI building blocks — but only the ones your workflow needs:
 
 | Building Block | What the model generates | When it's needed |
 |---|---|---|
@@ -69,6 +69,7 @@ The model constructs from the nine AI building blocks — but only the ones your
 | **[Agent](../../agentic-building-blocks/agents/index.md)** | Agent definitions with instructions, tools, and goals | Single Agent and Multi-Agent patterns |
 | **[MCP](../../agentic-building-blocks/mcp/index.md)** | Tool connections to external services, APIs, or databases | When steps need to read from or write to external systems |
 | **[Project](../../agentic-building-blocks/projects/index.md)** | Workspace configuration grouping the workflow's artifacts | When the workflow runs frequently with the same context |
+| **[Memory](../../agentic-building-blocks/memory/index.md)** | Memory configuration or persistence notes (e.g., CLAUDE.md conventions, memory prompts) | When the workflow benefits from carrying preferences or decisions across runs |
 | **[API](../../agentic-building-blocks/api/index.md)** | API call scripts, authentication setup, request/response handling | When the architecture approach is code-first and steps need programmatic model access |
 | **[SDK](../../agentic-building-blocks/sdk/index.md)** | Agent project scaffolding, tool definitions, orchestration code | When the architecture approach is code-first and steps need agent frameworks |
 | **Model** | Model selection recommendations based on step requirements | When steps need specific capabilities (reasoning, speed, multimodal) |
