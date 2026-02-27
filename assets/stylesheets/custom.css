@@ -84,6 +84,11 @@
   text-decoration: none;
 }
 
+/* Single-column grid cards (full-width) */
+.md-typeset .grid.cards.single-column {
+  grid-template-columns: 1fr;
+}
+
 /* Grid card accent bar */
 .md-typeset .grid.cards > ul > li {
   border-left: 3px solid rgba(221, 242, 34, 0.7);
