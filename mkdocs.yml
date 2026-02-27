@@ -162,6 +162,8 @@ plugins:
         plugins/business-first-ai.md: use-the-cookbook/build/business-first-ai.md
         plugins/ai-registry.md: use-the-cookbook/build/ai-registry.md
         plugins/agentic-coding.md: use-the-cookbook/build/agentic-coding.md
+        # AI Engineering overview → Product & Engineering
+        ai-engineering/index.md: product-engineering/index.md
         # MCP Server → current location
         mcp-server.md: mcp-server/index.md
         use-the-cookbook/ask/index.md: mcp-server/index.md
@@ -384,16 +386,17 @@ nav:
     - Voice to Text: builder-setup/voice-to-text-setup.md
   - Product & Engineering:
     - product-engineering/index.md
-    - Software Development Lifecycle: product-engineering/sdlc.md
-    - Product Requirements: product-engineering/requirements.md
-    - User Stories & Acceptance Criteria: product-engineering/user-stories.md
-    - Roadmaps & Prioritization: product-engineering/roadmapping.md
-    - Stakeholder Management: product-engineering/stakeholder-management.md
-    - Project Tracking with GitHub: product-engineering/tracking.md
-    - Architecture Decision Records: product-engineering/architecture-decisions.md
-    - AI Engineering:
-        - Overview: ai-engineering/index.md
+    - Product:
+        - Product Requirements: product-engineering/requirements.md
+        - User Stories & Acceptance Criteria: product-engineering/user-stories.md
+        - Roadmaps & Prioritization: product-engineering/roadmapping.md
+        - Stakeholder Management: product-engineering/stakeholder-management.md
+    - Engineering:
+        - Software Development Lifecycle: product-engineering/sdlc.md
+        - Project Tracking with GitHub: product-engineering/tracking.md
+        - Architecture Decision Records: product-engineering/architecture-decisions.md
         - Context Engineering: ai-engineering/context-engineering.md
+        - Evaluation: ai-engineering/evaluation.md
   - Patterns:
     - Overview: patterns/index.md
     - Workflow Architecture Patterns:

@@ -27,14 +27,24 @@ Whether you're a business leader, a consultant, or someone learning to build wit
 
 ## What's in This Section
 
+### Product
+
 | Page | What You'll Learn |
 |------|------------------|
-| [Software Development Lifecycle](sdlc.md) | How software gets built — the plan-build-test-ship cycle, Agile vs. Waterfall, sprints, and key roles |
 | [Product Requirements](requirements.md) | PRDs — the document that aligns a team on what to build before they start |
 | [User Stories & Acceptance Criteria](user-stories.md) | The building blocks of requirements — how to describe what users need and define "done" |
 | [Roadmaps & Prioritization](roadmapping.md) | Deciding what to build first — frameworks for making trade-offs |
 | [Stakeholder Management](stakeholder-management.md) | The people side — communication, buy-in, and managing expectations |
+
+### Engineering
+
+| Page | What You'll Learn |
+|------|------------------|
+| [Software Development Lifecycle](sdlc.md) | How software gets built — the plan-build-test-ship cycle, Agile vs. Waterfall, sprints, and key roles |
 | [Project Tracking with GitHub](tracking.md) | Issues, epics, projects, and pull requests — the tools teams use to organize work |
+| [Architecture Decision Records](architecture-decisions.md) | Recording significant technical decisions and their rationale |
+| [Context Engineering](../ai-engineering/context-engineering.md) | Designing everything an AI model sees — system prompts, tools, memory, and state |
+| [Evaluation](../ai-engineering/evaluation.md) | Measuring whether AI systems produce good outputs — approaches, metrics, and eval suites |
 
 ## The AI Connection
 
