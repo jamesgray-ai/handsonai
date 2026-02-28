@@ -271,9 +271,9 @@
 - URL: https://handsonai.info/platforms/claude/
 - Summary: Everything for working with Anthropic's Claude — personalization setup, project organization, skills discovery, subagent scheduling, and troubleshooting. Covers Claude Code CLI, VS Code extension, and MCP integrations.
 
-#### Claude Personalization
-- URL: https://handsonai.info/platforms/claude/getting-started/claude-personalization-setup/
-- Summary: Setting up Claude's personalization features to customize AI behavior, preferences, and defaults for your workflow.
+#### Getting Started with Claude
+- URL: https://handsonai.info/platforms/claude/getting-started/
+- Summary: Complete setup checklist for Claude — account, Desktop, Code, Office add-ins, mobile, personalization, memory, and MCP connections.
 
 #### Claude Projects
 - URL: https://handsonai.info/platforms/claude/projects/claude-projects-setup/
@@ -433,7 +433,7 @@
 
 ### Claude for Builders: AI Workflows and Product Prototyping
 - URL: https://handsonai.info/courses/builders/
-- Summary: A 5-week cohort course on Maven that transforms Claude users into Claude builders. Covers AI workflows and agentic coding: Claude Skills, subagents, browser automation, and the full AI builder stack. Students build 5+ Skills, 3+ Subagents, browser automations, and a capstone project. Aimed at operational leaders, builder-founders, and AI-first professionals. Requires Claude Pro/Max subscription and macOS or Windows.
+- Summary: A 5-week cohort course on Maven that transforms Claude users into Claude builders. Covers AI workflows and agentic coding: Claude Skills, subagents, browser automation, and the full AI builder toolkit. Students build 5+ Skills, 3+ Subagents, browser automations, and a capstone project. Aimed at operational leaders, builder-founders, and AI-first professionals. Requires Claude Pro/Max subscription and macOS or Windows.
 
 ---
 
