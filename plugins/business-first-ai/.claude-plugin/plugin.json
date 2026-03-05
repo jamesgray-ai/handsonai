@@ -1,7 +1,7 @@
 {
   "name": "business-first-ai",
   "description": "The Business-First AI Framework as executable Claude Code skills. Analyze AI workflow opportunities, deconstruct workflows into building blocks, and build AI-powered workflows.",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "author": { "name": "James Gray" },
   "homepage": "https://handsonai.info/use-the-cookbook/build/business-first-ai/",
   "license": "MIT",
