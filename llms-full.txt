@@ -323,7 +323,7 @@
 
 #### Marketplace
 - URL: https://handsonai.info/use-the-cookbook/build/
-- Summary: Browse and install pre-built Claude Code plugins with agents and skills. Explains plugin concepts (agents, skills, commands, hooks, MCP servers) and lists available plugins: Business-First AI (8 agents, 6 skills, 3 prompts) and AI Registry (5 skills).
+- Summary: Browse and install pre-built Claude Code plugins with agents and skills. Explains plugin concepts (agents, skills, commands, hooks, MCP servers) and lists available plugins: Business-First AI (1 agent, 5 skills), AI Workflow Examples (8 agents, 2 skills), and AI Registry (5 skills).
 
 #### Using Plugins
 - URL: https://handsonai.info/use-the-cookbook/build/using-plugins/
@@ -331,7 +331,7 @@
 
 #### Business-First AI Plugin
 - URL: https://handsonai.info/use-the-cookbook/build/business-first-ai/
-- Summary: The Business-First AI Framework as executable Claude Code components. Includes 8 agents (workflow deconstructor, tech-executive writer, HBR editor/publisher, AI productivity researcher, meeting prep researcher, AI news researcher, Claude research daily), 5 skills (analyzing workflows, deconstructing workflows, building workflows, editing HBR articles, preparing meeting briefs), and 3 prompts (LinkedIn prospect research, buyer persona, quick meeting prep).
+- Summary: The Business-First AI Framework as executable Claude Code components. Includes 1 agent (framework-orchestrator) and 5 skills (analyzing-workflows, deconstructing-workflows, designing-workflows, constructing-workflows, running-workflows). Guides you through the full Analyze → Deconstruct → Build process with file-based handoffs between steps.
 
 #### AI Registry Plugin
 - URL: https://handsonai.info/use-the-cookbook/build/ai-registry/
