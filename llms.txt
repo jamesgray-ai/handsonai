@@ -25,6 +25,10 @@
 - Agents: https://handsonai.info/agentic-building-blocks/agents/
 - Agent Capability Patterns: https://handsonai.info/agentic-building-blocks/agents/capability-patterns/
 - MCP: https://handsonai.info/agentic-building-blocks/mcp/
+- Memory: https://handsonai.info/agentic-building-blocks/memory/
+- API: https://handsonai.info/agentic-building-blocks/api/
+- SDK: https://handsonai.info/agentic-building-blocks/sdk/
+- CLI: https://handsonai.info/agentic-building-blocks/cli/
 
 ## Use Cases
 - Overview: https://handsonai.info/use-cases/

@@ -6,7 +6,7 @@
 
 ## Homepage
 - URL: https://handsonai.info/
-- Summary: Central hub for the Hands-on AI Cookbook. Browse the Business-First AI Framework, seven Agentic Building Blocks (Model, Prompts, Context, Projects, Skills, Agents, MCP), six Use Case primitives, platform guides (Claude, ChatGPT, Gemini, Copilot), plugins, builder setup guides, patterns, and structured courses. Includes quick-start links for common tasks like installing Claude Code, setting up Git, and scheduling AI agents.
+- Summary: Central hub for the Hands-on AI Cookbook. Browse the Business-First AI Framework, eleven Agentic Building Blocks (Model, Prompts, Context, Projects, Memory, Skills, Agents, MCP, API, SDK, CLI), six Use Case primitives, platform guides (Claude, ChatGPT, Gemini, Copilot), plugins, builder setup guides, patterns, and structured courses. Includes quick-start links for common tasks like installing Claude Code, setting up Git, and scheduling AI agents.
 
 ---
 
@@ -62,7 +62,7 @@
 
 ### Overview
 - URL: https://handsonai.info/agentic-building-blocks/
-- Summary: The seven building blocks for AI-powered workflows, arranged along an autonomy spectrum from simple to complex: Model, Prompts, Context, Projects, Skills, Agents, and MCP (Model Context Protocol).
+- Summary: The eleven building blocks for AI-powered workflows, organized in three layers — Intelligence (Model, Context, Projects, Memory), Orchestration (Prompts, Skills, Agents), and Integration (MCP, API, SDK, CLI).
 
 ### Model
 - URL: https://handsonai.info/agentic-building-blocks/models/
@@ -199,6 +199,22 @@
 ### MCP (Model Context Protocol)
 - URL: https://handsonai.info/agentic-building-blocks/mcp/
 - Summary: Connecting AI to external tools and services using the Model Context Protocol. Covers MCP servers, tool integration, and real-world connection patterns.
+
+### Memory
+- URL: https://handsonai.info/agentic-building-blocks/memory/
+- Summary: Accumulated knowledge from past interactions — preferences, decisions, facts, and patterns that the AI retains and retrieves when relevant. Memory makes AI persistent rather than stateless. Covers cross-platform implementations (Claude memory, ChatGPT Memory, Gems, Microsoft Graph).
+
+### API
+- URL: https://handsonai.info/agentic-building-blocks/api/
+- Summary: Programmatic interfaces for accessing AI models and cloud services — the code-first way to interact with AI. Covers API types (model, cloud service, third-party, data), key concepts (endpoints, authentication, rate limits, streaming, structured outputs), and platform implementations (Anthropic, OpenAI, Gemini, Azure).
+
+### SDK
+- URL: https://handsonai.info/agentic-building-blocks/sdk/
+- Summary: Frameworks and toolkits for building AI workflows in code — agent orchestration, tool use, memory management, and multi-agent coordination. Covers major frameworks (Claude Agent SDK, OpenAI Agents SDK, Google ADK, LangGraph, CrewAI) and key concepts (agent loops, handoffs, guardrails, structured outputs).
+
+### CLI
+- URL: https://handsonai.info/agentic-building-blocks/cli/
+- Summary: Terminal-native interfaces for interacting with AI — from interactive coding sessions to scriptable automation. Covers CLI tools (Claude Code, Codex CLI, Gemini CLI), key concepts (interactive/headless modes, tool use, MCP integration), and platform implementations.
 
 ### Questions
 - What is a system prompt?: https://handsonai.info/agentic-building-blocks/prompts/questions/what-is-a-system-prompt/
