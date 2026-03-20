@@ -14,7 +14,7 @@
 
 ### Overview
 - URL: https://handsonai.info/business-first-ai-framework/
-- Summary: A three-step methodology for applying AI to business workflows: Analyze opportunities, Deconstruct workflows into AI building blocks, and Build across the autonomy spectrum (deterministic automation, AI collaborative, autonomous agent).
+- Summary: A seven-step methodology for applying AI to business workflows: Analyze opportunities, Deconstruct workflows, Design the AI architecture, Build platform artifacts, Test output quality, Run in production, and Improve over time.
 
 ### Step 1 — Analyze Workflows
 - URL: https://handsonai.info/business-first-ai-framework/analyze/
@@ -28,28 +28,40 @@
 - URL: https://handsonai.info/business-first-ai-framework/deconstruct/workflow-definition/
 - Summary: Interactive discovery process that decomposes a business workflow into structured steps with inputs, outputs, decision points, and handoffs.
 
-### Step 3 — Build Workflows
-- URL: https://handsonai.info/business-first-ai-framework/build/
-- Summary: Design and build a working AI workflow from your Workflow Definition. Three phases — Design (execution pattern spectrum, autonomy classification, building block mapping, agent configuration), Construct (pattern-specific build path with context, skills, prompt, agents, MCP), and Run (execution, iteration, scaling).
+### Step 3 — Design
+- URL: https://handsonai.info/business-first-ai-framework/design/
+- Summary: Assess the workflow's autonomy level, choose an orchestration mechanism (Prompt, Skill-Powered Prompt, Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents. Produces a platform-agnostic AI Building Block Spec.
 
-#### Design Your AI Workflow
-- URL: https://handsonai.info/business-first-ai-framework/build/design/
-- Summary: Choose an execution pattern (Prompt, Skill-Powered Prompt, Single Agent, Multi-Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents. Produces a platform-agnostic AI Building Block Spec.
+### Step 4 — Build
+- URL: https://handsonai.info/business-first-ai-framework/build/
+- Summary: Resolve context needs, then generate platform-appropriate artifacts (prompts, skills, agents, configs) from the approved Building Block Spec. Mechanism-specific build paths for Prompt, Skill-Powered Prompt, and Agent.
+
+### Step 5 — Test
+- URL: https://handsonai.info/business-first-ai-framework/test/
+- Summary: Structured testing of AI workflow artifacts — smoke test, eval suite with 1-5 scoring, building block evals in isolation, baseline establishment, and diagnosis. 2-4 iterations of Build-Test is normal.
+
+### Step 6 — Run
+- URL: https://handsonai.info/business-first-ai-framework/run/
+- Summary: Deploy the tested workflow. Choose a run pattern (paste and run, project, agent, code-first, automate on schedule), follow the Run Guide, and operationalize for your team.
+
+### Step 7 — Improve
+- URL: https://handsonai.info/business-first-ai-framework/improve/
+- Summary: Evaluate a running workflow for quality signals, run regression evals against the baseline, assess graduation to a more capable orchestration mechanism, and decide: no changes needed, tune, redesign, or evolve.
 
 #### Run Workflows
-- URL: https://handsonai.info/business-first-ai-framework/build/run/
+- URL: https://handsonai.info/business-first-ai-framework/run/
 - Summary: How to execute your AI workflow. Covers four execution patterns — paste and run in a normal chat, run in a project, command an agent, automate on a schedule — plus guidance on your first run and iterating based on results.
 
 #### Deterministic Automation
-- URL: https://handsonai.info/business-first-ai-framework/build/deterministic-automation/
+- URL: https://handsonai.info/business-first-ai-framework/examples/deterministic-automation/
 - Summary: Building reliable, repeatable AI workflows using structured prompts and templates. Focuses on predictable outputs with minimal AI judgment.
 
 #### AI Collaborative
-- URL: https://handsonai.info/business-first-ai-framework/build/ai-collaborative/
+- URL: https://handsonai.info/business-first-ai-framework/examples/ai-collaborative/
 - Summary: Building workflows where AI and humans collaborate, with clear handoff points and human review stages. The middle of the autonomy spectrum.
 
 #### Autonomous Agent
-- URL: https://handsonai.info/business-first-ai-framework/build/autonomous-agent/
+- URL: https://handsonai.info/business-first-ai-framework/examples/autonomous-agent/
 - Summary: Building fully autonomous AI agents that execute multi-step workflows with minimal human intervention. Covers agent design, tool integration, and monitoring.
 
 ### Questions
@@ -339,15 +351,15 @@
 
 #### Marketplace
 - URL: https://handsonai.info/use-the-cookbook/build/
-- Summary: Browse and install pre-built Claude Code plugins with agents and skills. Explains plugin concepts (agents, skills, commands, hooks, MCP servers) and lists available plugins: Business-First AI (1 agent, 5 skills), AI Workflow Examples (8 agents, 2 skills), and AI Registry (5 skills).
+- Summary: Browse and install pre-built Claude Code plugins with agents and skills. Explains plugin concepts (agents, skills, commands, hooks, MCP servers) and lists available plugins: Business-First AI (1 agent, 7 skills), AI Workflow Examples (8 agents, 2 skills), and AI Registry (5 skills).
 
 #### Using Plugins
 - URL: https://handsonai.info/use-the-cookbook/build/using-plugins/
 - Summary: Comprehensive guide to plugins — what they are, how to install them in Claude Code, how to use agents and skills across Claude Code, Claude.ai, Cowork, and the API. Includes managing updates, auto-updates, uninstalling, and troubleshooting.
 
 #### Business-First AI Plugin
-- URL: https://handsonai.info/use-the-cookbook/build/business-first-ai/
-- Summary: The Business-First AI Framework as executable Claude Code components. Includes 1 agent (framework-orchestrator) and 5 skills (analyzing-workflows, deconstructing-workflows, designing-workflows, constructing-workflows, running-workflows). Guides you through the full Analyze → Deconstruct → Build process with file-based handoffs between steps.
+- URL: https://handsonai.info/business-first-ai-framework/skills/
+- Summary: The Business-First AI Framework as executable Claude Code components. Includes 1 agent (framework-orchestrator) and 7 skills (analyze, deconstruct, design, build, test, run, improve). Guides you through the full seven-step Analyze → Deconstruct → Design → Build → Test → Run → Improve process with file-based handoffs between steps.
 
 #### AI Registry Plugin
 - URL: https://handsonai.info/use-the-cookbook/build/ai-registry/

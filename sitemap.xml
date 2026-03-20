@@ -361,15 +361,27 @@
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/business-first-ai-framework/analyze-prompt/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/business-first-ai-framework/analyze/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/business-first-ai-framework/deconstruct-prompt/</loc>
+         <loc>https://handsonai.info/business-first-ai-framework/design/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/improve/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/run/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/skills/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/test/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
@@ -381,39 +393,23 @@
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
-         <loc>https://handsonai.info/business-first-ai-framework/build/ai-collaborative/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/business-first-ai-framework/build/autonomous-agent/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/business-first-ai-framework/build/construct/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/business-first-ai-framework/build/design-prompt/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/business-first-ai-framework/build/design/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/business-first-ai-framework/build/deterministic-automation/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/business-first-ai-framework/build/run/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
          <loc>https://handsonai.info/business-first-ai-framework/deconstruct/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/business-first-ai-framework/examples/ai-collaborative/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/examples/autonomous-agent/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/business-first-ai-framework/examples/content-calendar-planning/</loc>
+         <lastmod>2026-03-20</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/business-first-ai-framework/examples/deterministic-automation/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>
@@ -946,10 +942,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/use-the-cookbook/build/ai-workflow-examples/</loc>
-         <lastmod>2026-03-20</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/use-the-cookbook/build/business-first-ai/</loc>
          <lastmod>2026-03-20</lastmod>
     </url>
     <url>

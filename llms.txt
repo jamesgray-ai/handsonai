@@ -9,9 +9,13 @@
 
 ## Business-First AI Framework
 - Overview: https://handsonai.info/business-first-ai-framework/
-- Step 1 — Analyze Workflows: https://handsonai.info/business-first-ai-framework/analyze/
-- Step 2 — Deconstruct Workflows: https://handsonai.info/business-first-ai-framework/deconstruct/
-- Step 3 — Build Workflows: https://handsonai.info/business-first-ai-framework/build/
+- Step 1 — Analyze: https://handsonai.info/business-first-ai-framework/analyze/
+- Step 2 — Deconstruct: https://handsonai.info/business-first-ai-framework/deconstruct/
+- Step 3 — Design: https://handsonai.info/business-first-ai-framework/design/
+- Step 4 — Build: https://handsonai.info/business-first-ai-framework/build/
+- Step 5 — Test: https://handsonai.info/business-first-ai-framework/test/
+- Step 6 — Run: https://handsonai.info/business-first-ai-framework/run/
+- Step 7 — Improve: https://handsonai.info/business-first-ai-framework/improve/
 
 ## Agentic Building Blocks
 - Overview: https://handsonai.info/agentic-building-blocks/
@@ -52,7 +56,7 @@
 - Build (Plugins):
   - Marketplace: https://handsonai.info/use-the-cookbook/build/
   - Using Plugins: https://handsonai.info/use-the-cookbook/build/using-plugins/
-  - Business-First AI: https://handsonai.info/use-the-cookbook/build/business-first-ai/
+  - Business-First AI: https://handsonai.info/business-first-ai-framework/skills/
   - AI Registry: https://handsonai.info/use-the-cookbook/build/ai-registry/
 
 ## Builder Setup
