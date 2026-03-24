@@ -497,6 +497,10 @@
          <lastmod>2026-03-24</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/courses/leaders/lessons/apply-the-business-first-ai-framework-from-deconstruct-to-run/</loc>
+         <lastmod>2026-03-24</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/courses/leaders/lessons/build-agent-workflows-visually-with-openai-agentkit/</loc>
          <lastmod>2026-03-24</lastmod>
     </url>
@@ -605,11 +609,19 @@
          <lastmod>2026-03-24</lastmod>
     </url>
     <url>
+         <loc>https://handsonai.info/courses/leaders/lessons/implement-a-workflow-and-building-block-registry/</loc>
+         <lastmod>2026-03-24</lastmod>
+    </url>
+    <url>
          <loc>https://handsonai.info/courses/leaders/lessons/implement-agent-orchestration-patterns-in-claude-code/</loc>
          <lastmod>2026-03-24</lastmod>
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/implement-scheduled-execution-for-claude-code-subagents/</loc>
+         <lastmod>2026-03-24</lastmod>
+    </url>
+    <url>
+         <loc>https://handsonai.info/courses/leaders/lessons/review-building-blocks-and-the-framework-from-idea-to-production/</loc>
          <lastmod>2026-03-24</lastmod>
     </url>
     <url>
@@ -622,10 +634,6 @@
     </url>
     <url>
          <loc>https://handsonai.info/courses/leaders/lessons/ship-your-skills-for-reuse/</loc>
-         <lastmod>2026-03-24</lastmod>
-    </url>
-    <url>
-         <loc>https://handsonai.info/courses/leaders/lessons/understand-how-to-inventory-and-manage-your-ai-workflows/</loc>
          <lastmod>2026-03-24</lastmod>
     </url>
     <url>
