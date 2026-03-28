@@ -41,7 +41,7 @@ BRAND_COLOR = "#DDF222"
 CATEGORY_STYLES = {
     "AI News": ("#BBBDC7", "AI News", "#BBBDC7", "#202621"),
 }
-DEFAULT_STYLE = (BRAND_COLOR, "Cookbook", BRAND_COLOR, "#202621")
+DEFAULT_STYLE = (BRAND_COLOR, "Playbook", BRAND_COLOR, "#202621")
 
 
 def _parse_blog_posts(docs_dir):

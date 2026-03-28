@@ -1,4 +1,4 @@
-# Hands-on AI Cookbook — https://handsonai.info
+# Hands-on AI Playbook — https://handsonai.info
 # All crawlers welcome, including AI bots
 
 User-agent: *

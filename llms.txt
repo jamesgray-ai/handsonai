@@ -1,4 +1,4 @@
-# Hands-on AI Cookbook
+# Hands-on AI Playbook
 > Curated AI knowledge for builders. Apply AI faster. Accelerate business impact.
 
 ## Author
@@ -50,14 +50,14 @@
 - Google Gemini: https://handsonai.info/platforms/google-gemini/
 - Microsoft 365 Copilot: https://handsonai.info/platforms/m365-copilot/
 
-## Use the Cookbook
-- Overview: https://handsonai.info/use-the-cookbook/
+## Use the Playbook
+- Overview: https://handsonai.info/use-the-playbook/
 - MCP Server: https://handsonai.info/mcp-server/
 - Build (Plugins):
-  - Marketplace: https://handsonai.info/use-the-cookbook/build/
-  - Using Plugins: https://handsonai.info/use-the-cookbook/build/using-plugins/
+  - Marketplace: https://handsonai.info/use-the-playbook/build/
+  - Using Plugins: https://handsonai.info/use-the-playbook/build/using-plugins/
   - Business-First AI: https://handsonai.info/business-first-ai-framework/skills/
-  - AI Registry: https://handsonai.info/use-the-cookbook/build/ai-registry/
+  - AI Registry: https://handsonai.info/use-the-playbook/build/ai-registry/
 
 ## Builder Setup
 - Terminal Basics: https://handsonai.info/builder-setup/terminal-basics/
