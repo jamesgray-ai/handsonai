@@ -36,7 +36,7 @@ Or using LangGraph to orchestrate a content pipeline where a research agent hand
 
 | Framework | Provider | Languages | Links |
 |-----------|----------|-----------|-------|
-| **Claude Agent SDK** | Anthropic | Python, TypeScript | [Playbook guide](../../platforms/claude/agents/building-agents.md) · <a href="https://platform.claude.com/docs/en/agent-sdk/overview" target="_blank">Docs</a> |
+| **Claude Agent SDK** | Anthropic | Python, TypeScript | [Playbook guide](../../platforms/claude/agents/building-agents.mdx) · <a href="https://platform.claude.com/docs/en/agent-sdk/overview" target="_blank">Docs</a> |
 | **OpenAI Agents SDK** | OpenAI | Python, TypeScript | [Playbook guide](../../platforms/openai/agents/building-agents.md) · <a href="https://developers.openai.com/api/docs/guides/agents-sdk" target="_blank">Docs</a> |
 | **Google Agent Development Kit (ADK)** | Google | Python | [Playbook guide](../../platforms/google-gemini/agents/building-agents.md) · <a href="https://docs.cloud.google.com/agent-builder/agent-development-kit/overview" target="_blank">Docs</a> |
 | **LangGraph** | LangChain | Python, JavaScript | <a href="https://www.langchain.com/langgraph" target="_blank">langchain.com/langgraph</a> |

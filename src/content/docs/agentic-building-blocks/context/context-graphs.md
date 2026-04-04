@@ -94,7 +94,7 @@ Context graphs intersect with every other building block:
 
 - **[Prompts](../prompts/index.md)** — Context graphs provide the structured background that makes prompts effective. Instead of cramming context into a prompt, agents query the graph for exactly what's relevant.
 - **[Projects](../projects/index.md)** — Projects organize persistent context. Context graphs add structure *within* that context — not just "here are the files" but "here's how they relate."
-- **[Skills](../skills/index.md)** — Skills can use context graphs to make decisions based on precedent and historical patterns rather than just the instructions they contain.
+- **[Skills](../skills/index.mdx)** — Skills can use context graphs to make decisions based on precedent and historical patterns rather than just the instructions they contain.
 - **[Agents](../agents/index.md)** — Agents are the primary consumers of context graphs. Multi-step workflows benefit most from structured reasoning and memory.
 - **[MCP](../mcp/index.md)** — MCP servers can expose context graph data as tools and resources, giving agents structured access to organizational knowledge.
 

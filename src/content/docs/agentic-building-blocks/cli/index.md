@@ -88,9 +88,9 @@ CLI is the terminal-native interaction layer:
 - [SDK](../sdk/index.md) — frameworks that power CLI agent capabilities
 - [MCP](../mcp/index.md) — the protocol that connects CLIs to external systems
 - [Agents](../agents/index.md) — the autonomous capabilities CLIs enable
-- [Skills](../skills/index.md) — reusable routines that extend CLI functionality
+- [Skills](../skills/index.mdx) — reusable routines that extend CLI functionality
 - [AI Use Cases](../../use-cases/index.md) — what teams build with these blocks
 - [Coding Use Cases](../../use-cases/coding/index.md) — the primary use case for CLI tools
-- [Agentic Coding](../../use-cases/coding/agentic-coding.md) — the coding workflow that CLI tools enable
+- [Agentic Coding](../../use-cases/coding/agentic-coding.mdx) — the coding workflow that CLI tools enable
 - [Editor Setup](../../builder-setup/editor-setup.md) — AI coding extensions including Claude Code
 - [Platforms](../../platforms/index.md) — platform-specific CLI guides

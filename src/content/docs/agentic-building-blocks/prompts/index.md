@@ -25,7 +25,7 @@ A prompt by itself is sufficient when:
 - The output format is simple or you can describe it inline
 - You don't need persistence across conversations
 
-When you find yourself writing the same prompt repeatedly or needing to attach the same context every time, that's a signal to consider other building blocks — [Context](../context/index.md), [Projects](../projects/index.md), or [Skills](../skills/index.md).
+When you find yourself writing the same prompt repeatedly or needing to attach the same context every time, that's a signal to consider other building blocks — [Context](../context/index.md), [Projects](../projects/index.md), or [Skills](../skills/index.mdx).
 
 ## Anatomy of an Effective Prompt
 
@@ -53,7 +53,7 @@ Not every prompt needs all four elements. A simple question needs only the task.
 
 **Vague instructions** — "Help me with marketing" gives the AI nothing to anchor on. Be specific: "Draft a 200-word LinkedIn post announcing our Q3 product update, targeting engineering managers."
 
-**Overloading a single prompt** — Asking the AI to research, analyze, write, format, and review in one prompt leads to shallow results. Break complex work into sequential prompts or use a [Skill](../skills/index.md).
+**Overloading a single prompt** — Asking the AI to research, analyze, write, format, and review in one prompt leads to shallow results. Break complex work into sequential prompts or use a [Skill](../skills/index.mdx).
 
 **Ignoring format guidance** — If you don't specify output structure, you get whatever the model defaults to. State what you want: bullet points, a table, a specific word count, or a particular template.
 

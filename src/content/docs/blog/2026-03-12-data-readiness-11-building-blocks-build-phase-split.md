@@ -16,11 +16,11 @@ The [Deconstruct step](../../business-first-ai-framework/deconstruct/index.md) n
 
 ## 11 Building Blocks in Three Layers
 
-The framework vocabulary expands from 7 to **11 building blocks**, organized by the three-layer model: **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent), and **Integration** (MCP, API, SDK, CLI). The [design skill](../../business-first-ai-framework/skills.md#design) now maps every step against the full set, ensuring workflows that need API integrations, SDK code, CLI automation, or persistent memory get those blocks identified during Design rather than discovered mid-build.
+The framework vocabulary expands from 7 to **11 building blocks**, organized by the three-layer model: **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent), and **Integration** (MCP, API, SDK, CLI). The [design skill](../../business-first-ai-framework/skills.mdx#design) now maps every step against the full set, ensuring workflows that need API integrations, SDK code, CLI automation, or persistent memory get those blocks identified during Design rather than discovered mid-build.
 
 ## Build Phase Split into Three Skills
 
-The monolithic `building-workflows` skill has been decomposed into three focused skills — **designing-workflows** (architecture decisions, autonomy assessment, step classification), **constructing-workflows** (artifact generation from the approved spec), and **running-workflows** (run guide creation). Each can be invoked independently, and the [Business-First AI plugin](../../business-first-ai-framework/skills.md) is now at **v6.0.2**.
+The monolithic `building-workflows` skill has been decomposed into three focused skills — **designing-workflows** (architecture decisions, autonomy assessment, step classification), **constructing-workflows** (artifact generation from the approved spec), and **running-workflows** (run guide creation). Each can be invoked independently, and the [Business-First AI plugin](../../business-first-ai-framework/skills.mdx) is now at **v6.0.2**.
 
 ## Design Prompt — Portable Version
 
@@ -28,7 +28,7 @@ The [Design step](../../business-first-ai-framework/design.md) is now available 
 
 ## Content Repurposing Demo Skills
 
-The [AI Workflow Examples plugin](../../use-the-playbook/build/ai-workflow-examples.md) (v1.1.0) adds two demo skills for the Agentic AI course: **extracting-article-insights** and **drafting-linkedin-posts** — a two-step content repurposing pipeline that extracts key points from a source article and drafts a LinkedIn post from the results.
+The [AI Workflow Examples plugin](../../use-the-playbook/build/ai-workflow-examples.mdx) (v1.1.0) adds two demo skills for the Agentic AI course: **extracting-article-insights** and **drafting-linkedin-posts** — a two-step content repurposing pipeline that extracts key points from a source article and drafts a LinkedIn post from the results.
 
 ## GitHub Setup: Create a Repository
 

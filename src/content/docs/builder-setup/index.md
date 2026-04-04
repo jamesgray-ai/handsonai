@@ -6,7 +6,7 @@ description: Step-by-step checklist for setting up your developer toolkit — te
 :::note[AI platform setup is in the Platforms section]
 Before starting here, make sure you've set up at least one AI platform — account, apps, personalization, memory, and connections. Each platform has its own Getting Started checklist:
 
-[→ Claude](../platforms/claude/getting-started/index.md) · [→ OpenAI](../platforms/openai/getting-started/index.md) · [→ Gemini](../platforms/google-gemini/getting-started/index.md) · [→ M365 Copilot](../platforms/m365-copilot/getting-started/index.md)
+[→ Claude](../platforms/claude/getting-started/index.md) · [→ OpenAI](../platforms/openai/getting-started/index.mdx) · [→ Gemini](../platforms/google-gemini/getting-started/index.md) · [→ M365 Copilot](../platforms/m365-copilot/getting-started/index.md)
 :::
 ## At a Glance
 
@@ -40,7 +40,7 @@ Before starting here, make sure you've set up at least one AI platform — accou
 
 Every tool in this stack runs through the terminal. You don't need to be an expert — just comfortable opening it, navigating folders, and running commands.
 
-[→ Go to Terminal Basics guide](terminal-basics.md)
+[→ Go to Terminal Basics guide](terminal-basics.mdx)
 
 **You're done when:** You can open a terminal, run `pwd`, and navigate to a folder with `cd`.
 
@@ -123,7 +123,7 @@ Skills work across platforms — Claude Code, Claude.ai, Cowork, Cursor, Codex C
 
 For step-by-step install instructions for your platform:
 
-[→ How to Add Skills to Your Platform](../agentic-building-blocks/skills/index.md#how-to-add-skills-to-your-platform)
+[→ How to Add Skills to Your Platform](../agentic-building-blocks/skills/index.mdx#how-to-add-skills-to-your-platform)
 
 Browse all available plugins on the [Agents & Skills Marketplace](../use-the-playbook/build/index.md).
 

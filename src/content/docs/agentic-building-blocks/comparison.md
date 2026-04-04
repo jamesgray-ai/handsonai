@@ -19,7 +19,7 @@ All blocks in one view — use this to quickly orient yourself, then drill into 
 | **[Project](projects/index.md)** | Organize | Persisting instructions and context across conversations | Everyone |
 | **[Memory](memory/index.md)** | Remember | Accumulating preferences and patterns over time | Everyone |
 | **[Prompt](prompts/index.md)** | Instruct | One-off or conversational tasks with clear instructions | Everyone |
-| **[Skill](skills/index.md)** | Standardize | Repeatable routines you run the same way every time | Everyone |
+| **[Skill](skills/index.mdx)** | Standardize | Repeatable routines you run the same way every time | Everyone |
 | **[Agent](agents/index.md)** | Execute autonomously | Multi-step workflows requiring planning and tool use | Power user |
 | **[MCP](mcp/index.md)** | Connect | Bridging AI to external tools, data, and services | Power user |
 | **[API](api/index.md)** | Integrate programmatically | Embedding AI in applications and automated pipelines | Developer |

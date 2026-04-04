@@ -62,13 +62,13 @@ Combining these two dimensions produces six distinct workflow archetypes:
 
 ### Worked Examples
 
-These three worked examples from the [Build](build/index.md) section illustrate different matrix positions:
+These three worked examples from the [Build](build/index.mdx) section illustrate different matrix positions:
 
 | Example | Archetype | Why |
 |---------|-----------|-----|
-| [Deterministic Automation](examples/deterministic-automation.md) | **Deterministic + Automated** | Fixed rules, structured input/output, runs the same way every time with no human steering |
-| [AI Collaborative](examples/ai-collaborative.md) | **Guided + Augmented** | AI researches and drafts; human reviews, refines, and decides what to use |
-| [Autonomous Agent](examples/autonomous-agent.md) | **Autonomous + Augmented** | Multi-agent pipeline executes autonomously with one human review gate before publishing |
+| [Deterministic Automation](examples/deterministic-automation.mdx) | **Deterministic + Automated** | Fixed rules, structured input/output, runs the same way every time with no human steering |
+| [AI Collaborative](examples/ai-collaborative.mdx) | **Guided + Augmented** | AI researches and drafts; human reviews, refines, and decides what to use |
+| [Autonomous Agent](examples/autonomous-agent.mdx) | **Autonomous + Augmented** | Multi-agent pipeline executes autonomously with one human review gate before publishing |
 
 ## Choosing Your Archetype
 
@@ -114,5 +114,5 @@ The seven [workflow architecture patterns](../patterns/workflow-architecture/ind
 
 - [Business-First AI Framework](index.md) — the full seven-step methodology
 - [Design Your AI Workflow](design.md) — assess autonomy, choose an orchestration mechanism, and map building blocks
-- [Build Workflows](build/index.md) — worked examples across the matrix
+- [Build Workflows](build/index.mdx) — worked examples across the matrix
 - [Workflow Architecture Patterns](../patterns/workflow-architecture/index.md) — implementation blueprints for each pattern

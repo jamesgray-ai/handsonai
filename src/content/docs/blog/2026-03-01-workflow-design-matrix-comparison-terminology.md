@@ -26,4 +26,4 @@ The Business-First AI Framework now uses a cleaner two-dimension vocabulary acro
 - **Autonomy**: Deterministic → Guided → Autonomous (replaces the old three-category system)
 - **Human Involvement**: Augmented vs. Automated (replaces Interactive/Autonomous/Hybrid)
 
-This affects the [Analyze](../../business-first-ai-framework/analyze.md), [Design](../../business-first-ai-framework/design.md), and [Build](../../business-first-ai-framework/build/index.md) pages, all three worked examples, and the Business-First AI plugin (now v5.0.0).
+This affects the [Analyze](../../business-first-ai-framework/analyze.md), [Design](../../business-first-ai-framework/design.md), and [Build](../../business-first-ai-framework/build/index.mdx) pages, all three worked examples, and the Business-First AI plugin (now v5.0.0).

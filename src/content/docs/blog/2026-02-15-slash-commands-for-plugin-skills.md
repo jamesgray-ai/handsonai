@@ -30,4 +30,4 @@ Slash commands work everywhere Claude Code runs: terminal, VS Code, JetBrains, t
 - `/ai-registry:register-block` — register a building block in Notion
 - `/ai-registry:sync-skills` — sync skills to GitHub
 
-Skills still auto-trigger from natural language prompts — the slash commands are an additional way to invoke them directly. See the updated [Business-First AI](../../business-first-ai-framework/skills.md) and [AI Registry](../../use-the-playbook/build/ai-registry.md) plugin pages for details.
+Skills still auto-trigger from natural language prompts — the slash commands are an additional way to invoke them directly. See the updated [Business-First AI](../../business-first-ai-framework/skills.mdx) and [AI Registry](../../use-the-playbook/build/ai-registry.mdx) plugin pages for details.

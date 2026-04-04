@@ -1,7 +1,7 @@
 ---
 title: Building Agents on Google
 description: How to build agents on Google's Gemini platform — Workspace Studio for natural-language automation, Gemini Enterprise Agent Designer for no-code workflows, and the Agent Development Kit for custom development.
----> **Part of:** [Build Workflows > Agents](../../../business-first-ai-framework/build/index.md)
+---> **Part of:** [Build Workflows > Agents](../../../business-first-ai-framework/build/index.mdx)
 
 Google offers three approaches to building agents on the Gemini platform, ranging from natural-language automation to full programmatic control.
 
@@ -202,5 +202,5 @@ research_agent = Agent(
 
 ## What's Next
 
-- [Agents overview](../../../business-first-ai-framework/build/index.md) — the platform-agnostic agent decision framework
+- [Agents overview](../../../business-first-ai-framework/build/index.mdx) — the platform-agnostic agent decision framework
 - [Design Your AI Workflow](../../../business-first-ai-framework/design.md) — produce the agent blueprint that feeds into these implementations

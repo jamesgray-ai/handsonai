@@ -20,7 +20,7 @@ You manage scheduled subagents entirely through Claude Code — pausing, resumin
 
 ## How to Get Started
 
-Follow the step-by-step guide: **[Scheduling Claude Code Subagents](../subagents/scheduling-subagents.md)**
+Follow the step-by-step guide: **[Scheduling Claude Code Subagents](../subagents/scheduling-subagents.mdx)**
 
 The guide covers:
 
@@ -48,5 +48,5 @@ The guide covers:
 
 ## Related Questions
 
-- [What is the best way to name Claude agent skills?](./what-is-the-best-way-to-name-claude-agent-skills.md)
+- [What is the best way to name Claude agent skills?](./what-is-the-best-way-to-name-claude-agent-skills.mdx)
 - [Scheduled Subagent Troubleshooting](../subagents/scheduling-subagent-issues.md)

@@ -1,7 +1,7 @@
 ---
 title: Building Agents on OpenAI
 description: How to build agents on OpenAI's platform — ChatGPT Agent Mode for simple tasks, AgentKit for visual workflows, Agents SDK for custom development, and Frontier for enterprise orchestration.
----> **Part of:** [Build Workflows > Agents](../../../business-first-ai-framework/build/index.md)
+---> **Part of:** [Build Workflows > Agents](../../../business-first-ai-framework/build/index.mdx)
 
 OpenAI offers four approaches to building agents, ranging from no-code chat interactions to full programmatic control.
 
@@ -182,5 +182,5 @@ For multi-agent workflows, Frontier provides the orchestration layer:
 
 ## What's Next
 
-- [Agents overview](../../../business-first-ai-framework/build/index.md) — the platform-agnostic agent decision framework
+- [Agents overview](../../../business-first-ai-framework/build/index.mdx) — the platform-agnostic agent decision framework
 - [Design Your AI Workflow](../../../business-first-ai-framework/design.md) — produce the agent blueprint that feeds into these implementations

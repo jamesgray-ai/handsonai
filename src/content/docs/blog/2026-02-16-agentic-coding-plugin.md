@@ -33,4 +33,4 @@ The two skills are designed to flow together — the Vision Brief feeds directly
 
 This plugin covers steps 0 (Discover) and 1 (Define) of the feature development workflow used to build this playbook. The full 6-step workflow — from vision brief through planning, implementation, review, and shipping — is documented in our [CLAUDE.md](https://github.com/jamesgray-ai/handsonai/blob/main/CLAUDE.md#feature-development-workflow) as a working example you can adapt for your own projects.
 
-See the [Agentic Coding page](../../use-cases/coding/agentic-coding.md) for full documentation, example prompts, and a recommended CLAUDE.md workflow you can copy.
+See the [Agentic Coding page](../../use-cases/coding/agentic-coding.mdx) for full documentation, example prompts, and a recommended CLAUDE.md workflow you can copy.

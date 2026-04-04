@@ -23,7 +23,7 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 
 </div>
 
-**Get the skills:** See [Get the Skills](skills.md) for installation instructions across Claude Code, Cowork, Claude.ai, Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `business-first-ai`.
+**Get the skills:** See [Get the Skills](skills.mdx) for installation instructions across Claude Code, Cowork, Claude.ai, Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `business-first-ai`.
 
 ## The Framework
 
@@ -42,7 +42,7 @@ The audit starts by determining which lens to use — individual or organization
 
 **Deliverable:** **Opportunity Report** (`outputs/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue.
 
-**Facilitated by the `analyze` skill.** See [Analyze Workflows](analyze.md) for details and [Get the Skills](skills.md) for installation on any supported platform.
+**Facilitated by the `analyze` skill.** See [Analyze Workflows](analyze.md) for details and [Get the Skills](skills.mdx) for installation on any supported platform.
 
 ---
 
@@ -69,7 +69,7 @@ This is purely the *what* — it captures the process without prescribing how AI
 
 **Deliverable:** **Workflow Definition** (`outputs/[name]-definition.md`) — either a step-decomposed breakdown (refined steps with decision points, data flows, context needs, failure modes, and a context shopping list) or an outcome-driven definition (goal, inputs, outputs, constraints, quality criteria, capability domains, and human gates).
 
-**Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/index.md) for details and [Get the Skills](skills.md) for installation on any supported platform.
+**Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/index.md) for details and [Get the Skills](skills.mdx) for installation on any supported platform.
 
 ---
 
@@ -93,7 +93,7 @@ The Build step starts with a **Prepare Context** phase — systematically resolv
 
 **Deliverable:** **Platform artifacts** — prompts, skills, agents, and configs generated for your specific platform, plus resolved context artifacts (style guides, reference materials, examples).
 
-**Facilitated by the `build` skill.** See [Build](build/index.md) for mechanism-specific build paths and platform research details.
+**Facilitated by the `build` skill.** See [Build](build/index.mdx) for mechanism-specific build paths and platform research details.
 
 ---
 
@@ -211,12 +211,12 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 :::tip[Get guided help]
 
 - **MCP Server** — [Connect the MCP server](../mcp-server/index.md) and ask your AI to walk you through the framework step by step.
-- **Skills** — Install the [Business-First AI skills](skills.md) for interactive guidance through all seven steps.
+- **Skills** — Install the [Business-First AI skills](skills.mdx) for interactive guidance through all seven steps.
 :::
 1. **[Analyze Workflows](analyze.md)** — identify your best AI candidates
 2. **[Deconstruct the workflow](deconstruct/index.md)** — break it into discrete steps
 3. **[Design](design.md)** your AI workflow — assess autonomy, choose an orchestration mechanism, classify steps, map building blocks
-4. **[Build](build/index.md)** the components your orchestration mechanism requires
+4. **[Build](build/index.mdx)** the components your orchestration mechanism requires
 5. **[Test](test.md)** your workflow against evaluation criteria and establish a quality baseline
 6. **[Run](run.md)** — deploy, choose a run pattern, and operationalize
 7. **[Improve](improve.md)** — periodically evaluate, catch regressions, and evolve

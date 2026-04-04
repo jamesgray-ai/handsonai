@@ -42,7 +42,7 @@ Specific guidance for how the AI handles different types of tasks. While system 
 
 Well-designed instructions include priority hierarchies (what takes precedence when guidance conflicts), escalation procedures (what to do when the AI can't complete a request), and dynamic adaptation (adjusting depth based on user responses).
 
-**Building blocks:** [Prompts](../agentic-building-blocks/prompts/index.md), [Skills](../agentic-building-blocks/skills/index.md)
+**Building blocks:** [Prompts](../agentic-building-blocks/prompts/index.md), [Skills](../agentic-building-blocks/skills/index.mdx)
 
 ### User Input Processing
 
@@ -54,7 +54,7 @@ How the system interprets and enriches what users provide. This includes intent 
 
 Defining precise formats for complex requests and responses. JSON schemas, templates, and metadata structures make interactions more predictable and consistent. On the output side, standardized formats and progressive disclosure (layered detail levels) improve usability.
 
-**Building blocks:** [Prompts](../agentic-building-blocks/prompts/index.md), [Skills](../agentic-building-blocks/skills/index.md)
+**Building blocks:** [Prompts](../agentic-building-blocks/prompts/index.md), [Skills](../agentic-building-blocks/skills/index.mdx)
 
 ### Tools
 

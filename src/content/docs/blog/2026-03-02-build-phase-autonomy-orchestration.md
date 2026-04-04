@@ -14,6 +14,6 @@ title: "Build Phase: Autonomy Levels and Orchestration Mechanisms"
 
 **Single Agent and Multi-Agent collapsed into "Agent."** Whether a workflow needs one agent or multiple is now an architecture detail decided during agent configuration — not a top-level pattern choice. This removes a premature decision point that often confused students.
 
-**Coach pages retired.** The "Use AI as Your Coach" pages have been removed. The [MCP server](../../mcp-server/index.md) and [Business-First AI plugin](../../business-first-ai-framework/skills.md) now provide better guided experiences — the framework overview page links directly to them.
+**Coach pages retired.** The "Use AI as Your Coach" pages have been removed. The [MCP server](../../mcp-server/index.md) and [Business-First AI plugin](../../business-first-ai-framework/skills.mdx) now provide better guided experiences — the framework overview page links directly to them.
 
-These changes are live across all [Build documentation](../../business-first-ai-framework/build/index.md), the `framework-orchestrator` agent, and the `building-workflows` skill (Business-First AI plugin v5.0.1).
+These changes are live across all [Build documentation](../../business-first-ai-framework/build/index.mdx), the `framework-orchestrator` agent, and the `building-workflows` skill (Business-First AI plugin v5.0.1).

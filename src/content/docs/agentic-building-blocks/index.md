@@ -41,7 +41,7 @@ The [Business-First AI Framework](../business-first-ai-framework/index.md) uses 
     *The execution layer: instructions, routines, and autonomous agents that direct and do the work.*
 
     - **[Prompt](prompts/index.md)** — Natural language instructions to the model
-    - **[Skill](skills/index.md)** — Reusable routine with defined inputs and outputs
+    - **[Skill](skills/index.mdx)** — Reusable routine with defined inputs and outputs
     - **[Agent](agents/index.md)** — Autonomous AI that plans, uses tools, and executes multi-step work
 
 -    **Integration**
@@ -455,7 +455,7 @@ A project is an active workspace — it provides standing instructions, persiste
 - [Context](context/index.md) — background information and reference materials
 - [Projects](projects/index.md) — project workspaces with memory, knowledge bases, and custom instructions
 - [Memory](memory/index.md) — accumulated knowledge from past interactions
-- [Skills](skills/index.md) — reusable routines the AI invokes when relevant
+- [Skills](skills/index.mdx) — reusable routines the AI invokes when relevant
 - [Agents](agents/index.md) — concepts for the Agent building block
 - [MCP](mcp/index.md) — connecting AI to external systems
 - [API](api/index.md) — programmatic interfaces for accessing AI models and services
@@ -472,4 +472,4 @@ A project is an active workspace — it provides standing instructions, persiste
 
 - [Claude Projects](../platforms/claude/projects/claude-projects-setup.md) — setting up the Project block on Claude
 - [Claude Skills](../platforms/claude/skills/skills-discovery-meta-prompt.md) — discovering Skills on Claude
-- [Claude Subagents](../platforms/claude/subagents/scheduling-subagents.md) — scheduling Agents on Claude
+- [Claude Subagents](../platforms/claude/subagents/scheduling-subagents.mdx) — scheduling Agents on Claude

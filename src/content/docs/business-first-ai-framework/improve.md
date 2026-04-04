@@ -77,7 +77,7 @@ Every improvement cycle ends with one of four outcomes:
 | Outcome | What it means | Next step |
 |---------|--------------|-----------|
 | **No changes needed** | Eval scores are stable, no quality signals, workflow fits its purpose | Record the result and set the next review date |
-| **Tune** | Specific building blocks need adjustment — context is outdated, a prompt needs refinement, a tool connection needs updating | Go to [Build (Step 4)](build/index.md), fix the identified issues, then [Test (Step 5)](test.md) |
+| **Tune** | Specific building blocks need adjustment — context is outdated, a prompt needs refinement, a tool connection needs updating | Go to [Build (Step 4)](build/index.mdx), fix the identified issues, then [Test (Step 5)](test.md) |
 | **Redesign** | Architecture assumptions have changed — the workflow needs a different orchestration mechanism, new building blocks, or a fundamentally different approach | Go to [Design (Step 3)](design.md) and rework the Building Block Spec |
 | **Evolve** | The workflow should graduate to a more capable orchestration mechanism (see [Graduation Assessment](#graduation-assessment)) | Go to [Design (Step 3)](design.md) and upgrade the mechanism |
 
@@ -97,7 +97,7 @@ An **Improvement Plan** saved to `outputs/[workflow-name]-improvement-plan.md` t
 
 ## How to Use This
 
-This step is facilitated by the **`improve`** Business-First AI Framework skill. See [Get the Skills](skills.md) for installation instructions across all supported platforms.
+This step is facilitated by the **`improve`** Business-First AI Framework skill. See [Get the Skills](skills.mdx) for installation instructions across all supported platforms.
 
 **Start with this prompt:**
 
@@ -112,4 +112,4 @@ The skill reads your Building Block Spec and previous test results, guides you t
 - [Run](run.md) — the step before Improve
 - [Test](test.md) — where the eval suite and baseline were established
 - [Design](design.md) — where to go for Redesign or Evolve outcomes
-- [Build](build/index.md) — where to go for Tune outcomes
+- [Build](build/index.mdx) — where to go for Tune outcomes

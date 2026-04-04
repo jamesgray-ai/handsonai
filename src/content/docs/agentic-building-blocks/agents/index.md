@@ -9,7 +9,7 @@ Each platform has its own agent system. These guides show how to build agents on
 
 | Platform | Approach | Description | Guide |
 |----------|----------|-------------|-------|
-| **Claude** | <a href="https://code.claude.com/docs/en/sub-agents" target="_blank">Subagents</a> | Build and activate subagents via natural language | [Building Agents on Claude](../../platforms/claude/agents/building-agents.md) |
+| **Claude** | <a href="https://code.claude.com/docs/en/sub-agents" target="_blank">Subagents</a> | Build and activate subagents via natural language | [Building Agents on Claude](../../platforms/claude/agents/building-agents.mdx) |
 | **Claude** | <a href="https://code.claude.com/docs/en/agent-teams" target="_blank">Agent Teams</a> | Code-first multi-agent coordination | ↑ |
 | **Claude** | <a href="https://claude.com/chrome" target="_blank">Claude in Chrome</a> | Chrome browser orchestration (macOS only) | ↑ |
 | **Claude** | <a href="https://platform.claude.com/docs/en/agent-sdk/overview" target="_blank">Agents SDK</a> | Code-first approach in Python with SDK | ↑ |
@@ -24,7 +24,7 @@ Each platform has its own agent system. These guides show how to build agents on
 | **Google** | <a href="https://docs.cloud.google.com/agent-builder/agent-development-kit/overview" target="_blank">Vertex AI & ADK</a> | Code-first approach in Python | ↑ |
 | **M365 Copilot** | <a href="https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview" target="_blank">Copilot & Copilot Studio</a> | Build agents visually and deploy to M365 surfaces | [Building Agents on M365 Copilot](../../platforms/m365-copilot/agents/building-agents.md) |
 
-For guidance on deciding *whether* your workflow needs an agent, see [Build Workflows > Agents](../../business-first-ai-framework/build/index.md).
+For guidance on deciding *whether* your workflow needs an agent, see [Build Workflows > Agents](../../business-first-ai-framework/build/index.mdx).
 
 ## Topics
 

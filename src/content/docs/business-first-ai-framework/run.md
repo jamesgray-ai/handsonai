@@ -130,7 +130,7 @@ In the first few weeks after deployment, check:
 
 ## How to Use This
 
-This step is facilitated by the **`run`** Business-First AI Framework skill. See [Get the Skills](skills.md) for installation instructions across all supported platforms.
+This step is facilitated by the **`run`** Business-First AI Framework skill. See [Get the Skills](skills.mdx) for installation instructions across all supported platforms.
 
 **Start with this prompt:**
 
@@ -148,5 +148,5 @@ Once your workflow is running in production, set a reminder to revisit it. Move 
 
 - [Test](test.md) — the step before Run
 - [Improve](improve.md) — the step after Run
-- [Build](build/index.md) — where to go if deployment reveals issues that need fixes
+- [Build](build/index.mdx) — where to go if deployment reveals issues that need fixes
 - [AI Workflow Design Matrix](workflow-design-matrix.md) — how autonomy and involvement combine into workflow archetypes

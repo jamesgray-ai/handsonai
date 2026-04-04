@@ -51,7 +51,7 @@ After adding skills, you can say "edit this article for HBR quality" and VS Code
 
 Download skill folders from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins) and place them in `.github/skills/` or `.agents/skills/` in your project root. VS Code Copilot discovers them automatically.
 
-[→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/index.md#how-to-add-skills-to-your-platform)
+[→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/index.mdx#how-to-add-skills-to-your-platform)
 
 ---
 

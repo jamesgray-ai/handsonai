@@ -92,7 +92,7 @@ Automation delivers the largest time savings because it eliminates recurring man
 - [AI Use Cases Overview](index.md) — all six primitives at a glance
 - [Agents](../../agentic-building-blocks/agents/index.md) — the building block that powers most automation
 - [MCP](../../agentic-building-blocks/mcp/index.md) — connecting automated workflows to external systems
-- [Skills](../../agentic-building-blocks/skills/index.md) — reusable routines that agents invoke during automation
-- [Scheduling Subagents](../../platforms/claude/subagents/scheduling-subagents.md) — how to schedule automated agents on Claude
-- [Build Workflows](../../business-first-ai-framework/build/index.md) — worked examples including autonomous agent workflows
+- [Skills](../../agentic-building-blocks/skills/index.mdx) — reusable routines that agents invoke during automation
+- [Scheduling Subagents](../../platforms/claude/subagents/scheduling-subagents.mdx) — how to schedule automated agents on Claude
+- [Build Workflows](../../business-first-ai-framework/build/index.mdx) — worked examples including autonomous agent workflows
 - [Automation Resources](resources.md) — curated reports, guides, and references

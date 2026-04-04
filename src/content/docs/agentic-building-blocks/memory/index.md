@@ -68,7 +68,7 @@ For details on how agents implement memory systems — retrieval mechanisms, sto
 - **[Context](../context/index.md)** provides knowledge explicitly; Memory accumulates it implicitly
 - **[Projects](../projects/index.md)** organize context persistently; Memory adds learned persistence on top — the AI remembers not just what's in the project, but what it has learned from working with you in it
 - **[Agents](../agents/index.md)** use Memory to improve across runs — an agent that remembers past decisions makes better decisions next time
-- **[Skills](../skills/index.md)** benefit from Memory — remembered preferences shape skill outputs without you specifying them each time
+- **[Skills](../skills/index.mdx)** benefit from Memory — remembered preferences shape skill outputs without you specifying them each time
 
 ## Related
 

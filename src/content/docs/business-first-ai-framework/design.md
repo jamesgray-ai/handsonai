@@ -195,7 +195,7 @@ This detail enables generation of skills on any platform during the Build step.
 
 ## Agent Blueprints
 
-When the orchestration mechanism is Agent, document each agent your workflow needs. These are platform-agnostic specifications — the model builds them into working agents during [Build](build/index.md). Whether the workflow needs one agent or multiple agents is decided here based on the number of distinct roles, expertise domains, and orchestration needs.
+When the orchestration mechanism is Agent, document each agent your workflow needs. These are platform-agnostic specifications — the model builds them into working agents during [Build](build/index.mdx). Whether the workflow needs one agent or multiple agents is decided here based on the number of distinct roles, expertise domains, and orchestration needs.
 
 | Component | What to specify |
 |-----------|----------------|
@@ -233,7 +233,7 @@ The output is the same AI Building Block Spec format, with Capability Domain Map
 
 ## How to Use This
 
-This step is facilitated by the **`design`** Business-First AI Framework Skill. How you get it depends on your platform — see [Get the Skills](skills.md) for installation instructions.
+This step is facilitated by the **`design`** Business-First AI Framework Skill. How you get it depends on your platform — see [Get the Skills](skills.mdx) for installation instructions.
 
 **Start with this prompt:**
 
@@ -268,7 +268,7 @@ Once the architecture decisions, autonomy level, and orchestration mechanism are
 | **Codex CLI** | Run with the `--plan` flag |
 | **Other AI tools** | Ask the model: *"Switch to plan mode. Based on the architecture decisions, autonomy level, and orchestration mechanism we've agreed on, plan the full AI Building Block Spec — classify each step, map building blocks, identify skill candidates, and document agent blueprints."* |
 
-After the model produces the plan, **review and approve the AI Building Block Spec** before moving on. If anything needs adjustment — a step classification, a skill candidate, an agent blueprint — now is the time. Once you approve, the model transitions to [Build (Step 4)](build/index.md) and begins building.
+After the model produces the plan, **review and approve the AI Building Block Spec** before moving on. If anything needs adjustment — a step classification, a skill candidate, an agent blueprint — now is the time. Once you approve, the model transitions to [Build (Step 4)](build/index.mdx) and begins building.
 
 ## What This Produces
 
@@ -290,4 +290,4 @@ The **AI Building Block Spec** contains:
 - **Tools and connectors** — external integrations required
 - **Implementation order** — quick wins → semi-autonomous → complex agent steps
 
-This AI Building Block Spec is the input for [Step 4: Build](build/index.md), where the model generates platform-appropriate artifacts (prompts, skills, agents, connectors) based on your orchestration mechanism and architecture decisions.
+This AI Building Block Spec is the input for [Step 4: Build](build/index.mdx), where the model generates platform-appropriate artifacts (prompts, skills, agents, connectors) based on your orchestration mechanism and architecture decisions.

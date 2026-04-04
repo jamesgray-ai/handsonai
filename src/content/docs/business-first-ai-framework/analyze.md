@@ -26,7 +26,7 @@ This step guides an AI through a structured analysis of your work — from eithe
 
 ## How to Use This
 
-This step is facilitated by the **`analyze`** Business-First AI Framework Skill. How you get it depends on your platform — see [Get the Skills](skills.md) for installation instructions.
+This step is facilitated by the **`analyze`** Business-First AI Framework Skill. How you get it depends on your platform — see [Get the Skills](skills.mdx) for installation instructions.
 
 **Start with this prompt:**
 

@@ -15,4 +15,4 @@ These resources informed key sections of the playbook:
 
 - **OpenAI Use Cases Report** — the foundation for the [six use case primitives](../use-cases/index.md) used throughout the playbook
 - **Anthropic Coding Trends** — context for the [Coding](../use-cases/coding/index.md) use case and [Agents](../agentic-building-blocks/agents/index.md) building block
-- **Anthropic Skills Guide** — the authoritative reference for the [Skills](../agentic-building-blocks/skills/index.md) building block and [Agents & Skills](../use-the-playbook/build/index.md) section
+- **Anthropic Skills Guide** — the authoritative reference for the [Skills](../agentic-building-blocks/skills/index.mdx) building block and [Agents & Skills](../use-the-playbook/build/index.md) section

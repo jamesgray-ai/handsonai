@@ -5,7 +5,7 @@ description: Run structured tests on your AI workflow artifacts — smoke test, 
 
 ## Where You Are
 
-You've just finished [Build (Step 4)](build/index.md). You should have:
+You've just finished [Build (Step 4)](build/index.mdx). You should have:
 
 - **Platform artifacts** — prompts, skills, agents, and configs generated for your platform
 - **Context artifacts** — style guides, reference materials, and examples
@@ -21,7 +21,7 @@ Start with a single test — pick one realistic scenario and run the workflow en
 - **Does it produce output?** — Is there a result, or does it stall?
 - **Is the output in the right format?** — Does it look like what you expected?
 
-If any of these fail, go back to [Build](build/index.md) and fix the obvious issue before continuing. Common first-run problems:
+If any of these fail, go back to [Build](build/index.mdx) and fix the obvious issue before continuing. Common first-run problems:
 
 - Missing context files the model references but cannot find
 - MCP connections that are not configured or are not responding
@@ -109,14 +109,14 @@ After testing and iterating, you reach one of two outcomes:
 
 **Ready to deploy.** You can run the workflow on a new scenario and trust the output without heavy editing. Your eval scores are at or above the threshold you set. Move to **[Step 6: Run](run.md)**.
 
-**Not ready.** One or more dimensions consistently score below your threshold. Go back to **[Step 4: Build](build/index.md)**, fix the identified building blocks, and return to Test. Re-run the full eval suite — do not skip scenarios that passed previously, because a fix in one area can affect others.
+**Not ready.** One or more dimensions consistently score below your threshold. Go back to **[Step 4: Build](build/index.mdx)**, fix the identified building blocks, and return to Test. Re-run the full eval suite — do not skip scenarios that passed previously, because a fix in one area can affect others.
 
 :::note[2-4 iterations is normal]
 Most workflows need multiple rounds of Build-then-Test before they are ready for deployment. Each iteration should be targeted — fix a specific issue, re-test, and measure improvement. If you have been through four iterations and scores are not improving, consider going back to [Design (Step 3)](design.md) to re-examine your architecture decisions.
 :::
 ## How to Use This
 
-This step is facilitated by the **`test`** Business-First AI Framework skill. See [Get the Skills](skills.md) for installation instructions across all supported platforms.
+This step is facilitated by the **`test`** Business-First AI Framework skill. See [Get the Skills](skills.mdx) for installation instructions across all supported platforms.
 
 **Start with this prompt:**
 
@@ -129,6 +129,6 @@ The skill guides you through the smoke test, eval suite, building block evals, b
 ## Related
 
 - [Design Your AI Workflow](design.md) — where evaluation criteria and test scenarios are defined
-- [Build](build/index.md) — where you fix issues identified during testing
+- [Build](build/index.mdx) — where you fix issues identified during testing
 - [Run](run.md) — the next step once your workflow passes testing
 - [Improve](improve.md) — where you re-run evals to detect regression on deployed workflows

@@ -91,7 +91,7 @@ Data analysis is often the highest-value primitive for teams that have data but 
 
 - [AI Use Cases Overview](index.md) — all six primitives at a glance
 - [Context](../../agentic-building-blocks/context/index.md) — providing datasets and domain knowledge
-- [Skills](../../agentic-building-blocks/skills/index.md) — packaging analysis workflows for repeatable use
+- [Skills](../../agentic-building-blocks/skills/index.mdx) — packaging analysis workflows for repeatable use
 - [Coding](../coding/index.md) — when the goal is the analysis tool itself, not the insight
 - [Automation](../automation/index.md) — running analysis workflows on a schedule
 - [Data Analysis Resources](resources.md) — curated reports, guides, and references

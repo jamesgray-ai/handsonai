@@ -13,7 +13,7 @@ title: "Platform Getting Started Pages, Memory Building Block, and More"
 
 ## Platform Getting Started Checklists
 
-Each platform — [Claude](../../platforms/claude/getting-started/index.md), [OpenAI](../../platforms/openai/getting-started/index.md), [Gemini](../../platforms/google-gemini/getting-started/index.md), and [M365 Copilot](../../platforms/m365-copilot/getting-started/index.md) — now has its own Getting Started page. These walk you through account setup, app installation, personalization, memory, and connections (MCP, extensions, or connected apps) in one place. Platform setup content that previously lived in the Builder Tools Setup section has been moved here, so each platform tells its own complete story.
+Each platform — [Claude](../../platforms/claude/getting-started/index.md), [OpenAI](../../platforms/openai/getting-started/index.mdx), [Gemini](../../platforms/google-gemini/getting-started/index.md), and [M365 Copilot](../../platforms/m365-copilot/getting-started/index.md) — now has its own Getting Started page. These walk you through account setup, app installation, personalization, memory, and connections (MCP, extensions, or connected apps) in one place. Platform setup content that previously lived in the Builder Tools Setup section has been moved here, so each platform tells its own complete story.
 
 ## Memory: The 10th Agentic Building Block
 

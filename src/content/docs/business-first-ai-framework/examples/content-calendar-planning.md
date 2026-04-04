@@ -52,7 +52,7 @@ The AI Building Block Spec is what [Design](../design.md) produces from the Work
 
 [GitHub View full Workflow Prompt on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/baseline-prompt.md)
 
-The workflow prompt is one of the platform artifacts that [Build (Step 4)](../build/index.md) produces. This is the ready-to-run prompt you paste into any AI tool to execute the workflow.
+The workflow prompt is one of the platform artifacts that [Build (Step 4)](../build/index.mdx) produces. This is the ready-to-run prompt you paste into any AI tool to execute the workflow.
 
 **What's inside:**
 
@@ -83,7 +83,7 @@ Ready to run your own workflow through the framework?
 - **[Step 1 — Analyze](../analyze.md)**: Find which of your workflows are candidates for AI
 - **[Step 2 — Deconstruct](../deconstruct/index.md)**: Break your chosen workflow into atomic steps
 - **[Step 3 — Design](../design.md)**: Design the AI implementation architecture
-- **[Step 4 — Build](../build/index.md)**: Generate platform artifacts
+- **[Step 4 — Build](../build/index.mdx)**: Generate platform artifacts
 - **[Step 5 — Test](../test.md)**: Evaluate output quality and establish a baseline
 - **[Step 6 — Run](../run.md)**: Deploy and operate the workflow
 - **[Step 7 — Improve](../improve.md)**: Evaluate and evolve running workflows

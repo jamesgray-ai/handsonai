@@ -12,7 +12,7 @@ Coding is the primitive where AI agents are most mature. Modern AI coding agents
 *Coding is one of six use case primitives identified in OpenAI's [Identifying and Scaling AI Use Cases](../../resources/openai-use-cases-report.md) guide. The examples here are adapted to be platform-agnostic and mapped to [Agentic Building Blocks](../../agentic-building-blocks/index.md).*
 
 :::tip[Agentic Coding methodology]
-For a structured methodology to go from idea to shipped feature using AI coding agents, see [Agentic Coding](agentic-coding.md) — a 7-step lifecycle with Vision Briefs, PRDs, test-driven development, and automated code review.
+For a structured methodology to go from idea to shipped feature using AI coding agents, see [Agentic Coding](agentic-coding.mdx) — a 7-step lifecycle with Vision Briefs, PRDs, test-driven development, and automated code review.
 :::
 ## Key Characteristics
 

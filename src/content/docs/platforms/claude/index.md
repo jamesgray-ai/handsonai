@@ -23,7 +23,7 @@ Start with the [Getting Started with Claude](getting-started/index.md) checklist
 | Guide | Description |
 |-------|-------------|
 | [Building Agents on Claude](agents/building-agents.md) | Custom subagents and agent teams for workflow automation |
-| [Scheduling Subagents](subagents/scheduling-subagents.md) | Set up automated agents on macOS or Windows |
+| [Scheduling Subagents](subagents/scheduling-subagents.mdx) | Set up automated agents on macOS or Windows |
 | [Troubleshooting](subagents/scheduling-subagent-issues.md) | Common scheduling issues and fixes |
 
 ## Topics

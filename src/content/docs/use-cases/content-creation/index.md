@@ -92,6 +92,6 @@ Content creation use cases scale from simple (rewriting an email for a different
 - [AI Use Cases Overview](index.md) — all six primitives at a glance
 - [Prompts](../../agentic-building-blocks/prompts/index.md) — writing effective instructions for content generation
 - [Context](../../agentic-building-blocks/context/index.md) — providing brand voice, style guides, and examples
-- [Skills](../../agentic-building-blocks/skills/index.md) — packaging content creation workflows for reuse
+- [Skills](../../agentic-building-blocks/skills/index.mdx) — packaging content creation workflows for reuse
 - [Projects](../../agentic-building-blocks/projects/index.md) — persistent workspaces for recurring content workflows
 - [Content Creation Resources](resources.md) — curated reports, guides, and references

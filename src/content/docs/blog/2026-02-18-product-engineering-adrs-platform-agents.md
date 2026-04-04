@@ -17,11 +17,11 @@ A new top-level section covering software engineering and product management con
 
 ## Architecture Decision Records
 
-New page: [Architecture Decision Records](../../product-engineering/architecture-decisions.md) explains what ADRs are, when to write one, and provides a simple template. The [Agentic Coding workflow template](../../use-cases/coding/agentic-coding.md#feature-development-workflow-template) now includes ADR reminders in the Discover, Define, and Plan steps — so decisions get captured as they happen, not reconstructed months later.
+New page: [Architecture Decision Records](../../product-engineering/architecture-decisions.md) explains what ADRs are, when to write one, and provides a simple template. The [Agentic Coding workflow template](../../use-cases/coding/agentic-coding.mdx#feature-development-workflow-template) now includes ADR reminders in the Discover, Define, and Plan steps — so decisions get captured as they happen, not reconstructed months later.
 
 ## Platform-specific agent implementation guides
 
-The Business-First AI `building-workflows` skill now generates platform-specific implementation guides when building agents. New pages for [Claude](../../platforms/claude/agents/building-agents.md), [OpenAI](../../platforms/openai/agents/building-agents.md), [Google Gemini](../../platforms/google-gemini/agents/building-agents.md), and [M365 Copilot](../../platforms/m365-copilot/agents/building-agents.md) show how to take a workflow design and implement it on each platform.
+The Business-First AI `building-workflows` skill now generates platform-specific implementation guides when building agents. New pages for [Claude](../../platforms/claude/agents/building-agents.mdx), [OpenAI](../../platforms/openai/agents/building-agents.md), [Google Gemini](../../platforms/google-gemini/agents/building-agents.md), and [M365 Copilot](../../platforms/m365-copilot/agents/building-agents.md) show how to take a workflow design and implement it on each platform.
 
 ## Agentic Coding plugin fixes
 

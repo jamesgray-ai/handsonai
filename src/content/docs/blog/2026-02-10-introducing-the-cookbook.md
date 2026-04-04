@@ -36,7 +36,7 @@ The [Business-First AI Framework](../../business-first-ai-framework/index.md) gu
 
 1. **[Analyze](../../business-first-ai-framework/analyze.md)** — Run a structured audit of your workflows to identify where AI creates the most value
 2. **[Deconstruct](../../business-first-ai-framework/deconstruct/index.md)** — Break those workflows into discrete steps and map each one to AI building blocks
-3. **[Build](../../business-first-ai-framework/build/index.md)** — Turn that analysis into a working AI workflow, ready for production
+3. **[Build](../../business-first-ai-framework/build/index.mdx)** — Turn that analysis into a working AI workflow, ready for production
 
 You don't need to be technical to use any of this. The framework works on paper, in a conversation with any AI tool, or with installable plugins that walk you through it step by step. The Analyze step takes 20 minutes and produces a prioritized list of AI opportunities — a tangible output in one sitting.
 
@@ -53,7 +53,7 @@ Every AI workflow — from a single prompt to a multi-agent pipeline — is asse
 - **[Context](../../agentic-building-blocks/context/index.md)** — Background knowledge the AI needs (your data, your docs, your domain)
 - **[Project](../../agentic-building-blocks/projects/index.md)** — A persistent workspace that holds everything together
 - **[Memory](../../agentic-building-blocks/memory/index.md)** — Accumulated knowledge the AI retains across conversations
-- **[Skill](../../agentic-building-blocks/skills/index.md)** — A reusable routine the AI can invoke on demand
+- **[Skill](../../agentic-building-blocks/skills/index.mdx)** — A reusable routine the AI can invoke on demand
 - **[Agent](../../agentic-building-blocks/agents/index.md)** — An autonomous AI that plans and executes multi-step work
 - **[MCP](../../agentic-building-blocks/mcp/index.md)** — A connector that lets AI access external tools and data
 - **[API](../../agentic-building-blocks/api/index.md)** — Programmatic interface for calling AI from code
@@ -72,7 +72,7 @@ The playbook's [Plugin Marketplace](../../use-the-playbook/build/index.md) is wh
 
 There's also a [Builder Tools Setup Guide](../../builder-setup/index.md). This is where I see people get stuck — the tools that let you build and run real AI workflows are unfamiliar to most people. Terminal, Git, AI coding CLIs — many of these will be new. But they're what unlock the ability to go from idea to production. The guide walks you through each tool with checkboxes to track your progress. One VP of Product used it to go from zero terminal experience to a fully configured builder toolkit in a single afternoon.
 
-And the playbook is full of patterns, walkthroughs, and direct answers to the questions that come up most often — from "[what is a system prompt?](../../agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md)" to "[how do I schedule an AI agent to run automatically?](../../platforms/claude/subagents/scheduling-subagents.md)"
+And the playbook is full of patterns, walkthroughs, and direct answers to the questions that come up most often — from "[what is a system prompt?](../../agentic-building-blocks/prompts/questions/what-is-a-system-prompt.md)" to "[how do I schedule an AI agent to run automatically?](../../platforms/claude/subagents/scheduling-subagents.mdx)"
 
 ## Who It's For
 

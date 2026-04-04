@@ -1,7 +1,7 @@
 ---
 title: Building Agents on M365 Copilot
 description: How to build agents on Microsoft 365 Copilot — declarative agents for business users and custom engine agents for developers.
----> **Part of:** [Build Workflows > Agents](../../../business-first-ai-framework/build/index.md)
+---> **Part of:** [Build Workflows > Agents](../../../business-first-ai-framework/build/index.mdx)
 
 Microsoft 365 Copilot extends its built-in capabilities through agents — specialized AI assistants tailored to specific domains. Agents can retrieve information, summarize data, and take actions like sending emails or updating records, all within the Microsoft 365 apps where you already work.
 
@@ -152,5 +152,5 @@ For multi-agent workflows, custom engine agents support agent-to-agent communica
 
 ## What's Next
 
-- [Agents overview](../../../business-first-ai-framework/build/index.md) — the platform-agnostic agent decision framework
+- [Agents overview](../../../business-first-ai-framework/build/index.mdx) — the platform-agnostic agent decision framework
 - [Design Your AI Workflow](../../../business-first-ai-framework/design.md) — produce the agent blueprint that feeds into these implementations
