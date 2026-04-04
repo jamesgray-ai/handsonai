@@ -48,5 +48,5 @@ The guide covers:
 
 ## Related Questions
 
-- [What is the best way to name Claude agent skills?](./what-is-the-best-way-to-name-claude-agent-skills.mdx)
+- [What is the best way to name Claude agent skills?](./what-is-the-best-way-to-name-claude-agent-skills.md)
 - [Scheduled Subagent Troubleshooting](../subagents/scheduling-subagent-issues.md)
