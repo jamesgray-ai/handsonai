@@ -76,8 +76,8 @@ Skills are plain-text Markdown — no compiled code, no special format. A **plug
 
 Pick your platform below for the complete install steps.
 
-:::note[Not all platforms support skills]
-Skills require a tool with skill directory support. ChatGPT (web/mobile), the Gemini app, and M365 Copilot (web/desktop) do not currently support skills — use their developer tools (Codex CLI, Gemini CLI, VS Code Copilot) instead.
+:::note[No skill directory? No problem]
+Some platforms — like the Gemini app, M365 Copilot, and Perplexity — don't have a skill directory. You can still use skills by pasting the `SKILL.md` contents into your platform's equivalent feature (Gems, Notebooks, or Spaces). See the **Other AI Tools** tab below.
 :::
 ### Install steps by platform
 
@@ -138,6 +138,37 @@ For **Cursor**, **Codex CLI**, **Gemini CLI**, and **VS Code Copilot** — downl
 All four platforms also recognize `.agents/skills/`. Place skills there to share them across platforms from one location. Cursor additionally reads from `.claude/skills/` and `.codex/skills/`, so skills installed for Claude Code are picked up automatically.
 :::
   </TabItem>
+  <TabItem label="Other AI Tools">
+
+Skills are plain Markdown — platforms without a skill directory can still use them. Paste the `SKILL.md` contents into your platform's equivalent feature and the AI will follow the skill's interview structure and output format.
+
+1. Go to the [GitHub plugins page](https://github.com/jamesgray-ai/handsonai-plugins). Navigate to `plugins/<plugin-name>/skills/<skill-name>/` and open the `SKILL.md` file. Copy its full contents.
+2. Create a persistent instruction container on your platform:
+
+**Google Gemini (Gems)**
+
+1. Open [Gemini](https://gemini.google.com) and click **New Gem**
+2. Name the Gem to match the skill (e.g., "Analyze Workflows")
+3. Paste the `SKILL.md` contents into the Gem's instructions field
+4. Save — select the Gem from the sidebar to use it in any conversation
+
+**M365 Copilot (Notebooks)**
+
+1. Open [Microsoft Copilot](https://copilot.microsoft.com) and create a new **Notebook**
+2. Click the expand button next to your notebook name and paste the `SKILL.md` contents as custom instructions
+3. The instructions apply to all prompts within that Notebook
+
+**Perplexity (Spaces)**
+
+1. Open [Perplexity](https://perplexity.ai) and click **Create a Space**
+2. Name the Space to match the skill
+3. Tap **Add Instructions** and paste the `SKILL.md` contents
+4. Instructions apply to all threads within that Space (requires Perplexity Pro)
+
+:::tip[What about file-saving instructions?]
+When a skill says it will save output to a file, the AI will present the output in the chat instead. Copy it yourself if you want to keep it.
+:::
+  </TabItem>
 </Tabs>
 
 ### Verify
@@ -147,6 +178,7 @@ Test that your platform picks up the skill by asking it to perform a task the sk
 - **Cowork or Claude.ai:** Start a new conversation and say "Edit this paragraph for HBR quality" — Claude should apply editorial criteria from the skill
 - **Claude Code:** Type `/business-first-ai:analyze` to invoke the skill directly
 - **Cursor, Codex CLI, Gemini CLI, VS Code Copilot:** Ask "Use the editing-hbr-articles skill to review this paragraph" — the AI should reference the skill's instructions in its response
+- **Gemini, M365 Copilot, Perplexity:** Open your Gem, Notebook, or Space and ask it to start the workflow — it should follow the skill's structured interview process
 
 ## Skill, Project, or Prompt?
 
