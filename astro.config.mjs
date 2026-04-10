@@ -6,6 +6,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://handsonai.info',
   trailingSlash: 'always',
+  redirects: {
+    '/courses/leaders/setup-checklist/': '/courses/tools-setup-checklist/',
+  },
   integrations: [
     starlight({
       title: 'Hands-on AI Playbook',
@@ -452,14 +455,8 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: 'Overview', link: '/courses/' },
-            {
-              label: 'Agentic AI for Leaders',
-              collapsed: true,
-              items: [
-                { label: 'Overview', link: '/courses/leaders/' },
-                { label: 'Setup Checklist', link: '/courses/leaders/setup-checklist/' },
-              ],
-            },
+            { label: 'Tools Setup Checklist', link: '/courses/tools-setup-checklist/' },
+            { label: 'Agentic AI for Leaders', link: '/courses/leaders/' },
             { label: 'Claude for Builders', link: '/courses/builders/' },
             {
               label: 'Questions',

@@ -1,6 +1,6 @@
 ---
-title: Setup Checklist — Agentic AI for Leaders
-description: Complete setup guide for the Agentic AI for Leaders course — AI platform accounts, developer tools, and workflow management
+title: Tools Setup Checklist
+description: Complete setup guide for Hands-on AI courses — AI platform accounts, developer tools, and workflow management
 ---
 
 Everything you need to set up before Session 1. Work through the steps in order — later steps build on earlier ones. Budget **2–3 hours** total, split across two sittings if you prefer. Times are estimates — it's normal for some steps to take longer, especially if the tools are new to you.
@@ -275,4 +275,4 @@ You're all set for the course — nice work getting through the setup!
 
 Having trouble with any step? Bring your questions to the first session — we'll troubleshoot together.
 
-[→ Back to course overview](/courses/leaders/)
+[→ Back to courses overview](/courses/)

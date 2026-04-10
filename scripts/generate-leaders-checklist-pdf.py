@@ -185,7 +185,7 @@ def build_pdf():
     story.append(build_overview_table(styles))
     story.append(Spacer(1, 12))
     story.append(Paragraph(
-        "Full instructions with screenshots: <b>handsonai.info/courses/leaders/setup-checklist/</b>",
+        "Full instructions with screenshots: <b>handsonai.info/courses/tools-setup-checklist/</b>",
         styles["Body9"]
     ))
 
@@ -414,7 +414,7 @@ def build_pdf():
     story.append(Spacer(1, 14))
 
     story.append(Paragraph(
-        "<b>Full interactive checklist:</b> handsonai.info/courses/leaders/setup-checklist/",
+        "<b>Full interactive checklist:</b> handsonai.info/courses/tools-setup-checklist/",
         styles["Body9"]
     ))
     story.append(Paragraph(

@@ -18,4 +18,4 @@ title: "Orchestration patterns, new building blocks, and framework refinements"
 
 **Framework refinements.** Step 1 was renamed from "Discover" to [Analyze](../../business-first-ai-framework/), and Step 2 is now "Deconstruct Workflows into Structured Specifications." The [Build step](../../business-first-ai-framework/build/) added architecture approach guidance (no-code vs code-first) and the Launch Guide was renamed to Run Guide.
 
-**Leaders setup checklist.** A new [printable setup checklist](../../courses/leaders/setup-checklist/) walks Agentic AI for Leaders students through every tool installation step with checkboxes.
+**Leaders setup checklist.** A new [printable setup checklist](../../courses/tools-setup-checklist/) walks Agentic AI for Leaders students through every tool installation step with checkboxes.
