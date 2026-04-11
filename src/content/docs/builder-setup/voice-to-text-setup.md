@@ -11,7 +11,9 @@ howto_steps:
     text: Allow microphone access and configure your preferred activation method (keyboard shortcut or push-to-talk).
   - name: Test dictation
     text: Activate voice input and speak naturally. Verify transcription accuracy in a text field or Claude chat.
----## Why Voice Input?
+---
+
+## Why Voice Input?
 
 Writing good AI prompts often means describing complex ideas, explaining context, or thinking through a problem out loud. Voice input lets you speak those thoughts naturally — it's faster than typing and often more detailed, because talking feels more like having a conversation than writing a document.
 
@@ -34,7 +36,9 @@ Wispr Flow lets you dictate text anywhere on your computer using your voice.
 
 1. Grant microphone permissions when prompted
 2. Set your preferred activation method (keyboard shortcut or push-to-talk)
-3. Test dictation in any text field
+3. Open any text field (an email, a browser search bar, a note), activate voice input, and say a short test sentence
+
+**You're done when:** your spoken words appear as typed text in whatever field you picked.
 
 ### Tips for Wispr Flow
 
@@ -74,6 +78,8 @@ Claude Desktop has a Quick Entry feature that lets you access Claude from anywhe
 5. Press Enter or click the send button to run
 
 Claude Desktop launches with your transcribed prompt and responds.
+
+**You're done when:** Claude Desktop opens with your spoken words transcribed as a prompt, and Claude responds to it.
 
 ### Tips for Claude Desktop Voice
 

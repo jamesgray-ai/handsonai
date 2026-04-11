@@ -5,43 +5,41 @@ description: Complete setup guide for Hands-on AI courses — AI platform accoun
 
 Everything you need to set up before Session 1. Work through the steps in order — later steps build on earlier ones. Budget **2–3 hours** total, split across two sittings if you prefer. Times are estimates — it's normal for some steps to take longer, especially if the tools are new to you.
 
-:::tip[Track your progress]
-The checkboxes below are visual markers — they won't save on the web. Use **Cmd + P** (Mac) or **Ctrl + P** (Windows) to print this page and check off steps by hand, or track progress in a notes app.
+:::note[New to these tools?]
+Before diving in, skim [Why These Tools Matter](/builder-setup/#why-these-tools-matter) (~2 minutes). It explains what each tool is and why we use it — the context that makes the rest of this checklist click.
 :::
+
 ## At a Glance
 
 ### Part 1: AI Platform Setup (~45 min)
 
 | Step | What | Time | Status |
 |------|------|------|--------|
-| 1 | [AI Platform Account + Apps](#step-1-ai-platform-account--apps) | ~15 min | Required |
-| 2 | [Personalization / Custom Instructions](#step-2-personalization--custom-instructions) | ~15 min | Recommended |
-| 3 | [Memory](#step-3-memory) | ~10 min | Recommended |
-| 4 | [Connections (MCP / Integrations)](#step-4-connections-mcp--integrations) | ~15 min | Recommended |
+| 1 | [AI Platform Setup](#step-1-ai-platform-setup) | ~45 min | Required |
 
 ### Part 2: Builder Tools (~90 min)
 
 | Step | What | Time | Status |
 |------|------|------|--------|
-| 5 | [Terminal Basics](#step-5-terminal-basics) | ~15 min | Required |
-| 6 | [Code Editor + Extensions](#step-6-code-editor--extensions) | ~15 min | Required |
-| 7 | [Git](#step-7-git) | ~10 min | Required |
-| 8 | [GitHub](#step-8-github) | ~15 min | Required |
-| 9 | [Voice to Text](#step-9-voice-to-text) | ~10 min | Recommended |
-| 10 | [Hands-on AI Skills](#step-10-hands-on-ai-skills) | ~10 min | Recommended |
-| 11 | [Connect the Course Knowledge Base](#step-11-connect-the-course-knowledge-base) | ~5 min | Recommended |
+| 2 | [Terminal Basics](#step-2-terminal-basics) | ~15 min | Required |
+| 3 | [Code Editor + Extensions](#step-3-code-editor--extensions) | ~15 min | Required |
+| 4 | [Git](#step-4-git) | ~10 min | Required |
+| 5 | [GitHub](#step-5-github) | ~15 min | Required |
+| 6 | [Voice to Text](#step-6-voice-to-text) | ~10 min | Recommended |
+| 7 | [Hands-on AI Skills](#step-7-hands-on-ai-skills) | ~10 min | Recommended |
+| 8 | [Hands-on AI Knowledge Base](#step-8-hands-on-ai-knowledge-base) | ~5 min | Recommended |
 
 ### Part 3: AI Workflow Management (~20 min)
 
 | Step | What | Time | Status |
 |------|------|------|--------|
-| 12 | [AI Registry Setup](#step-12-ai-registry-setup) | ~20 min | Recommended |
+| 9 | [AI Registry Setup](#step-9-ai-registry-setup) | ~20 min | Recommended |
 
 ---
 
 ## Part 1 — AI Platform Setup
 
-These steps set up your AI platform accounts and configure them for the best experience in the course. You only need **one** platform set up — use whichever you prefer. Each platform has a Getting Started checklist that covers all four steps below:
+You need at least one AI platform set up before starting on builder tools. Pick whichever you prefer — you only need one. Each platform has a Getting Started guide that walks you through everything in one place.
 
 | Platform | Getting Started Guide |
 |----------|----------------------|
@@ -50,89 +48,44 @@ These steps set up your AI platform accounts and configure them for the best exp
 | Gemini (Google) | [Getting Started with Gemini](/platforms/google-gemini/getting-started/) |
 | M365 Copilot (Microsoft) | [Getting Started with M365 Copilot](/platforms/m365-copilot/getting-started/) |
 
-Pick your platform(s), open the Getting Started guide, and work through the steps below. Each guide has the platform-specific instructions.
+### Step 1: AI Platform Setup
 
-### Step 1: AI Platform Account + Apps
+**What:** Create a paid AI platform account, configure it for your work, and connect it to the apps you already use. Your platform's Getting Started guide walks you through all of this in one place — account creation, apps, personalization, memory, and connections.
 
-**What:** Create an account with a paid subscription and install all available apps (web, desktop, mobile). The course requires a paid plan (e.g., ChatGPT Plus, Claude Pro, Gemini Advanced) — free tiers don't support features you'll need. Your Getting Started guide has pricing details.
+**Action:** Follow your platform's Getting Started guide from the table above.
 
-- [ ] I have a paid AI platform account and can start conversations
-- [ ] I've installed the desktop and mobile apps for my platform(s)
+**Done when:**
 
-<details>
-<summary>Stuck? Ask AI for help</summary>
-
-> I'm trying to sign up for [Claude / ChatGPT / Gemini / Copilot] and running into this issue: [describe what's happening]. What should I try?
-
-Still stuck? Check your platform's [Getting Started guide](#part-1--ai-platform-setup) or bring your question to Session 1.
-
-</details>
----
-
-### Step 2: Personalization / Custom Instructions
-
-**What:** Tell your AI platform about yourself so every conversation starts with context about your role, industry, and preferences.
-
-- [ ] I've added personalization / custom instructions to my AI platform
+- You have a paid AI platform account and can start conversations (Claude Pro, ChatGPT Plus, Gemini Advanced, or Copilot Pro)
+- You've installed the desktop and mobile apps for your platform
+- You've added personalization / custom instructions so the AI knows about your role and work
+- Memory is enabled so the AI remembers context across conversations
+- You've connected at least one external tool or data source (Google Docs, Slack, Notion, etc.)
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm trying to set up custom instructions in [ChatGPT / Claude / Gemini] and can't find the setting. I'm on [web / desktop / mobile]. Where do I go?
+> I'm setting up [Claude / ChatGPT / Gemini / Copilot] and running into this issue: [describe what's happening]. What should I try?
 
-Still stuck? Check your platform's [Getting Started guide](#part-1--ai-platform-setup) or bring your question to Session 1.
-
-</details>
----
-
-### Step 3: Memory
-
-**What:** Enable memory so your AI platform remembers context across conversations.
-
-- [ ] Memory is enabled on my AI platform
-
-<details>
-<summary>Stuck? Ask AI for help</summary>
-
-> I'm trying to enable memory in [ChatGPT / Claude / Gemini] but can't find the toggle. I'm on [web / desktop / mobile] with a [Free / Plus / Pro] plan. Where do I look?
-
-Still stuck? Check your platform's [Getting Started guide](#part-1--ai-platform-setup) or bring your question to Session 1.
-
-</details>
----
-
-### Step 4: Connections (MCP / Integrations)
-
-**What:** Connect your AI platform to external tools and data sources so it can read from and write to apps you already use — like Google Docs, Slack, or your company's knowledge base. Each platform calls these something different (MCP servers, connectors, extensions, or connected apps).
-
-You can skip this for now — you'll set up specific connections later in the course when you need them.
-
-- [ ] I've connected at least one external tool or data source (optional — can do later)
-
-<details>
-<summary>Stuck? Ask AI for help</summary>
-
-> I'm trying to connect [tool name] to [ChatGPT / Claude / Gemini] and running into this issue: [describe what's happening]. What should I check?
-
-Still stuck? Check your platform's [Getting Started guide](#part-1--ai-platform-setup) or bring your question to Session 1.
+Still stuck? Bring your question to Session 1.
 
 </details>
 ---
 
 ## Part 2 — Builder Tools
 
-Your AI platform is ready. Next, you'll set up the developer tools that let you build with AI.
+Your AI platform is ready. Next, you'll set up the developer tools you'll use throughout the course. For each step, follow the Action link to the setup guide, complete the setup, then come back here and confirm the "Done when" criteria before moving on.
 
-These steps install the developer tools you'll use throughout the course. Each step has a detailed guide — follow the link, complete the setup, then come back here and check the box.
+### Step 2: Terminal Basics
 
-### Step 5: Terminal Basics
+**What:** Learn to open the terminal, see where you are, and navigate between folders — on Mac (Terminal) and Windows (PowerShell). You don't need to be an expert.
 
-**What:** Familiarize yourself with the basics of the terminal on Mac and PowerShell on Windows.
+**Action:** [Follow the Terminal Basics setup guide →](/builder-setup/terminal-basics/)
 
-[→ Go to Terminal Basics guide](/builder-setup/terminal-basics/)
+**Done when:**
 
-- [ ] I can open a terminal and see a prompt (`$`, `%`, or `>`)
-- [ ] Running `pwd` (Mac) or `Get-Location` (Windows) shows my current directory
+- You can open a terminal and see a prompt (`$`, `%`, or `>`)
+- Running `pwd` (Mac) or `Get-Location` (Windows) shows your current directory
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -142,14 +95,16 @@ These steps install the developer tools you'll use throughout the course. Each s
 </details>
 ---
 
-### Step 6: Code Editor + Extensions
+### Step 3: Code Editor + Extensions
 
 **What:** Install and configure Cursor or VS Code with AI model integration (Claude, ChatGPT Codex, Gemini Code Assist, or similar).
 
-[→ Go to Editor Setup guide](/builder-setup/editor-setup/)
+**Action:** [Follow the Code Editor setup guide →](/builder-setup/editor-setup/)
 
-- [ ] I can open my editor and see the welcome screen or an empty workspace
-- [ ] At least one AI extension installed for a platform I have a paid subscription to
+**Done when:**
+
+- You can open your editor and see the welcome screen or an empty workspace
+- At least one AI extension is installed for a platform you have a paid subscription to
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -159,13 +114,15 @@ These steps install the developer tools you'll use throughout the course. Each s
 </details>
 ---
 
-### Step 7: Git
+### Step 4: Git
 
-**What:** Install Git — a version control tool that tracks the changes you make to your AI building blocks. Git ensures you never lose them — every version is saved, and you can always recover or refine what you've built.
+**What:** Install Git and configure your name and email so it can sign your commits.
 
-[→ Go to Git Installation guide](/builder-setup/git-install/)
+**Action:** [Follow the Git installation guide →](/builder-setup/git-install/)
 
-- [ ] Running `git --version` in my terminal shows a version number
+**Done when:**
+
+- Running `git --version` in your terminal shows a version number
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -175,15 +132,17 @@ These steps install the developer tools you'll use throughout the course. Each s
 </details>
 ---
 
-### Step 8: GitHub
+### Step 5: GitHub
 
-**What:** Create an account, enable 2FA, and create a repository for your coursework. GitHub is where your files live in the cloud — backed up, versioned, and accessible from any machine.
+**What:** Create an account, enable two-factor authentication (2FA), and create a repository for your coursework.
 
-[→ Go to GitHub Setup guide](/builder-setup/github-setup/)
+**Action:** [Follow the GitHub setup guide →](/builder-setup/github-setup/)
 
-- [ ] I have a GitHub account
-- [ ] I can clone a repository and see the files in my editor
-- [ ] In my terminal, I can navigate to the cloned folder (`cd my-repo-name`) and run `git status` — it shows `On branch main`
+**Done when:**
+
+- You have a GitHub account
+- You can clone a repository and see the files in your editor
+- In your terminal, you can navigate to the cloned folder (`cd my-repo-name`) and run `git status` — it shows `On branch main`
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -193,13 +152,15 @@ These steps install the developer tools you'll use throughout the course. Each s
 </details>
 ---
 
-### Step 9: Voice to Text
+### Step 6: Voice to Text
 
 **What:** Configure system voice input or install a dedicated voice-to-text tool (Wispr Flow recommended).
 
-[→ Go to Voice to Text Setup guide](/builder-setup/voice-to-text-setup/)
+**Action:** [Follow the Voice to Text setup guide →](/builder-setup/voice-to-text-setup/)
 
-- [ ] I can dictate text into any input field on my computer
+**Done when:**
+
+- You can dictate text into any input field on your computer
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -209,30 +170,34 @@ These steps install the developer tools you'll use throughout the course. Each s
 </details>
 ---
 
-### Step 10: Hands-on AI Skills
+### Step 7: Hands-on AI Skills
 
-**What:** Skills are reusable instructions that teach your AI tool how to do specific tasks your way — like editing to publication standards or generating meeting briefs. You'll use these throughout the course.
+**What:** Install the Hands-on AI skills that walk you through the Business-First AI Framework — analyze, deconstruct, design, build, test, run, improve. These are the step-by-step guides you'll use throughout the course to take a workflow from "I think AI could help with this" to shipped and improving.
 
-[→ How to Add Skills to Your Platform](/agentic-building-blocks/skills/#how-to-add-skills-to-your-platform)
+**Action:** [Follow the Framework Skills setup guide →](/business-first-ai-framework/skills/)
 
-- [ ] At least one skill installed or added to your platform
-- [ ] Skill verified — invoked it in your AI tool and got a response
+**Done when:**
+
+- At least one skill is installed or added to your platform
+- You've invoked a skill in your AI tool and received a response
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm trying to add a skill to [your platform] and it's not working. What should I check?
+> I'm trying to add a skill to [your AI tool] on [Mac / Windows] and running into this issue: [describe what's happening]. What should I check?
 
 </details>
 ---
 
-### Step 11: Connect the Course Knowledge Base
+### Step 8: Hands-on AI Knowledge Base
 
-**What:** Connect the Hands-on AI knowledge base to your AI tool so you can search course content, building blocks, and reference material right where you work.
+**What:** Connect the Hands-on AI Knowledge Base to your AI tool so you can search course content, building blocks, and reference material right where you work. Your AI tool may call this an "MCP server" or "MCP connector" — that's the underlying technology.
 
-[→ Go to MCP Server Connection Guide](/mcp-server/)
+**Action:** [Follow the Knowledge Base connection guide →](/mcp-server/)
 
-- [ ] Hands-on AI MCP server connected to my AI platform
+**Done when:**
+
+- The Hands-on AI Knowledge Base is connected to your AI platform
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -248,14 +213,16 @@ Your toolkit is complete. One last step to set up your workflow management syste
 
 Keeping track of your workflows and the AI building blocks that power them is essential to change management and scaling your operations.
 
-### Step 12: AI Registry Setup
+### Step 9: AI Registry Setup
 
 **What:** Get a free Notion account, duplicate the AI Registry template, and connect Notion to your AI tool.
 
-[→ Go to AI Registry Setup guide](/builder-setup/notion-registry-setup/)
+**Action:** [Follow the AI Registry setup guide →](/builder-setup/notion-registry-setup/)
 
-- [ ] Notion AI Registry template duplicated to my workspace
-- [ ] AI Registry plugin installed (`/plugin install ai-registry@handsonai`)
+**Done when:**
+
+- The Notion AI Registry template is duplicated to your workspace
+- The AI Registry plugin is installed (`/plugin install ai-registry@handsonai`)
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -270,7 +237,7 @@ Keeping track of your workflows and the AI building blocks that power them is es
 You're all set for the course — nice work getting through the setup!
 
 - **Quick test:** Open your AI tool and ask: "What tools and connections do I have set up?" — this confirms everything is working together
-- **Bookmark this page** — come back to finish any steps you skipped
+- **Bookmark this page** — it's your ongoing reference for the tool setup
 - **Start Session 1** — you'll put these tools to work right away
 
 Having trouble with any step? Bring your questions to the first session — we'll troubleshoot together.

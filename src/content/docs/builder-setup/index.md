@@ -1,178 +1,81 @@
 ---
 title: Builder Tools Setup Guide
-description: Step-by-step checklist for setting up your developer toolkit — terminal, editor, Git, CLIs, and workflow management
----Building with AI means more than using a chatbot — you'll read code, modify files, run commands, and connect AI tools to real workflows. This guide sets up the developer tools and workflow management you need.
+description: Step-by-step checklist for setting up your developer toolkit — terminal, editor, Git, GitHub, and workflow management
+---
+
+This guide sets up the developer tools and workflow management you need for building with AI.
 
 :::note[AI platform setup is in the Platforms section]
 Before starting here, make sure you've set up at least one AI platform — account, apps, personalization, memory, and connections. Each platform has its own Getting Started checklist:
 
 [→ Claude](../platforms/claude/getting-started/) · [→ OpenAI](../platforms/openai/getting-started/) · [→ Gemini](../platforms/google-gemini/getting-started/) · [→ M365 Copilot](../platforms/m365-copilot/getting-started/)
 :::
-## At a Glance
+
+## Why These Tools Matter
+
+Real AI workflows — the kind that save time, ship work, and scale beyond one-off chats — need more than a chatbot. You need an **AI platform** to think with, **builder tools** to build and manage your AI building blocks, and a **workflow registry** so you can track and reuse what you build.
+
+Each tool below was chosen intentionally. Here's what each one unlocks for you.
+
+### 1. AI Platform — the foundation
+
+Everything else sits on top of this. Your AI platform is the reasoning engine that powers every workflow you build — pick whichever you prefer, one is enough.
+
+| Capability | What it is | Why it matters to you |
+|---|---|---|
+| **Account + Apps** | A paid subscription (Claude, ChatGPT, Gemini, or Copilot) plus the web, desktop, and mobile apps | Paid plans unlock the features you'll use here — longer conversations, file uploads, connectors, and stronger reasoning models |
+| **Personalization** | Custom instructions that tell the AI about your role, industry, and style | Every conversation starts with context — you stop re-introducing yourself and answers arrive tailored from message one |
+| **Memory** | The AI remembers facts about you and your work across conversations | Your AI becomes a returning assistant who knows your projects, not a stranger every time you open a new chat |
+| **Connections** | Links your AI to apps you already use (Google Docs, Slack, Notion, GitHub, etc.) | AI can read and write inside your real systems — no more copy-paste between tools |
+
+### 2. Builder Tools — build and manage your AI building blocks
+
+These are the tools you use to build and manage your [AI building blocks](../agentic-building-blocks/) — prompts, skills, agents, and more — that power every AI workflow. Building a good one is just the start: like any asset that runs your business, they need to be refined, versioned, and shared over time. This toolkit handles all of that, whether your workflows run locally or in the cloud.
+
+| Capability | What it is | Why it matters to you |
+|---|---|---|
+| **Terminal** | The command-line interface built into your computer (Terminal on Mac, PowerShell on Windows) | Most AI developer tools run here — a little fluency unlocks everything else in this list |
+| **Code Editor** | Cursor or VS Code, with AI extensions installed | An organized home for every building block you create — browse them in folders, edit them in place, and let the built-in AI assistants read and update them directly as you work |
+| **Git** | Automatically tracks every change to every file | You'll constantly create and refine your building blocks — Git keeps the full history for you, so you never have to manage versions manually, and it connects to GitHub so everything gets backed up in the cloud |
+| **GitHub** | Cloud storage and backup for your files, built on top of Git | Your work is safe, versioned, accessible from any machine, and easy to share |
+| **Voice to Text** | Dictation software (Wispr Flow or your system's built-in voice input) | Talk instead of type — faster for long prompts and more natural when you're thinking out loud |
+| **Hands-on AI Skills** | Skills that walk you through the [Business-First AI Framework](../business-first-ai-framework/skills/) for building AI workflows | Learn how to go from "I think AI could help with this" to a shipped, improving workflow — with step-by-step guidance at every stage |
+| **Hands-on AI Knowledge Base** | The Hands-on AI playbook, connected to your AI tool as a live reference | Ask questions and get answers right inside the AI tool where you're already doing your work — no switching tabs or searching the website |
+
+### 3. Workflow Registry — your system of record for AI workflows
+
+Once you're building more than one workflow, you need a single place to track what they do, who uses them, and how they're built.
+
+| Capability | What it is | Why it matters to you |
+|---|---|---|
+| **AI Registry (Notion)** | A structured Notion workspace for your workflows, AI building blocks, and connected apps | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
+
+## Setup Order
+
+Work through these in order — later steps build on earlier ones. Each link opens the full setup guide with step-by-step instructions and verification criteria.
 
 ### Builder Tools (~90 min)
 
-| What | Time | Status |
-|------|------|--------|
-| [Terminal Basics](#terminal-basics) | ~15 min | Required |
-| [AI Code Editor + Extensions](#ai-code-editor-extensions) | ~15 min | Required |
-| [Git](#git) | ~10 min | Required |
-| [GitHub](#github) | ~15 min | Required |
-| [Voice to Text](#voice-to-text) | ~10 min | Recommended |
-| [Hands-on AI Skills](#hands-on-ai-skills) | ~10 min | Recommended |
-| [Hands-on AI MCP Server](#hands-on-ai-mcp-server) | ~5 min | Recommended |
+| # | Tool | Time | Requires | Status |
+|---|---|---|---|---|
+| 1 | [Terminal Basics](terminal-basics/) | ~15 min | Nothing | Required |
+| 2 | [AI Code Editor + Extensions](editor-setup/) | ~15 min | Terminal | Required |
+| 3 | [Git](git-install/) | ~10 min | Terminal | Required |
+| 4 | [GitHub](github-setup/) | ~15 min | Editor + Git | Required |
+| 5 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Recommended |
+| 6 | [Hands-on AI Skills](../business-first-ai-framework/skills/) | ~10 min | AI platform | Recommended |
+| 7 | [Hands-on AI Knowledge Base](../mcp-server/) | ~5 min | AI platform | Recommended |
 
 ### AI Workflow Management (~20 min)
 
-| What | Time | Status |
-|------|------|--------|
-| [AI Registry Setup](#ai-registry-setup) | ~20 min | Recommended |
+| # | Tool | Time | Requires | Status |
+|---|---|---|---|---|
+| 8 | [AI Registry (Notion)](notion-registry-setup/) | ~20 min | AI platform | Recommended |
 
----
-
-## Builder Tools
-
-## Terminal Basics
-
-**What:** Learn to navigate your computer's command line — Terminal on Mac, PowerShell on Windows.
-**Time:** ~15 minutes
-**Requires:** Nothing — this is where you start.
-
-Every tool in this stack runs through the terminal. You don't need to be an expert — just comfortable opening it, navigating folders, and running commands.
-
-[→ Go to Terminal Basics guide](terminal-basics/)
-
-**You're done when:** You can open a terminal, run `pwd`, and navigate to a folder with `cd`.
-
-- [ ] Terminal Basics — complete
-
----
-
-## AI Code Editor + Extensions
-
-**What:** Install and configure Cursor or VS Code with AI model integration.
-**Time:** ~15 minutes
-**Requires:** Terminal Basics
-
-Your editor is where you'll read, write, and edit code. This guide covers Cursor (has AI built in) and VS Code (free), plus AI extensions for Claude Code, OpenAI Codex, and Gemini Code Assist.
-
-[→ Go to Editor Setup guide](editor-setup/)
-
-**You're done when:** You can open your editor, navigate files and folders, and see at least one AI extension installed.
-
-- [ ] AI Code Editor — installed
-- [ ] AI extensions — installed
-
----
-
-## Git
-
-**What:** Install Git — a version control tool that tracks the changes you make to your AI building blocks.
-**Time:** ~10 minutes
-**Requires:** Terminal Basics
-
-Git ensures you never lose your work — every version is saved, and you can always recover or refine what you've built.
-
-[→ Go to Git Installation guide](git-install/)
-
-**You're done when:** Opening your terminal and typing `git --version` prints a version number.
-
-- [ ] Git — installed
-
----
-
-## GitHub
-
-**What:** Create a GitHub account, enable 2FA, and create a repository for your work.
-**Time:** ~15 minutes
-**Requires:** Editor and Git
-
-GitHub is where your files live in the cloud — backed up, versioned, and accessible from any machine.
-
-[→ Go to GitHub Setup guide](github-setup/)
-
-**You're done when:** You can download (clone) a project from GitHub into your editor.
-
-- [ ] GitHub — account created and connected
-
----
-
-## Voice to Text
-
-**What:** Configure system voice input or install a dedicated voice-to-text tool (Wispr Flow recommended).
-**Time:** ~10 minutes
-**Requires:** Nothing — this step is fully independent.
-
-Voice input can speed up how you write prompts, notes, and messages. This is recommended for anyone who thinks faster than they type.
-
-[→ Go to Voice to Text Setup guide](voice-to-text-setup/)
-
-**You're done when:** You can dictate text into any input field on your computer.
-
-- [ ] Voice to Text — set up
-
----
-
-## Hands-on AI Skills
-
-**What:** Skills teach your AI tool specific tasks — like editing to publication standards, naming workflows consistently, or generating meeting briefs — so you describe your goal and the AI follows your standards automatically.
-**Time:** ~10 minutes
-**Requires:** At least one AI platform set up
-
-Skills work across platforms — Claude Code, Claude.ai, Cowork, Cursor, Codex CLI, Gemini CLI, VS Code Copilot, and any tool that supports the skill format.
-
-For step-by-step install instructions for your platform:
-
-[→ How to Add Skills to Your Platform](../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform)
-
-Browse all available plugins on the [Agents & Skills Marketplace](../use-the-playbook/build/).
-
-**You're done when:** At least one skill is installed or added to your platform.
-
-- [ ] At least one skill — installed or added to your platform
-
----
-
-## Hands-on AI MCP Server
-
-**What:** Access the Hands-on AI knowledge base where you do your work by adding a connector in your AI tool.
-**Time:** ~5 minutes
-**Requires:** An AI platform account
-
-The Hands-on AI MCP server gives your AI platform access to the playbook's reference material — building blocks, patterns, use cases, and more — right inside your conversations.
-
-[→ Go to MCP Server Connection Guide](../mcp-server/)
-
-**You're done when:** You can ask your AI platform a question about the playbook and get an answer from the MCP server.
-
-- [ ] Hands-on AI MCP server — connected
-
----
-
-## AI Workflow Management
-
-Keeping track of your workflows and the AI building blocks that power them is essential to change management and scaling your operations.
-
-## AI Registry Setup
-
-**What:** Get a free Notion account (or other database system), duplicate the AI Registry template, and connect Notion to your AI tool.
-**Time:** ~20 minutes
-**Requires:** An AI platform account
-
-The AI Registry is a Notion workspace template that gives you a structured system for tracking your workflows, AI building blocks, and connected applications. Once it's connected, Claude can name workflows, write SOPs (Standard Operating Procedures), and register skills directly in Notion.
-
-[→ Go to AI Registry Setup guide](notion-registry-setup/)
-
-After setting up the registry, install the AI Registry plugin so Claude can read from and write to your Notion workspace:
-
-```bash
-/plugin install ai-registry@handsonai
-```
-
-**You're done when:** You've duplicated the template and connected Notion to your AI tool.
-
-- [ ] AI Registry — Notion template duplicated and connected
-- [ ] AI Registry plugin — installed
+:::note[Heads up]
+- **Hands-on AI Knowledge Base:** Your AI tool may call this an "MCP server" or "MCP connector" — that's the underlying technology.
+- **AI Registry:** After setting up the Notion template, install the plugin so Claude can read from and write to your workspace: `/plugin install ai-registry@handsonai`
+:::
 
 ---
 
@@ -180,51 +83,8 @@ After setting up the registry, install the AI Registry plugin so Claude can read
 
 With your builder tools in place, you're ready to start building with AI.
 
-<style>
-.next-steps-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid var(--sl-color-gray-5);
-  border-radius: 8px;
-  overflow: hidden;
-}
-:root[data-theme='light'] .next-steps-list { border-color: #d4d4d0; }
-.next-step-row {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--sl-color-gray-5);
-  background: var(--sl-color-gray-6);
-}
-.next-step-row:last-child { border-bottom: none; }
-:root[data-theme='light'] .next-step-row { background: #fff; border-bottom-color: #eaeae6; }
-.next-step-row strong { flex-shrink: 0; min-width: 11rem; font-size: 0.95rem; }
-.next-step-row span { flex: 1; font-size: 0.88rem; color: var(--sl-color-gray-2); line-height: 1.5; }
-.next-step-row a { flex-shrink: 0; font-size: 0.85rem; font-weight: 600; color: var(--sl-color-accent) !important; text-decoration: none !important; white-space: nowrap; }
-.next-step-row a:hover { text-decoration: underline !important; }
-:root[data-theme='light'] .next-step-row a { color: #282828 !important; }
-@media (max-width: 600px) {
-  .next-step-row { flex-direction: column; gap: 0.25rem; }
-  .next-step-row strong { min-width: unset; }
-}
-</style>
-
-<div class="next-steps-list">
-  <div class="next-step-row">
-    <strong>Learn the Building Blocks</strong>
-    <span>The eleven components of every AI workflow — models, prompts, context, projects, skills, agents, and more</span>
-    <a href="../agentic-building-blocks/">Building Blocks →</a>
-  </div>
-  <div class="next-step-row">
-    <strong>Install Plugins</strong>
-    <span>Pre-built Claude Code agents and skills you can install in one command</span>
-    <a href="../use-the-playbook/build/">Marketplace →</a>
-  </div>
-  <div class="next-step-row">
-    <strong>Take a Course</strong>
-    <span>Structured learning that walks you through building with AI step by step</span>
-    <a href="../courses/">Learn with James →</a>
-  </div>
-</div>
+| Next Step | What it is |
+|---|---|
+| [**Learn the Building Blocks** →](../agentic-building-blocks/) | The eleven components of every AI workflow — models, prompts, context, projects, skills, agents, and more |
+| [**Install Plugins** →](../use-the-playbook/build/) | Pre-built Claude Code agents and skills you can install in one command |
+| [**Take a Course** →](../courses/) | Structured learning that walks you through building with AI step by step |

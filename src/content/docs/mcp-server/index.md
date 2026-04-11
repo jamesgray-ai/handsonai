@@ -1,7 +1,9 @@
 ---
 title: MCP Server
 description: Connect to the Hands-on AI Playbook from Claude, ChatGPT, Claude Code, Cursor, VS Code, and other MCP-compatible tools
----The Hands-on AI Playbook is available as an MCP (Model Context Protocol) server, so you can get playbook-informed answers directly in your AI tools — no API keys or authentication required.
+---
+
+The Hands-on AI Playbook is available as an MCP (Model Context Protocol) server, so you can get playbook-informed answers directly in your AI tools — no API keys or authentication required.
 
 **MCP server URL:** `https://mcp.handsonai.info/mcp`
 
@@ -161,11 +163,18 @@ Any MCP client that supports Streamable HTTP transport can connect:
 | `list_questions` | List all Q&A pages with question text and short answers |
 | `get_setup_guide` | Get a Builder Tools setup guide (terminal, editor, git, claude-code, etc.) |
 
+## Verify It's Working
+
+Once you've added the connector, start a new conversation in your AI tool and ask:
+
+> What are the agentic building blocks?
+
+**You're done when:** your AI tool answers with playbook content — you should see it search the playbook and return a response that references the eleven building blocks (Model, Prompt, Context, Project, Memory, Skill, Agent, MCP, API, SDK, CLI). If your AI tool answers from general knowledge without searching the playbook, the connector isn't enabled in that conversation — enable it and try again.
+
 ## Example Prompts
 
-Once connected, try asking your AI assistant:
+Other prompts to try once the connector is working:
 
-- "What are the agentic building blocks?"
 - "How do I set up Claude Code?"
 - "Search the playbook for prompt engineering techniques"
 - "What's the Business-First AI Framework?"
