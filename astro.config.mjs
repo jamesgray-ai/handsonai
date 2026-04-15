@@ -419,12 +419,12 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: 'Overview', link: '/builder-setup/' },
-            { label: 'Terminal Basics', link: '/builder-setup/terminal-basics/' },
             { label: 'AI Code Editor', link: '/builder-setup/editor-setup/' },
             { label: 'Git', link: '/builder-setup/git-install/' },
             { label: 'GitHub', link: '/builder-setup/github-setup/' },
             { label: 'Voice to Text', link: '/builder-setup/voice-to-text-setup/' },
             { label: 'AI Registry', link: '/builder-setup/notion-registry-setup/' },
+            { label: 'Terminal Basics (reference)', link: '/builder-setup/terminal-basics/' },
           ],
         },
         {
