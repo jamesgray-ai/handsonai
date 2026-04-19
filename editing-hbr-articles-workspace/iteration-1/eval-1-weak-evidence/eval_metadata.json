@@ -1,0 +1,32 @@
+{
+  "eval_id": 1,
+  "eval_name": "weak-evidence",
+  "prompt": "Here's my draft article on agentic AI in the enterprise. I want it publication-ready for a business audience. Please edit it. The file is at editing-hbr-articles-workspace/test-article-2-weak-evidence.md",
+  "assertions": [
+    {
+      "id": "superlatives-cut",
+      "text": "No superlatives remain: 'revolutionary', 'game-changing', 'unprecedented', 'groundbreaking', 'nothing short of', 'absolutely transformative', 'truly unprecedented', 'incredible'",
+      "type": "content_check"
+    },
+    {
+      "id": "specific-evidence",
+      "text": "At least 3 claims backed by named companies with dollar figures or percentages, or explicitly flagged with [EDITOR: needs specific data] style notes",
+      "type": "content_check"
+    },
+    {
+      "id": "balance-added",
+      "text": "Article includes substantive discussion of risks, limitations, or real-world failures — not just success stories",
+      "type": "content_check"
+    },
+    {
+      "id": "promotional-tone-neutralized",
+      "text": "No fear-based CTAs remain: 'don't be left behind', 'the future belongs to', 'left behind in the dust', 'insurmountable competitive advantage'",
+      "type": "content_check"
+    },
+    {
+      "id": "editorial-summary",
+      "text": "Output includes a structured editorial summary with major changes and rationale",
+      "type": "output_format"
+    }
+  ]
+}

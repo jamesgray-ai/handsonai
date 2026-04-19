@@ -1,0 +1,15 @@
+{
+  "eval_id": 3,
+  "eval_name": "org-lens-saas-founder",
+  "prompt": "I'm the founder and CEO of a 15-person SaaS startup that sells project management software to construction companies. Our top priority this quarter is reducing churn — we're at 8% monthly and need to get to 4%. The main processes I'm worried about are:\n- Customer onboarding (takes 3 weeks, involves sales handoff to CS, product setup, training)\n- Support ticket handling (we get ~200/week, 3 CS reps, avg resolution is 48 hours)\n- Renewal/expansion conversations (CS manager handles these manually, no system)\n\nWhere can AI help us hit our churn target?",
+  "assertions": [
+    "The response infers the organizational lens based on the business-objective framing",
+    "At least 2 opportunities are explicitly tied to the stated churn reduction objective",
+    "Each opportunity card includes Business Objective, Stakeholders, and Success Metrics fields",
+    "The report identifies at least 3 concrete, distinct opportunities",
+    "The report contains a Summary Table with columns for Opportunity, Autonomy, Involvement, and Impact",
+    "Each opportunity card has both Autonomy and Involvement classifications",
+    "After presenting the report, the user is asked to pick workflow candidates",
+    "At least 2 recommendations reference construction-specific or SaaS-specific context rather than being entirely generic"
+  ]
+}

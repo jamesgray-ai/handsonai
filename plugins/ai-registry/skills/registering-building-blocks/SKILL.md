@@ -31,8 +31,8 @@ Determine the asset type from the user's request before extracting metadata.
 
 ## Database Reference
 
-- **Data Source ID**: `2d5edcfd-b924-80cf-a0a0-000ba0164e40`
-- **Data Source URL**: `collection://2d5edcfd-b924-80cf-a0a0-000ba0164e40`
+- **Data Source ID**: `<your-ai-building-blocks-database-id>`
+- **Data Source URL**: `collection://<your-ai-building-blocks-database-id>`
 
 ## Schema
 
@@ -72,7 +72,7 @@ Create a single, copy-paste-ready prompt that demonstrates the building block's 
 
 | Type | Name | Quick Start Prompt |
 |------|------|--------------------|
-| Skill | reviewing-student-goals | "Navigate to my Maven course Reflect: Goals page and extract all student learning goals. Update each student's record in Notion and give me a cohort theme analysis." |
+| Skill | reviewing-student-goals | "Review student learning goals from my course platform, update each student's record in Notion, and give me a cohort theme analysis." |
 | Skill | writing-linkedin-posts | "Write a LinkedIn post about [topic] using my brand voice." |
 | Agent | playbook-question-answerer | "Answer the question 'What are the six AI building blocks?' using the Hands-on AI site content." |
 | Agent | hbr-editor | "Review this article for HBR publication quality and give me prescriptive feedback." |
@@ -80,7 +80,7 @@ Create a single, copy-paste-ready prompt that demonstrates the building block's 
 
 **Context MDs** typically don't need a Quick Start Prompt — leave blank or ask the user.
 
-**If unsure**: Ask James for the Quick Start Prompt rather than guessing.
+**If unsure**: Ask the user for the Quick Start Prompt rather than guessing.
 
 ### Step 3: Search for Existing Entry
 
@@ -89,7 +89,7 @@ Search the data source for the **exact building block name**:
 ```json
 {
   "query": "<building-block-name>",
-  "data_source_url": "collection://2d5edcfd-b924-80cf-a0a0-000ba0164e40"
+  "data_source_url": "collection://<your-ai-building-blocks-database-id>"
 }
 ```
 
@@ -116,7 +116,7 @@ Search the data source for the **exact building block name**:
 
 ```json
 {
-  "parent": {"data_source_id": "2d5edcfd-b924-80cf-a0a0-000ba0164e40"},
+  "parent": {"data_source_id": "<your-ai-building-blocks-database-id>"},
   "pages": [{
     "properties": {
       "Name": "<building-block-name>",
@@ -143,4 +143,4 @@ When registering multiple building blocks (which can mix asset types):
 - Always confirm registration with the user after modifying Notion
 - If the building block has a GitHub repository, include the URL in the **GitHub** property
 - Never create entries without first checking for duplicates
-- If you can't determine an appropriate Quick Start Prompt, ask James for one
+- If you can't determine an appropriate Quick Start Prompt, ask the user for one

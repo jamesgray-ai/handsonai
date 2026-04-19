@@ -13,7 +13,7 @@ user-invocable: true
 **⚡ This skill runs in Claude Code with access to your terminal and git credentials.**
 
 ## Purpose
-Sync Claude Agent Skills from `~/.claude/skills/` (local machine) to GitHub repository `jamesgray007/agent-skills` with detailed commit history and automated Notion tracking. Skills are stored in a flat directory structure. Part 2 of the two-skill export→sync workflow.
+Sync Claude Agent Skills from `~/.claude/skills/` (local machine) to a GitHub repository with detailed commit history and automated Notion tracking. Skills are stored in a flat directory structure. Part 2 of the two-skill export→sync workflow.
 
 ## When to Use
 Trigger this skill after:
@@ -38,10 +38,10 @@ Trigger this skill after:
 - **Claude Code** running in terminal (has access to git credentials)
 - Git installed and configured with GitHub authentication
 - Repository `~/.claude/skills/` is a git repository
-- Remote: `git@github.com:jamesgray007/agent-skills.git` or `https://github.com/jamesgray007/agent-skills.git`
+- Remote: `git@github.com:your-username/agent-skills.git` or `https://github.com/your-username/agent-skills.git`
 
 ### Notion
-- AI Building Blocks database ID: `2d5edcfd-b924-80cf-a0a0-000ba0164e40`
+- AI Building Blocks database ID: `<your-notion-database-id>`
 - Notion API access configured
 
 ### Directory Structure
@@ -74,7 +74,7 @@ if [ ! -d .git ]; then
     echo "❌ Not a git repository. Initialize first:"
     echo "  cd ~/.claude/skills"
     echo "  git init"
-    echo "  git remote add origin git@github.com:jamesgray007/agent-skills.git"
+    echo "  git remote add origin git@github.com:your-username/agent-skills.git"
     exit 1
 fi
 
@@ -203,15 +203,15 @@ For each changed skill directory (e.g., "exporting-skills-from-claude"):
    - Use tool: `Notion:notion-search`
    - Parameters:
      - `query`: The skill directory name (e.g., "exporting-skills-from-claude")
-     - `data_source_url`: "collection://2d5edcfd-b924-80cf-a0a0-000ba0164e40"
+     - `data_source_url`: "collection://<your-notion-database-id>"
 
 2. **Extract the page ID from search results:**
    - Check if results array has at least one item
    - Get `page_id` from first result: `results[0].id`
 
 3. **Build the GitHub URL:**
-   - Format: `https://github.com/jamesgray007/agent-skills/tree/main/{skill-name}`
-   - Example: `https://github.com/jamesgray007/agent-skills/tree/main/exporting-skills-from-claude`
+   - Format: `https://github.com/your-username/agent-skills/tree/main/{skill-name}`
+   - Example: `https://github.com/your-username/agent-skills/tree/main/exporting-skills-from-claude`
 
 4. **Update the Notion page:**
    - Use tool: `Notion:notion-update-page`
@@ -239,9 +239,9 @@ For each changed skill directory (e.g., "exporting-skills-from-claude"):
 Skill: syncing-skills-to-github
 
 1. Search: Notion:notion-search
-   → Found page_id: 2e1edcfd-b924-811a-99b7-c1d4724722fa
+   → Found page_id: <your-page-id>
 
-2. GitHub URL: https://github.com/jamesgray007/agent-skills/tree/main/syncing-skills-to-github
+2. GitHub URL: https://github.com/your-username/agent-skills/tree/main/syncing-skills-to-github
 
 3. Update: Notion:notion-update-page
    → Updated GitHub URL ✓
@@ -305,7 +305,7 @@ Generating commit message...
 
 ✅ Synced writing-linkedin-posts to GitHub
 📝 Commit: abc123f
-🔗 https://github.com/jamesgray007/agent-skills/tree/main/writing-linkedin-posts
+🔗 https://github.com/your-username/agent-skills/tree/main/writing-linkedin-posts
 
 [Updating Notion AI Building Blocks...]
 ✅ Updated GitHub URL in Notion
@@ -352,7 +352,7 @@ Generating commit message...
 
 ✅ Synced 3 skills to GitHub
 📝 Commit: def456g
-🔗 https://github.com/jamesgray007/agent-skills
+🔗 https://github.com/your-username/agent-skills
 
 [Updating Notion AI Building Blocks for 3 skills...]
 ✅ Updated exporting-skills-from-claude
@@ -410,7 +410,7 @@ Ready to sync? (yes/no)
 To fix:
 1. cd ~/.claude/skills
 2. git init
-3. git remote add origin git@github.com:jamesgray007/agent-skills.git
+3. git remote add origin git@github.com:your-username/agent-skills.git
 4. git add .
 5. git commit -m "[INIT] Initial skill repository"
 6. git push -u origin main
@@ -465,7 +465,7 @@ Skills synced to GitHub: 3
 Notion updates failed: 1
 - exporting-skills-from-claude (not found in AI Building Blocks)
 
-GitHub URL: https://github.com/jamesgray007/agent-skills
+GitHub URL: https://github.com/your-username/agent-skills
 
 Would you like to register the missing skill in Notion?
 ```
@@ -526,7 +526,7 @@ Claude.ai (/mnt/skills/user/)
     ↓ [Export]
 Local (~/.claude/skills/)
     ↓ [Sync] ← This skill
-GitHub (github.com/jamesgray007/agent-skills)
+GitHub (github.com/your-username/agent-skills)
     ↓ [Update URLs]
 Notion (AI Building Blocks database)
 ```
@@ -547,7 +547,7 @@ Skills synced to GitHub can be:
 ## Security & Privacy
 
 ### Private Repository
-- Repository `jamesgray007/agent-skills` is **private**
+- Repository `your-username/agent-skills` is **private**
 - No public access without explicit sharing
 - Contains proprietary business workflows
 - Protected by GitHub authentication
@@ -674,7 +674,7 @@ Claude: [Detects changes in importing-maven-students]
 ## Dependencies
 - Claude Code (terminal access with git credentials)
 - Git installed and configured
-- GitHub repository: `jamesgray007/agent-skills`
+- GitHub repository: `your-username/agent-skills`
 - Notion API access for AI Building Blocks database
 - Bash shell for git commands
 

@@ -1,0 +1,60 @@
+{
+  "expectations": [
+    {
+      "text": "The first substantive action is a summary of what is already known about the user (memory/context scan)",
+      "passed": false,
+      "evidence": "Response opens directly with analysis: 'You're describing a classic manager stuck in execution mode problem.' No memory scan or context summary step."
+    },
+    {
+      "text": "Discovery questions are presented one at a time, not as a numbered list in a single response",
+      "passed": false,
+      "evidence": "No discovery questions are asked at all. The response goes straight to recommendations without interviewing the user."
+    },
+    {
+      "text": "The individual lens is selected or inferred (not organizational)",
+      "passed": false,
+      "evidence": "No lens framework is used. The response implicitly focuses on individual workflows but does not name or select a lens."
+    },
+    {
+      "text": "The report identifies at least 3 concrete, distinct opportunities",
+      "passed": true,
+      "evidence": "Response identifies 5 areas: Campaign Performance Reporting, Monthly Board Deck, Content Review and Feedback, Meeting Notes and Follow-ups, Email and Communication Drafting. All are concrete and distinct."
+    },
+    {
+      "text": "At least 2 of the opportunities are specific to marketing workflows (e.g., campaign reporting, content review, board deck) rather than generic AI advice",
+      "passed": true,
+      "evidence": "3 of 5 are marketing-specific: Campaign Performance Reporting (HubSpot/GA), Monthly Board Deck (pipeline metrics), Content Review (brand voice checklist). Meeting Notes and Email Drafting are role-generic."
+    },
+    {
+      "text": "The report contains the required Report Header with Role, Date, Lens, and Opportunities Identified fields",
+      "passed": false,
+      "evidence": "No structured report header. Response uses a simple H1 title 'Where AI Can Help You as a Marketing Manager' with no metadata table."
+    },
+    {
+      "text": "The report includes a Top Recommendations section listing the top 3 opportunities in priority order",
+      "passed": true,
+      "evidence": "Response includes a '## Priority Order' section listing all 5 items in priority order with brief rationales. Not titled 'Top Recommendations' but serves the same purpose."
+    },
+    {
+      "text": "After presenting the report, the user is asked to pick workflow candidates",
+      "passed": false,
+      "evidence": "Response ends with 'Want me to help you set up any of these? I'd suggest starting with the campaign reporting dashboard since it's the quickest win.' This is a generic offer to help, not a structured candidate selection for a downstream framework step."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 5,
+    "total": 8,
+    "pass_rate": 0.375
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The report includes a Top Recommendations section listing the top 3 opportunities in priority order",
+        "reason": "This passed for the without-skill run because the response has a 'Priority Order' section — a reasonable response will naturally prioritize. Consider checking for the specific section title or checking that it's limited to top 3 (not all items)."
+      }
+    ],
+    "overall": "Good discrimination overall. The process assertions (memory scan, one-at-a-time questions, lens selection) are the strongest discriminators between with-skill and without-skill runs. Content quality assertions (3+ opportunities, marketing-specificity) pass in both cases — they test baseline competence, not skill value-add."
+  }
+}

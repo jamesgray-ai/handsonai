@@ -1,0 +1,65 @@
+{
+  "expectations": [
+    {
+      "text": "The response infers the individual lens without asking the user to choose",
+      "passed": false,
+      "evidence": "No lens concept exists in the response. The without-skill response does not use any lens framework — it goes straight to analysis without classifying the approach."
+    },
+    {
+      "text": "The response does NOT conduct a discovery interview — it goes straight to analysis (fast path)",
+      "passed": true,
+      "evidence": "The response goes directly to analyzing the 3 workflows without asking interview questions. However, this is incidental — there's no fast path concept, it simply responds to what was given."
+    },
+    {
+      "text": "An output file is written to a path containing 'ai-opportunity-report'",
+      "passed": false,
+      "evidence": "File written to 'response.md', not 'ai-opportunity-report.md'. No structured report naming convention."
+    },
+    {
+      "text": "The report contains a markdown table functioning as a Summary Table with columns for Opportunity, Autonomy, Involvement, and Impact",
+      "passed": false,
+      "evidence": "No summary table present. The response uses H2 headings for each workflow but no structured comparison table. No Autonomy or Involvement columns."
+    },
+    {
+      "text": "Each of the 3 workflows has a dedicated opportunity card with Autonomy and Involvement classifications",
+      "passed": false,
+      "evidence": "Workflows are analyzed but without the Autonomy/Involvement classification framework. No structured 'opportunity card' format."
+    },
+    {
+      "text": "Each opportunity card includes a 'Getting started' section with a concrete, actionable first step",
+      "passed": true,
+      "evidence": "Each workflow has a 'How to start' section with concrete steps. E.g., 'Use a tool like Zapier or Make to connect your three data sources' and 'Document your complete onboarding checklist (every single step).'"
+    },
+    {
+      "text": "The report includes a Classification Definitions appendix explaining Autonomy and Involvement levels",
+      "passed": false,
+      "evidence": "No appendix. No classification definitions. The Autonomy/Involvement taxonomy is not used at all."
+    },
+    {
+      "text": "The report groups opportunity cards by autonomy level (Deterministic, Guided, or Autonomous)",
+      "passed": false,
+      "evidence": "Workflows are numbered 1-3 in priority order, not grouped by autonomy level. No autonomy classification exists in the response."
+    },
+    {
+      "text": "The response asks the user to pick workflow candidates for the Workflow Candidate Summary",
+      "passed": false,
+      "evidence": "Response ends with 'Would you like me to dive deeper into any of these?' — a generic offer, not a structured workflow candidate selection step."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 7,
+    "total": 9,
+    "pass_rate": 0.22
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The response does NOT conduct a discovery interview — it goes straight to analysis (fast path)",
+        "reason": "This assertion passes for both with-skill and without-skill runs — it's not discriminating. Any reasonable response to pre-identified workflows will skip an interview. Consider reframing to check whether the fast path is explicitly recognized as a decision point."
+      }
+    ],
+    "overall": "Most assertions discriminate well between with-skill and without-skill runs. The structural format assertions (summary table, cards, appendix) are the strongest discriminators."
+  }
+}

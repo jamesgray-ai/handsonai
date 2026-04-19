@@ -1,0 +1,31 @@
+{
+  "word_count": 785,
+  "expectations": [
+    {
+      "text": "Superlatives eliminated",
+      "passed": true,
+      "evidence": "No superlatives found"
+    },
+    {
+      "text": "At least 3 specific evidence points or editor flags",
+      "passed": true,
+      "evidence": "Found 13 data points and 0 editor flags"
+    },
+    {
+      "text": "Balance: risks/limitations discussed",
+      "passed": true,
+      "evidence": "Risk-related terms found: ['risk', 'challenge', 'limitation']"
+    },
+    {
+      "text": "Promotional/fear-based CTAs removed",
+      "passed": true,
+      "evidence": "No promotional phrases found"
+    },
+    {
+      "text": "Editorial summary provided",
+      "passed": true,
+      "evidence": "Summary section found"
+    }
+  ],
+  "pass_rate": 1.0
+}

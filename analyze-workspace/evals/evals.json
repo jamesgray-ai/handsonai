@@ -1,0 +1,54 @@
+{
+  "skill_name": "analyze",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I already know the workflows I want to automate. Here are three:\n\n1. Weekly client status reports — every Friday I pull data from 3 different project management tools (Asana, Harvest, and Slack), compile time tracking, milestone updates, and blockers into a Google Doc for each of my 8 clients. Takes me about 3 hours.\n\n2. New client onboarding — when we sign a new client, I have to create their Asana project from a template, set up a Slack channel, add them to Harvest, send a welcome email with next steps, and schedule the kickoff call. Lots of copy-paste and I always forget at least one step.\n\n3. Invoice reconciliation — at month end I cross-reference Harvest time entries against Asana task completion and our contract rates to make sure we're billing accurately. Usually takes half a day and I've caught errors both ways.\n\nI'm a freelance operations consultant working solo. Can you analyze these?",
+      "expected_output": "Should take the fast path (skip interview), infer individual lens, produce a full opportunity report with 3 detailed cards, summary table, and classification appendix. Should write to outputs/ai-opportunity-report.md.",
+      "files": [],
+      "expectations": [
+        "The response infers the individual lens without asking the user to choose",
+        "The response does NOT ask discovery interview questions since the user provided pre-identified workflows",
+        "An output file is written to outputs/ai-opportunity-report.md",
+        "The report contains a Summary Table with all 3 opportunities",
+        "Each opportunity card includes Autonomy and Involvement classifications",
+        "Each opportunity card includes a 'Getting started' section with a concrete first step",
+        "The report includes the Classification Definitions appendix",
+        "The report groups opportunity cards by autonomy level",
+        "The response asks the user to pick workflow candidates for the Workflow Candidate Summary"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a marketing manager at a B2B SaaS company (about 50 employees). I manage a team of 3 — one content writer, one designer, and one social media person. My days are mostly spent in meetings, reviewing content drafts, pulling campaign performance data from HubSpot and Google Analytics, and writing the monthly board deck slides about marketing pipeline contribution. I feel like I'm drowning in busywork and not doing enough strategic thinking. Where can AI help me?",
+      "expected_output": "Should take the standard path, present a memory/context summary, select individual lens (or ask), conduct a brief interview to probe for more detail, then produce the opportunity report. Should ask one question at a time.",
+      "files": [],
+      "expectations": [
+        "The first response summarizes what it already knows about the user before asking questions",
+        "Questions are asked one at a time, not as a list",
+        "The response selects or asks about the individual vs organizational lens",
+        "The report identifies at least 3 concrete opportunities",
+        "Opportunities are specific to the user's described role (not generic AI advice)",
+        "The report contains the required Report Header with role, date, lens, and count",
+        "The report includes a Top Recommendations section with the top 3 priorities",
+        "After presenting the report, the user is asked to pick workflow candidates"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I'm the founder and CEO of a 15-person SaaS startup that sells project management software to construction companies. Our top priority this quarter is reducing churn — we're at 8% monthly and need to get to 4%. The main processes I'm worried about are:\n- Customer onboarding (takes 3 weeks, involves sales handoff to CS, product setup, training)\n- Support ticket handling (we get ~200/week, 3 CS reps, avg resolution is 48 hours)\n- Renewal/expansion conversations (CS manager handles these manually, no system)\n\nWhere can AI help us hit our churn target?",
+      "expected_output": "Should infer organizational lens from the business-objective framing. Should either fast-path or do a brief interview. Report should include organizational-only fields (Business Objective, Stakeholders, Success Metrics) on each card. All opportunities should tie back to the churn reduction objective.",
+      "files": [],
+      "expectations": [
+        "The response infers the organizational lens based on the business-objective framing",
+        "Opportunities are tied to the stated churn reduction objective",
+        "Each opportunity card includes Business Objective, Stakeholders, and Success Metrics fields",
+        "The report identifies at least 3 concrete opportunities",
+        "The report contains the required Summary Table format",
+        "Autonomy and Involvement classifications are present on each card",
+        "The response asks the user to pick workflow candidates after presenting the report",
+        "Recommendations are specific to the construction SaaS context, not generic"
+      ]
+    }
+  ]
+}

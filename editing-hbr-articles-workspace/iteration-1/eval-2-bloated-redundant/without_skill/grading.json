@@ -1,0 +1,31 @@
+{
+  "word_count": 723,
+  "expectations": [
+    {
+      "text": "Word count reduced at least 25%",
+      "passed": true,
+      "evidence": "Original: 1445, Edited: 723, Reduction: 50.0%"
+    },
+    {
+      "text": "Democratization concept not over-repeated (<=3 mentions)",
+      "passed": false,
+      "evidence": "'Democratiz*' appears 4 times"
+    },
+    {
+      "text": "Passive voice reduced (<=5 instances)",
+      "passed": false,
+      "evidence": "Found 6 passive constructions"
+    },
+    {
+      "text": "Conclusion doesn't rehash intro",
+      "passed": true,
+      "evidence": "No rehash detected"
+    },
+    {
+      "text": "Editorial summary includes word count comparison",
+      "passed": false,
+      "evidence": "No word count comparison in summary"
+    }
+  ],
+  "pass_rate": 0.4
+}

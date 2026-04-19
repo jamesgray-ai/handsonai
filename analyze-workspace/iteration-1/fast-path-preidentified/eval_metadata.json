@@ -1,0 +1,16 @@
+{
+  "eval_id": 1,
+  "eval_name": "fast-path-preidentified",
+  "prompt": "I already know the workflows I want to automate. Here are three:\n\n1. Weekly client status reports — every Friday I pull data from 3 different project management tools (Asana, Harvest, and Slack), compile time tracking, milestone updates, and blockers into a Google Doc for each of my 8 clients. Takes me about 3 hours.\n\n2. New client onboarding — when we sign a new client, I have to create their Asana project from a template, set up a Slack channel, add them to Harvest, send a welcome email with next steps, and schedule the kickoff call. Lots of copy-paste and I always forget at least one step.\n\n3. Invoice reconciliation — at month end I cross-reference Harvest time entries against Asana task completion and our contract rates to make sure we're billing accurately. Usually takes half a day and I've caught errors both ways.\n\nI'm a freelance operations consultant working solo. Can you analyze these?",
+  "assertions": [
+    "The response infers the individual lens without asking the user to choose",
+    "The response does NOT conduct a discovery interview — it goes straight to analysis (fast path)",
+    "An output file is written to a path containing 'ai-opportunity-report'",
+    "The report contains a markdown table functioning as a Summary Table with columns for Opportunity, Autonomy, Involvement, and Impact",
+    "Each of the 3 workflows has a dedicated opportunity card with Autonomy and Involvement classifications",
+    "Each opportunity card includes a 'Getting started' section with a concrete, actionable first step",
+    "The report includes a Classification Definitions appendix explaining Autonomy and Involvement levels",
+    "Opportunity cards are grouped by autonomy level (Deterministic, Guided, or Autonomous)",
+    "The response asks the user to pick workflow candidates for the Workflow Candidate Summary"
+  ]
+}

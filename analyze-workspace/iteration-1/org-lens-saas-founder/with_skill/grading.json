@@ -1,0 +1,79 @@
+{
+  "expectations": [
+    {
+      "text": "The response infers the organizational lens based on the business-objective framing",
+      "passed": true,
+      "evidence": "Transcript Step 1.5: 'Inferred Organizational lens: User described business-level processes (onboarding, support, renewals) tied to a strategic objective (churn reduction).' Report header confirms 'Lens: Organizational'."
+    },
+    {
+      "text": "At least 2 opportunities are explicitly tied to the stated churn reduction objective",
+      "passed": true,
+      "evidence": "All 5 opportunities reference churn reduction in their Business Objective field. E.g., #1: 'Reduce monthly churn from 8% to 4% by dramatically improving support responsiveness and resolution quality'. #2: '...by enabling proactive identification and intervention for at-risk customers'."
+    },
+    {
+      "text": "Each opportunity card includes Business Objective, Stakeholders, and Success Metrics fields",
+      "passed": true,
+      "evidence": "All 5 cards include all three organizational fields. E.g., Card #3 has Business Objective ('Reduce monthly churn from 8% to 4% by improving time-to-value'), Stakeholders ('Sales team, CS team, Product team, new customers'), Success Metrics ('Time-to-value target, onboarding completion rate, 30-day retention, NPS')."
+    },
+    {
+      "text": "The report identifies at least 3 concrete, distinct opportunities",
+      "passed": true,
+      "evidence": "Report identifies 5 distinct opportunities: Support Ticket Triage, Customer Health Scoring, Onboarding Workflow Automation, Renewal & Expansion Playbook, Knowledge Base & Self-Service Deflection."
+    },
+    {
+      "text": "The report contains a Summary Table with columns for Opportunity, Autonomy, Involvement, and Impact",
+      "passed": true,
+      "evidence": "Report contains '| # | Opportunity | Autonomy | Involvement | Impact |' table with 5 rows."
+    },
+    {
+      "text": "Each opportunity card has both Autonomy and Involvement classifications",
+      "passed": true,
+      "evidence": "All 5 cards have explicit Autonomy and Involvement lines. E.g., #1: 'Autonomy: Autonomous / Involvement: Automated', #3: 'Autonomy: Deterministic / Involvement: Augmented'."
+    },
+    {
+      "text": "After presenting the report, the user is asked to pick workflow candidates",
+      "passed": true,
+      "evidence": "Transcript Step 4: 'Which of these workflow candidates would you like to build? Pick your top choices and I'll create the Workflow Candidate Summary with structured metadata for the Deconstruct step.'"
+    },
+    {
+      "text": "At least 2 recommendations reference construction-specific or SaaS-specific context rather than being entirely generic",
+      "passed": true,
+      "evidence": "Multiple construction-specific references: #3 mentions 'Construction companies especially value structured, predictable processes' and 'construction-specific templates'; #5 mentions 'Construction-specific FAQ: How do I track change orders? How do I share a schedule with my subs?'; #1 mentions 'construction companies working on active projects can't wait 2 days.' SaaS-specific: #2 references 'product usage data' and churn prediction patterns typical of SaaS."
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "All 5 opportunities tie back to the churn reduction objective",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Every Business Objective field references 'Reduce monthly churn from 8% to 4%' with a specific mechanism (improved responsiveness, proactive identification, time-to-value, renewal management, self-service)."
+    },
+    {
+      "claim": "Success Metrics include specific targets",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Most success metrics include targets: 'Time-to-value target: reduce from 3 weeks to 1.5 weeks', 'Average resolution time target: <12 hours', 'Ticket deflection rate target: 30%+', 'Renewal rate target: >95%'."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "reason": "No assertion checks whether the report includes the Top Recommendations section — an oversight since it's a required report element."
+      },
+      {
+        "reason": "No assertion checks autonomy-level grouping of cards — present in eval 1 but missing here. The report does group correctly (Deterministic → Guided → Autonomous)."
+      },
+      {
+        "assertion": "At least 2 recommendations reference construction-specific or SaaS-specific context",
+        "reason": "Strong discriminating assertion. A generic response would fail this. Consider making it stricter: e.g., 'At least 3 opportunities include industry-specific examples or terminology.'"
+      }
+    ],
+    "overall": "Strong assertion set for testing organizational lens behavior. The Business Objective/Stakeholders/Success Metrics check is the best discriminator — without the skill, these fields don't exist."
+  }
+}

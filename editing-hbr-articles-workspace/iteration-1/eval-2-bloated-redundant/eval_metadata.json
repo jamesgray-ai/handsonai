@@ -1,0 +1,32 @@
+{
+  "eval_id": 2,
+  "eval_name": "bloated-redundant",
+  "prompt": "This is a feature article I drafted about modern analytics platforms. It's way too long and I know it's repetitive. Can you tighten it up to HBR standards? File is at editing-hbr-articles-workspace/test-article-3-bloated-redundant.md",
+  "assertions": [
+    {
+      "id": "word-count-reduced-25pct",
+      "text": "Edited article word count is at least 25% less than original (~1800 words or fewer, original is ~2400)",
+      "type": "quantitative"
+    },
+    {
+      "id": "redundancy-eliminated",
+      "text": "The 'democratization' concept is stated/explained once, not restated 3-4 times across the article",
+      "type": "content_check"
+    },
+    {
+      "id": "passive-voice-reduced",
+      "text": "No more than 5 instances of passive voice constructions ('is being transformed by', 'was being adopted', etc.)",
+      "type": "quantitative"
+    },
+    {
+      "id": "conclusion-not-rehash",
+      "text": "Final section does not repeat 'three fundamental ways' or re-summarize the article's main points from the intro",
+      "type": "content_check"
+    },
+    {
+      "id": "editorial-summary-word-count",
+      "text": "Editorial summary includes before/after word count with percentage reduction",
+      "type": "output_format"
+    }
+  ]
+}

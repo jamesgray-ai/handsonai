@@ -35,7 +35,7 @@
 
 ## Repository Information
 
-- **URL**: https://github.com/jamesgray007/agent-skills
+- **URL**: https://github.com/your-username/agent-skills
 - **Visibility**: Private
 - **Working Directory**: `/tmp/agent-skills-sync`
 - **Skills Directory**: `skills/`
@@ -74,7 +74,7 @@ Skills updated:
 After each sync:
 - **Search**: AI Building Blocks database for each synced skill
 - **Update**: GitHub property with skill URL
-- **Format**: `https://github.com/jamesgray007/agent-skills/tree/main/skills/[skill-name]`
+- **Format**: `https://github.com/your-username/agent-skills/tree/main/skills/[skill-name]`
 - **Not Found**: Offer to register skill first
 
 ## Common Commands
@@ -112,7 +112,7 @@ cat /tmp/agent-skills-sync/skills/[skill-name]/SKILL.md
 ### SSH Keys
 - Generate: `ssh-keygen -t ed25519`
 - Add to GitHub: https://github.com/settings/keys
-- Use SSH URL: `git@github.com:jamesgray007/agent-skills.git`
+- Use SSH URL: `git@github.com:your-username/agent-skills.git`
 
 ## Troubleshooting
 
@@ -191,7 +191,7 @@ agent-skills/
 
 ## Links
 
-- **Repository**: https://github.com/jamesgray007/agent-skills
+- **Repository**: https://github.com/your-username/agent-skills
 - **Settings**: https://github.com/settings
 - **Tokens**: https://github.com/settings/tokens
 - **SSH Keys**: https://github.com/settings/keys

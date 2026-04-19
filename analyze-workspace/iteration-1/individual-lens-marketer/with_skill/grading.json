@@ -1,0 +1,79 @@
+{
+  "expectations": [
+    {
+      "text": "The first substantive action is a summary of what is already known about the user (memory/context scan)",
+      "passed": true,
+      "evidence": "Transcript Step 1: Presented summary including role (Marketing Manager), team (3 reports), daily activities, pain point, and tools. Noted 'No prior memory or conversation history — working from the prompt alone.'"
+    },
+    {
+      "text": "Discovery questions are presented one at a time, not as a numbered list in a single response",
+      "passed": true,
+      "evidence": "Transcript Step 2 shows 4 questions asked sequentially: Q1 (repetitive tasks/data pulls), Q2 (board deck detail), Q3 (content review process), Q4 (meeting capture). Each followed by a simulated user answer before the next question."
+    },
+    {
+      "text": "The individual lens is selected or inferred (not organizational)",
+      "passed": true,
+      "evidence": "Transcript Step 1.5: 'Inferred Individual lens: User described personal workflows (\"my days are mostly spent...\") and personal pain (\"I feel like I'm drowning\").' Report header confirms 'Lens: Individual'."
+    },
+    {
+      "text": "The report identifies at least 3 concrete, distinct opportunities",
+      "passed": true,
+      "evidence": "Report identifies 5 opportunities: Monthly Board Deck Creation, Campaign Performance Reporting, Content Draft Review & Feedback, Meeting Summarization & Action Items, Campaign Brief Generation. All distinct workflows."
+    },
+    {
+      "text": "At least 2 of the opportunities are specific to marketing workflows (e.g., campaign reporting, content review, board deck) rather than generic AI advice",
+      "passed": true,
+      "evidence": "4 of 5 are marketing-specific: Board Deck (pipeline metrics, HubSpot/GA data), Campaign Performance Reporting (HubSpot/GA metrics), Content Draft Review (brand voice, messaging alignment), Campaign Brief Generation (campaign templates, channel mix). Only Meeting Summarization is role-generic."
+    },
+    {
+      "text": "The report contains the required Report Header with Role, Date, Lens, and Opportunities Identified fields",
+      "passed": true,
+      "evidence": "Report header table includes: Role (Marketing Manager, B2B SaaS), Date (2026-04-03), Lens (Individual), Opportunities identified (5). All required fields present."
+    },
+    {
+      "text": "The report includes a Top Recommendations section listing the top 3 opportunities in priority order",
+      "passed": true,
+      "evidence": "Report has '## Top Recommendations' section listing: 1. Monthly Board Deck Creation, 2. Campaign Performance Reporting, 3. Content Draft Review & Feedback. Each with a one-sentence rationale."
+    },
+    {
+      "text": "After presenting the report, the user is asked to pick workflow candidates",
+      "passed": true,
+      "evidence": "Transcript Step 4: 'Would have asked: Which of these would you like to select as workflow candidates to build? Pick your top choices and I'll create the Workflow Candidate Summary with the structured metadata you'll need for the Deconstruct step.'"
+    }
+  ],
+  "summary": {
+    "passed": 8,
+    "failed": 0,
+    "total": 8,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "Questions follow adaptive ordering — starting with areas the memory scan revealed least",
+      "type": "process",
+      "verified": true,
+      "evidence": "Transcript notes Q1 targeted 'Repetitive tasks — biggest gap from memory scan'. The memory scan covered role and tools but not specific workflow details, so probing the data pull process first is adaptive."
+    },
+    {
+      "claim": "Transition signal used before generating report",
+      "type": "process",
+      "verified": true,
+      "evidence": "Transcript: 'I've identified 5 opportunities from what you've described. I have enough to put together the report — anything else you'd like to add, or should I go ahead?'"
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Discovery questions are presented one at a time, not as a numbered list in a single response",
+        "reason": "In a simulated run, this is hard to truly verify — the transcript shows sequential questions but a real interactive run might behave differently. This assertion is more meaningful in live testing."
+      },
+      {
+        "reason": "No assertion checks whether the skill's transition signal is used ('I've identified N opportunities — ready to proceed?'). This is a key behavioral requirement the skill specifies."
+      },
+      {
+        "reason": "No assertion checks whether opportunities are grouped by autonomy level in the report. This was checked in eval 1 but not eval 2 — should be consistent across evals."
+      }
+    ],
+    "overall": "Good coverage of the key skill behaviors. The marketing-specificity assertion is a strong discriminator. Missing a few structural checks that eval 1 covers."
+  }
+}

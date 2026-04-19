@@ -1,0 +1,64 @@
+{
+  "expectations": [
+    {
+      "text": "The response infers the organizational lens based on the business-objective framing",
+      "passed": false,
+      "evidence": "No lens framework is used. The response naturally focuses on business processes but does not name or select an organizational lens."
+    },
+    {
+      "text": "At least 2 opportunities are explicitly tied to the stated churn reduction objective",
+      "passed": true,
+      "evidence": "All three sections reference churn reduction. Section headers and content frame everything around the 4% churn target. E.g., 'Target: 95%+ renewal rate' and 'Target: Reduce onboarding from 3 weeks to 1 week.' The churn framing is strong throughout."
+    },
+    {
+      "text": "Each opportunity card includes Business Objective, Stakeholders, and Success Metrics fields",
+      "passed": false,
+      "evidence": "No structured opportunity cards. No Business Objective, Stakeholders, or Success Metrics as distinct labeled fields. Targets are mentioned inline but not in the structured format."
+    },
+    {
+      "text": "The report identifies at least 3 concrete, distinct opportunities",
+      "passed": true,
+      "evidence": "Response identifies opportunities across 3 main process areas, with multiple sub-opportunities within each (e.g., Support has Tier 0/1/2 strategies, Renewals has health scoring + preparation + expansion). Counting distinct workflow-level opportunities: at least 6+."
+    },
+    {
+      "text": "The report contains a Summary Table with columns for Opportunity, Autonomy, Involvement, and Impact",
+      "passed": false,
+      "evidence": "Response has a prioritization table with columns 'Priority | Initiative | Impact on Churn | Effort | Timeline' — useful but not the required format. No Autonomy or Involvement columns."
+    },
+    {
+      "text": "Each opportunity card has both Autonomy and Involvement classifications",
+      "passed": false,
+      "evidence": "No Autonomy/Involvement classifications used anywhere in the response."
+    },
+    {
+      "text": "After presenting the report, the user is asked to pick workflow candidates",
+      "passed": false,
+      "evidence": "Response ends with 'Want me to dive deeper into any of these? I'd suggest starting with the support ticket analysis since it's the highest-volume problem.' This is a generic offer, not a structured candidate selection."
+    },
+    {
+      "text": "At least 2 recommendations reference construction-specific or SaaS-specific context rather than being entirely generic",
+      "passed": true,
+      "evidence": "Construction-specific: 'Construction companies are action-oriented', 'Construction-specific FAQ: How do I track change orders? How do I share a schedule with my subs?', 'residential vs. commercial, GC vs. subcontractor'. SaaS-specific: 'product usage depth', login frequency patterns."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 5,
+    "total": 8,
+    "pass_rate": 0.375
+  },
+  "claims": [],
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "At least 2 opportunities are explicitly tied to the stated churn reduction objective",
+        "reason": "This passes for both with-skill and without-skill runs. Any competent response to 'help us hit our churn target' will tie recommendations to churn. This assertion tests baseline relevance, not skill value-add."
+      },
+      {
+        "assertion": "At least 2 recommendations reference construction-specific or SaaS-specific context",
+        "reason": "Also passes for both runs. The without-skill response includes construction-specific language too. Consider raising the bar: check for specific construction workflow terminology or construction-specific pain points that only domain research would surface."
+      }
+    ],
+    "overall": "The structural assertions (org fields, summary table, classifications) are excellent discriminators — 0% pass without skill, 100% with. The content assertions (churn tie-in, industry specificity) pass both ways — they test Claude's baseline ability, not the skill's contribution."
+  }
+}

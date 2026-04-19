@@ -1,0 +1,84 @@
+{
+  "expectations": [
+    {
+      "text": "The response infers the individual lens without asking the user to choose",
+      "passed": true,
+      "evidence": "Transcript: 'Lens inferred as Individual: User is a freelance operations consultant working solo — clearly individual scope. Per the inference rule, confirmed rather than asking.' Report header shows 'Lens: Individual'."
+    },
+    {
+      "text": "The response does NOT conduct a discovery interview — it goes straight to analysis (fast path)",
+      "passed": true,
+      "evidence": "Transcript: 'Fast Path triggered: User arrived with 3 pre-identified workflows. Per skill instructions, skipped Steps 1-2 (memory scan and interview).' No interview questions appear in the transcript."
+    },
+    {
+      "text": "An output file is written to a path containing 'ai-opportunity-report'",
+      "passed": true,
+      "evidence": "File exists at analyze-workspace/iteration-1/fast-path-preidentified/with_skill/outputs/ai-opportunity-report.md with substantial content (full report)."
+    },
+    {
+      "text": "The report contains a markdown table functioning as a Summary Table with columns for Opportunity, Autonomy, Involvement, and Impact",
+      "passed": true,
+      "evidence": "Report contains '| # | Opportunity | Autonomy | Involvement | Impact |' table with 3 rows for each workflow."
+    },
+    {
+      "text": "Each of the 3 workflows has a dedicated opportunity card with Autonomy and Involvement classifications",
+      "passed": true,
+      "evidence": "Three cards present: #1 Weekly Client Status Reports (Deterministic/Automated), #2 New Client Onboarding (Deterministic/Augmented), #3 Invoice Reconciliation (Guided/Augmented). Each has explicit Autonomy and Involvement lines."
+    },
+    {
+      "text": "Each opportunity card includes a 'Getting started' section with a concrete, actionable first step",
+      "passed": true,
+      "evidence": "All 3 cards have 'Getting started:' sections. #1: 'Pick your simplest client... Write out the exact template... Build a prompt... Test it this Friday.' #2: 'Write out your complete onboarding checklist.' #3: 'Export last month's Harvest time entries and Asana completed tasks as CSVs.' All are concrete and achievable this week."
+    },
+    {
+      "text": "The report includes a Classification Definitions appendix explaining Autonomy and Involvement levels",
+      "passed": true,
+      "evidence": "Report ends with '## Appendix: Classification Definitions' section containing definitions for Deterministic, Guided, Autonomous (under Autonomy) and Augmented, Automated (under Human Involvement)."
+    },
+    {
+      "text": "The report groups opportunity cards by autonomy level (Deterministic, Guided, or Autonomous)",
+      "passed": true,
+      "evidence": "Cards are under '### Deterministic' (#1 and #2) and '### Guided' (#3) subheadings."
+    },
+    {
+      "text": "The response asks the user to pick workflow candidates for the Workflow Candidate Summary",
+      "passed": true,
+      "evidence": "Transcript Step 4: 'Would have asked: Which of these workflows would you like to select as candidates to build? Pick your top choices and I'll create the Workflow Candidate Summary.'"
+    }
+  ],
+  "summary": {
+    "passed": 9,
+    "failed": 0,
+    "total": 9,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "Status Reports classified as Deterministic because it follows a fixed pattern",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The workflow pulls same data from same sources into same template format — no judgment required. Deterministic is appropriate."
+    },
+    {
+      "claim": "Invoice Reconciliation classified as Guided due to judgment on ambiguous entries",
+      "type": "quality",
+      "verified": true,
+      "evidence": "Report correctly notes 'requires judgment to interpret ambiguous entries and decide how to handle edge cases' — Guided is appropriate as it involves bounded decisions."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The report groups opportunity cards by autonomy level",
+        "reason": "This assertion checks for grouping but not correct grouping. A report could group all cards under 'Deterministic' and pass. Consider checking that the grouping matches the classifications on each card."
+      },
+      {
+        "reason": "No assertion checks whether the report includes a 'Top Recommendations' section — the skill output format requires it and the report does include it, but this goes unverified."
+      },
+      {
+        "reason": "No assertion checks the quality of the 'Getting started' suggestions — only presence. A vague 'try using AI' would pass. Consider checking for specificity (mentions a tool, a timeframe, or a concrete action)."
+      }
+    ],
+    "overall": "Assertions cover structural completeness well but lack depth checks on content quality. The fast path detection and lens inference assertions are strong discriminators."
+  }
+}

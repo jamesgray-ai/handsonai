@@ -1,0 +1,15 @@
+{
+  "eval_id": 2,
+  "eval_name": "individual-lens-marketer",
+  "prompt": "I'm a marketing manager at a B2B SaaS company (about 50 employees). I manage a team of 3 — one content writer, one designer, and one social media person. My days are mostly spent in meetings, reviewing content drafts, pulling campaign performance data from HubSpot and Google Analytics, and writing the monthly board deck slides about marketing pipeline contribution. I feel like I'm drowning in busywork and not doing enough strategic thinking. Where can AI help me?",
+  "assertions": [
+    "The first substantive action is a summary of what is already known about the user (memory/context scan)",
+    "Discovery questions are presented one at a time, not as a numbered list in a single response",
+    "The individual lens is selected or inferred (not organizational)",
+    "The report identifies at least 3 concrete, distinct opportunities",
+    "At least 2 of the opportunities are specific to marketing workflows (e.g., campaign reporting, content review, board deck) rather than generic AI advice",
+    "The report contains the required Report Header with Role, Date, Lens, and Opportunities Identified fields",
+    "The report includes a Top Recommendations section listing the top 3 opportunities in priority order",
+    "After presenting the report, the user is asked to pick workflow candidates"
+  ]
+}

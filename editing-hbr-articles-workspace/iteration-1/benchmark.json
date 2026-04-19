@@ -1,0 +1,80 @@
+{
+  "skill_name": "editing-hbr-articles",
+  "iteration": 1,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "results": [
+        {
+          "eval_name": "jargon-heavy",
+          "pass_rate": 0.83,
+          "passed": 5,
+          "total": 6,
+          "word_count": 605,
+          "notes": "1 false positive: 'leveraging synergies' appears in a sarcastic quote contrasting jargon with real results — appropriate use"
+        },
+        {
+          "eval_name": "weak-evidence",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "total": 5,
+          "word_count": 785
+        },
+        {
+          "eval_name": "bloated-redundant",
+          "pass_rate": 1.0,
+          "passed": 5,
+          "total": 5,
+          "word_count": 586
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 0.94,
+        "total_passed": 15,
+        "total_assertions": 16
+      }
+    },
+    {
+      "name": "without_skill",
+      "results": [
+        {
+          "eval_name": "jargon-heavy",
+          "pass_rate": 0.67,
+          "passed": 4,
+          "total": 6,
+          "word_count": 466
+        },
+        {
+          "eval_name": "weak-evidence",
+          "pass_rate": 0.6,
+          "passed": 3,
+          "total": 5,
+          "word_count": 551
+        },
+        {
+          "eval_name": "bloated-redundant",
+          "pass_rate": 0.4,
+          "passed": 2,
+          "total": 5,
+          "word_count": 723
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 0.56,
+        "total_passed": 9,
+        "total_assertions": 16
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate_improvement": "+38pp (94% vs 56%)",
+    "assertions_improved": "+6 (15 vs 9 of 16)"
+  },
+  "analyst_observations": [
+    "The skill's biggest advantage is in evidence quality — with-skill adds specific named companies, figures, and dates; without-skill leaves vague claims untouched (eval 0: 5 vague phrases remained; eval 1: zero data points added)",
+    "Editorial summary format is a strong differentiator — the skill consistently produces structured summaries with word counts; baseline never does",
+    "The jargon 'failure' in eval 0 is a false positive — 'leveraging synergies' appears in a deliberate sarcastic contrast, which is actually good editorial judgment. Adjusted pass rate would be 100%",
+    "Biggest skill win is eval 2 (bloated-redundant): 59% word reduction vs 50%, zero passive voice vs 6, zero 'democratization' repeats vs 4",
+    "The without-skill baseline is not terrible — it catches superlatives and fear-based CTAs — but it consistently fails to add specificity or produce structured editorial output"
+  ]
+}

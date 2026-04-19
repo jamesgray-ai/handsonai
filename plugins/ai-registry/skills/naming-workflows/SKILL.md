@@ -80,7 +80,7 @@ Write 1-2 concise sentences that answer:
 
 **Good descriptions:**
 - "Review Gmail for emails requiring responses and draft replies. Generates draft responses ready for user review."
-- "Convert Maven waitlist prospects into enrolled students through targeted email campaigns. Results in payment confirmations and enrollment completions."
+- "Convert course waitlist prospects into enrolled students through targeted email campaigns. Results in payment confirmations and enrollment completions."
 - "Extract key insights from lesson recordings and repurpose into LinkedIn posts and Substack content. Produces 5+ social assets per lesson."
 
 **Avoid:**
@@ -146,13 +146,13 @@ When naming/describing workflows, consider these Notion properties:
 | Workflow Name | Description | Process Outcome |
 |---------------|-------------|-----------------|
 | Content Repurposing | Transform lesson recordings into multi-platform social content. Creates LinkedIn posts, X threads, and Substack excerpts. | 5+ social assets |
-| Newsletter Distribution | Publish Graymatter content and distribute across platforms. Delivers newsletter to subscribers and social channels. | Published newsletter |
+| Newsletter Distribution | Publish newsletter content and distribute across platforms. Delivers newsletter to subscribers and social channels. | Published newsletter |
 | Social Media Scheduling | Plan and schedule weekly LinkedIn and X content. Produces content calendar with scheduled posts. | Weekly content calendar |
 
 ### Product Domain
 | Workflow Name | Description | Process Outcome |
 |---------------|-------------|-----------------|
-| Lesson Content Creation | Design and write Maven course lesson materials. Produces slide decks, exercises, and student resources. | Complete lesson package |
+| Lesson Content Creation | Design and write online course lesson materials. Produces slide decks, exercises, and student resources. | Complete lesson package |
 | Curriculum Design | Structure course outline aligned with learning objectives. Creates module sequence with Bloom's taxonomy alignment. | Course curriculum |
 | Exercise Development | Create hands-on activities for course participants. Generates practical exercises with solutions and rubrics. | Student exercises |
 
@@ -160,7 +160,7 @@ When naming/describing workflows, consider these Notion properties:
 | Workflow Name | Description | Process Outcome |
 |---------------|-------------|-----------------|
 | Student Onboarding | Grant course access and prepare students for Day 1. Delivers welcome materials, Slack access, and technical setup. | Onboarded students |
-| Live Session Delivery | Teach scheduled Maven cohort sessions. Facilitates learning, Q&A, and student engagement. | Completed session |
+| Live Session Delivery | Teach scheduled scheduled cohort sessions. Facilitates learning, Q&A, and student engagement. | Completed session |
 | Assessment & Feedback | Review student work and provide constructive feedback. Generates graded assignments with improvement guidance. | Graded assignments |
 
 ### Operations Domain
@@ -190,8 +190,8 @@ When user provides a workflow description:
 ## Notion Database References
 
 ### Workflows Database
-- **Data Source ID**: `26fedcfd-b924-80c2-9a3a-000bfafb9fe9`
-- **Database URL**: https://www.notion.so/26fedcfdb924805e95e2e2135f5ce861
+- **Data Source ID**: `<your-workflows-database-id>`
+- **Database URL**: `<your-database-url>`
 
 **Properties:**
 | Property | Type | Values/Notes |
@@ -211,7 +211,7 @@ When user provides a workflow description:
 | Assets Used | relation | Link to Assets database (optional) |
 
 ### Business Processes Database
-- **Data Source ID**: `2d5edcfd-b924-80e3-90ad-000bf05e913b`
+- **Data Source ID**: `<your-business-processes-database-id>`
 
 **Domains:** Coaching, Consulting, Education, Finance, Marketing, Operations, Product, Sales
 
@@ -226,7 +226,7 @@ After user confirms name, description, and process outcome:
 
 ```json
 {
-  "parent": {"data_source_id": "26fedcfd-b924-80c2-9a3a-000bfafb9fe9"},
+  "parent": {"data_source_id": "<your-workflows-database-id>"},
   "pages": [{
     "properties": {
       "Name": "Workflow Name Here",

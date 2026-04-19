@@ -15,7 +15,7 @@ This reference provides comprehensive examples of workflow names and description
 - **Needs Assessment**: Evaluate prospect requirements against service offerings. Generates fit analysis and recommendations.
 
 ### Business Process: Student Enrollment
-- **Waitlist Conversion**: Send targeted email sequences to Maven waitlist. Produces enrollment completions and payment confirmations.
+- **Waitlist Conversion**: Send targeted email sequences to course waitlist. Produces enrollment completions and payment confirmations.
 - **Payment Processing**: Handle student payments and generate confirmations. Delivers payment receipts and enrollment records.
 - **Enrollment Confirmation**: Send welcome communications and next steps. Creates confirmation emails with access details.
 

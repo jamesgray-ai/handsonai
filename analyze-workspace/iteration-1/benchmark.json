@@ -1,0 +1,195 @@
+{
+  "metadata": {
+    "skill_name": "analyze",
+    "skill_path": "/Users/jamesgray/Code/jamesgray/handsonai/.claude/skills/analyze",
+    "executor_model": "claude-opus-4-6",
+    "analyzer_model": "claude-opus-4-6",
+    "timestamp": "2026-04-03T00:00:00Z",
+    "evals_run": [1, 2, 3],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "fast-path-preidentified",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 9,
+        "failed": 0,
+        "total": 9,
+        "time_seconds": 99.2,
+        "tokens": 33696,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Infers individual lens without asking", "passed": true, "evidence": "Report header Lens: Individual, transcript confirms inference"},
+        {"text": "Skips interview (fast path)", "passed": true, "evidence": "Transcript: fast path triggered, Steps 1-2 skipped"},
+        {"text": "Output file named ai-opportunity-report", "passed": true, "evidence": "File at ai-opportunity-report.md"},
+        {"text": "Summary Table with Opportunity/Autonomy/Involvement/Impact", "passed": true, "evidence": "Table with correct columns and 3 rows"},
+        {"text": "Each workflow has opportunity card with classifications", "passed": true, "evidence": "3 cards with Autonomy and Involvement"},
+        {"text": "Getting started section on each card", "passed": true, "evidence": "Concrete first steps on all 3 cards"},
+        {"text": "Classification Definitions appendix", "passed": true, "evidence": "Appendix with Autonomy and Involvement definitions"},
+        {"text": "Cards grouped by autonomy level", "passed": true, "evidence": "Deterministic then Guided grouping"},
+        {"text": "Asks user to pick workflow candidates", "passed": true, "evidence": "Transcript Step 4 candidate selection prompt"}
+      ]
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "fast-path-preidentified",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.22,
+        "passed": 2,
+        "failed": 7,
+        "total": 9,
+        "time_seconds": 67.5,
+        "tokens": 28810,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Infers individual lens without asking", "passed": false, "evidence": "No lens concept"},
+        {"text": "Skips interview (fast path)", "passed": true, "evidence": "Goes straight to analysis (incidental)"},
+        {"text": "Output file named ai-opportunity-report", "passed": false, "evidence": "Written to response.md"},
+        {"text": "Summary Table with Opportunity/Autonomy/Involvement/Impact", "passed": false, "evidence": "No summary table"},
+        {"text": "Each workflow has opportunity card with classifications", "passed": false, "evidence": "No Autonomy/Involvement framework"},
+        {"text": "Getting started section on each card", "passed": true, "evidence": "How to start sections present"},
+        {"text": "Classification Definitions appendix", "passed": false, "evidence": "No appendix"},
+        {"text": "Cards grouped by autonomy level", "passed": false, "evidence": "Grouped by priority"},
+        {"text": "Asks user to pick workflow candidates", "passed": false, "evidence": "Generic dive deeper offer"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "individual-lens-marketer",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 137.2,
+        "tokens": 35391,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "First action is context/memory summary", "passed": true, "evidence": "Step 1 presents user context summary"},
+        {"text": "Questions one at a time", "passed": true, "evidence": "4 sequential questions in transcript"},
+        {"text": "Individual lens selected", "passed": true, "evidence": "Inferred individual, confirmed in header"},
+        {"text": "3+ concrete opportunities", "passed": true, "evidence": "5 distinct opportunities"},
+        {"text": "2+ marketing-specific opportunities", "passed": true, "evidence": "4 of 5 marketing-specific"},
+        {"text": "Report header with required fields", "passed": true, "evidence": "Role, Date, Lens, Opportunities Identified present"},
+        {"text": "Top Recommendations section", "passed": true, "evidence": "Section with 3 ranked recommendations"},
+        {"text": "Asks user to pick workflow candidates", "passed": true, "evidence": "Transcript Step 4 candidate selection prompt"}
+      ]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "individual-lens-marketer",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.375,
+        "passed": 3,
+        "failed": 5,
+        "total": 8,
+        "time_seconds": 89.6,
+        "tokens": 29323,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "First action is context/memory summary", "passed": false, "evidence": "Opens with analysis directly"},
+        {"text": "Questions one at a time", "passed": false, "evidence": "No questions asked"},
+        {"text": "Individual lens selected", "passed": false, "evidence": "No lens framework"},
+        {"text": "3+ concrete opportunities", "passed": true, "evidence": "5 areas identified"},
+        {"text": "2+ marketing-specific opportunities", "passed": true, "evidence": "3 of 5 marketing-specific"},
+        {"text": "Report header with required fields", "passed": false, "evidence": "No structured header"},
+        {"text": "Top Recommendations section", "passed": true, "evidence": "Priority Order section present"},
+        {"text": "Asks user to pick workflow candidates", "passed": false, "evidence": "Generic help offer"}
+      ]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "org-lens-saas-founder",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 8,
+        "failed": 0,
+        "total": 8,
+        "time_seconds": 120.1,
+        "tokens": 34794,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Organizational lens inferred", "passed": true, "evidence": "Inferred from business-objective framing"},
+        {"text": "2+ opportunities tied to churn", "passed": true, "evidence": "All 5 reference churn in Business Objective"},
+        {"text": "Cards include Business Objective/Stakeholders/Success Metrics", "passed": true, "evidence": "All 5 cards have all 3 org fields"},
+        {"text": "3+ concrete opportunities", "passed": true, "evidence": "5 distinct opportunities"},
+        {"text": "Summary Table with required columns", "passed": true, "evidence": "Table with Opportunity, Autonomy, Involvement, Impact"},
+        {"text": "Autonomy and Involvement on each card", "passed": true, "evidence": "All 5 cards classified"},
+        {"text": "Asks user to pick workflow candidates", "passed": true, "evidence": "Transcript Step 4 selection prompt"},
+        {"text": "2+ construction/SaaS-specific references", "passed": true, "evidence": "Change orders, job sites, GC vs sub references"}
+      ]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "org-lens-saas-founder",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.375,
+        "passed": 3,
+        "failed": 5,
+        "total": 8,
+        "time_seconds": 100.5,
+        "tokens": 30054,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Organizational lens inferred", "passed": false, "evidence": "No lens framework"},
+        {"text": "2+ opportunities tied to churn", "passed": true, "evidence": "All sections reference churn target"},
+        {"text": "Cards include Business Objective/Stakeholders/Success Metrics", "passed": false, "evidence": "No structured fields"},
+        {"text": "3+ concrete opportunities", "passed": true, "evidence": "6+ sub-opportunities"},
+        {"text": "Summary Table with required columns", "passed": false, "evidence": "Has priority table, no Autonomy/Involvement"},
+        {"text": "Autonomy and Involvement on each card", "passed": false, "evidence": "No classifications"},
+        {"text": "Asks user to pick workflow candidates", "passed": false, "evidence": "Generic dive deeper offer"},
+        {"text": "2+ construction/SaaS-specific references", "passed": true, "evidence": "Construction-specific language present"}
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 118.8, "stddev": 19.1, "min": 99.2, "max": 137.2},
+      "tokens": {"mean": 34627, "stddev": 849, "min": 33696, "max": 35391}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.32, "stddev": 0.08, "min": 0.22, "max": 0.375},
+      "time_seconds": {"mean": 85.9, "stddev": 16.6, "min": 67.5, "max": 100.5},
+      "tokens": {"mean": 29396, "stddev": 624, "min": 28810, "max": 30054}
+    },
+    "delta": {
+      "pass_rate": "+0.68",
+      "time_seconds": "+32.9",
+      "tokens": "+5231"
+    }
+  },
+  "notes": [
+    "With-skill: 100% pass rate across all 3 evals vs 32% without — very strong skill signal",
+    "Non-discriminating assertions (pass both ways): '3+ opportunities', 'churn tie-in', 'industry specificity', 'getting started sections' — these test baseline competence, not skill value",
+    "Strongest discriminators (0% without, 100% with): lens selection, structured report format, Autonomy/Involvement classification, org-specific metadata fields, workflow candidate prompt",
+    "Skill overhead: +33s average time, +5K tokens — moderate cost for significantly better structure",
+    "CAVEAT: Same-agent inline execution means these results are less rigorous than independent subagent runs"
+  ]
+}
