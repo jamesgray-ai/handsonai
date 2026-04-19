@@ -3,18 +3,18 @@ title: Skills on OpenAI
 description: How Agent Skills work on OpenAI Codex and ChatGPT — what's supported, how to install, and workarounds
 ---
 
-OpenAI supports Agent Skills natively in **Codex** (CLI, desktop app, and IDE extension). **ChatGPT** native skill support is rolling out on some plans; on plans without native support, **Projects** is the closest workaround.
+OpenAI supports Agent Skills natively in **OpenAI Codex** (CLI, desktop app, and IDE extension). **ChatGPT** native skill support is rolling out on some plans; on plans without native support, **Projects** is the closest workaround.
 
-## Codex (CLI, desktop, IDE extension)
+## OpenAI Codex (CLI, desktop, IDE extension)
 
-Codex reads skill folders from your project root. The same `SKILL.md` open standard used by Claude and other native-skill platforms works here.
+OpenAI Codex reads skill folders from your project root. The same `SKILL.md` open standard used by Claude and other native-skill platforms works here.
 
 **Installing skills:**
 
 1. Place the skill folder in `.agents/skills/` (or `.codex/skills/`) at your project root.
-2. Open the project in Codex — skills are discovered automatically.
+2. Open the project in OpenAI Codex — skills are discovered automatically.
 
-→ [Skills in Codex](https://developers.openai.com/codex/skills) (official OpenAI docs)
+→ [Skills in OpenAI Codex](https://developers.openai.com/codex/skills) (official OpenAI docs)
 
 ## ChatGPT
 
@@ -29,4 +29,4 @@ Codex reads skill folders from your project root. The same `SKILL.md` open stand
 ## Related
 
 - [Skills building block](/agentic-building-blocks/skills/) — what skills are and how they work across platforms
-- [Business-First AI Framework skills setup](/business-first-ai-framework/skills/) — step-by-step setup for the seven framework skills on Codex and ChatGPT
+- [Business-First AI Framework skills setup](/business-first-ai-framework/skills/) — step-by-step setup for the seven framework skills on OpenAI Codex and ChatGPT
