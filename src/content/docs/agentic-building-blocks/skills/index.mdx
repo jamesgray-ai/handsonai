@@ -3,10 +3,6 @@ title: Skills
 description: The Skill building block — reusable routines the AI discovers and loads dynamically when relevant to a task
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-> **Platforms:** `claude` `openai` (via Codex CLI) · `gemini` (via Gemini CLI) · `m365-copilot` (via Copilot Cowork) · `vs-code-copilot`
-
 ## What Skills Are
 
 **Skills** are folders containing instructions, scripts, and resources that the AI discovers and loads dynamically when relevant to a task. They encapsulate a specific capability — instructions, context, and output format bundled together — so you don't have to re-explain the same task every time.
@@ -35,24 +31,7 @@ A good rule of thumb: if you give an AI the same instructions more than three ti
 :::note[Skills vs. Agents]
 A skill is a **routine** — it does one thing well when invoked. An agent is **autonomous** — it decides what to do, which tools to use, and when to invoke skills. Think of skills as tools in a toolbox and agents as the person using the toolbox.
 :::
-## Platform Implementations
 
-Agent Skills are an **open standard** — the same `SKILL.md` format works across platforms. Each platform reads skill files from its own directory, but the file format is identical:
-
-| Platform | Skill Directory | Notes |
-|----------|----------------|-------|
-| **[Claude Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** | Managed by plugin system | Install via **+** > **Add plugins** — no file placement needed |
-| **[M365 Copilot Cowork](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills)** | OneDrive: `Documents/Cowork/Skills/` | Frontier preview; auto-discovered each conversation; up to 20 skills, 1 MB per `SKILL.md` |
-| **[Claude Code](https://code.claude.com/docs/en/skills)** | `.claude/skills/` | Also installable via plugins (`/plugin install`) |
-| **[Claude.ai (web)](https://support.claude.com)** | Uploaded via Settings | ZIP upload under **Settings > Capabilities > Upload skill** |
-| **[Cursor](https://cursor.com/docs/context/skills)** | `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`, or `.agents/skills/` | Reads from Claude and Codex directories too — no need to move files |
-| **[Codex CLI](https://developers.openai.com/codex/skills)** | `.agents/skills/` | Same SKILL.md format |
-| **[Gemini CLI](https://geminicli.com/docs/cli/skills/)** | `.gemini/skills/` or `.agents/skills/` | Same SKILL.md format |
-| **[VS Code Copilot](https://code.visualstudio.com/docs/copilot/customization/agent-skills)** | `.github/skills/` or `.agents/skills/` | Same SKILL.md format |
-
-:::note[Cross-platform convention]
-`.agents/skills/` is a shared convention recognized by Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. Place your skills there to make them available across multiple platforms from one location.
-:::
 ## Anatomy of a Skill
 
 A skill is a folder containing:
@@ -69,132 +48,88 @@ The `SKILL.md` file contains the instructions. The `references/` folder holds an
 
 On Claude Code, skills with `user_invocable: true` and a `command:` field in their frontmatter can be invoked directly as slash commands.
 
-## How to Add Skills to Your Platform
+## Platform Implementations
 
-:::tip[Setting up Business First AI Framework skills?]
-Go to [Set Up the Skills](/business-first-ai-framework/skills/) for step-by-step setup instructions for your specific platform.
+Agent Skills are an **open standard** — the same `SKILL.md` format works across platforms. Each platform reads skill files from its own directory, but the file format is identical.
+
+Not every platform supports skills natively yet. This table shows you what to expect:
+
+| Platform | Skill Support | Skill Directory / How It Works | Notes |
+|----------|:-:|---|---|
+| **[Claude.ai (web)](https://support.claude.com)** | ✅ Native | Uploaded via Settings | ZIP upload under **Settings > Capabilities > Upload skill**. Skills uploaded here are also available in Claude Cowork |
+| **[Claude Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** | ✅ Native | Shared with Claude.ai, plus plugin system | Uses the same skills you upload to Claude.ai; also install plugins via **+** > **Add plugins** |
+| **[Claude Code](https://code.claude.com/docs/en/skills)** | ✅ Native | `.claude/skills/` | Also installable via plugins (`/plugin install`) |
+| **[M365 Copilot Cowork](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills)** | ✅ Native | OneDrive: `Documents/Cowork/Skills/` | Frontier preview; auto-discovered each conversation; up to 20 skills, 1 MB per `SKILL.md` |
+| **[Codex (CLI, desktop, IDE)](https://developers.openai.com/codex/skills)** | ✅ Native | `.agents/skills/` | Same `SKILL.md` format |
+| **[ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt)** | 🟡 Beta | Native skills rolling out on some plans | Use **Projects** as a workaround on plans without native skill support |
+| **[Gemini CLI / Antigravity](https://geminicli.com/docs/cli/skills/)** | ✅ Native | `.gemini/skills/` or `.agents/skills/` | Same `SKILL.md` format |
+| **Google Gemini (app)** | ❌ No support | — | Use **Gems** or paste `SKILL.md` contents into the prompt |
+| **Gemini Enterprise** | ❌ No support | — | Use Gems or paste `SKILL.md` contents into the prompt |
+| **[Cursor](https://cursor.com/docs/context/skills)** | ✅ Native | `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`, or `.agents/skills/` | Reads from Claude and Codex directories too — no need to move files |
+| **[VS Code Copilot](https://code.visualstudio.com/docs/copilot/customization/agent-skills)** | ✅ Native | `.github/skills/` or `.agents/skills/` | Same `SKILL.md` format |
+
+**Legend:** ✅ Native = platform officially supports Agent Skills. 🟡 Beta = native support exists but is limited. ❌ No support = no native skill feature; use a workaround like pasting `SKILL.md` into a Gem or prompt.
+
+:::note[Cross-platform convention]
+`.agents/skills/` is a shared convention recognized by Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. Place your skills there to make them available across multiple platforms from one location.
 :::
 
-Without a skill, you write a detailed prompt every time you want consistent output. With a skill installed, you just say "edit this article" and the AI applies your editorial standards automatically — same quality, every time, no re-explaining.
+## Where Skills Run
 
-Skills are plain-text Markdown — no compiled code, no special format. A **plugin** is a bundle that may contain multiple skills. On platforms that support plugins (Cowork, Claude Code), you install the whole plugin. On other platforms, you download and place individual skill folders.
+The same `SKILL.md` format works everywhere, but the execution environment differs. Two factors matter:
 
-Pick your platform below for the complete install steps.
+**1. Where the Skill executes** — in a vendor-managed sandbox, or on your local machine
+**2. What it can access** — only files you upload, or your full filesystem
 
-:::note[No skill directory? No problem]
-Some platforms — like the Gemini app and Perplexity — don't have a skill directory. You can still use skills by pasting the `SKILL.md` contents into your platform's equivalent feature (Gems or Spaces). See the **Other AI Tools** tab below.
+| Platform | Where Files Live | Execution Environment | Filesystem Access |
+| --- | --- | --- | --- |
+| **Claude.ai (web)** | Cloud (uploaded ZIP) | Cloud sandbox | Uploaded files only |
+| **Claude Cowork** | Cloud (shared with Claude.ai + plugin marketplace) | Cloud sandbox | Uploaded files only |
+| **Claude Code (Desktop + Terminal)** | Local (`.claude/skills/`) | Your machine | Full local filesystem |
+| **Cursor** | Local (`.cursor/skills/` or `.agents/skills/`) | Your machine | Full local filesystem |
+| **Codex CLI** | Local (`.agents/skills/`) | Your machine | Full local filesystem |
+| **Gemini CLI** | Local (`.gemini/skills/` or `.agents/skills/`) | Your machine | Full local filesystem |
+| **VS Code Copilot** | Local (`.github/skills/` or `.agents/skills/`) | Your machine | Full local filesystem |
+| **M365 Copilot Cowork** *(Frontier preview)* | OneDrive (`Documents/Cowork/Skills/`) | Microsoft cloud | OneDrive only |
+
+**What this means for what you can build:**
+
+- **Cloud-execution Skills** (Claude.ai, Cowork, M365 Copilot Cowork) excel at document creation, research, analysis, and anything where the AI works on content you provide in the conversation. They can't read your local files, run commands on your machine, or touch your local development environment.
+
+- **Local-execution Skills** (Claude Code, Cursor, Codex, Gemini CLI, VS Code Copilot) can read and write your actual project files, run terminal commands, integrate with local tools, and operate on your filesystem. Required for any workflow that needs to touch files outside the chat window.
+
+**The pragmatic default:**
+
+| If you want to... | Build Skills for... |
+| --- | --- |
+| Create docs, slides, reports, research output | Claude.ai or Claude Cowork |
+| Work on code or files in a project | Claude Code, Cursor, or Codex |
+| Operate inside Microsoft 365 | M365 Copilot Cowork |
+| Maximize portability across local AI tools | `.agents/skills/` (works in Cursor, Codex, Gemini CLI, VS Code Copilot) |
+
+:::note[Cloud sandbox capabilities]
+Cloud-execution Skills (like Claude.ai with code execution enabled) can still run code, generate files, search the web, and produce downloadable outputs. The sandbox is isolated from your local machine — files you upload go in, files Claude generates come out, but your local filesystem is untouched.
 :::
-### Install steps by platform
 
-<Tabs>
-  <TabItem label="Claude Cowork">
+For full per-platform setup instructions, see the [Business-First AI Framework Skills setup guide](/business-first-ai-framework/skills/).
 
-The simplest path — no terminal needed.
+## How to Install Skills
 
-1. Open **Claude Desktop** and click **Cowork** in the sidebar
-2. Click the **+** button at the bottom of the screen
-3. Select **Add plugins...** and browse or search for a plugin
+Each platform has its own install path. Pick yours — these pages link out to the official vendor docs for step-by-step instructions:
 
-Skills from the plugin are available immediately in Cowork.
+| Platform | Skills setup |
+|---|---|
+| Claude (web, Cowork, Code) | [Installing Skills on Claude](/platforms/claude/skills/installing-skills/) |
+| M365 Copilot Cowork | [Skills on M365 Copilot](/platforms/m365-copilot/skills/) |
+| OpenAI (Codex, ChatGPT) | [Skills on OpenAI](/platforms/openai/skills/) |
+| Google Gemini (CLI, app) | [Skills on Google Gemini](/platforms/google-gemini/skills/) |
+| Cursor | [Skills on Cursor](/platforms/cursor/skills/) |
 
-[→ Full Cowork plugin guide](../../use-the-playbook/build/using-plugins/#using-plugins-in-claude-cowork)
-  </TabItem>
-  <TabItem label="M365 Copilot">
+**VS Code Copilot and other editors:** Drop the skill folder into `.github/skills/`. Use `.agents/skills/` to share skills across Cursor, Codex CLI, Gemini CLI, and VS Code Copilot from one location.
 
-M365 Copilot Cowork reads custom skills directly from your OneDrive — no plugin install required.
-
-**What you need first:** An M365 Copilot license and enrollment in the [Frontier preview program](https://adoption.microsoft.com/en-us/copilot/frontier-program/) (Cowork is currently a Frontier preview feature).
-
-1. Open OneDrive in File Explorer (Windows), Finder (Mac), or [onedrive.live.com](https://onedrive.live.com).
-2. Navigate to `Documents/Cowork/Skills/` — create the `Cowork` and `Skills` folders if they don't exist.
-3. Inside `Skills/`, create a subfolder named after your skill (e.g., `weekly-report/`).
-4. Download a `SKILL.md` from the [GitHub plugins page](https://github.com/jamesgray-ai/handsonai-plugins) (navigate to `plugins/<plugin-name>/skills/<skill-name>/SKILL.md` → click **Raw** → save) and place it in the new folder.
-5. Open M365 Copilot Cowork and start a new conversation. The skill loads automatically and appears as a chip in the side panel **Skills** section when invoked.
-
-:::note[Limits]
-You can create up to **20 custom skills**, and each `SKILL.md` can be up to **1 MB**. See the [official Cowork skills docs](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills) for details.
+:::tip[Setting up Business-First AI Framework skills?]
+See the [framework setup guide](/business-first-ai-framework/skills/) — step-by-step for the seven Business-First AI Framework skills on each platform.
 :::
-  </TabItem>
-  <TabItem label="Claude Code">
-
-One command installs everything.
-
-```bash
-/plugin install business-first-ai@handsonai
-```
-
-First time? Add the marketplace first (one-time setup):
-
-```bash
-/plugin marketplace add jamesgray-ai/handsonai-plugins
-```
-
-[→ Full Claude Code plugin guide](../../use-the-playbook/build/using-plugins/#getting-started-in-claude-code)
-  </TabItem>
-  <TabItem label="Claude.ai (Web)">
-
-Upload skills as ZIP files — no terminal required.
-
-1. Go to the [GitHub plugins page](https://github.com/jamesgray-ai/handsonai-plugins). Click the green **Code** button > **Download ZIP**. Extract the ZIP, then navigate to `plugins/<plugin-name>/skills/<skill-name>/` to find the skill folder you need.
-2. Compress the skill folder into a `.zip` file (right-click > **Compress** in Finder)
-3. Go to **Settings > Capabilities > Upload skill** and select the ZIP
-
-[→ Detailed ZIP upload walkthrough](../../use-the-playbook/build/using-plugins/#using-skills-in-claudeai-web)
-  </TabItem>
-  <TabItem label="Other Platforms">
-
-For **Cursor**, **Codex CLI**, **Gemini CLI**, and **VS Code Copilot** — download skill folders and place them in your project. Your **project root** is the top-level folder you opened in your editor or terminal.
-
-1. Go to the [GitHub plugins page](https://github.com/jamesgray-ai/handsonai-plugins). Click the green **Code** button > **Download ZIP**. Extract the ZIP, then navigate to `plugins/<plugin-name>/skills/<skill-name>/` to find the skill folder you need.
-2. Copy the skill folder into the directory for your platform:
-
-| Platform | Directory |
-|----------|-----------|
-| **Cursor** | `.cursor/skills/` |
-| **Codex CLI** | `.agents/skills/` |
-| **Gemini CLI** | `.gemini/skills/` |
-| **VS Code Copilot** | `.github/skills/` |
-
-:::tip[Cross-platform shortcut]
-All four platforms also recognize `.agents/skills/`. Place skills there to share them across platforms from one location. Cursor additionally reads from `.claude/skills/` and `.codex/skills/`, so skills installed for Claude Code are picked up automatically.
-:::
-  </TabItem>
-  <TabItem label="Other AI Tools">
-
-Skills are plain Markdown — platforms without a skill directory can still use them. Paste the `SKILL.md` contents into your platform's equivalent feature and the AI will follow the skill's interview structure and output format.
-
-1. Go to the [GitHub plugins page](https://github.com/jamesgray-ai/handsonai-plugins). Navigate to `plugins/<plugin-name>/skills/<skill-name>/` and open the `SKILL.md` file. Copy its full contents.
-2. Create a persistent instruction container on your platform:
-
-**Google Gemini (Gems)**
-
-1. Open [Gemini](https://gemini.google.com) and click **New Gem**
-2. Name the Gem to match the skill (e.g., "Analyze Workflows")
-3. Paste the `SKILL.md` contents into the Gem's instructions field
-4. Save — select the Gem from the sidebar to use it in any conversation
-
-**Perplexity (Spaces)**
-
-1. Open [Perplexity](https://perplexity.ai) and click **Create a Space**
-2. Name the Space to match the skill
-3. Tap **Add Instructions** and paste the `SKILL.md` contents
-4. Instructions apply to all threads within that Space (requires Perplexity Pro)
-
-:::tip[What about file-saving instructions?]
-When a skill says it will save output to a file, the AI will present the output in the chat instead. Copy it yourself if you want to keep it.
-:::
-  </TabItem>
-</Tabs>
-
-### Verify
-
-Test that your platform picks up the skill by asking it to perform a task the skill handles:
-
-- **Claude Cowork or Claude.ai:** Start a new conversation and say "Edit this paragraph for HBR quality" — Claude should apply editorial criteria from the skill
-- **M365 Copilot Cowork:** Start a new Cowork conversation and ask it to do the skill's task — the skill should appear as a chip in the side panel **Skills** section
-- **Claude Code:** Type `/business-first-ai:analyze` to invoke the skill directly
-- **Cursor, Codex CLI, Gemini CLI, VS Code Copilot:** Ask "Use the editing-hbr-articles skill to review this paragraph" — the AI should reference the skill's instructions in its response
-- **Gemini, Perplexity:** Open your Gem or Space and ask it to start the workflow — it should follow the skill's structured interview process
 
 ## Skill, Project, or Prompt?
 

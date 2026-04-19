@@ -360,6 +360,7 @@ export default defineConfig({
                   label: 'Skills',
                   collapsed: true,
                   items: [
+                    { label: 'Installing Skills on Claude', link: '/platforms/claude/skills/installing-skills/' },
                     { label: 'Discover Your Best Claude Skills', link: '/platforms/claude/skills/skills-discovery-meta-prompt/' },
                     { label: 'Resources', link: '/platforms/claude/skills/resources/' },
                   ],
@@ -378,12 +379,33 @@ export default defineConfig({
               ],
             },
             {
+              label: 'Cursor',
+              collapsed: true,
+              items: [
+                { label: 'Overview', link: '/platforms/cursor/' },
+                {
+                  label: 'Skills',
+                  collapsed: true,
+                  items: [
+                    { label: 'Skills on Cursor', link: '/platforms/cursor/skills/' },
+                  ],
+                },
+              ],
+            },
+            {
               label: 'Google Gemini',
               collapsed: true,
               items: [
                 { label: 'Overview', link: '/platforms/google-gemini/' },
                 { label: 'Getting Started', link: '/platforms/google-gemini/getting-started/' },
                 { label: 'Building Agents on Google', link: '/platforms/google-gemini/agents/building-agents/' },
+                {
+                  label: 'Skills',
+                  collapsed: true,
+                  items: [
+                    { label: 'Skills on Google Gemini', link: '/platforms/google-gemini/skills/' },
+                  ],
+                },
                 { label: 'Questions', link: '/platforms/google-gemini/questions/' },
                 { label: 'Topics', link: '/platforms/google-gemini/topics/' },
                 { label: 'Resources', link: '/platforms/google-gemini/topics/resources/' },
@@ -396,6 +418,13 @@ export default defineConfig({
                 { label: 'Overview', link: '/platforms/m365-copilot/' },
                 { label: 'Getting Started', link: '/platforms/m365-copilot/getting-started/' },
                 { label: 'Building Agents on M365 Copilot', link: '/platforms/m365-copilot/agents/building-agents/' },
+                {
+                  label: 'Skills',
+                  collapsed: true,
+                  items: [
+                    { label: 'Skills on M365 Copilot', link: '/platforms/m365-copilot/skills/' },
+                  ],
+                },
                 { label: 'Topics', link: '/platforms/m365-copilot/topics/' },
                 { label: 'Resources', link: '/platforms/m365-copilot/topics/resources/' },
               ],
@@ -407,6 +436,13 @@ export default defineConfig({
                 { label: 'Overview', link: '/platforms/openai/' },
                 { label: 'Getting Started', link: '/platforms/openai/getting-started/' },
                 { label: 'Building Agents on OpenAI', link: '/platforms/openai/agents/building-agents/' },
+                {
+                  label: 'Skills',
+                  collapsed: true,
+                  items: [
+                    { label: 'Skills on OpenAI', link: '/platforms/openai/skills/' },
+                  ],
+                },
                 { label: 'Questions', link: '/platforms/openai/questions/' },
                 { label: 'Topics', link: '/platforms/openai/topics/' },
                 { label: 'Resources', link: '/platforms/openai/topics/resources/' },
