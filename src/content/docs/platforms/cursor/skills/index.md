@@ -3,7 +3,7 @@ title: Skills on Cursor
 description: How Agent Skills work in Cursor — where they live, how to install, and cross-editor portability
 ---
 
-Cursor supports Agent Skills natively. It reads skill folders from multiple locations, so skills installed for Claude Code or Codex are picked up automatically — no duplication required.
+Cursor supports Agent Skills natively. It reads skill folders from multiple locations, so skills installed for Claude Code or OpenAI Codex are picked up automatically — no duplication required.
 
 ## Where skills live
 
@@ -11,8 +11,8 @@ Cursor reads `SKILL.md` files from any of these directories at your project root
 
 - `.cursor/skills/` — Cursor-specific
 - `.claude/skills/` — shared with Claude Code
-- `.codex/skills/` — shared with Codex
-- `.agents/skills/` — shared convention across Cursor, Codex CLI, Gemini CLI, and VS Code Copilot
+- `.codex/skills/` — shared with OpenAI Codex
+- `.agents/skills/` — shared convention across Cursor, OpenAI Codex CLI, Gemini CLI, and VS Code Copilot
 
 The `.agents/skills/` directory is the most portable — place skills there to share them across multiple editors from one location.
 

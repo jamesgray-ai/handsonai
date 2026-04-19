@@ -3,7 +3,7 @@ title: Cursor
 description: Guides and resources for working with Cursor, the AI-native code editor
 ---
 
-Cursor is an AI-native code editor built on VS Code, with deep integration for Claude, GPT, and other frontier models. It supports Agent Skills natively and reads skill folders from multiple locations — including `.claude/skills/` and `.codex/skills/` — so skills installed for Claude Code or Codex work in Cursor without any additional setup.
+Cursor is an AI-native code editor built on VS Code, with deep integration for Claude, GPT, and other frontier models. It supports Agent Skills natively and reads skill folders from multiple locations — including `.claude/skills/` and `.codex/skills/` — so skills installed for Claude Code or OpenAI Codex work in Cursor without any additional setup.
 
 ## Skills
 
