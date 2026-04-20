@@ -368,7 +368,8 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { label: 'Installing Skills on Claude', link: '/platforms/claude/skills/installing-skills/' },
-                    { label: 'Discover Your Best Claude Skills', link: '/platforms/claude/skills/skills-discovery-meta-prompt/' },
+                    { label: 'Find Your Skill Candidates (Quick Prompt)', link: '/platforms/claude/skills/find-skill-candidates/' },
+                    { label: 'Discover Your Best Claude Skills (Worksheet)', link: '/platforms/claude/skills/skills-discovery-meta-prompt/' },
                     { label: 'Resources', link: '/platforms/claude/skills/resources/' },
                   ],
                 },

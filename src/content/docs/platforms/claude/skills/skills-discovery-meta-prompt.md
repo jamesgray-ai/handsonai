@@ -1,7 +1,13 @@
 ---
 title: How to Discover Your Best Claude Skills
 description: Use this guided process to identify your highest-value Claude Skill candidates by analyzing your work patterns, scoring candidates on three dimensions, and choosing the right approach — skill, project, or prompt.
----## Why This Matters
+---
+
+:::note[Doing this live or want a faster path?]
+This page is the worksheet version — ten questions you answer in a text editor before pasting into Claude. For a quicker, conversational version where Claude interviews you directly, try [Find Your Skill Candidates (Quick Prompt)](./find-skill-candidates.md).
+:::
+
+## Why This Matters
 
 Claude Skills make Claude specific to YOUR work — not generic, but tuned to your tasks, your standards, and your formats. The best skills don't come from tasks you invent. They come from tasks you already do — the repetitive, structured work where you follow the same steps every time but the content changes.
 
