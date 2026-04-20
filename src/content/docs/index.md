@@ -23,6 +23,10 @@ Practical guides, patterns, ready-made tools, and direct answers to move you fro
 **Learn with James** — explore [Agentic AI for Leaders](courses/leaders/) or [Claude for Builders](courses/builders/) to go from curious to capable in weeks.
 :::
 
+:::note[Open source and free to reuse]
+Everything on this site is open source. [Browse the repo](https://github.com/jamesgray-ai/handsonai) to read the content, fork it, download skills and plugins, or [contribute](CONTRIBUTING/).
+:::
+
 ---
 
 > See [what others have built](what-people-built/) with the playbook.

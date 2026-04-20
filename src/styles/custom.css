@@ -210,14 +210,13 @@ header a,
    Banner renders inside <main> above page content when
    `banner.content` is set in page frontmatter. */
 
-/* Dark mode: lime background, charcoal text */
-:root {
+/* Lime background, charcoal text — consistent across light and dark modes */
+:root,
+:root[data-theme='light'] {
   --sl-color-banner-bg: #DDF222;
   --sl-color-banner-text: #282828;
 }
 
-/* Light mode: charcoal background (matches header), off-white text */
-:root[data-theme='light'] {
-  --sl-color-banner-bg: #282828;
-  --sl-color-banner-text: #f0f0ee;
+.sl-banner {
+  font-weight: 600;
 }

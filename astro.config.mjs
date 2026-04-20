@@ -44,7 +44,7 @@ export default defineConfig({
       favicon: '/assets/logo.png',
       social: [
         { icon: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/jamesgray/' },
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/jamesgray-ai' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/jamesgray-ai/handsonai' },
         { icon: 'rss', label: 'RSS', href: '/rss.xml' },
       ],
       customCss: ['./src/styles/custom.css'],
