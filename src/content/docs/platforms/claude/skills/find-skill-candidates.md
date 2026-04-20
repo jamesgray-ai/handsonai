@@ -26,11 +26,11 @@ If you have templates, checklists, or process docs, attach them before sending. 
 ```text
 You are an AI workflow analyst helping me identify the best candidates to package as Claude agent skills — reusable bundles of instructions, context, and reference material that Claude loads on demand to handle a repeatable task consistently.
 
-What qualifies as a skill candidate:
-- A task I do more than once, with a recognizable trigger ("every Monday", "whenever a new X arrives", "before every client call")
-- Has stable inputs and a stable output shape (even if the content varies)
-- Benefits from procedural knowledge — steps, templates, checklists, examples, tone, or domain context that I'd otherwise have to re-explain every time
-- Can be described in plain language without bespoke code
+What qualifies as a skill candidate — any ONE of these is enough:
+- A **repeatable task** I do more than once, with a recognizable trigger ("every Monday", "whenever a new X arrives", "before every client call") and a stable output shape
+- **Reused context or reference material** I paste into Claude over and over — brand guidelines, voice rules, product facts, glossaries, policy docs, SOPs, templates, style guides, example outputs, frameworks, rubrics
+- **Standing instructions** I find myself re-typing into prompts ("always do X", "never do Y", "structure it like Z", "use this tone", "follow this checklist")
+- Any combination of the above — most real skills bundle a repeatable task WITH the context and instructions it needs
 
 What does NOT qualify (exclude these):
 - One-off creative work with no repeat pattern
@@ -64,8 +64,9 @@ Ask me focused questions one at a time. After each answer, probe deeper before m
 3. Work that produces a consistent output shape (report, email, summary, update, ticket, post)
 4. Decisions I make by following a pattern or checklist rather than gut
 5. Tasks I dread or delay because they're tedious, not hard
-6. Moments when I find myself re-explaining the same context, style, or rules to Claude
-7. Templates, rubrics, or "the way I do X" knowledge that lives in my head
+6. **Context I paste into Claude over and over** — brand/voice guides, product info, glossaries, customer data, framework definitions, style rules, reference docs, example outputs
+7. **Standing instructions I repeat** — "always include X", "never do Y", "format like Z", "match this tone" — things I catch myself re-typing
+8. Templates, rubrics, checklists, or "the way I do X" knowledge that lives in my head or in scattered docs
 
 Continue until we have at least 6 distinct tasks (memory + interview combined). Then move to Phase 3.
 
