@@ -348,6 +348,13 @@ export default defineConfig({
                 { label: 'Getting Started', link: '/platforms/claude/getting-started/' },
                 { label: 'Claude Projects', link: '/platforms/claude/projects/claude-projects-setup/' },
                 {
+                  label: 'CLI',
+                  collapsed: true,
+                  items: [
+                    { label: 'Claude Code', link: '/platforms/claude/cli/' },
+                  ],
+                },
+                {
                   label: 'Agents',
                   collapsed: true,
                   items: [
@@ -398,6 +405,13 @@ export default defineConfig({
               items: [
                 { label: 'Overview', link: '/platforms/google-gemini/' },
                 { label: 'Getting Started', link: '/platforms/google-gemini/getting-started/' },
+                {
+                  label: 'CLI',
+                  collapsed: true,
+                  items: [
+                    { label: 'Gemini CLI', link: '/platforms/google-gemini/cli/' },
+                  ],
+                },
                 { label: 'Building Agents on Google', link: '/platforms/google-gemini/agents/building-agents/' },
                 {
                   label: 'Skills',
@@ -435,6 +449,13 @@ export default defineConfig({
               items: [
                 { label: 'Overview', link: '/platforms/openai/' },
                 { label: 'Getting Started', link: '/platforms/openai/getting-started/' },
+                {
+                  label: 'CLI',
+                  collapsed: true,
+                  items: [
+                    { label: 'Codex CLI', link: '/platforms/openai/cli/' },
+                  ],
+                },
                 { label: 'Building Agents on OpenAI', link: '/platforms/openai/agents/building-agents/' },
                 {
                   label: 'Skills',
