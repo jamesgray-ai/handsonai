@@ -186,13 +186,36 @@ header a,
   border-bottom: none;
 }
 
-:root[data-theme='light'] header.header a,
-:root[data-theme='light'] header.header button {
+/* Cream text for header chrome (logo, social icons, theme toggle) — but NOT
+   for the search component, which has its own pill bg, and NOT for content
+   inside the search modal dialog, which renders on the page background. */
+:root[data-theme='light'] header.header a:not(site-search *):not(dialog *),
+:root[data-theme='light'] header.header button:not(site-search *):not(dialog *) {
   color: #f0f0ee;
 }
 
-:root[data-theme='light'] header.header a:hover {
+:root[data-theme='light'] header.header a:not(site-search *):not(dialog *):hover {
   color: #DDF222;
+}
+
+/* ── Search box ──
+   The header is charcoal in both themes, so style the open-modal button
+   for a dark surface regardless of color scheme. */
+header.header site-search button[data-open-modal] {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #d4d4d0;
+}
+
+header.header site-search button[data-open-modal]:hover {
+  background-color: rgba(255, 255, 255, 0.10);
+  border-color: #DDF222;
+  color: #f0f0ee;
+}
+
+header.header site-search button[data-open-modal] kbd {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #d4d4d0;
 }
 
 /* ── Light mode sidebar contrast ──
