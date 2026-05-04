@@ -1,9 +1,0 @@
-{
-  "name": "business-first-ai",
-  "description": "The Business-First AI Framework as executable Claude Code skills. A seven-step methodology: Analyze, Deconstruct, Design, Build, Test, Run, Improve.",
-  "version": "7.3.0",
-  "author": { "name": "James Gray" },
-  "homepage": "https://handsonai.info/business-first-ai-framework/skills/",
-  "license": "MIT",
-  "keywords": ["business-first-ai", "framework", "workflow", "deconstruction", "opportunities", "automation", "design", "build", "test", "run", "improve"]
-}

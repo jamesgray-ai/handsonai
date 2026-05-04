@@ -204,7 +204,7 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 **Done when:**
 
 - The Notion AI Registry template is duplicated to your workspace
-- The AI Registry plugin is installed (`/plugin install ai-registry@handsonai`)
+- The AI Registry plugin is installed (`/plugin install handsonai@handsonai`)
 
 <details>
 <summary>Stuck? Ask AI for help</summary>

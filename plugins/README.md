@@ -1,20 +1,19 @@
 # Plugins
 
-This directory contains installable [Claude Code](https://docs.anthropic.com/en/docs/claude-code) plugins from [Hands-on AI](https://handsonai.info). Each plugin bundles related agents and skills into a themed toolkit you can install with a single command.
+This directory contains the staging copy of the [Hands-on AI](https://handsonai.info) plugin for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). The distributable copy lives in [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins).
 
-## Available Plugins
+## Available Plugin
 
-| Plugin | Description | Version | Install |
-|--------|-------------|---------|---------|
-| [business-first-ai](./business-first-ai/) | Analyze AI opportunities, deconstruct workflows, and build AI-powered workflows | 4.0.0 | `/plugin install business-first-ai@handsonai` |
-| [ai-registry](./ai-registry/) | Document, name, register, and sync AI workflows and skills in Notion | 3.1.0 | `/plugin install ai-registry@handsonai` |
+| Plugin | Description | Install |
+|--------|-------------|---------|
+| [handsonai](./handsonai/) | Everything you need to design, build, and document AI workflows — the Business-First AI Framework, AI registry, and feature-spec toolkit in one plugin | `/plugin install handsonai@handsonai` |
 
 ## Getting Started
 
 1. Install [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
-2. Run the install command for the plugin you want
-3. Start using agents and skills immediately — agents activate automatically, skills can be invoked as slash commands
+2. Add the marketplace: `/plugin marketplace add jamesgray-ai/handsonai-plugins`
+3. Install: `/plugin install handsonai@handsonai`
 
-For full documentation, visit [Agents & Skills](https://handsonai.info/use-the-playbook/build/).
+For full documentation, visit [the Hands-on AI plugin page](https://handsonai.info/use-the-playbook/build/handsonai/).
 
-For a step-by-step guide, see [Getting Started with Plugins](https://handsonai.info/use-the-playbook/build/getting-started/).
+For example agents, skills, and prompts you can adapt for your own workflows, see the [Example Gallery](https://handsonai.info/use-cases/example-gallery/).

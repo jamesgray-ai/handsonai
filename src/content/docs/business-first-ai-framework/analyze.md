@@ -38,7 +38,7 @@ what I do and identify where AI could help.
 The skill runs a structured audit and produces a categorized opportunity report.
 
 :::tip[If your AI tool doesn't support skills]
-Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/business-first-ai/skills/analyze) and paste it into your system prompt or project instructions. Same methodology, same output format.
+Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/analyze) and paste it into your system prompt or project instructions. Same methodology, same output format.
 :::
 :::tip[Classify opportunities with the six primitives]
 Once you've identified opportunities, use the [six use case primitives](../../use-cases/) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — to classify what type of AI work each one involves. This makes it easier to find examples and choose the right building blocks.

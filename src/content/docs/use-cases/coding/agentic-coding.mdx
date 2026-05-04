@@ -28,7 +28,7 @@ Install all plugins with `/plugin install <name>` in Claude Code. The Hands-on A
 
 | Plugin | What it provides |
 |--------|-----------------|
-| `agentic-coding@handsonai` | Vision Brief and PRD skills (steps 0-1) |
+| `handsonai@handsonai` | Vision Brief and PRD skills (steps 0-1) |
 | `superpowers` | Foundation skills — brainstorming, planning, TDD, debugging, verification, code review |
 | `feature-dev` | `/feature-dev` command, codebase exploration and architecture agents |
 | `pr-review-toolkit` | Specialized review agents (test coverage, silent failures, types, comments) |
@@ -43,7 +43,7 @@ Install all plugins with `/plugin install <name>` in Claude Code. The Hands-on A
 | `playwright` | Browser testing and automation |
 
 ```bash
-/plugin install agentic-coding@handsonai
+/plugin install handsonai@handsonai
 /plugin install superpowers
 /plugin install feature-dev
 /plugin install pr-review-toolkit
@@ -70,8 +70,8 @@ This table shows the complete lifecycle — from early idea through to shipped c
 
 | Step | What happens | Command / Skill / Agent | Plugin |
 |------|-------------|------------------------|--------|
-| **0. Discover** | Capture a fuzzy idea as a Vision Brief, then break it into epics and features you can build one at a time | `/agentic-coding:writing-vision-briefs` | `agentic-coding` (Hands-on AI) |
-| **1. Define** | Turn the Vision Brief (or a new idea) into a PRD with user stories, acceptance criteria, and a GitHub issue to track the feature | `/agentic-coding:writing-feature-prds` | `agentic-coding` (Hands-on AI) |
+| **0. Discover** | Capture a fuzzy idea as a Vision Brief, then break it into epics and features you can build one at a time | `/handsonai:writing-vision-briefs` | `agentic-coding` (Hands-on AI) |
+| **1. Define** | Turn the Vision Brief (or a new idea) into a PRD with user stories, acceptance criteria, and a GitHub issue to track the feature | `/handsonai:writing-feature-prds` | `agentic-coding` (Hands-on AI) |
 | **2. Plan** | Enter **plan mode** — Claude explores the codebase, designs the architecture, and converts the PRD into bite-sized implementation tasks for your approval | `code-explorer` agent, `code-architect` agent, `writing-plans` skill | `feature-dev` + `superpowers` (Anthropic) |
 | **3. Implement** | Build the feature with codebase-aware guidance, test-driven development, and automatic security warnings on unsafe patterns | `/feature-dev` command + `test-driven-development` skill + `security-guidance` hook | `feature-dev` + `superpowers` + `security-guidance` (Anthropic) |
 | **4. Verify** | Prove it works with actual passing build/test output | `verification-before-completion` skill | `superpowers` (Anthropic) |
@@ -95,7 +95,7 @@ Steps 0 and 1 of the lifecycle are powered by two skills from the Agentic Coding
 
 #### `writing-vision-briefs`
 
-**Command:** `/agentic-coding:writing-vision-briefs`
+**Command:** `/handsonai:writing-vision-briefs`
 
 **What it does:** Guides you through capturing a fuzzy idea as a structured Vision Brief — a business-focused artifact that clarifies the problem, users, vision, capabilities, and success criteria in plain language. Then assesses the scope of your vision and breaks it into buildable features, so you know exactly what to build first.
 
@@ -106,7 +106,7 @@ Steps 0 and 1 of the lifecycle are powered by two skills from the Agentic Coding
 1. **Discover** — Claude asks six questions one at a time: What's the problem? Who feels it? What does the ideal outcome look like? What must the solution do? How will you know it's working? What constraints exist? Multiple-choice options are offered where possible to reduce cognitive load
 2. **Refine** — Claude presents the draft Vision Brief and iterates with you until it captures the idea accurately
 3. **Scope** — Claude assesses the size of your vision. A big idea might contain multiple features that need to be built separately. Claude breaks the vision into **epics** (major themes) and **features** (individual buildable pieces), creates GitHub issues to track each epic, and recommends which feature to build first
-4. **Handoff** — Claude saves the brief (with the feature breakdown) to `specs/[name]-vision.md` and tells you to run `/agentic-coding:writing-feature-prds` for your first feature
+4. **Handoff** — Claude saves the brief (with the feature breakdown) to `specs/[name]-vision.md` and tells you to run `/handsonai:writing-feature-prds` for your first feature
 
 **How visions become features:**
 
@@ -138,7 +138,7 @@ Each **feature** becomes its own PRD in Step 1. You build and ship one feature a
 
 **What you'll get:** A Vision Brief at `specs/[name]-vision.md` with a clear problem statement, user description, vision, key capabilities, success criteria, constraints, and a feature breakdown showing exactly what to build and in what order.
 
-**Next step:** Run `/agentic-coding:writing-feature-prds` for your first feature and tell Claude which feature from the breakdown you're starting with. Claude will pull context from the Vision Brief and scope the PRD to that one feature — so you go from idea to spec without repeating yourself.
+**Next step:** Run `/handsonai:writing-feature-prds` for your first feature and tell Claude which feature from the breakdown you're starting with. Claude will pull context from the Vision Brief and scope the PRD to that one feature — so you go from idea to spec without repeating yourself.
 
 **Platform compatibility:** Claude Code &#10003;
 
@@ -146,11 +146,11 @@ Each **feature** becomes its own PRD in Step 1. You build and ship one feature a
 
 #### `writing-feature-prds`
 
-**Command:** `/agentic-coding:writing-feature-prds`
+**Command:** `/handsonai:writing-feature-prds`
 
 **What it does:** Guides you through creating a well-defined feature PRD for **one specific feature** before implementation. Produces a structured spec file with summary, motivation, user stories, approach, changes, and acceptance criteria — then creates a GitHub issue to track the work.
 
-**When to use it:** Use this when you know which feature you're building and need a detailed spec. If you're coming from a Vision Brief, pick one feature from your breakdown and spec it out here. If you're starting fresh with a small, focused idea, you can start here directly — but if the idea is bigger than one feature, Claude will suggest running [`/agentic-coding:writing-vision-briefs`](#writing-vision-briefs) first to break it down.
+**When to use it:** Use this when you know which feature you're building and need a detailed spec. If you're coming from a Vision Brief, pick one feature from your breakdown and spec it out here. If you're starting fresh with a small, focused idea, you can start here directly — but if the idea is bigger than one feature, Claude will suggest running [`/handsonai:writing-vision-briefs`](#writing-vision-briefs) first to break it down.
 
 **How it works:**
 
@@ -200,7 +200,7 @@ You can also paste any skill file directly into your system prompt, project inst
 One-command install in the Claude Code CLI with automatic slash commands:
 
 ```bash
-/plugin install agentic-coding@handsonai
+/plugin install handsonai@handsonai
 ```
 
 See [Using Plugins](/use-the-playbook/build/using-plugins/) for setup details, including [Claude.ai upload](/use-the-playbook/build/using-plugins/#using-skills-in-claudeai-web), [Cowork](/use-the-playbook/build/using-plugins/#using-plugins-in-claude-cowork), and [API usage](/use-the-playbook/build/using-plugins/#using-skills-via-the-claude-api).
@@ -220,9 +220,9 @@ To teach Claude Code this workflow automatically in every session, copy the temp
 
 For non-trivial changes, follow this workflow. Skip to step 3 for small edits.
 
-### 0. Discover — `/agentic-coding:writing-vision-briefs`
+### 0. Discover — `/handsonai:writing-vision-briefs`
 
-For fuzzy or early-stage ideas, use the `/agentic-coding:writing-vision-briefs` slash command to create a Vision Brief before writing a PRD. It:
+For fuzzy or early-stage ideas, use the `/handsonai:writing-vision-briefs` slash command to create a Vision Brief before writing a PRD. It:
 - Walks you through the problem, users, vision, capabilities, and success criteria in plain language
 - Assesses the scope — is this one feature or multiple?
 - Breaks bigger visions into **epics** (major themes) and **features** (individual buildable pieces)
@@ -236,9 +236,9 @@ Record architectural decisions about scope or direction (see [Architecture Decis
 
 **Skip this step if** you already know exactly what single feature you want to build. Go straight to Step 1.
 
-### 1. Define — `/agentic-coding:writing-feature-prds`
+### 1. Define — `/handsonai:writing-feature-prds`
 
-Use the `/agentic-coding:writing-feature-prds` slash command to create a PRD for **one feature**. It will:
+Use the `/handsonai:writing-feature-prds` slash command to create a PRD for **one feature**. It will:
 - Check if you're coming from a Vision Brief — if so, scope the PRD to your chosen feature
 - If starting fresh, gather requirements (and redirect to Step 0 if the idea is too big for one feature)
 - Create a PRD at `specs/<feature-name>-prd.md` using the template
@@ -376,8 +376,8 @@ What changes as a result — both positive and negative.
 
 | Step | Action | Tools |
 |------|--------|-------|
-| 0. Discover | Capture idea as Vision Brief, break into epics + features | `/agentic-coding:writing-vision-briefs` (skip if single feature is clear) |
-| 1. Define | Create PRD + issue for one feature | `/agentic-coding:writing-feature-prds` (use `brainstorming` for early ideas) |
+| 0. Discover | Capture idea as Vision Brief, break into epics + features | `/handsonai:writing-vision-briefs` (skip if single feature is clear) |
+| 1. Define | Create PRD + issue for one feature | `/handsonai:writing-feature-prds` (use `brainstorming` for early ideas) |
 | 2. Plan | Enter plan mode, explore codebase, create plan | plan mode + `code-explorer` + `code-architect` agents, `writing-plans` skill |
 | 3. Implement | Build with TDD | `/feature-dev` + `test-driven-development` + `security-guidance` hook |
 | 4. Verify | Prove it works | `verification-before-completion` |
@@ -398,8 +398,8 @@ The commands, skills, and agents below come from Anthropic's official plugins fo
 
 | Command | Description |
 |---------|-------------|
-| `/agentic-coding:writing-vision-briefs` | Capture a fuzzy idea as a structured Vision Brief |
-| `/agentic-coding:writing-feature-prds` | Create a feature PRD, stress-test it, and open a GitHub issue |
+| `/handsonai:writing-vision-briefs` | Capture a fuzzy idea as a structured Vision Brief |
+| `/handsonai:writing-feature-prds` | Create a feature PRD, stress-test it, and open a GitHub issue |
 | `/feature-dev` | Guided feature development with codebase understanding |
 | `/commit` | Create a git commit |
 | `/commit-push-pr` | Commit, push, and open a PR |

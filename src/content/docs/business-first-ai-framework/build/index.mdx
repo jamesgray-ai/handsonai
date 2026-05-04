@@ -71,7 +71,7 @@ The model doesn't guess your platform's artifact format or available integration
 
 **Platform research:**
 
-1. **Curated platform registry** — The framework maintains a [platform registry](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/business-first-ai/registries/platform-registry.json) with documentation links, artifact format specs, platform mode (code vs. guided), and language for each supported platform. The model fetches this first to get authoritative format requirements.
+1. **Curated platform registry** — The framework maintains a [platform registry](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/handsonai/registries/platform-registry.json) with documentation links, artifact format specs, platform mode (code vs. guided), and language for each supported platform. The model fetches this first to get authoritative format requirements.
 2. **Platform documentation** — Using the doc URLs from the registry, the model reads the current artifact specifications for your platform — frontmatter schemas, file structure, naming conventions, and platform-specific extensions.
 3. **Web search (verification and fallback)** — The model searches the web to verify that documentation is current and to find resources for platforms or features not yet in the registry.
 

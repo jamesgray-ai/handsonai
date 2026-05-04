@@ -1,9 +1,0 @@
-{
-  "name": "agentic-coding",
-  "description": "Skills for AI-assisted coding workflows — feature PRDs, specs, and implementation planning. Define requirements before you build.",
-  "version": "1.2.5",
-  "author": { "name": "James Gray" },
-  "homepage": "https://handsonai.info/use-cases/coding/agentic-coding/",
-  "license": "MIT",
-  "keywords": ["coding", "feature", "prd", "specs", "requirements", "development", "agentic"]
-}

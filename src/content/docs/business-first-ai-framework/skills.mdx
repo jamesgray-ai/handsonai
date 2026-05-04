@@ -179,7 +179,7 @@ You only need to do this once.
 Go back to the Code tab and type:
 
 ```
-/business-first-ai:analyze
+/handsonai:analyze
 ```
 
 Press **Enter**. The Analyze skill should start running and begin asking you questions. You can also just type *"Help me analyze AI workflow opportunities"* and Claude will activate the right skill automatically.
@@ -196,7 +196,7 @@ You can also install directly from the Code tab's input area using slash command
 Then type this command and press **Enter**:
 
 ```
-/plugin install business-first-ai@handsonai
+/plugin install handsonai@handsonai
 ```
 
 This achieves the same result as the visual method above.
@@ -445,7 +445,7 @@ This tells Claude Code where to find the skills. You only need to do this once �
 Type this command and press **Enter**:
 
 ```
-/plugin install business-first-ai@handsonai
+/plugin install handsonai@handsonai
 ```
 
 This downloads and installs all 7 skills plus the orchestrator agent.
@@ -456,7 +456,7 @@ Type `/plugin list` and press **Enter**. You should see **business-first-ai** in
 
 **Step 4 — Test it**
 
-Type `/business-first-ai:analyze` and press **Enter**. The Analyze skill should start running and begin asking you questions. You can also just type *"Help me analyze AI workflow opportunities"* and Claude will activate the right skill automatically.
+Type `/handsonai:analyze` and press **Enter**. The Analyze skill should start running and begin asking you questions. You can also just type *"Help me analyze AI workflow opportunities"* and Claude will activate the right skill automatically.
 
 For updates, uninstalling, and troubleshooting, see [Using Plugins](../../use-the-playbook/build/using-plugins/).
 
@@ -654,16 +654,16 @@ These are the direct links to each skill's instruction file on GitHub. Used by t
 
 | Step | Skill | File |
 |:----:|-------|------|
-| 1 | Analyze | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/analyze/SKILL.md) |
-| 2 | Deconstruct | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/deconstruct/SKILL.md) |
-| 3 | Design | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/design/SKILL.md) |
-| 4 | Build | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/build/SKILL.md) |
-| 5 | Test | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/test/SKILL.md) |
-| 6 | Run | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/run/SKILL.md) |
-| 7 | Improve | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/improve/SKILL.md) |
+| 1 | Analyze | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/analyze/SKILL.md) |
+| 2 | Deconstruct | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/deconstruct/SKILL.md) |
+| 3 | Design | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/design/SKILL.md) |
+| 4 | Build | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/SKILL.md) |
+| 5 | Test | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/test/SKILL.md) |
+| 6 | Run | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/run/SKILL.md) |
+| 7 | Improve | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/improve/SKILL.md) |
 
 :::note[About the Build skill]
-The Build skill (Step 4) also has reference files that it uses. On platforms with native skill support (Claude, Cursor, Codex CLI, Gemini CLI), these are included automatically. M365 Copilot Cowork's documented format only describes a single `SKILL.md` per skill folder, so until Microsoft documents reference-file support you'll need to paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/build/references/skill-spec.md) contents into the body of `SKILL.md` after the main instructions. On paste-based platforms (ChatGPT Projects, Gems), copy and paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/business-first-ai/skills/build/references/skill-spec.md) files after the SKILL.md content when you set up Build.
+The Build skill (Step 4) also has reference files that it uses. On platforms with native skill support (Claude, Cursor, Codex CLI, Gemini CLI), these are included automatically. M365 Copilot Cowork's documented format only describes a single `SKILL.md` per skill folder, so until Microsoft documents reference-file support you'll need to paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/skill-spec.md) contents into the body of `SKILL.md` after the main instructions. On paste-based platforms (ChatGPT Projects, Gems), copy and paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/skill-spec.md) files after the SKILL.md content when you set up Build.
 :::
 
 ## Using These Skills
@@ -674,8 +674,8 @@ Once you've installed or set up the skills for your platform, here's how to use 
 |----------|-------------|
 | **Claude Chat** | Start a new chat. Claude uses your installed skills automatically. Say *"Help me analyze AI workflow opportunities."* |
 | **Claude Cowork (Desktop App)** | Describe what you need. Cowork activates the right skill automatically. |
-| **Claude Code (Desktop App)** | Type `/business-first-ai:analyze` in the Code tab, or describe your need. Same commands as the terminal. |
-| **Claude Code (Terminal)** | Type `/business-first-ai:analyze` (or any slash command below). Or just describe your need — Claude picks the skill. |
+| **Claude Code (Desktop App)** | Type `/handsonai:analyze` in the Code tab, or describe your need. Same commands as the terminal. |
+| **Claude Code (Terminal)** | Type `/handsonai:analyze` (or any slash command below). Or just describe your need — Claude picks the skill. |
 | **ChatGPT** | Open the **Project** you created for the skill. Type your request. |
 | **Google Gemini (app)** | Click the **Gem** in your sidebar. Type your request. |
 | **M365 Copilot** | Start a Cowork conversation. Type your request — Cowork loads the matching skill from OneDrive automatically. |
@@ -685,13 +685,13 @@ Once you've installed or set up the skills for your platform, here's how to use 
 
 | Command | Skill |
 |---------|-------|
-| `/business-first-ai:analyze` | Analyze — Step 1 |
-| `/business-first-ai:deconstruct` | Deconstruct — Step 2 |
-| `/business-first-ai:design` | Design — Step 3 |
-| `/business-first-ai:build` | Build — Step 4 |
-| `/business-first-ai:test` | Test — Step 5 |
-| `/business-first-ai:run` | Run — Step 6 |
-| `/business-first-ai:improve` | Improve — Step 7 |
+| `/handsonai:analyze` | Analyze — Step 1 |
+| `/handsonai:deconstruct` | Deconstruct — Step 2 |
+| `/handsonai:design` | Design — Step 3 |
+| `/handsonai:build` | Build — Step 4 |
+| `/handsonai:test` | Test — Step 5 |
+| `/handsonai:run` | Run — Step 6 |
+| `/handsonai:improve` | Improve — Step 7 |
 
 ### Recommended Path
 
@@ -704,7 +704,7 @@ Once you've installed or set up the skills for your platform, here's how to use 
 7. Run **Improve** to evaluate and evolve running workflows — Step 7
 
 :::note[Claude Code users]
-You can also invoke skills directly with slash commands like `/business-first-ai:analyze`. See the table above.
+You can also invoke skills directly with slash commands like `/handsonai:analyze`. See the table above.
 :::
 
 ## Components
@@ -770,7 +770,7 @@ Find which workflows are candidates for AI.
 
 #### `analyze`
 
-**Command:** `/business-first-ai:analyze`
+**Command:** `/handsonai:analyze`
 
 **What it does:** Runs a structured audit of your workflows to analyze where AI can help. Supports two lenses: **Individual** (your personal workflows) and **Organizational** (your business's value chain processes). Scans memory and conversation history, asks which lens to use, interviews you with lens-specific questions, then produces a prioritized opportunity report with structured workflow candidates ready for the Deconstruct step.
 
@@ -809,7 +809,7 @@ Break workflows into structured definitions.
 
 #### `deconstruct`
 
-**Command:** `/business-first-ai:deconstruct`
+**Command:** `/handsonai:deconstruct`
 
 **What it does:** Interactively deconstructs a business workflow into a structured Workflow Definition using the 6-question framework. This is the Deconstruct step.
 
@@ -856,7 +856,7 @@ Design your AI implementation architecture.
 
 #### `design`
 
-**Command:** `/business-first-ai:design`
+**Command:** `/handsonai:design`
 
 **What it does:** Takes a Workflow Definition and runs the Design phase: architecture decisions, autonomy assessment, orchestration mechanism with involvement mode, per-step classification, building block mapping, skill candidates, agent configuration. Produces an AI Building Block Spec for approval.
 
@@ -901,7 +901,7 @@ Generate platform artifacts from your approved spec.
 
 #### `build`
 
-**Command:** `/business-first-ai:build`
+**Command:** `/handsonai:build`
 
 **What it does:** Takes an approved AI Building Block Spec and generates platform-appropriate artifacts: prompts, skills, agents, configs, and connectors. Starts with a Prepare Context phase to resolve the context needs identified during Deconstruct and Design. Researches integration availability and resolves deferred platform decisions.
 
@@ -942,7 +942,7 @@ Structured testing and quality evaluation.
 
 #### `test`
 
-**Command:** `/business-first-ai:test`
+**Command:** `/handsonai:test`
 
 **What it does:** Guides you through structured testing of your AI workflow artifacts — smoke test, full eval suite, building block evals, baseline establishment, and diagnosis. Uses the evaluation criteria and test scenarios defined during Design to measure output quality on a consistent scale.
 
@@ -982,7 +982,7 @@ Deploy and operate your tested workflow.
 
 #### `run`
 
-**Command:** `/business-first-ai:run`
+**Command:** `/handsonai:run`
 
 **What it does:** Generates a plain-language Run Guide for deploying and operating your AI workflow. Covers artifact inventory, setup steps, first production run, run pattern selection, and operationalization guidance — tailored to your platform and build path.
 
@@ -1019,7 +1019,7 @@ Evaluate and evolve running workflows.
 
 #### `improve`
 
-**Command:** `/business-first-ai:improve`
+**Command:** `/handsonai:improve`
 
 **What it does:** Guides a structured improvement cycle for a running AI workflow — identify quality signals, re-run the eval suite for regression detection, assess whether the workflow should graduate to a more capable orchestration mechanism, and produce an Improvement Plan with specific actions.
 
