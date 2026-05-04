@@ -1,9 +1,0 @@
-{
-  "name": "ai-workflow-examples",
-  "description": "Working examples of AI workflows built with the Business-First AI Framework. Agents for executive writing, editorial review, research, meeting prep, and AI news — plus supporting skills and portable prompts.",
-  "version": "1.1.2",
-  "author": { "name": "James Gray" },
-  "homepage": "https://handsonai.info/use-the-playbook/build/ai-workflow-examples/",
-  "license": "MIT",
-  "keywords": ["examples", "workflows", "writing", "research", "meeting-prep", "news", "prompts"]
-}

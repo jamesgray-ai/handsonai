@@ -11,9 +11,14 @@ export default defineConfig({
     // Legacy "cookbook" → "playbook" rename
     '/use-the-cookbook/': '/use-the-playbook/',
     '/use-the-cookbook/build/': '/use-the-playbook/build/',
-    '/use-the-cookbook/build/ai-registry/': '/use-the-playbook/build/ai-registry/',
-    '/use-the-cookbook/build/business-first-ai/': '/use-the-playbook/build/',
+    '/use-the-cookbook/build/ai-registry/': '/use-the-playbook/build/handsonai/',
+    '/use-the-cookbook/build/business-first-ai/': '/use-the-playbook/build/handsonai/',
     '/use-the-cookbook/build/agentic-coding/': '/use-cases/coding/agentic-coding/',
+    // Plugin consolidation — four old plugin pages → single handsonai plugin page
+    '/use-the-playbook/build/ai-workflow-examples/': '/use-the-playbook/build/handsonai/',
+    '/use-the-playbook/build/ai-registry/': '/use-the-playbook/build/handsonai/',
+    '/use-the-playbook/build/business-first-ai/': '/use-the-playbook/build/handsonai/',
+    '/use-the-playbook/build/agentic-coding/': '/use-the-playbook/build/handsonai/',
     // Framework step rename (discover → analyze)
     '/business-first-ai-framework/discover/': '/business-first-ai-framework/analyze/',
     // Platform-prefixed framework pages moved to top-level framework section
@@ -76,8 +81,8 @@ export default defineConfig({
               items: [
                 { label: 'Browse Agents & Skills', link: '/use-the-playbook/build/' },
                 { label: 'Using Plugins', link: '/use-the-playbook/build/using-plugins/' },
-                { label: 'AI Workflow Examples', link: '/use-the-playbook/build/ai-workflow-examples/' },
-                { label: 'AI Registry', link: '/use-the-playbook/build/ai-registry/' },
+                { label: 'The Hands-on AI Plugin', link: '/use-the-playbook/build/handsonai/' },
+                { label: 'Example Gallery', link: '/use-cases/example-gallery/' },
               ],
             },
             {

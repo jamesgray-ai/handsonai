@@ -1,0 +1,134 @@
+---
+title: The Hands-on AI Plugin
+description: Everything you need to design, build, and document AI workflows. The Business-First AI Framework, AI registry, and feature-spec toolkit in a single Claude Code plugin.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+One plugin, one install, three categories of work. Bundles the **Business-First AI Framework** (methodology), the **AI Registry** (documentation tooling), and **Agentic Coding** (feature-spec writing) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 13 skills.**
+
+These are plain-text Markdown files that work in any AI tool. Install as a Claude Code plugin for the full experience, or download individual skills as ZIPs for ChatGPT, M365 Copilot, Cursor, and other platforms.
+
+## Get the Plugin
+
+<Tabs>
+  <TabItem label="Plugin Install">
+
+One-command install in Claude Code with automatic agent routing and slash commands:
+
+```bash
+/plugin marketplace add jamesgray-ai/handsonai-plugins
+/plugin install handsonai@handsonai
+```
+
+See [Using Plugins](../using-plugins/) for setup details across [Claude.ai upload](../using-plugins/#using-skills-in-claudeai-web), [Cowork](../using-plugins/#using-plugins-in-claude-cowork), and [API usage](../using-plugins/#using-skills-via-the-claude-api).
+  </TabItem>
+  <TabItem label="Any Platform (ZIPs)">
+
+Download individual skill ZIPs from the [GitHub Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and add them to your tool of choice.
+
+Works with **Claude.ai, ChatGPT, Cursor, Codex CLI, Gemini CLI, VS Code Copilot, M365 Copilot**, and more. See [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform) for step-by-step instructions for each tool.
+
+You can also browse the source on [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai) and paste any skill file directly into your system prompt, project instructions, or custom GPT.
+  </TabItem>
+</Tabs>
+
+## What's Inside
+
+The plugin is organized into three coherent toolkits. Use them independently or together.
+
+---
+
+## Business-First AI Framework
+
+The seven-step methodology for going from a workflow idea to a deployed AI system: **Analyze → Deconstruct → Design → Build → Test → Run → Improve.** Run the full flow with the orchestrator agent, or invoke any individual step as a skill.
+
+### `framework-orchestrator` (agent)
+
+Walks you through the full 7-step framework end-to-end. The agent calls the right skill at each step, gathers inputs from you between steps, and produces working artifacts (specs, prompts, agents) along the way.
+
+**When to use it:** Use this when you have a workflow you want to apply AI to and want guided, end-to-end help. If you'd rather drive each step yourself, invoke the skills directly.
+
+### Skills
+
+| Skill | Slash command | What it does |
+|---|---|---|
+| `analyze` | `/handsonai:analyze` | Audit your workflows (individual or organizational lens) to find where AI creates the most value |
+| `deconstruct` | `/handsonai:deconstruct` | Break a workflow into structured steps using the 6-question framework |
+| `design` | `/handsonai:design` | Design the AI workflow architecture and produce an AI Building Block Spec |
+| `build` | `/handsonai:build` | Generate platform-appropriate artifacts (prompts, skills, agents) from the approved spec |
+| `test` | `/handsonai:test` | Test workflow artifacts and evaluate output quality |
+| `run` | `/handsonai:run` | Generate a Run Guide for deploying and operating the workflow |
+| `improve` | `/handsonai:improve` | Evaluate a running workflow for quality and evolution opportunities |
+
+**Full documentation:** [The Business-First AI Framework](../../../business-first-ai-framework/) walks through the methodology with worked examples for each step.
+
+---
+
+## AI Registry
+
+Once you've built workflows worth tracking, you need a registry. These four skills give you naming conventions, documentation templates, and Notion-backed registration for keeping a clean catalog of what you've built.
+
+:::note[Prerequisites]
+These skills work best with a **Notion account** and the **Notion MCP connector**. Without it, Claude can follow the naming and documentation conventions but cannot save entries to Notion. See [Notion Registry Setup](../../../builder-setup/notion-registry-setup/) for configuration.
+:::
+
+### Skills
+
+#### `naming-workflows`
+
+**Slash command:** `/handsonai:naming-workflows`
+
+Generates consistent, outcome-focused names and descriptions for business workflows, then creates entries in your Notion Workflows database. Follows domain-specific naming patterns (Sales, Marketing, Product, Education, Operations) so your registry stays organized as it grows.
+
+#### `writing-workflow-sops`
+
+**Slash command:** `/handsonai:writing-workflow-sops`
+
+Writes Standard Operating Procedure documentation for workflows and saves them as Markdown files, with optional linking to your workflow tracker. Selects a full or lightweight SOP template based on autonomy level (deterministic vs. guided/autonomous) and adapts for execution mode (Manual, Augmented, Automated).
+
+#### `writing-process-guides`
+
+**Slash command:** `/handsonai:writing-process-guides`
+
+Writes Business Process Guide documentation that explains the strategic context and rhythm of a complete business process — when to execute it, why it matters, and how its component workflows fit together. The strategic companion to tactical SOPs.
+
+#### `registering-building-blocks`
+
+**Slash command:** `/handsonai:registering-building-blocks`
+
+Registers any AI building block — Skills, Agents, Prompts, or Context MDs — in your Notion AI Building Blocks database. Resolves the asset type from your request, extracts metadata from the appropriate source file, generates a Quick Start Prompt, checks for duplicates, and creates or updates the registry entry.
+
+**Recommended workflow:** Name → Document procedure (SOP) → Connect workflows (Process Guide) → Register building blocks. Each skill works independently if you don't need the full sequence.
+
+---
+
+## Agentic Coding
+
+For turning ideas into shippable feature specs before you write code. Two skills — one for fuzzy ideas, one for production specs.
+
+### Skills
+
+#### `writing-vision-briefs`
+
+**Slash command:** `/handsonai:writing-vision-briefs`
+
+Captures a fuzzy idea as a structured Vision Brief — the essence of an idea before formal requirements. Walks you through problem, users, vision, capabilities, and success criteria in plain language. Assesses scope and breaks bigger visions into epics and features. Feeds directly into `writing-feature-prds`.
+
+#### `writing-feature-prds`
+
+**Slash command:** `/handsonai:writing-feature-prds`
+
+Creates a Product Requirements Document for one feature with user stories, acceptance criteria, and a linked GitHub issue. Stress-tests the PRD for edge cases and ambiguity before finalizing.
+
+**Full documentation:** [Agentic Coding](../../../use-cases/coding/agentic-coding/) shows the full feature-development workflow these skills plug into.
+
+---
+
+## Looking for example components?
+
+Earlier versions of the marketplace shipped specialized agents for executive writing, HBR-style editorial review, AI news research, and meeting prep, plus several portable prompts. They've moved to the [Example Gallery](../../../use-cases/example-gallery/) as study material — copy and customize them for your own workflows.
+
+## License
+
+MIT — fork, modify, and ship freely.

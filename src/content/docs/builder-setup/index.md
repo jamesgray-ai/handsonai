@@ -72,7 +72,7 @@ Some Power User tools (Editor, Git, GitHub) involve running commands in the term
 
 :::note[Heads up]
 - **Hands-on AI Knowledge Base:** Your AI tool may call this an "MCP server" or "MCP connector" — that's the underlying technology.
-- **AI Registry:** After setting up the Notion template, install the plugin so Claude can read from and write to your workspace: `/plugin install ai-registry@handsonai`
+- **AI Registry:** After setting up the Notion template, install the plugin so Claude can read from and write to your workspace: `/plugin install handsonai@handsonai`
 :::
 
 ---

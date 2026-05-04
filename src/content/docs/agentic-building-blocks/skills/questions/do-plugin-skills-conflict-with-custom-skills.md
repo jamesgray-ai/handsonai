@@ -36,7 +36,7 @@ Say you have a personal skill for writing LinkedIn posts and you install a plugi
 
 # Plugin skill
 business-first-ai plugin
-→ Invoked with: /business-first-ai:writing-linkedin-posts
+→ Invoked with: /handsonai:writing-linkedin-posts
 ```
 
 Both skills load independently. Your custom skill uses your personal voice and formatting preferences. The plugin skill follows the plugin author's framework. You can use either one — or let Claude pick the best match based on your prompt.

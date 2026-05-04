@@ -245,7 +245,7 @@ Assess the autonomy level, recommend an orchestration mechanism, and map buildin
 Upload or paste your Workflow Definition file (`[workflow-name]-definition.md`) from the Deconstruct step when prompted. The skill runs the Design analysis and produces an AI Building Block Spec.
 
 :::tip[If your AI tool doesn't support skills]
-Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/business-first-ai/skills/design) and paste it into your system prompt or project instructions. Or use this page as a conversation guide — walk through each section in order with your AI tool.
+Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/design) and paste it into your system prompt or project instructions. Or use this page as a conversation guide — walk through each section in order with your AI tool.
 :::
 ### Two phases, two modes
 

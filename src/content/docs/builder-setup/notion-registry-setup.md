@@ -117,7 +117,7 @@ Business Process → Workflows → AI Building Blocks
 Once your registry is connected via the Notion connector, install the companion plugin to let Claude work with it directly:
 
 ```bash
-/plugin install ai-registry@handsonai
+/plugin install handsonai@handsonai
 ```
 
 The plugin includes five skills that automate common registry tasks:
