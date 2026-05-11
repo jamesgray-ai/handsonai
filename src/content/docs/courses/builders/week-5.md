@@ -23,7 +23,7 @@ Run the framework end-to-end yourself in Cowork (or Claude Code — same slash c
 
 The Step 2 (Deconstruct) artifact is pre-built so we can spend Session 9 running the rest of the framework on it. Save this file into your workspace before class:
 
-- [**Competitive Intelligence — Workflow Definition (markdown)**](/assets/courses/builders/competitive-intelligence-workflow-definition.md)
+<a href="/assets/courses/builders/competitive-intelligence-workflow-definition.md" download="competitive-intelligence-workflow-definition.md"><strong>Download the Competitive Intelligence — Workflow Definition (.md)</strong></a>
 
 ### What you'll walk away with
 
