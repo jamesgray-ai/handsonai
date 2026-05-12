@@ -635,7 +635,7 @@ After the user approves, instruct them to **exit plan mode** if they entered it 
 
 > "Spec approved. **Exit plan mode now** (in Claude Code: `shift+tab` or `/plan`) so artifacts can be generated in the Build phase."
 >
-> "To build the workflow, run `/business-first-ai:build` (or say *'Build the workflow from my Building Block Spec'*)."
+> "To build the workflow, run the `build` skill (Step 4) (or say *'Build the workflow from my Building Block Spec'*)."
 
 ### Outcome-Driven Processing Path
 
