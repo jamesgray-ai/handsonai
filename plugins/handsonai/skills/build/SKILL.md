@@ -47,7 +47,7 @@ If the user chooses path 2:
      - The format specification to follow
      - **If a creation skill was matched:** "You have `[skill-name]` available. Invoke it (e.g., `/[skill-name]`) and pass the spec below as your starting context."
      - **If no creation skill matched:** The format reference and key requirements for manual creation
-3. After presenting the Construction Guide, tell the user: "To generate the Run Guide, run `/business-first-ai:run`."
+3. After presenting the Construction Guide, tell the user: "To test the workflow, run the `test` skill (Step 5)."
 
 #### Step 3 — Mechanism-Specific Build Path
 
@@ -59,21 +59,24 @@ Based on the orchestration mechanism, present ONLY the steps relevant to the use
 1. Create context (from Context Inventory)
 2. Set up project workspace (if frequent use)
 3. Generate platform artifacts
-4. → Run Guide
+4. → Test Plan
+5. → Run Guide
 
 **Skill-Powered Prompt mechanism:**
 1. Create context (from Context Inventory)
 2. Set up project workspace (if frequent use)
 3. Build skills for tagged candidates
 4. Generate platform artifacts
-5. → Run Guide
+5. → Test Plan
+6. → Run Guide
 
 **Agent mechanism:**
 1. Create context (from Context Inventory)
 2. Build skills for tagged candidates
 3. Connect external tools (from Integration Options section)
 4. Generate platform artifacts (agent config, skills, connectors)
-5. → Run Guide
+5. → Test Plan
+6. → Run Guide
 
 After presenting the mechanism-specific build path, proceed to Step 3.5 to discover available creation tools before generating any artifacts.
 
@@ -228,7 +231,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 **f. Generate artifacts.** The skill provides the *specs* (what each building block should do, its inputs/outputs/instructions from the Design phase). The model provides the *implementation* (how to build it on the user's platform, using the verified specification and platform documentation as authoritative sources).
 
-After completing Build, tell the user: "To generate the Run Guide, run `/business-first-ai:run` (or say *'Generate the Run Guide for my workflow'*)."
+After completing Build, tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
 ## Outputs
 

@@ -117,5 +117,5 @@ Plain-language guide for getting the workflow running. Three variants:
 - Use plain language; avoid jargon unless the user introduced it
 - After writing the Run Guide, tell the user: "Run Guide saved to `outputs/[name]-run-guide.md`."
 - Summarize all deliverables at the end so the user has a clear inventory of everything produced across Steps 3-6 (Design, Build, Test, and Run)
-- After the summary, prompt for SOP creation: "To document this workflow as a Standard Operating Procedure (SOP) for your team, run `/ai-registry:writing-sops`. The SOP captures what the workflow does, when to trigger it, what inputs it needs, and who's responsible — useful for onboarding teammates and maintaining the workflow over time."
+- After the summary, prompt for SOP creation: "To document this workflow as a Standard Operating Procedure (SOP) for your team, ask Claude to write an SOP using the `writing-workflow-sops` skill. The SOP captures what the workflow does, when to trigger it, what inputs it needs, and who's responsible — useful for onboarding teammates and maintaining the workflow over time."
 - Use web search to verify current platform setup steps — platform UIs change frequently

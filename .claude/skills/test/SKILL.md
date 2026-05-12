@@ -66,8 +66,8 @@ For each problem identified in the eval, map it to which building block to adjus
 
 Based on eval scores across all scenarios:
 
-- **Ready** — scores meet the minimum quality bar defined in the spec → proceed to Step 6: Run
-- **Not ready** — document specific adjustments needed, return to Step 4: Build, then re-test
+- **Ready** — scores meet the minimum quality bar defined in the spec → proceed to the `run` skill (Step 6)
+- **Not ready** — document specific adjustments needed, return to the `build` skill (Step 4), then re-test
 
 ## Output
 

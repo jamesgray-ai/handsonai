@@ -75,9 +75,9 @@ Skip this step for individual/personal workflows.
 Produce one of the following:
 
 - **No changes needed** — workflow is performing at or above baseline, requirements haven't shifted
-- **Tune** — specific building blocks to adjust (identify which ones and what to change) → loop back to Build (Step 4) and Test (Step 5)
-- **Redesign** — requirements have changed enough that the workflow structure needs rethinking → loop back to Design (Step 3)
-- **Evolve** — graduate to a more capable orchestration mechanism → loop back to Design (Step 3) with an explicit graduation recommendation
+- **Tune** — specific building blocks to adjust (identify which ones and what to change) → loop back to the `build` skill (Step 4) and `test` skill (Step 5)
+- **Redesign** — requirements have changed enough that the workflow structure needs rethinking → loop back to the `design` skill (Step 3)
+- **Evolve** — graduate to a more capable orchestration mechanism → loop back to the `design` skill (Step 3) with an explicit graduation recommendation
 
 ## Output
 
