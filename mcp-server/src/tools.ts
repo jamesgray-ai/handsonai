@@ -151,7 +151,7 @@ export const TOOL_DEFINITIONS: McpToolDefinition[] = [
   {
     name: "get_framework_step",
     description:
-      "Get detailed content for a AI Workflow Framework step and all its sub-pages. Steps are: analyze, deconstruct, build.",
+      "Get detailed content for an AI Workflow Framework step and all its sub-pages. Steps are: analyze, deconstruct, build.",
     inputSchema: {
       type: "object",
       properties: {
