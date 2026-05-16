@@ -3,15 +3,17 @@ name: deconstruct
 description: >
   This skill should be used when the user wants to deconstruct a workflow, break down a business
   process, define an outcome for an agent system, or deeply analyze a workflow's steps, decisions,
-  data flows, and failure modes. Interactively decomposes a workflow into a structured Workflow
-  Definition using either the 6-question framework (step-decomposed) or an outcome-driven interview
-  (for autonomous agent systems). This is Step 2 of the AI Workflow Framework.
+  data flows, and failure modes. Supports four entry paths: step-decomposed (6-question framework),
+  problem-first, outcome-driven (for autonomous agent systems), or Compose — a lean three-turn flow
+  that outputs an orchestration prompt directly when the user already has the skills/sub-agents in
+  place. The first three paths produce a structured Workflow Definition; Compose produces only an
+  orchestration prompt. This is Step 2 of the AI Workflow Framework.
 user-invocable: true
 ---
 
 # Workflow Deconstruction
 
-Interactively discover a business workflow and produce a structured Workflow Definition — either step-decomposed (using the 6-question framework) or outcome-driven (capturing goal, constraints, and capability domains for agent systems).
+Interactively discover a business workflow via one of four paths. The step-decomposed (6-question framework), problem-first, and outcome-driven paths all produce a structured Workflow Definition. The Compose path is the lean alternative: when the user already has the skills or sub-agents their workflow needs and can describe each step, Compose skips the deep dive and outputs an orchestration prompt directly in three turns — no Workflow Definition file.
 
 ## Workflow
 
