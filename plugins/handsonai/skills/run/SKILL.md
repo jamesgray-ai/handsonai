@@ -22,11 +22,11 @@ Generate a Run Guide for deploying, executing, and testing an AI workflow. The R
 
 Determine which build path the user followed:
 
-- **Path 1 (Model-built):** The model generated platform artifacts during the Build phase. Look for generated artifacts in the working directory and load the Building Block Spec from `outputs/[workflow-name]-building-block-spec.md`.
-- **Path 2 (Manual build):** The user chose to build artifacts themselves using the spec as a guide. Load the Building Block Spec from `outputs/[workflow-name]-building-block-spec.md`.
-- **Path 3 (Guided-mode):** The model generated GUI instruction documents during the Build phase (for guided-mode platforms like Copilot Studio, Workspace Studio, ChatGPT Agent Mode). The `mode` field in the Building Block Spec indicates `guided`.
+- **Path 1 (Model-built):** The model generated platform artifacts during the Build phase. Look for generated artifacts in the working directory and load the Design Spec from `outputs/[workflow-name]-design-spec.md`.
+- **Path 2 (Manual build):** The user chose to build artifacts themselves using the spec as a guide. Load the Design Spec from `outputs/[workflow-name]-design-spec.md`.
+- **Path 3 (Guided-mode):** The model generated GUI instruction documents during the Build phase (for guided-mode platforms like Copilot Studio, Workspace Studio, ChatGPT Agent Mode). The `mode` field in the Design Spec indicates `guided`.
 
-If the user specifies a file path, use that. Otherwise, look for the most recent Building Block Spec in `outputs/` and check conversation context for which path was chosen.
+If the user specifies a file path, use that. Otherwise, look for the most recent Design Spec in `outputs/` and check conversation context for which path was chosen.
 
 If unclear, ask: "Did the model generate your workflow artifacts (Path 1), are you building them yourself from the spec (Path 2), or did the model produce GUI instruction documents for a guided-mode platform (Path 3)?"
 

@@ -1,6 +1,6 @@
 ---
 title: "Step 4: Build"
-description: Generate platform-appropriate artifacts from your approved AI Building Block Spec — resolve context needs, build mechanism-specific components, and prepare your workflow for testing.
+description: Generate platform-appropriate artifacts from your approved Design Spec — resolve context needs, build mechanism-specific components, and prepare your workflow for testing.
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 You've just finished [Design (Step 3)](../design/). You should have:
 
-- **AI Building Block Spec** (`[name]-building-block-spec.md`) — your approved blueprint with architecture approach, autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
+- **Design Spec** (`[name]-design-spec.md`) — your approved blueprint with architecture approach, autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
 
 If you're returning from [Test (Step 5)](../test/) to fix issues, you may also have test results telling you which building block needs adjustment.
 
@@ -44,22 +44,22 @@ The orchestration mechanism determines which steps you follow. Work through **on
 <Tabs>
   <TabItem label="Prompt">
 
-1. **Create context** — Build the context artifacts listed in your Building Block Spec's Context Inventory
-2. **Set up project workspace** (optional) — If the Building Block Spec's Where to Run recommends a project
+1. **Create context** — Build the context artifacts listed in your Design Spec's Context Inventory
+2. **Set up project workspace** (optional) — If the Design Spec's Where to Run recommends a project
 3. **Generate platform artifacts** — The model generates the prompt and any configuration needed for your platform
   </TabItem>
   <TabItem label="Skill-Powered Prompt">
 
-1. **Create context** — Build the context artifacts listed in your Building Block Spec's Context Inventory
-2. **Set up project workspace** (optional) — If the Building Block Spec's Where to Run recommends a project
-3. **Build skills** — Build skills for the steps tagged as skill candidates in your Building Block Spec. The model generates skills in the format appropriate to your platform.
+1. **Create context** — Build the context artifacts listed in your Design Spec's Context Inventory
+2. **Set up project workspace** (optional) — If the Design Spec's Where to Run recommends a project
+3. **Build skills** — Build skills for the steps tagged as skill candidates in your Design Spec. The model generates skills in the format appropriate to your platform.
 4. **Generate platform artifacts** — The model generates the prompt and skill configurations for your platform
   </TabItem>
   <TabItem label="Agent">
 
-1. **Create context** — Build the context artifacts listed in your Building Block Spec's Context Inventory
+1. **Create context** — Build the context artifacts listed in your Design Spec's Context Inventory
 2. **Build skills** — Build skills for tagged candidates
-3. **Connect tools** — Wire external tools from the Tools and Connectors section of your Building Block Spec
+3. **Connect tools** — Wire external tools from the Tools and Connectors section of your Design Spec
 4. **Generate platform artifacts** — The model generates agent configs (single or multi-agent), skills, and connectors for your platform
   </TabItem>
 </Tabs>
@@ -77,7 +77,7 @@ The model doesn't guess your platform's artifact format or available integration
 
 **Integration research:**
 
-1. **Integration Options from Design** — The Building Block Spec already identifies which integrations you need and includes source URLs discovered during Design's Integration Discovery (which itself used the curated tool catalog, integration registries, and web search).
+1. **Integration Options from Design** — The Design Spec already identifies which integrations you need and includes source URLs discovered during Design's Integration Discovery (which itself used the curated tool catalog, integration registries, and web search).
 2. **Platform-specific setup** — For each integration, the model researches how to connect it on your specific platform: installation steps, configuration, authentication, and prerequisites.
 3. **Integration registries** — The platform registry catalogs known sources for integration documentation (MCP registries, platform marketplaces, connector catalogs). The model checks these before falling back to web search.
 
@@ -127,7 +127,7 @@ The [Builder Tools Setup](../../builder-setup/) guide walks you through everythi
 | Context artifacts | Style guides, reference materials, and examples — formatted for AI consumption |
 | Tool connections | MCP connections and integrations configured on your platform |
 
-The Building Block Spec from Design is the design document — it captures *what* to build and *why*. The platform artifacts from Build are the implementation — generated by the model using your architecture decisions and current platform knowledge.
+The Design Spec from Design is the design document — it captures *what* to build and *why*. The platform artifacts from Build are the implementation — generated by the model using your architecture decisions and current platform knowledge.
 
 Many workflows stay at the prompt-plus-context level permanently — pasted into a chat whenever you need it. That's a feature, not a limitation.
 
@@ -138,10 +138,10 @@ This step is facilitated by the **`build`** AI Workflow Framework skill. See [Se
 **Start with this prompt:**
 
 ```
-Build the workflow from my approved AI Building Block Spec.
+Build the workflow from my approved Design Spec.
 ```
 
-Upload or reference your Building Block Spec file (`[workflow-name]-building-block-spec.md`) from the Design step when prompted. The skill resolves context needs, generates platform artifacts, and prepares the workflow for testing.
+Upload or reference your Design Spec file (`[workflow-name]-design-spec.md`) from the Design step when prompted. The skill resolves context needs, generates platform artifacts, and prepares the workflow for testing.
 
 ## Next Step
 

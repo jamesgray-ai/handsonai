@@ -1,6 +1,6 @@
 ---
 title: "Example: Content Calendar Planning"
-description: A complete worked example showing the framework deliverables — Workflow Definition, AI Building Block Spec, and workflow prompt — for a real content calendar planning workflow.
+description: A complete worked example showing the framework deliverables — Workflow Definition, Design Spec, and workflow prompt — for a real content calendar planning workflow.
 ---This page walks through the complete output of running a real workflow through the [AI Workflow Framework](../..//). The workflow is **Content Calendar Planning** — a weekly process for planning and sequencing content across LinkedIn, Substack, X, and YouTube.
 
 The first four steps of the framework — Analyze, Deconstruct, Design, and Build — produced three key deliverables for this workflow. Each one is a detailed markdown document. This page summarizes what's in each and why it matters — then links to the full file on GitHub where you can read every table, every decision point, and every failure mode at full width.
@@ -28,11 +28,11 @@ The Workflow Definition is what [Deconstruct](../../deconstruct/) produces. What
 
 ---
 
-### 2. AI Building Block Spec (Step 3 — Design)
+### 2. Design Spec (Step 3 — Design)
 
-[GitHub View full Building Block Spec on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/building-block-spec.md)
+[GitHub View full Design Spec on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/design-spec.md)
 
-The AI Building Block Spec is what [Design](../../design/) produces from the Workflow Definition. It classifies each step on the autonomy spectrum, identifies which steps should become reusable skills, and recommends an implementation order.
+The Design Spec is what [Design](../../design/) produces from the Workflow Definition. It classifies each step on the autonomy spectrum, identifies which steps should become reusable skills, and recommends an implementation order.
 
 **What's inside:**
 
@@ -71,8 +71,8 @@ A few things to take away from this example:
 
 - **The expansion.** "I plan content on Sundays" became 10 steps across 4 phases, with decision logic, failure modes, and a dependency map. That expansion is what makes the workflow executable by AI.
 - **The autonomy spectrum.** Not every step needs AI autonomy. Steps 1, 2, 4, and 10 are deterministic (fixed data operations). Steps 5-8 are guided (AI proposes, human decides). Steps 3 and 9 are human-led. The framework helps you see this clearly.
-- **The build order.** The Building Block Spec doesn't just say "build everything." It recommends starting with a prompt (pure conversation, no infrastructure needed), then layering in skills incrementally. You get value from the first run.
-- **Platform-agnostic.** The Workflow Definition and Building Block Spec work with any AI tool. The skills and MCP connections are implementation details that vary by platform — but the underlying logic is the same everywhere.
+- **The build order.** The Design Spec doesn't just say "build everything." It recommends starting with a prompt (pure conversation, no infrastructure needed), then layering in skills incrementally. You get value from the first run.
+- **Platform-agnostic.** The Workflow Definition and Design Spec work with any AI tool. The skills and MCP connections are implementation details that vary by platform — but the underlying logic is the same everywhere.
 
 ---
 

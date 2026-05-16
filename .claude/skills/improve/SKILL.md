@@ -16,7 +16,7 @@ Evaluate and evolve running AI workflows. Review how a deployed workflow is perf
 
 ### 1. Load workflow context
 
-Read the Building Block Spec (including Evaluation Criteria), Run Guide, and original Test Results (baseline scores). Understand what was built, how it was designed to work, and what quality bar was established.
+Read the Design Spec (including Evaluation Criteria), Run Guide, and original Test Results (baseline scores). Understand what was built, how it was designed to work, and what quality bar was established.
 
 ### 2. Current state assessment
 

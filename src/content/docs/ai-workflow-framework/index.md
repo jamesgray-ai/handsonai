@@ -79,7 +79,7 @@ Decide *how* the workflow should be built — before you build it.
 
 The Design step takes your Workflow Definition and produces a complete blueprint for your AI workflow. The skill confirms your platform, extracts tool integrations and constraints from your Workflow Definition, assesses the workflow's autonomy level (Deterministic, Guided, or Autonomous), recommends an orchestration mechanism (Prompt, Skill-Powered Prompt, or Agent) and involvement mode, classifies each step on the autonomy spectrum, maps AI building blocks, identifies skill candidates, and documents agent blueprints when needed. The spec must be approved before moving to Build.
 
-**Deliverable:** **AI Building Block Spec** (`outputs/[name]-building-block-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, context inventory, and implementation order.
+**Deliverable:** **Design Spec** (`outputs/[name]-design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, context inventory, and implementation order.
 
 **Facilitated by the `design` skill.** See [Design Your AI Workflow](design/) for the full guide with autonomy assessment, orchestration mechanism decision flow, and output format.
 
@@ -101,7 +101,7 @@ The Build step starts with a **Prepare Context** phase — systematically resolv
 
 Structured testing against the evaluation criteria from Design.
 
-Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full eval suite where you run each test scenario from the Building Block Spec and score the output on the quality dimensions defined during Design. You also test individual building blocks in isolation and establish a baseline for future comparison.
+Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full eval suite where you run each test scenario from the Design Spec and score the output on the quality dimensions defined during Design. You also test individual building blocks in isolation and establish a baseline for future comparison.
 
 Most workflows need 2-4 iterations between Build and Test before they produce reliably good output. When something is off, the skill helps you diagnose which building block to fix and sends you back to Build with a clear target.
 

@@ -250,7 +250,7 @@ ChatGPT should activate the Analyze skill and begin a structured interview proce
 
 #### Option 2: OpenAI Codex in a Code Editor
 
-Use **OpenAI Codex** in a code editor like Cursor or VS Code. Codex uses your existing ChatGPT login (Plus, Pro, or any paid plan), supports skills natively, and **saves output files directly to your computer** — so when a skill creates a Workflow Definition or Building Block Spec, you get an actual file instead of text in a chat window.
+Use **OpenAI Codex** in a code editor like Cursor or VS Code. Codex uses your existing ChatGPT login (Plus, Pro, or any paid plan), supports skills natively, and **saves output files directly to your computer** — so when a skill creates a Workflow Definition or Design Spec, you get an actual file instead of text in a chat window.
 
 See the [**OpenAI Codex**](#openai-codex) section under Code Editors & Terminal below for setup instructions.
 
@@ -753,7 +753,7 @@ You can also invoke skills directly with slash commands like `/handsonai:analyze
 
 1. **Analyze** (`analyze`) — Audit your workflows, interview you about your work, and produce an opportunity report with structured candidates. If you already know which workflow to deconstruct, this step is brief.
 2. **Deconstruct** (`deconstruct`) — Interactive deep-dive that decomposes the workflow into refined steps using the 6-question framework. Produces the Workflow Definition.
-3. **Design** (`design`) — Gather architecture decisions, assess workflow autonomy level, choose an orchestration mechanism and involvement mode, classify steps, map building blocks, identify skill candidates, configure agents, and produce the AI Building Block Spec.
+3. **Design** (`design`) — Gather architecture decisions, assess workflow autonomy level, choose an orchestration mechanism and involvement mode, classify steps, map building blocks, identify skill candidates, configure agents, and produce the Design Spec.
 4. **Build** (`build`) — Resolve context needs and generate platform-appropriate artifacts (prompts, skills, agents, configs) based on the approved spec.
 5. **Test** (`test`) — Run structured evaluations against the criteria from Design, establish a quality baseline, and iterate with Build until the workflow is ready.
 6. **Run** (`run`) — Generate a Run Guide tailored to your platform and technical comfort level, choose a run pattern, and deploy.
@@ -783,7 +783,7 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 
 1. **Opportunity Report** — `ai-opportunity-report.md` — categorized opportunities with structured workflow candidates (if generated)
 2. **Workflow Definition** — `[name]-definition.md` — structured decomposition of every step
-3. **AI Building Block Spec** — `[name]-building-block-spec.md` — autonomy level, orchestration mechanism, per-step classifications, building block mapping, skill candidates, agent configs
+3. **Design Spec** — `[name]-design-spec.md` — autonomy level, orchestration mechanism, per-step classifications, building block mapping, skill candidates, agent configs
 4. **Platform Artifacts** — prompts, skills, agents, and configs generated for your platform
 5. **Run Guide** — `[name]-run-guide.md` — step-by-step setup and first-run instructions
 6. **Improvement Plan** — `[name]-improvement-plan.md` — eval results, quality signals, and recommended actions (when running Improve)
@@ -886,7 +886,7 @@ Design your AI implementation architecture.
 
 **Command:** `/handsonai:design`
 
-**What it does:** Takes a Workflow Definition and runs the Design phase: architecture decisions, autonomy assessment, orchestration mechanism with involvement mode, per-step classification, building block mapping, skill candidates, agent configuration. Produces an AI Building Block Spec for approval.
+**What it does:** Takes a Workflow Definition and runs the Design phase: architecture decisions, autonomy assessment, orchestration mechanism with involvement mode, per-step classification, building block mapping, skill candidates, agent configuration. Produces a Design Spec for approval.
 
 **When to use it:** Use this when you have a Workflow Definition (from the Deconstruct step) and want to design your AI workflow's architecture. The spec must be approved before moving to Build.
 
@@ -900,14 +900,14 @@ Design your AI implementation architecture.
 6. **Classify each step** — Per-step autonomy level, AI building blocks, tools, human review gates
 7. **Identify skill candidates** — Steps tagged for skill creation with generation-ready detail
 8. **Agent configuration** (when applicable) — Platform-agnostic agent blueprint
-9. **Generate AI Building Block Spec** — Complete design document
+9. **Generate Design Spec** — Complete design document
 10. **Spec Approval Gate** — Present the spec for approval. No artifacts are generated until you confirm.
 
 **Example prompts:**
 
     "Design the AI workflow from my Workflow Definition"
     → Reads the most recent Workflow Definition, runs Design,
-      produces the AI Building Block Spec for approval
+      produces the Design Spec for approval
 
     "Design the expense-reporting workflow"
     → Reads outputs/expense-reporting-definition.md, recommends
@@ -915,7 +915,7 @@ Design your AI implementation architecture.
 
 **What you'll get:**
 
-- **AI Building Block Spec** (`outputs/[name]-building-block-spec.md`) — architecture decisions, autonomy level, orchestration mechanism with involvement mode, step classifications, skill candidates, agent configs, implementation order
+- **Design Spec** (`outputs/[name]-design-spec.md`) — architecture decisions, autonomy level, orchestration mechanism with involvement mode, step classifications, skill candidates, agent configs, implementation order
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
 
@@ -931,13 +931,13 @@ Generate platform artifacts from your approved spec.
 
 **Command:** `/handsonai:build`
 
-**What it does:** Takes an approved AI Building Block Spec and generates platform-appropriate artifacts: prompts, skills, agents, configs, and connectors. Starts with a Prepare Context phase to resolve the context needs identified during Deconstruct and Design. Researches integration availability and resolves deferred platform decisions.
+**What it does:** Takes an approved Design Spec and generates platform-appropriate artifacts: prompts, skills, agents, configs, and connectors. Starts with a Prepare Context phase to resolve the context needs identified during Deconstruct and Design. Researches integration availability and resolves deferred platform decisions.
 
-**When to use it:** Use this when you have an approved AI Building Block Spec (from the Design step) and want to generate the actual building blocks for your platform. Also useful when re-platforming — run Build again with the same spec but a different platform target. If returning from Test with issues, Build helps you fix the specific building blocks that need adjustment.
+**When to use it:** Use this when you have an approved Design Spec (from the Design step) and want to generate the actual building blocks for your platform. Also useful when re-platforming — run Build again with the same spec but a different platform target. If returning from Test with issues, Build helps you fix the specific building blocks that need adjustment.
 
 **How it works:**
 
-1. **Load Building Block Spec** — The AI reads the approved spec from `outputs/`
+1. **Load Design Spec** — The AI reads the approved spec from `outputs/`
 2. **Prepare Context** — Resolve the Context Shopping List and Data Readiness Summary — find existing documents, create missing materials, format for AI consumption
 3. **Build path choice** — Choose "I'll build it" (model generates artifacts) or "I'll build it myself" (get a Construction Guide with build sequence and creation skill recommendations)
 4. **Mechanism-specific build path** — Only the steps relevant to your chosen orchestration mechanism
@@ -947,7 +947,7 @@ Generate platform artifacts from your approved spec.
 
 **Example prompts:**
 
-    "Build the workflow from my Building Block Spec"
+    "Build the workflow from my Design Spec"
     → Reads the most recent spec, researches integrations,
       generates all platform artifacts
 
@@ -978,9 +978,9 @@ Structured testing and quality evaluation.
 
 **How it works:**
 
-1. **Load artifacts and spec** — The AI reads your Building Block Spec (for evaluation criteria and test scenarios) and locates your platform artifacts
+1. **Load artifacts and spec** — The AI reads your Design Spec (for evaluation criteria and test scenarios) and locates your platform artifacts
 2. **Smoke test** — Run the workflow once with a realistic scenario. Check: does it run, does it produce output, is the output in the right format?
-3. **Full eval suite** — Run each test scenario from the Building Block Spec. Score each output on a 1-5 scale across the evaluation dimensions defined during Design.
+3. **Full eval suite** — Run each test scenario from the Design Spec. Score each output on a 1-5 scale across the evaluation dimensions defined during Design.
 4. **Building block evals** — Test individual components (skills, context, agents) in isolation to pinpoint weak links
 5. **Establish baseline** — Calculate average scores across all scenarios and dimensions. Record for future comparison.
 6. **Diagnose and fix** — Map problems to building blocks (generic output = context issue, skipped steps = prompt issue, etc.) and identify what to fix in Build
@@ -1018,7 +1018,7 @@ Deploy and operate your tested workflow.
 
 **How it works:**
 
-1. **Load spec and artifacts** — The AI reads your Building Block Spec and locates platform artifacts
+1. **Load spec and artifacts** — The AI reads your Design Spec and locates platform artifacts
 2. **Generate Run Guide** — Artifact inventory, setup steps, first production run instructions, and next steps
 3. **Run pattern selection** — Choose the right pattern: paste and run, run in a project, command an agent, code-first, or automate on schedule
 4. **Operationalization** (for organizational workflows) — Sharing, training, governance, and adoption monitoring guidance
@@ -1055,7 +1055,7 @@ Evaluate and evolve running workflows.
 
 **How it works:**
 
-1. **Load history** — The AI reads the Building Block Spec, previous test results, and baseline scores
+1. **Load history** — The AI reads the Design Spec, previous test results, and baseline scores
 2. **Quality signal review** — Discuss what prompted this improvement cycle. Which signals are you seeing?
 3. **Regression evaluation** — Re-run the eval suite from Test. Compare current scores to baseline. Identify dimensions where quality has degraded or improved.
 4. **Graduation assessment** — Should the orchestration mechanism evolve? Prompt to Skill-Powered Prompt, Skill-Powered Prompt to Agent, single agent to multi-agent? The AI assesses based on current pain points and workflow complexity.
@@ -1085,7 +1085,7 @@ These skills cover the full AI Workflow Framework. Here's the recommended path:
 
 1. **Analyze** — Run `analyze` to audit your workflows and identify where AI creates the most value
 2. **Deconstruct** — Pick your highest-impact candidate and run `deconstruct` (or use the `framework-agent` agent for the full end-to-end process)
-3. **Design** — Run `design` to produce your AI Building Block Spec
+3. **Design** — Run `design` to produce your Design Spec
 4. **Build** — Run `build` to resolve context needs and generate platform artifacts from the approved spec
 5. **Test** — Run `test` to evaluate output quality, establish a baseline, and iterate with Build until the workflow is ready
 6. **Run** — Run `run` to get a Run Guide, choose a run pattern, and deploy. See the [AI Workflow Examples](../../use-the-playbook/build/ai-workflow-examples/) plugin for working examples of real AI workflows.

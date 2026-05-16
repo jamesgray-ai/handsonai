@@ -13,7 +13,7 @@ Structured testing and evaluation of AI workflow artifacts. Walk the user throug
 
 ### 1. Load context
 
-Read the Building Block Spec (including Evaluation Criteria) to understand what was built, expected behavior, and how to evaluate. Identify the test scenarios and scoring dimensions defined during Design.
+Read the Design Spec (including Evaluation Criteria) to understand what was built, expected behavior, and how to evaluate. Identify the test scenarios and scoring dimensions defined during Design.
 
 ### 2. Quick smoke test
 

@@ -176,4 +176,4 @@ Changes applied to a naive "search → write a brief" version:
 
 ---
 
-**Workflow Definition complete. Ready for Session 9's live Design step — turning this into a Building Block Spec.**
+**Workflow Definition complete. Ready for Session 9's live Design step — turning this into a Design Spec.**

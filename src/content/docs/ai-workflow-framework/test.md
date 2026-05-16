@@ -9,7 +9,7 @@ You've just finished [Build (Step 4)](../build/). You should have:
 
 - **Platform artifacts** — prompts, skills, agents, and configs generated for your platform
 - **Context artifacts** — style guides, reference materials, and examples
-- **AI Building Block Spec** (`[name]-building-block-spec.md`) — which includes the evaluation criteria and test scenarios defined during [Design](../design/)
+- **Design Spec** (`[name]-design-spec.md`) — which includes the evaluation criteria and test scenarios defined during [Design](../design/)
 
 Your first run is a test, not a deployment. The goal is to verify that the workflow produces good output before you share it with your team or use it on real work.
 
@@ -32,7 +32,7 @@ The first run is about confirming the workflow functions. Resist the urge to fin
 :::
 ## Structured Evaluation
 
-Once the smoke test passes, move to a full evaluation using the criteria defined during Design. Your AI Building Block Spec includes **evaluation dimensions** (the qualities you care about — accuracy, tone, completeness, specificity) and **test scenarios** (realistic inputs that exercise different parts of the workflow).
+Once the smoke test passes, move to a full evaluation using the criteria defined during Design. Your Design Spec includes **evaluation dimensions** (the qualities you care about — accuracy, tone, completeness, specificity) and **test scenarios** (realistic inputs that exercise different parts of the workflow).
 
 ### Run the Eval Suite
 
@@ -121,7 +121,7 @@ This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set
 **Start with this prompt:**
 
 ```
-Test my workflow against the evaluation criteria in the Building Block Spec.
+Test my workflow against the evaluation criteria in the Design Spec.
 ```
 
 The skill guides you through the smoke test, eval suite, building block evals, baseline establishment, and diagnosis process.

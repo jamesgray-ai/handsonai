@@ -25,7 +25,7 @@ The AI Workflow Framework as executable Claude Code skills, plus an AI registry 
 |-------|-------------|
 | `analyze` | Audit your workflows to find where AI creates the most value |
 | `deconstruct` | Break a workflow into structured steps using the 6-question framework |
-| `design` | Design the AI workflow architecture and produce an AI Building Block Spec |
+| `design` | Design the AI workflow architecture and produce a Design Spec |
 | `build` | Generate platform-appropriate artifacts from the approved spec |
 | `test` | Test workflow artifacts and evaluate output quality |
 | `run` | Generate a Run Guide for deploying and operating the workflow |

@@ -25,7 +25,7 @@ You run seven skills sequentially, using files as handoffs between stages. Steps
 |------|-------|-------|--------|---------|
 | 1 (Analyze) | `analyze` | User interview | `ai-opportunity-report.md` | User picks candidate |
 | 2 (Deconstruct) | `deconstruct` | Candidate + interview | `[name]-definition.md` | Auto→Step 3 |
-| 3 (Design) | `design` | Workflow Definition | `[name]-building-block-spec.md` | Explicit approval gate |
+| 3 (Design) | `design` | Workflow Definition | `[name]-design-spec.md` | Explicit approval gate |
 | 4 (Build) | `build` | Approved spec | Platform artifacts | Auto→Step 5 |
 | 5 (Test) | `test` | Artifacts + spec | `[name]-test-results.md` | Ready OR loop to Build |
 | 6 (Run) | `run` | Tested artifacts + spec | `[name]-run-guide.md` | User follows guide |
@@ -65,25 +65,25 @@ Read the Workflow Definition and run the Design phase:
 6. Identify skill candidates with generation-ready detail
 7. Configure agents (when the mechanism calls for them)
 8. Define Evaluation Criteria — test scenarios and scoring dimensions for Step 5
-9. Generate the AI Building Block Spec (with "Integration Research Needed" section — availability research is deferred to Build)
+9. Generate the Design Spec (with "Integration Research Needed" section — availability research is deferred to Build)
 10. **Spec Approval Gate** — present the spec for explicit user approval. Do NOT proceed to Build without approval. Loop if changes are requested. After approval, prompt the user to exit plan mode.
 
 **Reads:** `outputs/[name]-definition.md`
-**Produces:** `outputs/[name]-building-block-spec.md`
+**Produces:** `outputs/[name]-design-spec.md`
 
 After the spec is approved, tell the user you're moving to Step 4 and proceed automatically.
 
 ### Step 4 — Build
 **Skill:** `build`
 
-Read the approved AI Building Block Spec and generate platform artifacts:
+Read the approved Design Spec and generate platform artifacts:
 1. **Build path choice** — offer "I'll build it" (model generates artifacts) or "I'll build it myself" (spec is the deliverable, skip to Run with construction guide)
 2. Present the mechanism-specific build path (only the steps that apply)
 3. Research integration availability via web search (deferred from Design)
 4. Generate platform artifacts (prompts, skills, agents, configs) — following agentskills.io format for skills and Claude Code subagent format for agents
 5. Write SOP to Notion (if available)
 
-**Reads:** `outputs/[name]-building-block-spec.md`
+**Reads:** `outputs/[name]-design-spec.md`
 **Produces:** Platform artifacts — prompts, skills, agents, configs (if model-built)
 
 After Build is complete, tell the user you're moving to Step 5 and proceed automatically.
@@ -92,7 +92,7 @@ After Build is complete, tell the user you're moving to Step 5 and proceed autom
 **Skill:** `test`
 
 Guide structured testing of the built workflow artifacts:
-1. Load the Building Block Spec (including Evaluation Criteria) and the built artifacts
+1. Load the Design Spec (including Evaluation Criteria) and the built artifacts
 2. Run a quick smoke test — one representative input, manual check
 3. Execute each test scenario from the Evaluation Criteria, scoring output on each dimension (1–5 scale)
 4. Test individual building blocks (skills, prompts) in isolation
@@ -100,7 +100,7 @@ Guide structured testing of the built workflow artifacts:
 6. Diagnose issues — map each problem to the specific building block to adjust
 7. Readiness decision — Ready (proceed to Step 6) or Not Ready (loop back to Step 4 with specific adjustments)
 
-**Reads:** `outputs/[name]-building-block-spec.md` + platform artifacts
+**Reads:** `outputs/[name]-design-spec.md` + platform artifacts
 **Produces:** `outputs/[name]-test-results.md`
 
 If ready, tell the user you're moving to Step 6 and proceed automatically. If not ready, return to Step 4 with the diagnosed issues.
@@ -112,7 +112,7 @@ Generate the Run Guide — two variants based on build path choice:
 - Model-built: setup instructions, first run, next steps
 - Manual build: construction guide with build sequence, format guidance, first run, next steps
 
-**Reads:** `outputs/[name]-building-block-spec.md` + platform artifacts + `outputs/[name]-test-results.md`
+**Reads:** `outputs/[name]-design-spec.md` + platform artifacts + `outputs/[name]-test-results.md`
 **Produces:** `outputs/[name]-run-guide.md`
 
 ### Step 7 — Improve
@@ -120,7 +120,7 @@ Generate the Run Guide — two variants based on build path choice:
 
 Evaluate a running workflow for quality, relevance, and evolution opportunities. This step is typically invoked in a separate session — weeks or months after initial deployment — not as part of the initial build flow.
 
-1. Load the Building Block Spec, Run Guide, and original Test Results (baseline scores)
+1. Load the Design Spec, Run Guide, and original Test Results (baseline scores)
 2. Interview the user about current performance and changing requirements
 3. Identify quality signals (increasing edits, new decision types, skipped steps)
 4. Assess whether the orchestration mechanism should graduate
@@ -128,7 +128,7 @@ Evaluate a running workflow for quality, relevance, and evolution opportunities.
 6. Review operationalization (for organizational workflows)
 7. Recommend: No changes / Tune / Redesign / Evolve
 
-**Reads:** `outputs/[name]-building-block-spec.md` + `outputs/[name]-run-guide.md` + `outputs/[name]-test-results.md`
+**Reads:** `outputs/[name]-design-spec.md` + `outputs/[name]-run-guide.md` + `outputs/[name]-test-results.md`
 **Produces:** `outputs/[name]-improvement-plan.md`
 
 ### Post-Build — Registry & SOP (if Notion available)
@@ -172,7 +172,7 @@ After Steps 1–6 are complete, present a summary:
 >
 > **Step 3 — Design:**
 >
-> 3. **AI Building Block Spec** — `outputs/[name]-building-block-spec.md`
+> 3. **Design Spec** — `outputs/[name]-design-spec.md`
 >
 > **Step 4 — Build:**
 >

@@ -1,7 +1,7 @@
 ---
 name: build
 description: >
-  This skill should be used when the user has an approved AI Building Block Spec and wants to
+  This skill should be used when the user has an approved Design Spec and wants to
   build platform artifacts for their AI workflow. It offers a build path choice, researches
   integration availability, generates platform-appropriate artifacts (prompts, skills, agents, configs),
   This is Step 4 (Build) of the AI Workflow Framework.
@@ -10,7 +10,7 @@ user-invocable: true
 
 # Workflow Build
 
-Take an approved AI Building Block Spec and generate platform-appropriate artifacts: prompts, skills, agents, configs, and connectors.
+Take an approved Design Spec and generate platform-appropriate artifacts: prompts, skills, agents, configs, and connectors.
 
 **Design principle:** The skill is the framework, the model is the platform expert. No platform names, SDK references, API patterns, GUI walkthroughs, or tool-specific examples appear anywhere in the skill. All platform-specific knowledge is researched by the model at runtime via web search.
 
@@ -18,11 +18,11 @@ Take an approved AI Building Block Spec and generate platform-appropriate artifa
 
 ## Workflow
 
-Artifact generation begins only after the AI Building Block Spec has been approved in the Design phase.
+Artifact generation begins only after the Design Spec has been approved in the Design phase.
 
-#### Step 1 — Load Building Block Spec
+#### Step 1 — Load Design Spec
 
-Read the AI Building Block Spec from `outputs/[workflow-name]-building-block-spec.md`. If the user specifies a file path, use that. Otherwise, look for the most recent Building Block Spec in `outputs/`.
+Read the Design Spec from `outputs/[workflow-name]-design-spec.md`. If the user specifies a file path, use that. Otherwise, look for the most recent Design Spec in `outputs/`.
 
 Confirm you've loaded the spec by summarizing: workflow name, orchestration mechanism, involvement mode, number of steps, number of skill candidates, and number of agents.
 
@@ -84,7 +84,7 @@ After presenting the mechanism-specific build path, proceed to Step 3.5 to disco
 
 Before generating artifacts, discover what creation tools are available in this session. Skills are an open standard — they live in platform-specific directories but follow the same SKILL.md format everywhere.
 
-1. **Extract building block types** from the loaded Building Block Spec — list each type and count (e.g., "3 skills, 1 agent, 1 MCP server config").
+1. **Extract building block types** from the loaded Design Spec — list each type and count (e.g., "3 skills, 1 agent, 1 MCP server config").
 
 2. **Discover available creation skills** using two tiers:
 
@@ -148,7 +148,7 @@ Before generating artifacts, resolve platform-specific format requirements and i
 
 **Tier 2 — Integration Doc Resolver**
 
-For each integration listed in the Building Block Spec's "Integration Options" section, resolve platform-specific integration documentation:
+For each integration listed in the Design Spec's "Integration Options" section, resolve platform-specific integration documentation:
 
 1. **Read `integration-registries`** from the cached registry JSON. This section catalogs known sources for integration documentation (e.g., MCP registry, platform marketplaces, connector catalogs).
 
@@ -172,7 +172,7 @@ Before generating artifacts:
 
 #### Step 5 — Integration Research
 
-Read the "Integration Options" section from the loaded Building Block Spec. This section already identifies each integration, its category (built-in, available with setup, possible with code, manual), and source URLs discovered during the Design phase.
+Read the "Integration Options" section from the loaded Design Spec. This section already identifies each integration, its category (built-in, available with setup, possible with code, manual), and source URLs discovered during the Design phase.
 
 **Use the carried-forward URLs as starting points.** The Design phase's Integration Discovery already answered "what's available?" — the focus here is "how do I connect it on the user's platform?"
 
@@ -216,10 +216,10 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
   **If a creation skill was matched for this block type:**
 
   1. Invoke it via the Skill tool, passing:
-     - The building block's full spec from the Building Block Spec (name, purpose, inputs, outputs, decision logic, failure modes, which workflow steps it covers)
+     - The building block's full spec from the Design Spec (name, purpose, inputs, outputs, decision logic, failure modes, which workflow steps it covers)
      - The artifact format requirements resolved in Step 3.6 (or the fallback reference if Step 3.6 did not resolve a format)
      - Whether platform-specific extensions should be applied (based on Architecture Decisions)
-     - This context: "This building block spec comes from an approved AI Building Block Spec (AI Workflow Framework, Step 3 Design). The intent, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."
+     - This context: "This building block comes from an approved Design Spec (AI Workflow Framework, Step 3 Design). The intent, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."
   2. Let the creation skill run its full workflow. Do not skip or abbreviate any stage.
   3. After completion, move to the next building block. Later blocks may reference earlier ones.
 
@@ -237,11 +237,11 @@ After completing Build, tell the user: "To test the workflow, run the `test` ski
 
 ### Platform Artifacts
 
-Prompts, skills, agents, orchestration configs, and connector setups in whatever format is appropriate to the user's chosen platform. Generated by the model based on the Building Block Spec and Architecture Decisions. For code-mode platforms, these are source files; for guided-mode platforms, these are step-by-step GUI instruction documents. For building blocks with a matched creation skill (discovered at runtime in Step 3.5), artifacts are built by delegating to that skill's full workflow. For building blocks without a matched creation skill, artifacts are generated inline using the format resolved from the platform registry in Step 3.6 (falling back to `references/skill-spec.md` for skills, `references/agent-spec.md` for Claude Code agents, or web search for other platforms).
+Prompts, skills, agents, orchestration configs, and connector setups in whatever format is appropriate to the user's chosen platform. Generated by the model based on the Design Spec and Architecture Decisions. For code-mode platforms, these are source files; for guided-mode platforms, these are step-by-step GUI instruction documents. For building blocks with a matched creation skill (discovered at runtime in Step 3.5), artifacts are built by delegating to that skill's full workflow. For building blocks without a matched creation skill, artifacts are generated inline using the format resolved from the platform registry in Step 3.6 (falling back to `references/skill-spec.md` for skills, `references/agent-spec.md` for Claude Code agents, or web search for other platforms).
 
 ## Guidelines
 
 - Use plain language; avoid jargon unless the user introduced it
 - After generating platform artifacts, summarize what was produced and where each artifact was saved
-- Do not start Build without a loaded and approved Building Block Spec
+- Do not start Build without a loaded and approved Design Spec
 - Web search is required for integration research and platform documentation verification
