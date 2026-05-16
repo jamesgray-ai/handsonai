@@ -31,7 +31,7 @@ The name now says what it is.
 - **URL path**: `/business-first-ai-framework/` → `/ai-workflow-framework/`.
 - **Framework agent**: renamed from `framework-orchestrator` to `framework-agent` for consistency. If you're on manual install, download the new `framework-agent.zip` from the latest GitHub release.
 - **Release artifact**: the GitHub release now bundles the framework agent as well as the skills, so manual-install users on ChatGPT, Gemini, M365 Copilot, and Cursor can grab the agent the same way they grab skills.
-- **Plugin version**: bumped to `v2.0.0` (MAJOR — the agent rename is a breaking change for anyone referencing the old `framework-orchestrator` identifier in scripts or cron jobs). If you call the agent by name anywhere, update it to `framework-agent`.
+- **Plugin version**: bumped to `v3.0.0` (MAJOR — the agent rename is a breaking change for anyone referencing the old `framework-orchestrator` identifier in scripts or cron jobs). If you call the agent by name anywhere, update it to `framework-agent`.
 
 ## Do I need to do anything?
 
