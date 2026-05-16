@@ -31,5 +31,5 @@ Install a plugin from a marketplace, or drop skill folders into `.claude/skills/
 ## Related
 
 - [Skills building block](/agentic-building-blocks/skills/) — what skills are and how they work
-- [Business-First AI Framework skills setup](/business-first-ai-framework/skills/) — step-by-step setup for the seven framework skills
+- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the seven framework skills
 - [Discover Your Best Claude Skills](/platforms/claude/skills/skills-discovery-meta-prompt/) — find your highest-value skill candidates

@@ -4,7 +4,7 @@ description: >
   Evaluate a running AI workflow for quality, relevance, and evolution opportunities.
   Use when the user wants to review how a deployed workflow is performing, check if it needs
   tuning, or assess whether it should graduate to a more capable orchestration mechanism.
-  This is Step 7 (Improve) of the Business-First AI Framework.
+  This is Step 7 (Improve) of the AI Workflow Framework.
 user-invocable: true
 ---
 

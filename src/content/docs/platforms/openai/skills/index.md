@@ -29,4 +29,4 @@ OpenAI Codex reads skill folders from your project root. The same `SKILL.md` ope
 ## Related
 
 - [Skills building block](/agentic-building-blocks/skills/) — what skills are and how they work across platforms
-- [Business-First AI Framework skills setup](/business-first-ai-framework/skills/) — step-by-step setup for the seven framework skills on OpenAI Codex and ChatGPT
+- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the seven framework skills on OpenAI Codex and ChatGPT

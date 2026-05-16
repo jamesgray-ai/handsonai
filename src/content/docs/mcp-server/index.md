@@ -177,7 +177,7 @@ Other prompts to try once the connector is working:
 
 - "How do I set up Claude Code?"
 - "Search the playbook for prompt engineering techniques"
-- "What's the Business-First AI Framework?"
+- "What's the AI Workflow Framework?"
 - "Show me the automation use case"
 
 The AI will use the playbook MCP tools to pull relevant content and answer with playbook knowledge.

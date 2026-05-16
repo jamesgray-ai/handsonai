@@ -11,8 +11,8 @@ Out of the box, Claude is a generalist. It can write, research, and analyze — 
 
 **The result:** Instead of writing long prompts to explain what you want, you describe your goal in plain language and Claude applies the right expertise automatically.
 
-:::tip[Setting up Business-First AI Framework skills?]
-Start at the [Set Up the Skills](/business-first-ai-framework/skills/) page for step-by-step setup instructions for your specific platform — Claude Chat, Cowork, Code, ChatGPT, Gemini, and M365 Copilot. This page covers advanced plugin management for the Claude ecosystem.
+:::tip[Setting up AI Workflow Framework skills?]
+Start at the [Set Up the Skills](/ai-workflow-framework/skills/) page for step-by-step setup instructions for your specific platform — Claude Chat, Cowork, Code, ChatGPT, Gemini, and M365 Copilot. This page covers advanced plugin management for the Claude ecosystem.
 :::
 
 :::tip[Looking for non-Claude platforms?]
@@ -25,7 +25,7 @@ For Cursor, Codex CLI, Gemini CLI, VS Code Copilot, or any LLM, see
 
 The [plugin format](https://code.claude.com/docs/en/plugins#plugin-structure-overview) supports agents, skills, commands, hooks, and MCP server connections. The Hands-on AI plugin currently provides:
 
-- **Agents** — Expert personalities that Claude activates automatically based on your request. The `framework-orchestrator` agent walks you through the full Business-First AI Framework.
+- **Agents** — Expert personalities that Claude activates automatically based on your request. The `framework-agent` agent walks you through the full AI Workflow Framework.
 - **Skills** — Step-by-step workflows (an instruction file plus optional reference material) that teach Claude specific tasks. A skill might encode a methodology step, a documentation template, or a spec-writing pattern.
 - **Commands** — Slash commands that trigger specific actions (like `/handsonai:analyze` for the Analyze step).
 - **Hooks** — Automations that run in response to events (e.g., running a linter after every file edit).
@@ -40,7 +40,7 @@ The Hands-on AI plugin currently focuses on **agents** and **skills**. As it gro
 | What they are | Expert personalities (orchestrator, methodology guide) | Step-by-step workflows with instructions + reference material |
 | How they activate | Claude automatically picks the right one based on your request | Automatically when relevant, or type `/handsonai:skill-name` |
 | Where they work | Claude Code and Cowork | Claude Code, Claude.ai (upload as ZIP), and Cowork |
-| Example | "Walk me through the Business-First AI Framework" activates `framework-orchestrator` | "Name this workflow" loads `naming-workflows` conventions |
+| Example | "Walk me through the AI Workflow Framework" activates `framework-agent` | "Name this workflow" loads `naming-workflows` conventions |
 
 ## Transparency & Security
 
@@ -98,11 +98,11 @@ Describe what you need. Claude Code matches your request to the agent automatica
 **Examples:**
 
 ```
-"Walk me through the Business-First AI Framework for this workflow"
-→ framework-orchestrator activates
+"Walk me through the AI Workflow Framework for this workflow"
+→ framework-agent activates
 
 "Help me apply AI to my client onboarding process"
-→ framework-orchestrator activates and starts at Analyze
+→ framework-agent activates and starts at Analyze
 ```
 
 Claude Code shows which agent it selected at the top of the response. You can list all available agents with `/agents`.
@@ -214,7 +214,7 @@ Open a new chat and describe your need. Claude automatically uses the skill when
 
 ### Walkthrough: `analyze` in Claude.ai
 
-The `analyze` skill is the entry point to the Business-First AI Framework — find AI opportunities in your work.
+The `analyze` skill is the entry point to the AI Workflow Framework — find AI opportunities in your work.
 
 - **Path:** `~/.claude/plugins/marketplaces/handsonai/plugins/handsonai/skills/analyze/`
 - **Contents:** `SKILL.md` and reference files
@@ -485,7 +485,7 @@ Restart your Claude Code session. Then verify the plugin is installed:
 /plugin list
 ```
 
-If the plugin appears but the agent doesn't activate, try being more explicit in your prompt — for example, "Walk me through the Business-First AI Framework for my client onboarding process" rather than just "help me with onboarding."
+If the plugin appears but the agent doesn't activate, try being more explicit in your prompt — for example, "Walk me through the AI Workflow Framework for my client onboarding process" rather than just "help me with onboarding."
 
 ### "Skill not working in Claude.ai"
 

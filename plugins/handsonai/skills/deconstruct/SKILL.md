@@ -5,7 +5,7 @@ description: >
   process, define an outcome for an agent system, or deeply analyze a workflow's steps, decisions,
   data flows, and failure modes. Interactively decomposes a workflow into a structured Workflow
   Definition using either the 6-question framework (step-decomposed) or an outcome-driven interview
-  (for autonomous agent systems). This is Step 2 of the Business-First AI Framework.
+  (for autonomous agent systems). This is Step 2 of the AI Workflow Framework.
 user-invocable: true
 ---
 

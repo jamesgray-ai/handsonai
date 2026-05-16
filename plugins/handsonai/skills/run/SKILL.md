@@ -4,7 +4,7 @@ description: >
   This skill should be used when the user has built and tested workflow artifacts and wants a Run Guide
   for deploying and operating their AI workflow. It generates a plain-language guide
   with setup steps, deployment patterns, and sharing instructions — tailored to the user's platform and
-  build path. This is Step 6 (Run) of the Business-First AI Framework.
+  build path. This is Step 6 (Run) of the AI Workflow Framework.
 user-invocable: true
 ---
 

@@ -27,7 +27,7 @@ Your AI platform is the reasoning engine that powers every workflow you build �
 | **Personalization** | Custom instructions that tell the AI about your role, industry, and style | Every conversation starts with context — you stop re-introducing yourself and answers arrive tailored from message one |
 | **Memory** | The AI remembers facts about you and your work across conversations | Your AI becomes a returning assistant who knows your projects, not a stranger every time you open a new chat |
 | **Connections** | Links your AI to apps you already use (Google Docs, Slack, Notion, GitHub, etc.) | AI can read and write inside your real systems — no more copy-paste between tools |
-| **Hands-on AI Skills** | Skills that walk you through the [Business-First AI Framework](../business-first-ai-framework/skills/) for building AI workflows | Learn how to go from "I think AI could help with this" to a shipped, improving workflow — with step-by-step guidance at every stage |
+| **Hands-on AI Skills** | Skills that walk you through the [AI Workflow Framework](../ai-workflow-framework/skills/) for building AI workflows | Learn how to go from "I think AI could help with this" to a shipped, improving workflow — with step-by-step guidance at every stage |
 | **Hands-on AI Knowledge Base** | The Hands-on AI playbook, connected to your AI tool as a live reference | Ask questions and get answers right inside the AI tool where you're already doing your work — no switching tabs or searching the website |
 
 ### Part 2 — For Power Users
@@ -51,7 +51,7 @@ Start with Part 1 and complete the steps in order. Part 2 is optional — pick a
 | # | Tool | Time | Status | Why it matters |
 |---|---|---|---|---|
 | 1 | AI Platform (see [Platforms](../platforms/)) | ~45 min | Required | The reasoning engine that powers every workflow — one account is enough |
-| 2 | [Hands-on AI Skills](../business-first-ai-framework/skills/) | ~10 min | Recommended | Step-by-step guidance for building AI workflows, right inside your AI tool |
+| 2 | [Hands-on AI Skills](../ai-workflow-framework/skills/) | ~10 min | Recommended | Step-by-step guidance for building AI workflows, right inside your AI tool |
 | 3 | [Hands-on AI Knowledge Base](../mcp-server/) | ~5 min | Recommended | Ask the Hands-on AI playbook questions without leaving your AI tool |
 
 ### Part 2 — For Power Users (~70 min total)

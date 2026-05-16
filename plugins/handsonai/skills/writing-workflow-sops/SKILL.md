@@ -22,7 +22,7 @@ Every workflow has two independent characteristics that determine how its SOP sh
 
 ### Axis 2 — Autonomy Level (where on the spectrum)
 
-The Business-First AI Framework defines a single autonomy spectrum used at both the per-step and whole-workflow level:
+The AI Workflow Framework defines a single autonomy spectrum used at both the per-step and whole-workflow level:
 
 ```
 Deterministic ———————— Guided ———————— Autonomous

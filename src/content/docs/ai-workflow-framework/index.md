@@ -1,9 +1,9 @@
 ---
-title: Business-First AI Framework
+title: AI Workflow Framework
 description: A seven-step methodology — Analyze, Deconstruct, Design, Build, Test, Run, Improve — for identifying AI opportunities in your workflows, breaking them into building blocks, and constructing working AI-powered workflows.
 ---## The Problem
 
-Most AI adoption starts with the technology — "we have ChatGPT, where should we use it?" This leads to shallow adoption and misses the workflows where AI creates real leverage. And even when people identify the right workflow, there's a gap between the idea and making it real — without a repeatable process to follow, they get stuck and stop. The Business-First AI Framework closes that gap: audit your workflows, identify where AI creates the most value, deconstruct those workflows into building blocks, design the architecture, build the components, test them, deploy, and improve over time.
+Most AI adoption starts with the technology — "we have ChatGPT, where should we use it?" This leads to shallow adoption and misses the workflows where AI creates real leverage. And even when people identify the right workflow, there's a gap between the idea and making it real — without a repeatable process to follow, they get stuck and stop. The AI Workflow Framework closes that gap: audit your workflows, identify where AI creates the most value, deconstruct those workflows into building blocks, design the architecture, build the components, test them, deploy, and improve over time.
 
 ## How It Works
 
@@ -23,7 +23,7 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 
 </div>
 
-**Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude Code, Claude Cowork, Claude.ai, M365 Copilot (Cowork), Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `business-first-ai`.
+**Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude Code, Claude Cowork, Claude.ai, M365 Copilot (Cowork), Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `handsonai`.
 
 ## The Framework
 
@@ -211,7 +211,7 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 :::tip[Get guided help]
 
 - **MCP Server** — [Connect the MCP server](../mcp-server/) and ask your AI to walk you through the framework step by step.
-- **Skills** — Install the [Business-First AI skills](skills/) for interactive guidance through all seven steps.
+- **Skills** — Install the [AI Workflow Framework skills](skills/) for interactive guidance through all seven steps.
 :::
 1. **[Analyze Workflows](analyze/)** — identify your best AI candidates
 2. **[Deconstruct the workflow](deconstruct/)** — break it into discrete steps

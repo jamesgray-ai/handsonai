@@ -2,7 +2,7 @@
 
 Everything you need to design, build, and document AI workflows.
 
-The Business-First AI Framework as executable Claude Code skills, plus an AI registry toolkit and feature-spec toolkit. One install, one namespace, one mental model.
+The AI Workflow Framework as executable Claude Code skills, plus an AI registry toolkit and feature-spec toolkit. One install, one namespace, one mental model.
 
 ## Install
 
@@ -17,9 +17,9 @@ The Business-First AI Framework as executable Claude Code skills, plus an AI reg
 
 | Agent | Description |
 |-------|-------------|
-| `framework-orchestrator` | Walks you through the full 7-step Business-First AI Framework end-to-end |
+| `framework-agent` | Walks you through the full 7-step AI Workflow Framework end-to-end |
 
-### Skills — Business-First AI Framework
+### Skills — AI Workflow Framework
 
 | Skill | Description |
 |-------|-------------|
@@ -60,7 +60,7 @@ The Business-First AI Framework as executable Claude Code skills, plus an AI reg
 Or run the agent and let it walk you through the whole flow:
 
 ```
-@framework-orchestrator
+@framework-agent
 ```
 
 Outputs are saved to the `outputs/` folder.

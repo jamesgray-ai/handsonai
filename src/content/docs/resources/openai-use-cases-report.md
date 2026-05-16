@@ -18,7 +18,7 @@ This report is the foundation for the playbook's [six use case primitives](../..
 
 ## How the Playbook Uses This
 
-The six primitives from this report are the backbone of the playbook's [Use Cases](../../use-cases/) section. Each primitive has its own page with platform-agnostic examples mapped to [Agentic Building Blocks](../../agentic-building-blocks/). The report's discovery methodology also influenced the [Analyze Workflows](../../business-first-ai-framework/analyze/) step of the Business-First AI Framework.
+The six primitives from this report are the backbone of the playbook's [Use Cases](../../use-cases/) section. Each primitive has its own page with platform-agnostic examples mapped to [Agentic Building Blocks](../../agentic-building-blocks/). The report's discovery methodology also influenced the [Analyze Workflows](../../ai-workflow-framework/analyze/) step of the AI Workflow Framework.
 
 ## Access
 

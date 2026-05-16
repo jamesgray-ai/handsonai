@@ -57,7 +57,7 @@ M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After ad
 
 Up to 20 custom skills, 1 MB per `SKILL.md`.
 
-[→ Full Cowork skills setup walkthrough](../../../business-first-ai-framework/skills/) · [→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform)
+[→ Full Cowork skills setup walkthrough](../../../ai-workflow-framework/skills/) · [→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform)
 
 ---
 

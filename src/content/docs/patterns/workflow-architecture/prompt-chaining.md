@@ -55,4 +55,4 @@ A company needs product launch copy translated into multiple languages with cons
 - [Augmented LLM](../augmented-llm/) — the foundation this pattern builds on
 - [Routing](../routing/) — another structured workflow for branching paths
 - [Evaluator-Optimizer](../evaluator-optimizer/) — iterative refinement with feedback loops
-- [Design Your AI Workflow](../../../business-first-ai-framework/design/)
+- [Design Your AI Workflow](../../../ai-workflow-framework/design/)

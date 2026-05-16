@@ -8,7 +8,7 @@ description: How to add content — questions, how-to guides, topics, and patter
 | Section | Location | Purpose |
 |---------|----------|---------|
 | Agentic Building Blocks | `agentic-building-blocks/` | The AI building blocks (Model, Prompts, Context, Projects, Memory, Skills, Agents, MCP, API, SDK, CLI) |
-| Business-First AI Framework | `business-first-ai-framework/` | Seven-step methodology (Analyze, Deconstruct, Design, Build, Test, Run, Improve) |
+| AI Workflow Framework | `ai-workflow-framework/` | Seven-step methodology (Analyze, Deconstruct, Design, Build, Test, Run, Improve) |
 | Use Cases | `use-cases/` | Six use case primitives (Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, Automation) |
 | Platforms | `platforms/` | Platform-specific content (Claude, OpenAI, Gemini, M365 Copilot) |
 | Builder Setup | `builder-setup/` | Tool setup and installation guides |

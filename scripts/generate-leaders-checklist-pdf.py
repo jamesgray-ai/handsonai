@@ -265,7 +265,7 @@ def build_pdf():
         [
             "Open the Notion AI Registry template (link on setup checklist page) → click Duplicate.",
             "In Claude Code: <font face='Courier' size='9'>/plugin marketplace add jamesgray-ai/handsonai-plugins</font>",
-            "Then: <font face='Courier' size='9'>/plugin install business-first-ai@handsonai</font>",
+            "Then: <font face='Courier' size='9'>/plugin install handsonai@handsonai</font>",
         ],
         [
             "Four databases visible in Notion workspace",

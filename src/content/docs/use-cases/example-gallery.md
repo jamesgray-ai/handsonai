@@ -68,6 +68,6 @@ These three prompts work in any AI tool that supports a chat interface — Claud
 
 ## What's in the production plugin?
 
-The [`handsonai` plugin](/use-the-playbook/build/handsonai/) ships only broadly applicable, customizable tools: the 7-step Business-First AI Framework, the AI Registry skills, and feature-spec writing skills. Everything else lives here as study material.
+The [`handsonai` plugin](/use-the-playbook/build/handsonai/) ships only broadly applicable, customizable tools: the 7-step AI Workflow Framework, the AI Registry skills, and feature-spec writing skills. Everything else lives here as study material.
 
 If you want one of these gallery components installed locally as an agent or skill, copy the file from GitHub into your own plugin or your `~/.claude/agents/` folder.

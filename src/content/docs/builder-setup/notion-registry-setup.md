@@ -182,8 +182,8 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 
 - **Add your first process** — Start with one business domain you know well
 - **Document existing workflows** — Capture what you're already doing before adding AI
-- **Find AI opportunities** — Use the [Analyze AI Workflow Opportunities](../../business-first-ai-framework/analyze/) guide to identify where AI can add value
-- **Deconstruct workflows** — Break workflows into AI building blocks with the [Deconstruct Workflows](../../business-first-ai-framework/deconstruct/) guide
+- **Find AI opportunities** — Use the [Analyze AI Workflow Opportunities](../../ai-workflow-framework/analyze/) guide to identify where AI can add value
+- **Deconstruct workflows** — Break workflows into AI building blocks with the [Deconstruct Workflows](../../ai-workflow-framework/deconstruct/) guide
 - **Install the plugin** — Set up the [AI Registry plugin](../../use-the-playbook/build/#ai-registry) to automate registry updates
 - **Explore other setup guides** — See [Platforms](../../platforms/) for platform-specific CLI tools
 

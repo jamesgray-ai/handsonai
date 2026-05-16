@@ -77,7 +77,7 @@ Most workflows start as a single Augmented LLM or Prompt Chain. Only add complex
 :::
 ## How These Patterns Relate to the Framework
 
-The [Design](../../business-first-ai-framework/design/) phase of the Business-First AI Framework first assesses the workflow's autonomy level (Deterministic → Guided → Autonomous), then recommends an orchestration mechanism (Prompt → Skill-Powered Prompt → Agent). These seven architecture patterns provide the detailed implementation blueprints within that spectrum:
+The [Design](../../ai-workflow-framework/design/) phase of the AI Workflow Framework first assesses the workflow's autonomy level (Deterministic → Guided → Autonomous), then recommends an orchestration mechanism (Prompt → Skill-Powered Prompt → Agent). These seven architecture patterns provide the detailed implementation blueprints within that spectrum:
 
 | Orchestration Mechanism | Architecture Patterns |
 |------------------------|----------------------|
@@ -85,7 +85,7 @@ The [Design](../../business-first-ai-framework/design/) phase of the Business-Fi
 | Skill-Powered Prompt | Prompt Chaining, Routing |
 | Agent | Parallelization, Orchestrator-Workers, Evaluator-Optimizer, Autonomous Agents |
 
-The [AI Workflow Design Matrix](../../business-first-ai-framework/workflow-design-matrix/) adds a second dimension — **human involvement** (Augmented vs. Automated) — to the autonomy spectrum. Architecture patterns map to the matrix's autonomy axis: Deterministic workflows typically use Augmented LLM or Prompt Chaining, Guided workflows use Routing or Evaluator-Optimizer, and Autonomous workflows use Orchestrator-Workers or Autonomous Agents.
+The [AI Workflow Design Matrix](../../ai-workflow-framework/workflow-design-matrix/) adds a second dimension — **human involvement** (Augmented vs. Automated) — to the autonomy spectrum. Architecture patterns map to the matrix's autonomy axis: Deterministic workflows typically use Augmented LLM or Prompt Chaining, Guided workflows use Routing or Evaluator-Optimizer, and Autonomous workflows use Orchestrator-Workers or Autonomous Agents.
 
 ## Credit
 
@@ -93,7 +93,7 @@ The [AI Workflow Design Matrix](../../business-first-ai-framework/workflow-desig
 
 ## Related
 
-- [Design Your AI Workflow](../../business-first-ai-framework/design/) — assess autonomy and choose an orchestration mechanism for your workflow
+- [Design Your AI Workflow](../../ai-workflow-framework/design/) — assess autonomy and choose an orchestration mechanism for your workflow
 - [Agents](../../agentic-building-blocks/agents/) — concepts for building AI agents
 - [Agent Capability Patterns](../../agentic-building-blocks/agents/capability-patterns/) — behavioral patterns (reflection, tool use, planning, etc.)
 - [Agent Orchestration Patterns](../../agentic-building-blocks/agents/orchestration-patterns/) — multi-agent coordination topologies (sequential, parallel, hierarchical, etc.)

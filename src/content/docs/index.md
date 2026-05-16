@@ -16,7 +16,7 @@ Practical guides, patterns, ready-made tools, and direct answers to move you fro
 
 :::tip[New here? Start here]
 
-**Begin with the [Business-First AI Framework](business-first-ai-framework/)** — a seven-step method for applying AI to your work: Analyze, Deconstruct, Design, Build, Test, Run, Improve. Then explore [Building Blocks](agentic-building-blocks/), [Use Cases](use-cases/), or [Tools & Resources](use-the-playbook/).
+**Begin with the [AI Workflow Framework](ai-workflow-framework/)** — a seven-step method for applying AI to your work: Analyze, Deconstruct, Design, Build, Test, Run, Improve. Then explore [Building Blocks](agentic-building-blocks/), [Use Cases](use-cases/), or [Tools & Resources](use-the-playbook/).
 
 **Use the playbook where you work** — [connect the MCP server](mcp-server/) to get instant answers inside Claude, ChatGPT, Cursor, or any MCP-compatible tool.
 

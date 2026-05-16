@@ -10,7 +10,7 @@ title: "How do I find workflows worth applying AI to?"
 
 ## The Full Answer
 
-Most people adopt AI reactively — they reach for ChatGPT when stuck on an email or ask Claude to summarize a document. That's useful, but it misses the bigger picture. The [Business-First AI Framework](../..//) provides a structured seven-step approach to this question — discover where AI fits, deconstruct those workflows into building blocks, then build.
+Most people adopt AI reactively — they reach for ChatGPT when stuck on an email or ask Claude to summarize a document. That's useful, but it misses the bigger picture. The [AI Workflow Framework](../..//) provides a structured seven-step approach to this question — discover where AI fits, deconstruct those workflows into building blocks, then build.
 
 A proactive, structured audit of your workflows will reveal opportunities you'd never notice in the moment: repetitive tasks that could run on autopilot, decisions that benefit from an AI collaborator, and multi-step processes that could be orchestrated end-to-end. You can approach this from two angles: the **individual lens** (what do I personally do that's repetitive or time-consuming?) and the **organizational lens** (what value chain processes could AI improve across my business?). Both are valid starting points — the individual lens is often easier, while the organizational lens surfaces higher-impact strategic opportunities.
 

@@ -5,7 +5,7 @@ description: >
   run a workflow audit, find automation candidates, or says "where can AI help".
   Scans memory and conversation history, interviews the user about their work,
   then produces a prioritized opportunity report with structured workflow
-  candidates ready for the Deconstruct step. This is Step 1 of the Business-First AI Framework.
+  candidates ready for the Deconstruct step. This is Step 1 of the AI Workflow Framework.
 user-invocable: true
 ---
 

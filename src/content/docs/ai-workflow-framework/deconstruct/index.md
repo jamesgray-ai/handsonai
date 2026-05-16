@@ -23,11 +23,11 @@ The skill walks you through that deconstruction interactively. You provide the b
 
 The context needs and failure modes captured here directly inform design decisions in the next step — they tell you what context to create, what tools to connect, and where human review gates are needed.
 
-This builds directly on the concepts of workflow deconstruction. If terms like the "6-question framework" or "AI building blocks" are new to you, review the [Key Concepts section of the Business-First AI Framework](../#key-concepts) for quick definitions before starting.
+This builds directly on the concepts of workflow deconstruction. If terms like the "6-question framework" or "AI building blocks" are new to you, review the [Key Concepts section of the AI Workflow Framework](../#key-concepts) for quick definitions before starting.
 
 ## How to Use This
 
-This step is facilitated by the **`deconstruct`** Business-First AI Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+This step is facilitated by the **`deconstruct`** AI Workflow Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
 
 **Start with this prompt:**
 
@@ -166,6 +166,6 @@ If you're using the [AI Registry](../../use-the-playbook/build/ai-registry/) Not
 
 - **Previous step:** Not sure which workflow to deconstruct? Start with [Analyze Workflows](../analyze/) (Step 1) to identify your best candidates.
 - **Next step:** Ready to design? Go to [Design Your AI Workflow](../design/) (Step 3) — assess autonomy, choose an orchestration mechanism, and map building blocks.
-- [Business-First AI Framework](../) — the full seven-step methodology
+- [AI Workflow Framework](../) — the full seven-step methodology
 - [Prompts](../../agentic-building-blocks/prompts/)
 - [Agents](../../agentic-building-blocks/agents/)

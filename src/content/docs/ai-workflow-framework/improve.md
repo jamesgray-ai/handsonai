@@ -1,7 +1,7 @@
 ---
 title: "Step 7: Improve"
 description: Evaluate a running AI workflow for quality, relevance, and evolution opportunities — periodic review, regression evaluation, graduation assessment, and decision framework.
----> **Part of:** [Business-First AI Framework](../)
+---> **Part of:** [AI Workflow Framework](../)
 
 ## The Problem
 
@@ -97,7 +97,7 @@ An **Improvement Plan** saved to `outputs/[workflow-name]-improvement-plan.md` t
 
 ## How to Use This
 
-This step is facilitated by the **`improve`** Business-First AI Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
+This step is facilitated by the **`improve`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
 **Start with this prompt:**
 
