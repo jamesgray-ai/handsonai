@@ -26,7 +26,7 @@ The seven-step methodology for going from a workflow idea to a deployed AI syste
 
 | Component | What it does |
 |---|---|
-| `framework-agent` agent | Walks you through the full 7-step framework end-to-end |
+| [`framework-agent`](handsonai.md#framework-agent) agent | Walks you through the full 7-step framework end-to-end |
 | `analyze` skill | Audit your workflows to find where AI creates the most value |
 | `deconstruct` skill | Break a workflow into structured steps using the 6-question framework |
 | `design` skill | Design the AI workflow architecture and produce an AI Building Block Spec |
