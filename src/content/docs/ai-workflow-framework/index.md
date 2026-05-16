@@ -55,6 +55,7 @@ How you enter depends on what you're starting with:
 - **You know the process.** You can describe the steps, decisions, and handoffs — the model interviews you to surface hidden details and capture it all in a structured format. This is the most common path for workflows you already do manually.
 - **You have a problem, not a process.** You know what's broken or slow, but there's no defined workflow yet. The model proposes a candidate workflow for you to react to, then decomposes it collaboratively.
 - **You know the outcome, not the process.** You know what you want produced but don't want to prescribe how — the model captures your goal, constraints, quality criteria, and what the agent system needs to be good at, producing an outcome-driven definition that feeds into agent-oriented design.
+- **Compose** — you already have skills and/or sub-agents and know the workflow; the framework writes the orchestration prompt directly inside `/deconstruct` (no Workflow Definition, no Design Spec, no `/build` — the prompt is the artifact).
 
 For the first two paths, the model uses the **six-question framework** to break down each step:
 

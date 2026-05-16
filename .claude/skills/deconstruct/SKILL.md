@@ -3,15 +3,17 @@ name: deconstruct
 description: >
   This skill should be used when the user wants to deconstruct a workflow, break down a business
   process, define an outcome for an agent system, or deeply analyze a workflow's steps, decisions,
-  data flows, and failure modes. Interactively decomposes a workflow into a structured Workflow
-  Definition using either the 6-question framework (step-decomposed) or an outcome-driven interview
-  (for autonomous agent systems). This is Step 2 of the AI Workflow Framework.
+  data flows, and failure modes. Supports four entry paths: step-decomposed (6-question framework),
+  problem-first, outcome-driven (for autonomous agent systems), or Compose — a lean three-turn flow
+  that outputs an orchestration prompt directly when the user already has the skills/sub-agents in
+  place. The first three paths produce a structured Workflow Definition; Compose produces only an
+  orchestration prompt. This is Step 2 of the AI Workflow Framework.
 user-invocable: true
 ---
 
 # Workflow Deconstruction
 
-Interactively discover a business workflow and produce a structured Workflow Definition — either step-decomposed (using the 6-question framework) or outcome-driven (capturing goal, constraints, and capability domains for agent systems).
+Interactively discover a business workflow via one of four paths. The step-decomposed (6-question framework), problem-first, and outcome-driven paths all produce a structured Workflow Definition. The Compose path is the lean alternative: when the user already has the skills or sub-agents their workflow needs and can describe each step, Compose skips the deep dive and outputs an orchestration prompt directly in three turns — no Workflow Definition file.
 
 ## Workflow
 
@@ -24,12 +26,94 @@ Interactively discover a business workflow and produce a structured Workflow Def
    > "How would you like to approach this?
    > (a) **Deconstruct a known process** — You can describe the steps and I'll interview you to surface hidden details
    > (b) **Start from a problem** — You know what's broken; I'll propose a workflow and we refine it together
-   > (c) **Define an outcome** — You know what you want produced but want an agent system to figure out the approach"
+   > (c) **Define an outcome** — You know what you want produced but want an agent system to figure out the approach
+   > (d) **Compose** — You already have skills and/or sub-agents and know the workflow; I'll write the orchestration prompt directly"
 
    **After the user chooses, gather scenario details based on their path:**
    - **Option (a)**: Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If no lens was established, determine it: individual tasks (one person's repetitive work) = Individual lens; multi-role or business-objective processes = Organizational lens. If not obvious from context, ask. Proceed to Step 2 (scope check) → Step 4 (deep dive with 6-question framework).
    - **Option (b)**: Ask the user to describe what's broken. Propose a candidate workflow for them to react to. Then recommend whether step-decomposed or outcome-driven fits better, with reasoning. User confirms or overrides — honor their choice either way. If step-decomposed, proceed to Step 2 → Step 4. If outcome-driven, proceed to Step 2 → Step 4-OD.
    - **Option (c)**: Ask the user to describe the outcome they want — what should the agent system produce, what triggers the need, and who consumes the output. One question at a time. Proceed to Step 2 (scope check) → Step 4-OD (outcome-driven interview).
+   - **Option (d) — Compose**: Proceed to the **Compose three-turn flow** (see Step 1c below). Do NOT call Step 2 (scope check) or Step 4 (deep dive); Compose handles its own lean intake inline and writes no Workflow Definition file.
+
+**Step 1c — Compose three-turn flow (only reached from Option d):**
+
+The Compose path is the **lean** path. No formal pre-flight, no Workflow Definition file, no `/design` invocation. The conversation captures what's needed, confirms it back, and outputs an orchestration prompt the student can run.
+
+**Turn 1 — Intake.** Ask the student for everything in one message:
+
+> "Tell me four things in one message:
+> 1. **Workflow name and outcome** — what does this workflow produce?
+> 2. **Where your components live** — Claude account (Claude.ai + Cowork), Claude Code, ChatGPT, or a mix?
+> 3. **The steps** — numbered, one line each.
+> 4. **Which component runs each step** — name and type (skill or sub-agent)."
+
+If the student answers Turn 1 incompletely, ask only for the missing pieces in Turn 2 — do not restart.
+
+**Turn 2 — Confirm + autonomy/involvement.** Restate what you heard in 5–8 lines: workflow name, hosting, steps, component-to-step mapping. Use ✓ when a component clearly fits its step; flag concerns inline (vague step, missing component, suspected mismatch) and ask for a quick fix.
+
+If the workflow looks more complex than the Compose path is built for — 8+ steps, no components for half the steps, "etc." in step descriptions, or 3+ decision points the student didn't surface — say so directly and offer to switch:
+
+> "This is more involved than the Compose path is built for — [specific reason]. The Known Process path (`/deconstruct` option a) will surface the gaps before they bite. Want to switch?"
+
+Then ask the two questions that actually shape the prompt:
+
+- *"Deterministic (fixed sequence, no AI judgment) or guided (the AI scores, evaluates, or adapts between steps)?"*
+- *"Augmented (AI pauses for your input at any point) or automated (runs straight through)?"*
+
+**Turn 3 — Output the orchestration prompt.** Generate the prompt in the standard shape below and return it as a code block the student can copy. Map the autonomy + involvement answers to one of four patterns:
+
+- **Deterministic, automated** — components fire in sequence, no pauses, no AI judgment.
+- **Deterministic, augmented** — same fixed sequence with a PAUSE for student review between named steps.
+- **Guided, augmented** — scoring/evaluation/adaptation between steps, with a PAUSE for steering.
+- **Guided, automated** — same decision logic, but the AI makes the bounded calls without pausing.
+
+**Standard output shape:**
+
+~~~markdown
+---
+workflow: <Workflow Name>
+outcome: <one-sentence outcome>
+autonomy: deterministic | guided
+involvement: augmented | automated
+components:
+  - name: <name>
+    type: skill       # used in step 1
+  - name: <name>
+    type: sub-agent   # used in step 2
+---
+
+# <Workflow Name>
+
+## Intent
+<one-paragraph "what this workflow does and when to run it">
+
+## Prompt
+<the orchestration prompt body>
+~~~
+
+**Prompt-body constraints — clarity, brevity, token efficiency:**
+
+- One instruction per line where possible. Imperative voice. No filler ("please", "kindly", "make sure to").
+- No re-explanation of what the components do — components have their own descriptions.
+- No preamble or commentary. Open with the first instruction, not "In this workflow, we will…".
+- PAUSE points are uppercase and unambiguous on their own line: `PAUSE — wait for me to confirm which insights to feature.`
+- Reuse the student's own wording for inputs, outputs, and decision criteria. Avoid synthesizing new jargon.
+- Inline tone or formatting guidance only when it changes the output (e.g., "narrative tone, not bullet-heavy"). Skip aesthetics.
+
+**Component verification, hosting-aware:**
+
+- **Claude Code (local files):** Read each named component's frontmatter (SKILL.md or agent file) under `.claude/skills/` and `.claude/agents/` (plus installed plugin caches). Confirm it exists, fits the step, and isn't an obvious mismatch. Mention an alternative only if you spot a clearly stronger match in the student's local inventory.
+- **Claude account, ChatGPT, or mix:** You cannot introspect. Trust the student's mapping. Ask for clarification only if a component name sounds wrong for the step it's assigned to. If the student doesn't remember a component's name, ask them to paste their available components from wherever they're hosted.
+
+**Saving the artifact:**
+
+Tell the student to save the orchestration prompt wherever they keep prompts:
+- Claude Code users: a `prompts/<workflow-name>.md` file in their project.
+- Everyone else: a Google Doc, Notion page, Claude account project file, ChatGPT saved prompt, or plain note.
+
+Do **not** write any file to `outputs/`. The Compose path produces conversation output only.
+
+**End of Compose flow.** Do not hand off to `/design`, `/build`, `/test`, or `/run`. The student tests the workflow by running the prompt.
 
 2. **Scope check — one trigger, one deliverable** — A workflow has exactly one trigger (what kicks it off) and one deliverable (the tangible output). Test for multiple workflows by checking:
    - **Triggers**: Multiple independent starting points? (e.g., "when a lead comes in" vs. "end of each week") → separate workflows

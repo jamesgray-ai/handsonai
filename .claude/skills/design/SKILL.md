@@ -7,6 +7,7 @@ description: >
   identifies skill candidates, configures agents, and produces a Design Spec for approval.
   Supports both step-decomposed and outcome-driven Workflow Definitions.
   This is Step 3 (Design) of the AI Workflow Framework.
+  Note: the Compose entry point in /deconstruct (option d) handles its own lightweight design inline and bypasses this skill.
 user-invocable: true
 ---
 

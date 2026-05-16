@@ -91,6 +91,46 @@ When you know what you want produced but don't want to prescribe how the AI gets
 
 From there, the model continues through constraints, quality criteria, capability domains, tools/data, and human gates — building an outcome-driven Workflow Definition without decomposing into fixed steps.
 
+### Compose (option d) — for clear workflows with components ready
+
+Compose is for one specific scenario: you already have reusable building blocks (skills, sub-agents, or both) covering your workflow's steps, **and** the workflow is straightforward enough to hold in your head.
+
+Both conditions must be true. If either is missing, the Known Process path (option a) is the right call.
+
+| Use Compose when | Use Known Process when |
+|---|---|
+| You already have a skill or sub-agent for each step | You'd need to build a new component for one or more steps |
+| You can describe each step in one clear sentence | Steps are vague, branching, or you're not sure they're complete |
+| Decision points (if any) are simple and few | Multiple decision points, scoring, or context-dependent routing |
+| You just need an orchestration prompt | You need a tested workflow with a documented spec |
+
+#### How Compose works
+
+A three-turn conversation inside `/deconstruct`:
+
+1. **Intake.** You answer four things in one message: workflow name + outcome, where your components live (Claude account, Claude Code, ChatGPT, or a mix), the steps, and which component runs each step.
+2. **Confirm + autonomy.** The AI restates what it heard, flags anything off (vague steps, missing components, hidden complexity), then asks two questions that shape the prompt: deterministic or guided? augmented or automated?
+3. **Output.** The AI writes the orchestration prompt in a standard shape — frontmatter (workflow name, outcome, autonomy, involvement, components) + Intent + Prompt body. You copy it, save it wherever you keep prompts, and run it.
+
+No Workflow Definition file, no Design Spec, no `/build` or `/test` invocation. The prompt is the artifact.
+
+#### Example: Weekly Competitive Intelligence Digest
+
+A student wants a workflow that pulls insights from 3 competitor blog posts, scores them by relevance, and produces a LinkedIn post summarizing the top 2.
+
+**Turn 1** — the student answers:
+
+- Workflow: Weekly Competitive Intelligence Digest. Output: a LinkedIn post drawing from the top 2 insights.
+- Components live in: Claude account.
+- Steps: (1) extract insights from each of 3 articles; (2) score insights 1–10 on relevance; (3) pick the top 2 and draft a LinkedIn post.
+- Components: `extracting-article-insights` (skill), `competitive-relevance-scorer` (skill), `drafting-linkedin-posts` (skill).
+
+**Turn 2** — the AI confirms back, notes that step 2's scoring makes this a *guided* workflow, and asks for autonomy + involvement. Student picks **guided, augmented** (pause after scoring so the student picks which insights make the post).
+
+**Turn 3** — the AI outputs an orchestration prompt with frontmatter, an Intent paragraph, and a Prompt body that chains the three skills with a PAUSE after scoring. The student copies the prompt into a Google Doc and runs it against the week's three articles.
+
+Three turns. One artifact. No file written to `outputs/`.
+
 ### Not sure which workflow to try?
 
 Browse the [AI Use Cases](../../use-cases/) section for inspiration — it organizes examples by type (content creation, research, coding, data analysis, ideation, and automation) with department-specific scenarios.
