@@ -6,6 +6,11 @@ description: Gather architecture decisions, assess workflow autonomy level, choo
 :::tip[New to the building blocks?]
 See the [Agentic Building Blocks](../../agentic-building-blocks/) reference for definitions, examples, and cross-platform comparisons of all blocks.
 :::
+
+:::note
+Coming from `/deconstruct` option (d) Compose? You're not here — Compose generates the orchestration prompt inline without invoking `/design`. See the [Compose section on the Deconstruct page](/ai-workflow-framework/deconstruct/#compose-option-d--for-clear-workflows-with-components-ready) for that path.
+:::
+
 ## What This Is
 
 The Design phase is where you decide *how* your workflow should be built — before you build it. You take the Workflow Definition from the [Deconstruct step](../deconstruct/) and make design decisions. The Design skill supports both **step-decomposed** and **outcome-driven** Workflow Definitions:
