@@ -71,4 +71,4 @@ A SaaS company wants an agent that triages inquiries, pulls user data, suggests 
 - [Evaluator-Optimizer](../evaluator-optimizer/) — iterative refinement with structured feedback
 - [Agents](../../../agentic-building-blocks/agents/) — concepts for building AI agents
 - [Agent Capability Patterns](../../../agentic-building-blocks/agents/capability-patterns/) — behavioral patterns (reflection, tool use, planning, etc.)
-- [Design Your AI Workflow](../../../business-first-ai-framework/design/)
+- [Design Your AI Workflow](../../../ai-workflow-framework/design/)

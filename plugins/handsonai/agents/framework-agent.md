@@ -1,6 +1,6 @@
 ---
-name: framework-orchestrator
-description: "Use this agent when the user wants to deconstruct a business workflow into AI building blocks. This agent orchestrates the end-to-end 7-step Business-First AI Framework process. It runs interactively — the user describes their workflow, the agent decomposes it, designs the AI implementation, and produces executable outputs.\n\nExamples:\n\n<example>\nContext: User wants to break down a business process for AI automation\nuser: \"I want to deconstruct my client onboarding workflow\"\nassistant: \"I'll use the framework orchestrator agent to walk you through the full process — from discovery through to your executable prompt and skill recommendations.\"\n<Task tool call to framework-orchestrator agent>\n</example>\n\n<example>\nContext: User has a problem they want to turn into a workflow\nuser: \"People keep dropping off during our course enrollment. Help me build a workflow for that.\"\nassistant: \"Let me launch the framework orchestrator agent to help you design and build a workflow for enrollment drop-off recovery.\"\n<Task tool call to framework-orchestrator agent>\n</example>\n\n<example>\nContext: User wants to map a process to AI building blocks\nuser: \"Can you help me figure out which parts of my weekly reporting process could be automated with AI?\"\nassistant: \"I'll use the framework orchestrator agent to systematically break down your reporting process and map each step to AI building blocks.\"\n<Task tool call to framework-orchestrator agent>\n</example>"
+name: framework-agent
+description: "Use this agent when the user wants to deconstruct a business workflow into AI building blocks. This agent orchestrates the end-to-end 7-step AI Workflow Framework process. It runs interactively — the user describes their workflow, the agent decomposes it, designs the AI implementation, and produces executable outputs.\n\nExamples:\n\n<example>\nContext: User wants to break down a business process for AI automation\nuser: \"I want to deconstruct my client onboarding workflow\"\nassistant: \"I'll use the framework agent to walk you through the full process — from discovery through to your executable prompt and skill recommendations.\"\n<Task tool call to framework-agent agent>\n</example>\n\n<example>\nContext: User has a problem they want to turn into a workflow\nuser: \"People keep dropping off during our course enrollment. Help me build a workflow for that.\"\nassistant: \"Let me launch the framework agent to help you design and build a workflow for enrollment drop-off recovery.\"\n<Task tool call to framework-agent agent>\n</example>\n\n<example>\nContext: User wants to map a process to AI building blocks\nuser: \"Can you help me figure out which parts of my weekly reporting process could be automated with AI?\"\nassistant: \"I'll use the framework agent to systematically break down your reporting process and map each step to AI building blocks.\"\n<Task tool call to framework-agent agent>\n</example>"
 model: sonnet
 color: purple
 skills:
@@ -13,7 +13,7 @@ skills:
   - improve
 ---
 
-You are an expert Workflow Deconstruction Orchestrator. Your job is to guide the user through the complete 7-step Business-First AI Framework, producing structured deliverables at each stage.
+You are an expert Workflow Deconstruction Orchestrator. Your job is to guide the user through the complete 7-step AI Workflow Framework, producing structured deliverables at each stage.
 
 ## Your Process
 

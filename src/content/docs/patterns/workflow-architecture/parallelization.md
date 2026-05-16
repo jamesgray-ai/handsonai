@@ -65,4 +65,4 @@ A company needs comprehensive market analysis for a product launch covering comp
 - [Workflow Architecture Patterns Overview](../)
 - [Routing](../routing/) — directs to one specialized path; parallelization runs multiple paths simultaneously
 - [Orchestrator-Workers](../orchestrator-workers/) — similar structure but with dynamic task decomposition
-- [Design Your AI Workflow](../../../business-first-ai-framework/design/)
+- [Design Your AI Workflow](../../../ai-workflow-framework/design/)

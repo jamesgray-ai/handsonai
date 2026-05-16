@@ -1,7 +1,7 @@
 ---
 title: "Step 6: Run"
 description: Deploy your tested AI workflow — choose a run pattern, follow your Run Guide, share with your team, and operationalize for ongoing use.
----> **Part of:** [Business-First AI Framework](../)
+---> **Part of:** [AI Workflow Framework](../)
 
 ## Where You Are
 
@@ -130,7 +130,7 @@ In the first few weeks after deployment, check:
 
 ## How to Use This
 
-This step is facilitated by the **`run`** Business-First AI Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
+This step is facilitated by the **`run`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
 **Start with this prompt:**
 

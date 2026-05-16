@@ -1,9 +1,9 @@
 ---
-title: Set Up the Business-First AI Framework Skills
-description: Step-by-step setup instructions for the seven Business-First AI Framework skills on Claude, ChatGPT, Gemini, M365 Copilot, Cursor, Codex, and more
+title: Set Up the AI Workflow Framework Skills
+description: Step-by-step setup instructions for the seven AI Workflow Framework skills on Claude, ChatGPT, Gemini, M365 Copilot, Cursor, Codex, and more
 ---
 
-Seven skills and an agent implementing the [Business-First AI Framework](../) — from analyzing where AI fits in your workflows through building, testing, running, and improving working AI workflows. Find your platform below and follow the setup instructions.
+Seven skills and an agent implementing the [AI Workflow Framework](../) — from analyzing where AI fits in your workflows through building, testing, running, and improving working AI workflows. Find your platform below and follow the setup instructions.
 
 ## Set Up These Skills
 
@@ -480,7 +480,7 @@ This downloads and installs all 7 skills plus the orchestrator agent.
 
 **Step 3 — Verify it worked**
 
-Type `/plugin list` and press **Enter**. You should see **business-first-ai** in the list with all its skills.
+Type `/plugin list` and press **Enter**. You should see **handsonai** in the list with all its skills.
 
 **Step 4 — Test it**
 
@@ -743,7 +743,7 @@ You can also invoke skills directly with slash commands like `/handsonai:analyze
 
 ---
 
-#### `framework-orchestrator`
+#### `framework-agent`
 
 **What it does:** Orchestrates the end-to-end framework process across all seven steps. Runs candidate discovery, deep deconstruction, design, build, test, run, and improve sequentially, with file-based handoffs between stages so you can also run each step individually in separate conversations.
 
@@ -1081,10 +1081,10 @@ Evaluate and evolve running workflows.
 
 ## Recommended Workflow
 
-These skills cover the full Business-First AI Framework. Here's the recommended path:
+These skills cover the full AI Workflow Framework. Here's the recommended path:
 
 1. **Analyze** — Run `analyze` to audit your workflows and identify where AI creates the most value
-2. **Deconstruct** — Pick your highest-impact candidate and run `deconstruct` (or use the `framework-orchestrator` agent for the full end-to-end process)
+2. **Deconstruct** — Pick your highest-impact candidate and run `deconstruct` (or use the `framework-agent` agent for the full end-to-end process)
 3. **Design** — Run `design` to produce your AI Building Block Spec
 4. **Build** — Run `build` to resolve context needs and generate platform artifacts from the approved spec
 5. **Test** — Run `test` to evaluate output quality, establish a baseline, and iterate with Build until the workflow is ready
@@ -1097,7 +1097,7 @@ These skills cover the full Business-First AI Framework. Here's the recommended 
 Start with Step 1 (Analyze) if you're not sure where AI fits in your work. Browse [AI Use Cases](../../use-cases/) to see what types of work AI handles — content creation, research, coding, data analysis, ideation, and automation. Start with Step 2 (Deconstruct) if you already know which workflow you want to automate.
 
 **Can I start from a problem instead of a workflow?**
-Yes. Tell the `framework-orchestrator` agent about your problem (e.g., "people keep dropping off during enrollment") and it will propose a candidate workflow for you to refine during discovery.
+Yes. Tell the `framework-agent` agent about your problem (e.g., "people keep dropping off during enrollment") and it will propose a candidate workflow for you to refine during discovery.
 
 **What if I lose context mid-conversation?**
 The file-based handoffs mean you can continue in a new conversation. Just invoke the next skill and point it at the file from the previous step (e.g., "Use `deconstruct` on outputs/lead-qualification-definition.md").

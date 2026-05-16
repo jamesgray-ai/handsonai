@@ -94,5 +94,5 @@ Automation delivers the largest time savings because it eliminates recurring man
 - [MCP](../../agentic-building-blocks/mcp/) — connecting automated workflows to external systems
 - [Skills](../../agentic-building-blocks/skills/) — reusable routines that agents invoke during automation
 - [Scheduling Subagents](../../platforms/claude/subagents/scheduling-subagents/) — how to schedule automated agents on Claude
-- [Build Workflows](../../business-first-ai-framework/build/) — worked examples including autonomous agent workflows
+- [Build Workflows](../../ai-workflow-framework/build/) — worked examples including autonomous agent workflows
 - [Automation Resources](resources/) — curated reports, guides, and references

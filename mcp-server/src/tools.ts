@@ -151,7 +151,7 @@ export const TOOL_DEFINITIONS: McpToolDefinition[] = [
   {
     name: "get_framework_step",
     description:
-      "Get detailed content for a Business-First AI Framework step and all its sub-pages. Steps are: analyze, deconstruct, build.",
+      "Get detailed content for an AI Workflow Framework step and all its sub-pages. Steps are: analyze, deconstruct, build.",
     inputSchema: {
       type: "object",
       properties: {
@@ -351,14 +351,14 @@ export function handleToolCall(
     case "get_framework_step": {
       const step = requireString(args, "step");
       if (typeof step !== "string") return step;
-      const prefix = `business-first-ai-framework/${step}`;
+      const prefix = `ai-workflow-framework/${step}`;
       const pages = index.pages.filter(
         (p) =>
           p.path === prefix ||
           p.path.startsWith(`${prefix}/`) ||
           // "analyze" is a single page, not a directory
           (step === "analyze" &&
-            p.path === "business-first-ai-framework/analyze")
+            p.path === "ai-workflow-framework/analyze")
       );
       if (pages.length === 0) {
         return text(

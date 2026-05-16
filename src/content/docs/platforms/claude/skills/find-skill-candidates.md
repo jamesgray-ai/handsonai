@@ -112,4 +112,4 @@ Start with Phase 1 now.
 
 - [Discover Your Best Claude Skills](./skills-discovery-meta-prompt.md) — The full worksheet-driven version of this process
 - [Write Custom Workspace Instructions](../../../agentic-building-blocks/projects/workspace-instructions-meta-prompt.md) — Companion meta prompt for Claude Projects
-- [Analyze AI Workflow Opportunities](../../../business-first-ai-framework/analyze/) — Broader workflow audit across your whole role
+- [Analyze AI Workflow Opportunities](../../../ai-workflow-framework/analyze/) — Broader workflow audit across your whole role

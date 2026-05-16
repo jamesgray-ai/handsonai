@@ -51,4 +51,4 @@ This pattern enables accurate, context-aware responses without requiring the mod
 - [Workflow Architecture Patterns Overview](../)
 - [Prompt Chaining](../prompt-chaining/) — the next step up in complexity
 - [MCP (Model Context Protocol)](../../../agentic-building-blocks/mcp/) — the connector layer for giving models access to external tools
-- [Design Your AI Workflow](../../../business-first-ai-framework/design/)
+- [Design Your AI Workflow](../../../ai-workflow-framework/design/)

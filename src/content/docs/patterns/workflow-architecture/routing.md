@@ -55,4 +55,4 @@ A company automates customer service across varied query types:
 - [Workflow Architecture Patterns Overview](../)
 - [Prompt Chaining](../prompt-chaining/) — sequential processing within a single path
 - [Parallelization](../parallelization/) — running multiple paths simultaneously
-- [Design Your AI Workflow](../../../business-first-ai-framework/design/)
+- [Design Your AI Workflow](../../../ai-workflow-framework/design/)

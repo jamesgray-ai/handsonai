@@ -26,7 +26,7 @@ This step guides an AI through a structured analysis of your work — from eithe
 
 ## How to Use This
 
-This step is facilitated by the **`analyze`** Business-First AI Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+This step is facilitated by the **`analyze`** AI Workflow Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
 
 **Start with this prompt:**
 
@@ -91,6 +91,6 @@ See three complete [example reports](../analyze-examples/) to get a feel for the
 
 - [Example Reports](../analyze-examples/) — three complete AI Opportunity Reports (Marketing Ops Manager, AI Instructor, and VP of Operations using the organizational lens) showing what the finished deliverable looks like
 - **Next step:** Ready to act on an opportunity? Use the [Deconstruct Workflows guide](../deconstruct/) (Step 2) to break it into discrete steps.
-- [Business-First AI Framework](../) — the full seven-step methodology
+- [AI Workflow Framework](../) — the full seven-step methodology
 - [Prompts](../../agentic-building-blocks/prompts/)
 - [Agents](../../agentic-building-blocks/agents/)

@@ -208,5 +208,5 @@ Most students go from "I'm not sure what I want" to finished instructions in 10-
 - [Projects Overview](../) — What project workspaces are and when to use them
 - [Set Up Claude Projects](../../../platforms/claude/projects/claude-projects-setup/) — How to create and configure Claude Projects
 - [What Is a System Prompt?](../../prompts/questions/what-is-a-system-prompt/) — Understanding how custom instructions work under the hood
-- [Deconstruct Workflows](../../../business-first-ai-framework/deconstruct/) — Break down workflows before building workspaces for them
+- [Deconstruct Workflows](../../../ai-workflow-framework/deconstruct/) — Break down workflows before building workspaces for them
 - [Prompts](../../prompts/)

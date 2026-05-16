@@ -67,7 +67,7 @@ Use the **Notion Topic value** to determine where this file will be published. T
 | Platforms | Route to specific platform subdirectory based on Platform field — see Platform Routing below |
 | Use Cases | `src/content/docs/use-cases/questions/` |
 | Builder Setup | `src/content/docs/builder-setup/questions/` |
-| Strategy | `src/content/docs/business-first-ai-framework/questions/` |
+| Strategy | `src/content/docs/ai-workflow-framework/questions/` |
 | Other | `src/content/docs/questions/` |
 
 **Platform Routing** (when Topic = "Platforms"):

@@ -1,7 +1,7 @@
 ---
 title: "Step 5: Test"
 description: Run structured tests on your AI workflow artifacts — smoke test, eval suite, building block evals — and establish a quality baseline before deployment.
----> **Part of:** [Business-First AI Framework](../)
+---> **Part of:** [AI Workflow Framework](../)
 
 ## Where You Are
 
@@ -116,7 +116,7 @@ Most workflows need multiple rounds of Build-then-Test before they are ready for
 :::
 ## How to Use This
 
-This step is facilitated by the **`test`** Business-First AI Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
+This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
 **Start with this prompt:**
 

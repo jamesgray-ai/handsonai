@@ -112,7 +112,7 @@ The seven [workflow architecture patterns](../../patterns/workflow-architecture/
 
 ## Related
 
-- [Business-First AI Framework](../) — the full seven-step methodology
+- [AI Workflow Framework](../) — the full seven-step methodology
 - [Design Your AI Workflow](../design/) — assess autonomy, choose an orchestration mechanism, and map building blocks
 - [Build Workflows](../build/) — worked examples across the matrix
 - [Workflow Architecture Patterns](../../patterns/workflow-architecture/) — implementation blueprints for each pattern

@@ -1,7 +1,7 @@
 ---
 title: Design Your AI Workflow
 description: Gather architecture decisions, assess workflow autonomy level, choose an orchestration mechanism and involvement mode, classify steps on the autonomy spectrum, map AI building blocks, identify skill candidates, and document agent blueprints — producing a platform-agnostic AI Building Block Spec.
----> **Part of:** [Business-First AI Framework](../)
+---> **Part of:** [AI Workflow Framework](../)
 
 :::tip[New to the building blocks?]
 See the [Agentic Building Blocks](../../agentic-building-blocks/) reference for definitions, examples, and cross-platform comparisons of all blocks.
@@ -233,7 +233,7 @@ The output is the same AI Building Block Spec format, with Capability Domain Map
 
 ## How to Use This
 
-This step is facilitated by the **`design`** Business-First AI Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+This step is facilitated by the **`design`** AI Workflow Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
 
 **Start with this prompt:**
 

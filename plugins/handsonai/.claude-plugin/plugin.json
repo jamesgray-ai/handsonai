@@ -1,14 +1,14 @@
 {
   "name": "handsonai",
-  "description": "Everything you need to design, build, and document AI workflows. The Business-First AI Framework as executable Claude Code skills, plus an AI registry and feature-spec toolkit.",
-  "version": "1.0.1",
+  "description": "Everything you need to design, build, and document AI workflows. The AI Workflow Framework as executable Claude Code skills, plus an AI registry and feature-spec toolkit.",
+  "version": "2.0.0",
   "author": {
     "name": "James Gray"
   },
   "homepage": "https://handsonai.info/use-the-playbook/build/handsonai/",
   "license": "MIT",
   "keywords": [
-    "business-first-ai",
+    "ai-workflow",
     "framework",
     "workflows",
     "registry",

@@ -76,9 +76,9 @@ Still stuck? Bring your question to Session 1.
 
 ### Step 2: Hands-on AI Skills
 
-**What:** Install the Hands-on AI skills that walk you through the Business-First AI Framework — analyze, deconstruct, design, build, test, run, improve. These are the step-by-step guides you'll use throughout the course to take a workflow from "I think AI could help with this" to shipped and improving.
+**What:** Install the Hands-on AI skills that walk you through the AI Workflow Framework — analyze, deconstruct, design, build, test, run, improve. These are the step-by-step guides you'll use throughout the course to take a workflow from "I think AI could help with this" to shipped and improving.
 
-**Action:** [Follow the Framework Skills setup guide →](/business-first-ai-framework/skills/)
+**Action:** [Follow the Framework Skills setup guide →](/ai-workflow-framework/skills/)
 
 **Done when:**
 

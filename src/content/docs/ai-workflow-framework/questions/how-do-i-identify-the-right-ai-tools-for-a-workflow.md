@@ -10,7 +10,7 @@ title: "How do I identify the right AI tools for a workflow?"
 
 ## The Full Answer
 
-You can't choose the right AI tools for a workflow you don't fully understand. The [Business-First AI Framework](../..//) addresses this with a structured approach: discover opportunities first, then deconstruct workflows into building blocks before selecting tools.
+You can't choose the right AI tools for a workflow you don't fully understand. The [AI Workflow Framework](../..//) addresses this with a structured approach: discover opportunities first, then deconstruct workflows into building blocks before selecting tools.
 
 Most people jump straight to tool selection — "Should I use an agent? Do I need an API?" — before they've properly decomposed what the workflow actually involves. The result is over-engineered solutions for simple problems, or under-powered tools for complex ones.
 

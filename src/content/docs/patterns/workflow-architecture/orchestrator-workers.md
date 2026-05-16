@@ -72,4 +72,4 @@ If a new subtask emerges (e.g., evaluating environmental impact), the orchestrat
 - [Parallelization](../parallelization/) — similar structure but with predefined subtasks
 - [Autonomous Agents](../autonomous-agents/) — the next step in autonomy
 - [Agents](../../../agentic-building-blocks/agents/) — concepts for building AI agents
-- [Design Your AI Workflow](../../../business-first-ai-framework/design/)
+- [Design Your AI Workflow](../../../ai-workflow-framework/design/)

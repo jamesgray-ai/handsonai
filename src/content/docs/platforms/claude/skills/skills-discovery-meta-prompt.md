@@ -279,7 +279,7 @@ You now have evaluated skill candidates ranked by value. Here's what to do with 
 
 ## Related
 
-- [Analyze AI Workflow Opportunities](../../../../business-first-ai-framework/analyze/) — Analyze which workflows have the highest AI potential
-- [Deconstruct Workflows](../../../../business-first-ai-framework/deconstruct/) — Break down complex workflows into discrete, automatable steps
+- [Analyze AI Workflow Opportunities](../../../../ai-workflow-framework/analyze/) — Analyze which workflows have the highest AI potential
+- [Deconstruct Workflows](../../../../ai-workflow-framework/deconstruct/) — Break down complex workflows into discrete, automatable steps
 - [Write Custom Workspace Instructions](../../../../agentic-building-blocks/projects/workspace-instructions-meta-prompt/) — Set up Claude Projects with tailored instructions
 - [Claude Projects Setup](../../projects/claude-projects-setup/) — Set up Claude Projects for recurring work

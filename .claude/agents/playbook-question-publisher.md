@@ -102,7 +102,7 @@ Find the correct sidebar section based on Topic and look for the `label: 'Questi
 - **Use Cases** → Under "Use Cases" — add a "Questions" group if one doesn't exist
 - **Builder Setup** → Under "Builder Setup" — add a "Questions" group if one doesn't exist
 - **Other** → Under a top-level "Questions" section (create if needed)
-- **Strategy / Framework** → Under "Business-First AI Framework" > "Questions"
+- **Strategy / Framework** → Under "AI Workflow Framework" > "Questions"
 
 For sections that don't yet have a "Questions" group, add one as a nested `items` array. For example:
 

@@ -9,7 +9,7 @@ A focused toolkit of **agents** and **skills** that give your AI tool everything
 
 ## 🛠️ The Hands-on AI Plugin
 
-One plugin, one install. Bundles the Business-First AI Framework, the AI Registry skills, and the Agentic Coding feature-spec skills — everything you need to take an AI workflow from idea to documented production system.
+One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skills, and the Agentic Coding feature-spec skills — everything you need to take an AI workflow from idea to documented production system.
 
 ```
 /plugin marketplace add jamesgray-ai/handsonai-plugins
@@ -20,13 +20,13 @@ One plugin, one install. Bundles the Business-First AI Framework, the AI Registr
 
 ### What's inside
 
-#### Business-First AI Framework — 1 agent + 7 skills
+#### AI Workflow Framework — 1 agent + 7 skills
 
 The seven-step methodology for going from a workflow idea to a deployed AI system.
 
 | Component | What it does |
 |---|---|
-| `framework-orchestrator` agent | Walks you through the full 7-step framework end-to-end |
+| [`framework-agent`](handsonai/#framework-agent) agent | Walks you through the full 7-step framework end-to-end |
 | `analyze` skill | Audit your workflows to find where AI creates the most value |
 | `deconstruct` skill | Break a workflow into structured steps using the 6-question framework |
 | `design` skill | Design the AI workflow architecture and produce an AI Building Block Spec |

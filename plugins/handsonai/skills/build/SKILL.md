@@ -4,7 +4,7 @@ description: >
   This skill should be used when the user has an approved AI Building Block Spec and wants to
   build platform artifacts for their AI workflow. It offers a build path choice, researches
   integration availability, generates platform-appropriate artifacts (prompts, skills, agents, configs),
-  This is Step 4 (Build) of the Business-First AI Framework.
+  This is Step 4 (Build) of the AI Workflow Framework.
 user-invocable: true
 ---
 
@@ -125,7 +125,7 @@ Before generating artifacts, resolve platform-specific format requirements and i
 **Tier 1 — Platform Doc Resolution**
 
 1. **Fetch the platform registry** (or use session cache):
-   `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/business-first-ai/registries/platform-registry.json`
+   `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`
 
 2. **Look up the user's platform** in the `platforms` section of the registry JSON.
 
@@ -219,7 +219,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
      - The building block's full spec from the Building Block Spec (name, purpose, inputs, outputs, decision logic, failure modes, which workflow steps it covers)
      - The artifact format requirements resolved in Step 3.6 (or the fallback reference if Step 3.6 did not resolve a format)
      - Whether platform-specific extensions should be applied (based on Architecture Decisions)
-     - This context: "This building block spec comes from an approved AI Building Block Spec (Business-First AI Framework, Step 3 Design). The intent, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."
+     - This context: "This building block spec comes from an approved AI Building Block Spec (AI Workflow Framework, Step 3 Design). The intent, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."
   2. Let the creation skill run its full workflow. Do not skip or abbreviate any stage.
   3. After completion, move to the next building block. Later blocks may reference earlier ones.
 

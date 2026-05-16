@@ -1,7 +1,7 @@
 ---
 name: test
 description: >
-  Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. This is Step 5 (Test) of the Business-First AI Framework.
+  Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. This is Step 5 (Test) of the AI Workflow Framework.
 user-invocable: true
 ---
 

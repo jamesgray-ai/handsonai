@@ -24,7 +24,7 @@ Each platform has its own agent system. These guides show how to build agents on
 | **Google** | <a href="https://docs.cloud.google.com/agent-builder/agent-development-kit/overview" target="_blank">Vertex AI & ADK</a> | Code-first approach in Python | ↑ |
 | **M365 Copilot** | <a href="https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agents-overview" target="_blank">Copilot & Copilot Studio</a> | Build agents visually and deploy to M365 surfaces | [Building Agents on M365 Copilot](../../platforms/m365-copilot/agents/building-agents/) |
 
-For guidance on deciding *whether* your workflow needs an agent, see [Build Workflows > Agents](../../business-first-ai-framework/build/).
+For guidance on deciding *whether* your workflow needs an agent, see [Build Workflows > Agents](../../ai-workflow-framework/build/).
 
 ## Topics
 

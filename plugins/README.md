@@ -6,7 +6,7 @@ This directory contains the staging copy of the [Hands-on AI](https://handsonai.
 
 | Plugin | Description | Install |
 |--------|-------------|---------|
-| [handsonai](./handsonai/) | Everything you need to design, build, and document AI workflows — the Business-First AI Framework, AI registry, and feature-spec toolkit in one plugin | `/plugin install handsonai@handsonai` |
+| [handsonai](./handsonai/) | Everything you need to design, build, and document AI workflows — the AI Workflow Framework, AI registry, and feature-spec toolkit in one plugin | `/plugin install handsonai@handsonai` |
 
 ## Getting Started
 

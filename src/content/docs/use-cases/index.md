@@ -6,7 +6,7 @@ description: Six use case primitives that cover what teams actually build with A
 *The six primitives and department examples in this section are adapted from OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report/) and made platform-agnostic.*
 
 :::tip[Connecting to the Framework]
-The [Business-First AI Framework](../business-first-ai-framework/) helps you **find** opportunities (Step 1 — Analyze) and **deconstruct** them into building blocks (Step 2). Use these six primitives to **classify** the opportunities you find — they tell you what type of AI work each opportunity involves, which makes choosing the right building blocks easier.
+The [AI Workflow Framework](../ai-workflow-framework/) helps you **find** opportunities (Step 1 — Analyze) and **deconstruct** them into building blocks (Step 2). Use these six primitives to **classify** the opportunities you find — they tell you what type of AI work each opportunity involves, which makes choosing the right building blocks easier.
 :::
 ## The Six Primitives
 
@@ -100,14 +100,14 @@ These are different lenses on the same work:
 |---------|----------------|-------------------|
 | **Primitives** (this section) | **What** type of work is AI doing? | You're here |
 | **Building Blocks** | **How** do you implement it? | [Agentic Building Blocks](../agentic-building-blocks/) |
-| **Autonomy Levels** | **How much** AI involvement? | [Business-First AI Framework](../business-first-ai-framework/) |
+| **Autonomy Levels** | **How much** AI involvement? | [AI Workflow Framework](../ai-workflow-framework/) |
 
 Primitives help you browse use cases by category. Building blocks help you assemble the implementation. Autonomy levels help you decide how much control to hand over. All three work together.
 
 ## Related
 
-- [Business-First AI Framework](../business-first-ai-framework/) — find and prioritize AI opportunities
-- [Analyze Workflows](../business-first-ai-framework/analyze/) — structured audit to surface workflow candidates
+- [AI Workflow Framework](../ai-workflow-framework/) — find and prioritize AI opportunities
+- [Analyze Workflows](../ai-workflow-framework/analyze/) — structured audit to surface workflow candidates
 - [Agentic Building Blocks](../agentic-building-blocks/) — the components for implementing AI workflows
-- [Build AI-Powered Workflows](../business-first-ai-framework/build/) — worked examples across the autonomy spectrum
+- [Build AI-Powered Workflows](../ai-workflow-framework/build/) — worked examples across the autonomy spectrum
 - [Plugin Marketplace](../use-the-playbook/build/) — pre-built agents and skills you can install

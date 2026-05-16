@@ -15,7 +15,7 @@ const SITE_URL = "https://handsonai.info";
 
 // Map directory prefixes to section IDs
 const SECTION_MAP: Record<string, string> = {
-  "business-first-ai-framework": "framework",
+  "ai-workflow-framework": "framework",
   "agentic-building-blocks": "building-blocks",
   "use-cases": "use-cases",
   "platforms": "platforms",
@@ -29,7 +29,7 @@ const SECTION_MAP: Record<string, string> = {
 };
 
 const SECTION_LABELS: Record<string, string> = {
-  framework: "Business-First AI Framework",
+  framework: "AI Workflow Framework",
   "building-blocks": "Agentic Building Blocks",
   "use-cases": "Use Cases",
   platforms: "Platforms",

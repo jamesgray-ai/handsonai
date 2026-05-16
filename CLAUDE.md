@@ -27,7 +27,7 @@ cd mcp-server && npm install && wrangler dev
 ## Repository Structure
 
 - `docs/agentic-building-blocks/` - The AI building blocks (Model, Prompt, Context, Project, Memory, Skill, Agent, MCP, API, SDK, CLI)
-- `docs/business-first-ai-framework/` - Seven-step methodology (Analyze, Deconstruct, Design, Build, Test, Run, Improve)
+- `docs/ai-workflow-framework/` - Seven-step methodology (Analyze, Deconstruct, Design, Build, Test, Run, Improve)
 - `docs/use-cases/` - Six use case primitives (Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, Automation)
 - `docs/product-engineering/` - Product management and software engineering concepts (SDLC, PRDs, user stories, roadmapping, stakeholder management, project tracking)
 - `docs/ai-engineering/` - AI engineering concepts (context engineering) — nested under Product & Engineering in nav
@@ -251,17 +251,17 @@ What changes as a result — both positive and negative.
 | `/review-pr` | Comprehensive PR review using specialized agents |
 | `/code-review` | Code review a pull request |
 
-### Business-First AI Framework
+### AI Workflow Framework
 
 | Command | Description |
 |---------|-------------|
-| `/business-first-ai:analyze` | `analyze` — Step 1 |
-| `/business-first-ai:deconstruct` | `deconstruct` — Step 2 |
-| `/business-first-ai:design` | `design` — Step 3 |
-| `/business-first-ai:build` | `build` — Step 4 |
-| `/business-first-ai:test` | `test` — Step 5 |
-| `/business-first-ai:run` | `run` — Step 6 |
-| `/business-first-ai:improve` | `improve` — Step 7 |
+| `/handsonai:analyze` | `analyze` — Step 1 |
+| `/handsonai:deconstruct` | `deconstruct` — Step 2 |
+| `/handsonai:design` | `design` — Step 3 |
+| `/handsonai:build` | `build` — Step 4 |
+| `/handsonai:test` | `test` — Step 5 |
+| `/handsonai:run` | `run` — Step 6 |
+| `/handsonai:improve` | `improve` — Step 7 |
 
 ### Superpowers Skills
 
@@ -341,7 +341,7 @@ Claude.ai users download pre-built skill ZIPs from GitHub Releases on `handsonai
 1. From the `handsonai-plugins` repo, run `./scripts/build-skill-zips.sh` — this creates ZIPs in `dist/`
 2. Create a new release: `gh release create vX.Y.Z dist/*.zip --title "vX.Y.Z" --notes "Description of changes"`
 
-The skills page (`docs/business-first-ai-framework/skills.mdx`) uses `/releases/latest/download/` URLs, so they always point to the most recent release automatically.
+The skills page (`docs/ai-workflow-framework/skills.mdx`) uses `/releases/latest/download/` URLs, so they always point to the most recent release automatically.
 
 ### Adding a new agent or skill to an existing plugin
 

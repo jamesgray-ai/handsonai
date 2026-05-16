@@ -6,7 +6,7 @@ description: >
   chooses an orchestration mechanism and involvement mode, classifies steps, maps building blocks,
   identifies skill candidates, configures agents, and produces a Building Block Spec for approval.
   Supports both step-decomposed and outcome-driven Workflow Definitions.
-  This is Step 3 (Design) of the Business-First AI Framework.
+  This is Step 3 (Design) of the AI Workflow Framework.
 user-invocable: true
 ---
 
@@ -223,7 +223,7 @@ After classifying every step, recommend available integration options for each t
 
 **Discovery process (4-part chain):**
 
-1. **Curated tool catalog** — Fetch the `curated-tools` section from the remote platform registry JSON (`https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/business-first-ai/registries/platform-registry.json`). Match workflow tool needs against each entry's `integrations` field. Curated tools are instructor-vetted recommendations — present them first, marked as recommended.
+1. **Curated tool catalog** — Fetch the `curated-tools` section from the remote platform registry JSON (`https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`). Match workflow tool needs against each entry's `integrations` field. Curated tools are instructor-vetted recommendations — present them first, marked as recommended.
 
 2. **Model knowledge** — Supplement with additional integration options the model knows about. For well-known integrations (Google Calendar, Gmail, Slack, GitHub, etc.), skip web search — model knowledge is sufficient.
 
@@ -295,7 +295,7 @@ For every step classified as needing a **Skill** in Step 6, search for existing 
 
 2. **External registries** — Fetch the `skill-registries` list from the remote platform registry:
 
-   `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/business-first-ai/registries/platform-registry.json`
+   `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`
 
    The registry JSON is fetched once per session and cached. Both Skill Discovery (Step 6b) and Integration Discovery use the same cached copy.
 
