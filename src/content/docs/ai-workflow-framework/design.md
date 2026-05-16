@@ -1,6 +1,6 @@
 ---
 title: Design Your AI Workflow
-description: Gather architecture decisions, assess workflow autonomy level, choose an orchestration mechanism and involvement mode, classify steps on the autonomy spectrum, map AI building blocks, identify skill candidates, and document agent blueprints — producing a platform-agnostic AI Building Block Spec.
+description: Gather architecture decisions, assess workflow autonomy level, choose an orchestration mechanism and involvement mode, classify steps on the autonomy spectrum, map AI building blocks, identify skill candidates, and document agent blueprints — producing a platform-agnostic Design Spec.
 ---> **Part of:** [AI Workflow Framework](../)
 
 :::tip[New to the building blocks?]
@@ -32,7 +32,7 @@ This framework guides you through *which decisions to make* and *what building b
 | | |
 |---|---|
 | **What you'll do** | Upload your Workflow Definition, choose your architecture approach, confirm your platform, review the AI's autonomy assessment and orchestration mechanism recommendation, review step classifications, and adjust anything that doesn't look right |
-| **What you'll get** | An **AI Building Block Spec** — architecture approach with rationale, architecture decisions, autonomy level assessment, orchestration mechanism with involvement mode, per-step autonomy classifications, building block mapping, skill candidates, agent blueprints (when applicable), and a prioritized build sequence |
+| **What you'll get** | A **Design Spec** — architecture approach with rationale, architecture decisions, autonomy level assessment, orchestration mechanism with involvement mode, per-step autonomy classifications, building block mapping, skill candidates, agent blueprints (when applicable), and a prioritized build sequence |
 | **Time** | ~15–25 minutes (architecture questions + reviewing the AI's analysis) |
 
 ## Why This Matters
@@ -67,7 +67,7 @@ The model analyzes your workflow and recommends an approach based on these signa
 Most workflows start no-code. Code-first becomes the right choice when you need programmatic control, integration into existing systems, or production-grade deployment. The same three orchestration mechanisms (Prompt, Skill-Powered Prompt, Agent) apply to both approaches — the architecture approach determines *how* you implement them, not *what* you implement.
 
 :::tip[You can switch later]
-Many teams prototype no-code, validate the workflow works, then rebuild code-first for production. The AI Building Block Spec captures the design either way — only the Build step changes.
+Many teams prototype no-code, validate the workflow works, then rebuild code-first for production. The Design Spec captures the design either way — only the Build step changes.
 :::
 ## Architecture Decisions
 
@@ -229,7 +229,7 @@ When your Workflow Definition has `Definition Type: Outcome-Driven`, the Design 
 - **Evaluation criteria** are carried forward from the definition's Quality Criteria section rather than gathered from scratch
 - **Agent Configuration** becomes the primary section of the spec, with instructions drawn from the definition's Goal, Constraints, and Expected Outputs
 
-The output is the same AI Building Block Spec format, with Capability Domain Mapping replacing the Step-by-Step Decomposition table, and an Autonomy Statement replacing the Autonomy Spectrum Summary.
+The output is the same Design Spec format, with Capability Domain Mapping replacing the Step-by-Step Decomposition table, and an Autonomy Statement replacing the Autonomy Spectrum Summary.
 
 ## How to Use This
 
@@ -242,7 +242,7 @@ Design the AI workflow from my Workflow Definition.
 Assess the autonomy level, recommend an orchestration mechanism, and map building blocks.
 ```
 
-Upload or paste your Workflow Definition file (`[workflow-name]-definition.md`) from the Deconstruct step when prompted. The skill runs the Design analysis and produces an AI Building Block Spec.
+Upload or paste your Workflow Definition file (`[workflow-name]-definition.md`) from the Deconstruct step when prompted. The skill runs the Design analysis and produces a Design Spec.
 
 :::tip[If your AI tool doesn't support skills]
 Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/design) and paste it into your system prompt or project instructions. Or use this page as a conversation guide — walk through each section in order with your AI tool.
@@ -257,7 +257,7 @@ The first part of Design is a back-and-forth conversation. The model scans your 
 
 **Phase 2: Plan the spec (plan mode)**
 
-Once the architecture decisions, autonomy level, and orchestration mechanism are locked in, the model has everything it needs to plan the full AI Building Block Spec. This is when you **activate plan mode** — the model shifts from asking you questions to planning: classifying each step on the autonomy spectrum, mapping building blocks, identifying skill candidates, and documenting agent blueprints.
+Once the architecture decisions, autonomy level, and orchestration mechanism are locked in, the model has everything it needs to plan the full Design Spec. This is when you **activate plan mode** — the model shifts from asking you questions to planning: classifying each step on the autonomy spectrum, mapping building blocks, identifying skill candidates, and documenting agent blueprints.
 
 **How to activate plan mode on your platform:**
 
@@ -266,13 +266,15 @@ Once the architecture decisions, autonomy level, and orchestration mechanism are
 | **Claude Code** | Press `Shift+Tab` twice, or type `/plan` |
 | **Cursor** | Select "Plan" in the composer mode |
 | **Codex CLI** | Run with the `--plan` flag |
-| **Other AI tools** | Ask the model: *"Switch to plan mode. Based on the architecture decisions, autonomy level, and orchestration mechanism we've agreed on, plan the full AI Building Block Spec — classify each step, map building blocks, identify skill candidates, and document agent blueprints."* |
+| **Other AI tools** | Ask the model: *"Switch to plan mode. Based on the architecture decisions, autonomy level, and orchestration mechanism we've agreed on, plan the full Design Spec — classify each step, map building blocks, identify skill candidates, and document agent blueprints."* |
 
-After the model produces the plan, **review and approve the AI Building Block Spec** before moving on. If anything needs adjustment — a step classification, a skill candidate, an agent blueprint — now is the time. Once you approve, the model transitions to [Build (Step 4)](../build/) and begins building.
+After the model produces the plan, **review and approve the Design Spec** before moving on. If anything needs adjustment — a step classification, a skill candidate, an agent blueprint — now is the time. Once you approve, the model transitions to [Build (Step 4)](../build/) and begins building.
 
 ## What This Produces
 
-The **AI Building Block Spec** contains:
+The Design Spec catalogs which AI building blocks each step uses — it's named after the step that produces it (Design), not the components it lists.
+
+The **Design Spec** contains:
 
 - **Architecture approach** — No-code or Code-first, with rationale and recommendation signals
 - **Autonomy level assessment** — Deterministic, Guided, or Autonomous, with rationale for where the whole workflow sits on the spectrum
@@ -290,4 +292,4 @@ The **AI Building Block Spec** contains:
 - **Tools and connectors** — external integrations required
 - **Implementation order** — quick wins → semi-autonomous → complex agent steps
 
-This AI Building Block Spec is the input for [Step 4: Build](../build/), where the model generates platform-appropriate artifacts (prompts, skills, agents, connectors) based on your orchestration mechanism and architecture decisions.
+This Design Spec is the input for [Step 4: Build](../build/), where the model generates platform-appropriate artifacts (prompts, skills, agents, connectors) based on your orchestration mechanism and architecture decisions.

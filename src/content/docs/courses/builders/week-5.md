@@ -14,7 +14,7 @@ Run the framework end-to-end yourself in Cowork (or Claude Code — same slash c
 **Starting point:** a pre-built workflow definition (download below).
 **Ending point:** a shipped skill + agent producing a brief on a real competitor.
 
-1. **`/design`** — Turn the definition into an approved Building Block Spec (plan mode, collaborative). See the [Design step docs](../../../ai-workflow-framework/design/).
+1. **`/design`** — Turn the definition into an approved Design Spec (plan mode, collaborative). See the [Design step docs](../../../ai-workflow-framework/design/).
 2. **`/build`** — Generate the `competitor-research` skill and `competitor-brief` agent from your spec. See the [Build step docs](../../../ai-workflow-framework/build/).
 3. **`/test`** — Validate the building blocks before trusting them with real input. See the [Test step docs](../../../ai-workflow-framework/test/).
 4. **`/run`** — Invoke the workflow on a real competitor; watch `knowledge/competitors/{name}.md` emerge. See the [Run step docs](../../../ai-workflow-framework/run/).

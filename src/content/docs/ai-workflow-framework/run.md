@@ -138,7 +138,7 @@ This step is facilitated by the **`run`** AI Workflow Framework skill. See [Set 
 Generate a Run Guide for my workflow and help me deploy it.
 ```
 
-The skill reads your Building Block Spec and artifacts, generates the Run Guide, and walks you through choosing a run pattern and getting the workflow into production.
+The skill reads your Design Spec and artifacts, generates the Run Guide, and walks you through choosing a run pattern and getting the workflow into production.
 
 ## Next Step
 

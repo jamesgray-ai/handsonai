@@ -4,7 +4,7 @@ description: >
   This skill should be used when the user has a Workflow Definition and wants to design
   an AI workflow. It gathers architecture decisions, assesses workflow autonomy level,
   chooses an orchestration mechanism and involvement mode, classifies steps, maps building blocks,
-  identifies skill candidates, configures agents, and produces a Building Block Spec for approval.
+  identifies skill candidates, configures agents, and produces a Design Spec for approval.
   Supports both step-decomposed and outcome-driven Workflow Definitions.
   This is Step 3 (Design) of the AI Workflow Framework.
 user-invocable: true
@@ -12,7 +12,7 @@ user-invocable: true
 
 # Workflow Design
 
-Take a Workflow Definition and produce the Design deliverable: an AI Building Block Spec that captures architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications (step-decomposed) or capability domain mapping (outcome-driven), skill candidates, and agent blueprints.
+Take a Workflow Definition and produce the Design deliverable: a Design Spec that captures architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications (step-decomposed) or capability domain mapping (outcome-driven), skill candidates, and agent blueprints.
 
 **Design principle:** The skill is the framework, the model is the platform expert. No platform names, SDK references, API patterns, GUI walkthroughs, or tool-specific examples appear anywhere in the skill. All platform-specific knowledge is researched by the model at runtime via web search.
 
@@ -405,9 +405,9 @@ Then ask only the supplementary questions not already covered:
 - If test scenarios are missing: "Give me 3-5 real or realistic scenarios you'd run this on."
 - If minimum bar is missing: "What's your minimum bar? What quality level is acceptable vs. needs more work?"
 
-#### Step 9 — Generate AI Building Block Spec
+#### Step 9 — Generate Design Spec
 
-Write to `outputs/[workflow-name]-building-block-spec.md` using the template below. Every section is mandatory unless marked (optional). Do not add, remove, rename, or reorder sections.
+Write to `outputs/[workflow-name]-design-spec.md` using the template below. Every section is mandatory unless marked (optional). Do not add, remove, rename, or reorder sections.
 
 **Before writing, run the Build Skill Needs Checklist** (at the end of this step) to verify all required data has been captured.
 
@@ -416,7 +416,7 @@ Write to `outputs/[workflow-name]-building-block-spec.md` using the template bel
 **Template:**
 
 ```markdown
-# [Workflow Name] — AI Building Block Spec
+# [Workflow Name] — Design Spec
 
 ## Execution Pattern
 
@@ -615,9 +615,9 @@ Before saving the spec, verify every item. If any is missing, go back and add it
 
 **This is a hard gate. Do not proceed without explicit approval.**
 
-Present a summary of the Building Block Spec:
+Present a summary of the Design Spec:
 
-> "Here's the Building Block Spec summary:
+> "Here's the Design Spec summary:
 >
 > - **Autonomy:** [level] (for outcome-driven: Autonomous)
 > - **Mechanism:** [orchestration mechanism] ([involvement mode])
@@ -625,7 +625,7 @@ Present a summary of the Building Block Spec:
 > - **Integration options:** [count] tools with recommended integration approaches
 > - **Implementation order:** [brief summary]
 >
-> The full spec is saved to `outputs/[workflow-name]-building-block-spec.md`.
+> The full spec is saved to `outputs/[workflow-name]-design-spec.md`.
 >
 > **Do you approve this spec?** I won't generate any artifacts until you confirm. If you want changes, tell me what to adjust and I'll revise."
 
@@ -635,7 +635,7 @@ After the user approves, instruct them to **exit plan mode** if they entered it 
 
 > "Spec approved. **Exit plan mode now** (in Claude Code: `shift+tab` or `/plan`) so artifacts can be generated in the Build phase."
 >
-> "To build the workflow, run the `build` skill (Step 4) (or say *'Build the workflow from my Building Block Spec'*)."
+> "To build the workflow, run the `build` skill (Step 4) (or say *'Build the workflow from my Design Spec'*)."
 
 ### Outcome-Driven Processing Path
 
@@ -699,7 +699,7 @@ All other spec sections remain the same, except **Step Sequence and Dependencies
 
 ## Outputs
 
-### `outputs/[workflow-name]-building-block-spec.md` — AI Building Block Spec
+### `outputs/[workflow-name]-design-spec.md` — Design Spec
 
 Uses the mandatory template defined in Step 9. For step-decomposed definitions: Execution Pattern, Architecture Decisions, Scenario Summary, Step-by-Step Decomposition (with separate Orchestration/Integration/Intelligence columns), Autonomy Spectrum Summary, Skill Candidates (8 fields each), Agent Configuration (optional, with Skills and Trigger Examples), Step Sequence and Dependencies, Prerequisites, Context Inventory (with Location column), Data Readiness Summary, Integration Options (with Source URLs), Model Recommendation, Recommended Implementation Order, Where to Run, Evaluation Criteria (with test scenarios), Stakeholders (optional).
 
@@ -708,7 +708,7 @@ For outcome-driven definitions: Execution Pattern, Architecture Decisions, Scena
 ## Guidelines
 
 - Use plain language; avoid jargon unless the user introduced it
-- After writing the spec, tell the user: "AI Building Block Spec saved to `outputs/[name]-building-block-spec.md`."
+- After writing the spec, tell the user: "Design Spec saved to `outputs/[name]-design-spec.md`."
 - Do not proceed past the Spec Approval Gate (Step 10) without explicit user approval
 - Do not research integration availability — that happens in the Build phase
 - Do not generate platform artifacts — that happens in the Build phase

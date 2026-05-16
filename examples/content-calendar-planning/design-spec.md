@@ -1,4 +1,4 @@
-# Content Calendar Planning — AI Building Block Spec
+# Content Calendar Planning — Design Spec
 
 ## Execution Pattern
 
