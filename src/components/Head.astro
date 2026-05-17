@@ -43,6 +43,9 @@ const ogImage = (questionSlug && frontmatter.question)
 function mdToPlainText(md: string): string {
   if (!md) return '';
   return md
+    .replace(/^import\s+.*?from\s+['"][^'"]+['"];?\s*$/gm, '')  // MDX imports
+    .replace(/^export\s+.*?;?\s*$/gm, '')        // MDX exports
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, ' ')       // MDX comments
     .replace(/```[\s\S]*?```/g, ' ')           // fenced code blocks
     .replace(/`([^`]+)`/g, '$1')                // inline code
     .replace(/<[^>]+>/g, ' ')                    // HTML tags

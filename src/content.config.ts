@@ -35,6 +35,7 @@ export const collections = {
           'automation',
         ])).optional(),
         building_blocks: z.array(z.string()).optional(),
+        department: z.string().optional(),
         status: z.enum(['draft', 'published']).optional(),
         published: z.date().optional(),
         last_updated: z.date().optional(),

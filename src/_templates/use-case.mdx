@@ -5,17 +5,30 @@ description: "Take a Zoom or Otter transcript and produce a clean action registe
 jtbd: "When I finish a meeting, I want a clean action register so nothing slips."
 
 # Tag with 1–2 primitives from the 6 OpenAI primitives.
-# Powers the per-primitive auto-list and the breadcrumb tags.
+# Powers the per-primitive auto-list, the gallery chips, and the breadcrumb tags.
+# Valid values: content-creation | research | coding | data-analysis | ideation-and-strategy | automation
 primitives: [research, content-creation]
 
 # Which Agentic Building Blocks does this use case rely on?
 # Free-form strings — common values: prompt, context, skill, project, agent, mcp
+# Rendered as chips on the use case gallery.
 building_blocks: [prompt, skill]
+
+# AEO (Answer Engine Optimization) — surfaces in JSON-LD and helps AI search engines.
+# Keep `question` phrased the way someone would actually ask it.
+# Keep `short_answer` to 1–2 sentences and lead with the verb.
+question: "How do I turn a meeting recording into a structured action register?"
+short_answer: "Run the transcript through a skill that extracts action items, decisions, and owners, then drop the output into your task tracker."
 
 # Lifecycle.
 status: published       # draft | published — drafts are excluded from auto-lists
 published: 2026-05-17
 last_updated: 2026-05-17
+
+# OPTIONAL — extra metadata.
+# `department` is a single string used as a chip on the gallery (e.g. "Marketing", "Sales", "Finance").
+# Omit if the use case is cross-functional.
+department: ""
 
 # OPTIONAL — for course funnel hints.
 maven_video_url: ""     # YouTube unlisted URL; not rendered publicly, kept for internal reference
@@ -29,6 +42,8 @@ maven_course: ""        # e.g. "leaders" or "builders" — used by the funnel CT
   A reader should be able to skim in 5 minutes and execute in 15.
   Delete this comment block before publishing.
 */}
+
+**Short answer:** Repeat the `short_answer` frontmatter verbatim here in 1–2 sentences. Search engines and AI Overviews extract this visible text — keep it identical to the JSON-LD field so they agree.
 
 ## The job
 

@@ -17,6 +17,13 @@ export default defineConfig({
     '/use-the-cookbook/build/agentic-coding/': '/use-cases/agentic-coding/',
     // Agentic coding moved to flat use case namespace (2026-05-17)
     '/use-cases/coding/agentic-coding/': '/use-cases/agentic-coding/',
+    // Per-primitive resources pages removed (2026-05-17) — external resources live at /resources/
+    '/use-cases/content-creation/resources/': '/resources/',
+    '/use-cases/research/resources/': '/resources/',
+    '/use-cases/coding/resources/': '/resources/',
+    '/use-cases/data-analysis/resources/': '/resources/',
+    '/use-cases/ideation-and-strategy/resources/': '/resources/',
+    '/use-cases/automation/resources/': '/resources/',
     // Plugin consolidation — four old plugin pages → single handsonai plugin page
     '/use-the-playbook/build/ai-workflow-examples/': '/use-the-playbook/build/handsonai/',
     '/use-the-playbook/build/ai-registry/': '/use-the-playbook/build/handsonai/',
@@ -295,55 +302,19 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: 'Overview', link: '/use-cases/' },
-            {
-              label: 'Content Creation',
-              collapsed: true,
-              items: [
-                { label: 'Overview', link: '/use-cases/content-creation/' },
-                { label: 'Resources', link: '/use-cases/content-creation/resources/' },
-              ],
-            },
-            {
-              label: 'Research',
-              collapsed: true,
-              items: [
-                { label: 'Overview', link: '/use-cases/research/' },
-                { label: 'Resources', link: '/use-cases/research/resources/' },
-              ],
-            },
+            { label: 'Content Creation', link: '/use-cases/content-creation/' },
+            { label: 'Research', link: '/use-cases/research/' },
             {
               label: 'Coding',
               collapsed: true,
               items: [
                 { label: 'Overview', link: '/use-cases/coding/' },
                 { label: 'Agentic Coding', link: '/use-cases/agentic-coding/' },
-                { label: 'Resources', link: '/use-cases/coding/resources/' },
               ],
             },
-            {
-              label: 'Data Analysis',
-              collapsed: true,
-              items: [
-                { label: 'Overview', link: '/use-cases/data-analysis/' },
-                { label: 'Resources', link: '/use-cases/data-analysis/resources/' },
-              ],
-            },
-            {
-              label: 'Ideation & Strategy',
-              collapsed: true,
-              items: [
-                { label: 'Overview', link: '/use-cases/ideation-and-strategy/' },
-                { label: 'Resources', link: '/use-cases/ideation-and-strategy/resources/' },
-              ],
-            },
-            {
-              label: 'Automation',
-              collapsed: true,
-              items: [
-                { label: 'Overview', link: '/use-cases/automation/' },
-                { label: 'Resources', link: '/use-cases/automation/resources/' },
-              ],
-            },
+            { label: 'Data Analysis', link: '/use-cases/data-analysis/' },
+            { label: 'Ideation & Strategy', link: '/use-cases/ideation-and-strategy/' },
+            { label: 'Automation', link: '/use-cases/automation/' },
           ],
         },
         {

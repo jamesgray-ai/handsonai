@@ -6,7 +6,7 @@
 //                         (one of: content-creation, research, coding,
 //                          data-analysis, ideation-and-strategy, automation)
 //   limit (optional): cap on number of use cases shown (default: no cap)
-//   emptyMessage (optional): override the default "no use cases yet" copy
+//   emptyMessage (optional): override the default fallback copy
 //
 // Use case files must live at src/content/docs/use-cases/<slug>.mdx
 // (flat namespace — not under a primitive subfolder). Files under
@@ -27,6 +27,15 @@ interface Props {
 }
 
 const { primitive, limit, emptyMessage } = Astro.props;
+
+const PRIMITIVE_LABELS: Record<string, string> = {
+  'content-creation': 'Content Creation',
+  research: 'Research',
+  coding: 'Coding',
+  'data-analysis': 'Data Analysis',
+  'ideation-and-strategy': 'Ideation & Strategy',
+  automation: 'Automation',
+};
 
 const allDocs = await getCollection('docs');
 
@@ -52,15 +61,23 @@ let useCases = allDocs
   });
 
 if (limit) useCases = useCases.slice(0, limit);
-
-const fallback = emptyMessage
-  ?? (primitive
-        ? 'No use cases published yet for this primitive — check back soon.'
-        : 'No use cases published yet — check back soon.');
 ---
 
 {useCases.length === 0 ? (
-  <p><em>{fallback}</em></p>
+  emptyMessage ? (
+    <p><em>{emptyMessage}</em></p>
+  ) : primitive ? (
+    <div class="uc-empty">
+      <p><strong>No worked examples published yet for this primitive.</strong></p>
+      <p>
+        Browse the <a href="/use-cases/">full library</a> for adjacent ideas, or design your
+        own using the <a href="/ai-workflow-framework/deconstruct/">Deconstruct</a> step of the
+        AI Workflow Framework.
+      </p>
+    </div>
+  ) : (
+    <p><em>No use cases published yet — check back soon.</em></p>
+  )
 ) : (
   <ul class="use-case-list">
     {useCases.map((uc) => {
@@ -68,12 +85,97 @@ const fallback = emptyMessage
       const href = `/use-cases/${slug}/`;
       const title = uc.data.title;
       const description = uc.data.jtbd || uc.data.description;
+      const primitives: string[] = uc.data.primitives ?? [];
+      const blocks: string[] = uc.data.building_blocks ?? [];
+      const department: string | undefined = uc.data.department;
       return (
         <li>
-          <a href={href}><strong>{title}</strong></a>
-          {description && <> — {description}</>}
+          <div class="uc-row">
+            <a href={href}><strong>{title}</strong></a>
+            <div class="uc-chips">
+              {primitives.map((p) => (
+                <span class="uc-chip uc-chip--primitive">{PRIMITIVE_LABELS[p] ?? p}</span>
+              ))}
+              {department && <span class="uc-chip uc-chip--department">{department}</span>}
+              {blocks.map((b) => (
+                <span class="uc-chip uc-chip--block">{b}</span>
+              ))}
+            </div>
+          </div>
+          {description && <p class="uc-desc">{description}</p>}
         </li>
       );
     })}
   </ul>
 )}
+
+<style>
+  .use-case-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.5rem;
+  }
+  .use-case-list > li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+  .use-case-list > li:last-child {
+    border-bottom: none;
+  }
+  .uc-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .uc-row a {
+    font-size: 1.05rem;
+  }
+  .uc-chips {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .uc-chip {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    font-weight: 500;
+    text-transform: capitalize;
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-1);
+    border: 1px solid var(--sl-color-hairline);
+  }
+  .uc-chip--primitive {
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    border-color: transparent;
+  }
+  .uc-chip--department {
+    background: var(--sl-color-gray-5);
+    color: var(--sl-color-white);
+    border-color: transparent;
+  }
+  .uc-chip--block {
+    background: transparent;
+  }
+  .uc-desc {
+    margin: 0.25rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+  }
+  .uc-empty {
+    padding: 1rem 1.25rem;
+    border: 1px dashed var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    background: var(--sl-color-gray-7, transparent);
+  }
+  .uc-empty p {
+    margin: 0;
+  }
+  .uc-empty p + p {
+    margin-top: 0.5rem;
+  }
+</style>
