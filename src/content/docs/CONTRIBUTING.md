@@ -22,6 +22,7 @@ description: How to add content — questions, how-to guides, topics, and patter
 | Question (AEO) | [question-template.md](https://github.com/jamesgray-ai/handsonai/blob/main/src/_templates/question-template.md) |
 | How-To Guide | [how-to-template.md](https://github.com/jamesgray-ai/handsonai/blob/main/src/_templates/how-to-template.md) |
 | Topic | [topic-template.md](https://github.com/jamesgray-ai/handsonai/blob/main/src/_templates/topic-template.md) |
+| Use Case | [use-case.mdx](https://github.com/jamesgray-ai/handsonai/blob/main/src/_templates/use-case.mdx) |
 | Pattern | Use topic template |
 | Troubleshooting | Use how-to template |
 
@@ -84,6 +85,36 @@ author: Your Name
 ## Related Questions
 - Links to related Q&A
 ```
+
+## Adding a Worked Use Case
+
+Worked use cases live as flat files at `src/content/docs/use-cases/<slug>.mdx` and are surfaced automatically on the [Use Cases hub](/use-cases/) and the per-primitive landing pages via the `<UseCaseList />` component.
+
+### How to add a use case
+
+1. Copy `_templates/use-case.mdx` to `src/content/docs/use-cases/<slug>.mdx`
+2. Name the file as a short, job-oriented slug: `draft-brand-voice-social-posts.mdx`, not `social-posts.mdx`
+3. Fill in the frontmatter — every field documented in the template:
+   - **Required**: `title`, `description`, `jtbd`, `primitives`, `building_blocks`, `question`, `short_answer`, `status`, `published`, `last_updated`
+   - **Optional**: `department` (renders as a chip), `maven_video_url`, `maven_course`
+4. Set `primitives` to one or two of: `content-creation`, `research`, `coding`, `data-analysis`, `ideation-and-strategy`, `automation`. These power the chips and the per-primitive auto-lists.
+5. Write the body following the template sections: *The job*, *Who it's for*, *What you'll get*, *What you'll need*, *The walkthrough*, *The building blocks*, *Variations & extensions*, *Troubleshooting*, *Related*.
+6. Aim for ~1,500 words. A reader should be able to skim in 5 minutes and execute in 15.
+7. No sidebar update needed — `<UseCaseList />` auto-discovers `status: published` use cases. Drafts (`status: draft`) are excluded.
+
+### Use case naming convention
+
+- Lowercase with hyphens: `draft-brand-voice-social-posts.mdx`
+- Lead with a verb that matches the JTBD: `draft-`, `summarize-`, `monitor-`, `extract-`
+- Be specific: `summarize-zoom-meeting-with-action-items.mdx` not `meeting-summary.mdx`
+
+### AEO frontmatter on use cases
+
+Use cases include `question` and `short_answer` frontmatter for Answer Engine Optimization — same convention as the [Questions](/questions/) pages. The `question` should be phrased the way someone would actually search, and `short_answer` should be 1–2 sentences that lead with the verb.
+
+**Repeat the short answer visibly on the page.** Right after the frontmatter and any imports, write `**Short answer:** ...` and paste the `short_answer` text verbatim. This is what Google's AI Overviews and similar engines extract from the page body — the JSON-LD `FAQPage` schema agrees with the visible text, which is what gets cited. The template includes this line in the right position.
+
+Use cases are also indexed in `llms.txt` and `llms-full.txt` (built automatically at deploy time) so LLM crawlers can ingest them alongside the Q&A library.
 
 ## Adding a How-To Guide
 
