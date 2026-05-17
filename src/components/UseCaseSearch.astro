@@ -32,8 +32,15 @@ const isFlatUseCase = (entry: { id: string }) => {
 const isPublished = (entry: { data: { status?: string } }) =>
   entry.data.status !== 'draft';
 
+// Real worked use cases carry a `primitives` array in frontmatter.
+// This excludes the primitive landing pages, example-gallery, and any
+// other non-use-case content that happens to sit under /use-cases/.
+const isUseCase = (entry: { data: { primitives?: string[] } }) =>
+  Array.isArray(entry.data.primitives) && entry.data.primitives.length > 0;
+
 const useCases = allDocs
   .filter(isFlatUseCase)
+  .filter(isUseCase)
   .filter(isPublished)
   .sort((a, b) => {
     const aTime = a.data.published instanceof Date ? a.data.published.getTime() : 0;
@@ -235,6 +242,23 @@ const total = useCases.length;
   }
   .uc-row a {
     font-size: 1.05rem;
+    color: var(--sl-color-text-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--sl-color-gray-4);
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.15s ease, background-color 0.15s ease;
+  }
+  .uc-row a:hover {
+    text-decoration-color: currentColor;
+  }
+  .uc-empty a {
+    color: var(--sl-color-text-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--sl-color-gray-4);
+    text-underline-offset: 2px;
+  }
+  .uc-empty a:hover {
+    text-decoration-color: currentColor;
   }
   .uc-chips {
     display: inline-flex;
