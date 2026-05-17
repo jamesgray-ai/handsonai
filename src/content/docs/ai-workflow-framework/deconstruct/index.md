@@ -133,7 +133,7 @@ Three turns. One artifact. No file written to `outputs/`.
 
 ### Not sure which workflow to try?
 
-Browse the [AI Use Cases](../../use-cases/) section for inspiration — it organizes examples by type (content creation, research, coding, data analysis, ideation, and automation) with department-specific scenarios.
+Browse the [AI Use Cases](../../use-cases/) section for inspiration — type to search or filter by primitive (content creation, research, coding, data analysis, ideation, automation).
 
 Or pick something you do regularly and could describe to a colleague over coffee. Here are some examples students have used:
 

@@ -1,0 +1,282 @@
+---
+// UseCaseSearch — typeable filter + primitive chip filter for the use case library.
+// Mirrors the QASearch pattern from src/components/QASearch.astro.
+
+import { getCollection } from 'astro:content';
+
+const PRIMITIVE_LABELS: Record<string, string> = {
+  'content-creation': 'Content Creation',
+  research: 'Research',
+  coding: 'Coding',
+  'data-analysis': 'Data Analysis',
+  'ideation-and-strategy': 'Ideation & Strategy',
+  automation: 'Automation',
+};
+
+const PRIMITIVE_ORDER = [
+  'content-creation',
+  'research',
+  'coding',
+  'data-analysis',
+  'ideation-and-strategy',
+  'automation',
+];
+
+const allDocs = await getCollection('docs');
+
+const isFlatUseCase = (entry: { id: string }) => {
+  const parts = entry.id.split('/');
+  return parts[0] === 'use-cases' && parts.length === 2;
+};
+
+const isPublished = (entry: { data: { status?: string } }) =>
+  entry.data.status !== 'draft';
+
+const useCases = allDocs
+  .filter(isFlatUseCase)
+  .filter(isPublished)
+  .sort((a, b) => {
+    const aTime = a.data.published instanceof Date ? a.data.published.getTime() : 0;
+    const bTime = b.data.published instanceof Date ? b.data.published.getTime() : 0;
+    return bTime - aTime;
+  })
+  .map((uc) => {
+    const slug = uc.id.split('/')[1];
+    return {
+      href: `/use-cases/${slug}/`,
+      title: uc.data.title as string,
+      description: (uc.data.jtbd || uc.data.description || '') as string,
+      primitives: (uc.data.primitives ?? []) as string[],
+      department: (uc.data.department ?? '') as string,
+      blocks: (uc.data.building_blocks ?? []) as string[],
+    };
+  });
+
+const total = useCases.length;
+---
+
+<div class="uc-search not-content">
+  <input
+    type="search"
+    id="uc-filter"
+    placeholder="Type to filter use cases…"
+    autocomplete="off"
+    aria-label="Filter use cases"
+  />
+  <div class="uc-count" id="uc-count" aria-live="polite">{total} use cases</div>
+</div>
+
+<div class="uc-chip-filter not-content" role="group" aria-label="Filter by primitive">
+  {PRIMITIVE_ORDER.map((p) => (
+    <button
+      type="button"
+      class="uc-filter-chip"
+      data-primitive={p}
+      aria-pressed="false"
+    >{PRIMITIVE_LABELS[p]}</button>
+  ))}
+</div>
+
+<ul class="use-case-list not-content" id="uc-list">
+  {useCases.map((uc) => {
+    const searchBlob = [
+      uc.title,
+      uc.description,
+      ...uc.primitives.map((p) => PRIMITIVE_LABELS[p] ?? p),
+      uc.department,
+      ...uc.blocks,
+    ].join(' ').toLowerCase();
+    return (
+      <li
+        class="uc-item"
+        data-search={searchBlob}
+        data-primitives={uc.primitives.join(',')}
+      >
+        <div class="uc-row">
+          <a href={uc.href}><strong>{uc.title}</strong></a>
+          <div class="uc-chips">
+            {uc.primitives.map((p) => (
+              <span class="uc-chip uc-chip--primitive">{PRIMITIVE_LABELS[p] ?? p}</span>
+            ))}
+            {uc.department && <span class="uc-chip uc-chip--department">{uc.department}</span>}
+            {uc.blocks.map((b) => (
+              <span class="uc-chip uc-chip--block">{b}</span>
+            ))}
+          </div>
+        </div>
+        {uc.description && <p class="uc-desc">{uc.description}</p>}
+      </li>
+    );
+  })}
+</ul>
+
+<div class="uc-empty not-content" id="uc-empty" hidden>
+  <p>
+    <strong>Don't see your use case?</strong> Use the <a href="/ai-workflow-framework/deconstruct/">Deconstruct</a> step to design your own from scratch.
+  </p>
+</div>
+
+<script is:inline define:vars={{ total }}>
+  (() => {
+    const input = document.getElementById('uc-filter');
+    const list = document.getElementById('uc-list');
+    const empty = document.getElementById('uc-empty');
+    const count = document.getElementById('uc-count');
+    const chipButtons = Array.from(document.querySelectorAll('.uc-filter-chip'));
+    if (!input || !list) return;
+    const items = Array.from(list.querySelectorAll('.uc-item'));
+    let activePrimitive = null;
+
+    const update = () => {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      for (const item of items) {
+        const textMatch = !q || item.dataset.search.includes(q);
+        const primitives = (item.dataset.primitives || '').split(',').filter(Boolean);
+        const primitiveMatch = !activePrimitive || primitives.includes(activePrimitive);
+        const match = textMatch && primitiveMatch;
+        item.hidden = !match;
+        if (match) visible++;
+      }
+      if (count) count.textContent = `${visible} of ${total} use cases`;
+      if (empty) empty.hidden = visible > 0;
+    };
+
+    input.addEventListener('input', update);
+
+    chipButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.primitive;
+        if (activePrimitive === p) {
+          activePrimitive = null;
+        } else {
+          activePrimitive = p;
+        }
+        chipButtons.forEach((b) => {
+          const pressed = b.dataset.primitive === activePrimitive;
+          b.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+          b.classList.toggle('is-active', pressed);
+        });
+        update();
+      });
+    });
+  })();
+</script>
+
+<style>
+  .uc-search {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+  .uc-search input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+  }
+  .uc-search input:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+  .uc-count {
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+  .uc-chip-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0 0 1.25rem;
+  }
+  .uc-filter-chip {
+    appearance: none;
+    cursor: pointer;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 999px;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+    border: 1px solid var(--sl-color-gray-5);
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .uc-filter-chip:hover {
+    border-color: var(--sl-color-accent);
+  }
+  .uc-filter-chip.is-active {
+    background: var(--sl-color-accent);
+    color: var(--sl-color-white);
+    border-color: var(--sl-color-accent);
+  }
+  .use-case-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .use-case-list > li {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--sl-color-hairline);
+  }
+  .uc-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .uc-row a {
+    font-size: 1.05rem;
+  }
+  .uc-chips {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .uc-chip {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    font-weight: 500;
+    text-transform: capitalize;
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-gray-1);
+    border: 1px solid var(--sl-color-hairline);
+  }
+  .uc-chip--primitive {
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    border-color: transparent;
+  }
+  .uc-chip--department {
+    background: var(--sl-color-gray-5);
+    color: var(--sl-color-white);
+    border-color: transparent;
+  }
+  .uc-chip--block {
+    background: transparent;
+  }
+  .uc-desc {
+    margin: 0.25rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-size: 0.95rem;
+  }
+  .uc-empty {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--sl-color-gray-6);
+    border-radius: 0.5rem;
+    border-left: 3px solid var(--sl-color-accent);
+  }
+  .uc-empty p {
+    margin: 0;
+    color: var(--sl-color-text);
+  }
+</style>
