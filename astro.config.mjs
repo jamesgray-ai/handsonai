@@ -13,7 +13,9 @@ export default defineConfig({
     '/use-the-cookbook/build/': '/use-the-playbook/build/',
     '/use-the-cookbook/build/ai-registry/': '/use-the-playbook/build/handsonai/',
     '/use-the-cookbook/build/business-first-ai/': '/use-the-playbook/build/handsonai/',
-    '/use-the-cookbook/build/agentic-coding/': '/use-cases/coding/agentic-coding/',
+    '/use-the-cookbook/build/agentic-coding/': '/use-cases/agentic-coding/',
+    // Agentic coding moved to flat use case namespace (2026-05-17)
+    '/use-cases/coding/agentic-coding/': '/use-cases/agentic-coding/',
     // Plugin consolidation — four old plugin pages → single handsonai plugin page
     '/use-the-playbook/build/ai-workflow-examples/': '/use-the-playbook/build/handsonai/',
     '/use-the-playbook/build/ai-registry/': '/use-the-playbook/build/handsonai/',
@@ -328,7 +330,7 @@ export default defineConfig({
               collapsed: true,
               items: [
                 { label: 'Overview', link: '/use-cases/coding/' },
-                { label: 'Agentic Coding', link: '/use-cases/coding/agentic-coding/' },
+                { label: 'Agentic Coding', link: '/use-cases/agentic-coding/' },
                 { label: 'Resources', link: '/use-cases/coding/resources/' },
               ],
             },

@@ -1,14 +1,15 @@
 ---
 title: AI Use Cases
-description: Six use case primitives that cover what teams actually build with AI — content creation, research, coding, data analysis, ideation and strategy, and automation
----OpenAI's analysis of over 600 enterprise AI deployments found that nearly all use cases fall into six primitives. These primitives describe the **type of work** AI does, not the tools or platforms involved. Understanding them helps you classify your own workflows and find the right building blocks faster.
+description: The Hands-on AI use case library — worked, step-by-step examples of common AI use cases for business teams, organized by the six OpenAI primitives.
+---
 
-*The six primitives and department examples in this section are adapted from OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report/) and made platform-agnostic.*
+This is the Hands-on AI use case library — a growing collection of worked, step-by-step examples for the most common jobs teams use AI for. Each use case is one specific job-to-be-done, walked through end-to-end, with the prompts, skills, and building blocks you need to do it yourself.
 
-:::tip[Connecting to the Framework]
-The [AI Workflow Framework](../ai-workflow-framework/) helps you **find** opportunities (Step 1 — Analyze) and **deconstruct** them into building blocks (Step 2). Use these six primitives to **classify** the opportunities you find — they tell you what type of AI work each opportunity involves, which makes choosing the right building blocks easier.
-:::
-## The Six Primitives
+## Find a use case
+
+**Search** — use the search box at the top of any page and type what you're trying to do, e.g. *"summarize a meeting"* or *"draft an email"*. The search covers every page in the Playbook including all use cases. *Tip: press `Cmd+K` (Mac) or `Ctrl+K` (Windows/Linux) to jump straight to the search box from anywhere on the site.*
+
+**Browse by primitive** — every use case is tagged with one or two of the six OpenAI primitives. Pick the one that matches the type of work you're doing:
 
 | Primitive | What AI Does | Typical Building Blocks | Example |
 |-----------|-------------|------------------------|---------|
@@ -19,63 +20,15 @@ The [AI Workflow Framework](../ai-workflow-framework/) helps you **find** opport
 | [**Ideation & Strategy**](ideation-and-strategy/) | Brainstorms, plans, gives feedback, models scenarios | Prompt, Context, Project | Campaign ideation with constraints |
 | [**Automation**](automation/) | Executes repeatable routine tasks with minimal human involvement | Skill, Agent, MCP | Weekly competitive update pipeline |
 
-## Content Creation
+## About the six primitives
 
-AI drafts, edits, translates, and repurposes content across formats. This is the most common entry point for teams adopting AI — nearly every department produces written content, and AI can handle first drafts, formatting, and adaptation between audiences.
+OpenAI's analysis of over 600 enterprise AI deployments found that nearly all use cases fall into six primitives. These describe the **type of work** AI does, not the tools or platforms involved — understanding them helps you classify your own workflows and find the right building blocks faster.
 
-Content creation works best when you provide context (brand voice, style guides, examples) so the AI produces output that matches your standards rather than generic copy.
+*The primitives and department examples are adapted from OpenAI's [Identifying and Scaling AI Use Cases](../resources/openai-use-cases-report/) and made platform-agnostic.*
 
-[→ Content Creation detail](content-creation/)
-
----
-
-## Research
-
-AI searches, synthesizes, and structures information from multiple sources. Research use cases replace the hours spent gathering, reading, and summarizing — the AI handles the collection while you focus on judgment and decision-making.
-
-Research primitives are particularly powerful when combined with MCP connections to external data sources, letting the AI pull from your actual tools rather than just web search.
-
-[→ Research detail](research/)
-
----
-
-## Coding
-
-AI generates, debugs, ports, and explains code. This primitive isn't limited to software engineers — it extends to anyone who needs to create scripts, formulas, queries, or technical artifacts as part of their work.
-
-Coding use cases range from simple formula generation (Excel, SQL) to full application development with agents that plan, write, test, and iterate autonomously.
-
-[→ Coding detail](coding/)
-
----
-
-## Data Analysis
-
-AI harmonizes data from multiple sources, identifies trends, and produces visualizations. Data analysis use cases turn raw information into structured insights — the AI handles cleaning, formatting, and pattern recognition while you direct the analysis.
-
-This primitive often pairs with coding (generating analysis scripts) and research (interpreting results in context).
-
-[→ Data Analysis detail](data-analysis/)
-
----
-
-## Ideation & Strategy
-
-AI brainstorms ideas, plans approaches, provides feedback, and runs scenario analysis. This is the most collaborative primitive — AI serves as a thinking partner rather than an executor, helping you explore possibilities you wouldn't consider alone.
-
-Ideation works best in project workspaces where the AI has persistent context about your goals, constraints, and past decisions.
-
-[→ Ideation & Strategy detail](ideation-and-strategy/)
-
----
-
-## Automation
-
-AI executes repeatable routine tasks with minimal human involvement. Automation is the highest-autonomy primitive — once configured, these workflows run on schedule or in response to triggers, producing consistent results without manual intervention.
-
-Automation typically builds on the other primitives. A content creation workflow becomes automation when it runs on a schedule. A research workflow becomes automation when it monitors sources continuously.
-
-[→ Automation detail](automation/)
+:::tip[Connecting to the Framework]
+The [AI Workflow Framework](../ai-workflow-framework/) helps you **find** opportunities (Step 1 — Analyze) and **deconstruct** them into building blocks (Step 2). Use these six primitives to **classify** the opportunities you find — they tell you what type of AI work each opportunity involves, which makes choosing the right building blocks easier.
+:::
 
 ## Classifying Your Use Cases
 

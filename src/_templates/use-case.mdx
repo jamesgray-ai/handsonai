@@ -1,0 +1,112 @@
+---
+# REQUIRED — these power discovery, SEO, and auto-listing.
+title: "Turn a meeting recording into a structured action register"
+description: "Take a Zoom or Otter transcript and produce a clean action register with owners, due dates, and decisions captured."
+jtbd: "When I finish a meeting, I want a clean action register so nothing slips."
+
+# Tag with 1–2 primitives from the 6 OpenAI primitives.
+# Powers the per-primitive auto-list and the breadcrumb tags.
+primitives: [research, content-creation]
+
+# Which Agentic Building Blocks does this use case rely on?
+# Free-form strings — common values: prompt, context, skill, project, agent, mcp
+building_blocks: [prompt, skill]
+
+# Lifecycle.
+status: published       # draft | published — drafts are excluded from auto-lists
+published: 2026-05-17
+last_updated: 2026-05-17
+
+# OPTIONAL — for course funnel hints.
+maven_video_url: ""     # YouTube unlisted URL; not rendered publicly, kept for internal reference
+maven_course: ""        # e.g. "leaders" or "builders" — used by the funnel CTA at the bottom
+---
+
+{/*
+  USE CASE TEMPLATE
+  =================
+  Replace each section's placeholder with real content. Aim for ~1,500 words.
+  A reader should be able to skim in 5 minutes and execute in 15.
+  Delete this comment block before publishing.
+*/}
+
+## The job
+
+One-line restatement of the JTBD, written for a busy reader: *"When I finish a
+60-minute meeting, I want a clean action register so nothing slips."* This is
+the hook — it should match how someone would search Google for this problem.
+
+## Who it's for
+
+- A specific role or context (PMs, execs, marketers, founders, etc.)
+- One sentence on the situation they're in when they need this
+
+## What you'll get
+
+A concrete description of the artifact this use case produces — what it looks
+like, what fields it has, what format it's in. Show a small example or
+screenshot if it helps. Avoid abstraction.
+
+## What you'll need
+
+- The tool(s) you'll use (Claude, ChatGPT, Otter, etc.)
+- Any prerequisites (an account, a skill installed, source material on hand)
+- Time budget (typically 10–20 minutes)
+
+## The walkthrough
+
+Step-by-step instructions a reader can execute immediately.
+
+### Step 1: [Action]
+
+What to do. Why. What to expect.
+
+### Step 2: [Action]
+
+Next action. Reference the output of Step 1.
+
+### Step 3: [Action]
+
+Continue as needed. Most use cases are 3–6 steps.
+
+## The building blocks
+
+The copy-pasteable assets a reader can lift straight into their tool.
+
+### Prompt
+
+```text
+Paste this prompt into [Tool]. Replace the {{placeholders}} with your inputs.
+
+You are an assistant that ...
+
+Input:
+{{transcript}}
+
+Output format:
+- ...
+```
+
+### Skill / Agent / Project setup (if applicable)
+
+Reference the linked artifact, or paste the YAML/markdown directly. Be explicit
+about where it goes (`.claude/skills/<name>/SKILL.md`, a Claude Project,
+ChatGPT custom skill, etc.).
+
+## Variations & extensions
+
+- **Variation 1**: How to adapt this for a different scenario
+- **Variation 2**: A more advanced version (e.g., automation instead of manual)
+- **Combine with**: Another use case that pairs well
+
+## Troubleshooting
+
+- **If [common problem]**, try [fix]
+- **If [output quality issue]**, adjust [parameter or instruction]
+- **If [edge case]**, fall back to [alternative]
+
+## Related
+
+- [Another use case with a similar building block](/use-cases/<other-slug>/)
+- [Primitive overview](/use-cases/<primitive>/)
+- [The building block reference](/agentic-building-blocks/<block>/)

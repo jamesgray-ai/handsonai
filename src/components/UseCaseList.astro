@@ -1,0 +1,79 @@
+---
+// UseCaseList — renders an auto-list of published use cases.
+//
+// Props:
+//   primitive (optional): filter to use cases tagged with this primitive
+//                         (one of: content-creation, research, coding,
+//                          data-analysis, ideation-and-strategy, automation)
+//   limit (optional): cap on number of use cases shown (default: no cap)
+//   emptyMessage (optional): override the default "no use cases yet" copy
+//
+// Use case files must live at src/content/docs/use-cases/<slug>.mdx
+// (flat namespace — not under a primitive subfolder). Files under
+// /use-cases/<primitive>/... are intentionally excluded.
+
+import { getCollection } from 'astro:content';
+
+interface Props {
+  primitive?:
+    | 'content-creation'
+    | 'research'
+    | 'coding'
+    | 'data-analysis'
+    | 'ideation-and-strategy'
+    | 'automation';
+  limit?: number;
+  emptyMessage?: string;
+}
+
+const { primitive, limit, emptyMessage } = Astro.props;
+
+const allDocs = await getCollection('docs');
+
+const isFlatUseCase = (entry: { id: string }) => {
+  const parts = entry.id.split('/');
+  return parts[0] === 'use-cases' && parts.length === 2;
+};
+
+const matchesPrimitive = (entry: { data: { primitives?: string[] } }) =>
+  !primitive || (entry.data.primitives ?? []).includes(primitive);
+
+const isPublished = (entry: { data: { status?: string } }) =>
+  entry.data.status !== 'draft';
+
+let useCases = allDocs
+  .filter(isFlatUseCase)
+  .filter(matchesPrimitive)
+  .filter(isPublished)
+  .sort((a, b) => {
+    const aTime = a.data.published instanceof Date ? a.data.published.getTime() : 0;
+    const bTime = b.data.published instanceof Date ? b.data.published.getTime() : 0;
+    return bTime - aTime;
+  });
+
+if (limit) useCases = useCases.slice(0, limit);
+
+const fallback = emptyMessage
+  ?? (primitive
+        ? 'No use cases published yet for this primitive — check back soon.'
+        : 'No use cases published yet — check back soon.');
+---
+
+{useCases.length === 0 ? (
+  <p><em>{fallback}</em></p>
+) : (
+  <ul class="use-case-list">
+    {useCases.map((uc) => {
+      const slug = uc.id.split('/')[1];
+      const href = `/use-cases/${slug}/`;
+      const title = uc.data.title;
+      const description = uc.data.jtbd || uc.data.description;
+      return (
+        <li>
+          <a href={href}><strong>{title}</strong></a>
+          {description && <> — {description}</>}
+        </li>
+      );
+    })}
+  </ul>
+)}
