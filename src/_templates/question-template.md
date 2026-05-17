@@ -1,3 +1,18 @@
+<!--
+  Question template for the Q&A library.
+
+  Where to save:
+    src/content/docs/questions/<slug>.md
+
+  The slug becomes the URL: /questions/<slug>/
+
+  The page footer ("← Back to Q&A" + alumni CTA) is rendered automatically
+  by src/components/QuestionPageFooter.astro whenever `question:` is in
+  the frontmatter — do not add CTA boilerplate to the body.
+
+  The FAQPage JSON-LD schema is emitted automatically by
+  src/components/Head.astro from `question` + `short_answer` frontmatter.
+-->
 ---
 question: "Your question here?"
 short_answer: "Provide a 1-2 sentence direct answer. This is used for JSON-LD schema."

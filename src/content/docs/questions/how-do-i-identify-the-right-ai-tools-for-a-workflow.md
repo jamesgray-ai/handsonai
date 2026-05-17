@@ -10,7 +10,7 @@ title: "How do I identify the right AI tools for a workflow?"
 
 ## The Full Answer
 
-You can't choose the right AI tools for a workflow you don't fully understand. The [AI Workflow Framework](../..//) addresses this with a structured approach: discover opportunities first, then deconstruct workflows into building blocks before selecting tools.
+You can't choose the right AI tools for a workflow you don't fully understand. The [AI Workflow Framework](/ai-workflow-framework/) addresses this with a structured approach: discover opportunities first, then deconstruct workflows into building blocks before selecting tools.
 
 Most people jump straight to tool selection — "Should I use an agent? Do I need an API?" — before they've properly decomposed what the workflow actually involves. The result is over-engineered solutions for simple problems, or under-powered tools for complex ones.
 
@@ -36,7 +36,7 @@ Not every step needs AI. The deconstruction also classifies each step on an auto
 
 ## How to Get Started
 
-Use the [Deconstruct Workflows](../../deconstruct/) to run through this process interactively. Paste it into any AI tool and it will:
+Use the [Deconstruct Workflows](/ai-workflow-framework/deconstruct/) to run through this process interactively. Paste it into any AI tool and it will:
 
 1. **Analyze your scenario** — understand the workflow objective and rough steps
 2. **Deep dive into each step** — apply the 6-question framework
@@ -52,9 +52,9 @@ Real workflows produce the best analysis. The meta prompt is designed to work wi
 - Use the 6-question framework: discrete steps, decision points, data flows, context needs, failure modes, and data readiness
 - Map each step to one or more of the 11 AI building blocks across three layers — Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent), Integration (MCP, API, SDK, CLI)
 - Not every step needs AI — the autonomy classification helps you see which steps are candidates and which should stay manual
-- Use the [Deconstruct Workflows](../../deconstruct/) to run through this process interactively
+- Use the [Deconstruct Workflows](/ai-workflow-framework/deconstruct/) to run through this process interactively
 
 ## Related Questions
 
-- [How do I find workflows worth applying AI to?](../how-do-i-find-workflows-worth-applying-ai-to/)
-- [What is a system prompt?](../../../agentic-building-blocks/prompts/questions/what-is-a-system-prompt/)
+- [How do I find workflows worth applying AI to?](/questions/how-do-i-find-workflows-worth-applying-ai-to/)
+- [What is a system prompt?](/questions/what-is-a-system-prompt/)

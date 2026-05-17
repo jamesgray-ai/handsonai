@@ -1,20 +1,73 @@
 ---
 import Default from '@astrojs/starlight/components/Head.astro';
+import { getCollection } from 'astro:content';
 
 const siteUrl = 'https://handsonai.info/';
 const siteName = 'Hands-on AI Playbook';
 const siteDescription = 'Curated AI knowledge for builders. Apply AI faster. Accelerate business impact.';
-const ogImage = `${siteUrl}assets/images/og-default.jpg`;
+const defaultOgImage = `${siteUrl}assets/images/og-default.jpg`;
 
 const pathname = Astro.url.pathname;
 const isHomepage = pathname === '/' || pathname === '';
 const pageUrl = new URL(pathname, siteUrl).href;
+const isQuestionsHub = pathname === '/questions/' || pathname === '/questions';
 
-// Access frontmatter from Starlight route data
-const { entry } = Astro.props;
+// Access frontmatter from Starlight route data. In Astro v6 + Starlight v0.38,
+// the active route entry lives on Astro.locals.starlightRoute. Astro.props.entry
+// is no longer populated for Head overrides, so always read from locals.
+const slRoute = (Astro.locals as any)?.starlightRoute;
+const entry = slRoute?.entry ?? (Astro.props as any)?.entry ?? null;
 const frontmatter = entry?.data || {};
 const pageTitle = frontmatter.title || siteName;
 const pageDesc = frontmatter.description || siteDescription;
+
+// Per-question OG image — generated at build time by src/pages/og/questions/[slug].svg.ts.
+// Astro v5+ entries expose `id` (e.g. `questions/what-is-a-system-prompt.md`); strip
+// the directory prefix and any extension to get the URL slug.
+function entryToSlug(e: any): string | null {
+  const raw = typeof e?.slug === 'string' && e.slug ? e.slug
+    : typeof e?.id === 'string' && e.id ? e.id.replace(/\.(md|mdx)$/, '')
+    : null;
+  return raw;
+}
+const slugWithDir = entryToSlug(entry);
+const questionSlug = slugWithDir && slugWithDir.startsWith('questions/')
+  ? slugWithDir.replace(/^questions\//, '')
+  : null;
+const ogImage = (questionSlug && frontmatter.question)
+  ? `${siteUrl}og/questions/${questionSlug}.svg`
+  : defaultOgImage;
+
+// Convert markdown body to plain text for FAQPage acceptedAnswer.text.
+// Keeps prose, drops fences, links resolve to their visible text.
+function mdToPlainText(md: string): string {
+  if (!md) return '';
+  return md
+    .replace(/```[\s\S]*?```/g, ' ')           // fenced code blocks
+    .replace(/`([^`]+)`/g, '$1')                // inline code
+    .replace(/<[^>]+>/g, ' ')                    // HTML tags
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')   // images → alt text
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')    // links → text
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '')         // ATX headings
+    .replace(/^[-*+]\s+/gm, '')                  // list markers
+    .replace(/^>\s?/gm, '')                      // blockquote markers
+    .replace(/\*\*([^*]+)\*\*/g, '$1')           // bold
+    .replace(/\*([^*]+)\*/g, '$1')               // italics
+    .replace(/_{1,2}([^_]+)_{1,2}/g, '$1')       // bold/italics with underscores
+    .replace(/^\s*[-=]{3,}\s*$/gm, '')           // setext underlines / hr
+    .replace(/\s+/g, ' ')                         // collapse whitespace
+    .trim();
+}
+
+// Normalize date values to ISO-8601 strings so JSON-LD shows clean dates.
+function toIso(value: unknown): string | null {
+  if (!value) return null;
+  if (value instanceof Date) return isNaN(value.getTime()) ? null : value.toISOString();
+  const d = new Date(String(value));
+  return isNaN(d.getTime()) ? null : d.toISOString();
+}
+const dateCreatedIso = toIso(frontmatter.date);
+const dateModifiedIso = toIso(slRoute?.lastUpdated) || dateCreatedIso;
 
 // Build breadcrumb from URL path
 const pathParts = pathname.split('/').filter(Boolean);
@@ -118,18 +171,62 @@ const howToSchema = schemaType === 'HowTo' ? {
   } : {})
 } : null;
 
-// FAQPage schema
+// FAQPage schema — enriched with the full answer body, dateModified, and richer Answer fields.
+const fullAnswerText = hasQuestion ? mdToPlainText(entry?.body ?? '') || frontmatter.short_answer : '';
 const faqSchema = hasQuestion ? {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  ...(frontmatter.date ? { "dateCreated": String(frontmatter.date) } : {}),
+  "url": pageUrl,
+  "name": frontmatter.question,
+  "headline": frontmatter.short_answer,
+  ...(dateCreatedIso ? { "dateCreated": dateCreatedIso, "datePublished": dateCreatedIso } : {}),
+  ...(dateModifiedIso ? { "dateModified": dateModifiedIso } : {}),
   ...(frontmatter.author ? { "author": { "@type": "Person", "name": frontmatter.author, "url": "https://jamesgray.ai" } } : {}),
   "mainEntity": [{
     "@type": "Question",
     "name": frontmatter.question,
-    "acceptedAnswer": { "@type": "Answer", "text": frontmatter.short_answer }
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": fullAnswerText,
+      "url": pageUrl,
+      ...(frontmatter.author ? { "author": { "@type": "Person", "name": frontmatter.author, "url": "https://jamesgray.ai" } } : {})
+    }
   }]
 } : null;
+
+// CollectionPage schema for the /questions/ hub — lists every Q as an ItemList.
+let collectionPageSchema: Record<string, unknown> | null = null;
+if (isQuestionsHub) {
+  const questionEntries = await getCollection('docs', (e: any) => {
+    return e.id.startsWith('questions/') && !/^questions\/index\.(md|mdx)$/.test(e.id);
+  });
+  collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "url": pageUrl,
+    "name": "Q&A — Hands-on AI Playbook",
+    "description": "Short answers to questions James Gray gets in his paid courses, on Substack, and on calls.",
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": questionEntries.length,
+      "itemListElement": questionEntries
+        .map((e: any) => {
+          const slugWithDir = entryToSlug(e) ?? '';
+          return {
+            name: e.data?.question || e.data?.title || slugWithDir,
+            slug: slugWithDir.replace(/^questions\//, ''),
+          };
+        })
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((q, i) => ({
+          "@type": "ListItem",
+          "position": i + 1,
+          "url": `${siteUrl}questions/${q.slug}/`,
+          "name": q.name,
+        })),
+    },
+  };
+}
 
 // Article schema
 const articleSchema = hasArticle ? {
@@ -174,5 +271,6 @@ const breadcrumbSchema = !isHomepage && pathParts.length > 0 ? {
 {courseSchema && <script type="application/ld+json" set:html={JSON.stringify(courseSchema)} />}
 {howToSchema && <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />}
 {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+{collectionPageSchema && <script type="application/ld+json" set:html={JSON.stringify(collectionPageSchema)} />}
 {articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
 {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}

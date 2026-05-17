@@ -1,0 +1,60 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+
+const route = Astro.locals.starlightRoute;
+const fm = route?.entry?.data ?? {};
+const isQuestion = Boolean(fm.question);
+---
+
+{isQuestion && (
+  <div class="qa-page-footer not-content">
+    <p class="qa-back">
+      <a href="/questions/">← Back to Q&amp;A</a>
+    </p>
+    <aside class="qa-alumni-cta" aria-label="Ask James a question">
+      <strong>Want James to answer your question personally?</strong>
+      <p>
+        Personal answers are a perk for paid course alumni and Gray Matter subscribers — <a href="/courses/">explore courses</a> · <a href="https://graymatter.jamesgray.ai" rel="noopener">subscribe to Gray Matter on Substack</a>.
+      </p>
+    </aside>
+  </div>
+)}
+
+<Default />
+
+<style>
+  .qa-page-footer {
+    margin: 2.5rem 0 1.5rem;
+  }
+  .qa-back {
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .qa-back a {
+    text-decoration: none;
+    color: var(--sl-color-accent-high);
+  }
+  .qa-back a:hover {
+    text-decoration: underline;
+  }
+  .qa-alumni-cta {
+    padding: 1rem 1.25rem;
+    background: var(--sl-color-gray-6);
+    border-radius: 0.5rem;
+    border-left: 3px solid var(--sl-color-accent);
+  }
+  .qa-alumni-cta strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--sl-color-white);
+  }
+  .qa-alumni-cta p {
+    margin: 0;
+    color: var(--sl-color-text);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .qa-alumni-cta a {
+    color: var(--sl-color-accent-high);
+  }
+</style>

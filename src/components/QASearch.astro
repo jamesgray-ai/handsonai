@@ -1,0 +1,136 @@
+---
+interface QuestionItem {
+  title: string;
+  shortAnswer: string;
+  slug: string;
+}
+
+interface Props {
+  questions: QuestionItem[];
+}
+
+const { questions } = Astro.props;
+const total = questions.length;
+---
+
+<div class="qa-search not-content">
+  <input
+    type="search"
+    id="qa-filter"
+    placeholder="Type to filter questions…"
+    autocomplete="off"
+    aria-label="Filter questions"
+  />
+  <div class="qa-count" id="qa-count" aria-live="polite">{total} questions</div>
+</div>
+
+<ul class="qa-list not-content" id="qa-list">
+  {questions.map((q) => (
+    <li class="qa-item" data-search={`${q.title} ${q.shortAnswer}`.toLowerCase()}>
+      <a href={`/questions/${q.slug}/`}>
+        <span class="qa-q">{q.title}</span>
+        <span class="qa-a">{q.shortAnswer}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<div class="qa-empty not-content" id="qa-empty" hidden>
+  <p>
+    <strong>Didn't find your question?</strong> This library grows from questions James gets in his paid courses and on Substack — <a href="/courses/">explore courses</a> · <a href="https://graymatter.jamesgray.ai" rel="noopener">subscribe to Gray Matter on Substack</a>.
+  </p>
+</div>
+
+<script is:inline define:vars={{ total }}>
+  (() => {
+    const input = document.getElementById('qa-filter');
+    const list = document.getElementById('qa-list');
+    const empty = document.getElementById('qa-empty');
+    const count = document.getElementById('qa-count');
+    if (!input || !list) return;
+    const items = Array.from(list.querySelectorAll('.qa-item'));
+    const update = () => {
+      const q = input.value.trim().toLowerCase();
+      let visible = 0;
+      for (const item of items) {
+        const match = !q || item.dataset.search.includes(q);
+        item.hidden = !match;
+        if (match) visible++;
+      }
+      if (count) count.textContent = `${visible} of ${total} questions`;
+      if (empty) empty.hidden = visible > 2;
+    };
+    input.addEventListener('input', update);
+  })();
+</script>
+
+<style>
+  .qa-search {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.5rem 0 1rem;
+  }
+  .qa-search input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-bg);
+    color: var(--sl-color-text);
+  }
+  .qa-search input:focus {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+  .qa-count {
+    font-size: 0.875rem;
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+  .qa-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--sl-color-gray-6);
+  }
+  .qa-item {
+    border-bottom: 1px solid var(--sl-color-gray-6);
+    padding: 0;
+    margin: 0;
+  }
+  .qa-item a {
+    display: block;
+    padding: 1rem 0.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .qa-item a:hover,
+  .qa-item a:focus {
+    background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+  }
+  .qa-q {
+    display: block;
+    font-weight: 600;
+    color: var(--sl-color-white);
+    margin-bottom: 0.25rem;
+  }
+  .qa-a {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--sl-color-gray-2);
+    line-height: 1.45;
+  }
+  .qa-empty {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--sl-color-gray-6);
+    border-radius: 0.5rem;
+    border-left: 3px solid var(--sl-color-accent);
+  }
+  .qa-empty p {
+    margin: 0;
+    color: var(--sl-color-text);
+  }
+</style>

@@ -1,6 +1,6 @@
 ---
 name: playbook-question-publisher
-description: "Publishes approved question drafts from outputs/questions/ to the live site. Moves files to the correct src/content/docs/ directory, updates astro.config.mjs sidebar, commits and pushes to main, and updates Notion status to Published. Run nightly at 9 PM or on-demand after reviewing drafts.\n\nExamples:\n\n<example>\nContext: Scheduled nightly run to publish approved questions\nuser: \"Publish all approved questions from the Notion Questions database\"\nassistant: \"I'll check for approved questions and publish any that are ready.\"\n<Task tool call to playbook-question-publisher agent>\n</example>\n\n<example>\nContext: User approved a question and wants it published immediately\nuser: \"I just approved the MCP question in Notion, publish it now\"\nassistant: \"Let me publish the approved question to the live site.\"\n<Task tool call to playbook-question-publisher agent>\n</example>"
+description: "Publishes approved question drafts from outputs/questions/ to the live site. Writes the file to src/content/docs/questions/<slug>.md (flat structure — every Q&A lives there; the global /questions/ hub auto-aggregates, so no sidebar edits are needed), commits and pushes to main, and updates Notion status to Published. Run nightly at 9 PM or on-demand after reviewing drafts.\n\nExamples:\n\n<example>\nContext: Scheduled nightly run to publish approved questions\nuser: \"Publish all approved questions from the Notion Questions database\"\nassistant: \"I'll check for approved questions and publish any that are ready.\"\n<Task tool call to playbook-question-publisher agent>\n</example>\n\n<example>\nContext: User approved a question and wants it published immediately\nuser: \"I just approved the MCP question in Notion, publish it now\"\nassistant: \"Let me publish the approved question to the live site.\"\n<Task tool call to playbook-question-publisher agent>\n</example>"
 model: sonnet
 color: green
 ---
@@ -49,91 +49,33 @@ If the values differ, update the draft file's frontmatter to match the Notion va
 - Map Notion Topic to lowercase kebab-case for frontmatter `topic` (e.g., "Builder Setup" → "builder-setup", "Use Cases" → "use-cases")
 - Map Notion Platform multi-select to a lowercase array for frontmatter `platforms` (e.g., ["Claude", "General"] → [claude, general]; "ChatGPT/OpenAI" → "openai"; "M365 Copilot" → "m365-copilot"; "Gemini" → "gemini")
 
-#### d. Determine target directory
+#### d. Write the draft to the flat location
 
-Use the **Notion Topic value** (not the draft frontmatter) to pick the target directory:
+Every Q&A page lives at `src/content/docs/questions/<slug>.md`. There is no per-topic directory choice.
 
-| Topic | Target Directory |
-|-------|-----------------|
-| Prompts | `src/content/docs/agentic-building-blocks/prompts/questions/` |
-| Context | `src/content/docs/agentic-building-blocks/context/questions/` |
-| Projects | `src/content/docs/agentic-building-blocks/projects/questions/` |
-| Skills | `src/content/docs/agentic-building-blocks/skills/questions/` |
-| Agents | `src/content/docs/agentic-building-blocks/agents/questions/` |
-| MCP | `src/content/docs/agentic-building-blocks/mcp/questions/` |
-| Platforms | Route to specific platform subdirectory based on Platform field — see Platform Routing below |
-| Use Cases | `src/content/docs/use-cases/questions/` |
-| Builder Setup | `src/content/docs/builder-setup/questions/` |
-| Other | `src/content/docs/questions/` |
+- Compute `<slug>` from the filename in `outputs/questions/` (kebab-case, matches the question title).
+- Use the Write tool to write the (frontmatter-synced) content to `src/content/docs/questions/<slug>.md`.
+- Use Bash `rm` to remove the original `outputs/questions/<slug>.md`.
 
-**Platform Routing** (when Topic = "Platforms"):
-- If Platform includes "Claude" → `src/content/docs/platforms/claude/questions/`
-- If Platform includes "ChatGPT/OpenAI" → `src/content/docs/platforms/openai/questions/`
-- If Platform includes "Gemini" → `src/content/docs/platforms/google-gemini/questions/`
-- If Platform includes "M365 Copilot" → `src/content/docs/platforms/m365-copilot/questions/`
-- If Platform includes "General" or multiple platforms → `src/content/docs/platforms/questions/`
+No `mkdir -p` is needed — `src/content/docs/questions/` always exists.
 
-#### e. Create target directory if needed
+#### e. No sidebar edits required
 
-Use `mkdir -p` via Bash to create the target directory if it doesn't exist.
+The global `/questions/` hub at `src/content/docs/questions/index.mdx` auto-aggregates every `questions/*.md` file at build time. **Do not edit `astro.config.mjs`** when publishing a question — the file's appearance in the hub, the top-nav Q&A link, and the structured-data emit all happen automatically.
 
-#### f. Move the draft
-
-Copy the file from `outputs/questions/{filename}.md` to the target directory, then delete the original. Use the Write tool to write the (possibly updated) content to the target path, then use Bash `rm` to remove the original.
-
-#### g. Update `astro.config.mjs` sidebar
-
-Read `astro.config.mjs` and add the question under the correct section's "Questions" group in the sidebar. The sidebar entry format is:
-
-```js
-{ label: 'Question text without trailing question mark', link: '/path/to/question-slug/' },
-```
-
-**Where to insert:**
-
-Find the correct sidebar section based on Topic and look for the `label: 'Questions'` group within it:
-- **Prompts** → Under "Agentic Building Blocks" > "Prompts" > "Questions"
-- **Context** → Under "Agentic Building Blocks" > "Context" — add a "Questions" group if one doesn't exist
-- **Projects** → Under "Agentic Building Blocks" > "Projects" — add a "Questions" group if one doesn't exist
-- **Skills** → Under "Agentic Building Blocks" > "Skills" > "Questions"
-- **Agents** → Under "Agentic Building Blocks" > "Agents" — add a "Questions" group if one doesn't exist
-- **MCP** → Under "Agentic Building Blocks" > "MCP" > "Questions"
-- **Platforms** → Under "Platforms" > specific platform > "Questions"
-- **Use Cases** → Under "Use Cases" — add a "Questions" group if one doesn't exist
-- **Builder Setup** → Under "Builder Setup" — add a "Questions" group if one doesn't exist
-- **Other** → Under a top-level "Questions" section (create if needed)
-- **Strategy / Framework** → Under "AI Workflow Framework" > "Questions"
-
-For sections that don't yet have a "Questions" group, add one as a nested `items` array. For example:
-
-```js
-{
-  label: 'Questions',
-  items: [
-    { label: 'Difference between a skill and an agent', link: '/agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code/' },
-  ],
-},
-```
-
-Use the Edit tool to make surgical edits to `astro.config.mjs`. Match the existing indentation and formatting style.
-
-#### h. Update Notion
+#### f. Update Notion
 
 For each published question, update the Notion row:
 - Set **Status** to "Published"
-- Set **Answer Page** to the published URL: `https://handsonai.info/{path}/`
+- Set **Answer Page** to the published URL: `https://handsonai.info/questions/<slug>/`
 
-The path is derived from the file location relative to `src/content/docs/`, without the `.md` extension. For example:
-- `src/content/docs/agentic-building-blocks/mcp/questions/how-do-i-connect-an-mcp-server-to-claude-code.md`
-- → `https://handsonai.info/agentic-building-blocks/mcp/questions/how-do-i-connect-an-mcp-server-to-claude-code/`
-
-Use `notion-update-page` with the page ID to update properties:
+Use `notion-update-page` with the page ID:
 ```json
 {
   "command": "update_properties",
   "properties": {
     "Status": "Published",
-    "Answer Page": "https://handsonai.info/path/to/question/"
+    "Answer Page": "https://handsonai.info/questions/<slug>/"
   }
 }
 ```
@@ -142,11 +84,9 @@ Use `notion-update-page` with the page ID to update properties:
 
 After processing all questions:
 
-1. Stage all changed files: the new question files in `src/content/docs/` and the updated `astro.config.mjs`
-2. Commit with message: `Publish answer: {question title}` (or `Publish answers: {count} questions` if multiple)
-3. Push to `main`
-
-Use specific file paths when staging (avoid `git add -A`).
+1. Stage only the new question files in `src/content/docs/questions/` using specific file paths (never `git add -A`).
+2. Commit with message: `Publish answer: {question title}` (or `Publish answers: {count} questions` if multiple).
+3. Push to `main`.
 
 ### 4. Produce a summary
 
@@ -158,9 +98,8 @@ Output a summary of all actions taken:
 
 ## Important Notes
 
-- **Notion is the source of truth** for Topic and Platform — always use Notion values over draft frontmatter
-- **Indentation matters** — match the existing style in `astro.config.mjs`
+- **Notion is the source of truth** for Topic and Platform — always use Notion values over draft frontmatter (these populate the `topic` and `platforms` fields, which feed JSON-LD schema, llms.txt, and future filtering even though they do not drive directory placement)
+- **No sidebar edits** — `astro.config.mjs` should not change when publishing a Q&A; the hub auto-aggregates
 - **Don't modify the draft content** beyond frontmatter syncing — James has already reviewed and edited it
-- **Create directories as needed** — some `questions/` subdirectories may not exist yet
-- Don't use footnote syntax — it's not supported
-- Use `git add` with specific file paths, never `git add -A`
+- **Don't use footnote syntax** — it's not supported
+- **Use `git add` with specific file paths**, never `git add -A`

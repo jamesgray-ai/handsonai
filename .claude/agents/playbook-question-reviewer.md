@@ -52,30 +52,9 @@ Use Glob to find the file. If the draft doesn't exist, **decline** the question 
 
 Read the full draft file content. You'll validate and fix it through the checks below.
 
-#### c. Determine the target directory
+#### c. Confirm the target directory
 
-Use the **Notion Topic value** to determine where this file will be published. This is critical for validating relative links.
-
-| Topic | Target Directory |
-|-------|-----------------|
-| Prompts | `src/content/docs/agentic-building-blocks/prompts/questions/` |
-| Context | `src/content/docs/agentic-building-blocks/context/questions/` |
-| Projects | `src/content/docs/agentic-building-blocks/projects/questions/` |
-| Skills | `src/content/docs/agentic-building-blocks/skills/questions/` |
-| Agents | `src/content/docs/agentic-building-blocks/agents/questions/` |
-| MCP | `src/content/docs/agentic-building-blocks/mcp/questions/` |
-| Platforms | Route to specific platform subdirectory based on Platform field — see Platform Routing below |
-| Use Cases | `src/content/docs/use-cases/questions/` |
-| Builder Setup | `src/content/docs/builder-setup/questions/` |
-| Strategy | `src/content/docs/ai-workflow-framework/questions/` |
-| Other | `src/content/docs/questions/` |
-
-**Platform Routing** (when Topic = "Platforms"):
-- If Platform includes "Claude" → `src/content/docs/platforms/claude/questions/`
-- If Platform includes "ChatGPT/OpenAI" → `src/content/docs/platforms/openai/questions/`
-- If Platform includes "Gemini" → `src/content/docs/platforms/google-gemini/questions/`
-- If Platform includes "M365 Copilot" → `src/content/docs/platforms/m365-copilot/questions/`
-- If Platform includes "General" or multiple platforms → `src/content/docs/platforms/questions/`
+Every Q&A page lives at the flat location `src/content/docs/questions/<slug>.md`, regardless of Topic or Platform. URL becomes `/questions/<slug>/`. Topic and Platform are still preserved in frontmatter for JSON-LD schema, llms.txt, and future filtering — but they do not drive directory placement.
 
 ### 3. Run the Review Checklist
 
@@ -92,9 +71,10 @@ Run all checks in order. Track what was fixed, what passed, and what failed.
 
 #### B. Internal link verification (auto-fix)
 
-- Identify all internal relative links in the draft (markdown `[text](relative/path.md)` format)
-- For each link, resolve it relative to the **target directory** (not `outputs/questions/`) since that's where the file will live when published
-- Use Glob to verify the target file exists in the codebase
+- Identify all internal links in the draft (markdown `[text](path)` format, excluding external URLs)
+- **Prefer absolute paths** rooted at `/` (e.g., `/agentic-building-blocks/prompts/`) — Q&A pages live at `/questions/<slug>/`, so relative paths from the old nested structure no longer resolve. Convert any relative paths to absolute.
+- Cross-question links should use `/questions/<other-slug>/`.
+- Use Glob to verify the target file exists in the codebase under `src/content/docs/`
 - If a link is broken, search `src/content/docs/` with Glob for the intended target file by filename and fix the path
 - If a target file truly doesn't exist in the codebase, remove the link (keep the text, remove the link markup)
 
@@ -117,7 +97,7 @@ Run all checks in order. Track what was fixed, what passed, and what failed.
 
 - **"The Full Answer" section**: Must have 2-4 substantive paragraphs (minimum ~200 words). If too thin, flag for decline.
 - **"Key Takeaways" section**: Must have 3-5 specific, actionable bullet points — not just restatements of the short answer. If weak, rewrite them to be more specific and actionable.
-- **"Related Questions" section**: Must have 2-3 links to existing playbook question pages. Search `src/content/docs/**/questions/*.md` with Glob to find related pages by topic/keyword. Fix broken links or add links to real pages if the section has placeholder links.
+- **"Related Questions" section**: Must have 2-3 links to existing playbook question pages. Search `src/content/docs/questions/*.md` with Glob to find related pages by topic/keyword. Use absolute paths (`/questions/<slug>/`). Fix broken links or add links to real pages if the section has placeholder links.
 - **Code examples** (if present): Verify fenced code blocks have language tags (e.g., ` ```python ` not just ` ``` `). Add language tags if missing.
 - **Tone**: Content should be appropriate for students new to developer tools. Flag unexplained jargon but don't auto-fix tone issues.
 
@@ -211,17 +191,24 @@ Decline (do NOT try to fix) when:
 - The "Full Answer" section is missing or has fewer than ~100 words with no substance
 - Core factual claims are incorrect and can't be corrected with simple edits
 
-### Duplicate detection (backup safety net)
+### Duplicate detection (primary responsibility)
 
-The Answerer agent checks for duplicates before drafting, but if a duplicate slips through:
+Every in-progress draft must be checked against the existing Q&A library before approval. Run this BEFORE the rest of the review checklist for each question — if the draft is a duplicate, mark it and skip the rest of the work.
 
-1. Search `src/content/docs/**/questions/*.md` with Glob to check if a published answer already covers this question (match by slug or high title overlap)
-2. If a duplicate is found:
-   - Determine the published URL: `https://handsonai.info/{path-relative-to-src/content/docs-without-.md}/`
-   - Set **Status** to **"Duplicate"** (not "Declined") using `notion-update-page`
+1. List every existing answer with `Glob: src/content/docs/questions/*.md` (excluding `index.mdx`).
+2. For each existing answer, read the `question` and `short_answer` frontmatter.
+3. Compare against the in-progress draft's question text and short_answer:
+   - **Exact slug match** = duplicate.
+   - **High title overlap** (e.g., same key noun phrases, paraphrased verb) = likely duplicate.
+   - **Same intent, different wording** = likely duplicate.
+4. If a likely duplicate is found:
+   - Determine the published URL: `https://handsonai.info/questions/{slug}/`
+   - Set **Status** to **"Duplicate"** using `notion-update-page`
    - Set **Answer Page** to the URL of the existing published answer
-   - Add a comment to the Notion page explaining which existing answer it duplicates
-3. Do NOT draft or fix the content — skip it entirely
+   - Use `notion-create-comment` on the Notion page with a message like: *"This looks similar to [existing question](URL). Options: (a) redirect/merge, (b) treat as distinct, (c) reject as duplicate."*
+5. Do NOT draft or fix the content — skip it entirely.
+
+This duplicate check is the primary safety net against publishing redundant answers in the flat `/questions/` namespace.
 
 ## Important Notes
 
@@ -230,4 +217,4 @@ The Answerer agent checks for duplicates before drafting, but if a duplicate sli
 - **The publisher handles file moves** — your job is only to validate, fix, and set the status
 - **Footnotes are not supported** — any `[^1]` syntax will render as raw text, so convert to inline attribution
 - **Be conservative with declines** — only decline when issues are truly unfixable. Fix everything you can.
-- **Related Questions must link to real pages** — use Glob to find actual question pages in `src/content/docs/**/questions/*.md`, don't keep placeholder links to nonexistent pages
+- **Related Questions must link to real pages** — use Glob `src/content/docs/questions/*.md` (the flat Q&A directory) to find actual question pages and use absolute paths like `/questions/<slug>/`; don't keep placeholder links to nonexistent pages

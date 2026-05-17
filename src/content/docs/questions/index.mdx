@@ -1,0 +1,27 @@
+---
+title: Q&A
+description: Short answers to questions James gets in his paid courses, on Substack, and on calls. Type to filter, or scan the full list.
+tableOfContents: false
+---
+
+import { getCollection } from 'astro:content';
+import QASearch from '../../../components/QASearch.astro';
+
+export const questions = (await getCollection('docs', (entry) => {
+  return entry.id.startsWith('questions/') && !/^questions\/index\.(md|mdx)$/.test(entry.id);
+}))
+  .map((entry) => {
+    const raw = (typeof entry.slug === 'string' && entry.slug)
+      ? entry.slug
+      : String(entry.id || '').replace(/\.(md|mdx)$/, '');
+    return {
+      title: entry.data.question || entry.data.title || raw,
+      shortAnswer: entry.data.short_answer || entry.data.description || '',
+      slug: raw.replace(/^questions\//, ''),
+    };
+  })
+  .sort((a, b) => a.title.localeCompare(b.title));
+
+Short answers to things people most often ask James. Type to filter, or scan the list.
+
+<QASearch questions={questions} />

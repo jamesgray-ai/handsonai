@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightBlog from 'starlight-blog';
 import sitemap from '@astrojs/sitemap';
+import llmsTxt from './src/integrations/llms-txt.mjs';
 
 export default defineConfig({
   site: 'https://handsonai.info',
@@ -44,8 +45,21 @@ export default defineConfig({
     '/business-first-ai-framework/examples/ai-collaborative/': '/ai-workflow-framework/examples/ai-collaborative/',
     '/business-first-ai-framework/examples/autonomous-agent/': '/ai-workflow-framework/examples/autonomous-agent/',
     '/business-first-ai-framework/examples/content-calendar-planning/': '/ai-workflow-framework/examples/content-calendar-planning/',
-    '/business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/': '/ai-workflow-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/',
-    '/business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/': '/ai-workflow-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/',
+    // Q&A flattened to /questions/<slug>/ (2026-05-17) — see redirects block below for all old nested paths
+    '/business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/': '/questions/how-do-i-find-workflows-worth-applying-ai-to/',
+    '/business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/': '/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/',
+    '/ai-workflow-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/': '/questions/how-do-i-find-workflows-worth-applying-ai-to/',
+    '/ai-workflow-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/': '/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/',
+    '/agentic-building-blocks/mcp/questions/how-do-i-connect-an-mcp-server-to-claude-code/': '/questions/how-do-i-connect-an-mcp-server-to-claude-code/',
+    '/agentic-building-blocks/prompts/questions/what-is-a-system-prompt/': '/questions/what-is-a-system-prompt/',
+    '/agentic-building-blocks/skills/questions/do-plugin-skills-conflict-with-custom-skills/': '/questions/do-plugin-skills-conflict-with-custom-skills/',
+    '/agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code/': '/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code/',
+    '/courses/questions/corporate-ai-training/': '/questions/corporate-ai-training/',
+    '/platforms/claude/questions/': '/questions/',
+    '/platforms/claude/questions/how-do-i-schedule-an-automated-claude-subagent/': '/questions/how-do-i-schedule-an-automated-claude-subagent/',
+    '/platforms/claude/questions/what-is-the-best-way-to-name-claude-agent-skills/': '/questions/what-is-the-best-way-to-name-claude-agent-skills/',
+    '/platforms/google-gemini/questions/': '/questions/',
+    '/platforms/openai/questions/': '/questions/',
     // Legacy builder-setup pages consolidated
     '/builder-setup/cli/': '/builder-setup/',
     '/builder-setup/ai-platforms/': '/builder-setup/',
@@ -54,8 +68,8 @@ export default defineConfig({
     // Agents pages moved to building-blocks section
     '/platforms/claude/agents/building-agents/': '/agentic-building-blocks/agents/',
     '/platforms/openai/agents/building-agents/': '/agentic-building-blocks/agents/',
-    // Skills subpage consolidated
-    '/agentic-building-blocks/skills/questions/': '/agentic-building-blocks/skills/',
+    // Skills subpage consolidated — now lands on the global Q&A hub
+    '/agentic-building-blocks/skills/questions/': '/questions/',
     // Misindexed as subpages of self-consistency (it's a leaf page)
     '/agentic-building-blocks/prompts/prompt-engineering/self-consistency-and-reflection/chain-of-thought/': '/agentic-building-blocks/prompts/prompt-engineering/chain-of-thought/',
     '/agentic-building-blocks/prompts/prompt-engineering/self-consistency-and-reflection/reframing-prompts/': '/agentic-building-blocks/prompts/prompt-engineering/reframing-prompts/',
@@ -85,6 +99,7 @@ export default defineConfig({
       ],
       components: {
         Head: './src/components/Head.astro',
+        Footer: './src/components/QuestionPageFooter.astro',
       },
       sidebar: [
         { label: 'Home', link: '/' },
@@ -119,6 +134,7 @@ export default defineConfig({
           ],
         },
         { label: "What's New", link: '/blog/' },
+        { label: 'Q&A', link: '/questions/' },
         {
           label: 'AI Workflow Framework',
           collapsed: true,
@@ -142,14 +158,6 @@ export default defineConfig({
                 { label: 'AI Collaborative', link: '/ai-workflow-framework/examples/ai-collaborative/' },
                 { label: 'Autonomous Agent', link: '/ai-workflow-framework/examples/autonomous-agent/' },
                 { label: 'Full Example: Content Calendar Planning', link: '/ai-workflow-framework/examples/content-calendar-planning/' },
-              ],
-            },
-            {
-              label: 'Questions',
-              collapsed: true,
-              items: [
-                { label: 'Find workflows worth applying AI to', link: '/ai-workflow-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/' },
-                { label: 'Identify the right AI tools for a workflow', link: '/ai-workflow-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/' },
               ],
             },
           ],
@@ -215,13 +223,6 @@ export default defineConfig({
                         { label: 'Resources', link: '/agentic-building-blocks/prompts/prompt-engineering/resources/' },
                       ],
                     },
-                    {
-                      label: 'Questions',
-                      collapsed: true,
-                      items: [
-                        { label: 'What is a system prompt?', link: '/agentic-building-blocks/prompts/questions/what-is-a-system-prompt/' },
-                      ],
-                    },
                   ],
                 },
                 {
@@ -229,14 +230,6 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { label: 'Overview', link: '/agentic-building-blocks/skills/' },
-                    {
-                      label: 'Questions',
-                      collapsed: true,
-                      items: [
-                        { label: 'Difference between a skill and an agent', link: '/agentic-building-blocks/skills/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code/' },
-                        { label: 'Do plugin skills conflict with custom skills?', link: '/agentic-building-blocks/skills/questions/do-plugin-skills-conflict-with-custom-skills/' },
-                      ],
-                    },
                   ],
                 },
                 {
@@ -288,13 +281,6 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { label: 'Overview', link: '/agentic-building-blocks/mcp/' },
-                    {
-                      label: 'Questions',
-                      collapsed: true,
-                      items: [
-                        { label: 'How do I connect an MCP server to Claude Code', link: '/agentic-building-blocks/mcp/questions/how-do-i-connect-an-mcp-server-to-claude-code/' },
-                      ],
-                    },
                   ],
                 },
                 { label: 'API', link: '/agentic-building-blocks/api/' },
@@ -398,15 +384,6 @@ export default defineConfig({
                     { label: 'Resources', link: '/platforms/claude/skills/resources/' },
                   ],
                 },
-                {
-                  label: 'Questions',
-                  collapsed: true,
-                  items: [
-                    { label: 'Overview', link: '/platforms/claude/questions/' },
-                    { label: 'Best way to name agent skills?', link: '/platforms/claude/questions/what-is-the-best-way-to-name-claude-agent-skills/' },
-                    { label: 'Schedule an automated subagent', link: '/platforms/claude/questions/how-do-i-schedule-an-automated-claude-subagent/' },
-                  ],
-                },
                 { label: 'Topics', link: '/platforms/claude/topics/' },
                 { label: 'Resources', link: '/platforms/claude/topics/resources/' },
               ],
@@ -446,7 +423,6 @@ export default defineConfig({
                     { label: 'Skills on Google Gemini', link: '/platforms/google-gemini/skills/' },
                   ],
                 },
-                { label: 'Questions', link: '/platforms/google-gemini/questions/' },
                 { label: 'Topics', link: '/platforms/google-gemini/topics/' },
                 { label: 'Resources', link: '/platforms/google-gemini/topics/resources/' },
               ],
@@ -490,7 +466,6 @@ export default defineConfig({
                     { label: 'Skills on OpenAI', link: '/platforms/openai/skills/' },
                   ],
                 },
-                { label: 'Questions', link: '/platforms/openai/questions/' },
                 { label: 'Topics', link: '/platforms/openai/topics/' },
                 { label: 'Resources', link: '/platforms/openai/topics/resources/' },
               ],
@@ -567,13 +542,6 @@ export default defineConfig({
             { label: 'Tools Setup Checklist', link: '/courses/tools-setup-checklist/' },
             { label: 'Agentic AI for Leaders', link: '/courses/leaders/' },
             { label: 'Claude for Builders', link: '/courses/builders/' },
-            {
-              label: 'Questions',
-              collapsed: true,
-              items: [
-                { label: 'Corporate AI Training', link: '/courses/questions/corporate-ai-training/' },
-              ],
-            },
           ],
         },
         { label: 'What People Built', link: '/what-people-built/' },
@@ -590,6 +558,20 @@ export default defineConfig({
         },
       },
     }),
-    sitemap(),
+    sitemap({
+      // Q&A pages are high-value canonical answers; signal that to crawlers.
+      serialize(item) {
+        const url = new URL(item.url);
+        if (url.pathname === '/questions/') {
+          item.priority = 1.0;
+          item.changefreq = 'weekly';
+        } else if (url.pathname.startsWith('/questions/')) {
+          item.priority = 0.9;
+          item.changefreq = 'weekly';
+        }
+        return item;
+      },
+    }),
+    llmsTxt(),
   ],
 });

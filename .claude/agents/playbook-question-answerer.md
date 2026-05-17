@@ -32,7 +32,7 @@ Before doing any research or drafting, check each new question against the inven
 
 #### a. Build inventory of existing questions
 
-- Use Glob to find all `docs/**/questions/*.md` files
+- Use Glob to find all `src/content/docs/questions/*.md` files (the flat Q&A library)
 - Read the frontmatter from each to extract the `question` and `topic` fields
 - Also Glob `outputs/questions/*.md` for in-progress drafts (to avoid drafting the same question twice if two submissions came in close together)
 - Store each entry as: `{ question, topic, filePath }`
@@ -50,7 +50,7 @@ For each new question, check for duplicates using these criteria (in order):
 **If a duplicate is found:**
 
 1. Determine the published URL from the file path:
-   - For files in `docs/`, derive the URL: `https://handsonai.info/{path-relative-to-docs-without-.md}/`
+   - For files in `src/content/docs/questions/`, derive the URL: `https://handsonai.info/questions/{slug}/`
    - For files in `outputs/questions/`, note it as "in-progress draft" (no published URL yet) — still skip to avoid duplicate drafting
 2. Update the Notion row:
    - Set **Status** to "Duplicate"
@@ -95,8 +95,8 @@ If attachments were analyzed in step 3, use the attachment summary to:
 
 #### a. Internal research
 Search the existing playbook content for related material:
-- Use Grep to search `docs/` for keywords from the question
-- Use Glob to find related question pages in `docs/**/questions/`
+- Use Grep to search `src/content/docs/` for keywords from the question
+- Use Glob to find related question pages in `src/content/docs/questions/*.md`
 - Read any closely related pages to understand existing coverage and avoid duplication
 
 #### b. External research
@@ -125,7 +125,7 @@ Sections to include:
 - **Short answer** — Bold, 1-2 sentences matching the frontmatter `short_answer`
 - **The Full Answer** — 2-4 paragraphs with thorough explanation, incorporating web research findings
 - **Key Takeaways** — 3-5 bullet points
-- **Related Questions** — Links to existing question pages in the playbook (use relative paths)
+- **Related Questions** — Links to existing question pages in the playbook (use absolute paths like `/questions/<slug>/` — never relative paths, since Q&A pages live in a flat namespace)
 
 Guidelines:
 - Use inline italicized attribution for external sources (the site does NOT use footnotes — the `footnotes` extension is not enabled)
@@ -154,24 +154,13 @@ After processing all questions, output a summary:
 - For each drafted question with attachments: number of attachments analyzed, brief description of what they showed
 - For each duplicate: title, matched existing question, published URL (or "in-progress draft")
 
-## Topic → Directory Mapping
+## Target Directory (flat)
 
-Use this mapping to determine the correct `questions/` subdirectory when the draft is promoted to the site:
+All Q&A pages are published to a single flat location:
 
-| Topic | Directory |
-|-------|-----------|
-| Prompts | `docs/agentic-building-blocks/prompts/questions/` |
-| Context | `docs/agentic-building-blocks/context/questions/` |
-| Projects | `docs/agentic-building-blocks/projects/questions/` |
-| Skills | `docs/agentic-building-blocks/skills/questions/` |
-| Agents | `docs/agentic-building-blocks/agents/questions/` |
-| MCP | `docs/agentic-building-blocks/mcp/questions/` |
-| Platforms | `docs/platforms/` (route to specific platform subdirectory) |
-| Use Cases | `docs/use-cases/questions/` |
-| Builder Setup | `docs/builder-setup/questions/` |
-| Other | `docs/questions/` (general) |
+`src/content/docs/questions/<slug>.md` → URL `/questions/<slug>/`
 
-Include a note in the summary about the recommended target directory for each draft.
+Topic and Platform are preserved in frontmatter (they feed the JSON-LD `FAQPage` schema, `llms.txt`, and any future filtering), but they do **not** drive directory placement.
 
 ## Quality Standards
 

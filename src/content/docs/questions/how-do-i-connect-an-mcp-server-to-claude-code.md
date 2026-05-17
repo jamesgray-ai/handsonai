@@ -99,5 +99,5 @@ claude mcp add --transport http \
 
 ## Related Questions
 
-- [What is MCP and when should I use it?](../..//)
-- [How do I set up Claude Code?](../../../../platforms/claude/getting-started/#3-install-claude-code)
+- [What is MCP and when should I use it?](/agentic-building-blocks/mcp/)
+- [How do I set up Claude Code?](/platforms/claude/getting-started/#3-install-claude-code)

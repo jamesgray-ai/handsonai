@@ -51,7 +51,7 @@ Both skills load independently. Your custom skill uses your personal voice and f
 
 ## Related Questions
 
-- [What is the difference between a skill and an agent in Claude Code?](../what-is-the-difference-between-a-skill-and-an-agent-in-claude-code/)
+- [What is the difference between a skill and an agent in Claude Code?](/questions/what-is-the-difference-between-a-skill-and-an-agent-in-claude-code/)
 
 ---
 
