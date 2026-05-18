@@ -1,7 +1,9 @@
 ---
 title: "Step 5: Test"
 description: Run structured tests on your AI workflow artifacts — smoke test, eval suite, building block evals — and establish a quality baseline before deployment.
----> **Part of:** [AI Workflow Framework](../)
+---
+
+> **Part of:** [AI Workflow Framework](../)
 
 ## Where You Are
 
@@ -12,6 +14,18 @@ You've just finished [Build (Step 4)](../build/). You should have:
 - **Design Spec** (`[name]-design-spec.md`) — which includes the evaluation criteria and test scenarios defined during [Design](../design/)
 
 Your first run is a test, not a deployment. The goal is to verify that the workflow produces good output before you share it with your team or use it on real work.
+
+## How the Skill Works
+
+The skill runs seven phases. The sections that follow expand on each:
+
+1. **Load artifacts and spec** — Read the Design Spec (for evaluation criteria and test scenarios) and locate your platform artifacts.
+2. **Smoke test** — Run the workflow once with a realistic scenario. Check that it runs, produces output, and uses the right format.
+3. **Full eval suite** — Run each test scenario from the Design Spec. Score each output on a 1–5 scale across the evaluation dimensions.
+4. **Building block evals** — Test individual components (skills, context, agents) in isolation to pinpoint weak links.
+5. **Establish baseline** — Calculate average scores across all scenarios and dimensions. Record for future comparison.
+6. **Diagnose and fix** — Map problems to building blocks (generic output → context issue, skipped steps → prompt issue, etc.) and identify what to fix in Build.
+7. **Readiness decision** — Ready to deploy? Move to Run. Not ready? Return to Build with specific targets.
 
 ## Your First Run
 
@@ -118,6 +132,10 @@ Most workflows need multiple rounds of Build-then-Test before they are ready for
 
 This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
+**Command:** `/handsonai:test` (Claude Code) — or invoke by name on any other platform.
+
+**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+
 **Start with this prompt:**
 
 ```
@@ -125,6 +143,16 @@ Test my workflow against the evaluation criteria in the Design Spec.
 ```
 
 The skill guides you through the smoke test, eval suite, building block evals, baseline establishment, and diagnosis process.
+
+### Example prompts
+
+```
+"Test my workflow against the evaluation criteria"
+→ Guides you through the smoke test, eval suite, and baseline
+
+"My workflow output is too generic — help me diagnose"
+→ Runs targeted building block evals to find the weak link
+```
 
 ## Related
 

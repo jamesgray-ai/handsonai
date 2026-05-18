@@ -1,7 +1,9 @@
 ---
 title: AI Workflow Framework
 description: A seven-step methodology — Analyze, Deconstruct, Design, Build, Test, Run, Improve — for identifying AI opportunities in your workflows, breaking them into building blocks, and constructing working AI-powered workflows.
----## The Problem
+---
+
+## The Problem
 
 Most AI adoption starts with the technology — "we have ChatGPT, where should we use it?" This leads to shallow adoption and misses the workflows where AI creates real leverage. And even when people identify the right workflow, there's a gap between the idea and making it real — without a repeatable process to follow, they get stuck and stop. The AI Workflow Framework closes that gap: audit your workflows, identify where AI creates the most value, deconstruct those workflows into building blocks, design the architecture, build the components, test them, deploy, and improve over time.
 
@@ -24,6 +26,43 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 </div>
 
 **Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude Code, Claude Cowork, Claude.ai, M365 Copilot (Cowork), Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `handsonai`.
+
+## Run It All at Once: framework-agent
+
+You can run all seven skills step-by-step in separate conversations, or use the **`framework-agent`** to orchestrate the full lifecycle end-to-end in a single session.
+
+**What it does:** Runs the seven skills sequentially — Analyze, Deconstruct, Design, Build, Test, Run, Improve — with file-based handoffs between stages. The agent manages the flow between steps, saves intermediate files to `outputs/`, and keeps you involved at each stage.
+
+**When to use it:** Use the agent when you want to go through the entire process in one session. If you prefer to work step-by-step across separate conversations — or want to run a single step standalone (e.g., just Deconstruct, just Improve) — invoke the individual skills instead. Both styles produce the same artifacts.
+
+**Example prompts:**
+
+```
+"I want to deconstruct my client onboarding workflow"
+→ Walks you through all seven steps, asking questions during
+  discovery, presenting the analysis for review, and generating
+  the build deliverables
+
+"People keep dropping off during enrollment. Help me build
+a workflow for that."
+→ Starts from a problem description, proposes a candidate
+  workflow, then deconstructs and designs it
+
+"Help me figure out which parts of my weekly reporting process
+could be automated with AI"
+→ Decomposes the reporting process, assesses autonomy, chooses
+  an orchestration mechanism, and identifies quick wins
+```
+
+**What you'll get** — files saved to `outputs/` with the workflow name in lowercase using hyphens (for example, `client-onboarding`):
+
+1. **Opportunity Report** — `ai-opportunity-report.md`
+2. **Workflow Requirements** — `[name]-requirements.md`
+3. **Design Spec** — `[name]-design-spec.md`
+4. **Platform Artifacts** — prompts, skills, agents, and configs in the format your platform requires
+5. **Test Results** — `[name]-test-results.md`
+6. **Run Guide** — `[name]-run-guide.md`
+7. **Improvement Plan** — `[name]-improvement-plan.md` (when running Improve)
 
 ## The Framework
 
@@ -50,14 +89,14 @@ The audit starts by determining which lens to use — individual or organization
 
 Define *what* the business process does — every step, decision, and handoff — before deciding *how* to implement it with AI.
 
-Step 2 is the **PRD for your workflow** — clear requirements, decision rules, and edge cases that feed directly into Design. There are two paths, chosen by one question at the start: *do you know the steps, or just the outcome?*
+Step 2 is the **Product Requirements Document (PRD) for your workflow** — clear requirements, decision rules, and edge cases that feed directly into Design. There are two paths, chosen by one question at the start: *do you know the steps, or just the outcome?*
 
 - **Step-decomposed** — You can describe how the work gets done. The model interviews you to refine the steps and surface decision rules, edge cases, and the context each step needs. Each step is captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context.
 - **Outcome-driven** — You know what "done" looks like but the path varies; you want an agent system to figure it out at runtime. The model captures the outcome, inputs, acceptance criteria, rules, and constraints — without prescribing steps.
 
 Don't have either yet? Describe the problem you're trying to solve. The model proposes a candidate workflow and routes you into one of the two paths above.
 
-For step-decomposed workflows, the model uses the **six-question framework** as the interview scaffold to surface what belongs in each step's requirements block:
+For step-decomposed workflows, the model uses the **six-question framework** as the interview structure to identify what belongs in each step's requirements block:
 
 1. Is this step actually multiple steps bundled together?
 2. Are there decision points, branches, or quality gates?
@@ -68,7 +107,7 @@ For step-decomposed workflows, the model uses the **six-question framework** as 
 
 This is purely the *what* — the workflow's requirements, with no prescription of how AI will handle it. The *how* comes in Step 3 (Design).
 
-**Deliverable:** **Workflow Requirements** (`outputs/[name]-requirements.md`) — a PRD-style document containing Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and (optional, step-decomposed) Optimization Notes, plus a middle block specific to the chosen path (Steps Overview + per-step requirements for step-decomposed, or Inputs + Rules & Constraints for outcome-driven).
+**Deliverable:** **Workflow Requirements** (`outputs/[name]-requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. Step-decomposed workflows add a Steps Overview with per-step requirements; outcome-driven workflows add Inputs plus Rules & Constraints.
 
 **Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
 
@@ -78,7 +117,13 @@ This is purely the *what* — the workflow's requirements, with no prescription 
 
 Decide *how* the workflow should be built — before you build it.
 
-The Design step takes your Workflow Requirements and produces a complete blueprint for your AI workflow. The skill confirms your platform, extracts tool integrations and constraints from your Workflow Requirements, assesses the workflow's autonomy level (Deterministic, Guided, or Autonomous), recommends an orchestration mechanism (Prompt, Skill-Powered Prompt, or Agent) and involvement mode, classifies each step on the autonomy spectrum, maps AI building blocks, identifies skill candidates, and documents agent blueprints when needed. The spec must be approved before moving to Build.
+The Design step takes your Workflow Requirements and produces a complete blueprint for your AI workflow. The skill works through three layers of decisions:
+
+- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend an orchestration mechanism (Prompt, Skill-Powered Prompt, or Agent) with an involvement mode (Augmented or Automated).
+- **Decomposition** — classify each step on the autonomy spectrum, map AI building blocks, and identify which steps become reusable skills.
+- **Component blueprints** — document the field-level specs for each new skill and agent.
+
+The spec must be approved before moving to Build.
 
 **Deliverable:** **Design Spec** (`outputs/[name]-design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, and implementation order. References the Workflow Requirements rather than restating it.
 
@@ -128,7 +173,7 @@ Once your workflow passes testing, Run helps you put it into production. The ski
 
 Evaluate and evolve running workflows.
 
-Workflows are not set-and-forget. Over time, business context changes, new tools become available, and quality can drift. The Improve step teaches you when and how to revisit a running workflow — watch for quality signals, re-run your eval suite to catch regressions, and assess whether the workflow should graduate to a more capable orchestration mechanism. Four outcomes: no changes needed, tune it, redesign it, or evolve it.
+Workflows are not something you set up once and forget. Over time, business context changes, new tools become available, and output quality can drift. The Improve step teaches you when and how to revisit a running workflow — watch for quality signals, re-run your eval suite to catch regressions, and assess whether the workflow should graduate to a more capable orchestration mechanism. Four outcomes: no changes needed, tune it, redesign it, or evolve it.
 
 **Deliverable:** **Improvement Plan** (`outputs/[name]-improvement-plan.md`) — current vs. baseline scores, quality signals, graduation assessment, decision outcome, and specific next actions.
 
@@ -168,17 +213,7 @@ Used to decompose each step in a step-decomposed workflow:
 
 ### AI Building Blocks
 
-| Block | What It Is |
-|-------|-----------|
-| **Model** | The AI engine that processes inputs and generates outputs |
-| **Prompt** | A well-crafted instruction that tells the model what to do |
-| **Context** | Background information, reference docs, or examples the model needs |
-| **Skill** | A reusable routine the model can invoke — give it inputs, it follows a defined process, it produces consistent outputs |
-| **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work |
-| **MCP (Model Context Protocol)** | A connector that lets AI access external tools, services, or databases on your behalf |
-| **Project** | A persistent workspace grouping prompts, context, skills, and agents |
-
-For detailed definitions and cross-platform examples, see [Agentic Building Blocks](../agentic-building-blocks/).
+Each workflow step gets mapped to one or more building blocks across three layers — **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent), and **Integration** (MCP, API, SDK, CLI). See [Agentic Building Blocks](../agentic-building-blocks/) for definitions, examples, and cross-platform comparisons.
 
 ### Six Use Case Primitives
 
@@ -221,3 +256,19 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 5. **[Test](test/)** your workflow against evaluation criteria and establish a quality baseline
 6. **[Run](run/)** — deploy, choose a run pattern, and operationalize
 7. **[Improve](improve/)** — periodically evaluate, catch regressions, and evolve
+
+## FAQ
+
+**Which step should I start with?**
+Start with Step 1 ([Analyze](analyze/)) if you're not sure where AI fits in your work. Browse [AI Use Cases](../use-cases/) to see what types of work AI handles — content creation, research, coding, data analysis, ideation, and automation. Start with Step 2 ([Deconstruct](deconstruct/)) if you already know which workflow you want to automate.
+
+**Can I start from a problem instead of a workflow?**
+Yes. Tell the [`framework-agent`](#run-it-all-at-once-framework-agent) about your problem (e.g., "people keep dropping off during enrollment") and it will propose a candidate workflow for you to refine during discovery. The individual `deconstruct` skill can do the same.
+
+**How many iterations of Build-Test should I expect?**
+Most workflows need 2–4 rounds of Build and Test before they produce reliably good output. Each iteration should be targeted — fix a specific building block, re-test, and measure improvement. If you have been through four iterations and scores are not improving, return to [Design (Step 3)](design/) to re-examine your architecture decisions.
+
+**Where are the example agents and prompts?**
+They're in the [AI Workflow Examples](../use-the-playbook/build/ai-workflow-examples/) collection — agents for executive writing, editorial review, research, meeting prep, and AI news.
+
+For setup-specific questions (which platforms support the skills, how to handle losing context mid-conversation), see the [FAQ on the Set Up the Skills page](skills/#faq).

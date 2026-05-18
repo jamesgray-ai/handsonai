@@ -1,12 +1,13 @@
 ---
 title: "Step 2: Deconstruct Workflows into Requirements"
-description: Capture your workflow as a PRD — clear requirements, decision rules, and edge cases that feed directly into the Design step.
+description: Capture your workflow as a Product Requirements Document (PRD) — clear requirements, decision rules, and edge cases that feed directly into the Design step.
 ---
-> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
+
+> **Part of:** [AI Workflow Framework](../)
 
 ## What This Is
 
-Step 2 is the **PRD for your workflow**. It captures *what* the workflow must do, *the rules it must follow*, and *the edge cases it must handle* — in clear requirements language that feeds directly into Step 3 (Design).
+Step 2 is the **Product Requirements Document (PRD) for your workflow**. It captures *what* the workflow must do, *the rules it must follow*, and *the edge cases it must handle* — in clear requirements language that feeds directly into Step 3 (Design).
 
 The output is a single Markdown file: the **Workflow Requirements** document. It's structured so the Design step — or any AI model — can read it and act on it without re-interviewing you.
 
@@ -42,9 +43,26 @@ Both paths produce a Workflow Requirements document with the same shared structu
 
 **Don't have either yet?** If you only have a problem ("People drop off during enrollment and I have no way to follow up"), describe it. The model proposes a candidate workflow, then routes you into one of the two paths above. No separate "problem-first" path to learn.
 
+## How the Skill Works
+
+The skill runs eight phases. Phases 1–3 establish what you're deconstructing; phase 4 onward is the deep dive on each step:
+
+1. **Scenario analysis** — If you reference an opportunity report from Analyze, the skill reads the workflow candidates and pre-populates metadata. Otherwise it asks about the business scenario, objective, high-level steps, and ownership. If you describe a problem instead of a workflow, the skill proposes a candidate workflow for you to react to.
+2. **Scope check** — Is this one workflow or multiple bundled together? If multiple, the skill recommends splitting and asks which to start with.
+3. **Name the workflow** — The skill proposes 2–3 name options (2–4 word noun phrases, Title Case) and confirms name, description, outcome, trigger, and type.
+4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, context needs, failure modes, data readiness.
+5. **Propose and react** — From step 4 onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
+6. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
+7. **Consolidate context** — Present a rolled-up "context shopping list" of every artifact the workflow needs.
+8. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
+
 ## How to Use This
 
-This step is facilitated by the **`deconstruct`** AI Workflow Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+
+**Command:** `/handsonai:deconstruct` (Claude Code) — or invoke by name on any other platform.
+
+**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 
 **Start with this prompt:**
 
@@ -53,6 +71,18 @@ I need to deconstruct my [workflow name] workflow.
 ```
 
 The skill asks you to choose a path, runs an interactive interview to capture the requirements, validates the workflow end-to-end, and writes the Workflow Requirements file.
+
+### Example prompts
+
+```
+"Use deconstruct to break down my expense reporting process"
+→ Interactive discovery session producing
+  outputs/expense-reporting-requirements.md
+
+"I need to document how our team handles customer escalations"
+→ Walks through the discovery process, probing for hidden steps
+  and decision points
+```
 
 :::tip[If your AI tool doesn't support skills]
 Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/deconstruct) and paste it into your system prompt or project instructions.
