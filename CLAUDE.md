@@ -44,9 +44,9 @@ cd mcp-server && npm install && wrangler dev
 - `src/_templates/` - Content templates for contributors
 - `docs/what-people-built.md` - Community showcase of projects built using the playbook
 - `docs/CONTRIBUTING.md` - Contributor guidelines
-- `.claude/agents/` - Claude Code subagent definitions (local/development copies)
-- `.claude/skills/` - Claude Code skill definitions (local/development copies)
-- `plugins/` in this repo is the **staging** copy; the distributable marketplace lives in [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins)
+- `.claude/agents/` - Repo-specific subagents not packaged into any plugin (e.g., `playbook-question-*`, `release-notes-generator`, content/editorial agents). Auto-loaded by Claude Code sessions in this repo.
+- `.claude/skills/` - Repo-specific skills not packaged into any plugin (e.g., `publishing-playbook-updates`, `editing-hbr-articles`). Auto-loaded by Claude Code sessions in this repo.
+- `plugins/handsonai/` - **Canonical** source of plugin-packaged agents and skills. Edit here; `scripts/sync-plugins.sh` pushes to the distributable [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo (which Cowork clones via the marketplace).
 - `mcp-server/migrations/` - Cloudflare D1 schema migrations
 - `mcp-server/scripts/analytics-query.ts` - CLI for querying MCP analytics via Cloudflare REST API
 - `scripts/` - Wrapper scripts for scheduled subagents
@@ -312,27 +312,24 @@ The **distributable** copy lives in the separate [`jamesgray-ai/handsonai-plugin
 - `plugins/<plugin-name>/agents/` — Agent `.md` files
 - `plugins/<plugin-name>/skills/` — Skill directories (with `SKILL.md` and optional `references/`)
 
-### Keeping `.claude/`, `plugins/`, and `handsonai-plugins` in sync
+### Keeping `plugins/` and `handsonai-plugins` in sync
 
-There are three copies of plugin files:
+Plugin-packaged content lives in **two** places:
 
-1. **`.claude/agents/` and `.claude/skills/`** — development/local copy (used for repo-local scheduling, `claude --agent`, etc.)
-2. **`plugins/`** — staging copy in this repo (for testing before publishing)
-3. **`jamesgray-ai/handsonai-plugins`** — the distributable repo that users clone via `/plugin marketplace add`
+1. **`plugins/handsonai/`** in this repo — canonical source. Edit here, alongside the framework docs the skills implement.
+2. **`jamesgray-ai/handsonai-plugins`** — distributable repo Cowork clones via `/plugin marketplace add`. Cloned locally at `~/Code/jamesgray/handsonai-plugins`.
+
+(Plugin-packaged content is **not** duplicated under `.claude/` in this repo — `.claude/` holds only repo-specific examples. Local testing of plugin skills/agents is done by installing the plugin from the marketplace, not by symlinking.)
 
 When updating:
 
-1. Always edit `.claude/agents/` or `.claude/skills/` first and test locally
-2. Copy the updated file to the corresponding `plugins/<plugin-name>/` location in this repo
-3. Bump versions (see below)
-4. Commit and push **this repo** first
-5. Copy the updated `plugins/` directory to the `handsonai-plugins` repo, bump versions in its `marketplace.json`
-6. Rebuild skill ZIPs if skills changed (see below)
-7. Commit and push `handsonai-plugins` **as the very last step**
+1. Edit the agent or skill in `plugins/handsonai/agents/` or `plugins/handsonai/skills/`.
+2. Update the catalog and detail pages in `docs/use-the-playbook/build/` if you added or renamed anything.
+3. Run `./scripts/sync-plugins.sh patch|minor|major` — this bumps `plugin.json` here, rsyncs to `handsonai-plugins`, and bumps both `metadata.version` and `plugins[0].version` in its `marketplace.json`. The arg is required; semver applies (PATCH = update, MINOR = add new agent/skill, MAJOR = breaking).
+4. Commit and push **this repo first**.
+5. In `~/Code/jamesgray/handsonai-plugins`: rebuild ZIPs if skills changed (`./scripts/build-skill-zips.sh`), create a GitHub Release (`gh release create vX.Y.Z dist/*.zip`), commit and push **last**.
 
-**Critical — push `handsonai-plugins` last:** Claude Cowork detects plugin updates by comparing commit hashes. If Cowork syncs to a commit before the version bump lands, it treats that commit as "already synced" and won't re-process it — even though the files contain the new version. By making the `handsonai-plugins` push the final action in the session, Cowork only ever sees the complete, version-bumped state. Never push `handsonai-plugins` mid-session while still making changes.
-
-The repo is cloned locally at `~/Code/jamesgray/handsonai-plugins`.
+**Critical — push `handsonai-plugins` last:** Claude Cowork detects plugin updates by comparing commit hashes. If Cowork syncs to a commit before the version bump lands, it treats that commit as "already synced" and won't re-process it — even though the files contain the new version. By making the `handsonai-plugins` push the final action in the session, Cowork only ever sees the complete, version-bumped state. Never push `handsonai-plugins` mid-session while still making changes. (`sync-plugins.sh` deliberately does not commit or push anywhere — both pushes stay in your hands.)
 
 ### Updating skill ZIP downloads (GitHub Releases)
 
@@ -345,18 +342,16 @@ The skills page (`docs/ai-workflow-framework/skills.mdx`) uses `/releases/latest
 
 ### Adding a new agent or skill to an existing plugin
 
-1. Create/edit the agent `.md` in `.claude/agents/` (or skill in `.claude/skills/`) — test locally
-2. Copy into `plugins/<plugin-name>/agents/` (or `skills/`) in this repo
-3. Bump `version` in `plugins/<plugin-name>/.claude-plugin/plugin.json` (MINOR for new, PATCH for update)
-4. Update the plugin's section on `docs/use-the-playbook/build/index.md` — add the agent/skill to the table with a link to the detail page anchor
-5. Update the plugin's detail page (`docs/use-the-playbook/build/<plugin-name>.md`) — add the agent/skill section following the existing component format
-6. Commit and push this repo
-7. Copy updated files to `handsonai-plugins` repo, bump version in its `marketplace.json`, rebuild skill ZIPs if needed, then commit and push there **as the very last step**
+1. Create the agent `.md` in `plugins/<plugin-name>/agents/` or the skill in `plugins/<plugin-name>/skills/<skill-name>/SKILL.md`.
+2. Update the plugin's section on `docs/use-the-playbook/build/index.md` — add the agent/skill to the table with a link to the detail page anchor.
+3. Update the plugin's detail page (`docs/use-the-playbook/build/<plugin-name>.md`) — add the agent/skill section following the existing component format.
+4. Run `./scripts/sync-plugins.sh minor` (MINOR for new content).
+5. Commit and push this repo.
+6. In `~/Code/jamesgray/handsonai-plugins`: rebuild skill ZIPs if you added a skill, create a GitHub Release, commit and push **last**.
 
 ### Creating a new plugin
 
-1. Create and test agents/skills locally in `.claude/agents/` and `.claude/skills/`
-2. Create the plugin directory structure:
+1. Create the plugin directory structure directly under `plugins/`:
    ```
    plugins/<new-plugin>/
    ├── .claude-plugin/
@@ -367,12 +362,14 @@ The skills page (`docs/ai-workflow-framework/skills.mdx`) uses `/releases/latest
        └── <skill>/
            └── SKILL.md
    ```
-3. Write `plugin.json` with name, description, version, author, keywords
-4. Add a grid card + collapsible detail section to `docs/use-the-playbook/build/index.md` — include links to the detail page anchors for every agent and skill
-5. Create a detail page at `docs/use-the-playbook/build/<plugin-name>.md` following the template used by existing detail pages (see `docs/use-the-playbook/build/ai-registry.md` for reference)
-6. Add the detail page to the sidebar in `astro.config.mjs` under "Tools & Resources > Agents & Skills"
-7. Commit and push this repo
-8. Copy the new plugin directory to `handsonai-plugins` repo, add entry to its `marketplace.json`, rebuild skill ZIPs, then commit and push there **as the very last step**
+2. Write `plugin.json` with name, description, version (start at `1.0.0`), author, keywords.
+3. Add a grid card + collapsible detail section to `docs/use-the-playbook/build/index.md` — include links to the detail page anchors for every agent and skill.
+4. Create a detail page at `docs/use-the-playbook/build/<plugin-name>.md` following the template used by existing detail pages (see `docs/use-the-playbook/build/ai-registry.md` for reference).
+5. Add the detail page to the sidebar in `astro.config.mjs` under "Tools & Resources > Agents & Skills".
+6. Add an entry for the new plugin to `~/Code/jamesgray/handsonai-plugins/.claude-plugin/marketplace.json` (the current `sync-plugins.sh` only knows about the `handsonai` plugin — extend it or hand-bump for new plugins).
+7. Commit and push this repo first, then build ZIPs, create a Release, and push `handsonai-plugins` **last**.
+
+To locally test a plugin during development, install it from the marketplace (`/plugin marketplace add ~/Code/jamesgray/handsonai-plugins` then `/plugin install <name>@handsonai`).
 
 ### Catalog page linking convention
 

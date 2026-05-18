@@ -1,7 +1,7 @@
 {
   "metadata": {
     "skill_name": "analyze",
-    "skill_path": "/Users/jamesgray/Code/jamesgray/handsonai/.claude/skills/analyze",
+    "skill_path": "/Users/jamesgray/Code/jamesgray/handsonai/plugins/handsonai/skills/analyze",
     "executor_model": "claude-opus-4-6",
     "analyzer_model": "claude-opus-4-6",
     "timestamp": "2026-04-03T00:00:00Z",
