@@ -1,6 +1,6 @@
 ---
 title: "Example: Content Calendar Planning"
-description: A complete worked example showing the framework deliverables — Workflow Definition, Design Spec, and workflow prompt — for a real content calendar planning workflow.
+description: A complete worked example showing the framework deliverables — Workflow Requirements, Design Spec, and workflow prompt — for a real content calendar planning workflow.
 ---This page walks through the complete output of running a real workflow through the [AI Workflow Framework](../..//). The workflow is **Content Calendar Planning** — a weekly process for planning and sequencing content across LinkedIn, Substack, X, and YouTube.
 
 The first four steps of the framework — Analyze, Deconstruct, Design, and Build — produced three key deliverables for this workflow. Each one is a detailed markdown document. This page summarizes what's in each and why it matters — then links to the full file on GitHub where you can read every table, every decision point, and every failure mode at full width.
@@ -9,22 +9,24 @@ The first four steps of the framework — Analyze, Deconstruct, Design, and Buil
 
 ## The Deliverables
 
-### 1. Workflow Definition (Step 2 — Deconstruct)
+### 1. Workflow Requirements (Step 2 — Deconstruct)
 
-[GitHub View full Workflow Definition on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/workflow-definition.md)
+[GitHub View full Workflow Requirements on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/workflow-requirements.md)
 
-The Workflow Definition is what [Deconstruct](../../deconstruct/) produces. What started as "I plan content on Sundays" became **10 refined steps across four phases** after the six-question deep dive.
+The Workflow Requirements is what [Deconstruct](../../deconstruct/) produces. What started as "I plan content on Sundays" became **10 refined steps across four phases** after the six-question deep dive.
 
 **What's inside:**
 
-- **Scenario metadata** — workflow name, trigger, outcome, business objective
-- **10 refined steps** organized into four phases: Input Gathering (4 steps), Planning (4 steps), Approval (1 step), Execution (1 step)
-- **Each step decomposed** with: Action, Sub-steps, Decision Points, Data In, Data Out, Context Needed, and Failure Modes
-- **Dependency map** showing which steps can run in parallel and which must be sequential
-- **Context shopping list** — 9 artifacts the workflow needs, with status (Exists / Needs Creation)
-- **Related workflows** — upstream and downstream dependencies
+- **Outcome and Metadata** — workflow name, trigger, owner, business objective, definition type
+- **Steps Overview** — a scannable numbered list of all 10 steps
+- **Step Details** — each step captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed
+- **Sequence** — sequential vs. parallel steps, critical path
+- **Context Inventory** — 9 artifacts the workflow needs, with stable IDs, status (Exists / Needs Creation), AI accessibility, and location
+- **Acceptance Criteria** — what good output looks like, dimensions that matter, minimum bar
+- **Example Scenarios** — representative inputs with what to look for in the output
+- **Human Gates** — where human review is required
 
-**Key insight:** Notice how each step captures not just *what* to do, but *what to do when things go wrong*. Step 1 has a fallback for when no metrics data exists. Step 2 detects an empty backlog and escalates the importance of Step 3. Step 9 limits refinement to 3 rounds to prevent endless iteration. This failure-mode thinking is what makes the workflow robust enough for AI to execute.
+**Key insight:** Notice how each step's *Rules & Edge Cases* block captures not just what to do, but what to do when things go wrong. Step 1 has a fallback for when no metrics data exists. Step 2 detects an empty backlog and escalates the importance of Step 3. Step 9 limits refinement to 3 rounds to prevent endless iteration. Capturing edge cases as first-class requirements is what makes the workflow robust enough for AI to execute.
 
 ---
 
@@ -32,7 +34,7 @@ The Workflow Definition is what [Deconstruct](../../deconstruct/) produces. What
 
 [GitHub View full Design Spec on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/design-spec.md)
 
-The Design Spec is what [Design](../../design/) produces from the Workflow Definition. It classifies each step on the autonomy spectrum, identifies which steps should become reusable skills, and recommends an implementation order.
+The Design Spec is what [Design](../../design/) produces from the Workflow Requirements. It classifies each step on the autonomy spectrum, identifies which steps should become reusable skills, and recommends an implementation order.
 
 **What's inside:**
 
@@ -72,7 +74,7 @@ A few things to take away from this example:
 - **The expansion.** "I plan content on Sundays" became 10 steps across 4 phases, with decision logic, failure modes, and a dependency map. That expansion is what makes the workflow executable by AI.
 - **The autonomy spectrum.** Not every step needs AI autonomy. Steps 1, 2, 4, and 10 are deterministic (fixed data operations). Steps 5-8 are guided (AI proposes, human decides). Steps 3 and 9 are human-led. The framework helps you see this clearly.
 - **The build order.** The Design Spec doesn't just say "build everything." It recommends starting with a prompt (pure conversation, no infrastructure needed), then layering in skills incrementally. You get value from the first run.
-- **Platform-agnostic.** The Workflow Definition and Design Spec work with any AI tool. The skills and MCP connections are implementation details that vary by platform — but the underlying logic is the same everywhere.
+- **Platform-agnostic.** The Workflow Requirements and Design Spec work with any AI tool. The skills and MCP connections are implementation details that vary by platform — but the underlying logic is the same everywhere.
 
 ---
 

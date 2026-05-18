@@ -250,7 +250,7 @@ ChatGPT should activate the Analyze skill and begin a structured interview proce
 
 #### Option 2: OpenAI Codex in a Code Editor
 
-Use **OpenAI Codex** in a code editor like Cursor or VS Code. Codex uses your existing ChatGPT login (Plus, Pro, or any paid plan), supports skills natively, and **saves output files directly to your computer** — so when a skill creates a Workflow Definition or Design Spec, you get an actual file instead of text in a chat window.
+Use **OpenAI Codex** in a code editor like Cursor or VS Code. Codex uses your existing ChatGPT login (Plus, Pro, or any paid plan), supports skills natively, and **saves output files directly to your computer** — so when a skill creates a Workflow Requirements or Design Spec, you get an actual file instead of text in a chat window.
 
 See the [**OpenAI Codex**](#openai-codex) section under Code Editors & Terminal below for setup instructions.
 
@@ -752,7 +752,7 @@ You can also invoke skills directly with slash commands like `/handsonai:analyze
 **How it works:** The agent runs seven skills across the full lifecycle:
 
 1. **Analyze** (`analyze`) — Audit your workflows, interview you about your work, and produce an opportunity report with structured candidates. If you already know which workflow to deconstruct, this step is brief.
-2. **Deconstruct** (`deconstruct`) — Interactive deep-dive that decomposes the workflow into refined steps using the 6-question framework. Produces the Workflow Definition.
+2. **Deconstruct** (`deconstruct`) — Interactive deep-dive that decomposes the workflow into refined steps using the 6-question framework. Produces the Workflow Requirements.
 3. **Design** (`design`) — Gather architecture decisions, assess workflow autonomy level, choose an orchestration mechanism and involvement mode, classify steps, map building blocks, identify skill candidates, configure agents, and produce the Design Spec.
 4. **Build** (`build`) — Resolve context needs and generate platform-appropriate artifacts (prompts, skills, agents, configs) based on the approved spec.
 5. **Test** (`test`) — Run structured evaluations against the criteria from Design, establish a quality baseline, and iterate with Build until the workflow is ready.
@@ -782,7 +782,7 @@ Files are saved to `outputs/` using kebab-case workflow names (e.g., `outputs/le
 **What you'll get:** Multiple files in `outputs/`:
 
 1. **Opportunity Report** — `ai-opportunity-report.md` — categorized opportunities with structured workflow candidates (if generated)
-2. **Workflow Definition** — `[name]-definition.md` — structured decomposition of every step
+2. **Workflow Requirements** — `[name]-requirements.md` — structured decomposition of every step
 3. **Design Spec** — `[name]-design-spec.md` — autonomy level, orchestration mechanism, per-step classifications, building block mapping, skill candidates, agent configs
 4. **Platform Artifacts** — prompts, skills, agents, and configs generated for your platform
 5. **Run Guide** — `[name]-run-guide.md` — step-by-step setup and first-run instructions
@@ -839,7 +839,7 @@ Break workflows into structured definitions.
 
 **Command:** `/handsonai:deconstruct`
 
-**What it does:** Interactively deconstructs a business workflow into a structured Workflow Definition using the 6-question framework. This is the Deconstruct step.
+**What it does:** Interactively deconstructs a business workflow into a structured Workflow Requirements using the 6-question framework. This is the Deconstruct step.
 
 **When to use it:** Use this when you want to thoroughly document a workflow's steps, decisions, data flows, and failure modes. Also useful standalone when you just need a structured breakdown of a complex process — even without planning to automate it.
 
@@ -858,7 +858,7 @@ Break workflows into structured definitions.
 5. **Propose and react** — From step 4 onward, the AI proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
 6. **Map sequence** — The AI identifies sequential vs. parallel steps and the critical path
 7. **Consolidate context** — The AI presents a rolled-up "context shopping list" of every artifact the workflow needs
-8. **Generate Workflow Definition** — The AI writes the structured Workflow Definition to the output file
+8. **Generate Workflow Requirements** — The AI writes the structured Workflow Requirements to the output file
 
 **Example prompts:**
 
@@ -870,7 +870,7 @@ Break workflows into structured definitions.
     → Walks through the discovery process, probing for hidden steps
       and decision points
 
-**What you'll get:** A Workflow Definition file (`outputs/[name]-definition.md`) containing: scenario metadata, refined steps (with sub-steps, decision points, data flows, context needs, and failure modes for each), step sequence and dependencies, and a context shopping list.
+**What you'll get:** A Workflow Requirements file (`outputs/[name]-requirements.md`) — a PRD-style document containing Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. The middle block depends on the path: Steps Overview + per-step requirements (Goal / Inputs / Outputs / Rules & Edge Cases / Context) for step-decomposed workflows; Inputs + Rules & Constraints for outcome-driven workflows.
 
 **Platform compatibility:** Claude Code &#10003; | Claude.ai &#10003;
 
@@ -886,15 +886,15 @@ Design your AI implementation architecture.
 
 **Command:** `/handsonai:design`
 
-**What it does:** Takes a Workflow Definition and runs the Design phase: architecture decisions, autonomy assessment, orchestration mechanism with involvement mode, per-step classification, building block mapping, skill candidates, agent configuration. Produces a Design Spec for approval.
+**What it does:** Takes a Workflow Requirements and runs the Design phase: architecture decisions, autonomy assessment, orchestration mechanism with involvement mode, per-step classification, building block mapping, skill candidates, agent configuration. Produces a Design Spec for approval.
 
-**When to use it:** Use this when you have a Workflow Definition (from the Deconstruct step) and want to design your AI workflow's architecture. The spec must be approved before moving to Build.
+**When to use it:** Use this when you have a Workflow Requirements (from the Deconstruct step) and want to design your AI workflow's architecture. The spec must be approved before moving to Build.
 
 **How it works:**
 
-1. **Load Workflow Definition** — The AI reads the Workflow Definition from `outputs/`
+1. **Load Workflow Requirements** — The AI reads the Workflow Requirements from `outputs/`
 2. **Confirm understanding** — The AI summarizes the workflow and asks you to confirm
-3. **Architecture decisions** — Confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Definition and present a confirmation block
+3. **Architecture decisions** — Confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Requirements and present a confirmation block
 4. **Autonomy assessment** — The AI assesses where the whole workflow sits on the autonomy spectrum (Deterministic, Guided, Autonomous)
 5. **Orchestration mechanism** — The AI recommends a mechanism (Prompt, Skill-Powered Prompt, or Agent) with an involvement mode (Augmented or Automated)
 6. **Classify each step** — Per-step autonomy level, AI building blocks, tools, human review gates
@@ -905,8 +905,8 @@ Design your AI implementation architecture.
 
 **Example prompts:**
 
-    "Design the AI workflow from my Workflow Definition"
-    → Reads the most recent Workflow Definition, runs Design,
+    "Design the AI workflow from my Workflow Requirements"
+    → Reads the most recent Workflow Requirements, runs Design,
       produces the Design Spec for approval
 
     "Design the expense-reporting workflow"
@@ -938,7 +938,7 @@ Generate platform artifacts from your approved spec.
 **How it works:**
 
 1. **Load Design Spec** — The AI reads the approved spec from `outputs/`
-2. **Prepare Context** — Resolve the Context Shopping List and Data Readiness Summary — find existing documents, create missing materials, format for AI consumption
+2. **Prepare Context** — Resolve the Context Inventory and Data Readiness Summary — find existing documents, create missing materials, format for AI consumption
 3. **Build path choice** — Choose "I'll build it" (model generates artifacts) or "I'll build it myself" (get a Construction Guide with build sequence and creation skill recommendations)
 4. **Mechanism-specific build path** — Only the steps relevant to your chosen orchestration mechanism
 5. **Discover creation tools** — The AI scans your environment for skills that can create other building blocks (e.g., skill-creator, agent-development). Presents a Creation Tools Map for confirmation — matched skills get delegated to, unmatched types are generated inline.

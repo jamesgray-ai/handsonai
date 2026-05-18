@@ -17,7 +17,7 @@ If you're returning from [Test (Step 5)](../test/) to fix issues, you may also h
 
 ## Prepare Context
 
-Before the model generates any artifacts, you need to resolve the context your workflow depends on. The **Context Shopping List** (from [Deconstruct](../deconstruct/)) and the **Data Readiness Summary** (from Design) identify every document, file, and reference material the workflow needs — and flag which ones are available, which need to be created, and which need formatting.
+Before the model generates any artifacts, you need to resolve the context your workflow depends on. The **Context Inventory** in the Workflow Requirements (from [Deconstruct](../deconstruct/)) and the **Data Readiness Summary** (from Design) identify every document, file, and reference material the workflow needs — and flag which ones are available, which need to be created, and which need formatting.
 
 Build begins by working through this list:
 
@@ -44,20 +44,20 @@ The orchestration mechanism determines which steps you follow. Work through **on
 <Tabs>
   <TabItem label="Prompt">
 
-1. **Create context** — Build the context artifacts listed in your Design Spec's Context Inventory
-2. **Set up project workspace** (optional) — If the Design Spec's Where to Run recommends a project
+1. **Create context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
+2. **Set up project workspace** (optional) — If the Design Spec's Deployment Plan recommends a project
 3. **Generate platform artifacts** — The model generates the prompt and any configuration needed for your platform
   </TabItem>
   <TabItem label="Skill-Powered Prompt">
 
-1. **Create context** — Build the context artifacts listed in your Design Spec's Context Inventory
-2. **Set up project workspace** (optional) — If the Design Spec's Where to Run recommends a project
+1. **Create context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
+2. **Set up project workspace** (optional) — If the Design Spec's Deployment Plan recommends a project
 3. **Build skills** — Build skills for the steps tagged as skill candidates in your Design Spec. The model generates skills in the format appropriate to your platform.
 4. **Generate platform artifacts** — The model generates the prompt and skill configurations for your platform
   </TabItem>
   <TabItem label="Agent">
 
-1. **Create context** — Build the context artifacts listed in your Design Spec's Context Inventory
+1. **Create context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
 2. **Build skills** — Build skills for tagged candidates
 3. **Connect tools** — Wire external tools from the Tools and Connectors section of your Design Spec
 4. **Generate platform artifacts** — The model generates agent configs (single or multi-agent), skills, and connectors for your platform

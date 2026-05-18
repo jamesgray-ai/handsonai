@@ -51,7 +51,7 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
 ## Process
 
 1. **Load workflow context** — Determine how the user is arriving:
-   - **From framework artifacts** (primary path): Read the Workflow Definition (`outputs/<name>-definition.md`) and Design Spec (`outputs/<name>-design-spec.md`). Extract name, description, trigger, type, execution mode, autonomy level, refined steps, skill candidates, agent config, and failure modes.
+   - **From framework artifacts** (primary path): Read the Workflow Requirements (`outputs/<name>-requirements.md`) and Design Spec (`outputs/<name>-design-spec.md`). Extract name, description, trigger, type, execution mode, autonomy level, refined steps, skill candidates, agent config, and failure modes.
    - **From Notion or another tracker** (if available): Fetch the workflow record for supplementary metadata (name, description, type, trigger, apps, assets used).
    - **From conversation**: If no artifacts exist, gather workflow details interactively (name, purpose, trigger, type, steps, etc.)
 2. **Classify on both axes** — Determine execution mode (augmented / automated / manual) and autonomy level (deterministic / guided / autonomous / n/a). If loaded from a Design Spec, these are already defined — confirm with user rather than re-assessing from scratch. Autonomy level determines full vs. lightweight SOP template.
@@ -132,7 +132,7 @@ For Notion users with the AI Registry template: update the "SOP" URL property on
 ## Interaction Pattern
 
 ### From framework artifacts (primary path)
-1. Read the Workflow Definition and Design Spec from the `outputs/` folder
+1. Read the Workflow Requirements and Design Spec from the `outputs/` folder
 2. Confirm classification (execution mode + autonomy level) with user
 3. Fill any gaps not covered by the artifacts
 4. Draft SOP using the appropriate template and present for review

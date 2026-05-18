@@ -1,29 +1,46 @@
 ---
-title: "Step 2: Deconstruct Workflows into Structured Specifications"
-description: Interactively break down any business workflow into discrete steps, surfacing decision points, data flows, context needs, and failure modes.
----> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
+title: "Step 2: Deconstruct Workflows into Requirements"
+description: Capture your workflow as a PRD — clear requirements, decision rules, and edge cases that feed directly into the Design step.
+---
+> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## What This Is
 
-An interactive deep-dive that breaks down a business workflow into discrete steps — surfacing every hidden sub-step, decision point, data handoff, context requirement, and failure mode. Works with both individual workflows (one person's tasks) and organizational workflows (multi-role value chain processes), adding role transitions as an additional dimension for organizational workflows.
+Step 2 is the **PRD for your workflow**. It captures *what* the workflow must do, *the rules it must follow*, and *the edge cases it must handle* — in clear requirements language that feeds directly into Step 3 (Design).
+
+The output is a single Markdown file: the **Workflow Requirements** document. It's structured so the Design step — or any AI model — can read it and act on it without re-interviewing you.
 
 | | |
 |---|---|
-| **What you'll do** | Describe your workflow (or problem) and work through a guided conversation that probes each step for sub-steps, decision points, data flows, context needs, and failure modes |
-| **What you'll get** | A **Workflow Definition** — a structured Markdown file capturing every step in detail |
+| **What you'll do** | Choose one of two paths (you know the steps, or you know the outcome), then work through a guided conversation that captures the requirements |
+| **What you'll get** | A **Workflow Requirements** document — `outputs/[name]-requirements.md` |
 | **Time** | ~15-25 minutes of interactive conversation |
 
 ## Why This Matters
 
-You can't operationalize AI on a process you don't understand. Before you can build an AI-powered workflow, you need to break it down into discrete steps, identify the decision points and data flows, and understand what context each step needs and what happens when things go wrong.
+You can't operationalize AI on a process you don't understand. Before you can design how AI building blocks will deliver the work, you need to capture the work itself: what triggers it, what good output looks like, the decision rules, the edge cases, the context it needs.
 
-The skill walks you through that deconstruction interactively. You provide the business scenario and rough steps — and the model either applies the 6-question framework to every step (step-decomposed path) or captures your goal, constraints, quality criteria, and capability domains (outcome-driven path). The deliverable:
+Step 2 separates *what* from *how*. The Workflow Requirements stays in "what" territory — outcome, rules, acceptance criteria. Step 3 (Design) handles the "how" — orchestration mechanism, agents, models, integrations. Keeping the two artifacts distinct means:
 
-- A **Workflow Definition** — the structured breakdown of your workflow into refined steps, with decision points, data flows, context needs, and failure modes captured for every step
+- The Workflow Requirements is the canonical source of truth for *what the workflow does*
+- The Design Spec doesn't restate requirements; it references them
+- Step 5 (Test) reads acceptance criteria and example scenarios straight from the Workflow Requirements
+- Step 7 (Improve) compares the deployed workflow against the requirements baseline
 
-The context needs and failure modes captured here directly inform design decisions in the next step — they tell you what context to create, what tools to connect, and where human review gates are needed.
+This builds directly on the concept of workflow deconstruction. If terms like the "6-question framework" or "AI building blocks" are new to you, review the [Key Concepts section of the AI Workflow Framework](../#key-concepts) for quick definitions before starting.
 
-This builds directly on the concepts of workflow deconstruction. If terms like the "6-question framework" or "AI building blocks" are new to you, review the [Key Concepts section of the AI Workflow Framework](../#key-concepts) for quick definitions before starting.
+## The Two Paths
+
+Step 2 presents one question upfront: **do you know the steps, or just the outcome?**
+
+| Path | When to use | Mental model |
+|---|---|---|
+| **Step-decomposed** | You can describe how the work gets done | "I know the steps" |
+| **Outcome-driven** | You know what "done" looks like but the path varies; you want an agent system to figure it out at runtime | "I know the outcome" |
+
+Both paths produce a Workflow Requirements document with the same shared structure — only the middle "what does the workflow do" block differs.
+
+**Don't have either yet?** If you only have a problem ("People drop off during enrollment and I have no way to follow up"), describe it. The model proposes a candidate workflow, then routes you into one of the two paths above. No separate "problem-first" path to learn.
 
 ## How to Use This
 
@@ -35,101 +52,59 @@ This step is facilitated by the **`deconstruct`** AI Workflow Framework Skill. H
 I need to deconstruct my [workflow name] workflow.
 ```
 
-The skill runs an interactive deep dive — interviewing you about your scenario, refining your steps, then probing each step for sub-steps, decisions, data flows, context needs, and failure modes. It produces a structured Workflow Definition file.
+The skill asks you to choose a path, runs an interactive interview to capture the requirements, validates the workflow end-to-end, and writes the Workflow Requirements file.
 
 :::tip[If your AI tool doesn't support skills]
 Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/deconstruct) and paste it into your system prompt or project instructions.
 :::
-### Example: What the first exchange looks like
 
-After you start the conversation, the model will ask about your scenario. Here's what a typical opening looks like:
+### Example: Step-decomposed path
 
-> **Model:** Let's start by understanding the workflow you want to deconstruct. First — what's the business scenario? What's the objective of this workflow, and why does it matter?
+After you start the conversation, the model asks you to choose a path. If you pick step-decomposed, here's what the opening looks like:
+
+> **Model:** Do you know the steps, or just the outcome?
+> - **Step-decomposed** — You can describe how the work gets done.
+> - **Outcome-driven** — You know what "done" looks like but want an agent system to figure out the steps.
 >
-> **You:** I research LinkedIn prospects before sales outreach. The goal is to find people who'd be a good fit for our AI training programs, understand their background, and write personalized outreach messages. Right now it takes me about 45 minutes per prospect and I do maybe 10 a week.
+> **You:** Step-decomposed. I research LinkedIn prospects before sales outreach. The goal is to find people who'd be a good fit for our AI training programs, understand their background, and write personalized outreach messages.
 >
-> **Model:** Got it — LinkedIn prospect research for personalized sales outreach, with the goal of identifying fit and crafting tailored messages. That's a great workflow to deconstruct. Now, can you walk me through the high-level steps? Don't worry about being complete or precise — just describe what you typically do from start to finish, and we'll refine it together.
+> **Model:** Got it — LinkedIn prospect research for personalized sales outreach. Can you walk me through the high-level steps? Don't worry about being complete or precise — we'll refine them together.
 >
 > **You:** I guess I start by finding people on LinkedIn, then I look at their profile, check their company, see if they've posted anything relevant, then I write the message. There's probably more to it but that's the gist.
 
-From there, the model takes your rough steps and systematically breaks each one down — uncovering the sub-steps, decisions, data, and context you didn't think to mention.
+From there, the model takes your rough steps and systematically breaks each one down — uncovering the sub-steps, decision rules, edge cases, and context you didn't think to mention. Each step in the final Workflow Requirements is captured as **Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed**.
 
-### Example: Starting with a problem instead of a workflow
+### Example: Outcome-driven path
 
-You don't need an existing process. If you have a gap or pain point, describe that — the model will help you design a workflow from scratch:
+If you pick outcome-driven, the model captures the outcome, inputs, acceptance criteria, and rules — without prescribing steps:
 
-> **Model:** Let's start by understanding the workflow you want to deconstruct. First — what's the business scenario? What's the objective of this workflow, and why does it matter?
+> **You:** Outcome-driven. I want a competitive analysis report produced weekly. I don't want to prescribe how the agent researches or structures it.
 >
-> **You:** I don't really have a workflow for this — it's more of a problem. People sign up for my online course but a lot of them never finish. I have no way to know who's dropping off, when they stop engaging, or how to follow up. I'm just losing students and I don't find out until it's too late.
->
-> **Model:** Got it — so this isn't an existing process to break down, it's a gap you need to fill. Let me make sure I understand the problem before we design a solution. A few questions: What does "signing up" look like — is there a registration step, a payment, or both? And when you say people don't finish, do you have any data on where they tend to drop off, or is that part of the problem — you just don't know?
->
-> **You:** They register and pay through my course platform. I can see completion rates in the dashboard but I don't check it regularly, and there's no alert or trigger when someone stops. I only notice if I happen to look.
->
-> **Model:** That's clear. So the core gap is: no systematic way to detect drop-offs and no follow-up process when they happen. Let me propose a candidate workflow that would solve this, and you can tell me what fits and what doesn't.
-
-From there, the model proposes a step-by-step workflow to address the problem, asks you to react and refine, and then continues into the deep dive just like any other workflow.
-
-### Example: Defining an outcome for an agent system
-
-When you know what you want produced but don't want to prescribe how the AI gets there, choose the outcome-driven path:
-
-> **Model:** How would you like to approach this?
-> (a) Deconstruct a known process — you can describe the steps and I'll interview you to surface hidden details
-> (b) Start from a problem — you know what's broken; I'll propose a workflow and we refine it together
-> (c) Define an outcome — you know what you want produced but want an agent system to figure out the approach
->
-> **You:** (c) — I want a competitive analysis report produced weekly, but I don't want to prescribe how the agent researches or structures it.
->
-> **Model:** Got it — outcome-driven. Let's define what the agent system needs to know. First: what does a successful run produce? Describe the deliverable.
+> **Model:** Got it. What does a successful run produce? Describe the deliverable — format, structure, scope.
 >
 > **You:** A 2-3 page report covering our top 5 competitors — what they shipped, pricing changes, new messaging, and any strategic moves. Formatted as a markdown doc with an executive summary at the top.
 >
-> **Model:** Clear. Now, what does the agent system receive to start? What triggers the work, and what materials does it have access to?
+> **Model:** Clear. What does the agent system receive to start? What triggers the work, and what materials does it have access to?
 >
 > **You:** It runs every Monday morning. It has access to our competitor list (a shared doc with URLs), our product positioning doc, and the web.
 
-From there, the model continues through constraints, quality criteria, capability domains, tools/data, and human gates — building an outcome-driven Workflow Definition without decomposing into fixed steps.
+From there, the model continues through constraints, acceptance criteria, context sources, and human gates — building an outcome-driven Workflow Requirements without decomposing into fixed steps.
 
-### Compose (option d) — for clear workflows with components ready
+### Example: Starting with a problem
 
-Compose is for one specific scenario: you already have reusable building blocks (skills, sub-agents, or both) covering your workflow's steps, **and** the workflow is straightforward enough to hold in your head.
+You don't need an existing process. If you have a gap or pain point, describe that — the model proposes a candidate workflow, then asks which of the two paths fits:
 
-Both conditions must be true. If either is missing, the Known Process path (option a) is the right call.
+> **Model:** Do you know the steps, or just the outcome?
+>
+> **You:** Neither, really. People sign up for my online course but a lot of them never finish. I have no way to know who's dropping off or how to follow up.
+>
+> **Model:** That's a gap, not a process. Let me propose a candidate workflow: (1) detect drop-offs by polling course completion data, (2) classify the drop-off reason, (3) draft a personalized follow-up message, (4) send it. Sound roughly right?
+>
+> **You:** Yes, that's the shape of it.
+>
+> **Model:** Good. Two paths from here: do you want to refine these steps with me (step-decomposed), or describe the outcome and let an agent figure out the steps (outcome-driven)?
 
-| Use Compose when | Use Known Process when |
-|---|---|
-| You already have a skill or sub-agent for each step | You'd need to build a new component for one or more steps |
-| You can describe each step in one clear sentence | Steps are vague, branching, or you're not sure they're complete |
-| Decision points (if any) are simple and few | Multiple decision points, scoring, or context-dependent routing |
-| You just need an orchestration prompt | You need a tested workflow with a documented spec |
-
-#### How Compose works
-
-A three-turn conversation inside `/deconstruct`:
-
-1. **Intake.** You answer four things in one message: workflow name + outcome, where your components live (Claude account, Claude Code, ChatGPT, or a mix), the steps, and which component runs each step.
-2. **Confirm + autonomy.** The AI restates what it heard, flags anything off (vague steps, missing components, hidden complexity), then asks two questions that shape the prompt: deterministic or guided? augmented or automated?
-3. **Output.** The AI writes the orchestration prompt in a standard shape — frontmatter (workflow name, outcome, autonomy, involvement, components) + Intent + Prompt body. You copy it, save it wherever you keep prompts, and run it.
-
-No Workflow Definition file, no Design Spec, no `/build` or `/test` invocation. The prompt is the artifact.
-
-#### Example: Weekly Competitive Intelligence Digest
-
-A student wants a workflow that pulls insights from 3 competitor blog posts, scores them by relevance, and produces a LinkedIn post summarizing the top 2.
-
-**Turn 1** — the student answers:
-
-- Workflow: Weekly Competitive Intelligence Digest. Output: a LinkedIn post drawing from the top 2 insights.
-- Components live in: Claude account.
-- Steps: (1) extract insights from each of 3 articles; (2) score insights 1–10 on relevance; (3) pick the top 2 and draft a LinkedIn post.
-- Components: `extracting-article-insights` (skill), `competitive-relevance-scorer` (skill), `drafting-linkedin-posts` (skill).
-
-**Turn 2** — the AI confirms back, notes that step 2's scoring makes this a *guided* workflow, and asks for autonomy + involvement. Student picks **guided, augmented** (pause after scoring so the student picks which insights make the post).
-
-**Turn 3** — the AI outputs an orchestration prompt with frontmatter, an Intent paragraph, and a Prompt body that chains the three skills with a PAUSE after scoring. The student copies the prompt into a Google Doc and runs it against the week's three articles.
-
-Three turns. One artifact. No file written to `outputs/`.
+You pick the path, and the conversation continues into the deep dive.
 
 ### Not sure which workflow to try?
 
@@ -146,41 +121,52 @@ Or pick something you do regularly and could describe to a colleague over coffee
 - **Course enrollment follow-up** — people start signing up but don't finish, and there's no process to detect drop-offs or send reminders
 - **Competitive analysis pipeline** (outcome-driven) — you know what the deliverable looks like but want an agent system to determine the research approach
 
-You don't need to know all the steps before you start — that's what the skill helps you figure out. Even "I onboard new clients and it takes forever" is enough to begin. You can also start with a problem instead of a workflow — "People drop off during enrollment and I have no way to follow up" is a perfectly valid starting point.
+You don't need to know all the steps before you start — that's what the skill helps you figure out. Even "I onboard new clients and it takes forever" is enough to begin.
 
 ## What the Skill Produces
 
-The **Workflow Definition** captures one of two formats, depending on the path you chose:
+The **Workflow Requirements** document uses a shared structure for both paths — only the middle "what does the workflow do" block differs. Every section is structured so Design (or any agent model) can parse it without re-asking questions.
 
-**Step-decomposed** (paths a and b):
+**Shared sections (both paths):**
 
-- **Scenario metadata** — name, description, outcome, trigger, type, objective, owners, definition type
-- **Refined step-by-step breakdown** — each step with action, sub-steps, decision points, data in/out, context needs, failure modes
-- **Step sequence and dependencies** — what's sequential, what's parallel, where the critical path is
-- **Context shopping list** — every artifact the workflow needs, with status, key contents, AI accessibility, and readiness notes
-- **Optimization summary** (if optimizations were applied) — what changed from the original process and why, including any optimizations declined and the reasoning
+- **Outcome** — what a successful run produces, when it runs, who consumes it
+- **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Decomposed / Outcome-Driven)
+- **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), AI accessibility (Yes / Partial / No), and location
+- **Acceptance Criteria** — what good output looks like, dimensions that matter (accuracy, completeness, tone, etc.), and the minimum bar
+- **Example Scenarios** — 3-5 representative inputs with what to look for in the output (feeds Step 5 — Test)
+- **Human Gates** — where human review or input is required
+- **Optimization Notes** (optional, step-decomposed only) — what changed from the original process and why
 
-Most workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive.
+**Step-decomposed middle block:**
 
-**Outcome-driven** (path c):
+- **Steps Overview** — a scannable numbered list, one line per step
+- **Step Details** — each step captured as **Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed**, plus a **Role** field when the workflow uses the Organizational lens (to capture which role owns each step)
+- **Sequence** — sequential vs. parallel steps, critical path, role swimlane
 
-- **Scenario metadata** — name, description, outcome, trigger, type, objective, owners, definition type
-- **Goal** — what a successful run produces
-- **Inputs** — what the agent system receives to start
-- **Expected outputs** — format, structure, and quality expectations
-- **Constraints** — boundaries and guardrails
-- **Quality criteria** — evaluation dimensions (feeds directly into Test)
-- **Capability domains** — what the agent system needs to be good at (research, analysis, writing, etc.)
-- **Tools and data sources** — external systems with data readiness assessment
-- **Human gates** — where human review is expected
+Most step-decomposed workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive.
 
-Both formats are the input for the [Design phase](../design/) in Step 3 — Design. Step-decomposed definitions go through per-step classification and building block mapping. Outcome-driven definitions go through capability domain mapping with pre-determined Autonomous autonomy and Agent orchestration.
+**Outcome-driven middle block:**
 
-### Process optimization
+- **Inputs** — what the agent system receives to start (data, materials, references, access)
+- **Rules & Constraints** — must-do / must-never-do, scope boundaries, guardrails, tone, length limits
 
-For step-decomposed workflows, the skill includes an **Optimize for AI** pass after the deep dive. Once the full process is mapped, the model steps back and challenges it — looking for steps that exist only because a human was doing the work (an integration eliminates the manual transfer), steps that can be collapsed (AI drafts and formats in one pass), steps that can be parallelized (no data dependency), handoffs that can be simplified, and new steps needed for the AI version. These are presented as recommendations for you to accept or reject — you may have good reasons to keep steps as-is (compliance, audit trail, stakeholder expectations). The Workflow Definition records what changed and why.
+Outcome-driven workflows **don't** capture capability domains, agent count, or orchestration approach — those are Design decisions. Step 2 stays in "what" territory.
 
-### Workflow validation
+### Why this format
+
+The Workflow Requirements reads like a PRD, not an interview transcript:
+
+- **Requirements voice** — each line states what must be true, not what the user said in conversation
+- **Fixed structure** — same section headings every time, so downstream skills (Design, Test, Improve) can locate any requirement by path
+- **Stable IDs** — steps are numbered, context items are `C1, C2, C3, …`, scenarios are `E1, E2, E3, …`
+- **Tables for lists of items with shared fields** — easier to parse than prose
+- **No interview residue** — no "the user mentioned", "usually", or other narrative
+
+### Process optimization (step-decomposed only)
+
+For step-decomposed workflows, the skill includes an **Optimize for AI** pass after the deep dive. Once the full process is mapped, the model steps back and challenges it — looking for steps that exist only because a human was doing the work (an integration eliminates the manual transfer), steps that can be collapsed (AI drafts and formats in one pass), steps that can be parallelized (no data dependency), handoffs that can be simplified, and new steps needed for the AI version. These are presented as recommendations for you to accept or reject — you may have good reasons to keep steps as-is (compliance, audit trail, stakeholder expectations). The Workflow Requirements records what changed and why.
+
+### Workflow validation (step-decomposed only)
 
 After optimization, the skill runs a **validation pass** — walking through the refined workflow end-to-end to catch gaps before it moves to Design. This is the quality gate that stress-tests the workflow for:
 
@@ -190,18 +176,19 @@ After optimization, the skill runs a **validation pass** — walking through the
 - **Redundancy** — Steps that duplicate work or produce outputs no downstream step consumes?
 - **Handoff clarity** — Is it clear what passes between each step, and in what form?
 
-The model presents its findings as a summary and asks you to confirm or address each one. Any issues get resolved before the Workflow Definition is finalized.
+The model presents its findings as a summary and asks you to confirm or address each one. Any issues get resolved before the Workflow Requirements is finalized.
 
 ## Tips for Better Results
 
-- **Start with workflows you actually do.** Real processes have real complexity that produces useful analysis. Hypothetical workflows tend to be too clean.
-- **Include the messy details.** "Sometimes I skip this step if the client is a repeat customer" is exactly the kind of decision logic the model needs to capture.
-- **Don't over-prepare your steps.** The model is designed to work with rough, incomplete descriptions. Let it do the work of refining and organizing.
-- **Gather your context resources early.** The model will identify specific resources the workflow needs — documents like buyer personas and style guides, but also spreadsheets, databases, CRM access, application credentials, and sample data. If you already have these, have them ready. If you don't, the analysis will tell you exactly what to create or set up and what each resource should contain.
+- **Start with workflows you actually do.** Real processes have real complexity that produces useful requirements. Hypothetical workflows tend to be too clean.
+- **Include the messy details.** "Sometimes I skip this step if the client is a repeat customer" is exactly the kind of decision rule that belongs in the requirements.
+- **Don't over-prepare your steps.** The model works with rough, incomplete descriptions. Let it do the work of refining.
+- **Gather your context resources early.** The model identifies specific resources the workflow needs — documents, spreadsheets, databases, CRM access, application credentials, sample data. If you already have these, have them ready. If you don't, the analysis tells you exactly what to create or set up.
 
 :::tip[Register your workflow in the AI Registry]
 If you're using the [AI Registry](../../use-the-playbook/build/ai-registry/) Notion database, register your workflow as soon as naming is confirmed — the skill walks you through it. This creates a record of the workflow with its name, description, trigger, outcome, and type. You'll update this entry as you move through Build. Even if you're not using Notion, save the metadata somewhere — it's the first entry in your workflow inventory. See [Builder Tools Setup](../../builder-setup/notion-registry-setup/) if you haven't set up the AI Registry yet.
 :::
+
 ## Related
 
 - **Previous step:** Not sure which workflow to deconstruct? Start with [Analyze Workflows](../analyze/) (Step 1) to identify your best candidates.

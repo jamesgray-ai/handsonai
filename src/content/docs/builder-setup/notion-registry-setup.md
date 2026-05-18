@@ -95,7 +95,7 @@ Agent skills are an open standard, and many companies are already working to ado
 | Database | Purpose | Key Fields |
 |----------|---------|------------|
 | **Business Processes** | High-level business functions and their domains | Domain, LOB, Description, Guide (URL) |
-| **Workflows** | Specific workflows within each process | Status, Execution Mode, Autonomy Level, Trigger, Process Outcome, SOP (URL), Workflow Definition (URL), Design Spec (URL) |
+| **Workflows** | Specific workflows within each process | Status, Execution Mode, Autonomy Level, Trigger, Process Outcome, SOP (URL), Workflow Requirements (URL), Design Spec (URL) |
 | **AI Building Blocks** | Skills, prompts, agents, and other AI components | Asset Type, Platform, Status, Dependencies |
 | **Apps** | Connected applications and integrations | Type, Auth Type, Connection Status |
 
