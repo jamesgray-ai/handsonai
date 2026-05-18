@@ -45,7 +45,7 @@ Not every prompt needs all four elements. A simple question needs only the task.
 | Platform | How Prompts Work |
 |----------|-----------------|
 | **Claude** | Messages in conversation, system prompts, project instructions |
-| **OpenAI (ChatGPT)** | Messages in conversation, system prompts, Custom GPT instructions |
+| **OpenAI (ChatGPT)** | Messages in conversation, system prompts, Workspace Agent instructions |
 | **Gemini** | Messages in conversation, Gem instructions |
 | **M365 Copilot** | Chat messages, prompts within Copilot agents |
 

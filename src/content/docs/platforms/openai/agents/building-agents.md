@@ -1,13 +1,14 @@
 ---
 title: Building Agents on OpenAI
-description: How to build agents on OpenAI's platform — ChatGPT Agent Mode for simple tasks, AgentKit for visual workflows, Agents SDK for custom development, and Frontier for enterprise orchestration.
+description: How to build agents on OpenAI's platform — ChatGPT Agent Mode for one-shot tasks, Workspace Agents for configured persistent agents, AgentKit for visual workflows, Agents SDK for custom development, and Frontier for enterprise orchestration.
 ---> **Part of:** [Build Workflows > Agents](../../../../ai-workflow-framework/build/)
 
-OpenAI offers four approaches to building agents, ranging from no-code chat interactions to full programmatic control.
+OpenAI offers five approaches to building agents, ranging from no-code chat interactions to full programmatic control.
 
 | Approach | Best for | Complexity |
 |----------|----------|------------|
-| [ChatGPT Agent Mode](#chatgpt-agent-mode) | Non-technical users running single-agent tasks in ChatGPT | Low — conversational, no setup required |
+| [ChatGPT Agent Mode](#chatgpt-agent-mode) | Non-technical users running single autonomous tasks in a ChatGPT conversation | Low — conversational, no setup required |
+| [Workspace Agents](#workspace-agents) | Business and Enterprise teams building configured, persistent, scheduled agents with connectors | Low to moderate — no-code, in-ChatGPT configuration |
 | [AgentKit](#agentkit) | Business users building agent workflows with a visual canvas | Low to moderate — no-code visual builder |
 | [Agents SDK](#agents-sdk) | Developers building custom agents with Python or TypeScript | Higher — full programmatic control |
 | [Frontier](#frontier) | Enterprises orchestrating custom, OpenAI, and third-party agents | Enterprise — managed platform (limited availability) |
@@ -32,6 +33,36 @@ Agent Mode is available directly in ChatGPT. It lets ChatGPT autonomously browse
 | **Tools** | Built-in capabilities (web browsing, code interpreter, file analysis) |
 
 Agent Mode is best suited for the **Prompt** orchestration mechanism — paste your instructions, let ChatGPT execute autonomously, review the output.
+
+## Workspace Agents
+
+Workspace Agents are configured, persistent agents you build inside ChatGPT. Powered by Codex, they keep running in the cloud, can be scheduled or triggered on demand, and plug directly into Slack, Google Drive, Microsoft 365, Salesforce, Notion, and other connected apps. **Workspace Agents are the successor to Custom GPTs** — Custom GPTs are now in maintenance mode, and Business, Enterprise, Edu, and Teachers workspaces are expected to migrate over time.
+
+**Official docs:** [ChatGPT Workspace Agents for Enterprise and Business](https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business) · [OpenAI Academy — Workspace Agents](https://openai.com/academy/workspace-agents/)
+
+### When to use it
+
+- You want a configured agent that persists across conversations and can be re-run on demand or on a schedule
+- The agent needs to act inside your workspace tools (Slack, Drive, M365, Salesforce, Notion)
+- You're a Business, Enterprise, Edu, or Teachers user (Workspace Agents are gated to these plans)
+- You're migrating from a Custom GPT
+
+### How to build one
+
+In ChatGPT, click **Agents** in the left sidebar to open the agent builder. Describe what you want the agent to do — ChatGPT drafts instructions, suggests tools, and lets you refine the configuration interactively. Use **+ Add tool** in the Tools section to connect apps (Google Calendar, Drive, Slack, SharePoint, and others your workspace has enabled), and **Add skill** to attach reusable [Agent Skills](https://agentskills.io) — the same open SKILL.md format used by Claude and other compatible platforms.
+
+### Mapping your Design blueprint
+
+| Design blueprint | Workspace Agents |
+|-----------------|------------------|
+| **Name** | Agent name in the builder |
+| **Description** | Description shown to teammates who use the agent |
+| **Instructions** | Agent instructions drafted by ChatGPT from your input, then refined |
+| **Tools** | Connected apps (Drive, Calendar, Slack, SharePoint, and others) added via **+ Add tool** |
+| **Skills** | Reusable Agent Skills added via **Add skill** (open `agentskills.io` standard) |
+| **Trigger** | Human-triggered, schedule-triggered, or via the ChatGPT Agents app in Slack |
+
+Workspace Agents are best suited for the **Project**, **Skill**, or **Agent** orchestration mechanisms in the Design framework — they bundle instructions, tools, and skills into a unit teammates can re-use.
 
 ## AgentKit
 

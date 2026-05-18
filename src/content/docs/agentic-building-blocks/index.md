@@ -133,7 +133,7 @@ Unique knowledge (not in models) required by the agentic workflow for execution.
 | Platform | How It Works |
 |----------|-------------|
 | Claude | File attachments, project knowledge base, conversation history |
-| OpenAI (ChatGPT) | File uploads, Custom GPT knowledge files, conversation history |
+| OpenAI (ChatGPT) | File uploads, Workspace Agent files, conversation history |
 | Gemini | File uploads, Google Drive integration, NotebookLM sources |
 | M365 Copilot | Microsoft Graph (emails, files, meetings), attached documents |
 
@@ -160,8 +160,8 @@ Self-contained workspaces with their own chat histories and knowledge bases that
 | Platform | How It Works |
 |----------|-------------|
 | Claude | Claude Projects (with project knowledge and custom instructions) |
-| OpenAI (ChatGPT) | Custom GPTs, or Projects in ChatGPT |
-| Gemini | Gems (with custom instructions and uploaded context) |
+| OpenAI (ChatGPT) | Projects in ChatGPT, or Workspace Agents for configured, reusable bundles |
+| Gemini | Gems (with custom instructions and uploaded context); Gemini Enterprise agents for shared, configured workflows |
 | M365 Copilot | Copilot agents with knowledge sources and instructions |
 
 **Relationship to other blocks:** Projects are containers — they hold the prompts, context, and skills a workflow needs, making the whole package reusable.
@@ -218,7 +218,7 @@ Instructions you provide to an AI in natural language during a conversation. Pro
 | Platform | How It Works |
 |----------|-------------|
 | Claude | Message in conversation, system prompt, or project instructions |
-| OpenAI (ChatGPT) | Message in conversation, system prompt, or Custom GPT instructions |
+| OpenAI (ChatGPT) | Message in conversation, system prompt, or Workspace Agent instructions |
 | Gemini | Message in conversation or Gem instructions |
 | M365 Copilot | Message in chat, or prompt within a Copilot agent |
 
@@ -245,8 +245,8 @@ Folders containing instructions, scripts, and resources that the AI discovers an
 | Platform | How It Works |
 |----------|-------------|
 | Claude | Claude Code Skills (SKILL.md files with instructions and references) |
-| OpenAI (ChatGPT) | Custom GPTs, or Actions within a GPT |
-| Gemini | Gems with structured instructions |
+| OpenAI (ChatGPT) | Skills in ChatGPT, Workspace Agents, and Codex CLI (open [agentskills.io](https://agentskills.io) format) |
+| Gemini | Gemini CLI skills (agentskills.io format); Gems with structured instructions |
 | M365 Copilot | Copilot agent actions, Power Automate flows triggered by Copilot |
 
 **Relationship to other blocks:** Skills are upgraded prompts — they package a prompt with its context into something reusable. Agents can invoke skills as part of multi-step workflows.
@@ -275,8 +275,8 @@ A system where an LLM controls workflow execution to achieve a goal.
 | Platform | How It Works |
 |----------|-------------|
 | Claude | Claude Code agents (autonomous tool-using sessions), Cowork agents |
-| OpenAI (ChatGPT) | Custom GPTs with Actions, Assistants API with tools |
-| Gemini | Gemini with extensions (Google Search, Workspace, Maps, etc.) |
+| OpenAI (ChatGPT) | Workspace Agents with connectors and skills, Assistants API with tools |
+| Gemini | Gemini Enterprise Agent Designer (no-code/visual), Agent Development Kit on Vertex AI, Gemini with extensions |
 | M365 Copilot | Copilot agents with plugins and connectors |
 
 **Relationship to other blocks:** Agents orchestrate the other blocks — they use prompts, draw on context, invoke skills, and connect to external systems through MCP.
@@ -306,7 +306,7 @@ An open standard for connecting AI assistants to external systems where data liv
 | Platform | How It Works |
 |----------|-------------|
 | Claude | MCP servers (local or remote) connected via Claude Code or Claude Desktop |
-| OpenAI (ChatGPT) | Function calling, Actions in Custom GPTs, Assistants API tools |
+| OpenAI (ChatGPT) | Function calling, connectors in Workspace Agents, Assistants API tools |
 | Gemini | Extensions and function calling |
 | M365 Copilot | Connectors, plugins, Power Platform integrations |
 
@@ -434,12 +434,12 @@ All building blocks across all four platforms in one view:
 |---------------|--------|-------------------|--------|--------------|
 | **Model** | Multiple tiers (fast, balanced, reasoning) | Multiple tiers (fast, balanced, reasoning) | Multiple tiers (fast, balanced) | Microsoft-managed |
 | **Prompt** | Conversation messages, system prompts | Conversation messages, system prompts | Conversation messages | Chat messages |
-| **Context** | File attachments, project knowledge | File uploads, GPT knowledge files | File uploads, Drive, NotebookLM | Microsoft Graph, documents |
-| **Project** | Claude Projects | Custom GPTs, ChatGPT Projects | Gems | Copilot agents |
+| **Context** | File attachments, project knowledge | File uploads, Workspace Agent files | File uploads, Drive, NotebookLM | Microsoft Graph, documents |
+| **Project** | Claude Projects | ChatGPT Projects, Workspace Agents | Gems, Gemini Enterprise agents | Copilot agents |
 | **Memory** | Claude memory, CLAUDE.md | ChatGPT Memory | Conversation memory | Microsoft Graph |
-| **Skill** | Claude Code Skills | Not yet available | Not yet available | Not yet available |
-| **Agent** | Claude Code agents, Cowork | Assistants API, GPTs with Actions | Extensions | Copilot agents with plugins |
-| **MCP** | MCP servers | Function calling, Actions | Extensions, function calling | Connectors, plugins |
+| **Skill** | Claude Code Skills, Claude.ai skills | Skills in ChatGPT, Workspace Agents, and Codex CLI | Gemini CLI skills | Not yet available |
+| **Agent** | Claude Code agents, Cowork | Workspace Agents, Assistants API | Gemini Enterprise Agent Designer, ADK on Vertex AI | Copilot agents with plugins |
+| **MCP** | MCP servers | Function calling, connectors in Workspace Agents | Extensions, function calling | Connectors, plugins |
 | **API** | Anthropic REST API (Python, TypeScript SDKs) | OpenAI REST API (Python, TypeScript SDKs) | Gemini API, Vertex AI (Python SDK) | Azure AI Services (.NET, Python, Java) |
 | **SDK** | Claude Agent SDK (Python, TypeScript) | OpenAI Agents SDK (Python, TypeScript) | Agent Development Kit (Python) | M365 Agents SDK (.NET, Python, TypeScript) |
 | **CLI** | Claude Code | Codex CLI | Gemini CLI | GitHub Copilot CLI |

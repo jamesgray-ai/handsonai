@@ -38,7 +38,7 @@ When you find yourself re-uploading the same context repeatedly, that's a signal
 | Platform | How It Works |
 |----------|-------------|
 | **Claude** | File attachments, project knowledge base, conversation history |
-| **OpenAI (ChatGPT)** | File uploads, Custom GPT knowledge files, conversation history |
+| **OpenAI (ChatGPT)** | File uploads, Workspace Agent files, conversation history |
 | **Gemini** | File uploads, Google Drive integration, NotebookLM sources |
 | **M365 Copilot** | Microsoft Graph (emails, files, meetings), attached documents |
 

@@ -32,7 +32,7 @@ MCP is typically the last building block you need. Start with prompts, add conte
 | Platform | How It Works |
 |----------|-------------|
 | **Claude** | MCP servers (local or remote) connected via Claude Code or Claude Desktop |
-| **OpenAI (ChatGPT)** | Function calling, Actions in Custom GPTs, Assistants API tools |
+| **OpenAI (ChatGPT)** | Function calling, connectors in Workspace Agents, Assistants API tools |
 | **Gemini** | Extensions and function calling |
 | **M365 Copilot** | Connectors, plugins, Power Platform integrations |
 

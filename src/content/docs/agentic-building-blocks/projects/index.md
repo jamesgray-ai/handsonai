@@ -31,7 +31,7 @@ Shape every response an AI gives you inside a workspace. Custom instructions are
 |----------|----------------|-------------------|
 | **Claude** | Claude Projects | Project knowledge files, custom instructions, conversation history |
 | **ChatGPT** | ChatGPT Projects | Project instructions, file uploads, shared conversations |
-| **Google Gemini** | Gems | Custom instructions, uploaded context, reusable specialists |
+| **Google Gemini** | Gems; Gemini Enterprise agents | Custom instructions, uploaded context, reusable specialists; shared agents in Gemini Enterprise |
 | **Perplexity** | Spaces | Shared research spaces with persistent sources and instructions |
 | **M365 Copilot** | Copilot Notebooks | Instructions, Microsoft Graph integration, enterprise knowledge |
 

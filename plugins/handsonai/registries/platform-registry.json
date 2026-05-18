@@ -35,6 +35,10 @@
       "language": "python",
       "agent": "https://google.github.io/adk-docs/"
     },
+    "gemini-enterprise": {
+      "mode": "guided",
+      "agent": "https://docs.cloud.google.com/gemini/enterprise/docs/agent-designer"
+    },
     "copilot-studio": {
       "mode": "guided",
       "agent": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"
@@ -43,9 +47,16 @@
       "mode": "guided",
       "agent": "https://studio.workspace.google.com/"
     },
+    "chatgpt": {
+      "mode": "guided",
+      "agent": "https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business",
+      "skill": "https://help.openai.com/en/articles/20001066-skills-in-chatgpt",
+      "memory": "https://help.openai.com/en/articles/8590148-memory-faq",
+      "project": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt"
+    },
     "chatgpt-agent-mode": {
       "mode": "guided",
-      "agent": "https://help.openai.com/en/articles/agent-mode"
+      "agent": "https://help.openai.com/en/articles/11752874-chatgpt-agent"
     }
   },
   "curated-tools": [
@@ -72,6 +83,12 @@
     }
   ],
   "skill-registries": [
+    {
+      "name": "Agent Skills",
+      "type": "web-search",
+      "url": "https://agentskills.io",
+      "notes": "Open standard for the Skill primitive (used by ChatGPT and other platforms)"
+    },
     {
       "name": "skills.sh",
       "type": "web-search",
