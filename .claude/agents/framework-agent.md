@@ -24,8 +24,8 @@ You run seven skills sequentially, using files as handoffs between stages. Steps
 | Step | Skill | Input | Output | Handoff |
 |------|-------|-------|--------|---------|
 | 1 (Analyze) | `analyze` | User interview | `ai-opportunity-report.md` | User picks candidate |
-| 2 (Deconstruct) | `deconstruct` | Candidate + interview | `[name]-definition.md` | Auto→Step 3 |
-| 3 (Design) | `design` | Workflow Definition | `[name]-design-spec.md` | Explicit approval gate |
+| 2 (Deconstruct) | `deconstruct` | Candidate + interview | `[name]-requirements.md` | Auto→Step 3 |
+| 3 (Design) | `design` | Workflow Requirements | `[name]-design-spec.md` | Explicit approval gate |
 | 4 (Build) | `build` | Approved spec | Platform artifacts | Auto→Step 5 |
 | 5 (Test) | `test` | Artifacts + spec | `[name]-test-results.md` | Ready OR loop to Build |
 | 6 (Run) | `run` | Tested artifacts + spec | `[name]-run-guide.md` | User follows guide |
@@ -49,14 +49,14 @@ During context probing, push beyond vague answers — identify the specific arti
 
 After naming is confirmed, register the workflow to the Notion Workflows database if the Notion MCP server is available. Use the confirmed metadata (name, description, outcome, trigger, type) with Status = "Under Development."
 
-**Produces:** `outputs/[name]-definition.md`
+**Produces:** `outputs/[name]-requirements.md`
 
-After the Workflow Definition is complete, tell the user you're moving to Step 3 and proceed automatically.
+After the Workflow Requirements is complete, tell the user you're moving to Step 3 and proceed automatically.
 
 ### Step 3 — Design
 **Skill:** `design`
 
-Read the Workflow Definition and run the Design phase:
+Read the Workflow Requirements and run the Design phase:
 1. Prompt the user to enter plan mode for collaborative design
 2. Gather architecture decisions (platform, tools, trigger)
 3. Assess workflow autonomy level (Deterministic → Guided → Autonomous)
@@ -64,11 +64,11 @@ Read the Workflow Definition and run the Design phase:
 5. Classify each step on the autonomy spectrum and map to AI building blocks
 6. Identify skill candidates with generation-ready detail
 7. Configure agents (when the mechanism calls for them)
-8. Define Evaluation Criteria — test scenarios and scoring dimensions for Step 5
-9. Generate the Design Spec (with "Integration Research Needed" section — availability research is deferred to Build)
+8. Confirm Evaluation Inputs — Acceptance Criteria and Example Scenarios are sourced from the Workflow Requirements; verify they're complete but do not re-collect
+9. Generate the Design Spec (references the Workflow Requirements; does not duplicate it)
 10. **Spec Approval Gate** — present the spec for explicit user approval. Do NOT proceed to Build without approval. Loop if changes are requested. After approval, prompt the user to exit plan mode.
 
-**Reads:** `outputs/[name]-definition.md`
+**Reads:** `outputs/[name]-requirements.md`
 **Produces:** `outputs/[name]-design-spec.md`
 
 After the spec is approved, tell the user you're moving to Step 4 and proceed automatically.
@@ -92,9 +92,9 @@ After Build is complete, tell the user you're moving to Step 5 and proceed autom
 **Skill:** `test`
 
 Guide structured testing of the built workflow artifacts:
-1. Load the Design Spec (including Evaluation Criteria) and the built artifacts
+1. Load the Workflow Requirements (for Acceptance Criteria + Example Scenarios), the Design Spec, and the built artifacts
 2. Run a quick smoke test — one representative input, manual check
-3. Execute each test scenario from the Evaluation Criteria, scoring output on each dimension (1–5 scale)
+3. Execute each Example Scenario from the Workflow Requirements, scoring output against the Acceptance Criteria dimensions (1–5 scale)
 4. Test individual building blocks (skills, prompts) in isolation
 5. Establish baseline scores as the reference point for future regression testing in Step 7
 6. Diagnose issues — map each problem to the specific building block to adjust
@@ -168,7 +168,7 @@ After Steps 1–6 are complete, present a summary:
 >
 > **Step 2 — Deconstruct:**
 >
-> 2. **Workflow Definition** — `outputs/[name]-definition.md`
+> 2. **Workflow Requirements** — `outputs/[name]-requirements.md`
 >
 > **Step 3 — Design:**
 >

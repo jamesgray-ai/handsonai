@@ -206,7 +206,7 @@ When user provides a workflow description:
 | Trigger | text | e.g., "Weekly (Sunday)", "On email arrival", "Manual" |
 | Apps | multi-select | Notion, Web Search, Gmail, Slack, GitHub, etc. |
 | SOP | url | Link to SOP markdown file (populated by `writing-workflow-sops`) |
-| Workflow Definition | url | Link to workflow definition markdown file (populated by framework Deconstruct phase) |
+| Workflow Requirements | url | Link to workflow requirements markdown file (populated by framework Deconstruct phase) |
 | Design Spec | url | Link to Design Spec markdown file (populated by framework Design phase) |
 | Assets Used | relation | Link to Assets database (optional) |
 

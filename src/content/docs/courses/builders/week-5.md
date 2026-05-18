@@ -3,15 +3,15 @@ title: Week 5 - Run the Framework End-to-End
 description: Run the AI Workflow Framework end-to-end on a real workflow — Competitive Intelligence — and ship a working skill and agent in your workspace.
 ---
 
-In Week 5 you run the AI Workflow Framework end-to-end yourself, live in class. Starting from a pre-built workflow definition, you invoke `/design`, `/build`, `/test`, and `/run` on a **Competitive Intelligence** workflow — shipping a `competitor-research` skill and `competitor-brief` agent that produce a structured brief on a real competitor. In Session 10, you'll evolve that workflow into a self-improving system.
+In Week 5 you run the AI Workflow Framework end-to-end yourself, live in class. Starting from a pre-built Workflow Requirements, you invoke `/design`, `/build`, `/test`, and `/run` on a **Competitive Intelligence** workflow — shipping a `competitor-research` skill and `competitor-brief` agent that produce a structured brief on a real competitor. In Session 10, you'll evolve that workflow into a self-improving system.
 
 ## Lesson: Ship a Workflow Using the AI Workflow Framework
 
-Run the framework end-to-end yourself in Cowork (or Claude Code — same slash commands). Starting from a pre-built workflow definition, you invoke `/design`, `/build`, `/test`, and `/run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
+Run the framework end-to-end yourself in Cowork (or Claude Code — same slash commands). Starting from a pre-built Workflow Requirements, you invoke `/design`, `/build`, `/test`, and `/run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
 
 ### Hands-on assignment
 
-**Starting point:** a pre-built workflow definition (download below).
+**Starting point:** a pre-built Workflow Requirements (download below).
 **Ending point:** a shipped skill + agent producing a brief on a real competitor.
 
 1. **`/design`** — Turn the definition into an approved Design Spec (plan mode, collaborative). See the [Design step docs](../../../ai-workflow-framework/design/).
@@ -19,11 +19,11 @@ Run the framework end-to-end yourself in Cowork (or Claude Code — same slash c
 3. **`/test`** — Validate the building blocks before trusting them with real input. See the [Test step docs](../../../ai-workflow-framework/test/).
 4. **`/run`** — Invoke the workflow on a real competitor; watch `knowledge/competitors/{name}.md` emerge. See the [Run step docs](../../../ai-workflow-framework/run/).
 
-### Download the workflow definition
+### Download the Workflow Requirements
 
 The Step 2 (Deconstruct) artifact is pre-built so we can spend Session 9 running the rest of the framework on it. Save this file into your workspace before class:
 
-<a href="/assets/courses/builders/competitive-intelligence-workflow-definition.md" download="competitive-intelligence-workflow-definition.md"><strong>Download the Competitive Intelligence — Workflow Definition (.md)</strong></a>
+<a href="/assets/courses/builders/competitive-intelligence-workflow-definition.md" download="competitive-intelligence-workflow-definition.md"><strong>Download the Competitive Intelligence — Workflow Requirements (.md)</strong></a>
 
 ### What you'll walk away with
 

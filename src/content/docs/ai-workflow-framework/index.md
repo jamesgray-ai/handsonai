@@ -50,14 +50,14 @@ The audit starts by determining which lens to use — individual or organization
 
 Define *what* the business process does — every step, decision, and handoff — before deciding *how* to implement it with AI.
 
-How you enter depends on what you're starting with:
+Step 2 is the **PRD for your workflow** — clear requirements, decision rules, and edge cases that feed directly into Design. There are two paths, chosen by one question at the start: *do you know the steps, or just the outcome?*
 
-- **You know the process.** You can describe the steps, decisions, and handoffs — the model interviews you to surface hidden details and capture it all in a structured format. This is the most common path for workflows you already do manually.
-- **You have a problem, not a process.** You know what's broken or slow, but there's no defined workflow yet. The model proposes a candidate workflow for you to react to, then decomposes it collaboratively.
-- **You know the outcome, not the process.** You know what you want produced but don't want to prescribe how — the model captures your goal, constraints, quality criteria, and what the agent system needs to be good at, producing an outcome-driven definition that feeds into agent-oriented design.
-- **Compose** — you already have skills and/or sub-agents and know the workflow; the framework writes the orchestration prompt directly inside `/deconstruct` (no Workflow Definition, no Design Spec, no `/build` — the prompt is the artifact).
+- **Step-decomposed** — You can describe how the work gets done. The model interviews you to refine the steps and surface decision rules, edge cases, and the context each step needs. Each step is captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context.
+- **Outcome-driven** — You know what "done" looks like but the path varies; you want an agent system to figure it out at runtime. The model captures the outcome, inputs, acceptance criteria, rules, and constraints — without prescribing steps.
 
-For the first two paths, the model uses the **six-question framework** to break down each step:
+Don't have either yet? Describe the problem you're trying to solve. The model proposes a candidate workflow and routes you into one of the two paths above.
+
+For step-decomposed workflows, the model uses the **six-question framework** as the interview scaffold to surface what belongs in each step's requirements block:
 
 1. Is this step actually multiple steps bundled together?
 2. Are there decision points, branches, or quality gates?
@@ -66,9 +66,9 @@ For the first two paths, the model uses the **six-question framework** to break 
 5. What happens when this step fails?
 6. Can the AI access, interpret, and persist the data this step needs?
 
-This is purely the *what* — it captures the process without prescribing how AI will handle it. The *how* comes in Step 3 (Design), where the Workflow Definition becomes the input for architecture decisions.
+This is purely the *what* — the workflow's requirements, with no prescription of how AI will handle it. The *how* comes in Step 3 (Design).
 
-**Deliverable:** **Workflow Definition** (`outputs/[name]-definition.md`) — either a step-decomposed breakdown (refined steps with decision points, data flows, context needs, failure modes, and a context shopping list) or an outcome-driven definition (goal, inputs, outputs, constraints, quality criteria, capability domains, and human gates).
+**Deliverable:** **Workflow Requirements** (`outputs/[name]-requirements.md`) — a PRD-style document containing Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and (optional, step-decomposed) Optimization Notes, plus a middle block specific to the chosen path (Steps Overview + per-step requirements for step-decomposed, or Inputs + Rules & Constraints for outcome-driven).
 
 **Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
 
@@ -78,9 +78,9 @@ This is purely the *what* — it captures the process without prescribing how AI
 
 Decide *how* the workflow should be built — before you build it.
 
-The Design step takes your Workflow Definition and produces a complete blueprint for your AI workflow. The skill confirms your platform, extracts tool integrations and constraints from your Workflow Definition, assesses the workflow's autonomy level (Deterministic, Guided, or Autonomous), recommends an orchestration mechanism (Prompt, Skill-Powered Prompt, or Agent) and involvement mode, classifies each step on the autonomy spectrum, maps AI building blocks, identifies skill candidates, and documents agent blueprints when needed. The spec must be approved before moving to Build.
+The Design step takes your Workflow Requirements and produces a complete blueprint for your AI workflow. The skill confirms your platform, extracts tool integrations and constraints from your Workflow Requirements, assesses the workflow's autonomy level (Deterministic, Guided, or Autonomous), recommends an orchestration mechanism (Prompt, Skill-Powered Prompt, or Agent) and involvement mode, classifies each step on the autonomy spectrum, maps AI building blocks, identifies skill candidates, and documents agent blueprints when needed. The spec must be approved before moving to Build.
 
-**Deliverable:** **Design Spec** (`outputs/[name]-design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, context inventory, and implementation order.
+**Deliverable:** **Design Spec** (`outputs/[name]-design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, and implementation order. References the Workflow Requirements rather than restating it.
 
 **Facilitated by the `design` skill.** See [Design Your AI Workflow](design/) for the full guide with autonomy assessment, orchestration mechanism decision flow, and output format.
 
@@ -100,9 +100,9 @@ The Build step starts with a **Prepare Context** phase — systematically resolv
 
 ### Step 5: Test the Workflow
 
-Structured testing against the evaluation criteria from Design.
+Structured testing against the Acceptance Criteria and Example Scenarios captured in the Workflow Requirements.
 
-Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full eval suite where you run each test scenario from the Design Spec and score the output on the quality dimensions defined during Design. You also test individual building blocks in isolation and establish a baseline for future comparison.
+Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full eval suite where you run each Example Scenario from the Workflow Requirements and score the output against the Acceptance Criteria dimensions. You also test individual building blocks in isolation and establish a baseline for future comparison.
 
 Most workflows need 2-4 iterations between Build and Test before they produce reliably good output. When something is off, the skill helps you diagnose which building block to fix and sends you back to Build with a clear target.
 

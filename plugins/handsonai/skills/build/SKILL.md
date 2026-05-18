@@ -4,6 +4,7 @@ description: >
   This skill should be used when the user has an approved Design Spec and wants to
   build platform artifacts for their AI workflow. It offers a build path choice, researches
   integration availability, generates platform-appropriate artifacts (prompts, skills, agents, configs),
+  and writes them to the right locations for the user's platform.
   This is Step 4 (Build) of the AI Workflow Framework.
 user-invocable: true
 ---
@@ -20,13 +21,20 @@ Take an approved Design Spec and generate platform-appropriate artifacts: prompt
 
 Artifact generation begins only after the Design Spec has been approved in the Design phase.
 
-#### Step 1 — Load Design Spec
+#### Step 1 — Load Design Spec and Workflow Requirements
 
 Read the Design Spec from `outputs/[workflow-name]-design-spec.md`. If the user specifies a file path, use that. Otherwise, look for the most recent Design Spec in `outputs/`.
 
-Confirm you've loaded the spec by summarizing: workflow name, orchestration mechanism, involvement mode, number of steps, number of skill candidates, and number of agents.
+**Parse the frontmatter first.** The spec opens with YAML frontmatter containing: `workflow`, `requirements_file`, `spec_version`, `definition_type`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, and `counts`. Use these values to summarize the spec — no need to parse the body to get the headline numbers.
 
-Verify the spec contains an Architecture Decisions section and Integration Options section. If either is missing, inform the user: "This spec appears to predate the current format. Some sections are missing. I can either (a) proceed with what's available and ask questions as needed, or (b) you can regenerate the spec by running the Design skill again."
+**Also load the Workflow Requirements.** The Design Spec references the Workflow Requirements via its `requirements_file` frontmatter field (or the Source section if frontmatter is absent). Read that file too — it contains the per-step requirements, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates that the Design Spec deliberately does NOT restate. Build needs both files together.
+
+Confirm you've loaded both by summarizing: workflow name, orchestration mechanism, involvement mode, packaging, counts (steps, skills, agents, integrations), and that the Workflow Requirements was loaded.
+
+**Spec version compatibility:**
+- `spec_version: 2.1` (current) → current format with three-layer grouping, Orchestrator Prompt Outline, and Self-Test Summary; proceed.
+- `spec_version: 2.0` → older format without layer grouping or Orchestrator Outline; proceed (Build's fallback derives the orchestrator from Workflow Requirements directly).
+- No frontmatter or older `spec_version` → spec predates the current format. Inform the user: "This spec is in an older format. Some fields (Packaging, Build Output column, Skill/Agent IDs, Deployment Plan, Orchestrator Prompt Outline) may be missing. I can either (a) proceed with what's available and ask questions as needed, or (b) you can regenerate the spec by running the Design skill again."
 
 #### Step 2 — Build Path Choice
 
@@ -193,7 +201,29 @@ If the Integration Options section is missing from the spec (older format), info
 
 #### Step 6 — Generate Platform Artifacts
 
-Based on the platform from Architecture Decisions. Resolve any deferred decisions now: ask about **shareability** (will team members run this?) to determine artifact format (file-based vs. code-based), and resolve the **specific platform offering** if not yet determined (e.g., Claude Code vs. Claude.ai, ADK vs. Gemini web). Infer **code comfort** from the specific offering (Claude Code = code-comfortable, ChatGPT = no-code).
+Based on the platform and packaging decisions from Architecture Decisions. Resolve the items in the spec's **Deferred to Build** section now:
+
+- **Specific platform offering** if not yet determined (e.g., "Claude" → Claude Code vs. Claude.ai vs. Cowork)
+- **Shareability** — file-based vs. code-based distribution; influences artifact format
+- **Exact model version per platform** — verify current model names via web search for the user's platform
+- **Integration setup specifics** — auth flow, region, plan tier per integration
+
+Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capability Domain Mapping Build Output column** for outcome-driven) as your generation checklist. Each row tells you exactly what to produce:
+- `New skill: SN` → generate the skill defined in the matching Skill Candidates entry
+- `Use existing: [name]` → no generation needed; verify the skill exists and reference it
+- `New agent: AN` → generate the agent defined in the matching Agent Configuration entry
+- `Inline prompt → Workflow Requirements Step N` → fold this step's Goal/Inputs/Outputs/Rules from the Workflow Requirements into the main orchestrator prompt
+- `MCP server: [name]` → configure the connector using the Integration Options entry
+- `Human (no artifact)` → skip; no AI artifact for this step
+- `Handled by agent` (outcome-driven only) → no separate artifact; capability is covered by the agent's Instructions
+
+Apply the spec's **Packaging** decision to group the generated artifacts:
+- **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace)
+- **Standalone Skill** → ship as a single uploadable artifact (zip for Claude.ai, single SKILL.md for code-mode platforms, single skill for ChatGPT)
+- **Workspace Agent** → bundle orchestration + skills + tools as a ChatGPT Workspace Agent (the current ChatGPT primitive; Custom GPTs are deprecated). Research current Workspace Agent creation flow via web search before generating.
+- **Loose Files** → write files to platform-appropriate paths; no distribution wrapper
+
+**When mechanism is `Prompt` or `Skill-Powered Prompt`:** read the spec's `Orchestrator Prompt Outline` section as the structural skeleton for the orchestrator prompt. The outline names which step invokes which skill, where PAUSE points sit, and what the user provides at each gate. Expand the outline into the full orchestrator prompt by pulling step content (Goal, Inputs, Outputs, Rules & Edge Cases) from the Workflow Requirements. If the section is absent (older spec or mechanism = Agent), fall back to deriving the orchestrator directly from Workflow Requirements Step Details + Human Gates.
 
 **a. Resolve platform documentation from the registry.** Use the platform doc URLs fetched in Platform Research (Step 3.6) from the registry's `platforms` section. These provide current, authoritative documentation for each building block's artifact format.
 
@@ -215,23 +245,29 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
   **If a creation skill was matched for this block type:**
 
-  1. Invoke it via the Skill tool, passing:
-     - The building block's full spec from the Design Spec (name, purpose, inputs, outputs, decision logic, failure modes, which workflow steps it covers)
+  1. Invoke it via the Skill tool, passing the building block's full spec from the Design Spec:
+     - **For skills (S1, S2, …):** all 12 fields from the Skill Candidates entry — ID, Name, Description, Purpose, Covers Steps/Domains, Inputs, Outputs, Decision Logic, Failure Modes, Required Tools, Depends On, Stateful?
+     - **For agents (A1, A2, …):** all 13 fields from the Agent Configuration entry — ID, Name, Description, Mission, Responsibilities, Output Format, Tone & Style, Constraints, Model, Memory Scope, Tools, Skills, Trigger Examples. If multi-agent, also pass the relevant Handoff Contracts and the Orchestration Pattern.
      - The artifact format requirements resolved in Step 3.6 (or the fallback reference if Step 3.6 did not resolve a format)
-     - Whether platform-specific extensions should be applied (based on Architecture Decisions)
-     - This context: "This building block comes from an approved Design Spec (AI Workflow Framework, Step 3 Design). The intent, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."
+     - Whether platform-specific extensions should be applied (based on Architecture Decisions and Packaging)
+     - This context: "This building block comes from an approved Design Spec (AI Workflow Framework, Step 3 Design). The intent, name, description, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."
   2. Let the creation skill run its full workflow. Do not skip or abbreviate any stage.
-  3. After completion, move to the next building block. Later blocks may reference earlier ones.
+  3. After completion, move to the next building block. Later blocks may reference earlier ones via their stable IDs.
 
   **If no creation skill was matched (inline generation):**
 
-  1. **For skills:** Use the artifact format from Step 3.6. If unavailable, fetch the agentskills.io specification (live from `https://agentskills.io/specification`, fallback to `references/skill-spec.md`). Generate the skill following that spec. Apply platform-specific extensions as documented for the target platform.
-  2. **For agents:** Use the artifact format from Step 3.6. If unavailable and on Claude Code, fall back to `references/agent-spec.md`. For other platforms, fall back to web search. Generate the agent following the resolved spec.
+  1. **For skills:** Use the artifact format from Step 3.6. If unavailable, fetch the agentskills.io specification (live from `https://agentskills.io/specification`, fallback to `references/skill-spec.md`). Generate the skill using the Skill Candidates entry — use the `Name` field as the directory name and the `Description` field verbatim in the SKILL.md frontmatter. Apply platform-specific extensions as documented for the target platform.
+  2. **For agents:** Use the artifact format from Step 3.6. If unavailable and on Claude Code, fall back to `references/agent-spec.md`. For other platforms, fall back to web search. Generate the agent using the Agent Configuration entry — use the `Name` as the filename, the `Description` field verbatim in the agent file frontmatter (and include the Trigger Examples as `<example>` blocks in the description), and the Mission, Responsibilities, Output Format, Tone & Style, and Constraints fields as the agent's system prompt body.
   3. **For other block types (MCP servers, hooks, commands, prompts):** Use the artifact format from Step 3.6. If unavailable, research the platform's current format via web search and generate accordingly.
 
 **f. Generate artifacts.** The skill provides the *specs* (what each building block should do, its inputs/outputs/instructions from the Design phase). The model provides the *implementation* (how to build it on the user's platform, using the verified specification and platform documentation as authoritative sources).
 
-After completing Build, tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
+**g. Place and deploy each artifact per the Deployment Plan.** The Design Spec's Deployment Plan table specifies the target location and deployment steps for every artifact. For each generated artifact:
+1. Write the artifact to its target location from the Deployment Plan.
+2. Execute or document the deployment steps (e.g., "run `claude mcp add ...`", "upload zip via plugin marketplace", "create new GPT and paste instructions").
+3. If the target location requires user action (e.g., a manual GPT creation flow), produce a step-by-step guide tailored to the user's platform.
+
+After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
 ## Outputs
 

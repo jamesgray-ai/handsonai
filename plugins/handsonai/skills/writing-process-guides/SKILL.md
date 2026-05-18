@@ -21,7 +21,7 @@ Write comprehensive Business Process Guide documentation and save as markdown fi
 ## Process
 
 1. **Load process context** — Determine how the user is arriving:
-   - **From framework artifacts** (primary path): Read the Workflow Definitions for each component workflow (`outputs/<name>-definition.md`). If Design Specs and SOPs exist, read those too for sequencing, autonomy levels, and cross-references.
+   - **From framework artifacts** (primary path): Read the Workflow Requirements for each component workflow (`outputs/<name>-requirements.md`). If Design Specs and SOPs exist, read those too for sequencing, autonomy levels, and cross-references.
    - **From Notion or another tracker** (if available): Fetch the business process record and its linked workflows for supplementary metadata (name, domain, description, linked workflows).
    - **From conversation**: If no artifacts exist, gather process details interactively (name, component workflows, sequence, triggers).
 2. **Gather strategic context** from user — frequency, timing, decision points between workflows, success criteria
@@ -87,7 +87,7 @@ For Notion users with the AI Registry template: update the "Guide" URL property 
 ## Interaction Pattern
 
 ### From framework artifacts (primary path)
-1. Read Workflow Definitions (and SOPs/Design Specs if they exist) for each component workflow
+1. Read Workflow Requirements (and SOPs/Design Specs if they exist) for each component workflow
 2. Gather strategic context from user (frequency, timing, decision points)
 3. Draft Process Guide and present for review
 4. Write markdown file after user approval

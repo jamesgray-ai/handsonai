@@ -1,4 +1,6 @@
-# Content Calendar Planning — Workflow Definition
+# Content Calendar Planning — Workflow Requirements
+
+> **Note:** This example was produced under the older Workflow Definition format. The body below uses Scenario Metadata, Refined Steps (sub-steps / decision points / data in / data out / failure modes per step), and a Context Shopping List. The current PRD-style Workflow Requirements format uses Outcome, Metadata, Steps Overview, per-step Goal·Inputs·Outputs·Rules & Edge Cases·Context, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. This example will be regenerated to match the current format in a follow-up.
 
 ## Scenario Metadata
 
