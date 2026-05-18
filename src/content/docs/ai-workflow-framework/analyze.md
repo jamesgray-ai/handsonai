@@ -1,11 +1,13 @@
 ---
 title: "Step 1: Analyze Workflows for AI Opportunity"
 description: Run a structured audit of your workflows to identify where AI creates the most value — produces a prioritized opportunity report with actionable first steps.
----> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
+---
+
+> **Part of:** [AI Workflow Framework](../)
 
 ## What This Is
 
-A structured audit that helps you find where AI fits in your work. The analysis supports two lenses: **Individual** (workflows you personally perform) and **Organizational** (value chain processes that deliver on business objectives). The AI scans what it already knows about you, asks which lens to use, interviews you with lens-specific questions, then analyzes the results to surface opportunities you'd miss on your own.
+A structured audit that helps you find where AI fits in your work. The analysis supports two **lenses** — perspectives you can analyze from: **Individual** (workflows you personally perform) and **Organizational** (value chain processes that deliver on business objectives). The AI scans what it already knows about you, asks which lens to use, interviews you with lens-specific questions, then analyzes the results to identify opportunities you'd miss on your own.
 
 | | |
 |---|---|
@@ -24,9 +26,26 @@ This step guides an AI through a structured analysis of your work — from eithe
 - **Autonomy** — How much decision-making does the AI have? **Deterministic** (follows fixed rules), **Guided** (makes bounded decisions), or **Autonomous** (plans and adapts independently)
 - **Human Involvement** — Is a human in the loop during execution? **Augmented** (human reviews and steers) or **Automated** (AI runs solo)
 
+## How the Skill Works
+
+The skill runs six phases in order:
+
+1. **Memory & history scan** — The AI reviews everything it knows about you from prior conversations, memory, and project files. Presents findings for you to confirm or correct.
+2. **Lens selection** — The AI asks which lens to use: **Individual** (your personal workflows) or **Organizational** (your business's value chain). If your context makes one obvious, it infers and confirms.
+3. **Targeted discovery interview** — The AI asks focused, lens-specific questions one at a time. Individual lens: role, repetitive tasks, information synthesis, multi-step processes, quality issues, communication overhead, decision-making. Organizational lens: business objectives, value chain processes, cross-functional handoffs, bottlenecks, consistency risks, measurement gaps, scale constraints. Follow-up questions adjust based on your answers.
+4. **Opportunity analysis & report** — Produces a summary table and detailed opportunity cards grouped by autonomy level (Deterministic, Guided, Autonomous) with involvement mode (Augmented, Automated), ordered by impact.
+5. **Workflow candidate summary** — You pick your top candidates, and the AI produces structured metadata for each: name, description, trigger, deliverable, autonomy, involvement, pain point, AI opportunity, frequency, priority, reasoning, and lens. Organizational candidates also include business objective, stakeholders, and success metrics. The AI recommends which to deconstruct first.
+6. **Second lens follow-up** — The AI offers to explore the other lens for a more complete picture. You can accept or move on.
+
+Most people discover 5–15 opportunities across different autonomy levels. Pick three to start with.
+
 ## How to Use This
 
-This step is facilitated by the **`analyze`** AI Workflow Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+This step is facilitated by the **`analyze`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+
+**Command:** `/handsonai:analyze` (Claude Code) — or invoke by name on any other platform.
+
+**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 
 **Start with this prompt:**
 
@@ -35,7 +54,19 @@ I'd like to analyze my workflows for AI opportunities. Help me audit
 what I do and identify where AI could help.
 ```
 
-The skill runs a structured audit and produces a categorized opportunity report.
+The skill runs the six phases above and produces a categorized opportunity report.
+
+### Example prompts
+
+```
+"Help me analyze AI workflow opportunities"
+→ Runs the full audit and produces a categorized opportunity
+  report with structured workflow candidates
+
+"I want to figure out which parts of my job could benefit from AI"
+→ Interactive discovery session followed by a structured report
+  with specific, actionable recommendations
+```
 
 :::tip[If your AI tool doesn't support skills]
 Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/analyze) and paste it into your system prompt or project instructions. Same methodology, same output format.
@@ -46,20 +77,8 @@ Once you've identified opportunities, use the [six use case primitives](../../us
 :::tip[Best results come from rich context]
 The more the AI knows about your actual work, the better the recommendations. If possible, use a tool where you've had many prior conversations or uploaded relevant documents.
 :::
-## What to Expect
 
-Here's what typically happens:
-
-1. The AI reviews what it knows about you and presents a summary. Correct anything that's wrong and fill in gaps.
-2. The AI asks which **lens** to use — **Individual** (your personal workflows) or **Organizational** (your business's value chain processes). If your context makes one obvious, it infers and confirms.
-3. The AI asks you a series of lens-specific questions. Answer as specifically as you can — concrete examples produce better recommendations than general descriptions.
-4. You receive a structured report with a summary table and detailed cards for each opportunity, grouped by category.
-5. You pick your top workflow candidates, and the AI formats a **Workflow Candidate Summary** with structured metadata — including trigger, deliverable, and lens — ready for the Deconstruct step.
-6. The AI offers to explore the other lens for a more complete picture. You can accept or move on.
-
-Most people discover 5–15 opportunities across different autonomy levels. Pick three to start with.
-
-### How to Prioritize
+## How to Prioritize
 
 - **Start with Deterministic + Augmented** if you're new to AI — lowest risk, easiest to try
 - **Move to Deterministic + Automated** once you trust the process — the time savings compound quickly

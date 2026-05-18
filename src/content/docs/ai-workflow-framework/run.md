@@ -1,7 +1,9 @@
 ---
 title: "Step 6: Run"
 description: Deploy your tested AI workflow — choose a run pattern, follow your Run Guide, share with your team, and operationalize for ongoing use.
----> **Part of:** [AI Workflow Framework](../)
+---
+
+> **Part of:** [AI Workflow Framework](../)
 
 ## Where You Are
 
@@ -12,6 +14,15 @@ You've just finished [Test (Step 5)](../test/). Your workflow:
 - Has platform artifacts ready for deployment
 
 Now it is time to put the workflow into production use.
+
+## How the Skill Works
+
+The skill runs four phases. The sections that follow expand on each:
+
+1. **Load spec and artifacts** — Read the Design Spec and locate platform artifacts.
+2. **Generate Run Guide** — Produce the artifact inventory, setup steps, first production run instructions, and next steps.
+3. **Run pattern selection** — Choose the right pattern: paste and run, run in a project, command an agent, code-first, or automate on a schedule.
+4. **Operationalization** (organizational workflows) — Sharing, training, governance, and adoption monitoring.
 
 ## Start with Your Run Guide
 
@@ -132,6 +143,10 @@ In the first few weeks after deployment, check:
 
 This step is facilitated by the **`run`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
+**Command:** `/handsonai:run` (Claude Code) — or invoke by name on any other platform.
+
+**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+
 **Start with this prompt:**
 
 ```
@@ -139,6 +154,16 @@ Generate a Run Guide for my workflow and help me deploy it.
 ```
 
 The skill reads your Design Spec and artifacts, generates the Run Guide, and walks you through choosing a run pattern and getting the workflow into production.
+
+### Example prompts
+
+```
+"Generate the Run Guide for my workflow"
+→ Reads the spec and artifacts, produces a deployment guide
+
+"Help me set up my workflow to run on a weekly schedule"
+→ Generates scheduling instructions for your platform
+```
 
 ## Next Step
 

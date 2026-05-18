@@ -1,7 +1,9 @@
 ---
 title: "Step 7: Improve"
 description: Evaluate a running AI workflow for quality, relevance, and evolution opportunities — periodic review, regression evaluation, graduation assessment, and decision framework.
----> **Part of:** [AI Workflow Framework](../)
+---
+
+> **Part of:** [AI Workflow Framework](../)
 
 ## The Problem
 
@@ -29,6 +31,18 @@ Not every workflow needs monthly check-ups. Watch for these quality signals — 
 :::tip[Set a reminder during Run]
 When you operationalize a workflow in Step 6, set a calendar reminder for your first review. Monthly is a good default for high-frequency workflows. Quarterly works for workflows you run less often.
 :::
+
+## How the Skill Works
+
+The skill runs six phases. The sections that follow expand on each:
+
+1. **Load history** — Read the Design Spec, previous test results, and baseline scores.
+2. **Quality signal review** — Discuss what prompted this improvement cycle. Which signals are you seeing?
+3. **Regression evaluation** — Re-run the eval suite from Test. Compare current scores to baseline.
+4. **Graduation assessment** — Should the orchestration mechanism evolve (Prompt → Skill-Powered Prompt, Skill-Powered Prompt → Agent, single agent → multi-agent)?
+5. **Decision framework** — Four outcomes: no changes needed, tune (fix specific building blocks), redesign (rework the architecture), or evolve (graduate the mechanism). Each maps to a specific next step.
+6. **Generate Improvement Plan** — Current scores, comparison to baseline, findings, decision, and specific actions.
+
 ## Regression Evaluation
 
 Re-run the **eval suite** from [Test (Step 5)](../test/) using the same test scenarios and scoring dimensions. Then compare results to your recorded baseline.
@@ -99,6 +113,10 @@ An **Improvement Plan** saved to `outputs/[workflow-name]-improvement-plan.md` t
 
 This step is facilitated by the **`improve`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
+**Command:** `/handsonai:improve` (Claude Code) — or invoke by name on any other platform.
+
+**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+
 **Start with this prompt:**
 
 ```
@@ -106,6 +124,17 @@ Evaluate my running workflow and help me decide what to improve.
 ```
 
 The skill reads your Design Spec and previous test results, guides you through the regression evaluation and graduation assessment, and produces the Improvement Plan.
+
+### Example prompts
+
+```
+"Evaluate my running workflow and help me decide what to improve"
+→ Full improvement cycle with regression eval and decision
+
+"My content workflow output quality has been dropping — help me figure out why"
+→ Targeted regression evaluation focused on the quality dimensions
+  that are degrading
+```
 
 ## Related
 

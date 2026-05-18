@@ -1,7 +1,9 @@
 ---
 title: Design Your AI Workflow
 description: Take your Workflow Requirements and design the AI architecture — three layers of decisions (Architecture, Decomposition, Component Blueprints) produced as a platform-agnostic Design Spec that any model on any platform can build from.
----> **Part of:** [AI Workflow Framework](../)
+---
+
+> **Part of:** [AI Workflow Framework](../)
 
 :::tip[New to the building blocks?]
 See the [Agentic Building Blocks](../../agentic-building-blocks/) reference for definitions, examples, and cross-platform comparisons of all blocks.
@@ -214,9 +216,28 @@ These sections sit outside the three layers:
 
 ---
 
+## How the Skill Works
+
+The three layers above are the conceptual structure of the Design Spec. In practice, the skill walks them in this chronological order:
+
+1. **Load Workflow Requirements** — Read the Workflow Requirements file from `outputs/`.
+2. **Confirm understanding** — Summarize the workflow and ask you to confirm.
+3. **Architecture decisions (Layer 1)** — Confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Requirements and present a confirmation block.
+4. **Autonomy assessment** — Assess where the whole workflow sits on the autonomy spectrum (Deterministic, Guided, Autonomous).
+5. **Orchestration mechanism** — Recommend a mechanism (Prompt, Skill-Powered Prompt, or Agent) with an involvement mode (Augmented or Automated).
+6. **Classify each step (Layer 2)** — Per-step autonomy level, AI building blocks, tools, human review gates.
+7. **Identify skill candidates** — Steps tagged for skill creation with generation-ready detail.
+8. **Agent configuration (Layer 3)** — When applicable, generate a platform-agnostic agent blueprint.
+9. **Generate Design Spec** — Write the complete design document.
+10. **Spec Approval Gate** — Present the spec for approval. No artifacts are generated until you confirm.
+
 ## How to Use This
 
-This step is facilitated by the **`design`** AI Workflow Framework Skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation.
+This step is facilitated by the **`design`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation.
+
+**Command:** `/handsonai:design` (Claude Code) — or invoke by name on any other platform.
+
+**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 
 **Start with this prompt:**
 
@@ -226,6 +247,18 @@ Assess the autonomy level, recommend an orchestration mechanism, and map buildin
 ```
 
 Upload or paste your Workflow Requirements file (`[workflow-name]-requirements.md`) from the Deconstruct step. The skill runs the three layers in order, with lightweight confirmation between each, and produces a Design Spec.
+
+### Example prompts
+
+```
+"Design the AI workflow from my Workflow Requirements"
+→ Reads the most recent Workflow Requirements, runs Design,
+  produces the Design Spec for approval
+
+"Design the expense-reporting workflow"
+→ Reads outputs/expense-reporting-requirements.md, recommends
+  an orchestration mechanism, and generates the spec
+```
 
 :::tip[If your AI tool doesn't support skills]
 Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/design) and paste it into your system prompt or project instructions. Or use this page as a conversation guide.
