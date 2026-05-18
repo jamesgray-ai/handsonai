@@ -130,8 +130,8 @@ You only need to do this once — the marketplace is remembered.
 1. After syncing, you should see **Business first ai** as a plugin card in the Personal tab
 2. Click the **+** button on the **Business first ai** card to install it
 
-:::tip[Checking for updates]
-Plugins don't update automatically. To get the latest skills, go back to **Customize** → **Browse plugins** → **Personal** tab, click the **...** menu next to **handsonai-plugins**, and choose **Check for updates**.
+:::tip[Need to refresh the skills later?]
+See [Update the Skills](#update-the-skills) for the two-step Cowork refresh flow.
 :::
 
 **Step 6 — Start using it**
@@ -693,6 +693,97 @@ These are the direct links to each skill's instruction file on GitHub. Used by t
 :::note[About the Build skill]
 The Build skill (Step 4) also has reference files that it uses. On platforms with native skill support (Claude, Cursor, Codex CLI, Gemini CLI), these are included automatically. M365 Copilot Cowork's documented format only describes a single `SKILL.md` per skill folder, so until Microsoft documents reference-file support you'll need to paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/skill-spec.md) contents into the body of `SKILL.md` after the main instructions. On paste-based platforms (ChatGPT Projects, Gems), copy and paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/skill-spec.md) files after the SKILL.md content when you set up Build.
 :::
+
+## Update the Skills
+
+Skills and the `framework-agent` evolve as the methodology improves — new skills get added, prompts get refined, reference material gets sharper. Here's how to pull the latest versions on your platform. Check the [release notes on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases) to see what changed before you update.
+
+<details>
+<summary><strong>Claude Chat (claude.ai)</strong></summary>
+
+Claude.ai has no built-in update mechanism for uploaded skills — refreshing means re-uploading.
+
+1. In Claude.ai, open **Settings → Capabilities** and find your uploaded skill in the Skills list. Click **Remove** on the version you want to refresh.
+2. Re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
+3. Click **Upload skill**, select the new `.zip`, and toggle the skill back **on**.
+
+Only refresh the skills you actively use — there's no need to update every skill on every release.
+
+</details>
+
+<details>
+<summary><strong>Claude Cowork (Desktop App)</strong></summary>
+
+Refreshing in Cowork is a **two-step process**: the marketplace and the installed plugin are tracked separately, so checking for updates is not the same as installing them.
+
+**Step 1 — Check the marketplace for updates**
+
+In Cowork → **Customize** → **Browse plugins** → **Personal** tab, click the **…** menu on the `handsonai-plugins` marketplace chip and choose **Check for updates**. This pulls the latest commit from GitHub.
+
+![Cowork marketplace menu showing "Sync automatically", "Check for updates", and "Remove" options for the handsonai-plugins marketplace](/assets/images/cowork-plugin-check-for-updates.png)
+
+**Step 2 — Apply the update to the installed plugin**
+
+Open the **Handsonai** plugin in your Personal plugins list. In the Customize panel that opens, click the **Update** button in the top-right. The new skills and agent are available immediately — no restart required.
+
+![Handsonai plugin Customize panel with the Update button highlighted in the top-right](/assets/images/cowork-plugin-update-button.png)
+
+:::tip[Auto-sync the marketplace]
+Toggle **Sync automatically** in the same menu from Step 1 to let Cowork check GitHub on launch. You'll still click **Update** in Step 2 when a new version is available — auto-sync only handles the "check" step, not the install.
+:::
+
+</details>
+
+<details>
+<summary><strong>Claude Code (Desktop App or Terminal)</strong></summary>
+
+In the Code tab (or your terminal), run:
+
+```
+/plugin update handsonai@handsonai
+```
+
+Or update every installed plugin at once:
+
+```
+/plugin update --all
+```
+
+**Enable auto-updates** so the marketplace refreshes on startup. Run `/plugin` → **Marketplaces** tab → **handsonai** → **Enable auto-update**. See the full walkthrough in [Using Plugins → Enabling auto-updates](../../use-the-playbook/build/using-plugins/#enabling-auto-updates).
+
+</details>
+
+<details>
+<summary><strong>ChatGPT</strong></summary>
+
+**Native Skills:** In ChatGPT settings, remove the old uploaded skill, then re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and upload it again.
+
+**OpenAI Codex in an editor:** Follow the Cursor / Codex / Gemini CLI instructions below.
+
+</details>
+
+<details>
+<summary><strong>M365 Copilot (Cowork)</strong></summary>
+
+Cowork reads `SKILL.md` directly from OneDrive, so updating is a file overwrite.
+
+1. On the [Skill Files](#skill-files) table above, click the **SKILL.md** link for the skill you want to update.
+2. Click **Raw**, then save (right-click → **Save link as…**) over the existing file at `Documents/Cowork/Skills/<skill>/SKILL.md`.
+
+Cowork picks up the change on your next conversation.
+
+</details>
+
+<details>
+<summary><strong>Cursor, OpenAI Codex, Gemini CLI / Antigravity</strong></summary>
+
+All four tools read skills from a project folder. Refreshing means swapping the folder.
+
+1. Re-download the latest skill ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
+2. Unzip it. In your project, replace the existing skill folder under `.agents/skills/<skill>/` (or `.gemini/skills/<skill>/` for Gemini) with the new one.
+3. Restart the tool if it caches skill metadata (Cursor and Antigravity usually require a reopen; CLIs pick up changes on the next session).
+
+</details>
 
 ## Using These Skills
 
