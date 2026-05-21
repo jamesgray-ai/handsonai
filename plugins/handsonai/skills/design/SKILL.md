@@ -46,16 +46,25 @@ For outcome-driven requirements: Summarize the workflow name, outcome, and the h
 
 Before assessing autonomy and orchestration, gather the information needed to make platform-aware recommendations. The approach: **one question, then extract everything else from the Workflow Requirements.**
 
-**a. One question: Platform**
+**a. One question: Where will you use this?**
 
-Platform is the only thing not already in the Workflow Requirements. Determine the user's AI platform:
-- If stated in conversation or definition, confirm: "You mentioned [platform] — is that still correct?"
-- If not stated, ask. Let the user name their tool — do not present a fixed list.
+Platform is the only thing not already in the Workflow Requirements. This question is **always asked or confirmed explicitly in plain language** — never skipped, even when the platform seems obvious from earlier conversation. Most users are non-technical; do not assume they remember saying which tool they use.
 
-Accept whatever level of specificity the user provides — "Claude Code", "Google Gemini", "ChatGPT", "Claude" are all fine. Do NOT try to disambiguate to a specific offering upfront. Instead:
-- **For Design:** The ecosystem (Claude, Google, OpenAI, M365) is enough for pattern selection. Code-vs-nocode is inferred if the tool is specific (Claude Code = code, ChatGPT = no-code) or left open if vague.
-- **For Orchestration Mechanism:** The recommendation is driven by workflow characteristics first (tool use? autonomous decisions? multiple domains?). If the recommended mechanism requires capabilities the named platform might or might not support (e.g., recommending an agent when "Google Gemini" could mean the web app or ADK), ask a **motivated follow-up** in context.
-- **For Build:** The specific offering (Claude Code vs. Claude.ai, ADK vs. Gemini web) is resolved when generating artifacts in the Build phase — not during Design.
+Use `AskUserQuestion` with a short list of the most common options pulled from the platform registry (do not list every offering — keep it to 3–4 choices plus the built-in "Other" escape hatch). Example phrasing:
+
+> "Where do you want to use this workflow? Tell me the AI tool you use day-to-day — for example, ChatGPT in your browser, Claude in your browser, Claude Code in your terminal, or something else."
+>
+> *This decides where the final workflow lives and what format I'll build it in.*
+
+**Mapping the answer to a specific offering — done internally, not asked of the user.** When the user names an ecosystem that maps to multiple offerings (e.g., "Claude" → Claude.ai, Claude Code, Claude Agent SDK, Cowork), pick the **single best default for a non-technical user** (the browser/no-code option in almost all cases — e.g., "Claude" → Claude.ai; "Google" → Gemini web; "OpenAI" → ChatGPT) and confirm back in plain language with an easy correction path:
+
+> "Got it — I'll design this for **Claude.ai** (the browser app you sign into at claude.ai). If you actually meant Claude Code in your terminal, or something else, say so and I'll switch."
+
+Only default to a code-mode offering (Claude Code, Codex, Gemini CLI, an SDK) when there's strong signal in the conversation that the user is writing code. Never ask a non-technical user to disambiguate between technical artifact forms — that's the model's job.
+
+**What this resolves for downstream steps:**
+- **For Design:** The specific offering (e.g., Claude.ai vs. Claude Code) drives the mechanism options and the artifact form the model resolves internally.
+- **For Build:** Generation maps directly from the platform + mechanism the model recorded — no re-asking the user about artifact form.
 
 **b. Extract everything else from the Workflow Requirements**
 
@@ -115,82 +124,97 @@ Human ———— Deterministic ———————— Guided —————
 | **Guided** | Some steps involve bounded AI judgment, human steers at checkpoints, sequence is mostly fixed but with bounded flexibility | Skill-powered prompt or agent |
 | **Autonomous** | Executor backtracks, re-invokes based on feedback, adjusts approach on failure, human checkpoints can redirect flow | Agent required |
 
-**Present as a confident assessment:** "This workflow is **[level]** because [1-2 sentence reasoning]." If the user disagrees, discuss and adjust.
+**Present as a confident assessment with a teaching frame.** For most users this is the first time they're hearing the word "autonomy" in this context — introduce the concept briefly before applying it, so the playback educates rather than labels. Example phrasing:
 
-#### Step 5 — Orchestration Mechanism
+> "Now I want to assess how much **autonomy** this workflow needs. Autonomy is just *how much room the AI has to decide what to do next* — it runs on a scale from Human (you do all the work) → Deterministic (AI follows a fixed script) → Guided (AI works, you steer at checkpoints) → Autonomous (AI figures out its own path).
+>
+> Your workflow looks **[level]** because [1-2 sentence reasoning tied to specific traits of their workflow — e.g., 'each step always runs in the same order and there's no branching based on the AI's output' for Deterministic, or 'the AI generates a draft and you decide if it's good enough to send' for Guided].
+>
+> *Why this matters:* the autonomy level shapes what kind of AI building block fits best — a fixed script needs less machinery than something that has to make its own decisions.
+>
+> Does that match how you want it to work? If you'd rather it be more or less autonomous, say so and I'll adjust."
 
-Based on the autonomy assessment and architecture decisions, recommend who drives the workflow and how humans are involved. Analyze internally and present a confident recommendation — do NOT walk through decision questions.
+If the user disagrees, discuss and adjust. The autonomy level chosen here drives the mechanism recommendation in Step 5.
 
-**Orchestration mechanism (who drives the workflow):**
+#### Step 5 — How should this run? (Mechanism)
 
-| Mechanism | Description | Signals |
-|-----------|-------------|---------|
-| **Prompt** | Human follows structured instructions step by step, all logic inline | Sequential steps, human provides inputs and makes decisions |
-| **Skill-Powered Prompt** | Human invokes reusable skills in a defined sequence | Repeatable sub-routines, moderate complexity, steps that recur across workflows |
-| **Agent** | Agent orchestrates the flow, invoking skills and making sequencing decisions | Tool use required, autonomous decisions, multi-step reasoning |
+This question is **always asked or confirmed explicitly in plain language** — never fast-tracked, never folded into a larger summary. Most users are non-technical; do not assume they understand the difference between a "prompt", a "skill", and an "agent" without plain-language framing.
 
-Single-agent vs. multi-agent is an architecture detail decided during Agent Configuration (Step 8) if "Agent" is selected — not a top-level choice here.
+**Internal mapping (model-only — do not show this table to the user):**
 
-**Human Involvement** — Determine the involvement mode from architecture decisions and include it in the recommendation:
+| User-facing label | Internal mechanism | When it fits |
+|---|---|---|
+| Step-by-step prompt | `Prompt` | One-off workflow, user copy-pastes instructions and runs them manually |
+| Reusable skill | `Skill-Powered Prompt` | Repeated workflow with similar inputs, user triggers by name when needed |
+| Agent | `Agent` | Tool use, autonomous decisions, multi-step reasoning, or scheduled/unattended runs |
 
-| Mode | Description | Determined by |
-|------|-------------|---------------|
-| **Augmented** | Human is in the loop — reviews, steers, or decides at key points during the run. | Web/desktop deployment, no scheduled execution |
-| **Automated** | AI runs solo — executes end-to-end without human involvement during the run. | Scheduled/unattended execution, CLI |
+**How to present this to the user — recommendation first, then alternatives.** Pick the best fit based on the autonomy assessment and how often the workflow will run, then use `AskUserQuestion` with three plain-language options (recommended option first, marked "(Recommended)"). Example phrasing for the question text:
 
-**Platform sub-choice for agent mechanism:** When the orchestration mechanism is Agent, the platform choice determines the implementation path. Some platforms have multiple agent offerings (e.g., Claude Code has sub-agents via markdown files vs. Claude Agent SDK in TypeScript/Python). If the platform has multiple agent offerings, ask the user which offering they want to use — this determines whether the Build phase generates markdown files, Python code, TypeScript code, or GUI configuration steps. For non-agent mechanisms (Prompt, Skill-Powered Prompt), no sub-choice is needed — artifacts are always markdown files.
+> "Now the big choice: **how do you want to run this workflow day-to-day?** There are three common shapes — I'll explain each, then recommend the one that fits you best.
+>
+> - **Step-by-step prompt** — A set of instructions you copy and paste into your AI tool each time. Lowest setup, no install. Best for one-off workflows you won't repeat often.
+> - **Reusable skill** — A saved set of instructions you trigger by name (e.g., 'run the weekly review skill'). The AI loads them automatically when the situation matches. Best for workflows you'll run repeatedly with similar inputs.
+> - **Agent** — A system that drives the whole workflow end-to-end on its own, calling tools and making decisions as it goes. Best when you want it to run on a schedule, handle decisions autonomously, or coordinate multiple steps without you in the loop.
+>
+> Based on your [autonomy level] workflow and the fact that [1-sentence signal from the workflow — e.g., 'you'll run this every Friday'], I recommend **a reusable skill**.
+>
+> *Why this matters:* this choice shapes the file the next step actually builds — a prompt is just instructions you keep handy, a skill is a saved capability the AI can invoke by name, and an agent is a system with its own decision-making. Each fits a different way of working.
+>
+> Which shape works for you?"
 
-**Present as a confident recommendation:** "Based on your workflow's **[autonomy level]** autonomy and [key architecture signals], I recommend **[mechanism]** with **[involvement mode]** because [2-3 sentence reasoning]." If the user pushes back, explain alternatives and discuss.
+Use `AskUserQuestion` with three options (recommended first, marked "(Recommended)"). Option labels:
 
-Ask the user to confirm the mechanism, involvement mode, and platform sub-choice (if applicable).
+- **Reusable skill** — Saved instructions you trigger by name. Best for workflows you'll run repeatedly.
+- **Step-by-step prompt** — Copy-paste instructions you run yourself. Best for one-off workflows, no setup.
+- **Agent** — AI drives the whole thing end-to-end. Best when it should run on a schedule or make decisions on its own.
 
-**Fast-track for complete Workflow Requirements:** If the Workflow Requirements + conversation context provide enough information to resolve ALL architecture dimensions, the autonomy level, AND the orchestration mechanism, present the entire Design analysis as a single confirmation block instead of stepping through questions one at a time.
+If the user pushes back, discuss in plain language — never drop into the internal jargon (`Prompt` / `Skill-Powered Prompt` / `Agent`) when talking to them.
 
-**Packaging decision:** Before the Layer 1 confirmation, propose a Packaging value based on the platform and the workflow's shape (single skill → Standalone Skill; multiple related artifacts → Plugin; ChatGPT with agent + skills → Workspace Agent; ad-hoc files → Loose Files). The user confirms or overrides.
+**Artifact form is resolved internally, not asked.** Once platform + mechanism are confirmed, the model picks the specific artifact form (e.g., a SKILL.md file, a Claude Code subagent markdown, an Agent SDK Python script, a ChatGPT Workspace Agent) using the platform's `mode` field in the registry (`code` vs `guided`) and the user's apparent technical level. Default to the simplest no-code option for that platform. **Never ask a non-technical user to pick between technical artifact forms.** Build generates the right artifact from the platform + mechanism the model recorded.
+
+**Human Involvement — derive internally, mention only as plain language.** Determine the involvement mode (`Augmented` vs `Automated`) from the trigger (manual = Augmented; scheduled/unattended = Automated). Mention it to the user in plain language as part of the Layer 1 confirmation ("Who's in the loop") — do not ask a separate question.
+
+Single-agent vs. multi-agent is an architecture detail decided during Agent Configuration (Step 8) if Agent is selected — not a top-level choice here.
+
+**Fast-track for complete Workflow Requirements:** If the Workflow Requirements + conversation context provide enough information to resolve the autonomy level, tool extraction, and step classifications, you may present those internal/technical dimensions as a single summary block instead of stepping through questions one at a time.
+
+**Platform (Step 3a) and Mechanism (Step 5) are never fast-tracked.** They are always asked or confirmed explicitly in plain language, in their own discrete confirmations, even when the answer seems obvious from earlier conversation. Non-technical users must see and approve these two choices on their own — they should not be embedded inside a larger summary block.
+
+**Packaging decision:** Pick the Packaging value from platform + mechanism (single skill → Standalone Skill; multiple related artifacts → Plugin; ChatGPT with agent + skills → Workspace Agent; ad-hoc files → Loose Files). Include it in the playback below — but always pair the technical label with a plain-language explanation so the user learns what it means.
+
+**Layer 1 confirmation — hard gate, rich playback in plain English** (after Step 5, before moving to Step 6):
+
+This is a **hard gate**. Do not proceed to Step 6 without explicit user approval here. This is also a **teaching moment** — play back the full design analysis so the user can see and learn the building blocks involved, not just rubber-stamp a stripped-down summary.
+
+By this point the user has already confirmed *where* (Step 3a) and *how it runs* (Step 5) in their own discrete confirmations. This gate plays the full architecture analysis back so they can verify, learn the vocabulary, and redirect anything that's wrong before any detailed decomposition work begins.
+
+**How to write the playback:** Use the technical term, then immediately explain it in plain language in the same line. Never drop a bare technical label on its own. Every row teaches as it confirms.
 
 For step-decomposed workflows:
 
-> "Based on your workflow definition, here's my design analysis:
-> - **Platform:** [platform] ([surface])
-> - **Packaging:** [packaging value] — [reason]
-> - **Autonomy level:** [level] — [brief rationale]
-> - **Orchestration mechanism:** [mechanism] ([involvement mode])
-> - **Tools needed:** [list — availability to be researched during Build]
-> - **Steps classified:** [summary table]
-> - **Skill candidates:** [list]
-> - **Agent blueprints:** [summary]
+> "Here's the design analysis based on your workflow definition. I'll explain each piece as I go — push back on anything that's off:
 >
-> Does this look right, or would you like to adjust anything?"
-
-For outcome-driven workflows:
-
-> "Based on your outcome-driven workflow definition, here's my design analysis:
-> - **Platform:** [platform] ([surface])
-> - **Packaging:** [packaging value] — [reason]
-> - **Autonomy level:** Autonomous (by definition — agent determines its own execution path)
-> - **Orchestration mechanism:** Agent ([involvement mode])
-> - **Tools needed:** [list — availability to be researched during Build]
-> - **Capability domains mapped:** [summary table]
-> - **Skill candidates:** [list]
-> - **Agent blueprint:** [summary]
+> - **Platform:** [Claude.ai] — the [browser app you sign into at claude.ai]. This is where your workflow will live.
+> - **Packaging:** [Standalone Skill] — a [single self-contained set of instructions you upload once and reuse]. (Other options: Plugin, Workspace Agent, Loose Files — yours is Standalone Skill because [reason].)
+> - **Autonomy level:** [Guided] — meaning [AI handles most of the work, you steer at key checkpoints]. (The scale runs Human → Deterministic → Guided → Autonomous.)
+> - **Mechanism:** [Skill-Powered Prompt] — the [reusable skill you confirmed in the last step]. Runs in [Augmented] mode, which means [you're in the loop reviewing at checkpoints, not running on a schedule].
+> - **Tools needed:** [list] — these are the external services your workflow will touch. I'll figure out exact integration options (MCP server, API, CLI, SDK) during Build.
+> - **Steps classified:** [N steps — brief summary, e.g., '6 steps: 2 use AI directly, 3 are reusable skills, 1 is a human review']
+> - **Skill candidates:** [list of skill names you'll be building, with one-line purpose each]
+> - **Agent blueprints:** [summary if any agents are involved, or 'None — this workflow doesn't need an agent']
 >
-> Does this look right, or would you like to adjust anything?"
+> Is this right? If yes, I'll work out the step-by-step details next. If anything's off — even small wording — tell me what to change."
 
-Only drop into the question-by-question flow when genuinely missing information.
+For outcome-driven workflows, use the same playback structure with these substitutions:
 
-**Layer 1 confirmation moment** (after Step 5, before moving to Step 6):
+- **Autonomy level:** Autonomous — meaning [the agent figures out its own path based on the outcome and rules you defined]. (Outcome-driven workflows are always Autonomous by definition.)
+- **Mechanism:** Agent — [a system that decides what to do step-by-step based on context, not a fixed script].
+- Replace **Steps classified** with **Capability domains mapped** — explain in plain language ("the buckets of capability the agent needs to cover").
+- **Agent blueprint:** single agent summary, since outcome-driven workflows center on the agent.
 
-The architecture work is complete. Before classifying each step, confirm the L1 decisions are right — catching strategic errors before investing in L2/L3 work:
+**Wait for explicit approval** ("yes", "looks good", "go ahead", etc.) before moving to Step 6. If the user pushes back, revise the relevant decision (which may mean reopening Step 3a or Step 5) and re-present this gate.
 
-> "Architecture confirmed:
-> - **Platform:** [platform] ([surface])
-> - **Mechanism:** [mechanism] ([involvement mode])
-> - **Autonomy:** [level]
-> - **Packaging:** [packaging value]
->
-> Moving to Layer 2 — Decomposition. I'll classify each step and identify which building blocks deliver each one. Confirm to proceed, or push back on any of the above."
-
-If the user pushes back, revise the relevant L1 decisions and re-confirm before proceeding. This is a lightweight confirmation, not a hard gate — but it's the cheapest moment to catch architecture mistakes.
+**Why every row pairs jargon + plain English:** The Design skill is also an *education* tool. Users who run it repeatedly should start recognizing terms like "Standalone Skill", "Augmented", "Guided" — but only because they've seen them explained in context, not because they were dumped on them as labels. This playback is where that learning happens.
 
 #### Step 6 — Classify Each Step
 
