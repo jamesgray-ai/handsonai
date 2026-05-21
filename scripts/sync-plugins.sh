@@ -6,7 +6,7 @@
 # What this does:
 #   1. Bumps version in plugins/handsonai/.claude-plugin/plugin.json (semver).
 #   2. Rsyncs plugins/handsonai/ → handsonai-plugins/plugins/handsonai/ (--delete).
-#   3. Bumps both metadata.version and plugins[0].version in handsonai-plugins/.claude-plugin/marketplace.json.
+#   3. Bumps both top-level .version and .plugins[0].version in handsonai-plugins/.claude-plugin/marketplace.json.
 #
 # What this does NOT do:
 #   - Commit or push anywhere. You drive both pushes deliberately so the
@@ -58,7 +58,7 @@ rsync -av --delete "$SRC_DIR/" "$DEST_DIR/"
 
 # 3. Update both version fields in marketplace.json
 tmp="$(mktemp)"
-jq --arg v "$NEW" '.metadata.version = $v | .plugins[0].version = $v' "$MARKETPLACE_JSON" > "$tmp" && mv "$tmp" "$MARKETPLACE_JSON"
+jq --arg v "$NEW" '.version = $v | .plugins[0].version = $v' "$MARKETPLACE_JSON" > "$tmp" && mv "$tmp" "$MARKETPLACE_JSON"
 
 cat <<EOF
 
