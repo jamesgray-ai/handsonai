@@ -48,9 +48,10 @@ The file downloads to your computer (usually to your **Downloads** folder). You 
 **Step 3 — Upload the skill to Claude**
 
 1. Go back to [claude.ai](https://claude.ai) in your browser
-2. Open **Settings** (gear icon in the bottom-left) → **Capabilities**
-3. Scroll down and click **Upload skill**
-4. Select the `analyze.zip` file you just downloaded
+2. In the left sidebar, click **Customize**
+3. Click **Skills**
+4. Click the **+** button, then choose **Create skill**
+5. Click **Upload skill** and select the `analyze.zip` file you just downloaded
 
 **Step 4 — Turn the skill on**
 
@@ -80,7 +81,7 @@ Go back to the [skill downloads page](https://github.com/jamesgray-ai/handsonai-
 
 Start with **Analyze** and **Deconstruct** — add the rest as you progress through the framework.
 
-For advanced management (updates, troubleshooting), see [Using Plugins](../../use-the-playbook/build/using-plugins/).
+To refresh a skill later, see [Update the Skills → Claude Chat](#update-the-skills) — re-uploading replaces the existing version.
 
 </details>
 
@@ -90,6 +91,10 @@ For advanced management (updates, troubleshooting), see [Using Plugins](../../us
 Cowork has a built-in plugin directory — no files to download or copy. This is the simplest setup path.
 
 **Official docs:** [Use Plugins in Cowork](https://support.claude.com/en/articles/13837440-use-plugins-in-cowork)
+
+:::note[Personal plugins blocked at your company?]
+Some organizations disable personal plugins in Cowork. If you don't see the **Personal** tab in **Browse plugins**, or your admin has restricted plugin installs, use the **Claude Chat (claude.ai)** instructions in the section above instead — download the skill `.zip` files from GitHub Releases and upload them via **Customize → Skills → + → Create skill → Upload skill**. Skills uploaded this way are shared across Claude Chat and Cowork on the same account, so they'll show up in Cowork automatically.
+:::
 
 **What you need first:** The Claude Desktop app installed, with a Claude Pro, Max, Team, or Enterprise subscription.
 
@@ -151,6 +156,10 @@ Cowork automatically activates the right skill based on your request.
 The Claude Desktop app includes a **Code** tab that supports plugins and skills.
 
 **Official docs:** [Extend Claude with Skills](https://code.claude.com/docs/en/skills) · [Discover and Install Plugins](https://code.claude.com/docs/en/discover-plugins)
+
+:::note[Personal plugins blocked at your company?]
+Some organizations disable personal plugins. If you can't add a marketplace or install plugins in the Code tab, use the **Claude Chat (claude.ai)** instructions above to upload skill `.zip` files via **Customize → Skills → + → Create skill → Upload skill** — that path makes the skills available in Claude Chat and Cowork on the same account, which covers most of the framework workflow. (Slash commands like `/handsonai:analyze` are specific to the Code tab and require the plugin install.)
+:::
 
 **What you need first:** The Claude Desktop app installed, with a Claude Max subscription (the Code tab requires Max).
 
@@ -703,11 +712,10 @@ Skills and the `framework-agent` evolve as the methodology improves — new skil
 <details>
 <summary><strong>Claude Chat (claude.ai)</strong></summary>
 
-Claude.ai has no built-in update mechanism for uploaded skills — refreshing means re-uploading.
+Re-uploading a skill replaces the existing version — no need to remove it first.
 
-1. In Claude.ai, open **Settings → Capabilities** and find your uploaded skill in the Skills list. Click **Remove** on the version you want to refresh.
-2. Re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
-3. Click **Upload skill**, select the new `.zip`, and toggle the skill back **on**.
+1. Re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
+2. In Claude.ai, click **Customize** in the left sidebar → **Skills** → **+** → **Create skill** → **Upload skill**, and select the new `.zip`. It replaces the existing skill of the same name.
 
 Only refresh the skills you actively use — there's no need to update every skill on every release.
 
@@ -758,7 +766,7 @@ Or update every installed plugin at once:
 <details>
 <summary><strong>ChatGPT</strong></summary>
 
-**Native Skills:** In ChatGPT settings, remove the old uploaded skill, then re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and upload it again.
+**Native Skills:** Re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and upload it again — re-uploading replaces the existing skill of the same name.
 
 **OpenAI Codex in an editor:** Follow the Cursor / Codex / Gemini CLI instructions below.
 

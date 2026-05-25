@@ -18,8 +18,8 @@ Your AI platform plus two add-ons that run entirely inside it. This is the basel
 | Step | What | Time | Status |
 |------|------|------|--------|
 | 1 | [AI Platform Setup](#step-1-ai-platform-setup) | ~45 min | Required |
-| 2 | [Hands-on AI Skills](#step-2-hands-on-ai-skills) | ~10 min | Recommended |
-| 3 | [Hands-on AI Knowledge Base](#step-3-hands-on-ai-knowledge-base) | ~5 min | Recommended |
+| 2 | [Hands-on AI Skills](#step-2-hands-on-ai-skills) | ~10 min | Required |
+| 3 | [Hands-on AI Knowledge Base](#step-3-hands-on-ai-knowledge-base) | ~5 min | Optional |
 
 ### Part 2: For Power Users (~70 min)
 
