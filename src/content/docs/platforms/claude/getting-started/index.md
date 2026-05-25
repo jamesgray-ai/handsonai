@@ -38,24 +38,17 @@ The desktop app gives you quick access to Claude outside the browser, plus suppo
 
 Claude Code is Anthropic's AI coding CLI — it works directly with your files and terminal. This is the primary development tool used throughout the playbook.
 
-1. **macOS / Linux:**
-    ```bash
-    curl -fsSL https://claude.ai/install.sh | bash
-    ```
-2. **Windows PowerShell:**
-    ```powershell
-    irm https://claude.ai/install.ps1 | iex
-    ```
-3. Start Claude Code and log in:
-    ```bash
-    claude
-    ```
-4. Verify:
-    ```bash
-    claude --version
-    ```
+Follow the official installation guide for your operating system — install commands change occasionally, and the official docs are always current:
 
-**Official docs:** [Claude Code Quickstart](https://code.claude.com/docs/en/quickstart)
+**Official install guide:** [Claude Code Quickstart](https://code.claude.com/docs/en/quickstart)
+
+:::caution[Don't skip the post-install steps]
+After the installer finishes (on both macOS and Windows), it prints a few **post-installation steps** in the terminal — most importantly, adding `claude` to your system **PATH** so you can run it from any terminal window.
+
+**Most people scroll past this and then can't figure out why `claude` doesn't work.** Read the final output of the installer carefully and follow each step it lists before closing the terminal. If you miss it, the easiest fix is to run the installer again and watch the end of the output.
+:::
+
+Once installed and on your PATH, open a terminal and run `claude` to start it. The first time you launch, Claude Code walks you through a few setup screens — pick your theme, accept the terms, and **connect to your Claude.ai account** when prompted (this signs you in with your existing subscription so you don't need a separate API key).
 
 ---
 
