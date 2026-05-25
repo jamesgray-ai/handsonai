@@ -86,7 +86,7 @@ Sign in with your Claude account on each device.
 Tell Claude about yourself so every conversation starts with context about your role, industry, and preferences.
 
 1. Click your initials (lower-left) → **Settings**
-2. Find **"What preferences should Claude consider in responses?"**
+2. Find **Instructions for Claude**
 3. Enter your preferences and click **Save**
 
 **Starter template:**
@@ -104,6 +104,7 @@ Memory lets Claude remember context across conversations — preferences, projec
 1. Go to **Settings → Capabilities**
 2. Toggle **Memory** on
 3. Grant any permissions if prompted
+4. Click **View and manage memory** to review or edit what Claude remembers about you
 
 Memory works both in standalone chats and per-project. Each project has its own separate memory space.
 
@@ -137,13 +138,17 @@ Connect the Hands-on AI Playbook MCP server for reference material:
 
 ---
 
-## Part 2 — Anthropic Developer Platform
+## Part 2 — Anthropic Developer Platform (Advanced / Optional)
 
-The Claude Developer Platform is where you manage API keys, monitor usage, and access developer documentation. You need this if you're building applications with the Anthropic API or want to manage API-based access to Claude models.
+:::caution[Most people can skip this entire section]
+Part 2 is **only** for technical users who plan to build applications with the Anthropic API, write code against Claude programmatically, or manage API keys for tools like Claude Code's API-based access.
 
-:::note[This part is optional]
-If you only need Claude for conversations and Claude Code, you're done after Part 1. Come back to Part 2 when you need API access for building applications.
+**If you just want to use Claude for chat, projects, Claude Desktop, or Claude Code with your regular subscription — you're already done. Stop after Part 1.**
+
+Come back here only when you have a specific reason to need API access.
 :::
+
+The Claude Developer Platform is where you manage API keys, monitor usage, and access developer documentation.
 ### 1. IDE Extension
 
 Use Claude Code inside VS Code or Cursor. See [AI Code Editor Setup](../../../builder-setup/editor-setup/#claude-code) for installation instructions.
