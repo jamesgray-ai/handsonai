@@ -11,7 +11,7 @@ You've just finished [Build (Step 4)](../build/). You should have:
 
 - **Platform artifacts** — prompts, skills, agents, and configs generated for your platform
 - **Context artifacts** — style guides, reference materials, and examples
-- **Design Spec** (`[name]-design-spec.md`) — which includes the evaluation criteria and test scenarios defined during [Design](../design/)
+- **Design Spec** (`[name]/design-spec.md`) — which includes the evaluation criteria and test scenarios defined during [Design](../design/)
 
 Your first run is a test, not a deployment. The goal is to verify that the workflow produces good output before you share it with your team or use it on real work.
 
@@ -46,14 +46,15 @@ The first run is about confirming the workflow functions. Resist the urge to fin
 :::
 ## Structured Evaluation
 
-Once the smoke test passes, move to a full evaluation using the criteria defined during Design. Your Design Spec includes **evaluation dimensions** (the qualities you care about — accuracy, tone, completeness, specificity) and **test scenarios** (realistic inputs that exercise different parts of the workflow).
+Once the smoke test passes, move to a full evaluation using the criteria captured during Deconstruct. Your Workflow Requirements includes **evaluation dimensions** (the qualities you care about — accuracy, tone, completeness, specificity), **test scenarios** (realistic inputs that exercise different parts of the workflow), and — where you supplied them — **Golden Examples**: real past outputs you'd consider "exactly right." Golden examples are the strongest evaluation tool you have, because scoring becomes "compare against this reference" instead of "how does it feel?"
 
 ### Run the Eval Suite
 
 For each test scenario:
 
 1. **Run the workflow** with the test input
-2. **Score the output** on each evaluation dimension using a 1-5 scale:
+2. **Let the AI grade first** — the model scores the output against the acceptance criteria (and the golden example, if one exists), with a one-line justification quoting specific evidence. You confirm or adjust each score, so every scenario gets a consistent, evidence-based starting point while you stay the final judge of quality
+3. **Score the output** on each evaluation dimension using a 1-5 scale:
 
     | Score | Meaning |
     |-------|---------|
@@ -63,9 +64,9 @@ For each test scenario:
     | **2** | Weak — significant gaps, wrong direction on one or more dimensions |
     | **1** | Failure — output is unusable or fundamentally off-target |
 
-3. **Note specific issues** — What exactly was wrong? Which dimension scored low and why?
+4. **Note specific issues** — What exactly was wrong? Which dimension scored low and why?
 
-Record your scores. These become your baseline for measuring improvement (during this test cycle) and regression (during [Improve](../improve/)).
+Record your scores. The Test Results file opens with machine-readable frontmatter — per-scenario scores, averages, the environment tested in, and the readiness verdict — so [Improve](../improve/) can later diff a regression run against this baseline mechanically instead of comparing recollections.
 
 ### Evaluate Building Blocks in Isolation
 

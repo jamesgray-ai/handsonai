@@ -36,8 +36,8 @@ When you operationalize a workflow in Step 6, set a calendar reminder for your f
 
 The skill runs six phases. The sections that follow expand on each:
 
-1. **Load history** — Read the Design Spec, previous test results, and baseline scores.
-2. **Quality signal review** — Discuss what prompted this improvement cycle. Which signals are you seeing?
+1. **Load history** — Read the workflow manifest, Design Spec, previous test results (the baseline scores live in the file's frontmatter), and the run log if you've been keeping one.
+2. **Quality signal review** — Start from the run log's evidence (run frequency, recurring edits, failures), then discuss what prompted this improvement cycle. Which signals are you seeing?
 3. **Regression evaluation** — Re-run the eval suite from Test. Compare current scores to baseline.
 4. **Graduation assessment** — Should the orchestration mechanism evolve (Prompt → Skill-Powered Prompt, Skill-Powered Prompt → Agent, single agent → multi-agent)?
 5. **Decision framework** — Four outcomes: no changes needed, tune (fix specific building blocks), redesign (rework the architecture), or evolve (graduate the mechanism). Each maps to a specific next step.
@@ -45,7 +45,7 @@ The skill runs six phases. The sections that follow expand on each:
 
 ## Regression Evaluation
 
-Re-run the **eval suite** from [Test (Step 5)](../test/) using the same test scenarios and scoring dimensions. Then compare results to your recorded baseline.
+Re-run the **eval suite** from [Test (Step 5)](../test/) using the same test scenarios and scoring dimensions. The baseline lives in the original Test Results frontmatter — per-scenario scores, averages, and the environment tested in — so the comparison is a mechanical delta table (baseline → current, per scenario and dimension), not a memory exercise. One like-for-like check: if an integration was simulated at baseline and is live now (or vice versa), say so — a score change caused by an integration being fixed isn't the workflow getting better or worse.
 
 ### What to look for
 
@@ -99,7 +99,7 @@ The Improve step completes the lifecycle loop. Every outcome either confirms the
 
 ## What This Produces
 
-An **Improvement Plan** saved to `outputs/[workflow-name]-improvement-plan.md` that captures:
+An **Improvement Plan** saved to `outputs/[workflow-name]/improvement-plan.md` that captures:
 
 - Current eval scores compared to baseline
 - Quality signals that triggered the review

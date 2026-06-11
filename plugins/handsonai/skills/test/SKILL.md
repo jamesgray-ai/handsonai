@@ -13,7 +13,12 @@ Structured testing and evaluation of AI workflow artifacts. Walk the user throug
 
 ### 1. Load context
 
-Read the Design Spec (including Evaluation Criteria) to understand what was built, expected behavior, and how to evaluate. Identify the test scenarios and scoring dimensions defined during Design.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references (the requirements own the Acceptance Criteria, Example Scenarios, and Golden Examples). If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. Verify both files exist before proceeding — if either is missing, stop and say which.
+
+From these, identify:
+- The test scenarios (E1, E2, …) and what to look for in each output
+- The scoring dimensions from the Acceptance Criteria
+- Any **Golden Examples** — known-good outputs (or excerpts) attached to scenarios. These are the strongest evaluation tool you have: scoring becomes "compare against this reference" instead of "how does it feel?"
 
 ### 2. Quick smoke test
 
@@ -39,13 +44,14 @@ Execute each test scenario from the Evaluation Criteria (defined in Design). For
 
 **Live-system test data caution.** A real test writes real artifacts to the user's accounts (rows, drafts, events). Prefer a clearly-marked test record, tell the user exactly what was created and where, and offer to clean it up afterward.
 
-Guide the user through scoring with plain-language prompts:
+**Score each scenario two ways, then reconcile:**
 
-- "On **accuracy**, was this a 1 (not close), 3 (mostly right), or 5 (nailed it)?"
-- "On **completeness**, did it cover everything you'd expect? 1 means major gaps, 5 means nothing missing."
-- "On **tone/style**, does this sound like it came from you? 1 means completely off, 5 means indistinguishable."
+1. **AI-graded first.** Before asking the user anything, evaluate the output yourself against the Acceptance Criteria — and against the scenario's Golden Example if one exists. Propose a score per dimension with a one-line justification quoting the specific evidence ("Accuracy 4/5 — matches the golden example's structure, but the deal value is stated as monthly where the reference uses annual"). Comparing against a golden example, check: what's missing, what's extra, what's different in substance (not just wording).
+2. **User confirms or adjusts.** Present your proposed scores and ask the user to confirm or correct them with plain-language prompts:
+   - "I scored **accuracy** 4/5 because [evidence]. Does that match your read, or would you move it?"
+   - "On **tone/style**, does this sound like it came from you? 1 means completely off, 5 means indistinguishable."
 
-Adapt the dimension names and prompts to match whatever eval dimensions were defined in the spec.
+The AI grade gives every scenario a consistent, evidence-based starting point (and makes future regression runs comparable); the user's confirmation keeps the human as the final judge of quality. Record the **confirmed** score. Adapt the dimension names to whatever eval dimensions were defined in the Acceptance Criteria.
 
 ### 4. Building block evals
 
@@ -84,12 +90,30 @@ Based on eval scores across all scenarios:
 
 ## Output
 
-Write results to `outputs/[workflow-name]-test-results.md`.
+Write results to `outputs/[workflow-name]/test-results.md`. If a results file already exists from a previous round, rename it with a date suffix (e.g., `test-results-2026-06-10.md`) first — earlier rounds are useful history, not waste. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 5`, `last_updated`, and add `test_results` under `artifacts`.
 
-Include an eval scorecard with this format:
+**Open the file with YAML frontmatter** so Improve (Step 7) can diff regression runs mechanically instead of re-reading prose:
+
+```yaml
+---
+workflow: [kebab-case name]
+design_spec: outputs/[workflow-name]/design-spec.md
+requirements: outputs/[workflow-name]/requirements.md
+date: YYYY-MM-DD
+environment: [platform + notable conditions, e.g., "Claude.ai, Gmail connector live, Notion simulated"]
+readiness: ready | not-ready | logic-ready-deploy-blocked
+scores:
+  E1: { accuracy: 4, completeness: 5, tone: 3 }   # confirmed scores, one line per scenario
+  E2: { accuracy: 5, completeness: 4, tone: 4 }
+averages: { accuracy: 4.5, completeness: 4.5, tone: 3.5 }
+---
+```
+
+Use the actual scenario IDs and dimension names from the Workflow Requirements. Below the frontmatter, include an eval scorecard with this format:
 
 - **Scenarios tested** — list each scenario with its input description
-- **Scores per dimension** — table of scenario × dimension scores (1–5)
+- **Scores per dimension** — table of scenario × dimension scores (1–5), noting where a Golden Example was used as the reference
+- **Golden Example deltas** — for scenarios with a golden example, the specific differences found (missing / extra / substantively different)
 - **Steps simulated/skipped (and why)** — any steps not run live (e.g., blocked integration), so a partial test is never mistaken for a full pass
 - **Integration / environment status** — which integrations were live vs. simulated, and the environment tested in (so a later Improve regression compares like-for-like and doesn't read "an integration got fixed" as "the workflow improved")
 - **Issues identified** — specific problems with concrete examples and diagnosed building block

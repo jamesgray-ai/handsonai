@@ -16,13 +16,19 @@ Evaluate and evolve running AI workflows. Review how a deployed workflow is perf
 
 ### 1. Load workflow context
 
-Read the Design Spec (including Evaluation Criteria), Run Guide, and original Test Results (baseline scores). Understand what was built, how it was designed to work, and what quality bar was established.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the artifacts it registers: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths.
+
+**Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the manifest before treating its scores as this workflow's baseline. Parse the baseline scores from the Test Results frontmatter (`scores` and `averages`) — that's the regression reference.
+
+Understand what was built, how it was designed to work, and what quality bar was established.
 
 ### 2. Current state assessment
 
-Interview the user with concrete questions:
+**Start from the run log if one exists** — it's evidence, not recollection. Summarize what it shows (run frequency, recurring edits, failures, drift) and confirm the summary with the user rather than asking them to remember.
 
-- How often are you running this workflow?
+Then interview the user for what the log can't show:
+
+- How often are you running this workflow? (skip if the run log answers this)
 - How much manual editing does the output typically need?
 - Have your requirements or business context changed?
 - Are there new steps or decisions that have emerged since deployment?
@@ -54,9 +60,9 @@ Only recommend graduation when there's a concrete capability gap, not just becau
 
 Re-run the eval suite from Step 5 (Test):
 
-- Run the same test scenarios from the original baseline
-- Score on the same dimensions
-- Compare to baseline scores
+- Run the same test scenarios (E1, E2, …) from the original baseline, scoring the same dimensions the same way Test does (AI-graded against Acceptance Criteria and Golden Examples first, user confirms)
+- **Diff against the baseline mechanically**: compare the new per-scenario scores against the `scores` block parsed from the original Test Results frontmatter, and present a delta table (scenario × dimension, baseline → current, flagging any drop ≥1 point)
+- **Compare like-for-like**: check the baseline's `environment` field — if an integration was simulated then and is live now (or vice versa), say so; a score change caused by an integration being fixed is not the workflow getting better or worse
 - Identify areas of degradation or improvement
 - Determine if the eval criteria themselves need updating (requirements may have shifted)
 
@@ -81,7 +87,7 @@ Produce one of the following:
 
 ## Output
 
-Write results to `outputs/[workflow-name]-improvement-plan.md`.
+Write results to `outputs/[workflow-name]/improvement-plan.md`. If a plan already exists from a previous review cycle, rename it with a date suffix first. Then update the workflow manifest: set `current_step: 7`, `last_updated`, add `improvement_plan` under `artifacts`, and record `next_review: YYYY-MM-DD` (agree the date with the user — monthly is a good default for high-frequency workflows, quarterly for occasional ones).
 
 Include:
 

@@ -151,7 +151,7 @@ List every file the skill produces, with the path template and contents.
 ### Writing Guidelines
 
 - **Workflow steps are instructions to the model**, not documentation for the user. Write them as directives: "Read the file", "Present a table", "Ask the user to confirm".
-- **Be specific about file paths** — use `outputs/[workflow-name]-artifact.md` templates.
+- **Be specific about file paths** — use `outputs/[workflow-name]/artifact.md` templates.
 - **Separate concerns** — Design decisions go in the Workflow. Output format goes in Outputs. Behavioral rules go in Guidelines.
 - **No platform-specific content in the skill body** — the skill defines *what* to do. The model provides *how* based on the user's platform.
 

@@ -122,6 +122,17 @@ A capability tier (reasoning-heavy / fast / vision) with per-step overrides if n
 
 For each tool the workflow needs, the model researches available integration options — curated MCP servers, APIs, SDKs, and CLIs — with source URLs and trade-offs. The output is platform-agnostic; Build does the per-platform setup research.
 
+### Safety & Permissions
+
+Before Layer 1 closes, the design answers four questions in plain language — they matter most for workflows that write to live systems, run unattended, or process content you didn't author:
+
+1. **Write access** — Which connected tools can this workflow create, modify, or send through? Apply least privilege: only the scopes it needs, and prefer draft-don't-send until trust is established.
+2. **Untrusted input** — Does any step process content you didn't author (inbound email, web pages, form submissions)? That content must be treated as data, never as instructions — this is how prompt-injection incidents happen.
+3. **Unattended runs** — Scheduled or headless? Then human gates on outward-facing actions, a cap on actions per run, and a log of every write.
+4. **Blast radius** — What's the worst realistic outcome of a bad run? Put a human gate in front of that action.
+
+The answers and mitigations are recorded in the spec's Safety & Permissions section; Build enforces them during connector setup, and Run re-verifies them before the first scheduled run. For a read-only, human-triggered workflow this is one sentence, not a hurdle.
+
 **End of Layer 1.** Lightweight confirmation: "Architecture confirmed: [summary]. Moving to Decomposition. Confirm to proceed."
 
 ---
@@ -246,7 +257,7 @@ Design the AI workflow from my Workflow Requirements.
 Assess the autonomy level, recommend an orchestration mechanism, and map building blocks.
 ```
 
-Upload or paste your Workflow Requirements file (`[workflow-name]-requirements.md`) from the Deconstruct step. The skill runs the three layers in order, with lightweight confirmation between each, and produces a Design Spec.
+Upload or paste your Workflow Requirements file (`[workflow-name]/requirements.md`) from the Deconstruct step. The skill runs the three layers in order, with lightweight confirmation between each, and produces a Design Spec.
 
 ### Example prompts
 
@@ -291,7 +302,7 @@ After the model produces the spec, **review and approve at the Spec Approval Gat
 
 The **Design Spec** is organized into the three layers above, plus cross-layer sections. The spec opens with YAML frontmatter so Build can summarize it in one read.
 
-**Layer 1 — Architecture sections:** Execution Pattern, Architecture Decisions (with Packaging), Autonomy Spectrum Summary, Integration Options (with Source URLs), Model Recommendation (with per-platform mapping).
+**Layer 1 — Architecture sections:** Execution Pattern, Architecture Decisions (with Packaging), Autonomy Spectrum Summary, Safety & Permissions, Integration Options (with Source URLs), Model Recommendation (with per-platform mapping).
 
 **Layer 2 — Decomposition sections:** Step-by-Step Decomposition (or Capability Domain Mapping for outcome-driven), Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Prompt), Data Readiness Summary, Recommended Implementation Order.
 

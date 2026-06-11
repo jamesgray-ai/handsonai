@@ -14,7 +14,7 @@ The output is a single Markdown file: the **Workflow Requirements** document. It
 | | |
 |---|---|
 | **What you'll do** | Choose one of two paths (you know the steps, or you know the outcome), then work through a guided conversation that captures the requirements |
-| **What you'll get** | A **Workflow Requirements** document — `outputs/[name]-requirements.md` |
+| **What you'll get** | A **Workflow Requirements** document — `outputs/[name]/requirements.md` |
 | **Time** | ~15-25 minutes of interactive conversation |
 
 ## Why This Matters
@@ -77,7 +77,7 @@ The skill asks you to choose a path, runs an interactive interview to capture th
 ```
 "Use deconstruct to break down my expense reporting process"
 → Interactive discovery session producing
-  outputs/expense-reporting-requirements.md
+  outputs/expense-reporting/requirements.md
 
 "I need to document how our team handles customer escalations"
 → Walks through the discovery process, probing for hidden steps
@@ -163,7 +163,7 @@ The **Workflow Requirements** document uses a shared structure for both paths �
 - **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Decomposed / Outcome-Driven)
 - **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), AI accessibility (Yes / Partial / No), and location
 - **Acceptance Criteria** — what good output looks like, dimensions that matter (accuracy, completeness, tone, etc.), and the minimum bar
-- **Example Scenarios** — 3-5 representative inputs with what to look for in the output (feeds Step 5 — Test)
+- **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where scoring against a known-good reference beats gut-feel ratings
 - **Human Gates** — where human review or input is required
 - **Optimization Notes** (optional, step-decomposed only) — what changed from the original process and why
 
@@ -215,8 +215,8 @@ The model presents its findings as a summary and asks you to confirm or address 
 - **Don't over-prepare your steps.** The model works with rough, incomplete descriptions. Let it do the work of refining.
 - **Gather your context resources early.** The model identifies specific resources the workflow needs — documents, spreadsheets, databases, CRM access, application credentials, sample data. If you already have these, have them ready. If you don't, the analysis tells you exactly what to create or set up.
 
-:::tip[Register your workflow in the AI Registry]
-If you're using the [AI Registry](../../use-the-playbook/build/ai-registry/) Notion database, register your workflow as soon as naming is confirmed — the skill walks you through it. This creates a record of the workflow with its name, description, trigger, outcome, and type. You'll update this entry as you move through Build. Even if you're not using Notion, save the metadata somewhere — it's the first entry in your workflow inventory. See [Builder Tools Setup](../../builder-setup/notion-registry-setup/) if you haven't set up the AI Registry yet.
+:::tip[Your workflow gets its own folder]
+Once the name is confirmed, the skill creates a folder for the workflow — `outputs/[name]/` — with a small `workflow.yaml` manifest inside. The manifest tracks which framework step you're on and where every artifact lives, so any later session (or any framework skill) can pick up exactly where you left off. Your `outputs/` directory becomes your workflow inventory — no separate tracking system required.
 :::
 
 ## Related

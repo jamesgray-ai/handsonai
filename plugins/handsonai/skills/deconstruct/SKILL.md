@@ -63,7 +63,9 @@ Worked one-liners: *"Generate my weekly status report from the same three source
 
    If multiple workflows are detected: map out each one (working name, trigger, deliverable), present the breakdown, confirm boundaries with the user, and ask which to deconstruct first. Proceed with only the chosen workflow.
 
-3. **Name the workflow** — Present 2-3 name options following naming conventions (2-4 word noun phrase, Title Case). Confirm name, description, outcome, and trigger.
+3. **Name the workflow** — Present 2-3 name options. Naming conventions: a **2-4 word noun phrase** in **Title Case**, self-explanatory without context (e.g., "Lead Qualification", "Newsletter Distribution", "Student Onboarding"). Prefer `[Subject] [Action]` patterns — "Invoice Generation", "Inbox Triage" — over verb phrases or vague labels. Confirm name, description, outcome, and trigger.
+
+   **Derive the workflow ID.** Convert the confirmed name to kebab-case (lowercase, hyphens, no punctuation — "Lead Qualification" → `lead-qualification`) and confirm it with the user: "I'll use `lead-qualification` as the workflow ID — it names the folder and files for everything we produce." This ID is the single source of truth for all artifact paths; every downstream skill uses it verbatim.
 
 4. **Deep dive (step-decomposed only)** — Before probing the first step, briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
 
@@ -136,13 +138,14 @@ Worked one-liners: *"Generate my weekly status report from the same three source
     2. "Which dimensions matter most? For example: accuracy, completeness, tone, specificity, timeliness, format consistency."
     3. "What's your minimum bar — what's acceptable vs. what needs more work?"
     4. "Give me 3-5 real or realistic scenarios you'd run this on — different enough to test the workflow's range. For each, briefly describe the input and what you'd look for in the output."
+    5. "For any of those scenarios, do you have a **golden example** — a real past output (or excerpt) you'd consider 'exactly right' for that input?" Golden examples turn Test (Step 5) from gut-feel scoring into comparison against a known-good reference. Don't push if none exist — but if the user produces this output today, a recent good one usually does. If a golden example is a document, add it to the Context Inventory and reference its ID.
 
     For outcome-driven workflows, these answers also inform the Acceptance Criteria built up in Step 4-OD — fold them together rather than asking twice.
 
 11. **Generate Workflow Requirements** — Produce the structured Workflow Requirements document and write it to the output file. See the **Output** section below for the template, writing style, and machine-readability rules.
 
     **Self-check before finishing (so Design can parse it).** After writing, verify the file against the machine-readability rules and fix any miss before handing off:
-    - Filename is kebab-case: `outputs/[workflow-name]-requirements.md` (e.g., "Inbound Lead Triage" → `inbound-lead-triage-requirements.md`).
+    - File lives in the workflow folder using the kebab-case ID: `outputs/[workflow-name]/requirements.md` (e.g., "Inbound Lead Triage" → `outputs/inbound-lead-triage/requirements.md`), and `workflow.yaml` exists alongside it with `current_step: 2` and the requirements path registered.
     - All required headings are present and **exactly named** (no synonyms): Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-decomposed; Inputs + Rules & Constraints for outcome-driven).
     - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps `1,2,3…`; context `C1,C2…`; scenarios `E1,E2…`).
     - If anything is off, fix it before telling the user it's ready.
@@ -176,7 +179,29 @@ After completing the interview and Step 8-OD, proceed directly to Step 9 (Consol
 
 ## Output
 
-Write the Workflow Requirements to `outputs/[workflow-name]-requirements.md` where `[workflow-name]` is the kebab-case workflow name (e.g., `lead-qualification` → `outputs/lead-qualification-requirements.md`).
+Write the Workflow Requirements to `outputs/[workflow-name]/requirements.md` where `[workflow-name]` is the kebab-case workflow ID confirmed in Step 3 (e.g., `outputs/lead-qualification/requirements.md`). Create the folder if it doesn't exist.
+
+### Workflow manifest
+
+Deconstruct **creates the workflow's manifest** — a small `workflow.yaml` in the workflow folder that tracks state and artifact paths so any framework skill (or a fresh session) can pick up where things left off:
+
+```yaml
+workflow: lead-qualification      # kebab-case ID — names the folder and all artifacts
+display_name: Lead Qualification
+definition_type: Step-Decomposed  # or Outcome-Driven
+current_step: 2                   # last completed framework step (1-7)
+last_updated: YYYY-MM-DD
+artifacts:
+  requirements: outputs/lead-qualification/requirements.md
+  # downstream skills append: design_spec, test_results, run_guide, run_log, improvement_plan
+```
+
+Conventions every framework skill follows (stated here once; downstream skills apply them):
+
+- **Read the manifest on load** to locate artifacts and confirm you're working on the right workflow.
+- **Update it after writing your output**: set `current_step`, `last_updated`, and add your artifact path under `artifacts`.
+- **Never silently overwrite.** If your output file already exists from a previous run, rename the old one with a date suffix (e.g., `requirements-2026-06-10.md`) before writing.
+- **Legacy layout:** if no workflow folder exists but flat files like `outputs/[name]-requirements.md` do, use those paths, and offer to migrate them into a folder + manifest before proceeding.
 
 ### Writing-style rules (MUST follow)
 
@@ -257,10 +282,12 @@ Notes:
 
 ## Example Scenarios
 
-| ID | Scenario | Input | What to look for in the output |
-|---|---|---|---|
-| E1 | [short name] | [description] | [what makes this output "good"] |
-| E2 | … | … | … |
+| ID | Scenario | Input | What to look for in the output | Golden Example |
+|---|---|---|---|---|
+| E1 | [short name] | [description] | [what makes this output "good"] | [Context Inventory ID, short inline excerpt, or "—"] |
+| E2 | … | … | … | … |
+
+Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut-feel scoring alone. Use "—" when none exists.
 
 ## Human Gates
 
@@ -339,6 +366,6 @@ The Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios
 - Push beyond vague context answers like "domain knowledge" — identify the specific artifact.
 - Surface the assumption that existing context — data, documents, transcripts, reference materials — will "just work" for AI. Most people underestimate the work required to make context AI-accessible, especially unstructured content like SOPs, style guides, meeting transcripts, and knowledge that lives in people's heads. Adopt a data strategist lens — help the user see where context reorganization, reformatting, or externalization is needed before they commit to a workflow design that depends on inaccessible context. Push beyond "it's in the CRM" or "I just know it" — ask what system it's in, what format it's in, and whether there's programmatic access or it requires manual steps. Leave specific integration mechanisms (MCP, API, SDK) to the Design step.
 - **Stay in the "what" lane.** Deconstruct defines the workflow, its context needs, its rules, and its acceptance criteria. It does not prescribe how AI will access data, which tools to use, what integrations to build, how many agents are needed, or which models to use — those are Design decisions (Step 3). Do not ask the user about capability domains, agent architecture, model class, or orchestration mechanism. If a technology concern surfaces, note it as a consideration for Design rather than resolving it here.
-- After writing the Workflow Requirements file, tell the user: "Workflow Requirements saved to `outputs/[name]-requirements.md`. Ready for the `design` skill (Step 3)."
+- After writing the Workflow Requirements file, tell the user: "Workflow Requirements saved to `outputs/[name]/requirements.md`. Ready for the `design` skill (Step 3)."
 - If entering deconstruction without a prior analysis (direct workflow description), determine the lens by asking if not obvious from context.
 - For outcome-driven workflows, do not force step decomposition — the whole point is to capture what the agent system needs to know without prescribing execution steps.

@@ -26,14 +26,19 @@ The skill runs four phases. The sections that follow expand on each:
 
 ## Start with Your Run Guide
 
-At the end of Build and Test, the model generates a **Run Guide** (`[name]-run-guide.md`) — a plain-language walkthrough tailored to your platform, architecture approach, and technical comfort level. It tells you exactly what to do with the artifacts that were built:
+At the end of Build and Test, the model generates a **Run Guide** (`[name]/run-guide.md`) — a plain-language walkthrough tailored to your platform, architecture approach, and technical comfort level. It tells you exactly what to do with the artifacts that were built:
 
 1. **What was built** — Every artifact listed with what it does and where it lives
 2. **Setup steps** — Numbered instructions for getting each artifact into the right place on your platform (menu paths, button names, what you should see when it is working)
 3. **First production run** — A guided run with real input, expected behavior, and what to check
 4. **What to do next** — How to run it again, share with teammates, and when to revisit
+5. **Fresh and scheduled sessions** — What the run environment must satisfy (artifacts loadable, connectors authorized in the session that runs it, pre-granted permissions for unattended runs) plus a safety checklist for scheduled runs: least-privilege permissions, human gates enforced in the deployed artifacts, untrusted content treated as data, and a cap on actions per run
 
-The Run Guide is saved to `outputs/[name]-run-guide.md` so you can reference it later or share it with your team.
+The Run Guide is saved to `outputs/[name]/run-guide.md` so you can reference it later or share it with your team.
+
+### Keep a run log
+
+The run skill also creates `outputs/[name]/runs.md` — a one-line-per-run log (date, input, outcome, edits needed). It takes ten seconds per run, and when you review the workflow later in [Improve (Step 7)](../improve/), it's the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself, the generated artifacts append their own log line — logging costs you nothing.
 
 ## Choose Your Run Pattern
 
@@ -167,7 +172,7 @@ The skill reads your Design Spec and artifacts, generates the Run Guide, and wal
 
 ## Next Step
 
-Once your workflow is running in production, set a reminder to revisit it. Move to **[Step 7: Improve](../improve/)** when quality signals suggest it is time — or on the review cadence you set during operationalization.
+Once your workflow is running in production, the run skill records a `next_review` date in the workflow manifest (monthly for high-frequency workflows, quarterly for occasional ones). When that date arrives — or sooner, if quality signals suggest it — start a new conversation and say: **"Run the `improve` skill on [workflow name]."** The manifest, baseline test scores, and run log carry everything **[Step 7: Improve](../improve/)** needs; you don't have to re-explain the workflow.
 
 ## Related
 

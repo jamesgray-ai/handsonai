@@ -54,15 +54,15 @@ could be automated with AI"
   an orchestration mechanism, and identifies quick wins
 ```
 
-**What you'll get** — files saved to `outputs/` with the workflow name in lowercase using hyphens (for example, `client-onboarding`):
+**What you'll get** — each workflow gets its own folder under `outputs/`, named with the workflow name in lowercase using hyphens (for example, `outputs/client-onboarding/`). A small `workflow.yaml` manifest in the folder tracks which step you're on and where every artifact lives, so any session can resume the workflow mid-framework:
 
-1. **Opportunity Report** — `ai-opportunity-report.md`
-2. **Workflow Requirements** — `[name]-requirements.md`
-3. **Design Spec** — `[name]-design-spec.md`
+1. **Opportunity Report** — `outputs/ai-opportunity-report.md` (before a workflow is named)
+2. **Workflow Requirements** — `[name]/requirements.md`
+3. **Design Spec** — `[name]/design-spec.md`
 4. **Platform Artifacts** — prompts, skills, agents, and configs in the format your platform requires
-5. **Test Results** — `[name]-test-results.md`
-6. **Run Guide** — `[name]-run-guide.md`
-7. **Improvement Plan** — `[name]-improvement-plan.md` (when running Improve)
+5. **Test Results** — `[name]/test-results.md`
+6. **Run Guide** — `[name]/run-guide.md`, plus a run log at `[name]/runs.md`
+7. **Improvement Plan** — `[name]/improvement-plan.md` (when running Improve)
 
 ## The Framework
 
@@ -107,7 +107,7 @@ For step-decomposed workflows, the model uses the **six-question framework** as 
 
 This is purely the *what* — the workflow's requirements, with no prescription of how AI will handle it. The *how* comes in Step 3 (Design).
 
-**Deliverable:** **Workflow Requirements** (`outputs/[name]-requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. Step-decomposed workflows add a Steps Overview with per-step requirements; outcome-driven workflows add Inputs plus Rules & Constraints.
+**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. Step-decomposed workflows add a Steps Overview with per-step requirements; outcome-driven workflows add Inputs plus Rules & Constraints.
 
 **Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
 
@@ -125,7 +125,7 @@ The Design step takes your Workflow Requirements and produces a complete bluepri
 
 The spec must be approved before moving to Build.
 
-**Deliverable:** **Design Spec** (`outputs/[name]-design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, and implementation order. References the Workflow Requirements rather than restating it.
+**Deliverable:** **Design Spec** (`outputs/[name]/design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, and implementation order. References the Workflow Requirements rather than restating it.
 
 **Facilitated by the `design` skill.** See [Design Your AI Workflow](design/) for the full guide with autonomy assessment, orchestration mechanism decision flow, and output format.
 
@@ -151,7 +151,7 @@ Your first run is a test, not a deployment. The Test step walks you through a qu
 
 Most workflows need 2-4 iterations between Build and Test before they produce reliably good output. When something is off, the skill helps you diagnose which building block to fix and sends you back to Build with a clear target.
 
-**Deliverable:** **Test Results** (`outputs/[name]-test-results.md`) — eval scorecard with scores per scenario and dimension, baseline averages, diagnosed issues, and a readiness assessment.
+**Deliverable:** **Test Results** (`outputs/[name]/test-results.md`) — eval scorecard with scores per scenario and dimension, baseline averages, diagnosed issues, and a readiness assessment.
 
 **Facilitated by the `test` skill.** See [Test](test/) for the full evaluation process and troubleshooting guide.
 
@@ -163,7 +163,7 @@ Deploy and operate your tested workflow.
 
 Once your workflow passes testing, Run helps you put it into production. The skill produces a Run Guide tailored to your platform and technical comfort level, then helps you choose the right run pattern — from simple paste-and-run to fully automated schedules. For organizational workflows, Run also covers sharing with your team and setting up ongoing operations.
 
-**Deliverable:** **Run Guide** (`outputs/[name]-run-guide.md`) — artifact inventory, setup steps, first production run instructions, run pattern, and operationalization guidance.
+**Deliverable:** **Run Guide** (`outputs/[name]/run-guide.md`) — artifact inventory, setup steps, first production run instructions, run pattern, and operationalization guidance.
 
 **Facilitated by the `run` skill.** See [Run](run/) for run patterns, deployment options, and operationalization guidance.
 
@@ -175,7 +175,7 @@ Evaluate and evolve running workflows.
 
 Workflows are not something you set up once and forget. Over time, business context changes, new tools become available, and output quality can drift. The Improve step teaches you when and how to revisit a running workflow — watch for quality signals, re-run your eval suite to catch regressions, and assess whether the workflow should graduate to a more capable orchestration mechanism. Four outcomes: no changes needed, tune it, redesign it, or evolve it.
 
-**Deliverable:** **Improvement Plan** (`outputs/[name]-improvement-plan.md`) — current vs. baseline scores, quality signals, graduation assessment, decision outcome, and specific next actions.
+**Deliverable:** **Improvement Plan** (`outputs/[name]/improvement-plan.md`) — current vs. baseline scores, quality signals, graduation assessment, decision outcome, and specific next actions.
 
 **Facilitated by the `improve` skill.** See [Improve](improve/) for the full evaluation and graduation framework.
 

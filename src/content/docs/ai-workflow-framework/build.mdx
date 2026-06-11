@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 You've just finished [Design (Step 3)](../design/). You should have:
 
-- **Design Spec** (`[name]-design-spec.md`) — your approved blueprint with architecture approach, autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
+- **Design Spec** (`[name]/design-spec.md`) — your approved blueprint with architecture approach, autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
 
 If you're returning from [Test (Step 5)](../test/) to fix issues, you may also have test results telling you which building block needs adjustment.
 
@@ -122,14 +122,14 @@ The model handles artifact generation, but several things require your involveme
 
 As you build, two background practices keep your work organized and recoverable:
 
-**Register building blocks in your AI Registry.** Each time you create a skill, prompt, or agent, register it in your [AI Registry](../../use-the-playbook/build/ai-registry/) Notion database — name, type, description, and which workflow it belongs to. If you registered the workflow during Deconstruct, these building blocks link back to it. This gives you a searchable inventory of everything you've built, and makes it easy for your team to discover and reuse building blocks across workflows.
+**Keep the workflow manifest current.** The `workflow.yaml` manifest in your workflow's folder (created during Deconstruct) records where every generated artifact lives. The build skill updates it automatically — if you're building artifacts yourself, add each one as you finish it. The manifest is what lets Test, Run, and Improve find everything later without you re-explaining the workflow.
 
 **Commit source files to GitHub.** The `.md` files for your skills, agents, and prompts are source code — they should live in version control, not just on your local machine. After creating or updating a building block, commit it to your GitHub repository. This gives you a history of changes, makes it easy to share with collaborators, and protects against losing work.
 
-These aren't separate steps — they're part of the rhythm of building. Each time you finish a building block: **register it, commit it.**
+These aren't separate steps — they're part of the rhythm of building. Each time you finish a building block: **record it, commit it.**
 
 :::tip[Need to set up these tools?]
-The [Builder Tools Setup](../../builder-setup/) guide walks you through everything you need — an AI code editor ([Step 2](../../builder-setup/editor-setup/)), Git ([Step 3](../../builder-setup/git-install/)), GitHub ([Step 4](../../builder-setup/github-setup/)), and the AI Registry ([Step 6](../../builder-setup/notion-registry-setup/)). If you haven't set these up yet, that guide has you covered.
+The [Builder Tools Setup](../../builder-setup/) guide walks you through everything you need — an AI code editor ([Step 2](../../builder-setup/editor-setup/)), Git ([Step 3](../../builder-setup/git-install/)), and GitHub ([Step 4](../../builder-setup/github-setup/)). If you haven't set these up yet, that guide has you covered.
 :::
 ## What This Produces
 
@@ -157,7 +157,7 @@ This step is facilitated by the **`build`** AI Workflow Framework skill. See [Se
 Build the workflow from my approved Design Spec.
 ```
 
-Upload or reference your Design Spec file (`[workflow-name]-design-spec.md`) from the Design step when prompted. The skill resolves context needs, generates platform artifacts, and prepares the workflow for testing.
+Upload or reference your Design Spec file (`[workflow-name]/design-spec.md`) from the Design step when prompted. The skill resolves context needs, generates platform artifacts, and prepares the workflow for testing.
 
 ### Example prompts
 
