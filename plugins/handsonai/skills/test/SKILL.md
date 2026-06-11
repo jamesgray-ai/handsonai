@@ -35,7 +35,7 @@ This distinguishes "the workflow logic is wrong" from "an integration isn't auth
 
 ### 3. Run eval suite
 
-Execute each test scenario from the Evaluation Criteria (defined in Design). For each scenario:
+Execute each test scenario — sourced from the Acceptance Criteria and Example Scenarios sections of the Workflow Requirements (loaded in Step 1). For each scenario:
 
 - Run the workflow with the scenario's input (full or partial per the pre-flight above)
 - Score output on each eval dimension (1–5 scale); score only the steps that actually ran
@@ -84,7 +84,7 @@ For each problem identified in the eval, map it to which building block to adjus
 
 Based on eval scores across all scenarios:
 
-- **Ready** — scores meet the minimum quality bar defined in the spec → proceed to the `run` skill (Step 6)
+- **Ready** — scores meet the minimum bar from the Workflow Requirements' Acceptance Criteria → proceed to the `run` skill (Step 6)
 - **Logic-ready, deploy-blocked** — the logic passes in partial testing but one or more write integrations are unauthorized. Name the blocker and what to authorize; the user fixes access, then re-runs the blocked steps before going to Run. (Not a code defect — don't loop back to Build for it.)
 - **Not ready** — document specific adjustments needed, return to the `build` skill (Step 4), then re-test
 
@@ -125,4 +125,4 @@ Use the actual scenario IDs and dimension names from the Workflow Requirements. 
 - 2–4 testing iterations is normal before reaching readiness. Don't treat the first round of issues as failure — it's expected.
 - Use plain-language scoring guidance. Never say "write an eval" — instead say "rate your output across real scenarios."
 - Keep the user focused on concrete examples, not abstract quality judgments. "Show me the sentence that's wrong" beats "was it good?"
-- If no Evaluation Criteria were defined in the spec, help the user create them now — but note this as a gap to fix in the Design step for future workflows.
+- If the Workflow Requirements has no Acceptance Criteria or Example Scenarios, help the user create them now — and note this as a gap to fix by re-running the Deconstruct step for future workflows.

@@ -193,7 +193,10 @@ current_step: 2                   # last completed framework step (1-7)
 last_updated: YYYY-MM-DD
 artifacts:
   requirements: outputs/lead-qualification/requirements.md
-  # downstream skills append: design_spec, test_results, run_guide, run_log, improvement_plan
+  # downstream skills append:
+  #   design_spec, platform_artifacts (list), test_results,
+  #   run_guide, run_log, improvement_plan
+# run also sets a top-level key: next_review: YYYY-MM-DD
 ```
 
 Conventions every framework skill follows (stated here once; downstream skills apply them):

@@ -77,7 +77,7 @@ Read the approved Design Spec and generate platform artifacts:
 1. **Build path choice** — offer "I'll build it" (model generates artifacts) or "I'll build it myself" (spec is the deliverable, skip to Run with construction guide)
 2. Present the mechanism-specific build path (only the steps that apply)
 3. Research integration availability via web search (deferred from Design)
-4. Generate platform artifacts (prompts, skills, agents, configs) — following agentskills.io format for skills and Claude Code subagent format for agents
+4. Generate platform artifacts (prompts, skills, agents, configs) — the build skill resolves the correct artifact format for the user's platform at runtime via the platform registry
 
 **Reads:** `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md`
 **Produces:** Platform artifacts — prompts, skills, agents, configs (if model-built)

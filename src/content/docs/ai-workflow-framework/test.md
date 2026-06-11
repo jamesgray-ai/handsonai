@@ -11,7 +11,8 @@ You've just finished [Build (Step 4)](../build/). You should have:
 
 - **Platform artifacts** — prompts, skills, agents, and configs generated for your platform
 - **Context artifacts** — style guides, reference materials, and examples
-- **Design Spec** (`[name]/design-spec.md`) — which includes the evaluation criteria and test scenarios defined during [Design](../design/)
+- **Design Spec** (`[name]/design-spec.md`) — the architecture blueprint and artifact inventory
+- **Workflow Requirements** (`[name]/requirements.md`) — which owns the Acceptance Criteria, Example Scenarios, and Golden Examples captured during [Deconstruct](../deconstruct/)
 
 Your first run is a test, not a deployment. The goal is to verify that the workflow produces good output before you share it with your team or use it on real work.
 
@@ -19,9 +20,9 @@ Your first run is a test, not a deployment. The goal is to verify that the workf
 
 The skill runs seven phases. The sections that follow expand on each:
 
-1. **Load artifacts and spec** — Read the Design Spec (for evaluation criteria and test scenarios) and locate your platform artifacts.
+1. **Load artifacts and spec** — Read the Design Spec, the Workflow Requirements (for acceptance criteria, test scenarios, and golden examples), and locate your platform artifacts.
 2. **Smoke test** — Run the workflow once with a realistic scenario. Check that it runs, produces output, and uses the right format.
-3. **Full eval suite** — Run each test scenario from the Design Spec. Score each output on a 1–5 scale across the evaluation dimensions.
+3. **Full eval suite** — Run each test scenario from the Workflow Requirements. Score each output on a 1–5 scale across the evaluation dimensions.
 4. **Building block evals** — Test individual components (skills, context, agents) in isolation to pinpoint weak links.
 5. **Establish baseline** — Calculate average scores across all scenarios and dimensions. Record for future comparison.
 6. **Diagnose and fix** — Map problems to building blocks (generic output → context issue, skipped steps → prompt issue, etc.) and identify what to fix in Build.
@@ -140,7 +141,7 @@ This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set
 **Start with this prompt:**
 
 ```
-Test my workflow against the evaluation criteria in the Design Spec.
+Test my workflow against the acceptance criteria in my Workflow Requirements.
 ```
 
 The skill guides you through the smoke test, eval suite, building block evals, baseline establishment, and diagnosis process.
@@ -157,7 +158,7 @@ The skill guides you through the smoke test, eval suite, building block evals, b
 
 ## Related
 
-- [Design Your AI Workflow](../design/) — where evaluation criteria and test scenarios are defined
+- [Deconstruct Workflows](../deconstruct/) — where acceptance criteria, example scenarios, and golden examples are captured
 - [Build](../build/) — where you fix issues identified during testing
 - [Run](../run/) — the next step once your workflow passes testing
 - [Improve](../improve/) — where you re-run evals to detect regression on deployed workflows
