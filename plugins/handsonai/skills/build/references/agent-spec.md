@@ -1,5 +1,10 @@
 # Agent Specification — Claude Code Subagent Format
 
+> **Point-in-time snapshot — fallback only.** This file is a snapshot of the Claude Code subagent
+> format and **will drift** as the platform evolves; it is NOT the source of truth. Build resolves the
+> current format at runtime from the platform registry/docs (Step 3.6) and uses this only when that
+> lookup is unavailable. If this snapshot and live docs disagree, the live docs win.
+
 When generating agents for Claude Code, follow this format exactly. Agents are single `.md` files with YAML frontmatter and a markdown body.
 
 ## File Format

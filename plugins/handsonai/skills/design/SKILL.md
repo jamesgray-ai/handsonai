@@ -24,17 +24,20 @@ Take a Workflow Requirements document (produced by Step 2 — Deconstruct) and p
 
 The Design phase is collaborative — you plan the architecture together with the user before anything gets built.
 
-**Plan Mode Prompt:** At the start of Design, prompt the user:
+**Collaboration mode — environment-aware:** At the start of Design, set expectations based on where the user is running:
 
-> "The Design phase is collaborative — we plan the architecture together before anything gets built. **Enter plan mode now** if your platform supports it (in Claude Code: `shift+tab` or `/plan`). This ensures we focus on design without accidentally generating artifacts. If plan mode isn't available, I'll collaborate through conversation — proposing, you reacting, iterating until you approve."
+> - **Claude Code (plan mode available):** "The Design phase is collaborative. **Enter plan mode now** (`shift+tab` or `/plan`) so we focus on design without writing any files yet. I'll present the full spec for your approval, and only write `outputs/[name]-design-spec.md` after you approve and exit plan mode."
+> - **Cowork (no plan mode):** "The Design phase is collaborative — we'll work through it conversationally. I'll present the full spec for your approval in chat, and only write `outputs/[name]-design-spec.md` once you say go."
 
-This is directive, not optional — plan mode is the preferred path for design collaboration.
+Plan mode is the **preferred path where available** (Claude Code); it is **not available in Cowork**, where collaboration is conversational. **Either way, never write the Design Spec file before the user approves it** (see Step 9/10).
 
 #### Step 1 — Load Workflow Requirements
 
 Read the Workflow Requirements from `outputs/[workflow-name]-requirements.md`. If the user specifies a file path, use that. Otherwise, look for the most recent Workflow Requirements in `outputs/`.
 
 Read the `Definition Type` field from the Metadata table. If `Outcome-Driven`, use the outcome-driven processing path for all subsequent steps (see **Outcome-Driven Processing Path** below). If `Step-Decomposed` (or no Definition Type field is present), use the standard step-decomposed path.
+
+**Verify the file is parseable before relying on it.** Confirm the required headings exist (Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and either Steps Overview/Step Details or the outcome-driven Inputs/Rules & Constraints). If any are missing or mis-named, **say exactly which are missing** and ask the user to re-run `/deconstruct` or fix the file — don't guess at the contents.
 
 #### Step 2 — Confirm Understanding
 
@@ -176,6 +179,12 @@ If the user pushes back, discuss in plain language — never drop into the inter
 
 Single-agent vs. multi-agent is an architecture detail decided during Agent Configuration (Step 8) if Agent is selected — not a top-level choice here.
 
+**Who is the orchestrator? (read before designing any Agent workflow.)** On **Claude Code or Cowork — any platform with a primary agentic loop — the primary session IS the orchestrator.** Do **not** design a separate "orchestrator agent" file. What you build are:
+- **Orchestration logic** — captured as a command and/or a `CLAUDE.md` run section the primary loop follows (scan/classify/dispatch/label/summarize, etc.). This is not an "agent" artifact.
+- **Sub-agent(s)** — the workers the primary loop dispatches, one per unit of work (e.g., per item in a batch). Sometimes **zero** sub-agents are needed — the orchestration logic + skills are enough.
+
+The agent artifacts you generate are always the **workers the orchestrator delegates to**, never the orchestrator itself. Reserve a standalone, self-running "agent" artifact for **SDK platforms** where you deploy the agent process yourself. (This is the single most common design mistake on Claude Code: inventing an orchestrator agent when the primary loop already is one.)
+
 **Fast-track for complete Workflow Requirements:** If the Workflow Requirements + conversation context provide enough information to resolve the autonomy level, tool extraction, and step classifications, you may present those internal/technical dimensions as a single summary block instead of stepping through questions one at a time.
 
 **Platform (Step 3a) and Mechanism (Step 5) are never fast-tracked.** They are always asked or confirmed explicitly in plain language, in their own discrete confirmations, even when the answer seems obvious from earlier conversation. Non-technical users must see and approve these two choices on their own — they should not be embedded inside a larger summary block.
@@ -207,10 +216,10 @@ For step-decomposed workflows:
 
 For outcome-driven workflows, use the same playback structure with these substitutions:
 
-- **Autonomy level:** Autonomous — meaning [the agent figures out its own path based on the outcome and rules you defined]. (Outcome-driven workflows are always Autonomous by definition.)
-- **Mechanism:** Agent — [a system that decides what to do step-by-step based on context, not a fixed script].
-- Replace **Steps classified** with **Capability domains mapped** — explain in plain language ("the buckets of capability the agent needs to cover").
-- **Agent blueprint:** single agent summary, since outcome-driven workflows center on the agent.
+- **Autonomy level:** Autonomous — meaning [the system figures out its own path based on the outcome and rules you defined]. (Outcome-driven workflows are always Autonomous by definition.)
+- **Mechanism:** Agent — [the workflow is driven by an agentic loop that decides what to do based on context, not a fixed script]. On Claude Code/Cowork that loop is the **primary session (the orchestrator)** — see "Who is the orchestrator?" above.
+- Replace **Steps classified** with **Capability domains mapped** — explain in plain language ("the buckets of capability the workflow needs to cover").
+- **Agent blueprint:** summarize the **sub-agent(s) the orchestrator will dispatch** (the workers), or "None — the primary loop orchestrates directly using skills" if no sub-agent is needed. Do **not** describe a standalone orchestrator agent on Claude Code/Cowork.
 
 **Wait for explicit approval** ("yes", "looks good", "go ahead", etc.) before moving to Step 6. If the user pushes back, revise the relevant decision (which may mean reopening Step 3a or Step 5) and re-present this gate.
 
@@ -238,6 +247,12 @@ For every refined step, classify across all three building-block layers plus aut
 | **CLI** | Command-line tool | Use existing |
 
 Most integration blocks are "use existing." "Build new" applies primarily to MCP (custom data sources) and rarely to SDKs.
+
+**Plain-language gloss (for non-technical users — explain these the first time they come up):**
+- **MCP** = a plug-and-play connection to a service, no coding needed.
+- **API** = a way to talk to a service that needs a little code/setup.
+- **SDK** = a coding toolkit (most technical option).
+- **CLI** = a command you run in a terminal.
 
 **Intelligence layer blocks:**
 
@@ -308,6 +323,8 @@ After classifying every step, recommend available integration options for each t
    **Latency management:** Use judgment about when web search adds value. Well-known integrations (Google Calendar, Gmail, Slack, GitHub) don't need validation searches. Reserve web search for new or niche tools.
 
    **Precedence rule:** When web search results contradict model knowledge (e.g., model proposes an MCP server that web search reveals was deprecated), web search takes precedence. Flag the discrepancy and present only verified options.
+
+**Fallback ladder (never hard-fail).** Any of the lookups above can fail — the remote registry JSON may be unreachable, or web search may be unavailable on the platform. Degrade gracefully in this order, and tell the user what was degraded: **session cache** (registry already fetched this session) → **model knowledge** → **web search** → **best-effort note**. If you end on model-knowledge-only or best-effort, add a one-line flag like "Integration options below are unverified (registry/web unavailable) — confirm before relying on them." Never block Design because a fetch failed.
 
 **Matching semantics:** Matching is model-driven, not exact string matching. The model reads the workflow's tool needs (e.g., "Google Calendar access" from the step classification) and matches them against the `integrations` array values (e.g., `"google-calendar"`) using semantic understanding. This allows natural language tool needs to match standardized integration tags without requiring exact normalization.
 
@@ -461,20 +478,23 @@ If the user adds or adjusts anything, update the Workflow Requirements file (not
 
 If the Workflow Requirements is missing Acceptance Criteria or Example Scenarios entirely (which shouldn't happen if Deconstruct was run), pause and ask the user to run `/deconstruct` again or fill them in manually before continuing.
 
-#### Step 9 — Generate Design Spec
+#### Step 9 — Assemble Design Spec (do not write the file yet)
 
-Write to `outputs/[workflow-name]-design-spec.md` using the template below. Every section is mandatory unless marked (optional). Do not add, remove, rename, or reorder sections.
+Assemble the full Design Spec **content** using the template below — but **do not write it to disk yet**. The file is written only after the user approves it in Step 10. Every section is mandatory unless marked (optional). Do not add, remove, rename, or reorder sections. Target path (written in Step 10): `outputs/[workflow-name]-design-spec.md`.
 
-**Generation order:**
+**Why not write yet:** In Claude Code plan mode, writing files is blocked until the user approves and exits plan mode; in Cowork there is no plan mode but the same rule applies — never persist a deliverable before approval. So assemble + self-test in memory, present for approval (Step 10), then write.
 
-1. Generate all spec sections (frontmatter through Stakeholders) following the template.
-2. **Run the Build Skill Needs Checklist** (at the end of this step) to verify every required field is present and well-formed.
-3. **Write the Self-Test Summary section** as the final section of the spec. For each checklist item, mark ✓ (passed) or ⚠️ (issue — describe inline). This makes the verification visible to the user and to downstream consumers.
-4. If any checklist item failed (⚠️), fix the underlying section before writing the spec. The Self-Test Summary should ideally show all ✓ — but if a ⚠️ remains (e.g., a deliberate gap that the user accepted), it's surfaced honestly.
+**Assembly order:**
+
+1. Assemble all spec sections (frontmatter through Stakeholders) following the template — in memory.
+2. **Run the Build Skill Needs Checklist** (at the end of this step) against the assembled content to verify every required field is present and well-formed.
+3. **Assemble the Self-Test Summary section** as the final section. For each checklist item, mark ✓ (passed) or ⚠️ (issue — describe inline). This makes the verification visible to the user.
+4. If any checklist item failed (⚠️), fix the underlying section **before presenting for approval**. The Self-Test Summary should ideally show all ✓ — but if a ⚠️ remains (e.g., a deliberate gap the user accepted), surface it honestly.
+5. Carry the assembled content into Step 10 for approval. **Do not write the file in this step.**
 
 **Conditional sections to generate:**
 - `Orchestrator Prompt Outline` — only when mechanism is `Prompt` or `Skill-Powered Prompt`. Omit for `Agent`.
-- `Agent Configuration` — only when mechanism is `Agent`. (Mandatory for outcome-driven.)
+- `Agent Configuration` — whenever the design includes at least one sub-agent/agent artifact (the common case for `Agent` mechanism, including outcome-driven). Omit only if there are genuinely zero sub-agents (orchestration logic + skills only) — then set `agents: 0` and document the orchestration logic in the Deployment Plan.
 - `Multi-Agent Configuration` — only when more than one agent is defined.
 - `Stakeholders` — only for Organizational lens.
 
@@ -574,6 +594,8 @@ For each tool identified in the Decomposition table (or Capability Domain Mappin
 
 **Default capability:** [reasoning-heavy / fast / vision] — [rationale]
 
+*(Plain-language gloss for non-technical users: **reasoning-heavy** = slower but handles complex judgment/nuance; **fast** = quicker, best for simple/high-volume steps; **vision** = can read images/screenshots.)*
+
 **Per-step overrides** (optional):
 - Steps N, M: [different capability] — [rationale]
 
@@ -603,12 +625,12 @@ Column definitions:
 - **Orchestration**: Prompt / Skill / Agent
 - **Integration**: Block + tool + action tag (e.g., "MCP: Notion (use)") or "—" if none
 - **Intelligence**: Model class + context sources + memory flag (e.g., "Model: fast" or "Model: reasoning; Context: C2, C5")
-- **Build Output**: One of: `New skill: S1` (build a new skill, defined below) / `Use existing: [name]` (reference an existing skill) / `New agent: A1` (build a new agent, defined below) / `Inline prompt → Workflow Requirements Step N` (this step becomes a prompt block in the orchestrator, sourced from the named step's requirements) / `MCP server: [name]` (configure a connector) / `Human (no artifact)` (no AI artifact — human-performed)
+- **Build Output**: One of the canonical values: `New skill: S1` (build a new skill, defined below) / `Use existing: [name]` (reference an existing skill) / `New agent: A1` (build a new sub-agent, defined below) / `Inline prompt → Workflow Requirements Step N` (this step becomes a prompt block in the orchestrator, sourced from the named step's requirements) / `Handled by orchestrator` (no separate artifact — the orchestrating primary loop, or a deployed agent on SDK platforms, handles this via its own instructions; legacy synonym: `Handled by agent`) / `MCP server: [name]` (configure a connector) / `Human (no artifact)` (no AI artifact — human-performed)
 - **Human Gate?**: Yes / No (sourced from Workflow Requirements Human Gates table)
 
 ## Orchestrator Prompt Outline
 
-*Include this section only when mechanism is `Prompt` or `Skill-Powered Prompt`. Omit for `Agent` (the agent IS the orchestrator — see Agent Configuration below).*
+*Include this section only when mechanism is `Prompt` or `Skill-Powered Prompt`. Omit for `Agent` — on Claude Code/Cowork the primary loop orchestrates (capture that as orchestration logic in the Deployment Plan), and the workers are documented in Agent Configuration below.*
 
 The high-level shape of the orchestrator prompt the user runs to execute the workflow. This is not the full prompt text — it's the structural skeleton Build expands into the orchestrator. Build derives full step content from the Workflow Requirements' Step Details.
 
@@ -681,7 +703,9 @@ For each Build Output tagged `New skill: SN` above:
 | **Depends On** | [other skill IDs (S2, S3) or artifacts that must exist first, or "None"] |
 | **Stateful?** | Yes / No — does the skill maintain state across invocations? Drives Memory building-block decisions. |
 
-## Agent Configuration (mandatory when orchestration = Agent; otherwise omit)
+## Agent Configuration (include whenever ≥1 sub-agent/agent artifact is defined; otherwise omit)
+
+> Each entry documents a **worker sub-agent the orchestrator dispatches** — not the orchestrator itself. On Claude Code/Cowork the orchestrator is the primary loop (no agent file). If the design has zero sub-agents, omit this section, set `agents: 0`, and capture the orchestration logic in the Deployment Plan.
 
 For each Build Output tagged `New agent: AN` above:
 
@@ -705,9 +729,11 @@ For each Build Output tagged `New agent: AN` above:
 
 ## Multi-Agent Configuration (only when more than one agent is defined)
 
-**Orchestration Pattern:** Supervisor (one agent delegates to others) / Pipeline (agents in sequence) / Parallel (agents run concurrently) / Network (agents call each other peer-to-peer)
+**Orchestration Pattern:** Supervisor (one delegates to others) / Pipeline (agents in sequence) / Parallel (agents run concurrently) / Network (agents call each other peer-to-peer)
 
-**Coordinator:** [Agent ID that coordinates, or "Pattern-based" if no single coordinator]
+> **On Claude Code/Cowork the Supervisor is the primary loop itself — not a generated agent file.** Document the pattern, but the "coordinator" is the orchestration logic (command/`CLAUDE.md` run section), and the entries below are the **worker sub-agents** it dispatches. Prefer **one sub-agent per unit of work** (e.g., per item in a batch) over splitting by function, to keep each unit's transaction atomic and enable parallel fan-out.
+
+**Coordinator:** [Agent ID that coordinates, or "Primary loop (orchestration logic — no agent file)" on Claude Code/Cowork]
 
 **Handoff Contracts:**
 
@@ -769,7 +795,7 @@ Decisions intentionally left for Build to resolve. Build should not need to re-a
 - ✓ / ⚠️ Decomposition table complete with all step IDs from Workflow Requirements
 - ✓ / ⚠️ All Autonomy values use canonical terms (Human / Deterministic / Guided / Autonomous)
 - ✓ / ⚠️ All Integration column entries follow the `block: tool (use/build)` format
-- ✓ / ⚠️ All Build Output values use canonical forms (`New skill: SN` / `Use existing: [name]` / `New agent: AN` / `Inline prompt → Workflow Requirements Step N` / `MCP server: [name]` / `Human (no artifact)`)
+- ✓ / ⚠️ All Build Output values use canonical forms (`New skill: SN` / `Use existing: [name]` / `New agent: AN` / `Inline prompt → Workflow Requirements Step N` / `Handled by orchestrator` [legacy synonym `Handled by agent` accepted] / `MCP server: [name]` / `Human (no artifact)`)
 - ✓ / ⚠️ Packaging value uses a canonical form (`Plugin` / `Standalone Skill` / `Workspace Agent` / `Loose Files`)
 
 ### Skill Candidates
@@ -813,7 +839,7 @@ Before saving the spec, verify every item. If any is missing, go back and add it
 - [ ] Step IDs in the decomposition table match the Step IDs in the Workflow Requirements (Step 1, Step 2, …)
 - [ ] Every step uses canonical autonomy terms: Human / Deterministic / Guided / Autonomous
 - [ ] Every Integration column entry includes the block type, tool name, and use/build tag
-- [ ] Every Build Output value is one of the canonical forms (`New skill: SN`, `Use existing: [name]`, `New agent: AN`, `Inline prompt → Workflow Requirements Step N`, `MCP server: [name]`, `Human (no artifact)`)
+- [ ] Every Build Output value is one of the canonical forms (`New skill: SN`, `Use existing: [name]`, `New agent: AN`, `Inline prompt → Workflow Requirements Step N`, `Handled by orchestrator` [legacy synonym `Handled by agent` accepted], `MCP server: [name]`, `Human (no artifact)`)
 - [ ] Every `New skill: SN` reference has a matching Skill Candidates entry with the SN ID
 - [ ] Every `New agent: AN` reference has a matching Agent Configuration entry with the AN ID
 - [ ] Every Skill Candidate has all 12 fields: ID, Name, Description, Purpose, Covers Steps, Inputs, Outputs, Decision Logic, Failure Modes, Required Tools, Depends On, Stateful?
@@ -832,11 +858,11 @@ Before saving the spec, verify every item. If any is missing, go back and add it
 - [ ] Deferred to Build section lists what Build will resolve at generation time
 - [ ] Self-Test Summary section is present at the end of the spec, with each item marked ✓ (passed) or ⚠️ (issue — described inline)
 
-#### Step 10 — Spec Approval Gate
+#### Step 10 — Spec Approval Gate, then write the file
 
-**This is a hard gate. Do not proceed without explicit approval.**
+**This is a hard gate. Do not write the spec file or proceed without explicit approval.**
 
-Present a summary of the Design Spec:
+Present a summary of the assembled (not-yet-written) Design Spec:
 
 > "Here's the Design Spec summary:
 >
@@ -846,15 +872,18 @@ Present a summary of the Design Spec:
 > - **Integration options:** [count] tools with recommended integration approaches
 > - **Implementation order:** [brief summary]
 >
-> The full spec is saved to `outputs/[workflow-name]-design-spec.md`.
+> The full spec is **ready for approval** — I'll save it to `outputs/[workflow-name]-design-spec.md` once you approve.
 >
-> **Do you approve this spec?** I won't generate any artifacts until you confirm. If you want changes, tell me what to adjust and I'll revise."
+> **Do you approve this spec?** I won't write the file or generate any artifacts until you confirm. If you want changes, tell me what to adjust and I'll revise."
 
-Loop if the user requests changes — revise the spec and re-present for approval.
+If the user requests changes, **revise the assembled content in memory**, re-run the self-test, and re-present — still without writing the file.
 
-After the user approves, instruct them to **exit plan mode** if they entered it at the start of Design:
+**Only after explicit approval:**
+1. **Write the spec** to `outputs/[workflow-name]-design-spec.md`. (In Claude Code, this is the point where the user exits plan mode so the write can happen; in Cowork, write directly.)
+2. Then tell the user:
 
-> "Spec approved. **Exit plan mode now** (in Claude Code: `shift+tab` or `/plan`) so artifacts can be generated in the Build phase."
+> - **Claude Code:** "Spec approved and saved to `outputs/[workflow-name]-design-spec.md`. If you're in plan mode, **exit now** (`shift+tab` or `/plan`) so the Build phase can generate artifacts."
+> - **Cowork:** "Spec approved and saved to `outputs/[workflow-name]-design-spec.md`."
 >
 > "To build the workflow, run the `build` skill (Step 4) (or say *'Build the workflow from my Design Spec'*)."
 
@@ -867,6 +896,8 @@ When the Workflow Requirements has `Definition Type: Outcome-Driven`, the follow
 **Step 4 (Autonomy Assessment):** State as fact: "This is an outcome-driven workflow — autonomy is **Autonomous** by definition. The agent system determines its own execution path."
 
 **Step 5 (Orchestration Mechanism):** State as fact: "Orchestration is **Agent**." Still determine the involvement mode (Augmented/Automated) from the definition's Human Gates section and trigger type. Still ask the platform sub-choice if the platform has multiple agent offerings.
+
+**On Claude Code/Cowork, "Agent" mechanism does NOT mean "build an orchestrator agent file."** It means the workflow is driven by an agentic loop — and that loop is the **primary session**. The artifacts you produce are the orchestration logic (command/`CLAUDE.md` run section) plus the **sub-agent(s)** the primary loop dispatches (see "Who is the orchestrator?" in Step 5). Carry this into Capability Domain Mapping and Agent Configuration below.
 
 **Step 6 (Classify Each Step) → Capability Domain Mapping:** Replace per-step classification with capability domain mapping.
 
@@ -882,7 +913,9 @@ Same Integration Discovery and Skill Discovery processes apply, operating on cap
 
 **Step 7 (Skill Candidates):** Same field structure — identify which capability domains should become skills. Each skill candidate uses the full 12-field Skill Candidate block (with Covers Domains in place of Covers Steps).
 
-**Step 8 (Agent Configuration):** This becomes the primary section. Agent Configuration is **mandatory** (not optional) for outcome-driven workflows. Document the agent(s) with all 13 standard fields, drawing Description, Mission, Responsibilities, Output Format, and Constraints from the Workflow Requirements' Outcome, Rules & Constraints, and Acceptance Criteria.
+**Step 8 (Agent Configuration):** This is usually the primary blueprint section. Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** — the workers — using all 13 standard fields, drawing Description, Mission, Responsibilities, Output Format, and Constraints from the Workflow Requirements' Outcome, Rules & Constraints, and Acceptance Criteria.
+
+**Mandatory-but-with-an-exception:** document at least one agent **whenever the design includes a sub-agent/agent artifact** (the common case). A valid outcome-driven design on a primary-loop platform (Claude Code/Cowork) may have **zero sub-agents** — just orchestration logic (command/`CLAUDE.md` run section) + skills. In that case record `agents: 0` in the frontmatter counts and document the orchestration logic in the Deployment Plan / Orchestrator notes instead — **do not invent a sub-agent to satisfy the field.** Never document the orchestrator (the primary loop) as an agent artifact.
 
 **Step 8b (Verify Evaluation Inputs):** Same as step-decomposed — confirm Acceptance Criteria and Example Scenarios in the Workflow Requirements are complete; do not duplicate.
 
@@ -900,22 +933,22 @@ Replace the `## Step-by-Step Decomposition` section with:
 | Domain | Description | Integration (use/build) | Intelligence | Build Output |
 |--------|-------------|------------------------|--------------|--------------|
 
-**Build Output values:** Same canonical forms as the step-decomposed table (`New skill: SN`, `Use existing: [name]`, `New agent: AN`, etc.). For outcome-driven workflows, expect most domains to map to either `New skill: SN` (if the agent should delegate to a reusable skill) or `Handled by agent` (if the agent handles the domain inline with its own instructions).
+**Build Output values:** Same canonical forms as the step-decomposed table (`New skill: SN`, `Use existing: [name]`, `New agent: AN`, etc.). For outcome-driven workflows, expect most domains to map to either `New skill: SN` (the orchestrator/sub-agent delegates to a reusable skill) or `Handled by orchestrator` (the orchestrating primary loop — or a deployed agent on SDK platforms — handles the domain inline via its own instructions; legacy synonym: `Handled by agent`).
 
 ### Autonomy Statement
 
 This is an outcome-driven workflow. Autonomy is Autonomous — the agent system determines its own execution path based on the Outcome, Inputs, Rules & Constraints, and Acceptance Criteria defined in the Workflow Requirements.
 ```
 
-Skill Candidates use the same 12-field block (with `Covers Domains` instead of `Covers Steps`). Agent Configuration is **mandatory** for outcome-driven specs.
+Skill Candidates use the same 12-field block (with `Covers Domains` instead of `Covers Steps`). Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** and is included whenever the design has ≥1 sub-agent (the common case). A primary-loop design with **zero sub-agents** (orchestration logic + skills only) is valid: set `agents: 0` and document the orchestration logic in the Deployment Plan instead. Never document the primary-loop orchestrator as an agent artifact.
 
 **Build Skill Needs Checklist modifications for outcome-driven:**
 
 Use the full step-decomposed checklist with these substitutions:
 - Replace "Step-by-Step Decomposition" with "Capability Domain Mapping"
 - Replace "Step IDs match Workflow Requirements Step IDs" with "Capability Domains are derived from Workflow Requirements (not restated from a section that doesn't exist there)"
-- Replace "Inline prompt → Workflow Requirements Step N" Build Output value with "Handled by agent"
-- Agent Configuration is mandatory (not optional)
+- Replace "Inline prompt → Workflow Requirements Step N" Build Output value with "Handled by orchestrator" (accept legacy "Handled by agent" as a synonym)
+- Agent Configuration is included whenever ≥1 sub-agent is defined; a zero-sub-agent design (orchestration logic + skills only) is valid with `agents: 0`. Never document the primary-loop orchestrator as an agent.
 
 All other checklist items apply unchanged.
 
@@ -931,11 +964,11 @@ The spec is organized into three layered groups:
 
 - **Layer 1 — Architecture:** Execution Pattern, Architecture Decisions (with Packaging), Autonomy Spectrum Summary, Integration Options (with Source URLs), Model Recommendation (with per-platform mapping)
 - **Layer 2 — Decomposition:** Step-by-Step Decomposition (with Build Output column) — or Capability Domain Mapping for outcome-driven — Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Prompt), Data Readiness Summary, Recommended Implementation Order
-- **Layer 3 — Component Blueprints:** Skill Candidates (12 fields each), Agent Configuration (optional, mandatory for outcome-driven; 13 fields each), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan
+- **Layer 3 — Component Blueprints:** Skill Candidates (12 fields each), Agent Configuration (included whenever ≥1 sub-agent is defined — the common case for Agent/outcome-driven; documents the worker sub-agent(s), never the primary-loop orchestrator; 13 fields each), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan
 
 **Cross-layer sections:** Evaluation Inputs (pointer to Workflow Requirements), Deferred to Build, Stakeholders (optional), Self-Test Summary (results of the Build Skill Needs Checklist).
 
-For outcome-driven workflows: Step-by-Step Decomposition is replaced by Capability Domain Mapping; Autonomy Spectrum Summary is replaced by an Autonomy Statement; Orchestrator Prompt Outline is omitted (the agent IS the orchestrator); Agent Configuration is mandatory.
+For outcome-driven workflows: Step-by-Step Decomposition is replaced by Capability Domain Mapping; Autonomy Spectrum Summary is replaced by an Autonomy Statement; Orchestrator Prompt Outline is omitted (on Claude Code/Cowork the **primary loop is the orchestrator** — captured as orchestration logic, not an agent file); Agent Configuration documents the worker sub-agent(s) and is included whenever ≥1 is defined (a zero-sub-agent design — orchestration logic + skills only — is valid with `agents: 0`).
 
 ## Guidelines
 

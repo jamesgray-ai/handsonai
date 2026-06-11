@@ -29,6 +29,12 @@ Step 2 has **two paths**, mapped directly to the two ways students think about a
 
 Both paths produce a Workflow Requirements document with the same shared shell — only the middle "what does the workflow do" block differs.
 
+**Which path? (quick heuristic — share this with the user when they're unsure):**
+- Choose **Step-decomposed** if the work runs **the same way each time** and you can list the steps in order.
+- Choose **Outcome-driven** if the **path varies by input** and you'd rather define what "done" looks like plus the rules, and let the agent figure out the steps at runtime.
+
+Worked one-liners: *"Generate my weekly status report from the same three sources"* → step-decomposed (fixed steps). *"Triage whatever lands in my inbox and handle each appropriately"* → outcome-driven (the path depends on each item). Getting this right matters: the choice selects the document template the Design step parses, so a wrong pick creates rework downstream.
+
 ## Workflow
 
 1. **Scenario discovery** — Determine how the user is arriving and which path to take.
@@ -61,14 +67,14 @@ Both paths produce a Workflow Requirements document with the same shared shell �
 
 4. **Deep dive (step-decomposed only)** — Before probing the first step, briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
 
-   Work through each step using the 6-question framework. These six dimensions are the **interview scaffold** — they shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Step 10.
+   Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Step 10.
 
    - Discrete steps (is this actually multiple steps?)
    - Decision points (if/then branches, quality gates)
    - Data flows (inputs, outputs, sources, destinations)
    - Context needs (specific documents, files, reference materials)
    - Failure modes (what happens when this step fails)
-   - Context readiness (adopt a data strategist lens for each step's context inputs):
+   - Context readiness (adopt a data strategist lens for each step's context inputs — **sample these probes, don't interrogate: ask the one or two that matter for this step rather than all four every time**):
      - Access: Where does this context live today? How do you access it — is it in a system with programmatic access (database, cloud app, shared drive), or does it require manual steps (logging in, copy-pasting, reading from a screen)?
      - Interpretability: Is the context in a format AI can process? (Structured: database tables, spreadsheets, JSON. Semi-structured: emails, documents with consistent formatting. Unstructured: handwritten notes, images, proprietary formats.)
      - Persistence: Does this context need to exist as a durable artifact that AI can access across workflow runs? If it's currently "in someone's head" or communicated verbally, flag that it needs to be externalized and stored somewhere AI-accessible.
@@ -135,6 +141,12 @@ Both paths produce a Workflow Requirements document with the same shared shell �
 
 11. **Generate Workflow Requirements** — Produce the structured Workflow Requirements document and write it to the output file. See the **Output** section below for the template, writing style, and machine-readability rules.
 
+    **Self-check before finishing (so Design can parse it).** After writing, verify the file against the machine-readability rules and fix any miss before handing off:
+    - Filename is kebab-case: `outputs/[workflow-name]-requirements.md` (e.g., "Inbound Lead Triage" → `inbound-lead-triage-requirements.md`).
+    - All required headings are present and **exactly named** (no synonyms): Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-decomposed; Inputs + Rules & Constraints for outcome-driven).
+    - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps `1,2,3…`; context `C1,C2…`; scenarios `E1,E2…`).
+    - If anything is off, fix it before telling the user it's ready.
+
 ### Outcome-Driven Path (Step 4-OD)
 
 When the user selects outcome-driven, run this interview instead of the step-decomposed deep dive (Steps 4–8). The outcome-driven path handles context discovery internally (question 7), so it skips straight to Step 9 (Consolidate Context) → Step 10 (Acceptance Criteria) → Step 11 (Generate) after the interview. Same interview principles apply: one question at a time, propose-and-react after the first few answers, push beyond vague answers.
@@ -143,7 +155,7 @@ When the user selects outcome-driven, run this interview instead of the step-dec
 2. **Inputs**: "What does the agent system receive to start? What triggers the work, and what materials does it have access to?"
 3. **Acceptance signals**: "What does the deliverable need to demonstrate to be considered 'good'? Examples or anti-examples are great here." (This feeds the Acceptance Criteria; Step 10 will sharpen it further.)
 4. **Rules & Constraints**: "What boundaries or guardrails apply? Things the agent must always do, must never do, or limits on scope, sources, tone, length."
-5. **Context & Data Sources**: "What external systems, data sources, documents, or reference materials should the agent system have access to?" Apply the same context readiness probing as the step-decomposed path:
+5. **Context & Data Sources**: "What external systems, data sources, documents, or reference materials should the agent system have access to?" Apply the same context readiness probing as the step-decomposed path (sample — ask the one or two probes that matter, don't run all three mechanically):
    - Access: Where does this context live today? Is it in a system with programmatic access (database, cloud app, shared drive), or does it require manual steps (logging in, copy-pasting, reading from a screen)?
    - Interpretability: Is the context in a format AI can process?
    - Persistence: Does this context need to exist as a durable artifact that AI can access across workflow runs?
@@ -152,7 +164,15 @@ When the user selects outcome-driven, run this interview instead of the step-dec
 
 **Do NOT ask about capability domains, agent count, model class, tools, or orchestration approach.** Those are Design decisions. Outcome-driven Deconstruct stays in "what" territory: outcome, inputs, acceptance criteria, rules, context, human gates.
 
-After completing the interview, proceed directly to Step 9 (Consolidate Context) → Step 10 (Acceptance Criteria) → Step 11 (Generate Workflow Requirements) using the outcome-driven output format.
+**Step 8-OD — Validate before consolidating (outcome-driven quality gate).** Step-decomposed has a Step 8 validation gate; outcome-driven needs the equivalent so a vague outcome or missing guardrails doesn't sail through to Design. Walk the definition end-to-end and present a short validation summary covering:
+   - **Outcome is bounded and singular** — one clear deliverable, not a fuzzy aspiration ("help with email" is too vague; "a drafted reply per inbound inquiry" is bounded).
+   - **Rules are sufficient** — must-do and must-never both covered; scope boundaries explicit enough to keep the agent in bounds.
+   - **Context is reachable** — every context/data source named has a known location and an access path (not "it's in my head" or a login-only portal with no plan to bridge it).
+   - **Human gates are defined** — it's clear where (if anywhere) a human reviews, and that final-review-only is a deliberate choice.
+
+   Present as: "Before I finalize, here's a quick check of your outcome-driven definition: [findings]. Which of these should we tighten?" Update based on the user's answers. If all clear, say so and proceed.
+
+After completing the interview and Step 8-OD, proceed directly to Step 9 (Consolidate Context) → Step 10 (Acceptance Criteria) → Step 11 (Generate Workflow Requirements) using the outcome-driven output format.
 
 ## Output
 
