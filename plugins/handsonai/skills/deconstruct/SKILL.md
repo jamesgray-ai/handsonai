@@ -25,15 +25,17 @@ Step 2 has **two paths**, mapped directly to the two ways students think about a
 | Path | When to use | Mental model |
 |------|-------------|--------------|
 | **Step-decomposed** | You can describe how the work gets done | "I know the steps" |
-| **Outcome-driven** | You know what "done" looks like but the path varies; you want an agent system to figure it out at runtime | "I know the outcome" |
+| **Outcome-driven** | You know what "done" looks like, but the work takes different steps depending on what comes in — so you want an agent system to figure out the steps at runtime | "I know the outcome" |
 
 Both paths produce a Workflow Requirements document with the same shared shell — only the middle "what does the workflow do" block differs.
 
-**Which path? (quick heuristic — share this with the user when they're unsure):**
-- Choose **Step-decomposed** if the work runs **the same way each time** and you can list the steps in order.
-- Choose **Outcome-driven** if the **path varies by input** and you'd rather define what "done" looks like plus the rules, and let the agent figure out the steps at runtime.
+**What "outcome" means here.** The outcome is the **bounded result a single run produces** — the deliverable plus the rules and acceptance criteria for it — *not* a business goal or an impact metric ("reduce churn" is a goal; "a drafted retention email per at-risk customer" is an outcome). The defining trait of this path is **who owns the control flow**: the agent decides the *path* to the result at runtime, while you own the *definition* of the result. Note the inverse doesn't hold — a step-decomposed workflow can still use an agent for an individual step; what makes a workflow outcome-driven is that the agent decides the overall sequence, not merely that agents are involved.
 
-Worked one-liners: *"Generate my weekly status report from the same three sources"* → step-decomposed (fixed steps). *"Triage whatever lands in my inbox and handle each appropriately"* → outcome-driven (the path depends on each item). Getting this right matters: the choice selects the document template the Design step parses, so a wrong pick creates rework downstream.
+**Which path? (quick heuristic — share this with the user when they're unsure).** The test: *imagine two different inputs — would the work take noticeably different steps?*
+- Choose **Step-decomposed** if the work runs **the same way each time** — same steps regardless of the input — and you can list those steps in order.
+- Choose **Outcome-driven** if the work **takes different steps depending on what comes in**, and you'd rather define what "done" looks like plus the rules and let the agent figure out the steps at runtime.
+
+Worked example: *"Generate my weekly status report from the same three sources"* → step-decomposed (same recipe every run). *"Triage whatever lands in my inbox and handle each appropriately"* → outcome-driven (a refund request, a partnership pitch, and spam each take a completely different sequence of steps). Getting this right matters: the choice selects the document template the Design step parses, so a wrong pick creates rework downstream.
 
 ## Workflow
 
@@ -43,9 +45,9 @@ Worked one-liners: *"Generate my weekly status report from the same three source
 
    **Cold entry (no Analyze output)**: Ask one question:
 
-   > "Do you know the steps, or just the outcome?
-   > - **Step-decomposed** — You can describe how the work gets done. I'll interview you to refine the steps and surface decision rules and edge cases.
-   > - **Outcome-driven** — You know what "done" looks like but want an agent system to figure out the steps. I'll capture the outcome, inputs, acceptance criteria, and rules."
+   > "Do you know the steps, or just the outcome? (Quick test: imagine two different inputs — would the work take the same steps, or different steps?)
+   > - **Step-decomposed** — The work runs the same way each time and you can describe how it gets done. I'll interview you to refine the steps and surface decision rules and edge cases.
+   > - **Outcome-driven** — You know what "done" looks like, but the work takes different steps depending on what comes in, so you want an agent system to figure out the steps. I'll capture the outcome, inputs, acceptance criteria, and rules."
 
    **Problem-first handling (no separate path)**: If the user says they don't have a process *or* an outcome — just a problem ("People drop off during onboarding and I don't have a way to follow up") — propose a candidate workflow based on what they describe, then route into one of the two paths:
    > "Here's a candidate workflow that would solve this: [outline]. Do you want to refine these steps with me (step-decomposed), or just describe the outcome and let an agent figure out the steps (outcome-driven)?"
@@ -134,13 +136,13 @@ Worked one-liners: *"Generate my weekly status report from the same three source
 10. **Collect Acceptance Criteria and Example Scenarios (both paths)** — Before generating the Workflow Requirements, ask the user about acceptance criteria and example scenarios. These were previously collected during Design's Step 8b; capturing them here makes Step 2 a complete PRD and removes redundant questioning downstream.
 
     Ask, one at a time:
-    1. "What does great output from this workflow look like? Describe what would make you say 'this is exactly right.'"
+    1. "What does great output from this workflow look like? Describe what would make you say 'this is exactly right.' Examples or anti-examples are both useful here."
     2. "Which dimensions matter most? For example: accuracy, completeness, tone, specificity, timeliness, format consistency."
     3. "What's your minimum bar — what's acceptable vs. what needs more work?"
     4. "Give me 3-5 real or realistic scenarios you'd run this on — different enough to test the workflow's range. For each, briefly describe the input and what you'd look for in the output."
     5. "For any of those scenarios, do you have a **golden example** — a real past output (or excerpt) you'd consider 'exactly right' for that input?" Golden examples turn Test (Step 5) from gut-feel scoring into comparison against a known-good reference. Don't push if none exist — but if the user produces this output today, a recent good one usually does. If a golden example is a document, add it to the Context Inventory and reference its ID.
 
-    For outcome-driven workflows, these answers also inform the Acceptance Criteria built up in Step 4-OD — fold them together rather than asking twice.
+    For outcome-driven workflows, Step 4-OD does **not** pre-collect acceptance criteria — this step is the single place acceptance is captured, so ask the questions here directly. For question 4, **harvest the scenarios from the variation envelope** gathered in Step 4-OD (the typical and edge cases the user already described) — confirm and fill gaps rather than re-eliciting from scratch.
 
 11. **Generate Workflow Requirements** — Produce the structured Workflow Requirements document and write it to the output file. See the **Output** section below for the template, writing style, and machine-readability rules.
 
@@ -152,24 +154,31 @@ Worked one-liners: *"Generate my weekly status report from the same three source
 
 ### Outcome-Driven Path (Step 4-OD)
 
-When the user selects outcome-driven, run this interview instead of the step-decomposed deep dive (Steps 4–8). The outcome-driven path handles context discovery internally (question 7), so it skips straight to Step 9 (Consolidate Context) → Step 10 (Acceptance Criteria) → Step 11 (Generate) after the interview. Same interview principles apply: one question at a time, propose-and-react after the first few answers, push beyond vague answers.
+When the user selects outcome-driven, run this interview instead of the step-decomposed deep dive (Steps 4–8). The outcome-driven path handles context discovery internally (question 6, Context & Data Sources), so it skips straight to Step 9 (Consolidate Context) → Step 10 (Acceptance Criteria) → Step 11 (Generate) after the interview. Same interview principles apply: one question at a time, propose-and-react after the first few answers, push beyond vague answers. If scenario discovery (Step 1) already captured the outcome, trigger, or consumer, build on those answers — confirm and deepen rather than re-asking from scratch.
 
-1. **Outcome**: "What does a successful run produce? Describe the deliverable — format, structure, scope."
-2. **Inputs**: "What does the agent system receive to start? What triggers the work, and what materials does it have access to?"
-3. **Acceptance signals**: "What does the deliverable need to demonstrate to be considered 'good'? Examples or anti-examples are great here." (This feeds the Acceptance Criteria; Step 10 will sharpen it further.)
+**Open with a frame** so the user knows what this path asks of them (parallel to the context frame the step-decomposed path opens with):
+
+> "This path is for when you know what you want but not the exact steps — you don't need to map anything out. Just tell me what 'done' looks like and the rules it has to follow, and I'll handle the structure. Let's start with the result you're after."
+
+1. **Outcome (natural, then reflect back)**: Lead with plain language — don't make the user produce a spec. Ask: "Describe what you want out of this. When it works well, what do you walk away with? Talk like you're describing it to a colleague — don't worry about being precise." Then **reflect back a structured restatement** that covers all three of **format, structure, and scope** — plus who consumes it — and confirm: "So the deliverable is roughly [restatement]. Did I get that right, or what's off?" The reflect-back is where the rigor lives; don't drop any of format/structure/scope. If the user struggles, offer a vague-vs-sharp calibration example (e.g., "'Help me with competitor stuff' is a start — what I'm after is more like 'a 2–3 page weekly markdown report on our top 5 competitors' moves'").
+2. **Variation envelope**: "This works as outcome-driven because the work takes different steps depending on what comes in. What's the range it needs to handle? Give me the typical case, and a couple of the awkward or harder ones." These answers become the Example Scenarios in Step 10 — capture them now and harvest them there; don't re-elicit scenarios later.
+3. **Inputs**: "What kicks it off, and what does the agent system get to work with — data, documents, access?"
 4. **Rules & Constraints**: "What boundaries or guardrails apply? Things the agent must always do, must never do, or limits on scope, sources, tone, length."
-5. **Context & Data Sources**: "What external systems, data sources, documents, or reference materials should the agent system have access to?" Apply the same context readiness probing as the step-decomposed path (sample — ask the one or two probes that matter, don't run all three mechanically):
+5. **Fallback behavior**: "When it hits a case it can't confidently handle — missing info, something ambiguous — what should it do? Stop and ask you, make its best attempt and flag it, or skip that item?" This is the agent's behavior on *unplanned* exceptions — distinct from the *planned* pauses captured under Human gates. Record it under Rules & Constraints in the output. If the answer is "stop and ask," also capture it as a Human Gate (question 7) so the pause appears where Design looks for review points.
+6. **Context & Data Sources**: "What external systems, data sources, documents, or reference materials should the agent system have access to?" Apply the same context readiness probing as the step-decomposed path (sample — ask the one or two probes that matter, don't run all three mechanically):
    - Access: Where does this context live today? Is it in a system with programmatic access (database, cloud app, shared drive), or does it require manual steps (logging in, copy-pasting, reading from a screen)?
    - Interpretability: Is the context in a format AI can process?
    - Persistence: Does this context need to exist as a durable artifact that AI can access across workflow runs?
-6. **Human gates**: "Where should the agent system pause for human review? Or run end-to-end with final review only?"
-7. **Scope check**: Same one-trigger-one-deliverable test as Step 2 — confirm the outcome hasn't expanded into multiple workflows.
+7. **Human gates**: "Where should the agent system pause for human review? Or run end-to-end with final review only?"
+8. **Scope check**: Same one-trigger-one-deliverable test as Step 2 — confirm the outcome hasn't expanded into multiple workflows.
 
 **Do NOT ask about capability domains, agent count, model class, tools, or orchestration approach.** Those are Design decisions. Outcome-driven Deconstruct stays in "what" territory: outcome, inputs, acceptance criteria, rules, context, human gates.
 
 **Step 8-OD — Validate before consolidating (outcome-driven quality gate).** Step-decomposed has a Step 8 validation gate; outcome-driven needs the equivalent so a vague outcome or missing guardrails doesn't sail through to Design. Walk the definition end-to-end and present a short validation summary covering:
    - **Outcome is bounded and singular** — one clear deliverable, not a fuzzy aspiration ("help with email" is too vague; "a drafted reply per inbound inquiry" is bounded).
+   - **Variation range is captured** — the typical case and the awkward/edge cases are identified (these become the test scenarios in Step 10).
    - **Rules are sufficient** — must-do and must-never both covered; scope boundaries explicit enough to keep the agent in bounds.
+   - **Fallback behavior is defined** — it's clear what the agent does when it can't confidently complete a case.
    - **Context is reachable** — every context/data source named has a known location and an access path (not "it's in my head" or a login-only portal with no plan to bridge it).
    - **Human gates are defined** — it's clear where (if anywhere) a human reviews, and that final-review-only is a deliberate choice.
 
@@ -357,9 +366,10 @@ Insert between the Metadata table and the Context Inventory (omit Steps Overview
 - **Scope boundaries:** [what's in scope, what's out]
 - **Tone / format / length:** [if applicable]
 - **Source restrictions:** [if applicable]
+- **Fallback behavior:** [what the agent does when it can't confidently complete a case — stop and ask, best-effort and flag, or skip]
 ```
 
-The Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates sections from the shared shell still apply — outcome-driven uses the same shell, just a different middle.
+The Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates sections from the shared shell still apply — outcome-driven uses the same shell, just a different middle. The **Example Scenarios should reflect the variation envelope** captured in Step 4-OD: the typical case plus the awkward/edge cases the agent must handle.
 
 ## Guidelines
 

@@ -37,7 +37,13 @@ Step 2 presents one question upfront: **do you know the steps, or just the outco
 | Path | When to use | Mental model |
 |---|---|---|
 | **Step-decomposed** | You can describe how the work gets done | "I know the steps" |
-| **Outcome-driven** | You know what "done" looks like but the path varies; you want an agent system to figure it out at runtime | "I know the outcome" |
+| **Outcome-driven** | You know what "done" looks like, but the work takes different steps depending on what comes in — you want an agent system to figure out the steps at runtime | "I know the outcome" |
+
+**Not sure which?** Imagine two different inputs and ask: *would the work take noticeably different steps?* If it runs the same way every time, it's step-decomposed. If the steps change depending on what comes in — a refund request, a partnership pitch, and a spam message each handled differently — it's outcome-driven.
+
+:::note[What "outcome" means here]
+The outcome is the **bounded result a single run produces** — the deliverable plus its rules and acceptance criteria — not a business goal or impact metric. ("Reduce churn" is a goal; "a drafted retention email per at-risk customer" is an outcome.) What makes a workflow outcome-driven is that **the agent decides the path** to that result at runtime — not simply that agents are involved. A step-decomposed workflow can still use an agent for an individual step; it's outcome-driven only when the agent owns the overall sequence.
+:::
 
 Both paths produce a Workflow Requirements document with the same shared structure — only the middle "what does the workflow do" block differs.
 
@@ -45,16 +51,33 @@ Both paths produce a Workflow Requirements document with the same shared structu
 
 ## How the Skill Works
 
-The skill runs eight phases. Phases 1–3 establish what you're deconstructing; phase 4 onward is the deep dive on each step:
+Phases 1–3 establish *what* you're deconstructing and are the same for both paths. From phase 4 on, the skill follows the path you picked.
+
+**Phases 1–3 (both paths):**
 
 1. **Scenario analysis** — If you reference an opportunity report from Analyze, the skill reads the workflow candidates and pre-populates metadata. Otherwise it asks about the business scenario, objective, high-level steps, and ownership. If you describe a problem instead of a workflow, the skill proposes a candidate workflow for you to react to.
 2. **Scope check** — Is this one workflow or multiple bundled together? If multiple, the skill recommends splitting and asks which to start with.
 3. **Name the workflow** — The skill proposes 2–3 name options (2–4 word noun phrases, Title Case) and confirms name, description, outcome, trigger, and type.
+
+**Step-decomposed (phase 4 on):**
+
 4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, context needs, failure modes, data readiness.
 5. **Propose and react** — From step 4 onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
-6. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
-7. **Consolidate context** — Present a rolled-up "context shopping list" of every artifact the workflow needs.
-8. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
+6. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
+7. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
+8. **Validate** — Walk the refined workflow end-to-end to catch gaps before Design.
+
+**Outcome-driven (phase 4 on):** Instead of decomposing steps, the skill runs a short interview that stays in "what" territory:
+
+4. **Outcome** — You describe what you want in plain language ("like you'd tell a colleague"); the skill reflects back a structured deliverable (format, structure, scope) and confirms.
+5. **Variation, inputs, rules, fallback, context, human gates** — The skill captures the range of situations to handle, what the agent receives, the guardrails, what to do when it's stuck, the data sources, and where to pause for review.
+6. **Validate** — A quality gate checks the outcome is bounded, the variation range and fallback behavior are defined, the rules are sufficient, and the context is reachable.
+
+**Both paths converge (final phases):**
+
+- **Consolidate context** — Present a rolled-up "context shopping list" of every artifact the workflow needs.
+- **Acceptance criteria & example scenarios** — Capture what good output looks like and 3–5 representative scenarios to test against.
+- **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
 
 ## How to Use This
 
@@ -92,9 +115,9 @@ Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-
 
 After you start the conversation, the model asks you to choose a path. If you pick step-decomposed, here's what the opening looks like:
 
-> **Model:** Do you know the steps, or just the outcome?
-> - **Step-decomposed** — You can describe how the work gets done.
-> - **Outcome-driven** — You know what "done" looks like but want an agent system to figure out the steps.
+> **Model:** Do you know the steps, or just the outcome? (Quick test: imagine two different inputs — would the work take the same steps, or different steps?)
+> - **Step-decomposed** — The work runs the same way each time and you can describe how it gets done.
+> - **Outcome-driven** — You know what "done" looks like, but the work takes different steps depending on what comes in, so an agent figures out the steps.
 >
 > **You:** Step-decomposed. I research LinkedIn prospects before sales outreach. The goal is to find people who'd be a good fit for our AI training programs, understand their background, and write personalized outreach messages.
 >
@@ -106,19 +129,21 @@ From there, the model takes your rough steps and systematically breaks each one 
 
 ### Example: Outcome-driven path
 
-If you pick outcome-driven, the model captures the outcome, inputs, acceptance criteria, and rules — without prescribing steps:
+If you pick outcome-driven, you don't need to map anything out. You describe what you want in plain language, and the model does the structuring — reflecting back a crisp deliverable for you to confirm:
 
-> **You:** Outcome-driven. I want a competitive analysis report produced weekly. I don't want to prescribe how the agent researches or structures it.
+> **Model:** This path is for when you know what you want but not the exact steps — you don't need to map anything out. Just tell me what "done" looks like and the rules it has to follow. Describe what you want out of this, like you're telling a colleague.
 >
-> **Model:** Got it. What does a successful run produce? Describe the deliverable — format, structure, scope.
+> **You:** I want a competitive analysis report every week so I'm not caught off guard by what our competitors are doing.
 >
-> **You:** A 2-3 page report covering our top 5 competitors — what they shipped, pricing changes, new messaging, and any strategic moves. Formatted as a markdown doc with an executive summary at the top.
+> **Model:** So the deliverable is roughly a weekly competitive analysis brief — a markdown doc, a couple of pages, with an executive summary up top and a section per competitor covering what they shipped, pricing, and messaging — for you to read before the week starts. Did I get that right, or what's off?
 >
-> **Model:** Clear. What does the agent system receive to start? What triggers the work, and what materials does it have access to?
+> **You:** Yes, top 5 competitors, and add any strategic moves like funding or leadership changes.
 >
-> **You:** It runs every Monday morning. It has access to our competitor list (a shared doc with URLs), our product positioning doc, and the web.
+> **Model:** Got it. This works as outcome-driven because the work takes different steps depending on what's happening that week. What's the range it needs to handle — a typical week, and the harder ones?
+>
+> **You:** Most weeks it's incremental — a feature here, a blog post there. But sometimes a competitor raises funding or rebrands, and that should get more attention.
 
-From there, the model continues through constraints, acceptance criteria, context sources, and human gates — building an outcome-driven Workflow Requirements without decomposing into fixed steps.
+From there, the model continues through inputs, rules, fallback behavior (what to do when a source is unreachable), context sources, and human gates — building an outcome-driven Workflow Requirements without decomposing into fixed steps.
 
 ### Example: Starting with a problem
 
@@ -178,7 +203,7 @@ Most step-decomposed workflows expand from 5-8 rough steps to 12-20 refined step
 **Outcome-driven middle block:**
 
 - **Inputs** — what the agent system receives to start (data, materials, references, access)
-- **Rules & Constraints** — must-do / must-never-do, scope boundaries, guardrails, tone, length limits
+- **Rules & Constraints** — must-do / must-never-do, scope boundaries, guardrails, tone, length limits, and **fallback behavior** (what the agent does when it can't confidently complete a case — stop and ask, best-effort and flag, or skip)
 
 Outcome-driven workflows **don't** capture capability domains, agent count, or orchestration approach — those are Design decisions. Step 2 stays in "what" territory.
 

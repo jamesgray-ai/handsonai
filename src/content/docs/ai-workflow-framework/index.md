@@ -92,7 +92,7 @@ Define *what* the business process does — every step, decision, and handoff �
 Step 2 is the **Product Requirements Document (PRD) for your workflow** — clear requirements, decision rules, and edge cases that feed directly into Design. There are two paths, chosen by one question at the start: *do you know the steps, or just the outcome?*
 
 - **Step-decomposed** — You can describe how the work gets done. The model interviews you to refine the steps and surface decision rules, edge cases, and the context each step needs. Each step is captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context.
-- **Outcome-driven** — You know what "done" looks like but the path varies; you want an agent system to figure it out at runtime. The model captures the outcome, inputs, acceptance criteria, rules, and constraints — without prescribing steps.
+- **Outcome-driven** — You know what "done" looks like, but the work takes different steps depending on what comes in, so you want an agent system to figure out the steps at runtime. The model captures the outcome, inputs, acceptance criteria, rules, and constraints — without prescribing steps.
 
 Don't have either yet? Describe the problem you're trying to solve. The model proposes a candidate workflow and routes you into one of the two paths above.
 
