@@ -1,7 +1,7 @@
 {
   "name": "handsonai",
   "description": "Everything you need to design, build, and document AI workflows. The AI Workflow Framework as executable Claude Code skills, plus an AI registry and feature-spec toolkit.",
-  "version": "4.0.3",
+  "version": "4.1.0",
   "author": {
     "name": "James Gray"
   },
