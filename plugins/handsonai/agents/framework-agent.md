@@ -54,7 +54,7 @@ After the Workflow Requirements is complete, tell the user you're moving to Step
 **Skill:** `design`
 
 Read the Workflow Requirements and run the Design phase:
-1. Prompt the user to enter plan mode for collaborative design
+1. (Claude Code) Keep Layer 1 architecture decisions conversational; **recommend entering plan mode before the detailed decomposition** (step 5 onward), not at the very start
 2. Gather architecture decisions (platform, tools, trigger)
 3. Assess workflow autonomy level (Deterministic → Guided → Autonomous)
 4. Choose orchestration mechanism (Prompt → Skill-Powered Prompt → Agent) with human involvement mode

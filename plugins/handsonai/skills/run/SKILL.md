@@ -119,7 +119,7 @@ Create `outputs/[workflow-name]/runs.md` with a header row, and make "log the ru
 |---|---|---|---|---|
 ```
 
-Tell the user why it's worth ten seconds: when they review this workflow later (Step 7 — Improve), the log is the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself (a skill or agent the AI executes), instruct the generated workflow to append its own log line at the end of each run, so logging costs the user nothing.
+Tell the user why it's worth ten seconds: when they review this workflow later (Step 7 — Improve), the log is the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself (an orchestrator skill or agent the loop executes), Build should already have baked self-logging into the orchestrator artifact (per the spec's Deployment Plan Run Logging requirement) — **verify** it appends a row to `runs.md` at the end of each run. If it doesn't (older spec or pre-logging Build), **add that logging step to the orchestrator artifact now** so it self-logs going forward. Either way, logging then costs the user nothing.
 
 Present the Run Guide directly in the conversation. Also save it to `outputs/[workflow-name]/run-guide.md` so the user has a reference they can follow later or share with teammates. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 6`, `last_updated`, and add `run_guide` and `run_log` under `artifacts`.
 

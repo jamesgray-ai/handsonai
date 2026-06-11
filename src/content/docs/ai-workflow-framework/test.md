@@ -28,6 +28,8 @@ The skill runs seven phases. The sections that follow expand on each:
 6. **Diagnose and fix** — Map problems to building blocks (generic output → context issue, skipped steps → prompt issue, etc.) and identify what to fix in Build.
 7. **Readiness decision** — Ready to deploy? Move to Run. Not ready? Return to Build with specific targets.
 
+The skill introduces the testing vocabulary in plain language as it goes — a *scenario* (E1, E2…) is one realistic test input, the *eval suite* is running the workflow across all of them, and a *baseline* is the saved scorecard you compare against later to catch quality slipping — so you don't need to know the terms in advance.
+
 ## Your First Run
 
 Start with a single test — pick one realistic scenario and run the workflow end to end. This is your smoke test. You are checking the basics:

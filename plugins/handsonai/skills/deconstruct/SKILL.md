@@ -216,6 +216,7 @@ The output reads like a PRD, not an interview transcript. Enforce:
 - **Concrete over abstract.** Name the artifact, the field, the threshold. "Reject submissions over 500 words" — not "Filter out long submissions."
 - **No interview residue.** Drop hedges ("I think", "sometimes", "usually"), narrative connectors ("then the user", "after that"), and meta-commentary about the conversation ("we discussed", "you mentioned").
 - **Self-contained.** A reader who never saw the deconstruct conversation can implement against the document.
+- **Markdown hygiene.** Don't use a bare `~` for "approximately" — two tildes in one paragraph render as `~~strikethrough~~`. Write "approximately"/"about" (e.g., "about 1–2 pages", "150–250 words"), or keep `~` only inside code spans/backticks.
 
 ### Machine-readability rules (MUST follow)
 

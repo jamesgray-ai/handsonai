@@ -36,10 +36,12 @@ The Design phase is collaborative — you plan the architecture together with th
 
 **Collaboration mode — environment-aware:** At the start of Design, set expectations based on where the user is running:
 
-> - **Claude Code (plan mode available):** "The Design phase is collaborative. **Enter plan mode now** (`shift+tab` or `/plan`) so we focus on design without writing any files yet. I'll present the full spec for your approval, and only write `outputs/[name]/design-spec.md` after you approve and exit plan mode."
+> - **Claude Code (plan mode available):** "The Design phase is collaborative. Layer 1 (Architecture) is a quick conversation; **before we start the detailed design work in Layer 2, I'll recommend you enter plan mode** (`shift+tab` or `/plan`) so we plan the spec without writing any files yet. I'll present the full spec for your approval, and only write `outputs/[name]/design-spec.md` after you approve and exit plan mode."
 > - **Cowork (no plan mode):** "The Design phase is collaborative — we'll work through it conversationally. I'll present the full spec for your approval in chat, and only write `outputs/[name]/design-spec.md` once you say go."
 
-Plan mode is the **preferred path where available** (Claude Code); it is **not available in Cowork**, where collaboration is conversational. **Either way, never write the Design Spec file before the user approves it** (see Step 9/10).
+Plan mode is the **preferred path where available** (Claude Code). **Timing: keep Layer 1 conversational, then surface a clear recommendation to enter plan mode before Layer 2** — do not bury it or tell the user to enter plan mode "at the very start." It is **not available in Cowork**, where collaboration is conversational. **Either way, never write the Design Spec file before the user approves it** (see Step 9/10).
+
+**Reviewing the spec in plan mode (Claude Code).** In plan mode the harness carries your plan/spec in a plan file and the user approves it through the plan-approval dialog — so when you reach the approval gate, **also present the full spec content in the conversation** so the user can actually read it. If the user asks "how do I view the plan?", paste the spec inline. Don't leave the spec only in the plan file where the user may not see it.
 
 #### Step 1 — Load Workflow Requirements
 
@@ -190,8 +192,8 @@ If the user pushes back, discuss in plain language — never drop into the inter
 Single-agent vs. multi-agent is an architecture detail decided during Agent Configuration (Step 8) if Agent is selected — not a top-level choice here.
 
 **Who is the orchestrator? (read before designing any Agent workflow.)** On **Claude Code or Cowork — any platform with a primary agentic loop — the primary session IS the orchestrator.** Do **not** design a separate "orchestrator agent" file. What you build are:
-- **Orchestration logic** — captured as a command and/or a `CLAUDE.md` run section the primary loop follows (scan/classify/dispatch/label/summarize, etc.). This is not an "agent" artifact.
-- **Sub-agent(s)** — the workers the primary loop dispatches, one per unit of work (e.g., per item in a batch). Sometimes **zero** sub-agents are needed — the orchestration logic + skills are enough.
+- **Orchestration logic** — captured as an **orchestrator skill** (`disable-model-invocation: true` for a user-triggered workflow; **no `context: fork`** — it must run in the primary loop so it can dispatch sub-agents) and/or a `CLAUDE.md` run section the primary loop follows (scan/classify/dispatch/label/summarize, etc.). This is not an "agent" artifact. **Prefer a skill over a legacy slash command:** custom commands are merged into skills, so a skill still invokes as `/name` but adds portability (agentskills.io), distribution via skill tooling, and a supporting-files directory. **Naming convention:** the orchestrator skill takes the **workflow name**; component/worker artifacts (synthesizers, researchers, etc.) take **capability-specific names** — so the one user-facing entry point never collides with a sub-skill (a same-named skill silently shadows everything else, including any command).
+- **Sub-agent(s)** — the workers the primary loop dispatches, one per unit of work (e.g., per item in a batch). Sometimes **zero** sub-agents are needed — the orchestration logic + skills are enough. **Scope note:** this command→skill change applies to the *orchestrator* only; fan-out workers stay as sub-agents (`.claude/agents/*.md`).
 
 The agent artifacts you generate are always the **workers the orchestrator delegates to**, never the orchestrator itself. Reserve a standalone, self-running "agent" artifact for **SDK platforms** where you deploy the agent process yourself. (This is the single most common design mistake on Claude Code: inventing an orchestrator agent when the primary loop already is one.)
 
@@ -470,7 +472,7 @@ This step only applies to steps tagged **"build new"** in Step 6b. Tag those ste
 | **Tone & Style** | Voice and register (e.g., "concise, technical, no hedging") |
 | **Constraints** | Must-not-dos, scope boundaries, source restrictions |
 | **Model** | Capability tier: reasoning-heavy / fast / vision |
-| **Memory Scope** | user / project / local / none — cross-session learning scope |
+| **Memory Scope** | user / project / local / none — cross-session learning scope. **Heuristic:** default `none`; choose memory only when the workflow genuinely benefits from cross-run state (tracking an entity over time, learned user preferences). **Avoid memory for research/freshness workflows** — stale recall becomes a liability when each run should re-gather current data. When the "learning" should be human-visible/editable, prefer a curated **context file** over opaque agent memory. |
 | **Tools** | External tools the agent needs (reference Integration Options entries by tool name) |
 | **Skills** | Skill IDs the agent has access to (S1, S2, …) |
 | **Trigger Examples** | 2-3 structured examples (context → user message → expected behavior → invocation) — Build uses these verbatim as `<example>` blocks in the description |

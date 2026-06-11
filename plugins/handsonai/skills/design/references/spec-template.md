@@ -10,6 +10,8 @@ This file is the **only** source of the Design Spec's structure. The exact secti
 
 For **outcome-driven** workflows, apply the template substitutions in `references/outcome-driven-path.md` (Capability Domain Mapping replaces Step-by-Step Decomposition; Autonomy Statement replaces Autonomy Spectrum Summary; Orchestrator Prompt Outline is omitted).
 
+**Markdown hygiene when filling this template:** don't use a bare `~` for "approximately" — two tildes in one paragraph render as `~~strikethrough~~`. Write "approximately"/"about" (or keep `~` only inside code spans/backticks).
+
 ---
 
 ```markdown
@@ -245,7 +247,7 @@ For each Build Output tagged `New agent: AN` above:
 | **Tone & Style** | [voice/register, e.g., "concise, technical, no hedging"] |
 | **Constraints** | [must-not-dos, scope boundaries, source restrictions] |
 | **Model** | [capability tier: reasoning-heavy / fast / vision] |
-| **Memory Scope** | user / project / local / none — controls cross-session learning (Claude Code agent format supports this; on other platforms, document the equivalent) |
+| **Memory Scope** | user / project / local / none — controls cross-session learning (Claude Code agent format supports this; on other platforms, document the equivalent). **Heuristic:** default `none`; use memory only for genuine cross-run state (tracking an entity over time, learned user preferences); **avoid it for research/freshness workflows** where stale recall misleads; when the "learning" should be human-visible/editable, prefer a curated **context file** over opaque memory. |
 | **Tools** | [external tools needed — reference Integration Options entries by tool name] |
 | **Skills** | [Skill IDs the agent has access to — S1, S2, …] |
 | **Trigger Examples** | [2-3 structured examples, each: context → user message → expected agent behavior → invocation. Build uses these verbatim to construct the `<example>` blocks in the agent's description field.] |
@@ -254,7 +256,7 @@ For each Build Output tagged `New agent: AN` above:
 
 **Orchestration Pattern:** Supervisor (one delegates to others) / Pipeline (agents in sequence) / Parallel (agents run concurrently) / Network (agents call each other peer-to-peer)
 
-> **On Claude Code/Cowork the Supervisor is the primary loop itself — not a generated agent file.** Document the pattern, but the "coordinator" is the orchestration logic (command/`CLAUDE.md` run section), and the entries below are the **worker sub-agents** it dispatches. Prefer **one sub-agent per unit of work** (e.g., per item in a batch) over splitting by function, to keep each unit's transaction atomic and enable parallel fan-out.
+> **On Claude Code/Cowork the Supervisor is the primary loop itself — not a generated agent file.** Document the pattern, but the "coordinator" is the orchestration logic (an orchestrator skill / `CLAUDE.md` run section), and the entries below are the **worker sub-agents** it dispatches. Prefer **one sub-agent per unit of work** (e.g., per item in a batch) over splitting by function, to keep each unit's transaction atomic and enable parallel fan-out.
 
 **Coordinator:** [Agent ID that coordinates, or "Primary loop (orchestration logic — no agent file)" on Claude Code/Cowork]
 
@@ -281,6 +283,10 @@ For each artifact produced, document where it lives and how it gets deployed:
 | MCP: [tool] | [where the config lives] | [install/auth steps] |
 
 **Packaging note:** [How the artifacts ship together based on the Packaging decision — e.g., "All S1–S3 + A1 bundle into a plugin in the user's marketplace fork"; "Each skill uploaded individually to Claude.ai"; "All instructions consolidated into one GPT's instructions field"]
+
+**Orchestrator artifact (primary-loop platforms):** the user-triggered entry point is an orchestrator **skill** (`disable-model-invocation: true`, no `context: fork`), not a slash command (custom commands are merged into skills). It takes the **workflow name**; component/worker artifacts take **capability-specific names** so the entry point never shadows a sub-skill.
+
+**Run Logging:** If the workflow runs on-platform (an orchestrator skill or agent the agentic loop executes), the orchestrator appends one row to `outputs/[workflow-name]/runs.md` at the end of every run — date, input/trigger, outcome, edits-needed — creating the file with its header if absent. Build bakes this into the orchestrator artifact.
 
 **Recommended for frequent use:** [recommendation, e.g., "Save as Claude Project for one-click reuse"]
 

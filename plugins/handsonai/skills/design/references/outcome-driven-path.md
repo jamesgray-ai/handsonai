@@ -8,11 +8,16 @@ When the Workflow Requirements has `Definition Type: Outcome-Driven`, the follow
 
 **Step 5 (Orchestration Mechanism):** State as fact: "Orchestration is **Agent**." Still determine the involvement mode (Augmented/Automated) from the definition's Human Gates section and trigger type. Still ask the platform sub-choice if the platform has multiple agent offerings.
 
-**On Claude Code/Cowork, "Agent" mechanism does NOT mean "build an orchestrator agent file."** It means the workflow is driven by an agentic loop — and that loop is the **primary session**. The artifacts you produce are the orchestration logic (command/`CLAUDE.md` run section) plus the **sub-agent(s)** the primary loop dispatches (see "Who is the orchestrator?" in Step 5 of the skill). Carry this into Capability Domain Mapping and Agent Configuration below.
+**On Claude Code/Cowork, "Agent" mechanism does NOT mean "build an orchestrator agent file."** It means the workflow is driven by an agentic loop — and that loop is the **primary session**. The artifacts you produce are the orchestration logic (an orchestrator **skill** — `disable-model-invocation: true`, no `context: fork` — and/or a `CLAUDE.md` run section) plus the **sub-agent(s)** the primary loop dispatches (see "Who is the orchestrator?" in Step 5 of the skill). Carry this into Capability Domain Mapping and Agent Configuration below.
 
 **Step 6 (Classify Each Step) → Capability Domain Mapping:** Replace per-step classification with capability domain mapping.
 
 **Important:** Capability Domains are derived by Design — they are **not** captured in the Workflow Requirements (the Workflow Requirements stays in "what" territory; capability decomposition is "how"). Infer capability domains from the Workflow Requirements' Outcome, Inputs, Rules & Constraints, and Acceptance Criteria. Propose them to the user and confirm before mapping.
+
+**What a capability domain is (and isn't).** A capability domain is a **durable capability/competency the agent draws on** (e.g., "section research," "synthesis") — *not* a pipeline stage or a step. Keep domains at a consistent altitude with these rules:
+- **Altitude:** collapse parallel applications of the *same* competency into **one** domain. Researching four report sections is one "section research" domain run as a fan-out — not four domains. Express multiplicity as parallel dispatch, never as separate near-identical rows.
+- **Cardinality:** domain→artifact is many-to-one-or-fan-out — several domains may map to one reusable skill/agent, and one domain may map to a parallel fan-out of a single worker. Capture the fan-out in the Multi-Agent Configuration (Parallel pattern), not as duplicate domain rows pointing at the same agent.
+- **Premise:** domains are **capabilities available to the orchestrator at runtime**, not a fixed sequence it must follow — this preserves the outcome-driven "the agent figures out the path" intent. Listing domains is not the same as fixing the runtime path.
 
 For each derived capability domain:
 
@@ -26,7 +31,7 @@ Same Integration Discovery and Skill Discovery processes apply, operating on cap
 
 **Step 8 (Agent Configuration):** This is usually the primary blueprint section. Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** — the workers — using all 13 standard fields, drawing Description, Mission, Responsibilities, Output Format, and Constraints from the Workflow Requirements' Outcome, Rules & Constraints, and Acceptance Criteria.
 
-**Mandatory-but-with-an-exception:** document at least one agent **whenever the design includes a sub-agent/agent artifact** (the common case). A valid outcome-driven design on a primary-loop platform (Claude Code/Cowork) may have **zero sub-agents** — just orchestration logic (command/`CLAUDE.md` run section) + skills. In that case record `agents: 0` in the frontmatter counts and document the orchestration logic in the Deployment Plan / Orchestrator notes instead — **do not invent a sub-agent to satisfy the field.** Never document the orchestrator (the primary loop) as an agent artifact.
+**Mandatory-but-with-an-exception:** document at least one agent **whenever the design includes a sub-agent/agent artifact** (the common case). A valid outcome-driven design on a primary-loop platform (Claude Code/Cowork) may have **zero sub-agents** — just orchestration logic (an orchestrator skill and/or `CLAUDE.md` run section) + skills. In that case record `agents: 0` in the frontmatter counts and document the orchestration logic in the Deployment Plan / Orchestrator notes instead — **do not invent a sub-agent to satisfy the field.** Never document the orchestrator (the primary loop) as an agent artifact.
 
 **Step 8b (Verify Evaluation Inputs):** Same as step-decomposed — confirm Acceptance Criteria and Example Scenarios in the Workflow Requirements are complete; do not duplicate.
 

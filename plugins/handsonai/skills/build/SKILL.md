@@ -233,7 +233,7 @@ Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capabili
 - `Inline prompt → Workflow Requirements Step N` → fold this step's Goal/Inputs/Outputs/Rules from the Workflow Requirements into the main orchestrator prompt
 - `MCP server: [name]` → configure the connector using the Integration Options entry
 - `Human (no artifact)` → skip; no AI artifact for this step
-- `Handled by orchestrator` (outcome-driven only; legacy synonym `Handled by agent`) → no separate artifact; the capability is covered by the orchestration logic (the primary loop's command/`CLAUDE.md` run section) or a sub-agent's instructions
+- `Handled by orchestrator` (outcome-driven only; legacy synonym `Handled by agent`) → no separate artifact; the capability is covered by the orchestration logic (the primary loop's orchestrator skill / `CLAUDE.md` run section) or a sub-agent's instructions
 
 Apply the spec's **Packaging** decision to group the generated artifacts:
 - **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace)
@@ -242,6 +242,8 @@ Apply the spec's **Packaging** decision to group the generated artifacts:
 - **Loose Files** → write files to platform-appropriate paths; no distribution wrapper
 
 **When mechanism is `Prompt` or `Skill-Powered Prompt`:** read the spec's `Orchestrator Prompt Outline` section as the structural skeleton for the orchestrator prompt. The outline names which step invokes which skill, where PAUSE points sit, and what the user provides at each gate. Expand the outline into the full orchestrator prompt by pulling step content (Goal, Inputs, Outputs, Rules & Edge Cases) from the Workflow Requirements. If the section is absent (older spec or mechanism = Agent), fall back to deriving the orchestrator directly from Workflow Requirements Step Details + Human Gates.
+
+**When mechanism is `Agent` on a primary-loop platform (Claude Code/Cowork):** the primary session is the orchestrator (see Design's "Who is the orchestrator?"). Generate the user-triggered entry point as an **orchestrator skill** — `disable-model-invocation: true`, **no `context: fork`** (it must dispatch sub-agents from the primary loop), invoked as `/name`. Do **not** emit a slash command for this: custom commands are merged into skills, and a same-named skill would silently shadow the command. **Name the orchestrator skill with the workflow name**; give component/worker artifacts (synthesizers, etc.) capability-specific names so the user-facing entry point never collides with a sub-skill. The orchestrator skill's body holds the run sequence (e.g., clarify → dispatch sub-agents → collect → synthesize → save → review) and **ends with the run-logging step**: *if the workflow runs on-platform, the orchestrator appends one row to `outputs/[workflow-name]/runs.md` at the end of every run — date, input/trigger, outcome, edits-needed — creating the file with its header if absent* (per the spec's Deployment Plan Run Logging requirement).
 
 **a. Resolve platform documentation from the registry.** Use the platform doc URLs fetched in Platform Research (Step 3.6) from the registry's `platforms` section. These provide current, authoritative documentation for each building block's artifact format.
 

@@ -20,6 +20,8 @@ From these, identify:
 - The scoring dimensions from the Acceptance Criteria
 - Any **Golden Examples** — known-good outputs (or excerpts) attached to scenarios. These are the strongest evaluation tool you have: scoring becomes "compare against this reference" instead of "how does it feel?"
 
+**Introduce the vocabulary in plain language the first time you use it** (most users are non-technical): a *scenario* (E1, E2…) is one realistic test input you'll run the workflow on; the *eval suite* is simply running the workflow across all those scenarios; a *baseline* is the saved scorecard from this round that you'll compare against later to catch quality slipping. Define each term in a sentence before using it — don't assume the user knows it.
+
 ### 2. Quick smoke test
 
 One representative input, manual check: does the workflow run end-to-end and produce something reasonable? This is a sanity check before systematic evaluation — catch showstoppers early.

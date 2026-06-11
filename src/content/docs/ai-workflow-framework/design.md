@@ -155,7 +155,7 @@ Steps are defined in the Workflow Requirements. This table adds the building-blo
 | **Build Output** | One of: `New skill: S1` / `Use existing: [name]` / `New agent: A1` / `Inline prompt → Workflow Requirements Step N` / `MCP server: [name]` / `Human (no artifact)` |
 | **Human Gate?** | Yes / No (from Workflow Requirements Human Gates) |
 
-For outcome-driven workflows, this is replaced by a **Capability Domain Mapping** — capability domains are derived during Design (not present in the Workflow Requirements), each with integration needs, intelligence requirements, and Build Output.
+For outcome-driven workflows, this is replaced by a **Capability Domain Mapping** — capability domains are derived during Design (not present in the Workflow Requirements). A capability domain is a *durable competency the agent draws on* (e.g., "research," "synthesis") — **not** a step or pipeline stage. Collapse parallel applications of one competency into a single domain (expressed as a fan-out rather than duplicate rows), and treat domains as *capabilities available to the orchestrator at runtime*, not a fixed path. Each maps to integration needs, intelligence requirements, and a Build Output.
 
 ### Orchestrator Prompt Outline
 
@@ -200,7 +200,7 @@ For each step tagged `New agent: AN`:
 |---|---|
 | ID, Name, Description | Identity. Description must start with "Use this agent when..." and is the verbatim text for the agent file frontmatter. |
 | Mission, Responsibilities, Output Format, Tone & Style, Constraints | The agent's behavior — decomposed into structured sub-fields, not jammed into a single "Instructions" cell |
-| Model, Memory Scope | Capability and persistence |
+| Model, Memory Scope | Capability and persistence. Memory defaults to `none`; use it only for genuine cross-run state (tracking an entity, learned preferences), and avoid it for research/freshness workflows where stale recall misleads — prefer a curated context file when the learning should stay human-visible. |
 | Tools, Skills | Cross-references to Integration Options entries and Skill IDs |
 | Trigger Examples | 2-3 structured examples (context → user message → expected behavior → invocation) Build uses verbatim to construct `<example>` blocks in the agent's description |
 
@@ -294,7 +294,7 @@ The Design skill works best in plan mode. The layered flow maps naturally onto h
 | **Codex CLI** | Run with the `--plan` flag |
 | **Other AI tools** | Ask the model: *"Switch to plan mode. Walk me through Layers 2 and 3 of the Design — classify each step, identify skill candidates, write the component blueprints."* |
 
-After the model produces the spec, **review and approve at the Spec Approval Gate** before moving to Build.
+After the model produces the spec, **review and approve at the Spec Approval Gate** before moving to Build. In plan mode the spec is carried in the harness plan file and approved through the plan-approval dialog — the model also shows the full spec in the conversation so you can read it. If you don't see it, just ask the model to paste the spec inline.
 
 ---
 
