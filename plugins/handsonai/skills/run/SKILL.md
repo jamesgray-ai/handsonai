@@ -101,6 +101,16 @@ The Build phase produced GUI instruction documents rather than deployable code a
 
 **D. What to do next** — How to modify the configuration later, share with team members (if the platform supports it), when to revisit and update, change management notes for organizational workflows.
 
+**Section E — Running it in a fresh or scheduled session (include in all variants).**
+
+A workflow that worked while you were building it can fail the first time it runs in a *new* or *unattended* session, because that environment doesn't inherit this one's setup. State these as **requirements the run environment must satisfy** — and let the model fill in the concrete commands/clicks for the user's specific platform at runtime (per the Design Principle, do **not** hardcode platform commands in this skill):
+
+- **Artifacts must be loadable in the run environment.** On platforms where project-local artifacts auto-load, the workflow is available to any session opened in that project — nothing to reinstall. On others, the artifacts must be installed/imported first. (Model: state the concrete mechanism for the user's platform.)
+- **Connectors are authorized per session/environment, and it doesn't carry over.** Every connector the workflow uses must be authorized **in the session/context that actually runs it** — authorizing it elsewhere (or in this build session) does not transfer. Include a "verify connectors are connected before the first real run" check. (Model: supply the platform's concrete verification step.)
+- **Unattended/scheduled runs need pre-granted permissions and non-interactive credentials.** A scheduled or headless run can't answer interactive permission prompts, so tool permissions must be pre-granted and credentials must be non-interactive. Present this as a prerequisite checklist. (Model: supply the platform's concrete scheduling + headless mechanism.)
+
+Frame this as requirements + a placeholder the model fills with the platform's actual steps — never hardcoded commands in the skill itself.
+
 Present the Run Guide directly in the conversation. Also save it to `outputs/[workflow-name]-run-guide.md` so the user has a reference they can follow later or share with teammates.
 
 ## Outputs
@@ -111,6 +121,8 @@ Plain-language guide for getting the workflow running. Three variants:
 - **Model-built:** Artifact inventory, step-by-step setup instructions tailored to the user's platform, a guided first-run test with sample input, and next steps for ongoing use and team sharing.
 - **Manual build:** Construction Guide with artifact list, build sequence with platform-specific format guidance, first-run test, and next steps.
 - **Guided-mode:** Instruction walkthrough, step-by-step GUI setup guide, first-run test, and next steps.
+
+All variants also include **Section E — Running it in a fresh or scheduled session** (artifact loading, per-session connector authorization, and prerequisites for unattended/scheduled runs), written as platform-agnostic requirements the model resolves to concrete steps at runtime.
 
 ## Guidelines
 

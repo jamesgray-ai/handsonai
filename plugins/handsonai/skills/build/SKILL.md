@@ -168,6 +168,8 @@ For each integration listed in the Design Spec's "Integration Options" section, 
    - Use WebFetch to retrieve the integration's documentation directly from its known URL or official site.
    - If no URL is known, fall back to web search to locate the integration's documentation.
 
+**Fallback ladder (never hard-fail).** Both tiers depend on network access — the registry fetch can fail and WebFetch/web search may be unavailable on some platforms. Degrade gracefully and tell the user what was degraded: **session cache** (registry already fetched this session, incl. by Design) → **model knowledge** → **web search** → **best-effort note**. If WebFetch isn't available, say so and use web search; if neither is available, generate from model knowledge and **flag the artifact format as unverified** so the user double-checks before relying on it. Never block Build because a fetch failed.
+
 Present a summary of resolved platform format requirements and integration docs to the user before proceeding.
 
 #### Step 4 — Check for Existing Skills and Instructions
@@ -195,6 +197,11 @@ For each integration listed in the spec:
 
 **Web search is used for platform availability research** — verifying setup steps, finding platform-specific guides, and confirming compatibility. Discovery of integrations themselves is already done. If the environment doesn't support web search, instruct the user to switch to a tool that does.
 
+**Write-scope pre-flight (required).** For every integration the workflow must *write* to — create drafts, apply labels, create database rows/pages, send messages, create events — verify the connector actually has **write access** before building against it. Connectors are often connected **read-only**. If a needed write scope is missing:
+- Do **not** fail silently or proceed as if it works.
+- Tell the user exactly what to reconnect/authorize (e.g., "the email connector is read-only — reconnect it with compose + labels access").
+- You may still build the artifacts, but mark the workflow **"build-complete, deploy-blocked on [integration] write access"** so Test/Run know the gap.
+
 Present the integration mapping and ask the user to confirm before generating artifacts. If any critical integration is manual-only, discuss implications for the orchestration mechanism (may need to downgrade or add human-in-the-loop steps).
 
 If the Integration Options section is missing from the spec (older format), inform the user and offer two paths: (a) Run Integration Discovery now — research available integration approaches for each tool identified in the spec's Integration Options or Step-by-Step Decomposition tables, or (b) proceed with web-search-only research for each integration need as it arises during artifact generation.
@@ -215,7 +222,7 @@ Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capabili
 - `Inline prompt → Workflow Requirements Step N` → fold this step's Goal/Inputs/Outputs/Rules from the Workflow Requirements into the main orchestrator prompt
 - `MCP server: [name]` → configure the connector using the Integration Options entry
 - `Human (no artifact)` → skip; no AI artifact for this step
-- `Handled by agent` (outcome-driven only) → no separate artifact; capability is covered by the agent's Instructions
+- `Handled by orchestrator` (outcome-driven only; legacy synonym `Handled by agent`) → no separate artifact; the capability is covered by the orchestration logic (the primary loop's command/`CLAUDE.md` run section) or a sub-agent's instructions
 
 Apply the spec's **Packaging** decision to group the generated artifacts:
 - **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace)
@@ -236,12 +243,20 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 - Agents (Claude Code): `references/agent-spec.md`
 - Other platforms: web search
 
+> **The `references/*-spec.md` files are point-in-time snapshots, not the source of truth.** Platform schemas drift; prefer the registry/doc lookup from Step 3.6 and use these only as a last-resort fallback. If a snapshot and live docs disagree, the live docs win.
+
 **d. Apply code vs guided mode branching.** Based on the platform's `mode` from the registry (determined in Step 3.6):
 
 - **Code mode:** Generate source files in the platform's `language` (Python, TypeScript, markdown). This is the standard behavior — proceed with artifact generation as described below.
 - **Guided mode:** Generate step-by-step GUI instruction documents. For each building block, produce a document that walks the user through configuring it in the platform's interface, using the GUI documentation fetched from the registry. Include: which screens to navigate to, what fields to fill in, what settings to configure, and what to verify after each step.
 
 **e. Generate each building block.** For each building block in the spec, follow the Creation Tools Map from Step 3.5:
+
+**Field-role mapping (platform-agnostic — do NOT hardcode concrete keys).** Design collects 12 skill / 13 agent fields. Each plays one of four **roles**; place it by role, and resolve the *concrete* destination (frontmatter key name, body section) at runtime from the platform docs fetched in Step 3.6. Field names and frontmatter schemas change per platform and over time, so the framework owns only the role, never the literal key:
+- **Identity / activation** — Name, Description, Trigger Examples → the platform's identity + auto-invocation mechanism (e.g., a `description`/`name` field and example blocks — whatever the platform calls them).
+- **Instruction body** — Mission, Responsibilities, Decision Logic, Failure Modes, Output Format, Tone & Style, Constraints → the artifact's prose body/system prompt.
+- **Wiring / config** — Model, Tools, Skills, Memory Scope, Stateful? → mapped to whatever config fields the platform exposes (e.g., Stateful?/Memory Scope → the platform's memory/persistence option, by its current name).
+- **Framework-internal only** — ID, Purpose, Covers Steps/Domains, Depends On → used for sequencing and cross-references during Build; **never emitted** into the generated artifact.
 
   **If a creation skill was matched for this block type:**
 
@@ -266,6 +281,10 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 1. Write the artifact to its target location from the Deployment Plan.
 2. Execute or document the deployment steps (e.g., "run `claude mcp add ...`", "upload zip via plugin marketplace", "create new GPT and paste instructions").
 3. If the target location requires user action (e.g., a manual GPT creation flow), produce a step-by-step guide tailored to the user's platform.
+
+**Confirm before mutating the user's real accounts.** Before any action that *creates or modifies data in the user's live accounts* — creating a Notion database/page, a Gmail label/draft, a calendar event, a Slack post, etc. — state the exact action and target and get explicit confirmation first. Batch related confirmations into one prompt where possible. (These are outward-facing, hard-to-reverse actions; never perform them silently as a side effect of "building.")
+
+**Never overwrite existing local files.** Before creating any local artifact — especially context files (`Status: Exists` in the Context Inventory) — check the filesystem. If the file already exists, **read and reuse it; do not overwrite** without explicit confirmation. (Context artifacts marked `Needs Creation` in the spec may already have been supplied by the user since Design.)
 
 After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 

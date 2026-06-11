@@ -1,5 +1,10 @@
 # Skill Specification — agentskills.io Format
 
+> **Point-in-time snapshot — fallback only.** This file is a snapshot and **will drift** as platforms
+> evolve; it is NOT the source of truth. Build resolves the current format at runtime from the platform
+> registry/docs (Step 3.6) and uses this only when that lookup is unavailable. If this snapshot and live
+> docs disagree, the live docs win.
+
 When generating skills, follow this format. Skills are directories containing a `SKILL.md` file with YAML frontmatter and a markdown body. The full specification is at [agentskills.io/specification](https://agentskills.io/specification).
 
 ## File Structure

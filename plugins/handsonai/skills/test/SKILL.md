@@ -19,13 +19,25 @@ Read the Design Spec (including Evaluation Criteria) to understand what was buil
 
 One representative input, manual check: does the workflow run end-to-end and produce something reasonable? This is a sanity check before systematic evaluation — catch showstoppers early.
 
+### 2.5 Integration pre-flight (enables partial testing)
+
+Before the eval suite, check each integration the scenarios will exercise for the access it needs (read vs. write). Connectors are often **read-only** or unauthorized, which would block steps like creating a draft, writing a CRM row, or sending a message.
+
+- If everything needed is available → run the full eval suite (Step 3).
+- If any **write path is blocked** → **don't abort.** Switch to **partial test**: run and score every step that *can* run (classification, content generation, any readable/writable integrations), and **simulate** the blocked steps (produce the would-be output without performing the live action). Clearly mark which steps were **simulated/skipped and why**, and report the result as *"logic verified; deployment blocked on [integration] write access"* rather than a pass or a fail.
+
+This distinguishes "the workflow logic is wrong" from "an integration isn't authorized yet" — two very different fixes.
+
 ### 3. Run eval suite
 
 Execute each test scenario from the Evaluation Criteria (defined in Design). For each scenario:
 
-- Run the workflow with the scenario's input
-- Score output on each eval dimension (1–5 scale)
+- Run the workflow with the scenario's input (full or partial per the pre-flight above)
+- Score output on each eval dimension (1–5 scale); score only the steps that actually ran
 - Note specific issues with concrete examples
+- Note any steps that were **simulated/skipped** (don't let a simulated step count as a pass)
+
+**Live-system test data caution.** A real test writes real artifacts to the user's accounts (rows, drafts, events). Prefer a clearly-marked test record, tell the user exactly what was created and where, and offer to clean it up afterward.
 
 Guide the user through scoring with plain-language prompts:
 
@@ -67,6 +79,7 @@ For each problem identified in the eval, map it to which building block to adjus
 Based on eval scores across all scenarios:
 
 - **Ready** — scores meet the minimum quality bar defined in the spec → proceed to the `run` skill (Step 6)
+- **Logic-ready, deploy-blocked** — the logic passes in partial testing but one or more write integrations are unauthorized. Name the blocker and what to authorize; the user fixes access, then re-runs the blocked steps before going to Run. (Not a code defect — don't loop back to Build for it.)
 - **Not ready** — document specific adjustments needed, return to the `build` skill (Step 4), then re-test
 
 ## Output
@@ -77,9 +90,11 @@ Include an eval scorecard with this format:
 
 - **Scenarios tested** — list each scenario with its input description
 - **Scores per dimension** — table of scenario × dimension scores (1–5)
+- **Steps simulated/skipped (and why)** — any steps not run live (e.g., blocked integration), so a partial test is never mistaken for a full pass
+- **Integration / environment status** — which integrations were live vs. simulated, and the environment tested in (so a later Improve regression compares like-for-like and doesn't read "an integration got fixed" as "the workflow improved")
 - **Issues identified** — specific problems with concrete examples and diagnosed building block
 - **Baseline established** — summary scores to use as regression reference in Step 7
-- **Overall readiness assessment** — Ready or Not Ready, with rationale
+- **Overall readiness assessment** — Ready / Not Ready / **Logic-ready, deploy-blocked** (with the blocking integration named), with rationale
 
 ## Guidelines
 

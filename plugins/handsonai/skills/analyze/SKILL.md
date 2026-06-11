@@ -53,6 +53,8 @@ After presenting the memory scan summary (or noting no prior context), ask the u
 
 Based on gaps in your understanding (or starting from scratch), ask focused questions to build a complete picture. Use the question set for the user's chosen lens.
 
+> **Ask one question at a time — these banks are a scaffold for you, not a list to paste at the user.** Adapt to their answers, skip anything the memory scan already covered, and follow up for concrete examples. (Restated after the banks too — but apply it from the first question.)
+
 **Individual Lens — Discovery Questions**
 
 1. **Role & responsibilities** — What is your role? What are you accountable for?
@@ -86,6 +88,12 @@ Continue until you can identify at least 3 concrete opportunities — typically 
 #### Step 3 — Opportunity Analysis & Report
 
 Once you can identify at least 3 concrete, specific opportunities with enough detail to fill the card format below, produce the structured report.
+
+**Two scales you'll classify each opportunity on (plain-language — full definitions in the Appendix):**
+- **Autonomy** = how much the AI decides for itself: **Deterministic** (fixed rules) → **Guided** (decides within guardrails, you steer) → **Autonomous** (plans and adapts on its own).
+- **Involvement** = is a human in the loop *during the run*: **Augmented** (you participate as it runs) vs. **Automated** (runs solo; you review the result).
+
+**Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy, ask one more question or drop the opportunity — a candidate without a clear trigger + deliverable will stall in Deconstruct (Step 2).
 
 #### Step 4 — Workflow Candidate Summary
 
