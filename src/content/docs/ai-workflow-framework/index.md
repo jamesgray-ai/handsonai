@@ -16,7 +16,7 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 | Step | Skill | What it guides you through |
 |------|-------|---------------------------|
 | 1. Analyze | `analyze` | Identify and prioritize the workflows worth reimagining with AI |
-| 2. Deconstruct | `deconstruct` | Map the workflow's process — or define the outcome it should produce |
+| 2. Deconstruct | `deconstruct` | Map the workflow’s process — or define the goal for an agent system |
 | 3. Design | `design` | Architect how AI building blocks will power your workflow |
 | 4. Build | `build` | Build the AI building blocks your design specifies |
 | 5. Test | `test` | Test your workflow's output quality and fix what's not working |
@@ -89,10 +89,10 @@ The audit starts by determining which lens to use — individual or organization
 
 Define *what* the business process does — every step, decision, and handoff — before deciding *how* to implement it with AI.
 
-Step 2 is the **Product Requirements Document (PRD) for your workflow** — clear requirements, decision rules, and edge cases that feed directly into Design. There are two paths, chosen by one question at the start: *do you know the steps, or just the outcome?*
+Step 2 is the **Product Requirements Document (PRD) for your workflow** — clear requirements, decision rules, and edge cases that feed directly into Design. There are two paths, chosen by one question at the start: *do you know the steps, or just the goal?*
 
 - **Step-decomposed** — You can describe how the work gets done. The model interviews you to refine the steps and surface decision rules, edge cases, and the context each step needs. Each step is captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context.
-- **Outcome-driven** — You know what "done" looks like, but the work takes different steps depending on what comes in, so you want an agent system to figure out the steps at runtime. The model captures the outcome, inputs, acceptance criteria, rules, and constraints — without prescribing steps.
+- **Goal-driven** — You know what "done" looks like, but the work takes different steps depending on what comes in, so you give an agent system a goal and let it figure out the steps at runtime. The model captures the goal, inputs, acceptance criteria, rules, and constraints — without prescribing steps.
 
 Don't have either yet? Describe the problem you're trying to solve. The model proposes a candidate workflow and routes you into one of the two paths above.
 
@@ -107,7 +107,7 @@ For step-decomposed workflows, the model uses the **six-question framework** as 
 
 This is purely the *what* — the workflow's requirements, with no prescription of how AI will handle it. The *how* comes in Step 3 (Design).
 
-**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. Step-decomposed workflows add a Steps Overview with per-step requirements; outcome-driven workflows add Inputs plus Rules & Constraints.
+**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. Step-decomposed workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs plus Rules & Constraints.
 
 **Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
 

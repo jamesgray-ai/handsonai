@@ -17,7 +17,7 @@ The Workflow Requirements is what [Deconstruct](../../deconstruct/) produces. Wh
 
 **What's inside:**
 
-- **Outcome and Metadata** — workflow name, trigger, owner, business objective, definition type
+- **Goal and Metadata** — workflow name, trigger, owner, business objective, definition type
 - **Steps Overview** — a scannable numbered list of all 10 steps
 - **Step Details** — each step captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed
 - **Sequence** — sequential vs. parallel steps, critical path

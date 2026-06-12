@@ -38,7 +38,7 @@ The Run Guide is saved to `outputs/[name]/run-guide.md` so you can reference it 
 
 ### Keep a run log
 
-The run skill also creates `outputs/[name]/runs.md` — a one-line-per-run log (date, input, outcome, edits needed). It takes ten seconds per run, and when you review the workflow later in [Improve (Step 7)](../improve/), it's the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself, Build wires self-logging into the orchestrator artifact so it appends its own log line each run (Run verifies this is in place) — logging costs you nothing.
+The run skill also creates `outputs/[name]/runs.md` — a one-line-per-run log (date, input, result, edits needed). It takes ten seconds per run, and when you review the workflow later in [Improve (Step 7)](../improve/), it's the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself, Build wires self-logging into the orchestrator artifact so it appends its own log line each run (Run verifies this is in place) — logging costs you nothing.
 
 ## Choose Your Run Pattern
 

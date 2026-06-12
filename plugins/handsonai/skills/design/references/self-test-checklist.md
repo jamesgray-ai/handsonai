@@ -52,9 +52,9 @@ Run this checklist against the assembled Design Spec content **before** presenti
 - [ ] Deferred to Build section lists what Build will resolve at generation time
 - [ ] Self-Test Summary section is present at the end of the spec, enumerating every item in this checklist with ✓ or ⚠️
 
-## Outcome-driven modifications
+## Goal-driven modifications
 
-For `Definition Type: Outcome-Driven`, apply these substitutions; all other items apply unchanged:
+For `Definition Type: Goal-Driven` (or legacy `Outcome-Driven`), apply these substitutions; all other items apply unchanged:
 
 - Replace "Step-by-Step Decomposition" with "Capability Domain Mapping"
 - Replace "Step IDs match Workflow Requirements Step IDs" with "Capability Domains are derived from Workflow Requirements (not restated from a section that doesn't exist there)"

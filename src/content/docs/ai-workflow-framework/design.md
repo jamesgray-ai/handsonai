@@ -155,7 +155,7 @@ Steps are defined in the Workflow Requirements. This table adds the building-blo
 | **Build Output** | One of: `New skill: S1` / `Use existing: [name]` / `New agent: A1` / `Inline prompt → Workflow Requirements Step N` / `MCP server: [name]` / `Human (no artifact)` |
 | **Human Gate?** | Yes / No (from Workflow Requirements Human Gates) |
 
-For outcome-driven workflows, this is replaced by a **Capability Domain Mapping** — capability domains are derived during Design (not present in the Workflow Requirements). A capability domain is a *durable competency the agent draws on* (e.g., "research," "synthesis") — **not** a step or pipeline stage. Collapse parallel applications of one competency into a single domain (expressed as a fan-out rather than duplicate rows), and treat domains as *capabilities available to the orchestrator at runtime*, not a fixed path. Each maps to integration needs, intelligence requirements, and a Build Output.
+For goal-driven workflows, this is replaced by a **Capability Domain Mapping** — capability domains are derived during Design (not present in the Workflow Requirements). A capability domain is a *durable competency the agent draws on* (e.g., "research," "synthesis") — **not** a step or pipeline stage. Collapse parallel applications of one competency into a single domain (expressed as a fan-out rather than duplicate rows), and treat domains as *capabilities available to the orchestrator at runtime*, not a fixed path. Each maps to integration needs, intelligence requirements, and a Build Output.
 
 ### Orchestrator Prompt Outline
 
@@ -304,9 +304,9 @@ The **Design Spec** is organized into the three layers above, plus cross-layer s
 
 **Layer 1 — Architecture sections:** Execution Pattern, Architecture Decisions (with Packaging), Autonomy Spectrum Summary, Safety & Permissions, Integration Options (with Source URLs), Model Recommendation (with per-platform mapping).
 
-**Layer 2 — Decomposition sections:** Step-by-Step Decomposition (or Capability Domain Mapping for outcome-driven), Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Prompt), Data Readiness Summary, Recommended Implementation Order.
+**Layer 2 — Decomposition sections:** Step-by-Step Decomposition (or Capability Domain Mapping for goal-driven), Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Prompt), Data Readiness Summary, Recommended Implementation Order.
 
-**Layer 3 — Component Blueprint sections:** Skill Candidates (12 fields each), Agent Configuration (13 fields each; mandatory for outcome-driven), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan.
+**Layer 3 — Component Blueprint sections:** Skill Candidates (12 fields each), Agent Configuration (13 fields each; mandatory for goal-driven), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan.
 
 **Cross-layer sections:** Evaluation Inputs (pointer), Deferred to Build, Stakeholders (optional), Self-Test Summary (verification results).
 

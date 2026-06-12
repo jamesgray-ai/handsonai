@@ -115,7 +115,7 @@ A workflow that worked while you were building it can fail the first time it run
 Create `outputs/[workflow-name]/runs.md` with a header row, and make "log the run" part of the workflow's routine — one line per run is enough:
 
 ```markdown
-| Date | Input / trigger | Outcome | Edits needed | Notes |
+| Date | Input / trigger | Result | Edits needed | Notes |
 |---|---|---|---|---|
 ```
 

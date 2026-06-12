@@ -8,7 +8,7 @@ This file is the **only** source of the Design Spec's structure. The exact secti
 - `Multi-Agent Configuration` — only when more than one agent is defined.
 - `Stakeholders` — only for Organizational lens.
 
-For **outcome-driven** workflows, apply the template substitutions in `references/outcome-driven-path.md` (Capability Domain Mapping replaces Step-by-Step Decomposition; Autonomy Statement replaces Autonomy Spectrum Summary; Orchestrator Prompt Outline is omitted).
+For **goal-driven** workflows, apply the template substitutions in `references/goal-driven-path.md` (Capability Domain Mapping replaces Step-by-Step Decomposition; Autonomy Statement replaces Autonomy Spectrum Summary; Orchestrator Prompt Outline is omitted).
 
 **Markdown hygiene when filling this template:** don't use a bare `~` for "approximately" — two tildes in one paragraph render as `~~strikethrough~~`. Write "approximately"/"about" (or keep `~` only inside code spans/backticks).
 
@@ -19,7 +19,7 @@ For **outcome-driven** workflows, apply the template substitutions in `reference
 workflow: [kebab-case name]
 requirements_file: outputs/[workflow-name]/requirements.md
 spec_version: 2.2
-definition_type: Step-Decomposed | Outcome-Driven
+definition_type: Step-Decomposed | Goal-Driven
 mechanism: Prompt | Skill-Powered Prompt | Agent
 involvement: Augmented | Automated
 platform: [user's platform, e.g., Claude Code, Claude.ai, Cowork, Codex, ChatGPT, Gemini CLI]
@@ -38,7 +38,7 @@ counts:
 
 **Workflow Requirements:** `outputs/[workflow-name]/requirements.md`
 
-This Design Spec consumes the Workflow Requirements as canonical input. Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, and per-step requirements are defined there — not restated here. Read the Workflow Requirements alongside this spec when building.
+This Design Spec consumes the Workflow Requirements as canonical input. Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, and per-step requirements are defined there — not restated here. Read the Workflow Requirements alongside this spec when building.
 
 The spec is organized into three layers that build on each other:
 
@@ -80,7 +80,7 @@ The workflow-level autonomy assessment and the rationale that drove it. (Per-ste
 
 For step-decomposed workflows: group steps by autonomy level. For each group, explain WHY those steps have that classification.
 
-For outcome-driven workflows: replace this section with an **Autonomy Statement** — a brief paragraph stating: "This is an outcome-driven workflow. Autonomy is Autonomous — the agent system determines its own execution path based on the Outcome, Inputs, Rules & Constraints, and Acceptance Criteria defined in the Workflow Requirements."
+For goal-driven workflows: replace this section with an **Autonomy Statement** — a brief paragraph stating: "This is a goal-driven workflow. Autonomy is Autonomous — the agent system determines its own execution path based on the Goal, Inputs, Rules & Constraints, and Acceptance Criteria defined in the Workflow Requirements."
 
 ## Safety & Permissions
 
@@ -97,7 +97,7 @@ Build enforces these mitigations during connector setup (write-scope pre-flight,
 
 ## Integration Options
 
-For each tool identified in the Decomposition table (or Capability Domain Mapping for outcome-driven):
+For each tool identified in the Decomposition table (or Capability Domain Mapping for goal-driven):
 
 ### [Tool Name] (Steps N, M / Domains: X, Y)
 
@@ -135,7 +135,7 @@ For each tool identified in the Decomposition table (or Capability Domain Mappin
 
 ## Layer 2 — Decomposition
 
-*For each step or capability domain, what AI building block delivers it. Layer 2 sections in order: Step-by-Step Decomposition (or Capability Domain Mapping for outcome-driven), Orchestrator Prompt Outline (conditional on mechanism), Data Readiness Summary, Recommended Implementation Order.*
+*For each step or capability domain, what AI building block delivers it. Layer 2 sections in order: Step-by-Step Decomposition (or Capability Domain Mapping for goal-driven), Orchestrator Prompt Outline (conditional on mechanism), Data Readiness Summary, Recommended Implementation Order.*
 
 ## Step-by-Step Decomposition
 
@@ -219,7 +219,7 @@ For each Build Output tagged `New skill: SN` above:
 | **Name** | [lowercase-hyphenated, ≤64 chars, no consecutive hyphens; matches the skill directory name] |
 | **Description** | [≤1024 chars; MUST start with "This skill should be used when..." — this is the literal description that goes into the SKILL.md frontmatter and drives auto-activation on Claude.ai, Cowork, and code-mode platforms] |
 | **Purpose** | [one-sentence internal summary — for the Design Spec reader, not the skill description] |
-| **Covers Steps / Domains** | [list of Step IDs, or capability domain names for outcome-driven] |
+| **Covers Steps / Domains** | [list of Step IDs, or capability domain names for goal-driven] |
 | **Inputs** | [name — description, one per line; "type" is the expected user-provided value description, not a strict type system] |
 | **Outputs** | [what the skill produces] |
 | **Decision Logic** | [key rules, criteria, evaluation frameworks — multiline OK] |
@@ -286,7 +286,7 @@ For each artifact produced, document where it lives and how it gets deployed:
 
 **Orchestrator artifact (primary-loop platforms):** the user-triggered entry point is an orchestrator **skill** (`disable-model-invocation: true`, no `context: fork`), not a slash command (custom commands are merged into skills). It takes the **workflow name**; component/worker artifacts take **capability-specific names** so the entry point never shadows a sub-skill.
 
-**Run Logging:** If the workflow runs on-platform (an orchestrator skill or agent the agentic loop executes), the orchestrator appends one row to `outputs/[workflow-name]/runs.md` at the end of every run — date, input/trigger, outcome, edits-needed — creating the file with its header if absent. Build bakes this into the orchestrator artifact.
+**Run Logging:** If the workflow runs on-platform (an orchestrator skill or agent the agentic loop executes), the orchestrator appends one row to `outputs/[workflow-name]/runs.md` at the end of every run — date, input/trigger, result, edits-needed — creating the file with its header if absent. Build bakes this into the orchestrator artifact.
 
 **Recommended for frequent use:** [recommendation, e.g., "Save as Claude Project for one-click reuse"]
 

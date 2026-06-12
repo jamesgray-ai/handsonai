@@ -5,26 +5,26 @@ description: >
   an AI workflow. It gathers architecture decisions, assesses workflow autonomy level,
   chooses an orchestration mechanism and involvement mode, classifies steps, maps building blocks,
   identifies skill candidates, configures agents, and produces a Design Spec for approval.
-  Supports both step-decomposed and outcome-driven Workflow Requirements.
+  Supports both step-decomposed and goal-driven Workflow Requirements.
   This is Step 3 (Design) of the AI Workflow Framework.
 user-invocable: true
 ---
 
 # Workflow Design
 
-Take a Workflow Requirements document (produced by Step 2 — Deconstruct) and produce the Design deliverable: a Design Spec that captures architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications (step-decomposed) or capability domain mapping (outcome-driven), skill candidates, and agent blueprints.
+Take a Workflow Requirements document (produced by Step 2 — Deconstruct) and produce the Design deliverable: a Design Spec that captures architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications (step-decomposed) or capability domain mapping (goal-driven), skill candidates, and agent blueprints.
 
 ## Bundled references — read at the step that calls for them
 
 | File | When to read it |
 |---|---|
-| `references/outcome-driven-path.md` | At Step 1, the moment the Workflow Requirements shows `Definition Type: Outcome-Driven` |
+| `references/goal-driven-path.md` | At Step 1, the moment the Workflow Requirements shows `Definition Type: Goal-Driven` (or legacy `Outcome-Driven`) |
 | `references/spec-template.md` | At Step 9, before assembling the Design Spec — the spec's structure exists **only** in this file |
 | `references/self-test-checklist.md` | At Step 9, before running the self-test — the checklist items exist **only** in this file |
 
 This SKILL.md deliberately does **not** restate the spec's section structure or the checklist items. A spec assembled without reading the template will have wrong headings and a wrong `spec_version`, and Build's frontmatter parse will fail on it.
 
-**Source of truth:** The Workflow Requirements document is canonical. The Design Spec must NOT restate sections that already exist there (Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview). Instead, reference the Workflow Requirements file. The Design Spec adds *only* what Design produces: architecture decisions, per-step or per-domain building-block classifications, skill candidates, agent configurations, integration options, model recommendations, safety mitigations, and implementation order.
+**Source of truth:** The Workflow Requirements document is canonical. The Design Spec must NOT restate sections that already exist there (Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview). Instead, reference the Workflow Requirements file. The Design Spec adds *only* what Design produces: architecture decisions, per-step or per-domain building-block classifications, skill candidates, agent configurations, integration options, model recommendations, safety mitigations, and implementation order.
 
 **Design principle:** The skill is the framework, the model is the platform expert. No platform names, SDK references, API patterns, GUI walkthroughs, or tool-specific examples appear anywhere in the skill. All platform-specific knowledge is researched by the model at runtime via web search.
 
@@ -47,15 +47,15 @@ Plan mode is the **preferred path where available** (Claude Code). **Timing: kee
 
 Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the Workflow Requirements and confirm you're working on the right workflow, then read the requirements from the path registered there (normally `outputs/[workflow-name]/requirements.md`). If the user specifies a file path, use that. If no manifest exists but a legacy flat file (`outputs/[name]-requirements.md`) does, use the legacy path and offer to migrate it into a workflow folder + manifest first. Otherwise, look for the most recent Workflow Requirements in `outputs/`.
 
-**Verify the requirements file exists and is parseable before relying on it.** If the file is missing, stop and tell the user — don't proceed against a path that doesn't resolve. Confirm the required headings exist (Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and either Steps Overview/Step Details or the outcome-driven Inputs/Rules & Constraints). If any are missing or mis-named, **say exactly which are missing** and ask the user to re-run `/deconstruct` or fix the file — don't guess at the contents.
+**Verify the requirements file exists and is parseable before relying on it.** If the file is missing, stop and tell the user — don't proceed against a path that doesn't resolve. Confirm the required headings exist (Goal — accept the legacy heading `Outcome` in older files — Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and either Steps Overview/Step Details or the goal-driven Inputs/Rules & Constraints). If any are missing or mis-named, **say exactly which are missing** and ask the user to re-run `/deconstruct` or fix the file — don't guess at the contents.
 
-Read the `Definition Type` field from the Metadata table. If `Outcome-Driven`: **STOP — read `references/outcome-driven-path.md` now, in full, before proceeding.** It modifies Steps 3–9 and the spec template; do not run the outcome-driven path from memory. If `Step-Decomposed` (or no Definition Type field is present), use the standard step-decomposed path below.
+Read the `Definition Type` field from the Metadata table. If `Goal-Driven` (or the legacy value `Outcome-Driven` — treat it as `Goal-Driven`): **STOP — read `references/goal-driven-path.md` now, in full, before proceeding.** It modifies Steps 3–9 and the spec template; do not run the goal-driven path from memory. If `Step-Decomposed` (or no Definition Type field is present), use the standard step-decomposed path below.
 
 #### Step 2 — Confirm Understanding
 
-For step-decomposed requirements: Summarize the workflow name, step count, and outcome (from the Outcome section of the Workflow Requirements). Ask the user to confirm before proceeding.
+For step-decomposed requirements: Summarize the workflow name, step count, and goal (from the Goal section of the Workflow Requirements — legacy files title it Outcome). Ask the user to confirm before proceeding.
 
-For outcome-driven requirements: Summarize the workflow name, outcome, and the headline rules and constraints (from the Outcome and Rules & Constraints sections). Ask the user to confirm before proceeding.
+For goal-driven requirements: Summarize the workflow name, goal, and the headline rules and constraints (from the Goal and Rules & Constraints sections). Ask the user to confirm before proceeding.
 
 #### Step 3 — Architecture Decisions
 
@@ -238,7 +238,7 @@ For step-decomposed workflows:
 >
 > Is this right? If yes, I'll work out the step-by-step details next. If anything's off — even small wording — tell me what to change."
 
-For outcome-driven workflows, use the playback substitutions in `references/outcome-driven-path.md`.
+For goal-driven workflows, use the playback substitutions in `references/goal-driven-path.md`.
 
 **Wait for explicit approval** ("yes", "looks good", "go ahead", etc.) before moving to Step 6. If the user pushes back, revise the relevant decision (which may mean reopening Step 3a or Step 5) and re-present this gate.
 
@@ -350,7 +350,7 @@ After classifying every step, recommend available integration options for each t
 **Presentation format:**
 
 For step-decomposed: `**[Tool] access needed (Steps N, M):**`
-For outcome-driven: `**[Tool] access needed (Domains: X, Y):**`
+For goal-driven: `**[Tool] access needed (Domains: X, Y):**`
 
 > **[Tool] access needed ([Steps N, M / Domains: X, Y]):**
 >
@@ -424,7 +424,7 @@ For every step classified as needing a **Skill** in Step 6, search for existing 
 
 **Presentation format:**
 
-For each step (or capability domain, for outcome-driven workflows) that needs a skill, present candidates in a table:
+For each step (or capability domain, for goal-driven workflows) that needs a skill, present candidates in a table:
 
 > **[Step 3 / Domain: Research] needs a skill: "Format coaching prep notes"**
 > | Source | Skill | Status |
@@ -495,7 +495,7 @@ If the Workflow Requirements is missing Acceptance Criteria or Example Scenarios
 
 #### Step 9 — Assemble Design Spec (do not write the file yet)
 
-**STOP — do not assemble the spec from memory. Read `references/spec-template.md` now.** The spec's exact section order, heading names, frontmatter schema, and `spec_version` literal exist only in that file. A from-memory spec will have drifted headings that break Build's parse. For outcome-driven workflows, also apply the template substitutions from `references/outcome-driven-path.md` (which you read at Step 1).
+**STOP — do not assemble the spec from memory. Read `references/spec-template.md` now.** The spec's exact section order, heading names, frontmatter schema, and `spec_version` literal exist only in that file. A from-memory spec will have drifted headings that break Build's parse. For goal-driven workflows, also apply the template substitutions from `references/goal-driven-path.md` (which you read at Step 1).
 
 Assemble the full Design Spec **content** following the template — but **do not write it to disk yet**. The file is written only after the user approves it in Step 10. Target path (written in Step 10): `outputs/[workflow-name]/design-spec.md`.
 
@@ -517,9 +517,9 @@ Present a summary of the assembled (not-yet-written) Design Spec:
 
 > "Here's the Design Spec summary:
 >
-> - **Autonomy:** [level] (for outcome-driven: Autonomous)
+> - **Autonomy:** [level] (for goal-driven: Autonomous)
 > - **Mechanism:** [orchestration mechanism] ([involvement mode])
-> - **Structure:** [count] steps, [count] skill candidates, [count] agents (for outcome-driven: [count] capability domains, [count] skill candidates, [count] agents)
+> - **Structure:** [count] steps, [count] skill candidates, [count] agents (for goal-driven: [count] capability domains, [count] skill candidates, [count] agents)
 > - **Integration options:** [count] tools with recommended integration approaches
 > - **Safety:** [one-line summary — write surfaces, untrusted input handling, gates]
 > - **Implementation order:** [brief summary]
@@ -544,11 +544,11 @@ If the user requests changes, **revise the assembled content in memory**, re-run
 
 ### `outputs/[workflow-name]/design-spec.md` — Design Spec
 
-Uses the mandatory template defined in `references/spec-template.md`. The Design Spec **references** the Workflow Requirements as canonical source — it does not restate Outcome, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, or per-step requirements.
+Uses the mandatory template defined in `references/spec-template.md`. The Design Spec **references** the Workflow Requirements as canonical source — it does not restate Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, or per-step requirements.
 
 The spec opens with YAML frontmatter (workflow, requirements_file, spec_version, definition_type, mechanism, involvement, platform, platform_mode, packaging, counts) so Build and downstream skills can summarize the spec without parsing prose. It is organized into three layered groups — Architecture (L1, including Safety & Permissions), Decomposition (L2), Component Blueprints (L3) — plus cross-layer sections (Evaluation Inputs, Deferred to Build, Stakeholders, Self-Test Summary). The exact structure lives in the template file, not here.
 
-For outcome-driven workflows, the template substitutions in `references/outcome-driven-path.md` apply.
+For goal-driven workflows, the template substitutions in `references/goal-driven-path.md` apply.
 
 ## Guidelines
 
