@@ -20,51 +20,51 @@ This feature eliminates the guesswork. When a client completes intake, the syste
 
 ## User Stories & Acceptance Criteria
 
-### Story 1: Automatic task creation on intake completion
+### US-1 — Automatic task creation on intake completion
 
 **As an** account manager, **I want** onboarding tasks to be automatically created when a client completes intake **so that** I don't have to manually set up a task list for every new client.
 
 **Acceptance Criteria:**
-1. `[MUST]` When a client submits the final step of the intake flow, the system creates all onboarding tasks defined in the active task template
-2. `[MUST]` Each created task has a title, description, assigned team member, and deadline
-3. `[MUST]` Tasks are created within 30 seconds of intake completion
-4. `[MUST]` The account manager who owns the client relationship is notified that tasks have been created
-5. `[SHOULD]` Task creation is idempotent — if the intake completion event fires twice, duplicate tasks are not created
+1. `AC-1.1` `[MUST]` When a client submits the final step of the intake flow, the system creates all onboarding tasks defined in the active task template
+2. `AC-1.2` `[MUST]` Each created task has a title, description, assigned team member, and deadline
+3. `AC-1.3` `[MUST]` Tasks are created within 30 seconds of intake completion
+4. `AC-1.4` `[MUST]` The account manager who owns the client relationship is notified that tasks have been created
+5. `AC-1.5` `[SHOULD]` Task creation is idempotent — if the intake completion event fires twice, duplicate tasks are not created
 
-### Story 2: Role-based task routing
+### US-2 — Role-based task routing
 
 **As a** team member, **I want** tasks to be assigned to me based on my role **so that** I only receive tasks I'm qualified to handle.
 
 **Acceptance Criteria:**
-1. `[MUST]` Each task type is mapped to a specific role (e.g., "welcome call" routes to account manager, "technical setup" routes to implementation specialist)
-2. `[MUST]` Tasks are only assigned to team members with the matching role
-3. `[SHOULD]` The role-to-task mapping is configurable by an admin without code changes
-4. `[COULD]` A task type can be mapped to multiple roles (e.g., either an account manager or a senior CSM can handle a welcome call)
+1. `AC-2.1` `[MUST]` Each task type is mapped to a specific role (e.g., "welcome call" routes to account manager, "technical setup" routes to implementation specialist)
+2. `AC-2.2` `[MUST]` Tasks are only assigned to team members with the matching role
+3. `AC-2.3` `[SHOULD]` The role-to-task mapping is configurable by an admin without code changes
+4. `AC-2.4` `[COULD]` A task type can be mapped to multiple roles (e.g., either an account manager or a senior CSM can handle a welcome call)
 
-### Story 3: Availability-based assignment
+### US-3 — Availability-based assignment
 
 **As a** team lead, **I want** tasks to be distributed based on team members' current workload **so that** no one person is overwhelmed while others sit idle.
 
 **Acceptance Criteria:**
-1. `[MUST]` When multiple team members share the same role, the system assigns the task to the team member with the fewest open onboarding tasks
-2. `[MUST]` A team member can be marked as "unavailable" (e.g., out of office), and the system skips them during assignment
-3. `[SHOULD]` If two team members have equal workload, either may be assigned (no specific tiebreaker required for MVP)
-4. `[COULD]` Team members can set a maximum concurrent task limit
+1. `AC-3.1` `[MUST]` When multiple team members share the same role, the system assigns the task to the team member with the fewest open onboarding tasks
+2. `AC-3.2` `[MUST]` A team member can be marked as "unavailable" (e.g., out of office), and the system skips them during assignment
+3. `AC-3.3` `[SHOULD]` If two team members have equal workload, either may be assigned (no specific tiebreaker required for MVP)
+4. `AC-3.4` `[COULD]` Team members can set a maximum concurrent task limit
 
-### Story 4: Deadline assignment
+### US-4 — Deadline assignment
 
 **As an** account manager, **I want** each task to have an automatic deadline **so that** the team knows when each step needs to be completed and clients aren't left waiting.
 
 **Acceptance Criteria:**
-1. `[MUST]` Each task type has a configurable SLA (e.g., "welcome call" = 24 hours, "account configuration" = 48 hours)
-2. `[MUST]` Deadlines are calculated from the time of intake completion
-3. `[MUST]` Deadlines are visible on each task to the assigned team member
-4. `[SHOULD]` SLA durations are configurable per task template by an admin
+1. `AC-4.1` `[MUST]` Each task type has a configurable SLA (e.g., "welcome call" = 24 hours, "account configuration" = 48 hours)
+2. `AC-4.2` `[MUST]` Deadlines are calculated from the time of intake completion
+3. `AC-4.3` `[MUST]` Deadlines are visible on each task to the assigned team member
+4. `AC-4.4` `[SHOULD]` SLA durations are configurable per task template by an admin
 
 ### Global Acceptance Criteria
-1. `[MUST]` All task assignments are logged with timestamp, assigned team member, and reason for assignment (role match + workload)
-2. `[MUST]` If no team member is available for a given role, the task is assigned to the team lead for that role and flagged for attention
-3. `[SHOULD]` Assignment logic is deterministic — same inputs produce the same assignment (for debugging and audit)
+1. `AC-G.1` `[MUST]` All task assignments are logged with timestamp, assigned team member, and reason for assignment (role match + workload)
+2. `AC-G.2` `[MUST]` If no team member is available for a given role, the task is assigned to the team lead for that role and flagged for attention
+3. `AC-G.3` `[SHOULD]` Assignment logic is deterministic — same inputs produce the same assignment (for debugging and audit)
 
 ## Scope
 
@@ -98,20 +98,45 @@ The task assignment engine has three components:
 
 The engine is event-driven: Feature 1's intake completion triggers task creation. Tasks are stored in a `tasks` table with foreign keys to the client and assigned team member.
 
+## Data & Validation
+
+**Fields:**
+
+| Field | Type | Required | Rules / limits |
+|-------|------|----------|----------------|
+| Task title | text | yes | From the task template; 1–120 chars |
+| Task description | text | yes | From the task template |
+| Assigned team member | reference (user) | yes (or fallback) | Must hold the task's required role; unassigned only on invalid mapping (ERR-3) |
+| Required role | enum | yes | From the team's defined role list |
+| Deadline | datetime | yes | Computed as intake completion time + task SLA |
+| SLA duration | duration | yes (on template) | Positive; configured per task type |
+| Team member availability | enum | yes (on user) | `available` / `unavailable` |
+| Assignment reason | text | yes (on log) | Role match + workload at assignment time |
+
+**State transitions** (task lifecycle relevant to this feature):
+- (none) → `assigned` on creation when an eligible team member exists
+- (none) → `fallback_assigned` (flagged "needs attention") when no eligible member is available
+- (none) → `unassigned` when the role mapping references a role with no members (ERR-3)
+
+**Cross-field & business rules:**
+- A task is assigned to the least-loaded available member holding the required role
+- Deadlines are always derived from SLA + intake completion time, never set manually at creation
+- All tasks for one intake are created in a single transaction — all or none (NFR-2)
+
 ## Non-Functional Requirements
 
-- **Performance:** All tasks for a single intake completion are created and assigned within 30 seconds. The assignment logic itself should complete in under 2 seconds — the remainder is event propagation and database writes.
-- **Reliability:** Task creation must be transactional — either all tasks for an intake are created, or none are. Partial task creation is not acceptable.
-- **Scalability:** Must handle concurrent intake completions without race conditions in workload-based assignment (use row-level locking or optimistic concurrency on the task count query).
+- **Performance:** `NFR-1` `[MUST]` All tasks for a single intake completion are created and assigned within 30 seconds; the assignment logic itself completes in under 2 seconds (remainder is event propagation and DB writes).
+- **Reliability:** `NFR-2` `[MUST]` Task creation is transactional — either all tasks for an intake are created, or none are. Partial task creation never occurs.
+- **Scalability:** `NFR-3` `[MUST]` Concurrent intake completions produce no race conditions in workload-based assignment (row-level locking or optimistic concurrency on the task-count query); verify with a concurrent-completion load test.
 
 ## Error States
 
-| Scenario | Expected Behavior |
-|----------|-------------------|
-| No available team member for a role | Task is assigned to the team lead for that role. Task is flagged with a "needs attention" indicator. |
-| Intake completion event fires twice (duplicate) | Second event is ignored — task creation is idempotent based on client ID + intake submission timestamp. |
-| Invalid role mapping (task template references a role with no team members) | Task is created but left unassigned. Admin is notified via system alert. Assignment retries when a team member with that role is added. |
-| Database transaction fails during task creation | All tasks for that intake are rolled back. Event is re-queued for retry (max 3 attempts). Account manager is notified if all retries fail. |
+| ID | Scenario | Expected Behavior | Priority |
+|----|----------|-------------------|----------|
+| `ERR-1` | No available team member for a role | Task is assigned to the team lead for that role. Task is flagged with a "needs attention" indicator. | `[MUST]` |
+| `ERR-2` | Intake completion event fires twice (duplicate) | Second event is ignored — task creation is idempotent based on client ID + intake submission timestamp. | `[MUST]` |
+| `ERR-3` | Invalid role mapping (task template references a role with no team members) | Task is created but left unassigned. Admin is notified via system alert. Assignment retries when a team member with that role is added. | `[SHOULD]` |
+| `ERR-4` | Database transaction fails during task creation | All tasks for that intake are rolled back. Event is re-queued for retry (max 3 attempts). Account manager is notified if all retries fail. | `[MUST]` |
 
 ## Success Metrics & Instrumentation
 
@@ -150,25 +175,42 @@ The engine is event-driven: Feature 1's intake completion triggers task creation
 ## Verification
 
 ### Happy path
-1. Configure task templates: "Welcome call" (account manager role, 24h SLA), "Technical setup" (implementation specialist, 48h SLA)
+1. Configure task templates: "Welcome call" (account manager role, 24h SLA), "Technical setup" (implementation specialist, 48h SLA). _(AC-2.1, AC-4.1)_
 2. Mark at least two account managers as available, with different open task counts
-3. Complete a client intake flow (Feature 1)
-4. Verify tasks are created within 30 seconds
-5. Verify "Welcome call" is assigned to the account manager with fewer open tasks
-6. Verify "Technical setup" is assigned to an implementation specialist
-7. Verify deadlines match the configured SLAs calculated from intake completion time
-8. Verify assignment audit log contains entries for each task with role, assignee, and workload reason
+3. Complete a client intake flow (Feature 1) — all template tasks are created within 30 seconds, each with title, description, assignee, and deadline; the owning account manager is notified. _(AC-1.1, AC-1.2, AC-1.3, AC-1.4, NFR-1)_
+4. Verify "Welcome call" is assigned to the account manager with fewer open tasks. _(AC-3.1)_
+5. Verify "Technical setup" is assigned to an available implementation specialist (unavailable members are skipped). _(AC-2.2, AC-3.2)_
+6. Verify deadlines are visible on each task and match the configured SLAs calculated from intake completion time. _(AC-4.2, AC-4.3)_
+7. Verify the assignment audit log contains an entry for each task with role, assignee, and workload reason. _(AC-G.1)_
 
 ### Edge case: No available team member
 1. Mark all implementation specialists as unavailable
 2. Complete a client intake flow
-3. Verify "Technical setup" is assigned to the team lead and flagged for attention
+3. Verify "Technical setup" is assigned to the team lead and flagged for attention. _(AC-G.2, ERR-1)_
 4. Verify a `task.fallback_assigned` event is logged
 
 ### Edge case: Duplicate intake completion event
 1. Complete a client intake flow
 2. Manually re-fire the intake completion event for the same client
-3. Verify no duplicate tasks are created
+3. Verify no duplicate tasks are created. _(AC-1.5, ERR-2)_
+
+### Edge case: Transaction failure
+1. Inject a database failure mid-creation for one intake
+2. Verify all tasks for that intake are rolled back (no partial set) and the event is re-queued for retry. _(NFR-2, ERR-4)_
+
+### Edge case: Concurrent intake completions
+1. Fire intake completion for several clients simultaneously (load test) while multiple team members share the same role
+2. Verify assignment is race-free — each task counts toward workload exactly once, no member is assigned past the least-loaded rule, and creation+assignment stays within the 30s threshold. _(NFR-3)_
+
+## Definition of Done
+
+- [ ] All `[MUST]` criteria pass: AC-1.1–1.4, AC-2.1–2.2, AC-3.1–3.2, AC-4.1–4.3, AC-G.1–G.2, NFR-1–3, ERR-1, ERR-2, ERR-4
+- [ ] Every `[MUST]` criterion is covered by a verification step that has been run
+- [ ] Build / CI passes
+- [ ] NFR thresholds measured and met: tasks created+assigned <30s, assignment logic <2s, concurrent completions race-free under load test, creation is transactional
+- [ ] All four `task*` analytics events fire and are visible where consumed
+- [ ] Task template seed data defined with the CS team and loaded
+- [ ] User model role + availability fields migrated without conflict
 
 ## Open Questions
 
