@@ -24,6 +24,10 @@ This feature eliminates the guesswork. When a client completes intake, the syste
 
 **As an** account manager, **I want** onboarding tasks to be automatically created when a client completes intake **so that** I don't have to manually set up a task list for every new client.
 
+**Preconditions:**
+1. `PRE-1.1` An intake completion event has fired for the client (emitted by Feature 1 — see Dependencies)
+2. `PRE-1.2` An active task template exists defining the onboarding tasks to create
+
 **Acceptance Criteria:**
 1. `AC-1.1` `[MUST]` When a client submits the final step of the intake flow, the system creates all onboarding tasks defined in the active task template
 2. `AC-1.2` `[MUST]` Each created task has a title, description, assigned team member, and deadline
@@ -31,9 +35,16 @@ This feature eliminates the guesswork. When a client completes intake, the syste
 4. `AC-1.4` `[MUST]` The account manager who owns the client relationship is notified that tasks have been created
 5. `AC-1.5` `[SHOULD]` Task creation is idempotent — if the intake completion event fires twice, duplicate tasks are not created
 
+**Postconditions:**
+1. `POST-1.1` All template tasks for the client are persisted in a single transaction (all-or-none — see `NFR-2`)
+2. `POST-1.2` A `tasks.created` event is emitted and the owning account manager has a notification
+
 ### US-2 — Role-based task routing
 
 **As a** team member, **I want** tasks to be assigned to me based on my role **so that** I only receive tasks I'm qualified to handle.
+
+**Preconditions:**
+1. `PRE-2.1` Each task type in the template has a role mapping configured _(else `ERR-3` — task created unassigned, admin alerted)_
 
 **Acceptance Criteria:**
 1. `AC-2.1` `[MUST]` Each task type is mapped to a specific role (e.g., "welcome call" routes to account manager, "technical setup" routes to implementation specialist)
@@ -45,15 +56,24 @@ This feature eliminates the guesswork. When a client completes intake, the syste
 
 **As a** team lead, **I want** tasks to be distributed based on team members' current workload **so that** no one person is overwhelmed while others sit idle.
 
+**Preconditions:**
+1. `PRE-3.1` At least one team member holding the required role is marked `available` _(else the fallback path applies — `AC-G.2`, `ERR-1`)_
+
 **Acceptance Criteria:**
 1. `AC-3.1` `[MUST]` When multiple team members share the same role, the system assigns the task to the team member with the fewest open onboarding tasks
 2. `AC-3.2` `[MUST]` A team member can be marked as "unavailable" (e.g., out of office), and the system skips them during assignment
 3. `AC-3.3` `[SHOULD]` If two team members have equal workload, either may be assigned (no specific tiebreaker required for MVP)
 4. `AC-3.4` `[COULD]` Team members can set a maximum concurrent task limit
 
+**Postconditions:**
+1. `POST-3.1` Each created task is assigned to exactly one member (or the fallback), and the assignment audit log records the assignee and workload reason (see `AC-G.1`)
+
 ### US-4 — Deadline assignment
 
 **As an** account manager, **I want** each task to have an automatic deadline **so that** the team knows when each step needs to be completed and clients aren't left waiting.
+
+**Preconditions:**
+1. `PRE-4.1` Each task type has an SLA duration configured on its template
 
 **Acceptance Criteria:**
 1. `AC-4.1` `[MUST]` Each task type has a configurable SLA (e.g., "welcome call" = 24 hours, "account configuration" = 48 hours)
@@ -123,6 +143,17 @@ The engine is event-driven: Feature 1's intake completion triggers task creation
 - Deadlines are always derived from SLA + intake completion time, never set manually at creation
 - All tasks for one intake are created in a single transaction — all or none (NFR-2)
 
+## Roles & Permissions
+
+| Role | Action | Allowed? | Condition |
+|------|--------|----------|-----------|
+| Admin | Create/edit task templates, role mappings, SLA durations | yes | — |
+| Team member | View own assigned tasks | yes | Only tasks assigned to them |
+| Team member | Toggle own availability | yes | Only their own status |
+| Team lead | Receive fallback assignments | yes | For roles they lead (`ERR-1`) |
+| Account manager | Be notified when tasks are created | yes | For clients they own |
+| Team member | Reassign a task to someone else | no | Out of scope for MVP — reassignment is a DB update |
+
 ## Non-Functional Requirements
 
 - **Performance:** `NFR-1` `[MUST]` All tasks for a single intake completion are created and assigned within 30 seconds; the assignment logic itself completes in under 2 seconds (remainder is event propagation and DB writes).
@@ -151,6 +182,12 @@ The engine is event-driven: Feature 1's intake completion triggers task creation
   - `task.fallback_assigned` — task assigned to team lead due to no availability
   - `task.assignment_failed` — task could not be assigned (includes reason)
 - **Evaluation timeline:** 2 weeks post-launch for assignment accuracy and speed; 4 weeks for workload distribution and reassignment rates
+
+## Assumptions
+
+- `ASM-1` The existing notification infrastructure is available and delivers to team members and account managers. This feature triggers notifications but does not build the delivery mechanism (see Out of Scope).
+- `ASM-2` Each defined role normally has at least one team member; the fallback (`ERR-1`) and unassigned (`ERR-3`) paths handle the exceptions, but steady-state role coverage is assumed.
+- `ASM-3` A team member's open-task count in the database accurately reflects real workload — assignment relies on it, since there is no calendar/schedule integration in the MVP.
 
 ## Dependencies & Prerequisites
 
@@ -202,10 +239,16 @@ The engine is event-driven: Feature 1's intake completion triggers task creation
 1. Fire intake completion for several clients simultaneously (load test) while multiple team members share the same role
 2. Verify assignment is race-free — each task counts toward workload exactly once, no member is assigned past the least-loaded rule, and creation+assignment stays within the 30s threshold. _(NFR-3)_
 
+## Examples (Golden Path)
+
+- `EX-1` **Input:** a client completes intake; templates are "Welcome call" (account-manager role, 24h SLA) and "Technical setup" (implementation-specialist role, 48h SLA); two account managers are available with 3 and 5 open tasks respectively → **Expected:** both tasks are created within 30s in one transaction; "Welcome call" is assigned to the AM with 3 open tasks; deadlines are set to completion + 24h and + 48h; `tasks.created` and per-task `task.assigned` events are logged. _(exercises AC-1.1, AC-3.1, AC-4.2, POST-1.1, POST-3.1)_
+- `EX-2` **Input:** all implementation specialists are marked `unavailable` when a client completes intake → **Expected:** "Technical setup" is assigned to the team lead, flagged "needs attention", and a `task.fallback_assigned` event is logged. _(exercises AC-G.2, ERR-1 — violated `PRE-3.1`)_
+
 ## Definition of Done
 
 - [ ] All `[MUST]` criteria pass: AC-1.1–1.4, AC-2.1–2.2, AC-3.1–3.2, AC-4.1–4.3, AC-G.1–G.2, NFR-1–3, ERR-1, ERR-2, ERR-4
 - [ ] Every `[MUST]` criterion is covered by a verification step that has been run
+- [ ] Every precondition (`PRE-1.1`–`PRE-4.1`) is enforced, or its violation is handled per the linked `ERR` row
 - [ ] Build / CI passes
 - [ ] NFR thresholds measured and met: tasks created+assigned <30s, assignment logic <2s, concurrent completions race-free under load test, creation is transactional
 - [ ] All four `task*` analytics events fire and are visible where consumed
@@ -232,3 +275,4 @@ The engine is event-driven: Feature 1's intake completion triggers task creation
 | Date | Change | Author |
 |------|--------|--------|
 | 2026-03-07 | Initial draft | James Gray |
+| 2026-07-03 | Added per-story preconditions/postconditions, Assumptions, Roles & Permissions, and Golden Path examples | James Gray |

@@ -51,7 +51,7 @@ If the user references a Vision Brief or a specific feature from a breakdown (e.
 | Key Capabilities | User Stories + AC | Map relevant capabilities to stories with `[MUST]`/`[SHOULD]`/`[COULD]` criteria. |
 | Inspiration | UI/UX Requirements | Pull in relevant design references for user-facing features. |
 | What Success Looks Like | Success Metrics | Translate early signals and real outcomes into measurable metrics for this feature. |
-| Risks & Assumptions | Open Questions | Surface risks that apply to this feature as questions to resolve. |
+| Risks & Assumptions | Open Questions + Assumptions | Risks you're unsure about → Open Questions. Things you're relying on being true but won't build/verify → the Assumptions section. |
 | Dependencies | Dependencies & Prerequisites | Carry over dependencies relevant to this feature. |
 | Constraints & Context | Design Constraints + NFRs | Split into design constraints and non-functional requirements. |
 | Future Considerations | Future Considerations | Carry over items relevant to this feature's domain. |
@@ -71,14 +71,16 @@ Ask the user these questions to understand the feature:
 
 1. **What feature are you building?** (one sentence)
 2. **What problem does it solve?** (why does this need to exist?)
-3. **Who are the users?** (user type for user stories)
-4. **What should happen?** (key behaviors/requirements — and if the feature collects or stores data, what are the fields and their validation rules?)
-5. **What is explicitly NOT part of this feature?** (scope boundaries — prevents scope creep)
-6. **Are there performance, security, or accessibility requirements?** Push for *concrete, measurable* targets — "response under 1s at p95," "WCAG 2.1 AA," "auth required on every write" — because these become testable NFRs. If the user says "nothing special," record an explicit baseline (e.g., "page loads under 3s") rather than leaving it silent — an untestable NFR is no NFR.
-7. **What should happen when things go wrong?** (error states — invalid input, network failure, missing data, permission denied). If this is a simple feature, a brief answer is fine.
-8. **Does this change existing behavior, data, or URLs?** (migration needs — if yes, we'll need a migration and rollback plan). If no, skip the Migration section in the PRD.
-9. **What does this depend on?** (other features, data sources, APIs, tools that must exist first). If nothing, skip the Dependencies section.
-10. **How will you measure success after launch?** (primary metric, what to track, when to evaluate). If the user isn't sure, help them define at least one leading indicator.
+3. **Who are the users?** (user type for user stories — and are there distinct roles with different permissions?)
+4. **What should happen?** (key behaviors/requirements — and if the feature collects or stores data, what are the fields and their validation rules? What state should the system be in *afterward*? If you can, give one concrete example: input → expected result.)
+5. **What must already be true before each behavior applies?** (preconditions — user state, data that must already exist, permissions already held, a prior step already completed). Don't expect a full list here — you'll propose likely preconditions per story during drafting (see "Deriving Preconditions" below); this question just surfaces the obvious ones.
+6. **What is explicitly NOT part of this feature?** (scope boundaries — prevents scope creep)
+7. **Are there performance, security, or accessibility requirements?** Push for *concrete, measurable* targets — "response under 1s at p95," "WCAG 2.1 AA," "auth required on every write" — because these become testable NFRs. If the user says "nothing special," record an explicit baseline (e.g., "page loads under 3s") rather than leaving it silent — an untestable NFR is no NFR.
+8. **What should happen when things go wrong?** (error states — invalid input, network failure, missing data, permission denied). If this is a simple feature, a brief answer is fine.
+9. **What are you assuming is already true** about the environment, users, or data that this feature won't build or verify? (assumptions — e.g., "the email provider is already configured," "users are on modern browsers"). These are different from dependencies: an assumption is believed-but-unverified; a dependency must exist first.
+10. **Does this change existing behavior, data, or URLs?** (migration needs — if yes, we'll need a migration and rollback plan). If no, skip the Migration section in the PRD.
+11. **What does this depend on?** (other features, data sources, APIs, tools that must exist first). If nothing, skip the Dependencies section.
+12. **How will you measure success after launch?** (primary metric, what to track, when to evaluate). If the user isn't sure, help them define at least one leading indicator.
 
 Then create a PRD file. Use this structure for the PRD:
 
@@ -105,14 +107,25 @@ Why this feature needs to exist. What problem it solves. Include quantification 
 ### US-1 — [Short title]
 **As a** [user type], **I want** [goal] **so that** [benefit].
 
+**Preconditions:** _(state that must hold before this story's behavior applies — omit if none)_
+1. `PRE-1.1` [Entry-state that must be true — e.g., "User is authenticated"]
+2. `PRE-1.2` [e.g., "A syntactically valid email was submitted"]
+
 **Acceptance Criteria:**
 1. `AC-1.1` `[MUST]` [Yes/no verifiable statement]
 2. `AC-1.2` `[MUST]` [Another verifiable statement]
 3. `AC-1.3` `[SHOULD]` [A desirable but non-blocking criterion]
 
+**Postconditions:** _(the end-state this story guarantees on success — omit for trivial/read-only stories, or when the ACs already fully capture the end-state)_
+1. `POST-1.1` [Resulting state — e.g., "Account is marked verified and persisted"]
+
 > *Example:*
 > ### US-1 — Email verification on signup
 > **As a** new user, **I want** to verify my email during signup **so that** my account is secured and I receive important notifications.
+>
+> **Preconditions:**
+> 1. `PRE-1.1` The signup form was submitted with a syntactically valid email _(else `ERR-1`)_
+> 2. `PRE-1.2` No verified account already exists for that email _(else `ERR-4`)_
 >
 > **Acceptance Criteria:**
 > 1. `AC-1.1` `[MUST]` Verification email is sent within 30 seconds of form submission
@@ -120,9 +133,16 @@ Why this feature needs to exist. What problem it solves. Include quantification 
 > 3. `AC-1.3` `[MUST]` Unverified accounts cannot access workspace features
 > 4. `AC-1.4` `[SHOULD]` "Resend verification" button is available on the pending screen
 > 5. `AC-1.5` `[COULD]` Verification link includes the user's name in the email greeting
+>
+> **Postconditions:**
+> 1. `POST-1.1` The account is persisted with `verified = true` and a verified-at timestamp
+> 2. `POST-1.2` A `welcome_email_sent` event is emitted for the activated account
 
 ### US-2 — [Short title]
 **As a** [user type], **I want** [goal] **so that** [benefit].
+
+**Preconditions:** _(omit if none)_
+1. `PRE-2.1` [Entry-state that must be true]
 
 **Acceptance Criteria:**
 1. `AC-2.1` `[MUST]` [Yes/no verifiable statement]
@@ -156,6 +176,20 @@ _Omit for features with no meaningful data model (static pages, copy-only change
 
 **Cross-field & business rules:** [Rules not captured per-field — e.g., "end date must be after start date"; "at least one contact method required"]
 
+## Roles & Permissions
+_Who can do what. Omit for single-role features. This feeds story preconditions (authorization) and error states (permission denied), so keep it consistent with both._
+
+| Role | Action | Allowed? | Condition |
+|------|--------|----------|-----------|
+| [role] | [action] | [yes / no] | [when / scoping constraint — e.g., "only records they own"] |
+
+> *Example:*
+> | Role | Action | Allowed? | Condition |
+> |------|--------|----------|-----------|
+> | Member | Verify own email | yes | — |
+> | Member | Resend verification | yes | Only for their own pending account |
+> | Admin | Manually mark an account verified | yes | Any account in their workspace |
+
 ## Non-Functional Requirements
 _Each NFR is a testable statement, just like an acceptance criterion: an ID, a priority tag, and a **concrete, measurable threshold** — plus how to verify it where the method isn't obvious. Include only relevant categories. If the feature truly has no special requirement in a category, record an explicit baseline (e.g., "page loads under 3s") rather than vague prose or silence. "Fast" and "secure" are not testable; "under 1s at p95" and "all inputs server-side validated" are._
 
@@ -167,7 +201,7 @@ _Each NFR is a testable statement, just like an acceptance criterion: an ID, a p
 - **Compatibility:** [e.g., "Works on the latest two versions of Chrome, Safari, Firefox, and Edge"]
 
 ## Error States
-_What should happen when things go wrong? Cover the most likely failure scenarios. Each row is a testable expectation — give it an ID and a priority. Every `[MUST]` error behavior must be covered by a step in the Verification section._
+_What should happen when things go wrong? Cover the most likely failure scenarios. Each row is a testable expectation — give it an ID and a priority. Every `[MUST]` error behavior must be covered by a step in the Verification section. A violated precondition (`PRE-n.m`) that isn't silently enforced belongs here as an `ERR` row._
 
 | ID | Scenario | Expected Behavior | Priority |
 |----|----------|-------------------|----------|
@@ -177,9 +211,10 @@ _What should happen when things go wrong? Cover the most likely failure scenario
 > *Example:*
 > | ID | Scenario | Expected Behavior | Priority |
 > |----|----------|-------------------|----------|
-> | `ERR-1` | Invalid email format entered | Inline validation message: "Please enter a valid email address." Form does not submit. | `[MUST]` |
+> | `ERR-1` | Invalid email format entered (violates `PRE-1.1`) | Inline validation message: "Please enter a valid email address." Form does not submit. | `[MUST]` |
 > | `ERR-2` | Verification link expired (>24h) | Landing page shows "Link expired" with a "Resend verification" button. | `[MUST]` |
 > | `ERR-3` | Email delivery fails | System retries once after 5 minutes. If still failed, logs error and shows "Didn't receive it?" prompt. | `[SHOULD]` |
+> | `ERR-4` | Email already has a verified account (violates `PRE-1.2`) | Message: "That email is already registered. Try signing in." Form does not create a duplicate. | `[MUST]` |
 
 ## Success Metrics & Instrumentation
 _How will you know this feature is working? Define what to measure and when to evaluate._
@@ -188,6 +223,14 @@ _How will you know this feature is working? Define what to measure and when to e
 - **Secondary metrics:** [Supporting indicators]
 - **Events to track:** [Specific user actions or system events to instrument]
 - **Evaluation timeline:** [When to check — e.g., "2 weeks post-launch for early signal, 6 weeks for full assessment"]
+
+## Assumptions
+_Things believed true but NOT verified or built by this feature. If an assumption turns out wrong, the design may need to change. Omit if none._
+
+- `ASM-1` [e.g., "The transactional email provider is already configured and can deliver to external domains"]
+- `ASM-2` [e.g., "Users access the app on modern evergreen browsers"]
+
+_How this differs from neighbours: an assumption you're **sure must** be true → promote it to a **Dependency** (something to verify/build first); one you're **unsure** about → move it to **Open Questions** (something to resolve)._
 
 ## Dependencies & Prerequisites
 _Omit this section if there are no dependencies._
@@ -222,20 +265,31 @@ Step-by-step instructions to verify the feature works end-to-end after implement
 
 **Coverage rule:** Every `[MUST]` criterion — story AC, Global AC, NFR, and Error State — must be covered by at least one verification step. This is what lets an agent (and you) confirm nothing required ships untested.
 
+**Precondition setup:** where a step depends on a precondition, **arrange that `PRE` state as setup** before the action — e.g., "Given `PRE-1.1` holds (a valid email was submitted), click the link → …". A step whose preconditions aren't arranged will fail for the wrong reason.
+
 > *Example:*
 > ### Happy path
-> 1. Submit the signup form with a valid email → verification email arrives within 30s. _(AC-1.1)_
-> 2. Click the verification link → account activates and redirects to the dashboard. _(AC-1.2)_
+> 1. **Setup:** submit the signup form with a valid, unregistered email _(establishes `PRE-1.1`, `PRE-1.2`)_ → verification email arrives within 30s. _(AC-1.1)_
+> 2. Click the verification link → account activates and redirects to the dashboard. _(AC-1.2, POST-1.1)_
 > 3. Before verifying, attempt to open a workspace page → access is blocked. _(AC-1.3)_
 >
 > ### Edge case: invalid input
-> 1. Enter a malformed email → inline error appears, form does not submit. _(ERR-1)_
+> 1. Enter a malformed email → inline error appears, form does not submit. _(ERR-1, violates PRE-1.1)_
+
+## Examples (Golden Path)
+_One or more concrete worked examples: input → expected output. An agentic coding model builds more accurately from a worked example than from prose rules. Reference the story/AC each example exercises. Omit only if the ACs and Data & Validation rules already leave nothing to a concrete example._
+
+- `EX-1` **Input:** [concrete input] → **Expected:** [concrete output] _(exercises AC-1.1, AC-1.2)_
+
+> *Example:*
+> - `EX-1` **Input:** signup submitted with `ada@example.com` (no existing account) → **Expected:** verification email sent within 30s; on link click, account row shows `verified = true` and the user lands on `/dashboard`. _(exercises AC-1.1, AC-1.2, POST-1.1)_
 
 ## Definition of Done
 _The gate for calling this feature complete — every box checked before it ships. This is the feature-specific complement to the verification steps above._
 
 - [ ] All `[MUST]` acceptance criteria pass (story, Global, NFR, Error State)
 - [ ] Every `[MUST]` criterion is covered by a verification step that has actually been run
+- [ ] Every precondition (`PRE-n.m`) is enforced, or its violation is handled per the linked `ERR` row
 - [ ] Build / CI passes
 - [ ] NFR thresholds are measured and met (not assumed)
 - [ ] Instrumentation events fire and are visible where they're consumed
@@ -279,10 +333,14 @@ Each user story gets its own acceptance criteria directly beneath it. This keeps
 
 **Stable IDs (you assign these as you draft — the author never hand-maintains them):**
 - **User stories:** `US-1`, `US-2`, … — give each story its own ID on the heading, not just a title.
+- **Story preconditions:** `PRE-<story#>.<n>` — e.g. `PRE-1.1` is the first precondition of `US-1`. The story is this skill's "use case"; its preconditions and postconditions bracket the entry and exit state around the acceptance criteria.
 - **Story acceptance criteria:** `AC-<story#>.<n>` — e.g. `AC-1.1` is the first criterion of `US-1`. The story number is baked into the ID so every criterion visibly traces to its story.
+- **Story postconditions:** `POST-<story#>.<n>` — e.g. `POST-1.1` is the first postcondition of `US-1`.
 - **Global acceptance criteria:** `AC-G.1`, `AC-G.2`, …
 - **Non-functional requirements:** `NFR-1`, `NFR-2`, …
 - **Error states:** `ERR-1`, `ERR-2`, …
+- **Assumptions:** `ASM-1`, `ASM-2`, …
+- **Golden examples:** `EX-1`, `EX-2`, …
 
 **ID stability rule:** IDs are permanent. When adding stories or criteria later, append new numbers — **never renumber existing ones**, because plans, tests, and the GitHub issue reference them. If a story or criterion is dropped, retire its number rather than reusing it.
 
@@ -295,6 +353,24 @@ Each user story gets its own acceptance criteria directly beneath it. This keeps
 - Use active voice ("Error message is displayed" not "User sees error")
 - Include concrete expected values when possible
 - Each criterion must be testable by running a specific command, visiting a URL, or checking a specific output
+
+### Deriving Preconditions
+
+A user story is this skill's "use case." Its **Preconditions** describe the entry state, and its **Postconditions** describe the exit state, that bracket the acceptance criteria. Don't wait for the user to volunteer preconditions — most people can't enumerate their own entry-state. **Propose them yourself.**
+
+For each story, walk this checklist and list every category that applies as a `PRE` item, then confirm or prune with the user:
+
+- **Authentication** — must the user be signed in?
+- **Authorization / role** — does the action require a specific role, or ownership of the target record?
+- **Data existence** — must a record, parent, or resource already exist for this to operate on?
+- **Prior-step completion** — must an earlier workflow step already have finished (e.g., "intake is complete")?
+- **Resource / quota availability** — seats, credits, rate limits, an available assignee?
+- **Feature flag / configuration** — must something be enabled or configured first?
+- **Input-validity state** — must the input already be in a valid/normalized state before this behavior runs?
+
+**Then close the loop:** each `PRE` should either be *enforced* by the feature or *paired with an `ERR` row* describing what happens when it's violated (e.g., `PRE-2.1` "an eligible assignee exists" → `ERR-3` "no eligible assignee → task flagged for manual assignment"). A precondition with neither an enforcement nor an error path is an untested assumption.
+
+Do the same lightweight pass for **Postconditions** — the resulting state each story guarantees (data persisted, event emitted, navigation landed). Keep them distinct from acceptance criteria so you don't restate the same thing twice: an **AC is an externally observable, testable behavior** ("clicking the link activates the account"); a **Postcondition is the resulting system/persisted state** that remains true afterward, some of it not user-visible ("the account row has `verified = true`," "a `welcome_email_sent` event was emitted"). If a tester *observes it happening*, it's an AC; if it's the *state left behind*, it's a Postcondition. Omit Postconditions entirely when the ACs already fully capture the end-state.
 
 ---
 
@@ -320,6 +396,11 @@ Check for:
 12. **Migration needs** — If existing behavior changes, is there a migration plan and rollback strategy? Are URL redirects needed?
 13. **Data & validation** — If the feature stores or validates data, are the fields, types, required/optional status, and validation rules specified? (Omit only if there's no real data model.)
 14. **Definition of Done** — Is the completion gate filled in and consistent with the `[MUST]` criteria and NFR thresholds?
+15. **Preconditions present & guarded** — Does each non-trivial story list its entry preconditions (`PRE-n.m`)? Is each one either enforced by the feature or paired with an `ERR` row for its violation? A `PRE` with neither is an untested assumption.
+16. **Postconditions established** — Where a story guarantees an end-state (`POST-n.m`), do its acceptance criteria actually establish that state? Are postconditions kept distinct from ACs rather than restating them?
+17. **Assumptions are truly assumptions** — Is each `ASM-n` believed-but-unverified? Should any be promoted to a Dependency (you're sure it must be true) or demoted to an Open Question (you're unsure)?
+18. **Roles/permissions complete** — If multiple roles exist, is the Roles & Permissions matrix complete and consistent with the story preconditions (authorization) and the permission-denied error states?
+19. **Golden example present** — Is there at least one concrete worked example (`EX-n`) that traces to a story/AC? (Omit only if the ACs and data rules leave nothing to a concrete example.)
 
 Iterate with the user until the PRD is solid.
 

@@ -29,6 +29,10 @@ The guided intake flow solves this by giving clients a structured, step-by-step 
 
 **As a** new client, **I want to** provide my information through a guided, multi-step flow **so that** I know exactly what's needed and can complete it without confusion.
 
+**Preconditions:**
+1. `PRE-1.1` The client is authenticated (an account was created at contract signing — see `ASM-1`)
+2. `PRE-1.2` The client's intake is not already completed _(else `ERR-5` — read-only summary)_
+
 **Acceptance Criteria:**
 1. `AC-1.1` `[MUST]` Intake is divided into logical steps: company info, primary contact details, project goals, timeline and constraints, and billing setup
 2. `AC-1.2` `[MUST]` Each step shows only the fields relevant to that step — no overwhelming single-page form
@@ -36,9 +40,15 @@ The guided intake flow solves this by giving clients a structured, step-by-step 
 4. `AC-1.4` `[MUST]` Client can see which step they're on and how many remain (e.g., "Step 3 of 5")
 5. `AC-1.5` `[SHOULD]` Each step includes a brief explanation of why the information is needed
 
+**Postconditions:**
+1. `POST-1.1` After Step 1 is completed, intake status is `in progress` and Step 1 data is persisted server-side
+
 ### US-2 — Progress persistence
 
 **As a** new client, **I want to** save my progress and come back later **so that** I don't have to complete everything in one sitting.
+
+**Preconditions:**
+1. `PRE-2.1` The client has started intake (at least one step completed) — there is progress to persist and resume
 
 **Acceptance Criteria:**
 1. `AC-2.1` `[MUST]` Progress is automatically saved after each step is completed
@@ -46,9 +56,16 @@ The guided intake flow solves this by giving clients a structured, step-by-step 
 3. `AC-2.3` `[MUST]` A confirmation message shows when progress is saved (e.g., "Your progress has been saved. You can close this tab and come back anytime.")
 4. `AC-2.4` `[SHOULD]` Incomplete intake flows are retained for at least 30 days before being archived
 
+**Postconditions:**
+1. `POST-2.1` Completed-step data is persisted keyed to the client's account and is retrievable on return from any device
+
 ### US-3 — Intake status visibility for account managers
 
 **As an** account manager, **I want to** see which step each client is on in the intake flow **so that** I can proactively reach out to clients who are stuck.
+
+**Preconditions:**
+1. `PRE-3.1` The viewer is authenticated as an account manager (authorization — clients cannot see this view; see Roles & Permissions)
+2. `PRE-3.2` The account manager has at least one client assigned to them (see `ASM-2`)
 
 **Acceptance Criteria:**
 1. `AC-3.1` `[MUST]` Account manager view shows a list of all assigned clients with their current intake step
@@ -60,12 +77,19 @@ The guided intake flow solves this by giving clients a structured, step-by-step 
 
 **As a** new client, **I want to** receive a clear confirmation when I've completed intake **so that** I know what happens next and who to expect to hear from.
 
+**Preconditions:**
+1. `PRE-4.1` All required fields across every step have passed validation (final submission is blocked otherwise — see `AC-G.2`, `ERR-1`)
+
 **Acceptance Criteria:**
 1. `AC-4.1` `[MUST]` Completion screen shows a summary of all submitted information
 2. `AC-4.2` `[MUST]` Client can review and edit any section before final submission
 3. `AC-4.3` `[MUST]` After submission, client sees a "What happens next" message explaining the next steps in onboarding
 4. `AC-4.4` `[MUST]` Account manager is notified immediately when a client completes intake
 5. `AC-4.5` `[COULD]` Client receives a confirmation email with a copy of their submitted information
+
+**Postconditions:**
+1. `POST-4.1` Intake status is `completed` and the final submission is persisted
+2. `POST-4.2` An `intake.completed` event is emitted and a notification to the assigned account manager is created
 
 ### Global Acceptance Criteria
 1. `AC-G.1` `[MUST]` Analytics events fire at each step transition to track drop-off rates per step
@@ -124,6 +148,15 @@ Step-transition events are sent to the analytics pipeline on each step completio
 - A step cannot be advanced until all required fields on it pass validation
 - Billing contact email may match the primary contact email (no uniqueness requirement)
 
+## Roles & Permissions
+
+| Role | Action | Allowed? | Condition |
+|------|--------|----------|-----------|
+| Client | Complete / edit own intake | yes | Only their own intake, and only while it is not yet completed (`PRE-1.2`) |
+| Client | View the account-manager status list | no | — |
+| Account manager | View intake status of assigned clients | yes | Only clients assigned to them (`PRE-3.1`, `PRE-3.2`) |
+| Account manager | Complete intake on a client's behalf | no | Out of scope for MVP — see Open Questions |
+
 ## Non-Functional Requirements
 
 - **Performance:** `NFR-1` `[MUST]` Each step transition (save + load next) completes in under 1 second at p95; intake flow initial load completes in under 2 seconds on a standard broadband connection.
@@ -155,6 +188,12 @@ Step-transition events are sent to the analytics pipeline on each step completio
   - `intake.resumed` — client returns to a previously started flow
   - `intake.completed` — client submits the final step
 - **Evaluation timeline:** 2 weeks post-launch for early signal on completion rates; 6 weeks for full assessment including AM time savings and client survey data
+
+## Assumptions
+
+- `ASM-1` Every client has an authenticated account created at contract signing. This feature does not handle account creation, login, or authentication — it assumes an authenticated client session (`PRE-1.1`).
+- `ASM-2` Each client is assigned to exactly one account manager before intake begins, so the account-manager status view always has an owner to attribute clients to (`PRE-3.2`).
+- `ASM-3` Clients complete intake themselves (not the account manager on their behalf) for the MVP.
 
 ## Dependencies & Prerequisites
 
@@ -209,10 +248,16 @@ Step-transition events are sent to the analytics pipeline on each step completio
 1. Run axe DevTools on each step and the summary screen — zero critical violations; tab through every field and submit using the keyboard only. _(NFR-2)_
 2. Complete a full intake on a phone (single-column, 44px+ touch targets) and on the latest two versions of Chrome, Safari, Firefox, and Edge. _(NFR-3)_
 
+## Examples (Golden Path)
+
+- `EX-1` **Input:** an authenticated client with no prior intake opens the flow and completes Step 1 (company "Acme Co", industry "SaaS", advancing) → **Expected:** intake status flips `not started` → `in progress`, Step 1 data is persisted, and the indicator reads "Step 2 of 5". _(exercises AC-1.1, AC-1.4, AC-2.1, POST-1.1)_
+- `EX-2` **Input:** a client on Step 5 with all required fields valid submits the final step → **Expected:** intake status becomes `completed`, an `intake.completed` event fires, the assigned account manager is notified immediately, and the client sees the "What happens next" message. _(exercises AC-4.3, AC-4.4, POST-4.1, POST-4.2)_
+
 ## Definition of Done
 
 - [ ] All `[MUST]` criteria pass: AC-1.1–1.4, AC-2.1–2.3, AC-3.1–3.3, AC-4.1–4.4, AC-G.1–G.2, NFR-1–4, ERR-1–3, ERR-5
 - [ ] Every `[MUST]` criterion is covered by a verification step that has been run
+- [ ] Every precondition (`PRE-1.1`–`PRE-4.1`) is enforced, or its violation is handled per the linked `ERR` row
 - [ ] Build / CI passes
 - [ ] NFR thresholds measured and met: step transition <1s p95, initial load <2s, WCAG 2.1 AA (axe clean), no silent auto-save failures
 - [ ] All five `intake.*` analytics events fire and are visible in the analytics pipeline
@@ -237,3 +282,4 @@ Step-transition events are sent to the analytics pipeline on each step completio
 | Date | Change | Author |
 |------|--------|--------|
 | 2026-03-07 | Initial draft | James Gray |
+| 2026-07-03 | Added per-story preconditions/postconditions, Assumptions, Roles & Permissions, and Golden Path examples | James Gray |
