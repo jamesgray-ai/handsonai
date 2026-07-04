@@ -11,7 +11,7 @@ Without a PRD, teams operate on assumptions. The designer imagines one solution,
 
 ## Anatomy of a PRD
 
-A PRD doesn't need to be long, but it needs to answer five questions clearly:
+A PRD doesn't need to be long, but it needs to answer a few core questions clearly:
 
 ### Problem Statement
 
@@ -45,6 +45,14 @@ How will you know this worked? Define measurable outcomes before building, not a
 ### Open Questions
 
 What don't you know yet? Listing open questions signals intellectual honesty and focuses early conversations on resolving unknowns rather than debating known decisions.
+
+### Preconditions and Assumptions
+
+Every behavior has an entry state — things that must already be true before it applies. A **precondition** is what has to hold for a step to run: the user is signed in, a record already exists, an earlier step finished. An **assumption** is something you're relying on being true but won't build or check yourself, like "the email provider is already set up." Writing these down matters most when an AI agent builds the work — preconditions become the guard checks and permission rules it needs to write, and unstated assumptions are a common source of bugs.
+
+> **Precondition:** The user has a verified account before they can send a notification.
+>
+> **Assumption:** The existing notification service is already configured to deliver to external addresses.
 
 ## Good PRD vs. Bad PRD
 
@@ -88,6 +96,7 @@ When you hand an AI agent a clear PRD with a defined problem, specific goals, no
 
 - **Problem statement** → The agent understands the purpose behind its task
 - **Goals and non-goals** → The agent knows what's in scope and what to avoid
+- **Preconditions and assumptions** → The agent knows the entry state to guard for and what it can safely take for granted
 - **Success metrics** → The agent can verify whether its solution meets the bar
 - **Open questions** → The agent knows where to ask for clarification rather than guessing
 
