@@ -364,7 +364,7 @@ The skills page (`docs/ai-workflow-framework/skills.mdx`) uses `/releases/latest
    ```
 2. Write `plugin.json` with name, description, version (start at `1.0.0`), author, keywords.
 3. Add a grid card + collapsible detail section to `docs/use-the-playbook/build/index.md` — include links to the detail page anchors for every agent and skill.
-4. Create a detail page at `docs/use-the-playbook/build/<plugin-name>.md` following the template used by existing detail pages (see `docs/use-the-playbook/build/ai-registry.md` for reference).
+4. Create a detail page at `docs/use-the-playbook/build/<plugin-name>.md` following the template used by existing detail pages (see `docs/use-the-playbook/build/handsonai.mdx` for reference).
 5. Add the detail page to the sidebar in `astro.config.mjs` under "Tools & Resources > Agents & Skills".
 6. Add an entry for the new plugin to `~/Code/jamesgray/handsonai-plugins/.claude-plugin/marketplace.json` (the current `sync-plugins.sh` only knows about the `handsonai` plugin — extend it or hand-bump for new plugins).
 7. Commit and push this repo first, then build ZIPs, create a Release, and push `handsonai-plugins` **last**.

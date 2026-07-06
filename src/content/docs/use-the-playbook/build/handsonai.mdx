@@ -67,10 +67,10 @@ Walks you through the full 7-step framework end-to-end. The agent calls the righ
 
 ## AI Registry
 
-Once you've built workflows worth tracking, you need a registry. These four skills give you naming conventions, documentation templates, and Notion-backed registration for keeping a clean catalog of what you've built.
+Once you've built workflows worth tracking, you need a registry. These four skills maintain a **Markdown-based AI Registry** that lives in your workspace: workflow metadata in `workflow.yaml` manifests, self-describing skill and agent files, and a generated `REGISTRY.md` index that gives you the at-a-glance dashboard. The framework skills keep it current automatically — no external database required.
 
-:::note[Prerequisites]
-These skills work best with a **Notion account** and the **Notion MCP connector**. Without it, Claude can follow the naming and documentation conventions but cannot save entries to Notion. See [Notion Registry Setup](../../../builder-setup/notion-registry-setup/) for configuration.
+:::note[No external tools needed]
+The AI Registry is pure Markdown — it works anywhere Claude can read and write files. If you like a visual database view, Notion is available as an **optional mirror**. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for the full guide.
 :::
 
 ### Skills
@@ -79,13 +79,13 @@ These skills work best with a **Notion account** and the **Notion MCP connector*
 
 **Slash command:** `/handsonai:naming-workflows`
 
-Generates consistent, outcome-focused names and descriptions for business workflows, then creates entries in your Notion Workflows database. Follows domain-specific naming patterns (Sales, Marketing, Product, Education, Operations) so your registry stays organized as it grows.
+Generates consistent, outcome-focused names and descriptions for business workflows, then records them in the workflow's `workflow.yaml` manifest — its AI Registry entry. Follows domain-specific naming patterns (Sales, Marketing, Product, Education, Operations) so your registry stays organized as it grows.
 
 #### `writing-workflow-sops`
 
 **Slash command:** `/handsonai:writing-workflow-sops`
 
-Writes Standard Operating Procedure documentation for workflows and saves them as Markdown files, with optional linking to your workflow tracker. Selects a full or lightweight SOP template based on autonomy level (deterministic vs. guided/autonomous) and adapts for execution mode (Manual, Augmented, Automated).
+Writes Standard Operating Procedure documentation for workflows and saves them as Markdown files, recording the SOP link in the workflow's registry entry. Selects a full or lightweight SOP template based on autonomy level (deterministic vs. guided/autonomous) and adapts for execution mode (Manual, Augmented, Automated).
 
 #### `writing-process-guides`
 
@@ -93,13 +93,13 @@ Writes Standard Operating Procedure documentation for workflows and saves them a
 
 Writes Business Process Guide documentation that explains the strategic context and rhythm of a complete business process — when to execute it, why it matters, and how its component workflows fit together. The strategic companion to tactical SOPs.
 
-#### `registering-building-blocks`
+#### `indexing-registry`
 
-**Slash command:** `/handsonai:registering-building-blocks`
+**Slash command:** `/handsonai:indexing-registry`
 
-Registers any AI building block — Skills, Agents, Prompts, or Context MDs — in your Notion AI Building Blocks database. Resolves the asset type from your request, extracts metadata from the appropriate source file, generates a Quick Start Prompt, checks for duplicates, and creates or updates the registry entry.
+Generates and refreshes `REGISTRY.md` — the AI Registry index at your workspace root. Scans your skills, agents, workflow manifests, SOPs, and process guides, then builds tables showing everything you've built: names, descriptions, Quick Start Prompts, workflow status and health, business-process groupings, and the apps each workflow uses. The framework skills refresh it automatically; run it standalone to pick up assets created outside the framework or to repair a stale index. Can optionally mirror entries to the Notion registry template.
 
-**Recommended workflow:** Name → Document procedure (SOP) → Connect workflows (Process Guide) → Register building blocks. Each skill works independently if you don't need the full sequence.
+**Recommended workflow:** Name → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index. Each skill works independently if you don't need the full sequence.
 
 ---
 

@@ -204,25 +204,46 @@ Write the Workflow Requirements to `outputs/[workflow-name]/requirements.md` whe
 
 Deconstruct **creates the workflow's manifest** — a small `workflow.yaml` in the workflow folder that tracks state and artifact paths so any framework skill (or a fresh session) can pick up where things left off:
 
+The manifest is also the workflow's **AI Registry entry** — the single source of truth for the metadata that appears in the generated `REGISTRY.md` (see the `indexing-registry` skill). All registry fields are optional; leave out what isn't known yet rather than inventing values.
+
 ```yaml
 workflow: lead-qualification      # kebab-case ID — names the folder and all artifacts
 display_name: Lead Qualification
+description: >-                   # 1-2 sentence outcome-focused description
+  Qualifies inbound leads against the ICP and produces a ranked list.
+process_outcome: Ranked qualified-lead list   # the tangible deliverable
+business_process: Sales Pipeline  # which business process this workflow belongs to
+sequence: 10                      # order within the process (multiples of 10) — optional
+status: under-development         # backlog | under-development | in-production
+type: augmented                   # augmented | automated | manual
+autonomy: guided                  # deterministic | guided | autonomous (set by design)
+trigger: "New lead in CRM"        # what kicks the workflow off
+owner: "[person or role]"         # copy from Metadata → Owner
+platform: claude-code             # claude-code | cowork | claude-ai | scheduled-agent (set by build/run)
+health: ""                        # working | needs-attention | broken (set by test/run/improve)
+last_run: ""                      # YYYY-MM-DD of most recent run (set by run)
+apps: []                          # integrations used, e.g., [Gmail, Notion] (set by design/build)
+assets_used: []                   # skills/agents this workflow uses, by name (set by build)
 definition_type: Step-Decomposed  # or Goal-Driven (legacy files may say Outcome-Driven — treat as Goal-Driven)
-current_step: 2                   # last completed framework step (1-7)
+current_step: 2                   # last completed framework step (1-7); 0 = named only
 last_updated: YYYY-MM-DD
 artifacts:
   requirements: outputs/lead-qualification/requirements.md
   # downstream skills append:
-  #   design_spec, platform_artifacts (list), test_results,
+  #   sop, design_spec, platform_artifacts (list), test_results,
   #   run_guide, run_log, improvement_plan
+notion_url: ""                    # optional back-pointer if the user mirrors to Notion
 # run also sets a top-level key: next_review: YYYY-MM-DD
 ```
+
+Deconstruct populates `display_name`, `description`, `trigger`, and `owner` (from the Metadata answers it already collects), sets `status: under-development`, and leaves the rest for downstream skills. **If a stub manifest already exists** (created by `naming-workflows` with `current_step: 0`), merge into it — preserve every field already set — never overwrite it with a fresh template.
 
 Conventions every framework skill follows (stated here once; downstream skills apply them):
 
 - **Read the manifest on load** to locate artifacts and confirm you're working on the right workflow.
 - **Resume orientation ("continue my workflow").** Any framework skill can be the re-entry point. When the user says "continue my workflow" (or invokes a skill without context), scan `outputs/` for workflow folders: if several exist, list them with their `current_step` and ask which to continue. Then orient before doing anything: "You finished Step [N] ([name]) on [last_updated] — next is Step [N+1] ([name])." If the invoked skill doesn't match the next step, say so and route to the right one instead of re-running finished work.
 - **Update it after writing your output**: set `current_step`, `last_updated`, and add your artifact path under `artifacts`.
+- **Refresh the AI Registry index.** After updating the manifest, refresh `REGISTRY.md` at the workspace root using the regeneration procedure in the `indexing-registry` skill (create the file if it doesn't exist yet). This is best-effort — if the environment can't write to the workspace root, note it and continue; a failed refresh never fails a framework step.
 - **Never silently overwrite.** If your output file already exists from a previous run, rename the old one with a date suffix (e.g., `requirements-2026-06-10.md`) before writing.
 - **Legacy layout:** if no workflow folder exists but flat files like `outputs/[name]-requirements.md` do, use those paths, and offer to migrate them into a folder + manifest before proceeding.
 - **No persistent workspace:** if this environment can't keep files between conversations (no project workspace — files are produced as downloads), tell the user after each write: "Save this file — you'll re-supply it (plus `workflow.yaml`) when you run the next step, or continue the next step in this conversation." On load, if the expected files aren't present, ask the user to re-upload them instead of failing.

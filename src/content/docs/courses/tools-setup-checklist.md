@@ -195,16 +195,17 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 </details>
 ---
 
-### Step 8: AI Registry (Notion)
+### Step 8: AI Registry
 
-**What:** Get a free Notion account, duplicate the AI Registry template, and connect Notion to your AI tool. Tracks every workflow, building block, and connected app in one workspace — essential once you're scaling beyond one-off experiments.
+**What:** Set up your Markdown-based AI Registry — a generated `REGISTRY.md` index that tracks every workflow, skill, agent, and connected app in your workspace. No external accounts needed; the AI Workflow Framework maintains it automatically. Essential once you're scaling beyond one-off experiments.
 
-**Action:** [Follow the AI Registry setup guide →](/builder-setup/notion-registry-setup/)
+**Action:** [Follow the AI Registry setup guide →](/builder-setup/ai-registry-setup/)
 
 **Done when:**
 
-- The Notion AI Registry template is duplicated to your workspace
-- The AI Registry plugin is installed (`/plugin install handsonai@handsonai`)
+- You have one AI workspace folder (ideally a GitHub repository) for your AI work
+- The Hands-on AI plugin is installed (`/plugin install handsonai@handsonai`)
+- `REGISTRY.md` appears at your workspace root after your first workflow
 
 <details>
 <summary>Stuck? Ask AI for help</summary>

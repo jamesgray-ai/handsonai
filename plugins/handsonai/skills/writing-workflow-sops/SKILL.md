@@ -6,7 +6,7 @@ user-invocable: true
 
 # Writing Workflow SOPs
 
-Write SOP documentation for workflows and save as markdown files, with optional linking to a workflow tracker (Notion, Airtable, etc.).
+Write SOP documentation for workflows and save as markdown files, recording the SOP path in the workflow's `workflow.yaml` manifest (its AI Registry entry). Mirroring to an external tracker (Notion, Airtable, etc.) is optional.
 
 ## Two-Axis Workflow Model
 
@@ -51,8 +51,8 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
 ## Process
 
 1. **Load workflow context** — Determine how the user is arriving:
-   - **From framework artifacts** (primary path): Read the Workflow Requirements (`outputs/<name>/requirements.md`) and Design Spec (`outputs/<name>/design-spec.md`) — or the legacy flat paths (`outputs/<name>-requirements.md`, `outputs/<name>-design-spec.md`) if no workflow folder exists. Extract name, description, trigger, type, execution mode, autonomy level, refined steps, skill candidates, agent config, and failure modes.
-   - **From Notion or another tracker** (if available): Fetch the workflow record for supplementary metadata (name, description, type, trigger, apps, assets used).
+   - **From framework artifacts** (primary path): Read the workflow's manifest (`outputs/<name>/workflow.yaml`) for registry metadata (display name, description, type, autonomy, owner, trigger, apps), then the Workflow Requirements (`outputs/<name>/requirements.md`) and Design Spec (`outputs/<name>/design-spec.md`) — or the legacy flat paths (`outputs/<name>-requirements.md`, `outputs/<name>-design-spec.md`) if no workflow folder exists. Extract refined steps, skill candidates, agent config, and failure modes from the documents.
+   - **From an external tracker** (only if the user keeps one): Fetch the workflow record for supplementary metadata — but prefer the manifest when both exist; it is the source of truth.
    - **From conversation**: If no artifacts exist, gather workflow details interactively (name, purpose, trigger, type, steps, etc.)
 2. **Classify on both axes** — Determine execution mode (augmented / automated / manual) and autonomy level (deterministic / guided / autonomous / n/a). If loaded from a Design Spec, these are already defined — confirm with user rather than re-assessing from scratch. Autonomy level determines full vs. lightweight SOP template.
 3. **Gather any missing details** — Adapted to autonomy level: for deterministic, confirm procedure steps; for guided/autonomous, confirm human checkpoints and inputs/outputs
@@ -60,7 +60,7 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
    - **Full SOPs** → add `**Execution Model:** <Mode> + <Level>` as the first line of the Automation Notes section
    - **Lightweight SOPs** → use `**<Mode> + <Level>**` as the bold label in the Execution Pattern section
 5. **Write SOP markdown file** to the user's repo with YAML frontmatter. Default path: `sops/<workflow-name>-sop.md`. Ask the user where SOPs live in their repo if their project has a different convention.
-6. **Optionally update workflow tracker** — If the user tracks workflows in Notion, Airtable, or another tool, update the workflow's SOP link to point to the markdown file after writing it.
+6. **Update the manifest** — set `artifacts.sop` in `outputs/<name>/workflow.yaml` to the SOP path, then refresh `REGISTRY.md` using the procedure in the `indexing-registry` skill (best-effort — never fail the step over it). If the user also mirrors to an external tracker, optionally update its SOP link too.
 
 ## Template Selection
 
@@ -107,13 +107,16 @@ Used when the executor adapts its path at runtime. The agent's system prompt *is
 ```yaml
 ---
 title: "<Workflow Name>"
+workflow: "<kebab-case-id>"  # back-pointer to outputs/<id>/workflow.yaml (omit for standalone SOPs)
 owner: "<Your Name>"
 last_reviewed: "YYYY-MM-DD"
 execution_mode: augmented   # augmented | automated | manual
 autonomy_level: guided      # deterministic | guided | autonomous | n/a
-notion_workflow_url: ""      # optional — Notion page URL if you use the AI Registry
+notion_workflow_url: ""      # optional — Notion page URL if you mirror to Notion
 ---
 ```
+
+When a manifest exists, it is the source of truth for `owner`, `execution_mode`, and `autonomy_level` — copy those values from the manifest at write time rather than re-deriving them. Standalone SOPs (no manifest) carry them independently; the AI Registry index picks such SOPs up via this frontmatter.
 
 ## Writing Guidelines
 
@@ -123,28 +126,26 @@ notion_workflow_url: ""      # optional — Notion page URL if you use the AI Re
 - Add tips only for non-obvious gotchas
 - Keep troubleshooting to common issues only
 
-## Workflow Tracker Integration (Optional)
+## External Tracker Mirror (Optional)
 
-If you use Notion, Airtable, or another tool to track workflows, update the workflow's SOP link property to point to the markdown file after writing it. This keeps your tracker in sync with the source-of-truth markdown files.
-
-For Notion users with the AI Registry template: update the "SOP" URL property on the workflow's page to point to your markdown file's URL (e.g., GitHub, GitLab, or local path).
+The AI Registry (manifest + generated `REGISTRY.md`) is the primary record. If the user *also* keeps workflows in Notion, Airtable, or another tool, update that tracker's SOP link property to point to the markdown file after writing it — the Markdown files remain the source of truth.
 
 ## Interaction Pattern
 
 ### From framework artifacts (primary path)
-1. Read the Workflow Requirements and Design Spec from the `outputs/` folder
+1. Read the manifest, Workflow Requirements, and Design Spec from the `outputs/` folder
 2. Confirm classification (execution mode + autonomy level) with user
 3. Fill any gaps not covered by the artifacts
 4. Draft SOP using the appropriate template and present for review
 5. Write markdown file after user approval
-6. Optionally update workflow tracker link
+6. Update `artifacts.sop` in the manifest and refresh `REGISTRY.md`; optionally update an external tracker link
 
-### From Notion or another tracker
+### From an external tracker
 1. Fetch workflow record for context (name, type, trigger, etc.)
 2. Classify on both axes — determine full vs. lightweight template
 3. Gather procedure details or checkpoint details from user
 4. Draft SOP and present for review
-5. Write markdown file and update tracker link after approval
+5. Write markdown file; update the manifest if one exists (or offer to create one) and refresh `REGISTRY.md`
 
 ### From scratch
 1. Gather workflow details conversationally (name, purpose, trigger, type, steps)

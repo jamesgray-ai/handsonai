@@ -65,7 +65,7 @@
 - Editor Setup: https://handsonai.info/builder-setup/editor-setup/
 - Git Installation: https://handsonai.info/builder-setup/git-install/
 - GitHub Setup: https://handsonai.info/builder-setup/github-setup/
-- AI Registry Setup: https://handsonai.info/builder-setup/notion-registry-setup/
+- AI Registry Setup: https://handsonai.info/builder-setup/ai-registry-setup/
 - Voice to Text: https://handsonai.info/builder-setup/voice-to-text-setup/
 
 ## Patterns

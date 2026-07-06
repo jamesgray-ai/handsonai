@@ -64,7 +64,7 @@ Pick any combination — each row names the specific capability it unlocks.
 | 5 | [Git](git-install/) | ~10 min | Editor | Keep a full version history of your building blocks automatically |
 | 6 | [GitHub](github-setup/) | ~15 min | Editor + Git | Back up your building blocks to the cloud and share them across machines |
 | 7 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
-| 8 | [AI Registry (Notion)](notion-registry-setup/) | ~20 min | AI platform | Track every workflow, building block, and connected app in one workspace |
+| 8 | [AI Registry](ai-registry-setup/) | ~10 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
 
 :::note[New to the terminal?]
 Some Power User tools (Editor, Git, GitHub) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.

@@ -92,7 +92,7 @@ Based on eval scores across all scenarios:
 
 ## Output
 
-Write results to `outputs/[workflow-name]/test-results.md`. If a results file already exists from a previous round, rename it with a date suffix (e.g., `test-results-2026-06-10.md`) first — earlier rounds are useful history, not waste. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 5`, `last_updated`, and add `test_results` under `artifacts`. (No persistent workspace in this environment? Tell the user to save the results file and re-supply it at the next step. On load, if expected files aren't present, ask for a re-upload instead of failing.)
+Write results to `outputs/[workflow-name]/test-results.md`. If a results file already exists from a previous round, rename it with a date suffix (e.g., `test-results-2026-06-10.md`) first — earlier rounds are useful history, not waste. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 5`, `last_updated`, and add `test_results` under `artifacts`. Also set the registry field `health` based on the verdict — `working` if the workflow passed and is ready to deploy, `needs-attention` if issues remain. Then refresh `REGISTRY.md` at the workspace root per the `indexing-registry` skill (best-effort — a failed refresh never fails this step). (No persistent workspace in this environment? Tell the user to save the results file and re-supply it at the next step. On load, if expected files aren't present, ask for a re-upload instead of failing.)
 
 **Open the file with YAML frontmatter** so Improve (Step 7) can diff regression runs mechanically instead of re-reading prose:
 

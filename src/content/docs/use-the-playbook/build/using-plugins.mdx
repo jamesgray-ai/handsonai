@@ -122,17 +122,17 @@ You can also invoke a skill directly with a slash command. The format is `/hands
 | `/handsonai:test` | Test artifacts and evaluate output quality |
 | `/handsonai:run` | Generate a Run Guide for deployment |
 | `/handsonai:improve` | Evaluate a running workflow |
-| `/handsonai:naming-workflows` | Generate consistent workflow names + Notion entry |
+| `/handsonai:naming-workflows` | Generate consistent workflow names + registry entry |
 | `/handsonai:writing-workflow-sops` | Write a Standard Operating Procedure |
 | `/handsonai:writing-process-guides` | Write a Business Process Guide |
-| `/handsonai:registering-building-blocks` | Register a building block in Notion |
+| `/handsonai:indexing-registry` | Generate or refresh the REGISTRY.md index |
 | `/handsonai:writing-vision-briefs` | Capture a fuzzy idea as a Vision Brief |
 | `/handsonai:writing-feature-prds` | Write a feature PRD with user stories and acceptance criteria |
 
 The [plugin detail page](handsonai/) describes each one in depth, with example prompts and expected outputs.
 
 :::note
-The AI Registry skills work best with the [Notion MCP connector](../../../builder-setup/notion-registry-setup/) configured. Without it, Claude can follow the naming conventions and draft the output but cannot read from or write to Notion.
+The AI Registry skills are pure Markdown — they read and write files in your workspace, no external services required. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for how the registry works. Notion is available as an optional mirror via the Notion MCP connector.
 :::
 
 ### Checking what's installed
@@ -249,10 +249,10 @@ All 13 skills work fully across Claude Code, Claude.ai, and Cowork.
 | `test` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
 | `run` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
 | `improve` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
-| `naming-workflows` | **Full** | **Full** | **Full** | Notion MCP recommended for save-to-Notion |
-| `writing-workflow-sops` | **Full** | **Full** | **Full** | Notion MCP optional |
-| `writing-process-guides` | **Full** | **Full** | **Full** | Notion MCP optional |
-| `registering-building-blocks` | **Full** | **Full** | **Full** | Notion MCP required |
+| `naming-workflows` | **Full** | **Full** | **Full** | Writes workflow.yaml — no external services |
+| `writing-workflow-sops` | **Full** | **Full** | **Full** | Pure instructions; Notion MCP optional (mirror) |
+| `writing-process-guides` | **Full** | **Full** | **Full** | Pure instructions; Notion MCP optional (mirror) |
+| `indexing-registry` | **Full** | **Full** | **Full** | Pure instructions; Notion MCP optional (mirror) |
 | `writing-vision-briefs` | **Full** | **Full** | **Full** | Pure instructions |
 | `writing-feature-prds` | **Full** | **Full** | **Full** | GitHub CLI recommended for issue creation |
 
@@ -358,7 +358,7 @@ response = client.messages.create(
 ```
 
 :::note
-MCP-dependent skills (like `registering-building-blocks`) won't work via the raw API since they require tool integrations that the API alone doesn't provide.
+MCP-dependent steps (like the optional Notion mirror in `indexing-registry`) won't work via the raw API since they require tool integrations that the API alone doesn't provide.
 :::
 
 </details>
@@ -494,7 +494,7 @@ If the plugin appears but the agent doesn't activate, try being more explicit in
 ### "Skill not working in Claude.ai"
 
 1. Check that **code execution** is enabled in **Settings > Capabilities**
-2. Check the [compatibility table](#skill-compatibility-across-platforms) — some skills work best with Notion MCP
+2. Check the [compatibility table](#skill-compatibility-across-platforms) for platform notes
 3. Make sure the skill is toggled **on** in your Skills list
 
 ### "ZIP upload failed"
@@ -520,5 +520,5 @@ https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/sk
 ## Next Steps
 
 - [The Hands-on AI Plugin](handsonai/) — see what's included with example prompts for each agent and skill
-- [Notion Registry setup](../../../builder-setup/notion-registry-setup/) — required for AI Registry skills that save to Notion
+- [AI Registry setup](../../../builder-setup/ai-registry-setup/) — how the Markdown-based AI Registry works
 - [Example Gallery](../../../use-cases/example-gallery/) — copy and customize example agents, skills, and prompts

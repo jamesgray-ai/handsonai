@@ -9,6 +9,8 @@ export default defineConfig({
   trailingSlash: 'always',
   redirects: {
     '/courses/leaders/setup-checklist/': '/courses/tools-setup-checklist/',
+    // AI Registry moved from Notion to Markdown-first (2026-07-05)
+    '/builder-setup/notion-registry-setup/': '/builder-setup/ai-registry-setup/',
     // Legacy "cookbook" → "playbook" rename
     '/use-the-cookbook/': '/use-the-playbook/',
     '/use-the-cookbook/build/': '/use-the-playbook/build/',
@@ -329,6 +331,7 @@ export default defineConfig({
               items: [
                 { label: 'Overview', link: '/platforms/claude/' },
                 { label: 'Getting Started', link: '/platforms/claude/getting-started/' },
+                { label: 'Cowork', link: '/platforms/claude/cowork/' },
                 { label: 'Claude Projects', link: '/platforms/claude/projects/claude-projects-setup/' },
                 {
                   label: 'CLI',
@@ -453,7 +456,7 @@ export default defineConfig({
             { label: 'Git', link: '/builder-setup/git-install/' },
             { label: 'GitHub', link: '/builder-setup/github-setup/' },
             { label: 'Voice to Text', link: '/builder-setup/voice-to-text-setup/' },
-            { label: 'AI Registry', link: '/builder-setup/notion-registry-setup/' },
+            { label: 'AI Registry', link: '/builder-setup/ai-registry-setup/' },
             { label: 'Terminal Basics (reference)', link: '/builder-setup/terminal-basics/' },
           ],
         },

@@ -135,7 +135,7 @@ Evaluate a running workflow for quality, relevance, and evolution opportunities.
 ## File Conventions
 
 - Each workflow gets its own folder: `outputs/[workflow-name]/`, named with the kebab-case workflow ID confirmed during Step 2 (e.g., `lead-qualification`)
-- The folder's `workflow.yaml` manifest (created by the deconstruct skill) tracks `current_step`, `last_updated`, and every artifact path — read it to resume a workflow mid-framework; each skill updates it after writing its output
+- The folder's `workflow.yaml` manifest (created by the deconstruct skill, or as a stub by naming-workflows) tracks `current_step`, `last_updated`, every artifact path, and the workflow's AI Registry metadata (status, type, autonomy, owner, health, apps, …) — read it to resume a workflow mid-framework; each skill updates it after writing its output and then refreshes `REGISTRY.md` at the workspace root (best-effort, per the `indexing-registry` skill)
 - Create the `outputs/` directory if it doesn't exist; the Analyze report lives at `outputs/ai-opportunity-report.md` (workflows aren't named yet at that point)
 - Never silently overwrite a prior artifact — rename the old file with a date suffix first
 - **Legacy layout:** if a workflow exists as flat files (`outputs/[name]-requirements.md` etc.) from an earlier framework version, the skills accept those paths and offer to migrate to a folder + manifest

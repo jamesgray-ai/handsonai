@@ -6,7 +6,7 @@ user-invocable: true
 
 # Writing Business Process Guides
 
-Write comprehensive Business Process Guide documentation and save as markdown files, with optional linking to a process tracker (Notion, Airtable, etc.). Process guides explain the strategic context and rhythm of a complete business process, while individual workflow SOPs handle the tactical execution details.
+Write comprehensive Business Process Guide documentation and save as markdown files. The guide file **is** the business process's AI Registry record — the generated `REGISTRY.md` groups workflows under processes using the guide's frontmatter. Mirroring to an external tracker (Notion, Airtable, etc.) is optional. Process guides explain the strategic context and rhythm of a complete business process, while individual workflow SOPs handle the tactical execution details.
 
 ## Process Guide vs Workflow SOP
 
@@ -21,13 +21,13 @@ Write comprehensive Business Process Guide documentation and save as markdown fi
 ## Process
 
 1. **Load process context** — Determine how the user is arriving:
-   - **From framework artifacts** (primary path): Read the Workflow Requirements for each component workflow (`outputs/<name>-requirements.md`). If Design Specs and SOPs exist, read those too for sequencing, autonomy levels, and cross-references.
-   - **From Notion or another tracker** (if available): Fetch the business process record and its linked workflows for supplementary metadata (name, domain, description, linked workflows).
+   - **From the AI Registry** (primary path): Find the process's workflows by scanning `outputs/*/workflow.yaml` manifests for matching `business_process` values (or read the Workflows section of `REGISTRY.md`). Read each workflow's manifest for sequence, trigger, and status, plus its Workflow Requirements, Design Spec, and SOP where they exist.
+   - **From an external tracker** (only if the user keeps one): Fetch the business process record and its linked workflows for supplementary metadata — but prefer manifests when both exist.
    - **From conversation**: If no artifacts exist, gather process details interactively (name, component workflows, sequence, triggers).
 2. **Gather strategic context** from user — frequency, timing, decision points between workflows, success criteria
 3. **Write Process Guide** using template
 4. **Write process guide markdown file** to user's repo with YAML frontmatter. Default path: `process-guides/<name>.md`. Ask the user where process guides live if their project has a different convention.
-5. **Optionally update process tracker** — If the user tracks business processes in Notion, Airtable, or another tool, update the process's guide link to point to the markdown file after writing it.
+5. **Refresh the AI Registry index** — regenerate `REGISTRY.md` using the procedure in the `indexing-registry` skill so the process appears with its workflows (best-effort — never fail the step over it). If the user mirrors to an external tracker, optionally update its guide link too.
 
 ## Template Overview
 
@@ -49,11 +49,15 @@ See `references/process-guide-template.md` for full template structure. Core sec
 ```yaml
 ---
 title: "<Process Name>"
+domain: "<Sales | Marketing | Product | Education | Consulting | Operations | Finance>"
 owner: "<Your Name>"
 last_reviewed: "YYYY-MM-DD"
-notion_process_url: ""   # optional — Notion page URL if you use the AI Registry
+workflows: []            # optional — kebab-case workflow IDs, for explicit ordering
+notion_process_url: ""   # optional — Notion page URL if you mirror to Notion
 ---
 ```
+
+The `title` is the join key: workflows belong to this process when their manifest's `business_process` matches it. `domain` classifies the process in the AI Registry. `workflows` is only needed when explicit ordering matters beyond the manifests' `sequence` numbers.
 
 ## SOP Cross-References
 
@@ -78,27 +82,25 @@ If the SOP file doesn't exist yet, note it as pending:
 - Keep it scannable - someone should grasp the process in 2 minutes
 - If the process has an orchestrator agent, include a "How to Run" section that names the agent, shows the invocation, and explains that the agent handles sequencing, progress tracking, and skill invocation
 
-## Process Tracker Integration (Optional)
+## External Tracker Mirror (Optional)
 
-If you use Notion, Airtable, or another tool to track business processes, update the process's guide link property to point to the markdown file after writing it. This keeps your tracker in sync with the source-of-truth markdown files.
-
-For Notion users with the AI Registry template: update the "Guide" URL property on the business process page to point to your markdown file's URL.
+The AI Registry (guide frontmatter + generated `REGISTRY.md`) is the primary record. If the user *also* tracks business processes in Notion, Airtable, or another tool, update that tracker's guide link property to point to the markdown file after writing it — the Markdown files remain the source of truth.
 
 ## Interaction Pattern
 
-### From framework artifacts (primary path)
-1. Read Workflow Requirements (and SOPs/Design Specs if they exist) for each component workflow
+### From the AI Registry (primary path)
+1. Find the process's workflows via manifests / `REGISTRY.md`; read Workflow Requirements (and SOPs/Design Specs if they exist) for each
 2. Gather strategic context from user (frequency, timing, decision points)
 3. Draft Process Guide and present for review
 4. Write markdown file after user approval
-5. Optionally update process tracker link
+5. Refresh `REGISTRY.md`; optionally update an external tracker link
 
-### From Notion or another tracker
+### From an external tracker
 1. Fetch business process record and linked workflows for context
 2. Fetch each linked workflow for sequence/trigger details
 3. Ask clarifying questions about timing and decision points
 4. Draft Process Guide and present for review
-5. Write markdown file and update tracker link after approval
+5. Write markdown file, refresh `REGISTRY.md`, and update the tracker link after approval
 
 ### From scratch
 1. Gather process details conversationally (name, component workflows, sequence, triggers)
