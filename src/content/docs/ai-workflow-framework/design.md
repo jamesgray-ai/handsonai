@@ -122,7 +122,7 @@ How the artifacts ship together:
 
 ### Model Recommendation
 
-A capability tier (reasoning-heavy / fast / vision) with per-step overrides if needed. The spec includes a per-platform mapping (Claude opus/sonnet/haiku, ChatGPT gpt-5/gpt-4o/gpt-4o-mini, Gemini 2.5-pro/2.5-flash) so Build knows which concrete model to use on the target platform.
+A capability tier (reasoning-heavy / balanced / fast / vision) with per-step overrides if needed. The spec records only the tier — Build resolves the concrete model name for the target platform via web search at generation time, so specs never carry model IDs that go stale.
 
 ### Integration Options
 
@@ -191,23 +191,24 @@ For each step tagged `New skill: SN`:
 
 | Field | Purpose |
 |---|---|
-| ID, Name, Description | Identity. Name must be lowercase-hyphenated, ≤64 chars. Description must start with "This skill should be used when..." and be ≤1024 chars — this is the verbatim text that goes into the SKILL.md frontmatter and drives auto-activation. |
+| ID, Name, Description | Identity. Name must be lowercase-hyphenated, ≤64 chars, and capability-named (gerund/verb-object like `summarizing-transcripts`, never workflow-coupled — only the orchestrator skill takes the workflow name). Description must start with "This skill should be used when...", be ≤1024 chars, be written in third person, and name concrete trigger keywords — this is the verbatim text that goes into the SKILL.md frontmatter and drives auto-activation. |
 | Purpose, Covers Steps/Domains | Internal context for spec readers |
 | Inputs, Outputs | The skill's contract |
 | Decision Logic, Failure Modes | What the skill does and how it handles edge cases |
 | Required Tools, Depends On | Runtime dependencies on tools and other skills |
 | Stateful? | Memory building-block flag |
 
-### Agent Configuration (13 fields, mandatory when mechanism = Agent)
+### Agent Configuration (14 fields, mandatory when mechanism = Agent)
 
 For each step tagged `New agent: AN`:
 
 | Field | Purpose |
 |---|---|
 | ID, Name, Description | Identity. Description must start with "Use this agent when..." and is the verbatim text for the agent file frontmatter. |
-| Mission, Responsibilities, Output Format, Tone & Style, Constraints | The agent's behavior — decomposed into structured sub-fields, not jammed into a single "Instructions" cell |
+| Mission, Responsibilities, Output Format, Tone & Style, Constraints | The agent's behavior — decomposed into structured sub-fields, not jammed into a single "Instructions" cell. For orchestrator-dispatched workers, Output Format is the handoff contract; for Autonomous agents, Constraints includes an iterations-per-run bound. |
+| Failure Modes | Condition → action, one per line — including what the agent returns to its orchestrator when it cannot complete (mirrors the skill blueprint field) |
 | Model, Memory Scope | Capability and persistence. Memory defaults to `none`; use it only for genuine cross-run state (tracking an entity, learned preferences), and avoid it for research/freshness workflows where stale recall misleads — prefer a curated context file when the learning should stay human-visible. |
-| Tools, Skills | Cross-references to Integration Options entries and Skill IDs |
+| Tools, Skills | Cross-references to Integration Options entries and Skill IDs. Tools follow least privilege — only what the Responsibilities require. |
 | Trigger Examples | 2-3 structured examples (context → user message → expected behavior → invocation) Build uses verbatim to construct `<example>` blocks in the agent's description |
 
 ### Multi-Agent Configuration
@@ -312,7 +313,7 @@ The **Design Spec** is organized into the three layers above, plus cross-layer s
 
 **Layer 2 — Decomposition sections:** Step-by-Step Decomposition (or Capability Domain Mapping for goal-driven), Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Workflow), Data Readiness Summary, Recommended Implementation Order.
 
-**Layer 3 — Component Blueprint sections:** Skill Candidates (12 fields each), Agent Configuration (13 fields each; mandatory for goal-driven), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan.
+**Layer 3 — Component Blueprint sections:** Skill Candidates (12 fields each), Agent Configuration (14 fields each; mandatory for goal-driven), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan.
 
 **Cross-layer sections:** Evaluation Inputs (pointer), Deferred to Build, Stakeholders (optional), Self-Test Summary (verification results).
 

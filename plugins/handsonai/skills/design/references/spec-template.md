@@ -18,7 +18,7 @@ For **goal-driven** workflows, apply the template substitutions in `references/g
 ---
 workflow: [kebab-case name]
 requirements_file: outputs/[workflow-name]/requirements.md
-spec_version: 2.3
+spec_version: 2.4
 definition_type: Step-Decomposed | Goal-Driven
 mechanism: Prompt | Skill-Powered Workflow | Agent
 involvement: Augmented | Automated
@@ -71,7 +71,7 @@ The spec is organized into three layers that build on each other:
 **Packaging values:**
 - **Plugin** — Multiple related artifacts shipped together (e.g., handsonai-plugins marketplace plugin, set of `.claude/` files distributed via marketplace).
 - **Standalone Skill** — A single skill, uploaded directly (e.g., zip uploaded to Claude.ai, single SKILL.md in `.claude/skills/`, Codex skill in `.agents/skills/`, ChatGPT skill).
-- **Workspace Agent** — A ChatGPT Workspace Agent that bundles orchestration + skills + tools as a unit. (Custom GPTs are deprecated; Workspace Agents are the current ChatGPT primitive.)
+- **Workspace Agent** — A ChatGPT Workspace Agent that bundles orchestration + skills + tools as a unit. (Build re-verifies the platform's current primitive at generation time.)
 - **Loose Files** — Individual files in a project directory, no distribution layer.
 
 ## Autonomy Spectrum Summary
@@ -124,12 +124,7 @@ For each tool identified in the Decomposition table (or Capability Domain Mappin
 **Per-step overrides** (optional):
 - Steps N, M: [different capability] — [rationale]
 
-**Per-platform mapping** (Build resolves at generation time):
-- Claude Code / Claude.ai / Cowork: `opus` (reasoning-heavy) / `sonnet` (balanced) / `haiku` (fast)
-- ChatGPT / Codex: `gpt-5` or `o3` (reasoning-heavy) / `gpt-4o` (balanced) / `gpt-4o-mini` (fast)
-- Gemini: `gemini-2.5-pro` (reasoning-heavy) / `gemini-2.5-flash` (fast)
-
-(These mappings are guidance; Build verifies current model names via web search before generating.)
+**Per-platform mapping:** resolved by Build at generation time — Build verifies the current model names for the chosen platform via web search. Record only capability tiers here (reasoning-heavy / balanced / fast / vision); never write specific model IDs into the spec, they go stale.
 
 ---
 
@@ -216,9 +211,9 @@ For each Build Output tagged `New skill: SN` above:
 | Field | Detail |
 |---|---|
 | **ID** | S1 |
-| **Name** | [lowercase-hyphenated, ≤64 chars, no consecutive hyphens; matches the skill directory name] |
-| **Description** | [≤1024 chars; MUST start with "This skill should be used when..." — this is the literal description that goes into the SKILL.md frontmatter and drives auto-activation on Claude.ai, Cowork, and code-mode platforms] |
-| **Purpose** | [one-sentence internal summary — for the Design Spec reader, not the skill description] |
+| **Name** | [lowercase-hyphenated, ≤64 chars, no consecutive hyphens; matches the skill directory name. Capability-named in gerund/verb-object form, not workflow-coupled (only the orchestrator skill takes the workflow name); no collision with skills found in Skill Discovery] |
+| **Description** | [≤1024 chars; MUST start with "This skill should be used when..." — this is the literal description that goes into the SKILL.md frontmatter and drives auto-activation on Claude.ai, Cowork, and code-mode platforms. Third person; names concrete trigger contexts/keywords (tool names, file types, task verbs) plus what the skill does] |
+| **Purpose** | [one-sentence internal summary — for the Design Spec reader, not the skill description. Note whether the skill is reusable beyond this workflow] |
 | **Covers Steps / Domains** | [list of Step IDs, or capability domain names for goal-driven] |
 | **Inputs** | [name — description, one per line; "type" is the expected user-provided value description, not a strict type system] |
 | **Outputs** | [what the skill produces] |
@@ -240,15 +235,16 @@ For each Build Output tagged `New agent: AN` above:
 |---|---|
 | **ID** | A1 |
 | **Name** | [lowercase-hyphenated, matches the agent filename without extension] |
-| **Description** | [≤1024 chars; MUST start with "Use this agent when..." — this is the literal description that goes into the agent file frontmatter and drives invocation. Include 2-3 `<example>` blocks (see Trigger Examples field below) inline at the end.] |
+| **Description** | [≤1024 chars; MUST start with "Use this agent when..." — this is the literal description that goes into the agent file frontmatter and drives invocation. Third person; names concrete trigger contexts/keywords. Include 2-3 `<example>` blocks (see Trigger Examples field below) inline at the end.] |
 | **Mission** | [one-sentence primary purpose] |
 | **Responsibilities** | [bulleted list of what the agent does once invoked] |
-| **Output Format** | [structured description of what the agent's output should look like — sections, fields, format constraints] |
+| **Output Format** | [structured description of what the agent's output should look like — sections, fields, format constraints. For orchestrator-dispatched workers this is the handoff contract: prefer a structured summary over free prose] |
 | **Tone & Style** | [voice/register, e.g., "concise, technical, no hedging"] |
-| **Constraints** | [must-not-dos, scope boundaries, source restrictions] |
+| **Constraints** | [must-not-dos, scope boundaries, source restrictions. For Autonomous agents, include an iterations/actions-per-run bound — Build maps it to `maxTurns` or the platform equivalent] |
+| **Failure Modes** | [condition → action, one per line — including what the agent returns to its orchestrator when it cannot complete] |
 | **Model** | [capability tier: reasoning-heavy / fast / vision] |
-| **Memory Scope** | user / project / local / none — controls cross-session learning (Claude Code agent format supports this; on other platforms, document the equivalent). **Heuristic:** default `none`; use memory only for genuine cross-run state (tracking an entity over time, learned user preferences); **avoid it for research/freshness workflows** where stale recall misleads; when the "learning" should be human-visible/editable, prefer a curated **context file** over opaque memory. |
-| **Tools** | [external tools needed — reference Integration Options entries by tool name] |
+| **Memory Scope** | user / project / local / none — controls cross-session learning (Claude Code agent format supports this; on other platforms, document the equivalent). **Heuristic:** default `none`; use memory only for genuine cross-run state (tracking an entity over time, learned user preferences); **avoid it for research/freshness workflows** where stale recall misleads; when the "learning" should be human-visible/editable, prefer a curated **context file** over opaque memory. If the platform registry entry has no `memory` capability key, choose `none` or a context file. |
+| **Tools** | [external tools needed — reference Integration Options entries by tool name. **Least privilege:** only tools the Responsibilities require (read/analyze agents get no write tools), consistent with the Safety & Permissions write-access findings] |
 | **Skills** | [Skill IDs the agent has access to — S1, S2, …] |
 | **Trigger Examples** | [2-3 structured examples, each: context → user message → expected agent behavior → invocation. Build uses these verbatim to construct the `<example>` blocks in the agent's description field.] |
 
@@ -264,7 +260,7 @@ For each Build Output tagged `New agent: AN` above:
 
 | From → To | Trigger | Data Passed | Format |
 |---|---|---|---|
-| A1 → A2 | [when A1 finishes / when condition X] | [what data passes] | [format / schema description] |
+| A1 → A2 | [when A1 finishes / when condition X] | [what data passes] | [format / schema description — must match the sending agent's Output Format field] |
 
 **Aggregation Strategy:** [How results combine if parallel or network — last-writer-wins, merge, supervisor-decides, etc. Write "N/A" for Pipeline.]
 

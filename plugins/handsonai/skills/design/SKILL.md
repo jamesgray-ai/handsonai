@@ -123,6 +123,7 @@ Present a single confirmation block:
 - No-code platform + no built-in connectors → cap at Skill-Powered Workflow
 - Scheduled trigger + platform doesn't support unattended runs → flag infrastructure needed
 - State which extracted facts influenced the autonomy assessment and orchestration mechanism recommendation
+- **Capability check:** when a design decision depends on a platform capability (agent files, skills, memory, scheduled/unattended runs), check the platform's entry in the cached registry — the presence or absence of capability keys (`agent`, `skill`, `memory`, `project`) signals support. If a needed key is absent or you're uncertain, do a single targeted web check **now** rather than shipping a spec Build can't honor; record it in Deferred to Build only if genuinely deferrable.
 
 **Packaging is determined later, in Step 5.** Once the mechanism is selected, Step 5 proposes a Packaging value based on platform and mechanism (e.g., single skill → Standalone Skill; agent + skills on ChatGPT → Workspace Agent). Do not ask about Packaging during Step 3 — it depends on Step 5's mechanism decision.
 
@@ -182,11 +183,7 @@ This question is **always asked or confirmed explicitly in plain language** — 
 >
 > Which shape works for you?"
 
-Use `AskUserQuestion` with three options (recommended first, marked "(Recommended)"). Option labels:
-
-- **Reusable skill** — Saved instructions you trigger by name. Best for workflows you'll run repeatedly.
-- **Step-by-step prompt** — Copy-paste instructions you run yourself. Best for one-off workflows, no setup.
-- **Agent** — AI drives the whole thing end-to-end. Best when it should run on a schedule or make decisions on its own.
+Use `AskUserQuestion` with three options whose labels mirror the three shapes above (one-line versions of the same descriptions), recommended option first and marked "(Recommended)".
 
 If the user pushes back, discuss in plain language — never drop into the internal jargon (`Prompt` / `Skill-Powered Workflow` / `Agent`) when talking to them.
 
@@ -360,16 +357,18 @@ For goal-driven: `**[Tool] access needed (Domains: X, Y):**`
 > **[Tool] access needed ([Steps N, M / Domains: X, Y]):**
 >
 > **Curated (recommended):**
-> | Block | Option | Trade-off |
-> |-------|--------|-----------|
-> | MCP | [Name] MCP | Easiest — plug-and-play |
-> | CLI | [Name] CLI | Good for automation/scripting |
+> | Block | Option | Source URL | Trade-off |
+> |-------|--------|-----------|-----------|
+> | MCP | [Name] MCP | [URL] | Easiest — plug-and-play |
+> | CLI | [Name] CLI | [URL] | Good for automation/scripting |
 >
 > **Also available:**
-> | Block | Option | Trade-off |
-> |-------|--------|-----------|
-> | API | [Name] REST API | Most flexible, more code |
-> | SDK | [Name] Client Library | Best DX for code-heavy builds |
+> | Block | Option | Source URL | Trade-off |
+> |-------|--------|-----------|-----------|
+> | API | [Name] REST API | [URL] | Most flexible, more code |
+> | SDK | [Name] Client Library | [URL] | Best DX for code-heavy builds |
+>
+> (Capture the Source URL during discovery — the spec's Integration Options section requires at least one per tool; never backfill or fabricate URLs at assembly time.)
 >
 > *Recommendation: [block] for [rationale]*
 
@@ -394,7 +393,7 @@ For every step classified as needing a **Skill** in Step 6, search for existing 
 
 **Search order:**
 
-1. **Local skills** — Search the user's own `.claude/skills/`, plugin skills directories, and any project-level skill directories. These are pre-vetted and can be recommended directly.
+1. **Local skills and prior workflows** — Search the user's own `.claude/skills/`, plugin skills directories, and any project-level skill directories. Also read the workspace `REGISTRY.md` (if present) and the Skill Candidates sections of prior workflows' `outputs/*/design-spec.md` — skills the user built for earlier workflows are prime reuse candidates. All of these are pre-vetted and can be recommended directly.
 
 2. **External registries** — Read the `skill-registries` list from the platform registry (same local-first resolution and session cache as Integration Discovery above: plugin-local copy at `${CLAUDE_PLUGIN_ROOT}/registries/platform-registry.json` first, remote fetch for standalone installs).
 
@@ -435,6 +434,7 @@ For each step (or capability domain, for goal-driven workflows) that needs a ski
 > | Source | Skill | Status |
 > |--------|-------|--------|
 > | Local | `coaching-prep-notes-assembly` (your plugin) | Pre-vetted — include? |
+> | Registry | `summarizing-transcripts` (from your `weekly-review` workflow) | Pre-vetted — include? |
 > | skills.sh | `markdown-document-builder` by @community | Requires review — [link] |
 > | Web search | `doc-formatter` on GitHub | Requires review — [link] |
 > | None found | Build new | Fallback |
@@ -449,11 +449,15 @@ For steps where Skill Discovery (Step 6b) found an existing skill, skip to the n
 
 This step only applies to steps tagged **"build new"** in Step 6b. Tag those steps that should become skills.
 
-**Draft, then confirm — do not interview field-by-field.** You have already read the Workflow Requirements and run the whole design conversation; that contains almost everything these fields need. For each skill candidate, **draft all 12 fields yourself**, present the completed blueprint for correction ("Here's my draft of the [name] skill — what's wrong or missing?"), and ask direct questions only for fields you genuinely cannot infer (typically Decision Logic details, Failure Mode preferences, or constraints the user hasn't voiced). Never walk a user through 12 questions per skill. The 12 fields (field-by-field format in `references/spec-template.md`):
+**Draft, then confirm — do not interview field-by-field.** You have already read the Workflow Requirements and run the whole design conversation; that contains almost everything these fields need. For each skill candidate, **draft all 12 fields yourself**, present the completed blueprint for correction ("Here's my draft of the [name] skill — what's wrong or missing?"), and ask direct questions only for fields you genuinely cannot infer (typically Decision Logic details, Failure Mode preferences, or constraints the user hasn't voiced). Never walk a user through 12 questions per skill.
+
+**Scope each skill as a reusable capability, not a workflow fragment.** Name it for the capability in gerund or verb-object form (`summarizing-transcripts`, `formatting-prep-notes` — never `step-3-helper` or `[workflow-name]-part-2`); avoid vague names (`helper`, `utils`, `documents`) and the reserved words `anthropic`/`claude`. Write Inputs as parameters, not hardcoded references to this workflow's files, so the skill still works when invoked outside this workflow. Check that no name collides with a skill found in Step 6b — a duplicate name silently shadows the existing one. Only the orchestrator skill carries the workflow's name; every component skill is capability-named.
+
+The 12 fields (field-by-field format in `references/spec-template.md`):
 
 - **ID** — stable skill ID (S1, S2, …)
-- **Name** — lowercase-hyphenated, ≤64 chars, no consecutive hyphens; matches the skill directory name
-- **Description** — ≤1024 chars, MUST start with "This skill should be used when..." — verbatim text for the SKILL.md frontmatter; drives auto-activation
+- **Name** — lowercase-hyphenated, ≤64 chars, no consecutive hyphens; matches the skill directory name; capability-named per the scoping rule above
+- **Description** — ≤1024 chars, MUST start with "This skill should be used when..." — verbatim text for the SKILL.md frontmatter; drives auto-activation. Write in **third person** (never "I" or "you" as the actor), and name the **concrete trigger contexts and keywords** a user would actually say (tool names, file types, task verbs) plus what the skill does — a vague description kills auto-activation. Where confusion with a sibling skill is likely, add a "Do not use for…" clause
 - **Purpose** — one-sentence internal summary for the spec reader
 - **Covers Steps / Domains** — which step IDs (or capability domains) this skill spans
 - **Inputs** — what the skill receives
@@ -464,27 +468,30 @@ This step only applies to steps tagged **"build new"** in Step 6b. Tag those ste
 - **Depends On** — other skill IDs (S2, S3) or artifacts that must exist first, or "None"
 - **Stateful?** — Yes / No, does the skill maintain state across invocations? Drives Memory building-block decisions.
 
+**Consolidation sweep (before presenting blueprints — no user question):** sweep the candidate list once. **Merge** candidates that are the same capability applied at different steps into one skill with multiple Covers Steps entries (the step-decomposed mirror of the goal-driven altitude rule). **Split** any candidate whose Decision Logic spans two unrelated capabilities — each skill should excel at one thing. Note each merge/split in one line when presenting the blueprints.
+
 #### Step 8 — Agent Configuration
 
-(When orchestration mechanism is Agent.) **Same draft-then-confirm approach as Step 7:** draft all 13 fields for each agent from the requirements and conversation, present the completed configuration for correction, and interview only for what you cannot infer (typically Tone & Style and Constraints). The 13 fields (field-by-field format in `references/spec-template.md`):
+(When orchestration mechanism is Agent.) **Same draft-then-confirm approach as Step 7:** draft all 14 fields for each agent from the requirements and conversation, present the completed configuration for correction, and interview only for what you cannot infer (typically Tone & Style and Constraints). The 14 fields (field-by-field format in `references/spec-template.md`):
 
 | Field | What to specify |
 |-----------|----------------|
 | **ID** | Stable agent ID (A1, A2, …) |
 | **Name** | Unique agent name (lowercase-hyphenated, matches the agent filename without extension) |
-| **Description** | ≤1024 chars, MUST start with "Use this agent when..." — verbatim text for the agent file frontmatter; drives invocation |
+| **Description** | ≤1024 chars, MUST start with "Use this agent when..." — verbatim text for the agent file frontmatter; drives invocation. Third person; name the concrete trigger contexts and keywords that should route work to this agent |
 | **Mission** | One-sentence primary purpose |
 | **Responsibilities** | Bulleted list of what the agent does once invoked |
-| **Output Format** | Structured description of what the agent's output should look like |
+| **Output Format** | Structured description of what the agent's output should look like. For workers dispatched by an orchestrator, this is the **handoff contract** — prefer a structured summary over free prose |
 | **Tone & Style** | Voice and register (e.g., "concise, technical, no hedging") |
-| **Constraints** | Must-not-dos, scope boundaries, source restrictions |
+| **Constraints** | Must-not-dos, scope boundaries, source restrictions. For Autonomous agents, include a bound on iterations/actions per run (Build maps it to `maxTurns` or the platform equivalent) |
+| **Failure Modes** | Condition → action, one per line — including what the agent returns to its orchestrator when it cannot complete (mirrors the skill blueprint field) |
 | **Model** | Capability tier: reasoning-heavy / fast / vision |
-| **Memory Scope** | user / project / local / none — cross-session learning scope. **Heuristic:** default `none`; choose memory only when the workflow genuinely benefits from cross-run state (tracking an entity over time, learned user preferences). **Avoid memory for research/freshness workflows** — stale recall becomes a liability when each run should re-gather current data. When the "learning" should be human-visible/editable, prefer a curated **context file** over opaque agent memory. |
-| **Tools** | External tools the agent needs (reference Integration Options entries by tool name) |
+| **Memory Scope** | user / project / local / none — cross-session learning scope. **Heuristic:** default `none`; choose memory only when the workflow genuinely benefits from cross-run state (tracking an entity over time, learned user preferences). **Avoid memory for research/freshness workflows** — stale recall becomes a liability when each run should re-gather current data. When the "learning" should be human-visible/editable, prefer a curated **context file** over opaque agent memory. If the platform's registry entry has no `memory` capability key, choose `none` or a context file. |
+| **Tools** | External tools the agent needs (reference Integration Options entries by tool name). **Least privilege:** list only tools the Responsibilities require — a read/analyze agent gets no write tools — and stay consistent with the Step 5b write-access findings |
 | **Skills** | Skill IDs the agent has access to (S1, S2, …) |
 | **Trigger Examples** | 2-3 structured examples (context → user message → expected behavior → invocation) — Build uses these verbatim as `<example>` blocks in the description |
 
-The build skill maps these to platform-specific fields at runtime (e.g., "reasoning-heavy" → `opus` on Claude Code, trigger examples → `<example>` blocks).
+The build skill maps these to platform-specific fields at runtime (e.g., "reasoning-heavy" → the platform's current top reasoning model, which Build resolves via web search at generation time; trigger examples → `<example>` blocks).
 
 For multi-agent: orchestration pattern, agent handoffs, human review gates — see the Multi-Agent Configuration section in `references/spec-template.md`.
 
@@ -520,7 +527,7 @@ Assemble the full Design Spec **content** following the template — but **do no
 
 **This is a hard gate. Do not write the spec file or proceed without explicit approval.**
 
-Present a summary of the assembled (not-yet-written) Design Spec:
+Present a summary of the assembled (not-yet-written) Design Spec. When the spec defines more than 3 component blueprints (skills + agents), open the summary with a one-line-per-blueprint recap (ID, name, purpose) so the user sees the full component inventory before approving:
 
 > "Here's the Design Spec summary:
 >

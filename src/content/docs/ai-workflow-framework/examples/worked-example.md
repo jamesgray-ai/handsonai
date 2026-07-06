@@ -261,7 +261,7 @@ The complete Design Spec:
 ---
 workflow: weekly-status-report
 requirements_file: outputs/weekly-status-report/requirements.md
-spec_version: 2.3
+spec_version: 2.4
 definition_type: Step-Decomposed
 mechanism: Skill-Powered Workflow
 involvement: Augmented

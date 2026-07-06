@@ -33,7 +33,8 @@ Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate
 Confirm you've loaded both by summarizing: workflow name, orchestration mechanism, involvement mode, packaging, counts (steps, skills, agents, integrations), and that the Workflow Requirements was loaded.
 
 **Spec version compatibility:**
-- `spec_version: 2.3` (current) → current format; mechanism vocabulary is `Prompt | Skill-Powered Workflow | Agent`; proceed.
+- `spec_version: 2.4` (current) → current format; mechanism vocabulary is `Prompt | Skill-Powered Workflow | Agent`; agents carry a Failure Modes field; proceed.
+- `spec_version: 2.3` → same structure minus the agent Failure Modes field — treat it as empty and derive error handling from the agent's Constraints plus the Workflow Requirements' fallback behavior; proceed.
 - `spec_version: 2.2` → same structure, but the middle mechanism is named by its legacy value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow` everywhere; proceed.
 - `spec_version: 2.1` → same structure minus Safety & Permissions and using legacy flat paths; proceed, and apply the safety defaults from Step 5's write-scope pre-flight in place of the missing section.
 - `spec_version: 2.0` → older format without layer grouping or Orchestrator Outline; proceed (Build's fallback derives the orchestrator from Workflow Requirements directly).
@@ -282,7 +283,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
   0. Verify the matched skill is actually invocable in this session (it appears in the available-skills list or its SKILL.md resolves on disk). If it isn't, say so and fall back to inline generation for this block — don't attempt an invocation that will fail.
   1. Invoke it via the Skill tool, passing the building block's full spec from the Design Spec:
      - **For skills (S1, S2, …):** all 12 fields from the Skill Candidates entry — ID, Name, Description, Purpose, Covers Steps/Domains, Inputs, Outputs, Decision Logic, Failure Modes, Required Tools, Depends On, Stateful?
-     - **For agents (A1, A2, …):** all 13 fields from the Agent Configuration entry — ID, Name, Description, Mission, Responsibilities, Output Format, Tone & Style, Constraints, Model, Memory Scope, Tools, Skills, Trigger Examples. If multi-agent, also pass the relevant Handoff Contracts and the Orchestration Pattern.
+     - **For agents (A1, A2, …):** all 14 fields from the Agent Configuration entry — ID, Name, Description, Mission, Responsibilities, Output Format, Tone & Style, Constraints, Failure Modes, Model, Memory Scope, Tools, Skills, Trigger Examples. Map Failure Modes into the generated agent body as an error-handling section (absent in specs ≤ 2.3 — treat as empty). If multi-agent, also pass the relevant Handoff Contracts and the Orchestration Pattern.
      - The artifact format requirements resolved in Step 3.6 (or the fallback reference if Step 3.6 did not resolve a format)
      - Whether platform-specific extensions should be applied (based on Architecture Decisions and Packaging)
      - This context: "This building block comes from an approved Design Spec (AI Workflow Framework, Step 3 Design). The intent, name, description, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."

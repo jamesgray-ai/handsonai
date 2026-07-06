@@ -4,8 +4,10 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Structure
 
-- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.3`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
+- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.4`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
+- [ ] Frontmatter `counts` match the body — `skills` = number of Skill Candidate entries, `agents` = number of Agent Configuration entries, `integrations` = number of Integration Options tools
 - [ ] **Source** section names the Workflow Requirements file path (`outputs/[workflow-name]/requirements.md`)
+- [ ] All mandatory template sections are present in template order (Execution Pattern, Architecture Decisions, Autonomy Spectrum Summary [or Autonomy Statement], Safety & Permissions, Integration Options, Model Recommendation, Decomposition table, Data Readiness Summary, Recommended Implementation Order, Prerequisites, Deployment Plan, Evaluation Inputs, Deferred to Build, Self-Test Summary — plus conditional sections per their rules)
 - [ ] `Architecture Decisions` table has Lens, Platform, Platform Mode, Orchestration, Involvement, Packaging, and Trigger rows
 - [ ] Every step in the decomposition table has separate Orchestration, Integration, Intelligence, and Build Output columns
 - [ ] Step IDs in the decomposition table match the Step IDs in the Workflow Requirements (Step 1, Step 2, …)
@@ -18,14 +20,16 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 - [ ] Every `New skill: SN` reference has a matching Skill Candidates entry with the SN ID
 - [ ] Every Skill Candidate has all 12 fields: ID, Name, Description, Purpose, Covers Steps, Inputs, Outputs, Decision Logic, Failure Modes, Required Tools, Depends On, Stateful?
-- [ ] Every Skill Candidate's Name conforms to format rules (lowercase-hyphen, ≤64 chars, no consecutive hyphens)
-- [ ] Every Skill Candidate's Description starts with "This skill should be used when..." and is ≤1024 chars
+- [ ] Every Skill Candidate's Name conforms to format rules (lowercase-hyphen, ≤64 chars, no consecutive hyphens) and is capability-named, not workflow-coupled — except the orchestrator skill, which takes the workflow name
+- [ ] Every Skill Candidate's Description starts with "This skill should be used when...", is ≤1024 chars, is third-person, and names at least two concrete trigger keywords/contexts
+- [ ] No two Skill Candidates describe the same capability at different steps (parallel applications are one skill with multiple Covers Steps entries)
 
 ## Agent Configuration
 
 - [ ] Every `New agent: AN` reference has a matching Agent Configuration entry with the AN ID
-- [ ] Every Agent Configuration has all 13 fields: ID, Name, Description, Mission, Responsibilities, Output Format, Tone & Style, Constraints, Model, Memory Scope, Tools, Skills, Trigger Examples
-- [ ] Every Agent Configuration's Description starts with "Use this agent when..." and is ≤1024 chars
+- [ ] Every Agent Configuration has all 14 fields: ID, Name, Description, Mission, Responsibilities, Output Format, Tone & Style, Constraints, Failure Modes, Model, Memory Scope, Tools, Skills, Trigger Examples
+- [ ] Every Agent Configuration's Description starts with "Use this agent when...", is ≤1024 chars, is third-person, and names concrete trigger keywords/contexts
+- [ ] Every Agent Configuration's Tools list is consistent with Safety & Permissions (least privilege — no write tool on an agent whose Responsibilities are read-only)
 - [ ] If more than one agent is defined, Multi-Agent Configuration section is present with Orchestration Pattern, Coordinator, Handoff Contracts, and Aggregation Strategy
 
 ## Cross-references
