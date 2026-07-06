@@ -209,10 +209,10 @@ For each integration listed in the spec:
 
 **Web search is used for platform availability research** — verifying setup steps, finding platform-specific guides, and confirming compatibility. Discovery of integrations themselves is already done. If the environment doesn't support web search, instruct the user to switch to a tool that does.
 
-**Write-scope pre-flight (required).** For every integration the workflow must *write* to — create drafts, apply labels, create database rows/pages, send messages, create events — verify the connector actually has **write access** before building against it. Connectors are often connected **read-only**. If a needed write scope is missing:
-- Do **not** fail silently or proceed as if it works.
-- Tell the user exactly what to reconnect/authorize (e.g., "the email connector is read-only — reconnect it with compose + labels access").
-- You may still build the artifacts, but mark the workflow **"build-complete, deploy-blocked on [integration] write access"** so Test/Run know the gap.
+**Write-scope pre-flight (required).** For every integration the workflow must *write* to — create drafts, apply labels, create database rows/pages, send messages, create events — verify the connector actually has **write access** before building against it. Design's Step 5b feasibility check should already have vetted this, so treat the pre-flight as a **confirmation** of a known-feasible design — but if a gap surfaces here anyway, do **not** fail silently or proceed as if it works. Distinguish the two gap types (as Design does):
+
+- **Scope gap** — the connector *supports* the action but isn't authorized (connectors are often connected **read-only**). Tell the user exactly what to reconnect/authorize (e.g., "the email connector is read-only — reconnect it with compose + labels access"). You may still build the artifacts, but mark the workflow **"build-complete, deploy-blocked on [integration] write access"** so Test/Run know the gap.
+- **Capability gap** — the connector has **no such capability at all** (e.g., a read-only CRM connector with no create-deal tool). Reauthorizing won't fix this. Don't just mark it deploy-blocked — **route back to the Design options**: recommend a **human-in-the-loop gate** as the default (AI prepares the change, the human commits it — works on every platform), or a different connector, or a CLI/API fallback *only if this platform has shell/code access* (never on Cowork/chat), or descoping the action. Surface the choice to the user rather than building against a capability that isn't there.
 
 **Least-privilege pre-flight (required).** Read the spec's **Safety & Permissions** section (Layer 1) and enforce its mitigations during connector setup:
 - Request only the scopes the workflow actually needs — if the spec says "create drafts," don't authorize send.
