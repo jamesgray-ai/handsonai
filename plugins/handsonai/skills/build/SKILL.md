@@ -108,6 +108,8 @@ Before generating artifacts, discover what creation tools are available in this 
 
    Apply this test to each candidate: *"Does this skill WRITE the artifact from a finished spec, or does it ASK ME to decide the configuration? Only the former qualifies."* When in doubt, treat it as guidance (exclude it) and generate inline.
 
+   **Exception — packaging / assembly skills always qualify as generators.** A skill whose job is to *package, bundle, or assemble the final installable artifact* — a platform's native plugin builder such as Cowork's `create-cowork-plugin` — **is a generator, not guidance.** It produces the deliverable (an installable `.plugin` / package); it does **not** re-decide spec fields, so the "excludes guidance skills" rule does not apply to it. Match it — and do so **even though it runs as an interactive / guided flow.** The guided nature is not a reason to exclude it here: for the **Plugin packaging** block specifically, that interactive confirmation *is* the intended, on-demand "ship" step, and the platform's native builder emits an installable package the model must not hand-roll. Do **not** substitute inline generation (zipping a staged tree) for a platform plugin builder — a hand-`zip`ped plugin won't install on Cowork and has failed mid-write in practice (zero-byte archive + orphaned temp). On Cowork, match the Plugin-package block to `create-cowork-plugin`.
+
    **Tier 2 — Filesystem discovery (fallback).** If no system-level skill list is available, or if the list may be incomplete, scan the platform-appropriate skill directories for SKILL.md files. Read each file's YAML frontmatter (`name` and `description` fields) to identify creation-capable skills. Use the platform's skill directory:
 
    | Platform | Skill Directories |
@@ -129,6 +131,7 @@ Before generating artifacts, discover what creation tools are available in this 
    |---|---|---|---|
    | Skill | 3 | *(matched skill name or "none")* | Delegate / Inline |
    | Agent | 1 | *(matched skill name or "none")* | Delegate / Inline |
+   | Plugin package | 1 | *(platform plugin builder, e.g. `create-cowork-plugin` on Cowork; see the packaging exception above)* | Delegate |
 
 4. **Present the map for confirmation.** Show the user: "Here's how I plan to build each block type. For items with a matched creation skill, I'll delegate to that skill's full workflow. For items without, I'll generate inline using reference specifications. Does this look right?"
 
