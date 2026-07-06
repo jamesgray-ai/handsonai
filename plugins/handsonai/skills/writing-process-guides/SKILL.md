@@ -27,7 +27,7 @@ Write comprehensive Business Process Guide documentation and save as markdown fi
 2. **Gather strategic context** from user — frequency, timing, decision points between workflows, success criteria
 3. **Write Process Guide** using template
 4. **Write process guide markdown file** to user's repo with YAML frontmatter. Default path: `process-guides/<name>.md`. Ask the user where process guides live if their project has a different convention.
-5. **Refresh the AI Registry index** — regenerate `REGISTRY.md` using the procedure in the `indexing-registry` skill so the process appears with its workflows (best-effort — never fail the step over it). If the user mirrors to an external tracker, optionally update its guide link too.
+5. **Refresh the AI Registry index** — regenerate `REGISTRY.md` using the procedure in the `indexing-registry` skill so the process appears with its workflows (best-effort — never fail the step over it). If the user mirrors to the Notion AI Registry, update the Processes database entry's Guide property (see the `indexing-registry` skill's `references/notion-mirror.md`); for other trackers, optionally update their guide link too.
 
 ## Template Overview
 
@@ -84,7 +84,7 @@ If the SOP file doesn't exist yet, note it as pending:
 
 ## External Tracker Mirror (Optional)
 
-The AI Registry (guide frontmatter + generated `REGISTRY.md`) is the primary record. If the user *also* tracks business processes in Notion, Airtable, or another tool, update that tracker's guide link property to point to the markdown file after writing it — the Markdown files remain the source of truth.
+The AI Registry (guide frontmatter + generated `REGISTRY.md`) is the primary record. If the user mirrors to the Notion AI Registry, the guide maps to the Processes database — update its Guide property to point to the markdown file (see the `indexing-registry` skill's `references/notion-mirror.md`). For Airtable or other trackers, update that tracker's guide link property. Either way, the Markdown files remain the source of truth.
 
 ## Interaction Pattern
 

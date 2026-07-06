@@ -60,7 +60,7 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
    - **Full SOPs** → add `**Execution Model:** <Mode> + <Level>` as the first line of the Automation Notes section
    - **Lightweight SOPs** → use `**<Mode> + <Level>**` as the bold label in the Execution Pattern section
 5. **Write SOP markdown file** to the user's repo with YAML frontmatter. Default path: `sops/<workflow-name>-sop.md`. Ask the user where SOPs live in their repo if their project has a different convention.
-6. **Update the manifest** — set `artifacts.sop` in `outputs/<name>/workflow.yaml` to the SOP path, then refresh `REGISTRY.md` using the procedure in the `indexing-registry` skill (best-effort — never fail the step over it). If the user also mirrors to an external tracker, optionally update its SOP link too.
+6. **Update the manifest** — set `artifacts.sop` in `outputs/<name>/workflow.yaml` to the SOP path, then refresh `REGISTRY.md` using the procedure in the `indexing-registry` skill (best-effort — never fail the step over it). If the manifest has a `notion_url`, also update the Notion Workflow row's SOP property (repo URL preferred) per the `indexing-registry` skill's `references/notion-mirror.md` (best-effort); for other external trackers, optionally update their SOP link too.
 
 ## Template Selection
 
@@ -128,7 +128,7 @@ When a manifest exists, it is the source of truth for `owner`, `execution_mode`,
 
 ## External Tracker Mirror (Optional)
 
-The AI Registry (manifest + generated `REGISTRY.md`) is the primary record. If the user *also* keeps workflows in Notion, Airtable, or another tool, update that tracker's SOP link property to point to the markdown file after writing it — the Markdown files remain the source of truth.
+The AI Registry (manifest + generated `REGISTRY.md`) is the primary record. If the user mirrors to the Notion AI Registry, the SOP link lands in the Workflow entry's SOP property (repo URL preferred — see the `indexing-registry` skill's `references/notion-mirror.md`). For Airtable or other trackers, update that tracker's SOP link property to point to the markdown file after writing it. Either way, the Markdown files remain the source of truth.
 
 ## Interaction Pattern
 

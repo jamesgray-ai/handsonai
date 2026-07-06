@@ -160,11 +160,12 @@ Context files typically don't need a Quick Start Prompt — use `—`. If unsure
 
 ## Optional: Mirror to Notion
 
-For users who keep the Notion AI Registry template (and have the Notion MCP connected), offer to mirror after regenerating — never as a required step:
+For users who work across multiple machines and tools, the Notion AI Registry template is a supported **visualization mirror** — database views of the same registry, with grouped views by process and clickable workflow↔asset relations. It is never required and never the source of truth: the mirror is one-way (Markdown → Notion).
 
-1. For each workflow: search the Notion Workflows database for the exact `display_name`. Update the matching page's properties (Description, Status, Type, Trigger, Apps) or create a new page if none matches exactly. Record the page URL in the manifest's `notion_url`.
-2. For each skill/agent: same exact-title search against the AI Building Blocks database; update Description and Quick Start Prompt, or create with Asset Type and Platform "Claude".
-3. Never create without first checking for duplicates; partial title matches are not duplicates.
-4. Confirm with the user after modifying Notion, and remind them the Markdown files remain the source of truth — the mirror is one-way.
+The mirror targets **four core databases**: Workflows, Processes, Skills, and Agents. The full procedure, field mapping, link derivation, and sync rules live in `references/notion-mirror.md` — follow it exactly.
 
-**Migrating *from* Notion:** to move an existing Notion registry into Markdown, work the other direction — read the Notion databases, merge their fields into the corresponding `workflow.yaml` manifests / asset frontmatter (mapping select values to kebab-case: "Under Development" → `under-development`), create stub process guides for processes without one, then regenerate. Flag Notion rows with no matching local file for the user to resolve.
+- After regenerating the registry, **offer** to mirror if the Notion MCP is connected — first-time mirroring always requires the user's confirmation.
+- Once a workflow's manifest has a `notion_url`, that is a standing opt-in: framework skills auto-sync that workflow's Notion row in their closing steps (best-effort, never blocking).
+- After any mirror, confirm what changed and remind the user the Markdown files remain the source of truth.
+
+**Migrating *from* Notion:** to move an existing Notion registry into Markdown, follow the migration procedure in `references/notion-mirror.md` — read the core databases, merge fields into manifests and frontmatter, create stub process guides, then regenerate.
