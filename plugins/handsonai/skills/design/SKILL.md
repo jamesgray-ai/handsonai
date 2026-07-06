@@ -222,6 +222,17 @@ Before confirming Layer 1, walk four safety questions. This matters most when th
 3. **Unattended runs** — Will this run on a schedule or without a human watching? If yes: human gates on outward-facing actions, a cap on actions per run, and a log of every write.
 4. **Blast radius** — What's the worst realistic outcome of a bad run? Place a human gate in front of the highest-consequence action, or constrain it to drafts/test targets.
 
+**Write-action feasibility check (required when the workflow writes to an external system).** The four questions above scope *how much* write access to request; this one asks whether the required action is **possible at all** on the chosen platform. For each write/action the workflow needs — read them from the Workflow Requirements (the `External Action` fields in Step Details for step-decomposed; the goal, rules, and acceptance for goal-driven) — verify the chosen integration can actually perform it. Use the capability-check mechanism from Step 5 (registry lookup + a single targeted web check) — this is exactly the "check now rather than ship a spec Build can't honor" case. Distinguish two gap types:
+
+- **Scope gap** — the connector *supports* the action but may not be authorized yet (fixable by reconnecting/authorizing at Build). Note it and move on.
+- **Capability gap** — the connector has **no such capability at all** (e.g., a read-only CRM connector with no create-deal tool). This is *not* fixable by reauthorizing, and it can invalidate the design. Flag it plainly and present **platform-aware options**, in this order:
+  1. **Human-in-the-loop gate (recommended default)** — the AI prepares the change (drafts the record/message) and a human commits it in the target system. This works on *every* platform and is the safe default; recommend it first, especially on platforms without shell/code access.
+  2. **A different connector/integration** that has the capability.
+  3. **CLI or API fallback** — *only* where the platform has shell or code access. Say explicitly that this is **unavailable on Cowork and most chat surfaces**, so don't offer it there.
+  4. **Descope the action** — drop or defer it from the workflow.
+
+Never **hard-block** the spec on a capability gap: surface it loudly, let the user pick a path, and record the decision in the spec's **Safety & Permissions** section so Build honors it. A gap the user knowingly accepts (e.g., "I'll commit deals by hand for now") is a valid, recorded choice — not a blocker.
+
 Present findings in plain language as part of the Layer 1 confirmation below ("Safety: this workflow can create drafts in your email — it will never send without you"). Record them in the spec's **Safety & Permissions** section (see the template). If untrusted input meets write access with no human gate between them, say so plainly and recommend one — that combination is how prompt-injection incidents happen.
 
 **Layer 1 confirmation — hard gate, rich playback in plain English** (after Step 5b, before moving to Step 6):

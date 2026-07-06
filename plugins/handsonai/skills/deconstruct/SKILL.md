@@ -81,6 +81,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
    - Discrete steps (is this actually multiple steps?)
    - Decision points (if/then branches, quality gates)
    - Data flows (inputs, outputs, sources, destinations)
+   - External actions (does this step *create, update, send, or delete* in an external system — a CRM record, an email, a calendar event, a database row? Flag it as a **write/action**, distinct from read-only context use. Name the action plainly; you're capturing the *requirement*, not the connector. Design will feasibility-check whether the chosen integration can actually perform it — a common failure is a connector that's read-only or simply has no such capability.)
    - Context needs (specific documents, files, reference materials)
    - Failure modes (what happens when this step fails)
    - Context readiness (adopt a data strategist lens for each step's context inputs — **sample these probes, don't interrogate: ask the one or two that matter for this step rather than all four every time**):
@@ -366,6 +367,7 @@ Insert between the Metadata table and the Context Inventory:
 - **Goal:** [what this step achieves, one sentence]
 - **Inputs:** [data/context coming in — name the artifact or reference a Context Inventory ID]
 - **Outputs:** [what passes to the next step]
+- **External Action:** [does this step write to an external system? Name the action — e.g., "creates and updates deal records in the CRM", "sends an email", "creates a calendar event" — or "None (read-only)". Design feasibility-checks each of these against the chosen integration.]
 - **Rules & Edge Cases:**
   - [decision criterion or branch]
   - [what to do when an input is missing, malformed, or empty]
