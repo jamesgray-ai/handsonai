@@ -19,13 +19,13 @@ If you're returning from [Test (Step 5)](../test/) to fix issues, you may also h
 
 The skill runs seven phases. The sections that follow expand on each:
 
-1. **Load Design Spec** — Read the approved spec from `outputs/`.
-2. **Prepare Context** — Resolve the Context Inventory and Data Readiness Summary: find existing documents, create missing materials, format for AI consumption.
-3. **Build path choice** — Choose "I'll build it" (the model generates artifacts) or "I'll build it myself" (get a Construction Guide with build sequence and creation skill recommendations).
-4. **Mechanism-specific build path** — Only the steps relevant to your chosen orchestration mechanism (Prompt, Skill-Powered Prompt, or Agent).
-5. **Discover creation tools** — Scan your environment for skills that can create other building blocks (e.g., skill-creator, agent-development). Present a Creation Tools Map for confirmation.
-6. **Integration research** — Web search to verify platform availability for every tool in the spec.
-7. **Generate platform artifacts** — For each building block, either delegate to the matched creation skill or generate inline using format specifications.
+1. **Load Design Spec and Workflow Requirements** — Read both approved documents from `outputs/[name]/`.
+2. **Build path choice** — Choose "Claude builds it" (the model generates artifacts) or "You build it yourself" (get a Construction Guide with build sequence and creation skill recommendations).
+3. **Mechanism-specific build path** — Only the steps relevant to your chosen orchestration mechanism (Prompt, Skill-Powered Workflow, or Agent). This is where context gets prepared — the Context Inventory and Data Readiness Summary are resolved before dependent steps run (see "Prepare Context" below).
+4. **Discover creation tools** — Scan your environment for skills that can create other building blocks (e.g., skill-creator). Present a Creation Tools Map for confirmation. Then resolve platform format requirements from the platform registry.
+5. **Check for existing skills** — Incorporate any skills or prompt instructions you already built for this workflow.
+6. **Integration research** — Verify platform availability and setup for every tool in the spec, including write-access and least-privilege pre-flights.
+7. **Generate platform artifacts** — For each building block, either delegate to the matched creation skill or generate inline using format specifications, then place each artifact per the Deployment Plan.
 
 ## Prepare Context
 
@@ -44,8 +44,8 @@ When a workflow produces generic or off-brand output, the fix is almost always b
 
 The model offers two paths:
 
-1. **"I'll build it"** — The model generates all artifacts (skills, agents, prompts, configs) based on the approved spec. This is the default.
-2. **"I'll build it myself"** — The model provides a Construction Guide with build sequence, format references, and pointers to creation skills you can invoke — but you do the building.
+1. **"Claude builds it"** — The model generates all artifacts (skills, agents, prompts, configs) based on the approved spec and places them where they belong. This is the recommended default.
+2. **"You build it yourself"** — The model provides a Construction Guide with build sequence, format references, and pointers to creation skills you can invoke — but you do the building.
 
 Either way, the model starts by checking the **Data Readiness Summary** from your spec. Items flagged as "Partial" or "No" for AI accessibility are gated — they must be resolved (exporting data, granting access, reformatting files) before dependent steps can proceed.
 
@@ -60,7 +60,7 @@ The orchestration mechanism determines which steps you follow. Work through **on
 2. **Set up project workspace** (optional) — If the Design Spec's Deployment Plan recommends a project
 3. **Generate platform artifacts** — The model generates the prompt and any configuration needed for your platform
   </TabItem>
-  <TabItem label="Skill-Powered Prompt">
+  <TabItem label="Skill-Powered Workflow">
 
 1. **Create context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
 2. **Set up project workspace** (optional) — If the Design Spec's Deployment Plan recommends a project
@@ -147,7 +147,7 @@ Many workflows stay at the prompt-plus-context level permanently — pasted into
 
 This step is facilitated by the **`build`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
-**Command:** `/handsonai:build` (Claude Code) — or invoke by name on any other platform.
+**How to start:** Say *"run the build skill"* (or *"build the workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:build`.
 
 **Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 

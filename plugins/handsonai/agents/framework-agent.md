@@ -57,7 +57,7 @@ Read the Workflow Requirements and run the Design phase:
 1. (Claude Code) Keep Layer 1 architecture decisions conversational; **recommend entering plan mode before the detailed decomposition** (step 5 onward), not at the very start
 2. Gather architecture decisions (platform, tools, trigger)
 3. Assess workflow autonomy level (Deterministic → Guided → Autonomous)
-4. Choose orchestration mechanism (Prompt → Skill-Powered Prompt → Agent) with human involvement mode
+4. Choose orchestration mechanism (Prompt → Skill-Powered Workflow → Agent) with human involvement mode
 5. Classify each step on the autonomy spectrum and map to AI building blocks
 6. Identify skill candidates with generation-ready detail
 7. Configure agents (when the mechanism calls for them)
@@ -74,7 +74,7 @@ After the spec is approved, tell the user you're moving to Step 4 and proceed au
 **Skill:** `build`
 
 Read the approved Design Spec and generate platform artifacts:
-1. **Build path choice** — offer "I'll build it" (model generates artifacts) or "I'll build it myself" (spec is the deliverable, skip to Run with construction guide)
+1. **Build path choice** — offer "Claude builds it (Recommended)" (model generates artifacts) or "You build it yourself" (spec is the deliverable, skip to Run with construction guide). Keep the actor explicit in each label — never two first-person options.
 2. Present the mechanism-specific build path (only the steps that apply)
 3. Research integration availability via web search (deferred from Design)
 4. Generate platform artifacts (prompts, skills, agents, configs) — the build skill resolves the correct artifact format for the user's platform at runtime via the platform registry

@@ -85,7 +85,7 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 
 This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
 
-**Command:** `/handsonai:deconstruct` (Claude Code) — or invoke by name on any other platform.
+**How to start:** Say *"run the deconstruct skill"* (or *"deconstruct my workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:deconstruct`.
 
 **Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 

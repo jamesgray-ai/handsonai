@@ -6,6 +6,7 @@ description: >
   chooses an orchestration mechanism and involvement mode, classifies steps, maps building blocks,
   identifies skill candidates, configures agents, and produces a Design Spec for approval.
   Supports both step-decomposed and goal-driven Workflow Requirements.
+  Also use when the user says "continue my workflow" and the workflow manifest shows Step 3 (Design) is next.
   This is Step 3 (Design) of the AI Workflow Framework.
 user-invocable: true
 ---
@@ -26,7 +27,7 @@ This SKILL.md deliberately does **not** restate the spec's section structure or 
 
 **Source of truth:** The Workflow Requirements document is canonical. The Design Spec must NOT restate sections that already exist there (Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview). Instead, reference the Workflow Requirements file. The Design Spec adds *only* what Design produces: architecture decisions, per-step or per-domain building-block classifications, skill candidates, agent configurations, integration options, model recommendations, safety mitigations, and implementation order.
 
-**Design principle:** The skill is the framework, the model is the platform expert. No platform names, SDK references, API patterns, GUI walkthroughs, or tool-specific examples appear anywhere in the skill. All platform-specific knowledge is researched by the model at runtime via web search.
+**Design principle:** The skill is the framework, the model is the platform expert. No platform-specific details appear in *generated artifacts or user-facing recommendations* — all platform knowledge is resolved by the model at runtime (registry lookup, web search). The skill's own procedure may branch on **detected environment capabilities** (plan mode, structured-question tools, web access, persistent workspace) — detect and adapt; never assume a capability exists because it exists on one surface.
 
 **Role:** You are an **Agentic AI Architect**. Your role is to design solutions that map business workflows to AI building blocks across three layers — Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent), and Integration (MCP, API, SDK, CLI). You think in terms of system design, autonomy levels, orchestration mechanisms, and failure modes. Carry this framing through all of Design.
 
@@ -34,18 +35,22 @@ This SKILL.md deliberately does **not** restate the spec's section structure or 
 
 The Design phase is collaborative — you plan the architecture together with the user before anything gets built.
 
-**Collaboration mode — environment-aware:** At the start of Design, set expectations based on where the user is running:
+**Set expectations up front (first message):** tell the user this step usually takes **15–25 minutes**, has two confirmation gates where they approve decisions, and is safe to pause — progress saves to files, and "continue my workflow" picks up where they left off.
 
-> - **Claude Code (plan mode available):** "The Design phase is collaborative. Layer 1 (Architecture) is a quick conversation; **before we start the detailed design work in Layer 2, I'll recommend you enter plan mode** (`shift+tab` or `/plan`) so we plan the spec without writing any files yet. I'll present the full spec for your approval, and only write `outputs/[name]/design-spec.md` after you approve and exit plan mode."
-> - **Cowork (no plan mode):** "The Design phase is collaborative — we'll work through it conversationally. I'll present the full spec for your approval in chat, and only write `outputs/[name]/design-spec.md` once you say go."
+**Collaboration mode — capability-aware:** At the start of Design, check whether this environment offers a **plan / read-only mode** (a mode where the model explores and drafts without writing files, and the user approves before writes happen — e.g., plan mode in Claude Code; not available in Cowork or most chat surfaces). Set expectations accordingly:
 
-Plan mode is the **preferred path where available** (Claude Code). **Timing: keep Layer 1 conversational, then surface a clear recommendation to enter plan mode before Layer 2** — do not bury it or tell the user to enter plan mode "at the very start." It is **not available in Cowork**, where collaboration is conversational. **Either way, never write the Design Spec file before the user approves it** (see Step 9/10).
+> - **Plan mode available:** "The Design phase is collaborative. Layer 1 (Architecture) is a quick conversation; **before we start the detailed design work in Layer 2, I'll recommend you enter plan mode** so we plan the spec without writing any files yet. I'll present the full spec for your approval, and only write `outputs/[name]/design-spec.md` after you approve and exit plan mode." (State the platform's actual way to enter plan mode — e.g., `shift+tab` or `/plan` on Claude Code.)
+> - **No plan mode:** "The Design phase is collaborative — we'll work through it conversationally. I'll present the full spec for your approval in chat, and only write `outputs/[name]/design-spec.md` once you say go."
 
-**Reviewing the spec in plan mode (Claude Code).** In plan mode the harness carries your plan/spec in a plan file and the user approves it through the plan-approval dialog — so when you reach the approval gate, **also present the full spec content in the conversation** so the user can actually read it. If the user asks "how do I view the plan?", paste the spec inline. Don't leave the spec only in the plan file where the user may not see it.
+Plan mode is the **preferred path where available**. **Timing: keep Layer 1 conversational, then surface a clear recommendation to enter plan mode before Layer 2** — do not bury it or tell the user to enter plan mode "at the very start." **Either way, never write the Design Spec file before the user approves it** (see Step 9/10).
+
+**Reviewing the spec in plan mode.** In plan mode the harness carries your plan/spec in a plan file and the user approves it through the plan-approval dialog — so when you reach the approval gate, **also present the full spec content in the conversation** so the user can actually read it. If the user asks "how do I view the plan?", paste the spec inline. Don't leave the spec only in the plan file where the user may not see it.
+
+**Asking questions — capability-aware:** wherever this skill says to use `AskUserQuestion`, that means: use the environment's structured-question tool if one exists (AskUserQuestion or equivalent); otherwise ask the same question in plain prose with a short numbered list of options. The question content is identical either way.
 
 #### Step 1 — Load Workflow Requirements
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the Workflow Requirements and confirm you're working on the right workflow, then read the requirements from the path registered there (normally `outputs/[workflow-name]/requirements.md`). If the user specifies a file path, use that. If no manifest exists but a legacy flat file (`outputs/[name]-requirements.md`) does, use the legacy path and offer to migrate it into a workflow folder + manifest first. Otherwise, look for the most recent Workflow Requirements in `outputs/`.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the Workflow Requirements and confirm you're working on the right workflow, then read the requirements from the path registered there (normally `outputs/[workflow-name]/requirements.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Design isn't the next step, say so and route to the right skill instead of re-running finished work. If the user specifies a file path, use that. If no manifest exists but a legacy flat file (`outputs/[name]-requirements.md`) does, use the legacy path and offer to migrate it into a workflow folder + manifest first. Otherwise, look for the most recent Workflow Requirements in `outputs/`.
 
 **Verify the requirements file exists and is parseable before relying on it.** If the file is missing, stop and tell the user — don't proceed against a path that doesn't resolve. Confirm the required headings exist (Goal — accept the legacy heading `Outcome` in older files — Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and either Steps Overview/Step Details or the goal-driven Inputs/Rules & Constraints). If any are missing or mis-named, **say exactly which are missing** and ask the user to re-run `/deconstruct` or fix the file — don't guess at the contents.
 
@@ -115,7 +120,7 @@ Present a single confirmation block:
 > Anything I missed or got wrong?"
 
 **d. Downstream propagation — architecture decisions gate subsequent steps:**
-- No-code platform + no built-in connectors → cap at Skill-Powered Prompt
+- No-code platform + no built-in connectors → cap at Skill-Powered Workflow
 - Scheduled trigger + platform doesn't support unattended runs → flag infrastructure needed
 - State which extracted facts influenced the autonomy assessment and orchestration mechanism recommendation
 
@@ -135,8 +140,8 @@ Human ———— Deterministic ———————— Guided —————
 | Level | Signals | Orchestration implications |
 |-------|---------|--------------------------|
 | **Human** | Step requires human judgment, creativity, or physical action; AI cannot perform | No AI artifact — captured as Human step in the Decomposition table |
-| **Deterministic** | Steps always execute in the same order, no branching on output quality, failure = stop or retry same step | Prompt or skill-powered prompt likely sufficient |
-| **Guided** | Some steps involve bounded AI judgment, human steers at checkpoints, sequence is mostly fixed but with bounded flexibility | Skill-powered prompt or agent |
+| **Deterministic** | Steps always execute in the same order, no branching on output quality, failure = stop or retry same step | Prompt or skill-powered workflow likely sufficient |
+| **Guided** | Some steps involve bounded AI judgment, human steers at checkpoints, sequence is mostly fixed but with bounded flexibility | Skill-powered workflow or agent |
 | **Autonomous** | Executor backtracks, re-invokes based on feedback, adjusts approach on failure, human checkpoints can redirect flow | Agent required |
 
 **Present as a confident assessment with a teaching frame.** For most users this is the first time they're hearing the word "autonomy" in this context — introduce the concept briefly before applying it, so the playback educates rather than labels. Example phrasing:
@@ -160,7 +165,7 @@ This question is **always asked or confirmed explicitly in plain language** — 
 | User-facing label | Internal mechanism | When it fits |
 |---|---|---|
 | Step-by-step prompt | `Prompt` | One-off workflow, user copy-pastes instructions and runs them manually |
-| Reusable skill | `Skill-Powered Prompt` | Repeated workflow with similar inputs, user triggers by name when needed |
+| Reusable skill | `Skill-Powered Workflow` | Repeated workflow with similar inputs, user triggers by name when needed |
 | Agent | `Agent` | Tool use, autonomous decisions, multi-step reasoning, or scheduled/unattended runs |
 
 **How to present this to the user — recommendation first, then alternatives.** Pick the best fit based on the autonomy assessment and how often the workflow will run, then use `AskUserQuestion` with three plain-language options (recommended option first, marked "(Recommended)"). Example phrasing for the question text:
@@ -183,7 +188,7 @@ Use `AskUserQuestion` with three options (recommended first, marked "(Recommende
 - **Step-by-step prompt** — Copy-paste instructions you run yourself. Best for one-off workflows, no setup.
 - **Agent** — AI drives the whole thing end-to-end. Best when it should run on a schedule or make decisions on its own.
 
-If the user pushes back, discuss in plain language — never drop into the internal jargon (`Prompt` / `Skill-Powered Prompt` / `Agent`) when talking to them.
+If the user pushes back, discuss in plain language — never drop into the internal jargon (`Prompt` / `Skill-Powered Workflow` / `Agent`) when talking to them.
 
 **Artifact form is resolved internally, not asked.** Once platform + mechanism are confirmed, the model picks the specific artifact form (e.g., a SKILL.md file, a Claude Code subagent markdown, an Agent SDK Python script, a ChatGPT Workspace Agent) using the platform's `mode` field in the registry (`code` vs `guided`) and the user's apparent technical level. Default to the simplest no-code option for that platform. **Never ask a non-technical user to pick between technical artifact forms.** Build generates the right artifact from the platform + mechanism the model recorded.
 
@@ -229,7 +234,7 @@ For step-decomposed workflows:
 > - **Platform:** [Claude.ai] — the [browser app you sign into at claude.ai]. This is where your workflow will live.
 > - **Packaging:** [Standalone Skill] — a [single self-contained set of instructions you upload once and reuse]. (Other options: Plugin, Workspace Agent, Loose Files — yours is Standalone Skill because [reason].)
 > - **Autonomy level:** [Guided] — meaning [AI handles most of the work, you steer at key checkpoints]. (The scale runs Human → Deterministic → Guided → Autonomous.)
-> - **Mechanism:** [Skill-Powered Prompt] — the [reusable skill you confirmed in the last step]. Runs in [Augmented] mode, which means [you're in the loop reviewing at checkpoints, not running on a schedule].
+> - **Mechanism:** [Skill-Powered Workflow] — the [reusable skill you confirmed in the last step]. Runs in [Augmented] mode, which means [you're in the loop reviewing at checkpoints, not running on a schedule].
 > - **Safety:** [one-line summary of the Step 5b findings — e.g., 'this workflow can create drafts in your email; it never sends without your review']
 > - **Tools needed:** [list] — these are the external services your workflow will touch. I'll figure out exact integration options (MCP server, API, CLI, SDK) during Build.
 > - **Steps classified:** [N steps — brief summary, e.g., '6 steps: 2 use AI directly, 3 are reusable skills, 1 is a human review']
@@ -442,7 +447,9 @@ If no suitable existing skill is found for a step, tag that step as **"build new
 
 For steps where Skill Discovery (Step 6b) found an existing skill, skip to the next step.
 
-This step only applies to steps tagged **"build new"** in Step 6b. Tag those steps that should become skills. For each skill candidate, gather all 12 fields during the collaborative session so the spec is complete on first write (the field-by-field format lives in `references/spec-template.md`):
+This step only applies to steps tagged **"build new"** in Step 6b. Tag those steps that should become skills.
+
+**Draft, then confirm — do not interview field-by-field.** You have already read the Workflow Requirements and run the whole design conversation; that contains almost everything these fields need. For each skill candidate, **draft all 12 fields yourself**, present the completed blueprint for correction ("Here's my draft of the [name] skill — what's wrong or missing?"), and ask direct questions only for fields you genuinely cannot infer (typically Decision Logic details, Failure Mode preferences, or constraints the user hasn't voiced). Never walk a user through 12 questions per skill. The 12 fields (field-by-field format in `references/spec-template.md`):
 
 - **ID** — stable skill ID (S1, S2, …)
 - **Name** — lowercase-hyphenated, ≤64 chars, no consecutive hyphens; matches the skill directory name
@@ -459,7 +466,7 @@ This step only applies to steps tagged **"build new"** in Step 6b. Tag those ste
 
 #### Step 8 — Agent Configuration
 
-(When orchestration mechanism is Agent.) For each agent the workflow needs, gather all 13 fields during the collaborative session so the spec is complete on first write (the field-by-field format lives in `references/spec-template.md`):
+(When orchestration mechanism is Agent.) **Same draft-then-confirm approach as Step 7:** draft all 13 fields for each agent from the requirements and conversation, present the completed configuration for correction, and interview only for what you cannot infer (typically Tone & Style and Constraints). The 13 fields (field-by-field format in `references/spec-template.md`):
 
 | Field | What to specify |
 |-----------|----------------|
@@ -499,7 +506,7 @@ If the Workflow Requirements is missing Acceptance Criteria or Example Scenarios
 
 Assemble the full Design Spec **content** following the template — but **do not write it to disk yet**. The file is written only after the user approves it in Step 10. Target path (written in Step 10): `outputs/[workflow-name]/design-spec.md`.
 
-**Why not write yet:** In Claude Code plan mode, writing files is blocked until the user approves and exits plan mode; in Cowork there is no plan mode but the same rule applies — never persist a deliverable before approval. So assemble + self-test in memory, present for approval (Step 10), then write.
+**Why not write yet:** If the session is in a plan/read-only mode, writing files is blocked until the user approves and exits it; on surfaces without plan mode the same rule applies — never persist a deliverable before approval. So assemble + self-test in memory, present for approval (Step 10), then write.
 
 **Assembly order:**
 
@@ -531,12 +538,12 @@ Present a summary of the assembled (not-yet-written) Design Spec:
 If the user requests changes, **revise the assembled content in memory**, re-run the self-test, and re-present — still without writing the file.
 
 **Only after explicit approval:**
-1. **Write the spec** to `outputs/[workflow-name]/design-spec.md`. If a spec already exists from a previous run, rename the old one with a date suffix (e.g., `design-spec-2026-06-10.md`) before writing. (In Claude Code, this is the point where the user exits plan mode so the write can happen; in Cowork, write directly.)
+1. **Write the spec** to `outputs/[workflow-name]/design-spec.md`. If a spec already exists from a previous run, rename the old one with a date suffix (e.g., `design-spec-2026-06-10.md`) before writing. (If the session is in plan mode, this is the point where the user exits it so the write can happen; otherwise write directly. If this environment has **no persistent workspace** — files don't survive between conversations — tell the user the spec will download as a file they should keep and re-supply at the next step, or continue the next step in this same conversation.)
 2. **Update the workflow manifest** (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 3`, `last_updated`, and add `design_spec` under `artifacts`.
 3. Then tell the user:
 
-> - **Claude Code:** "Spec approved and saved to `outputs/[workflow-name]/design-spec.md`. If you're in plan mode, **exit now** (`shift+tab` or `/plan`) so the Build phase can generate artifacts."
-> - **Cowork:** "Spec approved and saved to `outputs/[workflow-name]/design-spec.md`."
+> - **If plan mode was used:** "Spec approved and saved to `outputs/[workflow-name]/design-spec.md`. If you're still in plan mode, **exit now** so the Build phase can generate artifacts." (Name the platform's actual exit action.)
+> - **Otherwise:** "Spec approved and saved to `outputs/[workflow-name]/design-spec.md`."
 >
 > "To build the workflow, run the `build` skill (Step 4) (or say *'Build the workflow from my Design Spec'*)."
 
@@ -552,6 +559,7 @@ For goal-driven workflows, the template substitutions in `references/goal-driven
 
 ## Guidelines
 
+- **Exercise judgment within the guardrails.** This workflow is a scaffold: you may deviate from the encoded sequence when the situation clearly calls for it — state the deviation and the reason in one line. What is never negotiable: the two hard gates (Layer 1 confirmation, Spec Approval), the mandatory reference-file reads, the Safety & Permissions pass, and the spec template's structure and canonical vocabulary (Build parses them).
 - Use plain language; avoid jargon unless the user introduced it
 - After writing the spec, tell the user: "Design Spec saved to `outputs/[name]/design-spec.md`. Read it alongside the Workflow Requirements at `outputs/[name]/requirements.md`."
 - Do not proceed past the Spec Approval Gate (Step 10) without explicit user approval

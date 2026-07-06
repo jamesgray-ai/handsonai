@@ -1,7 +1,7 @@
 ---
 name: test
 description: >
-  Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. This is Step 5 (Test) of the AI Workflow Framework.
+  Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. Also use when the user says "continue my workflow" and the workflow manifest shows Step 5 (Test) is next. This is Step 5 (Test) of the AI Workflow Framework.
 user-invocable: true
 ---
 
@@ -13,7 +13,7 @@ Structured testing and evaluation of AI workflow artifacts. Walk the user throug
 
 ### 1. Load context
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references (the requirements own the Acceptance Criteria, Example Scenarios, and Golden Examples). If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. Verify both files exist before proceeding — if either is missing, stop and say which.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references (the requirements own the Acceptance Criteria, Example Scenarios, and Golden Examples). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Test isn't the next step, say so and route to the right skill. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. Verify both files exist before proceeding — if either is missing, stop and say which.
 
 From these, identify:
 - The test scenarios (E1, E2, …) and what to look for in each output
@@ -92,7 +92,7 @@ Based on eval scores across all scenarios:
 
 ## Output
 
-Write results to `outputs/[workflow-name]/test-results.md`. If a results file already exists from a previous round, rename it with a date suffix (e.g., `test-results-2026-06-10.md`) first — earlier rounds are useful history, not waste. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 5`, `last_updated`, and add `test_results` under `artifacts`.
+Write results to `outputs/[workflow-name]/test-results.md`. If a results file already exists from a previous round, rename it with a date suffix (e.g., `test-results-2026-06-10.md`) first — earlier rounds are useful history, not waste. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 5`, `last_updated`, and add `test_results` under `artifacts`. (No persistent workspace in this environment? Tell the user to save the results file and re-supply it at the next step. On load, if expected files aren't present, ask for a re-upload instead of failing.)
 
 **Open the file with YAML frontmatter** so Improve (Step 7) can diff regression runs mechanically instead of re-reading prose:
 

@@ -38,7 +38,7 @@ The Design Spec is what [Design](../../design/) produces from the Workflow Requi
 
 **What's inside:**
 
-- **Orchestration mechanism selection** — why "Skill-Powered Prompt" was chosen over a full agent (the creative middle steps benefit from human judgment)
+- **Orchestration mechanism selection** — why "Skill-Powered Workflow" was chosen over a full agent (the creative middle steps benefit from human judgment)
 - **Step-by-step decomposition table** — each step classified by Phase, Autonomy level, Building Blocks needed, Skill candidacy, and whether it's a Human Gate
 - **Autonomy spectrum summary** — Deterministic (4 steps), Guided (4 steps), Human (2 steps)
 - **4 skill candidates** with full specifications: purpose, inputs, outputs, decision logic, and failure modes

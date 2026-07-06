@@ -77,12 +77,12 @@ Most workflows start as a single Augmented LLM or Prompt Chain. Only add complex
 :::
 ## How These Patterns Relate to the Framework
 
-The [Design](../../ai-workflow-framework/design/) phase of the AI Workflow Framework first assesses the workflow's autonomy level (Deterministic → Guided → Autonomous), then recommends an orchestration mechanism (Prompt → Skill-Powered Prompt → Agent). These seven architecture patterns provide the detailed implementation blueprints within that spectrum:
+The [Design](../../ai-workflow-framework/design/) phase of the AI Workflow Framework first assesses the workflow's autonomy level (Deterministic → Guided → Autonomous), then recommends an orchestration mechanism (Prompt → Skill-Powered Workflow → Agent). These seven architecture patterns provide the detailed implementation blueprints within that spectrum:
 
 | Orchestration Mechanism | Architecture Patterns |
 |------------------------|----------------------|
 | Prompt | Augmented LLM |
-| Skill-Powered Prompt | Prompt Chaining, Routing |
+| Skill-Powered Workflow | Prompt Chaining, Routing |
 | Agent | Parallelization, Orchestrator-Workers, Evaluator-Optimizer, Autonomous Agents |
 
 The [AI Workflow Design Matrix](../../ai-workflow-framework/workflow-design-matrix/) adds a second dimension — **human involvement** (Augmented vs. Automated) — to the autonomy spectrum. Architecture patterns map to the matrix's autonomy axis: Deterministic workflows typically use Augmented LLM or Prompt Chaining, Guided workflows use Routing or Evaluator-Optimizer, and Autonomous workflows use Orchestrator-Workers or Autonomous Agents.

@@ -5,6 +5,7 @@ description: >
   build platform artifacts for their AI workflow. It offers a build path choice, researches
   integration availability, generates platform-appropriate artifacts (prompts, skills, agents, configs),
   and writes them to the right locations for the user's platform.
+  Also use when the user says "continue my workflow" and the workflow manifest shows Step 4 (Build) is next.
   This is Step 4 (Build) of the AI Workflow Framework.
 user-invocable: true
 ---
@@ -13,7 +14,7 @@ user-invocable: true
 
 Take an approved Design Spec and generate platform-appropriate artifacts: prompts, skills, agents, configs, and connectors.
 
-**Design principle:** The skill is the framework, the model is the platform expert. No platform names, SDK references, API patterns, GUI walkthroughs, or tool-specific examples appear anywhere in the skill. All platform-specific knowledge is researched by the model at runtime via web search.
+**Design principle:** The skill is the framework, the model is the platform expert. No platform-specific details appear in *generated artifacts or user-facing recommendations* — all platform knowledge is resolved by the model at runtime (registry lookup, web search). The skill's own procedure may branch on **detected environment capabilities** (creation tools, web access, persistent workspace) — detect and adapt; never assume a capability exists because it exists on one surface.
 
 **Role:** You are an **Agentic AI Architect**. Your role is to build solutions that map business workflows to AI building blocks across all three layers — Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent), and Integration (MCP, API, SDK, CLI). You think in terms of system design, artifact generation, and platform-specific implementation.
 
@@ -23,7 +24,7 @@ Artifact generation begins only after the Design Spec has been approved in the D
 
 #### Step 1 — Load Design Spec and Workflow Requirements
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec from the path registered there (normally `outputs/[workflow-name]/design-spec.md`). If the user specifies a file path, use that. If no manifest exists but legacy flat files (`outputs/[name]-design-spec.md`) do, use the legacy paths and offer to migrate them into a workflow folder + manifest. Otherwise, look for the most recent Design Spec in `outputs/`.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec from the path registered there (normally `outputs/[workflow-name]/design-spec.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Build isn't the next step, say so and route to the right skill instead of re-running finished work. If the user specifies a file path, use that. If no manifest exists but legacy flat files (`outputs/[name]-design-spec.md`) do, use the legacy paths and offer to migrate them into a workflow folder + manifest. Otherwise, look for the most recent Design Spec in `outputs/`.
 
 **Parse the frontmatter first.** The spec opens with YAML frontmatter containing: `workflow`, `requirements_file`, `spec_version`, `definition_type`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, and `counts`. Use these values to summarize the spec — no need to parse the body to get the headline numbers.
 
@@ -32,21 +33,24 @@ Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate
 Confirm you've loaded both by summarizing: workflow name, orchestration mechanism, involvement mode, packaging, counts (steps, skills, agents, integrations), and that the Workflow Requirements was loaded.
 
 **Spec version compatibility:**
-- `spec_version: 2.2` (current) → current format with workflow-folder paths and the Safety & Permissions section; proceed.
+- `spec_version: 2.3` (current) → current format; mechanism vocabulary is `Prompt | Skill-Powered Workflow | Agent`; proceed.
+- `spec_version: 2.2` → same structure, but the middle mechanism is named by its legacy value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow` everywhere; proceed.
 - `spec_version: 2.1` → same structure minus Safety & Permissions and using legacy flat paths; proceed, and apply the safety defaults from Step 5's write-scope pre-flight in place of the missing section.
 - `spec_version: 2.0` → older format without layer grouping or Orchestrator Outline; proceed (Build's fallback derives the orchestrator from Workflow Requirements directly).
 - No frontmatter or older `spec_version` → spec predates the current format. Inform the user: "This spec is in an older format. Some fields (Packaging, Build Output column, Skill/Agent IDs, Deployment Plan, Orchestrator Prompt Outline) may be missing. I can either (a) proceed with what's available and ask questions as needed, or (b) you can regenerate the spec by running the Design skill again."
 
 #### Step 2 — Build Path Choice
 
-Offer two paths:
+Offer two paths. **Make the actor unmistakable in every label** — never phrase both options in the first person ("I'll build it" vs. "I'll build it myself" reads as two different people saying "I"). Name who does the work:
 
-> "How would you like to proceed?
+> "Who should build the workflow artifacts?
 >
-> 1. **I'll build it** — I generate all artifacts (skills, agents, prompts, configs) based on the approved spec.
-> 2. **I'll build it myself** — The spec is your deliverable. I'll provide a Construction Guide with build sequence and platform-specific format guidance instead of generating artifacts."
+> 1. **Claude builds it (Recommended)** — I generate all the artifacts (skills, agents, prompts, configs) from your approved spec and place them where they belong.
+> 2. **You build it yourself** — I give you a Construction Guide — build order, formats, and what goes in each artifact — and you create them."
 
-If the user chooses path 2:
+If a structured question tool is available in this environment, use these labels verbatim as the two options (recommended option first). In plain chat, ask: "Do you want me to build the artifacts for you (recommended), or would you rather build them yourself with a step-by-step guide?"
+
+If the user chooses path 2 (**You build it yourself**):
 
 1. Run Step 3.5 (Discover Available Creation Tools) to build the Creation Tools Map.
 2. Generate a **Construction Guide** containing:
@@ -60,7 +64,7 @@ If the user chooses path 2:
 
 #### Step 3 — Mechanism-Specific Build Path
 
-Based on the orchestration mechanism, present ONLY the steps relevant to the user's mechanism:
+Based on the orchestration mechanism, present ONLY the steps relevant to the user's mechanism. **These sequences are checklists to adapt, not scripts to march through:** skip steps with nothing to do (e.g., "Create context" when the Context Inventory is fully resolved), reorder when the spec's dependencies demand it, and say in one line what you skipped or reordered and why.
 
 **Before starting any mechanism path:** Check the Data Readiness Summary. For items with state "Partial" or "No", resolve required actions first — these gate dependent steps. If resolution requires user action (e.g., exporting data, granting access), present the action list and wait for confirmation before proceeding.
 
@@ -71,7 +75,7 @@ Based on the orchestration mechanism, present ONLY the steps relevant to the use
 4. → Test Plan
 5. → Run Guide
 
-**Skill-Powered Prompt mechanism:**
+**Skill-Powered Workflow mechanism** (legacy spec value: `Skill-Powered Prompt` — treat as the same):
 1. Create context (from Context Inventory)
 2. Set up project workspace (if frequent use)
 3. Build skills for tagged candidates
@@ -241,7 +245,9 @@ Apply the spec's **Packaging** decision to group the generated artifacts:
 - **Workspace Agent** → bundle orchestration + skills + tools as a ChatGPT Workspace Agent (the current ChatGPT primitive; Custom GPTs are deprecated). Research current Workspace Agent creation flow via web search before generating.
 - **Loose Files** → write files to platform-appropriate paths; no distribution wrapper
 
-**When mechanism is `Prompt` or `Skill-Powered Prompt`:** read the spec's `Orchestrator Prompt Outline` section as the structural skeleton for the orchestrator prompt. The outline names which step invokes which skill, where PAUSE points sit, and what the user provides at each gate. Expand the outline into the full orchestrator prompt by pulling step content (Goal, Inputs, Outputs, Rules & Edge Cases) from the Workflow Requirements. If the section is absent (older spec or mechanism = Agent), fall back to deriving the orchestrator directly from Workflow Requirements Step Details + Human Gates.
+**When mechanism is `Prompt` or `Skill-Powered Workflow` (legacy value `Skill-Powered Prompt`):** read the spec's `Orchestrator Prompt Outline` section as the structural skeleton for the orchestrator. The outline names which step invokes which skill, where PAUSE points sit, and what the user provides at each gate. Expand the outline into the full orchestrator by pulling step content (Goal, Inputs, Outputs, Rules & Edge Cases) from the Workflow Requirements. If the section is absent (older spec or mechanism = Agent), fall back to deriving the orchestrator directly from Workflow Requirements Step Details + Human Gates.
+
+**For `Skill-Powered Workflow`, package the orchestrator as a skill wherever the platform supports skills** — the sequenced workflow becomes a named, reusable skill the user triggers by name (e.g., `/workflow-name`), following the same orchestrator-skill conventions as the Agent mechanism below (workflow name for the entry point, `disable-model-invocation: true` where the platform supports it). Fall back to a paste-in orchestrator prompt only on platforms without skill support — and say so.
 
 **When mechanism is `Agent` on a primary-loop platform (Claude Code/Cowork):** the primary session is the orchestrator (see Design's "Who is the orchestrator?"). Generate the user-triggered entry point as an **orchestrator skill** — `disable-model-invocation: true`, **no `context: fork`** (it must dispatch sub-agents from the primary loop), invoked as `/name`. Do **not** emit a slash command for this: custom commands are merged into skills, and a same-named skill would silently shadow the command. **Name the orchestrator skill with the workflow name**; give component/worker artifacts (synthesizers, etc.) capability-specific names so the user-facing entry point never collides with a sub-skill. The orchestrator skill's body holds the run sequence (e.g., clarify → dispatch sub-agents → collect → synthesize → save → review) and **ends with the run-logging step**: *if the workflow runs on-platform, the orchestrator appends one row to `outputs/[workflow-name]/runs.md` at the end of every run — date, input/trigger, result, edits-needed — creating the file with its header if absent* (per the spec's Deployment Plan Run Logging requirement).
 
@@ -300,7 +306,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 **Never overwrite existing local files.** Before creating any local artifact — especially context files (`Status: Exists` in the Context Inventory) — check the filesystem. If the file already exists, **read and reuse it; do not overwrite** without explicit confirmation. (Context artifacts marked `Needs Creation` in the spec may already have been supplied by the user since Design.)
 
-After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. **Update the workflow manifest** (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 4`, `last_updated`, and record the generated artifact locations under an `artifacts.platform_artifacts` list. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
+After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them — plus `workflow.yaml` — when running Test.) **Update the workflow manifest** (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 4`, `last_updated`, and record the generated artifact locations under an `artifacts.platform_artifacts` list. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
 ## Outputs
 
@@ -310,6 +316,7 @@ Prompts, skills, agents, orchestration configs, and connector setups in whatever
 
 ## Guidelines
 
+- **Exercise judgment within the guardrails.** This workflow is a scaffold: you may deviate from the encoded sequence when the situation clearly calls for it — state the deviation and the reason in one line. What is never negotiable: user confirmation gates, safety pre-flights (write-scope, least-privilege, confirm-before-mutating), never-overwrite rules, and the artifact/output formats downstream skills parse.
 - Use plain language; avoid jargon unless the user introduced it
 - After generating platform artifacts, summarize what was produced and where each artifact was saved
 - Do not start Build without a loaded and approved Design Spec

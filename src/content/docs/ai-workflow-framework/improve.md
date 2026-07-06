@@ -39,11 +39,13 @@ The skill runs six phases. The sections that follow expand on each:
 1. **Load history** — Read the workflow manifest, Design Spec, previous test results (the baseline scores live in the file's frontmatter), and the run log if you've been keeping one.
 2. **Quality signal review** — Start from the run log's evidence (run frequency, recurring edits, failures), then discuss what prompted this improvement cycle. Which signals are you seeing?
 3. **Regression evaluation** — Re-run the eval suite from Test. Compare current scores to baseline.
-4. **Graduation assessment** — Should the orchestration mechanism evolve (Prompt → Skill-Powered Prompt, Skill-Powered Prompt → Agent, single agent → multi-agent)?
+4. **Graduation assessment** — Should the orchestration mechanism evolve (Prompt → Skill-Powered Workflow, Skill-Powered Workflow → Agent, single agent → multi-agent)?
 5. **Decision framework** — Four outcomes: no changes needed, tune (fix specific building blocks), redesign (rework the architecture), or evolve (graduate the mechanism). Each maps to a specific next step.
 6. **Generate Improvement Plan** — Current scores, comparison to baseline, findings, decision, and specific actions.
 
 ## Regression Evaluation
+
+*Plain language: a **regression evaluation** just means re-running the same tests you ran in Step 5 and comparing the scores — it catches quality that has quietly slipped ("regressed") since you deployed. The **baseline** is the scorecard from that first test round; the **eval suite** is your set of test scenarios.*
 
 Re-run the **eval suite** from [Test (Step 5)](../test/) using the same test scenarios and scoring dimensions. The baseline lives in the original Test Results frontmatter — per-scenario scores, averages, and the environment tested in — so the comparison is a mechanical delta table (baseline → current, per scenario and dimension), not a memory exercise. One like-for-like check: if an integration was simulated at baseline and is live now (or vice versa), say so — a score change caused by an integration being fixed isn't the workflow getting better or worse.
 
@@ -60,14 +62,14 @@ Record the new scores alongside your baseline. This creates a quality history yo
 
 ## Graduation Assessment
 
-Over time, some workflows outgrow their orchestration mechanism. A prompt that started simple may have accumulated so many instructions that it is unwieldy. A skill-powered prompt may need to make decisions you cannot predict in advance. The right response is not to keep patching — it is to graduate the workflow to a more capable mechanism.
+Over time, some workflows outgrow their orchestration mechanism. A prompt that started simple may have accumulated so many instructions that it is unwieldy. A skill-powered workflow may need to make decisions you cannot predict in advance. The right response is not to keep patching — it is to graduate the workflow to a more capable mechanism.
 
 ### The Orchestration Ladder
 
 | Current mechanism | Graduate to | When to graduate |
 |---|---|---|
-| **Prompt** | **Skill-Powered Prompt** | Steps have become complex enough that you are repeating the same multi-step instructions across runs. Extracting those into reusable skills would make the prompt cleaner and the sub-steps more reliable. |
-| **Skill-Powered Prompt** | **Agent** | The workflow needs to make sequencing decisions, use tools, or adapt its approach based on intermediate results — things a human following a fixed skill sequence cannot efficiently orchestrate. |
+| **Prompt** | **Skill-Powered Workflow** | Steps have become complex enough that you are repeating the same multi-step instructions across runs. Extracting those into reusable skills would make the prompt cleaner and the sub-steps more reliable. |
+| **Skill-Powered Workflow** | **Agent** | The workflow needs to make sequencing decisions, use tools, or adapt its approach based on intermediate results — things a human following a fixed skill sequence cannot efficiently orchestrate. |
 | **Agent** (single) | **Agent** (multi-agent) | The agent is handling too many distinct responsibilities. Splitting into specialized agents (researcher, writer, editor) with clear handoffs improves quality and makes each agent easier to maintain. |
 
 Graduation is not always the right answer. If the workflow works well at its current level, leave it. The goal is to match the mechanism to the workflow's actual needs — not to over-engineer.
@@ -113,7 +115,7 @@ An **Improvement Plan** saved to `outputs/[workflow-name]/improvement-plan.md` t
 
 This step is facilitated by the **`improve`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
-**Command:** `/handsonai:improve` (Claude Code) — or invoke by name on any other platform.
+**How to start:** Say *"run the improve skill"* (or *"review my workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:improve`.
 
 **Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 

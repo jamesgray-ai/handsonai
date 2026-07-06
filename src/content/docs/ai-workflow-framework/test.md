@@ -136,7 +136,7 @@ Most workflows need multiple rounds of Build-then-Test before they are ready for
 
 This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
-**Command:** `/handsonai:test` (Claude Code) — or invoke by name on any other platform.
+**How to start:** Say *"run the test skill"* (or *"test the workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:test`.
 
 **Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 

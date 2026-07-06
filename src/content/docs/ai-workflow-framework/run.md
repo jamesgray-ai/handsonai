@@ -148,7 +148,7 @@ In the first few weeks after deployment, check:
 
 This step is facilitated by the **`run`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
-**Command:** `/handsonai:run` (Claude Code) — or invoke by name on any other platform.
+**How to start:** Say *"create my run guide"* (or *"run the run skill"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:run`.
 
 **Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 

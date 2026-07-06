@@ -77,6 +77,8 @@ These three worked examples from the [Build](../build/) section illustrate diffe
 1. **How much should the AI decide on its own?** → Determines your autonomy level (Deterministic / Guided / Autonomous)
 2. **Does a human need to be involved during the run?** → Determines your involvement mode (Augmented / Automated)
 
+*(A fourth autonomy value, **Human**, exists only when classifying individual steps during Design — a step a person performs with no AI. It never appears at the whole-workflow level, which is what this matrix classifies.)*
+
 ### Common Progressions
 
 Most workflows evolve along predictable paths as you build confidence:
@@ -97,7 +99,7 @@ The [orchestration mechanism](../design/#orchestration-mechanism) describes *who
 | Orchestration Mechanism | Typical Archetypes |
 |------------------------|-------------------|
 | Prompt | Deterministic + Augmented, Deterministic + Automated |
-| Skill-Powered Prompt | Deterministic or Guided, either involvement mode |
+| Skill-Powered Workflow | Deterministic or Guided, either involvement mode |
 | Agent | Guided or Autonomous, either involvement mode |
 
 ### Architecture Patterns

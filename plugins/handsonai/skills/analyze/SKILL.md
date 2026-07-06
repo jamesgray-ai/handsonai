@@ -15,6 +15,10 @@ Analyze concrete opportunities where AI can improve your workflows. Produces a c
 
 ## Workflow
 
+**Set expectations up front (first message):** tell the user this step is a guided interview that usually takes **15–30 minutes**, and that stopping early is safe — everything gets saved to a file they can pick up from later.
+
+**Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `outputs/` for workflow folders and their `workflow.yaml` manifests first. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
+
 ### Fast Path
 
 If the user arrives with pre-identified workflows (e.g., "I already know I want to automate X, Y, and Z"), skip Steps 1-2. Infer the lens from what they describe — individual tasks (personal reporting, email triage) = Individual lens; multi-role or business-objective workflows (customer onboarding, sales pipeline) = Organizational lens. Confirm the inferred lens with the user. Go straight to Step 3 (Opportunity Analysis & Report) using what they've provided, then Step 4 (Workflow Candidate Summary).
@@ -121,6 +125,8 @@ For each candidate:
 
 Append this summary to the output file under a `## Workflow Candidate Summary` heading. Recommend which candidate to deconstruct first, with reasoning.
 
+**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `outputs/`, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, at most one tool connection, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
+
 #### Step 5 — Second Lens Follow-Up
 
 After completing the report and candidate selection for the first lens:
@@ -138,6 +144,8 @@ If user declines, proceed to next framework step.
 ## Output
 
 Write the report to `outputs/ai-opportunity-report.md`. Create the `outputs/` directory if it doesn't exist. If the file already exists, rename the existing file to `ai-opportunity-report-YYYY-MM-DD.md` (using today's date) before writing the new one.
+
+If this environment can't keep files between conversations (no persistent workspace — output is produced as a download), tell the user to save the report and re-supply it when they run the Deconstruct step, or continue in this same conversation.
 
 The report must include (in this order):
 
@@ -220,4 +228,4 @@ Use these definitions when classifying opportunities:
 - Be specific in recommendations: "AI could draft the weekly status email from your Jira board data" beats "AI could help with reporting"
 - **Individual lens:** Scope each workflow candidate to one person's trigger-to-deliverable flow. If a workflow spans multiple people, note the cross-team dependencies in the opportunity card but keep the candidate focused on a single owner's scope.
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
-- After writing the report, ask the user to pick their candidates for Step 4. Once they've chosen, append the Workflow Candidate Summary and tell the user: "Opportunity report and workflow candidates saved to `outputs/ai-opportunity-report.md`. Pick a candidate and run the `deconstruct` skill (Step 2) to break it down."
+- After writing the report, ask the user to pick their candidates for Step 4. Once they've chosen, append the Workflow Candidate Summary and tell the user: "Opportunity report and workflow candidates saved to `outputs/ai-opportunity-report.md`. Pick a candidate and run the `deconstruct` skill (Step 2) to break it down. Deconstruct will create a dedicated folder for your chosen workflow (`outputs/[workflow-name]/`) — this report stays at the top level because it covers all your candidates."

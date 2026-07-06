@@ -8,6 +8,7 @@ description: >
   Design step or any AI model to consume. Supports two paths: step-decomposed (you know how the
   work gets done) and goal-driven (you know what "done" looks like and want an agent system
   to determine the path). Produces a structured Workflow Requirements document.
+  Also use when the user says "continue my workflow" and the workflow manifest shows Step 2 (Deconstruct) is next.
   This is Step 2 of the AI Workflow Framework.
 user-invocable: true
 ---
@@ -38,6 +39,8 @@ Both paths produce a Workflow Requirements document with the same shared shell �
 Worked example: *"Generate my weekly status report from the same three sources"* → step-decomposed (same recipe every run). *"Triage whatever lands in my inbox and handle each appropriately"* → goal-driven (a refund request, a partnership pitch, and spam each take a completely different sequence of steps). Getting this right matters: the choice selects the document template the Design step parses, so a wrong pick creates rework downstream.
 
 ## Workflow
+
+**Set expectations up front (first message):** tell the user this step is the most thorough interview in the framework — usually **20–40 minutes** of back-and-forth — because the requirements written here drive everything built later. Stopping early is safe: progress saves to files, and they can say "continue my workflow" in a later session to pick up where they left off.
 
 1. **Scenario discovery** — Determine how the user is arriving and which path to take.
 
@@ -218,9 +221,11 @@ artifacts:
 Conventions every framework skill follows (stated here once; downstream skills apply them):
 
 - **Read the manifest on load** to locate artifacts and confirm you're working on the right workflow.
+- **Resume orientation ("continue my workflow").** Any framework skill can be the re-entry point. When the user says "continue my workflow" (or invokes a skill without context), scan `outputs/` for workflow folders: if several exist, list them with their `current_step` and ask which to continue. Then orient before doing anything: "You finished Step [N] ([name]) on [last_updated] — next is Step [N+1] ([name])." If the invoked skill doesn't match the next step, say so and route to the right one instead of re-running finished work.
 - **Update it after writing your output**: set `current_step`, `last_updated`, and add your artifact path under `artifacts`.
 - **Never silently overwrite.** If your output file already exists from a previous run, rename the old one with a date suffix (e.g., `requirements-2026-06-10.md`) before writing.
 - **Legacy layout:** if no workflow folder exists but flat files like `outputs/[name]-requirements.md` do, use those paths, and offer to migrate them into a folder + manifest before proceeding.
+- **No persistent workspace:** if this environment can't keep files between conversations (no project workspace — files are produced as downloads), tell the user after each write: "Save this file — you'll re-supply it (plus `workflow.yaml`) when you run the next step, or continue the next step in this conversation." On load, if the expected files aren't present, ask the user to re-upload them instead of failing.
 
 ### Writing-style rules (MUST follow)
 

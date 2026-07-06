@@ -4,6 +4,7 @@ description: >
   Evaluate a running AI workflow for quality, relevance, and evolution opportunities.
   Use when the user wants to review how a deployed workflow is performing, check if it needs
   tuning, or assess whether it should graduate to a more capable orchestration mechanism.
+  Also use when the user says "continue my workflow" and the workflow manifest shows Step 7 (Improve) is next, or the manifest next_review date has arrived.
   This is Step 7 (Improve) of the AI Workflow Framework.
 user-invocable: true
 ---
@@ -16,9 +17,11 @@ Evaluate and evolve running AI workflows. Review how a deployed workflow is perf
 
 ### 1. Load workflow context
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the artifacts it registers: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the artifacts it registers: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest before proceeding. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to re-upload them (manifest, test results, run log) instead of failing.
 
 **Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the manifest before treating its scores as this workflow's baseline. Parse the baseline scores from the Test Results frontmatter (`scores` and `averages`) — that's the regression reference.
+
+**Check the review schedule.** If the manifest has a `next_review` date, compare it to today: if overdue, note it plainly ("This review was due [date] — good timing") and, at the end of this run, agree a fresh `next_review` date. If the user arrived well before the date, ask what prompted the early check — that signal (quality slipped, requirements changed) often points straight at the diagnosis.
 
 Understand what was built, how it was designed to work, and what quality bar was established.
 
@@ -50,8 +53,10 @@ Identify signals of degradation or opportunity:
 
 Should the orchestration mechanism evolve?
 
-- **Prompt → Skill-Powered Prompt** — if repeatable sub-routines have emerged that deserve codification
-- **Skill-Powered Prompt → Agent** — if AI needs to make sequencing decisions rather than follow a fixed order
+- **Prompt → Skill-Powered Workflow** — if repeatable sub-routines have emerged that deserve codification
+- **Skill-Powered Workflow → Agent** — if AI needs to make sequencing decisions rather than follow a fixed order
+
+(Older Design Specs use the legacy mechanism value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow`.)
 - **Single Agent → Multi-Agent** — if complexity has grown to require specialized sub-agents
 
 Only recommend graduation when there's a concrete capability gap, not just because "it could be more sophisticated."

@@ -119,7 +119,7 @@ Decide *how* the workflow should be built — before you build it.
 
 The Design step takes your Workflow Requirements and produces a complete blueprint for your AI workflow. The skill works through three layers of decisions:
 
-- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend an orchestration mechanism (Prompt, Skill-Powered Prompt, or Agent) with an involvement mode (Augmented or Automated).
+- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend an orchestration mechanism (Prompt, Skill-Powered Workflow, or Agent) with an involvement mode (Augmented or Automated).
 - **Decomposition** — classify each step on the autonomy spectrum, map AI building blocks, and identify which steps become reusable skills.
 - **Component blueprints** — document the field-level specs for each new skill and agent.
 
@@ -230,6 +230,8 @@ Used to classify each workflow step during [Design](design/):
 | **Guided** | AI makes bounded decisions within guardrails; human reviews at key checkpoints |
 | **Autonomous** | AI plans and executes end-to-end, including decisions and tool use |
 
+The same scale describes the **whole workflow** during Design's autonomy assessment — with one difference: **Human appears only at the step level** (a whole workflow that's entirely human needs no AI design), so the workflow-level scale runs Deterministic → Guided → Autonomous.
+
 ### Orchestration Mechanism
 
 The orchestration mechanism answers: **who drives the workflow?** The right mechanism depends on the workflow's autonomy level and what it actually needs:
@@ -237,7 +239,7 @@ The orchestration mechanism answers: **who drives the workflow?** The right mech
 | Mechanism | Description | Signals |
 |-----------|-------------|---------|
 | **Prompt** | Human follows structured instructions step by step, all logic inline | Sequential steps, human provides inputs and makes decisions |
-| **Skill-Powered Prompt** | Human invokes reusable skills in a defined sequence | Repeatable sub-routines, moderate complexity |
+| **Skill-Powered Workflow** | Human invokes reusable skills in a defined sequence | Repeatable sub-routines, moderate complexity |
 | **Agent** | Agent orchestrates the flow, invoking skills and making sequencing decisions | Tool use required, autonomous decisions, multi-step reasoning |
 
 Single-agent vs. multi-agent is an architecture detail decided during agent configuration — not a top-level choice.
@@ -256,6 +258,12 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 5. **[Test](test/)** your workflow against evaluation criteria and establish a quality baseline
 6. **[Run](run/)** — deploy, choose a run pattern, and operationalize
 7. **[Improve](improve/)** — periodically evaluate, catch regressions, and evolve
+
+:::tip[Before you start]
+- **See the destination first.** The [worked example](examples/worked-example/) shows every file a complete run produces — the whole project folder for one small workflow taken through all seven steps.
+- **Start small.** Make your first workflow starter-sized: 3–5 steps, one tool connection, triggered manually. Build your big opportunity second, once you've been through the loop.
+- **Pausing is safe.** Every step saves progress to files. In any later session, just say **"continue my workflow"** — the framework reads its tracking file and picks up at the right step.
+:::
 
 ## FAQ
 

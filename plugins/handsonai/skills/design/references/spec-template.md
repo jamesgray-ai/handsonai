@@ -3,7 +3,7 @@
 This file is the **only** source of the Design Spec's structure. The exact section order, heading names, frontmatter schema, and `spec_version` literal below are canonical — Build parses them mechanically. Do not assemble a spec from memory; follow this template exactly. Every section is mandatory unless marked (optional/conditional). Do not add, remove, rename, or reorder sections.
 
 **Conditional sections:**
-- `Orchestrator Prompt Outline` — only when mechanism is `Prompt` or `Skill-Powered Prompt`. Omit for `Agent`.
+- `Orchestrator Prompt Outline` — only when mechanism is `Prompt` or `Skill-Powered Workflow`. Omit for `Agent`.
 - `Agent Configuration` — whenever the design includes at least one sub-agent/agent artifact. Omit only if there are genuinely zero sub-agents — then set `agents: 0` and document the orchestration logic in the Deployment Plan.
 - `Multi-Agent Configuration` — only when more than one agent is defined.
 - `Stakeholders` — only for Organizational lens.
@@ -18,9 +18,9 @@ For **goal-driven** workflows, apply the template substitutions in `references/g
 ---
 workflow: [kebab-case name]
 requirements_file: outputs/[workflow-name]/requirements.md
-spec_version: 2.2
+spec_version: 2.3
 definition_type: Step-Decomposed | Goal-Driven
-mechanism: Prompt | Skill-Powered Prompt | Agent
+mechanism: Prompt | Skill-Powered Workflow | Agent
 involvement: Augmented | Automated
 platform: [user's platform, e.g., Claude Code, Claude.ai, Cowork, Codex, ChatGPT, Gemini CLI]
 platform_mode: code | guided
@@ -63,7 +63,7 @@ The spec is organized into three layers that build on each other:
 | Lens | Individual / Organizational | [reason] |
 | Platform | [name] | [reason] |
 | Platform Mode | code / guided | [inferred from platform or confirmed] |
-| Orchestration | Prompt / Skill-Powered Prompt / Agent | [reason] |
+| Orchestration | Prompt / Skill-Powered Workflow / Agent | [reason] |
 | Involvement | Augmented / Automated | [reason] |
 | Packaging | Plugin / Standalone Skill / Workspace Agent / Loose Files | [reason — determines how Build groups and ships artifacts] |
 | Trigger | [trigger description from Workflow Requirements] | [implications for involvement, infrastructure] |
@@ -155,9 +155,9 @@ Column definitions:
 
 ## Orchestrator Prompt Outline
 
-*Include this section only when mechanism is `Prompt` or `Skill-Powered Prompt`. Omit for `Agent` — on Claude Code/Cowork the primary loop orchestrates (capture that as orchestration logic in the Deployment Plan), and the workers are documented in Agent Configuration below.*
+*Include this section only when mechanism is `Prompt` or `Skill-Powered Workflow`. Omit for `Agent` — on Claude Code/Cowork the primary loop orchestrates (capture that as orchestration logic in the Deployment Plan), and the workers are documented in Agent Configuration below.*
 
-The high-level shape of the orchestrator prompt the user runs to execute the workflow. This is not the full prompt text — it's the structural skeleton Build expands into the orchestrator. Build derives full step content from the Workflow Requirements' Step Details.
+The high-level shape of the orchestrator the user runs to execute the workflow. This is not the full text — it's the structural skeleton Build expands into the orchestrator. Build derives full step content from the Workflow Requirements' Step Details. **For `Skill-Powered Workflow`, the orchestrator itself ships as a skill on skill-capable platforms** — the user runs the whole sequence by name (e.g., a slash command) — and only falls back to a paste-in prompt on platforms without skill support. Build resolves which at generation time.
 
 ```
 [Intro: one paragraph describing what this prompt does and when to run it]

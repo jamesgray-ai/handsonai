@@ -30,11 +30,11 @@
 
 ### Step 3 — Design
 - URL: https://handsonai.info/ai-workflow-framework/design/
-- Summary: Assess the workflow's autonomy level, choose an orchestration mechanism (Prompt, Skill-Powered Prompt, Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents. Produces a platform-agnostic Design Spec.
+- Summary: Assess the workflow's autonomy level, choose an orchestration mechanism (Prompt, Skill-Powered Workflow, Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents. Produces a platform-agnostic Design Spec.
 
 ### Step 4 — Build
 - URL: https://handsonai.info/ai-workflow-framework/build/
-- Summary: Resolve context needs, then generate platform-appropriate artifacts (prompts, skills, agents, configs) from the approved Design Spec. Mechanism-specific build paths for Prompt, Skill-Powered Prompt, and Agent.
+- Summary: Resolve context needs, then generate platform-appropriate artifacts (prompts, skills, agents, configs) from the approved Design Spec. Mechanism-specific build paths for Prompt, Skill-Powered Workflow, and Agent.
 
 ### Step 5 — Test
 - URL: https://handsonai.info/ai-workflow-framework/test/

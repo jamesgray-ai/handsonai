@@ -21,7 +21,7 @@ Design walks through three layers of decisions that build on each other. Each la
 
 | Layer | What it decides | Why it's separate |
 |---|---|---|
-| **Layer 1 — Architecture** | Platform, mechanism (Prompt/Skill-Powered Prompt/Agent), autonomy level, packaging, model class, integration options | Strategic. Cheap to revisit. Wrong call here cascades everywhere. |
+| **Layer 1 — Architecture** | Platform, mechanism (Prompt/Skill-Powered Workflow/Agent), autonomy level, packaging, model class, integration options | Strategic. Cheap to revisit. Wrong call here cascades everywhere. |
 | **Layer 2 — Decomposition** | For each step (or capability domain), what AI building block delivers it: a new skill, an existing skill, an inline prompt block, an agent, or a human action | Structural. Decides what gets built and what gets reused. |
 | **Layer 3 — Component Blueprints** | Field-level specs for each new skill and agent — name, description, inputs/outputs, decision logic, failure modes, tools, deployment | Detailed. Most expensive to redo. Build uses these to generate artifacts. |
 
@@ -32,6 +32,12 @@ The Design skill walks you through these layers in order, with a lightweight con
 | **What you'll do** | Confirm your platform, work through three layers of design decisions with lightweight confirmation at each handoff, and approve the final spec |
 | **What you'll get** | A **Design Spec** — three-layer architecture and component blueprints, with frontmatter, stable IDs, and a Self-Test Summary |
 | **Time** | ~15–25 minutes |
+
+:::note[Three terms you'll see, in plain language]
+- **Frontmatter** — a small block of labeled facts at the top of the file (workflow name, mechanism, counts). It lets the next step read the headline decisions without re-reading the whole document.
+- **Stable IDs** — short labels like S1 (skill), A1 (agent), C1 (context item), E1 (test scenario) that stay the same across documents, so every step can point at exactly the same component.
+- **agentskills.io** — the open standard format for skills that every major AI platform now reads, which is what makes your design portable between platforms.
+:::
 
 ## Why This Matters
 
@@ -82,8 +88,8 @@ Human ———— Deterministic ———————— Guided —————
 | Level | Signals | Orchestration implications |
 |-------|---------|--------------------------|
 | **Human** | Step requires human judgment, creativity, or physical action; AI cannot perform | No AI artifact — captured as Human step in the Decomposition table |
-| **Deterministic** | Steps execute in fixed order, no branching on quality, failure = stop or retry | Prompt or Skill-Powered Prompt likely sufficient |
-| **Guided** | Bounded AI judgment at steps, human steers at checkpoints, mostly fixed sequence | Skill-Powered Prompt or Agent |
+| **Deterministic** | Steps execute in fixed order, no branching on quality, failure = stop or retry | Prompt or Skill-Powered Workflow likely sufficient |
+| **Guided** | Bounded AI judgment at steps, human steers at checkpoints, mostly fixed sequence | Skill-Powered Workflow or Agent |
 | **Autonomous** | Executor backtracks, re-invokes, adjusts on failure, checkpoints can redirect | Agent required |
 
 ### Orchestration Mechanism
@@ -93,7 +99,7 @@ Based on the autonomy assessment and architecture decisions, the model recommend
 | Mechanism | Description | Signals |
 |-----------|-------------|---------|
 | **Prompt** | Human follows structured instructions step by step, all logic inline | Sequential steps, human provides inputs and makes decisions |
-| **Skill-Powered Prompt** | Human invokes reusable skills in a defined sequence | Repeatable sub-routines, moderate complexity |
+| **Skill-Powered Workflow** | Human invokes reusable skills in a defined sequence | Repeatable sub-routines, moderate complexity |
 | **Agent** | Agent orchestrates the flow, invoking skills and making sequencing decisions | Tool use required, autonomous decisions, multi-step reasoning |
 
 Plus an involvement mode:
@@ -159,7 +165,7 @@ For goal-driven workflows, this is replaced by a **Capability Domain Mapping** �
 
 ### Orchestrator Prompt Outline
 
-When mechanism is `Prompt` or `Skill-Powered Prompt`, the spec includes an **Orchestrator Prompt Outline** — the structural skeleton of the workflow's main prompt. It names which step invokes which skill, where PAUSE points sit (from Human Gates), and what the user provides at each gate. Build expands the outline into the full orchestrator using Step Details from the Workflow Requirements.
+When mechanism is `Prompt` or `Skill-Powered Workflow`, the spec includes an **Orchestrator Prompt Outline** — the structural skeleton of the workflow's main prompt. It names which step invokes which skill, where PAUSE points sit (from Human Gates), and what the user provides at each gate. Build expands the outline into the full orchestrator using Step Details from the Workflow Requirements.
 
 Omitted for `Agent` mechanism — the agent itself is the orchestrator (see Agent Configuration in Layer 3).
 
@@ -235,7 +241,7 @@ The three layers above are the conceptual structure of the Design Spec. In pract
 2. **Confirm understanding** — Summarize the workflow and ask you to confirm.
 3. **Architecture decisions (Layer 1)** — Confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Requirements and present a confirmation block.
 4. **Autonomy assessment** — Assess where the whole workflow sits on the autonomy spectrum (Deterministic, Guided, Autonomous).
-5. **Orchestration mechanism** — Recommend a mechanism (Prompt, Skill-Powered Prompt, or Agent) with an involvement mode (Augmented or Automated).
+5. **Orchestration mechanism** — Recommend a mechanism (Prompt, Skill-Powered Workflow, or Agent) with an involvement mode (Augmented or Automated).
 6. **Classify each step (Layer 2)** — Per-step autonomy level, AI building blocks, tools, human review gates.
 7. **Identify skill candidates** — Steps tagged for skill creation with generation-ready detail.
 8. **Agent configuration (Layer 3)** — When applicable, generate a platform-agnostic agent blueprint.
@@ -246,7 +252,7 @@ The three layers above are the conceptual structure of the Design Spec. In pract
 
 This step is facilitated by the **`design`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation.
 
-**Command:** `/handsonai:design` (Claude Code) — or invoke by name on any other platform.
+**How to start:** Say *"run the design skill"* (or *"design the workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:design`.
 
 **Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 
@@ -304,7 +310,7 @@ The **Design Spec** is organized into the three layers above, plus cross-layer s
 
 **Layer 1 — Architecture sections:** Execution Pattern, Architecture Decisions (with Packaging), Autonomy Spectrum Summary, Safety & Permissions, Integration Options (with Source URLs), Model Recommendation (with per-platform mapping).
 
-**Layer 2 — Decomposition sections:** Step-by-Step Decomposition (or Capability Domain Mapping for goal-driven), Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Prompt), Data Readiness Summary, Recommended Implementation Order.
+**Layer 2 — Decomposition sections:** Step-by-Step Decomposition (or Capability Domain Mapping for goal-driven), Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Workflow), Data Readiness Summary, Recommended Implementation Order.
 
 **Layer 3 — Component Blueprint sections:** Skill Candidates (12 fields each), Agent Configuration (13 fields each; mandatory for goal-driven), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan.
 
@@ -324,7 +330,7 @@ The Design Spec is structured for machine consumption — by the Build skill, by
 |---|---|
 | **Frontmatter** | YAML. Required fields: `workflow`, `requirements_file`, `spec_version`, `definition_type`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, `counts` |
 | **Stable IDs** | `S1`, `S2`, … for skills; `A1`, `A2`, … for agents; `C1`, `C2`, … for context items (in the Workflow Requirements); `E1`, `E2`, … for example scenarios (in the Workflow Requirements) |
-| **Canonical vocabulary** | Autonomy: `Human / Deterministic / Guided / Autonomous`. Mechanism: `Prompt / Skill-Powered Prompt / Agent`. Packaging: `Plugin / Standalone Skill / Workspace Agent / Loose Files`. Build Output: `New skill: SN / Use existing: [name] / New agent: AN / Inline prompt → Workflow Requirements Step N / MCP server: [name] / Human (no artifact)` |
+| **Canonical vocabulary** | Autonomy: `Human / Deterministic / Guided / Autonomous`. Mechanism: `Prompt / Skill-Powered Workflow / Agent`. Packaging: `Plugin / Standalone Skill / Workspace Agent / Loose Files`. Build Output: `New skill: SN / Use existing: [name] / New agent: AN / Inline prompt → Workflow Requirements Step N / MCP server: [name] / Human (no artifact)` |
 | **Section ordering** | Layer 1 → Layer 2 → Layer 3 → Cross-layer. Section names within each layer are fixed (consumers can locate any section by name). |
 | **Self-Test Summary** | Each Build Skill Needs Checklist item marked ✓ or ⚠️ with inline description. Lets consumers see what was verified. |
 

@@ -4,7 +4,7 @@ description: >
   This skill should be used when the user has built and tested workflow artifacts and wants a Run Guide
   for deploying and operating their AI workflow. It generates a plain-language guide
   with setup steps, deployment patterns, and sharing instructions — tailored to the user's platform and
-  build path. This is Step 6 (Run) of the AI Workflow Framework.
+  build path. Also use when the user says "continue my workflow" and the workflow manifest shows Step 6 (Run) is next. This is Step 6 (Run) of the AI Workflow Framework.
 user-invocable: true
 ---
 
@@ -12,7 +12,7 @@ user-invocable: true
 
 Generate a Run Guide for deploying, executing, and testing an AI workflow. The Run Guide bridges the gap between "artifacts exist" and "workflow is running."
 
-**Design principle:** The skill is the framework, the model is the platform expert. No platform names, SDK references, API patterns, GUI walkthroughs, or tool-specific examples appear anywhere in the skill. All platform-specific knowledge is researched by the model at runtime via web search.
+**Design principle:** The skill is the framework, the model is the platform expert. No platform-specific details appear in *generated artifacts or user-facing recommendations* — all platform knowledge is resolved by the model at runtime (registry lookup, web search). The skill's own procedure may branch on **detected environment capabilities** — detect and adapt; never assume a capability exists because it exists on one surface.
 
 **Role:** You are an **Agentic AI Architect**. Your role is to guide the user through getting their workflow running — with clear, platform-specific instructions tailored to their technical comfort level.
 
@@ -20,7 +20,7 @@ Generate a Run Guide for deploying, executing, and testing an AI workflow. The R
 
 #### Step 1 — Determine Build Path and Load Context
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the Design Spec it registers (normally `outputs/[workflow-name]/design-spec.md`). If the user specifies a file path, use that; if no manifest exists but legacy flat files do, use those paths.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the Design Spec it registers (normally `outputs/[workflow-name]/design-spec.md`). If the user specifies a file path, use that; if no manifest exists but legacy flat files do, use those paths. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Run isn't the next step, say so and route to the right skill.
 
 **Detect the build path — don't ask first.** The artifacts on disk plus the spec frontmatter answer this in almost every case:
 
@@ -121,7 +121,7 @@ Create `outputs/[workflow-name]/runs.md` with a header row, and make "log the ru
 
 Tell the user why it's worth ten seconds: when they review this workflow later (Step 7 — Improve), the log is the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself (an orchestrator skill or agent the loop executes), Build should already have baked self-logging into the orchestrator artifact (per the spec's Deployment Plan Run Logging requirement) — **verify** it appends a row to `runs.md` at the end of each run. If it doesn't (older spec or pre-logging Build), **add that logging step to the orchestrator artifact now** so it self-logs going forward. Either way, logging then costs the user nothing.
 
-Present the Run Guide directly in the conversation. Also save it to `outputs/[workflow-name]/run-guide.md` so the user has a reference they can follow later or share with teammates. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 6`, `last_updated`, and add `run_guide` and `run_log` under `artifacts`.
+Present the Run Guide directly in the conversation. Also save it to `outputs/[workflow-name]/run-guide.md` so the user has a reference they can follow later or share with teammates. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 6`, `last_updated`, and add `run_guide` and `run_log` under `artifacts`. (No persistent workspace in this environment? Tell the user to save the guide and manifest files and re-supply them when they return for the Improve step.)
 
 ## Outputs
 

@@ -4,7 +4,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Structure
 
-- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.2`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
+- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.3`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
 - [ ] **Source** section names the Workflow Requirements file path (`outputs/[workflow-name]/requirements.md`)
 - [ ] `Architecture Decisions` table has Lens, Platform, Platform Mode, Orchestration, Involvement, Packaging, and Trigger rows
 - [ ] Every step in the decomposition table has separate Orchestration, Integration, Intelligence, and Build Output columns
@@ -35,7 +35,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Mechanism-specific
 
-- [ ] Orchestrator Prompt Outline section is present when mechanism is `Prompt` or `Skill-Powered Prompt` (omitted when mechanism is `Agent`)
+- [ ] Orchestrator Prompt Outline section is present when mechanism is `Prompt` or `Skill-Powered Workflow` (omitted when mechanism is `Agent`)
 - [ ] Agent Configuration present when mechanism is `Agent` (or `agents: 0` is set and orchestration logic is documented in the Deployment Plan)
 
 ## Safety

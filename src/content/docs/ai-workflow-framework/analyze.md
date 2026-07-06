@@ -43,7 +43,7 @@ Most people discover 5–15 opportunities across different autonomy levels. Pick
 
 This step is facilitated by the **`analyze`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
 
-**Command:** `/handsonai:analyze` (Claude Code) — or invoke by name on any other platform.
+**How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:analyze`.
 
 **Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
 
