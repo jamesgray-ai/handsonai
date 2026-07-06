@@ -36,7 +36,12 @@ To change what the registry shows, edit the source file and regenerate. Never ed
 - **Cowork** → project folder root (the writable scope). Each Cowork project gets its own registry; users who want one unified view should keep a single "AI workspace" folder for all their workflows.
 - **claude.ai (no persistent workspace)** → generate the file as a download and tell the user to keep it in their Project knowledge and re-upload it alongside `workflow.yaml` when continuing work.
 
-**Out-of-workspace assets:** personal skills (`~/.claude/skills/`) and plugin- or Cowork-installed skills/agents may not be readable as files. List them from session context instead (the names and descriptions of available skills and agents are visible to the model) in an "Installed (user/plugin)" subsection with Location `installed`. File scanning stays workspace-local. Ask the user before including personal `~/.claude/skills/` entries — the registry is workspace-scoped by default.
+**The registry inventories what the user built — not the tooling they installed.** Plugin-installed skills and agents (the AI Workflow Framework skills themselves, marketplace plugins, platform-provided agents) are **excluded by default**: listing framework tooling in a student's registry is noise, not inventory. What belongs in the Skills and Agents tables:
+
+- Skill/agent **files in the workspace** (including artifacts the Build step generated into the project)
+- Personal `~/.claude/skills/` entries only if the user asks to include them
+
+If the user explicitly asks to see installed tooling ("include my installed skills"), add an "Installed (user/plugin)" subsection listing them from session context with Location `installed` — otherwise omit that section entirely. File scanning stays workspace-local.
 
 ## Regeneration Procedure
 
@@ -46,7 +51,7 @@ Other framework skills reference this procedure from their closing steps ("refre
 
 Scan **within the workspace only**, in this order:
 
-1. **Skills** — glob `**/skills/*/SKILL.md` (covers `.claude/skills/` and any plugin-style layout in the workspace). Read frontmatter `name`, `description`, optional `quick_start_prompt`.
+1. **Skills** — glob `**/skills/*/SKILL.md` (covers `.claude/skills/` and any plugin-style layout in the workspace, including skills the Build step generated into the project). Read frontmatter `name`, `description`, optional `quick_start_prompt`. Exclude plugin cache/install directories if any fall inside the workspace.
 2. **Agents** — glob `.claude/agents/*.md` and `agents/*.md`. Name from frontmatter `name` or filename; description from frontmatter `description` or the opening paragraph.
 3. **Prompts** (optional section) — glob `prompts/*.md` if the directory exists. Name from frontmatter or filename; description from frontmatter or first line.
 4. **Context files** (optional section) — `CLAUDE.md` at the workspace root (and notable nested ones). Describe from the first heading or summary line.
@@ -76,11 +81,8 @@ Your inventory of AI assets and workflows. Sources of truth are the files themse
 |---|---|---|---|
 | [name] | [description, first sentence] | [path] | [prompt or —] |
 
-### Installed (user/plugin)
-
-| Skill | Description | Location |
-|---|---|---|
-| [name] | [description] | installed |
+<!-- "Installed (user/plugin)" subsection: only when the user explicitly asks
+     to include installed tooling — omit by default. -->
 
 ## Agents
 
