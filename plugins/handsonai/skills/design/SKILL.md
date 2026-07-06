@@ -50,7 +50,7 @@ Plan mode is the **preferred path where available**. **Timing: keep Layer 1 conv
 
 #### Step 1 — Load Workflow Requirements
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the Workflow Requirements and confirm you're working on the right workflow, then read the requirements from the path registered there (normally `outputs/[workflow-name]/requirements.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Design isn't the next step, say so and route to the right skill instead of re-running finished work. If the user specifies a file path, use that. If no manifest exists but a legacy flat file (`outputs/[name]-requirements.md`) does, use the legacy path and offer to migrate it into a workflow folder + manifest first. Otherwise, look for the most recent Workflow Requirements in `outputs/`.
+Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the Workflow Requirements and confirm you're working on the right workflow, then read the requirements from the path registered there (normally `outputs/[workflow-name]/requirements.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Design isn't the next step, say so and route to the right skill instead of re-running finished work. If the user specifies a file path, use that. If no manifest exists, scan for a requirements file before giving up: legacy flat files (`outputs/[name]-requirements.md`), the most recent Workflow Requirements anywhere under `outputs/`, and requirements-like `*.md` files at the workspace root. When you find one, **offer to create the manifest — but don't push migration**: the manifest's artifact paths are authoritative and may point anywhere (including the workspace root), so moving the file into `outputs/[workflow-name]/` is optional tidiness, not something the framework requires. If the user prefers to keep the file where it is, create the manifest pointing at that location, record the choice in the manifest's `notes`, and never re-raise migration on later runs.
 
 **Verify the requirements file exists and is parseable before relying on it.** If the file is missing, stop and tell the user — don't proceed against a path that doesn't resolve. Confirm the required headings exist (Goal — accept the legacy heading `Outcome` in older files — Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and either Steps Overview/Step Details or the goal-driven Inputs/Rules & Constraints). If any are missing or mis-named, **say exactly which are missing** and ask the user to re-run `/deconstruct` or fix the file — don't guess at the contents.
 
@@ -70,7 +70,15 @@ Before assessing autonomy and orchestration, gather the information needed to ma
 
 Platform is the only thing not already in the Workflow Requirements. This question is **always asked or confirmed explicitly in plain language** — never skipped, even when the platform seems obvious from earlier conversation. Most users are non-technical; do not assume they remember saying which tool they use.
 
-Use `AskUserQuestion` with a short list of the most common options pulled from the platform registry (do not list every offering — keep it to 3–4 choices plus the built-in "Other" escape hatch). Example phrasing:
+**Detect before asking.** First identify the environment this session is running in (Claude Code, Cowork, Claude.ai, ChatGPT, …) from the session context. Most people run a workflow in the same tool they design it in, so when the current platform is identifiable, present it as the recommended default instead of asking cold — use `AskUserQuestion` with the current platform first, marked "(Recommended)":
+
+> "You're designing this in **[current platform]** — most workflows run where they're designed. Run it there too, or somewhere else?"
+>
+> *(Options: [current platform] (Recommended) · 2–3 other common options from the platform registry · the built-in "Other" escape hatch.)*
+
+Designing in one tool and deploying to another is a legitimate pattern (e.g., building in Cowork a workflow a teammate will run in ChatGPT) — that's what the other options are for; don't silently assume the current platform.
+
+Only when the current environment can't be determined, fall back to the open question — a short list of the most common options pulled from the platform registry (do not list every offering — keep it to 3–4 choices plus "Other"). Example phrasing:
 
 > "Where do you want to use this workflow? Tell me the AI tool you use day-to-day — for example, ChatGPT in your browser, Claude in your browser, Claude Code in your terminal, or something else."
 >
