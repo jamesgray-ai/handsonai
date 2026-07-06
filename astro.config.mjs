@@ -9,6 +9,8 @@ export default defineConfig({
   trailingSlash: 'always',
   redirects: {
     '/courses/leaders/setup-checklist/': '/courses/tools-setup-checklist/',
+    // Framework end-to-end exercise promoted from builders week 5 to a shared course resource (2026-07-06)
+    '/courses/builders/week-5/': '/courses/framework-end-to-end/',
     // AI Registry moved from Notion to Markdown-first (2026-07-05)
     '/builder-setup/notion-registry-setup/': '/builder-setup/ai-registry-setup/',
     // Legacy "cookbook" → "playbook" rename
@@ -515,6 +517,7 @@ export default defineConfig({
           items: [
             { label: 'Overview', link: '/courses/' },
             { label: 'Tools Setup Checklist', link: '/courses/tools-setup-checklist/' },
+            { label: 'Framework End-to-End Exercise', link: '/courses/framework-end-to-end/' },
             { label: 'Agentic AI for Leaders', link: '/courses/leaders/' },
             { label: 'Claude for Builders', link: '/courses/builders/' },
           ],
