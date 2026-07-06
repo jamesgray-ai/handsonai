@@ -31,7 +31,7 @@ More advanced tools that work in collaboration with your AI platform. Pick any c
 | 5 | [Git](#step-5-git) | ~10 min | Optional |
 | 6 | [GitHub](#step-6-github) | ~15 min | Optional |
 | 7 | [Voice to Text](#step-7-voice-to-text) | ~10 min | Optional |
-| 8 | [AI Registry (Notion)](#step-8-ai-registry-notion) | ~20 min | Optional |
+| 8 | [AI Registry](#step-8-ai-registry) | ~10 min | Optional |
 
 ---
 
@@ -210,7 +210,7 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm setting up the AI Registry in Notion and running into this issue: [describe what's happening]. What should I check?
+> I'm setting up my Markdown-based AI Registry (REGISTRY.md in my workspace) and running into this issue: [describe what's happening]. What should I check?
 
 </details>
 ---

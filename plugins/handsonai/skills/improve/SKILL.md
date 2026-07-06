@@ -92,7 +92,7 @@ Produce one of the following:
 
 ## Output
 
-Write results to `outputs/[workflow-name]/improvement-plan.md`. If a plan already exists from a previous review cycle, rename it with a date suffix first. Then update the workflow manifest: set `current_step: 7`, `last_updated`, add `improvement_plan` under `artifacts`, and record `next_review: YYYY-MM-DD` (agree the date with the user — monthly is a good default for high-frequency workflows, quarterly for occasional ones). Also update the registry field `health` to reflect the diagnosis (`working`, `needs-attention`, or `broken`), then refresh `REGISTRY.md` at the workspace root per the `indexing-registry` skill (best-effort — a failed refresh never fails this step).
+Write results to `outputs/[workflow-name]/improvement-plan.md`. If a plan already exists from a previous review cycle, rename it with a date suffix first. Then update the workflow manifest: set `current_step: 7`, `last_updated`, add `improvement_plan` under `artifacts`, and record `next_review: YYYY-MM-DD` (agree the date with the user — monthly is a good default for high-frequency workflows, quarterly for occasional ones). Also update the registry field `health` to reflect the diagnosis (`working`, `needs-attention`, or `broken`), then refresh `REGISTRY.md` at the workspace root per the `indexing-registry` skill; if the manifest has a `notion_url`, also update its Notion row per that skill's `references/notion-mirror.md` (both best-effort — a failed refresh never fails this step).
 
 Include:
 
