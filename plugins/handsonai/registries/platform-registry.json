@@ -10,6 +10,22 @@
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "mcp-build": "https://modelcontextprotocol.io/quickstart"
     },
+    "cowork": {
+      "mode": "code",
+      "language": "markdown",
+      "agent": "https://claude.com/docs/cowork/3p/extensions",
+      "skill": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
+      "plugin": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
+      "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
+      "notes": "Skills and sub-agents use Claude Code markdown formats; artifacts are real files staged in the connected project folder. Skill/agent directories are system-managed: a standalone skill installs via the Save skill flow (zip package); custom sub-agents run ONLY when packaged inside an installed Cowork plugin — a workflow with worker agents must package as Plugin. No verified user-facing memory feature — do not assume Claude Code auto-memory exists here."
+    },
+    "claude-ai": {
+      "mode": "guided",
+      "skill": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
+      "memory": "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
+      "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
+      "notes": "Claude.ai web/Desktop chat. Guided mode, but skills are still markdown files packaged as a zip and uploaded via Customize > Skills — generate the skill source files and zip package rather than GUI instruction documents. No standalone sub-agent support (no agent key): worker agent specs ship inside the skill's agents/ folder and are dispatched by reading that file."
+    },
     "claude-agents-sdk": {
       "mode": "code",
       "language": "python",

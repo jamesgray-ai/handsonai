@@ -123,7 +123,7 @@ Present a single confirmation block:
 - No-code platform + no built-in connectors → cap at Skill-Powered Workflow
 - Scheduled trigger + platform doesn't support unattended runs → flag infrastructure needed
 - State which extracted facts influenced the autonomy assessment and orchestration mechanism recommendation
-- **Capability check:** when a design decision depends on a platform capability (agent files, skills, memory, scheduled/unattended runs), check the platform's entry in the cached registry — the presence or absence of capability keys (`agent`, `skill`, `memory`, `project`) signals support. If a needed key is absent or you're uncertain, do a single targeted web check **now** rather than shipping a spec Build can't honor; record it in Deferred to Build only if genuinely deferrable.
+- **Capability check:** when a design decision depends on a platform capability (agent files, skills, memory, scheduled/unattended runs), check the platform's entry in the cached registry — the presence or absence of capability keys (`agent`, `skill`, `memory`, `project`) signals support, and the entry's `notes` field carries platform quirks (e.g., install paths). If a needed key is absent or you're uncertain, do a single targeted web check **now** rather than shipping a spec Build can't honor; record it in Deferred to Build only if genuinely deferrable. **If the platform has no registry entry at all**, don't run a separate web check per decision — do **one consolidated** capability check (a single web lookup covering agents, skills, scheduling, and file access), record the findings in the spec so Build can reuse them, and leave all further platform doc-reading to Build (Step 3.6).
 
 **Packaging is determined later, in Step 5.** Once the mechanism is selected, Step 5 proposes a Packaging value based on platform and mechanism (e.g., single skill → Standalone Skill; agent + skills on ChatGPT → Workspace Agent). Do not ask about Packaging during Step 3 — it depends on Step 5's mechanism decision.
 
@@ -203,7 +203,7 @@ The agent artifacts you generate are always the **workers the orchestrator deleg
 
 **Platform (Step 3a) and Mechanism (Step 5) are never fast-tracked.** They are always asked or confirmed explicitly in plain language, in their own discrete confirmations, even when the answer seems obvious from earlier conversation. Non-technical users must see and approve these two choices on their own — they should not be embedded inside a larger summary block.
 
-**Packaging decision:** Pick the Packaging value from platform + mechanism (single skill → Standalone Skill; multiple related artifacts → Plugin; ChatGPT with agent + skills → Workspace Agent; ad-hoc files → Loose Files). Include it in the playback below — but always pair the technical label with a plain-language explanation so the user learns what it means.
+**Packaging decision:** Pick the Packaging value from platform + mechanism (single skill → Standalone Skill; multiple related artifacts → Plugin; ChatGPT with agent + skills → Workspace Agent; ad-hoc files → Loose Files). **Cowork rule:** if the platform is Cowork and the design includes any worker sub-agents, Packaging is **Plugin** — Cowork runs custom agents only from installed plugins, so a Standalone Skill can't carry them; Standalone Skill applies to skill-only designs. Include the decision in the playback below — but always pair the technical label with a plain-language explanation so the user learns what it means.
 
 #### Step 5b — Safety & Permissions pass
 

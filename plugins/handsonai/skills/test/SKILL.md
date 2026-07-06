@@ -22,9 +22,22 @@ From these, identify:
 
 **Introduce the vocabulary in plain language the first time you use it** (most users are non-technical): a *scenario* (E1, E2…) is one realistic test input you'll run the workflow on; the *eval suite* is simply running the workflow across all those scenarios; a *baseline* is the saved scorecard from this round that you'll compare against later to catch quality slipping. Define each term in a sentence before using it — don't assume the user knows it.
 
-### 2. Quick smoke test
+### 2. Quick smoke test (Phase A — staged)
 
 One representative input, manual check: does the workflow run end-to-end and produce something reasonable? This is a sanity check before systematic evaluation — catch showstoppers early.
+
+Running this from the staged files (reading the built SKILL.md from `outputs/` and following it in-session) is fine — it's the cheap iteration loop: find a logic problem, edit the staged file, re-run. But a staged run only tests the workflow's *logic*, not its *installation* — that's Phase B.
+
+### 2.2 Installed-run check (Phase B — required before "Ready")
+
+On platforms where the package must be installed (Cowork, Claude.ai — see Build's install handoff), at least one scenario must run against the **installed** skill, invoked the way an operator would invoke it. This is the only way to catch the failure modes staged runs can't see:
+
+- **Triggering** — does the skill fire when called by name (and stay quiet otherwise, if `disable-model-invocation` is set)?
+- **Frontmatter** — does the platform parse the metadata (description, tools) without error?
+- **Agent dispatch** — do plugin-packaged worker agents register and dispatch correctly?
+- **Supporting files** — do the skill's `templates/`/`references/`/`agents/` files resolve from inside the installed package?
+
+If the package isn't installed yet, pause and route the user back to Build's install step first. If iteration in Phase A changed the staged files, remind the user the installed copy is now stale — repackage and reinstall before the Phase B run.
 
 ### 2.5 Integration pre-flight (enables partial testing)
 
@@ -86,7 +99,7 @@ For each problem identified in the eval, map it to which building block to adjus
 
 Based on eval scores across all scenarios:
 
-- **Ready** — scores meet the minimum bar from the Workflow Requirements' Acceptance Criteria → proceed to the `run` skill (Step 6)
+- **Ready** — scores meet the minimum bar from the Workflow Requirements' Acceptance Criteria, **and** the installed-run check (Step 2.2) passed on platforms where installation applies — a workflow that only ever ran from staged files is not Ready → proceed to the `run` skill (Step 6)
 - **Logic-ready, deploy-blocked** — the logic passes in partial testing but one or more write integrations are unauthorized. Name the blocker and what to authorize; the user fixes access, then re-runs the blocked steps before going to Run. (Not a code defect — don't loop back to Build for it.)
 - **Not ready** — document specific adjustments needed, return to the `build` skill (Step 4), then re-test
 

@@ -241,8 +241,8 @@ Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capabili
 - `Handled by orchestrator` (goal-driven only; legacy synonym `Handled by agent`) → no separate artifact; the capability is covered by the orchestration logic (the primary loop's orchestrator skill / `CLAUDE.md` run section) or a sub-agent's instructions
 
 Apply the spec's **Packaging** decision to group the generated artifacts:
-- **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace)
-- **Standalone Skill** → ship as a single uploadable artifact (zip for Claude.ai, single SKILL.md for code-mode platforms, single skill for ChatGPT)
+- **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace). On Cowork, any workflow that includes worker sub-agents **must** package as Plugin — Cowork runs custom agents only from installed plugins (see the registry entry's notes). If the approved spec says Standalone Skill but includes agents on Cowork, flag the mismatch and switch to Plugin with the user's confirmation.
+- **Standalone Skill** → ship as a single uploadable artifact (zip for Claude.ai and for Cowork's Save skill flow, single SKILL.md for code-mode platforms, single skill for ChatGPT). For skill-only workflows — a design with worker agents on Cowork needs Plugin instead (above).
 - **Workspace Agent** → bundle orchestration + skills + tools as a ChatGPT Workspace Agent (the current ChatGPT primitive; Custom GPTs are deprecated). Research current Workspace Agent creation flow via web search before generating.
 - **Loose Files** → write files to platform-appropriate paths; no distribution wrapper
 
@@ -269,6 +269,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 - **Code mode:** Generate source files in the platform's `language` (Python, TypeScript, markdown). This is the standard behavior — proceed with artifact generation as described below.
 - **Guided mode:** Generate step-by-step GUI instruction documents. For each building block, produce a document that walks the user through configuring it in the platform's interface, using the GUI documentation fetched from the registry. Include: which screens to navigate to, what fields to fill in, what settings to configure, and what to verify after each step.
+  - **Exception — file-based guided platforms:** if the platform's registry entry notes that artifacts are still real files (e.g., `claude-ai`, where skills are markdown files packaged as a zip and uploaded), generate the actual source files and package them per the staging spec in step g — GUI instructions cover only the upload/install portion.
 
 **e. Generate each building block.** For each building block in the spec, follow the Creation Tools Map from Step 3.5:
 
@@ -294,6 +295,11 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
   1. **For skills:** Use the artifact format from Step 3.6. If unavailable, fetch the agentskills.io specification (live from `https://agentskills.io/specification`, fallback to `references/skill-spec.md`). Generate the skill using the Skill Candidates entry — use the `Name` field as the directory name and the `Description` field verbatim in the SKILL.md frontmatter. Apply platform-specific extensions as documented for the target platform.
   2. **For agents:** Inline generation is the default — the Agent Configuration entry is the complete source of the agent's configuration, so no guidance skill is needed (see Step 3.5). Use the artifact format from Step 3.6. If unavailable and on Claude Code, fall back to `references/agent-spec.md`. For other platforms, fall back to web search. Generate the agent using the Agent Configuration entry — use the `Name` as the filename, the `Description` field verbatim in the agent file frontmatter (and include the Trigger Examples as `<example>` blocks in the description), and the Mission, Responsibilities, Output Format, Tone & Style, and Constraints fields as the agent's system prompt body.
+
+     **Where the agent file goes is capability-conditional — read it from the registry, never guess:**
+     - **Platform's registry entry has an `agent` key** → generate a standalone agent file at the platform's agent location (e.g., `.claude/agents/<name>.md` on Claude Code; the plugin's `agents/` directory on Cowork, where custom agents run only from installed plugins). Standalone agents are the strongly preferred form: the harness *enforces* their `tools:`/`model:` config (least privilege becomes a guarantee, not a request) and the user can view and edit them. The orchestrator skill dispatches the agent **by name**.
+     - **No `agent` key** (e.g., `claude-ai`) → the platform can't register standalone agents. Write the agent file to `<skill-name>/agents/<agent-name>.md` *inside the skill package*, and have the orchestrator SKILL.md's dispatch step say: *read `agents/<agent-name>.md`, substitute the run variables, and dispatch its body via the Agent tool.* **Never duplicate the agent prompt inline in SKILL.md** — the `agents/` file is the single source of truth; an inline copy will drift.
+     - **Platform not in the registry** → fall back per Step 3.6 item 4 (model knowledge + web search), state which of the two placements you chose and why, and flag it as unverified.
   3. **For other block types (MCP servers, hooks, commands, prompts):** Use the artifact format from Step 3.6. If unavailable, research the platform's current format via web search and generate accordingly.
 
 **f. Generate artifacts.** The skill provides the *specs* (what each building block should do, its inputs/outputs/instructions from the Design phase). The model provides the *implementation* (how to build it on the user's platform, using the verified specification and platform documentation as authoritative sources).
@@ -303,11 +309,24 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 2. Execute or document the deployment steps (e.g., "run `claude mcp add ...`", "upload zip via plugin marketplace", "create new GPT and paste instructions").
 3. If the target location requires user action (e.g., a manual GPT creation flow), produce a step-by-step guide tailored to the user's platform.
 
+**Staging & packaging on system-managed platforms.** When the platform's skill/agent directories are system-managed (e.g., Cowork, Claude.ai — Build can't write to the install location directly), stage everything under the workflow's outputs folder and produce **exactly one** installable package:
+
+```
+outputs/<workflow-slug>/
+├── design-spec.md · workflow.yaml · runs.md    (workflow records — unchanged)
+├── skill/<skill-name>/                          (skill source tree: SKILL.md, agents/, templates/ or references/)
+└── <skill-name>.zip                             (the single installable package — top level only, never duplicated)
+```
+
+Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-name>.zip <skill-name>/`, then **verify it**: list the archive (`unzip -l`) and confirm it is non-empty and contains `<skill-name>/SKILL.md`. If creation or verification fails, **delete the bad archive and any temp files before retrying** — never leave a zero-byte archive or an orphaned temp file in the outputs tree. If the platform's install flow expects a different extension (e.g., `.skill`), rename the verified zip — still exactly one copy. For **Plugin** packaging, stage `plugin/<plugin-name>/` (with `.claude-plugin/plugin.json`, `skills/`, `agents/`) under the same outputs folder and zip it as one package the same way.
+
 **Confirm before mutating the user's real accounts.** Before any action that *creates or modifies data in the user's live accounts* — creating a Notion database/page, a Gmail label/draft, a calendar event, a Slack post, etc. — state the exact action and target and get explicit confirmation first. Batch related confirmations into one prompt where possible. (These are outward-facing, hard-to-reverse actions; never perform them silently as a side effect of "building.")
 
 **Never overwrite existing local files.** Before creating any local artifact — especially context files (`Status: Exists` in the Context Inventory) — check the filesystem. If the file already exists, **read and reuse it; do not overwrite** without explicit confirmation. (Context artifacts marked `Needs Creation` in the spec may already have been supplied by the user since Design.)
 
-After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them — plus `workflow.yaml` — when running Test.) **Update the workflow manifest** (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 4`, `last_updated`, and record the generated artifact locations under an `artifacts.platform_artifacts` list. Also record the registry fields Build determines: `apps` (the integrations the workflow uses), `assets_used` (skills/agents created or reused, by name), and `platform` (claude-code | cowork | claude-ai | scheduled-agent). Then refresh `REGISTRY.md` at the workspace root per the `indexing-registry` skill (best-effort — a failed refresh never fails this step). Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
+After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them — plus `workflow.yaml` — when running Test.) **Update the workflow manifest** (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 4`, `last_updated`, and record the generated artifact locations under an `artifacts.platform_artifacts` list. Also record the registry fields Build determines: `apps` (the integrations the workflow uses), `assets_used` (skills/agents created or reused, by name), and `platform` (claude-code | cowork | claude-ai | scheduled-agent). Then refresh `REGISTRY.md` at the workspace root per the `indexing-registry` skill (best-effort — a failed refresh never fails this step).
+
+**Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now: **Cowork** — Save skill from the zip (Standalone Skill) or install the plugin (Plugin packaging; required whenever the workflow has worker agents); **Claude.ai** — upload the zip under Customize > Skills; **Claude Code** — files are already in place under `.claude/`. Confirm the skill (and any plugin-packaged agents) appears in the platform's skill/agent list before proceeding — Test's installed-run phase depends on it. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
 ## Outputs
 
