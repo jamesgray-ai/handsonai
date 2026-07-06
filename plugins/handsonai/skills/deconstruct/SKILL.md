@@ -25,15 +25,15 @@ Step 2 has **two paths**, mapped directly to the two ways students think about a
 
 | Path | When to use | Mental model |
 |------|-------------|--------------|
-| **Step-decomposed** | You can describe how the work gets done | "I know the steps" |
+| **Step-decomposed** | The work runs the same way each run — you can describe how it gets done, even if the steps aren't mapped yet | "I know how the work gets done" |
 | **Goal-driven** | You know what "done" looks like, but the work takes different steps depending on what comes in — so you give an agent system a goal and let it figure out the steps at runtime | "I know the goal" |
 
 Both paths produce a Workflow Requirements document with the same shared shell — only the middle "what does the workflow do" block differs.
 
 **What "goal" means here.** An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (record it in Metadata → Business Objective); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. The goal bundles the deliverable plus the rules and acceptance criteria for it — what major agent frameworks call the expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) The defining trait of this path is **who owns the control flow**: the agent decides the *path* to the goal at runtime, while you own the *definition of done*. Note the inverse doesn't hold — a step-decomposed workflow can still use an agent for an individual step; what makes a workflow goal-driven is that the agent decides the overall sequence, not merely that agents are involved.
 
-**Which path? (quick heuristic — share this with the user when they're unsure).** The test: *imagine two different inputs — would the work take noticeably different steps?*
-- Choose **Step-decomposed** if the work runs **the same way each time** — same steps regardless of the input — and you can list those steps in order.
+**Which path? (quick heuristic — share this with the user when they're unsure).** The test: *imagine two different inputs — would the work take noticeably different steps?* The choice depends only on the **nature of the work** — never on whether the user can currently list the steps.
+- Choose **Step-decomposed** if the work runs **the same way each time** — same steps regardless of the input. The user does **not** need the steps written down or even fully clear in their head; describing how the work gets done is enough, and the interview maps and refines the steps with them.
 - Choose **Goal-driven** if the work **takes different steps depending on what comes in**, and you'd rather define what "done" looks like plus the rules and let the agent figure out the steps at runtime.
 
 Worked example: *"Generate my weekly status report from the same three sources"* → step-decomposed (same recipe every run). *"Triage whatever lands in my inbox and handle each appropriately"* → goal-driven (a refund request, a partnership pitch, and spam each take a completely different sequence of steps). Getting this right matters: the choice selects the document template the Design step parses, so a wrong pick creates rework downstream.
@@ -48,9 +48,11 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    **Cold entry (no Analyze output)**: Ask one question:
 
-   > "Do you know the steps, or just the goal? (Quick test: imagine two different inputs — would the work take the same steps, or different steps?)
-   > - **Step-decomposed** — The work runs the same way each time and you can describe how it gets done. I'll interview you to refine the steps and surface decision rules and edge cases.
-   > - **Goal-driven** — You can't list the steps, but you can describe the deliverable — what "done" looks like — and want an agent system to figure out the steps. A goal here is a concrete deliverable, not a business result: "a ranked list of 20 qualified prospects" is a goal; "higher revenue" is why you want it. I'll capture the goal, inputs, acceptance criteria, and rules."
+   > "Is the work the same every run, or does it vary by input? (Quick test: imagine two different inputs — would the work take the same steps, or different steps?)
+   > - **Step-decomposed** — The work runs the same way each time. You don't need the steps written down — describing how the work gets done is enough, and I'll map and refine the steps with you, surfacing decision rules and edge cases along the way.
+   > - **Goal-driven** — The steps vary depending on what comes in, but you can describe the deliverable — what "done" looks like — and want an agent system to figure out the steps at runtime. A goal here is a concrete deliverable, not a business result: "a ranked list of 20 qualified prospects" is a goal; "higher revenue" is why you want it. I'll capture the goal, inputs, acceptance criteria, and rules."
+
+   When rendering this choice as a structured form (e.g., option cards), preserve the framing above: the step-decomposed card must say the work is *repeatable* and that the interview will map the steps — never "I can list the steps," which wrongly reads as an entry requirement. A "Not sure / I have a problem" option should invite the user in ("help me figure out the right workflow") rather than imply they lack a process.
 
    **Problem-first handling (no separate path)**: If the user says they don't have a process *or* a goal — just a problem ("People drop off during onboarding and I don't have a way to follow up") — propose a candidate workflow based on what they describe, then route into one of the two paths:
    > "Here's a candidate workflow that would solve this: [outline]. Do you want to refine these steps with me (step-decomposed), or just describe the goal and let an agent figure out the steps (goal-driven)?"
