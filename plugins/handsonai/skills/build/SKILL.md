@@ -112,7 +112,7 @@ Before generating artifacts, discover what creation tools are available in this 
 
    | Platform | Skill Directories |
    |----------|------------------|
-   | Claude Code | `.claude/skills/` |
+   | Claude Code | `.claude/skills/` (project), `~/.claude/skills/` (personal) |
    | Cursor | `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`, `.agents/skills/` |
    | Codex CLI | `.agents/skills/` |
    | Gemini CLI | `.gemini/skills/`, `.agents/skills/` |
@@ -187,7 +187,9 @@ Present a summary of resolved platform format requirements and integration docs 
 This is separate from Step 3.5's creation tool discovery — here you're checking for workflow skills that have already been built and should be incorporated, not for skills that create other skills.
 
 Before generating artifacts:
-- Ask: "Did you build any skills for this workflow? If yes, list each skill name and which steps it covers."
+
+- **Detect first — don't open with a question.** Reuse the same two tiers as Step 3.5: (Tier 1) the session's available-skills list — on Cowork/Claude.ai this surfaces both plugin-installed and account-uploaded skills; (Tier 2) on filesystem platforms, scan the skill directories, both project-level (e.g., `.claude/skills/`) and personal (e.g., `~/.claude/skills/`). Match what you find against the spec's `Use existing: [name]` references and Skill Candidates names — semantically, not just exact-name.
+- **Report findings, then ask only about the residual.** Tell the user what was found ("`[x]` is installed and covers steps N–M") and what wasn't. A question is warranted only for what detection can't see: a spec-referenced existing skill that didn't turn up (it may live in another account or surface, or isn't installed yet — ask them to install or point to it), or a found skill whose coverage is ambiguous. If detection found nothing and the spec references nothing existing, a one-line confirmation is enough ("I checked this environment — no previously built skills for this workflow. Building all of them fresh.").
 - Check the Context Inventory for existing prompt instructions, project instructions, or system prompts. These must be incorporated into the generated artifacts.
 
 #### Step 5 — Integration Research
