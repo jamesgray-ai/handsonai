@@ -35,7 +35,7 @@ Create your central hub for managing all AI operations across your business.
 
 **Setup Guide:**
 
-- [Notion Registry Setup](../../../builder-setup/notion-registry-setup/) — Duplicate the Notion database templates and customize for your business
+- [AI Registry Setup](../../../builder-setup/ai-registry-setup/) — Set up your Markdown-based registry; the framework keeps it current automatically
 
 ## Lesson: Configure MCP Server Connections
 

@@ -2,15 +2,15 @@
 name: naming-workflows
 description: >
   This skill should be used when the user wants to name a workflow, write workflow descriptions,
-  standardize workflow documentation, add a workflow to Notion, or structure workflow entries.
-  Generates consistent, outcome-focused names and descriptions for business workflows and creates
-  entries in the Notion Workflows database.
+  standardize workflow documentation, add a workflow to the AI Registry, or structure workflow
+  entries. Generates consistent, outcome-focused names and descriptions for business workflows
+  and records them in the workflow's manifest (workflow.yaml).
 user-invocable: true
 ---
 
 # Naming Workflows
 
-Generate consistent, professional names and descriptions for business workflows, then create entries in the Notion Workflows database.
+Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's `workflow.yaml` manifest — the workflow's AI Registry entry.
 
 ## Workflow Naming Rules
 
@@ -117,7 +117,7 @@ Write a short phrase (2-5 words) naming the concrete business deliverable.
 
 ## Workflow Context Properties
 
-When naming/describing workflows, consider these Notion properties:
+When naming/describing workflows, consider these registry fields:
 
 **Domain** (inherited from Business Process):
 - Sales, Marketing, Product, Education, Consulting, Operations, Finance
@@ -180,72 +180,46 @@ When user provides a workflow description:
 4. **Write description** (action + outcome)
 5. **Suggest Process Outcome** (concrete deliverable)
 6. **Present options** for user selection
-7. **Search Business Processes** to suggest appropriate process link
+7. **Identify the Business Process** — scan `process-guides/*.md` frontmatter titles and the `business_process` values in existing `outputs/*/workflow.yaml` manifests; present matches and let the user confirm or name a new process
 8. **Determine Sequence** if part of a multi-step process:
-   - Query existing workflows under the same Business Process
+   - Check existing manifests with the same `business_process` for their `sequence` values
    - Assign next available multiple of 10 (or ask user for placement)
    - Use same sequence number for parallel workflows
-9. **Create entry in Notion** after user confirms selections
+9. **Record in the manifest** after user confirms selections (see below)
 
-## Notion Database References
+## Recording the Workflow (AI Registry entry)
 
-### Workflows Database
-- **Data Source ID**: `<your-workflows-database-id>`
-- **Database URL**: `<your-database-url>`
+The workflow's registry entry is its manifest: `outputs/<workflow-id>/workflow.yaml`, where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). The full schema lives in the `indexing-registry` skill's `references/manifest-schema.md`.
 
-**Properties:**
-| Property | Type | Values/Notes |
-|----------|------|--------------|
-| Name | title | Workflow name (2-4 words) |
-| Description | text | 1-2 sentences |
-| Process Outcome | text | Concrete deliverable (2-5 words) |
-| Business Process | relation | Link to Business Processes database |
-| Sequence | number | Order within process (use 10, 20, 30...) |
-| Status | select | Backlog, Under Development, In Production |
-| Type | select | Augmented, Automated, Manual |
-| Trigger | text | e.g., "Weekly (Sunday)", "On email arrival", "Manual" |
-| Apps | multi-select | Notion, Web Search, Gmail, Slack, GitHub, etc. |
-| SOP | url | Link to SOP markdown file (populated by `writing-workflow-sops`) |
-| Workflow Requirements | url | Link to workflow requirements markdown file (populated by framework Deconstruct phase) |
-| Design Spec | url | Link to Design Spec markdown file (populated by framework Design phase) |
-| Assets Used | relation | Link to Assets database (optional) |
+After the user confirms name, description, and process outcome:
 
-### Business Processes Database
-- **Data Source ID**: `<your-business-processes-database-id>`
+1. **If a manifest already exists** for this workflow (the user is renaming or enriching), update only the fields below — preserve everything else.
+2. **If none exists** (naming before running deconstruct), create the folder and a **stub manifest** with `current_step: 0` (meaning "named only" — deconstruct will merge into it later, never overwrite it):
 
-**Domains:** Coaching, Consulting, Education, Finance, Marketing, Operations, Product, Sales
-
-## Creating Workflow Entry
-
-After user confirms name, description, and process outcome:
-
-1. **Search Business Processes** using `Notion:notion-search` with relevant keywords
-2. **Present process options** and let user confirm or create new
-3. **Query existing workflows** under the selected Business Process to determine next Sequence number
-4. **Create workflow entry** using `Notion:notion-create-pages`:
-
-```json
-{
-  "parent": {"data_source_id": "<your-workflows-database-id>"},
-  "pages": [{
-    "properties": {
-      "Name": "Workflow Name Here",
-      "Description": "Description here.",
-      "Process Outcome": "Outcome here",
-      "Status": "Under Development",
-      "Type": "Augmented",
-      "Trigger": "Weekly (Sunday)",
-      "Sequence": 10,
-      "Business Process": "[\"https://www.notion.so/<business-process-page-id>\"]"
-    }
-  }]
-}
+```yaml
+workflow: lead-qualification
+display_name: Lead Qualification
+description: >-
+  Identify and score prospects using research tools and qualification
+  criteria. Produces ranked lead list with contact details.
+process_outcome: Qualified lead list
+business_process: Sales Pipeline
+sequence: 10                # omit for standalone workflows
+status: under-development   # backlog | under-development | in-production
+type: augmented             # augmented | automated | manual
+trigger: "Weekly (Sunday)"
+current_step: 0             # named only — deconstruct takes it from here
+last_updated: YYYY-MM-DD
 ```
 
 **Default values:**
-- Status: "Under Development" (new workflows)
-- Type: "Augmented" (human-in-the-loop) unless fully automated
-- Sequence: Next available multiple of 10 within the Business Process
+- Status: `under-development` (use `backlog` if the user is only cataloging ideas)
+- Type: `augmented` (human-in-the-loop) unless fully automated
+- Sequence: next available multiple of 10 within the Business Process; omit for standalone workflows
+
+3. **Refresh the AI Registry index** — regenerate `REGISTRY.md` at the workspace root using the procedure in the `indexing-registry` skill (create it if this is the first workflow). Best-effort: if the environment can't write it, note that and continue.
+
+**Optional Notion mirror:** if the user keeps the Notion AI Registry template and has the Notion MCP connected, offer to mirror the entry to their Workflows database afterward (see the `indexing-registry` skill's Notion appendix). The manifest remains the source of truth.
 
 ## Quick Reference
 

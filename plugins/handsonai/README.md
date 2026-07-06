@@ -38,7 +38,7 @@ The AI Workflow Framework as executable Claude Code skills, plus an AI registry 
 | `naming-workflows` | Apply consistent naming conventions across your AI workflow registry |
 | `writing-workflow-sops` | Author standard operating procedures for AI-assisted workflows |
 | `writing-process-guides` | Document multi-step processes for repeatable execution |
-| `registering-building-blocks` | Register prompts, skills, agents, and MCP servers in a Notion-backed registry |
+| `indexing-registry` | Generate and refresh REGISTRY.md — the Markdown AI Registry index of your skills, agents, workflows, and apps |
 
 ### Skills — Agentic Coding
 

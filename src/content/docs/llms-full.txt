@@ -390,8 +390,8 @@
 - Summary: Creating a GitHub account, cloning repositories, and understanding core Git concepts (commit, push, pull, staging). Shows how to use Claude Code for Git operations.
 
 ### AI Registry Setup
-- URL: https://handsonai.info/builder-setup/notion-registry-setup/
-- Summary: Setting up the AI Registry Notion template for tracking business processes, workflows, AI building blocks, and connected apps. Covers template duplication, database customization, AI tool connection, and the companion AI Registry plugin.
+- URL: https://handsonai.info/builder-setup/ai-registry-setup/
+- Summary: Setting up the Markdown-based AI Registry for tracking workflows, skills, agents, business processes, and connected apps. The registry lives in the user's workspace as workflow.yaml manifests and a generated REGISTRY.md index, maintained automatically by the AI Workflow Framework skills. Notion available as an optional mirror.
 
 ### Voice to Text Setup
 - URL: https://handsonai.info/builder-setup/voice-to-text-setup/

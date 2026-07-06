@@ -44,7 +44,7 @@ For documenting and operating an AI workflow registry once you've built workflow
 | `naming-workflows` skill | Apply consistent naming conventions across your registry |
 | `writing-workflow-sops` skill | Author standard operating procedures for AI-assisted workflows |
 | `writing-process-guides` skill | Document multi-step processes for repeatable execution |
-| `registering-building-blocks` skill | Register prompts, skills, agents, and MCP servers in a Notion-backed registry |
+| `indexing-registry` skill | Generate and refresh REGISTRY.md — the Markdown AI Registry index of your skills, agents, workflows, and apps |
 
 #### Agentic Coding — 2 skills
 
