@@ -108,7 +108,7 @@ Claude rescans your workspace and regenerates `REGISTRY.md`. Because it's a gene
 
 If you work across multiple machines and tools — or just like having a visual database view — you can keep the [Notion AI Registry template](https://jamesgray007.notion.site/AI-Operations-Registry-Template-2f3edcfdb924813f86f3eacca6b836bb) as a **mirror** of your Markdown registry. The template contains exactly four databases — one per core concept, nothing to configure or prune:
 
-- **Workflows** — the operational dashboard: status, trigger, execution mode, autonomy level, and links to each workflow's SOP and specs
+- **Workflows** — the operational dashboard: status, trigger, execution mode, autonomy level, and a link to each workflow's SOP
 - **Processes** — your workflows grouped by business process
 - **Skills** and **Agents** — everything you've built, with descriptions, GitHub links, and clickable relations to the workflows that use them
 

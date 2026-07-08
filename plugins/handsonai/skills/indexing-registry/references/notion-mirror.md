@@ -39,8 +39,6 @@ Mirror **links and summaries, not content**. Enum values map from kebab-case to 
 | `sequence` | Sequence |
 | `apps` | Apps property (multi-select; comma-joined text if the user's copy has a text property instead) |
 | `artifacts.sop` | SOP (link — see link derivation) |
-| `artifacts.requirements` | Workflow Definition (link) |
-| `artifacts.design_spec` | Building Block Spec (link) |
 | `business_process` | Business Process relation — find the process page by exact title; create it if missing |
 | `assets_used` | Skills / Agents relations — match each name against the Skills and Agents databases |
 
