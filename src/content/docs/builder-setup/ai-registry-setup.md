@@ -104,11 +104,19 @@ After your first workflow, open `REGISTRY.md` at your workspace root. You'll see
 
 ### Step 4: Refresh Anytime
 
-The framework refreshes the index automatically, but if you add skills or agents outside the framework — or the index ever looks stale — just ask:
+The framework refreshes the index automatically after every step. But if you add skills or agents outside the framework — or the index ever looks stale or missing — you can refresh it yourself at any time. The skill that does this is called **`indexing-registry`**, and you can invoke it two ways:
 
-> "Update my AI Registry"
+1. **Just ask** (works everywhere — Claude Code, Cowork, claude.ai):
 
-Claude rescans your workspace and regenerates `REGISTRY.md`. Because it's a generated file, it's always safe to rebuild.
+   > "Update my AI Registry"
+
+2. **Run the slash command** (Claude Code):
+
+   ```
+   /handsonai:indexing-registry
+   ```
+
+Either way, Claude rescans your workspace — every `workflow.yaml`, skill, agent, SOP, and process guide — and regenerates `REGISTRY.md` from scratch. Because it's a generated file, it's always safe to rebuild, and you never lose anything: the source files are the record; the index is just the view.
 
 ## Verify Setup
 
