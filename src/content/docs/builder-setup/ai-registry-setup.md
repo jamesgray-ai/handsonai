@@ -52,7 +52,33 @@ my-ai-workspace/
 
 ### Step 2: Use the Framework — the Registry Builds Itself
 
-There is no separate registry setup. The first time you name or deconstruct a workflow, Claude creates `REGISTRY.md` automatically, and every framework step keeps it current:
+There is no separate registry setup. The first time you name or deconstruct a workflow, Claude creates **two files** for you:
+
+1. **`outputs/<workflow-name>/workflow.yaml`** — the workflow's record. A small text file holding everything the registry knows about that one workflow: its name, description, status, trigger, owner, and (as you progress) which apps, skills, and agents it uses.
+2. **`REGISTRY.md`** — the index at your workspace root. Claude reads all your workflow records, skills, and agents and renders them as tables you can scan.
+
+After your first workflow finishes the Build step, `REGISTRY.md` looks something like this:
+
+```markdown
+# AI Registry
+
+## Workflows
+| Workflow | Business Process | Owner | Status | Health | Last Run |
+|---|---|---|---|---|---|
+| Pipeline Hygiene Review | Sales Pipeline | James | Under Development | — | — |
+
+## Skills
+| Skill | Description | Location |
+|---|---|---|
+| scoring-deal-health | Scores deals against a staleness rubric… | outputs/…/SKILL.md |
+
+## Agents
+| Agent | Description | Location |
+|---|---|---|
+| unlisted-deal-scanner | Finds deals in email that aren't in the CRM… | outputs/…/agents/… |
+```
+
+You never fill any of this in yourself. Each framework step adds what it just learned to the workflow's record, then refreshes the index:
 
 | When you… | The registry records… |
 |-----------|----------------------|
@@ -64,6 +90,8 @@ There is no separate registry setup. The first time you name or deconstruct a wo
 | Run it (Step 6) | Status → in production, last run date |
 | Improve it (Step 7) | Updated health, next review date |
 | Write an SOP or process guide | Links joining workflows to their docs and processes |
+
+If a step ever can't write the file (for example, a read-only folder), Claude tells you it skipped the refresh — you can always catch up later with *"update my AI Registry."*
 
 ### Step 3: Open REGISTRY.md
 

@@ -217,7 +217,7 @@ last_updated: YYYY-MM-DD
 - Type: `augmented` (human-in-the-loop) unless fully automated
 - Sequence: next available multiple of 10 within the Business Process; omit for standalone workflows
 
-3. **Refresh the AI Registry index** — regenerate `REGISTRY.md` at the workspace root using the procedure in the `indexing-registry` skill (create it if this is the first workflow). Best-effort: if the environment can't write it, note that and continue.
+3. **Create or update `REGISTRY.md` at the workspace root** — this is part of the step, not optional. Follow the procedure in the `indexing-registry` skill if available; otherwise write the file directly from the manifest data you have (Workflows / Skills / Agents tables, `—` for unknowns). Skip only if the environment can't write to the workspace root — and tell the user you skipped it, never silently.
 
 **Optional Notion mirror:** if the user keeps the Notion AI Registry template and has the Notion MCP connected, offer to mirror the entry to their Workflows database afterward (see the `indexing-registry` skill's `references/notion-mirror.md` for the field mapping). If the manifest already has a `notion_url`, update its Notion row without asking (best-effort). The manifest remains the source of truth.
 
