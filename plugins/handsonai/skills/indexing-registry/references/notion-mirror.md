@@ -35,7 +35,6 @@ Mirror **links and summaries, not content**. Enum values map from kebab-case to 
 | `type` | Execution Mode |
 | `autonomy` | Autonomy Level |
 | `trigger` | Trigger |
-| `process_outcome` | Workflow Outcome |
 | `sequence` | Sequence |
 | `apps` | Apps property (multi-select; comma-joined text if the user's copy has a text property instead) |
 | `artifacts.sop` | SOP (link — see link derivation) |
