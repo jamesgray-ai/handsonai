@@ -106,7 +106,7 @@ Claude rescans your workspace and regenerates `REGISTRY.md`. Because it's a gene
 
 ## Optional: Mirror to Notion
 
-If you work across multiple machines and tools — or just like having a visual database view — you can keep the [Notion AI Registry template](https://jamesgray007.notion.site/AI-Operations-Registry-Template-2f3edcfdb924813f86f3eacca6b836bb) as a **mirror** of your Markdown registry. The mirror targets four databases:
+If you work across multiple machines and tools — or just like having a visual database view — you can keep the [Notion AI Registry template](https://jamesgray007.notion.site/AI-Operations-Registry-Template-2f3edcfdb924813f86f3eacca6b836bb) as a **mirror** of your Markdown registry. The template contains exactly four databases — one per core concept, nothing to configure or prune:
 
 - **Workflows** — the operational dashboard: status, trigger, execution mode, autonomy level, and links to each workflow's SOP and specs
 - **Processes** — your workflows grouped by business process
@@ -119,6 +119,8 @@ To set it up:
 3. After regenerating your registry, ask Claude: *"Mirror my AI Registry to Notion"*
 
 Claude copies your registry entries into the Notion databases and remembers the connection (each workflow's `workflow.yaml` records its Notion page). From then on, the framework keeps the mirror current automatically as you work through the steps — Build adds your new skills and agents with their workflow relations, and Run updates status and health.
+
+You can also work with single entries using plain commands — *"register this skill in Notion"*, *"add this workflow to my Notion registry"*, *"what's in my Notion registry?"* — no setup beyond the two steps above, and nothing to configure inside the skill.
 
 The Markdown files in your workspace remain the source of truth — the mirror is one-way, and you never need Notion for the framework to work.
 

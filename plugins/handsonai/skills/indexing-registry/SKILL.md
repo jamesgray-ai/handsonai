@@ -5,8 +5,11 @@ description: >
   the REGISTRY.md index of skills, agents, workflows, business processes, and apps at the
   workspace root. Triggers when the user asks to "update my registry", "regenerate the index",
   "what have I built", "show my AI inventory", after creating skills or agents, or when another
-  framework skill's closing step calls for a registry refresh. Also use to repair a stale or
-  hand-edited REGISTRY.md, or to migrate from a Notion-based registry.
+  framework skill's closing step calls for a registry refresh. Also handles the optional Notion
+  mirror: "register this skill/agent/workflow/process in Notion", "add this to my Notion
+  registry", "update this workflow in Notion", "mirror my registry to Notion", "what's in my
+  Notion registry". Also use to repair a stale or hand-edited REGISTRY.md, or to migrate from
+  a Notion-based registry.
 user-invocable: true
 ---
 
@@ -165,6 +168,7 @@ For users who work across multiple machines and tools, the Notion AI Registry te
 The mirror targets **four core databases**: Workflows, Processes, Skills, and Agents. The full procedure, field mapping, link derivation, and sync rules live in `references/notion-mirror.md` — follow it exactly.
 
 - After regenerating the registry, **offer** to mirror if the Notion MCP is connected — first-time mirroring always requires the user's confirmation.
+- A **single asset** can be registered or updated without a full mirror ("register this skill in Notion") — see the Targeted registration section of the reference.
 - Once a workflow's manifest has a `notion_url`, that is a standing opt-in: framework skills auto-sync that workflow's Notion row in their closing steps (best-effort, never blocking).
 - After any mirror, confirm what changed and remind the user the Markdown files remain the source of truth.
 
