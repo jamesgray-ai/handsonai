@@ -52,7 +52,33 @@ my-ai-workspace/
 
 ### Step 2: Use the Framework — the Registry Builds Itself
 
-There is no separate registry setup. The first time you name or deconstruct a workflow, Claude creates `REGISTRY.md` automatically, and every framework step keeps it current:
+There is no separate registry setup. The first time you name or deconstruct a workflow, Claude creates **two files** for you:
+
+1. **`outputs/<workflow-name>/workflow.yaml`** — the workflow's record. A small text file holding everything the registry knows about that one workflow: its name, description, status, trigger, owner, and (as you progress) which apps, skills, and agents it uses.
+2. **`REGISTRY.md`** — the index at your workspace root. Claude reads all your workflow records, skills, and agents and renders them as tables you can scan.
+
+After your first workflow finishes the Build step, `REGISTRY.md` looks something like this:
+
+```markdown
+# AI Registry
+
+## Workflows
+| Workflow | Business Process | Owner | Status | Health | Last Run |
+|---|---|---|---|---|---|
+| Pipeline Hygiene Review | Sales Pipeline | James | Under Development | — | — |
+
+## Skills
+| Skill | Description | Location |
+|---|---|---|
+| scoring-deal-health | Scores deals against a staleness rubric… | outputs/…/SKILL.md |
+
+## Agents
+| Agent | Description | Location |
+|---|---|---|
+| unlisted-deal-scanner | Finds deals in email that aren't in the CRM… | outputs/…/agents/… |
+```
+
+You never fill any of this in yourself. Each framework step adds what it just learned to the workflow's record, then refreshes the index:
 
 | When you… | The registry records… |
 |-----------|----------------------|
@@ -64,6 +90,8 @@ There is no separate registry setup. The first time you name or deconstruct a wo
 | Run it (Step 6) | Status → in production, last run date |
 | Improve it (Step 7) | Updated health, next review date |
 | Write an SOP or process guide | Links joining workflows to their docs and processes |
+
+If a step ever can't write the file (for example, a read-only folder), Claude tells you it skipped the refresh — you can always catch up later with *"update my AI Registry."*
 
 ### Step 3: Open REGISTRY.md
 
@@ -106,9 +134,9 @@ Claude rescans your workspace and regenerates `REGISTRY.md`. Because it's a gene
 
 ## Optional: Mirror to Notion
 
-If you work across multiple machines and tools — or just like having a visual database view — you can keep the [Notion AI Registry template](https://jamesgray007.notion.site/AI-Operations-Registry-Template-2f3edcfdb924813f86f3eacca6b836bb) as a **mirror** of your Markdown registry. The mirror targets four databases:
+If you work across multiple machines and tools — or just like having a visual database view — you can keep the [Notion AI Registry template](https://jamesgray007.notion.site/AI-Operations-Registry-Template-2f3edcfdb924813f86f3eacca6b836bb) as a **mirror** of your Markdown registry. The template contains exactly four databases — one per core concept, nothing to configure or prune:
 
-- **Workflows** — the operational dashboard: status, trigger, execution mode, autonomy level, and links to each workflow's SOP and specs
+- **Workflows** — the operational dashboard: status, trigger, execution mode, autonomy level, and a link to each workflow's SOP
 - **Processes** — your workflows grouped by business process
 - **Skills** and **Agents** — everything you've built, with descriptions, GitHub links, and clickable relations to the workflows that use them
 
@@ -119,6 +147,8 @@ To set it up:
 3. After regenerating your registry, ask Claude: *"Mirror my AI Registry to Notion"*
 
 Claude copies your registry entries into the Notion databases and remembers the connection (each workflow's `workflow.yaml` records its Notion page). From then on, the framework keeps the mirror current automatically as you work through the steps — Build adds your new skills and agents with their workflow relations, and Run updates status and health.
+
+You can also work with single entries using plain commands — *"register this skill in Notion"*, *"add this workflow to my Notion registry"*, *"what's in my Notion registry?"* — no setup beyond the two steps above, and nothing to configure inside the skill.
 
 The Markdown files in your workspace remain the source of truth — the mirror is one-way, and you never need Notion for the framework to work.
 

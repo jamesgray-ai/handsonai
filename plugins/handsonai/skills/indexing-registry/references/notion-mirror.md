@@ -6,7 +6,7 @@ Requires the Notion connector/MCP. If Notion is not connected, skip everything i
 
 ## Supported databases
 
-The mirror targets **four core databases** from the template:
+The template contains **exactly the four core databases**, and the mirror targets only these:
 
 | Database | Mirrors from |
 |---|---|
@@ -15,7 +15,11 @@ The mirror targets **four core databases** from the template:
 | **Skills** | `SKILL.md` frontmatter (workspace skills) |
 | **Agents** | agent `.md` frontmatter (workspace agents) |
 
-Older template duplicates may also contain Prompts, Context, AI Projects, MCP Servers, Apps, or the deprecated Building Blocks databases. **Do not mirror to these and do not touch them** — leave any existing rows alone. Never delete or archive anything in the user's Notion workspace.
+Older template duplicates may contain additional databases (Business, Lines of Business, Offerings, Prompts, Context, AI Projects, MCP Servers, Apps, or the deprecated Building Blocks). **Do not mirror to these and do not touch them** — leave any existing rows alone. Never delete or archive anything in the user's Notion workspace.
+
+## Database discovery — zero configuration
+
+No database IDs are ever hardcoded. Locate the user's databases at runtime: search Notion for databases titled "Workflows", "Processes", "Skills", and "Agents", preferring ones under a page titled "AI Registry" or duplicated from the template. If a database can't be found, or multiple candidates match, ask the user to paste a link to the right one rather than guessing — then use that resolved URL for the rest of the session. The user never edits this skill; their entire setup is: duplicate the template, connect the Notion connector.
 
 ## Field mapping
 
@@ -31,12 +35,9 @@ Mirror **links and summaries, not content**. Enum values map from kebab-case to 
 | `type` | Execution Mode |
 | `autonomy` | Autonomy Level |
 | `trigger` | Trigger |
-| `process_outcome` | Workflow Outcome |
 | `sequence` | Sequence |
-| `apps` | Apps property (multi-select or text, comma-joined) |
+| `apps` | Apps property (multi-select; comma-joined text if the user's copy has a text property instead) |
 | `artifacts.sop` | SOP (link — see link derivation) |
-| `artifacts.requirements` | Workflow Definition (link) |
-| `artifacts.design_spec` | Building Block Spec (link) |
 | `business_process` | Business Process relation — find the process page by exact title; create it if missing |
 | `assets_used` | Skills / Agents relations — match each name against the Skills and Agents databases |
 
@@ -93,6 +94,19 @@ A populated `notion_url` in a manifest is a **standing opt-in** for that workflo
 - **Best-effort, always:** if Notion is disconnected, unavailable, or errors, skip silently — an auto-sync failure must never fail or block the framework step.
 
 Workflows without a `notion_url` are never auto-synced; offer the mirror after a full registry regeneration instead.
+
+## Targeted registration
+
+Simple commands register or update a **single asset** without running a full mirror: "register this skill in Notion", "add this workflow to my Notion registry", "update this agent in Notion", "add this process to Notion".
+
+1. **Resolve the asset type** from the request or file path: `SKILL.md` → Skill; `.claude/agents/*.md` or `agents/*.md` → Agent; `outputs/<name>/workflow.yaml` (or a workflow name) → Workflow; `process-guides/*.md` (or a process name) → Process. If ambiguous, ask.
+2. **Read the asset's source of truth** — its frontmatter or manifest. Never register from memory of the conversation; read the file.
+3. **Find-or-create** the row in the matching core database using the field mapping and sync rules above (exact-title match; update if found, create if not).
+4. **Wire relations**: a workflow links to its process (find-or-create the Processes row) and to the Skills/Agents rows for its `assets_used`; a skill/agent links back to the workflows that use it.
+5. **Workflows only:** write the page URL back to the manifest's `notion_url` — this enables auto-sync from then on.
+6. Confirm what was created or updated.
+
+Reading is even simpler: for "what's in my Notion registry", query the four databases and summarize — no writes.
 
 ## Migrating from Notion
 

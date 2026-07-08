@@ -60,7 +60,7 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
    - **Full SOPs** → add `**Execution Model:** <Mode> + <Level>` as the first line of the Automation Notes section
    - **Lightweight SOPs** → use `**<Mode> + <Level>**` as the bold label in the Execution Pattern section
 5. **Write SOP markdown file** to the user's repo with YAML frontmatter. Default path: `sops/<workflow-name>-sop.md`. Ask the user where SOPs live in their repo if their project has a different convention.
-6. **Update the manifest** — set `artifacts.sop` in `outputs/<name>/workflow.yaml` to the SOP path, then refresh `REGISTRY.md` using the procedure in the `indexing-registry` skill (best-effort — never fail the step over it). If the manifest has a `notion_url`, also update the Notion Workflow row's SOP property (repo URL preferred) per the `indexing-registry` skill's `references/notion-mirror.md` (best-effort); for other external trackers, optionally update their SOP link too.
+6. **Update the manifest** — set `artifacts.sop` in `outputs/<name>/workflow.yaml` to the SOP path, then **create or update `REGISTRY.md`** at the workspace root (follow the `indexing-registry` procedure if available, otherwise update its tables directly from the manifest; skip only if the root isn't writable, and say so — never silently). If the manifest has a `notion_url`, also update the Notion Workflow row's SOP property (repo URL preferred) per the `indexing-registry` skill's `references/notion-mirror.md`; for other external trackers, optionally update their SOP link too.
 
 ## Template Selection
 

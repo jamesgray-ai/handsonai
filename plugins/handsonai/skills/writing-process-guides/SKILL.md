@@ -27,7 +27,7 @@ Write comprehensive Business Process Guide documentation and save as markdown fi
 2. **Gather strategic context** from user — frequency, timing, decision points between workflows, success criteria
 3. **Write Process Guide** using template
 4. **Write process guide markdown file** to user's repo with YAML frontmatter. Default path: `process-guides/<name>.md`. Ask the user where process guides live if their project has a different convention.
-5. **Refresh the AI Registry index** — regenerate `REGISTRY.md` using the procedure in the `indexing-registry` skill so the process appears with its workflows (best-effort — never fail the step over it). If the user mirrors to the Notion AI Registry, update the Processes database entry's Guide property (see the `indexing-registry` skill's `references/notion-mirror.md`); for other trackers, optionally update their guide link too.
+5. **Create or update `REGISTRY.md`** at the workspace root so the process appears with its workflows — follow the `indexing-registry` procedure if available, otherwise update its tables directly from the guide and manifests (skip only if the root isn't writable, and say so — never silently). If the user mirrors to the Notion AI Registry, update the Processes database entry's Guide property (see the `indexing-registry` skill's `references/notion-mirror.md`); for other trackers, optionally update their guide link too.
 
 ## Template Overview
 
