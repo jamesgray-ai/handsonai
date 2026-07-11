@@ -39,7 +39,7 @@ More advanced tools that work in collaboration with your AI platform. Pick any c
 
 Your AI platform plus two add-ons that live inside it. Most students only need Part 1 to start getting real value from the course.
 
-### Choose Your AI Platform
+### Step 1: AI Platform Setup
 
 You need at least one AI platform set up before starting anything else. Pick whichever you prefer — you only need one. Each platform has a Getting Started guide that walks you through everything in one place.
 
@@ -49,8 +49,6 @@ You need at least one AI platform set up before starting anything else. Pick whi
 | OpenAI (ChatGPT + Codex) | [Getting Started with OpenAI](/platforms/openai/getting-started/) |
 | Gemini (Google) | [Getting Started with Gemini](/platforms/google-gemini/getting-started/) |
 | M365 Copilot (Microsoft) | [Getting Started with M365 Copilot](/platforms/m365-copilot/getting-started/) |
-
-### Step 1: AI Platform Setup
 
 **What:** Create a paid AI platform account, configure it for your work, and connect it to the apps you already use. Your platform's Getting Started guide walks you through all of this in one place — account creation, apps, personalization, memory, and connections.
 
