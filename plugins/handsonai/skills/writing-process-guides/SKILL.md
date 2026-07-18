@@ -20,6 +20,8 @@ Write comprehensive Business Process Guide documentation and save as markdown fi
 
 ## Process
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below. In bundle mode, also create or update the Process node `registry/processes/<slug>.md` with a `guide:` frontmatter field pointing at the guide file, per manifest-resolution.md.
+
 1. **Load process context** — Determine how the user is arriving:
    - **From the AI Registry** (primary path): Find the process's workflows by scanning `outputs/*/workflow.yaml` manifests for matching `business_process` values (or read the Workflows section of `REGISTRY.md`). Read each workflow's manifest for sequence, trigger, and status, plus its Workflow Requirements, Design Spec, and SOP where they exist.
    - **From an external tracker** (only if the user keeps one): Fetch the business process record and its linked workflows for supplementary metadata — but prefer manifests when both exist.

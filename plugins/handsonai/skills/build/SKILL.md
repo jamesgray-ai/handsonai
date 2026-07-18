@@ -24,6 +24,8 @@ Artifact generation begins only after the Design Spec has been approved in the D
 
 #### Step 1 — Load Design Spec and Workflow Requirements
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec from the path registered there (normally `outputs/[workflow-name]/design-spec.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Build isn't the next step, say so and route to the right skill instead of re-running finished work. If the user specifies a file path, use that. If no manifest exists but legacy flat files (`outputs/[name]-design-spec.md`) do, use the legacy paths and offer to migrate them into a workflow folder + manifest. Otherwise, look for the most recent Design Spec in `outputs/`.
 
 **Parse the frontmatter first.** The spec opens with YAML frontmatter containing: `workflow`, `requirements_file`, `spec_version`, `definition_type`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, and `counts`. Use these values to summarize the spec — no need to parse the body to get the headline numbers.

@@ -8,6 +8,8 @@ user-invocable: true
 
 Write SOP documentation for workflows and save as markdown files, recording the SOP path in the workflow's `workflow.yaml` manifest (its AI Registry entry). Mirroring to an external tracker (Notion, Airtable, etc.) is optional.
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 ## Two-Axis Workflow Model
 
 Every workflow has two independent characteristics that determine how its SOP should be written:

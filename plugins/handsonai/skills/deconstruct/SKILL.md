@@ -205,6 +205,8 @@ Write the Workflow Requirements to `outputs/[workflow-name]/requirements.md` whe
 
 ### Workflow manifest
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 Deconstruct **creates the workflow's manifest** — a small `workflow.yaml` in the workflow folder that tracks state and artifact paths so any framework skill (or a fresh session) can pick up where things left off:
 
 The manifest is also the workflow's **AI Registry entry** — the single source of truth for the metadata that appears in the generated `REGISTRY.md` (see the `indexing-registry` skill). All registry fields are optional; leave out what isn't known yet rather than inventing values.
