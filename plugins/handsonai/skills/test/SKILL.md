@@ -13,6 +13,8 @@ Structured testing and evaluation of AI workflow artifacts. Walk the user throug
 
 ### 1. Load context
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references (the requirements own the Acceptance Criteria, Example Scenarios, and Golden Examples). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Test isn't the next step, say so and route to the right skill. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. Verify both files exist before proceeding — if either is missing, stop and say which.
 
 From these, identify:

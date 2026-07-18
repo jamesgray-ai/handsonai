@@ -29,6 +29,8 @@ The **AI Registry** is a single generated file — `REGISTRY.md` at the workspac
 
 To change what the registry shows, edit the source file and regenerate. Never edit `REGISTRY.md` by hand.
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `references/manifest-resolution.md` and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 > **Terminology:** "AI Registry" always means `REGISTRY.md` and the files it indexes. It is unrelated to the framework's *platform registry* (`registries/platform-registry.json`), which catalogs platforms and integrations for the Design and Build skills.
 
 ## Location & Scope
@@ -49,6 +51,8 @@ If the user explicitly asks to see installed tooling ("include my installed skil
 ## Regeneration Procedure
 
 Other framework skills reference this procedure from their closing steps ("refresh REGISTRY.md"). Run it the same way whether invoked standalone or as a closing step. **Best-effort rule:** if the environment can't write to the workspace root, say so and continue — a failed refresh must never fail the step that requested it.
+
+**Workspace-owned generator takes precedence:** if the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling `REGISTRY.md` by hand — the workspace's own generator is authoritative.
 
 ### Step 1: Scan sources
 
@@ -171,5 +175,6 @@ The mirror targets **four core databases**: Workflows, Processes, Skills, and Ag
 - A **single asset** can be registered or updated without a full mirror ("register this skill in Notion") — see the Targeted registration section of the reference.
 - Once a workflow's manifest has a `notion_url`, that is a standing opt-in: framework skills auto-sync that workflow's Notion row in their closing steps (best-effort, never blocking).
 - After any mirror, confirm what changed and remind the user the Markdown files remain the source of truth.
+- A workspace whose manifests carry no `notion_url` fields at all has the mirror **off** — don't offer per-workflow auto-sync there unless the user asks to set the mirror up.
 
 **Migrating *from* Notion:** to move an existing Notion registry into Markdown, follow the migration procedure in `references/notion-mirror.md` — read the core databases, merge fields into manifests and frontmatter, create stub process guides, then regenerate.

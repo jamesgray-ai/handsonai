@@ -17,6 +17,8 @@ Evaluate and evolve running AI workflows. Review how a deployed workflow is perf
 
 ### 1. Load workflow context
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the artifacts it registers: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest before proceeding. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to re-upload them (manifest, test results, run log) instead of failing.
 
 **Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the manifest before treating its scores as this workflow's baseline. Parse the baseline scores from the Test Results frontmatter (`scores` and `averages`) — that's the regression reference.

@@ -20,6 +20,8 @@ Generate a Run Guide for deploying, executing, and testing an AI workflow. The R
 
 #### Step 1 — Determine Build Path and Load Context
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the Design Spec it registers (normally `outputs/[workflow-name]/design-spec.md`). If the user specifies a file path, use that; if no manifest exists but legacy flat files do, use those paths. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Run isn't the next step, say so and route to the right skill.
 
 **Detect the build path — don't ask first.** The artifacts on disk plus the spec frontmatter answer this in almost every case:

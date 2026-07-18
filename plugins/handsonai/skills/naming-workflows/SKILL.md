@@ -12,6 +12,8 @@ user-invocable: true
 
 Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's `workflow.yaml` manifest — the workflow's AI Registry entry.
 
+> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+
 ## Workflow Naming Rules
 
 ### Format Requirements
