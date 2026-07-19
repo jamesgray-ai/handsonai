@@ -1,0 +1,3 @@
+- [OpenAI source URLs](reference_sources.md) — canonical sources, fetch workarounds, reliable secondary press for OpenAI research
+- [OpenAI model naming conventions](reference_model_naming.md) — GPT-5.x decimal versioning, current models, retirement patterns as of June 2026
+- [Digest run history](project_digest_history.md) — log of completed digests with items covered, for de-duplication across runs

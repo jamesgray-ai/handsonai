@@ -42,7 +42,7 @@ where `<slug>` is the workflow's kebab-case ID (the same value the YAML backend 
 | `autonomy` | frontmatter `autonomy` — `deterministic` \| `guided` \| `autonomous` |
 | `definition_type` | frontmatter `definition_type` — `step-decomposed` \| `outcome-driven` (kebab-case) |
 | `trigger` | frontmatter `trigger` |
-| `business_process` | frontmatter `process:` — a root-relative link to the Process node: `/processes/<process-slug>.md` |
+| `business_process` | a `N. [Title](/workflows/<slug>.md)` line in the Process node's curated ordered `# Workflows` list (`registry/processes/<process-slug>.md`) — the list is BOTH the Workflow→Process edge and the value-chain order. Never write a `process:` frontmatter field on the Workflow node (banned; lint errors). Place the line at the workflow's position in the process sequence (append at the end if unknown); a workflow must appear in exactly one process's list. |
 | `next_review` | frontmatter `next_review` |
 | `artifacts:` map | labeled links in the `# Artifacts` body section (see below) |
 | `platform_artifacts` | links in the `# Skills` and `# Agents` body sections |
@@ -111,4 +111,4 @@ Never write these to a Workflow node — they have no equivalent and must not be
 
 ### Process nodes
 
-In bundle mode the business-process record is likewise a concept node: `registry/processes/<process-slug>.md`. Workflow nodes join to it via their `process:` frontmatter link. When a skill produces a process guide, the Process node's `guide:` frontmatter field points at the guide file (same link conventions as above).
+In bundle mode the business-process record is likewise a concept node: `registry/processes/<process-slug>.md`. Workflows join to it via the process's curated ordered `# Workflows` list (see the mapping table above) — child nodes carry no pointer. When a skill produces a process guide, the Process node's `guide:` frontmatter field points at the guide file (same link conventions as above).

@@ -1,0 +1,421 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#skipToMain"
+      - generic [ref=e5]: Skip to main content
+    - generic [ref=e8]:
+      - navigation [ref=e9]:
+        - button "Navigation Menu" [ref=e10] [cursor=pointer]
+        - link "QuantumBlack" [ref=e12] [cursor=pointer]:
+          - /url: /capabilities/quantumblack/our-insights
+          - img "QuantumBlack" [ref=e13]
+      - generic [ref=e16]:
+        - link "Artificial Intelligence" [ref=e17] [cursor=pointer]:
+          - /url: https://www.mckinsey.com/capabilities/quantumblack
+        - navigation [ref=e18]:
+          - list [ref=e19]:
+            - listitem [ref=e20]:
+              - link "Overview" [ref=e21] [cursor=pointer]:
+                - /url: https://www.mckinsey.com/capabilities/quantumblack/how-we-help-clients
+            - listitem [ref=e22]:
+              - link "Our Approach" [ref=e23] [cursor=pointer]:
+                - /url: https://www.mckinsey.com/capabilities/quantumblack/our-approach
+            - listitem [ref=e24]:
+              - link "Labs" [ref=e25] [cursor=pointer]:
+                - /url: https://www.mckinsey.com/capabilities/quantumblack/labs
+            - listitem [ref=e26]:
+              - link "Case Studies" [ref=e27] [cursor=pointer]:
+                - /url: https://www.mckinsey.com/capabilities/quantumblack/case-studies
+            - listitem [ref=e28]:
+              - link "Our Insights" [ref=e29] [cursor=pointer]:
+                - /url: https://www.mckinsey.com/capabilities/quantumblack/our-insights
+            - listitem [ref=e30]:
+              - link "Our People" [ref=e31] [cursor=pointer]:
+                - /url: https://www.mckinsey.com/capabilities/quantumblack/our-people
+            - listitem [ref=e32]:
+              - link "Contact Us" [ref=e33] [cursor=pointer]:
+                - /url: https://www.mckinsey.com/capabilities/quantumblack/contact-us
+      - menu [ref=e35]:
+        - menuitem "Sign In | Subscribe":
+          - list [ref=e36]:
+            - listitem [ref=e37]:
+              - link "Sign In" [ref=e38] [cursor=pointer]:
+                - /url: "#/auth-signin"
+                - generic [ref=e39]: Sign In
+              - text: "|"
+            - listitem [ref=e40]:
+              - link "Subscribe" [ref=e41] [cursor=pointer]:
+                - /url: /user-registration/newsletter
+                - generic [ref=e42]: Subscribe
+        - menuitem "Search icon, hit enter to activate" [ref=e43]:
+          - link "Search icon, hit enter to activate" [ref=e44] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e45]: 
+    - generic [ref=e47]:
+      - button "Open Ask McKinsey chat" [ref=e48] [cursor=pointer]:
+        - img "Ask McKinsey chat bubbles" [ref=e49]
+      - generic [ref=e50]:
+        - button "Ask McKinsey AI Chatbot" [ref=e51] [cursor=pointer]:
+          - img "Ask McKinsey AI Chatbot" [ref=e52]
+        - button "Close logo" [ref=e53] [cursor=pointer]:
+          - img "Ask McKinsey Close icon" [ref=e54]
+    - main [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e58]:
+          - generic [ref=e60]: "One year of agentic AI: Six lessons from the people doing the work"
+          - generic [ref=e61]:
+            - generic [ref=e64]:
+              - button [ref=e66] [cursor=pointer]:
+                - generic [ref=e67]: 
+                - generic [ref=e68]: Share
+              - link [ref=e70] [cursor=pointer]:
+                - /url: "#/print"
+                - generic [ref=e71]: 
+                - generic [ref=e72]: Print
+              - button [ref=e74] [cursor=pointer]:
+                - generic [ref=e75]: 
+                - generic [ref=e76]: Download
+              - link [ref=e79] [cursor=pointer]:
+                - /url: "#/save"
+                - generic [ref=e80]: 
+                - generic [ref=e81]: Save
+            - button [ref=e83] [cursor=pointer]:
+              - img [ref=e85]
+              - generic [ref=e88]: Summarize
+        - progressbar [ref=e89]
+      - generic [ref=e96]:
+        - 'heading "One year of agentic AI: Six lessons from the people doing the work" [level=1] [ref=e98]':
+          - generic [ref=e99]: "One year of agentic AI: Six lessons from the people doing the work"
+        - generic [ref=e101]:
+          - time [ref=e102]: September 12, 2025
+          - text: "| Article"
+      - generic [ref=e104]:
+        - generic [ref=e105]:
+          - generic [ref=e106]:
+            - generic [ref=e107]:
+              - text: By
+              - generic [ref=e109]: Lareina Yee,
+              - generic [ref=e111]:
+                - link "Michael Chui" [ref=e112] [cursor=pointer]:
+                  - /url: /our-people/michael-chui
+                  - generic [ref=e113]: Michael Chui
+                - text: ", and"
+              - link "Roger Roberts" [ref=e116] [cursor=pointer]:
+                - /url: /our-people/roger-roberts
+                - generic [ref=e117]: Roger Roberts
+              - text: with
+              - link "Stephen Xu" [ref=e120] [cursor=pointer]:
+                - /url: /our-people/stephen-xu
+                - generic [ref=e121]: Stephen Xu
+            - generic [ref=e122]:
+              - generic [ref=e125]:
+                - button "Share" [ref=e127] [cursor=pointer]:
+                  - generic [ref=e128]: 
+                  - generic [ref=e129]: Share
+                - link "Print" [ref=e131] [cursor=pointer]:
+                  - /url: "#/print"
+                  - generic [ref=e132]: 
+                  - generic [ref=e133]: Print
+                - button "Download" [ref=e135] [cursor=pointer]:
+                  - generic [ref=e136]: 
+                  - generic [ref=e137]: Download
+                - link " Save" [ref=e140] [cursor=pointer]:
+                  - /url: "#/save"
+                  - generic [ref=e141]: 
+                  - generic [ref=e142]: Save
+              - button "Summarize" [ref=e144] [cursor=pointer]:
+                - img [ref=e146]
+                - generic [ref=e149]: Summarize
+          - generic [ref=e153]: Deploying agentic AI successfully isn’t easy. Here’s what we’re learning about how to get it right.
+          - main [ref=e154]:
+            - generic [ref=e156]:
+              - generic [ref=e157]:
+                - iframe [ref=e162]:
+                  - generic [ref=f2e4]:
+                    - application "Play" [ref=f2e6] [cursor=pointer]:
+                      - img [ref=f2e7]
+                    - link "Play on SoundCloud" [ref=f2e11] [cursor=pointer]:
+                      - /url: https://soundcloud.com/mckinsey/listen-to-the-article-one-year
+                      - img [ref=f2e12]
+                    - 'link "McKinsey & Company – Listen to the article: One year of agentic AI: Six lessons from the people doing the work" [ref=f2e18] [cursor=pointer]':
+                      - /url: https://soundcloud.com/mckinsey/listen-to-the-article-one-year
+                - generic [ref=e164]:
+                  - heading "DOWNLOADS" [level=3] [ref=e165]
+                  - link " Article (9 pages)" [ref=e168] [cursor=pointer]:
+                    - /url: "#/download/%2F~%2Fmedia%2Fmckinsey%2Fbusiness%20functions%2Fquantumblack%2Four%20insights%2Fone%20year%20of%20agentic%20ai%20six%20lessons%20from%20the%20people%20doing%20the%20work%2Fone-year-of-agentic-ai-six-lessons-from-the-people-doing-the-work_vf.pdf%3FshouldIndex%3Dfalse"
+                    - generic [ref=e169]: 
+                    - generic [ref=e170]: Article (9 pages)
+                - paragraph [ref=e171]:
+                  - strong [ref=e172]: A year into
+                  - text: "the agentic AI revolution, one lesson is clear: It takes hard work to do it well."
+                - paragraph [ref=e173]: An agentic enterprise transformation holds the promise of unmatched productivity. While some companies are enjoying early successes with such activities, many more are finding it challenging to see value from their investments. In some cases, they are even retrenching—rehiring people where agents have failed.
+                - generic [ref=e175]:
+                  - generic [ref=e177]:
+                    - button " Share" [ref=e179] [cursor=pointer]:
+                      - generic [ref=e180]: 
+                      - generic [ref=e181]: Share
+                    - button "Expandable Sidebar" [ref=e182] [cursor=pointer]:
+                      - generic [ref=e183]: 
+                  - generic [ref=e184]:
+                    - generic [ref=e185]: Sidebar
+                    - heading "What is agentic AI?" [level=2] [ref=e187]:
+                      - generic [ref=e188]: What is agentic AI?
+                - paragraph [ref=e189]: These stumbles are a natural evolution of any new technology, and we’ve seen this pattern before with other innovations. To understand the early lessons, we recently dug into more than 50 agentic AI builds we’ve led at McKinsey, as well as dozens of others in the marketplace. We’ve boiled down our analysis results to six lessons to help leaders successfully capture value from agentic AI (see sidebar “What is agentic AI?”).
+                - heading "It’s not about the agent; it’s about the workflow" [level=2] [ref=e190]
+                - paragraph [ref=e191]: Achieving business value with agentic AI requires changing workflows. Often, however, organizations focus too much on the agent or the agentic tool. This inevitably leads to great-looking agents that don’t actually end up improving the overall workflow, resulting in underwhelming value.
+                - generic [ref=e192]:
+                  - generic [ref=e193]:
+                    - generic [ref=e194]:
+                      - paragraph
+                    - heading "How relevant and useful is this article for you?" [level=5] [ref=e195]
+                    - generic [ref=e196]:
+                      - button "Rate 1 star" [ref=e197] [cursor=pointer]:
+                        - generic [ref=e198]:
+                          - img
+                      - button "Rate 2 star" [ref=e199] [cursor=pointer]:
+                        - generic [ref=e200]:
+                          - img
+                      - button "Rate 3 star" [ref=e201] [cursor=pointer]:
+                        - generic [ref=e202]:
+                          - img
+                      - button "Rate 4 star" [ref=e203] [cursor=pointer]:
+                        - generic [ref=e204]:
+                          - img
+                      - button "Rate 5 star" [ref=e205] [cursor=pointer]:
+                        - generic [ref=e206]:
+                          - img
+                  - generic [ref=e207]:
+                    - heading "Most Popular Insights" [level=3] [ref=e208]
+                    - list [ref=e209]:
+                      - listitem [ref=e210]:
+                        - 'link "The state of AI in 2025: Agents, innovation, and transformation" [ref=e211] [cursor=pointer]':
+                          - /url: /capabilities/quantumblack/our-insights/the-state-of-ai
+                          - strong: "The state of AI in 2025: Agents, innovation, and transformation"
+                      - listitem [ref=e212]:
+                        - 'link "Agents, robots, and us: Skill partnerships in the age of AI" [ref=e213] [cursor=pointer]':
+                          - /url: /mgi/our-research/agents-robots-and-us-skill-partnerships-in-the-age-of-ai
+                          - strong: "Agents, robots, and us: Skill partnerships in the age of AI"
+                      - listitem [ref=e214]:
+                        - 'link "Superagency in the workplace: Empowering people to unlock AI’s full potential" [ref=e215] [cursor=pointer]':
+                          - /url: /capabilities/tech-and-ai/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work
+                          - strong: "Superagency in the workplace: Empowering people to unlock AI’s full potential"
+                      - listitem [ref=e216]:
+                        - 'link "The State of Fashion 2026: When the rules change" [ref=e217] [cursor=pointer]':
+                          - /url: /industries/retail/our-insights/state-of-fashion
+                          - strong: "The State of Fashion 2026: When the rules change"
+                      - listitem [ref=e218]:
+                        - 'link "The agentic organization: Contours of the next paradigm for the AI era" [ref=e219] [cursor=pointer]':
+                          - /url: /capabilities/people-and-organizational-performance/our-insights/the-agentic-organization-contours-of-the-next-paradigm-for-the-ai-era
+                          - strong: "The agentic organization: Contours of the next paradigm for the AI era"
+                - paragraph [ref=e220]:
+                  - text: Agentic AI efforts that focus on fundamentally
+                  - link "reimagining entire workflows" [ref=e221] [cursor=pointer]:
+                    - /url: /capabilities/quantumblack/our-insights/seizing-the-agentic-ai-advantage
+                  - text: —that is, the steps that involve people, processes, and technology—are more likely to deliver a positive outcome. Understanding how agents can help with each of these steps is the path to value. People will still be central to getting the work done, but now with different agents, tools, and automations to support them.
+                - paragraph [ref=e222]: An important starting point in redesigning workflows is mapping processes and identifying key user pain points. This step is critical in designing agentic systems that reduce unnecessary work and allow agents and people to collaborate and accomplish business goals more efficiently and effectively. That collaboration can happen through learning loops and feedback mechanisms, creating a self-reinforcing system. The more frequently agents are used, the smarter and more aligned they become.
+                - paragraph [ref=e223]: Consider an alternative dispute resolution service provider that was working to modernize its contract review workflows. Legal reasoning in the company’s domain was constantly evolving, with new case law, jurisdictional nuances, and policy interpretations, making it challenging to codify expertise.
+                - paragraph [ref=e224]: To account for natural variance, the team designed its agentic systems to learn within the workflow. Every user edit in the document editor, for example, was logged and categorized. This provided the engineers and data scientists with a rich stream of feedback, which they could then use to teach the agents, adjust prompt logic, and enrich the knowledge base. Over time, the agents could codify new expertise.
+                - paragraph [ref=e225]: Focusing on the workflow instead of the agent enabled teams to deploy the right technology at the right point, which is especially important when reengineering complex, multistep workflows (exhibit). For example, insurance companies often have big investigative workflows that span multiple steps (such as claims handling and underwriting), with each step requiring different types of activities and cognitive tasks. Companies can redesign these types of workflows by thoughtfully deploying a targeted mix of rule-based systems, analytical AI, gen AI, and agents, all underpinned by a common orchestration framework (such as open-source frameworks like AutoGen, CrewAI, and LangGraph). In these cases, the agents are the orchestrators and the integrators, accessing tools and integrating outputs of other systems into their context. They are the glue that unifies the workflow so it delivers real closure with less intervention needed.
+                - generic [ref=e226]:
+                  - generic [ref=e228]: Exhibit
+                  - img "Complex workflows should incorporate the best tool for each task." [ref=e231]
+                  - generic [ref=e232]:
+                    - text: "We strive to provide individuals with disabilities equal access to our website. If you would like information about this content we will be happy to work with you. Please email us at:"
+                    - link "McKinsey_Website_Accessibility@mckinsey.com" [ref=e233] [cursor=pointer]:
+                      - /url: mailto:McKinsey_Website_Accessibility@mckinsey.com
+                - heading "Agents aren’t always the answer" [level=2] [ref=e234]
+                - paragraph [ref=e235]: AI agents can do a lot, but they shouldn’t necessarily be used for everything. Too often, leaders don’t look closely enough at the work that needs to be done or ask whether an agent would be the best choice to perform that work.
+                - paragraph [ref=e236]: To help avoid wasted investments or unwanted complexity, business leaders can approach the role of agents much like they do when evaluating people for a high-performing team. The key question to ask is, “What is the work to be done and what are the relative talents of each potential team member—or agent—to work together to achieve those goals?” Business problems can often be addressed with simpler automation approaches, such as rules-based automation, predictive analytics, or large language model (LLM) prompting, which can be more reliable than agents out of the box.
+                - paragraph [ref=e237]: Before rushing into an agentic solution, business leaders should take stock of the task’s demands. In practice, that means getting clear on how standardized the process should be, how much variance the process needs to handle, and what portions of the work agents are best suited to do.
+                - generic [ref=e239]:
+                  - img "Book jacket cover of Rewired Second Edition" [ref=e242]
+                  - generic [ref=e243]:
+                    - generic [ref=e245]:
+                      - heading "Rewired, second edition" [level=3] [ref=e246]
+                      - paragraph [ref=e248]: This updated edition offers brand-new insights into cutting-edge AI solutions—and what it takes to implement them—as well as the new economics of digital and AI transformations.
+                    - link "Learn more" [ref=e250] [cursor=pointer]:
+                      - /url: /featured-insights/mckinsey-on-books/rewired
+                      - text: Learn more
+                      - generic [ref=e251]: 
+                - paragraph [ref=e252]: On one level, these issues are straightforward. For example, low-variance, high-standardization workflows, such as investor onboarding or regulatory disclosures, tend to be tightly governed and follow predictable logic. In these cases, agents based on nondeterministic LLMs could add more complexity and uncertainty than value.
+                - paragraph [ref=e253]:
+                  - text: By contrast, high-variance, low-standardization workflows could benefit significantly from agents. For example, agents were deployed at a financial-services company to extract complex financial information, reducing the amount of human validation required and streamlining workflows. These tasks demanded information aggregation, verification checks, and
+                  - link "compliance analysis" [ref=e254] [cursor=pointer]:
+                    - /url: /capabilities/risk-and-resilience/our-insights/deploying-agentic-ai-with-safety-and-security-a-playbook-for-technology-leaders
+                  - text: —tasks where agents can be effective.
+                - generic [ref=e256]:
+                  - generic [ref=e258]:
+                    - button " Share" [ref=e260] [cursor=pointer]:
+                      - generic [ref=e261]: 
+                      - generic [ref=e262]: Share
+                    - button "Expandable Sidebar" [ref=e263] [cursor=pointer]:
+                      - generic [ref=e264]: 
+                  - generic [ref=e265]:
+                    - generic [ref=e266]: Sidebar
+                    - heading "High-level rules of thumb when considering what AI tools to use" [level=2] [ref=e268]:
+                      - generic [ref=e269]: High-level rules of thumb when considering what AI tools to use
+                - paragraph [ref=e270]: The important thing to remember is not to get trapped in a binary “agent/no agent” mindset. Some agents can do specific tasks well, others can help people do their work better, and in many cases, different technologies altogether might be more appropriate. The key is to figure out which tool or agent is best suited to the task, how people can work with them most effectively, and how agents and workers should be combined to deliver the greatest output. How well people, agents, and tools work together is the secret sauce for value (see sidebar “High-level rules of thumb when considering what AI tools to use”).
+                - 'heading "Stop ‘AI slop’: Invest in evaluations and build trust with users" [level=2] [ref=e271]'
+                - paragraph [ref=e272]: One of the most common pitfalls teams encounter when deploying AI agents is agentic systems that seem impressive in demos but frustrate users who are actually responsible for the work. It’s common to hear users complain about “AI slop” or low-quality outputs. Users quickly lose trust in the agents, and adoption levels are poor. Any efficiency gains achieved through automation can easily be offset by a loss in trust or a decline in quality.
+                - paragraph [ref=e273]: A hard-won lesson of this recurring problem is that companies should invest heavily in agent development, just like they do for employee development. As one business leader told us, “Onboarding agents is more like hiring a new employee versus deploying software.” Agents should be given clear job descriptions, onboarded, and given continual feedback so they become more effective and improve regularly.
+                - paragraph [ref=e274]: Developing effective agents is challenging work that requires harnessing individual expertise to create evaluations (or “evals”) and codifying best practices with sufficient granularity for given tasks. This codification serves as both the training manual and performance test for the agent, ensuring that it performs as expected.
+                - paragraph [ref=e275]: These practices may exist in standard operating procedures or as tacit knowledge in people’s heads. When codifying practices, it’s important to focus on what separates top performers from the rest. For sales reps, this might include how they drive the conversation, handle objections, and match the customer’s style (see sidebar “Eval types”).
+                - generic [ref=e277]:
+                  - generic [ref=e279]:
+                    - button " Share" [ref=e281] [cursor=pointer]:
+                      - generic [ref=e282]: 
+                      - generic [ref=e283]: Share
+                    - button "Expandable Sidebar" [ref=e284] [cursor=pointer]:
+                      - generic [ref=e285]: 
+                  - generic [ref=e286]:
+                    - generic [ref=e287]: Sidebar
+                    - heading "Eval types" [level=2] [ref=e289]:
+                      - generic [ref=e290]: Eval types
+                - paragraph [ref=e291]: Crucially, experts should stay involved to test agents’ performance over time; there can be no “launch and leave” in this arena. This commitment to evaluation requires, for example, experts to literally write down or label desired (and perhaps undesired) outputs for given inputs, which can sometimes number in the thousands for more complex agents. In this way, teams can evaluate how much an agent got right or wrong and make the necessary corrections.
+                - paragraph [ref=e292]: A global bank took this approach to heart when transforming its know-your-customer and credit-risk-analysis processes. Whenever the agent’s recommendation on compliance with intake guidelines differed from human judgment, the team identified the logic gaps, refined the decision criteria, and reran tests.
+                - paragraph [ref=e293]: In one case, for example, the agents’ initial analysis was too general. The team provided that feedback, then developed and deployed additional agents to ensure that the depth of analysis provided useful insights at the right level of granularity. One way they did this was by asking the agents “why” in multiple succession. This approach ensured the agents performed well, making it much more likely for people to accept their outputs.
+                - heading "Make it easy to track and verify every step" [level=2] [ref=e294]
+                - paragraph [ref=e295]: When working with only a few AI agents, reviewing their work and spotting errors can be mostly straightforward. But as companies roll out hundreds, or even thousands, of agents, the task becomes challenging. Exacerbating the issue is that many companies track only outcomes. So when there’s a mistake—and there will always be mistakes as companies scale agents—it’s hard to figure out precisely what went wrong.
+                - paragraph [ref=e296]: Agent performance should be verified at each step of the workflow. Building monitoring and evaluation into the workflow can enable teams to catch mistakes early, refine the logic, and continually improve performance, even after the agents are deployed.
+                - paragraph [ref=e297]: "In one document review workflow, for instance, an alternative dispute resolution service provider’s product team observed a sudden drop in accuracy when the system encountered a new set of cases. But since they’d built the agentic workflow with observability tools to track every step of the process, the team quickly identified the issue: Certain user segments were submitting lower-quality data, leading to incorrect interpretations and poor downstream recommendations."
+                - paragraph [ref=e298]: With that insight, the team improved its data collection practices, provided document formatting guidelines to upstream stakeholders, and adjusted the system’s parsing logic. Agent performance quickly rebounded.
+                - heading "The best use case is the reuse case" [level=2] [ref=e299]
+                - paragraph [ref=e300]: In the rush to make progress with agentic AI, companies often create a unique agent for each identified task. This can lead to significant redundancy and waste because the same agent can often accomplish different tasks that share many of the same actions (such as ingesting, extracting, searching, and analyzing).
+                - paragraph [ref=e301]: Deciding how much to invest in building reusable agents (versus an agent that executes one specific task) is analogous to the classic IT architecture problem where companies need to build fast but not lock in choices that constrain future capabilities. How to strike that balance often requires a lot of judgment and analysis.
+                - paragraph [ref=e302]:
+                  - text: Identifying recurring tasks is a good starting point. Companies can develop agents and agent components that can easily be reused across different workflows, and make it simple for developers to access them. That includes
+                  - link "developing a centralized set" [ref=e303] [cursor=pointer]:
+                    - /url: /capabilities/tech-and-ai/our-insights/overcoming-two-issues-that-are-sinking-gen-ai-programs
+                  - text: of validated services (such as LLM observability or preapproved prompts) and assets (for example, application patterns, reusable code, and training materials) that are easy to locate and use. Integrating these capabilities into a single platform is critical. In our experience, this helps to virtually eliminate 30 to 50 percent of the nonessential work typically required.
+                - heading "Humans remain essential, but their roles and numbers will change" [level=2] [ref=e304]
+                - paragraph [ref=e305]: As AI agents continue to proliferate, the question of what role humans will play has generated much anxiety—about job security, on the one hand, and about high expectations for productivity increases, on the other. This has led to wildly diverging views on the role of humans in many present-day jobs.
+                - paragraph [ref=e306]: "To be clear: Agents will be able to accomplish a lot, but humans will remain an essential part of the workforce equation even as the type of work that both agents and humans do changes over time. People will need to oversee model accuracy, ensure compliance, use judgment, and handle edge cases, for example. And as we discussed earlier, agents will not always be the best answer, so people working with other tools such as machine learning models will be needed. The number of people working in a particular workflow, however, will likely change and often will be lower once the workflow is transformed using agents. Business leaders will crucially have to manage these transitions as they would for any change program and thoughtfully allocate the work necessary to train and evaluate agents."
+                - paragraph [ref=e307]: Another big lesson from our experience is that companies should be deliberate in redesigning work so that people and agents can collaborate well together. Without that focus, even the most advanced agentic programs risk silent failures, compounding errors, and user rejection.
+                - paragraph [ref=e308]: Take the example of the alternative dispute resolution service provider mentioned earlier that wanted to use agents for a legal-analysis workflow. In designing the workflow, the team took the time to identify where, when, and how to integrate human input. In one case, agents were able to organize core claims and dollar amounts with high levels of accuracy, but it was important for lawyers to double-check and approve them, given how central the claims were to the entire case.
+                - paragraph [ref=e309]: Similarly, agents were able to recommend workplan approaches to a case, but given the importance of the decision, it was critical for people to not just review but also adjust the recommendation. The agents were also programmed to highlight edge cases and anomalies, helping lawyers develop more comprehensive views. Someone still had to sign the document at the end of the process, underwriting the legal decision with the person’s license and credentials.
+                - paragraph [ref=e310]: An important part of this human–agent collaborative design is developing simple visual user interfaces that make it easy for people to interact with agents. For example, one property and casualty insurance company developed interactive visual elements (such as bounding boxes, highlights, and automated scrolling) to help reviewers quickly validate AI-generated summaries. When people clicked on an insight, for example, the application would scroll directly to the correct page and highlight the appropriate text. This focus on the user experience saved time, reduced second-guessing, and built confidence in the system, leading to user acceptance levels near 95 percent.
+                - separator [ref=e311]
+                - paragraph [ref=e312]: The world of AI agents is moving quickly, so we can expect to learn many more lessons. But unless companies approach their agentic programs with learning in mind (and in practice), they’re likely to repeat mistakes and slow their progress.
+              - generic [ref=e313]:
+                - generic [ref=e314]:
+                  - paragraph
+                - heading "How relevant and useful is this article for you?" [level=5] [ref=e315]
+                - generic [ref=e316]:
+                  - button "Rate 1 star" [ref=e317] [cursor=pointer]:
+                    - generic [ref=e318]:
+                      - img
+                  - button "Rate 2 star" [ref=e319] [cursor=pointer]:
+                    - generic [ref=e320]:
+                      - img
+                  - button "Rate 3 star" [ref=e321] [cursor=pointer]:
+                    - generic [ref=e322]:
+                      - img
+                  - button "Rate 4 star" [ref=e323] [cursor=pointer]:
+                    - generic [ref=e324]:
+                      - img
+                  - button "Rate 5 star" [ref=e325] [cursor=pointer]:
+                    - generic [ref=e326]:
+                      - img
+            - generic [ref=e327]:
+              - contentinfo [ref=e328]:
+                - generic [ref=e329]:
+                  - heading "About the author(s)" [level=5] [ref=e330]
+                  - generic [ref=e332]:
+                    - paragraph [ref=e333]:
+                      - strong [ref=e334]:
+                        - link "Lareina Yee" [ref=e335] [cursor=pointer]:
+                          - /url: /mgi/our-people
+                      - text: is a McKinsey Global Institute director and a senior partner in McKinsey’s Bay Area office, where
+                      - strong [ref=e336]:
+                        - link "Michael Chui" [ref=e337] [cursor=pointer]:
+                          - /url: /our-people/michael-chui
+                      - text: is a senior fellow and
+                      - strong [ref=e338]:
+                        - link "Roger Roberts" [ref=e339] [cursor=pointer]:
+                          - /url: /our-people/roger-roberts
+                      - text: is a partner;
+                      - strong [ref=e340]: Stephen Xu
+                      - text: is a senior director of product management in the Toronto office.
+                    - paragraph [ref=e341]:
+                      - text: The authors wish to thank Alex Singla, Alexander Sukharevsky, Alberto Mario Pirovano, Allen Chen, Ani Aghababyan, Antonio Castro, Carlo Giovine, Medha Bankhwal, Rickard Ström, and the entire product team at
+                      - link "QuantumBlack Labs" [ref=e342] [cursor=pointer]:
+                        - /url: /capabilities/quantumblack/labs
+                      - text: ", McKinsey’s center dedicated to driving innovation and experimentation in AI, for their contributions to this article."
+                    - separator [ref=e343]
+                    - paragraph [ref=e344]: This article was edited by Barr Seitz, an editorial director in the New York office.
+                    - paragraph [ref=e345]:
+                      - emphasis [ref=e346]:
+                        - text: To request a demo or follow-up with an expert in QuantumBlack Labs, our software development and R&D hub, please reach out to
+                        - link "helloqb@mckinsey.com" [ref=e347] [cursor=pointer]:
+                          - /url: http://
+                        - text: .
+              - button "Talk to us" [ref=e349] [cursor=pointer]
+              - generic [ref=e351]:
+                - heading "Explore a career with us" [level=5] [ref=e352]
+                - link "Search openings" [ref=e354] [cursor=pointer]:
+                  - /url: /careers/search-jobs
+                  - generic [ref=e355]: Search openings
+        - generic [ref=e357]:
+          - heading "Related Articles" [level=5] [ref=e358]
+          - generic [ref=e359]:
+            - generic [ref=e360]:
+              - link "Computer Neural Network Concept Image. Bright dots connected by glowing lines." [ref=e362] [cursor=pointer]:
+                - /url: /capabilities/quantumblack/our-insights/seizing-the-agentic-ai-advantage
+                - img "Computer Neural Network Concept Image. Bright dots connected by glowing lines." [ref=e364]
+              - generic [ref=e366]:
+                - text: Report
+                - heading "Seizing the agentic AI advantage" [level=6] [ref=e367]:
+                  - link "Seizing the agentic AI advantage" [ref=e368] [cursor=pointer]:
+                    - /url: /capabilities/quantumblack/our-insights/seizing-the-agentic-ai-advantage
+                    - generic [ref=e369]: Seizing the agentic AI advantage
+            - generic [ref=e370]:
+              - link "AI robot with circuit, chemical structure and program code on a black background." [ref=e372] [cursor=pointer]:
+                - /url: /industries/life-sciences/our-insights/reimagining-life-science-enterprises-with-agentic-ai
+                - img "AI robot with circuit, chemical structure and program code on a black background." [ref=e374]
+              - generic [ref=e376]:
+                - text: Article
+                - heading "Reimagining life science enterprises with agentic AI" [level=6] [ref=e377]:
+                  - link "Reimagining life science enterprises with agentic AI" [ref=e378] [cursor=pointer]:
+                    - /url: /industries/life-sciences/our-insights/reimagining-life-science-enterprises-with-agentic-ai
+                    - generic [ref=e379]: Reimagining life science enterprises with agentic AI
+            - generic [ref=e380]:
+              - link "An abstract image of a stack of 3D credit cards swirling up in a repeating twisting pattern." [ref=e382] [cursor=pointer]:
+                - /url: /capabilities/risk-and-resilience/our-insights/how-agentic-ai-can-change-the-way-banks-fight-financial-crime
+                - img "An abstract image of a stack of 3D credit cards swirling up in a repeating twisting pattern." [ref=e384]
+              - generic [ref=e386]:
+                - text: Article
+                - heading "How agentic AI can change the way banks fight financial crime" [level=6] [ref=e387]:
+                  - link "How agentic AI can change the way banks fight financial crime" [ref=e388] [cursor=pointer]:
+                    - /url: /capabilities/risk-and-resilience/our-insights/how-agentic-ai-can-change-the-way-banks-fight-financial-crime
+                    - generic [ref=e389]: How agentic AI can change the way banks fight financial crime
+    - generic [ref=e391]:
+      - generic [ref=e393]:
+        - heading "Sign up for emails on new Artificial Intelligence articles" [level=5] [ref=e394]
+        - paragraph [ref=e395]: Never miss an insight. We'll email you when new articles are published on this topic.
+        - generic [ref=e397]:
+          - textbox "Email address" [ref=e401]
+          - button "Subscribe" [ref=e403] [cursor=pointer]
+      - button "Close" [ref=e404] [cursor=pointer]:
+        - generic [ref=e405]: 
+    - contentinfo [ref=e409]
+    - log [ref=e410]: Sign up for emails on new Artificial Intelligence articles
+  - alert [ref=e411]
+  - generic:
+    - dialog [ref=e413]:
+      - dialog "Privacy" [ref=e414]:
+        - generic [ref=e415]:
+          - generic [ref=e417]:
+            - text: McKinsey & Company, Inc. uses cookies to better understand how visitors use our site, to collect and analyze information on site performance and usage, and for targeted advertising purposes.
+            - link "Cookie Notice" [ref=e418] [cursor=pointer]:
+              - /url: https://www.mckinsey.com/cookie-policy
+            - text: We do not sell personal information, but we may share your personal data with third parties for cross-context behavioral advertising.
+            - text: Please see our
+            - link "Privacy Notice" [ref=e419] [cursor=pointer]:
+              - /url: https://www.mckinsey.com/privacy-policy
+            - text: for more information.
+          - generic [ref=e421]:
+            - generic [ref=e422]:
+              - button "Accept All Cookies" [ref=e423] [cursor=pointer]
+              - button "Decline optional cookies" [ref=e424] [cursor=pointer]
+            - button "Manage my preferences, Opens the preference center dialog" [ref=e425] [cursor=pointer]: Manage my preferences
+    - text:   Back
