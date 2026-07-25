@@ -5,10 +5,12 @@ schema_type: HowTo
 howto_steps:
   - name: Create a GitHub account
     text: Go to github.com, click Sign up, follow the prompts, verify your email address, and enable two-factor authentication.
-  - name: Install GitHub CLI
-    text: Install gh via Homebrew (macOS), winget (Windows), or apt (Linux), then run gh auth login to connect your GitHub account.
-  - name: Choose your authentication method
+  - name: Choose how you'll authenticate
     text: Use gh auth login when you're running commands yourself. Generate a fine-grained personal access token when a hosted agent or automation needs to authenticate without you present.
+  - name: Give an agent or tool access
+    text: Generate a fine-grained personal access token scoped to a specific repository, grant only the permissions the tool asks for, and store it in a password manager.
+  - name: Work with files on your own machine
+    text: Install gh via Homebrew or the macOS installer, winget (Windows), or apt (Linux), then run gh auth login to connect your GitHub account.
 ---## What Is GitHub?
 
 GitHub is a website where people store, version, and share files — application code, but equally the prompts, skills, agents, and markdown you build with AI. If Git tracks your changes locally (like a save history on your computer), GitHub is where that history lives in the cloud — backed up, shareable, and accessible from anywhere.
