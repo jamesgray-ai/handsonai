@@ -16,7 +16,7 @@ The [Deconstruct step](../../business-first-ai-framework/deconstruct/) now uses 
 
 ## 11 Building Blocks in Three Layers
 
-The framework vocabulary expands from 7 to **11 building blocks**, organized by the three-layer model: **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent), and **Integration** (MCP, API, SDK, CLI). The [design skill](../../business-first-ai-framework/skills/#design) now maps every step against the full set, ensuring workflows that need API integrations, SDK code, CLI automation, or persistent memory get those blocks identified during Design rather than discovered mid-build.
+The framework vocabulary expands from 7 to **11 building blocks**, organized by the three-layer model: **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent), and **Integration** (MCP, API, SDK, CLI). The [design skill](../../ai-workflow-framework/skills/#what-each-skill-does) now maps every step against the full set, ensuring workflows that need API integrations, SDK code, CLI automation, or persistent memory get those blocks identified during Design rather than discovered mid-build.
 
 ## Build Phase Split into Three Skills
 

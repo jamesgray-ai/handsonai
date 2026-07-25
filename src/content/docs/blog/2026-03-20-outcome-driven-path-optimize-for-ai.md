@@ -14,6 +14,6 @@ title: "Outcome-Driven Path and Process Optimization in Deconstruct"
 
 **Optimize for AI (new).** For step-decomposed workflows, the skill now includes a process optimization pass after the deep dive. Once your current process is fully mapped, the model challenges it — identifying steps to eliminate (manual transfers an integration removes), collapse (draft + format in one pass), parallelize (no data dependency), or simplify (reduce review gates). You accept or reject each recommendation. The [Deconstruct guide](../../business-first-ai-framework/deconstruct/) has the full details.
 
-**Design skill updated.** The Design skill now detects outcome-driven definitions and routes through capability-domain mapping instead of per-step classification — with pre-determined Autonomous autonomy and Agent orchestration. See the [Outcome-Driven Design Flow](../../business-first-ai-framework/design/#outcome-driven-design-flow) section.
+**Design skill updated.** The Design skill now detects outcome-driven definitions and routes through capability-domain mapping instead of per-step classification — with pre-determined Autonomous autonomy and Agent orchestration. See the [Outcome-Driven Design Flow](../../ai-workflow-framework/design/#design-has-three-layers) section.
 
 Plugin version: `business-first-ai` v7.1.0.

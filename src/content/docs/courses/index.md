@@ -253,7 +253,7 @@ description: Multiple ways to learn AI hands-on with James Gray — live cohort 
 <div class="featured-courses">
 
 <div class="course-card">
-  <h3><a href="builders/">Claude for Builders: AI Workflows and Product Prototyping</a></h3>
+  <h3><a href="builders/">Agentic AI for Claude Builders</a></h3>
   <div class="course-meta-row">
     <span class="course-badge">5 Weeks</span>
     <span class="course-badge">Live Cohort</span>

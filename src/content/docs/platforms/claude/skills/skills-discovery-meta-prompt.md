@@ -4,7 +4,7 @@ description: Use this guided process to identify your highest-value Claude Skill
 ---
 
 :::note[Doing this live or want a faster path?]
-This page is the worksheet version — ten questions you answer in a text editor before pasting into Claude. For a quicker, conversational version where Claude interviews you directly, try [Find Your Skill Candidates (Quick Prompt)](./find-skill-candidates.md).
+This page is the worksheet version — ten questions you answer in a text editor before pasting into Claude. For a quicker, conversational version where Claude interviews you directly, try [Find Your Skill Candidates (Quick Prompt)](../find-skill-candidates/).
 :::
 
 ## Why This Matters

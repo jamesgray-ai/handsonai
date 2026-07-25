@@ -18,7 +18,7 @@ Start at the [Set Up the Skills](/ai-workflow-framework/skills/) page for step-b
 :::tip[Looking for non-Claude platforms?]
 This page covers the Claude ecosystem (Claude Code, Claude.ai, Cowork, API).
 For Cursor, Codex CLI, Gemini CLI, VS Code Copilot, or any LLM, see
-[How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform).
+[How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills).
 :::
 
 ## What's Inside a Plugin
@@ -46,7 +46,7 @@ The Hands-on AI plugin currently focuses on **agents** and **skills**. As it gro
 
 The plugin is plain-text Markdown — there's no compiled code or hidden logic. Every agent and skill is fully readable, so you can review exactly what instructions Claude receives before you install anything.
 
-**Review the source:** All plugin files are open source in the [handsonai-plugins GitHub repository](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai). The [plugin detail page](handsonai/) lists every agent and skill with descriptions of what they do.
+**Review the source:** All plugin files are open source in the [handsonai-plugins GitHub repository](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai). The [plugin detail page](../handsonai/) lists every agent and skill with descriptions of what they do.
 
 :::caution[Anthropic's guidance on third-party plugins]
 Anthropic recommends reviewing any plugin before installing it. From the official [plugin documentation](https://code.claude.com/docs/en/discover-plugins): *"Make sure you trust a plugin before installing it. Anthropic does not control what MCP servers, files, or other software are included in plugins and cannot verify that they work as intended."*
@@ -129,7 +129,7 @@ You can also invoke a skill directly with a slash command. The format is `/hands
 | `/handsonai:writing-vision-briefs` | Capture a fuzzy idea as a Vision Brief |
 | `/handsonai:writing-feature-prds` | Write a feature PRD with user stories and acceptance criteria |
 
-The [plugin detail page](handsonai/) describes each one in depth, with example prompts and expected outputs.
+The [plugin detail page](../handsonai/) describes each one in depth, with example prompts and expected outputs.
 
 :::note
 The AI Registry skills are pure Markdown — they read and write files in your workspace, no external services required. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for how the registry works. Notion is available as an optional mirror via the Notion MCP connector.
@@ -295,7 +295,7 @@ Both support the same plugin format and skill files. If you're not comfortable w
 
 ## Download from GitHub
 
-Every file is plain-text Markdown — no compiled code, no special format. You don't need Claude Code or plugins to use them. Download skill folders from GitHub and place them in your platform's skill directory. See [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform) for step-by-step instructions for Claude Code, Cursor, Codex CLI, Gemini CLI, and VS Code Copilot.
+Every file is plain-text Markdown — no compiled code, no special format. You don't need Claude Code or plugins to use them. Download skill folders from GitHub and place them in your platform's skill directory. See [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills) for step-by-step instructions for Claude Code, Cursor, Codex CLI, Gemini CLI, and VS Code Copilot.
 
 GitHub: [Browse the plugin on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai)
 
@@ -519,6 +519,6 @@ https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/sk
 
 ## Next Steps
 
-- [The Hands-on AI Plugin](handsonai/) — see what's included with example prompts for each agent and skill
+- [The Hands-on AI Plugin](../handsonai/) — see what's included with example prompts for each agent and skill
 - [AI Registry setup](../../../builder-setup/ai-registry-setup/) — how the Markdown-based AI Registry works
 - [Example Gallery](../../../use-cases/example-gallery/) — copy and customize example agents, skills, and prompts

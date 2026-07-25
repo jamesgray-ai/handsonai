@@ -471,8 +471,8 @@ A project is an active workspace — it provides standing instructions, persiste
 
 - [AI Workflow Framework](../ai-workflow-framework/) — applies building blocks to workflow analysis
 - [Design Your AI Workflow](../ai-workflow-framework/design/) — mapping workflow steps to building blocks
-- [Agentic AI for Leaders](../courses/leaders/) — course covering AI strategy and building blocks
-- [Claude for Builders](../courses/builders/) — hands-on course building with these blocks
+- [Hands-on Agentic AI for Leaders](../courses/leaders/) — course covering AI strategy and building blocks
+- [Agentic AI for Claude Builders](../courses/builders/) — hands-on course building with these blocks
 
 **Fundamentals deep-dives:**
 

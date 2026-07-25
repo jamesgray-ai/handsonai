@@ -1,5 +1,5 @@
 ---
-title: "Claude for Builders: AI Workflows and Product Prototyping"
+title: "Agentic AI for Claude Builders"
 description: From Claude user to Claude builder in 5 weeks. A hands-on cohort course on Maven.
 schema_type: Course
 course_duration: P5W
@@ -19,7 +19,9 @@ course_language: en
 
 ## Full Syllabus
 
-*Syllabus content is generated at build time. Run `python scripts/generate_syllabi.py` to populate.*
+The week-by-week syllabus lives on the Maven course page, alongside dates, pricing, and enrolment.
+
+[View the full syllabus on Maven →](https://maven.com/james-gray/claude)
 
 ## Instructor
 

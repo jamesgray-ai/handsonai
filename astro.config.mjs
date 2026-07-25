@@ -11,6 +11,11 @@ export default defineConfig({
     '/courses/leaders/setup-checklist/': '/courses/tools-setup-checklist/',
     // Framework end-to-end exercise promoted from builders week 5 to a shared course resource (2026-07-06)
     '/courses/builders/week-5/': '/courses/framework-end-to-end/',
+    // Per-week course pages retired; the course index sends readers to Builder Setup (2026-07-25)
+    '/courses/builders/week-1/': '/builder-setup/',
+    '/courses/builders/week-1/mcp-connectors-setup/': '/builder-setup/mcp-connectors-setup/',
+    // Duplicate of the richer /platforms/ landing, which lists Cursor too (2026-07-25)
+    '/platforms/overview/': '/platforms/',
     // AI Registry moved from Notion to Markdown-first (2026-07-05)
     '/builder-setup/notion-registry-setup/': '/builder-setup/ai-registry-setup/',
     // Legacy "cookbook" → "playbook" rename
@@ -460,6 +465,7 @@ export default defineConfig({
             { label: 'Repository Creation & Cloning', link: '/builder-setup/repo-creation-and-cloning/' },
             { label: 'Git Concepts (reference)', link: '/builder-setup/git-concepts/' },
             { label: 'Voice to Text', link: '/builder-setup/voice-to-text-setup/' },
+            { label: 'MCP Connectors', link: '/builder-setup/mcp-connectors-setup/' },
             { label: 'AI Registry', link: '/builder-setup/ai-registry-setup/' },
             { label: 'Terminal Basics (reference)', link: '/builder-setup/terminal-basics/' },
           ],
@@ -486,6 +492,7 @@ export default defineConfig({
                 { label: 'Software Development Lifecycle', link: '/product-engineering/sdlc/' },
                 { label: 'Project Tracking with GitHub', link: '/product-engineering/tracking/' },
                 { label: 'Architecture Decision Records', link: '/product-engineering/architecture-decisions/' },
+                { label: 'AI Engineering', link: '/ai-engineering/' },
                 { label: 'Context Engineering', link: '/ai-engineering/context-engineering/' },
                 { label: 'Evaluation', link: '/ai-engineering/evaluation/' },
               ],
@@ -520,8 +527,8 @@ export default defineConfig({
             { label: 'Overview', link: '/courses/' },
             { label: 'Tools Setup Checklist', link: '/courses/tools-setup-checklist/' },
             { label: 'Framework End-to-End Exercise', link: '/courses/framework-end-to-end/' },
-            { label: 'Agentic AI for Leaders', link: '/courses/leaders/' },
-            { label: 'Claude for Builders', link: '/courses/builders/' },
+            { label: 'Hands-on Agentic AI for Leaders', link: '/courses/leaders/' },
+            { label: 'Agentic AI for Claude Builders', link: '/courses/builders/' },
           ],
         },
         { label: 'What People Built', link: '/what-people-built/' },

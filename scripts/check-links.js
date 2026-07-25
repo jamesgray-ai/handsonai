@@ -107,24 +107,29 @@ const SIDEBAR_EXEMPT_PREFIXES = [
   '/questions', // surfaced through the Q&A hub, not the nav tree
 ];
 
-/** Individual pages intentionally outside the nav. */
+/**
+ * Individual pages intentionally outside the nav.
+ *
+ * The nav lists landing pages, not every child beneath them — so a page being
+ * absent is only a problem when the page is itself a section landing.
+ *
+ * `/platforms/resources` is the one judgement call here: it is a real page of
+ * recommended reading with no inbound link from anywhere, so it is reachable
+ * only by typing the URL. The fix is to link it from somewhere, not to retire
+ * it — until then, exempting it keeps this check honest rather than green.
+ */
 const SIDEBAR_EXEMPT_ROUTES = new Set([
   '/CONTRIBUTING', // repo meta, not reader-facing
   '/feed', // feed landing page
+  '/platforms/resources', // child of /platforms/; orphaned, wants an inbound link
 ]);
 
 /**
- * Pages that were already missing when this check was added. Not endorsed —
- * each is worth a decision. Remove entries as they are either added to the
- * sidebar or consciously exempted above.
+ * Pages that were already missing when this check was added. Now empty: every
+ * entry was either added to the nav or consciously exempted above. Anything
+ * appearing here again is new rot, and fails.
  */
-const SIDEBAR_KNOWN_GAPS = new Set([
-  '/ai-engineering',
-  '/courses/builders/week-1',
-  '/courses/builders/week-1/mcp-connectors-setup',
-  '/platforms/overview',
-  '/platforms/resources',
-]);
+const SIDEBAR_KNOWN_GAPS = new Set([]);
 
 function checkSidebar() {
   const configPath = path.resolve('astro.config.mjs');
@@ -172,35 +177,18 @@ if (!fs.existsSync(DIST)) {
  * pre-existing rot or, worse, quietly allow-list it, each entry below warns on
  * every run until someone decides where it should point.
  *
- * Most fall into two groups: `business-first-ai-framework/*` fragments left
- * behind by the rename to `ai-workflow-framework`, and a
- * `#how-to-add-skills-to-your-platform` heading that no longer exists.
- * Remove entries as they are fixed.
+ * All 22 are now fixed and this set is empty. Any entry appearing here again
+ * is new rot, and fails the build.
+ *
+ * Worth keeping in mind, because it is what let these sit unnoticed: a
+ * redirected page still *resolves*, so a link to `old-path/#fragment` looks
+ * healthy right up until a reader follows it and lands at the top of the new
+ * page instead of the section they asked for. Only an anchor check catches it.
+ * Most of the backlog was exactly that, left by two renames
+ * (`business-first-ai-framework` → `ai-workflow-framework`, and the move of
+ * agent and skill pages into `agentic-building-blocks`).
  */
-const KNOWN_BROKEN = new Set([
-  '/ai-workflow-framework/skills → ../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/blog/2026-02-18-product-engineering-adrs-platform-agents → ../../use-cases/coding/agentic-coding/#feature-development-workflow-template',
-  '/blog/2026-02-19-build-workflows-redesign-skills-orchestration → ../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/blog/2026-02-19-build-workflows-v31-agents-matrix-architecture → ../../platforms/claude/agents/building-agents/#agent-sdk',
-  '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#autonomy-assessment',
-  '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#orchestration-mechanism',
-  '/blog/2026-03-12-data-readiness-11-building-blocks-build-phase-split → ../../business-first-ai-framework/skills/#design',
-  '/blog/2026-03-17-cli-building-block-smarter-construct → ../../business-first-ai-framework/build/#how-creation-tools-are-discovered',
-  '/blog/2026-03-20-outcome-driven-path-optimize-for-ai → ../../business-first-ai-framework/design/#outcome-driven-design-flow',
-  '/platforms/claude/skills/find-skill-candidates → ../../../agentic-building-blocks/projects/workspace-instructions-meta-prompt.md',
-  '/platforms/claude/skills/find-skill-candidates → ../../../ai-workflow-framework/analyze/',
-  '/platforms/claude/skills/find-skill-candidates → ./installing-skills.md',
-  '/platforms/claude/skills/find-skill-candidates → ./resources.md',
-  '/platforms/claude/skills/find-skill-candidates → ./skills-discovery-meta-prompt.md',
-  '/platforms/claude/skills/skills-discovery-meta-prompt → ./find-skill-candidates.md',
-  '/platforms/google-gemini/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/platforms/m365-copilot/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/platforms/openai/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-cases/agentic-coding → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-the-playbook/build/handsonai → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-the-playbook/build/using-plugins → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-the-playbook/build/using-plugins → handsonai/',
-]);
+const KNOWN_BROKEN = new Set([]);
 
 const pages = htmlFiles(DIST);
 const problems = [];
