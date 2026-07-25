@@ -19,6 +19,15 @@ For AI development, Git is essential for two reasons. First, AI coding tools use
 
 This guide installs Git on your machine and sets up your identity so your work is properly attributed.
 
+## Opening a Terminal
+
+Every command in this guide is typed into a terminal — a window where you type instructions instead of clicking them.
+
+- **macOS:** press `Cmd + Space`, type `Terminal`, press Enter.
+- **Windows:** use **Git Bash**, which the Git installer adds to your Start menu. (Windows also has PowerShell and Command Prompt — Git Bash is the one these guides assume.)
+
+You type a command, press Enter, and read what comes back. Never used a terminal before? The [Terminal Basics primer](/courses/tools-setup-checklist/) is about 15 minutes and covers everything the guides below assume.
+
 ## Check If Git Is Already Installed
 
 Open your terminal and run:
@@ -83,7 +92,7 @@ git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
 ```
 
-Use the email address you plan to use for your GitHub account (set up in the next step).
+Use the email address you plan to use for your GitHub account (set up in the next step). If these don't match, your commits still work but GitHub won't attribute them to your profile — they show up as an unlinked name, and fixing it later means rewriting history.
 
 Confirm your identity actually saved:
 

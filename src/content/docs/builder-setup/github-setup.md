@@ -19,9 +19,17 @@ This guide walks you through creating a GitHub account, securing it, and setting
 
 ## Prerequisites
 
-- Email address for GitHub account
-- Cursor or VS Code installed (see [Editor Setup Guide](../editor-setup/))
+**For everyone (sections 1 and 3):**
+
+- An email address for your GitHub account
+- Your phone with an authenticator app, for two-factor authentication
+
+Creating an account and generating a token happen entirely in your browser — nothing to install. If a hosted AI agent or automation is the only thing that needs GitHub access, sections 1 and 3 are all you need.
+
+**Additionally, if you'll run Git commands yourself (section 2):**
+
 - Git installed (see [Git Installation Guide](../git-install/))
+- Cursor or VS Code installed (see [Editor Setup Guide](../editor-setup/))
 
 ## 1. Create a GitHub Account
 
@@ -68,7 +76,16 @@ For other Linux distributions, see the [official install instructions](https://g
 gh auth login
 ```
 
-Follow the browser prompts to connect your GitHub account.
+Before it opens your browser, `gh` asks four questions in the terminal. Use the arrow keys to choose and press Enter:
+
+| Question | Choose |
+|---|---|
+| What account do you want to log into? | **GitHub.com** |
+| What is your preferred protocol for Git operations? | **HTTPS** |
+| Authenticate Git with your GitHub credentials? | **Yes** |
+| How would you like to authenticate? | **Login with a web browser** |
+
+It then shows a one-time code and opens your browser. Paste the code, approve the access, and return to the terminal — it confirms when it's done.
 
 ### Verify
 
@@ -101,7 +118,7 @@ Prefer **fine-grained** personal access tokens over classic tokens throughout �
 1. Go to **Settings → Developer settings → Personal access tokens → Fine-grained tokens**
 2. Click **Generate new token**
 3. Give it a descriptive name (e.g., `claude-code-my-repo`)
-4. Set an **expiration** — 30 or 90 days is a good default; avoid "No expiration"
+4. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. Avoid "No expiration". A token that expires mid-project silently breaks every integration using it.
 5. Under **Repository access**, select **Only select repositories** and choose the specific repo(s) it needs — avoid "All repositories"
 6. Under **Permissions**, grant only what's needed (e.g., **Contents: Read and write** for an agent that commits and pushes)
 7. Click **Generate token**
