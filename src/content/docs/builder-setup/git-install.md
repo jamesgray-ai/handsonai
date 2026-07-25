@@ -85,6 +85,29 @@ git config --global user.email "your.email@example.com"
 
 Use the email address you plan to use for your GitHub account (set up in the next step).
 
+Confirm your identity actually saved:
+
+```bash
+git config --list
+```
+
+Look for `user.name` and `user.email` in the output, with the values you just set.
+
+## Corporate Networks (Proxy / Firewall)
+
+On a work machine, Git may fail to reach GitHub if traffic has to go through a corporate proxy or a restrictive firewall.
+
+**Behind a proxy:**
+
+```bash
+git config --global http.proxy http://proxy.company.com:port
+git config --global https.proxy http://proxy.company.com:port
+```
+
+Ask your IT team for the proxy address and port if you don't have it. To remove the setting later: `git config --global --unset http.proxy`.
+
+**Behind a firewall that blocks SSH:** if `git clone git@github.com:...` hangs or times out, corporate firewalls often allow HTTPS (port 443) but block the SSH port. Use the HTTPS clone URL instead (`https://github.com/...`) — this is also what the [GitHub Setup Guide](../github-setup/) and [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) use by default.
+
 ## Troubleshooting
 
 **Command not found (Mac)?**
@@ -95,6 +118,14 @@ Use the email address you plan to use for your GitHub account (set up in the nex
 - Close and reopen your terminal
 - Make sure you selected the PATH option during installation
 - Reinstall and select "Git from the command line and also from 3rd-party software"
+
+**PATH still broken after reinstalling on Windows?**
+1. Open **Start → Environment Variables** (search "edit the system environment variables")
+2. Click **Environment Variables…**
+3. Under **System variables**, select **Path**, click **Edit**
+4. Confirm an entry exists for Git's `cmd` folder (typically `C:\Program Files\Git\cmd`) — click **New** and add it if missing
+5. Click **OK** on every dialog, then close and reopen your terminal
+6. Run `git --version` again to confirm
 
 **Permission errors?**
 - On Mac, you may need to enter your password during Xcode tools installation

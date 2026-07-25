@@ -11,7 +11,8 @@ Create a GitHub repository to store and version your AI prompts, skills, and ref
 
 1. [Git Installation](../../../builder-setup/git-install/) — Install Git on your machine
 2. [Editor Setup](../../../builder-setup/editor-setup/) — Install Cursor or VS Code
-3. [GitHub Setup](../../../builder-setup/github-setup/) — Create account and clone repositories
+3. [GitHub Setup](../../../builder-setup/github-setup/) — Create account, enable 2FA, and authenticate
+4. [Repository Creation and Cloning](../../../builder-setup/repo-creation-and-cloning/) — Create your first repository and clone it
 
 ## Lesson: Configure Your AI Code Editor
 
