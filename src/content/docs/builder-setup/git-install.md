@@ -24,9 +24,15 @@ This guide installs Git on your machine and sets up your identity so your work i
 Every command in this guide is typed into a terminal — a window where you type instructions instead of clicking them.
 
 - **macOS:** press `Cmd + Space`, type `Terminal`, press Enter.
-- **Windows:** use **Git Bash**, which the Git installer adds to your Start menu. (Windows also has PowerShell and Command Prompt — Git Bash is the one these guides assume.)
+- **Windows:** press Start, type `PowerShell`, press Enter.
 
 You type a command, press Enter, and read what comes back. Never used a terminal before? The [Terminal Basics primer](/courses/tools-setup-checklist/) is about 15 minutes and covers everything the guides below assume.
+
+Every command in this guide and the [GitHub Setup Guide](../github-setup/) works in PowerShell — they all run the `git` or `gh` program, which the installer adds to your system.
+
+**Windows: when you might want Git Bash instead.** The Git installer also adds **Git Bash**, a terminal that behaves like the macOS one. If you follow a tutorial written for Mac or Linux — anything using `ls`, `touch`, or forward-slash paths — run it in Git Bash and the commands work unchanged. For everything in these guides, PowerShell is fine.
+
+> **PowerShell says `git` is not recognized?** Git installed without being added to your PATH. See [Troubleshooting](#troubleshooting) to fix it — or use Git Bash, which works either way.
 
 ## Check If Git Is Already Installed
 
