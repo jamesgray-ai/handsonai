@@ -63,6 +63,76 @@ function idsFor(file) {
   return idCache.get(file);
 }
 
+// ---------------------------------------------------------------------------
+// Sidebar coverage
+//
+// CLAUDE.md: "When adding new docs to `src/content/docs/`, also update the
+// sidebar in `astro.config.mjs`". Nothing enforced that, so a new page could
+// ship reachable only by inline link — which happened to the repository
+// creation guide, the page every student is now sent to for setup.
+//
+// Two sections are structurally absent from the sidebar by design, and a
+// handful of pages predate this check. New gaps fail; pre-existing ones warn,
+// so they stay visible without blocking anyone.
+// ---------------------------------------------------------------------------
+
+/** Sections the sidebar deliberately does not enumerate. */
+const SIDEBAR_EXEMPT_PREFIXES = [
+  '/blog', // starlight-blog renders its own index
+  '/questions', // surfaced through the Q&A hub, not the nav tree
+];
+
+/** Individual pages intentionally outside the nav. */
+const SIDEBAR_EXEMPT_ROUTES = new Set([
+  '/CONTRIBUTING', // repo meta, not reader-facing
+  '/feed', // feed landing page
+]);
+
+/**
+ * Pages that were already missing when this check was added. Not endorsed —
+ * each is worth a decision. Remove entries as they are either added to the
+ * sidebar or consciously exempted above.
+ */
+const SIDEBAR_KNOWN_GAPS = new Set([
+  '/ai-engineering',
+  '/courses/builders/week-1',
+  '/courses/builders/week-1/mcp-connectors-setup',
+  '/platforms/overview',
+  '/platforms/resources',
+]);
+
+function checkSidebar() {
+  const configPath = path.resolve('astro.config.mjs');
+  const srcDir = path.resolve('src/content/docs');
+  if (!fs.existsSync(configPath) || !fs.existsSync(srcDir)) return { newGaps: [], knownGaps: [] };
+
+  const cfg = fs.readFileSync(configPath, 'utf8');
+  const linked = new Set(
+    [...cfg.matchAll(/link:\s*'([^']+)'/g)].map((m) => m[1].replace(/\/+$/, '') || '/')
+  );
+
+  const docs = [];
+  (function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(p);
+      else if (/\.mdx?$/.test(entry.name)) docs.push(p);
+    }
+  })(srcDir);
+
+  const newGaps = [];
+  const knownGaps = [];
+  for (const file of docs) {
+    let route = '/' + path.relative(srcDir, file).replace(/\.mdx?$/, '').replace(/\/index$/, '');
+    if (route === '/index') route = '/';
+    if (linked.has(route) || linked.has(`${route}/`)) continue;
+    if (SIDEBAR_EXEMPT_PREFIXES.some((p) => route === p || route.startsWith(`${p}/`))) continue;
+    if (SIDEBAR_EXEMPT_ROUTES.has(route)) continue;
+    (SIDEBAR_KNOWN_GAPS.has(route) ? knownGaps : newGaps).push(route);
+  }
+  return { newGaps: newGaps.sort(), knownGaps: knownGaps.sort() };
+}
+
 if (!fs.existsSync(DIST)) {
   console.error(`check-links: ${DIST} not found — run \`npm run build\` first.`);
   process.exit(1);
@@ -109,11 +179,34 @@ for (const page of pages) {
   }
 }
 
+const { newGaps, knownGaps } = checkSidebar();
+let failed = false;
+
 if (problems.length) {
   console.error(`check-links: ${problems.length} broken of ${checked} internal links\n`);
   for (const p of problems.sort()) console.error(`  BROKEN  ${p}`);
-  console.error(`\nA missing id usually means a heading was reworded. Fix the link, or restore the heading.`);
-  process.exit(1);
+  console.error(`\nA missing id usually means a heading was reworded. Fix the link, or restore the heading.\n`);
+  failed = true;
+} else {
+  console.log(`check-links: ${checked} internal links and anchors OK across ${pages.length} pages`);
 }
 
-console.log(`check-links: ${checked} internal links and anchors OK across ${pages.length} pages`);
+if (newGaps.length) {
+  console.error(`check-links: ${newGaps.length} page(s) missing from the sidebar\n`);
+  for (const r of newGaps) console.error(`  NO SIDEBAR ENTRY  ${r}`);
+  console.error(
+    `\nCLAUDE.md: when adding docs to src/content/docs/, add them to the sidebar in\n` +
+    `astro.config.mjs too — otherwise the page is reachable only by inline link.\n` +
+    `If it is deliberately outside the nav, add it to SIDEBAR_EXEMPT_ROUTES in this script.\n`
+  );
+  failed = true;
+} else {
+  console.log(`check-links: sidebar covers every doc (${knownGaps.length} pre-existing gap(s) allowed)`);
+}
+
+if (knownGaps.length) {
+  console.warn(`\ncheck-links: pre-existing sidebar gaps, not blocking — each still wants a decision:`);
+  for (const r of knownGaps) console.warn(`  known gap  ${r}`);
+}
+
+if (failed) process.exit(1);
