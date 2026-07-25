@@ -486,6 +486,7 @@ export default defineConfig({
                 { label: 'Software Development Lifecycle', link: '/product-engineering/sdlc/' },
                 { label: 'Project Tracking with GitHub', link: '/product-engineering/tracking/' },
                 { label: 'Architecture Decision Records', link: '/product-engineering/architecture-decisions/' },
+                { label: 'AI Engineering', link: '/ai-engineering/' },
                 { label: 'Context Engineering', link: '/ai-engineering/context-engineering/' },
                 { label: 'Evaluation', link: '/ai-engineering/evaluation/' },
               ],

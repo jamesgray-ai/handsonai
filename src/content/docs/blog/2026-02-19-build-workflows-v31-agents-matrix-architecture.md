@@ -17,7 +17,7 @@ The [`building-workflows`](../../business-first-ai-framework/build/) skill now e
 
 ## Agents by Platform matrix expanded
 
-The [Agents](../../agentic-building-blocks/agents/) index page now shows one row per agent approach across all four platforms — including browser-based offerings (Claude in Chrome, Atlas Browser, Gemini in Chrome) and the [Claude Agent SDK](../../platforms/claude/agents/building-agents/#agent-sdk). Each row links to official docs and the corresponding platform guide.
+The [Agents](../../agentic-building-blocks/agents/) index page now shows one row per agent approach across all four platforms — including browser-based offerings (Claude in Chrome, Atlas Browser, Gemini in Chrome) and the [Claude Agent SDK](../../agentic-building-blocks/agents/#agents-by-platform). Each row links to official docs and the corresponding platform guide.
 
 ## Architecture decisions simplified
 

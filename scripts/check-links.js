@@ -107,24 +107,34 @@ const SIDEBAR_EXEMPT_PREFIXES = [
   '/questions', // surfaced through the Q&A hub, not the nav tree
 ];
 
-/** Individual pages intentionally outside the nav. */
+/**
+ * Individual pages intentionally outside the nav.
+ *
+ * The nav lists landing pages, not every child beneath them — so a page being
+ * absent is only a problem when the page is itself a section landing.
+ *
+ * The four below have no inbound links from anywhere in the content, so they
+ * are reachable only by typing the URL. Exempting them keeps the check honest
+ * rather than green, but each is a retirement candidate:
+ *   - `/platforms/overview` duplicates the shorter `/platforms/` landing.
+ *   - `/courses/builders/week-1` and its child look like scaffolding left from
+ *     the week restructure that redirected `week-5` to `framework-end-to-end`.
+ */
 const SIDEBAR_EXEMPT_ROUTES = new Set([
   '/CONTRIBUTING', // repo meta, not reader-facing
   '/feed', // feed landing page
+  '/courses/builders/week-1', // child of /courses/builders/; orphaned
+  '/courses/builders/week-1/mcp-connectors-setup', // ditto, one level deeper
+  '/platforms/overview', // duplicate of the /platforms/ landing; orphaned
+  '/platforms/resources', // child of /platforms/; orphaned
 ]);
 
 /**
- * Pages that were already missing when this check was added. Not endorsed —
- * each is worth a decision. Remove entries as they are either added to the
- * sidebar or consciously exempted above.
+ * Pages that were already missing when this check was added. Now empty: every
+ * entry was either added to the nav or consciously exempted above. Anything
+ * appearing here again is new rot, and fails.
  */
-const SIDEBAR_KNOWN_GAPS = new Set([
-  '/ai-engineering',
-  '/courses/builders/week-1',
-  '/courses/builders/week-1/mcp-connectors-setup',
-  '/platforms/overview',
-  '/platforms/resources',
-]);
+const SIDEBAR_KNOWN_GAPS = new Set([]);
 
 function checkSidebar() {
   const configPath = path.resolve('astro.config.mjs');
@@ -172,31 +182,18 @@ if (!fs.existsSync(DIST)) {
  * pre-existing rot or, worse, quietly allow-list it, each entry below warns on
  * every run until someone decides where it should point.
  *
- * The mechanical ones are fixed: a renamed `#how-to-install-skills` heading,
- * stale `.md` suffixes, relative paths a level short (routes nest one deeper
- * than source files), and links whose page moved but whose fragment survived
- * the move intact — those only needed the path repointing past the redirect.
+ * All 22 are now fixed and this set is empty. Any entry appearing here again
+ * is new rot, and fails the build.
  *
- * Note the shared root cause: a redirected page still *resolves*, so a link to
- * `old-path/#fragment` looks fine until you follow it and land at the top of
- * the new page. Every entry below is that failure, and each needs someone to
- * choose a destination heading rather than look one up:
- *
- *   - `#agent-sdk` on the agents page — no longer a heading of its own.
- *   - `#design` on the framework skills page — that page now describes setup
- *     rather than the individual steps.
- *   - `#outcome-driven-design-flow` on the design page — restructured into the
- *     three-layer model.
- *
- * Fixing a link inside an archived post does not rewrite what the post said —
- * a link is navigation, not a claim — but that is a call to make deliberately.
- * Remove entries as they are fixed.
+ * Worth keeping in mind, because it is what let these sit unnoticed: a
+ * redirected page still *resolves*, so a link to `old-path/#fragment` looks
+ * healthy right up until a reader follows it and lands at the top of the new
+ * page instead of the section they asked for. Only an anchor check catches it.
+ * Most of the backlog was exactly that, left by two renames
+ * (`business-first-ai-framework` → `ai-workflow-framework`, and the move of
+ * agent and skill pages into `agentic-building-blocks`).
  */
-const KNOWN_BROKEN = new Set([
-  '/blog/2026-02-19-build-workflows-v31-agents-matrix-architecture → ../../platforms/claude/agents/building-agents/#agent-sdk',
-  '/blog/2026-03-12-data-readiness-11-building-blocks-build-phase-split → ../../business-first-ai-framework/skills/#design',
-  '/blog/2026-03-20-outcome-driven-path-optimize-for-ai → ../../business-first-ai-framework/design/#outcome-driven-design-flow',
-]);
+const KNOWN_BROKEN = new Set([]);
 
 const pages = htmlFiles(DIST);
 const problems = [];
