@@ -58,7 +58,7 @@ With [Homebrew](https://brew.sh):
 brew install gh
 ```
 
-**No Homebrew?** If you installed Git via Xcode Command Line Tools (the recommended path above), you probably don't have Homebrew. Download the macOS `.pkg` installer from [cli.github.com](https://cli.github.com) and run it — no terminal needed.
+**No Homebrew?** If you installed Git via [Xcode Command Line Tools](../git-install/#option-1-xcode-command-line-tools-recommended) — the path the Git guide recommends — you probably don't have Homebrew. Download the macOS `.pkg` installer from [cli.github.com](https://cli.github.com) and run it — no terminal needed.
 
 ### Windows
 
@@ -123,7 +123,7 @@ Prefer **fine-grained** personal access tokens over classic tokens throughout. E
 2. Click **Generate new token**
 3. Give it a descriptive name (e.g., `claude-code-my-repo`)
 4. Choose the **Resource owner** — your personal account, or an organisation if the repository belongs to one. Organisation-owned tokens usually need an admin to approve them before they work, which can take days; start early if that applies to you.
-5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. GitHub caps custom expiry at 366 days. Avoid "No expiration" where offered. A token that expires mid-project silently breaks every integration using it.
+5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. Fine-grained tokens always expire, and GitHub caps a custom expiry at 366 days, so pick deliberately: one that lapses mid-project silently breaks every integration using it.
 6. Set **Repository access** — **Only select repositories**, and choose just the repo(s) needed. Create the repository first if it doesn't exist yet (see the [Repository Creation and Cloning Guide](../repo-creation-and-cloning/)); you can't select one that isn't there.
 
    **All repositories** also exists, and covers current *and future* repositories — occasionally useful on a personal account holding nothing you care about, when you want a token that keeps working as you add repos. Two reasons to prefer selecting: many tools that consume a token require a specific repository anyway (Notion's Claude agent connector, for one, states this on its connect screen), and on any account holding real work the wider scope is a genuine risk. Never point a token at an organisation's full repository list to save a step.

@@ -119,7 +119,12 @@ git config --global http.proxy http://proxy.company.com:port
 git config --global https.proxy http://proxy.company.com:port
 ```
 
-Ask your IT team for the proxy address and port if you don't have it. To remove the setting later: `git config --global --unset http.proxy`.
+Ask your IT team for the proxy address and port if you don't have it. To remove both settings later — do unset **both**, or the leftover `https.proxy` keeps breaking HTTPS remotes once you're off the corporate network:
+
+```bash
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
 
 **Behind a firewall that blocks SSH:** if `git clone git@github.com:...` hangs or times out, corporate firewalls often allow HTTPS (port 443) but block the SSH port. Use the HTTPS clone URL instead (`https://github.com/...`) — this is also what the [GitHub Setup Guide](../github-setup/) and [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) use by default.
 
