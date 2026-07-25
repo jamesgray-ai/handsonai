@@ -18,7 +18,7 @@ const posts = limit ? allPosts.slice(0, limit) : allPosts;
 {posts.map((post) => (
   <div style="margin-bottom: 2rem;">
     <small style="color: var(--sl-color-gray-3);">
-      {new Date(post.data.date!).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+      {new Date(post.data.date!).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
     </small>
     <h3 style="margin-top: 0.25rem; margin-bottom: 0.25rem;">
       <a href={`/${post.id}/`}>{post.data.title}</a>
