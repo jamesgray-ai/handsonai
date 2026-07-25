@@ -85,14 +85,14 @@ gh auth status
 
 **A token is a stored secret. A CLI login is a session.**
 
-`gh auth login` opens your browser, you approve, and the token lands in *your machine's* keychain. That works when **you** are the one running commands. It cannot work when something else needs to reach GitHub without you present — an AI agent, an automation, a hosted tool — because that thing can't read your keychain. For those, you generate a token and give it to them.
+`gh auth login` opens your browser, you approve, and the credential is stored locally on your machine (in `gh`'s configuration or your system credential helper). That works when **you** are the one running commands. It cannot work when something else needs to reach GitHub without you present — an AI agent, an automation, a hosted tool — because that thing can't access your machine's credential storage. For those, you generate a token and give it to them.
 
 | | Fine-grained personal access token | `gh auth login` |
 |---|---|---|
 | What it is | A credential you generate and store | An interactive browser flow; token stored in your local keychain |
 | Use when | Something *other than you* must authenticate — a hosted agent, CI, an automation | *You* are working on your own machine |
 | Scope | Per-repository, per-permission, with an expiry date | Your full account access |
-| Main risk | It's a secret: if it leaks it works until revoked or expired | Bound to the machine you logged in on |
+| Main risk | It's a secret: if it leaks it works until revoked or expired | Cannot be used on other machines or shared with tools |
 
 Prefer **fine-grained** personal access tokens over classic tokens throughout — classic tokens grant broad, all-repository access with no expiry, which is far more than most integrations need.
 
