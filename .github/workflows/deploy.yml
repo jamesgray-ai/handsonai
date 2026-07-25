@@ -19,19 +19,6 @@ jobs:
         with:
           fetch-depth: 0  # Full history for lastUpdated git dates
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install Python dependencies
-        run: pip install notion-client requests
-
-      - name: Generate syllabus pages
-        run: python scripts/generate_syllabi.py
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -55,19 +42,6 @@ jobs:
     needs: deploy
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install Python dependencies
-        run: pip install notion-client requests
-
-      - name: Generate syllabus pages
-        run: python scripts/generate_syllabi.py
-        env:
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

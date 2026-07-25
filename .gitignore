@@ -34,10 +34,6 @@ dist/
 *.temp
 
 # Generated at build time
-src/content/docs/courses/builders/syllabus.md
-src/content/docs/courses/leaders/syllabus.md
-src/content/docs/courses/builders/_syllabus_body.md
-src/content/docs/courses/leaders/_syllabus_body.md
 src/content/docs/courses/builders/lessons/
 src/content/docs/courses/leaders/lessons/
 
