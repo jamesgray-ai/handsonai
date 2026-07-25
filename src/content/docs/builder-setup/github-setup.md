@@ -124,10 +124,10 @@ Prefer **fine-grained** personal access tokens over classic tokens throughout. E
 3. Give it a descriptive name (e.g., `claude-code-my-repo`)
 4. Choose the **Resource owner** — your personal account, or an organisation if the repository belongs to one. Organisation-owned tokens usually need an admin to approve them before they work, which can take days; start early if that applies to you.
 5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. GitHub caps custom expiry at 366 days. Avoid "No expiration" where offered. A token that expires mid-project silently breaks every integration using it.
-6. Set **Repository access**. Which option is right depends on what the resource owner already owns:
-   - **A personal account with little or nothing in it:** **All repositories** is fine, and is the simpler choice — it covers current *and future* repositories, so you can generate the token before you've created a repo and it will still work afterwards. The blast radius is whatever that account owns, which is close to nothing.
-   - **An account or organisation holding work you care about:** **Only select repositories**, and choose just the repo(s) needed. This requires the repository to exist first. Never point a token at an organisation's full repository list to save a step.
-7. Under **Permissions**, grant only what's needed (e.g., **Contents: Read and write** for an agent that commits and pushes — GitHub adds **Metadata: Read** automatically)
+6. Set **Repository access** — **Only select repositories**, and choose just the repo(s) needed. Create the repository first if it doesn't exist yet (see the [Repository Creation and Cloning Guide](../repo-creation-and-cloning/)); you can't select one that isn't there.
+
+   **All repositories** also exists, and covers current *and future* repositories — occasionally useful on a personal account holding nothing you care about, when you want a token that keeps working as you add repos. Two reasons to prefer selecting: many tools that consume a token require a specific repository anyway (Notion's Claude agent connector, for one, states this on its connect screen), and on any account holding real work the wider scope is a genuine risk. Never point a token at an organisation's full repository list to save a step.
+7. Under **Permissions**, grant only what's needed. The tool you're connecting will list the permissions it requires — treat that list as authoritative. Two you'll meet often: **Contents** (read and write files) and **Pull requests** (open a pull request instead of writing straight to the main branch), each set to **Read and write**. GitHub adds **Metadata: Read** automatically.
 8. Click **Generate token**
 9. **Copy the token now** — GitHub shows it exactly once and cannot show it to you again
 
