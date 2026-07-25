@@ -3,12 +3,28 @@ name: Claude Code Review
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
-    # Optional: Only run on specific file changes
-    # paths:
-    #   - "src/**/*.ts"
-    #   - "src/**/*.tsx"
-    #   - "src/**/*.js"
-    #   - "src/**/*.jsx"
+    # Review only PRs that touch code, where bugs can hide. This repo is
+    # overwhelmingly content — ~197 docs against ~10 source files — so running an
+    # AI code review on every prose PR costs minutes for no signal.
+    #
+    # Content is not left unguarded: `npm run build` fails on broken MDX and
+    # frontmatter, and the link-check workflow verifies every internal link and
+    # heading anchor in the built output.
+    #
+    # NOTE: this only works because claude-review is NOT a required check —
+    # a required check that never triggers would block merges forever. `main`
+    # is unprotected as of 2026-07-25; re-check this if that changes.
+    paths:
+      - "src/**/*.ts"
+      - "src/**/*.tsx"
+      - "src/**/*.js"
+      - "src/**/*.jsx"
+      - "src/**/*.astro"
+      - "src/**/*.css"
+      - "astro.config.*"
+      - "package.json"
+      - "scripts/**"
+      - ".github/**"
 
 jobs:
   claude-review:
