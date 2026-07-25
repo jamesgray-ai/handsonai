@@ -1,10 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
 
+interface Props {
+  /** Maximum number of posts to render. Omit to render all posts. */
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+
 const docs = await getCollection('docs');
-const posts = docs
+const allPosts = docs
   .filter((entry) => entry.id.startsWith('blog/') && entry.id !== 'blog/' && entry.data.date)
   .sort((a, b) => new Date(b.data.date!).getTime() - new Date(a.data.date!).getTime());
+const posts = limit ? allPosts.slice(0, limit) : allPosts;
 ---
 
 {posts.map((post) => (
