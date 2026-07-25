@@ -46,7 +46,32 @@ function resolveRoute(urlPath) {
     path.join(DIST, `${clean}.html`),
     path.join(DIST, clean), // already a file (e.g. /llms.txt)
   ];
-  return candidates.find((c) => fs.existsSync(c) && fs.statSync(c).isFile()) || null;
+  return candidates.find((c) => existsCaseSensitive(c) && fs.statSync(c).isFile()) || null;
+}
+
+/**
+ * `fs.existsSync` is case-INSENSITIVE on macOS, so a link to /CONTRIBUTING/
+ * resolves locally against dist/contributing/ and then 404s in production,
+ * where the host is case-sensitive. That is not hypothetical — three such links
+ * shipped, passed locally, and were only caught by Linux CI.
+ *
+ * Walk the path and confirm each segment matches a real directory entry
+ * exactly, so a run on a Mac fails the same links a run on Linux does.
+ */
+const dirCache = new Map();
+function existsCaseSensitive(target) {
+  if (!fs.existsSync(target)) return false;
+  const rel = path.relative(DIST, target);
+  if (rel.startsWith('..')) return false;
+  let dir = DIST;
+  for (const segment of rel.split(path.sep)) {
+    if (!dirCache.has(dir)) {
+      dirCache.set(dir, fs.existsSync(dir) ? new Set(fs.readdirSync(dir)) : new Set());
+    }
+    if (!dirCache.get(dir).has(segment)) return false;
+    dir = path.join(dir, segment);
+  }
+  return true;
 }
 
 /** id="..." values present in a rendered page. */
