@@ -457,6 +457,7 @@ export default defineConfig({
             { label: 'AI Code Editor', link: '/builder-setup/editor-setup/' },
             { label: 'Git', link: '/builder-setup/git-install/' },
             { label: 'GitHub', link: '/builder-setup/github-setup/' },
+            { label: 'Repository Creation & Cloning', link: '/builder-setup/repo-creation-and-cloning/' },
             { label: 'Voice to Text', link: '/builder-setup/voice-to-text-setup/' },
             { label: 'AI Registry', link: '/builder-setup/ai-registry-setup/' },
             { label: 'Terminal Basics (reference)', link: '/builder-setup/terminal-basics/' },

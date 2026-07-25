@@ -1,29 +1,35 @@
 ---
 title: GitHub Setup Guide
-description: Create a GitHub account, create your first repository, clone it, and learn core Git concepts for AI development
+description: Create a GitHub account with 2FA, install the GitHub CLI, and choose between a CLI login and a personal access token
 schema_type: HowTo
 howto_steps:
   - name: Create a GitHub account
-    text: Go to github.com, click Sign up, follow the prompts, and verify your email address.
-  - name: Create a repository
-    text: Click the + menu, select New repository, name it, add a README, and click Create repository.
+    text: Go to github.com, click Sign up, follow the prompts, verify your email address, and enable two-factor authentication.
   - name: Install GitHub CLI
     text: Install gh via Homebrew (macOS), winget (Windows), or apt (Linux), then run gh auth login to connect your GitHub account.
-  - name: Clone a repository
-    text: Open the Command Palette (Cmd/Ctrl + Shift + P), type Git Clone, paste the repository URL, and choose a local folder.
+  - name: Choose your authentication method
+    text: Use gh auth login when you're running commands yourself. Generate a fine-grained personal access token when a hosted agent or automation needs to authenticate without you present.
 ---## What Is GitHub?
 
-GitHub is a website where people store and share code projects. If Git tracks your changes locally (like a save history on your computer), GitHub is where that history lives in the cloud — backed up, shareable, and accessible from anywhere.
+GitHub is a website where people store, version, and share files — application code, but equally the prompts, skills, agents, and markdown you build with AI. If Git tracks your changes locally (like a save history on your computer), GitHub is where that history lives in the cloud — backed up, shareable, and accessible from anywhere.
 
 As you build with AI, you'll create prompts, skills, agents, and project files that become the foundation of your workflows. GitHub is where those files live in the cloud — backed up, versioned, and accessible from any machine. Think of it as your portfolio and safety net in one place. Your files are stored in *repositories* (project folders that Git tracks), and you work with them by *cloning* — making a local copy on your computer.
 
-This guide walks you through creating a GitHub account, creating your first repository, and cloning it to your computer.
+This guide walks you through creating a GitHub account, securing it, and setting up the two ways you'll authenticate with GitHub. Create your repository before you generate a token — a token has to be scoped to a repository that already exists. The [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) covers that, and section 1 of it needs nothing installed.
 
 ## Prerequisites
 
-- Email address for GitHub account
-- Cursor or VS Code installed (see [Editor Setup Guide](../editor-setup/))
+**For everyone (section 1 — creating your account):**
+
+- An email address for your GitHub account
+- Your phone with an authenticator app, for two-factor authentication
+
+Section 1 and the token steps in section 3 happen entirely in your browser — nothing to install. If a hosted AI agent or automation is the only thing that needs GitHub access, those are all you need.
+
+**Additionally, if you'll run Git commands yourself (section 2):**
+
 - Git installed (see [Git Installation Guide](../git-install/))
+- An editor such as Cursor or VS Code — useful, but not required for anything in this guide (see [Editor Setup Guide](../editor-setup/))
 
 ## 1. Create a GitHub Account
 
@@ -31,29 +37,28 @@ This guide walks you through creating a GitHub account, creating your first repo
 2. Click **Sign up**
 3. Follow the prompts to create your account
 4. Verify your email address
+5. Enable two-factor authentication (2FA):
+   - Go to **Settings → Password and authentication**
+   - Under **Two-factor authentication**, click **Enable two-factor authentication**
+   - Choose an authenticator app (recommended — e.g., 1Password, Authy, Google Authenticator) or a security key
+   - Scan the QR code with your authenticator app and enter the generated code to confirm
+   - Save the recovery codes GitHub shows you somewhere safe (a password manager, not a text file) — you'll need one if you lose access to your authenticator
 
-**Already have an account and a repository?** Skip to step 3.
+**Already have an account with 2FA enabled?** Skip to step 2.
 
-## 2. Create a Repository
+## 2. Install GitHub CLI
 
-1. From GitHub, click the **+** button (top-right corner) → **New repository**
-2. Enter a repository name (e.g., `my-ai-projects`)
-3. Add an optional description
-4. Select **Private** (recommended for personal work)
-5. Check **Add a README file**
-6. Click **Create repository**
-
-You'll land on your new repository's page with a README file. The URL in your browser (e.g., `https://github.com/your-username/my-ai-projects`) is what you'll use to clone it in the next step.
-
-## 3. Install GitHub CLI
-
-The GitHub CLI (`gh`) is required for cloning repos from Claude Desktop's Code tab and for letting Cursor or Claude Code authenticate with GitHub programmatically. Install it before cloning.
+The GitHub CLI (`gh`) is the simplest way to authenticate Git on your own machine, and it is what AI code editors and coding agents use to reach GitHub on your behalf. Install it before cloning a repository. Skip this section entirely if you won't be working with files locally.
 
 ### macOS
+
+With [Homebrew](https://brew.sh):
 
 ```bash
 brew install gh
 ```
+
+**No Homebrew?** If you installed Git via [Xcode Command Line Tools](../git-install/#option-1-xcode-command-line-tools-recommended) — the path the Git guide recommends — you probably don't have Homebrew. Download the macOS `.pkg` installer from [cli.github.com](https://cli.github.com) and run it — no terminal needed.
 
 ### Windows
 
@@ -75,7 +80,16 @@ For other Linux distributions, see the [official install instructions](https://g
 gh auth login
 ```
 
-Follow the browser prompts to connect your GitHub account.
+Before it opens your browser, `gh` asks four questions in the terminal. Use the arrow keys to choose and press Enter:
+
+| Question | Choose |
+|---|---|
+| What account do you want to log into? | **GitHub.com** |
+| What is your preferred protocol for Git operations? | **HTTPS** |
+| Authenticate Git with your GitHub credentials? | **Yes** |
+| How would you like to authenticate? | **Login with a web browser** |
+
+It then shows a one-time code and opens your browser. Paste the code, approve the access, and return to the terminal — it confirms when it's done.
 
 ### Verify
 
@@ -88,43 +102,38 @@ gh auth status
 
 **Official docs:** [GitHub CLI manual](https://cli.github.com/manual/)
 
-## 4. Clone a Repository
+## 3. Choose How You'll Authenticate: Token vs. CLI Login
 
-Download (clone) a repository from GitHub using whichever tool you're working in.
+**A token is a stored secret. A CLI login is a session.**
 
-### In Cursor or VS Code
+`gh auth login` opens your browser, you approve, and the credential is stored locally on your machine (in `gh`'s configuration or your system credential helper). That works when **you** are the one running commands. It cannot work when something else needs to reach GitHub without you present — an AI agent, an automation, a hosted tool — because that thing can't access your machine's credential storage. For those, you generate a token and give it to them.
 
-1. Open the Command Palette (Cmd/Ctrl + Shift + P)
-2. Type **Git: Clone**
-3. Paste the repository URL (e.g., `https://github.com/username/project-name.git`)
-4. Choose a local folder location
-5. Open the cloned repository when prompted
+| | Fine-grained personal access token | `gh auth login` |
+|---|---|---|
+| What it is | A credential you generate and store | An interactive browser flow; the token is stored locally in `gh`'s config or your system credential helper |
+| Use when | Something *other than you* must authenticate — a hosted agent, CI, an automation | *You* are working on your own machine |
+| Scope | Per-repository, per-permission, with an expiry date | A broad set of account scopes (repo, read:org, gist, workflow) |
+| Main risk | It's a secret: if it leaks it works until revoked or expired | Broad scope, and anyone with access to your machine can read it with `gh auth token` |
 
-### In Claude Desktop (Code tab)
+Prefer **fine-grained** personal access tokens over classic tokens throughout. Even at their widest setting, fine-grained tokens still expire and still grant only the specific permissions you tick. Classic tokens do neither — they carry coarse scopes across every repository you can reach, and can be created with no expiry at all.
 
-If you're working in the Claude Desktop app without a separate code editor, you can clone a repo by asking Claude to do it for you. Because you installed and authenticated the GitHub CLI in the previous step, Claude can use `gh` on your behalf.
+### Creating a Fine-Grained Personal Access Token
 
-1. Open **Claude Desktop** and click the **Code** tab
-2. Start a new session and pick (or create) a local folder you want the repo cloned into
-3. In the chat box, paste a prompt like:
+1. Go to **Settings → Developer settings → Personal access tokens → Fine-grained tokens**
+2. Click **Generate new token**
+3. Give it a descriptive name (e.g., `claude-code-my-repo`)
+4. Choose the **Resource owner** — your personal account, or an organisation if the repository belongs to one. Organisation-owned tokens usually need an admin to approve them before they work, which can take days; start early if that applies to you.
+5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. Fine-grained tokens always expire, and GitHub caps a custom expiry at 366 days, so pick deliberately: one that lapses mid-project silently breaks every integration using it.
+6. Set **Repository access** — **Only select repositories**, and choose just the repo(s) needed. Create the repository first if it doesn't exist yet (see the [Repository Creation and Cloning Guide](../repo-creation-and-cloning/)); you can't select one that isn't there.
 
-   > Clone `https://github.com/username/project-name.git` into this folder.
+   **All repositories** also exists, and covers current *and future* repositories — occasionally useful on a personal account holding nothing you care about, when you want a token that keeps working as you add repos. Two reasons to prefer selecting: many tools that consume a token require a specific repository anyway (Notion's Claude agent connector, for one, states this on its connect screen), and on any account holding real work the wider scope is a genuine risk. Never point a token at an organisation's full repository list to save a step.
+7. Under **Permissions**, grant only what's needed. The tool you're connecting will list the permissions it requires — treat that list as authoritative. Two you'll meet often: **Contents** (read and write files) and **Pull requests** (open a pull request instead of writing straight to the main branch), each set to **Read and write**. GitHub adds **Metadata: Read** automatically.
+8. Click **Generate token**
+9. **Copy the token now** — GitHub shows it exactly once and cannot show it to you again
 
-4. Approve the command when Claude asks for permission to run `gh repo clone` (or `git clone`)
-5. When it finishes, open Finder (macOS) or File Explorer (Windows) and navigate to the folder you chose — you should see the cloned repo there
+### Storing Your Token Safely
 
-### Verify the Clone Worked
-
-After cloning, confirm the repository is on your machine:
-
-1. Check the **sidebar** in your editor — you should see the project's files and folders
-2. Open the integrated terminal (**Ctrl + `**) and run:
-
-```bash
-git status
-```
-
-You should see a message like `On branch main` — this confirms the repository was cloned correctly and Git is tracking it.
+Save the token in a password manager (1Password, Bitwarden, etc.), not in a plain text file, a `.env` you might commit, or a note. If a hosted agent or tool needs the token, paste it directly into that tool's credential/secret field rather than writing it to disk in your repository.
 
 ## Git Concepts
 
@@ -159,28 +168,30 @@ Claude Code handles the Git commands for you.
 
 ## Troubleshooting
 
-**Can't clone the repository?**
-- Verify you have access to the repository
-- Check that the URL is correct
-- Make sure you're signed into GitHub in your editor
+**`gh auth login` fails or hangs?**
+- Make sure you have a browser available to complete the flow
+- Try `gh auth login --web` to force the browser-based flow
+- Check `gh auth status` afterward to confirm
 
-**Authentication issues?**
-- Your editor may prompt you to sign into GitHub
-- Follow the browser authentication flow when prompted
+**Token doesn't work?**
+- Confirm the token hasn't expired
+- Confirm the repository you're targeting is one of the repositories the token was scoped to
+- Confirm the token has the permission the operation needs (e.g., **Contents: Read and write** to push commits)
 
 <details>
 <summary>Ask AI for help</summary>
 
 If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 
-> I'm trying to clone a GitHub repository in [Cursor / VS Code] on [Mac / Windows] and getting this error: [paste the error message]. I have Git installed and a GitHub account. What should I try?
+> I'm setting up GitHub authentication (2FA / gh auth login / a fine-grained personal access token) and getting this error: [paste the error message]. What should I try?
 
 </details>
 ## Next Steps
 
-- Try cloning a public repository to practice the workflow
+- [Create a repository and clone it](../repo-creation-and-cloning/) — the next step now that your account and authentication are set up
 
 ## Resources
 
 - [GitHub Docs](https://docs.github.com)
 - [GitHub CLI manual](https://cli.github.com/manual/)
+- [Managing your personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)

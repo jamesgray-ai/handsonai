@@ -19,6 +19,21 @@ For AI development, Git is essential for two reasons. First, AI coding tools use
 
 This guide installs Git on your machine and sets up your identity so your work is properly attributed.
 
+## Opening a Terminal
+
+Every command in this guide is typed into a terminal — a window where you type instructions instead of clicking them.
+
+- **macOS:** press `Cmd + Space`, type `Terminal`, press Enter.
+- **Windows:** press Start, type `PowerShell`, press Enter.
+
+You type a command, press Enter, and read what comes back. Never used a terminal before? The [Terminal Basics primer](/builder-setup/terminal-basics/) is about 15 minutes and covers everything the guides below assume.
+
+Every command in this guide and the [GitHub Setup Guide](../github-setup/) works in PowerShell — they all run the `git` or `gh` program, which the installer adds to your system.
+
+**Windows: when you might want Git Bash instead.** The Git installer also adds **Git Bash**, a terminal that behaves like the macOS one. If you follow a tutorial written for Mac or Linux — anything using `ls`, `touch`, or forward-slash paths — run it in Git Bash and the commands work unchanged. For everything in these guides, PowerShell is fine.
+
+> **PowerShell says `git` is not recognized?** Git installed without being added to your PATH. See [Troubleshooting](#troubleshooting) to fix it — or use Git Bash, which works either way.
+
 ## Check If Git Is Already Installed
 
 Open your terminal and run:
@@ -83,7 +98,35 @@ git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
 ```
 
-Use the email address you plan to use for your GitHub account (set up in the next step).
+Use the email address you plan to use for your GitHub account (set up in the next step). If these don't match, your commits still work but GitHub won't attribute them to your profile — they show up as an unlinked name, and fixing it later means rewriting history.
+
+Confirm your identity actually saved:
+
+```bash
+git config --list
+```
+
+Look for `user.name` and `user.email` in the output, with the values you just set.
+
+## Corporate Networks (Proxy / Firewall)
+
+On a work machine, Git may fail to reach GitHub if traffic has to go through a corporate proxy or a restrictive firewall.
+
+**Behind a proxy:**
+
+```bash
+git config --global http.proxy http://proxy.company.com:port
+git config --global https.proxy http://proxy.company.com:port
+```
+
+Ask your IT team for the proxy address and port if you don't have it. To remove both settings later — do unset **both**, or the leftover `https.proxy` keeps breaking HTTPS remotes once you're off the corporate network:
+
+```bash
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+**Behind a firewall that blocks SSH:** if `git clone git@github.com:...` hangs or times out, corporate firewalls often allow HTTPS (port 443) but block the SSH port. Use the HTTPS clone URL instead (`https://github.com/...`) — this is also what the [GitHub Setup Guide](../github-setup/) and [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) use by default.
 
 ## Troubleshooting
 
@@ -95,6 +138,14 @@ Use the email address you plan to use for your GitHub account (set up in the nex
 - Close and reopen your terminal
 - Make sure you selected the PATH option during installation
 - Reinstall and select "Git from the command line and also from 3rd-party software"
+
+**PATH still broken after reinstalling on Windows?**
+1. Open **Start → Environment Variables** (search "edit the system environment variables")
+2. Click **Environment Variables…**
+3. Under **System variables**, select **Path**, click **Edit**
+4. Confirm an entry exists for Git's `cmd` folder (typically `C:\Program Files\Git\cmd`) — click **New** and add it if missing
+5. Click **OK** on every dialog, then close and reopen your terminal
+6. Run `git --version` again to confirm
 
 **Permission errors?**
 - On Mac, you may need to enter your password during Xcode tools installation

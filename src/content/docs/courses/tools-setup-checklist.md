@@ -158,7 +158,7 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 
 **What:** Create an account, enable two-factor authentication (2FA), install the GitHub CLI, and create a repository for your coursework. Backs your building blocks up to the cloud and makes them accessible from any machine.
 
-**Action:** [Follow the GitHub setup guide →](/builder-setup/github-setup/)
+**Action:** [Follow the GitHub setup guide →](/builder-setup/github-setup/) for your account, 2FA, and CLI authentication, then [create and clone your first repository →](/builder-setup/repo-creation-and-cloning/)
 
 **Done when:**
 
