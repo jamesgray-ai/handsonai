@@ -5,6 +5,10 @@ description: Meet James Gray — the person behind the Hands-on AI Playbook and 
 
 I'm **James Gray**. I built this playbook because I believe the best way to accelerate innovation is to make complex things simple — and then share them freely.
 
+## A Bit of Background
+
+I'm an AI strategist, builder, and instructor. I teach AI strategy at UC Berkeley, where I've spent the past four years working with executives, and I run cohort courses on Maven for both leaders and hands-on builders. Before that came 30 years in technology — including a decade at Microsoft — and more recently, working with leaders from companies like Deloitte, Accenture, Adobe, and Anthropic as they put AI to work. The through-line has always been the same: take something complicated and make it usable by people who don't have time to become specialists.
+
 ## Why This Exists
 
 My driving purpose is straightforward: **accelerate innovation for people, business, and technology**. The three aren't separate — when people grow, the business innovates. When the business innovates, the technology evolves. And when technology improves, it unlocks new potential in people. It's a virtuous cycle, and AI is the catalyst that speeds all of it up.
