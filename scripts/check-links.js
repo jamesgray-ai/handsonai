@@ -113,20 +113,15 @@ const SIDEBAR_EXEMPT_PREFIXES = [
  * The nav lists landing pages, not every child beneath them — so a page being
  * absent is only a problem when the page is itself a section landing.
  *
- * The four below have no inbound links from anywhere in the content, so they
- * are reachable only by typing the URL. Exempting them keeps the check honest
- * rather than green, but each is a retirement candidate:
- *   - `/platforms/overview` duplicates the shorter `/platforms/` landing.
- *   - `/courses/builders/week-1` and its child look like scaffolding left from
- *     the week restructure that redirected `week-5` to `framework-end-to-end`.
+ * `/platforms/resources` is the one judgement call here: it is a real page of
+ * recommended reading with no inbound link from anywhere, so it is reachable
+ * only by typing the URL. The fix is to link it from somewhere, not to retire
+ * it — until then, exempting it keeps this check honest rather than green.
  */
 const SIDEBAR_EXEMPT_ROUTES = new Set([
   '/CONTRIBUTING', // repo meta, not reader-facing
   '/feed', // feed landing page
-  '/courses/builders/week-1', // child of /courses/builders/; orphaned
-  '/courses/builders/week-1/mcp-connectors-setup', // ditto, one level deeper
-  '/platforms/overview', // duplicate of the /platforms/ landing; orphaned
-  '/platforms/resources', // child of /platforms/; orphaned
+  '/platforms/resources', // child of /platforms/; orphaned, wants an inbound link
 ]);
 
 /**
