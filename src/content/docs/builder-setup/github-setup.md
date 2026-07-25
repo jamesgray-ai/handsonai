@@ -11,11 +11,11 @@ howto_steps:
     text: Use gh auth login when you're running commands yourself. Generate a fine-grained personal access token when a hosted agent or automation needs to authenticate without you present.
 ---## What Is GitHub?
 
-GitHub is a website where people store and share code projects. If Git tracks your changes locally (like a save history on your computer), GitHub is where that history lives in the cloud — backed up, shareable, and accessible from anywhere.
+GitHub is a website where people store, version, and share files — application code, but equally the prompts, skills, agents, and markdown you build with AI. If Git tracks your changes locally (like a save history on your computer), GitHub is where that history lives in the cloud — backed up, shareable, and accessible from anywhere.
 
 As you build with AI, you'll create prompts, skills, agents, and project files that become the foundation of your workflows. GitHub is where those files live in the cloud — backed up, versioned, and accessible from any machine. Think of it as your portfolio and safety net in one place. Your files are stored in *repositories* (project folders that Git tracks), and you work with them by *cloning* — making a local copy on your computer.
 
-This guide walks you through creating a GitHub account, securing it, and setting up the two ways you'll authenticate with GitHub. Once you're set up, head to the [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) to create your first repository.
+This guide walks you through creating a GitHub account, securing it, and setting up the two ways you'll authenticate with GitHub. Create your repository before you generate a token — a token has to be scoped to a repository that already exists. The [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) covers that, and section 1 of it needs nothing installed.
 
 ## Prerequisites
 
@@ -48,7 +48,7 @@ Section 1 and the token steps in section 3 happen entirely in your browser — n
 
 ## 2. Install GitHub CLI
 
-The GitHub CLI (`gh`) is required for cloning repos from Claude Desktop's Code tab and for letting Cursor or Claude Code authenticate with GitHub programmatically. Install it before creating or cloning a repository.
+The GitHub CLI (`gh`) is the simplest way to authenticate Git on your own machine, and it is what AI code editors and coding agents use to reach GitHub on your behalf. Install it before cloning a repository. Skip this section entirely if you won't be working with files locally.
 
 ### macOS
 

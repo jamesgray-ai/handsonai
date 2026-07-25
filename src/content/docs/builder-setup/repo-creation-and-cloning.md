@@ -11,12 +11,20 @@ howto_steps:
     text: Open the integrated terminal and run 'git status' to confirm the repository was cloned correctly.
 ---## What This Guide Covers
 
-Once your GitHub account is set up and authenticated (see the [GitHub Setup Guide](../github-setup/)), the next step is creating a repository — a project folder that Git tracks — and cloning it to your computer so you have a local copy to work in.
+Once you have a GitHub account (see the [GitHub Setup Guide](../github-setup/)), the next step is creating a repository — a project folder that Git tracks. If you'll also work with the files on your own machine, you then clone it, so you have a local copy to work in.
 
 ## Prerequisites
 
-- GitHub account with 2FA enabled and GitHub CLI authenticated (see [GitHub Setup Guide](../github-setup/))
+**To create a repository (section 1):**
+
+- A GitHub account
+
+That's all. Creating a repository happens entirely in your browser — nothing to install. If a hosted agent or automation is the only thing that will touch this repository, you can stop after section 1.
+
+**Additionally, to clone it to your machine (sections 2 and 3):**
+
 - Git installed (see [Git Installation Guide](../git-install/))
+- GitHub CLI authenticated (see [GitHub Setup Guide](../github-setup/))
 - Cursor or VS Code installed (see [Editor Setup Guide](../editor-setup/))
 
 ## 1. Create a Repository
