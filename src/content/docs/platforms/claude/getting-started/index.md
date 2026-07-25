@@ -59,7 +59,7 @@ Use Claude inside Microsoft Excel and PowerPoint.
 - **Excel:** [Claude in Excel](https://claude.com/claude-in-excel)
 - **PowerPoint:** [Claude in PowerPoint](https://claude.com/claude-in-powerpoint)
 
-For Google Workspace (Gmail, Calendar, Docs), connect via **Settings → Connectors** in Claude — covered in [Step 8 below](#8-connect-mcp-servers-connectors).
+For Google Workspace (Gmail, Calendar, Docs), connect via **Settings → Connectors** in Claude — covered in [Step 8 below](#8-connect-mcp-servers--connectors).
 
 ---
 
