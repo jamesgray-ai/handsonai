@@ -24,7 +24,7 @@ Practical guides, patterns, ready-made tools, and direct answers to move you fro
 :::
 
 :::note[Open source and free to reuse]
-Everything on this site is open source. [Browse the repo](https://github.com/jamesgray-ai/handsonai) to read the content, fork it, download skills and plugins, or [contribute](CONTRIBUTING/).
+Everything on this site is open source. [Browse the repo](https://github.com/jamesgray-ai/handsonai) to read the content, fork it, download skills and plugins, or [contribute](contributing/).
 :::
 
 ---
@@ -42,4 +42,4 @@ See [What People Built](what-people-built/) with the playbook.
 
 I'm James Gray — [read more about me and the story behind this playbook](about/).
 
-This is an open-source project. See [Contributing Guidelines](CONTRIBUTING/) to add content or suggest improvements.
+This is an open-source project. See [Contributing Guidelines](contributing/) to add content or suggest improvements.

@@ -36,4 +36,4 @@ Patterns use the [topic template](https://github.com/jamesgray-ai/handsonai/blob
 3. **Example** - Working implementation
 4. **Variations** - Common adaptations
 
-See [CONTRIBUTING.md](../CONTRIBUTING/) for guidelines.
+See [CONTRIBUTING.md](../contributing/) for guidelines.

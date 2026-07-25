@@ -90,7 +90,7 @@ You should see a message like `On branch main` — this confirms the repository 
 **Authentication issues?**
 - Your editor may prompt you to sign into GitHub
 - Follow the browser authentication flow when prompted
-- If you're cloning as an automation or hosted agent rather than yourself, it needs a [fine-grained personal access token](../github-setup/#3-choose-how-youll-authenticate-token-vs-cli-login), not `gh auth login`
+- If you're cloning as an automation or hosted agent rather than yourself, it needs a [fine-grained personal access token](../github-setup/#give-an-agent-or-tool-access), not `gh auth login`
 
 <details>
 <summary>Ask AI for help</summary>

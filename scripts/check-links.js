@@ -46,7 +46,32 @@ function resolveRoute(urlPath) {
     path.join(DIST, `${clean}.html`),
     path.join(DIST, clean), // already a file (e.g. /llms.txt)
   ];
-  return candidates.find((c) => fs.existsSync(c) && fs.statSync(c).isFile()) || null;
+  return candidates.find((c) => existsCaseSensitive(c) && fs.statSync(c).isFile()) || null;
+}
+
+/**
+ * `fs.existsSync` is case-INSENSITIVE on macOS, so a link to /CONTRIBUTING/
+ * resolves locally against dist/contributing/ and then 404s in production,
+ * where the host is case-sensitive. That is not hypothetical — three such links
+ * shipped, passed locally, and were only caught by Linux CI.
+ *
+ * Walk the path and confirm each segment matches a real directory entry
+ * exactly, so a run on a Mac fails the same links a run on Linux does.
+ */
+const dirCache = new Map();
+function existsCaseSensitive(target) {
+  if (!fs.existsSync(target)) return false;
+  const rel = path.relative(DIST, target);
+  if (rel.startsWith('..')) return false;
+  let dir = DIST;
+  for (const segment of rel.split(path.sep)) {
+    if (!dirCache.has(dir)) {
+      dirCache.set(dir, fs.existsSync(dir) ? new Set(fs.readdirSync(dir)) : new Set());
+    }
+    if (!dirCache.get(dir).has(segment)) return false;
+    dir = path.join(dir, segment);
+  }
+  return true;
 }
 
 /** id="..." values present in a rendered page. */
@@ -138,9 +163,54 @@ if (!fs.existsSync(DIST)) {
   process.exit(1);
 }
 
+/**
+ * Broken links that predate relative-link checking.
+ *
+ * This checker originally skipped relative hrefs on the assumption they were
+ * rare. They are not — they are the style hand-written docs use, and skipping
+ * them hid 1,130 links and 26 genuine breaks. Rather than fail the build on
+ * pre-existing rot or, worse, quietly allow-list it, each entry below warns on
+ * every run until someone decides where it should point.
+ *
+ * Most fall into two groups: `business-first-ai-framework/*` fragments left
+ * behind by the rename to `ai-workflow-framework`, and a
+ * `#how-to-add-skills-to-your-platform` heading that no longer exists.
+ * Remove entries as they are fixed.
+ */
+const KNOWN_BROKEN = new Set([
+  '/ai-workflow-framework/skills → ../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/blog/2026-02-18-product-engineering-adrs-platform-agents → ../../use-cases/coding/agentic-coding/#feature-development-workflow-template',
+  '/blog/2026-02-19-build-workflows-redesign-skills-orchestration → ../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/blog/2026-02-19-build-workflows-v31-agents-matrix-architecture → ../../platforms/claude/agents/building-agents/#agent-sdk',
+  '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#autonomy-assessment',
+  '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#orchestration-mechanism',
+  '/blog/2026-03-12-data-readiness-11-building-blocks-build-phase-split → ../../business-first-ai-framework/skills/#design',
+  '/blog/2026-03-17-cli-building-block-smarter-construct → ../../business-first-ai-framework/build/#how-creation-tools-are-discovered',
+  '/blog/2026-03-20-outcome-driven-path-optimize-for-ai → ../../business-first-ai-framework/design/#outcome-driven-design-flow',
+  '/platforms/claude/skills/find-skill-candidates → ../../../agentic-building-blocks/projects/workspace-instructions-meta-prompt.md',
+  '/platforms/claude/skills/find-skill-candidates → ../../../ai-workflow-framework/analyze/',
+  '/platforms/claude/skills/find-skill-candidates → ./installing-skills.md',
+  '/platforms/claude/skills/find-skill-candidates → ./resources.md',
+  '/platforms/claude/skills/find-skill-candidates → ./skills-discovery-meta-prompt.md',
+  '/platforms/claude/skills/skills-discovery-meta-prompt → ./find-skill-candidates.md',
+  '/platforms/google-gemini/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/platforms/m365-copilot/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/platforms/openai/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/use-cases/agentic-coding → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/use-the-playbook/build/handsonai → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/use-the-playbook/build/using-plugins → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
+  '/use-the-playbook/build/using-plugins → handsonai/',
+]);
+
 const pages = htmlFiles(DIST);
 const problems = [];
+const knownProblems = [];
 let checked = 0;
+
+/** Pre-existing breaks warn; anything new fails. */
+function report(link, why) {
+  (KNOWN_BROKEN.has(link) ? knownProblems : problems).push(`${link} ${why}`);
+}
 
 for (const page of pages) {
   const html = fs.readFileSync(page, 'utf8');
@@ -156,24 +226,32 @@ for (const page of pages) {
       checked++;
       const frag = decodeURIComponent(href.slice(1));
       if (frag && !idsFor(page).has(frag)) {
-        problems.push(`${from} → ${href} (no element with that id on this page)`);
+        report(`${from} → ${href}`, '(no element with that id on this page)');
       }
       continue;
     }
-    if (!href.startsWith('/')) continue; // relative links are rare here; skip rather than guess
-
     checked++;
-    const [rawPath, rawFrag] = href.split('#');
+    let [rawPath, rawFrag] = href.split('#');
+
+    // Hand-written docs link relatively (`../github-setup/#anchor`); Starlight's
+    // generated nav links absolutely. Skipping relative hrefs meant skipping most
+    // of what an author actually types — including a stale cross-page fragment
+    // this check was built to catch. Resolve them against the current route.
+    if (!rawPath.startsWith('/')) {
+      const base = '/' + path.relative(DIST, path.dirname(page));
+      rawPath = path.posix.normalize(path.posix.join(base, rawPath || '.'));
+    }
+
     const target = resolveRoute(rawPath);
 
     if (!target) {
-      problems.push(`${from} → ${href} (page does not exist)`);
+      report(`${from} → ${href}`, '(page does not exist)');
       continue;
     }
     if (rawFrag) {
       const frag = decodeURIComponent(rawFrag);
       if (!idsFor(target).has(frag)) {
-        problems.push(`${from} → ${href} (page exists, but no element with id "${frag}")`);
+        report(`${from} → ${href}`, `(page exists, but no element with id "${frag}")`);
       }
     }
   }
@@ -188,7 +266,10 @@ if (problems.length) {
   console.error(`\nA missing id usually means a heading was reworded. Fix the link, or restore the heading.\n`);
   failed = true;
 } else {
-  console.log(`check-links: ${checked} internal links and anchors OK across ${pages.length} pages`);
+  console.log(
+    `check-links: ${checked} internal links and anchors OK across ${pages.length} pages` +
+    (knownProblems.length ? ` (${knownProblems.length} pre-existing break(s) allowed)` : '')
+  );
 }
 
 if (newGaps.length) {
@@ -202,6 +283,11 @@ if (newGaps.length) {
   failed = true;
 } else {
   console.log(`check-links: sidebar covers every doc (${knownGaps.length} pre-existing gap(s) allowed)`);
+}
+
+if (knownProblems.length) {
+  console.warn(`\ncheck-links: pre-existing broken links, not blocking — each still wants a decision:`);
+  for (const p of knownProblems.sort()) console.warn(`  known break  ${p}`);
 }
 
 if (knownGaps.length) {
