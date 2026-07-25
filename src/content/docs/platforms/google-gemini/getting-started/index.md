@@ -252,7 +252,7 @@ After adding skills, you can say "edit this article for HBR quality" and Gemini 
 
 Download skill folders from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins) and place them in `.gemini/skills/` or `.agents/skills/` in your project root. Gemini CLI discovers them automatically.
 
-[→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform)
+[→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills)
 
 ---
 

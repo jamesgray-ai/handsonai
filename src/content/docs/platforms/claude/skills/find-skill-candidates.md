@@ -7,7 +7,7 @@ description: A single copy-paste prompt that interviews you, reviews your Claude
 
 The best Claude Skills come from work you already do repeatedly — not ideas you brainstorm on the spot. This prompt puts Claude in the analyst seat: it reviews what it already knows about you from memory, interviews you about your recurring work, and returns a ranked table of skill candidates with the single best one to build first.
 
-Use this when you want a fast, conversational discovery in one Claude chat — ideal for live sessions or when you want Claude to do the heavy lifting. Prefer a worksheet you can fill out on your own time? → [Discover Your Best Claude Skills (Worksheet)](./skills-discovery-meta-prompt.md).
+Use this when you want a fast, conversational discovery in one Claude chat — ideal for live sessions or when you want Claude to do the heavy lifting. Prefer a worksheet you can fill out on your own time? → [Discover Your Best Claude Skills (Worksheet)](../skills-discovery-meta-prompt/).
 
 ## How to Use This Prompt
 
@@ -104,12 +104,12 @@ Start with Phase 1 now.
 
 ## Next Steps
 
-- Take your #1 candidate to [Installing Skills on Claude](./installing-skills.md) and build it
+- Take your #1 candidate to [Installing Skills on Claude](../installing-skills/) and build it
 - Re-run this prompt in a few weeks as new patterns emerge in your Claude memory
-- Browse [Skills Resources](./resources.md) for examples and deeper reference material
+- Browse [Skills Resources](../resources/) for examples and deeper reference material
 
 ## Related
 
-- [Discover Your Best Claude Skills](./skills-discovery-meta-prompt.md) — The full worksheet-driven version of this process
-- [Write Custom Workspace Instructions](../../../agentic-building-blocks/projects/workspace-instructions-meta-prompt.md) — Companion meta prompt for Claude Projects
-- [Analyze AI Workflow Opportunities](../../../ai-workflow-framework/analyze/) — Broader workflow audit across your whole role
+- [Discover Your Best Claude Skills](../skills-discovery-meta-prompt/) — The full worksheet-driven version of this process
+- [Write Custom Workspace Instructions](../../../../agentic-building-blocks/projects/workspace-instructions-meta-prompt/) — Companion meta prompt for Claude Projects
+- [Analyze AI Workflow Opportunities](../../../../ai-workflow-framework/analyze/) — Broader workflow audit across your whole role

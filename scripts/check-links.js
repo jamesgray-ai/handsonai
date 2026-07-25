@@ -172,34 +172,28 @@ if (!fs.existsSync(DIST)) {
  * pre-existing rot or, worse, quietly allow-list it, each entry below warns on
  * every run until someone decides where it should point.
  *
- * Most fall into two groups: `business-first-ai-framework/*` fragments left
- * behind by the rename to `ai-workflow-framework`, and a
- * `#how-to-add-skills-to-your-platform` heading that no longer exists.
+ * The mechanical ones are fixed: a renamed `#how-to-install-skills` heading,
+ * stale `.md` suffixes, and relative paths a level short (routes nest one
+ * deeper than source files). What remains is every link that needs a judgement
+ * call, and all of it sits in dated blog posts:
+ *
+ *   - Five point into `business-first-ai-framework/*`, renamed to
+ *     `ai-workflow-framework`. Three anchors survive the move verbatim; the
+ *     `#design` and `#outcome-driven-design-flow` fragments do not.
+ *   - Two point at anchors on pages whose headings have since changed.
+ *
+ * Fixing a link inside an archived post does not rewrite what the post said —
+ * a link is navigation, not a claim — but that is a call to make deliberately.
  * Remove entries as they are fixed.
  */
 const KNOWN_BROKEN = new Set([
-  '/ai-workflow-framework/skills → ../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
   '/blog/2026-02-18-product-engineering-adrs-platform-agents → ../../use-cases/coding/agentic-coding/#feature-development-workflow-template',
-  '/blog/2026-02-19-build-workflows-redesign-skills-orchestration → ../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
   '/blog/2026-02-19-build-workflows-v31-agents-matrix-architecture → ../../platforms/claude/agents/building-agents/#agent-sdk',
   '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#autonomy-assessment',
   '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#orchestration-mechanism',
   '/blog/2026-03-12-data-readiness-11-building-blocks-build-phase-split → ../../business-first-ai-framework/skills/#design',
   '/blog/2026-03-17-cli-building-block-smarter-construct → ../../business-first-ai-framework/build/#how-creation-tools-are-discovered',
   '/blog/2026-03-20-outcome-driven-path-optimize-for-ai → ../../business-first-ai-framework/design/#outcome-driven-design-flow',
-  '/platforms/claude/skills/find-skill-candidates → ../../../agentic-building-blocks/projects/workspace-instructions-meta-prompt.md',
-  '/platforms/claude/skills/find-skill-candidates → ../../../ai-workflow-framework/analyze/',
-  '/platforms/claude/skills/find-skill-candidates → ./installing-skills.md',
-  '/platforms/claude/skills/find-skill-candidates → ./resources.md',
-  '/platforms/claude/skills/find-skill-candidates → ./skills-discovery-meta-prompt.md',
-  '/platforms/claude/skills/skills-discovery-meta-prompt → ./find-skill-candidates.md',
-  '/platforms/google-gemini/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/platforms/m365-copilot/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/platforms/openai/getting-started → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-cases/agentic-coding → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-the-playbook/build/handsonai → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-the-playbook/build/using-plugins → ../../../agentic-building-blocks/skills/#how-to-add-skills-to-your-platform',
-  '/use-the-playbook/build/using-plugins → handsonai/',
 ]);
 
 const pages = htmlFiles(DIST);
