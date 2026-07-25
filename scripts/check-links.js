@@ -173,26 +173,28 @@ if (!fs.existsSync(DIST)) {
  * every run until someone decides where it should point.
  *
  * The mechanical ones are fixed: a renamed `#how-to-install-skills` heading,
- * stale `.md` suffixes, and relative paths a level short (routes nest one
- * deeper than source files). What remains is every link that needs a judgement
- * call, and all of it sits in dated blog posts:
+ * stale `.md` suffixes, relative paths a level short (routes nest one deeper
+ * than source files), and links whose page moved but whose fragment survived
+ * the move intact — those only needed the path repointing past the redirect.
  *
- *   - Five point into `business-first-ai-framework/*`, renamed to
- *     `ai-workflow-framework`. Three anchors survive the move verbatim; the
- *     `#design` and `#outcome-driven-design-flow` fragments do not.
- *   - Two point at anchors on pages whose headings have since changed.
+ * Note the shared root cause: a redirected page still *resolves*, so a link to
+ * `old-path/#fragment` looks fine until you follow it and land at the top of
+ * the new page. Every entry below is that failure, and each needs someone to
+ * choose a destination heading rather than look one up:
+ *
+ *   - `#agent-sdk` on the agents page — no longer a heading of its own.
+ *   - `#design` on the framework skills page — that page now describes setup
+ *     rather than the individual steps.
+ *   - `#outcome-driven-design-flow` on the design page — restructured into the
+ *     three-layer model.
  *
  * Fixing a link inside an archived post does not rewrite what the post said —
  * a link is navigation, not a claim — but that is a call to make deliberately.
  * Remove entries as they are fixed.
  */
 const KNOWN_BROKEN = new Set([
-  '/blog/2026-02-18-product-engineering-adrs-platform-agents → ../../use-cases/coding/agentic-coding/#feature-development-workflow-template',
   '/blog/2026-02-19-build-workflows-v31-agents-matrix-architecture → ../../platforms/claude/agents/building-agents/#agent-sdk',
-  '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#autonomy-assessment',
-  '/blog/2026-03-02-build-phase-autonomy-orchestration → ../../business-first-ai-framework/design/#orchestration-mechanism',
   '/blog/2026-03-12-data-readiness-11-building-blocks-build-phase-split → ../../business-first-ai-framework/skills/#design',
-  '/blog/2026-03-17-cli-building-block-smarter-construct → ../../business-first-ai-framework/build/#how-creation-tools-are-discovered',
   '/blog/2026-03-20-outcome-driven-path-optimize-for-ai → ../../business-first-ai-framework/design/#outcome-driven-design-flow',
 ]);
 

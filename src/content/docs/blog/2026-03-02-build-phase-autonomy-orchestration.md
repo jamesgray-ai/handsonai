@@ -10,7 +10,7 @@ title: "Build Phase: Autonomy Levels and Orchestration Mechanisms"
 
 <!-- more -->
 
-**New two-step design model.** Instead of picking from four execution patterns, Design now walks through two distinct decisions: first, [assess the workflow's autonomy level](../../business-first-ai-framework/design/#autonomy-assessment) (Deterministic → Guided → Autonomous), then [choose an orchestration mechanism](../../business-first-ai-framework/design/#orchestration-mechanism) (Prompt → Skill-Powered Prompt → Agent). This separates *how much independence the AI needs* from *who drives the workflow* — making each decision simpler and more deliberate.
+**New two-step design model.** Instead of picking from four execution patterns, Design now walks through two distinct decisions: first, [assess the workflow's autonomy level](../../ai-workflow-framework/design/#autonomy-assessment) (Deterministic → Guided → Autonomous), then [choose an orchestration mechanism](../../ai-workflow-framework/design/#orchestration-mechanism) (Prompt → Skill-Powered Prompt → Agent). This separates *how much independence the AI needs* from *who drives the workflow* — making each decision simpler and more deliberate.
 
 **Single Agent and Multi-Agent collapsed into "Agent."** Whether a workflow needs one agent or multiple is now an architecture detail decided during agent configuration — not a top-level pattern choice. This removes a premature decision point that often confused students.
 

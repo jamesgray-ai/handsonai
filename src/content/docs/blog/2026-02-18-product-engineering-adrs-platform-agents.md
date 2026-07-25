@@ -17,7 +17,7 @@ A new top-level section covering software engineering and product management con
 
 ## Architecture Decision Records
 
-New page: [Architecture Decision Records](../../product-engineering/architecture-decisions/) explains what ADRs are, when to write one, and provides a simple template. The [Agentic Coding workflow template](../../use-cases/coding/agentic-coding/#feature-development-workflow-template) now includes ADR reminders in the Discover, Define, and Plan steps — so decisions get captured as they happen, not reconstructed months later.
+New page: [Architecture Decision Records](../../product-engineering/architecture-decisions/) explains what ADRs are, when to write one, and provides a simple template. The [Agentic Coding workflow template](../../use-cases/agentic-coding/#feature-development-workflow-template) now includes ADR reminders in the Discover, Define, and Plan steps — so decisions get captured as they happen, not reconstructed months later.
 
 ## Platform-specific agent implementation guides
 
