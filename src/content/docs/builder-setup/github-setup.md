@@ -115,7 +115,7 @@ gh auth status
 | Scope | Per-repository, per-permission, with an expiry date | A broad set of account scopes (repo, read:org, gist, workflow) |
 | Main risk | It's a secret: if it leaks it works until revoked or expired | Broad scope, and anyone with access to your machine can read it with `gh auth token` |
 
-Prefer **fine-grained** personal access tokens over classic tokens throughout — classic tokens grant broad, all-repository access with no expiry, which is far more than most integrations need.
+Prefer **fine-grained** personal access tokens over classic tokens throughout. Even at their widest setting, fine-grained tokens still expire and still grant only the specific permissions you tick. Classic tokens do neither — they carry coarse scopes across every repository you can reach, and can be created with no expiry at all.
 
 ### Creating a Fine-Grained Personal Access Token
 
@@ -124,7 +124,9 @@ Prefer **fine-grained** personal access tokens over classic tokens throughout �
 3. Give it a descriptive name (e.g., `claude-code-my-repo`)
 4. Choose the **Resource owner** — your personal account, or an organisation if the repository belongs to one. Organisation-owned tokens usually need an admin to approve them before they work, which can take days; start early if that applies to you.
 5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. GitHub caps custom expiry at 366 days. Avoid "No expiration" where offered. A token that expires mid-project silently breaks every integration using it.
-6. Under **Repository access**, select **Only select repositories** and choose the specific repo(s) it needs — avoid "All repositories". The repository must already exist; create an empty one first if you don't have it yet.
+6. Set **Repository access**. Which option is right depends on what the resource owner already owns:
+   - **A personal account with little or nothing in it:** **All repositories** is fine, and is the simpler choice — it covers current *and future* repositories, so you can generate the token before you've created a repo and it will still work afterwards. The blast radius is whatever that account owns, which is close to nothing.
+   - **An account or organisation holding work you care about:** **Only select repositories**, and choose just the repo(s) needed. This requires the repository to exist first. Never point a token at an organisation's full repository list to save a step.
 7. Under **Permissions**, grant only what's needed (e.g., **Contents: Read and write** for an agent that commits and pushes — GitHub adds **Metadata: Read** automatically)
 8. Click **Generate token**
 9. **Copy the token now** — GitHub shows it exactly once and cannot show it to you again
