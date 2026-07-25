@@ -19,17 +19,17 @@ This guide walks you through creating a GitHub account, securing it, and setting
 
 ## Prerequisites
 
-**For everyone (sections 1 and 3):**
+**For everyone (section 1 — creating your account):**
 
 - An email address for your GitHub account
 - Your phone with an authenticator app, for two-factor authentication
 
-Creating an account and generating a token happen entirely in your browser — nothing to install. If a hosted AI agent or automation is the only thing that needs GitHub access, sections 1 and 3 are all you need.
+Section 1 and the token steps in section 3 happen entirely in your browser — nothing to install. If a hosted AI agent or automation is the only thing that needs GitHub access, those are all you need.
 
 **Additionally, if you'll run Git commands yourself (section 2):**
 
 - Git installed (see [Git Installation Guide](../git-install/))
-- Cursor or VS Code installed (see [Editor Setup Guide](../editor-setup/))
+- An editor such as Cursor or VS Code — useful, but not required for anything in this guide (see [Editor Setup Guide](../editor-setup/))
 
 ## 1. Create a GitHub Account
 
@@ -52,9 +52,13 @@ The GitHub CLI (`gh`) is required for cloning repos from Claude Desktop's Code t
 
 ### macOS
 
+With [Homebrew](https://brew.sh):
+
 ```bash
 brew install gh
 ```
+
+**No Homebrew?** If you installed Git via Xcode Command Line Tools (the recommended path above), you probably don't have Homebrew. Download the macOS `.pkg` installer from [cli.github.com](https://cli.github.com) and run it — no terminal needed.
 
 ### Windows
 
@@ -106,10 +110,10 @@ gh auth status
 
 | | Fine-grained personal access token | `gh auth login` |
 |---|---|---|
-| What it is | A credential you generate and store | An interactive browser flow; token stored in your local keychain |
+| What it is | A credential you generate and store | An interactive browser flow; the token is stored locally in `gh`'s config or your system credential helper |
 | Use when | Something *other than you* must authenticate — a hosted agent, CI, an automation | *You* are working on your own machine |
-| Scope | Per-repository, per-permission, with an expiry date | Your full account access |
-| Main risk | It's a secret: if it leaks it works until revoked or expired | Cannot be used on other machines or shared with tools |
+| Scope | Per-repository, per-permission, with an expiry date | A broad set of account scopes (repo, read:org, gist, workflow) |
+| Main risk | It's a secret: if it leaks it works until revoked or expired | Broad scope, and anyone with access to your machine can read it with `gh auth token` |
 
 Prefer **fine-grained** personal access tokens over classic tokens throughout — classic tokens grant broad, all-repository access with no expiry, which is far more than most integrations need.
 
@@ -118,11 +122,12 @@ Prefer **fine-grained** personal access tokens over classic tokens throughout �
 1. Go to **Settings → Developer settings → Personal access tokens → Fine-grained tokens**
 2. Click **Generate new token**
 3. Give it a descriptive name (e.g., `claude-code-my-repo`)
-4. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. Avoid "No expiration". A token that expires mid-project silently breaks every integration using it.
-5. Under **Repository access**, select **Only select repositories** and choose the specific repo(s) it needs — avoid "All repositories"
-6. Under **Permissions**, grant only what's needed (e.g., **Contents: Read and write** for an agent that commits and pushes)
-7. Click **Generate token**
-8. **Copy the token now** — GitHub shows it exactly once and cannot show it to you again
+4. Choose the **Resource owner** — your personal account, or an organisation if the repository belongs to one. Organisation-owned tokens usually need an admin to approve them before they work, which can take days; start early if that applies to you.
+5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. GitHub caps custom expiry at 366 days. Avoid "No expiration" where offered. A token that expires mid-project silently breaks every integration using it.
+6. Under **Repository access**, select **Only select repositories** and choose the specific repo(s) it needs — avoid "All repositories". The repository must already exist; create an empty one first if you don't have it yet.
+7. Under **Permissions**, grant only what's needed (e.g., **Contents: Read and write** for an agent that commits and pushes — GitHub adds **Metadata: Read** automatically)
+8. Click **Generate token**
+9. **Copy the token now** — GitHub shows it exactly once and cannot show it to you again
 
 ### Storing Your Token Safely
 

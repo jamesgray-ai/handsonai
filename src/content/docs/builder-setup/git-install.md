@@ -26,7 +26,7 @@ Every command in this guide is typed into a terminal — a window where you type
 - **macOS:** press `Cmd + Space`, type `Terminal`, press Enter.
 - **Windows:** press Start, type `PowerShell`, press Enter.
 
-You type a command, press Enter, and read what comes back. Never used a terminal before? The [Terminal Basics primer](/courses/tools-setup-checklist/) is about 15 minutes and covers everything the guides below assume.
+You type a command, press Enter, and read what comes back. Never used a terminal before? The [Terminal Basics primer](/builder-setup/terminal-basics/) is about 15 minutes and covers everything the guides below assume.
 
 Every command in this guide and the [GitHub Setup Guide](../github-setup/) works in PowerShell — they all run the `git` or `gh` program, which the installer adds to your system.
 
