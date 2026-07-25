@@ -63,18 +63,23 @@ Creating an account and generating a token happen entirely in your browser — n
 
 ## Choose How You'll Authenticate
 
-**A token is a stored secret. A CLI login is a session.**
+Your GitHub password gets *you* into the website. It does not get anything else in — not the tools on your computer, and not an AI agent working on your behalf. Those need their own way to prove they're allowed.
 
-`gh auth login` opens your browser, you approve, and the credential is stored locally on your machine (in `gh`'s configuration or your system credential helper). That works when **you** are the one running commands. It cannot work when something else needs to reach GitHub without you present — an AI agent, an automation, a hosted tool — because that thing can't access your machine's credential storage. For those, you generate a token and give it to them.
+There are two, and **which one you need depends on who is doing the asking**:
 
-| | Fine-grained personal access token | `gh auth login` |
+- **You, at your own computer.** You sign in once, and the tools on that machine remember you. This is a **CLI login** — CLI means "command line interface", the text-based way of working with a tool instead of clicking around a website. GitHub's is called the **GitHub CLI**.
+- **Something acting on your behalf.** An AI agent, an automation, or a hosted tool needs a **personal access token** — a long string of characters you generate once and paste into that tool. It's a credential you hand over, like giving someone a key.
+
+The difference that matters: a **CLI login is tied to your machine**, so anything that isn't on your machine can't use it. A **token travels** — which is what makes it work for a hosted agent, and also what makes it worth protecting.
+
+| | Personal access token | GitHub CLI login |
 |---|---|---|
-| What it is | A credential you generate and store | An interactive browser flow; the token is stored locally in `gh`'s config or your system credential helper |
-| Use when | Something *other than you* must authenticate — a hosted agent, CI, an automation | *You* are working on your own machine |
-| Scope | Per-repository, per-permission, with an expiry date | A broad set of account scopes (repo, read:org, gist, workflow) |
-| Main risk | It's a secret: if it leaks it works until revoked or expired | Broad scope, and anyone with access to your machine can read it with `gh auth token` |
+| What it is | A credential you generate and paste into a tool | You sign in through your browser once; your computer remembers |
+| Use it when | Something *other than you* needs access — an AI agent, an automation, a scheduled job | *You* are working on your own machine |
+| How much access | Only the repositories and permissions you tick, and it expires on a date you choose | Broad access to your account, and it doesn't expire on its own |
+| What to watch | It's a secret. If it leaks, it works until you revoke it or it expires | Anyone who can use your computer can use your GitHub access |
 
-Prefer **fine-grained** personal access tokens over classic tokens throughout. Even at their widest setting, fine-grained tokens still expire and still grant only the specific permissions you tick. Classic tokens do neither — they carry coarse scopes across every repository you can reach, and can be created with no expiry at all.
+**If you generate a token, make it a fine-grained one.** GitHub offers two kinds, and the older "classic" tokens reach every repository you can reach and can be created with no expiry at all. Fine-grained tokens always expire and only ever grant the specific permissions you tick — even at their widest setting.
 
 ## Give an Agent or Tool Access
 
