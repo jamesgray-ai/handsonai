@@ -7,7 +7,7 @@ description: Curated AI knowledge for builders. Apply AI faster. Accelerate busi
 # Format: HTML is supported. Use <strong> for bold, <a href="..."> for links.
 #
 banner:
-   content: '⚡ <strong>Claude for Builders & Hands-on Agentic AI for Leaders</strong> — next cohorts start soon! <a href="https://maven.com/james-gray/claude">Enroll now &rarr;</a>'
+   content: '⚡ <strong>Agentic AI for Claude Builders & Hands-on Agentic AI for Leaders</strong> — next cohorts start soon! <a href="https://maven.com/james-gray/claude">Enroll now &rarr;</a>'
 ---*Curated by [James Gray](about/)*
 
 Built for **leaders, professionals, entrepreneurs, and founders** at the intersection of people, business, and technology. No technical background required — just a willingness to get hands-on with AI and start creating real impact.
@@ -20,7 +20,7 @@ Practical guides, patterns, ready-made tools, and direct answers to move you fro
 
 **Use the playbook where you work** — [connect the MCP server](mcp-server/) to get instant answers inside Claude, ChatGPT, Cursor, or any MCP-compatible tool.
 
-**Learn with James** — explore [Agentic AI for Leaders](courses/leaders/) or [Claude for Builders](courses/builders/) to go from curious to capable in weeks.
+**Learn with James** — explore [Hands-on Agentic AI for Leaders](courses/leaders/) or [Agentic AI for Claude Builders](courses/builders/) to go from curious to capable in weeks.
 :::
 
 :::note[Open source and free to reuse]

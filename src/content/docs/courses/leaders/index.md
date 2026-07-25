@@ -20,14 +20,16 @@ course_language: en
 
 ## Full Syllabus
 
-*Syllabus content is generated at build time. Run `python scripts/generate_syllabi.py` to populate.*
+The week-by-week syllabus lives on the Maven course page, alongside dates, pricing, and enrolment.
+
+[View the full syllabus on Maven →](https://maven.com/james-gray/hands-on-ai-for-leaders)
 
 ## Instructor
 
 **James Gray** — UC Berkeley AI instructor and former CIO/CPO. Previously spent 10 years at Microsoft building enterprise data platforms. Has trained 5,000+ executives globally in AI strategy.
 
 - [Maven Profile](https://maven.com/james-gray)
-- [Other course: Claude for Builders: AI Workflows and Product Prototyping](../builders/)
+- [Other course: Agentic AI for Claude Builders](../builders/)
 
 ## Prerequisites
 
