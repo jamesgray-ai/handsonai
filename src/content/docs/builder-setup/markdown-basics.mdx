@@ -17,7 +17,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Markdown is the format your AI writes in, and the format nearly everything in this playbook is stored in — skills, prompts, context files, and your AI Registry.
 
-Here is the whole ask: **you mostly read Markdown. Your AI mostly writes it.** You need to recognise six symbols and know how to save a file. That is the entire skill.
+Here is the whole ask: **you mostly read Markdown. Your AI mostly writes it.** You need to recognize six symbols and know how to save a file. That is the entire skill.
 
 Nothing on this page requires you to install anything.
 
@@ -33,7 +33,7 @@ So this is not a new thing to learn. It is a thing you have been reading for mon
 
 **Markdown is plain text plus a small number of punctuation marks that mean formatting.**
 
-You already do this instinctively. In Slack or email you type `*important*`, or start a line with a dash to make a list, and you expect it to look like something. Markdown formalises that instinct into a small, consistent set of rules that every modern tool understands.
+You already do this instinctively. In Slack or email you type `*important*`, or start a line with a dash to make a list, and you expect it to look like something. (One small trap: in Slack a single asterisk means bold, but in Markdown it means italic — double asterisks are bold.) Markdown formalizes that instinct into a small, consistent set of rules that most modern tools understand.
 
 Three terms that get tangled together:
 
@@ -85,17 +85,17 @@ And here is the same file, rendered:
 
 ---
 
-**Client Sync — Acme Corp**
+#### Client Sync — Acme Corp
 
 **Date:** 12 March  **Attendees:** James Gray, Sara Reyes
 
-*Decisions*
+##### Decisions
 
 - Ship the pilot to three teams first, not the whole org
 - **Budget approved** at $40k for Q3
 - Sara owns the rollout comms
 
-*Open Questions*
+##### Open Questions
 
 - [ ] Who owns the onboarding docs?
 - [ ] Do we need legal review before the pilot?
@@ -105,7 +105,7 @@ And here is the same file, rendered:
 
 Same information, twice. The version on top is what lives in the file; the version underneath is what you and your AI both see. Nothing was lost — and the file is still something you could open in Notepad.
 
-**Why the rendered copy uses bold and italics for its headings rather than real `##` headings:** real headings would be picked up by this page's own table of contents and appear as if they were sections of the guide. The visual effect is the same for the reader.
+**Why the headings look smaller here than in your own file:** this page shows them at a reduced size so they do not clutter the contents menu on the right. In a file of your own, `#` gives you a large document title and `##` a clear section heading — both bigger and heavier than what you see above.
 
 ## The Six Symbols That Matter
 
@@ -118,7 +118,7 @@ Six symbols. Some have two forms — two heading sizes, two kinds of list, ticke
 | **2. Bold** | `**urgent**` | **urgent** |
 | **3. Lists** | `- Ship the deck` | A bullet point |
 | | `1. First step` | A numbered list |
-| **4. Checklists** | `- [ ] Send the recap` | ☐ A checkbox you can tick |
+| **4. Checklists** | `- [ ] Send the recap` | ☐ An empty checkbox |
 | | `- [x] Send the recap` | ☑ A ticked checkbox |
 | **5. Links** | `[our site](https://handsonai.info)` | [our site](https://handsonai.info) |
 | **6. Tables** | `\| Name \| Status \|` | A table row (see the note below) |
@@ -167,11 +167,11 @@ Two routes, and you will mostly use the first.
 | Where you put it | What you see |
 |---|---|
 | Your AI chat (attached or pasted) | Fully rendered — this is the one that matters most |
-| GitHub | Fully rendered |
+| GitHub (open the .md file) | Fully rendered |
 | Notion (paste the text in) | Converts to Notion blocks as it arrives |
-| Slack | Bold and lists render; **checkboxes do not** — they appear as literal `[ ]` characters |
-| Google Drive preview | Raw text, symbols and all. Nothing is broken; Drive just does not render Markdown |
-| TextEdit / Notepad | Raw text, by design — this is the editing view |
+| Slack (paste the text in) | Bold and lists render; **checkboxes do not** — they appear as literal `[ ]` characters |
+| Google Drive (open the .md file) | Raw text, symbols and all. Nothing is broken; Drive just does not render Markdown |
+| TextEdit / Notepad | Raw text — though recent Windows 11 Notepad formats Markdown as you type. Use **View** to switch back to the raw symbols. |
 
 **When you are managing more than a few files,** move to a proper editor with a live preview pane. That is a setup step of its own — see the [AI Code Editor guide](../editor-setup/).
 
@@ -181,9 +181,9 @@ The question everyone asks: *if I write in Markdown, how do I send it to my CEO?
 
 Markdown is where you draft and store. It converts at the last step, and you have three ways to do it:
 
-- **Paste it.** Into Google Docs, Notion, or Slack. The formatting arrives with it.
+- **Paste it.** Copy the AI's answer as it appears on screen — the formatted version, not the raw symbols — then paste into Google Docs, Notion, or Slack. The formatting comes with it. (Notion also converts raw Markdown into its own blocks as you paste.)
 - **Ask your AI.** *"Turn this into a Word document"* or *"rewrite this as an email I can send to my CFO."* This is the most common route by far, and the model handles the tone shift as well as the format.
-- **Export from an editor.** Cursor and VS Code can export a Markdown file to PDF or HTML directly.
+- **Turn it into a PDF.** Paste it into Google Docs (see above), then use **File → Download → PDF Document**. Or simply ask your AI to produce the file for you.
 
 Nobody has to know your source file was Markdown. That is rather the point.
 
@@ -200,7 +200,7 @@ description: Drafts my Monday status update
 
 That is called **frontmatter**. It is a small label on the file — a title, a description, a date — that tools read to know what the file is and how to use it. Your AI uses it to decide when a skill applies.
 
-You almost never write frontmatter by hand; the framework skills generate it. You just need to recognise it and leave it alone. If you delete those lines, tools stop recognising the file.
+You almost never write frontmatter by hand; the framework skills generate it. You just need to recognize it and leave it alone. If you delete those lines, tools stop recognizing the file.
 
 ## Try It — Five Minutes
 
@@ -224,7 +224,7 @@ Watch what happens on that last step. The AI does not ask who you are. That is t
 
 ## Common Gotchas
 
-Three things go wrong on the first attempt, and none of them are about syntax.
+Three things go wrong on the first attempt, and none of them are about the symbols themselves.
 
 <Tabs>
   <TabItem label="macOS">
@@ -238,7 +238,7 @@ Three things go wrong on the first attempt, and none of them are about syntax.
 
 **Windows hides file extensions.** By default, File Explorer does not show the ending of a file name — so a file you saved as `my-context.md` may silently be `my-context.md.txt`, and nothing will treat it as Markdown.
 
-To fix it: open **File Explorer**, click the **View** tab, and tick **File name extensions**. Now you can see what your files are actually called, and rename any that ended up wrong.
+To fix it: open **File Explorer** and click **View** in the toolbar. On Windows 11, choose **Show**, then tick **File name extensions**. On Windows 10, tick **File name extensions** directly on the **View** tab. Now you can see what your files are actually called, and rename any that ended up wrong.
 
 **Notepad adds .txt unless told otherwise.** Always set **Save as type** to **All Files (\*.\*)** before naming the file.
 
