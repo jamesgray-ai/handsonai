@@ -66,6 +66,10 @@ Pick any combination — each row names the specific capability it unlocks.
 | 7 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
 | 8 | [AI Registry](ai-registry-setup/) | ~10 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
 
+:::note[New to Markdown?]
+Everything you build here — skills, prompts, context files, your registry — is stored as Markdown. If that word is unfamiliar, read [Markdown Basics](markdown-basics/) first. It takes about ten minutes and requires nothing installed.
+:::
+
 :::note[New to the terminal?]
 Some Power User tools (Editor, Git, GitHub) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
 :::

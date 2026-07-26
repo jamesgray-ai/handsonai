@@ -273,3 +273,27 @@ header.header site-search button[data-open-modal] kbd {
   background: var(--sl-color-gray-6);
   z-index: -1;
 }
+
+/* Opt-in horizontal scroll for a wide table.
+
+   Starlight renders markdown tables straight into .sl-markdown-content with no
+   wrapper, so a table wider than the column is clipped on narrow screens rather
+   than scrolled — the overflowing columns become unreachable. This class is
+   applied by hand to tables where losing a column would break meaning, e.g. the
+   "You type" / "You get" comparison on /builder-setup/markdown-basics/, where the
+   right-hand column is the entire point.
+
+   Deliberately opt-in, not a global rule: making every table on the site a block
+   scroll container changes how tables size on desktop and needs its own pass. */
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* The wrapper alone is not enough. Starlight constrains the table box to the
+   content column, so wide cells overflow the table's own box rather than the
+   wrapper's — leaving the wrapper with nothing to scroll. Letting the table grow
+   to its natural width is what actually hands the overflow to the wrapper. */
+.table-scroll table {
+  width: max-content;
+  min-width: 100%;
+}

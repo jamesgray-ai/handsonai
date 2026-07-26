@@ -1,0 +1,280 @@
+---
+title: Markdown Basics
+description: What Markdown is, why it matters for capturing context, and how to create, view, edit, and share it — no technical background needed
+schema_type: HowTo
+howto_steps:
+  - name: Ask your AI for Markdown
+    text: Ask your AI assistant to interview you briefly and write your role and company context as Markdown.
+  - name: Save it as a .md file
+    text: "Paste the result into TextEdit (Mac, in plain text mode) or Notepad (Windows) and save it as my-context.md."
+  - name: Edit one line
+    text: Change a single line in the file and save again to confirm you can edit Markdown directly.
+  - name: Hand it back to your AI
+    text: Start a new chat, attach my-context.md, and ask a question — the AI reads your context and uses it.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Markdown is the format your AI writes in, and the format nearly everything in this playbook is stored in — skills, prompts, context files, and your AI Registry.
+
+Here is the whole ask: **you mostly read Markdown. Your AI mostly writes it.** You need to recognize six symbols and know how to save a file. That is the entire skill.
+
+Nothing on this page requires you to install anything.
+
+## You've Already Been Reading It
+
+Every time Claude or ChatGPT answers you with headings, bold text, and bullet points, you are looking at rendered Markdown. The model wrote a handful of symbols; the app turned them into formatting before you saw them.
+
+And every time you have pasted an AI answer into an email and watched stray `**asterisks**` or `###` hash marks come along for the ride — that was the same Markdown, arriving somewhere that did not know how to render it.
+
+So this is not a new thing to learn. It is a thing you have been reading for months, finally named.
+
+## What Markdown Is
+
+**Markdown is plain text plus a small number of punctuation marks that mean formatting.**
+
+You already do this instinctively. In Slack or email you type `*important*`, or start a line with a dash to make a list, and you expect it to look like something. (One small trap: in Slack a single asterisk means bold, but in Markdown it means italic — double asterisks are bold.) Markdown formalizes that instinct into a small, consistent set of rules that most modern tools understand.
+
+Three terms that get tangled together:
+
+- **Markdown** — plain text with light formatting marks. Readable as-is, even before anything renders it.
+- **HTML** — the language web pages are built from. Far more powerful, far heavier to write.
+- **Rich text** — what Word and Google Docs produce. Looks finished, but the formatting is locked inside that application's own file format.
+
+A Markdown file is simply a text file whose name ends in `.md`.
+
+## Why It Matters
+
+**1. Your AI reads and writes it natively.** Models produce Markdown by default. Handing them Markdown and taking Markdown back is a clean round trip — no reformatting, no copy-paste mangling, nothing lost in translation.
+
+**2. Structure is the point.** Headings and lists tell the model what is a section, what is a list of rules, and what is an example. A wall of prose does not. This is the direct link to [Context](../../agentic-building-blocks/context/): context is *what* you give the AI; Markdown is *how* you write it down so the model can navigate it.
+
+**3. It is plain text, so it lasts.** No corrupted files, no application lock-in, no document that only opens in the program that made it. A `.md` file written today opens in every tool you will ever use, including ones that do not exist yet.
+
+**4. It is what this playbook runs on.** Your skills, prompts, context files, and [AI Registry](../ai-registry-setup/) are all `.md`. You will meet Markdown whether or not you go looking for it.
+
+:::tip[The rule worth remembering]
+**Draft a one-off in Google Docs. Build anything you will reuse in Markdown.**
+
+A board memo you send once and never touch again? Use whatever you like. A style guide, a set of rules, a context file, or a process you will hand to an AI repeatedly? Markdown, every time.
+:::
+
+## What It Looks Like
+
+Here is a complete file — meeting notes from a client call. This is what you would actually type:
+
+```markdown
+# Client Sync — Acme Corp
+
+**Date:** 12 March  **Attendees:** James Gray, Sara Reyes
+
+## Decisions
+
+- Ship the pilot to three teams first, not the whole org
+- **Budget approved** at $40k for Q3
+- Sara owns the rollout comms
+
+## Open Questions
+
+- [ ] Who owns the onboarding docs?
+- [ ] Do we need legal review before the pilot?
+- [x] Confirm the Q3 start date
+```
+
+And here is the same file, rendered:
+
+---
+
+#### Client Sync — Acme Corp
+
+**Date:** 12 March  **Attendees:** James Gray, Sara Reyes
+
+##### Decisions
+
+- Ship the pilot to three teams first, not the whole org
+- **Budget approved** at $40k for Q3
+- Sara owns the rollout comms
+
+##### Open Questions
+
+- [ ] Who owns the onboarding docs?
+- [ ] Do we need legal review before the pilot?
+- [x] Confirm the Q3 start date
+
+---
+
+Same information, twice. The version on top is what lives in the file; the version underneath is what you and your AI both see. Nothing was lost — and the file is still something you could open in Notepad.
+
+**Why the headings look smaller here than in your own file:** this page shows them at a reduced size so they do not clutter the contents menu on the right. In a file of your own, `#` gives you a large document title and `##` a clear section heading — both bigger and heavier than what you see above.
+
+## The Six Symbols That Matter
+
+Six symbols. Some have two forms — two heading sizes, two kinds of list, ticked and unticked boxes — but there are still only six things to learn.
+
+<div class="table-scroll">
+
+| Symbol | You type | You get |
+|---|---|---|
+| **1. Headings** | `# Big Heading` | The title of the document |
+| | `## Section Heading` | A section within it |
+| **2. Bold** | `**urgent**` | **urgent** |
+| **3. Lists** | `- Ship the deck` | A bullet point |
+| | `1. First step` | A numbered list |
+| **4. Checklists** | `- [ ] Send the recap` | ☐ An empty checkbox |
+| | `- [x] Send the recap` | ☑ A ticked checkbox |
+| **5. Links** | `[our site](https://handsonai.info)` | [our site](https://handsonai.info) |
+| **6. Tables** | `\| Name \| Status \|` | A table row (see the note below) |
+
+</div>
+
+**On tables:** they are the one symbol that is genuinely tedious to type by hand — every row needs its pipes lined up. Do not bother. Ask your AI: *"put that in a Markdown table."* It will get the pipes right every time.
+
+**You will also see these:** `` `backticks` `` around file names and commands, `>` at the start of a line for a quoted passage, and `![alt](image.png)` for images. You rarely need to type them, but now they will not surprise you.
+
+Anything beyond these six is rare enough that the better move is to ask your AI: *"how do I do X in Markdown?"* — you will get the answer faster than looking it up, and in the context of what you are already writing.
+
+## Creating It
+
+Two routes, and you will mostly use the first.
+
+**Ask your AI for it.** Add four words to any request: *"...and write it in Markdown."* That is the whole technique. The model already writes Markdown by default; you are just telling it to keep the symbols rather than strip them.
+
+**Convert what you already have.** Paste an existing document into your AI and ask: *"Convert this to Markdown, keeping the headings and lists."* Old meeting notes, a style guide, a process document — anything you want to start reusing with AI is a good candidate. If the document is already in Google Docs, you can skip the copy-and-paste entirely — see [Turn on Markdown in Google Docs](#getting-it-back-out) below.
+
+## Viewing and Editing It
+
+**Start here — nothing to install.** A `.md` file is a plain text file, so tools you already have will open it.
+
+<Tabs>
+  <TabItem label="macOS">
+
+1. Open **TextEdit** (press **Cmd + Space**, type `TextEdit`, press Enter).
+2. Go to **Format** in the menu bar and choose **Make Plain Text**. Do this before you type anything — see the gotchas below for why.
+3. Type or paste your Markdown.
+4. Press **Cmd + S**. In the **Save As** box, type the full name including the ending: `my-context.md`.
+5. If a dialog asks about the extension, click **Use .md**.
+
+  </TabItem>
+  <TabItem label="Windows">
+
+1. Open **Notepad** (click **Start**, type `Notepad`, press Enter).
+2. Type or paste your Markdown.
+3. Press **Ctrl + S**.
+4. In the **Save as type** dropdown, choose **All Files (\*.\*)**. This step is what stops Windows from adding `.txt` on the end.
+5. In the **File name** box, type the full name including the ending: `my-context.md`.
+
+  </TabItem>
+</Tabs>
+
+**Where it renders, and where it does not.** This trips people up on their first file, so it is worth knowing in advance:
+
+| Where you put it | What you see |
+|---|---|
+| Your AI chat (attached or pasted) | Fully rendered — this is the one that matters most |
+| GitHub (open the .md file) | Fully rendered |
+| Notion (paste the text in) | Converts to Notion blocks as it arrives |
+| Slack (paste the text in) | Bold and lists render; **checkboxes do not** — they appear as literal `[ ]` characters |
+| Google Drive (open the .md file) | Raw text, symbols and all. Nothing is broken; Drive just does not render Markdown |
+| TextEdit / Notepad | Raw text — though recent Windows 11 Notepad formats Markdown as you type. Use **View** to switch back to the raw symbols. |
+
+**When you are managing more than a few files,** move to a proper editor with a live preview pane. That is a setup step of its own — see the [AI Code Editor guide](../editor-setup/).
+
+## Getting It Back Out
+
+The question everyone asks: *if I write in Markdown, how do I send it to my CEO?*
+
+Markdown is where you draft and store. It converts at the last step, and you have three ways to do it:
+
+- **Paste it.** Copy the AI's answer as it appears on screen — the formatted version, not the raw symbols — then paste into Google Docs, Notion, or Slack. The formatting comes with it. (Notion also converts raw Markdown into its own blocks as you paste.)
+- **Ask your AI.** *"Turn this into a Word document"* or *"rewrite this as an email I can send to my CFO."* This is the most common route by far, and the model handles the tone shift as well as the format.
+- **Turn it into a PDF.** Paste it into Google Docs (see above), then use **File → Download → PDF Document**. Or simply ask your AI to produce the file for you.
+
+:::tip[Turn on Markdown in Google Docs]
+Google Docs can read and write Markdown, but the feature is **off by default**. Turning it on takes a minute, and you only do it once:
+
+1. Open any Google Doc.
+2. Go to **Tools → Preferences**.
+3. Tick **Enable Markdown**, then click **OK**.
+
+That gives you four things you did not have before:
+
+- **Right-click → Paste from Markdown** — pastes raw Markdown and converts it into proper Docs formatting. An ordinary **Ctrl/Cmd + V** still pastes the raw symbols, so you have to pick this option each time.
+- **Right-click → Copy as Markdown** — copies part of a Doc back out as Markdown, ready to hand to your AI.
+- **File → Download → Markdown (.md)** — turns a whole Doc into a `.md` file.
+- **File → Open → Upload** — brings a `.md` file into Docs as an editable document.
+
+Those last two make Google Docs a two-way door: draft in Markdown, share in Docs, and pull it back out again without retyping anything.
+:::
+
+Nobody has to know your source file was Markdown. That is rather the point.
+
+## What's That Dashed Block at the Top?
+
+Open a skill file or a registry entry and you will find something like this at the very top, fenced by three dashes:
+
+```markdown
+---
+name: weekly-report
+description: Drafts my Monday status update
+---
+```
+
+That is called **frontmatter**. It is a small label on the file — a title, a description, a date — that tools read to know what the file is and how to use it. Your AI uses it to decide when a skill applies.
+
+You almost never write frontmatter by hand; the framework skills generate it. You just need to recognize it and leave it alone. If you delete those lines, tools stop recognizing the file.
+
+## Try It — Five Minutes
+
+This exercise leaves you with a file you will genuinely reuse: a context file describing your role and your company, which you can attach to any future chat so you stop re-introducing yourself.
+
+1. **Ask your AI.** Paste this exactly:
+
+   > Interview me with three short questions about my role and my company. Then write my answers up as a context file in Markdown, using headings and bullet points.
+
+2. **Answer the three questions.**
+
+3. **Copy the Markdown it produces.** Copy the raw symbols, not a screenshot — if your AI shows a **Copy** button on the block, use that.
+
+4. **Save it as a file.** Follow the macOS or Windows steps in [Viewing and Editing It](#viewing-and-editing-it) above, and name it `my-context.md`.
+
+5. **Edit one line.** Open the file, change a single detail — add a project you are working on — and save again. You have now edited Markdown.
+
+6. **Hand it back.** Start a brand-new chat. Attach `my-context.md` using the paperclip or **+** button beside the message box, then ask for something ordinary: *"Draft a short intro paragraph about me for a conference bio."*
+
+Watch what happens on that last step. The AI does not ask who you are. That is the whole argument for Markdown, demonstrated in one file.
+
+## Common Gotchas
+
+Three things go wrong on the first attempt, and none of them are about the symbols themselves.
+
+<Tabs>
+  <TabItem label="macOS">
+
+**TextEdit saves rich text by default.** If you skip **Format → Make Plain Text**, TextEdit writes a formatted document instead of plain text, and your symbols will not behave. Set plain text first, before typing.
+
+**Smart quotes.** TextEdit may convert straight quotes into curly ones. Harmless in ordinary prose, but it breaks frontmatter. Turn it off under **Edit → Substitutions → Smart Quotes**.
+
+  </TabItem>
+  <TabItem label="Windows">
+
+**Windows hides file extensions.** By default, File Explorer does not show the ending of a file name — so a file you saved as `my-context.md` may silently be `my-context.md.txt`, and nothing will treat it as Markdown.
+
+To fix it: open **File Explorer** and click **View** in the toolbar. On Windows 11, choose **Show**, then tick **File name extensions**. On Windows 10, tick **File name extensions** directly on the **View** tab. Now you can see what your files are actually called, and rename any that ended up wrong.
+
+**Notepad adds .txt unless told otherwise.** Always set **Save as type** to **All Files (\*.\*)** before naming the file.
+
+  </TabItem>
+</Tabs>
+
+**Blank lines matter — on both platforms.** Markdown needs an empty line between a paragraph and a list, or between a heading and the text beneath it. Without that gap, things run together. When something looks wrong, a missing blank line is the first thing to check.
+
+## Where Markdown Shows Up in the Playbook
+
+Now that you can read it, you will see it everywhere:
+
+- **[Context](../../agentic-building-blocks/context/)** — the background material you give your AI. Markdown is how you write it down so the model can navigate it.
+- **[Skills](../../agentic-building-blocks/skills/)** — every skill is a Markdown file with frontmatter at the top.
+- **[Prompts](../../agentic-building-blocks/prompts/)** — structured prompts use headings and lists for the same reason your context files do.
+- **[AI Registry](../ai-registry-setup/)** — your inventory of what you have built, kept as Markdown in your workspace.
+
+You do not need to write any of these by hand. But you can now read them, edit them, and tell when something looks wrong — which is the whole job.

@@ -459,6 +459,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: 'Overview', link: '/builder-setup/' },
+            { label: 'Markdown Basics (reference)', link: '/builder-setup/markdown-basics/' },
             { label: 'AI Code Editor', link: '/builder-setup/editor-setup/' },
             { label: 'Git', link: '/builder-setup/git-install/' },
             { label: 'GitHub', link: '/builder-setup/github-setup/' },

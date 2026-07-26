@@ -9,6 +9,8 @@ description: The Context building block — background information, reference do
 
 Every AI model has broad general knowledge, but it doesn't know your company's style guide, your product specs, your customer data, or your industry's specific terminology. Context bridges that gap.
 
+Most context is written as Markdown — plain text with a few formatting marks that give the model structure to navigate. If you're new to it, see [Markdown Basics](../../builder-setup/markdown-basics/).
+
 ## Key Characteristics
 
 - **Provides knowledge the model doesn't have** — your data, your docs, your domain
