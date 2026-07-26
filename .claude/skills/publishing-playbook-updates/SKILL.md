@@ -16,7 +16,7 @@ Draft a curated changelog entry from recent git history, get approval, publish i
 
 1. **Find the last changelog entry date**
 
-   Look at the most recent file in `docs/blog/posts/` to determine the date range. Use the date from the filename (format: `YYYY-MM-DD-slug.md`).
+   Look at the most recent file in `src/content/docs/blog/` to determine the date range. Use the date from the filename (format: `YYYY-MM-DD-slug.md`).
 
 2. **Scan recent changes**
 
@@ -95,7 +95,7 @@ Draft a curated changelog entry from recent git history, get approval, publish i
 
 6. **Create the file**
 
-   Write the approved entry to `docs/blog/posts/YYYY-MM-DD-<slug>.md`.
+   Write the approved entry to `src/content/docs/blog/YYYY-MM-DD-<slug>.md`.
 
 7. **Commit and push**
 
