@@ -128,3 +128,76 @@ Six symbols. Some have two forms — two heading sizes, two kinds of list, ticke
 **You will also see these:** `` `backticks` `` around file names and commands, `>` at the start of a line for a quoted passage, and `![alt](image.png)` for images. You rarely need to type them, but now they will not surprise you.
 
 Anything beyond these six is rare enough that the better move is to ask your AI: *"how do I do X in Markdown?"* — you will get the answer faster than looking it up, and in the context of what you are already writing.
+
+## Creating It
+
+Two routes, and you will mostly use the first.
+
+**Ask your AI for it.** Add four words to any request: *"...and write it in Markdown."* That is the whole technique. The model already writes Markdown by default; you are just telling it to keep the symbols rather than strip them.
+
+**Convert what you already have.** Paste an existing document into your AI and ask: *"Convert this to Markdown, keeping the headings and lists."* Old meeting notes, a style guide, a process document — anything you want to start reusing with AI is a good candidate.
+
+## Viewing and Editing It
+
+**Start here — nothing to install.** A `.md` file is a plain text file, so tools you already have will open it.
+
+<Tabs>
+  <TabItem label="macOS">
+
+1. Open **TextEdit** (press **Cmd + Space**, type `TextEdit`, press Enter).
+2. Go to **Format** in the menu bar and choose **Make Plain Text**. Do this before you type anything — see the gotchas below for why.
+3. Type or paste your Markdown.
+4. Press **Cmd + S**. In the **Save As** box, type the full name including the ending: `my-context.md`.
+5. If a dialog asks about the extension, click **Use .md**.
+
+  </TabItem>
+  <TabItem label="Windows">
+
+1. Open **Notepad** (click **Start**, type `Notepad`, press Enter).
+2. Type or paste your Markdown.
+3. Press **Ctrl + S**.
+4. In the **Save as type** dropdown, choose **All Files (\*.\*)**. This step is what stops Windows from adding `.txt` on the end.
+5. In the **File name** box, type the full name including the ending: `my-context.md`.
+
+  </TabItem>
+</Tabs>
+
+**Where it renders, and where it does not.** This trips people up on their first file, so it is worth knowing in advance:
+
+| Where you put it | What you see |
+|---|---|
+| Your AI chat (attached or pasted) | Fully rendered — this is the one that matters most |
+| GitHub | Fully rendered |
+| Notion (paste the text in) | Converts to Notion blocks as it arrives |
+| Slack | Bold and lists render; **checkboxes do not** — they appear as literal `[ ]` characters |
+| Google Drive preview | Raw text, symbols and all. Nothing is broken; Drive just does not render Markdown |
+| TextEdit / Notepad | Raw text, by design — this is the editing view |
+
+**When you are managing more than a few files,** move to a proper editor with a live preview pane. That is a setup step of its own — see the [AI Code Editor guide](../editor-setup/).
+
+## Getting It Back Out
+
+The question everyone asks: *if I write in Markdown, how do I send it to my CEO?*
+
+Markdown is where you draft and store. It converts at the last step, and you have three ways to do it:
+
+- **Paste it.** Into Google Docs, Notion, or Slack. The formatting arrives with it.
+- **Ask your AI.** *"Turn this into a Word document"* or *"rewrite this as an email I can send to my CFO."* This is the most common route by far, and the model handles the tone shift as well as the format.
+- **Export from an editor.** Cursor and VS Code can export a Markdown file to PDF or HTML directly.
+
+Nobody has to know your source file was Markdown. That is rather the point.
+
+## What's That Dashed Block at the Top?
+
+Open a skill file or a registry entry and you will find something like this at the very top, fenced by three dashes:
+
+```markdown
+---
+name: weekly-report
+description: Drafts my Monday status update
+---
+```
+
+That is called **frontmatter**. It is a small label on the file — a title, a description, a date — that tools read to know what the file is and how to use it. Your AI uses it to decide when a skill applies.
+
+You almost never write frontmatter by hand; the framework skills generate it. You just need to recognise it and leave it alone. If you delete those lines, tools stop recognising the file.
