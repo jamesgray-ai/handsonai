@@ -2,7 +2,7 @@
 date: 2026-02-28
 authors:
   - jamesgray
-categories:
+tags:
   - Platform Updates
   - New Content
 description: "Every platform now has a Getting Started checklist, Memory joins as the 10th building block, and Product & Engineering gets an Evaluation page."

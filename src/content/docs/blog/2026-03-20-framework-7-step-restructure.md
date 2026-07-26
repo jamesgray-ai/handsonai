@@ -2,7 +2,7 @@
 date: 2026-03-20
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
   - New Content
 description: "The Business-First AI Framework expands from 3 steps to 7 — with new Test and Improve steps, renamed skills, evaluation criteria, and a skills-only approach replacing portable prompts."

@@ -2,7 +2,7 @@
 date: 2026-02-18
 authors:
   - jamesgray
-categories:
+tags:
   - New Content
   - Plugins
 description: "New Product & Engineering section, Architecture Decision Records page, platform-specific agent examples, and fixed agentic-coding slash commands."

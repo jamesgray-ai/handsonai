@@ -64,7 +64,9 @@ cd mcp-server && npm install && wrangler dev
 - Link to official documentation rather than duplicating it
 - When adding new docs to `src/content/docs/`, also update the sidebar in `astro.config.mjs`
 - Questions pages must include `question` and `short_answer` frontmatter for AEO schema
-- Changelog posts require `date`, `authors`, `categories`, and `description` frontmatter — `description` appears on the homepage Latest Updates section
+- Blog posts require `date`, `authors`, `tags`, and `description` frontmatter — `description` appears in the homepage What's New section. `tags` is starlight-blog's real schema field; `categories` was a MkDocs leftover that nothing read
+- Tags are metadata only right now: starlight-blog's `/blog/tags/[tag]` and `/blog/authors/[author]` routes render nothing here, because the blog is hand-rolled via `BlogList.astro` over the `docs` collection rather than driven by the plugin's routes. Verified 2026-07-25 — the build produces no tag or author pages
+- The blog covers both playbook updates and notable releases from Anthropic, OpenAI, and other platforms — keep `/blog/` and RSS scope copy consistent with that
 
 ## Feature Development Workflow
 

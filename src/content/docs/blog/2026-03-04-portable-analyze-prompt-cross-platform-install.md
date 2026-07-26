@@ -2,9 +2,9 @@
 date: 2026-03-04
 authors:
   - jamesgray
-categories:
+tags:
   - New Content
-  - Business-First AI Framework
+  - Framework
 description: "Portable Analyze prompt for non-skill users and cross-platform skill install consistency across framework pages"
 title: "Portable Analyze Prompt and Cross-Platform Install Clarity"
 ---Two updates to make the Business-First AI Framework more accessible, regardless of which AI platform you use.

@@ -11,7 +11,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: 'Hands-on AI Playbook Changelog',
-    description: 'Latest updates from the Hands-on AI Playbook — new content, plugins, and platform guides.',
+    description: 'Updates to the Hands-on AI Playbook, plus notable releases from Anthropic, OpenAI, and other AI platforms.',
     site: context.site!,
     items: posts.map((post) => ({
       title: post.data.title,

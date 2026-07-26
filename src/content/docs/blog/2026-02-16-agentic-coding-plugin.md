@@ -2,7 +2,7 @@
 date: 2026-02-16
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "New plugin for AI-assisted coding workflows — define requirements with structured PRDs before you build."
 title: "New Plugin: Agentic Coding"

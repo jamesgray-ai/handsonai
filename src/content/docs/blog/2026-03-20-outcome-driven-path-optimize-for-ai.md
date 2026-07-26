@@ -2,7 +2,7 @@
 date: 2026-03-20
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "Deconstruct skill adds outcome-driven path for agent systems and optimize-for-AI step for step-decomposed workflows"
 title: "Outcome-Driven Path and Process Optimization in Deconstruct"
