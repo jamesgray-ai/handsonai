@@ -22,16 +22,22 @@ Draft a curated changelog entry from recent git history, get approval, publish i
 
    Run:
    ```bash
-   git log --oneline --since="YYYY-MM-DD" -- docs/ plugins/ .claude/
-   git diff --stat HEAD~30 -- docs/ plugins/ .claude/
+   git log --oneline --since="YYYY-MM-DD" -- src/content/docs/ plugins/ .claude/
+   git diff --stat HEAD~30 -- src/content/docs/ plugins/ .claude/
    ```
 
+   > **Use `src/content/docs/`, not `docs/`.** There is no top-level `docs/` directory in
+   > this repo — CLAUDE.md uses `docs/…` as shorthand when describing sections, but the real
+   > path is `src/content/docs/…`. Passing `docs/` to `git log` matches nothing and returns
+   > **zero commits**, which reads as "no changes to publish" rather than as an error. If the
+   > scan comes back empty, check this first.
+
    Group changes by category:
-   - **New Content** — New pages added to `docs/`
+   - **New Content** — New pages added to `src/content/docs/`
    - **Plugins** — Changes to `plugins/` or `.claude/skills/` or `.claude/agents/`
-   - **Platform Updates** — Changes to `docs/platforms/`
-   - **Builder Setup** — Changes to `docs/builder-setup/`
-   - **Courses** — Changes to `docs/courses/`
+   - **Platform Updates** — Changes to `src/content/docs/platforms/`
+   - **Builder Setup** — Changes to `src/content/docs/builder-setup/`
+   - **Courses** — Changes to `src/content/docs/courses/`
 
 3. **Filter for signal**
 
@@ -62,9 +68,8 @@ Draft a curated changelog entry from recent git history, get approval, publish i
    tags:
      - <tag>
    description: "<one-line summary of the update>"
+   title: "<Headline summarizing the theme>"
    ---
-
-   # <Headline summarizing the theme>
 
    <2-3 sentence overview of what changed and why it matters.>
 
@@ -72,6 +77,11 @@ Draft a curated changelog entry from recent git history, get approval, publish i
 
    <Details for each notable change — 2-4 sentences each with links to the new/changed pages.>
    ```
+
+   > **The headline goes in `title:` frontmatter, not an `# H1`.** Starlight renders the
+   > frontmatter title as the page heading, so an H1 in the body produces a duplicate
+   > heading. All existing posts follow this — verified 2026-07-26: 24 of 24 use `title:`
+   > and none contain a body H1.
 
    Rules:
    - Filename format: `src/content/docs/blog/YYYY-MM-DD-<slug>.md`
@@ -97,16 +107,32 @@ Draft a curated changelog entry from recent git history, get approval, publish i
 
    Write the approved entry to `src/content/docs/blog/YYYY-MM-DD-<slug>.md`.
 
-7. **Commit and push**
+7. **Build, then commit and push**
 
-   Commit the new changelog entry and push to `main`. The site deploys automatically via CI, and the RSS feed updates with the new entry.
+   Run `npm run build` and `node scripts/check-links.js` before pushing. The build confirms
+   the post renders and appears in the homepage What's New section and `rss.xml`; the link
+   checker catches any dead link in the new entry. Then commit and push to `main` — the site
+   deploys automatically via CI.
 
 8. **Notify Slack**
 
-   After the commit is pushed (so the link is live), run the Slack notification script:
+   After the commit is pushed **and the deploy has finished**, confirm the post URL returns
+   HTTP 200, then run the notification script:
    ```bash
-   ./scripts/notify-slack.sh "<title>" "<one-line summary>" "https://handsonai.info/blog/YYYY/MM/DD/<slug>/"
+   curl -s -o /dev/null -w "%{http_code}\n" "https://handsonai.info/blog/YYYY-MM-DD-<slug>/"
+   ./scripts/notify-slack.sh "<title>" "<one-line summary>" "https://handsonai.info/blog/YYYY-MM-DD-<slug>/"
    ```
+
+   > **The blog URL is `/blog/YYYY-MM-DD-<slug>/`** — the same dated slug as the filename,
+   > with no directory nesting. It is **not** `/blog/YYYY/MM/DD/<slug>/`; that form 404s.
+   > This blog is hand-rolled via `BlogList.astro` over the `docs` collection rather than
+   > driven by starlight-blog's own routes, so the URL is just the page's path. Verified
+   > 2026-07-26. Check the 200 before notifying — the Slack post cannot be unsent, and a bad
+   > link goes to two channels at once.
+
+   Slack reaches other people. Show James the exact title, summary, and URL and get an
+   explicit go-ahead before running the script — publishing the entry and broadcasting it
+   are separate decisions.
 
    The script loads `.env` automatically. If the webhooks are not configured, it will skip with a message — remind James to set `SLACK_WEBHOOK_1` and `SLACK_WEBHOOK_2` in `.env` at the project root.
 
