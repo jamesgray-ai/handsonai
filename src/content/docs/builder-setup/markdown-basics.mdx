@@ -1,0 +1,60 @@
+---
+title: Markdown Basics
+description: What Markdown is, why it matters for capturing context, and how to create, view, edit, and share it — no technical background needed
+schema_type: HowTo
+howto_steps:
+  - name: Ask your AI for Markdown
+    text: Ask your AI assistant to interview you briefly and write your role and company context as Markdown.
+  - name: Save it as a .md file
+    text: "Paste the result into TextEdit (Mac, in plain text mode) or Notepad (Windows) and save it as my-context.md."
+  - name: Edit one line
+    text: Change a single line in the file and save again to confirm you can edit Markdown directly.
+  - name: Hand it back to your AI
+    text: Start a new chat, attach my-context.md, and ask a question — the AI reads your context and uses it.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+Markdown is the format your AI writes in, and the format nearly everything in this playbook is stored in — skills, prompts, context files, and your AI Registry.
+
+Here is the whole ask: **you mostly read Markdown. Your AI mostly writes it.** You need to recognise six symbols and know how to save a file. That is the entire skill.
+
+Nothing on this page requires you to install anything.
+
+## You've Already Been Reading It
+
+Every time Claude or ChatGPT answers you with headings, bold text, and bullet points, you are looking at rendered Markdown. The model wrote a handful of symbols; the app turned them into formatting before you saw them.
+
+And every time you have pasted an AI answer into an email and watched stray `**asterisks**` or `###` hash marks come along for the ride — that was the same Markdown, arriving somewhere that did not know how to render it.
+
+So this is not a new thing to learn. It is a thing you have been reading for months, finally named.
+
+## What Markdown Is
+
+**Markdown is plain text plus a small number of punctuation marks that mean formatting.**
+
+You already do this instinctively. In Slack or email you type `*important*`, or start a line with a dash to make a list, and you expect it to look like something. Markdown formalises that instinct into a small, consistent set of rules that every modern tool understands.
+
+Three terms that get tangled together:
+
+- **Markdown** — plain text with light formatting marks. Readable as-is, even before anything renders it.
+- **HTML** — the language web pages are built from. Far more powerful, far heavier to write.
+- **Rich text** — what Word and Google Docs produce. Looks finished, but the formatting is locked inside that application's own file format.
+
+A Markdown file is simply a text file whose name ends in `.md`.
+
+## Why It Matters
+
+**1. Your AI reads and writes it natively.** Models produce Markdown by default. Handing them Markdown and taking Markdown back is a clean round trip — no reformatting, no copy-paste mangling, nothing lost in translation.
+
+**2. Structure is the point.** Headings and lists tell the model what is a section, what is a list of rules, and what is an example. A wall of prose does not. This is the direct link to [Context](../../agentic-building-blocks/context/): context is *what* you give the AI; Markdown is *how* you write it down so the model can navigate it.
+
+**3. It is plain text, so it lasts.** No corrupted files, no application lock-in, no document that only opens in the program that made it. A `.md` file written today opens in every tool you will ever use, including ones that do not exist yet.
+
+**4. It is what this playbook runs on.** Your skills, prompts, context files, and [AI Registry](../ai-registry-setup/) are all `.md`. You will meet Markdown whether or not you go looking for it.
+
+:::tip[The rule worth remembering]
+**Draft a one-off in Google Docs. Build anything you will reuse in Markdown.**
+
+A board memo you send once and never touch again? Use whatever you like. A style guide, a set of rules, a context file, or a process you will hand to an AI repeatedly? Markdown, every time.
+:::
