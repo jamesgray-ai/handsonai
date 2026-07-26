@@ -83,8 +83,8 @@ Create a draft changelog entry at `outputs/changelog-draft-YYYY-MM-DD.md` using 
 date: YYYY-MM-DD
 authors:
   - jamesgray
-categories:
-  - <primary category>
+tags:
+  - <primary tag>
 description: "<one-line summary>"
 ---
 
