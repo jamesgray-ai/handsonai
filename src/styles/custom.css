@@ -243,3 +243,33 @@ header.header site-search button[data-open-modal] kbd {
 .sl-banner {
   font-weight: 600;
 }
+
+/* ── Splash hero band (homepage) ──
+   Full-bleed tint behind the hero to separate it from the page body.
+   Uses --sl-color-gray-6, which resolves one step darker than the page
+   background in light mode and one step lighter in dark, so a single
+   rule reads correctly in both themes. */
+[data-has-hero] .main-frame {
+  /* 100vw below includes the scrollbar width; clip the resulting overflow
+     here rather than letting the page scroll sideways. `clip` (not
+     `hidden`) avoids creating a scroll container, and .main-frame sits
+     below the header so sticky positioning is unaffected. */
+  overflow-x: clip;
+}
+
+[data-has-hero] .hero {
+  position: relative;
+}
+
+[data-has-hero] .hero::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  /* Extends up under the banner; stops at the hero's own bottom edge so
+     it never bleeds into the section that follows. */
+  inset-block: -3rem 0;
+  background: var(--sl-color-gray-6);
+  z-index: -1;
+}

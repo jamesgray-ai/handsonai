@@ -5,6 +5,10 @@ description: Meet James Gray — the person behind the Hands-on AI Playbook and 
 
 I'm **James Gray**. I built this playbook because I believe the best way to accelerate innovation is to make complex things simple — and then share them freely.
 
+## A Bit of Background
+
+I'm an AI strategist, builder, and instructor. I teach AI strategy at UC Berkeley, where I've spent the past four years working with executives, and I run cohort courses on Maven for both leaders and hands-on builders. Before that came 30 years in technology — including a decade at Microsoft — and more recently, working with leaders from companies like Deloitte, Accenture, Adobe, and Anthropic as they put AI to work. The through-line has always been the same: take something complicated and make it usable by people who don't have time to become specialists.
+
 ## Why This Exists
 
 My driving purpose is straightforward: **accelerate innovation for people, business, and technology**. The three aren't separate — when people grow, the business innovates. When the business innovates, the technology evolves. And when technology improves, it unlocks new potential in people. It's a virtuous cycle, and AI is the catalyst that speeds all of it up.
@@ -27,13 +31,9 @@ The future belongs to builders. Let's bring it forward together.
 
 ## Connect
 
-<div class="about-social" markdown>
-
-[LinkedIn](https://www.linkedin.com/in/jamesgray/ "LinkedIn")
-[✉](mailto:james@handsonai.info "Email")
-[](https://graymatter.jamesgray.ai "Graymatter Newsletter")
-[🌐](https://jamesgray.ai "Website")
-[GitHub](https://github.com/jamesgray-ai "GitHub")
-[🎓](https://maven.com/james-gray "Maven Courses")
-
-</div>
+- [Graymatter newsletter](https://graymatter.jamesgray.ai) — weekly, on applying AI to real work
+- [LinkedIn](https://www.linkedin.com/in/jamesgray/)
+- [Email me](mailto:james@handsonai.info)
+- [jamesgray.ai](https://jamesgray.ai) — my personal site
+- [Courses on Maven](https://maven.com/james-gray)
+- [GitHub](https://github.com/jamesgray-ai)

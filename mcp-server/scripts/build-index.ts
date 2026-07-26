@@ -119,7 +119,7 @@ function stripAdmonitionSyntax(content: string): string {
 }
 
 async function main() {
-  const files = await glob("**/*.md", {
+  const files = await glob("**/*.{md,mdx}", {
     cwd: DOCS_DIR,
     ignore: [
       "overrides/**",
