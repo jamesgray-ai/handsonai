@@ -11,8 +11,6 @@ Most AI adoption starts with the technology — "we have ChatGPT, where should w
 
 The framework is facilitated by **seven skills** — reusable AI routines that guide you through each step interactively. You don't need to figure out the right questions to ask or remember the methodology — the skill drives the conversation, probes for details, and produces structured outputs you carry to the next step. You bring the domain knowledge about your work; the AI handles the process.
 
-<div class="framework-steps" markdown>
-
 | Step | Skill | What it guides you through |
 |------|-------|---------------------------|
 | 1. Analyze | `analyze` | Identify and prioritize the workflows worth reimagining with AI |
@@ -22,8 +20,6 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 | 5. Test | `test` | Test your workflow's output quality and fix what's not working |
 | 6. Run | `run` | Deploy and operationalize your workflow |
 | 7. Improve | `improve` | Monitor quality and innovate your workflow over time |
-
-</div>
 
 **Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude Code, Claude Cowork, Claude.ai, M365 Copilot (Cowork), Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `handsonai`.
 
