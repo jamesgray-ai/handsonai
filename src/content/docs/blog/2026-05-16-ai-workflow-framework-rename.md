@@ -2,7 +2,7 @@
 date: 2026-05-16
 authors:
   - jamesgray
-categories:
+tags:
   - Framework
 description: "The Business-First AI Framework is now the AI Workflow Framework. Same seven steps, same skills, same /handsonai:* commands — just a clearer name that says what it actually is."
 title: "Renamed: AI Workflow Framework"

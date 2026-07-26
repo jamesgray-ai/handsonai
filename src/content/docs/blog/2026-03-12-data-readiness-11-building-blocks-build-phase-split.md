@@ -2,7 +2,7 @@
 date: 2026-03-12
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "Data readiness probing, 11 building blocks, Design Prompt, and the Build phase split into three focused skills."
 title: "Data Readiness, 11 Building Blocks, and a Redesigned Build Phase"

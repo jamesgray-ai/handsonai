@@ -2,7 +2,7 @@
 date: 2026-02-16
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "Agentic Coding plugin update: PRD skill gets paired AC/user stories and scope sections; Vision Brief skill adds strategic depth with 10 questions and inline examples."
 title: "Agentic Coding Plugin: Stronger PRDs and Vision Briefs"

@@ -2,7 +2,7 @@
 date: 2026-02-14
 authors:
   - jamesgray
-categories:
+tags:
   - Announcements
 description: "New Changelog with RSS feed, plus a dedicated MCP server so AI assistants can search the playbook directly."
 title: "Introducing the Changelog and MCP Server"

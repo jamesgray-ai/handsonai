@@ -2,7 +2,7 @@
 date: 2026-03-05
 authors:
   - jamesgray
-categories:
+tags:
   - New Content
   - Plugins
 description: "Portable Deconstruct prompt for any AI chat tool and AI Registry skills updated to save markdown files instead of Notion page bodies"

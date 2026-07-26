@@ -2,7 +2,7 @@
 date: 2026-02-25
 authors:
   - jamesgray
-categories:
+tags:
   - New Content
 description: "Agent orchestration patterns, expanded building blocks, agent programming frameworks, and framework refinements."
 title: "Orchestration patterns, new building blocks, and framework refinements"

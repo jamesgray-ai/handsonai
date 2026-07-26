@@ -2,7 +2,7 @@
 date: 2026-03-02
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "The Build phase now uses a two-step decision model — autonomy assessment plus orchestration mechanism — replacing the old execution pattern spectrum."
 title: "Build Phase: Autonomy Levels and Orchestration Mechanisms"

@@ -2,8 +2,8 @@
 date: 2026-02-16
 authors:
   - jamesgray
-categories:
-  - Business-First AI Framework
+tags:
+  - Framework
 description: "See what the Business-First AI Framework actually produces — a complete worked example with all three deliverables for a real content planning workflow."
 title: "New Example: Content Calendar Planning"
 ---The Business-First AI Framework now has a **full worked example** showing what the framework produces when you run a real workflow through all three steps. The example is Content Calendar Planning — a weekly process for planning content across LinkedIn, Substack, X, and YouTube.

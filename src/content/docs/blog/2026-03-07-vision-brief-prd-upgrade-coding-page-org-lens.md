@@ -2,7 +2,7 @@
 date: 2026-03-07
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "Upgraded Vision Brief and Feature PRD skills with deeper PM rigor, restructured Agentic Coding page, and added organizational workflow lens"
 title: "Stronger product specs, restructured coding page, and organizational workflows"

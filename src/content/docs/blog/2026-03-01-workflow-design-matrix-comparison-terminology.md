@@ -2,7 +2,7 @@
 date: 2026-03-01
 authors:
   - jamesgray
-categories:
+tags:
   - New Content
   - Plugins
 description: "New AI Workflow Design Matrix defines six workflow archetypes, Building Block Comparison Matrix helps choose the right block, and framework terminology is streamlined site-wide."

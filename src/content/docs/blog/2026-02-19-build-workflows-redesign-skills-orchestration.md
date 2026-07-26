@@ -2,7 +2,7 @@
 date: 2026-02-19
 authors:
   - jamesgray
-categories:
+tags:
   - New Content
   - Plugins
 description: "Step 3 — Build Workflows redesigned around skill-driven orchestration with a new Construct page, Launch Guide, and cross-platform skills standard."

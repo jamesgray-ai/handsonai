@@ -2,7 +2,7 @@
 date: 2026-02-19
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
   - Platform Updates
 description: "Building Workflows v3.1 adds plan mode gate, spec approval, and reference specs. Agents matrix expanded with SDK and browser agents. Architecture decisions streamlined."

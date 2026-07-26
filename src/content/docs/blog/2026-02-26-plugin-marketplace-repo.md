@@ -2,7 +2,7 @@
 date: 2026-02-26
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "The plugin marketplace moved to a dedicated lightweight repo for faster installs in Cowork and other tools."
 title: "Plugin Marketplace Moved to Dedicated Repo"

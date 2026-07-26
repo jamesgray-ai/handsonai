@@ -2,7 +2,7 @@
 date: 2026-03-17
 authors:
   - jamesgray
-categories:
+tags:
   - New Content
   - Plugins
 description: "CLI joins as the 11th agentic building block, and the Construct step now discovers creation tools automatically."

@@ -2,7 +2,7 @@
 date: 2026-02-10
 authors:
   - jamesgray
-categories:
+tags:
   - Announcements
 description: "Why I built the Hands-on AI Playbook -- a free, open-source resource with a framework, building blocks, and ready-made tools for applied AI."
 title: "I Built an Open-Source AI Playbook for Builders. Here's What's Inside."

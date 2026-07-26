@@ -2,7 +2,7 @@
 date: 2026-02-15
 authors:
   - jamesgray
-categories:
+tags:
   - Plugins
 description: "All 10 plugin skills now have slash commands — invoke any skill directly instead of relying on auto-triggering."
 title: "Slash Commands for All Plugin Skills"

@@ -13,7 +13,6 @@ export const collections = {
         question: z.string().optional(),
         short_answer: z.string().optional(),
         author: z.string().optional(),
-        categories: z.array(z.string()).optional(),
         course_provider: z.string().optional(),
         course_url: z.string().optional(),
         course_mode: z.string().optional(),
