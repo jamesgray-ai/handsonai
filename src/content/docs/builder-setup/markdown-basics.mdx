@@ -135,7 +135,7 @@ Two routes, and you will mostly use the first.
 
 **Ask your AI for it.** Add four words to any request: *"...and write it in Markdown."* That is the whole technique. The model already writes Markdown by default; you are just telling it to keep the symbols rather than strip them.
 
-**Convert what you already have.** Paste an existing document into your AI and ask: *"Convert this to Markdown, keeping the headings and lists."* Old meeting notes, a style guide, a process document — anything you want to start reusing with AI is a good candidate.
+**Convert what you already have.** Paste an existing document into your AI and ask: *"Convert this to Markdown, keeping the headings and lists."* Old meeting notes, a style guide, a process document — anything you want to start reusing with AI is a good candidate. If the document is already in Google Docs, you can skip the copy-and-paste entirely — see [Turn on Markdown in Google Docs](#getting-it-back-out) below.
 
 ## Viewing and Editing It
 
@@ -184,6 +184,23 @@ Markdown is where you draft and store. It converts at the last step, and you hav
 - **Paste it.** Copy the AI's answer as it appears on screen — the formatted version, not the raw symbols — then paste into Google Docs, Notion, or Slack. The formatting comes with it. (Notion also converts raw Markdown into its own blocks as you paste.)
 - **Ask your AI.** *"Turn this into a Word document"* or *"rewrite this as an email I can send to my CFO."* This is the most common route by far, and the model handles the tone shift as well as the format.
 - **Turn it into a PDF.** Paste it into Google Docs (see above), then use **File → Download → PDF Document**. Or simply ask your AI to produce the file for you.
+
+:::tip[Turn on Markdown in Google Docs]
+Google Docs can read and write Markdown, but the feature is **off by default**. Turning it on takes a minute, and you only do it once:
+
+1. Open any Google Doc.
+2. Go to **Tools → Preferences**.
+3. Tick **Enable Markdown**, then click **OK**.
+
+That gives you four things you did not have before:
+
+- **Right-click → Paste from Markdown** — pastes raw Markdown and converts it into proper Docs formatting. An ordinary **Ctrl/Cmd + V** still pastes the raw symbols, so you have to pick this option each time.
+- **Right-click → Copy as Markdown** — copies part of a Doc back out as Markdown, ready to hand to your AI.
+- **File → Download → Markdown (.md)** — turns a whole Doc into a `.md` file.
+- **File → Open → Upload** — brings a `.md` file into Docs as an editable document.
+
+Those last two make Google Docs a two-way door: draft in Markdown, share in Docs, and pull it back out again without retyping anything.
+:::
 
 Nobody has to know your source file was Markdown. That is rather the point.
 
