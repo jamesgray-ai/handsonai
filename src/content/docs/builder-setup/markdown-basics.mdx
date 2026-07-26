@@ -58,3 +58,73 @@ A Markdown file is simply a text file whose name ends in `.md`.
 
 A board memo you send once and never touch again? Use whatever you like. A style guide, a set of rules, a context file, or a process you will hand to an AI repeatedly? Markdown, every time.
 :::
+
+## What It Looks Like
+
+Here is a complete file — meeting notes from a client call. This is what you would actually type:
+
+```markdown
+# Client Sync — Acme Corp
+
+**Date:** 12 March  **Attendees:** James Gray, Sara Reyes
+
+## Decisions
+
+- Ship the pilot to three teams first, not the whole org
+- **Budget approved** at $40k for Q3
+- Sara owns the rollout comms
+
+## Open Questions
+
+- [ ] Who owns the onboarding docs?
+- [ ] Do we need legal review before the pilot?
+- [x] Confirm the Q3 start date
+```
+
+And here is the same file, rendered:
+
+---
+
+**Client Sync — Acme Corp**
+
+**Date:** 12 March  **Attendees:** James Gray, Sara Reyes
+
+*Decisions*
+
+- Ship the pilot to three teams first, not the whole org
+- **Budget approved** at $40k for Q3
+- Sara owns the rollout comms
+
+*Open Questions*
+
+- [ ] Who owns the onboarding docs?
+- [ ] Do we need legal review before the pilot?
+- [x] Confirm the Q3 start date
+
+---
+
+Same information, twice. The version on top is what lives in the file; the version underneath is what you and your AI both see. Nothing was lost — and the file is still something you could open in Notepad.
+
+**Why the rendered copy uses bold and italics for its headings rather than real `##` headings:** real headings would be picked up by this page's own table of contents and appear as if they were sections of the guide. The visual effect is the same for the reader.
+
+## The Six Symbols That Matter
+
+Six symbols. Some have two forms — two heading sizes, two kinds of list, ticked and unticked boxes — but there are still only six things to learn.
+
+| Symbol | You type | You get |
+|---|---|---|
+| **1. Headings** | `# Big Heading` | The title of the document |
+| | `## Section Heading` | A section within it |
+| **2. Bold** | `**urgent**` | **urgent** |
+| **3. Lists** | `- Ship the deck` | A bullet point |
+| | `1. First step` | A numbered list |
+| **4. Checklists** | `- [ ] Send the recap` | ☐ A checkbox you can tick |
+| | `- [x] Send the recap` | ☑ A ticked checkbox |
+| **5. Links** | `[our site](https://handsonai.info)` | [our site](https://handsonai.info) |
+| **6. Tables** | `\| Name \| Status \|` | A table row (see the note below) |
+
+**On tables:** they are the one symbol that is genuinely tedious to type by hand — every row needs its pipes lined up. Do not bother. Ask your AI: *"put that in a Markdown table."* It will get the pipes right every time.
+
+**You will also see these:** `` `backticks` `` around file names and commands, `>` at the start of a line for a quoted passage, and `![alt](image.png)` for images. You rarely need to type them, but now they will not surprise you.
+
+Anything beyond these six is rare enough that the better move is to ask your AI: *"how do I do X in Markdown?"* — you will get the answer faster than looking it up, and in the context of what you are already writing.
