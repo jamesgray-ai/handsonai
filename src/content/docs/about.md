@@ -7,7 +7,13 @@ I'm **James Gray**. I built this playbook because I believe the best way to acce
 
 ## A Bit of Background
 
-I'm an AI strategist, builder, and instructor. I teach AI strategy at UC Berkeley, where I've spent the past four years working with executives, and I run cohort courses on Maven for both leaders and hands-on builders. Before that came 30 years in technology — including a decade at Microsoft — and more recently, working with leaders from companies like Deloitte, Accenture, Adobe, and Anthropic as they put AI to work. The through-line has always been the same: take something complicated and make it usable by people who don't have time to become specialists.
+I teach data and AI strategy at UC Berkeley Haas Executive Education — including the largest AI program in the school's portfolio, plus custom programs for companies like Capital One — reaching between 1,200 and 2,500 senior leaders a year. I also run hands-on cohort courses on Maven for leaders and builders.
+
+Before teaching, I spent nearly a decade at Microsoft building the data and analytics platforms the business ran on. I've since held Chief Product Officer and Chief Information Officer roles across global enterprises and high-growth startups. My work sits at the intersection of product management, data, and AI.
+
+Today, as founder of JamesGray.AI, I advise leaders through consulting, fractional AI leadership, executive coaching, and hands-on learning. I hold an MS in Information and Data Science and an MBA from UC Berkeley, a BS in Electrical Engineering from Union College, and a leadership and performance coaching certification from Brown University.
+
+One conviction runs through all of it: AI accelerates and amplifies human capability, and realizing that takes both hands-on technical mastery and self-leadership.
 
 ## Why This Exists
 
