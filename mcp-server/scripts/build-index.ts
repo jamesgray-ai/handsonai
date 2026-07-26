@@ -49,27 +49,27 @@ function getSection(filePath: string): string {
 }
 
 function getUrl(filePath: string): string {
-  // Remove index.md → directory URL, remove .md → page URL
+  // Remove index.md/.mdx → directory URL, remove .md/.mdx → page URL
   let urlPath = filePath;
-  if (urlPath.endsWith("/index.md")) {
-    urlPath = urlPath.replace(/\/index\.md$/, "/");
-  } else if (urlPath === "index.md") {
+  if (/\/index\.mdx?$/.test(urlPath)) {
+    urlPath = urlPath.replace(/\/index\.mdx?$/, "/");
+  } else if (/^index\.mdx?$/.test(urlPath)) {
     urlPath = "";
   } else {
-    urlPath = urlPath.replace(/\.md$/, "/");
+    urlPath = urlPath.replace(/\.mdx?$/, "/");
   }
   return `${SITE_URL}/${urlPath}`;
 }
 
 function getPagePath(filePath: string): string {
-  // Remove .md and index suffixes for a clean path identifier
+  // Remove .md/.mdx and index suffixes for a clean path identifier
   let p = filePath;
-  if (p.endsWith("/index.md")) {
-    p = p.replace(/\/index\.md$/, "");
-  } else if (p === "index.md") {
+  if (/\/index\.mdx?$/.test(p)) {
+    p = p.replace(/\/index\.mdx?$/, "");
+  } else if (/^index\.mdx?$/.test(p)) {
     p = "home";
   } else {
-    p = p.replace(/\.md$/, "");
+    p = p.replace(/\.mdx?$/, "");
   }
   return p;
 }
