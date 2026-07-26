@@ -31,13 +31,9 @@ The future belongs to builders. Let's bring it forward together.
 
 ## Connect
 
-<div class="about-social" markdown>
-
-[LinkedIn](https://www.linkedin.com/in/jamesgray/ "LinkedIn")
-[✉](mailto:james@handsonai.info "Email")
-[](https://graymatter.jamesgray.ai "Graymatter Newsletter")
-[🌐](https://jamesgray.ai "Website")
-[GitHub](https://github.com/jamesgray-ai "GitHub")
-[🎓](https://maven.com/james-gray "Maven Courses")
-
-</div>
+- [Graymatter newsletter](https://graymatter.jamesgray.ai) — weekly, on applying AI to real work
+- [LinkedIn](https://www.linkedin.com/in/jamesgray/)
+- [Email me](mailto:james@handsonai.info)
+- [jamesgray.ai](https://jamesgray.ai) — my personal site
+- [Courses on Maven](https://maven.com/james-gray)
+- [GitHub](https://github.com/jamesgray-ai)
