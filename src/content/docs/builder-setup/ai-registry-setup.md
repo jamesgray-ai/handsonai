@@ -13,6 +13,8 @@ howto_steps:
     text: Ask Claude to "update my registry" to regenerate the index after adding assets outside the framework.
 ---The **AI Registry** is your inventory of everything you build with AI: workflows, skills, agents, business processes, and the apps they connect to. It lives entirely in your workspace as Markdown files — no database, no external account, nothing extra to maintain.
 
+New to Markdown? It's plain text with a few formatting marks — see [Markdown Basics](../markdown-basics/) for a ten-minute primer.
+
 The registry has one simple principle: **the file is the record.**
 
 - Every **skill** and **agent** already describes itself in its own file (the `name` and `description` at the top).
