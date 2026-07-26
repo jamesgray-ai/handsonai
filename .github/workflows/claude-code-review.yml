@@ -11,6 +11,14 @@ on:
     # frontmatter, and the link-check workflow verifies every internal link and
     # heading anchor in the built output.
     #
+    # The automations that GENERATE content are code too, and are covered here:
+    # .claude/** (skills and agents that write files), mcp-server/** (the MCP
+    # worker and its index builder), and plugins/** (distributed skills and
+    # agents). Two production bugs on 2026-07-25 lived in exactly these paths
+    # and shipped unreviewed: build-index.ts emitted 404 URLs for every .mdx
+    # page, and publishing-playbook-updates wrote posts to the retired MkDocs
+    # directory, where they would never have published.
+    #
     # NOTE: this only works because claude-review is NOT a required check —
     # a required check that never triggers would block merges forever. `main`
     # is unprotected as of 2026-07-25; re-check this if that changes.
@@ -25,6 +33,9 @@ on:
       - "package.json"
       - "scripts/**"
       - ".github/**"
+      - ".claude/**"
+      - "mcp-server/**"
+      - "plugins/**"
 
 jobs:
   claude-review:
