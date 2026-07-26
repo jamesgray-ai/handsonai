@@ -201,3 +201,59 @@ description: Drafts my Monday status update
 That is called **frontmatter**. It is a small label on the file — a title, a description, a date — that tools read to know what the file is and how to use it. Your AI uses it to decide when a skill applies.
 
 You almost never write frontmatter by hand; the framework skills generate it. You just need to recognise it and leave it alone. If you delete those lines, tools stop recognising the file.
+
+## Try It — Five Minutes
+
+This exercise leaves you with a file you will genuinely reuse: a context file describing your role and your company, which you can attach to any future chat so you stop re-introducing yourself.
+
+1. **Ask your AI.** Paste this exactly:
+
+   > Interview me with three short questions about my role and my company. Then write my answers up as a context file in Markdown, using headings and bullet points.
+
+2. **Answer the three questions.**
+
+3. **Copy the Markdown it produces.** Copy the raw symbols, not a screenshot — if your AI shows a **Copy** button on the block, use that.
+
+4. **Save it as a file.** Follow the macOS or Windows steps in [Viewing and Editing It](#viewing-and-editing-it) above, and name it `my-context.md`.
+
+5. **Edit one line.** Open the file, change a single detail — add a project you are working on — and save again. You have now edited Markdown.
+
+6. **Hand it back.** Start a brand-new chat. Attach `my-context.md` using the paperclip or **+** button beside the message box, then ask for something ordinary: *"Draft a short intro paragraph about me for a conference bio."*
+
+Watch what happens on that last step. The AI does not ask who you are. That is the whole argument for Markdown, demonstrated in one file.
+
+## Common Gotchas
+
+Three things go wrong on the first attempt, and none of them are about syntax.
+
+<Tabs>
+  <TabItem label="macOS">
+
+**TextEdit saves rich text by default.** If you skip **Format → Make Plain Text**, TextEdit writes a formatted document instead of plain text, and your symbols will not behave. Set plain text first, before typing.
+
+**Smart quotes.** TextEdit may convert straight quotes into curly ones. Harmless in ordinary prose, but it breaks frontmatter. Turn it off under **Edit → Substitutions → Smart Quotes**.
+
+  </TabItem>
+  <TabItem label="Windows">
+
+**Windows hides file extensions.** By default, File Explorer does not show the ending of a file name — so a file you saved as `my-context.md` may silently be `my-context.md.txt`, and nothing will treat it as Markdown.
+
+To fix it: open **File Explorer**, click the **View** tab, and tick **File name extensions**. Now you can see what your files are actually called, and rename any that ended up wrong.
+
+**Notepad adds .txt unless told otherwise.** Always set **Save as type** to **All Files (\*.\*)** before naming the file.
+
+  </TabItem>
+</Tabs>
+
+**Blank lines matter — on both platforms.** Markdown needs an empty line between a paragraph and a list, or between a heading and the text beneath it. Without that gap, things run together. When something looks wrong, a missing blank line is the first thing to check.
+
+## Where Markdown Shows Up in the Playbook
+
+Now that you can read it, you will see it everywhere:
+
+- **[Context](../../agentic-building-blocks/context/)** — the background material you give your AI. Markdown is how you write it down so the model can navigate it.
+- **[Skills](../../agentic-building-blocks/skills/)** — every skill is a Markdown file with frontmatter at the top.
+- **[Prompts](../../agentic-building-blocks/prompts/)** — structured prompts use headings and lists for the same reason your context files do.
+- **[AI Registry](../ai-registry-setup/)** — your inventory of what you have built, kept as Markdown in your workspace.
+
+You do not need to write any of these by hand. But you can now read them, edit them, and tell when something looks wrong — which is the whole job.
