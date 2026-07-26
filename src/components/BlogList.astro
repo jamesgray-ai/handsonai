@@ -13,16 +13,102 @@ const allPosts = docs
   .filter((entry) => entry.id.startsWith('blog/') && entry.id !== 'blog/' && entry.data.date)
   .sort((a, b) => new Date(b.data.date!).getTime() - new Date(a.data.date!).getTime());
 const posts = limit ? allPosts.slice(0, limit) : allPosts;
+
+/* The "New" badge marks genuinely recent posts. Two conditions, and both are load
+   bearing, because this blog publishes in bursts and then goes quiet:
+
+   - Within NEW_WINDOW_DAYS. Without a window the top entry wears the badge forever;
+     gaps here have run to 71 days, so "newest" and "new" are not the same claim, and
+     a permanently lit badge stops being read.
+   - Among the NEW_MAX_BADGES most recent. Without a cap, a burst floods the page —
+     16 Feb 2026 alone had three posts, and a wider window would have badged roughly
+     fifteen at once, which is no signal at all.
+
+   Deliberately NOT "index 0 only": same-day posts are equally new, and badging one of
+   three identical-dated entries is just wrong. Outside the window nothing renders,
+   which is the honest result — the remedy for a missing badge is publishing. */
+const NEW_WINDOW_DAYS = 14;
+const NEW_MAX_BADGES = 3;
+const newCutoff = Date.now() - NEW_WINDOW_DAYS * 86_400_000;
+const newIds = new Set(
+  allPosts
+    .slice(0, NEW_MAX_BADGES)
+    .filter((p) => new Date(p.data.date!).getTime() >= newCutoff)
+    .map((p) => p.id)
+);
 ---
 
 {posts.map((post) => (
-  <div style="margin-bottom: 2rem;">
-    <small style="color: var(--sl-color-gray-3);">
-      {new Date(post.data.date!).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
-    </small>
-    <h3 style="margin-top: 0.25rem; margin-bottom: 0.25rem;">
+  <div class="blog-entry">
+    <p class="blog-meta">
+      <span class="blog-date">
+        {new Date(post.data.date!).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}
+      </span>
+      {newIds.has(post.id) && <span class="blog-new">New</span>}
+    </p>
+    <h3 class="blog-title">
       <a href={`/${post.id}/`}>{post.data.title}</a>
     </h3>
-    {post.data.description && <p style="margin-top: 0;">{post.data.description}</p>}
+    {post.data.description && <p class="blog-description">{post.data.description}</p>}
   </div>
 ))}
+
+<style>
+  .blog-entry {
+    margin-bottom: 2rem;
+  }
+
+  /* Date and badge sit on one line, vertically centred, with the badge close
+     enough to read as a pair with the date rather than as a stray element. */
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+
+  /* A quiet pill. Enough of a surface to give the list rhythm and make the date
+     scannable, without competing with the headline beneath it. */
+  .blog-date {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: var(--sl-color-gray-2);
+  }
+
+  :root[data-theme='light'] .blog-date {
+    background-color: #e2e2de;
+    color: #484846;
+  }
+
+  /* Lime is reserved for interaction everywhere else on the site, so it earns its
+     use here by carrying real meaning — this post is fresh — rather than decorating
+     every row. Charcoal on lime matches the announcement banner treatment and holds
+     its contrast in both themes. */
+  .blog-new {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    background-color: #ddf222;
+    color: #282828;
+  }
+
+  .blog-title {
+    margin-top: 0.4rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .blog-description {
+    margin-top: 0;
+  }
+</style>
