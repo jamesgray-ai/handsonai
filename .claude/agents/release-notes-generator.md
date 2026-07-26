@@ -83,8 +83,8 @@ Create a draft changelog entry at `outputs/changelog-draft-YYYY-MM-DD.md` using 
 date: YYYY-MM-DD
 authors:
   - jamesgray
-categories:
-  - <primary category>
+tags:
+  - <primary tag>
 description: "<one-line summary>"
 ---
 
@@ -97,7 +97,7 @@ description: "<one-line summary>"
 <Notable changes with links to playbook pages>
 ```
 
-This draft is for James to review before publishing to `docs/blog/posts/`. It is NOT automatically published.
+This draft is for James to review before publishing to `src/content/docs/blog/`. It is NOT automatically published.
 
 ## Step 8: Log the Result
 
@@ -130,4 +130,4 @@ Changelog draft: outputs/changelog-draft-YYYY-MM-DD.md
 
 - Always run from the repository root directory
 - The `gh` CLI must be authenticated (it is in this environment)
-- The changelog draft in `outputs/` requires manual review before publishing — run `/publishing-playbook-updates` or manually move it to `docs/blog/posts/`
+- The changelog draft in `outputs/` requires manual review before publishing — run `/publishing-playbook-updates` or manually move it to `src/content/docs/blog/`

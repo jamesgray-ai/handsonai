@@ -16,7 +16,7 @@ Draft a curated changelog entry from recent git history, get approval, publish i
 
 1. **Find the last changelog entry date**
 
-   Look at the most recent file in `docs/blog/posts/` to determine the date range. Use the date from the filename (format: `YYYY-MM-DD-slug.md`).
+   Look at the most recent file in `src/content/docs/blog/` to determine the date range. Use the date from the filename (format: `YYYY-MM-DD-slug.md`).
 
 2. **Scan recent changes**
 
@@ -59,8 +59,8 @@ Draft a curated changelog entry from recent git history, get approval, publish i
    date: YYYY-MM-DD
    authors:
      - jamesgray
-   categories:
-     - <category>
+   tags:
+     - <tag>
    description: "<one-line summary of the update>"
    ---
 
@@ -74,13 +74,13 @@ Draft a curated changelog entry from recent git history, get approval, publish i
    ```
 
    Rules:
-   - Filename format: `docs/blog/posts/YYYY-MM-DD-<slug>.md`
+   - Filename format: `src/content/docs/blog/YYYY-MM-DD-<slug>.md`
    - Use today's date
    - Keep it short and scannable — this is a changelog, not a blog post
-   - Link to the actual playbook pages using relative paths (e.g., `../../agentic-building-blocks/agents/index.md`)
+   - Link to playbook pages with site-root paths (e.g., `/agentic-building-blocks/agents/`), matching every existing post
    - If a related Substack article was published, cross-reference it
-   - Categories: `New Content`, `Plugins`, `Platform Updates`, `Builder Setup`, `Courses`, `Announcements`
-   - Multiple categories can be listed if the update spans areas
+   - Tags: `New Content`, `Plugins`, `Platform Updates`, `Framework`, `Announcements`
+   - Multiple tags can be listed if the update spans areas
 
 5. **Present for review**
 
@@ -95,7 +95,7 @@ Draft a curated changelog entry from recent git history, get approval, publish i
 
 6. **Create the file**
 
-   Write the approved entry to `docs/blog/posts/YYYY-MM-DD-<slug>.md`.
+   Write the approved entry to `src/content/docs/blog/YYYY-MM-DD-<slug>.md`.
 
 7. **Commit and push**
 
