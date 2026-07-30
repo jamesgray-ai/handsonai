@@ -124,6 +124,41 @@ new_workspace
 assert "valid draft → allow" 0 "$(run_gate "$TMP")"
 rm -rf "$TMP"
 
+# --- Length ceiling -------------------------------------------------------
+# The first live run produced a 3,030-word article against a 2,000-2,500 target. The
+# gate had a floor but no ceiling, so nothing caught it.
+
+new_workspace
+{ make_body 1500; make_sources; } > "$RUN/01-research.md"
+{ make_body 40000; make_sources; } > "$RUN/02-draft.md"   # ~5,700 words
+assert "over-length draft → block" 2 "$(run_gate "$TMP")" "over length"
+rm -rf "$TMP"
+
+new_workspace
+{ make_body 1500; make_sources; } > "$RUN/01-research.md"
+{ make_body 6500; make_sources; } > "$RUN/02-draft.md"
+{ make_body 40000; make_sources; } > "$RUN/03-edited.md"
+echo "memo" > "$RUN/03-editorial-memo.md"
+assert "over-length revision → block" 2 "$(run_gate "$TMP")" "over length"
+rm -rf "$TMP"
+
+# --- Stray markup ---------------------------------------------------------
+# The first live run left a literal </content> tag at the end of 03-edited.md.
+
+new_workspace
+{ make_body 1500; make_sources; } > "$RUN/01-research.md"
+{ make_body 6500; make_sources; printf '\n</content>\n'; } > "$RUN/02-draft.md"
+assert "stray tag in draft → block" 2 "$(run_gate "$TMP")" "stray markup"
+rm -rf "$TMP"
+
+new_workspace
+{ make_body 1500; make_sources; } > "$RUN/01-research.md"
+{ make_body 6500; make_sources; } > "$RUN/02-draft.md"
+{ make_body 6500; make_sources; printf '\n</content>\n'; } > "$RUN/03-edited.md"
+echo "memo" > "$RUN/03-editorial-memo.md"
+assert "stray tag in revision → block" 2 "$(run_gate "$TMP")" "stray markup"
+rm -rf "$TMP"
+
 # --- Editor stage ---------------------------------------------------------
 
 new_workspace
@@ -231,6 +266,34 @@ if [ -s "$RUN/run-log.md" ]; then
   PASS=$((PASS + 1))
 else
   echo "  FAIL  run-log.md was not written"
+  FAIL=$((FAIL + 1))
+fi
+
+# SubagentStop fires several times per agent. The first live run logged 10 lines for
+# 4 stages, which buried the shape of the run. Repeated passes with an unchanged
+# artifact set must not add lines.
+BEFORE=$(grep -c 'gate passed' "$RUN/run-log.md")
+run_gate "$TMP" > /dev/null
+run_gate "$TMP" > /dev/null
+AFTER=$(grep -c 'gate passed' "$RUN/run-log.md")
+if [ "$BEFORE" = "$AFTER" ]; then
+  echo "  ok    repeated passes do not duplicate log lines ($AFTER entries)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  log grew from $BEFORE to $AFTER on unchanged artifacts"
+  FAIL=$((FAIL + 1))
+fi
+
+# But a genuine new stage must still be recorded.
+echo "next stage" > "$RUN/some-new-artifact.md"
+{ make_body 6500; make_sources; } > "$RUN/04-article.md" 2>/dev/null
+run_gate "$TMP" > /dev/null
+FINAL=$(grep -c 'gate passed' "$RUN/run-log.md")
+if [ "$FINAL" -ge "$AFTER" ]; then
+  echo "  ok    log still records real stage changes"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  log stopped recording changes"
   FAIL=$((FAIL + 1))
 fi
 rm -rf "$TMP"

@@ -22,6 +22,11 @@ pipeline. In that case:**
    one clear big idea an executive could act on Monday. This overrides the 2,000–4,000
    word guidance under Platform-Specific Guidance below — in a pipeline, aim for the
    tighter range. Every factual claim must be traceable to the dossier.
+
+   **Count the words before you finish, and cut if you are over.** A good dossier will
+   tempt you past the target; the discipline of choosing what to leave out is part of the
+   job. The quality gate blocks anything above 2,750 words, so an overrun costs you a
+   rewrite. Write plain markdown only — no wrapper tags around your output.
 3. Return to the orchestrator **only** a summary of 200 words or less: the big idea, the
    structure you chose, the word count, and the path to the file.
 4. **Skip "clarify the ask" and "invite feedback"** — steps 1 and 5 of Your Process

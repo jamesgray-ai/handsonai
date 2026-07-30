@@ -139,7 +139,8 @@ outputs/articles/<slug>/
   03-editorial-memo.md    what changed and why
   04-article.md           deliverable 1 — markdown
   04-article.docx         deliverable 2 — Word
-  run-log.md              audit trail, appended by the gate
+  APPROVED                written when you approve; the publish gate checks for it
+  run-log.md              audit trail, one line per stage, appended by the gate
 ```
 
 **The failure this prevents:** without it, a research dossier, a 2,000-word draft, and an editorial memo all get passed back and forth as chat text. That is expensive, it degrades as things are re-summarized, and — worst for teaching — it leaves nothing to inspect. With files, you can open `01-research.md` and see exactly what the writer had to work with. When output is disappointing, you can tell *which stage* disappointed.
@@ -152,7 +153,8 @@ A `SubagentStop` hook fires when any subagent finishes. This one reads the works
 |---|---|
 | Something was produced | the agent finished without writing any file |
 | Research substance | the dossier is thin or carries fewer than three source URLs |
-| Draft length | the draft is far under the word target |
+| Draft length | the draft is under the floor **or over the ceiling** — the first live run overran the target by 21% because only a floor existed |
+| Clean output | the article contains stray wrapper tags like `</content>`, which agents occasionally emit from their own scaffolding |
 | **The editor actually edited** | `03-edited.md` is missing its memo, has lost its citations, or still contains critique markers like `**Original**:` |
 | **Both deliverables exist** | `04-article.md` exists but `04-article.docx` is missing or is not a real Word file |
 
@@ -243,7 +245,7 @@ The four agents were written originally for interactive, one-at-a-time use. Turn
 
 ## The Goal Statement
 
-**This is the goal statement for the whole multi-agent system.** It is the only thing you type. Two paragraphs start four agents, produce seven files, and deliver two documents.
+**This is the goal statement for the whole multi-agent system.** It is the only thing you type. Two paragraphs start four agents, produce nine files, and deliver two documents.
 
 ```text
 Write an HBR-style article for senior business leaders on companies that have
@@ -374,7 +376,7 @@ bash .claude/hooks/test-publish-gate.sh
 bash scripts/test-article-to-docx.sh
 ```
 
-The first builds synthetic workspaces and asserts the `SubagentStop` gate blocks a thin dossier, an uncited dossier, a short draft, a revision missing its memo, a critique masquerading as a revision, a missing Word file, and a corrupt Word file — and that it stays completely inert when the pipeline is not running.
+The first builds synthetic workspaces and asserts the `SubagentStop` gate blocks a thin dossier, an uncited dossier, a draft that is too short or too long, a revision missing its memo, a critique masquerading as a revision, stray wrapper tags in the article, a missing Word file, and a corrupt Word file — and that it stays completely inert when the pipeline is not running.
 
 The second asserts the `PreToolUse` gate blocks a publisher dispatch without an approval marker, allows it with one, ignores every other agent and tool, stays inert outside a pipeline run, and fails *open* on a payload it does not recognise — because a gate that wedges a live demonstration is worse than one that occasionally misses.
 
@@ -402,6 +404,42 @@ Starting each stage fresh is the manual equivalent of a subagent's clean context
   </TabItem>
 </Tabs>
 
+## What the First Live Run Actually Did
+
+Everything above describes how the pipeline is designed. This is what it did the first time it ran end to end, taken from the artifacts it left behind — because a worked example that only describes itself is a brochure.
+
+**Twelve minutes, four agents, no intervention** beyond one approval. The dispatch log the `PreToolUse` hook wrote:
+
+```
+14:01:38 tool=Agent target=ai-productivity-researcher
+14:06:20 tool=Agent target=tech-executive-writer
+14:08:17 tool=Agent target=hbr-editor
+14:11:38 tool=Agent target=hbr-publisher
+```
+
+Nobody specified that order. Claude chose it by reading the agents' descriptions.
+
+**What the artifacts show:**
+
+| Measure | Result |
+|---|---|
+| Research dossier | 4,009 words, 36 cited sources, five primary deployments |
+| Citations through the chain | 36 → 53 → 54 → 54 — the writer added inline links, the editor *closed a gap*, nothing was lost |
+| Critique leaking into the article | zero |
+| Final deliverables | 3,030-word markdown article, valid 8-page Word document |
+| Approval marker written | 14:11:27 — eleven seconds before the publisher was dispatched |
+
+The article opened on a genuine hook — 95% of AI pilots return nothing, per MIT's Project NANDA — and named seven organisations with quantified outcomes: Klarna, Moderna, JPMorgan Chase, Sierra, BT Group, WeightWatchers, and Sonos. The detail worth pointing at is that it flagged every company-reported figure as self-reported rather than independently audited. That scepticism came from the researcher's instructions, not from the prompt.
+
+**Two things the run got wrong, which the gate now catches:**
+
+1. **The article ran 3,030 words against a 2,000–2,500 target.** The gate had a floor but no ceiling, so nothing objected. Adding a ceiling of 2,750 words means the overrun is now caught at the *draft* stage, before it propagates through editing and publishing.
+2. **The editor left a literal `</content>` tag** at the end of its file — scaffolding from its own output format. The publisher happened to strip it, so the deliverable was clean by luck. The gate now rejects stray wrapper tags outright.
+
+Both are the same lesson: **a check you did not write is a standard you are not enforcing.** The pipeline looked like it worked, and the failures were only visible by measuring the artifacts afterwards.
+
+**One thing the run did not prove.** No gate ever blocked — every agent cleared the bars first time, and Claude asked for approval before attempting to publish rather than being stopped. So the block paths are verified by 41 unit assertions, not by this run. If you want an audience to *see* the harness stop the AI, force it: arm a workspace and ask Claude to dispatch `hbr-publisher` with no approval marker present.
+
 ## What Went Wrong Building This
 
 The most useful part of the example, and the part usually left out.
@@ -416,6 +454,9 @@ The most useful part of the example, and the part usually left out.
 | Writing the pipeline's first `.docx` failed silently until the renderer was tested against a real Word file | Test the boring plumbing. The interesting AI part is rarely what breaks. |
 | The gate passed its unit tests but rejected every *real* Word file, because a `grep -q` in a pipeline made a successful match look like a failure once the file was large enough | Test with real artifacts, not only small fixtures. This bug was invisible at fixture size and would have blocked every genuine publish. |
 | The agent descriptions described when a *human* would want each agent, so automatic delegation had nothing to chain on | Under automatic delegation, the descriptions *are* the workflow. Write them for the orchestrator, not only for the user. |
+| The first live run overran the word target by 21%, and nothing objected — the gate had a floor but no ceiling | Bars you state only in the prompt are not enforced. Every standard worth having needs a check, and a one-sided check is half a standard. |
+| The editor emitted a stray `</content>` tag; the deliverable was clean only because the publisher happened to strip it | Agents leak their own scaffolding into their output. Check the shape of the artifact, not just its substance. |
+| The run log recorded ten entries for four stages, because `SubagentStop` fires more than once per agent | An audit trail nobody can read is not an audit trail. Log state *changes*, not events. |
 
 ## When Not To Use This Pattern
 

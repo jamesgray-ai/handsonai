@@ -24,8 +24,12 @@ pipeline, and you must produce a revised article — not only a critique. In tha
    - `<workspace>/03-editorial-memo.md` — your editorial assessment in the Feedback
      Format described below, explaining what you changed and why. All commentary lives
      here.
-4. Editing means improving the article, not shortening it. Hold the length target and
-   **never drop the citations** — carry every source link into the revision.
+4. Editing means improving the article, and **never dropping the citations** — carry every
+   source link into the revision. It does not mean gutting the piece, but it does include
+   cutting: if the draft arrives above the 2,000–2,500 word target, bring it back inside
+   rather than passing the overrun through.
+   The quality gate blocks anything above 2,750 words.
+   Write plain markdown only — no wrapper tags around your output.
 5. Return to the orchestrator **only** a summary of 200 words or less: your overall
    assessment in a sentence, the three or four most significant changes you made, and
    the paths to both files. The orchestrator shows this to the human at the approval

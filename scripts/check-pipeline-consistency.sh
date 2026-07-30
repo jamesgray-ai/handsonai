@@ -119,6 +119,12 @@ grep -q 'MIN_SOURCES=3' "$H/subagent-gate.sh" \
 grep -q 'CHAR_FLOOR_ARTICLE=6000' "$H/subagent-gate.sh" \
   && ok "gate article floor is 6000 chars (~1,000 words, under the 2,000 target)" \
   || bad "gate article floor changed — confirm it is still below the word target"
+grep -q 'WORD_CEILING_ARTICLE=2750' "$H/subagent-gate.sh" \
+  && ok "gate enforces a ceiling as well as a floor" \
+  || bad "gate word ceiling changed — the first live run overran with no ceiling in place"
+# The agents must know the ceiling, so they self-correct rather than relying on a block.
+must_contain "writer knows the ceiling" "$A/tech-executive-writer.md" "2,750 words"
+must_contain "editor knows the ceiling" "$A/hbr-editor.md"            "2,750 words"
 
 echo
 echo "-- durable standards live in the agents, not only in the prompt --"

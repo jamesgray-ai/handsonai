@@ -52,12 +52,31 @@ RUN="$PROJECT_DIR/$RUN_REL"
 # ---------------------------------------------------------------------------
 
 CHAR_FLOOR_RESEARCH=1000
-CHAR_FLOOR_ARTICLE=6000   # ~1,000 words; the target is 2,000-2,500
+CHAR_FLOOR_ARTICLE=6000    # ~1,000 words; the target is 2,000-2,500
+WORD_CEILING_ARTICLE=2750  # the 2,500 target plus 10% tolerance
 MIN_SOURCES=3
 
 chars() {
   if [ -f "$1" ]; then
     wc -c < "$1" | tr -d '[:space:]'
+  else
+    echo 0
+  fi
+}
+
+words() {
+  if [ -f "$1" ]; then
+    wc -w < "$1" | tr -d '[:space:]'
+  else
+    echo 0
+  fi
+}
+
+# Agents occasionally wrap their output in XML-ish tags borrowed from their own
+# prompt scaffolding. It is invisible in a summary and lands in the published file.
+stray_tags() {
+  if [ -f "$1" ]; then
+    grep -cE '</?(content|document|article|output|response)>' "$1" 2>/dev/null | tr -d '[:space:]'
   else
     echo 0
   fi
@@ -118,6 +137,12 @@ if [ -f "$RUN/02-draft.md" ]; then
   if [ "$(chars "$RUN/02-draft.md")" -lt "$CHAR_FLOOR_ARTICLE" ]; then
     block "02-draft.md is under length ($(chars "$RUN/02-draft.md") characters, minimum $CHAR_FLOOR_ARTICLE). The target is 2,000-2,500 words."
   fi
+  if [ "$(words "$RUN/02-draft.md")" -gt "$WORD_CEILING_ARTICLE" ]; then
+    block "02-draft.md is over length ($(words "$RUN/02-draft.md") words, ceiling $WORD_CEILING_ARTICLE). The target is 2,000-2,500 words. Cut the weakest material — do not simply stop mid-argument."
+  fi
+  if [ "$(stray_tags "$RUN/02-draft.md")" -gt 0 ]; then
+    block "02-draft.md contains stray markup tags such as </content>. Write plain markdown only — that file is the article, not a wrapped response."
+  fi
 fi
 
 # ---------------------------------------------------------------------------
@@ -136,6 +161,12 @@ if [ -f "$RUN/03-edited.md" ]; then
   fi
   if [ "$(sources "$RUN/03-edited.md")" -lt "$MIN_SOURCES" ]; then
     block "03-edited.md contains $(sources "$RUN/03-edited.md") source URLs, minimum $MIN_SOURCES. Editing must not drop the citations."
+  fi
+  if [ "$(words "$RUN/03-edited.md")" -gt "$WORD_CEILING_ARTICLE" ]; then
+    block "03-edited.md is over length ($(words "$RUN/03-edited.md") words, ceiling $WORD_CEILING_ARTICLE). The target is 2,000-2,500 words. Editing includes cutting — tighten it rather than passing the overrun through."
+  fi
+  if [ "$(stray_tags "$RUN/03-edited.md")" -gt 0 ]; then
+    block "03-edited.md contains stray markup tags such as </content>. That file must be the finished article in plain markdown, nothing else."
   fi
 fi
 
@@ -163,13 +194,19 @@ fi
 # ---------------------------------------------------------------------------
 
 LOG="$RUN/run-log.md"
-[ -f "$LOG" ] || printf '# Run log\n\nAppended by the SubagentStop gate each time a stage passes.\n\n' > "$LOG"
+[ -f "$LOG" ] || printf '# Run log\n\nOne line per completed stage, appended by the SubagentStop gate.\n\n' > "$LOG"
 
 PRESENT=""
 for f in 01-research.md 02-draft.md 03-edited.md 03-editorial-memo.md 04-article.md 04-article.docx; do
   [ -s "$RUN/$f" ] && PRESENT="$PRESENT $f"
 done
 
-printf -- '- %s — gate passed — artifacts:%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$PRESENT" >> "$LOG"
+# SubagentStop fires more than once per agent, so logging every pass produces several
+# identical lines per stage and buries the shape of the run. Only record a pass when the
+# set of artifacts actually changed — then the log is exactly one line per stage.
+LAST="$(grep '— gate passed — artifacts:' "$LOG" 2>/dev/null | tail -1 | sed 's/.*artifacts://')"
+if [ "$LAST" != "$PRESENT" ]; then
+  printf -- '- %s — gate passed — artifacts:%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$PRESENT" >> "$LOG"
+fi
 
 exit 0
