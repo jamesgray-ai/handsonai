@@ -61,7 +61,16 @@ command -v jq >/dev/null || { echo "Error: jq is required (brew install jq)" >&2
 
 # The multi-agent-example pipeline is mirrored under .claude/ so it runs in this repo.
 # Refuse to ship a plugin whose copies have drifted from what we demo.
-if [ "$PLUGIN" = "multi-agent-example" ] && [ -x "$REPO_ROOT/scripts/check-plugin-sync.sh" ]; then
+#
+# Test with -f, not -x. The script is run below as `bash <path>`, so its executable bit
+# is irrelevant to running it — but using -x as the guard means a chmod, a checkout on a
+# filesystem that drops the mode bit, or a CI container that normalises permissions
+# silently skips the drift check and ships a plugin that has diverged from what we demo.
+if [ "$PLUGIN" = "multi-agent-example" ]; then
+  if [ ! -f "$REPO_ROOT/scripts/check-plugin-sync.sh" ]; then
+    echo "Error: scripts/check-plugin-sync.sh is missing — refusing to ship this plugin unverified." >&2
+    exit 1
+  fi
   if ! bash "$REPO_ROOT/scripts/check-plugin-sync.sh"; then
     echo >&2
     echo "Error: repo and plugin copies have drifted. Reconcile them before syncing." >&2
@@ -69,8 +78,17 @@ if [ "$PLUGIN" = "multi-agent-example" ] && [ -x "$REPO_ROOT/scripts/check-plugi
   fi
 fi
 
-# Compute new version
-CURRENT="$(jq -r .version "$PLUGIN_JSON")"
+# Compute new version.
+#
+# Validate before doing arithmetic on it. `jq -r` yields the string "null" for a missing
+# .version; `read` then leaves MINOR and PATCH empty, arithmetic treats empty as 0, and
+# the result is the literal version string "null..1" — written into plugin.json, rsynced,
+# and published to the marketplace, where Cowork compares it against real semver.
+CURRENT="$(jq -r '.version // empty' "$PLUGIN_JSON")"
+if ! [[ "$CURRENT" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "Error: $PLUGIN_JSON has no usable version (found: '${CURRENT:-<missing>}'). Expected MAJOR.MINOR.PATCH." >&2
+  exit 1
+fi
 IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
 case "$BUMP" in
   patch) PATCH=$((PATCH + 1)) ;;
@@ -91,8 +109,19 @@ rsync -av --delete "$SRC_DIR/" "$DEST_DIR/"
 
 # 3. Update this plugin's marketplace entry, adding it if absent, and bump the
 #    marketplace's own version so Cowork detects the change.
-DESCRIPTION="$(jq -r '.description' "$PLUGIN_JSON")"
-MKT_CURRENT="$(jq -r .version "$MARKETPLACE_JSON")"
+# Same reasoning as the version check: an absent description would otherwise publish the
+# literal string "null" as the plugin's marketplace listing.
+DESCRIPTION="$(jq -r '.description // empty' "$PLUGIN_JSON")"
+if [ -z "$DESCRIPTION" ]; then
+  echo "Error: $PLUGIN_JSON has no description — it would be listed as \"null\" in the marketplace." >&2
+  exit 1
+fi
+
+MKT_CURRENT="$(jq -r '.version // empty' "$MARKETPLACE_JSON")"
+if ! [[ "$MKT_CURRENT" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "Error: $MARKETPLACE_JSON has no usable version (found: '${MKT_CURRENT:-<missing>}')." >&2
+  exit 1
+fi
 IFS='.' read -r MK_MAJ MK_MIN MK_PAT <<< "$MKT_CURRENT"
 MKT_NEW="${MK_MAJ}.${MK_MIN}.$((MK_PAT + 1))"
 

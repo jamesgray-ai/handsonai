@@ -159,6 +159,21 @@ echo "memo" > "$RUN/03-editorial-memo.md"
 assert "stray tag in revision → block" 2 "$(run_gate "$TMP")" "stray markup"
 rm -rf "$TMP"
 
+# The deliverable itself, which the publishing stage rewrites after every upstream check
+# has already passed.
+new_workspace
+{ make_body 1500; make_sources; } > "$RUN/01-research.md"
+{ make_body 6500; make_sources; } > "$RUN/02-draft.md"
+{ make_body 6500; make_sources; } > "$RUN/03-edited.md"
+echo "memo" > "$RUN/03-editorial-memo.md"
+{ make_body 6500; make_sources; printf '\n</content>\n'; } > "$RUN/04-article.md"
+# A placeholder is enough: the stray-markup check runs before the .docx validity check,
+# so this must block on the tag, not on the file being a fake Word document. The message
+# assertion is what proves which rule actually fired.
+printf 'placeholder' > "$RUN/04-article.docx"
+assert "stray tag in the deliverable → block" 2 "$(run_gate "$TMP")" "stray markup"
+rm -rf "$TMP"
+
 # --- Editor stage ---------------------------------------------------------
 
 new_workspace

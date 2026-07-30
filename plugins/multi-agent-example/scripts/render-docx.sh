@@ -58,22 +58,37 @@ if ! have_docx; then
   echo "docx package not available — installing it once (this is expected on Claude Code)..."
   # Install beside the renderer so it is found by Node's resolution and never pollutes
   # the user's project directory.
-  (cd "$SCRIPT_DIR" && npm install --no-save --no-audit --no-fund docx > /dev/null 2>&1) || true
+  # Keep npm's output. Discarding it leaves nothing to distinguish "no network" from
+  # "npm is not installed", "the plugin directory is read-only", "the registry returned
+  # 403", or "the disk is full" — and the message below used to assert the network cause
+  # for all of them. The re-check of have_docx is what decides success; the log is only
+  # there so a failure can be diagnosed instead of guessed at.
+  NPM_LOG="$(mktemp)"
+  (cd "$SCRIPT_DIR" && npm install --no-save --no-audit --no-fund docx) > "$NPM_LOG" 2>&1 || true
 
   if ! have_docx; then
-    cat >&2 <<'EOF'
-Could not make the docx package available.
-
-This usually means npm could not reach the network. Two ways forward:
-
-  1. Install it manually, then run this again:
-       npm install docx
-  2. Or produce the Word file directly with the docx skill instead of this script.
-
-The markdown deliverable is unaffected — only the .docx step needs this.
-EOF
+    {
+      echo "Could not make the docx package available."
+      echo
+      echo "npm said:"
+      echo
+      tail -20 "$NPM_LOG" | sed 's/^/  /'
+      echo
+      # Note the path. `npm install docx` in the current directory does NOT help: Node
+      # resolves from the renderer's own directory, which when this ships as a plugin is
+      # inside the read-only plugin install, not the user's project.
+      echo "Two ways forward:"
+      echo
+      echo "  1. Install it where the renderer can find it, then run this again:"
+      echo "       (cd \"$SCRIPT_DIR\" && npm install docx)"
+      echo "  2. Or produce the Word file directly with the docx skill instead of this script."
+      echo
+      echo "The markdown deliverable is unaffected — only the .docx step needs this."
+    } >&2
+    rm -f "$NPM_LOG"
     exit 1
   fi
+  rm -f "$NPM_LOG"
 fi
 
 # --- Render -----------------------------------------------------------------

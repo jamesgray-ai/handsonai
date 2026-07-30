@@ -80,11 +80,27 @@ fi
 # Only subagent-dispatch tools are relevant. The tool has been named both Task and Agent
 # across Claude Code versions, so accept either.
 TOOL="$(jqr .tool_name)"
+
+# Record the dispatch BEFORE deciding whether the tool name is one we know.
+#
+# This used to sit below the target probe, so an unrecognised tool name exited here and
+# left no trace at all — failing open silently, which is exactly what the file promises
+# never to do. The audit trail is the fallback for every uncertainty in this gate, so it
+# has to be written before any of them can exit.
+{
+  printf -- '- %s tool=%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "${TOOL:-unknown}"
+} >> "$RUN/.dispatch-log" 2>/dev/null || true
+
+KNOWN_DISPATCH_TOOL=0
 case "$TOOL" in
-  Task | Agent | task | agent) ;;
-  '') ;;  # unknown shape — fall through to the field probe, then fail open
-  *) exit 0 ;;
+  Task | Agent | task | agent) KNOWN_DISPATCH_TOOL=1 ;;
 esac
+
+# Note there is no early exit on an unrecognised tool name. The tool has been called both
+# Task and Agent across Claude Code versions, and renaming it again is precisely the
+# drift this gate probes six field spellings to survive — exiting on the name would skip
+# that probe and miss a `subagent_type: hbr-publisher` sitting in plain sight. Whether
+# the name was recognised only changes how loudly an empty probe is reported below.
 
 # The field naming for the target agent has also varied. Probe the known spellings and
 # fall back to scanning the raw payload.
@@ -104,14 +120,17 @@ done
 # Record what the payload actually looked like, so the shape can be confirmed on the
 # first real run rather than assumed. Kept in the workspace, which is gitignored.
 {
-  printf -- '- %s tool=%s target=%s\n' \
-    "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "${TOOL:-unknown}" "${TARGET:-unknown}"
+  printf -- '  target=%s\n' "${TARGET:-unknown}"
 } >> "$RUN/.dispatch-log" 2>/dev/null || true
 
 if [ -z "$TARGET" ]; then
-  # Could not determine the target agent. Fail open, but leave the full payload behind so
-  # the field name can be added above.
-  printf '%s\n' "$INPUT" > "$RUN/.last-unrecognised-dispatch.json" 2>/dev/null || true
+  # No target agent found. Fail open either way, but only keep the payload when the tool
+  # WAS a recognised dispatch tool — that is the genuinely surprising case, and the file
+  # is there to be read when adding a field spelling. Keeping it for every other tool
+  # would overwrite that evidence with noise on the very next call.
+  if [ "$KNOWN_DISPATCH_TOOL" = "1" ]; then
+    printf '%s\n' "$INPUT" > "$RUN/.last-unrecognised-dispatch.json" 2>/dev/null || true
+  fi
   exit 0
 fi
 

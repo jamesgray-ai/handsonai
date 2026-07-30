@@ -56,7 +56,10 @@ function parseFrontmatter(raw) {
   if (end === -1) return { meta, body: raw };
 
   for (const line of raw.slice(4, end).split('\n')) {
-    const match = line.match(/^([A-Za-z_][\w-]*):\s*(.*)$/);
+    // Tolerate leading whitespace. Indented keys are still valid YAML, and anchoring
+    // the key to column 0 meant an indented `title:` was silently skipped — the
+    // document shipped headed "Untitled" with nothing anywhere reporting why.
+    const match = line.match(/^\s*([A-Za-z_][\w-]*):\s*(.*)$/);
     if (!match) continue;
     meta[match[1].toLowerCase()] = match[2].trim().replace(/^["']|["']$/g, '');
   }
@@ -453,6 +456,8 @@ async function main() {
     process.exit(1);
   }
 
+  warnAboutUnsupported(body, meta, input);
+
   const buffer = await Packer.toBuffer(build(meta, blocks));
   fs.mkdirSync(path.dirname(path.resolve(output)), { recursive: true });
   fs.writeFileSync(output, buffer);
@@ -460,7 +465,35 @@ async function main() {
   console.log(`Wrote ${output} (${blocks.length} blocks, ${(buffer.length / 1024).toFixed(1)} KB)`);
 }
 
+// Say out loud what this renderer cannot do.
+//
+// It supports a deliberate subset of markdown, and everything outside that subset is
+// reinterpreted rather than rejected: a table becomes a paragraph of literal pipe
+// characters, a fenced code block loses its indentation and newlines, an image becomes a
+// link. Each of those produces a structurally valid .docx, so the pipeline's quality gate
+// passes it and the damaged document becomes the deliverable. A warning does not fix the
+// output — it makes the loss visible to whoever can.
+function warnAboutUnsupported(body, meta, input) {
+  const unsupported = [
+    [/^\s*\|.*\|\s*$/m, 'a markdown table (rendered as literal text, not a table)'],
+    [/^\s*```/m, 'a fenced code block (indentation and line breaks will be lost)'],
+    [/!\[[^\]]*\]\(/, 'an image (rendered as a link — images are not embedded)'],
+  ];
+
+  for (const [pattern, description] of unsupported) {
+    if (pattern.test(body)) {
+      console.error(`WARNING: ${input} contains ${description}.`);
+    }
+  }
+
+  if (!meta.title) {
+    console.error(`WARNING: ${input} has no title in its frontmatter — the document will be titled "Untitled".`);
+  }
+}
+
 main().catch((error) => {
-  console.error(error.message);
+  // stack, not message: `message` is undefined for anything thrown that is not an Error,
+  // which prints the literal string "undefined" and loses the failure entirely.
+  console.error(error?.stack || error);
   process.exit(1);
 });

@@ -33,27 +33,50 @@ compare() {
   fi
 }
 
+# Where a plugin-relative path lives in this repo. `scripts/` maps to the repo's own
+# scripts/ directory; everything else sits under .claude/.
+repo_path_for() {
+  case "$1" in
+    scripts/*) echo "$1" ;;
+    *)         echo ".claude/$1" ;;
+  esac
+}
+
 echo "multi-agent-example: repo vs plugin"
 
-for a in ai-productivity-researcher tech-executive-writer hbr-editor hbr-publisher; do
-  compare ".claude/agents/$a.md" "agents/$a.md"
-done
+# Enumerate from the plugin tree rather than a hardcoded list.
+#
+# A literal list only guards the files someone remembered to add to it. Adding a fifth
+# agent, a second skill, or a new script to the plugin without editing this script would
+# print "all in sync" while the two trees genuinely differed — and sync-plugins.sh treats
+# a pass here as permission to ship.
+#
+# .claude-plugin/ is excluded deliberately: plugin.json exists only in the plugin, and
+# node_modules/ is build output, not source.
+while IFS= read -r rel; do
+  # hooks/hooks.json has no repo twin ON PURPOSE. A plugin registers its hooks through
+  # hooks/hooks.json; this repo registers the same two scripts through .claude/settings.json.
+  # Different files, different formats, same wiring — check-pipeline-consistency.sh is what
+  # verifies the two registrations agree.
+  [ "$rel" = "hooks/hooks.json" ] && continue
+  compare "$(repo_path_for "$rel")" "$rel"
+done < <(cd "$PLUGIN" && find agents commands hooks scripts skills -type f \
+           -not -path '*/node_modules/*' -not -name '.DS_Store' 2>/dev/null | sort)
 
-for c in hbr-article hbr-article-strict; do
-  compare ".claude/commands/$c.md" "commands/$c.md"
-done
+# And the other direction, for the directories this pipeline owns outright. A repo-side
+# file with no plugin counterpart is drift too — the demo would use something students
+# never receive. Limited to exclusive paths: .claude/agents/ and scripts/ are shared with
+# unrelated repo content, so they cannot be swept this way.
+while IFS= read -r path; do
+  rel="${path#$ROOT/.claude/}"
+  [ -f "$PLUGIN/$rel" ] || { echo "  MISSING in plugin: $rel (exists in repo)"; DRIFT=$((DRIFT + 1)); }
+done < <(find "$ROOT/.claude/hooks" "$ROOT/.claude/skills/editing-hbr-articles" -type f \
+           -not -name '.DS_Store' 2>/dev/null | sort)
 
-for h in subagent-gate.sh publish-gate.sh test-subagent-gate.sh test-publish-gate.sh; do
-  compare ".claude/hooks/$h" "hooks/$h"
-done
-
-for s in article-to-docx.js test-article-to-docx.sh render-docx.sh; do
-  compare "scripts/$s" "scripts/$s"
-done
-
-compare ".claude/skills/editing-hbr-articles/SKILL.md" "skills/editing-hbr-articles/SKILL.md"
-compare ".claude/skills/editing-hbr-articles/references/editorial-criteria.md" \
-        "skills/editing-hbr-articles/references/editorial-criteria.md"
+while IFS= read -r path; do
+  name="$(basename "$path")"
+  [ -f "$PLUGIN/commands/$name" ] || { echo "  MISSING in plugin: commands/$name (exists in repo)"; DRIFT=$((DRIFT + 1)); }
+done < <(find "$ROOT/.claude/commands" -type f -name 'hbr-*' 2>/dev/null | sort)
 
 echo
 if [ "$DRIFT" -eq 0 ]; then

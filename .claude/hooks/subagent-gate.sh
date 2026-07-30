@@ -197,6 +197,13 @@ fi
 # ---------------------------------------------------------------------------
 
 if [ -f "$RUN/04-article.md" ]; then
+  # Check the file that actually ships. Rules 3 and 4 screen 02-draft.md and 03-edited.md
+  # for stray markup, but 04-article.md was left unchecked — and the publishing stage
+  # rewrites it, adding frontmatter and metadata. Everything upstream could be clean and
+  # a </content> introduced here would still reach the reader.
+  if [ "$(stray_tags "$RUN/04-article.md")" -gt 0 ]; then
+    block "04-article.md contains stray markup tags such as </content>. The deliverable must be clean markdown — remove them and regenerate the Word file so the two match."
+  fi
   if [ ! -s "$RUN/04-article.docx" ]; then
     block "04-article.md exists but 04-article.docx is missing or empty. This pipeline delivers TWO files. Generate the Word document with scripts/article-to-docx.js and confirm it exists."
   fi
