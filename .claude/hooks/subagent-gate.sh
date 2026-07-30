@@ -204,9 +204,24 @@ done
 # SubagentStop fires more than once per agent, so logging every pass produces several
 # identical lines per stage and buries the shape of the run. Only record a pass when the
 # set of artifacts actually changed — then the log is exactly one line per stage.
-LAST="$(grep '— gate passed — artifacts:' "$LOG" 2>/dev/null | tail -1 | sed 's/.*artifacts://')"
-if [ "$LAST" != "$PRESENT" ]; then
-  printf -- '- %s — gate passed — artifacts:%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$PRESENT" >> "$LOG"
-fi
+#
+# Hooks run in parallel, so read-compare-append is a race: two events firing in the same
+# second both read the old last line and both append. That happened on a real run. mkdir
+# is atomic on POSIX, so it serialises the critical section without needing flock, which
+# is not available by default on macOS.
+LOCK="$RUN/.log.lock"
+for _ in 1 2 3 4 5 6 7 8 9 10; do
+  if mkdir "$LOCK" 2>/dev/null; then
+    LAST="$(grep '— gate passed — artifacts:' "$LOG" 2>/dev/null | tail -1 | sed 's/.*artifacts://')"
+    if [ "$LAST" != "$PRESENT" ]; then
+      printf -- '- %s — gate passed — artifacts:%s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$PRESENT" >> "$LOG"
+    fi
+    rmdir "$LOCK" 2>/dev/null
+    break
+  fi
+  sleep 0.1
+done
+# If the lock was never acquired, the log entry is skipped rather than risking a
+# duplicate. The audit trail is a convenience; never block an agent over it.
 
 exit 0

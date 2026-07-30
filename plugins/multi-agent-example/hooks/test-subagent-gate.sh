@@ -284,6 +284,57 @@ else
   FAIL=$((FAIL + 1))
 fi
 
+# Hooks run in parallel. A real run produced two identical log lines because two events
+# in the same second both read the old last line before either appended. Fire several
+# concurrently and assert the log does not grow.
+CONCURRENT_BEFORE=$(grep -c 'gate passed' "$RUN/run-log.md")
+for _ in 1 2 3 4 5 6; do
+  printf '{"cwd":"%s","hook_event_name":"SubagentStop","stop_hook_active":false}' "$TMP" \
+    | bash "$GATE" 2>/dev/null &
+done
+wait
+CONCURRENT_AFTER=$(grep -c 'gate passed' "$RUN/run-log.md")
+if [ "$CONCURRENT_BEFORE" = "$CONCURRENT_AFTER" ]; then
+  echo "  ok    concurrent hook invocations do not duplicate log lines"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  concurrent invocations grew the log $CONCURRENT_BEFORE → $CONCURRENT_AFTER"
+  FAIL=$((FAIL + 1))
+fi
+
+# The lock must never be left behind — a stale lock would silence the log for the rest
+# of the run.
+if [ ! -d "$RUN/.log.lock" ]; then
+  echo "  ok    no stale lock left behind"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  .log.lock was not released"
+  FAIL=$((FAIL + 1))
+fi
+
+# The concurrency test above is timing-dependent and will not reliably reproduce the
+# race, so assert the mechanism directly: while the lock is held, no other invocation
+# may write. Combined with mkdir being atomic, that is what makes the fix correct.
+mkdir -p "$RUN/.log.lock"
+HELD_BEFORE=$(grep -c 'gate passed' "$RUN/run-log.md")
+# The state change must be one that PASSES every rule, or the gate blocks before it ever
+# reaches the logging code and the test proves nothing. Removing both deliverables leaves
+# a valid mid-pipeline state with a different artifact set.
+mv "$RUN/04-article.md" "$TMP/held-article.md"
+mv "$RUN/04-article.docx" "$TMP/held-article.docx"
+run_gate "$TMP" > /dev/null
+HELD_AFTER=$(grep -c 'gate passed' "$RUN/run-log.md")
+rmdir "$RUN/.log.lock"
+mv "$TMP/held-article.md" "$RUN/04-article.md"
+mv "$TMP/held-article.docx" "$RUN/04-article.docx"
+if [ "$HELD_BEFORE" = "$HELD_AFTER" ]; then
+  echo "  ok    a held lock prevents a concurrent write (critical section respected)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  wrote to the log while the lock was held — the critical section is not enforced"
+  FAIL=$((FAIL + 1))
+fi
+
 # But a genuine new stage must still be recorded.
 echo "next stage" > "$RUN/some-new-artifact.md"
 { make_body 6500; make_sources; } > "$RUN/04-article.md" 2>/dev/null

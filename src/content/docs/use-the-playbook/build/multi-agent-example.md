@@ -112,7 +112,7 @@ Be clear about what it is: a **guardrail against drift, not a security boundary.
 Every enforcement mechanism ships with tests:
 
 ```bash
-bash hooks/test-subagent-gate.sh      # 24 assertions on the quality gate
+bash hooks/test-subagent-gate.sh      # 27 assertions on the quality gate
 bash hooks/test-publish-gate.sh       # 17 assertions on the approval gate
 bash scripts/test-article-to-docx.sh  # 16 assertions on the renderer
 ```

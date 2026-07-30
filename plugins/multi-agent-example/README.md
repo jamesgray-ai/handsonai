@@ -101,7 +101,7 @@ but you chose the sequence instead of Claude.
 ## Verifying it before you trust it
 
 ```bash
-bash hooks/test-subagent-gate.sh     # 24 assertions on the quality gate
+bash hooks/test-subagent-gate.sh     # 27 assertions on the quality gate
 bash hooks/test-publish-gate.sh      # 17 assertions on the approval gate
 bash scripts/test-article-to-docx.sh # 16 assertions on the renderer
 ```
