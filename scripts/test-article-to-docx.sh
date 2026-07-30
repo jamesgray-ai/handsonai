@@ -6,7 +6,10 @@
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-RENDER="$ROOT/scripts/article-to-docx.js"
+# Go through the wrapper, not straight to node. On a fresh install the `docx` package is
+# not present, and only the wrapper installs it — testing the raw renderer means the
+# whole suite fails for anyone who just installed the plugin.
+RENDER="$(dirname "${BASH_SOURCE[0]}")/render-docx.sh"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 PASS=0
@@ -60,7 +63,7 @@ OUT="$TMP/article.docx"
 
 # --- Render ---------------------------------------------------------------
 
-node "$RENDER" "$FIXTURE" "$OUT" > "$TMP/render.log" 2>&1
+bash "$RENDER" "$FIXTURE" "$OUT" > "$TMP/render.log" 2>&1
 check "$?" "renders without error"
 [ -s "$OUT" ] && ok "output file is non-empty" || bad "output file is missing or empty"
 

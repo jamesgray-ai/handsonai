@@ -40,3 +40,7 @@ src/content/docs/courses/leaders/lessons/
 # Local drafts and working files
 outputs/
 specs/
+
+# on-demand docx install by the multi-agent-example renderer
+plugins/multi-agent-example/scripts/node_modules/
+scripts/node_modules/

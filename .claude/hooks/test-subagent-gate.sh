@@ -224,13 +224,15 @@ assert "complete run → allow" 0 "$(run_gate "$TMP")"
 # `unzip` finishes writing its short listing before `grep` can exit early. Only a
 # genuine document's longer listing exposes it. Render one and run the gate for real.
 
-# The renderer sits at scripts/article-to-docx.js relative to the plugin root when this
-# ships as a plugin, and relative to the repo root when run from a checkout. Try both.
+# The renderer sits at scripts/ relative to the plugin root when this ships as a plugin,
+# and relative to the repo root when run from a checkout. Try both. Use the render-docx.sh
+# wrapper rather than the raw .js: on a fresh plugin install the `docx` package is absent,
+# and only the wrapper installs it.
 HOOK_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RENDERER=""
 for candidate in \
-  "$HOOK_DIR/../scripts/article-to-docx.js" \
-  "$HOOK_DIR/../../scripts/article-to-docx.js"
+  "$HOOK_DIR/../scripts/render-docx.sh" \
+  "$HOOK_DIR/../../scripts/render-docx.sh"
 do
   [ -f "$candidate" ] && { RENDERER="$candidate"; break; }
 done
@@ -252,7 +254,7 @@ if [ -n "$RENDERER" ] && command -v node > /dev/null; then
     make_body 6500
     make_sources
   } > "$RUN/04-article.md"
-  node "$RENDERER" "$RUN/04-article.md" "$RUN/04-article.docx" > /dev/null 2>&1
+  bash "$RENDERER" "$RUN/04-article.md" "$RUN/04-article.docx" > /dev/null 2>&1
   assert "real rendered .docx → allow" 0 "$(run_gate "$TMP")"
   # $TMP is left in place so the audit-trail check below inspects this run's log.
 else
