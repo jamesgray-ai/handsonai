@@ -338,11 +338,24 @@ else
 fi
 
 # But a genuine new stage must still be recorded.
-echo "next stage" > "$RUN/some-new-artifact.md"
-{ make_body 6500; make_sources; } > "$RUN/04-article.md" 2>/dev/null
+#
+# "A new stage" means the ARTIFACT SET changes — that is what the log dedups on. Writing
+# a new file outside the six tracked artifacts, or rewriting one already logged, is
+# correctly suppressed, so neither proves anything here. Removing both deliverables
+# leaves the same valid mid-pipeline state the held-lock test used, and that set differs
+# from the last line written.
+GENUINE_BEFORE=$(grep -c 'gate passed' "$RUN/run-log.md")
+mv "$RUN/04-article.md" "$TMP/final-article.md"
+mv "$RUN/04-article.docx" "$TMP/final-article.docx"
 run_gate "$TMP" > /dev/null
 FINAL=$(grep -c 'gate passed' "$RUN/run-log.md")
-if [ "$FINAL" -ge "$AFTER" ]; then
+mv "$TMP/final-article.md" "$RUN/04-article.md"
+mv "$TMP/final-article.docx" "$RUN/04-article.docx"
+# -gt, not -ge. The claim is that a genuine new stage is still recorded, so the log must
+# GROW. `-ge` is also satisfied when it does not grow at all, which is exactly the
+# regression this assertion exists to catch — it would pass even if logging broke
+# completely.
+if [ "$FINAL" -gt "$GENUINE_BEFORE" ]; then
   echo "  ok    log still records real stage changes"
   PASS=$((PASS + 1))
 else

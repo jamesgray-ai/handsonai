@@ -87,10 +87,17 @@ if [ ! -s "$OUTPUT" ]; then
   exit 1
 fi
 
-LISTING="$(unzip -l "$OUTPUT" 2>/dev/null || true)"
-if ! printf '%s' "$LISTING" | grep -c 'word/document.xml' > /dev/null; then
-  echo "Output is not a valid Word document (no word/document.xml): $OUTPUT" >&2
-  exit 1
+# Only claim the file is invalid if we could actually look inside it. `|| true` renders
+# "unzip is missing" and "this is not a Word file" identical, which would fail every
+# render on a machine without unzip and send the caller chasing the renderer.
+if ! command -v unzip > /dev/null 2>&1; then
+  echo "NOTE: unzip is not installed, so $OUTPUT could not be verified as a real Word file." >&2
+else
+  LISTING="$(unzip -l "$OUTPUT" 2>/dev/null || true)"
+  if ! printf '%s' "$LISTING" | grep -c 'word/document.xml' > /dev/null; then
+    echo "Output is not a valid Word document (no word/document.xml): $OUTPUT" >&2
+    exit 1
+  fi
 fi
 
 echo "OK: $OUTPUT"

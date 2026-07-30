@@ -27,8 +27,12 @@ must_contain() {
 }
 
 # $1 = description, $2 = file, $3 = literal string that must NOT appear
+# A negative assertion has to prove the file exists first. Otherwise `2>/dev/null` turns
+# "this file was renamed or deleted" into a pass — the check reports the property holds
+# when there is nothing left to hold it.
 must_not_contain() {
-  if grep -qF -- "$3" "$2" 2>/dev/null; then bad "$1 — '$3' should not be in $2"; else ok "$1"; fi
+  [ -f "$2" ] || { bad "$1 — $2 does not exist"; return; }
+  if grep -qF -- "$3" "$2"; then bad "$1 — '$3' should not be in $2"; else ok "$1"; fi
 }
 
 echo "pipeline consistency"
@@ -91,9 +95,16 @@ echo
 echo "-- least privilege --"
 grep -q '^tools:.*WebSearch' "$A/ai-productivity-researcher.md" \
   && ok "researcher has web access" || bad "researcher is missing web access"
-grep -q '^tools:.*WebSearch' "$A/tech-executive-writer.md" \
-  && bad "writer has web access (it must write only from the dossier)" \
-  || ok "writer has no web access"
+# Same trap as must_not_contain, but keeping the `^tools:` anchor so a future mention of
+# WebSearch in the agent's prose cannot fail it. Without the existence check, "writer has
+# no web access" passes when the writer agent file is gone entirely.
+if [ ! -f "$A/tech-executive-writer.md" ]; then
+  bad "writer has no web access — $A/tech-executive-writer.md does not exist"
+elif grep -q '^tools:.*WebSearch' "$A/tech-executive-writer.md"; then
+  bad "writer has web access (it must write only from the dossier)"
+else
+  ok "writer has no web access"
+fi
 grep -q '^tools:.*Bash' "$A/hbr-publisher.md" \
   && ok "publisher can run the renderer" || bad "publisher cannot run Bash"
 

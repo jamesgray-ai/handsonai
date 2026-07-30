@@ -47,6 +47,28 @@ esac
 RUN="$PROJECT_DIR/$RUN_REL"
 [ -d "$RUN" ] || exit 0
 
+# jq is how this gate reads `stop_hook_active` — the guard that stops a blocked subagent
+# from being blocked forever. Without jq that field always reads empty, the guard never
+# fires, and any block this gate issues can turn into an infinite loop.
+#
+# So this gate fails OPEN on a missing jq, loudly. That is the opposite of what
+# publish-gate.sh does with the same missing tool, and deliberately so: a publish gate
+# that blocks is recoverable in one step, whereas this gate blocking with a dead loop
+# guard can wedge the run entirely. Quality checks are worth losing; the session is not.
+if ! command -v jq > /dev/null 2>&1; then
+  cat >&2 <<'EOF'
+WARNING: the article pipeline quality gate is not running.
+
+jq is not installed, so this hook cannot read the payload field that prevents an
+infinite block loop. It is allowing this subagent through unchecked rather than risk
+wedging the run — no artifact was validated.
+
+Install jq (macOS: brew install jq / Debian: sudo apt-get install jq) to restore the
+quality checks, and review the artifacts by hand for this run.
+EOF
+  exit 0
+fi
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -183,9 +205,19 @@ if [ -f "$RUN/04-article.md" ]; then
   # that non-zero status becomes the pipeline's. It only shows up once the archive
   # listing is long enough for grep to finish first — i.e. on real documents, not on
   # small test fixtures.
-  DOCX_LISTING="$(unzip -l "$RUN/04-article.docx" 2>/dev/null || true)"
-  if ! printf '%s' "$DOCX_LISTING" | grep -c 'word/document.xml' > /dev/null; then
-    block "04-article.docx is not a valid Word document — it is not a ZIP archive containing word/document.xml. Regenerate it with scripts/article-to-docx.js."
+  #
+  # Guard on unzip's presence first. `|| true` cannot distinguish "this archive has no
+  # word/document.xml" from "unzip is not installed" — both yield an empty listing. Left
+  # unguarded, a machine without unzip rejects a perfectly valid document, tells the
+  # publisher to regenerate it, and blocks the regenerated file too: an unbreakable loop
+  # at the pipeline's terminal stage. If we cannot verify, we do not manufacture a verdict.
+  if ! command -v unzip > /dev/null 2>&1; then
+    printf 'NOTE: unzip is not installed, so 04-article.docx could not be verified as a real Word file. It exists and is non-empty; check it by hand.\n' >&2
+  else
+    DOCX_LISTING="$(unzip -l "$RUN/04-article.docx" 2>/dev/null || true)"
+    if ! printf '%s' "$DOCX_LISTING" | grep -c 'word/document.xml' > /dev/null; then
+      block "04-article.docx is not a valid Word document — it is not a ZIP archive containing word/document.xml. Regenerate it with scripts/article-to-docx.js."
+    fi
   fi
 fi
 

@@ -17,6 +17,7 @@ FAIL=0
 
 ok()   { echo "  ok    $1"; PASS=$((PASS + 1)); }
 bad()  { echo "  FAIL  $1"; FAIL=$((FAIL + 1)); }
+skip() { echo "  skip  $1"; }
 check() { if [ "$1" = "0" ]; then ok "$2"; else bad "$2"; fi; }
 
 echo "article-to-docx.js"
@@ -54,6 +55,16 @@ FIXTURE="$TMP/article.md"
   echo '2. Instrument the handoffs'
   echo '3. Set an escalation rule'
   echo
+  # A SECOND ordered list, separated from the first by prose. Without it the numbering
+  # assertion below cannot fail: one bullet list plus one numbered list already yields
+  # two distinct numIds whether or not each list gets its own counter.
+  echo 'Then measure whether any of it worked.'
+  echo
+  echo '### What To Track'
+  echo
+  echo '1. Cycle time end to end'
+  echo '2. Escalation rate'
+  echo
   echo '## Sources'
   echo
   echo '- Harvard Business Review, "Agents at Work" (2026) — https://hbr.org/example'
@@ -72,19 +83,40 @@ check "$?" "renders without error"
 # Note: capture command output to files before grepping. Piping straight into
 # `grep -q` under `set -o pipefail` reports failure even on a match, because grep
 # exits early and the upstream command dies of SIGPIPE.
-unzip -l "$OUT" > "$TMP/listing.txt" 2>/dev/null
-if grep -q 'word/document.xml' "$TMP/listing.txt"; then
-  ok "valid .docx (ZIP containing word/document.xml)"
+# Every unzip-based assertion is guarded on unzip existing. Redirecting a missing
+# command's output leaves an empty file, which is indistinguishable from a broken
+# document — and would report three confident, specific, wrong failures against a
+# renderer that worked perfectly.
+if command -v unzip > /dev/null; then
+  unzip -l "$OUT" > "$TMP/listing.txt" 2>/dev/null
+  if grep -q 'word/document.xml' "$TMP/listing.txt"; then
+    ok "valid .docx (ZIP containing word/document.xml)"
+  else
+    bad "not a valid .docx"
+  fi
 else
-  bad "not a valid .docx"
+  skip "structure checks (unzip unavailable)"
 fi
 
 # --- Content --------------------------------------------------------------
+
+# Guarded on pandoc, and the whole section skipped without it. The "no raw markdown
+# leaked" assertion below is a NEGATIVE grep, so an empty extraction makes it pass: it
+# would report the document clean precisely when the extraction that proves it never
+# ran. That is the one assertion standing between a mangled document and the deliverable,
+# so it must never be able to go green by accident.
+if ! command -v pandoc > /dev/null; then
+  skip "content checks (pandoc unavailable — cannot read text back out of the .docx)"
+else
 
 # Normalised to one line: pandoc hard-wraps its plain output, so a multi-word
 # needle would otherwise straddle a line break and never match.
 TEXT="$TMP/plain.txt"
 pandoc -f docx -t plain "$OUT" 2>/dev/null | tr '\n' ' ' | tr -s ' ' > "$TEXT"
+
+if [ ! -s "$TEXT" ]; then
+  bad "pandoc produced no text from the .docx"
+fi
 
 for needle in \
   "When Agents Earn Their Keep" \
@@ -117,20 +149,37 @@ else
   bad "bold text lost"
 fi
 
-# Links must survive with their target.
-unzip -p "$OUT" word/_rels/document.xml.rels > "$TMP/rels.xml" 2>/dev/null
-if grep -q 'hbr.org/example' "$TMP/rels.xml"; then
-  ok "hyperlink target preserved"
-else
-  bad "hyperlink target lost"
-fi
+fi  # end pandoc guard
 
-# Headings must use built-in styles so Word's navigation pane and TOC work.
-unzip -p "$OUT" word/document.xml > "$TMP/document.xml" 2>/dev/null
-if grep -q 'w:val="Heading1"' "$TMP/document.xml"; then
-  ok "uses built-in heading styles"
+if command -v unzip > /dev/null; then
+  # Links must survive with their target.
+  unzip -p "$OUT" word/_rels/document.xml.rels > "$TMP/rels.xml" 2>/dev/null
+  if grep -q 'hbr.org/example' "$TMP/rels.xml"; then
+    ok "hyperlink target preserved"
+  else
+    bad "hyperlink target lost"
+  fi
+
+  # Headings must use built-in styles so Word's navigation pane and TOC work.
+  unzip -p "$OUT" word/document.xml > "$TMP/document.xml" 2>/dev/null
+  if grep -q 'w:val="Heading1"' "$TMP/document.xml"; then
+    ok "uses built-in heading styles"
+  else
+    bad "headings are not built-in styles"
+  fi
+
+  # Two separate ordered lists must not share one counter, or the second renders as
+  # 4, 5, 6 instead of restarting at 1. The fixture has one bullet list and two ordered
+  # lists, so a correct render produces three distinct w:numId values. Sharing one
+  # counter produces two — which is why the fixture needs the second ordered list.
+  NUM_IDS="$(grep -o '<w:numId w:val="[0-9]*"' "$TMP/document.xml" | sort -u | wc -l | tr -d ' ')"
+  if [ "${NUM_IDS:-0}" -ge 3 ]; then
+    ok "each ordered list gets its own numbering instance ($NUM_IDS distinct)"
+  else
+    bad "ordered lists share one numbering instance ($NUM_IDS distinct, expected 3) — the second list will not restart at 1"
+  fi
 else
-  bad "headings are not built-in styles"
+  skip "hyperlink, heading-style and list-numbering checks (unzip unavailable)"
 fi
 
 # --- Pagination -----------------------------------------------------------

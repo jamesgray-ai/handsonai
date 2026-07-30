@@ -46,6 +46,37 @@ case "$RUN_REL" in *..*) exit 0 ;; esac
 RUN="$PROJECT_DIR/$RUN_REL"
 [ -d "$RUN" ] || exit 0
 
+# From here on this is definitely a pipeline run, so the gate is meant to be enforcing.
+#
+# jq is how this gate reads the dispatch payload. Without it every field probe below
+# returns empty, the target agent is never identified, and the script falls through to
+# its fail-open exit — silently allowing the publisher to run with no human approval, for
+# every dispatch, for the whole session. That is the one failure this gate exists to
+# prevent, so it is the one case where it fails CLOSED: jq's absence is a condition we
+# can establish with certainty, and a loud stop with a fix is strictly better than a
+# guarantee that has quietly stopped being true.
+#
+# (The SubagentStop gate makes the opposite call for the same missing tool — see the
+# comment there. The asymmetry is deliberate: this gate blocking is recoverable, that
+# one blocking risks an infinite loop.)
+if ! command -v jq > /dev/null 2>&1; then
+  cat >&2 <<'EOF'
+BLOCKED — the human-approval gate cannot run.
+
+jq is not installed, so this hook cannot read the dispatch payload and cannot tell
+whether a human has approved this article. Rather than let the publishing step through
+unchecked, it is stopping here.
+
+Fix it with one of:
+  macOS         brew install jq
+  Debian/Ubuntu sudo apt-get install jq
+
+Then dispatch the publisher again. If you would rather proceed without the automated
+gate, confirm approval with the human yourself and remove the hook from settings.
+EOF
+  exit 2
+fi
+
 # Only subagent-dispatch tools are relevant. The tool has been named both Task and Agent
 # across Claude Code versions, so accept either.
 TOOL="$(jqr .tool_name)"

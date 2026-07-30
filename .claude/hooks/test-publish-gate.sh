@@ -109,7 +109,13 @@ fi
 rm -rf "$TMP"
 
 new_workspace
-printf 'not json at all' | bash "$GATE" 2>"$TMP/stderr"
+# CLAUDE_PROJECT_DIR must be passed explicitly here. Every other case reaches the gate
+# through dispatch(), which supplies `cwd` in the payload — but this payload has no cwd
+# by design, so without the env var the gate resolves the project directory to whatever
+# repo the test happens to run from, finds no activation flag there, and exits inert at
+# the very first check. The assertion then passed while exercising nothing at all about
+# malformed JSON.
+printf 'not json at all' | CLAUDE_PROJECT_DIR="$TMP" bash "$GATE" 2>"$TMP/stderr"
 assert "malformed payload → allow (fail open)" 0 "$?"
 rm -rf "$TMP"
 

@@ -185,7 +185,34 @@ function parseBlocks(body) {
   }
 
   flush();
+  numberOrderedLists(blocks);
   return blocks;
+}
+
+// Give every ordered list its own counter.
+//
+// docx keys a concrete numbering instance by `${reference}-${instance}`, and `instance`
+// defaults to 0. So every numbered paragraph sharing one reference also shares one
+// running counter: an article with "Three Steps" followed later by "Five Metrics"
+// renders the second list as 4, 5, 6 instead of restarting at 1. There is no error and
+// the file is still valid — it is just visibly wrong in the delivered document.
+//
+// A list ends wherever a non-`number` block interrupts it, which is why this runs after
+// parsing rather than during it.
+function numberOrderedLists(blocks) {
+  let instance = 0;
+  let inList = false;
+  for (const block of blocks) {
+    if (block.type === 'number') {
+      if (!inList) {
+        instance += 1;
+        inList = true;
+      }
+      block.instance = instance;
+    } else {
+      inList = false;
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -293,7 +320,7 @@ function renderBlocks(blocks) {
 
       case 'number':
         return new Paragraph({
-          numbering: { reference: 'article-numbers', level: 0 },
+          numbering: { reference: 'article-numbers', level: 0, instance: block.instance || 1 },
           spacing: { after: 80 },
           children: inlineRuns(block.text, { size: 22, font: FONT }),
         });
