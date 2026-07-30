@@ -1,0 +1,28 @@
+{
+  "description": "Quality and approval gates for the multi-agent article pipeline. Both are INERT unless outputs/articles/.active-run exists in the current project, so installing this plugin does not change ordinary sessions.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Task|Agent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/publish-gate.sh\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/subagent-gate.sh\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

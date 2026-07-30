@@ -19,6 +19,8 @@ Patterns for structuring and optimizing prompts. See the [Prompt Engineering](..
 
 Patterns for building reliable AI agents. See [Agent Capability Patterns](../agentic-building-blocks/agents/capability-patterns/) for seven patterns that make agents effective.
 
+For a complete, running multi-agent pipeline — four specialist agents, a quality gate at every handoff, and one human approval gate — see the [Autonomous Agent worked example](../ai-workflow-framework/examples/autonomous-agent/). It documents the design decisions and the failures that motivated each one.
+
 ### Integration Patterns
 
 Patterns for robust API integration.

@@ -57,6 +57,37 @@ For turning ideas into shippable feature specs before you write code.
 
 ---
 
+## 🔗 The Multi-Agent Example Plugin
+
+A separate, deliberately small plugin containing **one complete multi-agent pipeline** — four specialist agents that research, write, edit, and publish a business article, coordinated by Claude Code with quality gates and a human approval step.
+
+It is a **worked example, not a toolkit**. Install it to see how automatic delegation, subagent handoffs, `SubagentStop` and `PreToolUse` hooks, and a human-in-the-loop gate fit together in something that actually runs — then adapt the shape to your own work.
+
+```
+/plugin marketplace add jamesgray-ai/handsonai-plugins
+/plugin install multi-agent-example@handsonai
+```
+
+| Component | Type | Role |
+|-----------|------|------|
+| [`ai-productivity-researcher`](multi-agent-example/#ai-productivity-researcher) | Agent | Finds case studies with quantified, sourced outcomes |
+| [`tech-executive-writer`](multi-agent-example/#tech-executive-writer) | Agent | Drafts the article from the research dossier |
+| [`hbr-editor`](multi-agent-example/#hbr-editor) | Agent | Produces the publication-ready revision plus an editorial memo |
+| [`hbr-publisher`](multi-agent-example/#hbr-publisher) | Agent | Produces both deliverables and inspects its own output |
+| [`editing-hbr-articles`](multi-agent-example/#editing-hbr-articles) | Skill | The editorial standards the editor loads |
+| [`subagent-gate.sh`](multi-agent-example/#subagent-gatesh) | Hook | Validates each stage's artifacts before the agent may finish |
+| [`publish-gate.sh`](multi-agent-example/#publish-gatesh) | Hook | Blocks publishing until a human approves |
+| [`/hbr-article`](multi-agent-example/#hbr-article) | Command | Automatic delegation — Claude picks the specialists |
+| [`/hbr-article-strict`](multi-agent-example/#hbr-article-strict) | Command | Deterministic — the same pipeline, explicit sequence |
+
+**Why it is a separate plugin.** It ships hooks, which change how Claude Code behaves in your projects. Installing the Hands-on AI plugin should never silently do that, so this is its own explicit opt-in. Both hooks stay completely inert unless a pipeline run is in progress.
+
+**Claude Code users** also need Anthropic's document skills for the Word output (`/plugin install document-skills@anthropic-agent-skills`). **Cowork users** need nothing — it is already included.
+
+[→ Read the full walkthrough](../../ai-workflow-framework/examples/autonomous-agent/)
+
+---
+
 ## 🎨 Example Gallery
 
 Looking for an agent that writes for executives? A researcher that scans AI news daily? A skill for prepping meetings? Templates you can copy and customize live in the [Example Gallery](../../use-cases/example-gallery/) — 7 agents, 5 skills, and 3 portable prompts adapted from real workflows.

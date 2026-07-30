@@ -133,6 +133,7 @@ export default defineConfig({
                 { label: 'Browse Agents & Skills', link: '/use-the-playbook/build/' },
                 { label: 'Using Plugins', link: '/use-the-playbook/build/using-plugins/' },
                 { label: 'The Hands-on AI Plugin', link: '/use-the-playbook/build/handsonai/' },
+                { label: 'The Multi-Agent Example Plugin', link: '/use-the-playbook/build/multi-agent-example/' },
                 { label: 'Example Gallery', link: '/use-cases/example-gallery/' },
               ],
             },
