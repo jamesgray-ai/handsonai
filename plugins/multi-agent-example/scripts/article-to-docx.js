@@ -55,13 +55,26 @@ function parseFrontmatter(raw) {
   const end = raw.indexOf('\n---', 3);
   if (end === -1) return { meta, body: raw };
 
-  for (const line of raw.slice(4, end).split('\n')) {
-    // Tolerate leading whitespace. Indented keys are still valid YAML, and anchoring
-    // the key to column 0 meant an indented `title:` was silently skipped — the
-    // document shipped headed "Untitled" with nothing anywhere reporting why.
-    const match = line.match(/^\s*([A-Za-z_][\w-]*):\s*(.*)$/);
+  // Read only keys at the frontmatter's own indentation level.
+  //
+  // Anchoring to column 0 meant a uniformly indented block silently lost its `title:`
+  // and shipped a document headed "Untitled". Accepting any indentation instead was
+  // worse: nested keys (`author:` / `  name:` / `  title:`) then overwrote the top-level
+  // ones, producing a plausible-looking wrong title AND suppressing the missing-title
+  // warning. So take the indentation of the first key as the document's level and ignore
+  // anything deeper — nested values belong to their parent, not to the document.
+  const lines = raw.slice(4, end).split('\n');
+  let baseIndent = null;
+
+  for (const line of lines) {
+    const match = line.match(/^(\s*)([A-Za-z_][\w-]*):\s*(.*)$/);
     if (!match) continue;
-    meta[match[1].toLowerCase()] = match[2].trim().replace(/^["']|["']$/g, '');
+
+    const [, indent, key, value] = match;
+    if (baseIndent === null) baseIndent = indent.length;
+    if (indent.length > baseIndent) continue;
+
+    meta[key.toLowerCase()] = value.trim().replace(/^["']|["']$/g, '');
   }
 
   const body = raw.slice(end + 4).replace(/^\n+/, '');
@@ -108,7 +121,10 @@ function inlineRuns(text, base = {}) {
     } else if (ital1 !== undefined || ital2 !== undefined) {
       runs.push(new TextRun({ text: ital1 ?? ital2, italics: true, ...base }));
     } else if (code !== undefined) {
-      runs.push(new TextRun({ text: code, font: 'Courier New', ...base }));
+      // font AFTER the spread. Every caller passes `font: FONT` in base, so spreading it
+      // last silently overrode Courier New and rendered code spans in Georgia — a valid
+      // file, just wrong, which is the kind of defect nothing downstream catches.
+      runs.push(new TextRun({ text: code, ...base, font: 'Courier New' }));
     }
 
     rest = rest.slice(m.index + m[0].length);
