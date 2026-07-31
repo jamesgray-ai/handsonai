@@ -196,7 +196,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
     **Self-check before finishing (so Design can parse it).** After writing, verify the file against the machine-readability rules and fix any miss before handing off:
     - File lives in the workflow folder using the kebab-case ID: `outputs/[workflow-name]/requirements.md` (e.g., "Inbound Lead Triage" → `outputs/inbound-lead-triage/requirements.md`), and `workflow.yaml` exists alongside it with `current_step: 2` and the requirements path registered.
-    - All required headings are present and **exactly named** (no synonyms): Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-decomposed; Inputs + Rules & Constraints for goal-driven).
+    - All required headings are present and **exactly named** (no synonyms): Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, Security, Privacy & Safety, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-decomposed; Inputs for goal-driven).
     - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps `1,2,3…`; context `C1,C2…`; scenarios `E1,E2…`).
     - If anything is off, fix it before telling the user it's ready.
 
@@ -218,7 +218,7 @@ When the user selects goal-driven, run this interview instead of the step-decomp
    If the user's first answer in question 2 is purely metric-shaped (no deliverable at all), skip the reflect-back and go straight to the level test. If the probe cap is reached and the goal is still untestable, switch from asking to proposing: draft a sharp candidate goal yourself from everything heard so far and ask the user to confirm or correct it — never proceed to question 4 with a goal that fails the done/not-done test.
 4. **Variation envelope**: "This works as goal-driven because the work takes different steps depending on what comes in. What's the range it needs to handle? Give me the typical case, and a couple of the awkward or harder ones." These answers become the Example Scenarios in Step 10 — capture them now and harvest them there; don't re-elicit scenarios later. **Misroute check:** if the answer reveals the work actually takes the same steps every time (no meaningful variation), say so and offer to switch: "This sounds like it runs the same way each run — the step-decomposed path would capture it better. Want to switch?" Carry everything gathered so far into the step-decomposed deep dive rather than restarting.
 5. **Inputs**: "What kicks it off, and what does the agent system get to work with — data, documents, access?" (Confirm against what the scenario already established rather than re-asking.)
-6. **Rules & Constraints**: "What boundaries or guardrails apply? Things the agent must always do, must never do, or limits on scope, sources, tone, length."
+6. **Rules & Constraints**: "What rules should the agent follow? Things it must always do, must never do, or limits on scope, tone, length." Keep this **behavioral**. Where data may travel and what the agent may never *act* on — send, post, create, change — are captured at Step 9 under `Security, Privacy & Safety`, not here.
 7. **Fallback behavior**: "When it hits a case it can't confidently handle — missing info, something ambiguous — what should it do? Stop and ask you, make its best attempt and flag it, or skip that item?" This is the agent's behavior on *unplanned* exceptions — distinct from the *planned* pauses captured under Human gates. Record it under Rules & Constraints in the output. If the answer is "stop and ask," also capture it as a Human Gate (question 9) so the pause appears where Design looks for review points.
 8. **Context & Data Sources**: "What external systems, data sources, documents, or reference materials should the agent system have access to?" Apply the same context readiness probing as the step-decomposed path (sample — ask the one or two probes that matter, don't run all three mechanically):
    - Access: Where does this context live today? Is it in a system with programmatic access (database, cloud app, shared drive), or does it require manual steps (logging in, copy-pasting, reading from a screen)?
@@ -418,6 +418,19 @@ Notes:
 
 Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut-feel scoring alone. Use "—" when none exists.
 
+## Rules & Constraints
+
+- **Must do:** [list]
+- **Must never do:** [behavioral only — see the note below]
+- **Scope boundaries:** [what's in scope, what's out]
+- **Tone / format / length:** [if applicable]
+- **Fallback behavior:** [what to do when a case can't be confidently completed — stop and ask, best-effort and flag, or skip]
+
+Notes:
+- This section is **behavioral**: how the work should be done. Constraints about *data and authority* belong in `Security, Privacy & Safety` — where data may travel goes to Boundaries, and anything outward-facing or irreversible goes to Prohibited actions. One fact, one home.
+- "Must never do" here means behavioral: never invent a figure, never write in the first person. A prohibition on *acting* — never email a customer, never merge to main — is a Prohibited action.
+- When fallback behavior is "stop and ask", also record it as a Human Gate so the pause appears where Design looks for review points.
+
 ## Human Gates
 
 | Where | What requires human input |
@@ -509,14 +522,6 @@ Insert between the Metadata table and the Context Inventory (omit Steps Overview
 - [What the agent system receives to start — data, materials, references, access]
 - [One bullet per discrete input]
 
-## Rules & Constraints
-
-- **Must do:** [list]
-- **Must never do:** [list]
-- **Scope boundaries:** [what's in scope, what's out]
-- **Tone / format / length:** [if applicable]
-- **Source restrictions:** [if applicable]
-- **Fallback behavior:** [what the agent does when it can't confidently complete a case — stop and ask, best-effort and flag, or skip]
 ```
 
 The Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates sections from the shared shell still apply — goal-driven uses the same shell, just a different middle. The **Example Scenarios should reflect the variation envelope** captured in Step 4-GD: the typical case plus the awkward/edge cases the agent must handle.
