@@ -38,6 +38,10 @@ FIXTURE="$TMP/article.md"
   echo 'Most companies deploying AI agents are **measuring the wrong thing**. They track'
   echo 'model accuracy when they should track *cycle time*. See [the research](https://hbr.org/example).'
   echo
+  # Inline code was absent from this fixture entirely, which is why code spans rendering
+  # in the body font instead of monospace went unnoticed.
+  echo 'One team tracked it with a single `cycle_time_p95` metric and nothing else.'
+  echo
   echo '> The agents that paid for themselves were the ones nobody had to supervise.'
   echo
   echo '### Three Signals'
@@ -172,6 +176,14 @@ if command -v unzip > /dev/null; then
   # 4, 5, 6 instead of restarting at 1. The fixture has one bullet list and two ordered
   # lists, so a correct render produces three distinct w:numId values. Sharing one
   # counter produces two — which is why the fixture needs the second ordered list.
+  # Inline code must be monospace. `font` was being overridden by a spread that came
+  # after it, so every code span silently rendered in the body serif.
+  if grep -q 'w:ascii="Courier New"' "$TMP/document.xml"; then
+    ok "inline code renders in a monospace font"
+  else
+    bad "inline code is not monospace — the code span font was overridden"
+  fi
+
   NUM_IDS="$(grep -o '<w:numId w:val="[0-9]*"' "$TMP/document.xml" | sort -u | wc -l | tr -d ' ')"
   if [ "${NUM_IDS:-0}" -ge 3 ]; then
     ok "each ordered list gets its own numbering instance ($NUM_IDS distinct)"
@@ -199,6 +211,58 @@ if command -v soffice > /dev/null && command -v pdfinfo > /dev/null; then
   fi
 else
   echo "  skip  pagination (soffice/pdfinfo unavailable)"
+fi
+
+# --- Frontmatter indentation ----------------------------------------------
+
+# Two opposite failures, one regex. Anchoring keys to column 0 dropped a uniformly
+# indented `title:` and shipped a document headed "Untitled". Accepting any indentation
+# instead let NESTED keys overwrite the top-level ones — worse, because the wrong title
+# looks plausible and silences the missing-title warning. Both directions are asserted
+# here so a future fix for one cannot silently reintroduce the other.
+
+NESTED="$TMP/nested.md"
+{
+  echo '---'
+  echo 'title: The Real Title'
+  echo 'author:'
+  echo '  name: Someone Else'
+  echo '  title: Chief Nested Officer'
+  echo '---'
+  echo
+  echo 'Body text long enough to render into a document block for this check.'
+} > "$NESTED"
+
+if bash "$RENDER" "$NESTED" "$TMP/nested.docx" > "$TMP/nested.log" 2>&1 && command -v unzip > /dev/null; then
+  unzip -p "$TMP/nested.docx" word/document.xml > "$TMP/nested.xml" 2>/dev/null
+  if grep -q 'The Real Title' "$TMP/nested.xml" && ! grep -q 'Chief Nested Officer' "$TMP/nested.xml"; then
+    ok "nested frontmatter keys do not overwrite the document title"
+  else
+    bad "a nested frontmatter key overwrote the top-level title"
+  fi
+else
+  skip "nested frontmatter check (render failed or unzip unavailable)"
+fi
+
+INDENTED="$TMP/indented.md"
+{
+  echo '---'
+  echo '  title: Uniformly Indented Title'
+  echo '  author: James Gray'
+  echo '---'
+  echo
+  echo 'Body text long enough to render into a document block for this check.'
+} > "$INDENTED"
+
+if bash "$RENDER" "$INDENTED" "$TMP/indented.docx" > "$TMP/indented.log" 2>&1 && command -v unzip > /dev/null; then
+  unzip -p "$TMP/indented.docx" word/document.xml > "$TMP/indented.xml" 2>/dev/null
+  if grep -q 'Uniformly Indented Title' "$TMP/indented.xml"; then
+    ok "uniformly indented frontmatter is still read"
+  else
+    bad "indented frontmatter was skipped — the document lost its title"
+  fi
+else
+  skip "indented frontmatter check (render failed or unzip unavailable)"
 fi
 
 echo

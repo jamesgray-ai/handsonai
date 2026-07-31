@@ -68,11 +68,20 @@ publish. Before asking, show them:
 - the article's title and opening paragraph from `03-edited.md`
 - the full paths to both files, so they can open them
 
-If they **approve**, continue to Stage 4.
+If they **approve**, record it before going anywhere near Stage 4:
+
+```bash
+echo "approved by human at $(date -u '+%Y-%m-%dT%H:%M:%SZ')" > <workspace>/APPROVED
+```
+
+This is not bookkeeping. A `PreToolUse` hook refuses to dispatch `hbr-publisher` until
+that file exists, so without it Stage 4 is blocked no matter what the human said. Then
+continue to Stage 4.
 
 If they **decline**, capture their notes and re-dispatch `hbr-editor` with them, then ask
 again. **Maximum two revision rounds** — after that, stop, report where things stand, and
-leave every artifact in place. Publish nothing without explicit approval.
+leave every artifact in place. Never create the marker on the human's behalf, and publish
+nothing without explicit approval.
 
 ## Stage 4 — `hbr-publisher` → `04-article.md` + `04-article.docx`
 

@@ -71,6 +71,11 @@ for f in "$H/subagent-gate.sh" "$H/publish-gate.sh" "$C/hbr-article.md" "$C/hbr-
 done
 must_contain "approval marker checked by publish-gate" "$H/publish-gate.sh" "APPROVED"
 must_contain "approval marker written by /hbr-article" "$C/hbr-article.md"  "APPROVED"
+# Both commands, not just one. /hbr-article-strict collected human approval and then
+# never wrote the marker, so the gate blocked its publisher on every single run — and
+# this suite passed 64 assertions without noticing, because it only ever asked about the
+# sibling command. Any invariant that applies to both has to be asserted against both.
+must_contain "approval marker written by /hbr-article-strict" "$C/hbr-article-strict.md" "APPROVED"
 must_contain "publish-gate guards the right agent"     "$H/publish-gate.sh" "hbr-publisher"
 
 echo
