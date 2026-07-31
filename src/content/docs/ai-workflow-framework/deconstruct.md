@@ -42,7 +42,7 @@ Step 2 presents one question upfront: **do you know the steps, or just the goal?
 **Not sure which?** Imagine two different inputs and ask: *would the work take noticeably different steps?* If it runs the same way every time, it's step-decomposed. If the steps change depending on what comes in — a refund request, a partnership pitch, and a spam message each handled differently — it's goal-driven.
 
 :::note[What "goal" means here]
-An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (it's recorded in Metadata → Business Objective); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. This matches how the major agent frameworks specify work — a goal bounded by an expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) What makes a workflow goal-driven is that **the agent decides the path** to the goal at runtime — not simply that agents are involved. A step-decomposed workflow can still use an agent for an individual step; it's goal-driven only when the agent owns the overall sequence.
+An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (it's recorded under `Value & Measurement`, alongside what you'd count and where that number stands today); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. This matches how the major agent frameworks specify work — a goal bounded by an expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) What makes a workflow goal-driven is that **the agent decides the path** to the goal at runtime — not simply that agents are involved. A step-decomposed workflow can still use an agent for an individual step; it's goal-driven only when the agent owns the overall sequence.
 :::
 
 Both paths produce a Workflow Requirements document with the same shared structure — only the middle "what does the workflow do" block differs.
@@ -195,7 +195,7 @@ The **Workflow Requirements** document uses a shared structure for both paths �
 - **Goal** — what a successful run produces, when it runs, who consumes it
 - **Value & Measurement** — why the workflow is worth building and how you would know it worked: the business objective it supports, the outcome that changes and for whom, what gets counted, today's number, and the target the revised workflow should hit
 - **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Decomposed / Goal-Driven)
-- **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), how sensitive it is (Public / Internal / Confidential / Regulated), where it came from (Authored by your team, or External), AI accessibility (Yes / Partial / No), and location
+- **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), how sensitive it is (**Public** — a published price list; **Internal** — a project tracker; **Confidential** — an unannounced roadmap; **Regulated** — anything covered by a rule such as patient records or EU customer data), where it came from (**Authored** by someone on your team, or **External** — it arrived from outside), AI accessibility (Yes / Partial / No), and location
 - **Acceptance Criteria** — what good output looks like, dimensions that matter (accuracy, completeness, tone, etc.), and the minimum bar
 - **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where scoring against a known-good reference beats gut-feel ratings
 - **Rules & Constraints** — how the work should be done: must-do, must-never-do, scope boundaries, tone, format, length, and fallback behavior when a case can't be confidently completed
@@ -214,7 +214,6 @@ Most step-decomposed workflows expand from 5-8 rough steps to 12-20 refined step
 **Goal-driven middle block:**
 
 - **Inputs** — what the agent system receives to start (data, materials, references, access)
-- *(`Rules & Constraints` moved to the shared sections above — both paths now capture it.)*
 
 Goal-driven workflows **don't** capture capability domains, agent count, or orchestration approach — those are Design decisions. Step 2 stays in "what" territory.
 

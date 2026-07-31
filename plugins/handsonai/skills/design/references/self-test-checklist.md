@@ -4,7 +4,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Structure
 
-- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.4`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
+- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.5`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
 - [ ] Frontmatter `counts` match the body — `skills` = number of Skill Candidate entries, `agents` = number of Agent Configuration entries, `integrations` = number of Integration Options tools
 - [ ] **Source** section names the Workflow Requirements file path (`outputs/[workflow-name]/requirements.md`)
 - [ ] All mandatory template sections are present in template order (Value & Measurement, Execution Pattern, Architecture Decisions, Autonomy Spectrum Summary [or Autonomy Statement], Safety & Permissions, Constraint Conformance, Integration Options, Model Recommendation, Decomposition table, Data Readiness Summary, Recommended Implementation Order, Prerequisites, Deployment Plan, Evaluation Inputs, Deferred to Build, Self-Test Summary — plus conditional sections per their rules)

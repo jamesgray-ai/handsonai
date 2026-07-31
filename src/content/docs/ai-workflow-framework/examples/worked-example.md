@@ -143,9 +143,9 @@ Maya's review by 10am. Consumed by the leadership team; posted after Maya approv
 | Business Objective | Keep leadership informed with less PM overhead |
 | Desired Outcome | Maya gets her Friday mornings back, and leadership still has the week's picture before the 11am sync |
 | Measure | Minutes Maya spends producing the report, door to door |
-| Baseline | 95 min · Measured (timed over four Fridays, 2026-04-19 to 2026-05-10) |
+| Baseline | Unknown — must measure before go-live |
 | Target | Under 25 min, including her review |
-| Readable When | After four runs — one month |
+| Readable When | After four runs — one month. The same four runs establish the baseline that is missing today |
 
 ## Metadata
 
@@ -276,7 +276,7 @@ established (revisit in Improve).
 
 Two things in that document are easy to skip and worth pausing on.
 
-**The Baseline.** Maya nearly left it out — in Step 1 she had put the job at "45–60 minutes," which felt precise enough to reuse. Timing four actual Fridays put it at 95. Neither number was dishonest; one was a recollection and the other was a measurement, and only the measurement can settle an argument later. That gap is the whole reason the field carries `Measured / Estimated / Unknown` beside the number. Had there been no time to measure, the honest entry would have been `Unknown — must measure before go-live`, and the workflow would still have been worth building — but nobody could have proved it worked.
+**The Baseline says `Unknown`, and that is the honest answer.** Maya had a number lying around — in Step 1 she put the job at "45–60 minutes" — and reusing it was tempting. But she had never timed it; that figure was a recollection of a bad Friday. Recording it as the baseline would have made every later comparison an argument about her memory, and a 30-minute run would have "proved" a saving that nobody measured. So the skill records `Unknown — must measure before go-live` and moves on. The workflow is still worth building; what changes is that timing the next few runs is now part of the job rather than an afterthought. Build and Run both read this field and treat it as work to do.
 
 **The one-line safety section.** This is what the common case looks like. The workflow writes only to Maya's own folder, reads only material her team wrote, and touches nothing regulated, so the section states that and ends. It earns its place by being a claim rather than a silence: a later reader can see the question was asked and answered, instead of guessing whether anyone considered it.
 
@@ -324,7 +324,7 @@ per-step requirements are defined there — not restated here.
 | Business Objective | Keep leadership informed with less PM overhead |
 | Desired Outcome | Maya gets her Friday mornings back, and leadership still has the week's picture before the 11am sync |
 | Measure | Minutes Maya spends producing the report, door to door |
-| Baseline | 95 min · Measured |
+| Baseline | Unknown — must measure before go-live |
 | Target | Under 25 min, including her review |
 
 ---
