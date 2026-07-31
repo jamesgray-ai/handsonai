@@ -62,6 +62,8 @@ Additional substitutions:
 - Skill Candidates use the same 12-field block (with `Covers Domains` instead of `Covers Steps`).
 - Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** and is included whenever the design has ≥1 sub-agent (the common case). A primary-loop design with **zero sub-agents** (orchestration logic + skills only) is valid: set `agents: 0` and document the orchestration logic in the Deployment Plan instead.
 - The Safety & Permissions section applies unchanged — goal-driven workflows are Autonomous by definition, so the unattended-runs and blast-radius rows deserve extra attention.
+- **Constraint Conformance and Value & Measurement apply unchanged too.** Both are path-agnostic: the constraints a workflow must honor and what it is worth are true whether the steps are mapped or the agent chooses them at runtime. For an autonomous workflow the `Prohibited actions` constraints carry more weight than usual, because there is no fixed path to inspect — they are the boundary the agent operates inside.
+- Value's `Target` compares the agent system against however the work happens today, since there is no Optimize-for-AI pass and so no "revised workflow" in the step-decomposed sense.
 
 ## Checklist modifications
 
