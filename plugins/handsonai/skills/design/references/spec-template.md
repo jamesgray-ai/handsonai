@@ -18,7 +18,7 @@ For **goal-driven** workflows, apply the template substitutions in `references/g
 ---
 workflow: [kebab-case name]
 requirements_file: outputs/[workflow-name]/requirements.md
-spec_version: 2.4
+spec_version: 2.5
 definition_type: Step-Decomposed | Goal-Driven
 mechanism: Prompt | Skill-Powered Workflow | Agent
 involvement: Augmented | Automated
@@ -38,7 +38,23 @@ counts:
 
 **Workflow Requirements:** `outputs/[workflow-name]/requirements.md`
 
-This Design Spec consumes the Workflow Requirements as canonical input. Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, and per-step requirements are defined there — not restated here. Read the Workflow Requirements alongside this spec when building.
+This Design Spec consumes the Workflow Requirements as canonical input. Goal, Value & Measurement, Metadata, Context Inventory, Security Privacy & Safety, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, and per-step requirements are defined there — not restated here. Read the Workflow Requirements alongside this spec when building.
+
+## Value & Measurement
+
+Restated from the Workflow Requirements so this document says what the workflow is *for*. A reviewer should not have to open a second file to learn why it exists. Design does not re-derive these.
+
+| Field | Value |
+|---|---|
+| Business Objective | [which strategic objective this supports] |
+| Desired Outcome | [what changes, and for whom] |
+| Measure | [what gets counted] |
+| Baseline | [today's number] · Measured / Estimated / Unknown |
+| Target | [what the revised workflow should achieve] |
+
+A `Baseline` of `Unknown` carries through as a visible flag, not a blank: it tells Build and Run that instrumentation is part of the job. If the Workflow Requirements has no `Value & Measurement` section, it predates this format — see the backfill note in the Design skill.
+
+---
 
 The spec is organized into three layers that build on each other:
 
@@ -84,7 +100,7 @@ For goal-driven workflows: replace this section with an **Autonomy Statement** �
 
 ## Safety & Permissions
 
-*Required whenever the workflow writes to live systems, runs unattended, or consumes content the user didn't author. If none of those apply, state: "Read-only, human-triggered, trusted inputs — no additional safety measures required."*
+*Required whenever any of the sensitivity triple applies — the same test Deconstruct uses: the workflow **writes to a live system** (running unattended is the higher-risk form of the same thing), **consumes content nobody on the team authored**, or **handles data the business would be uncomfortable seeing outside the company**. If none apply, state: "Read-only, human-triggered, trusted inputs — no additional safety measures required."*
 
 | Question | Finding | Mitigation |
 |---|---|---|
@@ -94,6 +110,22 @@ For goal-driven workflows: replace this section with an **Autonomy Statement** �
 | **Blast radius** — worst realistic outcome if a run goes wrong? | [e.g., "a wrong draft is created" vs. "a wrong email is sent to a client"] | [place a human gate before the highest-consequence action, or constrain it to drafts/test targets until trust is established] |
 
 Build enforces these mitigations during connector setup (write-scope pre-flight, least-privilege authorization). Run re-verifies the unattended-run items in its fresh/scheduled-session section.
+
+### Constraint Conformance
+
+Every constraint from the Workflow Requirements' `Security, Privacy & Safety` section, with the design decision that meets it. This is not an audit — it is simply each constraint and what in the design answers it.
+
+| Constraint | From | Met by | State |
+|---|---|---|---|
+| [the constraint, in the words the business used] | [category · source] | [the design decision that meets it, or "—"] | Satisfied / Accepted / Open |
+
+- **Satisfied** — the design decision that meets it is named.
+- **Accepted** — not met, deliberately. Record a named owner and the reason.
+- **Open** — surfaced, not yet decided. Layer 1's confirmation names each Open constraint and asks the user to resolve it before Layer 2.
+
+**Nothing here blocks the spec.** What is enforced is that no constraint stays silent — completeness of *decision*, not of satisfaction. A constraint the user knowingly accepts is a valid, recorded choice.
+
+If the Workflow Requirements has no `Security, Privacy & Safety` section, it predates this format. Do not read that as "no constraints" — see the backfill note in the Design skill.
 
 ## Integration Options
 
