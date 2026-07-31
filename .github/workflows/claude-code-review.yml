@@ -69,3 +69,55 @@ jobs:
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
+      # The action can exit successfully having posted no review at all, which surfaces
+      # as a green check. On #217 it did exactly that twice: 17m/56 turns/$11.88 posting
+      # the 4-character comment "test", then 23m/39 turns/$13.08 posting
+      # "_(test comment retracted)_". Both reported "is_error": false. The real review of
+      # that PR had to be run locally, and it found 15 defects — including a PreToolUse
+      # gate that silently stopped enforcing its human-approval step on any machine
+      # without jq. None of it was surfaced here.
+      #
+      # The failure is silent and inverted: the check is greenest exactly when nothing
+      # was reviewed. So assert a review actually landed rather than trusting exit status.
+      #
+      # The 40-character floor is calibrated against real passing runs, not guessed: the
+      # normal "no issues" comment on #214 and #215 was 75 characters and led with
+      # "## Code review", so a genuine clean review passes comfortably while both known
+      # non-reviews fail. Root cause is still open — see issue #218.
+      #
+      # This runs even if the step above fails, so a hard failure there is not masked by
+      # this step being skipped. claude-review is deliberately NOT a required check, so a
+      # failure here is a visible red mark rather than a merge blocker.
+      - name: Verify a review was actually posted
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          # --slurp, not bare --paginate: with --paginate alone a --jq filter runs once
+          # PER PAGE, so `last` emits one result per page and $body becomes several
+          # comments concatenated. --slurp wraps every page into one outer array first,
+          # hence .[][] to flatten before filtering.
+          #
+          # gh rejects --slurp combined with --jq, so the filter is a separate jq process.
+          # Piping also means gh failing (network, auth, rate limit) yields an empty body
+          # and fails the check, rather than being mistaken for "no review posted" — the
+          # message below covers both, and either way this must not go green.
+          comments="$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" --paginate --slurp)" || {
+            echo "::error::could not read PR comments to verify the review posted"
+            exit 1
+          }
+          body="$(printf '%s' "$comments" \
+            | jq -r '[.[][] | select(.user.login == "claude[bot]")] | last | .body // ""')"
+
+          if [ "${#body}" -lt 40 ] || ! printf '%s' "$body" | grep -q '## Code review'; then
+            echo "::error::claude-review completed without posting a review (${#body} chars). See issue #218."
+            echo "Last claude[bot] comment was:"
+            printf '%s\n' "$body" | sed 's/^/  /'
+            exit 1
+          fi
+
+          echo "Review posted (${#body} chars)."
+
