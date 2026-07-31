@@ -41,14 +41,16 @@ cd mcp-server && npm install && wrangler dev
 - `docs/what-people-built.md` - Community showcase of projects built using the playbook
 - `docs/CONTRIBUTING.md` - Contributor guidelines
 - `.claude/agents/` - Repo-specific subagents not packaged into any plugin (e.g., `playbook-question-*`, `release-notes-generator`, content/editorial agents). Auto-loaded by Claude Code sessions in this repo.
-- `.claude/skills/` - Repo-specific skills not packaged into any plugin (e.g., `publishing-playbook-updates`, `editing-hbr-articles`). Auto-loaded by Claude Code sessions in this repo.
+- `.claude/skills/` - Repo-specific skills not packaged into any plugin (e.g., `publishing-playbook-updates`). Auto-loaded by Claude Code sessions in this repo. `editing-hbr-articles` also lives here, but as a **mirror** of the copy in `plugins/multi-agent-example/` — edit the plugin copy, not this one.
 - `.claude/hooks/` - Repo hook scripts wired in `.claude/settings.json`, each with a test harness alongside it (`test-*.sh`). Currently `subagent-gate.sh` (`SubagentStop` — validates each pipeline stage's artifacts) and `publish-gate.sh` (`PreToolUse` — blocks the publisher subagent until a human approval marker exists). Both are armed only by the `outputs/articles/.active-run` flag and are otherwise inert. **Hooks load only at session start** — after editing `.claude/settings.json` or a hook script, restart Claude Code or the change silently does not apply. Verify with `/hooks`.
 - `.claude/commands/` - Project slash commands. `/hbr-article` (automatic delegation — states the outcome and lets Claude choose the specialists) and `/hbr-article-strict` (deterministic — explicit fixed sequence). The two exist as a deliberate teaching contrast; keep them in sync when the pipeline changes. See the [Autonomous Agent example](src/content/docs/ai-workflow-framework/examples/autonomous-agent.mdx), which is the reference documentation for how that pipeline works.
 - `plugins/handsonai/` - **Canonical** source of plugin-packaged agents and skills. Edit here; `scripts/sync-plugins.sh` pushes to the distributable [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo (which Cowork clones via the marketplace).
 - `plugins/multi-agent-example/` - **Canonical** source of the multi-agent worked-example plugin (4 agents, 1 skill, 2 hooks, 2 commands, the Word renderer). Separate from `handsonai` on purpose: it ships hooks, and installing a methodology toolkit must never silently change how a user's Claude Code behaves. This pipeline is **mirrored** under `.claude/` and `scripts/` so it runs in this repo without installing anything — run `./scripts/check-plugin-sync.sh` to catch drift between the two copies (`sync-plugins.sh` runs it automatically before syncing this plugin).
 - `mcp-server/migrations/` - Cloudflare D1 schema migrations
 - `mcp-server/scripts/analytics-query.ts` - CLI for querying MCP analytics via Cloudflare REST API
-- `scripts/` - Wrapper scripts for scheduled subagents, plus the multi-agent pipeline's checks: `check-plugin-sync.sh` (repo vs plugin drift) and `check-pipeline-consistency.sh` (52 assertions that agent, command, gate, and renderer all agree on filenames, chain order, tool privileges, and quality bars). Run both before demonstrating the pipeline.
+- `scripts/` - Wrapper scripts for scheduled subagents, plus the multi-agent pipeline's checks and its Word renderer:
+  - `check-plugin-sync.sh` (repo vs plugin drift) and `check-pipeline-consistency.sh` (asserts that agent, command, gate, and renderer all agree on filenames, chain order, tool privileges, and quality bars — it prints its own count). Run both before demonstrating the pipeline. No fixed count here on purpose: the previous one said 52 when the suite had grown to 64.
+  - `article-to-docx.js` (markdown → Word, via the `docx` package), `render-docx.sh` (the wrapper agents call — it preflights the dependency, renders, then verifies the output is a real Word file), and `test-article-to-docx.sh`. Always invoke the wrapper, never the renderer directly: on a fresh install only the wrapper installs `docx`.
 - `outputs/` - Local working directory for agent outputs (gitignored)
 - `specs/` - Feature specs (`*-prd.md`), implementation plans (`*-plan.md`), and architecture decision records (`decisions/`) (gitignored)
 - **Private course content** lives in the separate `jamesgray-ai/handsonai-courses` repo (instructor guides, self-study articles, assignments, exercises)
@@ -354,7 +356,7 @@ Plugin-packaged content lives in **two** places:
 1. **`plugins/handsonai/`** in this repo — canonical source. Edit here, alongside the framework docs the skills implement.
 2. **`jamesgray-ai/handsonai-plugins`** — distributable repo Cowork clones via `/plugin marketplace add`. Cloned locally at `~/Code/jamesgray/handsonai-plugins`.
 
-(Plugin-packaged content is **not** duplicated under `.claude/` in this repo — `.claude/` holds only repo-specific examples. Local testing of plugin skills/agents is done by installing the plugin from the marketplace, not by symlinking.)
+(`handsonai`'s packaged content is **not** duplicated under `.claude/` — local testing is done by installing the plugin from the marketplace, not by symlinking. **`multi-agent-example` is the deliberate exception:** it is mirrored under `.claude/` and `scripts/` so the pipeline runs in this repo without anyone installing anything, which is the whole point of a worked example you can demonstrate live. `check-plugin-sync.sh` is what stops the two copies drifting. Do not generalise that exception to new plugins without the same drift check.)
 
 When updating:
 
@@ -401,7 +403,7 @@ The skills page (`docs/ai-workflow-framework/skills.mdx`) uses `/releases/latest
 3. Add a grid card + collapsible detail section to `docs/use-the-playbook/build/index.md` — include links to the detail page anchors for every agent and skill.
 4. Create a detail page at `docs/use-the-playbook/build/<plugin-name>.md` following the template used by existing detail pages (see `docs/use-the-playbook/build/handsonai.mdx` for reference).
 5. Add the detail page to the sidebar in `astro.config.mjs` under "Tools & Resources > Agents & Skills".
-6. Add an entry for the new plugin to `~/Code/jamesgray/handsonai-plugins/.claude-plugin/marketplace.json` (the current `sync-plugins.sh` only knows about the `handsonai` plugin — extend it or hand-bump for new plugins).
+6. Run `./scripts/sync-plugins.sh <plugin-name> minor` — it adds the plugin's `marketplace.json` entry if it is not there yet, so no hand-editing is needed. (It also refuses to proceed if `plugin.json` has no valid semver version or no description, rather than publishing `null` into the marketplace.)
 7. Commit and push this repo first, then build ZIPs, create a Release, and push `handsonai-plugins` **last**.
 
 To locally test a plugin during development, install it from the marketplace (`/plugin marketplace add ~/Code/jamesgray/handsonai-plugins` then `/plugin install <name>@handsonai`).

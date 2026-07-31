@@ -56,15 +56,23 @@ have_docx() {
 
 if ! have_docx; then
   echo "docx package not available — installing it once (this is expected on Claude Code)..."
-  # Install beside the renderer so it is found by Node's resolution and never pollutes
-  # the user's project directory.
+  # --prefix, because `cd` alone does not do what the old comment claimed.
+  #
+  # npm picks its install location by walking UP for the nearest package.json, and
+  # scripts/ has none — so from this repo the install landed in the repo root's
+  # node_modules, not beside the renderer, and the .gitignore entries for
+  # scripts/node_modules/ were dead. It only differed when installed as a plugin, where
+  # no ancestor package.json exists. --prefix pins it either way, which is what the
+  # isolation claim needed all along.
+  #
   # Keep npm's output. Discarding it leaves nothing to distinguish "no network" from
   # "npm is not installed", "the plugin directory is read-only", "the registry returned
   # 403", or "the disk is full" — and the message below used to assert the network cause
   # for all of them. The re-check of have_docx is what decides success; the log is only
   # there so a failure can be diagnosed instead of guessed at.
   NPM_LOG="$(mktemp)"
-  (cd "$SCRIPT_DIR" && npm install --no-save --no-audit --no-fund docx) > "$NPM_LOG" 2>&1 || true
+  (cd "$SCRIPT_DIR" && npm install --prefix "$SCRIPT_DIR" --no-save --no-audit --no-fund docx) \
+    > "$NPM_LOG" 2>&1 || true
 
   if ! have_docx; then
     {
