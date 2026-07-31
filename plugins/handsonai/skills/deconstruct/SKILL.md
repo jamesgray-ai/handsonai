@@ -61,6 +61,22 @@ Worked example: *"Generate my weekly status report from the same three sources"*
    - **Step-decomposed**: Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If no lens was established, determine it: individual tasks (one person's repetitive work) = Individual lens; multi-role or business-objective processes = Organizational lens. Ask only if not obvious from context. Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4 (deep dive).
    - **Goal-driven**: Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4-GD (goal-driven interview). The interview opens with scenario grounding, so don't pre-interview here — but if the user has already described the situation, trigger, or consumer, carry those answers forward.
 
+   **Value case (both paths)** — capture four of the six `Value & Measurement` fields here, while the user is still describing the situation. Keep it conversational: two or three questions, not a form.
+
+   - **Business Objective** — which strategic objective this supports. On the Individual lens it may be personal ("get my Fridays back"); don't push organizational language onto it.
+   - **Desired Outcome** — what changes, and for whom, when this works. In the language the business would use, not the workflow's.
+   - **Measure** — what gets counted: cycle time, error rate, hours, volume, rework.
+   - **Baseline** — today's number, and how you got it: `Measured`, `Estimated`, or `Unknown`.
+
+   Two rules while asking:
+
+   - **Measure quantifies Desired Outcome; it does not replace it.** "Cycle time 12 days to 4 days" says nothing about what got better or for whom. If the outcome could be deleted without the measure becoming ambiguous, push once for the outcome.
+   - **`Unknown` is an acceptable baseline — do not push past it.** If the user doesn't know today's number, record `Unknown — must measure before go-live` and move on. Never offer an estimate to fill the gap: an invented baseline makes a false improvement provable, which is worse than having none.
+
+   **From an Analyze report** — Analyze's `Business Objective` and `Success Metrics` are Organizational-lens only. When an Organizational candidate is referenced, pre-populate Business Objective from Analyze's field of the same name and Measure from its `Success Metrics`, then confirm rather than asking cold. Analyze captures neither Desired Outcome nor Baseline, so ask for both.
+
+   `Target` and `Readable When` are **not** asked here — they describe the revised workflow, which doesn't exist yet. They come at Step 10.
+
 2. **Scope check — one trigger, one deliverable** — A workflow has exactly one trigger (what kicks it off) and one deliverable (the tangible output). Test for multiple workflows by checking:
    - **Triggers**: Multiple independent starting points? (e.g., "when a lead comes in" vs. "end of each week") → separate workflows
    - **Deliverables**: Distinct outputs at different points? If someone receives a deliverable midway and the process continues toward a different output → workflow boundary
@@ -139,6 +155,21 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    For step-decomposed workflows: assemble from per-step context needs gathered in Step 4. For goal-driven workflows: assemble from the Inputs + Context Sources gathered in Step 4-GD.
 
+   **Then classify each artifact and settle sensitivity.** As you present the rolled-up inventory, fill the `Sensitivity` and `Provenance` columns for every row — what class of data it holds, and whether someone on the team wrote it or it came from outside.
+
+   Those two columns answer two of the three sensitivity tests, so **derive them rather than asking again**:
+
+   - any row `Confidential` or `Regulated` → **handles data the user would be uncomfortable seeing outside the company**
+   - any row `External` → **consumes content nobody on the team authored**
+
+   Ask only the third: **"Does this workflow write to anything live — send, post, create, or change something in a real system?"** (Running unattended is the higher-risk form of the same thing, so it counts.)
+
+   Deriving matters. If this were a free-standing question, a user could mark an artifact `Confidential` during the deep dive and then answer "no" here, producing a document that says both "this handles confidential data" and "no sensitivity constraints."
+
+   **If anything is tripped**, work the `Security, Privacy & Safety` categories — but only the ones the tripped tests implicate. An `External` row leads to Boundaries and Prohibited actions; a `Regulated` row requires the governing regime. Capture a Source for every constraint; `Self` when the user is the source.
+
+   **If nothing is tripped**, write the one-line form and move on: "No sensitivity constraints — personal data only, read-only, human-triggered." Do not walk five categories to arrive at nothing.
+
 10. **Collect Acceptance Criteria and Example Scenarios (both paths)** — Before generating the Workflow Requirements, ask the user about acceptance criteria and example scenarios. These were previously collected during Design's Step 8b; capturing them here makes Step 2 a complete PRD and removes redundant questioning downstream.
 
     Ask, one at a time:
@@ -147,6 +178,17 @@ Worked example: *"Generate my weekly status report from the same three sources"*
     3. "What's your minimum bar — what's acceptable vs. what needs more work?"
     4. "Give me 3-5 real or realistic scenarios you'd run this on — different enough to test the workflow's range. For each, briefly describe the input and what you'd look for in the output."
     5. "For any of those scenarios, do you have a **golden example** — a real past output (or excerpt) you'd consider 'exactly right' for that input?" Golden examples turn Test (Step 5) from gut-feel scoring into comparison against a known-good reference. Don't push if none exist — but if the user produces this output today, a recent good one usually does. If a golden example is a document, add it to the Context Inventory and reference its ID.
+
+    **Then close `Value & Measurement` with the two fields that describe the revised workflow:**
+
+    6. "Now that we've reshaped this — what should the number be? What's the target?"
+    7. "How long after this goes live before that number can actually be read?"
+
+    These wait until now because a target describes the *revised* workflow, and until Step 7 there was no revision to describe. The pairing is natural: acceptance criteria say what good **output** looks like; the target says what good **performance** looks like.
+
+    For step-decomposed workflows, read the target alongside `Optimization Notes` — those record what the Optimize-for-AI pass changed and why; the target records what that change is expected to be worth.
+
+    Goal-driven workflows have no optimize pass and so no "revised workflow" in the same sense. There, the target compares the agent system against however the work happens today. Say which: "4 hours to 20 minutes" means something different when the baseline is a person doing it than when nobody is and the work simply isn't getting done.
 
     For goal-driven workflows, Step 4-GD does **not** pre-collect full acceptance criteria — this step is the single place acceptance is captured, so ask the questions that remain unanswered directly. Two harvests from Step 4-GD feed this step: for question 4, **harvest the scenarios from the variation envelope** (the typical and edge cases the user already described); for questions 1–3, **seed from the rejection-test answers** (the plausible-but-wrong outputs the user said they'd send back). Confirm and fill gaps rather than re-eliciting from scratch.
 
