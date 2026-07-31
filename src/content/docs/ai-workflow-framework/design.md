@@ -309,15 +309,17 @@ After the model produces the spec, **review and approve at the Spec Approval Gat
 
 The **Design Spec** is organized into the three layers above, plus cross-layer sections. The spec opens with YAML frontmatter so Build can summarize it in one read.
 
-**Layer 1 — Architecture sections:** Execution Pattern, Architecture Decisions (with Packaging), Autonomy Spectrum Summary, Safety & Permissions, Integration Options (with Source URLs), Model Recommendation (with per-platform mapping).
+**Before Layer 1:** Source, then **Value & Measurement** — carried forward from the Workflow Requirements so the spec says what the workflow is for without a second file.
+
+**Layer 1 — Architecture sections:** Execution Pattern, Architecture Decisions (with Packaging), Autonomy Spectrum Summary, Safety & Permissions (including **Constraint Conformance**), Integration Options (with Source URLs), Model Recommendation (with per-platform mapping).
 
 **Layer 2 — Decomposition sections:** Step-by-Step Decomposition (or Capability Domain Mapping for goal-driven), Orchestrator Prompt Outline (when mechanism is Prompt or Skill-Powered Workflow), Data Readiness Summary, Recommended Implementation Order.
 
 **Layer 3 — Component Blueprint sections:** Skill Candidates (12 fields each), Agent Configuration (14 fields each; mandatory for goal-driven), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan.
 
-**Cross-layer sections:** Value & Measurement (carried forward from the Workflow Requirements), Constraint Conformance, Evaluation Inputs (pointer), Deferred to Build, Stakeholders (optional), Self-Test Summary (verification results).
+**Cross-layer sections:** Evaluation Inputs (pointer), Deferred to Build, Stakeholders (optional), Self-Test Summary (verification results).
 
-### Two cross-layer sections worth reading closely
+### Two sections worth reading closely
 
 **Value & Measurement** is copied forward from the Workflow Requirements unchanged — the objective, the outcome, the metric, today's number, and the target. Design does not re-open those questions; it carries them so that whoever reads the spec on its own can still see what the build is for and how it will be judged. If today's number was never established, the spec says so in those words rather than quietly dropping the row.
 
