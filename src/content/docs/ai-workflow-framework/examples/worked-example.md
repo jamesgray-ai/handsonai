@@ -76,7 +76,7 @@ The full file (trimmed to two candidates for readability — a real report often
 - **Pain point:** Repetitive synthesis and formatting; occasionally misses a
   blocked task because it's buried in comments.
 - **AI opportunity:** AI drafts the full report from the tracker; Maya reviews
-  and posts. Target: under 15 minutes end to end.
+  and posts. Target: under 25 minutes end to end.
 - **Autonomy:** Guided — AI drafts, Maya steers at one checkpoint.
 - **Involvement:** Augmented — Maya is in the loop during the run.
 
@@ -136,6 +136,17 @@ Every Friday morning, produce a one-page leadership status report from the team'
 Notion project tracker — progress, blockers, and next week's focus — ready for
 Maya's review by 10am. Consumed by the leadership team; posted after Maya approves.
 
+## Value & Measurement
+
+| Field | Value |
+|---|---|
+| Business Objective | Keep leadership informed with less PM overhead |
+| Desired Outcome | Maya gets her Friday mornings back, and leadership still has the week's picture before the 11am sync |
+| Measure | Minutes Maya spends producing the report, door to door |
+| Baseline | Unknown — must measure before go-live |
+| Target | Under 25 min, including her review |
+| Readable When | After four runs — one month. The same four runs establish the baseline that is missing today |
+
 ## Metadata
 
 | Field | Value |
@@ -146,7 +157,6 @@ Maya's review by 10am. Consumed by the leadership team; posted after Maya approv
 | Owner | Maya R. (Program Manager) |
 | Lens | Individual |
 | Definition Type | Step-Decomposed |
-| Business Objective | Keep leadership informed with less PM overhead |
 
 ---
 
@@ -206,11 +216,11 @@ Maya's review by 10am. Consumed by the leadership team; posted after Maya approv
 
 ## Context Inventory
 
-| ID | Artifact | Used By | Status | AI Accessible | Location / Source | Key Contents |
-|---|---|---|---|---|---|---|
-| C1 | Notion project tracker | 1 | Exists | Yes | Notion database "Q2 Delivery Tracker" | Tasks, statuses, owners, comments |
-| C2 | Report template + 3 past reports | 2 | Exists | Yes | Project folder `context/past-reports/` | Format, section order, length; E1's golden example |
-| C3 | Tone guide | 2 | Needs Creation | Yes | Create as `context/tone-guide.md` | Maya's voice: direct, no hedging, blockers first |
+| ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
+|---|---|---|---|---|---|---|---|---|
+| C1 | Notion project tracker | 1 | Exists | Internal | Authored | Yes | Notion database "Q2 Delivery Tracker" | Tasks, statuses, owners, comments |
+| C2 | Report template + 3 past reports | 2 | Exists | Internal | Authored | Yes | Project folder `context/past-reports/` | Format, section order, length; E1's golden example |
+| C3 | Tone guide | 2 | Needs Creation | Internal | Authored | Yes | Create as `context/tone-guide.md` | Maya's voice: direct, no hedging, blockers first |
 
 ## Acceptance Criteria
 
@@ -236,11 +246,26 @@ Tone and format issues are acceptable in a draft if fixable in under 5 minutes o
 | E2 | Blocked-heavy week | 4+ blockers incl. one with no owner | Blockers section leads; ownerless blocker flagged "owner needed" | — |
 | E3 | Quiet week | 2 updates, no blockers | Short honest report; no padding or invented activity | — |
 
+## Rules & Constraints
+
+- **Must do:** state every blocker with an owner and a next action; keep the section order of C2
+- **Must never do:** invent a status the tracker doesn't support; hedge ("appears to be", "may have")
+- **Scope boundaries:** the current quarter's tracker only; no cross-quarter trend commentary
+- **Tone / format / length:** C3's voice; C2's template; under 400 words
+- **Fallback behavior:** when a task's status is ambiguous, stop and ask Maya rather than guessing (also recorded as a Human Gate)
+
 ## Human Gates
 
 | Where | What requires human input |
 |---|---|
 | Step 3 | Maya reviews and approves the draft before it is saved or shared |
+| Step 2 | Maya resolves any task whose status the tracker leaves ambiguous |
+
+## Security, Privacy & Safety
+
+*Scope: none of the three triggers apply — the workflow writes only to Maya's own project folder, reads only content her team authored, and handles internal project data.*
+
+No sensitivity constraints — internal project data only, no outside content, and nothing leaves the workspace without Maya's approval.
 
 ## Optimization Notes
 Original process had separate "summarize updates" and "format report" steps —
@@ -248,6 +273,12 @@ collapsed into Step 2 (one pass for AI). Considered adding a "post to leadership
 channel" step; declined for v1 — Maya prefers to post manually until trust is
 established (revisit in Improve).
 ````
+
+Two things in that document are easy to skip and worth pausing on.
+
+**The Baseline says `Unknown`, and that is the honest answer.** Maya had a number lying around — in Step 1 she put the job at "45–60 minutes" — and reusing it was tempting. But she had never timed it; that figure was a recollection of a bad Friday. Recording it as the baseline would have made every later comparison an argument about her memory, and a 30-minute run would have "proved" a saving that nobody measured. So the skill records `Unknown — must measure before go-live` and moves on. The workflow is still worth building; what changes is that timing the next few runs is now part of the job rather than an afterthought. Build and Run both read this field and treat it as work to do.
+
+**The one-line safety section.** This is what the common case looks like. The workflow writes only to Maya's own folder, reads only material her team wrote, and touches nothing regulated, so the section states that and ends. It earns its place by being a claim rather than a silence: a later reader can see the question was asked and answered, instead of guessing whether anyone considered it.
 
 ---
 
@@ -261,7 +292,7 @@ The complete Design Spec:
 ---
 workflow: weekly-status-report
 requirements_file: outputs/weekly-status-report/requirements.md
-spec_version: 2.4
+spec_version: 2.5
 definition_type: Step-Decomposed
 mechanism: Skill-Powered Workflow
 involvement: Augmented
@@ -282,8 +313,19 @@ counts:
 **Workflow Requirements:** `outputs/weekly-status-report/requirements.md`
 
 This Design Spec consumes the Workflow Requirements as canonical input. Goal,
-Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates,
-Steps Overview, and per-step requirements are defined there — not restated here.
+Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules &
+Constraints, Human Gates, Security, Privacy & Safety, Steps Overview, and
+per-step requirements are defined there — not restated here.
+
+## Value & Measurement
+
+| Field | Value |
+|---|---|
+| Business Objective | Keep leadership informed with less PM overhead |
+| Desired Outcome | Maya gets her Friday mornings back, and leadership still has the week's picture before the 11am sync |
+| Measure | Minutes Maya spends producing the report, door to door |
+| Baseline | Unknown — must measure before go-live |
+| Target | Under 25 min, including her review |
 
 ---
 
@@ -324,6 +366,21 @@ needed.
 | **Untrusted input** | Tracker comments are written by the team (semi-trusted) | Treat comment text as data, never as instructions; flag anything that looks like an embedded directive |
 | **Unattended runs** | No — manual trigger, Maya present | n/a for v1; revisit if scheduled later |
 | **Blast radius** | Worst case: a wrong draft — Step 3 gate catches it before anyone sees it | Human gate stays in front of all sharing |
+
+### Constraint Conformance
+
+The Workflow Requirements recorded no constraints — internal data, read-only,
+human-triggered — so there is nothing to reconcile.
+
+| Constraint | From | Met by | State |
+|---|---|---|---|
+| — | — | — | — |
+
+The Safety & Permissions pass above still ran, and it is what turned up the one
+thing worth designing for: tracker comments are written by people, and a comment
+that reads like an instruction should not be followed. That mitigation is an
+architecture decision, not a business constraint, which is why it lives in the
+table above rather than this one.
 
 ## Integration Options
 

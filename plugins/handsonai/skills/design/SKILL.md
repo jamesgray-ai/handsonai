@@ -235,6 +235,20 @@ Before confirming Layer 1, walk four safety questions. This matters most when th
 
 Never **hard-block** the spec on a capability gap: surface it loudly, let the user pick a path, and record the decision in the spec's **Safety & Permissions** section so Build honors it. A gap the user knowingly accepts (e.g., "I'll commit deals by hand for now") is a valid, recorded choice — not a blocker.
 
+**Then reconcile against the constraints the business already stated.** The Workflow Requirements' `Security, Privacy & Safety` section carries constraints in the words the business used, each with a source. Build the spec's **Constraint Conformance** table: for every constraint, name the design decision that meets it and mark it `Satisfied`, `Accepted` (not met, deliberately — record a named owner and the reason), or `Open` (surfaced, not yet decided).
+
+**Nothing here blocks the spec.** Never hard-block on a constraint: surface it, let the user pick a path, and record the decision. What is enforced is that no constraint stays silent — Layer 1's confirmation names each `Open` one in plain language and asks the user to resolve it to `Satisfied` or `Accepted` before Layer 2.
+
+**If the Workflow Requirements has no `Security, Privacy & Safety` or `Value & Measurement` section**, it predates this format. That is not the same as having no constraints, and must never be read that way. Such a document also lacks the Context Inventory's `Sensitivity` and `Provenance` columns, so you cannot derive anything from it — ask the user directly:
+
+- Does this workflow write to anything live — send, post, create, or change something in a real system?
+- Does it use content nobody on their team wrote — inbound mail, web pages, form submissions, shared documents?
+- Does it handle data they'd be uncomfortable seeing outside the company?
+
+If any is yes, capture the constraints as you would from the section. Record each one's source as `captured at Design — requirements predate this section`, so a reader can tell a constraint the business stated during Deconstruct from one reconstructed later.
+
+Do the same for `Value & Measurement`: ask for the objective, the desired outcome, what gets counted, today's number, and the target. A baseline reconstructed here is far more likely `Estimated` or `Unknown` than one captured while the as-is was fresh — record it honestly rather than rounding up.
+
 Present findings in plain language as part of the Layer 1 confirmation below ("Safety: this workflow can create drafts in your email — it will never send without you"). Record them in the spec's **Safety & Permissions** section (see the template). If untrusted input meets write access with no human gate between them, say so plainly and recommend one — that combination is how prompt-injection incidents happen.
 
 **Layer 1 confirmation — hard gate, rich playback in plain English** (after Step 5b, before moving to Step 6):

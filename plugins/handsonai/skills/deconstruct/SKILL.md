@@ -30,7 +30,7 @@ Step 2 has **two paths**, mapped directly to the two ways students think about a
 
 Both paths produce a Workflow Requirements document with the same shared shell — only the middle "what does the workflow do" block differs.
 
-**What "goal" means here.** An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (record it in Metadata → Business Objective); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. The goal bundles the deliverable plus the rules and acceptance criteria for it — what major agent frameworks call the expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) The defining trait of this path is **who owns the control flow**: the agent decides the *path* to the goal at runtime, while you own the *definition of done*. Note the inverse doesn't hold — a step-decomposed workflow can still use an agent for an individual step; what makes a workflow goal-driven is that the agent decides the overall sequence, not merely that agents are involved.
+**What "goal" means here.** An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (record it in `Value & Measurement` → Business Objective); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. The goal bundles the deliverable plus the rules and acceptance criteria for it — what major agent frameworks call the expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) The defining trait of this path is **who owns the control flow**: the agent decides the *path* to the goal at runtime, while you own the *definition of done*. Note the inverse doesn't hold — a step-decomposed workflow can still use an agent for an individual step; what makes a workflow goal-driven is that the agent decides the overall sequence, not merely that agents are involved.
 
 **Which path? (quick heuristic — share this with the user when they're unsure).** The test: *imagine two different inputs — would the work take noticeably different steps?* The choice depends only on the **nature of the work** — never on whether the user can currently list the steps.
 - Choose **Step-decomposed** if the work runs **the same way each time** — same steps regardless of the input. The user does **not** need the steps written down or even fully clear in their head; describing how the work gets done is enough, and the interview maps and refines the steps with them.
@@ -60,6 +60,22 @@ Worked example: *"Generate my weekly status report from the same three sources"*
    **After the path is chosen, gather scenario details:**
    - **Step-decomposed**: Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If no lens was established, determine it: individual tasks (one person's repetitive work) = Individual lens; multi-role or business-objective processes = Organizational lens. Ask only if not obvious from context. Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4 (deep dive).
    - **Goal-driven**: Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4-GD (goal-driven interview). The interview opens with scenario grounding, so don't pre-interview here — but if the user has already described the situation, trigger, or consumer, carry those answers forward.
+
+   **Value case (both paths)** — capture four of the six `Value & Measurement` fields here, while the user is still describing the situation. Keep it conversational: two or three questions, not a form.
+
+   - **Business Objective** — which strategic objective this supports. On the Individual lens it may be personal ("get my Fridays back"); don't push organizational language onto it.
+   - **Desired Outcome** — what changes, and for whom, when this works. In the language the business would use, not the workflow's.
+   - **Measure** — what gets counted: cycle time, error rate, hours, volume, rework.
+   - **Baseline** — today's number, and how you got it: `Measured`, `Estimated`, or `Unknown`.
+
+   Two rules while asking:
+
+   - **Measure quantifies Desired Outcome; it does not replace it.** "Cycle time 12 days to 4 days" says nothing about what got better or for whom. If the outcome could be deleted without the measure becoming ambiguous, push once for the outcome.
+   - **`Unknown` is an acceptable baseline — do not push past it.** If the user doesn't know today's number, record `Unknown — must measure before go-live` and move on. Never offer an estimate to fill the gap: an invented baseline makes a false improvement provable, which is worse than having none.
+
+   **From an Analyze report** — Analyze's `Business Objective` and `Success Metrics` are Organizational-lens only. When an Organizational candidate is referenced, pre-populate Business Objective from Analyze's field of the same name and Measure from its `Success Metrics`, then confirm rather than asking cold. Analyze captures neither Desired Outcome nor Baseline, so ask for both.
+
+   `Target` and `Readable When` are **not** asked here — they describe the revised workflow, which doesn't exist yet. They come at Step 10.
 
 2. **Scope check — one trigger, one deliverable** — A workflow has exactly one trigger (what kicks it off) and one deliverable (the tangible output). Test for multiple workflows by checking:
    - **Triggers**: Multiple independent starting points? (e.g., "when a lead comes in" vs. "end of each week") → separate workflows
@@ -139,6 +155,30 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    For step-decomposed workflows: assemble from per-step context needs gathered in Step 4. For goal-driven workflows: assemble from the Inputs + Context Sources gathered in Step 4-GD.
 
+   **Then classify each artifact and settle sensitivity.** As you present the rolled-up inventory, fill the `Sensitivity` and `Provenance` columns for every row — what class of data it holds, and whether someone on the team wrote it or it came from outside.
+
+   Those two columns answer two of the three sensitivity tests, so **derive them rather than asking again**:
+
+   - any row `Confidential` or `Regulated` → **handles data the user would be uncomfortable seeing outside the company**
+   - any row `External` → **consumes content nobody on the team authored**
+
+   Ask only the third: **"Does this workflow write to anything live — send, post, create, or change something in a real system?"** (Running unattended is the higher-risk form of the same thing, so it counts.)
+
+   Deriving matters. If this were a free-standing question, a user could mark an artifact `Confidential` during the deep dive and then answer "no" here, producing a document that says both "this handles confidential data" and "no sensitivity constraints."
+
+   **If anything is tripped**, work the `Security, Privacy & Safety` categories — but only the ones the tripped tests implicate:
+
+   | What tripped | Categories to work |
+   |---|---|
+   | Writes to a live system | **Prohibited actions** (what it must never do, whoever asks) and **Traceability** (what has to be recorded, so a run can be reconstructed afterwards) |
+   | An `External` row | **Boundaries** (where that content may travel) and **Prohibited actions** (what it may never be allowed to trigger) |
+   | A `Confidential` row | **Boundaries** (where the data may travel) and **Access** (who may see the outputs and intermediate state) |
+   | A `Regulated` row | Boundaries and Access as above, plus the **governing regime**, which is required |
+
+   Work each implicated category once, even when two tests point at the same one. Capture a Source for every constraint; `Self` when the user is the source.
+
+   **If nothing is tripped**, write the one-line form and move on: "No sensitivity constraints — personal data only, read-only, human-triggered." Do not walk five categories to arrive at nothing.
+
 10. **Collect Acceptance Criteria and Example Scenarios (both paths)** — Before generating the Workflow Requirements, ask the user about acceptance criteria and example scenarios. These were previously collected during Design's Step 8b; capturing them here makes Step 2 a complete PRD and removes redundant questioning downstream.
 
     Ask, one at a time:
@@ -148,13 +188,24 @@ Worked example: *"Generate my weekly status report from the same three sources"*
     4. "Give me 3-5 real or realistic scenarios you'd run this on — different enough to test the workflow's range. For each, briefly describe the input and what you'd look for in the output."
     5. "For any of those scenarios, do you have a **golden example** — a real past output (or excerpt) you'd consider 'exactly right' for that input?" Golden examples turn Test (Step 5) from gut-feel scoring into comparison against a known-good reference. Don't push if none exist — but if the user produces this output today, a recent good one usually does. If a golden example is a document, add it to the Context Inventory and reference its ID.
 
+    **Then close `Value & Measurement` with the two fields that describe the revised workflow:**
+
+    6. "Now that we've reshaped this — what should the number be? What's the target?"
+    7. "How long after this goes live before that number can actually be read?"
+
+    These wait until now because a target describes the *revised* workflow, and until Step 7 there was no revision to describe. The pairing is natural: acceptance criteria say what good **output** looks like; the target says what good **performance** looks like.
+
+    For step-decomposed workflows, read the target alongside `Optimization Notes` — those record what the Optimize-for-AI pass changed and why; the target records what that change is expected to be worth.
+
+    Goal-driven workflows have no optimize pass and so no "revised workflow" in the same sense. There, the target compares the agent system against however the work happens today. Say which: "4 hours to 20 minutes" means something different when the baseline is a person doing it than when nobody is and the work simply isn't getting done.
+
     For goal-driven workflows, Step 4-GD does **not** pre-collect full acceptance criteria — this step is the single place acceptance is captured, so ask the questions that remain unanswered directly. Two harvests from Step 4-GD feed this step: for question 4, **harvest the scenarios from the variation envelope** (the typical and edge cases the user already described); for questions 1–3, **seed from the rejection-test answers** (the plausible-but-wrong outputs the user said they'd send back). Confirm and fill gaps rather than re-eliciting from scratch.
 
 11. **Generate Workflow Requirements** — Produce the structured Workflow Requirements document and write it to the output file. See the **Output** section below for the template, writing style, and machine-readability rules.
 
     **Self-check before finishing (so Design can parse it).** After writing, verify the file against the machine-readability rules and fix any miss before handing off:
     - File lives in the workflow folder using the kebab-case ID: `outputs/[workflow-name]/requirements.md` (e.g., "Inbound Lead Triage" → `outputs/inbound-lead-triage/requirements.md`), and `workflow.yaml` exists alongside it with `current_step: 2` and the requirements path registered.
-    - All required headings are present and **exactly named** (no synonyms): Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-decomposed; Inputs + Rules & Constraints for goal-driven).
+    - All required headings are present and **exactly named** (no synonyms): Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, Security, Privacy & Safety, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-decomposed; Inputs for goal-driven).
     - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps `1,2,3…`; context `C1,C2…`; scenarios `E1,E2…`).
     - If anything is off, fix it before telling the user it's ready.
 
@@ -166,17 +217,17 @@ When the user selects goal-driven, run this interview instead of the step-decomp
 
 > "This path is for when you know what you want but not the exact steps — you don't need to map anything out. You'll give the agent system a goal — a concrete deliverable it produces each run — plus the rules it has to follow, and I'll handle the structure. Let's start with the situation."
 
-1. **Scenario (ground before sharpening)**: "Tell me about the situation — what's going on, what kicks this off, and what are you trying to get done?" Plain language; no precision demanded yet. This grounds the trigger, the consumer, and the business context before the goal is sharpened. Note any business objective the user states ("we need more pipeline") — it goes in Metadata → Business Objective, not in the goal.
+1. **Scenario (ground before sharpening)**: "Tell me about the situation — what's going on, what kicks this off, and what are you trying to get done?" Plain language; no precision demanded yet. This grounds the trigger, the consumer, and the business context before the goal is sharpened. Note any business objective the user states ("we need more pipeline") — it goes in `Value & Measurement` → Business Objective, not in the goal.
 2. **Goal (natural, then reflect back)**: "Now the result: when a run works well, what do you walk away with? Talk like you're describing it to a colleague — don't worry about being precise." Then **reflect back a structured restatement** that covers all three of **format, structure, and scope** — plus who consumes it — and names the completion state: "So the goal is roughly [restatement], and a run is done when [completion state]. Did I get that right, or what's off?" The reflect-back is where the rigor lives; don't drop any of format/structure/scope. If the user struggles, offer a vague-vs-sharp calibration example (e.g., "'Help me with prospecting' is a start — what I'm after is more like 'a ranked list of 20 qualified prospects matching our ICP, with contact info and a one-line fit rationale, every Monday'").
 3. **Goal pressure-test (challenge before accepting)**: After the reflect-back, test the goal — don't just record it. Apply whichever of these three tests the answer hasn't already passed, state which test failed and why when pushing back, and cap the challenge at 2–3 probes (interview, not interrogation):
    - **Done/not-done test (completion state)**: "If the agent handed you one run's output, could you say 'done' or 'not done' just by looking at it?" — "Improve our pipeline" fails; "a ranked list of 20 prospects with contact info" passes. If it fails, push for the concrete deliverable.
-   - **Level test (business objective vs. agent goal)**: If the stated goal is metric-shaped with no deliverable ("higher revenue", "more engagement"), ladder *down*: "That's the business objective — I'll record it in Metadata. What's the *thing* the agent hands you that contributes to it?" If it's hopelessly vague ("help with email"), sharpen via format, structure, and scope.
+   - **Level test (business objective vs. agent goal)**: If the stated goal is metric-shaped with no deliverable ("higher revenue", "more engagement"), ladder *down*: "That's the business objective — I'll record it under what this is worth. What's the *thing* the agent hands you that contributes to it?" If it's hopelessly vague ("help with email"), sharpen via format, structure, and scope.
    - **Rejection test (testability)**: "Describe an output that *looks* plausible but you'd send back. What's wrong with it?" The answers surface implicit acceptance criteria — carry them forward to seed Step 10; don't re-elicit there.
 
    If the user's first answer in question 2 is purely metric-shaped (no deliverable at all), skip the reflect-back and go straight to the level test. If the probe cap is reached and the goal is still untestable, switch from asking to proposing: draft a sharp candidate goal yourself from everything heard so far and ask the user to confirm or correct it — never proceed to question 4 with a goal that fails the done/not-done test.
 4. **Variation envelope**: "This works as goal-driven because the work takes different steps depending on what comes in. What's the range it needs to handle? Give me the typical case, and a couple of the awkward or harder ones." These answers become the Example Scenarios in Step 10 — capture them now and harvest them there; don't re-elicit scenarios later. **Misroute check:** if the answer reveals the work actually takes the same steps every time (no meaningful variation), say so and offer to switch: "This sounds like it runs the same way each run — the step-decomposed path would capture it better. Want to switch?" Carry everything gathered so far into the step-decomposed deep dive rather than restarting.
 5. **Inputs**: "What kicks it off, and what does the agent system get to work with — data, documents, access?" (Confirm against what the scenario already established rather than re-asking.)
-6. **Rules & Constraints**: "What boundaries or guardrails apply? Things the agent must always do, must never do, or limits on scope, sources, tone, length."
+6. **Rules & Constraints**: "What rules should the agent follow? Things it must always do, must never do, or limits on scope, tone, length." Keep this **behavioral**. Where data may travel and what the agent may never *act* on — send, post, create, change — are captured at Step 9 under `Security, Privacy & Safety`, not here.
 7. **Fallback behavior**: "When it hits a case it can't confidently handle — missing info, something ambiguous — what should it do? Stop and ask you, make its best attempt and flag it, or skip that item?" This is the agent's behavior on *unplanned* exceptions — distinct from the *planned* pauses captured under Human gates. Record it under Rules & Constraints in the output. If the answer is "stop and ask," also capture it as a Human Gate (question 9) so the pause appears where Design looks for review points.
 8. **Context & Data Sources**: "What external systems, data sources, documents, or reference materials should the agent system have access to?" Apply the same context readiness probing as the step-decomposed path (sample — ask the one or two probes that matter, don't run all three mechanically):
    - Access: Where does this context live today? Is it in a system with programmatic access (database, cloud app, shared drive), or does it require manual steps (logging in, copy-pasting, reading from a screen)?
@@ -306,6 +357,22 @@ So Design (and any agent model) can parse the document without re-asking:
 ## Goal
 [One paragraph: what a successful run produces, when it runs, who consumes the output.]
 
+## Value & Measurement
+
+| Field | Value |
+|---|---|
+| Business Objective | [which strategic objective this supports] |
+| Desired Outcome | [what changes, and for whom] |
+| Measure | [what gets counted] |
+| Baseline | [today's number] · Measured / Estimated / Unknown |
+| Target | [what the revised workflow should achieve] |
+| Readable When | [how long after go-live the number can be read] |
+
+Notes:
+- `Baseline: Unknown` is a legitimate value, recorded as `Unknown — must measure before go-live`. An invented baseline is worse than none, because it makes a false improvement provable.
+- Measure quantifies Desired Outcome; it does not replace it. If the outcome could be deleted without the measure becoming ambiguous, the outcome was written too thinly.
+- On the Individual lens the Business Objective may be personal — "get my Fridays back" is a strategic objective for a person.
+
 ## Metadata
 
 | Field | Value |
@@ -316,11 +383,9 @@ So Design (and any agent model) can parse the document without re-asking:
 | Owner | [person or role] |
 | Lens | Individual / Organizational |
 | Definition Type | Step-Decomposed / Goal-Driven |
-| Business Objective | [why this workflow matters — optional but recommended] |
 
 For organizational lens, also include:
 | Stakeholders | [roles/teams involved] |
-| Success Metrics | [KPIs for measuring improvement] |
 
 ---
 
@@ -330,11 +395,14 @@ For organizational lens, also include:
 
 ## Context Inventory
 
-| ID | Artifact | Used By | Status | AI Accessible | Location / Source | Key Contents |
-|---|---|---|---|---|---|---|
-| C1 | [name] | [Step IDs or "All"] | Exists / Needs Creation | Yes / Partial / No | [path, URL, system name, or "Create as [path]"] | [what's in it] |
+| ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
+|---|---|---|---|---|---|---|---|---|
+| C1 | [name] | [Step IDs or "All"] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [path, URL, system name, or "Create as [path]"] | [what's in it] |
 
 Notes:
+- **Sensitivity** is what class of data this holds. **Provenance** is whether someone on your team wrote it (`Authored`) or it arrived from outside (`External`). They are different risks and must not be merged: a public web page is `Public` and `External` — low sensitivity, but nobody on your team wrote it. A draft pricing memo is `Confidential` and `Authored` — high sensitivity, but it came from you.
+- Content from outside can contain instructions. A model that treats them as instructions does what a stranger told it to, which is why `External` matters even when the content looks harmless.
+- Any row marked `Regulated` requires the governing regime to be named in `Security, Privacy & Safety`.
 - For items with `Status: Needs Creation`, the Location column captures where the artifact should be persisted — AI must be able to reach it.
 - For organizational workflows, include existing process documentation here: SOPs, training guides, compliance requirements, SLAs.
 
@@ -359,6 +427,19 @@ Notes:
 
 Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut-feel scoring alone. Use "—" when none exists.
 
+## Rules & Constraints
+
+- **Must do:** [list]
+- **Must never do:** [behavioral only — see the note below]
+- **Scope boundaries:** [what's in scope, what's out]
+- **Tone / format / length:** [if applicable]
+- **Fallback behavior:** [what to do when a case can't be confidently completed — stop and ask, best-effort and flag, or skip]
+
+Notes:
+- This section is **behavioral**: how the work should be done. Constraints about *data and authority* belong in `Security, Privacy & Safety` — where data may travel goes to Boundaries, and anything outward-facing or irreversible goes to Prohibited actions. One fact, one home.
+- "Must never do" here means behavioral: never invent a figure, never write in the first person. A prohibition on *acting* — never email a customer, never merge to main — is a Prohibited action.
+- When fallback behavior is "stop and ask", also record it as a Human Gate so the pause appears where Design looks for review points.
+
 ## Human Gates
 
 | Where | What requires human input |
@@ -366,6 +447,39 @@ Golden Examples are optional but high-value — Test (Step 5) compares actual ou
 | [step ID or phase] | [decision, approval, review] |
 
 If no human gates are required, write: "No human gates — the workflow runs end-to-end with final review only."
+
+## Security, Privacy & Safety
+
+*Scope: [which of the sensitivity triple applies — writes to a live system / consumes content nobody on your team authored / handles data you would be uncomfortable seeing outside the company]*
+
+### Boundaries
+| Constraint | Source |
+|---|---|
+| [where data may and may not travel — tenancy, residency, third-party models, retention] | [person, policy, or control ID, or `Self`] |
+
+### Access
+| Constraint | Source |
+|---|---|
+| [who may see outputs and intermediate state] | [...] |
+
+### Traceability
+| Constraint | Source |
+|---|---|
+| [what must be recorded, and for whom] | [...] |
+
+### Prohibited actions
+| Constraint | Source |
+|---|---|
+| [what the workflow must never do — absolute, not conditional] | [...] |
+
+### Governing regime
+[GDPR / HIPAA / SOC 2 / internal policy / None — required when any Context Inventory row is `Regulated`]
+
+Notes:
+- **When nothing is tripped, the whole section is one line:** "No sensitivity constraints — personal data only, read-only, human-triggered."
+- **Every constraint carries a Source** — a person, a policy, or a control ID ("Avery, security lead", "SOC 2 CC6.1"). On the Individual lens the user is usually the source: record `Self` rather than leaving it blank. A blank reads as an unsourced assertion; `Self` is honest and reviewable.
+- **Prohibited actions are absolute; Human Gates are conditional.** "Never send a customer email without approval" is a gate — not until someone approves. "Never send a customer email" is a prohibition — never, regardless of who asks. If an approval can satisfy it, it belongs in Human Gates.
+- **The sensitivity of what the workflow produces belongs in `Access`.** The Context Inventory classifies what the workflow *consumes*. A generated deliverable can be more sensitive than any of its inputs — a specification assembled from customer evidence is the obvious case. Who may see the outputs and the intermediate state is an Access constraint, not a Context Inventory row.
 
 ## Optimization Notes (optional, step-decomposed only)
 [Brief record of what changed from the original process and why — only if optimizations were applied in Step 7. Include declined optimizations and the reasoning, since this preserves context for Design.]
@@ -417,17 +531,9 @@ Insert between the Metadata table and the Context Inventory (omit Steps Overview
 - [What the agent system receives to start — data, materials, references, access]
 - [One bullet per discrete input]
 
-## Rules & Constraints
-
-- **Must do:** [list]
-- **Must never do:** [list]
-- **Scope boundaries:** [what's in scope, what's out]
-- **Tone / format / length:** [if applicable]
-- **Source restrictions:** [if applicable]
-- **Fallback behavior:** [what the agent does when it can't confidently complete a case — stop and ask, best-effort and flag, or skip]
 ```
 
-The Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates sections from the shared shell still apply — goal-driven uses the same shell, just a different middle. The **Example Scenarios should reflect the variation envelope** captured in Step 4-GD: the typical case plus the awkward/edge cases the agent must handle.
+The Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety sections from the shared shell still apply — goal-driven uses the same shell, just a different middle, so `Inputs` is the only section this block adds. `Rules & Constraints` is collected by question 6 of this interview and written into the shared shell, not here. The **Example Scenarios should reflect the variation envelope** captured in Step 4-GD: the typical case plus the awkward/edge cases the agent must handle.
 
 ## Guidelines
 

@@ -4,10 +4,10 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Structure
 
-- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.4`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
+- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.5`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
 - [ ] Frontmatter `counts` match the body — `skills` = number of Skill Candidate entries, `agents` = number of Agent Configuration entries, `integrations` = number of Integration Options tools
 - [ ] **Source** section names the Workflow Requirements file path (`outputs/[workflow-name]/requirements.md`)
-- [ ] All mandatory template sections are present in template order (Execution Pattern, Architecture Decisions, Autonomy Spectrum Summary [or Autonomy Statement], Safety & Permissions, Integration Options, Model Recommendation, Decomposition table, Data Readiness Summary, Recommended Implementation Order, Prerequisites, Deployment Plan, Evaluation Inputs, Deferred to Build, Self-Test Summary — plus conditional sections per their rules)
+- [ ] All mandatory template sections are present in template order (Value & Measurement, Execution Pattern, Architecture Decisions, Autonomy Spectrum Summary [or Autonomy Statement], Safety & Permissions, Constraint Conformance, Integration Options, Model Recommendation, Decomposition table, Data Readiness Summary, Recommended Implementation Order, Prerequisites, Deployment Plan, Evaluation Inputs, Deferred to Build, Self-Test Summary — plus conditional sections per their rules)
 - [ ] `Architecture Decisions` table has Lens, Platform, Platform Mode, Orchestration, Involvement, Packaging, and Trigger rows
 - [ ] Every step in the decomposition table has separate Orchestration, Integration, Intelligence, and Build Output columns
 - [ ] Step IDs in the decomposition table match the Step IDs in the Workflow Requirements (Step 1, Step 2, …)
@@ -44,7 +44,10 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Safety
 
-- [ ] Safety & Permissions section is present in Layer 1 — all four questions answered (write access, untrusted input, unattended runs, blast radius) with mitigations, or the explicit "Read-only, human-triggered, trusted inputs" statement
+- [ ] Safety & Permissions section is present in Layer 1 — all four questions answered (write access, untrusted input, unattended runs, blast radius) with mitigations, or the explicit "Read-only, human-triggered, trusted inputs" statement. That escape statement is only valid when the Workflow Requirements carries no constraints; if it does, the four questions are answered
+- [ ] Constraint Conformance table is present, listing every constraint from the Workflow Requirements' `Security, Privacy & Safety` section, each in a recorded state (Satisfied / Accepted / Open). Every `Accepted` names an owner and a reason. `Open` constraints were named in the Layer 1 confirmation
+- [ ] Value & Measurement restates the objective, desired outcome, measure, baseline and target from the Workflow Requirements. A `Baseline: Unknown` is carried through as-is, not blanked
+- [ ] If the Workflow Requirements predates these sections, constraints and value fields captured at Design are sourced as such — not presented as though the business stated them
 - [ ] If the workflow consumes untrusted input AND has write access, at least one mitigation is a Human Gate or draft-don't-send constraint — not just "be careful"
 
 ## Completeness

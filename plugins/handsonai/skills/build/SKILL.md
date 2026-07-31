@@ -35,7 +35,8 @@ Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate
 Confirm you've loaded both by summarizing: workflow name, orchestration mechanism, involvement mode, packaging, counts (steps, skills, agents, integrations), and that the Workflow Requirements was loaded.
 
 **Spec version compatibility:**
-- `spec_version: 2.4` (current) → current format; mechanism vocabulary is `Prompt | Skill-Powered Workflow | Agent`; agents carry a Failure Modes field; proceed.
+- `spec_version: 2.5` (current) → current format; mechanism vocabulary is `Prompt | Skill-Powered Workflow | Agent`; agents carry a Failure Modes field; the spec includes a `Value & Measurement` section and a `Constraint Conformance` table under Safety & Permissions; proceed. A `Baseline: Unknown` in Value & Measurement means the workflow has no measured starting point — instrumentation is part of the build, so surface it when planning the Run Guide.
+- `spec_version: 2.4` → same structure minus `Value & Measurement` and `Constraint Conformance`. Treat both as absent; fall back to the four Safety & Permissions questions as answered in the spec, exactly as today. Do not fail, and do not ask the user to regenerate.
 - `spec_version: 2.3` → same structure minus the agent Failure Modes field — treat it as empty and derive error handling from the agent's Constraints plus the Workflow Requirements' fallback behavior; proceed.
 - `spec_version: 2.2` → same structure, but the middle mechanism is named by its legacy value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow` everywhere; proceed.
 - `spec_version: 2.1` → same structure minus Safety & Permissions and using legacy flat paths; proceed, and apply the safety defaults from Step 5's write-scope pre-flight in place of the missing section.
