@@ -306,6 +306,22 @@ So Design (and any agent model) can parse the document without re-asking:
 ## Goal
 [One paragraph: what a successful run produces, when it runs, who consumes the output.]
 
+## Value & Measurement
+
+| Field | Value |
+|---|---|
+| Business Objective | [which strategic objective this supports] |
+| Desired Outcome | [what changes, and for whom] |
+| Measure | [what gets counted] |
+| Baseline | [today's number] · Measured / Estimated / Unknown |
+| Target | [what the revised workflow should achieve] |
+| Readable When | [how long after go-live the number can be read] |
+
+Notes:
+- `Baseline: Unknown` is a legitimate value, recorded as `Unknown — must measure before go-live`. An invented baseline is worse than none, because it makes a false improvement provable.
+- Measure quantifies Desired Outcome; it does not replace it. If the outcome could be deleted without the measure becoming ambiguous, the outcome was written too thinly.
+- On the Individual lens the Business Objective may be personal — "get my Fridays back" is a strategic objective for a person.
+
 ## Metadata
 
 | Field | Value |
@@ -316,11 +332,9 @@ So Design (and any agent model) can parse the document without re-asking:
 | Owner | [person or role] |
 | Lens | Individual / Organizational |
 | Definition Type | Step-Decomposed / Goal-Driven |
-| Business Objective | [why this workflow matters — optional but recommended] |
 
 For organizational lens, also include:
 | Stakeholders | [roles/teams involved] |
-| Success Metrics | [KPIs for measuring improvement] |
 
 ---
 
@@ -330,11 +344,14 @@ For organizational lens, also include:
 
 ## Context Inventory
 
-| ID | Artifact | Used By | Status | AI Accessible | Location / Source | Key Contents |
-|---|---|---|---|---|---|---|
-| C1 | [name] | [Step IDs or "All"] | Exists / Needs Creation | Yes / Partial / No | [path, URL, system name, or "Create as [path]"] | [what's in it] |
+| ID | Artifact | Used By | Status | Sensitivity | Provenance | AI Accessible | Location / Source | Key Contents |
+|---|---|---|---|---|---|---|---|---|
+| C1 | [name] | [Step IDs or "All"] | Exists / Needs Creation | Public / Internal / Confidential / Regulated | Authored / External | Yes / Partial / No | [path, URL, system name, or "Create as [path]"] | [what's in it] |
 
 Notes:
+- **Sensitivity** is what class of data this holds. **Provenance** is whether someone on your team wrote it (`Authored`) or it arrived from outside (`External`). They are different risks and must not be merged: a public web page is `Public` and `External` — low sensitivity, but nobody on your team wrote it. A draft pricing memo is `Confidential` and `Authored` — high sensitivity, but it came from you.
+- Content from outside can contain instructions. A model that treats them as instructions does what a stranger told it to, which is why `External` matters even when the content looks harmless.
+- Any row marked `Regulated` requires the governing regime to be named in `Security, Privacy & Safety`.
 - For items with `Status: Needs Creation`, the Location column captures where the artifact should be persisted — AI must be able to reach it.
 - For organizational workflows, include existing process documentation here: SOPs, training guides, compliance requirements, SLAs.
 
@@ -366,6 +383,39 @@ Golden Examples are optional but high-value — Test (Step 5) compares actual ou
 | [step ID or phase] | [decision, approval, review] |
 
 If no human gates are required, write: "No human gates — the workflow runs end-to-end with final review only."
+
+## Security, Privacy & Safety
+
+*Scope: [which of the sensitivity triple applies — writes to a live system / consumes content nobody on your team authored / handles data you would be uncomfortable seeing outside the company]*
+
+### Boundaries
+| Constraint | Source |
+|---|---|
+| [where data may and may not travel — tenancy, residency, third-party models, retention] | [person, policy, or control ID, or `Self`] |
+
+### Access
+| Constraint | Source |
+|---|---|
+| [who may see outputs and intermediate state] | [...] |
+
+### Traceability
+| Constraint | Source |
+|---|---|
+| [what must be recorded, and for whom] | [...] |
+
+### Prohibited actions
+| Constraint | Source |
+|---|---|
+| [what the workflow must never do — absolute, not conditional] | [...] |
+
+### Governing regime
+[GDPR / HIPAA / SOC 2 / internal policy / None — required when any Context Inventory row is `Regulated`]
+
+Notes:
+- **When nothing is tripped, the whole section is one line:** "No sensitivity constraints — personal data only, read-only, human-triggered."
+- **Every constraint carries a Source** — a person, a policy, or a control ID ("Avery, security lead", "SOC 2 CC6.1"). On the Individual lens the user is usually the source: record `Self` rather than leaving it blank. A blank reads as an unsourced assertion; `Self` is honest and reviewable.
+- **Prohibited actions are absolute; Human Gates are conditional.** "Never send a customer email without approval" is a gate — not until someone approves. "Never send a customer email" is a prohibition — never, regardless of who asks. If an approval can satisfy it, it belongs in Human Gates.
+- **The sensitivity of what the workflow produces belongs in `Access`.** The Context Inventory classifies what the workflow *consumes*. A generated deliverable can be more sensitive than any of its inputs — a specification assembled from customer evidence is the obvious case. Who may see the outputs and the intermediate state is an Access constraint, not a Context Inventory row.
 
 ## Optimization Notes (optional, step-decomposed only)
 [Brief record of what changed from the original process and why — only if optimizations were applied in Step 7. Include declined optimizations and the reasoning, since this preserves context for Design.]
