@@ -42,10 +42,13 @@ cd mcp-server && npm install && wrangler dev
 - `docs/CONTRIBUTING.md` - Contributor guidelines
 - `.claude/agents/` - Repo-specific subagents not packaged into any plugin (e.g., `playbook-question-*`, `release-notes-generator`, content/editorial agents). Auto-loaded by Claude Code sessions in this repo.
 - `.claude/skills/` - Repo-specific skills not packaged into any plugin (e.g., `publishing-playbook-updates`, `editing-hbr-articles`). Auto-loaded by Claude Code sessions in this repo.
+- `.claude/hooks/` - Repo hook scripts wired in `.claude/settings.json`, each with a test harness alongside it (`test-*.sh`). Currently `subagent-gate.sh` (`SubagentStop` — validates each pipeline stage's artifacts) and `publish-gate.sh` (`PreToolUse` — blocks the publisher subagent until a human approval marker exists). Both are armed only by the `outputs/articles/.active-run` flag and are otherwise inert. **Hooks load only at session start** — after editing `.claude/settings.json` or a hook script, restart Claude Code or the change silently does not apply. Verify with `/hooks`.
+- `.claude/commands/` - Project slash commands. `/hbr-article` (automatic delegation — states the outcome and lets Claude choose the specialists) and `/hbr-article-strict` (deterministic — explicit fixed sequence). The two exist as a deliberate teaching contrast; keep them in sync when the pipeline changes. See the [Autonomous Agent example](src/content/docs/ai-workflow-framework/examples/autonomous-agent.mdx), which is the reference documentation for how that pipeline works.
 - `plugins/handsonai/` - **Canonical** source of plugin-packaged agents and skills. Edit here; `scripts/sync-plugins.sh` pushes to the distributable [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo (which Cowork clones via the marketplace).
+- `plugins/multi-agent-example/` - **Canonical** source of the multi-agent worked-example plugin (4 agents, 1 skill, 2 hooks, 2 commands, the Word renderer). Separate from `handsonai` on purpose: it ships hooks, and installing a methodology toolkit must never silently change how a user's Claude Code behaves. This pipeline is **mirrored** under `.claude/` and `scripts/` so it runs in this repo without installing anything — run `./scripts/check-plugin-sync.sh` to catch drift between the two copies (`sync-plugins.sh` runs it automatically before syncing this plugin).
 - `mcp-server/migrations/` - Cloudflare D1 schema migrations
 - `mcp-server/scripts/analytics-query.ts` - CLI for querying MCP analytics via Cloudflare REST API
-- `scripts/` - Wrapper scripts for scheduled subagents
+- `scripts/` - Wrapper scripts for scheduled subagents, plus the multi-agent pipeline's checks: `check-plugin-sync.sh` (repo vs plugin drift) and `check-pipeline-consistency.sh` (52 assertions that agent, command, gate, and renderer all agree on filenames, chain order, tool privileges, and quality bars). Run both before demonstrating the pipeline.
 - `outputs/` - Local working directory for agent outputs (gitignored)
 - `specs/` - Feature specs (`*-prd.md`), implementation plans (`*-plan.md`), and architecture decision records (`decisions/`) (gitignored)
 - **Private course content** lives in the separate `jamesgray-ai/handsonai-courses` repo (instructor guides, self-study articles, assignments, exercises)
@@ -55,6 +58,36 @@ cd mcp-server && npm install && wrangler dev
   to Maven for the syllabus. The source of truth is the OKF knowledge bundle in the
   private `business` repo — if a syllabus is ever published here again, it comes from
   there, not from Notion.
+
+## Multi-Agent Article Pipeline — Conventions
+
+When asked to produce an article through the multi-agent pipeline (the
+`ai-productivity-researcher` → `tech-executive-writer` → `hbr-editor` → `hbr-publisher`
+agents), apply these defaults without being told. They exist so the goal statement only
+has to carry the topic.
+
+1. **Workspace:** `outputs/articles/<kebab-slug-of-topic>/`. Create it, and write the
+   goal you were given to `00-goal.md` inside it for provenance.
+2. **Arm the gates** before dispatching anything:
+   `echo "outputs/articles/<slug>" > outputs/articles/.active-run`
+   Both hooks are inert until this exists. **Remove it when the run ends**, including if
+   the run is abandoned.
+3. **Pass every subagent the absolute workspace path.** Their Workspace Mode only
+   activates when given one, and they already know which file to read and write — you do
+   not need to restate the filenames.
+4. **Never do a specialist's work yourself** — not the research, writing, editing, or
+   publishing. Dispatch the agent instead.
+5. **A human approves before publishing.** Ask with `AskUserQuestion`, showing the
+   significant editorial changes and the file paths. On approval, write the marker
+   `<workspace>/APPROVED`. A `PreToolUse` hook blocks `hbr-publisher` until it exists.
+6. **Deliverables:** `04-article.md` and `04-article.docx`.
+
+Quality bars live in the agents themselves (evidence floor in the researcher, length
+target in the writer) — do not restate them in the dispatch prompt unless overriding.
+
+Full documentation: `src/content/docs/ai-workflow-framework/examples/autonomous-agent.mdx`.
+`/hbr-article` runs this with automatic delegation; `/hbr-article-strict` runs it as a
+fixed sequence.
 
 ## Content Guidelines
 
@@ -327,7 +360,7 @@ When updating:
 
 1. Edit the agent or skill in `plugins/handsonai/agents/` or `plugins/handsonai/skills/`.
 2. Update the catalog and detail pages in `docs/use-the-playbook/build/` if you added or renamed anything.
-3. Run `./scripts/sync-plugins.sh patch|minor|major` — this bumps `plugin.json` here, rsyncs to `handsonai-plugins`, and bumps both `metadata.version` and `plugins[0].version` in its `marketplace.json`. The arg is required; semver applies (PATCH = update, MINOR = add new agent/skill, MAJOR = breaking).
+3. Run `./scripts/sync-plugins.sh [plugin] patch|minor|major` — this bumps `plugin.json` here, rsyncs to `handsonai-plugins`, updates that plugin's entry in its `marketplace.json` (adding the entry if it's new), and patch-bumps the marketplace's own top-level version. The plugin name defaults to `handsonai` when omitted, so `./scripts/sync-plugins.sh patch` still works. The bump arg is required; semver applies (PATCH = update, MINOR = add new agent/skill, MAJOR = breaking).
 4. Commit and push **this repo first**.
 5. In `~/Code/jamesgray/handsonai-plugins`: rebuild ZIPs if skills changed (`./scripts/build-skill-zips.sh`), create a GitHub Release (`gh release create vX.Y.Z dist/*.zip`), commit and push **last**.
 
