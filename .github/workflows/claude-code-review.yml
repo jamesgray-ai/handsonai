@@ -88,8 +88,22 @@ jobs:
       # This runs even if the step above fails, so a hard failure there is not masked by
       # this step being skipped. claude-review is deliberately NOT a required check, so a
       # failure here is a visible red mark rather than a merge blocker.
+      # `execution_file` is only set when the action actually ran. The action deliberately
+      # REFUSES to run on a PR that modifies this workflow file — the file must match the
+      # version on the default branch — and it signals that by exiting success with no
+      # outputs. Without this condition, every PR touching this workflow (including the
+      # one that introduced this step) fails the check for a review that was never meant
+      # to happen. Skipping is only correct because the step below cannot tell "reviewed
+      # nothing" from "never ran" on its own; the notice keeps the skip visible.
+      - name: Note that the review was skipped
+        if: always() && steps.claude-review.outputs.execution_file == ''
+        run: |
+          echo "::notice::claude-review did not execute, so there is no review to verify."
+          echo "Usually this means the PR modifies this workflow file, which the action refuses"
+          echo "to run against. The review runs normally once the change is on the default branch."
+
       - name: Verify a review was actually posted
-        if: always()
+        if: always() && steps.claude-review.outputs.execution_file != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
