@@ -1,7 +1,7 @@
 {
   "name": "multi-agent-example",
   "description": "A complete, runnable worked example of multi-agent orchestration. Four specialist agents research, write, edit, and publish a business article, with automatic delegation, machine quality gates, and an enforced human approval step. Built to be read and adapted, not used as-is.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "James Gray"
   },
