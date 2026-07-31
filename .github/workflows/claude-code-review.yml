@@ -69,3 +69,73 @@ jobs:
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
+      # The action can exit successfully having posted no review at all, which surfaces
+      # as a green check. On #217 it did exactly that twice: 17m/56 turns/$11.88 posting
+      # the 4-character comment "test", then 23m/39 turns/$13.08 posting
+      # "_(test comment retracted)_". Both reported "is_error": false. The real review of
+      # that PR had to be run locally, and it found 15 defects — including a PreToolUse
+      # gate that silently stopped enforcing its human-approval step on any machine
+      # without jq. None of it was surfaced here.
+      #
+      # The failure is silent and inverted: the check is greenest exactly when nothing
+      # was reviewed. So assert a review actually landed rather than trusting exit status.
+      #
+      # The 40-character floor is calibrated against real runs, not guessed: the shortest
+      # genuine review seen is the 75-character "no issues found" on #214 and #215, while
+      # the two known non-reviews were 4 and 26 characters. Root cause is still open — see
+      # issue #218.
+      #
+      # This runs even if the step above fails, so a hard failure there is not masked by
+      # this step being skipped. claude-review is deliberately NOT a required check, so a
+      # failure here is a visible red mark rather than a merge blocker.
+      # `execution_file` is only set when the action actually ran. The action deliberately
+      # REFUSES to run on a PR that modifies this workflow file — the file must match the
+      # version on the default branch — and it signals that by exiting success with no
+      # outputs. Without this condition, every PR touching this workflow (including the
+      # one that introduced this step) fails the check for a review that was never meant
+      # to happen. Skipping is only correct because the step below cannot tell "reviewed
+      # nothing" from "never ran" on its own; the notice keeps the skip visible.
+      - name: Note that the review was skipped
+        if: always() && steps.claude-review.outputs.execution_file == ''
+        run: |
+          echo "::notice::claude-review did not execute, so there is no review to verify."
+          echo "Usually this means the PR modifies this workflow file, which the action refuses"
+          echo "to run against. The review runs normally once the change is on the default branch."
+
+      - name: Verify a review was actually posted
+        if: always() && steps.claude-review.outputs.execution_file != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          # --slurp, not bare --paginate: with --paginate alone a --jq filter runs once
+          # PER PAGE, so `last` emits one result per page and $body becomes several
+          # comments concatenated. --slurp wraps every page into one outer array first,
+          # hence .[][] to flatten before filtering.
+          #
+          # gh rejects --slurp combined with --jq, so the filter is a separate jq process.
+          # Piping also means gh failing (network, auth, rate limit) yields an empty body
+          # and fails the check, rather than being mistaken for "no review posted" — the
+          # message below covers both, and either way this must not go green.
+          comments="$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" --paginate --slurp)" || {
+            echo "::error::could not read PR comments to verify the review posted"
+            exit 1
+          }
+          body="$(printf '%s' "$comments" \
+            | jq -r '[.[][] | select(.user.login == "claude[bot]")] | last | .body // ""')"
+
+          # Match the heading loosely. The reviewer does not always use the same markup:
+          # #214 and #215 opened with "## Code review", #220 with a bare "Code review".
+          # Requiring the "## " would have rejected a genuine 2,761-character review — a
+          # check meant to catch missing reviews failing a real one is the worse error.
+          if [ "${#body}" -lt 40 ] || ! printf '%s' "$body" | grep -qiE '^#{0,6} *code review'; then
+            echo "::error::claude-review completed without posting a review (${#body} chars). See issue #218."
+            echo "Last claude[bot] comment was:"
+            printf '%s\n' "$body" | sed 's/^/  /'
+            exit 1
+          fi
+
+          echo "Review posted (${#body} chars)."
+
