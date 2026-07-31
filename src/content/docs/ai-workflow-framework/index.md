@@ -101,9 +101,14 @@ For step-decomposed workflows, the model uses the **six-question framework** as 
 5. What happens when this step fails?
 6. Can the AI access, interpret, and persist the data this step needs?
 
+Two questions run alongside the mapping, whichever path you took:
+
+- **What is this worth, and how would you know?** The business objective it supports, the outcome that changes, what you'd count, and what that number is today. Without today's number there is nothing to compare the improvement against — and if nobody knows it, the requirements say so plainly rather than guessing.
+- **What must it protect?** Where data may travel, who may see the output, what has to be recorded, what the workflow must never do, and which regulation applies. Most workflows need none of this and finish the section in a line; the skill works out which case you're in from what it already knows about your context, rather than making you fill in a form.
+
 This is purely the *what* — the workflow's requirements, with no prescription of how AI will handle it. The *how* comes in Step 3 (Design).
 
-**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. Step-decomposed workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs plus Rules & Constraints.
+**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety. Step-decomposed workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs.
 
 **Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
 
@@ -121,7 +126,7 @@ The Design step takes your Workflow Requirements and produces a complete bluepri
 
 The spec must be approved before moving to Build.
 
-**Deliverable:** **Design Spec** (`outputs/[name]/design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, and implementation order. References the Workflow Requirements rather than restating it.
+**Deliverable:** **Design Spec** (`outputs/[name]/design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, implementation order, and a Constraint Conformance table showing, for each protection named in Deconstruct, where the design meets it. References the Workflow Requirements rather than restating it.
 
 **Facilitated by the `design` skill.** See [Design Your AI Workflow](design/) for the full guide with autonomy assessment, orchestration mechanism decision flow, and output format.
 

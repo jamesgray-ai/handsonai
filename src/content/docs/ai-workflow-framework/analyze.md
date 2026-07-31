@@ -94,7 +94,9 @@ The **AI Opportunity Report** (`ai-opportunity-report.md`) captures:
 - **Detailed opportunity cards** — grouped by autonomy level (Deterministic → Guided → Autonomous), each with: why it's a good candidate, current pain point, how AI helps, and a practical first step
 - **Workflow Candidate Summary** — structured metadata for the workflows you choose to pursue: name, description, trigger, deliverable, autonomy, involvement, pain point, AI opportunity, frequency, priority, reasoning, and lens. Organizational-lens candidates also include business objective, stakeholders, and success metrics.
 
-The Workflow Candidate Summary is the input for [Deconstruct Workflows](../deconstruct/) (Step 2) — the trigger and deliverable fields map directly to the scope check that starts the deconstruction.
+The Workflow Candidate Summary is the input for [Deconstruct Workflows](../deconstruct/) (Step 2) — the trigger and deliverable fields map directly to the scope check that starts the deconstruction. Its business objective and success metrics also seed Deconstruct's `Value & Measurement` section, so an organizational-lens candidate arrives with two of those answers already drafted.
+
+Analyze does not settle the question of value, and shouldn't. It surveys many workflows to find the few worth pursuing; the outcome that changes, and the number that measures it today, are established once a specific workflow is on the table. Deconstruct asks for both.
 
 See three complete [example reports](../analyze-examples/) to get a feel for the format and level of detail.
 

@@ -193,11 +193,14 @@ The **Workflow Requirements** document uses a shared structure for both paths �
 **Shared sections (both paths):**
 
 - **Goal** — what a successful run produces, when it runs, who consumes it
+- **Value & Measurement** — why the workflow is worth building and how you would know it worked: the business objective it supports, the outcome that changes and for whom, what gets counted, today's number, and the target the revised workflow should hit
 - **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Decomposed / Goal-Driven)
-- **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), AI accessibility (Yes / Partial / No), and location
+- **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), how sensitive it is (Public / Internal / Confidential / Regulated), where it came from (Authored by your team, or External), AI accessibility (Yes / Partial / No), and location
 - **Acceptance Criteria** — what good output looks like, dimensions that matter (accuracy, completeness, tone, etc.), and the minimum bar
 - **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where scoring against a known-good reference beats gut-feel ratings
+- **Rules & Constraints** — how the work should be done: must-do, must-never-do, scope boundaries, tone, format, length, and fallback behavior when a case can't be confidently completed
 - **Human Gates** — where human review or input is required
+- **Security, Privacy & Safety** — what the workflow must protect: where data may and may not travel, who may see the outputs, what has to be recorded, what it must never do, and which regulation applies. Every constraint names its source
 - **Optimization Notes** (optional, step-decomposed only) — what changed from the original process and why
 
 **Step-decomposed middle block:**
@@ -211,9 +214,22 @@ Most step-decomposed workflows expand from 5-8 rough steps to 12-20 refined step
 **Goal-driven middle block:**
 
 - **Inputs** — what the agent system receives to start (data, materials, references, access)
-- **Rules & Constraints** — must-do / must-never-do, scope boundaries, guardrails, tone, length limits, and **fallback behavior** (what the agent does when it can't confidently complete a case — stop and ask, best-effort and flag, or skip)
+- *(`Rules & Constraints` moved to the shared sections above — both paths now capture it.)*
 
 Goal-driven workflows **don't** capture capability domains, agent count, or orchestration approach — those are Design decisions. Step 2 stays in "what" territory.
+
+### Two things the skill asks about that are easy to skip
+
+**What the workflow is worth.** Before mapping anything, the skill asks four questions: which business objective this supports, what actually changes and for whom, what you would count, and what that number is today. That last one matters more than it looks. Without today's number you can claim an improvement but never show one — and the honest answer is often "I don't know," which the skill records as `Unknown — must measure before go-live` rather than pressing you for a guess. An invented starting number is worse than none, because it makes a false improvement look provable. After the workflow has been redesigned, the skill comes back for the target: what the new number should be.
+
+**What the workflow must protect.** Most workflows need nothing here, and the skill is built so those finish in one line. It works out whether the question applies rather than asking you a form: as it rolls up the Context Inventory, it already knows how sensitive each artifact is and whether your team wrote it. So it asks you only one thing — *does this write to anything live?* If nothing is flagged, the section reads "No sensitivity constraints" and you move on.
+
+When something is flagged, it captures five kinds of constraint: where data may and may not travel, who may see the results, what has to be logged, what the workflow must never do, and which regulation applies. Each one records who said it — a person, a policy, a control number — because a constraint nobody can trace is one the first objection wins.
+
+Two distinctions worth knowing, because they decide where a fact belongs:
+
+- **Where something came from is not the same as how secret it is.** A public web page is not sensitive, but nobody on your team wrote it — and content from outside can contain instructions. A model that treats them as instructions does what a stranger told it to. A draft pricing memo is the opposite: highly sensitive, but you wrote it.
+- **A prohibition is absolute; a gate is conditional.** "Never email a customer without approval" is a gate — it happens once someone approves. "Never email a customer" is a prohibition — it never happens, whoever asks. If an approval can satisfy it, it is a Human Gate.
 
 ### Why this format
 

@@ -315,7 +315,21 @@ The **Design Spec** is organized into the three layers above, plus cross-layer s
 
 **Layer 3 — Component Blueprint sections:** Skill Candidates (12 fields each), Agent Configuration (14 fields each; mandatory for goal-driven), Multi-Agent Configuration (when applicable), Prerequisites, Deployment Plan.
 
-**Cross-layer sections:** Evaluation Inputs (pointer), Deferred to Build, Stakeholders (optional), Self-Test Summary (verification results).
+**Cross-layer sections:** Value & Measurement (carried forward from the Workflow Requirements), Constraint Conformance, Evaluation Inputs (pointer), Deferred to Build, Stakeholders (optional), Self-Test Summary (verification results).
+
+### Two cross-layer sections worth reading closely
+
+**Value & Measurement** is copied forward from the Workflow Requirements unchanged — the objective, the outcome, the metric, today's number, and the target. Design does not re-open those questions; it carries them so that whoever reads the spec on its own can still see what the build is for and how it will be judged. If today's number was never established, the spec says so in those words rather than quietly dropping the row.
+
+**Constraint Conformance** is the section that makes the protections from Deconstruct real. Design walks each one and records where the architecture satisfies it, in a small table with one of three states:
+
+- **Satisfied** — the design meets the constraint, and the row names how: which gate, which permission, which boundary.
+- **Accepted** — the constraint cannot be met as stated, and someone with the authority to say so has accepted the difference. The row names who accepted it.
+- **Open** — nothing in the design meets it yet.
+
+An `Open` row is not a failure of the spec; it is the spec being honest. But it does not survive into a build: the design is not finished while one is outstanding, and Build reads them. A constraint that everyone assumed was handled, and that no document ever claimed was handled, is the one that fails in production.
+
+Requirements written before this section existed simply have nothing to reconcile. Design notices that, fills in what it can infer from the architecture, and asks about the rest rather than declaring the workflow constraint-free by default.
 
 Build reads both the Design Spec and the Workflow Requirements together — the Design Spec is the architectural blueprint; the Workflow Requirements remains the canonical source for per-step content, acceptance criteria, and human gates.
 
