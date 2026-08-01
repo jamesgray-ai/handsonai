@@ -1,21 +1,120 @@
 #!/usr/bin/env bash
 #
-# check-plugin-sync.sh — the multi-agent-example pipeline exists in two places:
+# check-plugin-sync.sh — every plugin exists in more than one place, and the copies
+# must stay identical or students quietly receive something other than what we maintain.
 #
-#   .claude/{agents,skills,commands,hooks}/ and scripts/   → what runs in THIS repo
-#   plugins/multi-agent-example/                           → what students install
+# Two modes, selected by the plugin name:
 #
-# They must stay identical, or the demo and the distributed plugin quietly diverge.
-# This fails loudly the moment they do.
+#   bash scripts/check-plugin-sync.sh                       # multi-agent-example (default)
+#   bash scripts/check-plugin-sync.sh multi-agent-example   # same thing
 #
-# Run: bash scripts/check-plugin-sync.sh
+#     The pipeline is mirrored inside THIS repo — .claude/{agents,skills,commands,hooks}/
+#     and scripts/ (what runs here) vs plugins/multi-agent-example/ (what students
+#     install). Compares those two trees.
+#
+#   bash scripts/check-plugin-sync.sh handsonai             # or any other plugin name
+#
+#     Compares the canonical plugins/<name>/ against its distributed copy in the
+#     jamesgray-ai/handsonai-plugins clone (default ~/Code/jamesgray/handsonai-plugins,
+#     override with HANDSONAI_PLUGINS_DIR). This is the drift that bit issue #225:
+#     canonical moved six commits while the distributed copy — the one students
+#     install — sat stale, missing a reference file entirely.
+#
+# Exit codes: 0 in sync (or skipped — distributed clone absent / plugin never synced),
+#             1 drift, 2 usage error.
 
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PLUGIN="$ROOT/plugins/multi-agent-example"
+DIST_REPO="${HANDSONAI_PLUGINS_DIR:-$HOME/Code/jamesgray/handsonai-plugins}"
+NAME="${1:-multi-agent-example}"
 DRIFT=0
 CHECKED=0
+
+if [ ! -d "$ROOT/plugins/$NAME" ]; then
+  echo "Error: no such plugin 'plugins/$NAME' in this repo." >&2
+  echo "Usage: $0 [plugin-name]   (default: multi-agent-example)" >&2
+  exit 2
+fi
+
+# ---------------------------------------------------------------------------
+# Distributed mode: plugins/<name>/ vs the handsonai-plugins clone.
+# ---------------------------------------------------------------------------
+if [ "$NAME" != "multi-agent-example" ]; then
+  command -v jq >/dev/null || { echo "Error: jq is required (brew install jq)" >&2; exit 2; }
+
+  CANON="$ROOT/plugins/$NAME"
+  DIST="$DIST_REPO/plugins/$NAME"
+
+  if [ ! -d "$DIST_REPO" ]; then
+    echo "SKIPPED: distributed repo not found at $DIST_REPO."
+    echo "Clone jamesgray-ai/handsonai-plugins (or set HANDSONAI_PLUGINS_DIR) to enable this check."
+    exit 0
+  fi
+  if [ ! -d "$DIST" ]; then
+    echo "SKIPPED: '$NAME' has never been synced to $DIST_REPO — nothing to compare."
+    echo "(sync-plugins.sh creates it on first sync.)"
+    exit 0
+  fi
+
+  echo "$NAME: canonical (plugins/$NAME) vs distributed ($DIST_REPO)"
+
+  list_files() {
+    (cd "$1" && find . -type f \
+       -not -path '*/node_modules/*' -not -name '.DS_Store' | sed 's|^\./||')
+  }
+
+  # Union of both trees, so a file present in only one of them is reported in
+  # both directions — enumerating a single side is how the last rewrite of this
+  # check managed to pass while proving nothing.
+  while IFS= read -r rel; do
+    CHECKED=$((CHECKED + 1))
+    a="$CANON/$rel" b="$DIST/$rel"
+    if [ ! -f "$b" ]; then
+      echo "  MISSING in distributed: $rel"
+      DRIFT=$((DRIFT + 1))
+      continue
+    fi
+    if [ ! -f "$a" ]; then
+      echo "  MISSING in canonical:   $rel  (sync-plugins.sh will DELETE it from the distributed copy)"
+      DRIFT=$((DRIFT + 1))
+      continue
+    fi
+    if [ "$rel" = ".claude-plugin/plugin.json" ]; then
+      # The version is bumped in one place first during a release cycle, so it
+      # legitimately differs; only the rest of the manifest counts as drift.
+      if ! diff -q <(jq -S 'del(.version)' "$a") <(jq -S 'del(.version)' "$b") > /dev/null; then
+        echo "  DRIFTED:                $rel  (beyond the version field)"
+        DRIFT=$((DRIFT + 1))
+      else
+        va="$(jq -r '.version' "$a")" vb="$(jq -r '.version' "$b")"
+        if [ "$va" != "$vb" ]; then
+          echo "  NOTE: plugin.json version differs (canonical $va vs distributed $vb) — expected mid-release, not counted as drift"
+        fi
+      fi
+      continue
+    fi
+    if ! diff -q "$a" "$b" > /dev/null; then
+      echo "  DRIFTED:                $rel"
+      DRIFT=$((DRIFT + 1))
+    fi
+  done < <({ list_files "$CANON"; list_files "$DIST"; } | sort -u)
+
+  echo
+  if [ "$DRIFT" -eq 0 ]; then
+    echo "$CHECKED files checked — all in sync"
+  else
+    echo "$CHECKED files checked — $DRIFT out of sync"
+    echo
+    echo "plugins/$NAME/ is canonical. Run ./scripts/sync-plugins.sh $NAME patch|minor|major to reconcile."
+  fi
+  exit $([ "$DRIFT" -eq 0 ] && echo 0 || echo 1)
+fi
+
+# ---------------------------------------------------------------------------
+# Mirror mode: the multi-agent-example pipeline inside this repo.
+# ---------------------------------------------------------------------------
+PLUGIN="$ROOT/plugins/multi-agent-example"
 
 compare() {
   # $1 = repo-relative path, $2 = plugin-relative path

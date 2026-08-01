@@ -48,7 +48,7 @@ REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC_DIR="$REPO_ROOT/plugins/$PLUGIN"
 PLUGIN_JSON="$SRC_DIR/.claude-plugin/plugin.json"
 
-DEST_REPO="$HOME/Code/jamesgray/handsonai-plugins"
+DEST_REPO="${HANDSONAI_PLUGINS_DIR:-$HOME/Code/jamesgray/handsonai-plugins}"
 DEST_DIR="$DEST_REPO/plugins/$PLUGIN"
 MARKETPLACE_JSON="$DEST_REPO/.claude-plugin/marketplace.json"
 
@@ -75,6 +75,40 @@ if [ "$PLUGIN" = "multi-agent-example" ]; then
     echo >&2
     echo "Error: repo and plugin copies have drifted. Reconcile them before syncing." >&2
     exit 1
+  fi
+else
+  # Every other plugin's second copy is the distributed repo itself, so at sync time
+  # drift is usually the release payload — a hard fail here would block every release.
+  # What must not happen is shipping (or deleting) it UNNOTICED: show the full report
+  # and make a human acknowledge it, interactively or via SYNC_ACK_DRIFT=1.
+  if [ ! -f "$REPO_ROOT/scripts/check-plugin-sync.sh" ]; then
+    echo "Error: scripts/check-plugin-sync.sh is missing — refusing to ship this plugin unverified." >&2
+    exit 1
+  fi
+  # `|| CHECK_RC=$?` keeps set -e from aborting before the code is inspected.
+  CHECK_RC=0
+  bash "$REPO_ROOT/scripts/check-plugin-sync.sh" "$PLUGIN" || CHECK_RC=$?
+  if [ "$CHECK_RC" -ge 2 ]; then
+    echo "Error: drift check could not run (exit $CHECK_RC). Fix that before syncing." >&2
+    exit 1
+  fi
+  if [ "$CHECK_RC" -eq 1 ]; then
+    echo
+    echo "The drift above is what this sync will overwrite in the distributed copy"
+    echo "(and any 'MISSING in canonical' files will be deleted from it)."
+    if [ "${SYNC_ACK_DRIFT:-}" = "1" ]; then
+      echo "SYNC_ACK_DRIFT=1 — drift acknowledged, proceeding."
+    elif [ -t 0 ]; then
+      read -r -p "Ship these changes? [y/N] " REPLY
+      case "$REPLY" in
+        y|Y|yes|YES) ;;
+        *) echo "Error: drift not acknowledged — sync aborted." >&2; exit 1 ;;
+      esac
+    else
+      echo "Error: unacknowledged drift and no terminal to confirm on." >&2
+      echo "Review the report above, then re-run with SYNC_ACK_DRIFT=1 to ship it." >&2
+      exit 1
+    fi
   fi
 fi
 
