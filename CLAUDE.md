@@ -53,7 +53,7 @@ cd mcp-server && npm install && wrangler dev
   - `article-to-docx.js` (markdown → Word, via the `docx` package), `render-docx.sh` (the wrapper agents call — it preflights the dependency, renders, then verifies the output is a real Word file), and `test-article-to-docx.sh`. Always invoke the wrapper, never the renderer directly: on a fresh install only the wrapper installs `docx`.
 - `outputs/` - Local working directory for agent outputs (gitignored)
 - `specs/` - Feature specs (`*-prd.md`), implementation plans (`*-plan.md`), and architecture decision records (`decisions/`) (gitignored)
-- **Private course content** lives in the separate `jamesgray-ai/handsonai-courses` repo (instructor guides, self-study articles, assignments, exercises)
+- **Course content is not maintained here.** Instructor guides, self-study articles, assignments, and exercises live in Maven.
 - **Course syllabi are not generated here.** The Notion pipeline that built
   `courses/*/syllabus.md` and `courses/*/lessons/` was retired with the Notion course
   databases (2026-07-15); the script and its deploy steps are gone. Course pages link
