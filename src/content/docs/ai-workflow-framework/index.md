@@ -13,13 +13,13 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 
 | Step | Skill | What it guides you through |
 |------|-------|---------------------------|
-| 1. Analyze | `analyze` | Identify and prioritize the workflows worth reimagining with AI |
-| 2. Deconstruct | `deconstruct` | Map the workflow’s process — or define the goal for an agent system |
-| 3. Design | `design` | Architect how AI building blocks will power your workflow |
-| 4. Build | `build` | Build the AI building blocks your design specifies |
-| 5. Test | `test` | Test your workflow's output quality and fix what's not working |
-| 6. Run | `run` | Deploy and operationalize your workflow |
-| 7. Improve | `improve` | Monitor quality and innovate your workflow over time |
+| 1.&nbsp;Analyze | `analyze` | Identify and prioritize the workflows worth reimagining with AI |
+| 2.&nbsp;Deconstruct | `deconstruct` | Map the workflow’s process — or define the goal for an agent system |
+| 3.&nbsp;Design | `design` | Architect how AI building blocks will power your workflow |
+| 4.&nbsp;Build | `build` | Build the AI building blocks your design specifies |
+| 5.&nbsp;Test | `test` | Test your workflow's output quality and fix what's not working |
+| 6.&nbsp;Run | `run` | Deploy and operationalize your workflow |
+| 7.&nbsp;Improve | `improve` | Monitor quality and innovate your workflow over time |
 
 **Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude Code, Claude Cowork, Claude.ai, M365 Copilot (Cowork), Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `handsonai`.
 
@@ -87,12 +87,12 @@ Define *what* the business process does — every step, decision, and handoff �
 
 Step 2 is the **Product Requirements Document (PRD) for your workflow** — clear requirements, decision rules, and edge cases that feed directly into Design. There are two paths, chosen by one question at the start: *do you know the steps, or just the goal?*
 
-- **Step-decomposed** — You can describe how the work gets done. The model interviews you to refine the steps and surface decision rules, edge cases, and the context each step needs. Each step is captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context.
+- **Step-driven** — You can describe how the work gets done. The model interviews you to refine the steps and surface decision rules, edge cases, and the context each step needs. Each step is captured as Goal / Inputs / Outputs / Rules & Edge Cases / Context.
 - **Goal-driven** — You know what "done" looks like, but the work takes different steps depending on what comes in, so you give an agent system a goal and let it figure out the steps at runtime. The model captures the goal, inputs, acceptance criteria, rules, and constraints — without prescribing steps.
 
 Don't have either yet? Describe the problem you're trying to solve. The model proposes a candidate workflow and routes you into one of the two paths above.
 
-For step-decomposed workflows, the model uses the **six-question framework** as the interview structure to identify what belongs in each step's requirements block:
+For step-driven workflows, the model uses the **six-question framework** as the interview structure to identify what belongs in each step's requirements block:
 
 1. Is this step actually multiple steps bundled together?
 2. Are there decision points, branches, or quality gates?
@@ -108,7 +108,7 @@ Two questions run alongside the mapping, whichever path you took:
 
 This is purely the *what* — the workflow's requirements, with no prescription of how AI will handle it. The *how* comes in Step 3 (Design).
 
-**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety. Step-decomposed workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs.
+**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety. Step-driven workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs.
 
 **Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
 
@@ -203,7 +203,7 @@ Every AI workflow is classified on two dimensions — autonomy and human involve
 
 ### Six-Question Framework
 
-Used to decompose each step in a step-decomposed workflow:
+Used to decompose each step in a step-driven workflow:
 
 1. **Discrete steps** — Is this one step or multiple bundled together?
 2. **Decision points** — Any if/then branches, quality gates, or judgment calls?

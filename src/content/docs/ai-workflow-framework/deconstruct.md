@@ -36,13 +36,13 @@ Step 2 presents one question upfront: **do you know the steps, or just the goal?
 
 | Path | When to use | Mental model |
 |---|---|---|
-| **Step-decomposed** | You can describe how the work gets done | "I know the steps" |
+| **Step-driven** | You can describe how the work gets done | "I know the steps" |
 | **Goal-driven** | You know what "done" looks like, but the work takes different steps depending on what comes in — you give an agent system a goal and let it figure out the steps at runtime | "I know the goal" |
 
-**Not sure which?** Imagine two different inputs and ask: *would the work take noticeably different steps?* If it runs the same way every time, it's step-decomposed. If the steps change depending on what comes in — a refund request, a partnership pitch, and a spam message each handled differently — it's goal-driven.
+**Not sure which?** Imagine two different inputs and ask: *would the work take noticeably different steps?* If it runs the same way every time, it's step-driven. If the steps change depending on what comes in — a refund request, a partnership pitch, and a spam message each handled differently — it's goal-driven.
 
 :::note[What "goal" means here]
-An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (it's recorded under `Value & Measurement`, alongside what you'd count and where that number stands today); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. This matches how the major agent frameworks specify work — a goal bounded by an expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) What makes a workflow goal-driven is that **the agent decides the path** to the goal at runtime — not simply that agents are involved. A step-decomposed workflow can still use an agent for an individual step; it's goal-driven only when the agent owns the overall sequence.
+An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (it's recorded under `Value & Measurement`, alongside what you'd count and where that number stands today); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. This matches how the major agent frameworks specify work — a goal bounded by an expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) What makes a workflow goal-driven is that **the agent decides the path** to the goal at runtime — not simply that agents are involved. A step-driven workflow can still use an agent for an individual step; it's goal-driven only when the agent owns the overall sequence.
 :::
 
 Both paths produce a Workflow Requirements document with the same shared structure — only the middle "what does the workflow do" block differs.
@@ -59,7 +59,7 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 2. **Scope check** — Is this one workflow or multiple bundled together? If multiple, the skill recommends splitting and asks which to start with.
 3. **Name the workflow** — The skill proposes 2–3 name options (2–4 word noun phrases, Title Case) and confirms name, description, goal, trigger, and type.
 
-**Step-decomposed (phase 4 on):**
+**Step-driven (phase 4 on):**
 
 4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, context needs, failure modes, data readiness.
 5. **Propose and react** — From step 4 onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
@@ -113,15 +113,15 @@ The skill asks you to choose a path, runs an interactive interview to capture th
 Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/deconstruct) and paste it into your system prompt or project instructions.
 :::
 
-### Example: Step-decomposed path
+### Example: Step-driven path
 
-After you start the conversation, the model asks you to choose a path. If you pick step-decomposed, here's what the opening looks like:
+After you start the conversation, the model asks you to choose a path. If you pick step-driven, here's what the opening looks like:
 
 > **Model:** Do you know the steps, or just the goal? (Quick test: imagine two different inputs — would the work take the same steps, or different steps?)
-> - **Step-decomposed** — The work runs the same way each time and you can describe how it gets done.
+> - **Step-driven** — The work runs the same way each time and you can describe how it gets done.
 > - **Goal-driven** — You can't list the steps, but you can describe the deliverable — what "done" looks like — and want an agent system to figure out the steps. A goal here is a concrete deliverable, not a business result: "a ranked list of 20 qualified prospects" is a goal; "higher revenue" is why you want it.
 >
-> **You:** Step-decomposed. I research LinkedIn prospects before sales outreach. The goal is to find people who'd be a good fit for our AI training programs, understand their background, and write personalized outreach messages.
+> **You:** Step-driven. I research LinkedIn prospects before sales outreach. The goal is to find people who'd be a good fit for our AI training programs, understand their background, and write personalized outreach messages.
 >
 > **Model:** Got it — LinkedIn prospect research for personalized sales outreach. Can you walk me through the high-level steps? Don't worry about being complete or precise — we'll refine them together.
 >
@@ -165,7 +165,7 @@ You don't need an existing process. If you have a gap or pain point, describe th
 >
 > **You:** Yes, that's the shape of it.
 >
-> **Model:** Good. Two paths from here: do you want to refine these steps with me (step-decomposed), or describe the goal and let an agent figure out the steps (goal-driven)?
+> **Model:** Good. Two paths from here: do you want to refine these steps with me (step-driven), or describe the goal and let an agent figure out the steps (goal-driven)?
 
 You pick the path, and the conversation continues into the deep dive.
 
@@ -194,22 +194,22 @@ The **Workflow Requirements** document uses a shared structure for both paths �
 
 - **Goal** — what a successful run produces, when it runs, who consumes it
 - **Value & Measurement** — why the workflow is worth building and how you would know it worked: the business objective it supports, the outcome that changes and for whom, what gets counted, today's number, and the target the revised workflow should hit
-- **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Decomposed / Goal-Driven)
+- **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Driven / Goal-Driven)
 - **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), how sensitive it is (**Public** — a published price list; **Internal** — a project tracker; **Confidential** — an unannounced roadmap; **Regulated** — anything covered by a rule such as patient records or EU customer data), where it came from (**Authored** by someone on your team, or **External** — it arrived from outside), AI accessibility (Yes / Partial / No), and location
 - **Acceptance Criteria** — what good output looks like, dimensions that matter (accuracy, completeness, tone, etc.), and the minimum bar
 - **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where scoring against a known-good reference beats gut-feel ratings
 - **Rules & Constraints** — how the work should be done: must-do, must-never-do, scope boundaries, tone, format, length, and fallback behavior when a case can't be confidently completed
 - **Human Gates** — where human review or input is required
 - **Security, Privacy & Safety** — what the workflow must protect: where data may and may not travel, who may see the outputs, what has to be recorded, what it must never do, and which regulation applies. Every constraint names its source
-- **Optimization Notes** (optional, step-decomposed only) — what changed from the original process and why
+- **Optimization Notes** (optional, step-driven only) — what changed from the original process and why
 
-**Step-decomposed middle block:**
+**Step-driven middle block:**
 
 - **Steps Overview** — a scannable numbered list, one line per step
 - **Step Details** — each step captured as **Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed**, plus a **Role** field when the workflow uses the Organizational lens (to capture which role owns each step)
 - **Sequence** — sequential vs. parallel steps, critical path, role swimlane
 
-Most step-decomposed workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive.
+Most step-driven workflows expand from 5-8 rough steps to 12-20 refined steps after the deep dive.
 
 **Goal-driven middle block:**
 
@@ -240,11 +240,11 @@ The Workflow Requirements reads like a PRD, not an interview transcript:
 - **Tables for lists of items with shared fields** — easier to parse than prose
 - **No interview residue** — no "the user mentioned", "usually", or other narrative
 
-### Process optimization (step-decomposed only)
+### Process optimization (step-driven only)
 
-For step-decomposed workflows, the skill includes an **Optimize for AI** pass after the deep dive. Once the full process is mapped, the model steps back and challenges it — looking for steps that exist only because a human was doing the work (an integration eliminates the manual transfer), steps that can be collapsed (AI drafts and formats in one pass), steps that can be parallelized (no data dependency), handoffs that can be simplified, and new steps needed for the AI version. These are presented as recommendations for you to accept or reject — you may have good reasons to keep steps as-is (compliance, audit trail, stakeholder expectations). The Workflow Requirements records what changed and why.
+For step-driven workflows, the skill includes an **Optimize for AI** pass after the deep dive. Once the full process is mapped, the model steps back and challenges it — looking for steps that exist only because a human was doing the work (an integration eliminates the manual transfer), steps that can be collapsed (AI drafts and formats in one pass), steps that can be parallelized (no data dependency), handoffs that can be simplified, and new steps needed for the AI version. These are presented as recommendations for you to accept or reject — you may have good reasons to keep steps as-is (compliance, audit trail, stakeholder expectations). The Workflow Requirements records what changed and why.
 
-### Workflow validation (step-decomposed only)
+### Workflow validation (step-driven only)
 
 After optimization, the skill runs a **validation pass** — walking through the refined workflow end-to-end to catch gaps before it moves to Design. This is the quality gate that stress-tests the workflow for:
 

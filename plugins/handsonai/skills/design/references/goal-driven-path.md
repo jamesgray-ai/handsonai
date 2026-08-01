@@ -33,7 +33,7 @@ Same Integration Discovery and Skill Discovery processes apply, operating on cap
 
 **Mandatory-but-with-an-exception:** document at least one agent **whenever the design includes a sub-agent/agent artifact** (the common case). A valid goal-driven design on a primary-loop platform (Claude Code/Cowork) may have **zero sub-agents** — just orchestration logic (an orchestrator skill and/or `CLAUDE.md` run section) + skills. In that case record `agents: 0` in the frontmatter counts and document the orchestration logic in the Deployment Plan / Orchestrator notes instead — **do not invent a sub-agent to satisfy the field.** Never document the orchestrator (the primary loop) as an agent artifact.
 
-**Step 8b (Verify Evaluation Inputs):** Same as step-decomposed — confirm Acceptance Criteria and Example Scenarios in the Workflow Requirements are complete; do not duplicate.
+**Step 8b (Verify Evaluation Inputs):** Same as step-driven — confirm Acceptance Criteria and Example Scenarios in the Workflow Requirements are complete; do not duplicate.
 
 **Step 9 (Generate Spec):** Use the modified template sections below. The spec uses the same filename pattern and same frontmatter shape (with `definition_type: Goal-Driven`). The Step-by-Step Decomposition section is replaced with Capability Domain Mapping; the Autonomy Spectrum Summary becomes a brief Autonomous statement; Build Output is captured per domain rather than per step.
 
@@ -49,7 +49,7 @@ Replace the `## Step-by-Step Decomposition` section of `references/spec-template
 | Domain | Description | Integration (use/build) | Intelligence | Build Output |
 |--------|-------------|------------------------|--------------|--------------|
 
-**Build Output values:** Same canonical forms as the step-decomposed table (`New skill: SN`, `Use existing: [name]`, `New agent: AN`, etc.). For goal-driven workflows, expect most domains to map to either `New skill: SN` (the orchestrator/sub-agent delegates to a reusable skill) or `Handled by orchestrator` (the orchestrating primary loop — or a deployed agent on SDK platforms — handles the domain inline via its own instructions; legacy synonym: `Handled by agent`).
+**Build Output values:** Same canonical forms as the step-driven table (`New skill: SN`, `Use existing: [name]`, `New agent: AN`, etc.). For goal-driven workflows, expect most domains to map to either `New skill: SN` (the orchestrator/sub-agent delegates to a reusable skill) or `Handled by orchestrator` (the orchestrating primary loop — or a deployed agent on SDK platforms — handles the domain inline via its own instructions; legacy synonym: `Handled by agent`).
 
 ### Autonomy Statement
 
@@ -63,7 +63,7 @@ Additional substitutions:
 - Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** and is included whenever the design has ≥1 sub-agent (the common case). A primary-loop design with **zero sub-agents** (orchestration logic + skills only) is valid: set `agents: 0` and document the orchestration logic in the Deployment Plan instead.
 - The Safety & Permissions section applies unchanged — goal-driven workflows are Autonomous by definition, so the unattended-runs and blast-radius rows deserve extra attention.
 - **Constraint Conformance and Value & Measurement apply unchanged too.** Both are path-agnostic: the constraints a workflow must honor and what it is worth are true whether the steps are mapped or the agent chooses them at runtime. For an autonomous workflow the `Prohibited actions` constraints carry more weight than usual, because there is no fixed path to inspect — they are the boundary the agent operates inside.
-- Value's `Target` compares the agent system against however the work happens today, since there is no Optimize-for-AI pass and so no "revised workflow" in the step-decomposed sense.
+- Value's `Target` compares the agent system against however the work happens today, since there is no Optimize-for-AI pass and so no "revised workflow" in the step-driven sense.
 
 ## Checklist modifications
 

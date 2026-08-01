@@ -37,7 +37,7 @@ Do these three steps in the folder where you run Cowork or Claude Code:
 workflow: competitive-intelligence-brief
 display_name: Competitive Intelligence Brief
 description: Research a competitor's recent moves and produce a structured brief plus an updated knowledge file
-definition_type: Step-Decomposed
+definition_type: Step-Driven
 status: under-development
 trigger: Manual on demand, or scheduled per competitor
 owner: Workflow operator

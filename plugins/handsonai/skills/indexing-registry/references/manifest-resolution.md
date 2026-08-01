@@ -40,7 +40,7 @@ where `<slug>` is the workflow's kebab-case ID (the same value the YAML backend 
 | `status` | frontmatter `status`, kebab-case (see status mapping below) |
 | `type` (execution mode) | frontmatter `execution_mode` — `manual` \| `augmented` \| `automated` |
 | `autonomy` | frontmatter `autonomy` — `deterministic` \| `guided` \| `autonomous` |
-| `definition_type` | frontmatter `definition_type` — `step-decomposed` \| `outcome-driven` (kebab-case) |
+| `definition_type` | frontmatter `definition_type` — `step-driven` \| `goal-driven` (kebab-case) |
 | `trigger` | frontmatter `trigger` |
 | `business_process` | a `N. [Title](/workflows/<slug>.md)` line in the Process node's curated ordered `# Workflows` list (`registry/processes/<process-slug>.md`) — the list is BOTH the Workflow→Process edge and the value-chain order. Never write a `process:` frontmatter field on the Workflow node (banned; lint errors). Place the line at the workflow's position in the process sequence (append at the end if unknown); a workflow must appear in exactly one process's list. |
 | `next_review` | frontmatter `next_review` |

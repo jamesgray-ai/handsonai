@@ -29,7 +29,7 @@ apps: [Gmail, HubSpot]            # integrations the workflow uses
 assets_used: [drafting-outreach]  # skills/agents used, by frontmatter name
 
 # Framework state ─ maintained by every step
-definition_type: Step-Decomposed  # or Goal-Driven (legacy "Outcome-Driven" = Goal-Driven)
+definition_type: Step-Driven  # or Goal-Driven (legacy "Outcome-Driven" = Goal-Driven)
 current_step: 4                   # last completed framework step (1-7); 0 = named only
 last_updated: 2026-07-01
 next_review: 2026-08-01           # set by run/improve
