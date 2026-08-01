@@ -112,6 +112,19 @@ else
   bad "version-only plugin.json difference mishandled (exit $RC)"
 fi
 
+# A LOWER distributed version is the benign mid-release shape. A HIGHER one means the
+# distributed copy is ahead of canonical (a reverted bump, or a direct edit), and letting
+# it through as a note would let sync-plugins silently DOWNGRADE the published version.
+reset_fake
+jq '.version = "99.0.0"' "$FAKE/plugins/handsonai/.claude-plugin/plugin.json" > "$TMP/pj" \
+  && mv "$TMP/pj" "$FAKE/plugins/handsonai/.claude-plugin/plugin.json"
+run_check handsonai
+if [ "$RC" -eq 1 ] && grep -qi "newer\|ahead\|downgrade" "$TMP/out"; then
+  ok "a distributed version AHEAD of canonical is drift, not a note"
+else
+  bad "distributed-ahead version should be drift — syncing would downgrade the published plugin (exit $RC)"
+fi
+
 reset_fake
 jq '.description = "tampered"' "$FAKE/plugins/handsonai/.claude-plugin/plugin.json" > "$TMP/pj" \
   && mv "$TMP/pj" "$FAKE/plugins/handsonai/.claude-plugin/plugin.json"
@@ -151,11 +164,17 @@ else
   bad "unknown plugin should exit 2, got $RC"
 fi
 
-bash "$CHECK" > "$TMP/out" 2>&1
-if grep -q "multi-agent-example" "$TMP/out"; then
+# Assert the mirror mode's exclusive header, not just the plugin name — distributed-mode
+# output also contains "multi-agent-example", so the loose grep passed even if a
+# mode-routing regression sent the no-arg case down the distributed path. Pinning
+# HANDSONAI_PLUGINS_DIR to nowhere makes that regression produce a SKIPPED message
+# (exit 0) instead of a plausible distributed run, so the header assertion must miss.
+HANDSONAI_PLUGINS_DIR="$TMP/nowhere" bash "$CHECK" > "$TMP/out" 2>&1
+RC=$?
+if [ "$RC" -le 1 ] && grep -q "multi-agent-example: repo vs plugin" "$TMP/out"; then
   ok "no-argument invocation still runs the multi-agent-example mirror check"
 else
-  bad "no-argument invocation no longer runs the mirror check"
+  bad "no-argument invocation no longer runs the mirror check (exit $RC): $(head -1 "$TMP/out")"
 fi
 
 # --- sync-plugins.sh drift gate ---------------------------------------------
@@ -172,28 +191,31 @@ run_sync() {  # env overrides come via leading VAR=... args to env
   RC=$?
 }
 
-reset_fake
-echo "drifted line for test" >> "$FAKE/plugins/handsonai/$DRIFT_FILE"
-run_sync
-if [ "$RC" -ne 0 ] && grep -qi "drift" "$TMP/out"; then
-  ok "unacknowledged drift refuses to sync"
-else
-  bad "sync should refuse on unacknowledged drift (exit $RC)"
-fi
-if [ "$(jq -r '.version' "$CANON_PJ")" = "$CANON_VERSION" ] \
-   && grep -q "drifted line for test" "$FAKE/plugins/handsonai/$DRIFT_FILE"; then
-  ok "refusal leaves both trees untouched"
-else
-  bad "refusal mutated the canonical plugin.json or the distributed tree"
-  git -C "$ROOT" checkout -- "plugins/handsonai/.claude-plugin/plugin.json" 2>/dev/null
-fi
-
-# The acknowledge and clean-state paths run sync-plugins.sh to completion, which bumps
-# the real canonical plugin.json (the rsync itself targets only the fake). Only run when
-# that file is clean in git, and restore it afterwards.
+# Every gate test can touch the real, tracked canonical plugin.json — the acknowledge
+# and clean-state paths bump it by design, and even the refusal path's failure recovery
+# must be able to restore it. So the whole section is gated on that file being clean in
+# git (a restore must never discard a developer's uncommitted edits), and the restore
+# lives in the EXIT trap, not in sequential statements a Ctrl-C could land between.
 if [ -n "$(git -C "$ROOT" status --porcelain -- plugins/handsonai/.claude-plugin/plugin.json)" ]; then
-  skip "acknowledge/clean-state gate tests (canonical plugin.json has uncommitted changes)"
+  skip "all gate tests (canonical plugin.json has uncommitted changes — commit or revert first)"
 else
+  trap 'git -C "$ROOT" checkout -- plugins/handsonai/.claude-plugin/plugin.json; rm -rf "$TMP"' EXIT
+
+  reset_fake
+  echo "drifted line for test" >> "$FAKE/plugins/handsonai/$DRIFT_FILE"
+  run_sync
+  if [ "$RC" -ne 0 ] && grep -qi "drift" "$TMP/out"; then
+    ok "unacknowledged drift refuses to sync"
+  else
+    bad "sync should refuse on unacknowledged drift (exit $RC)"
+  fi
+  if [ "$(jq -r '.version' "$CANON_PJ")" = "$CANON_VERSION" ] \
+     && grep -q "drifted line for test" "$FAKE/plugins/handsonai/$DRIFT_FILE"; then
+    ok "refusal leaves both trees untouched"
+  else
+    bad "refusal mutated the canonical plugin.json or the distributed tree"
+  fi
+
   reset_fake
   echo "drifted line for test" >> "$FAKE/plugins/handsonai/$DRIFT_FILE"
   run_sync SYNC_ACK_DRIFT=1
@@ -202,6 +224,8 @@ else
   else
     bad "acknowledged sync should proceed and overwrite the drift (exit $RC)"
   fi
+  # Restore between tests so the next case computes against the committed version;
+  # safe because the section only runs when the file started clean.
   git -C "$ROOT" checkout -- "plugins/handsonai/.claude-plugin/plugin.json"
 
   reset_fake
@@ -211,7 +235,6 @@ else
   else
     bad "in-sync state should not be gated (exit $RC): $(grep -i error "$TMP/out" | head -1)"
   fi
-  git -C "$ROOT" checkout -- "plugins/handsonai/.claude-plugin/plugin.json"
 fi
 
 echo

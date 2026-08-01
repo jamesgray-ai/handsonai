@@ -89,7 +89,15 @@ if [ "$NAME" != "multi-agent-example" ]; then
       else
         va="$(jq -r '.version' "$a")" vb="$(jq -r '.version' "$b")"
         if [ "$va" != "$vb" ]; then
-          echo "  NOTE: plugin.json version differs (canonical $va vs distributed $vb) — expected mid-release, not counted as drift"
+          # Direction matters. Canonical ahead is the benign mid-release shape; the
+          # distributed copy being ahead means a reverted bump or a direct edit, and
+          # sync-plugins.sh would silently DOWNGRADE the published version.
+          if [ "$(printf '%s\n%s\n' "$va" "$vb" | sort -V | tail -1)" = "$vb" ]; then
+            echo "  DRIFTED:                $rel  (distributed version $vb is NEWER than canonical $va — syncing would downgrade the published plugin)"
+            DRIFT=$((DRIFT + 1))
+          else
+            echo "  NOTE: plugin.json version differs (canonical $va vs distributed $vb) — expected mid-release, not counted as drift"
+          fi
         fi
       fi
       continue
