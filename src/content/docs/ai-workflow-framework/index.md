@@ -13,13 +13,13 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 
 | Step | Skill | What it guides you through |
 |------|-------|---------------------------|
-| 1. Analyze | `analyze` | Identify and prioritize the workflows worth reimagining with AI |
-| 2. Deconstruct | `deconstruct` | Map the workflow’s process — or define the goal for an agent system |
-| 3. Design | `design` | Architect how AI building blocks will power your workflow |
-| 4. Build | `build` | Build the AI building blocks your design specifies |
-| 5. Test | `test` | Test your workflow's output quality and fix what's not working |
-| 6. Run | `run` | Deploy and operationalize your workflow |
-| 7. Improve | `improve` | Monitor quality and innovate your workflow over time |
+| 1.&nbsp;Analyze | `analyze` | Identify and prioritize the workflows worth reimagining with AI |
+| 2.&nbsp;Deconstruct | `deconstruct` | Map the workflow’s process — or define the goal for an agent system |
+| 3.&nbsp;Design | `design` | Architect how AI building blocks will power your workflow |
+| 4.&nbsp;Build | `build` | Build the AI building blocks your design specifies |
+| 5.&nbsp;Test | `test` | Test your workflow's output quality and fix what's not working |
+| 6.&nbsp;Run | `run` | Deploy and operationalize your workflow |
+| 7.&nbsp;Improve | `improve` | Monitor quality and innovate your workflow over time |
 
 **Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude Code, Claude Cowork, Claude.ai, M365 Copilot (Cowork), Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `handsonai`.
 
