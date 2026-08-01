@@ -127,10 +127,14 @@ jobs:
             | jq -r '[.[][] | select(.user.login == "claude[bot]")] | last | .body // ""')"
 
           # Match the heading loosely. The reviewer does not always use the same markup:
-          # #214 and #215 opened with "## Code review", #220 with a bare "Code review".
-          # Requiring the "## " would have rejected a genuine 2,761-character review — a
-          # check meant to catch missing reviews failing a real one is the worse error.
-          if [ "${#body}" -lt 40 ] || ! printf '%s' "$body" | grep -qiE '^#{0,6} *code review'; then
+          # #214 and #215 opened with "## Code review", #220 with a bare "Code review",
+          # and #227 with a bold "**Code review**" — which the previous #-or-bare regex
+          # rejected, failing a genuine 5,230-character review. So the leading character
+          # class accepts heading, bold, and italic markup. It deliberately does NOT
+          # accept "(" — the known non-review "_(test comment retracted)_" must keep
+          # failing, and the 40-character floor below is the second line of defence.
+          # A check meant to catch missing reviews failing a real one is the worse error.
+          if [ "${#body}" -lt 40 ] || ! printf '%s' "$body" | grep -qiE '^[#*_[:blank:]]*code review'; then
             echo "::error::claude-review completed without posting a review (${#body} chars). See issue #218."
             echo "Last claude[bot] comment was:"
             printf '%s\n' "$body" | sed 's/^/  /'
