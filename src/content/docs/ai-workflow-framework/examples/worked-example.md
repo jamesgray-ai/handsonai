@@ -111,7 +111,7 @@ The full file (trimmed to two candidates for readability — a real report often
 
 ## Step 2 — Deconstruct → `requirements.md` + `workflow.yaml`
 
-The deconstruct skill interviewed Maya for about 30 minutes (step-decomposed path — she knows exactly how the work gets done). Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
+The deconstruct skill interviewed Maya for about 30 minutes (step-driven path — she knows exactly how the work gets done). Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
 
 The manifest first — the small file every later step reads and updates:
 
@@ -119,7 +119,7 @@ The manifest first — the small file every later step reads and updates:
 # outputs/weekly-status-report/workflow.yaml
 workflow: weekly-status-report
 display_name: Weekly Status Report
-definition_type: Step-Decomposed
+definition_type: Step-Driven
 current_step: 2                   # each step bumps this as it completes
 last_updated: 2026-06-01
 artifacts:
@@ -156,7 +156,7 @@ Maya's review by 10am. Consumed by the leadership team; posted after Maya approv
 | Trigger | Manual — Maya starts it Friday mornings |
 | Owner | Maya R. (Program Manager) |
 | Lens | Individual |
-| Definition Type | Step-Decomposed |
+| Definition Type | Step-Driven |
 
 ---
 
@@ -293,7 +293,7 @@ The complete Design Spec:
 workflow: weekly-status-report
 requirements_file: outputs/weekly-status-report/requirements.md
 spec_version: 2.5
-definition_type: Step-Decomposed
+definition_type: Step-Driven
 mechanism: Skill-Powered Workflow
 involvement: Augmented
 platform: Claude Cowork

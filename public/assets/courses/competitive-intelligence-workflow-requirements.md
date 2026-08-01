@@ -12,7 +12,7 @@ Given a competitor name, research the competitor's recent moves and produce a pu
 | Trigger | Manual on demand, or scheduled per competitor (e.g., weekly for top-tier competitors, monthly for second tier) |
 | Owner | Workflow operator (the person tracking the competitor) |
 | Lens | Individual |
-| Definition Type | Step-Decomposed |
+| Definition Type | Step-Driven |
 | Business Objective | Stay current on competitor moves without paying the daily attention tax; turn one-off research effort into an institutional asset that survives team turnover |
 
 ---

@@ -5,7 +5,7 @@ description: >
   an AI workflow. It gathers architecture decisions, assesses workflow autonomy level,
   chooses an orchestration mechanism and involvement mode, classifies steps, maps building blocks,
   identifies skill candidates, configures agents, and produces a Design Spec for approval.
-  Supports both step-decomposed and goal-driven Workflow Requirements.
+  Supports both step-driven and goal-driven Workflow Requirements.
   Also use when the user says "continue my workflow" and the workflow manifest shows Step 3 (Design) is next.
   This is Step 3 (Design) of the AI Workflow Framework.
 user-invocable: true
@@ -13,7 +13,7 @@ user-invocable: true
 
 # Workflow Design
 
-Take a Workflow Requirements document (produced by Step 2 — Deconstruct) and produce the Design deliverable: a Design Spec that captures architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications (step-decomposed) or capability domain mapping (goal-driven), skill candidates, and agent blueprints.
+Take a Workflow Requirements document (produced by Step 2 — Deconstruct) and produce the Design deliverable: a Design Spec that captures architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications (step-driven) or capability domain mapping (goal-driven), skill candidates, and agent blueprints.
 
 ## Bundled references — read at the step that calls for them
 
@@ -56,11 +56,11 @@ Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate
 
 **Verify the requirements file exists and is parseable before relying on it.** If the file is missing, stop and tell the user — don't proceed against a path that doesn't resolve. Confirm the required headings exist (Goal — accept the legacy heading `Outcome` in older files — Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, and either Steps Overview/Step Details or the goal-driven Inputs/Rules & Constraints). If any are missing or mis-named, **say exactly which are missing** and ask the user to re-run `/deconstruct` or fix the file — don't guess at the contents.
 
-Read the `Definition Type` field from the Metadata table. If `Goal-Driven` (or the legacy value `Outcome-Driven` — treat it as `Goal-Driven`): **STOP — read `references/goal-driven-path.md` now, in full, before proceeding.** It modifies Steps 3–9 and the spec template; do not run the goal-driven path from memory. If `Step-Decomposed` (or no Definition Type field is present), use the standard step-decomposed path below.
+Read the `Definition Type` field from the Metadata table. If `Goal-Driven` (or the legacy value `Outcome-Driven` — treat it as `Goal-Driven`): **STOP — read `references/goal-driven-path.md` now, in full, before proceeding.** It modifies Steps 3–9 and the spec template; do not run the goal-driven path from memory. If `Step-Driven` (or no Definition Type field is present), use the standard step-driven path below.
 
 #### Step 2 — Confirm Understanding
 
-For step-decomposed requirements: Summarize the workflow name, step count, and goal (from the Goal section of the Workflow Requirements — legacy files title it Outcome). Ask the user to confirm before proceeding.
+For step-driven requirements: Summarize the workflow name, step count, and goal (from the Goal section of the Workflow Requirements — legacy files title it Outcome). Ask the user to confirm before proceeding.
 
 For goal-driven requirements: Summarize the workflow name, goal, and the headline rules and constraints (from the Goal and Rules & Constraints sections). Ask the user to confirm before proceeding.
 
@@ -224,7 +224,7 @@ Before confirming Layer 1, walk four safety questions. This matters most when th
 3. **Unattended runs** — Will this run on a schedule or without a human watching? If yes: human gates on outward-facing actions, a cap on actions per run, and a log of every write.
 4. **Blast radius** — What's the worst realistic outcome of a bad run? Place a human gate in front of the highest-consequence action, or constrain it to drafts/test targets.
 
-**Write-action feasibility check (required when the workflow writes to an external system).** The four questions above scope *how much* write access to request; this one asks whether the required action is **possible at all** on the chosen platform. For each write/action the workflow needs — read them from the Workflow Requirements (the `External Action` fields in Step Details for step-decomposed; the goal, rules, and acceptance for goal-driven) — verify the chosen integration can actually perform it. Use the capability-check mechanism from Step 5 (registry lookup + a single targeted web check) — this is exactly the "check now rather than ship a spec Build can't honor" case. Distinguish two gap types:
+**Write-action feasibility check (required when the workflow writes to an external system).** The four questions above scope *how much* write access to request; this one asks whether the required action is **possible at all** on the chosen platform. For each write/action the workflow needs — read them from the Workflow Requirements (the `External Action` fields in Step Details for step-driven; the goal, rules, and acceptance for goal-driven) — verify the chosen integration can actually perform it. Use the capability-check mechanism from Step 5 (registry lookup + a single targeted web check) — this is exactly the "check now rather than ship a spec Build can't honor" case. Distinguish two gap types:
 
 - **Scope gap** — the connector *supports* the action but may not be authorized yet (fixable by reconnecting/authorizing at Build). Note it and move on.
 - **Capability gap** — the connector has **no such capability at all** (e.g., a read-only CRM connector with no create-deal tool). This is *not* fixable by reauthorizing, and it can invalidate the design. Flag it plainly and present **platform-aware options**, in this order:
@@ -259,7 +259,7 @@ By this point the user has already confirmed *where* (Step 3a) and *how it runs*
 
 **How to write the playback:** Use the technical term, then immediately explain it in plain language in the same line. Never drop a bare technical label on its own. Every row teaches as it confirms.
 
-For step-decomposed workflows:
+For step-driven workflows:
 
 > "Here's the design analysis based on your workflow definition. I'll explain each piece as I go — push back on anything that's off:
 >
@@ -386,7 +386,7 @@ After classifying every step, recommend available integration options for each t
 
 **Presentation format:**
 
-For step-decomposed: `**[Tool] access needed (Steps N, M):**`
+For step-driven: `**[Tool] access needed (Steps N, M):**`
 For goal-driven: `**[Tool] access needed (Domains: X, Y):**`
 
 > **[Tool] access needed ([Steps N, M / Domains: X, Y]):**
@@ -503,7 +503,7 @@ The 12 fields (field-by-field format in `references/spec-template.md`):
 - **Depends On** — other skill IDs (S2, S3) or artifacts that must exist first, or "None"
 - **Stateful?** — Yes / No, does the skill maintain state across invocations? Drives Memory building-block decisions.
 
-**Consolidation sweep (before presenting blueprints — no user question):** sweep the candidate list once. **Merge** candidates that are the same capability applied at different steps into one skill with multiple Covers Steps entries (the step-decomposed mirror of the goal-driven altitude rule). **Split** any candidate whose Decision Logic spans two unrelated capabilities — each skill should excel at one thing. Note each merge/split in one line when presenting the blueprints.
+**Consolidation sweep (before presenting blueprints — no user question):** sweep the candidate list once. **Merge** candidates that are the same capability applied at different steps into one skill with multiple Covers Steps entries (the step-driven mirror of the goal-driven altitude rule). **Split** any candidate whose Decision Logic spans two unrelated capabilities — each skill should excel at one thing. Note each merge/split in one line when presenting the blueprints.
 
 #### Step 8 — Agent Configuration
 

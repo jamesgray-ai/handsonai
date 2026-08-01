@@ -19,7 +19,7 @@ For **goal-driven** workflows, apply the template substitutions in `references/g
 workflow: [kebab-case name]
 requirements_file: outputs/[workflow-name]/requirements.md
 spec_version: 2.5
-definition_type: Step-Decomposed | Goal-Driven
+definition_type: Step-Driven | Goal-Driven
 mechanism: Prompt | Skill-Powered Workflow | Agent
 involvement: Augmented | Automated
 platform: [user's platform, e.g., Claude Code, Claude.ai, Cowork, Codex, ChatGPT, Gemini CLI]
@@ -94,7 +94,7 @@ The spec is organized into three layers that build on each other:
 
 The workflow-level autonomy assessment and the rationale that drove it. (Per-step autonomy classifications appear in the Decomposition table below.)
 
-For step-decomposed workflows: group steps by autonomy level. For each group, explain WHY those steps have that classification.
+For step-driven workflows: group steps by autonomy level. For each group, explain WHY those steps have that classification.
 
 For goal-driven workflows: replace this section with an **Autonomy Statement** — a brief paragraph stating: "This is a goal-driven workflow. Autonomy is Autonomous — the agent system determines its own execution path based on the Goal, Inputs, Rules & Constraints, and Acceptance Criteria defined in the Workflow Requirements."
 
