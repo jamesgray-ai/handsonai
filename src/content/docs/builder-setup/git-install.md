@@ -51,9 +51,11 @@ If you see a version number (e.g., `git version 2.39.0`), Git is already install
 1. Open Terminal
 2. Run: `xcode-select --install`
 3. Click **Install** in the popup dialog
-4. Wait for installation to complete
+4. Wait for installation to complete — the download can take 10–30 minutes, and the dialog's time estimate is famously unreliable (it may claim hours). Let it run.
 
 This installs Git along with other developer tools.
+
+> **Seeing "command line tools are already installed"?** That red text isn't a problem — it means Git is already there. Skip to [Verify Installation](#verify-installation).
 
 ### Option 2: Homebrew
 
@@ -70,14 +72,16 @@ brew install git
 1. Go to [git-scm.com](https://git-scm.com)
 2. Click **Download for Windows**
 3. Run the installer
-4. Use the default settings (click Next through the prompts)
+4. Click **Next** through the prompts — the installer shows about ten screens, and the defaults are fine everywhere except the three settings below
 5. Complete the installation
 
 ### Important Settings During Install
 
-- **Default editor**: Select **VS Code** or **Cursor** if listed — avoid the default (Vim) unless you're familiar with it
-- **PATH environment**: Select "Git from the command line and also from 3rd-party software" (recommended)
-- **Line endings**: Select "Checkout Windows-style, commit Unix-style line endings" (recommended)
+These screens appear in this order as you click through:
+
+- **Default editor**: Select **VS Code** or **Cursor** if listed. If neither appears (you haven't installed an editor yet), choose **Notepad** — you can change this later. Avoid the default (Vim) unless you're familiar with it.
+- **PATH environment**: Select "Git from the command line and also from 3rd-party software" — this is already the default, so just confirm it's selected
+- **Line endings**: Select "Checkout Windows-style, commit Unix-style line endings" — also the default
 
 ## Verify Installation
 
@@ -91,26 +95,38 @@ You should see a version number confirming Git is installed.
 
 ## Configure Your Identity
 
-Set your name and email for Git commits:
+Set your name and email for Git commits. Keep the quotation marks — without them, a name with a space in it won't save correctly:
 
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
 ```
 
-Use the email address you plan to use for your GitHub account (set up in the next step). If these don't match, your commits still work but GitHub won't attribute them to your profile — they show up as an unlinked name, and fixing it later means rewriting history.
+Use the email address you plan to use for your GitHub account (set up in the next step). If they don't match, your commits still work, but GitHub shows them under an unlinked name instead of your profile. That's easy to fix later — add the email address to your GitHub account (**Settings → Emails**) and GitHub links your past commits to your profile automatically.
+
+> **Planning to keep your email private on GitHub?** GitHub's **Keep my email addresses private** setting (under **Settings → Emails**) gives you a substitute address ending in `@users.noreply.github.com`. Once your account exists, come back and run the email command again with that address:
+>
+> ```bash
+> git config --global user.email "12345678+yourusername@users.noreply.github.com"
+> ```
+>
+> Otherwise, if the companion setting **Block command line pushes that expose my email** is on, GitHub rejects pushes made with your real email (`error: GH007`).
 
 Confirm your identity actually saved:
 
 ```bash
-git config --list
+git config --global user.name
+git config --global user.email
 ```
 
-Look for `user.name` and `user.email` in the output, with the values you just set.
+Each command prints back the value you just set. If either prints nothing, re-run the matching command above.
 
 ## Corporate Networks (Proxy / Firewall)
 
-On a work machine, Git may fail to reach GitHub if traffic has to go through a corporate proxy or a restrictive firewall.
+If Git commands work at home but fail on your work machine, your company network is the likely cause. Don't troubleshoot this alone: ask your IT team whether your network uses a proxy, and share this section with them — the commands below are the fix, but IT has the details (like the proxy address) that make them work.
+
+<details>
+<summary>Proxy and firewall fixes (for you and your IT team)</summary>
 
 **Behind a proxy:**
 
@@ -127,6 +143,8 @@ git config --global --unset https.proxy
 ```
 
 **Behind a firewall that blocks SSH:** if `git clone git@github.com:...` hangs or times out, corporate firewalls often allow HTTPS (port 443) but block the SSH port. Use the HTTPS clone URL instead (`https://github.com/...`) — this is also what the [GitHub Setup Guide](../github-setup/) and [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) use by default.
+
+</details>
 
 ## Troubleshooting
 
@@ -159,6 +177,7 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 > I'm trying to install Git on [Mac / Windows] and getting this error: [paste the error message]. I followed the steps from the official guide. What should I try next?
 
 </details>
+
 ## Next Steps
 
 - Set up your GitHub account (see [GitHub Setup Guide](../github-setup/))

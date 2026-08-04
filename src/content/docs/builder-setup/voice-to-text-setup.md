@@ -120,6 +120,7 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 > I'm setting up [Wispr Flow / Claude Desktop Quick Entry] on [Mac / Windows] for voice-to-text and running into this issue: [describe what's happening]. I granted microphone permissions. What should I check?
 
 </details>
+
 ## Next Steps
 
 - Practice dictating a few prompts to get comfortable
