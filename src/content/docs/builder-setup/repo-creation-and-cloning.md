@@ -100,6 +100,7 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 > I'm trying to create/clone a GitHub repository in [Cursor / VS Code] on [Mac / Windows] and getting this error: [paste the error message]. I have Git installed, a GitHub account, and the GitHub CLI authenticated. What should I try?
 
 </details>
+
 ## Next Steps
 
 - Try cloning a public repository to practice the workflow

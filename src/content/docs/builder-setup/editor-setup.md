@@ -143,6 +143,7 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 > I'm setting up [Cursor / VS Code] on [Mac / Windows] and running into this issue: [describe what's happening]. I followed the installation steps from the official site. What should I try next?
 
 </details>
+
 ## Next Steps
 
 - Set up Git (see [Git Installation Guide](../git-install/))

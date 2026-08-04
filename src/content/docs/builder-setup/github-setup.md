@@ -10,7 +10,7 @@ howto_steps:
   - name: Give an agent or tool access
     text: Generate a fine-grained personal access token scoped to a specific repository, grant only the permissions the tool asks for, and store it in a password manager.
   - name: Work with files on your own machine
-    text: Install gh via Homebrew or the macOS installer, winget (Windows), or apt (Linux), then run gh auth login to connect your GitHub account.
+    text: Install gh with the macOS .pkg installer from the GitHub CLI releases page or the Windows MSI from cli.github.com (or via Homebrew / winget), then run gh auth login to connect your GitHub account.
 ---## What Is GitHub?
 
 GitHub is a website where people store, version, and share files — application code, but equally the prompts, skills, agents, and markdown you build with AI. If Git tracks your changes locally (like a save history on your computer), GitHub is where that history lives in the cloud — backed up, shareable, and accessible from anywhere.
@@ -58,6 +58,7 @@ Creating an account and generating a token happen entirely in your browser — n
    - Choose an authenticator app (recommended — e.g., 1Password, Authy, Google Authenticator) or a security key
    - Scan the QR code with your authenticator app and enter the generated code to confirm
    - Save the recovery codes GitHub shows you somewhere safe (a password manager, not a text file) — you'll need one if you lose access to your authenticator
+   - Tip: once 2FA is set up, you can also install the **GitHub mobile app**, sign in, and add it as a second method under **Settings → Password and authentication** — future sign-ins become a single tap on your phone instead of typing a code
 
 **Already have an account with 2FA enabled?** Skip ahead to whichever path you need.
 
@@ -79,7 +80,7 @@ The difference that matters: a **CLI login is tied to your machine**, so anythin
 | How much access | Only the repositories and permissions you tick, and it expires on a date you choose | Broad access to your account, and it doesn't expire on its own |
 | What to watch | It's a secret. If it leaks, it works until you revoke it or it expires | Anyone who can use your computer can use your GitHub access |
 
-**If you generate a token, make it a fine-grained one.** GitHub offers two kinds, and the older "classic" tokens reach every repository you can reach and can be created with no expiry at all. Fine-grained tokens always expire and only ever grant the specific permissions you tick — even at their widest setting.
+**If you generate a token, make it a fine-grained one.** GitHub offers two kinds. The older "classic" tokens reach every repository you can reach and grant broad permission scopes. Fine-grained tokens only ever grant the specific repositories and permissions you tick — even at their widest setting.
 
 ## Give an Agent or Tool Access
 
@@ -90,8 +91,8 @@ Complete this path when something *other than you* needs to reach GitHub — an 
 1. Go to **Settings → Developer settings → Personal access tokens → Fine-grained tokens**
 2. Click **Generate new token**
 3. Give it a descriptive name (e.g., `claude-code-my-repo`)
-4. Choose the **Resource owner** — your personal account, or an organisation if the repository belongs to one. Organisation-owned tokens usually need an admin to approve them before they work, which can take days; start early if that applies to you.
-5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. Fine-grained tokens always expire, and GitHub caps a custom expiry at 366 days, so pick deliberately: one that lapses mid-project silently breaks every integration using it.
+4. Choose the **Resource owner** — your personal account, or an organisation if the repository belongs to one. If your own username is the only option, choose it — that's the normal case on a personal account. Organisation-owned tokens usually need an admin to approve them before they work, which can take days; start early if that applies to you.
+5. Set an **expiration** that outlasts whatever you're building with it — if you're on a course, set it past the last session; otherwise 30 or 90 days is a good default. On a personal account GitHub also offers **No expiration** — skip it; an expiry date is your safety net if the token ever leaks. Pick deliberately either way: a token that lapses mid-project silently breaks every integration using it. (Tokens for organisation-owned repositories are usually capped at 366 days by the organisation's policy.)
 6. Set **Repository access** — **Only select repositories**, and choose just the repo(s) needed. Create the repository first if it doesn't exist yet (see the [Repository Creation and Cloning Guide](../repo-creation-and-cloning/)); you can't select one that isn't there.
 
    **All repositories** also exists, and covers current *and future* repositories — occasionally useful on a personal account holding nothing you care about, when you want a token that keeps working as you add repos. Two reasons to prefer selecting: many tools that consume a token require a specific repository anyway (Notion's Claude agent connector, for one, states this on its connect screen), and on any account holding real work the wider scope is a genuine risk. Never point a token at an organisation's full repository list to save a step.
@@ -101,7 +102,7 @@ Complete this path when something *other than you* needs to reach GitHub — an 
 
 ### Storing Your Token Safely
 
-Save the token in a password manager (1Password, Bitwarden, etc.), not in a plain text file, a `.env` you might commit, or a note. If a hosted agent or tool needs the token, paste it directly into that tool's credential/secret field rather than writing it to disk in your repository.
+Save the token in a password manager (1Password, Bitwarden, etc.) — not in a plain text file, a document, or a note on your computer. If a hosted agent or tool needs the token, paste it directly into that tool's credential/secret field rather than writing it to disk in your repository.
 
 ## Work With Files on Your Own Machine
 
@@ -113,13 +114,18 @@ The GitHub CLI (`gh`) is the simplest way to authenticate Git on your own machin
 
 #### macOS
 
-With [Homebrew](https://brew.sh):
+Install with the `.pkg` installer — no terminal needed. (If you installed Git via [Xcode Command Line Tools](../git-install/#option-1-xcode-command-line-tools-recommended) — the path the Git guide recommends — this is your route.)
+
+1. Go to the [GitHub CLI releases page](https://github.com/cli/cli/releases/latest)
+2. Scroll down to **Assets** and click **Show all assets** if you don't see many files listed
+3. Download the file whose name ends in `macOS_universal.pkg` — it works on every Mac
+4. Double-click the downloaded file and follow the installer prompts
+
+**Already use [Homebrew](https://brew.sh)?** Then this is quicker:
 
 ```bash
 brew install gh
 ```
-
-**No Homebrew?** If you installed Git via [Xcode Command Line Tools](../git-install/#option-1-xcode-command-line-tools-recommended) — the path the Git guide recommends — you probably don't have Homebrew. Download the macOS `.pkg` installer from [cli.github.com](https://cli.github.com) and run it — no terminal needed.
 
 #### Windows
 
@@ -127,13 +133,7 @@ brew install gh
 winget install --id GitHub.cli
 ```
 
-#### Linux (Debian/Ubuntu)
-
-```bash
-sudo apt install gh
-```
-
-For other Linux distributions, see the [official install instructions](https://github.com/cli/cli/blob/trunk/docs/install_linux.md).
+**`winget` is not recognized?** Some Windows 10 machines (and some corporate laptops) don't have it. Go to [cli.github.com](https://cli.github.com), click **Download MSI**, and run the downloaded installer instead — no terminal needed.
 
 ### Authenticate
 
@@ -145,10 +145,12 @@ Before it opens your browser, `gh` asks four questions in the terminal. Use the 
 
 | Question | Choose |
 |---|---|
-| What account do you want to log into? | **GitHub.com** |
-| What is your preferred protocol for Git operations? | **HTTPS** |
+| Where do you use GitHub? | **GitHub.com** |
+| What is your preferred protocol for Git operations on this host? | **HTTPS** |
 | Authenticate Git with your GitHub credentials? | **Yes** |
-| How would you like to authenticate? | **Login with a web browser** |
+| How would you like to authenticate GitHub CLI? | **Login with a web browser** |
+
+The exact wording shifts slightly between `gh` versions, but the questions come in this order and these are the answers to give.
 
 It then shows a one-time code and opens your browser. Paste the code, approve the access, and return to the terminal — it confirms when it's done.
 
@@ -164,6 +166,9 @@ gh auth status
 **Official docs:** [GitHub CLI manual](https://cli.github.com/manual/)
 
 ## Troubleshooting
+
+**`gh` is not recognized / command not found after installing?**
+- Close and reopen your terminal, then run `gh --version` again — a terminal only picks up newly installed programs when it starts
 
 **`gh auth login` fails or hangs?**
 - Make sure you have a browser available to complete the flow
@@ -183,6 +188,7 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 > I'm setting up GitHub authentication (2FA / gh auth login / a fine-grained personal access token) and getting this error: [paste the error message]. What should I try?
 
 </details>
+
 ## Next Steps
 
 - [Create a repository and clone it](../repo-creation-and-cloning/) — the next step now that your account and authentication are set up

@@ -19,6 +19,7 @@ Examples 1 and 2 use the **individual lens** — analyzing one person's workflow
 Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She manages campaign reporting, lead operations, content production workflows, and marketing analytics. Her team uses HubSpot, Google Ads, LinkedIn Ads, Ahrefs, and Google Slides.
 
 </details>
+
 ### Report Header
 
 |                              |                                                                                                                         |
@@ -258,6 +259,7 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 James Gray is an AI Instructor who runs live cohort courses and maintains the Hands-on AI Playbook — a documentation site with setup guides, framework content, and an MCP server. His work spans teaching, content creation, student support, and meeting with prospective clients and partners.
 
 </details>
+
 ### Report Header
 
 |                              |                                                                                                          |
@@ -497,6 +499,7 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 Maria Torres is VP of Operations at a 200-person logistics company. She oversees warehouse operations, fleet management, and customer fulfillment. She's looking at AI from an organizational perspective — identifying value chain processes where AI can improve outcomes tied to business objectives. This example demonstrates the **organizational lens**.
 
 </details>
+
 ### Report Header
 
 |                              |                                                                                                    |
