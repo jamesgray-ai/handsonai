@@ -58,6 +58,14 @@ jobs:
         with:
           fetch-depth: 1
 
+      # The verify step compares comment timestamps against this, so a re-run that
+      # posts nothing cannot pass on a stale comment from an earlier run (the known
+      # gap in the original guard — see issue #218). Captured before the review step
+      # so any comment the review posts is strictly after it.
+      - name: Record when this run started
+        id: run-start
+        run: echo "at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
@@ -66,6 +74,23 @@ jobs:
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           plugins: 'code-review@claude-code-plugins'
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }} --comment'
+          # Both lines below are the fix for issue #218 (silent empty reviews) — they
+          # work as a pair, do not remove one without the other:
+          #
+          # --allowedTools: in agent mode the action only starts the github_inline_comment
+          #   MCP server when this tool is named here (install-mcp-server.ts gates on it).
+          #   Without it, the code-review plugin's issues-found path posts through a tool
+          #   that does not exist — every pre-fix run logged "No buffered inline comments".
+          #   The plugin's own frontmatter grants permission but cannot provision the server.
+          #
+          # --append-system-prompt: the plugin only instructs a top-level comment when NO
+          #   issues are found; with issues it posts inline comments only and sends the
+          #   summary "to the terminal". Whether the model improvised a summary comment
+          #   anyway was the observed intermittency. This makes the summary comment
+          #   mandatory in every outcome — which is also what the verify step below keys on.
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment"
+            --append-system-prompt "When reviewing a pull request with --comment: after posting any inline comments, ALWAYS post a top-level summary comment using 'gh pr comment' that begins with '## Code review' and briefly lists each finding, or states that no issues were found. The review is not complete until that summary comment has been posted."
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
@@ -108,6 +133,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
+          RUN_STARTED: ${{ steps.run-start.outputs.at }}
         run: |
           set -uo pipefail
           # --slurp, not bare --paginate: with --paginate alone a --jq filter runs once
@@ -123,8 +149,14 @@ jobs:
             echo "::error::could not read PR comments to verify the review posted"
             exit 1
           }
+          # Only comments created at or after this run started count. Without this,
+          # a re-run that posts nothing passes on a stale review from an earlier run —
+          # observed on #220: 4 turns, 38s, no new comment, check green. ISO-8601 UTC
+          # timestamps compare correctly as strings, so >= is a plain lexicographic test.
           body="$(printf '%s' "$comments" \
-            | jq -r '[.[][] | select(.user.login == "claude[bot]")] | last | .body // ""')"
+            | jq -r --arg since "$RUN_STARTED" \
+                '[.[][] | select(.user.login == "claude[bot]") | select(.created_at >= $since)]
+                 | last | .body // ""')"
 
           # Match the heading loosely. The reviewer does not always use the same markup:
           # #214 and #215 opened with "## Code review", #220 with a bare "Code review",
@@ -135,8 +167,8 @@ jobs:
           # failing, and the 40-character floor below is the second line of defence.
           # A check meant to catch missing reviews failing a real one is the worse error.
           if [ "${#body}" -lt 40 ] || ! printf '%s' "$body" | grep -qiE '^[#*_[:blank:]]*code review'; then
-            echo "::error::claude-review completed without posting a review (${#body} chars). See issue #218."
-            echo "Last claude[bot] comment was:"
+            echo "::error::claude-review completed without posting a review during this run (${#body} chars). See issue #218."
+            echo "Last claude[bot] comment from this run was:"
             printf '%s\n' "$body" | sed 's/^/  /'
             exit 1
           fi
