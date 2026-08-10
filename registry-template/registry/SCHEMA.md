@@ -56,11 +56,12 @@ sourced from your assistant's own skill/agent files; SOPs, guides, and prompts l
 workflow outputs put them. A Workflow node's `# Skills`, `# Agents`, and `# Artifacts` links are
 how the bundle points at them.
 
-**Event-fact fields are banned from nodes**: no `current_step`, `health`, `last_run`,
-`next_review`, `notion_url` (or any `notion_*` field), or run counters — those are raw-source-layer
-or retired-manifest concerns, not registry state. (`next_review` is superseded by `stale_after`
-below; this bundle has no Notion mirror.) `stale_after` (a date — a workflow is stale when today
-≥ `stale_after`) is permitted because a dashboard roll-up and a lint warning give it teeth.
+**Event-fact fields are banned from nodes**: `current_step`, `health`, `last_run`, `run_count`
+(and any run-counter field), `next_review`, `notion_url`, `timestamp`, `lob`, `sequence`,
+`process` (banned on any node), `owner` (banned on Workflow nodes — it lives on Process) — those
+are raw-source-layer or retired-manifest concerns, not registry state. `stale_after` (a date — a
+workflow is stale when today ≥ `stale_after`) is permitted because a dashboard roll-up and a lint
+warning give it teeth.
 
 **Layered model.** `outputs/<slug>/` is the **raw-source layer** — the system of record for what a
 workflow produces and experiences (run logs, generated outputs, framework documents). Event-facts
@@ -79,8 +80,9 @@ concept frontmatter. The sole exception is the bundle root `index.md`, which car
 frontmatter key: `okf_version`.
 
 **Banned fields** (never write these into a node): `current_step`, `health`, `last_run`,
-`next_review`, `notion_url` (or any `notion_*` field), and raw run counters — see "Deliberately
-not concept types" above for why.
+`run_count` (and any run-counter field), `next_review`, `notion_url`, `timestamp`, `lob`,
+`sequence`, `process` (banned on any node), `owner` (banned on Workflow nodes — it lives on
+Process) — see "Deliberately not concept types" above for why.
 
 **`stale_after`** is permitted on Workflow nodes: a date, `YYYY-MM-DD`; the workflow is stale when
 today ≥ `stale_after`.
