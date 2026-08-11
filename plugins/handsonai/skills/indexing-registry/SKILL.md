@@ -83,11 +83,9 @@ No Health, Last Run, or Step columns — framework step is inferred from artifac
 
 Record schema changes and migrations only — not routine content edits. Routine node writes don't need a log entry.
 
-## Refusal and self-healing
+## Refusal + self-healing rule
 
-**Refuse to regenerate derived views while lint reports errors.** Fix the underlying nodes first (or have the user confirm offered fixes), then regenerate.
-
-**Self-healing exception:** broken-link errors that point at derived content this very pass is about to rewrite — stale links left in GENERATED views by a rename or retirement — do not block emission. Regenerate through them; a post-emit lint pass is the backstop that confirms they're gone. Without this exception, a rename would deadlock the pass on the very files whose regeneration clears the error.
+Refuses to regenerate derived views while lint reports errors — with the reference's self-healing exception: broken-link errors that point at derived content the pass is about to rewrite (stale links left in GENERATED views by renames/retirements) do not block emission; a post-emit lint is the backstop. Without this exception, a rename deadlocks the composer on the very files whose regeneration would clear the error.
 
 ## Workspace-generator precedence
 
