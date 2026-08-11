@@ -18,3 +18,8 @@ Not started yet -- captured as a backlog stub.
 # Skills
 
 # Agents
+
+# Insights
+
+<!-- GENERATED:insights -->
+<!-- /GENERATED -->

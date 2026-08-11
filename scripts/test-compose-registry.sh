@@ -68,6 +68,8 @@ run_lint_at "$tmp" && ok "gitignored artifact links tolerated" || bad "gitignore
 # compose: valid bundle → golden REGISTRY.md
 compose_at valid-bundle
 diff -u "$FIX/golden/REGISTRY.md" "$WS/REGISTRY.md" && ok "REGISTRY.md matches golden" || bad "REGISTRY.md drift"
+# compose: fills Workflow `# Insights` GENERATED block (reverse view of the Note's link)
+grep -q "/notes/first-workflow-insight.md" "$WS/registry/workflows/second-workflow.md" && ok "compose fills Workflow Insights GENERATED block" || bad "Insights block not filled"
 # compose: deterministic — two runs byte-identical
 cp "$WS/REGISTRY.md" /tmp/r1; (cd "$WS" && node "$TOOLS/compose-registry.js" registry)
 cmp -s /tmp/r1 "$WS/REGISTRY.md" && ok "deterministic" || bad "output differs across runs"

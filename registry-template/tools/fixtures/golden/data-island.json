@@ -133,7 +133,8 @@
       "title": "First Workflow Insight",
       "description": "A synthesized insight from running First Workflow.",
       "links": [
-        "/processes/client-onboarding.md"
+        "/processes/client-onboarding.md",
+        "/workflows/second-workflow.md"
       ],
       "nodePath": "registry/notes/first-workflow-insight.md"
     }

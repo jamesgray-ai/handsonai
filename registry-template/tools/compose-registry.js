@@ -5,8 +5,9 @@
 //   --check        build in memory and exit 1 if any output differs from disk
 //   --island-only  print the data island JSON to stdout; write nothing
 //
-// Rewrites GENERATED blocks (Function `# Owns`, root `index.md` skills/agents
-// inventories), refreshes the plain directory `index.md` bullet lists, emits
+// Rewrites GENERATED blocks (Function `# Owns`, Workflow `# Insights`, root
+// `index.md` skills/agents inventories), refreshes the plain directory
+// `index.md` bullet lists, emits
 // the repo-root REGISTRY.md dashboard, and ALWAYS writes tools/last-data-island.json
 // (additionally injecting the same JSON into registry-dashboard.html when that
 // file exists, so a fresh-checkout Action reading tools/last-data-island.json
@@ -191,6 +192,19 @@ function compose(bundleDir) {
     const content = owned.map((p) => `- [${nodeTitle(p)}](${p.relPath})`).join('\n');
     const { raw, replaced } = lib.replaceGeneratedBlock(fn.raw, 'owns', content);
     if (replaced && raw !== fn.raw) setIfChanged(absPathOf(fn.relPath), raw);
+  }
+
+  // --- Rewrite Workflow `# Insights` GENERATED blocks (reverse view of a
+  // Note's body links -- SCHEMA.md "Relationships": "Insight -> Workflow/
+  // Process ... the Note's body links" is the single home of the edge; this
+  // is its derived reverse view, same architecture as Function `# Owns`
+  // above). notesAll is already code-point sorted, so iteration order (and
+  // therefore emitted bullet order) is deterministic.
+  for (const w of workflowsAll) {
+    const linking = notesAll.filter((n) => lib.classifyLinks(n.raw).inBundle.includes(w.relPath));
+    const content = linking.map((n) => `- [${nodeTitle(n)}](${n.relPath}) — ${n.fm.description}`).join('\n');
+    const { raw, replaced } = lib.replaceGeneratedBlock(w.raw, 'insights', content);
+    if (replaced && raw !== w.raw) setIfChanged(absPathOf(w.relPath), raw);
   }
 
   // --- Rewrite root index.md's skills/agents inventory GENERATED blocks -----
