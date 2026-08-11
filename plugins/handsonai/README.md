@@ -35,10 +35,11 @@ The AI Workflow Framework as executable Claude Code skills, plus an AI registry 
 
 | Skill | Description |
 |-------|-------------|
-| `naming-workflows` | Apply consistent naming conventions across your AI workflow registry |
+| `scaffolding-registry` | Stand up your `registry/` knowledge bundle — SCHEMA.md and a first real Business, Line of Business, Function, Process, and Workflow node |
+| `naming-workflows` | Apply consistent naming conventions across your registry |
 | `writing-workflow-sops` | Author standard operating procedures for AI-assisted workflows |
 | `writing-process-guides` | Document multi-step processes for repeatable execution |
-| `indexing-registry` | Generate and refresh REGISTRY.md — the Markdown AI Registry index of your skills, agents, workflows, and apps |
+| `indexing-registry` | Lint your registry bundle and regenerate REGISTRY.md and its visual dashboard — the derived views of your skills, agents, workflows, and apps |
 
 ### Skills — Agentic Coding
 
