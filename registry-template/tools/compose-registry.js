@@ -107,7 +107,7 @@ function scanSkillsAndAgents(workspaceRoot) {
   const skills = [];
   const agents = [];
   for (const p of lib.scanCapabilities(workspaceRoot)) {
-    const raw = fs.readFileSync(path.join(workspaceRoot, p), 'utf8');
+    const raw = lib.normalizeLineEndings(fs.readFileSync(path.join(workspaceRoot, p), 'utf8'));
     const { fields } = lib.parseFrontmatter(raw);
     const isSkill = p.endsWith('/SKILL.md');
     const rec = {
@@ -441,7 +441,26 @@ if (require.main === module) {
   const islandOnly = args.includes('--island-only');
   const bundleDir = args.find((a) => !a.startsWith('--')) || 'registry';
 
-  const { outputs, island, workspaceRoot, absBundle } = compose(bundleDir);
+  // A null-frontmatter node (missing/unparseable frontmatter) makes compose()
+  // itself throw a raw TypeError on an unguarded `.fm.<field>` deref, well
+  // before the lint gate below ever runs -- the user would see a stack trace
+  // instead of the lint-refusal message. Run lint FIRST in that case and
+  // surface its "refusing to emit" report instead; a crash unrelated to a
+  // lint-catchable issue (lint comes back clean) is still a real bug and
+  // re-thrown rather than swallowed.
+  let composed;
+  try {
+    composed = compose(bundleDir);
+  } catch (composeErr) {
+    const preErrors = lint(bundleDir).errors;
+    if (preErrors.length) {
+      for (const e of preErrors) console.error(`ERROR   ${e}`);
+      console.error(`compose-registry: refusing to emit — fix ${preErrors.length} lint error(s) first`);
+      process.exit(1);
+    }
+    throw composeErr;
+  }
+  const { outputs, island, workspaceRoot, absBundle } = composed;
 
   // Renaming a node leaves stale links/index-coverage gaps behind in the very
   // files compose is about to regenerate (a directory index.md, the root

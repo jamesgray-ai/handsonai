@@ -2,7 +2,7 @@ name: Registry
 on:
   push:
     branches: [main]
-    paths: ["registry/**", "tools/**", "sops/**", ".claude/**"]
+    paths: ["registry/**", "tools/**", "sops/**", ".claude/**", "agents/**", "skills/**"]
   workflow_dispatch:
 permissions: { contents: read, pages: write, id-token: write }
 jobs:

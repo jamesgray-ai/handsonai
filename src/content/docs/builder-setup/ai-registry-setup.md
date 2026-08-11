@@ -186,6 +186,8 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 ## Platform Guide
 
+*Platform instructions are re-verified at every release — see the project's platform verification checklist.*
+
 The interview, the node shapes, and the dashboards are identical everywhere — what differs by platform is how the skill that runs your interview gets installed, and how it writes bytes to your files.
 
 | Platform | Skill delivery | Where your registry lives | How writes happen |
@@ -227,7 +229,7 @@ Each platform section below is complete on its own — you only need to read the
 ### claude.ai
 
 :::note[Not yet verified — ask your instructor]
-The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session. If you're working through this self-paced and don't need to stay in claude.ai specifically, the Claude Code or Cowork path is currently the verified route — see [Claude Code](#claude-code) or [Cowork](#cowork) above.
+The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session. If you're working through this self-paced and don't need to stay in claude.ai specifically, consider the Claude Code or Cowork path instead — see [Claude Code](#claude-code) or [Cowork](#cowork) above.
 :::
 
 1. Upload the Hands-on AI skill file your instructor provides to your claude.ai account (Settings → Capabilities → Skills, or wherever claude.ai currently places skill uploads).

@@ -411,7 +411,16 @@ Part 8 for the full rationale:
 5. **Platform checklist re-verification** — re-verify every row in
    `specs/okf-registry-platform-verification.md`. Signed-row rule: no
    platform may appear as an unqualified path in the setup page until its row
-   is signed with date/verifier/platform version.
+   is signed with date/verifier/platform version. **Blocking:** sign the
+   local-platform rows before the release ships; the setup page's unqualified
+   paths depend on it — do not announce the release with unsigned rows.
+6. **Framework-skill ZIP bundling** — `build-skill-zips.sh` (in
+   `handsonai-plugins`) must bundle
+   `indexing-registry/references/registry-bundle.md` into every
+   framework-skill ZIP. Each framework skill's dispatch blockquote defers to
+   that file for the registry contract, but a standalone skill install (via
+   the Claude.ai ZIP download) only has what's in its own ZIP — omitting it
+   silently breaks standalone installs.
 
 ### Updating skill ZIP downloads (GitHub Releases)
 

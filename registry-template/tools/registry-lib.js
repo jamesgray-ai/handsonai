@@ -53,6 +53,16 @@ const SECTION_NAMES = new Set([
   'Lines of Business', 'Processes', 'Workflows', 'Artifacts', 'Skills', 'Agents', 'Insights', 'Owns',
 ]);
 
+// Windows checkouts (core.autocrlf=true) or a Windows-authored file hand off
+// CRLF line endings. Every parser in this module (frontmatter delimiter,
+// sections, GENERATED blocks) is written against LF-only text, so normalize
+// once at the read boundary (see loadBundle/scanSops/scanSkillsAndAgents)
+// rather than teaching every regex to tolerate an optional \r. A no-op on
+// already-LF text, so composed output stays byte-identical on LF systems.
+function normalizeLineEndings(text) {
+  return String(text || '').replace(/\r\n/g, '\n');
+}
+
 // --- Frontmatter -----------------------------------------------------------
 // Deliberately restricted to single-line YAML values (SCHEMA.md "Frontmatter").
 
@@ -180,7 +190,13 @@ function renderGeneratedBlock(name, content) {
 function replaceGeneratedBlock(raw, name, content) {
   const re = new RegExp(`<!-- GENERATED:${name} -->[\\s\\S]*?${GEN_CLOSE}`);
   if (!re.test(raw)) return { raw, replaced: false };
-  return { raw: raw.replace(re, renderGeneratedBlock(name, content)), replaced: true };
+  // Function-form replacer -- derived content (e.g. a Process titled with a
+  // literal "$&") can legitimately contain `$&`/`` $` ``/`$'`/`$<name>`, which
+  // the string form of .replace() would misread as replacement-pattern
+  // tokens and corrupt (same hazard compose-registry.js's dashboard inject
+  // guards against).
+  const block = renderGeneratedBlock(name, content);
+  return { raw: raw.replace(re, () => block), replaced: true };
 }
 
 // --- Bundle loader -----------------------------------------------------------
@@ -202,7 +218,7 @@ function loadBundle(rootDir) {
       if (st.isDirectory()) { walk(full); continue; }
       if (!name.endsWith('.md')) continue;
       const relPath = '/' + path.relative(absRoot, full).split(path.sep).join('/');
-      const raw = fs.readFileSync(full, 'utf8');
+      const raw = normalizeLineEndings(fs.readFileSync(full, 'utf8'));
       const { fields, body, error } = parseFrontmatter(raw);
       nodes.set(relPath, {
         type: fields ? fields.type : undefined,
@@ -229,7 +245,7 @@ function scanSops(workspaceRoot) {
     if (!name.endsWith('.md')) continue;
     const full = path.join(dir, name);
     if (!fs.statSync(full).isFile()) continue;
-    out.push({ path: `sops/${name}`, raw: fs.readFileSync(full, 'utf8') });
+    out.push({ path: `sops/${name}`, raw: normalizeLineEndings(fs.readFileSync(full, 'utf8')) });
   }
   return out;
 }
@@ -325,7 +341,7 @@ function lastChanged(fm) {
 
 module.exports = {
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
-  parseFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
+  normalizeLineEndings, parseFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
   loadBundle, scanSops, scanOutputsFolders, runsHasEntries, scanCapabilities,
   isGitIgnored, lastChanged,

@@ -58,6 +58,18 @@ for case in bad-enum dir-type-mismatch missing-owner missing-frontmatter broken-
   fi
 done
 run_lint broken/unassigned-backlog && ok "unassigned backlog is warning-only" || bad "backlog unassigned must not error"
+# lint: claims sweep dedupes claimants from the SAME workflow (Finding 4) --
+# two links to sops/one-sop.md in one workflow's prose is one claim, not a
+# false "claimed by 2 Workflow nodes" double-claim.
+WS=$(stage valid-bundle)
+node -e '
+const fs = require("fs");
+const f = process.argv[1];
+let t = fs.readFileSync(f, "utf8");
+t = t.replace("The complete fixture workflow", "See also [the SOP](sops/one-sop.md). The complete fixture workflow");
+fs.writeFileSync(f, t);
+' "$WS/registry/workflows/first-workflow.md"
+run_lint_at "$WS" && ok "duplicate same-workflow SOP link does not false-positive double-claim" || bad "duplicate same-workflow SOP link should still lint clean: $(run_lint_at "$WS" 2>&1)"
 # lint: a stale/hand-edited GENERATED:owns block is a WARNING, not an error
 # (Finding A -- the Owns-block deadlock). Phase 4 of scaffolding names Process
 # owners before Phase 6's maintenance pass regenerates Owns, so this is an
@@ -297,6 +309,66 @@ console.log(insightOk ? "INSIGHT_OK" : "INSIGHT_MISSING");
 ' /tmp/dashboard-renderer.js "$FIX/golden/data-island.json" > /tmp/dashboard-exec.out
   grep -q "BIZ_URL_OK" /tmp/dashboard-exec.out && ok "dashboard header link prefers business.url" || bad "dashboard header does not use business.url for its href"
   grep -q "INSIGHT_OK" /tmp/dashboard-exec.out && ok "workflow drill-in renders a matching Note as an Insight (data.notes via links)" || bad "workflow drill-in missing Insights section from data.notes"
+
+  # dashboard-template: a Workflow with processId:null (Finding 7) is counted
+  # in the KPI total (workflows.length) but, before this fix, was rendered
+  # nowhere -- it only ever appeared nested under a Process row, which by
+  # definition excludes a null processId. Also asserts the unassigned-
+  # processes lane no longer rebuilds title-less/owner-less stubs.
+  node -e '
+const fs = require("fs");
+const island = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+island.workflows = island.workflows.concat([{
+  id: "orphan-workflow-test", title: "Orphan Workflow Test",
+  description: "No process assigned.", status: "backlog",
+  processId: null, lobId: null, step: 1, skills: [], agents: [],
+  nodePath: "registry/workflows/orphan-workflow-test.md",
+}]);
+fs.writeFileSync(process.argv[2], JSON.stringify(island));
+' "$FIX/golden/data-island.json" /tmp/unassigned-wf-island.json
+  node -e '
+const fs = require("fs");
+const vm = require("vm");
+const script = fs.readFileSync(process.argv[1], "utf8");
+const islandJson = fs.readFileSync(process.argv[2], "utf8");
+
+function makeEl(id) {
+  return {
+    id: id, _text: "", _html: "", listeners: {},
+    get textContent() { return this._text; }, set textContent(v) { this._text = String(v); },
+    get innerHTML() { return this._html; }, set innerHTML(v) { this._html = String(v); },
+    classList: { add: function () {}, remove: function () {} },
+    setAttribute: function () {}, getAttribute: function () { return null; },
+    addEventListener: function (type, fn) { this.listeners[type] = this.listeners[type] || []; this.listeners[type].push(fn); },
+  };
+}
+const ids = ["data", "root", "scrim", "panel", "panel-type", "panel-title", "panel-desc", "panel-meta", "panel-extra", "panel-close"];
+const elements = {};
+ids.forEach(function (id) { elements[id] = makeEl(id); });
+elements["data"].textContent = islandJson;
+const doc = {
+  getElementById: function (id) { return elements[id]; },
+  listeners: {},
+  addEventListener: function (type, fn) { this.listeners[type] = this.listeners[type] || []; this.listeners[type].push(fn); },
+};
+const sandbox = { document: doc, console: console, Date: Date, JSON: JSON, String: String, Array: Array, Object: Object, Boolean: Boolean, Infinity: Infinity };
+vm.createContext(sandbox);
+vm.runInContext(script, sandbox);
+
+const shownByTitle = elements.root.innerHTML.indexOf("Orphan Workflow Test") !== -1;
+console.log(shownByTitle ? "UNASSIGNED_WF_SHOWN" : "UNASSIGNED_WF_MISSING");
+
+const fakeTarget = {
+  closest: function () {
+    return { getAttribute: function (attr) { return attr === "data-kind" ? "workflow" : (attr === "data-id" ? "orphan-workflow-test" : null); } };
+  },
+};
+(elements.root.listeners.click || []).forEach(function (fn) { fn({ target: fakeTarget }); });
+const drillInOk = elements["panel-title"].textContent === "Orphan Workflow Test";
+console.log(drillInOk ? "UNASSIGNED_WF_DRILLIN_OK" : "UNASSIGNED_WF_DRILLIN_FAIL");
+' /tmp/dashboard-renderer.js /tmp/unassigned-wf-island.json > /tmp/unassigned-wf-exec.out
+  grep -q "UNASSIGNED_WF_SHOWN" /tmp/unassigned-wf-exec.out && ok "processId:null workflow rendered by title in an Unassigned lane" || bad "processId:null workflow missing from rendered output"
+  grep -q "UNASSIGNED_WF_DRILLIN_OK" /tmp/unassigned-wf-exec.out && ok "processId:null workflow row is a clickable drill-in" || bad "processId:null workflow row did not drill in"
 else
   bad "registry-template/tools/dashboard-template.html missing"
 fi
@@ -338,6 +410,16 @@ if (text.indexOf("$&") === -1 || text.indexOf("$1 group") === -1) { console.log(
 console.log("OK");
 ' "$WS/registry-dashboard.html" > /tmp/inject-check.out 2>&1
 grep -q "^OK$" /tmp/inject-check.out && ok "dashboard injection survives \$&/\$1/</script> content intact" || bad "dashboard injection check failed: $(cat /tmp/inject-check.out) / compose: $(cat /tmp/inject-compose.out)"
+
+# registry-lib.js replaceGeneratedBlock: derived content containing a literal
+# "$&" must survive intact into a GENERATED block (Finding 3 -- the same
+# $-substitution hazard as the dashboard inject above, but in the
+# Function `# Owns` / Workflow `# Insights` regeneration path, which used the
+# string form of .replace() until now).
+WS=$(stage valid-bundle)
+sed -i '' 's/^title: "Client Onboarding"$/title: "Client Onboarding $\&"/' "$WS/registry/processes/client-onboarding.md"
+(cd "$WS" && node "$TOOLS/compose-registry.js" registry) >/tmp/dollar-owns-compose.out 2>&1
+grep -qF 'Client Onboarding $&' "$WS/registry/functions/operations.md" && ok "Owns block survives a \$& title intact" || bad "Owns block corrupted by \$& title: $(cat /tmp/dollar-owns-compose.out)"
 
 echo
 echo "$PASS ok, $FAIL bad"

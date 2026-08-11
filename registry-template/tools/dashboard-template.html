@@ -266,8 +266,16 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     return byLobId;
   }
 
-  function renderLane(lob) {
-    var procs = processesForLob(lob);
+  // `explicitProcs`, when given, is used verbatim instead of resolving via
+  // processesForLob(lob) -- the unassigned-processes pseudo-lane below passes
+  // the real Process nodes here so it never falls through processesForLob's
+  // id-only stub-fill path (that path is a deliberate defensive fallback for
+  // a real LOB's declared `processes` id list referencing an unresolvable
+  // process; reusing it for the unassigned lane rebuilt every row as
+  // `{id, title: id, ownerId: null}`, silently dropping the real title and
+  // owner).
+  function renderLane(lob, explicitProcs) {
+    var procs = explicitProcs || processesForLob(lob);
     var rows = procs.length
       ? procs.map(renderProcessRow).join('')
       : '<div class="prow"><span class="none-yet">No processes yet</span></div>';
@@ -285,6 +293,27 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     var lobIds = {};
     lobs.forEach(function (l) { lobIds[l.id] = true; });
     return processes.filter(function (p) { return !p.lobId || !lobIds[p.lobId]; });
+  }
+
+  // Workflows with no processId (SCHEMA.md: a legitimately-unassigned
+  // Workflow) are counted in the KPI strip's total but, before this fix, were
+  // never rendered anywhere -- they only ever appeared nested under a
+  // Process row (`workflows.filter(wf => wf.processId === proc.id)`), which
+  // by definition excludes them.
+  function unassignedWorkflows() {
+    return workflows.filter(function (wf) { return !wf.processId; });
+  }
+
+  function renderUnassignedWorkflowsLane() {
+    var wfs = unassignedWorkflows();
+    if (!wfs.length) return '';
+    return '<section class="lane">' +
+      '<div class="lane-hd">' +
+        '<span class="lane-kicker">Unassigned</span>' +
+        '<h3>Workflows without a process</h3>' +
+      '</div>' +
+      '<div class="spine"><div class="prow"><div class="wfl">' + wfs.map(renderWorkflowRow).join('') + '</div></div></div>' +
+      '</section>';
   }
 
   function renderBizBand() {
@@ -315,8 +344,10 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
 
     var extra = unassignedProcesses();
     if (extra.length) {
-      html += renderLane({ id: '__unassigned__', title: 'Unassigned', status: null, processes: extra.map(function (p) { return p.id; }) });
+      html += renderLane({ id: '__unassigned__', title: 'Unassigned', status: null }, extra);
     }
+
+    html += renderUnassignedWorkflowsLane();
 
     root.innerHTML = html;
   }

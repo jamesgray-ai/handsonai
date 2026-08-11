@@ -248,8 +248,12 @@ function lint(bundleDir) {
   //    contradict status.
   const claims = new Map(); // repo path (no trailing slash) -> [workflow relPaths]
   for (const w of workflows) {
-    for (const href of lib.classifyLinks(w.raw).repo) {
-      const key = href.replace(/\/$/, '');
+    // Dedupe per workflow first -- a workflow linking the same repo path
+    // twice in its prose (e.g. once in `# Artifacts`, once in free text) is
+    // one claim, not two, so it must never register as "claimed by 2
+    // Workflow nodes" against itself.
+    const keysInThisWorkflow = new Set(lib.classifyLinks(w.raw).repo.map((href) => href.replace(/\/$/, '')));
+    for (const key of keysInThisWorkflow) {
       if (!claims.has(key)) claims.set(key, []);
       claims.get(key).push(w.relPath);
     }
