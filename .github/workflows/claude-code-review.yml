@@ -58,25 +58,47 @@ jobs:
         with:
           fetch-depth: 1
 
+      # This intentionally follows the action's own "Automatic PR Code Review" recipe
+      # (docs/solutions.md) rather than the code-review plugin. The plugin path failed
+      # six consecutive runs (issue #218): the action grants almost no tools by default
+      # in automation mode, and the plugin's multi-agent review needs tools the action
+      # does not document — runs burned 22-56 turns on 21-131 permission denials, then
+      # posted junk probes ("test", "test-approval-check") or nothing. The documented
+      # recipe uses exactly the four tools granted below and nothing else, so there is
+      # nothing left to be denied. Deep, structured review remains a local /code-review
+      # concern; this check is the light unattended gate.
+      #
+      # The prompt REQUIRES the top-level comment to open with "## Code review" — the
+      # verify step below greps for that heading; change them together or not at all.
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
-          plugins: 'code-review@claude-code-plugins'
-          prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }} --comment'
-          # The action grants NO tools by default in automation (prompt) mode. Without
-          # this allowlist the reviewer cannot read the diff or post anything: runs on
-          # #217 and #231 burned 42-56 turns on 41-131 permission denials, then posted
-          # junk probe comments ("test", "test-approval-check") or nothing at all —
-          # issue #218's whole failure mode. The grants follow the action's own
-          # "Automatic PR Code Review" example in docs/solutions.md, plus the read-only
-          # git commands and scoped `gh api .../comments` POST the code-review plugin's
-          # --comment step uses for inline findings. The workflow's GITHUB_TOKEN caps
-          # the blast radius at contents:read + pull-requests/issues:write regardless.
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Please review this pull request with a focus on:
+            - Code quality and best practices
+            - Potential bugs or issues
+            - Security implications
+            - Performance considerations
+            - CLAUDE.md compliance
+
+            Note: The PR branch is already checked out in the current working directory.
+
+            Use `gh pr comment` for top-level feedback, and start that comment's body
+            with the exact heading "## Code review" (a required marker — CI verifies
+            it). If you find no issues, still post the comment, e.g.
+            "## Code review\n\nNo issues found. Checked for bugs and CLAUDE.md
+            compliance."
+            Use `mcp__github_inline_comment__create_inline_comment` (with
+            `confirmed: true`) to highlight specific code issues.
+            Only post GitHub comments - don't submit review text as messages.
+
           claude_args: |
-            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh api repos/${{ github.repository }}/pulls/*:*),Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(git fetch:*)"
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
