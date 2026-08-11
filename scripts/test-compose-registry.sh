@@ -142,6 +142,40 @@ if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
   && ok "island validates against data-island.schema.json" \
   || bad "island failed schema validation"
 
+# dashboard-template: self-contained Tier 2 dashboard renders the golden
+# island. Injects with a replacer FUNCTION (never a $-substitution string --
+# JSON content can contain literal "$1"-shaped text) and escapes any
+# "</script"-like substrings so an embedded string can never early-terminate
+# the data island element.
+DASH="$TOOLS/dashboard-template.html"
+if [ -f "$DASH" ]; then
+  node -e '
+const fs = require("fs");
+const template = fs.readFileSync(process.argv[1], "utf8");
+const island = fs.readFileSync(process.argv[2], "utf8");
+const escaped = island.replace(/<\/script/gi, "<\\/script");
+const re = /(<script type="application\/json" id="data">)[\s\S]*?(<\/script>)/;
+const out = template.replace(re, function (_m, open, close) { return open + escaped + close; });
+fs.writeFileSync(process.argv[3], out);
+' "$DASH" "$FIX/golden/data-island.json" /tmp/dashboard-rendered.html
+  grep -q "Kestrel Studio" /tmp/dashboard-rendered.html && ok "dashboard renders business name from golden island" || bad "dashboard missing Kestrel Studio"
+  ext=$(grep -cE '(src|href)="https?://' /tmp/dashboard-rendered.html || true)
+  [ "${ext:-0}" -eq 0 ] && ok "dashboard makes zero external requests (no http(s) src/href)" || bad "dashboard references an external URL"
+  # Extract the renderer <script> -- the one WITHOUT type="application/json" --
+  # never the data island itself, then check it's syntactically valid JS.
+  node -e '
+const fs = require("fs");
+const html = fs.readFileSync(process.argv[1], "utf8");
+const re = /<script(?![^>]*type="application\/json")[^>]*>([\s\S]*?)<\/script>/g;
+let m, script = "";
+while ((m = re.exec(html))) { script += m[1] + "\n"; }
+fs.writeFileSync(process.argv[2], script);
+' /tmp/dashboard-rendered.html /tmp/dashboard-renderer.js
+  node --check /tmp/dashboard-renderer.js && ok "dashboard renderer script is syntactically valid" || bad "dashboard renderer script has a syntax error"
+else
+  bad "registry-template/tools/dashboard-template.html missing"
+fi
+
 echo
 echo "$PASS ok, $FAIL bad"
 [ "$FAIL" -eq 0 ]
