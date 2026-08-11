@@ -34,6 +34,27 @@ DEST_DIR="${AI_REGISTRY_TEMPLATE_DIR:-$HOME/Code/jamesgray/ai-registry-template}
 [ -f "$ROOT/scripts/check-registry-consistency.sh" ] || { echo "Error: scripts/check-registry-consistency.sh is missing — refusing to sync unverified." >&2; exit 1; }
 [ -f "$ROOT/scripts/check-plugin-sync.sh" ] || { echo "Error: scripts/check-plugin-sync.sh is missing — refusing to sync unverified." >&2; exit 1; }
 
+# Guard against a mis-set AI_REGISTRY_TEMPLATE_DIR nuking an unrelated directory.
+# Unlike sync-plugins.sh's DEST_DIR — a namespaced plugins/<name>/ subpath — this
+# DEST_DIR is the raw env var, so `rsync --delete` below treats it as its own root:
+# a wrong-but-existing path puts everything in that directory in the blast radius.
+# Refuse to proceed unless DEST_DIR actually looks like an ai-registry-template clone:
+# a real .git, plus either the registry/ dir a real clone has, or nothing else at all
+# (a fresh `git clone` before this script has ever populated it).
+dest_looks_like_template_clone() {
+  local dir="$1"
+  [ -d "$dir/.git" ] || return 1
+  [ -d "$dir/registry" ] && return 0
+  # Empty apart from .git counts as a fresh clone.
+  [ -z "$(find "$dir" -mindepth 1 -maxdepth 1 -not -name '.git')" ]
+}
+
+if ! dest_looks_like_template_clone "$DEST_DIR"; then
+  echo "Error: refusing to sync: $DEST_DIR does not look like an ai-registry-template clone." >&2
+  echo "Expected layout: a git clone containing .git/ and registry/ (or an empty fresh clone with just .git/)." >&2
+  exit 1
+fi
+
 # Registry consistency first — no point shipping a template that already disagrees with
 # itself. Not --full yet: the doc-migration checks it adds depend on Batch E, which
 # hasn't landed. Add --full here once it has.

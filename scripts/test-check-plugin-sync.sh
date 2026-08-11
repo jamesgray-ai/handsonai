@@ -226,6 +226,34 @@ else
   bad "missing ai-registry-template clone should skip (exit $RC): $(tail -1 "$TMP/out")"
 fi
 
+# --- sync-registry-template.sh destination guard ----------------------------
+#
+# Unlike sync-plugins.sh's DEST_DIR (a namespaced plugins/<name>/ subpath),
+# sync-registry-template.sh's DEST_DIR is the raw AI_REGISTRY_TEMPLATE_DIR — a
+# mis-set env var pointing at an unrelated, already-populated directory puts that
+# whole directory in `rsync --delete`'s blast radius. The script must refuse to run
+# against anything that doesn't look like an ai-registry-template clone.
+
+echo
+echo "sync-registry-template.sh — destination guard"
+
+REG_SYNC="$ROOT/scripts/sync-registry-template.sh"
+BAD_DEST="$TMP/not-a-clone"
+rm -rf "$BAD_DEST"
+mkdir -p "$BAD_DEST"
+echo "unrelated data — must survive" > "$BAD_DEST/important-unrelated-file.txt"
+
+AI_REGISTRY_TEMPLATE_DIR="$BAD_DEST" SYNC_ACK_DRIFT=1 bash "$REG_SYNC" > "$TMP/out" 2>&1
+RC=$?
+if [ "$RC" -ne 0 ] \
+   && grep -qi "does not look like an ai-registry-template clone" "$TMP/out" \
+   && grep -qF "$BAD_DEST" "$TMP/out" \
+   && [ -f "$BAD_DEST/important-unrelated-file.txt" ]; then
+  ok "sync refuses a destination that doesn't look like a template clone, and leaves it untouched"
+else
+  bad "sync should refuse on a non-clone destination and leave it untouched (exit $RC): $(tail -1 "$TMP/out")"
+fi
+
 # --- sync-plugins.sh drift gate ---------------------------------------------
 
 echo
