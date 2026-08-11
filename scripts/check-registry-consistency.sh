@@ -238,10 +238,10 @@ for skill in "${BUNDLE_REFERENCERS[@]}"; do
 done
 must_contain "framework-agent.md defers to registry-bundle.md" plugins/handsonai/agents/framework-agent.md "registry-bundle.md"
 
-# The seven skills that actually write a Workflow node end-to-end must hand off to a
-# maintenance pass afterward. Analyze precedes registry existence (nothing to name yet),
-# so naming-workflows — the true first write — fills its slot.
-declare -a MAINTENANCE_PASS_SKILLS=(deconstruct design build test run improve naming-workflows)
+# The canonical seven framework-step skills must each hand off to a maintenance pass
+# afterward — including Analyze, whose closing step invokes one to keep its own
+# resume-orientation scan accurate even though Analyze itself writes no Workflow node.
+declare -a MAINTENANCE_PASS_SKILLS=(analyze deconstruct design build test run improve)
 for skill in "${MAINTENANCE_PASS_SKILLS[@]}"; do
   must_contain "$skill/SKILL.md invokes a maintenance pass" "plugins/handsonai/skills/$skill/SKILL.md" "maintenance pass"
 done
