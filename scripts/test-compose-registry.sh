@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Tests for registry-template/tools/lint-registry.js (Task 5) and, once it
+# exists, tools/compose-registry.js (Task 6). Follows the ok/bad/skip +
+# summary house style from scripts/test-check-plugin-sync.sh.
+#
+# Every fixture stages into an isolated mktemp git repo (see stage() below) so
+# `git check-ignore` inside lint sees only the fixture's own .gitignore, never
+# this repo's unanchored `outputs/` rule -- that's also why
+# `registry-template/tools/fixtures/**` is un-ignored in the root .gitignore.
+#
+# Run: bash scripts/test-compose-registry.sh
+
+# NOTE: deliberately no `pipefail` -- several cases below pipe a command that
+# legitimately exits 1 (lint reporting errors) into `grep -q`, and only
+# grep's result should decide the assertion; pipefail would make the
+# pipeline's exit status track the (expectedly nonzero) left-hand command
+# instead, breaking every one of those checks.
+set -u
+
+PASS=0
+FAIL=0
+ok()   { echo "  ok    $1"; PASS=$((PASS + 1)); }
+bad()  { echo "  FAIL  $1"; FAIL=$((FAIL + 1)); }
+skip() { echo "  skip  $1"; }
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+TOOLS="$REPO_ROOT/registry-template/tools"
+FIX="$TOOLS/fixtures"
+stage() {  # copy a fixture workspace to an isolated temp git repo; echoes the path
+  local ws; ws=$(mktemp -d)
+  cp -R "$FIX/$1/." "$ws/"
+  (cd "$ws" && git init -q . && git add -A >/dev/null 2>&1)
+  echo "$ws"
+}
+run_lint()    { local ws; ws=$(stage "$1"); (cd "$ws" && node "$TOOLS/lint-registry.js" registry >/dev/null 2>&1); }
+lint_output() { local ws; ws=$(stage "$1"); (cd "$ws" && node "$TOOLS/lint-registry.js" registry 2>&1); }
+run_lint_at() { (cd "$1" && node "$TOOLS/lint-registry.js" registry); }
+compose_at()  { WS=$(stage "$1"); (cd "$WS" && node "$TOOLS/compose-registry.js" registry); }  # sets $WS for assertions
+
+# lint: valid bundle passes
+run_lint valid-bundle && ok "valid bundle lints clean (exit 0)" || bad "valid bundle should lint clean"
+# lint: warnings present but exit 0
+lint_output valid-bundle | grep -q "WARN.*stale_after" && ok "overdue stale_after warned" || bad "expected overdue warning"
+lint_output valid-bundle | grep -q "WARN.*orphan-skill" && ok "orphan capability warned" || bad "expected orphan-capability warning"
+# lint: each broken fixture fails with a message naming the file
+lint_output valid-bundle | grep -q "WARN" || bad "expected warnings on valid bundle"
+lint_output broken/warn-bad-actor | grep -q "WARN.*generated.by" && ok "actor-string warned" || bad "expected actor warning"
+lint_output broken/warn-misfiled-note | grep -q "WARN.*[Nn]ote" && ok "misfiled note warned" || bad "expected note warning"
+for case in bad-enum dir-type-mismatch missing-owner missing-frontmatter broken-link banned-field \
+            unclaimed-sop double-claim sop-backpointer-mismatch runlog-status-contradiction \
+            double-parent-list unassigned-inproduction missing-owns-block unterminated-generated \
+            multiline-frontmatter hand-edited-generated missing-index-entry missing-dir-index \
+            legacy-timestamp; do
+  if run_lint "broken/$case"; then bad "$case: lint should exit 1"; else
+    lint_output "broken/$case" | grep -q "ERROR" && ok "$case errors" || bad "$case: no ERROR line"
+  fi
+done
+run_lint broken/unassigned-backlog && ok "unassigned backlog is warning-only" || bad "backlog unassigned must not error"
+# lint: gitignore tolerance -- valid bundle with outputs/ deleted still lints clean
+tmp=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$tmp/"; rm -rf "$tmp/outputs"
+printf 'outputs/\n' > "$tmp/.gitignore"; (cd "$tmp" && git init -q . && git add -A >/dev/null)
+run_lint_at "$tmp" && ok "gitignored artifact links tolerated" || bad "gitignore tolerance failed"
+
+echo
+echo "$PASS ok, $FAIL bad"
+[ "$FAIL" -eq 0 ]

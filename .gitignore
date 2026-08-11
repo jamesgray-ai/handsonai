@@ -41,6 +41,12 @@ src/content/docs/courses/leaders/lessons/
 outputs/
 specs/
 
+# Registry tooling fixtures deliberately include their own outputs/ trees --
+# un-ignore them so they aren't swallowed by the unanchored outputs/ rule
+# above, and so `git check-ignore` inside a staged fixture only sees the
+# fixture's own .gitignore, not this repo's.
+!registry-template/tools/fixtures/**
+
 # on-demand docx install by the multi-agent-example renderer
 plugins/multi-agent-example/scripts/node_modules/
 scripts/node_modules/
