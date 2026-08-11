@@ -29,7 +29,7 @@ The [plugin format](https://code.claude.com/docs/en/plugins#plugin-structure-ove
 - **Skills** — Step-by-step workflows (an instruction file plus optional reference material) that teach Claude specific tasks. A skill might encode a methodology step, a documentation template, or a spec-writing pattern.
 - **Commands** — Slash commands that trigger specific actions (like `/handsonai:analyze` for the Analyze step).
 - **Hooks** — Automations that run in response to events (e.g., running a linter after every file edit).
-- **MCP servers** — Connections to external tools and services (e.g., Notion, GitHub, Slack).
+- **MCP servers** — Connections to external tools and services (e.g., GitHub, Slack, Jira).
 
 The Hands-on AI plugin currently focuses on **agents** and **skills**. As it grows, it may also include hooks and connectors.
 
@@ -122,17 +122,18 @@ You can also invoke a skill directly with a slash command. The format is `/hands
 | `/handsonai:test` | Test artifacts and evaluate output quality |
 | `/handsonai:run` | Generate a Run Guide for deployment |
 | `/handsonai:improve` | Evaluate a running workflow |
+| `/handsonai:scaffolding-registry` | Stand up your registry bundle — SCHEMA.md and a first real Workflow node |
 | `/handsonai:naming-workflows` | Generate consistent workflow names + registry entry |
 | `/handsonai:writing-workflow-sops` | Write a Standard Operating Procedure |
 | `/handsonai:writing-process-guides` | Write a Business Process Guide |
-| `/handsonai:indexing-registry` | Generate or refresh the REGISTRY.md index |
+| `/handsonai:indexing-registry` | Lint your registry bundle and regenerate the REGISTRY.md index and dashboard |
 | `/handsonai:writing-vision-briefs` | Capture a fuzzy idea as a Vision Brief |
 | `/handsonai:writing-feature-prds` | Write a feature PRD with user stories and acceptance criteria |
 
 The [plugin detail page](../handsonai/) describes each one in depth, with example prompts and expected outputs.
 
 :::note
-The AI Registry skills are pure Markdown — they read and write files in your workspace, no external services required. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for how the registry works. Notion is available as an optional mirror via the Notion MCP connector.
+The AI Registry skills are pure Markdown — no external services. They read and write files in your workspace. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for how the registry works.
 :::
 
 ### Checking what's installed
@@ -238,7 +239,7 @@ Agent files have a different format from skill files and cannot be uploaded as s
 
 ### Skill compatibility across platforms
 
-All 13 skills work fully across Claude Code, Claude.ai, and Cowork.
+All 14 skills work fully across Claude Code, Claude.ai, and Cowork.
 
 | Skill | Claude Code | Claude.ai | Cowork | Notes |
 |-------|:----------:|:---------:|:------:|-------|
@@ -249,10 +250,11 @@ All 13 skills work fully across Claude Code, Claude.ai, and Cowork.
 | `test` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
 | `run` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
 | `improve` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
-| `naming-workflows` | **Full** | **Full** | **Full** | Writes workflow.yaml — no external services |
-| `writing-workflow-sops` | **Full** | **Full** | **Full** | Pure instructions; Notion MCP optional (mirror) |
-| `writing-process-guides` | **Full** | **Full** | **Full** | Pure instructions; Notion MCP optional (mirror) |
-| `indexing-registry` | **Full** | **Full** | **Full** | Pure instructions; Notion MCP optional (mirror) |
+| `scaffolding-registry` | **Full** | **Full** | **Full** | Writes registry bundle nodes — no external services |
+| `naming-workflows` | **Full** | **Full** | **Full** | Writes registry nodes — no external services |
+| `writing-workflow-sops` | **Full** | **Full** | **Full** | No external services |
+| `writing-process-guides` | **Full** | **Full** | **Full** | No external services |
+| `indexing-registry` | **Full** | **Full** | **Full** | No external services |
 | `writing-vision-briefs` | **Full** | **Full** | **Full** | Pure instructions |
 | `writing-feature-prds` | **Full** | **Full** | **Full** | GitHub CLI recommended for issue creation |
 
@@ -278,7 +280,7 @@ You can also click the **Customize with plugins** card on the Cowork home screen
 - Plugins bundle skills, connectors, slash commands, and sub-agents
 - Cowork coordinates parallel workstreams and delivers professional outputs (Excel, PowerPoint, formatted docs)
 - Pairs with **Claude in Chrome** for browser-based tasks
-- Pairs with **MCP connectors** for external tool access (e.g., Notion)
+- Pairs with **MCP connectors** for external tool access (e.g., Slack, Google Drive)
 - Plugins are saved locally to your machine
 
 ### Cowork vs Claude Code
@@ -358,7 +360,7 @@ response = client.messages.create(
 ```
 
 :::note
-MCP-dependent steps (like the optional Notion mirror in `indexing-registry`) won't work via the raw API since they require tool integrations that the API alone doesn't provide.
+MCP-dependent steps (like the integration research the `build` skill does against your platform registry) won't work via the raw API since they require tool integrations that the API alone doesn't provide.
 :::
 
 </details>

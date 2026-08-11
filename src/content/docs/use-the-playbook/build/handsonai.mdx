@@ -5,7 +5,7 @@ description: Everything you need to design, build, and document AI workflows. Th
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-One plugin, one install, three categories of work. Bundles the **AI Workflow Framework** (methodology), the **AI Registry** (documentation tooling), and **Agentic Coding** (feature-spec writing) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 13 skills.**
+One plugin, one install, three categories of work. Bundles the **AI Workflow Framework** (methodology), the **AI Registry** (documentation tooling), and **Agentic Coding** (feature-spec writing) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 14 skills.**
 
 These are plain-text Markdown files that work in any AI tool. Install as a Claude Code plugin for the full experience, or download individual skills as ZIPs for ChatGPT, M365 Copilot, Cursor, and other platforms.
 
@@ -67,19 +67,25 @@ Walks you through the full 7-step framework end-to-end. The agent calls the righ
 
 ## AI Registry
 
-Once you've built workflows worth tracking, you need a registry. These four skills maintain a **Markdown-based AI Registry** that lives in your workspace: workflow metadata in `workflow.yaml` manifests, self-describing skill and agent files, and a generated `REGISTRY.md` index that gives you the at-a-glance dashboard. The framework skills keep it current automatically — no external database required.
+Once you've built workflows worth tracking, you need a registry. These five skills maintain your **AI Registry** — a `registry/` knowledge bundle at your workspace root, plus everything derived from it. The bundle holds typed concept nodes (Business, LineOfBusiness, Function, Process, Workflow, Note) as individual Markdown files, governed by a `registry/SCHEMA.md` producer profile that every skill reads before it writes — required frontmatter, enum values, link discipline, and banned fields all live there, so every skill's writes and every maintenance pass's lint checks agree on the same contract. The bundle is the source of truth; the `REGISTRY.md` dashboard, directory indexes, and GENERATED blocks are all derived from it — edit sources, regenerate, never hand-edit a derived view.
 
 :::note[No external tools needed]
-The AI Registry is pure Markdown — it works anywhere Claude can read and write files. If you like a visual database view, Notion is available as an **optional mirror**. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for the full guide.
+The AI Registry is pure Markdown — it works anywhere Claude can read and write files. No external database or service required. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for the full guide.
 :::
 
 ### Skills
+
+#### `scaffolding-registry`
+
+**Slash command:** `/handsonai:scaffolding-registry`
+
+Stands up a brand-new AI Registry: a guided, ~30-minute interview that creates the `registry/` bundle — `SCHEMA.md`, the typed directories, and a first real Business, Line of Business, Function, Process, and Workflow node for your actual work. Triggers when you ask to set up your registry, or automatically when another framework skill finds no `registry/SCHEMA.md` in the workspace. Re-running on an existing bundle fills gaps rather than re-scaffolding, and it also migrates legacy layouts (old per-workflow manifest files or flat requirements files) into the bundle. Hands off to `indexing-registry` for the workspace's first maintenance pass and dashboard.
 
 #### `naming-workflows`
 
 **Slash command:** `/handsonai:naming-workflows`
 
-Generates consistent, outcome-focused names and descriptions for business workflows, then records them in the workflow's `workflow.yaml` manifest — its AI Registry entry. Follows domain-specific naming patterns (Sales, Marketing, Product, Education, Operations) so your registry stays organized as it grows.
+Generates consistent, outcome-focused names and descriptions for business workflows, then records them as Workflow nodes in your registry bundle. Follows domain-specific naming patterns (Sales, Marketing, Product, Education, Operations) so your registry stays organized as it grows.
 
 #### `writing-workflow-sops`
 
@@ -97,9 +103,9 @@ Writes Business Process Guide documentation that explains the strategic context 
 
 **Slash command:** `/handsonai:indexing-registry`
 
-Generates and refreshes `REGISTRY.md` — the AI Registry index at your workspace root. Scans your skills, agents, workflow manifests, SOPs, and process guides, then builds tables showing everything you've built: names, descriptions, Quick Start Prompts, workflow status and health, business-process groupings, and the apps each workflow uses. The framework skills refresh it automatically; run it standalone to pick up assets created outside the framework or to repair a stale index. Can optionally mirror entries to the Notion registry template.
+Maintains the AI Registry bundle and its derived views. Lints your bundle against its SCHEMA, refreshes indexes and GENERATED views, and regenerates your REGISTRY.md and visual dashboard. Runs five jobs in a full pass: lint the bundle, refresh typed-directory indexes, regenerate GENERATED blocks (a Workflow's Insights, a Function's Owns list), regenerate the Tier 1 `REGISTRY.md` dashboard (and the Tier 2 visual HTML dashboard on request), and append `log.md` for schema changes and migrations. The framework skills trigger it automatically at their closing steps; run it standalone to pick up assets created outside the framework or to repair a stale index.
 
-**Recommended workflow:** Name → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index. Each skill works independently if you don't need the full sequence.
+**Recommended workflow:** Scaffold the bundle → Name workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index. Each skill works independently if you don't need the full sequence.
 
 ---
 
