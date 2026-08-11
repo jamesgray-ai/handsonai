@@ -119,6 +119,14 @@ function validate(node, sch, path) {
     }
     return;
   }
+  if (sch.type) {
+    const types = Array.isArray(sch.type) ? sch.type : [sch.type];
+    const jsType = node === null ? "null" : typeof node === "number" ? "number" : typeof node === "boolean" ? "boolean" : typeof node === "string" ? "string" : typeof node;
+    if (!types.includes(jsType)) {
+      errors.push(path + ": expected type " + JSON.stringify(sch.type) + ", got " + jsType);
+      return;
+    }
+  }
   if (sch.enum && !sch.enum.includes(node)) {
     errors.push(path + ": " + JSON.stringify(node) + " not in enum " + JSON.stringify(sch.enum));
   }

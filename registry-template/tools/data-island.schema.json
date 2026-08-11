@@ -3,6 +3,7 @@
   "$id": "https://handsonai.info/registry-template/data-island.schema.json",
   "title": "OKF Registry Data Island",
   "description": "The shape of the JSON data island emitted by registry-template/tools/compose-registry.js (--island-only or embedded in the dashboard HTML). Consumers (the dashboard, the MCP/skill query tools) tolerate unknown keys -- additionalProperties is true everywhere on purpose (OKF doctrine: readers must not break on forward-compatible fields).",
+  "$comment": "No $ref/definitions anywhere in this schema, by design: the validator embedded in scripts/test-compose-registry.sh is a deliberately zero-dependency ~30-line node -e checker (no ajv, no npm installs) that walks required/type/enum directly off each schema node -- it does not resolve $ref. Every enum (status, definitionType, executionMode, autonomy) is therefore inlined at its property site rather than centralized in a definitions block, so the checker actually sees and enforces it instead of silently no-oping on an unresolved $ref object.",
   "type": "object",
   "additionalProperties": true,
   "required": [
