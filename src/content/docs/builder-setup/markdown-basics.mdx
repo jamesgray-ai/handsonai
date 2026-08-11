@@ -15,7 +15,7 @@ howto_steps:
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Markdown is the format your AI writes in, and the format nearly everything in this playbook is stored in — skills, prompts, context files, and your AI Registry.
+Markdown is the format your AI writes in, and the format nearly everything in this playbook is stored in — skills, prompts, context files, and your AI Registry bundle.
 
 Here is the whole ask: **you mostly read Markdown. Your AI mostly writes it.** You need to recognize six symbols and know how to save a file. That is the entire skill.
 
@@ -210,7 +210,7 @@ Nobody has to know your source file was Markdown. That is rather the point.
 
 ## What's That Dashed Block at the Top?
 
-Open a skill file or a registry entry and you will find something like this at the very top, fenced by three dashes:
+Open a skill file or a node in your AI Registry bundle and you will find something like this at the very top, fenced by three dashes:
 
 ```markdown
 ---
@@ -275,6 +275,6 @@ Now that you can read it, you will see it everywhere:
 - **[Context](../../agentic-building-blocks/context/)** — the background material you give your AI. Markdown is how you write it down so the model can navigate it.
 - **[Skills](../../agentic-building-blocks/skills/)** — every skill is a Markdown file with frontmatter at the top.
 - **[Prompts](../../agentic-building-blocks/prompts/)** — structured prompts use headings and lists for the same reason your context files do.
-- **[AI Registry](../ai-registry-setup/)** — your inventory of what you have built, kept as Markdown in your workspace.
+- **[AI Registry](../ai-registry-setup/)** — your AI Registry bundle, kept as Markdown in your workspace.
 
 You do not need to write any of these by hand. But you can now read them, edit them, and tell when something looks wrong — which is the whole job.

@@ -172,7 +172,7 @@ The skill reads your Design Spec and artifacts, generates the Run Guide, and wal
 
 ## Next Step
 
-Once your workflow is running in production, the run skill records a `next_review` date in the workflow manifest (monthly for high-frequency workflows, quarterly for occasional ones). When that date arrives — or sooner, if quality signals suggest it — start a new conversation and say: **"Run the `improve` skill on [workflow name]."** The manifest, baseline test scores, and run log carry everything **[Step 7: Improve](../improve/)** needs; you don't have to re-explain the workflow.
+Once your workflow is running in production, the run skill records a `stale_after` review date on the Workflow node (monthly for high-frequency workflows, quarterly for occasional ones). When that date arrives — or sooner, if quality signals suggest it — start a new conversation and say: **"Run the `improve` skill on [workflow name]."** The node, baseline test scores, and run log carry everything **[Step 7: Improve](../improve/)** needs; you don't have to re-explain the workflow.
 
 ## Related
 

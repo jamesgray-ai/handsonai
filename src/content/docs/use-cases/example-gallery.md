@@ -3,7 +3,7 @@ title: Example Gallery
 description: A library of example agents, skills, and prompts to copy and customize. Templates for research, writing, editorial review, and meeting prep — adapt any of them to your own workflow.
 ---
 
-The Hands-on AI plugin gives you the **methodology** for building AI workflows (Analyze → Improve) plus the **registry tools** for documenting them. Once you've designed your own workflow, you'll often want to start from a working example rather than a blank slate.
+The Hands-on AI plugin gives you the **methodology** for building AI workflows (Analyze → Improve) plus the **registry skills (5)** for getting them registered in your knowledge bundle. Once you've designed your own workflow, you'll often want to start from a working example rather than a blank slate.
 
 This gallery preserves a set of agents, skills, and prompts that were originally bundled in the marketplace. They're scoped to specific personas (an HBR-style editor, an Anthropic-focused researcher) and use cases (executive writing, meeting prep, LinkedIn prospecting), so they don't ship as installable tools — but they're a useful **starting point** when you're building something similar.
 

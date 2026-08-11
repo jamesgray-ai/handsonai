@@ -33,7 +33,7 @@ Before the model generates any artifacts, you need to resolve the context your w
 
 Build begins by working through this list:
 
-- **Find existing documents** — Locate the style guides, templates, reference materials, and example files your workflow needs. These may live in shared drives, Notion databases, or on your local machine.
+- **Find existing documents** — Locate the style guides, templates, reference materials, and example files your workflow needs. These may live in shared drives, a CRM, or your local machine.
 - **Create missing materials** — Some context does not exist yet. A workflow that standardizes writing needs a style guide. A workflow that evaluates proposals needs scoring criteria. Create these now.
 - **Format for AI consumption** — AI works best with clearly structured text. Convert complex spreadsheets into Markdown tables. Extract relevant sections from long PDFs. Add headers and labels so the model can navigate reference materials efficiently.
 
@@ -122,7 +122,7 @@ The model handles artifact generation, but several things require your involveme
 
 As you build, two background practices keep your work organized and recoverable:
 
-**Keep the workflow manifest current.** The `workflow.yaml` manifest in your workflow's folder (created during Deconstruct) records where every generated artifact lives. The build skill updates it automatically — if you're building artifacts yourself, add each one as you finish it. The manifest is what lets Test, Run, and Improve find everything later without you re-explaining the workflow.
+**Keep the registry current.** The Workflow node in your `registry/` bundle (created during Deconstruct) records where every generated artifact lives, under its `# Artifacts` section. The build skill updates it automatically — if you're building artifacts yourself, add each one as you finish it. The node's `# Artifacts` is what lets Test, Run, and Improve find everything later.
 
 **Commit source files to GitHub.** The `.md` files for your skills, agents, and prompts are source code — they should live in version control, not just on your local machine. After creating or updating a building block, commit it to your GitHub repository. This gives you a history of changes, makes it easy to share with collaborators, and protects against losing work.
 

@@ -264,7 +264,7 @@ The model presents its findings as a summary and asks you to confirm or address 
 - **Gather your context resources early.** The model identifies specific resources the workflow needs — documents, spreadsheets, databases, CRM access, application credentials, sample data. If you already have these, have them ready. If you don't, the analysis tells you exactly what to create or set up.
 
 :::tip[Your workflow gets its own folder]
-Once the name is confirmed, the skill creates a folder for the workflow — `outputs/[name]/` — with a small `workflow.yaml` manifest inside. The manifest tracks which framework step you're on and where every artifact lives, so any later session (or any framework skill) can pick up exactly where you left off. Your `outputs/` directory becomes your workflow inventory — no separate tracking system required.
+Once the name is confirmed, the skill creates a folder for the workflow — `outputs/[name]/` — and a Workflow node for it in your `registry/` bundle. The node tracks which framework step you're on and where every artifact lives, so any later session (or any framework skill) can pick up exactly where you left off. `outputs/` stays the home for the artifacts themselves; your registry becomes your workflow inventory — no separate tracking system required.
 :::
 
 ## Related
