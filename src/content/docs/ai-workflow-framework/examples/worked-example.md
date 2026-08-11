@@ -672,7 +672,7 @@ The Run Guide is the "how to operate this" document — worth reading even weeks
 1. Open your Cowork project. Confirm both skills appear in your skill library
    (they were added during Build — if missing, re-add per the skills setup page).
 2. Confirm the HubSpot connector is connected **in this project** and shows the
-   "Q2 Delivery Tracker" database. You should see it listed under connected tools.
+   "Q2 Delivery Tracker" list. You should see it listed under connected tools.
 3. Confirm `context/tone-guide.md` and `context/past-reports/` exist in the
    project files panel.
 
