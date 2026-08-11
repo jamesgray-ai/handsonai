@@ -72,7 +72,7 @@ Before running the interview, check what's already in the workspace:
 
 Six phases, ~30 minutes total, run in order. Follow `references/interview-guide.md` for the exact opening questions, follow-ups, worked examples, and fast paths for each phase — this section is the map; that file is the script.
 
-**Phase 0 — Home (2 min).** Establish where the registry will live — new repo from the template, an existing repo/workspace, or a cloud generate-and-commit fallback — and run the legacy-detection check. Follow `references/interview-guide.md`.
+**Phase 0 — Home (2 min).** Establish where the registry will live — new repo from the template (`https://github.com/jamesgray-ai/ai-registry-template`), an existing repo/workspace, or a cloud generate-and-commit fallback — and run the legacy-detection check. Follow `references/interview-guide.md`.
 
 **Phase 1 — Business (3 min).** One Business node: name, one-sentence identity, `status`, optional `url`. Almost always exactly one business per registry. Follow `references/interview-guide.md`.
 
@@ -80,7 +80,7 @@ Six phases, ~30 minutes total, run in order. Follow `references/interview-guide.
 
 **Phase 3 — Functions (3 min).** Offer the starter set (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering); the student trims and renames it. Every Function node is written with its empty GENERATED `# Owns` block from the start. Follow `references/interview-guide.md`.
 
-**Phase 4 — Processes (8 min).** Per LOB, the two or three highest-value processes — not an exhaustive list; Analyze grows this later. Each needs a required `owner:` function slug. Follow `references/interview-guide.md`.
+**Phase 4 — Processes (8 min).** Per LOB, the two or three highest-value processes — not an exhaustive list; Analyze grows this later. Each needs a required `owner:` function slug. Once Processes name their owners, the owning Functions' `# Owns` blocks written empty in Phase 3 are now stale — that's expected, not an error; the Phase 6 maintenance pass regenerates them, and lint only ever flags stale content as a warning, never a blocker. Follow `references/interview-guide.md`.
 
 **Phase 5 — First Workflow (7 min).** The one workflow the student will carry through the rest of the framework, written as a full Workflow node and slotted into its Process's curated list. Follow `references/interview-guide.md`.
 

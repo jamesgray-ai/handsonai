@@ -13,5 +13,5 @@ Operations runs day-to-day client delivery.
 
 <!-- GENERATED:owns -->
 - [Client Onboarding](/processes/client-onboarding.md)
-- [Hand Added](/processes/fake-process.md)
+- [Hand Added](/processes/client-onboarding.md)
 <!-- /GENERATED -->

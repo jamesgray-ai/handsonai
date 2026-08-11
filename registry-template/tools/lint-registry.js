@@ -193,8 +193,12 @@ function lint(bundleDir) {
   // 6. Process ownership -> Function resolution; Function retirement
   //    warning; Function `# Owns` GENERATED block presence + content sync
   //    (this bundle has no compose-time hash, so a mismatch between the
-  //    block's content and the derivable owners list is how "hand-edited"
+  //    block's content and the derivable owners list is how stale/hand-edited
   //    content is caught -- see registry-lib.js's GENERATED-block comment).
+  //    A content mismatch is only a WARNING: Phase 4 of scaffolding names
+  //    Process owners before Phase 6's maintenance pass regenerates Owns,
+  //    so a stale block is an expected mid-run state, not a lint blocker.
+  //    Missing blocks, unterminated blocks, and missing markers stay errors.
   const fnSlugs = new Set(functions.map((f) => lib.slugOf(f.relPath)));
   const ownersByFunction = new Map(); // function slug -> [process node]
   for (const p of processes) {
@@ -224,7 +228,7 @@ function lint(bundleDir) {
     }
     const expectedContent = owned.map((p) => `- [${p.fm && p.fm.title ? p.fm.title : lib.slugOf(p.relPath)}](${p.relPath})`).join('\n');
     if (block.content.trim() !== expectedContent.trim()) {
-      errors.push(`${f.relPath}: GENERATED:owns # Owns content was hand-edited or is stale (does not match the derived owners list) -- recompose instead of editing between the markers`);
+      warnings.push(`${f.relPath}: GENERATED:owns content is stale -- run a maintenance pass to regenerate (does not match the derived owners list; Owns is hand-edited or stale)`);
     }
   }
 

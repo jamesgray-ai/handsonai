@@ -164,7 +164,10 @@ claims sweep (every SOP and `outputs/<slug>/` folder claimed by exactly one Work
 `workflow:` back-pointer must agree with the claiming node; run-log evidence must not contradict
 `status`). Warnings (not errors): overdue `stale_after`, a `backlog` workflow older than six
 months, a Note linking no node, uncaptured skills/agents, a malformed `generated.by` actor string,
-an artifact link pointing outside the workflow's derived LOB `folder:` when one is set.
+an artifact link pointing outside the workflow's derived LOB `folder:` when one is set, and stale
+Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
+a maintenance pass; hand-editing between the markers is still prohibited, but staleness alone never
+blocks regeneration).
 
 Regeneration is refused while lint reports errors, with one exception: broken links inside
 derived content that the regeneration pass itself rewrites.

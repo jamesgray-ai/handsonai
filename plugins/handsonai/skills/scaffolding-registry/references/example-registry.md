@@ -107,8 +107,9 @@ the client before end of day.
 
 - [drafting-status-reports](.claude/skills/drafting-status-reports/SKILL.md)
 
-<!-- GENERATED:insights -->
 # Insights
+
+<!-- GENERATED:insights -->
 <!-- /GENERATED -->
 ```
 
@@ -124,8 +125,9 @@ generated: { by: process:scaffolding-registry, at: 2026-08-10 }
 Service Delivery is accountable for how Brightwork engagements get run, from
 kickoff to handoff.
 
-<!-- GENERATED:owns -->
 # Owns
+
+<!-- GENERATED:owns -->
 <!-- /GENERATED -->
 ```
 

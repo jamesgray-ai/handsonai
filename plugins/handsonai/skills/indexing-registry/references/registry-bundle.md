@@ -94,6 +94,15 @@ the bundle exists.
 | `writing-workflow-sops` | `# Artifacts` → SOP |
 | `writing-process-guides` | Process node `guide:` frontmatter |
 
+`scaffolding-registry` also writes provisional values for the schema-required fields
+`definition_type`, `execution_mode`, and `autonomy` at Phase 5, so the first Workflow node lints
+clean before Deconstruct or Design ever run. `deconstruct` and `design` still own those fields
+going forward and may overwrite scaffold's provisional values with better-informed ones — the
+never-overwrite rule above protects values a student has deliberately set through a framework
+step, not a scaffold-time guess made to satisfy the schema. Similarly, `scaffolding-registry` may
+set a Process node's `guide:` at scaffold time when an SOP already exists for it;
+`writing-process-guides` owns the field thereafter.
+
 ---
 
 ## 4. Framework progress (artifact-presence inference)
@@ -145,7 +154,6 @@ The consistency suite asserts string agreement between the two.
 - Process `owner:` missing or matching no Function file
 - Function node missing its GENERATED `# Owns` marker block
 - Unterminated GENERATED block
-- Hand-edited GENERATED content
 - A concept file missing from its directory index, or a typed directory missing its `index.md`
   (index coverage)
 - **Claims sweep** — an SOP or `outputs/<slug>/` folder claimed by no Workflow node's
@@ -163,6 +171,10 @@ The consistency suite asserts string agreement between the two.
 - A Note linking no bundle node ("probably misfiled")
 - **Orphan capabilities** — skills/agents in the workspace referenced by no Workflow node
   ("capture the workflow" — the single most useful maintenance signal for students)
+- Stale GENERATED content — regenerate (a Function `# Owns` block whose content no longer
+  matches the derived owners list; hand-editing between the markers is still prohibited by
+  doctrine, but a stale block is a maintenance-pass warning, never a lint blocker — see
+  `scaffolding-registry/SKILL.md`'s Phase 4/6 notes)
 
 **Gitignore tolerance:** links into gitignored paths (the raw-source layer, e.g. `outputs/`) are
 declarations, not guarantees — existence-checked locally when the target is present, skipped in

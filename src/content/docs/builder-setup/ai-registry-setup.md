@@ -6,7 +6,7 @@ howto_steps:
   - name: Choose your registry's home
     text: Pick a template repo, an existing workspace, or a no-repo cloud path as the home for your AI Registry bundle.
   - name: Run the interview
-    text: Answer the six-phase interview (about 30 minutes) — your AI assistant writes your Business, Line of Business, Function, Process, and first Workflow nodes as you go.
+    text: Answer the interview (about 30 minutes) — your AI assistant writes your Business, Line of Business, Function, Process, and first Workflow nodes as you go.
   - name: Review your first Workflow node
     text: Open the Workflow node your assistant wrote in registry/workflows/ and confirm it matches your real work.
   - name: Keep it fresh
@@ -52,7 +52,7 @@ Pick **one** of these three paths. Each is complete on its own — follow the on
 
 Use this if you're starting fresh and don't have a workspace yet. This is the easiest path — it arrives with your registry's structure already in place.
 
-1. Open the AI Registry template repository your instructor shared (or ask your AI assistant: *"Where's the AI Registry template repo?"*).
+1. Open the AI Registry template repository: [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) (or ask your AI assistant: *"Where's the AI Registry template repo?"* — it knows this URL too).
 2. Click the green **Use this template** button near the top of the page, then **Create a new repository**.
 3. Give the new repository a name — for example, `my-ai-registry` — and click **Create repository**.
 4. Clone your new repository to your computer (see the [GitHub setup guide](../github-setup/) if you haven't cloned a repo before), or open it directly in Cowork.
@@ -86,7 +86,7 @@ Use this if you're working in claude.ai, ChatGPT web, or M365 Copilot without a 
 
 ## The Interview
 
-However you got here, your assistant now runs the same **six-phase interview** — about 30 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
+However you got here, your assistant now runs the same **interview — seven phases (0–6)** — about 30 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
 
 | Phase | What it asks | Time |
 |---|---|---|
@@ -146,7 +146,7 @@ The `generated: { by: ..., at: ... }` line appears on every node your assistant 
 
 ### The Four Enums
 
-Four frontmatter fields on a Workflow node only ever take one of a fixed set of values. Your assistant validates against this list every time it writes or checks a node — these are exactly the values you'll ever see:
+An **enum** (short for "enumeration") is just a field that only accepts one of a fixed list of values — never free text. Four frontmatter fields on a Workflow node only ever take one of a fixed set of values. Your assistant validates against this list every time it writes or checks a node — these are exactly the values you'll ever see:
 
 | Field | Allowed values |
 |---|---|
@@ -227,7 +227,7 @@ Each platform section below is complete on its own — you only need to read the
 ### claude.ai
 
 :::note[Not yet verified — ask your instructor]
-The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session.
+The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session. If you're working through this self-paced and don't need to stay in claude.ai specifically, the Claude Code or Cowork path is currently the verified route — see [Claude Code](#claude-code) or [Cowork](#cowork) above.
 :::
 
 1. Upload the Hands-on AI skill file your instructor provides to your claude.ai account (Settings → Capabilities → Skills, or wherever claude.ai currently places skill uploads).
@@ -301,7 +301,7 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 - This tier only applies if you started from the template repo (Path A) — registries added to an existing workspace don't have it unless you set it up separately.
 - Confirm GitHub Pages is turned on for your repository (Settings → Pages in your repo on github.com) — it's off by default until you enable it.
-- Check the **Actions** tab in your repository for a failed run — a broken node (one with a lint error) blocks publishing on purpose, the same way it blocks a local dashboard refresh. The failure message names the file and the rule it broke.
+- Check the **Actions** tab in your repository for a failed run — Actions is the tab on your repository's GitHub page that lists every automated run; a red ✗ next to a run means it failed. Click that run and read the first red line for the reason. A broken node (one with a lint error) blocks publishing on purpose, the same way it blocks a local dashboard refresh. The failure message names the file and the rule it broke.
 
 ## Next Steps
 

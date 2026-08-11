@@ -23,8 +23,10 @@ and you commit it yourself?"
 not the registry's content.
 
 **What to write:** nothing yet. Record which of the three homes applies:
-(a) template repo via *Use this template* (arrives with the skeleton + Tier 3
-machinery already in place); (b) scaffold into an existing repo/workspace
+(a) template repo — `https://github.com/jamesgray-ai/ai-registry-template` —
+via *Use this template* (arrives with the skeleton + Tier 3 machinery already
+in place); if the student asks "where's the template repo?", this is the
+URL; (b) scaffold into an existing repo/workspace
 (create `registry/` + `SCHEMA.md` + `index.md` + `log.md` + the six typed
 directories with stub `index.md` files); (c) cloud generate-and-commit
 fallback (produce the files in chat; the student commits them by hand).

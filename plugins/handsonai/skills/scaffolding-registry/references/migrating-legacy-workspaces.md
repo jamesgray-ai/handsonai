@@ -20,6 +20,11 @@ described here instead of (or before) a fresh scaffold.
 
 ## Procedure
 
+**Prerequisite:** a migrated Workflow node only lints clean once its Business,
+LineOfBusiness, Function, and Process nodes exist — scaffold those first.
+Ask the student where the workflow belongs (which Process, which Function
+owns it); the legacy manifest rarely says.
+
 1. **Scaffold the bundle first if it doesn't exist yet** — `registry/` +
    `SCHEMA.md` + `index.md` + `log.md` + the six typed directories with stub
    `index.md` files. Migration writes nodes into this bundle; it never
@@ -34,7 +39,10 @@ described here instead of (or before) a fresh scaffold.
       workflow migrated in that run (not one entry per workflow).
 3. Slot each new Workflow node into its owning Process's curated
    `# Workflows` list, and its Process into the right LineOfBusiness — ask
-   the student where a workflow belongs if the manifest doesn't say.
+   the student where a workflow belongs if the manifest doesn't say. When
+   migrating a subset of a legacy manifest's workflows, renumber the
+   `# Workflows` list contiguously by position in the new list — never carry
+   over the legacy manifest's own sequence numbers, which may have gaps.
 
 ## Disposition table (verbatim from the spec)
 
@@ -61,15 +69,25 @@ described here instead of (or before) a fresh scaffold.
 Two field-level notes worth calling out during migration:
 
 - **`definition_type` normalization.** Legacy manifests may carry
-  `Step-Driven`, `Goal-Driven`, or the retired `Outcome-Driven` spelling (in
-  any casing). Normalize all of these to the current enum values —
-  `step-driven` or `goal-driven` — on write. Never carry a legacy spelling
-  into a new node.
+  `Step-Driven`, `Goal-Driven`, the retired `Outcome-Driven` spelling, or the
+  retired `Step-Decomposed` spelling (in any casing). Normalize all of these
+  to the current enum values — `step-driven` or `goal-driven` — on write.
+  Never carry a legacy spelling into a new node.
 - **`status` normalization.** Legacy manifests may use Title Case
   (`Backlog`, `Under Development`, `In Production`, `Archived`). Map to the
   kebab-case enum: `Archived` maps to `retired`, not to a status of its own
   — there is no legacy-to-new 1:1 for every value, so `Archived` is the one
   that changes meaning as well as case.
+- **Unresolved `assets_used` / `platform_artifacts` names.** If a name in
+  either legacy field resolves to no file on disk, record it as a
+  plain-text entry (no link) under `# Skills` / `# Agents` — never fabricate
+  a path to make a link work, and never drop the name just because it
+  doesn't resolve.
+- **`last_updated` → `generated.at` reconciliation.** A migrated node keeps
+  the legacy `last_updated` date in `generated.at` — that's provenance, not
+  a fresh write, so don't stamp today's date over it. `generated.by` is
+  still `process:scaffolding-registry`. The stamp-today rule in this
+  skill's Write rules applies to newly created nodes, not migrated ones.
 
 ## Flat layout
 
@@ -99,6 +117,10 @@ After every workflow in the run has a node:
    anything turns up, it means a disposition step above was skipped or a
    legacy `timestamp:` field slipped through instead of being converted to
    `generated.at`.
-2. Run a full maintenance pass (`indexing-registry`) so lint, directory
+2. **Claims sweep.** Every sibling SOP under `sops/` and every
+   `outputs/<slug>/` folder must be linked from its owning Workflow node's
+   `# Artifacts` section — lint errors on any SOP or outputs folder claimed
+   by zero (or more than one) Workflow node. Fix the links before moving on.
+3. Run a full maintenance pass (`indexing-registry`) so lint, directory
    indexes, and the Tier 1 dashboard reflect the migrated workflows before
    calling the migration done.

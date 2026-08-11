@@ -50,7 +50,7 @@ grep -q "WARN.*[Nn]ote" <<<"$out" && ok "misfiled note warned" || bad "expected 
 for case in bad-enum dir-type-mismatch missing-owner missing-frontmatter broken-link banned-field \
             unclaimed-sop double-claim sop-backpointer-mismatch runlog-status-contradiction \
             double-parent-list unassigned-inproduction missing-owns-block unterminated-generated \
-            multiline-frontmatter hand-edited-generated missing-index-entry missing-dir-index \
+            multiline-frontmatter missing-index-entry missing-dir-index \
             legacy-timestamp; do
   if run_lint "broken/$case"; then bad "$case: lint should exit 1"; else
     out=$(lint_output "broken/$case")
@@ -58,6 +58,31 @@ for case in bad-enum dir-type-mismatch missing-owner missing-frontmatter broken-
   fi
 done
 run_lint broken/unassigned-backlog && ok "unassigned backlog is warning-only" || bad "backlog unassigned must not error"
+# lint: a stale/hand-edited GENERATED:owns block is a WARNING, not an error
+# (Finding A -- the Owns-block deadlock). Phase 4 of scaffolding names Process
+# owners before Phase 6's maintenance pass regenerates Owns, so this is an
+# expected mid-run state, and lint must never block compose from fixing it.
+run_lint broken/hand-edited-generated && ok "hand-edited-generated is warning-only (exit 0)" || bad "stale Owns content must not error"
+out=$(lint_output broken/hand-edited-generated)
+grep -qi "WARN.*Owns" <<<"$out" && ok "hand-edited-generated warns about stale Owns" || bad "expected stale Owns WARN"
+
+# lint/compose: the deadlock is gone end-to-end -- stage valid-bundle, empty a
+# Function's Owns content (simulating post-scaffold staleness before Phase 6's
+# maintenance pass), confirm lint warns but exits 0, confirm compose still
+# succeeds and refills it, then confirm a fresh lint is clean.
+WS=$(stage valid-bundle)
+node -e '
+const fs = require("fs");
+const file = process.argv[1];
+let text = fs.readFileSync(file, "utf8");
+text = text.replace(/<!-- GENERATED:owns -->[\s\S]*?<!-- \/GENERATED -->/, "<!-- GENERATED:owns -->\n<!-- /GENERATED -->");
+fs.writeFileSync(file, text);
+' "$WS/registry/functions/operations.md"
+run_lint_at "$WS" && ok "deadlock fixture: stale Owns lints clean (exit 0)" || bad "deadlock fixture: stale Owns should not error"
+out=$(run_lint_at "$WS" 2>&1)
+(cd "$WS" && node "$TOOLS/compose-registry.js" registry >/tmp/deadlock-compose.out 2>&1) && ok "deadlock fixture: compose succeeds against stale Owns" || bad "deadlock fixture: compose failed: $(cat /tmp/deadlock-compose.out)"
+grep -q "Client Onboarding" "$WS/registry/functions/operations.md" && ok "deadlock fixture: compose refilled Owns" || bad "deadlock fixture: Owns still empty after compose"
+run_lint_at "$WS" && ok "deadlock fixture: post-compose lint is clean" || bad "deadlock fixture: post-compose lint should be clean"
 # lint: legacy definition_type spelling ("step-decomposed") is tolerated as a
 # warning, never an error -- the legacy-workspace migration path relies on
 # this so a mid-migration bundle still lints clean.
