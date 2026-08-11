@@ -13,9 +13,9 @@ Structured testing and evaluation of AI workflow artifacts. Walk the user throug
 
 ### 1. Load context
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references (the requirements own the Acceptance Criteria, Example Scenarios, and Golden Examples). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest — "You finished Step [N] ([name]) — next is Step [N+1]" — and if Test isn't the next step, say so and route to the right skill. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. Verify both files exist before proceeding — if either is missing, stop and say which.
+Read the workflow's Workflow node (`registry/workflows/<slug>.md`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references (the requirements own the Acceptance Criteria, Example Scenarios, and Golden Examples). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and infer progress from which artifacts each node's `# Artifacts` section already links — "You've completed through Step [N] ([name]) — next is Step [N+1]" — and if Test isn't the next step, say so and route to the right skill. If no Workflow node exists yet but legacy flat files (`outputs/[name]-*.md`) do, use those paths. Verify both files exist before proceeding — if either is missing, stop and say which.
 
 From these, identify:
 - The test scenarios (E1, E2, …) and what to look for in each output
@@ -107,7 +107,7 @@ Based on eval scores across all scenarios:
 
 ## Output
 
-Write results to `outputs/[workflow-name]/test-results.md`. If a results file already exists from a previous round, rename it with a date suffix (e.g., `test-results-2026-06-10.md`) first — earlier rounds are useful history, not waste. Then update the workflow manifest (`outputs/[workflow-name]/workflow.yaml`): set `current_step: 5`, `last_updated`, and add `test_results` under `artifacts`. Also set the registry field `health` based on the verdict — `working` if the workflow passed and is ready to deploy, `needs-attention` if issues remain. Then **create or update `REGISTRY.md`** at the workspace root — follow the `indexing-registry` procedure if available, otherwise update its tables directly from the manifest; if the manifest has a `notion_url`, also update its Notion row per that skill's `references/notion-mirror.md`. Skip only if the workspace root isn't writable (or Notion isn't connected) and say so — never silently; a failed refresh never fails this step. (No persistent workspace in this environment? Tell the user to save the results file and re-supply it at the next step. On load, if expected files aren't present, ask for a re-upload instead of failing.)
+Write results to `outputs/[workflow-name]/test-results.md`. If a results file already exists from a previous round, rename it with a date suffix (e.g., `test-results-2026-06-10.md`) first — earlier rounds are useful history, not waste. The verdict and outcomes live in `test-results.md` only — Test writes no pass/fail status field to the Workflow node. Update the Workflow node (`registry/workflows/<slug>.md`) to link the test results in `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step). (No persistent workspace in this environment? Tell the user to save the results file and re-supply it at the next step. On load, if expected files aren't present, ask the user to reconnect your registry repo via the GitHub connector, or re-upload the bundle folder, instead of failing.)
 
 **Open the file with YAML frontmatter** so Improve (Step 7) can diff regression runs mechanically instead of re-reading prose:
 
@@ -117,7 +117,7 @@ workflow: [kebab-case name]
 design_spec: outputs/[workflow-name]/design-spec.md
 requirements: outputs/[workflow-name]/requirements.md
 date: YYYY-MM-DD
-environment: [platform + notable conditions, e.g., "Claude.ai, Gmail connector live, Notion simulated"]
+environment: [platform + notable conditions, e.g., "Claude.ai, Gmail connector live, HubSpot simulated"]
 readiness: ready | not-ready | logic-ready-deploy-blocked
 scores:
   E1: { accuracy: 4, completeness: 5, tone: 3 }   # confirmed scores, one line per scenario

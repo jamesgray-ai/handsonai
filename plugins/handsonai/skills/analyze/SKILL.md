@@ -17,9 +17,9 @@ Analyze concrete opportunities where AI can improve your workflows. Produces a c
 
 **Set expectations up front (first message):** tell the user this step is a guided interview that usually takes **15–30 minutes**, and that stopping early is safe — everything gets saved to a file they can pick up from later.
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-**Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `outputs/` for workflow folders and their `workflow.yaml` manifests first. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
+**Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `outputs/` for their artifacts. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
 
 ### Fast Path
 

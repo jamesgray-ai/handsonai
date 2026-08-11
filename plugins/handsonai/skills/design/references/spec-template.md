@@ -104,7 +104,7 @@ For goal-driven workflows: replace this section with an **Autonomy Statement** �
 
 | Question | Finding | Mitigation |
 |---|---|---|
-| **Write access** — which integrations can this workflow create, modify, or send through? | [list write surfaces, e.g., "Gmail (create drafts), Notion (create rows)"] | [least privilege: request only the scopes the workflow needs; prefer draft-don't-send where possible] |
+| **Write access** — which integrations can this workflow create, modify, or send through? | [list write surfaces, e.g., "Gmail (create drafts), HubSpot (create records)"] | [least privilege: request only the scopes the workflow needs; prefer draft-don't-send where possible] |
 | **Untrusted input** — does any step consume content the user didn't author (inbound email, web pages, form submissions, shared docs)? | [list, or "None"] | [treat that content as data, never as instructions — the workflow must not follow directives found inside processed content, and should flag suspicious embedded instructions to the user] |
 | **Unattended runs** — does this run on a schedule or without a human watching? | [Yes / No] | [keep a human gate on outward-facing actions, cap actions per run, log every write] |
 | **Blast radius** — worst realistic outcome if a run goes wrong? | [e.g., "a wrong draft is created" vs. "a wrong email is sent to a client"] | [place a human gate before the highest-consequence action, or constrain it to drafts/test targets until trust is established] |
@@ -175,7 +175,7 @@ Column definitions:
 - **Step**: Step ID from Workflow Requirements (e.g., Step 1, Step 2)
 - **Autonomy**: Human / Deterministic / Guided / Autonomous (canonical terms only)
 - **Orchestration**: Prompt / Skill / Agent
-- **Integration**: Block + tool + action tag (e.g., "MCP: Notion (use)") or "—" if none
+- **Integration**: Block + tool + action tag (e.g., "MCP: HubSpot (use)") or "—" if none
 - **Intelligence**: Model class + context sources + memory flag (e.g., "Model: fast" or "Model: reasoning; Context: C2, C5")
 - **Build Output**: One of the canonical values: `New skill: S1` (build a new skill, defined below) / `Use existing: [name]` (reference an existing skill) / `New agent: A1` (build a new sub-agent, defined below) / `Inline prompt → Workflow Requirements Step N` (this step becomes a prompt block in the orchestrator, sourced from the named step's requirements) / `Handled by orchestrator` (no separate artifact — the orchestrating primary loop, or a deployed agent on SDK platforms, handles this via its own instructions; legacy synonym: `Handled by agent`) / `MCP server: [name]` (configure a connector) / `Human (no artifact)` (no AI artifact — human-performed)
 - **Human Gate?**: Yes / No (sourced from Workflow Requirements Human Gates table)
@@ -251,7 +251,7 @@ For each Build Output tagged `New skill: SN` above:
 | **Outputs** | [what the skill produces] |
 | **Decision Logic** | [key rules, criteria, evaluation frameworks — multiline OK] |
 | **Failure Modes** | [condition → action, one per line] |
-| **Required Tools** | [block: tool (action) — e.g., MCP: Notion (use)] |
+| **Required Tools** | [block: tool (action) — e.g., MCP: HubSpot (use)] |
 | **Depends On** | [other skill IDs (S2, S3) or artifacts that must exist first, or "None"] |
 | **Stateful?** | Yes / No — does the skill maintain state across invocations? Drives Memory building-block decisions. |
 
