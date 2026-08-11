@@ -42,6 +42,8 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
 **Set expectations up front (first message):** tell the user this step is the most thorough interview in the framework — usually **20–40 minutes** of back-and-forth — because the requirements written here drive everything built later. Stopping early is safe: progress saves to files, and they can say "continue my workflow" in a later session to pick up where they left off.
 
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
+
 1. **Scenario discovery** — Determine how the user is arriving and which path to take.
 
    **From Analyze output**: If the user references an opportunity report, file path (e.g., `outputs/ai-opportunity-report.md`), or a specific workflow candidate from an Analyze session, read the Workflow Candidate Summary from the file. Present the available candidates and ask which one to deconstruct. Pre-populate scenario metadata (name, description, trigger, deliverable, autonomy, involvement) from the candidate fields. If the candidate includes a `Lens` field, carry it forward along with any `Business Objective`, `Stakeholders`, and `Success Metrics` fields. Confirm the pre-populated details with the user. Then choose the path: if the candidate's autonomy = Autonomous, suggest goal-driven but still confirm. Otherwise present the choice below.
@@ -204,7 +206,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 11. **Generate Workflow Requirements** — Produce the structured Workflow Requirements document and write it to the output file. See the **Output** section below for the template, writing style, and machine-readability rules.
 
     **Self-check before finishing (so Design can parse it).** After writing, verify the file against the machine-readability rules and fix any miss before handing off:
-    - File lives in the workflow folder using the kebab-case ID: `outputs/[workflow-name]/requirements.md` (e.g., "Inbound Lead Triage" → `outputs/inbound-lead-triage/requirements.md`), and `workflow.yaml` exists alongside it with `current_step: 2` and the requirements path registered.
+    - File lives in the workflow folder using the kebab-case ID: `outputs/[workflow-name]/requirements.md` (e.g., "Inbound Lead Triage" → `outputs/inbound-lead-triage/requirements.md`), and the workflow's Workflow node has `status: under-development` and the requirements path linked under `# Artifacts`.
     - All required headings are present and **exactly named** (no synonyms): Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, Security, Privacy & Safety, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-driven; Inputs for goal-driven).
     - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps `1,2,3…`; context `C1,C2…`; scenarios `E1,E2…`).
     - If anything is off, fix it before telling the user it's ready.
@@ -254,74 +256,19 @@ After completing the interview and Step 8-GD, proceed directly to Step 9 (Consol
 
 Write the Workflow Requirements to `outputs/[workflow-name]/requirements.md` where `[workflow-name]` is the kebab-case workflow ID confirmed in Step 3 (e.g., `outputs/lead-qualification/requirements.md`). Create the folder if it doesn't exist.
 
-### Workflow manifest
+### Registry write
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+Deconstruct writes to the Workflow node in `registry/workflows/<slug>.md`: sets `status: under-development`, `definition_type` (`step-driven` or `goal-driven`), refines `trigger` and `description`, and links the Requirements doc in `# Artifacts`. Merge into an existing stub node (e.g., one `naming-workflows` created) — never overwrite fields already set. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table.
 
-Deconstruct **creates the workflow's manifest** — a small `workflow.yaml` in the workflow folder that tracks state and artifact paths so any framework skill (or a fresh session) can pick up where things left off:
-
-The manifest is also the workflow's **AI Registry entry** — the single source of truth for the metadata that appears in the generated `REGISTRY.md` (see the `indexing-registry` skill). All registry fields are optional; leave out what isn't known yet rather than inventing values.
-
-```yaml
-workflow: lead-qualification      # kebab-case ID — names the folder and all artifacts
-display_name: Lead Qualification
-description: >-                   # 1-2 sentence outcome-focused description
-  Qualifies inbound leads against the ICP and produces a ranked list.
-process_outcome: Ranked qualified-lead list   # the tangible deliverable
-business_process: Sales Pipeline  # which business process this workflow belongs to
-sequence: 10                      # order within the process (multiples of 10) — optional
-status: under-development         # backlog | under-development | in-production
-type: augmented                   # augmented | automated | manual
-autonomy: guided                  # deterministic | guided | autonomous (set by design)
-trigger: "New lead in CRM"        # what kicks the workflow off
-owner: "[person or role]"         # copy from Metadata → Owner
-platform: claude-code             # claude-code | cowork | claude-ai | scheduled-agent (set by build/run)
-health: ""                        # working | needs-attention | broken (set by test/run/improve)
-last_run: ""                      # YYYY-MM-DD of most recent run (set by run)
-apps: []                          # integrations used, e.g., [Gmail, Notion] (set by design/build)
-assets_used: []                   # skills/agents this workflow uses, by name (set by build)
-definition_type: Step-Driven  # or Goal-Driven (legacy files may say Outcome-Driven — treat as Goal-Driven)
-current_step: 2                   # last completed framework step (1-7); 0 = named only
-last_updated: YYYY-MM-DD
-artifacts:
-  requirements: outputs/lead-qualification/requirements.md
-  # downstream skills append:
-  #   sop, design_spec, platform_artifacts (list), test_results,
-  #   run_guide, run_log, improvement_plan
-notion_url: ""                    # optional back-pointer if the user mirrors to Notion
-# run also sets a top-level key: next_review: YYYY-MM-DD
-```
-
-Deconstruct populates `display_name`, `description`, `trigger`, and `owner` (from the Metadata answers it already collects), sets `status: under-development`, and leaves the rest for downstream skills. **If a stub manifest already exists** (created by `naming-workflows` with `current_step: 0`), merge into it — preserve every field already set — never overwrite it with a fresh template.
+Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 Conventions every framework skill follows (stated here once; downstream skills apply them):
 
-- **Read the manifest on load** to locate artifacts and confirm you're working on the right workflow.
-- **Resume orientation ("continue my workflow").** Any framework skill can be the re-entry point. When the user says "continue my workflow" (or invokes a skill without context), scan `outputs/` for workflow folders: if several exist, list them with their `current_step` and ask which to continue. Then orient before doing anything: "You finished Step [N] ([name]) on [last_updated] — next is Step [N+1] ([name])." If the invoked skill doesn't match the next step, say so and route to the right one instead of re-running finished work.
-- **Update it after writing your output**: set `current_step`, `last_updated`, and add your artifact path under `artifacts`.
-- **Create or update `REGISTRY.md` at the workspace root — this is a required part of the step, not optional.** Follow the regeneration procedure in the `indexing-registry` skill if it's available; if you can't load it, write the file directly from the manifests at hand using this minimal shape (one row per workflow/asset, `—` for unknowns):
-
-```markdown
-<!-- GENERATED — edit the source files (workflow.yaml, SKILL.md frontmatter) and regenerate. -->
-# AI Registry
-
-## Workflows
-| Workflow | Business Process | Owner | Status | Health | Last Run |
-|---|---|---|---|---|---|
-
-## Skills
-| Skill | Description | Location |
-|---|---|---|
-
-## Agents
-| Agent | Description | Location |
-|---|---|---|
-```
-
-  If the manifest has a `notion_url`, also update its Notion row per the `indexing-registry` skill's `references/notion-mirror.md`. Skip these only if the environment genuinely can't write to the workspace root (or Notion isn't connected) — and **tell the user you skipped it**; never skip silently. A failed refresh never fails the framework step itself.
+- **Read the Workflow node on load** to locate artifacts and confirm you're working on the right workflow.
+- **Resume orientation ("continue my workflow").** Any framework skill can be the re-entry point. When the user says "continue my workflow" (or invokes a skill without context), check `registry/workflows/` for existing Workflow nodes and infer progress from which artifacts each node's `# Artifacts` section already links (see `registry-bundle.md` § Framework progress). If several nodes exist, list them and ask which to continue. Then orient before doing anything: "You've completed through Step [N] ([name]) — next is Step [N+1] ([name])." If the invoked skill doesn't match the next step, say so and route to the right one instead of re-running finished work.
 - **Never silently overwrite.** If your output file already exists from a previous run, rename the old one with a date suffix (e.g., `requirements-2026-06-10.md`) before writing.
-- **Legacy layout:** if no workflow folder exists but flat files like `outputs/[name]-requirements.md` (or a requirements-like file at the workspace root) do, use those paths and offer to create the folder + manifest. **Migrating the files themselves is optional** — the manifest's artifact paths are authoritative and may point anywhere, so a user who wants their files where they are keeps them there; record that choice in the manifest's `notes` and don't re-raise migration on later runs. The manifest is the one piece the framework does require.
-- **No persistent workspace:** if this environment can't keep files between conversations (no project workspace — files are produced as downloads), tell the user after each write: "Save this file — you'll re-supply it (plus `workflow.yaml`) when you run the next step, or continue the next step in this conversation." On load, if the expected files aren't present, ask the user to re-upload them instead of failing.
+- **Legacy layout:** if no workflow folder exists but flat files like `outputs/[name]-requirements.md` (or a requirements-like file at the workspace root) do, use those paths and offer to create the folder. If the workspace has no registry bundle yet, the `scaffolding-registry` skill handles migrating any legacy layout when it creates one.
+- **No persistent workspace:** if this environment can't keep files between conversations (no project workspace — files are produced as downloads), tell the user after each write: "Save this file — you'll re-supply it when you run the next step, or continue the next step in this conversation." On load, if the expected files aren't present, ask the user to reconnect your registry repo via the GitHub connector, or re-upload the bundle folder, instead of failing.
 
 ### Writing-style rules (MUST follow)
 

@@ -35,16 +35,17 @@ The seven-step methodology for going from a workflow idea to a deployed AI syste
 | `run` skill | Generate a Run Guide for deploying and operating the workflow |
 | `improve` skill | Evaluate a running workflow for quality and evolution opportunities |
 
-#### AI Registry — 4 skills
+#### AI Registry — 5 skills
 
 For documenting and operating an AI workflow registry once you've built workflows worth tracking.
 
 | Component | What it does |
 |---|---|
-| `naming-workflows` skill | Apply consistent naming conventions across your registry |
-| `writing-workflow-sops` skill | Author standard operating procedures for AI-assisted workflows |
-| `writing-process-guides` skill | Document multi-step processes for repeatable execution |
-| `indexing-registry` skill | Generate and refresh REGISTRY.md — the Markdown AI Registry index of your skills, agents, workflows, and apps |
+| [`scaffolding-registry`](handsonai/#scaffolding-registry) skill | Stand up your `registry/` knowledge bundle — SCHEMA.md and a first real Business, Line of Business, Function, Process, and Workflow node |
+| [`naming-workflows`](handsonai/#naming-workflows) skill | Apply consistent naming conventions across your registry |
+| [`writing-workflow-sops`](handsonai/#writing-workflow-sops) skill | Author standard operating procedures for AI-assisted workflows |
+| [`writing-process-guides`](handsonai/#writing-process-guides) skill | Document multi-step processes for repeatable execution |
+| [`indexing-registry`](handsonai/#indexing-registry) skill | Lint your registry bundle and regenerate REGISTRY.md and its visual dashboard — the derived views of your skills, agents, workflows, and apps |
 
 #### Agentic Coding — 2 skills
 

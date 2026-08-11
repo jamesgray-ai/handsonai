@@ -27,27 +27,44 @@ The Step 2 (Deconstruct) artifact is pre-built so we can spend class time runnin
 
 ### Set up your workspace before class
 
-Do these three steps in the folder where you run Cowork or Claude Code:
+Do these steps in the folder where you run Cowork or Claude Code.
 
-1. **Create the workflow folder.** Inside your workspace, create a folder named `outputs`, and inside it a folder named `competitive-intelligence-brief`.
-2. **Save the download as `requirements.md`** inside that folder, so the full path is `outputs/competitive-intelligence-brief/requirements.md`. (Rename the downloaded file — the framework skills look for `requirements.md`.)
-3. **Create the manifest.** In the same folder, create a file named `workflow.yaml` and paste in exactly this:
+**Step 1 — get a `registry/` folder.** Pick whichever is true for you:
 
-```yaml
-workflow: competitive-intelligence-brief
-display_name: Competitive Intelligence Brief
-description: Research a competitor's recent moves and produce a structured brief plus an updated knowledge file
-definition_type: Step-Driven
+- **Starting fresh, no workspace yet:** instantiate the template repo.
+  1. Open the AI Registry template repository: [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) (or ask your AI assistant: *"Where's the AI Registry template repo?"*).
+  2. Click the green **Use this template** button near the top of the page, then **Create a new repository**.
+  3. Clone the new repository to your computer (or open it directly in Cowork) — it arrives with an empty `registry/` folder already in place.
+- **Already have a workspace:** open it in your AI assistant and say *"Set up my AI registry."* — it creates the `registry/` folder for you.
+
+**Step 2 — create the workflow folder and save the download.** Inside your workspace, create a folder named `outputs`, and inside it a folder named `competitive-intelligence-brief`. Save the download as `requirements.md` inside that folder, so the full path is `outputs/competitive-intelligence-brief/requirements.md`. (Rename the downloaded file — the framework skills look for `requirements.md`.)
+
+**Step 3 — hand-type the first Workflow node.** In `registry/workflows/`, create a file named `competitive-intelligence-brief.md` and paste in exactly this. Easiest path: on github.com, open your registry repository, click **Add file → Create new file**, paste `registry/workflows/competitive-intelligence-brief.md` as the filename, paste the block below as the content, then **Commit**. (Or, if you're working locally, ask your AI assistant to create the file for you with this exact content — same result either way.)
+
+```markdown
+---
+type: Workflow
+title: "Competitive Intelligence Brief"
+description: "Research a competitor's recent moves and produce a structured brief plus an updated knowledge file."
+generated: { by: process:deconstruct, at: 2026-07-06 }
 status: under-development
-trigger: Manual on demand, or scheduled per competitor
-owner: Workflow operator
-current_step: 2
-last_updated: 2026-07-06
-artifacts:
-  requirements: outputs/competitive-intelligence-brief/requirements.md
+definition_type: step-driven
+execution_mode: manual
+autonomy: guided
+trigger: "manual"
+stale_after: 2026-10-06
+---
+# Competitive Intelligence Brief
+
+Research a competitor's recent moves and produce a structured brief plus an
+updated knowledge file. Triggered manually on demand, or scheduled per competitor.
+
+# Artifacts
+
+- [Requirements](outputs/competitive-intelligence-brief/requirements.md)
 ```
 
-The manifest is the small file every framework step reads first — it tells `/design` where your Workflow Requirements live and that Step 2 is already done. When class starts, you'll run `/design` and it will pick up right where the pre-built requirements leave off.
+The node is the small file every framework step reads first; your `registry/` is the inventory. When class starts, you'll run `/design` and it will pick up right where the pre-built requirements leave off.
 
 ### What you'll walk away with
 

@@ -20,20 +20,84 @@
 #     canonical moved six commits while the distributed copy — the one students
 #     install — sat stale, missing a reference file entirely.
 #
-# Exit codes: 0 in sync (or skipped — distributed clone absent / plugin never synced),
+#   bash scripts/check-plugin-sync.sh registry-template
+#
+#     Compares the canonical registry-template/ against its clone at
+#     jamesgray-ai/ai-registry-template (default ~/Code/jamesgray/ai-registry-template,
+#     override with AI_REGISTRY_TEMPLATE_DIR). No plugin.json here — this is a starter
+#     repo students clone directly, not a Claude Code plugin — so there's no version
+#     special case, just a straight union-diff.
+#
+# Exit codes: 0 in sync (or skipped — distributed/clone absent / plugin never synced),
 #             1 drift, 2 usage error.
 
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST_REPO="${HANDSONAI_PLUGINS_DIR:-$HOME/Code/jamesgray/handsonai-plugins}"
+REGISTRY_TEMPLATE_DIR="${AI_REGISTRY_TEMPLATE_DIR:-$HOME/Code/jamesgray/ai-registry-template}"
 NAME="${1:-multi-agent-example}"
 DRIFT=0
 CHECKED=0
 
+# Shared by both union-diff modes below (distributed and registry-template). Excludes
+# .git so a real clone's VCS metadata never counts as drift, and node_modules/.DS_Store
+# as build/OS noise.
+list_files() {
+  (cd "$1" && find . -type f \
+     -not -path '*/node_modules/*' -not -path '*/.git/*' -not -name '.DS_Store' | sed 's|^\./||')
+}
+
+# ---------------------------------------------------------------------------
+# registry-template mode: registry-template/ vs the ai-registry-template clone.
+# Handled first because, unlike every other name this script accepts, it is not a
+# plugins/<name>/ directory — the "no such plugin" guard below would reject it.
+# ---------------------------------------------------------------------------
+if [ "$NAME" = "registry-template" ]; then
+  CANON="$ROOT/registry-template"
+  DIST="$REGISTRY_TEMPLATE_DIR"
+
+  if [ ! -d "$DIST" ]; then
+    echo "SKIPPED: ai-registry-template clone not found at $DIST."
+    echo "Clone jamesgray-ai/ai-registry-template (or set AI_REGISTRY_TEMPLATE_DIR) to enable this check."
+    exit 0
+  fi
+
+  echo "registry-template: canonical (registry-template/) vs clone ($DIST)"
+
+  while IFS= read -r rel; do
+    CHECKED=$((CHECKED + 1))
+    a="$CANON/$rel" b="$DIST/$rel"
+    if [ ! -f "$b" ]; then
+      echo "  MISSING in clone:      $rel"
+      DRIFT=$((DRIFT + 1))
+      continue
+    fi
+    if [ ! -f "$a" ]; then
+      echo "  MISSING in canonical:  $rel  (sync-registry-template.sh will DELETE it from the clone)"
+      DRIFT=$((DRIFT + 1))
+      continue
+    fi
+    if ! diff -q "$a" "$b" > /dev/null; then
+      echo "  DRIFTED:                $rel"
+      DRIFT=$((DRIFT + 1))
+    fi
+  done < <({ list_files "$CANON"; list_files "$DIST"; } | sort -u)
+
+  echo
+  if [ "$DRIFT" -eq 0 ]; then
+    echo "$CHECKED files checked — all in sync"
+  else
+    echo "$CHECKED files checked — $DRIFT out of sync"
+    echo
+    echo "registry-template/ is canonical. Run ./scripts/sync-registry-template.sh to reconcile."
+  fi
+  exit $([ "$DRIFT" -eq 0 ] && echo 0 || echo 1)
+fi
+
 if [ ! -d "$ROOT/plugins/$NAME" ]; then
   echo "Error: no such plugin 'plugins/$NAME' in this repo." >&2
-  echo "Usage: $0 [plugin-name]   (default: multi-agent-example)" >&2
+  echo "Usage: $0 [plugin-name|registry-template]   (default: multi-agent-example)" >&2
   exit 2
 fi
 
@@ -58,11 +122,6 @@ if [ "$NAME" != "multi-agent-example" ]; then
   fi
 
   echo "$NAME: canonical (plugins/$NAME) vs distributed ($DIST_REPO)"
-
-  list_files() {
-    (cd "$1" && find . -type f \
-       -not -path '*/node_modules/*' -not -name '.DS_Store' | sed 's|^\./||')
-  }
 
   # Union of both trees, so a file present in only one of them is reported in
   # both directions — enumerating a single side is how the last rewrite of this

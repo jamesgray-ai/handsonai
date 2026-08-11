@@ -50,7 +50,7 @@ could be automated with AI"
   an orchestration mechanism, and identifies quick wins
 ```
 
-**What you'll get** — each workflow gets its own folder under `outputs/`, named with the workflow name in lowercase using hyphens (for example, `outputs/client-onboarding/`). A small `workflow.yaml` manifest in the folder tracks which step you're on and where every artifact lives, so any session can resume the workflow mid-framework:
+**What you'll get** — each workflow gets its own folder under `outputs/`, named with the workflow name in lowercase using hyphens (for example, `outputs/client-onboarding/`). Each workflow gets a Workflow node in your `registry/` bundle — status, mode, and review date in one place — so any session can resume mid-framework by reading the node and seeing which artifacts already exist:
 
 1. **Opportunity Report** — `outputs/ai-opportunity-report.md` (before a workflow is named)
 2. **Workflow Requirements** — `[name]/requirements.md`

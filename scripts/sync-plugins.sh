@@ -59,6 +59,12 @@ command -v jq >/dev/null || { echo "Error: jq is required (brew install jq)" >&2
 [ -d "$DEST_REPO" ] || { echo "Error: $DEST_REPO not found — clone handsonai-plugins first" >&2; exit 1; }
 [ -f "$MARKETPLACE_JSON" ] || { echo "Error: $MARKETPLACE_JSON not found" >&2; exit 1; }
 
+# The AI Registry redesign is held together by string agreement across files that never
+# import each other (schema copies, enum vocabulary, lint rule lists, banned fields).
+# --full also checks the docs migration, so this stays a hard block until Batch E lands —
+# intended: it stops a release shipping before the docs and the registry system agree.
+./scripts/check-registry-consistency.sh --full || { echo "Error: registry consistency failed" >&2; exit 1; }
+
 # The multi-agent-example pipeline is mirrored under .claude/ so it runs in this repo.
 # Refuse to ship a plugin whose copies have drifted from what we demo.
 #

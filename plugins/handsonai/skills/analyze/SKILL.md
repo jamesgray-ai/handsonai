@@ -17,9 +17,9 @@ Analyze concrete opportunities where AI can improve your workflows. Produces a c
 
 **Set expectations up front (first message):** tell the user this step is a guided interview that usually takes **15–30 minutes**, and that stopping early is safe — everything gets saved to a file they can pick up from later.
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-**Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `outputs/` for workflow folders and their `workflow.yaml` manifests first. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
+**Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `outputs/` for their artifacts. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
 
 ### Fast Path
 
@@ -231,3 +231,4 @@ Use these definitions when classifying opportunities:
 - **Individual lens:** Scope each workflow candidate to one person's trigger-to-deliverable flow. If a workflow spans multiple people, note the cross-team dependencies in the opportunity card but keep the candidate focused on a single owner's scope.
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
 - After writing the report, ask the user to pick their candidates for Step 4. Once they've chosen, append the Workflow Candidate Summary and tell the user: "Opportunity report and workflow candidates saved to `outputs/ai-opportunity-report.md`. Pick a candidate and run the `deconstruct` skill (Step 2) to break it down. Deconstruct will create a dedicated folder for your chosen workflow (`outputs/[workflow-name]/`) — this report stays at the top level because it covers all your candidates."
+- Analyze itself is read-only — it names candidates but writes no Workflow node — so a fresh registry index just keeps the next Analyze run's resume-orientation scan accurate. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).

@@ -177,6 +177,83 @@ else
   bad "no-argument invocation no longer runs the mirror check (exit $RC): $(head -1 "$TMP/out")"
 fi
 
+# --- registry-template mode --------------------------------------------------
+#
+# The canonical side is the real registry-template/ in this repo (read-only here —
+# only the fake clone is ever mutated). The clone is faked in a temp dir via
+# AI_REGISTRY_TEMPLATE_DIR, same pattern as the distributed-mode fake above.
+
+echo
+echo "check-plugin-sync.sh — registry-template mode"
+
+REG_CANON="$ROOT/registry-template"
+FAKE_REG="$TMP/ai-registry-template"
+
+reset_fake_reg() {
+  rm -rf "$FAKE_REG"
+  mkdir -p "$FAKE_REG"
+  cp -R "$REG_CANON/." "$FAKE_REG/"
+}
+
+run_reg_check() {
+  AI_REGISTRY_TEMPLATE_DIR="$FAKE_REG" bash "$CHECK" registry-template > "$TMP/out" 2>&1
+  RC=$?
+}
+
+reset_fake_reg
+run_reg_check
+if [ "$RC" -eq 0 ] && grep -qi 'in sync' "$TMP/out"; then
+  ok "an identical ai-registry-template clone passes"
+else
+  bad "identical registry-template clone should pass (exit $RC): $(tail -1 "$TMP/out")"
+fi
+
+reset_fake_reg
+REG_DRIFT_FILE="README.md"
+echo "drifted line for test" >> "$FAKE_REG/$REG_DRIFT_FILE"
+run_reg_check
+if [ "$RC" -eq 1 ] && grep -q "DRIFTED" "$TMP/out" && grep -qF "$REG_DRIFT_FILE" "$TMP/out"; then
+  ok "a drifted file in the registry-template clone is reported as DRIFTED"
+else
+  bad "registry-template drift in $REG_DRIFT_FILE not reported (exit $RC)"
+fi
+
+AI_REGISTRY_TEMPLATE_DIR="$TMP/nowhere-registry-template" bash "$CHECK" registry-template > "$TMP/out" 2>&1
+RC=$?
+if [ "$RC" -eq 0 ] && grep -qi "skip" "$TMP/out"; then
+  ok "missing ai-registry-template clone skips with a message instead of failing"
+else
+  bad "missing ai-registry-template clone should skip (exit $RC): $(tail -1 "$TMP/out")"
+fi
+
+# --- sync-registry-template.sh destination guard ----------------------------
+#
+# Unlike sync-plugins.sh's DEST_DIR (a namespaced plugins/<name>/ subpath),
+# sync-registry-template.sh's DEST_DIR is the raw AI_REGISTRY_TEMPLATE_DIR — a
+# mis-set env var pointing at an unrelated, already-populated directory puts that
+# whole directory in `rsync --delete`'s blast radius. The script must refuse to run
+# against anything that doesn't look like an ai-registry-template clone.
+
+echo
+echo "sync-registry-template.sh — destination guard"
+
+REG_SYNC="$ROOT/scripts/sync-registry-template.sh"
+BAD_DEST="$TMP/not-a-clone"
+rm -rf "$BAD_DEST"
+mkdir -p "$BAD_DEST"
+echo "unrelated data — must survive" > "$BAD_DEST/important-unrelated-file.txt"
+
+AI_REGISTRY_TEMPLATE_DIR="$BAD_DEST" SYNC_ACK_DRIFT=1 bash "$REG_SYNC" > "$TMP/out" 2>&1
+RC=$?
+if [ "$RC" -ne 0 ] \
+   && grep -qi "does not look like an ai-registry-template clone" "$TMP/out" \
+   && grep -qF "$BAD_DEST" "$TMP/out" \
+   && [ -f "$BAD_DEST/important-unrelated-file.txt" ]; then
+  ok "sync refuses a destination that doesn't look like a template clone, and leaves it untouched"
+else
+  bad "sync should refuse on a non-clone destination and leave it untouched (exit $RC): $(tail -1 "$TMP/out")"
+fi
+
 # --- sync-plugins.sh drift gate ---------------------------------------------
 
 echo

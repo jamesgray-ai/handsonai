@@ -4,15 +4,15 @@ description: >
   This skill should be used when the user wants to name a workflow, write workflow descriptions,
   standardize workflow documentation, add a workflow to the AI Registry, or structure workflow
   entries. Generates consistent, outcome-focused names and descriptions for business workflows
-  and records them in the workflow's manifest (workflow.yaml).
+  and records them in the workflow's Workflow node.
 user-invocable: true
 ---
 
 # Naming Workflows
 
-Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's `workflow.yaml` manifest — the workflow's AI Registry entry.
+Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's Workflow node — the workflow's AI Registry entry.
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
 ## Workflow Naming Rules
 
@@ -90,10 +90,13 @@ Write 1-2 concise sentences that answer:
 - Too vague: "Handles email stuff"
 - Tool-focused: "Uses Claude and Gmail to do email"
 
-## Process Outcome Writing
+## Writing the Outcome Half of the Description
 
-### Format
-Write a short phrase (2-5 words) naming the concrete business deliverable.
+There's no separate `Process Outcome` field in the registry — the deliverable belongs inside the
+Workflow node's outcome-first `description` (see Description Writing above and Recording the
+Workflow below). This craft is still worth doing deliberately: name the concrete, tangible thing
+the workflow produces before writing the full description sentence, then fold it into the
+description's outcome half.
 
 ### Requirements
 - **Tangible**: Something that can be reviewed, sent, or measured
@@ -102,7 +105,7 @@ Write a short phrase (2-5 words) naming the concrete business deliverable.
 
 ### Examples
 
-| Workflow | Process Outcome |
+| Workflow | Deliverable (folds into `description`) |
 |----------|-----------------|
 | Email Response Drafting | Draft email responses |
 | Lead Qualification | Qualified lead list |
@@ -117,56 +120,56 @@ Write a short phrase (2-5 words) naming the concrete business deliverable.
 - ❌ "Done" (not descriptive)
 - ❌ "Successfully ran the email workflow" (action, not deliverable)
 
-## Workflow Context Properties
+## Workflow Context
 
-When naming/describing workflows, consider these registry fields:
+When naming/describing workflows, consider:
 
-**Domain** (inherited from Business Process):
-- Sales, Marketing, Product, Education, Consulting, Operations, Finance
+**Domain** — not a registry field. It's the owning Function, reached through the workflow's
+Process (`Process.owner:` → a Function slug). Use it only to pick a naming pattern below; never
+write it onto the Workflow node.
 
-**Trigger**:
+**Trigger** — a real Workflow node field:
 - Daily/Weekly/Monthly schedule
 - Event-based (payment received, email arrives)
 - Manual/Ad-hoc
 
-**Sequence** (within Business Process):
-- Use multiples of 10 (10, 20, 30...) to allow insertions without renumbering
-- Parallel workflows can share the same sequence number
-- Only required when workflow is part of a multi-step process
-- Leave blank for standalone workflows
+**Sequence** — not a stored field. A workflow's position in its Process's curated `# Workflows`
+list *is* the sequence — the list order is the edge and the ordering both. When placing a new
+workflow among siblings, ask where it belongs in that list (first, last, after workflow X) rather
+than assigning it a number.
 
 ## Examples by Domain
 
 ### Sales Domain
-| Workflow Name | Description | Process Outcome |
+| Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
 | Lead Qualification | Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details. | Qualified lead list |
 | Student Enrollment | Process active student applications through payment and confirmation. Results in enrolled students ready for onboarding. | Enrolled students |
 | Enrollment Recovery | Re-engage prospects who abandoned the enrollment process. Generates personalized follow-up sequences. | Re-engagement emails |
 
 ### Marketing Domain
-| Workflow Name | Description | Process Outcome |
+| Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
 | Content Repurposing | Transform lesson recordings into multi-platform social content. Creates LinkedIn posts, X threads, and Substack excerpts. | 5+ social assets |
 | Newsletter Distribution | Publish newsletter content and distribute across platforms. Delivers newsletter to subscribers and social channels. | Published newsletter |
 | Social Media Scheduling | Plan and schedule weekly LinkedIn and X content. Produces content calendar with scheduled posts. | Weekly content calendar |
 
 ### Product Domain
-| Workflow Name | Description | Process Outcome |
+| Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
 | Lesson Content Creation | Design and write online course lesson materials. Produces slide decks, exercises, and student resources. | Complete lesson package |
 | Curriculum Design | Structure course outline aligned with learning objectives. Creates module sequence with Bloom's taxonomy alignment. | Course curriculum |
 | Exercise Development | Create hands-on activities for course participants. Generates practical exercises with solutions and rubrics. | Student exercises |
 
 ### Education Domain
-| Workflow Name | Description | Process Outcome |
+| Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
 | Student Onboarding | Grant course access and prepare students for Day 1. Delivers welcome materials, Slack access, and technical setup. | Onboarded students |
 | Live Session Delivery | Teach scheduled scheduled cohort sessions. Facilitates learning, Q&A, and student engagement. | Completed session |
 | Assessment & Feedback | Review student work and provide constructive feedback. Generates graded assignments with improvement guidance. | Graded assignments |
 
 ### Operations Domain
-| Workflow Name | Description | Process Outcome |
+| Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
 | Email Response Drafting | Review inbox for urgent messages and create draft replies. Produces professionally written responses ready for review. | Draft email responses |
 | Calendar Management | Coordinate scheduling across meetings and cohort sessions. Maintains organized calendar with buffer time. | Updated calendar |
@@ -180,65 +183,77 @@ When user provides a workflow description:
 2. **Determine pattern** (creation, monitoring, distribution, etc.)
 3. **Generate 2-3 name options** using relevant pattern
 4. **Write description** (action + outcome)
-5. **Suggest Process Outcome** (concrete deliverable)
+5. **Name the deliverable** (concrete, tangible outcome — folds into the description, no separate field)
 6. **Present options** for user selection
-7. **Identify the Business Process** — scan `process-guides/*.md` frontmatter titles and the `business_process` values in existing `outputs/*/workflow.yaml` manifests; present matches and let the user confirm or name a new process
-8. **Determine Sequence** if part of a multi-step process:
-   - Check existing manifests with the same `business_process` for their `sequence` values
-   - Assign next available multiple of 10 (or ask user for placement)
-   - Use same sequence number for parallel workflows
-9. **Record in the manifest** after user confirms selections (see below)
+7. **Identify the Process** — scan `registry/processes/*.md` curated `# Workflows` lists (each list's parent Process node is a candidate); present matches and let the user confirm or name a new process
+8. **Determine list placement** if the Process already has sibling workflows:
+   - Check the chosen Process node's `# Workflows` list for the sibling workflows' order
+   - Ask where the new workflow belongs (first, last, after a named sibling) — position in the list is the sequence, there's no number to assign
+9. **Record in the registry** after user confirms selections (see below)
 
 ## Recording the Workflow (AI Registry entry)
 
-The workflow's registry entry is its manifest: `outputs/<workflow-id>/workflow.yaml`, where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). The full schema lives in the `indexing-registry` skill's `references/manifest-schema.md`.
+The workflow's registry entry is its Workflow concept node: `registry/workflows/<workflow-id>.md`, where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). See `indexing-registry/references/registry-bundle.md` for resolution, write rules, and the full field-ownership table.
 
-After the user confirms name, description, and process outcome:
+After the user confirms name and description (deliverable folded in):
 
-1. **If a manifest already exists** for this workflow (the user is renaming or enriching), update only the fields below — preserve everything else.
-2. **If none exists** (naming before running deconstruct), create the folder and a **stub manifest** with `current_step: 0` (meaning "named only" — deconstruct will merge into it later, never overwrite it):
+1. **If a Workflow node already exists** for this workflow (the user is renaming or enriching), update only the fields below — preserve everything else, and never write inside a GENERATED block.
+2. **If none exists** (naming before running deconstruct), create a **stub node** with `status: backlog` (meaning "named only" — deconstruct will merge into it later, never overwrite fields you set):
 
 ```yaml
-workflow: lead-qualification
-display_name: Lead Qualification
-description: >-
-  Identify and score prospects using research tools and qualification
-  criteria. Produces ranked lead list with contact details.
-process_outcome: Qualified lead list
-business_process: Sales Pipeline
-sequence: 10                # omit for standalone workflows
-status: under-development   # backlog | under-development | in-production
-type: augmented             # augmented | automated | manual
+---
+type: Workflow
+title: "Lead Qualification"
+description: "Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details."
+generated: { by: process:naming-workflows, at: YYYY-MM-DD }
+status: backlog
 trigger: "Weekly (Sunday)"
-current_step: 0             # named only — deconstruct takes it from here
-last_updated: YYYY-MM-DD
+execution_mode: augmented   # manual | augmented | automated
+---
+# Lead Qualification
+
+Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details.
+
+# Artifacts
+
+# Skills
+
+# Agents
+
+# Insights
+
+<!-- GENERATED:insights -->
+<!-- /GENERATED -->
 ```
 
+Then add its line to the chosen Process's `# Workflows` list (`registry/processes/<process-slug>.md`) — never write `process:`, `owner:`, or `sequence:` on the Workflow node itself; process membership and sequence live only in the parent list.
+
 **Default values:**
-- Status: `under-development` (use `backlog` if the user is only cataloging ideas)
-- Type: `augmented` (human-in-the-loop) unless fully automated
-- Sequence: next available multiple of 10 within the Business Process; omit for standalone workflows
+- Status: `backlog` (use this whenever the user is only cataloging ideas or naming ahead of deconstruct)
+- Execution mode: `augmented` (human-in-the-loop) unless fully automated
 
-3. **Create or update `REGISTRY.md` at the workspace root** — this is part of the step, not optional. Follow the procedure in the `indexing-registry` skill if available; otherwise write the file directly from the manifest data you have (Workflows / Skills / Agents tables, `—` for unknowns). Skip only if the environment can't write to the workspace root — and tell the user you skipped it, never silently.
+**New Process rule:** if the chosen process doesn't exist yet as a Process node, ask **"Which function owns this process?"** — offer the registry's `functions/` list — and write a complete minimal Process node (`title`, `description`, `owner: <function-slug>`, an empty `# Workflows` list to append into) before adding the workflow's line. Never create an ownerless Process stub; the schema requires `owner:` on every Process node.
 
-**Optional Notion mirror:** if the user keeps the Notion AI Registry template and has the Notion MCP connected, offer to mirror the entry to their Workflows database afterward (see the `indexing-registry` skill's `references/notion-mirror.md` for the field mapping). If the manifest already has a `notion_url`, update its Notion row without asking (best-effort). The manifest remains the source of truth.
+3. **Create or update `REGISTRY.md` at the workspace root** — this is part of the step, not optional. Follow the procedure in the `indexing-registry` skill if available; otherwise write the file directly from the registry data you have (Workflows / Skills / Agents tables, `—` for unknowns). Skip only if the environment can't write to the workspace root — and tell the user you skipped it, never silently.
+
+Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 ## Quick Reference
 
 **Name formula:** `[Subject] [Action/Purpose]` (2-4 words, noun phrase)
 **Description formula:** `[Action verb] [object] [condition]. [Outcome].` (1-2 sentences)
-**Process Outcome:** Concrete deliverable (not "completed workflow")
-**Sequence:** Multiples of 10 within Business Process (10, 20, 30...)
+**Deliverable:** Concrete outcome (not "completed workflow") — folds into the description, not a separate field
+**Sequence:** Position in the owning Process's `# Workflows` list — not a stored field or a number
 
-## Sequence Example
+## List Placement Example
 
-**Business Process:** ⚡ Lightning Lesson Launch
+**Process:** ⚡ Lightning Lesson Launch
 
-| Sequence | Workflow | Trigger |
+| Position | Workflow | Trigger |
 |:--------:|----------|---------|
-| 10 | Lightning Lesson Design | Ad-hoc (new lesson idea) |
-| 20 | Lightning Lesson Content Creation | 2-3 weeks before event |
-| 30 | Lightning Lesson Promotion | 2-3 weeks before event |
-| 40 | Lightning Lesson Conversion | Post-event (within 48 hours) |
+| 1 | Lightning Lesson Design | Ad-hoc (new lesson idea) |
+| 2 | Lightning Lesson Content Creation | 2-3 weeks before event |
+| 3 | Lightning Lesson Promotion | 2-3 weeks before event |
+| 4 | Lightning Lesson Conversion | Post-event (within 48 hours) |
 
-**Note:** Content Creation (20) and Promotion (30) could share sequence "20" if they run in parallel.
+**Note:** Content Creation and Promotion could occupy the same position if they run in parallel — the list is still ordered, but two entries can share a step.

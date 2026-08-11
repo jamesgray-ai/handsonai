@@ -1,151 +1,44 @@
 ---
 name: indexing-registry
 description: >
-  This skill should be used when the user wants to generate or refresh their AI Registry —
-  the REGISTRY.md index of skills, agents, workflows, business processes, and apps at the
-  workspace root. Triggers when the user asks to "update my registry", "regenerate the index",
-  "what have I built", "show my AI inventory", after creating skills or agents, or when another
-  framework skill's closing step calls for a registry refresh. Also handles the optional Notion
-  mirror: "register this skill/agent/workflow/process in Notion", "add this to my Notion
-  registry", "update this workflow in Notion", "mirror my registry to Notion", "what's in my
-  Notion registry". Also use to repair a stale or hand-edited REGISTRY.md, or to migrate from
-  a Notion-based registry.
+  This skill should be used to maintain the user's AI Registry — the registry/
+  knowledge bundle and its derived views (the REGISTRY.md dashboard, directory
+  indexes, GENERATED blocks, and the visual HTML dashboard). Triggers: "update
+  my registry", "refresh my registry", "lint my registry", "generate my
+  dashboard", "what have I built", "show my AI inventory", after creating
+  skills or agents, or when another framework skill's closing step calls for a
+  maintenance pass. Also repairs stale or hand-edited derived views. If no
+  registry/SCHEMA.md exists, route to the scaffolding-registry skill instead.
 user-invocable: true
 ---
 
-# Indexing the AI Registry
+# Maintaining the AI Registry
 
-The **AI Registry** is a single generated file — `REGISTRY.md` at the workspace root — that gives an at-a-glance view of everything the user has built: skills, agents, workflows, business processes, and the apps they connect to.
+The **AI Registry** is the `registry/` knowledge bundle at the workspace root, plus everything derived from it: directory indexes, GENERATED blocks inside individual nodes, the `REGISTRY.md` dashboard, and — on request — the visual HTML dashboard.
 
-**The registry is derived state, never maintained state.** The source of truth is always the underlying files:
+**The registry is derived-state doctrine.** The bundle's node files (under `registry/`) are the source of truth. Every dashboard, index, and summary is generated from them. **Edit sources, regenerate — never hand-edit a derived view.** If a derived view looks wrong, that's a signal to fix the source node and regenerate, not to patch the view directly.
 
-| Registry section | Source of truth |
-|---|---|
-| Skills | `SKILL.md` frontmatter (`name`, `description`, optional `quick_start_prompt`) |
-| Agents | agent `.md` frontmatter or filename + opening paragraph |
-| Workflows | `outputs/*/workflow.yaml` manifests (see `references/manifest-schema.md`) |
-| Business Processes | `process-guides/*.md` frontmatter + `business_process` values in manifests |
-| Apps | union of `apps:` lists across manifests |
-
-To change what the registry shows, edit the source file and regenerate. Never edit `REGISTRY.md` by hand.
-
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `references/manifest-resolution.md` and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
-
-> **Terminology:** "AI Registry" always means `REGISTRY.md` and the files it indexes. It is unrelated to the framework's *platform registry* (`registries/platform-registry.json`), which catalogs platforms and integrations for the Design and Build skills.
+For how nodes are resolved, written, and owned — resolution rules, write rules, the field-ownership table, framework-progress inference, review scheduling, and the full lint rule list — see `references/registry-bundle.md`. This skill assumes that contract; it doesn't restate it.
 
 ## Location & Scope
 
-**One workspace = one registry.** `REGISTRY.md` lives at the root of the folder the framework operates in — beside `outputs/`, `sops/`, and `process-guides/`:
+**One workspace = one registry.** The bundle lives at `registry/` off the root of the folder the framework operates in — beside `outputs/`, `sops/`, and `process-guides/`. Where that root is, and how bytes get read and written there, depends on the platform — see the platform matrix in the framework's cross-platform delivery documentation. Claude Code and Cowork read and write the bundle directly; claude.ai and other connector-based platforms generate and commit through their connector, with anything unwritten stated explicitly.
 
-- **Claude Code** → repository root.
-- **Cowork** → project folder root (the writable scope). Each Cowork project gets its own registry; users who want one unified view should keep a single "AI workspace" folder for all their workflows.
-- **claude.ai (no persistent workspace)** → generate the file as a download and tell the user to keep it in their Project knowledge and re-upload it alongside `workflow.yaml` when continuing work.
+> **Terminology:** "AI Registry" always means the `registry/` bundle and the views generated from it. It is unrelated to the framework's *platform registry* (`registries/platform-registry.json`), which catalogs platforms and integrations for the Design and Build skills.
 
-**The registry inventories what the user built — not the tooling they installed.** Plugin-installed skills and agents (the AI Workflow Framework skills themselves, marketplace plugins, platform-provided agents) are **excluded by default**: listing framework tooling in a student's registry is noise, not inventory. What belongs in the Skills and Agents tables:
+## The maintenance pass
 
-- Skill/agent **files in the workspace** (including artifacts the Build step generated into the project)
-- Personal `~/.claude/skills/` entries only if the user asks to include them
+Run all five jobs for a full pass, or just the one the user asked for. Other framework skills invoke this skill from their closing step for the same pass — see **Best-effort rule** below.
 
-If the user explicitly asks to see installed tooling ("include my installed skills"), add an "Installed (user/plugin)" subsection listing them from session context with Location `installed` — otherwise omit that section entirely. File scanning stays workspace-local.
+### 1. Lint
 
-## Regeneration Procedure
+Read every node against the workspace's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§6) — that file is the single source; do not duplicate its rule list here. Report findings in plain language, named by file. **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
 
-Other framework skills reference this procedure from their closing steps ("refresh REGISTRY.md"). Run it the same way whether invoked standalone or as a closing step. **Best-effort rule:** if the environment can't write to the workspace root, say so and continue — a failed refresh must never fail the step that requested it.
+### 2. Refresh indexes
 
-**Workspace-owned generator takes precedence:** if the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling `REGISTRY.md` by hand — the workspace's own generator is authoritative.
+Regenerate the typed-directory `index.md` files and the bundle-root inventories (Skills and Agents, each with a "used by" column derived from which Workflow nodes link them).
 
-### Step 1: Scan sources
-
-Scan **within the workspace only**, in this order:
-
-1. **Skills** — glob `**/skills/*/SKILL.md` (covers `.claude/skills/` and any plugin-style layout in the workspace, including skills the Build step generated into the project). Read frontmatter `name`, `description`, optional `quick_start_prompt`. Exclude plugin cache/install directories if any fall inside the workspace.
-2. **Agents** — glob `.claude/agents/*.md` and `agents/*.md`. Name from frontmatter `name` or filename; description from frontmatter `description` or the opening paragraph.
-3. **Prompts** (optional section) — glob `prompts/*.md` if the directory exists. Name from frontmatter or filename; description from frontmatter or first line.
-4. **Context files** (optional section) — `CLAUDE.md` at the workspace root (and notable nested ones). Describe from the first heading or summary line.
-5. **Workflows** — every `outputs/*/workflow.yaml`. Read all fields (schema in `references/manifest-schema.md`). Also:
-   - **Legacy flat layout** (`outputs/<name>-requirements.md` with no folder/manifest): list the workflow with an em-dash in metadata columns and the note *"legacy — run deconstruct to migrate"*.
-   - **Standalone SOPs** (`sops/*.md` whose `workflow:` frontmatter matches no manifest, or with no `workflow:` key): list them in the Workflows table using SOP frontmatter (`title`, `execution_mode`, `autonomy_level`, `owner`) for whatever columns they can fill.
-6. **Process guides** — `process-guides/*.md` frontmatter (`title`, `domain`, `owner`, optional `workflows`).
-
-**Tolerance rules:** every field is optional — a missing value renders as `—`, never an error. Accept `Outcome-Driven` as `Goal-Driven`. Accept Title Case or kebab-case enum values (`In Production` = `in-production`).
-
-### Step 2: Build the file
-
-Use this template. Order every table **alphabetically by name** so regeneration produces clean diffs. Omit the Prompts & Context Files section entirely when there is nothing to list.
-
-```markdown
-<!-- GENERATED by the indexing-registry skill — do not edit by hand.
-     Edit the source files (SKILL.md frontmatter, workflow.yaml,
-     SOP/process-guide frontmatter) and regenerate. -->
-
-# AI Registry
-
-Your inventory of AI assets and workflows. Sources of truth are the files themselves — this index is generated.
-
-## Skills
-
-| Skill | Description | Location | Quick Start Prompt |
-|---|---|---|---|
-| [name] | [description, first sentence] | [path] | [prompt or —] |
-
-<!-- "Installed (user/plugin)" subsection: only when the user explicitly asks
-     to include installed tooling — omit by default. -->
-
-## Agents
-
-| Agent | Description | Location | Quick Start Prompt |
-|---|---|---|---|
-| [name] | [description, first sentence] | [path] | [prompt or —] |
-
-## Workflows
-
-| Workflow | Business Process | Owner | Status | Health | Last Run |
-|---|---|---|---|---|---|
-| [display_name] | [business_process] | [owner] | [status] | [health] | [last_run] |
-
-### Workflow details
-
-| Workflow | Type | Autonomy | Platform | Trigger | Apps | Step | SOP | Requirements | Design Spec |
-|---|---|---|---|---|---|---|---|---|---|
-| [display_name] | [type] | [autonomy] | [platform] | [trigger] | [apps, comma-joined] | [current_step]/7 | [link or —] | [link or —] | [link or —] |
-
-## Business Processes
-
-| Process | Domain | Workflows | Guide |
-|---|---|---|---|
-| [title] | [domain] | [workflow names in this process, comma-joined] | [link or "no guide yet"] |
-
-## Apps
-
-| App | Used by |
-|---|---|
-| [app name] | [workflow names, comma-joined] |
-
-## Prompts & Context Files
-
-| Name | Type | Description | Location |
-|---|---|---|---|
-| [name] | Prompt / Context | [description] | [path] |
-
----
-*Generated: YYYY-MM-DD · [N] skills · [N] agents · [N] workflows · [N] processes · [N] apps*
-```
-
-Links use relative paths from the workspace root (e.g., `[SOP](sops/lead-qualification-sop.md)`).
-
-The two Workflows tables split the columns deliberately: the first is the operational dashboard (who owns it, is it healthy, when did it last run), the second holds configuration detail. Keep both even for a single workflow.
-
-### Step 3: Report
-
-After writing, summarize what changed: counts per section, plus:
-
-- **Collisions** — two assets with the same name in different locations: list both paths and ask the user which is canonical (don't guess).
-- **Orphans** — a manifest whose `business_process` has no process guide ("no guide yet" — suggest `writing-process-guides`); an SOP with no manifest; an `assets_used` entry matching no scanned skill/agent.
-- **Legacy layouts** found (suggest running `deconstruct` to migrate).
-
-## Quick Start Prompts
-
-A Quick Start Prompt is a single copy-paste-ready prompt demonstrating the asset's primary use case. When an asset has no `quick_start_prompt` frontmatter field, generate one and **offer to write it back into the asset's frontmatter** (with the user's confirmation — this is the only write this skill makes outside `REGISTRY.md`). Until it's written back, show the generated prompt in the table but note it's unsaved.
+**Quick Start Prompts** are retained from the prior version of this skill. A Quick Start Prompt is a single copy-paste-ready prompt demonstrating an asset's primary use case. When an asset has no `quick_start_prompt` frontmatter field, generate one and **offer to write it back into the asset's frontmatter** (with the user's confirmation — this is the only write this skill makes outside the bundle and its derived views). Until it's written back, show the generated prompt in the index but note it's unsaved.
 
 **Guidelines:**
 - One sentence that triggers the asset's main workflow
@@ -157,7 +50,7 @@ A Quick Start Prompt is a single copy-paste-ready prompt demonstrating the asset
 
 | Type | Name | Quick Start Prompt |
 |------|------|--------------------|
-| Skill | reviewing-student-goals | "Review student learning goals from my course platform, update each student's record in Notion, and give me a cohort theme analysis." |
+| Skill | reviewing-student-goals | "Review student learning goals from my course platform, update each student's record, and give me a cohort theme analysis." |
 | Skill | writing-linkedin-posts | "Write a LinkedIn post about [topic] using my brand voice." |
 | Agent | playbook-question-answerer | "Answer the question 'What are the six AI building blocks?' using the Hands-on AI site content." |
 | Agent | hbr-editor | "Review this article for HBR publication quality and give me prescriptive feedback." |
@@ -165,16 +58,39 @@ A Quick Start Prompt is a single copy-paste-ready prompt demonstrating the asset
 
 Context files typically don't need a Quick Start Prompt — use `—`. If unsure, ask the user rather than guessing.
 
-## Optional: Mirror to Notion
+### 3. Regenerate GENERATED blocks
 
-For users who work across multiple machines and tools, the Notion AI Registry template is a supported **visualization mirror** — database views of the same registry, with grouped views by process and clickable workflow↔asset relations. It is never required and never the source of truth: the mirror is one-way (Markdown → Notion).
+Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->` markers: a Workflow node's `# Insights` block, and a Function node's `# Owns` block. Write only inside the markers, never outside them, and never leave a marker pair unterminated.
 
-The mirror targets **four core databases**: Workflows, Processes, Skills, and Agents. The full procedure, field mapping, link derivation, and sync rules live in `references/notion-mirror.md` — follow it exactly.
+### 4. Regenerate dashboards
 
-- After regenerating the registry, **offer** to mirror if the Notion MCP is connected — first-time mirroring always requires the user's confirmation.
-- A **single asset** can be registered or updated without a full mirror ("register this skill in Notion") — see the Targeted registration section of the reference.
-- Once a workflow's manifest has a `notion_url`, that is a standing opt-in: framework skills auto-sync that workflow's Notion row in their closing steps (best-effort, never blocking).
-- After any mirror, confirm what changed and remind the user the Markdown files remain the source of truth.
-- A workspace whose manifests carry no `notion_url` fields at all has the mirror **off** — don't offer per-workflow auto-sync there unless the user asks to set the mirror up.
+**Tier 1 — `REGISTRY.md` (always, on every pass).** Structure, fixed by the reference example:
 
-**Migrating *from* Notion:** to move an existing Notion registry into Markdown, follow the migration procedure in `references/notion-mirror.md` — read the core databases, merge fields into manifests and frontmatter, create stub process guides, then regenerate.
+- Business header (name, linked if a URL is set)
+- One section per line of business, in curated order
+- Within each, one subsection per process, each holding a workflow table in value-chain order with status, execution mode, autonomy, and review-by date
+- A **Review dates** section, sorted ascending
+- An **Unassigned** section for anything the bundle can't place
+- A **Skills** inventory and an **Agents** inventory, each with description and "used by"
+
+No Health, Last Run, or Step columns — framework step is inferred from artifact presence (`references/registry-bundle.md` §4), not stored. No generation-date line — the file's content is the only thing that changes, so a timestamp footer would just create diff noise.
+
+**Tier 2 — `registry-dashboard.html` (on request: "generate my dashboard").** Read the bundle, build a data island matching `references/data-island.schema.json`, and inject it as the **only** change into `references/dashboard-template.html`'s `<script type="application/json" id="data">` element — never touch the renderer around it. Save the result as `registry-dashboard.html` at the workspace root.
+
+*Claude platforms:* after generating `registry-dashboard.html`, offer to publish it as an Artifact.
+
+### 5. Append `log.md`
+
+Record schema changes and migrations only — not routine content edits. Routine node writes don't need a log entry.
+
+## Refusal + self-healing rule
+
+Refuses to regenerate derived views while lint reports errors — with the reference's self-healing exception: broken-link errors that point at derived content the pass is about to rewrite (stale links left in GENERATED views by renames/retirements) do not block emission; a post-emit lint is the backstop. Without this exception, a rename deadlocks the composer on the very files whose regeneration would clear the error.
+
+## Workspace-generator precedence
+
+If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative.
+
+## Best-effort rule
+
+A failed refresh must never fail the step that requested it. If the environment can't write to the workspace root, say so and continue.

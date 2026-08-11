@@ -40,7 +40,7 @@ Optional tools that work in collaboration with your AI platform to build and man
 | **Git** | Automatically tracks every change to every file | You'll constantly create and refine your building blocks — Git keeps the full history for you, so you never have to manage versions manually, and it connects to GitHub so everything gets backed up in the cloud |
 | **GitHub** | Cloud storage and backup for your files, built on top of Git | Your work is safe, versioned, accessible from any machine, and easy to share |
 | **Voice to Text** | Dictation software (Wispr Flow or your system's built-in voice input) | Talk instead of type — faster for long prompts and more natural when you're thinking out loud |
-| **AI Registry** | A Markdown-based inventory of your workflows, AI building blocks, and connected apps — with an optional Notion mirror for visual database views | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
+| **AI Registry** | A knowledge-bundle inventory of your workflows, processes, and insights — Markdown in your repo, maintained by your AI assistant | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
 
 ## Setup Order
 
@@ -76,7 +76,7 @@ Some Power User tools (Editor, Git, GitHub) involve running commands in the term
 
 :::note[Heads up]
 - **Hands-on AI Knowledge Base:** Your AI tool may call this an "MCP server" or "MCP connector" — that's the underlying technology.
-- **AI Registry:** The registry lives in your workspace as Markdown — there's nothing extra to set up beyond installing the plugin (`/plugin install handsonai@handsonai`). If you like database views, you can optionally mirror it to Notion (see the [AI Registry setup guide](ai-registry-setup/)).
+- **AI Registry:** The registry lives in your workspace as Markdown — there's nothing extra to set up beyond installing the plugin (`/plugin install handsonai@handsonai`) (see the [AI Registry setup guide](ai-registry-setup/)).
 :::
 
 ---

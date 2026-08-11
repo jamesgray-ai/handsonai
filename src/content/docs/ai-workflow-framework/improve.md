@@ -36,7 +36,7 @@ When you operationalize a workflow in Step 6, set a calendar reminder for your f
 
 The skill runs six phases. The sections that follow expand on each:
 
-1. **Load history** — Read the workflow manifest, Design Spec, previous test results (the baseline scores live in the file's frontmatter), and the run log if you've been keeping one.
+1. **Load history** — Read the Workflow node, Design Spec, previous test results (the baseline scores live in the file's frontmatter), and the run log if you've been keeping one.
 2. **Quality signal review** — Start from the run log's evidence (run frequency, recurring edits, failures), then discuss what prompted this improvement cycle. Which signals are you seeing?
 3. **Regression evaluation** — Re-run the eval suite from Test. Compare current scores to baseline.
 4. **Graduation assessment** — Should the orchestration mechanism evolve (Prompt → Skill-Powered Workflow, Skill-Powered Workflow → Agent, single agent → multi-agent)?

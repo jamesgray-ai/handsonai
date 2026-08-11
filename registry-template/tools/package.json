@@ -1,0 +1,6 @@
+{
+  "name": "ai-registry-tools",
+  "private": true,
+  "type": "commonjs",
+  "description": "Zero-dependency lint/compose tooling for the AI Registry bundle. See registry/SCHEMA.md."
+}

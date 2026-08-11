@@ -4,7 +4,7 @@ description: >
   Evaluate a running AI workflow for quality, relevance, and evolution opportunities.
   Use when the user wants to review how a deployed workflow is performing, check if it needs
   tuning, or assess whether it should graduate to a more capable orchestration mechanism.
-  Also use when the user says "continue my workflow" and the workflow manifest shows Step 7 (Improve) is next, or the manifest next_review date has arrived.
+  Also use when the user says "continue my workflow" and the Workflow node's artifacts show Step 7 (Improve) is next, or its `stale_after` date has arrived.
   This is Step 7 (Improve) of the AI Workflow Framework.
 user-invocable: true
 ---
@@ -17,13 +17,13 @@ Evaluate and evolve running AI workflows. Review how a deployed workflow is perf
 
 ### 1. Load workflow context
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-Read the workflow's manifest (`outputs/[workflow-name]/workflow.yaml`) and load the artifacts it registers: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, first list the workflow folders under `outputs/` (if several) and orient from the manifest before proceeding. If no manifest exists but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to re-upload them (manifest, test results, run log) instead of failing.
+Read the workflow's Workflow node (`registry/workflows/<slug>.md`) and load the artifacts it links: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and orient from which artifacts each node's `# Artifacts` section already links before proceeding. If no Workflow node exists yet but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to reconnect your registry repo via the GitHub connector, or re-upload the bundle folder, instead of failing.
 
-**Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the manifest before treating its scores as this workflow's baseline. Parse the baseline scores from the Test Results frontmatter (`scores` and `averages`) — that's the regression reference.
+**Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the Workflow node before treating its scores as this workflow's baseline. Parse the baseline scores from the Test Results frontmatter (`scores` and `averages`) — that's the regression reference.
 
-**Check the review schedule.** If the manifest has a `next_review` date, compare it to today: if overdue, note it plainly ("This review was due [date] — good timing") and, at the end of this run, agree a fresh `next_review` date. If the user arrived well before the date, ask what prompted the early check — that signal (quality slipped, requirements changed) often points straight at the diagnosis.
+**Check the review schedule.** If the Workflow node has a `stale_after` date, compare it to today: if overdue, note it plainly ("This review was due [date] — good timing") and, at the end of this run, agree a fresh `stale_after` date. If the user arrived well before the date, ask what prompted the early check — that signal (quality slipped, requirements changed) often points straight at the diagnosis.
 
 Understand what was built, how it was designed to work, and what quality bar was established.
 
@@ -94,7 +94,9 @@ Produce one of the following:
 
 ## Output
 
-Write results to `outputs/[workflow-name]/improvement-plan.md`. If a plan already exists from a previous review cycle, rename it with a date suffix first. Then update the workflow manifest: set `current_step: 7`, `last_updated`, add `improvement_plan` under `artifacts`, and record `next_review: YYYY-MM-DD` (agree the date with the user — monthly is a good default for high-frequency workflows, quarterly for occasional ones). Also update the registry field `health` to reflect the diagnosis (`working`, `needs-attention`, or `broken`), then **create or update `REGISTRY.md`** at the workspace root — follow the `indexing-registry` procedure if available, otherwise update its tables directly from the manifest; if the manifest has a `notion_url`, also update its Notion row per that skill's `references/notion-mirror.md`. Skip only if the workspace root isn't writable (or Notion isn't connected) and say so — never silently; a failed refresh never fails this step.
+Write results to `outputs/[workflow-name]/improvement-plan.md`. If a plan already exists from a previous review cycle, rename it with a date suffix first. Then update the Workflow node (`registry/workflows/<slug>.md`): reset `stale_after: YYYY-MM-DD` to the next agreed review date (monthly is a good default for high-frequency workflows, quarterly for occasional ones), and link the Improvement plan under `# Artifacts`. **If the review surfaced a durable insight, write it as a Note node in `registry/notes/` linking the Workflow** — insights are how learning enters your registry. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table.
+
+Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 Include:
 

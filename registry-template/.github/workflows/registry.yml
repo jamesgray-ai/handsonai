@@ -1,0 +1,38 @@
+name: Registry
+on:
+  push:
+    branches: [main]
+    paths: ["registry/**", "tools/**", "sops/**", ".claude/**", "agents/**", "skills/**"]
+  workflow_dispatch:
+permissions: { contents: read, pages: write, id-token: write }
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: Lint registry
+        run: node tools/lint-registry.js registry
+      - name: Compose dashboard
+        run: |
+          node tools/compose-registry.js registry
+          mkdir -p _site
+          node -e "
+            const fs=require('fs');
+            let t=fs.readFileSync('tools/dashboard-template.html','utf8');
+            const i=fs.readFileSync('tools/last-data-island.json','utf8'); // pre-escaped by compose-registry.js
+            t=t.replace(/(<script type=\"application\/json\" id=\"data\">)[\s\S]*?(<\/script>)/, (_,a,b)=>a+i+b);
+            fs.writeFileSync('_site/index.html', t);"
+          cp REGISTRY.md _site/
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: _site }
+  deploy:
+    needs: compose
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

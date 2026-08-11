@@ -263,12 +263,13 @@ def build_pdf():
 
     build_step(story, styles, 6, "AI Registry + Plugins (Optional)",
         [
-            "Open the Notion AI Registry template (link on setup checklist page) → click Duplicate.",
+            "Create your registry repo from the template (or ask your AI assistant to set one up).",
             "In Claude Code: <font face='Courier' size='9'>/plugin marketplace add jamesgray-ai/handsonai-plugins</font>",
             "Then: <font face='Courier' size='9'>/plugin install handsonai@handsonai</font>",
         ],
         [
-            "Four databases visible in Notion workspace",
+            "registry/ folder with SCHEMA.md",
+            "Your first REGISTRY.md dashboard",
             "Plugin commands run without errors in Claude Code",
         ]
     )

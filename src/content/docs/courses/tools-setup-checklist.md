@@ -203,12 +203,13 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 
 - You have one AI workspace folder (ideally a GitHub repository) for your AI work
 - The Hands-on AI plugin is installed (`/plugin install handsonai@handsonai`)
-- `REGISTRY.md` appears at your workspace root after your first workflow
+- `registry/` exists with `SCHEMA.md` inside
+- `REGISTRY.md` appears at the root after your first maintenance pass
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm setting up my Markdown-based AI Registry (REGISTRY.md in my workspace) and running into this issue: [describe what's happening]. What should I check?
+> I'm setting up my Markdown-based AI Registry (a `registry/` bundle in my workspace) and running into this issue: [describe what's happening]. What should I check?
 
 </details>
 ---
