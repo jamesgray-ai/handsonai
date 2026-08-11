@@ -172,6 +172,73 @@ while ((m = re.exec(html))) { script += m[1] + "\n"; }
 fs.writeFileSync(process.argv[2], script);
 ' /tmp/dashboard-rendered.html /tmp/dashboard-renderer.js
   node --check /tmp/dashboard-renderer.js && ok "dashboard renderer script is syntactically valid" || bad "dashboard renderer script has a syntax error"
+
+  # Actually execute the renderer against a minimal zero-dependency DOM stub
+  # (no jsdom -- same "roll a ~30-line checker" philosophy as the schema
+  # validator above) so these two checks assert real rendered behavior, not
+  # just string presence in the raw (unexecuted) file:
+  #   - the Business header link prefers business.url (Important finding #2)
+  #   - a workflow drill-in renders a matching Note as an Insight, sourced
+  #     from data.notes via `links` (Critical finding #1)
+  node -e '
+const fs = require("fs");
+const vm = require("vm");
+const script = fs.readFileSync(process.argv[1], "utf8");
+const islandJson = fs.readFileSync(process.argv[2], "utf8");
+
+function makeEl(id) {
+  return {
+    id: id,
+    _text: "",
+    _html: "",
+    listeners: {},
+    get textContent() { return this._text; },
+    set textContent(v) { this._text = String(v); },
+    get innerHTML() { return this._html; },
+    set innerHTML(v) { this._html = String(v); },
+    classList: { add: function () {}, remove: function () {} },
+    setAttribute: function () {},
+    getAttribute: function () { return null; },
+    addEventListener: function (type, fn) {
+      this.listeners[type] = this.listeners[type] || [];
+      this.listeners[type].push(fn);
+    },
+  };
+}
+
+const ids = ["data", "root", "scrim", "panel", "panel-type", "panel-title", "panel-desc", "panel-meta", "panel-extra", "panel-close"];
+const elements = {};
+ids.forEach(function (id) { elements[id] = makeEl(id); });
+elements["data"].textContent = islandJson;
+
+const doc = {
+  getElementById: function (id) { return elements[id]; },
+  listeners: {},
+  addEventListener: function (type, fn) {
+    this.listeners[type] = this.listeners[type] || [];
+    this.listeners[type].push(fn);
+  },
+};
+
+const sandbox = { document: doc, console: console, Date: Date, JSON: JSON, String: String, Array: Array, Object: Object, Boolean: Boolean, Infinity: Infinity };
+vm.createContext(sandbox);
+vm.runInContext(script, sandbox);
+
+const bizUrlOk = elements.root.innerHTML.indexOf("href=\"https://kestrelstudio.example\"") !== -1;
+console.log(bizUrlOk ? "BIZ_URL_OK" : "BIZ_URL_MISSING");
+
+const fakeTarget = {
+  closest: function () {
+    return { getAttribute: function (attr) { return attr === "data-kind" ? "workflow" : (attr === "data-id" ? "second-workflow" : null); } };
+  },
+};
+(elements.root.listeners.click || []).forEach(function (fn) { fn({ target: fakeTarget }); });
+
+const insightOk = elements["panel-extra"].innerHTML.indexOf("First Workflow Insight") !== -1;
+console.log(insightOk ? "INSIGHT_OK" : "INSIGHT_MISSING");
+' /tmp/dashboard-renderer.js "$FIX/golden/data-island.json" > /tmp/dashboard-exec.out
+  grep -q "BIZ_URL_OK" /tmp/dashboard-exec.out && ok "dashboard header link prefers business.url" || bad "dashboard header does not use business.url for its href"
+  grep -q "INSIGHT_OK" /tmp/dashboard-exec.out && ok "workflow drill-in renders a matching Note as an Insight (data.notes via links)" || bad "workflow drill-in missing Insights section from data.notes"
 else
   bad "registry-template/tools/dashboard-template.html missing"
 fi

@@ -3,6 +3,7 @@
     "id": "kestrel-studio",
     "title": "Kestrel Studio",
     "description": "A boutique design and brand studio.",
+    "url": "https://kestrelstudio.example",
     "status": "active",
     "nodePath": "registry/businesses/kestrel-studio.md"
   },

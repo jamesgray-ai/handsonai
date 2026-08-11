@@ -157,6 +157,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
   var funcs = Array.isArray(data.functions) ? data.functions : [];
   var processes = Array.isArray(data.processes) ? data.processes : [];
   var workflows = Array.isArray(data.workflows) ? data.workflows : [];
+  var notes = Array.isArray(data.notes) ? data.notes : [];
   var skills = Array.isArray(data.skills) ? data.skills : [];
   var agents = Array.isArray(data.agents) ? data.agents : [];
 
@@ -181,11 +182,25 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     return { 'in-production': 'In production', 'under-development': 'Under development', backlog: 'Backlog', retired: 'Retired' }[s] || (s || 'Unknown');
   }
 
-  function linkFor(node) {
-    if (!node) return '';
-    var href = node.nodeUrl || node.nodePath;
+  // Scheme allowlist -- defense in depth. The island is normally
+  // self-authored by compose-registry.js, but this template also renders
+  // shared/imported bundles, so treat every href as untrusted input: accept
+  // only http(s), mailto, and relative paths; reject javascript:/data:/
+  // vbscript: and anything else that could execute in the viewer's context.
+  function safeHref(href) {
     if (!href) return '';
-    return href;
+    var s = String(href).trim();
+    var safe = /^(https?:|mailto:|\/|\.\/|\.\.\/|[^:]*$)/i;
+    return safe.test(s) ? s : '';
+  }
+
+  // `preferUrl`: use node.url (the node's external homepage, e.g. Business)
+  // ahead of nodeUrl/nodePath (the source-of-truth link back into the
+  // registry bundle itself).
+  function linkFor(node, preferUrl) {
+    if (!node) return '';
+    var href = (preferUrl && node.url) || node.nodeUrl || node.nodePath;
+    return safeHref(href);
   }
 
   // ── status-distribution summary strip ──────────────────────────
@@ -274,7 +289,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
 
   function renderBizBand() {
     if (!business) return '';
-    var href = linkFor(business);
+    var href = linkFor(business, true);
     var titleHtml = href
       ? '<a href="' + esc(href) + '">' + esc(business.title) + '</a>'
       : esc(business.title);
@@ -334,6 +349,25 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     return '<div class="p-sec"><i>' + esc(label) + '</i><ul>' + lis + '</ul></div>';
   }
 
+  // Insights: Notes whose `links` array names this node's bundle path.
+  // Note links are bundle-relative ("/workflows/second-workflow.md"); a
+  // node's nodePath is registry-relative ("registry/workflows/second-workflow.md")
+  // -- strip the "registry" prefix before comparing.
+  function bundlePath(node) {
+    return node && node.nodePath ? node.nodePath.replace(/^registry/, '') : null;
+  }
+
+  function insightsSection(node) {
+    var path = bundlePath(node);
+    if (!path) return '';
+    var matches = notes.filter(function (n) { return (n.links || []).indexOf(path) !== -1; });
+    if (!matches.length) return '';
+    var lis = matches.map(function (n) {
+      return '<li>' + esc(n.title || n.id) + (n.description ? ' — ' + esc(n.description) : '') + '</li>';
+    }).join('');
+    return '<div class="p-sec"><i>Insights</i><ul>' + lis + '</ul></div>';
+  }
+
   function openWorkflow(wf) {
     panelType.textContent = 'Workflow';
     panelTitle.textContent = wf.title || wf.id;
@@ -357,6 +391,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
         '</ul></div>' : '') +
       pathList('Skills', wf.skills) +
       pathList('Agents', wf.agents) +
+      insightsSection(wf) +
       linkSection(wf);
     openPanel();
   }
@@ -385,7 +420,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     panelExtra.innerHTML = procWorkflows.length
       ? relatedList('Workflows', procWorkflows, 'workflow')
       : '<p class="empty-note">No workflows yet.</p>';
-    panelExtra.innerHTML += linkSection(proc);
+    panelExtra.innerHTML += insightsSection(proc) + linkSection(proc);
     openPanel();
   }
 
