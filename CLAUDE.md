@@ -46,6 +46,7 @@ cd mcp-server && npm install && wrangler dev
 - `.claude/commands/` - Project slash commands. `/hbr-article` (automatic delegation — states the outcome and lets Claude choose the specialists) and `/hbr-article-strict` (deterministic — explicit fixed sequence). The two exist as a deliberate teaching contrast; keep them in sync when the pipeline changes. See the [Autonomous Agent example](src/content/docs/ai-workflow-framework/examples/autonomous-agent.mdx), which is the reference documentation for how that pipeline works.
 - `plugins/handsonai/` - **Canonical** source of plugin-packaged agents and skills. Edit here; `scripts/sync-plugins.sh` pushes to the distributable [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo (which Cowork clones via the marketplace).
 - `plugins/multi-agent-example/` - **Canonical** source of the multi-agent worked-example plugin (4 agents, 1 skill, 2 hooks, 2 commands, the Word renderer). Separate from `handsonai` on purpose: it ships hooks, and installing a methodology toolkit must never silently change how a user's Claude Code behaves. This pipeline is **mirrored** under `.claude/` and `scripts/` so it runs in this repo without installing anything — run `./scripts/check-plugin-sync.sh` to catch drift between the two copies (`sync-plugins.sh` runs it automatically before syncing this plugin).
+- `registry-template/` - **Canonical** payload for the [`jamesgray-ai/ai-registry-template`](https://github.com/jamesgray-ai/ai-registry-template) template repo: the empty registry bundle skeleton, the Node lint/compose tools, test fixtures, and the GitHub Pages Action. Synced by `scripts/sync-registry-template.sh` — edit here, never in the distributed template repo directly. See the Registry Template Sync section below.
 - `mcp-server/migrations/` - Cloudflare D1 schema migrations
 - `mcp-server/scripts/analytics-query.ts` - CLI for querying MCP analytics via Cloudflare REST API
 - `scripts/` - Wrapper scripts for scheduled subagents, plus the multi-agent pipeline's checks and its Word renderer:
@@ -367,6 +368,50 @@ When updating:
 5. In `~/Code/jamesgray/handsonai-plugins`: rebuild ZIPs if skills changed (`./scripts/build-skill-zips.sh`), create a GitHub Release (`gh release create vX.Y.Z dist/*.zip`), commit and push **last**.
 
 **Critical — push `handsonai-plugins` last:** Claude Cowork detects plugin updates by comparing commit hashes. If Cowork syncs to a commit before the version bump lands, it treats that commit as "already synced" and won't re-process it — even though the files contain the new version. By making the `handsonai-plugins` push the final action in the session, Cowork only ever sees the complete, version-bumped state. Never push `handsonai-plugins` mid-session while still making changes. (`sync-plugins.sh` deliberately does not commit or push anywhere — both pushes stay in your hands.)
+
+### Registry Template Sync
+
+`registry-template/` in this repo is **canonical** for the separate
+[`jamesgray-ai/ai-registry-template`](https://github.com/jamesgray-ai/ai-registry-template)
+repo (a GitHub template repo students click "Use this template" on to get an
+empty AI Registry with the Pages Action pre-wired). Edit here, then run
+`./scripts/sync-registry-template.sh` to push. Drift between the two is
+caught by `./scripts/check-plugin-sync.sh registry-template` (same
+drift-detection script the plugin sync uses, pointed at a different pair of
+directories).
+
+The `scaffolding-registry` skill's `references/schema-template.md` must stay
+**byte-identical** to `registry-template/registry/SCHEMA.md` — two copies of
+the same schema, one shipped as plugin content, one shipped as template-repo
+content, and they will silently diverge if hand-edited independently. This is
+enforced by `scripts/check-registry-consistency.sh`, which `sync-plugins.sh`
+runs with `--full` in its preflight for **every** plugin sync, not just
+registry changes — meaning schema or skill-doc drift blocks shipping
+anything, unrelated agents and skills included. If a sync fails here, fix the
+drift (or re-run the sync script) before assuming the unrelated change you
+were shipping is broken.
+
+#### Registry release checklist (manual)
+
+Performed at this release, at every MAJOR `handsonai` plugin bump, and before
+each course run. Not automatable — see `specs/okf-registry-redesign-prd.md`
+Part 8 for the full rationale:
+
+1. **Behavioral run** — scaffold a throwaway registry, run framework steps
+   1–2, grep for retired/banned fields, confirm lint passes clean.
+2. **Migration fixtures run** — migrate the `workflow.yaml` and flat-layout
+   fixtures; post-check greps + lint pass; `log.md` entries present;
+   `process_outcome` content survives into the description.
+3. **Tier 2 render check** — AI-generated data island from the fixture bundle
+   validates against the schema; dashboard renders from `file://` with no
+   console errors.
+4. **Action canary** — on a standing test instantiation of the template repo,
+   push a sample node (Pages updates) and a deliberately broken node (Action
+   fails with a legible message). ~5 minutes.
+5. **Platform checklist re-verification** — re-verify every row in
+   `specs/okf-registry-platform-verification.md`. Signed-row rule: no
+   platform may appear as an unqualified path in the setup page until its row
+   is signed with date/verifier/platform version.
 
 ### Updating skill ZIP downloads (GitHub Releases)
 
