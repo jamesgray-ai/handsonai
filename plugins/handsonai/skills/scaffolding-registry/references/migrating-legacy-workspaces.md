@@ -51,7 +51,7 @@ described here instead of (or before) a fresh scaffold.
 | `owner` | derived: process → owning Function |
 | `platform` | dropped (visible from artifacts) |
 | `health`, `last_run`, `current_step` | dropped (event-facts; step inferred from artifacts) |
-| `last_updated` | `generated.at` (never the legacy `timestamp:` field manifest-resolution.md mapped to — `timestamp:` is a lint error; migration converts any encountered) |
+| `last_updated` | `generated.at` (never the legacy `timestamp:` field the old manifest layout mapped to — `timestamp:` is a lint error; migration converts any encountered) |
 | `next_review` | `stale_after` |
 | `apps` | derived on demand from linked skills/agents (no maintained record) |
 | `assets_used`, `platform_artifacts` | `# Skills` / `# Agents` body links |
