@@ -6,7 +6,7 @@ No platform appears as an unqualified path in the setup page until its row is si
 
 | Platform | Skill loads | Interview completes | Node written via platform write path | Dashboard viewable | Verified by / date / platform version |
 |----------|-------------|---------------------|-------------------------------------|--------------------|---------------------------------------|
-| Claude Code | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified |
+| Claude Code | ☑ verified | ☑ verified | ☑ verified | ☑ verified | James Gray (authorized Claude Fable 5 behavioral run: scaffold interview, node writes, lint/compose, REGISTRY.md + HTML dashboard) / 2026-08-11 / Claude Code CLI 2.x, plugin v7.0.0 |
 | Cowork | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified |
 | ChatGPT desktop (Codex) | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified |
 | claude.ai | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified | ☐ unverified |
