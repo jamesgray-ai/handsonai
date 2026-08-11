@@ -1,7 +1,6 @@
 ---
 type: SOP
 title: "One SOP"
-workflow: first-workflow
 ---
 # One SOP
 

@@ -6,5 +6,5 @@ generated: { by: process:fixture, at: 2026-08-01 }
 ---
 # First Workflow Insight
 
-Running [First Workflow](/workflows/first-workflow.md) surfaced a durable
-process improvement worth keeping.
+Running First Workflow surfaced a durable process improvement for
+[Client Onboarding](/processes/client-onboarding.md) worth keeping.

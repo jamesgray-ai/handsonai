@@ -63,6 +63,31 @@ tmp=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$tmp/"; rm -rf "$tmp/outputs"
 printf 'outputs/\n' > "$tmp/.gitignore"; (cd "$tmp" && git init -q . && git add -A >/dev/null)
 run_lint_at "$tmp" && ok "gitignored artifact links tolerated" || bad "gitignore tolerance failed"
 
+# compose: refuses while lint errors
+(cd "$FIX/broken/bad-enum" && ! node "$TOOLS/compose-registry.js" registry) && ok "compose refuses on lint errors" || bad "compose must refuse"
+# compose: valid bundle → golden REGISTRY.md
+compose_at valid-bundle
+diff -u "$FIX/golden/REGISTRY.md" "$WS/REGISTRY.md" && ok "REGISTRY.md matches golden" || bad "REGISTRY.md drift"
+# compose: deterministic — two runs byte-identical
+cp "$WS/REGISTRY.md" /tmp/r1; (cd "$WS" && node "$TOOLS/compose-registry.js" registry)
+cmp -s /tmp/r1 "$WS/REGISTRY.md" && ok "deterministic" || bad "output differs across runs"
+# compose: data island valid + golden
+(cd "$WS" && node "$TOOLS/compose-registry.js" --island-only registry) > /tmp/island.json
+node -e "JSON.parse(require('fs').readFileSync('/tmp/island.json'))" && ok "island parses" || bad "island invalid JSON"
+diff -u "$FIX/golden/data-island.json" /tmp/island.json && ok "island matches golden" || bad "island drift"
+# compose: empty skeleton bundle (student's first Action run)
+WS=$(mktemp -d); cp -R "$REPO_ROOT/registry-template/registry" "$WS/registry"
+(cd "$WS" && git init -q . && node "$TOOLS/compose-registry.js" registry) && ok "empty bundle composes" || bad "empty bundle crashed"
+grep -q "No workflows yet" "$WS/REGISTRY.md" && ok "empty dashboard has guidance line" || bad "missing empty-state line"
+# compose: self-healing rename — stale GENERATED links must not deadlock
+WS=$(stage valid-bundle)
+mv "$WS/registry/workflows/first-workflow.md" "$WS/registry/workflows/first-workflow-weekly.md"
+sed -i '' 's/^title: .*/title: "First Workflow Weekly"/' "$WS/registry/workflows/first-workflow-weekly.md"
+sed -i '' 's|/workflows/first-workflow.md|/workflows/first-workflow-weekly.md|' "$WS/registry/processes/"*.md
+# root index's GENERATED block deliberately still holds the stale old link
+(cd "$WS" && node "$TOOLS/compose-registry.js" registry) && ok "rename does not deadlock compose" || bad "rename deadlocked"
+run_lint_at "$WS" && ok "post-rename lint clean" || bad "post-rename lint dirty"
+
 echo
 echo "$PASS ok, $FAIL bad"
 [ "$FAIL" -eq 0 ]

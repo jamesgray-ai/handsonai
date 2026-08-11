@@ -12,7 +12,7 @@ okf_version: "0.2"
 
 <!-- GENERATED:skills -->
 ## Skills inventory (1)
-- some-skill
+- some-skill (used by: [First Workflow](/workflows/first-workflow.md))
 <!-- /GENERATED -->
 
 <!-- GENERATED:agents -->

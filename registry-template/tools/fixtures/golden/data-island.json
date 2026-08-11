@@ -1,0 +1,160 @@
+{
+  "business": {
+    "id": "kestrel-studio",
+    "title": "Kestrel Studio",
+    "description": "A boutique design and brand studio.",
+    "status": "active",
+    "nodePath": "registry/businesses/kestrel-studio.md"
+  },
+  "lobs": [
+    {
+      "id": "design-services",
+      "title": "Design Services",
+      "description": "Client-facing brand and design engagements.",
+      "status": "active",
+      "processes": [
+        "client-onboarding"
+      ],
+      "nodePath": "registry/lines-of-business/design-services.md"
+    },
+    {
+      "id": "product-studio",
+      "title": "Product Studio",
+      "description": "Kestrel's in-house product line.",
+      "status": "incubating",
+      "processes": [
+        "brand-development"
+      ],
+      "nodePath": "registry/lines-of-business/product-studio.md"
+    }
+  ],
+  "functions": [
+    {
+      "id": "creative",
+      "title": "Creative",
+      "description": "Owns creative direction and brand craft.",
+      "owns": [
+        "brand-development"
+      ],
+      "nodePath": "registry/functions/creative.md"
+    },
+    {
+      "id": "operations",
+      "title": "Operations",
+      "description": "Runs client delivery operations.",
+      "lead": "Jamie Rivera",
+      "owns": [
+        "client-onboarding"
+      ],
+      "nodePath": "registry/functions/operations.md"
+    }
+  ],
+  "processes": [
+    {
+      "id": "client-onboarding",
+      "title": "Client Onboarding",
+      "description": "Bringing a new client into active engagement.",
+      "ownerId": "operations",
+      "lobId": "design-services",
+      "workflows": [
+        "first-workflow",
+        "second-workflow"
+      ],
+      "nodePath": "registry/processes/client-onboarding.md"
+    },
+    {
+      "id": "brand-development",
+      "title": "Brand Development",
+      "description": "Developing Kestrel's own brand assets.",
+      "ownerId": "creative",
+      "lobId": "product-studio",
+      "workflows": [
+        "third-workflow"
+      ],
+      "nodePath": "registry/processes/brand-development.md"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "first-workflow",
+      "title": "First Workflow",
+      "description": "Kestrel's in-production client onboarding workflow.",
+      "status": "in-production",
+      "definitionType": "step-driven",
+      "executionMode": "augmented",
+      "autonomy": "guided",
+      "trigger": "manual",
+      "staleAfter": "2026-01-01",
+      "processId": "client-onboarding",
+      "lobId": "design-services",
+      "step": 7,
+      "skills": [
+        ".claude/skills/some-skill/SKILL.md"
+      ],
+      "agents": [],
+      "nodePath": "registry/workflows/first-workflow.md"
+    },
+    {
+      "id": "second-workflow",
+      "title": "Second Workflow",
+      "description": "A backlog workflow with no artifacts yet.",
+      "status": "backlog",
+      "definitionType": "goal-driven",
+      "executionMode": "manual",
+      "autonomy": "deterministic",
+      "trigger": "manual",
+      "processId": "client-onboarding",
+      "lobId": "design-services",
+      "step": 1,
+      "skills": [],
+      "agents": [],
+      "nodePath": "registry/workflows/second-workflow.md"
+    },
+    {
+      "id": "third-workflow",
+      "title": "Third Workflow",
+      "description": "A retired workflow kept for history.",
+      "status": "retired",
+      "definitionType": "step-driven",
+      "executionMode": "manual",
+      "autonomy": "guided",
+      "trigger": "manual",
+      "processId": "brand-development",
+      "lobId": "product-studio",
+      "step": 1,
+      "skills": [],
+      "agents": [],
+      "nodePath": "registry/workflows/third-workflow.md"
+    }
+  ],
+  "notes": [
+    {
+      "id": "first-workflow-insight",
+      "title": "First Workflow Insight",
+      "description": "A synthesized insight from running First Workflow.",
+      "links": [
+        "/processes/client-onboarding.md"
+      ],
+      "nodePath": "registry/notes/first-workflow-insight.md"
+    }
+  ],
+  "skills": [
+    {
+      "id": "orphan-skill",
+      "title": "orphan-skill",
+      "description": "A fixture skill referenced by no workflow -- drives the orphan warning.",
+      "usedBy": [],
+      "nodePath": ".claude/skills/orphan-skill/SKILL.md"
+    },
+    {
+      "id": "some-skill",
+      "title": "some-skill",
+      "description": "A fixture skill referenced by First Workflow.",
+      "usedBy": [
+        "first-workflow"
+      ],
+      "nodePath": ".claude/skills/some-skill/SKILL.md"
+    }
+  ],
+  "agents": []
+}
