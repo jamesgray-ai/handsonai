@@ -90,6 +90,50 @@ sed -i '' 's|/workflows/first-workflow.md|/workflows/first-workflow-weekly.md|' 
 (cd "$WS" && node "$TOOLS/compose-registry.js" registry) && ok "rename does not deadlock compose" || bad "rename deadlocked"
 run_lint_at "$WS" && ok "post-rename lint clean" || bad "post-rename lint dirty"
 
+# compose: data island validates against its JSON Schema (zero-dep recursive
+# checker -- ajv is not available; walks required/type/enum only).
+node -e '
+const fs = require("fs");
+const schema = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
+const data = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+const errors = [];
+function validate(node, sch, path) {
+  if (sch.type === "array") {
+    if (!Array.isArray(node)) { errors.push(path + ": expected array"); return; }
+    if (sch.items) node.forEach((item, i) => validate(item, sch.items, path + "[" + i + "]"));
+    return;
+  }
+  if (sch.type === "object" || sch.properties) {
+    if (node === null) {
+      if (sch.type && sch.type.includes && sch.type.includes("null")) return;
+      if (Array.isArray(sch.type) && sch.type.includes("null")) return;
+      errors.push(path + ": null not allowed");
+      return;
+    }
+    if (typeof node !== "object") { errors.push(path + ": expected object"); return; }
+    for (const req of (sch.required || [])) {
+      if (!(req in node)) errors.push(path + ": missing required \"" + req + "\"");
+    }
+    for (const key of Object.keys(sch.properties || {})) {
+      if (key in node) validate(node[key], sch.properties[key], path + "." + key);
+    }
+    return;
+  }
+  if (sch.enum && !sch.enum.includes(node)) {
+    errors.push(path + ": " + JSON.stringify(node) + " not in enum " + JSON.stringify(sch.enum));
+  }
+}
+for (const key of Object.keys(schema.properties || {})) {
+  if (key in data) validate(data[key], schema.properties[key], key);
+}
+for (const req of (schema.required || [])) {
+  if (!(req in data)) errors.push("(root): missing required \"" + req + "\"");
+}
+if (errors.length) { console.error(errors.join("\n")); process.exit(1); }
+' "$TOOLS/data-island.schema.json" "$FIX/golden/data-island.json" \
+  && ok "island validates against data-island.schema.json" \
+  || bad "island failed schema validation"
+
 echo
 echo "$PASS ok, $FAIL bad"
 [ "$FAIL" -eq 0 ]
