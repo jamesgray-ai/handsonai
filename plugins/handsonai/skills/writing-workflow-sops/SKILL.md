@@ -6,9 +6,9 @@ user-invocable: true
 
 # Writing Workflow SOPs
 
-Write SOP documentation for workflows and save as markdown files, recording the SOP path in the workflow's `workflow.yaml` manifest (its AI Registry entry). Mirroring to an external tracker (Notion, Airtable, etc.) is optional.
+Write SOP documentation for workflows and save as markdown files, recording the SOP path in the workflow's Workflow node. External trackers are out of scope.
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
 ## Two-Axis Workflow Model
 
@@ -53,8 +53,7 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
 ## Process
 
 1. **Load workflow context** — Determine how the user is arriving:
-   - **From framework artifacts** (primary path): Read the workflow's manifest (`outputs/<name>/workflow.yaml`) for registry metadata (display name, description, type, autonomy, owner, trigger, apps), then the Workflow Requirements (`outputs/<name>/requirements.md`) and Design Spec (`outputs/<name>/design-spec.md`) — or the legacy flat paths (`outputs/<name>-requirements.md`, `outputs/<name>-design-spec.md`) if no workflow folder exists. Extract refined steps, skill candidates, agent config, and failure modes from the documents.
-   - **From an external tracker** (only if the user keeps one): Fetch the workflow record for supplementary metadata — but prefer the manifest when both exist; it is the source of truth.
+   - **From framework artifacts** (primary path): Read the workflow's Workflow node (`registry/workflows/<slug>.md`) for registry metadata (title, description, execution_mode, autonomy, trigger) and its `# Artifacts` links, then follow those links to the Workflow Requirements and Design Spec (normally `outputs/<name>/requirements.md` and `outputs/<name>/design-spec.md`) — or the legacy flat paths (`outputs/<name>-requirements.md`, `outputs/<name>-design-spec.md`) if no workflow folder exists. Extract refined steps, skill candidates, agent config, and failure modes from the documents.
    - **From conversation**: If no artifacts exist, gather workflow details interactively (name, purpose, trigger, type, steps, etc.)
 2. **Classify on both axes** — Determine execution mode (augmented / automated / manual) and autonomy level (deterministic / guided / autonomous / n/a). If loaded from a Design Spec, these are already defined — confirm with user rather than re-assessing from scratch. Autonomy level determines full vs. lightweight SOP template.
 3. **Gather any missing details** — Adapted to autonomy level: for deterministic, confirm procedure steps; for guided/autonomous, confirm human checkpoints and inputs/outputs
@@ -62,7 +61,7 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
    - **Full SOPs** → add `**Execution Model:** <Mode> + <Level>` as the first line of the Automation Notes section
    - **Lightweight SOPs** → use `**<Mode> + <Level>**` as the bold label in the Execution Pattern section
 5. **Write SOP markdown file** to the user's repo with YAML frontmatter. Default path: `sops/<workflow-name>-sop.md`. Ask the user where SOPs live in their repo if their project has a different convention.
-6. **Update the manifest** — set `artifacts.sop` in `outputs/<name>/workflow.yaml` to the SOP path, then **create or update `REGISTRY.md`** at the workspace root (follow the `indexing-registry` procedure if available, otherwise update its tables directly from the manifest; skip only if the root isn't writable, and say so — never silently). If the manifest has a `notion_url`, also update the Notion Workflow row's SOP property (repo URL preferred) per the `indexing-registry` skill's `references/notion-mirror.md`; for other external trackers, optionally update their SOP link too.
+6. **Update the Workflow node** — set the SOP link in the node's `# Artifacts` (label `SOP`) to the SOP path, then **create or update `REGISTRY.md`** at the workspace root (follow the `indexing-registry` procedure if available, otherwise update its tables directly from the registry data; skip only if the root isn't writable, and say so — never silently). Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 ## Template Selection
 
@@ -109,16 +108,15 @@ Used when the executor adapts its path at runtime. The agent's system prompt *is
 ```yaml
 ---
 title: "<Workflow Name>"
-workflow: "<kebab-case-id>"  # back-pointer to outputs/<id>/workflow.yaml (omit for standalone SOPs)
+workflow: "<kebab-case-id>"  # back-pointer to the Workflow node's slug (omit for standalone SOPs)
 owner: "<Your Name>"
 last_reviewed: "YYYY-MM-DD"
 execution_mode: augmented   # augmented | automated | manual
 autonomy_level: guided      # deterministic | guided | autonomous | n/a
-notion_workflow_url: ""      # optional — Notion page URL if you mirror to Notion
 ---
 ```
 
-When a manifest exists, it is the source of truth for `owner`, `execution_mode`, and `autonomy_level` — copy those values from the manifest at write time rather than re-deriving them. Standalone SOPs (no manifest) carry them independently; the AI Registry index picks such SOPs up via this frontmatter.
+When a Workflow node exists, it is the source of truth for `execution_mode` and `autonomy`; `owner` resolves workflow → process → owning Function → `lead:` if set, else the Function's title (a snapshot, refreshed on regeneration) — copy those values at write time rather than re-deriving them. Standalone SOPs (no Workflow node) carry them independently; the AI Registry index picks such SOPs up via this frontmatter.
 
 ## Writing Guidelines
 
@@ -128,26 +126,15 @@ When a manifest exists, it is the source of truth for `owner`, `execution_mode`,
 - Add tips only for non-obvious gotchas
 - Keep troubleshooting to common issues only
 
-## External Tracker Mirror (Optional)
-
-The AI Registry (manifest + generated `REGISTRY.md`) is the primary record. If the user mirrors to the Notion AI Registry, the SOP link lands in the Workflow entry's SOP property (repo URL preferred — see the `indexing-registry` skill's `references/notion-mirror.md`). For Airtable or other trackers, update that tracker's SOP link property to point to the markdown file after writing it. Either way, the Markdown files remain the source of truth.
-
 ## Interaction Pattern
 
 ### From framework artifacts (primary path)
-1. Read the manifest, Workflow Requirements, and Design Spec from the `outputs/` folder
+1. Read the Workflow node, Workflow Requirements, and Design Spec from the `outputs/` folder
 2. Confirm classification (execution mode + autonomy level) with user
 3. Fill any gaps not covered by the artifacts
 4. Draft SOP using the appropriate template and present for review
 5. Write markdown file after user approval
-6. Update `artifacts.sop` in the manifest and refresh `REGISTRY.md`; optionally update an external tracker link
-
-### From an external tracker
-1. Fetch workflow record for context (name, type, trigger, etc.)
-2. Classify on both axes — determine full vs. lightweight template
-3. Gather procedure details or checkpoint details from user
-4. Draft SOP and present for review
-5. Write markdown file; update the manifest if one exists (or offer to create one) and refresh `REGISTRY.md`
+6. Set the SOP link in the Workflow node's `# Artifacts` and refresh `REGISTRY.md`; then invoke `indexing-registry` for a maintenance pass
 
 ### From scratch
 1. Gather workflow details conversationally (name, purpose, trigger, type, steps)

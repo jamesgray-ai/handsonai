@@ -4,15 +4,15 @@ description: >
   This skill should be used when the user wants to name a workflow, write workflow descriptions,
   standardize workflow documentation, add a workflow to the AI Registry, or structure workflow
   entries. Generates consistent, outcome-focused names and descriptions for business workflows
-  and records them in the workflow's manifest (workflow.yaml).
+  and records them in the workflow's Workflow node.
 user-invocable: true
 ---
 
 # Naming Workflows
 
-Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's `workflow.yaml` manifest — the workflow's AI Registry entry.
+Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's Workflow node — the workflow's AI Registry entry.
 
-> **Manifest resolution:** if the workspace has `registry/SCHEMA.md`, the manifest is the Workflow concept node — see `indexing-registry/references/manifest-resolution.md` (in this plugin) and follow its bundle backend for all manifest reads/writes in this skill; otherwise use `workflow.yaml` as described below.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
 ## Workflow Naming Rules
 
@@ -182,46 +182,59 @@ When user provides a workflow description:
 4. **Write description** (action + outcome)
 5. **Suggest Process Outcome** (concrete deliverable)
 6. **Present options** for user selection
-7. **Identify the Business Process** — scan `process-guides/*.md` frontmatter titles and the `business_process` values in existing `outputs/*/workflow.yaml` manifests; present matches and let the user confirm or name a new process
+7. **Identify the Process** — scan `registry/processes/*.md` curated `# Workflows` lists (each list's parent Process node is a candidate); present matches and let the user confirm or name a new process
 8. **Determine Sequence** if part of a multi-step process:
-   - Check existing manifests with the same `business_process` for their `sequence` values
+   - Check the chosen Process node's `# Workflows` list for the sibling workflows' order
    - Assign next available multiple of 10 (or ask user for placement)
    - Use same sequence number for parallel workflows
-9. **Record in the manifest** after user confirms selections (see below)
+9. **Record in the registry** after user confirms selections (see below)
 
 ## Recording the Workflow (AI Registry entry)
 
-The workflow's registry entry is its manifest: `outputs/<workflow-id>/workflow.yaml`, where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). The full schema lives in the `indexing-registry` skill's `references/manifest-schema.md`.
+The workflow's registry entry is its Workflow concept node: `registry/workflows/<workflow-id>.md`, where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). See `indexing-registry/references/registry-bundle.md` for resolution, write rules, and the full field-ownership table.
 
 After the user confirms name, description, and process outcome:
 
-1. **If a manifest already exists** for this workflow (the user is renaming or enriching), update only the fields below — preserve everything else.
-2. **If none exists** (naming before running deconstruct), create the folder and a **stub manifest** with `current_step: 0` (meaning "named only" — deconstruct will merge into it later, never overwrite it):
+1. **If a Workflow node already exists** for this workflow (the user is renaming or enriching), update only the fields below — preserve everything else, and never write inside a GENERATED block.
+2. **If none exists** (naming before running deconstruct), create a **stub node** with `status: backlog` (meaning "named only" — deconstruct will merge into it later, never overwrite fields you set):
 
 ```yaml
-workflow: lead-qualification
-display_name: Lead Qualification
-description: >-
-  Identify and score prospects using research tools and qualification
-  criteria. Produces ranked lead list with contact details.
-process_outcome: Qualified lead list
-business_process: Sales Pipeline
-sequence: 10                # omit for standalone workflows
-status: under-development   # backlog | under-development | in-production
-type: augmented             # augmented | automated | manual
+---
+type: Workflow
+title: "Lead Qualification"
+description: "Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details."
+generated: { by: process:naming-workflows, at: YYYY-MM-DD }
+status: backlog
 trigger: "Weekly (Sunday)"
-current_step: 0             # named only — deconstruct takes it from here
-last_updated: YYYY-MM-DD
+execution_mode: augmented   # manual | augmented | automated
+---
+# Lead Qualification
+
+Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details.
+
+# Artifacts
+
+# Skills
+
+# Agents
+
+# Insights
+
+<!-- GENERATED:insights -->
+<!-- /GENERATED -->
 ```
 
+Then add its line to the chosen Process's `# Workflows` list (`registry/processes/<process-slug>.md`) — never write `process:`, `owner:`, or `sequence:` on the Workflow node itself; process membership and sequence live only in the parent list.
+
 **Default values:**
-- Status: `under-development` (use `backlog` if the user is only cataloging ideas)
-- Type: `augmented` (human-in-the-loop) unless fully automated
-- Sequence: next available multiple of 10 within the Business Process; omit for standalone workflows
+- Status: `backlog` (use this whenever the user is only cataloging ideas or naming ahead of deconstruct)
+- Execution mode: `augmented` (human-in-the-loop) unless fully automated
 
-3. **Create or update `REGISTRY.md` at the workspace root** — this is part of the step, not optional. Follow the procedure in the `indexing-registry` skill if available; otherwise write the file directly from the manifest data you have (Workflows / Skills / Agents tables, `—` for unknowns). Skip only if the environment can't write to the workspace root — and tell the user you skipped it, never silently.
+**New Process rule:** if the chosen process doesn't exist yet as a Process node, ask **"Which function owns this process?"** — offer the registry's `functions/` list — and write a complete minimal Process node (`title`, `description`, `owner: <function-slug>`, an empty `# Workflows` list to append into) before adding the workflow's line. Never create an ownerless Process stub; the schema requires `owner:` on every Process node.
 
-**Optional Notion mirror:** if the user keeps the Notion AI Registry template and has the Notion MCP connected, offer to mirror the entry to their Workflows database afterward (see the `indexing-registry` skill's `references/notion-mirror.md` for the field mapping). If the manifest already has a `notion_url`, update its Notion row without asking (best-effort). The manifest remains the source of truth.
+3. **Create or update `REGISTRY.md` at the workspace root** — this is part of the step, not optional. Follow the procedure in the `indexing-registry` skill if available; otherwise write the file directly from the registry data you have (Workflows / Skills / Agents tables, `—` for unknowns). Skip only if the environment can't write to the workspace root — and tell the user you skipped it, never silently.
+
+Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 ## Quick Reference
 
