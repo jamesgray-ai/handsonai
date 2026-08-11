@@ -83,6 +83,33 @@ cmp -s /tmp/r1 "$WS/REGISTRY.md" && ok "deterministic" || bad "output differs ac
 (cd "$WS" && node "$TOOLS/compose-registry.js" --island-only registry) > /tmp/island.json
 node -e "JSON.parse(require('fs').readFileSync('/tmp/island.json'))" && ok "island parses" || bad "island invalid JSON"
 diff -u "$FIX/golden/data-island.json" /tmp/island.json && ok "island matches golden" || bad "island drift"
+
+# compose: fixtures excluded from capability scan (Finding 1 regression) --
+# registry-template/tools/fixtures/** contains its own .claude/skills/ trees
+# (orphan-skill, some-skill) used to test lint's orphan-capability warning.
+# Composing at the *template repo root* (not just registry/) must not walk
+# into tools/fixtures/ and leak those fictional skills into the data island
+# or lint's orphan-capabilities warning.
+FSWS=$(mktemp -d); cp -R "$REPO_ROOT/registry-template/." "$FSWS/"
+(cd "$FSWS" && git init -q . && git add -A >/dev/null 2>&1)
+(cd "$FSWS" && node tools/compose-registry.js --island-only registry) > /tmp/fixture-scan-island.json 2>/tmp/fixture-scan-island.err
+if grep -q "orphan-skill" /tmp/fixture-scan-island.json; then
+  bad "fixture skills leaked into island (orphan-skill present)"
+else
+  ok "island has no orphan-skill from tools/fixtures"
+fi
+if grep -q "tools/fixtures" /tmp/fixture-scan-island.json; then
+  bad "island contains a tools/fixtures/ path"
+else
+  ok "island has no tools/fixtures/ path"
+fi
+fixlint_out=$(cd "$FSWS" && node tools/lint-registry.js registry 2>&1)
+if grep -q "tools/fixtures" <<<"$fixlint_out"; then
+  bad "lint emitted an orphan-capability warning for a tools/fixtures skill"
+else
+  ok "lint emits zero orphan-capability warnings for fixture skills"
+fi
+
 # compose: empty skeleton bundle (student's first Action run)
 WS=$(mktemp -d); cp -R "$REPO_ROOT/registry-template/registry" "$WS/registry"
 (cd "$WS" && git init -q . && node "$TOOLS/compose-registry.js" registry) && ok "empty bundle composes" || bad "empty bundle crashed"
@@ -248,6 +275,44 @@ console.log(insightOk ? "INSIGHT_OK" : "INSIGHT_MISSING");
 else
   bad "registry-template/tools/dashboard-template.html missing"
 fi
+
+# compose-registry.js: registry-dashboard.html injection survives $-shaped and
+# </script>-shaped content intact (Finding 2 regression). Uses a private copy
+# of valid-bundle so the shared golden fixtures don't need special-case
+# content that would churn every golden diff above.
+WS=$(stage valid-bundle)
+node -e '
+const fs = require("fs");
+const file = process.argv[1];
+let text = fs.readFileSync(file, "utf8");
+const hostile = "Has a literal </script> tag, a $& backreference, and a $1 group.";
+text = text.replace(/^description: .*$/m, () => "description: " + JSON.stringify(hostile));
+fs.writeFileSync(file, text);
+' "$WS/registry/workflows/first-workflow.md"
+cp "$TOOLS/dashboard-template.html" "$WS/registry-dashboard.html"
+(cd "$WS" && node "$TOOLS/compose-registry.js" registry) >/tmp/inject-compose.out 2>&1
+node -e '
+const fs = require("fs");
+const html = fs.readFileSync(process.argv[1], "utf8");
+const re = /<script type="application\/json" id="data">([\s\S]*?)<\/script>/;
+const m = re.exec(html);
+if (!m) { console.log("NO_MATCH"); process.exit(0); }
+// Raw injected text must never contain an unescaped </script> -- that would
+// prematurely close the tag (or, with the non-greedy regex above, truncate
+// the match at the wrong point).
+if (m[1].indexOf("</script>") !== -1) { console.log("UNESCAPED_SCRIPT_CLOSE"); process.exit(0); }
+let island;
+try { island = JSON.parse(m[1]); } catch (e) { console.log("PARSE_FAIL " + e.message); process.exit(0); }
+// Round-tripped through JSON.parse, the original content -- including the
+// literal </script> and the $-shaped substrings -- must come back intact
+// (proves the function-form .replace() did not treat them as replacement
+// patterns, and the < escaping did not survive into the parsed value).
+const text = JSON.stringify(island);
+if (text.indexOf("</script>") === -1) { console.log("SCRIPT_CLOSE_LOST"); process.exit(0); }
+if (text.indexOf("$&") === -1 || text.indexOf("$1 group") === -1) { console.log("CONTENT_CORRUPTED"); process.exit(0); }
+console.log("OK");
+' "$WS/registry-dashboard.html" > /tmp/inject-check.out 2>&1
+grep -q "^OK$" /tmp/inject-check.out && ok "dashboard injection survives \$&/\$1/</script> content intact" || bad "dashboard injection check failed: $(cat /tmp/inject-check.out) / compose: $(cat /tmp/inject-compose.out)"
 
 echo
 echo "$PASS ok, $FAIL bad"

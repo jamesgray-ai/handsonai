@@ -260,7 +260,10 @@ function runsHasEntries(workspaceRoot, slug) {
 
 // Capability inventory for the orphan-capabilities warning: any `skills/*/SKILL.md`
 // at any depth (matches `**/skills/*/SKILL.md`), plus `.claude/agents/*.md` and
-// top-level `agents/*.md`.
+// top-level `agents/*.md`. Excludes `tools/fixtures/**` -- the template repo
+// ships test fixtures containing their own `.claude/skills/` trees, and
+// composing at the template-repo root must not leak those fictional
+// capabilities into a student's registry.
 function scanCapabilities(workspaceRoot) {
   const out = [];
   const seen = new Set();
@@ -278,6 +281,8 @@ function scanCapabilities(workspaceRoot) {
       if (e.name === '.git' || e.name === 'node_modules') continue;
       const full = path.join(dir, e.name);
       if (!e.isDirectory()) continue;
+      const rel = path.relative(workspaceRoot, full).split(path.sep).join('/');
+      if (rel === 'tools/fixtures' || rel.startsWith('tools/fixtures/')) continue;
       if (e.name === 'skills') {
         let subs;
         try { subs = fs.readdirSync(full).sort(); } catch { subs = []; }

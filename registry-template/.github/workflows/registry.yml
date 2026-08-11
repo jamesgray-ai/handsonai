@@ -21,7 +21,7 @@ jobs:
           node -e "
             const fs=require('fs');
             let t=fs.readFileSync('tools/dashboard-template.html','utf8');
-            const i=fs.readFileSync('tools/last-data-island.json','utf8').replace(/</g,'\\u003c');
+            const i=fs.readFileSync('tools/last-data-island.json','utf8'); // pre-escaped by compose-registry.js
             t=t.replace(/(<script type=\"application\/json\" id=\"data\">)[\s\S]*?(<\/script>)/, (_,a,b)=>a+i+b);
             fs.writeFileSync('_site/index.html', t);"
           cp REGISTRY.md _site/

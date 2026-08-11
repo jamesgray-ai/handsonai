@@ -472,21 +472,33 @@ if (require.main === module) {
     process.exit(0);
   }
 
+  // `<` is escaped to `<` so the serialized island can never be
+  // misread as closing an embedding <script> tag (e.g. a description
+  // containing a literal "</script>"). Valid JSON either way -- < is
+  // just the unicode escape for "<". Escaped once here and reused for both
+  // outputs below.
+  const escapeForEmbedding = (s) => s.replace(/</g, '\\u003c');
+
   // Always written -- regardless of --check/registry-dashboard.html presence
   // -- so an Action's unconditional read of tools/last-data-island.json is
   // always fresh (see file-header comment).
   const islandPath = path.join(workspaceRoot, 'tools', 'last-data-island.json');
-  const islandContent = JSON.stringify(island, null, 2) + '\n';
+  const islandContent = escapeForEmbedding(JSON.stringify(island, null, 2)) + '\n';
   const currentIsland = fs.existsSync(islandPath) ? fs.readFileSync(islandPath, 'utf8') : null;
   if (currentIsland !== islandContent) outputs.set(islandPath, islandContent);
 
-  // Additionally inject into registry-dashboard.html when it exists.
+  // Additionally inject into registry-dashboard.html when it exists. Uses the
+  // FUNCTION form of .replace() -- a plain `$1${json}$2` template string is
+  // unsafe because JSON.stringify output can legitimately contain `$&`,
+  // `` $` ``, `$'`, or `$<name>`-shaped substrings, which the string form of
+  // .replace() would interpret as replacement-pattern tokens and corrupt.
   const dashboardPath = path.join(workspaceRoot, 'registry-dashboard.html');
   if (fs.existsSync(dashboardPath)) {
     const html = fs.readFileSync(dashboardPath, 'utf8');
     const re = /(<script type="application\/json" id="data">)[\s\S]*?(<\/script>)/;
     if (re.test(html)) {
-      const updated = html.replace(re, `$1${JSON.stringify(island)}$2`);
+      const escapedIsland = escapeForEmbedding(JSON.stringify(island));
+      const updated = html.replace(re, (_m, open, close) => open + escapedIsland + close);
       if (updated !== html) outputs.set(dashboardPath, updated);
     }
   }
