@@ -58,6 +58,12 @@ for case in bad-enum dir-type-mismatch missing-owner missing-frontmatter broken-
   fi
 done
 run_lint broken/unassigned-backlog && ok "unassigned backlog is warning-only" || bad "backlog unassigned must not error"
+# lint: legacy definition_type spelling ("step-decomposed") is tolerated as a
+# warning, never an error -- the legacy-workspace migration path relies on
+# this so a mid-migration bundle still lints clean.
+run_lint legacy-enum-bundle && ok "legacy-enum-bundle lints clean (exit 0)" || bad "legacy-enum-bundle should lint clean"
+out=$(lint_output legacy-enum-bundle)
+grep -q "WARN.*step-decomposed" <<<"$out" && ok "legacy definition_type spelling warned, not errored" || bad "expected WARN for step-decomposed"
 # lint: gitignore tolerance -- valid bundle with outputs/ deleted still lints clean
 tmp=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$tmp/"; rm -rf "$tmp/outputs"
 printf 'outputs/\n' > "$tmp/.gitignore"; (cd "$tmp" && git init -q . && git add -A >/dev/null)

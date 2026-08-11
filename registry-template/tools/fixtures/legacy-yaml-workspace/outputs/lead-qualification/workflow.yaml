@@ -1,0 +1,31 @@
+workflow: lead-qualification
+display_name: "Lead Qualification"
+description: "Score inbound leads against ICP criteria and hand qualified leads to AE outreach."
+process_outcome: "Ranked qualified-lead list"
+business_process: "Sales Pipeline"
+sequence: 2
+status: Archived
+type: automated
+autonomy: guided
+trigger: "New lead form submission"
+definition_type: Step-Decomposed
+owner: "Sales Operations"
+platform: "HubSpot + Claude"
+health: working
+last_run: 2026-07-01
+current_step: 4
+last_updated: 2026-06-15
+next_review: 2026-08-01
+apps:
+  - HubSpot
+  - Slack
+assets_used:
+  - lead-scoring-prompt
+platform_artifacts:
+  - lead-qualification-skill
+artifacts:
+  requirements: outputs/lead-qualification/requirements.md
+  design_spec: outputs/lead-qualification/design-spec.md
+  test_results: outputs/lead-qualification/test-results.md
+  run_guide: outputs/lead-qualification/run-guide.md
+notion_url: "https://www.notion.so/example/Lead-Qualification-abc123"
