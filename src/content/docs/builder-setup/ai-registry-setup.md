@@ -211,6 +211,10 @@ Each platform section below is complete on its own — you only need to read the
 
 ### Cowork
 
+:::note[Not yet verified — ask your instructor]
+The registry setup flow hasn't been verified end-to-end on Cowork for this playbook yet. Ask your instructor before relying on this path for a live session. If you're working through this self-paced, the [Claude Code](#claude-code) path is the verified one.
+:::
+
 1. Install the Hands-on AI plugin from the marketplace inside Cowork's plugin manager. See the [plugin marketplace page](../../use-the-playbook/build/) for the exact steps.
 2. Open your workspace folder as a Cowork project.
 3. Follow [Choose Your Home](#choose-your-home) above — Path A or Path B both work directly from Cowork.
@@ -218,6 +222,10 @@ Each platform section below is complete on its own — you only need to read the
 **You should now see** the Hands-on AI plugin's skills available in your Cowork project, and your assistant able to respond to "set up my AI registry" inside that project.
 
 ### ChatGPT Desktop (Codex)
+
+:::note[Not yet verified — ask your instructor]
+The registry setup flow hasn't been verified end-to-end in ChatGPT desktop's Codex mode for this playbook yet. Ask your instructor before relying on this path for a live session. If you're working through this self-paced, the [Claude Code](#claude-code) path is the verified one.
+:::
 
 1. Download the Hands-on AI skill files your instructor provides (the same package used everywhere else in this playbook).
 2. Install them at the user level so they're available across every repo you work in: place the skill folders in `~/.agents/skills/` on your computer. (You can instead check a copy into a single repo's `.agents/skills/` folder if you have a specific reason to pin that repo to its own copy — most students don't need this.)
@@ -229,7 +237,7 @@ Each platform section below is complete on its own — you only need to read the
 ### claude.ai
 
 :::note[Not yet verified — ask your instructor]
-The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session. If you're working through this self-paced and don't need to stay in claude.ai specifically, consider the Claude Code or Cowork path instead — see [Claude Code](#claude-code) or [Cowork](#cowork) above.
+The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session. If you're working through this self-paced and don't need to stay in claude.ai specifically, consider the Claude Code path instead — see [Claude Code](#claude-code) above.
 :::
 
 1. Upload the Hands-on AI skill file your instructor provides to your claude.ai account (Settings → Capabilities → Skills, or wherever claude.ai currently places skill uploads).
