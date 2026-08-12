@@ -95,7 +95,7 @@ If a phase runs over its timebox, write what's been gathered, note the gap for t
 - **The student's `registry/SCHEMA.md` is authoritative once it exists.** Re-read it immediately before every write in this skill, including during gap-filling and migration — never write from memory of what the schema template said.
 - **Stamp `generated: { by: process:scaffolding-registry, at: <date> }`** (single-line flow map, `at` as `YYYY-MM-DD`) on every node this skill creates or edits.
 - **Function nodes are always written with their empty GENERATED `# Owns` block** at creation time — never deferred to a later maintenance pass. A Function missing that block is a lint error, because the maintenance pass has nothing to fill.
-- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node.
+- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node. Index entries use bundle-root-relative leading-slash links — `[First Workflow](/workflows/first-workflow.md)`, never a bare same-directory link like `[First Workflow](first-workflow.md)`, which the schema's link discriminator resolves repo-root-relative and lint flags as broken.
 
 ## Close
 
