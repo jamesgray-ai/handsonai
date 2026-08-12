@@ -131,6 +131,19 @@ kickoff to handoff.
 <!-- /GENERATED -->
 ```
 
+## Directory index: `registry/workflows/index.md`
+
+Every typed directory gets one. Entries are bundle-root-relative leading-slash
+links — never bare same-directory links like `[Client Status Reporting](client-status-reporting.md)`,
+which the schema's link discriminator resolves repo-root-relative and lint
+flags as broken.
+
+```markdown
+# Workflows
+
+- [Client Status Reporting](/workflows/client-status-reporting.md)
+```
+
 ## Note: `registry/notes/2026-08-status-report-timing.md`
 
 ```markdown
