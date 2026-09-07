@@ -123,7 +123,7 @@ Start now: state your available sources, then begin Phase 1.
 
 - Take your #1 candidate to the [Skills setup guide](/ai-workflow-framework/skills/) and install it in your platform — or, if you're on Claude, [Installing Skills on Claude](/platforms/claude/skills/installing-skills/)
 - Re-run this prompt in a few weeks as new patterns emerge in your work
-- Browse [Skills Resources](/platforms/claude/skills/resources/) for examples and deeper reference material
+- Browse [Claude Skills Resources](/platforms/claude/skills/resources/) for examples and deeper reference material — Claude-specific, but the structure and testing advice carries across platforms
 
 ## Related
 
