@@ -66,6 +66,6 @@ The skill does one focused task when you call it. The agent orchestrates an enti
 
 ## Related Questions
 
-- [How do I create a skill in Claude Code?](/platforms/claude/skills/skills-discovery-meta-prompt/)
+- [How to Discover Your Best Agent Skills](/agentic-building-blocks/skills/skills-discovery-meta-prompt/)
 - [Skills overview](/agentic-building-blocks/skills/)
 - [What can agents do with MCP?](/agentic-building-blocks/mcp/)

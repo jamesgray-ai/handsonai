@@ -497,5 +497,4 @@ A project is an active workspace — it provides standing instructions, persiste
 **Platform-specific guides:**
 
 - [Claude Projects](../platforms/claude/projects/claude-projects-setup/) — setting up the Project block on Claude
-- [Claude Skills](../platforms/claude/skills/skills-discovery-meta-prompt/) — discovering Skills on Claude
 - [Claude Subagents](../platforms/claude/subagents/scheduling-subagents/) — scheduling Agents on Claude

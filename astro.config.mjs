@@ -8,6 +8,9 @@ export default defineConfig({
   site: 'https://handsonai.info',
   trailingSlash: 'always',
   redirects: {
+    // Skill-discovery prompts made tool-agnostic and moved out of the Claude platform section (2026-09-07)
+    '/platforms/claude/skills/find-skill-candidates/': '/agentic-building-blocks/skills/find-skill-candidates/',
+    '/platforms/claude/skills/skills-discovery-meta-prompt/': '/agentic-building-blocks/skills/skills-discovery-meta-prompt/',
     '/courses/leaders/setup-checklist/': '/courses/tools-setup-checklist/',
     // Framework end-to-end exercise promoted from builders week 5 to a shared course resource (2026-07-06)
     '/courses/builders/week-5/': '/courses/framework-end-to-end/',
@@ -248,6 +251,8 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { label: 'Overview', link: '/agentic-building-blocks/skills/' },
+                    { label: 'Find Your Skill Candidates (Quick Prompt)', link: '/agentic-building-blocks/skills/find-skill-candidates/' },
+                    { label: 'Discover Your Best Skills (Worksheet)', link: '/agentic-building-blocks/skills/skills-discovery-meta-prompt/' },
                   ],
                 },
                 {
@@ -362,8 +367,6 @@ export default defineConfig({
                   collapsed: true,
                   items: [
                     { label: 'Installing Skills on Claude', link: '/platforms/claude/skills/installing-skills/' },
-                    { label: 'Find Your Skill Candidates (Quick Prompt)', link: '/platforms/claude/skills/find-skill-candidates/' },
-                    { label: 'Discover Your Best Claude Skills (Worksheet)', link: '/platforms/claude/skills/skills-discovery-meta-prompt/' },
                     { label: 'Resources', link: '/platforms/claude/skills/resources/' },
                   ],
                 },
