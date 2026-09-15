@@ -47,11 +47,13 @@ Copilot uses your Microsoft Graph data (emails, files, calendar, chats) to provi
 
 ## 4. Add Skills (Copilot Cowork)
 
-M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After adding a skill, you can say "edit this article for HBR quality" and Copilot applies professional editorial standards automatically — no re-explaining your requirements each time.
+M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After adding a skill, you can say "analyze where AI fits in my work" and Copilot runs the structured interview automatically — no re-explaining your requirements each time.
 
 **Requires:** A Microsoft 365 Copilot license, with Cowork enabled by your admin (it's generally available; admins turn on its usage-based billing).
 
-1. Download the skill's `.zip` from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips) — don't unzip it
+**Before you start:** open Microsoft 365 Copilot and look for **Cowork** in the left navigation. Not there → ask IT to enable it.
+
+1. Download the skill's `.zip` from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips) — don't unzip it (if Cowork rejects it, use the `-flat.zip` version from the same table)
 2. In Cowork, open **Customize → Skills**, click the arrow next to **Add**, then **Upload skill**, and choose the ZIP
 3. Start a new conversation — the skill appears under **Your skills** and loads automatically when relevant
 

@@ -1,0 +1,728 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#skipToMain"
+      - generic [ref=e5]: Skip to main content
+    - generic [ref=e7]:
+      - navigation [ref=e8]:
+        - button "Navigation Menu" [ref=e9] [cursor=pointer]
+      - menu [ref=e15]:
+        - menuitem "Sign In | Subscribe":
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - link "Sign In" [ref=e18] [cursor=pointer]:
+                - /url: "#/auth-signin"
+                - generic [ref=e19]: Sign In
+              - text: "|"
+            - listitem [ref=e20]:
+              - link "Subscribe" [ref=e21] [cursor=pointer]:
+                - /url: /user-registration/newsletter
+                - generic [ref=e22]: Subscribe
+        - menuitem "Search icon, hit enter to activate" [ref=e23]:
+          - link "Search icon, hit enter to activate" [ref=e24] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e25]: 
+    - generic [ref=e27]:
+      - button "Open Ask McKinsey chat" [ref=e28] [cursor=pointer]:
+        - img "Ask McKinsey chat bubbles" [ref=e29]
+      - generic [ref=e30]:
+        - button "Ask McKinsey AI Chatbot" [ref=e31] [cursor=pointer]:
+          - img "Ask McKinsey AI Chatbot" [ref=e32]
+        - button "Close logo" [ref=e33] [cursor=pointer]:
+          - img "Ask McKinsey Close icon" [ref=e34]
+    - main [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e38]:
+          - generic [ref=e40]: Seizing the agentic AI advantage
+          - generic [ref=e41]:
+            - generic [ref=e44]:
+              - button [ref=e46] [cursor=pointer]:
+                - generic [ref=e47]: 
+                - generic [ref=e48]: Share
+              - link [ref=e50] [cursor=pointer]:
+                - /url: "#/print"
+                - generic [ref=e51]: 
+                - generic [ref=e52]: Print
+              - button [ref=e54] [cursor=pointer]:
+                - generic [ref=e55]: 
+                - generic [ref=e56]: Download
+              - link [ref=e59] [cursor=pointer]:
+                - /url: "#/save"
+                - generic [ref=e60]: 
+                - generic [ref=e61]: Save
+            - button [ref=e63] [cursor=pointer]:
+              - img [ref=e65]
+              - generic [ref=e68]: Summarize
+        - progressbar [ref=e69]
+      - generic [ref=e81]:
+        - heading "Seizing the agentic AI advantage" [level=1] [ref=e83]:
+          - generic [ref=e84]: Seizing the agentic AI advantage
+        - generic [ref=e87]:
+          - time [ref=e88]: June 13, 2025
+          - text: "| Report"
+        - button "Skip article header section" [ref=e90] [cursor=pointer]:
+          - generic [ref=e91]: 
+      - generic [ref=e93]:
+        - generic [ref=e94]:
+          - generic [ref=e96]:
+            - generic [ref=e99]:
+              - button "Share" [ref=e101] [cursor=pointer]:
+                - generic [ref=e102]: 
+                - generic [ref=e103]: Share
+              - link "Print" [ref=e105] [cursor=pointer]:
+                - /url: "#/print"
+                - generic [ref=e106]: 
+                - generic [ref=e107]: Print
+              - button "Download" [ref=e109] [cursor=pointer]:
+                - generic [ref=e110]: 
+                - generic [ref=e111]: Download
+              - link " Save" [ref=e114] [cursor=pointer]:
+                - /url: "#/save"
+                - generic [ref=e115]: 
+                - generic [ref=e116]: Save
+            - button "Summarize" [ref=e118] [cursor=pointer]:
+              - img [ref=e120]
+              - generic [ref=e123]: Summarize
+          - generic [ref=e127]: A CEO playbook to solve the gen AI paradox and unlock scalable impact with AI agents.
+          - main [ref=e128]:
+            - generic [ref=e130]:
+              - generic [ref=e131]:
+                - generic [ref=e133]:
+                  - heading "DOWNLOADS" [level=3] [ref=e134]
+                  - link " Full Report (28 pages)" [ref=e137] [cursor=pointer]:
+                    - /url: "#/download/%2F~%2Fmedia%2Fmckinsey%2Fbusiness%20functions%2Fquantumblack%2Four%20insights%2Fseizing%20the%20agentic%20ai%20advantage%2Fseizing-the-agentic-ai-advantage-final1.pdf%3FshouldIndex%3Dfalse"
+                    - generic [ref=e138]: 
+                    - generic [ref=e139]: Full Report (28 pages)
+                - generic:
+                  - navigation "Table of Contents":
+                    - generic [ref=e140]:
+                      - link "At a glance" [ref=e142] [cursor=pointer]:
+                        - /url: "#"
+                        - generic [ref=e143]: At a glance
+                      - link "Chapter 1" [ref=e145] [cursor=pointer]:
+                        - /url: "#"
+                        - generic [ref=e146]: Chapter 1
+                      - link "Chapter 2" [ref=e148] [cursor=pointer]:
+                        - /url: "#"
+                        - generic [ref=e149]: Chapter 2
+                      - link "Chapter 3" [ref=e151] [cursor=pointer]:
+                        - /url: "#"
+                        - generic [ref=e152]: Chapter 3
+                      - link "Conclusion" [ref=e154] [cursor=pointer]:
+                        - /url: "#"
+                        - generic [ref=e155]: Conclusion
+                      - button "Collapse table of contents menu" [ref=e156] [cursor=pointer]:
+                        - generic [ref=e157]: 
+                - region "At a glance"
+                - heading "At a glance" [level=3] [ref=e158]
+                - list [ref=e159]:
+                  - listitem [ref=e160]:
+                    - text: Nearly eight in ten companies report using gen AI—yet just as many report no significant bottom-line impact.
+                    - generic "footnote" [ref=e162] [cursor=pointer]:
+                      - superscript [ref=e163]: "[1]"
+                    - text: Think of it as the “gen AI paradox.”
+                - generic [ref=e165]:
+                  - button "Expandable Sidebar" [ref=e168] [cursor=pointer]:
+                    - generic [ref=e169]: 
+                  - generic [ref=e170]:
+                    - generic [ref=e171]: Byline
+                    - heading "About the authors" [level=2] [ref=e173]:
+                      - generic [ref=e174]: About the authors
+                - list [ref=e175]:
+                  - listitem [ref=e176]: At the heart of this paradox is an imbalance between “horizontal” (enterprise-wide) copilots and chatbots—which have scaled quickly but deliver diffuse, hard-to-measure gains—and more transformative “vertical” (function-specific) use cases—about 90 percent of which remain stuck in pilot mode.
+                  - listitem [ref=e177]: AI agents offer a way to break out of the gen AI paradox. That’s because agents have the potential to automate complex business processes—combining autonomy, planning, memory, and integration—to shift gen AI from a reactive tool to a proactive, goal-driven virtual collaborator.
+                  - listitem [ref=e178]: This shift enables far more than efficiency. Agents supercharge operational agility and create new revenue opportunities.
+                  - listitem [ref=e179]: But unlocking the full potential of agentic AI requires more than plugging agents into existing workflows. It calls for reimagining those workflows from the ground up—with agents at the core.
+                - generic [ref=e181]:
+                  - generic [ref=e183]:
+                    - button " Share" [ref=e185] [cursor=pointer]:
+                      - generic [ref=e186]: 
+                      - generic [ref=e187]: Share
+                    - button "Expandable Sidebar" [ref=e188] [cursor=pointer]:
+                      - generic [ref=e189]: 
+                  - generic [ref=e190]:
+                    - generic [ref=e191]: Sidebar
+                    - heading "Foreword" [level=2] [ref=e193]:
+                      - generic [ref=e194]: Foreword
+                - list [ref=e195]:
+                  - listitem [ref=e196]: "A new AI architecture paradigm—the agentic AI mesh—is needed to govern the rapidly evolving organizational AI landscape and enable teams to blend custom-built and off-the-shelf agents while managing mounting technical debt and new classes of risk. But the bigger challenge won’t be technical. It will be human: earning trust, driving adoption, and establishing the right governance to manage agent autonomy and prevent uncontrolled sprawl."
+                  - listitem [ref=e197]: To scale impact in the agentic era, organizations must reset their AI transformation approaches from scattered initiatives to strategic programs; from use cases to business processes; from siloed AI teams to cross-functional transformation squads; and from experimentation to industrialized, scalable delivery.
+                  - listitem [ref=e198]: Organizations will also need to set up the foundation to effectively operate in the agentic era. They will need to upskill the workforce, adapt the technology infrastructure, accelerate data productization, and deploy agent-specific governance mechanisms. The moment has come to bring the gen AI experimentation chapter to a close—a pivot only the CEO can make.
+                - generic [ref=e200]:
+                  - img "The Macro and Micro Implications of Agentic AI for the Workforce" [ref=e203]
+                  - generic [ref=e204]:
+                    - generic [ref=e206]:
+                      - heading "The Macro and Micro Implications of Agentic AI for the Workforce" [level=3] [ref=e207]
+                      - paragraph [ref=e209]: Join McKinsey experts on June 22 for a discussion on skills-based transformations, leading a workforce through the cultural shock of working alongside AI, and how CEOs should think about wage dynamics and labor adaptation as the productivity frontier expands faster than most organizations can absorb.
+                    - link "Request an invitation" [ref=e211] [cursor=pointer]:
+                      - /url: https://mck.co/EnterpriseAI
+                      - text: Request an invitation
+                      - generic [ref=e212]: 
+                - region "Chapter 1"
+                - generic [ref=e213]:
+                  - img "Computer Neural Network Concept Image. Bright dots connected by glowing lines." [ref=e214]
+                  - generic [ref=e220]:
+                    - generic [ref=e221]: Chapter 1
+                    - 'heading "The gen AI paradox: Widespread deployment, minimal impact The gen AI paradox: Widespread deployment, minimal impact" [level=2] [ref=e222]':
+                      - generic [ref=e223]:
+                        - text: "The gen AI paradox: Widespread deployment, minimal impact"
+                        - 'link "The gen AI paradox: Widespread deployment, minimal impact" [ref=e224] [cursor=pointer]':
+                          - /url: "#"
+                          - generic [ref=e225]: 
+                - generic [ref=e228]:
+                  - generic [ref=e229]:
+                    - heading "Key Points" [level=2] [ref=e230]:
+                      - generic [ref=e231]: Key Points
+                    - generic [ref=e232]:
+                      - generic [ref=e233] [cursor=pointer]: Continue to next section
+                      - button "" [ref=e234] [cursor=pointer]:
+                        - generic [ref=e235]: 
+                  - generic [ref=e236]:
+                    - button " Share" [ref=e239] [cursor=pointer]:
+                      - generic [ref=e240]: 
+                      - generic [ref=e241]: Share
+                    - list [ref=e245]:
+                      - listitem [ref=e246]:
+                        - strong [ref=e247]:
+                          - emphasis [ref=e248]: Nearly eight in ten companies have deployed gen AI in some form, but roughly the same percentage report no material impact on earnings.
+                        - generic "footnote" [ref=e250] [cursor=pointer]:
+                          - superscript [ref=e251]: "[1]"
+                        - strong [ref=e252]:
+                          - emphasis [ref=e253]: We call this the “gen AI paradox.”
+                      - listitem [ref=e254]:
+                        - strong [ref=e255]:
+                          - emphasis [ref=e256]: The main issue is an imbalance between “horizontal” and “vertical” use cases. The former, such as employee copilots and chatbots, have been widely deployed but deliver diffuse benefits, while higher-impact vertical, or function-specific, use cases seldom make it out of the pilot phase because of technical, organizational, data, and cultural barriers.
+                      - listitem [ref=e257]:
+                        - strong [ref=e258]:
+                          - emphasis [ref=e259]: Unless companies address these barriers, the transformational promise of gen AI will remain largely untapped.
+                - heading "Gen AI is everywhere—except in company P&L" [level=2] [ref=e260]
+                - generic [ref=e262]:
+                  - generic [ref=e264]:
+                    - button " Share" [ref=e266] [cursor=pointer]:
+                      - generic [ref=e267]: 
+                      - generic [ref=e268]: Share
+                    - button "Expandable Sidebar" [ref=e269] [cursor=pointer]:
+                      - generic [ref=e270]: 
+                  - generic [ref=e271]:
+                    - generic [ref=e272]: Sidebar
+                    - heading "About QuantumBlack, AI by McKinsey" [level=2] [ref=e274]:
+                      - generic [ref=e275]: About QuantumBlack, AI by McKinsey
+                - paragraph [ref=e276]:
+                  - text: Even before the advent of gen AI, artificial intelligence had already carved out a key place in the enterprise, powering advanced prediction, classification, and optimization capabilities. And the technology’s estimated value potential was already immense—
+                  - link "between $11 trillion and $18 trillion globally" [ref=e277] [cursor=pointer]:
+                    - /url: /capabilities/tech-and-ai/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier
+                  - generic "footnote" [ref=e279] [cursor=pointer]:
+                    - superscript [ref=e280]: "[2]"
+                  - text: —mainly in the fields of marketing (powering capabilities such as personalized email targeting and customer segmentation), sales (lead scoring), and supply chain (inventory optimization and demand forecasting). Yet AI was largely the domain of experts. As a result, adoption across the rank and file tended to be slow. From 2018 to 2022, for example, AI adoption remained relatively stagnant, with about 50 percent of companies deploying the technology in just one business function, according to McKinsey research (Exhibit 1).
+                - generic [ref=e281]:
+                  - generic [ref=e283]: Exhibit 1
+                  - img "Gen AI has accelerated AI deployment overall." [ref=e286]
+                  - generic [ref=e287]:
+                    - text: "We strive to provide individuals with disabilities equal access to our website. If you would like information about this content we will be happy to work with you. Please email us at:"
+                    - link "McKinsey_Website_Accessibility@mckinsey.com" [ref=e288] [cursor=pointer]:
+                      - /url: mailto:McKinsey_Website_Accessibility@mckinsey.com
+                - paragraph [ref=e289]:
+                  - text: "Gen AI has extended the reach of traditional AI in three breakthrough areas: information synthesis, content generation, and communication in human language. McKinsey estimates that the technology has the potential to unlock"
+                  - link "$2.6 trillion to $4.4 trillion in additional value" [ref=e290] [cursor=pointer]:
+                    - /url: /capabilities/tech-and-ai/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier
+                  - text: on top of the value potential of traditional analytical AI.
+                  - generic "footnote" [ref=e292] [cursor=pointer]:
+                    - superscript [ref=e293]: "[3]"
+                - paragraph [ref=e294]:
+                  - text: "Two and a half years after the launch of ChatGPT, gen AI has reshaped how enterprises engage with AI. Its potentially transformative power lies not only in the new capabilities gen AI introduces but also in its ability to democratize access to advanced AI technologies across organizations. This democratization has led to widespread growth in awareness of, and experimentation with, AI: According to"
+                  - link "McKinsey’s most recent Global Survey on AI" [ref=e295] [cursor=pointer]:
+                    - /url: /capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value
+                  - text: ","
+                  - generic "footnote" [ref=e297] [cursor=pointer]:
+                    - superscript [ref=e298]: "[4]"
+                  - text: more than 78 percent of companies are now using gen AI in at least one business function (up from 55 percent a year earlier).
+                - paragraph [ref=e299]:
+                  - text: However, this enthusiasm has yet to translate into tangible economic results.
+                  - link "More than 80 percent of companies still report no material contribution to earnings" [ref=e300] [cursor=pointer]:
+                    - /url: /capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value
+                  - text: from their gen AI initiatives.
+                  - generic "footnote" [ref=e302] [cursor=pointer]:
+                    - superscript [ref=e303]: "[5]"
+                  - text: What’s more, only
+                  - link "1 percent of enterprises we surveyed view their gen AI strategies as mature" [ref=e304] [cursor=pointer]:
+                    - /url: /capabilities/tech-and-ai/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work
+                  - text: .
+                  - generic "footnote" [ref=e306] [cursor=pointer]:
+                    - superscript [ref=e307]: "[6]"
+                  - text: "Call it the “gen AI paradox”: For all the energy, investment, and potential surrounding the technology, at-scale impact has yet to materialize for most organizations."
+                - heading "At the heart of the gen AI paradox lies an imbalance between horizontal and vertical use cases" [level=2] [ref=e308]
+                - paragraph [ref=e309]:
+                  - text: Many organizations have deployed horizontal use cases, such as enterprise-wide copilots and chatbots; nearly 70 percent of Fortune 500 companies, for example, use Microsoft 365 Copilot.
+                  - generic "footnote" [ref=e311] [cursor=pointer]:
+                    - superscript [ref=e312]: "[7]"
+                  - text: These tools are widely seen as levers to enhance individual productivity by helping employees save time on routine tasks and access and synthesize information more efficiently. But these improvements, while real, tend to be spread thinly across employees. As a result, they are not easily visible in terms of top- or bottom-line results.
+                - paragraph [ref=e313]:
+                  - text: By contrast, vertical use cases—those embedded into specific business functions and processes—have seen limited scaling in most companies despite their higher potential for direct economic impact (Exhibit 2).
+                  - link "Fewer than 10 percent of use cases deployed ever make it past the pilot stage" [ref=e314] [cursor=pointer]:
+                    - /url: /about-us/new-at-mckinsey-blog/mckinsey-alliances-bring-the-power-of-generative-ai-to-clients
+                  - text: ", according to McKinsey research."
+                  - generic "footnote" [ref=e316] [cursor=pointer]:
+                    - superscript [ref=e317]: "[8]"
+                  - text: Even when they have been fully deployed, these use cases typically have supported only isolated steps of a business process and operated in a reactive mode when prompted by a human, rather than functioning proactively or autonomously. As a result, their impact on business performance also has been limited.
+                - generic [ref=e318]:
+                  - generic [ref=e320]: Exhibit 2
+                  - 'img "Across business functions, gen AI use cases tend to fall into two categories: horizontal and vertical." [ref=e323]'
+                  - generic [ref=e324]:
+                    - text: "We strive to provide individuals with disabilities equal access to our website. If you would like information about this content we will be happy to work with you. Please email us at:"
+                    - link "McKinsey_Website_Accessibility@mckinsey.com" [ref=e325] [cursor=pointer]:
+                      - /url: mailto:McKinsey_Website_Accessibility@mckinsey.com
+                - paragraph [ref=e326]: What accounts for this imbalance? For one thing, horizontally deployed copilots such as Microsoft Copilot or Google AI Workspace are accessible, off-the-shelf solutions that are relatively easy to implement. (In many cases, enabling Microsoft Copilot is as simple as activating an extension to an existing Office 365 contract, requiring no redesign of workflows or major change management efforts.) Rapid deployment of enterprise chatbots also has been driven by risk mitigation concerns. As employees began experimenting with external large language models (LLMs) such as ChatGPT, many organizations implemented internal, secure alternatives to limit data leakage and ensure compliance with corporate security policies.
+                - paragraph [ref=e327]: "The limited deployment and narrow scope of vertical use cases can in turn be attributed to six primary factors:"
+                - list [ref=e328]:
+                  - listitem [ref=e329]:
+                    - strong [ref=e330]: Fragmented initiatives.
+                    - text: At many companies, vertical use cases have been identified through a bottom-up, highly granular approach within individual functions. In fact,
+                    - link "fewer than 30 percent of companies report that their CEOs sponsor their AI agenda directly" [ref=e331] [cursor=pointer]:
+                      - /url: /capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value
+                    - text: .
+                    - generic "footnote" [ref=e333] [cursor=pointer]:
+                      - superscript [ref=e334]: "[9]"
+                    - text: This has led to a proliferation of disconnected micro-initiatives and a dispersion of AI investments, with limited coordination at the enterprise level.
+                  - listitem [ref=e335]:
+                    - strong [ref=e336]: Lack of mature, packaged solutions.
+                    - text: Unlike off-the-shelf horizontal applications, such as copilots, vertical use cases often require custom development. As a result, teams are frequently forced to build from scratch, using emerging, fast-evolving technologies they have limited experience with. While many companies have invested in data scientists to develop AI models, they often lack MLOps engineers, who are critical to industrialize, deploy, and maintain those models in production environments.
+                  - listitem [ref=e337]:
+                    - strong [ref=e338]: Technological limitations of LLMs.
+                    - text: Despite their impressive capabilities, the first generation of LLMs faced limitations that significantly constrained their deployment at enterprise scale. First, LLMs can produce inaccurate outputs, which makes them difficult to trust in environments where precision and repeatability are essential. What’s more, despite their power, LLMs are fundamentally passive; they do not act unless prompted and cannot independently drive workflows or make decisions without human initiation. LLMs also have struggled to handle complex workflows involving multiple steps, decision points, or branching logic. Finally, many current LLMs have limited persistent memory, making it difficult to track context over time or operate coherently across extended interactions.
+                  - listitem [ref=e339]:
+                    - strong [ref=e340]: Siloed AI teams.
+                    - text: AI centers of excellence have played a crucial role in accelerating awareness and experimentation across many organizations. However, in many cases, these teams have operated in silos—developing AI models independently from core IT, data, or business functions. This autonomy, while useful for rapid prototyping, has often made solutions difficult to scale because of poor integration with enterprise systems, fragmented data pipelines, or a lack of operational alignment.
+                  - listitem [ref=e341]:
+                    - strong [ref=e342]: Data accessibility and quality gaps.
+                    - text: These gaps tend to exist for both structured and unstructured data, with unstructured material remaining largely ungoverned in most organizations.
+                  - listitem [ref=e343]:
+                    - strong [ref=e344]: Cultural apprehension and organizational inertia.
+                    - text: In many organizations, AI deployments have encountered implicit resistance from business teams and middle management due to fear of disruption, uncertainty around job impact, and lack of familiarity with the technology.
+                - paragraph [ref=e345]:
+                  - text: Despite its limited bottom-line impact so far, the first wave of gen AI has been far from wasted. It has enriched employee capabilities, enabled broad experimentation, accelerated AI familiarity across functions, and helped organizations build essential capabilities in prompt engineering, model evaluation, and governance. All of this has laid the groundwork for a more integrated and transformative second phase—
+                  - link "the emerging age of AI agents" [ref=e346] [cursor=pointer]:
+                    - /url: /capabilities/tech-and-ai/our-insights/why-agents-are-the-next-frontier-of-generative-ai
+                  - text: .
+                  - generic "footnote" [ref=e348] [cursor=pointer]:
+                    - superscript [ref=e349]: "[10]"
+                - region "Chapter 2"
+                - generic [ref=e350]:
+                  - img "Computer Neural Network Concept Image. Bright dots connected by glowing lines." [ref=e351]
+                  - generic [ref=e357]:
+                    - generic [ref=e358]: Chapter 2
+                    - 'heading "From paradox to payoff: How agents can scale AI From paradox to payoff: How agents can scale AI" [level=2] [ref=e359]':
+                      - generic [ref=e360]:
+                        - text: "From paradox to payoff: How agents can scale AI"
+                        - 'link "From paradox to payoff: How agents can scale AI" [ref=e361] [cursor=pointer]':
+                          - /url: "#"
+                          - generic [ref=e362]: 
+                - generic [ref=e365]:
+                  - generic [ref=e366]:
+                    - heading "Key Points" [level=2] [ref=e367]:
+                      - generic [ref=e368]: Key Points
+                    - generic [ref=e369]:
+                      - generic [ref=e370] [cursor=pointer]: Continue to next section
+                      - button "" [ref=e371] [cursor=pointer]:
+                        - generic [ref=e372]: 
+                  - generic [ref=e373]:
+                    - button " Share" [ref=e376] [cursor=pointer]:
+                      - generic [ref=e377]: 
+                      - generic [ref=e378]: Share
+                    - list [ref=e382]:
+                      - listitem [ref=e383]:
+                        - strong [ref=e384]:
+                          - emphasis [ref=e385]: By automating complex business workflows, agents unlock the full potential of vertical use cases. Forward-looking companies are already harnessing the power of agents to transform core processes.
+                      - listitem [ref=e386]:
+                        - strong [ref=e387]:
+                          - emphasis [ref=e388]: To realize the potential of agents, companies must reinvent the way work gets done—changing task flows, redefining human roles, and building agent-centric processes from the ground up.
+                      - listitem [ref=e389]:
+                        - strong [ref=e390]:
+                          - emphasis [ref=e391]: "Accomplishing this will require a new paradigm for AI architecture—the agentic AI mesh—capable of integrating both custom-built and off-the-shelf agents. But the bigger challenge will not be technical. It will be human: earning trust to drive adoption and establishing the proper governance protocols."
+                - 'heading "The breakthrough: Automating complex business workflows unlocks the full potential of vertical use cases" [level=2] [ref=e392]'
+                - paragraph [ref=e393]: LLMs have revolutionized how organizations interact with data—enabling information synthesis, content generation, and natural language interaction. But despite their power, LLMs have been fundamentally reactive and isolated from enterprise systems, largely unable to retain memory of past interactions or context across sessions or queries. Their role has been largely limited to enhancing individual productivity through isolated tasks. AI agents mark a major evolution in enterprise AI—extending gen AI from reactive content generation to autonomous, goal-driven execution. Agents can understand goals, break them into subtasks, interact with both humans and systems, execute actions, and adapt in real time—all with minimal human intervention. They do so by combining LLMs with additional technology components providing memory, planning, orchestration, and integration capabilities.
+                - paragraph [ref=e394]: With these new capabilities, AI agents expand the potential of horizontal solutions, upgrading general-purpose copilots from passive tools into proactive teammates that don’t just respond to prompts but also monitor dashboards, trigger workflows, follow up on open actions, and deliver relevant insights in real time. But the real breakthrough comes in the vertical realm, where agentic AI enables the automation of complex business workflows involving multiple steps, actors, and systems—processes that were previously beyond the capabilities of first-generation gen AI tools.
+                - heading "Agents deliver more than efficiency—they supercharge operational agility and unlock new revenue opportunities" [level=2] [ref=e395]
+                - paragraph [ref=e396]: "On the operations side, agents take on routine, data-heavy tasks so humans can focus on higher-value work. But they go further, transforming processes in five ways:"
+                - list [ref=e397]:
+                  - listitem [ref=e398]:
+                    - strong [ref=e399]: Agents accelerate execution by eliminating delays between tasks and by enabling parallel processing.
+                    - text: Unlike in traditional workflows that rely on sequential handoffs, agents can coordinate and execute multiple steps simultaneously, reducing cycle time and boosting responsiveness.
+                  - listitem [ref=e400]:
+                    - strong [ref=e401]: Agents bring adaptability.
+                    - text: By continuously ingesting data, agents can adjust process flows on the fly, reshuffling task sequences, reassigning priorities, or flagging anomalies before they cascade into failures. This makes workflows not only faster but smarter.
+                  - listitem [ref=e402]:
+                    - strong [ref=e403]: Agents enable personalization.
+                    - text: By tailoring interactions and decisions to individual customer profiles or behaviors, agents can adapt the process dynamically to maximize satisfaction and outcomes.
+                  - listitem [ref=e404]:
+                    - strong [ref=e405]: Agents bring elasticity to operations.
+                    - text: Because agents are digital, their execution capacity can expand or contract in real time depending on workload, business seasonality, or unexpected surges—something difficult to achieve with fixed human resource models.
+                  - listitem [ref=e406]:
+                    - strong [ref=e407]: Agents also make operations more resilient.
+                    - text: By monitoring disruptions, rerouting operations, and escalating only when needed, they keep processes running—whether it’s supply chains navigating port delays or service workflows adapting to system outages.
+                - paragraph [ref=e408]: "In a complex supply chain environment, for example, an AI agent could act as an autonomous orchestration layer across sourcing, warehousing, and distribution operations. Connected to internal systems (such as the supply chain planning system or the warehouse management system) and external data sources (such as weather forecasts, supplier feeds, and demand signals), the agent could continuously forecast demand. It could then identify risks, such as delays or disruptions, and dynamically replan transport and inventory flows. Selecting the optimal transport mode based on cost, lead time, and environmental impact, the agent could reallocate stock across warehouses, negotiate directly with external systems, and escalate decisions requiring strategic input. The result: improved service levels, reduced logistics costs, and lower emissions."
+                - paragraph [ref=e409]: "Agents can also help spur top-line growth by amplifying existing revenue streams and unlocking entirely new ones:"
+                - list [ref=e410]:
+                  - listitem [ref=e411]:
+                    - strong [ref=e412]: Amplifying existing revenues.
+                    - text: In e-commerce, agents embedded into online stores or apps could proactively analyze user behavior, cart content, and context (for example, seasonality or purchase history) to surface real-time upselling and cross-selling offers. In finance, agents might help customers discover suitable financial products such as loans, insurance plans, or investment portfolios, providing tailored guidance based on financial profiles, life events, and user behavior.
+                  - listitem [ref=e413]:
+                    - strong [ref=e414]: Creating new revenue streams.
+                    - text: For industrial companies, agents embedded in connected products or equipment could monitor usage, detect performance thresholds, and autonomously unlock features or trigger maintenance actions—enabling pay-per-use, subscription, or performance-based models of creating revenue. Similarly, service organizations could encapsulate internal expertise—legal reasoning, tax interpretation, and procurement best practices—into AI agents offered as software-as-a-service tools or APIs to clients, partners, or smaller businesses lacking in-house expertise.
+                - paragraph [ref=e415]: In short, agentic AI doesn’t just automate. It redefines how organizations operate, adapt, and create value.
+                - 'heading "No longer science fiction: Forward-looking companies are harnessing the power of agents" [level=2] [ref=e416]'
+                - paragraph [ref=e417]: The following case studies demonstrate how QuantumBlack helps organizations build agent workforces—with outcomes that extend far beyond efficiency gains.
+                - 'heading "Case study 1: How a bank used hybrid ‘digital factories’ for legacy app modernization" [level=3] [ref=e418]'
+                - paragraph [ref=e419]:
+                  - strong [ref=e420]: "The problem:"
+                  - text: A large bank needed to modernize its legacy core system, which consisted of 400 pieces of software—a massive undertaking budgeted at more than $600 million. Large teams of coders tackled the project using manual, repetitive tasks, which resulted in difficulty coordinating across silos. They also relied on often slow, error-prone documentation and coding. While first-generation gen AI tools helped accelerate individual tasks, progress remained slow and laborious.
+                - paragraph [ref=e421]:
+                  - strong [ref=e422]: "The agentic approach:"
+                  - text: Human workers were elevated to supervisory roles, overseeing squads of AI agents, each contributing to a shared objective in a defined sequence (Exhibit 3). These squads retroactively document the legacy application, write new code, review the code of other agents, and integrate code into features that are later tested by other agents prior to delivery of the end product. Freed from repetitive, manual tasks, human supervisors guide each stage of the process, enhancing the quality of deliverables and reducing the number of sprints required to implement new features.
+                - paragraph [ref=e423]:
+                  - strong [ref=e424]: "Impact:"
+                  - text: More than 50 percent reduction in time and effort in the early adopter teams
+                - generic [ref=e425]:
+                  - generic [ref=e427]: Exhibit 3
+                  - img "A large bank upgraded its legacy tech stack with a hybrid AI-human digital factory." [ref=e430]
+                  - generic [ref=e431]:
+                    - text: "We strive to provide individuals with disabilities equal access to our website. If you would like information about this content we will be happy to work with you. Please email us at:"
+                    - link "McKinsey_Website_Accessibility@mckinsey.com" [ref=e432] [cursor=pointer]:
+                      - /url: mailto:McKinsey_Website_Accessibility@mckinsey.com
+                - 'heading "Case study 2: How a research firm boosted data quality to derive deeper market insights" [level=3] [ref=e433]'
+                - paragraph [ref=e434]:
+                  - strong [ref=e435]: "The problem:"
+                  - text: A market research and intelligence firm was devoting substantial resources to ensure data quality, relying on a team of more than 500 people whose responsibilities included gathering data, structuring and codifying it, and generating tailored insights for clients. The process, conducted manually, was prone to error, with a staggering 80 percent of mistakes identified by the clients themselves.
+                - paragraph [ref=e436]:
+                  - strong [ref=e437]: "The agentic approach:"
+                  - text: A multiagent solution autonomously identifies data anomalies and explains shifts in sales or market share. It analyzes internal signals, such as changes in product taxonomy, and external events identified via web searches, including product recalls or severe weather. The most influential drivers are synthesized, ranked, and prepared for decision-makers. With advanced search and contextual reasoning, the agents often surface insights that would be difficult for human analysts to uncover manually. While not yet in production, the system is fully functional and has demonstrated strong potential to free up analysts for more strategic work.
+                - paragraph [ref=e438]:
+                  - strong [ref=e439]: "Impact:"
+                  - text: More than 60 percent potential productivity gain and expected savings of more than $3 million annually.
+                - 'heading "Case study 3: How a bank reimagined the way it creates credit-risk memos" [level=3] [ref=e440]'
+                - paragraph [ref=e441]:
+                  - strong [ref=e442]: "The problem:"
+                  - text: Relationship managers (RMs) at a retail bank were spending weeks writing and iterating credit-risk memos to help make credit decisions and fulfill regulatory requirements (Exhibit 4). This process required RMs to manually review and extract information from at least ten different data sources and develop complex nuanced reasoning across interdependent sections—for instance, loan, revenue, and cash joint evolution.
+                - paragraph [ref=e443]:
+                  - strong [ref=e444]: "The agentic approach:"
+                  - text: In close collaboration with the bank’s credit-risk experts and RMs, a proof of concept was developed to transform the credit memo workflow using AI agents. The agents assist RMs by extracting data, drafting memo sections, generating confidence scores to prioritize review, and suggesting relevant follow-up questions. In this model, the analyst’s role shifts from manual drafting to strategic oversight and exception handling.
+                - paragraph [ref=e445]:
+                  - strong [ref=e446]: "Impact:"
+                  - text: A potential 20 to 60 percent increase in productivity, including a 30 percent improvement in credit turnaround
+                - generic [ref=e447]:
+                  - generic [ref=e449]: Exhibit 4
+                  - img "A retail bank used AI agents to reinvent the process of creating credit-risk memos." [ref=e452]
+                  - generic [ref=e453]:
+                    - text: "We strive to provide individuals with disabilities equal access to our website. If you would like information about this content we will be happy to work with you. Please email us at:"
+                    - link "McKinsey_Website_Accessibility@mckinsey.com" [ref=e454] [cursor=pointer]:
+                      - /url: mailto:McKinsey_Website_Accessibility@mckinsey.com
+                - heading "Maximizing value from AI agents requires process reinvention" [level=2] [ref=e455]
+                - paragraph [ref=e456]: Realizing AI’s full potential in the vertical realm requires more than simply inserting agents into legacy workflows. It instead calls for a shift in design mindset—from automating tasks within an existing process to reinventing the entire process with human and agentic coworkers. That’s because when agents are embedded into a legacy process without redesign, they typically serve as faster assistants—generating content, retrieving data, or executing predefined steps. But the process itself remains sequential, rule bound, and shaped by human constraints.
+                - paragraph [ref=e457]: "Reinventing a process around agents means more than layering automation on top of existing workflows—it involves rearchitecting the entire task flow from the ground up. That includes reordering steps, reallocating responsibilities between humans and agents, and designing the process to fully exploit the strengths of agentic AI: parallel execution that collapses cycle time, real-time adaptability that reacts to changing conditions, deep personalization at scale, and elastic capacity that flexes instantly with demand."
+                - paragraph [ref=e458]: Consider a hypothetical customer call center. Before introducing AI agents, the facility was using gen AI tools to assist human support staff by retrieving articles from knowledge bases, summarizing ticket histories, and helping draft responses. While this assistance improved speed and reduced cognitive load, the process itself remained entirely manual and reactive, with human agents still managing every step of diagnosis, coordination, and resolution. The productivity improvement potential was modest, typically boosting resolution time and productivity between 5 and 10 percent.
+                - paragraph [ref=e459]: Now imagine that the call center introduces AI agents but largely preserves the existing workflow—agents are added to assist at specific steps without reconfiguring how work is routed, tracked, or resolved end-to-end. Agents can classify tickets, suggest likely root causes, propose resolution paths, and even autonomously resolve frequent, low-complexity issues (such as password resets). While the impact here can be increased—an estimated 20 to 40 percent savings in time and a 30 to 50 percent reduction in backlog—coordination friction and limited adaptability prevent true breakthrough gains.
+                - paragraph [ref=e460]: But the real shift occurs at the third level, when the call center’s process is reimagined around agent autonomy. In this model, AI agents don’t just respond—they proactively detect common customer issues (such as delayed shipments, failed payments, or service outages) by monitoring patterns across channels, anticipate likely needs, initiate resolution steps automatically (such as issuing refunds, reordering items, or updating account details), and communicate directly with customers via chat or email. Human agents are repositioned as escalation managers and service quality overseers, who are brought in only when agents detect uncertainty or exceptions to typical patterns. Impact at this level is transformative. This could allow a radical improvement of customer service desk productivity. Up to 80 percent of common incidents could be resolved autonomously, with a reduction in time to resolution of 60 to 90 percent (Exhibit 5).
+                - generic [ref=e461]:
+                  - generic [ref=e463]: Exhibit 5
+                  - img "Agents hold the key to breaking through--if processes are reinvented, not just optimized." [ref=e466]
+                  - generic [ref=e467]:
+                    - text: "We strive to provide individuals with disabilities equal access to our website. If you would like information about this content we will be happy to work with you. Please email us at:"
+                    - link "McKinsey_Website_Accessibility@mckinsey.com" [ref=e468] [cursor=pointer]:
+                      - /url: mailto:McKinsey_Website_Accessibility@mckinsey.com
+                - paragraph [ref=e469]: Of course, not every business process requires full reinvention. Simple task automation is sufficient for highly standard, repetitive workflows with limited variability—such as payroll processing, travel expense approvals, or password resets—where gains come primarily from reducing manual effort. In contrast, processes that are complex, cross-functional, prone to exceptions, or tightly linked to business performance often warrant full redesign. Key indicators that call for reinvention include high coordination overhead, rigid sequences that delay responsiveness, frequent human intervention for decisions that could be data driven, and opportunities for dynamic adaptation or personalization. In these cases, redesigning the process around the agent’s ability to orchestrate, adapt, and learn delivers far greater value than simply speeding up existing workflows.
+                - heading "A new AI architecture paradigm—the agentic AI mesh—is required to orchestrate value in the agentic era" [level=2] [ref=e470]
+                - paragraph [ref=e471]: "To scale agents, companies will need to overcome a threefold challenge: handling the newfound risks that AI agents bring, blending custom and off-the-shelf agentic systems, and staying agile amid fast-evolving tech (while avoiding lock-ins)."
+                - list [ref=e472]:
+                  - listitem [ref=e473]:
+                    - strong [ref=e474]: Managing a new wave of risks.
+                    - text: "Agents introduce a new class of systemic risks that traditional gen AI architectures, designed primarily for isolated LLM-centric use cases, were never built to handle: uncontrolled autonomy, fragmented system access, lack of observability and traceability, expanding surface of attack, and agent sprawl and duplication. What starts as intelligent automation can quickly become operational chaos—unless it is built on a foundation that prioritizes control, scalability, and trust."
+                  - listitem [ref=e475]:
+                    - strong [ref=e476]: Blending custom and off-the-shelf agents.
+                    - text: To fully capture the transformative potential of AI agents, organizations must go beyond simply activating agents embedded in software suites. These off-the-shelf agents may streamline routine workflows, but they rarely unlock strategic advantage. Realizing the full potential of agentic AI will require the development of custom-built agents for high-impact processes, such as end-to-end customer resolution, adaptive supply chain orchestration, or complex decision-making. These agents must be deeply aligned with the company’s logic, data flows, and value creation levers—making them difficult to replicate and uniquely powerful.
+                  - listitem [ref=e477]:
+                    - strong [ref=e478]: Staying agile amid fast-evolving tech.
+                    - text: Agentic AI is a new technology area, and solutions are evolving very rapidly. Agents will have to support workflows across multiple systems and should not be hardwired within a specific platform. An evolutive and vendor-agnostic architecture is therefore needed.
+                - paragraph [ref=e479]: "These challenges cannot be addressed by merely bolting new components, such as memory stores or orchestration engines, on top of existing gen AI stacks. While such capabilities are necessary, they are not sufficient. What’s needed is a fundamental architectural shift: from static, LLM-centric infrastructure to a dynamic, modular, and governed environment built specifically for agent-based intelligence—the agentic AI mesh."
+                - paragraph [ref=e480]: "The agentic AI mesh is a composable, distributed, and vendor-agnostic architectural paradigm that enables multiple agents to reason, collaborate, and act autonomously across a wide array of systems, tools, and language models—securely, at scale, and built to evolve with the technology. At the heart of this paradigm are five mutually reinforcing design principles:"
+                - list [ref=e481]:
+                  - listitem [ref=e482]:
+                    - strong [ref=e483]: Composability.
+                    - text: Any agent, tool, or LLM can be plugged into the mesh without system rework.
+                  - listitem [ref=e484]:
+                    - strong [ref=e485]: Distributed intelligence.
+                    - text: Tasks can be decomposed and resolved by networks of cooperating agents.
+                  - listitem [ref=e486]:
+                    - strong [ref=e487]: Layered decoupling.
+                    - text: Logic, memory, orchestration, and interface functions are decoupled to maximize modularity.
+                  - listitem [ref=e488]:
+                    - strong [ref=e489]: Vendor neutrality.
+                    - text: All components can be independently updated or replaced as technology advances, avoiding vendor lock-in and future-proofing the architecture. In particular, open standards such as the Model Context Protocol (MCP) and Agent2Agent (A2A) are preferred to proprietary protocols.
+                  - listitem [ref=e490]:
+                    - strong [ref=e491]: Governed autonomy.
+                    - text: Agent behavior is proactively controlled via embedded policies, permissions, and escalation mechanisms that ensure safe, transparent operation.
+                - generic [ref=e493]:
+                  - generic [ref=e495]:
+                    - button " Share" [ref=e497] [cursor=pointer]:
+                      - generic [ref=e498]: 
+                      - generic [ref=e499]: Share
+                    - button "Expandable Sidebar" [ref=e500] [cursor=pointer]:
+                      - generic [ref=e501]: 
+                  - generic [ref=e502]:
+                    - generic [ref=e503]: Sidebar
+                    - heading "Seven interconnected capabilities of the AI agentic mesh" [level=2] [ref=e505]:
+                      - generic [ref=e506]: Seven interconnected capabilities of the AI agentic mesh
+                - paragraph [ref=e507]: The agentic AI mesh acts as the connective and orchestration layer that enables large-scale, intelligent agent ecosystems to operate safely and efficiently, and continuously evolve. It allows companies to coordinate custom-built and off-the-shelf agents within a unified framework, support multiagent collaboration by allowing agents to share context and delegate tasks, and mitigate key risks such as agent sprawl, autonomy drift, and lack of observability—all while preserving the agility required for a rapid technology evolution (see sidebar “Seven interconnected capabilities of the AI agentic mesh”).
+                - generic [ref=e509]:
+                  - generic [ref=e511]:
+                    - button " Share" [ref=e513] [cursor=pointer]:
+                      - generic [ref=e514]: 
+                      - generic [ref=e515]: Share
+                    - button "Expandable Sidebar" [ref=e516] [cursor=pointer]:
+                      - generic [ref=e517]: 
+                  - generic [ref=e518]:
+                    - generic [ref=e519]: Sidebar
+                    - 'heading "Foundation models for agents: Five requirements" [level=2] [ref=e521]':
+                      - generic [ref=e522]: "Foundation models for agents: Five requirements"
+                - paragraph [ref=e523]: "Beyond this architectural evolution, organizations will also have to revisit their LLM strategies. At the core of every custom agent lies a foundation model—the reasoning engine that powers perception, decision-making, and interaction. In the agentic era, the requirements placed on LLMs evolve significantly. Agents are not passive copilots—they are autonomous, persistent, embedded systems. This creates five critical categories of LLM requirements, each aligned with specific deployment contexts, for which different kinds of models will be relevant (see sidebar “Foundational models for agents: Five requirements”)."
+                - paragraph [ref=e524]: Finally, to truly scale agent deployment across the enterprise, the enterprise systems themselves must also evolve.
+                - paragraph [ref=e525]: In the short term, APIs—protocols that allow different software applications to communicate and exchange data—will remain the primary interface for agents to interact with enterprise systems. But in the long term, APIs alone will not suffice. Organizations must begin reimagining their IT architectures around an agent-first model—one in which user interfaces, logic, and data access layers are natively designed for machine interaction rather than human navigation. In such a model, systems are no longer organized around screens and forms but around machine-readable interfaces, autonomous workflows, and agent-led decision flows.
+                - paragraph [ref=e526]: "This shift is already underway. Microsoft is embedding agents into the core of Dynamics 365 and Microsoft 365 via Copilot Studio; Salesforce is expanding Agentforce into a multiagent orchestration layer; SAP is rearchitecting its Business Technology Platform (BTP) to support agent integration through Joule. These changes signal a broader transition: The future of enterprise software is not just AI-augmented—it is agent-native."
+                - heading "The main challenge won’t be technical—it will be human" [level=2] [ref=e527]
+                - paragraph [ref=e528]: "As agents evolve from passive copilots to proactive actors—and scale across the enterprise—the complexity they introduce will be not only technical but mostly organizational. The real challenge lies in coordination, judgment, and trust. This organizational complexity will play out most visibly across three dimensions: how humans and agents cohabit day-to-day workflows; how organizations establish governance over systems that can act autonomously; and how they prevent unchecked sprawl as agent creation becomes increasingly democratized."
+                - list [ref=e529]:
+                  - listitem [ref=e530]:
+                    - strong [ref=e531]: Human–agent cohabitation.
+                    - text: "Agents won’t just assist humans—they’ll act alongside them. This raises nuanced questions about interaction and coexistence: When should an agent take initiative? When should it defer? How do we maintain human agency and oversight without slowing down the very benefits agents bring? Building clarity around these roles will take time, experimentation, and cultural adjustment. Trust won’t come from technical performance alone—it will hinge on how transparently agents communicate, how predictably they behave, and how intuitively they integrate into daily workflows."
+                  - listitem [ref=e532]:
+                    - strong [ref=e533]: Autonomy control.
+                    - text: "What makes agents powerful—their ability to act independently—also introduces ambiguity. Unlike traditional tools, agents don’t wait to be instructed. They respond, adapt, and sometimes surprise. Navigating this new reality means confronting edge cases: What if an agent executes too aggressively? Or fails to escalate a subtle issue? The challenge is not to eliminate autonomy but to make it intelligible and aligned with organizational expectations. That alignment won’t be static. It will need to evolve as agents learn, systems shift, and trust deepens. Control mechanisms must also address the risk of hallucinations, or plausible but inaccurate outputs agents may produce."
+                  - listitem [ref=e534]:
+                    - strong [ref=e535]: Sprawl containment.
+                    - text: "As in the early days of robotic process automation, there’s a real risk of agent sprawl—the uncontrolled proliferation of redundant, fragmented, and ungoverned agents across teams and functions. As low-code and no-code platforms make agent creation accessible to anyone, organizations risk a new kind of shadow IT: agents that multiply across teams, duplicate efforts, or operate without oversight. How do we avoid fragmentation? Who decides what gets built—and what gets retired? Without structured governance, design standards, and life cycle management, agent ecosystems can quickly become fragile, redundant, and unscalable."
+                - paragraph [ref=e536]: Agents unlock the full potential of vertical use cases, offering companies a path to generate value well beyond efficiency gains. But realizing that potential requires a reimagined approach to AI transformation—one tailored to the unique nature of agents and capable of addressing the lingering limitations they alone cannot resolve. This approach is the subject of our next chapter.
+                - region "Chapter 3"
+                - generic [ref=e537]:
+                  - img "Computer Neural Network Concept Image. Bright dots connected by glowing lines." [ref=e538]
+                  - generic [ref=e544]:
+                    - generic [ref=e545]: Chapter 3
+                    - 'heading "AI transformation at a tipping point: The CEO mandate in the agentic era AI transformation at a tipping point: The CEO mandate in the agentic era" [level=2] [ref=e546]':
+                      - generic [ref=e547]:
+                        - text: "AI transformation at a tipping point: The CEO mandate in the agentic era"
+                        - 'link "AI transformation at a tipping point: The CEO mandate in the agentic era" [ref=e548] [cursor=pointer]':
+                          - /url: "#"
+                          - generic [ref=e549]: 
+                - generic [ref=e552]:
+                  - generic [ref=e553]:
+                    - heading "Key Points" [level=2] [ref=e554]:
+                      - generic [ref=e555]: Key Points
+                    - generic [ref=e556]:
+                      - generic [ref=e557] [cursor=pointer]: Continue to next section
+                      - button "" [ref=e558] [cursor=pointer]:
+                        - generic [ref=e559]: 
+                  - generic [ref=e560]:
+                    - button " Share" [ref=e563] [cursor=pointer]:
+                      - generic [ref=e564]: 
+                      - generic [ref=e565]: Share
+                    - list [ref=e569]:
+                      - listitem [ref=e570]:
+                        - strong [ref=e571]:
+                          - emphasis [ref=e572]: Generating impact in the agentic era requires organizations to shift from scattered initiatives to strategic programs; from use cases to business processes; from siloed AI teams to cross-functional transformation squads; and from experimentation to industrialized, scalable delivery.
+                      - listitem [ref=e573]:
+                        - strong [ref=e574]:
+                          - emphasis [ref=e575]: To scale agents, organizations will also need to set a new foundation by upskilling the workforce, adapting the technology infrastructure, and developing new governance structures for agents.
+                      - listitem [ref=e576]:
+                        - strong [ref=e577]:
+                          - emphasis [ref=e578]: The time has come to bring the gen AI experimentation phase to an end—a pivot only the CEO can make.
+                - heading "Scaling impact in the agentic era requires a reset of the AI transformation approach" [level=2] [ref=e579]
+                - paragraph [ref=e580]:
+                  - text: Unlike gen AI tools that could be easily plugged into existing workflows, AI agents demand a more foundational shift, one that requires rethinking business processes and enabling deep integration with enterprise systems. McKinsey has a
+                  - link "proven Rewired playbook for AI-driven transformations" [ref=e581] [cursor=pointer]:
+                    - /url: /capabilities/tech-and-ai/our-insights/rewired-to-outcompete
+                  - text: .
+                  - generic "footnote" [ref=e583] [cursor=pointer]:
+                    - superscript [ref=e584]: "[11]"
+                  - text: "To capitalize on the agentic opportunity, organizations must build on that, fundamentally reshaping their AI transformation approach across four dimensions:"
+                - list [ref=e585]:
+                  - listitem [ref=e586]:
+                    - strong [ref=e587]: "Strategy: From scattered tactical initiatives to strategic programs."
+                    - text: With agentic AI set to reshape the foundations of competition, organizations must move beyond bottom-up use case identification and directly align AI initiatives with their most critical strategic priorities. This means not only translating existing goals—such as enhancing operational efficiency, improving customer intimacy, or strengthening compliance—into AI-addressable transformation domains, but also adopting a forward-looking lens. Executives must challenge their organizations to look beyond the boundaries of today’s operating model and explore how AI can be used to reimagine entire segments of the business, create new revenue streams, and build competitive moats that will define leadership in the next decade.
+                  - listitem [ref=e588]:
+                    - strong [ref=e589]: "Unit of transformation: From use case to business processes."
+                    - text: In the early wave of gen AI adoption, most vertical initiatives focused on plugging a solution into a specific step of an existing process—which tended to deliver narrow gains without changing the overall structure of how work is done. With AI agents, the paradigm shifts entirely. Opportunity now lies not in optimizing isolated tasks but in transforming entire business processes by embedding agents throughout the value chain. As a result, AI initiatives should no longer be scoped around a single use case, but instead around the end-to-end reinvention of a full process or persona journey. In vertical domains, this means moving from the question, “Where can I use AI in this function?” to “What would this function look like if agents ran 60 percent of it?” It involves rethinking workflows, decision logic, human–system interactions, and performance metrics across the board.
+                  - listitem [ref=e590]:
+                    - strong [ref=e591]: "Delivery model: From siloed AI teams to cross-functional transformation squads."
+                    - text: AI centers of excellence have played a key role in accelerating AI awareness and experimentation across organizations. However, this model reaches its limits in the agentic era—in which agents are deeply embedded into enterprise systems, operate across complex business processes, and rely on high-quality data as their primary fuel. In this context, AI initiatives can no longer be delivered by isolated, specialized AI teams. To succeed at scale, organizations must shift to a cross-functional delivery model, anchored in durable transformation squads composed of business domain experts, process designers, AI and MLOps engineers, IT architects, software engineers, and data engineers.
+                  - listitem [ref=e592]:
+                    - strong [ref=e593]: "Implementation process: From experimentation to industrialized, scalable delivery."
+                    - text: While the previous phase rightly focused on exploring the potential of gen AI, organizations must now shift to an industrialized delivery model, in which solutions are designed from the outset to scale, both technically and financially. This requires organizations to anticipate the full set of technical prerequisites for enterprise deployment—notably in terms of system integration, day-to-day monitoring, and release management, but also to rigorously estimate future running costs and design a solution to minimize them. Unlike traditional IT systems—for which
+                    - link "annual run costs typically represent 10 to 20 percent of initial build costs" [ref=e594] [cursor=pointer]:
+                      - /url: /industries/technology-media-and-telecommunications/our-insights/transforming-infrastructure-operations-for-a-hybrid-cloud-world
+                    - generic "footnote" [ref=e596] [cursor=pointer]:
+                      - superscript [ref=e597]: "[12]"
+                    - text: —gen AI solutions, especially at scale, can incur recurring costs that exceed the initial build investment. Designing for scalability must therefore include not just technical robustness but also economic sustainability, especially for high-volume applications.
+                - heading "Four critical enablers are required to effectively operate in the agentic era" [level=2] [ref=e598]
+                - paragraph [ref=e599]: Redesigning the approach to AI transformation is an important step, but it is not enough. To unlock their full potential at scale, organizations must also activate a robust set of enablers that support the structural, cultural, and technical shifts required to integrate agents into day-to-day operations. These enablers span four dimensions—people, governance, technology architecture, and data—each of which is a foundation for scalable, secure, and high-impact deployment of agents across the enterprise.
+                - list [ref=e600]:
+                  - listitem [ref=e601]:
+                    - strong [ref=e602]: "People: Equip the workforce and introduce new roles."
+                    - text: The workforce must be equipped for new ways of working driven by human–agent collaboration. This involves fostering a “human + agent” mindset through cultural change, targeted training, and supporting early adopters as internal champions. New roles must also be introduced, such as prompt engineers to refine interactions, agent orchestrators to manage agent workflows, and human-in-the-loop designers to handle exceptions and build trust.
+                  - listitem [ref=e603]:
+                    - strong [ref=e604]: "Governance: Ensure autonomy control and prevent agent sprawl."
+                    - text: With the rise of autonomous agents comes the need for strong governance to avoid risk and uncontrolled sprawl. Enterprises should define governance frameworks that establish agent autonomy levels, decision boundaries, behavior monitoring, and audit mechanisms. Policies for development, deployment, and usage must also be formalized, along with classification systems that group agents by function (such as task automators, domain orchestrators, and virtual collaborators), each with an appropriate oversight model.
+                  - listitem [ref=e605]:
+                    - strong [ref=e606]: "Technology architecture: Build a foundation for interoperability and scale."
+                    - text: Agents, whether custom-built or off-the-shelf, must operate across a fragmented ecosystem of systems, data, and workflows. In the short term, organizations must evolve their AI architecture from LLM-centric setups to an agentic AI mesh. Beyond this first step, organizations should start preparing for their next-generation architecture, in which all enterprise systems will be reshuffled around agents in terms of user interface, business logic, and day-to-day operations.
+                  - listitem [ref=e607]:
+                    - strong [ref=e608]: "Data: Accelerate data productization and address quality gaps in unstructured data."
+                    - text: Finally, agents depend on the quality and accessibility of enterprise data. Organizations must transition from use-case-specific data pipelines to reusable data products and extend data governance to unstructured data.
+                - 'heading "CEOs have a leadership challenge: Bringing the gen AI experimentation phase to a close" [level=2] [ref=e609]'
+                - paragraph [ref=e610]: The rise of AI agents is more than just a technological shift. Agents represent a strategic inflection point that will redefine how companies operate, compete, and create value. To navigate this transition successfully, organizations must move beyond experimentation and pilot programs and enter a new phase of scaled, enterprise-wide transformation.
+                - paragraph [ref=e611]: "This pivot cannot be delegated—it must be initiated and led by the CEO. It will rely on three key actions:"
+                - list [ref=e612]:
+                  - listitem [ref=e613]:
+                    - strong [ref=e614]: "Action 1: Conclude the experimentation phase and realign AI priorities."
+                    - text: Conduct a structured review to capture lessons learned, retire unscalable pilots, and formally close the exploratory phase. Refocus efforts on strategic AI programs targeting high-impact domains and processes.
+                  - listitem [ref=e615]:
+                    - strong [ref=e616]: "Action 2: Redesign the AI governance and operating model."
+                    - text: Set up a strategic AI council involving business leaders, the chief human resources officer, the chief data officer, and the chief information officer. This council should oversee AI direction-setting; coordinate AI, IT, and data investments; and implement rigorous value-tracking mechanisms based on KPIs tied to business outcomes.
+                  - listitem [ref=e617]:
+                    - strong [ref=e618]: "Action 3: Launch a first lighthouse transformation project and simultaneously initialize the agentic AI tech foundation."
+                    - text: Kick off a select number of high-impact agentic AI–driven workflow transformations in core business areas. In parallel, lay the groundwork for an agentic AI technology foundation by investing in key enablers—technology infrastructure, data quality, governance frameworks, and workforce readiness.
+                - region "Conclusion"
+                - heading "Conclusion Conclusion" [level=2] [ref=e626]:
+                  - generic [ref=e627]:
+                    - text: Conclusion
+                    - link "Conclusion" [ref=e628] [cursor=pointer]:
+                      - /url: "#"
+                      - generic [ref=e629]: 
+                - paragraph [ref=e630]: Like any truly disruptive technology, AI agents have the power to reshuffle the deck. Done right, they offer laggards a leapfrog opportunity to rewire their competitiveness. Done wrong—or not at all—they risk accelerating the decline of today’s market leaders. This is a moment of strategic divergence.
+                - paragraph [ref=e631]: "While the technology will continue to evolve, it is already mature enough to drive real, transformative change across industries. But to realize the full promise of agentic AI, CEOs must rethink their approach to AI transformation—not as a series of scattered pilots but as focused, end-to-end reinvention efforts. That means identifying a few business domains with the highest potential and pulling every lever: from reimagining workflows to redistributing tasks between humans and machines to rewiring the organization based on new operating models."
+                - paragraph [ref=e632]:
+                  - text: Some leaders are already moving—not just by deploying fleets of agents but by rewiring their organizations to harness their full disruptive potential. (Moderna, for example, merged its HR and IT leadership
+                  - generic "footnote" [ref=e634] [cursor=pointer]:
+                    - superscript [ref=e635]: "[13]"
+                  - text: —signaling that AI is not just a technical tool but a workforce-shaping force.) This is a structural move toward a new kind of enterprise. Agentic AI is not an incremental step—it is the foundation of the next-generation operating model. CEOs who act now won’t just gain a performance edge. They will redefine how their organizations think, decide, and execute.
+                - paragraph [ref=e636]: The time for exploration is ending. The time for transformation is now.
+              - generic [ref=e637]:
+                - generic [ref=e638]:
+                  - paragraph
+                - heading "How relevant and useful is this article for you?" [level=5] [ref=e639]
+                - generic [ref=e640]:
+                  - button "Rate 1 star" [ref=e641] [cursor=pointer]:
+                    - generic [ref=e642]:
+                      - img
+                  - button "Rate 2 star" [ref=e643] [cursor=pointer]:
+                    - generic [ref=e644]:
+                      - img
+                  - button "Rate 3 star" [ref=e645] [cursor=pointer]:
+                    - generic [ref=e646]:
+                      - img
+                  - button "Rate 4 star" [ref=e647] [cursor=pointer]:
+                    - generic [ref=e648]:
+                      - img
+                  - button "Rate 5 star" [ref=e649] [cursor=pointer]:
+                    - generic [ref=e650]:
+                      - img
+            - generic [ref=e651]:
+              - contentinfo [ref=e652]:
+                - generic [ref=e653]:
+                  - heading "About the author(s)" [level=5] [ref=e654]
+                  - generic [ref=e656]:
+                    - paragraph [ref=e657]:
+                      - strong [ref=e658]:
+                        - link "Alexander Sukharevsky" [ref=e659] [cursor=pointer]:
+                          - /url: /our-people/alexander-sukharevsky
+                      - text: is a senior partner in McKinsey’s London office, where
+                      - strong [ref=e660]:
+                        - link "Dave Kerr" [ref=e661] [cursor=pointer]:
+                          - /url: /our-people/dave-kerr
+                      - text: is a partner;
+                      - strong [ref=e662]:
+                        - link "Klemens Hjartar" [ref=e663] [cursor=pointer]:
+                          - /url: /our-people/klemens-hjartar
+                      - text: is a senior partner in the Copenhagen office;
+                      - strong [ref=e664]:
+                        - link "Lari Hämäläinen" [ref=e665] [cursor=pointer]:
+                          - /url: /our-people/lari-hamalainen
+                      - text: is a senior partner in the Seattle office;
+                      - strong [ref=e666]:
+                        - link "Stéphane Bout" [ref=e667] [cursor=pointer]:
+                          - /url: /our-people/stephane-bout
+                      - text: is a senior partner in the Lyon office;
+                      - strong [ref=e668]:
+                        - link "Vito Di Leo" [ref=e669] [cursor=pointer]:
+                          - /url: /our-people/vito-di-leo
+                      - text: is a partner in the Zurich office; and
+                      - strong [ref=e670]: Guillaume Dagorret
+                      - text: is a senior fellow with the McKinsey Global Institute and is based in the Paris office.
+                    - paragraph [ref=e671]: The authors wish to thank Alena Fedorenko, Annie David, Clarisse Magnin, Lareina Yee, Larry Kanter, Michael Chui, Roger Roberts, Sarah Mulligan, Thomas Vlot, and Timo Mauerhoefer for their contributions to this report.
+                    - separator [ref=e672]
+                    - paragraph [ref=e673]: This article was edited by Larry Kanter, a senior editor in the New York office.
+              - button "Talk to us" [ref=e675] [cursor=pointer]
+              - generic [ref=e677]:
+                - heading "Explore a career with us" [level=5] [ref=e678]
+                - link "Search openings" [ref=e680] [cursor=pointer]:
+                  - /url: /careers/search-jobs
+                  - generic [ref=e681]: Search openings
+        - generic [ref=e683]:
+          - heading "Related Articles" [level=5] [ref=e684]
+          - generic [ref=e685]:
+            - generic [ref=e686]:
+              - link "Delicate blue and purple tendrils constantly expanding. These tendrils bear a resemblance to neurons, with luminous buds at their tips." [ref=e688] [cursor=pointer]:
+                - /url: /capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value
+                - img "Delicate blue and purple tendrils constantly expanding. These tendrils bear a resemblance to neurons, with luminous buds at their tips." [ref=e690]
+              - generic [ref=e692]:
+                - text: Survey
+                - 'heading "The state of AI: How organizations are rewiring to capture value" [level=6] [ref=e693]':
+                  - 'link "The state of AI: How organizations are rewiring to capture value" [ref=e694] [cursor=pointer]':
+                    - /url: /capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value
+                    - generic [ref=e695]: "The state of AI: How organizations are rewiring to capture value"
+            - generic [ref=e696]:
+              - link "Abstract image of colorful digital lines coming down and spreading forward like a highway." [ref=e698] [cursor=pointer]:
+                - /url: /capabilities/tech-and-ai/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work
+                - img "Abstract image of colorful digital lines coming down and spreading forward like a highway." [ref=e700]
+              - generic [ref=e702]:
+                - text: Report
+                - 'heading "Superagency in the workplace: Empowering people to unlock AI’s full potential" [level=6] [ref=e703]':
+                  - 'link "Superagency in the workplace: Empowering people to unlock AI’s full potential" [ref=e704] [cursor=pointer]':
+                    - /url: /capabilities/tech-and-ai/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work
+                    - generic [ref=e705]: "Superagency in the workplace: Empowering people to unlock AI’s full potential"
+            - generic [ref=e706]:
+              - link "Image of a hand tracing a light circle in the air" [ref=e708] [cursor=pointer]:
+                - /url: /capabilities/tech-and-ai/our-insights/why-agents-are-the-next-frontier-of-generative-ai
+                - img "Image of a hand tracing a light circle in the air" [ref=e710]
+              - generic [ref=e712]:
+                - generic [ref=e713]: Article - McKinsey Quarterly
+                - heading "Why agents are the next frontier of generative AI" [level=6] [ref=e714]:
+                  - link "Why agents are the next frontier of generative AI" [ref=e715] [cursor=pointer]:
+                    - /url: /capabilities/tech-and-ai/our-insights/why-agents-are-the-next-frontier-of-generative-ai
+                    - generic [ref=e716]: Why agents are the next frontier of generative AI
+    - generic [ref=e718]:
+      - generic [ref=e720]:
+        - heading "Sign up for emails on new Artificial Intelligence articles" [level=5] [ref=e721]
+        - paragraph [ref=e722]: Never miss an insight. We'll email you when new articles are published on this topic.
+        - generic [ref=e724]:
+          - textbox "Email address" [ref=e728]
+          - button "Subscribe" [ref=e730] [cursor=pointer]
+      - button "Close" [ref=e731] [cursor=pointer]:
+        - generic [ref=e732]: 
+    - contentinfo [ref=e736]
+    - log [ref=e737]
+  - generic:
+    - dialog "Privacy" [ref=e739]:
+      - generic [ref=e740]:
+        - generic [ref=e742]:
+          - text: McKinsey & Company, Inc. uses cookies to better understand how visitors use our site, to collect and analyze information on site performance and usage, and for targeted advertising purposes.
+          - link "Cookie Notice" [ref=e743] [cursor=pointer]:
+            - /url: https://www.mckinsey.com/cookie-policy
+          - text: We do not sell personal information, but we may share your personal data with third parties for cross-context behavioral advertising.
+          - text: Please see our
+          - link "Privacy Notice" [ref=e744] [cursor=pointer]:
+            - /url: https://www.mckinsey.com/privacy-policy
+          - text: for more information.
+        - generic [ref=e746]:
+          - button "Manage my preferences, Opens the preference center dialog" [ref=e747] [cursor=pointer]: Manage my preferences
+          - generic [ref=e748]:
+            - button "Decline optional cookies" [ref=e749] [cursor=pointer]
+            - button "Accept All Cookies" [ref=e750] [cursor=pointer]
+    - text:   Back
+  - alert [ref=e751]

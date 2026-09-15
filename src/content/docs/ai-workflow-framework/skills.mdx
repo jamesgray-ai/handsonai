@@ -50,9 +50,9 @@ Claude has three places to work. **Chat** is the normal conversation, on the web
 1. Open [claude.ai](https://claude.ai) in your browser, or open the Claude app
 2. Click the **gear icon** (⚙️) in the bottom-left corner to open **Settings**
 3. Click **Capabilities**
-4. Make sure the toggle next to **Code execution** is **on** (blue)
+4. Make sure the toggle next to **Code execution and file creation** is **on** (blue)
 
-This lets Claude run skills — it does not give Claude access to your computer.
+This lets Claude run skills — it does not give Claude access to your computer. On a Team or Enterprise plan, an admin turns this on for everyone under **Organization settings → Skills**; if the toggle isn't there, ask them.
 
 #### Option 1 — Install the plugin (recommended)
 
@@ -84,6 +84,8 @@ The seven skills work in Claude Chat on the web, the Chat tab in the Claude app,
 
 Use this if your plan or company doesn't allow plugins, or if you only want one or two skills.
 
+**Before you start:** Step 1 (code execution) is done, and you can see **Customize → Skills** in the left sidebar — it's there on every plan.
+
 1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below (start with Analyze — it's Step 1 of the framework). It lands in your **Downloads** folder. Don't unzip it.
 2. In Claude, click **Customize** in the left sidebar, then **Skills**
 3. Click the **+** button, then **Create skill**
@@ -98,13 +100,13 @@ Use this if your plan or company doesn't allow plugins, or if you only want one 
 **If it didn't work:**
 - Did you start a **new** chat after installing?
 - Is the skill's toggle on (Customize → Skills)?
-- Is **Code execution** on (Settings → Capabilities)?
+- Is **Code execution and file creation** on (Settings → Capabilities)?
 - Did you upload the ZIP without unzipping it?
 
 </details>
 
 <details>
-<summary><strong>ChatGPT & Codex</strong> (the ChatGPT app or chatgpt.com) — no terminal, ~3 minutes</summary>
+<summary><strong>ChatGPT & Codex</strong> (the ChatGPT app) — no terminal, ~3 minutes</summary>
 
 <div id="chatgpt--codex"></div>
 
@@ -112,7 +114,7 @@ The ChatGPT app (Mac, Windows, and Linux) has three modes: **Chat**, **Work**, a
 
 **Official docs:** [Skills in ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt) · [Skills & Plugins](https://learn.chatgpt.com/docs/skills-and-plugins)
 
-**What you need first:** A ChatGPT account and the ChatGPT app or [chatgpt.com](https://chatgpt.com). Installing the plugin (Option 1) needs **Pro, Business, or Enterprise**. Uploading the ZIPs (Option 2) needs any paid plan except Free and Go. On Enterprise and Edu, skills are off until an admin turns them on.
+**What you need first:** A ChatGPT account and the ChatGPT app (Mac, Windows, or Linux). Skills from the plugin also work on [chatgpt.com](https://chatgpt.com) and your phone; uploaded skills work in the app. Installing the plugin (Option 1) needs **Pro, Business, or Enterprise**. Uploading the ZIPs (Option 2) needs any paid plan except Free and Go. On Enterprise and Edu, skills are off until an admin turns them on.
 
 #### Option 1 — Install the plugin (recommended)
 
@@ -122,7 +124,7 @@ The ChatGPT app (Mac, Windows, and Linux) has three modes: **Chat**, **Work**, a
 2. Click **Add marketplace**
 3. In the field, type `jamesgray-ai/handsonai-plugins`
 4. Click **Add** (or **Sync**)
-5. You'll now see a **Hands-on AI** plugin. Click **Install**.
+5. You'll now see a **Hands-on AI** plugin. Click the **+** button to install it.
 
 {/* screenshot: chatgpt-plugins-add-marketplace.png — the Add marketplace dialog with the repository typed in */}
 
@@ -154,7 +156,7 @@ Use this on Plus or other paid plans without **Add marketplace**, or if you only
 
 **You'll know it worked when:** in **Work**, you type `@analyze`, pick the skill, send *"Help me analyze AI workflow opportunities"*, and ChatGPT begins the interview.
 
-Uploaded skills are available in the ChatGPT app and the Codex tab. Skills that come from the plugin (Option 1) also work in ChatGPT on the web and on your phone.
+Where they work, in OpenAI's words: *"Standalone skills are available in the ChatGPT desktop app, Codex CLI, and IDE extension. Skills bundled in plugins are also available in Chat and Work across ChatGPT on the web, desktop, and mobile."* So uploaded skills stay in the app and Codex; the plugin's skills also work on the web and your phone.
 
 **If it didn't work:**
 - Try **Work** mode — that's where skills always run.
@@ -176,13 +178,13 @@ Gemini has two versions with skills. Which one you have depends on your Google a
 
 **What you need first:** A personal Google Account (work and school accounts can't use Spark), a **Google AI Pro or Ultra** subscription, and you need to be 18 or older. Spark isn't available in the European Economic Area, the United Kingdom, Switzerland, or Nigeria.
 
-**Before you start:** Open [gemini.google.com](https://gemini.google.com) and sign in with your personal account. Click **Change mode**. Do you see **Switch to Spark**? Yes → continue. No → check the requirements above.
+**Before you start:** Open [gemini.google.com](https://gemini.google.com) and sign in with your personal account. Look in the sidebar. Do you see **Switch to Spark**? Yes → continue. No → check the requirements above.
 
 1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it.
-2. In Gemini, click **Change mode**, then **Switch to Spark**
-3. In the left sidebar, click **Skills**
+2. In the Gemini sidebar, click **Switch to Spark**
+3. Click **Skills**
 4. Click **Upload** and choose `analyze.zip`
-5. Make sure the new skill is **enabled** in your list
+5. The new skill appears in your list. If it shows as disabled, click **More** (⋮) next to it, then **Enable**
 6. Repeat for the next skill you need — Deconstruct is Step 2
 
 The same steps work in the Gemini app for Mac and in the Gemini app on your phone once Spark is on.
@@ -191,19 +193,23 @@ The same steps work in the Gemini app for Mac and in the Gemini app on your phon
 
 **You'll know it worked when:** you start a task, type `/` and pick **analyze** (or just describe the task — Spark picks the skill automatically), send *"Help me analyze AI workflow opportunities"*, and Gemini begins a short interview about your role and your work.
 
-To update a skill later, upload it again — it replaces the old version. To remove one: **Skills** → the skill → **Delete**.
+To update a skill later: **Skills** → **More** (⋮) next to the skill → **Replace skill** → choose the new ZIP. To remove one: **More** → **Delete**.
 
 #### Option 2 — Gemini Enterprise (work or school account)
 
 **Before you start:** Open your company's Gemini Enterprise web app. Do you see **Skills** in the left navigation, with a **+** button? Yes → continue. No → your edition (Frontline) or your admin's settings don't allow uploads. Ask your admin to upload the skills and share them with you.
 
-1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it.
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it. (Google's documentation asks for `SKILL.md` at the top level of the ZIP — if the upload is rejected, use **analyze-flat.zip** from the same table.)
 2. In Gemini Enterprise, click **Skills** in the left navigation
 3. Click the **+** button, then **Upload skill**
 4. Drag in `analyze.zip` (or browse for it), then click **Import**
 5. Repeat for the next skill you need
 
 **You'll know it worked when:** you type `@analyze` or `/analyze` in a chat (or just describe the task), send *"Help me analyze AI workflow opportunities"*, and Gemini begins the interview. Note that Gemini Enterprise skills don't run inside its Agents — use them in chat.
+
+:::note[From Google's documentation]
+These Gemini Enterprise steps follow Google's official guide and haven't yet been walked through hands-on for this course. If a label on your screen differs, tell your instructor so we can fix the page.
+:::
 
 **If it didn't work:**
 - Spark: are you signed in with a **personal** account, on Google AI Pro or Ultra?
@@ -227,7 +233,7 @@ Microsoft 365 Copilot runs skills in **Copilot Cowork**. Cowork reads `SKILL.md`
 
 #### Option 1 — Upload the skill
 
-1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it.
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it. (Microsoft's documentation describes a ZIP with `SKILL.md` at the top level — if the upload is rejected, use **analyze-flat.zip** from the same table, or Option 2.)
 2. Open **Cowork**
 3. In the left navigation, click **Customize**
 4. Click the **Skills** tab
@@ -250,7 +256,11 @@ If Cowork rejects the ZIP, download the **flat** version of the skill from the [
 4. Move the `analyze` folder in. The full path should be `Documents/Cowork/skills/analyze/SKILL.md`
 5. Repeat for the next skill you need
 
-**You'll know it worked when:** you start a new Cowork conversation, type *"Help me analyze where AI fits in my work"*, and Cowork begins the interview. The skill shows up as a chip in the side panel under **Skills**.
+**You'll know it worked when:** you start a new Cowork conversation, type *"Help me analyze AI workflow opportunities"*, and Cowork begins the interview. The skill shows up as a chip in the side panel under **Skills**.
+
+:::note[From Microsoft's documentation]
+These Cowork steps follow Microsoft Learn and haven't yet been walked through hands-on for this course. If a label on your screen differs, tell your instructor so we can fix the page.
+:::
 
 :::note[Limits and updates]
 You can have up to **50 custom skills**; each `SKILL.md` can be up to 1 MB, with up to 20 companion files per skill. Uploading a skill again makes a **second copy** (for example `analyze 2`) rather than replacing it — to update, open the old skill and click **Delete** first, or overwrite the folder in OneDrive.
@@ -387,6 +397,10 @@ Move the `analyze` folder into `.agents/skills/`. You should now have `your-proj
 
 Close and reopen Cursor (or reopen the project). In Cursor's chat, type *"Use the analyze skill to help me find AI workflow opportunities."*
 
+**You'll know it worked when:** Cursor begins the structured interview about your role and your work instead of answering generically.
+
+**If it didn't work:** check the path is exactly `your-project/.agents/skills/analyze/SKILL.md` (not `analyze/analyze/…`), that the project you have open is the one with the folder, and that you reopened Cursor after adding it.
+
 Repeat Steps 1 and 3 for each skill you need.
 
 :::tip[Cross-platform shortcut]
@@ -399,7 +413,7 @@ The `.agents/skills/` folder is recognized by Cursor, Codex, Gemini CLI, and VS 
 <details>
 <summary><strong>OpenAI Codex</strong> (CLI, the Codex tab in the ChatGPT app, or the IDE extension) — a folder on disk</summary>
 
-Codex reads skill folders from disk. This path works on every ChatGPT plan, including Free, and it's how you get the skills into Codex without uploading them. (Installing the plugin from the [ChatGPT section](#chatgpt--codex) above also puts the skills into Codex.)
+Codex reads skill folders from disk. This path works on every ChatGPT plan, including Free, and it's how you get the skills into Codex without uploading them. (Installing the plugin from the [ChatGPT section](#chatgpt--codex) above also puts the skills into the Codex tab of the ChatGPT app — but plugins don't load in the IDE extension, so use this folder path there.)
 
 **Official docs:** [Build skills — Codex](https://learn.chatgpt.com/docs/build-skills)
 
@@ -420,6 +434,10 @@ Codex reads skills from a personal folder that works in every project, or from a
 **Step 3 — Test it**
 
 Open Codex and type `$` — the skills appear in a list. Pick **analyze**, or say *"Use the analyze skill to help me find AI workflow opportunities."* Type `/skills` to see everything Codex has loaded.
+
+**You'll know it worked when:** `analyze` appears in the `$` list and Codex begins the structured interview.
+
+**If it didn't work:** check the path ends in `.agents/skills/analyze/SKILL.md`, start a new Codex thread (skills load at the start of a thread), and make sure the folder is in your home folder or in the project you have open.
 
 Repeat Steps 1–2 for each skill you need.
 
@@ -477,6 +495,10 @@ Move `analyze` into `.gemini/skills/` (or `.agents/skills/`). You should now hav
 
 Open the project in Gemini CLI or Antigravity and say *"Use the analyze skill to help me find AI workflow opportunities."* Skills are discovered automatically.
 
+**You'll know it worked when:** Gemini begins the structured interview about your role and your work.
+
+**If it didn't work:** check the path ends in `skills/analyze/SKILL.md`, that you started the tool from (or opened) the project that has the folder, and restart Antigravity if it was already open.
+
 Repeat Steps 1 and 3 for each skill you need.
 
 </details>
@@ -495,7 +517,7 @@ Skills and the `framework-agent` evolve as the methodology improves — new skil
 **If you installed the plugin:** updating is a two-step process — the marketplace and the installed plugin are tracked separately, so checking for updates is not the same as installing them.
 
 1. **Customize → Plugins**, click the **…** menu on the `handsonai-plugins` marketplace and choose **Check for updates**. This pulls the latest version from GitHub.
-2. Open the **Handsonai** plugin in your plugins list and click **Update** in the top-right. The new skills are available immediately — no restart needed.
+2. Open the **handsonai** plugin in your plugins list and click **Update** in the top-right. The new skills are available immediately — no restart needed.
 
 ![Marketplace menu showing "Sync automatically", "Check for updates", and "Remove" options for the handsonai-plugins marketplace](/assets/images/cowork-plugin-check-for-updates.png)
 
@@ -536,9 +558,9 @@ Or update every installed plugin at once with `/plugin update --all`. To have th
 <details>
 <summary><strong>Google Gemini</strong></summary>
 
-**Spark:** re-download the skill and upload it again under **Skills → Upload** — it replaces the existing version.
+**Spark:** re-download the skill, then **Skills → More** (⋮) next to the skill → **Replace skill** → choose the new ZIP.
 
-**Gemini Enterprise:** delete the old skill under **Skills**, then upload the new ZIP with **+ → Upload skill → Import**.
+**Gemini Enterprise:** upload the new ZIP with **+ → Upload skill → Import**; if the old version is still listed on your Skills page, uninstall it there.
 
 </details>
 

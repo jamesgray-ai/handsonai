@@ -250,7 +250,9 @@ gemini --version
 
 After adding skills, you can say "analyze where AI fits in my work" and Gemini runs the structured interview automatically — no re-explaining your requirements each time. Where a skill goes depends on which Gemini you use:
 
-- **Gemini Spark** (personal Google Account with Google AI Pro or Ultra): **Change mode → Switch to Spark → Skills → Upload**, choose the skill's `.zip`.
+**Before you start:** check which account you're signed in with — a personal gmail.com account uses Spark (look for **Switch to Spark** in the sidebar); a work or school account uses Gemini Enterprise (look for **Skills** in the left navigation).
+
+- **Gemini Spark** (personal Google Account with Google AI Pro or Ultra): in the sidebar, **Switch to Spark → Skills → Upload**, choose the skill's `.zip`.
 - **Gemini Enterprise** (work or school account): **Skills → + → Upload skill → Import**.
 - **Gemini CLI / Antigravity:** unzip the skill and place its folder in `.gemini/skills/` or `.agents/skills/` in your project root — it's discovered automatically.
 

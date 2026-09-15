@@ -279,7 +279,7 @@ Upload or paste your Workflow Requirements file (`[workflow-name]/requirements.m
 ```
 
 :::tip[Don't have the skill installed yet?]
-Every platform in the course can load it — [Set Up the Skills](skills/) has the steps, and [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) is the direct download. On a tool without skill support, unzip it and paste the `SKILL.md` text into your system prompt or workspace instructions. Or use this page as a conversation guide.
+Every platform in the course can load it — [Set Up the Skills](../skills/) has the steps, and [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) is the direct download. Or use this page as a conversation guide.
 :::
 
 ### Plan mode and the three layers

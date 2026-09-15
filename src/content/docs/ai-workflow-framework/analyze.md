@@ -69,7 +69,7 @@ The skill runs the six phases above and produces a categorized opportunity repor
 ```
 
 :::tip[Don't have the skill installed yet?]
-Every platform in the course can load it — [Set Up the Skills](skills/) has the steps, and [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) is the direct download. On a tool without skill support, unzip it and paste the `SKILL.md` text into your system prompt or workspace instructions. Same methodology, same output format.
+Every platform in the course can load it — [Set Up the Skills](../skills/) has the steps, and [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) is the direct download. Same methodology, same output format.
 :::
 :::tip[Classify opportunities with the six primitives]
 Once you've identified opportunities, use the [six use case primitives](../../use-cases/) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — to classify what type of AI work each one involves. This makes it easier to find examples and choose the right building blocks.

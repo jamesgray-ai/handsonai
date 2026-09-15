@@ -9,7 +9,7 @@ Microsoft 365 Copilot supports Agent Skills natively in **Copilot Cowork**, whic
 
 ## Upload a skill (easiest)
 
-In Cowork: **Customize → Skills → the arrow next to Add → Upload skill**, then choose a `.md`, `.zip`, or `.skill` file. Cowork validates it and saves it to your OneDrive; it appears under **Your skills** after a few moments. A ZIP should have `SKILL.md` at its root, with any companion files beside it. Uploading a skill with the same name again creates a numbered copy rather than replacing — delete the old one first to update.
+In Cowork: **Customize → Skills → the arrow next to Add → Upload skill**, then choose a `.md`, `.zip`, or `.skill` file. Cowork validates it and saves it to your OneDrive; it appears under **Your skills** after a few moments. Microsoft's docs describe a ZIP with `SKILL.md` at its root and companion files beside it; the Hands-on AI downloads come in both layouts (`analyze.zip` and `analyze-flat.zip`) — use the flat one if the first is rejected. Uploading a skill with the same name again creates a numbered copy rather than replacing — delete the old one first to update.
 
 → [Upload a skill](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize#upload-a-skill) (Microsoft Learn)
 

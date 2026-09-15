@@ -110,7 +110,7 @@ The skill asks you to choose a path, runs an interactive interview to capture th
 ```
 
 :::tip[Don't have the skill installed yet?]
-Every platform in the course can load it — [Set Up the Skills](skills/) has the steps, and [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) is the direct download. On a tool without skill support, unzip it and paste the `SKILL.md` text into your system prompt or workspace instructions.
+Every platform in the course can load it — [Set Up the Skills](../skills/) has the steps, and [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) is the direct download.
 :::
 
 ### Example: Step-driven path

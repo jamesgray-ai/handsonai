@@ -64,7 +64,7 @@
     "gemini-spark": {
       "mode": "guided",
       "skill": "https://support.google.com/gemini/answer/17094296",
-      "notes": "Spark is a mode of the Gemini app (Change mode > Switch to Spark) on the web, the Mac app, and Android/iOS. Personal Google accounts only (not Workspace), Google AI Pro or Ultra, 18+; not available in the EEA, UK, Switzerland, or Nigeria. Skills upload as a SKILL.md or a zip containing one via Skills > Upload; invoke with / in a task or let Spark pick automatically. Skill names must be lowercase-hyphenated."
+      "notes": "Spark is a mode of the Gemini app (sidebar > Switch to Spark) on the web, the Mac app, and Android/iOS. Personal Google accounts only (not Workspace), Google AI Pro or Ultra, 18+; not available in the EEA, UK, Switzerland, or Nigeria. Skills upload as a SKILL.md or a zip containing one via Skills > Upload; invoke with / in a task or let Spark pick automatically. Skill names must be lowercase-hyphenated."
     },
     "copilot-studio": {
       "mode": "guided",
