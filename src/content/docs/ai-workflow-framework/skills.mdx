@@ -102,6 +102,7 @@ Use this if your plan or company doesn't allow plugins, or if you only want one 
 - Is the skill's toggle on (Customize → Skills)?
 - Is **Code execution and file creation** on (Settings → Capabilities)?
 - Did you upload the ZIP without unzipping it?
+- Still stuck? Anthropic lists the common upload errors in [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude), and plugin questions in [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude).
 
 </details>
 
@@ -162,6 +163,7 @@ Where they work, in OpenAI's words: *"Standalone skills are available in the Cha
 - Try **Work** mode — that's where skills always run.
 - Did you pick the skill with `@`, or ask for the task in plain words?
 - Did you upload the ZIP without unzipping it?
+- Still stuck? OpenAI's [Plugins in ChatGPT and Codex](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt-and-codex) covers who can install what, and [Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan) covers what each plan includes.
 
 </details>
 
@@ -215,6 +217,7 @@ These Gemini Enterprise steps follow Google's official guide and haven't yet bee
 - Spark: are you signed in with a **personal** account, on Google AI Pro or Ultra?
 - Is the skill enabled in the Skills list?
 - Did you upload the ZIP without unzipping it? If the ZIP is rejected, download the **flat** version of the skill from the [downloads table](#download-the-skill-zips) instead.
+- Still stuck? Google's [Gemini Spark](https://support.google.com/gemini/answer/17094507) page covers the account and region rules, and [Gemini Enterprise skills](https://docs.cloud.google.com/gemini/enterprise/docs/skills) covers editions and admin settings.
 
 </details>
 
@@ -270,6 +273,7 @@ You can have up to **50 custom skills**; each `SKILL.md` can be up to 1 MB, with
 - Did you start a **new** Cowork conversation after adding the skill?
 - Is the folder name lowercase and exactly `Documents/Cowork/skills/`?
 - Did you wait a few moments for OneDrive to sync?
+- Still stuck? Microsoft's [Customize Copilot Cowork](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize) page covers upload limits and the Skills tab.
 
 </details>
 
@@ -506,6 +510,16 @@ Repeat Steps 1 and 3 for each skill you need.
 ---
 
 Using a different tool (VS Code Copilot, Perplexity, or another platform)? See [How to Add Skills to Your Platform](../../agentic-building-blocks/skills/#how-to-install-skills). For a full comparison of platforms — where skills run, what they can access — see [Platform Implementations](/agentic-building-blocks/skills/#platform-implementations).
+
+### If you're stuck
+
+Work out which of three things is wrong, then go to the right place:
+
+| The problem is… | Go to |
+|---|---|
+| **The download** — a link 404s, a ZIP won't open | The [download page on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) — the newest release is at the top; click **Assets**. If a file is missing there, [open an issue](https://github.com/jamesgray-ai/handsonai-plugins/issues). |
+| **The platform** — a menu isn't where this page says, an upload is rejected, a plan question | The vendor's own help page, linked at the top of each section above (Anthropic, OpenAI, Google, Microsoft). Their pages change faster than ours; if a label differs, trust the screen. |
+| **The skill** — it installed but does something odd | The skill's own page: [Analyze](../analyze/), [Deconstruct](../deconstruct/), [Design](../design/), [Build](../build/), [Test](../test/), [Run](../run/), [Improve](../improve/). Course students: ask in the course channel. |
 
 ## Update the Skills
 
