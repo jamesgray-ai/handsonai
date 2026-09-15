@@ -3,7 +3,7 @@ title: Codex CLI
 description: OpenAI's terminal-native AI coding agent — install, authenticate, and use Codex CLI for coding, file operations, and automation
 ---
 
-**Codex CLI** is OpenAI's terminal-native AI coding agent. It works with your files and shell, is sandboxed by default, and supports both interactive and headless modes. Codex is included with ChatGPT Plus, Pro, Business, Enterprise, and Edu plans.
+**Codex CLI** is OpenAI's terminal-native AI coding agent. It works with your files and shell, is sandboxed by default, and supports both interactive and headless modes. Codex is included with every ChatGPT plan, including Free and Go — usage limits vary by plan, and Free covers local tasks only.
 
 ## Install
 
