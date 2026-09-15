@@ -476,6 +476,7 @@ This directs users to human-readable documentation instead of raw source code. E
 - **Semantic versioning**: `MAJOR.MINOR.PATCH`
 - Adding a new agent/skill to a plugin = bump MINOR (e.g., 1.0.0 → 1.1.0)
 - Updating an existing agent/skill = bump PATCH (e.g., 1.1.0 → 1.1.1)
+- Adding a new install surface or manifest (e.g. the Codex `.codex-plugin/` manifest) = bump MINOR — new capability for users, even if no skill changed
 - Breaking changes (renaming, removing, restructuring) = bump MAJOR
 
 ## Adding a PDF Resource

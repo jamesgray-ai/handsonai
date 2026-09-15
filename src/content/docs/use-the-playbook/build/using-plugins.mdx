@@ -16,7 +16,7 @@ Start at the [Set Up the Skills](/ai-workflow-framework/skills/) page for step-b
 :::
 
 :::tip[Looking for non-Claude platforms?]
-This page covers the Claude ecosystem (Claude Code, Claude.ai, Cowork, API).
+This page covers the Claude ecosystem (Claude Code, Claude Chat, Cowork, API).
 For Cursor, Codex CLI, Gemini CLI, VS Code Copilot, or any LLM, see
 [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills).
 :::
@@ -158,7 +158,7 @@ Plugins install in Chat with the same steps as in Cowork, and a plugin's skills 
 
 Plugin sub-agents (the `framework-agent` orchestrator) and hooks run only in Cowork; the skills work everywhere. Step-by-step with screenshots: [Set Up the Skills — Claude](/ai-workflow-framework/skills/#claude-chat--cowork).
 
-### Upload a plugin skill to Claude.ai
+### Upload a plugin skill to Claude Chat
 
 Use this on the Free plan, or when your organization disables personal plugins. You can take any plugin skill and upload it individually.
 
@@ -210,7 +210,7 @@ The ZIP file appears on your Desktop.
 Zip the **folder itself**, not the individual files inside it. When you open the ZIP, you should see a single folder (e.g., `analyze/`) — not loose files.
 :::
 
-**2. Upload to Claude.ai**
+**2. Upload to Claude Chat**
 
 Click **Customize** in the left sidebar → **Skills** → **+** → **Create skill** → **Upload a skill**, and select your `.zip` file.
 
@@ -222,7 +222,7 @@ Find your uploaded skill in the Skills list and enable it.
 
 Open a new chat and describe your need. Claude automatically uses the skill when relevant.
 
-### Walkthrough: `analyze` in Claude.ai
+### Walkthrough: `analyze` in Claude Chat
 
 The `analyze` skill is the entry point to the AI Workflow Framework — find AI opportunities in your work.
 
@@ -233,7 +233,7 @@ The `analyze` skill is the entry point to the AI Workflow Framework — find AI 
   cd ~/.claude/plugins/marketplaces/handsonai/plugins/handsonai/skills && \
     zip -r ~/Desktop/analyze.zip analyze/
   ```
-- **Test prompt in Claude.ai:** "Help me find where AI could create the most value in my work"
+- **Test prompt in Claude Chat:** "Help me find where AI could create the most value in my work"
 
 Claude applies the framework methodology from the skill's reference file automatically.
 
@@ -249,7 +249,7 @@ Plugin sub-agents run only in Cowork and Claude Code — in Claude Chat they app
 
 All 14 skills work fully across Claude Code, Claude Chat, and Cowork — via the plugin or a ZIP upload.
 
-| Skill | Claude Code | Claude.ai | Cowork | Notes |
+| Skill | Claude Code | Claude Chat | Cowork | Notes |
 |-------|:----------:|:---------:|:------:|-------|
 | `analyze` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
 | `deconstruct` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
@@ -311,7 +311,7 @@ Source: [Browse the plugin on GitHub](https://github.com/jamesgray-ai/handsonai-
 
 **Other ways to use them:**
 
-- **Upload to Claude Chat** — upload a skill ZIP under Customize → Skills ([detailed instructions](#upload-a-plugin-skill-to-claudeai))
+- **Upload to Claude Chat** — upload a skill ZIP under Customize → Skills ([detailed instructions](#upload-a-plugin-skill-to-claude-chat))
 - **Use via the Claude API** — embed skill content in the `system` parameter ([code example](#using-skills-via-the-claude-api))
 
 ## Using Skills via the Claude API
@@ -374,7 +374,7 @@ MCP-dependent steps (like the integration research the `build` skill does agains
 ## Managing Plugins
 
 :::tip[Updating the framework skills specifically?]
-For per-platform refresh steps for the AI Workflow Framework skills (Cowork's two-step flow, Claude.ai re-upload, etc.), see [Update the Skills](../../../ai-workflow-framework/skills/#update-the-skills).
+For per-platform refresh steps for the AI Workflow Framework skills (the plugin's two-step flow, ZIP re-upload, etc.), see [Update the Skills](../../../ai-workflow-framework/skills/#update-the-skills).
 :::
 
 ### Updating plugins
@@ -499,7 +499,7 @@ Restart your Claude Code session. Then verify the plugin is installed:
 
 If the plugin appears but the agent doesn't activate, try being more explicit in your prompt — for example, "Walk me through the AI Workflow Framework for my client onboarding process" rather than just "help me with onboarding."
 
-### "Skill not working in Claude.ai"
+### "Skill not working in Claude Chat"
 
 1. Check that **code execution** is enabled in **Settings > Capabilities**
 2. Check the [compatibility table](#skill-compatibility-across-platforms) for platform notes
