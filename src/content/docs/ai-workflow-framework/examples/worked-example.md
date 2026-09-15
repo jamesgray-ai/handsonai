@@ -31,7 +31,7 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 ```
 
 :::note[Where do the Step 4 skills live in Cowork?]
-In Cowork, skills are managed by the platform rather than sitting in a visible project folder — Build generates the skill files in your workspace, then walks you through adding them to your skill library. The exact placement is being verified against the current Cowork release; the [skills setup page](../../skills/) always has the current instructions. On Claude Code, they'd land in `.claude/skills/` instead.
+In Cowork, skills are managed by the platform rather than sitting in a visible project folder — Build generates the skill files in your workspace, then walks you through adding them under **Customize → Skills** (upload the zip it produced). Skills added there are shared by Claude Chat and Cowork on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
 :::
 
 **Why two locations?** The `outputs/` folder holds the framework's *paper trail* — the documents each step hands to the next. The skills are the *product* — the thing you actually run every week. When the run is over, you use the skill; the documents stay behind as the workflow's memory (Test and Improve read them later).
@@ -506,8 +506,8 @@ name. See Deployment Plan.)*
 
 | Artifact | Target Location | Deployment Steps |
 |---|---|---|
-| Orchestrator skill `weekly-status-report` | Cowork skill library | Build generates the skill; add to library per current Cowork flow |
-| S1 — `status-report-drafting` | Cowork skill library | Same |
+| Orchestrator skill `weekly-status-report` | Skill library (Customize → Skills) | Build generates the skill zip; upload it under Customize → Skills |
+| S1 — `status-report-drafting` | Skill library (Customize → Skills) | Same |
 | C3 — `tone-guide.md` | `context/tone-guide.md` in the project | Build creates it with Maya |
 
 **Packaging note:** Standalone Skill — both skills upload individually; no plugin wrapper.
@@ -527,7 +527,7 @@ Gates are sourced from `outputs/weekly-status-report/requirements.md`.
 ## Deferred to Build
 
 - [ ] HubSpot connector read-only scope verification
-- [ ] Exact Cowork skill-library placement steps (verify current UI at build time)
+- [ ] Confirm both skills show under Customize → Skills after upload
 
 ## Self-Test Summary
 
@@ -662,15 +662,15 @@ The Run Guide is the "how to operate this" document — worth reading even weeks
 
 | Artifact | What it does | Location |
 |----------|-------------|----------|
-| `weekly-status-report` skill | The workflow — pulls updates, drafts, pauses for review, saves | Cowork skill library |
-| `status-report-drafting` skill | The drafting specialist the workflow calls | Cowork skill library |
+| `weekly-status-report` skill | The workflow — pulls updates, drafts, pauses for review, saves | Skill library (Customize → Skills) |
+| `status-report-drafting` skill | The drafting specialist the workflow calls | Skill library (Customize → Skills) |
 | `context/tone-guide.md` | Maya's voice rules | Project folder |
 | `context/past-reports/` | Template + golden examples | Project folder |
 
 ## B. Setup steps
 
-1. Open your Cowork project. Confirm both skills appear in your skill library
-   (they were added during Build — if missing, re-add per the skills setup page).
+1. Open your Cowork project. Confirm both skills appear under **Customize → Skills**
+   (they were added during Build — if missing, re-upload the zips per the skills setup page).
 2. Confirm the HubSpot connector is connected **in this project** and shows the
    "Q2 Delivery Tracker" list. You should see it listed under connected tools.
 3. Confirm `context/tone-guide.md` and `context/past-reports/` exist in the

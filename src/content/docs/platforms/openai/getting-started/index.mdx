@@ -135,13 +135,15 @@ Use Codex inside VS Code or Cursor. See [AI Code Editor Setup](../../../builder-
 
 ---
 
-### 2. Add Skills (Codex CLI)
+### 2. Add Skills (ChatGPT and Codex)
 
-After adding skills, you can say "edit this article for HBR quality" and Codex applies professional editorial standards automatically — no re-explaining your requirements each time.
+After adding skills, you can say "analyze where AI fits in my work" and ChatGPT runs the structured interview automatically — no re-explaining your requirements each time. Skills work in ChatGPT's **Work** mode (type `@` and the skill name) and in Codex (type `$` and the name).
 
-Download skill folders from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins) and place them in `.agents/skills/` in your project root. Codex CLI discovers them automatically.
+- **Pro, Business, or Enterprise:** install the Hands-on AI plugin — **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install**. One install covers Chat, Work, and Codex.
+- **Other paid plans:** upload skill ZIPs under **Plugins → Skills → Create → Upload from your computer**.
+- **Codex with files on disk (any plan):** unzip a skill and put its folder in `~/.agents/skills/` (or a project's `.agents/skills/`).
 
-[→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills)
+[→ Step-by-step with screenshots](../../../ai-workflow-framework/skills/#chatgpt--codex) · [→ Skills on OpenAI](../skills/)
 
 ---
 
@@ -171,6 +173,6 @@ Most people don't need this — Codex authenticates directly through your ChatGP
 
 **Part 2 — OpenAI Platform:**
 
-- [ ] Codex installed — desktop app, CLI, or IDE extension (optional)
-- [ ] At least one skill installed or added via Codex CLI (optional)
+- [ ] Codex set up — the Codex tab in the ChatGPT app, the CLI, or the IDE extension (optional)
+- [ ] The Hands-on AI plugin installed, or at least one skill uploaded or added on disk (optional)
 - [ ] Platform account created at platform.openai.com (optional)

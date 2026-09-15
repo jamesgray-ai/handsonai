@@ -85,9 +85,9 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 
 This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
 
-**How to start:** Say *"run the deconstruct skill"* (or *"deconstruct my workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:deconstruct`.
+**How to start:** Say *"run the deconstruct skill"* (or *"deconstruct my workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:deconstruct`, and Cowork lists it when you type `/`.
 
-**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 
@@ -109,8 +109,8 @@ The skill asks you to choose a path, runs an interactive interview to capture th
   and decision points
 ```
 
-:::tip[If your AI tool doesn't support skills]
-Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/deconstruct) and paste it into your system prompt or project instructions.
+:::tip[Don't have the skill installed yet?]
+Every platform in the course can load it — [Set Up the Skills](skills/) has the steps, and [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) is the direct download. On a tool without skill support, unzip it and paste the `SKILL.md` text into your system prompt or workspace instructions.
 :::
 
 ### Example: Step-driven path

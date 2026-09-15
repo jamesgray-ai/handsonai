@@ -250,7 +250,7 @@ Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capabili
 
 Apply the spec's **Packaging** decision to group the generated artifacts:
 - **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace). On Cowork, any workflow that includes worker sub-agents **must** package as Plugin — Cowork runs custom agents only from installed plugins (see the registry entry's notes). If the approved spec says Standalone Skill but includes agents on Cowork, flag the mismatch and switch to Plugin with the user's confirmation.
-- **Standalone Skill** → ship as a single uploadable artifact (zip for Claude.ai and for Cowork's Save skill flow, single SKILL.md for code-mode platforms, single skill for ChatGPT). For skill-only workflows — a design with worker agents on Cowork needs Plugin instead (above).
+- **Standalone Skill** → ship as a single uploadable artifact (zip for Claude.ai and for Cowork's Save skill flow, single SKILL.md for code-mode platforms, zip or SKILL.md for ChatGPT, Gemini Spark / Gemini Enterprise, and M365 Copilot Cowork uploads). For skill-only workflows — a design with worker agents on Cowork needs Plugin instead (above).
 - **Workspace Agent** → bundle orchestration + skills + tools as a ChatGPT Workspace Agent (the current ChatGPT primitive; Custom GPTs are deprecated). Research current Workspace Agent creation flow via web search before generating.
 - **Loose Files** → write files to platform-appropriate paths; no distribution wrapper
 
@@ -314,8 +314,8 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 **g. Place and deploy each artifact per the Deployment Plan.** The Design Spec's Deployment Plan table specifies the target location and deployment steps for every artifact. For each generated artifact:
 1. Write the artifact to its target location from the Deployment Plan.
-2. Execute or document the deployment steps (e.g., "run `claude mcp add ...`", "upload zip via plugin marketplace", "create new GPT and paste instructions").
-3. If the target location requires user action (e.g., a manual GPT creation flow), produce a step-by-step guide tailored to the user's platform.
+2. Execute or document the deployment steps (e.g., "run `claude mcp add ...`", "install the plugin from the marketplace", "upload the skill zip in ChatGPT under Plugins > Skills", "create the Workspace Agent and attach the skill").
+3. If the target location requires user action (e.g., a Workspace Agent creation flow or a skill upload), produce a step-by-step guide tailored to the user's platform.
 
 **Staging & packaging on system-managed platforms.** When the platform's skill/agent directories are system-managed (e.g., Cowork, Claude.ai — Build can't write to the install location directly), stage everything under the workflow's outputs folder and produce **exactly one** installable package:
 
@@ -334,7 +334,7 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them when running Test.) **Update the Workflow node** (`registry/workflows/<slug>.md`): link the generated platform artifacts and any new/reused Skills or Agents under `# Skills` / `# Agents` and `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
-**Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now: **Cowork** — Save skill from the zip (Standalone Skill), or install the `.plugin` produced by the create-plugin skill (Plugin packaging; required whenever the workflow has worker agents); **Claude.ai** — upload the zip under Customize > Skills; **Claude Code** — files are already in place under `.claude/`. Confirm the skill (and any plugin-packaged agents) appears in the platform's skill/agent list before proceeding — Test's installed-run phase depends on it. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
+**Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now: **Cowork** — Save skill from the zip (Standalone Skill), or install the `.plugin` produced by the create-plugin skill (Plugin packaging; required whenever the workflow has worker agents); **Claude.ai** — upload the zip under Customize > Skills (uploaded skills appear in Chat and Cowork alike); **ChatGPT** — upload the zip under Plugins > Skills > Create > Upload from your computer (use `@skill-name` in Work), or on the Codex tab drop the skill folder into `~/.agents/skills/`; **Gemini Spark / Gemini Enterprise** — Skills > Upload (Spark) or Skills > + > Upload skill (Enterprise); **M365 Copilot Cowork** — Customize > Skills > Upload skill; **Claude Code** — files are already in place under `.claude/`. Confirm the skill (and any plugin-packaged agents) appears in the platform's skill/agent list before proceeding — Test's installed-run phase depends on it. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
 ## Outputs
 

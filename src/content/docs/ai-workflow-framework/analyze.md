@@ -43,9 +43,9 @@ Most people discover 5–15 opportunities across different autonomy levels. Pick
 
 This step is facilitated by the **`analyze`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
 
-**How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:analyze`.
+**How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:analyze`, and Cowork lists it when you type `/`.
 
-**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 
@@ -68,8 +68,8 @@ The skill runs the six phases above and produces a categorized opportunity repor
   with specific, actionable recommendations
 ```
 
-:::tip[If your AI tool doesn't support skills]
-Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/analyze) and paste it into your system prompt or project instructions. Same methodology, same output format.
+:::tip[Don't have the skill installed yet?]
+Every platform in the course can load it — [Set Up the Skills](skills/) has the steps, and [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) is the direct download. On a tool without skill support, unzip it and paste the `SKILL.md` text into your system prompt or workspace instructions. Same methodology, same output format.
 :::
 :::tip[Classify opportunities with the six primitives]
 Once you've identified opportunities, use the [six use case primitives](../../use-cases/) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — to classify what type of AI work each one involves. This makes it easier to find examples and choose the right building blocks.

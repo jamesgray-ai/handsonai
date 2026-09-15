@@ -139,9 +139,11 @@ if [ "$NAME" != "multi-agent-example" ]; then
       DRIFT=$((DRIFT + 1))
       continue
     fi
-    if [ "$rel" = ".claude-plugin/plugin.json" ]; then
+    if [ "$rel" = ".claude-plugin/plugin.json" ] || [ "$rel" = ".codex-plugin/plugin.json" ]; then
       # The version is bumped in one place first during a release cycle, so it
-      # legitimately differs; only the rest of the manifest counts as drift.
+      # legitimately differs; only the rest of the manifest counts as drift. The
+      # Codex manifest is bumped in lock-step with the Claude one by sync-plugins.sh,
+      # so it gets the same treatment.
       if ! diff -q <(jq -S 'del(.version)' "$a") <(jq -S 'del(.version)' "$b") > /dev/null; then
         echo "  DRIFTED:                $rel  (beyond the version field)"
         DRIFT=$((DRIFT + 1))
@@ -155,7 +157,7 @@ if [ "$NAME" != "multi-agent-example" ]; then
             echo "  DRIFTED:                $rel  (distributed version $vb is NEWER than canonical $va — syncing would downgrade the published plugin)"
             DRIFT=$((DRIFT + 1))
           else
-            echo "  NOTE: plugin.json version differs (canonical $va vs distributed $vb) — expected mid-release, not counted as drift"
+            echo "  NOTE: $rel version differs (canonical $va vs distributed $vb) — expected mid-release, not counted as drift"
           fi
         fi
       fi

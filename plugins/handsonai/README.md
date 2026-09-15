@@ -2,14 +2,23 @@
 
 Everything you need to design, build, and document AI workflows.
 
-The AI Workflow Framework as executable Claude Code skills, plus an AI registry toolkit and feature-spec toolkit. One install, one namespace, one mental model.
+The AI Workflow Framework as executable skills for Claude, ChatGPT/Codex, and Claude Code, plus an AI registry toolkit and feature-spec toolkit. One install, one namespace, one mental model.
 
 ## Install
 
-```
-/plugin marketplace add jamesgray-ai/handsonai-plugins
-/plugin install handsonai@handsonai
-```
+One plugin, three places it installs — pick yours. Full step-by-step (with screenshots) on the
+[skills setup page](https://handsonai.info/ai-workflow-framework/skills/).
+
+- **Claude** (claude.ai, Claude Desktop, Cowork — paid plans): **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → install **handsonai**.
+- **ChatGPT** (Pro, Business, Enterprise) **and Codex**: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**. Then `@analyze` (ChatGPT) or `$analyze` (Codex).
+- **Claude Code**:
+
+  ```
+  /plugin marketplace add jamesgray-ai/handsonai-plugins
+  /plugin install handsonai@handsonai
+  ```
+
+No plugin support on your platform (Claude Free, ChatGPT Plus, Gemini, M365 Copilot, Cursor, Gemini CLI)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
 
 ## What's Included
 

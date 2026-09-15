@@ -44,10 +44,11 @@ The procedure below is identical everywhere — the same six phases, the same no
 | Platform | Skill delivery | Bundle access | Write path |
 |---|---|---|---|
 | Claude Code | handsonai plugin | local clone | direct edits; student commits |
-| Cowork | plugin via marketplace | repo folder as project | direct edits |
+| Cowork | handsonai plugin (installed once, shared with Claude Chat) or skill ZIP | repo folder as project | direct edits |
 | ChatGPT desktop (Codex) | same SKILL.md dirs at `~/.agents/skills/` (user-level default) or repo `.agents/skills/` (optional pin) | local clone | direct edits; student commits |
-| claude.ai | skill ZIP (existing Releases channel) | GitHub connector / uploaded copy | generate-and-commit via github.com; the skill states explicitly what is unwritten |
-| ChatGPT web (Business/Enterprise) | Personal Skill upload (same ZIP) | GitHub connector | generate-and-commit |
+| claude.ai | handsonai plugin (paid plans; same install as Cowork) or skill ZIP (Releases channel) | GitHub connector / uploaded copy | generate-and-commit via github.com; the skill states explicitly what is unwritten |
+| ChatGPT web (Pro/Business/Enterprise) | handsonai plugin via Plugins > Add marketplace, or Personal Skill upload (same ZIP) | GitHub connector | generate-and-commit |
+| Gemini Spark / Gemini Enterprise | skill ZIP via Skills > Upload | uploaded copy | generate-and-commit |
 | M365 Copilot | agent-instructions packaging | SharePoint or GitHub connector | generate-and-commit |
 
 A few rules follow from that table:

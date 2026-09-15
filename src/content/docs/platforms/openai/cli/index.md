@@ -25,14 +25,14 @@ Verify:
 codex --version
 ```
 
-Full walk-through: [Getting Started with OpenAI → Install Codex](../getting-started/#1-install-codex). The Codex section also covers the **Codex app** and **IDE extension** options.
+Full walk-through: [Getting Started with OpenAI → Install Codex](../getting-started/#1-install-codex). The Codex section also covers the **Codex tab in the ChatGPT app** and the **IDE extension**.
 
 ## What you can do with it
 
 - **Interactive coding** — refactor, debug, explore a codebase with Codex reading files, running commands, and iterating
 - **Sandboxed execution** — Codex runs in a sandbox by default, so it won't touch files outside your project without approval
 - **Headless automation** — pass a prompt as an argument for CI/CD pipelines and scheduled jobs
-- **Multiple surfaces** — same Codex logic across the CLI, desktop app, and IDE extension
+- **Multiple surfaces** — same Codex logic across the CLI, the Codex tab in the ChatGPT app, and the IDE extension
 
 ## Related
 

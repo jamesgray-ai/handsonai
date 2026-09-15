@@ -131,6 +131,16 @@ Connect the Hands-on AI Playbook MCP server for reference material:
 
 ---
 
+### 9. Install the Hands-on AI Plugin
+
+One install gives you the seven AI Workflow Framework skills in Claude Chat (web and app) and Cowork, plus the `framework-agent` orchestrator in Cowork. On a paid plan: in the left sidebar, **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. On the Free plan, or if your company blocks plugins, upload the skills as ZIPs instead.
+
+In Claude Code, it's two commands: `/plugin marketplace add jamesgray-ai/handsonai-plugins` then `/plugin install handsonai@handsonai`.
+
+[→ Step-by-step with screenshots, plus the ZIP path](../../../ai-workflow-framework/skills/#claude-chat--cowork)
+
+---
+
 ## Part 2 — Anthropic Developer Platform (Advanced / Optional)
 
 :::caution[Most people can skip this entire section]
@@ -170,6 +180,7 @@ Most people don't need this — Claude Code and Claude Desktop authenticate dire
 - [ ] Personalization configured with your role and preferences
 - [ ] Memory enabled in Settings → Capabilities
 - [ ] At least one MCP connector or server connected (optional)
+- [ ] Hands-on AI plugin installed (or the skills uploaded as ZIPs)
 
 **Part 2 — Developer Platform:**
 

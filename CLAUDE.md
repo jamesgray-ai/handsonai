@@ -44,7 +44,7 @@ cd mcp-server && npm install && wrangler dev
 - `.claude/skills/` - Repo-specific skills not packaged into any plugin (e.g., `publishing-playbook-updates`). Auto-loaded by Claude Code sessions in this repo. `editing-hbr-articles` also lives here, but as a **mirror** of the copy in `plugins/multi-agent-example/` — edit the plugin copy, not this one.
 - `.claude/hooks/` - Repo hook scripts wired in `.claude/settings.json`, each with a test harness alongside it (`test-*.sh`). Currently `subagent-gate.sh` (`SubagentStop` — validates each pipeline stage's artifacts) and `publish-gate.sh` (`PreToolUse` — blocks the publisher subagent until a human approval marker exists). Both are armed only by the `outputs/articles/.active-run` flag and are otherwise inert. **Hooks load only at session start** — after editing `.claude/settings.json` or a hook script, restart Claude Code or the change silently does not apply. Verify with `/hooks`.
 - `.claude/commands/` - Project slash commands. `/hbr-article` (automatic delegation — states the outcome and lets Claude choose the specialists) and `/hbr-article-strict` (deterministic — explicit fixed sequence). The two exist as a deliberate teaching contrast; keep them in sync when the pipeline changes. See the [Autonomous Agent example](src/content/docs/ai-workflow-framework/examples/autonomous-agent.mdx), which is the reference documentation for how that pipeline works.
-- `plugins/handsonai/` - **Canonical** source of plugin-packaged agents and skills. Edit here; `scripts/sync-plugins.sh` pushes to the distributable [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo (which Cowork clones via the marketplace).
+- `plugins/handsonai/` - **Canonical** source of plugin-packaged agents and skills. Edit here; `scripts/sync-plugins.sh` pushes to the distributable [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo (which Claude Chat/Cowork, ChatGPT/Codex, and Claude Code all install from as a marketplace). Each plugin carries `.claude-plugin/plugin.json` and, where Codex can run it, `.codex-plugin/plugin.json`; `sync-plugins.sh` bumps both in lock-step and refuses to run if they disagree.
 - `plugins/multi-agent-example/` - **Canonical** source of the multi-agent worked-example plugin (4 agents, 1 skill, 2 hooks, 2 commands, the Word renderer). Separate from `handsonai` on purpose: it ships hooks, and installing a methodology toolkit must never silently change how a user's Claude Code behaves. This pipeline is **mirrored** under `.claude/` and `scripts/` so it runs in this repo without installing anything — run `./scripts/check-plugin-sync.sh` to catch drift between the two copies (`sync-plugins.sh` runs it automatically before syncing this plugin).
 - `registry-template/` - **Canonical** payload for the [`jamesgray-ai/ai-registry-template`](https://github.com/jamesgray-ai/ai-registry-template) template repo: the empty registry bundle skeleton, the Node lint/compose tools, test fixtures, and the GitHub Pages Action. Synced by `scripts/sync-registry-template.sh` — edit here, never in the distributed template repo directly. See the Registry Template Sync section below.
 - `mcp-server/migrations/` - Cloudflare D1 schema migrations
@@ -342,7 +342,7 @@ See [Step 2 (Plan)](#2-plan-plan-mode) for codebase analysis agents and [Step 5 
 
 The `plugins/` directory contains a staging copy of Claude Code plugins. Each plugin bundles related agents and skills into a themed toolkit that students can install via `/plugin install`.
 
-The **distributable** copy lives in the separate [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo — a lightweight repo that tools like Cowork can clone quickly. The `marketplace.json` lives there, not here.
+The **distributable** copy lives in the separate [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo — a lightweight repo that Claude, ChatGPT/Codex, and Claude Code can clone quickly. Both catalogs live there, not here: `.claude-plugin/marketplace.json` (Claude) and `.agents/plugins/marketplace.json` (Codex — lists only plugins with a `.codex-plugin/` manifest, so Claude-only plugins like `multi-agent-example` stay hidden from Codex users). `sync-plugins.sh` maintains both.
 
 ### Directory layout
 
@@ -355,7 +355,7 @@ The **distributable** copy lives in the separate [`jamesgray-ai/handsonai-plugin
 Plugin-packaged content lives in **two** places:
 
 1. **`plugins/handsonai/`** in this repo — canonical source. Edit here, alongside the framework docs the skills implement.
-2. **`jamesgray-ai/handsonai-plugins`** — distributable repo Cowork clones via `/plugin marketplace add`. Cloned locally at `~/Code/jamesgray/handsonai-plugins`.
+2. **`jamesgray-ai/handsonai-plugins`** — distributable repo that Claude Chat/Cowork (Customize → Plugins → Add marketplace), ChatGPT (Plugins → Add marketplace), Claude Code (`/plugin marketplace add`), and Codex CLI (`codex plugin marketplace add`) all install from. Cloned locally at `~/Code/jamesgray/handsonai-plugins`.
 
 (`handsonai`'s packaged content is **not** duplicated under `.claude/` — local testing is done by installing the plugin from the marketplace, not by symlinking. **`multi-agent-example` is the deliberate exception:** it is mirrored under `.claude/` and `scripts/` so the pipeline runs in this repo without anyone installing anything, which is the whole point of a worked example you can demonstrate live. `check-plugin-sync.sh` is what stops the two copies drifting. Do not generalise that exception to new plugins without the same drift check.)
 
@@ -367,7 +367,7 @@ When updating:
 4. Commit and push **this repo first**.
 5. In `~/Code/jamesgray/handsonai-plugins`: rebuild ZIPs if skills changed (`./scripts/build-skill-zips.sh`), create a GitHub Release (`gh release create vX.Y.Z dist/*.zip`), commit and push **last**.
 
-**Critical — push `handsonai-plugins` last:** Claude Cowork detects plugin updates by comparing commit hashes. If Cowork syncs to a commit before the version bump lands, it treats that commit as "already synced" and won't re-process it — even though the files contain the new version. By making the `handsonai-plugins` push the final action in the session, Cowork only ever sees the complete, version-bumped state. Never push `handsonai-plugins` mid-session while still making changes. (`sync-plugins.sh` deliberately does not commit or push anywhere — both pushes stay in your hands.)
+**Critical — push `handsonai-plugins` last:** Claude (Chat and Cowork) detects plugin updates by comparing commit hashes, and Codex caches by `<marketplace>/<plugin>/<version>`. If Cowork syncs to a commit before the version bump lands, it treats that commit as "already synced" and won't re-process it — even though the files contain the new version. By making the `handsonai-plugins` push the final action in the session, Cowork only ever sees the complete, version-bumped state. Never push `handsonai-plugins` mid-session while still making changes. (`sync-plugins.sh` deliberately does not commit or push anywhere — both pushes stay in your hands.)
 
 ### Registry Template Sync
 
@@ -418,13 +418,13 @@ Part 8 for the full rationale:
    `handsonai-plugins`) must bundle
    `indexing-registry/references/registry-bundle.md` into every
    framework-skill ZIP. Each framework skill's dispatch blockquote defers to
-   that file for the registry contract, but a standalone skill install (via
-   the Claude.ai ZIP download) only has what's in its own ZIP — omitting it
+   that file for the registry contract, but a standalone skill install (a ZIP
+   uploaded to Claude, ChatGPT, Gemini, or Copilot) only has what's in its own ZIP — omitting it
    silently breaks standalone installs.
 
 ### Updating skill ZIP downloads (GitHub Releases)
 
-Claude.ai users download pre-built skill ZIPs from GitHub Releases on `handsonai-plugins`. When skills are updated, rebuild and publish a new release:
+Users on platforms without the plugin (Gemini Spark/Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI — and Claude or ChatGPT users whose plan or org blocks plugins) download pre-built skill ZIPs from GitHub Releases on `handsonai-plugins`. Each skill is published in two layouts: `<skill>.zip` (skill folder at the root — what claude.ai requires) and `<skill>-flat.zip` (`SKILL.md` at the root — what Gemini Enterprise documents). `scripts/test-build-skill-zips.sh` in that repo asserts both layouts carry identical content. When skills are updated, rebuild and publish a new release:
 
 1. From the `handsonai-plugins` repo, run `./scripts/build-skill-zips.sh` — this creates ZIPs in `dist/`
 2. Create a new release: `gh release create vX.Y.Z dist/*.zip --title "vX.Y.Z" --notes "Description of changes"`

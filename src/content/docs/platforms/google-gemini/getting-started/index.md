@@ -246,13 +246,17 @@ gemini --version
 
 ---
 
-### 4. Add Skills (Gemini CLI)
+### 4. Add Skills
 
-After adding skills, you can say "edit this article for HBR quality" and Gemini CLI applies professional editorial standards automatically — no re-explaining your requirements each time.
+After adding skills, you can say "analyze where AI fits in my work" and Gemini runs the structured interview automatically — no re-explaining your requirements each time. Where a skill goes depends on which Gemini you use:
 
-Download skill folders from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins) and place them in `.gemini/skills/` or `.agents/skills/` in your project root. Gemini CLI discovers them automatically.
+- **Gemini Spark** (personal Google Account with Google AI Pro or Ultra): **Change mode → Switch to Spark → Skills → Upload**, choose the skill's `.zip`.
+- **Gemini Enterprise** (work or school account): **Skills → + → Upload skill → Import**.
+- **Gemini CLI / Antigravity:** unzip the skill and place its folder in `.gemini/skills/` or `.agents/skills/` in your project root — it's discovered automatically.
 
-[→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills)
+Download the skill ZIPs from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips).
+
+[→ Step-by-step for every Gemini surface](../../../ai-workflow-framework/skills/#google-gemini) · [→ Skills on Google Gemini](../skills/)
 
 ---
 
@@ -277,5 +281,5 @@ Most people don't need this — Antigravity and Gemini CLI authenticate directly
 - [ ] Antigravity IDE installed and signed in (optional)
 - [ ] Gemini Code Assist IDE extension installed in VS Code or Cursor (optional)
 - [ ] Gemini CLI installed — `gemini --version` prints a version number (optional)
-- [ ] At least one skill installed or added via Gemini CLI (optional)
+- [ ] At least one skill added — in Gemini Spark, Gemini Enterprise, or Gemini CLI (optional)
 - [ ] Google Cloud project created with Vertex AI API enabled (optional — for cloud workloads)

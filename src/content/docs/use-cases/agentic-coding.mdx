@@ -195,25 +195,22 @@ Each **feature** becomes its own PRD in Step 1. You build and ship one feature a
 These skills are plain-text Markdown files. Choose how you want to get them:
 
 <Tabs>
-  <TabItem label="Any Platform">
-
-Download from GitHub and add to your platform's skill directory:
-
-GitHub [Browse on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/agentic-coding)
-
-Works with **Claude Code, Cursor, Codex CLI, Gemini CLI, VS Code Copilot**, and more. See [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills) for step-by-step instructions for each tool.
-
-You can also paste any skill file directly into your system prompt, project instructions, or custom GPT.
-  </TabItem>
   <TabItem label="Plugin Install">
 
-One-command install in the Claude Code CLI with automatic slash commands:
+The two agentic-coding skills ship inside the Hands-on AI plugin. On Claude (Chat or Cowork) or ChatGPT, add the `jamesgray-ai/handsonai-plugins` marketplace from the Plugins page and install the plugin; in Claude Code:
 
 ```bash
+/plugin marketplace add jamesgray-ai/handsonai-plugins
 /plugin install handsonai@handsonai
 ```
 
-See [Using Plugins](/use-the-playbook/build/using-plugins/) for setup details, including [Claude.ai upload](/use-the-playbook/build/using-plugins/#using-skills-in-claudeai-web), [Cowork](/use-the-playbook/build/using-plugins/#using-plugins-in-claude-cowork), and [API usage](/use-the-playbook/build/using-plugins/#using-skills-via-the-claude-api).
+See [Set Up the Skills](/ai-workflow-framework/skills/) for every platform, and [Using Plugins](/use-the-playbook/build/using-plugins/) for plugin management in Claude Code.
+  </TabItem>
+  <TabItem label="Any Platform (ZIPs)">
+
+Download `writing-vision-briefs.zip` and `writing-feature-prds.zip` from the [GitHub Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and add them to your platform's skill directory, or upload them where your platform has a skill upload.
+
+Works with **Claude, ChatGPT, Cursor, Codex, Gemini CLI, VS Code Copilot**, and more. See [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills) for each tool.
   </TabItem>
 </Tabs>
 
