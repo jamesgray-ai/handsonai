@@ -193,10 +193,10 @@ The interview, the node shapes, and the dashboards are identical everywhere — 
 | Platform | Skill delivery | Where your registry lives | How writes happen |
 |---|---|---|---|
 | Claude Code | Hands-on AI plugin | local clone on your computer | direct edits; you commit and push |
-| Cowork | Hands-on AI plugin via the marketplace | your repo folder opened as a project | direct edits |
-| ChatGPT desktop (Codex) | same skill files, installed once for your user account | local clone on your computer | direct edits; you commit and push |
-| claude.ai | uploaded skill file | your GitHub repo, connected or generate-and-commit | generate-and-commit — see below |
-| ChatGPT web (Business/Enterprise) | uploaded Personal Skill | your GitHub repo via connector | generate-and-commit — see below |
+| Cowork | Hands-on AI plugin (Customize → Plugins; the same install covers Claude Chat) | your repo folder opened as a project | direct edits |
+| ChatGPT desktop (Codex) | Hands-on AI plugin (Plugins → Add marketplace on any paid plan), or the skill files installed once for your user account | local clone on your computer | direct edits; you commit and push |
+| claude.ai | Hands-on AI plugin (paid plans), or an uploaded skill ZIP | your GitHub repo, connected or generate-and-commit | generate-and-commit — see below |
+| ChatGPT web (paid plans) | Hands-on AI plugin, or an uploaded skill ZIP | your GitHub repo via connector | generate-and-commit — see below |
 | M365 Copilot | packaged agent instructions | SharePoint or your GitHub repo | generate-and-commit — see below |
 
 Each platform section below is complete on its own — you only need to read the one for the platform you're using.
@@ -215,7 +215,7 @@ Each platform section below is complete on its own — you only need to read the
 The registry setup flow hasn't been verified end-to-end on Cowork for this playbook yet. Ask your instructor before relying on this path for a live session. If you're working through this self-paced, the [Claude Code](#claude-code) path is the verified one.
 :::
 
-1. Install the Hands-on AI plugin from the marketplace inside Cowork's plugin manager. See the [plugin marketplace page](../../use-the-playbook/build/) for the exact steps.
+1. Install the Hands-on AI plugin: **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → **Install**. See [Set Up the Skills — Claude](../../ai-workflow-framework/skills/#claude-chat--cowork) for the click-by-click steps.
 2. Open your workspace folder as a Cowork project.
 3. Follow [Choose Your Home](#choose-your-home) above — Path A or Path B both work directly from Cowork.
 
@@ -227,8 +227,8 @@ The registry setup flow hasn't been verified end-to-end on Cowork for this playb
 The registry setup flow hasn't been verified end-to-end in ChatGPT desktop's Codex mode for this playbook yet. Ask your instructor before relying on this path for a live session. If you're working through this self-paced, the [Claude Code](#claude-code) path is the verified one.
 :::
 
-1. Download the Hands-on AI skill files your instructor provides (the same package used everywhere else in this playbook).
-2. Install them at the user level so they're available across every repo you work in: place the skill folders in `~/.agents/skills/` on your computer. (You can instead check a copy into a single repo's `.agents/skills/` folder if you have a specific reason to pin that repo to its own copy — most students don't need this.)
+1. On any paid ChatGPT plan, install the Hands-on AI plugin: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install**. It covers the Codex tab too. See [Set Up the Skills — ChatGPT](../../ai-workflow-framework/skills/#chatgpt--codex).
+2. On other plans, download the skill ZIPs from the [skill downloads table](../../ai-workflow-framework/skills/#download-the-skill-zips), unzip them, and place the skill folders in `~/.agents/skills/` on your computer so they're available across every repo. (You can instead check a copy into a single repo's `.agents/skills/` folder if you have a specific reason to pin that repo to its own copy — most students don't need this.)
 3. Open your workspace folder in ChatGPT desktop's Codex mode.
 4. Follow [Choose Your Home](#choose-your-home) above — Path A or Path B both work, since Codex edits your local files directly.
 
@@ -240,20 +240,20 @@ The registry setup flow hasn't been verified end-to-end in ChatGPT desktop's Cod
 The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session. If you're working through this self-paced and don't need to stay in claude.ai specifically, consider the Claude Code path instead — see [Claude Code](#claude-code) above.
 :::
 
-1. Upload the Hands-on AI skill file your instructor provides to your claude.ai account (Settings → Capabilities → Skills, or wherever claude.ai currently places skill uploads).
+1. Install the Hands-on AI plugin (paid plans: **Customize → Plugins → + → Add marketplace** → `jamesgray-ai/handsonai-plugins`), or upload `scaffolding-registry.zip` from the [skill downloads table](../../ai-workflow-framework/skills/#download-the-skill-zips) under **Customize → Skills → + → Create skill → Upload a skill**.
 2. If you have a GitHub repository connector configured, connect it to the repository you want as your registry's home; if not, plan to use Path C ([No Repository](#path-c-no-repository--generate-and-commit-from-the-cloud)) instead.
 3. Start a conversation and say: *"Set up my AI registry."*
 4. Follow [Path C](#path-c-no-repository--generate-and-commit-from-the-cloud) above if claude.ai cannot write to your repository directly — it will generate each file for you to commit by hand.
 
 **You should now see** either files committed directly to your connected repository, or a complete set of file contents in the conversation with the exact path for each — never a vague "I've created your registry" without specifics.
 
-### ChatGPT Web (Business/Enterprise)
+### ChatGPT Web (paid plans)
 
 :::note[Not yet verified — ask your instructor]
 The exact steps for uploading a Personal Skill and connecting a GitHub repository in ChatGPT web haven't been verified against the current interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session.
 :::
 
-1. Upload the Hands-on AI skill file your instructor provides as a Personal Skill in your ChatGPT workspace settings.
+1. Install the Hands-on AI plugin (**Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins`), or upload `scaffolding-registry.zip` from the [skill downloads table](../../ai-workflow-framework/skills/#download-the-skill-zips) under **Plugins → Skills → Create → Upload from your computer**.
 2. If your workspace has a GitHub connector configured, connect it to the repository you want as your registry's home; if not, plan to use Path C ([No Repository](#path-c-no-repository--generate-and-commit-from-the-cloud)) instead.
 3. Start a conversation and say: *"Set up my AI registry."*
 4. Follow [Path C](#path-c-no-repository--generate-and-commit-from-the-cloud) above if ChatGPT cannot write to your repository directly.

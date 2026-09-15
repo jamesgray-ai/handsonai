@@ -29,7 +29,7 @@ Gemini CLI authenticates directly through your Google account — no separate Ve
 
 Place skill folders in `.gemini/skills/` (or `.agents/skills/`) at your project root. Gemini CLI discovers them automatically.
 
-See [Skills on Google Gemini](../skills/) for the full pattern, or download ready-made skills from [handsonai-plugins](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins).
+See [Skills on Google Gemini](../skills/) for the full pattern, or download ready-made skills from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips).
 
 ## Related
 

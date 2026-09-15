@@ -1,256 +1,292 @@
 ---
 title: Set Up the AI Workflow Framework Skills
-description: Step-by-step setup instructions for the seven AI Workflow Framework skills on Claude, ChatGPT, Gemini, M365 Copilot, Cursor, Codex, and more
+description: Step-by-step setup for the seven AI Workflow Framework skills on Claude, ChatGPT, Google Gemini, M365 Copilot, Cursor, Codex, Gemini CLI, and more — no terminal needed for the chat apps
 ---
 
-Seven skills and an agent implementing the [AI Workflow Framework](../) — from analyzing where AI fits in your workflows through building, testing, running, and improving working AI workflows. Find your platform below and follow the setup instructions.
+Seven skills and an agent implementing the [AI Workflow Framework](../) — from analyzing where AI fits in your workflows through building, testing, running, and improving working AI workflows. This page gets them into the AI tool you already use.
 
 ## Set Up These Skills
 
-Find your platform below and click to expand the setup instructions. Each section has everything you need — no jumping between pages.
+### Which one are you?
 
-### Skill Support by Platform
+Pick the row that matches the tool you use most, then jump to that section. Nothing on the "For everyone" paths needs a terminal or any technical setup.
 
-For a full comparison of platforms — skill support status, directory locations, execution environments, and filesystem access — see [Platform Implementations](/agentic-building-blocks/skills/#platform-implementations) and [Where Skills Run](/agentic-building-blocks/skills/#where-skills-run) on the Skills building block page.
+| I use… | Do this |
+|---|---|
+| **Claude** (claude.ai or the Claude app) | [Install the plugin](#claude-chat--cowork) — or upload the ZIPs if your company blocks plugins or you're on the Free plan. *About 3 minutes, no terminal.* |
+| **ChatGPT** | [Install the plugin](#chatgpt--codex) on any paid plan — or upload the ZIPs if you don't see Add marketplace. *About 3 minutes, no terminal.* |
+| **Google Gemini** | [Upload the ZIPs](#google-gemini) in Gemini Spark (personal account) or Gemini Enterprise (work account). *About 3 minutes, no terminal.* |
+| **Microsoft 365 Copilot** | [Upload the ZIPs](#microsoft-365-copilot) in Cowork. *About 5 minutes, no terminal.* |
+| **A code editor or terminal** (Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity) | See [For builders](#for-builders-code-editors--terminal) at the bottom. *A couple of commands or a folder on disk.* |
+
+:::note[Four words you'll see]
+- **Skill** — a file of instructions that teaches your AI how to do one job well (for example, *Analyze* runs a structured interview to find where AI fits in your work).
+- **Plugin** — all seven skills bundled together so you install them once, like an app. Where a plugin is available, it's the best option.
+- **Marketplace** — the address a plugin is downloaded from. Ours is `jamesgray-ai/handsonai-plugins`. You'll paste that text once.
+- **ZIP file** — a compressed folder. For Claude, ChatGPT, Gemini, and Copilot you upload the ZIP **as-is — don't unzip it**. (Only the builder paths unzip.)
+:::
 
 ---
 
-### Chat & Desktop Platforms
+## For everyone (chat & desktop apps)
 
-Use AI through a browser or desktop app? Find your platform and click to expand.
-
-:::tip[Recommended: use Claude Cowork for this course]
-The course is best done in **Claude Cowork** (the **Cowork** tab in the Claude Desktop app), not Claude Chat in the browser. Cowork has built-in plugin management — one install gets you all seven skills plus the `framework-agent` orchestrator that runs the whole framework end-to-end.
-
-If your company blocks personal plugins in Cowork, or you only have a browser available, the **Claude Chat** instructions below still work — but you'll upload skills one at a time, and the `framework-agent` orchestrator isn't available in Chat (it's a plugin-only component).
+:::tip[Recommended: install the plugin]
+On Claude and ChatGPT, one plugin install gives you all seven skills at once, and updates are a single click. Upload the ZIPs instead if your plan or your company doesn't allow plugins — the skills work exactly the same way, you just add them one at a time.
 :::
 
 <details>
-<summary><strong>Claude Chat (claude.ai)</strong> — ✅ Native skill support</summary>
+<summary><strong>Claude — Chat & Cowork</strong> (claude.ai and the Claude app) — no terminal, ~3 minutes</summary>
 
-Claude.ai officially supports Agent Skills. You upload a skill file and Claude uses it automatically in your conversations.
+<div id="claude-chat--cowork"></div>
 
-**Official docs:** [Use Skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
+Claude has three places to work. **Chat** is the normal conversation, on the web or in the Claude app. **Cowork** is the tab in the Claude app where Claude works on files and folders on your computer. **Code** is for developers — skip it unless you're a builder (see [Claude Code](#claude-code) below). The skills work in Chat and Cowork; only the optional `framework-agent` orchestrator needs Cowork.
 
-**How sharing works:** Skills you upload here in Claude Chat are also available in **Claude Cowork** automatically — they share the same personal skill library on your account. It doesn't work the other way around: skills bundled inside Cowork **plugins** (like the `handsonai` plugin) only run in Cowork, not in Claude Chat. So if you want the same skills in both surfaces, upload them here.
+**Official docs:** [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude) · [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
 
-**What you need first:** A Claude Pro, Max, Team, or Enterprise subscription.
+**What you need first:** A Claude account. Installing the plugin (Option 1) needs a paid plan — Pro, Max, Team, or Enterprise. Uploading the ZIPs (Option 2) also works on the Free plan.
 
-**Step 1 — Turn on code execution**
+**Step 1 — Turn on code execution** (one time)
 
-1. Go to [claude.ai](https://claude.ai) in your web browser
-2. Look at the bottom-left corner of the screen and click the **gear icon** (⚙️) to open **Settings**
-3. In Settings, click **Capabilities** in the left menu
-4. Find the toggle next to **Code execution** and make sure it's turned **on** (it should appear blue/active)
+1. Open [claude.ai](https://claude.ai) in your browser, or open the Claude app
+2. Click the **gear icon** (⚙️) in the bottom-left corner to open **Settings**
+3. Click **Capabilities**
+4. Make sure the toggle next to **Code execution and file creation** is **on** (blue)
 
-This setting lets Claude run skills — it does not give Claude access to your computer.
+This lets Claude run skills — it does not give Claude access to your computer. On a Team or Enterprise plan, an admin turns this on for everyone under **Organization settings → Skills**; if the toggle isn't there, ask them.
 
-**Step 2 — Download a skill**
+#### Option 1 — Install the plugin (recommended)
 
-1. Open the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) in your web browser
-2. Scroll down to the **Assets** section — you'll see a list of `.zip` files, one for each skill
-3. Click **analyze.zip** to download it (start with Analyze — it's Step 1 of the framework)
-
-The file downloads to your computer (usually to your **Downloads** folder). You can download multiple skills at once if you like.
-
-**Step 3 — Upload the skill to Claude**
-
-1. Go back to [claude.ai](https://claude.ai) in your browser
-2. In the left sidebar, click **Customize**
-3. Click **Skills**
-4. Click the **+** button, then choose **Create skill**
-5. Click **Upload skill** and select the `analyze.zip` file you just downloaded
-
-**Step 4 — Turn the skill on**
-
-After uploading, find "analyze" in your Skills list and make sure the toggle next to it is **on** (blue/active).
-
-**Step 5 — Test it**
-
-Start a new chat on claude.ai and type:
-
-> Help me analyze AI workflow opportunities
-
-Claude should begin a structured interview process — asking about your role, your workflows, and where AI might help.
-
-**Step 6 — Add more skills as you need them**
-
-Go back to the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and download the next skill you need. Repeat Steps 3–4 for each one.
-
-| Framework Step | Skill | Direct download |
-|---|---|---|
-| 1 | Analyze | [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) |
-| 2 | Deconstruct | [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) |
-| 3 | Design | [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) |
-| 4 | Build | [build.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/build.zip) |
-| 5 | Test | [test.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/test.zip) |
-| 6 | Run | [run.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run.zip) |
-| 7 | Improve | [improve.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve.zip) |
-
-Start with **Analyze** and **Deconstruct** — add the rest as you progress through the framework.
-
-To refresh a skill later, see [Update the Skills → Claude Chat](#update-the-skills) — re-uploading replaces the existing version.
-
-</details>
-
-<details>
-<summary><strong>Claude Cowork (Desktop App)</strong> — ✅ Native skill support</summary>
-
-Cowork has a built-in plugin directory — no files to download or copy. This is the simplest setup path.
-
-**Official docs:** [Use Plugins in Cowork](https://support.claude.com/en/articles/13837440-use-plugins-in-cowork)
-
-:::note[How Chat and Cowork share skills]
-Installing the `handsonai` plugin here in Cowork makes the skills **and** the `framework-agent` orchestrator available in **Cowork only** — plugin-installed skills don't show up in Claude Chat in the browser.
-
-If you also want the seven skills in **Claude Chat**, upload them via **claude.ai → Customize → Skills → + → Create skill → Upload skill** (see the Claude Chat section above). Skills uploaded that way appear in both Chat and Cowork on the same account. The `framework-agent` orchestrator is plugin-only, so it stays Cowork-only either way.
-
-**Personal plugins blocked at your company?** Some organizations disable personal plugins in Cowork. If you don't see the **Personal** tab in **Browse plugins**, use the **Claude Chat** instructions above instead — uploading skills via Customize → Skills doesn't require plugin permissions.
-:::
-
-**What you need first:** The Claude Desktop app installed, with a Claude Pro, Max, Team, or Enterprise subscription.
-
-**Step 1 — Turn on code execution**
-
-Skills require code execution to be enabled. If you haven't already:
-
-1. In the Claude Desktop app, click the **gear icon** (⚙️) in the bottom-left to open **Settings**
-2. Click **Capabilities**
-3. Make sure the toggle next to **Code execution and file creation** is turned **on** (blue)
-
-This lets Claude run skills — it does not give Claude access to your computer. See [Use Skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude) for details.
-
-**Step 2 — Open Cowork**
-
-1. Open the **Claude Desktop** app
-2. At the top center of the window, you'll see three tabs: **Chat**, **Cowork**, and **Code**. Click **Cowork**.
-
-**Step 3 — Go to Customize**
-
-1. In the left sidebar, click **Customize** (near the bottom of the sidebar)
-2. Click **Browse plugins** — this opens the plugin directory
-
-**Step 4 — Add the marketplace (one-time setup)**
-
-If this is your first time, you need to add the Hands-on AI marketplace:
-
-1. In the plugin directory, click the **Personal** tab at the top
-2. Click the **+** button (next to the marketplace name area)
-3. Click **Add marketplace**
-4. In the "Add marketplace" dialog, type `jamesgray-ai/handsonai-plugins` in the URL field
-5. A dropdown may appear showing **"Couldn't load the repository list. Type owner/repo below to continue."** — this warning is harmless. Click the **"Use 'jamesgray-ai/handsonai-plugins'"** option that appears below it.
-6. Click **Sync**
-
-You only need to do this once — the marketplace is remembered.
-
-**Step 5 — Install the Hands-on AI plugin**
-
-1. After syncing, you should see **handsonai** as a plugin card in the Personal tab
-2. Click the **+** button on the **handsonai** card to install it
-
-:::tip[Need to refresh the skills later?]
-See [Update the Skills](#update-the-skills) for the two-step Cowork refresh flow.
-:::
-
-**Step 6 — Start using it**
-
-Skills are available immediately — no restart needed. Go back to Cowork and describe what you need in plain language. For example, type:
-
-> Help me analyze where AI fits in my work
-
-Cowork automatically activates the right skill based on your request.
-
-</details>
-
-<details>
-<summary><strong>Claude Code (Desktop App)</strong> — ✅ Native skill support</summary>
-
-The Claude Desktop app includes a **Code** tab that supports plugins and skills.
-
-**Official docs:** [Extend Claude with Skills](https://code.claude.com/docs/en/skills) · [Discover and Install Plugins](https://code.claude.com/docs/en/discover-plugins)
-
-:::note[Personal plugins blocked at your company?]
-Some organizations disable personal plugins. If you can't add a marketplace or install plugins in the Code tab, use the **Claude Chat (claude.ai)** instructions above to upload skill `.zip` files via **Customize → Skills → + → Create skill → Upload skill** — that path makes the skills available in Claude Chat and Cowork on the same account, which covers most of the framework workflow. (Slash commands like `/handsonai:analyze` are specific to the Code tab and require the plugin install, and the `framework-agent` orchestrator is also plugin-only — it won't be available via the upload path.)
-:::
-
-**What you need first:** The Claude Desktop app installed, with a Claude Max subscription (the Code tab requires Max).
-
-**Step 1 — Open the Code tab**
-
-1. Open the **Claude Desktop** app
-2. At the top center of the window, you'll see three tabs: **Chat**, **Cowork**, and **Code**. Click **Code**.
-
-**Step 2 — Add the marketplace (one-time setup)**
+**Before you start:** In the left sidebar, click **Customize**. Do you see a **Plugins** tab? Yes → continue. No → you're on the Free plan, or your company has turned personal plugins off. Use **Option 2** below instead; it works on every plan.
 
 1. In the left sidebar, click **Customize**
-2. Click **Browse plugins**
-3. Click the **Personal** tab at the top
-4. Click the **+** button, then click **Add marketplace**
-5. In the "Add marketplace" dialog, type `jamesgray-ai/handsonai-plugins` in the URL field
-6. A dropdown may appear showing **"Couldn't load the repository list. Type owner/repo below to continue."** — this warning is harmless. Click the **"Use 'jamesgray-ai/handsonai-plugins'"** option that appears below it.
+2. Click the **Plugins** tab
+3. Click the **+** button, then **Add marketplace**
+4. Choose **Add from a repository**
+5. In the field, type `jamesgray-ai/handsonai-plugins`
+6. A message may appear saying **"Couldn't load the repository list. Type owner/repo below to continue."** — that's harmless. Click the **"Use 'jamesgray-ai/handsonai-plugins'"** option that appears below it.
 7. Click **Sync**
+8. You'll now see a **handsonai** plugin card. Click **Install**.
 
-You only need to do this once.
+{/* screenshot: claude-customize-plugins-add-marketplace.png — the Add marketplace dialog with the repository typed in */}
+{/* screenshot: claude-plugins-handsonai-card.png — the installed handsonai card */}
 
-**Step 3 — Install the plugin**
+**You'll know it worked when:** the handsonai card shows as installed, and when you start a **new** chat and type
 
-1. After syncing, you should see **handsonai** as a plugin card in the Personal tab
-2. Click the **+** button on the **handsonai** card to install it
+> Help me analyze AI workflow opportunities
 
-**Step 4 — Test it**
+Claude begins a short interview — asking about your role and the work you do most often — instead of giving a generic answer. In Cowork you can also type `/` to see the skills listed, and the `framework-agent` orchestrator is available there.
 
-Go back to the Code tab and type:
+:::note[Where the plugin works]
+The seven skills work in Claude Chat on the web, the Chat tab in the Claude app, and Cowork. The `framework-agent` orchestrator runs only in Cowork (sub-agents don't run in Chat). If you use both the web and the Claude app and the plugin doesn't appear in one of them, add the marketplace there too — the steps are the same.
+:::
 
-```
-/handsonai:analyze
-```
+#### Option 2 — Upload the skill ZIPs
 
-Press **Enter**. The Analyze skill should start running and begin asking you questions. You can also just type *"Help me analyze AI workflow opportunities"* and Claude will activate the right skill automatically.
+Use this if your plan or company doesn't allow plugins, or if you only want one or two skills.
 
-<details>
-<summary>Alternative: install using slash commands</summary>
+**Before you start:** Step 1 (code execution) is done, and you can see **Customize → Skills** in the left sidebar — it's there on every plan.
 
-You can also install directly from the Code tab's input area using slash commands. Type the first command and press **Enter**:
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below (start with Analyze — it's Step 1 of the framework). It lands in your **Downloads** folder. Don't unzip it.
+2. In Claude, click **Customize** in the left sidebar, then **Skills**
+3. Click the **+** button, then **Create skill**
+4. Click **Upload a skill** and choose `analyze.zip`
+5. Find **analyze** in your Skills list and make sure its toggle is **on** (blue)
+6. Repeat for the next skill you need — Deconstruct is Step 2. You don't need all seven today.
 
-```
-/plugin marketplace add jamesgray-ai/handsonai-plugins
-```
+{/* screenshot: claude-skills-upload-skill.png — Customize → Skills → + → Create skill → Upload a skill */}
 
-Then type this command and press **Enter**:
+**You'll know it worked when:** you start a **new** chat, type *"Help me analyze AI workflow opportunities"*, and Claude begins the interview. Uploaded skills appear in both Chat and Cowork on your account. The `framework-agent` orchestrator isn't available this way — it's plugin-only.
 
-```
-/plugin install handsonai@handsonai
-```
-
-This achieves the same result as the visual method above.
+**If it didn't work:**
+- Did you start a **new** chat after installing?
+- Is the skill's toggle on (Customize → Skills)?
+- Is **Code execution and file creation** on (Settings → Capabilities)?
+- Did you upload the ZIP without unzipping it?
+- Still stuck? Anthropic lists the common upload errors in [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude), and plugin questions in [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude).
 
 </details>
 
-For updates, uninstalling, and troubleshooting, see [Using Plugins](../../use-the-playbook/build/using-plugins/).
+<details>
+<summary><strong>ChatGPT & Codex</strong> (the ChatGPT app) — no terminal, ~3 minutes</summary>
+
+<div id="chatgpt--codex"></div>
+
+The ChatGPT app (Mac, Windows, and Linux) has three modes: **Chat**, **Work**, and **Codex**. Skills run in **Work** — the toggle above the message box — and in the **Codex** tab (plugin skills work in Chat too). Codex is the developer mode; you don't need it for this course, but the same skills work there.
+
+**Official docs:** [Skills in ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt) · [Skills & Plugins](https://learn.chatgpt.com/docs/skills-and-plugins)
+
+**What you need first:** A ChatGPT account and the ChatGPT app (Mac, Windows, or Linux). Skills from the plugin also work on [chatgpt.com](https://chatgpt.com) and your phone; uploaded skills work in the app. Installing the plugin (Option 1) needs a paid plan — **Plus, Pro, Business, or Enterprise**. Uploading the ZIPs (Option 2) also needs a paid plan (not Free or Go). On Enterprise and Edu, skills are off until an admin turns them on.
+
+#### Option 1 — Install the plugin (recommended)
+
+**Before you start:** In the left sidebar, click **Plugins**. Do you see an **Add marketplace** option? Yes → continue. No → you're on Free or Go, or your company manages plugins centrally. Use **Option 2**, or send your admin the *For admins* note below.
+
+1. In the left sidebar, click **Plugins**
+2. Click **Add marketplace**
+3. In the field, type `jamesgray-ai/handsonai-plugins`
+4. Click **Add** (or **Sync**)
+5. You'll now see a **Hands-on AI** plugin. Click the **+** button to install it.
+
+{/* screenshot: chatgpt-plugins-add-marketplace.png — the Add marketplace dialog with the repository typed in */}
+
+**You'll know it worked when:** you switch to **Work** (the toggle above the message box), type `@` and start typing `analyze`, and the skill appears in the list. Pick it and send
+
+> Help me analyze AI workflow opportunities
+
+ChatGPT begins a short interview about your role and the work you do most often. In the Codex tab, type `$analyze` instead.
+
+{/* screenshot: chatgpt-work-mode-mention.png — the Work toggle and the @analyze autocomplete */}
+
+:::note[For admins — Business, Enterprise, and Edu workspaces]
+If your workspace controls plugins centrally, an admin adds the marketplace once for everyone: **Admin → Plugins → Add → Import marketplace**, repository `https://github.com/jamesgray-ai/handsonai-plugins`, branch `main`. It syncs automatically every day. After that, members install **Hands-on AI** from the Plugins page.
+:::
+
+#### Option 2 — Upload the skill ZIPs
+
+Use this if you don't see **Add marketplace** (your company manages plugins), or if you only want one or two skills.
+
+**Before you start:** Click **Plugins** in the left sidebar, then the **Skills** tab. Do you see a **Create** button? Yes → continue. No → you're on Free or Go, or your admin hasn't turned Skills on (Enterprise and Edu are off by default). On Free or Go, skills aren't available in ChatGPT chat — the Codex tab can still use them from a folder on your computer; see [OpenAI Codex](#openai-codex) under *For builders*.
+
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it.
+2. In ChatGPT, click **Plugins** in the left sidebar, then the **Skills** tab
+3. Click **Create**, then **Upload from your computer**
+4. Choose `analyze.zip`
+5. Repeat for the next skill you need — Deconstruct is Step 2
+
+{/* screenshot: chatgpt-plugins-skills-upload.png — Plugins → Skills → Create → Upload from your computer */}
+
+**You'll know it worked when:** in **Work**, you type `@analyze`, pick the skill, send *"Help me analyze AI workflow opportunities"*, and ChatGPT begins the interview.
+
+Where they work, in OpenAI's words: *"Standalone skills are available in the ChatGPT desktop app, Codex CLI, and IDE extension. Skills bundled in plugins are also available in Chat and Work across ChatGPT on the web, desktop, and mobile."* So uploaded skills stay in the app and Codex; the plugin's skills also work on the web and your phone.
+
+**If it didn't work:**
+- Try **Work** mode — that's where skills always run.
+- Did you pick the skill with `@`, or ask for the task in plain words?
+- Did you upload the ZIP without unzipping it?
+- Still stuck? OpenAI's [Plugins in ChatGPT and Codex](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt-and-codex) covers who can install what, and [Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan) covers what each plan includes.
 
 </details>
 
 <details>
-<summary><strong>ChatGPT</strong> — 🟡 Beta / Limited native support</summary>
+<summary><strong>Google Gemini</strong> (Gemini Spark or Gemini Enterprise) — no terminal, ~3 minutes</summary>
 
-There are three ways to use these skills with your ChatGPT account, listed from best to simplest:
+<div id="google-gemini"></div>
 
-#### Option 1: Native Skills (Best — if your plan supports it)
+Gemini has two versions with skills. Which one you have depends on your Google account: a **personal** Google Account (gmail.com) uses **Gemini Spark**; a **work or school** account uses **Gemini Enterprise**, if your company has it. The skill files are the same either way. (Using Gemini CLI or Antigravity instead? See [Gemini CLI / Antigravity](#gemini-cli--antigravity) under *For builders*.)
 
-ChatGPT is rolling out native skill support using the same SKILL.md format. Skills work directly in ChatGPT and output files can be downloaded from the chat. This is the best option if available on your plan (currently Enterprise, Edu, and some Team/Business plans — admins may need to enable it).
+**Official docs:** [Create & manage skills for Gemini Apps](https://support.google.com/gemini/answer/17094296) · [Gemini Spark](https://support.google.com/gemini/answer/17094507) · [Gemini Enterprise skills](https://docs.cloud.google.com/gemini/enterprise/docs/skills)
 
-If you don't see a Skills option in your ChatGPT settings, try Option 2 or 3 below.
+#### Option 1 — Gemini Spark (personal Google Account)
 
-**Step 1 — Download the skills**
+**What you need first:** A personal Google Account (work and school accounts can't use Spark), a **Google AI Pro or Ultra** subscription, and you need to be 18 or older. Spark isn't available in the European Economic Area, the United Kingdom, Switzerland, or Nigeria.
 
-1. Open the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) in your web browser
-2. Scroll down to the **Assets** section — you'll see a list of `.zip` files, one for each skill
-3. Click each skill `.zip` to download it. Start with **analyze.zip** and **deconstruct.zip** — add the rest as you progress through the framework.
+**Before you start:** Open [gemini.google.com](https://gemini.google.com) and sign in with your personal account. Look in the sidebar. Do you see **Switch to Spark**? Yes → continue. No → check the requirements above.
 
-The files download to your computer (usually to your **Downloads** folder).
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it.
+2. In the Gemini sidebar, click **Switch to Spark**
+3. Click **Skills**
+4. Click **Upload** and choose `analyze.zip`
+5. The new skill appears in your list. If it shows as disabled, click **More** (⋮) next to it, then **Enable**
+6. Repeat for the next skill you need — Deconstruct is Step 2
 
-| Framework Step | Skill | Direct download |
-|---|---|---|
+The same steps work in the Gemini app for Mac and in the Gemini app on your phone once Spark is on.
+
+{/* screenshot: gemini-spark-skills-upload.png — Spark → Skills page with the Upload button */}
+
+**You'll know it worked when:** you start a task, type `/` and pick **analyze** (or just describe the task — Spark picks the skill automatically), send *"Help me analyze AI workflow opportunities"*, and Gemini begins a short interview about your role and your work.
+
+To update a skill later: **Skills** → **More** (⋮) next to the skill → **Replace skill** → choose the new ZIP. To remove one: **More** → **Delete**.
+
+#### Option 2 — Gemini Enterprise (work or school account)
+
+**Before you start:** Open your company's Gemini Enterprise web app. Do you see **Skills** in the left navigation, with a **+** button? Yes → continue. No → your edition (Frontline) or your admin's settings don't allow uploads. Ask your admin to upload the skills and share them with you.
+
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it. (Google's documentation asks for `SKILL.md` at the top level of the ZIP — if the upload is rejected, use **analyze-flat.zip** from the same table.)
+2. In Gemini Enterprise, click **Skills** in the left navigation
+3. Click the **+** button, then **Upload skill**
+4. Drag in `analyze.zip` (or browse for it), then click **Import**
+5. Repeat for the next skill you need
+
+**You'll know it worked when:** you type `@analyze` or `/analyze` in a chat (or just describe the task), send *"Help me analyze AI workflow opportunities"*, and Gemini begins the interview. Note that Gemini Enterprise skills don't run inside its Agents — use them in chat.
+
+:::note[From Google's documentation]
+These Gemini Enterprise steps follow Google's official guide and haven't yet been walked through hands-on for this course. If a label on your screen differs, tell your instructor so we can fix the page.
+:::
+
+**If it didn't work:**
+- Spark: are you signed in with a **personal** account, on Google AI Pro or Ultra?
+- Is the skill enabled in the Skills list?
+- Did you upload the ZIP without unzipping it? If the ZIP is rejected, download the **flat** version of the skill from the [downloads table](#download-the-skill-zips) instead.
+- Still stuck? Google's [Gemini Spark](https://support.google.com/gemini/answer/17094507) page covers the account and region rules, and [Gemini Enterprise skills](https://docs.cloud.google.com/gemini/enterprise/docs/skills) covers editions and admin settings.
+
+</details>
+
+<details>
+<summary><strong>Microsoft 365 Copilot</strong> (Copilot Cowork) — no terminal, ~5 minutes</summary>
+
+<div id="microsoft-365-copilot"></div>
+
+Microsoft 365 Copilot runs skills in **Copilot Cowork**. Cowork reads `SKILL.md` files from a folder in your OneDrive, and there's an **Upload skill** button that puts them there for you.
+
+**Official docs:** [Cowork skills (Microsoft Learn)](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills) · [Upload a skill](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize#upload-a-skill)
+
+**What you need first:** A Microsoft 365 Copilot license, and your admin must have enabled Cowork (it's generally available, but it uses usage-based billing that an admin turns on). Custom skills aren't available in Cowork on mobile.
+
+**Before you start:** Open Microsoft 365 Copilot. Do you see **Cowork** in the left navigation? Yes → continue. No → ask your IT admin to enable Cowork.
+
+#### Option 1 — Upload the skill
+
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table below. Don't unzip it. (Microsoft's documentation describes a ZIP with `SKILL.md` at the top level — if the upload is rejected, use **analyze-flat.zip** from the same table, or Option 2.)
+2. Open **Cowork**
+3. In the left navigation, click **Customize**
+4. Click the **Skills** tab
+5. Click the small **arrow next to Add**, then **Upload skill**
+6. Choose `analyze.zip`. Cowork checks the file and saves it to your OneDrive; the skill appears under **Your skills** after a few moments.
+7. Repeat for the next skill you need — Deconstruct is Step 2
+
+{/* screenshot: copilot-cowork-upload-skill.png — Customize → Skills → Upload skill */}
+
+If Cowork rejects the ZIP, download the **flat** version of the skill from the [downloads table](#download-the-skill-zips) and upload that instead, or use Option 2.
+
+#### Option 2 — Put the skill folder in OneDrive yourself
+
+1. Download **analyze.zip** and **double-click** it — this creates a folder called `analyze` next to it
+2. Open OneDrive:
+   - **Windows:** open **File Explorer** → click **OneDrive** in the left sidebar
+   - **Mac:** open **Finder** → click **OneDrive** in the sidebar (install the OneDrive app if needed)
+   - **Browser:** go to [onedrive.live.com](https://onedrive.live.com) and sign in with your work account
+3. Open **Documents**, then **Cowork**, then **skills** — create any of those folders that don't exist yet
+4. Move the `analyze` folder in. The full path should be `Documents/Cowork/skills/analyze/SKILL.md`
+5. Repeat for the next skill you need
+
+**You'll know it worked when:** you start a new Cowork conversation, type *"Help me analyze AI workflow opportunities"*, and Cowork begins the interview. The skill shows up as a chip in the side panel under **Skills**.
+
+:::note[From Microsoft's documentation]
+These Cowork steps follow Microsoft Learn and haven't yet been walked through hands-on for this course. If a label on your screen differs, tell your instructor so we can fix the page.
+:::
+
+:::note[Limits and updates]
+You can have up to **50 custom skills**; each `SKILL.md` can be up to 1 MB, with up to 20 companion files per skill. Uploading a skill again makes a **second copy** (for example `analyze 2`) rather than replacing it — to update, open the old skill and click **Delete** first, or overwrite the folder in OneDrive.
+:::
+
+**If it didn't work:**
+- Did you start a **new** Cowork conversation after adding the skill?
+- Is the folder name lowercase and exactly `Documents/Cowork/skills/`?
+- Did you wait a few moments for OneDrive to sync?
+- Still stuck? Microsoft's [Customize Copilot Cowork](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize) page covers upload limits and the Skills tab.
+
+</details>
+
+---
+
+### Download the Skill ZIPs
+
+Every "download the skill" step above means: click the link in this table. The file downloads immediately, usually to your **Downloads** folder. **Don't unzip it** for Claude, ChatGPT, Gemini, or Copilot — upload the ZIP as-is.
+
+You don't need all seven today. **Analyze** and **Deconstruct** are enough to start; add the rest as you progress through the framework.
+
+| Framework step | Skill | Download |
+|:---:|---|---|
 | 1 | Analyze | [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) |
 | 2 | Deconstruct | [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) |
 | 3 | Design | [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) |
@@ -259,568 +295,319 @@ The files download to your computer (usually to your **Downloads** folder).
 | 6 | Run | [run.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run.zip) |
 | 7 | Improve | [improve.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve.zip) |
 
-**Step 2 — Upload the skills to ChatGPT**
-
-Follow OpenAI's official guide to upload the `.zip` files you just downloaded: [Skills in ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt). The guide walks through enabling Skills in your workspace and uploading skill `.zip` files from your computer.
-
-**Step 3 — Test it**
-
-Start a new ChatGPT conversation and type:
-
-> Help me analyze AI workflow opportunities
-
-ChatGPT should activate the Analyze skill and begin a structured interview process.
-
-#### Option 2: OpenAI Codex in a Code Editor
-
-Use **OpenAI Codex** in a code editor like Cursor or VS Code. Codex uses your existing ChatGPT login (Plus, Pro, or any paid plan), supports skills natively, and **saves output files directly to your computer** — so when a skill creates a Workflow Requirements or Design Spec, you get an actual file instead of text in a chat window.
-
-See the [**OpenAI Codex**](#openai-codex) section under Code Editors & Terminal below for setup instructions.
-
-#### Option 3: ChatGPT Projects (Simplest — works on all paid plans)
-
-**Official docs:** [Projects in ChatGPT](https://help.openai.com/en/articles/10169521-using-projects-in-chatgpt)
-
-**What you need first:** A ChatGPT Plus, Team, or Enterprise subscription.
-
-A **Project** in ChatGPT is like a folder where ChatGPT remembers specific instructions for all conversations inside it. You'll create one Project per skill, and paste the skill's instructions into it.
-
-**Step 1 — Copy the skill instructions**
-
-1. Scroll down to the [**Skill Files**](#skill-files) table on this page
-2. Click the **SKILL.md** link for **Analyze** (the first skill in the framework) — this opens a page on GitHub showing the skill's text
-
-**Step 2 — View the raw text**
-
-1. On the GitHub page, look near the top-right of the file content area
-2. Click the button that says **Raw** — this shows you the plain text without any GitHub formatting
-
-**Step 3 — Select and copy all the text**
-
-1. Click anywhere on the page, then:
-   - **Mac:** Press **Cmd+A** (this selects all the text), then press **Cmd+C** (this copies it)
-   - **Windows:** Press **Ctrl+A** (selects all), then press **Ctrl+C** (copies it)
-
-**Step 4 — Create a new Project in ChatGPT**
-
-1. Go to [chatgpt.com](https://chatgpt.com) in your web browser
-2. In the left sidebar, look for **Projects** and click it
-3. Click **New Project**
-
-**Step 5 — Name the Project**
-
-Give it a clear name that matches the skill, like **"Analyze Workflows"** or **"Step 1 — Analyze"**.
-
-**Step 6 — Add the instructions**
-
-1. Click **Instructions** (or "Custom Instructions") — a text box appears
-2. Click inside the text box
-3. Paste the text you copied:
-   - **Mac:** Press **Cmd+V**
-   - **Windows:** Press **Ctrl+V**
-
-**Step 7 — Save**
-
-Click **Save** or **Done**.
-
-**Step 8 — Use the skill**
-
-1. Open your new "Analyze Workflows" Project from the sidebar
-2. Start a conversation by typing:
-
-> Help me analyze where AI fits in my work
-
-ChatGPT will follow the skill's structured interview process — asking about your role, workflows, and where AI might help.
-
-**Step 9 — Add more skills later**
-
-Repeat steps 1–7 for **Deconstruct** (the next step in the framework). Add the remaining skills as you progress.
-
-:::tip[About file saving with Projects]
-When a skill says it will "save output to a file," ChatGPT Projects will show the output in the chat instead — copy and save it yourself. For automatic file saving, use Option 1 (Native Skills) or Option 2 (OpenAI Codex) above.
-:::
-
-</details>
-
 <details>
-<summary><strong>Google Gemini (app)</strong> — 🟠 Workaround using Gems</summary>
+<summary>Was your ZIP rejected? Try the flat version</summary>
 
-The Gemini app does not natively support Agent Skills yet. These instructions use **Gems** — Gemini's custom AI personas — to achieve the same result. You paste the skill's instructions into a Gem, and Gemini follows them.
+Some platforms want the skill's `SKILL.md` file at the top level of the ZIP rather than inside a folder. If an upload is rejected, download the same skill with `-flat` in the name — identical content, different packaging:
 
-**Official docs:** [Use Gems in Gemini Apps](https://support.google.com/gemini/answer/15146780)
-
-**What you need first:** A Gemini Advanced subscription (required for the Gems feature).
-
-**Step 1 — Copy the skill instructions**
-
-1. Scroll down to the [**Skill Files**](#skill-files) table on this page
-2. Click the **SKILL.md** link for **Analyze** (the first skill) — this opens a page on GitHub
-
-**Step 2 — View the raw text**
-
-1. On the GitHub page, look near the top-right of the file content area
-2. Click the button labeled **Raw** — this shows the plain text
-
-**Step 3 — Select and copy all the text**
-
-1. Click anywhere on the page, then:
-   - **Mac:** Press **Cmd+A** (selects all), then **Cmd+C** (copies)
-   - **Windows:** Press **Ctrl+A** (selects all), then **Ctrl+C** (copies)
-
-**Step 4 — Create a new Gem**
-
-1. Open [gemini.google.com](https://gemini.google.com) in your browser
-2. In the left sidebar, click **Gem manager**
-3. Click **New Gem** (or **Create Gem**)
-
-**Step 5 — Name the Gem**
-
-Type a name that matches the skill, like **"Analyze Workflows"**.
-
-**Step 6 — Paste the instructions**
-
-1. Click inside the large **Instructions** text box
-2. Paste the text you copied:
-   - **Mac:** Press **Cmd+V**
-   - **Windows:** Press **Ctrl+V**
-
-**Step 7 — Save the Gem**
-
-Click **Save**.
-
-**Step 8 — Use the Gem**
-
-1. Find your new Gem in the left sidebar and click it to open a conversation
-2. Type:
-
-> Help me analyze where AI fits in my work
-
-Gemini will follow the skill's structured interview process.
-
-**Step 9 — Add more Gems later**
-
-Repeat these steps for **Deconstruct** (Step 2). Create additional Gems as you progress through the framework.
-
-:::tip[About file saving]
-When a skill says it will "save output to a file," Gemini will show the output in the chat instead. Copy and save it yourself.
-:::
+| Skill | Flat download |
+|---|---|
+| Analyze | [analyze-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze-flat.zip) |
+| Deconstruct | [deconstruct-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct-flat.zip) |
+| Design | [design-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design-flat.zip) |
+| Build | [build-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/build-flat.zip) |
+| Test | [test-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/test-flat.zip) |
+| Run | [run-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run-flat.zip) |
+| Improve | [improve-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve-flat.zip) |
 
 </details>
 
-<details>
-<summary><strong>M365 Copilot</strong> — ✅ Native skill support (via Copilot Cowork)</summary>
+**Doing the registry lab?** The two registry skills are on the same page: [scaffolding-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/scaffolding-registry.zip) sets up your AI Registry, and [indexing-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/indexing-registry.zip) keeps it tidy. See [AI Registry setup](../../builder-setup/ai-registry-setup/).
 
-M365 Copilot now natively supports Agent Skills through **Copilot Cowork**. Cowork reads `SKILL.md` files directly from a folder on your OneDrive — no plugin install or paste step required. Each skill loads automatically when relevant to your conversation.
-
-**Official docs:** [Cowork skills (Microsoft Learn)](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills)
-
-**What you need first:** An M365 Copilot license **and** enrollment in the [Frontier preview program](https://adoption.microsoft.com/en-us/copilot/frontier-program/) (Cowork is currently a Frontier preview feature). Ask your IT admin if you're not sure whether your tenant is enrolled.
-
-**Step 1 — Open OneDrive**
-
-Open OneDrive in whichever way is easiest:
-
-- **Windows:** Open **File Explorer** → click **OneDrive** in the left sidebar
-- **Mac:** Open **Finder** → click **OneDrive** in the sidebar (install the OneDrive app if needed)
-- **Browser:** Go to [onedrive.live.com](https://onedrive.live.com) and sign in with your Microsoft 365 account
-
-**Step 2 — Create the Cowork Skills folder**
-
-Inside `Documents/`, create the path `Cowork/Skills/` if it doesn't already exist:
-
-1. Open the **Documents** folder
-2. Create a new folder named **Cowork**
-3. Open **Cowork** and create a new folder inside it named **Skills**
-
-The full path should now be `Documents/Cowork/Skills/`.
-
-**Step 3 — Create a folder for the Analyze skill**
-
-Inside `Documents/Cowork/Skills/`, create a new folder named **analyze**.
-
-**Step 4 — Download the SKILL.md**
-
-1. Scroll down to the [**Skill Files**](#skill-files) table on this page
-2. Click the **SKILL.md** link for **Analyze** — this opens GitHub
-3. **Right-click** the **Raw** button (top-right of the file content area) and choose **Save link as…**
-4. Name the file `SKILL.md` and save it inside the `Documents/Cowork/Skills/analyze/` folder you just created
-
-If your browser doesn't show a **Save link as…** option, click **Raw**, then copy all the text on the page and paste it into a new plain-text file named `SKILL.md` inside the same folder.
-
-**Step 5 — Test it**
-
-1. Open M365 Copilot Cowork and start a new conversation
-2. Type:
-
-   > Help me analyze where AI fits in my work
-
-3. Cowork loads the skill automatically. You'll see it appear as a chip in the side panel **Skills** section, and Cowork follows the skill's structured interview.
-
-**Step 6 — Add more skills**
-
-Repeat Steps 3–4 for **Deconstruct** (Step 2) and any other framework skill you need. Each skill goes in its own subfolder under `Documents/Cowork/Skills/`.
-
-:::note[Limits]
-You can create up to **20 custom skills**, and each `SKILL.md` can be up to **1 MB**.
-:::
-
-</details>
+**Want to see everything?** The [download page on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) lists every file. The newest release is at the top — click **Assets** to expand the list. (The `framework-agent` orchestrator isn't a download; it's installed automatically with the plugin.)
 
 ---
 
-### Code Editors & Terminal
+## For builders (code editors & terminal)
 
-Use AI through a code editor or terminal? Find your tool and click to expand.
+Use AI through a code editor or terminal? These paths use a couple of commands or a folder on disk.
 
 <details>
-<summary><strong>Claude Code (Terminal)</strong> — ✅ Native skill support</summary>
+<summary><strong>Claude Code</strong> (terminal, or the Code tab in the Claude app) — two commands</summary>
 
-Claude Code in the terminal has full plugin and skill support. One command installs all 7 skills plus the orchestrator agent.
+<div id="claude-code"></div>
+
+Claude Code has full plugin support. Two commands install all seven skills plus the `framework-agent` orchestrator and the `/handsonai:` slash commands.
 
 **Official docs:** [Extend Claude with Skills](https://code.claude.com/docs/en/skills) · [Discover and Install Plugins](https://code.claude.com/docs/en/discover-plugins)
 
-**What you need first:** Claude Code installed and running in your terminal, with a Claude Pro, Max, Team, or Enterprise subscription. If you haven't installed Claude Code yet, see the [Claude Code setup guide](../../platforms/claude/getting-started/#3-install-claude-code).
+**What you need first:** Claude Code running in your terminal, or the Claude app with the **Code** tab. If you haven't installed Claude Code yet, see the [Claude Code setup guide](../../platforms/claude/getting-started/#3-install-claude-code). Claude Code needs a paid Claude plan.
 
-**Step 1 — Add the marketplace (one-time setup)**
+**Step 1 — Add the marketplace** (one time)
 
-In your Claude Code session, type this command and press **Enter**:
+Type this into Claude Code and press **Enter**:
 
 ```
 /plugin marketplace add jamesgray-ai/handsonai-plugins
 ```
-
-This tells Claude Code where to find the skills. You only need to do this once — it's remembered across sessions.
 
 **Step 2 — Install the plugin**
 
-Type this command and press **Enter**:
-
 ```
 /plugin install handsonai@handsonai
 ```
 
-This downloads and installs all 7 skills plus the orchestrator agent.
+**Step 3 — Check it worked**
 
-**Step 3 — Verify it worked**
+Type `/plugin list` and press **Enter**. You should see **handsonai** with its skills. Then type `/handsonai:analyze` — the Analyze skill starts and begins asking you questions. You can also just describe what you need in plain words and Claude picks the skill.
 
-Type `/plugin list` and press **Enter**. You should see **handsonai** in the list with all its skills.
+<details>
+<summary>Prefer clicking? The visual way in the Claude app</summary>
 
-**Step 4 — Test it**
+1. Open the Claude app and click the **Code** tab at the top
+2. In the left sidebar, click **Customize**, then **Browse plugins**
+3. Click the **Personal** tab, then **+** → **Add marketplace**
+4. Type `jamesgray-ai/handsonai-plugins`. If a "Couldn't load the repository list" message appears, click **"Use 'jamesgray-ai/handsonai-plugins'"** — the warning is harmless.
+5. Click **Sync**, then **Install** on the **handsonai** card
 
-Type `/handsonai:analyze` and press **Enter**. The Analyze skill should start running and begin asking you questions. You can also just type *"Help me analyze AI workflow opportunities"* and Claude will activate the right skill automatically.
+</details>
+
+:::note[Personal plugins blocked at your company?]
+Use the ZIP upload path in [Claude — Chat & Cowork](#claude-chat--cowork) above. The skills then work in Chat and Cowork; the `/handsonai:` slash commands and the `framework-agent` orchestrator are plugin-only.
+:::
 
 For updates, uninstalling, and troubleshooting, see [Using Plugins](../../use-the-playbook/build/using-plugins/).
 
 </details>
 
 <details>
-<summary><strong>Cursor</strong> — ✅ Native skill support</summary>
+<summary><strong>Cursor</strong> — a folder in your project</summary>
 
-Cursor reads Agent Skill files from your project folder automatically.
+Cursor reads skill files from your project folder automatically.
 
 **Official docs:** [Agent Skills — Cursor](https://cursor.com/docs/context/skills)
 
-**What you need first:** Cursor installed and a project folder open. If you haven't installed Cursor yet, see the [Editor Setup guide](../../builder-setup/editor-setup/#install-cursor) for step-by-step instructions. Your **project root** is the top-level folder you have open in Cursor — this is where Cursor looks for skills.
+**What you need first:** Cursor installed and a project folder open. If you haven't installed Cursor yet, see the [Editor Setup guide](../../builder-setup/editor-setup/#install-cursor). Your **project root** is the top-level folder you have open in Cursor — that's where Cursor looks for skills.
 
-**Step 1 — Download a skill**
+**Step 1 — Download and unzip a skill**
 
-1. Open the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) in your web browser
-2. Scroll down to the **Assets** section — you'll see a list of `.zip` files, one for each skill
-3. Click **analyze.zip** to download it (start with Analyze — it's Step 1 of the framework)
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table above
+2. Find it in your **Downloads** folder and **double-click** it — this creates a folder called `analyze`
 
-The file downloads to your computer (usually to your **Downloads** folder). You can download multiple skills at once if you like.
+**Step 2 — Create the skills folder in your project**
 
-**Step 2 — Extract (unzip) the file**
-
-1. Find `analyze.zip` in your **Downloads** folder
-2. **Double-click** it — this creates a folder called `analyze` containing the skill file
-
-**Step 3 — Create the skills directory in your project**
-
-1. Open your project folder (the one you have open in Cursor) in **Finder** (Mac) or **File Explorer** (Windows)
-2. Create a new folder called `.agents` inside your project folder
-3. Inside `.agents`, create another folder called `skills`
-4. You should now have: `your-project/.agents/skills/`
+1. Open your project folder in **Finder** (Mac) or **File Explorer** (Windows)
+2. Create a folder called `.agents`, and inside it a folder called `skills`. You should now have `your-project/.agents/skills/`
 
 :::tip[Can't see the folder?]
-On Mac, folders starting with `.` are hidden by default. In Finder, press **Cmd+Shift+.** (period key) to show hidden folders.
+On Mac, folders starting with `.` are hidden by default. In Finder, press **Cmd+Shift+.** (period) to show them.
 :::
 
-**Step 4 — Move the skill folder into your project**
+**Step 3 — Move the skill folder in**
 
-Move (or copy) the `analyze` folder from Step 2 into the `.agents/skills/` folder you just created. You should now have: `your-project/.agents/skills/analyze/SKILL.md`
+Move the `analyze` folder into `.agents/skills/`. You should now have `your-project/.agents/skills/analyze/SKILL.md`.
 
-**Step 5 — Restart Cursor**
+**Step 4 — Restart Cursor and test**
 
-Close and reopen Cursor (or reopen your project). Cursor discovers skills automatically when they're in the right folder.
+Close and reopen Cursor (or reopen the project). In Cursor's chat, type *"Use the analyze skill to help me find AI workflow opportunities."*
 
-**Step 6 — Test it**
+**You'll know it worked when:** Cursor begins the structured interview about your role and your work instead of answering generically.
 
-In Cursor's chat, type: *"Use the analyze skill to help me find AI workflow opportunities."*
+**If it didn't work:** check the path is exactly `your-project/.agents/skills/analyze/SKILL.md` (not `analyze/analyze/…`), that the project you have open is the one with the folder, and that you reopened Cursor after adding it.
 
-**Step 7 — Add more skills**
-
-Go back to the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and download the next skill you need. Repeat Steps 2–4 for each one.
-
-| Framework Step | Skill | Direct download |
-|---|---|---|
-| 1 | Analyze | [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) |
-| 2 | Deconstruct | [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) |
-| 3 | Design | [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) |
-| 4 | Build | [build.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/build.zip) |
-| 5 | Test | [test.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/test.zip) |
-| 6 | Run | [run.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run.zip) |
-| 7 | Improve | [improve.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve.zip) |
+Repeat Steps 1 and 3 for each skill you need.
 
 :::tip[Cross-platform shortcut]
-The `.agents/skills/` folder is recognized by Cursor, Codex CLI, Gemini CLI, and VS Code Copilot — place skills there to share them across tools.
+The `.agents/skills/` folder is recognized by Cursor, Codex, Gemini CLI, and VS Code Copilot — place skills there once to share them across tools.
 :::
 
 </details>
 
 <div id="openai-codex"></div>
 <details>
-<summary><strong>OpenAI Codex</strong> — ✅ Native skill support</summary>
+<summary><strong>OpenAI Codex</strong> (CLI, the Codex tab in the ChatGPT app, or the IDE extension) — a folder on disk</summary>
 
-OpenAI Codex reads Agent Skill files from your project folder automatically. This works across all Codex environments — the **CLI**, **desktop app**, and **IDE extension** (VS Code, Cursor).
+Codex reads skill folders from disk. This path works on every ChatGPT plan, including Free, and it's how you get the skills into Codex without uploading them. (Installing the plugin from the [ChatGPT section](#chatgpt--codex) above also puts the skills into the Codex tab of the ChatGPT app — but plugins don't load in the IDE extension, so use this folder path there.)
 
-**Official docs:** [Agent Skills — Codex](https://developers.openai.com/codex/skills)
+**Official docs:** [Build skills — Codex](https://learn.chatgpt.com/docs/build-skills)
 
-**What you need first:** OpenAI Codex installed (CLI, desktop app, or IDE extension). If you haven't set it up yet, see [Getting Started with OpenAI](../../platforms/openai/getting-started/#1-install-codex) for installation steps. Your **project root** is the top-level folder you're working in — the folder open in your editor or that you navigated to in your terminal.
+**What you need first:** Codex — the CLI, the **Codex** tab in the ChatGPT app, or the IDE extension. If you haven't set it up, see [Getting Started with OpenAI](../../platforms/openai/getting-started/#1-install-codex).
 
-**Step 1 — Download a skill**
+**Step 1 — Download and unzip a skill**
 
-1. Open the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) in your web browser
-2. Scroll down to the **Assets** section — you'll see a list of `.zip` files, one for each skill
-3. Click **analyze.zip** to download it (start with Analyze — it's Step 1 of the framework)
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table above
+2. **Double-click** it in your Downloads folder — this creates a folder called `analyze`
 
-The file downloads to your computer (usually to your **Downloads** folder). You can download multiple skills at once if you like.
+**Step 2 — Put it where Codex looks**
 
-**Step 2 — Extract (unzip) the file**
+Codex reads skills from a personal folder that works in every project, or from a folder inside one project. Pick one:
 
-**Double-click** `analyze.zip` in your Downloads folder — this creates a folder called `analyze` containing the skill file.
+- **Everywhere (recommended):** move the `analyze` folder into `.agents/skills/` inside your home folder — so the path is `~/.agents/skills/analyze/SKILL.md`. From a terminal: `mkdir -p ~/.agents/skills` first if the folder doesn't exist.
+- **One project only:** move it into `.agents/skills/` at the top of that project — `your-project/.agents/skills/analyze/SKILL.md`. From a terminal in the project: `mkdir -p .agents/skills`.
 
-**Step 3 — Create the skills directory in your project**
+**Step 3 — Test it**
 
-In your project folder, create a `.agents/skills/` directory. From a terminal you can run:
+Open Codex and type `$` — the skills appear in a list. Pick **analyze**, or say *"Use the analyze skill to help me find AI workflow opportunities."* Type `/skills` to see everything Codex has loaded.
+
+**You'll know it worked when:** `analyze` appears in the `$` list and Codex begins the structured interview.
+
+**If it didn't work:** check the path ends in `.agents/skills/analyze/SKILL.md`, start a new Codex thread (skills load at the start of a thread), and make sure the folder is in your home folder or in the project you have open.
+
+Repeat Steps 1–2 for each skill you need.
+
+<details>
+<summary>Install the whole plugin from the terminal instead</summary>
+
+With the Codex CLI installed, two commands add all the skills at once — the same plugin the ChatGPT app installs:
 
 ```
-mkdir -p .agents/skills
+codex plugin marketplace add jamesgray-ai/handsonai-plugins
+codex plugin add handsonai@handsonai
 ```
 
-Or create the folders manually in Finder/File Explorer: create a folder called `.agents` inside your project, then create `skills` inside that.
+Start a new Codex thread afterwards so it picks the skills up.
 
-**Step 4 — Move the skill folder into your project**
-
-Move (or copy) the `analyze` folder from Step 2 into `.agents/skills/` in your project. You should now have: `your-project/.agents/skills/analyze/SKILL.md`
-
-**Step 5 — Test it**
-
-Open your project in Codex (CLI, desktop app, or IDE extension) and say: *"Use the analyze skill to help me find AI workflow opportunities."* Codex discovers skills automatically.
-
-**Step 6 — Add more skills**
-
-Go back to the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and download the next skill you need. Repeat Steps 2–4 for each one.
-
-| Framework Step | Skill | Direct download |
-|---|---|---|
-| 1 | Analyze | [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) |
-| 2 | Deconstruct | [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) |
-| 3 | Design | [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) |
-| 4 | Build | [build.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/build.zip) |
-| 5 | Test | [test.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/test.zip) |
-| 6 | Run | [run.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run.zip) |
-| 7 | Improve | [improve.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve.zip) |
+</details>
 
 </details>
 
 <details>
-<summary><strong>Gemini CLI / Antigravity</strong> — ✅ Native skill support</summary>
+<summary><strong>Gemini CLI / Antigravity</strong> — a folder in your project</summary>
 
-Google's developer tools — **Gemini CLI** (command-line) and **[Antigravity](https://antigravity.google)** (AI-native IDE) — both read Agent Skill files from your project folder automatically. (For the Gemini web app, see the **Google Gemini (app)** section above under Chat & Desktop.)
+<div id="gemini-cli--antigravity"></div>
+
+Google's developer tools — **Gemini CLI** (command line) and **[Antigravity](https://antigravity.google)** (AI-native IDE) — read skill folders from your project automatically. (Using the Gemini app or Gemini Enterprise instead? See [Google Gemini](#google-gemini) under *For everyone*.)
 
 **Official docs:** [Agent Skills — Gemini CLI](https://geminicli.com/docs/cli/skills/) · [Getting Started with Antigravity Skills](https://codelabs.developers.google.com/getting-started-with-antigravity-skills)
 
-**What you need first:** Gemini CLI or Antigravity installed. If you haven't set these up yet, see [Getting Started with Google Gemini](../../platforms/google-gemini/getting-started/#3-install-gemini-cli) for Gemini CLI installation, or download Antigravity from [antigravity.google](https://antigravity.google). Your **project root** is the top-level folder you're working in — the folder open in Antigravity or that you navigated to in your terminal.
+**What you need first:** Gemini CLI or Antigravity installed. See [Getting Started with Google Gemini](../../platforms/google-gemini/getting-started/#3-install-gemini-cli) for Gemini CLI, or download Antigravity from [antigravity.google](https://antigravity.google). Your **project root** is the top-level folder you're working in.
 
-**Step 1 — Download a skill**
+**Step 1 — Download and unzip a skill**
 
-1. Open the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) in your web browser
-2. Scroll down to the **Assets** section — you'll see a list of `.zip` files, one for each skill
-3. Click **analyze.zip** to download it (start with Analyze — it's Step 1 of the framework)
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) table above
+2. **Double-click** it in your Downloads folder — this creates a folder called `analyze`
 
-The file downloads to your computer (usually to your **Downloads** folder). You can download multiple skills at once if you like.
+**Step 2 — Create the skills folder in your project**
 
-**Step 2 — Extract (unzip) the file**
-
-**Double-click** `analyze.zip` in your Downloads folder — this creates a folder called `analyze` containing the skill file.
-
-**Step 3 — Create the skills directory in your project**
-
-In your project folder, create a `.gemini/skills/` directory. From a terminal you can run:
+In your project folder, create `.gemini/skills/`. From a terminal:
 
 ```
 mkdir -p .gemini/skills
 ```
 
-Or create the folders manually in Finder/File Explorer: create a folder called `.gemini` inside your project, then create `skills` inside that.
+Or in Finder / File Explorer: create a folder called `.gemini` inside your project, then `skills` inside that.
 
 :::tip[Cross-platform alternative]
-You can also use `.agents/skills/` instead — both Gemini CLI and Antigravity recognize it, and it's also compatible with Cursor, Codex, and VS Code Copilot.
+`.agents/skills/` works too — Gemini CLI and Antigravity both read it, and it's shared with Cursor, Codex, and VS Code Copilot.
 :::
 
-**Step 4 — Move the skill folder into your project**
+**Step 3 — Move the skill folder in**
 
-Move (or copy) the `analyze` folder from Step 2 into `.gemini/skills/` (or `.agents/skills/`) in your project. You should now have: `your-project/.gemini/skills/analyze/SKILL.md`
+Move `analyze` into `.gemini/skills/` (or `.agents/skills/`). You should now have `your-project/.gemini/skills/analyze/SKILL.md`.
 
-**Step 5 — Test it**
+**Step 4 — Test it**
 
-Open your project in Gemini CLI or Antigravity and say: *"Use the analyze skill to help me find AI workflow opportunities."* Skills are discovered automatically.
+Open the project in Gemini CLI or Antigravity and say *"Use the analyze skill to help me find AI workflow opportunities."* Skills are discovered automatically.
 
-**Step 6 — Add more skills**
+**You'll know it worked when:** Gemini begins the structured interview about your role and your work.
 
-Go back to the [skill downloads page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and download the next skill you need. Repeat Steps 2–4 for each one.
+**If it didn't work:** check the path ends in `skills/analyze/SKILL.md`, that you started the tool from (or opened) the project that has the folder, and restart Antigravity if it was already open.
 
-| Framework Step | Skill | Direct download |
-|---|---|---|
-| 1 | Analyze | [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) |
-| 2 | Deconstruct | [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) |
-| 3 | Design | [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) |
-| 4 | Build | [build.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/build.zip) |
-| 5 | Test | [test.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/test.zip) |
-| 6 | Run | [run.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run.zip) |
-| 7 | Improve | [improve.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve.zip) |
+Repeat Steps 1 and 3 for each skill you need.
 
 </details>
 
 ---
 
-Using a different tool (VS Code Copilot, Perplexity, or another platform)? See [How to Add Skills to Your Platform](../../agentic-building-blocks/skills/#how-to-install-skills) for additional platforms.
+Using a different tool (VS Code Copilot, Perplexity, or another platform)? See [How to Add Skills to Your Platform](../../agentic-building-blocks/skills/#how-to-install-skills). For a full comparison of platforms — where skills run, what they can access — see [Platform Implementations](/agentic-building-blocks/skills/#platform-implementations).
 
-### Skill Files
+### If you're stuck
 
-These are the direct links to each skill's instruction file on GitHub. Used by the ChatGPT, Gemini, and M365 Copilot Cowork setup instructions above — and useful for any platform where you need to copy or download the skill text.
+Work out which of three things is wrong, then go to the right place:
 
-**How to copy a skill:** Click the SKILL.md link → click the **Raw** button (top-right of the file) → select all text (**Cmd+A** on Mac, **Ctrl+A** on Windows) → copy (**Cmd+C** / **Ctrl+C**).
-
-| Step | Skill | File |
-|:----:|-------|------|
-| 1 | Analyze | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/analyze/SKILL.md) |
-| 2 | Deconstruct | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/deconstruct/SKILL.md) |
-| 3 | Design | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/design/SKILL.md) |
-| 4 | Build | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/SKILL.md) |
-| 5 | Test | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/test/SKILL.md) |
-| 6 | Run | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/run/SKILL.md) |
-| 7 | Improve | [SKILL.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/improve/SKILL.md) |
-
-:::note[About the Build skill]
-The Build skill (Step 4) also has reference files that it uses. On platforms with native skill support (Claude, Cursor, Codex CLI, Gemini CLI), these are included automatically. M365 Copilot Cowork's documented format only describes a single `SKILL.md` per skill folder, so until Microsoft documents reference-file support you'll need to paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/skill-spec.md) contents into the body of `SKILL.md` after the main instructions. On paste-based platforms (ChatGPT Projects, Gems), copy and paste the [references/agent-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/agent-spec.md) and [references/skill-spec.md](https://github.com/jamesgray-ai/handsonai-plugins/blob/main/plugins/handsonai/skills/build/references/skill-spec.md) files after the SKILL.md content when you set up Build.
-:::
+| The problem is… | Go to |
+|---|---|
+| **The download** — a link 404s, a ZIP won't open | The [download page on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) — the newest release is at the top; click **Assets**. If a file is missing there, [open an issue](https://github.com/jamesgray-ai/handsonai-plugins/issues). |
+| **The platform** — a menu isn't where this page says, an upload is rejected, a plan question | The vendor's own help page, linked at the top of each section above (Anthropic, OpenAI, Google, Microsoft). Their pages change faster than ours; if a label differs, trust the screen. |
+| **The skill** — it installed but does something odd | The skill's own page: [Analyze](../analyze/), [Deconstruct](../deconstruct/), [Design](../design/), [Build](../build/), [Test](../test/), [Run](../run/), [Improve](../improve/). Course students: ask in the course channel. |
 
 ## Update the Skills
 
-Skills and the `framework-agent` evolve as the methodology improves — new skills get added, prompts get refined, reference material gets sharper. Here's how to pull the latest versions on your platform. Check the [release notes on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases) to see what changed before you update.
+Skills and the `framework-agent` evolve as the methodology improves — new skills get added, prompts get refined, reference material gets sharper. You don't need to check for updates yourself: changes are announced in the [changelog](/blog/), and the [release notes on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases) list exactly what changed.
 
 <details>
-<summary><strong>Claude Chat (claude.ai)</strong></summary>
+<summary><strong>Claude — Chat & Cowork</strong></summary>
 
-Re-uploading a skill replaces the existing version — no need to remove it first.
+**If you installed the plugin:** updating is a two-step process — the marketplace and the installed plugin are tracked separately, so checking for updates is not the same as installing them.
 
-1. Re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
-2. In Claude.ai, click **Customize** in the left sidebar → **Skills** → **+** → **Create skill** → **Upload skill**, and select the new `.zip`. It replaces the existing skill of the same name.
+1. **Customize → Plugins**, click the **…** menu on the `handsonai-plugins` marketplace and choose **Check for updates**. This pulls the latest version from GitHub.
+2. Open the **handsonai** plugin in your plugins list and click **Update** in the top-right. The new skills are available immediately — no restart needed.
 
-Only refresh the skills you actively use — there's no need to update every skill on every release.
+![Marketplace menu showing "Sync automatically", "Check for updates", and "Remove" options for the handsonai-plugins marketplace](/assets/images/cowork-plugin-check-for-updates.png)
 
-</details>
-
-<details>
-<summary><strong>Claude Cowork (Desktop App)</strong></summary>
-
-Refreshing in Cowork is a **two-step process**: the marketplace and the installed plugin are tracked separately, so checking for updates is not the same as installing them.
-
-**Step 1 — Check the marketplace for updates**
-
-In Cowork → **Customize** → **Browse plugins** → **Personal** tab, click the **…** menu on the `handsonai-plugins` marketplace chip and choose **Check for updates**. This pulls the latest commit from GitHub.
-
-![Cowork marketplace menu showing "Sync automatically", "Check for updates", and "Remove" options for the handsonai-plugins marketplace](/assets/images/cowork-plugin-check-for-updates.png)
-
-**Step 2 — Apply the update to the installed plugin**
-
-Open the **Handsonai** plugin in your Personal plugins list. In the Customize panel that opens, click the **Update** button in the top-right. The new skills and agent are available immediately — no restart required.
-
-![Handsonai plugin Customize panel with the Update button highlighted in the top-right](/assets/images/cowork-plugin-update-button.png)
+![Handsonai plugin panel with the Update button highlighted in the top-right](/assets/images/cowork-plugin-update-button.png)
 
 :::tip[Auto-sync the marketplace]
-Toggle **Sync automatically** in the same menu from Step 1 to let Cowork check GitHub on launch. You'll still click **Update** in Step 2 when a new version is available — auto-sync only handles the "check" step, not the install.
+Toggle **Sync automatically** in the same menu from step 1 to let Claude check GitHub on launch. You'll still click **Update** in step 2 when a new version is available — auto-sync only handles the "check" step.
 :::
+
+**If you uploaded ZIPs:** re-download the skill from the [downloads table](#download-the-skill-zips) and upload it again via **Customize → Skills → + → Create skill → Upload a skill**. It replaces the existing skill of the same name. Only refresh the skills you actively use.
 
 </details>
 
 <details>
-<summary><strong>Claude Code (Desktop App or Terminal)</strong></summary>
+<summary><strong>Claude Code</strong></summary>
 
-In the Code tab (or your terminal), run:
+In the Code tab or your terminal, run:
 
 ```
 /plugin update handsonai@handsonai
 ```
 
-Or update every installed plugin at once:
-
-```
-/plugin update --all
-```
-
-**Enable auto-updates** so the marketplace refreshes on startup. Run `/plugin` → **Marketplaces** tab → **handsonai** → **Enable auto-update**. See the full walkthrough in [Using Plugins → Enabling auto-updates](../../use-the-playbook/build/using-plugins/#enabling-auto-updates).
+Or update every installed plugin at once with `/plugin update --all`. To have the marketplace refresh on startup, run `/plugin` → **Marketplaces** tab → **handsonai** → **Enable auto-update**. See [Using Plugins → Enabling auto-updates](../../use-the-playbook/build/using-plugins/#enabling-auto-updates).
 
 </details>
 
 <details>
-<summary><strong>ChatGPT</strong></summary>
+<summary><strong>ChatGPT & Codex</strong></summary>
 
-**Native Skills:** Re-download the latest ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and upload it again — re-uploading replaces the existing skill of the same name.
+**If you installed the plugin:** open **Plugins**, find the `handsonai-plugins` marketplace, and choose **Check for updates** (or **Sync**), then update **Hands-on AI**. Workspace-managed marketplaces sync automatically every day. From the Codex CLI: `codex plugin marketplace upgrade`, then start a new thread.
 
-**OpenAI Codex in an editor:** Follow the Cursor / Codex / Gemini CLI instructions below.
+**If you uploaded ZIPs:** re-download the skill from the [downloads table](#download-the-skill-zips) and upload it again under **Plugins → Skills**. If ChatGPT keeps the old copy alongside the new one, delete the old one.
 
-</details>
-
-<details>
-<summary><strong>M365 Copilot (Cowork)</strong></summary>
-
-Cowork reads `SKILL.md` directly from OneDrive, so updating is a file overwrite.
-
-1. On the [Skill Files](#skill-files) table above, click the **SKILL.md** link for the skill you want to update.
-2. Click **Raw**, then save (right-click → **Save link as…**) over the existing file at `Documents/Cowork/Skills/<skill>/SKILL.md`.
-
-Cowork picks up the change on your next conversation.
+**Codex with folders on disk:** replace the skill folder under `~/.agents/skills/` (or your project's `.agents/skills/`) with the newly unzipped one, and start a new thread.
 
 </details>
 
 <details>
-<summary><strong>Cursor, OpenAI Codex, Gemini CLI / Antigravity</strong></summary>
+<summary><strong>Google Gemini</strong></summary>
 
-All four tools read skills from a project folder. Refreshing means swapping the folder.
+**Spark:** re-download the skill, then **Skills → More** (⋮) next to the skill → **Replace skill** → choose the new ZIP.
 
-1. Re-download the latest skill ZIP from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
-2. Unzip it. In your project, replace the existing skill folder under `.agents/skills/<skill>/` (or `.gemini/skills/<skill>/` for Gemini) with the new one.
-3. Restart the tool if it caches skill metadata (Cursor and Antigravity usually require a reopen; CLIs pick up changes on the next session).
+**Gemini Enterprise:** upload the new ZIP with **+ → Upload skill → Import**; if the old version is still listed on your Skills page, uninstall it there.
+
+</details>
+
+<details>
+<summary><strong>Microsoft 365 Copilot (Cowork)</strong></summary>
+
+Cowork keeps duplicates rather than replacing, so: open **Customize → Skills**, open the old skill and click **Delete**, then upload the new ZIP with **Upload skill**. If you used the OneDrive folder method, just overwrite the folder under `Documents/Cowork/skills/`. Cowork picks up the change on your next conversation.
+
+</details>
+
+<details>
+<summary><strong>Cursor, Gemini CLI / Antigravity</strong></summary>
+
+These tools read skills from a project folder, so refreshing means swapping the folder.
+
+1. Re-download the skill from the [downloads table](#download-the-skill-zips) and unzip it.
+2. In your project, replace the existing skill folder under `.agents/skills/<skill>/` (or `.gemini/skills/<skill>/` for Gemini) with the new one.
+3. Restart the tool if it caches skill metadata (Cursor and Antigravity usually need a reopen; CLIs pick up changes on the next session).
 
 </details>
 
 ## Using These Skills
 
-Once you've installed or set up the skills for your platform, here's how to use them:
+Once the skills are set up, here's how to start on each platform. The same test works everywhere: ask *"Help me analyze AI workflow opportunities"* and you should get a short interview about your role and your work, not a generic answer.
 
 | Platform | How to start |
 |----------|-------------|
-| **Claude Chat** | Start a new chat. Claude uses your installed skills automatically. Say *"Help me analyze AI workflow opportunities."* |
-| **Claude Cowork (Desktop App)** | Describe what you need. Cowork activates the right skill automatically. |
-| **Claude Code (Desktop App)** | Type `/handsonai:analyze` in the Code tab, or describe your need. Same commands as the terminal. |
-| **Claude Code (Terminal)** | Type `/handsonai:analyze` (or any slash command below). Or just describe your need — Claude picks the skill. |
-| **ChatGPT** | Open the **Project** you created for the skill. Type your request. |
-| **Google Gemini (app)** | Click the **Gem** in your sidebar. Type your request. |
-| **M365 Copilot** | Start a Cowork conversation. Type your request — Cowork loads the matching skill from OneDrive automatically. |
-| **Cursor / OpenAI Codex / Gemini CLI / Antigravity** | Ask by skill name — e.g., *"Use the analyze skill."* Skills are discovered automatically. |
+| **Claude — Chat & Cowork** | Start a new chat and describe what you need — Claude picks the right skill. In Cowork, type `/` to see the skills listed. |
+| **Claude Code** | Type `/handsonai:analyze` (or any slash command below), or describe your need. |
+| **ChatGPT** | Switch to **Work**, type `@analyze` (or describe the task). In the Codex tab, type `$analyze`. |
+| **Google Gemini** | Spark: type `/analyze` in a task, or describe it. Gemini Enterprise: `@analyze` or `/analyze`. |
+| **M365 Copilot** | Start a Cowork conversation and describe what you need — Cowork loads the matching skill. |
+| **Cursor / Codex / Gemini CLI / Antigravity** | Ask by skill name — *"Use the analyze skill."* Skills are discovered automatically. |
 
 **Claude Code slash commands:**
 
@@ -847,7 +634,7 @@ Each skill is documented in detail on its step page — including the run sequen
 | `test` | [Step 5 — Test](../test/) |
 | `run` | [Step 6 — Run](../run/) |
 | `improve` | [Step 7 — Improve](../improve/) |
-| `framework-agent` | [Run It All at Once: framework-agent](../#run-it-all-at-once-framework-agent) — orchestrates all seven skills end-to-end |
+| `framework-agent` | [Run It All at Once: framework-agent](../#run-it-all-at-once-framework-agent) — orchestrates all seven skills end-to-end (Claude Cowork and Claude Code, via the plugin) |
 
 ## FAQ
 
@@ -855,4 +642,7 @@ Each skill is documented in detail on its step page — including the run sequen
 The file-based handoffs between steps mean you can continue in a new conversation. Just invoke the next skill and point it at the file from the previous step (e.g., "Use `deconstruct` on `outputs/lead-qualification-requirements.md`").
 
 **Do I need Claude Code for all of this?**
-No. These skills work on Claude.ai, Claude Cowork, Claude Code, ChatGPT, Google Gemini, M365 Copilot, Cursor, OpenAI Codex, Gemini CLI, and Antigravity. See [Set Up These Skills](#set-up-these-skills) above for step-by-step setup instructions for your specific platform.
+No. These skills work on Claude (Chat, Cowork, and Code), ChatGPT and Codex, Google Gemini (Spark, Gemini Enterprise, Gemini CLI, and Antigravity), Microsoft 365 Copilot, and Cursor. See [Set Up These Skills](#set-up-these-skills) above for your platform.
+
+**Plugin or ZIPs — which should I use?**
+The plugin, if your platform and plan allow it: one install, one-click updates, and on Claude it includes the `framework-agent` orchestrator. ZIPs are the fallback for every other situation and work just as well for the seven skills themselves.

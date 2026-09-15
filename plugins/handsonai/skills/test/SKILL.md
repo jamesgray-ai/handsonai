@@ -32,7 +32,7 @@ Running this from the staged files (reading the built SKILL.md from `outputs/` a
 
 ### 2.2 Installed-run check (Phase B — required before "Ready")
 
-On platforms where the package must be installed (Cowork, Claude.ai — see Build's install handoff), at least one scenario must run against the **installed** skill, invoked the way an operator would invoke it. This is the only way to catch the failure modes staged runs can't see:
+On platforms where the package must be installed (Cowork, Claude.ai, ChatGPT, Gemini Spark / Enterprise, M365 Copilot Cowork — see Build's install handoff), at least one scenario must run against the **installed** skill, invoked the way an operator would invoke it. This is the only way to catch the failure modes staged runs can't see:
 
 - **Triggering** — does the skill fire when called by name (and stay quiet otherwise, if `disable-model-invocation` is set)?
 - **Frontmatter** — does the platform parse the metadata (description, tools) without error?

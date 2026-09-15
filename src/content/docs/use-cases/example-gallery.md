@@ -12,7 +12,7 @@ This gallery preserves a set of agents, skills, and prompts that were originally
 1. Find the example closest to your need.
 2. Copy the file from [the GitHub repo](https://github.com/jamesgray-ai/handsonai/tree/main/examples/agent-gallery).
 3. Replace persona-specific framing, source lists, and output formats with your own.
-4. Drop the file into your own plugin, your `~/.claude/agents/` folder, or upload to Claude.ai or Cowork.
+4. Drop the file into your own plugin, your `~/.claude/agents/` folder, or upload it once in Claude under Customize → Skills — it then works in Chat and Cowork.
 
 Every file is plain Markdown — no compiled code. Everything is MIT-licensed.
 

@@ -83,7 +83,7 @@ ChatGPT connects to external tools through Connected Apps.
 
 ## Part 2 — OpenAI Platform
 
-Codex is OpenAI's AI agent that works directly with your files — useful for coding, file operations, research, and automation. Codex is included with ChatGPT Plus, Pro, Business, Enterprise, and Edu plans.
+Codex is OpenAI's AI agent that works directly with your files — useful for coding, file operations, research, and automation. Codex is included with every ChatGPT plan, including Free and Go — usage limits vary by plan, and Free covers local tasks only.
 
 :::note[This part is optional]
 If you only need ChatGPT for conversations, you're done after Part 1. Come back to Part 2 when you're ready to work with files and code.
@@ -93,14 +93,14 @@ If you only need ChatGPT for conversations, you're done after Part 1. Come back 
 There are three ways to use Codex — pick whichever fits your workflow:
 
 <Tabs>
-  <TabItem label="Desktop App">
+  <TabItem label="ChatGPT app (Codex tab)">
 
-A dedicated application for managing multiple AI agents in parallel. Currently macOS only (Windows coming soon).
+Since July 2026 Codex lives inside the ChatGPT desktop app — one app with **Chat**, **Work**, and **Codex**, on Mac, Windows, and Linux, on every plan. If you already installed the ChatGPT app in Part 1, you have Codex: open the app and choose **Codex**.
 
-1. Download from [openai.com/codex](https://openai.com/codex/)
-2. Install and sign in with your ChatGPT account
+1. Download the ChatGPT app from [openai.com/chatgpt/download](https://openai.com/chatgpt/download/) if you haven't already
+2. Sign in with your ChatGPT account and choose **Codex**
 
-**Official docs:** [Codex App](https://developers.openai.com/codex/app/)
+**Official docs:** [ChatGPT desktop app](https://learn.chatgpt.com/docs/app)
   </TabItem>
   <TabItem label="CLI">
 
@@ -135,13 +135,17 @@ Use Codex inside VS Code or Cursor. See [AI Code Editor Setup](../../../builder-
 
 ---
 
-### 2. Add Skills (Codex CLI)
+### 2. Add Skills (ChatGPT and Codex)
 
-After adding skills, you can say "edit this article for HBR quality" and Codex applies professional editorial standards automatically — no re-explaining your requirements each time.
+After adding skills, you can say "analyze where AI fits in my work" and ChatGPT runs the structured interview automatically — no re-explaining your requirements each time. Skills work in ChatGPT's **Work** mode (type `@` and the skill name) and in Codex (type `$` and the name).
 
-Download skill folders from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins) and place them in `.agents/skills/` in your project root. Codex CLI discovers them automatically.
+**Before you start:** click **Plugins** in the left sidebar. **Add marketplace** there means you can install the plugin; a **Skills** tab with a **Create** button means you can upload; neither means you're on Free/Go — use the Codex folder path.
 
-[→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills)
+- **Any paid plan (Plus, Pro, Business, Enterprise):** install the Hands-on AI plugin — **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install**. One install covers Chat, Work, and Codex.
+- **No Add marketplace (company-managed):** upload skill ZIPs under **Plugins → Skills → Create → Upload from your computer**.
+- **Codex with files on disk (any plan):** unzip a skill and put its folder in `~/.agents/skills/` (or a project's `.agents/skills/`).
+
+[→ Step-by-step with screenshots](../../../ai-workflow-framework/skills/#chatgpt--codex) · [→ Skills on OpenAI](../skills/)
 
 ---
 
@@ -171,6 +175,6 @@ Most people don't need this — Codex authenticates directly through your ChatGP
 
 **Part 2 — OpenAI Platform:**
 
-- [ ] Codex installed — desktop app, CLI, or IDE extension (optional)
-- [ ] At least one skill installed or added via Codex CLI (optional)
+- [ ] Codex set up — the Codex tab in the ChatGPT app, the CLI, or the IDE extension (optional)
+- [ ] The Hands-on AI plugin installed, or at least one skill uploaded or added on disk (optional)
 - [ ] Platform account created at platform.openai.com (optional)

@@ -253,9 +253,9 @@ The three layers above are the conceptual structure of the Design Spec. In pract
 
 This step is facilitated by the **`design`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation.
 
-**How to start:** Say *"run the design skill"* (or *"design the workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:design`.
+**How to start:** Say *"run the design skill"* (or *"design the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:design`, and Cowork lists it when you type `/`.
 
-**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 
@@ -278,8 +278,8 @@ Upload or paste your Workflow Requirements file (`[workflow-name]/requirements.m
   an orchestration mechanism, and generates the spec
 ```
 
-:::tip[If your AI tool doesn't support skills]
-Download the skill file from [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/design) and paste it into your system prompt or project instructions. Or use this page as a conversation guide.
+:::tip[Don't have the skill installed yet?]
+Every platform in the course can load it — [Set Up the Skills](../skills/) has the steps, and [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) is the direct download. Or use this page as a conversation guide.
 :::
 
 ### Plan mode and the three layers

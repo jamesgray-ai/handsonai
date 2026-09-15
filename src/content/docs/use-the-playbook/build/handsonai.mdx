@@ -1,35 +1,56 @@
 ---
 title: The Hands-on AI Plugin
-description: Everything you need to design, build, and document AI workflows. The AI Workflow Framework, AI registry, and feature-spec toolkit in a single Claude Code plugin.
+description: Everything you need to design, build, and document AI workflows. The AI Workflow Framework, AI registry, and feature-spec toolkit in a single plugin for Claude, ChatGPT, and Claude Code.
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 One plugin, one install, three categories of work. Bundles the **AI Workflow Framework** (methodology), the **AI Registry** (documentation tooling), and **Agentic Coding** (feature-spec writing) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 14 skills.**
 
-These are plain-text Markdown files that work in any AI tool. Install as a Claude Code plugin for the full experience, or download individual skills as ZIPs for ChatGPT, M365 Copilot, Cursor, and other platforms.
+These are plain-text Markdown files that work in any AI tool. Install the plugin on Claude, ChatGPT, or Claude Code for the full experience, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other platforms.
 
 ## Get the Plugin
 
-<Tabs>
-  <TabItem label="Plugin Install">
+The same plugin installs on Claude, ChatGPT, and Claude Code — pick your tab. Full step-by-step instructions for every platform, with screenshots, are on the [skills setup page](../../../ai-workflow-framework/skills/).
 
-One-command install in Claude Code with automatic agent routing and slash commands:
+<Tabs>
+  <TabItem label="Claude">
+
+Works in Claude Chat (web and app) and Cowork on paid plans. In the left sidebar: **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. The `framework-agent` orchestrator runs in Cowork.
+
+On the Free plan, or if your company blocks plugins, use the ZIPs tab instead.
+
+→ [Step-by-step with screenshots](../../../ai-workflow-framework/skills/#claude-chat--cowork)
+  </TabItem>
+  <TabItem label="ChatGPT & Codex">
+
+Works on any paid ChatGPT plan (Plus, Pro, Business, Enterprise) and in Codex. In the left sidebar: **Plugins → Add marketplace**, type `jamesgray-ai/handsonai-plugins`, then **Install** on **Hands-on AI**. Use a skill with `@analyze` in Work or `$analyze` in Codex. Workspace admins can add the marketplace for everyone under **Admin → Plugins → Add → Import marketplace**.
+
+Don't see Add marketplace? Upload the ZIPs instead (Plugins → Skills → Create → Upload).
+
+→ [Step-by-step with screenshots](../../../ai-workflow-framework/skills/#chatgpt--codex)
+  </TabItem>
+  <TabItem label="Claude Code / Codex CLI">
+
+Claude Code:
 
 ```bash
 /plugin marketplace add jamesgray-ai/handsonai-plugins
 /plugin install handsonai@handsonai
 ```
 
-See [Using Plugins](../using-plugins/) for setup details across [Claude.ai upload](../using-plugins/#using-skills-in-claudeai-web), [Cowork](../using-plugins/#using-plugins-in-claude-cowork), and [API usage](../using-plugins/#using-skills-via-the-claude-api).
+Codex CLI:
+
+```bash
+codex plugin marketplace add jamesgray-ai/handsonai-plugins
+codex plugin add handsonai@handsonai
+```
+
+See [Using Plugins](../using-plugins/) for updates, uninstalling, and troubleshooting in Claude Code.
   </TabItem>
   <TabItem label="Any Platform (ZIPs)">
 
-Download individual skill ZIPs from the [GitHub Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) and add them to your tool of choice.
-
-Works with **Claude.ai, ChatGPT, Cursor, Codex CLI, Gemini CLI, VS Code Copilot, M365 Copilot**, and more. See [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills) for step-by-step instructions for each tool.
-
-You can also browse the source on [GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai) and paste any skill file directly into your system prompt, project instructions, or custom GPT.
+Every skill is also a standalone ZIP for platforms without the plugin — Claude Free, ChatGPT Free/Go, Gemini Spark and Gemini Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI, VS Code Copilot, and more. Download from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips) (direct links, one per skill) or the [GitHub Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest), then follow your platform's steps on the [skills setup page](../../../ai-workflow-framework/skills/).
   </TabItem>
 </Tabs>
 

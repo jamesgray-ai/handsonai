@@ -17,14 +17,15 @@
       "skill": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
       "plugin": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
-      "notes": "Skills and sub-agents use Claude Code markdown formats; artifacts are real files staged in the connected project folder. Skill/agent directories are system-managed: a standalone skill installs via the Save skill flow (zip package); custom sub-agents run ONLY when packaged inside an installed Cowork plugin — a workflow with worker agents must package as Plugin. No verified user-facing memory feature — do not assume Claude Code auto-memory exists here."
+      "notes": "Skills and sub-agents use Claude Code markdown formats; artifacts are real files staged in the connected project folder. Skill/agent directories are system-managed: a standalone skill installs via the Save skill flow (zip package), and plugins install from Customize > Plugins (marketplace from a GitHub repo). Plugin-bundled skills work in Claude Chat (web and Desktop) and Cowork alike; hooks and custom sub-agents run ONLY in Cowork and only when packaged inside an installed plugin — a workflow with worker agents must package as Plugin. No verified user-facing memory feature — do not assume Claude Code auto-memory exists here."
     },
     "claude-ai": {
       "mode": "guided",
       "skill": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
       "memory": "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
-      "notes": "Claude.ai web/Desktop chat. Guided mode, but skills are still markdown files packaged as a zip and uploaded via Customize > Skills — generate the skill source files and zip package rather than GUI instruction documents. No standalone sub-agent support (no agent key): worker agent specs ship inside the skill's agents/ folder and are dispatched by reading that file."
+      "notes": "Claude.ai web/Desktop chat. Guided mode, but skills are still markdown files packaged as a zip and uploaded via Customize > Skills (uploaded skills appear in Chat and Cowork alike), and plugins install from Customize > Plugins on paid plans — generate the skill source files and zip package rather than GUI instruction documents. No standalone sub-agent support (no agent key; plugin sub-agents run only in Cowork): worker agent specs ship inside the skill's agents/ folder and are dispatched by reading that file.",
+      "plugin": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude"
     },
     "claude-agents-sdk": {
       "mode": "code",
@@ -39,7 +40,10 @@
     "openai-codex": {
       "mode": "code",
       "language": "markdown",
-      "agent": "https://developers.openai.com/codex/subagents"
+      "agent": "https://developers.openai.com/codex/subagents",
+      "skill": "https://learn.chatgpt.com/docs/build-skills",
+      "plugin": "https://learn.chatgpt.com/docs/plugins",
+      "notes": "Codex CLI, the Codex tab of the ChatGPT desktop app, and the IDE extension. Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills (user-level default), then /etc/codex/skills; invoke with $skill-name or /skills. Plugins install from a marketplace (Plugins > Add marketplace in the app, or `codex plugin marketplace add owner/repo` in the CLI); ChatGPT and Codex share one plugin directory."
     },
     "gemini-cli": {
       "mode": "code",
@@ -53,7 +57,14 @@
     },
     "gemini-enterprise": {
       "mode": "guided",
-      "agent": "https://docs.cloud.google.com/gemini/enterprise/docs/agent-designer"
+      "agent": "https://docs.cloud.google.com/gemini/enterprise/docs/agent-designer",
+      "skill": "https://docs.cloud.google.com/gemini/enterprise/docs/skills",
+      "notes": "Work/school Google accounts on Standard, Plus, or Pay-as-you-go editions. Skills upload as Markdown or a zip with SKILL.md in the root directory via Skills > + > Upload skill > Import; invoke with @ or /. Skills are not available inside Gemini Enterprise agents. Personal Google accounts use Gemini Spark instead (see gemini-spark)."
+    },
+    "gemini-spark": {
+      "mode": "guided",
+      "skill": "https://support.google.com/gemini/answer/17094296",
+      "notes": "Spark is a mode of the Gemini app (sidebar > Switch to Spark) on the web, the Mac app, and Android/iOS. Personal Google accounts only (not Workspace), Google AI Pro or Ultra, 18+; not available in the EEA, UK, Switzerland, or Nigeria. Skills upload as a SKILL.md or a zip containing one via Skills > Upload; invoke with / in a task or let Spark pick automatically. Skill names must be lowercase-hyphenated."
     },
     "copilot-studio": {
       "mode": "guided",
@@ -68,7 +79,9 @@
       "agent": "https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business",
       "skill": "https://help.openai.com/en/articles/20001066-skills-in-chatgpt",
       "memory": "https://help.openai.com/en/articles/8590148-memory-faq",
-      "project": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt"
+      "project": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt",
+      "plugin": "https://learn.chatgpt.com/docs/plugins",
+      "notes": "ChatGPT Chat/Work on web, desktop, and mobile. Skills upload as a zip or SKILL.md under Plugins > Skills > Create > Upload from your computer (paid plans except Free/Go; off by default on Enterprise/Edu until an admin enables); invoke with @skill-name in Work. Plugins (any paid plan) install from Plugins > Add marketplace; plugin-bundled skills work across web, desktop, and mobile. Custom GPTs are deprecated — package agent-shaped work as a Workspace Agent with skills attached."
     },
     "chatgpt-agent-mode": {
       "mode": "guided",

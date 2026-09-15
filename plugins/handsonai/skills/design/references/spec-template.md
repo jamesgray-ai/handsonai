@@ -310,9 +310,9 @@ For each artifact produced, document where it lives and how it gets deployed:
 | A1 — `[name]` | [platform-specific path or destination] | [high-level steps] |
 | MCP: [tool] | [where the config lives] | [install/auth steps] |
 
-> **Target Location on system-managed platforms (Cowork, Claude.ai):** these platforms' skill/agent directories can't be written directly, so the Target Location is the staging tree `outputs/[workflow-name]/skill/[skill-name]/` plus an install step (Cowork: Save skill from the zip, or plugin install when packaging = Plugin; Claude.ai: zip upload via Customize > Skills) — **never** a `.claude/skills/` or `.claude/agents/` path the platform can't write.
+> **Target Location on system-managed platforms (Cowork, Claude.ai):** these platforms' skill/agent directories can't be written directly, so the Target Location is the staging tree `outputs/[workflow-name]/skill/[skill-name]/` plus an install step (Cowork: Save skill from the zip, or plugin install when packaging = Plugin; Claude.ai: zip upload via Customize > Skills; ChatGPT: zip upload via Plugins > Skills; Gemini Spark / Enterprise and M365 Copilot Cowork: their Skills > Upload flows) — **never** a `.claude/skills/` or `.claude/agents/` path the platform can't write.
 
-**Packaging note:** [How the artifacts ship together based on the Packaging decision — e.g., "All S1–S3 + A1 bundle into a plugin in the user's marketplace fork"; "Each skill uploaded individually to Claude.ai"; "All instructions consolidated into one GPT's instructions field"]
+**Packaging note:** [How the artifacts ship together based on the Packaging decision — e.g., "All S1–S3 + A1 bundle into a plugin in the user's marketplace fork"; "Each skill uploaded individually to Claude.ai"; "Skill uploaded once in ChatGPT and attached to a Workspace Agent"]
 
 **Orchestrator artifact (primary-loop platforms):** the user-triggered entry point is an orchestrator **skill** (`disable-model-invocation: true`, no `context: fork`), not a slash command (custom commands are merged into skills). It takes the **workflow name**; component/worker artifacts take **capability-specific names** so the entry point never shadows a sub-skill.
 

@@ -76,7 +76,7 @@ Set up a persistent workspace where your prompt, context files, and settings are
 - The workflow uses the same reference materials each time
 - You want consistent settings (model, instructions) across runs
 
-**How to do it:** Create a project on your platform (Claude Project, ChatGPT GPT, Gemini Gem, M365 Copilot notebook). Upload your context files, add your prompt as project instructions or a system prompt, and configure any settings. Future runs start with everything in place — you just provide the new input.
+**How to do it:** Create a project on your platform (Claude Project, ChatGPT Project or Workspace Agent, Gemini Gem, M365 Copilot notebook). Upload your context files, add your prompt as project instructions or a system prompt, and configure any settings. Future runs start with everything in place — you just provide the new input.
 
 ### Command an Agent
 
@@ -148,9 +148,9 @@ In the first few weeks after deployment, check:
 
 This step is facilitated by the **`run`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
-**How to start:** Say *"create my run guide"* (or *"run the run skill"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:run`.
+**How to start:** Say *"create my run guide"* (or *"run the run skill"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and Cowork lists it when you type `/`.
 
-**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 

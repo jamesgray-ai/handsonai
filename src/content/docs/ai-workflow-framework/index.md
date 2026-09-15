@@ -21,7 +21,7 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 | 6.&nbsp;Run | `run` | Deploy and operationalize your workflow |
 | 7.&nbsp;Improve | `improve` | Monitor quality and innovate your workflow over time |
 
-**Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude Code, Claude Cowork, Claude.ai, M365 Copilot (Cowork), Cursor, Codex CLI, Gemini CLI, and VS Code Copilot. The plugin name is `handsonai`.
+**Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude (Chat, Cowork, Code), ChatGPT and Codex, Google Gemini (Spark, Enterprise, CLI), M365 Copilot, Cursor, and more. The plugin name is `handsonai`.
 
 ## Run It All at Once: framework-agent
 

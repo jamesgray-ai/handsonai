@@ -3,7 +3,7 @@ title: Agents & Skills
 description: The Hands-on AI plugin — agents and skills for designing, building, and documenting AI workflows. Plus a gallery of example components you can copy and customize.
 ---
 
-A focused toolkit of **agents** and **skills** that give your AI tool everything it needs to design, build, and document AI workflows. Plain-text Markdown — install as a [Claude Code plugin](using-plugins/), or download individual skills as ZIPs for ChatGPT, M365 Copilot, Cursor, and other tools.
+A focused toolkit of **agents** and **skills** that give your AI tool everything it needs to design, build, and document AI workflows. Plain-text Markdown — install the plugin on Claude, ChatGPT, or Claude Code, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other tools.
 
 ---
 
@@ -11,12 +11,14 @@ A focused toolkit of **agents** and **skills** that give your AI tool everything
 
 One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skills, and the Agentic Coding feature-spec skills — everything you need to take an AI workflow from idea to documented production system.
 
-```
-/plugin marketplace add jamesgray-ai/handsonai-plugins
-/plugin install handsonai@handsonai
-```
+| Where | How to install |
+|---|---|
+| **Claude** (Chat and Cowork, paid plans) | **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → **Install** |
+| **ChatGPT** (paid plans) and Codex | **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install Hands-on AI** |
+| **Claude Code** | `/plugin marketplace add jamesgray-ai/handsonai-plugins` then `/plugin install handsonai@handsonai` |
+| **Everything else** | [Download the skills as ZIPs](../../ai-workflow-framework/skills/#download-the-skill-zips) |
 
-[→ See what's included](handsonai/) · [Using Plugins](using-plugins/)
+[→ See what's included](handsonai/) · [Step-by-step setup for every platform](../../ai-workflow-framework/skills/) · [Using Plugins in Claude Code](using-plugins/)
 
 ### What's inside
 

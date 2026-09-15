@@ -3,21 +3,21 @@ title: Run the Framework End-to-End
 description: Run the AI Workflow Framework end-to-end on a real workflow — Competitive Intelligence — and ship a working skill and agent in your workspace.
 ---
 
-In this exercise you run the AI Workflow Framework end-to-end yourself, live in class. Starting from a pre-built Workflow Requirements, you invoke `/design`, `/build`, `/test`, and `/run` on a **Competitive Intelligence** workflow — shipping a `competitor-research` skill and `competitor-brief` agent that produce a structured brief on a real competitor. In a follow-up session, you'll evolve that workflow into a self-improving system.
+In this exercise you run the AI Workflow Framework end-to-end yourself, live in class. Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` on a **Competitive Intelligence** workflow — shipping a `competitor-research` skill and `competitor-brief` agent that produce a structured brief on a real competitor. In a follow-up session, you'll evolve that workflow into a self-improving system.
 
 ## Lesson: Ship a Workflow Using the AI Workflow Framework
 
-Run the framework end-to-end yourself in Cowork (or Claude Code — same slash commands). Starting from a pre-built Workflow Requirements, you invoke `/design`, `/build`, `/test`, and `/run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
+Run the framework end-to-end yourself with the Hands-on AI plugin installed — in Claude Code (slash commands), Cowork (type `/` to pick each skill), or Claude Chat (just ask for the step). Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
 
 ### Hands-on assignment
 
 **Starting point:** a pre-built Workflow Requirements (download below).
 **Ending point:** a shipped skill + agent producing a brief on a real competitor.
 
-1. **`/design`** — Turn the requirements into an approved Design Spec (plan mode, collaborative). See the [Design step docs](../../ai-workflow-framework/design/).
-2. **`/build`** — Generate the `competitor-research` skill and `competitor-brief` agent from your spec. See the [Build step docs](../../ai-workflow-framework/build/).
-3. **`/test`** — Validate the building blocks before trusting them with real input. See the [Test step docs](../../ai-workflow-framework/test/).
-4. **`/run`** — Invoke the workflow on a real competitor; watch `knowledge/competitors/{name}.md` emerge. See the [Run step docs](../../ai-workflow-framework/run/).
+1. **`/handsonai:design`** — Turn the requirements into an approved Design Spec (plan mode, collaborative). See the [Design step docs](../../ai-workflow-framework/design/).
+2. **`/handsonai:build`** — Generate the `competitor-research` skill and `competitor-brief` agent from your spec. See the [Build step docs](../../ai-workflow-framework/build/).
+3. **`/handsonai:test`** — Validate the building blocks before trusting them with real input. See the [Test step docs](../../ai-workflow-framework/test/).
+4. **`/handsonai:run`** — Invoke the workflow on a real competitor; watch `knowledge/competitors/{name}.md` emerge. See the [Run step docs](../../ai-workflow-framework/run/).
 
 ### Download the Workflow Requirements
 
@@ -27,7 +27,7 @@ The Step 2 (Deconstruct) artifact is pre-built so we can spend class time runnin
 
 ### Set up your workspace before class
 
-Do these steps in the folder where you run Cowork or Claude Code.
+Do these steps in the folder you have open in Cowork or Claude Code.
 
 **Step 1 — get a `registry/` folder.** Pick whichever is true for you:
 
@@ -70,7 +70,7 @@ The node is the small file every framework step reads first; your `registry/` is
 
 - A `competitor-research` skill and a `competitor-brief` agent installed in your workspace, ready to invoke any time
 - A populated `knowledge/competitors/{name}.md` file on a real competitor — the seed for the self-improvement work later in the course
-- First-hand reps on every framework step as a chainable slash command (`/analyze`, `/deconstruct`, `/design`, `/build`, `/test`, `/run`, `/improve`)
+- First-hand reps on every framework step as a chainable slash command (`/handsonai:analyze`, `/handsonai:deconstruct`, `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, `/handsonai:run`, `/handsonai:improve`)
 
 ## Lesson: Recognize When a Workflow Needs to Improve
 

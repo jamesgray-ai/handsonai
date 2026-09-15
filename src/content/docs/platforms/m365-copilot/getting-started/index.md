@@ -47,15 +47,17 @@ Copilot uses your Microsoft Graph data (emails, files, calendar, chats) to provi
 
 ## 4. Add Skills (Copilot Cowork)
 
-M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After adding a skill, you can say "edit this article for HBR quality" and Copilot applies professional editorial standards automatically — no re-explaining your requirements each time.
+M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After adding a skill, you can say "analyze where AI fits in my work" and Copilot runs the structured interview automatically — no re-explaining your requirements each time.
 
-**Requires:** Enrollment in the [Frontier preview program](https://adoption.microsoft.com/en-us/copilot/frontier-program/) (Cowork is currently a Frontier preview feature).
+**Requires:** A Microsoft 365 Copilot license, with Cowork enabled by your admin (it's generally available; admins turn on its usage-based billing).
 
-1. In OneDrive, create the folder path `Documents/Cowork/Skills/<skill-name>/`
-2. Download a `SKILL.md` from the [GitHub plugins page](https://github.com/jamesgray-ai/handsonai-plugins) (navigate to `plugins/<plugin-name>/skills/<skill-name>/SKILL.md` → click **Raw** → save the file)
-3. Place the file inside the new folder — Cowork discovers it automatically the next time you start a conversation
+**Before you start:** open Microsoft 365 Copilot and look for **Cowork** in the left navigation. Not there → ask IT to enable it.
 
-Up to 20 custom skills, 1 MB per `SKILL.md`.
+1. Download the skill's `.zip` from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips) — don't unzip it (if Cowork rejects it, use the `-flat.zip` version from the same table)
+2. In Cowork, open **Customize → Skills**, click the arrow next to **Add**, then **Upload skill**, and choose the ZIP
+3. Start a new conversation — the skill appears under **Your skills** and loads automatically when relevant
+
+Prefer folders? Unzip the skill and drop its folder into OneDrive at `Documents/Cowork/skills/<skill-name>/`. Up to 50 custom skills, 1 MB per `SKILL.md`, 20 companion files per skill.
 
 [→ Full Cowork skills setup walkthrough](../../../ai-workflow-framework/skills/) · [→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills)
 
@@ -67,4 +69,4 @@ Up to 20 custom skills, 1 MB per `SKILL.md`.
 - [ ] Microsoft 365 desktop apps updated to latest version
 - [ ] Mobile app installed on at least one device
 - [ ] Copilot icon visible in at least one Microsoft 365 app (Word, Excel, Teams, etc.)
-- [ ] At least one skill installed via Copilot Cowork (optional, requires Frontier preview)
+- [ ] At least one skill uploaded in Copilot Cowork (optional)

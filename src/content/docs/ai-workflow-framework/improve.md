@@ -115,9 +115,9 @@ An **Improvement Plan** saved to `outputs/[workflow-name]/improvement-plan.md` t
 
 This step is facilitated by the **`improve`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
-**How to start:** Say *"run the improve skill"* (or *"review my workflow"*) — works on every platform. On Claude Code or Cowork with the plugin installed, you can also type `/handsonai:improve`.
+**How to start:** Say *"run the improve skill"* (or *"review my workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:improve`, and Cowork lists it when you type `/`.
 
-**Platform compatibility:** Claude Code ✓ &nbsp;|&nbsp; Claude.ai ✓ &nbsp;|&nbsp; Claude Cowork ✓ &nbsp;|&nbsp; ChatGPT ✓ &nbsp;|&nbsp; Gemini ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Codex / Antigravity ✓
+**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 

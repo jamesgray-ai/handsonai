@@ -10,7 +10,7 @@ Start with the [Getting Started with OpenAI](getting-started/) checklist — acc
 
 | Tool | Description |
 |------|-------------|
-| [Codex App](getting-started/#1-install-codex) | OpenAI's desktop Codex app — <a href="https://openai.com/codex/" target="_blank">download</a> |
+| [Codex in the ChatGPT app](getting-started/#1-install-codex) | The **Codex** tab in the ChatGPT desktop app (Mac, Windows, Linux) — <a href="https://openai.com/codex/" target="_blank">download</a> |
 | [Codex CLI](cli/) | Terminal-native AI coding agent — maps to the [CLI building block](../../agentic-building-blocks/cli/) |
 | [Codex IDE Extension](../../builder-setup/editor-setup/#openai-codex) | Codex inside VS Code or Cursor |
 

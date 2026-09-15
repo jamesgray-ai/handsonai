@@ -135,6 +135,44 @@ else
   bad "non-version plugin.json drift not reported (exit $RC)"
 fi
 
+# --- .codex-plugin/plugin.json gets the same version special case ------------
+#
+# The Codex manifest is bumped in lock-step with the Claude one by sync-plugins.sh, so
+# mid-release it differs by version only, exactly like .claude-plugin/plugin.json. Without
+# its own special case every release cycle would report it as DRIFTED.
+
+CODEX_PJ_REL=".codex-plugin/plugin.json"
+
+reset_fake
+jq '.version = "0.0.1"' "$FAKE/plugins/handsonai/$CODEX_PJ_REL" > "$TMP/pj" \
+  && mv "$TMP/pj" "$FAKE/plugins/handsonai/$CODEX_PJ_REL"
+run_check handsonai
+if [ "$RC" -eq 0 ] && grep -qi "version" "$TMP/out" && grep -qF "0.0.1" "$TMP/out"; then
+  ok "a version-only .codex-plugin/plugin.json difference is a note, not drift"
+else
+  bad "version-only .codex-plugin/plugin.json difference mishandled (exit $RC)"
+fi
+
+reset_fake
+jq '.version = "99.0.0"' "$FAKE/plugins/handsonai/$CODEX_PJ_REL" > "$TMP/pj" \
+  && mv "$TMP/pj" "$FAKE/plugins/handsonai/$CODEX_PJ_REL"
+run_check handsonai
+if [ "$RC" -eq 1 ] && grep -qi "newer\|ahead\|downgrade" "$TMP/out"; then
+  ok "a distributed .codex-plugin version AHEAD of canonical is drift, not a note"
+else
+  bad "distributed-ahead .codex-plugin version should be drift (exit $RC)"
+fi
+
+reset_fake
+jq '.interface.displayName = "tampered"' "$FAKE/plugins/handsonai/$CODEX_PJ_REL" > "$TMP/pj" \
+  && mv "$TMP/pj" "$FAKE/plugins/handsonai/$CODEX_PJ_REL"
+run_check handsonai
+if [ "$RC" -eq 1 ] && grep -q "DRIFTED" "$TMP/out" && grep -q "$CODEX_PJ_REL" "$TMP/out"; then
+  ok "a non-version .codex-plugin/plugin.json difference is still drift"
+else
+  bad "non-version .codex-plugin/plugin.json drift not reported (exit $RC)"
+fi
+
 # --- Skips ------------------------------------------------------------------
 
 HANDSONAI_PLUGINS_DIR="$TMP/nowhere" bash "$CHECK" handsonai > "$TMP/out" 2>&1
@@ -260,7 +298,9 @@ echo
 echo "sync-plugins.sh — drift gate"
 
 CANON_PJ="$CANON/.claude-plugin/plugin.json"
+CANON_CODEX_PJ="$CANON/.codex-plugin/plugin.json"
 CANON_VERSION="$(jq -r '.version' "$CANON_PJ")"
+CANON_MANIFESTS="plugins/handsonai/.claude-plugin/plugin.json plugins/handsonai/.codex-plugin/plugin.json"
 
 run_sync() {  # env overrides come via leading VAR=... args to env
   env HOME="$FAKE_HOME" HANDSONAI_PLUGINS_DIR="$FAKE" "$@" \
@@ -273,10 +313,12 @@ run_sync() {  # env overrides come via leading VAR=... args to env
 # must be able to restore it. So the whole section is gated on that file being clean in
 # git (a restore must never discard a developer's uncommitted edits), and the restore
 # lives in the EXIT trap, not in sequential statements a Ctrl-C could land between.
-if [ -n "$(git -C "$ROOT" status --porcelain -- plugins/handsonai/.claude-plugin/plugin.json)" ]; then
-  skip "all gate tests (canonical plugin.json has uncommitted changes — commit or revert first)"
+# shellcheck disable=SC2086  # CANON_MANIFESTS is a deliberate word list
+if [ -n "$(git -C "$ROOT" status --porcelain -- $CANON_MANIFESTS)" ]; then
+  skip "all gate tests (a canonical plugin.json has uncommitted changes — commit or revert first)"
 else
-  trap 'git -C "$ROOT" checkout -- plugins/handsonai/.claude-plugin/plugin.json; rm -rf "$TMP"' EXIT
+  # shellcheck disable=SC2064,SC2086
+  trap "git -C '$ROOT' checkout -- $CANON_MANIFESTS; rm -rf '$TMP'" EXIT
 
   reset_fake
   echo "drifted line for test" >> "$FAKE/plugins/handsonai/$DRIFT_FILE"
@@ -302,8 +344,9 @@ else
     bad "acknowledged sync should proceed and overwrite the drift (exit $RC)"
   fi
   # Restore between tests so the next case computes against the committed version;
-  # safe because the section only runs when the file started clean.
-  git -C "$ROOT" checkout -- "plugins/handsonai/.claude-plugin/plugin.json"
+  # safe because the section only runs when the files started clean.
+  # shellcheck disable=SC2086
+  git -C "$ROOT" checkout -- $CANON_MANIFESTS
 
   reset_fake
   run_sync
@@ -312,6 +355,60 @@ else
   else
     bad "in-sync state should not be gated (exit $RC): $(grep -i error "$TMP/out" | head -1)"
   fi
+
+  # --- Codex manifest and marketplace ride the same sync ----------------------
+  #
+  # Three version fields now exist (Claude manifest, Codex manifest, Claude marketplace
+  # entry). One bump must move all of them, and the Codex catalog must exist afterwards
+  # even though the fake clone started without one — a hand-edit in the clone is the
+  # kind of step that gets forgotten at release time.
+  NEW_V="$(jq -r '.version' "$CANON_PJ")"
+  if [ "$(jq -r '.version' "$CANON_CODEX_PJ")" = "$NEW_V" ] \
+     && [ "$(jq -r '.version' "$FAKE/plugins/handsonai/.codex-plugin/plugin.json")" = "$NEW_V" ] \
+     && [ "$NEW_V" != "$CANON_VERSION" ]; then
+    ok "the bump moves .codex-plugin/plugin.json in lock-step (canonical and distributed)"
+  else
+    bad "codex manifest not bumped with the Claude one (claude=$NEW_V codex=$(jq -r '.version' "$CANON_CODEX_PJ"))"
+  fi
+  if [ "$(jq -r '.description' "$CANON_CODEX_PJ")" = "$(jq -r '.description' "$CANON_PJ")" ]; then
+    ok "the codex manifest description is copied from the Claude manifest"
+  else
+    bad "codex manifest description diverged from the Claude manifest"
+  fi
+  CODEX_MKT="$FAKE/.agents/plugins/marketplace.json"
+  if [ -f "$CODEX_MKT" ] \
+     && [ "$(jq -r '.name' "$CODEX_MKT")" = "handsonai" ] \
+     && [ "$(jq -r '[.plugins[] | select(.name == "handsonai")] | length' "$CODEX_MKT")" = "1" ] \
+     && [ "$(jq -r '.plugins[] | select(.name == "handsonai") | .source.path' "$CODEX_MKT")" = "./plugins/handsonai" ]; then
+    ok "sync seeds .agents/plugins/marketplace.json with the handsonai entry when absent"
+  else
+    bad "codex marketplace.json missing or malformed after sync"
+  fi
+  run_sync
+  if [ "$RC" -eq 0 ] \
+     && [ "$(jq -r '[.plugins[] | select(.name == "handsonai")] | length' "$CODEX_MKT")" = "1" ] \
+     && [ "$(jq -r '[.plugins[] | select(.name == "multi-agent-example")] | length' "$CODEX_MKT")" = "0" ]; then
+    ok "a second sync leaves exactly one handsonai entry in the codex marketplace (idempotent)"
+  else
+    bad "codex marketplace upsert is not idempotent (exit $RC)"
+  fi
+  # shellcheck disable=SC2086
+  git -C "$ROOT" checkout -- $CANON_MANIFESTS
+
+  # The two canonical manifests disagreeing on version means someone hand-edited one of
+  # them. Bumping from that state would publish two different versions of one plugin;
+  # refuse instead of guessing which is right.
+  jq '.version = "0.0.9"' "$CANON_CODEX_PJ" > "$TMP/pj" && mv "$TMP/pj" "$CANON_CODEX_PJ"
+  reset_fake
+  run_sync
+  if [ "$RC" -ne 0 ] && grep -qi "disagree" "$TMP/out" \
+     && [ "$(jq -r '.version' "$CANON_PJ")" = "$CANON_VERSION" ]; then
+    ok "manifests disagreeing on version refuses to sync and leaves the Claude manifest untouched"
+  else
+    bad "version mismatch between manifests should refuse (exit $RC): $(grep -i error "$TMP/out" | head -1)"
+  fi
+  # shellcheck disable=SC2086
+  git -C "$ROOT" checkout -- $CANON_MANIFESTS
 fi
 
 echo

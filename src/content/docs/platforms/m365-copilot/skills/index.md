@@ -1,31 +1,35 @@
 ---
 title: Skills on M365 Copilot
-description: How Agent Skills work in Microsoft 365 Copilot Cowork — what's supported, how to install, and gotchas
+description: How Agent Skills work in Microsoft 365 Copilot Cowork — upload a ZIP from the Customize page, or drop a SKILL.md folder in OneDrive
 ---
 
-Microsoft 365 Copilot Cowork supports Agent Skills natively via OneDrive. Cowork reads `SKILL.md` files directly from your OneDrive folder — no plugin install, no terminal.
+Microsoft 365 Copilot supports Agent Skills natively in **Copilot Cowork**, which is generally available to Microsoft 365 Copilot license holders (your admin enables it; it uses usage-based billing). Cowork reads `SKILL.md` files from a folder in your OneDrive, and the Customize page can put them there for you — no plugin install, no terminal.
 
-Cowork is currently a **Frontier preview** feature, available only to customers enrolled in the [Frontier program](https://adoption.microsoft.com/en-us/copilot/frontier-program/).
+**Before you start:** open Microsoft 365 Copilot and look for **Cowork** in the left navigation. If it isn't there, ask your IT admin to enable it. Custom skills aren't available in Cowork on mobile.
 
-## What skills look like on M365 Copilot
+## Upload a skill (easiest)
 
-- **Where they live:** `Documents/Cowork/Skills/<skill-name>/SKILL.md` in your OneDrive
-- **How they're discovered:** auto-discovered each conversation; skills appear as chips in the Cowork side panel when invoked
-- **Format:** same `SKILL.md` open standard used by Claude, OpenAI, and other native-skill platforms
-- **Classic M365 Copilot:** no native skill support outside Cowork
+In Cowork: **Customize → Skills → the arrow next to Add → Upload skill**, then choose a `.md`, `.zip`, or `.skill` file. Cowork validates it and saves it to your OneDrive; it appears under **Your skills** after a few moments. Microsoft's docs describe a ZIP with `SKILL.md` at its root and companion files beside it; the Hands-on AI downloads come in both layouts (`analyze.zip` and `analyze-flat.zip`) — use the flat one if the first is rejected. Uploading a skill with the same name again creates a numbered copy rather than replacing — delete the old one first to update.
 
-## Installing skills
+→ [Upload a skill](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize#upload-a-skill) (Microsoft Learn)
 
-1. Confirm you have an M365 Copilot license and Frontier preview access.
-2. Open OneDrive and navigate to `Documents/Cowork/Skills/` — create the folders if they don't exist.
-3. Place the skill folder (containing `SKILL.md`) inside `Skills/`.
-4. Start a new Cowork conversation — the skill is available immediately.
+## Or put the folder in OneDrive yourself
 
-**Limits:** Up to 20 custom skills, 1 MB per `SKILL.md`.
+- **Where they live:** `Documents/Cowork/skills/<skill-name>/SKILL.md` in your OneDrive (lowercase `skills`)
+- **How they're discovered:** automatically at the start of each session; loaded skills appear as chips in the side panel under **Skills**
+- **Companion files:** up to 20 per skill (reference documents, scripts), 10 MB per skill
 
-→ [Cowork skills documentation](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills) (official Microsoft docs)
+1. In OneDrive, open `Documents/Cowork/skills/` — create the folders if they don't exist.
+2. Create a subfolder named for the skill and put `SKILL.md` inside it.
+3. Start a new Cowork conversation — the skill is available immediately.
+
+→ [Cowork skills](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills) (Microsoft Learn)
+
+**Limits:** up to 50 custom skills; 1 MB per `SKILL.md`; 20 companion files and 10 MB per skill.
+
+**Classic M365 Copilot:** no native skill support outside Cowork.
 
 ## Related
 
 - [Skills building block](/agentic-building-blocks/skills/) — what skills are and how they work across platforms
-- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the seven framework skills on M365 Copilot
+- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the seven framework skills in Copilot Cowork

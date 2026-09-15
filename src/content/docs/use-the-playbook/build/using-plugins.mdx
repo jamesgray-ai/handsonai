@@ -1,6 +1,6 @@
 ---
 title: Using Plugins
-description: What plugins are, how to install and use the Hands-on AI plugin in Claude Code, Claude.ai, Cowork, and the Claude API, and how to manage and troubleshoot them
+description: What plugins are, how to install and use the Hands-on AI plugin in Claude Code, Claude Chat, Cowork, and the Claude API, and how to manage and troubleshoot them
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -16,7 +16,7 @@ Start at the [Set Up the Skills](/ai-workflow-framework/skills/) page for step-b
 :::
 
 :::tip[Looking for non-Claude platforms?]
-This page covers the Claude ecosystem (Claude Code, Claude.ai, Cowork, API).
+This page covers the Claude ecosystem (Claude Code, Claude Chat, Cowork, API).
 For Cursor, Codex CLI, Gemini CLI, VS Code Copilot, or any LLM, see
 [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills).
 :::
@@ -39,19 +39,19 @@ The Hands-on AI plugin currently focuses on **agents** and **skills**. As it gro
 |---|--------|--------|
 | What they are | Expert personalities (orchestrator, methodology guide) | Step-by-step workflows with instructions + reference material |
 | How they activate | Claude automatically picks the right one based on your request | Automatically when relevant, or type `/handsonai:skill-name` |
-| Where they work | Claude Code and Cowork | Claude Code, Claude.ai (upload as ZIP), and Cowork |
+| Where they work | Claude Code and Cowork (plugin sub-agents don't run in Chat) | Claude Code, Claude Chat, and Cowork — via the plugin or a ZIP upload |
 | Example | "Walk me through the AI Workflow Framework" activates `framework-agent` | "Name this workflow" loads `naming-workflows` conventions |
 
 ## Transparency & Security
 
 The plugin is plain-text Markdown — there's no compiled code or hidden logic. Every agent and skill is fully readable, so you can review exactly what instructions Claude receives before you install anything.
 
-**Review the source:** All plugin files are open source in the [handsonai-plugins GitHub repository](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai). The [plugin detail page](../handsonai/) lists every agent and skill with descriptions of what they do.
+**Review the source:** All plugin files are open source in the [handsonai-plugins GitHub repository](https://github.com/jamesgray-ai/handsonai-plugins). The [plugin detail page](../handsonai/) lists every agent and skill with descriptions of what they do.
 
 :::caution[Anthropic's guidance on third-party plugins]
 Anthropic recommends reviewing any plugin before installing it. From the official [plugin documentation](https://code.claude.com/docs/en/discover-plugins): *"Make sure you trust a plugin before installing it. Anthropic does not control what MCP servers, files, or other software are included in plugins and cannot verify that they work as intended."*
 
-The Hands-on AI plugin contains only Markdown instruction files — no MCP servers, no executable code, and no external network calls. You can verify this yourself by browsing the [plugin source](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai).
+The Hands-on AI plugin contains only Markdown instruction files — no MCP servers, no executable code, and no external network calls. You can verify this yourself by browsing the [plugin source](https://github.com/jamesgray-ai/handsonai-plugins).
 :::
 
 ## Getting Started in Claude Code
@@ -144,20 +144,29 @@ The AI Registry skills are pure Markdown — no external services. They read and
 
 This shows all installed plugins with their agents and skills. For the full plugin management commands (scopes, updates, disabling), see the official [Discover and install plugins](https://code.claude.com/docs/en/discover-plugins) documentation.
 
-## Using Skills in Claude.ai (Web)
+## Using Skills in Claude Chat (Web and App)
 
-Claude.ai supports skills through a ZIP upload process. You can take any plugin skill and use it on the web — no terminal required.
+Claude Chat — on the web at claude.ai or in the Chat tab of the Claude app — runs the same skills as Claude Code, with no terminal required. There are two ways in, both under **Customize** in the left sidebar.
 
-### Prerequisites
+### Install the plugin (paid plans)
 
-- Claude **Pro**, **Max**, **Team**, or **Enterprise** plan
-- **Code execution** enabled in Settings > Capabilities (this lets Claude run skills — it does not give Claude access to your computer)
+Plugins install in Chat with the same steps as in Cowork, and a plugin's skills work in both (Anthropic notes that plugins you add yourself on Desktop and in Cowork are stored on that computer — if a plugin doesn't show up on another surface, add the marketplace there too):
 
-### Upload a plugin skill to Claude.ai
+1. In the left sidebar, click **Customize**, then the **Plugins** tab
+2. Click **+** → **Add marketplace** → **Add from a repository**, type `jamesgray-ai/handsonai-plugins`, and click **Sync**
+3. Click **Install** on the **handsonai** card
+
+Plugin sub-agents (the `framework-agent` orchestrator) and hooks run only in Cowork; the skills work everywhere. Step-by-step with screenshots: [Set Up the Skills — Claude](/ai-workflow-framework/skills/#claude-chat--cowork).
+
+### Upload a plugin skill to Claude Chat
+
+Use this on the Free plan, or when your organization disables personal plugins. You can take any plugin skill and upload it individually.
+
+**Prerequisites:** **Code execution** enabled under **Settings → Capabilities** (this lets Claude run skills — it does not give Claude access to your computer).
 
 **1. Get the skill ZIP**
 
-The fastest path is to download the pre-built ZIPs from [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest). Every skill in the plugin is published as an individual `.zip` file with each release.
+The fastest path is to download the pre-built ZIPs from the [skill downloads table](/ai-workflow-framework/skills/#download-the-skill-zips) or [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest). Every skill in the plugin is published as an individual `.zip` file with each release.
 
 If you've installed the plugin in Claude Code, you can also zip the skill folder yourself from your local plugin directory at:
 
@@ -201,9 +210,9 @@ The ZIP file appears on your Desktop.
 Zip the **folder itself**, not the individual files inside it. When you open the ZIP, you should see a single folder (e.g., `analyze/`) — not loose files.
 :::
 
-**2. Upload to Claude.ai**
+**2. Upload to Claude Chat**
 
-Go to **Settings > Capabilities > Upload skill**. Select your `.zip` file.
+Click **Customize** in the left sidebar → **Skills** → **+** → **Create skill** → **Upload a skill**, and select your `.zip` file.
 
 **3. Toggle the skill on**
 
@@ -213,7 +222,7 @@ Find your uploaded skill in the Skills list and enable it.
 
 Open a new chat and describe your need. Claude automatically uses the skill when relevant.
 
-### Walkthrough: `analyze` in Claude.ai
+### Walkthrough: `analyze` in Claude Chat
 
 The `analyze` skill is the entry point to the AI Workflow Framework — find AI opportunities in your work.
 
@@ -224,24 +233,23 @@ The `analyze` skill is the entry point to the AI Workflow Framework — find AI 
   cd ~/.claude/plugins/marketplaces/handsonai/plugins/handsonai/skills && \
     zip -r ~/Desktop/analyze.zip analyze/
   ```
-- **Test prompt in Claude.ai:** "Help me find where AI could create the most value in my work"
+- **Test prompt in Claude Chat:** "Help me find where AI could create the most value in my work"
 
 Claude applies the framework methodology from the skill's reference file automatically.
 
-### What about agents in Claude.ai?
+### What about agents in Claude Chat?
 
-In Claude Code, Claude automatically picks the right agent for your request. This automatic selection does not exist in Claude.ai.
+Plugin sub-agents run only in Cowork and Claude Code — in Claude Chat they appear grayed out. Agent files have a different format from skill files and cannot be uploaded as skills. For agent-like behavior in Chat, you can:
 
-Agent files have a different format from skill files and cannot be uploaded as skills directly. For agent-like behavior in Claude.ai, you can:
-
+- Use Cowork, where the plugin's `framework-agent` orchestrator is available
 - Create a **Project** and paste the agent's instructions as custom instructions
 - Convert the agent into a skill (wrap its instructions in a `SKILL.md` file)
 
 ### Skill compatibility across platforms
 
-All 14 skills work fully across Claude Code, Claude.ai, and Cowork.
+All 14 skills work fully across Claude Code, Claude Chat, and Cowork — via the plugin or a ZIP upload.
 
-| Skill | Claude Code | Claude.ai | Cowork | Notes |
+| Skill | Claude Code | Claude Chat | Cowork | Notes |
 |-------|:----------:|:---------:|:------:|-------|
 | `analyze` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
 | `deconstruct` | **Full** | **Full** | **Full** | Pure instructions + reference docs |
@@ -266,14 +274,12 @@ Cowork has its own **built-in plugin directory**, so you don't need Claude Code 
 
 ### Install a plugin in Cowork
 
-1. Open Claude Desktop and click **Cowork** in the sidebar
-2. Click the **+** button at the bottom of the screen (next to "Work in a folder")
-3. Select **Add plugins...** from the menu
-4. Browse the plugin directory or upload a custom plugin file
+1. Open the Claude app and click the **Cowork** tab
+2. In the left sidebar, click **Customize**, then the **Plugins** tab (or **Browse plugins**)
+3. Browse the directory, or click **+** → **Add marketplace** → **Add from a repository** and type `jamesgray-ai/handsonai-plugins` for the Hands-on AI plugin
+4. Click **Install** on the plugin card
 
-You can also click the **Customize with plugins** card on the Cowork home screen to go directly to plugin setup.
-
-![Cowork add plugins menu — click the + button, then select "Add plugins..."](/assets/images/cowork-add-plugins.png)
+A plugin's skills work in Claude Chat and Cowork alike (hooks and sub-agents are Cowork-only). Plugins you add yourself on Desktop are stored locally, so if one doesn't appear on another surface, add the marketplace there too. Step-by-step with screenshots: [Set Up the Skills — Claude](/ai-workflow-framework/skills/#claude-chat--cowork).
 
 ### What Cowork offers with plugins
 
@@ -288,7 +294,7 @@ You can also click the **Customize with plugins** card on the Cowork home screen
 | | Cowork | Claude Code |
 |---|--------|------------|
 | Interface | Visual — no terminal needed | Terminal-based |
-| Plugin discovery | **+** button > **Add plugins...** or [plugin directory](https://claude.com/plugins-for/cowork) | `/plugin install` command |
+| Plugin discovery | **Customize → Plugins** or the [plugin directory](https://claude.com/plugins-for/cowork) | `/plugin install` command |
 | Agent activation | Via plugin commands | Auto-routing based on request |
 | Best for | Knowledge workers, non-technical users | Developers, coding tasks |
 | Plugin format | Same plugin files | Same plugin files |
@@ -297,15 +303,15 @@ Both support the same plugin format and skill files. If you're not comfortable w
 
 ## Download from GitHub
 
-Every file is plain-text Markdown — no compiled code, no special format. You don't need Claude Code or plugins to use them. Download skill folders from GitHub and place them in your platform's skill directory. See [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills) for step-by-step instructions for Claude Code, Cursor, Codex CLI, Gemini CLI, and VS Code Copilot.
+Every file is plain-text Markdown — no compiled code, no special format. You don't need Claude Code or plugins to use them. Download the skill ZIPs and place them in your platform's skill directory, or upload them where your platform has an upload button. See [Set Up the Skills](/ai-workflow-framework/skills/) for step-by-step instructions on every platform.
 
-GitHub: [Browse the plugin on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai)
+Skill ZIPs: [direct download links, one per skill](/ai-workflow-framework/skills/#download-the-skill-zips) · [GitHub Releases](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest)
 
-GitHub Releases: [Download individual skill ZIPs](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest)
+Source: [Browse the plugin on GitHub](https://github.com/jamesgray-ai/handsonai-plugins)
 
 **Other ways to use them:**
 
-- **Upload to Claude.ai** — zip a skill folder and upload it under Settings > Capabilities > Upload skill ([detailed instructions](#upload-a-plugin-skill-to-claudeai))
+- **Upload to Claude Chat** — upload a skill ZIP under Customize → Skills ([detailed instructions](#upload-a-plugin-skill-to-claude-chat))
 - **Use via the Claude API** — embed skill content in the `system` parameter ([code example](#using-skills-via-the-claude-api))
 
 ## Using Skills via the Claude API
@@ -368,7 +374,7 @@ MCP-dependent steps (like the integration research the `build` skill does agains
 ## Managing Plugins
 
 :::tip[Updating the framework skills specifically?]
-For per-platform refresh steps for the AI Workflow Framework skills (Cowork's two-step flow, Claude.ai re-upload, etc.), see [Update the Skills](../../../ai-workflow-framework/skills/#update-the-skills).
+For per-platform refresh steps for the AI Workflow Framework skills (the plugin's two-step flow, ZIP re-upload, etc.), see [Update the Skills](../../../ai-workflow-framework/skills/#update-the-skills).
 :::
 
 ### Updating plugins
@@ -436,19 +442,19 @@ The skills you used (`analyze`, `name-workflow`, `feature-prd`, etc.) are all st
 
 The example agents and skills that aren't in the new plugin (HBR-style writing, vendor-specific researchers, LinkedIn prospecting) live on as study material in the [Example Gallery](../../../use-cases/example-gallery/) — copy and customize them if you used them.
 
-**Cowork users:** Plugin updates require a remove-and-re-add (Cowork caches plugin versions), so the migration commands above apply equally to Cowork.
+**Cowork and Claude Chat users:** update from **Customize → Plugins** — **Check for updates** on the marketplace, then **Update** on the plugin (see [Update the Skills](../../../ai-workflow-framework/skills/#update-the-skills)). The migration notes above apply equally.
 
 ## Platform Summary
 
-| Capability | Claude Code | Claude.ai | Cowork | API |
+| Capability | Claude Code | Claude Chat | Cowork | API |
 |------------|:-----------:|:---------:|:------:|:---:|
-| Plugin install | `/plugin install` | Upload skills as ZIP | **+** button > **Add plugins...** | Skills API |
-| Agent auto-routing | Yes | No | No | No |
-| Skills (auto-trigger) | Yes | Yes (after upload) | Yes (via plugin) | Yes (Skills API) |
+| Plugin install | `/plugin install` | **Customize → Plugins** (paid plans), or upload skills as ZIP | **Customize → Plugins**, or upload skills as ZIP | Skills API |
+| Agent auto-routing | Yes | No (sub-agents don't run in Chat) | Yes (via plugin) | No |
+| Skills (auto-trigger) | Yes | Yes | Yes | Yes (Skills API) |
 | Skills (slash command) | `/handsonai:command` | No | `/` commands | No |
 | MCP / Connectors | Yes | Some skills (via MCP) | Yes (connectors) | No |
 | Browser automation | No | No | Yes (Chrome) | No |
-| Reference file loading | Automatic | Included in ZIP | Automatic (via plugin) | Manual |
+| Reference file loading | Automatic | Automatic (plugin) / included in ZIP | Automatic | Manual |
 | Best for | Developers | Quick skill use, any device | Knowledge work, non-technical users | Programmatic access |
 
 ## Troubleshooting
@@ -493,7 +499,7 @@ Restart your Claude Code session. Then verify the plugin is installed:
 
 If the plugin appears but the agent doesn't activate, try being more explicit in your prompt — for example, "Walk me through the AI Workflow Framework for my client onboarding process" rather than just "help me with onboarding."
 
-### "Skill not working in Claude.ai"
+### "Skill not working in Claude Chat"
 
 1. Check that **code execution** is enabled in **Settings > Capabilities**
 2. Check the [compatibility table](#skill-compatibility-across-platforms) for platform notes
@@ -513,10 +519,10 @@ If you've added the marketplace, skill files are on your machine at:
 ~/.claude/plugins/marketplaces/handsonai/plugins/handsonai/skills/<skill-name>/
 ```
 
-You can also browse skill source files on GitHub at:
+You can also browse the skill source on GitHub at `https://github.com/jamesgray-ai/handsonai-plugins`, or download any skill as a ZIP from:
 
 ```
-https://github.com/jamesgray-ai/handsonai-plugins/tree/main/plugins/handsonai/skills/<skill-name>/
+https://github.com/jamesgray-ai/handsonai-plugins/releases/latest
 ```
 
 ## Next Steps
