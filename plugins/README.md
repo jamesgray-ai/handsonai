@@ -20,7 +20,7 @@ instructions with screenshots, plus ZIP downloads for every other platform, are 
 **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → install **handsonai**.
 The skills then work in Chat and Cowork; the `framework-agent` orchestrator runs in Cowork.
 
-**ChatGPT (Pro, Business, Enterprise) and Codex:**
+**ChatGPT (any paid plan) and Codex:**
 **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**.
 Type `@analyze` in ChatGPT or `$analyze` in Codex. From the Codex CLI instead:
 
@@ -36,7 +36,7 @@ codex plugin add handsonai@handsonai
 /plugin install handsonai@handsonai
 ```
 
-**Everything else (Claude Free, ChatGPT Plus, Gemini Spark / Gemini Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI):**
+**Everything else (Claude Free, ChatGPT Free/Go, Gemini Spark / Gemini Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI):**
 download the skill ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
 Each skill ships in two layouts — `<skill>.zip` (skill folder at the root, for claude.ai)
 and `<skill>-flat.zip` (`SKILL.md` at the root, for platforms that ask for that).

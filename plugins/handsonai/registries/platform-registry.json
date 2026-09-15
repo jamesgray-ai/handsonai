@@ -81,7 +81,7 @@
       "memory": "https://help.openai.com/en/articles/8590148-memory-faq",
       "project": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt",
       "plugin": "https://learn.chatgpt.com/docs/plugins",
-      "notes": "ChatGPT Chat/Work on web, desktop, and mobile. Skills upload as a zip or SKILL.md under Plugins > Skills > Create > Upload from your computer (paid plans except Free/Go; off by default on Enterprise/Edu until an admin enables); invoke with @skill-name in Work. Plugins (Pro/Business/Enterprise) install from Plugins > Add marketplace; plugin-bundled skills work across web, desktop, and mobile. Custom GPTs are deprecated — package agent-shaped work as a Workspace Agent with skills attached."
+      "notes": "ChatGPT Chat/Work on web, desktop, and mobile. Skills upload as a zip or SKILL.md under Plugins > Skills > Create > Upload from your computer (paid plans except Free/Go; off by default on Enterprise/Edu until an admin enables); invoke with @skill-name in Work. Plugins (any paid plan) install from Plugins > Add marketplace; plugin-bundled skills work across web, desktop, and mobile. Custom GPTs are deprecated — package agent-shaped work as a Workspace Agent with skills attached."
     },
     "chatgpt-agent-mode": {
       "mode": "guided",

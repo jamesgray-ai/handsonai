@@ -10,7 +10,7 @@ One plugin, three places it installs — pick yours. Full step-by-step (with scr
 [skills setup page](https://handsonai.info/ai-workflow-framework/skills/).
 
 - **Claude** (claude.ai, Claude Desktop, Cowork — paid plans): **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → install **handsonai**.
-- **ChatGPT** (Pro, Business, Enterprise) **and Codex**: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**. Then `@analyze` (ChatGPT) or `$analyze` (Codex).
+- **ChatGPT** (any paid plan) **and Codex**: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**. Then `@analyze` (ChatGPT) or `$analyze` (Codex).
 - **Claude Code**:
 
   ```
@@ -18,7 +18,7 @@ One plugin, three places it installs — pick yours. Full step-by-step (with scr
   /plugin install handsonai@handsonai
   ```
 
-No plugin support on your platform (Claude Free, ChatGPT Plus, Gemini, M365 Copilot, Cursor, Gemini CLI)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
+No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 Copilot, Cursor, Gemini CLI)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
 
 ## What's Included
 

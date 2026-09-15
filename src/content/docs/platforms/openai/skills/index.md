@@ -5,9 +5,9 @@ description: How Agent Skills work in ChatGPT and Codex — install a plugin, up
 
 ChatGPT and Codex support Agent Skills natively, using the same open `SKILL.md` format as Claude and other platforms. Since July 2026 the ChatGPT app (Mac, Windows, Linux) has three modes — **Chat**, **Work**, and **Codex** — and ChatGPT and Codex share one plugin directory, so a plugin installed once works in all of them.
 
-**Before you start:** in ChatGPT, click **Plugins** in the left sidebar. If you see **Add marketplace**, you can install plugins (Pro, Business, Enterprise). If you see a **Skills** tab with a **Create** button, you can upload skills (any paid plan except Free and Go; on Enterprise and Edu an admin turns Skills on). On Free or Go, use the Codex folder path below.
+**Before you start:** in ChatGPT, click **Plugins** in the left sidebar. If you see **Add marketplace**, you can install plugins (any paid plan — Plus, Pro, Business, Enterprise). If you see a **Skills** tab with a **Create** button, you can upload skills (any paid plan except Free and Go; on Enterprise and Edu an admin turns Skills on). On Free or Go, use the Codex folder path below.
 
-## Install a plugin (Pro, Business, Enterprise)
+## Install a plugin (paid plans)
 
 **Plugins → Add marketplace**, paste the marketplace address (for the Hands-on AI plugin: `jamesgray-ai/handsonai-plugins`), then **Install** the plugin. Plugin skills work in Chat and Work on the web, desktop, and mobile, and in Codex. In **Work**, type `@` and the skill name to use one; in Codex, type `$` and the name.
 

@@ -14,7 +14,7 @@ One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skil
 | Where | How to install |
 |---|---|
 | **Claude** (Chat and Cowork, paid plans) | **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → **Install** |
-| **ChatGPT** (Pro, Business, Enterprise) and Codex | **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install Hands-on AI** |
+| **ChatGPT** (paid plans) and Codex | **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install Hands-on AI** |
 | **Claude Code** | `/plugin marketplace add jamesgray-ai/handsonai-plugins` then `/plugin install handsonai@handsonai` |
 | **Everything else** | [Download the skills as ZIPs](../../ai-workflow-framework/skills/#download-the-skill-zips) |
 
