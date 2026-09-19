@@ -38,7 +38,7 @@ Optional tools that work in collaboration with your AI platform to build and man
 |---|---|---|
 | **Code Editor** | Cursor or VS Code, with AI extensions installed | An organized home for every building block you create — browse them in folders, edit them in place, and let the built-in AI assistants read and update them directly as you work |
 | **Git** | Automatically tracks every change to every file | You'll constantly create and refine your building blocks — Git keeps the full history for you, so you never have to manage versions manually, and it connects to GitHub so everything gets backed up in the cloud |
-| **GitHub** | Cloud storage and backup for your files, built on top of Git | Your work is safe, versioned, accessible from any machine, and easy to share |
+| **GitHub** | Cloud storage and backup for your files, built on top of Git. Two pieces: a GitHub *account* (in your browser) and the GitHub *CLI* (a small program on your computer that logs Git and your AI tools in as you) | Your work is safe, versioned, accessible from any machine, and easy to share |
 | **Voice to Text** | Dictation software (Wispr Flow or your system's built-in voice input) | Talk instead of type — faster for long prompts and more natural when you're thinking out loud |
 | **AI Registry** | A knowledge-bundle inventory of your workflows, processes, and insights — Markdown in your repo, maintained by your AI assistant | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
 
@@ -54,24 +54,38 @@ Start with Part 1 and complete the steps in order. Part 2 is optional — pick a
 | 2 | [Hands-on AI Skills](../ai-workflow-framework/skills/) | ~10 min | Recommended | Step-by-step guidance for building AI workflows, right inside your AI tool |
 | 3 | [Hands-on AI Knowledge Base](../mcp-server/) | ~5 min | Recommended | Ask the Hands-on AI playbook questions without leaving your AI tool |
 
-### Part 2 — For Power Users (~70 min total)
+### Part 2 — For Power Users (~75 min total)
 
-Pick any combination — each row names the specific capability it unlocks.
+Pick any combination — each row names the specific capability it unlocks. Rows 5–8 are one sequence: do them in order.
 
 | # | Tool | Time | Requires | Install this if you want to… |
 |---|---|---|---|---|
 | 4 | [AI Code Editor + Extensions](editor-setup/) | ~15 min | Nothing | Store building blocks as files on your computer and edit them with AI assistance |
-| 5 | [Git](git-install/) | ~10 min | Editor | Keep a full version history of your building blocks automatically |
-| 6 | [GitHub](github-setup/) | ~15 min | Editor + Git | Back up your building blocks to the cloud and share them across machines |
-| 7 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
-| 8 | [AI Registry](ai-registry-setup/) | ~10 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
+| 5 | [GitHub Account](github-setup/) | ~10 min | Nothing | Have a place in the cloud for your building blocks — done entirely in your browser |
+| 6 | [Git](git-install/) | ~10 min | Nothing | Keep a full version history of your building blocks automatically |
+| 7 | [GitHub CLI](github-cli-setup/) | ~10 min | GitHub Account + Git | Log your computer and AI tools in to GitHub once, so files sync without passwords |
+| 8 | [Create & Clone Your First Repository](repo-creation-and-cloning/) | ~5 min | Editor + GitHub CLI | Prove the three pieces above work together, and get a folder to build in |
+| 9 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
+| 10 | [AI Registry](ai-registry-setup/) | ~10 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
+
+#### Git & GitHub at a glance
+
+Steps 5–7 are three separate prerequisites. Here's how you know each one is done:
+
+| # | Prerequisite | Done when |
+|---|---|---|
+| 1 | **GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
+| 2 | **Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
+| 3 | **GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
+
+**End-to-end proof (optional, ~3 min):** create a private repository, clone it, `cd` into it, run `git status` → `On branch main`. That's the [Repository Creation & Cloning guide](/builder-setup/repo-creation-and-cloning/).
 
 :::note[New to Markdown?]
 Everything you build here — skills, prompts, context files, your registry — is stored as Markdown. If that word is unfamiliar, read [Markdown Basics](markdown-basics/) first. It takes about ten minutes and requires nothing installed.
 :::
 
 :::note[New to the terminal?]
-Some Power User tools (Editor, Git, GitHub) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
+Some Power User tools (Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
 :::
 
 :::note[Heads up]
