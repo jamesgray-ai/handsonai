@@ -31,7 +31,7 @@ cd mcp-server && npm install && wrangler dev
 - `docs/use-the-playbook/` - Three consumption modes: Ask (MCP Server), Build (Plugins), Learn (Courses)
 - `docs/mcp-server/` - MCP server connection guide (connect from Claude, ChatGPT, Cursor, VS Code, etc.)
 - `docs/use-the-playbook/build/` - Plugin marketplace, getting started, plugin detail pages
-- `docs/builder-setup/` - Builder Tools Setup guides (terminal, editor, Git, GitHub, voice-to-text, skills, MCP server, AI registry). Platform setup (accounts, personalization, memory, MCP connections) lives in per-platform `getting-started/` pages under `docs/platforms/`
+- `docs/builder-setup/` - Builder Tools Setup guides (terminal, editor, Git, GitHub, voice-to-text, skills, MCP server, AI registry). Git/GitHub is three prerequisite pages in this order — `github-setup.md` (account only; tokens are an optional trailing section), `git-install.md`, `github-cli-setup.md` — each ending in a "Done When" table whose rows must stay byte-identical across the three guides, `builder-setup/index.md`, and `courses/tools-setup-checklist.md` (check: `grep -h "^| \*\*[123]\. " <files> | sort | uniq -c` → 3 each). Platform setup (accounts, personalization, memory, MCP connections) lives in per-platform `getting-started/` pages under `docs/platforms/`
 - `docs/patterns/` - Reusable patterns and best practices
 - `docs/courses/` - Structured course content (builders, leaders)
 - `docs/resources/` - Curated resource pages for external PDFs/reports (with local PDF copies in `docs/assets/pdfs/`)
@@ -103,14 +103,16 @@ fixed sequence.
 - Blog posts require `date`, `authors`, `tags`, and `description` frontmatter — `description` appears in the homepage What's New section. `tags` is starlight-blog's real schema field; `categories` was a MkDocs leftover that nothing read
 - Tags are metadata only right now: starlight-blog's `/blog/tags/[tag]` and `/blog/authors/[author]` routes render nothing here, because the blog is hand-rolled via `BlogList.astro` over the `docs` collection rather than driven by the plugin's routes. Verified 2026-07-25 — the build produces no tag or author pages
 - The blog covers both playbook updates and notable releases from Anthropic, OpenAI, and other platforms — keep `/blog/` and RSS scope copy consistent with that
+- Markdown gotchas the build won't flag: a `---` divider directly under `</details>` renders as literal dashes — put a blank line between them; and `---## Heading` (heading glued to the frontmatter fence) happens to render but breaks `grep "^## "`, so keep the fence on its own line. Both patterns still exist in older pages
+- `src/content/docs/llms.txt` and `llms-full.txt` are stale leftovers — the served `/llms.txt` is generated at build by `src/integrations/llms-txt.mjs` from questions and use-cases. Don't edit the `src/` copies
 
 ## Feature Development Workflow
 
 For non-trivial changes (new pages, structural reorganization, script additions, multi-file updates), follow this workflow. Skip to step 3 for small edits.
 
-### 0. Discover — `/agentic-coding:writing-vision-briefs`
+### 0. Discover — `/handsonai:writing-vision-briefs`
 
-For fuzzy or early-stage ideas, use the `/agentic-coding:writing-vision-briefs` slash command to create a Vision Brief before writing a PRD. It:
+For fuzzy or early-stage ideas, use the `/handsonai:writing-vision-briefs` slash command to create a Vision Brief before writing a PRD. It:
 - Walks you through the problem, users, vision, capabilities, and success criteria in plain language
 - Assesses the scope — is this one feature or multiple?
 - Breaks bigger visions into **epics** (major themes) and **features** (individual buildable pieces)
@@ -124,9 +126,9 @@ Record architectural decisions about scope or direction (see [Architecture Decis
 
 **Skip this step if** you already know exactly what single feature you want to build. Go straight to Step 1.
 
-### 1. Define — `/agentic-coding:writing-feature-prds`
+### 1. Define — `/handsonai:writing-feature-prds`
 
-Use the `/agentic-coding:writing-feature-prds` slash command to create a PRD for **one feature**. It will:
+Use the `/handsonai:writing-feature-prds` slash command to create a PRD for **one feature**. It will:
 - Check if you're coming from a Vision Brief — if so, scope the PRD to your chosen feature
 - If starting fresh, gather requirements (and redirect to Step 0 if the idea is too big for one feature)
 - Create a PRD at `specs/<feature-name>-prd.md` using the template
@@ -183,10 +185,10 @@ Use the `/feature-dev` slash command, referencing the spec and issue:
 Before claiming work is complete, use the `verification-before-completion` superpowers skill. It enforces evidence-based completion — must show actual passing output from:
 
 ```
-npm run build
+npm run build && node scripts/check-links.js
 ```
 
-This catches broken links, missing sidebar entries, config errors, and template issues. Use `npm run dev` for visual spot-checking.
+The build catches config errors, template issues, and missing pages; `check-links.js` runs against `dist/` and catches broken `#fragment` anchors (a reworded heading) and docs missing from the sidebar — the same check CI's `link-check` job runs. Use `npm run dev` for visual spot-checking.
 
 No "should work" or "seems correct" — only verified passing output.
 
@@ -219,6 +221,8 @@ No "should work" or "seems correct" — only verified passing output.
 Use the `/commit-push-pr` slash command to commit, push, and open a PR in one step. The PR should reference the issue number so it auto-closes on merge. CI deploys automatically on merge to `main`.
 
 For structured merge decisions (merge locally vs PR vs keep branch), use the `finishing-a-development-branch` superpowers skill.
+
+CI's `claude-review` job reviews every push to a PR and leaves findings as inline comments — read them with `gh api repos/jamesgray-ai/handsonai/pulls/<n>/comments` (and `issues/<n>/comments` for the summary) before merging.
 
 After shipping, use `/revise-claude-md` to capture any session learnings.
 
@@ -275,8 +279,8 @@ What changes as a result — both positive and negative.
 
 | Command | Description |
 |---------|-------------|
-| `/agentic-coding:writing-vision-briefs` | Capture a fuzzy idea as a structured Vision Brief |
-| `/agentic-coding:writing-feature-prds` | Create a feature PRD, stress-test it, and open a GitHub issue |
+| `/handsonai:writing-vision-briefs` | Capture a fuzzy idea as a structured Vision Brief |
+| `/handsonai:writing-feature-prds` | Create a feature PRD, stress-test it, and open a GitHub issue |
 | `/feature-dev` | Guided feature development with codebase understanding |
 | `/commit` | Create a git commit |
 | `/commit-push-pr` | Commit, push, and open a PR |
@@ -327,8 +331,8 @@ See [Step 2 (Plan)](#2-plan-plan-mode) for codebase analysis agents and [Step 5 
 
 | Step | Action | Tools |
 |------|--------|-------|
-| 0. Discover | Capture idea as Vision Brief, break into epics + features | `/agentic-coding:writing-vision-briefs` (skip if single feature is clear) |
-| 1. Define | Create PRD + issue for one feature | `/agentic-coding:writing-feature-prds` (use `brainstorming` for early ideas) |
+| 0. Discover | Capture idea as Vision Brief, break into epics + features | `/handsonai:writing-vision-briefs` (skip if single feature is clear) |
+| 1. Define | Create PRD + issue for one feature | `/handsonai:writing-feature-prds` (use `brainstorming` for early ideas) |
 | 2. Plan | Enter plan mode, explore codebase, create plan | plan mode + `code-explorer` + `code-architect` agents, `writing-plans` skill |
 | 3. Implement | Build with TDD | `/feature-dev` + `test-driven-development` + `security-guidance` hook |
 | 4. Verify | Prove it works | `verification-before-completion` |
@@ -409,11 +413,14 @@ Part 8 for the full rationale:
    push a sample node (Pages updates) and a deliberately broken node (Action
    fails with a legible message). ~5 minutes.
 5. **Platform checklist re-verification** — re-verify every row in
-   `specs/okf-registry-platform-verification.md`. Signed-row rule: no
-   platform may appear as an unqualified path in the setup page until its row
-   is signed with date/verifier/platform version. **Blocking:** sign the
-   local-platform rows before the release ships; the setup page's unqualified
-   paths depend on it — do not announce the release with unsigned rows.
+   `specs/okf-registry-platform-verification.md` and sign it with
+   date/verifier/platform version. This is an internal release gate, not a
+   docs gate: the setup page (`builder-setup/ai-registry-setup.md`) is
+   written platform-neutrally and carries no per-platform "unverified"
+   caveats (decided 2026-09-19 — the registry is not a Claude Code feature
+   and students must be able to self-serve on every platform). Unsigned rows
+   are work for the instructor before a course run, never a reason to point
+   students back to the instructor.
 6. **Framework-skill ZIP bundling** — `build-skill-zips.sh` (in
    `handsonai-plugins`) must bundle
    `indexing-registry/references/registry-bundle.md` into every
@@ -526,7 +533,9 @@ Commands: `top-queries`, `tool-usage`, `daily-volume`, `top-pages`, `errors`, `z
 
 ### Deployment
 
-After changes to `mcp-server/src/`: run `wrangler deploy` from `mcp-server/`. The D1 database ID is in `wrangler.toml` (not a secret).
+Merging to `main` deploys the MCP server automatically — `deploy.yml` rebuilds `content-index.json` (gitignored; `npm run build:index` regenerates it locally) and runs `wrangler deploy`. Run `wrangler deploy` from `mcp-server/` by hand only to ship a hotfix outside that flow. The D1 database ID is in `wrangler.toml` (not a secret).
+
+`SETUP_TOOLS` in `mcp-server/src/tools.ts` maps `get_setup_guide` keys to `builder-setup/` page paths and generates the tool's enum and description — update it whenever a builder-setup page is added, renamed, or removed, or the tool silently returns "not found".
 
 ### Analytics Dashboard
 

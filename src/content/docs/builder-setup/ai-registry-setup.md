@@ -4,14 +4,16 @@ description: Set up your AI Registry — a Markdown knowledge bundle that tracks
 schema_type: HowTo
 howto_steps:
   - name: Choose your registry's home
-    text: Pick a template repo, an existing workspace, or a no-repo cloud path as the home for your AI Registry bundle.
+    text: Pick the path for your AI tool — the template repo or an existing workspace if your tool edits files directly, or the browser-only path if it hands you files to save on github.com.
   - name: Run the interview
     text: Answer the interview (about 30 minutes) — your AI assistant writes your Business, Line of Business, Function, Process, and first Workflow nodes as you go.
   - name: Review your first Workflow node
     text: Open the Workflow node your assistant wrote in registry/workflows/ and confirm it matches your real work.
   - name: Keep it fresh
     text: Ask your AI assistant to "update my registry" any time it looks stale, or let the framework refresh it automatically after each step.
----Your **AI Registry** is your inventory of everything you build and run with AI: your business, its lines of business, the processes and workflows inside them, and the skills, agents, and apps those workflows use. It lives entirely in your workspace as Markdown files — no database, no external account, nothing extra to maintain.
+---
+
+Your **AI Registry** is your inventory of everything you build and run with AI: your business, its lines of business, the processes and workflows inside them, and the skills, agents, and apps those workflows use. It lives entirely in your workspace as Markdown files — no database, no external account, nothing extra to maintain.
 
 New to Markdown? It's plain text with a few formatting marks — see [Markdown Basics](../markdown-basics/) for a ten-minute primer.
 
@@ -39,54 +41,90 @@ Your registry follows an open, public specification called the **Open Knowledge 
 
 **The one thing to remember:** your AI assistant maintains your registry. You describe your business and your work in plain language; your assistant writes the nodes and regenerates the dashboards. You never edit a dashboard by hand, and you rarely need to hand-edit a node either.
 
-## Prerequisites
+## Before You Start
 
-- A folder for your AI work — ideally a GitHub repository (see the [GitHub Account](../github-setup/), [Git](../git-install/), and [GitHub CLI](../github-cli-setup/) setup guides), but any folder works
-- Claude with the [Hands-on AI plugin](../../use-the-playbook/build/) installed (Claude Code or Cowork), or the individual framework skills added to your AI assistant another way — see [Platform Guide](#platform-guide) below
+Two things, in this order:
+
+1. **The Hands-on AI skills are in your AI tool.** Your registry is set up by a skill called `scaffolding-registry` and kept tidy by one called `indexing-registry`. If you installed the Hands-on AI **plugin** (Claude or ChatGPT), you already have both. If you added skills one at a time by uploading ZIP files (Gemini, Microsoft 365 Copilot, or a plan that blocks plugins), upload these two the same way you uploaded the others:
+   - [scaffolding-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/scaffolding-registry.zip) — sets up your registry
+   - [indexing-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/indexing-registry.zip) — keeps it tidy
+
+   Haven't set up the skills yet? Follow [Set Up the Skills](../../ai-workflow-framework/skills/) for your tool — it has click-by-click steps for every platform — then come back here.
+2. **A place for your registry to live.** Ideally a GitHub repository (a [GitHub account](../github-setup/) is all you need for the browser-only path below), but any folder on your computer works if your AI tool can edit files there.
+
+## Which Path Is Yours?
+
+The interview your assistant runs, the files it produces, and the dashboards it generates are identical on every AI tool. The **only** thing that differs is whether your AI tool can save files for you, or hands you the files to save yourself:
+
+| If you use… | Your AI tool can… | Follow |
+|---|---|---|
+| **Claude Code**, **Cowork** (the Cowork tab in the Claude app), **ChatGPT desktop** (the Codex tab), **Cursor**, **Codex CLI**, or **Gemini CLI** | Edit files in a folder on your computer directly | [Path A](#path-a-start-from-the-template-repo) (fresh start) or [Path B](#path-b-add-a-registry-to-an-existing-workspace) (existing workspace) |
+| **claude.ai**, **ChatGPT on the web**, **Google Gemini**, or **Microsoft 365 Copilot** | Generate each file in the chat for you to save | [Path C](#path-c-browser-only--save-the-files-on-githubcom) (browser only) |
+
+Not sure which row you're in? Ask your AI tool: *"Can you create and edit files in a folder on my computer?"* Yes → Path A or B. No → Path C.
 
 ## Choose Your Home
 
-Pick **one** of these three paths. Each is complete on its own — follow the one that matches your situation and skip the other two.
+Pick **one** path. Each is complete on its own — follow the one that matches your situation and skip the other two.
 
 ### Path A: Start From the Template Repo
 
-Use this if you're starting fresh and don't have a workspace yet. This is the easiest path — it arrives with your registry's structure already in place.
+Use this if your AI tool edits files directly and you don't have a workspace yet. This is the easiest path — the repository arrives with your registry's structure already in place.
 
 1. Open the AI Registry template repository: [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) (or ask your AI assistant: *"Where's the AI Registry template repo?"* — it knows this URL too).
 2. Click the green **Use this template** button near the top of the page, then **Create a new repository**.
 3. Give the new repository a name — for example, `my-ai-registry` — and click **Create repository**.
-4. Clone your new repository to your computer (see the [Repository Creation and Cloning guide](../repo-creation-and-cloning/) if you haven't cloned a repo before), or open it directly in Cowork.
-5. Open the cloned folder in your AI assistant (Claude Code: `cd` into the folder and run `claude`; Cowork: open the folder as a project).
+4. Clone your new repository to your computer — see the [Repository Creation and Cloning guide](../repo-creation-and-cloning/) if you haven't cloned a repo before.
+5. Open the cloned folder in your AI tool:
+   - **Claude Code:** in a terminal, `cd` into the folder and run `claude`
+   - **Cowork:** open the folder as a project
+   - **ChatGPT desktop:** open the folder in the **Codex** tab
+   - **Cursor / Codex CLI / Gemini CLI:** open the folder as your project
 6. Tell your assistant: *"Set up my AI registry."* This starts the interview in [The Interview](#the-interview) below.
 
 **You should now see** a `registry/` folder already containing `SCHEMA.md`, `index.md`, and empty typed folders (`businesses/`, `workflows/`, and so on) — ready for the interview to fill in.
 
 ### Path B: Add a Registry to an Existing Workspace
 
-Use this if you already have a workspace or repository with skills, agents, or workflow outputs in it, and want to add a registry on top.
+Use this if your AI tool edits files directly and you already have a workspace or repository with skills, agents, or workflow outputs in it, and want to add a registry on top.
 
-1. Open your existing workspace folder in your AI assistant (Claude Code or Cowork).
+1. Open your existing workspace folder in your AI tool (see step 5 of Path A for how, per tool).
 2. Tell your assistant: *"Set up my AI registry."*
 3. Your assistant checks your workspace for anything to migrate — an older workflow manifest file or workflow folders without one. If it finds something, it offers to migrate it as part of the interview (see [Migrating from the Old Workflow Manifest File](#migrating-from-the-old-workflow-manifest-file) below). If it finds nothing to migrate, it starts the interview directly.
 4. Work through the interview in [The Interview](#the-interview) below.
 
 **You should now see** a new `registry/` folder appear at the root of your existing workspace, alongside your current `outputs/`, `sops/`, and `.claude/` folders — nothing already there is moved or deleted.
 
-### Path C: No Repository — Generate and Commit From the Cloud
+### Path C: Browser Only — Save the Files on github.com
 
-Use this if you're working in claude.ai, ChatGPT web, or M365 Copilot without a local clone of your workspace — these tools can't write directly to your files, so your assistant generates the registry content in the conversation and you save it yourself.
+Use this if you work in claude.ai, ChatGPT on the web, Google Gemini, or Microsoft 365 Copilot. These tools can't save files to your computer, so your assistant runs the same interview and prints each file for you to save on github.com — no terminal, nothing to install, and no cloning. GitHub then builds your dashboard for you automatically.
 
-1. Start a conversation with your AI assistant and say: *"Set up my AI registry — I don't have a local workspace, generate the files for me."*
-2. Your assistant runs the same interview as the other two paths (see [The Interview](#the-interview)), but instead of writing files directly, it prints each file's full contents in the chat and tells you exactly where it belongs — for example, "save this as `registry/businesses/your-business.md`."
-3. For each file your assistant gives you, create it in your GitHub repository: open the repository on github.com, click **Add file → Create new file**, paste in the exact path your assistant gave you (e.g. `registry/businesses/your-business.md`) as the filename, paste the content, and commit.
-4. Repeat for every file your assistant generated — it will tell you when the set is complete.
-5. Once every file is committed, tell your assistant: *"I've committed all the files — regenerate my dashboard."* It reads what you just committed (via your GitHub connector, if one is set up) and produces the index.
+**One-time setup (about 3 minutes, all in your browser):**
 
-**You should now see** every file your assistant listed present in your GitHub repository at the paths it specified, and a confirmation from your assistant that your dashboard reflects them. Because your assistant cannot verify a commit it didn't make itself, always double check that the file paths match exactly what it told you.
+1. Open the AI Registry template repository: [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template).
+2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Public**, and click **Create repository**.
+3. In your new repository, click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**. That's it — this tells GitHub to build your dashboard every time you save a registry file.
+
+:::note[Public repository, public dashboard]
+On a free GitHub account, the automatic dashboard (GitHub Pages) only works on a **public** repository, and the dashboard address is visible to anyone who has it. Your registry describes your business in general terms — names of processes and workflows, not client data — but if you'd rather keep it private, choose **Private** in step 2 and skip step 3. You still get your registry; just ask your assistant to print `REGISTRY.md` for you to save whenever you want the dashboard refreshed.
+:::
+
+**The interview:**
+
+4. Start a conversation with your AI assistant and say: *"Set up my AI registry. I'm working in the browser and can't save files, so print the full contents of each file and tell me exactly where it goes."*
+5. Your assistant runs the interview in [The Interview](#the-interview) below. Instead of saving files, it prints each file's complete contents and its exact path — for example, *"save this as `registry/businesses/your-business.md`."*
+6. For each file, save it on github.com: open your repository, click **Add file → Create new file**, type the exact path your assistant gave you as the filename (typing `registry/businesses/your-business.md` creates the folders for you), paste the contents into the editor, and click **Commit changes** (twice — once to open the dialog, once to confirm).
+7. Repeat for every file your assistant generates — it tells you when the set is complete.
+
+**You should now see** every file your assistant listed present in your repository at the path it specified. Within a couple of minutes, the **Actions** tab shows a green ✓, and your dashboards are live at `https://<your-username>.github.io/<your-repo-name>/` — the visual dashboard at that address, and `REGISTRY.md` at `.../REGISTRY.md`. A red ✗ instead means one file broke a rule (usually a path typo or a mistyped field) — click the run, read the first red line, fix that file, and commit again.
+
+:::tip[Your assistant can't see what you saved]
+Because your assistant didn't save the files itself, it can't check them. Compare each path against what it told you before you commit. If your AI tool offers a GitHub connector, connecting it to this repository lets your assistant read your registry back when you update it later.
+:::
 
 ## The Interview
 
-However you got here, your assistant now runs the same **interview — seven phases (0–6)** — about 30 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
+Whichever path you took, your assistant now runs the same **interview — seven phases, numbered 0–6** — about 30 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
 
 | Phase | What it asks | Time |
 |---|---|---|
@@ -100,7 +138,7 @@ However you got here, your assistant now runs the same **interview — seven pha
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 
-**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, one Process node, and one Workflow node — plus a fresh `REGISTRY.md` at your workspace root summarizing all of it.
+**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, one Process node, and one Workflow node — plus a fresh `REGISTRY.md` summarizing all of it (at your workspace root on Paths A and B; at your GitHub Pages address on Path C, a couple of minutes after your last commit).
 
 ## A Workflow Node
 
@@ -174,104 +212,38 @@ You only need to ask for a refresh yourself when you've added a skill, agent, or
 
 Your assistant re-reads every node in `registry/`, checks it against `registry/SCHEMA.md`, fixes what it can, tells you plainly about anything it can't (for example, a broken link to a file that no longer exists), and regenerates your dashboards from scratch. Because dashboards are always regenerated rather than edited, it's completely safe to ask for a refresh at any time — you never lose anything by doing it.
 
+**On Path C** (browser only), GitHub does the refresh for you: every time you save a file in `registry/`, it re-checks every node and republishes your dashboards within a couple of minutes — nothing to ask for. Your assistant can only re-read your nodes if your AI tool has a GitHub connector pointed at your repository; without one, paste in the file it asks about.
+
 ## Your Dashboard
 
 "Dashboard" always means a **generated view** — never a place you type into directly. Your registry produces up to three, in increasing order of setup:
 
-**Tier 1 — `REGISTRY.md`.** Plain Markdown, and the one every workspace gets automatically. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, so you can see what needs a look. A "Skills" and "Agents" section lists everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). This file lives at your workspace root and updates every time your assistant runs a maintenance pass.
+**Tier 1 — `REGISTRY.md`.** Plain Markdown, and the one every workspace gets automatically. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, so you can see what needs a look. A "Skills" and "Agents" section lists everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). This file lives at your workspace root and updates every time your assistant runs a maintenance pass. (On [Path C](#path-c-browser-only--save-the-files-on-githubcom), GitHub generates it for you and publishes it at `https://<your-username>.github.io/<your-repo-name>/REGISTRY.md`.)
 
 **Tier 2 — `registry-dashboard.html`.** An optional, richer visual view of the same data — clickable, with your business's full value chain (business → line of business → process → workflow) laid out visually, and a click-through to any node's detail. It's a single self-contained file: no server, no external requests, opens straight in a browser from your own computer. Ask your assistant: *"Generate my visual dashboard"* to produce it. On Claude Code or Cowork, your assistant can also publish it as a shareable Artifact.
 
-**Tier 3 — Published to GitHub Pages.** If you started from the template repo (Path A above), it ships with an automated check-and-publish step that runs every time you push a change to your `registry/` folder — it regenerates both Tier 1 and Tier 2 and publishes the Tier 2 view to a public URL, with no need to run anything yourself. It's dormant until you turn on GitHub Pages for your repository (your template repo's README covers the one-time toggle). This tier only exists for the template-repo path — registries added to an existing workspace (Path B) stay at Tier 1 and 2 unless you set this up separately.
+**Tier 3 — Published to GitHub Pages.** If you started from the template repo (Path A or C above), it ships with an automated check-and-publish step that runs every time you push a change to your `registry/` folder — it regenerates both Tier 1 and Tier 2 and publishes the Tier 2 view to a public URL, with no need to run anything yourself. It's dormant until you turn on GitHub Pages for your repository — one time, in your browser: **Settings → Pages → Build and deployment → Source → GitHub Actions**. This tier only exists for the template-repo paths (A and C) — registries added to an existing workspace (Path B) stay at Tier 1 and 2 unless you set this up separately.
 
-## Platform Guide
+## Platform Notes
 
-*Platform instructions are re-verified at every release — see the project's platform verification checklist.*
+The interview, the node shapes, and the dashboards are the same on every AI tool. What differs is only where the skill comes from and how files get written — the table is a summary; the paths above are the instructions.
 
-The interview, the node shapes, and the dashboards are identical everywhere — what differs by platform is how the skill that runs your interview gets installed, and how it writes bytes to your files.
-
-| Platform | Skill delivery | Where your registry lives | How writes happen |
+| Platform | Skills come from | Where your registry lives | How files get written |
 |---|---|---|---|
-| Claude Code | Hands-on AI plugin | local clone on your computer | direct edits; you commit and push |
-| Cowork | Hands-on AI plugin (Customize → Plugins; the same install covers Claude Chat) | your repo folder opened as a project | direct edits |
-| ChatGPT desktop (Codex) | Hands-on AI plugin (Plugins → Add marketplace on any paid plan), or the skill files installed once for your user account | local clone on your computer | direct edits; you commit and push |
-| claude.ai | Hands-on AI plugin (paid plans), or an uploaded skill ZIP | your GitHub repo, connected or generate-and-commit | generate-and-commit — see below |
-| ChatGPT web (paid plans) | Hands-on AI plugin, or an uploaded skill ZIP | your GitHub repo via connector | generate-and-commit — see below |
-| M365 Copilot | packaged agent instructions | SharePoint or your GitHub repo | generate-and-commit — see below |
+| Claude Code | Hands-on AI plugin | a folder on your computer (a cloned repo) | directly — ask your assistant to commit and push when you want it backed up to GitHub |
+| Cowork | Hands-on AI plugin (same install as Claude Chat) | a folder on your computer, opened as a project | directly |
+| ChatGPT desktop (Codex tab) | Hands-on AI plugin, or skill folders in `~/.agents/skills/` | a folder on your computer (a cloned repo) | directly — ask your assistant to commit and push when you want it backed up to GitHub |
+| Cursor, Codex CLI, Gemini CLI | skill folders in `.agents/skills/` | a folder on your computer | directly — ask your assistant to commit and push when you want it backed up to GitHub |
+| claude.ai · ChatGPT web · Google Gemini · M365 Copilot | Hands-on AI plugin (Claude, ChatGPT) or uploaded skill ZIPs | your GitHub repository | you save each file on github.com — [Path C](#path-c-browser-only--save-the-files-on-githubcom) |
 
-Each platform section below is complete on its own — you only need to read the one for the platform you're using.
+A few tool-specific details:
 
-### Claude Code
+- **Claude Code:** `/plugin list` shows `handsonai` once the plugin is installed, and `/handsonai:scaffolding-registry` starts the interview directly if you'd rather use the slash command.
+- **Cowork:** open your repository folder as a Cowork project *before* saying "set up my AI registry" — the skill can only write inside the project you have open. Your visual dashboard can also be published as a shareable Claude Artifact.
+- **ChatGPT desktop:** the plugin's skills work in the Codex tab. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Set Up the Skills — Codex](../../ai-workflow-framework/skills/#openai-codex).
+- **Browser tools (claude.ai, ChatGPT web, Gemini, Copilot):** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
 
-1. Install the Hands-on AI plugin: `/plugin marketplace add jamesgray-ai/handsonai-plugins`, then `/plugin install handsonai@handsonai`. See the [plugin marketplace page](../../use-the-playbook/build/) if you haven't installed a plugin before.
-2. Open a terminal, `cd` into your workspace folder, and run `claude` to start a session.
-3. Follow [Choose Your Home](#choose-your-home) above — Path A or Path B both work directly from Claude Code.
-
-**You should now see** the `handsonai` plugin listed when you run `/plugin`, and your assistant able to run `/handsonai:scaffolding-registry` or respond to "set up my AI registry."
-
-### Cowork
-
-:::note[Not yet verified — ask your instructor]
-The registry setup flow hasn't been verified end-to-end on Cowork for this playbook yet. Ask your instructor before relying on this path for a live session. If you're working through this self-paced, the [Claude Code](#claude-code) path is the verified one.
-:::
-
-1. Install the Hands-on AI plugin: **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → **Install**. See [Set Up the Skills — Claude](../../ai-workflow-framework/skills/#claude-chat--cowork) for the click-by-click steps.
-2. Open your workspace folder as a Cowork project.
-3. Follow [Choose Your Home](#choose-your-home) above — Path A or Path B both work directly from Cowork.
-
-**You should now see** the Hands-on AI plugin's skills available in your Cowork project, and your assistant able to respond to "set up my AI registry" inside that project.
-
-### ChatGPT Desktop (Codex)
-
-:::note[Not yet verified — ask your instructor]
-The registry setup flow hasn't been verified end-to-end in ChatGPT desktop's Codex mode for this playbook yet. Ask your instructor before relying on this path for a live session. If you're working through this self-paced, the [Claude Code](#claude-code) path is the verified one.
-:::
-
-1. On any paid ChatGPT plan, install the Hands-on AI plugin: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install**. It covers the Codex tab too. See [Set Up the Skills — ChatGPT](../../ai-workflow-framework/skills/#chatgpt--codex).
-2. On other plans, download the skill ZIPs from the [skill downloads table](../../ai-workflow-framework/skills/#download-the-skill-zips), unzip them, and place the skill folders in `~/.agents/skills/` on your computer so they're available across every repo. (You can instead check a copy into a single repo's `.agents/skills/` folder if you have a specific reason to pin that repo to its own copy — most students don't need this.)
-3. Open your workspace folder in ChatGPT desktop's Codex mode.
-4. Follow [Choose Your Home](#choose-your-home) above — Path A or Path B both work, since Codex edits your local files directly.
-
-**You should now see** Codex able to read the skill instructions and respond to "set up my AI registry" by writing files into your local workspace folder.
-
-### claude.ai
-
-:::note[Not yet verified — ask your instructor]
-The exact steps for connecting claude.ai to your GitHub repository (via its GitHub connector) haven't been verified against the current claude.ai interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session. If you're working through this self-paced and don't need to stay in claude.ai specifically, consider the Claude Code path instead — see [Claude Code](#claude-code) above.
-:::
-
-1. Install the Hands-on AI plugin (paid plans: **Customize → Plugins → + → Add marketplace** → `jamesgray-ai/handsonai-plugins`), or upload `scaffolding-registry.zip` from the [skill downloads table](../../ai-workflow-framework/skills/#download-the-skill-zips) under **Customize → Skills → + → Create skill → Upload a skill**.
-2. If you have a GitHub repository connector configured, connect it to the repository you want as your registry's home; if not, plan to use Path C ([No Repository](#path-c-no-repository--generate-and-commit-from-the-cloud)) instead.
-3. Start a conversation and say: *"Set up my AI registry."*
-4. Follow [Path C](#path-c-no-repository--generate-and-commit-from-the-cloud) above if claude.ai cannot write to your repository directly — it will generate each file for you to commit by hand.
-
-**You should now see** either files committed directly to your connected repository, or a complete set of file contents in the conversation with the exact path for each — never a vague "I've created your registry" without specifics.
-
-### ChatGPT Web (paid plans)
-
-:::note[Not yet verified — ask your instructor]
-The exact steps for uploading a Personal Skill and connecting a GitHub repository in ChatGPT web haven't been verified against the current interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session.
-:::
-
-1. Install the Hands-on AI plugin (**Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins`), or upload `scaffolding-registry.zip` from the [skill downloads table](../../ai-workflow-framework/skills/#download-the-skill-zips) under **Plugins → Skills → Create → Upload from your computer**.
-2. If your workspace has a GitHub connector configured, connect it to the repository you want as your registry's home; if not, plan to use Path C ([No Repository](#path-c-no-repository--generate-and-commit-from-the-cloud)) instead.
-3. Start a conversation and say: *"Set up my AI registry."*
-4. Follow [Path C](#path-c-no-repository--generate-and-commit-from-the-cloud) above if ChatGPT cannot write to your repository directly.
-
-**You should now see** either files committed directly to your connected repository, or a complete set of file contents in the conversation with the exact path for each.
-
-### M365 Copilot
-
-:::note[Not yet verified — ask your instructor]
-The exact steps for packaging the Hands-on AI skill as Copilot agent instructions, and connecting SharePoint or GitHub, haven't been verified against the current Copilot interface for this playbook. Ask your instructor for the current click-by-click steps before relying on this path for a live session.
-:::
-
-1. Ask your instructor for the packaged Copilot agent instructions covering the Hands-on AI registry skills.
-2. Configure Copilot's SharePoint or GitHub connector to point at wherever your registry will live.
-3. Start a conversation and say: *"Set up my AI registry."*
-4. Follow [Path C](#path-c-no-repository--generate-and-commit-from-the-cloud) above if Copilot cannot write to your files directly — save each generated file at the path it specifies.
-
-**You should now see** either files saved directly at the connected location, or a complete set of file contents in the conversation with the exact path for each.
+If a button or label on your screen doesn't match these steps, paste the step you're on into your AI assistant and ask it to walk you through it on your version. Still stuck? Bring it to a session.
 
 ## Migrating From the Old Workflow Manifest File
 
@@ -309,8 +281,8 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 **My GitHub Pages dashboard (Tier 3) isn't publishing:**
 
-- This tier only applies if you started from the template repo (Path A) — registries added to an existing workspace don't have it unless you set it up separately.
-- Confirm GitHub Pages is turned on for your repository (Settings → Pages in your repo on github.com) — it's off by default until you enable it.
+- This tier only applies if you started from the template repo (Path A or C) — registries added to an existing workspace don't have it unless you set it up separately.
+- Confirm GitHub Pages is turned on for your repository (**Settings → Pages → Source → GitHub Actions** in your repo on github.com) — it's off by default until you enable it.
 - Check the **Actions** tab in your repository for a failed run — Actions is the tab on your repository's GitHub page that lists every automated run; a red ✗ next to a run means it failed. Click that run and read the first red line for the reason. A broken node (one with a lint error) blocks publishing on purpose, the same way it blocks a local dashboard refresh. The failure message names the file and the rule it broke.
 
 ## Next Steps
