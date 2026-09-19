@@ -11,35 +11,34 @@ Before diving in, skim [Why These Tools Matter](/builder-setup/#why-these-tools-
 
 ## At a Glance
 
-### Part 1: What You Need for the Course (~60 min)
+### Part 1: What You Need for the Course (~55 min)
 
-Your AI platform plus two add-ons that run entirely inside it. This is the baseline every student needs to get real value from the course.
+Your AI platform plus one add-on that runs entirely inside it. This is the baseline every student needs to get real value from the course.
 
 | Step | What | Time | Status |
 |------|------|------|--------|
 | 1 | [AI Platform Setup](#step-1-ai-platform-setup) | ~45 min | Required |
 | 2 | [Hands-on AI Skills](#step-2-hands-on-ai-skills) | ~10 min | Required |
-| 3 | [Hands-on AI Knowledge Base](#step-3-hands-on-ai-knowledge-base) | ~5 min | Optional |
 
 ### Part 2: For Power Users (~70 min)
 
-More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Optional, and you can come back and add more later. Steps 5–8 are one sequence: do them in order.
+More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Optional, and you can come back and add more later. Steps 4–7 are one sequence: do them in order.
 
 | Step | What | Time | Status |
 |------|------|------|--------|
-| 4 | [Code Editor + Extensions](#step-4-code-editor--extensions) | ~15 min | Optional |
-| 5 | [GitHub Account](#step-5-github-account) | ~10 min | Optional |
-| 6 | [Git](#step-6-git) | ~10 min (Mac: up to 30 while Apple's tools download) | Optional |
-| 7 | [GitHub CLI](#step-7-github-cli) | ~10 min | Optional |
-| 8 | [Create & Clone Your First Repository](#step-8-create--clone-your-first-repository) | ~5 min | Optional |
-| 9 | [Voice to Text](#step-9-voice-to-text) | ~10 min | Optional |
-| 10 | [AI Registry](#step-10-ai-registry) | ~10 min | Optional |
+| 3 | [Code Editor + Extensions](#step-3-code-editor--extensions) | ~15 min | Optional |
+| 4 | [GitHub Account](#step-4-github-account) | ~10 min | Optional |
+| 5 | [Git](#step-5-git) | ~10 min (Mac: up to 30 while Apple's tools download) | Optional |
+| 6 | [GitHub CLI](#step-6-github-cli) | ~10 min | Optional |
+| 7 | [Create & Clone Your First Repository](#step-7-create--clone-your-first-repository) | ~5 min | Optional |
+| 8 | [Voice to Text](#step-8-voice-to-text) | ~10 min | Optional |
+| 9 | [AI Registry](#step-9-ai-registry) | ~10 min | Optional |
 
 ---
 
 ## Part 1 — What You Need for the Course
 
-Your AI platform plus two add-ons that live inside it. Most students only need Part 1 to start getting real value from the course.
+Your AI platform plus one add-on that lives inside it. Most students only need Part 1 to start getting real value from the course.
 
 ### Step 1: AI Platform Setup
 
@@ -95,25 +94,6 @@ Still stuck? Bring your question to Session 1.
 
 ---
 
-### Step 3: Hands-on AI Knowledge Base
-
-**What:** Connect the Hands-on AI Knowledge Base to your AI tool so you can search course content, building blocks, and reference material right where you work. Your AI tool may call this an "MCP server" or "MCP connector" — that's the underlying technology.
-
-**Action:** [Follow the Knowledge Base connection guide →](/mcp-server/)
-
-**Done when:**
-
-- The Hands-on AI Knowledge Base is connected to your AI platform
-
-<details>
-<summary>Stuck? Ask AI for help</summary>
-
-> I'm trying to connect the Hands-on AI MCP server to [Claude / ChatGPT / Cursor] and running into this issue: [describe what's happening]. What should I check?
-
-</details>
-
----
-
 ## Part 2 — For Power Users
 
 Optional tools that work in collaboration with your AI platform. Pick any combination — you don't need all of them, and you can come back and add more later as your workflows grow.
@@ -122,7 +102,7 @@ Optional tools that work in collaboration with your AI platform. Pick any combin
 Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
 :::
 
-### Step 4: Code Editor + Extensions
+### Step 3: Code Editor + Extensions
 
 **What:** Install and configure Cursor or VS Code with AI model integration (Claude, ChatGPT Codex, Gemini Code Assist, or similar). Unlocks the ability to store your building blocks as files on your computer and edit them with AI assistance.
 
@@ -142,9 +122,9 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ---
 
-### Step 5: GitHub Account
+### Step 4: GitHub Account
 
-**What:** Create your GitHub account and turn on two-factor authentication. Entirely in your browser — nothing to install. This is the first of three prerequisites (Steps 5–7) that together back your building blocks up to the cloud.
+**What:** Create your GitHub account and turn on two-factor authentication. Entirely in your browser — nothing to install. This is the first of three prerequisites (Steps 4–6) that together back your building blocks up to the cloud.
 
 **Action:** [Follow the GitHub Account setup guide →](/builder-setup/github-setup/)
 
@@ -163,7 +143,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ---
 
-### Step 6: Git
+### Step 5: Git
 
 **What:** Install Git and tell it your name and the email on your GitHub account. Keeps a full version history of your building blocks automatically.
 
@@ -184,7 +164,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ---
 
-### Step 7: GitHub CLI
+### Step 6: GitHub CLI
 
 **What:** Install the GitHub CLI (`gh`) and log in once, so Git and the AI tools on your computer can reach GitHub as you.
 
@@ -205,9 +185,9 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ---
 
-### Step 8: Create & Clone Your First Repository
+### Step 7: Create & Clone Your First Repository
 
-**What:** Create a private repository on GitHub and clone it to your computer. This is the end-to-end proof that Steps 5–7 work together — and it gives you the folder you'll build in.
+**What:** Create a private repository on GitHub and clone it to your computer. This is the end-to-end proof that Steps 4–6 work together — and it gives you the folder you'll build in.
 
 **Action:** [Follow the Repository Creation and Cloning guide →](/builder-setup/repo-creation-and-cloning/)
 
@@ -225,7 +205,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ---
 
-### Step 9: Voice to Text
+### Step 8: Voice to Text
 
 **What:** Configure system voice input or install a dedicated voice-to-text tool (Wispr Flow recommended). Lets you talk instead of type — faster for long prompts and more natural when you're thinking out loud.
 
@@ -244,7 +224,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ---
 
-### Step 10: AI Registry
+### Step 9: AI Registry
 
 **What:** Set up your Markdown-based AI Registry — a generated `REGISTRY.md` index that tracks every workflow, skill, agent, and connected app in your workspace. No external accounts needed; the AI Workflow Framework maintains it automatically. Essential once you're scaling beyond one-off experiments.
 
@@ -252,10 +232,10 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-- You have one AI workspace folder (ideally a GitHub repository) for your AI work
-- The Hands-on AI plugin is installed (`/plugin install handsonai@handsonai`)
+- You have one home for your AI work — a GitHub repository, or a folder on your computer that your AI tool can edit
+- The Hands-on AI skills from Step 2 are in your AI tool (if you added skills one at a time, that includes `scaffolding-registry`)
 - `registry/` exists with `SCHEMA.md` inside
-- `REGISTRY.md` appears at the root after your first maintenance pass
+- You can see your dashboard — `REGISTRY.md` at your workspace root, or at your GitHub Pages address if you took the browser-only path
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
