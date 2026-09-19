@@ -23,15 +23,17 @@ Your AI platform plus two add-ons that run entirely inside it. This is the basel
 
 ### Part 2: For Power Users (~70 min)
 
-More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Optional, and you can come back and add more later.
+More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Optional, and you can come back and add more later. Steps 5–8 are one sequence: do them in order.
 
 | Step | What | Time | Status |
 |------|------|------|--------|
 | 4 | [Code Editor + Extensions](#step-4-code-editor--extensions) | ~15 min | Optional |
-| 5 | [Git](#step-5-git) | ~10 min | Optional |
-| 6 | [GitHub](#step-6-github) | ~15 min | Optional |
-| 7 | [Voice to Text](#step-7-voice-to-text) | ~10 min | Optional |
-| 8 | [AI Registry](#step-8-ai-registry) | ~10 min | Optional |
+| 5 | [GitHub Account](#step-5-github-account) | ~10 min | Optional |
+| 6 | [Git](#step-6-git) | ~10 min (Mac: up to 30 while Apple's tools download) | Optional |
+| 7 | [GitHub CLI](#step-7-github-cli) | ~10 min | Optional |
+| 8 | [Create & Clone Your First Repository](#step-8-create--clone-your-first-repository) | ~5 min | Optional |
+| 9 | [Voice to Text](#step-9-voice-to-text) | ~10 min | Optional |
+| 10 | [AI Registry](#step-10-ai-registry) | ~10 min | Optional |
 
 ---
 
@@ -70,6 +72,7 @@ You need at least one AI platform set up before starting anything else. Pick whi
 Still stuck? Bring your question to Session 1.
 
 </details>
+
 ---
 
 ### Step 2: Hands-on AI Skills
@@ -89,6 +92,7 @@ Still stuck? Bring your question to Session 1.
 > I'm trying to add a skill to [your AI tool] on [Mac / Windows] and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
 ### Step 3: Hands-on AI Knowledge Base
@@ -107,6 +111,7 @@ Still stuck? Bring your question to Session 1.
 > I'm trying to connect the Hands-on AI MCP server to [Claude / ChatGPT / Cursor] and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
 ## Part 2 — For Power Users
@@ -114,7 +119,7 @@ Still stuck? Bring your question to Session 1.
 Optional tools that work in collaboration with your AI platform. Pick any combination — you don't need all of them, and you can come back and add more later as your workflows grow.
 
 :::note[New to the terminal?]
-Some steps below (Code Editor, Git, GitHub) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
+Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
 :::
 
 ### Step 4: Code Editor + Extensions
@@ -134,17 +139,41 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 > I'm setting up [Cursor / VS Code] on [Mac / Windows] and running into this issue: [describe what's happening]. What should I try next?
 
 </details>
+
 ---
 
-### Step 5: Git
+### Step 5: GitHub Account
 
-**What:** Install Git and configure your name and email so it can sign your commits. Keeps a full version history of your building blocks automatically.
+**What:** Create your GitHub account and turn on two-factor authentication. Entirely in your browser — nothing to install. This is the first of three prerequisites (Steps 5–7) that together back your building blocks up to the cloud.
+
+**Action:** [Follow the GitHub Account setup guide →](/builder-setup/github-setup/)
+
+**Done when:**
+
+| Prerequisite | Done when |
+|---|---|
+| **1. GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
+
+<details>
+<summary>Stuck? Ask AI for help</summary>
+
+> I'm creating a GitHub account and turning on two-factor authentication, and I'm getting this error: [paste error]. What should I try?
+
+</details>
+
+---
+
+### Step 6: Git
+
+**What:** Install Git and tell it your name and the email on your GitHub account. Keeps a full version history of your building blocks automatically.
 
 **Action:** [Follow the Git installation guide →](/builder-setup/git-install/)
 
 **Done when:**
 
-- Running `git --version` in your terminal shows a version number
+| Prerequisite | Done when |
+|---|---|
+| **2. Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -152,19 +181,39 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 > I'm trying to install Git on [Mac / Windows] and getting this error: [paste error]. What should I try next?
 
 </details>
+
 ---
 
-### Step 6: GitHub
+### Step 7: GitHub CLI
 
-**What:** Create an account, enable two-factor authentication (2FA), install the GitHub CLI, and create a repository for your coursework. Backs your building blocks up to the cloud and makes them accessible from any machine.
+**What:** Install the GitHub CLI (`gh`) and log in once, so Git and the AI tools on your computer can reach GitHub as you.
 
-**Action:** [Follow the GitHub setup guide →](/builder-setup/github-setup/) for your account, 2FA, and CLI authentication, then [create and clone your first repository →](/builder-setup/repo-creation-and-cloning/)
+**Action:** [Follow the GitHub CLI setup guide →](/builder-setup/github-cli-setup/)
 
 **Done when:**
 
-- You have a GitHub account
-- `gh auth status` shows you are logged in to `github.com`
-- You can clone a repository and see the files in your editor (or in the Claude Desktop Code tab)
+| Prerequisite | Done when |
+|---|---|
+| **3. GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
+
+<details>
+<summary>Stuck? Ask AI for help</summary>
+
+> I'm installing the GitHub CLI (`gh`) on [Mac / Windows] and logging in with `gh auth login`, and I'm getting this error: [paste error]. What should I try?
+
+</details>
+
+---
+
+### Step 8: Create & Clone Your First Repository
+
+**What:** Create a private repository on GitHub and clone it to your computer. This is the end-to-end proof that Steps 5–7 work together — and it gives you the folder you'll build in.
+
+**Action:** [Follow the Repository Creation and Cloning guide →](/builder-setup/repo-creation-and-cloning/)
+
+**Done when:**
+
+- You can see the cloned repository's files in your editor (or in the Claude Desktop Code tab)
 - In your terminal, you can navigate to the cloned folder (`cd my-repo-name`) and run `git status` — it shows `On branch main`
 
 <details>
@@ -173,9 +222,10 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 > I'm trying to clone a GitHub repository in [Cursor / VS Code] on [Mac / Windows] and getting this error: [paste error]. What should I try?
 
 </details>
+
 ---
 
-### Step 7: Voice to Text
+### Step 9: Voice to Text
 
 **What:** Configure system voice input or install a dedicated voice-to-text tool (Wispr Flow recommended). Lets you talk instead of type — faster for long prompts and more natural when you're thinking out loud.
 
@@ -191,9 +241,10 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 > I'm setting up [Wispr Flow / Claude Desktop Quick Entry] on [Mac / Windows] for voice-to-text and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
-### Step 8: AI Registry
+### Step 10: AI Registry
 
 **What:** Set up your Markdown-based AI Registry — a generated `REGISTRY.md` index that tracks every workflow, skill, agent, and connected app in your workspace. No external accounts needed; the AI Workflow Framework maintains it automatically. Essential once you're scaling beyond one-off experiments.
 
@@ -212,6 +263,7 @@ Some steps below (Code Editor, Git, GitHub) involve running commands in the term
 > I'm setting up my Markdown-based AI Registry (a `registry/` bundle in my workspace) and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
 ## What's Next?

@@ -7,7 +7,7 @@ description: What repository, commit, push, pull, branch, pull request, and merg
 
 Seven words do most of the work in Git and GitHub. Once you can narrate the path a change takes through them, the commands stop being incantations you copy and start being steps you understand.
 
-This is a reference, not a setup guide. Nothing here asks you to install or configure anything — see the [Git Installation Guide](../git-install/) and [GitHub Setup Guide](../github-setup/) for that.
+This is a reference, not a setup guide. Nothing here asks you to install or configure anything — see the [GitHub Account](../github-setup/), [Git Installation](../git-install/), and [GitHub CLI](../github-cli-setup/) guides for that.
 
 The same seven concepts hold whether a repository stores application code or the prompts, skills, agents, and markdown you build with AI.
 
@@ -79,8 +79,9 @@ The assistant runs the underlying Git commands. Understanding what it is doing i
 
 ## Next Steps
 
+- Create your GitHub account (see [GitHub Account Setup Guide](../github-setup/))
 - Install Git (see [Git Installation Guide](../git-install/))
-- Set up your GitHub account and credentials (see [GitHub Setup Guide](../github-setup/))
+- Install and log in to the GitHub CLI (see [GitHub CLI Setup Guide](../github-cli-setup/))
 - Create and clone a repository (see [Repository Creation and Cloning Guide](../repo-creation-and-cloning/))
 
 ## Resources

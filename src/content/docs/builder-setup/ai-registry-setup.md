@@ -41,7 +41,7 @@ Your registry follows an open, public specification called the **Open Knowledge 
 
 ## Prerequisites
 
-- A folder for your AI work — ideally a GitHub repository (see [Git](../git-install/) and [GitHub](../github-setup/) setup), but any folder works
+- A folder for your AI work — ideally a GitHub repository (see the [GitHub Account](../github-setup/), [Git](../git-install/), and [GitHub CLI](../github-cli-setup/) setup guides), but any folder works
 - Claude with the [Hands-on AI plugin](../../use-the-playbook/build/) installed (Claude Code or Cowork), or the individual framework skills added to your AI assistant another way — see [Platform Guide](#platform-guide) below
 
 ## Choose Your Home
@@ -55,7 +55,7 @@ Use this if you're starting fresh and don't have a workspace yet. This is the ea
 1. Open the AI Registry template repository: [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) (or ask your AI assistant: *"Where's the AI Registry template repo?"* — it knows this URL too).
 2. Click the green **Use this template** button near the top of the page, then **Create a new repository**.
 3. Give the new repository a name — for example, `my-ai-registry` — and click **Create repository**.
-4. Clone your new repository to your computer (see the [GitHub setup guide](../github-setup/) if you haven't cloned a repo before), or open it directly in Cowork.
+4. Clone your new repository to your computer (see the [Repository Creation and Cloning guide](../repo-creation-and-cloning/) if you haven't cloned a repo before), or open it directly in Cowork.
 5. Open the cloned folder in your AI assistant (Claude Code: `cd` into the folder and run `claude`; Cowork: open the folder as a project).
 6. Tell your assistant: *"Set up my AI registry."* This starts the interview in [The Interview](#the-interview) below.
 

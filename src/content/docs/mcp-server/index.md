@@ -161,7 +161,7 @@ Any MCP client that supports Streamable HTTP transport can connect:
 | `get_building_block` | Get a building block and all its sub-pages (prompts, agents, mcp, etc.) |
 | `get_framework_step` | Get a framework step and all its sub-pages (discover, deconstruct, build) |
 | `list_questions` | List all Q&A pages with question text and short answers |
-| `get_setup_guide` | Get a Builder Tools setup guide (terminal, editor, git, claude-code, etc.) |
+| `get_setup_guide` | Get a Builder Tools setup guide (terminal, editor, github-account, git, github-cli, repository, registry, etc.) |
 
 ## Verify It's Working
 

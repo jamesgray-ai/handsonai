@@ -41,12 +41,18 @@ const FRAMEWORK_STEPS = ["analyze", "deconstruct", "build"];
 
 const SETUP_TOOLS: Record<string, string> = {
   terminal: "builder-setup/terminal-basics",
+  markdown: "builder-setup/markdown-basics",
   editor: "builder-setup/editor-setup",
+  // Git/GitHub is three prerequisites, in this order (2026-09-19 restructure).
+  "github-account": "builder-setup/github-setup",
   git: "builder-setup/git-install",
-  github: "builder-setup/github-setup",
-  "claude-code": "builder-setup/claude-code-install",
-  registry: "builder-setup/notion-registry-setup",
+  "github-cli": "builder-setup/github-cli-setup",
+  github: "builder-setup/github-setup", // alias kept for clients that learned the old key
+  repository: "builder-setup/repo-creation-and-cloning",
+  "git-concepts": "builder-setup/git-concepts",
   "voice-to-text": "builder-setup/voice-to-text-setup",
+  "mcp-connectors": "builder-setup/mcp-connectors-setup",
+  registry: "builder-setup/ai-registry-setup",
 };
 
 /** All tool definitions exposed via tools/list. */
@@ -194,7 +200,7 @@ export const TOOL_DEFINITIONS: McpToolDefinition[] = [
   {
     name: "get_setup_guide",
     description:
-      "Get a specific Builder Stack Setup guide with step-by-step instructions. Tools: terminal, editor, git, github, claude-code, registry, voice-to-text.",
+      `Get a specific Builder Tools Setup guide with step-by-step instructions. Tools: ${Object.keys(SETUP_TOOLS).join(", ")}.`,
     inputSchema: {
       type: "object",
       properties: {
