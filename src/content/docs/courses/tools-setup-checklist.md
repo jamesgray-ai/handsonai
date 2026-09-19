@@ -21,7 +21,7 @@ Your AI platform plus two add-ons that run entirely inside it. This is the basel
 | 2 | [Hands-on AI Skills](#step-2-hands-on-ai-skills) | ~10 min | Required |
 | 3 | [Hands-on AI Knowledge Base](#step-3-hands-on-ai-knowledge-base) | ~5 min | Optional |
 
-### Part 2: For Power Users (~75 min)
+### Part 2: For Power Users (~70 min)
 
 More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Optional, and you can come back and add more later. Steps 5–8 are one sequence: do them in order.
 

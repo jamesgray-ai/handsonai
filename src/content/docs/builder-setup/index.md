@@ -54,7 +54,7 @@ Start with Part 1 and complete the steps in order. Part 2 is optional — pick a
 | 2 | [Hands-on AI Skills](../ai-workflow-framework/skills/) | ~10 min | Recommended | Step-by-step guidance for building AI workflows, right inside your AI tool |
 | 3 | [Hands-on AI Knowledge Base](../mcp-server/) | ~5 min | Recommended | Ask the Hands-on AI playbook questions without leaving your AI tool |
 
-### Part 2 — For Power Users (~75 min total)
+### Part 2 — For Power Users (~70 min total)
 
 Pick any combination — each row names the specific capability it unlocks. Rows 5–8 are one sequence: do them in order.
 

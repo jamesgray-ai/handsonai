@@ -133,10 +133,21 @@ The difference that matters: a **CLI login is tied to your machine**, so anythin
 
 Save the token in a password manager (1Password, Bitwarden, etc.) — not in a plain text file, a document, or a note on your computer. If a hosted agent or tool needs the token, paste it directly into that tool's credential/secret field rather than writing it to disk in your repository.
 
+### Troubleshooting Tokens
+
 **Token doesn't work?**
 - Confirm the token hasn't expired
 - Confirm the repository you're targeting is one of the repositories the token was scoped to
 - Confirm the token has the permission the operation needs (e.g., **Contents: Read and write** to push commits)
+
+<details>
+<summary>Ask AI for help</summary>
+
+If you're stuck, paste this into ChatGPT, Claude, or Gemini:
+
+> I created a fine-grained personal access token on GitHub for [name of the tool or agent], and it's getting this error: [paste the error message]. What should I check?
+
+</details>
 
 ## Resources
 
