@@ -146,8 +146,9 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 
 ## Next Steps
 
-- Set up Git (see [Git Installation Guide](../git-install/))
-- Set up your AI platform (see [Platforms](../../platforms/))
+- Create your GitHub account (see [GitHub Account Setup Guide](../github-setup/))
+- Install Git (see [Git Installation Guide](../git-install/))
+- Install the GitHub CLI (see [GitHub CLI Setup Guide](../github-cli-setup/))
 
 ## Resources
 

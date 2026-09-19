@@ -11,7 +11,7 @@ howto_steps:
     text: Open the integrated terminal and run 'git status' to confirm the repository was cloned correctly.
 ---## What This Guide Covers
 
-Once you have a GitHub account (see the [GitHub Setup Guide](../github-setup/)), the next step is creating a repository — a project folder that Git tracks. If you'll also work with the files on your own machine, you then clone it, so you have a local copy to work in.
+Once you have a GitHub account (see the [GitHub Account Setup Guide](../github-setup/)), the next step is creating a repository — a project folder that Git tracks. If you'll also work with the files on your own machine, you then clone it, so you have a local copy to work in.
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ That's all. Creating a repository happens entirely in your browser — nothing t
 **Additionally, to clone it to your machine (sections 2 and 3):**
 
 - Git installed (see [Git Installation Guide](../git-install/))
-- GitHub CLI authenticated (see [GitHub Setup Guide](../github-setup/))
+- GitHub CLI installed and logged in (see [GitHub CLI Setup Guide](../github-cli-setup/))
 - Cursor or VS Code installed (see [Editor Setup Guide](../editor-setup/))
 
 ## 1. Create a Repository
@@ -52,7 +52,7 @@ Download (clone) a repository from GitHub using whichever tool you're working in
 
 ### In Claude Desktop (Code tab)
 
-If you're working in the Claude Desktop app without a separate code editor, you can clone a repo by asking Claude to do it for you. Because you installed and authenticated the GitHub CLI in the [GitHub Setup Guide](../github-setup/), Claude can use `gh` on your behalf.
+If you're working in the Claude Desktop app without a separate code editor, you can clone a repo by asking Claude to do it for you. Because you installed and logged in to the GitHub CLI in the [GitHub CLI Setup Guide](../github-cli-setup/), Claude can use `gh` on your behalf.
 
 1. Open **Claude Desktop** and click the **Code** tab
 2. Start a new session and pick (or create) a local folder you want the repo cloned into
@@ -104,7 +104,7 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 ## Next Steps
 
 - Try cloning a public repository to practice the workflow
-- Set up your AI platform (see [Platforms](../../platforms/))
+- Set up your [AI Registry](../ai-registry-setup/) in the repository you just cloned
 
 ## Resources
 
