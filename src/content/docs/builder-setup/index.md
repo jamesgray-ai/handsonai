@@ -62,7 +62,7 @@ Pick any combination — each row names the specific capability it unlocks. Rows
 |---|---|---|---|---|
 | 4 | [AI Code Editor + Extensions](editor-setup/) | ~15 min | Nothing | Store building blocks as files on your computer and edit them with AI assistance |
 | 5 | [GitHub Account](github-setup/) | ~10 min | Nothing | Have a place in the cloud for your building blocks — done entirely in your browser |
-| 6 | [Git](git-install/) | ~10 min | Nothing | Keep a full version history of your building blocks automatically |
+| 6 | [Git](git-install/) | ~10 min (Mac: up to 30 while Apple's tools download) | Nothing | Keep a full version history of your building blocks automatically |
 | 7 | [GitHub CLI](github-cli-setup/) | ~10 min | GitHub Account + Git | Log your computer and AI tools in to GitHub once, so files sync without passwords |
 | 8 | [Create & Clone Your First Repository](repo-creation-and-cloning/) | ~5 min | Editor + GitHub CLI | Prove the three pieces above work together, and get a folder to build in |
 | 9 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |

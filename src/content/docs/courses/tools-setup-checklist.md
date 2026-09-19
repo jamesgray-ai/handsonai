@@ -29,7 +29,7 @@ More advanced tools that work in collaboration with your AI platform. Pick any c
 |------|------|------|--------|
 | 4 | [Code Editor + Extensions](#step-4-code-editor--extensions) | ~15 min | Optional |
 | 5 | [GitHub Account](#step-5-github-account) | ~10 min | Optional |
-| 6 | [Git](#step-6-git) | ~10 min | Optional |
+| 6 | [Git](#step-6-git) | ~10 min (Mac: up to 30 while Apple's tools download) | Optional |
 | 7 | [GitHub CLI](#step-7-github-cli) | ~10 min | Optional |
 | 8 | [Create & Clone Your First Repository](#step-8-create--clone-your-first-repository) | ~5 min | Optional |
 | 9 | [Voice to Text](#step-9-voice-to-text) | ~10 min | Optional |
