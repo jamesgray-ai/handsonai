@@ -62,7 +62,7 @@ Follow the section for your computer, then continue to Step 4.
 2. Click **Install** in the popup dialog
 3. Wait for installation to complete — the download can take 10–30 minutes, and the dialog's time estimate is famously unreliable (it may claim hours). Let it run.
 
-This installs Git along with other developer tools.
+This installs Git along with Apple's other free developer tools. (You don't need the full Xcode app — just these command line tools.)
 
 > **Seeing "command line tools are already installed"?** That red text isn't a problem — it means Git is already there. Skip to [Step 4: Verify Installation](#step-4-verify-installation).
 
@@ -165,7 +165,7 @@ git config --global --unset http.proxy
 git config --global --unset https.proxy
 ```
 
-**Behind a firewall that blocks SSH:** if `git clone git@github.com:...` hangs or times out, corporate firewalls often allow HTTPS (port 443) but block the SSH port. Use the HTTPS clone URL instead (`https://github.com/...`) — this is also what the [GitHub Setup Guide](../github-setup/) and [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) use by default.
+**Behind a firewall that blocks SSH:** if `git clone git@github.com:...` hangs or times out, corporate firewalls often allow HTTPS (port 443) but block the SSH port. Use the HTTPS clone URL instead (`https://github.com/...`) — this is also what the [GitHub CLI Setup Guide](../github-cli-setup/) and [Repository Creation and Cloning Guide](../repo-creation-and-cloning/) use by default.
 
 </details>
 

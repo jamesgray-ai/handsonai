@@ -14,7 +14,7 @@ howto_steps:
 **Prerequisite 1 of 3.** This guide creates your GitHub account. There is nothing to install — it all happens in your browser. [Git](../git-install/) and the [GitHub CLI](../github-cli-setup/) come next.
 
 :::note[Looking for the GitHub CLI?]
-Installing and logging in to the `gh` command now has its own guide: [GitHub CLI Setup](../github-cli-setup/).
+Installing and logging in to the GitHub CLI (the `gh` program) now has its own guide: [GitHub CLI Setup](../github-cli-setup/).
 :::
 
 ## What Is GitHub?

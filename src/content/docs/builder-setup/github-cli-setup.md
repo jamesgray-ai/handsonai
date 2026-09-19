@@ -17,7 +17,7 @@ howto_steps:
 
 ## What Is the GitHub CLI?
 
-The GitHub CLI (`gh`) is a small program that lets your computer talk to GitHub. You sign in through it once, and from then on Git and the AI code editors and coding agents on your machine can push and pull your files without asking for a password every time. CLI means "command line interface" — you use it by typing commands in a terminal rather than clicking in a browser.
+The GitHub CLI (`gh`) is a small program that lets your computer talk to GitHub. You sign in through it once, and from then on Git and the AI code editors and coding agents on your machine can send your files to GitHub and fetch them back (Git calls this *push* and *pull*) without asking for a password every time. CLI means "command line interface" — you use it by typing commands in a terminal rather than clicking in a browser.
 
 The official home of the GitHub CLI is [cli.github.com](https://cli.github.com).
 
