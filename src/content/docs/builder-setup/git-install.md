@@ -38,12 +38,6 @@ Every command in this guide is typed into a terminal — a window where you type
 
 You type a command, press Enter, and read what comes back. Never used a terminal before? The [Terminal Basics primer](/builder-setup/terminal-basics/) is about 15 minutes and covers everything the guides below assume.
 
-Every command in this guide and the [GitHub CLI Setup Guide](../github-cli-setup/) works in PowerShell — they all run the `git` or `gh` program, which the installer adds to your system.
-
-**Windows: when you might want Git Bash instead.** The Git installer also adds **Git Bash**, a terminal that behaves like the macOS one. If you follow a tutorial written for Mac or Linux — anything using `ls`, `touch`, or forward-slash paths — run it in Git Bash and the commands work unchanged. For everything in these guides, PowerShell is fine.
-
-> **PowerShell says `git` is not recognized?** Git installed without being added to your PATH. See [Troubleshooting](#troubleshooting) to fix it — or use Git Bash, which works either way.
-
 ## Step 2: Check If Git Is Already Installed
 
 Open your terminal and run:
@@ -64,10 +58,9 @@ Follow the section for your computer, then continue to Step 4.
 
 #### Option 1: Xcode Command Line Tools (Recommended)
 
-1. Open Terminal
-2. Run: `xcode-select --install`
-3. Click **Install** in the popup dialog
-4. Wait for installation to complete — the download can take 10–30 minutes, and the dialog's time estimate is famously unreliable (it may claim hours). Let it run.
+1. In your terminal, run: `xcode-select --install`
+2. Click **Install** in the popup dialog
+3. Wait for installation to complete — the download can take 10–30 minutes, and the dialog's time estimate is famously unreliable (it may claim hours). Let it run.
 
 This installs Git along with other developer tools.
 
@@ -97,9 +90,9 @@ Homebrew is a package manager some Mac users install for developer tools. If you
 
 1. Go to [git-scm.com](https://git-scm.com)
 2. Click **Download for Windows**
-3. Run the installer
+3. Open your **Downloads** folder and double-click the file (named like `Git-2.xx-64-bit.exe`). If Windows asks *Do you want to allow this app to make changes?*, click **Yes**
 4. Click **Next** through the prompts — the installer shows about ten screens. On every screen except the three listed below, the default is right: just click **Next**
-5. Complete the installation
+5. Click **Install**, wait for the progress bar to finish, then click **Finish**
 
 #### Important Settings During Install
 
@@ -121,7 +114,7 @@ You should see a version number confirming Git is installed.
 
 ## Step 5: Configure Your Identity
 
-Set your name and email for Git commits. Keep the quotation marks — without them, a name with a space in it won't save correctly:
+Set your name and email for Git commits. Replace `Your Name` and `your.email@example.com` with your own, and keep the quotation marks — without them, a name with a space in it won't save correctly:
 
 ```bash
 git config --global user.name "Your Name"
@@ -143,7 +136,7 @@ Each command prints back the value you just set. If either prints nothing, re-ru
 
 ## Done When
 
-| # | Prerequisite | Done when |
+| Prerequisite | What | Done when |
 |---|---|---|
 | 2 | **Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
 
@@ -186,6 +179,7 @@ git config --global --unset https.proxy
 - Close and reopen your terminal
 - Make sure you selected the PATH option during installation
 - Reinstall and select "Git from the command line and also from 3rd-party software"
+- Or use **Git Bash** instead of PowerShell — the Git installer adds it, and it finds `git` either way. Git Bash also behaves like the macOS terminal, so tutorials written for Mac or Linux (anything using `ls`, `touch`, or forward-slash paths) work in it unchanged. For everything in these guides, PowerShell is fine.
 
 **PATH still broken after reinstalling on Windows?**
 1. Open **Start → Environment Variables** (search "edit the system environment variables")

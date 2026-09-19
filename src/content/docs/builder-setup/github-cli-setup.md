@@ -35,7 +35,7 @@ Follow the section for your computer, then continue to Step 2.
 2. Scroll down to **Assets**. If you only see a few files, click **Show all assets**.
 3. Press `Cmd + F`, type `universal.pkg`, and click the file it highlights — it's named like `gh_2.101.0_macOS_universal.pkg` (the number changes with each release). It downloads.
 4. Open your **Downloads** folder and double-click the file. Click **Continue** → **Install**, enter your Mac password when asked, then **Close**.
-5. If Terminal is already open, quit it — you'll open a fresh one in Step 2.
+5. If Terminal is already open, quit it (`Cmd + Q`) — you'll open a fresh one in Step 2.
 
 *Why not cli.github.com?* It's the official home of the GitHub CLI, but its Mac download is a bare program file, not an installer — it won't work with a double-click. Its Windows download is fine.
 
@@ -67,13 +67,13 @@ Run:
 gh auth login
 ```
 
-Before it opens your browser, `gh` asks four questions in the terminal. Use the arrow keys to choose and press Enter:
+Before it opens your browser, `gh` asks four questions in the terminal. Use the arrow keys to choose (or type the answer) and press Enter:
 
 | Question | Choose |
 |---|---|
 | Where do you use GitHub? | **GitHub.com** |
 | What is your preferred protocol for Git operations on this host? | **HTTPS** |
-| Authenticate Git with your GitHub credentials? | **Yes** |
+| Authenticate Git with your GitHub credentials? | **Yes** — type `Y`, or just press Enter |
 | How would you like to authenticate GitHub CLI? | **Login with a web browser** |
 
 The exact wording shifts slightly between `gh` versions, but the questions come in this order and these are the answers to give. Answering **Yes** to the third question is what lets Git push and pull without ever asking you for a password.
@@ -88,7 +88,7 @@ Then, in order:
 
 ## Done When
 
-| # | Prerequisite | Done when |
+| Prerequisite | What | Done when |
 |---|---|---|
 | 3 | **GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
 

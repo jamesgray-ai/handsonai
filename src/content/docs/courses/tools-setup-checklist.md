@@ -72,6 +72,7 @@ You need at least one AI platform set up before starting anything else. Pick whi
 Still stuck? Bring your question to Session 1.
 
 </details>
+
 ---
 
 ### Step 2: Hands-on AI Skills
@@ -91,6 +92,7 @@ Still stuck? Bring your question to Session 1.
 > I'm trying to add a skill to [your AI tool] on [Mac / Windows] and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
 ### Step 3: Hands-on AI Knowledge Base
@@ -109,6 +111,7 @@ Still stuck? Bring your question to Session 1.
 > I'm trying to connect the Hands-on AI MCP server to [Claude / ChatGPT / Cursor] and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
 ## Part 2 — For Power Users
@@ -136,6 +139,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 > I'm setting up [Cursor / VS Code] on [Mac / Windows] and running into this issue: [describe what's happening]. What should I try next?
 
 </details>
+
 ---
 
 ### Step 5: GitHub Account
@@ -146,7 +150,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-| # | Prerequisite | Done when |
+| Prerequisite | What | Done when |
 |---|---|---|
 | 1 | **GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
 
@@ -156,6 +160,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 > I'm creating a GitHub account and turning on two-factor authentication, and I'm getting this error: [paste error]. What should I try?
 
 </details>
+
 ---
 
 ### Step 6: Git
@@ -166,7 +171,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-| # | Prerequisite | Done when |
+| Prerequisite | What | Done when |
 |---|---|---|
 | 2 | **Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
 
@@ -176,6 +181,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 > I'm trying to install Git on [Mac / Windows] and getting this error: [paste error]. What should I try next?
 
 </details>
+
 ---
 
 ### Step 7: GitHub CLI
@@ -186,7 +192,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-| # | Prerequisite | Done when |
+| Prerequisite | What | Done when |
 |---|---|---|
 | 3 | **GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
 
@@ -196,6 +202,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 > I'm installing the GitHub CLI (`gh`) on [Mac / Windows] and logging in with `gh auth login`, and I'm getting this error: [paste error]. What should I try?
 
 </details>
+
 ---
 
 ### Step 8: Create & Clone Your First Repository
@@ -215,6 +222,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 > I'm trying to clone a GitHub repository in [Cursor / VS Code] on [Mac / Windows] and getting this error: [paste error]. What should I try?
 
 </details>
+
 ---
 
 ### Step 9: Voice to Text
@@ -233,6 +241,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 > I'm setting up [Wispr Flow / Claude Desktop Quick Entry] on [Mac / Windows] for voice-to-text and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
 ### Step 10: AI Registry
@@ -254,6 +263,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 > I'm setting up my Markdown-based AI Registry (a `registry/` bundle in my workspace) and running into this issue: [describe what's happening]. What should I check?
 
 </details>
+
 ---
 
 ## What's Next?

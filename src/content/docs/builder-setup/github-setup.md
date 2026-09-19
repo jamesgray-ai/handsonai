@@ -66,7 +66,7 @@ Otherwise, if the companion setting **Block command line pushes that expose my e
 
 ## Done When
 
-| # | Prerequisite | Done when |
+| Prerequisite | What | Done when |
 |---|---|---|
 | 1 | **GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
 
