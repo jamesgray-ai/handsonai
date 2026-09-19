@@ -200,7 +200,7 @@ export const TOOL_DEFINITIONS: McpToolDefinition[] = [
   {
     name: "get_setup_guide",
     description:
-      "Get a specific Builder Stack Setup guide with step-by-step instructions. Tools: terminal, editor, git, github, claude-code, registry, voice-to-text.",
+      `Get a specific Builder Tools Setup guide with step-by-step instructions. Tools: ${Object.keys(SETUP_TOOLS).join(", ")}.`,
     inputSchema: {
       type: "object",
       properties: {
