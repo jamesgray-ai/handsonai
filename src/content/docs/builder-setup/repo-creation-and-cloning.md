@@ -9,7 +9,9 @@ howto_steps:
     text: Open the Command Palette (Cmd/Ctrl + Shift + P), type Git Clone, paste the repository URL, and choose a local folder.
   - name: Verify the clone
     text: Open the integrated terminal and run 'git status' to confirm the repository was cloned correctly.
----## What This Guide Covers
+---
+
+## What This Guide Covers
 
 Once you have a GitHub account (see the [GitHub Account Setup Guide](../github-setup/)), the next step is creating a repository — a project folder that Git tracks. If you'll also work with the files on your own machine, you then clone it, so you have a local copy to work in.
 
