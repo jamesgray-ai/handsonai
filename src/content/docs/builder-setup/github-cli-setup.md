@@ -88,9 +88,9 @@ Then, in order:
 
 ## Done When
 
-| Prerequisite | What | Done when |
-|---|---|---|
-| 3 | **GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
+| Prerequisite | Done when |
+|---|---|
+| **3. GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
 
 Run both now:
 

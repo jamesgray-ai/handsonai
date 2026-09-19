@@ -136,9 +136,9 @@ Each command prints back the value you just set. If either prints nothing, re-ru
 
 ## Done When
 
-| Prerequisite | What | Done when |
-|---|---|---|
-| 2 | **Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
+| Prerequisite | Done when |
+|---|---|
+| **2. Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
 
 **Next:** [Install the GitHub CLI](../github-cli-setup/) — prerequisite 3 of 3.
 

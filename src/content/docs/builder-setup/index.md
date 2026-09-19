@@ -72,11 +72,11 @@ Pick any combination — each row names the specific capability it unlocks. Rows
 
 Steps 5–7 are three separate prerequisites. Here's how you know each one is done:
 
-| Prerequisite | What | Done when |
-|---|---|---|
-| 1 | **GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
-| 2 | **Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
-| 3 | **GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
+| Prerequisite | Done when |
+|---|---|
+| **1. GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
+| **2. Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
+| **3. GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
 
 **End-to-end proof (optional, ~3 min):** create a private repository, clone it, `cd` into it, run `git status` → `On branch main`. That's the [Repository Creation & Cloning guide](/builder-setup/repo-creation-and-cloning/).
 

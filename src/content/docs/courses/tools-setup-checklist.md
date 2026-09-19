@@ -150,9 +150,9 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-| Prerequisite | What | Done when |
-|---|---|---|
-| 1 | **GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
+| Prerequisite | Done when |
+|---|---|
+| **1. GitHub account** | You can sign in at github.com, there is no "verify your email" banner, and **Settings → Password and authentication** shows two-factor authentication **Enabled** |
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -171,9 +171,9 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-| Prerequisite | What | Done when |
-|---|---|---|
-| 2 | **Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
+| Prerequisite | Done when |
+|---|---|
+| **2. Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -192,9 +192,9 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-| Prerequisite | What | Done when |
-|---|---|---|
-| 3 | **GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
+| Prerequisite | Done when |
+|---|---|
+| **3. GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
