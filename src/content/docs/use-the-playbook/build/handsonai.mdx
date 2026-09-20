@@ -124,7 +124,7 @@ Writes Business Process Guide documentation that explains the strategic context 
 
 **Slash command:** `/handsonai:indexing-registry`
 
-Maintains the AI Registry bundle and its derived views. Lints your bundle against its SCHEMA, refreshes indexes and GENERATED views, and regenerates your REGISTRY.md and visual dashboard. Runs five jobs in a full pass: lint the bundle, refresh typed-directory indexes, regenerate GENERATED blocks (a Workflow's Insights, a Function's Owns list), regenerate the Tier 1 `REGISTRY.md` dashboard (and the Tier 2 visual HTML dashboard on request), and append `log.md` for schema changes and migrations. The framework skills trigger it automatically at their closing steps; run it standalone to pick up assets created outside the framework or to repair a stale index.
+Maintains the AI Registry bundle and its derived views. Lints your bundle against its SCHEMA, refreshes indexes and GENERATED views, and regenerates your REGISTRY.md and visual dashboard. Runs five jobs in a full pass: lint the bundle, refresh typed-directory indexes, regenerate GENERATED blocks (a Workflow's Insights, a Function's Owns list), regenerate the `REGISTRY.md` index (and the visual dashboard `registry-dashboard.html` on request), and append `log.md` for schema changes and migrations. The framework skills trigger it automatically at their closing steps; run it standalone to pick up assets created outside the framework or to repair a stale index.
 
 **Recommended workflow:** Scaffold the bundle → Name workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index. Each skill works independently if you don't need the full sequence.
 
