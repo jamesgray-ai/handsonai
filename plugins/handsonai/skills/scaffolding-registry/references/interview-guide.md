@@ -22,7 +22,8 @@ the student has open?
 - **No → print-and-save mode.** Say once, up front: "I can't save files
   here, so for each file I'll print its full contents and exactly where to
   save it. Where will you keep them — a GitHub repository, a folder on your
-  computer, or a synced cloud-drive folder?" Then, on **every** file,
+  computer, or a synced cloud-drive folder? GitHub is the easiest if you
+  already have an account." Then, on **every** file,
   restate the location and remind them to save it as plain `.md`. Never say
   "I've created" for a file you only printed.
 

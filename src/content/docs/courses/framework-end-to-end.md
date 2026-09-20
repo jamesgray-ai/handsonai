@@ -29,13 +29,7 @@ The Step 2 (Deconstruct) artifact is pre-built so we can spend class time runnin
 
 Do these steps in the folder you have open in Cowork or Claude Code.
 
-**Step 1 — get a `registry/` folder.** Pick whichever is true for you:
-
-- **Starting fresh, no workspace yet:** instantiate the template repo.
-  1. Open the AI Registry template repository: [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) (or ask your AI assistant: *"Where's the AI Registry template repo?"*).
-  2. Click the green **Use this template** button near the top of the page, then **Create a new repository**.
-  3. Clone the new repository to your computer (or open it directly in Cowork) — it arrives with an empty `registry/` folder already in place.
-- **Already have a workspace:** open it in your AI assistant and say *"Set up my AI registry."* — it creates the `registry/` folder for you.
+**Step 1 — get a `registry/` folder.** Open the folder you'll work in (any folder — it doesn't need to be a GitHub repository) in your AI assistant and say *"Set up my AI registry."* It creates the `registry/` folder for you. If you'd like GitHub to build a dashboard automatically, start from the [AI Registry template repository](https://github.com/jamesgray-ai/ai-registry-template) instead — the [AI Registry setup guide](/builder-setup/ai-registry-setup/) walks through both.
 
 **Step 2 — create the workflow folder and save the download.** Inside your workspace, create a folder named `outputs`, and inside it a folder named `competitive-intelligence-brief`. Save the download as `requirements.md` inside that folder, so the full path is `outputs/competitive-intelligence-brief/requirements.md`. (Rename the downloaded file — the framework skills look for `requirements.md`.)
 
