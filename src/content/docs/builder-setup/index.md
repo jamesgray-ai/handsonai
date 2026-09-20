@@ -39,7 +39,7 @@ Optional tools that work in collaboration with your AI platform to build and man
 | **Git** | Automatically tracks every change to every file | You'll constantly create and refine your building blocks — Git keeps the full history for you, so you never have to manage versions manually, and it connects to GitHub so everything gets backed up in the cloud |
 | **GitHub** | Cloud storage and backup for your files, built on top of Git. Two pieces: a GitHub *account* (in your browser) and the GitHub *CLI* (a small program on your computer that logs Git and your AI tools in as you) | Your work is safe, versioned, accessible from any machine, and easy to share |
 | **Voice to Text** | Dictation software (Wispr Flow or your system's built-in voice input) | Talk instead of type — faster for long prompts and more natural when you're thinking out loud |
-| **AI Registry** | A knowledge-bundle inventory of your workflows, processes, and insights — Markdown in your repo, maintained by your AI assistant | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
+| **AI Registry** | A knowledge-bundle inventory of your workflows, processes, and insights — Markdown in your workspace, maintained by your AI assistant | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
 
 ## Setup Order
 

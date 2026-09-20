@@ -232,10 +232,10 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-- You have one home for your AI work — a GitHub repository, or a folder on your computer that your AI tool can edit
+- You have one folder for your registry — on your computer, in a synced cloud drive, or in a GitHub repository
 - The Hands-on AI skills from Step 2 are in your AI tool (if you added skills one at a time, that includes `scaffolding-registry`)
 - `registry/` exists with `SCHEMA.md` inside
-- You can see your dashboard — `REGISTRY.md` at your workspace root, or at your GitHub Pages address if you took the browser-only path
+- You can see your dashboard — `REGISTRY.md` next to your `registry/` folder, or at your GitHub Pages address if GitHub builds it for you
 
 <details>
 <summary>Stuck? Ask AI for help</summary>

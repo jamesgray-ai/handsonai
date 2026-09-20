@@ -22,7 +22,7 @@ For how nodes are resolved, written, and owned — resolution rules, write rules
 
 ## Location & Scope
 
-**One workspace = one registry.** The bundle lives at `registry/` off the root of the folder the framework operates in — beside `outputs/`, `sops/`, and `process-guides/`. Where that root is, and how bytes get read and written there, depends on the platform — see the platform matrix in the framework's cross-platform delivery documentation. Claude Code and Cowork read and write the bundle directly; claude.ai and other connector-based platforms generate and commit through their connector, with anything unwritten stated explicitly.
+**One workspace = one registry.** The bundle lives at `registry/` off the root of the folder the framework operates in — beside `outputs/`, `sops/`, and `process-guides/`. Where that root is, and how bytes get read and written there, depends on the platform — see the platform matrix in the framework's cross-platform delivery documentation. Tools that can create files write the bundle directly (write mode); tools that cannot print each file with its location for the student to save (print-and-save mode), stating plainly what is unsaved. The bundle may live in a local folder, a synced cloud-drive folder, or a GitHub repository — the skill never assumes a repo.
 
 > **Terminology:** "AI Registry" always means the `registry/` bundle and the views generated from it. It is unrelated to the framework's *platform registry* (`registries/platform-registry.json`), which catalogs platforms and integrations for the Design and Build skills.
 
@@ -93,4 +93,4 @@ If the workspace contains `tools/compose-registry.js`, run `node tools/lint-regi
 
 ## Best-effort rule
 
-A failed refresh must never fail the step that requested it. If the environment can't write to the workspace root, say so and continue.
+A failed refresh must never fail the step that requested it. If the environment can't write to the workspace root, print the regenerated dashboard with its location for the student to save, say so, and continue.

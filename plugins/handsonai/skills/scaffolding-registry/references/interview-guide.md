@@ -1,6 +1,6 @@
 # Scaffolding Interview Guide
 
-Six phases, ~30 minutes total. Run them in order. Each phase has a timebox —
+Seven phases (0–6), ~30 minutes total. Run them in order. Each phase has a timebox —
 treat it as a budget, not a target to fill.
 
 **Pacing rule:** If a phase overruns its box, write what you have, mark the
@@ -11,32 +11,48 @@ fictional nodes are never a fallback.
 
 ## Phase 0 — Home (2 min)
 
-**Opening question:** "Where should your registry live — a new repo from the
-template, inside a workspace you already have, or should I generate it here
-and you commit it yourself?"
+**First, detect — don't ask.** Can you create and edit files in the folder
+the student has open? (A file the student would have to download does not count — that is print-and-save mode.)
 
-**Follow-ups:**
-- "Do you already have a `registry/` folder, or a `workflow.yaml` / `outputs/<name>-requirements.md` setup from an earlier version of this framework?"
-- "Is this a GitHub repo you can clone locally, or are we working entirely in this chat?"
+- **Yes → write mode.** The registry goes at the root of that folder. It
+  does not matter whether the folder is local, a synced cloud-drive folder,
+  or a Git repository — the bundle is plain Markdown with relative links.
+  Confirm in one sentence: "I'll create `registry/` inside `<folder name>` —
+  OK?"
+- **No → print-and-save mode.** Say once, up front: "I can't save files
+  here, so for each file I'll print its full contents and exactly where to
+  save it. Where will you keep them — a GitHub repository, a folder on your
+  computer, or a synced cloud-drive folder? GitHub is the easiest if you
+  already have an account." Then, on **every** file,
+  restate the location and remind them to save it as plain `.md`. Never say
+  "I've created" for a file you only printed.
+
+**Follow-ups (both modes):**
+- "Do you already have the empty registry skeleton — from the template
+  repository or its Download ZIP?" If yes, do not reprint or recreate
+  `SCHEMA.md`, `index.md`, `log.md`, or the typed `index.md` stubs.
+- "Do you already have a `registry/` folder, or a `workflow.yaml` /
+  `outputs/<name>-requirements.md` setup from an earlier version of this
+  framework?" In print-and-save mode you cannot look — ask the student to
+  paste a listing of their `outputs/` folder, or to say "nothing there".
 
 **Example to show:** none — this phase is about the student's environment,
 not the registry's content.
 
-**What to write:** nothing yet. Record which of the three homes applies:
-(a) template repo — `https://github.com/jamesgray-ai/ai-registry-template` —
-via *Use this template* (arrives with the skeleton + Tier 3 machinery already
-in place); if the student asks "where's the template repo?", this is the
-URL; (b) scaffold into an existing repo/workspace
-(create `registry/` + `SCHEMA.md` + `index.md` + `log.md` + the six typed
-directories with stub `index.md` files); (c) cloud generate-and-commit
-fallback (produce the files in chat; the student commits them by hand).
+**What to write:** nothing yet. In write mode, create `registry/` +
+`SCHEMA.md` + `index.md` + `log.md` + the six typed directories with stub
+`index.md` files, unless they already exist. In print-and-save mode and no
+skeleton yet, print those same files first, in that order. If the student
+asks "where's the template repo?", the URL is
+`https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
+skeleton plus a GitHub Action that publishes the dashboard, and is optional.
 
-**Legacy-detection trigger:** if `outputs/*/workflow.yaml` exists anywhere in
+**Legacy-detection trigger:** In write mode: if `outputs/*/workflow.yaml` exists anywhere in
 the workspace, or an `outputs/<name>-requirements.md` file exists with no
 matching folder (flat layout), stop and offer the migration path from
 `migrating-legacy-workspaces.md` before continuing the interview. A student
 migrating does not repeat Phases 1–5 for workflows the migration already
-covers.
+covers. In print-and-save mode, rely on what the student told you in the follow-up above.
 
 **Fast path:** if the student already has a full `registry/` bundle from a
 prior scaffolding run, skip straight to gap-filling — re-run only the phases
@@ -186,7 +202,7 @@ a founding `registry/log.md` entry describing the scaffolding run, and
 directory `index.md` stubs for every typed directory. Hand off to
 `indexing-registry` for the first maintenance pass: lint, generate the Tier
 1 `REGISTRY.md`, and offer the Tier 2 dashboard. The lab should end with
-something visual on screen.
+something visual on screen. In print-and-save mode there is no hand-off: print the `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its location, and say the set is complete.
 
 **Fast path:** if no insight surfaced, skip the Note entirely — an absent
 Note is not a gap to flag; a forced one is worse than none.
