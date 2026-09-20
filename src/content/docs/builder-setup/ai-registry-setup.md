@@ -89,13 +89,18 @@ Your assistant runs the same interview, but instead of saving each file it print
 
 **Plan for about an hour:** the 30-minute interview plus 20–30 minutes of saving. The interview produces roughly 15–20 files, including updates to a few files it already gave you.
 
-1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, there's no way to save the wrong file type, and GitHub builds your dashboard automatically. Set one up in three minutes in [the GitHub dashboard section below](#optional-let-github-build-your-dashboard), then come back here. Two other options if you'd rather not use GitHub:
+1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, there's no way to save the wrong file type, and your dashboard can be published on the web. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
+   1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) — a ready-made repository containing the empty registry skeleton.
+   2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Public**, and click **Create repository**.
+   3. Optional, for a shareable web address: click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**. See [Tier 3](#your-dashboard) for what this gives you.
+
+   Two other options if you'd rather not use GitHub:
    - **A folder on your computer.** Create an empty folder called `ai-registry` inside your Documents folder.
    - **A folder in your cloud drive.** Only if the Google Drive or OneDrive desktop app is installed and syncing — then create the `ai-registry` folder inside your synced drive folder and treat it exactly like a folder on your computer. (The Drive and OneDrive *websites* can't create Markdown files, and re-uploading a changed file creates a duplicate.)
 2. **If you chose your computer or cloud drive,** get the empty registry skeleton first, so you don't have to paste the long rules file by hand: open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template), click the green **Code** button, then **Download ZIP**. No account needed. Unzip it and move the `registry` folder it contains into your `ai-registry` folder. (You can ignore the other folders in the download.) If you chose GitHub, your repository already has this skeleton.
 3. Say: *"Set up my AI registry. You can't save files for me, so print the full contents of each file and tell me exactly where it goes. I already have the empty registry skeleton."*
 4. Save each file where your assistant says — see [Saving a File by Hand](#saving-a-file-by-hand) just below for the click-by-click.
-5. Repeat for every file — your assistant tells you when the set is complete, and finishes by printing your `REGISTRY.md` dashboard for you to save in your registry's folder (your repository, or the `ai-registry` folder you made), next to `registry/`. If GitHub builds your dashboard, you can skip this file — GitHub generates it.
+5. Repeat for every file — your assistant tells you when the set is complete, and finishes by printing your `REGISTRY.md` dashboard for you to save in your registry's folder (your repository, or the `ai-registry` folder you made), next to `registry/`. If your repository publishes to GitHub Pages, you can skip saving this one — the published copy at your Pages address is regenerated for you.
 
 #### Saving a File by Hand
 
@@ -108,7 +113,7 @@ Your assistant gives each file a **location** like `registry/businesses/your-bus
 - **The file must be plain text.** In TextEdit choose **Format → Make Plain Text** before pasting, every time. Never paste a file into a Google Doc, Word, or Pages document — that turns a registry node into something your assistant can't read.
 - **The name must end in `.md`, and your computer hides that.** When you save, type the full name including `.md`. On Windows, set **Save as type** to **All files** so Notepad doesn't add `.txt`. On Mac, if TextEdit asks whether to use `.txt` or `.md`, choose `.md`. To see extensions afterward: Finder → **Settings → Advanced → Show all filename extensions**; File Explorer → **View → Show → File name extensions**.
 
-**You should now see** every file your assistant listed, at the location it gave. On GitHub, within a couple of minutes the **Actions** tab shows a green ✓ and your dashboard is live (see [Your Dashboard](#your-dashboard)); a red ✗ means one file broke a rule, usually a typo in a location — click the run, read the first red line, fix that file, and commit again. On your computer, you'll see `REGISTRY.md` next to `registry/` once you save the last file.
+**You should now see** every file your assistant listed, at the location it gave. On GitHub with Pages turned on, within a couple of minutes the **Actions** tab shows a green ✓ and your dashboard is live on the web (see [Your Dashboard](#your-dashboard)); a red ✗ means one file broke a rule, usually a typo in a location — click the run, read the first red line, fix that file, and commit again. On your computer, you'll see `REGISTRY.md` next to `registry/` once you save the last file.
 
 :::tip[Your assistant can't see what you saved]
 Because your assistant didn't save the files itself, it can't check them. Compare each location against what it told you before you save. Later, when you ask for a refresh, your assistant can read your registry back only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about. And every framework step you run later — Analyze, Deconstruct, and so on — ends the same way: with a file or two printed for you to save.
@@ -121,7 +126,7 @@ You never need GitHub for your registry. If you already use it, or want one of t
 - **Your assistant can read your registry back** through a GitHub connector instead of you pasting files in.
 - **A built-in editor in your browser**, so you can save files without installing anything or worrying about file types.
 - **Version history** of every change.
-- **An automatic, always-current dashboard** — see [Optional: Let GitHub Build Your Dashboard](#optional-let-github-build-your-dashboard).
+- **A shareable web address for your dashboard** that updates itself after every save — see [Tier 3](#your-dashboard).
 
 ## The Interview
 
@@ -139,7 +144,7 @@ Whichever flow you're in, your assistant now runs the same **interview — seven
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 
-**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, one Process node, and one Workflow node — plus a fresh `REGISTRY.md` summarizing all of it (in the folder you picked, next to `registry/`; or, if GitHub builds your dashboard, at your GitHub Pages address a couple of minutes after your last save).
+**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, one Process node, and one Workflow node — plus a fresh `REGISTRY.md` summarizing all of it (in the folder you picked, next to `registry/`; or, if your repository publishes to GitHub Pages, also at your Pages address a couple of minutes after your last save).
 
 ## A Workflow Node
 
@@ -213,32 +218,20 @@ You only need to ask for a refresh yourself when you've added a skill, agent, or
 
 Your assistant re-reads every node in `registry/`, checks it against `registry/SCHEMA.md`, fixes what it can, tells you plainly about anything it can't (for example, a broken link to a file that no longer exists), and regenerates your dashboards from scratch. Because dashboards are always regenerated rather than edited, it's completely safe to ask for a refresh at any time — you never lose anything by doing it.
 
-**If you save the files yourself,** every refresh and every framework step ends with a file or two printed for you to save — the same routine as setup. Your assistant can re-read your nodes only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about. **If GitHub builds your dashboard** (the template repository, above), it also re-checks every node and republishes your dashboards within a couple of minutes of each save — nothing to ask for.
+**If you save the files yourself,** every refresh and every framework step ends with a file or two printed for you to save — the same routine as setup. Your assistant can re-read your nodes only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about. **If your repository publishes to GitHub Pages,** the web copy of your dashboards is re-rendered from your nodes within a couple of minutes of each save — nothing to ask for.
 
 ## Your Dashboard
 
 "Dashboard" always means a **generated view** — never a place you type into directly. Your registry produces up to three, in increasing order of setup:
 
-**Tier 1 — `REGISTRY.md`.** Plain Markdown, and the one every workspace gets automatically. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, so you can see what needs a look. A "Skills" and "Agents" section lists everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). This file lives in the folder you picked, next to `registry/`, and updates every time your assistant runs a maintenance pass. (If GitHub builds your dashboard — see below — it publishes this file at `https://<your-username>.github.io/<your-repo-name>/REGISTRY.md`.)
+**Tier 1 — `REGISTRY.md`.** Plain Markdown, and the one every workspace gets automatically. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, so you can see what needs a look. A "Skills" and "Agents" section lists everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). This file lives in the folder you picked, next to `registry/`, and updates every time your assistant runs a maintenance pass. (If your repository publishes to GitHub Pages — Tier 3, below — a web copy also appears at `https://<your-username>.github.io/<your-repo-name>/REGISTRY.md`.)
 
 **Tier 2 — `registry-dashboard.html`.** An optional, richer visual view of the same data — clickable, with your business's full value chain (business → line of business → process → workflow) laid out visually, and a click-through to any node's detail. It's a single self-contained file: no server, no external requests, opens straight in a browser from your own computer. Ask your assistant: *"Generate my visual dashboard"* to produce it. On Claude Code or Cowork, your assistant can also publish it as a shareable Artifact.
 
-**Tier 3 — Published to GitHub Pages.** Only for registries that live in a GitHub repository created from the template, below. GitHub re-checks every node and republishes both the Tier 1 and Tier 2 dashboards every time you save a file — nothing to ask for.
-
-### Optional: Let GitHub Build Your Dashboard
-
-The **AI Registry template repository** is a ready-made GitHub repository containing the empty registry skeleton plus an automated check-and-publish step. Start from it if your registry will live on GitHub and you want the dashboard built for you. You never run anything yourself. (No GitHub account? The same page's **Code → Download ZIP** button gives you the whole repository as a download; the `registry` folder inside it is the skeleton — see [You Save the Files](#you-save-the-files).)
-
-**One-time setup, about 3 minutes, all in your browser.** You need a [GitHub account](../github-setup/).
-
-1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template).
-2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Public**, and click **Create repository**.
-3. In your new repository, click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**.
-
-Then set up your registry in that repository, using whichever flow fits your tool in [Where Your Registry Lives](#where-your-registry-lives): if your assistant saves files, download a copy of the repository to your computer first (see [Create & Clone Your First Repository](../repo-creation-and-cloning/)) and open that folder; if it doesn't, save each file on github.com. After each save, the **Actions** tab shows a green ✓ within a couple of minutes, and your dashboards are live at `https://<your-username>.github.io/<your-repo-name>/` — the visual dashboard at that address and `REGISTRY.md` at `.../REGISTRY.md`.
+**Tier 3 — Published on the web (GitHub Pages).** Optional, and only for a registry that lives in a GitHub repository created from the [template repository](https://github.com/jamesgray-ai/ai-registry-template). Your assistant still does all the work — the interview, every node, and both dashboards. What Pages adds is a **shareable web address** for the result: after every save, the repository re-renders both dashboards from your nodes and publishes them at `https://<your-username>.github.io/<your-repo-name>/` (the visual dashboard at that address, `REGISTRY.md` at `.../REGISTRY.md`), with nothing to ask for. Turn it on once: in your repository, **Settings → Pages → Build and deployment → Source → GitHub Actions**. The **Actions** tab shows a green ✓ when a publish succeeds; a red ✗ means a node broke a rule — click the run and read the first red line.
 
 :::note[Public repository, public dashboard]
-On a free GitHub account, GitHub Pages only works on a **public** repository, and the dashboard address is visible to anyone who has it. Your registry describes your business in general terms — names of processes and workflows, not client data — but if you'd rather keep it private, choose **Private** in step 2 and skip step 3. You still get your registry; ask your assistant for `REGISTRY.md` whenever you want the dashboard refreshed.
+On a free GitHub account, GitHub Pages only works on a **public** repository, and the dashboard address is visible to anyone who has it. Your registry describes your business in general terms — names of processes and workflows, not client data — but if you'd rather keep it private, make the repository **Private** and skip Pages. You still get your registry and both dashboards; they just live in your folder instead of on the web.
 :::
 
 ## Platform Notes
@@ -298,7 +291,7 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 **My GitHub Pages dashboard (Tier 3) isn't publishing:**
 
-- This only applies if your registry lives in a GitHub repository created from the template (see [Optional: Let GitHub Build Your Dashboard](#optional-let-github-build-your-dashboard)). Registries in an ordinary folder or cloud drive don't have it.
+- This only applies if your registry lives in a GitHub repository created from the template and you turned on Pages (see [Tier 3](#your-dashboard)). Registries in an ordinary folder or cloud drive don't have it — your assistant generates the same dashboards in your folder.
 - Confirm GitHub Pages is turned on for your repository (**Settings → Pages → Source → GitHub Actions** in your repo on github.com) — it's off by default until you enable it.
 - Check the **Actions** tab in your repository for a failed run — Actions is the tab on your repository's GitHub page that lists every automated run; a red ✗ next to a run means it failed. Click that run and read the first red line for the reason. A broken node (one with a lint error) blocks publishing on purpose, the same way it blocks a local dashboard refresh. The failure message names the file and the rule it broke.
 
