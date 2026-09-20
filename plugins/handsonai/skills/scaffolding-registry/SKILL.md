@@ -39,23 +39,23 @@ The registry is the structured record every framework skill reads and writes —
 
 ## Platform & Workspace
 
-The procedure below is identical everywhere — the same six phases, the same node shapes, the same SCHEMA.md. Platforms differ only in how the skill instructions arrive and how bytes get written to the bundle.
+The procedure below is identical everywhere — the same seven phases (0–6), the same node shapes, the same SCHEMA.md. Platforms differ only in how the skill instructions arrive and how bytes get written to the bundle.
 
-| Platform | Skill delivery | Bundle access | Write path |
+| Platform | Skill delivery | Where the bundle lives | Mode |
 |---|---|---|---|
-| Claude Code | handsonai plugin | local clone | direct edits; student commits |
-| Cowork | handsonai plugin (installed once, shared with Claude Chat) or skill ZIP | repo folder as project | direct edits |
-| ChatGPT desktop (Codex) | same SKILL.md dirs at `~/.agents/skills/` (user-level default) or repo `.agents/skills/` (optional pin) | local clone | direct edits; student commits |
-| claude.ai | handsonai plugin (paid plans; same install as Cowork) or skill ZIP (Releases channel) | GitHub connector / uploaded copy | generate-and-commit via github.com; the skill states explicitly what is unwritten |
-| ChatGPT web (paid plans) | handsonai plugin via Plugins > Add marketplace, or Personal Skill upload (same ZIP) | GitHub connector | generate-and-commit |
-| Gemini Spark / Gemini Enterprise | skill ZIP via Skills > Upload | uploaded copy | generate-and-commit |
-| M365 Copilot | agent-instructions packaging | SharePoint or GitHub connector | generate-and-commit |
+| Claude Code | handsonai plugin | local clone | write mode |
+| Cowork | handsonai plugin (installed once, shared with Claude Chat) or skill ZIP | repo folder as project | write mode |
+| ChatGPT desktop (Codex) | same SKILL.md dirs at `~/.agents/skills/` (user-level default) or repo `.agents/skills/` (optional pin) | any local folder | write mode |
+| claude.ai | handsonai plugin (paid plans; same install as Cowork) or skill ZIP (Releases channel) | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
+| ChatGPT web (paid plans) | handsonai plugin via Plugins > Add marketplace, or Personal Skill upload (same ZIP) | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
+| Gemini Spark / Gemini Enterprise | skill ZIP via Skills > Upload | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
+| M365 Copilot | agent-instructions packaging | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
 
 A few rules follow from that table:
 
 - **(a) Assistant-agnostic procedures.** Everything in this file — the phases, the write rules, the interview questions — is written for "your AI assistant" in general. Platforms differ only in delivery and write path, never in what gets written or asked.
-- **(b) Generate-and-commit surfaces must say what's unwritten.** On claude.ai, ChatGPT web, and M365 Copilot, the assistant cannot push to the student's repo directly — it generates the bundle files in the conversation and the student commits them by hand (via the GitHub connector, github.com's file editor, or a SharePoint sync). Every time content is generated rather than written, say so explicitly — never leave the student assuming a file landed somewhere it didn't.
-- **(c) Default home: a GitHub repo the student owns.** Both courses this skill supports teach GitHub, and a repo the student controls is the one home every platform in the table above can reach one way or another (clone, connector, or manual commit).
+- **(b) Print-and-save surfaces must say what's unsaved.** When the assistant cannot create files in the student's folder, it prints each file's complete contents and exact location, and says so every time — never "I've created", never leave the student assuming a file landed somewhere it didn't. The student saves the file wherever their registry lives; the skill does not assume a repo.
+- **(c) Home: any folder; GitHub is optional.** A folder on the student's computer, a synced cloud-drive folder, or a GitHub repository all work — the bundle is plain Markdown with relative links and never depends on Git. Never require GitHub; mention it only for what it adds (assistant read-back through a connector, an in-browser editor, version history, and the template repo's automatic Pages dashboard).
 - **(d) One skill artifact, three channels.** The same agentskills.io-standard SKILL.md — built by the existing `build-skill-zips.sh` pipeline — is what Codex desktop scans locally, what ChatGPT web's Personal Skills accepts as an upload, and what claude.ai accepts as an uploaded skill. There is no separate packaging for each.
 - **(e) Repo-checked-in skills are optional, not the default.** Codex desktop can read `.agents/skills/` inside the student's repo, but the default is a user-level install (`~/.agents/skills/`) — checking a skill into every repo it's used in invites version drift between repos. Only pin a repo-local copy when the student has a specific reason to.
 
@@ -71,9 +71,9 @@ Before running the interview, check what's already in the workspace:
 
 ## The interview
 
-Six phases, ~30 minutes total, run in order. Follow `references/interview-guide.md` for the exact opening questions, follow-ups, worked examples, and fast paths for each phase — this section is the map; that file is the script.
+Seven phases (0–6), ~30 minutes total, run in order. Follow `references/interview-guide.md` for the exact opening questions, follow-ups, worked examples, and fast paths for each phase — this section is the map; that file is the script.
 
-**Phase 0 — Home (2 min).** Establish where the registry will live — new repo from the template (`https://github.com/jamesgray-ai/ai-registry-template`), an existing repo/workspace, or a cloud generate-and-commit fallback — and run the legacy-detection check. Follow `references/interview-guide.md`.
+**Phase 0 — Home (2 min).** Detect, don't ask: if you can create files in the student's folder, you are in write mode and the registry goes at that folder's root (local, synced drive, or repo — no difference); if you cannot, you are in print-and-save mode and must say so on every file. Confirm the folder in one sentence, ask whether the empty skeleton already exists (template repo or Download ZIP) so you don't reprint it, then run the legacy-detection check. The template repo (`https://github.com/jamesgray-ai/ai-registry-template`) is only the answer to "where's the template repo?" — never a prerequisite. Follow `references/interview-guide.md`.
 
 **Phase 1 — Business (3 min).** One Business node: name, one-sentence identity, `status`, optional `url`. Almost always exactly one business per registry. Follow `references/interview-guide.md`.
 
@@ -102,4 +102,4 @@ If a phase runs over its timebox, write what's been gathered, note the gap for t
 
 End Phase 6 by writing a founding `registry/log.md` entry describing the scaffolding run (what was created, and — for a migration — every workflow migrated in that run), and making sure every typed directory has an `index.md`, even a stub one.
 
-Then invoke the `indexing-registry` skill for the workspace's first maintenance pass: it lints the new bundle, generates the Tier 1 `REGISTRY.md`, and offers the Tier 2 visual dashboard. This is a best-effort hand-off — if the maintenance pass can't run for some reason, say so plainly rather than leaving the student assuming it happened. The lab should end with something visual on screen, not a blank terminal.
+Then invoke the `indexing-registry` skill for the workspace's first maintenance pass: it lints the new bundle, generates the Tier 1 `REGISTRY.md`, and offers the Tier 2 visual dashboard. This is a best-effort hand-off — if the maintenance pass can't run for some reason, say so plainly rather than leaving the student assuming it happened. The lab should end with something visual on screen, not a blank terminal. In print-and-save mode there is no maintenance pass to hand off to: print the founding `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its exact location, and tell the student the set is complete.
