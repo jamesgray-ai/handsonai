@@ -1,6 +1,6 @@
 ---
 title: Building Agents on OpenAI
-description: How to build agents on OpenAI's platform — ChatGPT Agent Mode for one-shot tasks, Workspace Agents for configured persistent agents, AgentKit for visual workflows, Agents SDK for custom development, and Frontier for enterprise orchestration.
+description: "How to build agents on OpenAI's platform — ChatGPT Agent Mode, Workspace Agents, AgentKit visual workflows, the Agents SDK, and Frontier for enterprises."
 ---> **Part of:** [Build Workflows > Agents](../../../../ai-workflow-framework/build/)
 
 OpenAI offers five approaches to building agents, ranging from no-code chat interactions to full programmatic control.

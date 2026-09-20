@@ -1,6 +1,6 @@
 ---
 title: Claude Topics
-description: Documentation and key features for Anthropic's Claude models, tool use, and vision
+description: "Documentation and key features of Anthropic's Claude models — tool use, vision, extended thinking, and the capabilities that matter for building workflows."
 ---Documentation for Anthropic's Claude models.
 
 ## Topics

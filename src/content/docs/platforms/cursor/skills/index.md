@@ -1,6 +1,6 @@
 ---
 title: Skills on Cursor
-description: How Agent Skills work in Cursor — where they live, how to install, and cross-editor portability
+description: "How Agent Skills work in Cursor — where skill files live, how to install them, and how the same skills port across Cursor, Claude Code, and Codex."
 ---
 
 Cursor supports Agent Skills natively. It reads skill folders from multiple locations, so skills installed for Claude Code or OpenAI Codex are picked up automatically — no duplication required.

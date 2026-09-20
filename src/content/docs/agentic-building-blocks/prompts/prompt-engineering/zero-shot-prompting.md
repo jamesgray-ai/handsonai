@@ -1,6 +1,6 @@
 ---
 title: Zero-Shot Prompting
-description: How to instruct an LLM with no examples, relying on its training to interpret and complete your task.
+description: "Zero-shot prompting — instruct an LLM with no examples and rely on its training to complete the task, with tips for when it works and when to add examples."
 ---> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## What It Is

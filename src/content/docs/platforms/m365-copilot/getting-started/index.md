@@ -1,6 +1,6 @@
 ---
 title: Getting Started with M365 Copilot
-description: Set up your Microsoft 365 Copilot subscription, install apps, and configure Copilot features
+description: "Set up Microsoft 365 Copilot — confirm your subscription, install the apps, enable Copilot features, and configure the settings you need to start building."
 ---Complete setup checklist for Microsoft 365 Copilot. Work through each section in order.
 
 **Time:** ~20 minutes

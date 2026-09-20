@@ -4,7 +4,7 @@ authors:
   - jamesgray
 tags:
   - Plugins
-description: "The plugin marketplace moved to a dedicated lightweight repo for faster installs in Cowork and other tools."
+description: "The plugin marketplace moved to a dedicated lightweight repo so Cowork, Claude Code, and other tools can clone and install the Hands-on AI plugins faster."
 title: "Plugin Marketplace Moved to Dedicated Repo"
 ---The Hands-on AI plugin marketplace now lives in its own repository: [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins). This fixes timeout issues when adding the marketplace in Cowork and other tools that clone the repo during setup.
 

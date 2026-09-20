@@ -6,6 +6,7 @@ topic: strategy
 date: 2026-02-02
 author: James Gray
 title: "How do I identify the right AI tools for a workflow?"
+description: "Break the workflow into steps with the six-question framework, then map each step to AI building blocks — prompts, skills, agents, and connectors."
 ---**Short answer:** Break your workflow into discrete steps using the 6-question framework (steps, decisions, data flows, context needs, failure modes, data readiness), then map each step to AI building blocks like prompts, skills, agents, and connectors to see exactly what to build.
 
 ## The Full Answer

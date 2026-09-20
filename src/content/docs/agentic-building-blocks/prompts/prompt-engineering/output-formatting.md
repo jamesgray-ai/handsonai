@@ -1,6 +1,6 @@
 ---
 title: Output Formatting
-description: Tell the model exactly how to structure its response — tables, JSON, templates, or any format you define.
+description: "Output formatting — tell the model exactly how to structure its response as tables, JSON, or templates you define, so results drop straight into your workflow."
 ---> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## What It Is

@@ -1,6 +1,6 @@
 ---
 title: OpenAI / ChatGPT
-description: Guides for OpenAI GPT models, Assistants API, and function calling
+description: "Guides for OpenAI — ChatGPT, Codex, GPT models, and the APIs, with setup instructions, skills, and how to build agents on the OpenAI platform."
 ---Guides and resources for working with OpenAI's GPT models.
 
 :::tip[New to OpenAI?]
@@ -27,4 +27,4 @@ Start with the [Getting Started with OpenAI](getting-started/) checklist — acc
 
 ## Questions
 
-- [OpenAI Q&A](questions/)
+- [OpenAI Q&A](/questions/)

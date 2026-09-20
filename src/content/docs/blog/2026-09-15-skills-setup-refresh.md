@@ -6,7 +6,7 @@ tags:
   - Framework
   - Plugins
   - Platform Updates
-description: "One plugin install now covers Claude Chat and Cowork, ChatGPT and Codex, and Claude Code; Gemini Spark, Gemini Enterprise, and Copilot Cowork load the skills natively; the setup page is rebuilt for non-technical readers."
+description: "One plugin install now covers Claude, ChatGPT, Codex, and Claude Code; Gemini and Copilot load skills natively; the setup page is rebuilt for beginners."
 title: "Skills setup, rebuilt: one plugin for Claude and ChatGPT, native skills everywhere else"
 ---
 

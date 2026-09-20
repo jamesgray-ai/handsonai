@@ -1,6 +1,6 @@
 ---
 title: "Worked Example: Weekly Status Report (All 7 Steps)"
-description: A complete end-to-end run of the AI Workflow Framework in Claude Cowork — every output file, the full project folder structure, and what each step produced, for one small starter-sized workflow.
+description: "An end-to-end run of the AI Workflow Framework in Claude Cowork — every output file, the project folder structure, and what each of the seven steps produced."
 ---
 
 > **Part of:** [AI Workflow Framework](../../)

@@ -1,6 +1,6 @@
 ---
 title: Gemini Topics
-description: Documentation and key features for Google Gemini models, Vertex AI, and grounding
+description: "Documentation and key features of Google Gemini models — Vertex AI, grounding with Google Search, long context, and multimodal capabilities."
 ---Documentation for Google's Gemini models and Vertex AI.
 
 ## Topics

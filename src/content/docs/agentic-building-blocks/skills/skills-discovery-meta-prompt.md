@@ -1,6 +1,6 @@
 ---
 title: How to Discover Your Best Agent Skills
-description: Use this guided process to identify your highest-value agent skill candidates by analyzing your work patterns, scoring candidates on three dimensions, and choosing the right approach — skill, workspace, or prompt. Works in Claude, ChatGPT, Copilot, Gemini, Cursor, and Codex.
+description: "A guided process to find your highest-value agent skill candidates — analyze work patterns, score each on three dimensions, pick skill, workspace, or prompt."
 ---
 
 :::note[Doing this live or want a faster path?]

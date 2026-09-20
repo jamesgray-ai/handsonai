@@ -1,6 +1,6 @@
 ---
 title: Claude Cowork
-description: How to give Cowork the persistent context it needs by writing a CLAUDE.md file.
+description: "How to give Claude Cowork the persistent context it needs by writing a CLAUDE.md file — what to include, where it lives, and how Cowork reads it."
 ---
 
 Cowork is what Anthropic calls Claude when you point it at a folder and hand it a goal, instead of driving it turn-by-turn in chat. Cowork reads the files in that folder, works through the steps, and often runs while you're doing something else.

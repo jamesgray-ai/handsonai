@@ -1,6 +1,6 @@
 ---
 title: Hands-on Agentic AI for Leaders
-description: From AI user to AI builder in 30 days. A hands-on cohort course on Maven.
+description: "AI for Leaders — a hands-on 30-day cohort course on Maven that takes you from AI user to AI builder, with workflows you can run in your own organization."
 schema_type: Course
 course_duration: P4W
 course_mode: Blended

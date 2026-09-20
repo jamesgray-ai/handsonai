@@ -6,6 +6,7 @@ topic: agents
 date: 2026-02-02
 author: James Gray
 title: "How do I schedule an automated Claude subagent?"
+description: "Add scheduling instructions to your project's CLAUDE.md, then ask Claude Code to schedule the subagent — it creates the scripts, logging, and OS scheduled task."
 ---**Short answer:** Add scheduling instructions to your project's CLAUDE.md file, then ask Claude Code to schedule your subagent — it creates the wrapper scripts, logging, and OS-level scheduled task (launchd on macOS, Task Scheduler on Windows) automatically.
 
 ## The Full Answer

@@ -1,6 +1,6 @@
 ---
 title: Claude Resources
-description: Recommended docs, tools, courses, and community links for Anthropic's Claude
+description: "Recommended documentation, tools, courses, and community links for Anthropic's Claude — official docs, cookbooks, and the best practitioner resources."
 ---Recommended articles, docs, and courses for Anthropic's Claude.
 
 ## Get Started

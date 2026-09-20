@@ -1,6 +1,6 @@
 ---
 title: Parallelization
-description: Run subtasks simultaneously and aggregate results for faster, more reliable AI workflows
+description: "The parallelization pattern — run independent subtasks simultaneously and aggregate the results for faster, more reliable AI workflows, with examples."
 ---**Parallelization** divides subtasks of a larger problem and processes them simultaneously through separate LLM calls. The outputs are then aggregated to produce the final result.
 
 This pattern has two primary variations:

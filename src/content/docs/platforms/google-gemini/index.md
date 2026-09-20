@@ -1,6 +1,6 @@
 ---
 title: Google Gemini
-description: Guides for Google's Gemini models and Vertex AI
+description: "Guides for Google's Gemini — the Gemini app, Gemini Enterprise, Gemini CLI, Vertex AI, and how to set up skills and build agents on Google's platform."
 ---Guides and resources for working with Google's Gemini models.
 
 :::tip[New to Gemini?]
@@ -28,4 +28,4 @@ Start with the [Getting Started with Gemini](getting-started/) checklist — acc
 
 ## Questions
 
-- [Gemini Q&A](questions/)
+- [Gemini Q&A](/questions/)

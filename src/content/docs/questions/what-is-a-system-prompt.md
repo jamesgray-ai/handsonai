@@ -6,6 +6,7 @@ topic: prompting
 date: 2026-01-24
 author: James Gray
 title: "What is a system prompt?"
+description: "A system prompt is an instruction given to an AI model that defines its behavior, personality, and constraints for the entire conversation."
 ---**Short answer:** A system prompt is an instruction given to an AI model that defines its behavior, personality, and constraints for the entire conversation.
 
 ## The Full Answer

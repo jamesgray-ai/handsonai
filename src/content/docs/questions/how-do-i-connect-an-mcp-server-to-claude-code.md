@@ -6,6 +6,7 @@ topic: mcp
 date: 2026-02-07
 author: James Gray
 title: "How do I connect an MCP server to Claude Code?"
+description: "Use the claude mcp add command with one of three transports — HTTP for remote servers (recommended), stdio for local processes, or SSE for server-sent events."
 ---**Short answer:** Use the `claude mcp add` command to connect MCP servers to Claude Code with three transport options: HTTP for remote servers (recommended), stdio for local processes, or SSE for server-sent events.
 
 ## The Full Answer

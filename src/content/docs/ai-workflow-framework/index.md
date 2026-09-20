@@ -1,6 +1,6 @@
 ---
 title: AI Workflow Framework
-description: A seven-step methodology — Analyze, Deconstruct, Design, Build, Test, Run, Improve — for identifying AI opportunities in your workflows, breaking them into building blocks, and constructing working AI-powered workflows.
+description: "The AI Workflow Framework — seven steps (Analyze, Deconstruct, Design, Build, Test, Run, Improve) for turning a business workflow into a working AI workflow."
 ---
 
 ## The Problem
@@ -278,6 +278,6 @@ Yes. Tell the [`framework-agent`](#run-it-all-at-once-framework-agent) about you
 Most workflows need 2–4 rounds of Build and Test before they produce reliably good output. Each iteration should be targeted — fix a specific building block, re-test, and measure improvement. If you have been through four iterations and scores are not improving, return to [Design (Step 3)](design/) to re-examine your architecture decisions.
 
 **Where are the example agents and prompts?**
-They're in the [AI Workflow Examples](../use-the-playbook/build/ai-workflow-examples/) collection — agents for executive writing, editorial review, research, meeting prep, and AI news.
+They're in the [AI Workflow Examples](../use-the-playbook/build/handsonai/) collection — agents for executive writing, editorial review, research, meeting prep, and AI news.
 
 For setup-specific questions (which platforms support the skills, how to handle losing context mid-conversation), see the [FAQ on the Set Up the Skills page](skills/#faq).

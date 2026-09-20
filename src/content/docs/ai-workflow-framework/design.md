@@ -1,6 +1,6 @@
 ---
 title: Design Your AI Workflow
-description: Take your Workflow Requirements and design the AI architecture — three layers of decisions (Architecture, Decomposition, Component Blueprints) produced as a platform-agnostic Design Spec that any model on any platform can build from.
+description: "Step 3: Design — turn Workflow Requirements into a platform-agnostic Design Spec through three layers of decisions: architecture, decomposition, and blueprints."
 ---
 
 > **Part of:** [AI Workflow Framework](../)

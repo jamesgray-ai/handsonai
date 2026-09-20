@@ -1,6 +1,6 @@
 ---
 title: Voice-to-Text Setup Guide
-description: Set up Wispr Flow or Claude Desktop Quick Entry for hands-free AI voice input
+description: "Set up Wispr Flow or Claude Desktop Quick Entry for hands-free voice input to AI tools — installation, permissions, and tips for dictating prompts."
 schema_type: HowTo
 howto_steps:
   - name: Choose your voice input tool

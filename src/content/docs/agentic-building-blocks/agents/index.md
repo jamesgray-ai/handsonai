@@ -1,6 +1,6 @@
 ---
 title: Agents
-description: Concepts for building AI agents including function calling, tool use, and agent loops
+description: "The Agent building block — how AI agents plan, call tools, and loop until a task is done, with the capability and orchestration patterns for building them."
 ---Concepts for building AI agents and implementing tool use.
 
 ## Agents by Platform

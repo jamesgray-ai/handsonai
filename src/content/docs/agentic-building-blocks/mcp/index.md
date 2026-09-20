@@ -1,6 +1,6 @@
 ---
 title: MCP (Model Context Protocol)
-description: The MCP building block — an open standard for connecting AI assistants to external systems where data lives
+description: "The MCP building block — the open Model Context Protocol standard for connecting AI assistants to the external systems and data sources where your work lives."
 ---> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## What MCP Is

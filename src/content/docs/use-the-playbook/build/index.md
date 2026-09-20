@@ -1,6 +1,6 @@
 ---
 title: Agents & Skills
-description: The Hands-on AI plugin — agents and skills for designing, building, and documenting AI workflows. Plus a gallery of example components you can copy and customize.
+description: "The Hands-on AI plugin — agents and skills for designing, building, and documenting AI workflows — plus a gallery of example components you can copy."
 ---
 
 A focused toolkit of **agents** and **skills** that give your AI tool everything it needs to design, build, and document AI workflows. Plain-text Markdown — install the plugin on Claude, ChatGPT, or Claude Code, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other tools.

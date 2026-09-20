@@ -1,6 +1,6 @@
 ---
 title: Installing Skills on Claude
-description: How to add Agent Skills to Claude — one plugin install covers Claude Chat, the Claude app, and Cowork; ZIP upload works on every plan; Claude Code uses two commands
+description: "How to add Agent Skills to Claude — one plugin install covers Claude Chat, the app, and Cowork; ZIP upload works on every plan; Claude Code needs two commands."
 ---
 
 Claude supports Agent Skills natively everywhere: Claude Chat on the web, the Chat tab in the Claude app, Cowork, and Claude Code. There are two ways to add them, and both are managed from **Customize** in the left sidebar.

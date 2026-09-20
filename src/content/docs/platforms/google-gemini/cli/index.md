@@ -1,6 +1,6 @@
 ---
 title: Gemini CLI
-description: Google's terminal-native AI assistant — install, authenticate, and use Gemini CLI with skills and MCP
+description: "Gemini CLI — Google's terminal-native AI assistant. Install it, authenticate, and use it with Agent Skills and MCP servers for coding and automation."
 ---
 
 **Gemini CLI** is Google's open-source command-line AI assistant. It works directly with your files and terminal for coding, file operations, and automation, and supports the same building blocks as Claude Code and Codex CLI — [skills](../skills/), MCP, and project memory (`GEMINI.md`).

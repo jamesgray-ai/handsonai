@@ -1,6 +1,6 @@
 ---
 title: Scheduled Subagent Troubleshooting
-description: Fix common issues with scheduled Claude Code subagents on macOS and Windows
+description: "Troubleshoot scheduled Claude Code subagents on macOS and Windows — launchd and Task Scheduler errors, PATH problems, permissions, and missing log output."
 ---Common issues and solutions when running scheduled Claude Code subagents.
 
 ## First Step: Ask Claude Code

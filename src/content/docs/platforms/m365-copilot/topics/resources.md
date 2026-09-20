@@ -1,6 +1,6 @@
 ---
 title: M365 Copilot Resources
-description: Recommended docs, tools, courses, and community links for Microsoft 365 Copilot
+description: "Recommended documentation, tools, courses, and community links for Microsoft 365 Copilot, Copilot Studio, and Azure OpenAI."
 ---Recommended articles, docs, and courses for Microsoft 365 Copilot.
 
 ## Get Started

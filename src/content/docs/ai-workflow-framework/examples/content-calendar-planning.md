@@ -1,7 +1,9 @@
 ---
 title: "Example: Content Calendar Planning"
-description: A complete worked example showing the framework deliverables — Workflow Requirements, Design Spec, and workflow prompt — for a real content calendar planning workflow.
----This page walks through the complete output of running a real workflow through the [AI Workflow Framework](../..//). The workflow is **Content Calendar Planning** — a weekly process for planning and sequencing content across LinkedIn, Substack, X, and YouTube.
+description: "A worked example of the framework deliverables — Workflow Requirements, Design Spec, and workflow prompt — for a real weekly content calendar planning workflow."
+---
+
+This page walks through the complete output of running a real workflow through the [AI Workflow Framework](/ai-workflow-framework/). The workflow is **Content Calendar Planning** — a weekly process for planning and sequencing content across LinkedIn, Substack, X, and YouTube.
 
 The first four steps of the framework — Analyze, Deconstruct, Design, and Build — produced three key deliverables for this workflow. Each one is a detailed markdown document. This page summarizes what's in each and why it matters — then links to the full file on GitHub where you can read every table, every decision point, and every failure mode at full width.
 
@@ -90,4 +92,4 @@ Ready to run your own workflow through the framework?
 - **[Step 6 — Run](../../run/)**: Deploy and operate the workflow
 - **[Step 7 — Improve](../../improve/)**: Evaluate and evolve running workflows
 
-Or start from the [AI Workflow Framework overview](../..//) for the full methodology.
+Or start from the [AI Workflow Framework overview](/ai-workflow-framework/) for the full methodology.

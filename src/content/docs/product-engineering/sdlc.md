@@ -1,6 +1,6 @@
 ---
 title: Software Development Lifecycle
-description: How software gets built — the plan-build-test-ship cycle, methodologies like Agile and Waterfall, sprints, and key team roles explained for non-technical readers
+description: "How software gets built — the plan-build-test-ship cycle, Agile and Waterfall methodologies, sprints, and key team roles, explained for non-technical readers."
 date: 2026-02-16
 author: James Gray
 ---The Software Development Lifecycle (SDLC) is the process a team follows to turn an idea into working software. Every team does it slightly differently, but the core pattern is the same: figure out what to build, build it, make sure it works, ship it, and learn from the results.

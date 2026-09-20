@@ -5,7 +5,7 @@ authors:
 tags:
   - Plugins
   - Platform Updates
-description: "Building Workflows v3.1 adds plan mode gate, spec approval, and reference specs. Agents matrix expanded with SDK and browser agents. Architecture decisions streamlined."
+description: "Building Workflows v3.1 adds a plan-mode gate, spec approval, and reference specs; the agents matrix gains SDK and browser agents; architecture gets simpler."
 title: "Build Workflows v3.1, Expanded Agents Matrix, and Streamlined Architecture Decisions"
 ---Three updates that tighten the framework's Build step and expand platform coverage for agents.
 

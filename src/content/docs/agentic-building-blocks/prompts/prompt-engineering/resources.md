@@ -1,6 +1,6 @@
 ---
 title: Prompt Engineering Resources
-description: Academic papers, platform documentation, and practitioner references for prompt engineering techniques
+description: "Academic papers, platform documentation, and practitioner references for prompt engineering techniques — zero-shot, few-shot, chain-of-thought, and more."
 ---Academic papers, platform guides, and practitioner references organized by technique. Each pattern page links to its most relevant papers; this page collects them all in one place.
 
 ## Platform Documentation

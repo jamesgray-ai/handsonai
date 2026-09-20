@@ -113,6 +113,7 @@ Generate a draft answer page following `docs/_templates/question-template.md`:
 ---
 question: "The submitted question?"
 short_answer: "A 1-2 sentence direct answer for JSON-LD schema."
+description: "The short_answer trimmed to 110-160 characters — this is the search-result meta description."
 platforms: [list, of, platforms]
 topic: topic-from-submission
 date: YYYY-MM-DD

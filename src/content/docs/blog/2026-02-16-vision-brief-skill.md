@@ -4,7 +4,7 @@ authors:
   - jamesgray
 tags:
   - Plugins
-description: "Agentic Coding plugin update: PRD skill gets paired AC/user stories and scope sections; Vision Brief skill adds strategic depth with 10 questions and inline examples."
+description: "Agentic Coding plugin update: the PRD skill gains paired acceptance criteria and scope sections, and the Vision Brief skill adds ten strategic questions."
 title: "Agentic Coding Plugin: Stronger PRDs and Vision Briefs"
 ---Two back-to-back updates to the Agentic Coding plugin make both the PRD and Vision Brief skills significantly more rigorous — the PRD template now pairs acceptance criteria with user stories, and the Vision Brief asks the strategic questions that experienced product leaders always probe.
 

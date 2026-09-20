@@ -6,6 +6,7 @@ topic: skills
 date: 2026-02-09
 author: James Gray
 title: "If I add skills using plugins provided by developers, will they conflict with my custom skills?"
+description: "No. Plugin skills and custom skills live in separate directories with namespaced identifiers, so they never overwrite or interfere with each other."
 ---**Short answer:** No. Plugin skills and custom skills live in separate directories and use namespaced identifiers, so they never overwrite or interfere with each other — even if they cover similar topics.
 
 ## The Full Answer

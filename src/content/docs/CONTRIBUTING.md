@@ -1,6 +1,6 @@
 ---
 title: Contributing to Hands-on AI
-description: How to add content — questions, how-to guides, topics, and patterns — to the AI Playbook
+description: "How to contribute to the Hands-on AI Playbook — add questions, how-to guides, topics, and patterns using the content templates and submit them for review."
 ---Thank you for contributing to Hands-On AI! This guide explains how to add new content.
 
 ## Site Structure

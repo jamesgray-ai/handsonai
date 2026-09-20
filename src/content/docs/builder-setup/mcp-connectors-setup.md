@@ -1,5 +1,6 @@
 ---
 title: "MCP Connectors Setup Guide"
+description: "Connect Claude to external applications and MCP servers — connectors for Google Drive, Slack, GitHub, and more, plus how to add a custom MCP server."
 ---Quick reference for connecting Claude to external applications and MCP servers.
 
 ## Overview

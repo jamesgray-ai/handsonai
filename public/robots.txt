@@ -1,0 +1,5 @@
+# Cloudflare's managed robots.txt (Content Signals) is prepended to this file at the edge.
+User-agent: *
+Allow: /
+
+Sitemap: https://handsonai.info/sitemap-index.xml

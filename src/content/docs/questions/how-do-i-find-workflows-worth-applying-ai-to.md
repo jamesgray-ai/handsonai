@@ -6,6 +6,7 @@ topic: strategy
 date: 2026-02-02
 author: James Gray
 title: "How do I find workflows worth applying AI to?"
+description: "Run a structured audit of your daily and weekly tasks, classifying each by autonomy level and human involvement, to find where AI saves time or removes errors."
 ---**Short answer:** Run a structured audit of your daily and weekly tasks, classifying each by autonomy level (Deterministic, Guided, Autonomous) and human involvement (Augmented, Automated) — to find where AI can save time, reduce errors, or automate entire processes.
 
 ## The Full Answer
