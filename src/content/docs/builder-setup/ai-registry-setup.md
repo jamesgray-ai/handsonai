@@ -125,11 +125,11 @@ You never need GitHub for your registry. If you already use it, or want one of t
 
 ## The Interview
 
-Whichever path you took, your assistant now runs the same **interview — seven phases, numbered 0–6** — about 30 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
+Whichever flow you're in, your assistant now runs the same **interview — seven phases, numbered 0–6** — about 30 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
 
 | Phase | What it asks | Time |
 |---|---|---|
-| 0. Home | Where your registry will live (covered above) | 2 min |
+| 0. Home | Confirms the folder your registry goes in, and whether your assistant saves the files or prints them for you (decided above) | 2 min |
 | 1. Business | Your business's name and a one-sentence identity | 3 min |
 | 2. Lines of Business | The one or more lines of business inside it (solo founders usually get just one, named after the business itself) | 4 min |
 | 3. Functions | Which functions run your business — your assistant offers a starter list (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) and you trim or rename it | 3 min |
@@ -139,7 +139,7 @@ Whichever path you took, your assistant now runs the same **interview — seven 
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 
-**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, one Process node, and one Workflow node — plus a fresh `REGISTRY.md` summarizing all of it (at your workspace root on Paths A and B; at your GitHub Pages address on Path C, a couple of minutes after your last commit).
+**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, one Process node, and one Workflow node — plus a fresh `REGISTRY.md` summarizing all of it (in the folder you picked, next to `registry/`; or, if GitHub builds your dashboard, at your GitHub Pages address a couple of minutes after your last save).
 
 ## A Workflow Node
 
@@ -213,7 +213,7 @@ You only need to ask for a refresh yourself when you've added a skill, agent, or
 
 Your assistant re-reads every node in `registry/`, checks it against `registry/SCHEMA.md`, fixes what it can, tells you plainly about anything it can't (for example, a broken link to a file that no longer exists), and regenerates your dashboards from scratch. Because dashboards are always regenerated rather than edited, it's completely safe to ask for a refresh at any time — you never lose anything by doing it.
 
-**On Path C** (browser only), GitHub does the refresh for you: every time you save a file in `registry/`, it re-checks every node and republishes your dashboards within a couple of minutes — nothing to ask for. Your assistant can only re-read your nodes if your AI tool has a GitHub connector pointed at your repository; without one, paste in the file it asks about.
+**If you save the files yourself,** every refresh and every framework step ends with a file or two printed for you to save — the same routine as setup. Your assistant can re-read your nodes only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about. **If GitHub builds your dashboard** (the template repository, above), it also re-checks every node and republishes your dashboards within a couple of minutes of each save — nothing to ask for.
 
 ## Your Dashboard
 
@@ -247,16 +247,16 @@ The interview, the node shapes, and the dashboards are the same on every AI tool
 
 | Platform | Skills come from | Where your registry lives | How files get written |
 |---|---|---|---|
-| Claude Code | Hands-on AI plugin | a folder on your computer (a cloned repo) | directly — ask your assistant to commit and push when you want it backed up to GitHub |
-| Cowork | Hands-on AI plugin (same install as Claude Chat) | a folder on your computer, opened as a project | directly |
-| ChatGPT desktop (Codex tab) | Hands-on AI plugin, or skill folders in `~/.agents/skills/` | a folder on your computer (a cloned repo) | directly — ask your assistant to commit and push when you want it backed up to GitHub |
-| Cursor, Codex CLI, Gemini CLI | skill folders in `.agents/skills/` | a folder on your computer | directly — ask your assistant to commit and push when you want it backed up to GitHub |
-| claude.ai · ChatGPT web · Google Gemini · M365 Copilot | Hands-on AI plugin (Claude, ChatGPT) or uploaded skill ZIPs | your GitHub repository | you save each file on github.com — [Path C](#path-c-browser-only--save-the-files-on-githubcom) |
+| Claude Code | Hands-on AI plugin | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
+| Cowork | Hands-on AI plugin (same install as Claude Chat) | any folder on your computer, chosen as your working folder | directly |
+| ChatGPT desktop (Codex tab) | Hands-on AI plugin, or skill folders in `~/.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
+| Cursor, Codex CLI, Gemini CLI | skill folders in `.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
+| claude.ai · ChatGPT web · Google Gemini · M365 Copilot | Hands-on AI plugin (Claude, ChatGPT) or uploaded skill ZIPs | a folder on your computer, a synced cloud-drive folder, or a GitHub repository | you save each file — [You save the files](#you-save-the-files) |
 
 A few tool-specific details:
 
 - **Claude Code:** `/plugin list` shows `handsonai` once the plugin is installed, and `/handsonai:scaffolding-registry` starts the interview directly if you'd rather use the slash command.
-- **Cowork:** open your repository folder as a Cowork project *before* saying "set up my AI registry" — the skill can only write inside the project you have open. Your visual dashboard can also be published as a shareable Claude Artifact.
+- **Cowork:** choose your registry's folder as your working folder — a Cowork project or any local folder — *before* saying "set up my AI registry"; the skill can only write inside the folder you're working in. Your visual dashboard can also be published as a shareable Claude Artifact.
 - **ChatGPT desktop:** the plugin's skills work in the Codex tab. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Set Up the Skills — Codex](../../ai-workflow-framework/skills/#openai-codex).
 - **Browser tools (claude.ai, ChatGPT web, Gemini, Copilot):** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
 
@@ -264,7 +264,7 @@ If a button or label on your screen doesn't match these steps, paste the step yo
 
 ## Migrating From the Old Workflow Manifest File
 
-Earlier versions of this playbook tracked each workflow with one small file per workflow (a "workflow manifest file") instead of today's registry bundle. If your assistant finds one of these old-style files in your workspace, it offers to migrate it as part of [Path B](#path-b-add-a-registry-to-an-existing-workspace) or [Path A](#path-a-start-from-the-template-repo)'s setup — you don't need to do anything by hand.
+Earlier versions of this playbook tracked each workflow with one small file per workflow (a "workflow manifest file") instead of today's registry bundle. If your assistant finds one of these old-style files in your workspace, it offers to migrate it as part of setup (see [Your Assistant Saves the Files](#your-assistant-saves-the-files)) — you don't need to do anything by hand. If you save files yourself, tell your assistant what's in your `outputs/` folder when it asks; it can't look for itself.
 
 **What your assistant does during migration:**
 
@@ -284,7 +284,7 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 **"My registry wasn't found" / `registry/` doesn't exist:**
 
-- Make sure you're working inside your actual workspace folder — your assistant can only write where it has file access.
+- If your assistant saves files: make sure the folder you opened in your AI tool is the one that holds `registry/`. If you save files yourself: your assistant can't see your folder — paste in `registry/index.md` when it asks, or tell it which files you've saved.
 - Ask directly: *"Set up my AI registry"* — this is safe to run even if a partial registry already exists; it fills in only what's missing.
 
 **My assistant reported lint errors:**
@@ -298,7 +298,7 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 **My GitHub Pages dashboard (Tier 3) isn't publishing:**
 
-- This tier only applies if you started from the template repo (Path A or C) — registries added to an existing workspace don't have it unless you set it up separately.
+- This only applies if your registry lives in a GitHub repository created from the template (see [Optional: Let GitHub Build Your Dashboard](#optional-let-github-build-your-dashboard)). Registries in an ordinary folder or cloud drive don't have it.
 - Confirm GitHub Pages is turned on for your repository (**Settings → Pages → Source → GitHub Actions** in your repo on github.com) — it's off by default until you enable it.
 - Check the **Actions** tab in your repository for a failed run — Actions is the tab on your repository's GitHub page that lists every automated run; a red ✗ next to a run means it failed. Click that run and read the first red line for the reason. A broken node (one with a lint error) blocks publishing on purpose, the same way it blocks a local dashboard refresh. The failure message names the file and the rule it broke.
 
