@@ -12,7 +12,7 @@ fictional nodes are never a fallback.
 ## Phase 0 — Home (2 min)
 
 **First, detect — don't ask.** Can you create and edit files in the folder
-the student has open?
+the student has open? (A file the student would have to download does not count — that is print-and-save mode.)
 
 - **Yes → write mode.** The registry goes at the root of that folder. It
   does not matter whether the folder is local, a synced cloud-drive folder,

@@ -66,6 +66,8 @@ the bundle exists.
    `notion_url`, `timestamp`, `lob`, `sequence`, `process` (banned on any node), `owner` (banned
    on Workflow nodes — it lives on Process).
 
+- **Print-and-save mode.** If you cannot create or edit files in the student's folder, every write in this contract becomes: print the file's complete contents and its exact location, and say plainly that the student must save it. Never report a file as written that you only printed. At the end of the step, list every file the student needs to save.
+
 **Bundle-wide anchors (consistency-check anchors — restated here on purpose):**
 
 - The bundle root `index.md` declares `okf_version: "0.2"` in its frontmatter — the one index
@@ -77,7 +79,6 @@ the bundle exists.
     into a new node)
   - `execution_mode`: `manual` | `augmented` | `automated`
   - `autonomy`: `deterministic` | `guided` | `autonomous`
-- **Print-and-save mode.** If you cannot create or edit files in the student's folder, every write in this contract becomes: print the file's complete contents and its exact location, and say plainly that the student must save it. Never report a file as written that you only printed. At the end of the step, list every file the student needs to save.
 
 ---
 

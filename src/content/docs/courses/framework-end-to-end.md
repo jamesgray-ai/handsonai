@@ -33,7 +33,7 @@ Do these steps in the folder you have open in Cowork or Claude Code.
 
 **Step 2 — create the workflow folder and save the download.** Inside your workspace, create a folder named `outputs`, and inside it a folder named `competitive-intelligence-brief`. Save the download as `requirements.md` inside that folder, so the full path is `outputs/competitive-intelligence-brief/requirements.md`. (Rename the downloaded file — the framework skills look for `requirements.md`.)
 
-**Step 3 — hand-type the first Workflow node.** In `registry/workflows/`, create a file named `competitive-intelligence-brief.md` and paste in exactly this. Easiest path: on github.com, open your registry repository, click **Add file → Create new file**, paste `registry/workflows/competitive-intelligence-brief.md` as the filename, paste the block below as the content, then **Commit**. (Or, if you're working locally, ask your AI assistant to create the file for you with this exact content — same result either way.)
+**Step 3 — hand-type the first Workflow node.** In `registry/workflows/`, create a file named `competitive-intelligence-brief.md` and paste in exactly this. Easiest path: ask your AI assistant to create the file for you with this exact content. (Or, if your registry lives on GitHub and you save files yourself, open your repository on github.com, click **Add file → Create new file**, paste `registry/workflows/competitive-intelligence-brief.md` as the filename, paste the block below as the content, then **Commit** — same result either way.)
 
 ```markdown
 ---
