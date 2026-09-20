@@ -1,6 +1,6 @@
 ---
 title: Building Agents on Google
-description: How to build agents on Google's Gemini platform — Workspace Studio for natural-language automation, Gemini Enterprise Agent Designer for no-code workflows, and the Agent Development Kit for custom development.
+description: "How to build agents on Google's Gemini platform — Workspace Studio automation, Gemini Enterprise Agent Designer for no-code, and the Agent Development Kit."
 ---> **Part of:** [Build Workflows > Agents](../../../../ai-workflow-framework/build/)
 
 Google offers three approaches to building agents on the Gemini platform, ranging from natural-language automation to full programmatic control.

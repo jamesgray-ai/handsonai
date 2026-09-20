@@ -1,6 +1,6 @@
 ---
 title: Chain-of-Thought Prompting
-description: How to improve LLM reasoning by asking the model to show its work step by step before answering.
+description: "Chain-of-thought prompting — improve LLM reasoning by asking the model to show its work step by step before answering, with examples and when to use it."
 ---> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## What It Is

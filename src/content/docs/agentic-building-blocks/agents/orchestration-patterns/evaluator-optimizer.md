@@ -1,6 +1,6 @@
 ---
 title: Evaluator-Optimizer (Review Loop)
-description: How a generator agent and an evaluator agent iterate on output until it meets defined quality criteria — producing measurably better results than single-pass generation.
+description: "How a generator agent and an evaluator agent iterate on output until it meets defined quality criteria — measurably better than single-pass generation."
 ---## What It Is
 
 The evaluator-optimizer pattern pairs a generator agent with an evaluator agent in a feedback loop. The generator produces output, the evaluator scores it against defined criteria and provides specific feedback, and the generator revises its output based on that feedback. This loop repeats until the output meets a quality threshold or a maximum iteration count is reached.

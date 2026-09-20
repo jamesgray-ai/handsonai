@@ -4,7 +4,7 @@ authors:
   - jamesgray
 tags:
   - Plugins
-description: "Four plugins are now one. The handsonai plugin bundles the Business-First AI Framework, AI Registry, and Agentic Coding skills into a single install. Example agents move to a new gallery."
+description: "Four plugins are now one: the handsonai plugin bundles the AI Workflow Framework, AI Registry, and Agentic Coding skills, and example agents move to a gallery."
 title: "One Plugin to Install: Hands-on AI Marketplace Consolidation"
 ---
 

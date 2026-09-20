@@ -1,6 +1,6 @@
 ---
 title: Repository Creation and Cloning Guide
-description: Create your first GitHub repository and clone it to your computer using your editor or Claude Desktop
+description: "Create your first GitHub repository and clone it to your computer using your editor or Claude Desktop — a step-by-step guide for first-time Git users."
 schema_type: HowTo
 howto_steps:
   - name: Create a repository

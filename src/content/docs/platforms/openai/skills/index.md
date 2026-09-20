@@ -1,6 +1,6 @@
 ---
 title: Skills on OpenAI
-description: How Agent Skills work in ChatGPT and Codex — install a plugin, upload a skill, or drop a folder on disk
+description: "How Agent Skills work in ChatGPT and Codex — install a plugin from a marketplace, upload a skill ZIP, or drop a skill folder on disk for Codex CLI."
 ---
 
 ChatGPT and Codex support Agent Skills natively, using the same open `SKILL.md` format as Claude and other platforms. Since July 2026 the ChatGPT app (Mac, Windows, Linux) has three modes — **Chat**, **Work**, and **Codex** — and ChatGPT and Codex share one plugin directory, so a plugin installed once works in all of them.

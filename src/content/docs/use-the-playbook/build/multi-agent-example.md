@@ -1,6 +1,6 @@
 ---
 title: The Multi-Agent Example Plugin
-description: A runnable worked example of multi-agent orchestration — four specialist agents, two enforcement hooks, and a human approval gate, packaged so you can install it, run it, and adapt it.
+description: "A runnable worked example of multi-agent orchestration — four specialist agents, two enforcement hooks, and a human approval gate you can install and adapt."
 ---
 
 A **worked example, not a toolkit.** This plugin contains one complete multi-agent pipeline: four specialist agents that research, write, edit, and publish a business article, coordinated by Claude Code. The article is the excuse; the architecture is the point.

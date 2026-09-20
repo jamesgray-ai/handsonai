@@ -6,6 +6,7 @@ topic: skills
 date: 2026-02-08
 author: James Gray
 title: "What is the difference between a skill and an agent in Claude Code?"
+description: "A skill is a reusable routine that does one thing when invoked; an agent is an autonomous system that plans, uses tools, and orchestrates multi-step workflows."
 ---**Short answer:** A skill is a reusable routine that does one thing when invoked, while an agent is an autonomous system that plans, uses tools, and orchestrates multi-step workflows.
 
 ## The Full Answer

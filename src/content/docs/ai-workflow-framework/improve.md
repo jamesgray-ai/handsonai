@@ -1,6 +1,6 @@
 ---
 title: "Step 7: Improve"
-description: Evaluate a running AI workflow for quality, relevance, and evolution opportunities — periodic review, regression evaluation, graduation assessment, and decision framework.
+description: "Step 7: Improve — evaluate a running AI workflow for quality, relevance, and evolution with periodic review, regression checks, and a graduation decision."
 ---
 
 > **Part of:** [AI Workflow Framework](../)

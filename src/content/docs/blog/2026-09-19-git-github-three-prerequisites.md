@@ -5,7 +5,7 @@ authors:
 tags:
   - Builder Setup
   - Courses
-description: "Git and GitHub setup is now three numbered prerequisites — GitHub Account, Git, GitHub CLI — each with a 'Done when' test; the Tools Setup Checklist grows from 8 to 10 steps."
+description: "Git and GitHub setup is now three numbered prerequisites — GitHub account, Git, GitHub CLI — each with a 'Done when' test; the checklist grows to ten steps."
 title: "Git & GitHub setup, rebuilt as three prerequisites you can check off"
 ---
 

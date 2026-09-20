@@ -4,7 +4,7 @@ authors:
   - jamesgray
 tags:
   - Plugins
-description: "New plugin for AI-assisted coding workflows — define requirements with structured PRDs before you build."
+description: "A new plugin for AI-assisted coding workflows — define requirements with structured PRDs before you build, then hand the spec to your coding agent."
 title: "New Plugin: Agentic Coding"
 ---The **Agentic Coding** plugin is now available in the marketplace — the third plugin alongside Business-First AI and AI Registry. It packages two skills for the "discover and define" phase of AI-assisted coding: `writing-vision-briefs` and `writing-feature-prds`.
 

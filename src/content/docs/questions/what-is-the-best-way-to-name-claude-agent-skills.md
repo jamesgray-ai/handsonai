@@ -6,6 +6,7 @@ topic: agents
 date: 2026-02-02
 author: James Gray
 title: "What is the best way to name Claude agent skills?"
+description: "Use a gerund verb-noun pattern that describes the action and context — like writing-workflow-sops or indexing-registry — so the name says what the skill does."
 ---**Short answer:** Name skills using a verb-noun pattern that describes the action and its context, like 'writing-workflow-sops' or 'indexing-registry', so the name alone tells you what the skill does.
 
 ## The Full Answer

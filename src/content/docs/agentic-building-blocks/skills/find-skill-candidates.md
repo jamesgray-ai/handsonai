@@ -1,6 +1,6 @@
 ---
 title: Find Your Skill Candidates (Quick Prompt)
-description: A single copy-paste prompt that interviews you, reviews whatever your AI already knows about your work, and ranks your best agent skill candidates. Works in Claude, ChatGPT, Copilot, Gemini, Cursor, and Codex.
+description: "A copy-paste prompt that interviews you, reviews what your AI already knows about your work, and ranks your best agent skill candidates on any platform."
 ---
 
 ## Why This Matters

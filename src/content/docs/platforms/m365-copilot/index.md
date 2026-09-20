@@ -1,6 +1,6 @@
 ---
 title: M365 Copilot
-description: Guides for Microsoft 365 Copilot and Azure OpenAI
+description: "Guides for Microsoft 365 Copilot — setup, Copilot Cowork, Copilot Studio, Azure OpenAI, and how to bring skills and agents into the Microsoft ecosystem."
 ---Guides and resources for working with Microsoft 365 Copilot.
 
 :::tip[New to M365 Copilot?]

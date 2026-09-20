@@ -1,6 +1,6 @@
 ---
 title: Claude Projects Setup Guide
-description: Create and configure Claude Projects for persistent context, knowledge, and instructions
+description: "Create and configure Claude Projects for persistent context — add knowledge files, write project instructions, and organize conversations by workflow."
 ---Quick reference for creating and configuring Claude Projects for persistent context.
 
 ## What Are Projects?

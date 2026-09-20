@@ -1,6 +1,6 @@
 ---
 title: Few-Shot Learning
-description: How to teach an LLM new patterns by providing a few examples directly in your prompt.
+description: "Few-shot learning — teach an LLM a new pattern by giving it a few worked examples directly in the prompt, with guidance on choosing and formatting examples."
 ---> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## What It Is

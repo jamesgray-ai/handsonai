@@ -1,6 +1,6 @@
 ---
 title: Platforms
-description: Platform-specific guides, setup, and reference for Claude, OpenAI, Gemini, M365 Copilot, and Cursor
+description: "Platform-specific guides, setup instructions, and reference material for Claude, OpenAI, Google Gemini, Microsoft 365 Copilot, and Cursor."
 ---Platform-specific setup guides, topics, and Q&A organized by AI platform.
 
 ## Choose Your Platform

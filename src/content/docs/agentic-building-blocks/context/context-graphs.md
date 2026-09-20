@@ -1,6 +1,6 @@
 ---
 title: Context Graphs
-description: Structured systems that capture reasoning, decisions, and relational context for agentic AI workflows
+description: "Context graphs — structured systems that capture reasoning, decisions, and relationships so agentic AI workflows carry the right context between steps."
 ---> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## What Context Graphs Are

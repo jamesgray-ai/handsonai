@@ -1,6 +1,6 @@
 ---
 title: Gemini Resources
-description: Recommended docs, tools, courses, and community links for Google Gemini
+description: "Recommended documentation, tools, courses, and community links for Google Gemini — official guides, cookbooks, and practitioner resources."
 ---Recommended articles, docs, and courses for Google's Gemini models.
 
 ## Get Started

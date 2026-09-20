@@ -5,7 +5,7 @@ authors:
 tags:
   - Plugins
   - New Content
-description: "The Business-First AI Framework expands from 3 steps to 7 — with new Test and Improve steps, renamed skills, evaluation criteria, and a skills-only approach replacing portable prompts."
+description: "The framework expands from three steps to seven — new Test and Improve steps, renamed skills, evaluation criteria, and a skills-only approach replacing prompts."
 title: "Business-First AI Framework: 7-Step Restructure"
 ---The framework grows from three steps to seven — promoting Design, Build, Test, Run, and Improve to top-level steps with their own skills, deliverables, and documentation pages.
 

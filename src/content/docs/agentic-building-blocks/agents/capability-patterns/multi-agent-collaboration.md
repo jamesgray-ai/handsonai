@@ -1,6 +1,6 @@
 ---
 title: Multi-Agent Collaboration
-description: How multiple specialized AI agents work together to solve problems that are too complex for a single agent.
+description: "How multiple specialized AI agents divide and coordinate work to solve problems too complex for one agent — roles, handoffs, and when the pattern pays off."
 ---## What It Is
 
 Multi-agent collaboration is a pattern where multiple AI agents — each with different roles, tools, or expertise — work together to accomplish a task. Instead of one general-purpose agent doing everything, the work is divided among specialists that communicate, delegate, and coordinate.

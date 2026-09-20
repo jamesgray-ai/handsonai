@@ -1,6 +1,6 @@
 ---
 title: Tools & Resources
-description: Four ways to use the Hands-on AI Playbook — connect the MCP server for instant answers, download agents and skills, browse curated resources, or take a structured course
+description: "Four ways to use the Hands-on AI Playbook — connect the MCP server, install the agents and skills plugin, browse curated resources, or take a course."
 ---The Hands-on AI Playbook isn't just a reference site — it's a toolkit you can use directly inside your AI tools. Get instant answers via MCP, install pre-built agents and skills, browse curated resources, or learn in a live cohort course.
 
 <style>

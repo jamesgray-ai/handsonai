@@ -4,7 +4,7 @@ authors:
   - jamesgray
 tags:
   - Announcements
-description: "New Changelog with RSS feed, plus a dedicated MCP server so AI assistants can search the playbook directly."
+description: "A new Changelog with an RSS feed, plus a dedicated MCP server so Claude, ChatGPT, and other AI assistants can search the playbook directly from a conversation."
 title: "Introducing the Changelog and MCP Server"
 ---The Hands-on AI Playbook now has a dedicated **Changelog** and a new **MCP server** — two ways to stay current on what's happening.
 

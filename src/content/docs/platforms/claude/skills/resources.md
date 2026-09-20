@@ -1,6 +1,6 @@
 ---
 title: Claude Skills Resources
-description: Recommended docs, tutorials, courses, and community links for Claude Agent Skills
+description: "Recommended documentation, tutorials, courses, and community links for Claude Agent Skills — from Anthropic's official guides to practitioner examples."
 ---Recommended docs, tutorials, and community links for Claude Agent Skills.
 
 ## Get Started

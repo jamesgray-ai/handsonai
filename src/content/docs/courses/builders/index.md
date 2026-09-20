@@ -1,6 +1,6 @@
 ---
 title: "Agentic AI for Claude Builders"
-description: From Claude user to Claude builder in 5 weeks. A hands-on cohort course on Maven.
+description: "Claude and Claude Code for Builders — a hands-on five-week cohort course on Maven that takes you from Claude user to Claude builder with real workflows."
 schema_type: Course
 course_duration: P5W
 course_mode: Blended

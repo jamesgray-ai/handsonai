@@ -92,6 +92,6 @@ CLI is the terminal-native interaction layer:
 - [Skills](../skills/) — reusable routines that extend CLI functionality
 - [AI Use Cases](../../use-cases/) — what teams build with these blocks
 - [Coding Use Cases](../../use-cases/coding/) — the primary use case for CLI tools
-- [Agentic Coding](../../use-cases/coding/agentic-coding/) — the coding workflow that CLI tools enable
+- [Agentic Coding](../../use-cases/agentic-coding/) — the coding workflow that CLI tools enable
 - [Editor Setup](../../builder-setup/editor-setup/) — AI coding extensions including Claude Code
 - [Platforms](../../platforms/) — platform-specific CLI guides

@@ -16,6 +16,7 @@
 ---
 question: "Your question here?"
 short_answer: "Provide a 1-2 sentence direct answer. This is used for JSON-LD schema."
+description: "Meta description for search results — usually the short_answer, trimmed to 110-160 characters. Omit it and the page ships with no <meta name=description>."
 platforms: [openai, claude, gemini]
 topic: prompting
 date: 2026-01-24

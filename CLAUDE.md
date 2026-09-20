@@ -104,6 +104,9 @@ fixed sequence.
 - Tags are metadata only right now: starlight-blog's `/blog/tags/[tag]` and `/blog/authors/[author]` routes render nothing here, because the blog is hand-rolled via `BlogList.astro` over the `docs` collection rather than driven by the plugin's routes. Verified 2026-07-25 — the build produces no tag or author pages
 - The blog covers both playbook updates and notable releases from Anthropic, OpenAI, and other platforms — keep `/blog/` and RSS scope copy consistent with that
 - Markdown gotchas the build won't flag: a `---` divider directly under `</details>` renders as literal dashes — put a blank line between them; and `---## Heading` (heading glued to the frontmatter fence) happens to render but breaks `grep "^## "`, so keep the fence on its own line. Both patterns still exist in older pages
+- Redirects live in `astro.config.mjs` → `redirects`. Astro renders each as a 200 + `noindex` HTML stub, so `src/integrations/cloudflare-redirects.mjs` also writes them to `dist/_redirects` at build, which Cloudflare Pages answers with a real 301 (test: `node scripts/test-cloudflare-redirects.mjs`). A redirect whose source path still has a content file **shadows the real page** — the build warns `conflicts with higher priority route`; treat that warning as an error and delete the stale redirect
+- Meta descriptions: keep frontmatter `description` between 110 and 160 characters (Ahrefs flags outside that range). Q&A pages need an explicit `description` — `short_answer` is not used as a fallback
+- `public/robots.txt` exists only to carry the `Sitemap:` line; Cloudflare prepends its managed Content Signals block at the edge
 - `src/content/docs/llms.txt` and `llms-full.txt` are stale leftovers — the served `/llms.txt` is generated at build by `src/integrations/llms-txt.mjs` from questions and use-cases. Don't edit the `src/` copies
 
 ## Feature Development Workflow

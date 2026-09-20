@@ -1,6 +1,6 @@
 ---
 title: AI Workflow Design Matrix
-description: A 3x2 matrix combining autonomy level (Deterministic, Guided, Autonomous) with human involvement (Augmented, Automated) to define six workflow archetypes — use it to classify any AI workflow and choose the right design.
+description: "A 3x2 matrix combining autonomy level (Deterministic, Guided, Autonomous) with human involvement (Augmented, Automated) to classify and design any AI workflow."
 ---Every AI workflow can be described by two dimensions: **how much decision-making the AI has** and **whether a human is in the loop during execution**. These two dimensions combine into a 3x2 matrix of six workflow archetypes — a shared vocabulary for classifying, comparing, and designing AI workflows.
 
 A third dimension — **Lens** — determines the scope of your analysis:

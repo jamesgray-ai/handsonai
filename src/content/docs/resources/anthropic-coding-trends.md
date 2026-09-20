@@ -1,6 +1,6 @@
 ---
 title: "2026 Agentic Coding Trends Report"
-description: "Anthropic's report on eight trends reshaping software development — from single agents evolving into coordinated teams to non-technical use cases expanding across organizations"
+description: "Anthropic's report on eight trends reshaping software development — single agents evolving into coordinated teams, and non-technical use cases spreading."
 ---*Source: [Anthropic](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf) · PDF · Published 2026*
 
 ## Why This Matters

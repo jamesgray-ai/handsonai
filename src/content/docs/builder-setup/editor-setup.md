@@ -1,6 +1,6 @@
 ---
 title: Code Editor Setup Guide
-description: Install Cursor or VS Code as your code editor for AI development
+description: "Install and configure Cursor or VS Code as your code editor for AI development — download, first launch, and the settings that matter for working with AI tools."
 schema_type: HowTo
 howto_steps:
   - name: Choose your editor

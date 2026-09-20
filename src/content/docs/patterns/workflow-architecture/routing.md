@@ -1,6 +1,6 @@
 ---
 title: Routing
-description: Classify input and direct it to specialized follow-up processes for optimized handling of diverse task types
+description: "The routing pattern — classify each input and direct it to a specialized follow-up process, so diverse task types get handled by the right prompt or agent."
 ---The **routing** pattern classifies input and directs it to a specialized follow-up task. By separating tasks into distinct categories and routing them to appropriate processes, this pattern enables **separation of concerns** and highly optimized handling for each input type.
 
 Without routing, optimizing a system for one type of input (e.g., simple queries) can degrade performance for other types (e.g., complex or edge-case queries).

@@ -5,7 +5,7 @@ authors:
 tags:
   - New Content
   - Plugins
-description: "New AI Workflow Design Matrix defines six workflow archetypes, Building Block Comparison Matrix helps choose the right block, and framework terminology is streamlined site-wide."
+description: "The new AI Workflow Design Matrix defines six workflow archetypes, a Building Block Comparison Matrix helps you choose, and framework terminology is unified."
 title: "AI Workflow Design Matrix, Building Block Comparison, and Framework Terminology Update"
 ---Two new reference pages and a terminology overhaul across the framework — making it easier to classify workflows and choose the right building blocks.
 

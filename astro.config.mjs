@@ -3,6 +3,7 @@ import starlight from '@astrojs/starlight';
 import starlightBlog from 'starlight-blog';
 import sitemap from '@astrojs/sitemap';
 import llmsTxt from './src/integrations/llms-txt.mjs';
+import cloudflareRedirects from './src/integrations/cloudflare-redirects.mjs';
 
 export default defineConfig({
   site: 'https://handsonai.info',
@@ -84,9 +85,6 @@ export default defineConfig({
     '/builder-setup/ai-platforms/': '/builder-setup/',
     // Legacy feed URL
     '/feed/rss_created.xml': '/rss.xml',
-    // Agents pages moved to building-blocks section
-    '/platforms/claude/agents/building-agents/': '/agentic-building-blocks/agents/',
-    '/platforms/openai/agents/building-agents/': '/agentic-building-blocks/agents/',
     // Skills subpage consolidated — now lands on the global Q&A hub
     '/agentic-building-blocks/skills/questions/': '/questions/',
     // Misindexed as subpages of self-consistency (it's a leaf page)
@@ -566,5 +564,6 @@ export default defineConfig({
       },
     }),
     llmsTxt(),
+    cloudflareRedirects(),
   ],
 });

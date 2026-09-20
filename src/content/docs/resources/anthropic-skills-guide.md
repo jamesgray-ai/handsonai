@@ -1,6 +1,6 @@
 ---
 title: "The Complete Guide to Building Skills for Claude"
-description: "Anthropic's end-to-end guide to planning, building, testing, and distributing Claude skills — from fundamentals and progressive disclosure to patterns and troubleshooting"
+description: "Anthropic's end-to-end guide to planning, building, testing, and distributing Claude skills — fundamentals, progressive disclosure, patterns, troubleshooting."
 ---*Source: [Anthropic](https://claude.com/blog/complete-guide-to-building-skills-for-claude) · PDF · Published 2026*
 
 ## Why This Matters
