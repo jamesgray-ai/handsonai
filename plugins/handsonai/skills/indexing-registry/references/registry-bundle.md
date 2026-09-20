@@ -77,6 +77,7 @@ the bundle exists.
     into a new node)
   - `execution_mode`: `manual` | `augmented` | `automated`
   - `autonomy`: `deterministic` | `guided` | `autonomous`
+- **Print-and-save mode.** If you cannot create or edit files in the student's folder, every write in this contract becomes: print the file's complete contents and its exact location, and say plainly that the student must save it. Never report a file as written that you only printed. At the end of the step, list every file the student needs to save.
 
 ---
 
@@ -190,4 +191,4 @@ auto-applied — lint never repairs meaning on its own.
 
 After your skill's fields are written, invoke the `indexing-registry` skill for a maintenance
 pass. This is **best-effort** — a failed refresh never fails your step. Do not restate the
-maintenance pass inline; point here.
+maintenance pass inline; point here. In print-and-save mode, instead print the updated `REGISTRY.md` with its location — the student saves it — and say so.
