@@ -125,7 +125,7 @@ Always include:
 
 **Cap:** one to three relationships per type. If the user wants more, use the earn-its-place question again.
 
-**Example to show:** `references/example-knowledge-graph.md` § "How they connect", only if asked.
+**Example to show:** the `# How they connect` section inside the `types.md` block in `references/example-knowledge-graph.md` (§ "types.md"), only if asked.
 
 **What to write:** nothing yet.
 
