@@ -6,7 +6,7 @@ generated: { by: process:ai-registry-template, at: 2026-08-10 }
 ---
 # AI Registry Bundle — SCHEMA
 
-This bundle is an [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+This bundle is an [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
 knowledge bundle holding **operations knowledge**: how your business runs — its lines of business,
 processes, workflows, and the durable insights their runs produce. The bundle root declares
 `okf_version: "0.2"` in `index.md`'s frontmatter (spec §12: the one index permitted a frontmatter
@@ -14,8 +14,8 @@ block).
 
 **Before changing this schema or the bundle's structure** (concept types, frontmatter fields,
 links, indexes, directory layout, or the rules below), **consult the OKF spec first**
-([spec](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) ·
-[raw SPEC.md](https://raw.githubusercontent.com/GoogleCloudPlatform/knowledge-catalog/main/okf/SPEC.md)).
+([spec](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md) ·
+[raw SPEC.md](https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md)).
 This SCHEMA is a **stricter producer profile** on top of OKF: it requires `title`/`description`/
 `generated`, enforces directory↔type agreement and enum values, and errors on broken links, index
 gaps, and unclaimed operational artifacts — all OKF-permitted.

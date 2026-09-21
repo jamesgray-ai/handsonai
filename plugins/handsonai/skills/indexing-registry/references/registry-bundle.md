@@ -17,7 +17,7 @@ registry/workflows/<slug>.md
 ```
 
 where `<slug>` is the workflow's kebab-case ID. The node is YAML frontmatter plus markdown body
-sections, held inside an [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+sections, held inside an [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
 knowledge bundle rooted at `registry/`.
 
 The workspace's own `registry/SCHEMA.md` is **authoritative** for node structure, enums, and
