@@ -9,7 +9,7 @@ Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.gith
 - `index.md` may appear in any folder and lists contents for progressive disclosure: sections with `* [Title](link) - description` lines. The bundle-root `index.md` may carry one frontmatter key, `okf_version`.
 - `log.md` is a flat list of date-grouped entries, newest first: `## YYYY-MM-DD` headings with `* **Word**: prose` bullets. The bold word (Creation, Update, Ingest, Query, Lint, Deprecation) is a convention.
 - Provenance: `sources` is a list; each entry has a required `resource` (a URL, a bundle-relative path, a relative path, or a plain descriptor), an optional stable `id`, and an optional `title`. A claim in the body is attributed with a footnote whose label equals a `sources[].id`: `…sharded daily.[^acme-msa-2026]` and `[^acme-msa-2026]: Master services agreement`.
-- Trust: `generated: { by, at }` records who wrote the current content and when. `verified: { by, at }` (or a list of them) records who confirmed it. Actors: `human:<id>` for people, `process:<id>` for automated processes, `<producer>/<version>` for agents. Trust tier is derived: no `verified` = unverified; non-human verifiers = machine-confirmed; a `human:` verifier = human-reviewed.
+- Trust: `generated: { by, at }` records who wrote the current content and when. `verified: { by, at }` (or a list of them) records who confirmed it. Actors: `human:<id>` for people, `process:<id>` for automated processes, `<producer>/<version>` for agents. Trust tier is derived: no `verified` = unverified; non-human verifiers = machine-confirmed; a `human:` verifier = human-reviewed. A page whose `generated.at` is newer than its `verified.at` has changed since it was confirmed; the verification still stands as a fact about the earlier content, and lint reports it as changed since verified.
 - Lifecycle: `status: draft | stable | deprecated` (absent = stable). `stale_after: <instant>`: stale when now ≥ that instant.
 - Every timestamp is ISO 8601 with an explicit UTC offset: `2026-09-21T14:00:00Z`.
 - `resource` (top-level) is the canonical URI of the thing a concept describes (a tool's site, a client's site). It is a different field from `sources[].resource`, which is provenance. Never put a source in the top-level `resource`.
@@ -289,7 +289,7 @@ description: Health-check the knowledge graph. Use when the user says "lint", as
    - **Contradictions**: two pages that disagree about a fact.
    - **Out of date**: any page whose `stale_after` has passed; claims a newer source superseded.
    - **Broken structure**: orphan pages nothing links to; a declared relationship with no reciprocal on the other page; links into `status: deprecated` pages; pages missing from `index.md`.
-   - **Trust picture**: how many pages are unverified, machine-confirmed, and human-reviewed.
+   - **Trust picture**: how many pages are unverified, machine-confirmed, and human-reviewed, and list every page whose `generated.at` is newer than its latest `verified.at` as **changed since verified**; those are the pages to re-read and re-confirm.
    - **Pages worth writing** (not errors): concepts mentioned on several pages that have no page of their own; links to pages that do not exist yet. Exempt `notes/` from any lonely-folder observation.
 3. Ask which fixes to apply. Apply only those, stamping `generated: { by: process:lint, at: <instant> }` on any page you fix. Append a `**Lint**` entry to `knowledge/log.md` with what was found and what was fixed.
 ```
