@@ -54,10 +54,12 @@ This file is the map. `references/interview-guide.md` is the script for Phases 0
 
 Resolve platform names yourself; never ask the user:
 
-| | Claude Code / Cowork | Codex (ChatGPT app) and Codex CLI |
-|---|---|---|
-| Standing-rules file, at the project root | `CLAUDE.md` | `AGENTS.md` |
-| Skills folder, at the project root | `.claude/skills/` | `.agents/skills/` |
+| | Claude Code / Cowork | Codex (ChatGPT app) and Codex CLI | Cursor / Gemini CLI |
+|---|---|---|---|
+| Standing-rules file, at the project root | `CLAUDE.md` | `AGENTS.md` | `AGENTS.md` (both tools read it; Gemini CLI also reads `GEMINI.md`, but `AGENTS.md` is the portable choice) |
+| Skills folder, at the project root | `.claude/skills/` | `.agents/skills/` | `.agents/skills/` |
+
+On any other tool that writes files, use `AGENTS.md` and `.agents/skills/`, and say in Phase 0 which names you chose.
 
 We work in phases with stop-gates. Announce each phase as you reach it. Never move to a later phase until the user says so, and build nothing until the user sends the single word **build** as its own message.
 

@@ -10,7 +10,7 @@ Two words you will use constantly, and how to explain them if asked: a **type** 
 
 **Say first:** "I'm working in `<full path>`. Is this the project folder for your knowledge graph? It's the folder that will hold your rules file, your skills, a `raw/` folder for documents, and the `knowledge/` folder where the graph itself goes."
 
-**Then state the platform:** "You're on <Claude Code | Cowork | the ChatGPT app's Codex view | …>, so your rules file will be `<CLAUDE.md | AGENTS.md>` and your skills will live in `<.claude/skills/ | .agents/skills/>`."
+**Then state the platform:** "You're on <Claude Code | Cowork | the ChatGPT app's Codex view | Cursor | Gemini CLI | …>, so your rules file will be `<CLAUDE.md | AGENTS.md>` and your skills will live in `<.claude/skills/ | .agents/skills/>`." On Cursor or Gemini CLI, the rules file is `AGENTS.md` (both tools read it; Gemini CLI also reads `GEMINI.md`, but `AGENTS.md` is the portable choice) and the skills folder is `.agents/skills/`.
 
 **Mode check (do not ask, detect):** can you create a file in this folder? If not: "This build needs a tool that can write files on your computer: Claude Code, Cowork, or the ChatGPT desktop app's Codex view. A browser chat window can't do it. Open your folder in one of those and say *build my knowledge graph* again." Then stop.
 
