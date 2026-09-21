@@ -1,6 +1,6 @@
 # Build Spec — what Phase 5 writes
 
-Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order. Stamp every file you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }`.
+Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order. Stamp every **concept page** you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }` — that means `SCHEMA.md`, `overview.md`, and every page inside a type folder. `index.md`, `log.md`, `.gitkeep`, the standing-rules file, and the two `SKILL.md` files are not concepts and carry no `generated` key.
 
 ## OKF rules (distilled fallback; the fetched spec wins where they differ)
 
@@ -77,7 +77,8 @@ Examples:      none at build. Exempt from the three-examples rule and from
 
 ### Overview
 The single page you would hand a new hire. Exactly one, at the bundle root.
-Folder:        / (overview.md)
+Folder:        none — exactly one file at the bundle root (overview.md),
+               not inside a type folder
 Body:          scope, what the work is, and links to the key pages of each type
 
 ## Relationships
@@ -109,6 +110,10 @@ declared relationship, and may be one-way.
 - verified is added only when a person confirms a page. Never self-stamped.
 - Deprecate, don't delete: a page nothing should use any more gets
   status: deprecated and stays, so links keep resolving.
+- `index.md`, `log.md`, and `.gitkeep` are reserved — skip all concept
+  checks on them. `index.md` carries only `okf_version`; `log.md` carries
+  no frontmatter at all. Never propose adding `type` or other concept
+  frontmatter to a reserved file.
 - A fact belongs in this knowledge graph if it would need correcting when
   it changes. If it is a record of something that happened, it belongs in
   the system that already keeps it (calendar, inbox, invoices, raw/).
@@ -118,7 +123,7 @@ declared relationship, and may be one-way.
 
 ### Concept pages
 
-One folder per type inside `knowledge/`, folder name the plural slug of the type (`clients/`, `engagements/`, `playbooks/`, `notes/`). Seed every named example from `types.md` as a page. Body sections come from the type's `Body:` line; relationship sections from `Relationships:`; keep a section even when it is empty (`_None yet._`). Shape:
+One folder per type inside `knowledge/`, folder name the plural slug of the type (`clients/`, `engagements/`, `playbooks/`, `notes/`) — except `Overview`, which has no folder (see above). Seed every named example from `types.md` as a page. Body sections come from the type's `Body:` line; relationship sections from `Relationships:`; keep a section even when it is empty (`_None yet._`). Shape:
 
 ```markdown
 ---
@@ -126,6 +131,7 @@ type: Client
 title: Acme Manufacturing
 description: Mid-market logistics manufacturer, client since 2024.
 generated: { by: process:building-knowledge-graph, at: 2026-09-21T14:00:00Z }
+resource: https://example.com # canonical site, only when one exists
 ---
 # Who they are
 Family-owned, 400 staff, three factories. (Only what the user told you.)
@@ -232,7 +238,7 @@ I am `human:<id>`.
 - Read `knowledge/SCHEMA.md` before creating or changing any file in `knowledge/`.
 - Everything in `knowledge/` is markdown. Never put tool configuration there.
 - Never edit anything in `raw/`.
-- Stamp `generated` on every page you write. Add `verified: { by: human:<id>, at: <instant> }` only when I confirm a page is right, never on your own.
+- Stamp `generated` on every page you write, with `by: process:ingest`, `process:lint`, or `process:building-knowledge-graph`, whichever wrote the page. Add `verified: { by: human:<id>, at: <instant> }` only when I confirm a page is right, never on your own.
 
 ## Answering my questions
 When I ask a question ABOUT THE WORK (clients, offerings, processes, people, tools, policies):
@@ -261,7 +267,7 @@ description: Fold a new source into the knowledge graph. Use when the user says 
 1. Read `knowledge/log.md` to see what has already been folded in, so nothing is ingested twice. Read `knowledge/SCHEMA.md` and `knowledge/index.md`, so the question you ask of the source is "which of these types and pages does it touch", not "what is in here".
 2. Identify the source: the document the user named in `raw/`; or everything in `raw/` the log does not account for, if they named none; or the text they pasted or said.
 3. **Propose before writing.** List the pages that would change (existing and new) and, under each, the claims that would land there in one line each. Ask: "Shall I write these?" Change nothing until the user says yes. Steering such as "focus on the commercial terms" is welcome.
-4. Write. For each affected page: update what is now out of date, add what is new, leave the rest. Record the source in the page's `sources` with an `id` (kebab-case from the filename, e.g. `acme-msa-2026`; for spoken knowledge, from the occasion, e.g. `call-dana-2026-08-08`), a `resource` (`../raw/<file>`, or a plain description of the occasion), and a `title`. Footnote each claim you added with `[^<id>]` and add the matching `[^<id>]: <title>` line at the end of the body. Set `stale_after` when the source gives a fact a real expiry. If the source reveals a declared relationship, add the link on BOTH pages under their agreed headings. Stamp `generated` on every page you touch.
+4. Write. For each affected page: update what is now out of date, add what is new, leave the rest. Record the source in the page's `sources` with an `id` (kebab-case from the filename, e.g. `acme-msa-2026`; for spoken knowledge, from the occasion, e.g. `call-dana-2026-08-08`), a `resource` (`../raw/<file>`, or a plain description of the occasion), and a `title`. Footnote each claim you added with `[^<id>]` and add the matching `[^<id>]: <title>` line at the end of the body. Set `stale_after` when the source gives a fact a real expiry. If the source reveals a declared relationship, add the link on BOTH pages under their agreed headings. Stamp `generated: { by: process:ingest, at: <instant> }` on every page you touch.
 5. Update `knowledge/index.md` for any new page and append an `**Ingest**` entry to `knowledge/log.md`.
 6. Report every file changed and why, one line each.
 
@@ -277,13 +283,13 @@ description: Health-check the knowledge graph. Use when the user says "lint", as
 ---
 # Lint
 
-1. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md) if reachable. Read `knowledge/SCHEMA.md`. Read every file under `knowledge/`.
+1. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md) if reachable. Read `knowledge/SCHEMA.md`. Read every file under `knowledge/`. `index.md`, `log.md`, and `.gitkeep` are reserved — skip all concept checks on them; never propose "fixing" them by adding `type` or other concept frontmatter.
 2. Report, grouped, naming specific files:
-   - **Rule violations**: a page missing `type`, `title`, `description`, or `generated`; a page in the wrong folder for its type; a relative link between concepts; a bare-date timestamp; tool configuration inside `knowledge/`.
+   - **Rule violations**: a page missing `type`, `title`, `description`, or `generated`; a page in the wrong folder for its type; a relative link between concepts; a bare-date timestamp; tool configuration inside `knowledge/`. (Not reserved files — see step 1.)
    - **Contradictions**: two pages that disagree about a fact.
    - **Out of date**: any page whose `stale_after` has passed; claims a newer source superseded.
    - **Broken structure**: orphan pages nothing links to; a declared relationship with no reciprocal on the other page; links into `status: deprecated` pages; pages missing from `index.md`.
    - **Trust picture**: how many pages are unverified, machine-confirmed, and human-reviewed.
    - **Pages worth writing** (not errors): concepts mentioned on several pages that have no page of their own; links to pages that do not exist yet. Exempt `notes/` from any lonely-folder observation.
-3. Ask which fixes to apply. Apply only those. Append a `**Lint**` entry to `knowledge/log.md` with what was found and what was fixed.
+3. Ask which fixes to apply. Apply only those, stamping `generated: { by: process:lint, at: <instant> }` on any page you fix. Append a `**Lint**` entry to `knowledge/log.md` with what was found and what was fixed.
 ```

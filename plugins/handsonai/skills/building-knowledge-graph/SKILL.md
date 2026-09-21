@@ -26,7 +26,7 @@ Ground yourself in two sources before Phase 5, and read the latest version of ea
 
 If a page cannot be fetched, work from the distilled rules in `references/build-spec.md`.
 
-This file is the map. `references/interview-guide.md` is the script for Phases 0–4 and the Close; `references/build-spec.md` is the exact shape of everything Phase 5 writes; `references/example-knowledge-graph.md` is a worked example that is **shown to illustrate and never copied** into the user's graph.
+This file is the map. `references/interview-guide.md` is the script for Phases 0–5 and the Close; `references/build-spec.md` is the exact shape of everything Phase 5 writes; `references/example-knowledge-graph.md` is a worked example that is **shown to illustrate and never copied** into the user's graph.
 
 ## What this builds
 
@@ -68,8 +68,8 @@ We work in phases with stop-gates. Announce each phase as you reach it. Never mo
 3. Confirm write mode (see Platform and mode). If you cannot write files, stop here.
 4. Report what already exists, explicitly:
    - `registry/` present → say in one sentence: *Your registry stays untouched; it records what you build with AI. This build models the work itself and goes in `knowledge/` beside it.*
-   - `knowledge/SCHEMA.md` present → **gap-filling mode.** Read `SCHEMA.md`. List which types have no pages, which declared relationships have no reciprocal, and what is missing. Offer to fill only those gaps. Never rewrite `SCHEMA.md`, never rebuild. Run the relationships round of Phase 3 only for any new type.
-   - `types.md` present but no `knowledge/` → **resume mode.** Show the list and offer to pick up at Phase 3 (revise) or Phase 5 (build).
+   - `knowledge/SCHEMA.md` present → **gap-filling mode.** Read `SCHEMA.md`. List which types have no pages, which declared relationships have no reciprocal, and which structural files are missing (`overview.md`, `index.md`, `log.md`, `notes/`), alongside what is missing. Offer to fill only those gaps, structural files included. Never rewrite `SCHEMA.md`, never rebuild. Run the relationships round of Phase 3 only for any new type.
+   - `types.md` present but no `knowledge/` → **resume mode.** Show the list and ask: "Want to revise the list first, or go straight to the build step? (When you're ready to build, send the single word **build**.)"
    - None of these → fresh build from Phase 1.
 5. Ask once how to record the user as an actor: `human:<name>`, for example `human:jamesgray`. Phase 5 writes it into the standing-rules file so every future session stamps `verified` with the same id.
 6. Never invoke `scaffolding-registry` or `indexing-registry` from this skill; they belong to a different bundle.
@@ -103,15 +103,15 @@ Follow `references/interview-guide.md` § Phase 2, including the probe list and 
 
 ## Phase 3 — Propose and iterate: types, then relationships (8 min)
 
-**Types round (5 min).** Propose 4–7 types drawn from Phases 1 and 2. For each: a type name in the user's own words, a one-line definition, and 2–3 real named examples the user mentioned. Refine in rounds: the user renames, merges, deletes, and adds; you challenge. Push back if the user over-models: every type must earn its place with real examples, and a type that cannot name three real ones today is a field on some other type or a note. Flag anything from the interview that has no home on the list. Use the user's words, never consultant words. **`Note` is always on the list** and is exempt from the three-examples rule: it holds filed answers, syntheses, and knowledge that belongs to no other type yet. Create no files while iterating. Iterate until the user says the list is right.
+**Types round (5 min).** Propose 4–7 types drawn from Phases 1 and 2. For each: a type name in the user's own words, a one-line definition, and three real named examples the user mentioned (two if that is genuinely all there are — see the pushback line in `references/interview-guide.md`). Refine in rounds: the user renames, merges, deletes, and adds; you challenge. Push back if the user over-models: every type must earn its place with real examples, and a type that cannot name three real ones today is a field on some other type or a note. Flag anything from the interview that has no home on the list. Use the user's words, never consultant words. **`Note` is always on the list** and is exempt from the three-examples rule: it holds filed answers, syntheses, and knowledge that belongs to no other type yet. Create no files while iterating. Iterate until the user says the types are right. Ask explicitly: "Are the types right?"
 
-**Relationships round (3 min).** Once the list is stable, propose the connections between types **as plain sentences using the user's real examples**: "Acme has two Engagements, the AI Roadmap and the Pilot." "The Kickoff Checklist was used in the Acme Pilot." No diagrams, no arrows; the words edge, direction, and cardinality never appear. The user confirms, corrects, or strikes each sentence. Each relationship earns its place with one question: *"What would you look up by following this link?"* No answer, no link. Keep one to three relationships per type. For each kept relationship, agree the heading it will live under on each side, in the user's words (`# Engagements` on a Client page, `# Client` on an Engagement page), and ask whether order matters ("the pilot came before the roadmap"; "these are the steps in order").
+**Relationships round (3 min).** Once the list is stable, propose the connections between types **as plain sentences using the user's real examples**: "Acme has two Engagements, the AI Roadmap and the Pilot." "The Kickoff Checklist was used in the Acme Pilot." No diagrams, no arrows; the words edge, direction, and cardinality never appear. The user confirms, corrects, or strikes each sentence. Each relationship earns its place with one question: *"What would you look up by following this link?"* No answer, no link. Keep one to three relationships per type. For each kept relationship, agree the heading it will live under on each side, in the user's words (`# Engagements` on a Client page, `# Client` on an Engagement page), and ask whether order matters ("the pilot came before the roadmap"; "these are the steps in order"). If order matters but the interview didn't collect the ordering facts (dates, sequence), seed the list in the order the user named the items and note in `SCHEMA.md` "order by <key>; confirm on first ingest". If the user keeps a relationship in general ("clients have projects") but does not confirm a specific pairing, record the relationship in `types.md` and `SCHEMA.md` and leave the link sections `_None yet._` on the pages; never guess a pairing.
 
 Follow `references/interview-guide.md` § Phase 3.
 
 ## Phase 4 — Approve (1 min)
 
-When the user approves the list: write exactly ONE file, `types.md`, at the ROOT of the project (NOT inside `knowledge/`, which does not exist yet and will hold only knowledge pages). Two sections: `# The types` (each type with its one-line definition and the named examples agreed) and `# How they connect` (one line per declared relationship: the sentence, the heading on each side, and whether order matters). Replace any draft the user brought. Show it and stop. This file is the blueprint you build from.
+This comes after the relationships round; the approval covers types and connections together. When the user approves the list: write exactly ONE file, `types.md`, at the ROOT of the project (NOT inside `knowledge/`, which does not exist yet and will hold only knowledge pages). Two sections: `# The types` (each type with its one-line definition and the named examples agreed) and `# How they connect` (one line per declared relationship: the sentence, the heading on each side, and whether order matters). Replace any draft the user brought. Show it and stop. This file is the blueprint you build from.
 
 Follow `references/interview-guide.md` § Phase 4.
 
@@ -119,7 +119,7 @@ Follow `references/interview-guide.md` § Phase 4.
 
 ONLY when the user sends the word **build** as its own message. Construct the graph from `types.md`, following the latest OKF spec (fetch it now; fall back to `references/build-spec.md` § OKF rules if unreachable) and the exact shapes in `references/build-spec.md`:
 
-(a) **The graph**, in `knowledge/`: `SCHEMA.md` with frontmatter (`type: Schema`); a folder per type; every named example seeded as a concept page with `type`, `title`, `description`, `generated`, its declared relationship sections, and bundle-absolute links; `notes/` (empty, with `.gitkeep`); `overview.md`; one `index.md` at the bundle root with `okf_version` as its only frontmatter; `log.md` in OKF §9 form. Confirm `raw/` exists at the project root (Phase 1 created it).
+(a) **The graph**, in `knowledge/`: `SCHEMA.md` with frontmatter (`type: Schema`); a folder per type; every named example seeded as a concept page with `type`, `title`, `description`, `generated`, its declared relationship sections, and bundle-absolute links; `notes/` (empty, with `.gitkeep`); `overview.md`; one `index.md` at the bundle root with `okf_version` as its only frontmatter; `log.md` in OKF §9 form. Confirm `raw/` exists at the project root; create it if missing (resume and gap-filling modes skip Phase 1).
 
 (b) **The standing rules**: about thirty lines at the project root under this platform's name, from the template in `references/build-spec.md`, including the user's actor id.
 
@@ -129,16 +129,18 @@ Then report everything you built, grouped as **graph**, **rules**, and **skills*
 
 If the user says the build produced something they did not want and nothing of theirs is in `knowledge/` yet, offer to delete `knowledge/`, fix `types.md`, and build again. Once real content is in the graph, never rebuild; fix the specific thing.
 
+Follow `references/interview-guide.md` § Phase 5.
+
 ## Close — run the loop once, guided (5 min)
 
 Not numbered phases. Guide the user through each step and state what "worked" looks like:
 
 1. **On Cowork only:** ask the user to type `/ingest` and confirm the skill fires. If it does not, walk them through adding `ingest/SKILL.md` and `lint/SKILL.md` as account skills in the Claude app (Customize → Skills), then continue.
 2. **Ingest** one document from `raw/` (or one the user pastes) by running the `ingest` skill you wrote, not by working from this file, so the user sees the thing they will use from now on. Worked when: at least one *already existing* page changed and carries a footnoted claim and a `sources` entry.
-3. **Query**: ask the user for one question that follows a relationship ("Which playbooks have we used with Acme?"). Answer from the graph only, reading `index.md` first, citing every page you used. Worked when: the answer names two or more pages and opening one confirms the claim. If the answer is worth keeping, offer to file it as a Note.
+3. **Query**: ask the user for one question that follows a relationship ("Which playbooks have we used with Acme?"). Answer from the graph only, reading `index.md` first, citing every page you used. Worked when: the answer names two or more pages and opening one confirms the claim. If the answer is worth keeping, offer to file it as a **new** page in `notes/`.
 4. **Lint** by running the `lint` skill you wrote. Worked when: the report names specific files.
 5. **Verify one page**: ask the user to read one seeded page and say whether it is right. When they confirm, add `verified: { by: human:<their id>, at: <now> }` to its frontmatter. Worked when: the page's frontmatter shows `verified`.
-6. **Dictate**: ask *"What do you know that is in nobody's document? Tell me, the way you would tell a colleague, and I will put it on the pages it belongs to."* Fold it in through the ingest skill with a descriptive `sources` entry. Worked when: at least one page changed and its `sources` names the conversation.
+6. **Dictate**: ask *"What do you know that is in nobody's document? Tell me, the way you would tell a colleague, and I will put it on the pages it belongs to."* Fold it into the **existing** pages it belongs to, through the ingest skill, with a descriptive `sources` entry; it becomes a Note only if it belongs to no page. Worked when: at least one page changed and its `sources` names the conversation.
 7. Offer Obsidian's graph view: download Obsidian, **Open folder as vault** on `knowledge/`, click the graph icon.
 8. Hand off: the graph is small and real. Seed to at least ten concepts across three types on real material, and run the loop again.
 
@@ -149,7 +151,7 @@ Not numbered phases. Guide the user through each step and state what "worked" lo
 - Once `knowledge/SCHEMA.md` exists it is authoritative; re-read it immediately before every write, including in gap-filling mode.
 - `types.md` and `raw/` live at the project root, outside the bundle. `knowledge/` holds concept pages (including `overview.md` and `notes/`), `SCHEMA.md`, `index.md`, `log.md`, and nothing else. Never write tool configuration into it.
 - Links between concepts are bundle-absolute (`/clients/acme.md`), never `../`. The one relative path in the bundle is `sources[].resource` pointing outside it (`../raw/<file>`).
-- Every page carries `type`, `title`, `description`, `generated: { by: process:building-knowledge-graph, at: <instant> }`. `at` is a full ISO 8601 instant, `YYYY-MM-DDTHH:MM:SSZ`, never a bare date. `sources` (with `id`) and `stale_after` only where they mean something. `verified` only on a human's say-so, never self-stamped.
+- Every concept page carries `type`, `title`, `description`, `generated: { by, at: <instant> }` — stamp `generated` with `process:ingest`, `process:lint`, or `process:building-knowledge-graph`, whichever wrote the page. `at` is a full ISO 8601 instant, `YYYY-MM-DDTHH:MM:SSZ`, never a bare date. `sources` (with `id`) and `stale_after` only where they mean something. `verified` only on a human's say-so, never self-stamped.
 - Declared relationships are recorded on both pages under their agreed headings. Incidental mentions in prose are ordinary one-way links.
 - Deprecate, don't delete, while anything links to a page (`status: deprecated`).
 - The worked example in `references/example-knowledge-graph.md` is shown to illustrate, never copied. The finished graph must contain no Acme residue.

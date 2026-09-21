@@ -17,7 +17,7 @@ Two words you will use constantly, and how to explain them if asked: a **type** 
 **Report what is already here**, one line each, only for things that exist:
 - `registry/`: "You have an AI registry here. It stays untouched; it records what you build with AI. This build models the work itself and goes in `knowledge/` beside it."
 - `knowledge/SCHEMA.md`: "You already have a knowledge graph. I'll read its rulebook and fill gaps rather than rebuild." → gap-filling mode.
-- `types.md` without `knowledge/`: "You have an approved type list from an earlier session but no graph yet. Want to revise the list, or build from it?" → resume mode.
+- `types.md` without `knowledge/`: "You have an approved type list from an earlier session but no graph yet. Want to revise the list first, or go straight to the build step? (When you're ready to build, send the single word **build**.)" → resume mode.
 
 **Actor id:** "One housekeeping question: when you confirm a page is right, I'll record that as `verified` by you. What name should I use? For example `human:jamesgray`."
 
@@ -54,7 +54,7 @@ If nothing was found: "I couldn't find anything about your work in this folder y
 
 ## Phase 2 — Interview, concrete first (7 min)
 
-One question at a time. Before each, check whether Phase 1 already answered it; if so, say "I think I already know this one from <source>: <answer>. Right?" and move on when confirmed.
+One question at a time. Before each, check whether Phase 1 already answered it; if so, say "I think I already know this one from <source>: <answer>. Right?" and move on when confirmed. If Phase 1 answered only part of a question, say what you already know and ask only for what is missing, then confirm the combined answer.
 
 **0. The sixty-second explainer (say it proactively, before question 1):**
 > "Here's the whole idea in a minute. Your phone's Contacts app has one *kind* of entry, a Contact, and many real ones: your dentist, your mother, a recruiter who called last year. Your work is the same. It has a few kinds of things, and real ones of each. `Client` is a kind; Acme is a real one. We'll find the real ones first, because they're easier to name, then work out the kinds. Then we'll connect the kinds using sentences you already say, like 'Acme has two projects.' That's the graph. You describe your work; I'll do the sorting."
@@ -92,7 +92,7 @@ One question at a time. Before each, check whether Phase 1 already answered it; 
 
 ### Types round (5 min)
 
-**Propose** 4–7 types in this shape, one block per type:
+**Propose** 4–7 types in this shape, one block per type, with three real named examples (two if that is genuinely all there are — see the pushback line below):
 > **Client** — an organization you do paid work for. Real ones you mentioned: Acme Manufacturing, Bowman Foods, Reston Health.
 
 Always include:
@@ -106,7 +106,7 @@ Always include:
 - Consultant word: "Would you say 'Engagement' to a colleague, or 'project'? Let's use your word."
 - Same-shape pages: "Client and Partner look identical on the page. Same kind with a label, or genuinely different?"
 
-**Iterate** until the user says the list is right. Ask explicitly: "Is the list right?"
+**Iterate** until the user says the types are right. Ask explicitly: "Are the types right?"
 
 ### Relationships round (3 min)
 
@@ -121,7 +121,9 @@ Always include:
 
 **Then agree the heading on each side, in their words:** "On a Client page that's a section called *Engagements*. On an Engagement page, a section called *Client*. Good names, or would you call them something else?"
 
-**Ask about order once per relationship where it could matter:** "Does the order of those matter, like steps or a timeline? If so I'll keep the list in order and say so in the rulebook."
+**Ask about order once per relationship where it could matter:** "Does the order of those matter, like steps or a timeline? If so I'll keep the list in order and say so in the rulebook." If order matters but you didn't collect the ordering facts (dates, sequence), seed the list in the order the user named the items and note in `SCHEMA.md` "order by <key>; confirm on first ingest".
+
+If the user keeps a relationship in general ("clients have projects") but does not confirm a specific pairing, record the relationship in `types.md` and `SCHEMA.md` and leave the link sections `_None yet._` on the pages; never guess a pairing.
 
 **Cap:** one to three relationships per type. If the user wants more, use the earn-its-place question again.
 
@@ -133,7 +135,7 @@ Always include:
 
 ## Phase 4 — Approve (1 min)
 
-**Trigger:** the user says the list is right, explicitly.
+**Trigger:** the user says the list is right, explicitly. This comes after the relationships round; the approval covers types and connections together.
 
 **What to write:** exactly one file, `types.md`, at the project root, in this shape:
 
