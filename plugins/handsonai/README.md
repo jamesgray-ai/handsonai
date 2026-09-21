@@ -44,6 +44,7 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 C
 
 | Skill | Description |
 |-------|-------------|
+| `building-knowledge-graph` | Build your `knowledge/` knowledge graph — a guided interview finds the types and relationships of your work, then writes SCHEMA.md, seeded pages, standing rules, and local `ingest` and `lint` skills |
 | `scaffolding-registry` | Stand up your `registry/` knowledge bundle — SCHEMA.md and a first real Business, Line of Business, Function, Process, and Workflow node |
 | `naming-workflows` | Apply consistent naming conventions across your registry |
 | `writing-workflow-sops` | Author standard operating procedures for AI-assisted workflows |

@@ -43,6 +43,7 @@ For documenting and operating an AI workflow registry once you've built workflow
 
 | Component | What it does |
 |---|---|
+| [`building-knowledge-graph`](handsonai/#building-knowledge-graph) skill | Build your `knowledge/` knowledge graph — a guided interview finds the types and relationships of your work, then writes the schema, seeded pages, standing rules, and local `ingest` and `lint` skills |
 | [`scaffolding-registry`](handsonai/#scaffolding-registry) skill | Stand up your `registry/` knowledge bundle — SCHEMA.md and a first real Business, Line of Business, Function, Process, and Workflow node |
 | [`naming-workflows`](handsonai/#naming-workflows) skill | Apply consistent naming conventions across your registry |
 | [`writing-workflow-sops`](handsonai/#writing-workflow-sops) skill | Author standard operating procedures for AI-assisted workflows |

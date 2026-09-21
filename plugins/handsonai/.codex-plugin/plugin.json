@@ -1,7 +1,7 @@
 {
   "name": "handsonai",
   "version": "7.1.1",
-  "description": "Everything you need to design, build, and document AI workflows. The AI Workflow Framework as executable Claude Code skills, plus an AI registry and feature-spec toolkit.",
+  "description": "Everything you need to design, build, and document AI workflows. The AI Workflow Framework as executable skills, plus your business knowledge graph, an AI registry, and a feature-spec toolkit.",
   "author": {
     "name": "James Gray",
     "url": "https://handsonai.info"
@@ -14,6 +14,7 @@
     "framework",
     "workflows",
     "registry",
+    "knowledge-graph",
     "feature-prd",
     "agentic-coding"
   ],
@@ -21,7 +22,7 @@
   "interface": {
     "displayName": "Hands-on AI",
     "shortDescription": "Design, build, and document AI workflows",
-    "longDescription": "The AI Workflow Framework (analyze, deconstruct, design, build, test, run, improve) as executable skills, plus the AI Registry toolkit and feature-spec skills from handsonai.info.",
+    "longDescription": "The AI Workflow Framework (analyze, deconstruct, design, build, test, run, improve) as executable skills, plus the knowledge graph builder, the AI Registry toolkit, and feature-spec skills from handsonai.info.",
     "developerName": "James Gray",
     "category": "Productivity",
     "capabilities": [
@@ -32,7 +33,8 @@
     "defaultPrompt": [
       "Use $analyze to find where AI can help in my work",
       "Use $deconstruct to capture requirements for a workflow",
-      "Use $scaffolding-registry to set up my AI registry"
+      "Use $scaffolding-registry to set up my AI registry",
+      "Use $building-knowledge-graph to build my business knowledge graph"
     ]
   }
 }
