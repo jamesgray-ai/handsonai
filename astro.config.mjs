@@ -471,6 +471,7 @@ export default defineConfig({
             { label: 'Voice to Text', link: '/builder-setup/voice-to-text-setup/' },
             { label: 'MCP Connectors', link: '/builder-setup/mcp-connectors-setup/' },
             { label: 'AI Registry', link: '/builder-setup/ai-registry-setup/' },
+            { label: 'Knowledge Graph', link: '/builder-setup/knowledge-graph-setup/' },
             { label: 'Terminal Basics (reference)', link: '/builder-setup/terminal-basics/' },
           ],
         },
