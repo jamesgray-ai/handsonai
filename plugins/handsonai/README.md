@@ -2,7 +2,7 @@
 
 Everything you need to design, build, and document AI workflows.
 
-The AI Workflow Framework as executable skills for Claude, ChatGPT/Codex, and Claude Code, plus an AI registry toolkit and feature-spec toolkit. One install, one namespace, one mental model.
+The AI Workflow Framework as executable skills for Claude, ChatGPT/Codex, and Claude Code, plus a knowledge-graph builder, an AI registry toolkit, and a feature-spec toolkit. One install, one namespace, one mental model.
 
 ## Install
 
@@ -39,6 +39,12 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 C
 | `test` | Test workflow artifacts and evaluate output quality |
 | `run` | Generate a Run Guide for deploying and operating the workflow |
 | `improve` | Evaluate a running workflow for quality and evolution opportunities |
+
+### Skills — Knowledge Graph
+
+| Skill | Description |
+|-------|-------------|
+| `building-knowledge-graph` | Build your `knowledge/` knowledge graph — a guided interview finds the types and relationships of your work, then writes SCHEMA.md, seeded pages, standing rules, and local `ingest` and `lint` skills |
 
 ### Skills — AI Registry
 

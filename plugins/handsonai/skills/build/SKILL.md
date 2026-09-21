@@ -6,7 +6,8 @@ description: >
   integration availability, generates platform-appropriate artifacts (prompts, skills, agents, configs),
   and writes them to the right locations for the user's platform.
   Also use when the user says "continue my workflow" and the workflow manifest shows Step 4 (Build) is next.
-  This is Step 4 (Build) of the AI Workflow Framework.
+  This is Step 4 (Build) of the AI Workflow Framework. NOT for "build my
+  knowledge graph": that is the building-knowledge-graph skill.
 user-invocable: true
 ---
 

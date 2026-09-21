@@ -37,6 +37,14 @@ The seven-step methodology for going from a workflow idea to a deployed AI syste
 | `run` skill | Generate a Run Guide for deploying and operating the workflow |
 | `improve` skill | Evaluate a running workflow for quality and evolution opportunities |
 
+#### Knowledge Graph — 1 skill
+
+For modeling the work itself — clients, offerings, processes, people, tools, policies — as a graph the AI maintains.
+
+| Component | What it does |
+|---|---|
+| [`building-knowledge-graph`](handsonai/#building-knowledge-graph) skill | Build your `knowledge/` knowledge graph — a guided interview finds the types and relationships of your work, then writes the schema, seeded pages, standing rules, and local `ingest` and `lint` skills |
+
 #### AI Registry — 5 skills
 
 For documenting and operating an AI workflow registry once you've built workflows worth tracking.

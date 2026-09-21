@@ -1,6 +1,6 @@
 # AI Registry Template
 
-A starter [OKF](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+A starter [OKF](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
 knowledge bundle for your AI Registry — the structured record of your business's
 lines of business, processes, workflows, and insights that AI assistants read
 and maintain.

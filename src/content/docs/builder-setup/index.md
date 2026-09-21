@@ -65,6 +65,7 @@ Pick any combination — each row names the specific capability it unlocks. Rows
 | 7 | [Create & Clone Your First Repository](repo-creation-and-cloning/) | ~5 min | Editor + GitHub CLI | Prove the three pieces above work together, and get a folder to build in |
 | 8 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
 | 9 | [AI Registry](ai-registry-setup/) | ~10 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
+| 10 | [Knowledge Graph](knowledge-graph-setup/) | ~40 min | AI platform + a folder | Give your AI a knowledge graph of your work — clients, offerings, processes — that it reads before answering and keeps current for you |
 
 #### Git & GitHub at a glance
 
@@ -88,6 +89,7 @@ Some Power User tools (Editor, Git, GitHub CLI) involve running commands in the 
 
 :::note[Heads up]
 - **AI Registry:** The registry lives in your workspace as Markdown — there's nothing extra to install beyond the Hands-on AI skills from step 2 (see the [AI Registry setup guide](ai-registry-setup/)).
+- **Knowledge Graph:** Also pure Markdown, built by the Hands-on AI skills from step 2, but it needs a tool that writes files on your computer (see the [Knowledge Graph setup guide](knowledge-graph-setup/)).
 :::
 
 ---

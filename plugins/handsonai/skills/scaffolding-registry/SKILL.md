@@ -2,19 +2,22 @@
 name: scaffolding-registry
 description: >
   This skill should be used when the user wants to set up their AI Registry as a
-  knowledge bundle — a registry/ folder with SCHEMA.md and concept nodes for their
-  business. Triggers: "set up my registry", "set up my AI registry", "create my
-  registry", "stand up my knowledge base", "scaffold my registry", starting the
-  registry lab, or when any framework skill finds no registry/SCHEMA.md in the
-  workspace. Also handles migrating legacy workspaces (outputs/*/workflow.yaml
-  manifests or flat requirements files) into the bundle. Re-running on an existing
-  bundle fills gaps; it never re-scaffolds.
+  knowledge bundle — a registry/ folder with SCHEMA.md and concept nodes for the
+  workflows, processes, and functions of their business. Triggers: "set up my
+  registry", "set up my AI registry", "create my registry", "scaffold my
+  registry", starting the registry lab, or when any framework skill finds no
+  registry/SCHEMA.md in the workspace. NOT the business knowledge graph: for
+  "build my knowledge graph" or a knowledge/ folder about the work itself
+  (clients, offerings, processes as knowledge), use building-knowledge-graph.
+  Also handles migrating legacy workspaces (outputs/*/workflow.yaml manifests or
+  flat requirements files) into the bundle. Re-running on an existing bundle
+  fills gaps; it never re-scaffolds.
 user-invocable: true
 ---
 
 # Scaffolding Registry
 
-Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) knowledge bundle: a `registry/` folder with a `SCHEMA.md` producer profile and concept nodes for their real business. This is the on-ramp — a ~30-minute guided interview that gets a first, real Workflow node written and linked, not a demo.
+Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md) knowledge bundle: a `registry/` folder with a `SCHEMA.md` producer profile and concept nodes for their real business. This is the on-ramp — a ~30-minute guided interview that gets a first, real Workflow node written and linked, not a demo.
 
 ## What this builds
 
@@ -65,6 +68,7 @@ A few rules follow from that table:
 
 Before running the interview, check what's already in the workspace:
 
+0. **A `knowledge/` folder exists** → leave it alone entirely. It is the business knowledge graph, a different OKF bundle with its own `SCHEMA.md` and its own lint (built by `building-knowledge-graph`). Say so in one sentence and continue with the registry checks below.
 1. **`registry/SCHEMA.md` exists** → this is **gap-filling mode**, not a fresh scaffold. List which concept types have zero nodes and which typed directories are missing their `index.md`, tell the student what's missing, and offer to fill only those gaps. Never overwrite an existing node, and never rewrite `SCHEMA.md` once the student has one — their copy is authoritative from here on.
 2. **No `registry/SCHEMA.md`, but a legacy layout is detected** — `outputs/*/workflow.yaml` (the old manifest layout) or an `outputs/<name>-requirements.md` with no matching `outputs/<name>/` folder (the old flat layout) — offer the migration path in `references/migrating-legacy-workspaces.md` instead of, or before, a fresh scaffold. Migration writes into a newly scaffolded bundle; it never invents its own structure.
 3. **Neither exists** → run the interview below from Phase 0.
@@ -103,3 +107,5 @@ If a phase runs over its timebox, write what's been gathered, note the gap for t
 End Phase 6 by writing a founding `registry/log.md` entry describing the scaffolding run (what was created, and — for a migration — every workflow migrated in that run), and making sure every typed directory has an `index.md`, even a stub one.
 
 Then invoke the `indexing-registry` skill for the workspace's first maintenance pass: it lints the new bundle, generates the Tier 1 `REGISTRY.md`, and offers the Tier 2 visual dashboard. This is a best-effort hand-off — if the maintenance pass can't run for some reason, say so plainly rather than leaving the student assuming it happened. The lab should end with something visual on screen, not a blank terminal. In print-and-save mode the hand-off produces printed output rather than files: print the founding `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its exact location, and tell the student the set is complete.
+
+<!-- Follow-up (2026-09-21): this skill stamps generated.at as YYYY-MM-DD, a deliberate registry-profile choice (see references/schema-template.md). OKF v0.2 §5 specifies full instants; the building-knowledge-graph skill uses them. Aligning the registry profile is a separate change with its own lint and migration. -->

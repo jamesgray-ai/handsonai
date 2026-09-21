@@ -1,11 +1,11 @@
 ---
 title: The Hands-on AI Plugin
-description: "The handsonai plugin — the AI Workflow Framework, AI Registry, and feature-spec toolkit in a single install for Claude, ChatGPT, Codex, and Claude Code."
+description: "The handsonai plugin — the AI Workflow Framework, knowledge-graph building, AI Registry, and feature-spec toolkit for Claude, ChatGPT, Codex, and Claude Code."
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-One plugin, one install, three categories of work. Bundles the **AI Workflow Framework** (methodology), the **AI Registry** (documentation tooling), and **Agentic Coding** (feature-spec writing) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 14 skills.**
+One plugin, one install, four categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), and **Agentic Coding** (feature-spec writing) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 15 skills.**
 
 These are plain-text Markdown files that work in any AI tool. Install the plugin on Claude, ChatGPT, or Claude Code for the full experience, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other platforms.
 
@@ -83,6 +83,18 @@ Walks you through the full 7-step framework end-to-end. The agent calls the righ
 | `improve` | `/handsonai:improve` | Evaluate a running workflow for quality and evolution opportunities |
 
 **Full documentation:** [The AI Workflow Framework](../../../ai-workflow-framework/) walks through the methodology with worked examples for each step.
+
+---
+
+## Knowledge Graph
+
+Model the work itself — clients, offerings, processes, people, tools, policies — as a `knowledge/` graph your AI maintains from now on, following the Open Knowledge Format. Distinct from the AI Registry below, which records what you build *with* AI; the two bundles sit side by side.
+
+### `building-knowledge-graph`
+
+**Slash command:** `/handsonai:building-knowledge-graph`
+
+Builds your business knowledge graph: a ~30-minute guided build that looks at what is already in your folder, interviews you about the work a person, team, or company does, proposes the four to seven kinds of things it runs on and the sentences that connect them, and, on the single word **build**, writes the `knowledge/` bundle in the Open Knowledge Format — `SCHEMA.md`, seeded concept pages, an overview, index and log — plus a standing-rules file and local `ingest` and `lint` skills, then runs the loop once with you. Say *"Build my knowledge graph."* Needs a tool that writes files on your computer (Claude Code, Cowork, the ChatGPT desktop app). Re-running on an existing graph fills gaps and never rebuilds.
 
 ---
 

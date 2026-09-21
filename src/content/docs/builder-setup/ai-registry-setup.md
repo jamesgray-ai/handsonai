@@ -37,7 +37,7 @@ my-ai-workspace/
 └── sops/ process-guides/    ← unchanged homes; Workflow nodes link to them
 ```
 
-Your registry follows an open, public specification called the **Open Knowledge Framework (OKF)** — this isn't a format James invented for this playbook. You can read the live spec any time: [OKF on GitHub](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf). You never need to read it to use your registry — your assistant already knows it — but it's there if you're curious how the pieces fit together.
+Your registry follows an open, public specification called the **Open Knowledge Framework (OKF)** — this isn't a format James invented for this playbook. You can read the live spec any time: [OKF on GitHub](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md). You never need to read it to use your registry — your assistant already knows it — but it's there if you're curious how the pieces fit together.
 
 **The one thing to remember:** your AI assistant maintains your registry. You describe your business and your work in plain language; your assistant writes the nodes and regenerates the dashboards. You never edit a dashboard by hand, and you rarely need to hand-edit a node either.
 
