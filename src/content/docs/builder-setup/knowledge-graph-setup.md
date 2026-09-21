@@ -6,7 +6,7 @@ howto_steps:
   - name: Open your project folder in a tool that writes files
     text: Claude Code, Cowork, or the ChatGPT desktop app's Codex view. Open the folder that will hold your knowledge graph. A browser chat window cannot build one.
   - name: Say "Build my knowledge graph."
-    text: Your assistant confirms the folder, looks at what is already there, makes a raw/ folder for your documents, and interviews you (about 30 minutes) about the work you, your team, or your company does.
+    text: Your assistant confirms the folder, looks at what is already there, makes a raw/ folder for your documents, and interviews you about the work you, your team, or your company does (about 30 minutes end to end).
   - name: Approve the type list, then send the word build
     text: Your assistant proposes four to seven kinds of things and the sentences that connect them, writes them to types.md when you approve, and builds the knowledge/ folder only when you send the single word "build".
   - name: Run the loop once
