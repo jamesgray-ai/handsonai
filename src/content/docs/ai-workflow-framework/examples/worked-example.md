@@ -581,7 +581,7 @@ never share or save a report Maya hasn't approved.
 
 ## Step 5 — Test → `test-results.md`
 
-Test ran E1 and E2 (E3, the quiet week, waited for a real one). E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so Maya made one fix to the orchestrator skill, then a second round got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md`, round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
+Test ran E1 and E2 in round 1; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so Maya made one fix to the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md`, round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
 
 **Round 1 — `test-results-2026-06-05.md`:**
 
@@ -666,7 +666,7 @@ None.
 None — outputs are local files.
 ````
 
-**Round 2 — `test-results.md`,** three days later, after that one orchestrator fix. Only the missed line changed, so only that card is reproduced here:
+**Round 2 — `test-results.md`,** three days later, after that one orchestrator fix. E1 and E2 were re-run and only the previously-missed E2 line changed, and E3 (the quiet week) ran for the first time — so E2's changed line and E3's full card are reproduced here:
 
 ````markdown
 ---
@@ -676,11 +676,12 @@ requirements: outputs/weekly-status-report/requirements.md
 date: 2026-06-08
 environment: "Cowork, HubSpot connector live"
 readiness: ready
-criteria_total: 12
-criteria_met: 12
+criteria_total: 18
+criteria_met: 18
 results:
   E1: { AC1: met, AC2: met, AC3: met, R1: met, G1: met, "Step 2 output": met, edits: none }
   E2: { AC1: met, AC2: met, AC3: met, R1: met, G1: met, "Step 2 output": met, edits: minor }
+  E3: { AC1: met, AC2: met, AC3: met, R1: met, G1: met, "Step 2 output": met, edits: none }
 ---
 
 # Weekly Status Report — Test Results
@@ -689,6 +690,7 @@ results:
 
 - **E1 — Typical week:** re-run unchanged on the same tracker week
 - **E2 — Blocked-heavy week with a slipped milestone:** the same constructed input as round 1
+- **E3 — Quiet week:** run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table)
 
 ## Report card
 
@@ -700,13 +702,26 @@ results:
 
 (E1's card and E2's other rows are unchanged from round 1; rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
 
+**E3 — Quiet week** (new this round)
+
+| Expected | From | Result | Evidence |
+|---|---|---|---|
+| Every status stated matches the tracker | AC1 (must) | Met | 2 of 2 updates match |
+| Uses the four C2 sections in order | AC2 | Met | Wins / In Progress / Blockers / Next Week, in order |
+| Maya could send it without rewording | AC3 | Met | No hedged phrasing found |
+| Every blocker names an owner and the next action | R1 | Met | No blockers this week — Blockers section says "None this week" rather than inventing one |
+| Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
+| Complete draft under 400 words | Step 2 output | Met | 95 words |
+
+(rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
+
 ## Issues identified
 
 None.
 
 ## Verdict
 
-**Ready** — 12 of 12 lines met across 2 inputs. Go to Step 6 (Run).
+**Ready** — 18 of 18 lines met across 3 inputs. Go to Step 6 (Run).
 
 ## Test records created
 
@@ -796,7 +811,7 @@ And the run log after a few weeks — one line per run, written by the skill its
 
 ## Step 7 — Improve → `improvement-plan.md`
 
-When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. She re-ran E1 and E2 against the baseline — the Ready round's report card in `test-results.md` — and every line held. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
+When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. She re-ran E1, E2, and E3 against the baseline — the Ready round's report card in `test-results.md` — and every line held. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
 
 ````markdown
 # Weekly Status Report — Improvement Plan
@@ -815,9 +830,9 @@ Baseline: `test-results.md` (2026-06-08) — the round that produced the Ready v
 
 | Scenario | Line | Baseline | Now | Evidence |
 |---|---|---|---|---|
-| — | — | — | — | No line changed: 12 of 12 met at baseline, 12 of 12 met now |
+| — | — | — | — | No line changed: 18 of 18 met at baseline, 18 of 18 met now |
 
-Edits unchanged from baseline: E1 none, E2 minor.
+Edits unchanged from baseline: E1 none, E2 minor, E3 none.
 
 Environment like-for-like: same (Cowork, HubSpot connector live).
 
@@ -842,7 +857,7 @@ adding it.
 1. Add a **Risks** section to the report template in `context/past-reports/` (C2)
 2. Update the orchestrator skill's format instruction to produce it — Build's fix mode,
    C2 and the orchestrator only
-3. Re-run E1 and E2 in Test, and update AC2 to name the five sections in order
+3. Re-run E1, E2, and E3 in Test, and update AC2 to name the five sections in order
 4. Record this review in the workflow node
 5. Next review: 2026-12-01 (recorded in the node's `stale_after`)
 ````
