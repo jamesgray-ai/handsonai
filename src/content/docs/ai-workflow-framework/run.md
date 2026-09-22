@@ -25,7 +25,7 @@ Every run so far used test inputs. Run is where the workflow does this week's re
 
 The skill runs four steps:
 
-1. **Load context** — the Workflow node, the Design Spec, the installed artifacts, and the test results (if the verdict isn't Ready, it sends you back to Test).
+1. **Load context** — the Workflow node, the Design Spec, the installed artifacts, and the test results (if the verdict isn't Ready, it sends you to Build's fix mode, which fixes what Test found and re-runs Test).
 2. **The first real run** — your real input, in a fresh session, started the way an operator would start it.
 3. **Write the Run Card** — the one page you'll actually use, saved to `outputs/[name]/run-guide.md`.
 4. **Run log, registry, review date** — today's run logged, the node marked in production, and the next review scheduled.
