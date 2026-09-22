@@ -15,7 +15,7 @@ Analyze concrete opportunities where AI can improve your workflows. Produces a c
 
 ## Workflow
 
-**Set expectations up front (first message):** tell the user this step is a guided interview that usually takes **15–30 minutes**, and that stopping early is safe — everything gets saved to a file they can pick up from later.
+**Set expectations up front (first message).** Say: "This is a guided interview of about 15–20 minutes. By the end you'll have three to five candidate workflows registered in your backlog, with one I'll recommend building first. Stopping early is safe — everything is saved and you can pick up later."
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
@@ -23,7 +23,7 @@ Analyze concrete opportunities where AI can improve your workflows. Produces a c
 
 ### Fast Path
 
-If the user arrives with pre-identified workflows (e.g., "I already know I want to automate X, Y, and Z"), skip Steps 1-2. Infer the lens from what they describe — individual tasks (personal reporting, email triage) = Individual lens; multi-role or business-objective workflows (customer onboarding, sales pipeline) = Organizational lens. Confirm the inferred lens with the user. Go straight to Step 3 (Opportunity Analysis & Report) using what they've provided, then Step 4 (Workflow Candidate Summary).
+Only when the user explicitly says they don't want discovery ("I already know the three workflows, just register them"). A workflow the user merely mentions, or one already in the registry, is a **seed** for discovery, not a reason to skip it. On the fast path, infer the lens from what they describe, confirm it, and go straight to Step 3 and Step 4.
 
 ### Standard Path
 
@@ -31,17 +31,12 @@ Work through four steps in order:
 
 #### Step 1 — Memory & History Scan
 
-Before asking any questions, review everything you already know about the user from conversation history, memory, project files, or any other available context.
+Before asking any questions, read what you already have — in this order:
 
-Identify and list:
-- Their role, responsibilities, and domain
-- Recurring tasks or requests they perform
-- Pain points, frustrations, or bottlenecks they've mentioned
-- Workflows or processes they've described or demonstrated
-- Tools and platforms they use regularly
-- Any goals or priorities they've shared
+1. **The registry bundle**, if `registry/SCHEMA.md` exists: the Business node, Lines of Business, Functions, Processes (with their owners), and any existing Workflow nodes (backlog or otherwise). This is the richest description of the user's work available and was written minutes or days ago — never make the user repeat it. The organizational lens maps directly onto the Process nodes.
+2. Conversation history, memory, project files, and any other available context: role, recurring tasks, pain points, tools, goals.
 
-Present your findings as a brief summary so the user can confirm or correct them before continuing. If you have no prior context, say so and move directly to Step 2.
+Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs]; the processes you named are X, Y, Z, and [N] workflows are already in the backlog. Here's what else I know about your work: … Anything wrong or missing?" Skip every discovery question in Step 2 that this summary already answers. If there is no registry and no prior context, say so and move directly to Step 2.
 
 #### Step 1.5 — Lens Selection
 
@@ -127,17 +122,49 @@ For each candidate:
 
 Append this summary to the output file under a `## Workflow Candidate Summary` heading. Recommend which candidate to deconstruct first, with reasoning.
 
-**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `outputs/`, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, at most one tool connection, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
+**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `outputs/`, no registry Workflow nodes or only `status: backlog` ones, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, at most one tool connection, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
+
+**Register the candidates (registry present).** If `registry/SCHEMA.md` exists, write each chosen candidate as a backlog Workflow node so the registry becomes the student's candidate list:
+
+1. **Process placement, one confirmation for all candidates.** Propose which existing Process each candidate belongs to: "I'd file *Weekly Status Report* under *Client Delivery* and *Inbox Triage* under *Operations* — right?" Where no existing Process fits (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub.
+2. **Write the stub** at `registry/workflows/<slug>.md` (slug = kebab-case of the Workflow name), in the `naming-workflows` stub format:
+
+   ```yaml
+   ---
+   type: Workflow
+   title: "[Workflow name]"
+   description: "[Description sentence]. [Deliverable folded in as the outcome sentence.]"
+   generated: { by: process:analyze, at: YYYY-MM-DD }
+   status: backlog
+   trigger: "[Trigger field]"
+   execution_mode: augmented   # Augmented → augmented; Automated → automated
+   ---
+   # [Workflow name]
+
+   [Description.] [Deliverable sentence.]
+
+   # Artifacts
+
+   - **Opportunity report:** [ai-opportunity-report.md](outputs/ai-opportunity-report.md)
+
+   # Skills
+
+   # Agents
+
+   # Insights
+
+   <!-- GENERATED:insights -->
+   <!-- /GENERATED -->
+   ```
+
+   `trigger` and `execution_mode` are provisional — Deconstruct and Design refine them. Priority, pain point, and the "build first" recommendation stay in the report; the registry holds the inventory.
+3. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md` (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug already exists, merge — never overwrite fields already set.
+
+No registry? Say so once ("No registry here, so the candidates live in the report only — set one up with the `scaffolding-registry` skill when you want an inventory") and continue.
 
 #### Step 5 — Second Lens Follow-Up
 
-After completing the report and candidate selection for the first lens:
-
-> "We've identified [N] workflow candidates from an [individual/organizational] perspective. Would you also like to explore the [other] lens?"
-
-**If individual first:** "...the organizational lens looks at your business value chain — the cross-functional processes that deliver on strategic objectives like revenue growth or customer satisfaction."
-
-**If organizational first:** "...the individual lens looks at your personal workflows — the repetitive tasks in your day-to-day role where AI could save you time or improve quality."
+After completing the report and candidate selection for the first lens, offer it as a later session, not a continuation: "We've registered [N] candidates from the [lens] perspective. The [other] lens — [one-line description] — usually surfaces different ones; it's worth a separate 15-minute session when you're ready. Want me to note that in the report?" If the user wants it now, run it.
 
 If user accepts, run discovery questions for the second lens. Append new candidates to the same report, tagged with their lens. Update the report header Lens field to "Individual + Organizational." Then proceed to candidate selection across both sets.
 
@@ -230,5 +257,5 @@ Use these definitions when classifying opportunities:
 - Be specific in recommendations: "AI could draft the weekly status email from your Jira board data" beats "AI could help with reporting"
 - **Individual lens:** Scope each workflow candidate to one person's trigger-to-deliverable flow. If a workflow spans multiple people, note the cross-team dependencies in the opportunity card but keep the candidate focused on a single owner's scope.
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
-- After writing the report, ask the user to pick their candidates for Step 4. Once they've chosen, append the Workflow Candidate Summary and tell the user: "Opportunity report and workflow candidates saved to `outputs/ai-opportunity-report.md`. Pick a candidate and run the `deconstruct` skill (Step 2) to break it down. Deconstruct will create a dedicated folder for your chosen workflow (`outputs/[workflow-name]/`) — this report stays at the top level because it covers all your candidates."
-- Analyze itself is read-only — it names candidates but writes no Workflow node — so a fresh registry index just keeps the next Analyze run's resume-orientation scan accurate. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
+- After writing the report, ask the user to pick their candidates for Step 4. Once they've chosen, append the Workflow Candidate Summary, write the backlog nodes (see Step 4), and tell the user: "Report saved to `outputs/ai-opportunity-report.md` and [N] candidates registered in your backlog. Start with *[recommended]*: say 'run the deconstruct skill' — about 45–60 minutes, and it turns the candidate into requirements."
+- After writing the report and the backlog nodes, invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step), then tell the user: "Report saved to `outputs/ai-opportunity-report.md` and [N] candidates registered in your backlog. Start with *[recommended]*: say 'run the deconstruct skill' — about 45–60 minutes, and it turns the candidate into requirements."
