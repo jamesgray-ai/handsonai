@@ -146,7 +146,7 @@ Append this summary to the output file under a `## Workflow Candidate Summary` h
 
    # Artifacts
 
-   - **Opportunity report:** [ai-opportunity-report.md](outputs/ai-opportunity-report.md)
+   - [Opportunity report](outputs/ai-opportunity-report.md)
 
    # Skills
 

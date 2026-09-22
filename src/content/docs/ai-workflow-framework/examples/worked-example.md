@@ -133,7 +133,7 @@ Draft the Friday leadership status report from the HubSpot tracker. One-page sta
 
 # Artifacts
 
-- **Opportunity report:** [ai-opportunity-report.md](outputs/ai-opportunity-report.md)
+- [Opportunity report](outputs/ai-opportunity-report.md)
 
 # Skills
 
@@ -174,7 +174,7 @@ review by 10am.
 
 # Artifacts
 
-- **Opportunity report:** [ai-opportunity-report.md](outputs/ai-opportunity-report.md)
+- [Opportunity report](outputs/ai-opportunity-report.md)
 - [Requirements](outputs/weekly-status-report/requirements.md)
 
 # Skills
