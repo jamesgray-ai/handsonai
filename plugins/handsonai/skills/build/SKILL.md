@@ -105,20 +105,9 @@ Before generating artifacts, discover what creation tools are available in this 
 
    Apply this test to each candidate: *"Does this skill WRITE the artifact from a finished spec, or does it ASK ME to decide the configuration? Only the former qualifies."* When in doubt, treat it as guidance (exclude it) and generate inline.
 
-   **Exception — packaging / assembly skills always qualify as generators.** A skill whose job is to *package, bundle, or assemble the final installable artifact* — a platform's native plugin builder such as Cowork's `create-cowork-plugin` — **is a generator, not guidance.** It produces the deliverable (an installable `.plugin` / package); it does **not** re-decide spec fields, so the "excludes guidance skills" rule does not apply to it. Match it — and do so **even though it runs as an interactive / guided flow.** The guided nature is not a reason to exclude it here: for the **Plugin packaging** block specifically, that interactive confirmation *is* the intended, on-demand "ship" step, and the platform's native builder emits an installable package the model must not hand-roll. Do **not** substitute inline generation (zipping a staged tree) for a platform plugin builder — a hand-`zip`ped plugin won't install on Cowork and has failed mid-write in practice (zero-byte archive + orphaned temp). On Cowork, match the Plugin-package block to `create-cowork-plugin`.
+   **Exception — packaging / assembly skills always qualify as generators.** A skill whose job is to *package, bundle, or assemble the final installable artifact* — the platform's native plugin builder (named in `capabilities.skill_install`) — **is a generator, not guidance.** It produces the deliverable (an installable `.plugin` / package); it does **not** re-decide spec fields, so the "excludes guidance skills" rule does not apply to it. Match it — and do so **even though it runs as an interactive / guided flow.** The guided nature is not a reason to exclude it here: for the **Plugin packaging** block specifically, that interactive confirmation *is* the intended, on-demand "ship" step, and the platform's native builder emits an installable package the model must not hand-roll. Do **not** substitute inline generation (zipping a staged tree) for a platform plugin builder — a hand-zipped plugin may not install on a system-managed platform and has failed mid-write in practice (zero-byte archive + orphaned temp). Match the Plugin-package block to the plugin builder named in the platform's `capabilities.skill_install`.
 
-   **Tier 2 — Filesystem discovery (fallback).** If no system-level skill list is available, or if the list may be incomplete, scan the platform-appropriate skill directories for SKILL.md files. Read each file's YAML frontmatter (`name` and `description` fields) to identify creation-capable skills. Use the platform's skill directory:
-
-   | Platform | Skill Directories |
-   |----------|------------------|
-   | Claude Code | `.claude/skills/` (project), `~/.claude/skills/` (personal) |
-   | Cursor | `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`, `.agents/skills/` |
-   | Codex CLI | `.agents/skills/` |
-   | Gemini CLI | `.gemini/skills/`, `.agents/skills/` |
-   | VS Code Copilot | `.github/skills/`, `.agents/skills/` |
-   | Cowork / Claude.ai | System-managed (Tier 1 only) |
-
-   For the authoritative and up-to-date directory listing, read `docs/agentic-building-blocks/skills/index.md` (Platform Implementations table).
+   **Tier 2 — Filesystem discovery (fallback).** On filesystem platforms, scan the skill directories named in the platform's `capabilities.skill_install`; read each SKILL.md's frontmatter to identify creation-capable skills.
 
    If neither tier finds any skills (e.g., ChatGPT web, Gemini app), state: "No creation skills detected in this environment — all building blocks will be generated inline." Then proceed.
 
@@ -128,7 +117,7 @@ Before generating artifacts, discover what creation tools are available in this 
    |---|---|---|---|
    | Skill | 3 | *(matched skill name or "none")* | Delegate / Inline |
    | Agent | 1 | *(matched skill name or "none")* | Delegate / Inline |
-   | Plugin package | 1 | *(platform plugin builder, e.g. `create-cowork-plugin` on Cowork; see the packaging exception above)* | Delegate |
+   | Plugin package | 1 | *(platform plugin builder, named in `capabilities.skill_install`; see the packaging exception above)* | Delegate |
 
 4. **Present the map for confirmation.** Show the user: "Here's how I plan to build each block type. For items with a matched creation skill, I'll delegate to that skill's full workflow. For items without, I'll generate inline using reference specifications. Does this look right?"
 
@@ -142,7 +131,7 @@ Before generating artifacts, resolve platform-specific format requirements and i
 
 **Tier 1 — Platform Doc Resolution**
 
-1. **Resolve the platform registry local-first** (or use session cache): if this skill is installed as part of the handsonai plugin, read the local copy at `${CLAUDE_PLUGIN_ROOT}/registries/platform-registry.json`; otherwise (standalone install) fetch the remote copy from
+1. **Resolve the platform registry local-first** (or use session cache): if this skill is installed as part of the handsonai plugin, read the plugin's bundled copy at `registries/platform-registry.json` (resolve relative to this skill's plugin root); otherwise (standalone install) fetch the remote copy from
    `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`
 
 2. **Look up the user's platform** in the `platforms` section of the registry JSON.
@@ -235,7 +224,7 @@ Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capabili
 
 Apply the spec's **Packaging** decision to group the generated artifacts:
 - **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace). On Cowork, any workflow that includes worker sub-agents **must** package as Plugin — Cowork runs custom agents only from installed plugins (see the registry entry's notes). If the approved spec says Standalone Skill but includes agents on Cowork, flag the mismatch and switch to Plugin with the user's confirmation.
-- **Standalone Skill** → ship as a single uploadable artifact (zip for Claude.ai and for Cowork's Save skill flow, single SKILL.md for code-mode platforms, zip or SKILL.md for ChatGPT, Gemini Spark / Gemini Enterprise, and M365 Copilot Cowork uploads). For skill-only workflows — a design with worker agents on Cowork needs Plugin instead (above).
+- **Standalone Skill** → ship as a single uploadable artifact, in the package form named in the platform's `capabilities.skill_install` (a zip for guided platforms, a single SKILL.md for code-mode platforms). For skill-only workflows — a design with worker agents on a platform whose `capabilities.custom_agents` requires a plugin needs Plugin instead (above).
 - **Workspace Agent** → bundle orchestration + skills + tools as a ChatGPT Workspace Agent (the current ChatGPT primitive; Custom GPTs are deprecated). Research current Workspace Agent creation flow via web search before generating.
 - **Loose Files** → write files to platform-appropriate paths; no distribution wrapper
 
@@ -262,7 +251,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 - **Code mode:** Generate source files in the platform's `language` (Python, TypeScript, markdown). This is the standard behavior — proceed with artifact generation as described below.
 - **Guided mode:** Generate step-by-step GUI instruction documents. For each building block, produce a document that walks the user through configuring it in the platform's interface, using the GUI documentation fetched from the registry. Include: which screens to navigate to, what fields to fill in, what settings to configure, and what to verify after each step.
-  - **Exception — file-based guided platforms:** if the platform's registry entry notes that artifacts are still real files (e.g., `claude-ai`, where skills are markdown files packaged as a zip and uploaded), generate the actual source files and package them per the staging spec in step g — GUI instructions cover only the upload/install portion.
+  - **Exception — file-based guided platforms:** if the platform's `capabilities.context_location` / `capabilities.skill_install` (or its `notes` if `capabilities` is absent) says artifacts are still real files packaged as a zip and uploaded, generate the actual source files and package them per the staging spec in step g — GUI instructions cover only the upload/install portion.
 
 **e. Generate each building block.** For each building block in the spec, follow the Creation Tools Map from Step 3.5:
 
@@ -289,10 +278,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
   1. **For skills:** Use the artifact format from Step 3.6. If unavailable, fetch the agentskills.io specification (live from `https://agentskills.io/specification`, fallback to `references/skill-spec.md`). Generate the skill using the Skill Candidates entry — use the `Name` field as the directory name and the `Description` field verbatim in the SKILL.md frontmatter. Apply platform-specific extensions as documented for the target platform.
   2. **For agents:** Inline generation is the default — the Agent Configuration entry is the complete source of the agent's configuration, so no guidance skill is needed (see Step 3.5). Use the artifact format from Step 3.6. If unavailable and on Claude Code, fall back to `references/agent-spec.md`. For other platforms, fall back to web search. Generate the agent using the Agent Configuration entry — use the `Name` as the filename, the `Description` field verbatim in the agent file frontmatter (and include the Trigger Examples as `<example>` blocks in the description), and the Mission, Responsibilities, Output Format, Tone & Style, and Constraints fields as the agent's system prompt body.
 
-     **Where the agent file goes is capability-conditional — read it from the registry, never guess:**
-     - **Platform's registry entry has an `agent` key** → generate a standalone agent file at the platform's agent location (e.g., `.claude/agents/<name>.md` on Claude Code; the plugin's `agents/` directory on Cowork, where custom agents run only from installed plugins). Standalone agents are the strongly preferred form: the harness *enforces* their `tools:`/`model:` config (least privilege becomes a guarantee, not a request) and the user can view and edit them. The orchestrator skill dispatches the agent **by name**.
-     - **No `agent` key** (e.g., `claude-ai`) → the platform can't register standalone agents. Write the agent file to `<skill-name>/agents/<agent-name>.md` *inside the skill package*, and have the orchestrator SKILL.md's dispatch step say: *read `agents/<agent-name>.md`, substitute the run variables, and dispatch its body via the Agent tool.* **Never duplicate the agent prompt inline in SKILL.md** — the `agents/` file is the single source of truth; an inline copy will drift.
-     - **Platform not in the registry** → fall back per Step 3.6 item 4 (model knowledge + web search), state which of the two placements you chose and why, and flag it as unverified.
+     **Where the agent file goes is capability-conditional — read it from the registry, never guess:** read `capabilities.custom_agents` for the platform: if it names a standalone agent location, write the agent file there and have the orchestrator dispatch it by name; if it says agents are carried inside the skill package, write `<skill-name>/agents/<agent-name>.md` and have the orchestrator SKILL.md read and dispatch its body — never duplicate the agent prompt inline; if the platform is not in the registry, choose one placement from model knowledge plus one web check, say which, and flag it unverified. Standalone agents are the strongly preferred form where available: the harness *enforces* their `tools:`/`model:` config (least privilege becomes a guarantee, not a request) and the user can view and edit them.
   3. **For other block types (MCP servers, hooks, commands, prompts):** Use the artifact format from Step 3.6. If unavailable, research the platform's current format via web search and generate accordingly.
 
 **f. Generate artifacts.** The skill provides the *specs* (what each building block should do, its inputs/outputs/instructions from the Design phase). The model provides the *implementation* (how to build it on the user's platform, using the verified specification and platform documentation as authoritative sources).
@@ -319,7 +305,7 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them when running Test.) **Update the Workflow node** (`registry/workflows/<slug>.md`): link the generated platform artifacts and any new/reused Skills or Agents under `# Skills` / `# Agents` and `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
-**Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now: **Cowork** — Save skill from the zip (Standalone Skill), or install the `.plugin` produced by the create-plugin skill (Plugin packaging; required whenever the workflow has worker agents); **Claude.ai** — upload the zip under Customize > Skills (uploaded skills appear in Chat and Cowork alike); **ChatGPT** — upload the zip under Plugins > Skills > Create > Upload from your computer (use `@skill-name` in Work), or on the Codex tab drop the skill folder into `~/.agents/skills/`; **Gemini Spark / Gemini Enterprise** — Skills > Upload (Spark) or Skills > + > Upload skill (Enterprise); **M365 Copilot Cowork** — Customize > Skills > Upload skill; **Claude Code** — files are already in place under `.claude/`. Confirm the skill (and any plugin-packaged agents) appears in the platform's skill/agent list before proceeding — Test's installed-run phase depends on it. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
+**Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now using the exact steps in the platform's `capabilities.skill_install`, and confirm the skill (and any packaged agents) appears in the platform's skill list before proceeding — Test's fresh-conversation runs depend on it. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
 ## Outputs
 
