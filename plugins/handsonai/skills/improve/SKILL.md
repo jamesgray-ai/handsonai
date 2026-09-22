@@ -1,9 +1,9 @@
 ---
 name: improve
 description: >
-  Evaluate a running AI workflow for quality, relevance, and evolution opportunities.
+  Evaluate a running AI workflow for quality and fit.
   Use when the user wants to review how a deployed workflow is performing, check if it needs
-  tuning, or assess whether it should graduate to a more capable orchestration mechanism.
+  tuning, or decide whether it should go back to Design (including graduating from a skill to an agent).
   Also use when the user says "continue my workflow" and the Workflow node's artifacts show Step 7 (Improve) is next, or its `stale_after` date has arrived.
   This is Step 7 (Improve) of the AI Workflow Framework.
 user-invocable: true
@@ -11,7 +11,7 @@ user-invocable: true
 
 # Improve Workflow
 
-Evaluate and evolve running AI workflows. Review how a deployed workflow is performing against its original baseline, identify degradation or growth signals, and recommend whether to tune, redesign, or evolve the orchestration mechanism.
+Evaluate running AI workflows and decide what, if anything, to change. Review how a deployed workflow is performing against its original baseline, identify degradation or growth signals, and recommend one of three outcomes: leave it, tune it, or go back to Design.
 
 ## Workflow
 
@@ -53,7 +53,7 @@ Identify signals of degradation or opportunity:
 
 ### 4. Graduation assessment
 
-Should the orchestration mechanism evolve?
+Has the workflow outgrown its mechanism?
 
 - **Skill → Agent** — if the workflow now needs to make sequencing decisions or use tools rather than follow a fixed order
 - **Single Agent → Multi-Agent** — if complexity has grown to require specialized sub-agents
