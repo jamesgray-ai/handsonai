@@ -120,7 +120,7 @@ Decide *how* the workflow should be built — before you build it.
 
 The Design step takes your Workflow Requirements and produces a complete blueprint for your AI workflow. The skill works through three layers of decisions:
 
-- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend how it runs — the mechanism is one of `Skill | Agent` — with an involvement mode (Augmented or Automated).
+- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend how it runs — as a **Skill** or an **Agent** (the mechanism is one of `Skill | Agent`) — with an involvement mode (Augmented or Automated).
 - **Decomposition** — classify each step on the autonomy spectrum, map AI building blocks, and identify which steps become reusable skills.
 - **Component blueprints** — document the field-level specs for each new skill and agent.
 
