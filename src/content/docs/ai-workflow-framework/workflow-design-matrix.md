@@ -98,8 +98,7 @@ The [orchestration mechanism](../design/#orchestration-mechanism) describes *who
 
 | Orchestration Mechanism | Typical Archetypes |
 |------------------------|-------------------|
-| Prompt | Deterministic + Augmented, Deterministic + Automated |
-| Skill-Powered Workflow | Deterministic or Guided, either involvement mode |
+| Skill | Deterministic or Guided, either involvement mode |
 | Agent | Guided or Autonomous, either involvement mode |
 
 ### Architecture Patterns

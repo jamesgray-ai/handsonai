@@ -294,7 +294,7 @@ Two things in that document are easy to skip and worth pausing on.
 
 ## Step 3 — Design → `design-spec.md`
 
-Design took about 20 minutes: one platform question (Cowork), an autonomy assessment (**Guided**), the mechanism choice (**Skill-Powered Workflow** — a reusable skill Maya triggers by name every Friday), and a safety pass. Notice how the spec *references* the requirements instead of restating them, and how every component has a stable ID (S1) that later files point at.
+Design took about 20 minutes: one platform question (Cowork), an autonomy assessment (**Guided**), the mechanism choice (**Skill** — the workflow runs the same four steps every Friday), and a safety pass. Notice how the spec *references* the requirements instead of restating them, and how every component has a stable ID (S1, S2) that later files point at.
 
 The complete Design Spec:
 
@@ -302,16 +302,17 @@ The complete Design Spec:
 ---
 workflow: weekly-status-report
 requirements_file: outputs/weekly-status-report/requirements.md
-spec_version: 2.5
+spec_version: 3.0
+approved: true
 definition_type: Step-Driven
-mechanism: Skill-Powered Workflow
+mechanism: Skill
 involvement: Augmented
 platform: Claude Cowork
 platform_mode: code
 packaging: Standalone Skill
 counts:
   steps: 4
-  skills: 1
+  skills: 2
   agents: 0
   integrations: 1
 ---
@@ -343,10 +344,9 @@ per-step requirements are defined there — not restated here.
 
 ## Execution Pattern
 
-**Skill-Powered Workflow** — the workflow runs the same four steps every Friday
+**Skill** — the workflow runs the same four steps every Friday
 with bounded AI judgment inside Step 2, so a reusable skill Maya triggers by name
-fits better than a paste-in prompt (repetition) or an agent (no sequencing
-decisions to make).
+fits better than an agent (no sequencing decisions to make).
 
 ## Architecture Decisions
 
@@ -355,7 +355,7 @@ decisions to make).
 | Lens | Individual | One owner, one trigger-to-deliverable flow |
 | Platform | Claude Cowork | Where Maya works daily |
 | Platform Mode | code | Cowork runs skills as files |
-| Orchestration | Skill-Powered Workflow | Repeated weekly, fixed sequence, triggered by name |
+| Orchestration | Skill | Repeated weekly, fixed sequence, triggered by name |
 | Involvement | Augmented | Maya reviews at the Step 3 gate |
 | Packaging | Standalone Skill | One skill, added to Maya's library — no plugin needed |
 | Trigger | Manual, Friday mornings | No scheduling infrastructure required |
@@ -418,14 +418,16 @@ what leadership needs to see); fast is fine for Steps 1 and 4.
 | Step | Name | Autonomy | Orchestration | Integration (use/build) | Intelligence | Build Output | Human Gate? |
 |------|------|----------|---------------|------------------------|--------------|--------------|-------------|
 | 1 | Pull Updates | Deterministic | Prompt | MCP: HubSpot (use) | Model: fast | Inline prompt → Workflow Requirements Step 1 | No |
-| 2 | Draft Report | Guided | Skill | — | Model: reasoning; Context: C2, C3 | New skill: S1 | No |
+| 2 | Draft Report | Guided | Skill | — | Model: reasoning; Context: C2, C3 | New skill: S2 | No |
 | 3 | Review | Human | — | — | — | Human (no artifact) | Yes |
 | 4 | Save & Log | Deterministic | Prompt | — | Model: fast | Inline prompt → Workflow Requirements Step 4 | No |
 
+All four steps are wired together by **S1 — `weekly-status-report`**, the orchestrator skill Maya triggers by name.
+
 ## Orchestrator Prompt Outline
 
-*(Mechanism is Skill-Powered Workflow — on Cowork, a skill-capable platform, this
-orchestrator ships as a skill named `weekly-status-report` that Maya triggers by
+*(Mechanism is Skill — on Cowork, a skill-capable platform, this
+orchestrator ships as S1, a skill named `weekly-status-report` that Maya triggers by
 name. See Deployment Plan.)*
 
 ```
@@ -439,7 +441,7 @@ name. See Deployment Plan.)*
 
 [Step 2 invocation]
   - Source: Workflow Requirements Step 2
-  - Build Output: New skill: S1 (status-report-drafting)
+  - Build Output: New skill: S2 (status-report-drafting)
   - Produces: complete draft report
 
 [PAUSE for user review — Human Gate, Workflow Requirements Step 3]
@@ -466,8 +468,8 @@ name. See Deployment Plan.)*
 1. **C3 — tone guide** — everything in Step 2 depends on it; smallest artifact
 
 ### Core (implement second)
-1. **S1 — status-report-drafting** — the heart of the workflow
-2. **Orchestrator skill `weekly-status-report`** — wires Steps 1–4 together
+1. **S2 — status-report-drafting** — the heart of the workflow
+2. **S1 — orchestrator skill `weekly-status-report`** — wires Steps 1–4 together
 
 ---
 
@@ -475,11 +477,30 @@ name. See Deployment Plan.)*
 
 ## Skill Candidates
 
-### S1 — status-report-drafting
+S1 is always the orchestrator skill for a Skill mechanism — it carries the workflow's name; component skills follow.
+
+### S1 — weekly-status-report
 
 | Field | Detail |
 |---|---|
 | **ID** | S1 |
+| **Name** | weekly-status-report |
+| **Description** | This skill should be used when Maya wants to produce the Friday leadership status report. It pulls the week's updates from the HubSpot tracker, drafts the report using S2, pauses for review, and saves the approved report. |
+| **Purpose** | Orchestrates all four steps end to end; the skill Maya triggers by name |
+| **Covers Steps / Domains** | Steps 1–4 (all) |
+| **Inputs** | Trigger phrase ("run my weekly status report"); HubSpot tracker data |
+| **Outputs** | Saved status report file; a logged run row |
+| **Decision Logic** | Sequences Steps 1–4 in order; pauses at the Step 3 human gate; never saves or shares without approval |
+| **Failure Modes** | HubSpot returns nothing → proceed to a quiet-week report rather than stalling. Review not approved → do not save or share |
+| **Required Tools** | MCP: HubSpot (read-only) |
+| **Depends On** | S2 |
+| **Stateful?** | No |
+
+### S2 — status-report-drafting
+
+| Field | Detail |
+|---|---|
+| **ID** | S2 |
 | **Name** | status-report-drafting |
 | **Description** | This skill should be used when drafting a weekly leadership status report from structured project-tracker updates. It synthesizes wins, progress, blockers, and next-week focus into a one-page report in the owner's voice. |
 | **Purpose** | Turns Step 1's structured update list into the finished draft |
@@ -501,8 +522,8 @@ name. See Deployment Plan.)*
 
 | Artifact | Target Location | Deployment Steps |
 |---|---|---|
-| Orchestrator skill `weekly-status-report` | Skill library (Customize → Skills) | Build generates the skill zip; upload it under Customize → Skills |
-| S1 — `status-report-drafting` | Skill library (Customize → Skills) | Same |
+| S1 — orchestrator skill `weekly-status-report` | Skill library (Customize → Skills) | Build generates the skill zip; upload it under Customize → Skills |
+| S2 — `status-report-drafting` | Skill library (Customize → Skills) | Same |
 | C3 — `tone-guide.md` | `context/tone-guide.md` in the project | Build creates it with Maya |
 
 **Packaging note:** Standalone Skill — both skills upload individually; no plugin wrapper.
@@ -537,7 +558,7 @@ Mechanism-specific ✓ · Safety ✓ · Completeness ✓
 
 ## Step 4 — Build → the skills
 
-Maya chose **"Claude builds it"**. Build created the tone guide with her (a 10-minute interview), verified the HubSpot connector was read-only, then generated two skills: the **orchestrator** (named after the workflow — this is what she runs) and **S1** (the drafting specialist it calls). The node's `# Artifacts` now links the generated assets — Build's completion is visible from the artifacts themselves.
+Maya chose **"Claude builds it"**. Build created the tone guide with her (a 10-minute interview), verified the HubSpot connector was read-only, then generated the two skills the spec called for: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). The node's `# Artifacts` now links the generated assets — Build's completion is visible from the artifacts themselves.
 
 The orchestrator skill, complete:
 
@@ -575,7 +596,7 @@ never share or save a report Maya hasn't approved.
    date, trigger, result, edits-needed — creating the file with its header if absent.
 ````
 
-*(S1, `status-report-drafting`, follows the same SKILL.md format — its body is the Decision Logic and Failure Modes from the spec's S1 blueprint, expanded into instructions. Omitted here because it repeats what the spec section above already shows.)*
+*(S2, `status-report-drafting`, follows the same SKILL.md format — its body is the Decision Logic and Failure Modes from the spec's S2 blueprint, expanded into instructions. Omitted here because it repeats what the spec section above already shows.)*
 
 ---
 

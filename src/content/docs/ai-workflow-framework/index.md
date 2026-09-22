@@ -120,11 +120,11 @@ Decide *how* the workflow should be built — before you build it.
 
 The Design step takes your Workflow Requirements and produces a complete blueprint for your AI workflow. The skill works through three layers of decisions:
 
-- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend an orchestration mechanism (Prompt, Skill-Powered Workflow, or Agent) with an involvement mode (Augmented or Automated).
+- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend how it runs — as a **Skill** or an **Agent** — with an involvement mode (Augmented or Automated).
 - **Decomposition** — classify each step on the autonomy spectrum, map AI building blocks, and identify which steps become reusable skills.
 - **Component blueprints** — document the field-level specs for each new skill and agent.
 
-The spec must be approved before moving to Build.
+The skill writes the spec as a draft file you can read, then marks it approved when you say so; Build refuses an unapproved spec.
 
 **Deliverable:** **Design Spec** (`outputs/[name]/design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, implementation order, and a Constraint Conformance table showing, for each protection named in Deconstruct, where the design meets it. References the Workflow Requirements rather than restating it.
 
@@ -138,7 +138,7 @@ Generate platform-appropriate artifacts from the approved spec.
 
 The Build step starts with a **Prepare Context** phase — systematically resolving the context needs identified during Deconstruct and Design. Then the model researches your platform using a curated platform registry, integration registries, and web search to generate the actual artifacts — context, skills, prompts, agents, MCP connections — in whatever format your platform requires. Only the components your orchestration mechanism needs are built.
 
-**Deliverable:** **Platform artifacts** — prompts, skills, agents, and configs generated for your specific platform, plus resolved context artifacts (style guides, reference materials, examples).
+**Deliverable:** **Platform artifacts** — skills, agents, and configs generated for your specific platform, plus resolved context artifacts (style guides, reference materials, examples).
 
 **Facilitated by the `build` skill.** See [Build](build/) for mechanism-specific build paths and platform research details.
 
@@ -239,9 +239,8 @@ The orchestration mechanism answers: **who drives the workflow?** The right mech
 
 | Mechanism | Description | Signals |
 |-----------|-------------|---------|
-| **Prompt** | Human follows structured instructions step by step, all logic inline | Sequential steps, human provides inputs and makes decisions |
-| **Skill-Powered Workflow** | Human invokes reusable skills in a defined sequence | Repeatable sub-routines, moderate complexity |
-| **Agent** | Agent orchestrates the flow, invoking skills and making sequencing decisions | Tool use required, autonomous decisions, multi-step reasoning |
+| **Skill** | You start it by name; it follows the mapped steps, pausing where you said | You trigger the work; same steps each time; decisions are yours at the pauses |
+| **Agent** | Decides its own path at runtime, uses tools on its judgment, can run unattended | Steps depend on what it finds; scheduled or hands-off runs |
 
 Single-agent vs. multi-agent is an architecture detail decided during agent configuration — not a top-level choice.
 
