@@ -8,7 +8,8 @@
       "skill": "https://code.claude.com/docs/en/skills",
       "memory": "https://code.claude.com/docs/en/memory",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
-      "mcp-build": "https://modelcontextprotocol.io/quickstart"
+      "mcp-build": "https://modelcontextprotocol.io/quickstart",
+      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume either exists in Cowork."
     },
     "cowork": {
       "mode": "code",
@@ -17,12 +18,12 @@
       "skill": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
       "plugin": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
-      "notes": "Skills and sub-agents use Claude Code markdown formats; artifacts are real files staged in the connected project folder. Skill/agent directories are system-managed: a standalone skill installs via the Save skill flow (zip package), and plugins install from Customize > Plugins (marketplace from a GitHub repo). Plugin-bundled skills work in Claude Chat (web and Desktop) and Cowork alike; hooks and custom sub-agents run ONLY in Cowork and only when packaged inside an installed plugin — a workflow with worker agents must package as Plugin. No verified user-facing memory feature — do not assume Claude Code auto-memory exists here. Verified 2026-09-22: https://support.claude.com/en/articles/12512180-use-skills-in-claude, https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork, https://claude.com/blog/web-search, https://claude.com/docs/cowork/3p/extensions, https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects; the \"/\" skill list on Cowork is owner-verified, not from the article.",
+      "notes": "Skills and sub-agents use Claude Code markdown formats; artifacts are real files staged in the connected project folder. Skill/agent directories are system-managed: a standalone skill installs via the Save skill flow (zip package), and plugins install from Customize > Plugins (marketplace from a GitHub repo). Plugin-bundled skills work in Claude Chat (web and Desktop) and Cowork alike; hooks and custom sub-agents run ONLY in Cowork and only when packaged inside an installed plugin — a workflow with worker agents must package as Plugin. No verified user-facing memory feature — do not assume Claude Code auto-memory exists here. Verified 2026-09-22: https://support.claude.com/en/articles/12512180-use-skills-in-claude, https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork, https://claude.com/blog/web-search, https://claude.com/docs/cowork/3p/extensions, https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects; the \"/\" skill list on Cowork is owner-verified, not from the article. Operational note (inferred, not from the article): authorize every connector the workflow touches in the account that runs a scheduled task before its first run.",
       "capabilities": {
         "skill_install": "A standalone skill installs from a zip via the Save skill flow; a plugin (required whenever the workflow has worker agents) installs from Customize > Plugins. Skill and agent directories are system-managed — stage files in the connected project folder and produce one installable package. Start it in a new chat by asking for the skill by name (Claude applies a matching skill automatically); with the plugin installed, typing `/` lists the available skills.",
         "context_location": "Context files live in the connected project folder; the skill references them by relative path. Supporting reference files can also ship inside the skill package.",
         "custom_agents": "Yes — as worker sub-agents packaged in an installed plugin (agents/ directory, Claude Code markdown format). The primary Cowork session is the orchestrator and dispatches them; do not design a separate orchestrator agent.",
-        "unattended_runs": "Scheduled tasks run remotely on their chosen cadence even when the desktop app is closed or the computer is asleep, using the connectors, skills, and plugins set up in the account. A task that needs local files or apps runs only locally — so a workflow whose context lives in the connected project folder (see context_location) cannot run on the remote schedule unless that context ships inside the skill package or a connected cloud source. Authorize every connector the workflow touches in the account that runs the task before its first run.",
+        "unattended_runs": "Scheduled tasks run remotely on their chosen cadence even when the desktop app is closed or the computer is asleep, using the connectors, skills, and plugins set up in the account. A task that needs local files or apps runs only locally — so a workflow whose context lives in the connected project folder (see context_location) cannot run on the remote schedule unless that context ships inside the skill package or a connected cloud source.",
         "web_search": "Available, standard on all plans including free."
       }
     },
@@ -62,7 +63,8 @@
     "gemini-cli": {
       "mode": "code",
       "language": "markdown",
-      "agent": "https://geminicli.com/docs/core/subagents"
+      "agent": "https://geminicli.com/docs/core/subagents",
+      "notes": "Skills are folders under .gemini/skills/ (project) or ~/.gemini/skills/ (personal), each with a SKILL.md; invoke by name in the CLI."
     },
     "vertex-ai-adk": {
       "mode": "code",

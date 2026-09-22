@@ -355,7 +355,7 @@ For goal-driven: `**[Tool] access needed (Domains: X, Y):**`
 
 For every step classified as needing a **Skill**, look for one the user already has before assuming one must be built. Build-new is the last resort.
 
-**Tier 1 — the platform's installed skills (always).** Use the same detection Build uses in its Step 4: the session's available-skills list (on Cowork and Claude.ai this includes plugin-installed and account-uploaded skills; on ChatGPT the skills under Plugins → Skills), or on filesystem platforms the skill directories named in the platform's `capabilities.skill_install` (or its `notes` if `capabilities` is absent). Match by what the skill does, not by exact name.
+**Tier 1 — the platform's installed skills (always).** Use the same detection Build uses in its Step 4: the session's available-skills list (on Cowork and Claude.ai this includes plugin-installed and account-uploaded skills; on ChatGPT the skills under Plugins → Skills), or on filesystem platforms the skill directories named in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL and `notes`. Match by what the skill does, not by exact name.
 
 **Tier 2 — the registry (when present).** If `registry/SCHEMA.md` exists, read each Workflow node's `# Skills` section and the dashboard's skills table to learn which workflow uses each skill and what it was built for. If there is no registry, say so once and continue on Tier 1 alone — nothing depends on it.
 
