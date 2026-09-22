@@ -251,7 +251,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 **d. Apply code vs guided mode branching.** Based on the platform's `mode` from the registry (determined in Step 3.6):
 
-- **Code mode:** Generate source files in the platform's `language` (Python, TypeScript, markdown). This is the standard behavior — proceed with artifact generation as described below.
+- **Code mode:** artifacts are real files in the platform's `language` (Python, TypeScript, markdown). Skills and agents are still created by stating the intent (step e) — the platform's own creator writes them into its directories; Build writes only configs, connectors, and loose files directly. Proceed as described below.
 - **Guided mode:** Generate step-by-step GUI instruction documents. For each building block, produce a document that walks the user through configuring it in the platform's interface, using the GUI documentation fetched from the registry. Include: which screens to navigate to, what fields to fill in, what settings to configure, and what to verify after each step.
   - **Exception — file-based guided platforms:** if the platform's `capabilities.context_location` / `capabilities.skill_install` (or its `notes` if `capabilities` is absent) says artifacts are still real files packaged as a zip and uploaded, generate the actual source files and package them per the staging spec in step g — GUI instructions cover only the upload/install portion.
 
