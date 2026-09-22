@@ -13,7 +13,7 @@ user-invocable: true
 
 # Workflow Build
 
-Take an approved Design Spec and generate platform-appropriate artifacts: prompts, skills, agents, configs, and connectors.
+Take an approved Design Spec and generate platform-appropriate artifacts: skills, agents, configs, and connectors.
 
 **Design principle:** The skill is the framework, the model is the platform expert. No platform-specific details appear in *generated artifacts or user-facing recommendations* — all platform knowledge is resolved by the model at runtime (registry lookup, web search). The skill's own procedure may branch on **detected environment capabilities** (creation tools, web access, persistent workspace) — detect and adapt; never assume a capability exists because it exists on one surface.
 
@@ -54,7 +54,7 @@ Confirm you've loaded both by summarizing: workflow name, orchestration mechanis
 Check `outputs/[workflow-name]/test-results.md`. **Fix mode** applies when it exists with `readiness: not-ready` and a `## Issues identified` table naming building blocks (`S2`, `A1`, `C3`, `orchestrator`, `connector`). In fix mode:
 
 1. Say what you're fixing and why, from the table: "Test found E2 failed AC2 because the headings were out of order — that's the orchestrator skill. I'll regenerate only that and leave everything else as installed."
-2. Skip Steps 4, 5, 7 and 8 (mechanism path, build method, existing skills, integration research); re-run Step 6 only if the session cache is empty and a named artifact is a skill or agent. In Step 3 re-check only the context rows the issues table names (`C3` etc.); leave the rest as resolved. Regenerate only the named artifacts (Step 9), preserving every other file.
+2. Skip Steps 4, 5, 7 and 8 (mechanism path, build method, existing skills, integration research); re-run Step 6 only if the session cache is empty and a named artifact is a skill or agent. In Step 3 re-check only the context rows the issues table names (`C3` etc.) — a `connector` entry means that connector's **Connect it** row (re-authorize or widen scope), not a regeneration; leave the rest as resolved. Regenerate only the named artifacts (Step 9), preserving every other file.
 3. Re-run the reconciliation table (Step 10) and the install handoff for the changed files.
 4. Tell the user to re-run the failed scenarios in Test, then the full set.
 5. Count the results files for this workflow (the dated `test-results-*.md` files plus the current one) whose frontmatter says `readiness: not-ready`. On the third such file in a row, stop and say: "Three rounds have targeted the same area — the problem is probably the design, not the build. I recommend going back to Design with what Test found." Continue only if the user insists.
@@ -305,7 +305,7 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 #### Step 10 — Reconcile against the spec
 
-Close with a table that has one row per Build Output row in the Design Spec's decomposition — nothing missing, nothing extra:
+Close with a table that has one row per Build Output row in the Design Spec's decomposition, plus one row for the orchestrator skill (S1) and one per connector in Integration Options — nothing else:
 
 | Build Output (from spec) | Artifact | Path | Status |
 |---|---|---|---|

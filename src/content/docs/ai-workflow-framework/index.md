@@ -57,7 +57,7 @@ could be automated with AI"
 3. **Design Spec** — `[name]/design-spec.md`
 4. **Platform Artifacts** — prompts, skills, agents, and configs in the format your platform requires
 5. **Test Results** — `[name]/test-results.md`
-6. **Run Guide** — `[name]/run-guide.md`, plus a run log at `[name]/runs.md`
+6. **Run Card** — `[name]/run-guide.md`, plus a run log at `[name]/runs.md`
 7. **Improvement Plan** — `[name]/improvement-plan.md` (when running Improve)
 
 ## The Framework
@@ -140,7 +140,7 @@ The Build step starts with a **Prepare Context** phase — systematically resolv
 
 **Deliverable:** **Platform artifacts** — skills, agents, and configs generated for your specific platform, plus resolved context artifacts (style guides, reference materials, examples).
 
-**Facilitated by the `build` skill.** See [Build](build/) for mechanism-specific build paths and platform research details.
+**Facilitated by the `build` skill.** See [Build](build/) for the Prepare Context phase and platform research details.
 
 ---
 

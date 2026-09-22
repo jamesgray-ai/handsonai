@@ -37,7 +37,7 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 ```
 
 :::note[Where do the Step 4 skills live in Cowork?]
-In Cowork, skills are managed by the platform rather than sitting in a visible project folder — Build generates the skill files in your workspace, then walks you through adding them under **Customize → Skills** (upload the zip it produced). Skills added there are shared by Claude Chat and Cowork on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
+In Cowork, skills are managed by the platform rather than sitting in a visible project folder — Build asks Cowork's skill creator to produce each skill from the spec's blueprint, stages the source under `outputs/weekly-status-report/skill/`, then walks you through adding the package under **Customize → Skills**. Skills added there are shared by Claude Chat and Cowork on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
 :::
 
 **Why two locations?** The `outputs/` folder holds the framework's *paper trail* — the documents each step hands to the next. The skills are the *product* — the thing you actually run every week. When the run is over, you use the skill; the documents stay behind as the workflow's memory (Test and Improve read them later).
@@ -637,7 +637,7 @@ never share or save a report Maya hasn't approved.
 
 *(S2, `status-report-drafting`, follows the same SKILL.md format — its body is the Decision Logic and Failure Modes from the spec's S2 blueprint, expanded into instructions. Omitted here because it repeats what the spec section above already shows.)*
 
-Build closed with the reconciliation table — one row per Build Output line in the spec, so nothing in the design is left unaccounted for and nothing extra appears:
+Build closed with the reconciliation table — one row per Build Output line in the spec, plus the orchestrator skill and the HubSpot connector, so nothing in the design is left unaccounted for and nothing extra appears:
 
 | Build Output (from spec) | Artifact | Path | Status |
 |---|---|---|---|

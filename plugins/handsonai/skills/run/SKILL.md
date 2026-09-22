@@ -8,7 +8,7 @@ description: >
 user-invocable: true
 ---
 
-# Workflow Run Guide
+# Workflow Run
 
 Put a tested AI workflow into production: do the first real run on real work, then leave a one-page Run Card, a run log, and a review date behind.
 
@@ -30,7 +30,7 @@ Read the Workflow node, the Design Spec, the artifacts and skills Build linked u
 
 #### Step 2 — The first real run
 
-This is the first time the workflow runs on *real* work rather than a test input. Name it: "Every run so far used test inputs. Let's do this week's real one together." The user starts it exactly as an operator would (fresh conversation, invoked by name, per the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), with the real input. Watch for: the connectors being authorized in *that* account, context files resolving, each human gate actually pausing. Confirm the output against the report-card lines once more. If anything fails here that Test passed, it is almost always the run environment (a connector not authorized in this account, a context file in the wrong place) — fix that, don't rebuild.
+Before the run: the user opens a new chat and confirms the skill (or agent) is listed; if it isn't, go back to Build's install handoff — nothing else here will work. This is the first time the workflow runs on *real* work rather than a test input. Name it: "Every run so far used test inputs. Let's do this week's real one together." The user starts it exactly as an operator would (fresh conversation, invoked by name, per the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), with the real input. Watch for: the connectors being authorized in *that* account, context files resolving, each human gate actually pausing. Confirm the output against the report-card lines once more. If anything fails here that Test passed, it is almost always the run environment (a connector not authorized in this account, a context file in the wrong place) — fix that, don't rebuild.
 
 #### Step 3 — Write the Run Card
 
@@ -46,7 +46,7 @@ Save to `outputs/[workflow-name]/run-guide.md` with exactly these headings, in t
 [The exact phrase or click, taken from the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes` — e.g., "Open a new chat in your Weekly Reports project and say: run the weekly status report skill." The input to give it. If the workflow serves others: how a teammate installs it (one or two steps from the same source) and the same start phrase.]
 
 ## What to have ready
-[Inputs in hand. Connectors authorized in the account that runs it — list each. Context files in place — list each with its location from the platform's `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`. A fresh conversation does not inherit this session's setup; this list is what it needs.]
+[Inputs in hand. Connectors authorized in the account that runs it — list each. Context files in place — list each with its location from the platform's `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`. The skill and any agents installed in that account. For an automated workflow, the pre-granted permissions from "How to start it". A fresh conversation does not inherit this session's setup; this list is what it needs.]
 
 ## What to check before you act on the output
 [The human gates (G1…) in plain words: what the workflow pauses for and what you're deciding. The (must) criteria as a two-line reminder.]
