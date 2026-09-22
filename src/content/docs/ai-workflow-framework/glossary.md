@@ -9,11 +9,11 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Agent (mechanism)** — An orchestration mechanism that decides its own path at runtime, using tools on its own judgment and able to run unattended. Chosen in [Design](../design/) when a workflow's steps depend on what it finds along the way.
 
-**Agent (building block)** — One of the Orchestration-layer AI building blocks: a configured worker with a mission, tools, and constraints that an orchestrator or a person dispatches. See [Agentic Building Blocks](../../agentic-building-blocks/).
+**Agent (building block)** — One of the Orchestration-layer AI building blocks: a configured worker with a mission, tools, and constraints that an orchestrator or a person dispatches. See [Agentic Building Blocks](../../agentic-building-blocks/). *Agent* the mechanism means the whole workflow is driven by one agent that decides its own path; *agent* the building block is any configured agent, including the workers a mechanism-level agent dispatches.
 
 **Augmented / Automated (involvement)** — The two values of human involvement. **Augmented** means a human is in the loop during the run — reviewing, steering, or approving at key points. **Automated** means the AI runs solo and a human only reviews the finished output. Set during [Design](../design/) and classified in the [AI Workflow Design Matrix](../workflow-design-matrix/).
 
-**Autonomy (Deterministic / Guided / Autonomous; Human at step level only)** — How much decision-making the AI has. **Deterministic** follows fixed rules with no judgment calls. **Guided** makes bounded decisions within guardrails you set. **Autonomous** plans, decides, and adapts independently. A fourth value, **Human**, exists only when classifying an individual step in [Design](../design/) — a step a person performs, with no AI involved — and never appears at the whole-workflow level. See the [AI Workflow Design Matrix](../workflow-design-matrix/).
+**Autonomy** — How much decision-making the AI has. **Deterministic** follows fixed rules with no judgment calls. **Guided** makes bounded decisions within guardrails you set. **Autonomous** plans, decides, and adapts independently. A fourth value, **Human**, exists only when classifying an individual step in [Design](../design/) — a step a person performs, with no AI involved — and never appears at the whole-workflow level. See the [AI Workflow Design Matrix](../workflow-design-matrix/).
 
 **Backlog** — The `status: backlog` value on a Workflow node: a candidate workflow [Analyze](../analyze/) has registered in your registry but nobody has started building yet.
 
@@ -23,7 +23,7 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Capability domain** — In a goal-driven workflow, a durable competency the agent draws on at runtime (for example "research" or "synthesis") — not a step or a pipeline stage. Capability domains replace step-by-step decomposition in [Design](../design/) for goal-driven workflows.
 
-**Connector** — The mechanism a workflow uses to reach a live system such as a CRM, calendar, or drive. [Design](../design/) identifies which connectors a workflow needs; [Build](../build/) has you authorize each one in the account that will actually run the workflow.
+**Connector** — The mechanism a workflow uses to reach a live system such as a CRM, calendar, or drive. [Design](../design/) works out how the workflow will reach each system — a platform-native connector first, otherwise an MCP server, API, SDK, or CLI; [Build](../build/) has you authorize each one in the account that will actually run the workflow.
 
 **Context** — One of the Intelligence-layer building blocks: the documents, examples, and reference material a step needs to produce good output. Resolved item by item during [Build](../build/)'s Prepare Context phase.
 
@@ -33,7 +33,7 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Design Spec** — The architectural blueprint [Design](../design/) produces from your Workflow Requirements: platform, mechanism, autonomy, step classifications, skill and agent blueprints. It is a draft — its frontmatter carries `approved: false` until you say "approve," and [Build](../build/) refuses to run on an unapproved spec.
 
-**Execution mode (`manual` = not yet run by AI; `augmented`; `automated`)** — A Workflow node field recording how the workflow currently runs: `manual` (a person still does it, AI hasn't run it yet), `augmented` (AI runs it with a human in the loop), or `automated` (AI runs it unattended). Set and updated across [Analyze](../analyze/), [Design](../design/), and [Run](../run/).
+**Execution mode** — A Workflow node field recording how the workflow currently runs: `manual` (a person still does it, AI hasn't run it yet), `augmented` (AI runs it with a human in the loop), or `automated` (AI runs it unattended). One of the four fixed-value fields on a Workflow node — see the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/) — kept current by each framework step that touches the node, and checked by [Run](../run/) before a workflow can be put on a schedule.
 
 **Fix mode** — The path [Build](../build/) takes when you return from a Not Ready verdict in [Test](../test/): it rebuilds only the building blocks your test results named, leaving everything else installed as-is.
 
@@ -47,7 +47,7 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Packaging** — How [Design](../design/) decides the built artifacts will ship: as a **Plugin**, a **Standalone Skill**, a **Workspace Agent**, or **Loose Files**.
 
-**Platform mode (code / guided — an internal fact the model reads, not a choice you make)** — Whether your platform generates source files directly (**code mode**, e.g. Claude Code, Cursor) or step-by-step GUI instructions (**guided mode**, e.g. Copilot Studio). [Build](../build/) reads this from the platform registry — it is never something you select.
+**Platform mode** — Whether your platform generates source files directly (**code mode**, e.g. Claude Code, Cursor) or step-by-step GUI instructions (**guided mode**, e.g. Copilot Studio). [Build](../build/) reads this from the platform registry — it is never something you select.
 
 **Process (registry)** — A registry node representing an end-to-end business process; every Workflow node belongs to exactly one Process, listed in that Process's `# Workflows` section. Set up during your [AI Registry](../../builder-setup/ai-registry-setup/) interview.
 
