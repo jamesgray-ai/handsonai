@@ -363,7 +363,7 @@ For every step classified as needing a **Skill**, look for one the user already 
 
 **Three outcomes per capability:**
 - **Reuse as-is** → Build Output `Use existing: [name]`.
-- **Extend** → Build Output `Extend existing: [name] (also used by: …)` — the parenthetical lists the other workflows that share the skill (or `none`), because a change affects them too. To propose the change you need the skill's body: if the platform shows only the name and description, ask the user to open or attach the skill.
+- **Extend** → Build Output `Extend existing: [name] (also used by: …)` — the parenthetical lists the other workflows that share the skill (or `none`), because a change affects them too. To propose the change you need the skill's body: if the platform shows only the name and description, ask the user to open or attach the skill. Build proposes the diff and, on confirmation, asks the platform's creator to apply it — it never edits the installed skill itself.
 - **Build new** → flows into Phase 10.
 
 Present it as a plain recommendation: "You already have `summarizing-transcripts` from your weekly review. It covers most of step 3 — I'd add a length rule to it rather than build a new skill. Agree?" Check that no new name collides with an existing one — a duplicate name silently shadows the original.
@@ -490,7 +490,7 @@ Present a summary of the draft Design Spec. When the spec defines more than 3 co
 2. **Update the Workflow node** (`registry/workflows/<slug>.md`): set `execution_mode` (`manual` | `augmented` | `automated`) and `autonomy` (`deterministic` | `guided` | `autonomous`), and link the Design spec in `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 3. Then tell the user:
 
-> "Spec approved. To build the workflow, run the `build` skill (Step 4)."
+> "Spec approved. To build the workflow, run the `build` skill (Step 4) — 30–60 minutes, most of it on your side."
 
 ## Outputs
 
@@ -510,3 +510,4 @@ For goal-driven workflows, the template substitutions in `references/goal-driven
 - Do not generate platform artifacts — that happens in the Build phase
 - Do not restate Workflow Requirements content in the Design Spec — reference the file
 - Never assemble the spec or run the self-test from memory — read the bundled reference files at the steps that call for them
+- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 8 of 14 — classifying the steps") so the user always knows where they are.

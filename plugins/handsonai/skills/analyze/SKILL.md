@@ -138,7 +138,7 @@ Append this summary to the output file under a `## Workflow Candidate Summary` h
    generated: { by: process:analyze, at: YYYY-MM-DD }
    status: backlog
    trigger: "[Trigger field]"
-   execution_mode: augmented   # Augmented → augmented; Automated → automated
+   execution_mode: augmented
    ---
    # [Workflow name]
 
@@ -157,6 +157,8 @@ Append this summary to the output file under a `## Workflow Candidate Summary` h
    <!-- GENERATED:insights -->
    <!-- /GENERATED -->
    ```
+
+   `execution_mode` is `augmented` for an Augmented workflow and `automated` for an Automated one (`manual` means not yet run by AI); write the value only — no comment in the file.
 
    `trigger` and `execution_mode` are provisional — Deconstruct and Design refine them. Priority, pain point, and the "build first" recommendation stay in the report; the registry holds the inventory.
 3. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md` (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug already exists, merge — never overwrite fields already set.
@@ -260,3 +262,4 @@ Use these definitions when classifying opportunities:
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
 - After writing the report, ask the user to pick their candidates for Phase 5. Once they've chosen, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), and tell the user: "Report saved to `outputs/ai-opportunity-report.md` and [N] candidates registered in your backlog. Start with *[recommended]*: say 'run the deconstruct skill' — about 45–60 minutes, and it turns the candidate into requirements."
 - After writing the report and the backlog nodes, invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step), then deliver the closing message above.
+- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 3 of 6 — the discovery interview") so the user always knows where they are.

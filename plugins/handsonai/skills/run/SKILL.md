@@ -84,3 +84,4 @@ Update the Workflow node: `status: in-production`, `stale_after: YYYY-MM-DD` (th
 - Plain language; every concrete instruction comes from the platform's `capabilities`, never from memory of a platform's UI — verify with one web check if a capability value looks stale.
 - Close with the inventory of everything produced across Steps 3–6 (Design Spec, built skills/agents, test results, Run Card, run log) and the review date, then: "When [date] arrives — or sooner if the output starts needing more edits — start a new conversation and say: *Run the improve skill on [workflow name]*."
 - For organizational workflows, after the summary offer the `writing-workflow-sops` skill to document the workflow as an SOP for the team.
+- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 3 of 4 — writing the Run Card") so the user always knows where they are.

@@ -15,6 +15,8 @@ Evaluate running AI workflows and decide what, if anything, to change. Review ho
 
 ## Workflow
 
+**Set expectations up front (first message).** Say: "A review takes 30–45 minutes: we look at what the run log shows, re-run your test inputs to see which lines changed, and end with one of three calls — leave it, tune it, or go back to the design."
+
 #### Phase 1 — Load workflow context
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
@@ -93,6 +95,8 @@ Produce exactly one of three outcomes:
 - **Tune** — specific building blocks to adjust (name them: S2, C3, orchestrator, connector) → the `build` skill regenerates only those (fix mode), then the `test` skill re-runs the affected scenarios.
 - **Redesign** — the architecture no longer fits: requirements changed enough to restructure, or the workflow has outgrown its mechanism (a skill that now needs to make its own sequencing decisions, or an agent that should split into specialists). → the `design` skill, with the reason recorded in the Improvement Plan so Design starts from it.
 
+Close with the one that applies: **No changes** — "Nothing to change. Next review: [date]."; **Tune** — "Run the `build` skill on [named building blocks] — 30–60 minutes — then the `test` skill to re-run the affected scenarios."; **Redesign** — "Run the `design` skill — about 30 minutes — starting from the reason recorded in the Improvement Plan."
+
 ## Output
 
 Write results to `outputs/[workflow-name]/improvement-plan.md`. If a plan already exists from a previous review cycle, rename it with a date suffix first. Then update the Workflow node (`registry/workflows/<slug>.md`): reset `stale_after: YYYY-MM-DD` to the next agreed review date (monthly is a good default for high-frequency workflows, quarterly for occasional ones), and link the Improvement plan under `# Artifacts`. **If the review surfaced a durable insight, write it as a Note node in `registry/notes/` linking the Workflow** — insights are how learning enters your registry. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table.
@@ -113,3 +117,4 @@ Include:
 - Focus on concrete signals, not abstract evaluation. "Your context file references Q3 goals but it's Q1" beats "your context may be stale."
 - This step is typically invoked weeks or months after initial deployment, in a separate conversation from the original build.
 - Not every workflow needs improvement. If it's working, say so and move on.
+- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 5 of 7 — the regression check") so the user always knows where they are.

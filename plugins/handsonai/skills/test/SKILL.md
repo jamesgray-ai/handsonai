@@ -79,7 +79,7 @@ Write the diagnosis as `## Issues identified`, one row per miss: `Scenario | Lin
 
 #### Phase 7 — Verdict
 
-- **Ready** — every line Met on every scenario (accepted misses recorded with the user's reason). → `run` skill (Step 6).
+- **Ready** — every line Met on every scenario (accepted misses recorded with the user's reason). Close with: "It's ready. To put it to work, run the `run` skill (Step 6) — 15–20 minutes."
 - **Not ready** — at least one unaccepted miss. → `build` skill; it will regenerate only the building blocks named in Issues identified, then come back here and re-run the failed scenarios, then the full set.
 - **Waiting on access** — the logic passed but a connector's write access is not authorized. Name the connector and what to authorize. Not a rebuild.
 
@@ -128,3 +128,4 @@ Use the real IDs. `results` values are `met`, `not-met`, or `not-run` (a line th
 - Keep the user on concrete evidence: "show me the row that's wrong" beats "was it good?"
 - Never run a scenario inside this conversation. If the user asks you to, explain why in one sentence and ask them to open a new chat.
 - If the Requirements has no Acceptance Criteria or Example Scenarios, help the user write them now as yes/no lines and 3–5 inputs, write them into the Requirements file, and note the gap.
+- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 5 of 8 — running and grading each scenario") so the user always knows where they are.
