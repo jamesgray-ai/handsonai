@@ -29,7 +29,7 @@ Artifact generation begins only after the Design Spec has been approved in the D
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-Read the workflow's Workflow node (`registry/workflows/<slug>.md`) to locate the artifacts, then read the Design Spec from the path linked there under `# Artifacts` (normally `outputs/[workflow-name]/design-spec.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and infer progress from which artifacts each node's `# Artifacts` section already links — "You've completed through Step [N] ([name]) — next is Step [N+1]" — and if Build isn't the next step, say so and route to the right skill instead of re-running finished work. If the user specifies a file path, use that. If no Workflow node exists yet but legacy flat files (`outputs/[name]-design-spec.md`) do, use the legacy paths and offer to migrate the workspace via `scaffolding-registry`. Otherwise, look for the most recent Design Spec in `outputs/`.
+Read the workflow's Workflow node (`registry/workflows/<slug>.md`) to locate the artifacts, then read the Design Spec from the path linked there under `# Artifacts` (normally `outputs/[workflow-name]/design-spec.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and infer progress from which artifacts each node's `# Artifacts` section already links — "You've completed through Step [N] ([name]) — next is Step [N+1]" — and if Build isn't the next step, say so and route to the right skill instead of re-running finished work — except that a linked test-results.md whose frontmatter says `readiness: not-ready` means Build *is* next, in fix mode (Step 2); a `waiting-on-access` result routes back to Test after the connector is authorized. If the user specifies a file path, use that. If no Workflow node exists yet but legacy flat files (`outputs/[name]-design-spec.md`) do, use the legacy paths and offer to migrate the workspace via `scaffolding-registry`. Otherwise, look for the most recent Design Spec in `outputs/`.
 
 **Parse the frontmatter first.** The spec opens with YAML frontmatter containing: `workflow`, `requirements_file`, `spec_version`, `approved` (3.0+), `definition_type`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, and `counts`. Use these values to summarize the spec — no need to parse the body to get the headline numbers.
 
@@ -54,12 +54,12 @@ Confirm you've loaded both by summarizing: workflow name, orchestration mechanis
 Check `outputs/[workflow-name]/test-results.md`. **Fix mode** applies when it exists with `readiness: not-ready` and a `## Issues identified` table naming building blocks (`S2`, `A1`, `C3`, `orchestrator`, `connector`). In fix mode:
 
 1. Say what you're fixing and why, from the table: "Test found E2 failed AC2 because the headings were out of order — that's the orchestrator skill. I'll regenerate only that and leave everything else as installed."
-2. Skip Steps 4–8 (mechanism path, creation tools, platform research, existing skills, integration research). In Step 3 re-check only the context rows the issues table names (`C3` etc.); leave the rest as resolved. Regenerate only the named artifacts (Step 9), preserving every other file.
+2. Skip Steps 4, 5, 7 and 8 (mechanism path, build method, existing skills, integration research); re-run Step 6 only if the session cache is empty and a named artifact is a skill or agent. In Step 3 re-check only the context rows the issues table names (`C3` etc.); leave the rest as resolved. Regenerate only the named artifacts (Step 9), preserving every other file.
 3. Re-run the reconciliation table (Step 10) and the install handoff for the changed files.
 4. Tell the user to re-run the failed scenarios in Test, then the full set.
-5. Count fix-mode entries for this workflow (the dated `test-results-*.md` files show the rounds). On the **third consecutive** fix-mode entry, stop and say: "Three rounds have targeted the same area — the problem is probably the design, not the build. I recommend going back to Design with what Test found." Continue only if the user insists.
+5. Count the results files for this workflow (the dated `test-results-*.md` files plus the current one) whose frontmatter says `readiness: not-ready`. On the third such file in a row, stop and say: "Three rounds have targeted the same area — the problem is probably the design, not the build. I recommend going back to Design with what Test found." Continue only if the user insists.
 
-Otherwise it is a full build: continue to Step 3.
+If `readiness: waiting-on-access`, nothing is rebuilt — walk the user through authorizing the named connector (Step 3, **Connect it**, in the account that will run the workflow) and send them back to Test. If `readiness: ready`, Build is finished — route to the `run` skill. Otherwise (no test-results.md) it is a full build: continue to Step 3.
 
 #### Step 3 — Prepare Context (with the user, before anything is generated)
 
@@ -67,15 +67,17 @@ Context is the highest-leverage building block: generic output is almost always 
 
 | ID | Artifact | Outcome | Who does what | Read-back |
 |---|---|---|---|---|
-| C1 | HubSpot deals | **Connect it** | You authorize the HubSpot connector in the account that will run this; I verify I can read deals and, since Step 4 updates them, that I have write scope | ✓ "3 open deals, newest Acme Renewal" |
+| C1 | HubSpot deals | **Connect it** | You authorize the HubSpot connector in the account that will run this; I verify I can read deals and, since the workflow's Step 4 (from the Requirements) updates them, that I have write scope | ✓ "3 open deals, newest Acme Renewal" |
 | C2 | Status report template | **Provide it** | You paste or attach it; it goes in [`capabilities.context_location` for the platform, or, if the entry has no `capabilities`, its `notes`] | pending |
 | C3 | Tone rules | **Build it in** | I package your three tone rules inside the skill as `references/tone.md` | ✓ |
 
 The three outcomes:
 
 - **Connect it** — the artifact lives in a system the platform reaches live. The user authorizes the connector *in the account that will run the workflow* (authorization does not carry over from this session). You verify access with a real read, and where the Requirements' `External Action` says the workflow writes, verify write scope now — this is the write-scope pre-flight: a **scope gap** (connector supports it, not authorized) → tell the user exactly what to reconnect; a **capability gap** (connector cannot do it at all) → stop and offer the Design options (human-in-the-loop gate by default; a different connector; CLI/API only where the platform has code access; descope).
-- **Provide it** — a document the user supplies. For rows marked `Needs Creation`, draft it yourself from what Deconstruct captured (a style guide from the golden example, scoring criteria from the rules) and have the user correct it — faster than asking a business user to write one from scratch. Place it where `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`, says workflows read files on this platform, and record the path.
+- **Provide it** — a document the user supplies. Place it where `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`, says workflows read files on this platform, and record the path.
 - **Build it in** — short reference content (rules, a rubric, an output template, a few examples) ships inside the skill package as a supporting file, so it travels with the skill and needs no setup.
+
+**`Needs Creation` rows (Provide it or Build it in):** draft it yourself from what Deconstruct captured (a style guide from the golden example, scoring criteria from the rules) and have the user correct it — faster than asking a business user to write one from scratch.
 
 **Read-back check, every row.** Before marking a row done, ask yourself one question only that artifact can answer, answer it from the artifact, and show the user the answer ("From your template: the three headings are Progress, Risks, Next week — correct?"). A row without a read-back is not resolved. Rows flagged `Partial`/`No` in the spec's Data Readiness Summary are resolved here, not deferred.
 
@@ -91,14 +93,14 @@ Based on the orchestration mechanism, present ONLY the steps relevant to the use
 1. Context prepared (Step 3) — confirm every row shows ✓
 2. Build the orchestrator skill (S1) and component skills
 3. Generate platform artifacts and package
-4. → Test
+4. Reconcile and install (Step 10) → Test
 
 **Agent mechanism:**
 1. Context prepared (Step 3) — confirm every row shows ✓
 2. Build component skills
 3. Connect external tools (from Integration Options)
 4. Generate agent configs, orchestrator skill (on primary-loop platforms), and connectors
-5. → Test
+5. Reconcile and install (Step 10) → Test
 
 After presenting the mechanism-specific build path, proceed to Step 5 to settle how each block type gets built before generating any artifacts.
 
@@ -167,7 +169,7 @@ Present a summary of resolved platform format requirements and integration docs 
 
 #### Step 7 — Check for Existing Skills and Instructions
 
-This is separate from Step 5's creation tool discovery — here you're checking for workflow skills that have already been built and should be incorporated, not for skills that create other skills.
+This is separate from Step 5's build-method settlement — here you're checking for workflow skills that have already been built and should be incorporated, not for skills that create other skills.
 
 Before generating artifacts:
 
@@ -217,7 +219,7 @@ Based on the platform and packaging decisions from Architecture Decisions. Resol
 Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capability Domain Mapping Build Output column** for goal-driven) as your generation checklist. Each row tells you exactly what to produce:
 - `New skill: SN` → state that you want a skill created and hand over the requirements together with the artifact format resolved in Step 6 (or the agentskills.io specification, falling back to `references/skill-spec.md`, if unresolved) — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself (where Step 5 matched a creation skill, delegate to it as in step e).
 - `Use existing: [name]` → no generation needed; verify the skill exists and reference it
-- `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then write; never overwrite silently. Read the `(also used by: …)` parenthetical from the cell and list those workflows in the summary as the ones affected by the change.
+- `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then state that you want the installed skill updated with that diff and hand it to the platform's creator — Build does not edit the SKILL.md itself; never change it silently. Read the `(also used by: …)` parenthetical from the cell and list those workflows in the summary as the ones affected by the change.
 - `New agent: AN` → state that you want an agent created and hand over the matching Agent Configuration entry (role, responsibilities, tools, model, failure modes) plus where the platform keeps agents (from `capabilities.custom_agents`, or, if the entry has no `capabilities`, its `agent` documentation URL and `notes`) (on Claude Code only, `references/agent-spec.md` is the last-resort format snapshot if unresolved; other platforms fall through to web search). The platform's own model knows how to build an agent there; Build does not write the agent file itself.
 - `Inline prompt → Workflow Requirements Step N` → fold this step's Goal/Inputs/Outputs/Rules from the Workflow Requirements into the main orchestrator prompt
 - `MCP server: [name]` → configure the connector using the Integration Options entry
@@ -310,10 +312,13 @@ Close with a table that has one row per Build Output row in the Design Spec's de
 | New skill: S1 | weekly-status-report (orchestrator) | outputs/weekly-status-report/skill/weekly-status-report/SKILL.md | Created |
 | Use existing: summarizing-transcripts | summarizing-transcripts | installed skill | Reused |
 | Extend existing: formatting-notes | formatting-notes | `<installed skill location>` | Extended |
+| New agent: A1 | lead-researcher | `<agent location from capabilities.custom_agents or notes>` | Created |
+| Inline prompt → Step 3 | weekly-status-report (orchestrator) — Step 3 instruction block | outputs/weekly-status-report/skill/weekly-status-report/SKILL.md | Created |
+| Handled by orchestrator | weekly-status-report (orchestrator) | same | Created |
 | MCP server: HubSpot | HubSpot connector | platform connector | Installed by you |
 | Human (no artifact) | — | — | — |
 
-Status is one of `Created | Reused | Extended | Installed by you`. Then list any remaining manual steps. Write the same rows into the Workflow node's `# Skills` / `# Agents` / `# Artifacts` sections.
+Status is one of `Created | Reused | Extended | Installed by you`. Inline-prompt and Handled-by-orchestrator rows point at the orchestrator skill that absorbs them and take its Status; `Human (no artifact)` rows use `—`. Then list any remaining manual steps.
 
 (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them when running Test.) **Update the Workflow node** (`registry/workflows/<slug>.md`): link the generated platform artifacts and any new/reused Skills or Agents under `# Skills` / `# Agents` and `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
@@ -329,6 +334,6 @@ Prompts, skills, agents, orchestration configs, and connector setups in whatever
 
 - **Exercise judgment within the guardrails.** This workflow is a scaffold: you may deviate from the encoded sequence when the situation clearly calls for it — state the deviation and the reason in one line. What is never negotiable: user confirmation gates, safety pre-flights (write-scope, least-privilege, confirm-before-mutating), never-overwrite rules, and the artifact/output formats downstream skills parse.
 - Use plain language; avoid jargon unless the user introduced it
-- After generating platform artifacts, summarize what was produced and where each artifact was saved
+- After generating platform artifacts, close with the Step 10 reconciliation table (one row per Build Output)
 - Do not start Build without a loaded and approved Design Spec
 - Web search is required for integration research and platform documentation verification
