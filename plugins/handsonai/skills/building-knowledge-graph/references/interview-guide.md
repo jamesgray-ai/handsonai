@@ -19,7 +19,7 @@ Two words you will use constantly, and how to explain them if asked: a **type** 
 - `knowledge/SCHEMA.md`: "You already have a knowledge graph. I'll read its rulebook and fill gaps rather than rebuild." → gap-filling mode.
 - `types.md` without `knowledge/`: "You have an approved type list from an earlier session but no graph yet. Want to revise the list first, or go straight to the build step? (When you're ready to build, send the single word **build**.)" → resume mode.
 
-**Actor id:** "One housekeeping question: when you confirm a page is right, I'll record that as `verified` by you. What name should I use? For example `human:jamesgray`."
+**Actor id:** "One housekeeping question: when you confirm a page is right, I'll record that as verified by you. What name should I record? Your first name is fine." Form the id yourself as `human:<lowercase-slug>` (Pat → `human:pat`); never ask the user to type that form.
 
 **Example to show:** none; this phase is about the user's environment.
 
@@ -29,16 +29,20 @@ Two words you will use constantly, and how to explain them if asked: a **type** 
 
 ## Phase 1 — Look around first (3 min)
 
-**Say first (the privacy line):** "One rule before I read anything: nothing with personal data about identifiable people goes into the graph. No payroll, no health records, no individual HR files, whichever way it would arrive."
+**Say first (the roadmap):** "Here is how the next half hour goes. I need to learn what your work runs on: the clients, offerings, processes, tools, and policies you make decisions about every week. There are two ways I can learn that: I can read what you already have, and I can ask you. Reading first is worth it: a proposal or a process doc names the real things in your business better than anyone can from memory, and it gives every page I write a source to point back to. So I look around first, then ask about what I could not find, then propose the kinds of things your work runs on and how they connect. The only thing I create before you approve anything is a `raw/` folder for your documents; I build nothing else until you send the word **build**."
+
+**Then the sixty-second explainer, about their business:** "Here's the whole idea in a minute. Your business runs on a few kinds of things, and real ones of each. Clients is a kind; Acme is a real one. Offerings is a kind; the AI roadmap you sell is a real one. Processes is a kind; your onboarding checklist is a real one. You already name the real ones every week. We'll list those first, because they're easy to name, then work out which kinds they belong to. Then we'll connect the kinds using sentences you already say, like 'Acme is on the pilot' or 'the onboarding checklist runs at every kickoff.' That's the graph: your business written down as the things it runs on and how they connect, so I can answer questions about it from your own pages. You describe your work; I'll do the sorting." (Swap the examples for the user's own words as soon as you have them.)
+
+**Then the privacy line:** "One rule before I read anything: nothing with personal data about identifiable people goes into the graph. No payroll, no health records, no individual HR files, whichever way it would arrive."
 
 **Then create `raw/`** at the project root and say: "I've made a `raw/` folder at the top of your project. That's where your source documents go. I'll read them; I'll never change them."
 
 **Then scan** the project folder: README files, SOPs, process guides, proposals, requirements files from earlier framework steps, transcripts, the names of spreadsheets. Skip `registry/`; it is about AI builds, not the work.
 
-**Opening question:** "Do you have two or three documents that describe your work — a proposal, a client summary, a process doc, a team charter? Tell me where they are, drop them into the `raw/` folder I just made, or say skip."
+**Opening question:** "Do you have two or three documents that describe your work — a proposal, a client summary, a process doc, a team charter? Tell me where they are, drop them into the `raw/` folder I just made, or say skip and I'll learn it all from the interview."
 
 **Follow-ups:**
-- If your platform has connectors or saved memory: "I can also look at <Drive | your email | what I remember from earlier conversations> for names of clients, projects, and tools. Want me to?" Never look without a yes.
+- If your platform has connectors, saved memory, or another folder in the session: "I can also look at <your Drive | your email | what I remember from earlier conversations | the other folder open in this session> for the names of clients, projects, offerings, and processes. Want me to?" Describe what you would look for, not which files; never look without a yes.
 - If the user drops files in `raw/`: read them now.
 
 **Report, in plain words**, in this shape:
@@ -56,8 +60,7 @@ If nothing was found: "I couldn't find anything about your work in this folder y
 
 One question at a time. Before each, check whether Phase 1 already answered it; if so, say "I think I already know this one from <source>: <answer>. Right?" and move on when confirmed. If Phase 1 answered only part of a question, say what you already know and ask only for what is missing, then confirm the combined answer.
 
-**0. The sixty-second explainer (say it proactively, before question 1):**
-> "Here's the whole idea in a minute. Your phone's Contacts app has one *kind* of entry, a Contact, and many real ones: your dentist, your mother, a recruiter who called last year. Your work is the same. It has a few kinds of things, and real ones of each. `Client` is a kind; Acme is a real one. We'll find the real ones first, because they're easier to name, then work out the kinds. Then we'll connect the kinds using sentences you already say, like 'Acme has two projects.' That's the graph. You describe your work; I'll do the sorting."
+**0. The explainer was already given in Phase 1.** Do not repeat it. If the user seems lost, restate it in one sentence: "kinds of things, and real ones of each; we find the real ones first."
 
 **1. Scope.** "Are we mapping the work *you* do, your *team's* work, or the *whole company's*? Pick the one you actually make decisions about day to day." Record the answer; Phase 5 writes it on `overview.md`.
 

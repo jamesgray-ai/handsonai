@@ -73,18 +73,21 @@ We work in phases with stop-gates. Announce each phase as you reach it. Never mo
    - `knowledge/SCHEMA.md` present → **gap-filling mode.** Read `SCHEMA.md`. List which types have no pages, which declared relationships have no reciprocal, and which structural files are missing (`overview.md`, `index.md`, `log.md`, `notes/`), alongside what is missing. Offer to fill only those gaps, structural files included. Never rewrite `SCHEMA.md`, never rebuild. Run the relationships round of Phase 3 only for any new type.
    - `types.md` present but no `knowledge/` → **resume mode.** Show the list and ask: "Want to revise the list first, or go straight to the build step? (When you're ready to build, send the single word **build**.)"
    - None of these → fresh build from Phase 1.
-5. Ask once how to record the user as an actor: `human:<name>`, for example `human:jamesgray`. Phase 5 writes it into the standing-rules file so every future session stamps `verified` with the same id.
+5. Ask once for the user's first name or handle, in plain words ("What name should I record when you confirm a page is right? Your first name is fine."). Form the actor id yourself as `human:<lowercase-slug>` (Pat → `human:pat`) and never ask the user to type that form. Phase 5 writes it into the standing-rules file so every future session stamps `verified` with the same id.
 6. Never invoke `scaffolding-registry` or `indexing-registry` from this skill; they belong to a different bundle.
 
 Follow `references/interview-guide.md` § Phase 0.
 
 ## Phase 1 — Look around first (3 min)
 
-1. State the privacy line once, before reading anything: *Nothing with personal data about identifiable people goes into the graph: no payroll, no health records, no individual HR files, whichever way it would arrive.*
-2. **Create `raw/` at the project root now, automatically**, and say so in one line. This is the single exception to Phase 0's "create nothing", and it happens whether or not the user has documents yet.
-3. Scan the whole project folder for anything readable about the work: README files, SOPs, process guides, proposals, requirements files from earlier framework steps, transcripts, spreadsheet names. Do not read `registry/` as evidence about the work; it is about AI builds.
-4. Ask one question: *"Do you have two or three documents that describe your work — a proposal, a client summary, a process doc, a team charter? Tell me where they are, drop them into the `raw/` folder I just made, or say skip."* If your platform can reach other systems (a Drive or email connector, saved memory), offer to look there too, and never look without a yes.
-5. Report in plain words: what the work appears to be, and which named things (clients, offerings, tools, processes, people, policies) appear and where. State honestly what was found and what was not. If nothing was found, say so in one line and go to Phase 2. Never present a guess as something you read. Never invent facts about the work.
+1. **Give the roadmap and the explainer before anything else.** Most users have not read the lesson, and a rule or a folder is a cold first thing to receive. Say, in this order and in your own words close to these:
+   - *Here is how the next half hour goes. I need to learn what your work runs on: the clients, offerings, processes, tools, and policies you make decisions about every week. There are two ways I can learn that: I can read what you already have, and I can ask you. Reading first is worth it, because a proposal or a process doc names the real things in your business better than anyone can from memory, and it gives every page I write a source to point back to. So I look around first, then ask about what I could not find, then propose the kinds of things your work runs on and how they connect. The only thing I create before you approve anything is a `raw/` folder for your documents; I build nothing else until you send the word **build**.*
+   - The sixty-second explainer, about their business: *Your business runs on a few kinds of things, and real ones of each. Clients is a kind; Acme is a real one. Offerings is a kind; the AI roadmap you sell is a real one. Processes is a kind; your onboarding checklist is a real one. You already name the real ones every week. We list those first, work out which kinds they belong to, then connect the kinds with sentences you already say, like "Acme is on the pilot" or "the onboarding checklist runs at every kickoff." That is the graph: your business written down as the things it runs on and how they connect, so I can answer questions about it from your own pages.*
+2. State the privacy line once, before reading anything: *Nothing with personal data about identifiable people goes into the graph: no payroll, no health records, no individual HR files, whichever way it would arrive.*
+3. **Create `raw/` at the project root now, automatically**, and say so in one line. This is the single exception to Phase 0's "create nothing", and it happens whether or not the user has documents yet.
+4. Scan the whole project folder for anything readable about the work: README files, SOPs, process guides, proposals, requirements files from earlier framework steps, transcripts, spreadsheet names. Do not read `registry/` as evidence about the work; it is about AI builds.
+5. Ask one question: *"Do you have two or three documents that describe your work — a proposal, a client summary, a process doc, a team charter? Tell me where they are, drop them into the `raw/` folder I just made, or say skip and I will learn it all from the interview."* If your platform can reach other systems (a Drive or email connector, saved memory), offer to look there too, describing what you would look for in plain words rather than listing file names, and never look without a yes.
+6. Report in plain words: what the work appears to be, and which named things (clients, offerings, tools, processes, people, policies) appear and where. State honestly what was found and what was not. If nothing was found, say so in one line and go to Phase 2. Never present a guess as something you read. Never invent facts about the work.
 
 Follow `references/interview-guide.md` § Phase 1.
 
@@ -92,7 +95,7 @@ Follow `references/interview-guide.md` § Phase 1.
 
 One question at a time. Skip any question Phase 1 already answered, and say that you are skipping it and why. Wording is for someone who has never heard the word *graph*: say "kinds of things" before "types" and "the real ones" before "concepts". The interview must work for any role or industry: a fractional CFO, an HR lead, a product manager, a clinic operations lead, a nonprofit director, an e-commerce operator.
 
-0. The sixty-second explainer, delivered proactively (many users will not have read the lesson).
+0. The explainer was given in Phase 1; do not repeat it. If the user seems lost, restate it in one sentence.
 1. **Scope:** the work *you* do, your *team's* work, or the *whole company's*?
 2. The 5–10 most important named things in that work.
 3. Who you do the work for, and what you deliver to them.
