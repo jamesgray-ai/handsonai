@@ -24,20 +24,20 @@ You run seven skills sequentially, using files as handoffs between stages. Steps
 
 | Step | Skill | Input | Output | Handoff |
 |------|-------|-------|--------|---------|
-| 1 (Analyze) | `analyze` | User interview | `outputs/ai-opportunity-report.md` | User picks candidate |
+| 1 (Analyze) | `analyze` | User interview | `outputs/ai-opportunity-report.md` + backlog Workflow nodes in `registry/` | User picks candidate |
 | 2 (Deconstruct) | `deconstruct` | Candidate + interview | `outputs/[name]/requirements.md` + Workflow node in `registry/` | Auto→Step 3 |
 | 3 (Design) | `design` | Workflow Requirements | `outputs/[name]/design-spec.md` | Explicit approval gate |
 | 4 (Build) | `build` | Approved spec (`approved: true`) | Platform artifacts | Auto→Step 5 |
 | 5 (Test) | `test` | Artifacts + spec | `outputs/[name]/test-results.md` | Ready OR fix mode in Build |
-| 6 (Run) | `run` | Tested artifacts + spec | `outputs/[name]/run-guide.md` + `runs.md` log | User follows guide |
+| 6 (Run) | `run` | Tested artifacts + spec | `outputs/[name]/run-guide.md` + `runs.md` log | User follows the Run Card |
 | 7 (Improve) | `improve` | Running workflow + run log | `outputs/[name]/improvement-plan.md` | Tune / Redesign OR no changes |
 
 ### Step 1 — Analyze
 **Skill:** `analyze`
 
-Help the user analyze where AI fits in their workflows. The analysis starts by determining which lens to use — **Individual** (personal workflows the user performs) or **Organizational** (value chain processes that deliver on business objectives). If the user already knows which workflow they want to deconstruct, this step can be brief — confirm the candidate and lens, then move to Step 2. If they need help choosing, run the full analysis process: scan memory for context, select a lens, interview them about their work using lens-appropriate discovery questions, produce an opportunity report, then have them pick candidates.
+Help the user analyze where AI fits in their workflows. The analysis starts by determining which lens to use — **Individual** (personal workflows the user performs) or **Organizational** (value chain processes that deliver on business objectives). If the user already knows which workflow they want to deconstruct, this step can be brief — confirm the candidate and lens, then move to Step 2. If they need help choosing, run the full analysis process: read the registry bundle first (business, processes, existing Workflow nodes), then memory and conversation history, select a lens, interview them one question at a time, produce an opportunity report with three to five candidates and one recommended to build first, then register the chosen candidates as backlog Workflow nodes in `registry/`.
 
-**Produces:** `outputs/ai-opportunity-report.md` (or skip if user has a specific workflow)
+**Produces:** `outputs/ai-opportunity-report.md` + backlog Workflow nodes in `registry/` (or skip if user has a specific workflow)
 
 After the candidate is chosen, tell the user you're moving to Step 2 and proceed automatically.
 
@@ -47,6 +47,8 @@ After the candidate is chosen, tell the user you're moving to Step 2 and proceed
 Interactively analyze and decompose the user's chosen workflow. This is the longest step — you'll ask about the business scenario, help refine steps, then systematically probe each step using the 6-question framework.
 
 During context probing, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions or system prompts — these contain workflow logic that must reach the generated skill — put them in the Context Inventory.
+
+Deconstruct runs one of two paths — **step-driven** (the steps are listable) or **goal-driven** (the path depends on what the agent finds) — and closes by capturing how the user will judge the output: numbered yes/no Acceptance Criteria (`AC1…`, one or two marked **(must)**), workflow-level Rules (`R1…`), Human Gates (`G1…`), 3–5 Example Scenarios (`E1…`), and a Golden Example per scenario. Those IDs are the report card Test grades in Step 5.
 
 **Produces:** `outputs/[name]/requirements.md`, plus the workflow's Workflow node in `registry/` (created by the deconstruct skill; if the workspace has no bundle yet, the skill offers `scaffolding-registry` first)
 
@@ -60,12 +62,13 @@ Read the Workflow Requirements and run the Design phase:
 2. Gather architecture decisions (platform, tools, trigger)
 3. Assess workflow autonomy level (Deterministic → Guided → Autonomous)
 4. Choose orchestration mechanism (Skill or Agent) with human involvement mode
-5. Classify each step on the autonomy spectrum and map to AI building blocks
-6. Identify skill candidates with generation-ready detail
-7. Configure agents (when the mechanism calls for them)
-8. Confirm Evaluation Inputs — Acceptance Criteria and Example Scenarios are sourced from the Workflow Requirements; verify they're complete but do not re-collect
-9. Generate the Design Spec (references the Workflow Requirements; does not duplicate it)
-10. **Approval** — the skill writes the spec as a draft file with `approved: false`; the user reads it and says "approve", and the skill flips the flag to `approved: true`. Do NOT proceed to Build without that; Build refuses an unapproved spec. Loop if changes are requested.
+5. Walk the Safety & Permissions pass (write access, untrusted input treated as data, unattended-run caps, gates)
+6. Classify each step on the autonomy spectrum and map to AI building blocks
+7. Identify skill candidates with generation-ready detail — checking for existing skills to reuse or extend first; S1 is the orchestrator skill for a Skill mechanism, component skills from S2
+8. Configure agents (when the mechanism calls for them)
+9. Confirm Evaluation Inputs — Acceptance Criteria and Example Scenarios are sourced from the Workflow Requirements; verify they're complete but do not re-collect
+10. Generate the Design Spec (references the Workflow Requirements; does not duplicate it)
+11. **Approval** — the skill writes the spec as a draft file with `approved: false`; the user reads it and says "approve", and the skill flips the flag to `approved: true`. Do NOT proceed to Build without that; Build refuses an unapproved spec. Loop if changes are requested.
 
 **Reads:** `outputs/[name]/requirements.md`
 **Produces:** `outputs/[name]/design-spec.md`
@@ -80,9 +83,9 @@ Read the approved Design Spec and generate platform artifacts:
 2. Present the mechanism-specific build path (only the steps that apply)
 3. Research integration availability via web search (deferred from Design)
 4. Generate platform artifacts — Build states what it wants built and hands over the blueprint; the platform's own model creates skills and agents; Build writes only configs, connectors, and loose files directly. The build skill resolves the correct artifact format for the user's platform at runtime via the platform registry
-5. Close with the reconciliation table (every Build Output row → artifact → path)
+5. Close with the reconciliation table (every Build Output row → artifact → path), then walk the user through installing the package and confirm it appears in the platform's skill list — Test's fresh-conversation runs depend on it
 
-**Reads:** `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md`
+**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md`
 **Produces:** Skills, agents, connectors, and a reconciliation table
 
 After Build is complete, tell the user you're moving to Step 5 and proceed automatically.
@@ -98,7 +101,7 @@ Guide structured testing of the built workflow artifacts:
 5. The round that reaches Ready becomes the baseline for Improve
 6. Verdict: Ready / Not ready / Waiting on access
 
-**Reads:** `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md` + platform artifacts
+**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md` + platform artifacts
 **Produces:** `outputs/[name]/test-results.md`
 
 If ready, tell the user you're moving to Step 6 and proceed automatically.
@@ -112,8 +115,8 @@ Generate the Run Card (six fixed sections) after the first real run; scheduling 
 
 The run skill also creates the run log (`outputs/[name]/runs.md`) and records a `stale_after` date on the Workflow node — make sure both happen; they're what makes Step 7 work later.
 
-**Reads:** `outputs/[name]/design-spec.md` + platform artifacts + `outputs/[name]/test-results.md`
-**Produces:** `outputs/[name]/run-guide.md` + `outputs/[name]/runs.md`
+**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + platform artifacts + `outputs/[name]/test-results.md`
+**Produces:** `outputs/[name]/run-guide.md` + `outputs/[name]/runs.md` + Workflow node: `status: in-production`, `stale_after`
 
 ### Step 7 — Improve
 **Skill:** `improve`
@@ -128,8 +131,8 @@ Evaluate a running workflow for quality, relevance, and evolution opportunities.
 6. Review operationalization (for organizational workflows)
 7. Recommend: No changes / Tune / Redesign (graduation is a Redesign outcome)
 
-**Reads:** `outputs/[name]/design-spec.md` + `outputs/[name]/run-guide.md` + `outputs/[name]/test-results.md` + `outputs/[name]/runs.md` (run log)
-**Produces:** `outputs/[name]/improvement-plan.md`
+**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/run-guide.md` + `outputs/[name]/test-results.md` + `outputs/[name]/runs.md` (run log)
+**Produces:** `outputs/[name]/improvement-plan.md` + a dated `test-results.md` on a Tune outcome
 
 ## File Conventions
 
@@ -170,7 +173,7 @@ After Steps 1–6 are complete, present a summary:
 >
 > **Step 4 — Build:**
 >
-> 4. **Platform Artifacts** — prompts, skills, agents, and configs for your platform
+> 4. **Platform Artifacts** — the skills, agents, and connectors for your platform
 >
 > **Step 5 — Test:**
 >
@@ -183,4 +186,4 @@ After Steps 1–6 are complete, present a summary:
 >
 > Follow the Run Card to get your workflow running.
 >
-> **Your first review is scheduled for [`stale_after` date from the Workflow node].** When that date arrives — or sooner, if output quality slips — start a new conversation and say: **"Run the `improve` skill on [workflow name]"**. The Workflow node, baseline test scores, and run log carry everything Step 7 needs; you don't have to re-explain the workflow.
+> **Your first review is scheduled for [`stale_after` date from the Workflow node].** When that date arrives — or sooner, if output quality slips — start a new conversation and say: **"Run the `improve` skill on [workflow name]"**. The Workflow node, baseline test results, and run log carry everything Step 7 needs; you don't have to re-explain the workflow.
