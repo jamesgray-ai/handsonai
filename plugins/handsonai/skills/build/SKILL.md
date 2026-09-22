@@ -2,9 +2,9 @@
 name: build
 description: >
   This skill should be used when the user has an approved Design Spec and wants to
-  build platform artifacts for their AI workflow. It offers a build path choice, researches
-  integration availability, generates platform-appropriate artifacts (prompts, skills, agents, configs),
-  and writes them to the right locations for the user's platform.
+  build platform artifacts for their AI workflow. It prepares the workflow's context with
+  the user, researches integration availability, generates platform-appropriate artifacts
+  (skills, agents, connectors), installs them, and reconciles what was built against the spec.
   Also use when the user says "continue my workflow" and the workflow manifest shows Step 4 (Build) is next.
   This is Step 4 (Build) of the AI Workflow Framework. NOT for "build my
   knowledge graph": that is the building-knowledge-graph skill.
@@ -22,6 +22,8 @@ Take an approved Design Spec and generate platform-appropriate artifacts: prompt
 ## Workflow
 
 Artifact generation begins only after the Design Spec has been approved in the Design phase.
+
+**Set expectations up front (first message).** Say: "Build takes 30–60 minutes, most of it on your side. You'll do three things: gather or approve the context this workflow needs, authorize any connectors in the account that will run it, and install the finished package. I generate everything else. If you're coming back from Test with fixes, I'll only rebuild what the results named."
 
 #### Step 1 — Load Design Spec and Workflow Requirements
 
@@ -43,91 +45,91 @@ Confirm you've loaded both by summarizing: workflow name, orchestration mechanis
 - `spec_version: 2.4` → same structure minus `Value & Measurement` and `Constraint Conformance`. Treat both as absent; fall back to the four Safety & Permissions questions as answered in the spec, exactly as today. Do not fail, and do not ask the user to regenerate.
 - `spec_version: 2.3` → same structure minus the agent Failure Modes field — treat it as empty and derive error handling from the agent's Constraints plus the Workflow Requirements' fallback behavior; proceed.
 - `spec_version: 2.2` → same structure, but the middle mechanism is named by its legacy value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow`, which the 2.5 rule above reads as `Skill`; proceed.
-- `spec_version: 2.1` → same structure minus Safety & Permissions and using legacy flat paths; proceed, and apply the safety defaults from Step 5's write-scope pre-flight in place of the missing section.
+- `spec_version: 2.1` → same structure minus Safety & Permissions and using legacy flat paths; proceed, and apply the safety defaults from Step 3's write-scope pre-flight and Step 8's least-privilege pre-flight in place of the missing section.
 - `spec_version: 2.0` → older format without layer grouping or Orchestrator Outline; proceed (Build's fallback derives the orchestrator from Workflow Requirements directly).
 - No frontmatter or older `spec_version` → spec predates the current format. Inform the user: "This spec is in an older format. Some fields (Packaging, Build Output column, Skill/Agent IDs, Deployment Plan, Orchestrator Prompt Outline) may be missing. I can either (a) proceed with what's available and ask questions as needed, or (b) you can regenerate the spec by running the Design skill again."
 
-#### Step 2 — Build Path Choice
+#### Step 2 — Fix mode or full build?
 
-Offer two paths. **Make the actor unmistakable in every label** — never phrase both options in the first person ("I'll build it" vs. "I'll build it myself" reads as two different people saying "I"). Name who does the work:
+Check `outputs/[workflow-name]/test-results.md`. **Fix mode** applies when it exists with `readiness: not-ready` and a `## Issues identified` table naming building blocks (`S2`, `A1`, `C3`, `orchestrator`, `connector`). In fix mode:
 
-> "Who should build the workflow artifacts?
->
-> 1. **Claude builds it (Recommended)** — I produce all the artifacts (skills and agents via your platform's creator, plus prompts and configs) from your approved spec and place them where they belong.
-> 2. **You build it yourself** — I give you a Construction Guide — build order, formats, and what goes in each artifact — and you create them."
+1. Say what you're fixing and why, from the table: "Test found E2 failed AC2 because the headings were out of order — that's the orchestrator skill. I'll regenerate only that and leave everything else as installed."
+2. Skip Steps 4–8 (mechanism path, creation tools, platform research, existing skills, integration research). In Step 3 re-check only the context rows the issues table names (`C3` etc.); leave the rest as resolved. Regenerate only the named artifacts (Step 9), preserving every other file.
+3. Re-run the reconciliation table (Step 10) and the install handoff for the changed files.
+4. Tell the user to re-run the failed scenarios in Test, then the full set.
+5. Count fix-mode entries for this workflow (the dated `test-results-*.md` files show the rounds). On the **third consecutive** fix-mode entry, stop and say: "Three rounds have targeted the same area — the problem is probably the design, not the build. I recommend going back to Design with what Test found." Continue only if the user insists.
 
-If a structured question tool is available in this environment, use these labels verbatim as the two options (recommended option first). In plain chat, ask: "Do you want me to build the artifacts for you (recommended), or would you rather build them yourself with a step-by-step guide?"
+Otherwise it is a full build: continue to Step 3.
 
-If the user chooses path 2 (**You build it yourself**):
+#### Step 3 — Prepare Context (with the user, before anything is generated)
 
-1. Run Step 3.5 (Discover Available Creation Tools) to build the Creation Tools Map.
-2. Generate a **Construction Guide** containing:
-   - The build sequence from the spec (implementation order)
-   - For each building block:
-     - What to build (name, purpose, inputs/outputs from the spec)
-     - The format specification to follow
-     - **If a creation skill was matched:** "You have `[skill-name]` available. Invoke it (e.g., `/[skill-name]`) and pass the spec below as your starting context."
-     - **For skills with no creation skill matched:** "Tell your platform you want a skill created and give it these requirements: [name, description, decision logic, inputs/outputs, failure modes] — its own skill creator will build it."
-     - **For agents with no creation skill matched:** "Tell your platform you want an agent created and give it these requirements: [role, responsibilities, tools, model, failure modes] plus where your platform keeps agents — its own model will build it."
-     - **For configs, connectors, and loose files with no creation skill matched:** the format reference and key requirements for writing them directly. Skills and agents are never written directly — see Step 6.
-3. After presenting the Construction Guide, tell the user: "To test the workflow, run the `test` skill (Step 5)."
+Context is the highest-leverage building block: generic output is almost always a context problem, not an instruction problem. Nothing is generated until every Context Inventory row is resolved. Present the inventory as a table and work through it row by row:
 
-#### Step 3 — Mechanism-Specific Build Path
+| ID | Artifact | Outcome | Who does what | Read-back |
+|---|---|---|---|---|
+| C1 | HubSpot deals | **Connect it** | You authorize the HubSpot connector in the account that will run this; I verify I can read deals and, since Step 4 updates them, that I have write scope | ✓ "3 open deals, newest Acme Renewal" |
+| C2 | Status report template | **Provide it** | You paste or attach it; it goes in [`capabilities.context_location` for the platform, or, if the entry has no `capabilities`, its `notes`] | pending |
+| C3 | Tone rules | **Build it in** | I package your three tone rules inside the skill as `references/tone.md` | ✓ |
 
-Based on the orchestration mechanism, present ONLY the steps relevant to the user's mechanism. **These sequences are checklists to adapt, not scripts to march through:** skip steps with nothing to do (e.g., "Create context" when the Context Inventory is fully resolved), reorder when the spec's dependencies demand it, and say in one line what you skipped or reordered and why.
+The three outcomes:
 
-**Before starting any mechanism path:** Check the Data Readiness Summary. For items with state "Partial" or "No", resolve required actions first — these gate dependent steps. If resolution requires user action (e.g., exporting data, granting access), present the action list and wait for confirmation before proceeding.
+- **Connect it** — the artifact lives in a system the platform reaches live. The user authorizes the connector *in the account that will run the workflow* (authorization does not carry over from this session). You verify access with a real read, and where the Requirements' `External Action` says the workflow writes, verify write scope now — this is the write-scope pre-flight: a **scope gap** (connector supports it, not authorized) → tell the user exactly what to reconnect; a **capability gap** (connector cannot do it at all) → stop and offer the Design options (human-in-the-loop gate by default; a different connector; CLI/API only where the platform has code access; descope).
+- **Provide it** — a document the user supplies. For rows marked `Needs Creation`, draft it yourself from what Deconstruct captured (a style guide from the golden example, scoring criteria from the rules) and have the user correct it — faster than asking a business user to write one from scratch. Place it where `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`, says workflows read files on this platform, and record the path.
+- **Build it in** — short reference content (rules, a rubric, an output template, a few examples) ships inside the skill package as a supporting file, so it travels with the skill and needs no setup.
+
+**Read-back check, every row.** Before marking a row done, ask yourself one question only that artifact can answer, answer it from the artifact, and show the user the answer ("From your template: the three headings are Progress, Risks, Next week — correct?"). A row without a read-back is not resolved. Rows flagged `Partial`/`No` in the spec's Data Readiness Summary are resolved here, not deferred.
+
+**Never overwrite an existing local file.** If a `Needs Creation` artifact now exists on disk, read and reuse it.
+
+#### Step 4 — Mechanism-Specific Build Path
+
+Based on the orchestration mechanism, present ONLY the steps relevant to the user's mechanism. **These sequences are checklists to adapt, not scripts to march through:** skip steps with nothing to do (e.g., "Connect external tools" when the spec lists no integrations), reorder when the spec's dependencies demand it, and say in one line what you skipped or reordered and why.
+
+**Before starting any mechanism path:** The Data Readiness Summary's "Partial" and "No" items were resolved in Step 3 (Prepare Context); confirm nothing has changed since.
 
 **Skill mechanism** (legacy spec values `Prompt`, `Skill-Powered Workflow`, `Skill-Powered Prompt` — treat as the same):
-1. Prepare context (Task E1 defines this phase; until then: create context from the Context Inventory)
+1. Context prepared (Step 3) — confirm every row shows ✓
 2. Build the orchestrator skill (S1) and component skills
 3. Generate platform artifacts and package
 4. → Test
 
 **Agent mechanism:**
-1. Prepare context
+1. Context prepared (Step 3) — confirm every row shows ✓
 2. Build component skills
 3. Connect external tools (from Integration Options)
 4. Generate agent configs, orchestrator skill (on primary-loop platforms), and connectors
 5. → Test
 
-After presenting the mechanism-specific build path, proceed to Step 3.5 to discover available creation tools before generating any artifacts.
+After presenting the mechanism-specific build path, proceed to Step 5 to settle how each block type gets built before generating any artifacts.
 
-#### Step 3.5 — Discover Available Creation Tools
+#### Step 5 — Settle the Build Method per Block Type
 
-Before generating artifacts, discover what creation tools are available in this session. Skills are an open standard — they live in platform-specific directories but follow the same SKILL.md format everywhere.
+**Skills and agents are never a discovery question.** Whatever the spec asks for — a skill, an agent, a packaged plugin — is built by the model the user runs this framework from, using its own platform's native method: you state what you want built and hand over the blueprint. If the session's skill list surfaces a matched creation skill for that block type, delegate to its full workflow; if it doesn't, state the intent anyway — the platform's own creator responds even when nothing is listed. Build never names a creator and never writes a SKILL.md or an agent file itself.
+
+Generator discovery therefore has one narrow job here: **configs, connectors, and plugin packaging** — the block types Build either writes directly or hands to a packaging tool.
 
 1. **Extract building block types** from the loaded Design Spec — list each type and count (e.g., "3 skills, 1 agent, 1 MCP server config").
 
-2. **Discover available creation skills** using two tiers:
+2. **Scan the session's skill list** (the available-skills list shown in system reminders, session context, or tool listings) for skills that *create, generate, scaffold, package, or build* one of those block types. Match semantically — "create a skill", "build an agent", "scaffold a plugin", "generate MCP servers". This is a session-list scan only; there is no filesystem scan in this step. (Step 7 scans directories, for the user's *own* workflow skills.)
 
-   **Tier 1 — System-level discovery.** Check if the current environment provides a list of available skills (typically shown in system reminders, session context, or tool listings). If available, scan skill names and descriptions for any that indicate the ability to *create, generate, scaffold, or build* one of the needed building block types. Match semantically — look for descriptions containing phrases like "create a skill", "build an agent", "scaffold a plugin", "create hooks", "generate MCP servers", etc.
-
-   **Match generators, not guidance skills.** Only count a skill as a creation tool if it **takes a finished spec and produces the artifact file(s)** — it scaffolds, generates, writes, or builds the artifact. **Exclude interactive guidance / elicitation / teaching skills** — those whose purpose is to walk a human through *deciding* an artifact's configuration (e.g. descriptions about "agent frontmatter", "when-to-use description", "how to structure an agent/skill", "agent tools and examples"). The approved Design Spec already contains all 12 skill / 13 agent fields, so a guidance skill would only re-open settled decisions and add no value — for a skill-type block, state the intent to the platform's own creator instead (see Step 6); for an agent, state the intent the same way (see Step 6); for a config, connector, or loose file, Build generates the artifact directly instead.
-
-   Apply this test to each candidate: *"Does this skill WRITE the artifact from a finished spec, or does it ASK ME to decide the configuration? Only the former qualifies."* When in doubt, treat it as guidance (exclude it), then follow the same rule: state the intent for a skill or an agent, generate directly only for configs, connectors, and loose files.
+   **Match generators, not guidance skills.** Only count a skill as a creation tool if it **takes a finished spec and produces the artifact file(s)**. **Exclude interactive guidance / elicitation / teaching skills** — those whose purpose is to walk a human through *deciding* an artifact's configuration (e.g. descriptions about "agent frontmatter", "when-to-use description", "how to structure an agent/skill", "agent tools and examples"). The approved Design Spec already contains all 12 skill / 13 agent fields, so a guidance skill would only re-open settled decisions and add no value. Apply this test to each candidate: *"Does this skill WRITE the artifact from a finished spec, or does it ASK ME to decide the configuration? Only the former qualifies."* When in doubt, treat it as guidance and exclude it — nothing is lost, because skills and agents are created by stating the intent regardless, and configs, connectors, and loose files are written directly.
 
    **Exception — packaging / assembly skills always qualify as generators.** A skill whose job is to *package, bundle, or assemble the final installable artifact* — the platform's native plugin builder, where the session's skill list or the platform's `capabilities.skill_install` / `notes` identifies one — **is a generator, not guidance.** It produces the deliverable (an installable `.plugin` / package); it does **not** re-decide spec fields, so the "excludes guidance skills" rule does not apply to it. Match it — and do so **even though it runs as an interactive / guided flow.** The guided nature is not a reason to exclude it here: for the **Plugin packaging** block specifically, that interactive confirmation *is* the intended, on-demand "ship" step, and the platform's native builder emits an installable package the model must not hand-roll. Do **not** substitute inline generation (zipping a staged tree) for a platform plugin builder — a hand-zipped plugin may not install on a system-managed platform and has failed mid-write in practice (zero-byte archive + orphaned temp). Match the Plugin-package block to that builder when the session's skill list surfaces one; otherwise state that you want the plugin packaged from the staged tree — the platform's own builder responds, the same way skills are created.
 
-   **Tier 2 — Filesystem discovery (fallback).** Skip this tier on system-managed platforms (where the platform's `capabilities.skill_install` describes a GUI upload or save-skill flow rather than a directory — Cowork and Claude.ai are Tier 1 only). On filesystem (code-mode) platforms, scan the platform's local skill directories and read each SKILL.md's frontmatter to identify creation-capable skills. Take the directory list from the platform's `capabilities.skill_install` when the registry entry has one; otherwise from the entry's `skill` documentation URL and its `notes` (code-mode entries such as `claude-code`, `openai-codex`, and `gemini-cli` carry no `capabilities` object); if the platform has no registry entry at all, read the Platform Implementations table on the framework's skills page (https://handsonai.info/agentic-building-blocks/skills/ — it lists the directories for Cursor, VS Code Copilot, and other filesystem platforms); only if that too is unreachable, use model knowledge plus one web check and say the locations are unverified. (Resolve the registry first — Step 3.6 Tier 1 — or use the session cache.)
+3. **Record a one-line Creation Tools Map.** Skills and agents take a single line; add table rows only for the block types Build writes directly or packages:
 
-   If neither tier surfaces a creation skill, say so and proceed: skills and agents are still created by stating the intent (the platform's own creator responds even when it is not listed); only configs, connectors, and loose files are written directly.
-
-3. **Build a Creation Tools Map.** For each building block type needed by the spec, record the matched creation skill for skill-type blocks (or "Platform creator (state the intent)" when none surfaced — skills are never written directly), the matched creation skill or "Platform model (state the intent)" for agents, and the matched creation skill or "Inline generation" for configs, connectors, and loose files:
+   **Skills and agents:** created by stating the intent; delegate to `[matched skill]` if listed.
 
    | Building Block Type | Count | Matched Creation Skill | Method |
    |---|---|---|---|
-   | Skill | 3 | *(matched skill name, or "Platform creator (state the intent)" if none surfaced)* | Delegate |
-   | Agent | 1 | *(matched agent-creation skill, or "Platform model (state the intent)")* | Delegate |
+   | MCP server config | 1 | — | Written directly |
    | Plugin package | 1 | *(the native plugin builder surfaced in the session's skill list, or "Platform builder (state the intent)")* | Delegate |
 
-4. **Present the map for confirmation.** Show the user: "Here's how I plan to build each block type. For skills, I'll ask the platform to create each one from its blueprint — with a matched creation skill I'll delegate to its full workflow, otherwise I'll state the intent and let the platform's own creator respond. For agents I'll do the same — state the intent and hand over the configuration. Only configs, connectors, and loose files I'll write directly. Does this look right?"
+   Do not ask the user to confirm this map on its own — carry it into Step 7's existing-skills report so they answer one question, not two.
 
-   Wait for user confirmation before proceeding.
+#### Step 6 — Platform Research
 
-#### Step 3.6 — Platform Research
-
-Before generating artifacts, resolve platform-specific format requirements and integration documentation so that artifact generation (Step 6) produces correctly formatted output on the first pass.
+Before generating artifacts, resolve platform-specific format requirements and integration documentation so that artifact generation (Step 9) produces correctly formatted output on the first pass.
 
 > **Caching note:** The registry JSON is fetched once per session. If the Design phase already fetched it, use the cached copy.
 
@@ -153,7 +155,7 @@ Before generating artifacts, resolve platform-specific format requirements and i
    - **Code mode:** frontmatter schema, file structure, naming conventions, language, and any platform-specific extensions.
    - **Guided mode:** GUI workflow steps, configuration options, and setup sequences.
 
-7. **Pass format requirements forward.** Store the resolved format requirements so Step 6 (Generate Platform Artifacts) can use them directly instead of re-researching.
+7. **Pass format requirements forward.** Store the resolved format requirements so Step 9 (Generate Platform Artifacts) can use them directly instead of re-researching.
 
 **Tier 2 — Integration Doc Resolver**
 
@@ -163,17 +165,18 @@ For each integration listed in the Design Spec's "Integration Options" section, 
 
 Present a summary of resolved platform format requirements and integration docs to the user before proceeding.
 
-#### Step 4 — Check for Existing Skills and Instructions
+#### Step 7 — Check for Existing Skills and Instructions
 
-This is separate from Step 3.5's creation tool discovery — here you're checking for workflow skills that have already been built and should be incorporated, not for skills that create other skills.
+This is separate from Step 5's creation tool discovery — here you're checking for workflow skills that have already been built and should be incorporated, not for skills that create other skills.
 
 Before generating artifacts:
 
-- **Detect first — don't open with a question.** Reuse the same two tiers as Step 3.5: (Tier 1) the session's available-skills list — on system-managed platforms such as Cowork and Claude.ai this includes plugin-installed and account-uploaded skills, and it is the only tier there; (Tier 2) on other platforms, the skill directories resolved as in Step 3.5 Tier 2. Match what you find against the spec's `Use existing: [name]` references and Skill Candidates names — semantically, not just exact-name.
+- **Detect first — don't open with a question.** Two tiers. (Tier 1) The session's available-skills list — on system-managed platforms such as Cowork and Claude.ai this includes plugin-installed and account-uploaded skills, and it is the only tier there (the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `notes`, describes a GUI upload or save-skill flow rather than a directory). (Tier 2) On filesystem (code-mode) platforms, scan the platform's local skill directories and read each SKILL.md's frontmatter. Take the directory list from the platform's `capabilities.skill_install` when the registry entry has one; otherwise from the entry's `skill` documentation URL and its `notes` (code-mode entries such as `claude-code`, `openai-codex`, and `gemini-cli` carry no `capabilities` object); if the platform has no registry entry at all, read the Platform Implementations table on the framework's skills page (https://handsonai.info/agentic-building-blocks/skills/ — it lists the directories for Cursor, VS Code Copilot, and other filesystem platforms); only if that too is unreachable, use model knowledge plus one web check and say the locations are unverified. (Resolve the registry first — Step 6 Tier 1 — or use the session cache.) Match what you find against the spec's `Use existing: [name]` references and Skill Candidates names — semantically, not just exact-name.
 - **Report findings, then ask only about the residual.** Tell the user what was found ("`[x]` is installed and covers steps N–M") and what wasn't. A question is warranted only for what detection can't see: a spec-referenced existing skill that didn't turn up (it may live in another account or surface, or isn't installed yet — ask them to install or point to it), or a found skill whose coverage is ambiguous. If detection found nothing and the spec references nothing existing, a one-line confirmation is enough ("I checked this environment — no previously built skills for this workflow. Building all of them fresh.").
+- **Fold Step 5's Creation Tools Map into this report** so the user answers one question, not two: show what's being reused, then the one-line build method ("skills and agents: created by stating the intent, delegating to `[matched skill]` where one is listed; configs and connectors: written directly; the plugin package: `[builder]`"), and ask for a single confirmation covering both before generating anything.
 - Check the Context Inventory for existing prompt instructions, project instructions, or system prompts. These must be incorporated into the generated artifacts.
 
-#### Step 5 — Integration Research
+#### Step 8 — Integration Research
 
 Read the "Integration Options" section from the loaded Design Spec. This section already identifies each integration, its category (built-in, available with setup, possible with code, manual), and source URLs discovered during the Design phase.
 
@@ -190,10 +193,7 @@ For each integration listed in the spec:
 
 **Web search is used for platform availability research** — verifying setup steps, finding platform-specific guides, and confirming compatibility. Discovery of integrations themselves is already done. Read the platform's `capabilities.web_search`, or, if the entry has no `capabilities`, its `notes`, to know whether web search is available before relying on it; if it is not, skip the web-check rungs of the fallback ladder and say so, and instruct the user to switch to a tool that has it when a verification genuinely needs the web.
 
-**Write-scope pre-flight (required).** For every integration the workflow must *write* to — create drafts, apply labels, create database rows/pages, send messages, create events — verify the connector actually has **write access** before building against it. Design's Step 5b feasibility check should already have vetted this, so treat the pre-flight as a **confirmation** of a known-feasible design — but if a gap surfaces here anyway, do **not** fail silently or proceed as if it works. Distinguish the two gap types (as Design does):
-
-- **Scope gap** — the connector *supports* the action but isn't authorized (connectors are often connected **read-only**). Tell the user exactly what to reconnect/authorize (e.g., "the email connector is read-only — reconnect it with compose + labels access"). You may still build the artifacts, but mark the workflow **"build-complete, deploy-blocked on [integration] write access"** so Test/Run know the gap.
-- **Capability gap** — the connector has **no such capability at all** (e.g., a read-only CRM connector with no create-deal tool). Reauthorizing won't fix this. Don't just mark it deploy-blocked — **route back to the Design options**: recommend a **human-in-the-loop gate** as the default (AI prepares the change, the human commits it — works on every platform), or a different connector, or a CLI/API fallback *only if this platform has shell/code access* (never on Cowork/chat), or descoping the action. Surface the choice to the user rather than building against a capability that isn't there.
+Write-scope and capability gaps were checked in Step 3 (Prepare Context); confirm nothing changed.
 
 **Least-privilege pre-flight (required).** Read the spec's **Safety & Permissions** section (Layer 1) and enforce its mitigations during connector setup:
 - Request only the scopes the workflow actually needs — if the spec says "create drafts," don't authorize send.
@@ -205,7 +205,7 @@ Present the integration mapping and ask the user to confirm before generating ar
 
 If the Integration Options section is missing from the spec (older format), inform the user and offer two paths: (a) Run Integration Discovery now — research available integration approaches for each tool identified in the spec's Integration Options or Step-by-Step Decomposition tables, or (b) proceed with web-search-only research for each integration need as it arises during artifact generation.
 
-#### Step 6 — Generate Platform Artifacts
+#### Step 9 — Generate Platform Artifacts
 
 Based on the platform and packaging decisions from Architecture Decisions. Resolve the items in the spec's **Deferred to Build** section now:
 
@@ -215,7 +215,7 @@ Based on the platform and packaging decisions from Architecture Decisions. Resol
 - **Integration setup specifics** — auth flow, region, plan tier per integration
 
 Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capability Domain Mapping Build Output column** for goal-driven) as your generation checklist. Each row tells you exactly what to produce:
-- `New skill: SN` → state that you want a skill created and hand over the requirements together with the artifact format resolved in Step 3.6 (or the agentskills.io specification, falling back to `references/skill-spec.md`, if unresolved) — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself (where Step 3.5 matched a creation skill, delegate to it as in step e).
+- `New skill: SN` → state that you want a skill created and hand over the requirements together with the artifact format resolved in Step 6 (or the agentskills.io specification, falling back to `references/skill-spec.md`, if unresolved) — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself (where Step 5 matched a creation skill, delegate to it as in step e).
 - `Use existing: [name]` → no generation needed; verify the skill exists and reference it
 - `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then write; never overwrite silently. Read the `(also used by: …)` parenthetical from the cell and list those workflows in the summary as the ones affected by the change.
 - `New agent: AN` → state that you want an agent created and hand over the matching Agent Configuration entry (role, responsibilities, tools, model, failure modes) plus where the platform keeps agents (from `capabilities.custom_agents`, or, if the entry has no `capabilities`, its `agent` documentation URL and `notes`) (on Claude Code only, `references/agent-spec.md` is the last-resort format snapshot if unresolved; other platforms fall through to web search). The platform's own model knows how to build an agent there; Build does not write the agent file itself.
@@ -236,28 +236,28 @@ Apply the spec's **Packaging** decision to group the generated artifacts:
 
 **When mechanism is `Agent` and the platform's `capabilities.custom_agents` (or, if the entry has no `capabilities`, its `agent` documentation URL and `notes`) says the primary session orchestrates:** the primary session is the orchestrator (see Design's "Who is the orchestrator?"). State that you want the user-triggered entry point created as an **orchestrator skill** and hand the platform's native skill creator this blueprint: `disable-model-invocation: true`, **no `context: fork`** (it must dispatch sub-agents from the primary loop), invoked as `/name`. Do **not** ask for a slash command for this: custom commands are merged into skills, and a same-named skill would silently shadow the command. **Name the orchestrator skill with the workflow name**; give component/worker artifacts (synthesizers, etc.) capability-specific names so the user-facing entry point never collides with a sub-skill. The orchestrator skill's body holds the run sequence (e.g., clarify → dispatch sub-agents → collect → synthesize → save → review) and **ends with the run-logging step**: *if the workflow runs on-platform, the orchestrator appends one row to `outputs/[workflow-name]/runs.md` at the end of every run — date, input/trigger, result, edits-needed — creating the file with its header if absent* (per the spec's Deployment Plan Run Logging requirement) — include this in the blueprint handed to the platform's creator.
 
-**a. Resolve platform documentation from the registry.** Use the platform doc URLs fetched in Platform Research (Step 3.6) from the registry's `platforms` section. These provide current, authoritative documentation for each building block's artifact format.
+**a. Resolve platform documentation from the registry.** Use the platform doc URLs fetched in Platform Research (Step 6) from the registry's `platforms` section. These provide current, authoritative documentation for each building block's artifact format.
 
 If playbook platform guides are available locally (e.g., `docs/platforms/claude/index.md`), use them as supplementary context — not as the primary source.
 
-**b. Verify currency (if needed).** The registry provides current doc URLs maintained by the framework author. Use web search only if the fetched docs appear outdated or if the registry was unavailable in Step 3.6.
+**b. Verify currency (if needed).** The registry provides current doc URLs maintained by the framework author. Use web search only if the fetched docs appear outdated or if the registry was unavailable in Step 6.
 
-**c. Follow the resolved artifact format specifications.** For each building block in the spec, use the artifact format extracted during Platform Research (Step 3.6). If Platform Research did not resolve a format (registry unavailable, platform not found), fall back to:
+**c. Follow the resolved artifact format specifications.** For each building block in the spec, use the artifact format extracted during Platform Research (Step 6). If Platform Research did not resolve a format (registry unavailable, platform not found), fall back to:
 - Skills: `references/skill-spec.md`
 - Agents: `references/agent-spec.md` (last-resort snapshot of the Claude Code subagent format — Claude Code only; other platforms fall through to web search)
 - Other platforms: web search
 
-> **The `references/*-spec.md` files are point-in-time snapshots, not the source of truth.** Platform schemas drift; prefer the registry/doc lookup from Step 3.6 and use these only as a last-resort fallback. If a snapshot and live docs disagree, the live docs win.
+> **The `references/*-spec.md` files are point-in-time snapshots, not the source of truth.** Platform schemas drift; prefer the registry/doc lookup from Step 6 and use these only as a last-resort fallback. If a snapshot and live docs disagree, the live docs win.
 
-**d. Apply code vs guided mode branching.** Based on the platform's `mode` from the registry (determined in Step 3.6):
+**d. Apply code vs guided mode branching.** Based on the platform's `mode` from the registry (determined in Step 6):
 
 - **Code mode:** artifacts are real files in the platform's `language` (Python, TypeScript, markdown). Skills and agents are still created by stating the intent (step e) — the platform's own creator writes them into its directories; Build writes only configs, connectors, and loose files directly. Proceed as described below.
 - **Guided mode:** Generate step-by-step GUI instruction documents. For each building block, produce a document that walks the user through configuring it in the platform's interface, using the GUI documentation fetched from the registry. Include: which screens to navigate to, what fields to fill in, what settings to configure, and what to verify after each step.
   - **Exception — file-based guided platforms:** if the platform's `capabilities.context_location` / `capabilities.skill_install` (or its `notes` if `capabilities` is absent) says artifacts are still real files packaged as a zip and uploaded, generate the actual source files and package them per the staging spec in step g — GUI instructions cover only the upload/install portion.
 
-**e. Generate each building block.** For each building block in the spec, follow the Creation Tools Map from Step 3.5:
+**e. Generate each building block.** For each building block in the spec, follow the Creation Tools Map from Step 5:
 
-**Field-role mapping (platform-agnostic — do NOT hardcode concrete keys).** Design collects 12 skill / 13 agent fields. Each plays one of four **roles**; place it by role, and resolve the *concrete* destination (frontmatter key name, body section) at runtime from the platform docs fetched in Step 3.6. Field names and frontmatter schemas change per platform and over time, so the framework owns only the role, never the literal key:
+**Field-role mapping (platform-agnostic — do NOT hardcode concrete keys).** Design collects 12 skill / 13 agent fields. Each plays one of four **roles**; place it by role, and resolve the *concrete* destination (frontmatter key name, body section) at runtime from the platform docs fetched in Step 6. Field names and frontmatter schemas change per platform and over time, so the framework owns only the role, never the literal key:
 - **Identity / activation** — Name, Description, Trigger Examples → the platform's identity + auto-invocation mechanism (e.g., a `description`/`name` field and example blocks — whatever the platform calls them).
 - **Instruction body** — Mission, Responsibilities, Decision Logic, Failure Modes, Output Format, Tone & Style, Constraints → the artifact's prose body/system prompt.
 - **Wiring / config** — Model, Tools, Skills, Memory Scope, Stateful? → mapped to whatever config fields the platform exposes (e.g., Stateful?/Memory Scope → the platform's memory/persistence option, by its current name).
@@ -269,7 +269,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
   1. Invoke it via the Skill tool, passing the building block's full spec from the Design Spec:
      - **For skills (S1, S2, …):** all 12 fields from the Skill Candidates entry — ID, Name, Description, Purpose, Covers Steps/Domains, Inputs, Outputs, Decision Logic, Failure Modes, Required Tools, Depends On, Stateful?
      - **For agents (A1, A2, …):** all 14 fields from the Agent Configuration entry — ID, Name, Description, Mission, Responsibilities, Output Format, Tone & Style, Constraints, Failure Modes, Model, Memory Scope, Tools, Skills, Trigger Examples. Map Failure Modes into the generated agent body as an error-handling section (absent in specs ≤ 2.3 — treat as empty). If multi-agent, also pass the relevant Handoff Contracts and the Orchestration Pattern.
-     - The artifact format requirements resolved in Step 3.6 (or the fallback reference if Step 3.6 did not resolve a format)
+     - The artifact format requirements resolved in Step 6 (or the fallback reference if Step 6 did not resolve a format)
      - Whether platform-specific extensions should be applied (based on Architecture Decisions and Packaging)
      - This context: "This building block comes from an approved Design Spec (AI Workflow Framework, Step 3 Design). The intent, name, description, inputs, outputs, decision logic, and failure modes are already defined. Use this as your starting context."
   2. Let the creation skill run its full workflow. Do not skip or abbreviate any stage.
@@ -277,7 +277,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
   **Agent placement (created by the platform's own model, not written directly):** where the agent ends up is capability-conditional — read it from the registry, never guess. Read the platform's `capabilities.custom_agents`, or, if the entry has no `capabilities`, the standalone agent location described by its `agent` documentation URL and `notes`. If the platform registers standalone agent files, have the agent created at that location and have the orchestrator dispatch it **by name** — the strongly preferred form, because the harness enforces the file's `tools:`/`model:` config (least privilege becomes a guarantee, not a request) and the user can view and edit it. If agents are carried inside the skill package, have it created as `<skill-name>/agents/<agent-name>.md` and have the orchestrator SKILL.md read and dispatch its body — never duplicate the agent prompt inline. If the entry has neither a `capabilities` object nor an `agent` key, choose one placement from model knowledge plus one web check, say which, and flag it unverified.
 
-  **Configs, connectors, and loose files written directly (no creation skill matched):** For MCP servers, hooks, commands, and prompts: use the artifact format from Step 3.6. If unavailable, research the platform's current format via web search and generate accordingly.
+  **Configs, connectors, and loose files written directly (no creation skill matched):** For MCP servers, hooks, commands, and prompts: use the artifact format from Step 6. If unavailable, research the platform's current format via web search and generate accordingly.
 
 **f. Generate artifacts.** The skill provides the *specs* (what each building block should do, its inputs/outputs/instructions from the Design phase). The model provides the *implementation* (how to build it on the user's platform, using the verified specification and platform documentation as authoritative sources).
 
@@ -301,7 +301,21 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 **Never overwrite existing local files.** Before creating any local artifact — especially context files (`Status: Exists` in the Context Inventory) — check the filesystem. If the file already exists, **read and reuse it; do not overwrite** without explicit confirmation. (Context artifacts marked `Needs Creation` in the spec may already have been supplied by the user since Design.)
 
-After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them when running Test.) **Update the Workflow node** (`registry/workflows/<slug>.md`): link the generated platform artifacts and any new/reused Skills or Agents under `# Skills` / `# Agents` and `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
+#### Step 10 — Reconcile against the spec
+
+Close with a table that has one row per Build Output row in the Design Spec's decomposition — nothing missing, nothing extra:
+
+| Build Output (from spec) | Artifact | Path | Status |
+|---|---|---|---|
+| New skill: S1 | weekly-status-report (orchestrator) | outputs/weekly-status-report/skill/weekly-status-report/SKILL.md | Created |
+| Use existing: summarizing-transcripts | summarizing-transcripts | installed skill | Reused |
+| Extend existing: formatting-notes | formatting-notes | `<installed skill location>` | Extended |
+| MCP server: HubSpot | HubSpot connector | platform connector | Installed by you |
+| Human (no artifact) | — | — | — |
+
+Status is one of `Created | Reused | Extended | Installed by you`. Then list any remaining manual steps. Write the same rows into the Workflow node's `# Skills` / `# Agents` / `# Artifacts` sections.
+
+(No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them when running Test.) **Update the Workflow node** (`registry/workflows/<slug>.md`): link the generated platform artifacts and any new/reused Skills or Agents under `# Skills` / `# Agents` and `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 **Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now using the exact steps in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` / `plugin` documentation URL(s) and `notes`, and confirm the skill (and any packaged agents) appears in the platform's skill list before proceeding — Test's fresh-conversation runs depend on it. On code-mode platforms where the platform's creator wrote the skill into its own skill directory there is nothing to install — confirm the file is in place and that the skill appears in the session's skill list. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
@@ -309,7 +323,7 @@ After completing Build, summarize what was generated, where each artifact was pl
 
 ### Platform Artifacts
 
-Prompts, skills, agents, orchestration configs, and connector setups in whatever format is appropriate to the user's chosen platform. Generated by the model based on the Design Spec and Architecture Decisions. For code-mode platforms, these are source files; for guided-mode platforms, these are step-by-step GUI instruction documents. Skills are always created by stating the intent and handing over the requirements to the platform's own creator — delegating to a matched creation skill's full workflow when one was found, or invoking the platform's native creator directly when none was (see Step 6); skills are never written directly. Agents are created the same way as skills: Build states the intent and hands over the Agent Configuration entry; it never writes the agent file. Only configs, connectors, and loose files are written directly, using the format resolved from the platform registry in Step 3.6, or web search if unresolved.
+Prompts, skills, agents, orchestration configs, and connector setups in whatever format is appropriate to the user's chosen platform. Generated by the model based on the Design Spec and Architecture Decisions. For code-mode platforms, these are source files; for guided-mode platforms, these are step-by-step GUI instruction documents. Skills are always created by stating the intent and handing over the requirements to the platform's own creator — delegating to a matched creation skill's full workflow when one was found, or invoking the platform's native creator directly when none was (see Step 9); skills are never written directly. Agents are created the same way as skills: Build states the intent and hands over the Agent Configuration entry; it never writes the agent file. Only configs, connectors, and loose files are written directly, using the format resolved from the platform registry in Step 6, or web search if unresolved.
 
 ## Guidelines
 
