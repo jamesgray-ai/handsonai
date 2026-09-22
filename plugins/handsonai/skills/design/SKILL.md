@@ -199,7 +199,7 @@ Single-agent vs. multi-agent is an architecture detail decided during Agent Conf
 
 **Platform (Step 3a) and Mechanism (Step 5) are never fast-tracked.** They are always asked or confirmed explicitly in plain language, in their own discrete confirmations, even when the answer seems obvious from earlier conversation. Non-technical users must see and approve these two choices on their own — they should not be embedded inside a larger summary block.
 
-**Packaging decision:** Pick the Packaging value from platform + mechanism (single skill → Standalone Skill; multiple related artifacts → Plugin; ChatGPT with agent + skills → Workspace Agent; ad-hoc files → Loose Files). **Packaging follows the platform:** read `capabilities.custom_agents` and `capabilities.skill_install` for the chosen platform; where agents ship only inside a plugin, any design with worker agents packages as Plugin. Include the decision in the playback below — but always pair the technical label with a plain-language explanation so the user learns what it means.
+**Packaging decision:** Pick the Packaging value from platform + mechanism (single skill → Standalone Skill; multiple related artifacts → Plugin; ChatGPT with agent + skills → Workspace Agent; ad-hoc files → Loose Files). **Packaging follows the platform:** read `capabilities.custom_agents` and `capabilities.skill_install` for the chosen platform, or, if the entry has no `capabilities`, its `agent` / `skill` documentation URL(s) and `notes`; where agents ship only inside a plugin, any design with worker agents packages as Plugin. Include the decision in the playback below — but always pair the technical label with a plain-language explanation so the user learns what it means.
 
 #### Step 5b — Safety & Permissions pass
 

@@ -67,6 +67,7 @@ If the user chooses path 2 (**You build it yourself**):
      - What to build (name, purpose, inputs/outputs from the spec)
      - The format specification to follow
      - **If a creation skill was matched:** "You have `[skill-name]` available. Invoke it (e.g., `/[skill-name]`) and pass the spec below as your starting context."
+     - **For skills:** "Tell your platform you want a skill created and give it these requirements: [name, description, decision logic, inputs/outputs, failure modes] — its own skill creator will build it."
      - **For non-skill artifacts with no creation skill matched:** the format reference and key requirements for writing them directly. Skills are never written directly — see Step 6.
 3. After presenting the Construction Guide, tell the user: "To test the workflow, run the `test` skill (Step 5)."
 
@@ -213,7 +214,7 @@ Based on the platform and packaging decisions from Architecture Decisions. Resol
 - **Integration setup specifics** — auth flow, region, plan tier per integration
 
 Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capability Domain Mapping Build Output column** for goal-driven) as your generation checklist. Each row tells you exactly what to produce:
-- `New skill: SN` → state that you want a skill created and hand over the requirements together with the artifact format resolved in Step 3.6 (or the agentskills.io specification if unresolved) — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself.
+- `New skill: SN` → state that you want a skill created and hand over the requirements together with the artifact format resolved in Step 3.6 (or the agentskills.io specification if unresolved) — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself (where Step 3.5 matched a creation skill, delegate to it as in step e).
 - `Use existing: [name]` → no generation needed; verify the skill exists and reference it
 - `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then write; never overwrite silently. Read the `(also used by: …)` parenthetical from the cell and list those workflows in the summary as the ones affected by the change.
 - `New agent: AN` → generate the agent defined in the matching Agent Configuration entry
@@ -223,8 +224,8 @@ Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capabili
 - `Handled by orchestrator` (legacy synonym `Handled by agent`) → no separate artifact; the capability is covered by the orchestration logic (the primary loop's orchestrator skill / `CLAUDE.md` run section) or a sub-agent's instructions
 
 Apply the spec's **Packaging** decision to group the generated artifacts:
-- **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace). Where the platform's `capabilities.custom_agents` says agents ship only inside an installed plugin, any workflow with worker sub-agents packages as Plugin. If the approved spec says Standalone Skill but includes agents on such a platform, flag the mismatch and switch to Plugin with the user's confirmation.
-- **Standalone Skill** → ship as a single uploadable artifact, in the package form named in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes` (a zip for guided platforms, a single SKILL.md for code-mode platforms). For skill-only workflows — a design with worker agents on a platform whose `capabilities.custom_agents` requires a plugin needs Plugin instead (above).
+- **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace). Where the platform's `capabilities.custom_agents`, or, if the entry has no `capabilities`, its `agent` / `skill` documentation URL(s) and `notes`, says agents ship only inside an installed plugin, any workflow with worker sub-agents packages as Plugin. If the approved spec says Standalone Skill but includes agents on such a platform, flag the mismatch and switch to Plugin with the user's confirmation.
+- **Standalone Skill** → ship as a single uploadable artifact, in the package form named in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes` (a zip for guided platforms, a single SKILL.md for code-mode platforms). For skill-only workflows — a design with worker agents on a platform whose `capabilities.custom_agents`, or, if the entry has no `capabilities`, its `agent` / `skill` documentation URL(s) and `notes`, requires a plugin needs Plugin instead (above).
 - **Workspace Agent** → bundle orchestration + skills + tools as a ChatGPT Workspace Agent (the current ChatGPT primitive; Custom GPTs are deprecated). Research current Workspace Agent creation flow via web search before generating.
 - **Loose Files** → write files to platform-appropriate paths; no distribution wrapper
 
@@ -287,7 +288,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 2. Execute or document the deployment steps (e.g., "run `claude mcp add ...`", "install the plugin from the marketplace", "upload the skill zip in ChatGPT under Plugins > Skills", "create the Workspace Agent and attach the skill").
 3. If the target location requires user action (e.g., a Workspace Agent creation flow or a skill upload), produce a step-by-step guide tailored to the user's platform.
 
-**Staging & packaging on system-managed platforms.** When the platform's skill/agent directories are system-managed (e.g., Cowork, Claude.ai — Build can't write to the install location directly), stage everything under the workflow's outputs folder and produce **exactly one** installable package:
+**Staging & packaging on system-managed platforms.** When the platform's skill/agent directories are system-managed (e.g., Cowork, Claude.ai — Build can't write to the install location directly), stage the skill tree the platform's creator produced under the workflow's outputs folder and produce **exactly one** installable package:
 
 ```
 outputs/<workflow-slug>/
@@ -304,7 +305,7 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 After completing Build, summarize what was generated, where each artifact was placed, and any remaining manual deployment steps. (No persistent workspace in this environment? Tell the user which files to save/download and that they'll re-supply them when running Test.) **Update the Workflow node** (`registry/workflows/<slug>.md`): link the generated platform artifacts and any new/reused Skills or Agents under `# Skills` / `# Agents` and `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
-**Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now using the exact steps in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` / `plugin` documentation URL(s) and `notes`, and confirm the skill (and any packaged agents) appears in the platform's skill list before proceeding — Test's fresh-conversation runs depend on it. On code-mode platforms where Build wrote straight into the platform's own skill directory there is nothing to install — confirm the file is in place and that the skill appears in the session's skill list. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
+**Install before handing off to Test.** On system-managed platforms, staged files in `outputs/` are source — the workflow isn't runnable until the package is installed. Walk the user through installing it now using the exact steps in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` / `plugin` documentation URL(s) and `notes`, and confirm the skill (and any packaged agents) appears in the platform's skill list before proceeding — Test's fresh-conversation runs depend on it. On code-mode platforms where the skill was created directly in the platform's own skill directory there is nothing to install — confirm the file is in place and that the skill appears in the session's skill list. Then tell the user: "To test the workflow, run the `test` skill (Step 5) (or say *'Test the workflow I built'*)."
 
 ## Outputs
 
