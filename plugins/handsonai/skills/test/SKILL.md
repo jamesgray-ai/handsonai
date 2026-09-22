@@ -101,8 +101,8 @@ requirements: outputs/[workflow-name]/requirements.md
 date: YYYY-MM-DD
 environment: "[platform + notable conditions, e.g., Cowork, HubSpot connector live]"
 readiness: ready | not-ready | waiting-on-access
-criteria_total: 12          # lines on the check list × scenarios run
-criteria_met: 11
+criteria_total: 10          # countable lines across scenarios run (not-run lines excluded)
+criteria_met: 9
 results:
   E1: { AC1: met, AC2: met, R3: not-met, G1: met, "Step 2 output": met, edits: minor }
   E2: { AC1: met, AC2: met, R3: met, R5: not-run, G1: met, "Step 2 output": met, edits: none }
