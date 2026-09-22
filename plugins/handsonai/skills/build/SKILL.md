@@ -67,7 +67,7 @@ If the user chooses path 2 (**You build it yourself**):
      - What to build (name, purpose, inputs/outputs from the spec)
      - The format specification to follow
      - **If a creation skill was matched:** "You have `[skill-name]` available. Invoke it (e.g., `/[skill-name]`) and pass the spec below as your starting context."
-     - **If no creation skill matched:** The format reference and key requirements for manual creation
+     - **For non-skill artifacts with no creation skill matched:** the format reference and key requirements for writing them directly. Skills are never written directly — see Step 6.
 3. After presenting the Construction Guide, tell the user: "To test the workflow, run the `test` skill (Step 5)."
 
 #### Step 3 — Mechanism-Specific Build Path
@@ -101,25 +101,25 @@ Before generating artifacts, discover what creation tools are available in this 
 
    **Tier 1 — System-level discovery.** Check if the current environment provides a list of available skills (typically shown in system reminders, session context, or tool listings). If available, scan skill names and descriptions for any that indicate the ability to *create, generate, scaffold, or build* one of the needed building block types. Match semantically — look for descriptions containing phrases like "create a skill", "build an agent", "scaffold a plugin", "create hooks", "generate MCP servers", etc.
 
-   **Match generators, not guidance skills.** Only count a skill as a creation tool if it **takes a finished spec and produces the artifact file(s)** — it scaffolds, generates, writes, or builds the artifact. **Exclude interactive guidance / elicitation / teaching skills** — those whose purpose is to walk a human through *deciding* an artifact's configuration (e.g. descriptions about "agent frontmatter", "when-to-use description", "how to structure an agent/skill", "agent tools and examples"). The approved Design Spec already contains all 12 skill / 13 agent fields, so a guidance skill would only re-open settled decisions and add no value — Build generates those artifacts inline instead.
+   **Match generators, not guidance skills.** Only count a skill as a creation tool if it **takes a finished spec and produces the artifact file(s)** — it scaffolds, generates, writes, or builds the artifact. **Exclude interactive guidance / elicitation / teaching skills** — those whose purpose is to walk a human through *deciding* an artifact's configuration (e.g. descriptions about "agent frontmatter", "when-to-use description", "how to structure an agent/skill", "agent tools and examples"). The approved Design Spec already contains all 12 skill / 13 agent fields, so a guidance skill would only re-open settled decisions and add no value — for a skill-type block, state the intent to the platform's own creator instead (see Step 6); for a non-skill block, Build generates the artifact directly instead.
 
-   Apply this test to each candidate: *"Does this skill WRITE the artifact from a finished spec, or does it ASK ME to decide the configuration? Only the former qualifies."* When in doubt, treat it as guidance (exclude it) and generate inline.
+   Apply this test to each candidate: *"Does this skill WRITE the artifact from a finished spec, or does it ASK ME to decide the configuration? Only the former qualifies."* When in doubt, treat it as guidance (exclude it), then follow the same rule: state the intent for a skill, generate directly for a non-skill block.
 
    **Exception — packaging / assembly skills always qualify as generators.** A skill whose job is to *package, bundle, or assemble the final installable artifact* — the platform's native plugin builder, where the session's skill list or the platform's `capabilities.skill_install` / `notes` identifies one — **is a generator, not guidance.** It produces the deliverable (an installable `.plugin` / package); it does **not** re-decide spec fields, so the "excludes guidance skills" rule does not apply to it. Match it — and do so **even though it runs as an interactive / guided flow.** The guided nature is not a reason to exclude it here: for the **Plugin packaging** block specifically, that interactive confirmation *is* the intended, on-demand "ship" step, and the platform's native builder emits an installable package the model must not hand-roll. Do **not** substitute inline generation (zipping a staged tree) for a platform plugin builder — a hand-zipped plugin may not install on a system-managed platform and has failed mid-write in practice (zero-byte archive + orphaned temp). Match the Plugin-package block to the plugin builder named in the platform's `capabilities.skill_install`.
 
    **Tier 2 — Filesystem discovery (fallback).** On filesystem (code-mode) platforms, scan the platform's local skill directories and read each SKILL.md's frontmatter to identify creation-capable skills. Take the directory list from the platform's `capabilities.skill_install` when the registry entry has one; otherwise from the entry's `skill` documentation URL and its `notes` (code-mode entries such as `claude-code`, `openai-codex`, and `gemini-cli` carry no `capabilities` object); if the platform has no registry entry at all, use model knowledge plus one web check and say the locations are unverified. (Resolve the registry first — Step 3.6 Tier 1 — or use the session cache.)
 
-   If neither tier finds any skills (e.g., ChatGPT web, Gemini app), state: "No creation skills detected in this environment — all building blocks will be generated inline." Then proceed.
+   If neither tier surfaces a creation skill, say so and proceed: skills are still created by stating the intent (the platform's own creator responds even when it is not listed); only non-skill artifacts are written directly.
 
-3. **Build a Creation Tools Map.** For each building block type needed by the spec, record the matched creation skill (if any) or "Inline generation" as the fallback:
+3. **Build a Creation Tools Map.** For each building block type needed by the spec, record the matched creation skill for skill-type blocks (or "Platform creator (state the intent)" when none surfaced — skills are never written directly), and the matched creation skill or "Inline generation" for non-skill blocks:
 
    | Building Block Type | Count | Matched Creation Skill | Method |
    |---|---|---|---|
-   | Skill | 3 | *(matched skill name or "none")* | Delegate / Inline |
+   | Skill | 3 | *(matched skill name, or "Platform creator (state the intent)" if none surfaced)* | Delegate |
    | Agent | 1 | *(matched skill name or "none")* | Delegate / Inline |
    | Plugin package | 1 | *(the platform's native plugin builder, where the session's skill list or the platform's `capabilities.skill_install` / `notes` identifies one; see the packaging exception above)* | Delegate |
 
-4. **Present the map for confirmation.** Show the user: "Here's how I plan to build each block type. For items with a matched creation skill, I'll delegate to that skill's full workflow. For items without, I'll generate inline using reference specifications. Does this look right?"
+4. **Present the map for confirmation.** Show the user: "Here's how I plan to build each block type. For skills, I'll ask the platform to create each one from its blueprint — with a matched creation skill I'll delegate to its full workflow, otherwise I'll state the intent and let the platform's own creator respond. For other blocks without a matched creation skill, I'll write those directly. Does this look right?"
 
    Wait for user confirmation before proceeding.
 
@@ -213,7 +213,7 @@ Based on the platform and packaging decisions from Architecture Decisions. Resol
 - **Integration setup specifics** — auth flow, region, plan tier per integration
 
 Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capability Domain Mapping Build Output column** for goal-driven) as your generation checklist. Each row tells you exactly what to produce:
-- `New skill: SN` → state that you want a skill created and hand over the requirements — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself.
+- `New skill: SN` → state that you want a skill created and hand over the requirements together with the artifact format resolved in Step 3.6 (or the agentskills.io specification if unresolved) — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself.
 - `Use existing: [name]` → no generation needed; verify the skill exists and reference it
 - `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then write; never overwrite silently. Read the `(also used by: …)` parenthetical from the cell and list those workflows in the summary as the ones affected by the change.
 - `New agent: AN` → generate the agent defined in the matching Agent Configuration entry
@@ -263,7 +263,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
   **If a creation skill was matched for this block type:**
 
-  0. Verify the matched skill is actually invocable in this session (it appears in the available-skills list or its SKILL.md resolves on disk). If it isn't, say so and fall back to inline generation for this block — don't attempt an invocation that will fail.
+  0. Verify the matched skill is actually invocable in this session (it appears in the available-skills list or its SKILL.md resolves on disk). If it isn't, say so; for a non-skill block, fall back to writing it directly; for a skill, state the intent to create it regardless — don't attempt an invocation that will fail.
   1. Invoke it via the Skill tool, passing the building block's full spec from the Design Spec:
      - **For skills (S1, S2, …):** all 12 fields from the Skill Candidates entry — ID, Name, Description, Purpose, Covers Steps/Domains, Inputs, Outputs, Decision Logic, Failure Modes, Required Tools, Depends On, Stateful?
      - **For agents (A1, A2, …):** all 14 fields from the Agent Configuration entry — ID, Name, Description, Mission, Responsibilities, Output Format, Tone & Style, Constraints, Failure Modes, Model, Memory Scope, Tools, Skills, Trigger Examples. Map Failure Modes into the generated agent body as an error-handling section (absent in specs ≤ 2.3 — treat as empty). If multi-agent, also pass the relevant Handoff Contracts and the Orchestration Pattern.
@@ -273,13 +273,12 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
   2. Let the creation skill run its full workflow. Do not skip or abbreviate any stage.
   3. After completion, move to the next building block. Later blocks may reference earlier ones via their stable IDs.
 
-  **If no creation skill was matched (inline generation):**
+  **Non-skill artifacts written directly (no creation skill matched):**
 
-  1. **For skills:** Use the artifact format from Step 3.6. If unavailable, fetch the agentskills.io specification (live from `https://agentskills.io/specification`, fallback to `references/skill-spec.md`). Generate the skill using the Skill Candidates entry — use the `Name` field as the directory name and the `Description` field verbatim in the SKILL.md frontmatter. Apply platform-specific extensions as documented for the target platform.
-  2. **For agents:** Inline generation is the default — the Agent Configuration entry is the complete source of the agent's configuration, so no guidance skill is needed (see Step 3.5). Use the artifact format from Step 3.6. If unavailable and on Claude Code, fall back to `references/agent-spec.md`. For other platforms, fall back to web search. Generate the agent using the Agent Configuration entry — use the `Name` as the filename, the `Description` field verbatim in the agent file frontmatter (and include the Trigger Examples as `<example>` blocks in the description), and the Mission, Responsibilities, Output Format, Tone & Style, and Constraints fields as the agent's system prompt body.
+  1. **For agents:** Inline generation is the default — the Agent Configuration entry is the complete source of the agent's configuration, so no guidance skill is needed (see Step 3.5). Use the artifact format from Step 3.6. If unavailable and on Claude Code, fall back to `references/agent-spec.md`. For other platforms, fall back to web search. Generate the agent using the Agent Configuration entry — use the `Name` as the filename, the `Description` field verbatim in the agent file frontmatter (and include the Trigger Examples as `<example>` blocks in the description), and the Mission, Responsibilities, Output Format, Tone & Style, and Constraints fields as the agent's system prompt body.
 
      **Where the agent file goes is capability-conditional — read it from the registry, never guess:** read the platform's `capabilities.custom_agents`, or, if the entry has no `capabilities`, the standalone agent location described by its `agent` documentation URL and `notes`. If the platform registers standalone agent files, write the agent at that location and have the orchestrator dispatch it **by name** — the strongly preferred form, because the harness enforces the file's `tools:`/`model:` config (least privilege becomes a guarantee, not a request) and the user can view and edit it. If agents are carried inside the skill package, write `<skill-name>/agents/<agent-name>.md` and have the orchestrator SKILL.md read and dispatch its body — never duplicate the agent prompt inline. If the entry has neither a `capabilities` object nor an `agent` key, choose one placement from model knowledge plus one web check, say which, and flag it unverified.
-  3. **For other block types (MCP servers, hooks, commands, prompts):** Use the artifact format from Step 3.6. If unavailable, research the platform's current format via web search and generate accordingly.
+  2. **For other block types (MCP servers, hooks, commands, prompts):** Use the artifact format from Step 3.6. If unavailable, research the platform's current format via web search and generate accordingly.
 
 **f. Generate artifacts.** The skill provides the *specs* (what each building block should do, its inputs/outputs/instructions from the Design phase). The model provides the *implementation* (how to build it on the user's platform, using the verified specification and platform documentation as authoritative sources).
 
@@ -311,7 +310,7 @@ After completing Build, summarize what was generated, where each artifact was pl
 
 ### Platform Artifacts
 
-Prompts, skills, agents, orchestration configs, and connector setups in whatever format is appropriate to the user's chosen platform. Generated by the model based on the Design Spec and Architecture Decisions. For code-mode platforms, these are source files; for guided-mode platforms, these are step-by-step GUI instruction documents. For building blocks with a matched creation skill (discovered at runtime in Step 3.5), artifacts are built by delegating to that skill's full workflow. For building blocks without a matched creation skill, artifacts are generated inline using the format resolved from the platform registry in Step 3.6 (falling back to `references/skill-spec.md` for skills, `references/agent-spec.md` for Claude Code agents, or web search for other platforms).
+Prompts, skills, agents, orchestration configs, and connector setups in whatever format is appropriate to the user's chosen platform. Generated by the model based on the Design Spec and Architecture Decisions. For code-mode platforms, these are source files; for guided-mode platforms, these are step-by-step GUI instruction documents. Skills are always created by stating the intent and handing over the requirements to the platform's own creator — delegating to a matched creation skill's full workflow when one was found, or invoking the platform's native creator directly when none was (see Step 6); skills are never written directly. For non-skill building blocks without a matched creation skill, artifacts are generated directly using the format resolved from the platform registry in Step 3.6 (falling back to `references/agent-spec.md` for Claude Code agents, or web search for other platforms).
 
 ## Guidelines
 
