@@ -95,7 +95,7 @@ Produce exactly one of three outcomes:
 - **Tune** — specific building blocks to adjust (name them: S2, C3, orchestrator, connector) → the `build` skill regenerates only those (fix mode), then the `test` skill re-runs the affected scenarios.
 - **Redesign** — the architecture no longer fits: requirements changed enough to restructure, or the workflow has outgrown its mechanism (a skill that now needs to make its own sequencing decisions, or an agent that should split into specialists). → the `design` skill, with the reason recorded in the Improvement Plan so Design starts from it.
 
-Close with the one that applies: **No changes** — "Nothing to change. Next review: [date]."; **Tune** — "Run the `build` skill on [named building blocks] — 30–60 minutes — then the `test` skill to re-run the affected scenarios."; **Redesign** — "Run the `design` skill — about 30 minutes — starting from the reason recorded in the Improvement Plan."
+Close with the one that applies: **No changes** — "Nothing to change. Next review: [date]."; **Tune** — "Run the `build` skill on [named building blocks] — 30–60 minutes for a full build, less in fix mode — then the `test` skill to re-run the affected scenarios."; **Redesign** — "Run the `design` skill — about 30 minutes — starting from the reason recorded in the Improvement Plan."
 
 ## Output
 
