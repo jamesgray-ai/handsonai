@@ -80,11 +80,14 @@ Follow `references/interview-guide.md` § Phase 0.
 
 ## Phase 1 — Look around first (3 min)
 
-1. State the privacy line once, before reading anything: *Nothing with personal data about identifiable people goes into the graph: no payroll, no health records, no individual HR files, whichever way it would arrive.*
-2. **Create `raw/` at the project root now, automatically**, and say so in one line. This is the single exception to Phase 0's "create nothing", and it happens whether or not the user has documents yet.
-3. Scan the whole project folder for anything readable about the work: README files, SOPs, process guides, proposals, requirements files from earlier framework steps, transcripts, spreadsheet names. Do not read `registry/` as evidence about the work; it is about AI builds.
-4. Ask one question: *"Do you have two or three documents that describe your work — a proposal, a client summary, a process doc, a team charter? Tell me where they are, drop them into the `raw/` folder I just made, or say skip."* If your platform can reach other systems (a Drive or email connector, saved memory), offer to look there too, and never look without a yes.
-5. Report in plain words: what the work appears to be, and which named things (clients, offerings, tools, processes, people, policies) appear and where. State honestly what was found and what was not. If nothing was found, say so in one line and go to Phase 2. Never present a guess as something you read. Never invent facts about the work.
+1. **Give the roadmap and the explainer before anything else.** Most users have not read the lesson, and a rule or a folder is a cold first thing to receive. Say, in this order and in your own words close to these:
+   - *Here is how the next half hour goes. I need to learn what your work runs on: the clients, offerings, processes, tools, and policies you make decisions about every week. There are two ways I can learn that: I can read what you already have, and I can ask you. Reading first is worth it, because a proposal or a process doc names the real things in your business better than anyone can from memory, and it gives every page I write a source to point back to. So I look around first, then ask about what I could not find, then propose the kinds of things your work runs on and how they connect. I build nothing until you send the word **build**.*
+   - The sixty-second explainer: *Your phone's Contacts app has one kind of entry, Contact, and many real ones: your dentist, your mother. Your work is the same: a few kinds of things, and real ones of each. `Client` is a kind; Acme is a real one. We find the real ones first, then work out the kinds, then connect the kinds with sentences you already say, like "Acme has two projects." That is the graph.*
+2. State the privacy line once, before reading anything: *Nothing with personal data about identifiable people goes into the graph: no payroll, no health records, no individual HR files, whichever way it would arrive.*
+3. **Create `raw/` at the project root now, automatically**, and say so in one line. This is the single exception to Phase 0's "create nothing", and it happens whether or not the user has documents yet.
+4. Scan the whole project folder for anything readable about the work: README files, SOPs, process guides, proposals, requirements files from earlier framework steps, transcripts, spreadsheet names. Do not read `registry/` as evidence about the work; it is about AI builds.
+5. Ask one question: *"Do you have two or three documents that describe your work — a proposal, a client summary, a process doc, a team charter? Tell me where they are, drop them into the `raw/` folder I just made, or say skip and I will learn it all from the interview."* If your platform can reach other systems (a Drive or email connector, saved memory), offer to look there too, describing what you would look for in plain words rather than listing file names, and never look without a yes.
+6. Report in plain words: what the work appears to be, and which named things (clients, offerings, tools, processes, people, policies) appear and where. State honestly what was found and what was not. If nothing was found, say so in one line and go to Phase 2. Never present a guess as something you read. Never invent facts about the work.
 
 Follow `references/interview-guide.md` § Phase 1.
 
@@ -92,7 +95,7 @@ Follow `references/interview-guide.md` § Phase 1.
 
 One question at a time. Skip any question Phase 1 already answered, and say that you are skipping it and why. Wording is for someone who has never heard the word *graph*: say "kinds of things" before "types" and "the real ones" before "concepts". The interview must work for any role or industry: a fractional CFO, an HR lead, a product manager, a clinic operations lead, a nonprofit director, an e-commerce operator.
 
-0. The sixty-second explainer, delivered proactively (many users will not have read the lesson).
+0. The explainer was given in Phase 1; do not repeat it. If the user seems lost, restate it in one sentence.
 1. **Scope:** the work *you* do, your *team's* work, or the *whole company's*?
 2. The 5–10 most important named things in that work.
 3. Who you do the work for, and what you deliver to them.
