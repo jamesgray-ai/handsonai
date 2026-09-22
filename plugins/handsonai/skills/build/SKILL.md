@@ -4,7 +4,7 @@ description: >
   This skill should be used when the user has an approved Design Spec and wants to
   build platform artifacts for their AI workflow. It prepares the workflow's context with
   the user, researches integration availability, generates platform-appropriate artifacts
-  (skills, agents, connectors), installs them, and reconciles what was built against the spec.
+  (skills, agents, configs, connectors), installs them, and reconciles what was built against the spec.
   Also use when the user says "continue my workflow" and the workflow manifest shows Step 4 (Build) is next.
   This is Step 4 (Build) of the AI Workflow Framework. NOT for "build my
   knowledge graph": that is the building-knowledge-graph skill.
