@@ -9,7 +9,7 @@
       "memory": "https://code.claude.com/docs/en/memory",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "mcp-build": "https://modelcontextprotocol.io/quickstart",
-      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume either exists in Cowork."
+      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume auto memory exists in Cowork (Cowork has its own scheduled tasks — see its entry)."
     },
     "cowork": {
       "mode": "code",
