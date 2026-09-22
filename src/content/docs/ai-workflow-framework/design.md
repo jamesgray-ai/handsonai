@@ -116,7 +116,7 @@ A capability tier (reasoning-heavy / balanced / fast / vision) with per-step ove
 
 ### Integration Options
 
-For each tool the workflow needs, the model researches available integration options — curated MCP servers, APIs, SDKs, and CLIs — with source URLs and trade-offs. The output is platform-agnostic; Build does the per-platform setup research.
+For each tool the workflow needs, the model checks for a platform-native connector first, then falls back to MCP servers, APIs, SDKs, and CLIs — with source URLs and trade-offs. The output is platform-agnostic; Build does the per-platform setup research.
 
 ### Safety & Permissions
 

@@ -88,29 +88,6 @@
       "agent": "https://help.openai.com/en/articles/11752874-chatgpt-agent"
     }
   },
-  "curated-tools": [
-    {
-      "name": "Google Workspace CLI",
-      "type": "cli",
-      "url": "https://github.com/googleworkspace/cli",
-      "integrations": ["google-calendar", "gmail", "drive", "sheets", "docs"],
-      "notes": "Official Google CLI for workspace automation"
-    },
-    {
-      "name": "GitHub CLI",
-      "type": "cli",
-      "url": "https://cli.github.com",
-      "integrations": ["github"],
-      "notes": "Official GitHub CLI for repos, PRs, issues, actions"
-    },
-    {
-      "name": "Slack CLI",
-      "type": "cli",
-      "url": "https://docs.slack.dev/tools/slack-cli",
-      "integrations": ["slack"],
-      "notes": "Official Slack CLI for workflow automation"
-    }
-  ],
   "integration-registries": [
     {
       "name": "platform-native-connectors",

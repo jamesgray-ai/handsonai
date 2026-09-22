@@ -83,9 +83,9 @@ The model doesn't guess your platform's artifact format or available integration
 
 **Integration research:**
 
-1. **Integration Options from Design** — The Design Spec already identifies which integrations you need and includes source URLs discovered during Design's Integration Discovery (which itself used the curated tool catalog, integration registries, and web search).
+1. **Integration Options from Design** — The Design Spec already identifies which integrations you need and includes source URLs discovered during Design's Integration Discovery (which checks the platform's native connectors first, then what the model already knows, then one web check).
 2. **Platform-specific setup** — For each integration, the model researches how to connect it on your specific platform: installation steps, configuration, authentication, and prerequisites.
-3. **Integration registries** — The platform registry catalogs known sources for integration documentation (MCP registries, platform marketplaces, connector catalogs). The model checks these before falling back to web search.
+3. **Native connectors first** — The platform registry points Build at the platform's native connectors. Build checks those, then the source URLs in the spec, and web-searches only what is still unresolved.
 
 **Code vs. guided mode:**
 

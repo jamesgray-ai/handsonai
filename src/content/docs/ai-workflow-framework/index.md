@@ -136,7 +136,7 @@ The skill writes the spec as a draft file you can read, then marks it approved w
 
 Generate platform-appropriate artifacts from the approved spec.
 
-The Build step starts with a **Prepare Context** phase — systematically resolving the context needs identified during Deconstruct and Design. Then the model researches your platform using a curated platform registry, integration registries, and web search to generate the actual artifacts — context, skills, prompts, agents, MCP connections — in whatever format your platform requires. Only the components your orchestration mechanism needs are built.
+The Build step starts with a **Prepare Context** phase — systematically resolving the context needs identified during Deconstruct and Design. Then the model researches your platform using the platform registry and web search to generate the actual artifacts — context, skills, prompts, agents, MCP connections — in whatever format your platform requires. Only the components your orchestration mechanism needs are built.
 
 **Deliverable:** **Platform artifacts** — skills, agents, and configs generated for your specific platform, plus resolved context artifacts (style guides, reference materials, examples).
 
