@@ -1,6 +1,6 @@
 ---
 title: "Step 7: Improve"
-description: "Step 7: Improve — evaluate a running AI workflow for quality, relevance, and evolution with periodic review, regression checks, and a graduation decision."
+description: "Step 7: Improve — re-run your report card against the baseline, see which lines flipped, and decide: no changes, tune, or go back to Design."
 ---
 
 > **Part of:** [AI Workflow Framework](../)
@@ -34,16 +34,17 @@ When you operationalize a workflow in Step 6, set a calendar reminder for your f
 
 ## How the Skill Works
 
-The skill runs six phases. The sections that follow expand on each:
+The skill runs seven phases. The sections that follow expand on each:
 
-1. **Load history** — Read the Workflow node, Design Spec, previous test results (the baseline report card lives in the file's frontmatter), and the run log if you've been keeping one.
-2. **Quality signal review** — Start from the run log's evidence (run frequency, recurring edits, failures), then discuss what prompted this improvement cycle. Which signals are you seeing?
-3. **Regression evaluation** — Re-run the same inputs the same way; compare line by line and show every criterion that flipped between met and not met.
-4. **Graduation assessment** — Should the orchestration mechanism evolve (Skill → Agent, single agent → multi-agent)?
-5. **Decision** — Three outcomes: no changes needed, tune (fix specific building blocks), or go back to Design (the architecture no longer fits, including a workflow that has outgrown its mechanism).
-6. **Generate Improvement Plan** — Current report card, comparison to baseline, findings, decision, and specific actions.
+1. **Load workflow context** — Read the Workflow node, Design Spec, Run Guide, the test results holding the baseline report card, and the run log if you've been keeping one.
+2. **Current state assessment** — Start from the run log's evidence (run frequency, recurring edits, failures), then talk through what the log can't show: how much editing the output needs, and what has changed since you built it.
+3. **Quality evaluation** — Read the signals: rising edits, new decision types, steps being skipped, lines flipping between rounds, or you adding steps by hand.
+4. **Graduation assessment** — Has the workflow outgrown its mechanism?
+5. **Regression check** — Re-run the same inputs the same way; compare line by line against the baseline and show every report-card line that flipped.
+6. **Operationalization review** — For workflows a team uses: adoption, training, and governance. Skipped for personal workflows.
+7. **Recommendation** — One of three outcomes: no changes needed, tune (fix specific building blocks), or go back to Design.
 
-## Regression Evaluation
+## Regression Check
 
 *Plain language: a **regression check** re-runs the same inputs you tested in Step 5 and shows which report-card lines changed — the same lines, so a change means something moved.*
 
@@ -59,7 +60,7 @@ Record the new report card alongside your baseline. This creates a quality histo
 
 ## Graduation Assessment
 
-Over time, some workflows outgrow their orchestration mechanism. A prompt that started simple may have accumulated so many instructions that it is unwieldy. A skill-powered workflow may need to make decisions you cannot predict in advance. The right response is not to keep patching — it is to graduate the workflow to a more capable mechanism.
+Over time, some workflows outgrow their orchestration mechanism. The right response is not to keep patching — it is to graduate the workflow to a more capable mechanism.
 
 ### The Orchestration Ladder
 
@@ -99,7 +100,7 @@ An **Improvement Plan** saved to `outputs/[workflow-name]/improvement-plan.md` t
 
 - Which report-card lines flipped since the baseline, and the edits trend
 - Quality signals that triggered the review
-- Findings from the regression evaluation
+- Findings from the regression check
 - Graduation assessment (if applicable)
 - Decision outcome and rationale
 - Specific actions to take (which building blocks to fix, what context to update, etc.)
@@ -119,16 +120,16 @@ This step is facilitated by the **`improve`** AI Workflow Framework skill. See [
 Evaluate my running workflow and help me decide what to improve.
 ```
 
-The skill reads your Design Spec and previous test results, guides you through the regression evaluation and graduation assessment, and produces the Improvement Plan.
+The skill reads your Design Spec and previous test results, guides you through the regression check and graduation assessment, and produces the Improvement Plan.
 
 ### Example prompts
 
 ```
 "Evaluate my running workflow and help me decide what to improve"
-→ Full improvement cycle with regression eval and decision
+→ Full improvement cycle with regression check and decision
 
 "My content workflow output quality has been dropping — help me figure out why"
-→ Targeted regression evaluation focused on the quality dimensions
+→ Targeted regression check focused on the report-card lines
   that are degrading
 ```
 

@@ -23,7 +23,8 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 │   └── weekly-status-report/
 │       ├── requirements.md               ← Step 2 (Deconstruct)
 │       ├── design-spec.md                ← Step 3 (Design)
-│       ├── test-results.md               ← Step 5 (Test)
+│       ├── test-results-2026-06-05.md    ← Step 5 (Test), round 1
+│       ├── test-results.md               ← Step 5 (Test), round 2 — the Ready round
 │       ├── run-guide.md                  ← Step 6 (Run)
 │       ├── runs.md                       ← the run log (one line per run)
 │       └── improvement-plan.md           ← Step 7 (Improve, weeks later)
@@ -113,7 +114,7 @@ The full file (trimmed to two candidates for readability — a real report often
 
 ## Step 2 — Deconstruct → `requirements.md` + the Workflow node
 
-The deconstruct skill interviewed Maya for about 30 minutes (step-driven path — she knows exactly how the work gets done). Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
+The deconstruct skill interviewed Maya for about 45 minutes (step-driven path — she knows exactly how the work gets done). Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
 
 The Workflow node first — the small file every later step reads and updates:
 
@@ -239,42 +240,36 @@ Maya's review by 10am. Consumed by the leadership team; posted after Maya approv
 
 ## Acceptance Criteria
 
-### What good output looks like
-Reads like Maya wrote it. Blockers are impossible to miss and each names an owner
-and next action. A leadership reader gets the week's picture in under two minutes.
+1. **AC1 (must)** — Every status the report states matches the tracker; nothing is invented
+2. **AC2** — The report uses the four sections from C2 in order: Wins, In Progress, Blockers, Next Week
+3. **AC3** — Maya could send the report without rewording it
 
-### Dimensions that matter
-- **Accuracy** — every stated status matches the tracker; nothing invented
-- **Completeness** — all blocked tasks appear; no active project missing
-- **Tone** — direct, plain language, matches C3; no filler
-- **Format** — matches C2 template; under 400 words
-
-### Minimum bar
-Accuracy and completeness must be right — a wrong status is a failed run.
-Tone and format issues are acceptable in a draft if fixable in under 5 minutes of editing.
+Reference example: C2
 
 ## Example Scenarios
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
 | E1 | Typical week | 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners | C2 (report of 2026-05-22) |
-| E2 | Blocked-heavy week | 4+ blockers incl. one with no owner | Blockers section leads; ownerless blocker flagged "owner needed" | — |
+| E2 | Blocked-heavy week with a slipped milestone | 4+ blockers incl. one with no owner, plus a milestone past its due date | Blockers section leads; ownerless blocker flagged "owner needed" | — |
 | E3 | Quiet week | 2 updates, no blockers | Short honest report; no padding or invented activity | — |
 
 ## Rules & Constraints
 
-- **Must do:** state every blocker with an owner and a next action; keep the section order of C2
-- **Must never do:** invent a status the tracker doesn't support; hedge ("appears to be", "may have")
-- **Scope boundaries:** the current quarter's tracker only; no cross-quarter trend commentary
-- **Tone / format / length:** C3's voice; C2's template; under 400 words
-- **Fallback behavior:** when a task's status is ambiguous, stop and ask Maya rather than guessing (also recorded as a Human Gate)
+| ID | Type | Rule |
+|---|---|---|
+| R1 | Must do | State every blocker with an owner and the next action |
+| R2 | Must never do | Invent a status the tracker doesn't support, or hedge ("appears to be", "may have") |
+| R3 | Scope | The current quarter's tracker only; no cross-quarter trend commentary |
+| R4 | Tone / format / length | C3's voice; C2's template; under 400 words |
+| R5 | Fallback | When a task's status is ambiguous, stop and ask Maya rather than guessing (also recorded as G2) |
 
 ## Human Gates
 
-| Where | What requires human input |
-|---|---|
-| Step 3 | Maya reviews and approves the draft before it is saved or shared |
-| Step 2 | Maya resolves any task whose status the tracker leaves ambiguous |
+| ID | Where | What requires human input |
+|---|---|---|
+| G1 | Step 3 | Maya reviews and approves the draft before it is saved or shared |
+| G2 | Step 2 | Maya resolves any task whose status the tracker leaves ambiguous |
 
 ## Security, Privacy & Safety
 
@@ -586,14 +581,16 @@ never share or save a report Maya hasn't approved.
 
 ## Step 5 — Test → `test-results.md`
 
-Test ran E1 and E2 (E3, the quiet week, waited for a real one). E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 — exactly the kind of thing testing exists to catch — and the fix is queued for the next round.
+Test ran E1 and E2 (E3, the quiet week, waited for a real one). E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so Maya made one fix to the orchestrator skill, then a second round got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md`, round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
+
+**Round 1 — `test-results-2026-06-05.md`:**
 
 ````markdown
 ---
 workflow: weekly-status-report
 design_spec: outputs/weekly-status-report/design-spec.md
 requirements: outputs/weekly-status-report/requirements.md
-date: 2026-08-14
+date: 2026-06-05
 environment: "Cowork, HubSpot connector live"
 readiness: not-ready
 criteria_total: 12
@@ -616,23 +613,27 @@ results:
 
 | Expected | From | Result | Evidence |
 |---|---|---|---|
-| Reads like Maya wrote it, no hedging | AC1 | Met | "we will slip unless X" — no hedged phrasing found |
-| Uses the three headings from C2 in that order | AC2 | Met | Wins / In Progress / Blockers / Next Week, in order |
-| Every blocker names an owner and next action | AC3 (must) | Met | 1 of 1 blockers has both |
-| Every stated status matches the tracker | R1 (must) | Met | 9 of 9 tasks match |
+| Every status stated matches the tracker | AC1 (must) | Met | 9 of 9 tasks match |
+| Uses the four C2 sections in order | AC2 | Met | Wins / In Progress / Blockers / Next Week, in order |
+| Maya could send it without rewording | AC3 | Met | "we will slip unless X" — no hedged phrasing found |
+| Every blocker names an owner and the next action | R1 | Met | 1 of 1 blockers has both |
 | Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
 | Complete draft under 400 words | Step 2 output | Met | 340 words |
+
+(rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
 
 **E2 — Blocked-heavy week with a slipped milestone**
 
 | Expected | From | Result | Evidence |
 |---|---|---|---|
-| Reads like Maya wrote it, no hedging | AC1 | Met | No hedged phrasing found |
-| Uses the three headings from C2 in that order | AC2 | Not met | Risks section placed before Progress |
-| Every blocker names an owner and next action | AC3 (must) | Met | 4 of 4 blockers named; ownerless one flagged "owner needed" |
-| Every stated status matches the tracker | R1 (must) | Met | 4 of 4 blockers match |
+| Every status stated matches the tracker | AC1 (must) | Met | 4 of 4 blockers match |
+| Uses the four C2 sections in order | AC2 | Not met | Blockers placed before In Progress |
+| Maya could send it without rewording | AC3 | Met | No hedged phrasing found; the section order was the only edit |
+| Every blocker names an owner and the next action | R1 | Met | 4 of 4 blockers named; ownerless one flagged "owner needed" |
 | Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
 | Complete draft under 400 words | Step 2 output | Met | 390 words |
+
+(rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
 
 ## Golden example deltas (E1)
 
@@ -650,7 +651,7 @@ Cowork, HubSpot connector live. Same environment for both scenarios.
 
 ## Issues identified
 
-1. **E2, AC2 — orchestrator:** add an explicit heading-order instruction and a format example, so a blocker-heavy draft can't reorder the sections.
+1. **E2, AC2 — orchestrator:** add an explicit section-order instruction and a format example, so a blocker-heavy draft can't reorder the sections.
 
 ## Accepted misses
 
@@ -659,6 +660,53 @@ None.
 ## Verdict
 
 **Not ready** — 11 of 12 lines met across 2 inputs; one orchestrator fix, then re-run E2.
+
+## Test records created
+
+None — outputs are local files.
+````
+
+**Round 2 — `test-results.md`,** three days later, after that one orchestrator fix. Only the missed line changed, so only that card is reproduced here:
+
+````markdown
+---
+workflow: weekly-status-report
+design_spec: outputs/weekly-status-report/design-spec.md
+requirements: outputs/weekly-status-report/requirements.md
+date: 2026-06-08
+environment: "Cowork, HubSpot connector live"
+readiness: ready
+criteria_total: 12
+criteria_met: 12
+results:
+  E1: { AC1: met, AC2: met, AC3: met, R1: met, G1: met, "Step 2 output": met, edits: none }
+  E2: { AC1: met, AC2: met, AC3: met, R1: met, G1: met, "Step 2 output": met, edits: minor }
+---
+
+# Weekly Status Report — Test Results
+
+## Scenarios tested
+
+- **E1 — Typical week:** re-run unchanged on the same tracker week
+- **E2 — Blocked-heavy week with a slipped milestone:** the same constructed input as round 1
+
+## Report card
+
+**E2 — Blocked-heavy week with a slipped milestone** (the line that had missed)
+
+| Expected | From | Result | Evidence |
+|---|---|---|---|
+| Uses the four C2 sections in order | AC2 | Met | Sections in template order |
+
+(E1's card and E2's other rows are unchanged from round 1; rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
+
+## Issues identified
+
+None.
+
+## Verdict
+
+**Ready** — 12 of 12 lines met across 2 inputs. Go to Step 6 (Run).
 
 ## Test records created
 
@@ -748,7 +796,7 @@ And the run log after a few weeks — one line per run, written by the skill its
 
 ## Step 7 — Improve → `improvement-plan.md`
 
-When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. The run log did the talking: the AC2 fix from that first Test round held, and no other line has moved since.
+When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. She re-ran E1 and E2 against the baseline — the Ready round's report card in `test-results.md` — and every line held. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
 
 ````markdown
 # Weekly Status Report — Improvement Plan
@@ -757,33 +805,46 @@ When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversa
 
 ## Current performance summary
 
-12 runs since deployment (run log). Zero failed runs; edits needed on 2 of 12,
-both minor wording tweaks — no recurring pattern.
+12 runs since deployment (run log). Zero failed runs; edits needed on 2 of 12 — one
+reworded blocker, and a risk section added by hand, which the log's own note flags as
+the second time.
 
 ## Regression
 
-| Scenario | Line | Baseline | Current | Note |
-|---|---|---|---|---|
-| E2 | AC2 | Not met | Met | headings now in order |
+Baseline: `test-results.md` (2026-06-08) — the round that produced the Ready verdict.
 
-No other line changed; edits: E1 none, E2 minor.
+| Scenario | Line | Baseline | Now | Evidence |
+|---|---|---|---|---|
+| — | — | — | — | No line changed: 12 of 12 met at baseline, 12 of 12 met now |
+
+Edits unchanged from baseline: E1 none, E2 minor.
 
 Environment like-for-like: same (Cowork, HubSpot connector live).
 
 ## Issues identified
 
-None — no line flipped since the last Test round.
+1. **Run log 2026-07-03 — report template (C2) + orchestrator:** "Added a risk section
+   by hand … Second week I've added risks manually." The report the workflow produces
+   is a section short of the report Maya actually sends.
 
 ## Recommendation
 
-**No changes needed.** The workflow is holding up: the one miss from Test stayed
-fixed, and no quality signal has come up since. Record the result and set the
-next review date.
+**Tune** — add a Risks section to the report template (C2) and the orchestrator's
+format instruction; re-run E1–E2.
+
+Nothing regressed, so this is not a repair. Maya has added the same section by hand two
+weeks running, which is the workflow's scope growing past the four sections it was
+built for — cheaper to teach the template the shape she keeps adding than to keep
+adding it.
 
 ## Action items
 
-1. Record this review in the workflow node
-2. Next review: 2026-12-01 (recorded in the node's `stale_after`)
+1. Add a **Risks** section to the report template in `context/past-reports/` (C2)
+2. Update the orchestrator skill's format instruction to produce it — Build's fix mode,
+   C2 and the orchestrator only
+3. Re-run E1 and E2 in Test, and update AC2 to name the five sections in order
+4. Record this review in the workflow node
+5. Next review: 2026-12-01 (recorded in the node's `stale_after`)
 ````
 
 ---
@@ -792,6 +853,6 @@ next review date.
 
 1. **The folder is the memory.** Every step reads the previous step's file and updates the workflow's registry node — which is why you can leave for a week and say *"continue my workflow."*
 2. **Small was the right size.** Four steps and one connector still exercised every framework concept: a human gate, a golden example, a failure mode caught in Test, and a real Improve decision.
-3. **The documents earn their keep late.** The orchestrator fix cleared the AC2 miss; the run log made the Improve review evidence-based; the report card's frontmatter made "did it get worse?" a lookup instead of a debate.
+3. **The documents earn their keep late.** The orchestrator fix cleared the AC2 miss and a second round proved it; months later the report card's frontmatter made "did it get worse?" a lookup instead of a debate — and it was the run log, not memory, that turned two hand-added risk sections into a Tune.
 
 Ready to start your own? Begin at [Analyze (Step 1)](../../analyze/) — and keep your first workflow about this size.

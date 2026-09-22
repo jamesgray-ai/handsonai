@@ -13,7 +13,7 @@ The output is a single Markdown file: the **Workflow Requirements** document. It
 
 | | |
 |---|---|
-| **What you'll do** | Choose one of two paths (you know the steps, or you know the goal), then work through a guided conversation that captures the requirements |
+| **What you'll do** | Describe your workflow; the skill proposes a path (step-driven or goal-driven) with its reason, you confirm, then work through a guided conversation that captures the requirements |
 | **What you'll get** | A **Workflow Requirements** document — `outputs/[name]/requirements.md` |
 | **Time** | ~45–60 minutes on your own (30–40 in a facilitated session) |
 
@@ -32,7 +32,7 @@ This builds directly on the concept of workflow deconstruction. If terms like th
 
 ## The Two Paths
 
-Step 2 presents one question upfront: **do you know the steps, or just the goal?**
+Step 2 opens by asking you to describe the workflow, then proposes one of two paths and asks you to confirm:
 
 | Path | When to use | Mental model |
 |---|---|---|
@@ -64,11 +64,11 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 **Step-driven (phase 4 on):**
 
 4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, context needs, failure modes, data readiness.
-5. **Human gates** — Where must a person review or approve before the workflow continues?
-6. **Workflow-level rules** — Must always / must never / out of scope / tone and format / what to do when stuck.
-7. **Propose and react** — From step 4 onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
-8. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
-9. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
+5. **Propose and react** — From the second step of your workflow onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
+6. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
+7. **Human gates** — Where must a person review or approve before the workflow continues?
+8. **Workflow-level rules** — Must always / must never / out of scope / tone and format / what to do when stuck.
+9. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
 10. **Validate** — Walk the refined workflow end-to-end to catch gaps before Design.
 
 **Goal-driven (phase 4 on):** Instead of decomposing steps, the skill runs a short interview that stays in "what" territory:
@@ -99,7 +99,7 @@ This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. H
 I need to deconstruct my [workflow name] workflow.
 ```
 
-The skill asks you to choose a path, runs an interactive interview to capture the requirements, validates the workflow end-to-end, and writes the Workflow Requirements file.
+The skill proposes a path from your description, runs an interactive interview to capture the requirements, validates the workflow end-to-end, and writes the Workflow Requirements file.
 
 ### Example prompts
 
@@ -119,7 +119,7 @@ Every platform in the course can load it — [Set Up the Skills](../skills/) has
 
 ### Example: Step-driven path
 
-After you start the conversation, the model asks you to choose a path. If you pick step-driven, here's what the opening looks like:
+After you start the conversation, the model proposes a path from what you describe. If it proposes step-driven, here's what the opening looks like:
 
 > **Model:** Tell me about the workflow — what kicks it off, what you do, and what comes out the other end. Rough is fine.
 >
@@ -203,7 +203,7 @@ The **Workflow Requirements** document uses a shared structure for both paths �
 - **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Driven / Goal-Driven)
 - **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), how sensitive it is (**Public** — a published price list; **Internal** — a project tracker; **Confidential** — an unannounced roadmap; **Regulated** — anything covered by a rule such as patient records or EU customer data), where it came from (**Authored** by someone on your team, or **External** — it arrived from outside), AI accessibility (Yes / Partial / No), and location
 - **Acceptance Criteria** — numbered yes/no statements (`AC1…`), the one or two marked **(must)**, and the real example they were derived from
-- **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where scoring against a known-good reference beats gut-feel ratings
+- **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where checking against a known-good reference beats gut feel
 - **Rules & Constraints** — how the work should be done: must-do, must-never-do, scope boundaries, tone, format, length, and fallback behavior when a case can't be confidently completed, each with an ID (`R1…`)
 - **Human Gates** — where human review or input is required, each with an ID (`G1…`)
 - **Security, Privacy & Safety** — what the workflow must protect: where data may and may not travel, who may see the outputs, what has to be recorded, what it must never do, and which regulation applies. Every constraint names its source
@@ -244,7 +244,7 @@ The Workflow Requirements reads like a PRD, not an interview transcript:
 
 - **Requirements voice** — each line states what must be true, not what the user said in conversation
 - **Fixed structure** — same section headings every time, so downstream skills (Design, Test, Improve) can locate any requirement by path
-- **Stable IDs** — steps are numbered, context items are `C1, C2, C3, …`, scenarios are `E1, E2, E3, …`
+- **Stable IDs** — steps are numbered, context items are `C1, C2, C3, …`, scenarios are `E1, E2, E3, …`, acceptance criteria `AC1…`, rules `R1…`, human gates `G1…`
 - **Tables for lists of items with shared fields** — easier to parse than prose
 - **No interview residue** — no "the user mentioned", "usually", or other narrative
 
