@@ -260,7 +260,7 @@ When the user selects goal-driven, run this interview instead of the step-driven
 
 **Do NOT ask about capability domains, agent count, model class, tools, or orchestration approach.** Those are Design decisions. Goal-driven Deconstruct stays in "what" territory: goal, inputs, acceptance criteria, rules, context, human gates.
 
-**Step 8-GD — Validate before consolidating (goal-driven quality gate).** Step-driven has a Step 10 validation gate; goal-driven needs the equivalent so a vague goal or missing guardrails doesn't sail through to Design. Walk the definition end-to-end and present a short validation summary covering:
+**Step 10-GD — Validate before consolidating (goal-driven quality gate).** Step-driven has a Step 10 validation gate; goal-driven needs the equivalent so a vague goal or missing guardrails doesn't sail through to Design. Walk the definition end-to-end and present a short validation summary covering:
    - **Goal is bounded, singular, and testable** — one clear deliverable that passes the done/not-done test ("help with email" is too vague; "a drafted reply per inbound inquiry" is bounded). If you can't tell from one run's output whether the goal is met, tighten it before Design.
    - **Variation range is captured** — the typical case and the awkward/edge cases are identified (these become the test scenarios in Step 12).
    - **Rules are sufficient** — must-do and must-never both covered; scope boundaries explicit enough to keep the agent in bounds.
@@ -270,7 +270,7 @@ When the user selects goal-driven, run this interview instead of the step-driven
 
    Present as: "Before I finalize, here's a quick check of your goal-driven definition: [findings]. Which of these should we tighten?" Update based on the user's answers. If all clear, say so and proceed.
 
-After completing the interview and Step 8-GD, proceed directly to Step 11 (Consolidate Context) → Step 12 (Acceptance Criteria) → Step 13 (Generate Workflow Requirements) using the goal-driven output format.
+After completing the interview and Step 10-GD, proceed directly to Step 11 (Consolidate Context) → Step 12 (Acceptance Criteria) → Step 13 (Generate Workflow Requirements) using the goal-driven output format.
 
 ## Output
 
