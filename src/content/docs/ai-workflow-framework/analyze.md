@@ -32,7 +32,7 @@ The skill runs six phases in order:
 
 1. **Read what's known** — The registry (your business, processes, existing workflows) plus memory and project files. Presented for you to confirm; nothing you've already said is asked again.
 2. **Lens selection** — Individual (your own workflows) or Organizational (your business's processes). Inferred and confirmed when obvious.
-3. **Discovery interview** — Focused questions, one at a time, only on what step 1 didn't cover.
+3. **Discovery interview** — Focused questions, one at a time, only on what phase 1 didn't cover.
 4. **Opportunity report** — A summary table and detailed cards, grouped by autonomy level, ordered by impact.
 5. **Candidates registered** — You pick 3–5; each becomes a backlog Workflow node in your registry, filed under one of your processes, and the skill recommends which to build first (a starter-sized one).
 6. **The other lens** — Offered as a later session.

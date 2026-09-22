@@ -23,7 +23,7 @@ Every run so far used test inputs. Run is where the workflow does this week's re
 
 ## How the Skill Works
 
-The skill runs four steps:
+The skill runs four phases:
 
 1. **Load context** — the Workflow node, the Design Spec, the installed artifacts, and the test results (if the verdict isn't Ready, it sends you to Build's fix mode, which fixes what Test found and re-runs Test).
 2. **The first real run** — your real input, in a fresh session, started the way an operator would start it.

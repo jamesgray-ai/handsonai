@@ -4,7 +4,7 @@ description: >
   This skill should be used when the user has built and tested workflow artifacts and is ready to put the
   workflow into production. It guides the first real run, writes the Run Card, and sets up the run log and
   the first review date.
-  Also use when the user says "continue my workflow" and the workflow manifest shows Step 6 (Run) is next. This is Step 6 (Run) of the AI Workflow Framework.
+  Also use when the user says "continue my workflow" and the Workflow node shows Step 6 (Run) is next. This is Step 6 (Run) of the AI Workflow Framework.
 user-invocable: true
 ---
 
@@ -20,19 +20,19 @@ Put a tested AI workflow into production: do the first real run on real work, th
 
 **Set expectations up front (first message).** Say: "This takes about 15–20 minutes. You've tested the workflow; now we use it on real work for the first time, and I'll leave you a one-page Run Card so you know exactly how to start it on any given day."
 
-#### Step 1 — Load context
+#### Phase 1 — Load context
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-Read the Workflow node, the Design Spec, the artifacts and skills Build linked under the node's `# Artifacts` / `# Skills` (the paths from Build's Step 10 reconciliation table), and `test-results.md`. **Resume orientation** as in every framework skill. If the verdict is not `ready`, say so and route to Build: `not-ready` enters Build's fix mode, `waiting-on-access` means authorizing the named connector there, and Build sends the user back to Test once that is done. Read the platform's `capabilities.skill_install` (or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), `capabilities.context_location` and `capabilities.unattended_runs` (or, if the entry has no `capabilities`, its `notes`) — every concrete instruction below comes from there, never from this file.
+Read the Workflow node, the Design Spec, the artifacts and skills Build linked under the node's `# Artifacts` / `# Skills` (the paths from Build Phase 10, the reconciliation table), and `test-results.md`. **Resume orientation** as in every framework skill. If the verdict is not `ready`, say so and route to Build: `not-ready` enters Build's fix mode, `waiting-on-access` means authorizing the named connector there, and Build sends the user back to Test once that is done. Read the platform's `capabilities.skill_install` (or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), `capabilities.context_location` and `capabilities.unattended_runs` (or, if the entry has no `capabilities`, its `notes`) — every concrete instruction below comes from there, never from this file.
 
 **Guided-mode platforms** (spec `platform_mode: guided` with GUI instruction documents instead of files): the Run Card still has the same six headings; "How to start it" points at the configured agent or skill in the platform UI and the instruction documents Build produced.
 
-#### Step 2 — The first real run
+#### Phase 2 — The first real run
 
 Before the run: the user opens a new chat and confirms the skill (or agent) is listed; if it isn't, go back to Build's install handoff — nothing else here will work. This is the first time the workflow runs on *real* work rather than a test input. Name it: "Every run so far used test inputs. Let's do this week's real one together." The user starts it exactly as an operator would (fresh conversation, invoked by name, per the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), with the real input. Watch for: the connectors being authorized in *that* account, context files resolving, each human gate actually pausing. Confirm the output against the report-card lines once more. If anything fails here that Test passed, it is almost always the run environment (a connector not authorized in this account, a context file in the wrong place) — fix that, don't rebuild.
 
-#### Step 3 — Write the Run Card
+#### Phase 3 — Write the Run Card
 
 Save to `outputs/[workflow-name]/run-guide.md` with exactly these headings, in this order, each a short plain-language section:
 
@@ -62,9 +62,9 @@ Save to `outputs/[workflow-name]/run-guide.md` with exactly these headings, in t
 
 Present the Run Card in the conversation as well as saving it.
 
-#### Step 4 — Run log, registry, review date
+#### Phase 4 — Run log, registry, review date
 
-Create `outputs/[workflow-name]/runs.md` with the header row, and add today's first real run as row one — unless the orchestrator already appended it during Step 2, in which case just check the row is right:
+Create `outputs/[workflow-name]/runs.md` with the header row, and add today's first real run as row one — unless the orchestrator already appended it during Phase 2, in which case just check the row is right:
 
 ```markdown
 | Date | Input / trigger | Result | Edits needed | Notes |

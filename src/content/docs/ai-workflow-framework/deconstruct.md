@@ -53,37 +53,37 @@ Both paths produce a Workflow Requirements document with the same shared structu
 
 ## How the Skill Works
 
-Phases 1–3 establish *what* you're deconstructing and are the same for both paths. From phase 4 on, the skill follows the path you picked.
+Phases 1–3 establish *what* you're deconstructing and are the same for both paths. From phase 4 on, the skill follows the path you picked, and the two rejoin at phase 11.
 
-**Phases 1–3 (both paths):**
+**Step-driven (all 13 phases):**
 
-1. **Scenario analysis** — If you reference an opportunity report from Analyze, the skill reads the workflow candidates and pre-populates metadata. Otherwise it asks about the business scenario, objective, high-level steps, and ownership. If you describe a problem instead of a workflow, the skill proposes a candidate workflow for you to react to.
+1. **Scenario discovery** — If you reference an opportunity report from Analyze, the skill reads the workflow candidates and pre-populates metadata. Otherwise it asks about the business scenario, objective, high-level steps, and ownership. If you describe a problem instead of a workflow, the skill proposes a candidate workflow for you to react to.
 2. **Scope check** — Is this one workflow or multiple bundled together? If multiple, the skill recommends splitting and asks which to start with.
 3. **Name the workflow** — The skill proposes 2–3 name options (2–4 word noun phrases, Title Case) and confirms name, description, goal, trigger, and type.
-
-**Step-driven (phase 4 on):**
-
 4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, context needs, failure modes, data readiness.
 5. **Propose and react** — From the second step of your workflow onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
 6. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
 7. **Human gates** — Where must a person review or approve before the workflow continues?
 8. **Workflow-level rules** — Must always / must never / out of scope / tone and format / what to do when stuck.
 9. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
-10. **Validate** — Walk the refined workflow end-to-end to catch gaps before Design.
+10. **Validate the workflow** — Walk the refined workflow end-to-end to catch gaps before Design.
+11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
+12. **Define how you will judge the output** — a real good example first, then numbered yes/no criteria derived from it, 3–5 realistic inputs, and golden examples where they exist.
+13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
 
-**Goal-driven (phase 4 on):** Instead of decomposing steps, the skill runs a short interview that stays in "what" territory:
+**Goal-driven:** phases 1–3 are identical. Instead of decomposing steps, phase 4 runs a short interview that stays in "what" territory:
 
-4. **Scenario** — You describe the situation in plain language: what's going on, what kicks this off, what you're trying to get done. No precision demanded yet.
-5. **Goal** — You describe the result ("like you'd tell a colleague"); the skill reflects back a structured deliverable (format, structure, scope) with an explicit completion state and confirms.
-6. **Goal pressure-test** — Before accepting the goal, the skill challenges it: could you say "done or not done" from one run's output? Is this a deliverable or a business metric? What would a plausible-but-wrong output look like? Vague goals get sharpened here, not in Design.
-7. **Variation, inputs, rules, fallback, context, human gates** — The skill captures the range of situations to handle, what the agent receives, the guardrails, what to do when it's stuck, the data sources, and where to pause for review.
-8. **Validate** — A quality gate checks the goal is bounded and testable, the variation range and fallback behavior are defined, the rules are sufficient, and the context is reachable.
+1. **Scenario discovery** — Same as above: how you're arriving, and which path fits the work.
+2. **Scope check** — Same as above: one trigger and one deliverable, or several workflows bundled together?
+3. **Name the workflow** — Same as above: the name, description, goal, and trigger, plus the kebab-case ID every later file uses.
+4. **Goal interview** *(goal-driven)* — The situation, the goal reflected back as a concrete deliverable and pressure-tested, then the variation range, inputs, rules, fallback behavior, context sources, and human gates.
 
-**Both paths converge (final phases):**
+Then both paths rejoin:
 
-- **Consolidate context** — Present a rolled-up "context shopping list" of every artifact the workflow needs.
-- **How you'll judge the output** — a real good example first, then numbered yes/no criteria derived from it, 3–5 realistic inputs, and golden examples where they exist.
-- **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
+10. **Validate** *(goal-driven)* — A quality gate checks the goal is bounded and testable, the variation range and fallback behavior are defined, the rules are sufficient, and the context is reachable.
+11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
+12. **Define how you will judge the output** — a real good example first, then numbered yes/no criteria derived from it, 3–5 realistic inputs, and golden examples where they exist.
+13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
 
 ## How to Use This
 

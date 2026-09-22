@@ -1,16 +1,16 @@
 # Goal-Driven Processing Path
 
-When the Workflow Requirements has `Definition Type: Goal-Driven` (or the legacy value `Outcome-Driven` — treat it as Goal-Driven; legacy files may also use a `## Outcome` heading where newer ones use `## Goal`), the following modifications apply to the standard Design workflow. Read this file in full before proceeding past Step 1 for a goal-driven workflow — these substitutions change Steps 3–9 and the spec template.
+When the Workflow Requirements has `Definition Type: Goal-Driven` (or the legacy value `Outcome-Driven` — treat it as Goal-Driven; legacy files may also use a `## Outcome` heading where newer ones use `## Goal`), the following modifications apply to the standard Design workflow. Read this file in full before proceeding past Phase 1 for a goal-driven workflow — these substitutions change Phases 3–13 and the spec template.
 
-**Step 3 (Architecture Decisions):** Same as standard, but the source sections differ. For goal-driven Workflow Requirements, extract tools from the **Inputs**, **Rules & Constraints**, and **Context Inventory** sections (there are no per-step data flows to read from). Capability Domains do not exist in the Workflow Requirements — they are derived in Step 6.
+**Phase 3 (Architecture decisions):** Same as standard, but the source sections differ. For goal-driven Workflow Requirements, extract tools from the **Inputs**, **Rules & Constraints**, and **Context Inventory** sections (there are no per-step data flows to read from). Capability Domains do not exist in the Workflow Requirements — they are derived in Phase 8.
 
-**Step 4 (Autonomy Assessment):** State as fact: "This is a goal-driven workflow — autonomy is **Autonomous** by definition. The agent system determines its own execution path."
+**Phase 4 (Autonomy):** State as fact: "This is a goal-driven workflow — autonomy is **Autonomous** by definition. The agent system determines its own execution path."
 
-**Step 5 (Orchestration Mechanism):** State as fact: "Orchestration is **Agent**." Still determine the involvement mode (Augmented/Automated) from the definition's Human Gates section and trigger type. Still ask the platform sub-choice if the platform has multiple agent offerings.
+**Phase 5 (Mechanism):** State as fact: "Orchestration is **Agent**." Still determine the involvement mode (Augmented/Automated) from the definition's Human Gates section and trigger type. Still ask the platform sub-choice if the platform has multiple agent offerings.
 
-**On Claude Code/Cowork, "Agent" mechanism does NOT mean "build an orchestrator agent file."** It means the workflow is driven by an agentic loop — and that loop is the **primary session**. The artifacts you produce are the orchestration logic (an orchestrator **skill** — `disable-model-invocation: true`, no `context: fork` — and/or a `CLAUDE.md` run section) plus the **sub-agent(s)** the primary loop dispatches (see "Who is the orchestrator?" in Step 5 of the skill). Carry this into Capability Domain Mapping and Agent Configuration below.
+**On Claude Code/Cowork, "Agent" mechanism does NOT mean "build an orchestrator agent file."** It means the workflow is driven by an agentic loop — and that loop is the **primary session**. The artifacts you produce are the orchestration logic (an orchestrator **skill** — `disable-model-invocation: true`, no `context: fork` — and/or a `CLAUDE.md` run section) plus the **sub-agent(s)** the primary loop dispatches (see "Who is the orchestrator?" in Phase 5 of the skill). Carry this into Capability Domain Mapping and Agent Configuration below.
 
-**Step 6 (Classify Each Step) → Capability Domain Mapping:** Replace per-step classification with capability domain mapping.
+**Phase 8 (Classify each step) → Capability Domain Mapping:** Replace per-step classification with capability domain mapping.
 
 **Important:** Capability Domains are derived by Design — they are **not** captured in the Workflow Requirements (the Workflow Requirements stays in "what" territory; capability decomposition is "how"). Infer capability domains from the Workflow Requirements' Goal, Inputs, Rules & Constraints, and Acceptance Criteria. Propose them to the user and confirm before mapping.
 
@@ -27,15 +27,15 @@ For each derived capability domain:
 
 Same Integration Discovery and Skill Discovery processes apply, operating on capability domains instead of steps.
 
-**Step 7 (Skill Candidates):** Same field structure — identify which capability domains should become skills. Each skill candidate uses the full 12-field Skill Candidate block (with Covers Domains in place of Covers Steps).
+**Phase 10 (Skill candidates):** Same field structure — identify which capability domains should become skills. Each skill candidate uses the full 12-field Skill Candidate block (with Covers Domains in place of Covers Steps).
 
-**Step 8 (Agent Configuration):** This is usually the primary blueprint section. Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** — the workers — using all 14 standard fields, drawing Description, Mission, Responsibilities, Output Format, and Constraints from the Workflow Requirements' Goal, Rules & Constraints, and Acceptance Criteria.
+**Phase 11 (Agent configuration):** This is usually the primary blueprint section. Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** — the workers — using all 14 standard fields, drawing Description, Mission, Responsibilities, Output Format, and Constraints from the Workflow Requirements' Goal, Rules & Constraints, and Acceptance Criteria.
 
 **Mandatory-but-with-an-exception:** document at least one agent **whenever the design includes a sub-agent/agent artifact** (the common case). A valid goal-driven design on a primary-loop platform (Claude Code/Cowork) may have **zero sub-agents** — just orchestration logic (an orchestrator skill and/or `CLAUDE.md` run section) + skills. In that case record `agents: 0` in the frontmatter counts and document the orchestration logic in the Deployment Plan / Orchestrator notes instead — **do not invent a sub-agent to satisfy the field.** Never document the orchestrator (the primary loop) as an agent artifact.
 
-**Step 8b (Verify Evaluation Inputs):** Same as step-driven — confirm Acceptance Criteria and Example Scenarios in the Workflow Requirements are complete; do not duplicate.
+**Phase 12 (Verify evaluation inputs):** Same as step-driven — confirm Acceptance Criteria and Example Scenarios in the Workflow Requirements are complete; do not duplicate.
 
-**Step 9 (Generate Spec):** Use the modified template sections below. The spec uses the same filename pattern and same frontmatter shape (with `definition_type: Goal-Driven`). The Step-by-Step Decomposition section is replaced with Capability Domain Mapping; the Autonomy Spectrum Summary becomes a brief Autonomous statement; Build Output is captured per domain rather than per step.
+**Phase 13 (Write the draft spec):** Use the modified template sections below. The spec uses the same filename pattern and same frontmatter shape (with `definition_type: Goal-Driven`). The Step-by-Step Decomposition section is replaced with Capability Domain Mapping; the Autonomy Spectrum Summary becomes a brief Autonomous statement; Build Output is captured per domain rather than per step.
 
 ## Spec template modifications
 

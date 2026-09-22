@@ -1,7 +1,7 @@
 ---
 name: test
 description: >
-  Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. Also use when the user says "continue my workflow" and the workflow manifest shows Step 5 (Test) is next. This is Step 5 (Test) of the AI Workflow Framework.
+  Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. Also use when the user says "continue my workflow" and the Workflow node shows Step 5 (Test) is next. This is Step 5 (Test) of the AI Workflow Framework.
 user-invocable: true
 ---
 
@@ -17,7 +17,7 @@ Check the built workflow against the yes/no criteria captured in Deconstruct, on
 
 If the skill is not yet installed on a platform that needs installation, stop and route the user back to Build's install step first. If files were edited since installation, remind the user the installed copy is stale — repackage and reinstall before running.
 
-### 1. Load context
+#### Phase 1 — Load context
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
@@ -27,21 +27,21 @@ From the Requirements, build the **check list** the report card will use: every 
 
 If the Requirements predates this format (has "Dimensions that matter" and a prose "Minimum bar" instead of numbered `AC` lines), convert it now with the user: turn each dimension and the "what good looks like" text into numbered yes/no statements, write them back into the Requirements file under `## Acceptance Criteria`, and note the conversion in this run's results.
 
-### 2. Confirm the passing rule
+#### Phase 2 — Confirm the passing rule
 
 Restate it so nobody is surprised later: "The workflow is **ready** when every line of the report card is Met on every scenario. A miss on a **(must)** line always fails the scenario. Any other miss you can either fix or explicitly accept — an accepted miss is recorded, not hidden." Ask whether any criterion should be added or dropped before running. Changes go into the Requirements file, not into this conversation only.
 
-### 3. Smoke run (one scenario, logic only)
+#### Phase 3 — Smoke run
 
-Before the full round, walk one scenario mentally against the built skill's text — read the orchestrator and check that each Requirements step, rule, and gate is actually represented. This catches obvious gaps (a missing gate, an unreferenced context file) before the user spends a run on them. It is not a graded run.
+One scenario, logic only. Before the full round, walk one scenario mentally against the built skill's text — read the orchestrator and check that each Requirements step, rule, and gate is actually represented. This catches obvious gaps (a missing gate, an unreferenced context file) before the user spends a run on them. It is not a graded run.
 
-### 4. Integration pre-flight
+#### Phase 4 — Integration pre-flight
 
 For each connector the scenarios exercise, confirm the access it needs (read vs. write) is authorized in the account that will run the workflow. If a write path is blocked, do not abort: run everything else and mark the blocked step **simulated** in the report card (`Result: Not run — waiting on [tool] write access`). The round's verdict is then `waiting-on-access`, which is an authorization gap for the user to fix, not a defect to rebuild.
 
-**Live-system caution.** A real run can create real drafts, rows, or events. Prefer a clearly marked test record; after the round, list everything created and where, and offer to remove it (Step 8).
+**Live-system caution.** A real run can create real drafts, rows, or events. Prefer a clearly marked test record; after the round, list everything created and where, and offer to remove it (Phase 8).
 
-### 5. Run and grade each scenario
+#### Phase 5 — Run and grade each scenario
 
 For each scenario `E1…`:
 
@@ -59,7 +59,7 @@ For each scenario `E1…`:
 4. **The user confirms or overrides each result.** "I marked R3 Not met because two rows were already contacted — agree?" Record the confirmed result. The user is the judge; the grading is the starting point.
 5. Ask one closing question per scenario: "How much would you have to edit this before using it — nothing, a little, or a lot?" Record as `edits: none | minor | major`.
 
-### 6. Diagnose every miss
+#### Phase 6 — Diagnose every miss
 
 Map each Not met line to the building block that caused it:
 
@@ -77,13 +77,13 @@ If a miss's cause is not obvious from the table, isolate it: run that one buildi
 
 Write the diagnosis as `## Issues identified`, one row per miss: `Scenario | Line | Building block (S1, S2, A1, C3, orchestrator, connector) | What to change`. Build's fix mode reads this table.
 
-### 7. Verdict
+#### Phase 7 — Verdict
 
 - **Ready** — every line Met on every scenario (accepted misses recorded with the user's reason). → `run` skill (Step 6).
 - **Not ready** — at least one unaccepted miss. → `build` skill; it will regenerate only the building blocks named in Issues identified, then come back here and re-run the failed scenarios, then the full set.
 - **Waiting on access** — the logic passed but a connector's write access is not authorized. Name the connector and what to authorize. Not a rebuild.
 
-### 8. Clean up test records
+#### Phase 8 — Clean up test records
 
 List every draft, row, message, or event the round created in live systems, with its location, and offer to remove each one.
 
@@ -116,7 +116,7 @@ Use the real IDs. `results` values are `met`, `not-met`, or `not-run` (a line th
 - **Golden example deltas** — per scenario with a golden example: missing / extra / substantively different
 - **Not run** — any line simulated or skipped, and why
 - **Environment** — which connectors were live vs. simulated
-- **Issues identified** — the diagnosis table from Step 6
+- **Issues identified** — the diagnosis table from Phase 6
 - **Accepted misses** — any Not met the user accepted, with the reason
 - **Verdict** — Ready / Not ready / Waiting on access, with the count ("11 of 12 lines met across 2 scenarios")
 - **Test records created** — and whether they were removed
