@@ -41,7 +41,7 @@ The Design skill walks you through these layers in order, with a lightweight con
 
 ## Why This Matters
 
-Not every workflow needs the same level of AI infrastructure. A weekly status report might need a single well-crafted prompt. A multi-department content pipeline might need specialized agents coordinating across stages. Choosing the wrong mechanism means either over-engineering (building agents when a prompt would do) or under-building (forcing a prompt to do agent-level work).
+Not every workflow needs the same level of AI infrastructure. A weekly status report is a skill you start by name that follows the same steps every time. A multi-department content pipeline may need an agent that decides its own path as it goes. Choosing the wrong mechanism means either over-engineering (an agent where a skill would do) or under-building (a skill forced to make agent-level decisions).
 
 Design also makes the workflow **portable**. Because the Design Spec follows the agentskills.io standard and uses stable IDs for every component, the same spec can be built on Claude Code, Claude.ai, Cowork, Codex, ChatGPT, or Gemini CLI — with only the platform-specific bits (Packaging, Deployment Plan) adjusted at the handoff.
 
