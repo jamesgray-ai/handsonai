@@ -22,6 +22,7 @@ Take a Workflow Requirements document (produced by Step 2 — Deconstruct) and p
 | `references/goal-driven-path.md` | At Step 1, the moment the Workflow Requirements shows `Definition Type: Goal-Driven` (or legacy `Outcome-Driven`) |
 | `references/spec-template.md` | At Step 9, before assembling the Design Spec — the spec's structure exists **only** in this file |
 | `references/self-test-checklist.md` | At Step 9, before running the self-test — the checklist items exist **only** in this file |
+| `references/orchestrator-on-primary-loop.md` | At Step 5, only when mechanism = Agent |
 
 This SKILL.md deliberately does **not** restate the spec's section structure or the checklist items. A spec assembled without reading the template will have wrong headings and a wrong `spec_version`, and Build's frontmatter parse will fail on it.
 
@@ -203,11 +204,7 @@ If the user pushes back, discuss in plain language — never drop into the inter
 
 Single-agent vs. multi-agent is an architecture detail decided during Agent Configuration (Step 8) if Agent is selected — not a top-level choice here.
 
-**Who is the orchestrator? (read before designing any Agent workflow.)** On **Claude Code or Cowork — any platform with a primary agentic loop — the primary session IS the orchestrator.** Do **not** design a separate "orchestrator agent" file. What you build are:
-- **Orchestration logic** — captured as an **orchestrator skill** (`disable-model-invocation: true` for a user-triggered workflow; **no `context: fork`** — it must run in the primary loop so it can dispatch sub-agents) and/or a `CLAUDE.md` run section the primary loop follows (scan/classify/dispatch/label/summarize, etc.). This is not an "agent" artifact. **Prefer a skill over a legacy slash command:** custom commands are merged into skills, so a skill still invokes as `/name` but adds portability (agentskills.io), distribution via skill tooling, and a supporting-files directory. **Naming convention:** the orchestrator skill takes the **workflow name**; component/worker artifacts (synthesizers, researchers, etc.) take **capability-specific names** — so the one user-facing entry point never collides with a sub-skill (a same-named skill silently shadows everything else, including any command).
-- **Sub-agent(s)** — the workers the primary loop dispatches, one per unit of work (e.g., per item in a batch). Sometimes **zero** sub-agents are needed — the orchestration logic + skills are enough. **Scope note:** this command→skill change applies to the *orchestrator* only; fan-out workers stay as sub-agents (`.claude/agents/*.md`).
-
-The agent artifacts you generate are always the **workers the orchestrator delegates to**, never the orchestrator itself. Reserve a standalone, self-running "agent" artifact for **SDK platforms** where you deploy the agent process yourself. (This is the single most common design mistake on Claude Code: inventing an orchestrator agent when the primary loop already is one.)
+**Who is the orchestrator?** If mechanism is Agent, read `references/orchestrator-on-primary-loop.md` before Agent Configuration — it decides whether the orchestrator is the primary session (Claude Code, Cowork) or a platform agent primitive.
 
 **Fast-track for complete Workflow Requirements:** If the Workflow Requirements + conversation context provide enough information to resolve the autonomy level, tool extraction, and step classifications, you may present those internal/technical dimensions as a single summary block instead of stepping through questions one at a time.
 
