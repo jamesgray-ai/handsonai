@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 You've just finished [Design (Step 3)](../design/). You should have:
 
-- **Design Spec** (`[name]/design-spec.md`) — your approved blueprint with architecture approach, autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
+- **Design Spec** (`[name]/design-spec.md`) — your approved blueprint with autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
 
 If you're returning from [Test (Step 5)](../test/) to fix issues, you may also have test results telling you which building block needs adjustment.
 
@@ -44,7 +44,7 @@ When a workflow produces generic or off-brand output, the fix is almost always b
 
 The model offers two paths:
 
-1. **"Claude builds it"** — The model generates all artifacts (skills, agents, prompts, configs) based on the approved spec and places them where they belong. This is the recommended default.
+1. **"Claude builds it"** — The model generates all artifacts (skills, agents, configs) based on the approved spec and places them where they belong. This is the recommended default.
 2. **"You build it yourself"** — The model provides a Construction Guide with build sequence, format references, and pointers to creation skills you can invoke — but you do the building.
 
 Either way, the model starts by checking the **Data Readiness Summary** from your spec. Items flagged as "Partial" or "No" for AI accessibility are gated — they must be resolved (exporting data, granting access, reformatting files) before dependent steps can proceed.
@@ -129,7 +129,7 @@ The [Builder Tools Setup](../../builder-setup/) guide walks you through everythi
 
 | File | What it is |
 |------|-----------|
-| Platform artifacts | Prompts, skills, agents, and configs generated in whatever format your platform needs |
+| Platform artifacts | Skills, agents, and configs generated in whatever format your platform needs |
 | Context artifacts | Style guides, reference materials, and examples — formatted for AI consumption |
 | Tool connections | MCP connections and integrations configured on your platform |
 

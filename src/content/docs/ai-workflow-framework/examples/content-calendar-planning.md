@@ -46,9 +46,9 @@ The Design Spec is what [Design](../../design/) produces from the Workflow Requi
 - **4 skill candidates** with full specifications: purpose, inputs, outputs, decision logic, and failure modes
 - **Dependency map** and critical path analysis
 - **Context inventory** — what data sources and reference materials each step needs
-- **Recommended implementation order** — Quick Wins first (prompt + 2 simple skills), then Guided (2 complex skills), then Future Enhancements
+- **Recommended implementation order** — Quick Wins first (an inline prompt block + 2 simple skills), then Guided (2 complex skills), then Future Enhancements
 
-**Key insight:** The spec doesn't say "build everything at once." It recommends starting with a prompt — pure conversation, no infrastructure — so you get value immediately. Database skills layer in incrementally. This build order means you're running the workflow on day one.
+**Key insight:** The spec doesn't say "build everything at once." It recommends starting with an inline prompt block for the simple steps, so you get value immediately. Database skills layer in incrementally. This build order means you're running the workflow on day one.
 
 ---
 

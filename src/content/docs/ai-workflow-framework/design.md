@@ -211,7 +211,7 @@ When more than one agent is defined, this section captures the orchestration pat
 
 Prerequisites lists platform setup, accounts, credentials, and plugin installs needed before the workflow can run. The Deployment Plan documents where each artifact lives and how it gets deployed — with a Packaging note explaining how artifacts ship together.
 
-**End of Layer 3.** Final Spec Approval Gate — the only hard gate. Review the full spec; approve to move to [Build](../build/).
+**End of Layer 3.** The only hard gate. After the model produces the spec, it is saved as a draft file you can open and read; say approve and it is marked approved. Build refuses an unapproved spec. Then move to [Build](../build/).
 
 ---
 

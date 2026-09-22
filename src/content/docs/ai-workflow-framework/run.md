@@ -26,7 +26,7 @@ The skill runs four phases. The sections that follow expand on each:
 
 ## Start with Your Run Guide
 
-At the end of Build and Test, the model generates a **Run Guide** (`[name]/run-guide.md`) — a plain-language walkthrough tailored to your platform, architecture approach, and technical comfort level. It tells you exactly what to do with the artifacts that were built:
+At the end of Build and Test, the model generates a **Run Guide** (`[name]/run-guide.md`) — a plain-language walkthrough tailored to your platform, packaging, and technical comfort level. It tells you exactly what to do with the artifacts that were built:
 
 1. **What was built** — Every artifact listed with what it does and where it lives
 2. **Setup steps** — Numbered instructions for getting each artifact into the right place on your platform (menu paths, button names, what you should see when it is working)
@@ -55,7 +55,7 @@ Start with the simplest pattern that fits your needs. You can always move to a m
 
 ### Run in a Project
 
-Set up a persistent workspace where your prompt, context files, and settings are pre-loaded. This eliminates the need to paste and attach files every time.
+Set up a persistent workspace where your prompt, context files, and settings are pre-loaded. That way you do not re-attach the same files every run.
 
 **When to use it:**
 

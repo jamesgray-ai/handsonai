@@ -162,7 +162,7 @@ Most workflows need 2-4 iterations between Build and Test before they produce re
 
 Deploy and operate your tested workflow.
 
-Once your workflow passes testing, Run helps you put it into production. The skill produces a Run Guide tailored to your platform and technical comfort level, then helps you choose the right run pattern — from simple paste-and-run to fully automated schedules. For organizational workflows, Run also covers sharing with your team and setting up ongoing operations.
+Once your workflow passes testing, Run helps you put it into production. The skill produces a Run Guide tailored to your platform and technical comfort level, then helps you choose the right run pattern — from running it inside a project to fully automated schedules. For organizational workflows, Run also covers sharing with your team and setting up ongoing operations.
 
 **Deliverable:** **Run Guide** (`outputs/[name]/run-guide.md`) — artifact inventory, setup steps, first production run instructions, run pattern, and operationalization guidance.
 

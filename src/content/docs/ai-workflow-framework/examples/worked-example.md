@@ -487,7 +487,7 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 | **Name** | weekly-status-report |
 | **Description** | This skill should be used when Maya wants to produce the Friday leadership status report. It pulls the week's updates from the HubSpot tracker, drafts the report using S2, pauses for review, and saves the approved report. |
 | **Purpose** | Orchestrates all four steps end to end; the skill Maya triggers by name |
-| **Covers Steps / Domains** | Steps 1–4 (all) |
+| **Covers Steps / Domains** | all (Steps 1–4) |
 | **Inputs** | Trigger phrase ("run my weekly status report"); HubSpot tracker data |
 | **Outputs** | Saved status report file; a logged run row |
 | **Decision Logic** | Sequences Steps 1–4 in order; pauses at the Step 3 human gate; never saves or shares without approval |
