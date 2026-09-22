@@ -12,8 +12,8 @@ A structured audit that helps you find where AI fits in your work. The analysis 
 | | |
 |---|---|
 | **What you'll do** | Walk through a guided conversation covering your role, tasks, and pain points |
-| **What you'll get** | A prioritized report of AI opportunities classified by autonomy (Deterministic, Guided, Autonomous) and involvement (Augmented, Automated) — with concrete next steps for each |
-| **Time** | ~20–30 minutes for the full conversation |
+| **What you'll get** | Three to five candidate workflows registered in your registry backlog, a prioritized report, and one recommendation to build first |
+| **Time** | ~15–20 minutes |
 
 ## Why This Matters
 
@@ -30,12 +30,12 @@ This step guides an AI through a structured analysis of your work — from eithe
 
 The skill runs six phases in order:
 
-1. **Memory & history scan** — The AI reviews everything it knows about you from prior conversations, memory, and project files. Presents findings for you to confirm or correct.
-2. **Lens selection** — The AI asks which lens to use: **Individual** (your personal workflows) or **Organizational** (your business's value chain). If your context makes one obvious, it infers and confirms.
-3. **Targeted discovery interview** — The AI asks focused, lens-specific questions one at a time. Individual lens: role, repetitive tasks, information synthesis, multi-step processes, quality issues, communication overhead, decision-making. Organizational lens: business objectives, value chain processes, cross-functional handoffs, bottlenecks, consistency risks, measurement gaps, scale constraints. Follow-up questions adjust based on your answers.
-4. **Opportunity analysis & report** — Produces a summary table and detailed opportunity cards grouped by autonomy level (Deterministic, Guided, Autonomous) with involvement mode (Augmented, Automated), ordered by impact.
-5. **Workflow candidate summary** — You pick your top candidates, and the AI produces structured metadata for each: name, description, trigger, deliverable, autonomy, involvement, pain point, AI opportunity, frequency, priority, reasoning, and lens. Organizational candidates also include business objective, stakeholders, and success metrics. The AI recommends which to deconstruct first.
-6. **Second lens follow-up** — The AI offers to explore the other lens for a more complete picture. You can accept or move on.
+1. **Read what's known** — The registry (your business, processes, existing workflows) plus memory and project files. Presented for you to confirm; nothing you've already said is asked again.
+2. **Lens selection** — Individual (your own workflows) or Organizational (your business's processes). Inferred and confirmed when obvious.
+3. **Discovery interview** — Focused questions, one at a time, only on what step 1 didn't cover.
+4. **Opportunity report** — A summary table and detailed cards, grouped by autonomy level, ordered by impact.
+5. **Candidates registered** — You pick 3–5; each becomes a backlog Workflow node in your registry, filed under one of your processes, and the skill recommends which to build first (a starter-sized one).
+6. **The other lens** — Offered as a later session.
 
 Most people discover 5–15 opportunities across different autonomy levels. Pick three to start with.
 
@@ -93,6 +93,7 @@ The **AI Opportunity Report** (`ai-opportunity-report.md`) captures:
 - **Top recommendations** — the 3 highest-priority opportunities with one-sentence rationales
 - **Detailed opportunity cards** — grouped by autonomy level (Deterministic → Guided → Autonomous), each with: why it's a good candidate, current pain point, how AI helps, and a practical first step
 - **Workflow Candidate Summary** — structured metadata for the workflows you choose to pursue: name, description, trigger, deliverable, autonomy, involvement, pain point, AI opportunity, frequency, priority, reasoning, and lens. Organizational-lens candidates also include business objective, stakeholders, and success metrics.
+- **Backlog Workflow nodes** — one per chosen candidate in `registry/workflows/`, linked to the report. Deconstruct picks one up from here.
 
 The Workflow Candidate Summary is the input for [Deconstruct Workflows](../deconstruct/) (Step 2) — the trigger and deliverable fields map directly to the scope check that starts the deconstruction. Its business objective and success metrics also seed Deconstruct's `Value & Measurement` section, so an organizational-lens candidate arrives with two of those answers already drafted.
 
@@ -106,7 +107,7 @@ See three complete [example reports](../analyze-examples/) to get a feel for the
 - **Be concrete when answering questions.** "I spend 30 minutes every Monday formatting a status report from three Jira boards" is far more useful than "I do reporting."
 - **Run it again in a few weeks.** As you have more conversations and the AI learns more about your work, re-running this prompt will surface new opportunities.
 - **Share the output with your team.** Some of the best opportunities come from workflows that span multiple people — your colleagues may see possibilities you don't. The organizational lens is especially useful for this.
-- **Try both lenses.** The individual lens surfaces your personal pain points; the organizational lens surfaces value chain opportunities that may have higher strategic impact. The skill offers to run both.
+- **Try both lenses.** The individual lens surfaces your personal pain points; the organizational lens surfaces value chain opportunities that may have higher strategic impact — worth a separate short session.
 
 ## Related
 

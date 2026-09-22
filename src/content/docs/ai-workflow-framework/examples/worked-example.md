@@ -17,7 +17,7 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 [Your Cowork project]/
 ├── registry/
 │   └── workflows/
-│       └── weekly-status-report.md   ← the workflow's registry entry (created in Step 2, updated by every step)
+│       └── weekly-status-report.md   ← the workflow's registry entry (created as a backlog stub in Step 1, updated by every step)
 ├── outputs/
 │   ├── ai-opportunity-report.md          ← Step 1 (Analyze)
 │   └── weekly-status-report/
@@ -110,13 +110,45 @@ The full file (trimmed to two candidates for readability — a real report often
 **Recommendation:** Deconstruct Weekly Status Report first.
 ````
 
+Analyze registered both candidates as backlog Workflow nodes before ending the session. Here's the one for Weekly Status Report:
+
+````markdown
+---
+type: Workflow
+title: "Weekly Status Report"
+description: "Draft the Friday leadership status report from the HubSpot tracker. One-page status report ready for Maya's review."
+generated: { by: process:analyze, at: 2026-08-10 }
+status: backlog
+trigger: "Manual — Friday mornings"
+execution_mode: augmented
+---
+# Weekly Status Report
+
+Draft the Friday leadership status report from the HubSpot tracker. One-page status report ready for Maya's review.
+
+# Artifacts
+
+- **Opportunity report:** [ai-opportunity-report.md](outputs/ai-opportunity-report.md)
+
+# Skills
+
+# Agents
+
+# Insights
+
+<!-- GENERATED:insights -->
+<!-- /GENERATED -->
+````
+
+`stakeholder-meeting-prep.md` got the same shape, with its own title, description, and trigger. Deconstruct picks *Weekly Status Report* up from this stub and merges into it.
+
 ---
 
 ## Step 2 — Deconstruct → `requirements.md` + the Workflow node
 
 The deconstruct skill interviewed Maya for about 45 minutes (step-driven path — she knows exactly how the work gets done). Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
 
-The Workflow node first — the small file every later step reads and updates:
+The Workflow node first — the small file every later step reads and updates. Deconstruct took over the node Analyze had stubbed out in Step 1, filling in the fields the backlog version left blank rather than creating a new file:
 
 ````markdown
 ---

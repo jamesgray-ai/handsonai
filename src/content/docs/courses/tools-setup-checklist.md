@@ -20,9 +20,9 @@ Your AI platform plus one add-on that runs entirely inside it. This is the basel
 | 1 | [AI Platform Setup](#step-1-ai-platform-setup) | ~45 min | Required |
 | 2 | [Hands-on AI Skills](#step-2-hands-on-ai-skills) | ~10 min | Required |
 
-### Part 2: For Power Users (~70 min)
+### Part 2: For Power Users (~85 min)
 
-More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Optional, and you can come back and add more later. Steps 4–7 are one sequence: do them in order.
+More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability, except Step 9, which the course requires before Analyze. Steps 4–7 are one sequence: do them in order.
 
 | Step | What | Time | Status |
 |------|------|------|--------|
@@ -32,7 +32,7 @@ More advanced tools that work in collaboration with your AI platform. Pick any c
 | 6 | [GitHub CLI](#step-6-github-cli) | ~10 min | Optional |
 | 7 | [Create & Clone Your First Repository](#step-7-create--clone-your-first-repository) | ~5 min | Optional |
 | 8 | [Voice to Text](#step-8-voice-to-text) | ~10 min | Optional |
-| 9 | [AI Registry](#step-9-ai-registry) | ~10 min | Optional |
+| 9 | [AI Registry](#step-9-ai-registry) | ~25 min | Required for the course |
 
 ---
 
@@ -96,7 +96,7 @@ Still stuck? Bring your question to Session 1.
 
 ## Part 2 — For Power Users
 
-Optional tools that work in collaboration with your AI platform. Pick any combination — you don't need all of them, and you can come back and add more later as your workflows grow.
+Optional tools that work in collaboration with your AI platform. Pick any combination — you don't need all of them, and you can come back and add more later as your workflows grow — except Step 9, which the course requires before Analyze.
 
 :::note[New to the terminal?]
 Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
@@ -226,16 +226,16 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ### Step 9: AI Registry
 
-**What:** Set up your Markdown-based AI Registry — a generated `REGISTRY.md` index that tracks every workflow, skill, agent, and connected app in your workspace. No external accounts needed; the AI Workflow Framework maintains it automatically. Essential once you're scaling beyond one-off experiments.
+**What:** Set up your Markdown-based AI Registry — a generated `REGISTRY.md` index that tracks every workflow, skill, agent, and connected app in your workspace. No external accounts needed. The AI Workflow Framework reads it in Step 1 and writes to it at every step — set it up before you run Analyze.
 
 **Action:** [Follow the AI Registry setup guide →](/builder-setup/ai-registry-setup/)
 
 **Done when:**
 
 - You have one folder for your registry — on your computer, in a synced cloud drive, or in a GitHub repository
-- The Hands-on AI skills from Step 2 are in your AI tool (if you added skills one at a time, that includes `scaffolding-registry`)
-- `registry/` exists with `SCHEMA.md` inside
-- You can see your dashboard — `REGISTRY.md` next to your `registry/` folder, or, if your repository publishes to GitHub Pages, also at your Pages address
+- The Hands-on AI skills from Step 2 are in your AI tool (if you added skills one at a time, that includes `scaffolding-registry` and `indexing-registry`)
+- `registry/` exists with `SCHEMA.md` inside, and `registry/workflows/index.md` exists (empty is correct — Analyze fills it)
+- You can see your dashboard — `REGISTRY.md` next to your `registry/` folder — listing your business, lines of business, functions, and processes
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
