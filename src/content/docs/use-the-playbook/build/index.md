@@ -34,7 +34,7 @@ The seven-step methodology for going from a workflow idea to a deployed AI syste
 | `design` skill | Design the AI workflow architecture and produce a Design Spec |
 | `build` skill | Generate platform-appropriate artifacts from the approved spec |
 | `test` skill | Test workflow artifacts and evaluate output quality |
-| `run` skill | Generate a Run Guide for deploying and operating the workflow |
+| `run` skill | Do the first real run and leave a Run Card, run log, and review date |
 | `improve` skill | Evaluate a running workflow for quality and evolution opportunities |
 
 #### Knowledge Graph — 1 skill
