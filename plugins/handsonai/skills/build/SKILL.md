@@ -313,7 +313,7 @@ Close with a table that has one row per Build Output row in the Design Spec's de
 | Use existing: summarizing-transcripts | summarizing-transcripts | installed skill | Reused |
 | Extend existing: formatting-notes | formatting-notes | `<installed skill location>` | Extended |
 | New agent: A1 | lead-researcher | `<agent location from capabilities.custom_agents or notes>` | Created |
-| Inline prompt → Step 3 | weekly-status-report (orchestrator) — Step 3 instruction block | outputs/weekly-status-report/skill/weekly-status-report/SKILL.md | Created |
+| Inline prompt → Workflow Requirements Step 3 | weekly-status-report (orchestrator) — Requirements Step 3 instruction block | outputs/weekly-status-report/skill/weekly-status-report/SKILL.md | Created |
 | Handled by orchestrator | weekly-status-report (orchestrator) | same | Created |
 | MCP server: HubSpot | HubSpot connector | platform connector | Installed by you |
 | Human (no artifact) | — | — | — |
