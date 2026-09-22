@@ -50,3 +50,6 @@ specs/
 # on-demand docx install by the multi-agent-example renderer
 plugins/multi-agent-example/scripts/node_modules/
 scripts/node_modules/
+
+# subagent-driven-development scratch (ledgers, briefs, review packages)
+.superpowers/

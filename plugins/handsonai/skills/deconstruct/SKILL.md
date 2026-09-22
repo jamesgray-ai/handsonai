@@ -32,29 +32,31 @@ Both paths produce a Workflow Requirements document with the same shared shell �
 
 **What "goal" means here.** An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (record it in `Value & Measurement` → Business Objective); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. The goal bundles the deliverable plus the rules and acceptance criteria for it — what major agent frameworks call the expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) The defining trait of this path is **who owns the control flow**: the agent decides the *path* to the goal at runtime, while you own the *definition of done*. Note the inverse doesn't hold — a step-driven workflow can still use an agent for an individual step; what makes a workflow goal-driven is that the agent decides the overall sequence, not merely that agents are involved.
 
-**Which path? (quick heuristic — share this with the user when they're unsure).** The test: *imagine two different inputs — would the work take noticeably different steps?* The choice depends only on the **nature of the work** — never on whether the user can currently list the steps.
-- Choose **Step-driven** if the work runs **the same way each time** — same steps regardless of the input. The user does **not** need the steps written down or even fully clear in their head; describing how the work gets done is enough, and the interview maps and refines the steps with them.
-- Choose **Goal-driven** if the work **takes different steps depending on what comes in**, and you'd rather define what "done" looks like plus the rules and let the agent figure out the steps at runtime.
+**Which path? (the test to share with the user).** *Could you write down every path the work can take?* The choice depends on the **nature of the work**, never on whether the user has the steps written down.
+- **Step-driven** if yes — the paths are listable, even if there are branches. A three-way triage ("refund → A, partnership → B, spam → C") is step-driven: the branches are decision points the interview captures, and Design can build them as a routing skill.
+- **Goal-driven** if no — the path depends on what the agent finds along the way, so nobody can list it in advance. You define what "done" looks like plus the rules, and the agent figures out the steps at runtime.
 
-Worked example: *"Generate my weekly status report from the same three sources"* → step-driven (same recipe every run). *"Triage whatever lands in my inbox and handle each appropriately"* → goal-driven (a refund request, a partnership pitch, and spam each take a completely different sequence of steps). Getting this right matters: the choice selects the document template the Design step parses, so a wrong pick creates rework downstream.
+Worked example: *"Generate my weekly status report from the same three sources"* → step-driven. *"Research any company I name and tell me whether we should partner with them"* → goal-driven (what to read next depends on what the last source said). Getting this right matters: the choice selects the requirements template Design parses, so a wrong pick creates rework downstream.
+
+**First workflow steer.** If this is the user's first workflow with the framework (no prior workflow folders in `outputs/` and no Workflow nodes beyond backlog stubs, or they say so), say: "For your first workflow, choose step-driven — it becomes a skill you can run by name, which is the fastest way to learn the whole loop. Goal-driven is a good second workflow." Their call if they insist.
 
 ## Workflow
 
-**Set expectations up front (first message):** tell the user this step is the most thorough interview in the framework — usually **20–40 minutes** of back-and-forth — because the requirements written here drive everything built later. Stopping early is safe: progress saves to files, and they can say "continue my workflow" in a later session to pick up where they left off.
+**Set expectations up front (first message) — give the agenda, not just the time.** Say: "This is the most thorough conversation in the framework — about 45–60 minutes on your own, less if you've done it before — because everything built later comes from what we capture here. It runs in five chapters: (1) **what this is worth**, (2) **scope and a name**, (3) **mapping how the work gets done**, (4) **improving it for AI**, and (5) **how you'll judge the output**. Stopping early is safe: progress saves to files, and 'continue my workflow' picks up where we left off." Signpost each transition as you reach it ("Chapter 3 of 5 — mapping the steps"). For goal-driven workflows chapter 3 is "defining the goal and its range" and chapter 4 is skipped; say so when you reach it.
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
 1. **Scenario discovery** — Determine how the user is arriving and which path to take.
 
-   **From Analyze output**: If the user references an opportunity report, file path (e.g., `outputs/ai-opportunity-report.md`), or a specific workflow candidate from an Analyze session, read the Workflow Candidate Summary from the file. Present the available candidates and ask which one to deconstruct. Pre-populate scenario metadata (name, description, trigger, deliverable, autonomy, involvement) from the candidate fields. If the candidate includes a `Lens` field, carry it forward along with any `Business Objective`, `Stakeholders`, and `Success Metrics` fields. Confirm the pre-populated details with the user. Then choose the path: if the candidate's autonomy = Autonomous, suggest goal-driven but still confirm. Otherwise present the choice below.
+   **From Analyze output**: If the user references an opportunity report, file path (e.g., `outputs/ai-opportunity-report.md`), or a specific workflow candidate from an Analyze session, read the Workflow Candidate Summary from the file. Present the available candidates and ask which one to deconstruct. Pre-populate scenario metadata (name, description, trigger, deliverable, autonomy, involvement) from the candidate fields. If the candidate includes a `Lens` field, carry it forward along with any `Business Objective`, `Stakeholders`, and `Success Metrics` fields. Confirm the pre-populated details with the user. Then choose the path: if the candidate's autonomy = Autonomous, suggest goal-driven but still confirm. Otherwise confirm the path from the candidate's description using the describe-first flow below.
 
-   **Cold entry (no Analyze output)**: Ask one question:
+   **Cold entry (no Analyze output)**: Do not open with the path question. First ask, in one line: "Tell me about the workflow — what kicks it off, what you do, and what comes out the other end. Rough is fine." Listen for whether the paths are listable. Then **propose** the path with the reason, and confirm:
 
-   > "Is the work the same every run, or does it vary by input? (Quick test: imagine two different inputs — would the work take the same steps, or different steps?)
-   > - **Known-steps workflow** *(step-driven)* — The work runs the same way each time — what the framework classifies as a **deterministic or guided** workflow. You don't need the steps written down — describing how the work gets done is enough, and I'll map and refine the steps with you, surfacing decision rules and edge cases along the way.
-   > - **Agent system** *(goal-driven)* — The steps vary depending on what comes in — an **autonomous** workflow. You can describe the deliverable — what "done" looks like — and want an agent system to figure out the steps at runtime. A goal here is a concrete deliverable, not a business result: "a ranked list of 20 qualified prospects" is a goal; "higher revenue" is why you want it. I'll capture the goal, inputs, acceptance criteria, and rules."
+   > "From what you've described this sounds **step-driven** — the same steps run each time, with a couple of decision points we'll capture. (The other path, **goal-driven**, is for work where the steps depend on what the agent finds along the way.) Shall we go step-driven?"
 
-   When rendering this choice as a structured form (e.g., option cards), preserve the framing above: the step-driven card must say the work is *repeatable* and that the interview will map the steps — never "I can list the steps," which wrongly reads as an entry requirement. A "Not sure / I have a problem" option should invite the user in ("help me figure out the right workflow") rather than imply they lack a process.
+   Use only the words *step-driven* and *goal-driven* here. Do not introduce "deterministic", "guided", "autonomous", "known-steps workflow", or "agent system" at this point — autonomy vocabulary is taught in Design, where it is explained properly.
+
+   When rendering this choice as a structured form (option cards), both cards state the test in the user's terms — "I could write down every path" vs. "the path depends on what it finds" — and a third "Not sure — help me figure out the right workflow" option invites the user in.
 
    **Problem-first handling (no separate path)**: If the user says they don't have a process *or* a goal — just a problem ("People drop off during onboarding and I don't have a way to follow up") — propose a candidate workflow based on what they describe, then route into one of the two paths:
    > "Here's a candidate workflow that would solve this: [outline]. Do you want to refine these steps with me (step-driven), or just describe the goal and let an agent figure out the steps (goal-driven)?"
@@ -63,7 +65,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
    - **Step-driven**: Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If no lens was established, determine it: individual tasks (one person's repetitive work) = Individual lens; multi-role or business-objective processes = Organizational lens. Ask only if not obvious from context. Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4 (deep dive).
    - **Goal-driven**: Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4-GD (goal-driven interview). The interview opens with scenario grounding, so don't pre-interview here — but if the user has already described the situation, trigger, or consumer, carry those answers forward.
 
-   **Value case (both paths)** — capture four of the six `Value & Measurement` fields here, while the user is still describing the situation. Keep it conversational: two or three questions, not a form.
+   **Value case (both paths)** — Chapter 1. Bridge into it: "Before we map anything, I want to know what this is worth to you, so that when it's built we can show the improvement rather than just claim it." Then capture four of the six `Value & Measurement` fields, conversationally: two or three questions, not a form.
 
    - **Business Objective** — which strategic objective this supports. On the Individual lens it may be personal ("get my Fridays back"); don't push organizational language onto it.
    - **Desired Outcome** — what changes, and for whom, when this works. In the language the business would use, not the workflow's.
@@ -77,7 +79,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    **From an Analyze report** — Analyze's `Business Objective` and `Success Metrics` are Organizational-lens only. When an Organizational candidate is referenced, pre-populate Business Objective from Analyze's field of the same name and Measure from its `Success Metrics`, then confirm rather than asking cold. Analyze captures neither Desired Outcome nor Baseline, so ask for both.
 
-   `Target` and `Readable When` are **not** asked here — they describe the revised workflow, which doesn't exist yet. They come at Step 10.
+   `Target` and `Readable When` are **not** asked here — they describe the revised workflow, which doesn't exist yet. They come at Step 12.
 
 2. **Scope check — one trigger, one deliverable** — A workflow has exactly one trigger (what kicks it off) and one deliverable (the tangible output). Test for multiple workflows by checking:
    - **Triggers**: Multiple independent starting points? (e.g., "when a lead comes in" vs. "end of each week") → separate workflows
@@ -92,9 +94,9 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    **Derive the workflow ID.** Convert the confirmed name to kebab-case (lowercase, hyphens, no punctuation — "Lead Qualification" → `lead-qualification`) and confirm it with the user: "I'll use `lead-qualification` as the workflow ID — it names the folder and files for everything we produce." This ID is the single source of truth for all artifact paths; every downstream skill uses it verbatim.
 
-4. **Deep dive (step-driven only)** — Before probing the first step, briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
+4. **Deep dive (step-driven only)** — Chapter 3. Open by stating the shape of what's coming: "You named [N] steps. We'll take them one at a time — for the first one I'll ask questions; from the second onward I'll propose what I think each step involves and you correct me, which is faster." Then briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
 
-   Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Step 10.
+   Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Step 13.
 
    - Discrete steps (is this actually multiple steps?)
    - Decision points (if/then branches, quality gates)
@@ -109,13 +111,19 @@ Worked example: *"Generate my weekly status report from the same three sources"*
      - Reorganization signal: If access, interpretability, or persistence is limited, flag that the context may need to be made more accessible or better organized — note this as a consideration for the Design step.
    - Role transitions (organizational lens with multiple stakeholders only) — Who performs this step? Does ownership change between steps? Are there handoff points?
 
-   When probing context needs, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions, project instructions, or system prompts — these contain workflow logic that must be included in the Baseline Prompt.
+   When probing context needs, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions, project instructions, or system prompts — these contain workflow logic that must be carried into the generated skill — add them to the Context Inventory so Build can read them.
+
+   **Misroute check (after the second or third step).** If every step so far turns out to be "it depends on what I find" with no listable branches, say so and offer to switch: "The path here seems to depend on what turns up rather than on rules we can write down — the goal-driven path would capture this better. Want to switch? I'll carry everything we've gathered." This mirrors the goal-driven interview's check in the other direction.
 
 5. **Propose and react (step-driven only)** — After the first step of the deep dive, switch to propose-and-react: propose a hypothesis across all dimensions (including context readiness and role transitions for organizational workflows) and ask "What's right, what's wrong, what am I missing?" instead of asking each question individually. Include a context readiness hypothesis: "I think this context lives in [location] and is in [format] which AI can interpret. Is that right?"
 
 6. **Map sequence (step-driven only)** — After all steps, identify sequential vs. parallel steps and the critical path.
 
-7. **Optimize for AI (step-driven only)** — Now that the full process is mapped, step back and challenge it. The user described their *current* process — but an AI-powered version may not need every step. Present optimization recommendations for the user to react to. Look for:
+7. **Human gates (step-driven only)** — Ask once, after the sequence is mapped: "Where must a person review or approve before the workflow continues — and where should it just run?" Record each answer as a row `G1, G2, …` in Human Gates with the step it sits at. If the answer is "nowhere — I'll review the final output", write: "No human gates — the workflow runs end-to-end with final review only." Distinguish a gate from a prohibition: "never send without approval" is a gate; "never send" is a Prohibited action for Security, Privacy & Safety.
+
+8. **Workflow-level rules (step-driven only)** — The deep dive captured per-step edge cases. Now ask for the rules that apply to the whole workflow, one at a time: "What must it always do? What must it never do? What's out of scope? Any tone, format, or length rules? And when it hits a case it can't confidently handle — stop and ask you, do its best and flag it, or skip that item?" Record as `R1…` rows in Rules & Constraints. Keep these behavioral; data-and-authority constraints belong in Security, Privacy & Safety. If fallback is "stop and ask", also add a Human Gate row.
+
+9. **Optimize for AI (step-driven only)** — Now that the full process is mapped, step back and challenge it. The user described their *current* process — but an AI-powered version may not need every step. Present optimization recommendations for the user to react to. Look for:
    - **Eliminable steps** — Steps that exist only because a human was doing the work. Examples: manual data transfer between systems (an integration eliminates this), reformatting output from one step to match the input of the next (AI handles format natively), or "wait for X to be available" steps that become instant with API access.
    - **Collapsible steps** — Adjacent steps that AI can do in a single pass. Examples: separate "draft" and "format" steps, or "research" followed immediately by "summarize findings" — these are distinct for humans but one operation for AI.
    - **Parallelizable steps** — Steps that were sequential only because a human can do one thing at a time. If two steps have no data dependency, flag that AI can run them concurrently.
@@ -124,7 +132,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    **Present as a propose-and-react summary:**
 
-   > "Now that we've mapped the full process, here's how I'd optimize it for AI:
+   > "Chapter 4. You've described how the work happens *today*, with a person doing it. An AI-powered version usually doesn't need every one of those steps — some exist only because a human was doing the work. Here's how I'd reshape it:
    > - **Eliminate**: [step(s)] — [reason, e.g., 'direct access to your CRM data replaces the manual export']
    > - **Collapse**: [step(s)] into one — [reason, e.g., 'AI drafts and formats in a single pass']
    > - **Parallelize**: [step(s)] — [reason, e.g., 'no data dependency between these']
@@ -135,7 +143,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    Update the refined steps based on the user's confirmed optimizations. Renumber if steps were added, removed, or merged. If the user rejects all optimizations, that's fine — proceed with the original steps.
 
-8. **Validate the workflow (step-driven only)** — Before consolidating context, walk through the refined workflow end-to-end and present a validation summary. This is the quality gate that catches gaps before the workflow moves to Design. Check for:
+10. **Validate the workflow (step-driven only)** — Before consolidating context, walk through the refined workflow end-to-end and present a validation summary. This is the quality gate that catches gaps before the workflow moves to Design. Check for:
    - **Completeness** — Are there gaps in the end-to-end flow? Steps where an output doesn't connect to the next step's input?
    - **Logic gaps** — Decision points without clear criteria? Steps that assume information not produced by a prior step?
    - **Edge cases** — Scenarios the user hasn't mentioned (empty inputs, unexpected formats, partial data, exception paths)?
@@ -153,7 +161,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    Update refined steps based on the user's responses. If no issues are found, say so and proceed.
 
-9. **Consolidate context** — Present a rolled-up "context inventory" of every piece of context the workflow needs — documents, data, rules, examples, and any other knowledge from the user's domain that the model doesn't have.
+11. **Consolidate context** — Present a rolled-up "context inventory" of every piece of context the workflow needs — documents, data, rules, examples, and any other knowledge from the user's domain that the model doesn't have.
 
    For step-driven workflows: assemble from per-step context needs gathered in Step 4. For goal-driven workflows: assemble from the Inputs + Context Sources gathered in Step 4-GD.
 
@@ -163,6 +171,8 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    - any row `Confidential` or `Regulated` → **handles data the user would be uncomfortable seeing outside the company**
    - any row `External` → **consumes content nobody on the team authored**
+
+   Frame the check in one line first: "Two quick checks on what this workflow has to protect, then we're done mapping and can move to how you'll judge it." Then:
 
    Ask only the third: **"Does this workflow write to anything live — send, post, create, or change something in a real system?"** (Running unattended is the higher-risk form of the same thing, so it counts.)
 
@@ -181,39 +191,49 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    **If nothing is tripped**, write the one-line form and move on: "No sensitivity constraints — personal data only, read-only, human-triggered." Do not walk five categories to arrive at nothing.
 
-10. **Collect Acceptance Criteria and Example Scenarios (both paths)** — Before generating the Workflow Requirements, ask the user about acceptance criteria and example scenarios. These were previously collected during Design's Step 8b; capturing them here makes Step 2 a complete PRD and removes redundant questioning downstream.
+12. **Define how you will judge the output (both paths)** — This is the last chapter. Open it by saying what it is for, in plain words, before asking anything:
 
-    Ask, one at a time:
-    1. "What does great output from this workflow look like? Describe what would make you say 'this is exactly right.' Examples or anti-examples are both useful here."
-    2. "Which dimensions matter most? For example: accuracy, completeness, tone, specificity, timeliness, format consistency."
-    3. "What's your minimum bar — what's acceptable vs. what needs more work?"
-    4. "Give me 3-5 real or realistic scenarios you'd run this on — different enough to test the workflow's range. For each, briefly describe the input and what you'd look for in the output."
-    5. "For any of those scenarios, do you have a **golden example** — a real past output (or excerpt) you'd consider 'exactly right' for that input?" Golden examples turn Test (Step 5) from gut-feel scoring into comparison against a known-good reference. Don't push if none exist — but if the user produces this output today, a recent good one usually does. If a golden example is a document, add it to the Context Inventory and reference its ID.
+    > "Last chapter. In Step 5 you'll run this workflow on a few realistic inputs and check whether the output did what you needed. I want to capture *how you'll judge it* now, while you know the work best, so that step is a checklist and not a gut feel. Each thing you tell me becomes one line the workflow either meets or doesn't."
 
-    **Then close `Value & Measurement` with the two fields that describe the revised workflow:**
+    Then ask, one at a time, in this order:
+
+    1. **Real example first.** "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?" If yes, ask for it (paste, attach, or a Context Inventory ID) and read it before asking anything else. If a document, add it to the Context Inventory and reference its ID. If none exists, that's fine and move on — but if the user produces this output today, a recent good one usually does.
+    2. **Derive the criteria from the example.** Looking at the example (or, if none, at the Goal), propose the qualities that make it good as **numbered yes/no statements**: "Looking at this, it seems you care that (1) every row has contact info, (2) it uses your three headings, (3) it stays under a page. Is that the list? What's missing?" Every statement must be answerable Met / Not met from one run's output. Sharpen soft qualities until they are checkable: "tone is good" → "I could send this without editing the wording"; "matches our style" → "uses our headings and stays under one page". Never record a scale word ("mostly", "somewhat", "1–5"). For goal-driven workflows, also seed the list from the rejection-test answers captured in question 3 of the goal-driven interview — each "I'd send it back because…" is a criterion; confirm and fill gaps rather than re-eliciting.
+    3. **The one that matters most.** "If it got everything else right but missed one of these, which one would make you send it back?" Mark that criterion (or two) with **(must)** — Test reports it first.
+    4. **Realistic inputs to try.** "Give me 3–5 real or realistic inputs you'd run this on — different enough to test its range, including one hard case. For each, what would you look for in the output?" These become Example Scenarios E1…E5. For goal-driven workflows, harvest them from the variation envelope captured in question 4 of the goal-driven interview rather than re-asking.
+    5. **Golden example per scenario.** For each scenario: "Do you have a past output for an input like this that was exactly right?" Record it in the Golden Example column (Context Inventory ID, short excerpt, or "—"). Keep at least one scenario *without* a golden example so Test can see whether the workflow generalizes.
+
+    **Then close `Value & Measurement`** with the two fields that describe the revised workflow:
 
     6. "Now that we've reshaped this — what should the number be? What's the target?"
     7. "How long after this goes live before that number can actually be read?"
 
-    These wait until now because a target describes the *revised* workflow, and until Step 7 there was no revision to describe. The pairing is natural: acceptance criteria say what good **output** looks like; the target says what good **performance** looks like.
+    These wait until now because a target describes the *revised* workflow. For step-driven workflows, read the target alongside `Optimization Notes`. For goal-driven workflows the target compares the agent system against however the work happens today; say which.
 
-    For step-driven workflows, read the target alongside `Optimization Notes` — those record what the Optimize-for-AI pass changed and why; the target records what that change is expected to be worth.
+    **Closing preview.** Before generating the file, show the user the report card Test will fill in, so they see where their answers go:
 
-    Goal-driven workflows have no optimize pass and so no "revised workflow" in the same sense. There, the target compares the agent system against however the work happens today. Say which: "4 hours to 20 minutes" means something different when the baseline is a person doing it than when nobody is and the work simply isn't getting done.
+    > "Here's what Step 5 will check, per input you gave me:
+    >
+    > | Expected | From | Result | Evidence |
+    > |---|---|---|---|
+    > | Every row has contact info | AC1 (must) | — | — |
+    > | Uses our three headings | AC2 | — | — |
+    > | Never includes someone we've already contacted | R3 | — | — |
+    > | Pauses before sending | G1 | — | — |
+    >
+    > The workflow is ready when every line is Met on every input — or when you've looked at a miss and decided you can live with it. I've written these as your *acceptance criteria* (AC1…), *rules* (R1…), and *human gates* (G1…) in the file; those are the labels Test uses."
 
-    For goal-driven workflows, Step 4-GD does **not** pre-collect full acceptance criteria — this step is the single place acceptance is captured, so ask the questions that remain unanswered directly. Two harvests from Step 4-GD feed this step: for question 4, **harvest the scenarios from the variation envelope** (the typical and edge cases the user already described); for questions 1–3, **seed from the rejection-test answers** (the plausible-but-wrong outputs the user said they'd send back). Confirm and fill gaps rather than re-eliciting from scratch.
-
-11. **Generate Workflow Requirements** — Produce the structured Workflow Requirements document and write it to the output file. See the **Output** section below for the template, writing style, and machine-readability rules.
+13. **Generate Workflow Requirements** — Produce the structured Workflow Requirements document and write it to the output file. See the **Output** section below for the template, writing style, and machine-readability rules.
 
     **Self-check before finishing (so Design can parse it).** After writing, verify the file against the machine-readability rules and fix any miss before handing off:
     - File lives in the workflow folder using the kebab-case ID: `outputs/[workflow-name]/requirements.md` (e.g., "Inbound Lead Triage" → `outputs/inbound-lead-triage/requirements.md`), and the workflow's Workflow node has `status: under-development` and the requirements path linked under `# Artifacts`.
     - All required headings are present and **exactly named** (no synonyms): Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, Security, Privacy & Safety, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-driven; Inputs for goal-driven).
-    - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps `1,2,3…`; context `C1,C2…`; scenarios `E1,E2…`).
+    - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps 1,2,3…; context C1…; scenarios E1…; criteria AC1…; rules R1…; gates G1…).
     - If anything is off, fix it before telling the user it's ready.
 
 ### Goal-Driven Path (Step 4-GD)
 
-When the user selects goal-driven, run this interview instead of the step-driven deep dive (Steps 4–8). The goal-driven path handles context discovery internally (question 8, Context & Data Sources), so it skips straight to Step 9 (Consolidate Context) → Step 10 (Acceptance Criteria) → Step 11 (Generate) after the interview. Same interview principles apply: one question at a time, propose-and-react after the first few answers, push beyond vague answers. If scenario discovery (Step 1) already captured the situation, trigger, or consumer, build on those answers — confirm and deepen rather than re-asking from scratch.
+When the user selects goal-driven, run this interview instead of the step-driven deep dive (Steps 4–10). The goal-driven path handles context discovery internally (question 8, Context & Data Sources), so it skips straight to Step 11 (Consolidate Context) → Step 12 (Acceptance Criteria) → Step 13 (Generate) after the interview. Same interview principles apply: one question at a time, propose-and-react after the first few answers, push beyond vague answers. If scenario discovery (Step 1) already captured the situation, trigger, or consumer, build on those answers — confirm and deepen rather than re-asking from scratch.
 
 **Open with a frame** so the user knows what this path asks of them (parallel to the context frame the step-driven path opens with):
 
@@ -224,12 +244,12 @@ When the user selects goal-driven, run this interview instead of the step-driven
 3. **Goal pressure-test (challenge before accepting)**: After the reflect-back, test the goal — don't just record it. Apply whichever of these three tests the answer hasn't already passed, state which test failed and why when pushing back, and cap the challenge at 2–3 probes (interview, not interrogation):
    - **Done/not-done test (completion state)**: "If the agent handed you one run's output, could you say 'done' or 'not done' just by looking at it?" — "Improve our pipeline" fails; "a ranked list of 20 prospects with contact info" passes. If it fails, push for the concrete deliverable.
    - **Level test (business objective vs. agent goal)**: If the stated goal is metric-shaped with no deliverable ("higher revenue", "more engagement"), ladder *down*: "That's the business objective — I'll record it under what this is worth. What's the *thing* the agent hands you that contributes to it?" If it's hopelessly vague ("help with email"), sharpen via format, structure, and scope.
-   - **Rejection test (testability)**: "Describe an output that *looks* plausible but you'd send back. What's wrong with it?" The answers surface implicit acceptance criteria — carry them forward to seed Step 10; don't re-elicit there.
+   - **Rejection test (testability)**: "Describe an output that *looks* plausible but you'd send back. What's wrong with it?" The answers surface implicit acceptance criteria — carry them forward to seed Step 12; don't re-elicit there.
 
    If the user's first answer in question 2 is purely metric-shaped (no deliverable at all), skip the reflect-back and go straight to the level test. If the probe cap is reached and the goal is still untestable, switch from asking to proposing: draft a sharp candidate goal yourself from everything heard so far and ask the user to confirm or correct it — never proceed to question 4 with a goal that fails the done/not-done test.
-4. **Variation envelope**: "This works as goal-driven because the work takes different steps depending on what comes in. What's the range it needs to handle? Give me the typical case, and a couple of the awkward or harder ones." These answers become the Example Scenarios in Step 10 — capture them now and harvest them there; don't re-elicit scenarios later. **Misroute check:** if the answer reveals the work actually takes the same steps every time (no meaningful variation), say so and offer to switch: "This sounds like it runs the same way each run — the step-driven path would capture it better. Want to switch?" Carry everything gathered so far into the step-driven deep dive rather than restarting.
+4. **Variation envelope**: "This works as goal-driven because the work takes different steps depending on what comes in. What's the range it needs to handle? Give me the typical case, and a couple of the awkward or harder ones." These answers become the Example Scenarios in Step 12 — capture them now and harvest them there; don't re-elicit scenarios later. **Misroute check:** if the answer reveals the work actually takes the same steps every time (no meaningful variation), say so and offer to switch: "This sounds like it runs the same way each run — the step-driven path would capture it better. Want to switch?" Carry everything gathered so far into the step-driven deep dive rather than restarting.
 5. **Inputs**: "What kicks it off, and what does the agent system get to work with — data, documents, access?" (Confirm against what the scenario already established rather than re-asking.)
-6. **Rules & Constraints**: "What rules should the agent follow? Things it must always do, must never do, or limits on scope, tone, length." Keep this **behavioral**. Where data may travel and what the agent may never *act* on — send, post, create, change — are captured at Step 9 under `Security, Privacy & Safety`, not here.
+6. **Rules & Constraints**: "What rules should the agent follow? Things it must always do, must never do, or limits on scope, tone, length." Keep this **behavioral**. Where data may travel and what the agent may never *act* on — send, post, create, change — are captured at Step 11 under `Security, Privacy & Safety`, not here.
 7. **Fallback behavior**: "When it hits a case it can't confidently handle — missing info, something ambiguous — what should it do? Stop and ask you, make its best attempt and flag it, or skip that item?" This is the agent's behavior on *unplanned* exceptions — distinct from the *planned* pauses captured under Human gates. Record it under Rules & Constraints in the output. If the answer is "stop and ask," also capture it as a Human Gate (question 9) so the pause appears where Design looks for review points.
 8. **Context & Data Sources**: "What external systems, data sources, documents, or reference materials should the agent system have access to?" Apply the same context readiness probing as the step-driven path (sample — ask the one or two probes that matter, don't run all three mechanically):
    - Access: Where does this context live today? Is it in a system with programmatic access (database, cloud app, shared drive), or does it require manual steps (logging in, copy-pasting, reading from a screen)?
@@ -240,9 +260,9 @@ When the user selects goal-driven, run this interview instead of the step-driven
 
 **Do NOT ask about capability domains, agent count, model class, tools, or orchestration approach.** Those are Design decisions. Goal-driven Deconstruct stays in "what" territory: goal, inputs, acceptance criteria, rules, context, human gates.
 
-**Step 8-GD — Validate before consolidating (goal-driven quality gate).** Step-driven has a Step 8 validation gate; goal-driven needs the equivalent so a vague goal or missing guardrails doesn't sail through to Design. Walk the definition end-to-end and present a short validation summary covering:
+**Step 10-GD — Validate before consolidating (goal-driven quality gate).** Step-driven has a Step 10 validation gate; goal-driven needs the equivalent so a vague goal or missing guardrails doesn't sail through to Design. Walk the definition end-to-end and present a short validation summary covering:
    - **Goal is bounded, singular, and testable** — one clear deliverable that passes the done/not-done test ("help with email" is too vague; "a drafted reply per inbound inquiry" is bounded). If you can't tell from one run's output whether the goal is met, tighten it before Design.
-   - **Variation range is captured** — the typical case and the awkward/edge cases are identified (these become the test scenarios in Step 10).
+   - **Variation range is captured** — the typical case and the awkward/edge cases are identified (these become the test scenarios in Step 12).
    - **Rules are sufficient** — must-do and must-never both covered; scope boundaries explicit enough to keep the agent in bounds.
    - **Fallback behavior is defined** — it's clear what the agent does when it can't confidently complete a case.
    - **Context is reachable** — every context/data source named has a known location and an access path (not "it's in my head" or a login-only portal with no plan to bridge it).
@@ -250,7 +270,7 @@ When the user selects goal-driven, run this interview instead of the step-driven
 
    Present as: "Before I finalize, here's a quick check of your goal-driven definition: [findings]. Which of these should we tighten?" Update based on the user's answers. If all clear, say so and proceed.
 
-After completing the interview and Step 8-GD, proceed directly to Step 9 (Consolidate Context) → Step 10 (Acceptance Criteria) → Step 11 (Generate Workflow Requirements) using the goal-driven output format.
+After completing the interview and Step 10-GD, proceed directly to Step 11 (Consolidate Context) → Step 12 (Acceptance Criteria) → Step 13 (Generate Workflow Requirements) using the goal-driven output format.
 
 ## Output
 
@@ -293,7 +313,7 @@ So Design (and any agent model) can parse the document without re-asking:
   - Lens: `Individual` or `Organizational`
   - Context Status: `Exists` or `Needs Creation`
   - AI Accessible: `Yes`, `Partial`, or `No`
-- **Stable IDs** — number steps `1, 2, 3, …`; ID context items `C1, C2, C3, …`; ID example scenarios `E1, E2, E3, …`. Downstream artifacts reference these IDs.
+- **Stable IDs** — number steps `1, 2, 3, …`; ID context items `C1, C2, …`; example scenarios `E1, E2, …`; acceptance criteria `AC1, AC2, …`; rules `R1, R2, …`; human gates `G1, G2, …`. Test's report card references these IDs; Design and Build reference C and step IDs.
 - **Explicit Inputs and Outputs per step** — even when "obvious." Design uses these to build the data-flow without guessing.
 
 ### Template — shared shell
@@ -355,15 +375,13 @@ Notes:
 
 ## Acceptance Criteria
 
-### What good output looks like
-[Concrete description in plain language — what would make the user say "this is exactly right"?]
+Each line is one thing a single run's output either does or does not do. Test checks every line per scenario and records Met / Not met with evidence. Mark the one or two that would make the user send the output back with **(must)**.
 
-### Dimensions that matter
-- [Dimension] — [what to evaluate]
-- [Dimension] — [what to evaluate]
+1. **AC1 (must)** — [yes/no statement, e.g., "Every prospect row has a name, role, company, and contact email"]
+2. **AC2** — [yes/no statement, e.g., "The report uses the three headings from C2 in that order"]
+3. **AC3** — [yes/no statement, e.g., "The user could send the draft without editing the wording"]
 
-### Minimum bar
-[What's acceptable vs. what needs more work — in plain terms, not a numeric threshold.]
+Reference example: [Context Inventory ID of the real output the criteria were derived from, or "—"]
 
 ## Example Scenarios
 
@@ -372,15 +390,17 @@ Notes:
 | E1 | [short name] | [description] | [what makes this output "good"] | [Context Inventory ID, short inline excerpt, or "—"] |
 | E2 | … | … | … | … |
 
-Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut-feel scoring alone. Use "—" when none exists.
+Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut feel alone. Use "—" when none exists.
 
 ## Rules & Constraints
 
-- **Must do:** [list]
-- **Must never do:** [behavioral only — see the note below]
-- **Scope boundaries:** [what's in scope, what's out]
-- **Tone / format / length:** [if applicable]
-- **Fallback behavior:** [what to do when a case can't be confidently completed — stop and ask, best-effort and flag, or skip]
+| ID | Type | Rule |
+|---|---|---|
+| R1 | Must do | [behavioral rule] |
+| R2 | Must never do | [behavioral only — see the note below] |
+| R3 | Scope | [what's in scope, what's out] |
+| R4 | Tone / format / length | [if applicable] |
+| R5 | Fallback | [what to do when a case can't be confidently completed — stop and ask, best-effort and flag, or skip] |
 
 Notes:
 - This section is **behavioral**: how the work should be done. Constraints about *data and authority* belong in `Security, Privacy & Safety` — where data may travel goes to Boundaries, and anything outward-facing or irreversible goes to Prohibited actions. One fact, one home.
@@ -389,9 +409,9 @@ Notes:
 
 ## Human Gates
 
-| Where | What requires human input |
-|---|---|
-| [step ID or phase] | [decision, approval, review] |
+| ID | Where | What requires human input |
+|---|---|---|
+| G1 | [step ID or phase] | [decision, approval, review] |
 
 If no human gates are required, write: "No human gates — the workflow runs end-to-end with final review only."
 
@@ -429,7 +449,7 @@ Notes:
 - **The sensitivity of what the workflow produces belongs in `Access`.** The Context Inventory classifies what the workflow *consumes*. A generated deliverable can be more sensitive than any of its inputs — a specification assembled from customer evidence is the obvious case. Who may see the outputs and the intermediate state is an Access constraint, not a Context Inventory row.
 
 ## Optimization Notes (optional, step-driven only)
-[Brief record of what changed from the original process and why — only if optimizations were applied in Step 7. Include declined optimizations and the reasoning, since this preserves context for Design.]
+[Brief record of what changed from the original process and why — only if optimizations were applied in Step 9. Include declined optimizations and the reasoning, since this preserves context for Design.]
 ```
 
 ### Step-Driven middle block
@@ -491,6 +511,6 @@ The Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria,
 - Push beyond vague context answers like "domain knowledge" — identify the specific artifact.
 - Surface the assumption that existing context — data, documents, transcripts, reference materials — will "just work" for AI. Most people underestimate the work required to make context AI-accessible, especially unstructured content like SOPs, style guides, meeting transcripts, and knowledge that lives in people's heads. Adopt a data strategist lens — help the user see where context reorganization, reformatting, or externalization is needed before they commit to a workflow design that depends on inaccessible context. Push beyond "it's in the CRM" or "I just know it" — ask what system it's in, what format it's in, and whether there's programmatic access or it requires manual steps. Leave specific integration mechanisms (MCP, API, SDK) to the Design step.
 - **Stay in the "what" lane.** Deconstruct defines the workflow, its context needs, its rules, and its acceptance criteria. It does not prescribe how AI will access data, which tools to use, what integrations to build, how many agents are needed, or which models to use — those are Design decisions (Step 3). Do not ask the user about capability domains, agent architecture, model class, or orchestration mechanism. If a technology concern surfaces, note it as a consideration for Design rather than resolving it here.
-- After writing the Workflow Requirements file, tell the user: "Workflow Requirements saved to `outputs/[name]/requirements.md`. Ready for the `design` skill (Step 3)."
+- After writing the Workflow Requirements file, close with what was produced and what happens next: "Workflow Requirements saved to `outputs/[name]/requirements.md`. It holds your goal, [N] steps (or, goal-driven: the goal and its range), [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill'."
 - If entering deconstruction without a prior analysis (direct workflow description), determine the lens by asking if not obvious from context.
 - For goal-driven workflows, do not force step decomposition — the whole point is to capture what the agent system needs to know without prescribing execution steps.

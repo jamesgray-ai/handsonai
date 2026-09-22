@@ -9,7 +9,7 @@ description: Deploy your tested AI workflow — choose a run pattern, follow you
 
 You've just finished [Test (Step 5)](../test/). Your workflow:
 
-- Passes the eval suite at a quality level you trust
+- Passes its report card — every criterion met, or a miss you've explicitly accepted
 - Has a recorded baseline for future comparison
 - Has platform artifacts ready for deployment
 

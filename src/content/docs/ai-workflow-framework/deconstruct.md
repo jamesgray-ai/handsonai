@@ -13,9 +13,9 @@ The output is a single Markdown file: the **Workflow Requirements** document. It
 
 | | |
 |---|---|
-| **What you'll do** | Choose one of two paths (you know the steps, or you know the goal), then work through a guided conversation that captures the requirements |
+| **What you'll do** | Describe your workflow; the skill proposes a path (step-driven or goal-driven) with its reason, you confirm, then work through a guided conversation that captures the requirements |
 | **What you'll get** | A **Workflow Requirements** document — `outputs/[name]/requirements.md` |
-| **Time** | ~15-25 minutes of interactive conversation |
+| **Time** | ~45–60 minutes on your own (30–40 with an instructor guiding you) |
 
 ## Why This Matters
 
@@ -32,18 +32,20 @@ This builds directly on the concept of workflow deconstruction. If terms like th
 
 ## The Two Paths
 
-Step 2 presents one question upfront: **do you know the steps, or just the goal?**
+Step 2 opens by asking you to describe the workflow, then proposes one of two paths and asks you to confirm:
 
 | Path | When to use | Mental model |
 |---|---|---|
 | **Step-driven** | You can describe how the work gets done | "I know the steps" |
 | **Goal-driven** | You know what "done" looks like, but the work takes different steps depending on what comes in — you give an agent system a goal and let it figure out the steps at runtime | "I know the goal" |
 
-**Not sure which?** Imagine two different inputs and ask: *would the work take noticeably different steps?* If it runs the same way every time, it's step-driven. If the steps change depending on what comes in — a refund request, a partnership pitch, and a spam message each handled differently — it's goal-driven.
+**Not sure which?** Ask one question: *could you write down every path the work can take?* If yes — even with branches, like a three-way triage — it's step-driven; the branches become decision points. If the path depends on what the agent finds along the way, it's goal-driven.
 
 :::note[What "goal" means here]
 An agent goal is a **deliverable with a completion state** — something you can look at after a single run and verify is done. It is *not* a business objective or an impact metric: "higher revenue" is a business objective (it's recorded under `Value & Measurement`, alongside what you'd count and where that number stands today); "a ranked list of 20 qualified prospects matching our ICP, with contact info" is an agent goal. This matches how the major agent frameworks specify work — a goal bounded by an expected output and success criteria. (If you know the product-management "outcomes over outputs" framing: the agent's goal is closer to an *output* — the business outcome belongs in Business Objective.) What makes a workflow goal-driven is that **the agent decides the path** to the goal at runtime — not simply that agents are involved. A step-driven workflow can still use an agent for an individual step; it's goal-driven only when the agent owns the overall sequence.
 :::
+
+On the goal-driven path you're still deconstructing — not the process into steps, but the goal into its parts: the deliverable, the range of situations it must handle, the rules, and what "done" looks like.
 
 Both paths produce a Workflow Requirements document with the same shared structure — only the middle "what does the workflow do" block differs.
 
@@ -62,10 +64,12 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 **Step-driven (phase 4 on):**
 
 4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, context needs, failure modes, data readiness.
-5. **Propose and react** — From step 4 onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
-6. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
-7. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
-8. **Validate** — Walk the refined workflow end-to-end to catch gaps before Design.
+5. **Propose and react** — From the second step of your workflow onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
+6. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
+7. **Human gates** — Where must a person review or approve before the workflow continues?
+8. **Workflow-level rules** — Must always / must never / out of scope / tone and format / what to do when stuck.
+9. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
+10. **Validate** — Walk the refined workflow end-to-end to catch gaps before Design.
 
 **Goal-driven (phase 4 on):** Instead of decomposing steps, the skill runs a short interview that stays in "what" territory:
 
@@ -78,7 +82,7 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 **Both paths converge (final phases):**
 
 - **Consolidate context** — Present a rolled-up "context shopping list" of every artifact the workflow needs.
-- **Acceptance criteria & example scenarios** — Capture what good output looks like and 3–5 representative scenarios to test against.
+- **How you'll judge the output** — a real good example first, then numbered yes/no criteria derived from it, 3–5 realistic inputs, and golden examples where they exist.
 - **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
 
 ## How to Use This
@@ -95,7 +99,7 @@ This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. H
 I need to deconstruct my [workflow name] workflow.
 ```
 
-The skill asks you to choose a path, runs an interactive interview to capture the requirements, validates the workflow end-to-end, and writes the Workflow Requirements file.
+The skill proposes a path from your description, runs an interactive interview to capture the requirements, validates the workflow end-to-end, and writes the Workflow Requirements file.
 
 ### Example prompts
 
@@ -115,15 +119,17 @@ Every platform in the course can load it — [Set Up the Skills](../skills/) has
 
 ### Example: Step-driven path
 
-After you start the conversation, the model asks you to choose a path. If you pick step-driven, here's what the opening looks like:
+After you start the conversation, the model proposes a path from what you describe. If it proposes step-driven, here's what the opening looks like:
 
-> **Model:** Do you know the steps, or just the goal? (Quick test: imagine two different inputs — would the work take the same steps, or different steps?)
-> - **Step-driven** — The work runs the same way each time and you can describe how it gets done.
-> - **Goal-driven** — You can't list the steps, but you can describe the deliverable — what "done" looks like — and want an agent system to figure out the steps. A goal here is a concrete deliverable, not a business result: "a ranked list of 20 qualified prospects" is a goal; "higher revenue" is why you want it.
+> **Model:** Tell me about the workflow — what kicks it off, what you do, and what comes out the other end. Rough is fine.
 >
-> **You:** Step-driven. I research LinkedIn prospects before sales outreach. The goal is to find people who'd be a good fit for our AI training programs, understand their background, and write personalized outreach messages.
+> **You:** I research LinkedIn prospects before sales outreach. The goal is to find people who'd be a good fit for our AI training programs, understand their background, and write personalized outreach messages.
 >
-> **Model:** Got it — LinkedIn prospect research for personalized sales outreach. Can you walk me through the high-level steps? Don't worry about being complete or precise — we'll refine them together.
+> **Model:** From what you've described this sounds **step-driven** — the same steps run each time, with a couple of decision points we'll capture. (The other path, goal-driven, is for work where the steps depend on what the agent finds along the way.) Shall we go step-driven?
+>
+> **You:** Yes.
+>
+> **Model:** Can you walk me through the high-level steps? Don't worry about being complete — we'll refine them together.
 >
 > **You:** I guess I start by finding people on LinkedIn, then I look at their profile, check their company, see if they've posted anything relevant, then I write the message. There's probably more to it but that's the gist.
 
@@ -157,7 +163,7 @@ From there, the model continues through inputs, rules, fallback behavior (what t
 
 You don't need an existing process. If you have a gap or pain point, describe that — the model proposes a candidate workflow, then asks which of the two paths fits:
 
-> **Model:** Do you know the steps, or just the goal?
+> **Model:** Tell me about the situation — what's going on, and what are you trying to get done?
 >
 > **You:** Neither, really. People sign up for my online course but a lot of them never finish. I have no way to know who's dropping off or how to follow up.
 >
@@ -196,10 +202,10 @@ The **Workflow Requirements** document uses a shared structure for both paths �
 - **Value & Measurement** — why the workflow is worth building and how you would know it worked: the business objective it supports, the outcome that changes and for whom, what gets counted, today's number, and the target the revised workflow should hit
 - **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Driven / Goal-Driven)
 - **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), how sensitive it is (**Public** — a published price list; **Internal** — a project tracker; **Confidential** — an unannounced roadmap; **Regulated** — anything covered by a rule such as patient records or EU customer data), where it came from (**Authored** by someone on your team, or **External** — it arrived from outside), AI accessibility (Yes / Partial / No), and location
-- **Acceptance Criteria** — what good output looks like, dimensions that matter (accuracy, completeness, tone, etc.), and the minimum bar
-- **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where scoring against a known-good reference beats gut-feel ratings
-- **Rules & Constraints** — how the work should be done: must-do, must-never-do, scope boundaries, tone, format, length, and fallback behavior when a case can't be confidently completed
-- **Human Gates** — where human review or input is required
+- **Acceptance Criteria** — numbered yes/no statements (`AC1…`), the one or two marked **(must)**, and the real example they were derived from
+- **Example Scenarios** — 3-5 representative inputs with what to look for in the output, plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where checking against a known-good reference beats gut feel
+- **Rules & Constraints** — how the work should be done: must-do, must-never-do, scope boundaries, tone, format, length, and fallback behavior when a case can't be confidently completed, each with an ID (`R1…`)
+- **Human Gates** — where human review or input is required, each with an ID (`G1…`)
 - **Security, Privacy & Safety** — what the workflow must protect: where data may and may not travel, who may see the outputs, what has to be recorded, what it must never do, and which regulation applies. Every constraint names its source
 - **Optimization Notes** (optional, step-driven only) — what changed from the original process and why
 
@@ -217,7 +223,7 @@ Most step-driven workflows expand from 5-8 rough steps to 12-20 refined steps af
 
 Goal-driven workflows **don't** capture capability domains, agent count, or orchestration approach — those are Design decisions. Step 2 stays in "what" territory.
 
-### Two things the skill asks about that are easy to skip
+### Three things the skill asks about that are easy to skip
 
 **What the workflow is worth.** Before mapping anything, the skill asks four questions: which business objective this supports, what actually changes and for whom, what you would count, and what that number is today. That last one matters more than it looks. Without today's number you can claim an improvement but never show one — and the honest answer is often "I don't know," which the skill records as `Unknown — must measure before go-live` rather than pressing you for a guess. An invented starting number is worse than none, because it makes a false improvement look provable. After the workflow has been redesigned, the skill comes back for the target: what the new number should be.
 
@@ -230,13 +236,15 @@ Two distinctions worth knowing, because they decide where a fact belongs:
 - **Where something came from is not the same as how secret it is.** A public web page is not sensitive, but nobody on your team wrote it — and content from outside can contain instructions. A model that treats them as instructions does what a stranger told it to. A draft pricing memo is the opposite: highly sensitive, but you wrote it.
 - **A prohibition is absolute; a gate is conditional.** "Never email a customer without approval" is a gate — it happens once someone approves. "Never email a customer" is a prohibition — it never happens, whoever asks. If an approval can satisfy it, it is a Human Gate.
 
+**How you'll judge the output.** The last chapter asks for a recent output you were happy with, then turns it into numbered yes/no statements — "every row has contact info", "I could send this without editing the wording" — plus 3–5 realistic inputs to try. These are not paperwork: in [Test (Step 5)](../test/) every statement becomes a row on a report card, checked against every input, met or not met with evidence. Writing them here, while the work is fresh, is what makes Test a checklist instead of a gut feel.
+
 ### Why this format
 
 The Workflow Requirements reads like a PRD, not an interview transcript:
 
 - **Requirements voice** — each line states what must be true, not what the user said in conversation
 - **Fixed structure** — same section headings every time, so downstream skills (Design, Test, Improve) can locate any requirement by path
-- **Stable IDs** — steps are numbered, context items are `C1, C2, C3, …`, scenarios are `E1, E2, E3, …`
+- **Stable IDs** — steps are numbered, context items are `C1, C2, C3, …`, scenarios are `E1, E2, E3, …`, acceptance criteria `AC1…`, rules `R1…`, human gates `G1…`
 - **Tables for lists of items with shared fields** — easier to parse than prose
 - **No interview residue** — no "the user mentioned", "usually", or other narrative
 

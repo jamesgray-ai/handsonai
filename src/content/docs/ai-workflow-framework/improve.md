@@ -1,6 +1,6 @@
 ---
 title: "Step 7: Improve"
-description: "Step 7: Improve — evaluate a running AI workflow for quality, relevance, and evolution with periodic review, regression checks, and a graduation decision."
+description: "Step 7: Improve — re-run your report card against the baseline, see which lines flipped, and decide: no changes, tune, or go back to Design."
 ---
 
 > **Part of:** [AI Workflow Framework](../)
@@ -34,49 +34,47 @@ When you operationalize a workflow in Step 6, set a calendar reminder for your f
 
 ## How the Skill Works
 
-The skill runs six phases. The sections that follow expand on each:
+The skill runs seven phases. The sections that follow expand on each:
 
-1. **Load history** — Read the Workflow node, Design Spec, previous test results (the baseline scores live in the file's frontmatter), and the run log if you've been keeping one.
-2. **Quality signal review** — Start from the run log's evidence (run frequency, recurring edits, failures), then discuss what prompted this improvement cycle. Which signals are you seeing?
-3. **Regression evaluation** — Re-run the eval suite from Test. Compare current scores to baseline.
-4. **Graduation assessment** — Should the orchestration mechanism evolve (Prompt → Skill-Powered Workflow, Skill-Powered Workflow → Agent, single agent → multi-agent)?
-5. **Decision framework** — Four outcomes: no changes needed, tune (fix specific building blocks), redesign (rework the architecture), or evolve (graduate the mechanism). Each maps to a specific next step.
-6. **Generate Improvement Plan** — Current scores, comparison to baseline, findings, decision, and specific actions.
+1. **Load workflow context** — Read the Workflow node, Design Spec, Run Guide, the test results holding the baseline report card, and the run log if you've been keeping one.
+2. **Current state assessment** — Start from the run log's evidence (run frequency, recurring edits, failures), then talk through what the log can't show: how much editing the output needs, and what has changed since you built it.
+3. **Quality evaluation** — Read the signals: rising edits, new decision types, steps being skipped, lines flipping between rounds, or you adding steps by hand.
+4. **Graduation assessment** — Has the workflow outgrown its mechanism?
+5. **Regression check** — Re-run the same inputs the same way; compare line by line against the baseline and show every report-card line that flipped.
+6. **Operationalization review** — For workflows a team uses: adoption, training, and governance. Skipped for personal workflows.
+7. **Recommendation** — One of three outcomes: no changes needed, tune (fix specific building blocks), or go back to Design.
 
-## Regression Evaluation
+## Regression Check
 
-*Plain language: a **regression evaluation** just means re-running the same tests you ran in Step 5 and comparing the scores — it catches quality that has quietly slipped ("regressed") since you deployed. The **baseline** is the scorecard from that first test round; the **eval suite** is your set of test scenarios.*
-
-Re-run the **eval suite** from [Test (Step 5)](../test/) using the same test scenarios and scoring dimensions. The baseline lives in the original Test Results frontmatter — per-scenario scores, averages, and the environment tested in — so the comparison is a mechanical delta table (baseline → current, per scenario and dimension), not a memory exercise. One like-for-like check: if an integration was simulated at baseline and is live now (or vice versa), say so — a score change caused by an integration being fixed isn't the workflow getting better or worse.
-
-### What to look for
+*Plain language: a **regression check** re-runs the same inputs you tested in Step 5 and shows which report-card lines changed — the same lines, so a change means something moved.*
 
 | Finding | What it means |
-|---------|--------------|
-| **Scores are stable or improving** | The workflow is holding up. No action needed unless you identified other quality signals. |
-| **Scores dropped on specific dimensions** | Something has changed — context may be outdated, platform behavior may have shifted, or recent edits to the prompt introduced a regression. |
-| **Scores dropped across the board** | A systemic issue. Check whether a platform update changed default behavior, a context file was removed, or a tool connection broke. |
-| **New scenarios produce poor results** | The workflow works for the original test cases but not for new situations. The prompt or context may need to be expanded to cover additional cases. |
+|---|---|
+| **No line flipped, edits stable** | The workflow is holding up. |
+| **A line flipped Met → Not met** | Something changed at that step or rule — context outdated, platform behaviour shifted, or a recent edit. The line names the cause. |
+| **Several lines flipped at once** | Systemic — check for a platform update, a removed context file, or a broken connector. |
+| **Edits rising with no flips** | Early drift. Look at what the edits have in common before a line fails. |
+| **New inputs fail while old ones pass** | The criteria or context don't cover new situations — extend them in Requirements. |
 
-Record the new scores alongside your baseline. This creates a quality history you can reference in future cycles.
+Record the new report card alongside your baseline. This creates a quality history you can reference in future cycles.
 
 ## Graduation Assessment
 
-Over time, some workflows outgrow their orchestration mechanism. A prompt that started simple may have accumulated so many instructions that it is unwieldy. A skill-powered workflow may need to make decisions you cannot predict in advance. The right response is not to keep patching — it is to graduate the workflow to a more capable mechanism.
+Over time, some workflows outgrow their orchestration mechanism. The right response is not to keep patching — it is to graduate the workflow to a more capable mechanism.
 
 ### The Orchestration Ladder
 
 | Current mechanism | Graduate to | When to graduate |
 |---|---|---|
-| **Prompt** | **Skill-Powered Workflow** | Steps have become complex enough that you are repeating the same multi-step instructions across runs. Extracting those into reusable skills would make the prompt cleaner and the sub-steps more reliable. |
-| **Skill-Powered Workflow** | **Agent** | The workflow needs to make sequencing decisions, use tools, or adapt its approach based on intermediate results — things a human following a fixed skill sequence cannot efficiently orchestrate. |
+| **Skill** | **Agent** | The workflow needs to make sequencing decisions, use tools, or adapt its approach based on intermediate results — things a fixed skill sequence cannot efficiently orchestrate. |
 | **Agent** (single) | **Agent** (multi-agent) | The agent is handling too many distinct responsibilities. Splitting into specialized agents (researcher, writer, editor) with clear handoffs improves quality and makes each agent easier to maintain. |
 
 Graduation is not always the right answer. If the workflow works well at its current level, leave it. The goal is to match the mechanism to the workflow's actual needs — not to over-engineer.
 
-:::note[Graduation means going back to Design]
-When you graduate a workflow to a new mechanism, you are changing the architecture. Return to [Design (Step 3)](../design/) to reassess the orchestration mechanism, update the Design Spec, then proceed through Build and Test with the new architecture.
-:::
+If your Design Spec was written before v8 it may name the mechanism *Prompt* or *Skill-Powered Workflow*. Read *Skill-Powered Workflow* as *Skill*. A *Prompt* workflow's first graduation is to a Skill — the same instructions saved as a skill you invoke by name — and it is a Redesign outcome like the others.
+
+Graduation is a Redesign outcome.
+
 ## For Organizations
 
 If the workflow serves a team or business process, the improvement cycle includes an operationalization review:
@@ -88,14 +86,13 @@ If the workflow serves a team or business process, the improvement cycle include
 
 ## Decision Framework
 
-Every improvement cycle ends with one of four outcomes:
+Every improvement cycle ends with one of three outcomes:
 
 | Outcome | What it means | Next step |
 |---------|--------------|-----------|
-| **No changes needed** | Eval scores are stable, no quality signals, workflow fits its purpose | Record the result and set the next review date |
+| **No changes needed** | No line flipped, edits stable, no quality signals, workflow fits its purpose | Record the result and set the next review date |
 | **Tune** | Specific building blocks need adjustment — context is outdated, a prompt needs refinement, a tool connection needs updating | Go to [Build (Step 4)](../build/), fix the identified issues, then [Test (Step 5)](../test/) |
-| **Redesign** | Architecture assumptions have changed — the workflow needs a different orchestration mechanism, new building blocks, or a fundamentally different approach | Go to [Design (Step 3)](../design/) and rework the Design Spec |
-| **Evolve** | The workflow should graduate to a more capable orchestration mechanism (see [Graduation Assessment](#graduation-assessment)) | Go to [Design (Step 3)](../design/) and upgrade the mechanism |
+| **Redesign** | Architecture assumptions have changed — different mechanism, new building blocks, or the workflow has outgrown a skill and needs an agent | Go to [Design (Step 3)](../design/) with the reason recorded |
 
 The Improve step completes the lifecycle loop. Every outcome either confirms the workflow is healthy or sends you back to an earlier step with a specific target — never a vague "make it better."
 
@@ -103,9 +100,9 @@ The Improve step completes the lifecycle loop. Every outcome either confirms the
 
 An **Improvement Plan** saved to `outputs/[workflow-name]/improvement-plan.md` that captures:
 
-- Current eval scores compared to baseline
+- Which report-card lines flipped since the baseline, and the edits trend
 - Quality signals that triggered the review
-- Findings from the regression evaluation
+- Findings from the regression check
 - Graduation assessment (if applicable)
 - Decision outcome and rationale
 - Specific actions to take (which building blocks to fix, what context to update, etc.)
@@ -125,22 +122,22 @@ This step is facilitated by the **`improve`** AI Workflow Framework skill. See [
 Evaluate my running workflow and help me decide what to improve.
 ```
 
-The skill reads your Design Spec and previous test results, guides you through the regression evaluation and graduation assessment, and produces the Improvement Plan.
+The skill reads your Design Spec and previous test results, guides you through the regression check and graduation assessment, and produces the Improvement Plan.
 
 ### Example prompts
 
 ```
 "Evaluate my running workflow and help me decide what to improve"
-→ Full improvement cycle with regression eval and decision
+→ Full improvement cycle with regression check and decision
 
 "My content workflow output quality has been dropping — help me figure out why"
-→ Targeted regression evaluation focused on the quality dimensions
+→ Targeted regression check focused on the report-card lines
   that are degrading
 ```
 
 ## Related
 
 - [Run](../run/) — the step before Improve
-- [Test](../test/) — where the eval suite and baseline were established
-- [Design](../design/) — where to go for Redesign or Evolve outcomes
+- [Test](../test/) — where the report card and baseline were established
+- [Design](../design/) — where to go for a Redesign outcome
 - [Build](../build/) — where to go for Tune outcomes
