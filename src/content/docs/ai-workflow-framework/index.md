@@ -184,7 +184,7 @@ Workflows are not something you set up once and forget. Over time, business cont
 
 ## Key Concepts
 
-Quick reference for the framework's vocabulary:
+Every term, in plain language: [Framework Glossary](glossary/). Quick reference for the core vocabulary:
 
 ### AI Workflow Design Matrix
 
