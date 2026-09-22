@@ -360,6 +360,7 @@ The decomposition is complete. Before generating detailed component blueprints (
 > - **Skill candidates:** [S1 = the orchestrator skill (workflow name); S2… component skills with one-line purpose each]
 > - **Steps requiring new skills:** [count] — [list step IDs and proposed skill names]
 > - **Steps using existing skills:** [count] — [list step IDs and existing skill names]
+> - **Steps extending an existing skill:** [count] — [step IDs, the skill name, and which other workflows share it]
 > - **Steps as inline prompts:** [count] — [list step IDs]
 > - **Steps requiring agents:** [count] — [list]
 > - **Human-performed steps:** [count] — [list]
