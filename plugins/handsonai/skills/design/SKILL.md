@@ -22,7 +22,7 @@ Take a Workflow Requirements document (produced by Step 2 — Deconstruct) and p
 | `references/goal-driven-path.md` | At Step 1, the moment the Workflow Requirements shows `Definition Type: Goal-Driven` (or legacy `Outcome-Driven`) |
 | `references/spec-template.md` | At Step 9, before assembling the Design Spec — the spec's structure exists **only** in this file |
 | `references/self-test-checklist.md` | At Step 9, before running the self-test — the checklist items exist **only** in this file |
-| `references/orchestrator-on-primary-loop.md` | At Step 5, only when mechanism = Agent |
+| `references/orchestrator-on-primary-loop.md` | Before Agent Configuration (Step 8), only when mechanism = Agent |
 
 This SKILL.md deliberately does **not** restate the spec's section structure or the checklist items. A spec assembled without reading the template will have wrong headings and a wrong `spec_version`, and Build's frontmatter parse will fail on it.
 
@@ -361,7 +361,7 @@ For every step classified as needing a **Skill**, look for one the user already 
 
 **Three outcomes per capability:**
 - **Reuse as-is** → Build Output `Use existing: [name]`.
-- **Extend** → Build Output `Extend existing: [name]`. Say which other workflows use the skill, because a change affects them too. To propose the change you need the skill's body: if the platform shows only the name and description, ask the user to open or attach the skill.
+- **Extend** → Build Output `Extend existing: [name] (also used by: …)` — the parenthetical lists the other workflows that share the skill (or `none`), because a change affects them too. To propose the change you need the skill's body: if the platform shows only the name and description, ask the user to open or attach the skill.
 - **Build new** → flows into Step 7.
 
 Present it as a plain recommendation: "You already have `summarizing-transcripts` from your weekly review. It covers most of step 3 — I'd add a length rule to it rather than build a new skill. Agree?" Check that no new name collides with an existing one — a duplicate name silently shadows the original.
