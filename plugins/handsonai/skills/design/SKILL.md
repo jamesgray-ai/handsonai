@@ -143,8 +143,8 @@ Human ———— Deterministic ———————— Guided —————
 | Level | Signals | Orchestration implications |
 |-------|---------|--------------------------|
 | **Human** | Step requires human judgment, creativity, or physical action; AI cannot perform | No AI artifact — captured as Human step in the Decomposition table |
-| **Deterministic** | Steps always execute in the same order, no branching on output quality, failure = stop or retry same step | Prompt or skill-powered workflow likely sufficient |
-| **Guided** | Some steps involve bounded AI judgment, human steers at checkpoints, sequence is mostly fixed but with bounded flexibility | Skill-powered workflow or agent |
+| **Deterministic** | Steps always execute in the same order, no branching on output quality, failure = stop or retry same step | Skill likely sufficient |
+| **Guided** | Some steps involve bounded AI judgment, human steers at checkpoints, sequence is mostly fixed but with bounded flexibility | Skill or Agent |
 | **Autonomous** | Executor backtracks, re-invokes based on feedback, adjusts approach on failure, human checkpoints can redirect flow | Agent required |
 
 **Present as a confident assessment with a teaching frame.** For most users this is the first time they're hearing the word "autonomy" in this context — introduce the concept briefly before applying it, so the playback educates rather than labels. Example phrasing:
@@ -331,7 +331,7 @@ After classifying every step, recommend available integration options for each t
 
 **Fallback ladder (never hard-fail).** Any of the lookups above can fail — the local registry may be absent (standalone install), the remote JSON may be unreachable, or web search may be unavailable on the platform. Degrade gracefully in this order, and tell the user what was degraded: **local plugin copy** → **session cache** → **remote fetch** → **model knowledge** → **best-effort note**. If you end on model-knowledge-only or best-effort, add a one-line flag like "Integration options below are unverified (registry/web unavailable) — confirm before relying on them." Never block Design because a fetch failed.
 
-**Matching semantics:** Matching is model-driven, not exact string matching. The model reads the workflow's tool needs (e.g., "Google Calendar access" from the step classification) and matches them against the `integrations` array values (e.g., `"google-calendar"`) using semantic understanding. This allows natural language tool needs to match standardized integration tags without requiring exact normalization.
+**Matching semantics:** matching is by meaning, not exact strings — read the workflow's tool needs (e.g., "Google Calendar access") and match them against the platform's native connectors and the options you know.
 
 **Presentation format — the model-knowledge case only.** A platform-native connector is a single line, not a table.
 
@@ -351,7 +351,22 @@ For goal-driven: `**[Tool] access needed (Domains: X, Y):**`
 >
 > *Recommendation: [block] for [rationale]*
 
-**Layer 2 confirmation moment** (after Step 6, before Skill Discovery and Component Blueprints):
+#### Step 6b — Skill Discovery (reuse before build)
+
+For every step classified as needing a **Skill**, look for one the user already has before assuming one must be built. Build-new is the last resort.
+
+**Tier 1 — the platform's installed skills (always).** Use the same detection Build uses in its Step 4: the session's available-skills list (on Cowork and Claude.ai this includes plugin-installed and account-uploaded skills; on ChatGPT the skills under Plugins → Skills), or on filesystem platforms the skill directories named in `capabilities.skill_install` for the platform. Match by what the skill does, not by exact name.
+
+**Tier 2 — the registry (when present).** If `registry/SCHEMA.md` exists, read each Workflow node's `# Skills` section and the dashboard's skills table to learn which workflow uses each skill and what it was built for. If there is no registry, say so once and continue on Tier 1 alone — nothing depends on it.
+
+**Three outcomes per capability:**
+- **Reuse as-is** → Build Output `Use existing: [name]`.
+- **Extend** → Build Output `Extend existing: [name]`. Say which other workflows use the skill, because a change affects them too. To propose the change you need the skill's body: if the platform shows only the name and description, ask the user to open or attach the skill.
+- **Build new** → flows into Step 7.
+
+Present it as a plain recommendation: "You already have `summarizing-transcripts` from your weekly review. It covers most of step 3 — I'd add a length rule to it rather than build a new skill. Agree?" Check that no new name collides with an existing one — a duplicate name silently shadows the original.
+
+**Layer 2 confirmation moment** (after Step 6b, before Component Blueprints):
 
 The decomposition is complete. Before generating detailed component blueprints (the most expensive work to redo), confirm the L2 decisions are right:
 
@@ -369,21 +384,6 @@ The decomposition is complete. Before generating detailed component blueprints (
 
 If the user pushes back, revise the L2 decomposition (and possibly L1 if the disagreement is architectural). Re-confirm before proceeding. Like the L1 confirmation, this is lightweight — not a hard gate — but it's the last cheap moment to catch decomposition mistakes before the detailed spec work.
 
-#### Step 6b — Skill Discovery (reuse before build)
-
-For every step classified as needing a **Skill**, look for one the user already has before assuming one must be built. Build-new is the last resort.
-
-**Tier 1 — the platform's installed skills (always).** Use the same detection Build uses in its Step 4: the session's available-skills list (on Cowork and Claude.ai this includes plugin-installed and account-uploaded skills; on ChatGPT the skills under Plugins → Skills), or on filesystem platforms the skill directories named in `capabilities.skill_install` for the platform. Match by what the skill does, not by exact name.
-
-**Tier 2 — the registry (when present).** If `registry/SCHEMA.md` exists, read each Workflow node's `# Skills` section and the dashboard's skills table to learn which workflow uses each skill and what it was built for. If there is no registry, say so once and continue on Tier 1 alone — nothing depends on it.
-
-**Three outcomes per capability:**
-- **Reuse as-is** → Build Output `Use existing: [name]`.
-- **Extend** → Build Output `Extend existing: [name]`. Say which other workflows use the skill, because a change affects them too. To propose the change you need the skill's body: if the platform shows only the name and description, ask the user to open or attach the skill.
-- **Build new** → flows into Step 7.
-
-Present it as a plain recommendation: "You already have `summarizing-transcripts` from your weekly review. It covers most of step 3 — I'd add a length rule to it rather than build a new skill. Agree?" Check that no new name collides with an existing one — a duplicate name silently shadows the original.
-
 #### Step 7 — Identify Skill Candidates
 
 **S1 is the orchestrator skill** for a Skill mechanism: name it with the workflow slug, Covers Steps: all, Decision Logic = the Orchestrator Prompt Outline, Depends On = the component skills. Component skills start at S2.
@@ -392,7 +392,7 @@ For steps where Skill Discovery (Step 6b) found an existing skill, skip to the n
 
 This step only applies to steps tagged **"build new"** in Step 6b. Tag those steps that should become skills.
 
-**Draft, then confirm — do not interview field-by-field.** You have already read the Workflow Requirements and run the whole design conversation; that contains almost everything these fields need. For each skill candidate, **draft all 12 fields yourself**, present it in two tiers: first **the parts to check** — Name, when it triggers (Description), what it decides (Decision Logic), what it does when stuck (Failure Modes) — as a short list in plain language; then **the wiring** (Inputs, Outputs, Required Tools, Depends On, Stateful?) collapsed below. Ask "What's wrong or missing in the first list?", and ask direct questions only for fields you genuinely cannot infer (typically Decision Logic details, Failure Mode preferences, or constraints the user hasn't voiced). Never walk a user through 12 questions per skill.
+**Draft, then confirm — do not interview field-by-field.** You have already read the Workflow Requirements and run the whole design conversation; that contains almost everything these fields need. For each skill candidate, **draft all 12 fields yourself**, present it in two tiers: first **the parts to check** — Name, when it triggers (Description), what it decides (Decision Logic), what it does when stuck (Failure Modes) — as a short list in plain language; then **the wiring** (Inputs, Outputs, Required Tools, Depends On, Stateful?) collapsed below. Ask "What's wrong or missing in the first list?" and ask direct questions only for fields you genuinely cannot infer (typically Decision Logic details, Failure Mode preferences, or constraints the user hasn't voiced). Never walk a user through 12 questions per skill.
 
 **Scope each skill as a reusable capability, not a workflow fragment.** Name it for the capability in gerund or verb-object form (`summarizing-transcripts`, `formatting-prep-notes` — never `step-3-helper` or `[workflow-name]-part-2`); avoid vague names (`helper`, `utils`, `documents`) and the reserved words `anthropic`/`claude`. Write Inputs as parameters, not hardcoded references to this workflow's files, so the skill still works when invoked outside this workflow. Check that no name collides with a skill found in Step 6b — a duplicate name silently shadows the existing one. Only the orchestrator skill carries the workflow's name; every component skill is capability-named.
 
@@ -496,7 +496,7 @@ Present a summary of the draft Design Spec. When the spec defines more than 3 co
 
 Uses the mandatory template defined in `references/spec-template.md`. The Design Spec **references** the Workflow Requirements as canonical source — it does not restate Goal, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, or per-step requirements.
 
-The spec opens with YAML frontmatter (workflow, requirements_file, spec_version, definition_type, mechanism, involvement, platform, platform_mode, packaging, counts) so Build and downstream skills can summarize the spec without parsing prose. It is organized into three layered groups — Architecture (L1, including Safety & Permissions), Decomposition (L2), Component Blueprints (L3) — plus cross-layer sections (Evaluation Inputs, Deferred to Build, Stakeholders, Self-Test Summary). The exact structure lives in the template file, not here.
+The spec opens with YAML frontmatter (workflow, requirements_file, spec_version, approved, definition_type, mechanism, involvement, platform, platform_mode, packaging, counts) so Build and downstream skills can summarize the spec without parsing prose. It is organized into three layered groups — Architecture (L1, including Safety & Permissions), Decomposition (L2), Component Blueprints (L3) — plus cross-layer sections (Evaluation Inputs, Deferred to Build, Stakeholders, Self-Test Summary). The exact structure lives in the template file, not here.
 
 For goal-driven workflows, the template substitutions in `references/goal-driven-path.md` apply.
 
