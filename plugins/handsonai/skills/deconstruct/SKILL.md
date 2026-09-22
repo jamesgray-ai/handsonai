@@ -111,7 +111,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
      - Reorganization signal: If access, interpretability, or persistence is limited, flag that the context may need to be made more accessible or better organized — note this as a consideration for the Design step.
    - Role transitions (organizational lens with multiple stakeholders only) — Who performs this step? Does ownership change between steps? Are there handoff points?
 
-   When probing context needs, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions, project instructions, or system prompts — these contain workflow logic that must be included in the Baseline Prompt.
+   When probing context needs, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions, project instructions, or system prompts — these contain workflow logic that must be carried into the generated skill — add them to the Context Inventory so Build can read them.
 
    **Misroute check (after the second or third step).** If every step so far turns out to be "it depends on what I find" with no listable branches, say so and offer to switch: "The path here seems to depend on what turns up rather than on rules we can write down — the goal-driven path would capture this better. Want to switch? I'll carry everything we've gathered." This mirrors the goal-driven interview's check in the other direction.
 
