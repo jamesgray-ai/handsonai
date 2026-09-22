@@ -396,13 +396,7 @@ table above rather than this one.
 
 ### HubSpot (Step 1)
 
-**Curated (recommended):**
-
-| Block | Option | Source URL | Trade-off |
-|-------|--------|-----------|-----------|
-| MCP | HubSpot MCP connector | https://developers.hubspot.com/mcp | Plug-and-play in Cowork; no code |
-
-*Recommendation: MCP — Cowork has a native HubSpot connector; connect read-only.*
+*Recommendation: use the HubSpot connector you already have on Cowork — connect read-only. No table needed: a platform-native connector is the whole answer.*
 
 ## Model Recommendation
 

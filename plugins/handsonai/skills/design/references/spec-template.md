@@ -139,13 +139,11 @@ For each tool identified in the Decomposition table (or Capability Domain Mappin
 
 ### [Tool Name] (Steps N, M / Domains: X, Y)
 
-**Curated (recommended):**
+When the platform has a native connector for the tool, this section is one line and no table:
 
-| Block | Option | Source URL | Trade-off |
-|-------|--------|-----------|-----------|
-| [MCP/API/SDK/CLI] | [name] | [URL] | [trade-off] |
+*Recommendation: use the [Tool] connector you already have on [platform] — [read-only / read-write as the Safety & Permissions findings allow].*
 
-**Also available:**
+Otherwise, one table of the options the model knows (verified with a single web check only when unsure):
 
 | Block | Option | Source URL | Trade-off |
 |-------|--------|-----------|-----------|
