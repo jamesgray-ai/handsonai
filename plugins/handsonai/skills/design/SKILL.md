@@ -136,8 +136,8 @@ Before choosing an orchestration mechanism, assess where the *whole workflow* si
 **The autonomy spectrum:**
 
 ```
-Human ———— Deterministic ———————— Guided ———————— Autonomous
-(human-performed)  (fixed path)       (bounded decisions)     (context-driven path)
+Deterministic ———————— Guided ———————— Autonomous
+(fixed path)       (bounded decisions)     (context-driven path)
 ```
 
 | Level | Signals | Orchestration implications |
@@ -149,7 +149,7 @@ Human ———— Deterministic ———————— Guided —————
 
 **Present as a confident assessment with a teaching frame.** For most users this is the first time they're hearing the word "autonomy" in this context — introduce the concept briefly before applying it, so the playback educates rather than labels. Example phrasing:
 
-> "Now I want to assess how much **autonomy** this workflow needs. Autonomy is just *how much room the AI has to decide what to do next* — it runs on a scale from Human (you do all the work) → Deterministic (AI follows a fixed script) → Guided (AI works, you steer at checkpoints) → Autonomous (AI figures out its own path).
+> "Now I want to assess how much **autonomy** this workflow needs. Autonomy is just *how much room the AI has to decide what to do next* — it runs on a scale from Deterministic (AI follows a fixed script) → Guided (AI works, you steer at checkpoints) → Autonomous (AI figures out its own path); a single step can also be Human, meaning a person does it.
 >
 > Your workflow looks **[level]** because [1-2 sentence reasoning tied to specific traits of their workflow — e.g., 'each step always runs in the same order and there's no branching based on the AI's output' for Deterministic, or 'the AI generates a draft and you decide if it's good enough to send' for Guided].
 >
@@ -210,7 +210,7 @@ Before confirming Layer 1, walk four safety questions. This matters most when th
 3. **Unattended runs** — Will this run on a schedule or without a human watching? If yes: human gates on outward-facing actions, a cap on actions per run, and a log of every write.
 4. **Blast radius** — What's the worst realistic outcome of a bad run? Place a human gate in front of the highest-consequence action, or constrain it to drafts/test targets.
 
-**Write-action feasibility check (required when the workflow writes to an external system).** The four questions above scope *how much* write access to request; this one asks whether the required action is **possible at all** on the chosen platform. For each write/action the workflow needs — read them from the Workflow Requirements (the `External Action` fields in Step Details for step-driven; the goal, rules, and acceptance for goal-driven) — verify the chosen integration can actually perform it. Use the capability-check mechanism from Phase 5 (registry lookup + a single targeted web check) — this is exactly the "check now rather than ship a spec Build can't honor" case. Distinguish two gap types:
+**Write-action feasibility check (required when the workflow writes to an external system).** The four questions above scope *how much* write access to request; this one asks whether the required action is **possible at all** on the chosen platform. For each write/action the workflow needs — read them from the Workflow Requirements (the `External Action` fields in Step Details for step-driven; the goal, rules, and acceptance for goal-driven) — verify the chosen integration can actually perform it. Use the capability-check mechanism from Phase 3 (registry lookup + a single targeted web check) — this is exactly the "check now rather than ship a spec Build can't honor" case. Distinguish two gap types:
 
 - **Scope gap** — the connector *supports* the action but may not be authorized yet (fixable by reconnecting/authorizing at Build). Note it and move on.
 - **Capability gap** — the connector has **no such capability at all** (e.g., a read-only CRM connector with no create-deal tool). This is *not* fixable by reauthorizing, and it can invalidate the design. Flag it plainly and present **platform-aware options**, in this order:

@@ -58,7 +58,7 @@ After the Workflow Requirements is complete, tell the user you're moving to Step
 **Skill:** `design`
 
 Read the Workflow Requirements and run the Design phase:
-1. Keep Layer 1 architecture decisions conversational; the detailed decomposition (step 5 onward) is proposed by the skill and corrected by the user
+1. Keep Layer 1 architecture decisions conversational; the detailed decomposition (from Phase 8, Classify each step, onward) is proposed by the skill and corrected by the user
 2. Gather architecture decisions (platform, tools, trigger)
 3. Assess workflow autonomy level (Deterministic → Guided → Autonomous)
 4. Choose orchestration mechanism (Skill or Agent) with human involvement mode

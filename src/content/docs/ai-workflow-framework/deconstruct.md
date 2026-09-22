@@ -59,8 +59,8 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 
 1. **Scenario discovery** — If you reference an opportunity report from Analyze, the skill reads the workflow candidates and pre-populates metadata. Otherwise it asks about the business scenario, objective, high-level steps, and ownership. If you describe a problem instead of a workflow, the skill proposes a candidate workflow for you to react to.
 2. **Scope check** — Is this one workflow or multiple bundled together? If multiple, the skill recommends splitting and asks which to start with.
-3. **Name the workflow** — The skill proposes 2–3 name options (2–4 word noun phrases, Title Case) and confirms name, description, goal, trigger, and type.
-4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, context needs, failure modes, data readiness.
+3. **Name the workflow** — The skill proposes 2–3 name options (2–4 word noun phrases, Title Case) and confirms name, description, goal, and trigger, and derives the workflow ID.
+4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, external actions, context needs and readiness, failure modes.
 5. **Propose and react** — From the second step of your workflow onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
 6. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
 7. **Human gates** — Where must a person review or approve before the workflow continues?

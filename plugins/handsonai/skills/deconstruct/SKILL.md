@@ -85,6 +85,8 @@ Two rules while asking:
 
 #### Phase 2 — Scope check
 
+Say: "Chapter 2 of 5 — scope and a name."
+
 **One trigger, one deliverable.** A workflow has exactly one trigger (what kicks it off) and one deliverable (the tangible output). Test for multiple workflows by checking:
 
 - **Triggers**: Multiple independent starting points? (e.g., "when a lead comes in" vs. "end of each week") → separate workflows

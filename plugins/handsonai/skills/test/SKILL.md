@@ -80,7 +80,7 @@ Write the diagnosis as `## Issues identified`, one row per miss: `Scenario | Lin
 #### Phase 7 — Verdict
 
 - **Ready** — every line Met on every scenario (accepted misses recorded with the user's reason). Close with: "It's ready. To put it to work, run the `run` skill (Step 6) — 15–20 minutes."
-- **Not ready** — at least one unaccepted miss. → `build` skill; it will regenerate only the building blocks named in Issues identified, then come back here and re-run the failed scenarios, then the full set.
+- **Not ready** — at least one unaccepted miss. → `build` skill; it will regenerate only the building blocks named in Issues identified, then come back here and re-run the failed scenarios, then the full set — less than a full build (30–60 min), since fix mode rebuilds only what is named.
 - **Waiting on access** — the logic passed but a connector's write access is not authorized. Name the connector and what to authorize. Not a rebuild.
 
 #### Phase 8 — Clean up test records
