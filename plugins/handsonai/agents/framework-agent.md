@@ -56,7 +56,7 @@ After the Workflow Requirements is complete, tell the user you're moving to Step
 **Skill:** `design`
 
 Read the Workflow Requirements and run the Design phase:
-1. (Claude Code) Keep Layer 1 architecture decisions conversational; **recommend entering plan mode before the detailed decomposition** (step 5 onward), not at the very start
+1. Keep Layer 1 architecture decisions conversational; the detailed decomposition (step 5 onward) is proposed by the skill and corrected by the user
 2. Gather architecture decisions (platform, tools, trigger)
 3. Assess workflow autonomy level (Deterministic → Guided → Autonomous)
 4. Choose orchestration mechanism (Skill or Agent) with human involvement mode
@@ -65,7 +65,7 @@ Read the Workflow Requirements and run the Design phase:
 7. Configure agents (when the mechanism calls for them)
 8. Confirm Evaluation Inputs — Acceptance Criteria and Example Scenarios are sourced from the Workflow Requirements; verify they're complete but do not re-collect
 9. Generate the Design Spec (references the Workflow Requirements; does not duplicate it)
-10. **Spec Approval Gate** — present the spec for explicit user approval. Do NOT proceed to Build without approval. Loop if changes are requested. After approval, prompt the user to exit plan mode.
+10. **Approval** — the skill writes the spec as a draft file with `approved: false`; the user reads it and says "approve", and the skill flips the flag to `approved: true`. Do NOT proceed to Build without that; Build refuses an unapproved spec. Loop if changes are requested.
 
 **Reads:** `outputs/[name]/requirements.md`
 **Produces:** `outputs/[name]/design-spec.md`
