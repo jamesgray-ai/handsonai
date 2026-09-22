@@ -71,6 +71,8 @@ Over time, some workflows outgrow their orchestration mechanism. The right respo
 
 Graduation is not always the right answer. If the workflow works well at its current level, leave it. The goal is to match the mechanism to the workflow's actual needs — not to over-engineer.
 
+If your Design Spec was written before v8 it may name the mechanism *Prompt* or *Skill-Powered Workflow*. Read *Skill-Powered Workflow* as *Skill*. A *Prompt* workflow's first graduation is to a Skill — the same instructions saved as a skill you invoke by name — and it is a Redesign outcome like the others.
+
 Graduation is a Redesign outcome.
 
 ## For Organizations

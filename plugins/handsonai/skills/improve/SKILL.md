@@ -60,6 +60,8 @@ Has the workflow outgrown its mechanism?
 - **Skill → Agent** — if the workflow now needs to make sequencing decisions or use tools rather than follow a fixed order
 - **Single Agent → Multi-Agent** — if complexity has grown to require specialized sub-agents
 
+Older Design Specs name the mechanism `Prompt`, `Skill-Powered Workflow`, or `Skill-Powered Prompt`. Read `Skill-Powered Workflow` and `Skill-Powered Prompt` as `Skill`. Read `Prompt` as a workflow that has not yet been packaged as a skill: its first graduation is **Prompt → Skill** (the same instructions saved as a skill the user invokes by name), and it is a Redesign outcome like the others.
+
 Only recommend graduation when there's a concrete capability gap, not just because "it could be more sophisticated." Graduation is a Redesign outcome — it goes back to Design with the reason recorded.
 
 ### 5. Regression check
