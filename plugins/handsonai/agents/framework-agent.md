@@ -59,7 +59,7 @@ Read the Workflow Requirements and run the Design phase:
 1. (Claude Code) Keep Layer 1 architecture decisions conversational; **recommend entering plan mode before the detailed decomposition** (step 5 onward), not at the very start
 2. Gather architecture decisions (platform, tools, trigger)
 3. Assess workflow autonomy level (Deterministic → Guided → Autonomous)
-4. Choose orchestration mechanism (Prompt → Skill-Powered Workflow → Agent) with human involvement mode
+4. Choose orchestration mechanism (Skill or Agent) with human involvement mode
 5. Classify each step on the autonomy spectrum and map to AI building blocks
 6. Identify skill candidates with generation-ready detail
 7. Configure agents (when the mechanism calls for them)
