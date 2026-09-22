@@ -87,7 +87,7 @@ The orchestration mechanism determines which steps you follow. Work through **on
 
 If Test came back not ready, you don't rebuild the workflow — you come back to Build in **fix mode**. Build reads the "Issues identified" table in your test results, which names the building block behind each miss (the orchestrator, a component skill, an agent, a context item), and regenerates only those. Everything else stays exactly as installed. Build says what it's fixing and why before it changes anything — *"E2 failed AC2 because the headings were out of order; that's the orchestrator skill, so I'll regenerate that one and leave the rest alone"* — then reconciles the changed files and sends you back to Test to re-run the failed scenarios first and the full set after.
 
-Two to four of these rounds is normal. Three rounds aimed at the same area is not: Build stops there and tells you the problem is probably the design rather than the build, and recommends going back to [Design (Step 3)](../design/) with what Test found. If Test's verdict was instead that it was waiting on access, nothing is rebuilt at all — Build walks you through authorizing the named connector in the account that runs the workflow and sends you straight back to Test.
+Two to four of these rounds is normal. Three not-ready rounds in a row since the last Ready is not: Build stops there and tells you the problem is probably the design rather than the build, and recommends going back to [Design (Step 3)](../design/) with what Test found. If Test's verdict was instead that it was waiting on access, nothing is rebuilt at all — Build walks you through authorizing the named connector in the account that runs the workflow and sends you straight back to Test.
 
 ## How the Model Builds for Your Platform
 
