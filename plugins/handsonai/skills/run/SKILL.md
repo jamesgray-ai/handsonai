@@ -1,146 +1,86 @@
 ---
 name: run
 description: >
-  This skill should be used when the user has built and tested workflow artifacts and wants a Run Guide
-  for deploying and operating their AI workflow. It generates a plain-language guide
-  with setup steps, deployment patterns, and sharing instructions — tailored to the user's platform and
-  build path. Also use when the user says "continue my workflow" and the workflow manifest shows Step 6 (Run) is next. This is Step 6 (Run) of the AI Workflow Framework.
+  This skill should be used when the user has built and tested workflow artifacts and is ready to put the
+  workflow into production. It guides the first real run, writes the Run Card, and sets up the run log and
+  the first review date.
+  Also use when the user says "continue my workflow" and the workflow manifest shows Step 6 (Run) is next. This is Step 6 (Run) of the AI Workflow Framework.
 user-invocable: true
 ---
 
-# Workflow Run Guide
+# Workflow Run
 
-Generate a Run Guide for deploying, executing, and testing an AI workflow. The Run Guide bridges the gap between "artifacts exist" and "workflow is running."
+Put a tested AI workflow into production: do the first real run on real work, then leave a one-page Run Card, a run log, and a review date behind.
 
 **Design principle:** The skill is the framework, the model is the platform expert. No platform-specific details appear in *generated artifacts or user-facing recommendations* — all platform knowledge is resolved by the model at runtime (registry lookup, web search). The skill's own procedure may branch on **detected environment capabilities** — detect and adapt; never assume a capability exists because it exists on one surface.
 
-**Role:** You are an **Agentic AI Architect**. Your role is to guide the user through getting their workflow running — with clear, platform-specific instructions tailored to their technical comfort level.
+**Role:** You are an **Agentic AI Architect**. Your role is to get the workflow running on real work and leave the user a Run Card they can follow on any given day.
 
 ## Workflow
 
-#### Step 1 — Determine Build Path and Load Context
+**Set expectations up front (first message).** Say: "This takes about 15–20 minutes. You've tested the workflow; now we use it on real work for the first time, and I'll leave you a one-page Run Card so you know exactly how to start it on any given day."
+
+#### Step 1 — Load context
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-Read the workflow's Workflow node (`registry/workflows/<slug>.md`) and load the Design Spec it links (normally `outputs/[workflow-name]/design-spec.md`). If the user specifies a file path, use that; if no Workflow node exists yet but legacy flat files do, use those paths. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and infer progress from which artifacts each node's `# Artifacts` section already links — "You've completed through Step [N] ([name]) — next is Step [N+1]" — and if Run isn't the next step, say so and route to the right skill.
+Read the Workflow node, the Design Spec, the artifacts and skills Build linked under the node's `# Artifacts` / `# Skills` (the paths from Build's Step 10 reconciliation table), and `test-results.md`. **Resume orientation** as in every framework skill. If the verdict is not `ready`, say so and route to Build: `not-ready` enters Build's fix mode, `waiting-on-access` means authorizing the named connector there, and Build sends the user back to Test once that is done. Read the platform's `capabilities.skill_install` (or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), `capabilities.context_location` and `capabilities.unattended_runs` (or, if the entry has no `capabilities`, its `notes`) — every concrete instruction below comes from there, never from this file.
 
-**Detect the build path — don't ask first.** The artifacts on disk plus the spec frontmatter answer this in almost every case:
+**Guided-mode platforms** (spec `platform_mode: guided` with GUI instruction documents instead of files): the Run Card still has the same six headings; "How to start it" points at the configured agent or skill in the platform UI and the instruction documents Build produced.
 
-- Spec frontmatter `platform_mode: guided` → **Path 3 (Guided-mode):** the Build phase produced GUI instruction documents (for guided-mode platforms like Copilot Studio, Workspace Studio, ChatGPT Agent Mode).
-- `platform_mode: code` and the manifest's `artifacts.platform_artifacts` entries (or the spec's Deployment Plan target locations) resolve to files on disk → **Path 1 (Model-built):** the model generated the artifacts during Build.
-- `platform_mode: code` and no generated artifacts found → **Path 2 (Manual build):** the user chose to build artifacts themselves using the spec as the guide.
+#### Step 2 — The first real run
 
-State the detected path and let the user correct it ("It looks like the artifacts were model-built — I'll write the Run Guide for that. Say so if you actually built them yourself."). Only ask the open question — "Did the model generate your workflow artifacts (Path 1), are you building them yourself from the spec (Path 2), or did the model produce GUI instruction documents (Path 3)?" — if the evidence is genuinely ambiguous.
+Before the run: the user opens a new chat and confirms the skill (or agent) is listed; if it isn't, go back to Build's install handoff — nothing else here will work. This is the first time the workflow runs on *real* work rather than a test input. Name it: "Every run so far used test inputs. Let's do this week's real one together." The user starts it exactly as an operator would (fresh conversation, invoked by name, per the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), with the real input. Watch for: the connectors being authorized in *that* account, context files resolving, each human gate actually pausing. Confirm the output against the report-card lines once more. If anything fails here that Test passed, it is almost always the run environment (a connector not authorized in this account, a context file in the wrong place) — fix that, don't rebuild.
 
-#### Step 2 — Generate Run Guide
+#### Step 3 — Write the Run Card
 
-Generate the Run Guide based on the build path.
+Save to `outputs/[workflow-name]/run-guide.md` with exactly these headings, in this order, each a short plain-language section:
 
-**Variant A: Model-built artifacts (Path 1)**
+```markdown
+# [Workflow Name] — Run Card
 
-Walk the user through getting the workflow running. Use the platform and code comfort (resolved during artifact generation) to tailor every instruction to their specific setup. Use web search to verify current platform steps. Write in plain language — assume no technical background unless code comfort was confirmed.
+## Your first real run
+[What happened on the first real run today, in two sentences, and what to expect next time.]
 
-The Run Guide covers four sections:
+## How to start it
+[The exact phrase or click, taken from the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes` — e.g., "Open a new chat in your Weekly Reports project and say: run the weekly status report skill." The input to give it. If the workflow serves others: how a teammate installs it (one or two steps from the same source) and the same start phrase.]
 
-**A. What was built** — List every artifact produced, what it does, and where it was saved. Use a simple table:
+## What to have ready
+[Inputs in hand. Connectors authorized in the account that runs it — list each. Context files in place — list each with its location from the platform's `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`. The skill and any agents installed in that account. For an automated workflow, the pre-granted permissions from "How to start it". A fresh conversation does not inherit this session's setup; this list is what it needs.]
 
-| Artifact | What it does | Location |
-|----------|-------------|----------|
+## What to check before you act on the output
+[The human gates (G1…) in plain words: what the workflow pauses for and what you're deciding. The (must) criteria as a two-line reminder.]
 
-**B. Setup steps** — Numbered, platform-specific instructions for getting each artifact into the right place. Research the platform's current UI/workflow via web search. For each step:
-- Tell the user exactly where to go (menu paths, button names, URLs)
-- Tell them exactly what to do (paste, upload, configure, connect)
-- Tell them what they should see when it's working (confirmation messages, visual indicators)
-- If a step requires technical knowledge beyond the user's code comfort level, flag it and offer to walk through it interactively
+## Log the run
+[One line per run in outputs/[workflow-name]/runs.md: date, input, result, edits needed, notes. If the workflow runs on-platform, the orchestrator skill appends the row itself — verify it did on today's run; if not, add that step to the orchestrator now. Ten seconds a run; it is the evidence your first review needs.]
 
-**C. First run** — A guided test run:
-- Provide a sample input the user can try (based on the workflow's Input Requirements from the spec)
-- Walk through what should happen at each step
-- Explain what good output looks like
-- List common first-run issues and how to fix them
+## Your first review
+[The date — monthly for high-frequency workflows, quarterly for occasional. The exact re-entry sentence: "Run the improve skill on [workflow name]." What to bring: nothing; the registry node, test results, and run log carry it.]
+```
 
-**D. What to do next** — Brief guidance on:
-- How to run the workflow again in the future (the repeatable trigger)
-- How to share it with team members (if shareability was confirmed during Build)
-- When to revisit and improve (signs the workflow needs updating)
-- For organizational workflows: **Change management** — who needs training, what communication is needed, and **Rollout plan** — pilot first or full rollout?
+**Scheduling** is part of "How to start it" **only when the Workflow node's `execution_mode` is `automated`** and the platform's `capabilities.unattended_runs`, or, if the entry has no `capabilities`, its `notes`, says the platform supports it: then state the platform's scheduling mechanism, the pre-granted permissions and non-interactive credentials it needs, and the safety checklist from the spec's Safety & Permissions section in plain words — least-privilege scopes; human gates or draft-don't-send actually enforced in the deployed artifacts; content the user didn't author treated as data, never instructions; a cap on actions per run; every write visible in the run log. For an `augmented` workflow, one line: "This runs when you start it. If you later want it on a schedule, come back to this step and we'll set that up." If the workflow is `automated` but the platform's capability entry says unattended runs are not supported, say so in one line and name the platforms that do support them, from the same capability entry — do not improvise a workaround.
 
-**Variant B: Manual build (Path 2)**
+Present the Run Card in the conversation as well as saving it.
 
-Provide a Construction Guide instead of setup instructions. The user will build the artifacts themselves.
+#### Step 4 — Run log, registry, review date
 
-**A. What to build** — List every artifact from the spec, what it does, and the recommended file format for the user's platform. Use a table:
-
-| Artifact | Purpose | Format | Priority |
-|----------|---------|--------|----------|
-
-**B. Build sequence** — Ordered implementation steps following the spec's recommended implementation order. For each artifact:
-- What to create (from the spec's generation-ready detail)
-- Platform-specific format guidance (file type, frontmatter requirements, directory conventions)
-- Key content to include (inputs, outputs, decision logic from the spec)
-- How to test it in isolation before connecting to other artifacts
-
-**C. First run** — Same as Variant A: guided test run with sample input.
-
-**D. What to do next** — Same as Variant A: repeatable trigger, sharing, iteration guidance.
-
-**Variant C: Guided-mode platforms (Path 3)**
-
-The Build phase produced GUI instruction documents rather than deployable code artifacts. The Run Guide walks the user through following these instructions.
-
-**A. What was built** — List the instruction documents produced, what each covers, and which platform screens they reference. Use a table:
-
-| Document | What it covers | Platform area |
-|----------|---------------|---------------|
-
-**B. Setup steps** — Walk through following the GUI instructions in order:
-- Which platform screen to open first
-- What to configure at each step (referencing the instruction document)
-- What to verify after each configuration step (confirmation messages, visual indicators)
-- If a step requires permissions or admin access the user may not have, flag it
-
-**C. First run** — Same as Variant A: guided test with sample input, expected behavior at each step, what good output looks like, common first-run issues.
-
-**D. What to do next** — How to modify the configuration later, share with team members (if the platform supports it), when to revisit and update, change management notes for organizational workflows.
-
-**Section E — Running it in a fresh or scheduled session (include in all variants).**
-
-A workflow that worked while you were building it can fail the first time it runs in a *new* or *unattended* session, because that environment doesn't inherit this one's setup. State these as **requirements the run environment must satisfy** — and let the model fill in the concrete commands/clicks for the user's specific platform at runtime (per the Design Principle, do **not** hardcode platform commands in this skill):
-
-- **Artifacts must be loadable in the run environment.** On platforms where project-local artifacts auto-load, the workflow is available to any session opened in that project — nothing to reinstall. On others, the artifacts must be installed/imported first. (Model: read the platform's `capabilities.skill_install` and `capabilities.context_location`, or its `notes` if `capabilities` is absent, and state the concrete step.)
-- **Connectors are authorized per session/environment, and it doesn't carry over.** Every connector the workflow uses must be authorized **in the session/context that actually runs it** — authorizing it elsewhere (or in this build session) does not transfer. Include a "verify connectors are connected before the first real run" check. (Model: supply the platform's concrete verification step.)
-- **Unattended/scheduled runs need pre-granted permissions and non-interactive credentials.** A scheduled or headless run can't answer interactive permission prompts, so tool permissions must be pre-granted and credentials must be non-interactive. Present this as a prerequisite checklist. (Model: read the platform's `capabilities.unattended_runs`, or, if the entry has no `capabilities`, its `notes`; if it says none, do not offer scheduling.)
-- **Unattended runs get a safety checklist, not just a setup checklist.** Pull the spec's Safety & Permissions section forward into plain language: the permissions you pre-grant are exactly what a bad run can do without you watching. Before the first scheduled run, confirm: (1) permissions are least-privilege — only the scopes the workflow needs; (2) any Human Gate or draft-don't-send constraint from the spec is actually enforced in the deployed artifacts; (3) if the workflow processes content the user didn't author (inbound email, web pages), the deployed instructions tell it to treat that content as data, never as instructions; (4) there's a cap or sanity bound on actions per run, and every write is visible afterward (see the run log below).
-
-**Section F — Run log (include in all variants).**
-
-Create `outputs/[workflow-name]/runs.md` with a header row, and make "log the run" part of the workflow's routine — one line per run is enough:
+Create `outputs/[workflow-name]/runs.md` with the header row, and add today's first real run as row one — unless the orchestrator already appended it during Step 2, in which case just check the row is right:
 
 ```markdown
 | Date | Input / trigger | Result | Edits needed | Notes |
 |---|---|---|---|---|
 ```
 
-Tell the user why it's worth ten seconds: when they review this workflow later (Step 7 — Improve), the log is the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself (an orchestrator skill or agent the loop executes), Build should already have baked self-logging into the orchestrator artifact (per the spec's Deployment Plan Run Logging requirement) — **verify** it appends a row to `runs.md` at the end of each run. If it doesn't (older spec or pre-logging Build), **add that logging step to the orchestrator artifact now** so it self-logs going forward. Either way, logging then costs the user nothing.
-
-Present the Run Guide directly in the conversation. Also save it to `outputs/[workflow-name]/run-guide.md` so the user has a reference they can follow later or share with teammates. Then update the Workflow node (`registry/workflows/<slug>.md`): set `status: in-production` once the workflow is deployed and `stale_after` to the next scheduled review date, and link the Run guide and Run log under `# Artifacts`. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step). (No persistent workspace in this environment? Tell the user to save the guide file and re-supply it when they return for the Improve step.)
+Update the Workflow node: `status: in-production`, `stale_after: YYYY-MM-DD` (the review date agreed with the user), and link the Run Card and run log under `# Artifacts`. Invoke the `indexing-registry` skill for a maintenance pass (best-effort). If the platform supports reminders or scheduled tasks, offer to set the review reminder. No persistent workspace? Tell the user to save the Run Card and the run log.
 
 ## Outputs
 
-### `outputs/[workflow-name]/run-guide.md` — Run Guide
-
-Plain-language guide for getting the workflow running. Three variants:
-- **Model-built:** Artifact inventory, step-by-step setup instructions tailored to the user's platform, a guided first-run test with sample input, and next steps for ongoing use and team sharing.
-- **Manual build:** Construction Guide with artifact list, build sequence with platform-specific format guidance, first-run test, and next steps.
-- **Guided-mode:** Instruction walkthrough, step-by-step GUI setup guide, first-run test, and next steps.
-
-All variants also include **Section E — Running it in a fresh or scheduled session** (artifact loading, per-session connector authorization, prerequisites and the safety checklist for unattended/scheduled runs) and **Section F — Run log** (`outputs/[workflow-name]/runs.md`, one line per run, feeding evidence into Step 7 — Improve), written as platform-agnostic requirements the model resolves to concrete steps at runtime.
+- `outputs/[workflow-name]/run-guide.md` — the Run Card (six fixed headings above).
+- `outputs/[workflow-name]/runs.md` — the run log, one line per run.
+- Workflow node updated: `status: in-production`, `stale_after`, artifact links.
 
 ## Guidelines
 
-- Use plain language; avoid jargon unless the user introduced it
-- After writing the Run Guide, tell the user: "Run Guide saved to `outputs/[name]/run-guide.md`."
-- **Schedule the first review (Step 7).** Agree a review date with the user — monthly for high-frequency workflows, quarterly for occasional ones — record it as `stale_after: YYYY-MM-DD` on the Workflow node, and tell them the exact re-entry command: "When the date arrives (or sooner if output quality slips), start a new conversation and say: *'Run the `improve` skill on [workflow name]'* — the Workflow node and run log carry everything it needs." If the platform supports scheduled tasks or reminders, offer to set one up.
-- Summarize all deliverables at the end so the user has a clear inventory of everything produced across Steps 3-6 (Design, Build, Test, and Run)
-- After the summary, prompt for SOP creation: "To document this workflow as a Standard Operating Procedure (SOP) for your team, run the `writing-workflow-sops` skill. The SOP captures what the workflow does, when to trigger it, what inputs it needs, and who's responsible — useful for onboarding teammates and maintaining the workflow over time."
-- Use web search to verify current platform setup steps — platform UIs change frequently
+- Plain language; every concrete instruction comes from the platform's `capabilities`, never from memory of a platform's UI — verify with one web check if a capability value looks stale.
+- Close with the inventory of everything produced across Steps 3–6 (Design Spec, built skills/agents, test results, Run Card, run log) and the review date, then: "When [date] arrives — or sooner if the output starts needing more edits — start a new conversation and say: *Run the improve skill on [workflow name]*."
+- For organizational workflows, after the summary offer the `writing-workflow-sops` skill to document the workflow as an SOP for the team.

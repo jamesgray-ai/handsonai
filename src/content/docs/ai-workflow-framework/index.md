@@ -57,7 +57,7 @@ could be automated with AI"
 3. **Design Spec** — `[name]/design-spec.md`
 4. **Platform Artifacts** — prompts, skills, agents, and configs in the format your platform requires
 5. **Test Results** — `[name]/test-results.md`
-6. **Run Guide** — `[name]/run-guide.md`, plus a run log at `[name]/runs.md`
+6. **Run Card** — `[name]/run-guide.md`, plus a run log at `[name]/runs.md`
 7. **Improvement Plan** — `[name]/improvement-plan.md` (when running Improve)
 
 ## The Framework
@@ -140,7 +140,7 @@ The Build step starts with a **Prepare Context** phase — systematically resolv
 
 **Deliverable:** **Platform artifacts** — skills, agents, and configs generated for your specific platform, plus resolved context artifacts (style guides, reference materials, examples).
 
-**Facilitated by the `build` skill.** See [Build](build/) for mechanism-specific build paths and platform research details.
+**Facilitated by the `build` skill.** See [Build](build/) for the Prepare Context phase and platform research details.
 
 ---
 
@@ -162,9 +162,9 @@ Most workflows need 2-4 iterations between Build and Test before they produce re
 
 Deploy and operate your tested workflow.
 
-Once your workflow passes testing, Run helps you put it into production. The skill produces a Run Guide tailored to your platform and technical comfort level, then helps you choose the right run pattern — from running it inside a project to fully automated schedules. For organizational workflows, Run also covers sharing with your team and setting up ongoing operations.
+Once your workflow passes testing, Run puts it into production: you do the first real run on real work with the model watching, and it leaves behind a one-page Run Card — how to start it, what to have ready, what to check before you act on the output — plus a run log and a review date. Scheduling is covered only for workflows designed as Automated. For organizational workflows, Run also covers sharing with your team and setting up ongoing operations.
 
-**Deliverable:** **Run Guide** (`outputs/[name]/run-guide.md`) — artifact inventory, setup steps, first production run instructions, run pattern, and operationalization guidance.
+**Deliverable:** **Run Card** (`outputs/[name]/run-guide.md`) — six fixed sections: your first real run, how to start it, what to have ready, what to check before you act on the output, log the run, and your first review.
 
 **Facilitated by the `run` skill.** See [Run](run/) for run patterns, deployment options, and operationalization guidance.
 
@@ -256,7 +256,7 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 3. **[Design](design/)** your AI workflow — assess autonomy, choose an orchestration mechanism, classify steps, map building blocks
 4. **[Build](build/)** the components your orchestration mechanism requires
 5. **[Test](test/)** your workflow against your acceptance criteria and establish a baseline
-6. **[Run](run/)** — deploy, choose a run pattern, and operationalize
+6. **[Run](run/)** — do the first real run, leave a Run Card and run log, and operationalize
 7. **[Improve](improve/)** — periodically re-check, catch drift, and decide what to change
 
 :::tip[Before you start]
