@@ -42,7 +42,7 @@ Confirm you've loaded both by summarizing: workflow name, orchestration mechanis
 - `spec_version: 2.5` → mechanism vocabulary is `Prompt | Skill-Powered Workflow | Agent` — read `Prompt` and `Skill-Powered Workflow` as `Skill`; no `approved` flag; agents carry a Failure Modes field; the spec includes a `Value & Measurement` section and a `Constraint Conformance` table under Safety & Permissions; proceed. A `Baseline: Unknown` in Value & Measurement means the workflow has no measured starting point — instrumentation is part of the build, so surface it when planning the Run Guide.
 - `spec_version: 2.4` → same structure minus `Value & Measurement` and `Constraint Conformance`. Treat both as absent; fall back to the four Safety & Permissions questions as answered in the spec, exactly as today. Do not fail, and do not ask the user to regenerate.
 - `spec_version: 2.3` → same structure minus the agent Failure Modes field — treat it as empty and derive error handling from the agent's Constraints plus the Workflow Requirements' fallback behavior; proceed.
-- `spec_version: 2.2` → same structure, but the middle mechanism is named by its legacy value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow` everywhere; proceed.
+- `spec_version: 2.2` → same structure, but the middle mechanism is named by its legacy value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow`, which the 2.5 rule above reads as `Skill`; proceed.
 - `spec_version: 2.1` → same structure minus Safety & Permissions and using legacy flat paths; proceed, and apply the safety defaults from Step 5's write-scope pre-flight in place of the missing section.
 - `spec_version: 2.0` → older format without layer grouping or Orchestrator Outline; proceed (Build's fallback derives the orchestrator from Workflow Requirements directly).
 - No frontmatter or older `spec_version` → spec predates the current format. Inform the user: "This spec is in an older format. Some fields (Packaging, Build Output column, Skill/Agent IDs, Deployment Plan, Orchestrator Prompt Outline) may be missing. I can either (a) proceed with what's available and ask questions as needed, or (b) you can regenerate the spec by running the Design skill again."
@@ -166,17 +166,7 @@ Before generating artifacts, resolve platform-specific format requirements and i
 
 **Tier 2 — Integration Doc Resolver**
 
-For each integration listed in the Design Spec's "Integration Options" section, resolve platform-specific integration documentation:
-
-1. **Read `integration-registries`** from the cached registry JSON. This section catalogs known sources for integration documentation (e.g., MCP registry, platform marketplaces, connector catalogs).
-
-2. **Search each cataloged source.** For each integration needing research:
-   - Check MCP availability first — if an MCP tool for searching a cataloged source is available in the current session (e.g., `mcp-registry` search), use it.
-   - If the MCP tool is available, query it for the integration name and platform.
-
-3. **WebFetch fallback for uncataloged sources.** If the integration is not found in any cataloged source, or the cataloged source has no MCP tool available:
-   - Use WebFetch to retrieve the integration's documentation directly from its known URL or official site.
-   - If no URL is known, fall back to web search to locate the integration's documentation.
+For each integration listed in the Design Spec's "Integration Options" section, resolve platform-specific integration documentation: check the platform entry's native connectors first (the registry's `platform-native-connectors` pointer), then the spec's Source URLs; web-fetch only what is still unresolved.
 
 **Fallback ladder (never hard-fail).** Both tiers depend on network access — the registry fetch can fail and WebFetch/web search may be unavailable on some platforms. Degrade gracefully and tell the user what was degraded: **session cache** (registry already fetched this session, incl. by Design) → **model knowledge** → **web search** → **best-effort note**. If WebFetch isn't available, say so and use web search; if neither is available, generate from model knowledge and **flag the artifact format as unverified** so the user double-checks before relying on it. Never block Build because a fetch failed.
 
@@ -236,12 +226,12 @@ Based on the platform and packaging decisions from Architecture Decisions. Resol
 Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capability Domain Mapping Build Output column** for goal-driven) as your generation checklist. Each row tells you exactly what to produce:
 - `New skill: SN` → generate the skill defined in the matching Skill Candidates entry
 - `Use existing: [name]` → no generation needed; verify the skill exists and reference it
-- `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then write; never overwrite silently. Note in the summary which other workflows use it.
+- `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then write; never overwrite silently. Read the `(also used by: …)` parenthetical from the cell and list those workflows in the summary as the ones affected by the change.
 - `New agent: AN` → generate the agent defined in the matching Agent Configuration entry
 - `Inline prompt → Workflow Requirements Step N` → fold this step's Goal/Inputs/Outputs/Rules from the Workflow Requirements into the main orchestrator prompt
 - `MCP server: [name]` → configure the connector using the Integration Options entry
 - `Human (no artifact)` → skip; no AI artifact for this step
-- `Handled by orchestrator` (goal-driven only; legacy synonym `Handled by agent`) → no separate artifact; the capability is covered by the orchestration logic (the primary loop's orchestrator skill / `CLAUDE.md` run section) or a sub-agent's instructions
+- `Handled by orchestrator` (legacy synonym `Handled by agent`) → no separate artifact; the capability is covered by the orchestration logic (the primary loop's orchestrator skill / `CLAUDE.md` run section) or a sub-agent's instructions
 
 Apply the spec's **Packaging** decision to group the generated artifacts:
 - **Plugin** → assemble into a marketplace plugin directory structure (e.g., handsonai-plugins layout for Claude marketplace). On Cowork, any workflow that includes worker sub-agents **must** package as Plugin — Cowork runs custom agents only from installed plugins (see the registry entry's notes). If the approved spec says Standalone Skill but includes agents on Cowork, flag the mismatch and switch to Plugin with the user's confirmation.

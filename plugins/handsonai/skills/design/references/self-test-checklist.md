@@ -25,7 +25,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 - [ ] Every Skill Candidate's Description starts with "This skill should be used when...", is ≤1024 chars, is third-person, and names at least two concrete trigger keywords/contexts
 - [ ] No two Skill Candidates describe the same capability at different steps (parallel applications are one skill with multiple Covers Steps entries)
 - [ ] For a `Skill` mechanism, S1 is the orchestrator skill, named with the workflow slug, Covers Steps: all
-- [ ] Every `Extend existing: [name]` names the installed skill and lists the other workflows that use it
+- [ ] Every `Extend existing: [name]` cell names the installed skill and carries the `(also used by: …)` parenthetical listing the other workflows that share it (or `none`)
 
 ## Agent Configuration
 

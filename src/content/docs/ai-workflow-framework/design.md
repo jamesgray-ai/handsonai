@@ -22,7 +22,7 @@ Design walks through three layers of decisions that build on each other. Each la
 | Layer | What it decides | Why it's separate |
 |---|---|---|
 | **Layer 1 — Architecture** | Platform, mechanism (Skill/Agent), autonomy level, packaging, model class, integration options | Strategic. Cheap to revisit. Wrong call here cascades everywhere. |
-| **Layer 2 — Decomposition** | For each step (or capability domain), what AI building block delivers it: a new skill, an existing skill, an inline prompt block, an agent, or a human action | Structural. Decides what gets built and what gets reused. |
+| **Layer 2 — Decomposition** | For each step (or capability domain), what AI building block delivers it: a new skill, an existing skill (as-is or extended), an inline prompt block, an agent, or a human action | Structural. Decides what gets built and what gets reused. |
 | **Layer 3 — Component Blueprints** | Field-level specs for each new skill and agent — name, description, inputs/outputs, decision logic, failure modes, tools, deployment | Detailed. Most expensive to redo. Build uses these to generate artifacts. |
 
 The Design skill walks you through these layers in order, with a lightweight confirmation moment between each. Approval of the draft spec is the only hard gate.
@@ -31,7 +31,7 @@ The Design skill walks you through these layers in order, with a lightweight con
 |---|---|
 | **What you'll do** | Confirm your platform, work through three layers of design decisions with lightweight confirmation at each handoff, and approve the final spec |
 | **What you'll get** | A **Design Spec** — three-layer architecture and component blueprints, with frontmatter, stable IDs, and a Self-Test Summary |
-| **Time** | ~15–25 minutes |
+| **Time** | ~30 minutes |
 
 :::note[Three terms you'll see, in plain language]
 - **Frontmatter** — a small block of labeled facts at the top of the file (workflow name, mechanism, counts). It lets the next step read the headline decisions without re-reading the whole document.
@@ -157,7 +157,7 @@ For goal-driven workflows, this is replaced by a **Capability Domain Mapping** �
 
 When mechanism is `Skill`, the spec includes an **Orchestrator Prompt Outline** — the structural skeleton of the workflow's main prompt. It names which step invokes which skill, where PAUSE points sit (from Human Gates), and what the user provides at each gate. Build expands the outline into the full orchestrator using Step Details from the Workflow Requirements.
 
-Omitted for `Agent` mechanism — the agent itself is the orchestrator (see Agent Configuration in Layer 3).
+Omitted for `Agent` — orchestration logic lives in the Deployment Plan; on Claude Code and Cowork the primary session orchestrates and the agents are its workers.
 
 ### Data Readiness Summary
 

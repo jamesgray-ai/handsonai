@@ -63,7 +63,7 @@ Set up a persistent workspace where your prompt, context files, and settings are
 - The workflow uses the same reference materials each time
 - You want consistent settings (model, instructions) across runs
 
-**How to do it:** Create a project on your platform (Claude Project, ChatGPT Project or Workspace Agent, Gemini Gem, M365 Copilot notebook). Upload your context files, add your prompt as project instructions or a system prompt, and configure any settings. Future runs start with everything in place — you just provide the new input.
+**How to do it:** Create a project on your platform (Claude Project, ChatGPT Project or Workspace Agent, Gemini Gem, M365 Copilot notebook). Upload your context files, add the orchestrator skill (or, on platforms without skills, its instructions) as project instructions, and configure any settings. Future runs start with everything in place — you just provide the new input.
 
 ### Let the Agent Run
 
