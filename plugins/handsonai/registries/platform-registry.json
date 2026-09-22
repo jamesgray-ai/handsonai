@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "platforms": {
     "claude-code": {
       "mode": "code",
@@ -111,38 +111,11 @@
       "notes": "Official Slack CLI for workflow automation"
     }
   ],
-  "skill-registries": [
-    {
-      "name": "Agent Skills",
-      "type": "web-search",
-      "url": "https://agentskills.io",
-      "notes": "Open standard for the Skill primitive (used by ChatGPT and other platforms)"
-    },
-    {
-      "name": "skills.sh",
-      "type": "web-search",
-      "url": "https://skills.sh",
-      "notes": "Community skill marketplace"
-    },
-    {
-      "name": "Context7",
-      "type": "mcp",
-      "tool": "query-docs",
-      "notes": "Library docs and skills via MCP"
-    }
-  ],
   "integration-registries": [
     {
-      "name": "Context7",
-      "type": "mcp",
-      "tool": "query-docs",
-      "notes": "Library docs, API references, SDK docs via MCP"
-    },
-    {
-      "name": "context-hub",
-      "type": "local",
-      "check": "context-hub --version",
-      "notes": "Community-maintained integration registry (CLI)"
+      "name": "platform-native-connectors",
+      "type": "registry-entry",
+      "notes": "First stop: the platform entry's capabilities. Claude, Cowork, and ChatGPT ship native connectors for common tools; recommend those before any MCP server, API, or CLI."
     }
   ]
 }
