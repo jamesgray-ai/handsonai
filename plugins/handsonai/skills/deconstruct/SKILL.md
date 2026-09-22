@@ -67,7 +67,7 @@ When rendering this choice as a structured form (option cards), both cards state
 - **Step-driven**: Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If no lens was established, determine it: individual tasks (one person's repetitive work) = Individual lens; multi-role or business-objective processes = Organizational lens. Ask only if not obvious from context. Proceed to Phase 2 (scope check) → Phase 3 (naming) → Phase 4 (deep dive).
 - **Goal-driven**: Proceed to Phase 2 (scope check) → Phase 3 (naming) → Phase 4 (goal-driven), the goal interview. The interview opens with scenario grounding, so don't pre-interview here — but if the user has already described the situation, trigger, or consumer, carry those answers forward.
 
-**Value case (both paths)** — Chapter 1. Bridge into it: "Before we map anything, I want to know what this is worth to you, so that when it's built we can show the improvement rather than just claim it." Then capture four of the six `Value & Measurement` fields, conversationally: two or three questions, not a form.
+**Value case (both paths)** — Say: "Chapter 1 of 5 — what this is worth." Bridge into it: "Before we map anything, I want to know what this is worth to you, so that when it's built we can show the improvement rather than just claim it." Then capture four of the six `Value & Measurement` fields, conversationally: two or three questions, not a form.
 
 - **Business Objective** — which strategic objective this supports. On the Individual lens it may be personal ("get my Fridays back"); don't push organizational language onto it.
 - **Desired Outcome** — what changes, and for whom, when this works. In the language the business would use, not the workflow's.
@@ -105,7 +105,7 @@ Present 2-3 name options. Naming conventions: a **2-4 word noun phrase** in **Ti
 
 #### Phase 4 — Deep dive
 
-*Step-driven only.* Chapter 3. Open by stating the shape of what's coming: "You named [N] steps. We'll take them one at a time — for the first one I'll ask questions; from the second onward I'll propose what I think each step involves and you correct me, which is faster." Then briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
+*Step-driven only.* Say: "Chapter 3 of 5 — mapping how the work gets done." Open by stating the shape of what's coming: "You named [N] steps. We'll take them one at a time — for the first one I'll ask questions; from the second onward I'll propose what I think each step involves and you correct me, which is faster." Then briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
 
 Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Phase 13.
 
@@ -154,7 +154,7 @@ When probing context needs, push beyond vague answers — identify the specific 
 
 **Present as a propose-and-react summary:**
 
-> "Chapter 4. You've described how the work happens *today*, with a person doing it. An AI-powered version usually doesn't need every one of those steps — some exist only because a human was doing the work. Here's how I'd reshape it:
+> "Chapter 4 of 5 — improving it for AI. You've described how the work happens *today*, with a person doing it. An AI-powered version usually doesn't need every one of those steps — some exist only because a human was doing the work. Here's how I'd reshape it:
 > - **Eliminate**: [step(s)] — [reason, e.g., 'direct access to your CRM data replaces the manual export']
 > - **Collapse**: [step(s)] into one — [reason, e.g., 'AI drafts and formats in a single pass']
 > - **Parallelize**: [step(s)] — [reason, e.g., 'no data dependency between these']
@@ -222,7 +222,7 @@ Work each implicated category once, even when two tests point at the same one. C
 
 *Both paths.* This is the last chapter. Open it by saying what it is for, in plain words, before asking anything:
 
-> "Last chapter. In Step 5 you'll run this workflow on a few realistic inputs and check whether the output did what you needed. I want to capture *how you'll judge it* now, while you know the work best, so that step is a checklist and not a gut feel. Each thing you tell me becomes one line the workflow either meets or doesn't."
+> "Chapter 5 of 5 — how you'll judge the output. In Step 5 you'll run this workflow on a few realistic inputs and check whether the output did what you needed. I want to capture *how you'll judge it* now, while you know the work best, so that step is a checklist and not a gut feel. Each thing you tell me becomes one line the workflow either meets or doesn't."
 
 Then ask, one at a time, in this order:
 

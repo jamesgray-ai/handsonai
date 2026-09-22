@@ -253,7 +253,7 @@ For step-driven workflows:
 >
 > - **Platform:** [Claude.ai] — the [browser app you sign into at claude.ai]. This is where your workflow will live.
 > - **Packaging:** [Standalone Skill] — a [single self-contained set of instructions you upload once and reuse]. (Other options: Plugin, Workspace Agent, Loose Files — yours is Standalone Skill because [reason].)
-> - **Autonomy level:** [Guided] — meaning [AI handles most of the work, you steer at key checkpoints]. (The scale runs Human → Deterministic → Guided → Autonomous.)
+> - **Autonomy level:** [Guided] — meaning [AI handles most of the work, you steer at key checkpoints]. (The scale runs Deterministic → Guided → Autonomous.)
 > - **Mechanism:** [Skill] — the [reusable skill you confirmed in the last step]. Runs in [Augmented] mode, which means [you're in the loop reviewing at checkpoints, not running on a schedule].
 > - **Safety:** [one-line summary of the Phase 6 findings — e.g., 'this workflow can create drafts in your email; it never sends without your review']
 > - **Tools needed:** [list] — these are the external services your workflow will touch. I'll figure out exact integration options (MCP server, API, CLI, SDK) during Build.
