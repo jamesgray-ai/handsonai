@@ -48,7 +48,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
 1. **Scenario discovery** — Determine how the user is arriving and which path to take.
 
-   **From Analyze output**: If the user references an opportunity report, file path (e.g., `outputs/ai-opportunity-report.md`), or a specific workflow candidate from an Analyze session, read the Workflow Candidate Summary from the file. Present the available candidates and ask which one to deconstruct. Pre-populate scenario metadata (name, description, trigger, deliverable, autonomy, involvement) from the candidate fields. If the candidate includes a `Lens` field, carry it forward along with any `Business Objective`, `Stakeholders`, and `Success Metrics` fields. Confirm the pre-populated details with the user. Then choose the path: if the candidate's autonomy = Autonomous, suggest goal-driven but still confirm. Otherwise present the choice below.
+   **From Analyze output**: If the user references an opportunity report, file path (e.g., `outputs/ai-opportunity-report.md`), or a specific workflow candidate from an Analyze session, read the Workflow Candidate Summary from the file. Present the available candidates and ask which one to deconstruct. Pre-populate scenario metadata (name, description, trigger, deliverable, autonomy, involvement) from the candidate fields. If the candidate includes a `Lens` field, carry it forward along with any `Business Objective`, `Stakeholders`, and `Success Metrics` fields. Confirm the pre-populated details with the user. Then choose the path: if the candidate's autonomy = Autonomous, suggest goal-driven but still confirm. Otherwise confirm the path from the candidate's description using the describe-first flow below.
 
    **Cold entry (no Analyze output)**: Do not open with the path question. First ask, in one line: "Tell me about the workflow — what kicks it off, what you do, and what comes out the other end. Rough is fine." Listen for whether the paths are listable. Then **propose** the path with the reason, and confirm:
 
@@ -96,7 +96,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
 4. **Deep dive (step-driven only)** — Chapter 3. Open by stating the shape of what's coming: "You named [N] steps. We'll take them one at a time — for the first one I'll ask questions; from the second onward I'll propose what I think each step involves and you correct me, which is faster." Then briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
 
-   Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Step 10.
+   Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Step 13.
 
    - Discrete steps (is this actually multiple steps?)
    - Decision points (if/then branches, quality gates)
@@ -172,7 +172,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
    - any row `Confidential` or `Regulated` → **handles data the user would be uncomfortable seeing outside the company**
    - any row `External` → **consumes content nobody on the team authored**
 
-   Frame the check in one line first: "Two quick checks on what this workflow has to protect, then mapping is done." Then:
+   Frame the check in one line first: "Two quick checks on what this workflow has to protect, then we're done mapping and can move to how you'll judge it." Then:
 
    Ask only the third: **"Does this workflow write to anything live — send, post, create, or change something in a real system?"** (Running unattended is the higher-risk form of the same thing, so it counts.)
 
@@ -197,7 +197,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
     Then ask, one at a time, in this order:
 
-    1. **Real example first.** "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?" If yes, ask for it (paste, attach, or a Context Inventory ID) and read it before asking anything else. If a document, add it to the Context Inventory and reference its ID. If none exists, say so is fine and move on — but if the user produces this output today, a recent good one usually does.
+    1. **Real example first.** "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?" If yes, ask for it (paste, attach, or a Context Inventory ID) and read it before asking anything else. If a document, add it to the Context Inventory and reference its ID. If none exists, that's fine and move on — but if the user produces this output today, a recent good one usually does.
     2. **Derive the criteria from the example.** Looking at the example (or, if none, at the Goal), propose the qualities that make it good as **numbered yes/no statements**: "Looking at this, it seems you care that (1) every row has contact info, (2) it uses your three headings, (3) it stays under a page. Is that the list? What's missing?" Every statement must be answerable Met / Not met from one run's output. Sharpen soft qualities until they are checkable: "tone is good" → "I could send this without editing the wording"; "matches our style" → "uses our headings and stays under one page". Never record a scale word ("mostly", "somewhat", "1–5"). For goal-driven workflows, also seed the list from the rejection-test answers captured in question 3 of the goal-driven interview — each "I'd send it back because…" is a criterion; confirm and fill gaps rather than re-eliciting.
     3. **The one that matters most.** "If it got everything else right but missed one of these, which one would make you send it back?" Mark that criterion (or two) with **(must)** — Test reports it first.
     4. **Realistic inputs to try.** "Give me 3–5 real or realistic inputs you'd run this on — different enough to test its range, including one hard case. For each, what would you look for in the output?" These become Example Scenarios E1…E5. For goal-driven workflows, harvest them from the variation envelope captured in question 4 of the goal-driven interview rather than re-asking.
@@ -390,7 +390,7 @@ Reference example: [Context Inventory ID of the real output the criteria were de
 | E1 | [short name] | [description] | [what makes this output "good"] | [Context Inventory ID, short inline excerpt, or "—"] |
 | E2 | … | … | … | … |
 
-Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut-feel scoring alone. Use "—" when none exists.
+Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut feel alone. Use "—" when none exists.
 
 ## Rules & Constraints
 
@@ -511,6 +511,6 @@ The Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria,
 - Push beyond vague context answers like "domain knowledge" — identify the specific artifact.
 - Surface the assumption that existing context — data, documents, transcripts, reference materials — will "just work" for AI. Most people underestimate the work required to make context AI-accessible, especially unstructured content like SOPs, style guides, meeting transcripts, and knowledge that lives in people's heads. Adopt a data strategist lens — help the user see where context reorganization, reformatting, or externalization is needed before they commit to a workflow design that depends on inaccessible context. Push beyond "it's in the CRM" or "I just know it" — ask what system it's in, what format it's in, and whether there's programmatic access or it requires manual steps. Leave specific integration mechanisms (MCP, API, SDK) to the Design step.
 - **Stay in the "what" lane.** Deconstruct defines the workflow, its context needs, its rules, and its acceptance criteria. It does not prescribe how AI will access data, which tools to use, what integrations to build, how many agents are needed, or which models to use — those are Design decisions (Step 3). Do not ask the user about capability domains, agent architecture, model class, or orchestration mechanism. If a technology concern surfaces, note it as a consideration for Design rather than resolving it here.
-- After writing the Workflow Requirements file, close with what was produced and what happens next: "Workflow Requirements saved to `outputs/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill'."
+- After writing the Workflow Requirements file, close with what was produced and what happens next: "Workflow Requirements saved to `outputs/[name]/requirements.md`. It holds your goal, [N] steps (or, goal-driven: the goal and its range), [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill'."
 - If entering deconstruction without a prior analysis (direct workflow description), determine the lens by asking if not obvious from context.
 - For goal-driven workflows, do not force step decomposition — the whole point is to capture what the agent system needs to know without prescribing execution steps.

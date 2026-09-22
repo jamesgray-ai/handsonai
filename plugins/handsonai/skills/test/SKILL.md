@@ -13,7 +13,7 @@ Check the built workflow against the yes/no criteria captured in Deconstruct, on
 
 **Set expectations up front (first message).** Say: "This step takes about 45 minutes per round, and most workflows need two to four rounds before they're ready — that's normal, not failure. Six rules for judging your workflow: (1) judge it against what you wrote in Deconstruct, not how it feels; (2) use real inputs, including one hard case; (3) run it in a fresh conversation, not this one; (4) every criterion is met or it isn't — one miss is a miss; (5) I grade first with evidence, you make the call; (6) test, fix, test again — don't fix mid-test."
 
-**Where the workflow runs — read this before anything else.** The workflow never runs inside this conversation. This conversation already holds the requirements, the design, and everything said while building, so a run here would see all of it and look better than it will in real use. Every scenario runs in a **fresh conversation** with only the installed skill (or agent) and the scenario's input, started the way an operator would start it — read the platform's `capabilities.skill_install` in the platform registry (or its `notes` if `capabilities` is absent) for the exact way to start it. The user brings the output back here (paste or attach), and this conversation **scores**. Tell the user this in one sentence at the start: "You'll run each input in a new chat; I'll grade the results here."
+**Where the workflow runs — read this before anything else.** The workflow never runs inside this conversation. This conversation already holds the requirements, the design, and everything said while building, so a run here would see all of it and look better than it will in real use. Every scenario runs in a **fresh conversation** with only the installed skill (or agent) and the scenario's input, started the way an operator would start it — read the platform's `capabilities.skill_install` in the platform registry (or its `notes` if `capabilities` is absent) for the exact way to start it. The user brings the output back here (paste or attach), and this conversation **grades**. Tell the user this in one sentence at the start: "You'll run each input in a new chat; I'll grade the results here."
 
 If the skill is not yet installed on a platform that needs installation, stop and route the user back to Build's install step first. If files were edited since installation, remind the user the installed copy is stale — repackage and reinstall before running.
 
@@ -23,7 +23,7 @@ If the skill is not yet installed on a platform that needs installation, stop an
 
 Read the workflow's Workflow node (`registry/workflows/<slug>.md`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them), infer progress from which artifacts each node's `# Artifacts` section links, and if Test isn't the next step, say so and route to the right skill. Verify both files exist — if either is missing, stop and say which.
 
-From the Requirements, build the **check list** the report card will use: every Acceptance Criterion (`AC1…`, with **(must)** marks), every Rules & Constraints row (`R1…`), every Human Gate (`G1…`), and each step's stated output (`Step N output`). Load the Example Scenarios (`E1…`) and any Golden Examples. Introduce the vocabulary in plain language once: a *scenario* is one realistic input; the *report card* is the table of every expected behaviour and whether the run met it; the *baseline* is the first completed report card, kept so a later review can see what changed.
+From the Requirements, build the **check list** the report card will use: every Acceptance Criterion (`AC1…`, with **(must)** marks), every Rules & Constraints row (`R1…`), every Human Gate (`G1…`), and each step's stated output (`Step N output`). Load the Example Scenarios (`E1…`) and any Golden Examples. Introduce the vocabulary in plain language once: a *scenario* is one realistic input; the *report card* is the table of every expected behaviour and whether the run met it. The **baseline** is the report card of the round that produced the `Ready` verdict — the file named `test-results.md` when Run began — not the first attempt.
 
 If the Requirements predates this format (has "Dimensions that matter" and a prose "Minimum bar" instead of numbered `AC` lines), convert it now with the user: turn each dimension and the "what good looks like" text into numbered yes/no statements, write them back into the Requirements file under `## Acceptance Criteria`, and note the conversion in this run's results.
 
@@ -33,7 +33,7 @@ Restate it so nobody is surprised later: "The workflow is **ready** when every l
 
 ### 3. Smoke run (one scenario, logic only)
 
-Before the full round, walk one scenario mentally against the built skill's text — read the orchestrator and check that each Requirements step, rule, and gate is actually represented. This catches obvious gaps (a missing gate, an unreferenced context file) before the user spends a run on them. It is not a scored run.
+Before the full round, walk one scenario mentally against the built skill's text — read the orchestrator and check that each Requirements step, rule, and gate is actually represented. This catches obvious gaps (a missing gate, an unreferenced context file) before the user spends a run on them. It is not a graded run.
 
 ### 4. Integration pre-flight
 
@@ -73,6 +73,8 @@ Map each Not met line to the building block that caused it:
 | A tool call failed | **Connector** — verify the connection independently, then re-run |
 | The AI had to make decisions the rules didn't cover | **Design** — the workflow may need an agent, or clearer rules |
 
+If a miss's cause is not obvious from the table, isolate it: run that one building block alone in a fresh chat with the same input and see whether the miss reproduces.
+
 Write the diagnosis as `## Issues identified`, one row per miss: `Scenario | Line | Building block (S1, S2, A1, C3, orchestrator, connector) | What to change`. Build's fix mode reads this table.
 
 ### 7. Verdict
@@ -102,12 +104,12 @@ readiness: ready | not-ready | waiting-on-access
 criteria_total: 12          # lines on the check list × scenarios run
 criteria_met: 11
 results:
-  E1: { AC1: met, AC2: met, R3: not-met, G1: met, edits: minor }
-  E2: { AC1: met, AC2: met, R3: met, G1: met, edits: none }
+  E1: { AC1: met, AC2: met, R3: not-met, G1: met, "Step 2 output": met, edits: minor }
+  E2: { AC1: met, AC2: met, R3: met, R5: not-run, G1: met, "Step 2 output": met, edits: none }
 ---
 ```
 
-Use the real IDs. Below the frontmatter:
+Use the real IDs. `results` values are `met`, `not-met`, or `not-run` (a line that could not be exercised, e.g., a blocked write); `not-run` lines are excluded from `criteria_total` and `criteria_met`. Below the frontmatter:
 
 - **Scenarios tested** — each scenario with its input
 - **Report card** — one table per scenario, the confirmed results

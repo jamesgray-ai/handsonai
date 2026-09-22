@@ -19,7 +19,9 @@ Evaluate running AI workflows and decide what, if anything, to change. Review ho
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-Read the workflow's Workflow node (`registry/workflows/<slug>.md`) and load the artifacts it links: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and orient from which artifacts each node's `# Artifacts` section already links before proceeding. If no Workflow node exists yet but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to reconnect your registry repo via the GitHub connector, or re-upload the bundle folder, instead of failing.
+Read the workflow's Workflow node (`registry/workflows/<slug>.md`) and load the artifacts it links: the Design Spec, Run Guide, the Test Results that hold the baseline, and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and orient from which artifacts each node's `# Artifacts` section already links before proceeding. If no Workflow node exists yet but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to reconnect your registry repo via the GitHub connector, or re-upload the bundle folder, instead of failing.
+
+The **baseline** is the report card of the round that produced the `Ready` verdict — the file named `test-results.md` when Run began — not the first attempt.
 
 **Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the Workflow node before treating its report card as this workflow's baseline. Parse the baseline from the Test Results frontmatter: the `results` block (per scenario, per criterion, `met` / `not-met`, plus `edits`). If the file has `scores` / `averages` instead, it predates the binary format: say so ("your baseline is from the older 1–5 format"), do not attempt a numeric comparison, and treat this review's report card as the new baseline.
 
@@ -68,6 +70,8 @@ Re-run the same scenarios (`E1…`) the same way Test does — in a fresh conver
 - **Edits trend.** Compare `edits` per scenario, and the run log's "Edits needed" column over time — rising edit effort is the earliest drift signal, often before any line flips.
 - **Like for like.** If a connector was simulated at baseline and is live now (or vice versa), say so — a flip caused by access changing is not the workflow changing.
 - **Check the criteria themselves.** If the business has changed, some lines may be obsolete or missing; propose edits to the Requirements file, not to this review only.
+
+Write this round's report card as a new dated `outputs/[workflow-name]/test-results.md` in Test's format (rename the previous one with a date suffix first). If the outcome is Tune, set `readiness: not-ready` and fill `## Issues identified` naming the building blocks — that file is what Build's fix mode reads.
 
 ### 6. Operationalization review (organizational workflows)
 
