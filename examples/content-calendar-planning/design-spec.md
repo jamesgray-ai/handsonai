@@ -366,7 +366,7 @@ S1 is the orchestrator skill — it takes the workflow name and covers all ten s
 | **Failure Modes** | API failure → retry once, then report which entries failed; never leave a half-written plan unreported.<br>Missing Source Content link → error, do not create an orphan post.<br>Duplicate detection → check for an existing Draft post with the same title and channel before creating. |
 | **Required Tools** | MCP: Notion (use) |
 | **Depends On** | S3 — `reviewing-content-backlog` (Content Calendar entries must exist for Posts to link to) |
-| **Stateful?** | No — idempotent per run, with duplicate detection standing in for memory. |
+| **Stateful?** | No — running it again on the same plan does not create duplicates; the duplicate-title-and-channel check stands in for memory. |
 
 ## Prerequisites
 
@@ -403,6 +403,8 @@ S1 is the orchestrator skill — it takes the workflow name and covers all ten s
 *These sections apply across all three layers — handoff and metadata that doesn't belong to a single layer.*
 
 ## Evaluation Inputs
+
+*This example's Workflow Requirements predates the Acceptance Criteria / Example Scenarios / Human Gates format; the criteria and golden example below were captured at Design from the step Rules and Failure Modes already stated in that file, not restated from a section that does not exist there.*
 
 **Acceptance Criteria, Example Scenarios (including Golden Examples), and Human Gates are sourced from the Workflow Requirements file** (`outputs/content-calendar-planning/requirements.md`). They are not duplicated here — Step 5 (Test) reads them from that file directly. Listed by ID so a reader knows what Test will check:
 
