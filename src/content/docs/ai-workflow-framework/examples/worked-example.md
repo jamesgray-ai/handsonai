@@ -251,7 +251,7 @@ Reference example: C2
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
 | E1 | Typical week | 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners | C2 (report of 2026-05-22) |
-| E2 | Blocked-heavy week with a slipped milestone | 4+ blockers incl. one with no owner, plus a milestone past its due date | Blockers section leads; ownerless blocker flagged "owner needed" | — |
+| E2 | Blocked-heavy week with a slipped milestone | 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order | — |
 | E3 | Quiet week | 2 updates, no blockers | Short honest report; no padding or invented activity | — |
 
 ## Rules & Constraints

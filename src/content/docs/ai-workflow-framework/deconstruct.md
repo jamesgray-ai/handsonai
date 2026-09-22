@@ -15,7 +15,7 @@ The output is a single Markdown file: the **Workflow Requirements** document. It
 |---|---|
 | **What you'll do** | Describe your workflow; the skill proposes a path (step-driven or goal-driven) with its reason, you confirm, then work through a guided conversation that captures the requirements |
 | **What you'll get** | A **Workflow Requirements** document — `outputs/[name]/requirements.md` |
-| **Time** | ~45–60 minutes on your own (30–40 in a facilitated session) |
+| **Time** | ~45–60 minutes on your own (30–40 with an instructor guiding you) |
 
 ## Why This Matters
 
