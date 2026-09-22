@@ -278,7 +278,7 @@ Write the Workflow Requirements to `outputs/[workflow-name]/requirements.md` whe
 
 ### Registry write
 
-Deconstruct writes to the Workflow node in `registry/workflows/<slug>.md`: sets `status: under-development`, `definition_type` (`step-driven` or `goal-driven`), refines `trigger` and `description`, and links the Requirements doc in `# Artifacts`. Merge into an existing stub node (e.g., one `naming-workflows` created) — never overwrite fields already set. See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table.
+Deconstruct writes to the Workflow node in `registry/workflows/<slug>.md`: sets `status: under-development`, `definition_type` (`step-driven` or `goal-driven`), refines `trigger` and `description`, and links the Requirements doc in `# Artifacts`. Merge into an existing stub node (one `analyze` or `naming-workflows` created) — never overwrite fields a student set through a framework step; a stub's provisional `trigger` and `execution_mode` may be replaced with better-informed values (see the ownership table in `registry-bundle.md`). See `indexing-registry/references/registry-bundle.md` for write rules and the full field-ownership table.
 
 Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 

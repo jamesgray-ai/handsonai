@@ -37,7 +37,7 @@ The skill runs six phases in order:
 5. **Candidates registered** — You pick 3–5; each becomes a backlog Workflow node in your registry, filed under one of your processes, and the skill recommends which to build first (a starter-sized one).
 6. **The other lens** — Offered as a later session.
 
-Most people discover 5–15 opportunities across different autonomy levels. Pick three to start with.
+Most people discover 5–15 opportunities across different autonomy levels. Pick three to five to start with.
 
 ## How to Use This
 

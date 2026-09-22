@@ -170,7 +170,7 @@ The consistency suite asserts string agreement between the two.
 - Stale GENERATED content — regenerate (a Function `# Owns` block whose content no longer
   matches the derived owners list; hand-editing between the markers is still prohibited by
   doctrine, but a stale block is a maintenance-pass warning, never a lint blocker — see
-  `scaffolding-registry/SKILL.md`'s Phase 4/6 notes)
+  `scaffolding-registry/SKILL.md`'s Phase 4/5 notes)
 
 **Gitignore tolerance:** links into gitignored paths (the raw-source layer, e.g. `outputs/`) are
 declarations, not guarantees — existence-checked locally when the target is present, skipped in

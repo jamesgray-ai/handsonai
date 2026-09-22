@@ -5,13 +5,14 @@ description: >
   run a workflow audit, find automation candidates, or says "where can AI help".
   Scans memory and conversation history, interviews the user about their work,
   then produces a prioritized opportunity report with structured workflow
-  candidates ready for the Deconstruct step. This is Step 1 of the AI Workflow Framework.
+  candidates and registers the chosen candidates as backlog Workflow nodes in the AI Registry,
+  ready for the Deconstruct step. This is Step 1 of the AI Workflow Framework.
 user-invocable: true
 ---
 
 # Analyze Workflows
 
-Analyze concrete opportunities where AI can improve your workflows. Produces a categorized opportunity report with a summary table, detailed opportunity cards, and a structured workflow candidate list.
+Analyze concrete opportunities where AI can improve your workflows. Produces a categorized opportunity report with a summary table, detailed opportunity cards, and a structured workflow candidate list, and registers the chosen candidates as backlog Workflow nodes in the AI Registry.
 
 ## Workflow
 

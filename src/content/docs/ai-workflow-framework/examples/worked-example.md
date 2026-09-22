@@ -16,6 +16,10 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 ```
 [Your Cowork project]/
 ├── registry/
+│   ├── SCHEMA.md
+│   ├── businesses/ lines-of-business/ functions/     ← from registry setup (Step 0)
+│   ├── processes/
+│   │   └── program-delivery.md       ← set up before Step 1; its # Workflows list gained both stubs in Step 1
 │   └── workflows/
 │       ├── weekly-status-report.md   ← the workflow's registry entry (created as a backlog stub in Step 1, updated by every step)
 │       └── stakeholder-meeting-prep.md ← Step 1 backlog stub, not followed further on this page
@@ -44,7 +48,7 @@ In Cowork, skills are managed by the platform rather than sitting in a visible p
 
 Maya (a program manager) ran the analyze skill in Cowork and spent about 15 minutes in the discovery interview. Note the report lives at the top of `outputs/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
 
-The full file (trimmed to two candidates for readability — a real report often has 4–6):
+The full file (trimmed to two opportunities for readability — a real report often has 5–15):
 
 ````markdown
 # AI Opportunity Report
@@ -111,7 +115,7 @@ The full file (trimmed to two candidates for readability — a real report often
 **Recommendation:** Deconstruct Weekly Status Report first.
 ````
 
-Analyze registered both candidates as backlog Workflow nodes before ending the session. Here's the one for Weekly Status Report:
+Analyze registered both candidates as backlog Workflow nodes before ending the session. It filed both under her *Program Delivery* process in one confirmation, so each appears in that Process node's `# Workflows` list. Here's the one for Weekly Status Report:
 
 ````markdown
 ---
@@ -160,9 +164,7 @@ generated: { by: process:deconstruct, at: 2026-06-01 }
 status: under-development
 definition_type: step-driven
 execution_mode: augmented
-autonomy: guided
 trigger: "manual"
-stale_after: 2026-09-01
 ---
 # Weekly Status Report
 
