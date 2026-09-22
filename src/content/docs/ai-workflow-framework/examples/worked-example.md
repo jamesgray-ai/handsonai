@@ -117,7 +117,7 @@ Analyze registered both candidates as backlog Workflow nodes before ending the s
 type: Workflow
 title: "Weekly Status Report"
 description: "Draft the Friday leadership status report from the HubSpot tracker. One-page status report ready for Maya's review."
-generated: { by: process:analyze, at: 2026-08-10 }
+generated: { by: process:analyze, at: 2026-06-01 }
 status: backlog
 trigger: "Manual — Friday mornings"
 execution_mode: augmented
