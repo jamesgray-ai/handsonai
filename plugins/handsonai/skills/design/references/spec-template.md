@@ -3,7 +3,7 @@
 This file is the **only** source of the Design Spec's structure. The exact section order, heading names, frontmatter schema, and `spec_version` literal below are canonical — Build parses them mechanically. Do not assemble a spec from memory; follow this template exactly. Every section is mandatory unless marked (optional/conditional). Do not add, remove, rename, or reorder sections.
 
 **Conditional sections:**
-- `Orchestrator Prompt Outline` — only when mechanism is `Prompt` or `Skill-Powered Workflow`. Omit for `Agent`.
+- `Orchestrator Prompt Outline` — only when mechanism is `Skill`. Omit for `Agent`.
 - `Agent Configuration` — whenever the design includes at least one sub-agent/agent artifact. Omit only if there are genuinely zero sub-agents — then set `agents: 0` and document the orchestration logic in the Deployment Plan.
 - `Multi-Agent Configuration` — only when more than one agent is defined.
 - `Stakeholders` — only for Organizational lens.
@@ -18,9 +18,10 @@ For **goal-driven** workflows, apply the template substitutions in `references/g
 ---
 workflow: [kebab-case name]
 requirements_file: outputs/[workflow-name]/requirements.md
-spec_version: 2.5
+spec_version: 3.0
+approved: false
 definition_type: Step-Driven | Goal-Driven
-mechanism: Prompt | Skill-Powered Workflow | Agent
+mechanism: Skill | Agent
 involvement: Augmented | Automated
 platform: [user's platform, e.g., Claude Code, Claude.ai, Cowork, Codex, ChatGPT, Gemini CLI]
 platform_mode: code | guided
@@ -31,6 +32,11 @@ counts:
   agents: [N]
   integrations: [N]
 ---
+```
+
+**`approved`** is written as `false` when the spec is first saved and flipped to `true` only when the user approves it in a Design session. Build refuses a spec whose `approved` is `false`.
+
+```markdown
 
 # [Workflow Name] — Design Spec
 
@@ -79,7 +85,7 @@ The spec is organized into three layers that build on each other:
 | Lens | Individual / Organizational | [reason] |
 | Platform | [name] | [reason] |
 | Platform Mode | code / guided | [inferred from platform or confirmed] |
-| Orchestration | Prompt / Skill-Powered Workflow / Agent | [reason] |
+| Orchestration | Skill / Agent | [reason — a Skill when the user starts it and it follows the mapped steps; an Agent when it decides the path or runs unattended] |
 | Involvement | Augmented / Automated | [reason] |
 | Packaging | Plugin / Standalone Skill / Workspace Agent / Loose Files | [reason — determines how Build groups and ships artifacts] |
 | Trigger | [trigger description from Workflow Requirements] | [implications for involvement, infrastructure] |
@@ -177,14 +183,14 @@ Column definitions:
 - **Orchestration**: Prompt / Skill / Agent
 - **Integration**: Block + tool + action tag (e.g., "MCP: HubSpot (use)") or "—" if none
 - **Intelligence**: Model class + context sources + memory flag (e.g., "Model: fast" or "Model: reasoning; Context: C2, C5")
-- **Build Output**: One of the canonical values: `New skill: S1` (build a new skill, defined below) / `Use existing: [name]` (reference an existing skill) / `New agent: A1` (build a new sub-agent, defined below) / `Inline prompt → Workflow Requirements Step N` (this step becomes a prompt block in the orchestrator, sourced from the named step's requirements) / `Handled by orchestrator` (no separate artifact — the orchestrating primary loop, or a deployed agent on SDK platforms, handles this via its own instructions; legacy synonym: `Handled by agent`) / `MCP server: [name]` (configure a connector) / `Human (no artifact)` (no AI artifact — human-performed)
+- **Build Output**: One of the canonical values: `New skill: S1` (build a new skill, defined below) / `Use existing: [name]` (reference an installed skill as-is) / `Extend existing: [name]` (modify an installed skill to cover this step — Build shows the diff before writing; Design names the other workflows that share it) / `New agent: A1` (build a new sub-agent, defined below) / `Inline prompt → Workflow Requirements Step N` (this step becomes an instruction block in the orchestrator skill, sourced from the named step's requirements) / `Handled by orchestrator` (no separate artifact; legacy synonym: `Handled by agent`) / `MCP server: [name]` (configure a connector) / `Human (no artifact)`
 - **Human Gate?**: Yes / No (sourced from Workflow Requirements Human Gates table)
 
 ## Orchestrator Prompt Outline
 
-*Include this section only when mechanism is `Prompt` or `Skill-Powered Workflow`. Omit for `Agent` — on Claude Code/Cowork the primary loop orchestrates (capture that as orchestration logic in the Deployment Plan), and the workers are documented in Agent Configuration below.*
+*Include this section only when mechanism is `Skill`. Omit for `Agent` — the orchestration logic is captured in the Deployment Plan and the workers are documented in Agent Configuration below.*
 
-The high-level shape of the orchestrator the user runs to execute the workflow. This is not the full text — it's the structural skeleton Build expands into the orchestrator. Build derives full step content from the Workflow Requirements' Step Details. **For `Skill-Powered Workflow`, the orchestrator itself ships as a skill on skill-capable platforms** — the user runs the whole sequence by name (e.g., a slash command) — and only falls back to a paste-in prompt on platforms without skill support. Build resolves which at generation time.
+The high-level shape of the orchestrator the user runs to execute the workflow. This is not the full text — it's the structural skeleton Build expands into the orchestrator. Build derives full step content from the Workflow Requirements' Step Details. **The orchestrator ships as a skill** — the user runs the whole sequence by name — and is blueprinted as `S1` below so the spec's inventory matches what Build produces. On a platform without skill support Build falls back to a paste-in prompt and says so.
 
 ```
 [Intro: one paragraph describing what this prompt does and when to run it]
@@ -236,7 +242,7 @@ Build artifacts in this order. Dependencies within each tier follow the `Depends
 
 ## Skill Candidates
 
-For each Build Output tagged `New skill: SN` above:
+For a `Skill` mechanism, **S1 is always the orchestrator skill**: Name = the workflow slug, Covers Steps = all, Decision Logic = the Orchestrator Prompt Outline, Depends On = every component skill. Component skills (`New skill: S2…`) follow. For an `Agent` mechanism, S1 is the first component skill. Then, for each Build Output tagged `New skill: SN`:
 
 ### S1 — [skill-name]
 
