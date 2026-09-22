@@ -372,7 +372,7 @@ The decomposition is complete. Before generating detailed component blueprints (
 
 > "Decomposition confirmed:
 > - **Steps classified:** [N steps — e.g., '6 steps: 4 handled by the orchestrator skill, 1 component skill, 1 human review']
-> - **Skill candidates:** [S1 = the orchestrator skill (workflow name); S2… component skills with one-line purpose each]
+> - **Skill candidates:** [Skill mechanism: S1 = the orchestrator skill (workflow name), S2… component skills; Agent mechanism: S1… = component skills — one-line purpose each]
 > - **Steps requiring new skills:** [count] — [list step IDs and proposed skill names]
 > - **Steps using existing skills:** [count] — [list step IDs and existing skill names]
 > - **Steps extending an existing skill:** [count] — [step IDs, the skill name, and which other workflows share it]
