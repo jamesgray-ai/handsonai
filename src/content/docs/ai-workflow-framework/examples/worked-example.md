@@ -561,7 +561,7 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 
 | Artifact | Target Location | Deployment Steps |
 |---|---|---|
-| S1 — orchestrator skill `weekly-status-report` | Skill library (Customize → Skills) | Build generates the skill zip; upload it under Customize → Skills |
+| S1 — orchestrator skill `weekly-status-report` | Skill library (Customize → Skills) | Cowork's skill creator produces the package from Build's blueprint; save it under Customize → Skills |
 | S2 — `status-report-drafting` | Skill library (Customize → Skills) | Same |
 | C3 — `tone-guide.md` | `context/tone-guide.md` in the project | Build creates it with Maya |
 
@@ -597,7 +597,7 @@ Mechanism-specific ✓ · Safety ✓ · Completeness ✓
 
 ## Step 4 — Build → the skills
 
-Build worked the Context Inventory with Maya first: the HubSpot rows were **connect it** (she authorized the connector in the account that runs the workflow; Build read three tracker tasks back to her to prove it), the template and past reports were **provide it**, and the tone guide was **build it in** — Build drafted it from her golden example in a 10-minute interview and she corrected two lines. Only then did it ask Cowork to create the two skills the spec called for, handing over each blueprint: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). Build never wrote a SKILL.md itself; Cowork's own skill creator did, from the spec.
+Build worked the Context Inventory with Maya first: the HubSpot rows were **connect it** (she authorized the connector in the account that runs the workflow; Build read three tracker tasks back to her to prove it), the template and past reports were **provide it** (already sitting in `context/past-reports/`), and the tone guide didn't exist yet — Build drafted it from her golden example in a 10-minute interview, she corrected two lines, and it landed beside them at `context/tone-guide.md`. Only then did it ask Cowork to create the two skills the spec called for, handing over each blueprint: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). Build never wrote a SKILL.md itself; Cowork's own skill creator did, from the spec.
 
 The orchestrator skill, complete:
 
@@ -654,7 +654,7 @@ Build then wrote that table into the workflow node — the skills under `# Skill
 
 ## Step 5 — Test → `test-results.md`
 
-Test ran E1 and E2 in round 1; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so Maya made one fix to the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md`, round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
+Test ran E1 and E2 in round 1; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so she took the results back to Build, which re-entered fix mode and had Cowork regenerate just the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md`, round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
 
 **Round 1 — `test-results-2026-06-05.md`:**
 
@@ -823,6 +823,10 @@ Open a new chat **inside the Weekly Reports project** in Cowork and say:
 **"Run my weekly status report."** Give it nothing else — it pulls the week itself.
 If someone else takes the Friday report over: they add both skills under
 **Customize → Skills**, join the project, and use the same sentence.
+
+There's no schedule: this runs when Maya starts it. If she ever wants it running
+without her, that's a trip back to Step 6 — and only if the workflow was designed
+as Automated.
 
 ## What to have ready
 

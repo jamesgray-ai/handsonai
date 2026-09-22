@@ -36,7 +36,7 @@ The Run Card is one page with six fixed sections, in this order. It is written a
 
 1. **Your first real run** — what happened today, in two sentences, and what to expect next time.
 2. **How to start it** — the exact phrase or click that starts the workflow, and the input to give it. If teammates will run it too, how they install it and the same phrase.
-3. **What to have ready** — the inputs in hand; every connector that must be authorized **in the account that runs it**; every context file, with its location. A fresh conversation inherits nothing from the session that built the workflow, and an unattended run inherits less — this list is what a clean session needs to succeed.
+3. **What to have ready** — the inputs in hand; the skills and agents installed in the account that runs it; every connector that must be authorized **in that same account**; every context file, with its location — and, for an unattended run, the permissions granted in advance. A fresh conversation inherits nothing from the session that built the workflow, and an unattended run inherits less — this list is what a clean session needs to succeed.
 4. **What to check before you act on the output** — the human gates in plain words (what the workflow pauses for and what you're deciding), plus your **(must)** criteria as a two-line reminder.
 5. **Log the run** — one line in `outputs/[name]/runs.md`: date, input, result, edits needed, notes.
 6. **Your first review** — the date, and the exact sentence that re-enters the framework: *"Run the improve skill on [workflow name]."*

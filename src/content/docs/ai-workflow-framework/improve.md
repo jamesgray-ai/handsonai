@@ -36,7 +36,7 @@ When you operationalize a workflow in Step 6, set a calendar reminder for your f
 
 The skill runs seven phases. The sections that follow expand on each:
 
-1. **Load workflow context** — Read the Workflow node, Design Spec, Run Guide, the test results holding the baseline report card, and the run log if you've been keeping one.
+1. **Load workflow context** — Read the Workflow node, Design Spec, Run Card, the test results holding the baseline report card, and the run log if you've been keeping one.
 2. **Current state assessment** — Start from the run log's evidence (run frequency, recurring edits, failures), then talk through what the log can't show: how much editing the output needs, and what has changed since you built it.
 3. **Quality evaluation** — Read the signals: rising edits, new decision types, steps being skipped, lines flipping between rounds, or you adding steps by hand.
 4. **Graduation assessment** — Has the workflow outgrown its mechanism?

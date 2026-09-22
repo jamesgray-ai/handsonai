@@ -124,9 +124,9 @@ The result is a one-line build method rather than a menu: skills and agents by s
 
 As you build, two background practices keep your work organized and recoverable:
 
-**Keep the registry current.** The Workflow node in your `registry/` bundle (created during Deconstruct) records where every generated artifact lives, under its `# Artifacts` section. The build skill updates it automatically — if you're building artifacts yourself, add each one as you finish it. The node's `# Artifacts` is what lets Test, Run, and Improve find everything later.
+**Keep the registry current.** The Workflow node in your `registry/` bundle (created during Deconstruct) records where every generated artifact lives, under its `# Artifacts` section. The build skill updates it automatically — if a row is ever missing, add it when you notice. The node's `# Artifacts` is what lets Test, Run, and Improve find everything later.
 
-**Commit source files to GitHub.** The `.md` files for your skills, agents, and prompts are source code — they should live in version control, not just on your local machine. After creating or updating a building block, commit it to your GitHub repository. This gives you a history of changes, makes it easy to share with collaborators, and protects against losing work.
+**Commit source files to GitHub.** The `.md` files for your skills, agents, and prompts are source code — they should live in version control, not just on your local machine. After Build stages or updates a building block, commit the source files it staged. This gives you a history of changes, makes it easy to share with collaborators, and protects against losing work.
 
 These aren't separate steps — they're part of the rhythm of building. Each time you finish a building block: **record it, commit it.**
 

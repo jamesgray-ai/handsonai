@@ -37,7 +37,7 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 C
 | `design` | Design the AI workflow architecture and produce a Design Spec |
 | `build` | Generate platform-appropriate artifacts from the approved spec |
 | `test` | Test workflow artifacts and evaluate output quality |
-| `run` | Generate a Run Guide for deploying and operating the workflow |
+| `run` | Do the first real run and leave a Run Card, run log, and review date |
 | `improve` | Evaluate a running workflow for quality and evolution opportunities |
 
 ### Skills — Knowledge Graph
