@@ -75,10 +75,10 @@ For the Layer 1 confirmation gate, use the standard playback structure with thes
 
 - **Autonomy level:** Autonomous — meaning [the system figures out its own path based on the goal and rules you defined]. (Goal-driven workflows are always Autonomous by definition.)
 - **Mechanism:** Agent — [the workflow is driven by an agentic loop that decides what to do based on context, not a fixed script]. On Claude Code/Cowork that loop is the **primary session (the orchestrator)**.
-- Replace **Steps classified** with **Capability domains mapped** — explain in plain language ("the buckets of capability the workflow needs to cover").
+- In the Layer 2 confirmation, replace **Steps classified** with **Capability domains mapped** — explain in plain language ("the buckets of capability the workflow needs to cover").
 - **Agent blueprint:** summarize the **sub-agent(s) the orchestrator will dispatch** (the workers), or "None — the primary loop orchestrates directly using skills" if no sub-agent is needed. Do **not** describe a standalone orchestrator agent on Claude Code/Cowork.
 
 ## Presentation formats
 
 - Integration Discovery: `**[Tool] access needed (Domains: X, Y):**` instead of step numbers.
-- Skill Discovery: `**[Domain: Research] needs a skill: "..."**` instead of step IDs.
+- Skill Discovery: recommendations name the capability domain instead of a step ID ("Domain: Research — you already have `summarizing-transcripts`…").

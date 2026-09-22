@@ -21,12 +21,12 @@ The skill runs four phases. The sections that follow expand on each:
 
 1. **Load spec and artifacts** — Read the Design Spec and locate platform artifacts.
 2. **Generate Run Guide** — Produce the artifact inventory, setup steps, first production run instructions, and next steps.
-3. **Run pattern selection** — Choose the right pattern: paste and run, run in a project, command an agent, code-first, or automate on a schedule.
+3. **Run pattern selection** — Choose the right pattern: run in a project, let the agent run, code-first, or automate on a schedule.
 4. **Operationalization** (organizational workflows) — Sharing, training, governance, and adoption monitoring.
 
 ## Start with Your Run Guide
 
-At the end of Build and Test, the model generates a **Run Guide** (`[name]/run-guide.md`) — a plain-language walkthrough tailored to your platform, architecture approach, and technical comfort level. It tells you exactly what to do with the artifacts that were built:
+At the end of Build and Test, the model generates a **Run Guide** (`[name]/run-guide.md`) — a plain-language walkthrough tailored to your platform, packaging, and technical comfort level. It tells you exactly what to do with the artifacts that were built:
 
 1. **What was built** — Every artifact listed with what it does and where it lives
 2. **Setup steps** — Numbered instructions for getting each artifact into the right place on your platform (menu paths, button names, what you should see when it is working)
@@ -46,29 +46,16 @@ Not every workflow runs the same way. The right pattern depends on how often you
 
 | Pattern | What it means | Best for |
 |---------|--------------|----------|
-| **Paste and run** | Copy the prompt into any AI chat and run it | One-off tasks, sharing with non-technical teammates |
 | **Run in a project** | Set up a persistent project workspace with pre-loaded context | Workflows you repeat with the same reference materials |
-| **Command an agent** | Describe what you need and let the agent handle it | Multi-step workflows that benefit from tool use and autonomous decisions |
+| **Let the agent run** | Describe what you need and let the agent handle it | Multi-step workflows that benefit from tool use and autonomous decisions |
 | **Code-first** | Run via API or SDK from your own application | Production integrations, high-volume processing, custom UIs |
 | **Automate on schedule** | Set up a scheduled trigger so the workflow runs without you | Recurring tasks (daily reports, weekly summaries, monitoring) |
 
 Start with the simplest pattern that fits your needs. You can always move to a more advanced pattern later.
 
-### Paste and Run
-
-The most portable option. Copy your prompt (and any context) into a chat with your AI tool and run it. This works with any AI platform — Claude, ChatGPT, Gemini, M365 Copilot, or any other tool that accepts text input.
-
-**When to use it:**
-
-- You run the workflow occasionally (not daily)
-- You want to share it with someone who does not have your platform setup
-- You are testing a new variation before committing to a more permanent setup
-
-**How to do it:** Open your AI tool, paste the prompt, attach any context files referenced in the prompt, and submit. Review the output and iterate in conversation if needed.
-
 ### Run in a Project
 
-Set up a persistent workspace where your prompt, context files, and settings are pre-loaded. This eliminates the need to paste and attach files every time.
+Set up a persistent workspace where your prompt, context files, and settings are pre-loaded. That way you do not re-attach the same files every run.
 
 **When to use it:**
 
@@ -76,9 +63,9 @@ Set up a persistent workspace where your prompt, context files, and settings are
 - The workflow uses the same reference materials each time
 - You want consistent settings (model, instructions) across runs
 
-**How to do it:** Create a project on your platform (Claude Project, ChatGPT Project or Workspace Agent, Gemini Gem, M365 Copilot notebook). Upload your context files, add your prompt as project instructions or a system prompt, and configure any settings. Future runs start with everything in place — you just provide the new input.
+**How to do it:** Create a project on your platform (Claude Project, ChatGPT Project or Workspace Agent, Gemini Gem, M365 Copilot notebook). Upload your context files, add the orchestrator skill (or, on platforms without skills, its instructions) as project instructions, and configure any settings. Future runs start with everything in place — you just provide the new input.
 
-### Command an Agent
+### Let the Agent Run
 
 For agent-based workflows, you describe what you need in natural language and let the agent orchestrate the process — invoking skills, using tools, and making sequencing decisions.
 

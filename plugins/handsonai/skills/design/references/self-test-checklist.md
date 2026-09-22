@@ -4,7 +4,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Structure
 
-- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`2.5`), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
+- [ ] **Frontmatter** is present with workflow, requirements_file, spec_version (`3.0`), approved (`false` until the user approves), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
 - [ ] Frontmatter `counts` match the body — `skills` = number of Skill Candidate entries, `agents` = number of Agent Configuration entries, `integrations` = number of Integration Options tools
 - [ ] **Source** section names the Workflow Requirements file path (`outputs/[workflow-name]/requirements.md`)
 - [ ] All mandatory template sections are present in template order (Value & Measurement, Execution Pattern, Architecture Decisions, Autonomy Spectrum Summary [or Autonomy Statement], Safety & Permissions, Constraint Conformance, Integration Options, Model Recommendation, Decomposition table, Data Readiness Summary, Recommended Implementation Order, Prerequisites, Deployment Plan, Evaluation Inputs, Deferred to Build, Self-Test Summary — plus conditional sections per their rules)
@@ -13,8 +13,9 @@ Run this checklist against the assembled Design Spec content **before** presenti
 - [ ] Step IDs in the decomposition table match the Step IDs in the Workflow Requirements (Step 1, Step 2, …)
 - [ ] Every step uses canonical autonomy terms: Human / Deterministic / Guided / Autonomous
 - [ ] Every Integration column entry includes the block type, tool name, and use/build tag
-- [ ] Every Build Output value is one of the canonical forms (`New skill: SN`, `Use existing: [name]`, `New agent: AN`, `Inline prompt → Workflow Requirements Step N`, `Handled by orchestrator` [legacy synonym `Handled by agent` accepted], `MCP server: [name]`, `Human (no artifact)`)
+- [ ] Every Build Output value is one of the canonical forms (`New skill: SN`, `Use existing: [name]`, `Extend existing: [name]`, `New agent: AN`, `Inline prompt → Workflow Requirements Step N`, `Handled by orchestrator` [legacy synonym `Handled by agent` accepted], `MCP server: [name]`, `Human (no artifact)`)
 - [ ] Packaging value is one of the canonical forms (`Plugin`, `Standalone Skill`, `Workspace Agent`, `Loose Files`)
+- [ ] Mechanism is `Skill` or `Agent` (never the legacy `Prompt`, `Skill-Powered Workflow`, or `Skill-Powered Prompt`)
 
 ## Skill Candidates
 
@@ -23,6 +24,8 @@ Run this checklist against the assembled Design Spec content **before** presenti
 - [ ] Every Skill Candidate's Name conforms to format rules (lowercase-hyphen, ≤64 chars, no consecutive hyphens) and is capability-named, not workflow-coupled — except the orchestrator skill, which takes the workflow name
 - [ ] Every Skill Candidate's Description starts with "This skill should be used when...", is ≤1024 chars, is third-person, and names at least two concrete trigger keywords/contexts
 - [ ] No two Skill Candidates describe the same capability at different steps (parallel applications are one skill with multiple Covers Steps entries)
+- [ ] For a `Skill` mechanism, S1 is the orchestrator skill, named with the workflow slug, Covers Steps: all
+- [ ] Every `Extend existing: [name]` cell names the installed skill and carries the `(also used by: …)` parenthetical listing the other workflows that share it (or `none`)
 
 ## Agent Configuration
 
@@ -39,7 +42,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Mechanism-specific
 
-- [ ] Orchestrator Prompt Outline section is present when mechanism is `Prompt` or `Skill-Powered Workflow` (omitted when mechanism is `Agent`)
+- [ ] Orchestrator Prompt Outline section is present when mechanism is `Skill` (omitted when mechanism is `Agent`)
 - [ ] Agent Configuration present when mechanism is `Agent` (or `agents: 0` is set and orchestration logic is documented in the Deployment Plan)
 
 ## Safety

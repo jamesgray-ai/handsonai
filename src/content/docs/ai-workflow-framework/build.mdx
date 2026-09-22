@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 You've just finished [Design (Step 3)](../design/). You should have:
 
-- **Design Spec** (`[name]/design-spec.md`) — your approved blueprint with architecture approach, autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
+- **Design Spec** (`[name]/design-spec.md`) — your approved blueprint with autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
 
 If you're returning from [Test (Step 5)](../test/) to fix issues, you may also have test results telling you which building block needs adjustment.
 
@@ -21,7 +21,7 @@ The skill runs seven phases. The sections that follow expand on each:
 
 1. **Load Design Spec and Workflow Requirements** — Read both approved documents from `outputs/[name]/`.
 2. **Build path choice** — Choose "Claude builds it" (the model generates artifacts) or "You build it yourself" (get a Construction Guide with build sequence and creation skill recommendations).
-3. **Mechanism-specific build path** — Only the steps relevant to your chosen orchestration mechanism (Prompt, Skill-Powered Workflow, or Agent). This is where context gets prepared — the Context Inventory and Data Readiness Summary are resolved before dependent steps run (see "Prepare Context" below).
+3. **Mechanism-specific build path** — Only the steps relevant to your chosen orchestration mechanism (Skill or Agent). This is where context gets prepared — the Context Inventory and Data Readiness Summary are resolved before dependent steps run (see "Prepare Context" below).
 4. **Discover creation tools** — Scan your environment for skills that can create other building blocks (e.g., skill-creator). Present a Creation Tools Map for confirmation. Then resolve platform format requirements from the platform registry.
 5. **Check for existing skills** — Incorporate any skills or prompt instructions you already built for this workflow.
 6. **Integration research** — Verify platform availability and setup for every tool in the spec, including write-access and least-privilege pre-flights.
@@ -44,7 +44,7 @@ When a workflow produces generic or off-brand output, the fix is almost always b
 
 The model offers two paths:
 
-1. **"Claude builds it"** — The model generates all artifacts (skills, agents, prompts, configs) based on the approved spec and places them where they belong. This is the recommended default.
+1. **"Claude builds it"** — The model generates all artifacts (skills, agents, configs) based on the approved spec and places them where they belong. This is the recommended default.
 2. **"You build it yourself"** — The model provides a Construction Guide with build sequence, format references, and pointers to creation skills you can invoke — but you do the building.
 
 Either way, the model starts by checking the **Data Readiness Summary** from your spec. Items flagged as "Partial" or "No" for AI accessibility are gated — they must be resolved (exporting data, granting access, reformatting files) before dependent steps can proceed.
@@ -54,25 +54,19 @@ Either way, the model starts by checking the **Data Readiness Summary** from you
 The orchestration mechanism determines which steps you follow. Work through **only** the steps that apply:
 
 <Tabs>
-  <TabItem label="Prompt">
+  <TabItem label="Skill">
 
-1. **Create context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
-2. **Set up project workspace** (optional) — If the Design Spec's Deployment Plan recommends a project
-3. **Generate platform artifacts** — The model generates the prompt and any configuration needed for your platform
-  </TabItem>
-  <TabItem label="Skill-Powered Workflow">
-
-1. **Create context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
-2. **Set up project workspace** (optional) — If the Design Spec's Deployment Plan recommends a project
-3. **Build skills** — Build skills for the steps tagged as skill candidates in your Design Spec. The model generates skills in the format appropriate to your platform.
-4. **Generate platform artifacts** — The model generates the prompt and skill configurations for your platform
+1. **Prepare context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
+2. **Build the orchestrator skill and component skills** — The model generates the orchestrator skill and the skills for the steps tagged as skill candidates in your Design Spec, in the format appropriate to your platform
+3. **Package and install** — The model packages the skills and installs them per your platform's deployment plan
   </TabItem>
   <TabItem label="Agent">
 
-1. **Create context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
-2. **Build skills** — Build skills for tagged candidates
+1. **Prepare context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
+2. **Build component skills** — Build skills for tagged candidates
 3. **Connect tools** — Wire external tools from the Tools and Connectors section of your Design Spec
-4. **Generate platform artifacts** — The model generates agent configs (single or multi-agent), skills, and connectors for your platform
+4. **Generate agent configs and orchestrator skill** — The model generates agent configs (single or multi-agent) and the orchestrator skill for your platform
+5. **Package and install** — The model packages the agents, skills, and connectors and installs them per your platform's deployment plan
   </TabItem>
 </Tabs>
 
@@ -89,9 +83,9 @@ The model doesn't guess your platform's artifact format or available integration
 
 **Integration research:**
 
-1. **Integration Options from Design** — The Design Spec already identifies which integrations you need and includes source URLs discovered during Design's Integration Discovery (which itself used the curated tool catalog, integration registries, and web search).
+1. **Integration Options from Design** — The Design Spec already identifies which integrations you need and includes source URLs discovered during Design's Integration Discovery (which checks the platform's native connectors first, then what the model already knows, then one web check).
 2. **Platform-specific setup** — For each integration, the model researches how to connect it on your specific platform: installation steps, configuration, authentication, and prerequisites.
-3. **Integration registries** — The platform registry catalogs known sources for integration documentation (MCP registries, platform marketplaces, connector catalogs). The model checks these before falling back to web search.
+3. **Native connectors first** — The platform registry points Build at the platform's native connectors. Build checks those, then the source URLs in the spec, and web-searches only what is still unresolved.
 
 **Code vs. guided mode:**
 
@@ -135,13 +129,11 @@ The [Builder Tools Setup](../../builder-setup/) guide walks you through everythi
 
 | File | What it is |
 |------|-----------|
-| Platform artifacts | Prompts, skills, agents, and configs generated in whatever format your platform needs |
+| Platform artifacts | Skills, agents, and configs generated in whatever format your platform needs |
 | Context artifacts | Style guides, reference materials, and examples — formatted for AI consumption |
 | Tool connections | MCP connections and integrations configured on your platform |
 
 The Design Spec from Design is the design document — it captures *what* to build and *why*. The platform artifacts from Build are the implementation — generated by the model using your architecture decisions and current platform knowledge.
-
-Many workflows stay at the prompt-plus-context level permanently — pasted into a chat whenever you need it. That's a feature, not a limitation.
 
 ## How to Use This
 
