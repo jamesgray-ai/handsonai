@@ -148,11 +148,11 @@ The Build step starts with a **Prepare Context** phase — systematically resolv
 
 Structured testing against the Acceptance Criteria and Example Scenarios captured in the Workflow Requirements.
 
-Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full eval suite where you run each Example Scenario from the Workflow Requirements and score the output against the Acceptance Criteria dimensions. You also test individual building blocks in isolation and establish a baseline for future comparison.
+Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full round where you run each Example Scenario from the Workflow Requirements in a fresh conversation and grade the output against your acceptance criteria — every line is met or not met, with evidence. When a line misses, you isolate the building block that caused it. The round that passes becomes your baseline for future comparison.
 
 Most workflows need 2-4 iterations between Build and Test before they produce reliably good output. When something is off, the skill helps you diagnose which building block to fix and sends you back to Build with a clear target.
 
-**Deliverable:** **Test Results** (`outputs/[name]/test-results.md`) — eval scorecard with scores per scenario and dimension, baseline averages, diagnosed issues, and a readiness assessment.
+**Deliverable:** **Test Results** (`outputs/[name]/test-results.md`) — a report card per scenario (each criterion met or not met, with evidence), the diagnosed building block for every miss, and a readiness verdict.
 
 **Facilitated by the `test` skill.** See [Test](test/) for the full evaluation process and troubleshooting guide.
 
@@ -174,9 +174,9 @@ Once your workflow passes testing, Run helps you put it into production. The ski
 
 Evaluate and evolve running workflows.
 
-Workflows are not something you set up once and forget. Over time, business context changes, new tools become available, and output quality can drift. The Improve step teaches you when and how to revisit a running workflow — watch for quality signals, re-run your eval suite to catch regressions, and assess whether the workflow should graduate to a more capable orchestration mechanism. Four outcomes: no changes needed, tune it, redesign it, or evolve it.
+Workflows are not something you set up once and forget. Over time, business context changes, new tools become available, and output quality can drift. The Improve step teaches you when and how to revisit a running workflow — watch for quality signals, re-run your report card to see which lines changed, and decide whether the workflow has outgrown its mechanism. Three outcomes: no changes needed, tune it, or go back to Design.
 
-**Deliverable:** **Improvement Plan** (`outputs/[name]/improvement-plan.md`) — current vs. baseline scores, quality signals, graduation assessment, decision outcome, and specific next actions.
+**Deliverable:** **Improvement Plan** (`outputs/[name]/improvement-plan.md`) — which report-card lines changed since the baseline, quality signals, graduation assessment, decision outcome, and specific next actions.
 
 **Facilitated by the `improve` skill.** See [Improve](improve/) for the full evaluation and graduation framework.
 
@@ -256,9 +256,9 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 2. **[Deconstruct the workflow](deconstruct/)** — break it into discrete steps
 3. **[Design](design/)** your AI workflow — assess autonomy, choose an orchestration mechanism, classify steps, map building blocks
 4. **[Build](build/)** the components your orchestration mechanism requires
-5. **[Test](test/)** your workflow against evaluation criteria and establish a quality baseline
+5. **[Test](test/)** your workflow against your acceptance criteria and establish a baseline
 6. **[Run](run/)** — deploy, choose a run pattern, and operationalize
-7. **[Improve](improve/)** — periodically evaluate, catch regressions, and evolve
+7. **[Improve](improve/)** — periodically re-check, catch drift, and decide what to change
 
 :::tip[Before you start]
 - **See the destination first.** The [worked example](examples/worked-example/) shows every file a complete run produces — the whole project folder for one small workflow taken through all seven steps.
