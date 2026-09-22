@@ -62,7 +62,7 @@ Has the workflow outgrown its mechanism?
 
 Only recommend graduation when there's a concrete capability gap, not just because "it could be more sophisticated." Graduation is a Redesign outcome — it goes back to Design with the reason recorded.
 
-### 5. Regression evaluation
+### 5. Regression check
 
 Re-run the same scenarios (`E1…`) the same way Test does — in a fresh conversation, graded here against the same check list, user confirms — and compare line by line:
 
