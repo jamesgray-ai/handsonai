@@ -67,8 +67,8 @@ If the user chooses path 2 (**You build it yourself**):
      - What to build (name, purpose, inputs/outputs from the spec)
      - The format specification to follow
      - **If a creation skill was matched:** "You have `[skill-name]` available. Invoke it (e.g., `/[skill-name]`) and pass the spec below as your starting context."
-     - **For skills:** "Tell your platform you want a skill created and give it these requirements: [name, description, decision logic, inputs/outputs, failure modes] — its own skill creator will build it."
-     - **For agents:** "Tell your platform you want an agent created and give it these requirements: [role, responsibilities, tools, model, failure modes] plus where your platform keeps agents — its own model will build it."
+     - **For skills with no creation skill matched:** "Tell your platform you want a skill created and give it these requirements: [name, description, decision logic, inputs/outputs, failure modes] — its own skill creator will build it."
+     - **For agents with no creation skill matched:** "Tell your platform you want an agent created and give it these requirements: [role, responsibilities, tools, model, failure modes] plus where your platform keeps agents — its own model will build it."
      - **For configs, connectors, and loose files with no creation skill matched:** the format reference and key requirements for writing them directly. Skills and agents are never written directly — see Step 6.
 3. After presenting the Construction Guide, tell the user: "To test the workflow, run the `test` skill (Step 5)."
 
@@ -218,7 +218,7 @@ Use the spec's **Step-by-Step Decomposition Build Output column** (or **Capabili
 - `New skill: SN` → state that you want a skill created and hand over the requirements together with the artifact format resolved in Step 3.6 (or the agentskills.io specification, falling back to `references/skill-spec.md`, if unresolved) — the matching Skill Candidates entry (name, description, decision logic, inputs/outputs, failure modes) and the platform's package form. Every skill-capable platform has a native skill creator, and stating the intent invokes it; Build does not name it and does not write the SKILL.md itself (where Step 3.5 matched a creation skill, delegate to it as in step e).
 - `Use existing: [name]` → no generation needed; verify the skill exists and reference it
 - `Extend existing: [name]` → locate the installed skill, propose the change as a diff (before/after of the affected section), get the user's confirmation, then write; never overwrite silently. Read the `(also used by: …)` parenthetical from the cell and list those workflows in the summary as the ones affected by the change.
-- `New agent: AN` → state that you want an agent created and hand over the matching Agent Configuration entry (role, responsibilities, tools, model, failure modes) plus where the platform keeps agents (from `capabilities.custom_agents`, or, if the entry has no `capabilities`, its `agent` documentation URL and `notes`) (or `references/agent-spec.md` if the format is unresolved). The platform's own model knows how to build an agent there; Build does not write the agent file itself.
+- `New agent: AN` → state that you want an agent created and hand over the matching Agent Configuration entry (role, responsibilities, tools, model, failure modes) plus where the platform keeps agents (from `capabilities.custom_agents`, or, if the entry has no `capabilities`, its `agent` documentation URL and `notes`) (on Claude Code only, `references/agent-spec.md` is the last-resort format snapshot if unresolved; other platforms fall through to web search). The platform's own model knows how to build an agent there; Build does not write the agent file itself.
 - `Inline prompt → Workflow Requirements Step N` → fold this step's Goal/Inputs/Outputs/Rules from the Workflow Requirements into the main orchestrator prompt
 - `MCP server: [name]` → configure the connector using the Integration Options entry
 - `Human (no artifact)` → skip; no AI artifact for this step
@@ -244,7 +244,7 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 **c. Follow the resolved artifact format specifications.** For each building block in the spec, use the artifact format extracted during Platform Research (Step 3.6). If Platform Research did not resolve a format (registry unavailable, platform not found), fall back to:
 - Skills: `references/skill-spec.md`
-- Agents: `references/agent-spec.md` (last-resort snapshot)
+- Agents: `references/agent-spec.md` (last-resort snapshot of the Claude Code subagent format — Claude Code only; other platforms fall through to web search)
 - Other platforms: web search
 
 > **The `references/*-spec.md` files are point-in-time snapshots, not the source of truth.** Platform schemas drift; prefer the registry/doc lookup from Step 3.6 and use these only as a last-resort fallback. If a snapshot and live docs disagree, the live docs win.
