@@ -21,7 +21,7 @@ Evaluate and evolve running AI workflows. Review how a deployed workflow is perf
 
 Read the workflow's Workflow node (`registry/workflows/<slug>.md`) and load the artifacts it links: the Design Spec, Run Guide, original Test Results (the baseline), and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and orient from which artifacts each node's `# Artifacts` section already links before proceeding. If no Workflow node exists yet but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to reconnect your registry repo via the GitHub connector, or re-upload the bundle folder, instead of failing.
 
-**Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the Workflow node before treating its scores as this workflow's baseline. Parse the baseline scores from the Test Results frontmatter (`scores` and `averages`) — that's the regression reference.
+**Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the Workflow node before treating its report card as this workflow's baseline. Parse the baseline from the Test Results frontmatter: the `results` block (per scenario, per criterion, `met` / `not-met`, plus `edits`). If the file has `scores` / `averages` instead, it predates the binary format: say so ("your baseline is from the older 1–5 format"), do not attempt a numeric comparison, and treat this review's report card as the new baseline.
 
 **Check the review schedule.** If the Workflow node has a `stale_after` date, compare it to today: if overdue, note it plainly ("This review was due [date] — good timing") and, at the end of this run, agree a fresh `stale_after` date. If the user arrived well before the date, ask what prompted the early check — that signal (quality slipped, requirements changed) often points straight at the diagnosis.
 
@@ -48,30 +48,26 @@ Identify signals of degradation or opportunity:
 | Increasing manual edits | Context may need updating (stale examples, changed standards) |
 | New decision types appearing | May need additional skills or agent capabilities |
 | Steps being skipped | Workflow coverage gap — missing steps need to be added |
-| Output quality inconsistent | Prompt or context needs tuning |
+| Report-card lines flipped between rounds | Orchestrator instructions or context need tuning |
 | User adding steps manually | Workflow scope has grown beyond original design |
 
 ### 4. Graduation assessment
 
 Should the orchestration mechanism evolve?
 
-- **Prompt → Skill-Powered Workflow** — if repeatable sub-routines have emerged that deserve codification
-- **Skill-Powered Workflow → Agent** — if AI needs to make sequencing decisions rather than follow a fixed order
-
-(Older Design Specs use the legacy mechanism value `Skill-Powered Prompt` — treat it as `Skill-Powered Workflow`.)
+- **Skill → Agent** — if the workflow now needs to make sequencing decisions or use tools rather than follow a fixed order
 - **Single Agent → Multi-Agent** — if complexity has grown to require specialized sub-agents
 
-Only recommend graduation when there's a concrete capability gap, not just because "it could be more sophisticated."
+Only recommend graduation when there's a concrete capability gap, not just because "it could be more sophisticated." Graduation is a Redesign outcome — it goes back to Design with the reason recorded.
 
 ### 5. Regression evaluation
 
-Re-run the eval suite from Step 5 (Test):
+Re-run the same scenarios (`E1…`) the same way Test does — in a fresh conversation, graded here against the same check list, user confirms — and compare line by line:
 
-- Run the same test scenarios (E1, E2, …) from the original baseline, scoring the same dimensions the same way Test does (AI-graded against Acceptance Criteria and Golden Examples first, user confirms)
-- **Diff against the baseline mechanically**: compare the new per-scenario scores against the `scores` block parsed from the original Test Results frontmatter, and present a delta table (scenario × dimension, baseline → current, flagging any drop ≥1 point)
-- **Compare like-for-like**: check the baseline's `environment` field — if an integration was simulated then and is live now (or vice versa), say so; a score change caused by an integration being fixed is not the workflow getting better or worse
-- Identify areas of degradation or improvement
-- Determine if the eval criteria themselves need updating (requirements may have shifted)
+- **Diff mechanically.** For every scenario × criterion, compare baseline to current. Present a table of every line that **flipped**: `Scenario | Line | Baseline | Now | Evidence`. A Met → Not met flip is a regression with a cause attached (the line names the step or rule); Not met → Met is an improvement.
+- **Edits trend.** Compare `edits` per scenario, and the run log's "Edits needed" column over time — rising edit effort is the earliest drift signal, often before any line flips.
+- **Like for like.** If a connector was simulated at baseline and is live now (or vice versa), say so — a flip caused by access changing is not the workflow changing.
+- **Check the criteria themselves.** If the business has changed, some lines may be obsolete or missing; propose edits to the Requirements file, not to this review only.
 
 ### 6. Operationalization review (organizational workflows)
 
@@ -85,12 +81,11 @@ Skip this step for individual/personal workflows.
 
 ### 7. Recommendation
 
-Produce one of the following:
+Produce exactly one of three outcomes:
 
-- **No changes needed** — workflow is performing at or above baseline, requirements haven't shifted
-- **Tune** — specific building blocks to adjust (identify which ones and what to change) → loop back to the `build` skill (Step 4) and `test` skill (Step 5)
-- **Redesign** — requirements have changed enough that the workflow structure needs rethinking → loop back to the `design` skill (Step 3)
-- **Evolve** — graduate to a more capable orchestration mechanism → loop back to the `design` skill (Step 3) with an explicit graduation recommendation
+- **No changes needed** — no line regressed, edits are stable, requirements haven't shifted. Record it and set the next review date.
+- **Tune** — specific building blocks to adjust (name them: S2, C3, orchestrator, connector) → the `build` skill regenerates only those (fix mode), then the `test` skill re-runs the affected scenarios.
+- **Redesign** — the architecture no longer fits: requirements changed enough to restructure, or the workflow has outgrown its mechanism (a skill that now needs to make its own sequencing decisions, or an agent that should split into specialists). → the `design` skill, with the reason recorded in the Improvement Plan so Design starts from it.
 
 ## Output
 
@@ -101,9 +96,9 @@ Then invoke the `indexing-registry` skill for a maintenance pass (best-effort �
 Include:
 
 - **Current performance summary** — how the workflow is being used and performing
-- **Regression scores** — comparison table of baseline vs. current scores
+- **Regression** — the flipped-lines table (scenario, line, baseline, now, evidence) and the edits trend
 - **Issues identified** — specific problems with diagnosed root causes
-- **Recommendation** — No changes / Tune / Redesign / Evolve, with rationale
+- **Recommendation** — No changes / Tune / Redesign, with rationale
 - **Action items** — concrete next steps if changes are recommended
 
 ## Guidelines
