@@ -586,21 +586,21 @@ never share or save a report Maya hasn't approved.
 
 ## Step 5 — Test → `test-results.md`
 
-Test ran all three scenarios. E1 was scored against the golden example (the real 2026-05-22 report). One issue surfaced — exactly the kind of thing testing exists to catch — and one round of fixes got it to Ready.
+Test ran E1 and E2 (E3, the quiet week, waited for a real one). E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 — exactly the kind of thing testing exists to catch — and the fix is queued for the next round.
 
 ````markdown
 ---
 workflow: weekly-status-report
 design_spec: outputs/weekly-status-report/design-spec.md
 requirements: outputs/weekly-status-report/requirements.md
-date: 2026-06-08
-environment: "Claude Cowork, HubSpot connector live (read-only)"
-readiness: ready
-scores:
-  E1: { accuracy: 5, completeness: 5, tone: 4, format: 5 }
-  E2: { accuracy: 5, completeness: 5, tone: 5, format: 5 }
-  E3: { accuracy: 5, completeness: 5, tone: 4, format: 5 }
-averages: { accuracy: 5.0, completeness: 5.0, tone: 4.3, format: 5.0 }
+date: 2026-08-14
+environment: "Cowork, HubSpot connector live"
+readiness: not-ready
+criteria_total: 12
+criteria_met: 11
+results:
+  E1: { AC1: met, AC2: met, AC3: met, R1: met, G1: met, "Step 2 output": met, edits: minor }
+  E2: { AC1: met, AC2: not-met, AC3: met, R1: met, G1: met, "Step 2 output": met, edits: major }
 ---
 
 # Weekly Status Report — Test Results
@@ -608,45 +608,61 @@ averages: { accuracy: 5.0, completeness: 5.0, tone: 4.3, format: 5.0 }
 ## Scenarios tested
 
 - **E1 — Typical week:** live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker)
-- **E2 — Blocked-heavy week:** constructed input with 4 blockers, one ownerless
-- **E3 — Quiet week:** constructed input with 2 minor updates
+- **E2 — Blocked-heavy week with a slipped milestone:** constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date
 
-## Scores per dimension
+## Report card
 
-| Scenario | Accuracy | Completeness | Tone | Format | Reference |
-|---|---|---|---|---|---|
-| E1 | 5 | 5 | 4 | 5 | Golden example (C2, 2026-05-22 report) |
-| E2 | 5 | 5 | 5 | 5 | — |
-| E3 | 5 | 5 | 4 | 5 | — |
+**E1 — Typical week**
 
-## Golden Example deltas (E1)
+| Expected | From | Result | Evidence |
+|---|---|---|---|
+| Reads like Maya wrote it, no hedging | AC1 | Met | "we will slip unless X" — no hedged phrasing found |
+| Uses the three headings from C2 in that order | AC2 | Met | Wins / In Progress / Blockers / Next Week, in order |
+| Every blocker names an owner and next action | AC3 (must) | Met | 1 of 1 blockers has both |
+| Every stated status matches the tracker | R1 (must) | Met | 9 of 9 tasks match |
+| Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
+| Complete draft under 400 words | Step 2 output | Met | 340 words |
+
+**E2 — Blocked-heavy week with a slipped milestone**
+
+| Expected | From | Result | Evidence |
+|---|---|---|---|
+| Reads like Maya wrote it, no hedging | AC1 | Met | No hedged phrasing found |
+| Uses the three headings from C2 in that order | AC2 | Not met | Risks section placed before Progress |
+| Every blocker names an owner and next action | AC3 (must) | Met | 4 of 4 blockers named; ownerless one flagged "owner needed" |
+| Every stated status matches the tracker | R1 (must) | Met | 4 of 4 blockers match |
+| Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
+| Complete draft under 400 words | Step 2 output | Met | 390 words |
+
+## Golden example deltas (E1)
 
 - Missing: nothing
 - Extra: one "In Progress" item the golden example would have cut — acceptable
-- Different: draft hedged ("we may slip") where Maya writes plainly ("we will slip
-  unless X") — fixed by strengthening the tone guide's "no hedging" section
+- Different: none of substance — the earlier hedging problem is gone since the tone guide update
 
-## Steps simulated/skipped
+## Not run
 
-None — all steps ran live (HubSpot read-only was sufficient for the full run).
+None — both scenarios ran live (HubSpot read-only was sufficient for the full run).
+
+## Environment
+
+Cowork, HubSpot connector live. Same environment for both scenarios.
 
 ## Issues identified
 
-1. **Round 1, E2:** the ownerless blocker was silently attributed to the project
-   lead — a guess. Diagnosed to S1's failure-mode handling; fixed by tightening
-   the "owner needed" instruction. Re-run: correct flag. *(This is the diagnose →
-   Build → re-test loop working as designed.)*
-2. **Tone 4/5 on E1/E3:** slight hedging. Tone guide updated (context fix, not a
-   skill fix). Accepted at 4 — under the 5-minute-edit minimum bar.
+1. **E2, AC2 — orchestrator:** add an explicit heading-order instruction and a format example, so a blocker-heavy draft can't reorder the sections.
 
-## Baseline established
+## Accepted misses
 
-The frontmatter scores above are the regression baseline for Step 7 (Improve).
+None.
 
-## Overall readiness assessment
+## Verdict
 
-**Ready.** Accuracy and completeness at 5 across all scenarios after one fix
-round; remaining tone gap is within the accepted minimum bar.
+**Not ready** — 11 of 12 lines met across 2 inputs; one orchestrator fix, then re-run E2.
+
+## Test records created
+
+None — outputs are local files.
 ````
 
 ---
@@ -732,7 +748,7 @@ And the run log after a few weeks — one line per run, written by the skill its
 
 ## Step 7 — Improve → `improvement-plan.md`
 
-Three months later (the node's `stale_after` date), Maya ran Improve in a fresh conversation. The run log did the talking: the workflow held its baseline, but she'd been adding a "Risks" section by hand — a scope-growth signal, not a quality problem.
+When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. The run log did the talking: the AC2 fix from that first Test round held, and no other line has moved since.
 
 ````markdown
 # Weekly Status Report — Improvement Plan
@@ -741,39 +757,33 @@ Three months later (the node's `stale_after` date), Maya ran Improve in a fresh 
 
 ## Current performance summary
 
-12 runs since deployment (run log). Zero failed runs; edits needed on 3 of 12,
-two of which were the same edit: manually adding a "Risks" section.
+12 runs since deployment (run log). Zero failed runs; edits needed on 2 of 12,
+both minor wording tweaks — no recurring pattern.
 
-## Regression scores
+## Regression
 
-| Scenario | Dimension | Baseline | Current | Δ |
+| Scenario | Line | Baseline | Current | Note |
 |---|---|---|---|---|
-| E1 | accuracy / completeness / tone / format | 5 / 5 / 4 / 5 | 5 / 5 / 5 / 5 | tone +1 |
-| E2 | all | 5 / 5 / 5 / 5 | 5 / 5 / 5 / 5 | — |
-| E3 | all | 5 / 5 / 4 / 5 | 5 / 5 / 4 / 5 | — |
+| E2 | AC2 | Not met | Met | headings now in order |
 
-Environment like-for-like: same (Cowork, HubSpot live read-only). Tone improved
-after the June tone-guide update.
+No other line changed; edits: E1 none, E2 minor.
+
+Environment like-for-like: same (Cowork, HubSpot connector live).
 
 ## Issues identified
 
-- **Scope growth:** "Risks" section added manually in 2 of the last 4 runs — the
-  workflow's scope has grown beyond the original design (a quality-signal-table
-  match, not a defect).
+None — no line flipped since the last Test round.
 
 ## Recommendation
 
-**Tune.** Add a Risks section to the report format: update C2 (template), extend
-S1's decision logic (a blocker aging >2 weeks or a slipped milestone = a risk),
-and re-test E1/E2. No mechanism change — the graduation ladder doesn't apply; the
-sequence is still fixed. → Loop back to Build (Step 4), then Test (Step 5).
+**No changes needed.** The workflow is holding up: the one miss from Test stayed
+fixed, and no quality signal has come up since. Record the result and set the
+next review date.
 
 ## Action items
 
-1. Update `context/past-reports/` template with the Risks section
-2. Extend S1 decision logic; regenerate the skill
-3. Re-run E1 and E2; compare against this review's scores
-4. Next review: 2026-12-01 (recorded in the node's `stale_after`)
+1. Record this review in the workflow node
+2. Next review: 2026-12-01 (recorded in the node's `stale_after`)
 ````
 
 ---
@@ -782,6 +792,6 @@ sequence is still fixed. → Loop back to Build (Step 4), then Test (Step 5).
 
 1. **The folder is the memory.** Every step reads the previous step's file and updates the workflow's registry node — which is why you can leave for a week and say *"continue my workflow."*
 2. **Small was the right size.** Four steps and one connector still exercised every framework concept: a human gate, a golden example, a failure mode caught in Test, and a real Improve decision.
-3. **The documents earn their keep late.** The tone guide fixed the tone score; the run log made the Improve review evidence-based; the baseline made "did it get worse?" a lookup instead of a debate.
+3. **The documents earn their keep late.** The orchestrator fix cleared the AC2 miss; the run log made the Improve review evidence-based; the report card's frontmatter made "did it get worse?" a lookup instead of a debate.
 
 Ready to start your own? Begin at [Analyze (Step 1)](../../analyze/) — and keep your first workflow about this size.

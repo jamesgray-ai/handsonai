@@ -1,137 +1,91 @@
 ---
 title: "Step 5: Test"
-description: Run structured tests on your AI workflow artifacts — smoke test, eval suite, building block evals — and establish a quality baseline before deployment.
+description: Test your AI workflow with a report card — each Deconstruct criterion is met or not met, with evidence, graded in a fresh conversation.
 ---
 
 > **Part of:** [AI Workflow Framework](../)
 
 ## Where You Are
 
-You've just finished [Build (Step 4)](../build/). You should have:
+You've just finished [Build (Step 4)](../build/). You have an installed skill (or agent), the Design Spec, and the Workflow Requirements — which holds the yes/no acceptance criteria, rules, human gates, and 3–5 realistic inputs you wrote in [Deconstruct](../deconstruct/).
 
-- **Platform artifacts** — prompts, skills, agents, and configs generated for your platform
-- **Context artifacts** — style guides, reference materials, and examples
-- **Design Spec** (`[name]/design-spec.md`) — the architecture blueprint and artifact inventory
-- **Workflow Requirements** (`[name]/requirements.md`) — which owns the Acceptance Criteria, Example Scenarios, and Golden Examples captured during [Deconstruct](../deconstruct/)
+Your first run is a test, not a deployment.
 
-Your first run is a test, not a deployment. The goal is to verify that the workflow produces good output before you share it with your team or use it on real work.
+## Six rules for judging your workflow
+
+1. **Judge it against what you wrote in Deconstruct**, not against how the output feels.
+2. **Use real inputs**, including one hard case.
+3. **Run it in a fresh conversation.** A run inside the conversation that built it sees everything you said while building and looks better than it will in real use.
+4. **Every criterion is met or it isn't.** One miss is a miss.
+5. **The AI grades first, with evidence. You make the call.**
+6. **Test, fix, test again.** Two to four rounds is normal. Don't fix mid-test.
 
 ## How the Skill Works
 
-The skill runs seven phases. The sections that follow expand on each:
+1. **Load context** — the requirements (criteria, rules, gates, inputs), the design spec, and where the built skill lives.
+2. **Confirm the passing rule** — every line of the report card Met on every input; a miss on a **(must)** line always fails; any other miss is fixed or explicitly accepted.
+3. **Smoke run** — the skill reads the built workflow against the requirements to catch obvious gaps before you spend a run.
+4. **Integration pre-flight** — confirms each connector has the access it needs in the account that will run the workflow; a blocked write path is marked "not run", never faked.
+5. **Run and grade each scenario** — you run each input in a new chat and bring the output back; the skill fills in the report card with evidence; you confirm or override each line.
+6. **Diagnose every miss** — each Not met line is mapped to the building block that caused it.
+7. **Verdict** — Ready, Not ready (back to Build, which regenerates only what's named), or Waiting on access.
+8. **Clean up test records** — anything the test created in a live system is listed and offered for removal.
 
-1. **Load artifacts and spec** — Read the Design Spec, the Workflow Requirements (for acceptance criteria, test scenarios, and golden examples), and locate your platform artifacts.
-2. **Smoke test** — Run the workflow once with a realistic scenario. Check that it runs, produces output, and uses the right format.
-3. **Full eval suite** — Run each test scenario from the Workflow Requirements. Score each output on a 1–5 scale across the evaluation dimensions.
-4. **Building block evals** — Test individual components (skills, context, agents) in isolation to pinpoint weak links.
-5. **Establish baseline** — Calculate average scores across all scenarios and dimensions. Record for future comparison.
-6. **Diagnose and fix** — Map problems to building blocks (generic output → context issue, skipped steps → prompt issue, etc.) and identify what to fix in Build.
-7. **Readiness decision** — Ready to deploy? Move to Run. Not ready? Return to Build with specific targets.
+## The Report Card
 
-The skill introduces the testing vocabulary in plain language as it goes — a *scenario* (E1, E2…) is one realistic test input, the *eval suite* is running the workflow across all of them, and a *baseline* is the saved scorecard you compare against later to catch quality slipping — so you don't need to know the terms in advance.
+For each input you run, the skill produces one table. Every row is something you said the workflow must do, tagged with where it came from:
 
-## Your First Run
+| Expected | From | Result | Evidence |
+|---|---|---|---|
+| Every prospect row has contact info | AC1 (must) | Met | 20 of 20 rows |
+| Never includes previously contacted people | R3 | Not met | 2 rows already in the CRM export |
+| Pauses before sending | G1 | Met | Draft created, not sent |
 
-Start with a single test — pick one realistic scenario and run the workflow end to end. This is your smoke test. You are checking the basics:
+`AC` rows are your acceptance criteria, `R` rows your rules, `G` rows your human gates, and each step's stated output gets a row too. The **Evidence** column is what makes the grade trustworthy: a count, a quoted phrase, a missing element — never "looks fine".
 
-- **Does it run at all?** — Can you execute every step without errors?
-- **Does it produce output?** — Is there a result, or does it stall?
-- **Is the output in the right format?** — Does it look like what you expected?
+Where you supplied a **golden example** (a real past output that was exactly right), the skill compares against it: what's missing, what's extra, what's different in substance. A golden example is one good answer, not the only one — the question is "would you send this instead?" Keep at least one input without a golden example, so you learn whether the workflow generalizes.
 
-If any of these fail, go back to [Build](../build/) and fix the obvious issue before continuing. Common first-run problems:
+After each input, one more question: how much would you have to edit this before using it — nothing, a little, or a lot? That answer is recorded, and its trend over time is the earliest sign of drift when you come back in [Improve](../improve/).
 
-- Missing context files the model references but cannot find
-- MCP connections that are not configured or are not responding
-- Skills that are installed but not correctly linked to the workflow
+## Where the Workflow Runs
 
-:::tip[Don't optimize yet]
-The first run is about confirming the workflow functions. Resist the urge to fine-tune output quality — that comes next. Get it running, then evaluate.
-:::
-## Structured Evaluation
+Two conversations:
 
-Once the smoke test passes, move to a full evaluation using the criteria captured during Deconstruct. Your Workflow Requirements includes **evaluation dimensions** (the qualities you care about — accuracy, tone, completeness, specificity), **test scenarios** (realistic inputs that exercise different parts of the workflow), and — where you supplied them — **Golden Examples**: real past outputs you'd consider "exactly right." Golden examples are the strongest evaluation tool you have, because scoring becomes "compare against this reference" instead of "how does it feel?"
+- **The Test conversation** runs the `test` skill. It has your requirements and design. It grades.
+- **A fresh conversation** has only the installed skill and one input. It runs. In Claude, start a new chat and ask for the skill by name; in ChatGPT, a new chat with the skill invoked by name. If the workflow lives in a project with context files, the fresh chat is inside that project.
 
-### Run the Eval Suite
+You paste or attach the output back into the Test conversation. This keeps the run honest and, because the skill must be installed for the fresh chat to work, it proves the installation at the same time.
 
-For each test scenario:
-
-1. **Run the workflow** with the test input
-2. **Let the AI grade first** — the model scores the output against the acceptance criteria (and the golden example, if one exists), with a one-line justification quoting specific evidence. You confirm or adjust each score, so every scenario gets a consistent, evidence-based starting point while you stay the final judge of quality
-3. **Score the output** on each evaluation dimension using a 1-5 scale:
-
-    | Score | Meaning |
-    |-------|---------|
-    | **5** | Excellent — ready to use as-is |
-    | **4** | Good — minor edits only |
-    | **3** | Acceptable — needs some rework but the structure is right |
-    | **2** | Weak — significant gaps, wrong direction on one or more dimensions |
-    | **1** | Failure — output is unusable or fundamentally off-target |
-
-4. **Note specific issues** — What exactly was wrong? Which dimension scored low and why?
-
-Record your scores. The Test Results file opens with machine-readable frontmatter — per-scenario scores, averages, the environment tested in, and the readiness verdict — so [Improve](../improve/) can later diff a regression run against this baseline mechanically instead of comparing recollections.
-
-### Evaluate Building Blocks in Isolation
-
-If the overall workflow scores poorly, test individual building blocks separately to isolate the problem:
-
-- **Test a skill** by running it with sample inputs outside the full workflow. Does it produce the expected output on its own?
-- **Test context** by asking the model a question that should be answerable from your reference materials. Does it find and use the right information?
-- **Test an agent** by giving it a single task from the workflow. Does it use its tools correctly? Does it make reasonable decisions?
-
-Isolating building blocks helps you find the weak link without guessing.
-
-## Establish Your Baseline
-
-After running the full eval suite, calculate an average score across all scenarios and dimensions. This is your **baseline** — the starting quality level of your workflow.
-
-Record the baseline alongside your individual scores. You will use this number in two ways:
-
-1. **During this test cycle** — to measure whether your fixes are improving things
-2. **During [Improve (Step 7)](../improve/)** — to detect quality regression over time
-
-:::note[What's a passing score?]
-There is no universal threshold. A workflow that drafts internal meeting notes might be fine at 3.5 average. A workflow that generates client-facing proposals might need 4.5. You decide what "ready" means based on how much manual editing you are willing to accept.
-:::
 ## Diagnose and Fix
 
-When something is off, the fix depends on *what* went wrong. Use this table to map problems to building blocks:
-
-| Problem | What to fix |
+| What went wrong | What to change |
 |---|---|
-| Output is generic or off-brand | Add more **context** — examples, style guides, reference materials |
-| Steps are skipped or misunderstood | Refine the **prompt** — make the instructions more explicit |
-| A step needs domain expertise the AI does not have | Build a **skill** for that step — codify the expertise into a reusable routine |
-| The AI needs to make unpredictable decisions | Convert from prompt to **agent** — let the AI plan its approach |
-| Output format is wrong | Check the prompt's output format instructions — add explicit formatting examples |
-| The model ignores your reference materials | Check that context files are correctly linked and formatted — the model may not be finding them |
-| Tool connections fail during execution | Verify MCP connections — test each tool integration independently |
+| Output is generic or off-brand | Add **context** — examples, style guide, reference material |
+| A step was skipped or misunderstood | The **orchestrator skill** — make that step's instruction explicit |
+| A step needs expertise the AI doesn't have | A **component skill** — build or extend one for that step |
+| Output format is wrong | The **orchestrator skill** — add an explicit format example |
+| The AI ignored a reference file | **Context** — check the file is where the skill expects it and is readable |
+| A tool call failed | The **connector** — verify it independently, then re-run |
+| The AI had to make decisions your rules didn't cover | **Design** — the workflow may need an agent, or clearer rules |
 
-After each fix, re-run the affected test scenarios and compare scores to your previous run. You are looking for improvement on the dimensions that scored low.
+Every miss names its building block, so Build knows exactly what to regenerate. After a fix, re-run the failed inputs, then the full set — a fix in one place can affect another.
 
-## Code-First Troubleshooting
+## Readiness
 
-If you chose the code-first architecture approach during Design, you may encounter additional issues:
+**Ready** — every line met on every input, or a miss you looked at and accepted for a recorded reason. Move to **[Run](../run/)**.
 
-| Problem | What to check |
-|---|---|
-| API calls return errors | Verify API keys, rate limits, and request format match the provider's current spec |
-| Agent does not use tools | Check that tools are correctly registered in the agent configuration and that permissions are granted |
-| Multi-agent handoffs fail | Verify the output format of each agent matches the expected input format of the next agent in the pipeline |
-| Scheduled runs produce different results | Check for time-dependent context (dates, market data) that may have changed between runs |
-| SDK version mismatch | Ensure your SDK version matches the documentation the model used during Build — update if needed |
+**Not ready** — at least one miss you haven't accepted. Back to **[Build](../build/)**, which regenerates only the building blocks named in your results, then return here.
 
-## Readiness Decision
+**Waiting on access** — the logic passed but a connector's write access isn't authorized yet. Fix the access; no rebuild needed.
 
-After testing and iterating, you reach one of two outcomes:
-
-**Ready to deploy.** You can run the workflow on a new scenario and trust the output without heavy editing. Your eval scores are at or above the threshold you set. Move to **[Step 6: Run](../run/)**.
-
-**Not ready.** One or more dimensions consistently score below your threshold. Go back to **[Step 4: Build](../build/)**, fix the identified building blocks, and return to Test. Re-run the full eval suite — do not skip scenarios that passed previously, because a fix in one area can affect others.
-
-:::note[2-4 iterations is normal]
-Most workflows need multiple rounds of Build-then-Test before they are ready for deployment. Each iteration should be targeted — fix a specific issue, re-test, and measure improvement. If you have been through four iterations and scores are not improving, consider going back to [Design (Step 3)](../design/) to re-examine your architecture decisions.
+:::note[Two to four rounds is normal]
+If you've been through four rounds and the same lines keep failing, the problem is usually the design, not the build. Go back to [Design (Step 3)](../design/).
 :::
+
+## What This Produces
+
+`outputs/[name]/test-results.md` — the report card per input, the diagnosis table, accepted misses, the verdict as a count ("11 of 12 lines met across 2 inputs"), and machine-readable frontmatter so [Improve](../improve/) can later show you exactly which lines changed.
+
 ## How to Use This
 
 This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
@@ -146,21 +100,9 @@ This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set
 Test my workflow against the acceptance criteria in my Workflow Requirements.
 ```
 
-The skill guides you through the smoke test, eval suite, building block evals, baseline establishment, and diagnosis process.
-
-### Example prompts
-
-```
-"Test my workflow against the evaluation criteria"
-→ Guides you through the smoke test, eval suite, and baseline
-
-"My workflow output is too generic — help me diagnose"
-→ Runs targeted building block evals to find the weak link
-```
-
 ## Related
 
-- [Deconstruct Workflows](../deconstruct/) — where acceptance criteria, example scenarios, and golden examples are captured
-- [Build](../build/) — where you fix issues identified during testing
-- [Run](../run/) — the next step once your workflow passes testing
-- [Improve](../improve/) — where you re-run evals to detect regression on deployed workflows
+- [Deconstruct Workflows](../deconstruct/) — where the criteria, rules, gates, and inputs are captured
+- [Build](../build/) — where misses get fixed
+- [Run](../run/) — the next step once every line is met
+- [Improve](../improve/) — where the same report card is re-run to catch drift
