@@ -42,7 +42,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
 ## Workflow
 
-**Set expectations up front (first message):** tell the user this step is the most thorough interview in the framework — usually **20–40 minutes** of back-and-forth — because the requirements written here drive everything built later. Stopping early is safe: progress saves to files, and they can say "continue my workflow" in a later session to pick up where they left off.
+**Set expectations up front (first message) — give the agenda, not just the time.** Say: "This is the most thorough conversation in the framework — about 45–60 minutes on your own, less if you've done it before — because everything built later comes from what we capture here. It runs in five chapters: (1) **what this is worth**, (2) **scope and a name**, (3) **mapping how the work gets done**, (4) **improving it for AI**, and (5) **how you'll judge the output**. Stopping early is safe: progress saves to files, and 'continue my workflow' picks up where we left off." Signpost each transition as you reach it ("Chapter 3 of 5 — mapping the steps"). For goal-driven workflows chapter 3 is "defining the goal and its range" and chapter 4 is skipped; say so when you reach it.
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
@@ -65,7 +65,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
    - **Step-driven**: Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If no lens was established, determine it: individual tasks (one person's repetitive work) = Individual lens; multi-role or business-objective processes = Organizational lens. Ask only if not obvious from context. Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4 (deep dive).
    - **Goal-driven**: Proceed to Step 2 (scope check) → Step 3 (naming) → Step 4-GD (goal-driven interview). The interview opens with scenario grounding, so don't pre-interview here — but if the user has already described the situation, trigger, or consumer, carry those answers forward.
 
-   **Value case (both paths)** — capture four of the six `Value & Measurement` fields here, while the user is still describing the situation. Keep it conversational: two or three questions, not a form.
+   **Value case (both paths)** — Chapter 1. Bridge into it: "Before we map anything, I want to know what this is worth to you, so that when it's built we can show the improvement rather than just claim it." Then capture four of the six `Value & Measurement` fields, conversationally: two or three questions, not a form.
 
    - **Business Objective** — which strategic objective this supports. On the Individual lens it may be personal ("get my Fridays back"); don't push organizational language onto it.
    - **Desired Outcome** — what changes, and for whom, when this works. In the language the business would use, not the workflow's.
@@ -94,7 +94,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    **Derive the workflow ID.** Convert the confirmed name to kebab-case (lowercase, hyphens, no punctuation — "Lead Qualification" → `lead-qualification`) and confirm it with the user: "I'll use `lead-qualification` as the workflow ID — it names the folder and files for everything we produce." This ID is the single source of truth for all artifact paths; every downstream skill uses it verbatim.
 
-4. **Deep dive (step-driven only)** — Before probing the first step, briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
+4. **Deep dive (step-driven only)** — Chapter 3. Open by stating the shape of what's coming: "You named [N] steps. We'll take them one at a time — for the first one I'll ask questions; from the second onward I'll propose what I think each step involves and you correct me, which is faster." Then briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
 
    Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Step 10.
 
@@ -132,7 +132,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    **Present as a propose-and-react summary:**
 
-   > "Now that we've mapped the full process, here's how I'd optimize it for AI:
+   > "Chapter 4. You've described how the work happens *today*, with a person doing it. An AI-powered version usually doesn't need every one of those steps — some exist only because a human was doing the work. Here's how I'd reshape it:
    > - **Eliminate**: [step(s)] — [reason, e.g., 'direct access to your CRM data replaces the manual export']
    > - **Collapse**: [step(s)] into one — [reason, e.g., 'AI drafts and formats in a single pass']
    > - **Parallelize**: [step(s)] — [reason, e.g., 'no data dependency between these']
@@ -171,6 +171,8 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
    - any row `Confidential` or `Regulated` → **handles data the user would be uncomfortable seeing outside the company**
    - any row `External` → **consumes content nobody on the team authored**
+
+   Frame the check in one line first: "Two quick checks on what this workflow has to protect, then mapping is done." Then:
 
    Ask only the third: **"Does this workflow write to anything live — send, post, create, or change something in a real system?"** (Running unattended is the higher-risk form of the same thing, so it counts.)
 
@@ -509,6 +511,6 @@ The Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria,
 - Push beyond vague context answers like "domain knowledge" — identify the specific artifact.
 - Surface the assumption that existing context — data, documents, transcripts, reference materials — will "just work" for AI. Most people underestimate the work required to make context AI-accessible, especially unstructured content like SOPs, style guides, meeting transcripts, and knowledge that lives in people's heads. Adopt a data strategist lens — help the user see where context reorganization, reformatting, or externalization is needed before they commit to a workflow design that depends on inaccessible context. Push beyond "it's in the CRM" or "I just know it" — ask what system it's in, what format it's in, and whether there's programmatic access or it requires manual steps. Leave specific integration mechanisms (MCP, API, SDK) to the Design step.
 - **Stay in the "what" lane.** Deconstruct defines the workflow, its context needs, its rules, and its acceptance criteria. It does not prescribe how AI will access data, which tools to use, what integrations to build, how many agents are needed, or which models to use — those are Design decisions (Step 3). Do not ask the user about capability domains, agent architecture, model class, or orchestration mechanism. If a technology concern surfaces, note it as a consideration for Design rather than resolving it here.
-- After writing the Workflow Requirements file, tell the user: "Workflow Requirements saved to `outputs/[name]/requirements.md`. Ready for the `design` skill (Step 3)."
+- After writing the Workflow Requirements file, close with what was produced and what happens next: "Workflow Requirements saved to `outputs/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill'."
 - If entering deconstruction without a prior analysis (direct workflow description), determine the lens by asking if not obvious from context.
 - For goal-driven workflows, do not force step decomposition — the whole point is to capture what the agent system needs to know without prescribing execution steps.
