@@ -75,7 +75,7 @@ A few things to take away from this example:
 
 - **The expansion.** "I plan content on Sundays" became 10 steps across 4 phases, with decision logic, failure modes, and a dependency map. That expansion is what makes the workflow executable by AI.
 - **The autonomy spectrum.** Not every step needs AI autonomy. Steps 1, 2, 4, and 10 are deterministic (fixed data operations). Steps 5-8 are guided (AI proposes, human decides). Steps 3 and 9 are human-led. The framework helps you see this clearly.
-- **The build order.** The Design Spec doesn't just say "build everything." It recommends starting with a prompt (pure conversation, no infrastructure needed), then layering in skills incrementally. You get value from the first run.
+- **The build order.** The Design Spec doesn't just say "build everything." It recommends starting with an inline prompt block for the simple steps, then layering in skills incrementally. You get value from the first run.
 - **Platform-agnostic.** The Workflow Requirements and Design Spec work with any AI tool. The skills and MCP connections are implementation details that vary by platform — but the underlying logic is the same everywhere.
 
 ---
