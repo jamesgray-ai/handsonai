@@ -1,6 +1,6 @@
 ---
 title: "Step 6: Run"
-description: Deploy your tested AI workflow — choose a run pattern, follow your Run Guide, share with your team, and operationalize for ongoing use.
+description: "Step 6: Run — do the first real run on real work, then leave a one-page Run Card, a run log, and a review date behind for whoever runs it next."
 ---
 
 > **Part of:** [AI Workflow Framework](../)
@@ -11,47 +11,54 @@ You've just finished [Test (Step 5)](../test/). Your workflow:
 
 - Passes its report card — every criterion met, or a miss you've explicitly accepted
 - Has a recorded baseline for future comparison
-- Has platform artifacts ready for deployment
+- Has its skills, agents, and connectors installed on the platform that will run it
 
-Now it is time to put the workflow into production use.
+Every run so far used test inputs. Run is where the workflow does this week's real work.
+
+| | |
+|---|---|
+| **What you'll do** | Do the first real run on real work with the model watching, then agree a review date |
+| **What you'll get** | A one-page **Run Card**, a run log, and a `stale_after` review date on your Workflow node |
+| **Time** | ~15–20 minutes |
 
 ## How the Skill Works
 
-The skill runs four phases. The sections that follow expand on each:
+The skill runs four steps:
 
-1. **Load spec and artifacts** — Read the Design Spec and locate platform artifacts.
-2. **Generate Run Guide** — Produce the artifact inventory, setup steps, first production run instructions, and next steps.
-3. **Run pattern selection** — Choose the right pattern: run in a project, let the agent run, code-first, or automate on a schedule.
-4. **Operationalization** (organizational workflows) — Sharing, training, governance, and adoption monitoring.
+1. **Load context** — the Workflow node, the Design Spec, the installed artifacts, and the test results (if the verdict isn't Ready, it sends you back to Test).
+2. **The first real run** — your real input, in a fresh session, started the way an operator would start it.
+3. **Write the Run Card** — the one page you'll actually use, saved to `outputs/[name]/run-guide.md`.
+4. **Run log, registry, review date** — today's run logged, the node marked in production, and the next review scheduled.
 
-## Start with Your Run Guide
+## Your Run Card
 
-At the end of Build and Test, the model generates a **Run Guide** (`[name]/run-guide.md`) — a plain-language walkthrough tailored to your platform, packaging, and technical comfort level. It tells you exactly what to do with the artifacts that were built:
+The Run Card is one page with six fixed sections, in this order. It is written after the first real run, not before — so it describes what actually happened rather than what should:
 
-1. **What was built** — Every artifact listed with what it does and where it lives
-2. **Setup steps** — Numbered instructions for getting each artifact into the right place on your platform (menu paths, button names, what you should see when it is working)
-3. **First production run** — A guided run with real input, expected behavior, and what to check
-4. **What to do next** — How to run it again, share with teammates, and when to revisit
-5. **Fresh and scheduled sessions** — What the run environment must satisfy (artifacts loadable, connectors authorized in the session that runs it, pre-granted permissions for unattended runs) plus a safety checklist for scheduled runs: least-privilege permissions, human gates enforced in the deployed artifacts, untrusted content treated as data, and a cap on actions per run
+1. **Your first real run** — what happened today, in two sentences, and what to expect next time.
+2. **How to start it** — the exact phrase or click that starts the workflow, and the input to give it. If teammates will run it too, how they install it and the same phrase.
+3. **What to have ready** — the inputs in hand; every connector that must be authorized **in the account that runs it**; every context file, with its location. A fresh conversation inherits nothing from the session that built the workflow, and an unattended run inherits less — this list is what a clean session needs to succeed.
+4. **What to check before you act on the output** — the human gates in plain words (what the workflow pauses for and what you're deciding), plus your **(must)** criteria as a two-line reminder.
+5. **Log the run** — one line in `outputs/[name]/runs.md`: date, input, result, edits needed, notes.
+6. **Your first review** — the date, and the exact sentence that re-enters the framework: *"Run the improve skill on [workflow name]."*
 
-The Run Guide is saved to `outputs/[name]/run-guide.md` so you can reference it later or share it with your team.
+The Run Card is shown to you in the conversation and saved to `outputs/[name]/run-guide.md`, so you can reopen it weeks later or hand it to someone else.
 
 ### Keep a run log
 
-The run skill also creates `outputs/[name]/runs.md` — a one-line-per-run log (date, input, result, edits needed). It takes ten seconds per run, and when you review the workflow later in [Improve (Step 7)](../improve/), it's the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself, Build wires self-logging into the orchestrator artifact so it appends its own log line each run (Run verifies this is in place) — logging costs you nothing.
+The run skill also creates `outputs/[name]/runs.md` — a one-line-per-run log (date, input, result, edits needed). It takes ten seconds per run, and when you review the workflow later in [Improve (Step 7)](../improve/), it's the difference between "I think it's been fine?" and actual evidence of drift, recurring edits, or failures. If the workflow runs on the platform itself, Build wires self-logging into the orchestrator artifact so it appends its own log line each run (Run verifies it did on today's run) — logging costs you nothing.
 
-## Choose Your Run Pattern
+## How It Gets Started
 
-Not every workflow runs the same way. The right pattern depends on how often you use the workflow, how technical you are, and whether the workflow runs attended or unattended.
+"How to start it" on your Run Card is one of these. Most workflows are the first two:
 
 | Pattern | What it means | Best for |
 |---------|--------------|----------|
-| **Run in a project** | Set up a persistent project workspace with pre-loaded context | Workflows you repeat with the same reference materials |
-| **Let the agent run** | Describe what you need and let the agent handle it | Multi-step workflows that benefit from tool use and autonomous decisions |
-| **Code-first** | Run via API or SDK from your own application | Production integrations, high-volume processing, custom UIs |
-| **Automate on schedule** | Set up a scheduled trigger so the workflow runs without you | Recurring tasks (daily reports, weekly summaries, monitoring) |
+| **Run the skill** | Open a fresh conversation and invoke the workflow by name | The default: any workflow you start yourself, wherever you already work |
+| **Run in a project** | Invoke it inside a persistent workspace that already holds the context files | Workflows you repeat against the same reference materials |
+| **Let the agent run** | Describe what you need and let the agent orchestrate the steps and tools | Multi-step workflows with tool use and decisions between steps |
+| **On a schedule** | A trigger runs it without you — **Automated workflows only** | Recurring work with no human input during the run (daily digests, weekly reports, monitoring) |
 
-Start with the simplest pattern that fits your needs. You can always move to a more advanced pattern later.
+Start with the simplest pattern that fits. You can always move to a more involved one later.
 
 ### Run in a Project
 
@@ -75,37 +82,21 @@ For agent-based workflows, you describe what you need in natural language and le
 - The agent needs to make decisions based on intermediate results
 - You want hands-off execution with review at defined checkpoints
 
-**How to do it:** Make sure your agent is installed and configured (follow the Run Guide). Then describe your task — the agent picks the right tools and follows its instructions. Review output at any human-in-the-loop gates before the agent continues.
-
-### Code-First
-
-Run the workflow programmatically via API or SDK. This is for workflows that integrate into your own applications, process data at scale, or need custom logic around the AI calls.
-
-**When to use it:**
-
-- The workflow is part of a larger application
-- You need to process many inputs in batch
-- You want programmatic control over the execution flow
-
-**How to do it:** Use the API or SDK artifacts generated during Build. Your Run Guide includes the specific endpoints, authentication setup, and code examples for your platform. Integrate the calls into your application and add error handling appropriate to your use case.
+**How to do it:** Make sure your agent is installed and configured (Build did this, and the Run Card's "What to have ready" lists what it needs). Then describe your task — the agent picks the right tools and follows its instructions. Review output at any human-in-the-loop gates before the agent continues.
 
 ### Automate on a Schedule
 
-Set up a trigger so the workflow runs without manual intervention — daily, weekly, or on a custom schedule.
+**Only for workflows designed as Automated.** If your Workflow node's execution mode is `augmented`, the workflow runs when you start it, and that's the whole answer — come back to this step later if that changes. Scheduling an augmented workflow removes the person the design assumed would be there.
 
-**When to use it:**
+For an automated workflow, the skill states your platform's scheduling mechanism, the pre-granted permissions and non-interactive credentials it needs, and then the **safety checklist** from your Design Spec's Safety & Permissions section, in plain words:
 
-- The workflow should run at a regular cadence (daily news digest, weekly report, monthly review)
-- You want the output waiting for you rather than having to remember to run it
-- The workflow does not require human input during execution
+- Least-privilege scopes — only what the workflow actually does, nothing broader
+- Human gates and draft-don't-send actually enforced in the deployed artifacts, not just described in the spec
+- Content you didn't author (inbound email, web pages, form submissions) treated as data, never as instructions
+- A cap on actions per run
+- Every write visible in the run log
 
-**How to do it:** The approach depends on your platform and architecture:
-
-- **Claude Code** — Use a scheduled task (launchd on Mac, Task Scheduler on Windows) with `claude -p "your prompt" --dangerously-skip-permissions`
-- **API-based** — Set up a cron job, GitHub Action, or cloud scheduler that calls your API endpoint
-- **Platform-native** — Some platforms offer built-in scheduling or automation triggers
-
-Your Run Guide includes platform-specific scheduling instructions if your workflow supports it.
+An unattended run can do exactly what its pre-granted permissions allow, with nobody watching — that checklist is the difference between a scheduled workflow and an unsupervised one. If your platform doesn't support unattended runs, the skill says so and names the platforms that do rather than improvising a workaround.
 
 ## Operationalize for Your Team
 
@@ -113,7 +104,7 @@ For individual workflows, deployment may be as simple as running the workflow yo
 
 ### Share and Train
 
-- **Document the workflow** — Your Run Guide serves as the primary reference. Share it with anyone who will run the workflow.
+- **Document the workflow** — Your Run Card is the primary reference. Share it with anyone who will run the workflow.
 - **Create a short walkthrough** — A 5-minute screen recording showing someone running the workflow from start to finish is more effective than written instructions for visual learners.
 - **Identify a workflow owner** — Someone who understands the workflow well enough to troubleshoot, train new users, and make the call on when it needs updating.
 
@@ -135,26 +126,27 @@ In the first few weeks after deployment, check:
 
 This step is facilitated by the **`run`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
 
-**How to start:** Say *"create my run guide"* (or *"run the run skill"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and Cowork lists it when you type `/`.
+**How to start:** Say *"run the run skill"* (or *"put my workflow into production"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and Cowork lists it when you type `/`.
 
 **Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 
 ```
-Generate a Run Guide for my workflow and help me deploy it.
+Put my workflow into production — let's do the first real run.
 ```
 
-The skill reads your Design Spec and artifacts, generates the Run Guide, and walks you through choosing a run pattern and getting the workflow into production.
+The skill reads your Design Spec, your installed artifacts, and your test results, runs the workflow on real work with you, then writes the Run Card, starts the run log, and sets the review date.
 
 ### Example prompts
 
 ```
-"Generate the Run Guide for my workflow"
-→ Reads the spec and artifacts, produces a deployment guide
+"Run the run skill on my weekly status report"
+→ Does the first real run, then writes the Run Card and run log
 
-"Help me set up my workflow to run on a weekly schedule"
-→ Generates scheduling instructions for your platform
+"This one needs to run every Monday without me"
+→ Checks it was designed as Automated, then walks the
+  scheduling setup and the safety checklist
 ```
 
 ## Next Step

@@ -30,7 +30,7 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 │       ├── design-spec.md                ← Step 3 (Design)
 │       ├── test-results-2026-06-05.md    ← Step 5 (Test), round 1
 │       ├── test-results.md               ← Step 5 (Test), round 2 — the Ready round
-│       ├── run-guide.md                  ← Step 6 (Run)
+│       ├── run-guide.md                  ← Step 6 (Run) — the Run Card
 │       ├── runs.md                       ← the run log (one line per run)
 │       └── improvement-plan.md           ← Step 7 (Improve, weeks later)
 └── [skills]                              ← Step 4 (Build): the workflow skill(s) — see note below
@@ -597,7 +597,7 @@ Mechanism-specific ✓ · Safety ✓ · Completeness ✓
 
 ## Step 4 — Build → the skills
 
-Maya chose **"Claude builds it"**. Build created the tone guide with her (a 10-minute interview), verified the HubSpot connector was read-only, then generated the two skills the spec called for: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). The node's `# Artifacts` now links the generated assets — Build's completion is visible from the artifacts themselves.
+Build worked the Context Inventory with Maya first: the HubSpot rows were **connect it** (she authorized the connector in the account that runs the workflow; Build read three tracker tasks back to her to prove it), the template and past reports were **provide it**, and the tone guide was **build it in** — Build drafted it from her golden example in a 10-minute interview and she corrected two lines. Only then did it ask Cowork to create the two skills the spec called for, handing over each blueprint: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). Build never wrote a SKILL.md itself; Cowork's own skill creator did, from the spec.
 
 The orchestrator skill, complete:
 
@@ -636,6 +636,19 @@ never share or save a report Maya hasn't approved.
 ````
 
 *(S2, `status-report-drafting`, follows the same SKILL.md format — its body is the Decision Logic and Failure Modes from the spec's S2 blueprint, expanded into instructions. Omitted here because it repeats what the spec section above already shows.)*
+
+Build closed with the reconciliation table — one row per Build Output line in the spec, so nothing in the design is left unaccounted for and nothing extra appears:
+
+| Build Output (from spec) | Artifact | Path | Status |
+|---|---|---|---|
+| New skill: S1 | `weekly-status-report` (orchestrator) | Skill library (Customize → Skills); source in `outputs/weekly-status-report/skill/` | Created |
+| New skill: S2 | `status-report-drafting` | Skill library (Customize → Skills); source in `outputs/weekly-status-report/skill/` | Created |
+| Inline prompt → Workflow Requirements Step 1 | `weekly-status-report` — Step 1 instruction block | Same skill | Created |
+| Human (no artifact) | — | — | — |
+| Inline prompt → Workflow Requirements Step 4 | `weekly-status-report` — Step 4 instruction block | Same skill | Created |
+| MCP server: HubSpot | HubSpot connector (read-only) | Cowork project connector | Installed by you |
+
+Build then wrote that table into the workflow node — the skills under `# Skills`, the generated files and the connector under `# Artifacts` — which is how Test and Run find every piece later without asking Maya where anything went. The last thing it did was walk her through installing both skills and confirm they appeared under Customize → Skills, because Test's fresh-conversation runs need them installed, not staged.
 
 ---
 
@@ -792,68 +805,57 @@ None — outputs are local files.
 
 ## Step 6 — Run → `run-guide.md` + `runs.md`
 
-The Run Guide is the "how to operate this" document — worth reading even weeks later, or handing to a teammate. Sections A–D cover setup and first run; E and F are the parts people skip and regret (fresh-session requirements and the run log).
+Run started with the real thing: Maya's actual week of 2026-06-12, not a test input, with the model watching the run. The Run Card came after — one page, six fixed sections, worth reading weeks later or handing to a teammate. Sections 1–2 are what she'll reread every Friday; 3–4 are the ones people skip and regret (what a fresh session needs, and what to check before acting on the output).
 
 ````markdown
-# Weekly Status Report — Run Guide
+# Weekly Status Report — Run Card
 
-## A. What was built
+## Your first real run
 
-| Artifact | What it does | Location |
-|----------|-------------|----------|
-| `weekly-status-report` skill | The workflow — pulls updates, drafts, pauses for review, saves | Skill library (Customize → Skills) |
-| `status-report-drafting` skill | The drafting specialist the workflow calls | Skill library (Customize → Skills) |
-| `context/tone-guide.md` | Maya's voice rules | Project folder |
-| `context/past-reports/` | Template + golden examples | Project folder |
+Friday 2026-06-12, on the live tracker: 11 updated tasks and 2 blockers. The skill
+pulled the week, drafted, paused at the review gate, and saved
+`status-report-2026-06-12.md` after Maya approved it with no edits — then logged the
+run itself. Next Friday looks exactly like this, without anyone watching over it.
 
-## B. Setup steps
+## How to start it
 
-1. Open your Cowork project. Confirm both skills appear under **Customize → Skills**
-   (they were added during Build — if missing, re-upload the zips per the skills setup page).
-2. Confirm the HubSpot connector is connected **in this project** and shows the
-   "Q2 Delivery Tracker" list. You should see it listed under connected tools.
-3. Confirm `context/tone-guide.md` and `context/past-reports/` exist in the
-   project files panel.
+Open a new chat **inside the Weekly Reports project** in Cowork and say:
+**"Run my weekly status report."** Give it nothing else — it pulls the week itself.
+If someone else takes the Friday report over: they add both skills under
+**Customize → Skills**, join the project, and use the same sentence.
 
-## C. First run
+## What to have ready
 
-Say: **"Run my weekly status report."**
+- **HubSpot connector authorized in the account that runs it**, with the
+  "Q2 Delivery Tracker" list visible. Authorization does not carry over from another
+  project, another session, or another person's account — this is the one that breaks.
+- `context/tone-guide.md` and `context/past-reports/` present in the project files
+  panel (the tone guide is what keeps the draft from sounding generic).
+- Nothing else: a fresh chat in the project already has the skills and the context.
 
-What should happen: the skill reports how many tasks it pulled → presents a full
-draft → waits for your approval → saves the dated report and logs the run.
+## What to check before you act on the output
 
-Common first-run issues:
-- *"I can't access the tracker"* → the HubSpot connector isn't authorized in this
-  project — reconnect it here (connector auth doesn't carry over between projects).
-- *Draft sounds generic* → check the tone guide is present; it does the heavy lifting.
+- **G1 — the review gate.** The skill stops and shows you the full draft before
+  anything is saved or shared. You are deciding whether this is the report you would
+  send: approve as-is, or edit and then approve. It does not proceed on silence.
+- **The (must) line:** every status in the report matches the tracker (AC1). Skim the
+  blockers against the tracker — a mismatch there is a stop, not an edit.
+- Also worth a glance: the four sections are in template order (AC2), and every blocker
+  names an owner and a next action (R1).
 
-## D. What to do next
+## Log the run
 
-- **Every Friday:** say "run my weekly status report." That's the whole routine.
-- **Sharing:** post the approved report yourself (deliberate v1 choice — see
-  Optimization Notes in the requirements).
-- **When to revisit:** if you're editing every draft in the same way twice in a
-  row, that's a signal for Step 7 (Improve).
+One row per run in `outputs/weekly-status-report/runs.md` — date, trigger, result,
+edits needed, notes. The orchestrator appends it at the end of every run; it did on
+today's, which is how we know that part works. If a row is ever missing, add it by
+hand. Ten seconds a week, and it is the evidence Step 7 reads instead of memory.
 
-## E. Running it in a fresh or scheduled session
+## Your first review
 
-- The skills live in your library and the context files in the project, so any
-  session **in this project** can run the workflow.
-- The HubSpot connector must be authorized in the environment that runs it —
-  verify before the first run in any new project or session.
-- This workflow is manual-trigger; if you later schedule it, run the safety
-  checklist in the Design Spec's Safety & Permissions section first (pre-granted
-  permissions are exactly what a bad unattended run can do without you).
-
-## F. Run log
-
-`outputs/weekly-status-report/runs.md` — the skill appends one row per run
-automatically. Ten seconds of value per week: when you review this workflow in
-Step 7, the log is evidence instead of memory.
-
-**Next review scheduled: 2026-09-01** (the node's `stale_after` date). When it arrives —
-or sooner if quality slips — start a new conversation and say:
-*"Run the improve skill on weekly status report."*
+**2026-09-01** — quarterly, recorded as `stale_after` on the workflow node. When it
+arrives, or sooner if you find yourself editing every draft the same way, start a new
+conversation and say: *"Run the improve skill on weekly status report."* Bring nothing —
+the node, the test results, and the run log carry it.
 ````
 
 And the run log after a few weeks — one line per run, written by the skill itself:

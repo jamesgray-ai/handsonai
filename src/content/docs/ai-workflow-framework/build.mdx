@@ -15,39 +15,52 @@ You've just finished [Design (Step 3)](../design/). You should have:
 
 If you're returning from [Test (Step 5)](../test/) to fix issues, you may also have test results telling you which building block needs adjustment.
 
+| | |
+|---|---|
+| **What you'll do** | Resolve every context item with the model, authorize the connectors the workflow needs, and install the finished package |
+| **What you'll get** | Installed skills, agents, and connectors, plus a reconciliation table matching every line of the spec to the artifact that satisfies it |
+| **Time** | ~30–60 minutes, most of it gathering context |
+
 ## How the Skill Works
 
-The skill runs seven phases. The sections that follow expand on each:
+The skill runs ten steps. The sections that follow expand on the ones you take part in:
 
-1. **Load Design Spec and Workflow Requirements** — Read both approved documents from `outputs/[name]/`.
-2. **Build path choice** — Choose "Claude builds it" (the model generates artifacts) or "You build it yourself" (get a Construction Guide with build sequence and creation skill recommendations).
-3. **Mechanism-specific build path** — Only the steps relevant to your chosen orchestration mechanism (Skill or Agent). This is where context gets prepared — the Context Inventory and Data Readiness Summary are resolved before dependent steps run (see "Prepare Context" below).
-4. **Discover creation tools** — Scan your environment for skills that can create other building blocks (e.g., skill-creator). Present a Creation Tools Map for confirmation. Then resolve platform format requirements from the platform registry.
-5. **Check for existing skills** — Incorporate any skills or prompt instructions you already built for this workflow.
-6. **Integration research** — Verify platform availability and setup for every tool in the spec, including write-access and least-privilege pre-flights.
-7. **Generate platform artifacts** — For each building block, either delegate to the matched creation skill or generate inline using format specifications, then place each artifact per the Deployment Plan.
+1. **Load the spec and requirements** — Build refuses a spec that isn't marked approved.
+2. **Fix mode or full build** — coming back from Test, it rebuilds only the building blocks the results named.
+3. **Prepare Context** — every context item is resolved with you before anything is generated: connect it, provide it, or build it in — each with a read-back check.
+4. **Mechanism path** — only the steps a Skill or an Agent needs.
+5. **Creation tools** — skills and agents are created by asking your platform to create them (a matched creation skill is used when your session lists one); only configs, connectors, and loose files are written directly.
+6. **Platform research** — artifact formats from the platform registry, verified on the web.
+7. **Existing skills** — anything you already have is reused or extended, never rebuilt.
+8. **Integration research** — how each connector is set up on your platform.
+9. **Generate and install** — skills, agents, connectors, packaged and installed.
+10. **Reconcile** — a table matching every line of the spec to the artifact that satisfies it.
 
 ## Prepare Context
 
-Before the model generates any artifacts, you need to resolve the context your workflow depends on. The **Context Inventory** in the Workflow Requirements (from [Deconstruct](../deconstruct/)) and the **Data Readiness Summary** (from Design) identify every document, file, and reference material the workflow needs — and flag which ones are available, which need to be created, and which need formatting.
+Nothing is generated until the context your workflow depends on is resolved. The **Context Inventory** in the Workflow Requirements (from [Deconstruct](../deconstruct/)) and the **Data Readiness Summary** (from Design) list every document, file, and system the workflow needs. Build presents that list as a table and works through it with you, row by row, and every row ends in one of three outcomes:
 
-Build begins by working through this list:
+- **Connect it** — the material lives in a system your platform can reach live: a CRM, a calendar, a drive. You authorize the connector **in the account that will run the workflow** — authorization doesn't carry over from the session you build in. The model then proves the access with a real read, and where your workflow writes back, confirms it has write scope before anything is built on top of it.
+- **Provide it** — a document you supply: a template, a style guide, last quarter's examples. You paste or attach it, and it goes wherever your platform keeps the files workflows read, with the path recorded.
+- **Build it in** — short reference content (tone rules, a rubric, an output template, a handful of examples) ships *inside* the skill package as a supporting file. It travels with the skill and needs no setup.
 
-- **Find existing documents** — Locate the style guides, templates, reference materials, and example files your workflow needs. These may live in shared drives, a CRM, or your local machine.
-- **Create missing materials** — Some context does not exist yet. A workflow that standardizes writing needs a style guide. A workflow that evaluates proposals needs scoring criteria. Create these now.
-- **Format for AI consumption** — AI works best with clearly structured text. Convert complex spreadsheets into Markdown tables. Extract relevant sections from long PDFs. Add headers and labels so the model can navigate reference materials efficiently.
+If something the workflow needs doesn't exist yet, the model drafts it from what Deconstruct already captured — a style guide from your golden example, scoring criteria from your rules — and you correct it. That is far faster than asking you to write one from a blank page.
+
+**Every row gets a read-back check.** Before a row is marked resolved, the model asks itself one question only that artifact can answer, answers it from the artifact, and shows you the answer: *"From your template: the three headings are Progress, Risks, Next week — correct?"* A row without a read-back isn't resolved. It is how you find out the file is the wrong version now, rather than three runs from now.
 
 :::tip[Context is the highest-leverage building block]
 When a workflow produces generic or off-brand output, the fix is almost always better context — not a more complex prompt. Invest time here. The quality of your context directly determines the quality of your workflow's output.
 :::
-## Choose Your Build Path
 
-The model offers two paths:
+## Your Three Jobs
 
-1. **"Claude builds it"** — The model generates all artifacts (skills, agents, configs) based on the approved spec and places them where they belong. This is the recommended default.
-2. **"You build it yourself"** — The model provides a Construction Guide with build sequence, format references, and pointers to creation skills you can invoke — but you do the building.
+The model generates everything. Three things stay with you, and Build names them in its first message so nothing arrives as a surprise:
 
-Either way, the model starts by checking the **Data Readiness Summary** from your spec. Items flagged as "Partial" or "No" for AI accessibility are gated — they must be resolved (exporting data, granting access, reformatting files) before dependent steps can proceed.
+**Gather or approve the context.** You know where your documents live, what your style guide says, and which examples represent your standards. The model tells you what it needs and drafts what's missing; you supply it, correct it, and confirm it. This is most of the 30–60 minutes.
+
+**Authorize connectors in the account that will run it.** If the workflow reaches a CRM, a calendar, or a drive, you connect it — in the account the workflow will actually run in, not only the one you're building in. The model tells you which connections are needed and which scopes they require (and only those scopes), then verifies the access itself before generating anything that depends on it.
+
+**Install the finished package.** Where your platform keeps skills and agents in a managed library, the built files are still only source until they're installed. Build stages the package, walks you through installing it, and confirms the skill appears in your platform's list before handing off to Test — a fresh-conversation test run depends on it.
 
 ## Mechanism-Specific Build Paths
 
@@ -56,13 +69,13 @@ The orchestration mechanism determines which steps you follow. Work through **on
 <Tabs>
   <TabItem label="Skill">
 
-1. **Prepare context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
+1. **Prepare context** — Resolve every row of your Workflow Requirements' Context Inventory: connect it, provide it, or build it in
 2. **Build the orchestrator skill and component skills** — The model generates the orchestrator skill and the skills for the steps tagged as skill candidates in your Design Spec, in the format appropriate to your platform
 3. **Package and install** — The model packages the skills and installs them per your platform's deployment plan
   </TabItem>
   <TabItem label="Agent">
 
-1. **Prepare context** — Build the context artifacts listed in your Workflow Requirements' Context Inventory
+1. **Prepare context** — Resolve every row of your Workflow Requirements' Context Inventory: connect it, provide it, or build it in
 2. **Build component skills** — Build skills for tagged candidates
 3. **Connect tools** — Wire external tools from the Tools and Connectors section of your Design Spec
 4. **Generate agent configs and orchestrator skill** — The model generates agent configs (single or multi-agent) and the orchestrator skill for your platform
@@ -70,6 +83,11 @@ The orchestration mechanism determines which steps you follow. Work through **on
   </TabItem>
 </Tabs>
 
+## Coming Back from Test
+
+If Test came back not ready, you don't rebuild the workflow — you come back to Build in **fix mode**. Build reads the "Issues identified" table in your test results, which names the building block behind each miss (the orchestrator, a component skill, an agent, a context item), and regenerates only those. Everything else stays exactly as installed. Build says what it's fixing and why before it changes anything — *"E2 failed AC2 because the headings were out of order; that's the orchestrator skill, so I'll regenerate that one and leave the rest alone"* — then reconciles the changed files and sends you back to Test to re-run the failed scenarios first and the full set after.
+
+Two to four of these rounds is normal. Three rounds aimed at the same area is not: Build stops there and tells you the problem is probably the design rather than the build, and recommends going back to [Design (Step 3)](../design/) with what Test found. If Test's verdict was instead that it was waiting on access, nothing is rebuilt at all — Build walks you through authorizing the named connector in the account that runs the workflow and sends you straight back to Test.
 
 ## How the Model Builds for Your Platform
 
@@ -96,21 +114,11 @@ The platform's mode (from the registry) determines what gets generated:
 
 ## How Creation Tools Are Discovered
 
-Before generating any artifacts, the model scans your environment for skills that can create other building blocks — a skill-creator, an agent-development skill, a prompt-engineering skill. It checks both the system-level skill list and platform-specific skill directories.
+Skills and agents are never a discovery question. Whatever the spec asks for — a skill, an agent, a packaged plugin — is created by the model you run the framework from, in its own platform's way: Build states what it wants built and hands over the blueprint from the spec. If your session lists a skill whose job is to create that kind of artifact, Build delegates to it and lets it run its full workflow. If nothing is listed, Build states the intent anyway, because every skill-capable platform has its own creator that answers. Build never names a creator for you, and never writes a SKILL.md or an agent file itself.
 
-The model presents a **Creation Tools Map** showing which skills it found and which building block types they cover. When a creation skill is matched, the model delegates to it for higher-quality output (e.g., a skill-creator skill that includes eval, benchmarking, and optimization). When no match is found, the model generates inline using the format specifications from the platform registry.
+That leaves discovery one narrow job: the block types Build writes or packages directly — **configs, connectors, loose files, and the plugin package**. For those, the model scans your session's skill list for anything that takes a finished spec and produces the artifact. Guidance skills — the ones that walk you through *deciding* how an artifact should be configured — are deliberately excluded, because your approved Design Spec already settled every one of those fields. Packaging tools are the exception that always counts: where your platform has a native plugin builder, Build hands it the staged package rather than hand-rolling an archive that may not install.
 
-You confirm the map before generation begins. If you have no specialized creation tools installed, everything still works — the model generates directly.
-
-## Your Role During Build
-
-The model handles artifact generation, but several things require your involvement:
-
-**Context gathering.** You know where your documents live, what your style guide says, and which examples best represent your standards. The model tells you what it needs; you provide it.
-
-**MCP connections.** If your workflow uses external tools (CRM, calendar, databases), you configure the MCP connections that give the model access. The model tells you which connections are needed and provides setup instructions, but the actual configuration happens on your machine.
-
-**Agent platform setup.** For agent-based workflows, you may need to create agents in your platform's UI — uploading the agent definition the model generates. The model provides the configuration; you create the agent.
+The result is a one-line build method rather than a menu: skills and agents by stating the intent, configs and connectors written directly, the package built by your platform's builder. Build folds that line into its existing-skills report, so you give one confirmation before generation starts, not two.
 
 ## Track and Version Your Work
 
@@ -125,13 +133,15 @@ These aren't separate steps — they're part of the rhythm of building. Each tim
 :::tip[Need to set up these tools?]
 The [Builder Tools Setup](../../builder-setup/) guide walks you through everything you need — an [AI code editor](../../builder-setup/editor-setup/), then three prerequisites in order: a [GitHub account](../../builder-setup/github-setup/), [Git](../../builder-setup/git-install/), and the [GitHub CLI](../../builder-setup/github-cli-setup/). If you haven't set these up yet, that guide has you covered.
 :::
+
 ## What This Produces
 
-| File | What it is |
+| What | What it is |
 |------|-----------|
-| Platform artifacts | Skills, agents, and configs generated in whatever format your platform needs |
-| Context artifacts | Style guides, reference materials, and examples — formatted for AI consumption |
-| Tool connections | MCP connections and integrations configured on your platform |
+| Skills and agents | Created by your platform from the blueprints in the spec, then packaged and installed where the platform keeps them |
+| Context artifacts | The documents the workflow reads — connected, provided, or built into the skill package |
+| Tool connections | Connectors authorized in the account that runs the workflow, with only the scopes the spec calls for |
+| Reconciliation table | One row per Build Output line in the spec: spec line → artifact → path → status (Created, Reused, Extended, or Installed by you) |
 
 The Design Spec from Design is the design document — it captures *what* to build and *why*. The platform artifacts from Build are the implementation — generated by the model using your architecture decisions and current platform knowledge.
 
