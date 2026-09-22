@@ -157,7 +157,7 @@ Before generating artifacts, resolve platform-specific format requirements and i
    - **Code mode:** frontmatter schema, file structure, naming conventions, language, and any platform-specific extensions.
    - **Guided mode:** GUI workflow steps, configuration options, and setup sequences.
 
-7. **Pass format requirements forward.** Store the resolved format requirements so Phase 9 (Generate and install) can use them directly instead of re-researching.
+7. **Pass format requirements forward.** Store the resolved format requirements so Phase 9 (Generate artifacts) can use them directly instead of re-researching.
 
 **Tier 2 — Integration Doc Resolver**
 
@@ -207,7 +207,7 @@ Present the integration mapping and ask the user to confirm before generating ar
 
 If the Integration Options section is missing from the spec (older format), inform the user and offer two paths: (a) Run Integration Discovery now — research available integration approaches for each tool identified in the spec's Integration Options or Step-by-Step Decomposition tables, or (b) proceed with web-search-only research for each integration need as it arises during artifact generation.
 
-#### Phase 9 — Generate and install
+#### Phase 9 — Generate artifacts
 
 Based on the platform and packaging decisions from Architecture Decisions. Resolve the items in the spec's **Deferred to Build** section now:
 
@@ -303,7 +303,7 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 **Never overwrite existing local files.** Before creating any local artifact — especially context files (`Status: Exists` in the Context Inventory) — check the filesystem. If the file already exists, **read and reuse it; do not overwrite** without explicit confirmation. (Context artifacts marked `Needs Creation` in the spec may already have been supplied by the user since Design.)
 
-#### Phase 10 — Reconcile
+#### Phase 10 — Reconcile and install
 
 Close with a table that has one row per Build Output row in the Design Spec's decomposition, plus one row for the orchestrator skill (S1) and one per connector in Integration Options — nothing else:
 

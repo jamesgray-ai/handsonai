@@ -71,14 +71,11 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 12. **Define how you will judge the output** — a real good example first, then numbered yes/no criteria derived from it, 3–5 realistic inputs, and golden examples where they exist.
 13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
 
-**Goal-driven:** phases 1–3 are identical. Instead of decomposing steps, phase 4 runs a short interview that stays in "what" territory:
+**Goal-driven:** phases 1–3 are identical. Instead of decomposing steps, phase 4 runs a short interview that stays in "what" territory, then skips straight to the goal-driven validation gate (numbered 10 to mirror the step-driven one):
 
-1. **Scenario discovery** — Same as above: how you're arriving, and which path fits the work.
-2. **Scope check** — Same as above: one trigger and one deliverable, or several workflows bundled together?
-3. **Name the workflow** — Same as above: the name, description, goal, and trigger, plus the kebab-case ID every later file uses.
 4. **Goal interview** *(goal-driven)* — The situation, the goal reflected back as a concrete deliverable and pressure-tested, then the variation range, inputs, rules, fallback behavior, context sources, and human gates.
 
-Then both paths rejoin:
+Then the goal-driven gate, and both paths rejoin at phase 11:
 
 10. **Validate** *(goal-driven)* — A quality gate checks the goal is bounded and testable, the variation range and fallback behavior are defined, the rules are sufficient, and the context is reachable.
 11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
