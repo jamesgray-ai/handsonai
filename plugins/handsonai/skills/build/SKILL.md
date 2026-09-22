@@ -188,7 +188,7 @@ For each integration listed in the spec:
    - Possible with code (API integration required)
    - Manual (copy-paste between tools)
 
-**Web search is used for platform availability research** — verifying setup steps, finding platform-specific guides, and confirming compatibility. Discovery of integrations themselves is already done. If the environment doesn't support web search, instruct the user to switch to a tool that does.
+**Web search is used for platform availability research** — verifying setup steps, finding platform-specific guides, and confirming compatibility. Discovery of integrations themselves is already done. Read the platform's `capabilities.web_search`, or, if the entry has no `capabilities`, its `notes`, to know whether web search is available before relying on it; if it is not, skip the web-check rungs of the fallback ladder and say so, and instruct the user to switch to a tool that has it when a verification genuinely needs the web.
 
 **Write-scope pre-flight (required).** For every integration the workflow must *write* to — create drafts, apply labels, create database rows/pages, send messages, create events — verify the connector actually has **write access** before building against it. Design's Step 5b feasibility check should already have vetted this, so treat the pre-flight as a **confirmation** of a known-feasible design — but if a gap surfaces here anyway, do **not** fail silently or proceed as if it works. Distinguish the two gap types (as Design does):
 
