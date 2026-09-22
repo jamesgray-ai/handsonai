@@ -1,6 +1,6 @@
 ---
 title: "Step 1: Analyze Workflows for AI Opportunity"
-description: Run a structured audit of your workflows to identify where AI creates the most value — produces a prioritized opportunity report with actionable first steps.
+description: Run a structured audit of your workflows to identify where AI creates value, and register your top candidates in your registry backlog.
 ---
 
 > **Part of:** [AI Workflow Framework](../)
@@ -54,7 +54,7 @@ I'd like to analyze my workflows for AI opportunities. Help me audit
 what I do and identify where AI could help.
 ```
 
-The skill runs the six phases above and produces a categorized opportunity report.
+The skill runs the six phases above and produces a categorized opportunity report, and registers your chosen candidates in the registry backlog.
 
 ### Example prompts
 

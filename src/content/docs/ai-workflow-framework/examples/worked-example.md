@@ -17,7 +17,8 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 [Your Cowork project]/
 ├── registry/
 │   └── workflows/
-│       └── weekly-status-report.md   ← the workflow's registry entry (created as a backlog stub in Step 1, updated by every step)
+│       ├── weekly-status-report.md   ← the workflow's registry entry (created as a backlog stub in Step 1, updated by every step)
+│       └── stakeholder-meeting-prep.md ← Step 1 backlog stub, not followed further on this page
 ├── outputs/
 │   ├── ai-opportunity-report.md          ← Step 1 (Analyze)
 │   └── weekly-status-report/
@@ -41,7 +42,7 @@ In Cowork, skills are managed by the platform rather than sitting in a visible p
 
 ## Step 1 — Analyze → `ai-opportunity-report.md`
 
-Maya (a program manager) ran the analyze skill in Cowork and spent about 20 minutes in the discovery interview. Note the report lives at the top of `outputs/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
+Maya (a program manager) ran the analyze skill in Cowork and spent about 15 minutes in the discovery interview. Note the report lives at the top of `outputs/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
 
 The full file (trimmed to two candidates for readability — a real report often has 4–6):
 
@@ -154,7 +155,7 @@ The Workflow node first — the small file every later step reads and updates. D
 ---
 type: Workflow
 title: "Weekly Status Report"
-description: "Draft the Friday leadership status report from the HubSpot tracker."
+description: "Draft the Friday leadership status report from the HubSpot tracker. One-page status report ready for Maya's review."
 generated: { by: process:deconstruct, at: 2026-06-01 }
 status: under-development
 definition_type: step-driven
@@ -171,7 +172,17 @@ review by 10am.
 
 # Artifacts
 
+- **Opportunity report:** [ai-opportunity-report.md](outputs/ai-opportunity-report.md)
 - [Requirements](outputs/weekly-status-report/requirements.md)
+
+# Skills
+
+# Agents
+
+# Insights
+
+<!-- GENERATED:insights -->
+<!-- /GENERATED -->
 ````
 
 And the complete Workflow Requirements:

@@ -87,7 +87,7 @@ About 25 minutes, all of it the interview.
 
 Your assistant runs the same interview, but instead of saving each file it prints the file's complete contents and tells you exactly where it goes — for example, *"save this as `registry/businesses/your-business.md`."* You save it. Nothing to install.
 
-**Plan for about 55 minutes:** the 25-minute interview plus 20–30 minutes of saving. The interview produces roughly 15–20 files, including updates to a few files it already gave you.
+**Plan for about 50 minutes:** the 25-minute interview plus 20–30 minutes of saving. The interview produces roughly 14–17 files — your Business, Line of Business, Function, and Process nodes; the index.md for each of those directories plus the (empty) `workflows/` index; a `log.md`; and your `REGISTRY.md` dashboard — including updates to a few files it already gave you.
 
 1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, there's no way to save the wrong file type, and your dashboard can be published on the web. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
    1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) — a ready-made repository containing the empty registry skeleton.
@@ -143,7 +143,7 @@ Whichever flow you're in, your assistant now runs the same **interview — six p
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 
-**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, and one Process node — and an empty Workflows table; [Analyze](../../ai-workflow-framework/analyze/) fills it — plus a fresh `REGISTRY.md` summarizing all of it (in the folder you picked, next to `registry/`; or, if your repository publishes to GitHub Pages, also at your Pages address a couple of minutes after your last save).
+**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, and one Process node — and an empty Workflows table. [Analyze](../../ai-workflow-framework/analyze/) fills that table, and a fresh `REGISTRY.md` summarizes all of it (in the folder you picked, next to `registry/`; or, if your repository publishes to GitHub Pages, also at your Pages address a couple of minutes after your last save).
 
 ## A Workflow Node
 
@@ -298,7 +298,6 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 ## Next Steps
 
-- **Find AI opportunities** — Use the [Analyze](../../ai-workflow-framework/analyze/) guide to identify where AI can add value
 - **Find your first workflows** — run [Analyze](../../ai-workflow-framework/analyze/); it reads this registry and adds your candidates to it
 - **Document workflows** — Ask your assistant to write SOPs (`writing-workflow-sops`) and process guides (`writing-process-guides`)
 - **Explore the plugin** — See the [Hands-on AI plugin page](../../use-the-playbook/build/) for all registry-related skills

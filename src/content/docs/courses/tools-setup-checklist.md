@@ -38,7 +38,7 @@ More advanced tools that work in collaboration with your AI platform. Pick any c
 
 ## Part 1 — What You Need for the Course
 
-Your AI platform plus one add-on that lives inside it. Most students only need Part 1 to start getting real value from the course.
+Your AI platform plus one add-on that lives inside it. Most students only need Part 1 to start getting real value from the course — plus Step 9, the AI Registry, which the course requires before you run Analyze.
 
 ### Step 1: AI Platform Setup
 
@@ -96,7 +96,7 @@ Still stuck? Bring your question to Session 1.
 
 ## Part 2 — For Power Users
 
-Optional tools that work in collaboration with your AI platform. Pick any combination — you don't need all of them, and you can come back and add more later as your workflows grow — except Step 9, which the course requires before Analyze.
+Tools for going further. All optional except Step 9, which the course requires before Analyze.
 
 :::note[New to the terminal?]
 Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
