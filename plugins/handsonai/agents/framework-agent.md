@@ -30,7 +30,7 @@ You run seven skills sequentially, using files as handoffs between stages. Steps
 | 4 (Build) | `build` | Approved spec | Platform artifacts | Auto→Step 5 |
 | 5 (Test) | `test` | Artifacts + spec | `outputs/[name]/test-results.md` | Ready OR loop to Build |
 | 6 (Run) | `run` | Tested artifacts + spec | `outputs/[name]/run-guide.md` + `runs.md` log | User follows guide |
-| 7 (Improve) | `improve` | Running workflow + run log | `outputs/[name]/improvement-plan.md` | Tune/Redesign/Evolve OR no changes |
+| 7 (Improve) | `improve` | Running workflow + run log | `outputs/[name]/improvement-plan.md` | Tune/Redesign OR no changes |
 
 ### Step 1 — Analyze
 **Skill:** `analyze`
@@ -46,7 +46,7 @@ After the candidate is chosen, tell the user you're moving to Step 2 and proceed
 
 Interactively analyze and decompose the user's chosen workflow. This is the longest step — you'll ask about the business scenario, help refine steps, then systematically probe each step using the 6-question framework.
 
-During context probing, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions or system prompts — these contain workflow logic that must be included in the Baseline Prompt.
+During context probing, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions or system prompts — these contain workflow logic that must reach the generated skill — put them in the Context Inventory.
 
 **Produces:** `outputs/[name]/requirements.md`, plus the workflow's Workflow node in `registry/` (created by the deconstruct skill; if the workspace has no bundle yet, the skill offers `scaffolding-registry` first)
 
@@ -91,19 +91,18 @@ After Build is complete, tell the user you're moving to Step 5 and proceed autom
 
 Guide structured testing of the built workflow artifacts:
 1. Load the Workflow Requirements (for Acceptance Criteria + Example Scenarios), the Design Spec, and the built artifacts
-2. Run a quick smoke test — one representative input, manual check
-3. Execute each Example Scenario from the Workflow Requirements, scoring output against the Acceptance Criteria dimensions (1–5 scale)
-4. Test individual building blocks (skills, prompts) in isolation
-5. Establish baseline scores as the reference point for future regression testing in Step 7
-6. Diagnose issues — map each problem to the specific building block to adjust
-7. Readiness decision — Ready (proceed to Step 6) or Not Ready (loop back to Step 4 with specific adjustments)
+2. Confirm the passing rule: every line of the report card Met on every scenario; a miss on a **(must)** line always fails; other misses are fixed or explicitly accepted
+3. For each Example Scenario, the user runs it in a fresh conversation with the installed skill and brings the output back; grade the report card (every AC, R, G, and step-output line: Met / Not met with evidence); the user confirms each line
+4. Diagnose each miss to a building block (S1, S2, A1, C3, orchestrator, connector) under `## Issues identified`
+5. The round that reaches Ready becomes the baseline for Improve
+6. Verdict: Ready / Not ready / Waiting on access
 
 **Reads:** `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md` + platform artifacts
 **Produces:** `outputs/[name]/test-results.md`
 
 If ready, tell the user you're moving to Step 6 and proceed automatically.
 
-**Build↔Test loop (when not ready):** Don't hand the problem back to the user — run the loop yourself. Tell the user what failed and what you're adjusting, return to Step 4 to rebuild **only the diagnosed building blocks** (not a full rebuild), then re-run the failed scenarios in Step 5. Re-run the full suite once the failures pass. Cap this at **3 automatic Build↔Test cycles**; if the workflow still isn't ready after the third, stop, summarize what was tried and what's still failing, and ask the user whether to keep iterating, descope, or revisit the Design. (A "Logic-ready, deploy-blocked" result is not a loop trigger — it's an authorization gap the user fixes, not a build defect.)
+**Build↔Test loop (when not ready):** Don't hand the problem back to the user — run the loop yourself. Tell the user what failed and what you're adjusting, return to Step 4 to rebuild only the building blocks named under `## Issues identified` in `test-results.md` (not a full rebuild), then re-run the failed scenarios in Step 5. Re-run the full suite once the failures pass. Cap this at **3 automatic Build↔Test cycles**; if the workflow still isn't ready after the third, stop, summarize what was tried and what's still failing, and ask the user whether to keep iterating, descope, or revisit the Design. (A "Waiting on access" verdict is not a loop trigger — it's an authorization gap the user fixes, not a build defect.)
 
 ### Step 6 — Run
 **Skill:** `run`
@@ -123,13 +122,13 @@ The run skill also creates the run log (`outputs/[name]/runs.md`) and records a 
 
 Evaluate a running workflow for quality, relevance, and evolution opportunities. This step is typically invoked in a separate session — weeks or months after initial deployment — not as part of the initial build flow.
 
-1. Load the Design Spec, Run Guide, and original Test Results (baseline scores)
+1. Load the Design Spec, Run Guide, the baseline Test Results (the Ready round), and the run log
 2. Interview the user about current performance and changing requirements
 3. Identify quality signals (increasing edits, new decision types, skipped steps)
 4. Assess whether the orchestration mechanism should graduate
-5. Re-run the eval suite and compare to baseline scores
+5. Re-run the same scenarios and report which report-card lines flipped since the baseline (the Ready round), plus the edits trend from the run log
 6. Review operationalization (for organizational workflows)
-7. Recommend: No changes / Tune / Redesign / Evolve
+7. Recommend: No changes / Tune / Redesign (graduation is a Redesign outcome)
 
 **Reads:** `outputs/[name]/design-spec.md` + `outputs/[name]/run-guide.md` + `outputs/[name]/test-results.md` + `outputs/[name]/runs.md` (run log)
 **Produces:** `outputs/[name]/improvement-plan.md`
