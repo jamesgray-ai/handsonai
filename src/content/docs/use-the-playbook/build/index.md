@@ -51,7 +51,7 @@ For documenting and operating an AI workflow registry once you've built workflow
 
 | Component | What it does |
 |---|---|
-| [`scaffolding-registry`](handsonai/#scaffolding-registry) skill | Stand up your `registry/` knowledge bundle — SCHEMA.md and a first real Business, Line of Business, Function, Process, and Workflow node |
+| [`scaffolding-registry`](handsonai/#scaffolding-registry) skill | Stand up your `registry/` knowledge bundle — SCHEMA.md and real Business, Line of Business, Function, and Process nodes (Analyze adds the workflows) |
 | [`naming-workflows`](handsonai/#naming-workflows) skill | Apply consistent naming conventions across your registry |
 | [`writing-workflow-sops`](handsonai/#writing-workflow-sops) skill | Author standard operating procedures for AI-assisted workflows |
 | [`writing-process-guides`](handsonai/#writing-process-guides) skill | Document multi-step processes for repeatable execution |

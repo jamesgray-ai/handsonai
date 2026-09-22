@@ -112,7 +112,7 @@ The AI Registry is pure Markdown — it works anywhere Claude can read and write
 
 **Slash command:** `/handsonai:scaffolding-registry`
 
-Stands up a brand-new AI Registry: a guided, ~30-minute interview that creates the `registry/` bundle — `SCHEMA.md`, the typed directories, and a first real Business, Line of Business, Function, Process, and Workflow node for your actual work. Triggers when you ask to set up your registry, or automatically when another framework skill finds no `registry/SCHEMA.md` in the workspace. Re-running on an existing bundle fills gaps rather than re-scaffolding, and it also migrates legacy layouts (old per-workflow manifest files or flat requirements files) into the bundle. Hands off to `indexing-registry` for the workspace's first maintenance pass and dashboard.
+Stands up a brand-new AI Registry: a guided, ~25-minute interview that creates the `registry/` bundle — `SCHEMA.md`, the typed directories, and real Business, Line of Business, Function, and Process nodes for your actual work. It writes no Workflow node; the `analyze` skill adds your first candidates to the backlog. Triggers when you ask to set up your registry, or automatically when another framework skill finds no `registry/SCHEMA.md` in the workspace. Re-running on an existing bundle fills gaps rather than re-scaffolding, and it also migrates legacy layouts (old per-workflow manifest files or flat requirements files) into the bundle. Hands off to `indexing-registry` for the workspace's first maintenance pass and dashboard.
 
 #### `naming-workflows`
 

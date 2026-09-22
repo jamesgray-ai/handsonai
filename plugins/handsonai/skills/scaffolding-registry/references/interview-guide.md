@@ -1,6 +1,6 @@
 # Scaffolding Interview Guide
 
-Seven phases (0–6), ~30 minutes total. Run them in order. Each phase has a timebox —
+Six phases (0–5), about 25 minutes total. Run them in order. Each phase has a timebox —
 treat it as a budget, not a target to fill.
 
 **Pacing rule:** If a phase overruns its box, write what you have, mark the
@@ -51,8 +51,8 @@ skeleton plus a GitHub Action that publishes the dashboard, and is optional.
 the workspace, or an `outputs/<name>-requirements.md` file exists with no
 matching folder (flat layout), stop and offer the migration path from
 `migrating-legacy-workspaces.md` before continuing the interview. A student
-migrating does not repeat Phases 1–5 for workflows the migration already
-covers. In print-and-save mode, rely on what the student told you in the follow-up above.
+migrating does not repeat Phases 1–4 for businesses, lines of business,
+functions, or processes the migration already covers. In print-and-save mode, rely on what the student told you in the follow-up above.
 
 **Fast path:** if the student already has a full `registry/` bundle from a
 prior scaffolding run, skip straight to gap-filling — re-run only the phases
@@ -157,38 +157,11 @@ later; don't try to be exhaustive here.
 
 ---
 
-## Phase 5 — First Workflow (7 min)
+## Phase 5 — Close (3 min)
 
-**Opening question:** "Which single workflow are you going to take through
-the framework first? Walk me through what happens, start to finish."
-
-**Follow-ups:**
-- "What triggers it — a schedule, an event, a request?"
-- "Do you already have any requirements, SOP, or other artifacts for it?"
-
-**Example to show:** the Workflow node from `example-registry.md`
-(`registry/workflows/client-status-reporting.md`) — the full frontmatter
-set, the `# Artifacts` and `# Skills` link sections, and the empty
-GENERATED `# Insights` block.
-
-**What to write:** one `registry/workflows/<slug>.md` node with `status`,
-`definition_type`, `execution_mode`, `autonomy`, `trigger`, optional
-`stale_after`, two sentences of body prose describing what the workflow
-does, `# Artifacts` links to any existing requirements/SOP/other files,
-`# Skills` / `# Agents` links to any existing capabilities, an empty
-GENERATED `# Insights` block, and an entry added to its Process's curated
-`# Workflows` list.
-
-**Fast path:** if the student has no artifacts yet, write the node with
-empty `# Artifacts` / `# Skills` sections rather than waiting — the
-framework's later steps fill them in.
-
----
-
-## Phase 6 — Close (3 min)
-
-**Opening question:** "Is there anything you already know from running this
-workflow that's worth capturing as a note — before we wrap up?"
+**Opening question:** "Is there anything you already know about how this
+business runs — a process quirk, a constraint, a lesson learned — that's
+worth capturing as a note before we wrap up?"
 
 **Follow-ups:**
 - "Anything that surprised you or changed how you'd do this next time?"
@@ -196,10 +169,16 @@ workflow that's worth capturing as a note — before we wrap up?"
 **Example to show:** the Note node from `example-registry.md`
 (`registry/notes/2026-08-status-report-timing.md`).
 
-**What to write:** an optional `registry/notes/<slug>.md` node — only if a
-real insight surfaced during the interview, never a manufactured one — plus
-a founding `registry/log.md` entry describing the scaffolding run, and
-directory `index.md` stubs for every typed directory. Hand off to
+**What to write:**
+- an optional `registry/notes/<slug>.md` node — only if a real insight
+  surfaced during the interview, never a manufactured one
+- a founding `registry/log.md` entry describing the scaffolding run
+- directory `index.md` stubs for every typed directory
+- `registry/workflows/index.md` containing only `# Workflows` and a blank
+  line — the directory must have an index even when empty, and Analyze
+  appends to it
+
+Hand off to
 `indexing-registry` for the first maintenance pass: lint, generate the Tier
 1 `REGISTRY.md`, and offer the Tier 2 dashboard. The lab should end with
 something visual on screen. In print-and-save mode there is no hand-off: print the `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its location, and say the set is complete.

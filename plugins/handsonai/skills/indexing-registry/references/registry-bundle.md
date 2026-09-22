@@ -4,7 +4,7 @@ Every framework skill treats the **AI registry bundle** as the single source of 
 workflow registry metadata. This document defines how any skill *resolves* the bundle, *writes*
 to it, *owns* particular fields, infers framework progress from artifacts, schedules review, and
 lints the result — so the rules are stated once instead of per-skill. Every dispatch blockquote
-in the ten framework skills points here rather than restating any of this.
+in the framework skills points here rather than restating any of this.
 
 ---
 
@@ -86,6 +86,7 @@ the bundle exists.
 
 | Skill | Writes |
 |---|---|
+| `analyze` | Workflow node stub per chosen candidate: `title`, `description` (outcome-first, deliverable folded in), `status: backlog`, `trigger`, `execution_mode` (provisional); line in the chosen Process's `# Workflows` list; `# Artifacts` → Opportunity report. New process → same owning-function rule as `naming-workflows`. |
 | `naming-workflows` | Workflow node stub: `title`, `description` (outcome-first), `status: backlog`, `trigger`, `execution_mode`; line in the chosen Process's `# Workflows` list. **New process → asks which function owns it** and writes a complete minimal Process node (owner required — no stub violates the schema). |
 | `deconstruct` | `status: under-development`, `definition_type` (step-driven/goal-driven), `trigger`, description refinement; `# Artifacts` → Requirements. Merges into stubs; never overwrites set fields. |
 | `design` | `execution_mode`, `autonomy`; `# Artifacts` → Design spec |
@@ -96,14 +97,7 @@ the bundle exists.
 | `writing-workflow-sops` | `# Artifacts` → SOP |
 | `writing-process-guides` | Process node `guide:` frontmatter |
 
-`scaffolding-registry` also writes provisional values for the schema-required fields
-`definition_type`, `execution_mode`, and `autonomy` at Phase 5, so the first Workflow node lints
-clean before Deconstruct or Design ever run. `deconstruct` and `design` still own those fields
-going forward and may overwrite scaffold's provisional values with better-informed ones — the
-never-overwrite rule above protects values a student has deliberately set through a framework
-step, not a scaffold-time guess made to satisfy the schema. Similarly, `scaffolding-registry` may
-set a Process node's `guide:` at scaffold time when an SOP already exists for it;
-`writing-process-guides` owns the field thereafter.
+`scaffolding-registry` writes no Workflow node. Only `status` is schema-required on a Workflow node, so a backlog stub written by `analyze` or `naming-workflows` lints clean without `definition_type`, `execution_mode`, or `autonomy`; `deconstruct` and `design` set those as owners. A stub's `trigger` and `execution_mode` (when Analyze writes them) are provisional — `deconstruct` may overwrite `trigger` and `design` may overwrite `execution_mode`, each with a better-informed value; the never-overwrite rule protects values a student set deliberately through a framework step, not an Analyze-time classification. `scaffolding-registry` may set a Process node's `guide:` at scaffold time when an SOP already exists for it; `writing-process-guides` owns the field thereafter.
 
 ---
 
@@ -176,7 +170,7 @@ The consistency suite asserts string agreement between the two.
 - Stale GENERATED content — regenerate (a Function `# Owns` block whose content no longer
   matches the derived owners list; hand-editing between the markers is still prohibited by
   doctrine, but a stale block is a maintenance-pass warning, never a lint blocker — see
-  `scaffolding-registry/SKILL.md`'s Phase 4/6 notes)
+  `scaffolding-registry/SKILL.md`'s Phase 4/5 notes)
 
 **Gitignore tolerance:** links into gitignored paths (the raw-source layer, e.g. `outputs/`) are
 declarations, not guarantees — existence-checked locally when the target is present, skipped in

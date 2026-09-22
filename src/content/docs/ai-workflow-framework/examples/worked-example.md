@@ -16,8 +16,13 @@ Here's the Cowork project workspace after all seven steps. Every file below is s
 ```
 [Your Cowork project]/
 ├── registry/
+│   ├── SCHEMA.md
+│   ├── businesses/ lines-of-business/ functions/     ← from registry setup (Step 0)
+│   ├── processes/
+│   │   └── program-delivery.md       ← set up before Step 1; its # Workflows list gained both stubs in Step 1
 │   └── workflows/
-│       └── weekly-status-report.md   ← the workflow's registry entry (created in Step 2, updated by every step)
+│       ├── weekly-status-report.md   ← the workflow's registry entry (created as a backlog stub in Step 1, updated by every step)
+│       └── stakeholder-meeting-prep.md ← Step 1 backlog stub, not followed further on this page
 ├── outputs/
 │   ├── ai-opportunity-report.md          ← Step 1 (Analyze)
 │   └── weekly-status-report/
@@ -41,9 +46,9 @@ In Cowork, skills are managed by the platform rather than sitting in a visible p
 
 ## Step 1 — Analyze → `ai-opportunity-report.md`
 
-Maya (a program manager) ran the analyze skill in Cowork and spent about 20 minutes in the discovery interview. Note the report lives at the top of `outputs/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
+Maya (a program manager) ran the analyze skill in Cowork and spent about 15 minutes in the discovery interview. Note the report lives at the top of `outputs/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
 
-The full file (trimmed to two candidates for readability — a real report often has 4–6):
+The full file (trimmed to two opportunities for readability — a real report often has 5–15):
 
 ````markdown
 # AI Opportunity Report
@@ -110,26 +115,56 @@ The full file (trimmed to two candidates for readability — a real report often
 **Recommendation:** Deconstruct Weekly Status Report first.
 ````
 
+Analyze registered both candidates as backlog Workflow nodes before ending the session. It filed both under her *Program Delivery* process in one confirmation, so each appears in that Process node's `# Workflows` list. Here's the one for Weekly Status Report:
+
+````markdown
+---
+type: Workflow
+title: "Weekly Status Report"
+description: "Draft the Friday leadership status report from the HubSpot tracker. One-page status report ready for Maya's review."
+generated: { by: process:analyze, at: 2026-06-01 }
+status: backlog
+trigger: "Manual — Friday mornings"
+execution_mode: augmented
+---
+# Weekly Status Report
+
+Draft the Friday leadership status report from the HubSpot tracker. One-page status report ready for Maya's review.
+
+# Artifacts
+
+- [Opportunity report](outputs/ai-opportunity-report.md)
+
+# Skills
+
+# Agents
+
+# Insights
+
+<!-- GENERATED:insights -->
+<!-- /GENERATED -->
+````
+
+`stakeholder-meeting-prep.md` got the same shape, with its own title, description, and trigger. Deconstruct picks *Weekly Status Report* up from this stub and merges into it.
+
 ---
 
 ## Step 2 — Deconstruct → `requirements.md` + the Workflow node
 
 The deconstruct skill interviewed Maya for about 45 minutes (step-driven path — she knows exactly how the work gets done). Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
 
-The Workflow node first — the small file every later step reads and updates:
+The Workflow node first — the small file every later step reads and updates. Deconstruct took over the node Analyze had stubbed out in Step 1, filling in the fields the backlog version left blank rather than creating a new file:
 
 ````markdown
 ---
 type: Workflow
 title: "Weekly Status Report"
-description: "Draft the Friday leadership status report from the HubSpot tracker."
+description: "Draft the Friday leadership status report from the HubSpot tracker. One-page status report ready for Maya's review."
 generated: { by: process:deconstruct, at: 2026-06-01 }
 status: under-development
 definition_type: step-driven
 execution_mode: augmented
-autonomy: guided
 trigger: "manual"
-stale_after: 2026-09-01
 ---
 # Weekly Status Report
 
@@ -139,7 +174,17 @@ review by 10am.
 
 # Artifacts
 
+- [Opportunity report](outputs/ai-opportunity-report.md)
 - [Requirements](outputs/weekly-status-report/requirements.md)
+
+# Skills
+
+# Agents
+
+# Insights
+
+<!-- GENERATED:insights -->
+<!-- /GENERATED -->
 ````
 
 And the complete Workflow Requirements:

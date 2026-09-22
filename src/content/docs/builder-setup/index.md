@@ -52,7 +52,7 @@ Start with Part 1 and complete the steps in order. Part 2 is optional — pick a
 | 1 | AI Platform (see [Platforms](../platforms/)) | ~45 min | Required | The reasoning engine that powers every workflow — one account is enough |
 | 2 | [Hands-on AI Skills](../ai-workflow-framework/skills/) | ~10 min | Recommended | Step-by-step guidance for building AI workflows, right inside your AI tool |
 
-### Part 2 — For Power Users (~70 min total)
+### Part 2 — For Power Users (~85 min total)
 
 Pick any combination — each row names the specific capability it unlocks. Rows 4–7 are one sequence: do them in order.
 
@@ -64,8 +64,10 @@ Pick any combination — each row names the specific capability it unlocks. Rows
 | 6 | [GitHub CLI](github-cli-setup/) | ~10 min | GitHub Account + Git | Log your computer and AI tools in to GitHub once, so files sync without passwords |
 | 7 | [Create & Clone Your First Repository](repo-creation-and-cloning/) | ~5 min | Editor + GitHub CLI | Prove the three pieces above work together, and get a folder to build in |
 | 8 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
-| 9 | [AI Registry](ai-registry-setup/) | ~10 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
+| 9 | [AI Registry](ai-registry-setup/) | ~25 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
 | 10 | [Knowledge Graph](knowledge-graph-setup/) | ~40 min | AI platform + a folder | Give your AI a knowledge graph of your work — clients, offerings, processes — that it reads before answering and keeps current for you |
+
+If you're taking a Hands-on AI course, Step 9 (AI Registry) isn't optional — the AI Workflow Framework's Analyze step reads it, so set it up before you run Analyze.
 
 #### Git & GitHub at a glance
 

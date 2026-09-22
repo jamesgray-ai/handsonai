@@ -17,7 +17,7 @@ user-invocable: true
 
 # Scaffolding Registry
 
-Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md) knowledge bundle: a `registry/` folder with a `SCHEMA.md` producer profile and concept nodes for their real business. This is the on-ramp — a ~30-minute guided interview that gets a first, real Workflow node written and linked, not a demo.
+Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md) knowledge bundle: a `registry/` folder with a `SCHEMA.md` producer profile and concept nodes for their real business. This is the on-ramp — a guided interview of about 25 minutes that captures the student's real business, lines of business, functions, and processes. It names no workflows: the `analyze` skill does that next, writing them into the backlog.
 
 ## What this builds
 
@@ -38,11 +38,11 @@ Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloud
 ├── sops/  process-guides/   ← unchanged homes; nodes link to them
 ```
 
-The registry is the structured record every framework skill reads and writes — `naming-workflows` stubs a Workflow node in it, `deconstruct` fills in requirements, `run` flips status to `in-production`, and so on all the way through `improve`. `registry/SCHEMA.md` is the contract that makes that possible: it defines the six concept types (Business, LineOfBusiness, Process, Workflow, Note, Function), their required frontmatter, and the rules — enum values, link discipline, banned fields — that every skill's writes and every maintenance pass's lint checks agree on. Write it once per workspace, using `references/schema-template.md` verbatim; after that, the student's own copy is authoritative and every skill re-reads it before writing.
+The registry is the structured record every framework skill reads and writes — `analyze` writes backlog Workflow nodes into it, `deconstruct` fills in requirements, `run` flips status to `in-production`, and so on all the way through `improve`. `registry/SCHEMA.md` is the contract that makes that possible: it defines the six concept types (Business, LineOfBusiness, Process, Workflow, Note, Function), their required frontmatter, and the rules — enum values, link discipline, banned fields — that every skill's writes and every maintenance pass's lint checks agree on. Write it once per workspace, using `references/schema-template.md` verbatim; after that, the student's own copy is authoritative and every skill re-reads it before writing.
 
 ## Platform & Workspace
 
-The procedure below is identical everywhere — the same seven phases (0–6), the same node shapes, the same SCHEMA.md. Platforms differ only in how the skill instructions arrive and how bytes get written to the bundle.
+The procedure below is identical everywhere — the same six phases (0–5), the same node shapes, the same SCHEMA.md. Platforms differ only in how the skill instructions arrive and how bytes get written to the bundle.
 
 | Platform | Skill delivery | Where the bundle lives | Mode |
 |---|---|---|---|
@@ -75,7 +75,7 @@ Before running the interview, check what's already in the workspace:
 
 ## The interview
 
-Seven phases (0–6), ~30 minutes total, run in order. Follow `references/interview-guide.md` for the exact opening questions, follow-ups, worked examples, and fast paths for each phase — this section is the map; that file is the script.
+Six phases (0–5), about 25 minutes total, run in order. Follow `references/interview-guide.md` for the exact opening questions, follow-ups, worked examples, and fast paths for each phase — this section is the map; that file is the script.
 
 **Phase 0 — Home (2 min).** Detect, don't ask: if you can create files in the student's folder, you are in write mode and the registry goes at that folder's root (local, synced drive, or repo — no difference); if you cannot, you are in print-and-save mode and must say so on every file. A file the student would have to download does not count as writing — that is print-and-save mode. Confirm the folder in one sentence, ask whether the empty skeleton already exists (template repo or Download ZIP) so you don't reprint it, then run the legacy-detection check. The template repo (`https://github.com/jamesgray-ai/ai-registry-template`) is only the answer to "where's the template repo?" — never a prerequisite. Follow `references/interview-guide.md`.
 
@@ -85,13 +85,11 @@ Seven phases (0–6), ~30 minutes total, run in order. Follow `references/interv
 
 **Phase 3 — Functions (3 min).** Offer the starter set (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering); the student trims and renames it. Every Function node is written with its empty GENERATED `# Owns` block from the start. Follow `references/interview-guide.md`.
 
-**Phase 4 — Processes (8 min).** Per LOB, the two or three highest-value processes — not an exhaustive list; Analyze grows this later. Each needs a required `owner:` function slug. Once Processes name their owners, the owning Functions' `# Owns` blocks written empty in Phase 3 are now stale — that's expected, not an error; the Phase 6 maintenance pass regenerates them, and lint only ever flags stale content as a warning, never a blocker. Follow `references/interview-guide.md`.
-
-**Phase 5 — First Workflow (7 min).** The one workflow the student will carry through the rest of the framework, written as a full Workflow node and slotted into its Process's curated list. Follow `references/interview-guide.md`.
+**Phase 4 — Processes (8 min).** Per LOB, the two or three highest-value processes — not an exhaustive list; Analyze grows this later. Analyze also files each workflow it finds under one of these processes, so name the ones the student's real work belongs to. Each needs a required `owner:` function slug. Once Processes name their owners, the owning Functions' `# Owns` blocks written empty in Phase 3 are now stale — that's expected, not an error; the Phase 5 maintenance pass regenerates them, and lint only ever flags stale content as a warning, never a blocker. Follow `references/interview-guide.md`.
 
 The Brightwork examples in `references/example-registry.md` are shown, never copied. Every node written is the user's real business.
 
-**Phase 6 — Close (3 min).** Optional Note, founding `log.md` entry, and hand-off — see Close below. Follow `references/interview-guide.md`.
+**Phase 5 — Close (3 min).** Optional Note, the empty `registry/workflows/index.md` (Analyze fills the workflows in — this scaffold never names one), founding `log.md` entry, and hand-off — see Close below. Follow `references/interview-guide.md`.
 
 If a phase runs over its timebox, write what's been gathered, note the gap for the close-out summary, and move on — missing nodes are homework for later; fictional ones are never an acceptable substitute.
 
@@ -100,11 +98,11 @@ If a phase runs over its timebox, write what's been gathered, note the gap for t
 - **The student's `registry/SCHEMA.md` is authoritative once it exists.** Re-read it immediately before every write in this skill, including during gap-filling and migration — never write from memory of what the schema template said.
 - **Stamp `generated: { by: process:scaffolding-registry, at: <date> }`** (single-line flow map, `at` as `YYYY-MM-DD`) on every node this skill creates or edits.
 - **Function nodes are always written with their empty GENERATED `# Owns` block** at creation time — never deferred to a later maintenance pass. A Function missing that block is a lint error, because the maintenance pass has nothing to fill.
-- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node. Index entries use bundle-root-relative leading-slash links — `[First Workflow](/workflows/first-workflow.md)`, never a bare same-directory link like `[First Workflow](first-workflow.md)`, which the schema's link discriminator resolves repo-root-relative and lint flags as broken.
+- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node. Index entries use bundle-root-relative leading-slash links — `[Client Onboarding](/processes/client-onboarding.md)`, never a bare same-directory link like `[Client Onboarding](client-onboarding.md)`, which the schema's link discriminator resolves repo-root-relative and lint flags as broken.
 
 ## Close
 
-End Phase 6 by writing a founding `registry/log.md` entry describing the scaffolding run (what was created, and — for a migration — every workflow migrated in that run), and making sure every typed directory has an `index.md`, even a stub one.
+End Phase 5 by writing a founding `registry/log.md` entry describing the scaffolding run (what was created, and — for a migration — every workflow migrated in that run), and making sure every typed directory has an `index.md`, even a stub one — including `registry/workflows/index.md`, which starts as just the heading `# Workflows` because this skill writes no Workflow node; the `analyze` skill adds the first ones.
 
 Then invoke the `indexing-registry` skill for the workspace's first maintenance pass: it lints the new bundle, generates the Tier 1 `REGISTRY.md`, and offers the Tier 2 visual dashboard. This is a best-effort hand-off — if the maintenance pass can't run for some reason, say so plainly rather than leaving the student assuming it happened. The lab should end with something visual on screen, not a blank terminal. In print-and-save mode the hand-off produces printed output rather than files: print the founding `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its exact location, and tell the student the set is complete.
 

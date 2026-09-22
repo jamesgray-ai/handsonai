@@ -50,7 +50,7 @@ could be automated with AI"
   an orchestration mechanism, and identifies quick wins
 ```
 
-**What you'll get** — each workflow gets its own folder under `outputs/`, named with the workflow name in lowercase using hyphens (for example, `outputs/client-onboarding/`). Each workflow gets a Workflow node in your `registry/` bundle — status, mode, and review date in one place — so any session can resume mid-framework by reading the node and seeing which artifacts already exist:
+**What you'll get** — each workflow gets its own folder under `outputs/`, named with the workflow name in lowercase using hyphens (for example, `outputs/client-onboarding/`). Analyze registers each candidate as a backlog Workflow node in your `registry/` bundle; every later step updates it — status, mode, and review date in one place — so any session can resume mid-framework by reading the node and seeing which artifacts already exist:
 
 1. **Opportunity Report** — `outputs/ai-opportunity-report.md` (before a workflow is named)
 2. **Workflow Requirements** — `[name]/requirements.md`
@@ -73,9 +73,9 @@ Before you can apply AI to anything, you need to know *where* it fits. Step 1 is
 - **Autonomy** — How much decision-making does the AI have? **Deterministic** (follows fixed rules), **Guided** (makes bounded decisions within guardrails), or **Autonomous** (plans and adapts independently)
 - **Human Involvement** — Is a human in the loop during execution? **Augmented** (human reviews and steers) or **Automated** (AI runs solo)
 
-The audit starts by determining which lens to use — individual or organizational — then scans what AI already knows about your work, interviews you with lens-specific questions to fill gaps, and produces a classified report with specific opportunities and actionable first steps.
+The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a classified report with specific opportunities and actionable first steps.
 
-**Deliverable:** **Opportunity Report** (`outputs/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue.
+**Deliverable:** **Opportunity Report** (`outputs/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue — and one `status: backlog` Workflow node per chosen candidate in your registry.
 
 **Facilitated by the `analyze` skill.** See [Analyze Workflows](analyze/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
 
@@ -260,9 +260,10 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 7. **[Improve](improve/)** — periodically re-check, catch drift, and decide what to change
 
 :::tip[Before you start]
+- **Set up your registry first.** The framework records every workflow you find and build in your [AI Registry](../builder-setup/ai-registry-setup/) — about 25 minutes, once. Analyze reads it so you never describe your business twice, and writes your candidates into it.
 - **See the destination first.** The [worked example](examples/worked-example/) shows every file a complete run produces — the whole project folder for one small workflow taken through all seven steps.
 - **Start small.** Make your first workflow starter-sized: 3–5 steps, one tool connection, triggered manually. Build your big opportunity second, once you've been through the loop.
-- **Pausing is safe.** Every step saves progress to files. In any later session, just say **"continue my workflow"** — the framework reads its tracking file and picks up at the right step.
+- **Pausing is safe.** Every step saves progress to files. In any later session, just say **"continue my workflow"** — the framework reads your registry's Workflow node and picks up at the right step.
 :::
 
 ## FAQ

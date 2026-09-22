@@ -421,6 +421,9 @@ sed -i '' 's/^title: "Client Onboarding"$/title: "Client Onboarding $\&"/' "$WS/
 (cd "$WS" && node "$TOOLS/compose-registry.js" registry) >/tmp/dollar-owns-compose.out 2>&1
 grep -qF 'Client Onboarding $&' "$WS/registry/functions/operations.md" && ok "Owns block survives a \$& title intact" || bad "Owns block corrupted by \$& title: $(cat /tmp/dollar-owns-compose.out)"
 
+# lint: a freshly scaffolded bundle with zero workflows (post-v8 scaffold) lints clean
+run_lint empty-workflows-bundle && ok "empty-workflows bundle lints clean (exit 0)" || bad "empty-workflows bundle should lint clean"
+
 echo
 echo "$PASS ok, $FAIL bad"
 [ "$FAIL" -eq 0 ]

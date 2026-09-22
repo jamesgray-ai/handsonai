@@ -196,7 +196,7 @@ function lint(bundleDir) {
   //    block's content and the derivable owners list is how stale/hand-edited
   //    content is caught -- see registry-lib.js's GENERATED-block comment).
   //    A content mismatch is only a WARNING: Phase 4 of scaffolding names
-  //    Process owners before Phase 6's maintenance pass regenerates Owns,
+  //    Process owners before Phase 5's maintenance pass regenerates Owns,
   //    so a stale block is an expected mid-run state, not a lint blocker.
   //    Missing blocks, unterminated blocks, and missing markers stay errors.
   const fnSlugs = new Set(functions.map((f) => lib.slugOf(f.relPath)));
