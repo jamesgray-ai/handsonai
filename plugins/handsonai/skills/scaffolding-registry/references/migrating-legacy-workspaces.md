@@ -101,7 +101,8 @@ When there's no `workflow.yaml`, mint the node directly from what's on disk:
   no confirmed production status, so this is the honest default rather than
   a guess.
 - Link the requirements file itself in `# Artifacts`:
-  `- **Requirements:** [<name>-requirements.md](outputs/<name>-requirements.md)`.
+  `- [Requirements](outputs/<name>-requirements.md)` (label as the link text —
+  compose reads the framework step from it).
 - All other frontmatter (`definition_type`, `execution_mode`, `autonomy`,
   `trigger`) comes from a short conversation with the student — a flat
   requirements doc rarely states these explicitly.

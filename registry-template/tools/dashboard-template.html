@@ -232,9 +232,19 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
 
   function renderProcessRow(proc) {
     var owner = proc.ownerId ? byId(funcs, proc.ownerId) : null;
+    // Value-chain order is the Process node's curated # Workflows list (proc.workflows).
+    // `step` is framework progress (1-7), not sequence -- it is only the fallback for
+    // workflows the curated list does not mention.
+    var curated = Array.isArray(proc.workflows) ? proc.workflows : [];
     var procWorkflows = workflows
       .filter(function (wf) { return wf.processId === proc.id; })
       .sort(function (a, b) {
+        var ia = curated.indexOf(a.id), ib = curated.indexOf(b.id);
+        if (ia !== -1 || ib !== -1) {
+          if (ia === -1) return 1;
+          if (ib === -1) return -1;
+          return ia - ib;
+        }
         var sa = typeof a.step === 'number' ? a.step : Infinity;
         var sb = typeof b.step === 'number' ? b.step : Infinity;
         if (sa !== sb) return sa - sb;

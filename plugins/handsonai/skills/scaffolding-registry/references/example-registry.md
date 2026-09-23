@@ -100,8 +100,8 @@ the client before end of day.
 
 # Artifacts
 
-- **Requirements:** [requirements.md](outputs/client-status-reporting/requirements.md)
-- **SOP:** [client-status-reporting-sop.md](sops/client-status-reporting-sop.md)
+- [Requirements](outputs/client-status-reporting/requirements.md)
+- [SOP](sops/client-status-reporting-sop.md)
 
 # Skills
 

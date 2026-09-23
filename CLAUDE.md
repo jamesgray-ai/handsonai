@@ -406,14 +406,16 @@ each course run. Not automatable — see `specs/okf-registry-redesign-prd.md`
 Part 8 for the full rationale:
 
 1. **Behavioral run** — scaffold a throwaway registry, run framework steps
-   1–2, grep for retired/banned fields, confirm lint passes clean.
+   1–2, grep the registry nodes for retired/banned fields (exclude
+   `registry/SCHEMA.md`, which lists them on purpose), confirm lint passes clean.
 2. **Migration fixtures run** — migrate the `workflow.yaml` and flat-layout
    fixtures; post-check greps + lint pass; `log.md` entries present;
    `process_outcome` content survives into the description.
 3. **Tier 2 render check** — AI-generated data island from the fixture bundle
    validates against the schema; dashboard renders from `file://` with no
    console errors.
-4. **Action canary** — on a standing test instantiation of the template repo,
+4. **Action canary (optional — only when the Pages Action or the compose
+   script changed)** — on a throwaway instantiation of the template repo,
    push a sample node (Pages updates) and a deliberately broken node (Action
    fails with a legible message). ~5 minutes.
 5. **Platform checklist re-verification** — re-verify every row in
