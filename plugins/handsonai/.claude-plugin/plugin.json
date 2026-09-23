@@ -1,7 +1,7 @@
 {
   "name": "handsonai",
   "description": "Everything you need to design, build, and document AI workflows. The AI Workflow Framework as executable skills, plus your business knowledge graph, an AI registry, and a feature-spec toolkit.",
-  "version": "7.2.1",
+  "version": "8.0.0",
   "author": {
     "name": "James Gray"
   },
