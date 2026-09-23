@@ -15,7 +15,9 @@ Evaluate running AI workflows and decide what, if anything, to change. Review ho
 
 ## Workflow
 
-### 1. Load workflow context
+**Set expectations up front (first message).** Say: "A review takes 30–45 minutes: we look at what the run log shows, re-run your test inputs to see which lines changed, and end with one of three calls — leave it, tune it, or go back to the design."
+
+#### Phase 1 — Load workflow context
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
@@ -29,7 +31,7 @@ The **baseline** is the report card of the round that produced the `Ready` verdi
 
 Understand what was built, how it was designed to work, and what quality bar was established.
 
-### 2. Current state assessment
+#### Phase 2 — Current state assessment
 
 **Start from the run log if one exists** — it's evidence, not recollection. Summarize what it shows (run frequency, recurring edits, failures, drift) and confirm the summary with the user rather than asking them to remember.
 
@@ -41,7 +43,7 @@ Then interview the user for what the log can't show:
 - Are there new steps or decisions that have emerged since deployment?
 - What's working well that you want to preserve?
 
-### 3. Quality evaluation
+#### Phase 3 — Quality evaluation
 
 Identify signals of degradation or opportunity:
 
@@ -53,7 +55,7 @@ Identify signals of degradation or opportunity:
 | Report-card lines flipped between rounds | Orchestrator instructions or context need tuning |
 | User adding steps manually | Workflow scope has grown beyond original design |
 
-### 4. Graduation assessment
+#### Phase 4 — Graduation assessment
 
 Has the workflow outgrown its mechanism?
 
@@ -64,7 +66,7 @@ Older Design Specs name the mechanism `Prompt`, `Skill-Powered Workflow`, or `Sk
 
 Only recommend graduation when there's a concrete capability gap, not just because "it could be more sophisticated." Graduation is a Redesign outcome — it goes back to Design with the reason recorded.
 
-### 5. Regression check
+#### Phase 5 — Regression check
 
 Re-run the same scenarios (`E1…`) the same way Test does — in a fresh conversation, graded here against the same check list, user confirms — and compare line by line:
 
@@ -75,9 +77,9 @@ Re-run the same scenarios (`E1…`) the same way Test does — in a fresh conver
 
 Write this round's report card as a new dated `outputs/[workflow-name]/test-results.md` in Test's format (rename the previous one with a date suffix first). If the outcome is Tune, set `readiness: not-ready` and fill `## Issues identified` naming the building blocks — that file is what Build's fix mode reads.
 
-### 6. Operationalization review (organizational workflows)
+#### Phase 6 — Operationalization review
 
-For workflows used by teams (not just individuals), assess:
+Organizational workflows only. For workflows used by teams (not just individuals), assess:
 
 - **Adoption** — Is the team actually using it? What's the usage frequency?
 - **Training** — Do new team members know how to use it?
@@ -85,13 +87,15 @@ For workflows used by teams (not just individuals), assess:
 
 Skip this step for individual/personal workflows.
 
-### 7. Recommendation
+#### Phase 7 — Recommendation
 
 Produce exactly one of three outcomes:
 
 - **No changes needed** — no line regressed, edits are stable, requirements haven't shifted. Record it and set the next review date.
 - **Tune** — specific building blocks to adjust (name them: S2, C3, orchestrator, connector) → the `build` skill regenerates only those (fix mode), then the `test` skill re-runs the affected scenarios.
 - **Redesign** — the architecture no longer fits: requirements changed enough to restructure, or the workflow has outgrown its mechanism (a skill that now needs to make its own sequencing decisions, or an agent that should split into specialists). → the `design` skill, with the reason recorded in the Improvement Plan so Design starts from it.
+
+Close with the one that applies: **No changes** — "Nothing to change. Next review: [date]."; **Tune** — "Run the `build` skill on [named building blocks] — 30–60 minutes for a full build, less in fix mode — then the `test` skill to re-run the affected scenarios."; **Redesign** — "Run the `design` skill — about 30 minutes — starting from the reason recorded in the Improvement Plan."
 
 ## Output
 
@@ -113,3 +117,4 @@ Include:
 - Focus on concrete signals, not abstract evaluation. "Your context file references Q3 goals but it's Q1" beats "your context may be stale."
 - This step is typically invoked weeks or months after initial deployment, in a separate conversation from the original build.
 - Not every workflow needs improvement. If it's working, say so and move on.
+- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 5 of 7 — the regression check") so the user always knows where they are.

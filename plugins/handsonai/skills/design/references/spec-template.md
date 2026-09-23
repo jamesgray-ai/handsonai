@@ -181,7 +181,7 @@ Column definitions:
 - **Orchestration**: Prompt / Skill / Agent
 - **Integration**: Block + tool + action tag (e.g., "MCP: HubSpot (use)") or "—" if none
 - **Intelligence**: Model class + context sources + memory flag (e.g., "Model: fast" or "Model: reasoning; Context: C2, C5")
-- **Build Output**: One of the canonical values: `New skill: S1` (build a new skill, defined below) / `Use existing: [name]` (reference an installed skill as-is) / `Extend existing: [name] (also used by: workflow-a, workflow-b)` (modify an installed skill to cover this step — Build shows the diff before writing; the parenthetical lists the other workflows that share the skill, or `(also used by: none)`) / `New agent: A1` (build a new sub-agent, defined below) / `Inline prompt → Workflow Requirements Step N` (this step becomes an instruction block in the orchestrator skill, sourced from the named step's requirements) / `Handled by orchestrator` (no separate artifact; legacy synonym: `Handled by agent`) / `MCP server: [name]` (configure a connector) / `Human (no artifact)`
+- **Build Output**: One of the canonical values: `New skill: S1` (build a new skill, defined below) / `Use existing: [name]` (reference an installed skill as-is) / `Extend existing: [name] (also used by: workflow-a, workflow-b)` (modify an installed skill to cover this step — Build proposes the diff and, on confirmation, asks the platform's creator to apply it; the parenthetical lists the other workflows that share the skill, or `(also used by: none)`) / `New agent: A1` (build a new sub-agent, defined below) / `Inline prompt → Workflow Requirements Step N` (this step becomes an instruction block in the orchestrator skill, sourced from the named step's requirements) / `Handled by orchestrator` (no separate artifact; legacy synonym: `Handled by agent`) / `MCP server: [name]` (configure a connector) / `Human (no artifact)`
 - **Human Gate?**: Yes / No (sourced from Workflow Requirements Human Gates table)
 
 ## Orchestrator Prompt Outline
@@ -314,7 +314,7 @@ For each artifact produced, document where it lives and how it gets deployed:
 | A1 — `[name]` | [platform-specific path or destination] | [high-level steps] |
 | MCP: [tool] | [where the config lives] | [install/auth steps] |
 
-> **Target Location on system-managed platforms (Cowork, Claude.ai):** these platforms' skill/agent directories can't be written directly, so the Target Location is the staging tree `outputs/[workflow-name]/skill/[skill-name]/` plus an install step (Cowork: Save skill from the zip, or plugin install when packaging = Plugin; Claude.ai: zip upload via Customize > Skills; ChatGPT: zip upload via Plugins > Skills; Gemini Spark / Enterprise and M365 Copilot Cowork: their Skills > Upload flows) — **never** a `.claude/skills/` or `.claude/agents/` path the platform can't write.
+> **Target Location on system-managed platforms:** these platforms' skill/agent directories can't be written directly, so the Target Location is the staging tree `outputs/[workflow-name]/skill/[skill-name]/` plus the install step the platform's `capabilities.skill_install` describes (or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`) — **never** a local skill or agent directory path the platform can't write.
 
 **Packaging note:** [How the artifacts ship together based on the Packaging decision — e.g., "All S1–S3 + A1 bundle into a plugin in the user's marketplace fork"; "Each skill uploaded individually to Claude.ai"; "Skill uploaded once in ChatGPT and attached to a Workspace Agent"]
 

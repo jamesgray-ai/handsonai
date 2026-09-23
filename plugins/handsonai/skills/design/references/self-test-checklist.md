@@ -15,7 +15,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 - [ ] Every Integration column entry includes the block type, tool name, and use/build tag
 - [ ] Every Build Output value is one of the canonical forms (`New skill: SN`, `Use existing: [name]`, `Extend existing: [name]`, `New agent: AN`, `Inline prompt → Workflow Requirements Step N`, `Handled by orchestrator` [legacy synonym `Handled by agent` accepted], `MCP server: [name]`, `Human (no artifact)`)
 - [ ] Packaging value is one of the canonical forms (`Plugin`, `Standalone Skill`, `Workspace Agent`, `Loose Files`)
-- [ ] Mechanism is `Skill` or `Agent` (never the legacy `Prompt`, `Skill-Powered Workflow`, or `Skill-Powered Prompt`)
+- [ ] Mechanism is one of `Skill | Agent` (never the legacy `Prompt`, `Skill-Powered Workflow`, or `Skill-Powered Prompt`)
 
 ## Skill Candidates
 

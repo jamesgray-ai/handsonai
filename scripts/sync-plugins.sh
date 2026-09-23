@@ -88,6 +88,7 @@ fi
 # --full also checks the docs migration, so this stays a hard block until Batch E lands —
 # intended: it stops a release shipping before the docs and the registry system agree.
 ./scripts/check-registry-consistency.sh --full || { echo "Error: registry consistency failed" >&2; exit 1; }
+./scripts/check-framework-consistency.sh || { echo "Error: framework consistency failed — docs and skills disagree" >&2; exit 1; }
 
 # The multi-agent-example pipeline is mirrored under .claude/ so it runs in this repo.
 # Refuse to ship a plugin whose copies have drifted from what we demo.

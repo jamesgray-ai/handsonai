@@ -120,7 +120,7 @@ Decide *how* the workflow should be built — before you build it.
 
 The Design step takes your Workflow Requirements and produces a complete blueprint for your AI workflow. The skill works through three layers of decisions:
 
-- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend how it runs — as a **Skill** or an **Agent** — with an involvement mode (Augmented or Automated).
+- **Architecture** — confirm your platform, assess the workflow's autonomy level (Deterministic, Guided, or Autonomous), and recommend how it runs — as a **Skill** or an **Agent** (the mechanism is one of `Skill | Agent`) — with an involvement mode (Augmented or Automated).
 - **Decomposition** — classify each step on the autonomy spectrum, map AI building blocks, and identify which steps become reusable skills.
 - **Component blueprints** — document the field-level specs for each new skill and agent.
 
@@ -184,7 +184,7 @@ Workflows are not something you set up once and forget. Over time, business cont
 
 ## Key Concepts
 
-Quick reference for the framework's vocabulary:
+Every term, in plain language: [Framework Glossary](glossary/). Quick reference for the core vocabulary:
 
 ### AI Workflow Design Matrix
 
@@ -264,6 +264,7 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 - **See the destination first.** The [worked example](examples/worked-example/) shows every file a complete run produces — the whole project folder for one small workflow taken through all seven steps.
 - **Start small.** Make your first workflow starter-sized: 3–5 steps, one tool connection, triggered manually. Build your big opportunity second, once you've been through the loop.
 - **Pausing is safe.** Every step saves progress to files. In any later session, just say **"continue my workflow"** — the framework reads your registry's Workflow node and picks up at the right step.
+- **Plan about a working day, over three to four sessions,** for a starter workflow through Steps 1–6 (Improve comes weeks later, at your review date): Analyze 15–20 min, Deconstruct 45–60, Design about 30, Build 30–60, Test about 45 per round (two to four rounds), Run 15–20.
 :::
 
 ## FAQ

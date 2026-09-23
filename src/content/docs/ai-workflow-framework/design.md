@@ -228,18 +228,22 @@ These sections sit outside the three layers:
 
 ## How the Skill Works
 
-The three layers above are the conceptual structure of the Design Spec. In practice, the skill walks them in this chronological order:
+The three layers above are the conceptual structure of the Design Spec. In practice, the skill walks them across fourteen phases, in this chronological order:
 
-1. **Load Workflow Requirements** — Read the Workflow Requirements file from `outputs/`.
+1. **Load** — Read the Workflow Requirements file from `outputs/`.
 2. **Confirm understanding** — Summarize the workflow and ask you to confirm.
-3. **Architecture decisions (Layer 1)** — Confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Requirements and present a confirmation block.
-4. **Autonomy assessment** — Assess where the whole workflow sits on the autonomy spectrum (Deterministic, Guided, Autonomous).
-5. **Orchestration mechanism** — Recommend a mechanism (Skill or Agent) with an involvement mode (Augmented or Automated).
-6. **Classify each step (Layer 2)** — Per-step autonomy level, AI building blocks, tools, human review gates.
-7. **Identify skill candidates** — Steps tagged for skill creation with generation-ready detail.
-8. **Agent configuration (Layer 3)** — When applicable, generate a platform-agnostic agent blueprint.
-9. **Generate Design Spec** — Write the complete design document.
-10. **Approval** — the draft spec is written to a file you read; say approve and it is marked approved. Build refuses anything else.
+3. **Architecture decisions** — Layer 1: confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Requirements and present a confirmation block.
+4. **Autonomy** — Assess where the whole workflow sits on the autonomy spectrum (Deterministic, Guided, Autonomous).
+5. **Mechanism** — Recommend a mechanism (Skill or Agent) with an involvement mode (Augmented or Automated).
+6. **Safety & permissions** — What the workflow may touch, what it may never do, and whether a write action is possible at all on your platform.
+7. **Layer 1 confirmation** — The whole architecture played back in plain English, with every term explained as it is confirmed.
+8. **Classify each step** — Layer 2: per-step autonomy level, AI building blocks, tools, human review gates.
+9. **Skill discovery** — Look for skills you already have before assuming anything must be built.
+10. **Skill candidates** — Steps tagged for skill creation with generation-ready detail.
+11. **Agent configuration** — Layer 3: when applicable, generate a platform-agnostic agent blueprint.
+12. **Verify evaluation inputs** — Confirm the acceptance criteria and example scenarios Test will grade against are complete.
+13. **Write the draft spec** — Write the complete design document as a draft.
+14. **Approve** — the draft spec is written to a file you read; say approve and it is marked approved. Build refuses anything else.
 
 ## How to Use This
 

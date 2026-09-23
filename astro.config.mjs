@@ -167,6 +167,7 @@ export default defineConfig({
             { label: 'Step 6: Run', link: '/ai-workflow-framework/run/' },
             { label: 'Step 7: Improve', link: '/ai-workflow-framework/improve/' },
             { label: 'Set Up the Skills', link: '/ai-workflow-framework/skills/' },
+            { label: 'Glossary', link: '/ai-workflow-framework/glossary/' },
             {
               label: 'Worked Examples',
               collapsed: true,
