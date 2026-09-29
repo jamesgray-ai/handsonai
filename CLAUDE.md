@@ -226,7 +226,7 @@ Use the `/commit-push-pr` slash command to commit, push, and open a PR in one st
 
 For structured merge decisions (merge locally vs PR vs keep branch), use the `finishing-a-development-branch` superpowers skill.
 
-CI's `claude-review` job reviews every push to a PR and leaves findings as inline comments — read them with `gh api repos/jamesgray-ai/handsonai/pulls/<n>/comments` (and `issues/<n>/comments` for the summary) before merging.
+CI's `claude-review` job reviews every push to a PR and leaves findings as inline comments — read them with `gh api repos/jamesgray-ai/handsonai/pulls/<n>/comments` (and `issues/<n>/comments` for the summary) before merging. Don't rely on `gh pr checks --watch` — a network blip ends it with exit 0 mid-run; poll `gh run view <id> --json status,conclusion` until `completed` instead.
 
 After shipping, use `/revise-claude-md` to capture any session learnings.
 
@@ -373,7 +373,7 @@ When updating:
 2. Update the catalog and detail pages in `docs/use-the-playbook/build/` if you added or renamed anything.
 3. Run `./scripts/sync-plugins.sh [plugin] patch|minor|major` — this bumps `plugin.json` here, rsyncs to `handsonai-plugins`, updates that plugin's entry in its `marketplace.json` (adding the entry if it's new), and patch-bumps the marketplace's own top-level version. The plugin name defaults to `handsonai` when omitted, so `./scripts/sync-plugins.sh patch` still works. The bump arg is required; semver applies (PATCH = update, MINOR = add new agent/skill, MAJOR = breaking). Before rsyncing it runs `check-plugin-sync.sh` and shows the drift report — usually just the changes you're about to ship — and asks you to confirm (y/N). In a non-interactive context (CI, headless agent) that confirmation is impossible, so the script exits with `Error: unacknowledged drift and no terminal to confirm on.`; re-run with `SYNC_ACK_DRIFT=1` after reviewing the report to proceed.
 4. Commit and push **this repo first**.
-5. In `~/Code/jamesgray/handsonai-plugins`: rebuild ZIPs if skills changed (`./scripts/build-skill-zips.sh`), create a GitHub Release (`gh release create vX.Y.Z dist/*.zip`), commit and push **last**.
+5. In `~/Code/jamesgray/handsonai-plugins`: rebuild ZIPs if skills changed (`./scripts/build-skill-zips.sh`), create a GitHub Release (`gh release create vX.Y.Z dist/*.zip`), commit and push **last**. The tag is the **marketplace** version `sync-plugins.sh` prints (e.g. `v6.0.22`), not the plugin version — put the plugin version in the title (`v6.0.22: handsonai 8.0.0`). If the release is created before the release commit is pushed, retarget the tag (`git tag -f vX.Y.Z <commit> && git push --force origin refs/tags/vX.Y.Z`).
 
 **Critical — push `handsonai-plugins` last:** Claude (Chat and Cowork) detects plugin updates by comparing commit hashes, and Codex caches by `<marketplace>/<plugin>/<version>`. If Cowork syncs to a commit before the version bump lands, it treats that commit as "already synced" and won't re-process it — even though the files contain the new version. By making the `handsonai-plugins` push the final action in the session, Cowork only ever sees the complete, version-bumped state. Never push `handsonai-plugins` mid-session while still making changes. (`sync-plugins.sh` deliberately does not commit or push anywhere — both pushes stay in your hands.)
 
@@ -383,7 +383,10 @@ When updating:
 [`jamesgray-ai/ai-registry-template`](https://github.com/jamesgray-ai/ai-registry-template)
 repo (a GitHub template repo students click "Use this template" on to get an
 empty AI Registry with the Pages Action pre-wired). Edit here, then run
-`./scripts/sync-registry-template.sh` to push. Drift between the two is
+`./scripts/sync-registry-template.sh` (rsync into the local clone only — `SYNC_ACK_DRIFT=1`
+when headless — then commit and push the clone yourself). Re-run it whenever `SCHEMA.md`,
+`dashboard-template.html`, `lint-registry.js`, or the fixtures change; it is part of every
+`handsonai` release. Drift between the two is
 caught by `./scripts/check-plugin-sync.sh registry-template` (same
 drift-detection script the plugin sync uses, pointed at a different pair of
 directories).
@@ -398,6 +401,11 @@ registry changes — meaning schema or skill-doc drift blocks shipping
 anything, unrelated agents and skills included. If a sync fails here, fix the
 drift (or re-run the sync script) before assuming the unrelated change you
 were shipping is broken.
+
+Workflow-node `# Artifacts` lines are `- [Requirements](path)` — the label is the link
+text. A bold `**Requirements:**` prefix before the link passes lint but makes compose
+under-report framework progress; `registry-lib.js orderedLinks()` is the parser to check
+against.
 
 #### Registry release checklist (manual)
 
@@ -440,7 +448,7 @@ Part 8 for the full rationale:
 Users on platforms without the plugin (Gemini Spark/Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI — and Claude or ChatGPT users whose plan or org blocks plugins) download pre-built skill ZIPs from GitHub Releases on `handsonai-plugins`. Each skill is published in two layouts: `<skill>.zip` (skill folder at the root — what claude.ai requires) and `<skill>-flat.zip` (`SKILL.md` at the root — what Gemini Enterprise documents). `scripts/test-build-skill-zips.sh` in that repo asserts both layouts carry identical content. When skills are updated, rebuild and publish a new release:
 
 1. From the `handsonai-plugins` repo, run `./scripts/build-skill-zips.sh` — this creates ZIPs in `dist/`
-2. Create a new release: `gh release create vX.Y.Z dist/*.zip --title "vX.Y.Z" --notes "Description of changes"`
+2. Create a new release: `gh release create vX.Y.Z dist/*.zip --title "vX.Y.Z: handsonai A.B.C" --notes "Description of changes"` (X.Y.Z = marketplace version)
 
 The skills page (`docs/ai-workflow-framework/skills.mdx`) uses `/releases/latest/download/` URLs, so they always point to the most recent release automatically.
 
