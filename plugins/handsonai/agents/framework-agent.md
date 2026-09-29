@@ -132,7 +132,7 @@ Evaluate a running workflow for quality, relevance, and evolution opportunities.
 7. Recommend: No changes / Tune / Redesign (graduation is a Redesign outcome)
 
 **Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/run-guide.md` + `outputs/[name]/test-results.md` + `outputs/[name]/runs.md` (run log)
-**Produces:** `outputs/[name]/improvement-plan.md` + an updated `test-results.md` (the baseline renamed with a date suffix)
+**Produces:** `outputs/[name]/improvement-plan.md` + a new completed `test-results.md` for the regression round (the previous baseline is kept, renamed with a date suffix)
 
 ## File Conventions
 
