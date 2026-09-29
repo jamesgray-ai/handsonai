@@ -295,9 +295,9 @@ Reference example: C2
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
-| E1 | Typical week | 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners | C2 (report of 2026-05-22) |
-| E2 | Blocked-heavy week with a slipped milestone | 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order | — |
-| E3 | Quiet week | 2 updates, no blockers | Short honest report; no padding or invented activity | — |
+| E1 | Typical week (real) | 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
+| E2 | Blocked-heavy week with a slipped milestone (proposed) | 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order; tests R1 and the Step 2 ambiguous-status edge case | — |
+| E3 | Quiet week (proposed) | 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
 
 ## Rules & Constraints
 
@@ -493,6 +493,10 @@ name. See Deployment Plan.)*
   - Produces: saved report file + run-log row
 
 [Final output: status-report-YYYY-MM-DD.md in the project, run logged]
+
+[Closing run summary: "What I did" — the four steps run in order, the draft
+ review gate and what Maya decided there, HubSpot: read the tracker, and
+ where the report was saved]
 ```
 
 ## Data Readiness Summary
@@ -654,7 +658,35 @@ Build then wrote that table into the workflow node — the skills under `# Skill
 
 ## Step 5 — Test → `test-results.md`
 
-Test ran E1 and E2 in round 1; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report). One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so she took the results back to Build, which re-entered fix mode and had Cowork regenerate just the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md`, round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
+Maya **opened round 1** in her project chat: the skill read her requirements and design spec, confirmed the passing rule, checked the HubSpot connection, and wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress, before a single run had happened. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill, give it that scenario's input, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because Cowork chats in a project share the project folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so in one sentence and grades the run pasted back into the chat where the round was opened.
+
+Round 1 covered E1 and E2; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report) — output only, never the path. One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so she took the results back to Build, which re-entered fix mode and had Cowork regenerate just the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md` (renamed by round 2's opener before it wrote the new file), round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
+
+**What one grading exchange looked like.** E1 ran in a chat of its own. The last thing the orchestrator skill printed there was its closing summary:
+
+```
+What I did
+- Read the HubSpot tracker for the week of 2026-06-01 — 9 tasks updated, 1 blocker.
+- Drafted the report with the status-report-drafting skill, using your template (C2) and tone guide (C3).
+- Paused and showed you the draft before saving anything — you approved it as-is.
+- Saved the approved report to outputs/weekly-status-report/status-report-2026-06-05.md.
+- Added a row to runs.md for this run.
+```
+
+Maya typed **test this**. The skill graded the whole run from that conversation — the output lines first, read off the report itself, then the path lines, read off the summary above — and presented one table:
+
+| Expected | From | Result | Evidence |
+|---|---|---|---|
+| Every status stated matches the tracker | AC1 (must) | Met | 9 of 9 tasks match |
+| Uses the four C2 sections in order | AC2 | Met | Wins / In Progress / Blockers / Next Week, in order |
+| Maya could send it without rewording | AC3 | Met | "we will slip unless X" — no hedged phrasing found |
+| Every blocker names an owner and the next action | R1 | Met | 1 of 1 blockers has both |
+| Maya approves before the report is saved or shared | G1 | Met | What I did: "paused and showed you the draft before saving anything — you approved it as-is" |
+| Complete draft under 400 words | Step 2 output | Met | 340 words |
+
+(rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
+
+She confirmed each line — she overrode nothing this round — answered the closing question about how much she would edit the report before sending it, and the skill appended the card to the round's file and told her what was left: "1 of 2 graded — run E2 in a new chat next."
 
 **Round 1 — `test-results-2026-06-05.md`:**
 
@@ -665,6 +697,7 @@ design_spec: outputs/weekly-status-report/design-spec.md
 requirements: outputs/weekly-status-report/requirements.md
 date: 2026-06-05
 environment: "Cowork, HubSpot connector live"
+round_status: complete
 readiness: not-ready
 criteria_total: 12
 criteria_met: 11
@@ -675,25 +708,27 @@ results:
 
 # Weekly Status Report — Test Results
 
-## Scenarios tested
+## Check list
 
-- **E1 — Typical week:** live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker)
-- **E2 — Blocked-heavy week with a slipped milestone:** constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date
+- AC1 (must) — every status stated matches the tracker
+- AC2 — uses the four C2 sections in order
+- AC3 — Maya could send it without rewording
+- R1 — every blocker names an owner and the next action
+- G1 — Maya approves before the report is saved or shared
+- Step 2 output — complete draft under 400 words
+
+(R2–R5, G2, and the Step 1, 3, and 4 output lines are on the list too — omitted here for length)
+
+## Scenarios to run
+
+- **E1 — Typical week (real):** live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker)
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date
 
 ## Report card
 
 **E1 — Typical week**
 
-| Expected | From | Result | Evidence |
-|---|---|---|---|
-| Every status stated matches the tracker | AC1 (must) | Met | 9 of 9 tasks match |
-| Uses the four C2 sections in order | AC2 | Met | Wins / In Progress / Blockers / Next Week, in order |
-| Maya could send it without rewording | AC3 | Met | "we will slip unless X" — no hedged phrasing found |
-| Every blocker names an owner and the next action | R1 | Met | 1 of 1 blockers has both |
-| Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
-| Complete draft under 400 words | Step 2 output | Met | 340 words |
-
-(rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
+(the card shown above — appended from E1's own run chat once Maya confirmed each line)
 
 **E2 — Blocked-heavy week with a slipped milestone**
 
@@ -703,7 +738,7 @@ results:
 | Uses the four C2 sections in order | AC2 | Not met | Blockers placed before In Progress |
 | Maya could send it without rewording | AC3 | Met | No hedged phrasing found; the section order was the only edit |
 | Every blocker names an owner and the next action | R1 | Met | 4 of 4 blockers named; ownerless one flagged "owner needed" |
-| Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
+| Maya approves before the report is saved or shared | G1 | Met | What I did: "paused and showed you the draft before saving anything — you approved it with one edit" |
 | Complete draft under 400 words | Step 2 output | Met | 390 words |
 
 (rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
@@ -748,6 +783,7 @@ design_spec: outputs/weekly-status-report/design-spec.md
 requirements: outputs/weekly-status-report/requirements.md
 date: 2026-06-08
 environment: "Cowork, HubSpot connector live"
+round_status: complete
 readiness: ready
 criteria_total: 18
 criteria_met: 18
@@ -759,11 +795,15 @@ results:
 
 # Weekly Status Report — Test Results
 
-## Scenarios tested
+## Check list
 
-- **E1 — Typical week:** re-run unchanged on the same tracker week
-- **E2 — Blocked-heavy week with a slipped milestone:** the same constructed input as round 1
-- **E3 — Quiet week:** run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table)
+The same lines as round 1 — AC1 (must), AC2, AC3, R1, G1, and the Step 2 output, plus R2–R5, G2, and the Step 1, 3, and 4 output lines omitted here for length — written when this round was opened, before any run.
+
+## Scenarios to run
+
+- **E1 — Typical week (real):** re-run unchanged on the same tracker week
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** the same constructed input as round 1
+- **E3 — Quiet week (proposed):** run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table)
 
 ## Report card
 
@@ -783,7 +823,7 @@ results:
 | Uses the four C2 sections in order | AC2 | Met | Wins / In Progress / Blockers / Next Week, in order |
 | Maya could send it without rewording | AC3 | Met | No hedged phrasing found |
 | Every blocker names an owner and the next action | R1 | Met | No blockers this week — Blockers section says "None this week" rather than inventing one |
-| Maya approves before the report is saved or shared | G1 | Met | Draft presented, saved only after approval |
+| Maya approves before the report is saved or shared | G1 | Met | What I did: "paused and showed you the draft before saving anything — you approved it as-is" |
 | Complete draft under 400 words | Step 2 output | Met | 95 words |
 
 (rows for R2–R5, G2, and Steps 1, 3, 4 omitted here for length)
@@ -877,7 +917,7 @@ And the run log after a few weeks — one line per run, written by the skill its
 
 ## Step 7 — Improve → `improvement-plan.md`
 
-When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. She re-ran E1, E2, and E3 against the baseline — the Ready round's report card in `test-results.md` — and every line held. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
+When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. She re-ran E1, E2, and E3 the same way Test does — each in its own new chat, graded there — against the baseline, the Ready round's report card in `test-results.md`, and every line held. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
 
 ````markdown
 # Weekly Status Report — Improvement Plan

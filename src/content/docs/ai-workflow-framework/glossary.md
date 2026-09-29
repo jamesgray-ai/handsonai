@@ -53,9 +53,11 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Registry** — Your AI Registry: a folder of Markdown "nodes" describing your business, its processes, and its workflows, which every framework step reads from and writes to so you never re-describe your work. See the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
 
-**Report card** — The table [Test](../test/) produces per scenario: every acceptance criterion, rule, and human gate listed as **Expected | From | Result | Evidence**, with Result always exactly Met or Not met.
+**Report card** — The table [Test](../test/) produces per scenario, graded from the whole run rather than the final output alone: every acceptance criterion first, then every rule, human gate, and step output, listed as **Expected | From | Result | Evidence**, with Result always exactly Met or Not met.
 
 **Requirements (Workflow Requirements)** — The Product Requirements Document for a workflow: goal, value and measurement, context inventory, acceptance criteria, example scenarios, rules, and human gates. Produced by [Deconstruct](../deconstruct/) and consumed by every later step.
+
+**Round (Test)** — One pass through every scenario in [Test](../test/): you open the round in one chat, which loads your requirements and design and writes the check list, then run each input in its own new chat and say *test this* to have it graded there, and get the verdict after the last one. Two to four rounds is normal.
 
 **Rule (R1…)** — A must-do, must-never-do, or fallback statement about how the work should be done, captured with a stable ID (`R1, R2, …`) in [Deconstruct](../deconstruct/) and checked in [Test](../test/)'s report card.
 
@@ -63,7 +65,7 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Run log** — The one-line-per-run record (`runs.md`) that [Run](../run/) starts: date, input, result, and edits needed. [Improve](../improve/) reads it as evidence of drift.
 
-**Scenario (E1…)** — A representative input, with what to look for in the output, captured in [Deconstruct](../deconstruct/)'s Example Scenarios and given a stable ID (`E1, E2, …`). [Test](../test/) runs each one and grades it against the acceptance criteria.
+**Scenario (E1…)** — A representative input, with what to look for in the output, captured in [Deconstruct](../deconstruct/)'s Example Scenarios and given a stable ID (`E1, E2, …`) — you supply the real ones, the model proposes the rest against what could go wrong, and you correct the list. [Test](../test/) runs each one in its own chat and grades it there.
 
 **Skill (mechanism)** — An orchestration mechanism you start by name; it follows the mapped steps every time, pausing where you said. Chosen in [Design](../design/) when you trigger the work yourself and the same steps repeat each run.
 
@@ -72,5 +74,7 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 **Stable ID** — A short label (`S1`, `A1`, `C1`, `E1`, `AC1`, `R1`, `G1`) that stays the same across every document referencing it, so every framework step can point at exactly the same component. Introduced in [Deconstruct](../deconstruct/) and [Design](../design/).
 
 **`stale_after`** — The review-date field on a Workflow node. A workflow is stale once today's date reaches it; [Run](../run/) sets it on go-live, and [Improve](../improve/) resets it at the close of each review.
+
+**What I did summary** — The short list every workflow [Build](../build/) creates ends its run with: the steps it took, where it paused for you and what you decided, what it did with your tools, and where the deliverable is. [Test](../test/) grades the rules, gates, and step outputs against it.
 
 **Workflow node** — The registry file (`registry/workflows/<slug>.md`) that tracks one workflow's status, mode, and artifacts across every framework step, so any session can pick up where you left off. First written by [Analyze](../analyze/); see the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
