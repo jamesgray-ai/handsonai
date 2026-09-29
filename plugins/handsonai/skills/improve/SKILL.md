@@ -68,14 +68,14 @@ Only recommend graduation when there's a concrete capability gap, not just becau
 
 #### Phase 5 — Regression check
 
-Re-run the same scenarios (`E1…`) using the same protocol as the `test` skill — each scenario runs in a new chat that has never seen the requirements or design, and the user says *test this* there so the run is graded where it happened, or pastes the run back into this chat when that chat cannot reach the results file. Point at the `test` skill for the detail rather than restating it. Then compare line by line against the baseline:
+Re-run the same scenarios (`E1…`) using the same protocol as the `test` skill — each scenario runs in a new chat that has never seen the requirements or design, and the user says *test this* there so the run is graded where it happened, or pastes the run back into this chat when that chat cannot reach the results file. Point at the `test` skill for the detail rather than restating it. Before sending the user off, open the round the way Test's Phase 1 opener does: rename the baseline to `test-results-YYYY-MM-DD.md` and write `outputs/[workflow-name]/test-results.md` with `round_status: in-progress`, the check list, and the scenarios to run, so each run chat can find it and grade there. Then compare line by line against the baseline — the dated file you just renamed:
 
 - **Diff mechanically.** For every scenario × criterion, compare baseline to current. Present a table of every line that **flipped**: `Scenario | Line | Baseline | Now | Evidence`. A Met → Not met flip is a regression with a cause attached (the line names the step or rule); Not met → Met is an improvement.
 - **Edits trend.** Compare `edits` per scenario, and the run log's "Edits needed" column over time — rising edit effort is the earliest drift signal, often before any line flips.
 - **Like for like.** If a connector was simulated at baseline and is live now (or vice versa), say so — a flip caused by access changing is not the workflow changing.
 - **Check the criteria themselves.** If the business has changed, some lines may be obsolete or missing; propose edits to the Requirements file, not to this review only.
 
-Write this round's report card as a new dated `outputs/[workflow-name]/test-results.md` in Test's format (rename the previous one with a date suffix first). Every scenario has been graded by the time you write it, so its frontmatter carries `round_status: complete` alongside `readiness`. If the outcome is Tune, set `readiness: not-ready` and fill `## Issues identified` naming the building blocks — that file is what Build's fix mode reads.
+Write this round's report card into the round file you opened at the start of this phase. Every scenario has been graded by the time you close it, so set `round_status: complete` alongside `readiness`. If the outcome is Tune, set `readiness: not-ready` and fill `## Issues identified` naming the building blocks — that file is what Build's fix mode reads.
 
 #### Phase 6 — Operationalization review
 

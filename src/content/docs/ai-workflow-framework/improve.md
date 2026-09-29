@@ -48,7 +48,7 @@ The skill runs seven phases. The sections that follow expand on each:
 
 *Plain language: a **regression check** re-runs the same inputs you tested in Step 5 and shows which report-card lines changed — the same lines, so a change means something moved.*
 
-You re-run them the same way you tested them in Step 5: open a new chat that has never seen your requirements or design, run one input there, then say *test this* in that same chat so the run is graded where it happened. If that chat can't reach your results file, paste the whole conversation back into the review chat instead.
+You re-run them the same way you tested them in Step 5: open a new chat that has never seen your requirements or design, run one input there, then say *test this* in that same chat so the run is graded where it happened. If that chat can't reach your results file, paste the whole conversation back into the chat where you started this review instead.
 
 | Finding | What it means |
 |---|---|
