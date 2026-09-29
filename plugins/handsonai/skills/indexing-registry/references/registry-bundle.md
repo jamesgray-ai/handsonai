@@ -101,7 +101,7 @@ the bundle exists.
 
 ---
 
-## 4. Framework progress (artifact-presence inference)
+## 4. Framework progress (inferred from what the node links)
 
 There is no `current_step` field. A skill that needs to know "what step is next" infers it from
 what the Workflow node already links — its `# Artifacts` labels, plus its `# Skills` / `# Agents`
