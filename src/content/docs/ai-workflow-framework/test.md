@@ -24,7 +24,7 @@ Your first run is a test, not a deployment.
 
 1. **Open the round.** In this chat the skill loads your requirements and design, confirms the passing rule, checks the connectors, and writes the check list.
 2. **Run and grade each input.** Open a new chat, run the workflow on one input, then say *test this* — the skill grades the conversation above, line by line, with evidence you confirm. One input per chat.
-3. **Verdict.** After the last input the skill diagnoses every miss, gives the verdict, and lists any test records to clean up.
+3. **Verdict.** After the last input, in that same chat, the skill diagnoses every miss, gives the verdict, and lists any test records to clean up.
 
 The skill works out by itself whether the new chat can reach your results file; if it can't, it tells you in one sentence to copy that conversation and paste it into the chat where you opened the round, and grades it there instead.
 
