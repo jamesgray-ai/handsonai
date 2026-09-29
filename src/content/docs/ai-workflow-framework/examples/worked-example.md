@@ -652,7 +652,7 @@ Build closed with the reconciliation table — one row per Build Output line in 
 | Inline prompt → Workflow Requirements Step 4 | `weekly-status-report` — Step 4 instruction block | Same skill | Created |
 | MCP server: HubSpot | HubSpot connector (read-only) | Cowork project connector | Installed by you |
 
-Build then wrote the skills into the workflow node under `# Skills` — `# Artifacts` keeps only the requirements and design spec — which is how Test and Run find every piece later without asking Maya where anything went. The last thing it did was walk her through installing both skills and confirm they appeared under Customize → Skills, because Test's fresh-conversation runs need them installed, not staged.
+Build then wrote the skills into the workflow node under `# Skills` — `# Artifacts` gains nothing here; it still holds the opportunity report, the requirements, and the design spec — which is how Test and Run find every piece later without asking Maya where anything went. The last thing it did was walk her through installing both skills and confirm they appeared under Customize → Skills, because Test's fresh-conversation runs need them installed, not staged.
 
 ---
 
