@@ -737,8 +737,8 @@ results:
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker) — tests R1, G1; golden example C2 (report of 2026-05-22)
-- **E2 — Blocked-heavy week with a slipped milestone (proposed):** constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E1 — Typical week (real):** `outputs/weekly-status-report/inputs/E1-typical-week.md` — live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker) — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
 
 ## Report card
 
@@ -819,9 +819,9 @@ The same lines as round 1 — AC1 (must), AC2, AC3, R1, G1, and the Step 2 outpu
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** re-run unchanged on the same tracker week — tests R1, G1; golden example C2 (report of 2026-05-22)
-- **E2 — Blocked-heavy week with a slipped milestone (proposed):** the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
-- **E3 — Quiet week (proposed):** run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table) — tests R2 (nothing invented when there is little to report); no golden example
+- **E1 — Typical week (real):** `outputs/weekly-status-report/inputs/E1-typical-week.md` — re-run unchanged on the same tracker week — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E3 — Quiet week (proposed):** `outputs/weekly-status-report/inputs/E3-quiet-week.md` — run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table) — tests R2 (nothing invented when there is little to report); no golden example
 
 ## Report card
 

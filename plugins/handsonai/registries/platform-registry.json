@@ -9,7 +9,11 @@
       "memory": "https://code.claude.com/docs/en/memory",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "mcp-build": "https://modelcontextprotocol.io/quickstart",
-      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume auto memory exists in Cowork (Cowork has its own scheduled tasks — see its entry)."
+      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume auto memory exists in Cowork (Cowork has its own scheduled tasks — see its entry).",
+      "capabilities": {
+        "skill_install": "Skills are folders under .claude/skills/<skill-name>/SKILL.md in the project folder (or ~/.claude/skills/ for personal ones); Claude Code loads them when a chat is opened in that folder. To start one in a new chat, open a new Claude Code session in the same folder and type /<skill-name> (or ask for it by name). Nothing to upload or install. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
+        "context_location": "The project folder is the workspace: every chat opened in that folder reads and writes the same files (registry/, outputs/, .claude/), so a results file written in one chat is visible in the next. Files a workflow needs go in the project folder and are referenced by relative path. Verified 2026-09-29: https://code.claude.com/docs/en/skills"
+      }
     },
     "cowork": {
       "mode": "code",
@@ -58,13 +62,21 @@
       "agent": "https://developers.openai.com/codex/subagents",
       "skill": "https://learn.chatgpt.com/docs/build-skills",
       "plugin": "https://learn.chatgpt.com/docs/plugins",
-      "notes": "Codex CLI, the Codex tab of the ChatGPT desktop app, and the IDE extension. Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills (user-level default), then /etc/codex/skills; invoke with $skill-name or /skills. Plugins install from a marketplace (Plugins > Add marketplace in the app, or `codex plugin marketplace add owner/repo` in the CLI); ChatGPT and Codex share one plugin directory."
+      "notes": "Codex CLI, the Codex tab of the ChatGPT desktop app, and the IDE extension. Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills (user-level default), then /etc/codex/skills; invoke with $skill-name or /skills. Plugins install from a marketplace (Plugins > Add marketplace in the app, or `codex plugin marketplace add owner/repo` in the CLI); ChatGPT and Codex share one plugin directory.",
+      "capabilities": {
+        "skill_install": "Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills; start one in a new Codex session opened in the same folder with $skill-name or /skills. Best-effort — not verified this release.",
+        "context_location": "The working folder is the workspace; every session opened in it reads and writes the same files, so a results file written in one session is visible in the next. Best-effort — not verified this release."
+      }
     },
     "gemini-cli": {
       "mode": "code",
       "language": "markdown",
       "agent": "https://geminicli.com/docs/core/subagents",
-      "notes": "Skills are folders under .gemini/skills/ (project) or ~/.gemini/skills/ (personal), each with a SKILL.md; invoke by name in the CLI."
+      "notes": "Skills are folders under .gemini/skills/ (project) or ~/.gemini/skills/ (personal), each with a SKILL.md; invoke by name in the CLI.",
+      "capabilities": {
+        "skill_install": "Skills are folders under .gemini/skills/<skill-name>/ (project) or ~/.gemini/skills/ (personal), each with a SKILL.md; start one in a new Gemini CLI session opened in the same folder by asking for it by name. Best-effort — not verified this release.",
+        "context_location": "The working folder is the workspace; every session opened in it reads and writes the same files. Best-effort — not verified this release."
+      }
     },
     "vertex-ai-adk": {
       "mode": "code",
