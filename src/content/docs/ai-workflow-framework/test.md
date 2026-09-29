@@ -22,19 +22,21 @@ Your first run is a test, not a deployment.
 
 ## How a Round Works
 
-1. **Open the round.** In this chat the skill loads your requirements and design, confirms the passing rule, checks the connectors, and writes the check list.
+1. **Open the round.** In this chat the skill loads your requirements and design, confirms the passing rule, writes the check list, and checks the connectors.
 2. **Run and grade each input.** Open a new chat, run the workflow on one input, then say *test this* — the skill grades the conversation above, line by line, with evidence you confirm. One input per chat.
 3. **Verdict.** After the last input, in that same chat, the skill diagnoses every miss, gives the verdict, and lists any test records to clean up.
+
+Before it grades, the skill says in one sentence where it is grading — "I can see the run above, so I'll grade it here", or "I'll grade the run you pasted" if you copied the run back into the opener.
 
 The skill works out by itself whether the new chat can reach your results file; if it can't, it tells you in one sentence to copy that conversation and paste it into the chat where you opened the round, and grades it there instead.
 
 ## How the Skill Works
 
 1. **Load context** — the requirements (criteria, rules, gates, inputs), the design spec, and where the built skill lives.
-2. **Confirm the passing rule** — every line of the report card Met on every input; a miss on a **(must)** line always fails; any other miss is fixed or explicitly accepted.
+2. **Confirm the passing rule** — every line of the report card Met on every input; a miss on a **(must)** line always fails; any other miss is fixed or explicitly accepted. The results file is written at the end of this step, so a line you add or drop here is in it from the start.
 3. **Smoke run** — the skill reads the built workflow against the requirements to catch obvious gaps before you spend a run.
-4. **Integration pre-flight** — confirms each connector has the access it needs in the account that will run the workflow; a blocked write path is marked "not run", never faked.
-5. **Run and grade each scenario** — you run each input in a new chat and say *test this*; the skill grades that whole run in the chat where it ran, fills in the report card with evidence, and you confirm or override each line.
+4. **Integration pre-flight** — confirms each connector has the access it needs in the account that will run the workflow; a blocked write path is marked "not run", never faked. If your workflow connects to nothing, the skill says so in one line and moves on.
+5. **Run and grade each scenario** — you run each input in a new chat and say *test this*; the skill grades that whole run in the chat where it ran, fills in the report card with evidence, and you confirm or override each line. Every line is graded on every input — the note saying what an input was built to stress tells you what to watch, it does not shorten the list.
 6. **Diagnose every miss** — each Not met line is mapped to the building block that caused it, including a right-looking output that took a wrong path.
 7. **Verdict** — Ready, Not ready (back to Build, which regenerates only what's named), or Waiting on access.
 8. **Clean up test records** — anything the test created in a live system is listed and offered for removal.

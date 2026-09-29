@@ -34,10 +34,10 @@ The skill runs six phases in order:
 2. **Lens selection** — Individual (your own workflows) or Organizational (your business's processes). Inferred and confirmed when obvious.
 3. **Discovery interview** — Focused questions, one at a time, only on what phase 1 didn't cover.
 4. **Opportunity report** — A summary table and detailed cards, grouped by autonomy level, ordered by impact.
-5. **Candidates registered** — You pick 3–5; each becomes a backlog Workflow node in your registry, filed under one of your processes, and the skill recommends which to build first (a starter-sized one).
+5. **Candidates registered** — You pick up to five; each becomes a backlog Workflow node in your registry, filed under one of your processes, and the skill recommends which to build first (a starter-sized one).
 6. **The other lens** — Offered as a later session.
 
-Most people discover 5–15 opportunities across different autonomy levels. Pick three to five to start with.
+Most people discover 5–15 opportunities across different autonomy levels. Pick up to five to start with.
 
 ## How to Use This
 

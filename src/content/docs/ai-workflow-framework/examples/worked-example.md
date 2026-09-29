@@ -295,9 +295,9 @@ Reference example: C2
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
-| E1 | Typical week (real) | 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
-| E2 | Blocked-heavy week with a slipped milestone (proposed) | 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order; tests R1 and the Step 2 ownerless-blocker edge case | — |
-| E3 | Quiet week (proposed) | 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
+| E1 | Typical week (real) | `outputs/weekly-status-report/inputs/E1-typical-week.md` — 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
+| E2 | Blocked-heavy week with a slipped milestone (proposed) | `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order; tests R1 and the Step 2 ownerless-blocker edge case | — |
+| E3 | Quiet week (proposed) | `outputs/weekly-status-report/inputs/E3-quiet-week.md` — 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
 
 ## Rules & Constraints
 
@@ -652,13 +652,13 @@ Build closed with the reconciliation table — one row per Build Output line in 
 | Inline prompt → Workflow Requirements Step 4 | `weekly-status-report` — Step 4 instruction block | Same skill | Created |
 | MCP server: HubSpot | HubSpot connector (read-only) | Cowork project connector | Installed by you |
 
-Build then wrote that table into the workflow node — the skills under `# Skills`, the generated files and the connector under `# Artifacts` — which is how Test and Run find every piece later without asking Maya where anything went. The last thing it did was walk her through installing both skills and confirm they appeared under Customize → Skills, because Test's fresh-conversation runs need them installed, not staged.
+Build then wrote the skills into the workflow node under `# Skills` — `# Artifacts` gains nothing here; it still holds the opportunity report, the requirements, and the design spec — which is how Test and Run find every piece later without asking Maya where anything went. The last thing it did was walk her through installing both skills and confirm they appeared under Customize → Skills, because Test's fresh-conversation runs need them installed, not staged.
 
 ---
 
 ## Step 5 — Test → `test-results.md`
 
-Maya **opened round 1** in her project chat: the skill read her requirements and design spec, confirmed the passing rule, walked one scenario against the orchestrator's text and confirmed it ends every run with a "What I did" list, checked the HubSpot connection, and wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress, before a single run had happened. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill, give it that scenario's input, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because Cowork chats in a project share the project folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so in one sentence and grades the run pasted back into the chat where the round was opened.
+Maya **opened round 1** in her project chat: the skill read her requirements and design spec, confirmed the passing rule and wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress — then walked one scenario against the orchestrator's text and confirmed it ends every run with a "What I did" list, and checked the HubSpot connection. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill, give it that scenario's input, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because Cowork chats in a project share the project folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so in one sentence and grades the run pasted back into the chat where the round was opened.
 
 The file started like this, with nothing graded yet:
 
@@ -737,8 +737,8 @@ results:
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker) — tests R1, G1; golden example C2 (report of 2026-05-22)
-- **E2 — Blocked-heavy week with a slipped milestone (proposed):** constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E1 — Typical week (real):** `outputs/weekly-status-report/inputs/E1-typical-week.md` — live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker) — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
 
 ## Report card
 
@@ -819,9 +819,9 @@ The same lines as round 1 — AC1 (must), AC2, AC3, R1, G1, and the Step 2 outpu
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** re-run unchanged on the same tracker week — tests R1, G1; golden example C2 (report of 2026-05-22)
-- **E2 — Blocked-heavy week with a slipped milestone (proposed):** the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
-- **E3 — Quiet week (proposed):** run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table) — tests R2 (nothing invented when there is little to report); no golden example
+- **E1 — Typical week (real):** `outputs/weekly-status-report/inputs/E1-typical-week.md` — re-run unchanged on the same tracker week — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E3 — Quiet week (proposed):** `outputs/weekly-status-report/inputs/E3-quiet-week.md` — run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table) — tests R2 (nothing invented when there is little to report); no golden example
 
 ## Report card
 

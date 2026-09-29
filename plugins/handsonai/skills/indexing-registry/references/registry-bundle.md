@@ -90,7 +90,7 @@ the bundle exists.
 | `naming-workflows` | Workflow node stub: `title`, `description` (outcome-first), `status: backlog`, `trigger`, `execution_mode`; line in the chosen Process's `# Workflows` list. **New process → asks which function owns it** and writes a complete minimal Process node (owner required — no stub violates the schema). |
 | `deconstruct` | `status: under-development`, `definition_type` (step-driven/goal-driven), `trigger`, description refinement; `# Artifacts` → Requirements. Merges into stubs; never overwrites set fields. |
 | `design` | `execution_mode`, `autonomy`; `# Artifacts` → Design spec |
-| `build` | `# Skills` / `# Agents` links; `# Artifacts` → platform artifacts |
+| `build` | `# Skills` / `# Agents` links for every built or reused skill and agent; writes no `# Artifacts` link — `# Artifacts` carries only the schema's labelled artifacts, and there is no label for a skill or an agent |
 | `test` | `# Artifacts` → Test results (health lives in test-results.md, not the node) |
 | `run` | `status: in-production`, `stale_after`; `# Artifacts` → Run guide, Run log |
 | `improve` | `stale_after`; `# Artifacts` → Improvement plan; **a Note node when the review yields a durable insight, linked to the Workflow** |
@@ -101,16 +101,17 @@ the bundle exists.
 
 ---
 
-## 4. Framework progress (artifact-presence inference)
+## 4. Framework progress (inferred from what the node links)
 
 There is no `current_step` field. A skill that needs to know "what step is next" infers it from
-which artifacts the Workflow node's `# Artifacts` section already links:
+what the Workflow node already links — its `# Artifacts` labels, plus its `# Skills` / `# Agents`
+links for Step 4:
 
-| Artifact present | Step completed |
+| Evidence present | Step completed |
 |---|---|
 | Requirements | 2 (Deconstruct) |
 | Design spec | 3 (Design) |
-| Platform artifacts (skills/agents) | 4 (Build) |
+| A `# Skills` or `# Agents` link | 4 (Build) |
 | Test results | 5 (Test) |
 | Run guide | 6 (Run) |
 

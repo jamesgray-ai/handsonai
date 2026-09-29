@@ -60,7 +60,7 @@ The model generates everything. Three things stay with you, and Build names them
 
 **Authorize connectors in the account that will run it.** If the workflow reaches a CRM, a calendar, or a drive, you connect it — in the account the workflow will actually run in, not only the one you're building in. The model tells you which connections are needed and which scopes they require (and only those scopes), then verifies the access itself before generating anything that depends on it.
 
-**Install the finished package.** Where your platform keeps skills and agents in a managed library, the built files are still only source until they're installed. Build stages the package, walks you through installing it, and confirms the skill appears in your platform's list before handing off to Test — a fresh-conversation test run depends on it.
+**Install the finished package.** If you're building in a code editor or CLI, the file is already where your platform reads it — you confirm it's in place and that the skill shows up in your session's list. Where your platform keeps skills and agents in a managed library, the built files are still only source until they're installed. Build stages the package, walks you through installing it, and confirms the skill appears in your platform's list before handing off to Test — a fresh-conversation test run depends on it.
 
 ## Mechanism-Specific Build Paths
 
