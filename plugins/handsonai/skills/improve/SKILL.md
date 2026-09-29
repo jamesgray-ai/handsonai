@@ -23,7 +23,7 @@ Evaluate running AI workflows and decide what, if anything, to change. Review ho
 
 Read the workflow's Workflow node (`registry/workflows/<slug>.md`) and load the artifacts it links: the Design Spec, Run Card, the Test Results that hold the baseline, and the **run log** (`runs.md`) if one exists. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and orient from which artifacts each node's `# Artifacts` section already links before proceeding. If no Workflow node exists yet but legacy flat files (`outputs/[name]-*.md`) do, use those paths. If this environment has no persistent workspace and the files aren't present, ask the user to reconnect your registry repo via the GitHub connector, or re-upload the bundle folder, instead of failing.
 
-The **baseline** is the report card of the round that produced the `Ready` verdict — the file named `test-results.md` when Run began — not the first attempt.
+The **baseline** is the report card of the round that produced the `Ready` verdict — the file named `test-results.md` when Run began — not the first attempt. It has to be a **finished** round: the frontmatter says `round_status: complete`, or it has a `readiness` key and no `round_status` at all (a file written before this protocol). A file with `round_status: in-progress` is a round still being graded, so it is not a baseline — stop and say "your last test round isn't finished", then send the user to the `test` skill to finish grading it and come back.
 
 **Confirm the artifacts belong to the same workflow** — check that the `workflow` field in the Test Results frontmatter matches the Workflow node before treating its report card as this workflow's baseline. Parse the baseline from the Test Results frontmatter: the `results` block (per scenario, per criterion, `met` / `not-met`, plus `edits`). If the file has `scores` / `averages` instead, it predates the binary format: say so ("your baseline is from the older 1–5 format"), do not attempt a numeric comparison, and treat this review's report card as the new baseline.
 
@@ -68,14 +68,14 @@ Only recommend graduation when there's a concrete capability gap, not just becau
 
 #### Phase 5 — Regression check
 
-Re-run the same scenarios (`E1…`) the same way Test does — in a fresh conversation, graded here against the same check list, user confirms — and compare line by line:
+Re-run the same scenarios (`E1…`) using the same protocol as the `test` skill — each scenario runs in a new chat that has never seen the requirements or design, and the user says *test this* there so the run is graded where it happened, or pastes the run back into this chat when that chat cannot reach the results file. Point at the `test` skill for the detail rather than restating it. Then compare line by line against the baseline:
 
 - **Diff mechanically.** For every scenario × criterion, compare baseline to current. Present a table of every line that **flipped**: `Scenario | Line | Baseline | Now | Evidence`. A Met → Not met flip is a regression with a cause attached (the line names the step or rule); Not met → Met is an improvement.
 - **Edits trend.** Compare `edits` per scenario, and the run log's "Edits needed" column over time — rising edit effort is the earliest drift signal, often before any line flips.
 - **Like for like.** If a connector was simulated at baseline and is live now (or vice versa), say so — a flip caused by access changing is not the workflow changing.
 - **Check the criteria themselves.** If the business has changed, some lines may be obsolete or missing; propose edits to the Requirements file, not to this review only.
 
-Write this round's report card as a new dated `outputs/[workflow-name]/test-results.md` in Test's format (rename the previous one with a date suffix first). If the outcome is Tune, set `readiness: not-ready` and fill `## Issues identified` naming the building blocks — that file is what Build's fix mode reads.
+Write this round's report card as a new dated `outputs/[workflow-name]/test-results.md` in Test's format (rename the previous one with a date suffix first). Every scenario has been graded by the time you write it, so its frontmatter carries `round_status: complete` alongside `readiness`. If the outcome is Tune, set `readiness: not-ready` and fill `## Issues identified` naming the building blocks — that file is what Build's fix mode reads.
 
 #### Phase 6 — Operationalization review
 
