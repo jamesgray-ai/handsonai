@@ -48,7 +48,7 @@ Interactively analyze and decompose the user's chosen workflow. This is the long
 
 During context probing, push beyond vague answers — identify the specific artifact. For any step where AI is already being used, ask specifically for existing prompt instructions or system prompts — these contain workflow logic that must reach the generated skill — put them in the Context Inventory.
 
-Deconstruct runs one of two paths — **step-driven** (the steps are listable) or **goal-driven** (the path depends on what the agent finds) — and closes by capturing how the user will judge the output: numbered yes/no Acceptance Criteria (`AC1…`, one or two marked **(must)**), workflow-level Rules (`R1…`), Human Gates (`G1…`), 3–5 Example Scenarios (`E1…`), and a Golden Example per scenario. Those IDs are the report card Test grades in Step 5.
+Deconstruct runs one of two paths — **step-driven** (the steps are listable) or **goal-driven** (the path depends on what the agent finds) — and closes by capturing how the user will judge the output: numbered yes/no Acceptance Criteria (`AC1…`, one or two marked **(must)**), workflow-level Rules (`R1…`), Human Gates (`G1…`), 3–5 Example Scenarios (`E1…`), and a Golden Example where a real past output exists. Those IDs are the report card Test grades in Step 5.
 
 **Produces:** `outputs/[name]/requirements.md`, plus the workflow's Workflow node in `registry/` (created by the deconstruct skill; if the workspace has no bundle yet, the skill offers `scaffolding-registry` first)
 
@@ -96,7 +96,7 @@ After Build is complete, tell the user you're moving to Step 5 and proceed autom
 Guide structured testing of the built workflow artifacts:
 1. Load the Workflow Requirements (for Acceptance Criteria + Example Scenarios), the Design Spec, and the built artifacts
 2. Confirm the passing rule: every line of the report card Met on every scenario; a miss on a **(must)** line always fails; other misses are fixed or explicitly accepted
-3. For each Example Scenario, the user runs it in a fresh conversation with the installed skill and brings the output back; grade the report card (every AC, R, G, and step-output line: Met / Not met with evidence); the user confirms each line
+3. For each Example Scenario, the user runs it in a new chat that has never seen the requirements or design, then says *test this* there; the whole run is graded in that chat (or from a run pasted back into the opener) against every AC, R, G, and step-output line — path lines from the closing What I did summary; the user confirms each line
 4. Diagnose each miss to a building block (S1, S2, A1, C3, orchestrator, connector) under `## Issues identified`
 5. The round that reaches Ready becomes the baseline for Improve
 6. Verdict: Ready / Not ready / Waiting on access
@@ -132,7 +132,7 @@ Evaluate a running workflow for quality, relevance, and evolution opportunities.
 7. Recommend: No changes / Tune / Redesign (graduation is a Redesign outcome)
 
 **Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/run-guide.md` + `outputs/[name]/test-results.md` + `outputs/[name]/runs.md` (run log)
-**Produces:** `outputs/[name]/improvement-plan.md` + a dated `test-results.md` on a Tune outcome
+**Produces:** `outputs/[name]/improvement-plan.md` + a new completed `test-results.md` for the regression round (the previous baseline is kept, renamed with a date suffix)
 
 ## File Conventions
 

@@ -155,7 +155,7 @@ For goal-driven workflows, this is replaced by a **Capability Domain Mapping** �
 
 ### Orchestrator Prompt Outline
 
-When mechanism is `Skill`, the spec includes an **Orchestrator Prompt Outline** — the structural skeleton of the workflow's main prompt. It names which step invokes which skill, where PAUSE points sit (from Human Gates), and what the user provides at each gate. Build expands the outline into the full orchestrator using Step Details from the Workflow Requirements.
+When mechanism is `Skill`, the spec includes an **Orchestrator Prompt Outline** — the structural skeleton of the workflow's main prompt. It names which step invokes which skill, where PAUSE points sit (from Human Gates), what the user provides at each gate, and — as its last element — the closing **What I did** run summary the orchestrator gives the user at the end of every run. Build expands the outline into the full orchestrator using Step Details from the Workflow Requirements.
 
 Omitted for `Agent` — orchestration logic lives in the Deployment Plan; on Claude Code and Cowork the primary session orchestrates and the agents are its workers.
 

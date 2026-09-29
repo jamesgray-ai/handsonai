@@ -180,7 +180,7 @@ Present as a validation summary:
 > "Let me validate the workflow before we finalize it. Walking through the end-to-end flow, here's what I found:
 > - **[Finding type]**: [specific gap, e.g., 'Step 3 produces a draft but Step 4 expects a formatted document — is there an implicit formatting step?']
 > - **[Finding type]**: [specific gap]
-> - **No issues found in**: [dimensions that checked out]
+> - **No issues found in**: [what checked out]
 >
 > Which of these need to be addressed?"
 
@@ -229,8 +229,8 @@ Then ask, one at a time, in this order:
 1. **Real example first.** "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?" If yes, ask for it (paste, attach, or a Context Inventory ID) and read it before asking anything else. If a document, add it to the Context Inventory and reference its ID. If none exists, that's fine and move on — but if the user produces this output today, a recent good one usually does.
 2. **Derive the criteria from the example.** Looking at the example (or, if none, at the Goal), propose the qualities that make it good as **numbered yes/no statements**: "Looking at this, it seems you care that (1) every row has contact info, (2) it uses your three headings, (3) it stays under a page. Is that the list? What's missing?" Every statement must be answerable Met / Not met from one run's output. Sharpen soft qualities until they are checkable: "tone is good" → "I could send this without editing the wording"; "matches our style" → "uses our headings and stays under one page". Never record a scale word ("mostly", "somewhat", "1–5"). For goal-driven workflows, also seed the list from the rejection-test answers captured in question 3 of the goal-driven interview — each "I'd send it back because…" is a criterion; confirm and fill gaps rather than re-eliciting.
 3. **The one that matters most.** "If it got everything else right but missed one of these, which one would make you send it back?" Mark that criterion (or two) with **(must)** — Test reports it first.
-4. **Realistic inputs to try.** "Give me 3–5 real or realistic inputs you'd run this on — different enough to test its range, including one hard case. For each, what would you look for in the output?" These become Example Scenarios E1…E5. For goal-driven workflows, harvest them from the variation envelope captured in question 4 of the goal-driven interview rather than re-asking.
-5. **Golden example per scenario.** For each scenario: "Do you have a past output for an input like this that was exactly right?" Record it in the Golden Example column (Context Inventory ID, short excerpt, or "—"). Keep at least one scenario *without* a golden example so Test can see whether the workflow generalizes.
+4. **Realistic inputs to try — I draft, you correct.** Ask first: "Give me one or two *real* inputs you've actually handled recently — the one you'd run this on tomorrow." Take what they give you. Then propose the rest, to 3–5 in total, each aimed at one thing that could go wrong, and say what each one tests — in this order, and only where it applies: the typical case; a hard case taken from a step's edge cases (goal-driven: from the variation envelope); an empty or malformed input; one that exercises a **Must never** rule (`R…`) or a human gate (`G…`); and, only when the Context Inventory has an `External` source row, an input that carries an instruction addressed to the AI. When you say each one out loud, name the risk in plain words — "this one checks it never contacts someone we've already emailed" — not the label: the user has not seen `R…` or `G…` yet. The labels go in the file, and the closing preview introduces them. Propose only inputs the user could actually put their hands on — something they have, or something they could write in a minute — never one that needs a record or a system they do not have. Then hand it back: "Change any of these, replace them, or drop them — we want 3–5, with at least one real one and at least one hard one. If you couldn't get hold of an input for one of these by tomorrow, say so and we'll swap it: in Step 5 you'll need something real to paste in for every one of these." These become Example Scenarios E1…E5. Write `(real)` or `(proposed)` at the end of each Scenario cell, and end each "What to look for in the output" cell with what it tests (`; tests R2, G1`, or `; tests the Step 2 duplicate-company edge case`). For goal-driven workflows, take the real inputs and the hard case from the variation envelope captured in question 4 of the goal-driven interview rather than re-asking, then propose the rest the same way.
+5. **Golden example per scenario.** Ask only about the `(real)` scenarios: "Do you have a past output for an input like this that was exactly right?" Record it in the Golden Example column (Context Inventory ID, short excerpt, or "—"). A `(proposed)` scenario has no past output by construction — write "—", and never write a golden example you generated yourself. That is what guarantees at least one scenario runs without a golden example, so Test can see whether the workflow generalizes.
 
 **Then close `Value & Measurement`** with the two fields that describe the revised workflow:
 
@@ -249,6 +249,8 @@ These wait until now because a target describes the *revised* workflow. For step
 > | Uses our three headings | AC2 | — | — |
 > | Never includes someone we've already contacted | R3 | — | — |
 > | Pauses before sending | G1 | — | — |
+>
+> In Step 5 you'll run each of those inputs in a new chat, then say *test this* and I'll grade it there.
 >
 > The workflow is ready when every line is Met on every input — or when you've looked at a miss and decided you can live with it. I've written these as your *acceptance criteria* (AC1…), *rules* (R1…), and *human gates* (G1…) in the file; those are the labels Test uses."
 
@@ -278,7 +280,7 @@ When the user selects goal-driven, run this interview instead of the step-driven
    - **Rejection test (testability)**: "Describe an output that *looks* plausible but you'd send back. What's wrong with it?" The answers surface implicit acceptance criteria — carry them forward to seed Phase 12; don't re-elicit there.
 
    If the user's first answer in question 2 is purely metric-shaped (no deliverable at all), skip the reflect-back and go straight to the level test. If the probe cap is reached and the goal is still untestable, switch from asking to proposing: draft a sharp candidate goal yourself from everything heard so far and ask the user to confirm or correct it — never proceed to question 4 with a goal that fails the done/not-done test.
-4. **Variation envelope**: "This works as goal-driven because the work takes different steps depending on what comes in. What's the range it needs to handle? Give me the typical case, and a couple of the awkward or harder ones." These answers become the Example Scenarios in Phase 12 — capture them now and harvest them there; don't re-elicit scenarios later. **Misroute check:** if the answer reveals the work actually takes the same steps every time (no meaningful variation), say so and offer to switch: "This sounds like it runs the same way each run — the step-driven path would capture it better. Want to switch?" Carry everything gathered so far into the step-driven deep dive rather than restarting.
+4. **Variation envelope**: "This works as goal-driven because the work takes different steps depending on what comes in. What's the range it needs to handle? Give me the typical case, and a couple of the awkward or harder ones." These answers become the real inputs and the hard case among the Example Scenarios in Phase 12 — capture them now and harvest them there (the model proposes the rest there); don't re-elicit scenarios later. **Misroute check:** if the answer reveals the work actually takes the same steps every time (no meaningful variation), say so and offer to switch: "This sounds like it runs the same way each run — the step-driven path would capture it better. Want to switch?" Carry everything gathered so far into the step-driven deep dive rather than restarting.
 5. **Inputs**: "What kicks it off, and what does the agent system get to work with — data, documents, access?" (Confirm against what the scenario already established rather than re-asking.)
 6. **Rules & Constraints**: "What rules should the agent follow? Things it must always do, must never do, or limits on scope, tone, length." Keep this **behavioral**. Where data may travel and what the agent may never *act* on — send, post, create, change — are captured at Phase 11 under `Security, Privacy & Safety`, not here.
 7. **Fallback behavior**: "When it hits a case it can't confidently handle — missing info, something ambiguous — what should it do? Stop and ask you, make its best attempt and flag it, or skip that item?" This is the agent's behavior on *unplanned* exceptions — distinct from the *planned* pauses captured under Human gates. Record it under Rules & Constraints in the output. If the answer is "stop and ask," also capture it as a Human Gate (question 9) so the pause appears where Design looks for review points.
@@ -296,7 +298,7 @@ When the user selects goal-driven, run this interview instead of the step-driven
 Step-driven has a Phase 10 validation gate; goal-driven needs the equivalent so a vague goal or missing guardrails doesn't sail through to Design. Walk the definition end-to-end and present a short validation summary covering:
 
 - **Goal is bounded, singular, and testable** — one clear deliverable that passes the done/not-done test ("help with email" is too vague; "a drafted reply per inbound inquiry" is bounded). If you can't tell from one run's output whether the goal is met, tighten it before Design.
-- **Variation range is captured** — the typical case and the awkward/edge cases are identified (these become the test scenarios in Phase 12).
+- **Variation range is captured** — the typical case and the awkward/edge cases are identified (these become the real and hard test scenarios in Phase 12).
 - **Rules are sufficient** — must-do and must-never both covered; scope boundaries explicit enough to keep the agent in bounds.
 - **Fallback behavior is defined** — it's clear what the agent does when it can't confidently complete a case.
 - **Context is reachable** — every context/data source named has a known location and an access path (not "it's in my head" or a login-only portal with no plan to bridge it).
@@ -421,8 +423,10 @@ Reference example: [Context Inventory ID of the real output the criteria were de
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
-| E1 | [short name] | [description] | [what makes this output "good"] | [Context Inventory ID, short inline excerpt, or "—"] |
-| E2 | … | … | … | … |
+| E1 | [short name] (real) | [description] | [what makes this output "good"]; tests [AC/R/G IDs, or the named edge case] | [Context Inventory ID, short inline excerpt, or "—"] |
+| E2 | [short name] (proposed) | … | …; tests [IDs] | — |
+
+Mark a Scenario `(real)` when it is an input the user has actually handled and `(proposed)` when the model suggested it — at least one must be `(real)`. The `; tests …` tail at the end of the "What to look for in the output" cell names the risk that scenario covers; Test carries that text into its report card.
 
 Golden Examples are optional but high-value — Test (Step 5) compares actual output against them instead of relying on gut feel alone. Use "—" when none exists.
 
@@ -534,7 +538,7 @@ Insert between the Metadata table and the Context Inventory (omit Steps Overview
 
 ```
 
-The Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety sections from the shared shell still apply — goal-driven uses the same shell, just a different middle, so `Inputs` is the only section this block adds. `Rules & Constraints` is collected by question 6 of this interview and written into the shared shell, not here. The **Example Scenarios should reflect the variation envelope** captured in Phase 4 (goal-driven): the typical case plus the awkward/edge cases the agent must handle.
+The Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety sections from the shared shell still apply — goal-driven uses the same shell, just a different middle, so `Inputs` is the only section this block adds. `Rules & Constraints` is collected by question 6 of this interview and written into the shared shell, not here. The **Example Scenarios should reflect the variation envelope** captured in Phase 4 (goal-driven): the typical case plus the awkward/edge cases the agent must handle. Those are the real inputs and the hard case; the model proposes the rest of the 3–5 as in Phase 12, and the user corrects them.
 
 ## Guidelines
 

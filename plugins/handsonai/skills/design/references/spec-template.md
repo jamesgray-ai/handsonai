@@ -207,9 +207,13 @@ The high-level shape of the orchestrator the user runs to execute the workflow. 
   - ...
 
 [Final output: what the workflow delivers, format, where it goes]
+
+[Closing run summary — required: "What I did" — the steps taken in order; each gate where it paused and what the person decided; each tool action as system: action; where the deliverable is]
 ```
 
 Use the actual Step IDs and Build Output values. Mark PAUSE points where Human Gates apply. Indicate where the user provides input vs. where the workflow runs autonomously.
+
+**Closing run summary (required).** The orchestrator ends every run with a short list titled **What I did**: the steps it took, in order; each human gate where it paused and what the person decided; each tool action as *system: action* (e.g. "HubSpot: created 3 draft records"); and where the deliverable is. Plain language, under ten lines. Test (Step 5) quotes this list as evidence for rules, gates, and step outputs, so leave nothing out that a rule or gate covers.
 
 ## Data Readiness Summary
 
@@ -274,7 +278,7 @@ For each Build Output tagged `New agent: AN` above:
 | **Description** | [≤1024 chars; MUST start with "Use this agent when..." — this is the literal description that goes into the agent file frontmatter and drives invocation. Third person; names concrete trigger contexts/keywords. Include 2-3 `<example>` blocks (see Trigger Examples field below) inline at the end.] |
 | **Mission** | [one-sentence primary purpose] |
 | **Responsibilities** | [bulleted list of what the agent does once invoked] |
-| **Output Format** | [structured description of what the agent's output should look like — sections, fields, format constraints. For orchestrator-dispatched workers this is the handoff contract: prefer a structured summary over free prose] |
+| **Output Format** | [structured description of what the agent's output should look like — sections, fields, format constraints. For orchestrator-dispatched workers this is the handoff contract: prefer a structured summary over free prose. **Closing message:** the agent ends its closing message with the **What I did** list — steps, gates and decisions, tool actions, deliverable location — the same content as the Orchestrator Prompt Outline's closing run summary] |
 | **Tone & Style** | [voice/register, e.g., "concise, technical, no hedging"] |
 | **Constraints** | [must-not-dos, scope boundaries, source restrictions. For Autonomous agents, include an iterations/actions-per-run bound — Build maps it to `maxTurns` or the platform equivalent] |
 | **Failure Modes** | [condition → action, one per line — including what the agent returns to its orchestrator when it cannot complete] |
