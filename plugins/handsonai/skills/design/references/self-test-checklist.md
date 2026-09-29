@@ -37,7 +37,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 
 ## Cross-references
 
-- [ ] Every tool in the Integration column has a matching entry in Integration Options with at least one Source URL
+- [ ] Every tool in the Integration column has a matching entry in Integration Options with at least one Source URL. If no step names a tool, Integration Options is the single line *No integrations — the workflow is text-only.* and this item passes
 - [ ] Every skill `Depends On` reference points to a defined skill ID
 
 ## Mechanism-specific

@@ -135,7 +135,11 @@ If the Workflow Requirements has no `Security, Privacy & Safety` section, it pre
 
 ## Integration Options
 
-For each tool identified in the Decomposition table (or Capability Domain Mapping for goal-driven):
+If the workflow uses no tools, the section is one line:
+
+*No integrations — the workflow is text-only.*
+
+Otherwise, for each tool identified in the Decomposition table (or Capability Domain Mapping for goal-driven):
 
 ### [Tool Name] (Steps N, M / Domains: X, Y)
 
