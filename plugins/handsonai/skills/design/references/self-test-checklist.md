@@ -43,6 +43,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 ## Mechanism-specific
 
 - [ ] Orchestrator Prompt Outline section is present when mechanism is `Skill` (omitted when mechanism is `Agent`)
+- [ ] Orchestrator Prompt Outline (Skill) or the agent's closing message (Agent) names the closing **What I did** run summary
 - [ ] Agent Configuration present when mechanism is `Agent` (or `agents: 0` is set and orchestration logic is documented in the Deployment Plan)
 
 ## Safety
