@@ -660,6 +660,22 @@ Build then wrote that table into the workflow node — the skills under `# Skill
 
 Maya **opened round 1** in her project chat: the skill read her requirements and design spec, confirmed the passing rule, walked one scenario against the orchestrator's text and confirmed it ends every run with a "What I did" list, checked the HubSpot connection, and wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress, before a single run had happened. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill, give it that scenario's input, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because Cowork chats in a project share the project folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so in one sentence and grades the run pasted back into the chat where the round was opened.
 
+The file started like this, with nothing graded yet:
+
+```yaml
+---
+workflow: weekly-status-report
+design_spec: outputs/weekly-status-report/design-spec.md
+requirements: outputs/weekly-status-report/requirements.md
+date: 2026-06-05
+environment: "Cowork, HubSpot connector live"
+round_status: in-progress
+criteria_total: 0
+criteria_met: 0
+results: {}
+---
+```
+
 Round 1 covered E1 and E2; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report) — output only, never the path. One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so she took the results back to Build, which re-entered fix mode and had Cowork regenerate just the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md` (renamed by round 2's opener before it wrote the new file), round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later. The verdict came in E2's chat, the last of the round — diagnosis, readiness, and the counts written into the round's file from there.
 
 **What one grading exchange looked like.** E1 ran in a chat of its own. The last thing the orchestrator skill printed there was its closing summary:

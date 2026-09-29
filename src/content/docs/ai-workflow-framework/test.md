@@ -52,7 +52,7 @@ For each input you run, the skill produces one table. Every row is something you
 
 `AC` rows are your acceptance criteria, `R` rows your rules, `G` rows your human gates, and each step's stated output gets a row too. The **Evidence** column is what makes the grade trustworthy: a count, a quoted phrase, a missing element — never "looks fine".
 
-The `R`, `G`, and step rows are proved from the short **"What I did"** list every workflow you build ends its run with — the steps it took, where it paused for you and what you decided, and what it did with your tools. A line that neither that list nor the conversation shows is marked "not run", with the reason, instead of being guessed at.
+The `R`, `G`, and step rows are proved from the short **"What I did"** list every workflow you build ends its run with — the steps it took, where it paused for you and what you decided, what it did with your tools, and where the deliverable is. A line that neither that list nor the conversation shows is marked "not run", with the reason, instead of being guessed at.
 
 Where you supplied a **golden example** (a real past output that was exactly right), the skill compares the output against it — output only, never the path: what's missing, what's extra, what's different in substance. A golden example is one good answer, not the only one — the question is "would you send this instead?" Keep at least one input without a golden example, so you learn whether the workflow generalizes.
 

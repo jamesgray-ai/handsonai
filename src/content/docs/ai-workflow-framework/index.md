@@ -148,7 +148,7 @@ The Build step starts with a **Prepare Context** phase — systematically resolv
 
 Structured testing against the Acceptance Criteria and Example Scenarios captured in the Workflow Requirements.
 
-Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full round where you run each Example Scenario from the Workflow Requirements in a fresh conversation and grade the output against your acceptance criteria — every line is met or not met, with evidence. When a line misses, you isolate the building block that caused it. The round that passes becomes your baseline for future comparison.
+Your first run is a test, not a deployment. The Test step walks you through a quick smoke test (does it run at all?), then a full round where you run each Example Scenario in a new chat and say *test this* there — the whole run is graded where it happened, every line met or not met, with evidence. When a line misses, you isolate the building block that caused it. The round that passes becomes your baseline for future comparison.
 
 Most workflows need 2-4 iterations between Build and Test before they produce reliably good output. When something is off, the skill helps you diagnose which building block to fix and sends you back to Build with a clear target.
 
