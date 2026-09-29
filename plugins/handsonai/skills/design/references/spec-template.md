@@ -208,7 +208,7 @@ The high-level shape of the orchestrator the user runs to execute the workflow. 
 
 [Final output: what the workflow delivers, format, where it goes]
 
-[Closing run summary — required: the "What I did" list]
+[Closing run summary — required: "What I did" — the steps taken in order; each gate where it paused and what the person decided; each tool action as system: action; where the deliverable is]
 ```
 
 Use the actual Step IDs and Build Output values. Mark PAUSE points where Human Gates apply. Indicate where the user provides input vs. where the workflow runs autonomously.

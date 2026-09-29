@@ -426,7 +426,7 @@ The 12 fields (field-by-field format in `references/spec-template.md`):
 | **Description** | ≤1024 chars, MUST start with "Use this agent when..." — verbatim text for the agent file frontmatter; drives invocation. Third person; name the concrete trigger contexts and keywords that should route work to this agent |
 | **Mission** | One-sentence primary purpose |
 | **Responsibilities** | Bulleted list of what the agent does once invoked |
-| **Output Format** | Structured description of what the agent's output should look like. For workers dispatched by an orchestrator, this is the **handoff contract** — prefer a structured summary over free prose |
+| **Output Format** | Structured description of what the agent's output should look like. For workers dispatched by an orchestrator, this is the **handoff contract** — prefer a structured summary over free prose. For an Agent mechanism, also state that the agent's closing message ends with the **What I did** list — steps, gates and decisions, tool actions, deliverable location |
 | **Tone & Style** | Voice and register (e.g., "concise, technical, no hedging") |
 | **Constraints** | Must-not-dos, scope boundaries, source restrictions. For Autonomous agents, include a bound on iterations/actions per run (Build maps it to `maxTurns` or the platform equivalent) |
 | **Failure Modes** | Condition → action, one per line — including what the agent returns to its orchestrator when it cannot complete (mirrors the skill blueprint field) |
