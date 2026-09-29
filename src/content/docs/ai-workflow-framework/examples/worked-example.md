@@ -296,7 +296,7 @@ Reference example: C2
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
 | E1 | Typical week (real) | 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
-| E2 | Blocked-heavy week with a slipped milestone (proposed) | 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order; tests R1 and the Step 2 ambiguous-status edge case | — |
+| E2 | Blocked-heavy week with a slipped milestone (proposed) | 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order; tests R1 and the Step 2 ownerless-blocker edge case | — |
 | E3 | Quiet week (proposed) | 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
 
 ## Rules & Constraints
@@ -658,15 +658,15 @@ Build then wrote that table into the workflow node — the skills under `# Skill
 
 ## Step 5 — Test → `test-results.md`
 
-Maya **opened round 1** in her project chat: the skill read her requirements and design spec, confirmed the passing rule, checked the HubSpot connection, and wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress, before a single run had happened. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill, give it that scenario's input, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because Cowork chats in a project share the project folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so in one sentence and grades the run pasted back into the chat where the round was opened.
+Maya **opened round 1** in her project chat: the skill read her requirements and design spec, confirmed the passing rule, walked one scenario against the orchestrator's text and confirmed it ends every run with a "What I did" list, checked the HubSpot connection, and wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress, before a single run had happened. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill, give it that scenario's input, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because Cowork chats in a project share the project folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so in one sentence and grades the run pasted back into the chat where the round was opened.
 
-Round 1 covered E1 and E2; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report) — output only, never the path. One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so she took the results back to Build, which re-entered fix mode and had Cowork regenerate just the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md` (renamed by round 2's opener before it wrote the new file), round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later.
+Round 1 covered E1 and E2; E3, the quiet week, ran for the first time in round 2 on a constructed input, alongside re-runs of E1 and E2. E1 was checked against the golden example (the real 2026-05-22 report) — output only, never the path. One line missed on E2 in the first round — exactly the kind of thing testing exists to catch — so she took the results back to Build, which re-entered fix mode and had Cowork regenerate just the orchestrator skill, then a second round — now covering all three scenarios — got it to Ready. Both rounds stay on disk: round 1 as `test-results-2026-06-05.md` (renamed by round 2's opener before it wrote the new file), round 2 as `test-results.md` — and it's the Ready round that becomes the baseline Improve compares against later. The verdict came in E2's chat, the last of the round — diagnosis, readiness, and the counts written into the round's file from there.
 
 **What one grading exchange looked like.** E1 ran in a chat of its own. The last thing the orchestrator skill printed there was its closing summary:
 
 ```
 What I did
-- Read the HubSpot tracker for the week of 2026-06-01 — 9 tasks updated, 1 blocker.
+- HubSpot: read the tracker for the week of 2026-06-01 — 9 tasks updated, 1 blocker.
 - Drafted the report with the status-report-drafting skill, using your template (C2) and tone guide (C3).
 - Paused and showed you the draft before saving anything — you approved it as-is.
 - Saved the approved report to outputs/weekly-status-report/status-report-2026-06-05.md.
@@ -717,12 +717,12 @@ results:
 - G1 — Maya approves before the report is saved or shared
 - Step 2 output — complete draft under 400 words
 
-(R2–R5, G2, and the Step 1, 3, and 4 output lines are on the list too — omitted here for length)
+(R2–R5, G2, and the Step 1, 3, and 4 output lines are on the list too — omitted here, and excluded from the counts below, for length)
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker)
-- **E2 — Blocked-heavy week with a slipped milestone (proposed):** constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date
+- **E1 — Typical week (real):** live tracker data from the week of 2026-06-01 (9 tasks, 1 blocker) — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** constructed input with 4 blockers, one ownerless, plus a milestone that slipped past its due date — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
 
 ## Report card
 
@@ -797,13 +797,15 @@ results:
 
 ## Check list
 
-The same lines as round 1 — AC1 (must), AC2, AC3, R1, G1, and the Step 2 output, plus R2–R5, G2, and the Step 1, 3, and 4 output lines omitted here for length — written when this round was opened, before any run.
+The same lines as round 1 — AC1 (must), AC2, AC3, R1, G1, and the Step 2 output — written when this round was opened, before any run.
+
+(R2–R5, G2, and the Step 1, 3, and 4 output lines are on the list too — omitted here, and excluded from the counts below, for length)
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** re-run unchanged on the same tracker week
-- **E2 — Blocked-heavy week with a slipped milestone (proposed):** the same constructed input as round 1
-- **E3 — Quiet week (proposed):** run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table)
+- **E1 — Typical week (real):** re-run unchanged on the same tracker week — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week with a slipped milestone (proposed):** the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E3 — Quiet week (proposed):** run for the first time this round, on a constructed input (2 updates, no blockers, per the requirements' Example Scenarios table) — tests R2 (nothing invented when there is little to report); no golden example
 
 ## Report card
 
@@ -917,7 +919,7 @@ And the run log after a few weeks — one line per run, written by the skill its
 
 ## Step 7 — Improve → `improvement-plan.md`
 
-When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. She re-ran E1, E2, and E3 the same way Test does — each in its own new chat, graded there — against the baseline, the Ready round's report card in `test-results.md`, and every line held. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
+When the node's `stale_after` date arrived, Maya ran Improve in a fresh conversation. Improve opened a regression round the way Test does — it renamed the Ready round to `test-results-2026-06-08.md` and wrote a fresh in-progress `test-results.md` — and she re-ran E1, E2, and E3 each in its own new chat, typing *test this* there, and every line held against the baseline. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
 
 ````markdown
 # Weekly Status Report — Improvement Plan
@@ -932,7 +934,7 @@ the second time.
 
 ## Regression
 
-Baseline: `test-results.md` (2026-06-08) — the round that produced the Ready verdict.
+Baseline: `test-results-2026-06-08.md` (2026-06-08) — the round that produced the Ready verdict.
 
 | Scenario | Line | Baseline | Now | Evidence |
 |---|---|---|---|---|

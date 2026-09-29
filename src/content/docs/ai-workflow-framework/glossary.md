@@ -65,7 +65,7 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Run log** — The one-line-per-run record (`runs.md`) that [Run](../run/) starts: date, input, result, and edits needed. [Improve](../improve/) reads it as evidence of drift.
 
-**Scenario (E1…)** — A representative input, with what to look for in the output, captured in [Deconstruct](../deconstruct/)'s Example Scenarios and given a stable ID (`E1, E2, …`) — you supply the real ones, the model proposes the rest against what could go wrong, and you correct the list. [Test](../test/) runs each one in its own chat and grades it there.
+**Scenario (E1…)** — A representative input, with what to look for in the output, captured in [Deconstruct](../deconstruct/)'s Example Scenarios and given a stable ID (`E1, E2, …`) — you supply the real ones, the model proposes the rest against what could go wrong, and you correct the list. In [Test](../test/) you run each one in its own new chat and say *test this* to have it graded there.
 
 **Skill (mechanism)** — An orchestration mechanism you start by name; it follows the mapped steps every time, pausing where you said. Chosen in [Design](../design/) when you trigger the work yourself and the same steps repeat each run.
 
@@ -75,6 +75,6 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **`stale_after`** — The review-date field on a Workflow node. A workflow is stale once today's date reaches it; [Run](../run/) sets it on go-live, and [Improve](../improve/) resets it at the close of each review.
 
-**What I did summary** — The short list every workflow [Build](../build/) creates ends its run with: the steps it took, where it paused for you and what you decided, what it did with your tools, and where the deliverable is. [Test](../test/) grades the rules, gates, and step outputs against it.
+**What I did summary** — The short list every workflow you build in [Build](../build/) ends its run with: the steps it took, where it paused for you and what you decided, what it did with your tools, and where the deliverable is. [Test](../test/) grades the rules, gates, and step outputs against it.
 
 **Workflow node** — The registry file (`registry/workflows/<slug>.md`) that tracks one workflow's status, mode, and artifacts across every framework step, so any session can pick up where you left off. First written by [Analyze](../analyze/); see the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
