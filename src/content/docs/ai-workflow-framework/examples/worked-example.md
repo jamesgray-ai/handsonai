@@ -295,9 +295,9 @@ Reference example: C2
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
-| E1 | Typical week (real) | 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
-| E2 | Blocked-heavy week with a slipped milestone (proposed) | 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order; tests R1 and the Step 2 ownerless-blocker edge case | — |
-| E3 | Quiet week (proposed) | 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
+| E1 | Typical week (real) | `outputs/weekly-status-report/inputs/E1-typical-week.md` — 8–12 updated tasks, 1–2 blockers | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
+| E2 | Blocked-heavy week with a slipped milestone (proposed) | `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — 4+ blockers incl. one with no owner, plus a milestone past its due date | Every blocker has an owner and a next action; sections stay in template order; tests R1 and the Step 2 ownerless-blocker edge case | — |
+| E3 | Quiet week (proposed) | `outputs/weekly-status-report/inputs/E3-quiet-week.md` — 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
 
 ## Rules & Constraints
 

@@ -16,7 +16,7 @@ Analyze concrete opportunities where AI can improve your workflows. Produces a c
 
 ## Workflow
 
-**Set expectations up front (first message).** Say: "This is a guided interview of about 15–20 minutes. By the end you'll have three to five candidate workflows registered in your backlog, with one I'll recommend building first. Stopping early is safe — everything is saved and you can pick up later."
+**Set expectations up front (first message).** Say: "This is a guided interview of about 15–20 minutes. By the end you'll have up to five candidate workflows registered in your backlog, and one I'll recommend building first. Stopping early is safe — everything is saved and you can pick up later."
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
