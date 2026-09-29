@@ -262,7 +262,7 @@ Produce the structured Workflow Requirements document and write it to the output
 
 **Self-check before finishing (so Design can parse it).** After writing, verify the file against the machine-readability rules and fix any miss before handing off:
 - File lives in the workflow folder using the kebab-case ID: `outputs/[workflow-name]/requirements.md` (e.g., "Inbound Lead Triage" → `outputs/inbound-lead-triage/requirements.md`), and the workflow's Workflow node has `status: under-development` and the requirements path linked under `# Artifacts`.
-- Every scenario's input file exists at the exact path its `Input` cell names, and holds the input itself — a real one verbatim, a proposed one written out in full — not a description of it. Write any that are missing before finishing.
+- Every scenario's input file exists at the exact path its `Input` cell names, and holds the input itself — a real one verbatim, a proposed one written out in full — not a description of it — or, where the user could not supply a real input today, the single placeholder line Phase 12 allows, and nothing invented in its place. Write any that are missing before finishing.
 - All required headings are present and **exactly named** (no synonyms): Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, Security, Privacy & Safety, plus the path-specific middle (Steps Overview + Step Details + Sequence for step-driven; Inputs for goal-driven).
 - Canonical vocabulary used exactly (Definition Type, Lens, Context Status, AI Accessible) and stable IDs present (steps 1,2,3…; context C1…; scenarios E1…; criteria AC1…; rules R1…; gates G1…).
 - If anything is off, fix it before telling the user it's ready.

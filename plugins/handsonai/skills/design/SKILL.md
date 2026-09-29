@@ -510,4 +510,4 @@ For goal-driven workflows, the template substitutions in `references/goal-driven
 - Do not generate platform artifacts — that happens in the Build phase
 - Do not restate Workflow Requirements content in the Design Spec — reference the file
 - Never assemble the spec or run the self-test from memory — read the bundled reference files at the steps that call for them
-- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 8 of 14 — classifying the steps") so the user always knows where they are. Keep one running count the user hears; a phase that does not apply to this workflow is skipped silently — never announce "Phase 11 does not apply".
+- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 8 of 14 — classifying the steps") so the user always knows where they are. Keep one running count the user hears; a phase that does not apply to this workflow is skipped silently — never announce "Phase 11 does not apply". The count simply moves on to the next phase that applies ("Phase 10 of 14", then "Phase 12 of 14").
