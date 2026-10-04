@@ -7,7 +7,7 @@ course_mode: Blended
 course_url: https://maven.com/james-gray/hands-on-ai-for-leaders
 course_provider: Maven
 course_language: en
----From AI user to AI builder in 30 days. This cohort-based course goes beyond ChatGPT prompting to give you hands-on experience building AI-powered workflows, autonomous agents, and browser automations — the practical skills leaders need to reimagine business processes and communicate credibly with technical teams.
+---From AI user to AI builder in 30 days. This cohort-based course goes beyond ChatGPT prompting to give you hands-on experience building AI-powered workflows and autonomous agents — the practical skills leaders need to reimagine business processes and communicate credibly with technical teams.
 
 [Enroll on Maven →](https://maven.com/james-gray/hands-on-ai-for-leaders)
 
@@ -26,13 +26,14 @@ The week-by-week syllabus lives on the Maven course page, alongside dates, prici
 
 ## Instructor
 
-**James Gray** — UC Berkeley AI instructor and former CIO/CPO. Previously spent 10 years at Microsoft building enterprise data platforms. Has trained 5,000+ executives globally in AI strategy.
+**James Gray** — UC Berkeley AI Strategy instructor and former tech CIO and CPO, upskilling more than 2,000 leaders a year. Spent nearly a decade at Microsoft building the data and analytics platforms the business ran on.
 
 - [Maven Profile](https://maven.com/james-gray)
 - [Other course: Agentic AI for Claude Builders](../builders/)
 
 ## Prerequisites
 
-- Paid subscription to ChatGPT, Claude, or Gemini
+- A paid plan on the AI platform you'll build in — at minimum Claude Pro, ChatGPT Plus, a Microsoft 365 Copilot license, or a Gemini Enterprise seat
 - macOS or Windows computer
+- Full setup steps: the [Tools Setup Checklist](../tools-setup-checklist/) — Part 1 is required; Part 2 is optional
 - Comfort with small-group learning — no coding required
