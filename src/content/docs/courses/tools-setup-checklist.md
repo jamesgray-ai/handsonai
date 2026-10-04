@@ -65,7 +65,7 @@ You need at least one AI platform set up before starting anything else. Pick whi
 **Done when:**
 
 - You have a paid AI platform account and can start conversations — at minimum Claude Pro, ChatGPT Plus, a Gemini Enterprise seat, or a Microsoft 365 Copilot license
-- You've installed the desktop and mobile apps for your platform
+- You've installed your platform's desktop app — the Claude desktop app, or ChatGPT for desktop (ChatGPT Work and Codex) — plus the mobile app if you want it
 - You've added personalization / custom instructions so the AI knows about your role and work
 - Memory is enabled so the AI remembers context across conversations
 - You've connected at least one external tool or data source (Google Docs, Slack, Notion, etc.)
