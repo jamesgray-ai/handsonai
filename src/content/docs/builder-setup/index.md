@@ -39,6 +39,13 @@ Optional tools that work in collaboration with your AI platform to build and man
 | **Git** | Automatically tracks every change to every file | You'll constantly create and refine your building blocks — Git keeps the full history for you, so you never have to manage versions manually, and it connects to GitHub so everything gets backed up in the cloud |
 | **GitHub** | Cloud storage and backup for your files, built on top of Git. Two pieces: a GitHub *account* (in your browser) and the GitHub *CLI* (a small program on your computer that logs Git and your AI tools in as you) | Your work is safe, versioned, accessible from any machine, and easy to share |
 | **Voice to Text** | Dictation software (Wispr Flow or your system's built-in voice input) | Talk instead of type — faster for long prompts and more natural when you're thinking out loud |
+
+### Part 3 — Your AI Registry
+
+The home for every workflow you build — set up live in Session 1 if you're in a Hands-on AI course.
+
+| Capability | What it is | Why it matters to you |
+|---|---|---|
 | **AI Registry** | A knowledge-bundle inventory of your workflows, processes, and insights — Markdown in your workspace, maintained by your AI assistant | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
 
 ## Setup Order
@@ -64,10 +71,7 @@ Pick any combination — each row names the specific capability it unlocks. Rows
 | 6 | [GitHub CLI](github-cli-setup/) | ~10 min | GitHub Account + Git | Log your computer and AI tools in to GitHub once, so files sync without passwords |
 | 7 | [Create & Clone Your First Repository](repo-creation-and-cloning/) | ~5 min | Editor + GitHub CLI | Prove the three pieces above work together, and get a folder to build in |
 | 8 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
-| 9 | [AI Registry](ai-registry-setup/) | ~25 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
 | 10 | [Knowledge Graph](knowledge-graph-setup/) | ~40 min | AI platform + a folder | Give your AI a knowledge graph of your work — clients, offerings, processes — that it reads before answering and keeps current for you |
-
-If you're taking a Hands-on AI course, Step 9 (AI Registry) isn't optional — the AI Workflow Framework's Analyze step reads it, so set it up before you run Analyze.
 
 #### Git & GitHub at a glance
 
@@ -95,6 +99,14 @@ Some Power User tools (Editor, Git, GitHub CLI) involve running commands in the 
 :::
 
 ---
+
+### Part 3 — Your AI Registry (~25 min)
+
+If you're taking a Hands-on AI course, skip this until Session 1 — we set it up together there. Working through the framework on your own? Set it up before you run Analyze, which reads it and registers your candidates.
+
+| # | Tool | Time | Requires | Install this if you want to… |
+|---|---|---|---|---|
+| 9 | [AI Registry](ai-registry-setup/) | ~25 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
 
 ## What's Next?
 

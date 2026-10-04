@@ -35,11 +35,11 @@ On Claude and ChatGPT, one plugin install gives you all seven skills at once, an
 :::
 
 <details>
-<summary><strong>Claude — Chat & Cowork</strong> (claude.ai and the Claude app) — no terminal, ~3 minutes</summary>
+<summary><strong>Claude</strong> (claude.ai and the Claude app) — no terminal, ~3 minutes</summary>
 
 <div id="claude-chat--cowork"></div>
 
-Claude has three places to work. **Chat** is the normal conversation, on the web or in the Claude app. **Cowork** is the tab in the Claude app where Claude works on files and folders on your computer. **Code** is for developers — skip it unless you're a builder (see [Claude Code](#claude-code) below). The skills work in Chat and Cowork; only the optional `framework-agent` orchestrator needs Cowork.
+Claude has two places to work. **The Claude app** — on the web, desktop, and mobile — is where you converse, and in the desktop app Claude also works on files and folders on your computer. Cowork used to be a separate tab for that; it has merged into the Claude app (rolling out from September 2026), so if you still see a Cowork tab, it's the same thing. **Claude Code** is for developers — skip it unless you're a builder (see [Claude Code](#claude-code) below). The skills work everywhere in the Claude app; only the optional `framework-agent` orchestrator needs Claude working on your files in the desktop app.
 
 **Official docs:** [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude) · [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
 
@@ -74,10 +74,10 @@ This lets Claude run skills — it does not give Claude access to your computer.
 
 > Help me analyze AI workflow opportunities
 
-Claude begins a short interview — asking about your role and the work you do most often — instead of giving a generic answer. In Cowork you can also type `/` to see the skills listed, and the `framework-agent` orchestrator is available there.
+Claude begins a short interview — asking about your role and the work you do most often — instead of giving a generic answer. In the desktop app you can also type `/` to see the skills listed, and the `framework-agent` orchestrator is available there.
 
 :::note[Where the plugin works]
-The seven skills work in Claude Chat on the web, the Chat tab in the Claude app, and Cowork. The `framework-agent` orchestrator runs only in Cowork (sub-agents don't run in Chat). If you use both the web and the Claude app and the plugin doesn't appear in one of them, add the marketplace there too — the steps are the same.
+The seven skills work in the Claude app on the web and on desktop (including the Cowork tab, if you still see one). The `framework-agent` orchestrator runs only where Claude works on your files in the desktop app (sub-agents don't run in a plain web chat). If you use both the web and the Claude app and the plugin doesn't appear in one of them, add the marketplace there too — the steps are the same.
 :::
 
 #### Option 2 — Upload the skill ZIPs
@@ -95,7 +95,7 @@ Use this if your plan or company doesn't allow plugins, or if you only want one 
 
 {/* screenshot: claude-skills-upload-skill.png — Customize → Skills → + → Create skill → Upload a skill */}
 
-**You'll know it worked when:** you start a **new** chat, type *"Help me analyze AI workflow opportunities"*, and Claude begins the interview. Uploaded skills appear in both Chat and Cowork on your account. The `framework-agent` orchestrator isn't available this way — it's plugin-only.
+**You'll know it worked when:** you start a **new** chat, type *"Help me analyze AI workflow opportunities"*, and Claude begins the interview. Uploaded skills appear everywhere you use Claude on your account. The `framework-agent` orchestrator isn't available this way — it's plugin-only.
 
 **If it didn't work:**
 - Did you start a **new** chat after installing?
@@ -365,7 +365,7 @@ Type `/plugin list` and press **Enter**. You should see **handsonai** with its s
 </details>
 
 :::note[Personal plugins blocked at your company?]
-Use the ZIP upload path in [Claude — Chat & Cowork](#claude-chat--cowork) above. The skills then work in Chat and Cowork; the `/handsonai:` slash commands and the `framework-agent` orchestrator are plugin-only.
+Use the ZIP upload path in [Claude](#claude-chat--cowork) above. The skills then work everywhere in the Claude app; the `/handsonai:` slash commands and the `framework-agent` orchestrator are plugin-only.
 :::
 
 For updates, uninstalling, and troubleshooting, see [Using Plugins](../../use-the-playbook/build/using-plugins/).
@@ -528,7 +528,7 @@ Work out which of three things is wrong, then go to the right place:
 Skills and the `framework-agent` evolve as the methodology improves — new skills get added, prompts get refined, reference material gets sharper. You don't need to check for updates yourself: changes are announced in the [changelog](/blog/), and the [release notes on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases) list exactly what changed.
 
 <details>
-<summary><strong>Claude — Chat & Cowork</strong></summary>
+<summary><strong>Claude</strong></summary>
 
 **If you installed the plugin:** updating is a two-step process — the marketplace and the installed plugin are tracked separately, so checking for updates is not the same as installing them.
 
@@ -604,7 +604,7 @@ Once the skills are set up, here's how to start on each platform. The same test 
 
 | Platform | How to start |
 |----------|-------------|
-| **Claude — Chat & Cowork** | Start a new chat and describe what you need — Claude picks the right skill. In Cowork, type `/` to see the skills listed. |
+| **Claude** | Start a new chat and describe what you need — Claude picks the right skill. In the desktop app, type `/` to see the skills listed. |
 | **Claude Code** | Type `/handsonai:analyze` (or any slash command below), or describe your need. |
 | **ChatGPT** | Switch to **Work**, type `@analyze` (or describe the task). In the Codex tab, type `$analyze`. |
 | **Google Gemini** | Spark: type `/analyze` in a task, or describe it. Gemini Enterprise: `@analyze` or `/analyze`. |
@@ -636,7 +636,7 @@ Each skill is documented in detail on its step page — including the run sequen
 | `test` | [Step 5 — Test](../test/) |
 | `run` | [Step 6 — Run](../run/) |
 | `improve` | [Step 7 — Improve](../improve/) |
-| `framework-agent` | [Run It All at Once: framework-agent](../#run-it-all-at-once-framework-agent) — orchestrates all seven skills end-to-end (Claude Cowork and Claude Code, via the plugin) |
+| `framework-agent` | [Run It All at Once: framework-agent](../#run-it-all-at-once-framework-agent) — orchestrates all seven skills end-to-end (the Claude desktop app and Claude Code, via the plugin) |
 
 ## FAQ
 
@@ -644,7 +644,7 @@ Each skill is documented in detail on its step page — including the run sequen
 The file-based handoffs between steps mean you can continue in a new conversation. Just invoke the next skill and point it at the file from the previous step (e.g., "Use `deconstruct` on `outputs/lead-qualification-requirements.md`").
 
 **Do I need Claude Code for all of this?**
-No. These skills work on Claude (Chat, Cowork, and Code), ChatGPT and Codex, Google Gemini (Spark, Gemini Enterprise, Gemini CLI, and Antigravity), Microsoft 365 Copilot, and Cursor. See [Set Up These Skills](#set-up-these-skills) above for your platform.
+No. These skills work on Claude (the Claude app and Claude Code), ChatGPT and Codex, Google Gemini (Spark, Gemini Enterprise, Gemini CLI, and Antigravity), Microsoft 365 Copilot, and Cursor. See [Set Up These Skills](#set-up-these-skills) above for your platform.
 
 **Plugin or ZIPs — which should I use?**
 The plugin, if your platform and plan allow it: one install, one-click updates, and on Claude it includes the `framework-agent` orchestrator. ZIPs are the fallback for every other situation and work just as well for the seven skills themselves.
