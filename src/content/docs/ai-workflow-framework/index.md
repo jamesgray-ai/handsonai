@@ -214,7 +214,7 @@ Used to decompose each step in a step-driven workflow:
 
 ### AI Building Blocks
 
-Each workflow step gets mapped to one or more building blocks across three layers — **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent), and **Integration** (MCP, API, SDK, CLI). See [Agentic Building Blocks](../agentic-building-blocks/) for definitions, examples, and cross-platform comparisons.
+Each workflow step gets mapped to one or more building blocks across four layers — **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent, Harness), **Integration** (MCP, API, SDK, CLI), and **Governance** (Registry, Observability, Evaluation). See [Agentic Building Blocks](../agentic-building-blocks/) for definitions, examples, and cross-platform comparisons.
 
 ### Six Use Case Primitives
 

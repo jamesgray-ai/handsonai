@@ -169,7 +169,7 @@ Once you've added the connector, start a new conversation in your AI tool and as
 
 > What are the agentic building blocks?
 
-**You're done when:** your AI tool answers with playbook content — you should see it search the playbook and return a response that references the eleven building blocks (Model, Prompt, Context, Project, Memory, Skill, Agent, MCP, API, SDK, CLI). If your AI tool answers from general knowledge without searching the playbook, the connector isn't enabled in that conversation — enable it and try again.
+**You're done when:** your AI tool answers with playbook content — you should see it search the playbook and return a response that references the fifteen building blocks in four layers (Intelligence, Orchestration, Integration, Governance). If your AI tool answers from general knowledge without searching the playbook, the connector isn't enabled in that conversation — enable it and try again.
 
 ## Example Prompts
 

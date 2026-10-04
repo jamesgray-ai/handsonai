@@ -22,7 +22,7 @@ cd mcp-server && npm install && wrangler dev
 
 ## Repository Structure
 
-- `docs/agentic-building-blocks/` - The AI building blocks (Model, Prompt, Context, Project, Memory, Skill, Agent, MCP, API, SDK, CLI)
+- `docs/agentic-building-blocks/` - The AI building blocks in four layers: Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent, Harness), Integration (MCP, API, SDK, CLI), Governance (Registry, Observability, Evaluation)
 - `docs/ai-workflow-framework/` - Seven-step methodology (Analyze, Deconstruct, Design, Build, Test, Run, Improve)
 - `docs/use-cases/` - Six use case primitives (Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, Automation)
 - `docs/product-engineering/` - Product management and software engineering concepts (SDLC, PRDs, user stories, roadmapping, stakeholder management, project tracking)

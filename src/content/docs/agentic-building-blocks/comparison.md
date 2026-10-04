@@ -1,7 +1,7 @@
 ---
 title: Choosing the Right Building Block
 description: Comparison matrix for the AI building blocks — quick reference tables by layer and a decision guide to help you pick the right block for your situation.
----Multiple building blocks, three layers — but which ones does your workflow actually need? This page gives you comparison tables to quickly differentiate the blocks and a decision guide to match your situation to the right starting point.
+---Fifteen building blocks, four layers — but which ones does your workflow actually need? This page gives you comparison tables to quickly differentiate the blocks and a decision guide to match your situation to the right starting point.
 
 Most workflows need just two or three blocks. The goal isn't to use them all — it's to pick the right ones for the job.
 
@@ -25,6 +25,10 @@ All blocks in one view — use this to quickly orient yourself, then drill into 
 | **[API](../api/)** | Integrate programmatically | Embedding AI in applications and automated pipelines | Developer |
 | **[SDK](../sdk/)** | Orchestrate in code | Building agent systems with tool use, memory, and handoffs | Developer |
 | **[CLI](../cli/)** | Interact from terminal | Working with AI in the terminal, scripting, and headless automation | Power user / Developer |
+| **[Harness](../#harness)** | Run the agent | Choosing the app or tool that gives a model its tools, memory, and loop | Everyone |
+| **[Registry](../#registry)** | Catalog | Knowing every AI workflow you run, what it serves, and what it uses | Everyone |
+| **[Observability](../#observability)** | Make visible | Seeing what an AI system did on each run, and why | Power user / Developer |
+| **[Evaluation](../#evaluation)** | Measure quality | Checking output is accurate, safe, and good enough, before and after every change | Everyone |
 
 ---
 
@@ -51,18 +55,18 @@ All blocks in one view — use this to quickly orient yourself, then drill into 
 
 *The execution layer: instructions, routines, and autonomous agents that direct and do the work.*
 
-|  | **Prompt** | **Skill** | **Agent** |
-|--|-----------|----------|----------|
-| **What it provides** | Natural language instructions to the model | Reusable routine with defined inputs and outputs | Autonomous AI that plans, uses tools, and executes multi-step work |
-| **Primary job** | Instruct | Standardize | Execute autonomously |
-| **Persistence** | Ephemeral (per-conversation) | Persistent (saved as files, reusable across conversations) | Ephemeral (runs for a session) or scheduled |
-| **Contains** | Natural language instructions, examples, constraints | Instructions, reference files, output format specs | Goals, tool access, planning logic, decision-making |
-| **When it loads** | When you type or send a message | Auto-triggered when relevant, or invoked via slash command | Launched explicitly or on a schedule |
-| **Can include code** | No (natural language only) | Yes (scripts, templates, code references) | Yes (reads, writes, and runs code) |
-| **Best for** | One-off or conversational tasks with clear instructions | Repeatable routines you run the same way every time | Multi-step workflows requiring planning and tool use |
-| **Who manages it** | User (typed in the moment) | User-curated (packaged for reuse) | User-launched or developer-built |
-| **Requires external access** | No | No (self-contained instructions) | Often yes (uses tools, files, MCP connections) |
-| **Typical user** | Everyone | Everyone | Power user |
+|  | **Prompt** | **Skill** | **Agent** | **Harness** |
+|--|-----------|----------|----------|------------|
+| **What it provides** | Natural language instructions to the model | Reusable routine with defined inputs and outputs | Autonomous AI that plans, uses tools, and executes multi-step work | The software around a model that turns it into a working agent |
+| **Primary job** | Instruct | Standardize | Execute autonomously | Run the agent |
+| **Persistence** | Ephemeral (per-conversation) | Persistent (saved as files, reusable across conversations) | Ephemeral (runs for a session) or scheduled | Persistent (the app or tool you work in) |
+| **Contains** | Natural language instructions, examples, constraints | Instructions, reference files, output format specs | Goals, tool access, planning logic, decision-making | The agent loop, tool access, permissions, memory handling |
+| **When it loads** | When you type or send a message | Auto-triggered when relevant, or invoked via slash command | Launched explicitly or on a schedule | Always running whenever you use an AI app or agent |
+| **Can include code** | No (natural language only) | Yes (scripts, templates, code references) | Yes (reads, writes, and runs code) | Yes (built from code; SDKs let you build your own) |
+| **Best for** | One-off or conversational tasks with clear instructions | Repeatable routines you run the same way every time | Multi-step workflows requiring planning and tool use | Matching the app or tool to the kind of work |
+| **Who manages it** | User (typed in the moment) | User-curated (packaged for reuse) | User-launched or developer-built | Platform-provided or developer-built |
+| **Requires external access** | No | No (self-contained instructions) | Often yes (uses tools, files, MCP connections) | Often yes (supplies the tools and connections) |
+| **Typical user** | Everyone | Everyone | Power user | Everyone |
 
 ---
 
@@ -85,6 +89,25 @@ All blocks in one view — use this to quickly orient yourself, then drill into 
 
 ---
 
+## Governance Layer
+
+*The guardrail layer: catalogs, visibility, and measurement that keep AI work accountable and trustworthy.*
+
+|  | **Registry** | **Observability** | **Evaluation** |
+|--|-------------|------------------|---------------|
+| **What it provides** | Catalog of every AI workflow, the process it serves, and the blocks it uses | Visibility into what an AI system did, why, and how well | Repeatable measurement of whether output is accurate, safe, and good enough |
+| **Primary job** | Catalog | Make visible | Measure quality |
+| **Persistence** | Persistent (files you own, updated as workflows change) | Persistent (metrics, traces, and logs kept over time) | Persistent (test cases and criteria reused on every run) |
+| **Contains** | Workflow records, process links, skill and agent references | Metrics, traces, logs | Test cases, yes/no criteria, AI or human grader results |
+| **When it loads** | Read when you plan, build, or change a workflow | Collected during every run | Run before you rely on a workflow, after every change, and periodically |
+| **Can include code** | Optional (lint and compose scripts) | Yes (instrumentation, dashboards) | Yes (automated test runs and graders) |
+| **Best for** | Knowing what you have, who owns it, and what it depends on | Finding out why a run went wrong | Catching quality drops before others notice them |
+| **Who manages it** | User-curated | Platform-provided or developer-configured | User-defined criteria, run by person, script, or AI grader |
+| **Requires external access** | No | Often yes (platform consoles, logging services) | No (can run on saved inputs) |
+| **Typical user** | Everyone | Power user / Developer | Everyone |
+
+---
+
 ## Decision Guide: "I want to..."
 
 Use this table to find your starting point. Most real workflows combine several blocks — this tells you where to begin.
@@ -104,6 +127,10 @@ Use this table to find your starting point. Most real workflows combine several 
 | Automate AI in shell scripts or CI | **CLI** (headless mode) | + **MCP** for external system access |
 | Get AI help while coding | **CLI** | + **Project** memory for persistent conventions |
 | Choose between fast and deep AI | **Model** (select the right tier) | All other blocks work with any model |
+| Pick where to run an agent | **Harness** (the app or tool that fits the work) | + **SDK** to build your own |
+| Keep track of all my AI workflows | **Registry** | + **Evaluation** for the ones you rely on |
+| Know whether an AI workflow is still good enough | **Evaluation** | + **Observability** to see what changed on real runs |
+| Find out why an agent went wrong | **Observability** (read the trace) | + **Evaluation** to confirm the fix |
 
 ---
 

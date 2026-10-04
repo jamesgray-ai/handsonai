@@ -1,19 +1,24 @@
 ---
 title: Agentic AI Building Blocks
-description: The eleven components of agentic AI workflows — Model, Prompt, Context, Project, Memory, Skill, Agent, MCP, API, SDK, and CLI
+description: The fifteen building blocks of agentic AI workflows in four layers — Intelligence, Orchestration, Integration, and Governance — with platform examples.
 ---> **Platforms:** `claude` `openai` `gemini` `m365-copilot`
 
 ## Overview
 
 The AI building blocks are a shared vocabulary for describing the components of any AI workflow. Whether you're writing a single prompt, calling a model from code, or orchestrating a multi-agent pipeline, every AI workflow is assembled from some combination of these building blocks.
 
-Three layers:
+Fifteen building blocks, in four layers. A layer is a group of blocks that do the same kind of job:
 
-- **Intelligence** — Model, Context, Project, Memory
-- **Orchestration** — Prompt, Skill, Agent
-- **Integration** — MCP, API, SDK, CLI
+| Layer | Its job | Building blocks |
+|---|---|---|
+| **Intelligence** | The reasoning core: where the work is understood and decided | Model, Context, Memory, Project |
+| **Orchestration** | The director: turns your intent into coordinated work | Prompt, Skill, Agent, Harness |
+| **Integration** | The connections: link the AI to your tools and data | MCP, API, SDK, CLI |
+| **Governance** | The guardrails: keep AI work visible, accountable, and trustworthy | Registry, Observability, Evaluation |
 
-These are platform-agnostic concepts. Every major AI platform implements them, though the names and interfaces differ. Understanding the blocks gives you a mental model that transfers across tools — you can evaluate any platform by asking "how does it handle models, prompts, context, projects, memory, skills, agents, external connections, APIs, development frameworks, and command-line interfaces?"
+One way to hold the four layers in your head is to think of a new team member. **Intelligence** is what they know and how well they think. **Orchestration** is how their work is directed: a one-off request, a written procedure, or a goal they pursue on their own. **Integration** is the access they have: the systems they can log into. **Governance** is how you keep track of what they are doing and check that it is good.
+
+These are platform-agnostic concepts. Every major AI platform implements them, though the names and interfaces differ. Understanding the blocks gives you a mental model that transfers across tools — you can evaluate any platform by asking how it handles each block, from models and prompts to connections, observability, and evaluation.
 
 :::note[Which block should I use?]
 Not sure where to start? The [Choosing the Right Building Block](comparison/) page has comparison tables for all blocks and a "I want to..." decision guide.
@@ -73,6 +78,7 @@ The [AI Workflow Framework](../ai-workflow-framework/) uses these building block
   <div class="block-row"><a href="prompts/">Prompt</a><span>Natural language instructions to the model</span></div>
   <div class="block-row"><a href="skills/">Skill</a><span>Reusable routine with defined inputs and outputs</span></div>
   <div class="block-row"><a href="agents/">Agent</a><span>Autonomous AI that plans, uses tools, and executes multi-step work</span></div>
+  <div class="block-row"><a href="#harness">Harness</a><span>The software around a model that turns it into a working agent</span></div>
 </div>
 
 <div class="blocks-section">
@@ -81,6 +87,13 @@ The [AI Workflow Framework](../ai-workflow-framework/) uses these building block
   <div class="block-row"><a href="api/">API</a><span>Programmatic interface for accessing AI models</span></div>
   <div class="block-row"><a href="sdk/">SDK</a><span>Frameworks and toolkits for building AI workflows in code</span></div>
   <div class="block-row"><a href="cli/">CLI</a><span>Terminal-native interface for interacting with AI</span></div>
+</div>
+
+<div class="blocks-section">
+  <div class="blocks-header">Governance<small>The guardrail layer: catalogs, visibility, and measurement that keep AI work accountable and trustworthy.</small></div>
+  <div class="block-row"><a href="#registry">Registry</a><span>Catalog of every AI workflow, the processes it serves, and the skills and agents behind it</span></div>
+  <div class="block-row"><a href="#observability">Observability</a><span>Seeing what an AI system is doing, why, and how well</span></div>
+  <div class="block-row"><a href="#evaluation">Evaluation</a><span>Repeatable measurement of whether AI output is accurate, safe, and good enough</span></div>
 </div>
 
 ## Intelligence
@@ -279,7 +292,34 @@ A system where an LLM controls workflow execution to achieve a goal.
 | Gemini | Gemini Enterprise Agent Designer (no-code/visual), Agent Development Kit on Vertex AI, Gemini with extensions |
 | M365 Copilot | Copilot agents with plugins and connectors |
 
-**Relationship to other blocks:** Agents orchestrate the other blocks — they use prompts, draw on context, invoke skills, and connect to external systems through MCP.
+**Relationship to other blocks:** Agents orchestrate the other blocks — they use prompts, draw on context, invoke skills, and connect to external systems through MCP. Every agent runs inside a harness.
+
+---
+
+### Harness
+
+The software wrapped around a model that turns it into a working agent: the tool access, the memory, and the loop that keeps the work going. In short, **agent = model + harness.** If the model is the brain, the harness is the body that uses the tools and keeps track of the work.
+
+**Key characteristics:**
+
+- Runs the agent loop: sends the model the task, carries out the tool calls it asks for, feeds the results back, and repeats until the work is done
+- Decides what the model sees: which instructions, files, memory, and tool results go into each step
+- Supplies the tools and permissions: file access, web search, connectors, and what needs your approval before it runs
+
+**When to use it:** You always use one. Every time you work with an AI app or an agent, a harness is running it. The decision is which harness fits the work: an everyday app for knowledge work, a coding tool for building software, or an SDK when you build your own.
+
+**Example:** The same model can draft a report in the Claude app and refactor a codebase in Claude Code. The model is identical; the harness around it supplies different tools, different context, and a different loop. When an agent goes wrong, the cause is often the harness rather than the model: context that got lost, the wrong tool, or no way to recover from an error.
+
+**Cross-platform implementations:**
+
+| Platform | How It Works |
+|----------|-------------|
+| Claude | The Claude app for everyday work; Claude Code for building software; the Claude Agent SDK to build your own |
+| OpenAI (ChatGPT) | ChatGPT (including agent mode) for everyday work; Codex for building software; the Agents SDK to build your own |
+| Gemini | The Gemini app for everyday work; Gemini CLI for building software; the Agent Development Kit to build your own |
+| M365 Copilot | M365 Copilot and Copilot agents for everyday work; GitHub Copilot for building software; the M365 Agents SDK to build your own |
+
+**Relationship to other blocks:** The harness is what makes a model into an agent. It loads context and memory, invokes skills, and connects to external systems through MCP and CLIs. SDKs are toolkits for building your own harness.
 
 ---
 
@@ -393,6 +433,95 @@ Terminal-native interfaces for interacting with AI. Instead of using a browser-b
 
 **Relationship to other blocks:** CLIs are the terminal-native interaction layer — they abstract over APIs to give humans (and scripts) a conversational interface to AI, with file-system awareness, tool use, and MCP integration built in.
 
+---
+
+## Governance
+
+*The guardrail layer: catalogs, visibility, and measurement that keep AI work accountable and trustworthy.*
+
+### Registry
+
+A catalog of every AI workflow you run, the business processes they serve, and the skills and agents that power them. A registry is how you always know what you have, who owns it, and what it depends on.
+
+**Key characteristics:**
+
+- One record per workflow: what it does, what triggers it, how autonomous it is, and its current status
+- Links each workflow to the process it serves and the building blocks it uses
+- Kept as files you own, so it works across AI platforms and an AI can read and update it
+
+**When to use it:** As soon as you rely on more than a handful of AI workflows, or share them with a team. Without a registry, skills and agents pile up with no record of what each one is for or whether it is still in use.
+
+**Example:** A registry that lists your "Weekly Client Status Report" workflow, links it to the client delivery process, names the skill and MCP connections it uses, and marks it as running every Monday.
+
+**Cross-platform implementations:**
+
+| Platform | How It Works |
+|----------|-------------|
+| Claude | Markdown files in a working folder or Git repo, read and maintained by the Claude app or Claude Code |
+| OpenAI (ChatGPT) | Markdown files in a working folder or Git repo, read and maintained by ChatGPT or Codex |
+| Gemini | Markdown files in a working folder or Git repo, read and maintained by Gemini or Gemini CLI |
+| M365 Copilot | Markdown files in a working folder, SharePoint, or Git repo, read by M365 Copilot |
+
+A registry is platform-agnostic by design: it records the workflows you run on every platform. Set one up with the [AI Registry setup guide](../builder-setup/ai-registry-setup/).
+
+**Relationship to other blocks:** The registry catalogs the other blocks — every skill, agent, and connection a workflow uses. Observability and evaluation results are most useful when they are tied back to a workflow's registry record.
+
+---
+
+### Observability
+
+Being able to see what an AI system is doing, why, and how well. Observability has three parts: **metrics** (the numbers over time, such as cost per run or error rate), **traces** (the step-by-step record of one run), and **logs** (the detailed record of each event, including what the AI was given and what it produced).
+
+**Key characteristics:**
+
+- Metrics show trends across many runs: cost, speed, error rate, how often a workflow runs
+- Traces show one run step by step: which tools were called, in what order, and with what result
+- Logs keep the detail: the exact inputs and outputs, so you can see why a run went the way it did
+
+**When to use it:** When a workflow runs without you watching it: on a schedule, as an agent, or for other people. You cannot fix or trust what you cannot see.
+
+**Example:** An agent that drafts the weekly client report starts producing thin summaries. The trace shows it stopped calling the project management connector after an authentication change, so it was writing from last week's data.
+
+**Cross-platform implementations:**
+
+| Platform | How It Works |
+|----------|-------------|
+| Claude | Usage and logs in the Claude Console; OpenTelemetry metrics and events from Claude Code |
+| OpenAI (ChatGPT) | Usage dashboard; built-in tracing in the Agents SDK |
+| Gemini | Google Cloud Logging, Monitoring, and Trace for agents on Vertex AI |
+| M365 Copilot | Copilot usage reporting in the Microsoft 365 admin center; analytics in Copilot Studio |
+
+**Relationship to other blocks:** Observability watches agents, skills, and connections while they run. It supplies the evidence evaluation needs, and it is how you find out whether a problem sits in the model, the context, or the harness.
+
+---
+
+### Evaluation
+
+Measuring, repeatably, whether the AI's output is accurate, safe, and good enough: before you rely on it, after every change, and while it runs. AI output can vary from run to run and can get worse without anyone noticing, which is why evaluation is a block of its own.
+
+**Key characteristics:**
+
+- Repeatable: the same test cases or criteria, run the same way each time, so results can be compared
+- Uses three kinds of grader: test cases you check against, an AI acting as a grader, or a person reviewing a sample of real runs
+- Runs at three moments: before you rely on a workflow, after every change to it, and periodically while it runs
+
+**When to use it:** Before you hand a workflow to others or let it run on its own, and every time you change its prompt, skill, model, or connections.
+
+**Example:** Before switching the weekly report skill to a faster model, you rerun it on five past weeks of inputs and check each output against the same yes/no criteria: correct figures, every deliverable covered, the client's preferred format.
+
+**Cross-platform implementations:**
+
+| Platform | How It Works |
+|----------|-------------|
+| Claude | Evaluation tool in the Claude Console; test cases run through the API |
+| OpenAI (ChatGPT) | Evals in the OpenAI platform; graders for model and agent output |
+| Gemini | Gen AI evaluation service on Vertex AI |
+| M365 Copilot | Agent evaluation and testing in Copilot Studio |
+
+The AI Workflow Framework builds evaluation in: [Test](../ai-workflow-framework/test/) grades a workflow against yes/no criteria, and [Improve](../ai-workflow-framework/improve/) reruns the same inputs to see what changed.
+
+**Relationship to other blocks:** Evaluation checks the output of prompts, skills, and agents. It tells you when a model change or a skill edit made things better or worse, and it relies on observability for the evidence from real runs.
+
 ## How the Blocks Fit Together
 
 The building blocks are composable — combine the ones your workflow needs. Here's how a typical workflow grows as you adopt more blocks:
@@ -408,6 +537,10 @@ The building blocks are composable — combine the ones your workflow needs. Her
 9. **Interact via CLI** — Use a terminal-native AI tool to work with code, automate tasks, and run headless AI jobs from the command line
 10. **Call via API** — Integrate the workflow into an application or automated pipeline by calling the model programmatically
 11. **Build with an SDK** — Use a framework to orchestrate agents, manage tool use, and coordinate multi-agent pipelines in code
+12. **Record it in a Registry** — Catalog the workflow, the process it serves, and the blocks it uses, so you always know what you have
+13. **Evaluate and observe it** — Check its output against repeatable criteria before you rely on it, and watch its runs once it works on its own
+
+Every agent in these steps runs inside a **harness**: the app or tool around the model that supplies its tools, memory, and loop.
 
 ### Worked example: Weekly Client Status Report
 
@@ -423,6 +556,9 @@ The building blocks are composable — combine the ones your workflow needs. Her
 | **+ CLI** | You use a terminal-native AI tool to run the report workflow from the command line — interactively while refining, or headless on a schedule via cron |
 | **+ API** | You call the model via API from a script that runs on a schedule, processing inputs from a database and writing results back — no chat window needed |
 | **+ SDK** | You build the agent using a framework that handles tool orchestration, error recovery, and handoffs between a data-gathering agent and a report-writing agent |
+| **+ Registry** | You record the workflow in your registry: what it does, the client delivery process it serves, the skill and connections it uses, and that it runs every Monday |
+| **+ Evaluation** | Before relying on it, you rerun the skill on past weeks and check each report against the same yes/no criteria; you rerun the check after every change |
+| **+ Observability** | You review each Monday run's trace, so when a report comes out thin you can see which step or connection failed |
 
 **Not every workflow needs every block.** Many tasks are handled perfectly well with a prompt and some context. The blocks are a menu, not a checklist — use what the workflow actually requires.
 
@@ -439,10 +575,14 @@ All building blocks across all four platforms in one view:
 | **Memory** | Claude memory, CLAUDE.md | ChatGPT Memory | Conversation memory | Microsoft Graph |
 | **Skill** | Claude Code Skills, Claude.ai skills | Skills in ChatGPT, Workspace Agents, and Codex CLI | Gemini CLI skills | Not yet available |
 | **Agent** | Claude Code agents, Cowork | Workspace Agents, Assistants API | Gemini Enterprise Agent Designer, ADK on Vertex AI | Copilot agents with plugins |
+| **Harness** | The Claude app, Claude Code | ChatGPT, Codex | Gemini app, Gemini CLI | M365 Copilot, GitHub Copilot |
 | **MCP** | MCP servers | Function calling, connectors in Workspace Agents | Extensions, function calling | Connectors, plugins |
 | **API** | Anthropic REST API (Python, TypeScript SDKs) | OpenAI REST API (Python, TypeScript SDKs) | Gemini API, Vertex AI (Python SDK) | Azure AI Services (.NET, Python, Java) |
 | **SDK** | Claude Agent SDK (Python, TypeScript) | OpenAI Agents SDK (Python, TypeScript) | Agent Development Kit (Python) | M365 Agents SDK (.NET, Python, TypeScript) |
 | **CLI** | Claude Code | Codex CLI | Gemini CLI | GitHub Copilot CLI |
+| **Registry** | Markdown files you own | Markdown files you own | Markdown files you own | Markdown files you own |
+| **Observability** | Claude Console logs, Claude Code OpenTelemetry | Usage dashboard, Agents SDK tracing | Cloud Logging and Trace on Vertex AI | Microsoft 365 admin center reports, Copilot Studio analytics |
+| **Evaluation** | Claude Console evaluation tool | OpenAI Evals | Vertex AI Gen AI evaluation service | Copilot Studio agent evaluation |
 
 ## Common Misconceptions
 
@@ -457,6 +597,12 @@ An API is a raw interface — you send a request, you get a response. An SDK is 
 
 **"Memory and context are the same thing."**
 Context is knowledge you provide — files, docs, examples attached to a conversation. Memory is knowledge the AI accumulates — preferences, past decisions, and patterns learned over time. You curate context; the AI manages memory.
+
+**"An agent is just a model."**
+An agent is a model plus a harness: the software that gives it tools, memory, and a loop to keep working. The same model behaves differently in different harnesses, and when an agent fails, the cause is often the harness rather than the model.
+
+**"Governance can wait until later."**
+A registry, observability, and evaluation are cheapest to add while a workflow is small. Once several workflows run on their own, you cannot easily tell what exists, what each one did, or whether a change made it worse.
 
 **"A project is just a folder."**
 A project is an active workspace — it provides standing instructions, persistent context, and conversation continuity. It shapes how the AI behaves for every conversation within it, not just where files are stored.
@@ -487,6 +633,8 @@ A project is an active workspace — it provides standing instructions, persiste
 - [API](api/) — programmatic interfaces for accessing AI models and services
 - [SDK](sdk/) — frameworks and toolkits for building AI workflows in code
 - [CLI](cli/) — terminal-native interfaces for interacting with AI
+- [AI Registry setup](../builder-setup/ai-registry-setup/) — set up the Registry block for your own workflows
+- [Test](../ai-workflow-framework/test/) and [Improve](../ai-workflow-framework/improve/) — the framework steps where Evaluation happens
 - [AI Engineering](../ai-engineering/) — practices for designing and optimizing AI systems, including context engineering
 - [Patterns](../patterns/) — reusable approaches across building blocks
 

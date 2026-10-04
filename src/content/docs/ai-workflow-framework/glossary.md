@@ -19,7 +19,7 @@ Every term you'll meet across the seven steps, in plain language, each linked to
 
 **Baseline** — The report card from the round of [Test](../test/) that first reaches Ready. [Improve](../improve/) re-runs the same inputs later and compares every line against this baseline to see what changed.
 
-**Building blocks (three layers)** — The AI building blocks a workflow step can be mapped to, grouped in three layers: **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent), and **Integration** (MCP, API, SDK, CLI). Mapped during [Design](../design/); see [Agentic Building Blocks](../../agentic-building-blocks/) for full definitions.
+**Building blocks (four layers)** — The AI building blocks a workflow step can be mapped to, grouped in four layers: **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent, Harness), **Integration** (MCP, API, SDK, CLI), and **Governance** (Registry, Observability, Evaluation). Mapped during [Design](../design/); see [Agentic Building Blocks](../../agentic-building-blocks/) for full definitions.
 
 **Capability domain** — In a goal-driven workflow, a durable competency the agent draws on at runtime (for example "research" or "synthesis") — not a step or a pipeline stage. Capability domains replace step-by-step decomposition in [Design](../design/) for goal-driven workflows.
 
