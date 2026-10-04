@@ -25,15 +25,15 @@ The week-by-week syllabus lives on the Maven course page, alongside dates, prici
 
 ## Instructor
 
-**James Gray** — UC Berkeley AI instructor and former CIO/CPO. Previously spent 10 years at Microsoft building enterprise data platforms. Has trained 5,000+ executives globally in AI strategy.
+**James Gray** — UC Berkeley AI Strategy instructor and former tech CIO and CPO, upskilling more than 2,000 leaders a year. Spent nearly a decade at Microsoft building the data and analytics platforms the business ran on.
 
 - [Maven Profile](https://maven.com/james-gray)
 - [Other course: Hands-on Agentic AI for Leaders](../leaders/)
 
 ## Prerequisites
 
-- Claude paid subscription (Pro or higher)
-- GitHub, Cursor or VS Code, Chrome installed
-- macOS or Windows with admin access to install software
+- A paid Claude plan — Pro or Team at minimum
+- macOS or Windows computer
+- Optional power-user tools — a code editor, Claude Code, GitHub — introduced as we reach them; not required before Week 1
 
 Setup guides are available under [Builder Setup](../../builder-setup/).

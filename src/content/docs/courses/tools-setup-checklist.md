@@ -22,7 +22,7 @@ Your AI platform plus one add-on that runs entirely inside it. This is the basel
 
 ### Part 2: For Power Users (~85 min)
 
-More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability, except Step 9, which the course requires before Analyze. Steps 4–7 are one sequence: do them in order.
+More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Steps 4–7 are one sequence: do them in order.
 
 | Step | What | Time | Status |
 |------|------|------|--------|
@@ -32,13 +32,20 @@ More advanced tools that work in collaboration with your AI platform. Pick any c
 | 6 | [GitHub CLI](#step-6-github-cli) | ~10 min | Optional |
 | 7 | [Create & Clone Your First Repository](#step-7-create--clone-your-first-repository) | ~5 min | Optional |
 | 8 | [Voice to Text](#step-8-voice-to-text) | ~10 min | Optional |
-| 9 | [AI Registry](#step-9-ai-registry) | ~25 min | Required for the course |
+
+### Part 3: Your AI Registry (~25 min)
+
+The home for every workflow you build. **In a Hands-on AI course? Skip it for now — we set it up together in Session 1.** Working through the framework on your own? Set it up before you run Analyze.
+
+| Step | What | Time | Status |
+|------|------|------|--------|
+| 9 | [AI Registry](#step-9-ai-registry) | ~25 min | In a course: done live in Session 1 |
 
 ---
 
 ## Part 1 — What You Need for the Course
 
-Your AI platform plus one add-on that lives inside it. Most students only need Part 1 to start getting real value from the course — plus Step 9, the AI Registry, which the course requires before you run Analyze.
+Your AI platform plus one add-on that lives inside it. Most students only need Part 1 to start getting real value from the course. The AI Registry (Part 3) is set up live in Session 1.
 
 ### Step 1: AI Platform Setup
 
@@ -57,8 +64,8 @@ You need at least one AI platform set up before starting anything else. Pick whi
 
 **Done when:**
 
-- You have a paid AI platform account and can start conversations (Claude Pro, ChatGPT Plus, Gemini Advanced, or Copilot Pro)
-- You've installed the desktop and mobile apps for your platform
+- You have a paid AI platform account and can start conversations — at minimum Claude Pro, ChatGPT Plus, a Gemini Enterprise seat, or a Microsoft 365 Copilot license
+- You've installed your platform's desktop app — the Claude desktop app, or ChatGPT for desktop (ChatGPT Work and Codex) — plus the mobile app if you want it
 - You've added personalization / custom instructions so the AI knows about your role and work
 - Memory is enabled so the AI remembers context across conversations
 - You've connected at least one external tool or data source (Google Docs, Slack, Notion, etc.)
@@ -96,7 +103,7 @@ Still stuck? Bring your question to Session 1.
 
 ## Part 2 — For Power Users
 
-Tools for going further. All optional except Step 9, which the course requires before Analyze.
+Tools for going further. All optional.
 
 :::note[New to the terminal?]
 Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
@@ -223,6 +230,10 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 </details>
 
 ---
+
+## Part 3 — Your AI Registry
+
+**In a Hands-on AI course? Skip this part — we set your registry up together in Session 1.** Already set it up? Bring it; the setup skill fills gaps rather than starting over.
 
 ### Step 9: AI Registry
 
