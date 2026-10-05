@@ -127,6 +127,25 @@ header a,
   border-left-color: #282828;
 }
 
+/* ── Skill download buttons (skills.mdx) ──
+   A wrapping row of LinkButtons inside a Card. */
+.skill-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sl-markdown-content .skill-downloads > * {
+  margin-top: 0;
+}
+
+.sl-markdown-content .skill-downloads .sl-link-button {
+  text-decoration: none;
+  font-size: var(--sl-text-sm);
+  padding: 0.5rem 1.1rem;
+  white-space: nowrap;
+}
+
 /* ── Asides/admonitions ──
    Override Starlight defaults with brand colors.
    No purple, no blue — charcoal + lime palette throughout. */
