@@ -114,6 +114,6 @@ With your builder tools in place, you're ready to start building with AI.
 
 | Next Step | What it is |
 |---|---|
-| [**Learn the Building Blocks** →](../agentic-building-blocks/) | The eleven components of every AI workflow — models, prompts, context, projects, skills, agents, and more |
+| [**Learn the Building Blocks** →](../agentic-building-blocks/) | The fifteen components of every AI workflow, in four layers — models, prompts, context, skills, agents, connections, registry, evaluation, and more |
 | [**Install Plugins** →](../use-the-playbook/build/) | Pre-built Claude Code agents and skills you can install in one command |
 | [**Take a Course** →](../courses/) | Structured learning that walks you through building with AI step by step |

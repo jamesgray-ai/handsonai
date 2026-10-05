@@ -7,7 +7,7 @@ description: "How to contribute to the Hands-on AI Playbook — add questions, h
 
 | Section | Location | Purpose |
 |---------|----------|---------|
-| Agentic Building Blocks | `agentic-building-blocks/` | The AI building blocks (Model, Prompts, Context, Projects, Memory, Skills, Agents, MCP, API, SDK, CLI) |
+| Agentic Building Blocks | `agentic-building-blocks/` | The AI building blocks in four layers (Model, Context, Memory, Projects; Prompts, Skills, Agents, Harness; MCP, API, SDK, CLI; Registry, Observability, Evaluation) |
 | AI Workflow Framework | `ai-workflow-framework/` | Seven-step methodology (Analyze, Deconstruct, Design, Build, Test, Run, Improve) |
 | Use Cases | `use-cases/` | Six use case primitives (Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, Automation) |
 | Platforms | `platforms/` | Platform-specific content (Claude, OpenAI, Gemini, M365 Copilot) |

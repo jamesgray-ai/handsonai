@@ -51,7 +51,7 @@ Real workflows produce the best analysis. The meta prompt is designed to work wi
 
 - Deconstruct the workflow before choosing tools — you can't pick the right AI building blocks for a process you don't fully understand
 - Use the 6-question framework: discrete steps, decision points, data flows, context needs, failure modes, and data readiness
-- Map each step to one or more of the 11 AI building blocks across three layers — Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent), Integration (MCP, API, SDK, CLI)
+- Map each step to one or more of the 15 AI building blocks across four layers — Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent, Harness), Integration (MCP, API, SDK, CLI), Governance (Registry, Observability, Evaluation)
 - Not every step needs AI — the autonomy classification helps you see which steps are candidates and which should stay manual
 - Use the [Deconstruct Workflows](/ai-workflow-framework/deconstruct/) to run through this process interactively
 
