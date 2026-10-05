@@ -254,7 +254,7 @@ These Gemini Enterprise steps follow Google's official guide and haven't yet bee
 **If it didn't work:**
 - Spark: are you signed in with a **personal** account, on Google AI Pro or Ultra?
 - Is the skill enabled in the Skills list?
-- Did you upload the ZIP without unzipping it? If the ZIP is rejected, download the **flat** version of the skill from the [downloads section](#download-the-skill-zips) instead.
+- Did you upload the ZIP without unzipping it?
 - Still stuck? Google's [Gemini Spark](https://support.google.com/gemini/answer/17094507) page covers the account and region rules, and [Gemini Enterprise skills](https://docs.cloud.google.com/gemini/enterprise/docs/skills) covers editions and admin settings.
 
 </details>
@@ -274,7 +274,7 @@ Microsoft 365 Copilot runs skills in **Copilot Cowork**. Cowork reads `SKILL.md`
 
 #### Option 1 — Upload the skill
 
-1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) section below. Don't unzip it. (Microsoft's documentation describes a ZIP with `SKILL.md` at the top level — if the upload is rejected, use **analyze-flat.zip** from the same section, or Option 2.)
+1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) section below. Don't unzip it.
 2. Open **Cowork**
 3. In the left navigation, click **Customize**
 4. Click the **Skills** tab
@@ -284,7 +284,7 @@ Microsoft 365 Copilot runs skills in **Copilot Cowork**. Cowork reads `SKILL.md`
 
 {/* screenshot: copilot-cowork-upload-skill.png — Customize → Skills → Upload skill */}
 
-If Cowork rejects the ZIP, download the **flat** version of the skill from the [downloads section](#download-the-skill-zips) and upload that instead, or use Option 2.
+If Cowork rejects the ZIP, use Option 2 instead.
 
 #### Option 2 — Put the skill folder in OneDrive yourself
 
@@ -387,28 +387,6 @@ You don't need these to work through the framework. Grab them when you want to w
 <LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/writing-workflow-sops.zip" variant="secondary" icon="download" iconPlacement="start">Writing Workflow SOPs</LinkButton>
 <LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/writing-process-guides.zip" variant="secondary" icon="download" iconPlacement="start">Writing Process Guides</LinkButton>
 </div>
-
-</details>
-
-<details>
-<summary>Was your ZIP rejected? Try the flat version</summary>
-
-Some platforms want the skill's `SKILL.md` file at the top level of the ZIP rather than inside a folder. If an upload is rejected, download the same skill with `-flat` in the name — identical content, different packaging:
-
-| Skill | Flat download |
-|---|---|
-| Analyze | [analyze-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze-flat.zip) |
-| Deconstruct | [deconstruct-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct-flat.zip) |
-| Design | [design-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design-flat.zip) |
-| Build | [build-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/build-flat.zip) |
-| Test | [test-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/test-flat.zip) |
-| Run | [run-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run-flat.zip) |
-| Improve | [improve-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve-flat.zip) |
-| Building Knowledge Graph | [building-knowledge-graph-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/building-knowledge-graph-flat.zip) |
-| Scaffolding Registry | [scaffolding-registry-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/scaffolding-registry-flat.zip) |
-| Indexing Registry | [indexing-registry-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/indexing-registry-flat.zip) |
-| Writing Workflow SOPs | [writing-workflow-sops-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/writing-workflow-sops-flat.zip) |
-| Writing Process Guides | [writing-process-guides-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/writing-process-guides-flat.zip) |
 
 </details>
 

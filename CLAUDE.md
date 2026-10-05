@@ -445,7 +445,7 @@ Part 8 for the full rationale:
 
 ### Updating skill ZIP downloads (GitHub Releases)
 
-Users on platforms without the plugin (Gemini Spark/Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI — and Claude or ChatGPT users whose plan or org blocks plugins) download pre-built skill ZIPs from GitHub Releases on `handsonai-plugins`. Each skill is published in two layouts: `<skill>.zip` (skill folder at the root — what claude.ai requires) and `<skill>-flat.zip` (`SKILL.md` at the root — what Gemini Enterprise documents). `scripts/test-build-skill-zips.sh` in that repo asserts both layouts carry identical content. When skills are updated, rebuild and publish a new release:
+Users on platforms without the plugin (Gemini Spark/Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI — and Claude or ChatGPT users whose plan or org blocks plugins) download pre-built skill ZIPs from GitHub Releases on `handsonai-plugins`. Each skill is published as one `<skill>.zip` (skill folder at the root — what claude.ai requires, and what Gemini Enterprise accepts). The flat `-flat.zip` layout was dropped 2026-10-05: no platform needed it. The same build also produces `handsonai.plugin`. `scripts/test-build-skill-zips.sh` in that repo checks the layout and the plugin archive. When skills are updated, rebuild and publish a new release:
 
 1. From the `handsonai-plugins` repo, run `./scripts/build-skill-zips.sh` — this creates ZIPs in `dist/`
 2. Create a new release: `gh release create vX.Y.Z dist/*.zip dist/*.plugin --title "vX.Y.Z: handsonai A.B.C" --notes "Description of changes"` (X.Y.Z = marketplace version)

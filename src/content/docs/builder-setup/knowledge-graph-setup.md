@@ -52,9 +52,7 @@ The [AI Registry](../ai-registry-setup/) records what you build *with* AI: your 
 
 ## Before You Start
 
-1. **The Hands-on AI skills are in your AI tool.** The build is run by a skill called `building-knowledge-graph`. If you installed the Hands-on AI plugin (Claude or ChatGPT), you already have it. If you add skills by uploading ZIP files (Cursor, Codex CLI, Gemini CLI, or a plan that blocks plugins), upload one of these:
-   - [building-knowledge-graph.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/building-knowledge-graph.zip) — skill folder at the root
-   - [building-knowledge-graph-flat.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/building-knowledge-graph-flat.zip) — `SKILL.md` at the root, for tools that ask for that
+1. **The Hands-on AI skills are in your AI tool.** The build is run by a skill called `building-knowledge-graph`. If you installed the Hands-on AI plugin (Claude or ChatGPT), you already have it. If you add skills by uploading ZIP files (Cursor, Codex CLI, Gemini CLI, or a plan that blocks plugins), upload [building-knowledge-graph.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/building-knowledge-graph.zip).
 
    Haven't set up the skills yet? Follow [Set Up the Skills](../../ai-workflow-framework/skills/) for your tool, then come back here.
 2. **A folder for your project.** Any folder works: on your computer, a synced cloud-drive folder, or a clone of a GitHub repository. Open your AI at that folder's root, not inside `knowledge/`. If you made a `my-business` repository for the course, use that.

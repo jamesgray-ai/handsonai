@@ -53,7 +53,7 @@ M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After ad
 
 **Before you start:** open Microsoft 365 Copilot and look for **Cowork** in the left navigation. Not there → ask IT to enable it.
 
-1. Download the skill's `.zip` from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips) — don't unzip it (if Cowork rejects it, use the `-flat.zip` version from the same table)
+1. Download the skill's `.zip` from the [skill downloads](../../../ai-workflow-framework/skills/#download-the-skill-zips) — don't unzip it
 2. In Cowork, open **Customize → Skills**, click the arrow next to **Add**, then **Upload skill**, and choose the ZIP
 3. Start a new conversation — the skill appears under **Your skills** and loads automatically when relevant
 

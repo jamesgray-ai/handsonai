@@ -37,9 +37,9 @@ codex plugin add handsonai@handsonai
 ```
 
 **Everything else (Claude Free, ChatGPT Free/Go, Gemini Spark / Gemini Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI):**
-download the skill ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
-Each skill ships in two layouts — `<skill>.zip` (skill folder at the root, for claude.ai)
-and `<skill>-flat.zip` (`SKILL.md` at the root, for platforms that ask for that).
+download the skill ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest)
+and upload them as-is, one `<skill>.zip` per skill. On Claude or ChatGPT, if adding the marketplace
+fails, upload `handsonai.plugin` from the same page under Plugins: it's the whole plugin in one file.
 
 For full documentation, visit [the Hands-on AI plugin page](https://handsonai.info/use-the-playbook/build/handsonai/).
 
