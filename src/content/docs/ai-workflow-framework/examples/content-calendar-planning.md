@@ -42,11 +42,11 @@ The Design Spec is what [Design](../../design/) produces from the Workflow Requi
 
 - **Orchestration mechanism selection** — why a Skill was chosen over an Agent (the creative middle steps benefit from human judgment)
 - **Step-by-step decomposition table** — each step classified by Phase, Autonomy level, Building Blocks needed, Skill candidacy, and whether it's a Human Gate
-- **Autonomy spectrum summary** — Deterministic (4 steps), Guided (4 steps), Human (2 steps)
+- **Autonomy spectrum summary** — Deterministic (4 steps), Guided (4 steps), Human (2 steps); the workflow is Guided + Augmented
 - **4 skill candidates** with full specifications: purpose, inputs, outputs, decision logic, and failure modes
 - **Dependency map** and critical path analysis
 - **Context inventory** — what data sources and reference materials each step needs
-- **Recommended implementation order** — Quick Wins first (an inline prompt block + 2 simple skills), then Guided (2 complex skills), then Future Enhancements
+- **Recommended implementation order** — Quick Wins first (the orchestrator skill + 2 simple skills), then Core (2 more complex skills), then Future Enhancements
 
 **Key insight:** The spec doesn't say "build everything at once." It recommends starting with an inline prompt block for the simple steps, so you get value immediately. Database skills layer in incrementally. This build order means you're running the workflow on day one.
 
@@ -74,7 +74,7 @@ The workflow prompt is one of the platform artifacts that [Build (Step 4)](../..
 A few things to take away from this example:
 
 - **The expansion.** "I plan content on Sundays" became 10 steps across 4 phases, with decision logic, failure modes, and a dependency map. That expansion is what makes the workflow executable by AI.
-- **The autonomy spectrum.** Not every step needs AI autonomy. Steps 1, 2, 4, and 10 are deterministic (fixed data operations). Steps 5-8 are guided (AI proposes, human decides). Steps 3 and 9 are human-led. The framework helps you see this clearly.
+- **The autonomy spectrum.** Autonomy is about what decides the next step. Steps 1, 2, 4, and 10 are fixed data operations — Deterministic. In Steps 5–8 the AI makes bounded decisions by James's method — which ideas to select, which channel each goes to, how to sequence the plan — and those selections decide what happens next, so they are Guided. James approving them is involvement (Augmented), not lower autonomy. Steps 3 and 9 are human-led. The workflow is Guided + Augmented.
 - **The build order.** The Design Spec doesn't just say "build everything." It recommends starting with an inline prompt block for the simple steps, then layering in skills incrementally. You get value from the first run.
 - **Platform-agnostic.** The Workflow Requirements and Design Spec work with any AI tool. The skills and MCP connections are implementation details that vary by platform — but the underlying logic is the same everywhere.
 

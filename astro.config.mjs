@@ -174,7 +174,7 @@ export default defineConfig({
               items: [
                 { label: 'End-to-End: All 7 Steps & Files', link: '/ai-workflow-framework/examples/worked-example/' },
                 { label: 'Analyze: Example Reports', link: '/ai-workflow-framework/analyze-examples/' },
-                { label: 'Deterministic Automation', link: '/ai-workflow-framework/examples/deterministic-automation/' },
+                { label: 'Guided Prospect Research', link: '/ai-workflow-framework/examples/deterministic-automation/' },
                 { label: 'AI Collaborative', link: '/ai-workflow-framework/examples/ai-collaborative/' },
                 { label: 'Autonomous Agent', link: '/ai-workflow-framework/examples/autonomous-agent/' },
                 { label: 'Full Example: Content Calendar Planning', link: '/ai-workflow-framework/examples/content-calendar-planning/' },

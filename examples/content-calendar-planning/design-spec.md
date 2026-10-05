@@ -78,12 +78,12 @@ The spec is organized into three layers that build on each other:
 
 ## Autonomy Spectrum Summary
 
-**Workflow-level autonomy: Guided.** James starts the session and steers it at checkpoints; the sequence of the ten steps is fixed, but four of them involve bounded creative judgment by the AI that a human reacts to. Nothing backtracks or re-plans its own route, which is what would push this to Autonomous.
+**Workflow-level autonomy: Guided.** The ten steps are fixed, but in four of them the AI makes bounded decisions on James's behalf using his method: which backlog ideas to select and which weekly themes to set (pillar balance), which channel each idea goes to (channel-format fit), which posts make the plan, and how to sequence them (cadence targets). Those selections decide what happens next — which ideas get mapped, which posts get planned and committed — so the workflow is Guided. James approving the selections at Steps 5, 6, and 9 is involvement (Augmented); it doesn't lower the autonomy level. The decisions stay bounded by his rules and the steps stay fixed, so it is not Autonomous. The two mechanical branches — an empty backlog after Step 2, and the three-round cap on refinement at Step 9 — are instructions.
 
 Per-step classifications (from the Decomposition table below):
 
-- **Deterministic** (Steps 1, 2, 4, 10): Mechanical data operations — query or write Notion databases, no judgment needed. Fully automated via component skills.
-- **Guided** (Steps 5, 6, 7, 8): AI proposes, human reacts and approves. Driven by the orchestrator's inline instruction blocks, with bounded creative judgment inside rules the Workflow Requirements sets (pillar balance, cadence targets, channel-format fit).
+- **Deterministic** (Steps 1, 2, 4, 10): query or write Notion databases as instructed. Fully automated via component skills.
+- **Guided** (Steps 5, 6, 7, 8): the AI selects ideas, sets themes, maps ideas to channels, builds the post plan, and sequences it, using the rules the Workflow Requirements sets (pillar balance, cadence targets, channel-format fit). Driven by the orchestrator's inline instruction blocks. James approves at Steps 5 and 6 — involvement, not lower autonomy.
 - **Human** (Steps 3, 9): Human drives, AI supports. Step 3 is James's own recall of the week, captured through an existing skill. Step 9 is the approval gate the whole workflow turns on.
 
 ## Safety & Permissions

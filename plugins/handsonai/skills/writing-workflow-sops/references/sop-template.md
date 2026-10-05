@@ -6,13 +6,13 @@ The workflow's position on the autonomy spectrum determines which template to us
 
 ```
 Deterministic ———————— Guided ———————— Autonomous
-(fixed path)       (bounded decisions)     (context-driven path)
+(you give instructions)  (bounded decisions, your method)  (you give a goal)
 ```
 
 | Autonomy Level | Template | When to use |
 |---|---|---|
-| **Deterministic** | Full SOP | Fixed sequence — same inputs always produce the same path |
-| **Guided or Autonomous** | Lightweight SOP | Context-driven — executor adjusts path based on feedback, errors, or intermediate results |
+| **Deterministic** | Full SOP | Instructions — the same steps run in the same order, whatever the AI produces inside them |
+| **Guided or Autonomous** | Lightweight SOP | Guided: the AI makes bounded decisions by your method (routes, grades and sends back, scores and advances), so the path depends on its judgment. Autonomous: the AI plans its own steps toward a goal. |
 
 **Key test:** Can the executor change its path at runtime based on what it encounters? If yes (guided or autonomous) → lightweight. If no (deterministic) → full.
 

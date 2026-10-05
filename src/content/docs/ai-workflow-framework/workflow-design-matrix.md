@@ -1,7 +1,7 @@
 ---
 title: AI Workflow Design Matrix
-description: "A 3x2 matrix combining autonomy level (Deterministic, Guided, Autonomous) with human involvement (Augmented, Automated) to classify and design any AI workflow."
----Every AI workflow can be described by two dimensions: **how much decision-making the AI has** and **whether a human is in the loop during execution**. These two dimensions combine into a 3x2 matrix of six workflow archetypes — a shared vocabulary for classifying, comparing, and designing AI workflows.
+description: "A 3x2 matrix combining autonomy (what decides the next step: Deterministic, Guided, Autonomous) with human involvement (Augmented, Automated)."
+---Every AI workflow can be described by two dimensions: **what decides the next step** and **whether a person takes part while it runs**. These two dimensions combine into a 3x2 matrix of six workflow archetypes — a shared vocabulary for classifying, comparing, and designing AI workflows.
 
 A third dimension — **Lens** — determines the scope of your analysis:
 
@@ -12,70 +12,75 @@ The lens doesn't change the matrix — it changes what you're analyzing. An indi
 
 ## Two Dimensions Define Every AI Workflow
 
-### Dimension 1: Autonomy — How Much Decision-Making Does the AI Have?
+### Dimension 1: Autonomy — How Much Does the AI Decide on Its Own?
 
-Autonomy describes how much latitude the AI has to make decisions during execution. This is about the AI's role, not the human's.
+**Autonomy level: how much does the AI decide on its own? Look at what decides the next step.**
 
-| Level | AI's Role | What It Looks Like | Example |
-|-------|-----------|-------------------|---------|
-| **Deterministic** | Follows fixed rules — no decisions, no judgment | Input → predefined steps → structured output. Same input produces same output every time. | Format a report from a template, extract data from a form |
-| **Guided** | Makes bounded decisions within guardrails | AI chooses *how* to accomplish a step, but the human sets direction and reviews output. | Draft an email based on meeting notes, research a topic and summarize findings |
-| **Autonomous** | Plans, decides, and adapts independently | AI determines what to do, uses tools, adjusts its approach based on what it finds. | Research agent that finds sources, evaluates quality, and produces a report end-to-end |
+| Level | What you give the AI | What It Looks Like | Test | Example |
+|-------|---------------------|--------------------|------|---------|
+| **Deterministic** | Instructions | You set every step, and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. | Does the work follow the same path whatever the AI produces? | Pull this week's project updates, have the AI draft a status report, save it to the shared folder |
+| **Guided** | Bounded decisions, with your method | You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. | Does the AI's judgment, made by your rules, decide what happens next? | Sort support emails by category and route each to the right queue; score insights 1–10 against your rubric and draft posts only for those that score 7 or higher |
+| **Autonomous** | A goal | The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. | Could you only describe the goal, not the steps? | Research agents that decide what to investigate, follow what they find, and write an article |
 
-**Key question:** *How much does the AI decide on its own?*
+Two notes keep the classification honest:
 
-- **Deterministic** — nothing; it follows your script exactly
-- **Guided** — some; it makes choices within boundaries you set
-- **Autonomous** — a lot; it plans its own approach and adapts
+- **Writing or summarizing inside a step never makes a workflow Guided.** A step that drafts a client email is Deterministic if the draft goes to the same next step whatever it says. It turns Guided when an AI judgment — a score, a pass/fail grade, a category — decides where the work goes next.
+- **The number of agents doesn't set the level.** Three agents in a fixed chain can be Deterministic or Guided; a single agent working from a goal can be Autonomous. Look at what decides the next step, not at how many AI workers there are.
+- **A branch on a value the AI didn't judge — an API's score, a timer, a field value — is still an instruction: Deterministic.**
+- **A person approving the AI's decisions doesn't lower the level.** If the AI proposes selections by your method and you approve them, it's Guided + Augmented: the selections are Guided, your approval is involvement.
 
-### Dimension 2: Human Involvement — Is a Human in the Loop During Execution?
+Whether a person should check what the AI produced is a separate question: it's answered by the involvement mode below and by evaluation in [Test](../test/), not by autonomy.
 
-Human involvement describes whether a human participates while the workflow is running — not before (design) or after (review), but during.
+The line between Guided and Autonomous follows Anthropic's distinction in [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents): *workflows* are "orchestrated through predefined code paths" — including routing and evaluator-optimizer loops, which are Guided here because the AI's judgment picks the path within a structure you defined — while *agents* "dynamically direct their own processes and tool usage," which is Autonomous.
 
-| Mode | Human's Role | What It Looks Like | Example |
-|------|-------------|-------------------|---------|
-| **Augmented** | Human is in the loop — reviews, steers, or decides at key points | AI pauses for human input, feedback, or approval before continuing. Human and AI collaborate in real time. | Co-writing a document, reviewing AI research before it continues |
-| **Automated** | AI runs solo — human reviews only the final output | Workflow executes end-to-end without human intervention during the run. May be triggered manually or on a schedule. | Weekly report generated overnight, prospect list compiled on a schedule |
+### Dimension 2: Human Involvement — Is a Person in the Workflow While It Runs?
 
-**Key question:** *Does a human participate during the workflow run, or only see the final result?*
+Human involvement describes whether a person takes part while the workflow is running — not before (design) or after (using the result), but during.
+
+| Mode | What It Means | What It Looks Like | Example |
+|------|---------------|-------------------|---------|
+| **Augmented** | A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs | The workflow pauses for a person's input, feedback, or approval before it continues, or the person works alongside it in the session | Reviewing a draft before it's saved, answering the AI's questions as it researches |
+| **Automated** | No one takes part until it's done | The workflow runs end-to-end on its own and the person sees only the result. Starting it by hand doesn't change that — what counts is whether anyone takes part along the way. | Weekly report generated overnight, support emails routed as they arrive |
+
+**Key question:** *Does a person take part along the way, or does no one take part until it's done?*
 
 ## The Matrix
 
 Combining these two dimensions produces six distinct workflow archetypes:
 
-| | **Augmented** (human in the loop) | **Automated** (AI runs solo) |
+| | **Augmented** (a person takes part along the way) | **Automated** (no one takes part until it's done) |
 |---|---|---|
-| **Deterministic** | Human triggers a fixed sequence and reviews output before it's used. AI follows rules; human confirms results. | Fixed sequence runs on a schedule or trigger with no human involvement. Same input → same output, every time. |
-| **Guided** | Human and AI collaborate — AI researches, drafts, or analyzes; human steers, refines, and decides. | AI handles research, drafting, or analysis on its own, applying bounded judgment. Human reviews only the final output. |
-| **Autonomous** | AI plans and executes multi-step work; human reviews at defined checkpoints before the workflow continues. | AI runs a full pipeline end-to-end — plans, executes, adapts — with no human intervention until the deliverable is complete. |
+| **Deterministic** | You set every step and the AI carries each one out; a person reviews, guides, or approves during the run. | You set every step and the AI carries each one out, start to finish, with no one taking part. |
+| **Guided** | The AI makes bounded decisions by your method (routing, choosing a tool, grading and sending work back); a person takes part during the run. | The AI makes the same bounded decisions with no one taking part until it's done — or until it escalates a case. |
+| **Autonomous** | The AI plans its own steps toward a goal; a person approves at a gate or steers along the way. | The AI plans and keeps going until the goal is met, with no one taking part until the deliverable is complete. |
 
 ### The Six Archetypes
 
 | Archetype | Autonomy | Involvement | Description | Example |
 |-----------|----------|-------------|-------------|---------|
-| **Deterministic + Augmented** | Deterministic | Augmented | Human triggers a rules-based process and confirms results before use | Run a data extraction template, review output, then forward |
-| **Deterministic + Automated** | Deterministic | Automated | Rules-based process runs unattended on a trigger or schedule | Nightly report formatting, scheduled form processing |
-| **Guided + Augmented** | Guided | Augmented | AI drafts, researches, or analyzes; human steers and decides in real time | Meeting prep research, co-writing, competitive analysis |
-| **Guided + Automated** | Guided | Automated | AI applies bounded judgment independently; human reviews the final output | Draft personalized outreach emails overnight for morning review |
-| **Autonomous + Augmented** | Autonomous | Augmented | AI executes a multi-step pipeline with human approval gates | Multi-agent research → write → edit pipeline with a review checkpoint |
-| **Autonomous + Automated** | Autonomous | Automated | AI runs a full autonomous pipeline end-to-end without human involvement | Continuous monitoring agent that detects, analyzes, and alerts |
+| **Deterministic + Augmented** | Deterministic | Augmented | Your steps; a person takes part along the way | Weekly status report: pull updates, the AI drafts, you review, then it saves |
+| **Deterministic + Automated** | Deterministic | Automated | Your steps, run unattended | After each class, turn the transcript into a summary email and send it |
+| **Guided + Augmented** | Guided | Augmented | Bounded AI decisions by your method; a person takes part | A browser assistant judges LinkedIn prospects against your persona and works out how to navigate the site; it pauses for you to confirm the targeting criteria before it searches, and you review the list |
+| **Guided + Automated** | Guided | Automated | Bounded AI decisions by your method, unattended | Support emails categorized and routed, unclear ones escalated; or three agents that draft playbook answers, grade them against your criteria, send failures back to be fixed, and publish the rest every hour |
+| **Autonomous + Augmented** | Autonomous | Augmented | The AI plans its own steps; a person takes part | Research agents plan and write an article; you approve it before it publishes |
+| **Autonomous + Automated** | Autonomous | Automated | The AI plans its own steps, with no one taking part | A monitoring agent that decides what to investigate when something changes, and alerts you |
 
 ### Worked Examples
 
-These three worked examples from the [Build](../build/) section illustrate different matrix positions:
+These worked examples illustrate different matrix positions:
 
 | Example | Archetype | Why |
 |---------|-----------|-----|
-| [Deterministic Automation](../examples/deterministic-automation/) | **Deterministic + Automated** | Fixed rules, structured input/output, runs the same way every time with no human steering |
-| [AI Collaborative](../examples/ai-collaborative/) | **Guided + Augmented** | AI researches and drafts; human reviews, refines, and decides what to use |
-| [Autonomous Agent](../examples/autonomous-agent/) | **Autonomous + Augmented** | Multi-agent pipeline executes autonomously with one human review gate before publishing |
+| [Guided Prospect Research](../examples/deterministic-automation/) | **Guided + Augmented** | The AI judges each prospect against your persona criteria to decide who makes the list, and works out how to navigate LinkedIn to find them — decisions made by your method. It pauses after analyzing the persona for you to confirm the targeting criteria before it searches, and you review the report. |
+| [AI Collaborative](../examples/ai-collaborative/) | **Deterministic + Augmented** | Every run takes the same steps (research the people, research the company, draft the brief); the AI's research and writing shape what the brief says, never what happens next. You review and refine it along the way. |
+| [Autonomous Agent](../examples/autonomous-agent/) | **Autonomous + Augmented** | You state the goal; the orchestrator decides which specialist agents to run and when. One human approval gate before publishing. |
 
 ## Choosing Your Archetype
 
 ### Two Questions
 
-1. **How much should the AI decide on its own?** → Determines your autonomy level (Deterministic / Guided / Autonomous)
-2. **Does a human need to be involved during the run?** → Determines your involvement mode (Augmented / Automated)
+1. **What decides the next step — your instructions, the AI's judgment by your method, or the AI working from a goal?** → Determines your autonomy level (Deterministic / Guided / Autonomous)
+2. **Does a person take part along the way, or does no one take part until it's done?** → Determines your involvement mode (Augmented / Automated)
 
 *(A fourth autonomy value, **Human**, exists only when classifying individual steps during Design — a step a person performs with no AI. It never appears at the whole-workflow level, which is what this matrix classifies.)*
 
@@ -84,11 +89,11 @@ These three worked examples from the [Build](../build/) section illustrate diffe
 Most workflows evolve along predictable paths as you build confidence:
 
 - **Deterministic + Augmented → Deterministic + Automated** — You start by running the process and reviewing output. Once you trust it, you schedule it to run unattended.
-- **Guided + Augmented → Guided + Automated** — You collaborate with AI on drafts and research. Once the AI consistently produces good output, you let it run independently and review only the final result.
-- **Guided + Augmented → Autonomous + Augmented** — The workflow grows more complex. You add tool access and multi-step reasoning, but keep a human review gate for high-stakes output.
+- **Guided + Augmented → Guided + Automated** — You watch the AI apply your method — routing, scoring, grading. Once its decisions prove reliable, you let it run with no one taking part, and review only the result or the cases it escalates.
+- **Guided + Augmented → Autonomous + Augmented** — The work outgrows a fixed structure: you can describe the goal but no longer the steps. The AI plans them, and you keep a human review gate for high-stakes output.
 
 :::tip[Start simple, upgrade when needed]
-If you're new to AI workflows, start with **Deterministic + Augmented** — the lowest-risk archetype. Move to **Deterministic + Automated** once you trust the process. Explore **Guided** and **Autonomous** levels when you're ready for more AI decision-making.
+If you're new to AI workflows, start with **Deterministic + Augmented** — the lowest-risk archetype. Move to **Deterministic + Automated** once you trust the process. Explore **Guided** and **Autonomous** levels when you're ready to let the AI decide more of what happens next.
 :::
 ## How This Maps to Framework Concepts
 
