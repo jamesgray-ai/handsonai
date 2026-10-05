@@ -163,7 +163,7 @@ Before completing, verify:
 
 ## What Makes This Guided
 
-This workflow is Guided — you set the structure, and the AI makes bounded choices about the path. The steps, the evaluation criteria (from the buyer persona), and the report template are all fixed, and the quality checklist provides a binary pass/fail verification. What the AI decides is how to navigate LinkedIn: which searches and filters to run, which profiles to open, and when to page further. Choosing how to move through a system is a path decision, which is what makes it Guided rather than Deterministic.
+This workflow is Guided — you give the AI bounded decisions, with your method. The steps and the report template are fixed, and the quality checklist provides a binary pass/fail verification. The method is the buyer persona: the AI scores each prospect against its criteria, and that judgment decides who advances to the report. It also works out how to navigate LinkedIn to find candidates. Its decisions are bounded by your rules, not open-ended, which is what makes it Guided rather than Deterministic or Autonomous.
 
 The fixed structure makes it ideal for:
 

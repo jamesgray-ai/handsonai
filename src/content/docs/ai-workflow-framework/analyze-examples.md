@@ -7,7 +7,7 @@ description: Two complete AI Opportunity Report examples showing what the Analyz
 - **Example 2** — AI Instructor running courses and maintaining a knowledge base (Individual lens, 7 opportunities)
 - **Example 3** — VP of Operations at a logistics company (Organizational lens, 5 opportunities)
 
-Examples 1 and 2 use the **individual lens** — analyzing one person's workflows. Example 3 uses the **organizational lens** — analyzing value chain processes tied to business objectives. Autonomy is classified by who decides the steps (see the [classification definitions](#appendix-classification-definitions)), so an opportunity where the AI drafts or analyzes on a fixed path is Deterministic, and a person reviewing the draft makes it Augmented. All three include every section the Analyze step produces: report header, summary table, top 3 recommendations, detailed opportunity cards grouped by autonomy level, workflow candidate summary, and classification definitions. Organizational-lens cards include three additional fields: Business Objective, Stakeholders, and Success Metrics.
+Examples 1 and 2 use the **individual lens** — analyzing one person's workflows. Example 3 uses the **organizational lens** — analyzing value chain processes tied to business objectives. Autonomy is classified by what decides the next step (see the [classification definitions](#appendix-classification-definitions)): an opportunity where the AI drafts or analyzes inside steps you set is Deterministic, one where the AI's judgment by your rubric or criteria decides what happens next is Guided, and a person taking part along the way makes it Augmented. All three include every section the Analyze step produces: report header, summary table, top 3 recommendations, detailed opportunity cards grouped by autonomy level, workflow candidate summary, and classification definitions. Organizational-lens cards include three additional fields: Business Objective, Stakeholders, and Success Metrics.
 
 ---
 
@@ -44,7 +44,7 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 
 ### Top Recommendations
 
-1. **Campaign Performance Reporting** — Eliminates 4+ hours of weekly manual data pulling and formatting across three platforms, on a path that never changes.
+1. **Campaign Performance Reporting** — Eliminates 4+ hours of weekly manual data pulling and formatting across three platforms, with the same steps every week.
 2. **Lead Data Enrichment** — Standardizes and enriches messy CRM records at scale, directly improving lead routing accuracy and sales handoff quality.
 3. **Content Brief Generation** — Cuts content brief creation from 90 minutes to 15 minutes per brief, freeing the team to focus on creative strategy instead of research compilation.
 
@@ -60,7 +60,7 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You can draw the whole flow in advance: pull metrics from three platforms, calculate the changes, fill the slide template, send the summary. Every step and the tool it uses are set, the path is the same every week, and the output format is fixed. Classic automation candidate.
+You give the AI instructions for every step: pull metrics from three platforms, calculate the changes, fill the slide template, send the summary. Nothing the AI produces changes what happens next, and the output format is fixed. Classic automation candidate.
 
 **Current pain point:**
 Every Monday morning, Sarah spends 3-4 hours pulling data from three ad platforms, copying numbers into a Google Sheet, calculating WoW changes, formatting a slide deck, and emailing it to the VP of Marketing. The process is tedious and error-prone — last month a copy-paste error overstated LinkedIn ROAS by 40%, which wasn't caught until the executive review.
@@ -80,7 +80,7 @@ Start with one platform (Google Ads) and build a simple script that pulls last w
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-Enrichment follows clear rules: look up company domain, match to firmographic database, fill in missing fields (industry, employee count, revenue range). No ambiguity in what "correct" looks like — either the data matches or it doesn't. The one branch, flagging low-confidence matches for manual review, is decided by a threshold you set, not by the AI, so the path stays fixed.
+Enrichment follows clear rules: look up company domain, match to firmographic database, fill in missing fields (industry, employee count, revenue range). No ambiguity in what "correct" looks like — either the data matches or it doesn't. The one branch, flagging low-confidence matches for manual review, uses the confidence score the enrichment API returns, not an AI judgment, so the work follows the same path whatever the AI produces.
 
 **Current pain point:**
 New leads arrive from webinars and content downloads with incomplete data — often just name and email. Sarah's team manually researches each company on LinkedIn and Crunchbase to fill in firmographic fields before leads can be scored and routed. This takes 10-15 minutes per lead, and with 50+ new leads per week, it's a significant time drain that delays sales follow-up.
@@ -100,7 +100,7 @@ Map the exact fields that need enrichment and the acceptable data sources. Test 
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keywords in Ahrefs, top-ranking competitor articles, customer quotes from Gong, then the brief. The AI's judgment about messaging angle and competitive positioning changes what the brief says, not which step runs, so the path is Deterministic. Because the angle matters, Sarah reviews and approves the draft before it's used — that's what makes it Augmented.
+Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keywords in Ahrefs, top-ranking competitor articles, customer quotes from Gong, then the brief. The AI's judgment about messaging angle shapes what the brief says, but every brief goes through the same steps, so it's Deterministic. Sarah reviews, adjusts the angle, and approves the draft along the way — that's what makes it Augmented.
 
 **Current pain point:**
 The content team produces 8-10 blog posts per month. Each brief takes Sarah or her content strategist ~90 minutes: researching keywords in Ahrefs, reviewing top-ranking competitor articles, pulling relevant customer quotes from Gong, and structuring the brief. The research portion is 70% of the time, and the quality varies depending on who writes the brief.
@@ -120,7 +120,7 @@ Take three recent content briefs that performed well and use them as examples. P
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-The analysis follows a set path: take the closed deals, test which attributes correlate with conversion, propose new weights. The AI's analysis shapes what it recommends, not which step runs — so the path is Deterministic. The business logic of what makes a "sales-ready" lead needs domain expertise and sales team input, so Sarah reviews the proposal with the sales team before anything changes (Augmented).
+The analysis follows the same steps every time: take the closed deals, test which attributes correlate with conversion, propose new weights. The AI's analysis shapes what it recommends, but never what happens next, so it's Deterministic. The business logic of what makes a "sales-ready" lead needs domain expertise and sales team input, so Sarah reviews the proposal with the sales team before anything changes (Augmented).
 
 **Current pain point:**
 The current lead scoring model in HubSpot was set up 18 months ago and hasn't been recalibrated. Sarah suspects the weights are off — the sales team complains that "hot" leads often aren't ready to buy, while some "warm" leads convert quickly. Recalibrating requires exporting data, running correlation analysis, and proposing new weights, which keeps getting deprioritized.
@@ -140,7 +140,7 @@ Export the last 6 months of closed-won and closed-lost opportunities with their 
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-The steps are set: pull the metrics, find the bottom performers, diagnose the likely issues, draft variants. The AI's pattern-finding and copywriting happen inside those steps and don't change the path, so it's Deterministic. Brand voice, compliance, and which variants to test need a person, so Sarah reviews before anything goes out (Augmented).
+The steps are set: pull the metrics, rank the sequences by open, click, and reply rates, diagnose the weakest emails, draft variants. The ranking is a metric sort, and the AI's diagnosis and copywriting happen inside those steps without changing what happens next, so it's Deterministic. Brand voice, compliance, and which variants to test need a person, so Sarah reviews before anything goes out (Augmented).
 
 **Current pain point:**
 Sarah manages 12 active email nurture sequences. Reviewing performance, identifying underperforming emails, and writing A/B test variants is a monthly task that takes a full day. She often defaults to tweaking subject lines because rewriting full emails is too time-consuming, leaving bigger optimization opportunities on the table.
@@ -164,7 +164,7 @@ Pick the single worst-performing email sequence. Export its metrics and email co
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-You set the structure: watch spend against targets, take a closer look when a channel is off, model reallocation options, recommend. The AI decides when a channel warrants that closer look and which scenarios to model, from the options you allow — choices that change which steps run, so it's Guided rather than Autonomous (it isn't planning the work from a goal). Budget moves have direct financial impact, so Sarah approves every recommendation before any money moves (Augmented).
+You set the structure and the method: the metrics and thresholds that define "off target", and how to model a reallocation. The AI uses your method to judge when a channel warrants a recommendation and which scenarios to model — its judgment, made by your rules, decides what happens next, so it's Guided. It isn't planning the work from an open-ended goal, so it isn't Autonomous. Budget moves have direct financial impact, so Sarah approves every recommendation before any money moves (Augmented).
 
 **Current pain point:**
 Campaign budgets are set quarterly and adjusted monthly based on performance. Sarah spends half a day each month analyzing cost-per-lead and ROAS across channels, modeling "what if" scenarios in a spreadsheet, and proposing reallocations to the VP. The analysis is always backward-looking, and by the time changes are implemented, market conditions have shifted.
@@ -188,7 +188,7 @@ Define the three key metrics and thresholds that should trigger a reallocation r
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You can describe the goal — catch competitor positioning changes before sales hears about them on a call — but not the steps. When the agent spots something new, it decides where to dig next (the pricing page, the docs, job postings, press coverage) based on what it found. That self-directed path is what makes it Autonomous. The inputs are public and the output is a digest, so no person is needed during the run.
+You can describe the goal — catch competitor positioning changes before sales hears about them on a call — but not the steps. When the agent spots something new, it decides what to do next at each turn (check the pricing page, the docs, job postings, press coverage) and keeps going until it can explain the change. That open-ended decision-making is what makes it Autonomous. The inputs are public and the output is a digest, so no one takes part until it's done.
 
 **Current pain point:**
 Sarah tries to keep tabs on 5 key competitors' content and messaging, but it's inconsistent — she checks their blogs when she remembers, usually before quarterly planning. The team often learns about competitor positioning changes reactively (from sales call objections) rather than proactively.
@@ -197,7 +197,7 @@ Sarah tries to keep tabs on 5 key competitors' content and messaging, but it's i
 An autonomous agent monitors competitor blogs, changelog pages, and social accounts on a weekly schedule. It identifies new content, detects messaging shifts or new feature announcements, and produces a weekly competitive digest with the 3-5 most notable changes and their implications for Sarah's content strategy.
 
 **Getting started:**
-List the 5 competitor blogs and their RSS feeds (or URLs to monitor). Set up a simple weekly prompt that checks each URL and summarizes anything new, delivered to a Slack channel. That first version is Deterministic (fixed sources, fixed steps); it becomes Autonomous when you let the agent decide where to dig after it spots a change.
+List the 5 competitor blogs and their RSS feeds (or URLs to monitor). Set up a simple weekly prompt that checks each URL and summarizes anything new, delivered to a Slack channel. That first version is Deterministic (fixed sources, fixed steps). It becomes Guided if the AI picks the 3-5 most notable changes by criteria you write, and Autonomous when you let the agent decide where to dig after it spots a change.
 
 
 ---
@@ -254,7 +254,7 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Priority** | High |
 | **Reasoning** | Large time savings per brief (75 min), high frequency, and directly improves content quality consistency |
 
-**Recommendation:** Start with **Campaign Performance Reporting**. It's the simplest to build (deterministic, well-defined inputs/outputs), delivers immediate visible value to leadership, and builds confidence in AI workflows before tackling candidates where the AI chooses more of the path.
+**Recommendation:** Start with **Campaign Performance Reporting**. It's the simplest to build (deterministic, well-defined inputs/outputs), delivers immediate visible value to leadership, and builds confidence in AI workflows before tackling candidates where the AI decides more of what happens next.
 
 ---
 
@@ -285,8 +285,8 @@ James Gray is an AI Instructor who runs live cohort courses and maintains the Ha
 | 2 | Lesson Slide Formatting | Deterministic | Automated | Medium |
 | 3 | Post-Class Summary Generation | Deterministic | Automated | Medium |
 | 4 | Course Content Updates | Deterministic | Augmented | Medium |
-| 5 | Newsletter Curation | Deterministic | Augmented | Low |
-| 6 | Student Q&A Research | Guided | Augmented | High |
+| 5 | Student Q&A Research | Guided | Augmented | High |
+| 6 | Newsletter Curation | Guided | Augmented | Low |
 | 7 | Meeting Prep Briefs | Autonomous | Automated | Medium |
 
 ### Top Recommendations
@@ -307,7 +307,7 @@ James Gray is an AI Instructor who runs live cohort courses and maintains the Ha
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-Every submission goes through the same steps: read it against the rubric and assignment prompt, note strengths and gaps, draft feedback with references to course material. The AI's pattern recognition shapes what the feedback says, not which step runs, so it's Deterministic. James adds the coaching touch and approves each draft before it's sent — that's the Augmented part, not more autonomy.
+Every submission goes through the same steps: read it against the rubric and assignment prompt, note strengths and gaps, draft feedback with references to course material. The AI uses the rubric to write the feedback, not to decide what happens next — every draft goes to James — so it's Deterministic. James adds the coaching touch and approves each draft before it's sent; that's the Augmented part, not more autonomy.
 
 **Current pain point:**
 James reviews 15-25 student assignments per cohort. Each piece of feedback takes 10-15 minutes: reading the submission, checking it against the rubric, identifying strengths and areas for improvement, and writing personalized comments. A full round of feedback takes 4-6 hours, and the turnaround time directly affects student momentum.
@@ -319,6 +319,7 @@ AI reads each submission alongside the rubric and assignment prompt, identifies 
 Take three completed assignments from the last cohort along with the rubric. Have AI draft feedback for each, then compare the drafts to the feedback James actually gave. Note where AI feedback was on-target and where it missed the mark.
 
 
+
 ---
 
 **#2 Lesson Slide Formatting**
@@ -327,7 +328,7 @@ Take three completed assignments from the last cohort along with the rubric. Hav
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. You set every step: parse the markdown, map each block to a slide template, apply the formatting rules. The content is already decided and the path is the same every time. It's pure template application.
+Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. You give instructions for every step: parse the markdown, map each block to a slide template, apply the formatting rules. The content is already decided, and the work follows the same path every time. It's pure template application.
 
 **Current pain point:**
 After writing lesson content in markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
@@ -339,6 +340,7 @@ A deterministic workflow takes the lesson markdown file, parses it by heading st
 Document the formatting rules for one slide type (e.g., code demonstration slides) and build a script that converts a markdown section into a properly formatted slide. Test against three recent lessons.
 
 
+
 ---
 
 **#3 Post-Class Summary Generation**
@@ -347,7 +349,7 @@ Document the formatting rules for one slide type (e.g., code demonstration slide
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-Class summaries follow a fixed structure: topics covered, key takeaways, action items, links to resources mentioned. The input (class recording transcript + lesson plan) is well-defined, and the output format doesn't vary. The AI writes the summary, but that writing happens inside a fixed step — it changes what the email says, not which step runs. A workflow that writes can still be Deterministic.
+Class summaries follow a fixed structure: topics covered, key takeaways, action items, links to resources mentioned. The input (class recording transcript + lesson plan) is well-defined, and the output format doesn't vary. The AI writes the summary, but writing inside a step never makes a workflow Guided — the email goes out the same way whatever it says.
 
 **Current pain point:**
 After each live session, James writes a summary email to students recapping what was covered, highlighting key concepts, and listing homework or next steps. This takes 20-30 minutes per session, and it's always the first thing that gets skipped when time is tight — meaning students miss the reinforcement.
@@ -359,6 +361,7 @@ An automated workflow ingests the class transcript (from Zoom or recording tool)
 Take a recent class recording transcript and the corresponding lesson plan. Prompt AI to generate a summary email following the standard format. Compare it to a manually-written summary to calibrate quality.
 
 
+
 ---
 
 **#4 Course Content Updates**
@@ -367,7 +370,7 @@ Take a recent class recording transcript and the corresponding lesson plan. Prom
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-AI platforms release updates frequently, and checking whether course content is still accurate means comparing current docs against existing lesson material — a tedious but critical task. The comparison runs the same way each time: you hand the AI the lesson page and the matching documentation, it lists discrepancies and drafts edits. It doesn't choose where to look, so it's Deterministic. James decides which edits are worth making (Augmented).
+AI platforms release updates frequently, and checking whether course content is still accurate means comparing current docs against existing lesson material — a tedious but critical task. The comparison runs the same way each time: you hand the AI the lesson page and the matching documentation, and it lists discrepancies and drafts edits. Its findings change what the suggestions say, not what happens next, so it's Deterministic. James decides which edits are worth making (Augmented).
 
 **Current pain point:**
 Platform updates (new Claude features, changed OpenAI pricing, deprecated Gemini APIs) can make course material outdated overnight. James periodically audits lessons against current documentation, but it's reactive — he often discovers outdated content when a student flags it in class. A full content audit across 30+ pages takes a full day.
@@ -379,15 +382,41 @@ Given a lesson page and the relevant platform documentation, AI compares the two
 Pick the three platform pages most likely to be outdated (e.g., Claude capabilities, OpenAI pricing, Gemini model list). Have AI compare each against current official documentation and list every discrepancy found.
 
 
+
 ---
 
-**#5 Newsletter Curation**
+#### Guided
 
-**Autonomy:** Deterministic
+---
+
+**#5 Student Q&A Research**
+
+**Autonomy:** Guided
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-The sources are configured in advance and the steps are set: check each source, filter for relevance, compile the top items with summaries. The AI's filtering changes what makes the digest, not which step runs, so it's Deterministic. Editorial judgment about what's actually interesting to the audience (and how to frame it) comes from James reviewing the digest before he publishes (Augmented).
+Student questions vary, and the AI makes bounded decisions by your method for each one: it chooses which source to check from the ones you allow — the playbook's MCP server, official documentation, or web search — and whether a quick example is needed. Choosing the tool decides what happens next, so it's Guided. The answer also needs to be pedagogically appropriate (right level of detail, connected to course concepts), so James reviews the draft before posting (Augmented).
+
+**Current pain point:**
+Students ask questions via Slack, email, and in class that go beyond the prepared material — "How does this work in Gemini?", "What's the difference between X and Y?", "Can you show an example of Z?" James spends 15-30 minutes per question researching current docs, testing examples, and crafting a thoughtful answer. With 10-15 questions per week across cohorts, this is 3-5 hours of reactive work.
+
+**How AI helps:**
+Given a student question, AI researches current documentation (via MCP server and web search), finds relevant examples, drafts an answer at the appropriate level for the course, and cites sources. James reviews the draft, adjusts the pedagogical framing, and posts the response. The answer is also saved to the playbook for future reference.
+
+**Getting started:**
+Collect the last 10 student questions from Slack. Run three of them through AI with the prompt: "Research this question for a student in an introductory AI course. Provide a clear answer with sources and a practical example." Evaluate whether the answers are accurate and at the right level.
+
+
+
+---
+
+**#6 Newsletter Curation**
+
+**Autonomy:** Guided
+**Involvement:** Augmented
+
+**Why it's a good candidate:**
+The sources are configured in advance and the structure is set: check each source, judge each item's relevance to practical AI adoption, summarize the top items. The relevance judgment, made by your criteria, decides which items advance to the digest and which are dropped — the AI's judgment decides what happens next for each item, so it's Guided. James reviews the digest, removes items, and adds commentary before he publishes (Augmented).
 
 **Current pain point:**
 James curates a periodic newsletter of AI developments relevant to his students and audience. Scanning RSS feeds, Twitter/X, AI news sites, and research papers takes 1-2 hours per edition. The inconsistency of the publishing schedule (sometimes biweekly, sometimes monthly) reflects the time pressure — it's always the lowest-priority task.
@@ -398,29 +427,6 @@ A scheduled workflow checks configured sources (RSS feeds, specific Twitter acco
 **Getting started:**
 List the 10 sources James checks most often for AI news. Set up a weekly prompt that checks each source and summarizes the top 3 items from each, then ask AI to select the overall top 7 most relevant to "business professionals learning to use AI tools."
 
-
----
-
-#### Guided
-
----
-
-**#6 Student Q&A Research**
-
-**Autonomy:** Guided
-**Involvement:** Augmented
-
-**Why it's a good candidate:**
-Student questions vary, so the path does too. For each question the AI picks where to look from the sources you allow — the playbook's MCP server, official documentation, or web search — and whether to build a quick example. Those are tool and path choices made within limits you set, which makes it Guided. The answer also needs to be pedagogically appropriate (right level of detail, connected to course concepts), so James reviews the draft before posting (Augmented).
-
-**Current pain point:**
-Students ask questions via Slack, email, and in class that go beyond the prepared material — "How does this work in Gemini?", "What's the difference between X and Y?", "Can you show an example of Z?" James spends 15-30 minutes per question researching current docs, testing examples, and crafting a thoughtful answer. With 10-15 questions per week across cohorts, this is 3-5 hours of reactive work.
-
-**How AI helps:**
-Given a student question, AI researches current documentation (via MCP server and web search), finds relevant examples, drafts an answer at the appropriate level for the course, and cites sources. James reviews the draft, adjusts the pedagogical framing, and posts the response. The answer is also saved to the playbook for future reference.
-
-**Getting started:**
-Collect the last 10 student questions from Slack. Run three of them through AI with the prompt: "Research this question for a student in an introductory AI course. Provide a clear answer with sources and a practical example." Evaluate whether the answers are accurate and at the right level.
 
 
 ---
@@ -435,7 +441,7 @@ Collect the last 10 student questions from Slack. Run three of them through AI w
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You can describe the goal — a brief that tells James who he's meeting and why it matters — but not the steps. Each meeting is different: the agent decides which sources to search for each attendee and where to dig next based on what it finds (a thin LinkedIn profile sends it to company press or past talks). It plans its own path, which makes it Autonomous. The output is read as-is before the meeting, so no one is needed during the run.
+You can describe the goal — a brief that tells James who he's meeting and why it matters — but not the steps. Each meeting is different: the agent decides what to search for each attendee and what to do next at each turn based on what it finds (a thin LinkedIn profile sends it to company press or past talks), and keeps going until the brief is complete. That open-ended decision-making makes it Autonomous. The brief is read as-is before the meeting, so no one takes part until it's done.
 
 **Current pain point:**
 James has 5-8 external meetings per week — prospective clients, conference organizers, partnership discussions, guest lecturers. Before each meeting, he spends 15-20 minutes researching the person and company on LinkedIn, their website, and recent news. Some meetings get thorough prep; others get none because of time pressure, leading to missed context.
@@ -445,6 +451,7 @@ An autonomous agent triggers from the calendar 2 hours before each external meet
 
 **Getting started:**
 Take tomorrow's meetings and manually create the ideal prep brief for one of them. Then prompt AI to generate the same brief from just the meeting title and attendee names. Compare coverage and identify what sources AI needs access to.
+
 
 
 ---
@@ -553,7 +560,7 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a data event from the WMS or TMS, and every alert comes from a threshold you set — the AI picks no part of the path. Just monitoring, matching, and alerting.
+Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a data event from the WMS or TMS, and every alert fires on a timing threshold you set — no AI judgment decides what happens next. Just monitoring, matching, and alerting.
 
 **Current pain point:**
 Customer service reps manually check order status across the WMS and TMS when customers call. Exception detection (delayed shipments, partial picks, missed delivery windows) relies on someone noticing — there's no proactive alerting. The team spends 3-4 hours daily on reactive status checks, and customers often know about problems before the ops team does.
@@ -577,7 +584,7 @@ Define the 5 most common exception scenarios and their alert thresholds. Build a
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-Rate negotiation prep is research-heavy but follows a set path: pull shipment volumes by lane, pull carrier on-time performance, benchmark against published rate indices, write the negotiation brief. The AI's analysis shapes what the brief recommends, not which step runs, so it's Deterministic. The negotiation strategy needs human judgment, so the logistics manager reviews the brief before using it (Augmented).
+Rate negotiation prep is research-heavy but follows the same steps every quarter: pull shipment volumes by lane, pull carrier on-time performance, benchmark against published rate indices, write the negotiation brief. The AI's analysis shapes what the brief recommends, not what happens next, so it's Deterministic. The negotiation strategy needs human judgment, so the logistics manager reviews the brief before using it (Augmented).
 
 **Current pain point:**
 Quarterly carrier negotiations require 2-3 days of prep. The logistics manager pulls shipment data from the TMS, calculates lane-by-lane volumes, reviews carrier scorecards, researches competitor rate benchmarks, and assembles a briefing document. By the time the brief is ready, some of the market data is already stale.
@@ -601,7 +608,7 @@ Export last quarter's shipment data by carrier and lane. Have AI analyze the top
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-The forecast follows a set path: analyze shipment history, find seasonal patterns and growth trends per customer, add known upcoming events, produce a 90-day forecast. The AI's modeling changes what the forecast says, not which step runs, so it's Deterministic. Maria adds market intuition and customer-specific knowledge before approving the capacity plan, so a person is in the run (Augmented).
+The forecast follows the same steps every month: analyze shipment history, find seasonal patterns and growth trends per customer, add known upcoming events, produce a 90-day forecast. The AI's modeling changes what the forecast says, not what happens next, so it's Deterministic. Maria adds market intuition and customer-specific knowledge before approving the capacity plan, so a person takes part along the way (Augmented).
 
 **Current pain point:**
 Monthly capacity planning relies on the VP's experience and a basic spreadsheet model. Seasonal demand shifts, new customer ramp-ups, and one-time events aren't systematically factored in. Over-forecasting wastes warehouse labor; under-forecasting creates overtime costs and missed SLAs.
@@ -629,7 +636,7 @@ Export 12 months of daily shipment volumes by customer. Have AI identify the top
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-Onboarding follows a structured sequence (account setup, system configuration, initial shipment planning, training) that you define. The choice point is the handoffs: when a cross-team task stalls, the AI decides whether to send a reminder, re-route the task, or escalate to the account manager, from options you allow. That choice changes which step runs next, which makes it Guided. The recommendations themselves (warehouse assignment, carrier mix) change what gets proposed, not the path; the account manager approves them, which is what makes it Augmented.
+Onboarding follows a structured sequence (account setup, system configuration, initial shipment planning, training) and a process you define for handoffs. The AI applies that process when a cross-team task stalls: it decides whether to send a reminder, re-route the task, or escalate to the account manager. That judgment, made by your rules, decides what happens next, so it's Guided. The recommendations themselves (warehouse assignment, carrier mix) are drafts the account manager approves along the way, which is what makes it Augmented.
 
 **Current pain point:**
 New customer onboarding takes 2-3 weeks and involves sales, operations, and account management. Each team owns different steps, and handoffs are where things break — incomplete information passes between teams, setup tasks get missed, and the customer's first shipment experience sets the tone for the relationship. There's no single owner for the end-to-end outcome.
@@ -653,7 +660,7 @@ Map the current onboarding process across all three teams. Identify which handof
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You set the structure: monitor telemetry (mileage, engine hours, diagnostic codes), check it against service intervals and delivery commitments, schedule service, issue work orders. For each vehicle the AI decides whether to book service now or defer it, and which low-utilization window to use, within limits you set. Those choices change which steps run — a work order or not, a delivery-schedule change or not — so it's Guided. It isn't planning its own steps from a goal, so it isn't Autonomous. The constraints are clear enough to run unattended (Automated).
+You set the structure and the rules: service intervals, delivery commitments, and how to weigh uptime against maintenance. For each vehicle the AI uses those rules to decide whether to book service now or defer it, and which low-utilization window to use. That judgment decides what happens next — a work order or not, a delivery-schedule change or not — so it's Guided. It isn't planning open-endedly toward a goal, so it isn't Autonomous. The constraints are clear enough for no one to take part until it's done (Automated).
 
 **Current pain point:**
 Fleet maintenance is tracked in a spreadsheet. The fleet manager checks mileage and schedules services based on manufacturer intervals, but competing delivery commitments mean vehicles often run past due. Unplanned breakdowns cost 3-5x more than scheduled maintenance and disrupt delivery schedules.
@@ -741,15 +748,15 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 
 ## Appendix: Classification Definitions
 
-**Autonomy — How much does the AI decide on its own? Tell by looking at who decides the steps.**
+**Autonomy — How much does the AI decide on its own? Look at what decides the next step.**
 
-- **Deterministic**: You set the steps, their order, and the tool each one uses. The path is the same every run. The AI may still write, summarize, or analyze inside a step. Test: could you draw the whole flow in advance, with no "it depends" arrows? Examples: formatting reports, drafting a status report from fixed sources, comparing two documents and drafting edits.
-- **Guided**: You set the structure. The AI makes bounded choices about the path within limits you define: which tool to use, which branch to take, whether to retry or skip a step, or how to navigate a system. Test: is there a choice point where the AI, not you, picks the next move from options you allowed? Examples: routing support emails by category, a browser assistant that works out how to navigate a website, choosing which source to search for each question.
-- **Autonomous**: The AI plans its own steps toward a goal and changes course based on what it finds. Test: could you only describe the goal, not the steps? Examples: research agents that plan and write an article, a monitoring agent that decides where to dig when something changes.
+- **Deterministic** — you give instructions. You set every step, and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. Test: does the work follow the same path whatever the AI produces? Examples: formatting reports, drafting a status report from fixed sources, drafting feedback against a rubric for a person to review.
+- **Guided** — you give bounded decisions, with your method. You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. Test: does the AI's judgment, made by your rules, decide what happens next? Examples: routing support emails by category, scoring items against a rubric and advancing only those that pass, choosing which source to search for each question.
+- **Autonomous** — you give a goal. The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. Test: could you only describe the goal, not the steps? Examples: research agents that plan and write an article, a monitoring agent that decides where to dig when something changes.
 
-**Tiebreak:** if the AI's choice changes which step runs next or which tool is used, it is a path decision and counts toward Guided. If it only changes what a step produces (the wording, what to include, the summary), it does not. Whether a person should check the output is the involvement question below, not autonomy.
+Writing or summarizing inside a step never makes a workflow Guided, and the number of agents doesn't set the level.
 
-**Human Involvement — Is a human in the loop during execution?**
+**Human Involvement — Does a person take part while it runs?**
 
-- **Augmented**: Human participates during the workflow run — reviews, steers, or decides at key points. AI and human collaborate in real time.
-- **Automated**: AI runs solo — executes end-to-end without human intervention during the run. Human reviews only the final output.
+- **Augmented**: A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs.
+- **Automated**: No one takes part until it's done. Starting a run by hand doesn't make it Augmented.

@@ -11,7 +11,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 An AI collaborative workflow is one where the human and AI work together — the AI performs tasks like research, analysis, or drafting, and the human provides judgment, context, and final decisions. Neither operates alone. The human sets the direction; the AI handles the legwork.
 
-"Collaborative" describes the human involvement (Augmented), not the autonomy level. The steps here are fixed — research the attendees, research the company, draft the brief — and the AI's judgment shapes what the brief says, not which step runs. That makes it Deterministic + Augmented: a fixed path, with a person reviewing the output during the run.
+"Collaborative" describes the human involvement (Augmented: a person is in the workflow along the way), not the autonomy level. You give the AI instructions for every step — research the attendees, research the company, draft the brief — and nothing it produces changes what happens next; its research and writing shape what the brief says. That makes it Deterministic + Augmented.
 
 :::note[At a Glance]
 - **Matrix classification:** Deterministic + Augmented
@@ -118,7 +118,7 @@ To adapt: identify tasks where you spend significant time gathering information 
 
 ## Related
 
-- [Guided Prospect Research Example](../deterministic-automation/) — when the AI works out its own route through a website, within fixed criteria
+- [Guided Prospect Research Example](../deterministic-automation/) — when the AI's judgment, by your criteria, decides which items advance
 - [Autonomous Agent Workflow Example](../autonomous-agent/) — when AI executes end-to-end with minimal supervision
 - [Research Use Cases](../../../use-cases/research/) — more examples of AI-powered research workflows like meeting prep
 - [Ideation & Strategy Use Cases](../../../use-cases/ideation-and-strategy/) — collaborative brainstorming and planning with AI

@@ -78,12 +78,12 @@ The spec is organized into three layers that build on each other:
 
 ## Autonomy Spectrum Summary
 
-**Workflow-level autonomy: Deterministic.** The ten steps, their order, and the tool each one uses are fixed — the whole flow can be drawn in advance. Four steps carry real creative judgment by the AI (themes, channel mapping, the post plan, sequencing), but that judgment changes what the plan says, not which step runs next, so it does not raise the level. The two branches in the flow — an empty backlog after Step 2, and the three-round cap on refinement at Step 9 — are rules the Workflow Requirements set, not choices the AI makes. James starts the session and approves at Steps 3, 5, 6, and 9, which is what makes the workflow Augmented.
+**Workflow-level autonomy: Deterministic.** You give the AI instructions for all ten steps, and the work follows the same path whatever the AI produces. Four steps carry real creative judgment by the AI (themes, channel mapping, the post plan, sequencing), but writing and planning inside a step never makes a workflow Guided: every selection the AI makes is a proposal James approves (Steps 5, 6, and 9) before it takes effect, so the AI's judgment never decides what happens next on its own. The two branches in the flow — an empty backlog after Step 2, and the three-round cap on refinement at Step 9 — are mechanical rules, not AI judgments. James is in the session throughout and approves at Steps 3, 5, 6, and 9, which is what makes the workflow Augmented. (If the Step 5 selection ran without his approval — the AI picking which ideas advance by the pillar-balance rules — that step would be Guided.)
 
 Per-step classifications (from the Decomposition table below):
 
-- **Deterministic — data operations** (Steps 1, 2, 4, 10): query or write Notion databases with a set tool. Fully automated via component skills.
-- **Deterministic — creative planning** (Steps 5, 6, 7, 8): the AI proposes themes, channel mapping, a post plan, and a sequence inside rules the Workflow Requirements sets (pillar balance, cadence targets, channel-format fit). Driven by the orchestrator's inline instruction blocks. The AI picks no tool and no branch here — its choices change the plan's content, not the path — and Steps 5 and 6 pause for James's approval.
+- **Deterministic — data operations** (Steps 1, 2, 4, 10): query or write Notion databases as instructed. Fully automated via component skills.
+- **Deterministic — creative planning** (Steps 5, 6, 7, 8): the AI proposes themes, channel mapping, a post plan, and a sequence inside rules the Workflow Requirements sets (pillar balance, cadence targets, channel-format fit). Driven by the orchestrator's inline instruction blocks. Its output shapes the plan's content; what happens next is set by the steps and by James's approvals at Steps 5 and 6.
 - **Human** (Steps 3, 9): Human drives, AI supports. Step 3 is James's own recall of the week, captured through an existing skill. Step 9 is the approval gate the whole workflow turns on.
 
 ## Safety & Permissions

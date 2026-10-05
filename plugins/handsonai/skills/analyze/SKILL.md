@@ -92,8 +92,8 @@ Continue until you can identify at least 3 concrete opportunities — typically 
 Once you can identify at least 3 concrete, specific opportunities with enough detail to fill the card format below, produce the structured report.
 
 **Two scales you'll classify each opportunity on (plain-language — full definitions in the Appendix):**
-- **Autonomy** = how much the AI decides on its own — tell by looking at **who decides the steps**: **Deterministic** (you set the steps and their tools; the path is the same every run, even when the AI writes or analyzes inside a step) → **Guided** (the AI picks the next move at choice points you allowed — which tool, which branch, retry or skip, how to navigate a system) → **Autonomous** (the AI plans its own steps toward a goal). Classify by the path, not by how much writing or judgment the AI does: an opportunity where the AI drafts and a person reviews is Deterministic + Augmented. Use the tests and tiebreak in the Appendix for every opportunity.
-- **Involvement** = is a human in the loop *during the run*: **Augmented** (you participate as it runs) vs. **Automated** (runs solo; you review the result).
+- **Autonomy** = how much the AI decides on its own — look at **what decides the next step**: **Deterministic** (you give instructions; the AI carries out every step, and its output never changes what happens next, even when it writes or analyzes inside a step) → **Guided** (you give bounded decisions with your method — the AI uses your rubric, criteria, or process to route an item, choose a tool, or judge quality and send work back) → **Autonomous** (you give a goal; the AI plans its own steps and keeps going until the goal is met). An opportunity where the AI drafts and a person reviews is Deterministic + Augmented. Use the tests in the Appendix for every opportunity.
+- **Involvement** = does a person take part while it runs: **Augmented** (a person is in the workflow along the way, guiding, engaging, or collaborating with the AI) vs. **Automated** (no one takes part until it's done — starting it by hand doesn't change that).
 
 **Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy, ask one more question or drop the opportunity — a candidate without a clear trigger + deliverable will stall in Deconstruct (Step 2).
 
@@ -241,20 +241,18 @@ For each opportunity:
 
 Use these definitions when classifying opportunities:
 
-**Autonomy — How much does the AI decide on its own? Tell by looking at who decides the steps.**
+**Autonomy — How much does the AI decide on its own? Look at what decides the next step.**
 
-- **Deterministic**: You set the steps, their order, and the tool each one uses. The path is the same every run. The AI may still write, summarize, or analyze inside a step. Test: could you draw the whole flow in advance, with no "it depends" arrows? Examples: formatting reports, drafting a weekly status report from fixed sources, drafting feedback against a rubric, a fixed draft → check → publish pipeline.
-- **Guided**: You set the structure. The AI makes bounded choices about the path within limits you define: which tool to use, which branch to take, whether to retry or skip a step, or how to navigate a system. Test: is there a choice point where the AI, not you, picks the next move from options you allowed? Examples: sorting support emails by category and routing each to the right queue (escalating unclear ones), a browser assistant that works out how to navigate a website to find what you asked for.
-- **Autonomous**: The AI plans its own steps toward a goal and changes course based on what it finds. Test: could you only describe the goal, not the steps? Examples: research agents that decide what to investigate and write an article, a monitoring agent that decides where to dig when something changes.
+- **Deterministic** — you give instructions. You set every step, and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. Test: does the work follow the same path whatever the AI produces? Examples: formatting reports, drafting a weekly status report from fixed sources, drafting feedback against a rubric for a person to review.
+- **Guided** — you give bounded decisions, with your method. You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. Test: does the AI's judgment, made by your rules, decide what happens next? Examples: sorting support emails by category and routing each to the right queue (escalating unclear ones), scoring insights 1–10 against a rubric and drafting only those that score 7 or higher, an agent that grades drafts against your criteria and sends failures back to be fixed, a browser assistant that judges prospects against a persona and works out how to navigate the site.
+- **Autonomous** — you give a goal. The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. Test: could you only describe the goal, not the steps? Examples: research agents that decide what to investigate and write an article, a monitoring agent that decides where to dig when something changes.
 
-**Tiebreak — path or content?** If the AI's choice changes which step runs next or which tool is used, it is a path decision and counts toward Guided. If it only changes what a step produces (the wording, what to include, the summary), it does not. A branch your own rule decides is still yours: a fixed threshold, or a pass/fail check where the AI grades output against your criteria and your rule says pass continues and fail stops. It is Guided when the AI picks among next moves you allowed (which queue, which tool, retry or skip). The level is the highest any AI step reaches.
+Two notes: **writing or summarizing inside a step never makes a workflow Guided**, and **the number of agents doesn't set the level**. The level is the highest any AI step reaches. Whether a person should check the output is the involvement question, never a reason to raise autonomy.
 
-**Not autonomy:** whether a person should check what the AI produced. That is the involvement mode (Augmented) and evaluation, never a reason to call a workflow Guided.
+**Human Involvement — Does a person take part while it runs?**
 
-**Human Involvement — Is a human in the loop during execution?**
-
-- **Augmented**: Human participates during the workflow run — reviews, steers, or decides at key points. AI and human collaborate in real time.
-- **Automated**: AI runs solo — executes end-to-end without human intervention during the run. Human reviews only the final output.
+- **Augmented**: A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs.
+- **Automated**: No one takes part until it's done. Starting a run by hand doesn't make it Augmented.
 
 ## Guidelines
 

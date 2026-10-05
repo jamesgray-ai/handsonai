@@ -12,7 +12,7 @@ Run this checklist against the assembled Design Spec content **before** presenti
 - [ ] Every step in the decomposition table has separate Orchestration, Integration, Intelligence, and Build Output columns
 - [ ] Step IDs in the decomposition table match the Step IDs in the Workflow Requirements (Step 1, Step 2, …)
 - [ ] Every step uses canonical autonomy terms: Human / Deterministic / Guided / Autonomous
-- [ ] Workflow-level autonomy equals the highest AI step level, and every Guided or Autonomous step names its path choice (tool, branch, retry or skip, navigation, or a goal it plans toward) — not drafting quality or a human review
+- [ ] Workflow-level autonomy equals the highest AI step level, and every Guided step names the AI decision, made by your method, that decides what happens next (route, tool choice, grade and send back, score and advance), and every Autonomous step names its goal — not drafting quality or a human review
 - [ ] Every Integration column entry includes the block type, tool name, and use/build tag
 - [ ] Every Build Output value is one of the canonical forms (`New skill: SN`, `Use existing: [name]`, `Extend existing: [name]`, `New agent: AN`, `Inline prompt → Workflow Requirements Step N`, `Handled by orchestrator` [legacy synonym `Handled by agent` accepted], `MCP server: [name]`, `Human (no artifact)`)
 - [ ] Packaging value is one of the canonical forms (`Plugin`, `Standalone Skill`, `Workspace Agent`, `Loose Files`)

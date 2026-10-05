@@ -100,7 +100,7 @@ The spec is organized into three layers that build on each other:
 
 The workflow-level autonomy assessment and the rationale that drove it. (Per-step autonomy classifications appear in the Decomposition table below.)
 
-For step-driven workflows: group steps by autonomy level. For each group, explain WHY those steps have that classification by naming who decides the path — the steps you set, or the choice point where the AI picks the next move or tool. AI drafting, analysis, or a human review pause does not raise a step's level. The workflow-level value is the highest AI step level.
+For step-driven workflows: group steps by autonomy level. For each group, explain WHY those steps have that classification by naming what decides the next step — your instructions, an AI decision made by your method (route, tool choice, grade and send back, score and advance), or a goal the AI plans toward. AI drafting, analysis, or a human review pause does not raise a step's level. The workflow-level value is the highest AI step level.
 
 For goal-driven workflows: replace this section with an **Autonomy Statement** — a brief paragraph stating: "This is a goal-driven workflow. Autonomy is Autonomous — the agent system determines its own execution path based on the Goal, Inputs, Rules & Constraints, and Acceptance Criteria defined in the Workflow Requirements."
 

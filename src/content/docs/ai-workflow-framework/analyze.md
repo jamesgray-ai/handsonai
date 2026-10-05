@@ -23,8 +23,8 @@ A proactive audit of your workflows can reveal opportunities you'd never notice 
 
 This step guides an AI through a structured analysis of your work — from either an **individual** perspective (your personal tasks and pain points) or an **organizational** perspective (your business's value chain and strategic processes) — and produces a classified report of opportunities along two dimensions:
 
-- **Autonomy** — How much does the AI decide on its own? Tell by looking at who decides the steps. **Deterministic** (you set the steps and their tools; the path is the same every run, even when the AI writes inside a step), **Guided** (the AI picks the next move at choice points you allowed — which tool, which branch, retry or skip), or **Autonomous** (the AI plans its own steps toward a goal)
-- **Human Involvement** — Is a human in the loop during execution? **Augmented** (human reviews and steers) or **Automated** (AI runs solo)
+- **Autonomy** — How much does the AI decide on its own? Look at what decides the next step. **Deterministic** (you give instructions; the AI carries out every step, and its output never changes what happens next), **Guided** (you give bounded decisions with your method — the AI routes, chooses a tool, or grades and sends work back by your rules), or **Autonomous** (you give a goal; the AI plans its own steps until the goal is met)
+- **Human Involvement** — Does a person take part while it runs? **Augmented** (a person is in the workflow along the way, guiding, engaging, or collaborating with the AI) or **Automated** (no one takes part until it's done)
 
 ## How the Skill Works
 
@@ -82,7 +82,7 @@ The more the AI knows about your actual work, the better the recommendations. If
 
 - **Start with Deterministic + Augmented** if you're new to AI — lowest risk, easiest to try
 - **Move to Deterministic + Automated** once you trust the process — the time savings compound quickly
-- **Explore Guided and Autonomous** when you're ready to let the AI choose more of the path
+- **Explore Guided and Autonomous** when you're ready to let the AI decide more of what happens next
 
 ## What Analyze Produces
 

@@ -133,45 +133,45 @@ Present a single confirmation block:
 
 Before choosing an orchestration mechanism, assess where the *whole workflow* sits on the autonomy spectrum. This is the same spectrum used for per-step classification (Phase 8), applied at the workflow level.
 
-**Autonomy level: how much does the AI decide on its own? Tell by looking at who decides the steps.**
+**Autonomy level: how much does the AI decide on its own? Look at what decides the next step.**
 
 ```
 Deterministic ———————— Guided ———————— Autonomous
-(you set the path)  (AI picks at choice points)  (AI plans the path)
+(you give instructions)  (bounded decisions, your method)  (you give a goal)
 ```
 
-| Level | Who decides the steps | Test | Orchestration implications |
-|-------|----------------------|------|--------------------------|
+| Level | What you give the AI | Test | Orchestration implications |
+|-------|---------------------|------|--------------------------|
 | **Human** | A person performs the step — judgment, creativity, approval, or physical action; no AI | — (step level only) | No AI artifact — captured as Human step in the Decomposition table |
-| **Deterministic** | You set the steps, their order, and the tool each one uses. The path is the same every run. The AI may still write, summarize, or analyze inside a step. | Could you draw the whole flow in advance, with no "it depends" arrows? | Skill likely sufficient |
-| **Guided** | You set the structure. The AI makes bounded choices about the path within limits you define: which tool to use, which branch to take, whether to retry or skip a step, or how to navigate a system. | Is there a choice point where the AI, not you, picks the next move from options you allowed? | Skill or Agent |
-| **Autonomous** | The AI plans its own steps toward a goal and changes course based on what it finds. | Could you only describe the goal, not the steps? | Agent required |
+| **Deterministic** | **Instructions.** You set every step, and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. | Does the work follow the same path whatever the AI produces? | Skill likely sufficient |
+| **Guided** | **Bounded decisions, with your method.** You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. | Does the AI's judgment, made by your rules, decide what happens next? | Skill or Agent |
+| **Autonomous** | **A goal.** The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. | Could you only describe the goal, not the steps? | Agent required |
 
-**How to classify — apply these in order:**
+Apply the three tests in order (Autonomous test first: if you can only describe the goal, stop there). Two notes govern every call:
 
-1. **Path or content (tiebreak).** For every place the AI exercises judgment, ask: does this choice change which step runs next or which tool is used? If yes, it is a path decision and counts toward Guided. If it only changes what a step produces — the wording, what to include, the summary, a recommendation a person approves — it does not count. Drafting, summarizing, analyzing, scoring, and creative planning are content, however much judgment they take.
-2. **Your rules are still your path.** A branch decided by a rule you wrote stays Deterministic: a fixed threshold ("flag anything under 80% confidence"), a retry rule ("retry once, then stop"), or a pass/fail check where the AI grades the output against your criteria and your rule says pass continues and fail stops. It turns Guided when the AI picks among next moves you allowed — which queue to route to, which tool or source to use, whether to retry or skip, how to move through a website.
-3. **Guided or Autonomous?** If you can still list the steps and the AI only chooses at choice points inside them, it is Guided. If you can only describe the goal and the AI plans the steps and changes course on what it finds, it is Autonomous.
-4. **Roll up.** The workflow's level is the highest level any of its AI steps reaches (Human steps don't count). One Guided step makes a Guided workflow.
-5. **Content risk is not autonomy.** Whether a person should check what the AI produced is answered by the involvement mode (Augmented) and by evaluation in Test — never by raising autonomy. A human review pause makes a workflow Augmented, not Guided.
+- **Writing or summarizing inside a step never makes a workflow Guided.** Drafting, summarizing, and analysis whose output goes to the same next step whatever it says stay Deterministic. A grade, score, or category the AI assigns by your rules that decides where the work goes next — send back, advance, route, escalate — is Guided.
+- **The number of agents doesn't set the level.** A fixed chain of three agents can be Deterministic or Guided; one agent working from a goal can be Autonomous.
+
+The workflow's level is the highest level any of its AI steps reaches (Human steps don't count). Whether a person should check what the AI produced is the involvement mode (Augmented) and evaluation in Test — a human review pause never raises autonomy.
 
 **Reference cases** (use them to calibrate):
 
 | Workflow | Autonomy · Involvement | Why |
 |---|---|---|
-| Pull this week's updates, the AI drafts a status report, pause for the owner's review, save | Deterministic · Augmented | Fixed steps and tools; drafting is content; the review pause is involvement |
-| Three agents draft, check, and publish playbook answers every hour, in a fixed order | Deterministic · Automated | Fixed chain; the check is a pass/fail gate against your criteria (rule 2) |
-| A browser assistant finds five LinkedIn prospects for a persona, working out its own navigation; the user reviews the report | Guided · Augmented | Fixed criteria and template, but the AI chooses how to navigate the site (a path choice) |
-| Support emails are categorized and routed to the right queue, unclear ones escalated, unattended | Guided · Automated | The AI picks the route at a choice point from options you defined |
-| Research agents plan and write an article; a human approves before it publishes | Autonomous · Augmented | You can state only the goal; the agents choose what to research and which specialist runs when |
+| Pull this week's updates, the AI drafts a status report, pause for the owner's review, save | Deterministic · Augmented | Same path whatever the draft says; the owner takes part along the way |
+| Three agents draft playbook answers, the second grades each against the criteria and sends failures back to be fixed, the third publishes — hourly, no one watching | Guided · Automated | The grade, made by your criteria, decides what happens next; no one takes part until it's done |
+| AI scores insights 1–10 against a rubric, advances only those scoring 7 or higher, then drafts posts | Guided | The rubric score decides which insights advance |
+| A browser assistant finds five LinkedIn prospects for a persona, judging each against it and working out its own navigation, while the user stays in the session and reviews the report | Guided · Augmented | The persona's criteria decide who advances; the user takes part along the way |
+| Support emails are categorized and routed to the right queue, unclear ones escalated, unattended | Guided · Automated | Routing by your categories decides what happens next |
+| Research agents plan and write an article; a human approves before it publishes | Autonomous · Augmented | You can state only the goal; the agents decide what to do next at each turn |
 
 **Present as a confident assessment with a teaching frame.** For most users this is the first time they're hearing the word "autonomy" in this context — introduce the concept briefly before applying it, so the playback educates rather than labels. Example phrasing:
 
-> "Now I want to assess how much **autonomy** this workflow needs. Autonomy is *how much the AI decides on its own*, and you tell by looking at **who decides the steps**. It runs on a scale: Deterministic (you set every step and the tool it uses — the AI can still write or analyze inside a step), Guided (you set the structure, and the AI picks the next move at choice points you allowed, like which tool to use or which way to route something), and Autonomous (the AI plans its own steps toward a goal). A single step can also be Human, meaning a person does it.
+> "Now I want to assess how much **autonomy** this workflow needs. Autonomy is *how much the AI decides on its own*, and you tell by looking at **what decides the next step**. It runs on a scale: Deterministic (you give instructions — the AI carries out every step, and even when it writes inside one, its output never changes what happens next), Guided (you give bounded decisions with your method — the AI uses your rubric, criteria, or process to route something, pick a tool, or grade work and send it back), and Autonomous (you give a goal, and the AI plans its own steps until it's met). A single step can also be Human, meaning a person does it.
 >
-> Your workflow looks **[level]** because [1-2 sentence reasoning that names who decides the path — e.g., 'every run pulls the same updates, drafts the report, and saves it; the AI's writing changes what the report says, not which step runs' for Deterministic, or 'the AI decides which queue each email goes to and when to escalate one to a person' for Guided]. [If the user's workflow has a human review pause, add: 'Your review of the draft is about checking the output — that's the involvement side, which we'll set separately — so it doesn't make the workflow more autonomous.']
+> Your workflow looks **[level]** because [1-2 sentence reasoning that names what decides the next step — e.g., 'every run pulls the same updates, drafts the report, and saves it; whatever the draft says, the next step is the same' for Deterministic, or 'the AI uses your categories to decide which queue each email goes to and when to escalate one' for Guided]. [If the user's workflow has a human review pause, add: 'Your review of the draft is about checking the output — that's the involvement side, which we'll set separately — so it doesn't make the workflow more autonomous.']
 >
-> *Why this matters:* the autonomy level shapes what kind of AI building block fits best — a fixed path needs less machinery than something that has to choose its own route.
+> *Why this matters:* the autonomy level shapes what kind of AI building block fits best — following instructions needs less machinery than making decisions or planning toward a goal.
 >
 > Does that match how you want it to work? If you'd rather it be more or less autonomous, say so and I'll adjust."
 
@@ -207,7 +207,7 @@ If the user pushes back, discuss in plain language — never drop into the inter
 
 **Artifact form is resolved internally, not asked.** Once platform + mechanism are confirmed, the model picks the specific artifact form (e.g., a SKILL.md file, a Claude Code subagent markdown, an Agent SDK Python script, a ChatGPT Workspace Agent) using the platform's `mode` field in the registry (`code` vs `guided`) and the user's apparent technical level. Default to the simplest no-code option for that platform. **Never ask a non-technical user to pick between technical artifact forms.** Build generates the right artifact from the platform + mechanism the model recorded.
 
-**Human Involvement — derive internally, mention only as plain language.** Determine the involvement mode (`Augmented` vs `Automated`) from the trigger (manual = Augmented; scheduled/unattended = Automated). Mention it to the user in plain language as part of the Layer 1 confirmation ("Who's in the loop") — do not ask a separate question.
+**Human Involvement — derive internally, mention only as plain language.** Determine the involvement mode from whether a person takes part during the run: `Augmented` = a person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs (a review or approval pause, answering the AI's questions, working alongside it in the session); `Automated` = no one takes part until it's done. The trigger doesn't decide it: starting a workflow by hand doesn't make it Augmented, and a scheduled run with an approval pause is still Augmented. Mention it to the user in plain language as part of the Layer 1 confirmation ("Who's in the loop") — do not ask a separate question.
 
 Single-agent vs. multi-agent is an architecture detail decided during Agent Configuration (Phase 11) if Agent is selected — not a top-level choice here.
 
@@ -271,8 +271,8 @@ For step-driven workflows:
 >
 > - **Platform:** [Claude.ai] — the [browser app you sign into at claude.ai]. This is where your workflow will live.
 > - **Packaging:** [Standalone Skill] — a [single self-contained set of instructions you upload once and reuse]. (Other options: Plugin, Workspace Agent, Loose Files — yours is Standalone Skill because [reason].)
-> - **Autonomy level:** [Deterministic] — meaning [you've set every step and the tool it uses; the AI writes the draft inside a step but doesn't choose the path]. (The scale runs Deterministic → Guided → Autonomous, by who decides the steps.)
-> - **Mechanism:** [Skill] — the [reusable skill you confirmed in the last step]. Runs in [Augmented] mode, which means [you're in the loop reviewing at checkpoints, not running on a schedule].
+> - **Autonomy level:** [Deterministic] — meaning [you've given instructions for every step; the AI writes the draft inside a step, but whatever it writes, the next step is the same]. (The scale runs Deterministic → Guided → Autonomous, by what decides the next step.)
+> - **Mechanism:** [Skill] — the [reusable skill you confirmed in the last step]. Runs in [Augmented] mode, which means [you take part along the way — reviewing the draft before it's saved].
 > - **Safety:** [one-line summary of the Phase 6 findings — e.g., 'this workflow can create drafts in your email; it never sends without your review']
 > - **Tools needed:** [list] — these are the external services your workflow will touch. I'll figure out exact integration options (MCP server, API, CLI, SDK) during Build.
 > - **Agent blueprints:** [summary if any agents are involved, or 'None — this workflow doesn't need an agent']
@@ -290,7 +290,7 @@ For goal-driven workflows, use the playback substitutions in `references/goal-dr
 For every refined step, classify across all three building-block layers plus autonomy and role.
 
 **Per-step classification dimensions:**
-- **Autonomy level**: Human / Deterministic / Guided / Autonomous — use only these four canonical terms. Previous terms like "Semi-Autonomous", "AI-Assist", "AI-Deterministic", or compound forms are retired per the Workflow Design Matrix. Apply the same who-decides-the-steps rule as Phase 4, at step scope: **Human** = a person performs the step; **Deterministic** = the AI does the step as specified with the tool you chose — drafting, summarizing, scoring, and analyzing all stay Deterministic; **Guided** = the step contains a choice point where the AI picks the next move or tool from options you allowed (route, retry or skip, which source, how to navigate); **Autonomous** = the step is a goal the AI plans its own sub-steps for. A Human Gate after a step is involvement — it never raises that step's autonomy. The workflow-level value in Phase 4 must equal the highest AI step level here; if it doesn't, fix one of them.
+- **Autonomy level**: Human / Deterministic / Guided / Autonomous — use only these four canonical terms. Previous terms like "Semi-Autonomous", "AI-Assist", "AI-Deterministic", or compound forms are retired per the Workflow Design Matrix. Apply the same what-decides-the-next-step rule as Phase 4, at step scope: **Human** = a person performs the step; **Deterministic** = the AI carries out the step as instructed — drafting, summarizing, and analyzing stay Deterministic when the output goes to the same next step whatever it says; **Guided** = the AI makes a bounded decision in the step by your method that decides what happens next (routes an item, chooses a tool, grades work against your criteria and sends it back, scores items and advances only those that pass); **Autonomous** = the step is a goal the AI plans its own sub-steps for and pursues until met. A Human Gate after a step is involvement — it never raises that step's autonomy. The workflow-level value in Phase 4 must equal the highest AI step level here; if it doesn't, fix one of them.
 - **Orchestration layer**: Prompt / Skill / Agent
 - **Integration layer**: Which integration block(s) apply, with use/build tags
 - **Intelligence layer**: Model capability, context sources, memory needs, project scope

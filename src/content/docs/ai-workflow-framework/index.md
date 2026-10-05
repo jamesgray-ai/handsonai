@@ -70,8 +70,8 @@ Find which workflows are candidates for AI.
 
 Before you can apply AI to anything, you need to know *where* it fits. Step 1 is a structured audit of your workflows that produces a prioritized list of opportunities classified on two dimensions:
 
-- **Autonomy** — How much does the AI decide on its own? Tell by looking at who decides the steps. **Deterministic** (you set the steps and their tools; the path is the same every run), **Guided** (the AI picks the next move at choice points you allowed), or **Autonomous** (the AI plans its own steps toward a goal)
-- **Human Involvement** — Is a human in the loop during execution? **Augmented** (human reviews and steers) or **Automated** (AI runs solo)
+- **Autonomy** — How much does the AI decide on its own? Look at what decides the next step. **Deterministic** (you give instructions; the AI carries out every step, and its output never changes what happens next), **Guided** (you give bounded decisions with your method — the AI routes, chooses a tool, or grades and sends work back by your rules), or **Autonomous** (you give a goal; the AI plans its own steps until the goal is met)
+- **Human Involvement** — Does a person take part while it runs? **Augmented** (a person is in the workflow along the way, guiding, engaging, or collaborating with the AI) or **Automated** (no one takes part until it's done)
 
 The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a classified report with specific opportunities and actionable first steps.
 
@@ -190,20 +190,20 @@ Every term, in plain language: [Framework Glossary](glossary/). Quick reference 
 
 Every AI workflow is classified on two dimensions — autonomy and human involvement — producing six archetypes. See the [AI Workflow Design Matrix](workflow-design-matrix/) for the full 3x2 matrix with descriptions, examples, and guidance on choosing the right archetype.
 
-Autonomy asks how much the AI decides on its own — tell by looking at who decides the steps:
+Autonomy asks how much the AI decides on its own — look at what decides the next step:
 
-| Autonomy | Who decides the steps | Example |
+| Autonomy | What you give the AI | Example |
 |----------|-------------|---------|
-| **Deterministic** | You set the steps, their order, and the tool each one uses; the path is the same every run. The AI may still write, summarize, or analyze inside a step. | Drafting a weekly status report from fixed sources, formatting reports |
-| **Guided** | You set the structure; the AI makes bounded choices about the path — which tool, which branch, whether to retry or skip, how to navigate a system | Routing support emails by category, a browser assistant that works out how to navigate a website |
-| **Autonomous** | The AI plans its own steps toward a goal and changes course based on what it finds | Research agents that plan and write an article |
+| **Deterministic** | Instructions. You set every step and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. | Drafting a weekly status report from fixed sources, formatting reports |
+| **Guided** | Bounded decisions, with your method. You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to decide on your behalf — route an item, choose a tool, judge quality and send work back. | Routing support emails by category, scoring ideas against a rubric and drafting only the ones that pass |
+| **Autonomous** | A goal. The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. | Research agents that plan and write an article |
 
-If the AI's choice changes which step runs next or which tool is used, it counts toward Guided; if it only changes what a step produces, it doesn't. Whether a person should check the output is the involvement question below, not autonomy.
+Writing or summarizing inside a step never makes a workflow Guided, and the number of agents doesn't set the level. Whether a person should check the output is the involvement question below, not autonomy.
 
 | Involvement | Description |
 |-------------|-------------|
-| **Augmented** | Human is in the loop — reviews, steers, or decides at key points |
-| **Automated** | AI runs solo — human reviews only the final output |
+| **Augmented** | A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs |
+| **Automated** | No one takes part until it's done |
 
 ### Six-Question Framework
 
@@ -231,9 +231,9 @@ Used to classify each workflow step during [Design](design/):
 | Level | Description |
 |-------|-------------|
 | **Human** | A person performs the step — judgment, creativity, approval, or physical action |
-| **Deterministic** | The AI does the step as you specified it, with the tool you chose; it may write or analyze, but it picks no part of the path |
-| **Guided** | The step contains a choice point where the AI picks the next move from options you allowed (tool, branch, retry or skip, navigation) |
-| **Autonomous** | The AI is given a goal for the step and plans its own sub-steps, changing course based on what it finds |
+| **Deterministic** | The AI carries out the step as you instructed; it may write or summarize, but its output never changes what happens next |
+| **Guided** | The AI makes a bounded decision in the step by your method — routes an item, chooses a tool, grades work against your criteria and sends it back — and that decision sets what happens next |
+| **Autonomous** | The AI is given a goal for the step, plans its own sub-steps, and keeps going until the goal is met |
 
 The same scale describes the **whole workflow** during Design's autonomy assessment — with one difference: **Human appears only at the step level** (a whole workflow that's entirely human needs no AI design), so the workflow-level scale runs Deterministic → Guided → Autonomous. The workflow's level is the highest level any of its AI steps reaches: one Guided step makes a Guided workflow.
 

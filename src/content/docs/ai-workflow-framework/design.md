@@ -69,21 +69,21 @@ Rather than walking through a checklist, the Design skill uses an **extract-then
 
 ### Autonomy Assessment
 
-Where the *whole workflow* sits on the autonomy spectrum. Autonomy asks how much the AI decides on its own — and you tell by looking at **who decides the steps**:
+Where the *whole workflow* sits on the autonomy spectrum. Autonomy asks how much the AI decides on its own — look at **what decides the next step**:
 
 ```
 Human ———— Deterministic ———————— Guided ———————— Autonomous
-(a person does it)  (you set the path)   (AI picks at choice points)   (AI plans the path)
+(a person does it)  (you give instructions)  (bounded decisions, your method)  (you give a goal)
 ```
 
 | Level | Signals | Orchestration implications |
 |-------|---------|--------------------------|
 | **Human** | A person performs the step — judgment, creativity, approval, or physical action; no AI | No AI artifact — captured as Human step in the Decomposition table |
-| **Deterministic** | You set the steps, their order, and the tool each one uses; the path is the same every run. The AI may still write, summarize, or analyze inside a step. Test: could you draw the whole flow in advance, with no "it depends" arrows? | Skill likely sufficient |
-| **Guided** | You set the structure; the AI makes bounded choices about the path within limits you define — which tool, which branch, whether to retry or skip a step, how to navigate a system. Test: is there a choice point where the AI, not you, picks the next move from options you allowed? | Skill or Agent |
-| **Autonomous** | The AI plans its own steps toward a goal and changes course based on what it finds. Test: could you only describe the goal, not the steps? | Agent required |
+| **Deterministic** | You set every step and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. Test: does the work follow the same path whatever the AI produces? | Skill likely sufficient |
+| **Guided** | You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make bounded decisions on your behalf — route an item, choose a tool, judge quality and send work back. Test: does the AI's judgment, made by your rules, decide what happens next? | Skill or Agent |
+| **Autonomous** | The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met; its decision-making is open-ended. Test: could you only describe the goal, not the steps? | Agent required |
 
-**Path or content?** If the AI's choice changes which step runs next or which tool is used, it is a path decision and counts toward Guided. If it only changes what a step produces — the wording, what to include, the summary — it doesn't. A branch your own rule decides (a threshold, a pass/fail check against your criteria) is still yours. Whether a person should check the AI's output is answered by the involvement mode below and by [Test](../test/), not by autonomy. The workflow's level is the highest level any of its AI steps reaches.
+Writing or summarizing inside a step never makes a workflow Guided, and the number of agents doesn't set the level. The workflow's level is the highest level any of its AI steps reaches. Whether a person should check the AI's output is answered by the involvement mode below and by [Test](../test/), not by autonomy. The Guided/Autonomous line follows Anthropic's [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents): workflows run on "predefined code paths" (routing and evaluator-optimizer loops are Guided here), while agents "dynamically direct their own processes and tool usage" (Autonomous).
 
 ### Orchestration Mechanism
 
@@ -98,8 +98,8 @@ Plus an involvement mode:
 
 | Mode | Description | Determined by |
 |------|-------------|---------------|
-| **Augmented** | Human in the loop — reviews, steers, or decides at key points during the run | Web/desktop deployment, no scheduled execution |
-| **Automated** | AI runs solo — executes end-to-end without human involvement | Scheduled/unattended execution, CLI |
+| **Augmented** | A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs | A review or approval pause, questions the AI asks mid-run, or a person working alongside it in the session |
+| **Automated** | No one takes part until it's done | Nobody takes part between start and finish — scheduled, triggered, or started by hand (starting a run doesn't make it Augmented) |
 
 ### Packaging
 

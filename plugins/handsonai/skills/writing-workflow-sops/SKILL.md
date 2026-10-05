@@ -28,7 +28,7 @@ The AI Workflow Framework defines a single autonomy spectrum used at both the pe
 
 ```
 Deterministic ———————— Guided ———————— Autonomous
-(you set the path)  (AI picks at choice points)  (AI plans the path)
+(you give instructions)  (bounded decisions, your method)  (you give a goal)
 ```
 
 For SOP template selection, the spectrum maps to a binary choice:
@@ -47,7 +47,7 @@ An agent can orchestrate at any autonomy level. An agent that runs a fixed scrip
 | | Deterministic | Guided / Autonomous |
 |---|---|---|
 | **Manual** | Invoicing — same steps every time | — |
-| **Augmented** | Launch email sequence — fixed skill order, human reviews each | Course concept development — agent decides which skill to re-run based on instructor feedback (guided: a path choice) |
+| **Augmented** | Launch email sequence — fixed skill order, human reviews each | Course concept development — agent decides which skill to re-run based on instructor feedback, by the process you set (guided) |
 | **Automated** | Student enrollment provisioning — webhook triggers fixed pipeline | (future) Self-healing deployment monitor (autonomous) |
 
 ## Process
