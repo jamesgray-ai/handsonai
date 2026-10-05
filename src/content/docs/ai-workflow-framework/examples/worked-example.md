@@ -64,7 +64,7 @@ The full file (trimmed to two opportunities for readability — a real report of
 
 | # | Opportunity | Autonomy | Involvement | Frequency | Priority |
 |---|---|---|---|---|---|
-| 1 | Weekly Status Report | Guided | Augmented | Weekly | High |
+| 1 | Weekly Status Report | Deterministic | Augmented | Weekly | High |
 | 2 | Stakeholder Meeting Prep | Guided | Augmented | Weekly | Medium |
 
 ## Top Recommendations
@@ -85,7 +85,9 @@ The full file (trimmed to two opportunities for readability — a real report of
   blocked task because it's buried in comments.
 - **AI opportunity:** AI drafts the full report from the tracker; Maya reviews
   and posts. Target: under 25 minutes end to end.
-- **Autonomy:** Guided — AI drafts, Maya steers at one checkpoint.
+- **Autonomy:** Deterministic — the steps never change: pull the week's updates,
+  draft the summary, pause for Maya's review, save. The AI writes new wording each
+  week, but it never decides which steps to run or in what order.
 - **Involvement:** Augmented — Maya is in the loop during the run.
 
 ### 2. Stakeholder Meeting Prep
@@ -103,7 +105,7 @@ The full file (trimmed to two opportunities for readability — a real report of
 | **Description** | Draft the Friday leadership status report from the HubSpot tracker |
 | **Trigger** | Manual — Friday mornings |
 | **Deliverable** | One-page status report ready for Maya's review |
-| **Autonomy** | Guided |
+| **Autonomy** | Deterministic |
 | **Involvement** | Augmented |
 | **Pain point** | 45–60 min of manual synthesis and formatting weekly |
 | **AI opportunity** | AI drafts from tracker data; Maya reviews and posts |
@@ -339,7 +341,7 @@ Two things in that document are easy to skip and worth pausing on.
 
 ## Step 3 — Design → `design-spec.md`
 
-Design took about 20 minutes: one platform question (Cowork), an autonomy assessment (**Guided**), the mechanism choice (**Skill** — the workflow runs the same four steps every Friday), and a safety pass. Notice how the spec *references* the requirements instead of restating them, and how every component has a stable ID (S1, S2) that later files point at.
+Design took about 20 minutes: one platform question (Cowork), an autonomy assessment (**Deterministic** — the steps never change, even though the AI writes new wording each week), the mechanism choice (**Skill** — the workflow runs the same four steps every Friday), and a safety pass. Notice how the spec *references* the requirements instead of restating them, and how every component has a stable ID (S1, S2) that later files point at.
 
 The complete Design Spec:
 
@@ -389,9 +391,10 @@ per-step requirements are defined there — not restated here.
 
 ## Execution Pattern
 
-**Skill** — the workflow runs the same four steps every Friday
-with bounded AI judgment inside Step 2, so a reusable skill Maya triggers by name
-fits better than an agent (no sequencing decisions to make).
+**Skill** — the workflow runs the same four steps in the same order every
+Friday, with one review pause. The AI writes the report inside Step 2 but never
+chooses the path, so a reusable skill Maya triggers by name fits better than an
+agent (no sequencing decisions to make).
 
 ## Architecture Decisions
 
@@ -407,11 +410,15 @@ fits better than an agent (no sequencing decisions to make).
 
 ## Autonomy Spectrum Summary
 
-Workflow-level: **Guided.** Steps 1 and 4 are Deterministic (fixed retrieval and
-save rules, no judgment). Step 2 is Guided — the AI decides what's a "win," how to
-phrase blockers, and what leadership needs to see, within the template and tone
-guide. Step 3 is Human. Nothing here backtracks or re-plans, so Autonomous is not
-needed.
+Workflow-level: **Deterministic.** Maya set the steps and their order in advance,
+and the path is the same every Friday: pull updates, draft, pause for her review,
+save. Steps 1 and 4 are Deterministic (fixed retrieval and save rules). Step 2 is
+Deterministic too — the AI writes new wording each week, deciding what counts as a
+"win," how to phrase blockers, and what leadership needs to see, within the
+template and tone guide. That is writing inside a fixed step, not choosing the
+path. Step 3 is Human. The AI never picks a tool, takes a branch, or decides
+whether to retry, so Guided is not needed, and nothing re-plans, so Autonomous is
+not needed either.
 
 ## Safety & Permissions
 
@@ -457,7 +464,7 @@ what leadership needs to see); fast is fine for Steps 1 and 4.
 | Step | Name | Autonomy | Orchestration | Integration (use/build) | Intelligence | Build Output | Human Gate? |
 |------|------|----------|---------------|------------------------|--------------|--------------|-------------|
 | 1 | Pull Updates | Deterministic | Prompt | MCP: HubSpot (use) | Model: fast | Inline prompt → Workflow Requirements Step 1 | No |
-| 2 | Draft Report | Guided | Skill | — | Model: reasoning; Context: C2, C3 | New skill: S2 | No |
+| 2 | Draft Report | Deterministic | Skill | — | Model: reasoning; Context: C2, C3 | New skill: S2 | No |
 | 3 | Review | Human | — | — | — | Human (no artifact) | Yes |
 | 4 | Save & Log | Deterministic | Prompt | — | Model: fast | Inline prompt → Workflow Requirements Step 4 | No |
 
