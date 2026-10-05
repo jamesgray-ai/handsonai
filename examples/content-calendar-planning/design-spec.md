@@ -78,12 +78,12 @@ The spec is organized into three layers that build on each other:
 
 ## Autonomy Spectrum Summary
 
-**Workflow-level autonomy: Deterministic.** You give the AI instructions for all ten steps, and the work follows the same path whatever the AI produces. Four steps carry real creative judgment by the AI (themes, channel mapping, the post plan, sequencing), but writing and planning inside a step never makes a workflow Guided: every selection the AI makes is a proposal James approves (Steps 5, 6, and 9) before it takes effect, so the AI's judgment never decides what happens next on its own. The two branches in the flow — an empty backlog after Step 2, and the three-round cap on refinement at Step 9 — are mechanical rules, not AI judgments. James is in the session throughout and approves at Steps 3, 5, 6, and 9, which is what makes the workflow Augmented. (If the Step 5 selection ran without his approval — the AI picking which ideas advance by the pillar-balance rules — that step would be Guided.)
+**Workflow-level autonomy: Guided.** The ten steps are fixed, but in four of them the AI makes bounded decisions on James's behalf using his method: which backlog ideas to select and which weekly themes to set (pillar balance), which channel each idea goes to (channel-format fit), which posts make the plan, and how to sequence them (cadence targets). Those selections decide what happens next — which ideas get mapped, which posts get planned and committed — so the workflow is Guided. James approving the selections at Steps 5, 6, and 9 is involvement (Augmented); it doesn't lower the autonomy level. The decisions stay bounded by his rules and the steps stay fixed, so it is not Autonomous. The two mechanical branches — an empty backlog after Step 2, and the three-round cap on refinement at Step 9 — are instructions.
 
 Per-step classifications (from the Decomposition table below):
 
-- **Deterministic — data operations** (Steps 1, 2, 4, 10): query or write Notion databases as instructed. Fully automated via component skills.
-- **Deterministic — creative planning** (Steps 5, 6, 7, 8): the AI proposes themes, channel mapping, a post plan, and a sequence inside rules the Workflow Requirements sets (pillar balance, cadence targets, channel-format fit). Driven by the orchestrator's inline instruction blocks. Its output shapes the plan's content; what happens next is set by the steps and by James's approvals at Steps 5 and 6.
+- **Deterministic** (Steps 1, 2, 4, 10): query or write Notion databases as instructed. Fully automated via component skills.
+- **Guided** (Steps 5, 6, 7, 8): the AI selects ideas, sets themes, maps ideas to channels, builds the post plan, and sequences it, using the rules the Workflow Requirements sets (pillar balance, cadence targets, channel-format fit). Driven by the orchestrator's inline instruction blocks. James approves at Steps 5 and 6 — involvement, not lower autonomy.
 - **Human** (Steps 3, 9): Human drives, AI supports. Step 3 is James's own recall of the week, captured through an existing skill. Step 9 is the approval gate the whole workflow turns on.
 
 ## Safety & Permissions
@@ -156,10 +156,10 @@ Steps are defined in the Workflow Requirements. This table adds the building-blo
 | Step 2 | Review Content Idea Backlog | Deterministic | Skill | MCP: Notion (use) | Model: fast; Context: C1 | New skill: S3 | No |
 | Step 3 | Capture Fresh Ideas | Human | Skill | MCP: Notion (use) | Model: fast; Context: C4 | Use existing: registering-content-ideas | Yes |
 | Step 4 | Check Upcoming Business Priorities | Deterministic | Skill | MCP: Notion (use) | Model: fast; Context: C3, C8 | New skill: S4 | No |
-| Step 5 | Select Ideas and Set Weekly Themes | Deterministic | Prompt | — | Model: reasoning-heavy; Context: C4, C7 | Inline prompt → Workflow Requirements Step 5 | Yes |
-| Step 6 | Map Ideas to Channels | Deterministic | Prompt | — | Model: reasoning-heavy; Context: C5, C6 | Inline prompt → Workflow Requirements Step 6 | Yes |
-| Step 7 | Create Post Plan | Deterministic | Prompt | — | Model: reasoning-heavy; Context: C5, C7 | Inline prompt → Workflow Requirements Step 7 | No |
-| Step 8 | Sequence and Balance | Deterministic | Prompt | — | Model: reasoning-heavy; Context: C5 | Inline prompt → Workflow Requirements Step 8 | No |
+| Step 5 | Select Ideas and Set Weekly Themes | Guided | Prompt | — | Model: reasoning-heavy; Context: C4, C7 | Inline prompt → Workflow Requirements Step 5 | Yes |
+| Step 6 | Map Ideas to Channels | Guided | Prompt | — | Model: reasoning-heavy; Context: C5, C6 | Inline prompt → Workflow Requirements Step 6 | Yes |
+| Step 7 | Create Post Plan | Guided | Prompt | — | Model: reasoning-heavy; Context: C5, C7 | Inline prompt → Workflow Requirements Step 7 | No |
+| Step 8 | Sequence and Balance | Guided | Prompt | — | Model: reasoning-heavy; Context: C5 | Inline prompt → Workflow Requirements Step 8 | No |
 | Step 9 | Refine and Approve the Plan | Human | Prompt | — | Model: reasoning-heavy | Inline prompt → Workflow Requirements Step 9 | Yes |
 | Step 10 | Commit Content Plan | Deterministic | Skill | MCP: Notion (use) | Model: fast; Context: C1, C2 | New skill: S5 | No |
 
@@ -438,7 +438,7 @@ Decisions intentionally left for Build to resolve. Build should not need to re-a
 - ✓ Architecture Decisions table has Lens, Platform, Platform Mode, Orchestration, Involvement, Packaging, and Trigger rows
 - ✓ Every step has separate Orchestration, Integration, Intelligence, and Build Output columns
 - ✓ Step IDs match the Workflow Requirements (Step 1 … Step 10)
-- ✓ Every step uses canonical autonomy terms (Human / Deterministic)
+- ✓ Every step uses canonical autonomy terms (Human / Deterministic / Guided)
 - ✓ Every Integration entry carries block type, tool name, and use/build tag
 - ✓ Every Build Output is a canonical form (`New skill: SN`, `Use existing: …`, `Inline prompt → Workflow Requirements Step N`)
 - ✓ Packaging is a canonical value (`Standalone Skill`); mechanism is `Skill`, not a legacy label

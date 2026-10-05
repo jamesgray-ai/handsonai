@@ -636,13 +636,13 @@ Export 12 months of daily shipment volumes by customer. Have AI identify the top
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-Onboarding follows a structured sequence (account setup, system configuration, initial shipment planning, training) and a process you define for handoffs. The AI applies that process when a cross-team task stalls: it decides whether to send a reminder, re-route the task, or escalate to the account manager. That judgment, made by your rules, decides what happens next, so it's Guided. The recommendations themselves (warehouse assignment, carrier mix) are drafts the account manager approves along the way, which is what makes it Augmented.
+Onboarding follows a structured sequence (account setup, system configuration, initial shipment planning, training), and at several points the AI makes bounded decisions by your method: which warehouse to assign based on the customer's shipping patterns, which carrier mix to propose, which training schedule fits. Those selections decide what happens next in the setup, so it's Guided. The account manager reviews and approves the key decisions along the way — that's involvement (Augmented), and it doesn't lower the autonomy level.
 
 **Current pain point:**
 New customer onboarding takes 2-3 weeks and involves sales, operations, and account management. Each team owns different steps, and handoffs are where things break — incomplete information passes between teams, setup tasks get missed, and the customer's first shipment experience sets the tone for the relationship. There's no single owner for the end-to-end outcome.
 
 **How AI helps:**
-AI orchestrates the onboarding sequence: pre-populates account configuration from the signed contract, drafts a warehouse assignment recommendation based on the customer's shipping patterns, generates a carrier mix proposal, creates a personalized training schedule, tracks completion across all teams, and chases stalled handoffs. Account manager reviews and approves key decisions.
+AI orchestrates the onboarding sequence: pre-populates account configuration from the signed contract, drafts a warehouse assignment recommendation based on the customer's shipping patterns, generates a carrier mix proposal, creates a personalized training schedule, and tracks completion across all teams. Account manager reviews and approves key decisions.
 
 **Getting started:**
 Map the current onboarding process across all three teams. Identify which handoff points have the highest failure rate and start by automating status tracking and notifications at those points.
@@ -693,7 +693,7 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Autonomy** | Guided |
 | **Involvement** | Augmented |
 | **Pain point** | 2-3 week onboarding with frequent handoff failures between sales, ops, and account management — leading to poor first impressions and early churn |
-| **AI opportunity** | AI orchestrates the sequence, pre-populates configurations, recommends warehouse and carrier assignments, tracks cross-team completion, and chases stalled handoffs (remind, re-route, or escalate) |
+| **AI opportunity** | AI orchestrates the sequence, pre-populates configurations, recommends warehouse and carrier assignments, tracks cross-team completion, and alerts on delays |
 | **Frequency** | Weekly (3-5 new customers per month) |
 | **Priority** | High |
 | **Reasoning** | Directly addresses the #1 business objective (customer retention), involves the most painful cross-functional handoffs, and improvements compound across every new customer |
@@ -754,7 +754,7 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 - **Guided** — you give bounded decisions, with your method. You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. Test: does the AI's judgment, made by your rules, decide what happens next? Examples: routing support emails by category, scoring items against a rubric and advancing only those that pass, choosing which source to search for each question.
 - **Autonomous** — you give a goal. The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. Test: could you only describe the goal, not the steps? Examples: research agents that plan and write an article, a monitoring agent that decides where to dig when something changes.
 
-Writing or summarizing inside a step never makes a workflow Guided, and the number of agents doesn't set the level.
+Writing or summarizing inside a step never makes a workflow Guided, and the number of agents doesn't set the level. A branch on a value the AI didn't judge — an API's score, a timer, a field value — is still an instruction: Deterministic. A person approving the AI's decisions doesn't lower the level: if the AI proposes selections by your method and you approve them, it's Guided + Augmented.
 
 **Human Involvement — Does a person take part while it runs?**
 

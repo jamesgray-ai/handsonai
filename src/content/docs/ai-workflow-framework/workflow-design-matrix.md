@@ -26,6 +26,8 @@ Two notes keep the classification honest:
 
 - **Writing or summarizing inside a step never makes a workflow Guided.** A step that drafts a client email is Deterministic if the draft goes to the same next step whatever it says. It turns Guided when an AI judgment — a score, a pass/fail grade, a category — decides where the work goes next.
 - **The number of agents doesn't set the level.** Three agents in a fixed chain can be Deterministic or Guided; a single agent working from a goal can be Autonomous. Look at what decides the next step, not at how many AI workers there are.
+- **A branch on a value the AI didn't judge — an API's score, a timer, a field value — is still an instruction: Deterministic.**
+- **A person approving the AI's decisions doesn't lower the level.** If the AI proposes selections by your method and you approve them, it's Guided + Augmented: the selections are Guided, your approval is involvement.
 
 Whether a person should check what the AI produced is a separate question: it's answered by the involvement mode below and by evaluation in [Test](../test/), not by autonomy.
 
@@ -58,7 +60,7 @@ Combining these two dimensions produces six distinct workflow archetypes:
 |-----------|----------|-------------|-------------|---------|
 | **Deterministic + Augmented** | Deterministic | Augmented | Your steps; a person takes part along the way | Weekly status report: pull updates, the AI drafts, you review, then it saves |
 | **Deterministic + Automated** | Deterministic | Automated | Your steps, run unattended | After each class, turn the transcript into a summary email and send it |
-| **Guided + Augmented** | Guided | Augmented | Bounded AI decisions by your method; a person takes part | A browser assistant finds five LinkedIn prospects that fit your persona, working out how to navigate the site, while you stay in the session and review the list |
+| **Guided + Augmented** | Guided | Augmented | Bounded AI decisions by your method; a person takes part | A browser assistant judges LinkedIn prospects against your persona and works out how to navigate the site; it pauses for you to confirm the targeting criteria before it searches, and you review the list |
 | **Guided + Automated** | Guided | Automated | Bounded AI decisions by your method, unattended | Support emails categorized and routed, unclear ones escalated; or three agents that draft playbook answers, grade them against your criteria, send failures back to be fixed, and publish the rest every hour |
 | **Autonomous + Augmented** | Autonomous | Augmented | The AI plans its own steps; a person takes part | Research agents plan and write an article; you approve it before it publishes |
 | **Autonomous + Automated** | Autonomous | Automated | The AI plans its own steps, with no one taking part | A monitoring agent that decides what to investigate when something changes, and alerts you |
@@ -69,7 +71,7 @@ These worked examples illustrate different matrix positions:
 
 | Example | Archetype | Why |
 |---------|-----------|-----|
-| [Guided Prospect Research](../examples/deterministic-automation/) | **Guided + Augmented** | The AI judges each prospect against your persona criteria to decide who makes the list, and works out how to navigate LinkedIn to find them — decisions made by your method. You stay in the session and review the report. |
+| [Guided Prospect Research](../examples/deterministic-automation/) | **Guided + Augmented** | The AI judges each prospect against your persona criteria to decide who makes the list, and works out how to navigate LinkedIn to find them — decisions made by your method. It pauses after analyzing the persona for you to confirm the targeting criteria before it searches, and you review the report. |
 | [AI Collaborative](../examples/ai-collaborative/) | **Deterministic + Augmented** | Every run takes the same steps (research the people, research the company, draft the brief); the AI's research and writing shape what the brief says, never what happens next. You review and refine it along the way. |
 | [Autonomous Agent](../examples/autonomous-agent/) | **Autonomous + Augmented** | You state the goal; the orchestrator decides which specialist agents to run and when. One human approval gate before publishing. |
 

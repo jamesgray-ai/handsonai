@@ -35,6 +35,8 @@ Read the provided buyer persona markdown file completely. Extract and internaliz
 
 If the persona file is missing critical information, note what assumptions you're making based on common patterns for similar buyer profiles.
 
+Present the extracted criteria to the user for confirmation before searching. **Do not proceed until the user confirms the targeting criteria are correct.**
+
 ---
 
 ### Step 2: Access LinkedIn
@@ -163,7 +165,7 @@ Before completing, verify:
 
 ## What Makes This Guided
 
-This workflow is Guided — you give the AI bounded decisions, with your method. The steps and the report template are fixed, and the quality checklist provides a binary pass/fail verification. The method is the buyer persona: the AI scores each prospect against its criteria, and that judgment decides who advances to the report. It also works out how to navigate LinkedIn to find candidates. Its decisions are bounded by your rules, not open-ended, which is what makes it Guided rather than Deterministic or Autonomous.
+This workflow is Guided — you give the AI bounded decisions, with your method. The steps and the report template are fixed, and the quality checklist provides a binary pass/fail verification. The method is the buyer persona: the AI scores each prospect against its criteria, and that judgment decides who advances to the report. It also works out how to navigate LinkedIn to find candidates. Its decisions are bounded by your rules, not open-ended, which is what makes it Guided rather than Deterministic or Autonomous. It is Augmented because it pauses for you to confirm the targeting criteria before searching, and you review the report.
 
 The fixed structure makes it ideal for:
 

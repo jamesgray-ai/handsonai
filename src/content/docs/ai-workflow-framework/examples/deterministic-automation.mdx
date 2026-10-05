@@ -9,12 +9,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ## What This Workflow Type Is
 
-A Guided workflow is one where you give the AI bounded decisions, with your method. You set the structure and the methodology; the AI uses it to make decisions on your behalf, and those decisions decide what happens next. Here the method is a buyer persona: its criteria tell the AI how to judge each prospect. The AI's judgment decides who advances to the report and who is dropped, and the AI also works out how to navigate LinkedIn to find candidates worth judging. The steps and the report template stay fixed; the decisions are bounded by your rules, not open-ended. That makes it Guided — not Deterministic (the AI's output changes what happens next) and not Autonomous (you can list the steps, not just the goal).
+A Guided workflow is one where you give the AI bounded decisions, with your method. You set the structure and the methodology; the AI uses it to make decisions on your behalf, and those decisions decide what happens next. Here the method is a buyer persona: its criteria tell the AI how to judge each prospect. The AI's judgment decides who advances to the report and who is dropped, and the AI also works out how to navigate LinkedIn to find candidates worth judging. The steps and the report template stay fixed; the decisions are bounded by your rules, not open-ended. That makes it Guided — not Deterministic (the AI's output changes what happens next) and not Autonomous (you can list the steps, not just the goal). It is Augmented because of its human checkpoint: after analyzing the persona, it pauses for you to confirm the targeting criteria before it searches, and you review the report at the end.
 
 :::note[At a Glance]
 - **Matrix classification:** Guided + Augmented
 - **AI involvement:** Judges prospects against your persona to decide who advances, and works out its own navigation through the site
-- **Human oversight:** You stay in the session while it works in your browser (signing in, answering its questions) and review the report before using it
+- **Human oversight:** A human checkpoint — after analyzing the persona, it pauses for you to confirm the targeting criteria before it searches — and you review the report before using it
 - **Best for:** Browser-based research against fixed criteria — prospecting, account scoring, vendor scans
 - **Complexity:** Low — single prompt with structured input, no iteration required
 :::
@@ -71,7 +71,7 @@ The prompt encodes a five-step sequence that the AI executes in order:
 
 | Step | What Happens | What Decides the Next Step |
 |------|-------------|----------------------|
-| 1. Analyze persona | Extract titles, industry, size, location, pain points, triggers | You — criteria are predefined in the input file |
+| 1. Analyze persona | Extract titles, industry, size, location, pain points, triggers, then **pause** for you to confirm the targeting criteria | You — criteria are predefined in the input file, and nothing is searched until you confirm them |
 | 2. Access LinkedIn | Navigate and confirm authentication | You — binary check, logged in or stop |
 | 3. Search and evaluate | Apply persona criteria as search filters, score prospects | **The AI's judgment, by your rules** — it scores each prospect against the persona (title match → company fit → engagement signals → accessibility) and that score decides who advances to the report. It also works out which searches to run, which profiles to open, and when to page further |
 | 4. Document prospects | Capture name, URL, title, company, match reasons, engagement hook | You — output fields are prescribed |
