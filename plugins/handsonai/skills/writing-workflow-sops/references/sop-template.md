@@ -6,7 +6,7 @@ The workflow's position on the autonomy spectrum determines which template to us
 
 ```
 Deterministic ———————— Guided ———————— Autonomous
-(fixed path)       (bounded decisions)     (context-driven path)
+(you set the path)  (AI picks at choice points)  (AI plans the path)
 ```
 
 | Autonomy Level | Template | When to use |

@@ -161,11 +161,11 @@ Before completing, verify:
 - Proceed with best judgment based on available data
 ```
 
-## What Makes This Deterministic
+## What Makes This Guided
 
-This workflow is deterministic — it follows a fixed sequence of steps, applies predefined evaluation criteria (from the buyer persona), and produces output in a rigid template. The rules for selecting and evaluating prospects are defined upfront, the output format never changes, and the quality checklist provides a binary pass/fail verification.
+This workflow is Guided — you set the structure, and the AI makes bounded choices about the path. The steps, the evaluation criteria (from the buyer persona), and the report template are all fixed, and the quality checklist provides a binary pass/fail verification. What the AI decides is how to navigate LinkedIn: which searches and filters to run, which profiles to open, and when to page further. Choosing how to move through a system is a path decision, which is what makes it Guided rather than Deterministic.
 
-This makes it ideal for:
+The fixed structure makes it ideal for:
 
 - **Delegation** — Anyone with the buyer persona file can run this workflow and get consistent results
 - **Repeatability** — Run it weekly or monthly against the same persona to find fresh prospects

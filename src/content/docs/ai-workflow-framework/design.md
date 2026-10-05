@@ -69,19 +69,21 @@ Rather than walking through a checklist, the Design skill uses an **extract-then
 
 ### Autonomy Assessment
 
-Where the *whole workflow* sits on the autonomy spectrum:
+Where the *whole workflow* sits on the autonomy spectrum. Autonomy asks how much the AI decides on its own — and you tell by looking at **who decides the steps**:
 
 ```
 Human ———— Deterministic ———————— Guided ———————— Autonomous
-(human-performed)  (fixed path)       (bounded decisions)     (context-driven path)
+(a person does it)  (you set the path)   (AI picks at choice points)   (AI plans the path)
 ```
 
 | Level | Signals | Orchestration implications |
 |-------|---------|--------------------------|
-| **Human** | Step requires human judgment, creativity, or physical action; AI cannot perform | No AI artifact — captured as Human step in the Decomposition table |
-| **Deterministic** | Steps execute in fixed order, no branching on quality, failure = stop or retry | Skill likely sufficient |
-| **Guided** | Bounded AI judgment at steps, human steers at checkpoints, mostly fixed sequence | Skill or Agent |
-| **Autonomous** | Executor backtracks, re-invokes, adjusts on failure, checkpoints can redirect | Agent required |
+| **Human** | A person performs the step — judgment, creativity, approval, or physical action; no AI | No AI artifact — captured as Human step in the Decomposition table |
+| **Deterministic** | You set the steps, their order, and the tool each one uses; the path is the same every run. The AI may still write, summarize, or analyze inside a step. Test: could you draw the whole flow in advance, with no "it depends" arrows? | Skill likely sufficient |
+| **Guided** | You set the structure; the AI makes bounded choices about the path within limits you define — which tool, which branch, whether to retry or skip a step, how to navigate a system. Test: is there a choice point where the AI, not you, picks the next move from options you allowed? | Skill or Agent |
+| **Autonomous** | The AI plans its own steps toward a goal and changes course based on what it finds. Test: could you only describe the goal, not the steps? | Agent required |
+
+**Path or content?** If the AI's choice changes which step runs next or which tool is used, it is a path decision and counts toward Guided. If it only changes what a step produces — the wording, what to include, the summary — it doesn't. A branch your own rule decides (a threshold, a pass/fail check against your criteria) is still yours. Whether a person should check the AI's output is answered by the involvement mode below and by [Test](../test/), not by autonomy. The workflow's level is the highest level any of its AI steps reaches.
 
 ### Orchestration Mechanism
 

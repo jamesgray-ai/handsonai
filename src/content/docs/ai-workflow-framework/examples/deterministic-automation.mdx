@@ -1,44 +1,46 @@
 ---
-title: "Workflow Example: Deterministic Automation"
-description: A worked example of a fully deterministic AI workflow — fixed rules, consistent output, no human judgment required during execution.
+title: "Workflow Example: Guided Prospect Research"
+description: "A worked example of a Guided AI workflow: fixed criteria and a fixed report, while the AI works out how to navigate LinkedIn to find the matches."
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-> **AI involvement:** Executes a predefined sequence — criteria come from the input, output follows a fixed template.
+> **AI involvement:** Follows a set structure — criteria come from the input, output follows a fixed template — and works out its own way through LinkedIn to find the matches.
 
 ## What This Workflow Type Is
 
-A deterministic automation is a workflow where AI follows a fixed sequence of steps, applies predefined evaluation criteria, and produces output in a rigid template. The rules are defined upfront (in this case, by a buyer persona), the process is linear, and the output format never changes. The same input produces the same structured output every time.
+A Guided workflow is one where you set the structure and the AI makes bounded choices about the path within limits you define. Here the structure is fixed: the evaluation criteria come from a buyer persona, the steps run in order, and the report follows a rigid template. What you don't set is the route through LinkedIn. The AI works out which searches and filters to run, which profiles to open, when to page further, and what to do when results are thin. Those are choices about how to navigate a system — a path decision — so the workflow is Guided, not Deterministic.
+
+Autonomy is about who decides the steps, not about how much judgment the AI uses inside a step. Scoring a prospect against the persona is judgment about content; picking where to look next on the site is a path choice.
 
 :::note[At a Glance]
-- **Matrix classification:** Deterministic + Automated
-- **AI involvement:** Follows prescribed steps and applies predefined criteria
-- **Human oversight:** Review output only — no steering during execution
-- **Best for:** Prospecting, recurring reports, data formatting, template-driven research
+- **Matrix classification:** Guided + Augmented
+- **AI involvement:** Applies predefined criteria inside a set structure, and works out its own navigation through the site
+- **Human oversight:** You start the run and review the report before using it
+- **Best for:** Browser-based research against fixed criteria — prospecting, account scoring, vendor scans
 - **Complexity:** Low — single prompt with structured input, no iteration required
 :::
 ### Characteristics
 
-- **Repeatable** — runs the same way every time with any buyer persona
-- **Predictable** — output format and evaluation criteria are defined in advance
+- **Repeatable** — the same structure every time, with any buyer persona
+- **Predictable where it matters** — output format and evaluation criteria are defined in advance; only the route through the site varies
 - **Delegatable** — anyone with the persona file can run it and get consistent results
 - **Automatable** — can run on a schedule or be triggered by a pipeline
 
 ### When to Use
 
-Use deterministic automation when you have a task that:
+Use this pattern when you have a task that:
 
 - Follows clear, documented rules or criteria
 - Takes structured input and produces structured output
-- Doesn't require subjective judgment during execution
-- Repeats on a regular cadence (weekly prospecting, monthly reporting)
+- Needs the AI to find its own way through a system you can't script step by step (a website, a search interface)
+- Repeats on a regular cadence (weekly prospecting, monthly scans)
 
 ## Example Scenario
 
 **The problem:** A sales leader needs to identify LinkedIn prospects that match a specific buyer persona. The research process is always the same — search by title and industry, evaluate against persona criteria, document findings in a consistent format — but manually doing it takes 45-60 minutes per batch. The criteria don't change between runs; only the prospects found are different.
 
-**The solution:** A workflow prompt that takes a buyer persona as input, executes a prescribed LinkedIn research sequence, and produces a structured prospect report with engagement recommendations. The evaluation criteria come directly from the persona file, so there's no subjective judgment — just systematic matching.
+**The solution:** A workflow prompt that takes a buyer persona as input, runs a set LinkedIn research sequence, and produces a structured prospect report with engagement recommendations. The evaluation criteria come directly from the persona file, so the matching is systematic. The AI decides how to navigate LinkedIn to find candidates worth evaluating.
 
 ## Building Blocks
 
@@ -69,13 +71,15 @@ graph LR
 
 The prompt encodes a five-step sequence that the AI executes in order:
 
-| Step | What Happens | Why It's Deterministic |
+| Step | What Happens | Who Decides the Path |
 |------|-------------|----------------------|
-| 1. Analyze persona | Extract titles, industry, size, location, pain points, triggers | Criteria are predefined in the input file |
-| 2. Access LinkedIn | Navigate and confirm authentication | Binary check — logged in or not |
-| 3. Search and evaluate | Apply persona criteria as search filters, score prospects | Evaluation rules are fixed: title match → company fit → engagement signals → accessibility |
-| 4. Document prospects | Capture name, URL, title, company, match reasons, engagement hook | Output fields are prescribed |
-| 5. Generate report | Format into template with summary, themes, and priority order | Template is rigid — same structure every run |
+| 1. Analyze persona | Extract titles, industry, size, location, pain points, triggers | You — criteria are predefined in the input file |
+| 2. Access LinkedIn | Navigate and confirm authentication | You — binary check, logged in or stop |
+| 3. Search and evaluate | Apply persona criteria as search filters, score prospects | **The AI** — it works out which searches and filters to run, which profiles to open, and when to page further. The scoring rules stay fixed: title match → company fit → engagement signals → accessibility |
+| 4. Document prospects | Capture name, URL, title, company, match reasons, engagement hook | You — output fields are prescribed |
+| 5. Generate report | Format into template with summary, themes, and priority order | You — template is rigid, same structure every run |
+
+Step 3 is the only choice point, and one is enough: a workflow's autonomy level is the highest level any of its steps reaches.
 
 The prompt also includes explicit error handling for three failure modes (fewer than 5 matches, LinkedIn access restricted, incomplete persona), so the workflow handles exceptions without human intervention.
 
@@ -129,7 +133,7 @@ Claude will read both files from the plugin directory, execute the workflow step
 
 ## Adapting This Example
 
-LinkedIn prospect research is one application, but the deterministic pattern works for any task with predefined criteria and a fixed output template:
+LinkedIn prospect research is one application, but the pattern — fixed criteria and template, with the AI finding its own way through a system — works for other tasks too:
 
 - **Customer account scoring** — score accounts against an ideal customer profile, produce a ranked list
 - **Job candidate screening** — evaluate resumes against a job description's requirements, produce a shortlist with match reasons
@@ -137,13 +141,13 @@ LinkedIn prospect research is one application, but the deterministic pattern wor
 - **Content audit** — evaluate published content against brand guidelines, produce a compliance report
 - **Competitive monitoring** — check competitor websites against a tracking template, produce a change report
 
-To adapt: identify the **input criteria** (the persona equivalent), the **evaluation rules** (how to score matches), and the **output template** (what the report looks like). If all three are defined before execution, it's a deterministic automation.
+To adapt: identify the **input criteria** (the persona equivalent), the **evaluation rules** (how to score matches), and the **output template** (what the report looks like). If all three are defined before execution and the AI also follows a route you set (fixed sources, fixed lookups), the workflow is Deterministic. If the AI works out its own route through a website or search tool, it's Guided.
 
 ## Related
 
 - [AI Collaborative Workflow Example](../ai-collaborative/) — when AI needs to research, reason, and iterate with a human
 - [Autonomous Agent Workflow Example](../autonomous-agent/) — when AI executes end-to-end with minimal supervision
 - [Research Use Cases](../../../use-cases/research/) — more examples of AI-powered research workflows
-- [Automation Use Cases](../../../use-cases/automation/) — turning deterministic workflows into scheduled pipelines
+- [Automation Use Cases](../../../use-cases/automation/) — turning repeatable workflows into scheduled pipelines
 - [Analyze AI Workflow Opportunities](../../analyze/) — identify which of your workflows are candidates for automation
 - [Deconstruct Workflows](../../deconstruct/) — break down complex workflows into automatable steps

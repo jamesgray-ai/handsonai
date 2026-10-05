@@ -70,7 +70,7 @@ Find which workflows are candidates for AI.
 
 Before you can apply AI to anything, you need to know *where* it fits. Step 1 is a structured audit of your workflows that produces a prioritized list of opportunities classified on two dimensions:
 
-- **Autonomy** — How much decision-making does the AI have? **Deterministic** (follows fixed rules), **Guided** (makes bounded decisions within guardrails), or **Autonomous** (plans and adapts independently)
+- **Autonomy** — How much does the AI decide on its own? Tell by looking at who decides the steps. **Deterministic** (you set the steps and their tools; the path is the same every run), **Guided** (the AI picks the next move at choice points you allowed), or **Autonomous** (the AI plans its own steps toward a goal)
 - **Human Involvement** — Is a human in the loop during execution? **Augmented** (human reviews and steers) or **Automated** (AI runs solo)
 
 The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a classified report with specific opportunities and actionable first steps.
@@ -190,11 +190,15 @@ Every term, in plain language: [Framework Glossary](glossary/). Quick reference 
 
 Every AI workflow is classified on two dimensions — autonomy and human involvement — producing six archetypes. See the [AI Workflow Design Matrix](workflow-design-matrix/) for the full 3x2 matrix with descriptions, examples, and guidance on choosing the right archetype.
 
-| Autonomy | Description | Example |
+Autonomy asks how much the AI decides on its own — tell by looking at who decides the steps:
+
+| Autonomy | Who decides the steps | Example |
 |----------|-------------|---------|
-| **Deterministic** | AI follows fixed rules — no decisions, no judgment | Formatting reports, processing forms |
-| **Guided** | AI makes bounded decisions within guardrails | Co-writing, brainstorming, research summaries |
-| **Autonomous** | AI plans, decides, and adapts independently | Competitor monitoring, research → report pipelines |
+| **Deterministic** | You set the steps, their order, and the tool each one uses; the path is the same every run. The AI may still write, summarize, or analyze inside a step. | Drafting a weekly status report from fixed sources, formatting reports |
+| **Guided** | You set the structure; the AI makes bounded choices about the path — which tool, which branch, whether to retry or skip, how to navigate a system | Routing support emails by category, a browser assistant that works out how to navigate a website |
+| **Autonomous** | The AI plans its own steps toward a goal and changes course based on what it finds | Research agents that plan and write an article |
+
+If the AI's choice changes which step runs next or which tool is used, it counts toward Guided; if it only changes what a step produces, it doesn't. Whether a person should check the output is the involvement question below, not autonomy.
 
 | Involvement | Description |
 |-------------|-------------|
@@ -226,12 +230,12 @@ Used to classify each workflow step during [Design](design/):
 
 | Level | Description |
 |-------|-------------|
-| **Human** | Requires human judgment, creativity, or physical action |
-| **Deterministic** | Follows fixed rules; AI executes reliably with no decisions |
-| **Guided** | AI makes bounded decisions within guardrails; human reviews at key checkpoints |
-| **Autonomous** | AI plans and executes end-to-end, including decisions and tool use |
+| **Human** | A person performs the step — judgment, creativity, approval, or physical action |
+| **Deterministic** | The AI does the step as you specified it, with the tool you chose; it may write or analyze, but it picks no part of the path |
+| **Guided** | The step contains a choice point where the AI picks the next move from options you allowed (tool, branch, retry or skip, navigation) |
+| **Autonomous** | The AI is given a goal for the step and plans its own sub-steps, changing course based on what it finds |
 
-The same scale describes the **whole workflow** during Design's autonomy assessment — with one difference: **Human appears only at the step level** (a whole workflow that's entirely human needs no AI design), so the workflow-level scale runs Deterministic → Guided → Autonomous.
+The same scale describes the **whole workflow** during Design's autonomy assessment — with one difference: **Human appears only at the step level** (a whole workflow that's entirely human needs no AI design), so the workflow-level scale runs Deterministic → Guided → Autonomous. The workflow's level is the highest level any of its AI steps reaches: one Guided step makes a Guided workflow.
 
 ### Orchestration Mechanism
 
