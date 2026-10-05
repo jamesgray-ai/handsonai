@@ -256,7 +256,7 @@ After adding skills, you can say "analyze where AI fits in my work" and Gemini r
 - **Gemini Enterprise** (work or school account): **Skills → + → Upload skill → Import**.
 - **Gemini CLI / Antigravity:** unzip the skill and place its folder in `.gemini/skills/` or `.agents/skills/` in your project root — it's discovered automatically.
 
-Download the skill ZIPs from the [skill downloads table](../../../ai-workflow-framework/skills/#download-the-skill-zips).
+Download the skill ZIPs from the [skill downloads](../../../ai-workflow-framework/skills/#download-the-skill-zips).
 
 [→ Step-by-step for every Gemini surface](../../../ai-workflow-framework/skills/#google-gemini) · [→ Skills on Google Gemini](../skills/)
 
