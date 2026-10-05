@@ -47,9 +47,9 @@ The procedure below is identical everywhere — the same six phases (0–5), the
 | Platform | Skill delivery | Where the bundle lives | Mode |
 |---|---|---|---|
 | Claude Code | handsonai plugin | any local folder (incl. a synced cloud-drive folder or a repo clone) | write mode |
-| Cowork | handsonai plugin (installed once, shared with Claude Chat) or skill ZIP | the working folder (a project or any local folder) | write mode |
+| The Claude desktop app (formerly Cowork) | handsonai plugin (installed once, shared with Claude Chat) or skill ZIP | the working folder (a project or any local folder) | write mode |
 | ChatGPT desktop (Codex) | same SKILL.md dirs at `~/.agents/skills/` (user-level default) or repo `.agents/skills/` (optional pin) | any local folder | write mode |
-| claude.ai | handsonai plugin (paid plans; same install as Cowork) or skill ZIP (Releases channel) | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
+| claude.ai | handsonai plugin (paid plans; same install as the Claude desktop app) or skill ZIP (Releases channel) | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
 | ChatGPT web (paid plans) | handsonai plugin via Plugins > Add marketplace, or Personal Skill upload (same ZIP) | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
 | Gemini Spark / Gemini Enterprise | skill ZIP via Skills > Upload | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
 | M365 Copilot | agent-instructions packaging | wherever the student saves — computer, synced drive, or GitHub; read-back via a connector if one exists | print-and-save mode (write mode only if the tool can create files in a connected drive) |
@@ -62,7 +62,7 @@ A few rules follow from that table:
 - **(d) One skill artifact, three channels.** The same agentskills.io-standard SKILL.md — built by the existing `build-skill-zips.sh` pipeline — is what Codex desktop scans locally, what ChatGPT web's Personal Skills accepts as an upload, and what claude.ai accepts as an uploaded skill. There is no separate packaging for each.
 - **(e) Repo-checked-in skills are optional, not the default.** Codex desktop can read `.agents/skills/` inside the student's repo, but the default is a user-level install (`~/.agents/skills/`) — checking a skill into every repo it's used in invites version drift between repos. Only pin a repo-local copy when the student has a specific reason to.
 
-**Platform note (Claude Code / Cowork):** on these two, the Tier 2 dashboard this skill's closing step offers can be published as a Claude Artifact for easy sharing — a mechanic specific to these platforms, not part of the cross-platform procedure above.
+**Platform note (Claude Code / the Claude desktop app):** on these two, the Tier 2 dashboard this skill's closing step offers can be published as a Claude Artifact for easy sharing — a mechanic specific to these platforms, not part of the cross-platform procedure above.
 
 ## Before scaffolding
 
