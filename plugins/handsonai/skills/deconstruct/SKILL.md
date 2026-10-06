@@ -41,7 +41,7 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
 ## Workflow
 
-**Set expectations up front (first message) — give the agenda, not just the time.** Say: "This is the most thorough conversation in the framework — about 45–60 minutes on your own, less if you've done it before — because everything built later comes from what we capture here. It runs in five chapters: (1) **what this is worth**, (2) **scope and a name**, (3) **mapping how the work gets done**, (4) **improving it for AI**, and (5) **how you'll judge the output**. Stopping early is safe: progress saves to files, and 'continue my workflow' picks up where we left off." Signpost each transition as you reach it ("Chapter 3 of 5 — mapping the steps"). For goal-driven workflows chapter 3 is "defining the goal and its range" and chapter 4 is skipped; say so when you reach it.
+**Set expectations up front (first message) — give the agenda, not just the time.** Say: "This is the most thorough conversation in the framework — about 45–60 minutes on your own, less if you've done it before — because everything built later comes from what we capture here. It runs in five parts: (1) **what this is worth**, (2) **scope and a name**, (3) **mapping how the work gets done**, (4) **improving it for AI**, and (5) **how you'll judge the output**. Stopping early is safe: progress saves to files, and 'continue my workflow' picks up where we left off." Signpost each transition as you reach it ("Part 3 of 5 — mapping the steps"). For goal-driven workflows part 3 is "defining the goal and its range" and part 4 is skipped; say so when you reach it.
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
@@ -49,7 +49,9 @@ Worked example: *"Generate my weekly status report from the same three sources"*
 
 Determine how the user is arriving and which path to take.
 
-**From Analyze output**: If the user references an opportunity report, file path (e.g., `outputs/ai-opportunity-report.md`), or a specific workflow candidate from an Analyze session, read the Workflow Candidate Summary from the file. Present the available candidates and ask which one to deconstruct. Pre-populate scenario metadata (name, description, trigger, deliverable, autonomy, involvement) from the candidate fields. If the candidate includes a `Lens` field, carry it forward along with any `Business Objective`, `Stakeholders`, and `Success Metrics` fields. Confirm the pre-populated details with the user. Then choose the path: if the candidate's autonomy = Autonomous, suggest goal-driven but still confirm. Otherwise confirm the path from the candidate's description using the describe-first flow below.
+**From Analyze output**: If the user references an opportunity report, file path (e.g., `outputs/ai-opportunity-report.md`), or a specific workflow candidate from an Analyze session, read the Workflow Candidate Summary from the file. Present the available candidates and ask which one to deconstruct. Pre-populate scenario metadata (name, description, trigger, deliverable, autonomy, involvement) from the candidate fields. If the candidate includes a `Lens` field, carry it forward along with any `Value lever`, `Business Objective`, `Stakeholders`, and `Success Metrics` fields. Confirm the pre-populated details with the user. Then choose the path: if the candidate's autonomy = Autonomous, suggest goal-driven but still confirm. Otherwise confirm the path from the candidate's description using the describe-first flow below.
+
+**From the registry (both entries)**: if `registry/businesses/` exists, read the Business node. If its body has a `## Objectives` block, hold those objectives for the value case below — they turn the open Business Objective question into a short choice.
 
 **Cold entry (no Analyze output)**: Do not open with the path question. First ask, in one line: "Tell me about the workflow — what kicks it off, what you do, and what comes out the other end. Rough is fine." Listen for whether the paths are listable. Then **propose** the path with the reason, and confirm:
 
@@ -66,7 +68,7 @@ When rendering this choice as a structured form (option cards), both cards state
 - **Step-driven**: Ask about the business scenario, objective, high-level steps, and ownership. One question at a time. If no lens was established, determine it: individual tasks (one person's repetitive work) = Individual lens; multi-role or business-objective processes = Organizational lens. Ask only if not obvious from context. Proceed to Phase 2 (scope check) → Phase 3 (naming) → Phase 4 (deep dive).
 - **Goal-driven**: Proceed to Phase 2 (scope check) → Phase 3 (naming) → Phase 4 (goal-driven), the goal interview. The interview opens with scenario grounding, so don't pre-interview here — but if the user has already described the situation, trigger, or consumer, carry those answers forward.
 
-**Value case (both paths)** — Say: "Chapter 1 of 5 — what this is worth." Bridge into it: "Before we map anything, I want to know what this is worth to you, so that when it's built we can show the improvement rather than just claim it." Then capture four of the six `Value & Measurement` fields, conversationally: two or three questions, not a form.
+**Value case (both paths)** — Say: "Part 1 of 5 — what this is worth." Bridge into it: "Before we map anything, I want to know what this is worth to you, so that when it's built we can show the improvement rather than just claim it." Then capture four of the six `Value & Measurement` fields, conversationally: two or three questions, not a form.
 
 - **Business Objective** — which strategic objective this supports. On the Individual lens it may be personal ("get my Fridays back"); don't push organizational language onto it.
 - **Desired Outcome** — what changes, and for whom, when this works. In the language the business would use, not the workflow's.
@@ -78,13 +80,15 @@ Two rules while asking:
 - **Measure quantifies Desired Outcome; it does not replace it.** "Cycle time 12 days to 4 days" says nothing about what got better or for whom. If the outcome could be deleted without the measure becoming ambiguous, push once for the outcome.
 - **`Unknown` is an acceptable baseline — do not push past it.** If the user doesn't know today's number, record `Unknown — must measure before go-live` and move on. Never offer an estimate to fill the gap: an invented baseline makes a false improvement provable, which is worse than having none.
 
-**From an Analyze report** — Analyze's `Business Objective` and `Success Metrics` are Organizational-lens only. When an Organizational candidate is referenced, pre-populate Business Objective from Analyze's field of the same name and Measure from its `Success Metrics`, then confirm rather than asking cold. Analyze captures neither Desired Outcome nor Baseline, so ask for both.
+**Pre-loaded answers, in this order of preference.** (1) An Organizational candidate from Analyze carries `Business Objective` and `Success Metrics`: pre-populate Business Objective and Measure from them and confirm rather than asking cold. (2) Otherwise, if the Business node had `## Objectives`, ask on either lens: "Which of these does this workflow serve?" and list them — a personal objective the user offers instead ("get my Fridays back") still wins. (3) Otherwise ask the open question. Analyze captures neither Desired Outcome nor Baseline, so always ask for both.
+
+**The value lever frames the Measure question.** If the candidate carried a `Value lever`, open Measure with the number that lever implies, then let the user redirect: *Streamline* → steps or hours per run; *Automate* → the hours a person stops spending; *Accelerate* → cycle time or throughput; *Create value* → a count of the new thing produced. Without a lever, ask as above.
 
 `Target` and `Readable When` are **not** asked here — they describe the revised workflow, which doesn't exist yet. They come at Phase 12.
 
 #### Phase 2 — Scope check
 
-Say: "Chapter 2 of 5 — scope and a name."
+Say: "Part 2 of 5 — scope and a name."
 
 **One trigger, one deliverable.** A workflow has exactly one trigger (what kicks it off) and one deliverable (the tangible output). Test for multiple workflows by checking:
 
@@ -104,7 +108,7 @@ Present 2-3 name options. Naming conventions: a **2-4 word noun phrase** in **Ti
 
 #### Phase 4 — Deep dive
 
-*Step-driven only.* Say: "Chapter 3 of 5 — mapping how the work gets done." Open by stating the shape of what's coming: "You named [N] steps. We'll take them one at a time — for the first one I'll ask questions; from the second onward I'll propose what I think each step involves and you correct me, which is faster." Then briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
+*Step-driven only.* Say: "Part 3 of 5 — mapping how the work gets done." Open by stating the shape of what's coming: "You named [N] steps. We'll take them one at a time — for the first one I'll ask questions; from the second onward I'll propose what I think each step involves and you correct me, which is faster." Then briefly frame what "context" means: "As we go through each step, I'll ask about the *context* it needs. Context is any data or information the step requires to do its job — that includes databases and spreadsheets, but also documents, transcripts, emails, style guides, SOPs, or even knowledge that currently lives in someone's head. If the step needs it, it's context."
 
 Work through each step using the 6-question framework. **Ask one question at a time, adapt to the user's answers, and skip dimensions already well-covered — this is a scaffold for *you*, never a checklist to read aloud at the user.** These six dimensions shape what to ask, not how the spec is structured. Your job is to gather enough signal across all six to write the per-step requirements block (Goal / Inputs / Outputs / Rules & Edge Cases / Context Needed) in Phase 13.
 
@@ -153,7 +157,7 @@ When probing context needs, push beyond vague answers — identify the specific 
 
 **Present as a propose-and-react summary:**
 
-> "Chapter 4 of 5 — improving it for AI. You've described how the work happens *today*, with a person doing it. An AI-powered version usually doesn't need every one of those steps — some exist only because a human was doing the work. Here's how I'd reshape it:
+> "Part 4 of 5 — improving it for AI. You've described how the work happens *today*, with a person doing it. An AI-powered version usually doesn't need every one of those steps — some exist only because a human was doing the work. Here's how I'd reshape it:
 > - **Eliminate**: [step(s)] — [reason, e.g., 'direct access to your CRM data replaces the manual export']
 > - **Collapse**: [step(s)] into one — [reason, e.g., 'AI drafts and formats in a single pass']
 > - **Parallelize**: [step(s)] — [reason, e.g., 'no data dependency between these']
@@ -221,9 +225,9 @@ Work each implicated category once, even when two tests point at the same one. C
 
 #### Phase 12 — Define how you will judge the output
 
-*Both paths.* This is the last chapter. Open it by saying what it is for, in plain words, before asking anything:
+*Both paths.* This is the last part. Open it by saying what it is for, in plain words, before asking anything:
 
-> "Chapter 5 of 5 — how you'll judge the output. In Step 5 you'll run this workflow on a few realistic inputs and check whether the output did what you needed. I want to capture *how you'll judge it* now, while you know the work best, so that step is a checklist and not a gut feel. Each thing you tell me becomes one line the workflow either meets or doesn't."
+> "Part 5 of 5 — how you'll judge the output. In Step 5 you'll run this workflow on a few realistic inputs and check whether the output did what you needed. I want to capture *how you'll judge it* now, while you know the work best, so that step is a checklist and not a gut feel. Each thing you tell me becomes one line the workflow either meets or doesn't."
 
 Then ask, one at a time, in this order:
 
@@ -556,4 +560,4 @@ The Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria,
 - After writing the Workflow Requirements file, close with what was produced and what happens next: "Workflow Requirements saved to `outputs/[name]/requirements.md`. It holds your goal, [N] steps (or, goal-driven: the goal and its range), [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill'."
 - If entering deconstruction without a prior analysis (direct workflow description), determine the lens by asking if not obvious from context.
 - For goal-driven workflows, do not force step decomposition — the whole point is to capture what the agent system needs to know without prescribing execution steps.
-- **Signpost each phase transition.** The user hears chapters, not phases — announce each transition as its chapter ("Chapter 3 of 5 — mapping the steps") and keep the phase numbers internal, so the user only ever sees one count.
+- **Signpost each phase transition.** The user hears parts, not phases — announce each transition as its part ("Part 3 of 5 — mapping the steps") and keep the phase numbers internal, so the user only ever sees one count.
