@@ -1,11 +1,11 @@
 ---
-title: Set Up the AI Workflow Framework Skills
-description: "Set up the seven AI Workflow Framework skills on Claude, ChatGPT, Gemini, M365 Copilot, Cursor, Codex, and Gemini CLI — no terminal needed for the chat apps."
+title: Install the Hands-on AI Plugin
+description: "Install the Hands-on AI plugin — the AI Workflow Framework, Knowledge Graph, and AI Registry skills — on Claude, ChatGPT, Gemini, Copilot, Cursor, and Codex."
 ---
 
 import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
 
-Seven skills and an agent implementing the [AI Workflow Framework](../) — from analyzing where AI fits in your workflows through building, testing, running, and improving working AI workflows. This page gets them into the AI tool you already use.
+The Hands-on AI plugin bundles the seven [AI Workflow Framework](../) skills and their `framework-agent` orchestrator, the [Knowledge Graph](/builder-setup/knowledge-graph-setup/) skill, and the two [AI Registry](/builder-setup/ai-registry-setup/) skills. This page gets them into the AI tool you already use — the whole plugin where your platform supports it, or one skill at a time as a ZIP where it doesn't. What's inside is on the [plugin page](/use-the-playbook/build/handsonai/).
 
 ## Set Up These Skills
 
@@ -16,7 +16,7 @@ Pick the row that matches the tool you use most, then jump to that section. Noth
 | I use… | Do this |
 |---|---|
 | **Claude** (claude.ai or the Claude app) | [Install the plugin](#claude-chat--cowork) — or upload the ZIPs if your company blocks plugins or you're on the Free plan. *About 3 minutes, no terminal.* |
-| **ChatGPT** | [Install the plugin](#chatgpt--codex) on any paid plan — or upload the ZIPs if you don't see Add marketplace. *About 3 minutes, no terminal.* |
+| **ChatGPT** | Open the **ChatGPT desktop app** and [install the plugin](#chatgpt--codex) on any paid plan. **Add marketplace** is in the desktop app only; once installed, the skills work on the web and your phone too. No desktop app? Upload the ZIPs instead. *About 3 minutes, no terminal.* |
 | **Google Gemini** | [Upload the ZIPs](#google-gemini) in Gemini Spark (personal account) or Gemini Enterprise (work account). *About 3 minutes, no terminal.* |
 | **Microsoft 365 Copilot** | [Upload the plugin file](#microsoft-365-copilot) in Cowork, or the ZIPs one at a time. *About 5 minutes, no terminal.* |
 | **A code editor or terminal** (Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity) | See [For builders](#for-builders-code-editors--terminal) at the bottom. *A couple of commands or a folder on disk.* |
@@ -140,11 +140,11 @@ The ChatGPT app (Mac, Windows, and Linux) has three modes: **Chat**, **Work**, a
 
 **Official docs:** [Skills in ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt) · [Skills & Plugins](https://learn.chatgpt.com/docs/skills-and-plugins)
 
-**What you need first:** A ChatGPT account and the ChatGPT app (Mac, Windows, or Linux). Skills from the plugin also work on [chatgpt.com](https://chatgpt.com) and your phone; uploaded skills work in the app. All three options need a paid plan — **Plus, Pro, Business, or Enterprise** (not Free or Go). On Enterprise and Edu, skills are off until an admin turns them on.
+**What you need first:** A ChatGPT account and the ChatGPT desktop app (Mac, Windows, or Linux). **You must be in the desktop app to add the marketplace** — the Plugins page on [chatgpt.com](https://chatgpt.com) in a browser does not show **Add a marketplace**. Install the app from [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/), sign in, and come back here. Once the plugin is installed, its skills also work on chatgpt.com and your phone; uploaded skills work in the app. All three options need a paid plan — **Plus, Pro, Business, or Enterprise** (not Free or Go). On Enterprise and Edu, skills are off until an admin turns them on.
 
 #### Option 1 — Add the marketplace (recommended)
 
-**Before you start:** Open **Plugins** (in the left sidebar, or under **Customize**) and click **Add** in the top right. Do you see **Add a marketplace**? Yes → continue. No → you're on Free or Go, or your company manages plugins centrally. Try **Option 2**, or send your admin the *For admins* note below.
+**Before you start:** Open **Plugins** (in the left sidebar, or under **Customize**) and click **Add** in the top right. Do you see **Add a marketplace**? Yes → continue. No → first check you're in the **desktop app**, not chatgpt.com in a browser — the button only appears in the app. If you are in the app, you're on Free or Go, or your company manages plugins centrally. Try **Option 2**, or send your admin the *For admins* note below.
 
 1. Open **Plugins** (in the left sidebar, or under **Customize**)
 2. Click **Add** in the top right, then **Add a marketplace**
@@ -656,7 +656,7 @@ Or update every installed plugin at once with `/plugin update --all`. To have th
 <details>
 <summary><strong>ChatGPT & Codex</strong></summary>
 
-**If you installed the plugin:** open **Plugins**, find the `handsonai-plugins` marketplace, and choose **Check for updates** (or **Sync**), then update **Hands-on AI**. Workspace-managed marketplaces sync automatically every day. From the Codex CLI: `codex plugin marketplace upgrade`, then start a new thread.
+**If you installed the plugin:** in the **ChatGPT desktop app**, open **Plugins**, find the `handsonai-plugins` marketplace, and choose **Check for updates** (or **Sync**), then update **Hands-on AI**. Workspace-managed marketplaces sync automatically every day. From the Codex CLI: `codex plugin marketplace upgrade`, then start a new thread.
 
 **If you uploaded the plugin file:** download `handsonai-plugin.zip` again from the [downloads section](#download-the-skill-zips) and upload it the same way (**Plugins → Add → Upload plugin archive**). If ChatGPT keeps the old copy alongside the new one, remove the old one.
 
@@ -742,6 +742,9 @@ The file-based handoffs between steps mean you can continue in a new conversatio
 
 **Do I need Claude Code for all of this?**
 No. These skills work on Claude (the Claude app and Claude Code), ChatGPT and Codex, Google Gemini (Spark, Gemini Enterprise, Gemini CLI, and Antigravity), Microsoft 365 Copilot, and Cursor. See [Set Up These Skills](#set-up-these-skills) above for your platform.
+
+**I'm on ChatGPT and don't see Add a marketplace. Why?**
+You're probably on chatgpt.com in a browser. Adding a marketplace only works in the ChatGPT desktop app (Mac, Windows, or Linux). Open the app, go to **Plugins → Add → Add a marketplace**, and install there — the skills then work on the web and mobile too. If you're already in the app, see the *Before you start* check under [ChatGPT & Codex](#chatgpt--codex).
 
 **Plugin or ZIPs — which should I use?**
 The plugin, if your platform and plan allow it: one install, every skill. Add it from the marketplace if you can: updates take one click, and on Claude it adds the `framework-agent` orchestrator too. If you can't, upload the plugin file, which has all the skills. ZIPs are the fallback for every other situation, and the skills work just as well that way.

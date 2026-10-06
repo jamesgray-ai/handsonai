@@ -43,7 +43,7 @@ Most people discover 5–15 opportunities across different autonomy levels. Pick
 
 ## How to Use This
 
-This step is facilitated by the **`analyze`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+This step is facilitated by the **`analyze`** AI Workflow Framework skill. How you get it depends on your platform — see [Install the Hands-on AI Plugin](../skills/) for installation instructions.
 
 **How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:analyze`, and Cowork lists it when you type `/`.
 
@@ -71,7 +71,7 @@ The skill runs the six phases above and produces a categorized opportunity repor
 ```
 
 :::tip[Don't have the skill installed yet?]
-Every platform in the course can load it — [Set Up the Skills](../skills/) has the steps, and [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) is the direct download. Same methodology, same output format.
+Every platform in the course can load it — [Install the Hands-on AI Plugin](../skills/) has the steps, and [analyze.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/analyze.zip) is the direct download. Same methodology, same output format.
 :::
 :::tip[Classify opportunities with the six primitives]
 Once you've identified opportunities, use the [six use case primitives](../../use-cases/) — Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, and Automation — to classify what type of AI work each one involves. This makes it easier to find examples and choose the right building blocks.

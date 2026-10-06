@@ -102,7 +102,7 @@ If you've been through four rounds and the same lines keep failing, the problem 
 
 ## How to Use This
 
-This step is facilitated by the **`test`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
+This step is facilitated by the **`test`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
 
 **How to start:** Say *"run the test skill"* (or *"test the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:test`, and Cowork lists it when you type `/`. Then, in each new chat where you run the workflow, say *test this* once the run finishes.
 

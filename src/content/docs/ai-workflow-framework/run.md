@@ -124,7 +124,7 @@ In the first few weeks after deployment, check:
 
 ## How to Use This
 
-This step is facilitated by the **`run`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
+This step is facilitated by the **`run`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
 
 **How to start:** Say *"run the run skill"* (or *"put my workflow into production"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and Cowork lists it when you type `/`.
 

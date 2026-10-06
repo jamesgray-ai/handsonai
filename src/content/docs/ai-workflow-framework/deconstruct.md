@@ -84,7 +84,7 @@ Then the goal-driven gate, and both paths rejoin at phase 11:
 
 ## How to Use This
 
-This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation instructions.
+This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. How you get it depends on your platform — see [Install the Hands-on AI Plugin](../skills/) for installation instructions.
 
 **How to start:** Say *"run the deconstruct skill"* (or *"deconstruct my workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:deconstruct`, and Cowork lists it when you type `/`.
 
@@ -111,7 +111,7 @@ The skill proposes a path from your description, runs an interactive interview t
 ```
 
 :::tip[Don't have the skill installed yet?]
-Every platform in the course can load it — [Set Up the Skills](../skills/) has the steps, and [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) is the direct download.
+Every platform in the course can load it — [Install the Hands-on AI Plugin](../skills/) has the steps, and [deconstruct.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/deconstruct.zip) is the direct download.
 :::
 
 ### Example: Step-driven path

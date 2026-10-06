@@ -21,7 +21,7 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 | 6.&nbsp;Run | `run` | Deploy and operationalize your workflow |
 | 7.&nbsp;Improve | `improve` | Monitor quality and innovate your workflow over time |
 
-**Get the skills:** See [Set Up the Skills](skills/) for installation instructions across Claude (Chat, Cowork, Code), ChatGPT and Codex, Google Gemini (Spark, Enterprise, CLI), M365 Copilot, Cursor, and more. The plugin name is `handsonai`.
+**Get the skills:** See [Install the Hands-on AI Plugin](skills/) for installation instructions across Claude (Chat, Cowork, Code), ChatGPT and Codex, Google Gemini (Spark, Enterprise, CLI), M365 Copilot, Cursor, and more. The plugin name is `handsonai`.
 
 ## Run It All at Once: framework-agent
 
@@ -77,7 +77,7 @@ The audit starts by reading your registry and what the AI already knows about yo
 
 **Deliverable:** **Opportunity Report** (`outputs/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue — and one `status: backlog` Workflow node per chosen candidate in your registry.
 
-**Facilitated by the `analyze` skill.** See [Analyze Workflows](analyze/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
+**Facilitated by the `analyze` skill.** See [Analyze Workflows](analyze/) for details and [Install the Hands-on AI Plugin](skills/) for installation on any supported platform.
 
 ---
 
@@ -110,7 +110,7 @@ This is purely the *what* — the workflow's requirements, with no prescription 
 
 **Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety. Step-driven workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs.
 
-**Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Set Up the Skills](skills/) for installation on any supported platform.
+**Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Install the Hands-on AI Plugin](skills/) for installation on any supported platform.
 
 ---
 
@@ -285,4 +285,4 @@ Most workflows need 2–4 rounds of Build and Test before they produce reliably 
 **Where are the example agents and prompts?**
 They're in the [AI Workflow Examples](../use-the-playbook/build/handsonai/) collection — agents for executive writing, editorial review, research, meeting prep, and AI news.
 
-For setup-specific questions (which platforms support the skills, how to handle losing context mid-conversation), see the [FAQ on the Set Up the Skills page](skills/#faq).
+For setup-specific questions (which platforms support the skills, how to handle losing context mid-conversation), see the [FAQ on the Install the Hands-on AI Plugin page](skills/#faq).
