@@ -1,7 +1,9 @@
 ---
 title: "Analyze Examples — Sample AI Opportunity Reports"
-description: Two complete AI Opportunity Report examples showing what the Analyze step produces — a Marketing Operations Manager and an AI Instructor.
----These are three synthetic AI Opportunity Reports showing what the Analyze step produces. Use them as a reference for format, level of detail, and how opportunities are classified on the [AI Workflow Design Matrix](../workflow-design-matrix/).
+description: Three complete AI Opportunity Report examples showing what the Analyze step produces — a Marketing Operations Manager, an AI Instructor, and a VP of Operations.
+---
+
+These are three synthetic AI Opportunity Reports showing what the Analyze step produces. Use them as a reference for format, level of detail, and how opportunities are classified on the [AI Workflow Design Matrix](../workflow-design-matrix/).
 
 - **Example 1** — Marketing Operations Manager at a B2B SaaS company (Individual lens, 7 opportunities)
 - **Example 2** — AI Instructor running courses and maintaining a knowledge base (Individual lens, 7 opportunities)
@@ -32,15 +34,15 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Impact |
-|---|------------|----------|-------------|--------|
-| 1 | Campaign Performance Reporting | Deterministic | Automated | High |
-| 2 | Lead Data Enrichment | Deterministic | Automated | High |
-| 3 | Content Brief Generation | Deterministic | Augmented | High |
-| 4 | Lead Scoring Model Tuning | Deterministic | Augmented | Medium |
-| 5 | Email Sequence Optimization | Deterministic | Augmented | Medium |
-| 6 | Campaign Budget Reallocation | Guided | Augmented | Low |
-| 7 | Competitive Content Monitoring | Autonomous | Automated | Medium |
+| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
+|---|------------|----------|-------------|-------------|--------|
+| 1 | Campaign Performance Reporting | Deterministic | Automated | Automate | High |
+| 2 | Lead Data Enrichment | Deterministic | Automated | Automate | High |
+| 3 | Content Brief Generation | Deterministic | Augmented | Accelerate | High |
+| 4 | Lead Scoring Model Tuning | Deterministic | Augmented | Create value | Medium |
+| 5 | Email Sequence Optimization | Deterministic | Augmented | Accelerate | Medium |
+| 6 | Campaign Budget Reallocation | Guided | Augmented | Create value | Low |
+| 7 | Competitive Content Monitoring | Autonomous | Automated | Create value | Medium |
 
 ### Top Recommendations
 
@@ -60,16 +62,20 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You give the AI instructions for every step: pull metrics from three platforms, calculate the changes, fill the slide template, send the summary. Nothing the AI produces changes what happens next, and the output format is fixed. Classic automation candidate.
+You give the AI instructions for every step: gather last week's metrics from the same three sources, calculate the changes, fill the fixed template, send the summary. Nothing the AI produces changes what happens next, and the output format never varies. Classic automation candidate.
 
 **Current pain point:**
 Every Monday morning, Sarah spends 3-4 hours pulling data from three ad platforms, copying numbers into a Google Sheet, calculating WoW changes, formatting a slide deck, and emailing it to the VP of Marketing. The process is tedious and error-prone — last month a copy-paste error overstated LinkedIn ROAS by 40%, which wasn't caught until the executive review.
 
 **How AI helps:**
-A deterministic workflow connects to HubSpot, Google Ads, and LinkedIn Ads APIs, pulls the previous week's campaign metrics, calculates period-over-period changes, populates a templated Google Slides deck, and emails the summary to stakeholders. Same path every week.
+Takes in last week's campaign metrics from the three sources Sarah uses today and the standing slide template; produces the completed weekly deck with period-over-period changes and a short written summary, ready to send. Same path every week.
 
-**Getting started:**
-Start with one platform (Google Ads) and build a simple script that pulls last week's metrics and formats them into a markdown summary. Validate the numbers against a manual pull before expanding to all three sources.
+**Value lever:** Automate — Sarah stops doing the Monday pull entirely; the deck exists before she sits down.
+
+**What changes for the business:**
+The VP of Marketing gets the report first thing Monday instead of mid-morning, the numbers are calculated the same way every week, and the 3-4 hours return to campaign work. The copy-paste error class disappears.
+
+**Systems involved today:** the three ad platforms, the Google Sheet, the slide deck, email.
 
 
 ---
@@ -80,16 +86,20 @@ Start with one platform (Google Ads) and build a simple script that pulls last w
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-Enrichment follows clear rules: look up company domain, match to firmographic database, fill in missing fields (industry, employee count, revenue range). No ambiguity in what "correct" looks like — either the data matches or it doesn't. The one branch, flagging low-confidence matches for manual review, uses the confidence score the enrichment API returns, not an AI judgment, so the work follows the same path whatever the AI produces.
+Enrichment follows clear rules: look up the company, match it to a firmographic record, fill in the missing fields (industry, employee count, revenue range). No ambiguity in what "correct" looks like — either the data matches or it doesn't. The one branch, flagging low-confidence matches for manual review, uses a confidence score the data source supplies, not an AI judgment, so the work follows the same path whatever the AI produces.
 
 **Current pain point:**
 New leads arrive from webinars and content downloads with incomplete data — often just name and email. Sarah's team manually researches each company on LinkedIn and Crunchbase to fill in firmographic fields before leads can be scored and routed. This takes 10-15 minutes per lead, and with 50+ new leads per week, it's a significant time drain that delays sales follow-up.
 
 **How AI helps:**
-An automated workflow triggers when a new lead enters HubSpot, extracts the email domain, queries enrichment APIs (Clearbit, Apollo) for firmographic data, fills in standardized fields, and flags any leads where enrichment confidence is below threshold for manual review.
+Takes in each new lead as it arrives, with whatever fields it came with; produces the same lead with industry, employee count, and revenue range filled in from an agreed firmographic source, plus a short list of leads whose match was too uncertain to trust, set aside for a person.
 
-**Getting started:**
-Map the exact fields that need enrichment and the acceptable data sources. Test one enrichment API (like Clearbit) against 20 recent leads to measure match rate and data quality before building the full pipeline.
+**Value lever:** Automate — the team stops researching companies by hand; the record is complete before anyone looks at it.
+
+**What changes for the business:**
+Sales follow-up starts the same day a lead arrives instead of days later, scoring and routing run on complete records, and the team recovers roughly 10 hours a week of lookup work.
+
+**Systems involved today:** the CRM, the webinar and content-download forms, LinkedIn and Crunchbase for lookups.
 
 
 ---
@@ -100,16 +110,20 @@ Map the exact fields that need enrichment and the acceptable data sources. Test 
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keywords in Ahrefs, top-ranking competitor articles, customer quotes from Gong, then the brief. The AI's judgment about messaging angle shapes what the brief says, but every brief goes through the same steps, so it's Deterministic. Sarah reviews, adjusts the angle, and approves the draft along the way — that's what makes it Augmented.
+Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keyword research, top-ranking competitor articles, customer quotes from recent calls, then the brief. The AI's judgment about messaging angle shapes what the brief says, but every brief goes through the same steps, so it's Deterministic. Sarah reviews, adjusts the angle, and approves the draft along the way — that's what makes it Augmented.
 
 **Current pain point:**
 The content team produces 8-10 blog posts per month. Each brief takes Sarah or her content strategist ~90 minutes: researching keywords in Ahrefs, reviewing top-ranking competitor articles, pulling relevant customer quotes from Gong, and structuring the brief. The research portion is 70% of the time, and the quality varies depending on who writes the brief.
 
 **How AI helps:**
-Given a topic and target keyword, AI researches search intent, analyzes top-ranking articles for gaps, pulls relevant data points from internal sources, and drafts a structured content brief. Sarah reviews the brief, adjusts the angle or emphasis, and approves it — turning a 90-minute task into a 15-minute review.
+Takes in a topic and target keyword; produces a structured brief in the team's standard shape — search intent, the gaps in top-ranking articles, relevant customer quotes, and an outline. Sarah reviews it, adjusts the angle or emphasis, and approves — turning a 90-minute task into a 15-minute review.
 
-**Getting started:**
-Take three recent content briefs that performed well and use them as examples. Prompt AI to generate a brief for next week's planned topic using the same structure, then compare the output to what the team would have written manually.
+**Value lever:** Accelerate — a brief that took 90 minutes is ready for review in minutes, so the calendar stops waiting on research.
+
+**What changes for the business:**
+Eight to ten briefs a month reach writers earlier and in the same shape every time, the strategist's time moves from compiling research to choosing the angle, and brief quality stops depending on who wrote it.
+
+**Systems involved today:** the keyword research tool, competitor blogs, call recordings.
 
 
 ---
@@ -126,10 +140,14 @@ The analysis follows the same steps every time: take the closed deals, test whic
 The current lead scoring model in HubSpot was set up 18 months ago and hasn't been recalibrated. Sarah suspects the weights are off — the sales team complains that "hot" leads often aren't ready to buy, while some "warm" leads convert quickly. Recalibrating requires exporting data, running correlation analysis, and proposing new weights, which keeps getting deprioritized.
 
 **How AI helps:**
-AI analyzes the last 12 months of lead-to-close data, identifies which attributes (job title, company size, content engagement, page visits) actually correlate with conversion, and proposes updated scoring weights with supporting evidence. Sarah reviews the recommendations with the sales team and decides which changes to implement.
+Takes in the last 12 months of lead-to-close history with each lead's attributes and score at handoff; produces a short analysis of which attributes (job title, company size, content engagement, page visits) actually predicted conversion, and a proposed set of scoring weights with the evidence behind each. Sarah reviews the proposal with the sales team and decides what changes.
 
-**Getting started:**
-Export the last 6 months of closed-won and closed-lost opportunities with their lead scores at time of handoff. Ask AI to identify the three attributes with the strongest correlation to conversion outcome.
+**Value lever:** Create value — the recalibration has been deferred for 18 months; this makes an analysis happen that was not happening at all.
+
+**What changes for the business:**
+"Hot" leads start meaning what sales expects them to mean, the handoff conversation between marketing and sales moves from complaints to evidence, and the model gets reviewed on a schedule instead of never.
+
+**Systems involved today:** the CRM's lead scoring and opportunity history.
 
 
 ---
@@ -146,10 +164,14 @@ The steps are set: pull the metrics, rank the sequences by open, click, and repl
 Sarah manages 12 active email nurture sequences. Reviewing performance, identifying underperforming emails, and writing A/B test variants is a monthly task that takes a full day. She often defaults to tweaking subject lines because rewriting full emails is too time-consuming, leaving bigger optimization opportunities on the table.
 
 **How AI helps:**
-AI analyzes open rates, click rates, and reply rates across all sequences, identifies the bottom performers, diagnoses likely issues (subject line, length, CTA placement, send time), and drafts optimized variants for A/B testing. Sarah reviews the analysis, selects which variants to test, and adjusts copy to match brand voice.
+Takes in the month's open, click, and reply rates for all twelve sequences along with the email copy; produces a ranked list of the weakest emails, a likely diagnosis for each (subject line, length, call-to-action placement, send time), and two or three rewritten variants per email for testing. Sarah reviews, picks what to test, and adjusts copy to brand voice.
 
-**Getting started:**
-Pick the single worst-performing email sequence. Export its metrics and email copy, and ask AI to diagnose the weakest email and draft two alternative versions with different approaches.
+**Value lever:** Accelerate — a full day of monthly review becomes a two-hour pass, so whole-email rewrites get tested instead of only subject lines.
+
+**What changes for the business:**
+Underperforming sequences get fixed in the month they underperform, the team tests bigger changes than it had time for, and nurture performance is reviewed on a steady monthly rhythm.
+
+**Systems involved today:** the email automation platform's sequence reports.
 
 
 ---
@@ -170,10 +192,14 @@ You set the structure and the method: the metrics and thresholds that define "of
 Campaign budgets are set quarterly and adjusted monthly based on performance. Sarah spends half a day each month analyzing cost-per-lead and ROAS across channels, modeling "what if" scenarios in a spreadsheet, and proposing reallocations to the VP. The analysis is always backward-looking, and by the time changes are implemented, market conditions have shifted.
 
 **How AI helps:**
-An agent continuously monitors campaign performance against targets, models reallocation scenarios based on current trends, and proactively recommends budget shifts when it detects a channel significantly over- or under-performing. Sarah receives a notification with the recommended change, supporting data, and projected impact — she approves or adjusts before any budget moves.
+Takes in current campaign performance against the targets and thresholds Sarah sets; produces, whenever a channel runs significantly over or under target, a recommended budget shift with the supporting numbers and the projected effect. Sarah approves or adjusts before any money moves.
 
-**Getting started:**
-Define the three key metrics and thresholds that should trigger a reallocation review (e.g., "CPL exceeds target by 20% for 5+ consecutive days"). Start with alerts only — no automated changes — to calibrate sensitivity.
+**Value lever:** Create value — reallocation today is monthly and backward-looking; this makes a within-month response possible that the team cannot do by hand.
+
+**What changes for the business:**
+Budget moves within days of a channel drifting instead of at month end, every move comes with a stated rationale and projection, and the VP sees proposals continuously rather than in one monthly batch.
+
+**Systems involved today:** the ad platforms' performance reports, the planning spreadsheet.
 
 
 ---
@@ -194,10 +220,14 @@ You can describe the goal — catch competitor positioning changes before sales 
 Sarah tries to keep tabs on 5 key competitors' content and messaging, but it's inconsistent — she checks their blogs when she remembers, usually before quarterly planning. The team often learns about competitor positioning changes reactively (from sales call objections) rather than proactively.
 
 **How AI helps:**
-An autonomous agent monitors competitor blogs, changelog pages, and social accounts on a weekly schedule. It identifies new content, detects messaging shifts or new feature announcements, and produces a weekly competitive digest with the 3-5 most notable changes and their implications for Sarah's content strategy.
+Takes in the five competitors' public presence — their blogs, release notes, and social accounts — each week; produces a digest of the 3-5 most notable changes with what each means for Sarah's content strategy. Where it finds a change it cannot yet explain, it keeps investigating until it can.
 
-**Getting started:**
-List the 5 competitor blogs and their RSS feeds (or URLs to monitor). Set up a simple weekly prompt that checks each URL and summarizes anything new, delivered to a Slack channel. That first version is Deterministic (fixed sources, fixed steps). It becomes Guided if the AI picks the 3-5 most notable changes by criteria you write, and Autonomous when you let the agent decide where to dig after it spots a change.
+A note on how the level climbs: a first version that checks the same sources and summarizes anything new is Deterministic (fixed sources, fixed steps). It becomes Guided if the AI picks the 3-5 most notable changes by criteria you write, and Autonomous when you let it decide where to dig after it spots a change.
+
+**Value lever:** Create value — competitive monitoring is not happening consistently today; this makes it a weekly fact rather than a quarterly intention.
+
+**What changes for the business:**
+Sales hears about competitor positioning shifts from marketing before hearing them as objections on calls, and quarterly planning starts from a record of what changed rather than from memory.
 
 
 ---
@@ -216,8 +246,9 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Deliverable** | Google Slides deck + email summary sent to VP of Marketing |
 | **Autonomy** | Deterministic |
 | **Involvement** | Automated |
+| **Value lever** | Automate |
 | **Pain point** | 3-4 hours of manual data pulling and formatting every Monday, with copy-paste errors that erode trust in the numbers |
-| **AI opportunity** | Connect to platform APIs, pull metrics, calculate WoW changes, populate slide template, and send summary email — zero human steps during execution |
+| **AI opportunity** | Gather the week's metrics from the three sources, calculate WoW changes, fill the slide template, and send the summary — no human steps during execution |
 | **Frequency** | Weekly |
 | **Priority** | High |
 | **Reasoning** | Highest time savings (4 hrs/week), zero ambiguity in logic, and directly addresses a reliability issue that affects executive trust |
@@ -227,16 +258,17 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | Field | Content |
 |-------|---------|
 | **Workflow** | Lead Data Enrichment |
-| **Description** | Automatically enriches new inbound leads with firmographic data from external APIs |
-| **Trigger** | Event — new lead created in HubSpot |
-| **Deliverable** | Enriched lead record with firmographic fields populated in HubSpot |
+| **Description** | Completes each new inbound lead's firmographic fields from an agreed data source |
+| **Trigger** | Event — new lead created in the CRM |
+| **Deliverable** | Enriched lead record with firmographic fields populated in the CRM |
 | **Autonomy** | Deterministic |
 | **Involvement** | Automated |
+| **Value lever** | Automate |
 | **Pain point** | 10-15 minutes of manual research per lead, 50+ leads/week, delays sales follow-up |
-| **AI opportunity** | Extract email domain, query enrichment APIs, populate standardized CRM fields, flag low-confidence matches for review |
+| **AI opportunity** | Identify the company from the lead, fill the standard firmographic fields, and set aside low-confidence matches for a person |
 | **Frequency** | Daily (triggered per lead) |
 | **Priority** | High |
-| **Reasoning** | High volume, direct impact on sales velocity, and straightforward to implement with existing enrichment APIs |
+| **Reasoning** | High volume, direct impact on sales velocity, and the rules are unambiguous |
 
 #### Candidate 3: Content Brief Generation
 
@@ -248,6 +280,7 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Deliverable** | Structured content brief (audience, keywords, competitor analysis, outline, key points) |
 | **Autonomy** | Deterministic |
 | **Involvement** | Augmented |
+| **Value lever** | Accelerate |
 | **Pain point** | 90 minutes per brief, mostly spent on repetitive research; quality varies by author |
 | **AI opportunity** | AI handles keyword research, competitor article analysis, and brief drafting; human refines strategic angle and approves |
 | **Frequency** | Weekly (8-10 per month) |
@@ -279,15 +312,15 @@ James Gray is an AI Instructor who runs live cohort courses and maintains the Ha
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Impact |
-|---|------------|----------|-------------|--------|
-| 1 | Assignment Feedback Drafting | Deterministic | Augmented | High |
-| 2 | Lesson Slide Formatting | Deterministic | Automated | Medium |
-| 3 | Post-Class Summary Generation | Deterministic | Automated | Medium |
-| 4 | Course Content Updates | Deterministic | Augmented | Medium |
-| 5 | Student Q&A Research | Guided | Augmented | High |
-| 6 | Newsletter Curation | Guided | Augmented | Low |
-| 7 | Meeting Prep Briefs | Autonomous | Automated | Medium |
+| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
+|---|------------|----------|-------------|-------------|--------|
+| 1 | Assignment Feedback Drafting | Deterministic | Augmented | Accelerate | High |
+| 2 | Lesson Slide Formatting | Deterministic | Automated | Automate | Medium |
+| 3 | Post-Class Summary Generation | Deterministic | Automated | Automate | Medium |
+| 4 | Course Content Updates | Deterministic | Augmented | Streamline | Medium |
+| 5 | Student Q&A Research | Guided | Augmented | Accelerate | High |
+| 6 | Newsletter Curation | Guided | Augmented | Streamline | Low |
+| 7 | Meeting Prep Briefs | Autonomous | Automated | Create value | Medium |
 
 ### Top Recommendations
 
@@ -313,10 +346,14 @@ Every submission goes through the same steps: read it against the rubric and ass
 James reviews 15-25 student assignments per cohort. Each piece of feedback takes 10-15 minutes: reading the submission, checking it against the rubric, identifying strengths and areas for improvement, and writing personalized comments. A full round of feedback takes 4-6 hours, and the turnaround time directly affects student momentum.
 
 **How AI helps:**
-AI reads each submission alongside the rubric and assignment prompt, identifies what was done well, flags gaps or misunderstandings, and drafts specific, constructive feedback with references to relevant course material. James reviews each draft, adds personal observations, adjusts tone, and approves before sending.
+Takes in each submission, the rubric, and the assignment prompt; produces a draft of specific, constructive feedback — what was done well, where the gaps or misunderstandings are, and which course material to revisit. James reviews each draft, adds personal observations, adjusts tone, and approves before sending.
 
-**Getting started:**
-Take three completed assignments from the last cohort along with the rubric. Have AI draft feedback for each, then compare the drafts to the feedback James actually gave. Note where AI feedback was on-target and where it missed the mark.
+**Value lever:** Accelerate — a round of feedback that took 4-6 hours is reviewed in one, so students hear back in a day instead of a week.
+
+**What changes for the business:**
+Students get feedback while the assignment is still fresh, every submission is measured against the same rubric, and James's time goes to the coaching comments only he can write.
+
+**Systems involved today:** the course platform's submissions, the rubric document.
 
 
 
@@ -334,10 +371,14 @@ Slide formatting follows strict rules — heading hierarchy, font sizes, code bl
 After writing lesson content in markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
 
 **How AI helps:**
-A deterministic workflow takes the lesson markdown file, parses it by heading structure, maps content blocks to slide templates (title slides, content slides, code slides, exercise slides), applies consistent formatting rules, and outputs a formatted slide deck. Same rules every time.
+Takes in the finished lesson text and the course's formatting rules; produces the formatted slide deck — title, content, code, and exercise slides — with the brand template applied. Same rules every time.
 
-**Getting started:**
-Document the formatting rules for one slide type (e.g., code demonstration slides) and build a script that converts a markdown section into a properly formatted slide. Test against three recent lessons.
+**Value lever:** Automate — James stops formatting slides; the deck is ready when the lesson text is.
+
+**What changes for the business:**
+Full days of quarterly formatting return to lesson design, every deck looks the same, and a last-minute content change no longer means an hour of reformatting.
+
+**Systems involved today:** the lesson files, the slide tool, the brand template.
 
 
 
@@ -355,10 +396,14 @@ Class summaries follow a fixed structure: topics covered, key takeaways, action 
 After each live session, James writes a summary email to students recapping what was covered, highlighting key concepts, and listing homework or next steps. This takes 20-30 minutes per session, and it's always the first thing that gets skipped when time is tight — meaning students miss the reinforcement.
 
 **How AI helps:**
-An automated workflow ingests the class transcript (from Zoom or recording tool), cross-references it with the lesson plan, extracts the topics actually covered, identifies key discussion points, and generates a structured summary email in the standard format. Sent automatically within an hour of class ending.
+Takes in the session transcript and the lesson plan; produces the standard summary email — topics actually covered, key takeaways, action items, and the resources mentioned — ready to go out within an hour of class ending.
 
-**Getting started:**
-Take a recent class recording transcript and the corresponding lesson plan. Prompt AI to generate a summary email following the standard format. Compare it to a manually-written summary to calibrate quality.
+**Value lever:** Automate — the summary that gets skipped when time is tight now goes out every time without James writing it.
+
+**What changes for the business:**
+Every student gets the reinforcement email after every session, not only the sessions with a quiet evening after them, and homework and next steps are stated the same way each week.
+
+**Systems involved today:** the meeting recording and transcript, the lesson plan, email.
 
 
 
@@ -376,10 +421,14 @@ AI platforms release updates frequently, and checking whether course content is 
 Platform updates (new Claude features, changed OpenAI pricing, deprecated Gemini APIs) can make course material outdated overnight. James periodically audits lessons against current documentation, but it's reactive — he often discovers outdated content when a student flags it in class. A full content audit across 30+ pages takes a full day.
 
 **How AI helps:**
-Given a lesson page and the relevant platform documentation, AI compares the two and identifies discrepancies — changed features, outdated screenshots references, deprecated terminology, new capabilities worth mentioning. It drafts specific suggested edits with reasoning. James reviews, decides which updates are worth making now, and applies the changes.
+Takes in a lesson page and the current official documentation it describes; produces a list of every discrepancy — changed features, stale screenshot references, deprecated terminology, new capabilities worth a mention — each with a suggested edit and the reason. James decides which updates are worth making now and applies them.
 
-**Getting started:**
-Pick the three platform pages most likely to be outdated (e.g., Claude capabilities, OpenAI pricing, Gemini model list). Have AI compare each against current official documentation and list every discrepancy found.
+**Value lever:** Streamline — the audit still happens, but a day of page-by-page comparison becomes a review of a discrepancy list.
+
+**What changes for the business:**
+Outdated content is found by the audit rather than by a student in class, and a full-course audit fits into a morning, so it happens after every major platform release instead of once a quarter.
+
+**Systems involved today:** the course pages, the platforms' official documentation.
 
 
 
@@ -395,16 +444,20 @@ Pick the three platform pages most likely to be outdated (e.g., Claude capabilit
 **Involvement:** Augmented
 
 **Why it's a good candidate:**
-Student questions vary, and the AI makes bounded decisions by your method for each one: it chooses which source to check from the ones you allow — the playbook's MCP server, official documentation, or web search — and whether a quick example is needed. Choosing the tool decides what happens next, so it's Guided. The answer also needs to be pedagogically appropriate (right level of detail, connected to course concepts), so James reviews the draft before posting (Augmented).
+Student questions vary, and the AI makes bounded decisions by your method for each one: it chooses which of the sources you allow to check — the playbook, the official documentation, or the open web — and whether a quick example is needed. Choosing the source decides what happens next, so it's Guided. The answer also needs to be pedagogically appropriate (right level of detail, connected to course concepts), so James reviews the draft before posting (Augmented).
 
 **Current pain point:**
 Students ask questions via Slack, email, and in class that go beyond the prepared material — "How does this work in Gemini?", "What's the difference between X and Y?", "Can you show an example of Z?" James spends 15-30 minutes per question researching current docs, testing examples, and crafting a thoughtful answer. With 10-15 questions per week across cohorts, this is 3-5 hours of reactive work.
 
 **How AI helps:**
-Given a student question, AI researches current documentation (via MCP server and web search), finds relevant examples, drafts an answer at the appropriate level for the course, and cites sources. James reviews the draft, adjusts the pedagogical framing, and posts the response. The answer is also saved to the playbook for future reference.
+Takes in a student's question and the course's level; produces a sourced draft answer with a practical example, pitched for that course. James reviews, adjusts the pedagogical framing, and posts it. The answer is also kept for the playbook, so the next student with the same question finds it already written.
 
-**Getting started:**
-Collect the last 10 student questions from Slack. Run three of them through AI with the prompt: "Research this question for a student in an introductory AI course. Provide a clear answer with sources and a practical example." Evaluate whether the answers are accurate and at the right level.
+**Value lever:** Accelerate — a 15-30 minute research cycle becomes a five-minute review, so questions are answered the same day.
+
+**What changes for the business:**
+Students get thorough, sourced answers quickly instead of waiting on James's calendar, 3-5 hours a week of reactive research return to teaching, and every answer becomes reusable content.
+
+**Systems involved today:** the course chat, email, the playbook, the platforms' documentation.
 
 
 
@@ -422,10 +475,14 @@ The sources are configured in advance and the structure is set: check each sourc
 James curates a periodic newsletter of AI developments relevant to his students and audience. Scanning RSS feeds, Twitter/X, AI news sites, and research papers takes 1-2 hours per edition. The inconsistency of the publishing schedule (sometimes biweekly, sometimes monthly) reflects the time pressure — it's always the lowest-priority task.
 
 **How AI helps:**
-A scheduled workflow checks configured sources (RSS feeds, specific Twitter accounts, arXiv, AI news sites), filters for topics relevant to practical AI adoption, and compiles a weekly digest of the top 5-7 items with one-paragraph summaries. James reviews the digest, removes irrelevant items, adds personal commentary, and publishes.
+Takes in the sources James already follows and his relevance criteria; produces a weekly digest of the 5-7 items most relevant to practical AI adoption, each with a one-paragraph summary. James removes what doesn't belong, adds his commentary, and publishes.
 
-**Getting started:**
-List the 10 sources James checks most often for AI news. Set up a weekly prompt that checks each source and summarizes the top 3 items from each, then ask AI to select the overall top 7 most relevant to "business professionals learning to use AI tools."
+**Value lever:** Streamline — the curation still happens, with the scanning done and the shortlist waiting, so the edition takes 30 minutes instead of two hours.
+
+**What changes for the business:**
+The newsletter goes out on a steady schedule instead of when time allows, and James's effort goes into commentary rather than scanning.
+
+**Systems involved today:** news feeds, social accounts, research preprint listings, the newsletter platform.
 
 
 
@@ -441,16 +498,20 @@ List the 10 sources James checks most often for AI news. Set up a weekly prompt 
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You can describe the goal — a brief that tells James who he's meeting and why it matters — but not the steps. Each meeting is different: the agent decides what to search for each attendee and what to do next at each turn based on what it finds (a thin LinkedIn profile sends it to company press or past talks), and keeps going until the brief is complete. That open-ended decision-making makes it Autonomous. The brief is read as-is before the meeting, so no one takes part until it's done.
+You can describe the goal — a brief that tells James who he's meeting and why it matters — but not the steps. Each meeting is different: the agent decides what to search for each attendee and what to do next at each turn based on what it finds (a thin public profile sends it to company press or past talks), and keeps going until the brief is complete. That open-ended decision-making makes it Autonomous. The brief is read as-is before the meeting, so no one takes part until it's done.
 
 **Current pain point:**
 James has 5-8 external meetings per week — prospective clients, conference organizers, partnership discussions, guest lecturers. Before each meeting, he spends 15-20 minutes researching the person and company on LinkedIn, their website, and recent news. Some meetings get thorough prep; others get none because of time pressure, leading to missed context.
 
 **How AI helps:**
-An autonomous agent triggers from the calendar 2 hours before each external meeting. It researches each attendee (LinkedIn, company website, recent publications), identifies relevant connections to the AI education space, notes any previous interactions, and delivers a structured brief to a designated channel. James reads it on the way to the meeting.
+Takes in the meeting title and attendee names two hours before each external meeting; produces a structured brief — who each person is, what their company does, any relevant connection to AI education, and any previous interaction — that James reads on the way in.
 
-**Getting started:**
-Take tomorrow's meetings and manually create the ideal prep brief for one of them. Then prompt AI to generate the same brief from just the meeting title and attendee names. Compare coverage and identify what sources AI needs access to.
+**Value lever:** Create value — most meetings get no prep today; this makes consistent preparation possible without adding to James's week.
+
+**What changes for the business:**
+Every external meeting starts with context instead of a cold open, and the 15-20 minutes per meeting that sometimes happened and sometimes didn't is no longer James's to find.
+
+**Systems involved today:** the calendar, professional profiles, company websites, past email.
 
 
 
@@ -466,10 +527,11 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | **Workflow**       | Student Q&A Research                                                                                                              |
 | **Description**    | Researches student questions and drafts sourced, pedagogically appropriate answers                                                |
-| **Trigger**        | Request — student posts a question in Slack or email                                                                              |
+| **Trigger**        | Request — student posts a question in the course chat or by email                                                                 |
 | **Deliverable**    | Draft answer with sources and examples, ready for instructor review and posting                                                   |
 | **Autonomy**       | Guided                                                                                                                            |
 | **Involvement**    | Augmented                                                                                                                         |
+| **Value lever**    | Accelerate                                                                                                                        |
 | **Pain point**     | 15-30 minutes per question, 10-15 questions/week — reactive research that fragments focused work time                             |
 | **AI opportunity** | AI researches docs, finds examples, and drafts an answer at the right course level; instructor reviews and adjusts before posting |
 | **Frequency**      | Daily                                                                                                                             |
@@ -486,6 +548,7 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Deliverable**    | Draft feedback for each submission, ready for instructor review and delivery                                                              |
 | **Autonomy**       | Deterministic                                                                                                                             |
 | **Involvement**    | Augmented                                                                                                                                 |
+| **Value lever**    | Accelerate                                                                                                                                |
 | **Pain point**     | 10-15 minutes per submission, 15-25 per cohort — slow turnaround affects student momentum                                                 |
 | **AI opportunity** | AI reads submissions against rubric, identifies strengths and gaps, drafts specific constructive feedback with course material references |
 | **Frequency**      | Weekly (during active cohorts)                                                                                                            |
@@ -499,16 +562,17 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Workflow**       | Meeting Prep Briefs                                                                                                                                                |
 | **Description**    | Autonomously researches attendees and generates structured prep briefs before external meetings                                                                    |
 | **Trigger**        | Scheduled — 2 hours before each external calendar event                                                                                                            |
-| **Deliverable**    | Structured meeting brief delivered to a Slack channel or document                                                                                                  |
+| **Deliverable**    | Structured meeting brief, delivered where James reads before meetings                                                                                              |
 | **Autonomy**       | Autonomous                                                                                                                                                         |
 | **Involvement**    | Automated                                                                                                                                                          |
+| **Value lever**    | Create value                                                                                                                                                       |
 | **Pain point**     | 15-20 minutes per meeting, 5-8 meetings/week — inconsistent prep quality due to time pressure                                                                      |
 | **AI opportunity** | AI independently researches attendees, identifies relevant context, and delivers a ready-to-read brief with no human steps during execution                        |
 | **Frequency**      | Daily                                                                                                                                                              |
 | **Priority**       | Medium                                                                                                                                                             |
 | **Reasoning**      | High frequency and fully automatable — moderate impact per meeting but compounds across 5-8 weekly meetings; also a good proof-of-concept for autonomous workflows |
 
-**Recommendation:** Start with **Student Q&A Research**. It's the highest-frequency opportunity, directly improves the core teaching experience, and produces a tangible artifact (the answer) that compounds in value as it builds the playbook's knowledge base. It's also a natural fit for the tools already in place (MCP server, web search, markdown output).
+**Recommendation:** Start with **Student Q&A Research**. It's the highest-frequency opportunity, directly improves the core teaching experience, and produces a tangible artifact (the answer) that compounds in value as it builds the playbook's knowledge base. It's also the workflow whose inputs James already has to hand: the questions arrive daily, and the sources to answer them from are known.
 
 ---
 
@@ -534,13 +598,13 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Impact |
-|---|------------|----------|-------------|--------|
-| 1 | Order Fulfillment Tracking | Deterministic | Automated | High |
-| 2 | Carrier Rate Negotiation Prep | Deterministic | Augmented | Medium |
-| 3 | Demand Forecasting | Deterministic | Augmented | Medium |
-| 4 | Customer Onboarding | Guided | Augmented | High |
-| 5 | Fleet Maintenance Scheduling | Guided | Automated | Medium |
+| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
+|---|------------|----------|-------------|-------------|--------|
+| 1 | Order Fulfillment Tracking | Deterministic | Automated | Automate | High |
+| 2 | Carrier Rate Negotiation Prep | Deterministic | Augmented | Accelerate | Medium |
+| 3 | Demand Forecasting | Deterministic | Augmented | Create value | Medium |
+| 4 | Customer Onboarding | Guided | Augmented | Streamline | High |
+| 5 | Fleet Maintenance Scheduling | Guided | Automated | Automate | Medium |
 
 ### Top Recommendations
 
@@ -560,16 +624,20 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a data event from the WMS or TMS, and every alert fires on a timing threshold you set — no AI judgment decides what happens next. Just monitoring, matching, and alerting.
+Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a recorded event in the systems the warehouse and transport teams already run, and every alert fires on a timing threshold you set — no AI judgment decides what happens next. Just monitoring, matching, and alerting.
 
 **Current pain point:**
 Customer service reps manually check order status across the WMS and TMS when customers call. Exception detection (delayed shipments, partial picks, missed delivery windows) relies on someone noticing — there's no proactive alerting. The team spends 3-4 hours daily on reactive status checks, and customers often know about problems before the ops team does.
 
 **How AI helps:**
-A deterministic workflow monitors order lifecycle events from the WMS and TMS, updates a real-time status dashboard, and triggers automated alerts when orders deviate from expected timelines (e.g., pick not started within 2 hours of order receipt, shipment not scanned within delivery window). Fixed rules, fixed thresholds, fixed notifications — the same path every run.
+Takes in each order's stage events as they are recorded and the timing thresholds the ops team sets; produces a live status view of every open order and an alert the moment an order misses a threshold (a pick not started within two hours of receipt, a shipment not scanned inside its delivery window). Fixed rules, fixed thresholds, fixed notifications — the same path every run.
 
-**Getting started:**
-Define the 5 most common exception scenarios and their alert thresholds. Build a simple status check for one exception type (e.g., "shipment not departed within 4 hours of scheduled pickup") and validate against historical data.
+**Value lever:** Automate — reps stop checking status by hand; exceptions find the team instead of the other way round.
+
+**What changes for the business:**
+The ops team knows about a late order before the customer does, customer service answers from a live view instead of two system lookups, and 3-4 hours a day of reactive checking return to resolving exceptions.
+
+**Systems involved today:** the warehouse management system, the transport management system, the customer service phone queue.
 
 **Business Objective:** Achieve 98% on-time delivery rate (currently 94%)
 **Stakeholders:** Warehouse Manager (pick/pack), Logistics Coordinator (shipping), Customer Service (communication)
@@ -590,10 +658,14 @@ Rate negotiation prep is research-heavy but follows the same steps every quarter
 Quarterly carrier negotiations require 2-3 days of prep. The logistics manager pulls shipment data from the TMS, calculates lane-by-lane volumes, reviews carrier scorecards, researches competitor rate benchmarks, and assembles a briefing document. By the time the brief is ready, some of the market data is already stale.
 
 **How AI helps:**
-AI pulls shipment volume data and carrier performance metrics from the TMS, benchmarks against published rate indices, identifies lanes where current rates are above market, and produces a negotiation brief with recommended rate targets and supporting evidence. Logistics manager reviews the brief, adjusts strategy based on relationship factors, and enters negotiations prepared.
+Takes in the quarter's shipment volumes by lane, each carrier's on-time performance, and published rate benchmarks; produces a negotiation brief that names the lanes priced above market, recommends a target rate for each, and shows the evidence. The logistics manager adjusts for relationship factors and walks in prepared.
 
-**Getting started:**
-Export last quarter's shipment data by carrier and lane. Have AI analyze the top 10 lanes by volume and compare current rates to published benchmarks. Evaluate whether the analysis matches the logistics manager's intuition.
+**Value lever:** Accelerate — 2-3 days of prep becomes an afternoon of review, so the brief is built on this week's market data rather than last month's.
+
+**What changes for the business:**
+Negotiations start from current numbers, every lane gets analyzed instead of only the largest, and the logistics manager's time goes to strategy and relationships rather than spreadsheets.
+
+**Systems involved today:** the transport management system, carrier scorecards, published rate indices.
 
 **Business Objective:** Reduce transportation costs by 8% through better carrier rate management
 **Stakeholders:** Logistics Manager (prep + negotiation), VP Operations (approval), Finance (budget impact)
@@ -614,10 +686,14 @@ The forecast follows the same steps every month: analyze shipment history, find 
 Monthly capacity planning relies on the VP's experience and a basic spreadsheet model. Seasonal demand shifts, new customer ramp-ups, and one-time events aren't systematically factored in. Over-forecasting wastes warehouse labor; under-forecasting creates overtime costs and missed SLAs.
 
 **How AI helps:**
-The workflow analyzes 24 months of shipment history, identifies seasonal patterns and growth trends per customer, incorporates known upcoming events (new customer launches, holiday peaks), and generates a 90-day demand forecast with confidence intervals. Maria reviews the forecast, adjusts for factors the model can't see (a large customer hinted at a contract change), and approves the capacity plan.
+Takes in 24 months of shipment history by customer and the known upcoming events (new customer launches, holiday peaks); produces a 90-day demand forecast with confidence ranges and the seasonal patterns behind it. Maria adjusts for what the history cannot show — a large customer hinting at a contract change — and approves the capacity plan.
 
-**Getting started:**
-Export 12 months of daily shipment volumes by customer. Have AI identify the top 3 seasonal patterns and compare its next-month forecast against actual volumes from a previous period to calibrate accuracy.
+**Value lever:** Create value — today's forecast is experience plus a basic spreadsheet; a systematic, customer-by-customer forecast is something the team has never had.
+
+**What changes for the business:**
+Warehouse staffing is planned against a stated forecast rather than a feel for the month, over- and under-staffing both shrink, and the forecast's accuracy can be measured and improved quarter by quarter.
+
+**Systems involved today:** the shipment history in the warehouse system, the planning spreadsheet.
 
 **Business Objective:** Optimize warehouse labor costs while maintaining SLA compliance
 **Stakeholders:** VP Operations (approval), Warehouse Manager (staffing), Finance (labor budget)
@@ -642,10 +718,14 @@ Onboarding follows a structured sequence (account setup, system configuration, i
 New customer onboarding takes 2-3 weeks and involves sales, operations, and account management. Each team owns different steps, and handoffs are where things break — incomplete information passes between teams, setup tasks get missed, and the customer's first shipment experience sets the tone for the relationship. There's no single owner for the end-to-end outcome.
 
 **How AI helps:**
-AI orchestrates the onboarding sequence: pre-populates account configuration from the signed contract, drafts a warehouse assignment recommendation based on the customer's shipping patterns, generates a carrier mix proposal, creates a personalized training schedule, and tracks completion across all teams. Account manager reviews and approves key decisions.
+Takes in the signed contract and the customer's expected shipping patterns; produces the account setup draft, a recommended warehouse assignment and carrier mix, a proposed training schedule, and a running view of which team has completed which step. The account manager approves the key decisions along the way.
 
-**Getting started:**
-Map the current onboarding process across all three teams. Identify which handoff points have the highest failure rate and start by automating status tracking and notifications at those points.
+**Value lever:** Streamline — the same onboarding steps still happen across three teams, but with the handoffs carried for them and the recommendations drafted, not reconstructed.
+
+**What changes for the business:**
+A new customer's first shipment goes out in days rather than weeks, nothing falls between teams because one view shows what is done, and the customer's first impression stops depending on which account manager they drew.
+
+**Systems involved today:** the CRM where contracts land, the warehouse and transport systems, the training calendar.
 
 **Business Objective:** Improve customer retention rate from 85% to 92%
 **Stakeholders:** Sales (handoff), Operations (setup), Account Management (relationship owner)
@@ -666,10 +746,14 @@ You set the structure and the rules: service intervals, delivery commitments, an
 Fleet maintenance is tracked in a spreadsheet. The fleet manager checks mileage and schedules services based on manufacturer intervals, but competing delivery commitments mean vehicles often run past due. Unplanned breakdowns cost 3-5x more than scheduled maintenance and disrupt delivery schedules.
 
 **How AI helps:**
-An agent continuously monitors vehicle telemetry (mileage, engine hours, diagnostic codes), cross-references against maintenance schedules and upcoming delivery commitments, and automatically schedules maintenance during low-utilization windows. Generates work orders for the maintenance shop and adjusts the delivery schedule around planned downtime.
+Takes in each vehicle's mileage, engine hours, and fault codes alongside the service intervals and the upcoming delivery commitments; produces a maintenance booking in the lowest-utilization window for each vehicle that needs one, the work order for the shop, and the delivery-schedule adjustment around the downtime.
 
-**Getting started:**
-Export the current fleet roster with last maintenance dates and mileage. Have AI identify the 5 vehicles most overdue for service and propose a maintenance schedule that minimizes delivery disruption for the next 30 days.
+**Value lever:** Automate — the fleet manager stops reconciling the spreadsheet against the delivery board; vehicles are booked before they run past due.
+
+**What changes for the business:**
+Unplanned breakdowns, which cost 3-5x a scheduled service, become rare, deliveries are planned around downtime instead of disrupted by it, and the fleet manager's week is spent on exceptions rather than scheduling.
+
+**Systems involved today:** the fleet maintenance spreadsheet, vehicle telematics, the dispatch schedule.
 
 **Business Objective:** Reduce unplanned vehicle downtime by 50%
 **Stakeholders:** Fleet Manager (scheduling), Maintenance Shop (execution), Dispatch (route adjustment)
@@ -692,8 +776,9 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Deliverable** | Fully configured customer account with completed first shipment and satisfaction survey |
 | **Autonomy** | Guided |
 | **Involvement** | Augmented |
+| **Value lever** | Streamline |
 | **Pain point** | 2-3 week onboarding with frequent handoff failures between sales, ops, and account management — leading to poor first impressions and early churn |
-| **AI opportunity** | AI orchestrates the sequence, pre-populates configurations, recommends warehouse and carrier assignments, tracks cross-team completion, and alerts on delays |
+| **AI opportunity** | Draft the account setup, recommend warehouse and carrier assignments, carry the handoffs between teams, and flag delays |
 | **Frequency** | Weekly (3-5 new customers per month) |
 | **Priority** | High |
 | **Reasoning** | Directly addresses the #1 business objective (customer retention), involves the most painful cross-functional handoffs, and improvements compound across every new customer |
@@ -708,12 +793,13 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 |-------|---------|
 | **Workflow** | Order Fulfillment Tracking |
 | **Description** | Monitors order lifecycle from receipt through delivery and proactively alerts on exceptions |
-| **Trigger** | Event — new order created in WMS |
-| **Deliverable** | Real-time order status dashboard + automated exception alerts |
+| **Trigger** | Event — new order created in the warehouse system |
+| **Deliverable** | Real-time order status view + automated exception alerts |
 | **Autonomy** | Deterministic |
 | **Involvement** | Automated |
+| **Value lever** | Automate |
 | **Pain point** | 3-4 hours daily of reactive status checks; customers learn about problems before the ops team |
-| **AI opportunity** | Automated monitoring of WMS/TMS events with rule-based exception detection and proactive alerting — no human involvement during execution |
+| **AI opportunity** | Watch each order's stage events against set thresholds and alert the moment one is missed — no human involvement during execution |
 | **Frequency** | Continuous (hundreds of orders daily) |
 | **Priority** | High |
 | **Reasoning** | Highest volume, directly impacts on-time delivery (key SLA metric), and deterministic nature makes it straightforward to implement |
@@ -732,8 +818,9 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Deliverable** | Negotiation brief with lane-by-lane analysis, rate benchmarks, and recommended targets |
 | **Autonomy** | Deterministic |
 | **Involvement** | Augmented |
+| **Value lever** | Accelerate |
 | **Pain point** | 2-3 days of manual data gathering and analysis per quarter; market data goes stale during prep |
-| **AI opportunity** | AI pulls and analyzes shipment/carrier data, benchmarks against market rates, and produces a draft brief — logistics manager refines strategy and enters negotiations prepared |
+| **AI opportunity** | Analyze shipment and carrier history against market benchmarks and produce a draft brief — logistics manager refines strategy and enters negotiations prepared |
 | **Frequency** | Quarterly |
 | **Priority** | Medium |
 | **Reasoning** | High financial impact per occurrence (rate negotiations affect millions in annual spend) but lower frequency; good candidate once higher-frequency workflows are running |
@@ -760,3 +847,10 @@ Writing or summarizing inside a step never makes a workflow Guided, and the numb
 
 - **Augmented**: A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs.
 - **Automated**: No one takes part until it's done. Starting a run by hand doesn't make it Augmented.
+
+**Value lever — what kind of value does AI create here?** One per opportunity, the dominant one.
+
+- **Streamline** — the work still happens the same way, with fewer steps, handoffs, or reformatting. Test: would the person still do it, just faster and cleaner?
+- **Automate** — work a person does today runs without them. Test: does a person stop doing something they do now?
+- **Accelerate** — the outcome arrives sooner, or more of it arrives in the same time. Test: is the gain measured in cycle time or throughput rather than effort?
+- **Create value** — something becomes possible that was not done at all before. Test: is there no "today" version of this work to compare against?
