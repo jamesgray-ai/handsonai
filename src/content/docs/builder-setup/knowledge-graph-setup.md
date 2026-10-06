@@ -54,7 +54,7 @@ The [AI Registry](../ai-registry-setup/) records what you build *with* AI: your 
 
 1. **The Hands-on AI skills are in your AI tool.** The build is run by a skill called `building-knowledge-graph`. If you installed the Hands-on AI plugin (Claude or ChatGPT), you already have it. If you add skills by uploading ZIP files (Cursor, Codex CLI, Gemini CLI, or a plan that blocks plugins), upload [building-knowledge-graph.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/building-knowledge-graph.zip).
 
-   Haven't set up the skills yet? Follow [Set Up the Skills](../../ai-workflow-framework/skills/) for your tool, then come back here.
+   Haven't set up the skills yet? Follow [Install the Hands-on AI Plugin](../../ai-workflow-framework/skills/) for your tool, then come back here.
 2. **A folder for your project.** Any folder works: on your computer, a synced cloud-drive folder, or a clone of a GitHub repository. Open your AI at that folder's root, not inside `knowledge/`. If you made a `my-business` repository for the course, use that.
 3. **Two or three real documents about your work** handy: a proposal, a client summary, a process doc, a team charter. The skill asks where they are and makes the `raw/` folder for them. Leave out anything with personal data about identifiable people: payroll, health, individual HR records.
 4. **A jotted list** of the five to ten most important named things in your work: clients, products, projects, tools, policies, teams. The interview starts there.

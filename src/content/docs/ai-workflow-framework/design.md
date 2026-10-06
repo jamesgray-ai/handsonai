@@ -249,7 +249,7 @@ The three layers above are the conceptual structure of the Design Spec. In pract
 
 ## How to Use This
 
-This step is facilitated by the **`design`** AI Workflow Framework skill. How you get it depends on your platform — see [Set Up the Skills](../skills/) for installation.
+This step is facilitated by the **`design`** AI Workflow Framework skill. How you get it depends on your platform — see [Install the Hands-on AI Plugin](../skills/) for installation.
 
 **How to start:** Say *"run the design skill"* (or *"design the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:design`, and Cowork lists it when you type `/`.
 
@@ -277,7 +277,7 @@ Upload or paste your Workflow Requirements file (`[workflow-name]/requirements.m
 ```
 
 :::tip[Don't have the skill installed yet?]
-Every platform in the course can load it — [Set Up the Skills](../skills/) has the steps, and [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) is the direct download. Or use this page as a conversation guide.
+Every platform in the course can load it — [Install the Hands-on AI Plugin](../skills/) has the steps, and [design.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip) is the direct download. Or use this page as a conversation guide.
 :::
 
 ---

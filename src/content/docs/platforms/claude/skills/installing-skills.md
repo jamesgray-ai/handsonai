@@ -21,7 +21,7 @@ Skills from a plugin work in Claude Chat on the web, the Chat tab in the Claude 
 
 → [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude) (official Anthropic docs)
 
-→ Step-by-step for the framework skills, with screenshots: [Set Up the Skills — Claude](/ai-workflow-framework/skills/#set-up-these-skills)
+→ Step-by-step for the framework skills, with screenshots: [Install the Hands-on AI Plugin — Claude](/ai-workflow-framework/skills/#set-up-these-skills)
 
 ## Claude Code
 

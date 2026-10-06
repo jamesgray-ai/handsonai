@@ -49,7 +49,7 @@ Two things, in this order:
    - [scaffolding-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/scaffolding-registry.zip) — sets up your registry
    - [indexing-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/indexing-registry.zip) — keeps it tidy
 
-   Haven't set up the skills yet? Follow [Set Up the Skills](../../ai-workflow-framework/skills/) for your tool — it has click-by-click steps for every platform — then come back here.
+   Haven't set up the skills yet? Follow [Install the Hands-on AI Plugin](../../ai-workflow-framework/skills/) for your tool — it has click-by-click steps for every platform — then come back here.
 2. **A folder for your registry.** Any folder: on your computer, in a cloud drive such as Google Drive or OneDrive, or in a GitHub repository. You do not need GitHub — see [Where Your Registry Lives](#where-your-registry-lives).
 
 ## Where Your Registry Lives
@@ -263,7 +263,7 @@ A few tool-specific details:
 
 - **Claude Code:** `/plugin list` shows `handsonai` once the plugin is installed, and `/handsonai:scaffolding-registry` starts the interview directly if you'd rather use the slash command.
 - **The Claude desktop app:** choose your registry's folder as your working folder — a project or any local folder — *before* saying "set up my AI registry"; the skill can only write inside the folder you're working in. Your visual dashboard can also be published as a shareable Claude Artifact.
-- **ChatGPT for desktop:** the plugin's skills work in ChatGPT Work and Codex. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Set Up the Skills — Codex](../../ai-workflow-framework/skills/#openai-codex).
+- **ChatGPT for desktop:** the plugin's skills work in ChatGPT Work and Codex. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Install the Hands-on AI Plugin — Codex](../../ai-workflow-framework/skills/#openai-codex).
 - **Browser tools (claude.ai, ChatGPT web, Gemini, Copilot):** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
 
 If a button or label on your screen doesn't match these steps, paste the step you're on into your AI assistant and ask it to walk you through it on your version. Still stuck? Bring it to a session.

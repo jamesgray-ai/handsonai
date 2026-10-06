@@ -112,7 +112,7 @@ An **Improvement Plan** saved to `outputs/[workflow-name]/improvement-plan.md` t
 
 ## How to Use This
 
-This step is facilitated by the **`improve`** AI Workflow Framework skill. See [Set Up the Skills](../skills/) for installation instructions across all supported platforms.
+This step is facilitated by the **`improve`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
 
 **How to start:** Say *"run the improve skill"* (or *"review my workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:improve`, and Cowork lists it when you type `/`.
 
