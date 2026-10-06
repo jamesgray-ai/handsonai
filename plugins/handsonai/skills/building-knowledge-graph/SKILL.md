@@ -12,7 +12,6 @@ description: >
   use scaffolding-registry. NOT step 4 of the AI Workflow Framework: for
   building a workflow's building blocks, use the build skill. Re-running on
   an existing knowledge/ bundle fills gaps; it never rebuilds.
-user-invocable: true
 ---
 
 # Building Knowledge Graph

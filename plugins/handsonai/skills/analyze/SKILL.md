@@ -7,7 +7,6 @@ description: >
   then produces a prioritized opportunity report with structured workflow
   candidates and registers the chosen candidates as backlog Workflow nodes in the AI Registry,
   ready for the Deconstruct step. This is Step 1 of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Analyze Workflows

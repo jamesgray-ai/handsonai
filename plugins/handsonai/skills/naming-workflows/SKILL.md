@@ -5,7 +5,6 @@ description: >
   standardize workflow documentation, add a workflow to the AI Registry, or structure workflow
   entries. Generates consistent, outcome-focused names and descriptions for business workflows
   and records them in the workflow's Workflow node.
-user-invocable: true
 ---
 
 # Naming Workflows

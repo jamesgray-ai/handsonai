@@ -9,7 +9,6 @@ description: >
   skills or agents, or when another framework skill's closing step calls for a
   maintenance pass. Also repairs stale or hand-edited derived views. If no
   registry/SCHEMA.md exists, route to the scaffolding-registry skill instead.
-user-invocable: true
 ---
 
 # Maintaining the AI Registry

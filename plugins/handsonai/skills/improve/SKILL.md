@@ -6,7 +6,6 @@ description: >
   tuning, or decide whether it should go back to Design (including graduating from a skill to an agent).
   Also use when the user says "continue my workflow" and the Workflow node's artifacts show Step 7 (Improve) is next, or its `stale_after` date has arrived.
   This is Step 7 (Improve) of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Improve Workflow

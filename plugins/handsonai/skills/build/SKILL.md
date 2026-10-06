@@ -8,7 +8,6 @@ description: >
   Also use when the user says "continue my workflow" and the Workflow node shows Step 4 (Build) is next.
   This is Step 4 (Build) of the AI Workflow Framework. NOT for "build my
   knowledge graph": that is the building-knowledge-graph skill.
-user-invocable: true
 ---
 
 # Workflow Build

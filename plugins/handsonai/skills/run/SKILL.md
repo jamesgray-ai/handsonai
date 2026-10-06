@@ -5,7 +5,6 @@ description: >
   workflow into production. It guides the first real run, writes the Run Card, and sets up the run log and
   the first review date.
   Also use when the user says "continue my workflow" and the Workflow node shows Step 6 (Run) is next. This is Step 6 (Run) of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Workflow Run

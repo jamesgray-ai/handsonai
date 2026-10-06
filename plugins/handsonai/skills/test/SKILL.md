@@ -2,7 +2,6 @@
 name: test
 description: >
   Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. Say *test this* after running the workflow in a new chat to grade that run. Also use when the user says "continue my workflow" and the Workflow node shows Step 5 (Test) is next. This is Step 5 (Test) of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Test Workflow

@@ -8,7 +8,6 @@ description: >
   Supports both step-driven and goal-driven Workflow Requirements.
   Also use when the user says "continue my workflow" and the Workflow node shows Step 3 (Design) is next.
   This is Step 3 (Design) of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Workflow Design

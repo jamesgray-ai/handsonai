@@ -10,7 +10,6 @@ description: >
   to determine the path). Produces a structured Workflow Requirements document.
   Also use when the user says "continue my workflow" and the Workflow node shows Step 2 (Deconstruct) is next.
   This is Step 2 of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Workflow Deconstruction

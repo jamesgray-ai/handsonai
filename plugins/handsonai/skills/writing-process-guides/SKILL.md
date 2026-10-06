@@ -1,7 +1,6 @@
 ---
 name: writing-process-guides
 description: Write Business Process Guide documentation that explains when, why, and how to execute a complete business process with its component workflows, and save as markdown files. Use when documenting a business process end-to-end, creating playbooks, or explaining how multiple workflows fit together. Triggers on "write process guide", "document this process", "create a playbook for", "how do these workflows connect".
-user-invocable: true
 ---
 
 # Writing Business Process Guides
