@@ -28,6 +28,8 @@ Artifact generation begins only after the Design Spec has been approved in the D
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
+> **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it.
+
 Read the workflow's Workflow node (`registry/workflows/<slug>.md`) to locate the artifacts, then read the Design Spec from the path linked there under `# Artifacts` (normally `outputs/[workflow-name]/design-spec.md`). **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them) and infer progress from what each node already links — its `# Artifacts` labels, plus its `# Skills` / `# Agents` links for Step 4 — "You've completed through Step [N] ([name]) — next is Step [N+1]" — and if Build isn't the next step, say so and route to the right skill instead of re-running finished work — except that a linked test-results.md whose frontmatter says `readiness: not-ready` means Build *is* next, in fix mode (Phase 2); a `waiting-on-access` result routes back to Test after the connector is authorized. If the user specifies a file path, use that. If no Workflow node exists yet but legacy flat files (`outputs/[name]-design-spec.md`) do, use the legacy paths and offer to migrate the workspace via `scaffolding-registry`. Otherwise, look for the most recent Design Spec in `outputs/`.
 
 **Parse the frontmatter first.** The spec opens with YAML frontmatter containing: `workflow`, `requirements_file`, `spec_version`, `approved` (3.0+), `definition_type`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, and `counts`. Use these values to summarize the spec — no need to parse the body to get the headline numbers.
@@ -134,12 +136,11 @@ Generator discovery therefore has one narrow job here: **configs, connectors, an
 
 Before generating artifacts, resolve platform-specific format requirements and integration documentation so that artifact generation (Phase 9) produces correctly formatted output on the first pass.
 
-> **Caching note:** The registry JSON is fetched once per session. If the Design phase already fetched it, use the cached copy.
+> **Caching note:** The registry JSON is read once per session. If the Design phase already read it, use the cached copy.
 
 **Tier 1 — Platform Doc Resolution**
 
-1. **Resolve the platform registry local-first** (or use session cache): if this skill is installed as part of the handsonai plugin, read the plugin's bundled copy at `registries/platform-registry.json` (resolve relative to this skill's plugin root); otherwise (standalone install) fetch the remote copy from
-   `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`
+1. **Resolve the platform registry** as the *Platform registry* note at the top of this skill says (or use the session cache).
 
 2. **Look up the user's platform** in the `platforms` section of the registry JSON.
 
