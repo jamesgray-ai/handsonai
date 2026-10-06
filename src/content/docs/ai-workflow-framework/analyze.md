@@ -26,13 +26,15 @@ This step guides an AI through a structured analysis of your work — from eithe
 - **Autonomy** — How much does the AI decide on its own? Look at what decides the next step. **Deterministic** (you give instructions; the AI carries out every step, and its output never changes what happens next), **Guided** (you give bounded decisions with your method — the AI routes, chooses a tool, or grades and sends work back by your rules), or **Autonomous** (you give a goal; the AI plans its own steps until the goal is met)
 - **Human Involvement** — Does a person take part while it runs? **Augmented** (a person is in the workflow along the way, guiding, engaging, or collaborating with the AI) or **Automated** (no one takes part until it's done)
 
+Analyze stays strategic. It names the work, the pain, the kind of value AI adds, and what gets produced — never the tool, connector, or integration that would do it. Those are decided in [Design (Step 3)](../design/). If a report starts naming products or connectors, say: *"Stay strategic — Design picks the tools,"* and the skill will restate the recommendation as an outcome.
+
 ## How the Skill Works
 
 The skill runs six phases in order:
 
 1. **Read what's known** — The registry (your business, processes, existing workflows) plus memory and project files. Presented for you to confirm; nothing you've already said is asked again.
 2. **Lens selection** — Individual (your own workflows) or Organizational (your business's processes). Inferred and confirmed when obvious.
-3. **Discovery interview** — Focused questions, one at a time, only on what phase 1 didn't cover.
+3. **Discovery interview** — With a registry, a walk through your processes asking where the friction is, tied to your objectives. Without one, focused questions, one at a time, only on what phase 1 didn't cover.
 4. **Opportunity report** — A summary table and detailed cards, grouped by autonomy level, ordered by impact.
 5. **Candidates registered** — You pick up to five; each becomes a backlog Workflow node in your registry, filed under one of your processes, and the skill recommends which to build first (a starter-sized one).
 6. **The other lens** — Offered as a later session.
@@ -91,8 +93,8 @@ The **AI Opportunity Report** (`ai-opportunity-report.md`) captures:
 - **Report header** — your name, role, date, opportunity count, and top recommendation
 - **Summary table** — every opportunity listed with its autonomy level, involvement mode, and impact level
 - **Top recommendations** — the 3 highest-priority opportunities with one-sentence rationales
-- **Detailed opportunity cards** — grouped by autonomy level (Deterministic → Guided → Autonomous), each with: why it's a good candidate, current pain point, how AI helps, and a practical first step
-- **Workflow Candidate Summary** — structured metadata for the workflows you choose to pursue: name, description, trigger, deliverable, autonomy, involvement, pain point, AI opportunity, frequency, priority, reasoning, and lens. Organizational-lens candidates also include business objective, stakeholders, and success metrics.
+- **Detailed opportunity cards** — grouped by autonomy level (Deterministic → Guided → Autonomous), each with: why it's a good candidate, current pain point, how AI helps, the value lever (Streamline, Automate, Accelerate, or Create value), and what changes for the business
+- **Workflow Candidate Summary** — structured metadata for the workflows you choose to pursue: name, description, trigger, deliverable, autonomy, involvement, value lever, pain point, AI opportunity, frequency, priority, reasoning, and lens. Organizational-lens candidates also include business objective, stakeholders, and success metrics.
 - **Backlog Workflow nodes** — one per chosen candidate in `registry/workflows/`, linked to the report. Deconstruct picks one up from here.
 
 The Workflow Candidate Summary is the input for [Deconstruct Workflows](../deconstruct/) (Step 2) — the trigger and deliverable fields map directly to the scope check that starts the deconstruction. Its business objective and success metrics also seed Deconstruct's `Value & Measurement` section, so an organizational-lens candidate arrives with two of those answers already drafted.
@@ -103,6 +105,7 @@ See three complete [example reports](../analyze-examples/) to get a feel for the
 
 ## Tips for Better Results
 
+- **Bring your registry.** Analyze is sharpest when it can walk your real processes. Set it up first with [AI Registry Setup](../../builder-setup/ai-registry-setup/) — about 25 minutes, once — and run Analyze straight after; the setup interview offers to.
 - **Use a tool with memory or projects enabled.** The richer the AI's context about your actual work, the more specific and useful the recommendations will be.
 - **Be concrete when answering questions.** "I spend 30 minutes every Monday formatting a status report from three Jira boards" is far more useful than "I do reporting."
 - **Run it again in a few weeks.** As you have more conversations and the AI learns more about your work, re-running this prompt will surface new opportunities.
