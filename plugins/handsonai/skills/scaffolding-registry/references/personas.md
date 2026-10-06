@@ -17,7 +17,16 @@ the `analyze` skill infers the lens from that sentence.
 | **Founder or owner** | the company | distinct offerings, or one default line named after the company | the starter set, trimmed | the processes that deliver each line | Organizational; Individual offered second |
 | **CEO or business leader** | the company, or the unit they lead | business units or offerings | the departments that report in; direct reports as `lead:` only on request | the enterprise processes that deliver each unit, at the level the leader actually sees | Organizational |
 | **Professional inside an organization** | their team, department, or function | the services the team provides to the rest of the company, or one default line named after the team | the groups the team hands work to and receives it from; the team itself when no other owner fits | the processes the team runs or takes part in | Individual first (their part of the team's processes); Organizational for the team offered second |
-| **Personal life** | the person or household, titled as they choose | the areas of life they want to run better: household, finances, health, family, learning, a side project | the roles they play or the people and services they rely on — at least one, since every Process needs an owner; the starter set is **not** offered | the recurring routines that deliver each area: monthly budgeting, meal planning, travel planning, school logistics | Individual |
+| **Personal life** | the person or household, titled as they choose | the areas of life they want to run better: household, finances, health, family, learning, a side project | one Function per role that owns routines — "Me", "Partner", "Household admin" — never a person's name; at least one, since every Process needs an owner; the starter set is **not** offered | the recurring routines that deliver each area: monthly budgeting, meal planning, travel planning, school logistics | Individual |
+
+## Documents to ask for
+
+- **Founder or owner:** a services page or offerings list, an org chart or team list, this year's plan or OKRs, a process inventory or SOP folder.
+- **CEO or business leader:** the org chart, the annual plan or board deck, the business-unit list, any process inventory.
+- **Professional inside an organization:** the team's charter or mission statement, your job description, the team's service catalogue or intake form, any runbooks.
+- **Personal life:** nothing formal is expected — a list of the areas you want to run better is enough; a shared calendar, a budget spreadsheet, or a chores list helps if you have one.
+
+A Function's "charter prose" for a personal role is one sentence on what that role takes care of ("The household routines and the kids' logistics.").
 
 ## Per-persona openings
 
@@ -53,4 +62,4 @@ and "what to write" are unchanged.
 
 **Professional:** Business "Data Platform Team" — *"The data platform team for a regional insurer: owns the warehouse, the pipelines, and the reporting layer."* One default LOB "Data Platform". Functions: Data Platform (the team), Finance, Claims, Underwriting. Processes: Pipeline Change Request (owner: data-platform), Monthly Close Reporting (owner: finance), Ad-hoc Analysis Request (owner: data-platform).
 
-**Personal life:** Business "The Okafor Household" — *"A household of four; running well means the admin is invisible and weekends are free."* `## Objectives`: fewer evenings lost to admin; one weekly money check instead of surprises. LOBs: Household, Finances, Kids. Functions: Household admin (lead blank), Me. Processes: Meal Planning (owner: household-admin), Monthly Budget Review (owner: me), School Logistics (owner: household-admin).
+**Personal life:** Business "The Okafor Household" — *"A household of four; running well means the admin is invisible and weekends are free."* `## Objectives`: fewer evenings lost to admin; one weekly money check instead of surprises. LOBs: Household, Finances, Kids. Functions: Me, Partner (both with `lead:` left blank). Processes: Meal Planning (owner: me), School Logistics (owner: me), Monthly Budget Review (owner: partner).

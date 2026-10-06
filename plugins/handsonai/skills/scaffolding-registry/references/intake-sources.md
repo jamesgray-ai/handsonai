@@ -3,8 +3,9 @@
 What a student may already have that describes their business, and what each
 one lets you draft before the interview asks. **Drafted is not confirmed:**
 nothing from a source is written until the student confirms it in the phase
-that owns it. Role titles by default; a person's name goes in a `lead:` field
-only when the student asks.
+that owns it. Functions are named for the area or role, never the person; a
+person's name goes in a `lead:` field only when the student asks. A verbal
+answer in Phase 0 that covers a later phase is a source too.
 
 ## Where sources come from
 
@@ -22,7 +23,8 @@ only when the student asks.
 | Source | Drafts | The student still decides |
 |---|---|---|
 | Services page, offerings list, capabilities deck, product list, `knowledge/` pages about offerings | Lines of Business; the Business identity sentence | Order of importance; which are dormant or incubating; whether to collapse to one default line |
-| Org chart, team list, job descriptions | Functions as **role titles**; `lead:` only on request | Trim to how work is actually owned; which are unstaffed |
+| Org chart, team list, job descriptions | Functions **named for the area or role** ("Client Delivery"), never the person; `lead:` only on request | Trim to how work is actually owned; which are unstaffed |
+| Personal life: a list of life areas, a shared calendar, a budget spreadsheet, a chores list | Lines of Business (the areas); Processes (the recurring routines); Functions as roles ("Me", "Partner") | Order of the areas; who owns each routine |
 | Process inventory, SOP folder, process guides, `knowledge/` pages about processes | Processes with `owner:`; `guide:` links to existing SOPs or guides | Which three to five deliver each LOB; confirm each owner |
 | Strategy page, OKRs, annual plan, prior opportunity report | Two or three objectives as prose for the Business node's `## Objectives` | Which matter this year |
 | Team charter, mission statement | Business identity sentence (professional persona: the team is the Business) | Wording |

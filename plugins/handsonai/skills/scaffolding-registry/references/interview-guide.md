@@ -43,26 +43,32 @@ the student has open? (A file the student would have to download does not count 
    Open `personas.md` and use that persona's openings for Phases 1–4. For
    the personal persona, add its privacy line now.
 2. **Scan (write mode only).** Look for `knowledge/`, `sops/`,
-   `process-guides/`, `CLAUDE.md` or `AGENTS.md`, and
-   `outputs/ai-opportunity-report*.md`. Report in one short list what you
-   found and what each could pre-fill, or say "nothing here to pre-fill
-   from" in one line. Never write to `knowledge/`.
+   `process-guides/`, `CLAUDE.md` or `AGENTS.md`,
+   `outputs/ai-opportunity-report*.md`, and any loose documents sitting in
+   the folder (a pasted org chart, a services page). Report in one short
+   list what you found and what each could pre-fill, or say "nothing here
+   to pre-fill from" in one line. Never write to `knowledge/`.
 3. **Documents.** "Do you have anything that already describes [the
-   business / your team / the areas you want to run]? An org chart or team
-   list, job descriptions, a strategy or OKR document, your services page,
-   a process inventory. Paste or upload it now and I'll draft the nodes for
-   you to confirm. If not, we'll build it together." Map each with
-   `intake-sources.md`.
+   business / your team / the areas you want to run]? Paste or upload it
+   now and I'll draft the nodes for you to confirm. If not, we'll build it
+   together." Name the examples for the student's persona from
+   `personas.md` § Documents to ask for. Map each with `intake-sources.md`.
+   An answer the student gives here in words ("the areas are household,
+   money, and the kids") counts as a source for the phase it covers: open
+   that phase with the draft, still in phase order.
 4. **The rule, once.** "I'll propose, you confirm. Nothing from these gets
-   written until you say so, and I'll use role titles rather than people's
-   names unless you ask."
+   written until you say so, and I'll name functions for the area or role,
+   never for the person, unless you ask."
+
+**Then write the skeleton** — after the four steps above and before Phase 1.
 
 **Example to show:** none — this phase is about the student's environment,
 not the registry's content.
 
-**What to write:** nothing yet. In write mode, create `registry/` +
-`SCHEMA.md` + `index.md` + `log.md` + the six typed directories with stub
-`index.md` files, unless they already exist. In print-and-save mode and no
+**What to write:** nothing until the steps above are done. Then, before
+Phase 1, in write mode create `registry/` + `SCHEMA.md` + `index.md` +
+`log.md` + the six typed directories with stub `index.md` files, unless
+they already exist. In print-and-save mode and no
 skeleton yet, print those same files first, in that order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
@@ -162,10 +168,14 @@ wrong or missing?" Write only what the student confirms.
 - "Anything missing from this list for how you're actually organized?"
 
 **Starter set (verbatim):** Marketing, Sales, Service Delivery, Operations,
-Product, Customer Success, IT/Engineering. Offer it as-is to founders and
-leaders; reframe as "who you hand work to and receive it from" for the
-professional persona; do not offer it to the personal persona — they name
-roles or helpers instead, at least one.
+Product, Customer Success, IT/Engineering. Offer it only when no Phase 0
+source covers Functions — a drafted list from an org chart replaces it.
+Offer it as-is to founders and leaders; reframe as "who you hand work to
+and receive it from" for the professional persona; do not offer it to the
+personal persona — they name roles or helpers instead, at least one. A
+Function is named for the area or role ("Client Delivery", "Partner"),
+never for the person; the person, if the student wants them recorded, goes
+in `lead:`.
 
 **Example to show:** the Function node from `example-registry.md`
 (`registry/functions/service-delivery.md`) — note the empty GENERATED
@@ -197,7 +207,9 @@ will decide where AI fits; right now we just want the map."
 wrong or missing?" Write only what the student confirms.
 
 **Follow-ups:**
-- "Who owns each of these — which function?"
+- "Who owns each of these — which function (or, for a personal registry,
+  which role)?" When the student answers with shorthand ("training"),
+  say which Function you read it as before writing the slug.
 - "Is there an existing guide or SOP for any of them?"
 
 **Example to show:** the Process node from `example-registry.md`
@@ -205,8 +217,9 @@ wrong or missing?" Write only what the student confirms.
 
 **What to write:** one `registry/processes/<slug>.md` node per process, each
 with a title, a description, required `owner:` (a function slug from Phase
-3), optional `guide:`, and an entry added to its LOB's curated
-`# Processes` list.
+3), optional `guide:`, a `# Workflows` list that starts as
+`_No workflows captured yet._` (Analyze replaces it), and an entry added to
+its LOB's curated `# Processes` list.
 
 **Fast path:** three to five processes per LOB is enough for the lab —
 remind the student that Analyze (Step 1 of the framework) decides where AI
