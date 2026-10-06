@@ -9,7 +9,7 @@ fictional nodes are never a fallback.
 
 ---
 
-## Phase 0 — Home (2 min)
+## Phase 0 — Home and sources (4 min)
 
 **First, detect — don't ask.** Can you create and edit files in the folder
 the student has open? (A file the student would have to download does not count — that is print-and-save mode.)
@@ -35,6 +35,27 @@ the student has open? (A file the student would have to download does not count 
   `outputs/<name>-requirements.md` setup from an earlier version of this
   framework?" In print-and-save mode you cannot look — ask the student to
   paste a listing of their `outputs/` folder, or to say "nothing there".
+
+**Then, in this order:**
+
+1. **Persona.** "Who is this registry for — a business you own, a company or
+   unit you lead, your role inside an organization, or your personal life?"
+   Open `personas.md` and use that persona's openings for Phases 1–4. For
+   the personal persona, add its privacy line now.
+2. **Scan (write mode only).** Look for `knowledge/`, `sops/`,
+   `process-guides/`, `CLAUDE.md` or `AGENTS.md`, and
+   `outputs/ai-opportunity-report*.md`. Report in one short list what you
+   found and what each could pre-fill, or say "nothing here to pre-fill
+   from" in one line. Never write to `knowledge/`.
+3. **Documents.** "Do you have anything that already describes [the
+   business / your team / the areas you want to run]? An org chart or team
+   list, job descriptions, a strategy or OKR document, your services page,
+   a process inventory. Paste or upload it now and I'll draft the nodes for
+   you to confirm. If not, we'll build it together." Map each with
+   `intake-sources.md`.
+4. **The rule, once.** "I'll propose, you confirm. Nothing from these gets
+   written until you say so, and I'll use role titles rather than people's
+   names unless you ask."
 
 **Example to show:** none — this phase is about the student's environment,
 not the registry's content.
@@ -65,16 +86,27 @@ that produced missing or incomplete nodes.
 **Opening question:** "What's the name of the business or team this registry
 is for, and what does it do in one sentence?"
 
+**Persona wording:** use the opening for the student's persona from
+`personas.md`; the question above is the founder form.
+
+**If a Phase 0 source covers this phase:** open with the draft instead —
+"From your [source], here's what I'd write: [show the node body]. Anything
+wrong or missing?" Write only what the student confirms.
+
 **Follow-ups:**
 - "Is it active, still incubating, or dormant right now?"
 - "Is there a URL you'd like on the dashboard?"
+- "What are the two or three outcomes that matter most this year?"
 
 **Example to show:** the Business node from `example-registry.md`
 (`registry/businesses/brightwork-consulting.md`).
 
 **What to write:** one `registry/businesses/<slug>.md` node — required
 frontmatter plus `status` and optional `url`, one identity sentence in the
-body, and an empty `# Lines of Business` list (Phase 2 fills it).
+body, a `## Objectives` prose list of those outcomes placed after the
+identity sentence and before `# Lines of Business` (omit the block if the
+student has none — never invent one), and an empty `# Lines of Business`
+list (Phase 2 fills it).
 
 **Fast path:** one business per registry is the default — do not offer
 multi-business setup unless the student volunteers that they run more than
@@ -86,6 +118,13 @@ one.
 
 **Opening question:** "Does this business have distinct lines of business, or
 is it really one thing end to end?"
+
+**Persona wording:** use the opening for the student's persona from
+`personas.md`; the question above is the founder form.
+
+**If a Phase 0 source covers this phase:** open with the draft instead —
+"From your [source], here's what I'd write: [show the node body]. Anything
+wrong or missing?" Write only what the student confirms.
 
 **Follow-ups:**
 - "If there's more than one, what order should they show up in — the order that matters most to you?"
@@ -111,12 +150,22 @@ split.
 **Opening question:** "Who owns the work day to day? I'll suggest a starter
 set and you can trim or rename it."
 
+**Persona wording:** use the opening for the student's persona from
+`personas.md`; the question above is the founder form.
+
+**If a Phase 0 source covers this phase:** open with the draft instead —
+"From your [source], here's what I'd write: [show the node body]. Anything
+wrong or missing?" Write only what the student confirms.
+
 **Follow-ups:**
 - "Any of these unstaffed right now — no single owner?"
 - "Anything missing from this list for how you're actually organized?"
 
 **Starter set (verbatim):** Marketing, Sales, Service Delivery, Operations,
-Product, Customer Success, IT/Engineering.
+Product, Customer Success, IT/Engineering. Offer it as-is to founders and
+leaders; reframe as "who you hand work to and receive it from" for the
+professional persona; do not offer it to the personal persona — they name
+roles or helpers instead, at least one.
 
 **Example to show:** the Function node from `example-registry.md`
 (`registry/functions/service-delivery.md`) — note the empty GENERATED
@@ -135,9 +184,17 @@ or two renames rather than building from scratch.
 
 ## Phase 4 — Processes (8 min)
 
-**Opening question:** "For each line of business, what are the two or three
-processes where AI could help the most right now? Not everything you do —
-just the highest-value candidates."
+**Opening question:** "For each line of business, what are the three to five
+processes that deliver it — where the time, money, and customer outcomes
+actually flow? Rank them by how much they matter to the business. Analyze
+will decide where AI fits; right now we just want the map."
+
+**Persona wording:** use the opening for the student's persona from
+`personas.md`; the question above is the founder form.
+
+**If a Phase 0 source covers this phase:** open with the draft instead —
+"From your [source], here's what I'd write: [show the node body]. Anything
+wrong or missing?" Write only what the student confirms.
 
 **Follow-ups:**
 - "Who owns each of these — which function?"
@@ -151,9 +208,9 @@ with a title, a description, required `owner:` (a function slug from Phase
 3), optional `guide:`, and an entry added to its LOB's curated
 `# Processes` list.
 
-**Fast path:** two or three processes per LOB is enough for the lab —
-remind the student that Analyze (Step 1 of the framework) grows this list
-later; don't try to be exhaustive here.
+**Fast path:** three to five processes per LOB is enough for the lab —
+remind the student that Analyze (Step 1 of the framework) decides where AI
+fits and grows this list later; don't try to be exhaustive here.
 
 ---
 
@@ -181,7 +238,11 @@ worth capturing as a note before we wrap up?"
 Hand off to
 `indexing-registry` for the first maintenance pass: lint, generate the Tier
 1 `REGISTRY.md`, and offer the Tier 2 dashboard. The lab should end with
-something visual on screen. In print-and-save mode there is no hand-off: print the `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its location, and say the set is complete.
+something visual on screen. Then offer Analyze: "Your registry has [N]
+processes and no workflows yet. Analyze finds the workflows: it walks each
+of these processes asking where the friction is, and registers the ones
+worth building. About 15 to 20 minutes. Run it now, or later?" On yes,
+invoke the `analyze` skill. In print-and-save mode there is no hand-off: print the `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its location, and say the set is complete.
 
 **Fast path:** if no insight surfaced, skip the Note entirely — an absent
 Note is not a gap to flag; a forced one is worse than none.
