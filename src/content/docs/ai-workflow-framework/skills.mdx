@@ -283,6 +283,8 @@ Adds every skill at once, from one file.
 5. Drag `handsonai-plugin.zip` into the box (or click **choose a file**)
 6. In **Publish "handsonai"**, leave **Only you** selected and click **Publish**
 
+You may see *"Plugin published with some configuration items skipped."* That's expected. Copilot plugins hold only skills and connectors, so Cowork skips the `framework-agent` (it runs only in the Claude desktop app). All the skills install.
+
 **You'll know it worked when:** **handsonai** appears under **Installed** with its toggle on, and a new Cowork conversation that starts *"Help me analyze AI workflow opportunities"* begins the interview.
 
 **Updating:** an uploaded plugin doesn't update itself. When the [changelog](/blog/) announces a new version, download the file again and upload it again.
