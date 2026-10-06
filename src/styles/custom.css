@@ -70,14 +70,14 @@ h1, h2, h3 {
   text-decoration-color: currentColor;
 }
 
-:root[data-theme='light'] .sl-markdown-content a:hover {
+:root[data-theme='light'] .sl-markdown-content a:not(.sl-link-button):hover {
   background-color: rgba(221, 242, 34, 0.22);
   border-radius: 3px;
   padding: 1px 3px;
   margin: -1px -3px;
 }
 
-:root[data-theme='dark'] .sl-markdown-content a:hover {
+:root[data-theme='dark'] .sl-markdown-content a:not(.sl-link-button):hover {
   background-color: rgba(221, 242, 34, 0.1);
   border-radius: 3px;
   padding: 1px 3px;
@@ -144,6 +144,19 @@ header a,
   font-size: var(--sl-text-sm);
   padding: 0.5rem 1.1rem;
   white-space: nowrap;
+}
+
+/* Hover changes color only, never size, so the buttons don't shift. */
+.sl-markdown-content .skill-downloads .sl-link-button {
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.sl-markdown-content .skill-downloads .sl-link-button.primary:hover {
+  opacity: 0.85;
+}
+
+.sl-markdown-content .skill-downloads .sl-link-button.secondary:hover {
+  background-color: var(--sl-color-gray-6);
 }
 
 /* ── Asides/admonitions ──
