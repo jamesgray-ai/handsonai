@@ -34,7 +34,6 @@ compatibility: >          # Optional. Max 500 chars. Environment requirements (f
 metadata:                 # Optional. Arbitrary key-value pairs.
   author: example-org
   version: "1.0.0"
-allowed-tools: Bash(git:*) Read Write  # Optional (experimental). Space-delimited pre-approved tools.
 ---
 ```
 
@@ -47,11 +46,13 @@ allowed-tools: Bash(git:*) Read Write  # Optional (experimental). Space-delimite
 | `license` | No | License name or reference to a bundled license file. |
 | `compatibility` | No | Max 500 chars. Free-text string describing environment requirements — intended product, required system packages, network access, etc. Most skills don't need this. |
 | `metadata` | No | Arbitrary key-value mapping (string keys → string values). Use for author, version, or custom properties. |
-| `allowed-tools` | No | Space-delimited list of pre-approved tools. Experimental — support varies between agent implementations. |
+| `allowed-tools` | No | Space-delimited list of pre-approved tools. Experimental — support varies between agent implementations, and some platforms reject a skill that has it. Add it only for a platform that documents it. |
+
+**Portable skills use only `name`, `description`, `license`, `compatibility`, and `metadata`.** Some platforms reject the whole skill, or the whole plugin, over any other field.
 
 ### Claude Code Extensions
 
-These fields are recognized by Claude Code but are **not part of the agentskills.io standard**. Include them when generating skills specifically for Claude Code. The authoritative reference is the [Claude Code skills documentation](https://code.claude.com/docs/en/skills).
+These fields are recognized by Claude Code but are **not part of the agentskills.io standard**. Include them only when generating skills specifically for Claude Code; leave them out of a skill meant for any other platform, since some reject unknown fields. The defaults need no field at all: a skill is user-invocable (`/name`) and model-invocable unless told otherwise. The authoritative reference is the [Claude Code skills documentation](https://code.claude.com/docs/en/skills).
 
 #### Frontmatter Fields
 
@@ -172,7 +173,6 @@ description: >
   This skill should be used when the user wants to generate a weekly status
   report from project data. Collects updates from configured sources, synthesizes
   key themes, and produces a formatted status report.
-user-invocable: true
 ---
 ```
 

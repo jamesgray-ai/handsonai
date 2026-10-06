@@ -18,7 +18,7 @@ Pick the row that matches the tool you use most, then jump to that section. Noth
 | **Claude** (claude.ai or the Claude app) | [Install the plugin](#claude-chat--cowork) — or upload the ZIPs if your company blocks plugins or you're on the Free plan. *About 3 minutes, no terminal.* |
 | **ChatGPT** | [Install the plugin](#chatgpt--codex) on any paid plan — or upload the ZIPs if you don't see Add marketplace. *About 3 minutes, no terminal.* |
 | **Google Gemini** | [Upload the ZIPs](#google-gemini) in Gemini Spark (personal account) or Gemini Enterprise (work account). *About 3 minutes, no terminal.* |
-| **Microsoft 365 Copilot** | [Upload the ZIPs](#microsoft-365-copilot) in Cowork. *About 5 minutes, no terminal.* |
+| **Microsoft 365 Copilot** | [Upload the plugin file](#microsoft-365-copilot) in Cowork, or the ZIPs one at a time. *About 5 minutes, no terminal.* |
 | **A code editor or terminal** (Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity) | See [For builders](#for-builders-code-editors--terminal) at the bottom. *A couple of commands or a folder on disk.* |
 
 **Just want the files?** [Jump to the downloads](#download-the-skill-zips) — the seven framework skills, the Knowledge Graph skill, and the two AI Registry skills, one click each.
@@ -35,10 +35,10 @@ Pick the row that matches the tool you use most, then jump to that section. Noth
 ## For everyone (chat & desktop apps)
 
 :::tip[Claude or ChatGPT? Three ways to install]
-Use the first one that works for you. (Gemini and Copilot use ZIPs only.)
+Use the first one that works for you. (Gemini uses skill ZIPs only. Copilot can upload the plugin file too; see its section.)
 
 1. **Add the marketplace.** Installs everything, and updates take one click.
-2. **Upload the plugin file.** Installs the same plugin from one file. Use it if adding the marketplace fails.
+2. **Upload the plugin file.** Installs all the skills from one file. Use it if adding the marketplace fails.
 3. **Upload the skill ZIPs.** Adds one skill at a time. Use it if you can't install plugins at all.
 
 The skills work the same whichever way you choose.
@@ -92,13 +92,13 @@ The seven skills work in the Claude app on the web and on desktop (including the
 
 #### Option 2 — Upload the plugin file
 
-Use this if Option 1 didn't work, for example if **Add marketplace** fails or your company blocks GitHub. You get the same plugin, from one file instead of from GitHub. You still need the **Plugins** tab.
+Use this if Option 1 didn't work, for example if **Add marketplace** fails or your company blocks GitHub. You get all the skills, from one file instead of from GitHub. (The optional `framework-agent` comes only with Option 1.) You still need the **Plugins** tab.
 
-1. Download **[handsonai.plugin](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai.plugin)**. It lands in your **Downloads** folder. Don't unzip it or rename it.
+1. Download **[handsonai-plugin.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai-plugin.zip)**. It lands in your **Downloads** folder. Don't unzip it.
 2. In the left sidebar, click **Customize**, then the **Plugins** tab
 3. Click the **+** button, then **Upload**
 4. You'll see a red warning: *"Make sure you trust a plugin before installing or using it."* That's normal for any uploaded plugin.
-5. Drag `handsonai.plugin` into the **Plugin file** box (or click **browse** and choose it)
+5. Drag `handsonai-plugin.zip` into the **Plugin file** box (or click **browse** and choose it)
 6. Click **Upload**
 
 **You'll know it worked when:** you see the same signs as Option 1 above.
@@ -168,12 +168,12 @@ If your workspace controls plugins centrally, an admin adds the marketplace once
 
 #### Option 2 — Upload the plugin file
 
-Use this if Option 1 didn't work, for example if adding the marketplace fails or your company blocks GitHub. You get the same plugin, from one file instead of from GitHub.
+Use this if Option 1 didn't work, for example if adding the marketplace fails or your company blocks GitHub. You get all the skills, from one file instead of from GitHub.
 
-1. Download **[handsonai.plugin](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai.plugin)**. It lands in your **Downloads** folder. Don't unzip it or rename it.
+1. Download **[handsonai-plugin.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai-plugin.zip)**. It lands in your **Downloads** folder. Don't unzip it.
 2. Open **Plugins** (in the left sidebar, or under **Customize**)
 3. Click **Add** in the top right, then **Upload plugin archive**
-4. Choose `handsonai.plugin`
+4. Choose `handsonai-plugin.zip`
 
 **You'll know it worked when:** **Hands-on AI** appears under **Installed**, and the `@analyze` check from Option 1 works.
 
@@ -272,7 +272,24 @@ Microsoft 365 Copilot runs skills in **Copilot Cowork**. Cowork reads `SKILL.md`
 
 **Before you start:** Open Microsoft 365 Copilot. Do you see **Cowork** in the left navigation? Yes → continue. No → ask your IT admin to enable Cowork.
 
-#### Option 1 — Upload the skill
+#### Option 1 — Upload the plugin (recommended)
+
+Adds every skill at once, from one file.
+
+1. Download **[handsonai-plugin.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai-plugin.zip)**. It lands in your **Downloads** folder. Don't unzip it.
+2. Open **Cowork**
+3. In the left navigation, click **Customize**, then the **Plugins** tab
+4. Click **Add plugin** (top right)
+5. Drag `handsonai-plugin.zip` into the box (or click **choose a file**)
+6. In **Publish "handsonai"**, leave **Only you** selected and click **Publish**
+
+**You'll know it worked when:** **handsonai** appears under **Installed** with its toggle on, and a new Cowork conversation that starts *"Help me analyze AI workflow opportunities"* begins the interview.
+
+**Updating:** an uploaded plugin doesn't update itself. When the [changelog](/blog/) announces a new version, download the file again and upload it again.
+
+If Cowork rejects the plugin, use Option 2 instead.
+
+#### Option 2 — Upload the skills one at a time
 
 1. Download **analyze.zip** from the [skill downloads](#download-the-skill-zips) section below. Don't unzip it.
 2. Open **Cowork**
@@ -284,9 +301,9 @@ Microsoft 365 Copilot runs skills in **Copilot Cowork**. Cowork reads `SKILL.md`
 
 {/* screenshot: copilot-cowork-upload-skill.png — Customize → Skills → Upload skill */}
 
-If Cowork rejects the ZIP, use Option 2 instead.
+If Cowork rejects the ZIP, use Option 3 instead.
 
-#### Option 2 — Put the skill folder in OneDrive yourself
+#### Option 3 — Put the skill folder in OneDrive yourself
 
 1. Download **analyze.zip** and **double-click** it — this creates a folder called `analyze` next to it
 2. Open OneDrive:
@@ -321,12 +338,12 @@ You can have up to **50 custom skills**; each `SKILL.md` can be up to 1 MB, with
 
 Every "download" step on this page starts here. **Click a button and the file downloads**, usually to your **Downloads** folder. **Don't unzip it** for Claude, ChatGPT, Gemini, or Copilot. Upload the file as-is.
 
-<Card title="Everything in one file — Claude and ChatGPT only" icon="puzzle">
+<Card title="Everything in one file — Claude, ChatGPT, and Copilot" icon="puzzle">
 
-The whole plugin in one file: all the skills below, plus the `framework-agent`. Upload it under **Plugins**, not **Skills**. See Option 2 in the [Claude](#claude-chat--cowork) or [ChatGPT](#chatgpt--codex) section above.
+All the skills below, in one file. Upload it under **Plugins**, not **Skills**. See the [Claude](#claude-chat--cowork), [ChatGPT](#chatgpt--codex), or [Microsoft 365 Copilot](#microsoft-365-copilot) section above.
 
 <div class="skill-downloads">
-<LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai.plugin" icon="download" iconPlacement="start">handsonai.plugin</LinkButton>
+<LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai-plugin.zip" icon="download" iconPlacement="start">handsonai-plugin.zip</LinkButton>
 </div>
 
 </Card>
@@ -390,7 +407,7 @@ You don't need these to work through the framework. Grab them when you want to w
 
 </details>
 
-**Want to see everything?** The [download page on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) lists every file. The newest release is at the top — click **Assets** to expand the list. You'll also see `framework-agent.zip` there. Skip it: in the Claude and ChatGPT apps, the `framework-agent` orchestrator only works when it comes with the plugin. That file is for builders who set up agents by hand.
+**Want to see everything?** The [download page on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) lists every file. The newest release is at the top — click **Assets** to expand the list. You'll also see `framework-agent.zip` there. Skip it: in the Claude app, the `framework-agent` orchestrator only works when it comes with the marketplace plugin (Option 1). That file is for builders who set up agents by hand.
 
 ---
 
@@ -617,7 +634,7 @@ Skills and the `framework-agent` evolve as the methodology improves — new skil
 Toggle **Sync automatically** in the same menu from step 1 to let Claude check GitHub on launch. You'll still click **Update** in step 2 when a new version is available — auto-sync only handles the "check" step.
 :::
 
-**If you uploaded the plugin file:** download `handsonai.plugin` again from the [downloads section](#download-the-skill-zips) and upload it the same way (**Customize → Plugins → + → Upload**).
+**If you uploaded the plugin file:** download `handsonai-plugin.zip` again from the [downloads section](#download-the-skill-zips) and upload it the same way (**Customize → Plugins → + → Upload**).
 
 **If you uploaded ZIPs:** re-download the skill from the [downloads section](#download-the-skill-zips) and upload it again via **Customize → Skills → + → Create skill → Upload a skill**. It replaces the existing skill of the same name. Only refresh the skills you actively use.
 
@@ -641,7 +658,7 @@ Or update every installed plugin at once with `/plugin update --all`. To have th
 
 **If you installed the plugin:** open **Plugins**, find the `handsonai-plugins` marketplace, and choose **Check for updates** (or **Sync**), then update **Hands-on AI**. Workspace-managed marketplaces sync automatically every day. From the Codex CLI: `codex plugin marketplace upgrade`, then start a new thread.
 
-**If you uploaded the plugin file:** download `handsonai.plugin` again from the [downloads section](#download-the-skill-zips) and upload it the same way (**Plugins → Add → Upload plugin archive**). If ChatGPT keeps the old copy alongside the new one, remove the old one.
+**If you uploaded the plugin file:** download `handsonai-plugin.zip` again from the [downloads section](#download-the-skill-zips) and upload it the same way (**Plugins → Add → Upload plugin archive**). If ChatGPT keeps the old copy alongside the new one, remove the old one.
 
 **If you uploaded ZIPs:** re-download the skill from the [downloads section](#download-the-skill-zips) and upload it again under **Plugins → Skills**. If ChatGPT keeps the old copy alongside the new one, delete the old one.
 
@@ -661,7 +678,9 @@ Or update every installed plugin at once with `/plugin update --all`. To have th
 <details>
 <summary><strong>Microsoft 365 Copilot (Cowork)</strong></summary>
 
-Cowork keeps duplicates rather than replacing, so: open **Customize → Skills**, open the old skill and click **Delete**, then upload the new ZIP with **Upload skill**. If you used the OneDrive folder method, just overwrite the folder under `Documents/Cowork/skills/`. Cowork picks up the change on your next conversation.
+**If you uploaded the plugin file:** download `handsonai-plugin.zip` again from the [downloads section](#download-the-skill-zips) and upload it the same way (**Customize → Plugins → Add plugin**). If the old copy stays listed, remove it.
+
+**If you uploaded skill ZIPs:** Cowork keeps duplicates rather than replacing, so: open **Customize → Skills**, open the old skill and click **Delete**, then upload the new ZIP with **Upload skill**. If you used the OneDrive folder method, just overwrite the folder under `Documents/Cowork/skills/`. Cowork picks up the change on your next conversation.
 
 </details>
 
@@ -725,4 +744,4 @@ The file-based handoffs between steps mean you can continue in a new conversatio
 No. These skills work on Claude (the Claude app and Claude Code), ChatGPT and Codex, Google Gemini (Spark, Gemini Enterprise, Gemini CLI, and Antigravity), Microsoft 365 Copilot, and Cursor. See [Set Up These Skills](#set-up-these-skills) above for your platform.
 
 **Plugin or ZIPs — which should I use?**
-The plugin, if your platform and plan allow it: one install, every skill, and on Claude the `framework-agent` orchestrator too. Add it from the marketplace if you can (updates take one click), or upload the plugin file if you can't. ZIPs are the fallback for every other situation, and the skills work just as well that way.
+The plugin, if your platform and plan allow it: one install, every skill. Add it from the marketplace if you can: updates take one click, and on Claude it adds the `framework-agent` orchestrator too. If you can't, upload the plugin file, which has all the skills. ZIPs are the fallback for every other situation, and the skills work just as well that way.

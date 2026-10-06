@@ -12,7 +12,6 @@ description: >
   Also handles migrating legacy workspaces (outputs/*/workflow.yaml manifests or
   flat requirements files) into the bundle. Re-running on an existing bundle
   fills gaps; it never re-scaffolds.
-user-invocable: true
 ---
 
 # Scaffolding Registry

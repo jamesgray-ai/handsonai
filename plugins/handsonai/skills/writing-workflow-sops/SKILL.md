@@ -1,7 +1,6 @@
 ---
 name: writing-workflow-sops
 description: Write Standard Operating Procedure documentation for workflows and save as markdown files. Selects full or lightweight SOP template based on autonomy level (deterministic vs. guided/autonomous), then adapts for workflow type (Manual, Augmented, Automated). Use when the user asks to write an SOP, document a workflow, create procedure documentation, or capture how a workflow is executed. Triggers on "write an SOP", "document this workflow", "create operating instructions", "how is this workflow executed".
-user-invocable: true
 ---
 
 # Writing Workflow SOPs

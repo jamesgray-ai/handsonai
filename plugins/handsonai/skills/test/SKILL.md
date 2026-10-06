@@ -2,7 +2,6 @@
 name: test
 description: >
   Guide structured testing of AI workflow artifacts, evaluate output quality, identify which building blocks need adjustment, and determine readiness for deployment. Use when the user has built workflow artifacts and needs to test them. Say *test this* after running the workflow in a new chat to grade that run. Also use when the user says "continue my workflow" and the Workflow node shows Step 5 (Test) is next. This is Step 5 (Test) of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Test Workflow
@@ -41,6 +40,8 @@ If the skill is not yet installed on a platform that needs installation, stop an
 #### Phase 1 — Load context
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
+
+> **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it.
 
 This is the opener. Read the workflow's Workflow node (`registry/workflows/<slug>.md`) to locate the artifacts, then read the Design Spec and the Workflow Requirements it references. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them), infer progress from what each node already links — its `# Artifacts` labels, plus its `# Skills` / `# Agents` links for Step 4 — and if Test isn't the next step, say so and route to the right skill. Verify both files exist — if either is missing, stop and say which.
 

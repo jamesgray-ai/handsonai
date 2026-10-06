@@ -5,7 +5,6 @@ description: >
   workflow into production. It guides the first real run, writes the Run Card, and sets up the run log and
   the first review date.
   Also use when the user says "continue my workflow" and the Workflow node shows Step 6 (Run) is next. This is Step 6 (Run) of the AI Workflow Framework.
-user-invocable: true
 ---
 
 # Workflow Run
@@ -23,6 +22,8 @@ Put a tested AI workflow into production: do the first real run on real work, th
 #### Phase 1 — Load context
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
+
+> **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it.
 
 Read the Workflow node, the Design Spec, the artifacts and skills Build linked under the node's `# Artifacts` / `# Skills` (the paths from Build Phase 10, the reconciliation table), and `test-results.md`. **Resume orientation** as in every framework skill. If the verdict is not `ready`, say so and route to Build: `not-ready` enters Build's fix mode, `waiting-on-access` means authorizing the named connector there, and Build sends the user back to Test once that is done. Read the platform's `capabilities.skill_install` (or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`), `capabilities.context_location` and `capabilities.unattended_runs` (or, if the entry has no `capabilities`, its `notes`) — every concrete instruction below comes from there, never from this file.
 
