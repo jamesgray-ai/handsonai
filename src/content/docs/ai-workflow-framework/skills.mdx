@@ -38,7 +38,7 @@ Pick the row that matches the tool you use most, then jump to that section. Noth
 Use the first one that works for you. (Gemini uses skill ZIPs only. Copilot can upload the plugin file too; see its section.)
 
 1. **Add the marketplace.** Installs everything, and updates take one click.
-2. **Upload the plugin file.** Installs the same plugin from one file. Use it if adding the marketplace fails.
+2. **Upload the plugin file.** Installs all the skills from one file. Use it if adding the marketplace fails.
 3. **Upload the skill ZIPs.** Adds one skill at a time. Use it if you can't install plugins at all.
 
 The skills work the same whichever way you choose.
@@ -92,7 +92,7 @@ The seven skills work in the Claude app on the web and on desktop (including the
 
 #### Option 2 — Upload the plugin file
 
-Use this if Option 1 didn't work, for example if **Add marketplace** fails or your company blocks GitHub. You get the same plugin, from one file instead of from GitHub. You still need the **Plugins** tab.
+Use this if Option 1 didn't work, for example if **Add marketplace** fails or your company blocks GitHub. You get all the skills, from one file instead of from GitHub. (The optional `framework-agent` comes only with Option 1.) You still need the **Plugins** tab.
 
 1. Download **[handsonai-plugin.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai-plugin.zip)**. It lands in your **Downloads** folder. Don't unzip it.
 2. In the left sidebar, click **Customize**, then the **Plugins** tab
@@ -168,7 +168,7 @@ If your workspace controls plugins centrally, an admin adds the marketplace once
 
 #### Option 2 — Upload the plugin file
 
-Use this if Option 1 didn't work, for example if adding the marketplace fails or your company blocks GitHub. You get the same plugin, from one file instead of from GitHub.
+Use this if Option 1 didn't work, for example if adding the marketplace fails or your company blocks GitHub. You get all the skills, from one file instead of from GitHub.
 
 1. Download **[handsonai-plugin.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai-plugin.zip)**. It lands in your **Downloads** folder. Don't unzip it.
 2. Open **Plugins** (in the left sidebar, or under **Customize**)
@@ -283,8 +283,6 @@ Adds every skill at once, from one file.
 5. Drag `handsonai-plugin.zip` into the box (or click **choose a file**)
 6. In **Publish "handsonai"**, leave **Only you** selected and click **Publish**
 
-You may see *"Plugin published with some configuration items skipped."* That's expected. Copilot plugins hold only skills and connectors, so Cowork skips the `framework-agent` (it runs only in the Claude desktop app). All the skills install.
-
 **You'll know it worked when:** **handsonai** appears under **Installed** with its toggle on, and a new Cowork conversation that starts *"Help me analyze AI workflow opportunities"* begins the interview.
 
 **Updating:** an uploaded plugin doesn't update itself. When the [changelog](/blog/) announces a new version, download the file again and upload it again.
@@ -342,7 +340,7 @@ Every "download" step on this page starts here. **Click a button and the file do
 
 <Card title="Everything in one file — Claude, ChatGPT, and Copilot" icon="puzzle">
 
-The whole plugin in one file: all the skills below, plus the `framework-agent`. Upload it under **Plugins**, not **Skills**. See the [Claude](#claude-chat--cowork), [ChatGPT](#chatgpt--codex), or [Microsoft 365 Copilot](#microsoft-365-copilot) section above.
+All the skills below, in one file. Upload it under **Plugins**, not **Skills**. See the [Claude](#claude-chat--cowork), [ChatGPT](#chatgpt--codex), or [Microsoft 365 Copilot](#microsoft-365-copilot) section above.
 
 <div class="skill-downloads">
 <LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/handsonai-plugin.zip" icon="download" iconPlacement="start">handsonai-plugin.zip</LinkButton>
@@ -409,7 +407,7 @@ You don't need these to work through the framework. Grab them when you want to w
 
 </details>
 
-**Want to see everything?** The [download page on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) lists every file. The newest release is at the top — click **Assets** to expand the list. You'll also see `framework-agent.zip` there. Skip it: in the Claude and ChatGPT apps, the `framework-agent` orchestrator only works when it comes with the plugin. That file is for builders who set up agents by hand.
+**Want to see everything?** The [download page on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest) lists every file. The newest release is at the top — click **Assets** to expand the list. You'll also see `framework-agent.zip` there. Skip it: in the Claude app, the `framework-agent` orchestrator only works when it comes with the marketplace plugin (Option 1). That file is for builders who set up agents by hand.
 
 ---
 
@@ -746,4 +744,4 @@ The file-based handoffs between steps mean you can continue in a new conversatio
 No. These skills work on Claude (the Claude app and Claude Code), ChatGPT and Codex, Google Gemini (Spark, Gemini Enterprise, Gemini CLI, and Antigravity), Microsoft 365 Copilot, and Cursor. See [Set Up These Skills](#set-up-these-skills) above for your platform.
 
 **Plugin or ZIPs — which should I use?**
-The plugin, if your platform and plan allow it: one install, every skill, and on Claude the `framework-agent` orchestrator too. Add it from the marketplace if you can (updates take one click), or upload the plugin file if you can't. ZIPs are the fallback for every other situation, and the skills work just as well that way.
+The plugin, if your platform and plan allow it: one install, every skill. Add it from the marketplace if you can: updates take one click, and on Claude it adds the `framework-agent` orchestrator too. If you can't, upload the plugin file, which has all the skills. ZIPs are the fallback for every other situation, and the skills work just as well that way.
