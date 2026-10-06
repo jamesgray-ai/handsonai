@@ -61,9 +61,9 @@ After presenting the memory scan summary (or noting no prior context), ask the u
 
 Based on gaps in your understanding (or starting from scratch), ask focused questions to build a complete picture. Use the question set for the user's chosen lens.
 
-**Process walk — the primary mode whenever `registry/processes/` has nodes, on either lens.** The Processes are the agenda; the question banks below supply the probes. Walk the Processes in Line of Business order, highest-ranked first. For each one, ask about friction and business challenge, one question at a time: what is slow, what is inconsistent between people, where do handoffs stall, what breaks at higher volume, what gets measured and what does not. Tie each answer back to the objective it threatens (the Business node's `## Objectives`, if present). The lens sets the framing, not whether the walk happens: on the Organizational lens the question is about the process end to end; on the Individual lens it is "your part of this process." Skip any Process the user says is fine.
+**Process walk — the primary mode whenever `registry/processes/` has nodes, on either lens.** The Processes are the agenda; the question banks below supply the probes. Walk the Processes in Line of Business order, highest-ranked first. For each one, ask about friction and business challenge, one question at a time: what is slow, what is inconsistent between people, where do handoffs stall, what breaks at higher volume, what gets measured and what does not. Tie each answer back to the objective it threatens (the Business node's `## Objectives`, if present); when none of the stated objectives fits, the card's Business Objective reads "None of the stated objectives — protects [what it protects]". The lens sets the framing, not whether the walk happens: on the Organizational lens the question is about the process end to end; on the Individual lens it is "your part of this process." Skip any Process the user says is fine.
 
-**Time bound.** The walk must fit the 15–20 minutes promised. If the registry holds more than six Processes, open by asking the user to pick the four or five that matter most right now, and list the rest in the report header as "noted, not walked." Stop once three or more concrete opportunities exist and the transition signal below fires; the user can always ask to continue.
+**Time bound.** The walk must fit the 15–20 minutes promised. If the registry holds more than six Processes, open by asking the user to pick the four or five that matter most right now, walk them in the order the user named them, and list the rest in a **Noted, not walked** row of the report header. Stop once three or more concrete opportunities exist and the transition signal below fires; the user can always ask to continue.
 
 **Fallback — no Process nodes.** Use the question bank for the chosen lens, exactly as below.
 
@@ -203,6 +203,7 @@ The report must include (in this order):
 | **Date** | [YYYY-MM-DD] |
 | **Lens** | Individual / Organizational / Individual + Organizational |
 | **Opportunities identified** | [count] |
+| **Noted, not walked** | [Processes left out of the walk, if any; omit row otherwise] |
 | **Top recommendation** | [#1 priority opportunity + one-sentence reason] |
 
 ### Summary Table
