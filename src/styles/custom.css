@@ -146,17 +146,17 @@ header a,
   white-space: nowrap;
 }
 
-/* Hover changes color only, never size, so the buttons don't shift. */
+/* Lime on hover, like every other interactive element. Color only, never
+   size, so the buttons don't shift. Charcoal text stays readable on lime
+   in both themes. */
 .sl-markdown-content .skill-downloads .sl-link-button {
-  transition: background-color 0.15s ease, opacity 0.15s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.sl-markdown-content .skill-downloads .sl-link-button.primary:hover {
-  opacity: 0.85;
-}
-
-.sl-markdown-content .skill-downloads .sl-link-button.secondary:hover {
-  background-color: var(--sl-color-gray-6);
+.sl-markdown-content .skill-downloads .sl-link-button:hover {
+  background-color: #DDF222;
+  border-color: #DDF222;
+  color: #1a1a18;
 }
 
 /* ── Asides/admonitions ──
