@@ -6,7 +6,7 @@ howto_steps:
   - name: Pick a folder for your registry
     text: Any folder works — on your computer, in a cloud drive, or in a GitHub repository. Ask your AI tool whether it can create files inside that folder for you, or whether it will print each file for you to save.
   - name: Run the interview
-    text: Answer the interview (about 25 minutes) — your AI assistant writes your Business, Line of Business, Function, and Process nodes as you go.
+    text: Answer the interview (about 25 minutes). Bring a services page, an org chart, or a strategy document if you have one and most of it becomes confirmation — your AI assistant drafts your Business, Line of Business, Function, and Process nodes for you to confirm.
   - name: Check your dashboard
     text: Open REGISTRY.md and confirm your processes are listed. Workflows arrive when you run Analyze — the registry starts with none.
   - name: Keep it fresh
@@ -19,7 +19,7 @@ New to Markdown? It's plain text with a few formatting marks — see [Markdown B
 
 ## What Your AI Registry Is
 
-Your registry is a **knowledge bundle**: a folder of small Markdown files, each describing one real thing about your business — your company, a line of business, a function like Sales or Operations, a process, or a workflow. Every file is called a **node**. Your AI assistant writes and maintains these files. If your AI tool can create files, you never touch them; if it can't, it prints each file and you save it — but you never have to *compose* one yourself.
+Your registry is a **knowledge bundle**: a folder of small Markdown files, each describing one real thing about your business — your company, a line of business, a function like Sales or Operations, a process, or a workflow. Every file is called a **node**. It works the same whether the "business" is a company you own, a unit you lead, the team you work in, or your personal life. Your AI assistant writes and maintains these files. If your AI tool can create files, you never touch them; if it can't, it prints each file and you save it — but you never have to *compose* one yourself.
 
 On top of those nodes sit a few **dashboards** — files your assistant generates *from* your nodes, purely for you to read. You never hand-edit a dashboard either; if one looks wrong or stale, you ask your assistant to regenerate it, and the fix sticks because the fix happens in the nodes, not the dashboard.
 
@@ -129,17 +129,28 @@ You never need GitHub for your registry. If you already use it, or want one of t
 - **Version history** of every change.
 - **A web address for your dashboard**, if other people need to see it — see [Publishing on the Web](#publishing-on-the-web-github-pages).
 
+## What to Bring
+
+The interview works from memory alone, but it is shorter and more accurate if you bring something that already describes your business. Any of these, pasted or attached when your assistant asks:
+
+- **Something that lists what you sell or deliver** — a services page, a product list, a capabilities deck.
+- **Something that shows who does the work** — an org chart, a team list, job descriptions. Role titles are enough; your assistant uses roles, not names, unless you ask.
+- **Something that says what matters this year** — a strategy page, OKRs, an annual plan.
+- **Optional:** a process inventory, an SOP folder, or process guides.
+
+Bring one and the interview is shorter. Bring three and it is mostly confirmation. If you lead a company, the org chart and the annual plan do most of the work; if you work inside one, bring your team's charter and your job description; if this registry is for your personal life, a two-minute list of the areas you want to run better is all you need.
+
 ## The Interview
 
 Whichever flow you're in, your assistant now runs the same **interview — six phases, numbered 0–5** — about 25 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
 
 | Phase | What it asks | Time |
 |---|---|---|
-| 0. Home | Confirms the folder your registry goes in, and whether your assistant saves the files or prints them for you (decided above) | 2 min |
-| 1. Business | Your business's name and a one-sentence identity | 3 min |
+| 0. Home and sources | Confirms the folder, whether your assistant saves files or prints them (decided above), who the registry is for — a business you own, a company you lead, your role, or your personal life — and asks for anything you brought (see What to Bring) | 4 min |
+| 1. Business | Your business's name, a one-sentence identity, and the two or three outcomes that matter most this year | 3 min |
 | 2. Lines of Business | The one or more lines of business inside it (solo founders usually get just one, named after the business itself) | 4 min |
 | 3. Functions | Which functions run your business — your assistant offers a starter list (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) and you trim or rename it | 3 min |
-| 4. Processes | The two or three highest-value processes per line of business — not an exhaustive list, just where AI could help most right now | 8 min |
+| 4. Processes | The three to five processes that deliver each line of business — where the time, money, and customer outcomes flow — ranked by how much they matter. Not where AI helps: Analyze decides that | 8 min |
 | 5. Close | An optional note if something worth recording came up, plus a wrap-up summary | 3 min |
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
@@ -299,6 +310,6 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 ## Next Steps
 
-- **Find your first workflows** — run [Analyze](../../ai-workflow-framework/analyze/); it reads this registry and adds your candidates to it
+- **Find your first workflows** — the interview ends by offering to run [Analyze](../../ai-workflow-framework/analyze/) right away; it walks the processes you just captured asking where the friction is, and adds your candidates to the registry
 - **Document workflows** — Ask your assistant to write SOPs (`writing-workflow-sops`) and process guides (`writing-process-guides`)
 - **Explore the plugin** — See the [Hands-on AI plugin page](../../use-the-playbook/build/) for all registry-related skills
