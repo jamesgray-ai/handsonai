@@ -7,6 +7,7 @@ description: >
   then produces a prioritized opportunity report with structured workflow
   candidates and registers the chosen candidates as backlog Workflow nodes in the AI Registry,
   ready for the Deconstruct step. This is Step 1 of the AI Workflow Framework.
+  It stays strategic: it names the work, the pain, and the value, never the tools or integrations.
 ---
 
 # Analyze Workflows
@@ -36,7 +37,13 @@ Before asking any questions, read what you already have — in this order:
 1. **The registry bundle**, if `registry/SCHEMA.md` exists: the Business node, Lines of Business, Functions, Processes (with their owners), and any existing Workflow nodes (backlog or otherwise). This is the richest description of the user's work available and was written minutes or days ago — never make the user repeat it. The organizational lens maps directly onto the Process nodes.
 2. Conversation history, memory, project files, and any other available context: role, recurring tasks, pain points, tools, goals.
 
-Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs]; the processes you named are X, Y, Z, and [N] workflows are already in the backlog. Here's what else I know about your work: … Anything wrong or missing?" Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and move directly to Phase 3.
+Disregard the roster of tools, connectors, and MCP servers available in this session. Which tools exist is a Design and Build concern; reading them here biases discovery toward whatever happens to be connected.
+
+If the Business node has a `## Objectives` block, read it: those are the outcomes every later question ties back to.
+
+**Same-session skip (distinct from the Fast Path above, which is the user declining discovery).** If the `scaffolding-registry` skill ran earlier in this same conversation, do not re-summarize or re-confirm — say one line ("I'll use the registry we just built") and go to Phase 2. The test is "ran in this conversation" only: a registry written yesterday, or by someone else, still gets the short summary and confirmation below, because the user may not have seen it.
+
+Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs], working toward [objectives, if present]; the processes you named are [grouped by line of business — X, Y under A; Z under B], and [N] workflows are already in the backlog. Here's what else I know about your work: … Anything wrong or missing?" Drop the "what else I know" clause when there is nothing beyond the registry. Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and move directly to Phase 3.
 
 #### Phase 2 — Lens selection
 
@@ -48,11 +55,17 @@ After presenting the memory scan summary (or noting no prior context), ask the u
 >
 > Which lens should we start with?
 
-**Inference rule:** If user context makes the answer obvious (e.g., "I want to improve our company's onboarding"), infer and confirm rather than asking: "Based on what you've described, the organizational lens fits best — we'll focus on your business's value chain processes. Sound right?"
+**Inference rule:** If user context makes the answer obvious, infer and confirm rather than asking. The registry usually makes it obvious — read the founding entry in `registry/log.md` (the scaffold records who the registry is for: a business they own, a company or unit they lead, their role inside an organization, or their personal life) and the Business node's identity sentence and Lines of Business: a company or business unit the user owns or leads → Organizational; a team or department the user works inside → Individual (their part of the team's processes); a household or a person's own life areas → Individual. Say it in one sentence: "Your registry describes [a household / a consultancy you own / the data platform team], so the [lens] lens fits best — sound right?" If neither the log nor the identity sentence says how the user relates to the business, fold the question into that sentence ("Is this your company, or do you work inside it?"). The other lens is offered in Phase 6, not here.
 
 #### Phase 3 — Discovery interview
 
 Based on gaps in your understanding (or starting from scratch), ask focused questions to build a complete picture. Use the question set for the user's chosen lens.
+
+**Process walk — the primary mode whenever `registry/processes/` has nodes, on either lens.** The Processes are the agenda; the question banks below supply the probes. Walk the Processes in Line of Business order, highest-ranked first. For each one, ask about friction and business challenge, one question at a time: what is slow, what is inconsistent between people, where do handoffs stall, what breaks at higher volume, what gets measured and what does not. Tie each answer back to the objective it threatens (the Business node's `## Objectives`, if present); when none of the stated objectives fits, the card's Business Objective reads "None of the stated objectives — protects [what it protects]". The lens sets the framing, not whether the walk happens: on the Organizational lens the question is about the process end to end; on the Individual lens it is "your part of this process." Use the registry's own words: for a personal registry, 'routine' and 'area'; otherwise 'process' and 'line of business'. Skip any Process the user says is fine.
+
+**Time bound.** The walk must fit the 15–20 minutes promised. If the registry holds more than six Processes, open by asking the user to pick the four or five that matter most right now, walk them in the order the user named them, and list the rest in a **Noted, not walked** row of the report header. Stop once three or more concrete opportunities exist and the transition signal below fires; the user can always ask to continue.
+
+**Fallback — no Process nodes.** Use the question bank for the chosen lens, exactly as below.
 
 > **Ask one question at a time — these banks are a scaffold for you, not a list to paste at the user.** Adapt to their answers, skip anything the memory scan already covered, and follow up for concrete examples. (Restated after the banks too — but apply it from the first question.)
 
@@ -76,7 +89,7 @@ Based on gaps in your understanding (or starting from scratch), ask focused ques
 6. **Visibility & measurement gaps** — Which processes lack metrics on performance, cycle time, or quality?
 7. **Scale constraints** — Which processes break when volume increases? What works for 10 customers but not 100?
 
-**Adaptive ordering:** Start with the areas where Phase 1 revealed the least. Skip areas already well-covered by the memory scan — no need to re-ask what you already know. A registry's Business and Process nodes usually answer Q1 and Q2 already — confirm rather than re-ask.
+**Adaptive ordering:** With a registry, the Processes set the order and the banks supply the probes. Without one, start with the areas where Phase 1 revealed the least. Skip areas already well-covered by the memory scan — no need to re-ask what you already know. A registry's Business and Process nodes usually answer Q1 and Q2 already — confirm rather than re-ask.
 
 Ask these questions **one at a time** — not as a list. Use the user's answers to ask smart follow-up questions. Probe for concrete examples: "I spend 30 minutes every Monday formatting a status report from three Jira boards" is far more useful than "I do reporting."
 
@@ -110,6 +123,7 @@ For each candidate:
 | **Deliverable** | The tangible output — what gets produced, sent, or decided |
 | **Autonomy** | Deterministic / Guided / Autonomous |
 | **Involvement** | Augmented / Automated |
+| **Value lever** | Streamline / Automate / Accelerate / Create value |
 | **Pain point** | What's slow, error-prone, or manual today |
 | **AI opportunity** | Specific description of what AI would do |
 | **Frequency** | Daily / Weekly / Monthly / Ad-hoc |
@@ -122,11 +136,11 @@ For each candidate:
 
 Append this summary to the output file under a `## Workflow Candidate Summary` heading. Recommend which candidate to deconstruct first, with reasoning.
 
-**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `outputs/` and no registry Workflow nodes beyond `status: backlog` ones, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, at most one tool connection, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
+**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `outputs/` and no registry Workflow nodes beyond `status: backlog` ones, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, touches at most one external system, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
 
 **Register the candidates (registry present).** If `registry/SCHEMA.md` exists, write each chosen candidate as a backlog Workflow node so the registry becomes the student's candidate list:
 
-1. **Process placement, one confirmation for all candidates.** Propose which existing Process each candidate belongs to: "I'd file *Weekly Status Report* under *Client Delivery* and *Inbox Triage* under *Operations* — right?" Where no existing Process fits (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub.
+1. **Process placement, one confirmation for all candidates.** A candidate found while walking a Process is already placed under it — confirm placement only for candidates that surfaced outside the walk. For those, propose which existing Process each belongs to: "I'd file *Weekly Status Report* under *Client Delivery* and *Inbox Triage* under *Operations* — right?" Where no existing Process fits (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub.
 2. **Write the stub** at `registry/workflows/<slug>.md` (slug = kebab-case of the Workflow name), in the `naming-workflows` stub format:
 
    ```yaml
@@ -189,13 +203,14 @@ The report must include (in this order):
 | **Date** | [YYYY-MM-DD] |
 | **Lens** | Individual / Organizational / Individual + Organizational |
 | **Opportunities identified** | [count] |
+| **Noted, not walked** | [Processes left out of the walk, if any; omit row otherwise] |
 | **Top recommendation** | [#1 priority opportunity + one-sentence reason] |
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Impact |
-|---|------------|----------|-------------|--------|
-| 1 | [Name] | Deterministic / Guided / Autonomous | Augmented / Automated | High / Medium / Low |
+| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
+|---|------------|----------|-------------|-------------|--------|
+| 1 | [Name] | Deterministic / Guided / Autonomous | Augmented / Automated | Streamline / Automate / Accelerate / Create value | High / Medium / Low |
 
 ### Top Recommendations
 
@@ -221,10 +236,14 @@ For each opportunity:
 [What's slow, error-prone, inconsistent, or draining about how this is done today]
 
 **How AI helps:**
-[Specific, concrete description — what AI takes as input, what it produces, how it fits into the workflow]
+[What AI takes as input and what it produces — the work, never the mechanism]
 
-**Getting started:**
-[A practical, low-effort first step achievable this week]
+**Value lever:** Streamline | Automate | Accelerate | Create value — [one sentence on why this lever]
+
+**What changes for the business:**
+[The outcome in plain language — who gets what, sooner, cheaper, or for the first time. No tool, connector, or product name.]
+
+**Systems involved today:** [Only if the user named one — the systems the work touches now. Omit the row otherwise.]
 
 **Business Objective:** [Organizational lens only — which strategic objective this workflow supports]
 **Stakeholders:** [Organizational lens only — roles/teams involved (process owner + participants)]
@@ -253,12 +272,22 @@ Two notes: **writing or summarizing inside a step never makes a workflow Guided*
 - **Augmented**: A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs.
 - **Automated**: No one takes part until it's done. Starting a run by hand doesn't make it Augmented.
 
+**Value lever — what kind of value does AI create here?** One per opportunity, the dominant one.
+
+- **Streamline** — the work still happens the same way, with fewer steps, handoffs, or reformatting. Test: would the person still do it, just faster and cleaner?
+- **Automate** — work a person does today runs without them. Test: does a person stop doing something they do now?
+- **Accelerate** — the outcome arrives sooner, or more of it arrives in the same time. Test: is the gain measured in cycle time or throughput rather than effort?
+- **Create value** — something becomes possible that was not done at all before. Test: is there no "today" version of this work to compare against?
+
+When two levers apply, pick the one the user would use to justify the work to their manager or to themselves.
+
 ## Guidelines
 
+- **Stay at the strategic level.** Analyze names the work, the pain, the value lever, and the deliverable. It never names a tool, connector, integration, agent count, model, or platform, and never proposes a script, API, or automation mechanism. The systems the user uses today are facts about the work and may appear in *Current pain point* and *Systems involved today* ("three Jira boards"); they never appear in *Why it's a good candidate*, *How AI helps*, *Value lever*, or *What changes for the business*, and Analyze never introduces a system the user did not name. If the user asks "could this run through Slack?", say once that Design (Step 3) chooses the mechanism and return to the work. If you notice yourself writing a product name in a recommendation, stop and restate it as the outcome.
 - Ask one question at a time — never present a wall of questions
 - Use a conversational flow — let answers guide follow-up questions naturally
 - Push for concrete examples over vague descriptions
-- Be specific in recommendations: "AI could draft the weekly status email from your Jira board data" beats "AI could help with reporting"
+- Be specific in recommendations: "AI could draft the weekly status email from the three boards you already update" beats "AI could help with reporting"
 - **Individual lens:** Scope each workflow candidate to one person's trigger-to-deliverable flow. If a workflow spans multiple people, note the cross-team dependencies in the opportunity card but keep the candidate focused on a single owner's scope.
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
 - After writing the report, ask the user to pick their candidates for Phase 5. Once they've chosen, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), and tell the user: "Report saved to `outputs/ai-opportunity-report.md` and [N] candidates registered in your backlog. Start with *[recommended]*: say 'run the deconstruct skill' — about 45–60 minutes, and it turns the candidate into requirements."
