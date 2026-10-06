@@ -41,9 +41,9 @@ Disregard the roster of tools, connectors, and MCP servers available in this ses
 
 If the Business node has a `## Objectives` block, read it: those are the outcomes every later question ties back to.
 
-**Same-session fast start.** If the `scaffolding-registry` skill ran earlier in this same conversation, do not re-summarize or re-confirm — say one line ("I'll use the registry we just built") and go to Phase 2. The test is "ran in this conversation" only: a registry written yesterday, or by someone else, still gets the short summary and confirmation below, because the user may not have seen it.
+**Same-session skip (distinct from the Fast Path above, which is the user declining discovery).** If the `scaffolding-registry` skill ran earlier in this same conversation, do not re-summarize or re-confirm — say one line ("I'll use the registry we just built") and go to Phase 2. The test is "ran in this conversation" only: a registry written yesterday, or by someone else, still gets the short summary and confirmation below, because the user may not have seen it.
 
-Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs]; the processes you named are X, Y, Z, and [N] workflows are already in the backlog. Here's what else I know about your work: … Anything wrong or missing?" Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and move directly to Phase 3.
+Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs], working toward [objectives, if present]; the processes you named are [grouped by line of business — X, Y under A; Z under B], and [N] workflows are already in the backlog. Here's what else I know about your work: … Anything wrong or missing?" Drop the "what else I know" clause when there is nothing beyond the registry. Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and move directly to Phase 3.
 
 #### Phase 2 — Lens selection
 
@@ -55,7 +55,7 @@ After presenting the memory scan summary (or noting no prior context), ask the u
 >
 > Which lens should we start with?
 
-**Inference rule:** If user context makes the answer obvious, infer and confirm rather than asking. The registry usually makes it obvious — read the Business node's identity sentence and Lines of Business: a company or business unit led by the user → Organizational; a team or department the user works inside → Individual first (their part of the team's processes), Organizational offered second; a household or a person's own life areas → Individual; a founder's company → Organizational, Individual offered second. Say it in one sentence: "Your registry describes [a household / a consultancy / the data platform team], so the [lens] lens fits best — sound right?"
+**Inference rule:** If user context makes the answer obvious, infer and confirm rather than asking. The registry usually makes it obvious — read the founding entry in `registry/log.md` (the scaffold records who the registry is for: a business they own, a company or unit they lead, their role inside an organization, or their personal life) and the Business node's identity sentence and Lines of Business: a company or business unit the user owns or leads → Organizational; a team or department the user works inside → Individual (their part of the team's processes); a household or a person's own life areas → Individual. Say it in one sentence: "Your registry describes [a household / a consultancy you own / the data platform team], so the [lens] lens fits best — sound right?" If neither the log nor the identity sentence says how the user relates to the business, fold the question into that sentence ("Is this your company, or do you work inside it?"). The other lens is offered in Phase 6, not here.
 
 #### Phase 3 — Discovery interview
 

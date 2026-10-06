@@ -242,7 +242,11 @@ worth capturing as a note before we wrap up?"
 **What to write:**
 - an optional `registry/notes/<slug>.md` node — only if a real insight
   surfaced during the interview, never a manufactured one
-- a founding `registry/log.md` entry describing the scaffolding run
+- a founding `registry/log.md` entry describing the scaffolding run — say
+  in plain words who the registry is for (the Phase 0 persona answer: "set
+  up for a business the owner runs" / "for the team the owner works in" /
+  "for the owner's personal life"), because `analyze` reads that line to
+  infer the lens; the log is not a concept node, so no schema is touched
 - directory `index.md` stubs for every typed directory
 - `registry/workflows/index.md` containing only `# Workflows` and a blank
   line — the directory must have an index even when empty, and Analyze

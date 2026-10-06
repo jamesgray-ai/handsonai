@@ -8,9 +8,10 @@ Ask once, in Phase 0, after the folder and mode are confirmed:
 > "Who is this registry for — a business you own, a company or unit you lead,
 > your role inside an organization, or your personal life?"
 
-The persona is **not stored** in any node. The Business node's identity
-sentence carries it ("a household of four" vs. "a boutique consultancy"), and
-the `analyze` skill infers the lens from that sentence.
+The persona is **not stored** in any node. The founding `registry/log.md`
+entry says in plain words who the registry is for, the Business node's
+identity sentence usually implies it ("a household of four" vs. "a boutique
+consultancy"), and the `analyze` skill reads both to infer the lens.
 
 | Persona | Business node | Lines of Business | Functions | Processes | Analyze lens default |
 |---|---|---|---|---|---|
