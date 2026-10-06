@@ -187,7 +187,7 @@ insight not an error), and every node written **with** its empty GENERATED
 `# Owns` marker block — the reference lints an error on a Function missing
 that block ("compose can't fill what doesn't exist").
 
-**Fast path:** offer the starter set as-is; most students accept it with one
+**Fast path (founder/leader, and only when no source covered Functions):** offer the starter set as-is; most students accept it with one
 or two renames rather than building from scratch.
 
 ---
@@ -255,11 +255,15 @@ worth capturing as a note before we wrap up?"
 Hand off to
 `indexing-registry` for the first maintenance pass: lint, generate the Tier
 1 `REGISTRY.md`, and offer the Tier 2 dashboard. The lab should end with
-something visual on screen. Then offer Analyze: "Your registry has [N]
+something visual on screen. In print-and-save mode there is no
+maintenance hand-off: print the `log.md` entry, every typed `index.md` you
+updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s
+rules, each with its location, say the set is complete, and then make the
+same Analyze offer. In both modes, offer Analyze: "Your registry has [N]
 processes and no workflows yet. Analyze finds the workflows: it walks each
 of these processes asking where the friction is, and registers the ones
 worth building. About 15 to 20 minutes. Run it now, or later?" On yes,
-invoke the `analyze` skill. In print-and-save mode there is no hand-off: print the `log.md` entry, every typed `index.md` you updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s rules, each with its location, and say the set is complete.
+invoke the `analyze` skill.
 
 **Fast path:** if no insight surfaced, skip the Note entirely — an absent
 Note is not a gap to flag; a forced one is worse than none.

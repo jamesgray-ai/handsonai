@@ -233,7 +233,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ## Part 3 — Your AI Registry
 
-**In a Hands-on AI course? Skip this part — we set your registry up together in Session 1.** Already set it up? Bring it; the setup skill fills gaps rather than starting over.
+**In a Hands-on AI course? Skip this part — we set your registry up together in Session 1 — bring a services page, an org chart or team list, this year's plan, and any process inventory or SOP folder if you have them.** Already set it up? Bring it; the setup skill fills gaps rather than starting over.
 
 ### Step 9: AI Registry
 
@@ -241,7 +241,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Action:** [Follow the AI Registry setup guide →](/builder-setup/ai-registry-setup/)
 
-**What to bring (optional, saves time):** something that lists what you sell or deliver, something that shows who does the work (an org chart or team list — roles are enough), and something that says what matters this year. One shortens the interview; three turn it into confirmation.
+**What to bring (optional, saves time):** something that lists what you sell or deliver, something that shows who does the work (an org chart or team list — roles are enough), something that says what matters this year, and optionally a process inventory or SOP folder. One shortens the interview; three turn it into confirmation.
 
 **Done when:**
 

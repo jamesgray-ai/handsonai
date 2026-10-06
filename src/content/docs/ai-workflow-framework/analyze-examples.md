@@ -41,7 +41,7 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 | 3 | Content Brief Generation | Deterministic | Augmented | Accelerate | High |
 | 4 | Lead Scoring Model Tuning | Deterministic | Augmented | Create value | Medium |
 | 5 | Email Sequence Optimization | Deterministic | Augmented | Accelerate | Medium |
-| 6 | Campaign Budget Reallocation | Guided | Augmented | Create value | Low |
+| 6 | Campaign Budget Reallocation | Guided | Augmented | Accelerate | Low |
 | 7 | Competitive Content Monitoring | Autonomous | Automated | Create value | Medium |
 
 ### Top Recommendations
@@ -142,7 +142,7 @@ The current lead scoring model in HubSpot was set up 18 months ago and hasn't be
 **How AI helps:**
 Takes in the last 12 months of lead-to-close history with each lead's attributes and score at handoff; produces a short analysis of which attributes (job title, company size, content engagement, page visits) actually predicted conversion, and a proposed set of scoring weights with the evidence behind each. Sarah reviews the proposal with the sales team and decides what changes.
 
-**Value lever:** Create value — the recalibration has been deferred for 18 months; this makes an analysis happen that was not happening at all.
+**Value lever:** Create value — there is no today version of this analysis: no recalibration has been done in 18 months, so there is nothing to compare against.
 
 **What changes for the business:**
 "Hot" leads start meaning what sales expects them to mean, the handoff conversation between marketing and sales moves from complaints to evidence, and the model gets reviewed on a schedule instead of never.
@@ -194,7 +194,7 @@ Campaign budgets are set quarterly and adjusted monthly based on performance. Sa
 **How AI helps:**
 Takes in current campaign performance against the targets and thresholds Sarah sets; produces, whenever a channel runs significantly over or under target, a recommended budget shift with the supporting numbers and the projected effect. Sarah approves or adjusts before any money moves.
 
-**Value lever:** Create value — reallocation today is monthly and backward-looking; this makes a within-month response possible that the team cannot do by hand.
+**Value lever:** Accelerate — the gain is measured in days between a channel drifting and the budget moving, down from a month.
 
 **What changes for the business:**
 Budget moves within days of a channel drifting instead of at month end, every move comes with a stated rationale and projection, and the VP sees proposals continuously rather than in one monthly batch.
@@ -214,7 +214,7 @@ Budget moves within days of a channel drifting instead of at month end, every mo
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You can describe the goal — catch competitor positioning changes before sales hears about them on a call — but not the steps. When the agent spots something new, it decides what to do next at each turn (check the pricing page, the docs, job postings, press coverage) and keeps going until it can explain the change. That open-ended decision-making is what makes it Autonomous. The inputs are public and the output is a digest, so no one takes part until it's done.
+You can describe the goal — catch competitor positioning changes before sales hears about them on a call — but not the steps. When the AI spots something new, it decides what to do next at each turn (check the pricing page, the docs, job postings, press coverage) and keeps going until it can explain the change. That open-ended decision-making is what makes it Autonomous. The inputs are public and the output is a digest, so no one takes part until it's done.
 
 **Current pain point:**
 Sarah tries to keep tabs on 5 key competitors' content and messaging, but it's inconsistent — she checks their blogs when she remembers, usually before quarterly planning. The team often learns about competitor positioning changes reactively (from sales call objections) rather than proactively.
@@ -224,7 +224,7 @@ Takes in the five competitors' public presence — their blogs, release notes, a
 
 A note on how the level climbs: a first version that checks the same sources and summarizes anything new is Deterministic (fixed sources, fixed steps). It becomes Guided if the AI picks the 3-5 most notable changes by criteria you write, and Autonomous when you let it decide where to dig after it spots a change.
 
-**Value lever:** Create value — competitive monitoring is not happening consistently today; this makes it a weekly fact rather than a quarterly intention.
+**Value lever:** Create value — there is no monitoring process today, only occasional glances before planning; a weekly digest is new work, not faster work.
 
 **What changes for the business:**
 Sales hears about competitor positioning shifts from marketing before hearing them as objections on calls, and quarterly planning starts from a record of what changed rather than from memory.
@@ -498,7 +498,7 @@ The newsletter goes out on a steady schedule instead of when time allows, and Ja
 **Involvement:** Automated
 
 **Why it's a good candidate:**
-You can describe the goal — a brief that tells James who he's meeting and why it matters — but not the steps. Each meeting is different: the agent decides what to search for each attendee and what to do next at each turn based on what it finds (a thin public profile sends it to company press or past talks), and keeps going until the brief is complete. That open-ended decision-making makes it Autonomous. The brief is read as-is before the meeting, so no one takes part until it's done.
+You can describe the goal — a brief that tells James who he's meeting and why it matters — but not the steps. Each meeting is different: the AI decides what to search for each attendee and what to do next at each turn based on what it finds (a thin public profile sends it to company press or past talks), and keeps going until the brief is complete. That open-ended decision-making makes it Autonomous. The brief is read as-is before the meeting, so no one takes part until it's done.
 
 **Current pain point:**
 James has 5-8 external meetings per week — prospective clients, conference organizers, partnership discussions, guest lecturers. Before each meeting, he spends 15-20 minutes researching the person and company on LinkedIn, their website, and recent news. Some meetings get thorough prep; others get none because of time pressure, leading to missed context.
@@ -506,7 +506,7 @@ James has 5-8 external meetings per week — prospective clients, conference org
 **How AI helps:**
 Takes in the meeting title and attendee names two hours before each external meeting; produces a structured brief — who each person is, what their company does, any relevant connection to AI education, and any previous interaction — that James reads on the way in.
 
-**Value lever:** Create value — most meetings get no prep today; this makes consistent preparation possible without adding to James's week.
+**Value lever:** Create value — there is no prep process today, only what time allows; a brief for every meeting is new output, not a faster version of existing work.
 
 **What changes for the business:**
 Every external meeting starts with context instead of a cold open, and the 15-20 minutes per meeting that sometimes happened and sometimes didn't is no longer James's to find.
@@ -603,7 +603,7 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 | 1 | Order Fulfillment Tracking | Deterministic | Automated | Automate | High |
 | 2 | Carrier Rate Negotiation Prep | Deterministic | Augmented | Accelerate | Medium |
 | 3 | Demand Forecasting | Deterministic | Augmented | Create value | Medium |
-| 4 | Customer Onboarding | Guided | Augmented | Streamline | High |
+| 4 | Customer Onboarding | Guided | Augmented | Accelerate | High |
 | 5 | Fleet Maintenance Scheduling | Guided | Automated | Automate | Medium |
 
 ### Top Recommendations
@@ -688,7 +688,7 @@ Monthly capacity planning relies on the VP's experience and a basic spreadsheet 
 **How AI helps:**
 Takes in 24 months of shipment history by customer and the known upcoming events (new customer launches, holiday peaks); produces a 90-day demand forecast with confidence ranges and the seasonal patterns behind it. Maria adjusts for what the history cannot show — a large customer hinting at a contract change — and approves the capacity plan.
 
-**Value lever:** Create value — today's forecast is experience plus a basic spreadsheet; a systematic, customer-by-customer forecast is something the team has never had.
+**Value lever:** Create value — a customer-by-customer statistical forecast with confidence ranges does not exist today; the spreadsheet is a staffing guess, not a forecast to compare against.
 
 **What changes for the business:**
 Warehouse staffing is planned against a stated forecast rather than a feel for the month, over- and under-staffing both shrink, and the forecast's accuracy can be measured and improved quarter by quarter.
@@ -720,7 +720,7 @@ New customer onboarding takes 2-3 weeks and involves sales, operations, and acco
 **How AI helps:**
 Takes in the signed contract and the customer's expected shipping patterns; produces the account setup draft, a recommended warehouse assignment and carrier mix, a proposed training schedule, and a running view of which team has completed which step. The account manager approves the key decisions along the way.
 
-**Value lever:** Streamline — the same onboarding steps still happen across three teams, but with the handoffs carried for them and the recommendations drafted, not reconstructed.
+**Value lever:** Accelerate — the gain is cycle time: time-to-first-shipment drops from weeks to days because the handoffs no longer wait on people reconstructing information.
 
 **What changes for the business:**
 A new customer's first shipment goes out in days rather than weeks, nothing falls between teams because one view shows what is done, and the customer's first impression stops depending on which account manager they drew.
@@ -776,7 +776,7 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Deliverable** | Fully configured customer account with completed first shipment and satisfaction survey |
 | **Autonomy** | Guided |
 | **Involvement** | Augmented |
-| **Value lever** | Streamline |
+| **Value lever** | Accelerate |
 | **Pain point** | 2-3 week onboarding with frequent handoff failures between sales, ops, and account management — leading to poor first impressions and early churn |
 | **AI opportunity** | Draft the account setup, recommend warehouse and carrier assignments, carry the handoffs between teams, and flag delays |
 | **Frequency** | Weekly (3-5 new customers per month) |
