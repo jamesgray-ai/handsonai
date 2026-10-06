@@ -5,6 +5,9 @@ the user's registry** — show them as the shape to imitate, then write the
 user's real business instead. The finished registry must contain no
 Brightwork residue.
 
+Brightwork is the founder/leader example. `personas.md` carries two-line
+sketches for the professional and personal-life personas.
+
 ## Business: `registry/businesses/brightwork-consulting.md`
 
 ```markdown
@@ -18,6 +21,11 @@ url: https://example.com
 ---
 Brightwork Consulting is a small operations consultancy that helps mid-market
 firms modernize back-office work.
+
+## Objectives
+
+- Grow Training to a third of revenue this year.
+- Cut Advisory engagement setup from three weeks to one.
 
 # Lines of Business
 
