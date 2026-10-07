@@ -106,8 +106,10 @@ The dashboard view is the generated root `REGISTRY.md`.
 # Registry Log
 
 Migrations and schema changes only — routine regeneration is not logged.
-``` In print-and-save mode and no
-skeleton yet, print those same files first, in that order. If the student
+```
+
+In print-and-save mode and no skeleton yet, print those same files first,
+in that order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
 skeleton plus a GitHub Action that publishes the dashboard, and is optional.
