@@ -195,7 +195,7 @@ The report must include (in this order):
 | **Lens** | Individual / Organizational / Individual + Organizational |
 | **Opportunities identified** | [count] |
 | **Noted, not walked** | [Processes left out of the walk, if any; omit row otherwise] |
-| **Top recommendation** | [#1 priority opportunity + one-sentence reason] |
+| **Top recommendation** | [Top-priority opportunity + one-sentence reason — card numbers follow the value-lever grouping, so this need not be card 1] |
 
 ### Summary Table
 
