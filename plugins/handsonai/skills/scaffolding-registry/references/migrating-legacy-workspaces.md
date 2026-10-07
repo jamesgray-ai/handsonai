@@ -44,7 +44,7 @@ owns it); the legacy manifest rarely says.
    `# Workflows` list contiguously by position in the new list — never carry
    over the legacy manifest's own sequence numbers, which may have gaps.
 
-## Disposition table (verbatim from the spec)
+## Disposition table
 
 | workflow.yaml field | Disposition |
 |---|---|
@@ -67,7 +67,7 @@ owns it); the legacy manifest rarely says.
 | `artifacts:` map | `# Artifacts` labeled links |
 | `notion_url` | dropped |
 
-Two field-level notes worth calling out during migration:
+Field-level notes worth calling out during migration:
 
 - **`definition_type` normalization.** Legacy manifests may carry
   `Step-Driven`, `Goal-Driven`, the retired `Outcome-Driven` spelling, or the
@@ -124,7 +124,11 @@ After every workflow in the run has a node:
    process:… }` and in the required `owner:` on Process nodes:
    `current_step`, `health`, `last_run`, any run-counter field,
    `next_review`, `notion_url`, `timestamp`, `lob`, `sequence`, `process`
-   (on any node), `owner` (on Workflow nodes). Expect zero matches — if
+   (on any node), `owner` (on Workflow nodes) — and every other legacy key
+   from the disposition table's left column that was renamed or dropped
+   (`workflow`, `display_name`, `process_outcome`, `business_process`,
+   `type`, `platform`, `last_updated`, `apps`, `assets_used`,
+   `platform_artifacts`, `artifacts`). Expect zero matches — if
    anything turns up, it means a disposition step above was skipped or a
    legacy `timestamp:` field slipped through instead of being converted to
    `generated.at`.
