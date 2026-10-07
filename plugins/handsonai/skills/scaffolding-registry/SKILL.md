@@ -35,6 +35,8 @@ Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloud
 │                              design-spec, runs.md, generated artifacts;
 │                              event-facts live here, never in nodes)
 ├── sops/  process-guides/   ← unchanged homes; nodes link to them
+├── tools/last-data-island.json  ← only in template-repo workspaces: compose writes it for the
+│                              Pages Action and the Tier 2 dashboard; derived, never hand-edited
 ```
 
 The registry is the structured record every framework skill reads and writes — `analyze` writes backlog Workflow nodes into it, `deconstruct` fills in requirements, `run` flips status to `in-production`, and so on all the way through `improve`. `registry/SCHEMA.md` is the contract that makes that possible: it defines the six concept types (Business, LineOfBusiness, Process, Workflow, Note, Function), their required frontmatter, and the rules — enum values, link discipline, banned fields — that every skill's writes and every maintenance pass's lint checks agree on. Write it once per workspace, using `references/schema-template.md` verbatim; after that, the student's own copy is authoritative and every skill re-reads it before writing.
@@ -82,7 +84,7 @@ Six phases (0–5), about 25 minutes total, run in order. Follow `references/int
 
 **Phase 2 — Lines of Business (4 min).** One or more LineOfBusiness nodes in a curated, ordered list under the Business node. Solo consultants get one default LOB named after the business — no artificial splitting. Follow `references/interview-guide.md`.
 
-**Phase 3 — Functions (3 min).** Offer the starter set (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) to founders and leaders, and only when no Phase 0 source covered Functions; the student trims and renames it. Professionals name the groups they hand work to; the personal persona names roles, never the starter set. Every Function node is written with its empty GENERATED `# Owns` block from the start. Follow `references/interview-guide.md`.
+**Phase 3 — Functions (3 min).** Offer the starter set (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) to founders and leaders, and only when no Phase 0 source covered Functions; the student trims and renames it. Write only the functions that will own a process: a Function that owns none is a lint warning (`function owns no processes`), and a fresh registry must lint with none — so after Phase 4, retire or assign any Function left without a process before Close. Professionals name the groups they hand work to; the personal persona names roles, never the starter set. Every Function node is written with its empty GENERATED `# Owns` block from the start. Follow `references/interview-guide.md`.
 
 **Phase 4 — Processes (8 min).** Per LOB, the three to five processes that deliver it — where the time, money, and customer outcomes actually flow — ranked by how much they matter to the business, not by where AI might help. Analyze decides where AI fits and files each workflow it finds under one of these processes; right now you want the map, not a shortlist. Not exhaustive: Analyze grows this later. Each needs a required `owner:` function slug. Once Processes name their owners, the owning Functions' `# Owns` blocks written empty in Phase 3 are now stale — that's expected, not an error; the Phase 5 maintenance pass regenerates them, and lint only ever flags stale content as a warning, never a blocker. Follow `references/interview-guide.md`.
 
@@ -90,7 +92,7 @@ The Brightwork examples in `references/example-registry.md` are shown, never cop
 
 When Phase 0 surfaced a source that covers a phase, open that phase with the draft rather than the blank question — "From your [source], here's what I'd write … anything wrong or missing?" — and write only what the student confirms. The blank-slate question remains for anyone with nothing to bring. Timeboxes are unchanged; sources shorten the phases.
 
-**Phase 5 — Close (3 min).** Optional Note, the empty `registry/workflows/index.md` (Analyze fills the workflows in — this scaffold never names one), founding `log.md` entry, and hand-off — see Close below. Follow `references/interview-guide.md`.
+**Phase 5 — Close (3 min).** Retire or assign any Function that owns no process, optional Note, the empty `registry/workflows/index.md` (Analyze fills the workflows in — this scaffold never names one), founding `log.md` entry, and hand-off — see Close below. Follow `references/interview-guide.md`.
 
 If a phase runs over its timebox, write what's been gathered, note the gap for the close-out summary, and move on — missing nodes are homework for later; fictional ones are never an acceptable substitute.
 
@@ -99,7 +101,7 @@ If a phase runs over its timebox, write what's been gathered, note the gap for t
 - **The student's `registry/SCHEMA.md` is authoritative once it exists.** Re-read it immediately before every write in this skill, including during gap-filling and migration — never write from memory of what the schema template said.
 - **Stamp `generated: { by: process:scaffolding-registry, at: <date> }`** (single-line flow map, `at` as `YYYY-MM-DD`) on every node this skill creates or edits.
 - **Function nodes are always written with their empty GENERATED `# Owns` block** at creation time — never deferred to a later maintenance pass. A Function missing that block is a lint error, because the maintenance pass has nothing to fill.
-- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node. Index entries use bundle-root-relative leading-slash links — `[Client Onboarding](/processes/client-onboarding.md)`, never a bare same-directory link like `[Client Onboarding](client-onboarding.md)`, which the schema's link discriminator resolves repo-root-relative and lint flags as broken.
+- **Every new node gets added to its typed directory's `index.md`.** A concept file with no entry in its directory index is a lint error; write or update the index in the same pass as the node. An index with no nodes yet has exactly this body — the heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — which is the text compose writes, so a fresh scaffold composes with no file rewritten. Index entries use bundle-root-relative leading-slash links — `[Client Onboarding](/processes/client-onboarding.md)`, never a bare same-directory link like `[Client Onboarding](client-onboarding.md)`, which the schema's link discriminator resolves repo-root-relative and lint flags as broken.
 
 ## Close
 

@@ -67,8 +67,9 @@ not the registry's content.
 
 **What to write:** nothing until the steps above are done. Then, before
 Phase 1, in write mode create `registry/` + `SCHEMA.md` + `index.md` +
-`log.md` + the six typed directories with stub `index.md` files, unless
-they already exist. In print-and-save mode and no
+`log.md` + the six typed directories with stub `index.md` files (each stub
+is its heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose
+writes), unless they already exist. In print-and-save mode and no
 skeleton yet, print those same files first, in that order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
@@ -188,7 +189,8 @@ insight not an error), and every node written **with** its empty GENERATED
 that block ("compose can't fill what doesn't exist").
 
 **Fast path (founder/leader, and only when no source covered Functions):** offer the starter set as-is; most students accept it with one
-or two renames rather than building from scratch.
+or two renames rather than building from scratch — then, once Phase 4 has
+named the processes, drop the functions that own none (Close checks this).
 
 ---
 
@@ -211,6 +213,9 @@ wrong or missing?" Write only what the student confirms.
   which role)?" When the student answers with shorthand ("training"),
   say which Function you read it as before writing the slug.
 - "Is there an existing guide or SOP for any of them?"
+- Once the processes are named: "[Function] from the starter set has no
+  process yet — does it own one of these, or shall we drop it?" Ask for
+  every Function left without a process.
 
 **Example to show:** the Process node from `example-registry.md`
 (`registry/processes/client-delivery.md`).
@@ -247,10 +252,15 @@ worth capturing as a note before we wrap up?"
   up for a business the owner runs" / "for the team the owner works in" /
   "for the owner's personal life"), because `analyze` reads that line to
   infer the lens; the log is not a concept node, so no schema is touched
-- directory `index.md` stubs for every typed directory
-- `registry/workflows/index.md` containing only `# Workflows` and a blank
-  line — the directory must have an index even when empty, and Analyze
-  appends to it
+- directory `index.md` stubs for every typed directory that still has no
+  nodes, with the standard empty body (heading, blank line, `_No entries yet — your AI assistant fills this index as nodes are added._`)
+- `registry/workflows/index.md` with that same empty body — the directory
+  must have an index even when empty, and Analyze replaces the placeholder
+  line with its first entry
+- every Function owns at least one process: retire any that owns none
+  (delete the node and its index line) or assign it a process the student
+  names — the lint warning `function owns no processes` must not appear on
+  a fresh scaffold
 
 Hand off to
 `indexing-registry` for the first maintenance pass: lint, generate the Tier
