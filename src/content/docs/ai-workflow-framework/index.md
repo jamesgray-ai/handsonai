@@ -68,12 +68,9 @@ Seven steps, each building on the last:
 
 Find which workflows are candidates for AI.
 
-Before you can apply AI to anything, you need to know *where* it fits. Step 1 is a structured audit of your workflows that produces a prioritized list of opportunities classified on two dimensions:
+Before you can apply AI to anything, you need to know *where* it fits. Step 1 is a structured audit of your workflows that produces a prioritized list of opportunities. Each one names the work, the pain, the value lever AI pulls (Streamline, Automate, Accelerate, or Create value), what gets produced, and how much it matters. How much the AI decides and who takes part while it runs are settled in Step 3, once the steps are known.
 
-- **Autonomy** — How much does the AI decide on its own? Look at what decides the next step. **Deterministic** (you give instructions; the AI carries out every step, and its output never changes what happens next), **Guided** (you give bounded decisions with your method — the AI routes, chooses a tool, or grades and sends work back by your rules), or **Autonomous** (you give a goal; the AI plans its own steps until the goal is met)
-- **Human Involvement** — Does a person take part while it runs? **Augmented** (a person is in the workflow along the way, guiding, engaging, or collaborating with the AI) or **Automated** (no one takes part until it's done)
-
-The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a classified report with specific opportunities and actionable first steps.
+The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a prioritized report with specific opportunities and a recommendation on which to build first.
 
 **Deliverable:** **Opportunity Report** (`outputs/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue — and one `status: backlog` Workflow node per chosen candidate in your registry.
 
