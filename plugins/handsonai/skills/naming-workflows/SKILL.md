@@ -207,7 +207,6 @@ description: "Identify and score prospects using research tools and qualificatio
 generated: { by: process:naming-workflows, at: YYYY-MM-DD }
 status: backlog
 trigger: "Weekly (Sunday)"
-execution_mode: augmented
 ---
 # Lead Qualification
 
@@ -225,13 +224,11 @@ Identify and score prospects using research tools and qualification criteria. Pr
 <!-- /GENERATED -->
 ```
 
-`execution_mode` is `augmented` for an Augmented workflow and `automated` for an Automated one (`manual` means not yet run by AI); write the value only — no comment in the file.
-
 Then add its line to the chosen Process's `# Workflows` list (`registry/processes/<process-slug>.md`) — never write `process:`, `owner:`, or `sequence:` on the Workflow node itself; process membership and sequence live only in the parent list.
 
 **Default values:**
 - Status: `backlog` (use this whenever the user is only cataloging ideas or naming ahead of deconstruct)
-- Execution mode: `augmented` (human-in-the-loop) unless fully automated
+- No `execution_mode` or `autonomy` on a stub — Design sets both once the workflow's steps are known
 
 **New Process rule:** if the chosen process doesn't exist yet as a Process node, ask **"Which function owns this process?"** — offer the registry's `functions/` list — and write a complete minimal Process node (`title`, `description`, `owner: <function-slug>`, an empty `# Workflows` list to append into) before adding the workflow's line. Never create an ownerless Process stub; the schema requires `owner:` on every Process node.
 
