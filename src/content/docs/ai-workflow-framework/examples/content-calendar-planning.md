@@ -13,7 +13,7 @@ The first four steps of the framework — Analyze, Deconstruct, Design, and Buil
 
 ### 1. Workflow Requirements (Step 2 — Deconstruct)
 
-[GitHub View full Workflow Requirements on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/workflow-requirements.md)
+[GitHub View full Workflow Requirements on GitHub](https://github.com/jamesgray-ai/handsonai/blob/main/examples/content-calendar-planning/requirements.md)
 
 The Workflow Requirements is what [Deconstruct](../../deconstruct/) produces. What started as "I plan content on Sundays" became **10 refined steps across four phases** after the six-question deep dive.
 

@@ -23,7 +23,7 @@ Run the framework end-to-end yourself with the Hands-on AI plugin installed — 
 
 The Step 2 (Deconstruct) artifact is pre-built so we can spend class time running the rest of the framework on it.
 
-<a href="/assets/courses/competitive-intelligence-workflow-requirements.md" download="competitive-intelligence-workflow-requirements.md"><strong>Download the Competitive Intelligence — Workflow Requirements (.md)</strong></a>
+<a href="/assets/courses/competitive-intelligence-workflow-requirements.md" download="requirements.md"><strong>Download the Competitive Intelligence — Workflow Requirements (.md)</strong></a>
 
 ### Set up your workspace before class
 
@@ -31,7 +31,7 @@ Do these steps in the folder you have open in Cowork or Claude Code.
 
 **Step 1 — get a `registry/` folder.** Open the folder you'll work in (any folder — it doesn't need to be a GitHub repository) in your AI assistant and say *"Set up my AI registry."* It creates the `registry/` folder for you. If you'd like GitHub to build a dashboard automatically, start from the [AI Registry template repository](https://github.com/jamesgray-ai/ai-registry-template) instead — the [AI Registry setup guide](/builder-setup/ai-registry-setup/) walks through both.
 
-**Step 2 — create the workflow folder and save the download.** Inside your workspace, create a folder named `outputs`, and inside it a folder named `competitive-intelligence-brief`. Save the download as `requirements.md` inside that folder, so the full path is `outputs/competitive-intelligence-brief/requirements.md`. (Rename the downloaded file — the framework skills look for `requirements.md`.)
+**Step 2 — create the workflow folder and save the download.** Inside your workspace, create a folder named `outputs`, and inside it a folder named `competitive-intelligence-brief`. Save the download inside that folder, so the full path is `outputs/competitive-intelligence-brief/requirements.md`. (It downloads as `requirements.md` already — the name the framework skills look for; if your browser renamed it, rename it back.)
 
 **Step 3 — hand-type the first Workflow node.** In `registry/workflows/`, create a file named `competitive-intelligence-brief.md` and paste in exactly this. Easiest path: ask your AI assistant to create the file for you with this exact content. (Or, if your registry lives on GitHub and you save files yourself, open your repository on github.com, click **Add file → Create new file**, paste `registry/workflows/competitive-intelligence-brief.md` as the filename, paste the block below as the content, then **Commit** — same result either way.)
 

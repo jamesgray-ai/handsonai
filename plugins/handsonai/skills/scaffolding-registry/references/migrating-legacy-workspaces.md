@@ -57,12 +57,13 @@ owns it); the legacy manifest rarely says.
 | `type` | `execution_mode` |
 | `autonomy`, `trigger`, `definition_type` | same-named frontmatter |
 | `owner` | derived: process → owning Function |
-| `platform` | dropped (visible from artifacts) |
+| `platform` | dropped — the run guide usually names it; if no artifact does, carry it into the node's prose ("Runs on Claude Code.") rather than reviving a field |
 | `health`, `last_run`, `current_step` | dropped (event-facts; step inferred from artifacts) |
 | `last_updated` | `generated.at` (never the legacy `timestamp:` field the old manifest layout mapped to — `timestamp:` is a lint error; migration converts any encountered) |
 | `next_review` | `stale_after` |
-| `apps` | derived on demand from linked skills/agents (no maintained record) |
-| `assets_used`, `platform_artifacts` | `# Skills` / `# Agents` body links |
+| `apps` | derived on demand from linked skills/agents (no maintained record); if neither a skill nor an agent resolves, carry the app names into the node's prose ("Uses Notion and Slack.") so they are not lost |
+| `assets_used` | `# Skills` body links |
+| `platform_artifacts` | `# Agents` body links |
 | `artifacts:` map | `# Artifacts` labeled links |
 | `notion_url` | dropped |
 
@@ -85,7 +86,9 @@ Two field-level notes worth calling out during migration:
   doesn't resolve.
 - **`last_updated` → `generated.at` reconciliation.** A migrated node keeps
   the legacy `last_updated` date in `generated.at` — that's provenance, not
-  a fresh write, so don't stamp today's date over it. `generated.by` is
+  a fresh write, so don't stamp today's date over it. A flat-layout
+  migration has no `last_updated`: use the newest modification date among
+  the folder's files, and today's date only if none can be read. `generated.by` is
   still `process:scaffolding-registry`. The stamp-today rule in this
   skill's Write rules applies to newly created nodes, not migrated ones.
 
@@ -111,7 +114,14 @@ When there's no `workflow.yaml`, mint the node directly from what's on disk:
 
 After every workflow in the run has a node:
 
-1. Grep the migrated nodes for every banned field:
+1. Grep the migrated nodes for every banned field, scoped as
+   `lint-registry.js` scopes it: concept nodes only (`registry/*/` node
+   files), never the reserved files `SCHEMA.md`, `index.md`, and `log.md`
+   (the first documents the banned list, the last records what was
+   dropped). The banned items are frontmatter *keys*, so grep for them at
+   the start of a line (`^process:`, `^owner:`) — the strings `process` and
+   `owner` also appear legitimately in every node's `generated: { by:
+   process:… }` and in the required `owner:` on Process nodes:
    `current_step`, `health`, `last_run`, any run-counter field,
    `next_review`, `notion_url`, `timestamp`, `lob`, `sequence`, `process`
    (on any node), `owner` (on Workflow nodes). Expect zero matches — if
