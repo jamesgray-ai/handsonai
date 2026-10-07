@@ -253,6 +253,11 @@ must_not_contain "deconstruct no longer references a workflow manifest" plugins/
 must_contain "interview-guide carries the root index skeleton" plugins/handsonai/skills/scaffolding-registry/references/interview-guide.md "## Skills inventory (0)"
 must_contain "template root index carries the skills inventory block" registry-template/registry/index.md "## Skills inventory (0)"
 
+# Tier 2 hand-built islands must follow the compose derivation contract and escape < before embedding.
+must_contain "indexing-registry points at the Tier 2 island contract" plugins/handsonai/skills/indexing-registry/SKILL.md "tier-2-island.md"
+must_contain "indexing-registry states the < escaping rule" plugins/handsonai/skills/indexing-registry/SKILL.md "u003c"
+must_contain "tier-2-island.md states the < escaping rule" plugins/handsonai/skills/indexing-registry/references/tier-2-island.md "u003c"
+
 # ---------------------------------------------------------------------------
 echo
 echo "-- 7. one-node-shape: every worked example carries the same Workflow node fields --"

@@ -74,7 +74,7 @@ Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->
 
 No Health, Last Run, or Step columns — framework step is inferred from artifact presence (`references/registry-bundle.md` §4), not stored. No generation-date line — the file's content is the only thing that changes, so a timestamp footer would just create diff noise.
 
-**Tier 2 — `registry-dashboard.html` (on request: "generate my dashboard").** Read the bundle, build a data island matching `references/data-island.schema.json`, and inject it as the **only** change into `references/dashboard-template.html`'s `<script type="application/json" id="data">` element — never touch the renderer around it. Save the result as `registry-dashboard.html` at the workspace root.
+**Tier 2 — `registry-dashboard.html` (on request: "generate my dashboard").** Read the bundle, build a data island matching `references/data-island.schema.json` by the derivation rules in `references/tier-2-island.md` (ids, `nodePath`/`nodeUrl`, traversal order, `step`, `usedBy`, skills and agents scan — the same rules compose follows), and inject it as the **only** change into `references/dashboard-template.html`'s `<script type="application/json" id="data">` element — never touch the renderer around it. Before injecting, replace every `<` in the serialized JSON with `\u003c`; an unescaped `<` in any description closes the script element and blanks the page. Save the result as `registry-dashboard.html` at the workspace root.
 
 *Claude platforms:* after generating `registry-dashboard.html`, offer to publish it as an Artifact.
 
