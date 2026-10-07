@@ -239,8 +239,8 @@ done
 must_contain "framework-agent.md defers to registry-bundle.md" plugins/handsonai/agents/framework-agent.md "registry-bundle.md"
 
 # The canonical seven framework-step skills must each hand off to a maintenance pass
-# afterward — including Analyze, whose closing step invokes one to keep its own
-# resume-orientation scan accurate even though Analyze itself writes no Workflow node.
+# afterward — including Analyze, whose backlog stubs need indexing and whose
+# resume-orientation scan depends on the composed views being current.
 declare -a MAINTENANCE_PASS_SKILLS=(analyze deconstruct design build test run improve)
 for skill in "${MAINTENANCE_PASS_SKILLS[@]}"; do
   must_contain "$skill/SKILL.md invokes a maintenance pass" "plugins/handsonai/skills/$skill/SKILL.md" "maintenance pass"

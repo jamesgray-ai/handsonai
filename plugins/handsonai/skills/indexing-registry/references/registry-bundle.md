@@ -86,8 +86,8 @@ the bundle exists.
 
 | Skill | Writes |
 |---|---|
-| `analyze` | Workflow node stub per chosen candidate: `title`, `description` (outcome-first, deliverable folded in), `status: backlog`, `trigger`, `execution_mode` (provisional); line in the chosen Process's `# Workflows` list; `# Artifacts` → Opportunity report. New process → same owning-function rule as `naming-workflows`. |
-| `naming-workflows` | Workflow node stub: `title`, `description` (outcome-first), `status: backlog`, `trigger`, `execution_mode`; line in the chosen Process's `# Workflows` list. **New process → asks which function owns it** and writes a complete minimal Process node (owner required — no stub violates the schema). |
+| `analyze` | Workflow node stub per chosen candidate: `title`, `description` (outcome-first, deliverable folded in), `status: backlog`, `trigger` (provisional); line in the chosen Process's `# Workflows` list; `# Artifacts` → Opportunity report. New process → same owning-function rule as `naming-workflows`. |
+| `naming-workflows` | Workflow node stub: `title`, `description` (outcome-first), `status: backlog`, `trigger`; line in the chosen Process's `# Workflows` list. **New process → asks which function owns it** and writes a complete minimal Process node (owner required — no stub violates the schema). |
 | `deconstruct` | `status: under-development`, `definition_type` (step-driven/goal-driven), `trigger`, description refinement; `# Artifacts` → Requirements. Merges into stubs; never overwrites set fields. |
 | `design` | `execution_mode`, `autonomy`; `# Artifacts` → Design spec |
 | `build` | `# Skills` / `# Agents` links for every built or reused skill and agent; writes no `# Artifacts` link — `# Artifacts` carries only the schema's labelled artifacts, and there is no label for a skill or an agent |
@@ -97,7 +97,7 @@ the bundle exists.
 | `writing-workflow-sops` | `# Artifacts` → SOP |
 | `writing-process-guides` | Process node `guide:` frontmatter |
 
-`scaffolding-registry` writes no Workflow node. Only `status` is schema-required on a Workflow node, so a backlog stub written by `analyze` or `naming-workflows` lints clean without `definition_type`, `execution_mode`, or `autonomy`; `deconstruct` and `design` set those as owners. A stub's `trigger` and `execution_mode` (when Analyze writes them) are provisional — `deconstruct` may overwrite `trigger` and `design` may overwrite `execution_mode`, each with a better-informed value; the never-overwrite rule protects values a student set deliberately through a framework step, not an Analyze-time classification. `scaffolding-registry` may set a Process node's `guide:` at scaffold time when an SOP already exists for it; `writing-process-guides` owns the field thereafter.
+`scaffolding-registry` writes no Workflow node. Only `status` is schema-required on a Workflow node, so a backlog stub written by `analyze` or `naming-workflows` lints clean without `definition_type`, `execution_mode`, or `autonomy`; `deconstruct` and `design` set those as owners. A stub's `trigger` is provisional — `deconstruct` may overwrite it with a better-informed value; the never-overwrite rule protects values a student set deliberately through a framework step, not a stub-time guess. Stubs carry no `execution_mode` or `autonomy`: `design` writes both, once the steps are known, and nothing writes them earlier. `scaffolding-registry` may set a Process node's `guide:` at scaffold time when an SOP already exists for it; `writing-process-guides` owns the field thereafter.
 
 ---
 
