@@ -6,7 +6,7 @@ topic: strategy
 date: 2026-02-02
 author: James Gray
 title: "How do I find workflows worth applying AI to?"
-description: "Run a structured audit of your daily and weekly tasks, naming the pain and the value lever for each, to find where AI saves time, removes errors, or creates something new."
+description: "Run a structured audit of your daily and weekly tasks, naming the pain and the value lever for each, to find where AI saves time or creates something new."
 ---
 
 **Short answer:** Run a structured audit of your daily and weekly tasks, naming for each the work, the pain, and the kind of value AI would add (Streamline, Automate, Accelerate, or Create value) — to find where AI can save time, reduce errors, or make something new possible.
