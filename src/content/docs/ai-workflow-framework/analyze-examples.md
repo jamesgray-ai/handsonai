@@ -708,7 +708,7 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Deliverable** | Real-time order status view + exception alerts |
 | **Value lever** | Automate |
 | **Pain point** | 3-4 hours daily of reactive status checks; customers learn about problems before the ops team |
-| **AI opportunity** | Watch each order's stage events against set thresholds and alert the moment one is missed — no human involvement during execution |
+| **AI opportunity** | Watch each order's stage events against set thresholds and alert the moment one is missed |
 | **Frequency** | Continuous (hundreds of orders daily) |
 | **Priority** | High |
 | **Reasoning** | Highest volume, directly impacts on-time delivery (key SLA metric), and fixed, well-defined steps make it straightforward to implement |
