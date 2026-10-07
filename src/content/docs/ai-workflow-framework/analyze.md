@@ -53,13 +53,13 @@ I'd like to analyze my workflows for AI opportunities. Help me audit
 what I do and identify where AI could help.
 ```
 
-The skill runs the six phases above and produces a categorized opportunity report, and registers your chosen candidates in the registry backlog.
+The skill runs the six phases above and produces a prioritized opportunity report, and registers your chosen candidates in the registry backlog.
 
 ### Example prompts
 
 ```
 "Help me analyze AI workflow opportunities"
-→ Runs the full audit and produces a categorized opportunity
+→ Runs the full audit and produces a prioritized opportunity
   report with structured workflow candidates
 
 "I want to figure out which parts of my job could benefit from AI"
