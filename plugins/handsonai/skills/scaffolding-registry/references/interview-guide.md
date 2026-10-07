@@ -33,8 +33,9 @@ the student has open? (A file the student would have to download does not count 
   `SCHEMA.md`, `index.md`, `log.md`, or the typed `index.md` stubs.
 - "Do you already have a `registry/` folder, or a `workflow.yaml` /
   `outputs/<name>-requirements.md` setup from an earlier version of this
-  framework?" In print-and-save mode you cannot look — ask the student to
-  paste a listing of their `outputs/` folder, or to say "nothing there".
+  framework?" In write mode, look rather than ask. In print-and-save mode
+  you cannot look — ask the student to paste a listing of their `outputs/`
+  folder, or to say "nothing there".
 
 **Then, in this order:**
 
@@ -67,9 +68,48 @@ not the registry's content.
 
 **What to write:** nothing until the steps above are done. Then, before
 Phase 1, in write mode create `registry/` + `SCHEMA.md` + `index.md` +
-`log.md` + the six typed directories with stub `index.md` files, unless
-they already exist. In print-and-save mode and no
-skeleton yet, print those same files first, in that order. If the student
+`log.md` + the six typed directories with stub `index.md` files (each stub
+is its heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose
+writes), unless they already exist. The root `index.md` and `log.md` have
+fixed bodies — lint requires the root index to link every typed index and
+to carry the two GENERATED inventory blocks compose fills. Write them
+exactly as the template repository ships them:
+
+```markdown
+---
+okf_version: "0.2"
+---
+# AI Registry
+
+Your operations knowledge bundle: how your business runs. See [SCHEMA](/SCHEMA.md) for types and rules.
+The dashboard view is the generated root `REGISTRY.md`.
+
+## Concepts
+
+- [Businesses](/businesses/index.md) — the traversal root: identity + curated line-of-business order
+- [Lines of Business](/lines-of-business/index.md) — each orders its processes in value-chain order
+- [Functions](/functions/index.md) — cross-cutting ownership areas processes map into
+- [Processes](/processes/index.md) — business processes grouping workflows
+- [Workflows](/workflows/index.md) — the hub: one node per business workflow
+- [Notes](/notes/index.md) — synthesized operational insights
+
+<!-- GENERATED:skills -->
+## Skills inventory (0)
+<!-- /GENERATED -->
+
+<!-- GENERATED:agents -->
+## Agents inventory (0)
+<!-- /GENERATED -->
+```
+
+```markdown
+# Registry Log
+
+Migrations and schema changes only — routine regeneration is not logged.
+```
+
+In print-and-save mode and no skeleton yet, print those same files first,
+in that order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
 skeleton plus a GitHub Action that publishes the dashboard, and is optional.
@@ -182,13 +222,14 @@ in `lead:`.
 `# Owns` block written at creation time.
 
 **What to write:** one `registry/functions/<slug>.md` node per function the
-student keeps, `lead:` filled in or left blank (blank = unstaffed, an
-insight not an error), and every node written **with** its empty GENERATED
+student keeps, `lead:` filled in or left empty — an empty value or an
+omitted key both read as unstaffed, an insight not an error — and every node written **with** its empty GENERATED
 `# Owns` marker block — the reference lints an error on a Function missing
 that block ("compose can't fill what doesn't exist").
 
 **Fast path (founder/leader, and only when no source covered Functions):** offer the starter set as-is; most students accept it with one
-or two renames rather than building from scratch.
+or two renames rather than building from scratch — then, once Phase 4 has
+named the processes, drop the functions that own none (Close checks this).
 
 ---
 
@@ -211,6 +252,11 @@ wrong or missing?" Write only what the student confirms.
   which role)?" When the student answers with shorthand ("training"),
   say which Function you read it as before writing the slug.
 - "Is there an existing guide or SOP for any of them?"
+- Once the processes are named, one message covering every Function left
+  without a process: "[Function] from the starter set has no process yet —
+  does it own one of these, or shall we drop it?" Functions have no
+  `status`, so dropping one means deleting the node and its index line at
+  Close.
 
 **Example to show:** the Process node from `example-registry.md`
 (`registry/processes/client-delivery.md`).
@@ -247,10 +293,15 @@ worth capturing as a note before we wrap up?"
   up for a business the owner runs" / "for the team the owner works in" /
   "for the owner's personal life"), because `analyze` reads that line to
   infer the lens; the log is not a concept node, so no schema is touched
-- directory `index.md` stubs for every typed directory
-- `registry/workflows/index.md` containing only `# Workflows` and a blank
-  line — the directory must have an index even when empty, and Analyze
-  appends to it
+- directory `index.md` stubs for every typed directory that still has no
+  nodes, with the standard empty body (heading, blank line, `_No entries yet — your AI assistant fills this index as nodes are added._`)
+- `registry/workflows/index.md` with that same empty body — the directory
+  must have an index even when empty, and Analyze replaces the placeholder
+  line with its first entry
+- every Function owns at least one process: delete any that owns none
+  (the node and its index line — Functions have no `status` to retire
+  into) or assign it a process the student names — the lint warning `function owns no processes` must not appear on
+  a fresh scaffold
 
 Hand off to
 `indexing-registry` for the first maintenance pass: lint, generate the Tier

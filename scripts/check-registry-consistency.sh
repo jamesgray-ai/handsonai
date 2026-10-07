@@ -248,6 +248,11 @@ done
 
 must_not_contain "deconstruct no longer references a workflow manifest" plugins/handsonai/skills/deconstruct/SKILL.md "### Workflow manifest"
 
+# The interview guide spells out the root index.md body for students without the template repo;
+# it must carry the same GENERATED inventory headings the template skeleton and compose use.
+must_contain "interview-guide carries the root index skeleton" plugins/handsonai/skills/scaffolding-registry/references/interview-guide.md "## Skills inventory (0)"
+must_contain "template root index carries the skills inventory block" registry-template/registry/index.md "## Skills inventory (0)"
+
 # ---------------------------------------------------------------------------
 echo
 echo "-- 7. one-node-shape: every worked example carries the same Workflow node fields --"

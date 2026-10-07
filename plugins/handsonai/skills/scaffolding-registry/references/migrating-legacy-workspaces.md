@@ -27,7 +27,8 @@ owns it); the legacy manifest rarely says.
 
 1. **Scaffold the bundle first if it doesn't exist yet** — `registry/` +
    `SCHEMA.md` + `index.md` + `log.md` + the six typed directories with stub
-   `index.md` files. Migration writes nodes into this bundle; it never
+   `index.md` files (standard empty body — see the interview guide, Phase
+   1). Migration writes nodes into this bundle; it never
    invents its own structure.
 2. **Per workflow found:**
    a. Create the Workflow node — `registry/workflows/<slug>.md` — from the
