@@ -3,13 +3,13 @@ title: "Analyze Examples — Sample AI Opportunity Reports"
 description: Three complete AI Opportunity Report examples showing what the Analyze step produces — a Marketing Operations Manager, an AI Instructor, and a VP of Operations.
 ---
 
-These are three synthetic AI Opportunity Reports showing what the Analyze step produces. Use them as a reference for format, level of detail, and how opportunities are classified on the [AI Workflow Design Matrix](../workflow-design-matrix/).
+These are three synthetic AI Opportunity Reports showing what the Analyze step produces. Use them as a reference for format, level of detail, and how each opportunity's value lever and impact are stated.
 
 - **Example 1** — Marketing Operations Manager at a B2B SaaS company (Individual lens, 7 opportunities)
 - **Example 2** — AI Instructor running courses and maintaining a knowledge base (Individual lens, 7 opportunities)
 - **Example 3** — VP of Operations at a logistics company (Organizational lens, 5 opportunities)
 
-Examples 1 and 2 use the **individual lens** — analyzing one person's workflows. Example 3 uses the **organizational lens** — analyzing value chain processes tied to business objectives. Autonomy is classified by what decides the next step (see the [classification definitions](#appendix-classification-definitions)): an opportunity where the AI drafts or analyzes inside steps you set is Deterministic, one where the AI's judgment by your rubric or criteria decides what happens next is Guided, and a person taking part along the way makes it Augmented. All three include every section the Analyze step produces: report header, summary table, top 3 recommendations, detailed opportunity cards grouped by autonomy level, workflow candidate summary, and classification definitions. Organizational-lens cards include three additional fields: Business Objective, Stakeholders, and Success Metrics.
+Examples 1 and 2 use the **individual lens** — analyzing one person's workflows. Example 3 uses the **organizational lens** — analyzing value chain processes tied to business objectives. Each opportunity carries one value lever (see the [value lever definitions](#appendix-value-lever-definitions)): Streamline when the work still happens the same way with fewer steps, Automate when a person stops doing it, Accelerate when the outcome arrives sooner, Create value when something becomes possible that wasn't done before. All three include every section the Analyze step produces: report header, summary table, top 3 recommendations, detailed opportunity cards grouped by value lever, workflow candidate summary, and value lever definitions. Organizational-lens cards include three additional fields: Business Objective, Stakeholders, and Success Metrics. How much the AI decides and who takes part while it runs are assessed later, in [Design](../design/), once the steps are known.
 
 ---
 
@@ -527,13 +527,13 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
-|---|------------|----------|-------------|-------------|--------|
-| 1 | Order Fulfillment Tracking | Deterministic | Automated | Automate | High |
-| 2 | Carrier Rate Negotiation Prep | Deterministic | Augmented | Accelerate | Medium |
-| 3 | Demand Forecasting | Deterministic | Augmented | Create value | Medium |
-| 4 | Customer Onboarding | Guided | Augmented | Accelerate | High |
-| 5 | Fleet Maintenance Scheduling | Guided | Automated | Automate | Medium |
+| # | Opportunity | Value lever | Impact |
+|---|------------|-------------|--------|
+| 1 | Order Fulfillment Tracking | Automate | High |
+| 2 | Fleet Maintenance Scheduling | Automate | Medium |
+| 3 | Customer Onboarding | Accelerate | High |
+| 4 | Carrier Rate Negotiation Prep | Accelerate | Medium |
+| 5 | Demand Forecasting | Create value | Medium |
 
 ### Top Recommendations
 
@@ -543,23 +543,20 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 
 ### Detailed Opportunity Cards
 
-#### Deterministic
+#### Automate
 
 ---
 
 **#1 Order Fulfillment Tracking**
 
-**Autonomy:** Deterministic
-**Involvement:** Automated
-
 **Why it's a good candidate:**
-Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a recorded event in the systems the warehouse and transport teams already run, and every alert fires on a timing threshold you set — no AI judgment decides what happens next. Just monitoring, matching, and alerting.
+Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a recorded event in the systems the warehouse and transport teams already run, and every alert fires on a timing threshold you set. Just monitoring, matching, and alerting.
 
 **Current pain point:**
 Customer service reps manually check order status across the WMS and TMS when customers call. Exception detection (delayed shipments, partial picks, missed delivery windows) relies on someone noticing — there's no proactive alerting. The team spends 3-4 hours daily on reactive status checks, and customers often know about problems before the ops team does.
 
 **How AI helps:**
-Takes in each order's stage events as they are recorded and the timing thresholds the ops team sets; produces a live status view of every open order and an alert the moment an order misses a threshold (a pick not started within two hours of receipt, a shipment not scanned inside its delivery window). Fixed rules, fixed thresholds, fixed notifications — the same path every run.
+Takes in each order's stage events as they are recorded and the timing thresholds the ops team sets; produces a live status view of every open order and an alert the moment an order misses a threshold (a pick not started within two hours of receipt, a shipment not scanned inside its delivery window). Fixed rules, fixed thresholds, fixed notifications.
 
 **Value lever:** Automate — reps stop checking status by hand; exceptions find the team instead of the other way round.
 
@@ -575,73 +572,37 @@ The ops team knows about a late order before the customer does, customer service
 
 ---
 
-**#2 Carrier Rate Negotiation Prep**
-
-**Autonomy:** Deterministic
-**Involvement:** Augmented
+**#2 Fleet Maintenance Scheduling**
 
 **Why it's a good candidate:**
-Rate negotiation prep is research-heavy but follows the same steps every quarter: pull shipment volumes by lane, pull carrier on-time performance, benchmark against published rate indices, write the negotiation brief. The AI's analysis shapes what the brief recommends, not what happens next, so it's Deterministic. The negotiation strategy needs human judgment, so the logistics manager reviews the brief before using it (Augmented).
+You set the structure and the rules: service intervals, delivery commitments, and how to weigh uptime against maintenance. For each vehicle the AI uses those rules to decide whether to book service now or defer it, and which low-utilization window to use. The constraints are clear enough that the bookings, work orders, and schedule changes go out without anyone checking each one.
 
 **Current pain point:**
-Quarterly carrier negotiations require 2-3 days of prep. The logistics manager pulls shipment data from the TMS, calculates lane-by-lane volumes, reviews carrier scorecards, researches competitor rate benchmarks, and assembles a briefing document. By the time the brief is ready, some of the market data is already stale.
+Fleet maintenance is tracked in a spreadsheet. The fleet manager checks mileage and schedules services based on manufacturer intervals, but competing delivery commitments mean vehicles often run past due. Unplanned breakdowns cost 3-5x more than scheduled maintenance and disrupt delivery schedules.
 
 **How AI helps:**
-Takes in the quarter's shipment volumes by lane, each carrier's on-time performance, and published rate benchmarks; produces a negotiation brief that names the lanes priced above market, recommends a target rate for each, and shows the evidence. The logistics manager adjusts for relationship factors and walks in prepared.
+Takes in each vehicle's mileage, engine hours, and fault codes alongside the service intervals and the upcoming delivery commitments; produces a maintenance booking in the lowest-utilization window for each vehicle that needs one, the work order for the shop, and the delivery-schedule adjustment around the downtime.
 
-**Value lever:** Accelerate — 2-3 days of prep becomes an afternoon of review, so the brief is built on this week's market data rather than last month's.
-
-**What changes for the business:**
-Negotiations start from current numbers, every lane gets analyzed instead of only the largest, and the logistics manager's time goes to strategy and relationships rather than spreadsheets.
-
-**Systems involved today:** the transport management system, carrier scorecards, published rate indices.
-
-**Business Objective:** Reduce transportation costs by 8% through better carrier rate management
-**Stakeholders:** Logistics Manager (prep + negotiation), VP Operations (approval), Finance (budget impact)
-**Success Metrics:** Average rate reduction per lane, negotiation prep time, rate variance vs. market benchmark
-
-
----
-
-**#3 Demand Forecasting**
-
-**Autonomy:** Deterministic
-**Involvement:** Augmented
-
-**Why it's a good candidate:**
-The forecast follows the same steps every month: analyze shipment history, find seasonal patterns and growth trends per customer, add known upcoming events, produce a 90-day forecast. The AI's modeling changes what the forecast says, not what happens next, so it's Deterministic. Maria adds market intuition and customer-specific knowledge before approving the capacity plan, so a person takes part along the way (Augmented).
-
-**Current pain point:**
-Monthly capacity planning relies on the VP's experience and a basic spreadsheet model. Seasonal demand shifts, new customer ramp-ups, and one-time events aren't systematically factored in. Over-forecasting wastes warehouse labor; under-forecasting creates overtime costs and missed SLAs.
-
-**How AI helps:**
-Takes in 24 months of shipment history by customer and the known upcoming events (new customer launches, holiday peaks); produces a 90-day demand forecast with confidence ranges and the seasonal patterns behind it. Maria adjusts for what the history cannot show — a large customer hinting at a contract change — and approves the capacity plan.
-
-**Value lever:** Create value — a customer-by-customer statistical forecast with confidence ranges does not exist today; the spreadsheet is a staffing guess, not a forecast to compare against.
+**Value lever:** Automate — the fleet manager stops reconciling the spreadsheet against the delivery board; vehicles are booked before they run past due.
 
 **What changes for the business:**
-Warehouse staffing is planned against a stated forecast rather than a feel for the month, over- and under-staffing both shrink, and the forecast's accuracy can be measured and improved quarter by quarter.
+Unplanned breakdowns, which cost 3-5x a scheduled service, become rare, deliveries are planned around downtime instead of disrupted by it, and the fleet manager's week is spent on exceptions rather than scheduling.
 
-**Systems involved today:** the shipment history in the warehouse system, the planning spreadsheet.
+**Systems involved today:** the fleet maintenance spreadsheet, vehicle telematics, the dispatch schedule.
 
-**Business Objective:** Optimize warehouse labor costs while maintaining SLA compliance
-**Stakeholders:** VP Operations (approval), Warehouse Manager (staffing), Finance (labor budget)
-**Success Metrics:** Forecast accuracy (MAPE), labor cost variance, SLA compliance rate
+**Business Objective:** Reduce unplanned vehicle downtime by 50%
+**Stakeholders:** Fleet Manager (scheduling), Maintenance Shop (execution), Dispatch (route adjustment)
+**Success Metrics:** Planned vs. unplanned maintenance ratio, average vehicle uptime %, maintenance cost per mile
 
 
----
-
-#### Guided
+#### Accelerate
 
 ---
 
-**#4 Customer Onboarding**
-
-**Autonomy:** Guided
-**Involvement:** Augmented
+**#3 Customer Onboarding**
 
 **Why it's a good candidate:**
-Onboarding follows a structured sequence (account setup, system configuration, initial shipment planning, training), and at several points the AI makes bounded decisions by your method: which warehouse to assign based on the customer's shipping patterns, which carrier mix to propose, which training schedule fits. Those selections decide what happens next in the setup, so it's Guided. The account manager reviews and approves the key decisions along the way — that's involvement (Augmented), and it doesn't lower the autonomy level.
+Onboarding follows a structured sequence (account setup, system configuration, initial shipment planning, training), and at several points the AI makes bounded decisions by your method: which warehouse to assign based on the customer's shipping patterns, which carrier mix to propose, which training schedule fits. The account manager reviews and approves the key decisions along the way.
 
 **Current pain point:**
 New customer onboarding takes 2-3 weeks and involves sales, operations, and account management. Each team owns different steps, and handoffs are where things break — incomplete information passes between teams, setup tasks get missed, and the customer's first shipment experience sets the tone for the relationship. There's no single owner for the end-to-end outcome.
@@ -663,31 +624,54 @@ A new customer's first shipment goes out in days rather than weeks, nothing fall
 
 ---
 
-**#5 Fleet Maintenance Scheduling**
-
-**Autonomy:** Guided
-**Involvement:** Automated
+**#4 Carrier Rate Negotiation Prep**
 
 **Why it's a good candidate:**
-You set the structure and the rules: service intervals, delivery commitments, and how to weigh uptime against maintenance. For each vehicle the AI uses those rules to decide whether to book service now or defer it, and which low-utilization window to use. That judgment decides what happens next — a work order or not, a delivery-schedule change or not — so it's Guided. It isn't planning open-endedly toward a goal, so it isn't Autonomous. The constraints are clear enough for no one to take part until it's done (Automated).
+Rate negotiation prep is research-heavy but follows the same steps every quarter: pull shipment volumes by lane, pull carrier on-time performance, benchmark against published rate indices, write the negotiation brief. The negotiation strategy needs human judgment, so the logistics manager reviews the brief before using it.
 
 **Current pain point:**
-Fleet maintenance is tracked in a spreadsheet. The fleet manager checks mileage and schedules services based on manufacturer intervals, but competing delivery commitments mean vehicles often run past due. Unplanned breakdowns cost 3-5x more than scheduled maintenance and disrupt delivery schedules.
+Quarterly carrier negotiations require 2-3 days of prep. The logistics manager pulls shipment data from the TMS, calculates lane-by-lane volumes, reviews carrier scorecards, researches competitor rate benchmarks, and assembles a briefing document. By the time the brief is ready, some of the market data is already stale.
 
 **How AI helps:**
-Takes in each vehicle's mileage, engine hours, and fault codes alongside the service intervals and the upcoming delivery commitments; produces a maintenance booking in the lowest-utilization window for each vehicle that needs one, the work order for the shop, and the delivery-schedule adjustment around the downtime.
+Takes in the quarter's shipment volumes by lane, each carrier's on-time performance, and published rate benchmarks; produces a negotiation brief that names the lanes priced above market, recommends a target rate for each, and shows the evidence. The logistics manager adjusts for relationship factors and walks in prepared.
 
-**Value lever:** Automate — the fleet manager stops reconciling the spreadsheet against the delivery board; vehicles are booked before they run past due.
+**Value lever:** Accelerate — 2-3 days of prep becomes an afternoon of review, so the brief is built on this week's market data rather than last month's.
 
 **What changes for the business:**
-Unplanned breakdowns, which cost 3-5x a scheduled service, become rare, deliveries are planned around downtime instead of disrupted by it, and the fleet manager's week is spent on exceptions rather than scheduling.
+Negotiations start from current numbers, every lane gets analyzed instead of only the largest, and the logistics manager's time goes to strategy and relationships rather than spreadsheets.
 
-**Systems involved today:** the fleet maintenance spreadsheet, vehicle telematics, the dispatch schedule.
+**Systems involved today:** the transport management system, carrier scorecards, published rate indices.
 
-**Business Objective:** Reduce unplanned vehicle downtime by 50%
-**Stakeholders:** Fleet Manager (scheduling), Maintenance Shop (execution), Dispatch (route adjustment)
-**Success Metrics:** Planned vs. unplanned maintenance ratio, average vehicle uptime %, maintenance cost per mile
+**Business Objective:** Reduce transportation costs by 8% through better carrier rate management
+**Stakeholders:** Logistics Manager (prep + negotiation), VP Operations (approval), Finance (budget impact)
+**Success Metrics:** Average rate reduction per lane, negotiation prep time, rate variance vs. market benchmark
 
+
+#### Create value
+
+---
+
+**#5 Demand Forecasting**
+
+**Why it's a good candidate:**
+The forecast follows the same steps every month: analyze shipment history, find seasonal patterns and growth trends per customer, add known upcoming events, produce a 90-day forecast. Maria adds market intuition and customer-specific knowledge before approving the capacity plan.
+
+**Current pain point:**
+Monthly capacity planning relies on the VP's experience and a basic spreadsheet model. Seasonal demand shifts, new customer ramp-ups, and one-time events aren't systematically factored in. Over-forecasting wastes warehouse labor; under-forecasting creates overtime costs and missed SLAs.
+
+**How AI helps:**
+Takes in 24 months of shipment history by customer and the known upcoming events (new customer launches, holiday peaks); produces a 90-day demand forecast with confidence ranges and the seasonal patterns behind it. Maria adjusts for what the history cannot show — a large customer hinting at a contract change — and approves the capacity plan.
+
+**Value lever:** Create value — a customer-by-customer statistical forecast with confidence ranges does not exist today; the spreadsheet is a staffing guess, not a forecast to compare against.
+
+**What changes for the business:**
+Warehouse staffing is planned against a stated forecast rather than a feel for the month, over- and under-staffing both shrink, and the forecast's accuracy can be measured and improved quarter by quarter.
+
+**Systems involved today:** the shipment history in the warehouse system, the planning spreadsheet.
+
+**Business Objective:** Optimize warehouse labor costs while maintaining SLA compliance
+**Stakeholders:** VP Operations (approval), Warehouse Manager (staffing), Finance (labor budget)
+**Success Metrics:** Forecast accuracy (MAPE), labor cost variance, SLA compliance rate
 
 ---
 
@@ -703,8 +687,6 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Description** | Orchestrates the end-to-end process of setting up new customers from signed contract through first successful shipment |
 | **Trigger** | Event — new customer contract signed in CRM |
 | **Deliverable** | Fully configured customer account with completed first shipment and satisfaction survey |
-| **Autonomy** | Guided |
-| **Involvement** | Augmented |
 | **Value lever** | Accelerate |
 | **Pain point** | 2-3 week onboarding with frequent handoff failures between sales, ops, and account management — leading to poor first impressions and early churn |
 | **AI opportunity** | Draft the account setup, recommend warehouse and carrier assignments, carry the handoffs between teams, and flag delays |
@@ -723,15 +705,13 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Workflow** | Order Fulfillment Tracking |
 | **Description** | Monitors order lifecycle from receipt through delivery and proactively alerts on exceptions |
 | **Trigger** | Event — new order created in the warehouse system |
-| **Deliverable** | Real-time order status view + automated exception alerts |
-| **Autonomy** | Deterministic |
-| **Involvement** | Automated |
+| **Deliverable** | Real-time order status view + exception alerts |
 | **Value lever** | Automate |
 | **Pain point** | 3-4 hours daily of reactive status checks; customers learn about problems before the ops team |
 | **AI opportunity** | Watch each order's stage events against set thresholds and alert the moment one is missed — no human involvement during execution |
 | **Frequency** | Continuous (hundreds of orders daily) |
 | **Priority** | High |
-| **Reasoning** | Highest volume, directly impacts on-time delivery (key SLA metric), and deterministic nature makes it straightforward to implement |
+| **Reasoning** | Highest volume, directly impacts on-time delivery (key SLA metric), and fixed, well-defined steps make it straightforward to implement |
 | **Lens** | Organizational |
 | **Business Objective** | Achieve 98% on-time delivery rate |
 | **Stakeholders** | Warehouse, Logistics, Customer Service |
@@ -745,8 +725,6 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Description** | Synthesizes shipment data, carrier performance, and market rates into a negotiation-ready brief |
 | **Trigger** | Scheduled — 3 weeks before quarterly carrier review |
 | **Deliverable** | Negotiation brief with lane-by-lane analysis, rate benchmarks, and recommended targets |
-| **Autonomy** | Deterministic |
-| **Involvement** | Augmented |
 | **Value lever** | Accelerate |
 | **Pain point** | 2-3 days of manual data gathering and analysis per quarter; market data goes stale during prep |
 | **AI opportunity** | Analyze shipment and carrier history against market benchmarks and produce a draft brief — logistics manager refines strategy and enters negotiations prepared |
@@ -758,24 +736,11 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Stakeholders** | Logistics Manager, VP Operations, Finance |
 | **Success Metrics** | Average rate reduction, prep time, rate vs. market benchmark |
 
-**Recommendation:** Start with **Customer Onboarding**. It's the highest-impact opportunity tied directly to the company's top strategic objective (customer retention). While it's more complex than Order Fulfillment Tracking, the cross-functional visibility and structured handoffs it creates will improve operations far beyond the onboarding process itself. Order Fulfillment Tracking is the natural second candidate — deterministic and automated, it provides quick wins while the onboarding workflow is being developed.
+**Recommendation:** Start with **Customer Onboarding**. It's the highest-impact opportunity tied directly to the company's top strategic objective (customer retention). While it's more complex than Order Fulfillment Tracking, the cross-functional visibility and structured handoffs it creates will improve operations far beyond the onboarding process itself. Order Fulfillment Tracking is the natural second candidate — fixed rules that run without anyone watching, it provides quick wins while the onboarding workflow is being developed.
 
 ---
 
-## Appendix: Classification Definitions
-
-**Autonomy — How much does the AI decide on its own? Look at what decides the next step.**
-
-- **Deterministic** — you give instructions. You set every step, and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. Test: does the work follow the same path whatever the AI produces? Examples: formatting reports, drafting a status report from fixed sources, drafting feedback against a rubric for a person to review.
-- **Guided** — you give bounded decisions, with your method. You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. Test: does the AI's judgment, made by your rules, decide what happens next? Examples: routing support emails by category, scoring items against a rubric and advancing only those that pass, choosing which source to search for each question.
-- **Autonomous** — you give a goal. The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. Test: could you only describe the goal, not the steps? Examples: research agents that plan and write an article, a monitoring agent that decides where to dig when something changes.
-
-Writing or summarizing inside a step never makes a workflow Guided, and the number of agents doesn't set the level. A branch on a value the AI didn't judge — an API's score, a timer, a field value — is still an instruction: Deterministic. A person approving the AI's decisions doesn't lower the level: if the AI proposes selections by your method and you approve them, it's Guided + Augmented.
-
-**Human Involvement — Does a person take part while it runs?**
-
-- **Augmented**: A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs.
-- **Automated**: No one takes part until it's done. Starting a run by hand doesn't make it Augmented.
+## Appendix: Value Lever Definitions
 
 **Value lever — what kind of value does AI create here?** One per opportunity, the dominant one.
 
