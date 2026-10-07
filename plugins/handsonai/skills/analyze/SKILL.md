@@ -103,10 +103,6 @@ Continue until you can identify at least 3 concrete opportunities — typically 
 
 Once you can identify at least 3 concrete, specific opportunities with enough detail to fill the card format below, produce the structured report.
 
-**Two scales you'll classify each opportunity on (plain-language — full definitions in the Appendix):**
-- **Autonomy** = how much the AI decides on its own — look at **what decides the next step**: **Deterministic** (you give instructions; the AI carries out every step, and its output never changes what happens next, even when it writes or analyzes inside a step) → **Guided** (you give bounded decisions with your method — the AI uses your rubric, criteria, or process to route an item, choose a tool, or judge quality and send work back) → **Autonomous** (you give a goal; the AI plans its own steps and keeps going until the goal is met). An opportunity where the AI drafts inside set steps and the workflow pauses for a person's review before it goes out is Deterministic + Augmented; if the draft is delivered and reviewed only after the run, it's Deterministic + Automated. Use the tests in the Appendix for every opportunity.
-- **Involvement** = does a person take part while it runs: **Augmented** (a person is in the workflow along the way, guiding, engaging, or collaborating with the AI) vs. **Automated** (no one takes part until it's done — starting it by hand doesn't change that).
-
 **Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy, ask one more question or drop the opportunity — a candidate without a clear trigger + deliverable will stall in Deconstruct (Step 2).
 
 #### Phase 5 — Candidates registered
@@ -121,8 +117,6 @@ For each candidate:
 | **Description** | One sentence describing what this workflow does |
 | **Trigger** | What kicks off this workflow — an event, schedule, or request |
 | **Deliverable** | The tangible output — what gets produced, sent, or decided |
-| **Autonomy** | Deterministic / Guided / Autonomous |
-| **Involvement** | Augmented / Automated |
 | **Value lever** | Streamline / Automate / Accelerate / Create value |
 | **Pain point** | What's slow, error-prone, or manual today |
 | **AI opportunity** | Specific description of what AI would do |
@@ -151,7 +145,6 @@ Append this summary to the output file under a `## Workflow Candidate Summary` h
    generated: { by: process:analyze, at: YYYY-MM-DD }
    status: backlog
    trigger: "[Trigger field]"
-   execution_mode: augmented
    ---
    # [Workflow name]
 
@@ -171,9 +164,7 @@ Append this summary to the output file under a `## Workflow Candidate Summary` h
    <!-- /GENERATED -->
    ```
 
-   `execution_mode` is `augmented` for an Augmented workflow and `automated` for an Automated one (`manual` means not yet run by AI); write the value only — no comment in the file.
-
-   `trigger` and `execution_mode` are provisional — Deconstruct and Design refine them. Priority, pain point, and the "build first" recommendation stay in the report; the registry holds the inventory.
+   `trigger` is provisional — Deconstruct refines it. The stub carries no `execution_mode` or `autonomy`: those are Design's to set once the steps are known. Priority, pain point, and the "build first" recommendation stay in the report; the registry holds the inventory.
 3. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md` (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug already exists, merge — never overwrite fields already set.
 
 No registry? Say so once ("No registry here, so the candidates live in the report only — set one up with the `scaffolding-registry` skill when you want an inventory" — unless you already said this at the start) and continue.
@@ -208,9 +199,9 @@ The report must include (in this order):
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
-|---|------------|----------|-------------|-------------|--------|
-| 1 | [Name] | Deterministic / Guided / Autonomous | Augmented / Automated | Streamline / Automate / Accelerate / Create value | High / Medium / Low |
+| # | Opportunity | Value lever | Impact |
+|---|------------|-------------|--------|
+| 1 | [Name] | Streamline / Automate / Accelerate / Create value | High / Medium / Low |
 
 ### Top Recommendations
 
@@ -218,16 +209,13 @@ List the top 3 opportunities in priority order with a one-sentence rationale for
 
 ### Detailed Opportunity Cards
 
-Group cards by autonomy level (Deterministic → Guided → Autonomous). Within each group, order from highest to lowest impact.
+Group cards by value lever, in the order Streamline → Automate → Accelerate → Create value, under a `#### [Lever]` heading per group (omit a heading with no cards). Within each group, order from highest to lowest impact. Number the cards in the order they appear, and use the same order and numbers in the Summary Table.
 
 For each opportunity:
 
 ---
 
 **[#] [Opportunity Name]**
-
-**Autonomy:** Deterministic | Guided | Autonomous
-**Involvement:** Augmented | Automated
 
 **Why it's a good candidate:**
 [What characteristics make this well-suited for AI — repetitive, pattern-based, language-heavy, clear inputs/outputs, etc.]
@@ -255,22 +243,9 @@ For each opportunity:
 
 (Appended after user selects candidates — see Phase 5 format above)
 
-### Appendix: Classification Definitions
+### Appendix: Value Lever Definitions
 
-Use these definitions when classifying opportunities:
-
-**Autonomy — How much does the AI decide on its own? Look at what decides the next step.**
-
-- **Deterministic** — you give instructions. You set every step, and the AI carries each one out. It may write or summarize inside a step, but its output never changes what happens next. Test: does the work follow the same path whatever the AI produces? Examples: formatting reports, drafting a weekly status report from fixed sources, drafting feedback against a rubric for a person to review (the rubric shapes what it writes; it doesn't decide what happens next).
-- **Guided** — you give bounded decisions, with your method. You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. Test: does the AI's judgment, made by your rules, decide what happens next? Examples: sorting support emails by category and routing each to the right queue (escalating unclear ones), scoring insights 1–10 against a rubric and drafting only those that score 7 or higher, an agent that grades drafts against your criteria and sends failures back to be fixed, a browser assistant that judges prospects against a persona and works out how to navigate the site.
-- **Autonomous** — you give a goal. The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. Test: could you only describe the goal, not the steps? Examples: research agents that decide what to investigate and write an article, a monitoring agent that decides where to dig when something changes.
-
-Two notes: **writing or summarizing inside a step never makes a workflow Guided**, and **the number of agents doesn't set the level**. The level is the highest any AI step reaches. Whether a person should check the output is the involvement question, never a reason to raise autonomy. A branch on a value the AI didn't judge — an API's score, a timer, a field value — is still an instruction: Deterministic. A person approving the AI's decisions doesn't lower the level: if the AI proposes selections by your method and you approve them, it's Guided + Augmented.
-
-**Human Involvement — Does a person take part while it runs?**
-
-- **Augmented**: A person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs.
-- **Automated**: No one takes part until it's done. Starting a run by hand doesn't make it Augmented.
+Use these definitions when choosing each opportunity's value lever:
 
 **Value lever — what kind of value does AI create here?** One per opportunity, the dominant one.
 
@@ -283,7 +258,7 @@ When two levers apply, pick the one the user would use to justify the work to th
 
 ## Guidelines
 
-- **Stay at the strategic level.** Analyze names the work, the pain, the value lever, and the deliverable. It never names a tool, connector, integration, agent count, model, or platform, and never proposes a script, API, or automation mechanism. The systems the user uses today are facts about the work and may appear in *Current pain point* and *Systems involved today* ("three Jira boards"); they never appear in *Why it's a good candidate*, *How AI helps*, *Value lever*, or *What changes for the business*, and Analyze never introduces a system the user did not name. If the user asks "could this run through Slack?", say once that Design (Step 3) chooses the mechanism and return to the work. If you notice yourself writing a product name in a recommendation, stop and restate it as the outcome.
+- **Stay at the strategic level.** Analyze names the work, the pain, the value lever, and the deliverable. It never names a tool, connector, integration, agent count, model, or platform, and never proposes a script, API, or automation mechanism. The systems the user uses today are facts about the work and may appear in *Current pain point* and *Systems involved today* ("three Jira boards"); they never appear in *Why it's a good candidate*, *How AI helps*, *Value lever*, or *What changes for the business*, and Analyze never introduces a system the user did not name. If the user asks "could this run through Slack?", say once that Design (Step 3) chooses the mechanism and return to the work. Likewise if the user asks whether it should run on its own or with them in the loop, or how much the AI should decide: say once that Design (Step 3) settles how much the AI decides and who takes part, once the steps are known, and return to the work. If you notice yourself writing a product name in a recommendation, stop and restate it as the outcome.
 - Ask one question at a time — never present a wall of questions
 - Use a conversational flow — let answers guide follow-up questions naturally
 - Push for concrete examples over vague descriptions
