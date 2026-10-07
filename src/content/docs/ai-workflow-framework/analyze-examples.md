@@ -34,15 +34,15 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
-|---|------------|----------|-------------|-------------|--------|
-| 1 | Campaign Performance Reporting | Deterministic | Automated | Automate | High |
-| 2 | Lead Data Enrichment | Deterministic | Automated | Automate | High |
-| 3 | Content Brief Generation | Deterministic | Augmented | Accelerate | High |
-| 4 | Lead Scoring Model Tuning | Deterministic | Augmented | Create value | Medium |
-| 5 | Email Sequence Optimization | Deterministic | Augmented | Accelerate | Medium |
-| 6 | Campaign Budget Reallocation | Guided | Augmented | Accelerate | Low |
-| 7 | Competitive Content Monitoring | Autonomous | Automated | Create value | Medium |
+| # | Opportunity | Value lever | Impact |
+|---|------------|-------------|--------|
+| 1 | Campaign Performance Reporting | Automate | High |
+| 2 | Lead Data Enrichment | Automate | High |
+| 3 | Content Brief Generation | Accelerate | High |
+| 4 | Email Sequence Optimization | Accelerate | Medium |
+| 5 | Campaign Budget Reallocation | Accelerate | Low |
+| 6 | Lead Scoring Model Tuning | Create value | Medium |
+| 7 | Competitive Content Monitoring | Create value | Medium |
 
 ### Top Recommendations
 
@@ -52,23 +52,20 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 
 ### Detailed Opportunity Cards
 
-#### Deterministic
+#### Automate
 
 ---
 
 **#1 Campaign Performance Reporting**
 
-**Autonomy:** Deterministic
-**Involvement:** Automated
-
 **Why it's a good candidate:**
-You give the AI instructions for every step: gather last week's metrics from the same three sources, calculate the changes, fill the fixed template, send the summary. Nothing the AI produces changes what happens next, and the output format never varies. Classic automation candidate.
+The same steps every week: gather last week's metrics from the same three sources, calculate the changes, fill the fixed template, send the summary. The inputs are known, the output format never varies, and nothing about the work needs a judgment call.
 
 **Current pain point:**
 Every Monday morning, Sarah spends 3-4 hours pulling data from three ad platforms, copying numbers into a Google Sheet, calculating WoW changes, formatting a slide deck, and emailing it to the VP of Marketing. The process is tedious and error-prone — last month a copy-paste error overstated LinkedIn ROAS by 40%, which wasn't caught until the executive review.
 
 **How AI helps:**
-Takes in last week's campaign metrics from the three sources Sarah uses today and the standing slide template; produces the completed weekly deck with period-over-period changes and a short written summary, ready to send. Same path every week.
+Takes in last week's campaign metrics from the three sources Sarah uses today and the standing slide template; produces the completed weekly deck with period-over-period changes and a short written summary, ready to send.
 
 **Value lever:** Automate — Sarah stops doing the Monday pull entirely; the deck exists before she sits down.
 
@@ -82,11 +79,8 @@ The VP of Marketing gets the report first thing Monday instead of mid-morning, t
 
 **#2 Lead Data Enrichment**
 
-**Autonomy:** Deterministic
-**Involvement:** Automated
-
 **Why it's a good candidate:**
-Enrichment follows clear rules: look up the company, match it to a firmographic record, fill in the missing fields (industry, employee count, revenue range). No ambiguity in what "correct" looks like — either the data matches or it doesn't. The one branch, flagging low-confidence matches for manual review, uses a confidence score the data source supplies, not an AI judgment, so the work follows the same path whatever the AI produces.
+Enrichment follows clear rules: look up the company, match it to a firmographic record, fill in the missing fields (industry, employee count, revenue range). No ambiguity in what "correct" looks like — either the data matches or it doesn't. The one branch, flagging low-confidence matches for a person to check, uses a confidence score the data source supplies.
 
 **Current pain point:**
 New leads arrive from webinars and content downloads with incomplete data — often just name and email. Sarah's team manually researches each company on LinkedIn and Crunchbase to fill in firmographic fields before leads can be scored and routed. This takes 10-15 minutes per lead, and with 50+ new leads per week, it's a significant time drain that delays sales follow-up.
@@ -102,15 +96,14 @@ Sales follow-up starts the same day a lead arrives instead of days later, scorin
 **Systems involved today:** the CRM, the webinar and content-download forms, LinkedIn and Crunchbase for lookups.
 
 
+#### Accelerate
+
 ---
 
 **#3 Content Brief Generation**
 
-**Autonomy:** Deterministic
-**Involvement:** Augmented
-
 **Why it's a good candidate:**
-Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keyword research, top-ranking competitor articles, customer quotes from recent calls, then the brief. The AI's judgment about messaging angle shapes what the brief says, but every brief goes through the same steps, so it's Deterministic. Sarah reviews, adjusts the angle, and approves the draft along the way — that's what makes it Augmented.
+Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keyword research, top-ranking competitor articles, customer quotes from recent calls, then the brief. Every brief goes through the same steps; Sarah reviews, adjusts the angle, and approves the draft before it goes to a writer.
 
 **Current pain point:**
 The content team produces 8-10 blog posts per month. Each brief takes Sarah or her content strategist ~90 minutes: researching keywords in Ahrefs, reviewing top-ranking competitor articles, pulling relevant customer quotes from Gong, and structuring the brief. The research portion is 70% of the time, and the quality varies depending on who writes the brief.
@@ -128,37 +121,10 @@ Eight to ten briefs a month reach writers earlier and in the same shape every ti
 
 ---
 
-**#4 Lead Scoring Model Tuning**
-
-**Autonomy:** Deterministic
-**Involvement:** Augmented
+**#4 Email Sequence Optimization**
 
 **Why it's a good candidate:**
-The analysis follows the same steps every time: take the closed deals, test which attributes correlate with conversion, propose new weights. The AI's analysis shapes what it recommends, but never what happens next, so it's Deterministic. The business logic of what makes a "sales-ready" lead needs domain expertise and sales team input, so Sarah reviews the proposal with the sales team before anything changes (Augmented).
-
-**Current pain point:**
-The current lead scoring model in HubSpot was set up 18 months ago and hasn't been recalibrated. Sarah suspects the weights are off — the sales team complains that "hot" leads often aren't ready to buy, while some "warm" leads convert quickly. Recalibrating requires exporting data, running correlation analysis, and proposing new weights, which keeps getting deprioritized.
-
-**How AI helps:**
-Takes in the last 12 months of lead-to-close history with each lead's attributes and score at handoff; produces a short analysis of which attributes (job title, company size, content engagement, page visits) actually predicted conversion, and a proposed set of scoring weights with the evidence behind each. Sarah reviews the proposal with the sales team and decides what changes.
-
-**Value lever:** Create value — there is no today version of this analysis: no recalibration has been done in 18 months, so there is nothing to compare against.
-
-**What changes for the business:**
-"Hot" leads start meaning what sales expects them to mean, the handoff conversation between marketing and sales moves from complaints to evidence, and the model gets reviewed on a schedule instead of never.
-
-**Systems involved today:** the CRM's lead scoring and opportunity history.
-
-
----
-
-**#5 Email Sequence Optimization**
-
-**Autonomy:** Deterministic
-**Involvement:** Augmented
-
-**Why it's a good candidate:**
-The steps are set: pull the metrics, rank the sequences by open, click, and reply rates, diagnose the weakest emails, draft variants. The ranking is a metric sort, and the AI's diagnosis and copywriting happen inside those steps without changing what happens next, so it's Deterministic. Brand voice, compliance, and which variants to test need a person, so Sarah reviews before anything goes out (Augmented).
+The steps are set: pull the metrics, rank the sequences by open, click, and reply rates, diagnose the weakest emails, draft variants. The ranking is a metric sort. Brand voice, compliance, and which variants to test need a person, so Sarah reviews before anything goes out.
 
 **Current pain point:**
 Sarah manages 12 active email nurture sequences. Reviewing performance, identifying underperforming emails, and writing A/B test variants is a monthly task that takes a full day. She often defaults to tweaking subject lines because rewriting full emails is too time-consuming, leaving bigger optimization opportunities on the table.
@@ -176,17 +142,10 @@ Underperforming sequences get fixed in the month they underperform, the team tes
 
 ---
 
-#### Guided
-
----
-
-**#6 Campaign Budget Reallocation**
-
-**Autonomy:** Guided
-**Involvement:** Augmented
+**#5 Campaign Budget Reallocation**
 
 **Why it's a good candidate:**
-You set the structure and the method: the metrics and thresholds that define "off target", and how to model a reallocation. The AI uses your method to judge when a channel warrants a recommendation and which scenarios to model — its judgment, made by your rules, decides what happens next, so it's Guided. It isn't planning the work from an open-ended goal, so it isn't Autonomous. Budget moves have direct financial impact, so Sarah approves every recommendation before any money moves (Augmented).
+You set the structure and the method: the metrics and thresholds that define "off target", and how to model a reallocation. The AI uses your method to judge when a channel warrants a recommendation and which scenarios to model. Budget moves have direct financial impact, so Sarah approves every recommendation before any money moves.
 
 **Current pain point:**
 Campaign budgets are set quarterly and adjusted monthly based on performance. Sarah spends half a day each month analyzing cost-per-lead and ROAS across channels, modeling "what if" scenarios in a spreadsheet, and proposing reallocations to the VP. The analysis is always backward-looking, and by the time changes are implemented, market conditions have shifted.
@@ -202,19 +161,35 @@ Budget moves within days of a channel drifting instead of at month end, every mo
 **Systems involved today:** the ad platforms' performance reports, the planning spreadsheet.
 
 
+#### Create value
+
 ---
 
-#### Autonomous
+**#6 Lead Scoring Model Tuning**
+
+**Why it's a good candidate:**
+The analysis follows the same steps every time: take the closed deals, test which attributes correlate with conversion, propose new weights. The business logic of what makes a "sales-ready" lead needs domain expertise and sales team input, so Sarah reviews the proposal with the sales team before anything changes.
+
+**Current pain point:**
+The current lead scoring model in HubSpot was set up 18 months ago and hasn't been recalibrated. Sarah suspects the weights are off — the sales team complains that "hot" leads often aren't ready to buy, while some "warm" leads convert quickly. Recalibrating requires exporting data, running correlation analysis, and proposing new weights, which keeps getting deprioritized.
+
+**How AI helps:**
+Takes in the last 12 months of lead-to-close history with each lead's attributes and score at handoff; produces a short analysis of which attributes (job title, company size, content engagement, page visits) actually predicted conversion, and a proposed set of scoring weights with the evidence behind each. Sarah reviews the proposal with the sales team and decides what changes.
+
+**Value lever:** Create value — there is no today version of this analysis: no recalibration has been done in 18 months, so there is nothing to compare against.
+
+**What changes for the business:**
+"Hot" leads start meaning what sales expects them to mean, the handoff conversation between marketing and sales moves from complaints to evidence, and the model gets reviewed on a schedule instead of never.
+
+**Systems involved today:** the CRM's lead scoring and opportunity history.
+
 
 ---
 
 **#7 Competitive Content Monitoring**
 
-**Autonomy:** Autonomous
-**Involvement:** Automated
-
 **Why it's a good candidate:**
-You can describe the goal — catch competitor positioning changes before sales hears about them on a call — but not the steps. When the AI spots something new, it decides what to do next at each turn (check the pricing page, the docs, job postings, press coverage) and keeps going until it can explain the change. That open-ended decision-making is what makes it Autonomous. The inputs are public and the output is a digest, so no one takes part until it's done.
+The goal is clear — catch competitor positioning changes before sales hears about them on a call — and the work is research: when something new appears, check the pricing page, the docs, job postings, and press coverage until the change can be explained. The inputs are public and the output is a digest.
 
 **Current pain point:**
 Sarah tries to keep tabs on 5 key competitors' content and messaging, but it's inconsistent — she checks their blogs when she remembers, usually before quarterly planning. The team often learns about competitor positioning changes reactively (from sales call objections) rather than proactively.
@@ -222,13 +197,10 @@ Sarah tries to keep tabs on 5 key competitors' content and messaging, but it's i
 **How AI helps:**
 Takes in the five competitors' public presence — their blogs, release notes, and social accounts — each week; produces a digest of the 3-5 most notable changes with what each means for Sarah's content strategy. Where it finds a change it cannot yet explain, it keeps investigating until it can.
 
-A note on how the level climbs: a first version that checks the same sources and summarizes anything new is Deterministic (fixed sources, fixed steps). It becomes Guided if the AI picks the 3-5 most notable changes by criteria you write, and Autonomous when you let it decide where to dig after it spots a change.
-
 **Value lever:** Create value — there is no monitoring process today, only occasional glances before planning; a weekly digest is new work, not faster work.
 
 **What changes for the business:**
 Sales hears about competitor positioning shifts from marketing before hearing them as objections on calls, and quarterly planning starts from a record of what changed rather than from memory.
-
 
 ---
 
@@ -244,11 +216,9 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Description** | Aggregates weekly campaign metrics from three ad platforms into a formatted slide deck and email summary |
 | **Trigger** | Scheduled — every Monday at 7:00 AM |
 | **Deliverable** | Google Slides deck + email summary sent to VP of Marketing |
-| **Autonomy** | Deterministic |
-| **Involvement** | Automated |
 | **Value lever** | Automate |
 | **Pain point** | 3-4 hours of manual data pulling and formatting every Monday, with copy-paste errors that erode trust in the numbers |
-| **AI opportunity** | Gather the week's metrics from the three sources, calculate WoW changes, fill the slide template, and send the summary — no human steps during execution |
+| **AI opportunity** | Gather the week's metrics from the three sources, calculate WoW changes, fill the slide template, and send the summary |
 | **Frequency** | Weekly |
 | **Priority** | High |
 | **Reasoning** | Highest time savings (4 hrs/week), zero ambiguity in logic, and directly addresses a reliability issue that affects executive trust |
@@ -261,8 +231,6 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Description** | Completes each new inbound lead's firmographic fields from an agreed data source |
 | **Trigger** | Event — new lead created in the CRM |
 | **Deliverable** | Enriched lead record with firmographic fields populated in the CRM |
-| **Autonomy** | Deterministic |
-| **Involvement** | Automated |
 | **Value lever** | Automate |
 | **Pain point** | 10-15 minutes of manual research per lead, 50+ leads/week, delays sales follow-up |
 | **AI opportunity** | Identify the company from the lead, fill the standard firmographic fields, and set aside low-confidence matches for a person |
@@ -278,8 +246,6 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Description** | Researches and drafts structured content briefs for the blog editorial calendar |
 | **Trigger** | Request — content strategist submits a topic and target keyword |
 | **Deliverable** | Structured content brief (audience, keywords, competitor analysis, outline, key points) |
-| **Autonomy** | Deterministic |
-| **Involvement** | Augmented |
 | **Value lever** | Accelerate |
 | **Pain point** | 90 minutes per brief, mostly spent on repetitive research; quality varies by author |
 | **AI opportunity** | AI handles keyword research, competitor article analysis, and brief drafting; human refines strategic angle and approves |
@@ -287,7 +253,7 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Priority** | High |
 | **Reasoning** | Large time savings per brief (75 min), high frequency, and directly improves content quality consistency |
 
-**Recommendation:** Start with **Campaign Performance Reporting**. It's the simplest to build (deterministic, well-defined inputs/outputs), delivers immediate visible value to leadership, and builds confidence in AI workflows before tackling candidates where the AI decides more of what happens next.
+**Recommendation:** Start with **Campaign Performance Reporting**. It's the simplest to build (well-defined inputs and outputs), delivers immediate visible value to leadership, and builds confidence in AI workflows before tackling candidates where the AI decides more of what happens next.
 
 ---
 
