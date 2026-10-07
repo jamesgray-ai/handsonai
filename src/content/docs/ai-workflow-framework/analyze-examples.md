@@ -278,15 +278,15 @@ James Gray is an AI Instructor who runs live cohort courses and maintains the Ha
 
 ### Summary Table
 
-| # | Opportunity | Autonomy | Involvement | Value lever | Impact |
-|---|------------|----------|-------------|-------------|--------|
-| 1 | Assignment Feedback Drafting | Deterministic | Augmented | Accelerate | High |
-| 2 | Lesson Slide Formatting | Deterministic | Automated | Automate | Medium |
-| 3 | Post-Class Summary Generation | Deterministic | Automated | Automate | Medium |
-| 4 | Course Content Updates | Deterministic | Augmented | Streamline | Medium |
-| 5 | Student Q&A Research | Guided | Augmented | Accelerate | High |
-| 6 | Newsletter Curation | Guided | Augmented | Streamline | Low |
-| 7 | Meeting Prep Briefs | Autonomous | Automated | Create value | Medium |
+| # | Opportunity | Value lever | Impact |
+|---|------------|-------------|--------|
+| 1 | Course Content Updates | Streamline | Medium |
+| 2 | Newsletter Curation | Streamline | Low |
+| 3 | Lesson Slide Formatting | Automate | Medium |
+| 4 | Post-Class Summary Generation | Automate | Medium |
+| 5 | Assignment Feedback Drafting | Accelerate | High |
+| 6 | Student Q&A Research | Accelerate | High |
+| 7 | Meeting Prep Briefs | Create value | Medium |
 
 ### Top Recommendations
 
@@ -296,92 +296,14 @@ James Gray is an AI Instructor who runs live cohort courses and maintains the Ha
 
 ### Detailed Opportunity Cards
 
-#### Deterministic
+#### Streamline
 
 ---
 
-**#1 Assignment Feedback Drafting**
-
-**Autonomy:** Deterministic
-**Involvement:** Augmented
+**#1 Course Content Updates**
 
 **Why it's a good candidate:**
-Every submission goes through the same steps: read it against the rubric and assignment prompt, note strengths and gaps, draft feedback with references to course material. The AI uses the rubric to write the feedback, not to decide what happens next — every draft goes to James — so it's Deterministic. James adds the coaching touch and approves each draft before it's sent; that's the Augmented part, not more autonomy.
-
-**Current pain point:**
-James reviews 15-25 student assignments per cohort. Each piece of feedback takes 10-15 minutes: reading the submission, checking it against the rubric, identifying strengths and areas for improvement, and writing personalized comments. A full round of feedback takes 4-6 hours, and the turnaround time directly affects student momentum.
-
-**How AI helps:**
-Takes in each submission, the rubric, and the assignment prompt; produces a draft of specific, constructive feedback — what was done well, where the gaps or misunderstandings are, and which course material to revisit. James reviews each draft, adds personal observations, adjusts tone, and approves before sending.
-
-**Value lever:** Accelerate — a round of feedback that took 4-6 hours is reviewed in one, so students hear back in a day instead of a week.
-
-**What changes for the business:**
-Students get feedback while the assignment is still fresh, every submission is measured against the same rubric, and James's time goes to the coaching comments only he can write.
-
-**Systems involved today:** the course platform's submissions, the rubric document.
-
-
-
----
-
-**#2 Lesson Slide Formatting**
-
-**Autonomy:** Deterministic
-**Involvement:** Automated
-
-**Why it's a good candidate:**
-Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. You give instructions for every step: parse the markdown, map each block to a slide template, apply the formatting rules. The content is already decided, and the work follows the same path every time. It's pure template application.
-
-**Current pain point:**
-After writing lesson content in markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
-
-**How AI helps:**
-Takes in the finished lesson text and the course's formatting rules; produces the formatted slide deck — title, content, code, and exercise slides — with the brand template applied. Same rules every time.
-
-**Value lever:** Automate — James stops formatting slides; the deck is ready when the lesson text is.
-
-**What changes for the business:**
-Full days of quarterly formatting return to lesson design, every deck looks the same, and a last-minute content change no longer means an hour of reformatting.
-
-**Systems involved today:** the lesson files, the slide tool, the brand template.
-
-
-
----
-
-**#3 Post-Class Summary Generation**
-
-**Autonomy:** Deterministic
-**Involvement:** Automated
-
-**Why it's a good candidate:**
-Class summaries follow a fixed structure: topics covered, key takeaways, action items, links to resources mentioned. The input (class recording transcript + lesson plan) is well-defined, and the output format doesn't vary. The AI writes the summary, but writing inside a step never makes a workflow Guided — the email goes out the same way whatever it says.
-
-**Current pain point:**
-After each live session, James writes a summary email to students recapping what was covered, highlighting key concepts, and listing homework or next steps. This takes 20-30 minutes per session, and it's always the first thing that gets skipped when time is tight — meaning students miss the reinforcement.
-
-**How AI helps:**
-Takes in the session transcript and the lesson plan; produces the standard summary email — topics actually covered, key takeaways, action items, and the resources mentioned — ready to go out within an hour of class ending.
-
-**Value lever:** Automate — the summary that gets skipped when time is tight now goes out every time without James writing it.
-
-**What changes for the business:**
-Every student gets the reinforcement email after every session, not only the sessions with a quiet evening after them, and homework and next steps are stated the same way each week.
-
-**Systems involved today:** the meeting recording and transcript, the lesson plan, email.
-
-
-
----
-
-**#4 Course Content Updates**
-
-**Autonomy:** Deterministic
-**Involvement:** Augmented
-
-**Why it's a good candidate:**
-AI platforms release updates frequently, and checking whether course content is still accurate means comparing current docs against existing lesson material — a tedious but critical task. The comparison runs the same way each time: you hand the AI the lesson page and the matching documentation, and it lists discrepancies and drafts edits. Its findings change what the suggestions say, not what happens next, so it's Deterministic. James decides which edits are worth making (Augmented).
+AI platforms release updates frequently, and checking whether course content is still accurate means comparing current docs against existing lesson material — a tedious but critical task. The comparison runs the same way each time: you hand the AI the lesson page and the matching documentation, and it lists discrepancies and drafts edits. James decides which edits are worth making.
 
 **Current pain point:**
 Platform updates (new Claude features, changed OpenAI pricing, deprecated Gemini APIs) can make course material outdated overnight. James periodically audits lessons against current documentation, but it's reactive — he often discovers outdated content when a student flags it in class. A full content audit across 30+ pages takes a full day.
@@ -397,45 +319,12 @@ Outdated content is found by the audit rather than by a student in class, and a 
 **Systems involved today:** the course pages, the platforms' official documentation.
 
 
-
 ---
 
-#### Guided
-
----
-
-**#5 Student Q&A Research**
-
-**Autonomy:** Guided
-**Involvement:** Augmented
+**#2 Newsletter Curation**
 
 **Why it's a good candidate:**
-Student questions vary, and the AI makes bounded decisions by your method for each one: it chooses which of the sources you allow to check — the playbook, the official documentation, or the open web — and whether a quick example is needed. Choosing the source decides what happens next, so it's Guided. The answer also needs to be pedagogically appropriate (right level of detail, connected to course concepts), so James reviews the draft before posting (Augmented).
-
-**Current pain point:**
-Students ask questions via Slack, email, and in class that go beyond the prepared material — "How does this work in Gemini?", "What's the difference between X and Y?", "Can you show an example of Z?" James spends 15-30 minutes per question researching current docs, testing examples, and crafting a thoughtful answer. With 10-15 questions per week across cohorts, this is 3-5 hours of reactive work.
-
-**How AI helps:**
-Takes in a student's question and the course's level; produces a sourced draft answer with a practical example, pitched for that course. James reviews, adjusts the pedagogical framing, and posts it. The answer is also kept for the playbook, so the next student with the same question finds it already written.
-
-**Value lever:** Accelerate — a 15-30 minute research cycle becomes a five-minute review, so questions are answered the same day.
-
-**What changes for the business:**
-Students get thorough, sourced answers quickly instead of waiting on James's calendar, 3-5 hours a week of reactive research return to teaching, and every answer becomes reusable content.
-
-**Systems involved today:** the course chat, email, the playbook, the platforms' documentation.
-
-
-
----
-
-**#6 Newsletter Curation**
-
-**Autonomy:** Guided
-**Involvement:** Augmented
-
-**Why it's a good candidate:**
-The sources are configured in advance and the structure is set: check each source, judge each item's relevance to practical AI adoption, summarize the top items. The relevance judgment, made by your criteria, decides which items advance to the digest and which are dropped — the AI's judgment decides what happens next for each item, so it's Guided. James reviews the digest, removes items, and adds commentary before he publishes (Augmented).
+The sources are configured in advance and the structure is set: check each source, judge each item's relevance to practical AI adoption, summarize the top items. The relevance judgment, made by James's criteria, decides which items make the digest. James reviews it, removes items, and adds commentary before he publishes.
 
 **Current pain point:**
 James curates a periodic newsletter of AI developments relevant to his students and audience. Scanning RSS feeds, Twitter/X, AI news sites, and research papers takes 1-2 hours per edition. The inconsistency of the publishing schedule (sometimes biweekly, sometimes monthly) reflects the time pressure — it's always the lowest-priority task.
@@ -451,20 +340,102 @@ The newsletter goes out on a steady schedule instead of when time allows, and Ja
 **Systems involved today:** news feeds, social accounts, research preprint listings, the newsletter platform.
 
 
+#### Automate
 
 ---
 
-#### Autonomous
+**#3 Lesson Slide Formatting**
+
+**Why it's a good candidate:**
+Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. The steps are fixed: parse the markdown, map each block to a slide template, apply the formatting rules. The content is already decided; this is pure template application.
+
+**Current pain point:**
+After writing lesson content in markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
+
+**How AI helps:**
+Takes in the finished lesson text and the course's formatting rules; produces the formatted slide deck — title, content, code, and exercise slides — with the brand template applied. Same rules every time.
+
+**Value lever:** Automate — James stops formatting slides; the deck is ready when the lesson text is.
+
+**What changes for the business:**
+Full days of quarterly formatting return to lesson design, every deck looks the same, and a last-minute content change no longer means an hour of reformatting.
+
+**Systems involved today:** the lesson files, the slide tool, the brand template.
+
+
+---
+
+**#4 Post-Class Summary Generation**
+
+**Why it's a good candidate:**
+Class summaries follow a fixed structure: topics covered, key takeaways, action items, links to resources mentioned. The input (class recording transcript + lesson plan) is well-defined, and the output format doesn't vary. The AI writes the summary and the email goes out the same way every time.
+
+**Current pain point:**
+After each live session, James writes a summary email to students recapping what was covered, highlighting key concepts, and listing homework or next steps. This takes 20-30 minutes per session, and it's always the first thing that gets skipped when time is tight — meaning students miss the reinforcement.
+
+**How AI helps:**
+Takes in the session transcript and the lesson plan; produces the standard summary email — topics actually covered, key takeaways, action items, and the resources mentioned — ready to go out within an hour of class ending.
+
+**Value lever:** Automate — the summary that gets skipped when time is tight now goes out every time without James writing it.
+
+**What changes for the business:**
+Every student gets the reinforcement email after every session, not only the sessions with a quiet evening after them, and homework and next steps are stated the same way each week.
+
+**Systems involved today:** the meeting recording and transcript, the lesson plan, email.
+
+
+#### Accelerate
+
+---
+
+**#5 Assignment Feedback Drafting**
+
+**Why it's a good candidate:**
+Every submission goes through the same steps: read it against the rubric and assignment prompt, note strengths and gaps, draft feedback with references to course material. Every draft goes to James, who adds the coaching touch and approves it before it's sent.
+
+**Current pain point:**
+James reviews 15-25 student assignments per cohort. Each piece of feedback takes 10-15 minutes: reading the submission, checking it against the rubric, identifying strengths and areas for improvement, and writing personalized comments. A full round of feedback takes 4-6 hours, and the turnaround time directly affects student momentum.
+
+**How AI helps:**
+Takes in each submission, the rubric, and the assignment prompt; produces a draft of specific, constructive feedback — what was done well, where the gaps or misunderstandings are, and which course material to revisit. James reviews each draft, adds personal observations, adjusts tone, and approves before sending.
+
+**Value lever:** Accelerate — a round of feedback that took 4-6 hours is reviewed in one, so students hear back in a day instead of a week.
+
+**What changes for the business:**
+Students get feedback while the assignment is still fresh, every submission is measured against the same rubric, and James's time goes to the coaching comments only he can write.
+
+**Systems involved today:** the course platform's submissions, the rubric document.
+
+
+---
+
+**#6 Student Q&A Research**
+
+**Why it's a good candidate:**
+Student questions vary, so for each one the AI works out which of the allowed sources to check — the playbook, the official documentation, or the open web — and whether a quick example is needed. The answer also needs to be pedagogically appropriate (right level of detail, connected to course concepts), so James reviews the draft before posting.
+
+**Current pain point:**
+Students ask questions via Slack, email, and in class that go beyond the prepared material — "How does this work in Gemini?", "What's the difference between X and Y?", "Can you show an example of Z?" James spends 15-30 minutes per question researching current docs, testing examples, and crafting a thoughtful answer. With 10-15 questions per week across cohorts, this is 3-5 hours of reactive work.
+
+**How AI helps:**
+Takes in a student's question and the course's level; produces a sourced draft answer with a practical example, pitched for that course. James reviews, adjusts the pedagogical framing, and posts it. The answer is also kept for the playbook, so the next student with the same question finds it already written.
+
+**Value lever:** Accelerate — a 15-30 minute research cycle becomes a five-minute review, so questions are answered the same day.
+
+**What changes for the business:**
+Students get thorough, sourced answers quickly instead of waiting on James's calendar, 3-5 hours a week of reactive research return to teaching, and every answer becomes reusable content.
+
+**Systems involved today:** the course chat, email, the playbook, the platforms' documentation.
+
+
+#### Create value
 
 ---
 
 **#7 Meeting Prep Briefs**
 
-**Autonomy:** Autonomous
-**Involvement:** Automated
-
 **Why it's a good candidate:**
-You can describe the goal — a brief that tells James who he's meeting and why it matters — but not the steps. Each meeting is different: the AI decides what to search for each attendee and what to do next at each turn based on what it finds (a thin public profile sends it to company press or past talks), and keeps going until the brief is complete. That open-ended decision-making makes it Autonomous. The brief is read as-is before the meeting, so no one takes part until it's done.
+The goal is clear — a brief that tells James who he's meeting and why it matters — and each meeting is different: what to search for each attendee depends on what turns up (a thin public profile sends the research to company press or past talks). The brief is read as-is before the meeting.
 
 **Current pain point:**
 James has 5-8 external meetings per week — prospective clients, conference organizers, partnership discussions, guest lecturers. Before each meeting, he spends 15-20 minutes researching the person and company on LinkedIn, their website, and recent news. Some meetings get thorough prep; others get none because of time pressure, leading to missed context.
@@ -478,8 +449,6 @@ Takes in the meeting title and attendee names two hours before each external mee
 Every external meeting starts with context instead of a cold open, and the 15-20 minutes per meeting that sometimes happened and sometimes didn't is no longer James's to find.
 
 **Systems involved today:** the calendar, professional profiles, company websites, past email.
-
-
 
 ---
 
@@ -495,8 +464,6 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Description**    | Researches student questions and drafts sourced, pedagogically appropriate answers                                                |
 | **Trigger**        | Request — student posts a question in the course chat or by email                                                                 |
 | **Deliverable**    | Draft answer with sources and examples, ready for instructor review and posting                                                   |
-| **Autonomy**       | Guided                                                                                                                            |
-| **Involvement**    | Augmented                                                                                                                         |
 | **Value lever**    | Accelerate                                                                                                                        |
 | **Pain point**     | 15-30 minutes per question, 10-15 questions/week — reactive research that fragments focused work time                             |
 | **AI opportunity** | AI researches docs, finds examples, and drafts an answer at the right course level; instructor reviews and adjusts before posting |
@@ -512,8 +479,6 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Description**    | Drafts personalized assignment feedback based on rubric criteria and submission content                                                   |
 | **Trigger**        | Event — assignment submission deadline passes                                                                                             |
 | **Deliverable**    | Draft feedback for each submission, ready for instructor review and delivery                                                              |
-| **Autonomy**       | Deterministic                                                                                                                             |
-| **Involvement**    | Augmented                                                                                                                                 |
 | **Value lever**    | Accelerate                                                                                                                                |
 | **Pain point**     | 10-15 minutes per submission, 15-25 per cohort — slow turnaround affects student momentum                                                 |
 | **AI opportunity** | AI reads submissions against rubric, identifies strengths and gaps, drafts specific constructive feedback with course material references |
@@ -526,17 +491,15 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | Field              | Content                                                                                                                                                            |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Workflow**       | Meeting Prep Briefs                                                                                                                                                |
-| **Description**    | Autonomously researches attendees and generates structured prep briefs before external meetings                                                                    |
+| **Description**    | Researches attendees and produces a structured prep brief before each external meeting                                                                               |
 | **Trigger**        | Scheduled — 2 hours before each external calendar event                                                                                                            |
 | **Deliverable**    | Structured meeting brief, delivered where James reads before meetings                                                                                              |
-| **Autonomy**       | Autonomous                                                                                                                                                         |
-| **Involvement**    | Automated                                                                                                                                                          |
 | **Value lever**    | Create value                                                                                                                                                       |
 | **Pain point**     | 15-20 minutes per meeting, 5-8 meetings/week — inconsistent prep quality due to time pressure                                                                      |
-| **AI opportunity** | AI independently researches attendees, identifies relevant context, and delivers a ready-to-read brief with no human steps during execution                        |
+| **AI opportunity** | AI researches attendees, identifies relevant context, and delivers a ready-to-read brief before the meeting                                                      |
 | **Frequency**      | Daily                                                                                                                                                              |
 | **Priority**       | Medium                                                                                                                                                             |
-| **Reasoning**      | High frequency and fully automatable — moderate impact per meeting but compounds across 5-8 weekly meetings; also a good proof-of-concept for autonomous workflows |
+| **Reasoning**      | High frequency and runs without James — moderate impact per meeting but compounds across 5-8 weekly meetings; also a good proof-of-concept for research work          |
 
 **Recommendation:** Start with **Student Q&A Research**. It's the highest-frequency opportunity, directly improves the core teaching experience, and produces a tangible artifact (the answer) that compounds in value as it builds the playbook's knowledge base. It's also the workflow whose inputs James already has to hand: the questions arrive daily, and the sources to answer them from are known.
 
