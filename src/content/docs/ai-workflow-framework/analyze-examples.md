@@ -499,7 +499,7 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **AI opportunity** | AI researches attendees, identifies relevant context, and delivers a ready-to-read brief before the meeting                                                      |
 | **Frequency**      | Daily                                                                                                                                                              |
 | **Priority**       | Medium                                                                                                                                                             |
-| **Reasoning**      | High frequency and runs without James — moderate impact per meeting but compounds across 5-8 weekly meetings; also a good proof-of-concept for research work          |
+| **Reasoning**      | High frequency and runs without James — moderate impact per meeting but compounds across 5-8 weekly meetings; also a good proof-of-concept for research-heavy workflows |
 
 **Recommendation:** Start with **Student Q&A Research**. It's the highest-frequency opportunity, directly improves the core teaching experience, and produces a tangible artifact (the answer) that compounds in value as it builds the playbook's knowledge base. It's also the workflow whose inputs James already has to hand: the questions arrive daily, and the sources to answer them from are known.
 
@@ -575,7 +575,7 @@ The ops team knows about a late order before the customer does, customer service
 **#2 Fleet Maintenance Scheduling**
 
 **Why it's a good candidate:**
-You set the structure and the rules: service intervals, delivery commitments, and how to weigh uptime against maintenance. For each vehicle the AI uses those rules to decide whether to book service now or defer it, and which low-utilization window to use. The constraints are clear enough that the bookings, work orders, and schedule changes go out without anyone checking each one.
+You set the structure and the rules: service intervals, delivery commitments, and how to weigh uptime against maintenance. For each vehicle the AI uses those rules to decide whether to book service now or defer it, and which low-utilization window to use. The constraints are clear enough to book directly from the rules.
 
 **Current pain point:**
 Fleet maintenance is tracked in a spreadsheet. The fleet manager checks mileage and schedules services based on manufacturer intervals, but competing delivery commitments mean vehicles often run past due. Unplanned breakdowns cost 3-5x more than scheduled maintenance and disrupt delivery schedules.
@@ -736,7 +736,7 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Stakeholders** | Logistics Manager, VP Operations, Finance |
 | **Success Metrics** | Average rate reduction, prep time, rate vs. market benchmark |
 
-**Recommendation:** Start with **Customer Onboarding**. It's the highest-impact opportunity tied directly to the company's top strategic objective (customer retention). While it's more complex than Order Fulfillment Tracking, the cross-functional visibility and structured handoffs it creates will improve operations far beyond the onboarding process itself. Order Fulfillment Tracking is the natural second candidate — fixed rules that run without anyone watching, it provides quick wins while the onboarding workflow is being developed.
+**Recommendation:** Start with **Customer Onboarding**. It's the highest-impact opportunity tied directly to the company's top strategic objective (customer retention). While it's more complex than Order Fulfillment Tracking, the cross-functional visibility and structured handoffs it creates will improve operations far beyond the onboarding process itself. Order Fulfillment Tracking is the natural second candidate: with fixed rules and fixed thresholds, it provides quick wins while the onboarding workflow is being developed.
 
 ---
 
