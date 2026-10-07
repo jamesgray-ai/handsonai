@@ -37,6 +37,17 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 3. Replace only the text content of `<script type="application/json" id="data">` in `dashboard-template.html`. Nothing else in the template changes.
 4. Save as `registry-dashboard.html` at the workspace root. Open it from `file://` — a blank page or a console error means the island is malformed; the most common causes are an unescaped `<` or a missing comma.
 
+## Settled questions
+
+- **Which frontmatter keys travel.** Only the fields the schema lists. `type` and `generated` never appear in the island.
+- **Dates.** Frontmatter dates (`stale_after`) are written as `YYYY-MM-DD` strings.
+- **Empty sets.** Array fields (`skills`, `agents`, `usedBy`, `owns`, `processes`, `workflows`, `links`, and the top-level collections) are always present, `[]` when empty. "Omit the key" applies to scalar fields only.
+- **Link targets in `skills` / `agents`.** Copy the `# Skills` / `# Agents` link target exactly as written in the node (a workspace path such as `.claude/skills/some-skill/SKILL.md`); `usedBy` matches on that same string.
+- **Skill title precedence.** Frontmatter `name` wins over `title` when both exist.
+- **`owns` source.** Derive from each Process's `owner:` frontmatter, never from a Function's GENERATED `# Owns` block (that block is itself derived and may be stale).
+- **Lint before a hand-build.** Nothing to run on a platform without Node: read the bundle for the lint conditions you can see (every node indexed, every curated-list link resolves, no banned fields) and rely on the self-check below; say in the hand-off that lint did not run.
+- **Formatting.** Any valid JSON; indentation and key order do not matter to the renderer.
+
 ## Self-check before saving
 
 - Every `processId`, `lobId`, `ownerId`, and every slug in `processes`, `workflows`, `owns`, and `usedBy` names an `id` that exists in the island.
