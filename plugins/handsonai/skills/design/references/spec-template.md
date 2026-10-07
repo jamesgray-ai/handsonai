@@ -248,7 +248,7 @@ Build artifacts in this order. Dependencies within each tier follow the `Depends
 
 ## Skill Candidates
 
-For a `Skill` mechanism, **S1 is always the orchestrator skill**: Name = the workflow slug, Covers Steps = all, Decision Logic = the Orchestrator Prompt Outline, Depends On = every component skill. Component skills (`New skill: S2…`) follow. For an `Agent` mechanism, S1 is the first component skill. Then, for each Build Output tagged `New skill: SN`:
+For a `Skill` mechanism, **S1 is always the orchestrator skill**: Name = the workflow slug, Covers Steps = all, Decision Logic = the Orchestrator Prompt Outline, Depends On = every component skill. Component skills (`New skill: S2…`) follow. For an `Agent` mechanism, S1 is the first component skill; on a primary-loop platform Build also creates an orchestrator skill as the user-triggered entry point, but it is not a Skill Candidate and is not counted in `counts.skills` — it appears only in Build's reconciliation table. Then, for each Build Output tagged `New skill: SN`:
 
 ### S1 — [skill-name]
 

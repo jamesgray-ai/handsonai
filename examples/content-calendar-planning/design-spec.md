@@ -22,7 +22,7 @@ counts:
 
 ## Source
 
-**Workflow Requirements:** `outputs/content-calendar-planning/requirements.md` (published in this example folder as `workflow-requirements.md`)
+**Workflow Requirements:** `outputs/content-calendar-planning/requirements.md` (published in this example folder as `requirements.md`)
 
 This Design Spec consumes the Workflow Requirements as canonical input. Goal, Value & Measurement, Metadata, Context Inventory, Security, Privacy & Safety, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, and per-step requirements are defined there — not restated here. Read the Workflow Requirements alongside this spec when building. Context IDs used below (C1–C9) are the numbered items in that file's Context Shopping List.
 
