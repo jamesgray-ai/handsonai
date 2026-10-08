@@ -1073,7 +1073,7 @@ After each round's verdict, Test linked the results under the node's `# Artifact
 
 ## Step 6 — Run → `run-guide.md` + `runs.md` + the Workflow node
 
-Run began by having Maya open a new chat and confirm both skills were listed, then started with the real thing: her actual week of 2026-06-12, not a test input, with the model watching the run. The Run Card came after — one page, six fixed sections, worth reading weeks later or handing to a teammate. Sections 1–2 are what she'll reread every Friday; 3–4 are the ones people skip and regret (what a fresh session needs, and what to check before acting on the output).
+Run began by confirming both skills were installed in Maya's account and that the test verdict was Ready, then had her open a new chat and start the workflow on the real thing: her actual week of 2026-06-12, not a test input. When it finished she said *log this run* there, and the skill checked the run against her check list before anything else. The Run Card came after — one page, six fixed sections, worth reading weeks later or handing to a teammate. Sections 1–2 are what she'll reread every Friday; 3–4 are the ones people skip and regret (what a fresh session needs, and what to check before acting on the output).
 
 <!-- file: outputs/weekly-status-report/run-guide.md -->
 ````markdown
