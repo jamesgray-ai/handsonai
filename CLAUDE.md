@@ -38,6 +38,7 @@ cd mcp-server && npm install && wrangler dev
 - `docs/blog/` - Changelog entries (Starlight Blog plugin)
 - `docs/feed/` - RSS/Atom feed page
 - `src/_templates/` - Content templates for contributors
+- `examples/weekly-status-report/` - The seven-step worked example as a real project folder (registry bundle, outputs, context, README). **Canonical for the worked-example page**: the page quotes it, `scripts/test-worked-example-folder.sh` asserts the page's fenced blocks match it (markers `<!-- file: … -->` / `<!-- excerpt: … -->` / `<!-- none -->` before each fence; five allowed paths (four kinds of abbreviation) listed in the script), and `scripts/test-compose-registry.sh` asserts it lints with exactly one warning (review due) and composes to a no-op. `src/integrations/example-zip.mjs` zips it into `dist/assets/examples/` at build from `git ls-files`; never commit the zip, `registry-dashboard.html`, or skill packages
 - `docs/what-people-built.md` - Community showcase of projects built using the playbook
 - `docs/CONTRIBUTING.md` - Contributor guidelines
 - `.claude/agents/` - Repo-specific subagents not packaged into any plugin (e.g., `playbook-question-*`, `release-notes-generator`, content/editorial agents). Auto-loaded by Claude Code sessions in this repo.

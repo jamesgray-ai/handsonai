@@ -4,6 +4,7 @@ import starlightBlog from 'starlight-blog';
 import sitemap from '@astrojs/sitemap';
 import llmsTxt from './src/integrations/llms-txt.mjs';
 import cloudflareRedirects from './src/integrations/cloudflare-redirects.mjs';
+import exampleZip from './src/integrations/example-zip.mjs';
 
 export default defineConfig({
   site: 'https://handsonai.info',
@@ -567,5 +568,6 @@ export default defineConfig({
     }),
     llmsTxt(),
     cloudflareRedirects(),
+    exampleZip(),
   ],
 });

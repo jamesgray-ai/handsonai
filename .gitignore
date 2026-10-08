@@ -47,6 +47,14 @@ specs/
 # fixture's own .gitignore, not this repo's.
 !registry-template/tools/fixtures/**
 
+# The worked-example project folder is a committed fixture with its own outputs/
+# tree and composed REGISTRY.md -- un-ignore it the same way as the tooling fixtures.
+!examples/weekly-status-report/**
+examples/weekly-status-report/registry-dashboard.html
+# The negation above also re-admits junk and derived packages -- keep them out.
+examples/weekly-status-report/**/.DS_Store
+examples/weekly-status-report/**/*.zip
+
 # on-demand docx install by the multi-agent-example renderer
 plugins/multi-agent-example/scripts/node_modules/
 scripts/node_modules/
