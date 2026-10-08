@@ -6,7 +6,8 @@ What is here: `registry/` (the AI Registry bundle every framework step reads and
 
 ## Open it
 
-- **Claude Cowork or Claude Chat:** create a project and add this folder (or drop the folder into an existing project's files).
+- **Claude Cowork:** open this folder — any folder works; a project is optional.
+- **Claude Chat:** upload the files to a project.
 - **Claude Code or Codex:** open a terminal in this folder and start the tool here.
 - **Gemini or Microsoft 365 Copilot:** upload the folder where your tool reads project files.
 
@@ -16,9 +17,9 @@ You do not need HubSpot. The orchestrator skill accepts a pasted update list in 
 
 ## Three things to try
 
-1. **Watch the skills orient.** Say: *continue my workflow*. The skill finds the two Workflow nodes in `registry/workflows/`, orients on Weekly Status Report (the other is a backlog stub), sees every step's artifact through the improvement plan, tells you the workflow is in production and its 2026-08-14 review is due, and offers to run Improve.
-2. **Regenerate the dashboard.** Say: *run the indexing-registry skill*. Lint reports no errors and one warning (the review is due). `REGISTRY.md` does not change — it is already current. Accept the offer of the visual dashboard and open `registry-dashboard.html`. The Skills inventory is empty on purpose: these skills are staged source under `outputs/weekly-status-report/skill/`, not installed capabilities, which is how Cowork keeps them.
-3. **Rewind one step and run it yourself.** Delete `outputs/weekly-status-report/improvement-plan.md`. In `registry/workflows/weekly-status-report.md`, take out the `Improvement plan` line under `# Artifacts`, and change `stale_after: 2026-08-14` to `stale_after: 2026-07-10`. Delete `registry/notes/status-report-scope-grows-a-section-at-a-time.md` and its line in `registry/notes/index.md`. Then say: *Run the improve skill on weekly status report*. Compare the plan it writes with the one you deleted. (`outputs/weekly-status-report/test-results.md` already reads `readiness: not-ready` — the first Improve run set it that way for Build's fix mode; Improve compares against the Ready round, `test-results-2026-06-08.md`, so this is expected.)
+1. **Watch the skills orient.** Say: *continue my workflow*. The skill lists the two Workflow nodes in `registry/workflows/`, orients on Weekly Status Report once you pick it (the other is a backlog stub), sees every step's artifact through the improvement plan, tells you the workflow is in production and its 2026-08-14 review is due, and offers to run Improve.
+2. **Regenerate the dashboard.** Say: *run the indexing-registry skill*. Lint reports no errors and one warning (the review is due). `REGISTRY.md` does not change — it is already current. Then say: *generate my dashboard* and open `registry-dashboard.html`. The Skills inventory is empty on purpose: these skills are staged source under `outputs/weekly-status-report/skill/`, not installed capabilities, which is how Cowork keeps them (the tools only count skills under a `skills/` folder).
+3. **Rewind one step and run it yourself.** Delete `outputs/weekly-status-report/improvement-plan.md`. In `registry/workflows/weekly-status-report.md`, take out the `Improvement plan` line under `# Artifacts`, delete the Note line between `<!-- GENERATED:insights -->` and `<!-- /GENERATED -->`, and change `stale_after: 2026-08-14` to `stale_after: 2026-07-10`. Delete `registry/notes/status-report-scope-grows-a-section-at-a-time.md` and its line in `registry/notes/index.md`. (The node's `generated:` stamp still says Improve wrote it; Improve will restamp it.) Then say: *Run the improve skill on weekly status report*. Compare the plan it writes with the one you deleted. (`outputs/weekly-status-report/test-results.md` already reads `readiness: not-ready` — the first Improve run set it that way for Build's fix mode; Improve compares against the Ready round, `test-results-2026-06-08.md`, so this is expected.)
 
 ## Run a test scenario
 

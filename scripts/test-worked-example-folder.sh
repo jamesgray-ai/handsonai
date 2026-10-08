@@ -6,7 +6,7 @@
 #                      after it exists unless you mean to overwrite).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PAGE="$ROOT/src/content/docs/ai-workflow-framework/examples/worked-example.md"
+PAGE="${PAGE:-$ROOT/src/content/docs/ai-workflow-framework/examples/worked-example.md}"
 FOLDER="$ROOT/examples/weekly-status-report"
 MODE="${1:-check}"; OUT="${2:-}"
 
@@ -41,8 +41,9 @@ awk -v out="$TMP" '
   inblock && $0==fence { inblock=0; flush(); next }
   inblock { print > f; next }
   /^(````|```)/ && !inblock && !pending { unmarked++; print "UNMARKED fence at line " NR > "/dev/stderr" }
-  END { if (unmarked) exit 3 }
-' "$PAGE" || { echo "  FAIL  fenced block(s) without a marker (see above)"; exit 1; }
+  END { if (pending) { print "DANGLING marker (" kind ": " p ") with no fenced block after it" > "/dev/stderr"; exit 4 }
+        if (unmarked) exit 3 }
+' "$PAGE" || { echo "  FAIL  fenced block without a marker, or marker without a block (see above)"; rm -rf "$TMP"; exit 1; }
 
 shopt -s nullglob
 for blk in "$TMP"/*; do
@@ -55,7 +56,7 @@ for blk in "$TMP"/*; do
       [ -f "$target" ] || { bad "$p: folder file missing"; continue; }
       if cmp -s "$blk" "$target"; then ok "$p matches the page"
       elif [ -n "$(allowed_reason "$p")" ]; then ok "$p differs as allowed: $(allowed_reason "$p")"
-      else bad "$p differs from the page and is not an allowed difference"; diff -u "$blk" "$target" | head -20 | sed 's/^/        /'; fi ;;
+      else bad "$p differs from the page and is not an allowed difference"; diff -u "$blk" "$target" | head -20 | sed 's/^/        /' || true; fi ;;
     excerpt)
       target="$FOLDER/$p"
       [ "$MODE" = "--extract" ] && { ok "excerpt $p (not extracted)"; continue; }
