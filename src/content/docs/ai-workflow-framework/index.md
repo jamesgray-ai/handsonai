@@ -55,7 +55,7 @@ could be automated with AI"
 1. **Opportunity Report** — `outputs/ai-opportunity-report.md` (before a workflow is named)
 2. **Workflow Requirements** — `[name]/requirements.md`
 3. **Design Spec** — `[name]/design-spec.md`
-4. **Platform Artifacts** — prompts, skills, agents, and configs in the format your platform requires
+4. **Platform Artifacts** — the orchestrator and component skills, any agents, configs, and connector setups in the format your platform requires, plus Build's reconciliation table
 5. **Test Results** — `[name]/test-results.md`
 6. **Run Card** — `[name]/run-guide.md`, plus a run log at `[name]/runs.md`
 7. **Improvement Plan** — `[name]/improvement-plan.md` (when running Improve)
