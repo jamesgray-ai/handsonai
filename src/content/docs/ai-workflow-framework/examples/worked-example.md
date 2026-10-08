@@ -1216,7 +1216,7 @@ Target is met.
 
 Baseline: `test-results-2026-06-08.md` (2026-06-08) — the round that produced the Ready verdict.
 
-No line flipped: 18 of 18 met at baseline, 18 of 18 met now.
+No line flipped: every line met at baseline, every line met now.
 
 | Scenario | Line | Baseline | Now | Evidence |
 |---|---|---|---|---|
