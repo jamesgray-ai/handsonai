@@ -307,7 +307,7 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 #### Phase 10 — Reconcile and install
 
-Close with a table that has one row per Build Output row in the Design Spec's decomposition, plus one row for the orchestrator skill (S1 for a `Skill` mechanism; for an `Agent` mechanism on a primary-loop platform, the orchestrator skill Build created, which is not a Skill Candidate and is not in the spec's `counts.skills`) one per connector in Integration Options, and one per context item Build provided or created in Phase 3 — nothing else:
+Close with a table that has one row per Build Output row in the Design Spec's decomposition, plus one row for the orchestrator skill (S1 for a `Skill` mechanism; for an `Agent` mechanism on a primary-loop platform, the orchestrator skill Build created, which is not a Skill Candidate and is not in the spec's `counts.skills`), one per connector in Integration Options, and one per context item Build provided or created in Phase 3 — nothing else:
 
 | Build Output (from spec) | Artifact | Path | Status |
 |---|---|---|---|
