@@ -18,6 +18,7 @@
     "yaml": "^2.8.3"
   },
   "devDependencies": {
-    "docx": "^9.7.1"
+    "docx": "^9.7.1",
+    "jszip": "^3.10.2"
   }
 }
