@@ -25,6 +25,8 @@ The Step 2 (Deconstruct) artifact is pre-built so we can spend class time runnin
 
 <a href="/assets/courses/competitive-intelligence-workflow-requirements.md" download="requirements.md"><strong>Download the Competitive Intelligence — Workflow Requirements (.md)</strong></a>
 
+Want to see what a finished run looks like before you start? Download the [complete worked-example project folder](/assets/examples/weekly-status-report.zip) — a different workflow taken through all seven steps — and compare it with your own as you go.
+
 ### Set up your workspace before class
 
 Do these steps in the folder you have open in Cowork or Claude Code.
