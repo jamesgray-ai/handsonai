@@ -10,4 +10,5 @@ lead: "Maya R."
 Tracks every active program, reports status to leadership weekly, and prepares stakeholder meetings.
 
 <!-- GENERATED:owns -->
+- [Program Delivery](/processes/program-delivery.md)
 <!-- /GENERATED -->

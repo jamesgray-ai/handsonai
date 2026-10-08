@@ -34,4 +34,5 @@ Drafts the Friday leadership status report from the team's project tracker — p
 # Insights
 
 <!-- GENERATED:insights -->
+- [Status report scope grows a section at a time](/notes/status-report-scope-grows-a-section-at-a-time.md) — Leadership started asking for risks, and Maya added the section by hand twice before the template caught up — watch the run log's Edits column for the next one.
 <!-- /GENERATED -->

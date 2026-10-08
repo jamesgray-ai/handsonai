@@ -1,0 +1,95 @@
+{
+  "business": {
+    "id": "maya-program-office",
+    "title": "Maya's Program Office",
+    "description": "The program-management function Maya runs for a software delivery team: keeping leadership informed and keeping client programs moving.",
+    "status": "active",
+    "nodePath": "registry/businesses/maya-program-office.md"
+  },
+  "lobs": [
+    {
+      "id": "program-delivery-services",
+      "title": "Program Delivery Services",
+      "description": "Running the team's client programs from kickoff to delivery, and reporting on them.",
+      "status": "active",
+      "processes": [
+        "program-delivery"
+      ],
+      "nodePath": "registry/lines-of-business/program-delivery-services.md"
+    }
+  ],
+  "functions": [
+    {
+      "id": "program-management",
+      "title": "Program Management",
+      "description": "Owns program tracking, status reporting, and stakeholder communication.",
+      "lead": "Maya R.",
+      "owns": [
+        "program-delivery"
+      ],
+      "nodePath": "registry/functions/program-management.md"
+    }
+  ],
+  "processes": [
+    {
+      "id": "program-delivery",
+      "title": "Program Delivery",
+      "description": "Tracking active programs week to week and reporting their status to leadership and stakeholders.",
+      "ownerId": "program-management",
+      "lobId": "program-delivery-services",
+      "workflows": [
+        "weekly-status-report",
+        "stakeholder-meeting-prep"
+      ],
+      "nodePath": "registry/processes/program-delivery.md"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "weekly-status-report",
+      "title": "Weekly Status Report",
+      "description": "Drafts the Friday leadership status report from the team's project tracker — progress, blockers, and next week's focus — ready for Maya's review by 10am.",
+      "status": "in-production",
+      "definitionType": "step-driven",
+      "executionMode": "augmented",
+      "autonomy": "deterministic",
+      "trigger": "Manual — Maya starts it Friday mornings",
+      "staleAfter": "2026-08-14",
+      "processId": "program-delivery",
+      "lobId": "program-delivery-services",
+      "step": 7,
+      "skills": [
+        "outputs/weekly-status-report/skill/weekly-status-report/SKILL.md",
+        "outputs/weekly-status-report/skill/status-report-drafting/SKILL.md"
+      ],
+      "agents": [],
+      "nodePath": "registry/workflows/weekly-status-report.md"
+    },
+    {
+      "id": "stakeholder-meeting-prep",
+      "title": "Stakeholder Meeting Prep",
+      "description": "Assembles the agenda, open decisions, and talking points for each stakeholder meeting from the team's recent activity. A prep brief Maya skims and corrects.",
+      "status": "backlog",
+      "trigger": "Before each stakeholder meeting",
+      "processId": "program-delivery",
+      "lobId": "program-delivery-services",
+      "step": 1,
+      "skills": [],
+      "agents": [],
+      "nodePath": "registry/workflows/stakeholder-meeting-prep.md"
+    }
+  ],
+  "notes": [
+    {
+      "id": "status-report-scope-grows-a-section-at-a-time",
+      "title": "Status report scope grows a section at a time",
+      "description": "Leadership started asking for risks, and Maya added the section by hand twice before the template caught up — watch the run log's Edits column for the next one.",
+      "links": [
+        "/workflows/weekly-status-report.md"
+      ],
+      "nodePath": "registry/notes/status-report-scope-grows-a-section-at-a-time.md"
+    }
+  ],
+  "skills": [],
+  "agents": []
+}
