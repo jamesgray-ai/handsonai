@@ -163,7 +163,7 @@ Once your workflow passes testing, Run puts it into production: you do the first
 
 **Deliverable:** **Run Card** (`outputs/[name]/run-guide.md`) — six fixed sections: your first real run, how to start it, what to have ready, what to check before you act on the output, log the run, and your first review.
 
-**Facilitated by the `run` skill.** See [Run](run/) for run patterns, deployment options, and operationalization guidance.
+**Facilitated by the `run` skill.** See [Run](run/) for the step-by-step walkthrough, the Run Card, scheduling for Automated workflows, and what to do when a team will run it.
 
 ---
 
