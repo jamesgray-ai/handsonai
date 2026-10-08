@@ -77,7 +77,7 @@ Context is the highest-leverage building block: generic output is almost always 
 The three outcomes:
 
 - **Connect it** — the artifact lives in a system the platform reaches live. The user authorizes the connector *in the account that will run the workflow* (authorization does not carry over from this session). You verify access with a real read, and where the Requirements' `External Action` says the workflow writes, verify write scope now — this is the write-scope pre-flight: a **scope gap** (connector supports it, not authorized) → tell the user exactly what to reconnect; a **capability gap** (connector cannot do it at all) → stop and offer the Design options (human-in-the-loop gate by default; a different connector; CLI/API only where the platform has code access; descope).
-- **Provide it** — a document the user supplies. Place it where `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`, says workflows read files on this platform, and record the path in the Phase 10 reconciliation table and the Workflow node's `# Artifacts` (that is where Run's "What to have ready" reads it).
+- **Provide it** — a document the user supplies. Place it where `capabilities.context_location`, or, if the entry has no `capabilities`, its `notes`, says workflows read files on this platform, and record the path in the Phase 10 reconciliation table as a context row (that is where Run's "What to have ready" reads it — Build writes no `# Artifacts` link; the schema has no label for a context item).
 - **Build it in** — short reference content (rules, a rubric, an output template, a few examples) ships inside the skill package as a supporting file, so it travels with the skill and needs no setup.
 
 **`Needs Creation` rows (Provide it or Build it in):** draft it yourself from what Deconstruct captured (a style guide from the golden example, scoring criteria from the rules) and have the user correct it — faster than asking a business user to write one from scratch.
@@ -307,7 +307,7 @@ Create the package with `cd outputs/<workflow-slug>/skill && zip -r ../<skill-na
 
 #### Phase 10 — Reconcile and install
 
-Close with a table that has one row per Build Output row in the Design Spec's decomposition, plus one row for the orchestrator skill (S1 for a `Skill` mechanism; for an `Agent` mechanism on a primary-loop platform, the orchestrator skill Build created, which is not a Skill Candidate and is not in the spec's `counts.skills`) and one per connector in Integration Options — nothing else:
+Close with a table that has one row per Build Output row in the Design Spec's decomposition, plus one row for the orchestrator skill (S1 for a `Skill` mechanism; for an `Agent` mechanism on a primary-loop platform, the orchestrator skill Build created, which is not a Skill Candidate and is not in the spec's `counts.skills`), one per connector in Integration Options, and one per context item Build provided or created in Phase 3 — nothing else:
 
 | Build Output (from spec) | Artifact | Path | Status |
 |---|---|---|---|
