@@ -16,7 +16,7 @@ Your first run is a test, not a deployment. This step takes about 45 minutes per
 | Word | What it means |
 |---|---|
 | **Round** | One full pass of testing: every input run once, then a verdict. A fix in Build starts a new round. |
-| **Input** | One realistic thing to run the workflow on — a real tracker export, a real email, a real brief. Deconstruct saved 3–5 of these as files and numbered them E1, E2, E3… The skill also calls them *scenarios*. |
+| **Input** | One realistic thing to run the workflow on — a tracker export, email, or brief like the ones you really handle, with names and details made up. Deconstruct saved 3–5 of these as files and numbered them E1, E2, E3… The skill also calls them *scenarios*. |
 | **Opening chat** | The chat where you start the `test` skill. It reads your Requirements and Design, writes the check list, and keeps the results file. On the separate-chats path, you come back to it after every run. |
 | **Run chat** | A brand-new chat where you run the workflow on one input, exactly as an operator would. One run chat per input. |
 | **Check list** | Every behaviour your workflow must show, pulled from your Requirements: acceptance criteria (AC1, AC2…), rules (R1, R2…), human gates (G1, G2…), and each step's stated output. |
