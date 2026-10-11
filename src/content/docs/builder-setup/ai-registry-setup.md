@@ -95,7 +95,7 @@ Your assistant runs the same interview, but instead of saving each file it print
 1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, there's no way to save the wrong file type, and your dashboard can be published on the web. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
    1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) — a ready-made repository containing the empty registry skeleton.
    2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Private**, and click **Create repository**. Private means only you can see it.
-   3. Only if other people need to see your dashboard on the web: on a free GitHub account this needs a **Public** repository (see [Publishing on the Web](#publishing-on-the-web-github-pages)) — click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**. See [Publishing on the Web](#publishing-on-the-web-github-pages). Most students skip this.
+   3. Only if other people need to see your dashboard on the web: on a free GitHub account this needs a **Public** repository. Click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**. See [Publishing on the Web](#publishing-on-the-web-github-pages). Most students skip this.
 
    Two other options if you'd rather not use GitHub:
    - **A folder on your computer.** Create an empty folder called `ai-registry` inside your Documents folder.
