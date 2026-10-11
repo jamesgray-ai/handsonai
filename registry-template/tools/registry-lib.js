@@ -250,13 +250,18 @@ function scanSops(workspaceRoot) {
   return out;
 }
 
+// Skips anything that is not a readable folder: a root that is a file, a broken symlink, an
+// entry it cannot stat. Lint reports on what it can read; it never crashes on an odd entry.
 function scanRecordFolders(workspaceRoot, rootDir) {
   const out = [];
   const dir = path.join(workspaceRoot, rootDir);
-  if (!fs.existsSync(dir)) return out;
-  for (const name of fs.readdirSync(dir).sort()) {
+  let names;
+  try { names = fs.readdirSync(dir).sort(); } catch { return out; } // missing, or not a directory
+  for (const name of names) {
     const full = path.join(dir, name);
-    if (!fs.statSync(full).isDirectory()) continue;
+    let isDir;
+    try { isDir = fs.statSync(full).isDirectory(); } catch { continue; } // broken symlink, unreadable
+    if (!isDir) continue;
     out.push({ slug: name, path: `${rootDir}/${name}`, hasRuns: fs.existsSync(path.join(full, 'runs.md')) });
   }
   return out;
@@ -334,8 +339,9 @@ function scanCapabilities(workspaceRoot) {
   try { slugs = fs.readdirSync(frameworkDir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort(); } catch { /* no framework/ folder */ }
   for (const slug of slugs) agentDirs.push(path.join(frameworkDir, slug, 'agents'));
   for (const dir of agentDirs) {
-    if (!fs.existsSync(dir)) continue;
-    for (const name of fs.readdirSync(dir).sort()) {
+    let names;
+    try { names = fs.readdirSync(dir).sort(); } catch { continue; } // missing, or not a directory
+    for (const name of names) {
       if (name.endsWith('.md')) add(path.join(dir, name));
     }
   }

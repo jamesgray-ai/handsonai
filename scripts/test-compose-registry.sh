@@ -479,6 +479,21 @@ if run_lint_at "$WS" >/dev/null 2>&1; then bad "missing framework/ link: lint sh
     && ok "missing framework/ link is a lint ERROR naming the file" || bad "missing framework/ link: no ERROR naming run-guide.md"
 fi
 
+# robustness: odd entries where lint expects folders never crash it with a JS stack trace
+no_trace() { ! grep -qE '^[[:space:]]+at |TypeError|Error:' <<<"$1"; }
+WS=$(stage valid-bundle); rm -rf "$WS/framework"; : > "$WS/framework"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "framework/ as a plain file: lint reports, no stack trace" || bad "framework/ as a plain file crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); ln -s "$WS/does-not-exist" "$WS/framework/dangling"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "broken symlink in framework/: lint skips it, no stack trace" || bad "broken symlink in framework/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); ln -s "$WS/does-not-exist" "$WS/outputs/dangling"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "broken symlink in outputs/: lint skips it, no stack trace" || bad "broken symlink in outputs/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); rm -rf "$WS/outputs"; : > "$WS/outputs"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "outputs/ as a plain file: lint reports, no stack trace" || bad "outputs/ as a plain file crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"
