@@ -16,7 +16,7 @@ Use this when you want a fast, conversational discovery in one chat — ideal fo
 ## How to Use This Prompt
 
 1. **Copy the prompt** from the [code block below](#the-prompt) using the copy button in the top-right of the block
-2. **Fill in the "My AI tool" line** at the top. It tells the AI what it can realistically recommend.
+2. **Optional: fill in the "Where I'll build" line**, only if you'll build your skills in a different tool from the one you run this in. The AI uses it to judge what that tool can do (for example, whether skills there can reach your local files).
 3. **Check the "Sources you may use" line.** By default the AI may look at your calendar, email, recent files, its memory of you, and your past conversations. Delete any you'd rather it didn't use; the prompt works with none of them.
 4. **Open a new conversation** in that tool and paste the prompt
 5. **Read the first line it returns.** It tells you which of your allowed sources it can actually reach. If it can reach none, it skips straight to the questions. That's expected, not a failure.
@@ -33,7 +33,7 @@ Use this when you want a fast, conversational discovery in one chat — ideal fo
 ```text
 You are an AI workflow analyst helping me find the best work to package as Agent Skills: reusable folders of instructions and reference material that an AI loads when a task needs them, so it handles that task the same way every time.
 
-My AI tool: [Replace with the tool I'll build in, e.g. Claude, Claude Code, ChatGPT, Microsoft 365 Copilot, Gemini, Cursor, OpenAI Codex, VS Code Copilot. If I left this blank, ask me before doing anything else.]
+Where I'll build: [Optional. Leave this as it is if I'll build my skills in the tool I'm using now. If I'll build somewhere else, replace this with that tool, e.g. Claude Code, ChatGPT, Microsoft 365 Copilot.]
 
 Sources you may use: my calendar, my email, my recent files, your memory of me, and our past conversations. [Delete any you don't want the AI to use, then delete this note.]
 
@@ -46,7 +46,7 @@ What makes a good candidate (any one is enough):
 - Context I give the AI over and over: guidelines, background, examples
 - Instructions I keep re-typing: "always include X", "never do Y", "use this tone"
 
-Leave out: one-off creative work, pure judgment calls with no rubric, and work that needs systems my tool can't reach.
+Leave out: one-off creative work, pure judgment calls with no rubric, and work that needs systems the tool I'll build in can't reach.
 
 Rules:
 - Use only the sources I allowed above, and only the ones you can actually reach.
@@ -88,14 +88,14 @@ Give me a ranked table:
 
 Potential: 🟢 High (clear trigger, same steps, same output), 🟡 Medium (mostly structured, needs some judgment or missing context), 🔴 Low (too creative or one-off for a skill today). If tables display poorly here, use a numbered list with the same fields.
 
-Judge against what my tool can do. If skills there run in the cloud, they work only on what I upload or paste in; a task that needs my local files, inbox, or a live system is at best 🟡, and say why.
+Judge against what the tool I'll build in can do. If skills there run in the cloud, they work only on what I upload or paste in; a task that needs my local files, inbox, or a live system is at best 🟡, and say why.
 
 Then recommend what to build first, as a pair:
 1. **A task skill**: the one candidate to start with, usually your #1 (if not, say why). Prefer something small: a few steps, in order, that I could build together with its reference skill in about 25 minutes. Say why it pays off (how often × time saved × consistency).
 2. **A reference skill** it should apply: the knowledge that task draws on. If nothing more specific stands out, suggest my brand or writing guidelines. If that knowledge is a long document, plan for me to upload it whole rather than condense it.
 3. For each of the two, what to give the AI when I build it: the steps, the source documents, and one or two real examples.
 
-Finally, name any candidate better served by something else (an agent, a connector, or a saved prompt), and if my tool doesn't support Agent Skills, name its closest equivalent. If you're not sure what my tool supports today, say so instead of guessing.
+Finally, name any candidate better served by something else (an agent, a connector, or a saved prompt), and if the tool I'll build in doesn't support Agent Skills, name its closest equivalent. If you're not sure what that tool supports today, say so instead of guessing.
 
 ---
 
