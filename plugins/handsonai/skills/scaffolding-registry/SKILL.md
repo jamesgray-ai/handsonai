@@ -31,9 +31,8 @@ Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloud
 │   ├── businesses/  lines-of-business/  functions/
 │   ├── processes/   workflows/          notes/
 │   │       (each typed directory has its own index.md)
-├── outputs/<workflow>/      ← raw-source layer, unchanged (requirements,
-│                              design-spec, runs.md, generated artifacts;
-│                              event-facts live here, never in nodes)
+├── framework/<workflow>/      ← the workflow's record (requirements, design spec,
+│                              tests, run log); event-facts live here, never in nodes
 ├── sops/  process-guides/   ← unchanged homes; nodes link to them
 ├── tools/last-data-island.json  ← only in template-repo workspaces: compose writes it for the
 │                              Pages Action and the Tier 2 dashboard; derived, never hand-edited
@@ -70,8 +69,8 @@ A few rules follow from that table:
 Before running the interview, check what's already in the workspace:
 
 0. **A `knowledge/` folder exists** → leave it alone — never write to it or lint it; Phase 0 may read it as an intake source. It is the business knowledge graph, a different OKF bundle with its own `SCHEMA.md` and its own lint (built by `building-knowledge-graph`). Say so in one sentence and continue with the registry checks below.
-1. **`registry/SCHEMA.md` exists** → this is **gap-filling mode**, not a fresh scaffold. List which concept types have zero nodes and which typed directories are missing their `index.md`, tell the student what's missing, and offer to fill only those gaps. Never overwrite an existing node, and never rewrite `SCHEMA.md` once the student has one — their copy is authoritative from here on.
-2. **No `registry/SCHEMA.md`, but a legacy layout is detected** — `outputs/*/workflow.yaml` (the old manifest layout) or an `outputs/<name>-requirements.md` with no matching `outputs/<name>/` folder (the old flat layout) — offer the migration path in `references/migrating-legacy-workspaces.md` instead of, or before, a fresh scaffold. Migration writes into a newly scaffolded bundle; it never invents its own structure.
+1. **`registry/SCHEMA.md` exists** → this is **gap-filling mode**, not a fresh scaffold. List which concept types have zero nodes and which typed directories are missing their `index.md`, tell the student what's missing, and offer to fill only those gaps. Never overwrite an existing node, and never rewrite `SCHEMA.md` once the student has one — their copy is authoritative from here on. Also check for a pre-9.0 record: an `outputs/<slug>/` folder holding any of `requirements.md`, `design-spec.md`, `runs.md`, or a `test-runs/` folder. If you find one, offer *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference — even if `registry/log.md` has a "Kept the pre-9.0 `outputs/` layout" entry, because running this skill is how a student who said no gets asked again.
+2. **No `registry/SCHEMA.md`, but a legacy layout is detected** — `outputs/*/workflow.yaml` (the old manifest layout) or an `outputs/<name>-requirements.md` with no matching `outputs/<name>/` folder (the old flat layout), or an `outputs/<slug>/` folder holding any of `requirements.md`, `design-spec.md`, `runs.md`, or a `test-runs/` folder (the pre-9.0 outputs layout) — offer the migration path in `references/migrating-legacy-workspaces.md` instead of, or before, a fresh scaffold. Migration writes into a newly scaffolded bundle; it never invents its own structure.
 3. **Neither exists** → run the interview below from Phase 0.
 
 ## The interview

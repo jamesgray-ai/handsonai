@@ -59,8 +59,8 @@
       "lobId": "program-delivery-services",
       "step": 7,
       "skills": [
-        "outputs/weekly-status-report/skill/weekly-status-report/SKILL.md",
-        "outputs/weekly-status-report/skill/status-report-drafting/SKILL.md"
+        "framework/weekly-status-report/skills/weekly-status-report/SKILL.md",
+        "framework/weekly-status-report/skills/status-report-drafting/SKILL.md"
       ],
       "agents": [],
       "nodePath": "registry/workflows/weekly-status-report.md"
@@ -90,6 +90,25 @@
       "nodePath": "registry/notes/status-report-scope-grows-a-section-at-a-time.md"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "id": "status-report-drafting",
+      "title": "status-report-drafting",
+      "description": "",
+      "usedBy": [
+        "weekly-status-report"
+      ],
+      "nodePath": "framework/weekly-status-report/skills/status-report-drafting/SKILL.md"
+    },
+    {
+      "id": "weekly-status-report",
+      "title": "weekly-status-report",
+      "description": "",
+      "usedBy": [
+        "weekly-status-report"
+      ],
+      "nodePath": "framework/weekly-status-report/skills/weekly-status-report/SKILL.md"
+    }
+  ],
   "agents": []
 }

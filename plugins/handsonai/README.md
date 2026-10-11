@@ -79,7 +79,7 @@ Or run the agent and let it walk you through the whole flow:
 @framework-agent
 ```
 
-Outputs are saved to the `outputs/` folder.
+Framework files are saved to the `framework/` folder, one subfolder per workflow. Your workflow's own output is saved wherever you run it.
 
 ## Worked Examples
 

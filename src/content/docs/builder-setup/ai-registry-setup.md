@@ -33,9 +33,11 @@ my-ai-workspace/
 │   ├── index.md             ← bundle root (declares okf_version: "0.2")
 │   └── businesses/ lines-of-business/ functions/
 │       processes/ workflows/ notes/
-├── outputs/<workflow>/      ← raw work: requirements, run logs, artifacts
+├── framework/<workflow>/    ← each workflow's record: requirements, design spec, test results, run log
 └── sops/ process-guides/    ← unchanged homes; Workflow nodes link to them
 ```
+
+The registry lists your workflows; the files the framework writes for each one are in `framework/<workflow-name>/`. Whatever a workflow produces when it runs (a report, an email) goes wherever the workflow runs, not into either folder.
 
 Your registry follows an open, public specification called the **Open Knowledge Format (OKF)** — this isn't a format James invented for this playbook. You can read the live spec any time: [OKF on GitHub](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md). You never need to read it to use your registry — your assistant already knows it — but it's there if you're curious how the pieces fit together.
 
@@ -181,10 +183,10 @@ provisions the client's shared folder, and schedules the kickoff call.
 
 # Artifacts
 
-- [Requirements](outputs/client-onboarding-kickoff/requirements.md)
-- [Design spec](outputs/client-onboarding-kickoff/design-spec.md)
+- [Requirements](framework/client-onboarding-kickoff/requirements.md)
+- [Design spec](framework/client-onboarding-kickoff/design-spec.md)
 - [SOP](sops/client-onboarding-kickoff.md)
-- [Run guide](outputs/client-onboarding-kickoff/run-guide.md)
+- [Run guide](framework/client-onboarding-kickoff/run-guide.md)
 
 # Skills
 
@@ -270,7 +272,7 @@ If a button or label on your screen doesn't match these steps, paste the step yo
 
 ## Migrating From the Old Workflow Manifest File
 
-Earlier versions of this playbook tracked each workflow with one small file per workflow (a "workflow manifest file") instead of today's registry bundle. If your assistant finds one of these old-style files in your workspace, it offers to migrate it as part of setup (see [Your Assistant Saves the Files](#your-assistant-saves-the-files)) — you don't need to do anything by hand. If you save files yourself, tell your assistant what's in your `outputs/` folder when it asks; it can't look for itself.
+Earlier versions of this playbook tracked each workflow with one small file per workflow (a "workflow manifest file") instead of today's registry bundle. If your assistant finds one of these old-style files in your workspace, it offers to migrate it as part of setup (see [Your Assistant Saves the Files](#your-assistant-saves-the-files)) — you don't need to do anything by hand. If you save files yourself, tell your assistant what's in your `outputs/` folder when it asks: the old manifest files lived there, in the layout from before 9.0. It can't look for itself.
 
 **What your assistant does during migration:**
 

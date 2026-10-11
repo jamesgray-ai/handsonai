@@ -45,7 +45,8 @@ the student has open? (A file the student would have to download does not count 
    the personal persona, add its privacy line now.
 2. **Scan (write mode only).** Look for `knowledge/`, `sops/`,
    `process-guides/`, `CLAUDE.md` or `AGENTS.md`,
-   `outputs/ai-opportunity-report*.md`, and any loose documents sitting in
+   `framework/ai-opportunity-report*.md` (or, from before 9.0,
+   `outputs/ai-opportunity-report*.md`), and any loose documents sitting in
    the folder (a pasted org chart, a services page). Report in one short
    list what you found and what each could pre-fill, or say "nothing here
    to pre-fill from" in one line. Never write to `knowledge/`.
@@ -116,7 +117,8 @@ skeleton plus a GitHub Action that publishes the dashboard, and is optional.
 
 **Legacy-detection trigger:** In write mode: if `outputs/*/workflow.yaml` exists anywhere in
 the workspace, or an `outputs/<name>-requirements.md` file exists with no
-matching folder (flat layout), stop and offer the migration path from
+matching folder (flat layout), or an `outputs/<slug>/` folder holds any of `requirements.md`,
+`design-spec.md`, `runs.md`, or a `test-runs/` folder (the pre-9.0 outputs layout), stop and offer the migration path from
 `migrating-legacy-workspaces.md` before continuing the interview. A student
 migrating does not repeat Phases 1–4 for businesses, lines of business,
 functions, or processes the migration already covers. In print-and-save mode, rely on what the student told you in the follow-up above.

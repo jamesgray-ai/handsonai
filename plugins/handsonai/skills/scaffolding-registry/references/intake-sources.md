@@ -11,7 +11,7 @@ answer in Phase 0 that covers a later phase is a source too.
 
 - **Workspace scan (write mode only).** `knowledge/` (read only — never write
   or lint it here), `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`,
-  `outputs/ai-opportunity-report*.md`. A `knowledge/` graph's type names are
+  `framework/ai-opportunity-report*.md` (or, from before 9.0, `outputs/ai-opportunity-report*.md`). A `knowledge/` graph's type names are
   whatever its owner chose: read its `overview.md` and `index.md` first and
   treat each page as a pasted document — evidence to draft from, mapped by
   what it says, not by its folder name.

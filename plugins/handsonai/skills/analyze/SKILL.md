@@ -20,7 +20,7 @@ Analyze concrete opportunities where AI can improve your workflows. Produces a c
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
-**Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `outputs/` for their artifacts. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
+**Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `framework/` for their artifacts. If `outputs/` holds a framework record from before 9.0, follow *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference first. If the student kept the pre-9.0 layout (`registry/log.md` has a "Kept the pre-9.0 `outputs/` layout" entry), an existing workflow's artifacts are in `outputs/[workflow-name]/`, not `framework/[workflow-name]/`, and while `outputs/ai-opportunity-report.md` exists, `framework/ai-opportunity-report.md` in this skill means that file. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
 
 ### Fast Path
 
@@ -130,7 +130,7 @@ For each candidate:
 
 Append this summary to the output file under a `## Workflow Candidate Summary` heading. Recommend which candidate to deconstruct first, with reasoning.
 
-**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `outputs/` and no registry Workflow nodes beyond `status: backlog` ones, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, touches at most one external system, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
+**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `framework/` and no registry Workflow nodes beyond `status: backlog` ones, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, touches at most one external system, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
 
 **Register the candidates (registry present).** If `registry/SCHEMA.md` exists, write each chosen candidate as a backlog Workflow node so the registry becomes the student's candidate list:
 
@@ -152,7 +152,7 @@ Append this summary to the output file under a `## Workflow Candidate Summary` h
 
    # Artifacts
 
-   - [Opportunity report](outputs/ai-opportunity-report.md)
+   - [Opportunity report](framework/ai-opportunity-report.md)
 
    # Skills
 
@@ -179,7 +179,7 @@ If they decline both, proceed to the next framework step.
 
 ## Output
 
-Write the report to `outputs/ai-opportunity-report.md`. Create the `outputs/` directory if it doesn't exist. If the file already exists, rename the existing file to `ai-opportunity-report-YYYY-MM-DD.md` (using today's date) before writing the new one.
+Write the report to `framework/ai-opportunity-report.md`. Create the `framework/` directory if it doesn't exist. If the file already exists, rename the existing file to `ai-opportunity-report-YYYY-MM-DD.md` (using today's date) before writing the new one.
 
 If this environment can't keep files between conversations (no persistent workspace — output is produced as a download), tell the user to save the report and re-supply it when they run the Deconstruct step, or continue in this same conversation.
 
@@ -265,6 +265,6 @@ When two levers apply, pick the one the user would use to justify the work to th
 - Be specific in recommendations: "AI could draft the weekly status email from the three boards you already update" beats "AI could help with reporting"
 - **Individual lens:** Scope each workflow candidate to one person's trigger-to-deliverable flow. If a workflow spans multiple people, note the cross-team dependencies in the opportunity card but keep the candidate focused on a single owner's scope.
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
-- After writing the report, ask the user to pick their candidates for Phase 5. Once they've chosen, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), run Phase 6, and then tell the user: "Report saved to `outputs/ai-opportunity-report.md` and [N] candidates registered in your backlog. Start with *[recommended]*: say 'run the deconstruct skill' — about 45–60 minutes, and it turns the candidate into requirements."
+- After writing the report, ask the user to pick their candidates for Phase 5. Once they've chosen, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), run Phase 6, and then tell the user: "Report saved to `framework/ai-opportunity-report.md` and [N] candidates registered in your backlog. Start with *[recommended]*: say 'run the deconstruct skill' — about 45–60 minutes, and it turns the candidate into requirements."
 - After Phase 6 is settled, invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step), then deliver the closing message above — it is always the last thing the user hears.
 - **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 3 of 6 — the discovery interview") so the user always knows where they are.

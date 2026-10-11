@@ -27,7 +27,7 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 
 You can run all seven skills step-by-step in separate conversations, or use the **`framework-agent`** to orchestrate the full lifecycle end-to-end in a single session.
 
-**What it does:** Runs the seven skills sequentially — Analyze, Deconstruct, Design, Build, Test, Run, Improve — with file-based handoffs between stages. The agent manages the flow between steps, saves intermediate files to `outputs/`, and keeps you involved at each stage.
+**What it does:** Runs the seven skills sequentially — Analyze, Deconstruct, Design, Build, Test, Run, Improve — with file-based handoffs between stages. The agent manages the flow between steps, saves each workflow's framework files to `framework/`, and keeps you involved at each stage.
 
 **When to use it:** Use the agent when you want to go through the entire process in one session. If you prefer to work step-by-step across separate conversations — or want to run a single step standalone (e.g., just Deconstruct, just Improve) — invoke the individual skills instead. Both styles produce the same artifacts.
 
@@ -50,15 +50,19 @@ could be automated with AI"
   an orchestration mechanism, and identifies quick wins
 ```
 
-**What you'll get** — each workflow gets its own folder under `outputs/`, named with the workflow name in lowercase using hyphens (for example, `outputs/client-onboarding/`). Analyze registers each candidate as a backlog Workflow node in your `registry/` bundle; every later step updates it — status, mode, and review date in one place — so any session can resume mid-framework by reading the node and seeing which artifacts already exist:
+**What you'll get** — each workflow gets its own folder under `framework/` (its record: requirements, design spec, test results, and so on), named with the workflow name in lowercase using hyphens (for example, `framework/client-onboarding/`). Analyze registers each candidate as a backlog Workflow node in your `registry/` bundle; every later step updates it — status, mode, and review date in one place — so any session can resume mid-framework by reading the node and seeing which artifacts already exist:
 
-1. **Opportunity Report** — `outputs/ai-opportunity-report.md` (before a workflow is named)
+Your workspace holds three kinds of things: `registry/` is the catalog (one card per workflow), `framework/` holds each workflow's record, and a workflow's own output (the report or email it produces) lands wherever the workflow runs, never in `framework/`.
+
+1. **Opportunity Report** — `framework/ai-opportunity-report.md` (before a workflow is named)
 2. **Workflow Requirements** — `[name]/requirements.md`
 3. **Design Spec** — `[name]/design-spec.md`
 4. **Platform Artifacts** — the orchestrator and component skills, any agents, configs, and connector setups in the format your platform requires, plus Build's reconciliation table
 5. **Test Results** — `[name]/test-results.md`
 6. **Run Card** — `[name]/run-guide.md`, plus a run log at `[name]/runs.md`
 7. **Improvement Plan** — `[name]/improvement-plan.md` (when running Improve)
+
+**Started before 9.0?** Older workspaces kept these files in `outputs/<workflow>/`. The first time a framework step finds files there, your assistant lists what will move to `framework/` and what stays, and asks once for the whole workspace. Say yes and it moves only the framework files; say no and everything keeps working (the registry check just shows a gentle warning). A workflow you installed before 9.0 may need its file paths updated; on platforms where you install by uploading a ZIP, that means uploading it again, and your assistant walks you through it.
 
 ## The Framework
 
@@ -72,7 +76,7 @@ Before you can apply AI to anything, you need to know *where* it fits. Step 1 is
 
 The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a prioritized report with specific opportunities and a recommendation on which to build first.
 
-**Deliverable:** **Opportunity Report** (`outputs/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue — and one `status: backlog` Workflow node per chosen candidate in your registry.
+**Deliverable:** **Opportunity Report** (`framework/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue — and one `status: backlog` Workflow node per chosen candidate in your registry.
 
 **Facilitated by the `analyze` skill.** See [Analyze Workflows](analyze/) for details and [Install the Hands-on AI Plugin](skills/) for installation on any supported platform.
 
@@ -105,7 +109,7 @@ Two questions run alongside the mapping, whichever path you took:
 
 This is purely the *what* — the workflow's requirements, with no prescription of how AI will handle it. The *how* comes in Step 3 (Design).
 
-**Deliverable:** **Workflow Requirements** (`outputs/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety. Step-driven workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs.
+**Deliverable:** **Workflow Requirements** (`framework/[name]/requirements.md`) — a PRD-style document. Every Workflow Requirements file contains: Goal, Value & Measurement, Metadata, Context Inventory, Acceptance Criteria, Example Scenarios, Rules & Constraints, Human Gates, and Security, Privacy & Safety. Step-driven workflows add a Steps Overview with per-step requirements; goal-driven workflows add Inputs.
 
 **Facilitated by the `deconstruct` skill.** See [Deconstruct Workflows](deconstruct/) for details and [Install the Hands-on AI Plugin](skills/) for installation on any supported platform.
 
@@ -123,7 +127,7 @@ The Design step takes your Workflow Requirements and produces a complete bluepri
 
 The skill writes the spec as a draft file you can read, then marks it approved when you say so; Build refuses an unapproved spec.
 
-**Deliverable:** **Design Spec** (`outputs/[name]/design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, implementation order, and a Constraint Conformance table showing, for each protection named in Deconstruct, where the design meets it. References the Workflow Requirements rather than restating it.
+**Deliverable:** **Design Spec** (`framework/[name]/design-spec.md`) — architecture decisions, autonomy assessment, orchestration mechanism, per-step classifications, skill candidates, agent blueprints, integration options, model recommendation, Data Readiness Summary, implementation order, and a Constraint Conformance table showing, for each protection named in Deconstruct, where the design meets it. References the Workflow Requirements rather than restating it.
 
 **Facilitated by the `design` skill.** See [Design Your AI Workflow](design/) for the full guide with autonomy assessment, orchestration mechanism decision flow, and output format.
 
@@ -149,7 +153,7 @@ Your first run is a test, not a deployment. The Test step walks you through a qu
 
 Most workflows need 2-4 iterations between Build and Test before they produce reliably good output. When something is off, the skill helps you diagnose which building block to fix and sends you back to Build with a clear target.
 
-**Deliverable:** **Test Results** (`outputs/[name]/test-results.md`) — a report card per scenario (each criterion met or not met, with evidence), the diagnosed building block for every miss, and a readiness verdict.
+**Deliverable:** **Test Results** (`framework/[name]/test-results.md`) — a report card per scenario (each criterion met or not met, with evidence), the diagnosed building block for every miss, and a readiness verdict.
 
 **Facilitated by the `test` skill.** See [Test](test/) for the full evaluation process and troubleshooting guide.
 
@@ -161,7 +165,7 @@ Deploy and operate your tested workflow.
 
 Once your workflow passes testing, Run puts it into production: you do the first real run on real work with the model watching, and it leaves behind a one-page Run Card — how to start it, what to have ready, what to check before you act on the output — plus a run log and a review date. Scheduling is covered only for workflows designed as Automated. For organizational workflows, Run also covers sharing with your team and setting up ongoing operations.
 
-**Deliverable:** **Run Card** (`outputs/[name]/run-guide.md`) — six fixed sections: your first real run, how to start it, what to have ready, what to check before you act on the output, log the run, and your first review.
+**Deliverable:** **Run Card** (`framework/[name]/run-guide.md`) — six fixed sections: your first real run, how to start it, what to have ready, what to check before you act on the output, log the run, and your first review.
 
 **Facilitated by the `run` skill.** See [Run](run/) for the step-by-step walkthrough, the Run Card, scheduling for Automated workflows, and what to do when a team will run it.
 
@@ -173,7 +177,7 @@ Evaluate and evolve running workflows.
 
 Workflows are not something you set up once and forget. Over time, business context changes, new tools become available, and output quality can drift. The Improve step teaches you when and how to revisit a running workflow — watch for quality signals, re-run your report card to see which lines changed, and decide whether the workflow has outgrown its mechanism. Three outcomes: no changes needed, tune it, or go back to Design.
 
-**Deliverable:** **Improvement Plan** (`outputs/[name]/improvement-plan.md`) — which report-card lines changed since the baseline, quality signals, graduation assessment, decision outcome, and specific next actions.
+**Deliverable:** **Improvement Plan** (`framework/[name]/improvement-plan.md`) — which report-card lines changed since the baseline, quality signals, graduation assessment, decision outcome, and specific next actions.
 
 **Facilitated by the `improve` skill.** See [Improve](improve/) for the full evaluation and graduation framework.
 

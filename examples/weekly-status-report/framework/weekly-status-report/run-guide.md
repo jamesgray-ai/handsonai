@@ -42,7 +42,7 @@ step and we'll set that up.
 
 ## Log the run
 
-One row per run in `outputs/weekly-status-report/runs.md` — date, input, result,
+One row per run in `framework/weekly-status-report/runs.md` — date, input, result,
 edits needed, notes. The orchestrator appends it at the end of every production run;
 it did on today's, which is how we know that part works. Fill the notes cell yourself
 with the minutes door to door — the Baseline is `Unknown` until four runs are timed. If a row is ever missing, the fix is

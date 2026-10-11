@@ -103,7 +103,7 @@ You are [role description with expertise and personality].
 
 - **Open with a role statement** — "You are a..." sets the agent's expertise and tone.
 - **Be directive** — Write instructions, not descriptions. "Search for X" not "The agent searches for X".
-- **Include output delivery** — Specify where to save files (e.g., `outputs/` directory) and what to tell the user.
+- **Include output delivery** — Specify where to save files (the folder the workflow runs from, e.g. `outputs/` — never `framework/`) and what to tell the user.
 - **No filesystem references to `context/` or `skills/`** — agents receive skills via the `skills:` frontmatter field, not by reading files.
 
 ## Anti-Patterns

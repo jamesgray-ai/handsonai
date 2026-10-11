@@ -1,21 +1,27 @@
 # Migrating Legacy Workspaces
 
-Two legacy shapes feed into the same registry bundle: a `workflow.yaml`
-manifest layout, and an older flat layout with no manifest at all. Both
+Three legacy shapes can turn up in a workspace: a `workflow.yaml`
+manifest layout, an older flat layout with no manifest at all, and the
+pre-9.0 `outputs/<slug>/` layout, which kept each workflow's record in
+`outputs/<slug>/` instead of `framework/<slug>/`. The first two
 migrations write the same kind of node — a `registry/workflows/<slug>.md`
 file that lints clean against the student's `SCHEMA.md`.
 
 ## Detection
 
-A workspace needs migration when either of these is true:
+A workspace needs migration when any of these is true:
 
 - `outputs/*/workflow.yaml` exists — the manifest layout.
 - `outputs/<name>-requirements.md` exists with **no** matching
   `outputs/<name>/` folder — the flat layout (requirements files sitting
   directly in `outputs/`, not inside a per-workflow folder).
+- An `outputs/<slug>/` folder holds any of `requirements.md`, `design-spec.md`, `runs.md`, or a
+  `test-runs/` folder (the pre-9.0 outputs layout — the same check lint uses) — follow
+  *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle
+  reference.
 
 Run this check at Phase 0 of the scaffolding interview, before asking any
-content questions. If either shape is found, offer the migration path
+content questions. If any shape is found, offer the migration path
 described here instead of (or before) a fresh scaffold.
 
 ## Procedure
@@ -40,6 +46,11 @@ owns it); the legacy manifest rarely says.
       ("legacy manifest pending deletion") so the student removes it.
    d. Append one `log.md` entry for the whole migration run, naming every
       workflow migrated in that run (not one entry per workflow).
+   e. If the migrated node links anything under `outputs/<slug>/` (the
+      manifest's `artifacts:` map usually does), run *Moving a pre-9.0
+      record out of outputs/* in the indexing-registry skill's
+      registry-bundle reference, so the record ends up in
+      `framework/<slug>/`.
 3. Slot each new Workflow node into its owning Process's curated
    `# Workflows` list, and its Process into the right LineOfBusiness — ask
    the student where a workflow belongs if the manifest doesn't say. When
@@ -99,7 +110,21 @@ Field-level notes worth calling out during migration:
 
 ## Flat layout
 
-When there's no `workflow.yaml`, mint the node directly from what's on disk:
+When there's no `workflow.yaml`, mint the node directly from what's on disk.
+First move the record into its framework folder:
+
+1. Create the folder `framework/<name>/` (`<name>` from
+   `outputs/<name>-requirements.md`).
+2. Move `outputs/<name>-requirements.md` into it as
+   `framework/<name>/requirements.md`. Move any sibling record file the
+   same way, dropping the `<name>-` prefix: `outputs/<name>-design-spec.md`
+   becomes `framework/<name>/design-spec.md`, and so on for every
+   `outputs/<name>-*.md` file. Leave anything else in `outputs/` where it is.
+3. Tell the student what moved and where it went. If the chat can't move
+   files, give the student the numbered move list instead, and never say the
+   move happened.
+
+Then write the node:
 
 - Frontmatter comes from the requirements doc's own frontmatter where
   present, filled out from its filename otherwise (`<name>` from
@@ -110,9 +135,10 @@ When there's no `workflow.yaml`, mint the node directly from what's on disk:
 - `status: under-development` — a flat-layout workflow has requirements but
   no confirmed production status, so this is the honest default rather than
   a guess.
-- Link the requirements file itself in `# Artifacts`:
-  `- [Requirements](outputs/<name>-requirements.md)` (label as the link text —
-  compose reads the framework step from it).
+- Link the moved requirements file in `# Artifacts`, only once it is in
+  `framework/<name>/`: `- [Requirements](framework/<name>/requirements.md)`
+  (label as the link text — compose reads the framework step from it). Link
+  any other moved record file the same way (`- [Design spec](framework/<name>/design-spec.md)`).
 - All other frontmatter (`definition_type`, `execution_mode`, `autonomy`,
   `trigger`) comes from the doc where it states one (a `## Trigger` section,
   a stated path) — confirm it with the student — and from a short
@@ -142,9 +168,10 @@ After every workflow in the run has a node:
    legacy `timestamp:` field slipped through instead of being converted to
    `generated.at`.
 2. **Claims sweep.** Every sibling SOP under `sops/` and every
-   `outputs/<slug>/` folder must be linked from its owning Workflow node's
-   `# Artifacts` section — lint errors on any SOP or outputs folder claimed
-   by zero (or more than one) Workflow node. Fix the links before moving on.
+   `framework/<slug>/` folder must be linked from its owning Workflow node's
+   `# Artifacts` section. Lint errors on an SOP claimed by zero (or more than
+   one) Workflow node, and warns on a framework folder no Workflow node
+   claims. Fix the links before moving on.
 3. Run a full maintenance pass (`indexing-registry`) so lint, directory
    indexes, and the Tier 1 dashboard reflect the migrated workflows before
    calling the migration done.

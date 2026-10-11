@@ -52,7 +52,7 @@ the bundle exists.
      `/processes/course-improvement.md`). The first path segment must be one of the bundle's
      directories or a root file.
    - No leading slash, not a URL — workspace/repo-root-relative (e.g.
-     `outputs/course-improvement/sop.md`).
+     `framework/course-improvement/requirements.md`).
    - A full URL — external.
 5. **A workflow joins exactly one Process** via that Process's curated ordered `# Workflows`
    list (`registry/processes/<process-slug>.md`) — the list is both the Workflow→Process edge
@@ -153,8 +153,7 @@ The consistency suite asserts string agreement between the two.
 - Unterminated GENERATED block
 - A concept file missing from its directory index, or a typed directory missing its `index.md`
   (index coverage)
-- **Claims sweep** — an SOP or `outputs/<slug>/` folder claimed by no Workflow node's
-  `# Artifacts` (or by more than one)
+- **Claims sweep** — an SOP claimed by no Workflow node's `# Artifacts` (or by more than one)
 - SOP `workflow:` back-pointer disagreeing with the claiming node
 - Run-log evidence contradicting status (`runs.md` has entries but the node is not
   `in-production`)
@@ -166,6 +165,9 @@ The consistency suite asserts string agreement between the two.
 - Backlog staleness (backlog node untouched > 6 months — "triage or retire")
 - Workflow in no Process list (non-production)
 - A Note linking no bundle node ("probably misfiled")
+- A `framework/<slug>/` folder claimed by no Workflow node
+- A framework record left in `outputs/<slug>/` (pre-9.0 layout — see *Moving a pre-9.0 record out
+  of outputs/* below)
 - **Orphan capabilities** — skills/agents in the workspace referenced by no Workflow node
   ("capture the workflow" — the single most useful maintenance signal for students)
 - Stale GENERATED content — regenerate (a Function `# Owns` block whose content no longer
@@ -173,7 +175,7 @@ The consistency suite asserts string agreement between the two.
   doctrine, but a stale block is a maintenance-pass warning, never a lint blocker — see
   `scaffolding-registry/SKILL.md`'s Phase 4/5 notes)
 
-**Gitignore tolerance:** links into gitignored paths (the raw-source layer, e.g. `outputs/`) are
+**Gitignore tolerance:** links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are
 declarations, not guarantees — existence-checked locally when the target is present, skipped in
 CI/Tier 3 via `git check-ignore`. Without this tolerance, every artifact link would fail a
 student's first Action run.
@@ -182,6 +184,89 @@ All lint messages are plain-language and file-naming; fixes are offered, never s
 auto-applied — lint never repairs meaning on its own.
 
 ---
+
+## Moving a pre-9.0 record out of outputs/
+
+Before 9.0 the framework kept each workflow's record in `outputs/<slug>/`. It now lives in
+`framework/<slug>/`. Lint flags a leftover with `framework record found in outputs/<slug>/`.
+
+**When to run this.** Any framework step that finds a pre-9.0 record: an `outputs/<slug>/` folder
+holding any of `requirements.md`, `design-spec.md`, `runs.md`, or a `test-runs/` folder (the same
+check lint uses) — or that finds `outputs/ai-opportunity-report*.md`. Skip the ask if
+`registry/log.md` already has a "Kept the pre-9.0 `outputs/` layout" entry: the student said no, and
+that answer stands for the framework steps. The move is offered again only when the student asks for
+it, or when they run the scaffolding-registry skill — it checks for a pre-9.0 record every time it
+runs, even after that entry.
+
+**1. Find everything first.** Check every `outputs/<slug>/` folder in the workspace, not just this
+workflow's. For each one, split its contents into *moves* and *stays*. The *moves* are the record
+files: `requirements.md`; `design-spec.md` and its dated copies `design-spec-*.md`;
+`test-results*.md`; `run-guide.md`; `runs.md`; `improvement-plan.md` and its dated copies
+`improvement-plan-*.md`; `inputs/`; `context/` (examples pasted in during Deconstruct);
+`test-runs/`; `skill/`; an old `plugin/` staging folder; and staged package zips (`*.zip` directly
+inside `outputs/<slug>/`). The *stays* are everything else: the workflow's own output, such as
+reports it produced.
+
+**2. Ask once, for the whole workspace.** Show the list grouped by workflow, then ask:
+
+> Your framework files are in `outputs/`, which the framework no longer uses. Can I move them to
+> `framework/`? *Weekly Status Report*: 22 files move, your 5 status reports stay where they are.
+> *Client Onboarding*: 6 files move. Your opportunity report moves to `framework/` too.
+
+**3a. If they say yes**, for each workflow:
+1. If `framework/<slug>/` already has a file with the same name, stop for that file.
+   - **`runs.md` in both places:** show both run logs, then ask: "Add these N rows from the old
+     log to the one in `framework/`?" Append them, keeping the dates in order, only if the student
+     says yes. If they say no, treat `runs.md` like any other file below: ask which one to keep.
+   - **Any other file:** show both dates and ask which to keep. Never overwrite or merge on your
+     own. If they keep the `framework/` copy, leave the `outputs/` copy where it is, untouched. If
+     they keep the `outputs/` copy, move it into `framework/<slug>/` and leave the copy it replaces
+     untouched under a clear name beside it, such as `requirements.replaced-2026-10-11.md`. Either
+     way, tell the student where the copy they didn't pick is. Never delete it.
+2. Move the record files from step 1 to `framework/<slug>/`, keeping their names, except that
+   `skill/` becomes `skills/`. Move `outputs/ai-opportunity-report*.md` to `framework/`.
+3. Rewrite links to every moved file in **every** registry node, not just this workflow's node. A
+   moved shared file such as `ai-opportunity-report.md` is linked from other Workflow nodes too.
+   In the Workflow node, that means `# Artifacts`, `# Skills`, and `# Agents` links from
+   `outputs/<slug>/` to `framework/<slug>/` (and `skill/` → `skills/`). If the node has no link to
+   the folder, add the `# Artifacts` links.
+4. Rewrite each `outputs/<slug>/` path that points to a file you moved, throughout the moved
+   files' text, not only their frontmatter (`requirements_file:` in `design-spec.md`;
+   `design_spec:` and `requirements:` in `test-results*.md`; a `context/` path in the Context
+   Inventory; and any path in the body, such as in a Run Card the student reads). Leave every path
+   to a file that stayed unchanged — for example the workflow's own output files
+   (`status-report-YYYY-MM-DD.md`) stay in `outputs/`.
+5. **Check the installed workflow.** Read the installed or staged orchestrator. If it names
+   `outputs/<slug>/runs.md` or `outputs/<slug>/test-runs/`, tell the student plainly: "Your
+   installed workflow still saves its run log to the old folder. I'll update it." Until it is updated
+   or re-uploaded, it keeps writing its run log to the old folder. Then:
+   - **Where Build installs the skill directly:** change the paths in the installed skill to
+     `framework/<slug>/`.
+   - **Where the platform's `capabilities.skill_install` says the skill is uploaded:** update the
+     staged copy in `framework/<slug>/skills/`, rebuild the one package, and give the re-upload
+     steps from `capabilities.skill_install`.
+6. Add a `log.md` entry naming what moved. Run lint. If the registry was created from the template
+   repository, tell the student to copy `tools/` and `.github/workflows/registry.yml` from the template again
+   to get the new checks. Leave their `registry/SCHEMA.md` as it is: their copy is authoritative.
+
+**3b. If they say no**, keep working. Append a `registry/log.md` entry in the usual format, so
+the answer survives a new chat:
+
+```markdown
+## <YYYY-MM-DD> — Kept the pre-9.0 `outputs/` layout
+
+Kept the pre-9.0 `outputs/` layout — the student declined the move to `framework/`.
+```
+
+While that entry stands, every framework step treats each `framework/[workflow-name]/` path in its
+skill as `outputs/[workflow-name]/` for a workflow whose record is already in `outputs/`, and reads
+and writes through the Workflow node's links. New files go next to the existing record, so one
+workflow's record is never split. A new workflow still starts in `framework/`. The framework steps
+don't ask again; the move is offered again when the student brings it up or runs the
+scaffolding-registry skill.
+
+**If you can't move files** (the chat has no file access), give the student the numbered move list
+and the replacement link lines to paste. Never say the move happened.
 
 ## 7. Closing step
 

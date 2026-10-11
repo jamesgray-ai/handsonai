@@ -13,10 +13,12 @@
 
 - 2026-08-14 — [Weekly Status Report](registry/workflows/weekly-status-report.md)
 
-## Skills (0)
+## Skills (2)
 
 | Skill | Description | Used by |
 |---|---|---|
+| [status-report-drafting](framework/weekly-status-report/skills/status-report-drafting/SKILL.md) | — | [Weekly Status Report](registry/workflows/weekly-status-report.md) |
+| [weekly-status-report](framework/weekly-status-report/skills/weekly-status-report/SKILL.md) | — | [Weekly Status Report](registry/workflows/weekly-status-report.md) |
 
 ## Agents (0)
 

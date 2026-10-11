@@ -234,7 +234,7 @@ function loadBundle(rootDir) {
   return { nodes, errors };
 }
 
-// --- Workspace scans (skills/agents/SOPs/outputs are never duplicated into
+// --- Workspace scans (skills/agents/SOPs/framework records are never duplicated into
 // the bundle; the linter and compose read them from the workspace directly).
 
 function scanSops(workspaceRoot) {
@@ -250,21 +250,42 @@ function scanSops(workspaceRoot) {
   return out;
 }
 
-function scanOutputsFolders(workspaceRoot) {
+// Skips anything that is not a readable folder: a root that is a file, a broken symlink, an
+// entry it cannot stat. Lint reports on what it can read; it never crashes on an odd entry.
+function scanRecordFolders(workspaceRoot, rootDir) {
   const out = [];
-  const dir = path.join(workspaceRoot, 'outputs');
-  if (!fs.existsSync(dir)) return out;
-  for (const name of fs.readdirSync(dir).sort()) {
+  const dir = path.join(workspaceRoot, rootDir);
+  let names;
+  try { names = fs.readdirSync(dir).sort(); } catch { return out; } // missing, or not a directory
+  for (const name of names) {
     const full = path.join(dir, name);
-    if (!fs.statSync(full).isDirectory()) continue;
-    out.push({ slug: name, path: `outputs/${name}`, hasRuns: fs.existsSync(path.join(full, 'runs.md')) });
+    let isDir;
+    try { isDir = fs.statSync(full).isDirectory(); } catch { continue; } // broken symlink, unreadable
+    if (!isDir) continue;
+    out.push({ slug: name, path: `${rootDir}/${name}`, hasRuns: fs.existsSync(path.join(full, 'runs.md')) });
   }
   return out;
 }
 
+// framework/<slug>/ -- each workflow's record (requirements, design spec, tests, run log).
+function scanFrameworkFolders(workspaceRoot) {
+  return scanRecordFolders(workspaceRoot, 'framework');
+}
+
+// Pre-9.0 layout: a framework record still sitting in outputs/<slug>/. Folders holding only a
+// workflow's own output are not records and are ignored. A marker is any record file or folder
+// that is never a workflow's own output -- including runs.md and test-runs/, so an outputs/<slug>/
+// recreated by a later run or test round (with no requirements or design spec) is still caught.
+// existsSync matches files and directories alike.
+const RECORD_MARKERS = ['requirements.md', 'design-spec.md', 'runs.md', 'test-runs'];
+function scanLegacyRecordFolders(workspaceRoot) {
+  return scanRecordFolders(workspaceRoot, 'outputs')
+    .filter((f) => RECORD_MARKERS.some((m) => fs.existsSync(path.join(workspaceRoot, f.path, m))));
+}
+
 // runs.md has at least one data row (a table row beyond header/separator).
-function runsHasEntries(workspaceRoot, slug) {
-  const file = path.join(workspaceRoot, 'outputs', slug, 'runs.md');
+function runsHasEntries(workspaceRoot, folderPath) {
+  const file = path.join(workspaceRoot, folderPath, 'runs.md');
   if (!fs.existsSync(file)) return false;
   const lines = fs.readFileSync(file, 'utf8').split('\n');
   let tableRows = 0;
@@ -310,16 +331,24 @@ function scanCapabilities(workspaceRoot) {
       walk(full, depth + 1);
     }
   })(workspaceRoot, 0);
-  for (const dir of [path.join(workspaceRoot, '.claude', 'agents'), path.join(workspaceRoot, 'agents')]) {
-    if (!fs.existsSync(dir)) continue;
-    for (const name of fs.readdirSync(dir).sort()) {
+  // Agents staged beside a workflow's record (framework/<slug>/agents/*.md) count too:
+  // Build stages them there on platforms whose agent folder it can't write to.
+  const agentDirs = [path.join(workspaceRoot, '.claude', 'agents'), path.join(workspaceRoot, 'agents')];
+  const frameworkDir = path.join(workspaceRoot, 'framework');
+  let slugs = [];
+  try { slugs = fs.readdirSync(frameworkDir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort(); } catch { /* no framework/ folder */ }
+  for (const slug of slugs) agentDirs.push(path.join(frameworkDir, slug, 'agents'));
+  for (const dir of agentDirs) {
+    let names;
+    try { names = fs.readdirSync(dir).sort(); } catch { continue; } // missing, or not a directory
+    for (const name of names) {
       if (name.endsWith('.md')) add(path.join(dir, name));
     }
   }
   return out.sort();
 }
 
-// Links into gitignored territory (raw-source layer: outputs/) are
+// Links into gitignored territory (a workflow's own output, e.g. outputs/) are
 // declarations lint cannot verify in a fresh checkout -- `git check-ignore`
 // works on patterns regardless of whether the file exists. Non-git
 // directories (or any error) tolerate as "nothing ignored".
@@ -343,6 +372,6 @@ module.exports = {
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
   normalizeLineEndings, parseFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
-  loadBundle, scanSops, scanOutputsFolders, runsHasEntries, scanCapabilities,
+  loadBundle, scanSops, scanFrameworkFolders, scanLegacyRecordFolders, runsHasEntries, scanCapabilities,
   isGitIgnored, lastChanged,
 };

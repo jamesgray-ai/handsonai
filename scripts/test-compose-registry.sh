@@ -424,6 +424,76 @@ grep -qF 'Client Onboarding $&' "$WS/registry/functions/operations.md" && ok "Ow
 # lint: a freshly scaffolded bundle with zero workflows (post-v8 scaffold) lints clean
 run_lint empty-workflows-bundle && ok "empty-workflows bundle lints clean (exit 0)" || bad "empty-workflows bundle should lint clean"
 
+# framework/ folder (9.0): record lives in framework/<slug>/, outputs/ is workflow output only
+run_lint legacy-outputs-workspace && ok "legacy outputs workspace is warning-only (exit 0)" || bad "legacy outputs workspace must not error"
+out=$(lint_output legacy-outputs-workspace)
+grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" <<<"$out" \
+  && ok "legacy record in outputs/ warned" || bad "expected legacy-record WARN, got: $(grep WARN <<<"$out")"
+
+out=$(lint_output valid-bundle)
+grep -q "framework record found" <<<"$out" && bad "valid-bundle should not warn about legacy records" || ok "output-only outputs folder is silent (no legacy warning)"
+grep -q "folder not claimed" <<<"$out" && bad "valid-bundle: unexpected unclaimed-folder warning" || ok "output-only outputs folder is silent (no unclaimed warning)"
+
+WS=$(stage legacy-outputs-workspace)
+sed -i '' 's/^status: in-production$/status: building/' "$WS/registry/workflows/first-workflow.md"
+if run_lint_at "$WS" >/dev/null 2>&1; then bad "legacy runlog contradiction still errors: lint exited 0"; else
+  out=$(run_lint_at "$WS" 2>&1)
+  grep -q "ERROR.*contradicts run log evidence (outputs/first-workflow/runs.md" <<<"$out" \
+    && ok "legacy runlog contradiction still errors" || bad "legacy runlog contradiction: wrong error text"
+fi
+
+# first-workflow -> client-onboarding -> design-services. Give that LOB a folder: so the check runs.
+# Lint warns at most once per workflow (it breaks after the first outside link), so a framework/
+# link must not be that first warning; .claude/skills/... is expected to be.
+WS=$(stage valid-bundle)
+perl -0pi -e 's/^(status: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
+grep -q "^folder: lob-files/" "$WS/registry/lines-of-business/design-services.md" || bad "LOB test setup: folder: not inserted"
+run_lint_at "$WS" 2>&1 | grep -q "artifact link framework/" \
+  && bad "LOB folder check exempts framework/: got an outside-LOB warning for a framework/ link" || ok "LOB folder check exempts framework/"
+
+WS=$(stage valid-bundle); mkdir -p "$WS/framework/orphan-workflow"; : > "$WS/framework/orphan-workflow/requirements.md"
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework/orphan-workflow/: framework folder not claimed by any Workflow node" \
+  && ok "unclaimed framework folder warned" || bad "expected unclaimed framework folder WARN"
+
+# staged agents: framework/<slug>/agents/*.md count as capabilities (staged skills already do)
+WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/agents"; printf -- '---\nname: staged-agent\ndescription: x\n---\n' > "$WS/framework/first-workflow/agents/staged-agent.md"
+run_lint_at "$WS" 2>&1 | grep -q "orphan.*framework/first-workflow/agents/staged-agent.md" \
+  && ok "staged agent under framework/ counted as a capability" || bad "expected staged agent framework/first-workflow/agents/staged-agent.md in orphan warning"
+
+# legacy record: a recreated outputs/<slug>/ holding only a run log (no requirements/design spec)
+# is still a framework record -- a workflow's own output is never named runs.md.
+WS=$(stage valid-bundle)
+printf '| Date | Result |\n|---|---|\n| 2026-10-01 | ok |\n' > "$WS/outputs/first-workflow/runs.md"
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" \
+  && ok "outputs/<slug>/ holding only runs.md is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/runs.md"
+WS=$(stage valid-bundle)
+mkdir -p "$WS/outputs/first-workflow/test-runs"; : > "$WS/outputs/first-workflow/test-runs/round-1.md"
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/" \
+  && ok "outputs/<slug>/ holding only test-runs/ is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/test-runs/"
+
+# a missing framework/ link is strict: framework/ is never gitignored, so lint errors
+WS=$(stage valid-bundle); rm "$WS/framework/first-workflow/run-guide.md"
+if run_lint_at "$WS" >/dev/null 2>&1; then bad "missing framework/ link: lint should exit 1"; else
+  out=$(run_lint_at "$WS" 2>&1)  # variable capture: lint exits 1 here, so never pipe it under pipefail
+  grep -q "ERROR.*repo link framework/first-workflow/run-guide.md -- file not found" <<<"$out" \
+    && ok "missing framework/ link is a lint ERROR naming the file" || bad "missing framework/ link: no ERROR naming run-guide.md"
+fi
+
+# robustness: odd entries where lint expects folders never crash it with a JS stack trace
+no_trace() { ! grep -qE '^[[:space:]]+at |TypeError|Error:' <<<"$1"; }
+WS=$(stage valid-bundle); rm -rf "$WS/framework"; : > "$WS/framework"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "framework/ as a plain file: lint reports, no stack trace" || bad "framework/ as a plain file crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); ln -s "$WS/does-not-exist" "$WS/framework/dangling"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "broken symlink in framework/: lint skips it, no stack trace" || bad "broken symlink in framework/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); ln -s "$WS/does-not-exist" "$WS/outputs/dangling"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "broken symlink in outputs/: lint skips it, no stack trace" || bad "broken symlink in outputs/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); rm -rf "$WS/outputs"; : > "$WS/outputs"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "outputs/ as a plain file: lint reports, no stack trace" || bad "outputs/ as a plain file crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"
@@ -433,7 +503,8 @@ grep -q "WARN.*stale_after 2026-08-14 is past -- review due" <<<"$ex_out" && [ "
   && ok "worked example: exactly the expected review-due warning" || bad "worked example: expected exactly one warning (review due), got $ex_warns: $(grep '^WARN' <<<"$ex_out")"
 (cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks, island all current)" \
   || bad "worked example has stale derived views: $(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry 2>&1 | grep STALE | tr '\n' ' ')"
-[ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/outputs | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example outputs/ is tracked by git" || bad "worked example outputs/ is not tracked (gitignore?)"
+[ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/framework | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example framework/ is tracked by git" || bad "worked example framework/ is not tracked (gitignore?)"
+[ "$(git -C "$REPO_ROOT" ls-files 'examples/weekly-status-report/outputs/weekly-status-report/status-report-*.md' | wc -l | tr -d ' ')" -eq 5 ] && ok "worked example keeps 5 sample reports in outputs/" || bad "worked example should keep its 5 status reports in outputs/"
 grep -q '"nodeUrl"' "$EX/tools/last-data-island.json" 2>/dev/null && bad "worked example island carries nodeUrl (would be dead links for students)" || ok "worked example island has no nodeUrl"
 
 echo

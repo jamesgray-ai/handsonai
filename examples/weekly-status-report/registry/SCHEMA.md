@@ -59,13 +59,16 @@ how the bundle points at them.
 **Event-fact fields are banned from nodes**: `current_step`, `health`, `last_run`, `run_count`
 (and any run-counter field), `next_review`, `notion_url`, `timestamp`, `lob`, `sequence`,
 `process` (banned on any node), `owner` (banned on Workflow nodes — it lives on Process) — those
-are raw-source-layer or retired-manifest concerns, not registry state. `stale_after` (a date — a
+are workflow-record or retired-manifest concerns, not registry state. `stale_after` (a date — a
 workflow is stale when today ≥ `stale_after`) is permitted because a dashboard roll-up and a lint
 warning give it teeth.
 
-**Layered model.** `outputs/<slug>/` is the **raw-source layer** — the system of record for what a
-workflow produces and experiences (run logs, generated outputs, framework documents). Event-facts
-stay there. Only **synthesized insight** crosses into this bundle, as `Note` concepts.
+**Layered model.** `framework/<slug>/` is the workflow's **record** — what the AI Workflow Framework
+produced while building, testing, and running it (requirements, design spec, test evidence, run
+card, run log). The workflow's own output is not part of the record: it lands wherever the
+workflow runs. Event-facts stay in the record. Only **synthesized insight** crosses into this
+bundle, as `Note` concepts. Links point one way: the registry links into `framework/`, and nothing
+in `framework/` links back to registry nodes.
 
 # Frontmatter
 
@@ -114,7 +117,7 @@ the parent — nothing on the child changes.
 | Workflow → Process | the Process node's curated `# Workflows` list | dashboard tables in value-chain order; workflow's LOB (via chain) |
 | Workflow → Skill/Agent | the Workflow node's `# Skills` / `# Agents` body links | per-skill/agent used-by in generated inventories |
 | Insight → Workflow/Process | the Note's body links | Workflow `# Insights` GENERATED block |
-| Workflow → operational files | the Workflow node's `# Artifacts` labeled links | claims sweep (every SOP/`outputs/<slug>/` folder must be claimed) |
+| Workflow → operational files | the Workflow node's `# Artifacts` labeled links | claims sweep (every SOP/`framework/<slug>/` folder must be claimed) |
 
 **Process → Function (ownership)** is the one attribute-reference edge: the Process's `owner:`
 frontmatter holds a function slug. Deliberately not a curated parent list — ownership is
@@ -131,16 +134,16 @@ Discriminator, exact:
   `/processes/course-improvement.md`). The first path segment MUST be one of this bundle's
   directories or a root file — lint errors otherwise.
 - **No leading slash, not a URL** = workspace/repo-root-relative (e.g.
-  `outputs/course-improvement/sop.md`). A trailing `/` marks a directory target.
+  `framework/course-improvement/requirements.md`). A trailing `/` marks a directory target.
 - **Full URLs** = external.
 
-Links into gitignored paths (e.g. `outputs/`) are declarations, not guarantees: lint checks them
-when the target is present and skips them otherwise.
+Links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are
+declarations, not guarantees: lint checks them when the target is present and skips them otherwise.
 
 # Naming
 
 Kebab-case slug from title at creation (`&` → `and`, strip punctuation). Slugs are STABLE — title
-edits never rename files. A Workflow's slug matches its `outputs/<slug>/` folder where one exists.
+edits never rename files. A Workflow's slug matches its `framework/<slug>/` folder where one exists.
 
 # Artifact labels
 
@@ -163,11 +166,12 @@ required frontmatter present · single-line values · directory↔type agreement
 banned fields absent · link targets resolve · curated-list membership (exactly one parent per
 child) · owner validity (Process `owner:` names a real Function) · Function `# Owns` block
 present · GENERATED markers intact and terminated · every directory `index.md` covers its nodes ·
-claims sweep (every SOP and `outputs/<slug>/` folder claimed by exactly one Workflow; an SOP's
-`workflow:` back-pointer must agree with the claiming node; run-log evidence must not contradict
-`status`). Warnings (not errors): overdue `stale_after`, a `backlog` workflow older than six
+claims sweep (every SOP claimed by exactly one Workflow; an SOP's `workflow:` back-pointer must
+agree with the claiming node; run-log evidence must not contradict `status`). Warnings (not
+errors): a `framework/<slug>/` folder claimed by no Workflow, overdue `stale_after`, a `backlog` workflow older than six
 months, a Note linking no node, uncaptured skills/agents, a malformed `generated.by` actor string,
-an artifact link pointing outside the workflow's derived LOB `folder:` when one is set, and stale
+an artifact link pointing outside the workflow's derived LOB `folder:` when one is set, a framework
+record left in `outputs/<slug>/` (pre-9.0 layout — the indexing-registry skill moves it), and stale
 Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
 a maintenance pass; hand-editing between the markers is still prohibited, but staleness alone never
 blocks regeneration).

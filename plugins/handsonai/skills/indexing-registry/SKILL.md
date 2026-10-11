@@ -21,7 +21,7 @@ For how nodes are resolved, written, and owned — resolution rules, write rules
 
 ## Location & Scope
 
-**One workspace = one registry.** The bundle lives at `registry/` off the root of the folder the framework operates in — beside `outputs/`, `sops/`, and `process-guides/`. Where that root is, and how bytes get read and written there, depends on the platform — see the platform matrix in the framework's cross-platform delivery documentation. Tools that can create files write the bundle directly (write mode); tools that cannot print each file with its location for the student to save (print-and-save mode), stating plainly what is unsaved. The bundle may live in a local folder, a synced cloud-drive folder, or a GitHub repository — the skill never assumes a repo.
+**One workspace = one registry.** The bundle lives at `registry/` off the root of the folder the framework operates in — beside `framework/`, `sops/`, and `process-guides/`. Where that root is, and how bytes get read and written there, depends on the platform — see the platform matrix in the framework's cross-platform delivery documentation. Tools that can create files write the bundle directly (write mode); tools that cannot print each file with its location for the student to save (print-and-save mode), stating plainly what is unsaved. The bundle may live in a local folder, a synced cloud-drive folder, or a GitHub repository — the skill never assumes a repo.
 
 > **Terminology:** "AI Registry" always means the `registry/` bundle and the views generated from it. It is unrelated to the framework's *platform registry* (`registries/platform-registry.json`), which catalogs platforms and integrations for the Design and Build skills.
 

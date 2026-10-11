@@ -17,7 +17,7 @@ For **goal-driven** workflows, apply the template substitutions in `references/g
 ```markdown
 ---
 workflow: [kebab-case name]
-requirements_file: outputs/[workflow-name]/requirements.md
+requirements_file: framework/[workflow-name]/requirements.md
 spec_version: 3.0
 approved: false
 definition_type: Step-Driven | Goal-Driven
@@ -42,7 +42,7 @@ counts:
 
 ## Source
 
-**Workflow Requirements:** `outputs/[workflow-name]/requirements.md`
+**Workflow Requirements:** `framework/[workflow-name]/requirements.md`
 
 This Design Spec consumes the Workflow Requirements as canonical input. Goal, Value & Measurement, Metadata, Context Inventory, Security, Privacy & Safety, Acceptance Criteria, Example Scenarios, Human Gates, Steps Overview, and per-step requirements are defined there — not restated here. Read the Workflow Requirements alongside this spec when building.
 
@@ -322,13 +322,13 @@ For each artifact produced, document where it lives and how it gets deployed:
 | A1 — `[name]` | [platform-specific path or destination] | [high-level steps] |
 | MCP: [tool] | [where the config lives] | [install/auth steps] |
 
-> **Target Location on system-managed platforms:** these platforms' skill/agent directories can't be written directly, so the Target Location is the staging tree `outputs/[workflow-name]/skill/[skill-name]/` plus the install step the platform's `capabilities.skill_install` describes (or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`) — **never** a local skill or agent directory path the platform can't write.
+> **Target Location on system-managed platforms:** these platforms' skill/agent directories can't be written directly, so the Target Location is the staging tree `framework/[workflow-name]/skills/[skill-name]/` (and `framework/[workflow-name]/agents/[agent-name].md` for worker agents) plus the install step the platform's `capabilities.skill_install` describes (or, if the entry has no `capabilities`, its `skill` documentation URL(s) and `notes`) — **never** a local skill or agent directory path the platform can't write.
 
 **Packaging note:** [How the artifacts ship together based on the Packaging decision — e.g., "All S1–S3 + A1 bundle into a plugin in the user's marketplace fork"; "Each skill uploaded individually to Claude.ai"; "Skill uploaded once in ChatGPT and attached to a Workspace Agent"]
 
 **Orchestrator artifact (primary-loop platforms):** the user-triggered entry point is an orchestrator **skill** (`disable-model-invocation: true`, no `context: fork`), not a slash command (custom commands are merged into skills). It takes the **workflow name**; component/worker artifacts take **capability-specific names** so the entry point never shadows a sub-skill.
 
-**Run Logging:** If the workflow runs on-platform (an orchestrator skill or agent the agentic loop executes), the orchestrator appends one row to `outputs/[workflow-name]/runs.md` at the end of every run — date, input/trigger, result, edits-needed — creating the file with its header if absent. Build bakes this into the orchestrator artifact.
+**Run Logging:** If the workflow runs on-platform (an orchestrator skill or agent the agentic loop executes), the orchestrator appends one row to `framework/[workflow-name]/runs.md` at the end of every run — date, input/trigger, result, edits-needed — creating the file with its header if absent. Build bakes this into the orchestrator artifact.
 
 **Recommended for frequent use:** [recommendation, e.g., "Save as Claude Project for one-click reuse"]
 
@@ -340,7 +340,7 @@ For each artifact produced, document where it lives and how it gets deployed:
 
 ## Evaluation Inputs
 
-**Acceptance Criteria, Example Scenarios (including Golden Examples), and Human Gates are sourced from the Workflow Requirements file** (`outputs/[name]/requirements.md`). Do not duplicate them here. Step 5 (Test) reads them from that file directly.
+**Acceptance Criteria, Example Scenarios (including Golden Examples), and Human Gates are sourced from the Workflow Requirements file** (`framework/[name]/requirements.md`). Do not duplicate them here. Step 5 (Test) reads them from that file directly.
 
 ## Deferred to Build
 

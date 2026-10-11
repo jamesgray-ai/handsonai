@@ -32,7 +32,7 @@ Here's the Cowork project workspace after all seven steps. Every file below appe
 ├── context/
 │   ├── past-reports/                     ← C2: the template and three past reports (one is E1's golden example)
 │   └── tone-guide.md                     ← C3: created in Step 4 with Maya
-├── outputs/
+├── framework/                            ← the workflow's record: what each step hands to the next
 │   ├── ai-opportunity-report.md          ← Step 1 (Analyze)
 │   └── weekly-status-report/
 │       ├── requirements.md               ← Step 2 (Deconstruct)
@@ -41,7 +41,7 @@ Here's the Cowork project workspace after all seven steps. Every file below appe
 │       │   ├── E2-blocked-heavy-week.md
 │       │   └── E3-quiet-week.md
 │       ├── design-spec.md                ← Step 3 (Design)
-│       ├── skill/
+│       ├── skills/
 │       │   ├── weekly-status-report/SKILL.md      ← Step 4 (Build): staged source for S1
 │       │   └── status-report-drafting/SKILL.md    ← Step 4 (Build): staged source for S2
 │       ├── weekly-status-report.zip               ← Step 4 (Build): the two installable packages
@@ -50,31 +50,33 @@ Here's the Cowork project workspace after all seven steps. Every file below appe
 │       ├── test-results-2026-06-05.md    ← Step 5 (Test), round 1
 │       ├── test-results-2026-06-08.md    ← Step 5 (Test), round 2 — the Ready round (renamed when Step 7 opened a regression round)
 │       ├── test-results.md               ← Step 7's regression round
-│       ├── status-report-2026-06-12.md … ← one saved report per run (Step 4's orchestrator writes these)
 │       ├── run-guide.md                  ← Step 6 (Run) — the Run Card
 │       ├── runs.md                       ← the run log (one line per run)
 │       └── improvement-plan.md           ← Step 7 (Improve, a month later)
+└── outputs/
+    └── weekly-status-report/
+        └── status-report-2026-06-12.md … ← the workflow's own output: one saved report per run (lands wherever it runs)
 ```
 
 :::note[Where do the Step 4 skills live in Cowork?]
-In Cowork, installed skills are managed by the platform rather than sitting in a visible project folder. Build stages each skill's source under `outputs/weekly-status-report/skill/<skill-name>/`, produces one zip per skill, and then walks you through adding each package under **Customize → Skills**. Skills added there are shared by Claude Chat and Cowork on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
+In Cowork, installed skills are managed by the platform rather than sitting in a visible project folder. Build stages each skill's source under `framework/weekly-status-report/skills/<skill-name>/`, produces one zip per skill, and then walks you through adding each package under **Customize → Skills**. Skills added there are shared by Claude Chat and Cowork on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
 :::
 
 <a href="/assets/examples/weekly-status-report.zip" download="weekly-status-report.zip"><strong>Download the example project folder (.zip)</strong></a> — unzip it into a Cowork project or any folder, open the README, and try the three exercises: watch the skills orient from the Workflow node, regenerate the dashboard, and rewind one step to run it yourself. The folder is checked into the repository and verified by the registry tools on every change, so what you download matches what this page shows, file for file.
 
-**Why two locations?** The `outputs/` folder holds the framework's *paper trail* — the documents each step hands to the next. The skills are the *product* — the thing you actually run every week. When the run is over, you use the skill; the documents stay behind as the workflow's memory (Test and Improve read them later).
+**Why two locations?** The `framework/` folder holds the framework's *paper trail* — the documents each step hands to the next. The skills are the *product* — the thing you actually run every week, and the reports it writes land in `outputs/`, wherever it runs. When the run is over, you use the skill; the documents stay behind as the workflow's memory (Test and Improve read them later).
 
 ---
 
 ## Step 1 — Analyze → `ai-opportunity-report.md`
 
-Maya (a program manager) ran the analyze skill in Cowork and spent about 15 minutes in the discovery interview — a walk through the processes in her registry, asking where the friction is. Note the report lives at the top of `outputs/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
+Maya (a program manager) ran the analyze skill in Cowork and spent about 15 minutes in the discovery interview — a walk through the processes in her registry, asking where the friction is. Note the report lives at the top of `framework/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
 
 Two things to notice. Analyze names the work, the pain, and the kind of value AI adds — it never classifies how much the AI should decide or whether the workflow runs unattended; those are Design's questions, and when Maya asked, the skill said so and returned to the work. And systems she uses today appear only where they are facts about the work (the pain point, the systems row), never in the description of what AI would do.
 
 The full file, trimmed to two of its four opportunities for readability (the header keeps the real count; the Workflow Candidate Summary's second table, for Stakeholder Meeting Prep, is trimmed too):
 
-<!-- file: outputs/ai-opportunity-report.md -->
+<!-- file: framework/ai-opportunity-report.md -->
 ````markdown
 # AI Opportunity Report
 
@@ -213,7 +215,7 @@ Drafts the Friday leadership status report from the team's project tracker for M
 
 # Artifacts
 
-- [Opportunity report](outputs/ai-opportunity-report.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
 
 # Skills
 
@@ -252,8 +254,8 @@ Drafts the Friday leadership status report from the team's project tracker — p
 
 # Artifacts
 
-- [Opportunity report](outputs/ai-opportunity-report.md)
-- [Requirements](outputs/weekly-status-report/requirements.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
+- [Requirements](framework/weekly-status-report/requirements.md)
 
 # Skills
 
@@ -267,7 +269,7 @@ Drafts the Friday leadership status report from the team's project tracker — p
 
 And the complete Workflow Requirements:
 
-<!-- file: outputs/weekly-status-report/requirements.md -->
+<!-- file: framework/weekly-status-report/requirements.md -->
 ````markdown
 # Weekly Status Report — Workflow Requirements
 
@@ -379,9 +381,9 @@ Reference example: C2
 
 | ID | Scenario | Input | What to look for in the output | Golden Example |
 |---|---|---|---|---|
-| E1 | Typical week (real) | `outputs/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
-| E2 | Blocked-heavy week (proposed) | `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — 4+ blockers incl. one with no owner | Every blocker names an owner and a next action, or is flagged "owner needed"; sections stay in template order; tests R1 and the Step 2 ownerless-blocker edge case | — |
-| E3 | Quiet week (proposed) | `outputs/weekly-status-report/inputs/E3-quiet-week.md` — 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
+| E1 | Typical week (real) | `framework/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker | All sections populated; blockers named with owners; tests R1, G1 | C2 (report of 2026-05-22) |
+| E2 | Blocked-heavy week (proposed) | `framework/weekly-status-report/inputs/E2-blocked-heavy-week.md` — 4+ blockers incl. one with no owner | Every blocker names an owner and a next action, or is flagged "owner needed"; sections stay in template order; tests R1 and the Step 2 ownerless-blocker edge case | — |
+| E3 | Quiet week (proposed) | `framework/weekly-status-report/inputs/E3-quiet-week.md` — 2 updates, no blockers | Short honest report; no padding or invented activity; tests R2 (nothing invented when there is little to report) | — |
 
 ## Rules & Constraints
 
@@ -411,7 +413,7 @@ channel" step; declined for v1 — Maya prefers to post manually until trust is
 established (revisit in Improve).
 ````
 
-Alongside the requirements, Deconstruct saved each scenario's input as its own file under `outputs/weekly-status-report/inputs/` — `E1-typical-week.md` holds the real tracker export Maya pasted in; `E2-blocked-heavy-week.md` and `E3-quiet-week.md` hold the two proposed inputs written out in full, so Test is copy-and-paste rather than a hunt. It then handed off to `indexing-registry` for a maintenance pass.
+Alongside the requirements, Deconstruct saved each scenario's input as its own file under `framework/weekly-status-report/inputs/` — `E1-typical-week.md` holds the real tracker export Maya pasted in; `E2-blocked-heavy-week.md` and `E3-quiet-week.md` hold the two proposed inputs written out in full, so Test is copy-and-paste rather than a hunt. It then handed off to `indexing-registry` for a maintenance pass.
 
 Two things in that document are easy to skip and worth pausing on.
 
@@ -427,11 +429,11 @@ Design took about 30 minutes and three real decisions: where it runs (Cowork —
 
 The complete Design Spec, as approved:
 
-<!-- file: outputs/weekly-status-report/design-spec.md -->
+<!-- file: framework/weekly-status-report/design-spec.md -->
 ````markdown
 ---
 workflow: weekly-status-report
-requirements_file: outputs/weekly-status-report/requirements.md
+requirements_file: framework/weekly-status-report/requirements.md
 spec_version: 3.0
 approved: true
 definition_type: Step-Driven
@@ -451,7 +453,7 @@ counts:
 
 ## Source
 
-**Workflow Requirements:** `outputs/weekly-status-report/requirements.md`
+**Workflow Requirements:** `framework/weekly-status-report/requirements.md`
 
 This Design Spec consumes the Workflow Requirements as canonical input. Goal, Value &
 Measurement, Metadata, Context Inventory, Security, Privacy & Safety, Acceptance
@@ -664,8 +666,8 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 
 | Artifact | Target Location | Deployment Steps |
 |---|---|---|
-| S1 — orchestrator skill `weekly-status-report` | Staged at `outputs/weekly-status-report/skill/weekly-status-report/`, packaged as `outputs/weekly-status-report/weekly-status-report.zip`; installed through Cowork's Save skill flow (Customize → Skills) | Build states the intent and hands over this blueprint; the platform creates the skill; Maya saves the package |
-| S2 — `status-report-drafting` | Staged at `outputs/weekly-status-report/skill/status-report-drafting/`, packaged as `outputs/weekly-status-report/status-report-drafting.zip`; installed the same way | Same |
+| S1 — orchestrator skill `weekly-status-report` | Staged at `framework/weekly-status-report/skills/weekly-status-report/`, packaged as `framework/weekly-status-report/weekly-status-report.zip`; installed through Cowork's Save skill flow (Customize → Skills) | Build states the intent and hands over this blueprint; the platform creates the skill; Maya saves the package |
+| S2 — `status-report-drafting` | Staged at `framework/weekly-status-report/skills/status-report-drafting/`, packaged as `framework/weekly-status-report/status-report-drafting.zip`; installed the same way | Same |
 | C3 — `tone-guide.md` | `context/tone-guide.md` in the project | Build creates it with Maya |
 
 **Orchestrator artifact (primary-loop platforms):** S1 is the user-triggered entry point — an orchestrator skill carrying the workflow name, with `disable-model-invocation: true` and no `context: fork`; S2 is capability-named.
@@ -675,7 +677,7 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 **Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat inside the project.
 
 **Run Logging:** the orchestrator skill appends one row to
-`outputs/weekly-status-report/runs.md` at the end of every production run — date,
+`framework/weekly-status-report/runs.md` at the end of every production run — date,
 input/trigger, result, edits needed, and a notes cell Maya fills (including the
 minutes door to door, which is how the `Unknown` Baseline gets measured). Test runs
 save under `test-runs/` and are not logged.
@@ -687,7 +689,7 @@ save under `test-runs/` and are not logged.
 ## Evaluation Inputs
 
 Acceptance Criteria, Example Scenarios (E1–E3, golden example on E1), and Human
-Gates (G1, G2) are sourced from `outputs/weekly-status-report/requirements.md`.
+Gates (G1, G2) are sourced from `framework/weekly-status-report/requirements.md`.
 
 ## Deferred to Build
 
@@ -721,17 +723,17 @@ trigger: "Manual — Maya starts it Friday mornings"
 ---
 ````
 
-*(body unchanged except `# Artifacts`, which gains `- [Design spec](outputs/weekly-status-report/design-spec.md)`)*
+*(body unchanged except `# Artifacts`, which gains `- [Design spec](framework/weekly-status-report/design-spec.md)`)*
 
 ---
 
 ## Step 4 — Build → the skills + the Workflow node
 
-Build worked the Context Inventory with Maya first: the HubSpot row was **connect it** (she authorized the connector in the account that runs the workflow, read scope only; Build read three tracker tasks back to her to prove it), the template and past reports were **provide it** (already sitting in `context/past-reports/`), and the tone guide was **provide it** too, except that it did not exist yet — Build drafted it from her golden example in a 10-minute interview, she corrected two lines, and it landed beside them at `context/tone-guide.md`. Only then did Build state what it was creating and create it from each blueprint in the spec: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). On a code-mode platform like Cowork with no separate creation skill installed, stating the intent and writing the file are one act by the same model, so Build did not narrate a hand-off. It staged each skill's source under `outputs/weekly-status-report/skill/<skill-name>/`, produced one zip per skill, and checked that each zip contains `<skill-name>/SKILL.md` at its top level.
+Build worked the Context Inventory with Maya first: the HubSpot row was **connect it** (she authorized the connector in the account that runs the workflow, read scope only; Build read three tracker tasks back to her to prove it), the template and past reports were **provide it** (already sitting in `context/past-reports/`), and the tone guide was **provide it** too, except that it did not exist yet — Build drafted it from her golden example in a 10-minute interview, she corrected two lines, and it landed beside them at `context/tone-guide.md`. Only then did Build state what it was creating and create it from each blueprint in the spec: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). On a code-mode platform like Cowork with no separate creation skill installed, stating the intent and writing the file are one act by the same model, so Build did not narrate a hand-off. It staged each skill's source under `framework/weekly-status-report/skills/<skill-name>/`, produced one zip per skill, and checked that each zip contains `<skill-name>/SKILL.md` at its top level.
 
 The orchestrator skill, as Build created it (the round-1 fix in Test later added an explicit section-order instruction and a format example to step 2):
 
-<!-- file: outputs/weekly-status-report/skill/weekly-status-report/SKILL.md -->
+<!-- file: framework/weekly-status-report/skills/weekly-status-report/SKILL.md -->
 ````markdown
 ---
 name: weekly-status-report
@@ -764,10 +766,10 @@ never share or save a report Maya hasn't approved.
    Do not proceed without explicit approval (G1).
 4. **Save & log.** Save the approved report as
    `outputs/weekly-status-report/status-report-YYYY-MM-DD.md` (never overwrite a
-   previous week). Append one row to `outputs/weekly-status-report/runs.md` —
+   previous week). Append one row to `framework/weekly-status-report/runs.md` —
    date, input/trigger, result, edits-needed, notes (left for Maya to fill) —
    creating the file with its header if absent. If the request said "test run",
-   save under `outputs/weekly-status-report/test-runs/` instead and write no
+   save under `framework/weekly-status-report/test-runs/` instead and write no
    run-log row — the log holds production runs only.
 5. **Close.** End with a short **What I did** list: the four steps run in order,
    whether the ambiguous-status gate fired and what Maya resolved, the review gate
@@ -781,11 +783,11 @@ Build closed with the reconciliation table — one row per Build Output line in 
 
 | Build Output (from spec) | Artifact | Path | Status |
 |---|---|---|---|
-| New skill: S1 | `weekly-status-report` (orchestrator) | `outputs/weekly-status-report/skill/weekly-status-report/SKILL.md` → `outputs/weekly-status-report/weekly-status-report.zip` → Customize → Skills | Created |
-| New skill: S2 | `status-report-drafting` | `outputs/weekly-status-report/skill/status-report-drafting/SKILL.md` → `outputs/weekly-status-report/status-report-drafting.zip` → Customize → Skills | Created |
-| Inline prompt → Workflow Requirements Step 1 | `weekly-status-report` (orchestrator) — Step 1 instruction block | `outputs/weekly-status-report/skill/weekly-status-report/SKILL.md` | Created |
+| New skill: S1 | `weekly-status-report` (orchestrator) | `framework/weekly-status-report/skills/weekly-status-report/SKILL.md` → `framework/weekly-status-report/weekly-status-report.zip` → Customize → Skills | Created |
+| New skill: S2 | `status-report-drafting` | `framework/weekly-status-report/skills/status-report-drafting/SKILL.md` → `framework/weekly-status-report/status-report-drafting.zip` → Customize → Skills | Created |
+| Inline prompt → Workflow Requirements Step 1 | `weekly-status-report` (orchestrator) — Step 1 instruction block | `framework/weekly-status-report/skills/weekly-status-report/SKILL.md` | Created |
 | Human (no artifact) | — | — | — |
-| Inline prompt → Workflow Requirements Step 4 | `weekly-status-report` (orchestrator) — Step 4 instruction block | `outputs/weekly-status-report/skill/weekly-status-report/SKILL.md` | Created |
+| Inline prompt → Workflow Requirements Step 4 | `weekly-status-report` (orchestrator) — Step 4 instruction block | `framework/weekly-status-report/skills/weekly-status-report/SKILL.md` | Created |
 | Connector: HubSpot (Integration Options) | HubSpot connector, read scope | Cowork project connector | Installed by you |
 | Context C2 (provide it) | Report template + 3 past reports | `context/past-reports/` | Installed by you |
 | Context C3 (provide it) | Tone guide | `context/tone-guide.md` | Created |
@@ -796,8 +798,8 @@ No manual steps remained beyond the install itself. Build then wrote the two ski
 ````markdown
 # Skills
 
-- [weekly-status-report](outputs/weekly-status-report/skill/weekly-status-report/SKILL.md)
-- [status-report-drafting](outputs/weekly-status-report/skill/status-report-drafting/SKILL.md)
+- [weekly-status-report](framework/weekly-status-report/skills/weekly-status-report/SKILL.md)
+- [status-report-drafting](framework/weekly-status-report/skills/status-report-drafting/SKILL.md)
 ````
 
 *(the node's `# Skills` section after Build; everything else unchanged)*
@@ -814,8 +816,8 @@ The file started like this, with nothing graded yet:
 ```yaml
 ---
 workflow: weekly-status-report
-design_spec: outputs/weekly-status-report/design-spec.md
-requirements: outputs/weekly-status-report/requirements.md
+design_spec: framework/weekly-status-report/design-spec.md
+requirements: framework/weekly-status-report/requirements.md
 date: 2026-06-05
 environment: "Cowork, HubSpot connector live"
 round_status: in-progress
@@ -835,7 +837,7 @@ What I did
 - Used the pasted update list for the week of 2026-06-01 in place of the HubSpot pull — 9 tasks updated, 1 blocker. No status was ambiguous, so the G2 gate did not fire. HubSpot was not written to.
 - Drafted the report with the status-report-drafting skill, using your template (C2) and tone guide (C3).
 - Paused and showed you the draft before saving anything — you approved it as-is.
-- Test run: saved the approved report to outputs/weekly-status-report/test-runs/E1-2026-06-05.md and wrote no run-log row.
+- Test run: saved the approved report to framework/weekly-status-report/test-runs/E1-2026-06-05.md and wrote no run-log row.
 ```
 
 Maya typed **test this**. The skill graded the whole run from that conversation — the output lines first, read off the report itself, then the path lines, read off the summary above — and presented one table. Where a scenario's `; tests …` tail named a line, the skill quoted it in that line's evidence:
@@ -855,12 +857,12 @@ She confirmed each line — she overrode nothing this round — answered the clo
 
 **Round 1 — `test-results-2026-06-05.md`:**
 
-<!-- file: outputs/weekly-status-report/test-results-2026-06-05.md -->
+<!-- file: framework/weekly-status-report/test-results-2026-06-05.md -->
 ````markdown
 ---
 workflow: weekly-status-report
-design_spec: outputs/weekly-status-report/design-spec.md
-requirements: outputs/weekly-status-report/requirements.md
+design_spec: framework/weekly-status-report/design-spec.md
+requirements: framework/weekly-status-report/requirements.md
 date: 2026-06-05
 environment: "Cowork, HubSpot connector live"
 round_status: complete
@@ -886,9 +888,9 @@ results:
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** `outputs/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker — tests R1, G1; golden example C2 (report of 2026-05-22)
-- **E2 — Blocked-heavy week (proposed):** `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — constructed input with 4 blockers, one ownerless — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
-- **E3 — Quiet week (proposed):** `outputs/weekly-status-report/inputs/E3-quiet-week.md` — constructed input, 2 updates and no blockers — tests R2 (nothing invented when there is little to report); no golden example
+- **E1 — Typical week (real):** `framework/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week (proposed):** `framework/weekly-status-report/inputs/E2-blocked-heavy-week.md` — constructed input with 4 blockers, one ownerless — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E3 — Quiet week (proposed):** `framework/weekly-status-report/inputs/E3-quiet-week.md` — constructed input, 2 updates and no blockers — tests R2 (nothing invented when there is little to report); no golden example
 
 ## Report card
 
@@ -957,17 +959,17 @@ fix mode, then re-run E2, then the full set.
 
 ## Test records created
 
-Three test-run reports under `outputs/weekly-status-report/test-runs/` (E1, E2, E3 dated 2026-06-05). No rows in `runs.md`.
+Three test-run reports under `framework/weekly-status-report/test-runs/` (E1, E2, E3 dated 2026-06-05). No rows in `runs.md`.
 ````
 
 **Round 2 — `test-results.md` at the time, later renamed `test-results-2026-06-08.md` when Step 7 opened a regression round,** three days later, after that one orchestrator fix. All three scenarios were re-run; only the previously-missed E2 line changed.
 
-<!-- file: outputs/weekly-status-report/test-results-2026-06-08.md -->
+<!-- file: framework/weekly-status-report/test-results-2026-06-08.md -->
 ````markdown
 ---
 workflow: weekly-status-report
-design_spec: outputs/weekly-status-report/design-spec.md
-requirements: outputs/weekly-status-report/requirements.md
+design_spec: framework/weekly-status-report/design-spec.md
+requirements: framework/weekly-status-report/requirements.md
 date: 2026-06-08
 environment: "Cowork, HubSpot connector live"
 round_status: complete
@@ -993,9 +995,9 @@ results:
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** `outputs/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker (same saved input as round 1) — tests R1, G1; golden example C2 (report of 2026-05-22)
-- **E2 — Blocked-heavy week (proposed):** `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
-- **E3 — Quiet week (proposed):** `outputs/weekly-status-report/inputs/E3-quiet-week.md` — the same constructed input as round 1 (2 updates, no blockers) — tests R2 (nothing invented when there is little to report); no golden example
+- **E1 — Typical week (real):** `framework/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker (same saved input as round 1) — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week (proposed):** `framework/weekly-status-report/inputs/E2-blocked-heavy-week.md` — the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E3 — Quiet week (proposed):** `framework/weekly-status-report/inputs/E3-quiet-week.md` — the same constructed input as round 1 (2 updates, no blockers) — tests R2 (nothing invented when there is little to report); no golden example
 
 ## Report card
 
@@ -1062,12 +1064,12 @@ the `run` skill (Step 6) — 15–20 minutes.
 
 ## Test records created
 
-Three test-run reports under `outputs/weekly-status-report/test-runs/` (E1, E2, E3 dated 2026-06-08). No rows in `runs.md`.
+Three test-run reports under `framework/weekly-status-report/test-runs/` (E1, E2, E3 dated 2026-06-08). No rows in `runs.md`.
 ````
 
 *(Page abbreviation, both rounds: the R2–R5, G2, and Step 1 and Step 4 output rows are left out of the check lists, cards, and counts, as noted above. Everything else is as written.)*
 
-After each round's verdict, Test linked the results under the node's `# Artifacts` — `- [Test results](outputs/weekly-status-report/test-results.md)` — and restamped `generated`, which is how "continue my workflow" knows Step 5 is done. Health lives in the results file, never on the node.
+After each round's verdict, Test linked the results under the node's `# Artifacts` — `- [Test results](framework/weekly-status-report/test-results.md)` — and restamped `generated`, which is how "continue my workflow" knows Step 5 is done. Health lives in the results file, never on the node.
 
 ---
 
@@ -1075,7 +1077,7 @@ After each round's verdict, Test linked the results under the node's `# Artifact
 
 Run began by confirming both skills were installed in Maya's account and that the test verdict was Ready, then had her open a new chat and start the workflow on the real thing: her actual week of 2026-06-12, not a test input. When it finished she said *log this run* there, and the skill checked the run against her check list before anything else. The Run Card came after — one page, six fixed sections, worth reading weeks later or handing to a teammate. Sections 1–2 are what she'll reread every Friday; 3–4 are the ones people skip and regret (what a fresh session needs, and what to check before acting on the output).
 
-<!-- file: outputs/weekly-status-report/run-guide.md -->
+<!-- file: framework/weekly-status-report/run-guide.md -->
 ````markdown
 # Weekly Status Report — Run Card
 
@@ -1121,7 +1123,7 @@ step and we'll set that up.
 
 ## Log the run
 
-One row per run in `outputs/weekly-status-report/runs.md` — date, input, result,
+One row per run in `framework/weekly-status-report/runs.md` — date, input, result,
 edits needed, notes. The orchestrator appends it at the end of every production run;
 it did on today's, which is how we know that part works. Fill the notes cell yourself
 with the minutes door to door — the Baseline is `Unknown` until four runs are timed. If a row is ever missing, the fix is
@@ -1159,17 +1161,17 @@ Drafts the Friday leadership status report from the team's project tracker — p
 
 # Artifacts
 
-- [Opportunity report](outputs/ai-opportunity-report.md)
-- [Requirements](outputs/weekly-status-report/requirements.md)
-- [Design spec](outputs/weekly-status-report/design-spec.md)
-- [Test results](outputs/weekly-status-report/test-results.md)
-- [Run guide](outputs/weekly-status-report/run-guide.md)
-- [Run log](outputs/weekly-status-report/runs.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
+- [Requirements](framework/weekly-status-report/requirements.md)
+- [Design spec](framework/weekly-status-report/design-spec.md)
+- [Test results](framework/weekly-status-report/test-results.md)
+- [Run guide](framework/weekly-status-report/run-guide.md)
+- [Run log](framework/weekly-status-report/runs.md)
 
 # Skills
 
-- [weekly-status-report](outputs/weekly-status-report/skill/weekly-status-report/SKILL.md)
-- [status-report-drafting](outputs/weekly-status-report/skill/status-report-drafting/SKILL.md)
+- [weekly-status-report](framework/weekly-status-report/skills/weekly-status-report/SKILL.md)
+- [status-report-drafting](framework/weekly-status-report/skills/status-report-drafting/SKILL.md)
 
 # Agents
 
@@ -1181,7 +1183,7 @@ Drafts the Friday leadership status report from the team's project tracker — p
 
 And the run log after a few weeks — one line per run, written by the skill itself, with the notes cell filled in by Maya:
 
-<!-- file: outputs/weekly-status-report/runs.md -->
+<!-- file: framework/weekly-status-report/runs.md -->
 ````markdown
 | Date | Input / trigger | Result | Edits needed | Notes |
 |---|---|---|---|---|
@@ -1198,7 +1200,7 @@ And the run log after a few weeks — one line per run, written by the skill its
 
 When the node's `stale_after` date arrived — a month and five runs in — Maya ran Improve in a fresh conversation. Improve opened a regression round the way Test does — it renamed the Ready round to `test-results-2026-06-08.md` and wrote a fresh in-progress `test-results.md` — and she re-ran E1, E2, and E3 each in its own new chat, typing *test this* there, and every line held against the baseline. What produced the finding was the run log: twice now she had added a risk section by hand after the draft came back.
 
-<!-- file: outputs/weekly-status-report/improvement-plan.md -->
+<!-- file: framework/weekly-status-report/improvement-plan.md -->
 ````markdown
 # Weekly Status Report — Improvement Plan
 
@@ -1276,7 +1278,7 @@ than keep editing by hand.
 Applies to: [Weekly Status Report](/workflows/weekly-status-report.md)
 ````
 
-And the Workflow node gained `- [Improvement plan](outputs/weekly-status-report/improvement-plan.md)` under `# Artifacts`, `stale_after: 2026-08-14`, `generated: { by: process:improve, at: 2026-07-10 }`, and — through the maintenance pass that regenerates it — the Note in its `# Insights` block.
+And the Workflow node gained `- [Improvement plan](framework/weekly-status-report/improvement-plan.md)` under `# Artifacts`, `stale_after: 2026-08-14`, `generated: { by: process:improve, at: 2026-07-10 }`, and — through the maintenance pass that regenerates it — the Note in its `# Insights` block.
 
 ---
 

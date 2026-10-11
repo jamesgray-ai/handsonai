@@ -17,15 +17,15 @@ agent link the schema recognizes.
 
 # Artifacts
 
-- [Raw source](outputs/first-workflow/raw-source.md)
-- [Run log](outputs/first-workflow/runs.md)
+- [Raw source](framework/first-workflow/raw-source.md)
+- [Run log](framework/first-workflow/runs.md)
 - [Output](outputs/first-workflow/output.md)
 - [SOP](sops/one-sop.md)
-- [Requirements](outputs/first-workflow/requirements.md)
-- [Design spec](outputs/first-workflow/design-spec.md)
-- [Test results](outputs/first-workflow/test-results.md)
-- [Run guide](outputs/first-workflow/run-guide.md)
-- [Improvement plan](outputs/first-workflow/improvement-plan.md)
+- [Requirements](framework/first-workflow/requirements.md)
+- [Design spec](framework/first-workflow/design-spec.md)
+- [Test results](framework/first-workflow/test-results.md)
+- [Run guide](framework/first-workflow/run-guide.md)
+- [Improvement plan](framework/first-workflow/improvement-plan.md)
 
 # Skills
 

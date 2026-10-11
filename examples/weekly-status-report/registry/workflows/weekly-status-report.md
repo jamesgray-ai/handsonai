@@ -16,18 +16,18 @@ Drafts the Friday leadership status report from the team's project tracker — p
 
 # Artifacts
 
-- [Opportunity report](outputs/ai-opportunity-report.md)
-- [Requirements](outputs/weekly-status-report/requirements.md)
-- [Design spec](outputs/weekly-status-report/design-spec.md)
-- [Test results](outputs/weekly-status-report/test-results.md)
-- [Run guide](outputs/weekly-status-report/run-guide.md)
-- [Run log](outputs/weekly-status-report/runs.md)
-- [Improvement plan](outputs/weekly-status-report/improvement-plan.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
+- [Requirements](framework/weekly-status-report/requirements.md)
+- [Design spec](framework/weekly-status-report/design-spec.md)
+- [Test results](framework/weekly-status-report/test-results.md)
+- [Run guide](framework/weekly-status-report/run-guide.md)
+- [Run log](framework/weekly-status-report/runs.md)
+- [Improvement plan](framework/weekly-status-report/improvement-plan.md)
 
 # Skills
 
-- [weekly-status-report](outputs/weekly-status-report/skill/weekly-status-report/SKILL.md)
-- [status-report-drafting](outputs/weekly-status-report/skill/status-report-drafting/SKILL.md)
+- [weekly-status-report](framework/weekly-status-report/skills/weekly-status-report/SKILL.md)
+- [status-report-drafting](framework/weekly-status-report/skills/status-report-drafting/SKILL.md)
 
 # Agents
 
