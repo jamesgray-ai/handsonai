@@ -424,6 +424,37 @@ grep -qF 'Client Onboarding $&' "$WS/registry/functions/operations.md" && ok "Ow
 # lint: a freshly scaffolded bundle with zero workflows (post-v8 scaffold) lints clean
 run_lint empty-workflows-bundle && ok "empty-workflows bundle lints clean (exit 0)" || bad "empty-workflows bundle should lint clean"
 
+# framework/ folder (9.0): record lives in framework/<slug>/, outputs/ is workflow output only
+run_lint legacy-outputs-workspace && ok "legacy outputs workspace is warning-only (exit 0)" || bad "legacy outputs workspace must not error"
+out=$(lint_output legacy-outputs-workspace)
+grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" <<<"$out" \
+  && ok "legacy record in outputs/ warned" || bad "expected legacy-record WARN, got: $(grep WARN <<<"$out")"
+
+out=$(lint_output valid-bundle)
+grep -q "framework record found" <<<"$out" && bad "valid-bundle should not warn about legacy records" || ok "output-only outputs folder is silent (no legacy warning)"
+grep -q "folder not claimed" <<<"$out" && bad "valid-bundle: unexpected unclaimed-folder warning" || ok "output-only outputs folder is silent (no unclaimed warning)"
+
+WS=$(stage legacy-outputs-workspace)
+sed -i '' 's/^status: in-production$/status: building/' "$WS/registry/workflows/first-workflow.md"
+if run_lint_at "$WS" >/dev/null 2>&1; then bad "legacy runlog contradiction still errors: lint exited 0"; else
+  out=$(run_lint_at "$WS" 2>&1)
+  grep -q "ERROR.*contradicts run log evidence (outputs/first-workflow/runs.md" <<<"$out" \
+    && ok "legacy runlog contradiction still errors" || bad "legacy runlog contradiction: wrong error text"
+fi
+
+# first-workflow -> client-onboarding -> design-services. Give that LOB a folder: so the check runs.
+# Lint warns at most once per workflow (it breaks after the first outside link), so a framework/
+# link must not be that first warning; .claude/skills/... is expected to be.
+WS=$(stage valid-bundle)
+perl -0pi -e 's/^(status: .*)$/$1\nfolder: lob-files\//m' "$WS/registry/lines-of-business/design-services.md"
+grep -q "^folder: lob-files/" "$WS/registry/lines-of-business/design-services.md" || bad "LOB test setup: folder: not inserted"
+run_lint_at "$WS" 2>&1 | grep -q "artifact link framework/" \
+  && bad "LOB folder check exempts framework/: got an outside-LOB warning for a framework/ link" || ok "LOB folder check exempts framework/"
+
+WS=$(stage valid-bundle); mkdir -p "$WS/framework/orphan-workflow"; : > "$WS/framework/orphan-workflow/requirements.md"
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework/orphan-workflow/: framework folder not claimed by any Workflow node" \
+  && ok "unclaimed framework folder warned" || bad "expected unclaimed framework folder WARN"
+
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"

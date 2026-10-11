@@ -234,7 +234,7 @@ function loadBundle(rootDir) {
   return { nodes, errors };
 }
 
-// --- Workspace scans (skills/agents/SOPs/outputs are never duplicated into
+// --- Workspace scans (skills/agents/SOPs/framework records are never duplicated into
 // the bundle; the linter and compose read them from the workspace directly).
 
 function scanSops(workspaceRoot) {
@@ -250,21 +250,34 @@ function scanSops(workspaceRoot) {
   return out;
 }
 
-function scanOutputsFolders(workspaceRoot) {
+function scanRecordFolders(workspaceRoot, rootDir) {
   const out = [];
-  const dir = path.join(workspaceRoot, 'outputs');
+  const dir = path.join(workspaceRoot, rootDir);
   if (!fs.existsSync(dir)) return out;
   for (const name of fs.readdirSync(dir).sort()) {
     const full = path.join(dir, name);
     if (!fs.statSync(full).isDirectory()) continue;
-    out.push({ slug: name, path: `outputs/${name}`, hasRuns: fs.existsSync(path.join(full, 'runs.md')) });
+    out.push({ slug: name, path: `${rootDir}/${name}`, hasRuns: fs.existsSync(path.join(full, 'runs.md')) });
   }
   return out;
 }
 
+// framework/<slug>/ -- each workflow's record (requirements, design spec, tests, run log).
+function scanFrameworkFolders(workspaceRoot) {
+  return scanRecordFolders(workspaceRoot, 'framework');
+}
+
+// Pre-9.0 layout: a framework record still sitting in outputs/<slug>/. Folders holding only a
+// workflow's own output are not records and are ignored.
+const RECORD_MARKERS = ['requirements.md', 'design-spec.md'];
+function scanLegacyRecordFolders(workspaceRoot) {
+  return scanRecordFolders(workspaceRoot, 'outputs')
+    .filter((f) => RECORD_MARKERS.some((m) => fs.existsSync(path.join(workspaceRoot, f.path, m))));
+}
+
 // runs.md has at least one data row (a table row beyond header/separator).
-function runsHasEntries(workspaceRoot, slug) {
-  const file = path.join(workspaceRoot, 'outputs', slug, 'runs.md');
+function runsHasEntries(workspaceRoot, folderPath) {
+  const file = path.join(workspaceRoot, folderPath, 'runs.md');
   if (!fs.existsSync(file)) return false;
   const lines = fs.readFileSync(file, 'utf8').split('\n');
   let tableRows = 0;
@@ -343,6 +356,6 @@ module.exports = {
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
   normalizeLineEndings, parseFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
-  loadBundle, scanSops, scanOutputsFolders, runsHasEntries, scanCapabilities,
+  loadBundle, scanSops, scanFrameworkFolders, scanLegacyRecordFolders, runsHasEntries, scanCapabilities,
   isGitIgnored, lastChanged,
 };

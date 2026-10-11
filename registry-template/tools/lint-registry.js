@@ -86,7 +86,7 @@ function lint(bundleDir) {
   }
 
   // 2. Links: in-bundle first-segment + resolution; repo-relative existence
-  //    (with gitignore tolerance for the raw-source layer, e.g. outputs/).
+  //    (with gitignore tolerance for the raw-source layer, e.g. outputs/, where a workflow's own output lands).
   for (const [relPath, n] of nodes) {
     const links = lib.classifyLinks(n.raw);
     for (const href of links.inBundle) {
@@ -181,7 +181,7 @@ function lint(bundleDir) {
       const folderPrefix = lobFolder.replace(/\/$/, '');
       const repoLinks = lib.classifyLinks(w.raw).repo;
       for (const h of repoLinks) {
-        if (h.startsWith('sops/') || h.startsWith('outputs/')) continue; // shared workspace layers
+        if (h.startsWith('sops/') || h.startsWith('outputs/') || h.startsWith('framework/')) continue; // shared workspace layers
         if (!h.startsWith(folderPrefix)) {
           warnings.push(`${w.relPath}: artifact link ${h} outside derived LOB folder ${lobFolder}`);
           break;
@@ -243,7 +243,7 @@ function lint(bundleDir) {
     warnings.push(`${orphanCaps.length} orphan skill(s)/agent(s) referenced by no Workflow node (${orphanCaps.join(', ')}) -- capture the workflow(s) that use them`);
   }
 
-  // 8. Claims sweep: every SOP and outputs/<slug>/ folder claimed by exactly
+  // 8. Claims sweep: every SOP and framework/<slug>/ folder claimed by exactly
   //    one Workflow node's # Artifacts links; run-log evidence must not
   //    contradict status.
   const claims = new Map(); // repo path (no trailing slash) -> [workflow relPaths]
@@ -274,13 +274,21 @@ function lint(bundleDir) {
       }
     }
   }
-  for (const folder of lib.scanOutputsFolders(workspaceRoot)) {
+  const frameworkFolders = lib.scanFrameworkFolders(workspaceRoot);
+  const legacyFolders = lib.scanLegacyRecordFolders(workspaceRoot);
+  for (const folder of frameworkFolders) {
     const claimedByLink = [...claims.keys()].some((k) => k === folder.path || k.startsWith(folder.path + '/'));
-    const claimedBySlug = wfSlugs.has(folder.slug);
-    if (!claimedByLink && !claimedBySlug) {
-      warnings.push(`${folder.path}/: outputs folder not claimed by any Workflow node`);
+    if (!claimedByLink && !wfSlugs.has(folder.slug)) {
+      warnings.push(`${folder.path}/: framework folder not claimed by any Workflow node`);
     }
-    if (folder.hasRuns && lib.runsHasEntries(workspaceRoot, folder.slug)) {
+  }
+  for (const folder of legacyFolders) {
+    warnings.push(`${folder.path}/: framework record found in ${folder.path}/ -- move it to framework/${folder.slug}/ (see the indexing-registry skill)`);
+  }
+  // Run-log evidence must not contradict status, wherever the record lives (a student who declined
+  // the move still has it in outputs/).
+  for (const folder of [...frameworkFolders, ...legacyFolders]) {
+    if (folder.hasRuns && lib.runsHasEntries(workspaceRoot, folder.path)) {
       const node = workflows.find((w) => lib.slugOf(w.relPath) === folder.slug);
       if (node && node.fm && node.fm.status && node.fm.status !== 'in-production') {
         errors.push(`${node.relPath}: status "${node.fm.status}" contradicts run log evidence (${folder.path}/runs.md has entries)`);
