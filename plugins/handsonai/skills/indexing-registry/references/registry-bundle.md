@@ -153,8 +153,7 @@ The consistency suite asserts string agreement between the two.
 - Unterminated GENERATED block
 - A concept file missing from its directory index, or a typed directory missing its `index.md`
   (index coverage)
-- **Claims sweep** — an SOP or `framework/<slug>/` folder claimed by no Workflow node's
-  `# Artifacts` (or by more than one)
+- **Claims sweep** — an SOP claimed by no Workflow node's `# Artifacts` (or by more than one)
 - SOP `workflow:` back-pointer disagreeing with the claiming node
 - Run-log evidence contradicting status (`runs.md` has entries but the node is not
   `in-production`)
@@ -166,6 +165,9 @@ The consistency suite asserts string agreement between the two.
 - Backlog staleness (backlog node untouched > 6 months — "triage or retire")
 - Workflow in no Process list (non-production)
 - A Note linking no bundle node ("probably misfiled")
+- A `framework/<slug>/` folder claimed by no Workflow node
+- A framework record left in `outputs/<slug>/` (pre-9.0 layout — see *Moving a pre-9.0 record out
+  of outputs/* below)
 - **Orphan capabilities** — skills/agents in the workspace referenced by no Workflow node
   ("capture the workflow" — the single most useful maintenance signal for students)
 - Stale GENERATED content — regenerate (a Function `# Owns` block whose content no longer
@@ -191,7 +193,9 @@ Before 9.0 the framework kept each workflow's record in `outputs/<slug>/`. It no
 **When to run this.** Any framework step that finds the current workflow's record under
 `outputs/<slug>/` — one of `requirements.md`, `design-spec.md`, `test-results*.md`, `run-guide.md`,
 `runs.md`, `improvement-plan.md`, `inputs/`, `test-runs/`, `skill/` — or finds
-`outputs/ai-opportunity-report*.md`.
+`outputs/ai-opportunity-report*.md`. Skip the ask if `registry/log.md` already has a "Kept the
+pre-9.0 outputs/ layout" entry: the student said no, and that answer stands. The
+scaffolding-registry skill still offers the move again, and so does the student asking for it.
 
 **1. Find everything first.** Check every `outputs/<slug>/` folder in the workspace, not just this
 workflow's. For each one, split its contents into *moves* (the record files above) and *stays*
@@ -204,10 +208,15 @@ workflow's. For each one, split its contents into *moves* (the record files abov
 > *Client Onboarding*: 6 files move. Your opportunity report moves to `framework/` too.
 
 **3a. If they say yes**, for each workflow:
-1. If `framework/<slug>/` already has a file with the same name, stop for that file. Show both
-   dates and ask which to keep. Never overwrite or merge on your own. Put the copy they pick in
-   `framework/<slug>/`. Leave the other copy where it is, untouched, and tell the student where it
-   is. Never delete it.
+1. If `framework/<slug>/` already has a file with the same name, stop for that file.
+   - **`runs.md` in both places:** don't pick one. Append the rows from the `outputs/` copy to the
+     `framework/` copy, keeping the dates in order, and tell the student you combined the two run
+     logs.
+   - **Any other file:** show both dates and ask which to keep. Never overwrite or merge on your
+     own. If they keep the `framework/` copy, leave the `outputs/` copy where it is, untouched. If
+     they keep the `outputs/` copy, move it into `framework/<slug>/` and leave the copy it replaces
+     untouched under a clear name beside it, such as `requirements.replaced-2026-10-11.md`. Either
+     way, tell the student where the copy they didn't pick is. Never delete it.
 2. Move the record files to `framework/<slug>/`, renaming `skill/` to `skills/`. Move
    `outputs/ai-opportunity-report*.md` to `framework/`.
 3. Rewrite links to every moved file in **every** registry node, not just this workflow's node. A
@@ -224,16 +233,27 @@ workflow's. For each one, split its contents into *moves* (the record files abov
    `outputs/<slug>/runs.md` or `outputs/<slug>/test-runs/`, tell the student plainly: "Your
    installed workflow still saves its run log to the old folder. I'll update it." Until it is updated
    or re-uploaded, it keeps writing its run log to the old folder. Then:
-   - **Skills you can edit in place** (Claude Code, Codex, Gemini CLI): change the paths to
+   - **Where Build installs the skill directly:** change the paths in the installed skill to
      `framework/<slug>/`.
-   - **Skills you upload** (Cowork, Claude.ai, ChatGPT, and others): update the staged copy in
-     `framework/<slug>/skills/`, rebuild the one package, and give the re-upload steps from the
-     platform's `capabilities.skill_install`.
-6. Add a `log.md` entry naming what moved. Run lint.
+   - **Where the platform's `capabilities.skill_install` says the skill is uploaded:** update the
+     staged copy in `framework/<slug>/skills/`, rebuild the one package, and give the re-upload
+     steps from `capabilities.skill_install`.
+6. Add a `log.md` entry naming what moved. Run lint. If the registry was created from the template
+   repository, tell the student to copy `tools/`, `.github/workflows/registry.yml`, and
+   `registry/SCHEMA.md` from the template again to get the new checks.
 
-**3b. If they say no**, keep working. Read and write through the Workflow node's links, so new
-files go next to the existing record in `outputs/<slug>/` and one workflow's record is never split.
-Don't ask again unless the student brings it up or runs the scaffolding-registry skill.
+**3b. If they say no**, keep working. Append a `registry/log.md` entry in the usual format, so
+the answer survives a new chat:
+
+```markdown
+## <YYYY-MM-DD> — Kept the pre-9.0 outputs/ layout
+
+Kept the pre-9.0 `outputs/` layout — the student declined the move to `framework/`.
+```
+
+Read and write through the Workflow node's links, so new files go next to the existing record in
+`outputs/<slug>/` and one workflow's record is never split. Don't ask again unless the student
+brings it up or runs the scaffolding-registry skill.
 
 **If you can't move files** (the chat has no file access), give the student the numbered move list
 and the replacement link lines to paste. Never say the move happened.
