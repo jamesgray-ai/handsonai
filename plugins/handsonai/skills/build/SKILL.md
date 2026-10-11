@@ -294,17 +294,25 @@ If playbook platform guides are available locally (e.g., `docs/platforms/claude/
 
 ```
 framework/<workflow-slug>/
-├── design-spec.md · runs.md                     (the workflow's record — unchanged)
+├── design-spec.md · runs.md                     (the workflow's record — unchanged, never packaged)
+├── .claude-plugin/plugin.json                   (the plugin manifest — only when agents are staged)
 ├── skills/<skill-name>/                         (each skill's source tree: SKILL.md, plus its own agents/, templates/ or references/ if it has them)
 ├── agents/<agent-name>.md                       (worker agents, when the design has them)
 └── <package>.zip                                (the one installable package — top level only)
 ```
 
-The `agents/` folder at the top holds the workflow's worker agents. It is not the same as an `agents/` folder *inside* a skill, which some platforms use for that skill's own metadata.
+The `agents/` folder at the top holds the workflow's worker agents. It is not the same as an `agents/` folder *inside* a skill, which belongs to that one skill and travels with it.
 
-**One package.** If only skills are staged, the package is the skill zip: `cd framework/<workflow-slug>/skills && zip -r ../<skill-name>.zip <skill-name>/`. If agents are staged too, the platform needs a plugin — the platform's `capabilities.custom_agents` / `capabilities.skill_install` says how to package one — and the plugin is the one package.
+Keep one copy of each skill: staged here (system-managed platforms) or installed (where Build installs directly), never both.
 
-Then **verify it**: list the archive (`unzip -l`) and confirm it is non-empty. For a skill zip, confirm it contains `<skill-name>/SKILL.md`. When agents are staged and the package is a plugin, instead confirm the plugin archive contains each staged skill's `SKILL.md` and each staged agent's `.md` file. If creation or verification fails, **delete the bad archive and any temp files before retrying** — never leave a zero-byte archive or an orphaned temp file in the `framework/` folder. If the platform's install flow expects a different extension (e.g., `.skill`), rename the verified zip — still exactly one copy. **Where the session's skill list surfaces a native plugin builder, or stating the intent to package the plugin invokes one, do not hand-`zip` a plugin — hand it the staged `framework/<workflow-slug>/` skills and agents so it emits a native installable package.** A hand-rolled `.zip` won't install as a plugin there, and the ad-hoc zip path has failed mid-write in practice — leaving a zero-byte archive plus an orphaned temp file. Building the plugin is a **confirmed, on-demand step**: only build or rebuild it when the user confirms they're ready to package and share the workflow (e.g., *"Ready to package this as an installable plugin?"*) — never automatically on every run, since it rebuilds a shareable artifact needlessly and can clobber a version teammates have installed. On other platforms that accept a plain zip, zip the staged tree as one package the same way as above.
+**What goes in the package.** Only `.claude-plugin/`, `skills/`, and `agents/` — never the record files beside them (`requirements.md`, `design-spec.md`, `inputs/`, `test-results*`, `test-runs/`, `runs.md`, `run-guide.md`, and the rest). Never zip the whole `framework/<workflow-slug>/` folder.
+
+**One package.**
+- **Only skills staged:** the package is the skill zip: `cd framework/<workflow-slug>/skills && zip -r ../<skill-name>.zip <skill-name>/`.
+- **Agents staged too:** the platform needs a plugin, and the plugin is the one package. Stage the manifest at `framework/<workflow-slug>/.claude-plugin/plugin.json`, beside `skills/` and `agents/`. Where the session's skill list surfaces a native plugin builder, or stating the intent to package the plugin invokes one, **never hand-`zip` a plugin**: hand the builder the staged `.claude-plugin/`, `skills/`, and `agents/` folders so it emits a native installable package. A hand-rolled `.zip` won't install as a plugin there, and the ad-hoc zip path has failed mid-write in practice, leaving a zero-byte archive plus an orphaned temp file. On a platform with no native builder that accepts a plain zip, zip just those three: `cd framework/<workflow-slug> && zip -r <plugin-name>.zip .claude-plugin skills agents`.
+- **Building the plugin is a confirmed, on-demand step.** Only build or rebuild it when the user confirms they're ready to package and share the workflow (e.g., *"Ready to package this as an installable plugin?"*) — never automatically on every run, since it rebuilds a shareable artifact needlessly and can clobber a version teammates have installed.
+
+Then **verify it**: list the archive (`unzip -l`) and confirm it is non-empty. For a skill zip, confirm it contains `<skill-name>/SKILL.md`. For a plugin, confirm the archive contains `.claude-plugin/plugin.json`, each staged skill's `SKILL.md`, and each staged agent's `.md` file — and no record file. If creation or verification fails, **delete the bad archive and any temp files before retrying** — never leave a zero-byte archive or an orphaned temp file in the `framework/` folder. If the platform's install flow expects a different extension (e.g., `.skill`), rename the verified zip — still exactly one copy.
 
 **Confirm before mutating the user's real accounts.** Before any action that *creates or modifies data in the user's live accounts — email, CRM, calendars* — a Gmail label/draft, a CRM record, a calendar event, a Slack post, etc. — state the exact action and target and get explicit confirmation first. Batch related confirmations into one prompt where possible. (These are outward-facing, hard-to-reverse actions; never perform them silently as a side effect of "building.")
 
