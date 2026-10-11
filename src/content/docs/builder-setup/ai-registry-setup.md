@@ -272,7 +272,7 @@ If a button or label on your screen doesn't match these steps, paste the step yo
 
 ## Migrating From the Old Workflow Manifest File
 
-Earlier versions of this playbook tracked each workflow with one small file per workflow (a "workflow manifest file") instead of today's registry bundle. If your assistant finds one of these old-style files in your workspace, it offers to migrate it as part of setup (see [Your Assistant Saves the Files](#your-assistant-saves-the-files)) — you don't need to do anything by hand. If you save files yourself, tell your assistant what's in your `framework/` folder (or, if you started before 9.0, your `outputs/` folder) when it asks; it can't look for itself.
+Earlier versions of this playbook tracked each workflow with one small file per workflow (a "workflow manifest file") instead of today's registry bundle. If your assistant finds one of these old-style files in your workspace, it offers to migrate it as part of setup (see [Your Assistant Saves the Files](#your-assistant-saves-the-files)) — you don't need to do anything by hand. If you save files yourself, tell your assistant what's in your `outputs/` folder when it asks: the old manifest files lived there, in the layout from before 9.0. It can't look for itself.
 
 **What your assistant does during migration:**
 
