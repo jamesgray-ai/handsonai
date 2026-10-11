@@ -52,7 +52,7 @@ the bundle exists.
      `/processes/course-improvement.md`). The first path segment must be one of the bundle's
      directories or a root file.
    - No leading slash, not a URL — workspace/repo-root-relative (e.g.
-     `outputs/course-improvement/sop.md`).
+     `framework/course-improvement/sop.md`).
    - A full URL — external.
 5. **A workflow joins exactly one Process** via that Process's curated ordered `# Workflows`
    list (`registry/processes/<process-slug>.md`) — the list is both the Workflow→Process edge
@@ -153,7 +153,7 @@ The consistency suite asserts string agreement between the two.
 - Unterminated GENERATED block
 - A concept file missing from its directory index, or a typed directory missing its `index.md`
   (index coverage)
-- **Claims sweep** — an SOP or `outputs/<slug>/` folder claimed by no Workflow node's
+- **Claims sweep** — an SOP or `framework/<slug>/` folder claimed by no Workflow node's
   `# Artifacts` (or by more than one)
 - SOP `workflow:` back-pointer disagreeing with the claiming node
 - Run-log evidence contradicting status (`runs.md` has entries but the node is not

@@ -128,7 +128,7 @@ When a Workflow node exists, it is the source of truth for `execution_mode` and 
 ## Interaction Pattern
 
 ### From framework artifacts (primary path)
-1. Read the Workflow node, Workflow Requirements, and Design Spec from the `outputs/` folder
+1. Read the Workflow node, Workflow Requirements, and Design Spec from the workflow's `framework/` folder
 2. Confirm classification (execution mode + autonomy level) with user
 3. Fill any gaps not covered by the artifacts
 4. Draft SOP using the appropriate template and present for review

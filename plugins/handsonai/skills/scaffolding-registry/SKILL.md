@@ -31,9 +31,8 @@ Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloud
 │   ├── businesses/  lines-of-business/  functions/
 │   ├── processes/   workflows/          notes/
 │   │       (each typed directory has its own index.md)
-├── outputs/<workflow>/      ← raw-source layer, unchanged (requirements,
-│                              design-spec, runs.md, generated artifacts;
-│                              event-facts live here, never in nodes)
+├── framework/<workflow>/      ← the workflow's record (requirements, design spec,
+│                              tests, run log); event-facts live here, never in nodes
 ├── sops/  process-guides/   ← unchanged homes; nodes link to them
 ├── tools/last-data-island.json  ← only in template-repo workspaces: compose writes it for the
 │                              Pages Action and the Tier 2 dashboard; derived, never hand-edited

@@ -24,20 +24,20 @@ You run seven skills sequentially, using files as handoffs between stages. Steps
 
 | Step | Skill | Input | Output | Handoff |
 |------|-------|-------|--------|---------|
-| 1 (Analyze) | `analyze` | User interview | `outputs/ai-opportunity-report.md` + backlog Workflow nodes in `registry/` | User picks candidate |
-| 2 (Deconstruct) | `deconstruct` | Candidate + interview | `outputs/[name]/requirements.md` + Workflow node in `registry/` | Auto→Step 3 |
-| 3 (Design) | `design` | Workflow Requirements | `outputs/[name]/design-spec.md` | Explicit approval gate |
+| 1 (Analyze) | `analyze` | User interview | `framework/ai-opportunity-report.md` + backlog Workflow nodes in `registry/` | User picks candidate |
+| 2 (Deconstruct) | `deconstruct` | Candidate + interview | `framework/[name]/requirements.md` + Workflow node in `registry/` | Auto→Step 3 |
+| 3 (Design) | `design` | Workflow Requirements | `framework/[name]/design-spec.md` | Explicit approval gate |
 | 4 (Build) | `build` | Approved spec (`approved: true`) | Platform artifacts | Auto→Step 5 |
-| 5 (Test) | `test` | Artifacts + spec | `outputs/[name]/test-results.md` | Ready OR fix mode in Build |
-| 6 (Run) | `run` | Tested artifacts + spec | `outputs/[name]/run-guide.md` + `runs.md` log | User follows the Run Card |
-| 7 (Improve) | `improve` | Running workflow + run log | `outputs/[name]/improvement-plan.md` | Tune / Redesign OR no changes |
+| 5 (Test) | `test` | Artifacts + spec | `framework/[name]/test-results.md` | Ready OR fix mode in Build |
+| 6 (Run) | `run` | Tested artifacts + spec | `framework/[name]/run-guide.md` + `runs.md` log | User follows the Run Card |
+| 7 (Improve) | `improve` | Running workflow + run log | `framework/[name]/improvement-plan.md` | Tune / Redesign OR no changes |
 
 ### Step 1 — Analyze
 **Skill:** `analyze`
 
 Help the user analyze where AI fits in their workflows. The analysis starts by determining which lens to use — **Individual** (personal workflows the user performs) or **Organizational** (value chain processes that deliver on business objectives). If the user already knows which workflow they want to deconstruct, this step can be brief — confirm the candidate and lens, then move to Step 2. If they need help choosing, run the full analysis process: read the registry bundle first (business, processes, existing Workflow nodes), then memory and conversation history, select a lens, walk their registry's processes asking where the friction is (or interview them one question at a time if there is no registry), produce an opportunity report with up to five candidates and one recommended to build first, then register the chosen candidates as backlog Workflow nodes in `registry/`. Analyze stays strategic: it names the work, the pain, the value lever, and the deliverable, never the tool, connector, or integration — those are Design and Build decisions.
 
-**Produces:** `outputs/ai-opportunity-report.md` + backlog Workflow nodes in `registry/` (or skip if user has a specific workflow)
+**Produces:** `framework/ai-opportunity-report.md` + backlog Workflow nodes in `registry/` (or skip if user has a specific workflow)
 
 After the candidate is chosen, tell the user you're moving to Step 2 and proceed automatically.
 
@@ -50,7 +50,7 @@ During context probing, push beyond vague answers — identify the specific arti
 
 Deconstruct runs one of two paths — **step-driven** (the steps are listable) or **goal-driven** (the path depends on what the agent finds) — and closes by capturing how the user will judge the output: numbered yes/no Acceptance Criteria (`AC1…`, one or two marked **(must)**), workflow-level Rules (`R1…`), Human Gates (`G1…`), 3–5 Example Scenarios (`E1…`), and a Golden Example where a real past output exists. Those IDs are the report card Test grades in Step 5.
 
-**Produces:** `outputs/[name]/requirements.md`, plus the workflow's Workflow node in `registry/` (created by the deconstruct skill; if the workspace has no bundle yet, the skill offers `scaffolding-registry` first)
+**Produces:** `framework/[name]/requirements.md`, plus the workflow's Workflow node in `registry/` (created by the deconstruct skill; if the workspace has no bundle yet, the skill offers `scaffolding-registry` first)
 
 After the Workflow Requirements is complete, tell the user you're moving to Step 3 and proceed automatically.
 
@@ -70,8 +70,8 @@ Read the Workflow Requirements and run the Design phase:
 10. Generate the Design Spec (references the Workflow Requirements; does not duplicate it)
 11. **Approval** — the skill writes the spec as a draft file with `approved: false`; the user reads it and says "approve", and the skill flips the flag to `approved: true`. Do NOT proceed to Build without that; Build refuses an unapproved spec. Loop if changes are requested.
 
-**Reads:** `outputs/[name]/requirements.md`
-**Produces:** `outputs/[name]/design-spec.md`
+**Reads:** `framework/[name]/requirements.md`
+**Produces:** `framework/[name]/design-spec.md`
 
 After the spec is approved, tell the user you're moving to Step 4 and proceed automatically.
 
@@ -85,7 +85,7 @@ Read the approved Design Spec and generate platform artifacts:
 4. Generate platform artifacts — Build states what it wants built and hands over the blueprint; the platform's own model creates skills and agents; Build writes only configs, connectors, and loose files directly. The build skill resolves the correct artifact format for the user's platform at runtime via the platform registry
 5. Close with the reconciliation table (every Build Output row → artifact → path), then walk the user through installing the package and confirm it appears in the platform's skill list — Test's fresh-conversation runs depend on it
 
-**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md`
+**Reads:** the Workflow node + `framework/[name]/design-spec.md` + `framework/[name]/requirements.md`
 **Produces:** Skills, agents, connectors, and a reconciliation table
 
 After Build is complete, tell the user you're moving to Step 5 and proceed automatically.
@@ -101,8 +101,8 @@ Guide structured testing of the built workflow artifacts:
 5. The round that reaches Ready becomes the baseline for Improve
 6. Verdict: Ready / Not ready / Waiting on access
 
-**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/requirements.md` + platform artifacts
-**Produces:** `outputs/[name]/test-results.md`
+**Reads:** the Workflow node + `framework/[name]/design-spec.md` + `framework/[name]/requirements.md` + platform artifacts
+**Produces:** `framework/[name]/test-results.md`
 
 If ready, tell the user you're moving to Step 6 and proceed automatically.
 
@@ -113,10 +113,10 @@ If ready, tell the user you're moving to Step 6 and proceed automatically.
 
 Generate the Run Card (six fixed sections) after the first real run; scheduling only for automated workflows.
 
-The run skill also creates the run log (`outputs/[name]/runs.md`) and records a `stale_after` date on the Workflow node — make sure both happen; they're what makes Step 7 work later.
+The run skill also creates the run log (`framework/[name]/runs.md`) and records a `stale_after` date on the Workflow node — make sure both happen; they're what makes Step 7 work later.
 
-**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + platform artifacts + `outputs/[name]/test-results.md`
-**Produces:** `outputs/[name]/run-guide.md` + `outputs/[name]/runs.md` + Workflow node: `status: in-production`, `stale_after`
+**Reads:** the Workflow node + `framework/[name]/design-spec.md` + platform artifacts + `framework/[name]/test-results.md`
+**Produces:** `framework/[name]/run-guide.md` + `framework/[name]/runs.md` + Workflow node: `status: in-production`, `stale_after`
 
 ### Step 7 — Improve
 **Skill:** `improve`
@@ -131,16 +131,16 @@ Evaluate a running workflow for quality, relevance, and evolution opportunities.
 6. Review operationalization (for organizational workflows)
 7. Recommend: No changes / Tune / Redesign (graduation is a Redesign outcome)
 
-**Reads:** the Workflow node + `outputs/[name]/design-spec.md` + `outputs/[name]/run-guide.md` + `outputs/[name]/test-results.md` + `outputs/[name]/runs.md` (run log)
-**Produces:** `outputs/[name]/improvement-plan.md` + a new completed `test-results.md` for the regression round (the previous baseline is kept, renamed with a date suffix)
+**Reads:** the Workflow node + `framework/[name]/design-spec.md` + `framework/[name]/run-guide.md` + `framework/[name]/test-results.md` + `framework/[name]/runs.md` (run log)
+**Produces:** `framework/[name]/improvement-plan.md` + a new completed `test-results.md` for the regression round (the previous baseline is kept, renamed with a date suffix)
 
 ## File Conventions
 
-- Each workflow gets its own folder: `outputs/[workflow-name]/`, named with the kebab-case workflow ID confirmed during Step 2 (e.g., `lead-qualification`)
+- Each workflow gets its own folder: `framework/[workflow-name]/`, named with the kebab-case workflow ID confirmed during Step 2 (e.g., `lead-qualification`)
 - The workflow's Workflow node (`registry/workflows/<slug>.md`) holds its registry metadata — status, mode, autonomy, trigger, `stale_after`, and more — not framework progress. Progress through the seven steps is inferred from what the Workflow node links — its `# Artifacts` labels, plus its `# Skills` / `# Agents` links for Step 4 (see `registry-bundle.md` § Framework progress). Each skill updates its owned fields on the Workflow node after writing its output, then invokes the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails the step)
-- Create the `outputs/` directory if it doesn't exist; the Analyze report lives at `outputs/ai-opportunity-report.md` (workflows aren't named yet at that point)
+- Create the `framework/` directory if it doesn't exist; the Analyze report lives at `framework/ai-opportunity-report.md` (workflows aren't named yet at that point)
 - Never silently overwrite a prior artifact — rename the old file with a date suffix first
-- **Legacy layout:** if a workflow exists as flat files (`outputs/[name]-requirements.md` etc.) from an earlier framework version, the skills accept those paths and offer to migrate to a folder + Workflow node. If the workspace has no registry bundle yet, the `scaffolding-registry` skill handles migrating any legacy layout when it creates one.
+- **Legacy layout:** if a workflow exists as flat files (`outputs/[name]-requirements.md` etc.) from an earlier framework version, the skills accept those paths and offer to migrate to a folder + Workflow node. Before 9.0 the whole record lived in `outputs/[name]/`; if you find one, follow *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference. If the workspace has no registry bundle yet, the `scaffolding-registry` skill handles migrating any legacy layout when it creates one.
 
 ## Important Guidelines
 
@@ -161,15 +161,15 @@ After Steps 1–6 are complete, present a summary:
 >
 > **Step 1 — Analyze:**
 >
-> 1. **Opportunity Report** — `outputs/ai-opportunity-report.md` (if generated)
+> 1. **Opportunity Report** — `framework/ai-opportunity-report.md` (if generated)
 >
 > **Step 2 — Deconstruct:**
 >
-> 2. **Workflow Requirements** — `outputs/[name]/requirements.md` (registered as a Workflow node tracking everything below)
+> 2. **Workflow Requirements** — `framework/[name]/requirements.md` (registered as a Workflow node tracking everything below)
 >
 > **Step 3 — Design:**
 >
-> 3. **Design Spec** — `outputs/[name]/design-spec.md`
+> 3. **Design Spec** — `framework/[name]/design-spec.md`
 >
 > **Step 4 — Build:**
 >
@@ -177,12 +177,12 @@ After Steps 1–6 are complete, present a summary:
 >
 > **Step 5 — Test:**
 >
-> 5. **Test Results** — `outputs/[name]/test-results.md`
+> 5. **Test Results** — `framework/[name]/test-results.md`
 >
 > **Step 6 — Run:**
 >
-> 6. **Run Card** — `outputs/[name]/run-guide.md`
-> 7. **Run Log** — `outputs/[name]/runs.md` (one line per run — this feeds your first review)
+> 6. **Run Card** — `framework/[name]/run-guide.md`
+> 7. **Run Log** — `framework/[name]/runs.md` (one line per run — this feeds your first review)
 >
 > Follow the Run Card to get your workflow running.
 >

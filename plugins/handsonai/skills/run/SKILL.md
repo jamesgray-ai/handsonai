@@ -28,9 +28,9 @@ Say this to the user, in the opener only, in three sentences, in your own words 
 2. **The first real run.** You open a new chat — the *run chat*, a brand-new chat started where you'll start the workflow every time from now on — and run it there on this week's real work, with this week's real input, or nothing if it pulls its own. When it finishes, say **log this run** — I check the run against your criteria.
 3. **Go live.** I write the Run Card, log the run, mark the workflow in production, and set the review date — and, only if it was designed to run without you, set up the schedule.
 
-**Which chat you are in — you work this out, you never ask.** If this chat already contains a workflow run above the invocation, whether it ran here or was pasted in from another chat, go straight to Phase 2; the workflow is the one whose skill ran above. If that is not obvious, look for the `outputs/*/test-results.md` whose frontmatter says `readiness: ready` and whose folder has no `run-guide.md`, and if there is more than one, list them and ask which workflow. Otherwise, settle the workflow first if you do not already know it: resolve it from `registry/workflows/` as Phase 1's resume orientation describes, and if more than one workflow is at this step, list them and ask which one (a question about which workflow, never about which phase). Then take the branch it matches:
+**Which chat you are in — you work this out, you never ask.** If this chat already contains a workflow run above the invocation, whether it ran here or was pasted in from another chat, go straight to Phase 2; the workflow is the one whose skill ran above. If that is not obvious, look for the `framework/*/test-results.md` whose frontmatter says `readiness: ready` and whose folder has no `run-guide.md`, and if there is more than one, list them and ask which workflow. Otherwise, settle the workflow first if you do not already know it: resolve it from `registry/workflows/` as Phase 1's resume orientation describes, and if more than one workflow is at this step, list them and ask which one (a question about which workflow, never about which phase). Then take the branch it matches:
 
-- The Workflow node is `in-production` and `outputs/[workflow-name]/run-guide.md` exists, and the user said *log this run* → this is a later run, not the first: add its row to `runs.md` as Phase 4's row rules say (or, where the orchestrator logged it, confirm the row is right), and stop. Nothing else is rewritten.
+- The Workflow node is `in-production` and `framework/[workflow-name]/run-guide.md` exists, and the user said *log this run* → this is a later run, not the first: add its row to `runs.md` as Phase 4's row rules say (or, where the orchestrator logged it, confirm the row is right), and stop. Nothing else is rewritten.
 - The Workflow node is `in-production` and the user did not paste or run a workflow → the workflow is already live; say so, show the Run Card's "How to start it", and if `stale_after` has passed, route to the `improve` skill.
 - Otherwise → **opening**, Phase 1.
 
@@ -50,7 +50,7 @@ Never put this choice to the user.
 
 > **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it.
 
-This is the opener. Read the Workflow node (`registry/workflows/<slug>.md`), then the Design Spec and the Workflow Requirements it links, the artifacts and skills linked under `# Artifacts` / `# Skills` / `# Agents` (the paths from Build Phase 10, the reconciliation table), and `outputs/[workflow-name]/test-results.md`. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them), infer progress from what each node already links — its `# Artifacts` labels, plus its `# Skills` / `# Agents` links for Step 4 — and if Run isn't the next step, say so and route to the right skill.
+This is the opener. Read the Workflow node (`registry/workflows/<slug>.md`), then the Design Spec and the Workflow Requirements it links, the artifacts and skills linked under `# Artifacts` / `# Skills` / `# Agents` (the paths from Build Phase 10, the reconciliation table), and `framework/[workflow-name]/test-results.md`. **Resume orientation:** if the user arrived via "continue my workflow" or with no stated workflow, check `registry/workflows/` for existing Workflow nodes (if several, list them), infer progress from what each node already links — its `# Artifacts` labels, plus its `# Skills` / `# Agents` links for Step 4 — and if Run isn't the next step, say so and route to the right skill.
 
 **The Ready gate.** Run goes ahead only on a finished round whose verdict is Ready. Read the results file's frontmatter and take the one branch it matches — say which, in one sentence, then stop if it is not the last:
 
@@ -68,6 +68,11 @@ Read the platform's `capabilities.skill_install`, `capabilities.context_location
 
 **This run is real — say what it touches.** Test ran on test inputs, often in a test-run mode that saved under `test-runs/` and wrote nothing real. The first real run does what the workflow was designed to do, for real, including every write. From the Design Spec's Safety & Permissions section, Integration Options, and Deployment Plan, list in plain words everything the run will write or send — a file saved, a draft created, a row added, an email sent, a calendar event made — one line each, and which human gate stands in front of each. If the workflow writes nothing beyond its own output file and log row, the list is those two lines, with the contrast made explicit: "Unlike the test runs, this one saves the real report to [path] and adds a row to the run log — nothing else." On a platform where the run chat cannot write files (context lives in a project), say instead that the workflow prints its output and its log row at the end for the user to save, and where. Either way, end with: "Once you approve at the gate, that happens for real — this is the week's actual work, not a rehearsal." Then say, as a statement not a question, whether the user needs this week's real input in hand or the workflow pulls it itself (the Requirements' Step 1 says which).
 
+**Where this run's output goes.** The report, email, or file this workflow produces lands wherever
+the workflow runs — never in `framework/`. `framework/[workflow-name]/` holds only the framework's
+record; the orchestrator writes exactly two things there: its row in `runs.md`, and, in a test run,
+its report under `test-runs/`.
+
 **Scheduling is never part of the first run.** Even for an `automated` workflow, the first real run is started by hand with the user watching; the schedule is set up in Phase 5, after the Run Card exists.
 
 Close the opener — after the install question is answered, never before — by handing over, in this order: where to open the new chat, the exact start phrase (not as a test run), what to give it (the real input, or nothing if it pulls its own), and "when it finishes, say *log this run*" — in the run chat, or, on a platform whose chats don't share files, with the run pasted back here, as "Where the run is visible" says.
@@ -82,7 +87,7 @@ Take the check list from `test-results.md`'s **Check list** section — do not r
 2. **Every `(must)` line holds** on the real output.
 3. **The output landed where the Design Spec says it lands** (its Deployment Plan) — the saved file, the draft in the right folder, the row in the right sheet. Where the run chat cannot write files, the output was printed under its path and the user confirms they saved it there; that counts as landed. Say "the output" or name the thing — never "the deliverable".
 4. **Every connector acted in the account that ran it** — the summary names each tool read or written; a tool the summary says it could not reach is an environment problem (next paragraph).
-5. **The log row.** Where `capabilities.context_location` says chats share a workspace folder, the orchestrator was built to append its own row to `outputs/[workflow-name]/runs.md` at the end of every production run — read the file and confirm today's row is there and right. If it is missing, say so: the fix is in the orchestrator skill (add the step back), and Phase 4 writes today's row by hand this once. Where context lives in a project and the orchestrator cannot write files, there is no row to check — the workflow prints its row (or you compose it in Phase 4), and the user keeps the log.
+5. **The log row.** Where `capabilities.context_location` says chats share a workspace folder, the orchestrator was built to append its own row to `framework/[workflow-name]/runs.md` at the end of every production run — read the file and confirm today's row is there and right. If it is missing, say so: the fix is in the orchestrator skill (add the step back), and Phase 4 writes today's row by hand this once. Where context lives in a project and the orchestrator cannot write files, there is no row to check — the workflow prints its row (or you compose it in Phase 4), and the user keeps the log.
 
 Present the result as one short table — each line, Met or Not met, evidence — and ask the user to confirm or override, as the judge, before going on. Then ask one question: "How much did you edit the output before using it — nothing, a little, or a lot?" and what, in a few words; that is the `Edits needed` cell. If the Requirements' Value & Measurement names a Measure a single run can read (minutes door to door, items processed, drafts sent), ask for this run's reading in the same breath ("and how long did it take, start to finish?"); that is the `Notes` cell, and the one cell of a self-logged row this skill fills in.
 
@@ -95,7 +100,7 @@ The output is real: once the user approved at the gate, it is used as designed �
 
 #### Phase 3 — Write the Run Card
 
-Save to `outputs/[workflow-name]/run-guide.md` with exactly these headings, in this order, each a short plain-language section:
+Save to `framework/[workflow-name]/run-guide.md` with exactly these headings, in this order, each a short plain-language section:
 
 ```markdown
 # [Workflow Name] — Run Card
@@ -113,7 +118,7 @@ Save to `outputs/[workflow-name]/run-guide.md` with exactly these headings, in t
 [The human gates (G1…) in plain words: what the workflow pauses for and what you're deciding. The (must) criteria as a two-line reminder.]
 
 ## Log the run
-[One line per run in outputs/[workflow-name]/runs.md: date, input, result, edits needed, notes. If the workflow runs on-platform, the orchestrator skill appends the row itself — verify it did on today's run; if not, add that step to the orchestrator now. Ten seconds a run; it is the evidence your first review needs.]
+[One line per run in framework/[workflow-name]/runs.md: date, input, result, edits needed, notes. If the workflow runs on-platform, the orchestrator skill appends the row itself — verify it did on today's run; if not, add that step to the orchestrator now. Ten seconds a run; it is the evidence your first review needs.]
 
 ## Your first review
 [The date — monthly for high-frequency workflows, quarterly for occasional. The exact re-entry sentence: "Run the improve skill on [workflow name]." What to bring: nothing; the registry node, test results, and run log carry it.]
@@ -132,7 +137,7 @@ Present the Run Card in the conversation as well as saving it. Where this chat c
 
 #### Phase 4 — Run log, registry, review date
 
-**The run log.** Create `outputs/[workflow-name]/runs.md` with the header row and add today's first real run as row one — unless the orchestrator already appended it during Phase 2, in which case check the row against the rules below and fill the `Notes` cell it left for the user (the Measure reading from Phase 2); change nothing else in a row the orchestrator wrote:
+**The run log.** Create `framework/[workflow-name]/runs.md` with the header row and add today's first real run as row one — unless the orchestrator already appended it during Phase 2, in which case check the row against the rules below and fill the `Notes` cell it left for the user (the Measure reading from Phase 2); change nothing else in a row the orchestrator wrote:
 
 ```markdown
 | Date | Input / trigger | Result | Edits needed | Notes |
@@ -143,7 +148,7 @@ Row rules, every row: **Date** today, `YYYY-MM-DD`. **Input / trigger** — what
 
 **The review date.** Set it by the Workflow node's `trigger` and `execution_mode`, then confirm it with the user as a date, not a cadence: the workflow runs weekly or more often → one month from today; less often than weekly → three months from today; `automated`, whatever the cadence → one month from today, because nobody is watching the runs. If the `trigger` names a run day (Fridays, the first of the month), move the date back to the last run day on or before it, so the review falls on a day the workflow runs; say the date and the reason in one line ("2026-07-10 — a month out, on a Friday"). Tell the user to put the date in their calendar now, with the sentence "Run the improve skill on [workflow name]" as the event title. Where the platform's `capabilities.unattended_runs` says scheduled tasks or reminders exist, also offer to set a one-time reminder for that date — an offer, not a default.
 
-**The Workflow node.** Once the date is agreed, in the same session as the run — never leave it for later, because a log with rows and a node that is not `in-production` fails lint — update the node: `status: in-production`, `stale_after: YYYY-MM-DD` (the date just agreed), restamp `generated: { by: process:run, at: <today> }`, and add `- [Run guide](outputs/[workflow-name]/run-guide.md)` and `- [Run log](outputs/[workflow-name]/runs.md)` under `# Artifacts`, after the Test results link. Touch nothing else on the node. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step). No persistent workspace? Print the Run Card, the run log, and the updated node in full, each under its path, and tell the user to save all three into their workspace.
+**The Workflow node.** Once the date is agreed, in the same session as the run — never leave it for later, because a log with rows and a node that is not `in-production` fails lint — update the node: `status: in-production`, `stale_after: YYYY-MM-DD` (the date just agreed), restamp `generated: { by: process:run, at: <today> }`, and add `- [Run guide](framework/[workflow-name]/run-guide.md)` and `- [Run log](framework/[workflow-name]/runs.md)` under `# Artifacts`, after the Test results link. Touch nothing else on the node. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step). No persistent workspace? Print the Run Card, the run log, and the updated node in full, each under its path, and tell the user to save all three into their workspace.
 
 If the node's `execution_mode` is `augmented`, go to the close. If it is `automated`, continue to Phase 5.
 
@@ -168,8 +173,8 @@ A "no" on any line means do not enable the schedule yet: name the artifact that 
 
 ## Outputs
 
-- `outputs/[workflow-name]/run-guide.md` — the Run Card (six fixed headings above).
-- `outputs/[workflow-name]/runs.md` — the run log, one line per run.
+- `framework/[workflow-name]/run-guide.md` — the Run Card (six fixed headings above).
+- `framework/[workflow-name]/runs.md` — the run log, one line per run.
 - Workflow node updated: `status: in-production`, `stale_after`, artifact links, `generated` restamped.
 
 ## Guidelines
