@@ -188,7 +188,7 @@ auto-applied — lint never repairs meaning on its own.
 ## Moving a pre-9.0 record out of outputs/
 
 Before 9.0 the framework kept each workflow's record in `outputs/<slug>/`. It now lives in
-`framework/<slug>/`. Lint flags a leftover with `framework record found in outputs/<slug>/`.
+`framework/<slug>/`. Lint flags a leftover with `outputs/<slug>/: pre-9.0 framework record`.
 
 **When to run this.** Any framework step that finds a pre-9.0 record: an `outputs/<slug>/` folder
 holding any of `requirements.md`, `design-spec.md`, `runs.md`, or a `test-runs/` folder (the same

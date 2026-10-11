@@ -427,11 +427,11 @@ run_lint empty-workflows-bundle && ok "empty-workflows bundle lints clean (exit 
 # framework/ folder (9.0): record lives in framework/<slug>/, outputs/ is workflow output only
 run_lint legacy-outputs-workspace && ok "legacy outputs workspace is warning-only (exit 0)" || bad "legacy outputs workspace must not error"
 out=$(lint_output legacy-outputs-workspace)
-grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" <<<"$out" \
+grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it to framework/first-workflow/" <<<"$out" \
   && ok "legacy record in outputs/ warned" || bad "expected legacy-record WARN, got: $(grep WARN <<<"$out")"
 
 out=$(lint_output valid-bundle)
-grep -q "framework record found" <<<"$out" && bad "valid-bundle should not warn about legacy records" || ok "output-only outputs folder is silent (no legacy warning)"
+grep -q "pre-9.0 framework record" <<<"$out" && bad "valid-bundle should not warn about legacy records" || ok "output-only outputs folder is silent (no legacy warning)"
 grep -q "folder not claimed" <<<"$out" && bad "valid-bundle: unexpected unclaimed-folder warning" || ok "output-only outputs folder is silent (no unclaimed warning)"
 
 WS=$(stage legacy-outputs-workspace)
@@ -479,11 +479,11 @@ run_lint broken/multiline-frontmatter && bad "multi-line node frontmatter must s
 # is still a framework record -- a workflow's own output is never named runs.md.
 WS=$(stage valid-bundle)
 printf '| Date | Result |\n|---|---|\n| 2026-10-01 | ok |\n' > "$WS/outputs/first-workflow/runs.md"
-run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" \
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it to framework/first-workflow/" \
   && ok "outputs/<slug>/ holding only runs.md is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/runs.md"
 WS=$(stage valid-bundle)
 mkdir -p "$WS/outputs/first-workflow/test-runs"; : > "$WS/outputs/first-workflow/test-runs/round-1.md"
-run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/" \
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it" \
   && ok "outputs/<slug>/ holding only test-runs/ is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/test-runs/"
 
 # a missing framework/ link is strict: framework/ is never gitignored, so lint errors
