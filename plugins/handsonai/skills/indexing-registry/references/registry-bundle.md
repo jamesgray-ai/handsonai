@@ -52,7 +52,7 @@ the bundle exists.
      `/processes/course-improvement.md`). The first path segment must be one of the bundle's
      directories or a root file.
    - No leading slash, not a URL — workspace/repo-root-relative (e.g.
-     `framework/course-improvement/sop.md`).
+     `framework/course-improvement/requirements.md`).
    - A full URL — external.
 5. **A workflow joins exactly one Process** via that Process's curated ordered `# Workflows`
    list (`registry/processes/<process-slug>.md`) — the list is both the Workflow→Process edge
@@ -173,7 +173,7 @@ The consistency suite asserts string agreement between the two.
   doctrine, but a stale block is a maintenance-pass warning, never a lint blocker — see
   `scaffolding-registry/SKILL.md`'s Phase 4/5 notes)
 
-**Gitignore tolerance:** links into gitignored paths (the raw-source layer, e.g. `outputs/`) are
+**Gitignore tolerance:** links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are
 declarations, not guarantees — existence-checked locally when the target is present, skipped in
 CI/Tier 3 via `git check-ignore`. Without this tolerance, every artifact link would fail a
 student's first Action run.
@@ -182,6 +182,53 @@ All lint messages are plain-language and file-naming; fixes are offered, never s
 auto-applied — lint never repairs meaning on its own.
 
 ---
+
+## Moving a pre-9.0 record out of outputs/
+
+Before 9.0 the framework kept each workflow's record in `outputs/<slug>/`. It now lives in
+`framework/<slug>/`. Lint flags a leftover with `framework record found in outputs/<slug>/`.
+
+**When to run this.** Any framework step that finds the current workflow's record under
+`outputs/<slug>/` — one of `requirements.md`, `design-spec.md`, `test-results*.md`, `run-guide.md`,
+`runs.md`, `improvement-plan.md`, `inputs/`, `test-runs/`, `skill/` — or finds
+`outputs/ai-opportunity-report*.md`.
+
+**1. Find everything first.** Check every `outputs/<slug>/` folder in the workspace, not just this
+workflow's. For each one, split its contents into *moves* (the record files above) and *stays*
+(anything else: the workflow's own output, such as reports it produced).
+
+**2. Ask once, for the whole workspace.** Show the list grouped by workflow, then ask:
+
+> Your framework files are in `outputs/`, which the framework no longer uses. Can I move them to
+> `framework/`? *Weekly Status Report*: 22 files move, your 5 status reports stay where they are.
+> *Client Onboarding*: 6 files move.
+
+**3a. If they say yes**, for each workflow:
+1. If `framework/<slug>/` already has a file with the same name, stop for that file. Show both
+   dates and ask which to keep. Never overwrite or merge on your own.
+2. Move the record files to `framework/<slug>/`, renaming `skill/` to `skills/`. Move
+   `outputs/ai-opportunity-report*.md` to `framework/`.
+3. Rewrite the Workflow node's links (`# Artifacts`, `# Skills`, `# Agents`) from `outputs/<slug>/`
+   to `framework/<slug>/` (and `skill/` → `skills/`). If the node has no link to the folder, add the
+   `# Artifacts` links.
+4. Rewrite `outputs/<slug>/` paths inside the moved files' frontmatter: `requirements_file:` in
+   `design-spec.md`; `design_spec:` and `requirements:` in `test-results*.md`.
+5. **Check the installed workflow.** Read the installed or staged orchestrator. If it names
+   `outputs/<slug>/runs.md` or `outputs/<slug>/test-runs/`, tell the student plainly: "Your
+   installed workflow still saves its run log to the old folder. I'll update it." Then:
+   - **Skills you can edit in place** (Claude Code, Codex, Gemini CLI): change the paths to
+     `framework/<slug>/`.
+   - **Skills you upload** (Cowork, Claude.ai, ChatGPT, and others): update the staged copy in
+     `framework/<slug>/skills/`, rebuild the one package, and give the re-upload steps from the
+     platform's `capabilities.skill_install`.
+6. Add a `log.md` entry naming what moved. Run lint.
+
+**3b. If they say no**, keep working. Read and write through the Workflow node's links, so new
+files go next to the existing record in `outputs/<slug>/` and one workflow's record is never split.
+Don't ask again unless the student brings it up or runs the scaffolding-registry skill.
+
+**If you can't move files** (the chat has no file access), give the student the numbered move list
+and the replacement link lines to paste. Never say the move happened.
 
 ## 7. Closing step
 

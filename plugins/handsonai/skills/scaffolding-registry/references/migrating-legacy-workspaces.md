@@ -7,15 +7,18 @@ file that lints clean against the student's `SCHEMA.md`.
 
 ## Detection
 
-A workspace needs migration when either of these is true:
+A workspace needs migration when any of these is true:
 
 - `outputs/*/workflow.yaml` exists — the manifest layout.
 - `outputs/<name>-requirements.md` exists with **no** matching
   `outputs/<name>/` folder — the flat layout (requirements files sitting
   directly in `outputs/`, not inside a per-workflow folder).
+- `outputs/<slug>/requirements.md` or `design-spec.md` exists (the pre-9.0 outputs layout) — follow
+  *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle
+  reference.
 
 Run this check at Phase 0 of the scaffolding interview, before asking any
-content questions. If either shape is found, offer the migration path
+content questions. If any shape is found, offer the migration path
 described here instead of (or before) a fresh scaffold.
 
 ## Procedure
@@ -111,7 +114,7 @@ When there's no `workflow.yaml`, mint the node directly from what's on disk:
   no confirmed production status, so this is the honest default rather than
   a guess.
 - Link the requirements file itself in `# Artifacts`:
-  `- [Requirements](outputs/<name>-requirements.md)` (label as the link text —
+  `- [Requirements](framework/<name>/requirements.md)` (label as the link text —
   compose reads the framework step from it).
 - All other frontmatter (`definition_type`, `execution_mode`, `autonomy`,
   `trigger`) comes from the doc where it states one (a `## Trigger` section,
@@ -142,8 +145,8 @@ After every workflow in the run has a node:
    legacy `timestamp:` field slipped through instead of being converted to
    `generated.at`.
 2. **Claims sweep.** Every sibling SOP under `sops/` and every
-   `outputs/<slug>/` folder must be linked from its owning Workflow node's
-   `# Artifacts` section — lint errors on any SOP or outputs folder claimed
+   `framework/<slug>/` folder must be linked from its owning Workflow node's
+   `# Artifacts` section — lint errors on any SOP or framework folder claimed
    by zero (or more than one) Workflow node. Fix the links before moving on.
 3. Run a full maintenance pass (`indexing-registry`) so lint, directory
    indexes, and the Tier 1 dashboard reflect the migrated workflows before
