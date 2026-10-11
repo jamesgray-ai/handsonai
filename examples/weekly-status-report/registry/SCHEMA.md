@@ -67,7 +67,8 @@ warning give it teeth.
 produced while building, testing, and running it (requirements, design spec, test evidence, run
 card, run log). The workflow's own output is not part of the record: it lands wherever the
 workflow runs. Event-facts stay in the record. Only **synthesized insight** crosses into this
-bundle, as `Note` concepts.
+bundle, as `Note` concepts. Links point one way: the registry links into `framework/`, and nothing
+in `framework/` links back to registry nodes.
 
 # Frontmatter
 
@@ -165,9 +166,9 @@ required frontmatter present · single-line values · directory↔type agreement
 banned fields absent · link targets resolve · curated-list membership (exactly one parent per
 child) · owner validity (Process `owner:` names a real Function) · Function `# Owns` block
 present · GENERATED markers intact and terminated · every directory `index.md` covers its nodes ·
-claims sweep (every SOP and `framework/<slug>/` folder claimed by exactly one Workflow; an SOP's
-`workflow:` back-pointer must agree with the claiming node; run-log evidence must not contradict
-`status`). Warnings (not errors): overdue `stale_after`, a `backlog` workflow older than six
+claims sweep (every SOP claimed by exactly one Workflow; an SOP's `workflow:` back-pointer must
+agree with the claiming node; run-log evidence must not contradict `status`). Warnings (not
+errors): a `framework/<slug>/` folder claimed by no Workflow, overdue `stale_after`, a `backlog` workflow older than six
 months, a Note linking no node, uncaptured skills/agents, a malformed `generated.by` actor string,
 an artifact link pointing outside the workflow's derived LOB `folder:` when one is set, a framework
 record left in `outputs/<slug>/` (pre-9.0 layout — the indexing-registry skill moves it), and stale
