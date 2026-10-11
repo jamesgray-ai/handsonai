@@ -12,7 +12,7 @@ Assembles the agenda, open decisions, and talking points for each stakeholder me
 
 # Artifacts
 
-- [Opportunity report](outputs/ai-opportunity-report.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
 
 # Skills
 

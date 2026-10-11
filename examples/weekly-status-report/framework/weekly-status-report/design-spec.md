@@ -1,6 +1,6 @@
 ---
 workflow: weekly-status-report
-requirements_file: outputs/weekly-status-report/requirements.md
+requirements_file: framework/weekly-status-report/requirements.md
 spec_version: 3.0
 approved: true
 definition_type: Step-Driven
@@ -20,7 +20,7 @@ counts:
 
 ## Source
 
-**Workflow Requirements:** `outputs/weekly-status-report/requirements.md`
+**Workflow Requirements:** `framework/weekly-status-report/requirements.md`
 
 This Design Spec consumes the Workflow Requirements as canonical input. Goal, Value &
 Measurement, Metadata, Context Inventory, Security, Privacy & Safety, Acceptance
@@ -233,8 +233,8 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 
 | Artifact | Target Location | Deployment Steps |
 |---|---|---|
-| S1 — orchestrator skill `weekly-status-report` | Staged at `outputs/weekly-status-report/skill/weekly-status-report/`, packaged as `outputs/weekly-status-report/weekly-status-report.zip`; installed through Cowork's Save skill flow (Customize → Skills) | Build states the intent and hands over this blueprint; the platform creates the skill; Maya saves the package |
-| S2 — `status-report-drafting` | Staged at `outputs/weekly-status-report/skill/status-report-drafting/`, packaged as `outputs/weekly-status-report/status-report-drafting.zip`; installed the same way | Same |
+| S1 — orchestrator skill `weekly-status-report` | Staged at `framework/weekly-status-report/skills/weekly-status-report/`, packaged as `framework/weekly-status-report/weekly-status-report.zip`; installed through Cowork's Save skill flow (Customize → Skills) | Build states the intent and hands over this blueprint; the platform creates the skill; Maya saves the package |
+| S2 — `status-report-drafting` | Staged at `framework/weekly-status-report/skills/status-report-drafting/`, packaged as `framework/weekly-status-report/status-report-drafting.zip`; installed the same way | Same |
 | C3 — `tone-guide.md` | `context/tone-guide.md` in the project | Build creates it with Maya |
 
 **Orchestrator artifact (primary-loop platforms):** S1 is the user-triggered entry point — an orchestrator skill carrying the workflow name, with `disable-model-invocation: true` and no `context: fork`; S2 is capability-named.
@@ -244,7 +244,7 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 **Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat inside the project.
 
 **Run Logging:** the orchestrator skill appends one row to
-`outputs/weekly-status-report/runs.md` at the end of every production run — date,
+`framework/weekly-status-report/runs.md` at the end of every production run — date,
 input/trigger, result, edits needed, and a notes cell Maya fills (including the
 minutes door to door, which is how the `Unknown` Baseline gets measured). Test runs
 save under `test-runs/` and are not logged.
@@ -256,7 +256,7 @@ save under `test-runs/` and are not logged.
 ## Evaluation Inputs
 
 Acceptance Criteria, Example Scenarios (E1–E3, golden example on E1), and Human
-Gates (G1, G2) are sourced from `outputs/weekly-status-report/requirements.md`.
+Gates (G1, G2) are sourced from `framework/weekly-status-report/requirements.md`.
 
 ## Deferred to Build
 
@@ -269,7 +269,7 @@ Gates (G1, G2) are sourced from `outputs/weekly-status-report/requirements.md`.
 **Structure**
 - [x] **Frontmatter** is present with workflow, requirements_file, spec_version (`3.0`), approved (`false` until the user approves), definition_type, mechanism, involvement, platform, platform_mode, packaging, and counts
 - [x] Frontmatter `counts` match the body — `skills` = number of Skill Candidate entries (for an `Agent` mechanism, the primary-loop orchestrator skill Build creates is not a Skill Candidate and is not counted), `agents` = number of Agent Configuration entries, `integrations` = number of Integration Options tools
-- [x] **Source** section names the Workflow Requirements file path (`outputs/[workflow-name]/requirements.md`)
+- [x] **Source** section names the Workflow Requirements file path (`framework/[workflow-name]/requirements.md`)
 - [x] All mandatory template sections are present in template order (Value & Measurement, Execution Pattern, Architecture Decisions, Autonomy Spectrum Summary [or Autonomy Statement], Safety & Permissions, Constraint Conformance, Integration Options, Model Recommendation, Decomposition table, Data Readiness Summary, Recommended Implementation Order, Prerequisites, Deployment Plan, Evaluation Inputs, Deferred to Build, Self-Test Summary — plus conditional sections per their rules)
 - [x] `Architecture Decisions` table has Lens, Platform, Platform Mode, Orchestration, Involvement, Packaging, and Trigger rows
 - [x] Every step in the decomposition table has separate Orchestration, Integration, Intelligence, and Build Output columns

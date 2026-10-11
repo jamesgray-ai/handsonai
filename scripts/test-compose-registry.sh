@@ -464,7 +464,8 @@ grep -q "WARN.*stale_after 2026-08-14 is past -- review due" <<<"$ex_out" && [ "
   && ok "worked example: exactly the expected review-due warning" || bad "worked example: expected exactly one warning (review due), got $ex_warns: $(grep '^WARN' <<<"$ex_out")"
 (cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks, island all current)" \
   || bad "worked example has stale derived views: $(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry 2>&1 | grep STALE | tr '\n' ' ')"
-[ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/outputs | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example outputs/ is tracked by git" || bad "worked example outputs/ is not tracked (gitignore?)"
+[ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/framework | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example framework/ is tracked by git" || bad "worked example framework/ is not tracked (gitignore?)"
+[ "$(git -C "$REPO_ROOT" ls-files 'examples/weekly-status-report/outputs/weekly-status-report/status-report-*.md' | wc -l | tr -d ' ')" -eq 5 ] && ok "worked example keeps 5 sample reports in outputs/" || bad "worked example should keep its 5 status reports in outputs/"
 grep -q '"nodeUrl"' "$EX/tools/last-data-island.json" 2>/dev/null && bad "worked example island carries nodeUrl (would be dead links for students)" || ok "worked example island has no nodeUrl"
 
 echo

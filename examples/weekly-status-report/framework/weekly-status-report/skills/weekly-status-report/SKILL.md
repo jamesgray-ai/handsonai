@@ -42,10 +42,10 @@ never share or save a report Maya hasn't approved.
    Do not proceed without explicit approval (G1).
 4. **Save & log.** Save the approved report as
    `outputs/weekly-status-report/status-report-YYYY-MM-DD.md` (never overwrite a
-   previous week). Append one row to `outputs/weekly-status-report/runs.md` —
+   previous week). Append one row to `framework/weekly-status-report/runs.md` —
    date, input/trigger, result, edits-needed, notes (left for Maya to fill) —
    creating the file with its header if absent. If the request said "test run",
-   save under `outputs/weekly-status-report/test-runs/` instead and write no
+   save under `framework/weekly-status-report/test-runs/` instead and write no
    run-log row — the log holds production runs only.
 5. **Close.** End with a short **What I did** list: the four steps run in order,
    whether the ambiguous-status gate fired and what Maya resolved, the review gate

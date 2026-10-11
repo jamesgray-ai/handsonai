@@ -16,7 +16,9 @@ The dashboard view is the generated root `REGISTRY.md`.
 - [Notes](/notes/index.md) — synthesized operational insights
 
 <!-- GENERATED:skills -->
-## Skills inventory (0)
+## Skills inventory (2)
+- [status-report-drafting](framework/weekly-status-report/skills/status-report-drafting/SKILL.md) —  (used by: [Weekly Status Report](registry/workflows/weekly-status-report.md))
+- [weekly-status-report](framework/weekly-status-report/skills/weekly-status-report/SKILL.md) —  (used by: [Weekly Status Report](registry/workflows/weekly-status-report.md))
 <!-- /GENERATED -->
 
 <!-- GENERATED:agents -->

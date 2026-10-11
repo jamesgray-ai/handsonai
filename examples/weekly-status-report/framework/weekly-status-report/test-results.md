@@ -1,7 +1,7 @@
 ---
 workflow: weekly-status-report
-design_spec: outputs/weekly-status-report/design-spec.md
-requirements: outputs/weekly-status-report/requirements.md
+design_spec: framework/weekly-status-report/design-spec.md
+requirements: framework/weekly-status-report/requirements.md
 date: 2026-07-10
 environment: "Cowork, HubSpot connector live"
 round_status: complete
@@ -34,9 +34,9 @@ results:
 
 ## Scenarios to run
 
-- **E1 — Typical week (real):** `outputs/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker (same saved input as round 1) — tests R1, G1; golden example C2 (report of 2026-05-22)
-- **E2 — Blocked-heavy week (proposed):** `outputs/weekly-status-report/inputs/E2-blocked-heavy-week.md` — the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
-- **E3 — Quiet week (proposed):** `outputs/weekly-status-report/inputs/E3-quiet-week.md` — the same constructed input as round 1 (2 updates, no blockers) — tests R2 (nothing invented when there is little to report); no golden example
+- **E1 — Typical week (real):** `framework/weekly-status-report/inputs/E1-typical-week.md` — the week of 2026-06-01: 9 updated tasks, 1 blocker (same saved input as round 1) — tests R1, G1; golden example C2 (report of 2026-05-22)
+- **E2 — Blocked-heavy week (proposed):** `framework/weekly-status-report/inputs/E2-blocked-heavy-week.md` — the same constructed input as round 1 — tests R1 and the Step 2 ownerless-blocker edge case; no golden example
+- **E3 — Quiet week (proposed):** `framework/weekly-status-report/inputs/E3-quiet-week.md` — the same constructed input as round 1 (2 updates, no blockers) — tests R2 (nothing invented when there is little to report); no golden example
 
 ## Report card
 
@@ -126,4 +126,4 @@ not-ready by Improve so Build's fix mode reads the Issues identified table above
 
 ## Test records created
 
-Three test-run reports under `outputs/weekly-status-report/test-runs/` (E1, E2, E3 dated 2026-07-10). No rows in `runs.md`.
+Three test-run reports under `framework/weekly-status-report/test-runs/` (E1, E2, E3 dated 2026-07-10). No rows in `runs.md`.
