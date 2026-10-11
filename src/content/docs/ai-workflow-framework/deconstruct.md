@@ -68,8 +68,8 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 9. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
 10. **Validate the workflow** — Walk the refined workflow end-to-end to catch gaps before Design.
 11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
-12. **Define how you will judge the output** — a good example from your real work first (change its names and details, and leave out anything confidential), then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
-13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
+12. **Define how you will judge the output** — a good example from your real work first (change its names and details, and leave out anything confidential or personal; it still counts), then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
+13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to `framework/[workflow-name]/requirements.md`.
 
 **Goal-driven:** phases 1–3 are identical. Instead of decomposing steps, phase 4 runs a short interview that stays in "what" territory, then skips straight to the goal-driven validation gate (numbered 10 to mirror the step-driven one):
 
@@ -79,8 +79,8 @@ Then the goal-driven gate, and both paths rejoin at phase 11:
 
 10. **Validate** *(goal-driven)* — A quality gate checks the goal is bounded and testable, the variation range and fallback behavior are defined, the rules are sufficient, and the context is reachable.
 11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
-12. **Define how you will judge the output** — a good example from your real work first (change its names and details, and leave out anything confidential), then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
-13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
+12. **Define how you will judge the output** — a good example from your real work first (change its names and details, and leave out anything confidential or personal; it still counts), then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
+13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to `framework/[workflow-name]/requirements.md`.
 
 ## How to Use This
 
