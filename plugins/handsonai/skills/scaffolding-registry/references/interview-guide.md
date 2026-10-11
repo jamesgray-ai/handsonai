@@ -113,7 +113,7 @@ In print-and-save mode and no skeleton yet, print those same files first,
 in that order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
-skeleton plus a GitHub Action that publishes the dashboard, and is optional.
+skeleton plus a GitHub Action that checks the registry on every save, and is optional.
 
 **Legacy-detection trigger:** In write mode: if `outputs/*/workflow.yaml` exists anywhere in
 the workspace, or an `outputs/<name>-requirements.md` file exists with no

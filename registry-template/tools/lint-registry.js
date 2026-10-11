@@ -359,6 +359,12 @@ if (require.main === module) {
   const { errors, warnings } = lint(bundleDir);
   for (const w of warnings) console.log(`WARN  ${w}`);
   for (const e of errors) console.log(`ERROR ${e}`);
+  // On GitHub Actions, also post each error as an annotation: the run's summary page then
+  // names the file and rule, so a student never has to search the log.
+  if (process.env.GITHUB_ACTIONS === 'true') {
+    const esc = (s) => s.replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A');
+    for (const e of errors) console.log(`::error title=Registry check::${esc(e)}`);
+  }
   console.log(`lint-registry: ${errors.length} error(s), ${warnings.length} warning(s)`);
   process.exit(errors.length ? 1 : 0);
 }

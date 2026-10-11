@@ -8,10 +8,8 @@
 // Rewrites GENERATED blocks (Function `# Owns`, Workflow `# Insights`, root
 // `index.md` skills/agents inventories), refreshes the plain directory
 // `index.md` bullet lists, emits
-// the repo-root REGISTRY.md dashboard, and ALWAYS writes tools/last-data-island.json
-// (additionally injecting the same JSON into registry-dashboard.html when that
-// file exists, so a fresh-checkout Action reading tools/last-data-island.json
-// unconditionally never sees a stale island).
+// the repo-root REGISTRY.md dashboard, and injects the data island into
+// registry-dashboard.html when that file exists (--island-only prints it instead).
 //
 // Deterministic: stable code-point ordering only (`.sort()`, never
 // `localeCompare`), no `Date.now()`/`new Date()` anywhere in this file --
@@ -57,6 +55,10 @@ const EMPTY_INDEX_BODY = '_No entries yet — your AI assistant fills this index
 const STEP_ARTIFACT_TITLES = ['requirements', 'design spec', 'test results', 'run guide', 'improvement plan'];
 
 function dash(v) { return v || '—'; }
+// A markdown table cell: a `|` inside the value would split the cell.
+function cell(v) { return dash(v).replace(/\|/g, '\\|'); }
+// Skill/agent descriptions may span lines (`|`, `>`, blank lines); every view shows one line.
+function oneLine(v) { return v ? String(v).replace(/\s+/g, ' ').trim() : v; }
 function cmpPath(a, b) { return a.relPath < b.relPath ? -1 : a.relPath > b.relPath ? 1 : 0; }
 function nodeTitle(n) { return (n.fm && n.fm.title) || lib.slugOf(n.relPath); }
 
@@ -107,14 +109,15 @@ function scanSkillsAndAgents(workspaceRoot) {
   const skills = [];
   const agents = [];
   for (const p of lib.scanCapabilities(workspaceRoot)) {
-    const raw = lib.normalizeLineEndings(fs.readFileSync(path.join(workspaceRoot, p), 'utf8'));
+    let raw;
+    try { raw = lib.normalizeLineEndings(fs.readFileSync(path.join(workspaceRoot, p), 'utf8')); } catch { continue; } // broken symlink, unreadable
     const fields = lib.parseCapabilityFrontmatter(raw);
     const isSkill = p.endsWith('/SKILL.md');
     const rec = {
       id: isSkill ? path.posix.basename(path.posix.dirname(p)) : path.posix.basename(p).replace(/\.md$/, ''),
       title: (fields && (fields.name || fields.title)) || undefined,
-      description: (fields && fields.description) || '',
-      quickStartPrompt: (fields && (fields.quick_start_prompt || fields.quickstart_prompt)) || undefined,
+      description: oneLine(fields && fields.description) || '',
+      quickStartPrompt: oneLine(fields && (fields.quick_start_prompt || fields.quickstart_prompt)) || undefined,
       path: p,
     };
     (isSkill ? skills : agents).push(rec);
@@ -289,8 +292,8 @@ function compose(bundleDir) {
     L.push(hasQSP ? '|---|---|---|---|' : '|---|---|---|');
     for (const item of items) {
       const used = dash(usedByLinkText(item.path));
-      const row = `| [${item.id}](${item.path}) | ${dash(item.description)} | ${used}`;
-      L.push(hasQSP ? `${row} | ${dash(item.quickStartPrompt)} |` : `${row} |`);
+      const row = `| [${item.id}](${item.path}) | ${cell(item.description)} | ${used}`;
+      L.push(hasQSP ? `${row} | ${cell(item.quickStartPrompt)} |` : `${row} |`);
     }
     L.push('');
   };
@@ -491,22 +494,13 @@ if (require.main === module) {
     process.exit(0);
   }
 
-  // `<` is escaped to `<` so the serialized island can never be
+  // `<` is escaped to `\u003c` so the serialized island can never be
   // misread as closing an embedding <script> tag (e.g. a description
-  // containing a literal "</script>"). Valid JSON either way -- < is
-  // just the unicode escape for "<". Escaped once here and reused for both
-  // outputs below.
+  // containing a literal "</script>"). Valid JSON either way -- \u003c is
+  // just the unicode escape for "<".
   const escapeForEmbedding = (s) => s.replace(/</g, '\\u003c');
 
-  // Always written -- regardless of --check/registry-dashboard.html presence
-  // -- so an Action's unconditional read of tools/last-data-island.json is
-  // always fresh (see file-header comment).
-  const islandPath = path.join(workspaceRoot, 'tools', 'last-data-island.json');
-  const islandContent = escapeForEmbedding(JSON.stringify(island, null, 2)) + '\n';
-  const currentIsland = fs.existsSync(islandPath) ? fs.readFileSync(islandPath, 'utf8') : null;
-  if (currentIsland !== islandContent) outputs.set(islandPath, islandContent);
-
-  // Additionally inject into registry-dashboard.html when it exists. Uses the
+  // Inject into registry-dashboard.html when it exists. Uses the
   // FUNCTION form of .replace() -- a plain `$1${json}$2` template string is
   // unsafe because JSON.stringify output can legitimately contain `$&`,
   // `` $` ``, `$'`, or `$<name>`-shaped substrings, which the string form of

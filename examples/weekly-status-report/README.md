@@ -2,7 +2,7 @@
 
 This folder is the complete project a program manager named Maya ends up with after taking one small workflow through all seven steps of the AI Workflow Framework in Claude Cowork. It is the folder described, file by file, at https://handsonai.info/ai-workflow-framework/examples/worked-example/ — read that page alongside this folder.
 
-What is here: `registry/` (the AI Registry bundle every framework step reads and writes), `REGISTRY.md` (the dashboard the registry tools generate from it), `context/` (the tone guide and three past reports the workflow draws on), `framework/` (the record Steps 1–7 produced: the opportunity report, requirements and scenario inputs, the design spec, the two staged skills, three rounds of test results, the run log, and the improvement plan), and `outputs/` (the workflow's own output: the five saved status reports). `tools/last-data-island.json` is a derived file left by the registry tools' compose step when this folder was prepared; the tools themselves are not in the folder, and you can ignore the file.
+What is here: `registry/` (the AI Registry bundle every framework step reads and writes), `REGISTRY.md` (the dashboard the registry tools generate from it), `context/` (the tone guide and three past reports the workflow draws on), `framework/` (the record Steps 1–7 produced: the opportunity report, requirements and scenario inputs, the design spec, the two staged skills, three rounds of test results, the run log, and the improvement plan), and `outputs/` (the workflow's own output: the five saved status reports).
 
 ## Open it
 

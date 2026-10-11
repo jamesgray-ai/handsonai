@@ -40,5 +40,5 @@ student said, ask which is current; never silently prefer the document.
 ## Privacy
 
 Say once in Phase 0: role titles by default, names only on request. If the
-registry may live on public GitHub Pages, remind the student before writing
-any name.
+registry may live in a public repository, or the student plans to share the
+dashboard, remind the student before writing any name.

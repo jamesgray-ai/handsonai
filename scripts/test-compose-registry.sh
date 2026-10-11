@@ -471,9 +471,37 @@ mkdir -p "$WS/.claude/agents"; printf -- '---\nname: lit-agent\ndescription: |\n
 desc() { node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));const all=[...(d.skills||[]),...(d.agents||[])];const x=all.find(s=>s.id===process.argv[2]);process.stdout.write(x?x.description:'<missing>')" "$WS/island.json" "$1"; }
 [ "$(desc some-skill)" = "Folded line one and line two." ] && ok "folded (>) skill description read" || bad "folded description: got '$(desc some-skill)'"
 [ "$(desc orphan-skill)" = "Plain start continued here." ] && ok "plain multi-line skill description read" || bad "plain multi-line description: got '$(desc orphan-skill)'"
-[ "$(desc lit-agent)" = "$(printf 'Literal one\nLiteral two')" ] && ok "literal (|) agent description read" || bad "literal description: got '$(desc lit-agent)'"
+[ "$(desc lit-agent)" = "Literal one Literal two" ] && ok "literal (|) agent description read onto one line" || bad "literal description: got '$(desc lit-agent)'"
+# markdown views stay intact: a multi-line, blank-line or pipe-bearing description is one table row
+mkdir -p "$WS/.claude/agents"; printf -- '---\nname: md-agent\ndescription: |\n  Does A | B\n\n  - not a bullet\n---\nBody\n' > "$WS/.claude/agents/md-agent.md"
+(cd "$WS" && node "$TOOLS/compose-registry.js" registry >/dev/null 2>&1)
+row=$(grep -n "md-agent" "$WS/REGISTRY.md")
+[ "$(grep -c "md-agent" "$WS/REGISTRY.md")" -eq 1 ] && grep -qF 'Does A \| B - not a bullet |' <<<"$row" \
+  && ok "REGISTRY.md: multi-line description with a pipe stays one escaped table row" || bad "REGISTRY.md row broken: $(grep -A2 md-agent "$WS/REGISTRY.md")"
+grep -q "^- not a bullet" "$WS/registry/index.md" && bad "registry/index.md got a stray bullet from a description" || ok "registry/index.md: no stray bullet from a multi-line description"
 # registry nodes stay strict: multi-line frontmatter in a node is still a lint error
-run_lint broken/multiline-frontmatter && bad "multi-line node frontmatter must still error" || ok "multi-line node frontmatter still errors"
+out=$(lint_output broken/multiline-frontmatter)
+grep -q "ERROR.*multi-line YAML" <<<"$out" && ok "multi-line node frontmatter still errors (strict parser)" || bad "multi-line node frontmatter must still error: $out"
+
+# on GitHub Actions, each lint error is also a workflow annotation, so the run's summary page
+# names the file and rule without opening the log; elsewhere the output is unchanged
+WS=$(stage broken/bad-enum)
+out=$(cd "$WS" && GITHUB_ACTIONS=true node "$TOOLS/lint-registry.js" registry 2>&1 || true)
+grep -q "^::error title=Registry check::" <<<"$out" && ok "lint posts errors as GitHub annotations on Actions" || bad "expected ::error annotations under GITHUB_ACTIONS=true"
+out=$(cd "$WS" && env -u GITHUB_ACTIONS node "$TOOLS/lint-registry.js" registry 2>&1 || true)
+grep -q "^::error" <<<"$out" && bad "lint printed annotations outside GitHub Actions" || ok "no annotations outside GitHub Actions"
+
+# lenient reader edge cases: a byte-order mark, and an indentation indicator (>2)
+node -e "
+const lib=require(process.argv[1]);
+const a=lib.parseCapabilityFrontmatter('\uFEFF---\nname: x\ndescription: With BOM\n---\n');
+const b=lib.parseCapabilityFrontmatter('---\nname: x\ndescription: >2\n  Indented text\n---\n');
+process.exit(a.description==='With BOM' && b.description==='Indented text' ? 0 : 1);" "$TOOLS/registry-lib.js" \
+  && ok "capability frontmatter: BOM and >2 indicator read" || bad "capability frontmatter: BOM or >2 indicator misread"
+# compose never crashes on an unreadable or dangling skill/agent file
+WS=$(stage valid-bundle); chmod 000 "$WS/.claude/skills/orphan-skill/SKILL.md"; mkdir -p "$WS/.claude/agents"; ln -s "$WS/nope.md" "$WS/.claude/agents/dangling.md"
+out=$(cd "$WS" && node "$TOOLS/compose-registry.js" registry 2>&1 || true); chmod 644 "$WS/.claude/skills/orphan-skill/SKILL.md"
+! grep -qE '^[[:space:]]+at |EACCES|ENOENT' <<<"$out" && ok "compose skips unreadable or dangling skill/agent files" || bad "compose crashed on an unreadable skill/agent file: $(grep -E 'Error' <<<"$out" | head -1)"
 
 # legacy record: a recreated outputs/<slug>/ holding only a run log (no requirements/design spec)
 # is still a framework record -- a workflow's own output is never named runs.md.
@@ -514,6 +542,7 @@ no_trace "$out" && ok "sops/ as a plain file: lint reports, no stack trace" || b
 WS=$(stage valid-bundle); ln -s "$WS/does-not-exist.md" "$WS/sops/dangling.md"
 out=$(run_lint_at "$WS" 2>&1 || true)
 no_trace "$out" && ok "broken symlink in sops/: lint skips it, no stack trace" || bad "broken symlink in sops/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+# (an administrator account can read a mode-000 file, so this test proves nothing when run as root)
 WS=$(stage valid-bundle); printf 'x\n' > "$WS/sops/locked.md"; chmod 000 "$WS/sops/locked.md"
 out=$(run_lint_at "$WS" 2>&1 || true); chmod 644 "$WS/sops/locked.md"
 no_trace "$out" && ok "unreadable file in sops/: lint skips it, no stack trace" || bad "unreadable file in sops/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
@@ -525,11 +554,19 @@ grep -q "ERROR" <<<"$ex_out" && bad "worked example has lint errors" || ok "work
 ex_warns=$(grep -c "^WARN" <<<"$ex_out" || true)
 grep -q "WARN.*stale_after 2026-08-14 is past -- review due" <<<"$ex_out" && [ "$ex_warns" -eq 1 ] \
   && ok "worked example: exactly the expected review-due warning" || bad "worked example: expected exactly one warning (review due), got $ex_warns: $(grep '^WARN' <<<"$ex_out")"
-(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks, island all current)" \
+(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks all current)" \
   || bad "worked example has stale derived views: $(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry 2>&1 | grep STALE | tr '\n' ' ')"
 [ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/framework | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example framework/ is tracked by git" || bad "worked example framework/ is not tracked (gitignore?)"
 [ "$(git -C "$REPO_ROOT" ls-files 'examples/weekly-status-report/outputs/weekly-status-report/status-report-*.md' | wc -l | tr -d ' ')" -eq 5 ] && ok "worked example keeps 5 sample reports in outputs/" || bad "worked example should keep its 5 status reports in outputs/"
-grep -q '"nodeUrl"' "$EX/tools/last-data-island.json" 2>/dev/null && bad "worked example island carries nodeUrl (would be dead links for students)" || ok "worked example island has no nodeUrl"
+ex_island=$(cd "$EX" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null)
+grep -q '"nodeUrl"' <<<"$ex_island" && bad "worked example island carries nodeUrl (would be dead links for students)" || ok "worked example island has no nodeUrl"
+[ -e "$EX/tools" ] && bad "worked example has a tools/ folder (nothing publishes it; compose no longer writes one)" || ok "worked example has no tools/ folder"
+
+# compose never creates tools/last-data-island.json -- nothing publishes the registry, so
+# the only data-island consumer is registry-dashboard.html, which compose updates in place.
+compose_at valid-bundle >/dev/null 2>&1
+[ -e "$WS/tools/last-data-island.json" ] && bad "compose wrote tools/last-data-island.json" || ok "compose writes no tools/last-data-island.json"
+[ -e "$WS/tools" ] && bad "compose created a tools/ folder" || ok "compose creates no tools/ folder"
 
 echo
 echo "$PASS ok, $FAIL bad"
