@@ -268,8 +268,11 @@ function scanFrameworkFolders(workspaceRoot) {
 }
 
 // Pre-9.0 layout: a framework record still sitting in outputs/<slug>/. Folders holding only a
-// workflow's own output are not records and are ignored.
-const RECORD_MARKERS = ['requirements.md', 'design-spec.md'];
+// workflow's own output are not records and are ignored. A marker is any record file or folder
+// that is never a workflow's own output -- including runs.md and test-runs/, so an outputs/<slug>/
+// recreated by a later run or test round (with no requirements or design spec) is still caught.
+// existsSync matches files and directories alike.
+const RECORD_MARKERS = ['requirements.md', 'design-spec.md', 'runs.md', 'test-runs'];
 function scanLegacyRecordFolders(workspaceRoot) {
   return scanRecordFolders(workspaceRoot, 'outputs')
     .filter((f) => RECORD_MARKERS.some((m) => fs.existsSync(path.join(workspaceRoot, f.path, m))));
@@ -339,7 +342,7 @@ function scanCapabilities(workspaceRoot) {
   return out.sort();
 }
 
-// Links into gitignored territory (raw-source layer: outputs/) are
+// Links into gitignored territory (a workflow's own output, e.g. outputs/) are
 // declarations lint cannot verify in a fresh checkout -- `git check-ignore`
 // works on patterns regardless of whether the file exists. Non-git
 // directories (or any error) tolerate as "nothing ignored".

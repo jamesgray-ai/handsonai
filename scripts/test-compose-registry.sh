@@ -460,6 +460,25 @@ WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/agents"; printf
 run_lint_at "$WS" 2>&1 | grep -q "orphan.*framework/first-workflow/agents/staged-agent.md" \
   && ok "staged agent under framework/ counted as a capability" || bad "expected staged agent framework/first-workflow/agents/staged-agent.md in orphan warning"
 
+# legacy record: a recreated outputs/<slug>/ holding only a run log (no requirements/design spec)
+# is still a framework record -- a workflow's own output is never named runs.md.
+WS=$(stage valid-bundle)
+printf '| Date | Result |\n|---|---|\n| 2026-10-01 | ok |\n' > "$WS/outputs/first-workflow/runs.md"
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" \
+  && ok "outputs/<slug>/ holding only runs.md is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/runs.md"
+WS=$(stage valid-bundle)
+mkdir -p "$WS/outputs/first-workflow/test-runs"; : > "$WS/outputs/first-workflow/test-runs/round-1.md"
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/" \
+  && ok "outputs/<slug>/ holding only test-runs/ is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/test-runs/"
+
+# a missing framework/ link is strict: framework/ is never gitignored, so lint errors
+WS=$(stage valid-bundle); rm "$WS/framework/first-workflow/run-guide.md"
+if run_lint_at "$WS" >/dev/null 2>&1; then bad "missing framework/ link: lint should exit 1"; else
+  out=$(run_lint_at "$WS" 2>&1)  # variable capture: lint exits 1 here, so never pipe it under pipefail
+  grep -q "ERROR.*repo link framework/first-workflow/run-guide.md -- file not found" <<<"$out" \
+    && ok "missing framework/ link is a lint ERROR naming the file" || bad "missing framework/ link: no ERROR naming run-guide.md"
+fi
+
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"

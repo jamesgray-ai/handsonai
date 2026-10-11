@@ -86,7 +86,7 @@ function lint(bundleDir) {
   }
 
   // 2. Links: in-bundle first-segment + resolution; repo-relative existence
-  //    (with gitignore tolerance for the raw-source layer, e.g. outputs/, where a workflow's own output lands).
+  //    (with gitignore tolerance for a workflow's own output, e.g. outputs/).
   for (const [relPath, n] of nodes) {
     const links = lib.classifyLinks(n.raw);
     for (const href of links.inBundle) {
