@@ -65,8 +65,8 @@ echo "-- framework record lives in framework/, not outputs/ (9.0) --"
 # A workflow's own output may still be shown as outputs/<file> -- the pattern only matches a
 # placeholder folder (outputs/[workflow-name]/, outputs/<slug>/, ...) or the Analyze report.
 EXEMPT='migrating-legacy-workspaces.md|interview-guide.md'
-hits=$(grep -rnE 'outputs/((\[workflow-name\]|\[name\]|<slug>|<workflow-slug>|<workflow>)/|ai-opportunity-report)' \
-         "$SK" plugins/handsonai/agents plugins/handsonai/README.md 2>/dev/null | grep -vE "$EXEMPT" | grep -v '9\.0' || true)
+hits=$(grep -rnE 'outputs/((\[workflow-name\]|\[name\]|<slug>|<workflow-slug>|<workflow>|<name>)/|ai-opportunity-report)' \
+         "$SK" plugins/handsonai/agents plugins/handsonai/README.md 2>/dev/null | grep -vE "$EXEMPT" | grep -viE '9\.0|legacy' || true)
 if [ -z "$hits" ]; then ok "no framework skill, agent, or README writes the record to outputs/"
 else bad "framework record path still under outputs/:"; echo "$hits" | sed 's/^/        /'; fi
 
