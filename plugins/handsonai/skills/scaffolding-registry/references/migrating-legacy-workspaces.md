@@ -1,7 +1,9 @@
 # Migrating Legacy Workspaces
 
-Two legacy shapes feed into the same registry bundle: a `workflow.yaml`
-manifest layout, and an older flat layout with no manifest at all. Both
+Three legacy shapes can turn up in a workspace: a `workflow.yaml`
+manifest layout, an older flat layout with no manifest at all, and the
+pre-9.0 `outputs/<slug>/` layout, which kept each workflow's record in
+`outputs/<slug>/` instead of `framework/<slug>/`. The first two
 migrations write the same kind of node — a `registry/workflows/<slug>.md`
 file that lints clean against the student's `SCHEMA.md`.
 
@@ -13,7 +15,8 @@ A workspace needs migration when any of these is true:
 - `outputs/<name>-requirements.md` exists with **no** matching
   `outputs/<name>/` folder — the flat layout (requirements files sitting
   directly in `outputs/`, not inside a per-workflow folder).
-- `outputs/<slug>/requirements.md` or `design-spec.md` exists (the pre-9.0 outputs layout) — follow
+- An `outputs/<slug>/` folder holds any of `requirements.md`, `design-spec.md`, `runs.md`, or a
+  `test-runs/` folder (the pre-9.0 outputs layout — the same check lint uses) — follow
   *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle
   reference.
 

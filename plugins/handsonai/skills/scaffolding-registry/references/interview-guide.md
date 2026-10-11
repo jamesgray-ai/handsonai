@@ -117,8 +117,8 @@ skeleton plus a GitHub Action that publishes the dashboard, and is optional.
 
 **Legacy-detection trigger:** In write mode: if `outputs/*/workflow.yaml` exists anywhere in
 the workspace, or an `outputs/<name>-requirements.md` file exists with no
-matching folder (flat layout), or an `outputs/<slug>/requirements.md` or `design-spec.md`
-exists (the pre-9.0 outputs layout), stop and offer the migration path from
+matching folder (flat layout), or an `outputs/<slug>/` folder holds any of `requirements.md`,
+`design-spec.md`, `runs.md`, or a `test-runs/` folder (the pre-9.0 outputs layout), stop and offer the migration path from
 `migrating-legacy-workspaces.md` before continuing the interview. A student
 migrating does not repeat Phases 1–4 for businesses, lines of business,
 functions, or processes the migration already covers. In print-and-save mode, rely on what the student told you in the follow-up above.
