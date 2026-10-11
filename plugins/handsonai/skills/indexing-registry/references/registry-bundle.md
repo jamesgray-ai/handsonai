@@ -193,7 +193,7 @@ Before 9.0 the framework kept each workflow's record in `outputs/<slug>/`. It no
 **When to run this.** Any framework step that finds a pre-9.0 record: an `outputs/<slug>/` folder
 holding any of `requirements.md`, `design-spec.md`, `runs.md`, or a `test-runs/` folder (the same
 check lint uses) — or that finds `outputs/ai-opportunity-report*.md`. Skip the ask if
-`registry/log.md` already has a "Kept the pre-9.0 outputs/ layout" entry: the student said no, and
+`registry/log.md` already has a "Kept the pre-9.0 `outputs/` layout" entry: the student said no, and
 that answer stands for the framework steps. The move is offered again only when the student asks for
 it, or when they run the scaffolding-registry skill — it checks for a pre-9.0 record every time it
 runs, even after that entry.
@@ -253,7 +253,7 @@ reports it produced.
 the answer survives a new chat:
 
 ```markdown
-## <YYYY-MM-DD> — Kept the pre-9.0 outputs/ layout
+## <YYYY-MM-DD> — Kept the pre-9.0 `outputs/` layout
 
 Kept the pre-9.0 `outputs/` layout — the student declined the move to `framework/`.
 ```
