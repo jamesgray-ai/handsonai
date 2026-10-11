@@ -94,8 +94,8 @@ Your assistant runs the same interview, but instead of saving each file it print
 
 1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, there's no way to save the wrong file type, and your dashboard can be published on the web. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
    1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) — a ready-made repository containing the empty registry skeleton.
-   2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Public**, and click **Create repository**.
-   3. Only if other people need to see your dashboard on the web: click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**. See [Publishing on the Web](#publishing-on-the-web-github-pages). Most students skip this.
+   2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Private**, and click **Create repository**. Private means only you can see it.
+   3. Only if other people need to see your dashboard on the web: on a free GitHub account this needs a **Public** repository (see [Publishing on the Web](#publishing-on-the-web-github-pages)) — click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**. See [Publishing on the Web](#publishing-on-the-web-github-pages). Most students skip this.
 
    Two other options if you'd rather not use GitHub:
    - **A folder on your computer.** Create an empty folder called `ai-registry` inside your Documents folder.
@@ -245,8 +245,8 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 Most students never need this. It's for the case where your dashboard has to be **reachable by other people on the web** — a team that should see the current state of your AI work without you sending files around. It requires your registry to live in a GitHub repository created from the [template repository](https://github.com/jamesgray-ai/ai-registry-template). Your assistant still does all the work — the interview, every node, and both dashboards. What Pages adds is a web address: after every save, the repository re-renders both files from your nodes and publishes them at `https://<your-username>.github.io/<your-repo-name>/` (the visual dashboard at that address, `REGISTRY.md` at `.../REGISTRY.md`), with nothing to ask for. Turn it on once: in your repository, **Settings → Pages → Build and deployment → Source → GitHub Actions**. The **Actions** tab shows a green ✓ when a publish succeeds; a red ✗ means a node broke a rule — click the run and read the first red line.
 
-:::note[Public repository, public dashboard]
-On a free GitHub account, GitHub Pages only works on a **public** repository, and the dashboard address is visible to anyone who has it. Your registry describes your business in general terms — names of processes and workflows, not client data — but if you'd rather keep it private, make the repository **Private** and skip Pages. You still get your registry and both dashboards; they just live in your folder instead of on the web.
+:::note[Pages makes your registry public]
+On a free GitHub account, GitHub Pages only works on a **public** repository, and the dashboard address is visible to anyone who has it. Your registry describes your business in general terms — names of processes and workflows, not client data — but keep that in mind before you switch. To make a private repository public: **Settings → General**, scroll to **Danger Zone**, **Change visibility → Change to public**. If you'd rather stay private, skip Pages: you still get your registry and both dashboards; they just live in your folder instead of on the web.
 :::
 
 ## Platform Notes
