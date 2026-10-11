@@ -201,21 +201,29 @@ workflow's. For each one, split its contents into *moves* (the record files abov
 
 > Your framework files are in `outputs/`, which the framework no longer uses. Can I move them to
 > `framework/`? *Weekly Status Report*: 22 files move, your 5 status reports stay where they are.
-> *Client Onboarding*: 6 files move.
+> *Client Onboarding*: 6 files move. Your opportunity report moves to `framework/` too.
 
 **3a. If they say yes**, for each workflow:
 1. If `framework/<slug>/` already has a file with the same name, stop for that file. Show both
-   dates and ask which to keep. Never overwrite or merge on your own.
+   dates and ask which to keep. Never overwrite or merge on your own. Put the copy they pick in
+   `framework/<slug>/`. Leave the other copy where it is, untouched, and tell the student where it
+   is. Never delete it.
 2. Move the record files to `framework/<slug>/`, renaming `skill/` to `skills/`. Move
    `outputs/ai-opportunity-report*.md` to `framework/`.
-3. Rewrite the Workflow node's links (`# Artifacts`, `# Skills`, `# Agents`) from `outputs/<slug>/`
-   to `framework/<slug>/` (and `skill/` → `skills/`). If the node has no link to the folder, add the
-   `# Artifacts` links.
-4. Rewrite `outputs/<slug>/` paths inside the moved files' frontmatter: `requirements_file:` in
-   `design-spec.md`; `design_spec:` and `requirements:` in `test-results*.md`.
+3. Rewrite links to every moved file in **every** registry node, not just this workflow's node. A
+   moved shared file such as `ai-opportunity-report.md` is linked from other Workflow nodes too.
+   In the Workflow node, that means `# Artifacts`, `# Skills`, and `# Agents` links from
+   `outputs/<slug>/` to `framework/<slug>/` (and `skill/` → `skills/`). If the node has no link to
+   the folder, add the `# Artifacts` links.
+4. Rewrite `outputs/<slug>/` paths throughout the moved files' text, not only their frontmatter
+   (`requirements_file:` in `design-spec.md`; `design_spec:` and `requirements:` in
+   `test-results*.md`; and any path in the body, such as in a Run Card the student reads). The one
+   exception is a line that names the workflow's own output files (for example
+   `status-report-YYYY-MM-DD.md`): those stay in `outputs/`.
 5. **Check the installed workflow.** Read the installed or staged orchestrator. If it names
    `outputs/<slug>/runs.md` or `outputs/<slug>/test-runs/`, tell the student plainly: "Your
-   installed workflow still saves its run log to the old folder. I'll update it." Then:
+   installed workflow still saves its run log to the old folder. I'll update it." Until it is updated
+   or re-uploaded, it keeps writing its run log to the old folder. Then:
    - **Skills you can edit in place** (Claude Code, Codex, Gemini CLI): change the paths to
      `framework/<slug>/`.
    - **Skills you upload** (Cowork, Claude.ai, ChatGPT, and others): update the staged copy in
