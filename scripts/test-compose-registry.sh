@@ -455,6 +455,11 @@ WS=$(stage valid-bundle); mkdir -p "$WS/framework/orphan-workflow"; : > "$WS/fra
 run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework/orphan-workflow/: framework folder not claimed by any Workflow node" \
   && ok "unclaimed framework folder warned" || bad "expected unclaimed framework folder WARN"
 
+# staged agents: framework/<slug>/agents/*.md count as capabilities (staged skills already do)
+WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/agents"; printf -- '---\nname: staged-agent\ndescription: x\n---\n' > "$WS/framework/first-workflow/agents/staged-agent.md"
+run_lint_at "$WS" 2>&1 | grep -q "orphan.*framework/first-workflow/agents/staged-agent.md" \
+  && ok "staged agent under framework/ counted as a capability" || bad "expected staged agent framework/first-workflow/agents/staged-agent.md in orphan warning"
+
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"

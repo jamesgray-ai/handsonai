@@ -323,7 +323,14 @@ function scanCapabilities(workspaceRoot) {
       walk(full, depth + 1);
     }
   })(workspaceRoot, 0);
-  for (const dir of [path.join(workspaceRoot, '.claude', 'agents'), path.join(workspaceRoot, 'agents')]) {
+  // Agents staged beside a workflow's record (framework/<slug>/agents/*.md) count too:
+  // Build stages them there on platforms whose agent folder it can't write to.
+  const agentDirs = [path.join(workspaceRoot, '.claude', 'agents'), path.join(workspaceRoot, 'agents')];
+  const frameworkDir = path.join(workspaceRoot, 'framework');
+  let slugs = [];
+  try { slugs = fs.readdirSync(frameworkDir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort(); } catch { /* no framework/ folder */ }
+  for (const slug of slugs) agentDirs.push(path.join(frameworkDir, slug, 'agents'));
+  for (const dir of agentDirs) {
     if (!fs.existsSync(dir)) continue;
     for (const name of fs.readdirSync(dir).sort()) {
       if (name.endsWith('.md')) add(path.join(dir, name));
