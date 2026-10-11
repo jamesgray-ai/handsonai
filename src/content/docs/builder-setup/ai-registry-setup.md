@@ -92,10 +92,10 @@ Your assistant runs the same interview, but instead of saving each file it print
 
 **Plan for about 50 minutes:** the 25-minute interview plus 20–30 minutes of saving. The interview produces roughly 14–17 files — your Business, Line of Business, Function, and Process nodes; the index.md for each of those directories plus the (empty) `workflows/` index; a `log.md`; and your `REGISTRY.md` dashboard — including updates to a few files it already gave you.
 
-1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, there's no way to save the wrong file type, and your dashboard can be published on the web. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
+1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, and there's no way to save the wrong file type. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
    1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) — a ready-made repository containing the empty registry skeleton.
    2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Private**, and click **Create repository**. Private means only you can see it.
-   3. Only if other people need to see your dashboard on the web: on a free GitHub account this needs a **Public** repository. Click **Settings** (the tab across the top), then **Pages** in the left sidebar. Under **Build and deployment → Source**, choose **GitHub Actions**. See [Publishing on the Web](#publishing-on-the-web-github-pages). Most students skip this.
+   3. Whenever you save a file, the repository checks your registry against its rules. The **Actions** tab (across the top of your repository) shows a green ✓ when everything follows the rules, or a red ✗ naming the file to fix. Nothing is published anywhere.
 
    Two other options if you'd rather not use GitHub:
    - **A folder on your computer.** Create an empty folder called `ai-registry` inside your Documents folder.
@@ -103,7 +103,7 @@ Your assistant runs the same interview, but instead of saving each file it print
 2. **If you chose your computer or cloud drive,** get the empty registry skeleton first, so you don't have to paste the long rules file by hand: open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template), click the green **Code** button, then **Download ZIP**. No account needed. Unzip it and move the `registry` folder it contains into your `ai-registry` folder. (You can ignore the other folders in the download.) If you chose GitHub, your repository already has this skeleton.
 3. Say: *"Set up my AI registry. You can't save files for me, so print the full contents of each file and tell me exactly where it goes. I already have the empty registry skeleton."*
 4. Save each file where your assistant says — see [Saving a File by Hand](#saving-a-file-by-hand) just below for the click-by-click.
-5. Repeat for every file — your assistant tells you when the set is complete, and finishes by printing your `REGISTRY.md` dashboard for you to save in your registry's folder (your repository, or the `ai-registry` folder you made), next to `registry/`. If your repository publishes to GitHub Pages, you can skip saving this one — the published copy at your Pages address is regenerated for you.
+5. Repeat for every file — your assistant tells you when the set is complete, and finishes by printing your `REGISTRY.md` dashboard for you to save in your registry's folder (your repository, or the `ai-registry` folder you made), next to `registry/`.
 
 #### Saving a File by Hand
 
@@ -116,7 +116,7 @@ Your assistant gives each file a **location** like `registry/businesses/your-bus
 - **The file must be plain text.** In TextEdit choose **Format → Make Plain Text** before pasting, every time. Never paste a file into a Google Doc, Word, or Pages document — that turns a registry node into something your assistant can't read.
 - **The name must end in `.md`, and your computer hides that.** When you save, type the full name including `.md`. On Windows, set **Save as type** to **All files** so Notepad doesn't add `.txt`. On Mac, if TextEdit asks whether to use `.txt` or `.md`, choose `.md`. To see extensions afterward: Finder → **Settings → Advanced → Show all filename extensions**; File Explorer → **View → Show → File name extensions**.
 
-**You should now see** every file your assistant listed, at the location it gave. On GitHub with Pages turned on, within a couple of minutes the **Actions** tab shows a green ✓ and your dashboard is live on the web (see [Your Dashboard](#your-dashboard)); a red ✗ means one file broke a rule, usually a typo in a location — click the run, read the first red line, fix that file, and commit again. On your computer, you'll see `REGISTRY.md` next to `registry/` once you save the last file.
+**You should now see** every file your assistant listed, at the location it gave. Once you save the last file, `REGISTRY.md` sits next to `registry/`. On GitHub, within a couple of minutes the **Actions** tab shows a green ✓; a red ✗ means one file broke a rule, usually a typo in a location — click the run, read the first red line, fix that file, and commit again.
 
 :::tip[Your assistant can't see what you saved]
 Because your assistant didn't save the files itself, it can't check them. Compare each location against what it told you before you save. Later, when you ask for a refresh, your assistant can read your registry back only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about. And every framework step you run later — Analyze, Deconstruct, and so on — ends the same way: with a file or two printed for you to save.
@@ -129,7 +129,7 @@ You never need GitHub for your registry. If you already use it, or want one of t
 - **Your assistant can read your registry back** through a GitHub connector instead of you pasting files in.
 - **A built-in editor in your browser**, so you can save files without installing anything or worrying about file types.
 - **Version history** of every change.
-- **A web address for your dashboard**, if other people need to see it — see [Publishing on the Web](#publishing-on-the-web-github-pages).
+- **An automatic check** that tells you when a file breaks one of your registry's rules.
 
 ## What to Bring
 
@@ -157,7 +157,7 @@ Whichever flow you're in, your assistant now runs the same **interview — six p
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 
-**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, and one Process node — and an empty Workflows table. [Analyze](../../ai-workflow-framework/analyze/) fills that table, and a fresh `REGISTRY.md` summarizes all of it (in the folder you picked, next to `registry/`; or, if your repository publishes to GitHub Pages, also at your Pages address a couple of minutes after your last save).
+**You should now see**, at the end of the interview, at least one Business node, one Line of Business node, one Function node, and one Process node — and an empty Workflows table. [Analyze](../../ai-workflow-framework/analyze/) fills that table, and a fresh `REGISTRY.md` summarizes all of it (in the folder you picked, next to `registry/`).
 
 ## A Workflow Node
 
@@ -231,7 +231,7 @@ You only need to ask for a refresh yourself when you've added a skill, agent, or
 
 Your assistant re-reads every node in `registry/`, checks it against `registry/SCHEMA.md`, fixes what it can, tells you plainly about anything it can't (for example, a broken link to a file that no longer exists), and regenerates your dashboards from scratch. Because dashboards are always regenerated rather than edited, it's completely safe to ask for a refresh at any time — you never lose anything by doing it.
 
-**If you save the files yourself,** every refresh and every framework step ends with a file or two printed for you to save — the same routine as setup. Your assistant can re-read your nodes only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about. **If your repository publishes to GitHub Pages,** the web copy of your dashboards is re-rendered from your nodes within a couple of minutes of each save — nothing to ask for.
+**If you save the files yourself,** every refresh and every framework step ends with a file or two printed for you to save — the same routine as setup. Your assistant can re-read your nodes only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about.
 
 ## Your Dashboard
 
@@ -241,15 +241,12 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 **`REGISTRY.md` — the plain-text index.** Regenerated automatically on every maintenance pass. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, and "Skills" and "Agents" sections list everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). It's the version your assistant reads back and the one that works anywhere Markdown does.
 
-### Publishing on the Web (GitHub Pages)
+### Sharing Your Dashboard
 
-Most students never need this. **On Claude, an Artifact is the simpler way to share:** ask your assistant to *"save my dashboard as an Artifact"* and share its link. Your repository stays private, and nothing needs setting up. An Artifact is a snapshot, so ask for a fresh one after your registry changes.
+Your dashboard is for you; you never need to publish it. If someone else should see it:
 
-GitHub Pages is for the case where your dashboard has to be **reachable by other people on the web** — a team that should see the current state of your AI work without you sending files around. It requires your registry to live in a GitHub repository created from the [template repository](https://github.com/jamesgray-ai/ai-registry-template). Your assistant still does all the work — the interview, every node, and both dashboards. What Pages adds is a web address: after every save, the repository re-renders both files from your nodes and publishes them at `https://<your-username>.github.io/<your-repo-name>/` (the visual dashboard at that address, `REGISTRY.md` at `.../REGISTRY.md`), with nothing to ask for. Turn it on once: in your repository, **Settings → Pages → Build and deployment → Source → GitHub Actions**. The **Actions** tab shows a green ✓ when a publish succeeds; a red ✗ means a node broke a rule — click the run and read the first red line.
-
-:::note[Pages makes your registry public]
-On a free GitHub account, GitHub Pages only works on a **public** repository, and the dashboard address is visible to anyone who has it. Your registry describes your business in general terms — names of processes and workflows, not client data — but keep that in mind before you switch. To make a private repository public: **Settings → General**, scroll to **Danger Zone**, **Change visibility → Change to public**. If you'd rather stay private, skip Pages: you still get your registry and both dashboards; they just live in your folder instead of on the web. On Claude, you can still share the visual dashboard as an Artifact.
-:::
+- **On Claude** (claude.ai, the desktop app, or Claude Code), ask your assistant to *"save my dashboard as an Artifact"* and share its link. An Artifact is a snapshot, so ask for a fresh one after your registry changes.
+- **Anywhere else**, send them `registry-dashboard.html`. It's a single file that opens in any web browser.
 
 ## Platform Notes
 
@@ -306,11 +303,11 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 - Dashboards are always regenerated, never hand-edited — ask *"update my AI registry"* and your assistant rebuilds every dashboard from your current nodes. If the dashboard is still wrong afterward, the problem is in a node, not the dashboard; ask your assistant which node the stale information is coming from.
 
-**My GitHub Pages dashboard isn't publishing:**
+**GitHub shows a red ✗ on my repository:**
 
-- This only applies if your registry lives in a GitHub repository created from the template and you turned on Pages (see [Publishing on the Web](#publishing-on-the-web-github-pages)). Registries in an ordinary folder or cloud drive don't have it — your assistant generates the same dashboards in your folder.
-- Confirm GitHub Pages is turned on for your repository (**Settings → Pages → Source → GitHub Actions** in your repo on github.com) — it's off by default until you enable it.
-- Check the **Actions** tab in your repository for a failed run — Actions is the tab on your repository's GitHub page that lists every automated run; a red ✗ next to a run means it failed. Click that run and read the first red line for the reason. A broken node (one with a lint error) blocks publishing on purpose, the same way it blocks a local dashboard refresh. The failure message names the file and the rule it broke.
+- This only applies if your registry lives in a GitHub repository created from the template. Each save runs a check of your registry against its rules.
+- Click the **Actions** tab (across the top of your repository), click the run with the red ✗, and read the first red line. It names the file and the rule it broke.
+- Ask your assistant to fix it: *"Update my AI registry"* fixes what it can and tells you about anything it can't.
 
 ## Next Steps
 

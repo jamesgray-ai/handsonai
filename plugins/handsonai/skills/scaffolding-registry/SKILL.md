@@ -34,8 +34,6 @@ Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloud
 ├── framework/<workflow>/      ← the workflow's record (requirements, design spec,
 │                              tests, run log); event-facts live here, never in nodes
 ├── sops/  process-guides/   ← unchanged homes; nodes link to them
-├── tools/last-data-island.json  ← only in template-repo workspaces: compose writes it for the
-│                              Pages Action and the Tier 2 dashboard; derived, never hand-edited
 ```
 
 The registry is the structured record every framework skill reads and writes — `analyze` writes backlog Workflow nodes into it, `deconstruct` fills in requirements, `run` flips status to `in-production`, and so on all the way through `improve`. `registry/SCHEMA.md` is the contract that makes that possible: it defines the six concept types (Business, LineOfBusiness, Process, Workflow, Note, Function), their required frontmatter, and the rules — enum values, link discipline, banned fields — that every skill's writes and every maintenance pass's lint checks agree on. Write it once per workspace, using `references/schema-template.md` verbatim; after that, the student's own copy is authoritative and every skill re-reads it before writing.
@@ -58,11 +56,11 @@ A few rules follow from that table:
 
 - **(a) Assistant-agnostic procedures.** Everything in this file — the phases, the write rules, the interview questions — is written for "your AI assistant" in general. Platforms differ only in delivery and mode, never in what gets written or asked.
 - **(b) Print-and-save surfaces must say what's unsaved.** When the assistant cannot create files in the student's folder, it prints each file's complete contents and exact location, and says so every time — never "I've created", never leave the student assuming a file landed somewhere it didn't. The student saves the file wherever their registry lives; the skill does not assume a repo.
-- **(c) Home: any folder; GitHub is optional.** A folder on the student's computer, a synced cloud-drive folder, or a GitHub repository all work — the bundle is plain Markdown with relative links and never depends on Git. Never require GitHub; mention it only for what it adds (assistant read-back through a connector, an in-browser editor, version history, and the template repo's automatic Pages dashboard).
+- **(c) Home: any folder; GitHub is optional.** A folder on the student's computer, a synced cloud-drive folder, or a GitHub repository all work — the bundle is plain Markdown with relative links and never depends on Git. Never require GitHub; mention it only for what it adds (assistant read-back through a connector, an in-browser editor, version history, and the template repo's automatic check on every save).
 - **(d) One skill artifact, three channels.** The same agentskills.io-standard SKILL.md — built by the existing `build-skill-zips.sh` pipeline — is what Codex desktop scans locally, what ChatGPT web's Personal Skills accepts as an upload, and what claude.ai accepts as an uploaded skill. There is no separate packaging for each.
 - **(e) Repo-checked-in skills are optional, not the default.** Codex desktop can read `.agents/skills/` inside the student's repo, but the default is a user-level install (`~/.agents/skills/`) — checking a skill into every repo it's used in invites version drift between repos. Only pin a repo-local copy when the student has a specific reason to.
 
-**Platform note (Claude Code / the Claude desktop app):** on these two, the Tier 2 dashboard this skill's closing step offers can be published as a Claude Artifact for easy sharing — a mechanic specific to these platforms, not part of the cross-platform procedure above.
+**Platform note (Claude):** on Claude, the Tier 2 dashboard this skill's closing step offers can be published as a Claude Artifact for easy sharing — a mechanic specific to these platforms, not part of the cross-platform procedure above.
 
 ## Before scaffolding
 

@@ -53,7 +53,7 @@ and "what to write" are unchanged.
 - **Phase 4:** "What are the three to five processes your team runs or takes part in that matter most? Rank them by how much they matter to the team's charter."
 
 ### Personal life
-- **Phase 0 (add):** "This registry will describe money, health, and family. Keep it on your computer or in a private repository, and skip GitHub Pages."
+- **Phase 0 (add):** "This registry will describe money, health, and family. Keep it on your computer or in a private repository."
 - **Phase 1:** "Whose life is this registry for — you, or your household? Give it a name you'd be happy to see at the top of a dashboard, and one sentence on what running it well looks like."
 - **Phase 2:** "Which areas of life do you want to run better — household, finances, health, family, learning, a side project? Pick the ones that matter now, in order."
 - **Phase 3:** "Who does the work in each area — you, a partner, a service you pay for? I'll write each as a role ('Household admin', 'Me') rather than a name. We need at least one."

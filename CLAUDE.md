@@ -50,7 +50,7 @@ cd mcp-server && npm install && wrangler dev
     Each early step has a stated altitude: the registry *describes* the business (processes that deliver each line, ranked by importance, never "where AI helps"), Analyze *judges value* (work, pain, value lever, deliverable — never a tool, connector, integration, agent count, model, platform, autonomy level, or involvement mode; backlog stubs carry no `execution_mode` or `autonomy`, Design writes both), Deconstruct defines the *what* (including where people take part — Human Gates `G1…`), Design chooses the *mechanism* and derives autonomy and involvement from the steps and gates. Keep examples at the same altitude as the rules — the model imitates the example reports harder than the guidelines.
     Registry conventions that no lint enforces: the Business node body carries `## Objectives` as prose placed before `# Lines of Business` (`registry-lib.js` treats every heading outside its eight reserved H1 names as prose — Analyze and Deconstruct read it; SCHEMA.md is deliberately silent until the next MAJOR, see #273); who the registry is for (founder / leader / professional / personal life) is recorded only in the founding `registry/log.md` entry — never a node field — and Analyze reads that line to infer the lens.
 - `plugins/multi-agent-example/` - **Canonical** source of the multi-agent worked-example plugin (4 agents, 1 skill, 2 hooks, 2 commands, the Word renderer). Separate from `handsonai` on purpose: it ships hooks, and installing a methodology toolkit must never silently change how a user's Claude Code behaves. This pipeline is **mirrored** under `.claude/` and `scripts/` so it runs in this repo without installing anything — run `./scripts/check-plugin-sync.sh` to catch drift between the two copies (`sync-plugins.sh` runs it automatically before syncing this plugin).
-- `registry-template/` - **Canonical** payload for the [`jamesgray-ai/ai-registry-template`](https://github.com/jamesgray-ai/ai-registry-template) template repo: the empty registry bundle skeleton, the Node lint/compose tools, test fixtures, and the GitHub Pages Action. Synced by `scripts/sync-registry-template.sh` — edit here, never in the distributed template repo directly. See the Registry Template Sync section below.
+- `registry-template/` - **Canonical** payload for the [`jamesgray-ai/ai-registry-template`](https://github.com/jamesgray-ai/ai-registry-template) template repo: the empty registry bundle skeleton, the Node lint/compose tools, test fixtures, and the GitHub Action that lints the registry on every push (it publishes nothing — the registry is never published to GitHub Pages). Synced by `scripts/sync-registry-template.sh` — edit here, never in the distributed template repo directly. See the Registry Template Sync section below.
 - `mcp-server/migrations/` - Cloudflare D1 schema migrations
 - `mcp-server/scripts/analytics-query.ts` - CLI for querying MCP analytics via Cloudflare REST API
 - `scripts/` - Wrapper scripts for scheduled subagents, plus the multi-agent pipeline's checks and its Word renderer:
@@ -386,7 +386,7 @@ When updating:
 `registry-template/` in this repo is **canonical** for the separate
 [`jamesgray-ai/ai-registry-template`](https://github.com/jamesgray-ai/ai-registry-template)
 repo (a GitHub template repo students click "Use this template" on to get an
-empty AI Registry with the Pages Action pre-wired). Edit here, then run
+empty AI Registry with the lint Action pre-wired). Edit here, then run
 `./scripts/sync-registry-template.sh` (rsync into the local clone only — `SYNC_ACK_DRIFT=1`
 when headless — then commit and push the clone yourself). Re-run it whenever `SCHEMA.md`,
 `dashboard-template.html`, `lint-registry.js`, or the fixtures change; it is part of every
@@ -428,10 +428,10 @@ Part 8 for the full rationale:
 3. **Tier 2 render check** — AI-generated data island from the fixture bundle
    validates against the schema; dashboard renders from `file://` with no
    console errors.
-4. **Action canary (optional — only when the Pages Action or the compose
-   script changed)** — on a throwaway instantiation of the template repo,
-   push a sample node (Pages updates) and a deliberately broken node (Action
-   fails with a legible message). ~5 minutes.
+4. **Action canary (optional — only when the lint Action or the lint script
+   changed)** — on a throwaway instantiation of the template repo, push a
+   valid node (Action passes) and a deliberately broken node (Action fails
+   with a legible message naming the file). ~5 minutes.
 5. **Platform checklist re-verification** — re-verify every row in
    `specs/okf-registry-platform-verification.md` and sign it with
    date/verifier/platform version. This is an internal release gate, not a

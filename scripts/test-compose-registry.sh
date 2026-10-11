@@ -525,11 +525,19 @@ grep -q "ERROR" <<<"$ex_out" && bad "worked example has lint errors" || ok "work
 ex_warns=$(grep -c "^WARN" <<<"$ex_out" || true)
 grep -q "WARN.*stale_after 2026-08-14 is past -- review due" <<<"$ex_out" && [ "$ex_warns" -eq 1 ] \
   && ok "worked example: exactly the expected review-due warning" || bad "worked example: expected exactly one warning (review due), got $ex_warns: $(grep '^WARN' <<<"$ex_out")"
-(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks, island all current)" \
+(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks all current)" \
   || bad "worked example has stale derived views: $(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry 2>&1 | grep STALE | tr '\n' ' ')"
 [ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/framework | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example framework/ is tracked by git" || bad "worked example framework/ is not tracked (gitignore?)"
 [ "$(git -C "$REPO_ROOT" ls-files 'examples/weekly-status-report/outputs/weekly-status-report/status-report-*.md' | wc -l | tr -d ' ')" -eq 5 ] && ok "worked example keeps 5 sample reports in outputs/" || bad "worked example should keep its 5 status reports in outputs/"
-grep -q '"nodeUrl"' "$EX/tools/last-data-island.json" 2>/dev/null && bad "worked example island carries nodeUrl (would be dead links for students)" || ok "worked example island has no nodeUrl"
+ex_island=$(cd "$EX" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null)
+grep -q '"nodeUrl"' <<<"$ex_island" && bad "worked example island carries nodeUrl (would be dead links for students)" || ok "worked example island has no nodeUrl"
+[ -e "$EX/tools" ] && bad "worked example has a tools/ folder (nothing publishes it; compose no longer writes one)" || ok "worked example has no tools/ folder"
+
+# compose never creates tools/last-data-island.json -- nothing publishes the registry, so
+# the only data-island consumer is registry-dashboard.html, which compose updates in place.
+compose_at valid-bundle >/dev/null 2>&1
+[ -e "$WS/tools/last-data-island.json" ] && bad "compose wrote tools/last-data-island.json" || ok "compose writes no tools/last-data-island.json"
+[ -e "$WS/tools" ] && bad "compose created a tools/ folder" || ok "compose creates no tools/ folder"
 
 echo
 echo "$PASS ok, $FAIL bad"

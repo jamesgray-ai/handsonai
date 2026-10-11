@@ -8,10 +8,8 @@
 // Rewrites GENERATED blocks (Function `# Owns`, Workflow `# Insights`, root
 // `index.md` skills/agents inventories), refreshes the plain directory
 // `index.md` bullet lists, emits
-// the repo-root REGISTRY.md dashboard, and ALWAYS writes tools/last-data-island.json
-// (additionally injecting the same JSON into registry-dashboard.html when that
-// file exists, so a fresh-checkout Action reading tools/last-data-island.json
-// unconditionally never sees a stale island).
+// the repo-root REGISTRY.md dashboard, and injects the data island into
+// registry-dashboard.html when that file exists (--island-only prints it instead).
 //
 // Deterministic: stable code-point ordering only (`.sort()`, never
 // `localeCompare`), no `Date.now()`/`new Date()` anywhere in this file --
@@ -494,19 +492,10 @@ if (require.main === module) {
   // `<` is escaped to `<` so the serialized island can never be
   // misread as closing an embedding <script> tag (e.g. a description
   // containing a literal "</script>"). Valid JSON either way -- < is
-  // just the unicode escape for "<". Escaped once here and reused for both
-  // outputs below.
+  // just the unicode escape for "<".
   const escapeForEmbedding = (s) => s.replace(/</g, '\\u003c');
 
-  // Always written -- regardless of --check/registry-dashboard.html presence
-  // -- so an Action's unconditional read of tools/last-data-island.json is
-  // always fresh (see file-header comment).
-  const islandPath = path.join(workspaceRoot, 'tools', 'last-data-island.json');
-  const islandContent = escapeForEmbedding(JSON.stringify(island, null, 2)) + '\n';
-  const currentIsland = fs.existsSync(islandPath) ? fs.readFileSync(islandPath, 'utf8') : null;
-  if (currentIsland !== islandContent) outputs.set(islandPath, islandContent);
-
-  // Additionally inject into registry-dashboard.html when it exists. Uses the
+  // Inject into registry-dashboard.html when it exists. Uses the
   // FUNCTION form of .replace() -- a plain `$1${json}$2` template string is
   // unsafe because JSON.stringify output can legitimately contain `$&`,
   // `` $` ``, `$'`, or `$<name>`-shaped substrings, which the string form of

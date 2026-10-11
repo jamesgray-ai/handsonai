@@ -285,11 +285,12 @@ must_contain "example-registry.md carries a generated: { line" "$EXAMPLE_REGISTR
 
 # ---------------------------------------------------------------------------
 echo
-echo "-- 8. action integrity: the publish workflow runs the real compose step --"
+echo "-- 8. action integrity: the template's check runs the real lint and publishes nothing --"
 WORKFLOW_YML=registry-template/.github/workflows/registry.yml
-must_contain "registry.yml runs compose-registry.js" "$WORKFLOW_YML" "tools/compose-registry.js"
-must_contain "registry.yml watches registry/**"       "$WORKFLOW_YML" "registry/**"
-must_contain "registry.yml uploads the Pages artifact" "$WORKFLOW_YML" "upload-pages-artifact"
+must_contain     "registry.yml runs lint-registry.js"     "$WORKFLOW_YML" "tools/lint-registry.js registry"
+must_contain     "registry.yml watches registry/**"       "$WORKFLOW_YML" "registry/**"
+must_contain     "registry.yml watches framework/**"      "$WORKFLOW_YML" "framework/**"
+must_not_contain "registry.yml does not publish to Pages" "$WORKFLOW_YML" "pages"
 
 # ---------------------------------------------------------------------------
 echo
