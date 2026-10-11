@@ -121,7 +121,7 @@ function parseFrontmatter(text) {
 // continued on indented lines. Read their top-level scalars leniently so the
 // dashboard shows the text; registry nodes stay on the strict parser above.
 function parseCapabilityFrontmatter(text) {
-  const raw = String(text || '');
+  const raw = String(text || '').replace(/^\uFEFF/, '');
   if (!raw.startsWith('---\n')) return {};
   const end = raw.indexOf('\n---\n', 4);
   if (end === -1) return {};
@@ -134,7 +134,7 @@ function parseCapabilityFrontmatter(text) {
     while (i + 1 < lines.length && (/^\s/.test(lines[i + 1]) || !lines[i + 1].trim())) cont.push(lines[++i].trim());
     while (cont.length && !cont[cont.length - 1]) cont.pop();
     let v = m[2].trim();
-    const block = v.match(/^([>|])[+-]?$/);
+    const block = v.match(/^([>|])(?:[+-]?\d?|\d[+-])$/);
     if (block) {
       v = block[1] === '|' ? cont.join('\n') : cont.filter(Boolean).join(' ');
     } else {

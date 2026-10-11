@@ -1,6 +1,6 @@
 name: Registry check
 # Checks your registry against registry/SCHEMA.md after every save. Nothing is published:
-# a green check means every node follows the rules; a red cross names the first file to fix.
+# a green check means every node follows the rules; a red cross lists each file to fix as an annotation.
 on:
   push:
     branches: [main]

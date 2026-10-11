@@ -21,9 +21,10 @@ registry on GitHub — or just grab the empty skeleton with **Code → Download 
    https://handsonai.info/builder-setup/ai-registry-setup/
 
 The `tools/` folder and GitHub Action check your registry against
-`registry/SCHEMA.md` after every save: the **Actions** tab shows a green ✓
-when every file follows the rules, or a red ✗ naming the file to fix.
-Nothing is published. You never run these scripts yourself.
+`registry/SCHEMA.md` whenever you save a registry file: the **Actions** tab
+shows a green ✓ when every file follows the rules, or a red ✗ — click it to
+see which file to fix. While you're still saving your first set of files, a
+red ✗ is normal. Nothing is published. You never run these scripts yourself.
 
 Everything in `registry/` except `SCHEMA.md`, `index.md`, and `log.md` starts
 empty: your AI assistant fills it with YOUR business through an interview.
