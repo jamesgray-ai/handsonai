@@ -271,11 +271,14 @@ function loadBundle(rootDir) {
 function scanSops(workspaceRoot) {
   const out = [];
   const dir = path.join(workspaceRoot, 'sops');
-  if (!fs.existsSync(dir)) return out;
-  for (const name of fs.readdirSync(dir).sort()) {
+  let names;
+  try { names = fs.readdirSync(dir).sort(); } catch { return out; } // missing, or not a directory
+  for (const name of names) {
     if (!name.endsWith('.md')) continue;
     const full = path.join(dir, name);
-    if (!fs.statSync(full).isFile()) continue;
+    let isFile;
+    try { isFile = fs.statSync(full).isFile(); } catch { continue; } // broken symlink, unreadable
+    if (!isFile) continue;
     out.push({ path: `sops/${name}`, raw: normalizeLineEndings(fs.readFileSync(full, 'utf8')) });
   }
   return out;
