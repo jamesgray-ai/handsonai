@@ -59,7 +59,7 @@ how the bundle points at them.
 **Event-fact fields are banned from nodes**: `current_step`, `health`, `last_run`, `run_count`
 (and any run-counter field), `next_review`, `notion_url`, `timestamp`, `lob`, `sequence`,
 `process` (banned on any node), `owner` (banned on Workflow nodes — it lives on Process) — those
-are raw-source-layer or retired-manifest concerns, not registry state. `stale_after` (a date — a
+are workflow-record or retired-manifest concerns, not registry state. `stale_after` (a date — a
 workflow is stale when today ≥ `stale_after`) is permitted because a dashboard roll-up and a lint
 warning give it teeth.
 
@@ -167,10 +167,10 @@ child) · owner validity (Process `owner:` names a real Function) · Function `#
 present · GENERATED markers intact and terminated · every directory `index.md` covers its nodes ·
 claims sweep (every SOP and `framework/<slug>/` folder claimed by exactly one Workflow; an SOP's
 `workflow:` back-pointer must agree with the claiming node; run-log evidence must not contradict
-`status`). A framework record left in `outputs/<slug>/` (pre-9.0 layout) is a warning; the
-indexing-registry skill moves it. Warnings (not errors): overdue `stale_after`, a `backlog` workflow older than six
+`status`). Warnings (not errors): overdue `stale_after`, a `backlog` workflow older than six
 months, a Note linking no node, uncaptured skills/agents, a malformed `generated.by` actor string,
-an artifact link pointing outside the workflow's derived LOB `folder:` when one is set, and stale
+an artifact link pointing outside the workflow's derived LOB `folder:` when one is set, a framework
+record left in `outputs/<slug>/` (pre-9.0 layout — the indexing-registry skill moves it), and stale
 Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
 a maintenance pass; hand-editing between the markers is still prohibited, but staleness alone never
 blocks regeneration).
