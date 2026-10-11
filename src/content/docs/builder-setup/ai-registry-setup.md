@@ -95,7 +95,8 @@ Your assistant runs the same interview, but instead of saving each file it print
 1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, and there's no way to save the wrong file type. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
    1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) — a ready-made repository containing the empty registry skeleton.
    2. Click the green **Use this template** button, then **Create a new repository**. Give it a name — for example, `my-ai-registry` — choose **Private**, and click **Create repository**. Private means only you can see it.
-   3. Whenever you save a file, the repository checks your registry against its rules. The **Actions** tab (across the top of your repository) shows a green ✓ when everything follows the rules, or a red ✗ naming the file to fix. Nothing is published anywhere.
+
+   From now on, your repository checks your registry against its rules whenever you save a registry file. The **Actions** tab (across the top of your repository) shows a green ✓ when every file follows the rules, or a red ✗ — click it to see which file to fix. Nothing is published anywhere. While you're still saving your first set of files, a red ✗ is normal: a file can point to one you haven't saved yet, and GitHub may email you about it. Only the check after your last file counts.
 
    Two other options if you'd rather not use GitHub:
    - **A folder on your computer.** Create an empty folder called `ai-registry` inside your Documents folder.
@@ -116,7 +117,7 @@ Your assistant gives each file a **location** like `registry/businesses/your-bus
 - **The file must be plain text.** In TextEdit choose **Format → Make Plain Text** before pasting, every time. Never paste a file into a Google Doc, Word, or Pages document — that turns a registry node into something your assistant can't read.
 - **The name must end in `.md`, and your computer hides that.** When you save, type the full name including `.md`. On Windows, set **Save as type** to **All files** so Notepad doesn't add `.txt`. On Mac, if TextEdit asks whether to use `.txt` or `.md`, choose `.md`. To see extensions afterward: Finder → **Settings → Advanced → Show all filename extensions**; File Explorer → **View → Show → File name extensions**.
 
-**You should now see** every file your assistant listed, at the location it gave. Once you save the last file, `REGISTRY.md` sits next to `registry/`. On GitHub, within a couple of minutes the **Actions** tab shows a green ✓; a red ✗ means one file broke a rule, usually a typo in a location — click the run, read the first red line, fix that file, and commit again.
+**You should now see** every file your assistant listed, at the location it gave. Once you save the last file, `REGISTRY.md` sits next to `registry/`. On GitHub, within a couple of minutes of your last save the **Actions** tab shows a green ✓. A red ✗ means a file broke a rule, usually a typo in a location: click the run, and the box under **Annotations** names the file and the rule. Fix that file and commit again.
 
 :::tip[Your assistant can't see what you saved]
 Because your assistant didn't save the files itself, it can't check them. Compare each location against what it told you before you save. Later, when you ask for a refresh, your assistant can read your registry back only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about. And every framework step you run later — Analyze, Deconstruct, and so on — ends the same way: with a file or two printed for you to save.
@@ -129,7 +130,7 @@ You never need GitHub for your registry. If you already use it, or want one of t
 - **Your assistant can read your registry back** through a GitHub connector instead of you pasting files in.
 - **A built-in editor in your browser**, so you can save files without installing anything or worrying about file types.
 - **Version history** of every change.
-- **An automatic check** that tells you when a file breaks one of your registry's rules.
+- **An automatic check**, if you create your repository from the template, that tells you when a file breaks one of your registry's rules.
 
 ## What to Bring
 
@@ -229,7 +230,7 @@ You only need to ask for a refresh yourself when you've added a skill, agent, or
 
 > "Update my AI registry."
 
-Your assistant re-reads every node in `registry/`, checks it against `registry/SCHEMA.md`, fixes what it can, tells you plainly about anything it can't (for example, a broken link to a file that no longer exists), and regenerates your dashboards from scratch. Because dashboards are always regenerated rather than edited, it's completely safe to ask for a refresh at any time — you never lose anything by doing it.
+Your assistant re-reads every node in `registry/`, checks it against `registry/SCHEMA.md`, offers to fix what it can (and fixes it once you say yes), tells you plainly about anything it can't (for example, a broken link to a file that no longer exists), and regenerates your dashboards from scratch. Because dashboards are always regenerated rather than edited, it's completely safe to ask for a refresh at any time — you never lose anything by doing it.
 
 **If you save the files yourself,** every refresh and every framework step ends with a file or two printed for you to save — the same routine as setup. Your assistant can re-read your nodes only if you've connected GitHub, Google Drive, or OneDrive to your AI tool; otherwise, paste in the file it asks about.
 
@@ -237,7 +238,7 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 "Dashboard" always means a **generated view** — never a place you type into directly. Your assistant produces two files from your nodes, and both live in the folder you picked, next to `registry/`:
 
-**`registry-dashboard.html` — your visual dashboard.** This is the one you'll open most. It's a single self-contained web page — no server, no external requests, double-click it and it opens in your browser — showing your business's full value chain (business → line of business → process → workflow) laid out visually, with a click-through to any node's detail. Ask your assistant: *"Generate my visual dashboard."* On Claude — claude.ai, the desktop app, or Claude Code — you can also ask it to *"save my dashboard as an Artifact"*, which gives you a page you can open from any device and share by link.
+**`registry-dashboard.html` — your visual dashboard.** This is the one you'll open most. It's a single self-contained web page — no server, no external requests, double-click it and it opens in your browser — showing your business's full value chain (business → line of business → process → workflow) laid out visually, with a click-through to any node's detail. Ask your assistant: *"Generate my visual dashboard."* To show it to someone else, see [Sharing Your Dashboard](#sharing-your-dashboard).
 
 **`REGISTRY.md` — the plain-text index.** Regenerated automatically on every maintenance pass. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, and "Skills" and "Agents" sections list everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). It's the version your assistant reads back and the one that works anywhere Markdown does.
 
@@ -245,7 +246,7 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 Your dashboard is for you; you never need to publish it. If someone else should see it:
 
-- **On Claude** (claude.ai, the desktop app, or Claude Code), ask your assistant to *"save my dashboard as an Artifact"* and share its link. An Artifact is a snapshot, so ask for a fresh one after your registry changes.
+- **On Claude** (claude.ai, the desktop app, or Claude Code), ask your assistant to *"save my dashboard as an Artifact"*. Then use the Artifact's share option to get a link, and send that link. An Artifact is a snapshot, so ask for a fresh one after your registry changes.
 - **Anywhere else**, send them `registry-dashboard.html`. It's a single file that opens in any web browser.
 
 ## Platform Notes
@@ -263,7 +264,7 @@ The interview, the node shapes, and the dashboards are the same on every AI tool
 A few tool-specific details:
 
 - **Claude Code:** `/plugin list` shows `handsonai` once the plugin is installed, and `/handsonai:scaffolding-registry` starts the interview directly if you'd rather use the slash command.
-- **The Claude desktop app:** choose your registry's folder as your working folder — a project or any local folder — *before* saying "set up my AI registry"; the skill can only write inside the folder you're working in. Your visual dashboard can also be published as a shareable Claude Artifact.
+- **The Claude desktop app:** choose your registry's folder as your working folder — a project or any local folder — *before* saying "set up my AI registry"; the skill can only write inside the folder you're working in.
 - **ChatGPT for desktop:** the plugin's skills work in ChatGPT Work and Codex. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Install the Hands-on AI Plugin — Codex](../../ai-workflow-framework/skills/#openai-codex).
 - **Browser tools (claude.ai, ChatGPT web, Gemini, Copilot):** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
 
@@ -305,9 +306,10 @@ Earlier versions of this playbook tracked each workflow with one small file per 
 
 **GitHub shows a red ✗ on my repository:**
 
-- This only applies if your registry lives in a GitHub repository created from the template. Each save runs a check of your registry against its rules.
-- Click the **Actions** tab (across the top of your repository), click the run with the red ✗, and read the first red line. It names the file and the rule it broke.
-- Ask your assistant to fix it: *"Update my AI registry"* fixes what it can and tells you about anything it can't.
+- This only applies if your registry lives in a GitHub repository created from the template. Each time you save a registry file, GitHub checks your registry against its rules.
+- While you're still saving your first set of files, a red ✗ is normal — a file can point to one you haven't saved yet. Only the check after your last file counts.
+- Click the **Actions** tab (across the top of your repository), then the run with the red ✗. The box under **Annotations** names the file and the rule it broke. (No **Annotations** box? Your copy of the template's tools is older: click the job in the left sidebar, then the step with the red ✗, and look for lines that start with `ERROR`.)
+- Copy that error into your AI assistant and say *"Update my AI registry."* It offers fixes for what it can and tells you about anything it can't; if it asks, paste in the file the error names.
 
 ## Next Steps
 
