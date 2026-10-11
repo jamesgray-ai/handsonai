@@ -460,6 +460,21 @@ WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/agents"; printf
 run_lint_at "$WS" 2>&1 | grep -q "orphan.*framework/first-workflow/agents/staged-agent.md" \
   && ok "staged agent under framework/ counted as a capability" || bad "expected staged agent framework/first-workflow/agents/staged-agent.md in orphan warning"
 
+# capability descriptions: SKILL.md and agent files are not registry nodes and commonly write
+# `description: >` (folded), `|` (literal) or a plain value continued on indented lines -- the
+# island must carry the text, not an empty description (the dashboard renders that as "—").
+WS=$(stage valid-bundle)
+printf -- '---\nname: some-skill\ndescription: >\n  Folded line one\n  and line two.\nlicense: MIT\n---\n# some-skill\n' > "$WS/.claude/skills/some-skill/SKILL.md"
+printf -- '---\nname: orphan-skill\ndescription: Plain start\n  continued here.\n---\n# orphan-skill\n' > "$WS/.claude/skills/orphan-skill/SKILL.md"
+mkdir -p "$WS/.claude/agents"; printf -- '---\nname: lit-agent\ndescription: |\n  Literal one\n  Literal two\ntools: Read\n---\nBody\n' > "$WS/.claude/agents/lit-agent.md"
+(cd "$WS" && node "$TOOLS/compose-registry.js" --island-only registry) > "$WS/island.json" 2>/dev/null
+desc() { node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));const all=[...(d.skills||[]),...(d.agents||[])];const x=all.find(s=>s.id===process.argv[2]);process.stdout.write(x?x.description:'<missing>')" "$WS/island.json" "$1"; }
+[ "$(desc some-skill)" = "Folded line one and line two." ] && ok "folded (>) skill description read" || bad "folded description: got '$(desc some-skill)'"
+[ "$(desc orphan-skill)" = "Plain start continued here." ] && ok "plain multi-line skill description read" || bad "plain multi-line description: got '$(desc orphan-skill)'"
+[ "$(desc lit-agent)" = "$(printf 'Literal one\nLiteral two')" ] && ok "literal (|) agent description read" || bad "literal description: got '$(desc lit-agent)'"
+# registry nodes stay strict: multi-line frontmatter in a node is still a lint error
+run_lint broken/multiline-frontmatter && bad "multi-line node frontmatter must still error" || ok "multi-line node frontmatter still errors"
+
 # legacy record: a recreated outputs/<slug>/ holding only a run log (no requirements/design spec)
 # is still a framework record -- a workflow's own output is never named runs.md.
 WS=$(stage valid-bundle)

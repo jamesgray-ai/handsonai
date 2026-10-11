@@ -116,6 +116,37 @@ function parseFrontmatter(text) {
   return { fields, body: raw.slice(end + 5) };
 }
 
+// Skill and agent files are not registry nodes: their authors (and the platforms
+// that create them) routinely write `description: >`, `|`, or a plain value
+// continued on indented lines. Read their top-level scalars leniently so the
+// dashboard shows the text; registry nodes stay on the strict parser above.
+function parseCapabilityFrontmatter(text) {
+  const raw = String(text || '');
+  if (!raw.startsWith('---\n')) return {};
+  const end = raw.indexOf('\n---\n', 4);
+  if (end === -1) return {};
+  const lines = raw.slice(4, end).split('\n');
+  const fields = {};
+  for (let i = 0; i < lines.length; i++) {
+    const m = lines[i].match(/^([A-Za-z_][\w-]*):\s*(.*)$/);
+    if (!m) continue;
+    const cont = [];
+    while (i + 1 < lines.length && (/^\s/.test(lines[i + 1]) || !lines[i + 1].trim())) cont.push(lines[++i].trim());
+    while (cont.length && !cont[cont.length - 1]) cont.pop();
+    let v = m[2].trim();
+    const block = v.match(/^([>|])[+-]?$/);
+    if (block) {
+      v = block[1] === '|' ? cont.join('\n') : cont.filter(Boolean).join(' ');
+    } else {
+      v = [v, ...cont.filter(Boolean)].join(' ');
+      if (v.length > 1 && v.startsWith('"') && v.endsWith('"')) v = v.slice(1, -1).replace(/\\(["\\])/g, '$1');
+      else if (v.length > 1 && v.startsWith("'") && v.endsWith("'")) v = v.slice(1, -1).replace(/''/g, "'");
+    }
+    fields[m[1]] = v;
+  }
+  return fields;
+}
+
 function parseSections(text, sectionNames = SECTION_NAMES) {
   const sections = { _preamble: '' };
   let current = '_preamble';
@@ -370,7 +401,7 @@ function lastChanged(fm) {
 
 module.exports = {
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
-  normalizeLineEndings, parseFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
+  normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
   loadBundle, scanSops, scanFrameworkFolders, scanLegacyRecordFolders, runsHasEntries, scanCapabilities,
   isGitIgnored, lastChanged,

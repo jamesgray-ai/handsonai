@@ -108,7 +108,7 @@ function scanSkillsAndAgents(workspaceRoot) {
   const agents = [];
   for (const p of lib.scanCapabilities(workspaceRoot)) {
     const raw = lib.normalizeLineEndings(fs.readFileSync(path.join(workspaceRoot, p), 'utf8'));
-    const { fields } = lib.parseFrontmatter(raw);
+    const fields = lib.parseCapabilityFrontmatter(raw);
     const isSkill = p.endsWith('/SKILL.md');
     const rec = {
       id: isSkill ? path.posix.basename(path.posix.dirname(p)) : path.posix.basename(p).replace(/\.md$/, ''),

@@ -17,8 +17,8 @@ The dashboard view is the generated root `REGISTRY.md`.
 
 <!-- GENERATED:skills -->
 ## Skills inventory (2)
-- [status-report-drafting](framework/weekly-status-report/skills/status-report-drafting/SKILL.md) —  (used by: [Weekly Status Report](registry/workflows/weekly-status-report.md))
-- [weekly-status-report](framework/weekly-status-report/skills/weekly-status-report/SKILL.md) —  (used by: [Weekly Status Report](registry/workflows/weekly-status-report.md))
+- [status-report-drafting](framework/weekly-status-report/skills/status-report-drafting/SKILL.md) — This skill should be used when drafting a weekly leadership status report from structured project-tracker updates. It synthesizes wins, progress, blockers, and next-week focus into a one-page report in the owner's voice. (used by: [Weekly Status Report](registry/workflows/weekly-status-report.md))
+- [weekly-status-report](framework/weekly-status-report/skills/weekly-status-report/SKILL.md) — This skill should be used when Maya wants to produce the Friday leadership status report. It pulls the week's updates from the HubSpot tracker, drafts the one-page report using the status-report-drafting skill, pauses for review, and saves the approved report. Trigger by name: "run my weekly status report." (used by: [Weekly Status Report](registry/workflows/weekly-status-report.md))
 <!-- /GENERATED -->
 
 <!-- GENERATED:agents -->
