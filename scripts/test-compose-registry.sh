@@ -514,6 +514,9 @@ no_trace "$out" && ok "sops/ as a plain file: lint reports, no stack trace" || b
 WS=$(stage valid-bundle); ln -s "$WS/does-not-exist.md" "$WS/sops/dangling.md"
 out=$(run_lint_at "$WS" 2>&1 || true)
 no_trace "$out" && ok "broken symlink in sops/: lint skips it, no stack trace" || bad "broken symlink in sops/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); printf 'x\n' > "$WS/sops/locked.md"; chmod 000 "$WS/sops/locked.md"
+out=$(run_lint_at "$WS" 2>&1 || true); chmod 644 "$WS/sops/locked.md"
+no_trace "$out" && ok "unreadable file in sops/: lint skips it, no stack trace" || bad "unreadable file in sops/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
 
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"

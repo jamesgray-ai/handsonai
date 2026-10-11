@@ -276,10 +276,12 @@ function scanSops(workspaceRoot) {
   for (const name of names) {
     if (!name.endsWith('.md')) continue;
     const full = path.join(dir, name);
-    let isFile;
-    try { isFile = fs.statSync(full).isFile(); } catch { continue; } // broken symlink, unreadable
-    if (!isFile) continue;
-    out.push({ path: `sops/${name}`, raw: normalizeLineEndings(fs.readFileSync(full, 'utf8')) });
+    let raw;
+    try {
+      if (!fs.statSync(full).isFile()) continue;
+      raw = fs.readFileSync(full, 'utf8');
+    } catch { continue; } // broken symlink, unreadable
+    out.push({ path: `sops/${name}`, raw: normalizeLineEndings(raw) });
   }
   return out;
 }
