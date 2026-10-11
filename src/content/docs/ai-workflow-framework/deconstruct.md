@@ -14,7 +14,7 @@ The output is a single Markdown file: the **Workflow Requirements** document. It
 | | |
 |---|---|
 | **What you'll do** | Describe your workflow; the skill proposes a path (step-driven or goal-driven) with its reason, you confirm, then work through a guided conversation that captures the requirements |
-| **What you'll get** | A **Workflow Requirements** document — `outputs/[name]/requirements.md` |
+| **What you'll get** | A **Workflow Requirements** document — `framework/[name]/requirements.md` |
 | **Time** | ~45–60 minutes on your own (30–40 with an instructor guiding you) |
 
 ## Why This Matters
@@ -68,7 +68,7 @@ Phases 1–3 establish *what* you're deconstructing and are the same for both pa
 9. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
 10. **Validate the workflow** — Walk the refined workflow end-to-end to catch gaps before Design.
 11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
-12. **Define how you will judge the output** — a real good example first, then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two real inputs you've actually handled, proposes the rest against named risks, and you correct them — plus golden examples where they exist.
+12. **Define how you will judge the output** — a real good example first, then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
 13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
 
 **Goal-driven:** phases 1–3 are identical. Instead of decomposing steps, phase 4 runs a short interview that stays in "what" territory, then skips straight to the goal-driven validation gate (numbered 10 to mirror the step-driven one):
@@ -79,7 +79,7 @@ Then the goal-driven gate, and both paths rejoin at phase 11:
 
 10. **Validate** *(goal-driven)* — A quality gate checks the goal is bounded and testable, the variation range and fallback behavior are defined, the rules are sufficient, and the context is reachable.
 11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
-12. **Define how you will judge the output** — a real good example first, then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two real inputs you've actually handled, proposes the rest against named risks, and you correct them — plus golden examples where they exist.
+12. **Define how you will judge the output** — a real good example first, then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
 13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to the output file.
 
 ## How to Use This
@@ -103,7 +103,7 @@ The skill proposes a path from your description, runs an interactive interview t
 ```
 "Use deconstruct to break down my expense reporting process"
 → Interactive discovery session producing
-  outputs/expense-reporting/requirements.md
+  framework/expense-reporting/requirements.md
 
 "I need to document how our team handles customer escalations"
 → Walks through the discovery process, probing for hidden steps
@@ -200,7 +200,7 @@ The **Workflow Requirements** document uses a shared structure for both paths �
 - **Metadata** — workflow name, trigger, owner, lens (Individual / Organizational), Definition Type (Step-Driven / Goal-Driven)
 - **Context Inventory** — every artifact the workflow needs, with stable IDs (C1, C2, …), status (Exists / Needs Creation), how sensitive it is (**Public** — a published price list; **Internal** — a project tracker; **Confidential** — an unannounced roadmap; **Regulated** — anything covered by a rule such as patient records or EU customer data), where it came from (**Authored** by someone on your team, or **External** — it arrived from outside), AI accessibility (Yes / Partial / No), and location
 - **Acceptance Criteria** — numbered yes/no statements (`AC1…`), the one or two marked **(must)**, and the real example they were derived from
-- **Example Scenarios** — 3-5 inputs with what to look for in the output: one or two real ones you supply, the rest proposed by the skill and each aimed at a named risk, marked `(real)` or `(proposed)`. Each input is saved as its own file under `outputs/[workflow-name]/inputs/`, and the table points at that file — so in Step 5 you open it and paste it in rather than trying to remember what the input was. Plus optional **Golden Examples** — real past outputs you'd consider "exactly right." These feed Step 5 (Test), where checking against a known-good reference beats gut feel
+- **Example Scenarios** — 3-5 inputs with what to look for in the output: one or two you supply that are *like* your real work, with names and details made up (no client names, personal details, or anything confidential; the assistant can draft a realistic stand-in for you), the rest proposed by the skill and each aimed at a named risk, marked `(real)` or `(proposed)`. Each input is saved as its own file under `framework/[workflow-name]/inputs/`, and the table points at that file — so in Step 5 you open it and paste it in rather than trying to remember what the input was. Plus optional **Golden Examples** — past outputs you'd consider "exactly right" (change the names and details first; a past output with its details changed still counts). These feed Step 5 (Test), where checking against a known-good reference beats gut feel
 - **Rules & Constraints** — how the work should be done: must-do, must-never-do, scope boundaries, tone, format, length, and fallback behavior when a case can't be confidently completed, each with an ID (`R1…`)
 - **Human Gates** — where human review or input is required, each with an ID (`G1…`)
 - **Security, Privacy & Safety** — what the workflow must protect: where data may and may not travel, who may see the outputs, what has to be recorded, what it must never do, and which regulation applies. Every constraint names its source
@@ -233,7 +233,7 @@ Two distinctions worth knowing, because they decide where a fact belongs:
 - **Where something came from is not the same as how secret it is.** A public web page is not sensitive, but nobody on your team wrote it — and content from outside can contain instructions. A model that treats them as instructions does what a stranger told it to. A draft pricing memo is the opposite: highly sensitive, but you wrote it.
 - **A prohibition is absolute; a gate is conditional.** "Never email a customer without approval" is a gate — it happens once someone approves. "Never email a customer" is a prohibition — it never happens, whoever asks. If an approval can satisfy it, it is a Human Gate.
 
-**How you'll judge the output.** The last part asks for a recent output you were happy with, then turns it into numbered yes/no statements — "every row has contact info", "I could send this without editing the wording" — plus 3–5 inputs to try: you give one or two real ones — the one you'd run this on tomorrow — and the skill proposes the rest, each aimed at something that could go wrong, for you to change, replace, or drop. These are not paperwork: in [Test (Step 5)](../test/) every statement becomes a row on a report card, checked against every input, met or not met with evidence. Writing them here, while the work is fresh, is what makes Test a checklist instead of a gut feel.
+**How you'll judge the output.** The last part asks for a recent output you were happy with, then turns it into numbered yes/no statements — "every row has contact info", "I could send this without editing the wording" — plus 3–5 inputs to try: you give one or two like your real work — the kind you'd run this on tomorrow, with names and details made up (no client names, personal details, or anything confidential; the assistant can draft a realistic stand-in) — and the skill proposes the rest, each aimed at something that could go wrong, for you to change, replace, or drop. These are not paperwork: in [Test (Step 5)](../test/) every statement becomes a row on a report card, checked against every input, met or not met with evidence. Writing them here, while the work is fresh, is what makes Test a checklist instead of a gut feel.
 
 ### Why this format
 
@@ -269,7 +269,7 @@ The model presents its findings as a summary and asks you to confirm or address 
 - **Gather your context resources early.** The model identifies specific resources the workflow needs — documents, spreadsheets, databases, CRM access, application credentials, sample data. If you already have these, have them ready. If you don't, the analysis tells you exactly what to create or set up.
 
 :::tip[Your workflow gets its own folder]
-Once the name is confirmed, the skill creates a folder for the workflow — `outputs/[name]/` — and a Workflow node for it in your `registry/` bundle. The node tracks which framework step you're on and where every artifact lives, so any later session (or any framework skill) can pick up exactly where you left off. `outputs/` stays the home for the artifacts themselves; your registry becomes your workflow inventory — no separate tracking system required.
+Once the name is confirmed, the skill creates a folder for the workflow — `framework/[name]/` — and a Workflow node for it in your `registry/` bundle. The node tracks which framework step you're on and where every artifact lives, so any later session (or any framework skill) can pick up exactly where you left off. `framework/` is the home for the workflow's record (requirements, design spec, test results, run log), and your registry becomes your workflow inventory — no separate tracking system required. Whatever the workflow itself produces, such as a report or an email, goes wherever the workflow runs, never into `framework/`.
 :::
 
 ## Related

@@ -36,7 +36,7 @@ Every run so far used test inputs, usually in a test-run mode that wrote nothing
 
 Confirm these four things. Each takes a minute.
 
-1. **The verdict was Ready.** Open `outputs/[workflow-name]/test-results.md`. The lines at the top should say `round_status: complete` and `readiness: ready`. If they say anything else, the skill will send you back: an unfinished round goes to Test, a not-ready verdict to Build's fix mode, and a waiting-on-access verdict to Build to authorize the connector it names.
+1. **The verdict was Ready.** Open `framework/[workflow-name]/test-results.md`. The lines at the top should say `round_status: complete` and `readiness: ready`. If they say anything else, the skill will send you back: an unfinished round goes to Test, a not-ready verdict to Build's fix mode, and a waiting-on-access verdict to Build to authorize the connector it names.
 2. **The skill is installed where the workflow will run.** Open a new chat in the account that will run it and ask for your workflow's skill by name. If it responds as your workflow, you're set. If it doesn't, go back to [Build](../build/) and finish the install step. If you changed any of its files after installing, reinstall first; the installed copy doesn't update itself. The skill asks you one question about this, naming the skills and the connectors together.
 3. **You have this week's real input, or the workflow pulls it.** Your Requirements' Step 1 says which. If it pulls from a connector, that connector must be authorized in the account that will run it. If you've moved the workflow to a different platform since Design, say so when asked: it has to have been tested on the platform it runs on, or the skill sends you to Build to regenerate it there.
 4. **You know what this run does for real.** This is not a test run. Once you approve at a gate, the email sends, the row is added, the file is saved and shared. The skill lists every write before you start, with the gate that stands in front of it. Read that list, and point the workflow at the real thing only if you're ready for the result.
@@ -45,7 +45,7 @@ Confirm these four things. Each takes a minute.
 
 Two chats are involved, and each one needs different things in reach. If you went through [Test](../test/#where-you-run-from), this is the same arrangement.
 
-**The opening chat needs your workspace.** That's the folder holding everything the framework has produced so far: `registry/` (your Workflow node), `outputs/[workflow-name]/` (requirements, design spec, test results), and the built skill. The `run` skill reads those and writes the Run Card and run log next to them.
+**The opening chat needs your workspace.** That's the folder holding everything the framework has produced so far: `registry/` (your Workflow node), `framework/[workflow-name]/` (requirements, design spec, test results), and the built skill. The `run` skill reads those and writes the Run Card and run log next to them.
 
 - **Claude Code, Codex, Gemini CLI:** open the session *in that folder*. Every chat opened there shares the same files.
 - **Cowork:** connect that folder as the working folder (a Project is not required), then start the chat.
@@ -69,7 +69,7 @@ Both paths produce the same Run Card and the same log. The skill works out which
 
 ### Part 1 — Get ready (in your opening chat)
 
-1. Open a chat that can reach your workspace — the folder holding `registry/` and `outputs/` (see [Where You Run From](#where-you-run-from) for your platform).
+1. Open a chat that can reach your workspace — the folder holding `registry/` and `framework/` (see [Where You Run From](#where-you-run-from) for your platform).
 2. Say **"run the run skill"** (Claude Code also accepts `/handsonai:run`).
 3. The skill reads your test results and confirms the verdict was **Ready**. If it wasn't, it tells you which step to go back to and stops.
 4. The skill lists **everything this run will do for real** — each file it saves, draft it creates, row it adds, message it sends — and the gate in front of each. Read the list. This is the moment to decide whether to point it at the real record or wait.
@@ -119,14 +119,14 @@ The Run Card is one page with six fixed sections, in this order. It is written a
 2. **How to start it** — the exact phrase or click that starts the workflow, and the input to give it. If teammates will run it too: how they install the same package in their account, which connectors they need authorized, and the same phrase.
 3. **What to have ready** — the inputs in hand; the skills and agents installed in the account that runs it; every connector that must be authorized **in that same account**; every context file, with its location. A fresh chat inherits nothing from the session that built the workflow, and a scheduled run inherits less; this list is what a clean chat needs to succeed.
 4. **What to check before you act on the output** — the human gates in plain words (what the workflow pauses for and what you're deciding), your **(must)** lines, and at most two other lines worth a glance. It's meant to be read in the minute before you act, not studied.
-5. **Log the run** — one line in `outputs/[name]/runs.md`: date, input, result, edits needed, notes, and whether the workflow writes that row itself or prints it for you.
+5. **Log the run** — one line in `framework/[name]/runs.md`: date, input, result, edits needed, notes, and whether the workflow writes that row itself or prints it for you.
 6. **Your first review** — the date, why it's that date ("monthly, for a weekly workflow"), and the exact sentence that re-enters the framework: *"Run the improve skill on [workflow name]."*
 
-The Run Card is shown in the conversation and saved to `outputs/[name]/run-guide.md`, so you can reopen it weeks later or hand it to someone else.
+The Run Card is shown in the conversation and saved to `framework/[name]/run-guide.md`, so you can reopen it weeks later or hand it to someone else.
 
 ### Keep a run log
 
-`outputs/[name]/runs.md` is a table with one row per run: date, input or trigger, result, edits needed, notes. It takes ten seconds, and when you review the workflow in [Improve (Step 7)](../improve/) it's the difference between "I think it's been fine?" and evidence of drift, recurring edits, or failures.
+`framework/[name]/runs.md` is a table with one row per run: date, input or trigger, result, edits needed, notes. It takes ten seconds, and when you review the workflow in [Improve (Step 7)](../improve/) it's the difference between "I think it's been fine?" and evidence of drift, recurring edits, or failures.
 
 On shared-folder platforms, Build wrote the logging step into your workflow's skill, so it adds its own row at the end of every real run; the first real run is where the `run` skill checks that it did. On Claude Chat and ChatGPT, where a chat can't write to your workspace, the workflow prints its row and you add it to the file.
 
@@ -160,8 +160,8 @@ A "no" on any line means the schedule waits until Build has made the change. An 
 
 ## What This Produces
 
-- `outputs/[name]/run-guide.md` — the Run Card, six sections.
-- `outputs/[name]/runs.md` — the run log, with today's run as row one.
+- `framework/[name]/run-guide.md` — the Run Card, six sections.
+- `framework/[name]/runs.md` — the run log, with today's run as row one.
 - Your Workflow node updated: status `in-production`, the review date as `stale_after`, and links to both files under its artifacts.
 
 ## How the Skill Works
@@ -170,7 +170,7 @@ This is what the `run` skill is doing under the hood, phase by phase. You don't 
 
 1. **Load context** — the Workflow node, the Design Spec, the installed artifacts, and the test results. The verdict has to be Ready: an unfinished round routes to Test, not-ready to Build's fix mode, waiting-on-access to Build to authorize the connector. Then it lists every real write the run will make and hands you the start instruction.
 2. **The first real run** — your real input, in a new chat, started the way an operator would start it. The skill checks the run against your check list with evidence: gates paused, must lines met, output where it belongs, connectors reached, log row present. A failure is sorted into environment (fix and re-run) or workflow (back to Test, no go-live today).
-3. **Write the Run Card** — the one page you'll actually use, each section from a named source, saved to `outputs/[name]/run-guide.md`.
+3. **Write the Run Card** — the one page you'll actually use, each section from a named source, saved to `framework/[name]/run-guide.md`.
 4. **Run log, registry, review date** — today's run as row one, the review date by rule (one month for weekly or more often, three months otherwise, one month for anything automated, moved back to the nearest run day), the node marked in production in the same session.
 5. **Put it on a schedule** — Automated workflows only, after the Run Card exists: the platform's mechanism, where the context must live for it, the five-line safety checklist, and the schedule enabled only on five yeses. Skipped silently for an Augmented workflow.
 

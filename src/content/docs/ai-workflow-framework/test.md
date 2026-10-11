@@ -7,7 +7,7 @@ description: Test your AI workflow with a report card — each Deconstruct crite
 
 ## Where You Are
 
-You've just finished [Build (Step 4)](../build/). You have an installed skill (or agent), a Design Spec, and a Workflow Requirements document. The Requirements holds the yes/no acceptance criteria, the rules, the human gates, and the 3–5 realistic inputs you wrote in [Deconstruct](../deconstruct/) — each input saved as its own file under `outputs/[workflow-name]/inputs/`.
+You've just finished [Build (Step 4)](../build/). You have an installed skill (or agent), a Design Spec, and a Workflow Requirements document. The Requirements holds the yes/no acceptance criteria, the rules, the human gates, and the 3–5 realistic inputs you wrote in [Deconstruct](../deconstruct/) — each input saved as its own file under `framework/[workflow-name]/inputs/`.
 
 Your first run is a test, not a deployment. This step takes about 45 minutes per round, and most workflows need two to four rounds before they're ready. That's normal, not failure.
 
@@ -28,14 +28,14 @@ Your first run is a test, not a deployment. This step takes about 45 minutes per
 Confirm these three things. Each one takes a minute and saves you a wasted run.
 
 1. **The skill is installed.** Open a new chat and ask for your workflow's skill by name (for example, *"run the weekly-status-report skill"*). If it responds as your workflow, you're set. If it doesn't know what you mean, go back to [Build](../build/) and finish the install step.
-2. **Your inputs exist.** Open `outputs/[workflow-name]/inputs/`. There should be one file per input (E1, E2…). If any file holds only a placeholder line telling you what to paste in, get that real input ready now.
+2. **Your inputs exist.** Open `framework/[workflow-name]/inputs/`. There should be one file per input (E1, E2…). If any file holds only a placeholder line telling you what to paste in, get that input ready now (an input *like* your real work, with the names and details made up).
 3. **You know what your workflow touches.** If it sends email, writes to a CRM, or creates calendar events, a test run does that for real. Decide now whether to point it at a test record (a test contact, a draft folder, a copy of the sheet). The skill will list everything the round created and offer to remove it at the end — but it can't unsend an email.
 
 ## Where You Run From
 
 Two chats are involved in every round, and each one needs different things in reach.
 
-**The opening chat needs your workspace.** That's the folder holding everything the framework has produced so far: `registry/` (your Workflow node), `outputs/[workflow-name]/` (requirements, design spec, the inputs), and the built skill. The `test` skill reads all of those and writes the results file next to them.
+**The opening chat needs your workspace.** That's the folder holding everything the framework has produced so far: `registry/` (your Workflow node), `framework/[workflow-name]/` (requirements, design spec, the inputs), and the built skill. The `test` skill reads all of those and writes the results file next to them.
 
 - **Claude Code, Codex, Gemini CLI:** open the session *in that folder*. Every chat opened there shares the same files.
 - **Cowork:** connect that folder as the working folder (a Project is not required), then start the chat.
@@ -63,7 +63,7 @@ On Claude (Chat) and ChatGPT, your workflow's context files live in a Project, a
 
 ### Part 1 — Open the round (in your opening chat)
 
-1. Open a chat that can reach your workspace — the folder holding `registry/` and `outputs/` (see [Where You Run From](#where-you-run-from) for your platform).
+1. Open a chat that can reach your workspace — the folder holding `registry/` and `framework/` (see [Where You Run From](#where-you-run-from) for your platform).
 2. Say **"run the test skill"** (Claude Code also accepts `/handsonai:test`).
 3. The skill reads your Requirements and Design, then shows you the **check list** and the **passing rule**: every line Met on every input; a miss on a **(must)** line always fails; any other miss is either fixed or explicitly accepted. It asks whether to add or drop any line. Answer, and it writes the round's results file.
 4. The skill reads your built skill against the Requirements to catch obvious gaps (a missing gate, a reference file it never mentions), confirms it ends each run with a "What I did" summary, and notes whether it has a test-run mode. If something's missing, it tells you now, before you spend a run.
@@ -107,7 +107,7 @@ A first round with three inputs is realistically 45–60 minutes. If you're shor
 ## Six Rules for Judging Your Workflow
 
 1. **Judge it against what you wrote in Deconstruct**, not against how the output feels.
-2. **Use real inputs**, including one hard case.
+2. **Use realistic inputs**, including one hard case. Make them *like* your real work, with names and details made up; don't paste client names, personal details, or anything confidential.
 3. **Run each input in a new chat that has never seen your requirements or design.** A run inside the conversation that built it sees everything you said while building and looks better than it will in real use.
 4. **Every criterion is met or it isn't.** One miss is a miss.
 5. **The AI grades first, with evidence. You make the call.**
@@ -134,7 +134,7 @@ Three cases are graded the same way every time, so you know what to expect:
 - **A behaviour your test-run mode deliberately swaps** (no run-log row, output printed for you to save instead of written to a file) is graded on the swap. It is not a miss.
 - **Two or more lines that say the same thing** (a rule that restates a criterion) all go Not met when one defect breaks them, and the fix is listed once.
 
-**Golden examples.** Where you supplied a real past output that was exactly right, the skill compares the new output against it — output only, never the path: what's missing, what's extra, what's different in substance. A golden example is one good answer, not the only one; the question is "would you send this instead?" Keep at least one input without a golden example, so you learn whether the workflow generalizes.
+**Golden examples.** Where you supplied a past output that was exactly right (with its details changed), the skill compares the new output against it — output only, never the path: what's missing, what's extra, what's different in substance. A golden example is one good answer, not the only one; the question is "would you send this instead?" Keep at least one input without a golden example, so you learn whether the workflow generalizes.
 
 **The edits question.** Your answer to "nothing, a little, or a lot" is recorded with each input. Its trend over time is the earliest sign of drift when you come back in [Improve](../improve/).
 
@@ -159,7 +159,7 @@ If you've been through four rounds and the same lines keep failing, the problem 
 
 ## What This Produces
 
-`outputs/[workflow-name]/test-results.md` — the check list, the report card per input, the diagnosis table, accepted misses, the verdict as a count ("11 of 12 lines met across 2 inputs"), and machine-readable frontmatter so [Improve](../improve/) can later show you exactly which lines changed. Earlier rounds are kept alongside it with a date suffix.
+`framework/[workflow-name]/test-results.md` — the check list, the report card per input, the diagnosis table, accepted misses, the verdict as a count ("11 of 12 lines met across 2 inputs"), and machine-readable frontmatter so [Improve](../improve/) can later show you exactly which lines changed. Earlier rounds are kept alongside it with a date suffix.
 
 ## How the Skill Works
 

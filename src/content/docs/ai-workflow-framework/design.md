@@ -232,7 +232,7 @@ These sections sit outside the three layers:
 
 The three layers above are the conceptual structure of the Design Spec. In practice, the skill walks them across fourteen phases, in this chronological order:
 
-1. **Load** — Read the Workflow Requirements file from `outputs/`.
+1. **Load** — Read the Workflow Requirements file from `framework/<workflow-name>/`.
 2. **Confirm understanding** — Summarize the workflow and ask you to confirm.
 3. **Architecture decisions** — Layer 1: confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Requirements and present a confirmation block.
 4. **Autonomy** — Assess where the whole workflow sits on the autonomy spectrum (Deterministic, Guided, Autonomous).
@@ -272,7 +272,7 @@ Upload or paste your Workflow Requirements file (`[workflow-name]/requirements.m
   produces the Design Spec for approval
 
 "Design the expense-reporting workflow"
-→ Reads outputs/expense-reporting-requirements.md, recommends
+→ Reads framework/expense-reporting/requirements.md, recommends
   an orchestration mechanism, and generates the spec
 ```
 

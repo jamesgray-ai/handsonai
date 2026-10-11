@@ -100,7 +100,7 @@ The Improve step completes the lifecycle loop. Every outcome either confirms the
 
 ## What This Produces
 
-An **Improvement Plan** saved to `outputs/[workflow-name]/improvement-plan.md` that captures:
+An **Improvement Plan** saved to `framework/[workflow-name]/improvement-plan.md` that captures:
 
 - Which report-card lines flipped since the baseline, and the edits trend
 - Quality signals that triggered the review
