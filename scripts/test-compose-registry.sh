@@ -427,11 +427,11 @@ run_lint empty-workflows-bundle && ok "empty-workflows bundle lints clean (exit 
 # framework/ folder (9.0): record lives in framework/<slug>/, outputs/ is workflow output only
 run_lint legacy-outputs-workspace && ok "legacy outputs workspace is warning-only (exit 0)" || bad "legacy outputs workspace must not error"
 out=$(lint_output legacy-outputs-workspace)
-grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" <<<"$out" \
+grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it to framework/first-workflow/" <<<"$out" \
   && ok "legacy record in outputs/ warned" || bad "expected legacy-record WARN, got: $(grep WARN <<<"$out")"
 
 out=$(lint_output valid-bundle)
-grep -q "framework record found" <<<"$out" && bad "valid-bundle should not warn about legacy records" || ok "output-only outputs folder is silent (no legacy warning)"
+grep -q "pre-9.0 framework record" <<<"$out" && bad "valid-bundle should not warn about legacy records" || ok "output-only outputs folder is silent (no legacy warning)"
 grep -q "folder not claimed" <<<"$out" && bad "valid-bundle: unexpected unclaimed-folder warning" || ok "output-only outputs folder is silent (no unclaimed warning)"
 
 WS=$(stage legacy-outputs-workspace)
@@ -460,15 +460,30 @@ WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/agents"; printf
 run_lint_at "$WS" 2>&1 | grep -q "orphan.*framework/first-workflow/agents/staged-agent.md" \
   && ok "staged agent under framework/ counted as a capability" || bad "expected staged agent framework/first-workflow/agents/staged-agent.md in orphan warning"
 
+# capability descriptions: SKILL.md and agent files are not registry nodes and commonly write
+# `description: >` (folded), `|` (literal) or a plain value continued on indented lines -- the
+# island must carry the text, not an empty description (the dashboard renders that as "—").
+WS=$(stage valid-bundle)
+printf -- '---\nname: some-skill\ndescription: >\n  Folded line one\n  and line two.\nlicense: MIT\n---\n# some-skill\n' > "$WS/.claude/skills/some-skill/SKILL.md"
+printf -- '---\nname: orphan-skill\ndescription: Plain start\n  continued here.\n---\n# orphan-skill\n' > "$WS/.claude/skills/orphan-skill/SKILL.md"
+mkdir -p "$WS/.claude/agents"; printf -- '---\nname: lit-agent\ndescription: |\n  Literal one\n  Literal two\ntools: Read\n---\nBody\n' > "$WS/.claude/agents/lit-agent.md"
+(cd "$WS" && node "$TOOLS/compose-registry.js" --island-only registry) > "$WS/island.json" 2>/dev/null
+desc() { node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));const all=[...(d.skills||[]),...(d.agents||[])];const x=all.find(s=>s.id===process.argv[2]);process.stdout.write(x?x.description:'<missing>')" "$WS/island.json" "$1"; }
+[ "$(desc some-skill)" = "Folded line one and line two." ] && ok "folded (>) skill description read" || bad "folded description: got '$(desc some-skill)'"
+[ "$(desc orphan-skill)" = "Plain start continued here." ] && ok "plain multi-line skill description read" || bad "plain multi-line description: got '$(desc orphan-skill)'"
+[ "$(desc lit-agent)" = "$(printf 'Literal one\nLiteral two')" ] && ok "literal (|) agent description read" || bad "literal description: got '$(desc lit-agent)'"
+# registry nodes stay strict: multi-line frontmatter in a node is still a lint error
+run_lint broken/multiline-frontmatter && bad "multi-line node frontmatter must still error" || ok "multi-line node frontmatter still errors"
+
 # legacy record: a recreated outputs/<slug>/ holding only a run log (no requirements/design spec)
 # is still a framework record -- a workflow's own output is never named runs.md.
 WS=$(stage valid-bundle)
 printf '| Date | Result |\n|---|---|\n| 2026-10-01 | ok |\n' > "$WS/outputs/first-workflow/runs.md"
-run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/ -- move it to framework/first-workflow/" \
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it to framework/first-workflow/" \
   && ok "outputs/<slug>/ holding only runs.md is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/runs.md"
 WS=$(stage valid-bundle)
 mkdir -p "$WS/outputs/first-workflow/test-runs"; : > "$WS/outputs/first-workflow/test-runs/round-1.md"
-run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework record found in outputs/first-workflow/" \
+run_lint_at "$WS" 2>&1 | grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it" \
   && ok "outputs/<slug>/ holding only test-runs/ is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/test-runs/"
 
 # a missing framework/ link is strict: framework/ is never gitignored, so lint errors
@@ -493,6 +508,15 @@ no_trace "$out" && ok "broken symlink in outputs/: lint skips it, no stack trace
 WS=$(stage valid-bundle); rm -rf "$WS/outputs"; : > "$WS/outputs"
 out=$(run_lint_at "$WS" 2>&1 || true)
 no_trace "$out" && ok "outputs/ as a plain file: lint reports, no stack trace" || bad "outputs/ as a plain file crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); rm -rf "$WS/sops"; : > "$WS/sops"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "sops/ as a plain file: lint reports, no stack trace" || bad "sops/ as a plain file crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); ln -s "$WS/does-not-exist.md" "$WS/sops/dangling.md"
+out=$(run_lint_at "$WS" 2>&1 || true)
+no_trace "$out" && ok "broken symlink in sops/: lint skips it, no stack trace" || bad "broken symlink in sops/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
+WS=$(stage valid-bundle); printf 'x\n' > "$WS/sops/locked.md"; chmod 000 "$WS/sops/locked.md"
+out=$(run_lint_at "$WS" 2>&1 || true); chmod 644 "$WS/sops/locked.md"
+no_trace "$out" && ok "unreadable file in sops/: lint skips it, no stack trace" || bad "unreadable file in sops/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
 
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"

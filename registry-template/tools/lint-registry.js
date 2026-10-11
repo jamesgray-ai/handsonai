@@ -283,7 +283,7 @@ function lint(bundleDir) {
     }
   }
   for (const folder of legacyFolders) {
-    warnings.push(`${folder.path}/: framework record found in ${folder.path}/ -- move it to framework/${folder.slug}/ (see the indexing-registry skill)`);
+    warnings.push(`${folder.path}/: pre-9.0 framework record -- move it to framework/${folder.slug}/ (see the indexing-registry skill)`);
   }
   // Run-log evidence must not contradict status, wherever the record lives (a student who declined
   // the move still has it in outputs/).
