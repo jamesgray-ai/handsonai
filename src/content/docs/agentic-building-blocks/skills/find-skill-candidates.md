@@ -1,16 +1,16 @@
 ---
 title: Find Your Skill Candidates (Quick Prompt)
-description: "A copy-paste prompt that interviews you, reviews what your AI already knows about your work, and ranks your best agent skill candidates on any platform."
+description: "A copy-paste prompt that reviews your recent work and what your AI already knows about you, interviews you to fill the gaps, and ranks your best agent skill candidates on any platform."
 ---
 
 ## Why This Matters
 
-The best agent skills come from work you already do repeatedly — not ideas you brainstorm on the spot. This prompt puts the AI in the analyst seat: it reviews whatever it already knows about you, interviews you about your recurring work, and returns a ranked table of skill candidates with the single best one to build first.
+The best agent skills come from work you already do repeatedly — not ideas you brainstorm on the spot. This prompt puts the AI in the analyst seat: it reviews whatever it can see of your work — your calendar, email, and recent files where it's connected to them, plus its memory of you and your past conversations — then interviews you about your recurring work to fill the gaps, and returns a ranked table of skill candidates with the single best one to build first.
 
 Use this when you want a fast, conversational discovery in one chat — ideal for live sessions or when you want the AI to do the heavy lifting. Prefer a worksheet you can fill out on your own time? → [How to Discover Your Best Agent Skills (Worksheet)](/agentic-building-blocks/skills/skills-discovery-meta-prompt/).
 
 :::note[Works in any AI tool]
-[Agent Skills are an open standard](/agentic-building-blocks/skills/) — the same `SKILL.md` format runs in Claude, ChatGPT, Microsoft 365 Copilot, Cursor, OpenAI Codex, Gemini CLI, and VS Code Copilot. This prompt is written to run in any of them. It adapts to what your tool can actually do, including whether it has memory of your past conversations and whether skills run locally or in a cloud sandbox.
+[Agent Skills are an open standard](/agentic-building-blocks/skills/) — the same `SKILL.md` format runs in Claude, ChatGPT, Microsoft 365 Copilot, Cursor, OpenAI Codex, Gemini CLI, and VS Code Copilot. This prompt is written to run in any of them. It adapts to what your tool can actually do, including whether it can see your calendar and email, whether it has memory of your past conversations, and whether skills run locally or in a cloud sandbox.
 :::
 
 ## How to Use This Prompt
@@ -18,12 +18,13 @@ Use this when you want a fast, conversational discovery in one chat — ideal fo
 1. **Copy the prompt** from the [code block below](#the-prompt) using the copy button in the top-right of the block
 2. **Fill in the "My AI tool" line** at the top — this is the one edit you need to make. It tells the AI what it can realistically recommend.
 3. **Open a new conversation** in that tool and paste the prompt
-4. **Read the capability line it returns first** — it will tell you whether it has memory or stored context to work from. If it has none, it skips straight to the interview. That's expected, not a failure.
+4. **Read the capability line it returns first** — it will tell you what it can draw on: your calendar, email, or files, its memory of you, or nothing at all. If it has nothing, it skips straight to the interview. That's expected, not a failure.
 5. **Answer one question at a time** during Phase 2 — be specific about real work, not ideal work
 6. **Review the ranked table** in Phase 3 and pick the top candidate to build
 
-:::tip[Attach your SOPs for sharper results]
-If you have templates, checklists, or process docs, attach them before sending. The AI will use them to produce more accurate candidates — and this matters most in tools with no memory, where attached files are the only evidence of how you actually work.
+:::tip[Give it your real work for sharper results]
+- **Connect your calendar and email first, if you can.** A week of meetings and sent mail shows what you actually repeat, not what you remember repeating. Microsoft 365 Copilot can see them already; in Claude and ChatGPT, turn on their email and calendar connectors.
+- **Attach your SOPs, templates, or checklists.** The AI uses them to produce more accurate candidates. This matters most in tools with no memory or connections, where attached files are the only evidence of how you actually work.
 :::
 
 ## The Prompt
@@ -33,7 +34,7 @@ You are an AI workflow analyst helping me identify the best candidates to packag
 
 My AI tool: [Replace this with the tool I'll build in — e.g. Claude, ChatGPT, Microsoft 365 Copilot, Gemini, Cursor, OpenAI Codex, VS Code Copilot. If I left this blank, ask me before you do anything else.]
 
-Before Phase 1, state in one or two lines what you can actually draw on to analyze my work. Choose honestly from: saved memory about me, custom instructions or project/workspace context, earlier messages in this conversation, files I have attached, or none of the above.
+Before Phase 1, state in one or two lines what you can actually draw on to analyze my work. Choose honestly from: my calendar, email, or recent files (only if you are connected to them), saved memory about me, custom instructions or project/workspace context, earlier messages in this conversation, files I have attached, or none of the above.
 
 Do not invent or infer details about me. If you have no stored information about my work, say so plainly in one line and go straight to Phase 2. Never present a guess as something you remember — a fabricated profile will corrupt every ranking that follows.
 
@@ -53,14 +54,16 @@ We'll work through this in three phases.
 
 ---
 
-Phase 1 — Context Review
+Phase 1 — Review My Work
 
-Using only the sources you listed above, review what you already know about my work: role, tools, recurring workflows, tasks I've asked for help with repeatedly, documents I've had you draft, and patterns in how I work.
+Using only the sources you listed above, review my work:
+- If you can see my calendar, email, or recent files, start there. Look at my last five working days for work I repeat: recurring meetings that lead to the same follow-up, emails I write in the same shape, documents I produce on a schedule.
+- Then review what you already know about me: role, tools, recurring workflows, tasks I've asked for help with repeatedly, documents I've had you draft, and patterns in how I work.
 
 List the candidate tasks you can actually evidence. For each, include:
 - The task in one line
 - Why it stood out (frequency, consistent pattern, same tools/inputs, same output shape)
-- Where the evidence came from (a memory entry, a prior session, an attached file, an earlier message in this chat)
+- Where the evidence came from (a calendar entry, an email, a file, a memory entry, a prior session, an attached file, an earlier message in this chat)
 
 If you have nothing usable, say so in one line and move to Phase 2. Do not pad this phase.
 
@@ -114,8 +117,8 @@ Start now: state your available sources, then begin Phase 1.
 
 ## What to Expect
 
-- **Sources line** — Before anything else, the AI states what it can draw on. In a tool with memory, that's your history. In a fresh chat or a CLI, it should say it has nothing and move on. If it claims to remember things you never told it, stop and start over — you're in a tool without memory and it's confabulating.
-- **Phase 1** — Evidenced candidates only. Skipped entirely when there's no stored context.
+- **Sources line** — Before anything else, the AI states what it can draw on. With connectors, that includes your calendar, email, and files; in a tool with memory, your history. In a fresh chat or a CLI, it should say it has nothing and move on. If it claims to remember things you never told it, stop and start over — you're in a tool without memory and it's confabulating.
+- **Phase 1** — Evidenced candidates only, each with where it came from. Skipped entirely when there's nothing to review.
 - **Phase 2** — One question at a time. Expect 6–10 exchanges. Answer with specifics ("Monday status update for my manager"), not categories ("status stuff").
 - **Phase 3** — A ranked table plus a recommendation for the first skill to build, what to put in it, whether your tool can actually run it, and which candidates are better suited to an agent, a connector, or a saved prompt.
 
