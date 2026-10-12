@@ -145,7 +145,7 @@ Before generating artifacts, resolve platform-specific format requirements and i
 2. **Look up the user's platform** in the `platforms` section of the registry JSON.
 
 3. **Determine mode and language:**
-   - Read the `mode` field (`code` or `guided`) for the matched platform.
+   - Read the `mode` field (`code` or `guided`) for the matched platform. The registry's `mode` wins over the spec's `platform_mode`: an older spec can say `guided` for a platform that is `code` now (a `Claude.ai` spec from before Chat and Cowork merged into one Claude app). Build the registry's way, and tell the user in one line that the spec's mode is out of date.
    - For `code` mode: read the `language` field (e.g., `markdown`, `python`, `yaml`).
    - For `guided` mode: note that artifacts will be GUI workflow steps and configuration options rather than files.
 
