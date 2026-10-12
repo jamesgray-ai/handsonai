@@ -29,7 +29,7 @@ Here's the Cowork project workspace after all seven steps. Every file below appe
 │       ├── weekly-status-report.md       ← the workflow's registry entry (backlog stub in Step 1, updated by every step)
 │       └── stakeholder-meeting-prep.md   ← Step 1 backlog stub, not followed further on this page
 ├── context/
-│   ├── past-reports/                     ← C2: the template and three past reports (one is E1's golden example)
+│   ├── past-reports/                     ← C2: three past reports; their shared layout is the template (one is E1's golden example)
 │   └── tone-guide.md                     ← C3: created in Step 4 with Maya
 ├── framework/                            ← the workflow's record: what each step hands to the next
 │   ├── ai-opportunity-report.md          ← Step 1 (Analyze)
@@ -43,7 +43,7 @@ Here's the Cowork project workspace after all seven steps. Every file below appe
 │       ├── skills/
 │       │   ├── weekly-status-report/SKILL.md      ← Step 4 (Build): staged source for S1
 │       │   └── status-report-drafting/SKILL.md    ← Step 4 (Build): staged source for S2
-│       ├── weekly-status-report.zip               ← Step 4 (Build): the two installable packages
+│       ├── weekly-status-report.zip               ← Step 4 (Build): the two installable packages (built on your machine; not in the download)
 │       ├── status-report-drafting.zip
 │       ├── test-runs/                            ← Step 5 (Test): reports from test runs, kept out of the production log
 │       ├── test-results-2026-06-05.md    ← Step 5 (Test), round 1
@@ -61,7 +61,7 @@ Here's the Cowork project workspace after all seven steps. Every file below appe
 In Cowork, installed skills are managed by the platform rather than sitting in a visible project folder. Build stages each skill's source under `framework/weekly-status-report/skills/<skill-name>/`, produces one zip per skill, and then walks you through adding each package under **Customize → Skills**. Skills added there are shared by Claude Chat and Cowork on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
 :::
 
-<a href="/assets/examples/weekly-status-report.zip" download="weekly-status-report.zip"><strong>Download the example project folder (.zip)</strong></a> — unzip it into a Cowork project or any folder, open the README, and try the three exercises: watch the skills orient from the Workflow node, regenerate the dashboard, and rewind one step to run it yourself. The folder is checked into the repository and verified by the registry tools on every change, so what you download matches what this page shows, file for file.
+<a href="/assets/examples/weekly-status-report.zip" download="weekly-status-report.zip"><strong>Download the example project folder (.zip)</strong></a> — unzip it into a Cowork project or any folder, open the README, and try the three exercises: watch the skills orient from the Workflow node, regenerate the dashboard, and rewind one step to run it yourself. The folder is checked into the repository and verified by the registry tools on every change, so what you download matches what this page shows, file for file — except the two `.zip` packages, which Build creates on your machine, so they aren't in the download.
 
 **Why two locations?** The `framework/` folder holds the framework's *paper trail* — the documents each step hands to the next. The skills are the *product* — the thing you actually run every week, and the reports it writes land in `outputs/`, wherever it runs. When the run is over, you use the skill; the documents stay behind as the workflow's memory (Test and Improve read them later).
 
@@ -728,7 +728,7 @@ trigger: "Manual — Maya starts it Friday mornings"
 
 ## Step 4 — Build → the skills + the Workflow node
 
-Build worked the Context Inventory with Maya first: the HubSpot row was **connect it** (she authorized the connector in the account that runs the workflow, read scope only; Build read three tracker tasks back to her to prove it), the template and past reports were **provide it** (already sitting in `context/past-reports/`), and the tone guide was **provide it** too, except that it did not exist yet — Build drafted it from her golden example in a 10-minute interview, she corrected two lines, and it landed beside them at `context/tone-guide.md`. Only then did Build state what it was creating and create it from each blueprint in the spec: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). On a code-mode platform like Cowork with no separate creation skill installed, stating the intent and writing the file are one act by the same model, so Build did not narrate a hand-off. It staged each skill's source under `framework/weekly-status-report/skills/<skill-name>/`, produced one zip per skill, and checked that each zip contains `<skill-name>/SKILL.md` at its top level.
+Build worked the Context Inventory with Maya first: the HubSpot row was **connect it** (she authorized the connector in the account that runs the workflow, read scope only; Build read three tracker tasks back to her to prove it), the template and past reports were **provide it** (already sitting in `context/past-reports/`), and the tone guide was **provide it** too, except that it did not exist yet — Build drafted it from her golden example in a 10-minute interview, she corrected two lines, and it landed beside them at `context/tone-guide.md`. Only then did Build state what it was creating and create it from each blueprint in the spec: **S1** (the orchestrator, named after the workflow — this is what she runs) and **S2** (the drafting specialist it calls). In Cowork, with no separate creation skill installed, stating the intent and writing the file are one act by the same model, so Build did not narrate a hand-off. It staged each skill's source under `framework/weekly-status-report/skills/<skill-name>/`, produced one zip per skill, and checked that each zip contains `<skill-name>/SKILL.md` at its top level.
 
 The orchestrator skill, as Build created it (the round-1 fix in Test later added an explicit section-order instruction and a format example to step 2):
 
