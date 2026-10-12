@@ -8,7 +8,7 @@ Google supports Agent Skills natively in four places, all using the same `SKILL.
 | You have… | Use | How skills get in |
 |---|---|---|
 | A **personal** Google Account (gmail.com) with Google AI Pro or Ultra | **Gemini Spark** — a mode of the Gemini app | **Skills → Upload** |
-| A **work or school** account and your company has Gemini Enterprise | **Gemini Enterprise** | **Skills → + → Upload skill** |
+| A **work or school** account and your company has Gemini Enterprise | **Gemini Enterprise** | **Skills → + → Create skill with Gemini**, or **Upload skill** |
 | A terminal or an AI-native IDE | **Gemini CLI** or **Antigravity** | A folder in your project |
 
 ## Gemini Spark (personal Google Account)
@@ -21,9 +21,11 @@ Spark is Gemini's agent mode: in the Gemini web app, the Gemini app for Mac, or 
 
 ## Gemini Enterprise (work or school account)
 
-Available on the Standard, Plus, and Pay-as-you-go editions (Frontline can use shared skills but not upload them).
+Available on the Standard, Plus, and Pay-as-you-go editions (Frontline can use shared skills but not create or upload them).
 
-**Adding a skill:** click **Skills** in the left navigation, then **+ → Upload skill**, drag in a Markdown file or a `.zip`, and click **Import**. Upload the Hands-on AI ZIPs as downloaded (for example `analyze.zip`) — don't unzip them. Use it with `@` or `/` and the skill name, or by describing the task. Sharing skills with colleagues is controlled by your admin. Skills don't run inside Gemini Enterprise Agents — use them in chat.
+**Creating a skill:** click **Skills** in the left navigation, then **+ → Create skill with Gemini**. Describe what the skill should do and Gemini drafts it with you: a name, a description (Gemini Enterprise uses it to decide when the skill applies, so say when to use it), and the instructions, which you can refine in the chat or edit as Markdown before you save. Skills you create are switched on by default.
+
+**Adding a skill you already have:** click **Skills** in the left navigation, then **+ → Upload skill**, drag in a Markdown file or a `.zip`, and click **Import**. Upload the Hands-on AI ZIPs as downloaded (for example `analyze.zip`) — don't unzip them. Use it with `@` or `/` and the skill name, or by describing the task. Sharing skills with colleagues is controlled by your admin. Skills don't run inside Gemini Enterprise Agents — use them in chat.
 
 → [Create and manage skills — Gemini Enterprise](https://docs.cloud.google.com/gemini/enterprise/docs/skills) (official Google docs)
 
