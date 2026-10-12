@@ -256,7 +256,7 @@ The interview, the node shapes, and the dashboards are the same on every AI tool
 | Platform | Skills come from | Where your registry lives | How files get written |
 |---|---|---|---|
 | Claude Code | Hands-on AI plugin | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
-| The Claude desktop app (formerly Cowork) | Hands-on AI plugin | any folder on your computer, chosen as your working folder | directly |
+| Claude desktop app | Hands-on AI plugin | any folder on your computer, chosen as your working folder | directly |
 | ChatGPT for desktop (ChatGPT Work or Codex) | Hands-on AI plugin, or skill folders in `~/.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
 | Cursor, Codex CLI, Gemini CLI | skill folders in `.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
 | claude.ai · ChatGPT web · Google Gemini · M365 Copilot | Hands-on AI plugin (Claude, ChatGPT) or uploaded skill ZIPs | a folder on your computer, a synced cloud-drive folder, or a GitHub repository | you save each file — [You save the files](#you-save-the-files) |
