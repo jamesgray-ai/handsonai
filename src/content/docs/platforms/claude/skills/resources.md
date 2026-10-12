@@ -10,7 +10,7 @@ description: "Recommended documentation, tutorials, courses, and community links
 | [Introducing Agent Skills](https://claude.com/blog/skills) | Official announcement — what Skills are and why they matter |
 | [What are Skills?](https://support.claude.com/en/articles/12512176-what-are-skills) | Help Center overview of Skill types and how they work |
 | [Skills Explained](https://claude.com/blog/skills-explained) | How Skills compares to prompts, Projects, MCP, and subagents |
-| [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude) | How to activate and use Skills in Claude.ai |
+| [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude) | How to activate and use Skills in Claude |
 
 ## Documentation
 

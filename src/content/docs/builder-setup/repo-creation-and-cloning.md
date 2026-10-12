@@ -1,6 +1,6 @@
 ---
 title: Repository Creation and Cloning Guide
-description: "Create your first GitHub repository and clone it to your computer using your editor or Claude Desktop — a step-by-step guide for first-time Git users."
+description: "Create your first GitHub repository and clone it to your computer using your editor or the Claude desktop app — a step-by-step guide for first-time Git users."
 schema_type: HowTo
 howto_steps:
   - name: Create a repository
@@ -29,7 +29,7 @@ That's all — creating a repository happens entirely in your browser. (If you o
 
 1. Git installed (see [Git Installation Guide](../git-install/))
 2. GitHub CLI installed and logged in (see [GitHub CLI Setup Guide](../github-cli-setup/))
-3. Cursor or VS Code (see [Editor Setup Guide](../editor-setup/)) — or the Claude Desktop app
+3. Cursor or VS Code (see [Editor Setup Guide](../editor-setup/)) — or the Claude desktop app
 
 ## Step 1: Create a Repository
 
@@ -54,11 +54,11 @@ Cloning downloads a copy of the repository to your computer and links it to GitH
 4. Choose a folder on your computer to put it in — Documents is fine
 5. When the editor asks whether to open the cloned repository, click **Open**
 
-### In Claude Desktop (Code tab)
+### In the Claude desktop app (Code tab)
 
-If you're working in the Claude Desktop app without a separate code editor, you can clone the repository by asking Claude to do it for you. Because you installed and logged in to the GitHub CLI in the [GitHub CLI Setup Guide](../github-cli-setup/), Claude can use `gh` on your behalf.
+If you're working in the Claude desktop app without a separate code editor, you can clone the repository by asking Claude to do it for you. Because you installed and logged in to the GitHub CLI in the [GitHub CLI Setup Guide](../github-cli-setup/), Claude can use `gh` on your behalf.
 
-1. Open **Claude Desktop** and click the **Code** tab
+1. Open the **Claude desktop app** and click the **Code** tab
 2. Start a new session and pick (or create) a folder on your computer you want the repository cloned into
 3. In the chat box, paste a prompt like:
 
@@ -82,7 +82,7 @@ You should see a message starting `On branch main` — this confirms the reposit
 
 ## Done When
 
-- You can see the cloned repository's files in your editor (or in the Claude Desktop Code tab)
+- You can see the cloned repository's files in your editor (or in the Claude desktop app's Code tab)
 - In your terminal, you can navigate to the cloned folder (`cd my-repo-name`) and run `git status` — it shows `On branch main`
 
 If both are true, your GitHub account, Git, and the GitHub CLI are all working together. **Next:** set up your [AI Registry](../ai-registry-setup/) in this repository.

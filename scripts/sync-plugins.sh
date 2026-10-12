@@ -15,7 +15,7 @@
 #   2. Rsyncs plugins/<plugin>/ → handsonai-plugins/plugins/<plugin>/ (--delete).
 #   3. Updates that plugin's entry in handsonai-plugins/.claude-plugin/marketplace.json,
 #      adding the entry if it does not exist yet, and patch-bumps the marketplace's own
-#      top-level version so Cowork sees a change.
+#      top-level version so the Claude app sees a change.
 #   4. For plugins with a Codex manifest, makes sure the plugin is listed in
 #      handsonai-plugins/.agents/plugins/marketplace.json — the catalog ChatGPT and Codex
 #      read (they fall back to .claude-plugin/marketplace.json, but the native catalog is
@@ -24,7 +24,7 @@
 #
 # What this does NOT do:
 #   - Commit or push anywhere. You drive both pushes deliberately so the
-#     "push handsonai-plugins last" Cowork rule stays intact.
+#     "push handsonai-plugins last" rule stays intact.
 
 set -euo pipefail
 
@@ -148,7 +148,7 @@ fi
 # Validate before doing arithmetic on it. `jq -r` yields the string "null" for a missing
 # .version; `read` then leaves MINOR and PATCH empty, arithmetic treats empty as 0, and
 # the result is the literal version string "null..1" — written into plugin.json, rsynced,
-# and published to the marketplace, where Cowork compares it against real semver.
+# and published to the marketplace, where the Claude app compares it against real semver.
 CURRENT="$(jq -r '.version // empty' "$PLUGIN_JSON")"
 if ! [[ "$CURRENT" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo "Error: $PLUGIN_JSON has no usable version (found: '${CURRENT:-<missing>}'). Expected MAJOR.MINOR.PATCH." >&2
@@ -192,7 +192,7 @@ mkdir -p "$DEST_DIR"
 rsync -av --checksum --delete "$SRC_DIR/" "$DEST_DIR/"
 
 # 3. Update this plugin's marketplace entry, adding it if absent, and bump the
-#    marketplace's own version so Cowork detects the change.
+#    marketplace's own version so the Claude app detects the change.
 MKT_CURRENT="$(jq -r '.version // empty' "$MARKETPLACE_JSON")"
 if ! [[ "$MKT_CURRENT" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo "Error: $MARKETPLACE_JSON has no usable version (found: '${MKT_CURRENT:-<missing>}')." >&2

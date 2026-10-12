@@ -12,7 +12,7 @@ This gallery preserves a set of agents, skills, and prompts that were originally
 1. Find the example closest to your need.
 2. Copy the file from [the GitHub repo](https://github.com/jamesgray-ai/handsonai/tree/main/examples/agent-gallery).
 3. Replace persona-specific framing, source lists, and output formats with your own.
-4. Drop the file into your own plugin, your `~/.claude/agents/` folder, or upload it once in Claude under Customize → Skills — it then works in Chat and Cowork.
+4. Drop the file into your own plugin, your `~/.claude/agents/` folder, or upload it once in Claude under Customize → Skills — it then works on the web and in the desktop app.
 
 Every file is plain Markdown — no compiled code. Everything is MIT-licensed.
 
@@ -34,7 +34,7 @@ Every file is plain Markdown — no compiled code. Everything is MIT-licensed.
 
 **[`ai-productivity-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/examples/agent-gallery/agents/ai-productivity-researcher.md)** — Researches HBR-tier case studies of enterprise AI adoption, with a strict source-tier hierarchy and structured output format. *Adapt by:* changing the topic from "AI productivity" to whatever case studies you're hunting; adjust the source tiers.
 
-**[`claude-research-daily`](https://github.com/jamesgray-ai/handsonai/blob/main/examples/agent-gallery/agents/claude-research-daily.md)** — Vendor-specific daily brief — Anthropic, Claude, Claude Code, and Cowork only. Last 24 hours, no padding. *Adapt by:* replacing the vendor focus with whatever single product or company you want to track.
+**[`claude-research-daily`](https://github.com/jamesgray-ai/handsonai/blob/main/examples/agent-gallery/agents/claude-research-daily.md)** — Vendor-specific daily brief — Anthropic, Claude, and Claude Code only. Last 24 hours, no padding. *Adapt by:* replacing the vendor focus with whatever single product or company you want to track.
 
 **[`meeting-prep-researcher`](https://github.com/jamesgray-ai/handsonai/blob/main/examples/agent-gallery/agents/meeting-prep-researcher.md)** — Researches attendees, companies, and topics before a meeting. Produces a structured prep brief with conversation starters, suggested talking points, and questions to ask. *Adapt by:* tweaking the brief format to match how you actually run meetings.
 
@@ -56,7 +56,7 @@ Every file is plain Markdown — no compiled code. Everything is MIT-licensed.
 
 ## Portable Prompts
 
-These three prompts work in any AI tool that supports a chat interface — Claude.ai, ChatGPT, Gemini, M365 Copilot, Cursor, etc. Copy the prompt, fill in the blanks, run.
+These three prompts work in any AI tool that supports a chat interface — Claude, ChatGPT, Gemini, M365 Copilot, Cursor, etc. Copy the prompt, fill in the blanks, run.
 
 **[`buyer-persona-revenue-leader-rachel`](https://github.com/jamesgray-ai/handsonai/blob/main/examples/agent-gallery/prompts/buyer-persona-revenue-leader-rachel.md)** — A complete example of a buyer persona document — demographics, role, pain points, trigger events, exclusion criteria. *Adapt by:* using as a template and rewriting for your own ideal customer.
 

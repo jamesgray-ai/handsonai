@@ -4,7 +4,7 @@ description: Build your business knowledge graph — a Markdown knowledge bundle
 schema_type: HowTo
 howto_steps:
   - name: Open your project folder in a tool that writes files
-    text: Claude Code, Cowork, or the ChatGPT desktop app's Codex view. Open the folder that will hold your knowledge graph. A browser chat window cannot build one.
+    text: Claude Code, the Claude desktop app, or the ChatGPT desktop app's Codex view. Open the folder that will hold your knowledge graph. A browser chat window cannot build one.
   - name: Say "Build my knowledge graph."
     text: Your assistant confirms the folder, looks at what is already there, makes a raw/ folder for your documents, and interviews you about the work you, your team, or your company does (about 30 minutes end to end).
   - name: Approve the type list, then send the word build
@@ -61,10 +61,10 @@ The [AI Registry](../ai-registry-setup/) records what you build *with* AI: your 
 
 ## What You Need
 
-A tool that opens a folder on your computer and writes files into it: **Claude Code**, **Cowork**, or the **ChatGPT desktop app's Codex view**. Cursor, Codex CLI, and Gemini CLI also work with the ZIP. A browser chat window (claude.ai, ChatGPT on the web, Gemini, Microsoft 365 Copilot) cannot build a knowledge graph; the skill will say so and stop.
+A tool that opens a folder on your computer and writes files into it: **Claude Code**, the **Claude desktop app**, or the **ChatGPT desktop app's Codex view**. Cursor, Codex CLI, and Gemini CLI also work with the ZIP. A browser chat window (Claude on the web, ChatGPT on the web, Gemini, Microsoft 365 Copilot) cannot build a knowledge graph; the skill will say so and stop.
 
 - **Claude Code:** open Terminal, type `cd ` (with a space), drag your folder into the Terminal window, press Enter, then type `claude` and press Enter. Or open the folder in the desktop app.
-- **Cowork:** choose the folder as your working folder when you start.
+- **Claude desktop app:** choose the folder as your working folder when you start.
 - **ChatGPT desktop:** in the **Codex** view, create a project, **Edit project → Add folder**, choose your folder, and **Make primary**.
 
 ## Build It

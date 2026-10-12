@@ -67,11 +67,11 @@ Custom connectors let you connect Claude to remote MCP servers.
 
 Desktop Extensions connect Claude to MCP servers running on your local machine.
 
-**Available on:** Claude Desktop only (not web)
+**Available on:** the Claude desktop app only (not web)
 
 ### Browse and Install Extensions
 
-1. Open Claude Desktop
+1. Open the Claude desktop app
 2. Go to **Settings → Extensions**
 3. Browse available extensions
 4. Click to install
@@ -100,7 +100,7 @@ For custom MCP servers, edit the configuration file directly.
 }
 ```
 
-After editing, restart Claude Desktop for changes to take effect.
+After editing, restart the Claude desktop app for changes to take effect.
 
 ## Configure Tool Permissions
 
@@ -170,7 +170,7 @@ Tools are grouped by their capabilities:
 **Desktop extension not loading?**
 - Check the configuration file syntax (valid JSON)
 - Verify the path to your server is absolute
-- Restart Claude Desktop completely (quit, not just close window)
+- Restart the Claude desktop app completely (quit, not just close window)
 - Check logs at `~/Library/Logs/Claude/mcp.log` (macOS)
 
 ## Next Steps

@@ -23,7 +23,7 @@ Sign up and choose a subscription that gives you the full feature set.
 
 ---
 
-### 2. Install Claude Desktop
+### 2. Install the Claude desktop app
 
 The desktop app gives you quick access to Claude outside the browser, plus support for local MCP servers and file system access.
 
@@ -48,7 +48,7 @@ After the installer finishes (on both macOS and Windows), it prints a few **post
 **Most people scroll past this and then can't figure out why `claude` doesn't work.** Read the final output of the installer carefully and follow each step it lists before closing the terminal. If you miss it, the easiest fix is to run the installer again and watch the end of the output.
 :::
 
-Once installed and on your PATH, open a terminal and run `claude` to start it. The first time you launch, Claude Code walks you through a few setup screens — pick your theme, accept the terms, and **connect to your Claude.ai account** when prompted (this signs you in with your existing subscription so you don't need a separate API key).
+Once installed and on your PATH, open a terminal and run `claude` to start it. The first time you launch, Claude Code walks you through a few setup screens — pick your theme, accept the terms, and **sign in with your Claude account** when prompted (this signs you in with your existing subscription so you don't need a separate API key).
 
 ---
 
@@ -109,15 +109,13 @@ Memory works both in standalone chats and per-project. Each project has its own 
 
 MCP (Model Context Protocol) lets Claude read from and write to external tools — giving it access to your actual work environment.
 
-**Claude.ai (web):** Connect remote MCP servers and 50+ built-in connectors (Slack, Notion, Google Drive, etc.).
+**Claude on the web:** Connect remote MCP servers and 50+ built-in connectors (Slack, Notion, Google Drive, etc.).
 
 1. Go to **Settings → Connectors**
 2. Browse the connector directory or click **Add custom connector** to enter a remote MCP server URL
 3. Enable connectors per conversation via the **+** button → **Connectors**
 
-**Claude Desktop:** Supports both the web connectors and local MCP servers running on your machine.
-
-**Cowork:** Accesses your connectors, local MCP servers, and file system automatically — no extra setup needed.
+**Claude desktop app:** Supports both the web connectors and local MCP servers running on your machine. It also works with files and folders on your computer, with no extra setup.
 
 Connect the Hands-on AI Playbook MCP server for reference material:
 
@@ -126,14 +124,14 @@ Connect the Hands-on AI Playbook MCP server for reference material:
 **Official docs:**
 
 - [Custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
-- [Local MCP servers on Claude Desktop](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop)
-- [Getting started with Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)
+- [Local MCP servers on the Claude desktop app](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop)
+- [Getting started with Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork) (Anthropic's guide to working in a folder on your computer)
 
 ---
 
 ### 9. Install the Hands-on AI Plugin
 
-One install gives you the seven AI Workflow Framework skills in Claude Chat (web and app) and Cowork, plus the `framework-agent` orchestrator in Cowork. On a paid plan: in the left sidebar, **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. On the Free plan, or if your company blocks plugins, upload the skills as ZIPs instead.
+One install gives you the seven AI Workflow Framework skills in Claude (web and desktop app), plus the `framework-agent` orchestrator. On a paid plan: in the left sidebar, **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. On the Free plan, or if your company blocks plugins, upload the skills as ZIPs instead.
 
 In Claude Code, it's two commands: `/plugin marketplace add jamesgray-ai/handsonai-plugins` then `/plugin install handsonai@handsonai`.
 
@@ -146,7 +144,7 @@ In Claude Code, it's two commands: `/plugin marketplace add jamesgray-ai/handson
 :::caution[Most people can skip this entire section]
 Part 2 is **only** for technical users who plan to build applications with the Anthropic API, write code against Claude programmatically, or manage API keys for tools like Claude Code's API-based access.
 
-**If you just want to use Claude for chat, projects, Claude Desktop, or Claude Code with your regular subscription — you're already done. Stop after Part 1.**
+**If you just want to use Claude for chat, projects, the Claude desktop app, or Claude Code with your regular subscription — you're already done. Stop after Part 1.**
 
 Come back here only when you have a specific reason to need API access.
 :::
@@ -163,7 +161,7 @@ Use Claude Code inside VS Code or Cursor. See [AI Code Editor Setup](../../../bu
 1. Go to [platform.claude.com](https://platform.claude.com) and sign in with your Anthropic account
 2. Navigate to **API keys** to create a key if needed
 
-Most people don't need this — Claude Code and Claude Desktop authenticate directly through your Claude subscription.
+Most people don't need this — Claude Code and the Claude desktop app authenticate directly through your Claude subscription.
 
 **Official docs:** [Claude Developer Platform](https://platform.claude.com/docs/en/home)
 
@@ -174,7 +172,7 @@ Most people don't need this — Claude Code and Claude Desktop authenticate dire
 **Part 1 — Claude:**
 
 - [ ] Claude account created with Pro or Max subscription
-- [ ] Claude Desktop installed and signed in
+- [ ] Claude desktop app installed and signed in
 - [ ] Claude Code installed — `claude --version` prints a version number
 - [ ] Mobile app installed on at least one device
 - [ ] Personalization configured with your role and preferences

@@ -48,20 +48,20 @@ Two chats are involved, and each one needs different things in reach. If you wen
 **The opening chat needs your workspace.** That's the folder holding everything the framework has produced so far: `registry/` (your Workflow node), `framework/[workflow-name]/` (requirements, design spec, test results), and the built skill. The `run` skill reads those and writes the Run Card and run log next to them.
 
 - **Claude Code, Codex, Gemini CLI:** open the session *in that folder*. Every chat opened there shares the same files.
-- **Cowork:** connect that folder as the working folder (a Project is not required), then start the chat.
-- **Claude (Chat), ChatGPT:** there is no folder on your computer the chat can reach. Give the opening chat your workspace the way you did in earlier steps — connect your registry repo through the GitHub connector, or upload the bundle folder — and when the step ends, **save `run-guide.md`, `runs.md`, and your updated Workflow node back into your workspace yourself**. The skill prints each one under the path to save it at, and lists all three at the end.
+- **The Claude desktop app:** connect that folder as the working folder (a Project is not required), then start the chat.
+- **Claude on the web, ChatGPT:** there is no folder on your computer the chat can reach. Give the opening chat your workspace the way you did in earlier steps — connect your registry repo through the GitHub connector, or upload the bundle folder — and when the step ends, **save `run-guide.md`, `runs.md`, and your updated Workflow node back into your workspace yourself**. The skill prints each one under the path to save it at, and lists all three at the end.
 
 **The run chat needs the installed skill and the workflow's context files, and nothing else.** It is an ordinary working chat: the one you'll open every week from now on.
 
 - **Shared-folder platforms:** open the new chat in the same workspace folder. The built skill is installed there, and the workflow can write its output and its log row there.
-- **Claude (Chat), ChatGPT:** open the new chat inside the Project that holds the workflow's context files. The workflow can't write files from there, so it ends by printing its output and its log row for you to save.
+- **Claude on the web, ChatGPT:** open the new chat inside the Project that holds the workflow's context files. The workflow can't write files from there, so it ends by printing its output and its log row for you to save.
 
 **Then find your path.** The one thing that changes how you hand the run back is whether a new chat on your platform can see the files your opening chat wrote.
 
 | Your path | Platforms | What you do when the real run finishes |
 |---|---|---|
-| **Shared folder** | Claude Code, Cowork, Codex, Gemini CLI | Say *log this run* in the run chat. The skill checks the run and finishes the step right there. |
-| **Separate chats** | Claude (Chat), ChatGPT, Gemini Spark, Gemini Enterprise, M365 Copilot | Copy one message from the run chat into the opening chat, then say *log this run* there. Step 9 shows exactly how. |
+| **Shared folder** | Claude Code, the Claude desktop app, Codex, Gemini CLI | Say *log this run* in the run chat. The skill checks the run and finishes the step right there. |
+| **Separate chats** | Claude on the web, ChatGPT, Gemini Spark, Gemini Enterprise, M365 Copilot | Copy one message from the run chat into the opening chat, then say *log this run* there. Step 9 shows exactly how. |
 
 Both paths produce the same Run Card and the same log. The skill works out which path applies by itself; you never have to tell it.
 
@@ -83,9 +83,9 @@ Both paths produce the same Run Card and the same log. The skill works out which
 
 ### Part 3 — Log this run
 
-9. **Shared folder path** (Claude Code, Cowork, Codex, Gemini CLI): in the run chat, say **"log this run"**. Skip to step 10.
+9. **Shared folder path** (Claude Code, the Claude desktop app, Codex, Gemini CLI): in the run chat, say **"log this run"**. Skip to step 10.
 
-    **Separate chats path** (Claude Chat, ChatGPT, Gemini, Copilot): the opening chat can't see the run chat, so you carry one message across. Do this:
+    **Separate chats path** (Claude on the web, ChatGPT, Gemini, Copilot): the opening chat can't see the run chat, so you carry one message across. Do this:
 
     1. In the run chat, say: **"Put your final output and your What I did summary together in one message."**
     2. Click the **copy** icon on that message. (The "What I did" summary records every place the workflow paused and what you decided, so this one message is all the skill needs.)
@@ -128,7 +128,7 @@ The Run Card is shown in the conversation and saved to `framework/[name]/run-gui
 
 `framework/[name]/runs.md` is a table with one row per run: date, input or trigger, result, edits needed, notes. It takes ten seconds, and when you review the workflow in [Improve (Step 7)](../improve/) it's the difference between "I think it's been fine?" and evidence of drift, recurring edits, or failures.
 
-On shared-folder platforms, Build wrote the logging step into your workflow's skill, so it adds its own row at the end of every real run; the first real run is where the `run` skill checks that it did. On Claude Chat and ChatGPT, where a chat can't write to your workspace, the workflow prints its row and you add it to the file.
+On shared-folder platforms, Build wrote the logging step into your workflow's skill, so it adds its own row at the end of every real run; the first real run is where the `run` skill checks that it did. On Claude on the web and ChatGPT, where a chat can't write to your workspace, the workflow prints its row and you add it to the file.
 
 If your Requirements named a Measure that one run can read (minutes door to door, items processed), the notes cell is where it goes, and that's how an `Unknown` baseline becomes a number.
 
@@ -178,9 +178,9 @@ This is what the `run` skill is doing under the hood, phase by phase. You don't 
 
 This step is facilitated by the **`run`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
 
-**How to start:** Say *"run the run skill"* (or *"put my workflow into production"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and Cowork lists it when you type `/`. Then, once the real run has finished, say *log this run* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it. After the workflow is live, saying *log this run* after any run adds a row to the log.
+**How to start:** Say *"run the run skill"* (or *"put my workflow into production"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and the Claude app lists it when you type `/`. Then, once the real run has finished, say *log this run* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it. After the workflow is live, saying *log this run* after any run adds a row to the log.
 
-**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
+**Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 

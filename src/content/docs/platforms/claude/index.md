@@ -1,6 +1,6 @@
 ---
 title: Claude
-description: "Guides for Anthropic's Claude — Claude Chat, Claude Code, Cowork, projects, skills, subagents, and MCP integrations, from first setup to building agents."
+description: "Guides for Anthropic's Claude — Claude, Claude Code, projects, skills, subagents, and MCP integrations, from first setup to building agents."
 ---Everything you need to work with Anthropic's Claude—from initial setup to advanced automation.
 
 :::tip[New to Claude?]

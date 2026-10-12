@@ -276,7 +276,7 @@ def build_pdf():
 
     build_step(story, styles, 7, "Voice to Text (Optional)",
         [
-            "Install <b>Wispr Flow</b> (wisprflow.ai) or enable <b>Claude Desktop Quick Entry</b>.",
+            "Install <b>Wispr Flow</b> (wisprflow.ai) or enable <b>Claude Quick Entry</b>.",
             "Grant microphone permissions when prompted.",
         ],
         [
@@ -339,9 +339,8 @@ def build_pdf():
     build_step(story, styles, 11, "MCP Connections (Optional)",
         [
             "<b>Claude (web):</b> Settings → Connectors → browse directory or add custom MCP server URL",
-            "<b>Claude Desktop:</b> Connectors + local MCP servers "
-            "(see handsonai.info/mcp-server/)",
-            "<b>Claude Cowork:</b> Inherits your connectors and MCP servers automatically",
+            "<b>Claude desktop app:</b> Connectors + local MCP servers, and it works with "
+            "files and folders on your computer (see handsonai.info/mcp-server/)",
             "<b>ChatGPT:</b> Profile → Settings → Connected Apps → connect integrations",
             "<b>Gemini:</b> Settings → Extensions → enable Google Workspace, etc.",
         ],

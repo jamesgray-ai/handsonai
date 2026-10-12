@@ -200,7 +200,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-- You can see the cloned repository's files in your editor (or in the Claude Desktop Code tab)
+- You can see the cloned repository's files in your editor (or in the Claude desktop app's Code tab)
 - In your terminal, you can navigate to the cloned folder (`cd my-repo-name`) and run `git status` — it shows `On branch main`
 
 <details>
@@ -225,7 +225,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm setting up [Wispr Flow / Claude Desktop Quick Entry] on [Mac / Windows] for voice-to-text and running into this issue: [describe what's happening]. What should I check?
+> I'm setting up [Wispr Flow / Claude Quick Entry] on [Mac / Windows] for voice-to-text and running into this issue: [describe what's happening]. What should I check?
 
 </details>
 

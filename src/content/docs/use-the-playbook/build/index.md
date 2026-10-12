@@ -13,7 +13,7 @@ One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skil
 
 | Where | How to install |
 |---|---|
-| **Claude** (Chat and Cowork, paid plans) | **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → **Install** |
+| **Claude** (web and desktop app, paid plans) | **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → **Install** |
 | **ChatGPT** (paid plans) and Codex | In the **ChatGPT desktop app**: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install Hands-on AI** (then works on the web and mobile too) |
 | **Claude Code** | `/plugin marketplace add jamesgray-ai/handsonai-plugins` then `/plugin install handsonai@handsonai` |
 | **Everything else** | [Download the skills as ZIPs](../../ai-workflow-framework/skills/#download-the-skill-zips) |
@@ -93,7 +93,7 @@ It is a **worked example, not a toolkit**. Install it to see how automatic deleg
 
 **Why it is a separate plugin.** It ships hooks, which change how Claude Code behaves in your projects. Installing the Hands-on AI plugin should never silently do that, so this is its own explicit opt-in. Both hooks stay completely inert unless a pipeline run is in progress.
 
-**Claude Code users** also need Anthropic's document skills for the Word output (`/plugin install document-skills@anthropic-agent-skills`). **Cowork users** need nothing — it is already included.
+**Claude Code users** also need Anthropic's document skills for the Word output (`/plugin install document-skills@anthropic-agent-skills`). **Claude app users** need nothing — it is already included.
 
 [→ Read the full walkthrough](../../ai-workflow-framework/examples/autonomous-agent/)
 

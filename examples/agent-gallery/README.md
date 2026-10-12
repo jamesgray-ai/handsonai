@@ -14,11 +14,11 @@ Seven research and writing agents. Use these as templates for building agents th
 - `hbr-publisher.md` — formats finalized articles for web + PDF distribution
 - `ai-news-researcher.md` — daily AI industry news scan across major vendors and outlets
 - `ai-productivity-researcher.md` — gathers HBR-tier case studies of enterprise AI adoption
-- `claude-research-daily.md` — vendor-specific researcher (Anthropic / Claude / Cowork)
+- `claude-research-daily.md` — vendor-specific researcher (Anthropic / Claude / Claude Code)
 - `meeting-prep-researcher.md` — researches attendees and companies before a meeting
 
 ### `skills/`
-Five skills paired with the agents above (or independently useful). Each skill is a self-contained folder you can drop into any Claude Code plugin or upload once in Claude (Customize → Skills) for Chat and Cowork.
+Five skills paired with the agents above (or independently useful). Each skill is a self-contained folder you can drop into any Claude Code plugin or upload once in Claude (Customize → Skills) for the web and desktop app.
 
 - `editing-hbr-articles/` — editorial criteria for HBR-grade business writing
 - `preparing-meeting-briefs/` — structured meeting prep brief format
@@ -27,7 +27,7 @@ Five skills paired with the agents above (or independently useful). Each skill i
 - `syncing-skills-to-github/` — Notion → GitHub sync for an AI skill registry
 
 ### `prompts/`
-Three portable prompts that work in any AI tool (ChatGPT, Gemini, M365 Copilot, Claude.ai). Copy the prompt, fill in the blanks, and run.
+Three portable prompts that work in any AI tool (ChatGPT, Gemini, M365 Copilot, Claude). Copy the prompt, fill in the blanks, and run.
 
 - `buyer-persona-revenue-leader-rachel.md` — example buyer persona for a SaaS revenue leader
 - `linkedin-prospect-research.md` — workflow that takes a buyer persona and identifies 5 LinkedIn prospects
@@ -36,7 +36,7 @@ Three portable prompts that work in any AI tool (ChatGPT, Gemini, M365 Copilot, 
 ## How to Adapt These
 
 1. **Pick the agent or skill closest to your need.** Don't start from scratch — examples are 80% of the way there.
-2. **Replace persona-specific framing.** "HBR senior editor" becomes "the lead editor at our internal blog." "Anthropic / Claude / Cowork" becomes "OpenAI / GPT / your tool."
+2. **Replace persona-specific framing.** "HBR senior editor" becomes "the lead editor at our internal blog." "Anthropic / Claude / Claude Code" becomes "OpenAI / GPT / your tool."
 3. **Update source lists.** Researchers fail when their source list is wrong for your domain. Replace it with sources you actually trust.
 4. **Test on a real example.** Run the adapted agent or skill against a representative input before committing to it.
 

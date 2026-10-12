@@ -9,7 +9,7 @@ run itself. Next Friday looks exactly like this.
 
 ## How to start it
 
-Open a new chat **inside this project** in Cowork and say:
+Open a new chat **in this folder** in the Claude desktop app and say:
 **"Run my weekly status report."** Give it nothing else — it pulls the week itself.
 If someone else takes the Friday report over: they add both skills under
 **Customize → Skills**, join the project, and use the same sentence.

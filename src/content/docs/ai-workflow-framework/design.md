@@ -43,7 +43,7 @@ The Design skill walks you through these layers in order, with a lightweight con
 
 Not every workflow needs the same level of AI infrastructure. A weekly status report is a skill you start by name that follows the same steps every time. A multi-department content pipeline may need an agent that decides its own path as it goes. Choosing the wrong mechanism means either over-engineering (an agent where a skill would do) or under-building (a skill forced to make agent-level decisions).
 
-Design also makes the workflow **portable**. Because the Design Spec follows the agentskills.io standard and uses stable IDs for every component, the same spec can be built on Claude Code, Claude.ai, Cowork, Codex, ChatGPT, or Gemini CLI — with only the platform-specific bits (Packaging, Deployment Plan) adjusted at the handoff.
+Design also makes the workflow **portable**. Because the Design Spec follows the agentskills.io standard and uses stable IDs for every component, the same spec can be built on Claude Code, the Claude app, Codex, ChatGPT, or Gemini CLI — with only the platform-specific bits (Packaging, Deployment Plan) adjusted at the handoff.
 
 :::note[Framework vs. platform — by design]
 This framework guides you through *which decisions to make* and *what building blocks to design* — it is platform-agnostic. The AI model provides the platform-specific expertise: it researches your chosen platform's current tools, SDKs, and best practices at runtime via web search. This separation ensures the framework stays current as platforms evolve.
@@ -57,7 +57,7 @@ Strategic decisions that shape everything downstream. You start here.
 
 ### Platform decision
 
-You name your AI platform — at whatever level of specificity you have. "Claude Code," "ChatGPT," "Google Gemini," "Claude" are all fine. The ecosystem is enough for Design decisions; the specific offering (Claude Code vs. Claude.ai vs. Cowork) is resolved when Build generates artifacts.
+You name your AI platform — at whatever level of specificity you have. "Claude Code," "ChatGPT," "Google Gemini," "Claude" are all fine. The ecosystem is enough for Design decisions; the specific offering (Claude Code vs. the Claude app) is resolved when Build generates artifacts.
 
 ### Other Architecture Decisions extracted from the Workflow Requirements
 
@@ -108,7 +108,7 @@ How the artifacts ship together:
 | Value | When to use |
 |---|---|
 | **Plugin** | Multiple related artifacts shipped together as a marketplace plugin (e.g., handsonai-plugins layout) |
-| **Standalone Skill** | A single skill, uploaded directly (zip for Claude.ai, single SKILL.md for code-mode platforms, single skill for ChatGPT) |
+| **Standalone Skill** | A single skill, uploaded directly (zip for Claude, single SKILL.md for code-mode platforms, single skill for ChatGPT) |
 | **Workspace Agent** | A ChatGPT Workspace Agent bundling orchestration + skills + tools (the current ChatGPT primitive; Custom GPTs are deprecated) |
 | **Loose Files** | Individual files in a project directory, no distribution wrapper |
 
@@ -159,7 +159,7 @@ For goal-driven workflows, this is replaced by a **Capability Domain Mapping** �
 
 When mechanism is `Skill`, the spec includes an **Orchestrator Prompt Outline** — the structural skeleton of the workflow's main prompt. It names which step invokes which skill, where PAUSE points sit (from Human Gates), what the user provides at each gate, and — as its last element — the closing **What I did** run summary the orchestrator gives the user at the end of every run. Build expands the outline into the full orchestrator using Step Details from the Workflow Requirements.
 
-Omitted for `Agent` — orchestration logic lives in the Deployment Plan; on Claude Code and Cowork the primary session orchestrates and the agents are its workers.
+Omitted for `Agent` — orchestration logic lives in the Deployment Plan; on Claude Code and in the Claude app the primary session orchestrates and the agents are its workers.
 
 ### Data Readiness Summary
 
@@ -251,9 +251,9 @@ The three layers above are the conceptual structure of the Design Spec. In pract
 
 This step is facilitated by the **`design`** AI Workflow Framework skill. How you get it depends on your platform — see [Install the Hands-on AI Plugin](../skills/) for installation.
 
-**How to start:** Say *"run the design skill"* (or *"design the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:design`, and Cowork lists it when you type `/`.
+**How to start:** Say *"run the design skill"* (or *"design the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:design`, and the Claude app lists it when you type `/`.
 
-**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
+**Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 
@@ -340,7 +340,7 @@ For best results, run Build via the framework's Build skill — it auto-resolves
 
 ### Cross-platform portability
 
-The Design Spec is portable across platforms because every major platform (Claude Code, Claude.ai, Cowork, Codex, ChatGPT, Gemini CLI) now follows the agentskills.io standard for skills. Three practical workflows:
+The Design Spec is portable across platforms because every major platform (Claude Code, the Claude app, Codex, ChatGPT, Gemini CLI) now follows the agentskills.io standard for skills. Three practical workflows:
 
 1. **Same platform throughout** (most common) — Design on Claude Code → Build on Claude Code. Platform in the spec matches Build's runtime platform.
 2. **Design once, Build elsewhere** — Skill Candidates and Agent Configuration carry over unchanged because they're agentskills.io-compatible. Update Architecture Decisions (Platform, Packaging) and Deployment Plan when moving. Example: design on Claude Code at home, build on Codex at work.

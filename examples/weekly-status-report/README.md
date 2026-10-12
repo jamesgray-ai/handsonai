@@ -1,13 +1,13 @@
 # Weekly Status Report — a finished framework run
 
-This folder is the complete project a program manager named Maya ends up with after taking one small workflow through all seven steps of the AI Workflow Framework in Claude Cowork. It is the folder described, file by file, at https://handsonai.info/ai-workflow-framework/examples/worked-example/ — read that page alongside this folder.
+This folder is the complete project a program manager named Maya ends up with after taking one small workflow through all seven steps of the AI Workflow Framework in the Claude desktop app. It is the folder described, file by file, at https://handsonai.info/ai-workflow-framework/examples/worked-example/ — read that page alongside this folder.
 
 What is here: `registry/` (the AI Registry bundle every framework step reads and writes), `REGISTRY.md` (the dashboard the registry tools generate from it), `context/` (the tone guide and three past reports the workflow draws on), `framework/` (the record Steps 1–7 produced: the opportunity report, requirements and scenario inputs, the design spec, the two staged skills, three rounds of test results, the run log, and the improvement plan), and `outputs/` (the workflow's own output: the five saved status reports).
 
 ## Open it
 
-- **Claude Cowork:** open this folder — any folder works; a project is optional.
-- **Claude Chat:** upload the files to a project.
+- **The Claude desktop app:** open this folder as the working folder — any folder works; a project is optional.
+- **Claude on the web:** upload the files to a project.
 - **Claude Code or Codex:** open a terminal in this folder and start the tool here.
 - **Gemini or Microsoft 365 Copilot:** upload the folder where your tool reads project files.
 

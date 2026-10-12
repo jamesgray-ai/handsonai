@@ -287,7 +287,7 @@ A system where an LLM controls workflow execution to achieve a goal.
 
 | Platform | How It Works |
 |----------|-------------|
-| Claude | Claude Code agents (autonomous tool-using sessions), Cowork agents |
+| Claude | Claude Code agents (autonomous tool-using sessions), plugin sub-agents in the Claude app |
 | OpenAI (ChatGPT) | Workspace Agents with connectors and skills, Assistants API with tools |
 | Gemini | Gemini Enterprise Agent Designer (no-code/visual), Agent Development Kit on Vertex AI, Gemini with extensions |
 | M365 Copilot | Copilot agents with plugins and connectors |
@@ -345,7 +345,7 @@ An open standard for connecting AI assistants to external systems where data liv
 
 | Platform | How It Works |
 |----------|-------------|
-| Claude | MCP servers (local or remote) connected via Claude Code or Claude Desktop |
+| Claude | MCP servers (local or remote) connected via Claude Code or the Claude desktop app |
 | OpenAI (ChatGPT) | Function calling, connectors in Workspace Agents, Assistants API tools |
 | Gemini | Extensions and function calling |
 | M365 Copilot | Connectors, plugins, Power Platform integrations |
@@ -573,8 +573,8 @@ All building blocks across all four platforms in one view:
 | **Context** | File attachments, project knowledge | File uploads, Workspace Agent files | File uploads, Drive, NotebookLM | Microsoft Graph, documents |
 | **Project** | Claude Projects | ChatGPT Projects, Workspace Agents | Gems, Gemini Enterprise agents | Copilot agents |
 | **Memory** | Claude memory, CLAUDE.md | ChatGPT Memory | Conversation memory | Microsoft Graph |
-| **Skill** | Claude Code Skills, Claude.ai skills | Skills in ChatGPT, Workspace Agents, and Codex CLI | Gemini CLI skills | Not yet available |
-| **Agent** | Claude Code agents, Cowork | Workspace Agents, Assistants API | Gemini Enterprise Agent Designer, ADK on Vertex AI | Copilot agents with plugins |
+| **Skill** | Claude Code Skills, Claude skills | Skills in ChatGPT, Workspace Agents, and Codex CLI | Gemini CLI skills | Not yet available |
+| **Agent** | Claude Code agents, Claude plugin sub-agents | Workspace Agents, Assistants API | Gemini Enterprise Agent Designer, ADK on Vertex AI | Copilot agents with plugins |
 | **Harness** | The Claude app, Claude Code | ChatGPT, Codex | Gemini app, Gemini CLI | M365 Copilot, GitHub Copilot |
 | **MCP** | MCP servers | Function calling, connectors in Workspace Agents | Extensions, function calling | Connectors, plugins |
 | **API** | Anthropic REST API (Python, TypeScript SDKs) | OpenAI REST API (Python, TypeScript SDKs) | Gemini API, Vertex AI (Python SDK) | Azure AI Services (.NET, Python, Java) |

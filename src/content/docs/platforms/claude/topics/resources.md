@@ -7,7 +7,7 @@ description: "Recommended documentation, tools, courses, and community links for
 
 | Resource | Description |
 |----------|-------------|
-| [claude.ai](https://claude.ai) | Claude web app |
+| [claude.ai](https://claude.ai) | Claude on the web |
 | [Download Claude](https://claude.com/download) | Desktop (macOS, Windows) and mobile (iOS, Android) apps |
 | [Pricing](https://claude.com/pricing) | Plans: Free, Pro, Team, Enterprise |
 
