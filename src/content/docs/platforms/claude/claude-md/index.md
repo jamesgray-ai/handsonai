@@ -1,19 +1,19 @@
 ---
-title: Claude Cowork
-description: "How to give Claude Cowork the persistent context it needs by writing a CLAUDE.md file — what to include, where it lives, and how Cowork reads it."
+title: CLAUDE.md for Your Folder
+description: "Give Claude the context it needs when it works in a folder on your computer: write a CLAUDE.md file. What to include, where it lives, and how Claude reads it."
 ---
 
-Cowork is what Anthropic calls Claude when you point it at a folder and hand it a goal, instead of driving it turn-by-turn in chat. Cowork reads the files in that folder, works through the steps, and often runs while you're doing something else.
+In the Claude desktop app, you can point Claude at a folder on your computer and hand it a goal instead of driving it turn by turn. Claude reads the files in that folder, works through the steps, and often runs while you're doing something else. (This used to be a separate Cowork tab; it is now part of Claude.)
 
-The catch: every session starts cold. Whatever Claude needs to know about you, your folder, and how you work has to live in a file Cowork can read. That file is `CLAUDE.md`.
+The catch: every session starts cold. Whatever Claude needs to know about you, your folder, and how you work has to live in a file Claude can read. That file is `CLAUDE.md`.
 
-## Why CLAUDE.md matters in Cowork
+## Why CLAUDE.md matters
 
-In chat, you can correct Claude in real time. In Cowork, you often aren't watching. Anything you'd otherwise re-type — your role, your working style, how the folder is organized, the rules Claude should never break — belongs in the folder's `CLAUDE.md`. If it's not in the file, it's not in the room.
+When you're chatting, you can correct Claude in real time. When Claude is working through a folder on its own, you often aren't watching. Anything you'd otherwise re-type — your role, your working style, how the folder is organized, the rules Claude should never break — belongs in the folder's `CLAUDE.md`. If it's not in the file, it's not in the room.
 
 ## The one thing to know about CLAUDE.md
 
-Cowork looks for a `CLAUDE.md` file inside the folder you've pointed it at. That file is plain markdown. You create it, you edit it, you keep it current. There's no special syntax, no separate config screen, no slash command to manage it — it's just a markdown file in the folder, loaded at the start of every Cowork session there.
+Claude looks for a `CLAUDE.md` file inside the folder you've pointed it at. That file is plain markdown. You create it, you edit it, you keep it current. There's no special syntax, no separate config screen, no slash command to manage it — it's just a markdown file in the folder, loaded at the start of every session in that folder.
 
 ## Best practices
 
@@ -26,7 +26,7 @@ Cowork looks for a `CLAUDE.md` file inside the folder you've pointed it at. That
 
 ## Example CLAUDE.md
 
-Here's a complete, realistic `CLAUDE.md` for a consultant's main Cowork folder. Copy it, edit it for your own work, and drop it into the folder you point Cowork at.
+Here's a complete, realistic `CLAUDE.md` for a consultant's main working folder. Copy it, edit it for your own work, and drop it into the folder you point Claude at.
 
 ````markdown
 # Working with Me
@@ -76,10 +76,10 @@ Open the file and edit it whenever you notice yourself correcting Claude on the 
 
 ## A quick mental model
 
-`CLAUDE.md` is the briefing document you hand Cowork at the start of every shift. Keep it focused on the slow-changing facts: who you are, how you work, where things live, what's off-limits. Update it when those facts change. Everything else is conversation.
+`CLAUDE.md` is the briefing document you hand Claude at the start of every shift. Keep it focused on the slow-changing facts: who you are, how you work, where things live, what's off-limits. Update it when those facts change. Everything else is conversation.
 
 ## Related
 
-- [Getting Started with Claude](/platforms/claude/getting-started/) — set up your Claude account and apps before using Cowork.
-- [Claude Projects Setup Guide](/platforms/claude/projects/claude-projects-setup/) — the chat-side Projects feature, for contrast with how Cowork uses folders.
+- [Getting Started with Claude](/platforms/claude/getting-started/) — set up your Claude account and the desktop app first.
+- [Claude Projects Setup Guide](/platforms/claude/projects/claude-projects-setup/) — the chat-side Projects feature, for contrast with how Claude uses a folder on your computer.
 - [Skills](/agentic-building-blocks/skills/) — when a procedure outgrows `CLAUDE.md` and should become a reusable skill.

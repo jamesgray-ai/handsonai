@@ -24,7 +24,7 @@ Full walkthrough: **https://handsonai.info/ai-workflow-framework/examples/autono
 
 ## Prerequisites
 
-**Cowork:** nothing. The document skill is already included.
+**Claude:** nothing. The document skill is already included.
 
 **Claude Code:** you need Anthropic's document skills plugin, and Node.js.
 

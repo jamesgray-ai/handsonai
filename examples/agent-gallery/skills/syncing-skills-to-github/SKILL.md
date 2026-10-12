@@ -517,12 +517,12 @@ development  → Testing/in-progress skills
 
 ### With exporting-skills-from-claude
 This skill is **Part 2** of the workflow:
-1. Part 1: Export cloud → local (Claude Desktop)
+1. Part 1: Export cloud → local (Claude desktop app)
 2. Part 2: Local → GitHub (Claude Code) ← **This skill**
 
 **Complete workflow:**
 ```
-Claude.ai (/mnt/skills/user/)
+Claude on the web (/mnt/skills/user/)
     ↓ [Export]
 Local (~/.claude/skills/)
     ↓ [Sync] ← This skill
@@ -567,16 +567,16 @@ Skills synced to GitHub can be:
 
 ### Example 1: Daily Workflow - Create and Sync New Skill
 
-**Morning (Claude.ai):**
+**Morning (Claude on the web):**
 ```
 User: Create a skill for aggregating HubSpot metrics for weekly reviews
 
-Claude: [Creates skill in Claude.ai]
+Claude: [Creates skill in Claude]
 [Skill saved to /mnt/skills/user/hubspot-metrics-aggregation/]
 [Registered in Notion AI Building Blocks]
 ```
 
-**End of Day (Claude Desktop):**
+**End of Day (Claude desktop app):**
 ```
 User: Export the hubspot-metrics-aggregation skill
 
@@ -624,7 +624,7 @@ Updated: 3 skills
 
 ### Example 3: Fix Broken Skill
 
-**During work (Claude.ai):**
+**During work (Claude on the web):**
 ```
 User: The importing-maven-students skill is broken, fix it
 
@@ -632,7 +632,7 @@ Claude: [Fixes skill]
 [Tests fix]
 ```
 
-**Immediately after (Claude Desktop):**
+**Immediately after (Claude desktop app):**
 ```
 User: Export importing-maven-students
 
@@ -680,7 +680,7 @@ Claude: [Detects changes in importing-maven-students]
 
 ## Notes
 - This is **Part 2** of two-skill system
-- **Part 1** (exporting-skills-from-claude) runs in Claude Desktop
+- **Part 1** (exporting-skills-from-claude) runs in the Claude desktop app
 - **Part 2** (this skill) runs in Claude Code
 - Git credentials come from your environment
 - Works with both SSH and HTTPS git remotes

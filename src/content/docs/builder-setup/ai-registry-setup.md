@@ -64,8 +64,8 @@ The interview your assistant runs, the files it writes, and the dashboards it ge
 
 | Your AI tool says… | Typical tools | Follow |
 |---|---|---|
-| **Yes** | The Claude desktop app (Cowork has merged into it), Claude Code, ChatGPT for desktop (ChatGPT Work or Codex), Claude Code on the web or Codex with a GitHub repository, Cursor, Codex CLI, Gemini CLI | [Your assistant saves the files](#your-assistant-saves-the-files) |
-| **No** | claude.ai, ChatGPT on the web, Google Gemini, Microsoft 365 Copilot | [You save the files](#you-save-the-files) |
+| **Yes** | The Claude desktop app, Claude Code, ChatGPT for desktop (ChatGPT Work or Codex), Claude Code on the web or Codex with a GitHub repository, Cursor, Codex CLI, Gemini CLI | [Your assistant saves the files](#your-assistant-saves-the-files) |
+| **No** | Claude on the web, ChatGPT on the web, Google Gemini, Microsoft 365 Copilot | [You save the files](#you-save-the-files) |
 
 A downloadable file counts as "no" — if your tool offers you a file to download, it can't put it in your folder for you.
 
@@ -78,7 +78,7 @@ About 25 minutes, all of it the interview.
    - A folder in your cloud drive, **as long as it also appears on your computer** — that means the Google Drive or OneDrive desktop app is installed and syncing. Your AI tool works on the copy on your computer; the app keeps the cloud copy current.
 2. Open that folder in your AI tool:
    - **Claude Code:** open Terminal, type `cd ` (with a space after it), drag the folder from Finder or File Explorer into the Terminal window, press Enter, then type `claude` and press Enter. New to Terminal? See [Terminal Basics](../terminal-basics/).
-   - **The Claude desktop app:** choose the folder as your working folder — a project or any folder on your computer. (Still see a Cowork tab? Cowork is merging into the Claude app; it's the same thing.)
+   - **The Claude desktop app:** choose the folder as your working folder — a project or any folder on your computer. (Still see a Cowork tab? Cowork is merging into Claude; it's the same thing.)
    - **ChatGPT for desktop:** open the folder in **ChatGPT Work** or **Codex**. ChatGPT Work opens local folders only where your plan and workspace admin allow it; if yours doesn't, use Codex.
    - **Claude Code on the web or Codex in a browser:** work in a GitHub repository — the route when you can't save files on your computer.
    - **Cursor / Codex CLI / Gemini CLI:** open the folder as your project.
@@ -246,7 +246,7 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 Your dashboard is for you; you never need to publish it. If someone else should see it:
 
-- **On Claude** (claude.ai, the desktop app, or Claude Code), ask your assistant to *"save my dashboard as an Artifact"*. Then use the Artifact's share option to get a link, and send that link. An Artifact is a snapshot, so ask for a fresh one after your registry changes.
+- **On Claude** (the web, the desktop app, or Claude Code), ask your assistant to *"save my dashboard as an Artifact"*. Then use the Artifact's share option to get a link, and send that link. An Artifact is a snapshot, so ask for a fresh one after your registry changes.
 - **Anywhere else**, send them `registry-dashboard.html`. It's a single file that opens in any web browser.
 
 ## Platform Notes
@@ -259,14 +259,14 @@ The interview, the node shapes, and the dashboards are the same on every AI tool
 | Claude desktop app | Hands-on AI plugin | any folder on your computer, chosen as your working folder | directly |
 | ChatGPT for desktop (ChatGPT Work or Codex) | Hands-on AI plugin, or skill folders in `~/.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
 | Cursor, Codex CLI, Gemini CLI | skill folders in `.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
-| claude.ai · ChatGPT web · Google Gemini · M365 Copilot | Hands-on AI plugin (Claude, ChatGPT) or uploaded skill ZIPs | a folder on your computer, a synced cloud-drive folder, or a GitHub repository | you save each file — [You save the files](#you-save-the-files) |
+| Claude on the web · ChatGPT web · Google Gemini · M365 Copilot | Hands-on AI plugin (Claude, ChatGPT) or uploaded skill ZIPs | a folder on your computer, a synced cloud-drive folder, or a GitHub repository | you save each file — [You save the files](#you-save-the-files) |
 
 A few tool-specific details:
 
 - **Claude Code:** `/plugin list` shows `handsonai` once the plugin is installed, and `/handsonai:scaffolding-registry` starts the interview directly if you'd rather use the slash command.
 - **The Claude desktop app:** choose your registry's folder as your working folder — a project or any local folder — *before* saying "set up my AI registry"; the skill can only write inside the folder you're working in.
 - **ChatGPT for desktop:** the plugin's skills work in ChatGPT Work and Codex. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Install the Hands-on AI Plugin — Codex](../../ai-workflow-framework/skills/#openai-codex).
-- **Browser tools (claude.ai, ChatGPT web, Gemini, Copilot):** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
+- **Browser tools (Claude on the web, ChatGPT web, Gemini, Copilot):** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
 
 If a button or label on your screen doesn't match these steps, paste the step you're on into your AI assistant and ask it to walk you through it on your version. Still stuck? Bring it to a session.
 

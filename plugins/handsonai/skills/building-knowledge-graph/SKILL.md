@@ -31,7 +31,7 @@ This file is the map. `references/interview-guide.md` is the script for Phases 0
 
 ```
 <project folder>/                ← the user opens their AI here
-├── .claude/skills/              ← Claude Code and Cowork (ChatGPT app: .agents/skills/)
+├── .claude/skills/              ← Claude Code and the Claude desktop app (ChatGPT app: .agents/skills/)
 │   ├── ingest/SKILL.md             fold a document into the pages it affects
 │   └── lint/SKILL.md               sweep every page against SCHEMA.md
 ├── raw/                         ← source documents, read but never edited — OUTSIDE the bundle
@@ -49,11 +49,11 @@ This file is the map. `references/interview-guide.md` is the script for Phases 0
 
 ## Platform and mode
 
-**Write mode only.** This skill needs a tool that opens a folder on the user's machine and writes files into it: Claude Code, Cowork, the ChatGPT desktop app's Codex view, and also Cursor, Codex CLI, or Gemini CLI. If you cannot create files in the user's folder (claude.ai or ChatGPT in the browser, Gemini, Microsoft 365 Copilot), say so in two sentences in Phase 0, name those three desktop tools, and stop. There is no print-and-save fallback: a knowledge graph is dozens of files, and hand-saving printed files is not a realistic path.
+**Write mode only.** This skill needs a tool that opens a folder on the user's machine and writes files into it: Claude Code, the Claude desktop app, the ChatGPT desktop app's Codex view, and also Cursor, Codex CLI, or Gemini CLI. If you cannot create files in the user's folder (claude.ai or ChatGPT in the browser, Gemini, Microsoft 365 Copilot), say so in two sentences in Phase 0, name those three desktop tools, and stop. There is no print-and-save fallback: a knowledge graph is dozens of files, and hand-saving printed files is not a realistic path.
 
 Resolve platform names yourself; never ask the user:
 
-| | Claude Code / Cowork | Codex (ChatGPT app) and Codex CLI | Cursor / Gemini CLI |
+| | Claude Code / Claude desktop app | Codex (ChatGPT app) and Codex CLI | Cursor / Gemini CLI |
 |---|---|---|---|
 | Standing-rules file, at the project root | `CLAUDE.md` | `AGENTS.md` | `AGENTS.md` (both tools read it; Gemini CLI also reads `GEMINI.md`, but `AGENTS.md` is the portable choice) |
 | Skills folder, at the project root | `.claude/skills/` | `.agents/skills/` | `.agents/skills/` |
@@ -139,7 +139,7 @@ Follow `references/interview-guide.md` § Phase 5.
 
 Not numbered phases. Guide the user through each step and state what "worked" looks like:
 
-1. **On Cowork only:** ask the user to type `/ingest` and confirm the skill fires. If it does not, walk them through adding `ingest/SKILL.md` and `lint/SKILL.md` as account skills in the Claude app (Customize → Skills), then continue.
+1. **On the Claude desktop app only:** ask the user to type `/ingest` and confirm the skill fires. If it does not, walk them through adding `ingest/SKILL.md` and `lint/SKILL.md` as account skills in Claude (Customize → Skills), then continue.
 2. **Ingest** one document from `raw/` (or one the user pastes) by running the `ingest` skill you wrote, not by working from this file, so the user sees the thing they will use from now on. Worked when: at least one *already existing* page changed and carries a footnoted claim and a `sources` entry.
 3. **Query**: ask the user for one question that follows a relationship ("Which playbooks have we used with Acme?"). Answer from the graph only, reading `index.md` first, citing every page you used. Worked when: the answer names two or more pages and opening one confirms the claim. If the answer is worth keeping, offer to file it as a **new** page in `notes/`.
 4. **Lint** by running the `lint` skill you wrote. Worked when: the report names specific files.

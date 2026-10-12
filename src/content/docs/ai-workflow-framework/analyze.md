@@ -42,9 +42,9 @@ Most people discover 5–15 opportunities across the four value levers. Pick up 
 
 This step is facilitated by the **`analyze`** AI Workflow Framework skill. How you get it depends on your platform — see [Install the Hands-on AI Plugin](../skills/) for installation instructions.
 
-**How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:analyze`, and Cowork lists it when you type `/`.
+**How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:analyze`, and Claude lists it when you type `/`.
 
-**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
+**Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 

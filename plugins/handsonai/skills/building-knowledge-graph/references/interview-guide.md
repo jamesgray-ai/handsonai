@@ -10,9 +10,9 @@ Two words you will use constantly, and how to explain them if asked: a **type** 
 
 **Say first:** "I'm working in `<full path>`. Is this the project folder for your knowledge graph? It's the folder that will hold your rules file, your skills, a `raw/` folder for documents, and the `knowledge/` folder where the graph itself goes."
 
-**Then state the platform:** "You're on <Claude Code | Cowork | the ChatGPT app's Codex view | Cursor | Gemini CLI | …>, so your rules file will be `<CLAUDE.md | AGENTS.md>` and your skills will live in `<.claude/skills/ | .agents/skills/>`." On Cursor or Gemini CLI, the rules file is `AGENTS.md` (both tools read it; Gemini CLI also reads `GEMINI.md`, but `AGENTS.md` is the portable choice) and the skills folder is `.agents/skills/`.
+**Then state the platform:** "You're on <Claude Code | the Claude desktop app | the ChatGPT app's Codex view | Cursor | Gemini CLI | …>, so your rules file will be `<CLAUDE.md | AGENTS.md>` and your skills will live in `<.claude/skills/ | .agents/skills/>`." On Cursor or Gemini CLI, the rules file is `AGENTS.md` (both tools read it; Gemini CLI also reads `GEMINI.md`, but `AGENTS.md` is the portable choice) and the skills folder is `.agents/skills/`.
 
-**Mode check (do not ask, detect):** can you create a file in this folder? If not: "This build needs a tool that can write files on your computer: Claude Code, Cowork, or the ChatGPT desktop app's Codex view. A browser chat window can't do it. Open your folder in one of those and say *build my knowledge graph* again." Then stop.
+**Mode check (do not ask, detect):** can you create a file in this folder? If not: "This build needs a tool that can write files on your computer: Claude Code, the Claude desktop app, or the ChatGPT desktop app's Codex view. A browser chat window can't do it. Open your folder in one of those and say *build my knowledge graph* again." Then stop.
 
 **Report what is already here**, one line each, only for things that exist:
 - `registry/`: "You have an AI registry here. It stays untouched; it records what you build with AI. This build models the work itself and goes in `knowledge/` beside it."
@@ -183,7 +183,7 @@ Follow `references/build-spec.md` exactly. Fetch the latest OKF spec first. Repo
 
 Follow SKILL.md § Close. Lines to use:
 
-- Cowork check: "Type `/ingest` and tell me whether it offers to run. If nothing happens, we'll add the two skills to your Claude account so they load."
+- Claude desktop app check: "Type `/ingest` and tell me whether it offers to run. If nothing happens, we'll add the two skills to your Claude account so they load."
 - Ingest: "Pick one document in `raw/`, or paste one, and say *ingest it*."
 - Query: "Ask me something that crosses a connection, like *which playbooks have we used with Acme?* I'll answer only from your pages and tell you which ones I read."
 - File the answer: "Want me to keep that answer as a Note so it's there next time?"

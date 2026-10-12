@@ -3,7 +3,7 @@ workflow: weekly-status-report
 design_spec: framework/weekly-status-report/design-spec.md
 requirements: framework/weekly-status-report/requirements.md
 date: 2026-06-05
-environment: "Cowork, HubSpot connector live"
+environment: "Claude, HubSpot connector live"
 round_status: complete
 readiness: not-ready
 criteria_total: 39
@@ -107,7 +107,7 @@ None — all three scenarios ran live.
 
 ## Environment
 
-Cowork, HubSpot connector live (read scope confirmed; the runs used pasted inputs). Same environment for all three scenarios.
+Claude, HubSpot connector live (read scope confirmed; the runs used pasted inputs). Same environment for all three scenarios.
 
 ## Issues identified
 

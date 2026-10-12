@@ -39,7 +39,7 @@ publishing it. In that case:**
    bash "$RENDER" <workspace>/04-article.md <workspace>/04-article.docx
    ```
 
-   It handles the environment difference for you. In Cowork the `docx` package is already
+   It handles the environment difference for you. In Claude on the web or desktop the `docx` package is already
    present; on Claude Code it installs it once into the pipeline's own directory, never
    into the user's project. It also verifies the result is a genuine Word file before
    reporting success — if it prints `OK:`, the file is real. It reads the frontmatter for

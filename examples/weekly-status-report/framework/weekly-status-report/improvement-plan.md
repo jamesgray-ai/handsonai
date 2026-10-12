@@ -24,7 +24,7 @@ Edits trend: per scenario unchanged from baseline (E1 none, E2 minor, E3 none); 
 run log, edits appear on 3 of 5 rows, two of them the same hand-added section — the
 earliest drift signal, and the one this review acts on.
 
-Environment like-for-like: same (Cowork, HubSpot connector live).
+Environment like-for-like: same (Claude, HubSpot connector live).
 
 ## Issues identified
 

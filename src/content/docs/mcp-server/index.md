@@ -24,9 +24,9 @@ The MCP server gives your AI assistant access to:
 
 ## Connect from Claude
 
-Claude supports remote MCP servers as custom connectors across all its products. Add the connector once, and it's available in Claude chat, Claude Desktop, and Cowork.
+Claude supports remote MCP servers as custom connectors across all its products. Add the connector once, and it's available on the web and in the desktop app.
 
-### Claude (claude.ai) and Claude Desktop
+### Claude (web and desktop app)
 
 1. Go to **Settings** → **Connectors**
 2. Scroll to the bottom and click **Add custom connector**
@@ -44,9 +44,9 @@ You can manage permissions for each tool individually in **Settings** → **Conn
 :::tip[Works on Pro, Max, Team, and Enterprise plans]
 Custom connectors are available on all paid Claude plans. Team and Enterprise owners configure connectors in **Organization settings** → **Connectors**, then members enable them individually in their personal settings.
 :::
-### Claude Cowork
+### Working in a folder on your desktop
 
-Once you've added the connector using the steps above, it's automatically available in Cowork. When Cowork runs a task, it can use the playbook connector to search for relevant content, look up setup guides, or reference building block definitions.
+Once you've added the connector using the steps above, it's automatically available when Claude works in a folder on your computer. When Claude runs a task there, it can use the playbook connector to search for relevant content, look up setup guides, or reference building block definitions.
 
 ### Claude Code
 

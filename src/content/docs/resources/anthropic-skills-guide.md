@@ -13,7 +13,7 @@ Skills are one of the most powerful ways to customize Claude. Instead of re-expl
 - **Progressive disclosure keeps skills efficient.** Skills use a three-level system: the YAML frontmatter (always loaded), the SKILL.md body (loaded when relevant), and linked files (loaded on demand). This minimizes token usage while maintaining deep expertise.
 - **Two paths through the guide.** Standalone skill builders focus on fundamentals, planning, and design. MCP builders also learn how skills layer on top of MCP server connections to add workflows and best practices to raw tool access.
 - **Testing is iterative, not one-shot.** The guide recommends testing skills across diverse scenarios, edge cases, and different conversation contexts. Expect 15–30 minutes to build and test your first working skill.
-- **Distribution scales from personal to organizational.** Skills work identically across Claude.ai, Claude Code, and the API. Share via file sharing, Git repositories, or plugin marketplaces.
+- **Distribution scales from personal to organizational.** Skills work identically across Claude, Claude Code, and the API. Share via file sharing, Git repositories, or plugin marketplaces.
 - **Patterns cover common use cases.** The guide includes patterns for content generation, code review, data analysis, research workflows, and multi-step processes — each with structural guidance and troubleshooting tips.
 
 ## How the Playbook Uses This

@@ -38,25 +38,25 @@ Two chats are involved in every round, and each one needs different things in re
 **The opening chat needs your workspace.** That's the folder holding everything the framework has produced so far: `registry/` (your Workflow node), `framework/[workflow-name]/` (requirements, design spec, the inputs), and the built skill. The `test` skill reads all of those and writes the results file next to them.
 
 - **Claude Code, Codex, Gemini CLI:** open the session *in that folder*. Every chat opened there shares the same files.
-- **Cowork:** connect that folder as the working folder (a Project is not required), then start the chat.
-- **Claude (Chat), ChatGPT:** there is no folder on your computer the chat can reach. Give the opening chat your workspace the way you did in earlier steps — connect your registry repo through the GitHub connector, or upload the bundle folder — and when the round ends, **save `test-results.md` back into your workspace yourself**. The skill will remind you.
+- **The Claude desktop app:** connect that folder as the working folder (a Project is not required), then start the chat.
+- **Claude on the web, ChatGPT:** there is no folder on your computer the chat can reach. Give the opening chat your workspace the way you did in earlier steps — connect your registry repo through the GitHub connector, or upload the bundle folder — and when the round ends, **save `test-results.md` back into your workspace yourself**. The skill will remind you.
 
 **The run chat needs the installed skill and the workflow's context files, and nothing else.** It must *not* have seen your Requirements, Design Spec, or results before the run starts; that's what keeps the test honest.
 
 - **Shared-folder platforms:** open the new chat in the same workspace folder. The built skill is installed there, and that's how the run chat can also reach the results file to grade into. Just don't open or discuss the requirements or design in that chat before you run.
-- **Claude (Chat), ChatGPT:** open the new chat inside the Project that holds the workflow's context files (see the caution below about what that Project may contain).
+- **Claude on the web, ChatGPT:** open the new chat inside the Project that holds the workflow's context files (see the caution below about what that Project may contain).
 
 **Then find your path.** The one thing that changes how you grade is whether a new chat on your platform can see the files your opening chat wrote. The walkthrough below uses these two labels:
 
 | Your path | Platforms | How you grade each run |
 |---|---|---|
-| **Shared folder** | Claude Code, Cowork, Codex, Gemini CLI | Say *test this* in the run chat. The skill grades right there. |
-| **Separate chats** | Claude (Chat), ChatGPT, Gemini Spark, Gemini Enterprise, M365 Copilot | Copy one message from the run chat into the opening chat, then say *test this* there. Step 10 shows exactly how. |
+| **Shared folder** | Claude Code, the Claude desktop app, Codex, Gemini CLI | Say *test this* in the run chat. The skill grades right there. |
+| **Separate chats** | Claude on the web, ChatGPT, Gemini Spark, Gemini Enterprise, M365 Copilot | Copy one message from the run chat into the opening chat, then say *test this* there. Step 10 shows exactly how. |
 
 Both paths produce the same report card in the same results file. The skill works out which path applies by itself; you never have to tell it.
 
 :::caution[If your workflow lives in a Project]
-On Claude (Chat) and ChatGPT, your workflow's context files live in a Project, and you open each run chat inside that Project. Keep your **Requirements, Design Spec, and test results out of that Project's knowledge**. If they're in there, every new chat has already seen your design, and the skill will refuse to grade the run as a fair test.
+On Claude on the web and ChatGPT, your workflow's context files live in a Project, and you open each run chat inside that Project. Keep your **Requirements, Design Spec, and test results out of that Project's knowledge**. If they're in there, every new chat has already seen your design, and the skill will refuse to grade the run as a fair test.
 :::
 
 ## Do This
@@ -78,9 +78,9 @@ On Claude (Chat) and ChatGPT, your workflow's context files live in a Project, a
 
 ### Part 3 — Grade that run
 
-10. **Shared folder path** (Claude Code, Cowork, Codex, Gemini CLI): in the run chat, say **"test this"**. Skip to step 11.
+10. **Shared folder path** (Claude Code, the Claude desktop app, Codex, Gemini CLI): in the run chat, say **"test this"**. Skip to step 11.
 
-    **Separate chats path** (Claude Chat, ChatGPT, Gemini, Copilot): the opening chat can't see the run chat, so you carry one message across. Do this:
+    **Separate chats path** (Claude on the web, ChatGPT, Gemini, Copilot): the opening chat can't see the run chat, so you carry one message across. Do this:
 
     1. In the run chat, say: **"Put your final output and your What I did summary together in one message."**
     2. Click the **copy** icon on that message. (The "What I did" summary already records every place the workflow paused and what you decided, so this one message is all the grader needs.)
@@ -178,9 +178,9 @@ This is what the `test` skill is doing under the hood, phase by phase. You don't
 
 This step is facilitated by the **`test`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
 
-**How to start:** Say *"run the test skill"* — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:test`, and Cowork lists it when you type `/`. Then, after each run, say *test this* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it.
+**How to start:** Say *"run the test skill"* — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:test`, and Claude lists it when you type `/`. Then, after each run, say *test this* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it.
 
-**Platform compatibility:** Claude (Chat, Cowork, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
+**Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
 **Start with this prompt:**
 

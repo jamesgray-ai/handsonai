@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
+  "version": "1.4",
   "platforms": {
     "claude-code": {
       "mode": "code",
@@ -9,41 +9,37 @@
       "memory": "https://code.claude.com/docs/en/memory",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "mcp-build": "https://modelcontextprotocol.io/quickstart",
-      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume auto memory exists in Cowork (Cowork has its own scheduled tasks — see its entry).",
+      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume auto memory exists in Claude on the web or desktop (Claude has its own scheduled tasks — see the `claude` entry).",
       "capabilities": {
         "skill_install": "Skills are folders under .claude/skills/<skill-name>/SKILL.md in the project folder (or ~/.claude/skills/ for personal ones); Claude Code loads them when a chat is opened in that folder. To start one in a new chat, open a new Claude Code session in the same folder and type /<skill-name> (or ask for it by name). Nothing to upload or install. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
         "context_location": "The project folder is the workspace: every chat opened in that folder reads and writes the same files (registry/, framework/, outputs/, .claude/), so a results file written in one chat is visible in the next. Files a workflow needs go in the project folder and are referenced by relative path. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
         "unattended_runs": "Three options. Cloud routines run on a schedule without the machine on, from a fresh clone of the repo with connectors configured per task — no access to local files, so context must be in the repo or a connected source. Desktop scheduled tasks run on the user's machine (must be on) and can reach local files and configured MCP servers. In-session /loop tasks run only while a session is open and expire after seven days — not for production. Verified 2026-10-08: https://code.claude.com/docs/en/scheduled-tasks"
       }
     },
-    "cowork": {
+    "claude": {
       "mode": "code",
       "language": "markdown",
+      "aliases": [
+        "Claude",
+        "Claude app",
+        "Claude.ai",
+        "claude-ai",
+        "Claude Chat",
+        "Claude Desktop",
+        "Cowork",
+        "Claude Cowork"
+      ],
       "agent": "https://claude.com/docs/cowork/3p/extensions",
       "skill": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
       "plugin": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
-      "notes": "Skills and sub-agents use Claude Code markdown formats; artifacts are real files staged in the connected project folder. Skill/agent directories are system-managed: a standalone skill installs via the Save skill flow (zip package), and plugins install from Customize > Plugins (marketplace from a GitHub repo). Plugin-bundled skills work in Claude Chat (web and Desktop) and Cowork alike; hooks and custom sub-agents run ONLY in Cowork and only when packaged inside an installed plugin — a workflow with worker agents must package as Plugin. No verified user-facing memory feature — do not assume Claude Code auto-memory exists here. Verified 2026-09-22: https://support.claude.com/en/articles/12512180-use-skills-in-claude, https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork, https://claude.com/blog/web-search, https://claude.com/docs/cowork/3p/extensions, https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects; the \"/\" skill list on Cowork is owner-verified, not from the article. Operational note (inferred, not from the article): authorize every connector the workflow touches in the account that runs a scheduled task before its first run.",
-      "capabilities": {
-        "skill_install": "A standalone skill installs from a zip via the Save skill flow; a plugin (required whenever the workflow has worker agents) installs from Customize > Plugins. Skill and agent directories are system-managed — stage files in the connected project folder and produce one installable package. Start it in a new chat by asking for the skill by name (Claude applies a matching skill automatically); with the plugin installed, typing `/` lists the available skills.",
-        "context_location": "Context files live in the connected project folder; the skill references them by relative path. Every chat opened with that folder connected reads and writes the same files (registry/, framework/, outputs/), so a file written in one chat is visible in the next. Supporting reference files can also ship inside the skill package.",
-        "custom_agents": "Yes — as worker sub-agents packaged in an installed plugin (agents/ directory, Claude Code markdown format). The primary Cowork session is the orchestrator and dispatches them; do not design a separate orchestrator agent.",
-        "unattended_runs": "Scheduled tasks run remotely on their chosen cadence even when the desktop app is closed or the computer is asleep, using the connectors, skills, and plugins set up in the account. A task that needs local files or apps runs only locally — so a workflow whose context lives in the connected project folder (see context_location) cannot run on the remote schedule unless that context ships inside the skill package or a connected cloud source.",
-        "web_search": "Available, standard on all plans including free."
-      }
-    },
-    "claude-ai": {
-      "mode": "guided",
-      "skill": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
       "memory": "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
-      "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
-      "notes": "Claude.ai web/Desktop chat. Guided mode, but skills are still markdown files packaged as a zip and uploaded via Customize > Skills (uploaded skills appear in Chat and Cowork alike), and plugins install from Customize > Plugins on paid plans — the skill's source files and zip package are what the platform's creator produces and the user uploads — not GUI instruction documents. No standalone sub-agent support (no agent key; plugin sub-agents run only in Cowork): worker agent specs ship inside the skill's agents/ folder and are dispatched by reading that file. Verified 2026-09-22: https://support.claude.com/en/articles/12512180-use-skills-in-claude, https://support.claude.com/en/articles/13837440-use-plugins-in-claude, https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork, https://claude.com/blog/web-search.",
-      "plugin": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
+      "notes": "Claude — on the web, on desktop, and on mobile. Chat and Cowork are one app now: older Design Specs that say Cowork, Claude.ai, or Claude Chat mean this entry, and are built the same way. Claude creates skills itself and saves them to the user's account; skills and sub-agents use Claude Code markdown formats. Skill and agent directories are system-managed: a standalone skill is saved through the Save skill flow (zip package), and plugins install from Customize > Plugins (marketplace from a GitHub repo). Plugin skills, hooks, and sub-agents run on the web and on desktop; custom sub-agents run only when packaged inside an installed plugin, so a workflow with worker agents must package as Plugin. The one split: only the desktop app works on files and folders on the user's computer. No verified user-facing memory feature like Claude Code auto-memory — do not assume it exists here. Sources (verified 2026-09-22; Chat/Cowork merge, web sub-agents, and web scheduling owner-verified 2026-10-11): https://support.claude.com/en/articles/12512180-use-skills-in-claude, https://support.claude.com/en/articles/13837440-use-plugins-in-claude, https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork, https://claude.com/blog/web-search, https://claude.com/docs/cowork/3p/extensions, https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects. Operational note (inferred, not from the articles): authorize every connector the workflow touches in the account that runs a scheduled task before its first run.",
       "capabilities": {
-        "skill_install": "Upload the skill zip under Customize > Skills (appears in Chat and Cowork); plugins install from Customize > Plugins on paid plans. Skills are markdown files packaged as a zip — the platform's creator produces the source files and the zip, and you upload it; GUI steps cover only the upload. Start it in a new chat by asking for the skill by name — Claude applies a matching skill automatically.",
-        "context_location": "A Claude Project's knowledge holds the workflow's context files; start a fresh chat inside the project to run the workflow with them. Small reference material ships inside the skill package.",
-        "custom_agents": "No standalone agent registration. Agent behaviour is written into the skill: an agents/<name>.md file inside the skill package whose body the orchestrator skill dispatches by reading that file.",
-        "unattended_runs": "No scheduling feature is documented for Claude.ai chat or Projects; Anthropic's scheduled tasks live in Cowork and Claude Code. A workflow that must run unattended is designed as Augmented here, or built on Cowork or Claude Code.",
+        "skill_install": "Claude creates the skill and saves it to the user's account (the Save skill flow, a zip package); a plugin — required whenever the workflow has worker agents — installs from Customize > Plugins. Skill and agent directories are system-managed: on the desktop app, stage the source files in the working folder; on the web, Claude produces the package in the chat. Start it in a new chat by asking for the skill by name (Claude applies a matching skill automatically); with the plugin installed, typing `/` lists the available skills.",
+        "context_location": "On the desktop app, context files live in the working folder Claude is pointed at, and the skill references them by relative path; every chat opened on that folder reads and writes the same files (registry/, framework/, outputs/), so a file written in one chat is visible in the next. On the web, a Claude Project's knowledge holds the context files; start a fresh chat inside the project to run the workflow with them. Small reference material can ship inside the skill package on either.",
+        "custom_agents": "Yes — as worker sub-agents packaged in an installed plugin (agents/ directory, Claude Code markdown format), on the web and on desktop. The main Claude session is the orchestrator and dispatches them; do not design a separate orchestrator agent.",
+        "unattended_runs": "Scheduled tasks run on the web and on desktop, on their chosen cadence, even when the desktop app is closed or the computer is asleep, using the connectors, skills, and plugins set up in the account. A task that needs local files or apps runs only on the desktop app while it is open — so a workflow whose context lives in a local working folder cannot run on a remote schedule unless that context ships inside the skill package or a connected cloud source.",
         "web_search": "Available, standard on all plans including free."
       }
     },
@@ -142,7 +138,7 @@
     {
       "name": "platform-native-connectors",
       "type": "registry-entry",
-      "notes": "First stop: the platform entry's capabilities. Claude, Cowork, and ChatGPT ship native connectors for common tools; recommend those before any MCP server, API, or CLI."
+      "notes": "First stop: the platform entry's capabilities. Claude and ChatGPT ship native connectors for common tools; recommend those before any MCP server, API, or CLI."
     }
   ]
 }

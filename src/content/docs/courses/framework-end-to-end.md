@@ -7,7 +7,7 @@ In this exercise you run the AI Workflow Framework end-to-end yourself, live in 
 
 ## Lesson: Ship a Workflow Using the AI Workflow Framework
 
-Run the framework end-to-end yourself with the Hands-on AI plugin installed — in Claude Code (slash commands), Cowork (type `/` to pick each skill), or Claude Chat (just ask for the step). Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
+Run the framework end-to-end yourself with the Hands-on AI plugin installed — in Claude Code (slash commands) or Claude (type `/` to pick each skill, or just ask for the step). Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
 
 ### Hands-on assignment
 
@@ -29,7 +29,7 @@ Want to see what a finished run looks like before you start? Download the [compl
 
 ### Set up your workspace before class
 
-Do these steps in the folder you have open in Cowork or Claude Code.
+Do these steps in the folder you have open in the Claude desktop app or Claude Code.
 
 **Step 1 — get a `registry/` folder.** Open the folder you'll work in (any folder — it doesn't need to be a GitHub repository) in your AI assistant and say *"Set up my AI registry."* It creates the `registry/` folder for you. If you'd like GitHub to build a dashboard automatically, start from the [AI Registry template repository](https://github.com/jamesgray-ai/ai-registry-template) instead — the [AI Registry setup guide](/builder-setup/ai-registry-setup/) walks through both.
 
