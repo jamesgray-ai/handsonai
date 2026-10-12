@@ -81,14 +81,14 @@ The Claude desktop app launches with your transcribed prompt and responds.
 
 **You're done when:** the Claude desktop app opens with your spoken words transcribed as a prompt, and Claude responds to it.
 
-### Tips for Claude Voice
+### Tips for Quick Entry Voice
 
 - Use voice for longer prompts or when you want to think out loud
 - The shortcut works from anywhere on your Mac—Claude opens automatically
 - Review the transcription before sending
 - You can also use **Quick access shortcut** (double-tap Option) to open Claude without voice
 
-**Learn more:** [Use Quick Entry with Claude desktop app on Mac](https://support.claude.com/en/articles/12626668-use-quick-entry-with-claude-desktop-on-mac)
+**Learn more:** [Use Quick Entry with Claude Desktop on Mac](https://support.claude.com/en/articles/12626668-use-quick-entry-with-claude-desktop-on-mac)
 
 ## When to Use Each
 

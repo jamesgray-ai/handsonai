@@ -8,7 +8,7 @@
 # (the library that writes the file) are two different things, and they are available in
 # different places:
 #
-#   Claude app           skill built in, `docx` package preinstalled  → nothing to do
+#   Claude               skill built in, `docx` package preinstalled  → nothing to do
 #   Claude Code (local)  skill via document-skills@anthropic-agent-skills,
 #                        `docx` package absent                        → install it once
 #

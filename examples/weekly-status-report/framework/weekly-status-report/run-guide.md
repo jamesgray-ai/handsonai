@@ -12,7 +12,7 @@ run itself. Next Friday looks exactly like this.
 Open a new chat **in this folder** in the Claude desktop app and say:
 **"Run my weekly status report."** Give it nothing else — it pulls the week itself.
 If someone else takes the Friday report over: they add both skills under
-**Customize → Skills**, join the project, and use the same sentence.
+**Customize → Skills**, open this folder in the Claude desktop app, and use the same sentence.
 
 This runs when you start it. If you later want it on a schedule, come back to this
 step and we'll set that up.
@@ -25,8 +25,8 @@ step and we'll set that up.
 - **Both skills installed in that account:** `weekly-status-report` and
   `status-report-drafting` under Customize → Skills. A fresh chat does not inherit a
   session's setup; this list is what it needs.
-- `context/tone-guide.md` and `context/past-reports/` present in the project files
-  panel (the tone guide is what keeps the draft from sounding generic).
+- `context/tone-guide.md` and `context/past-reports/` present in the working
+  folder (the tone guide is what keeps the draft from sounding generic).
 
 ## What to check before you act on the output
 

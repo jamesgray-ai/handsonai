@@ -18,7 +18,7 @@ Seven research and writing agents. Use these as templates for building agents th
 - `meeting-prep-researcher.md` — researches attendees and companies before a meeting
 
 ### `skills/`
-Five skills paired with the agents above (or independently useful). Each skill is a self-contained folder you can drop into any Claude Code plugin or upload once in Claude (Customize → Skills) for the web and desktop app.
+Five skills paired with the agents above (or independently useful). Each skill is a self-contained folder you can drop into any Claude Code plugin or upload once in Claude (Customize → Skills), and it works on the web and in the desktop app.
 
 - `editing-hbr-articles/` — editorial criteria for HBR-grade business writing
 - `preparing-meeting-briefs/` — structured meeting prep brief format

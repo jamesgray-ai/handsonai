@@ -213,7 +213,7 @@ If the Integration Options section is missing from the spec (older format), info
 
 Based on the platform and packaging decisions from Architecture Decisions. Resolve the items in the spec's **Deferred to Build** section now:
 
-- **Specific platform offering** if not yet determined (e.g., "Claude" → Claude vs. Claude Code)
+- **Specific platform offering** if the spec names only an ecosystem that covers several platform entries (e.g., "Claude" could mean Claude or Claude Code)
 - **Shareability** — file-based vs. code-based distribution; influences artifact format
 - **Exact model version per platform** — verify current model names via web search for the user's platform
 - **Integration setup specifics** — auth flow, region, plan tier per integration

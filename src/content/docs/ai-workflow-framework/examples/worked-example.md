@@ -593,7 +593,7 @@ name. See Deployment Plan.)*
   - User provides: nothing
   - Produces: saved report file + run-log row
 
-[Final output: status-report-YYYY-MM-DD.md in the project, run logged]
+[Final output: status-report-YYYY-MM-DD.md in the working folder, run logged]
 
 [Closing run summary: "What I did" — the four steps run in order, whether G2
  fired and what Maya resolved, the G1 review and what Maya decided there,
@@ -660,7 +660,7 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 ## Prerequisites
 
 1. Claude desktop app with a working folder and the HubSpot connector enabled (read-only scope)
-2. `context/past-reports/` and `context/tone-guide.md` present in the project
+2. `context/past-reports/` and `context/tone-guide.md` present in the working folder
 
 ## Deployment Plan
 
@@ -668,13 +668,13 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 |---|---|---|
 | S1 — orchestrator skill `weekly-status-report` | Staged at `framework/weekly-status-report/skills/weekly-status-report/`, packaged as `framework/weekly-status-report/weekly-status-report.zip`; installed through Claude's Save skill flow (Customize → Skills) | Build states the intent and hands over this blueprint; the platform creates the skill; Maya saves the package |
 | S2 — `status-report-drafting` | Staged at `framework/weekly-status-report/skills/status-report-drafting/`, packaged as `framework/weekly-status-report/status-report-drafting.zip`; installed the same way | Same |
-| C3 — `tone-guide.md` | `context/tone-guide.md` in the project | Build creates it with Maya |
+| C3 — `tone-guide.md` | `context/tone-guide.md` in the working folder | Build creates it with Maya |
 
 **Orchestrator artifact (primary-loop platforms):** S1 is the user-triggered entry point — an orchestrator skill carrying the workflow name, with `disable-model-invocation: true` and no `context: fork`; S2 is capability-named.
 
 **Packaging note:** Standalone Skill — both skills upload individually; no plugin wrapper (see Architecture Decisions).
 
-**Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat inside the project.
+**Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat in the working folder.
 
 **Run Logging:** the orchestrator skill appends one row to
 `framework/weekly-status-report/runs.md` at the end of every production run — date,
@@ -808,7 +808,7 @@ No manual steps remained beyond the install itself. Build then wrote the two ski
 
 ## Step 5 — Test → `test-results.md`
 
-Maya **opened round 1** in her project chat: the skill read the Workflow node to find the artifacts, then the design spec and requirements it links; confirmed the passing rule; wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress; walked one scenario against the orchestrator's text and confirmed it ends every run with a "What I did" list; and checked the HubSpot connection. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill as a test run, paste that scenario's saved input in place of the live pull, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because chats in the Claude desktop app share the working folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so and grades the run pasted back into the chat where the round was opened.
+Maya **opened round 1** in a chat in her working folder: the skill read the Workflow node to find the artifacts, then the design spec and requirements it links; confirmed the passing rule; wrote `test-results.md` with the check list and the scenarios to run — the round's file, marked in progress; walked one scenario against the orchestrator's text and confirmed it ends every run with a "What I did" list; and checked the HubSpot connection. Then she **ran each scenario in its own new chat** inside the same project: start the `weekly-status-report` skill as a test run, paste that scenario's saved input in place of the live pull, and when the run finished, type **test this** in that same chat. The skill graded the run right there — the whole conversation above it, not a final report pasted somewhere else — and appended the confirmed card to the round's file. Because chats in the Claude desktop app share the working folder, nothing had to be copied anywhere; on a platform where chats can't see the same files, the skill says so and grades the run pasted back into the chat where the round was opened.
 
 The file started like this, with nothing graded yet:
 
@@ -1093,7 +1093,7 @@ run itself. Next Friday looks exactly like this.
 Open a new chat **in this folder** in the Claude desktop app and say:
 **"Run my weekly status report."** Give it nothing else — it pulls the week itself.
 If someone else takes the Friday report over: they add both skills under
-**Customize → Skills**, join the project, and use the same sentence.
+**Customize → Skills**, open this folder in the Claude desktop app, and use the same sentence.
 
 This runs when you start it. If you later want it on a schedule, come back to this
 step and we'll set that up.
@@ -1106,8 +1106,8 @@ step and we'll set that up.
 - **Both skills installed in that account:** `weekly-status-report` and
   `status-report-drafting` under Customize → Skills. A fresh chat does not inherit a
   session's setup; this list is what it needs.
-- `context/tone-guide.md` and `context/past-reports/` present in the project files
-  panel (the tone guide is what keeps the draft from sounding generic).
+- `context/tone-guide.md` and `context/past-reports/` present in the working
+  folder (the tone guide is what keeps the draft from sounding generic).
 
 ## What to check before you act on the output
 

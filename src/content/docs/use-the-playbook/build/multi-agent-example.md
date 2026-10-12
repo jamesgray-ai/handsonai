@@ -20,7 +20,7 @@ For the full teaching walkthrough — why multi-agent design works, the two ways
 
 | Environment | What you need |
 |---|---|
-| **Claude app** | Nothing — the document skill is already included |
+| **Claude** | Nothing — the document skill is already included |
 | **Claude Code** | Node.js, plus Anthropic's document skills: `/plugin install document-skills@anthropic-agent-skills` |
 
 The `docx` npm package the renderer uses installs itself the first time you produce a document — into the plugin's own directory, never into your project. That needs network access once.

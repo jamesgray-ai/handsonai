@@ -160,7 +160,7 @@ name. See Deployment Plan.)*
   - User provides: nothing
   - Produces: saved report file + run-log row
 
-[Final output: status-report-YYYY-MM-DD.md in the project, run logged]
+[Final output: status-report-YYYY-MM-DD.md in the working folder, run logged]
 
 [Closing run summary: "What I did" — the four steps run in order, whether G2
  fired and what Maya resolved, the G1 review and what Maya decided there,
@@ -227,7 +227,7 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 ## Prerequisites
 
 1. Claude desktop app with a working folder and the HubSpot connector enabled (read-only scope)
-2. `context/past-reports/` and `context/tone-guide.md` present in the project
+2. `context/past-reports/` and `context/tone-guide.md` present in the working folder
 
 ## Deployment Plan
 
@@ -235,13 +235,13 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 |---|---|---|
 | S1 — orchestrator skill `weekly-status-report` | Staged at `framework/weekly-status-report/skills/weekly-status-report/`, packaged as `framework/weekly-status-report/weekly-status-report.zip`; installed through Claude's Save skill flow (Customize → Skills) | Build states the intent and hands over this blueprint; the platform creates the skill; Maya saves the package |
 | S2 — `status-report-drafting` | Staged at `framework/weekly-status-report/skills/status-report-drafting/`, packaged as `framework/weekly-status-report/status-report-drafting.zip`; installed the same way | Same |
-| C3 — `tone-guide.md` | `context/tone-guide.md` in the project | Build creates it with Maya |
+| C3 — `tone-guide.md` | `context/tone-guide.md` in the working folder | Build creates it with Maya |
 
 **Orchestrator artifact (primary-loop platforms):** S1 is the user-triggered entry point — an orchestrator skill carrying the workflow name, with `disable-model-invocation: true` and no `context: fork`; S2 is capability-named.
 
 **Packaging note:** Standalone Skill — both skills upload individually; no plugin wrapper (see Architecture Decisions).
 
-**Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat inside the project.
+**Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat in the working folder.
 
 **Run Logging:** the orchestrator skill appends one row to
 `framework/weekly-status-report/runs.md` at the end of every production run — date,
