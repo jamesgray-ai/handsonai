@@ -9,7 +9,7 @@ The AI Workflow Framework as executable skills for Claude, ChatGPT/Codex, and Cl
 One plugin, three places it installs — pick yours. Full step-by-step (with screenshots) on the
 [skills setup page](https://handsonai.info/ai-workflow-framework/skills/).
 
-- **Claude** (claude.ai, Claude Desktop, Cowork — paid plans): **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → install **handsonai**.
+- **Claude** (web and desktop app — paid plans): **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → install **handsonai**.
 - **ChatGPT** (any paid plan) **and Codex**: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**. Then `@analyze` (ChatGPT) or `$analyze` (Codex).
 - **Claude Code**:
 
