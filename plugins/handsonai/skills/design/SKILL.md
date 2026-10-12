@@ -65,13 +65,13 @@ Before assessing autonomy and orchestration, gather the information needed to ma
 
 Platform is the only thing not already in the Workflow Requirements. This question is **always asked or confirmed explicitly in plain language** — never skipped, even when the platform seems obvious from earlier conversation. Most users are non-technical; do not assume they remember saying which tool they use.
 
-**Detect before asking.** First identify the environment this session is running in (Claude Code, the Claude app, ChatGPT, …) from the session context. Most people run a workflow in the same tool they design it in, so when the current platform is identifiable, present it as the recommended default instead of asking cold — use `AskUserQuestion` with the current platform first, marked "(Recommended)":
+**Detect before asking.** First identify the environment this session is running in (Claude Code, Claude, ChatGPT, …) from the session context. Most people run a workflow in the same tool they design it in, so when the current platform is identifiable, present it as the recommended default instead of asking cold — use `AskUserQuestion` with the current platform first, marked "(Recommended)":
 
 > "You're designing this in **[current platform]** — most workflows run where they're designed. Run it there too, or somewhere else?"
 >
 > *(Options: [current platform] (Recommended) · 2–3 other common options from the platform registry · the built-in "Other" escape hatch.)*
 
-Designing in one tool and deploying to another is a legitimate pattern (e.g., building in the Claude app a workflow a teammate will run in ChatGPT) — that's what the other options are for; don't silently assume the current platform.
+Designing in one tool and deploying to another is a legitimate pattern (e.g., building in Claude a workflow a teammate will run in ChatGPT) — that's what the other options are for; don't silently assume the current platform.
 
 Only when the current environment can't be determined, fall back to the open question — a short list of the most common options pulled from the platform registry (do not list every offering — keep it to 3–4 choices plus "Other"). Example phrasing:
 
@@ -79,14 +79,14 @@ Only when the current environment can't be determined, fall back to the open que
 >
 > *This decides where the final workflow lives and what format I'll build it in.*
 
-**Mapping the answer to a specific offering — done internally, not asked of the user.** When the user names an ecosystem that maps to multiple offerings (e.g., "Claude" → the Claude app, Claude Code, Claude Agent SDK), pick the **single best default for a non-technical user** (the browser/no-code option in almost all cases — e.g., "Claude" → the Claude app; "Google" → Gemini web; "OpenAI" → ChatGPT) and confirm back in plain language with an easy correction path:
+**Mapping the answer to a specific offering — done internally, not asked of the user.** When the user names an ecosystem that maps to multiple offerings (e.g., "Claude" → Claude on the web or desktop, Claude Code, Claude Agent SDK), pick the **single best default for a non-technical user** (the browser/no-code option in almost all cases — e.g., "Claude" → Claude itself, not Claude Code; "Google" → Gemini web; "OpenAI" → ChatGPT) and confirm back in plain language with an easy correction path:
 
-> "Got it — I'll design this for **Claude** (the Claude app, on the web at claude.ai or on desktop). If you actually meant Claude Code in your terminal, or something else, say so and I'll switch."
+> "Got it — I'll design this for **Claude** (on the web at claude.ai or on desktop). If you actually meant Claude Code in your terminal, or something else, say so and I'll switch."
 
 Only default to a code-mode offering (Claude Code, Codex, Gemini CLI, an SDK) when there's strong signal in the conversation that the user is writing code. Never ask a non-technical user to disambiguate between technical artifact forms — that's the model's job.
 
 **What this resolves for downstream steps:**
-- **For Design:** The specific offering (e.g., the Claude app vs. Claude Code) drives the mechanism options and the artifact form the model resolves internally.
+- **For Design:** The specific offering (e.g., Claude vs. Claude Code) drives the mechanism options and the artifact form the model resolves internally.
 - **For Build:** Generation maps directly from the platform + mechanism the model recorded — no re-asking the user about artifact form.
 
 **b. Extract everything else from the Workflow Requirements**
@@ -215,7 +215,7 @@ If the user pushes back, discuss in plain language — never drop into the inter
 
 Single-agent vs. multi-agent is an architecture detail decided during Agent Configuration (Phase 11) if Agent is selected — not a top-level choice here.
 
-**Who is the orchestrator?** If mechanism is Agent, read `references/orchestrator-on-primary-loop.md` before Agent Configuration — it decides whether the orchestrator is the primary session (Claude Code, the Claude app) or a platform agent primitive.
+**Who is the orchestrator?** If mechanism is Agent, read `references/orchestrator-on-primary-loop.md` before Agent Configuration — it decides whether the orchestrator is the primary session (Claude Code, Claude) or a platform agent primitive.
 
 **Fast-track for complete Workflow Requirements:** If the Workflow Requirements + conversation context provide enough information to resolve the autonomy level, tool extraction, and step classifications, you may present those internal/technical dimensions as a single summary block instead of stepping through questions one at a time.
 
@@ -238,7 +238,7 @@ Before confirming Layer 1, walk four safety questions. This matters most when th
 - **Capability gap** — the connector has **no such capability at all** (e.g., a read-only CRM connector with no create-deal tool). This is *not* fixable by reauthorizing, and it can invalidate the design. Flag it plainly and present **platform-aware options**, in this order:
   1. **Human-in-the-loop gate (recommended default)** — the AI prepares the change (drafts the record/message) and a human commits it in the target system. This works on *every* platform and is the safe default; recommend it first, especially on platforms without shell/code access.
   2. **A different connector/integration** that has the capability.
-  3. **CLI or API fallback** — *only* where the platform has shell or code access. Say explicitly that this is **unavailable in the Claude app and most chat surfaces**, so don't offer it there.
+  3. **CLI or API fallback** — *only* where the platform has shell or code access. Say explicitly that this is **unavailable in Claude and most chat surfaces**, so don't offer it there.
   4. **Descope the action** — drop or defer it from the workflow.
 
 Never **hard-block** the spec on a capability gap: surface it loudly, let the user pick a path, and record the decision in the spec's **Safety & Permissions** section so Build honors it. A gap the user knowingly accepts (e.g., "I'll commit deals by hand for now") is a valid, recorded choice — not a blocker.
@@ -273,7 +273,7 @@ For step-driven workflows:
 
 > "Here's the design analysis based on your workflow definition. I'll explain each piece as I go — push back on anything that's off:
 >
-> - **Platform:** [Claude] — the [Claude app, on the web or on desktop]. This is where your workflow will live.
+> - **Platform:** [Claude] — [on the web or on desktop]. This is where your workflow will live.
 > - **Packaging:** [Standalone Skill] — a [single self-contained set of instructions you upload once and reuse]. (Other options: Plugin, Workspace Agent, Loose Files — yours is Standalone Skill because [reason].)
 > - **Autonomy level:** [Deterministic] — meaning [you've given instructions for every step; the AI writes the draft inside a step, but whatever it writes, the next step is the same]. (The scale runs Deterministic → Guided → Autonomous, by what decides the next step.)
 > - **Mechanism:** [Skill] — the [reusable skill you confirmed in the last step]. Runs in [Augmented] mode, which means [you take part along the way — reviewing the draft before it's saved].
@@ -379,7 +379,7 @@ For goal-driven: `**[Tool] access needed (Domains: X, Y):**`
 
 For every step classified as needing a **Skill**, look for one the user already has before assuming one must be built. Build-new is the last resort.
 
-**Tier 1 — the platform's installed skills (always).** Use the same detection Build uses in its Phase 7 (Existing skills): the session's available-skills list (in the Claude app this includes plugin-installed and account-uploaded skills; on ChatGPT the skills under Plugins → Skills), or on filesystem platforms the skill directories named in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL and `notes`. Match by what the skill does, not by exact name.
+**Tier 1 — the platform's installed skills (always).** Use the same detection Build uses in its Phase 7 (Existing skills): the session's available-skills list (in Claude this includes plugin-installed and account-uploaded skills; on ChatGPT the skills under Plugins → Skills), or on filesystem platforms the skill directories named in the platform's `capabilities.skill_install`, or, if the entry has no `capabilities`, its `skill` documentation URL and `notes`. Match by what the skill does, not by exact name.
 
 **Tier 2 — the registry (when present).** If `registry/SCHEMA.md` exists, read each Workflow node's `# Skills` section and the dashboard's skills table to learn which workflow uses each skill and what it was built for. If there is no registry, say so once and continue on Tier 1 alone — nothing depends on it.
 

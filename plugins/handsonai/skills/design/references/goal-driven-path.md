@@ -8,7 +8,7 @@ When the Workflow Requirements has `Definition Type: Goal-Driven` (or the legacy
 
 **Phase 5 (Mechanism):** State as fact: "Orchestration is **Agent**." Still determine the involvement mode (Augmented/Automated) from the definition's Human Gates section and trigger type. Still ask the platform sub-choice if the platform has multiple agent offerings.
 
-**On Claude Code or the Claude app, "Agent" mechanism does NOT mean "build an orchestrator agent file."** It means the workflow is driven by an agentic loop — and that loop is the **primary session**. The artifacts you produce are the orchestration logic (an orchestrator **skill** — `disable-model-invocation: true`, no `context: fork` — and/or a `CLAUDE.md` run section) plus the **sub-agent(s)** the primary loop dispatches (see "Who is the orchestrator?" in Phase 5 of the skill). Carry this into Capability Domain Mapping and Agent Configuration below.
+**On Claude Code or Claude, "Agent" mechanism does NOT mean "build an orchestrator agent file."** It means the workflow is driven by an agentic loop — and that loop is the **primary session**. The artifacts you produce are the orchestration logic (an orchestrator **skill** — `disable-model-invocation: true`, no `context: fork` — and/or a `CLAUDE.md` run section) plus the **sub-agent(s)** the primary loop dispatches (see "Who is the orchestrator?" in Phase 5 of the skill). Carry this into Capability Domain Mapping and Agent Configuration below.
 
 **Phase 8 (Classify each step) → Capability Domain Mapping:** Replace per-step classification with capability domain mapping.
 
@@ -31,7 +31,7 @@ Same Integration Discovery and Skill Discovery processes apply, operating on cap
 
 **Phase 11 (Agent configuration):** This is usually the primary blueprint section. Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** — the workers — using all 14 standard fields, drawing Description, Mission, Responsibilities, Output Format, and Constraints from the Workflow Requirements' Goal, Rules & Constraints, and Acceptance Criteria.
 
-**Mandatory-but-with-an-exception:** document at least one agent **whenever the design includes a sub-agent/agent artifact** (the common case). A valid goal-driven design on a primary-loop platform (Claude Code or the Claude app) may have **zero sub-agents** — just orchestration logic (an orchestrator skill and/or `CLAUDE.md` run section) + skills. In that case record `agents: 0` in the frontmatter counts and document the orchestration logic in the Deployment Plan / Orchestrator notes instead — **do not invent a sub-agent to satisfy the field.** Never document the orchestrator (the primary loop) as an agent artifact.
+**Mandatory-but-with-an-exception:** document at least one agent **whenever the design includes a sub-agent/agent artifact** (the common case). A valid goal-driven design on a primary-loop platform (Claude Code or Claude) may have **zero sub-agents** — just orchestration logic (an orchestrator skill and/or `CLAUDE.md` run section) + skills. In that case record `agents: 0` in the frontmatter counts and document the orchestration logic in the Deployment Plan / Orchestrator notes instead — **do not invent a sub-agent to satisfy the field.** Never document the orchestrator (the primary loop) as an agent artifact.
 
 **Phase 12 (Verify evaluation inputs):** Same as step-driven — confirm Acceptance Criteria and Example Scenarios in the Workflow Requirements are complete; do not duplicate. Goal-driven scenarios follow the same propose-and-correct flow as step-driven ones: the real inputs and the hard case come from the variation envelope, the model proposes the rest against named risks, and each Scenario is marked `(real)` or `(proposed)`.
 
@@ -58,7 +58,7 @@ This is a goal-driven workflow. Autonomy is Autonomous — the agent system dete
 
 Additional substitutions:
 - Replace `## Autonomy Spectrum Summary` with the Autonomy Statement above.
-- Omit `## Orchestrator Prompt Outline` (on Claude Code or the Claude app the **primary loop is the orchestrator** — captured as orchestration logic in the Deployment Plan, not an agent file).
+- Omit `## Orchestrator Prompt Outline` (on Claude Code or Claude the **primary loop is the orchestrator** — captured as orchestration logic in the Deployment Plan, not an agent file).
 - Skill Candidates use the same 12-field block (with `Covers Domains` instead of `Covers Steps`).
 - Agent Configuration documents the **sub-agent(s) the orchestrator dispatches** and is included whenever the design has ≥1 sub-agent (the common case). A primary-loop design with **zero sub-agents** (orchestration logic + skills only) is valid: set `agents: 0` and document the orchestration logic in the Deployment Plan instead.
 - The Safety & Permissions section applies unchanged — goal-driven workflows are Autonomous by definition, so the unattended-runs and blast-radius rows deserve extra attention.
@@ -74,9 +74,9 @@ Apply the "Goal-driven modifications" listed at the end of `references/self-test
 For the Layer 1 confirmation gate, use the standard playback structure with these substitutions:
 
 - **Autonomy level:** Autonomous — meaning [the system figures out its own path based on the goal and rules you defined]. (Goal-driven workflows are always Autonomous by definition.)
-- **Mechanism:** Agent — [the workflow is driven by an agentic loop that decides what to do based on context, not a fixed script]. On Claude Code or the Claude app that loop is the **primary session (the orchestrator)**.
+- **Mechanism:** Agent — [the workflow is driven by an agentic loop that decides what to do based on context, not a fixed script]. On Claude Code or Claude that loop is the **primary session (the orchestrator)**.
 - In the Layer 2 confirmation, replace **Steps classified** with **Capability domains mapped** — explain in plain language ("the buckets of capability the workflow needs to cover").
-- **Agent blueprint:** summarize the **sub-agent(s) the orchestrator will dispatch** (the workers), or "None — the primary loop orchestrates directly using skills" if no sub-agent is needed. Do **not** describe a standalone orchestrator agent on Claude Code or the Claude app.
+- **Agent blueprint:** summarize the **sub-agent(s) the orchestrator will dispatch** (the workers), or "None — the primary loop orchestrates directly using skills" if no sub-agent is needed. Do **not** describe a standalone orchestrator agent on Claude Code or Claude.
 
 ## Presentation formats
 

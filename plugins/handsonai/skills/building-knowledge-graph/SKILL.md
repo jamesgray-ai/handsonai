@@ -139,7 +139,7 @@ Follow `references/interview-guide.md` § Phase 5.
 
 Not numbered phases. Guide the user through each step and state what "worked" looks like:
 
-1. **On the Claude desktop app only:** ask the user to type `/ingest` and confirm the skill fires. If it does not, walk them through adding `ingest/SKILL.md` and `lint/SKILL.md` as account skills in the Claude app (Customize → Skills), then continue.
+1. **On the Claude desktop app only:** ask the user to type `/ingest` and confirm the skill fires. If it does not, walk them through adding `ingest/SKILL.md` and `lint/SKILL.md` as account skills in Claude (Customize → Skills), then continue.
 2. **Ingest** one document from `raw/` (or one the user pastes) by running the `ingest` skill you wrote, not by working from this file, so the user sees the thing they will use from now on. Worked when: at least one *already existing* page changed and carries a footnoted claim and a `sources` entry.
 3. **Query**: ask the user for one question that follows a relationship ("Which playbooks have we used with Acme?"). Answer from the graph only, reading `index.md` first, citing every page you used. Worked when: the answer names two or more pages and opening one confirms the claim. If the answer is worth keeping, offer to file it as a **new** page in `notes/`.
 4. **Lint** by running the `lint` skill you wrote. Worked when: the report names specific files.

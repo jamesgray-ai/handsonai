@@ -256,7 +256,7 @@ For a `Skill` mechanism, **S1 is always the orchestrator skill**: Name = the wor
 |---|---|
 | **ID** | S1 |
 | **Name** | [lowercase-hyphenated, ≤64 chars, no consecutive hyphens; matches the skill directory name. Capability-named in gerund/verb-object form, not workflow-coupled (only the orchestrator skill takes the workflow name); no collision with skills found in Skill Discovery] |
-| **Description** | [≤1024 chars; MUST start with "This skill should be used when..." — this is the literal description that goes into the SKILL.md frontmatter and drives auto-activation in the Claude app and on code-mode platforms. Third person; names concrete trigger contexts/keywords (tool names, file types, task verbs) plus what the skill does] |
+| **Description** | [≤1024 chars; MUST start with "This skill should be used when..." — this is the literal description that goes into the SKILL.md frontmatter and drives auto-activation in Claude and on code-mode platforms. Third person; names concrete trigger contexts/keywords (tool names, file types, task verbs) plus what the skill does] |
 | **Purpose** | [one-sentence internal summary — for the Design Spec reader, not the skill description. Note whether the skill is reusable beyond this workflow] |
 | **Covers Steps / Domains** | [list of Step IDs, or capability domain names for goal-driven] |
 | **Inputs** | [name — description, one per line; "type" is the expected user-provided value description, not a strict type system] |
@@ -269,7 +269,7 @@ For a `Skill` mechanism, **S1 is always the orchestrator skill**: Name = the wor
 
 ## Agent Configuration (include whenever ≥1 sub-agent/agent artifact is defined; otherwise omit)
 
-> Each entry documents a **worker sub-agent the orchestrator dispatches** — not the orchestrator itself. On Claude Code or the Claude app the orchestrator is the primary loop (no agent file). If the design has zero sub-agents, omit this section, set `agents: 0`, and capture the orchestration logic in the Deployment Plan.
+> Each entry documents a **worker sub-agent the orchestrator dispatches** — not the orchestrator itself. On Claude Code or Claude the orchestrator is the primary loop (no agent file). If the design has zero sub-agents, omit this section, set `agents: 0`, and capture the orchestration logic in the Deployment Plan.
 
 For each Build Output tagged `New agent: AN` above:
 
@@ -296,9 +296,9 @@ For each Build Output tagged `New agent: AN` above:
 
 **Orchestration Pattern:** Supervisor (one delegates to others) / Pipeline (agents in sequence) / Parallel (agents run concurrently) / Network (agents call each other peer-to-peer)
 
-> **On Claude Code or the Claude app the Supervisor is the primary loop itself — not a generated agent file.** Document the pattern, but the "coordinator" is the orchestration logic (an orchestrator skill / `CLAUDE.md` run section), and the entries below are the **worker sub-agents** it dispatches. Prefer **one sub-agent per unit of work** (e.g., per item in a batch) over splitting by function, to keep each unit's transaction atomic and enable parallel fan-out.
+> **On Claude Code or Claude the Supervisor is the primary loop itself — not a generated agent file.** Document the pattern, but the "coordinator" is the orchestration logic (an orchestrator skill / `CLAUDE.md` run section), and the entries below are the **worker sub-agents** it dispatches. Prefer **one sub-agent per unit of work** (e.g., per item in a batch) over splitting by function, to keep each unit's transaction atomic and enable parallel fan-out.
 
-**Coordinator:** [Agent ID that coordinates, or "Primary loop (orchestration logic — no agent file)" on Claude Code or the Claude app]
+**Coordinator:** [Agent ID that coordinates, or "Primary loop (orchestration logic — no agent file)" on Claude Code or Claude]
 
 **Handoff Contracts:**
 
@@ -346,7 +346,7 @@ For each artifact produced, document where it lives and how it gets deployed:
 
 Decisions intentionally left for Build to resolve. Build should not need to re-ask the user about anything else in the spec.
 
-- [ ] Specific platform offering (if platform was given at ecosystem level, e.g., "Claude" vs Claude Code / the Claude app)
+- [ ] Specific platform offering (if platform was given at ecosystem level, e.g., "Claude" vs Claude Code / Claude)
 - [ ] Shareability (file vs code distribution mode)
 - [ ] Exact model version per platform (mapping above is guidance; Build verifies current names)
 - [ ] Integration setup specifics (auth flow, region, plan tier)
