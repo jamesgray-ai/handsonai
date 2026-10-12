@@ -113,7 +113,7 @@ Cowork, HubSpot connector live (read scope confirmed; the runs used pasted input
 
 | Scenario | Line | Building block | What to change |
 |---|---|---|---|
-| Run log 2026-06-26, 2026-07-03 | AC2 (scope) | C2, S2, orchestrator | The report the workflow produces is a section short of the report Maya actually sends: add a Risks section to the template (C2), to S2's section list, and to the orchestrator's format instruction |
+| Run log 2026-06-26, 2026-07-03 | AC2 (scope) | C2, C3, S2, orchestrator | The report the workflow produces is a section short of the report Maya actually sends: add a Risks section to the template (C2), the tone guide's section order (C3), S2's section list, and the orchestrator's format instruction |
 
 ## Accepted misses
 

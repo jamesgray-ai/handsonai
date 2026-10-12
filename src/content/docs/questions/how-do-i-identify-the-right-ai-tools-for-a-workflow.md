@@ -1,23 +1,25 @@
 ---
 question: "How do I identify the right AI tools for a workflow?"
-short_answer: "Break your workflow into discrete steps using the 6-question framework (steps, decisions, data flows, context needs, failure modes, data readiness), then map each step to AI building blocks like prompts, skills, agents, and connectors to see exactly what to build."
+short_answer: "Define the work first, then choose the tools. Deconstruct captures the steps, decisions, context, rules, and human gates without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step."
 platforms: [openai, claude, gemini]
 topic: strategy
 date: 2026-02-02
 author: James Gray
 title: "How do I identify the right AI tools for a workflow?"
-description: "Break the workflow into steps with the six-question framework, then map each step to AI building blocks — prompts, skills, agents, and connectors."
----**Short answer:** Break your workflow into discrete steps using the 6-question framework (steps, decisions, data flows, context needs, failure modes, data readiness), then map each step to AI building blocks like prompts, skills, agents, and connectors to see exactly what to build.
+description: "Define the work first in Deconstruct, then let Design choose the platform and the building block — prompt, skill, agent, or connector — for each step."
+---
+
+**Short answer:** Define the work first, then choose the tools. Deconstruct captures the steps, decisions, context, rules, and human gates without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step.
 
 ## The Full Answer
 
-You can't choose the right AI tools for a workflow you don't fully understand. The [AI Workflow Framework](/ai-workflow-framework/) addresses this with a structured approach: discover opportunities first, then deconstruct workflows into building blocks before selecting tools.
+You can't choose the right AI tools for a workflow you don't fully understand. The [AI Workflow Framework](/ai-workflow-framework/) separates the two questions on purpose: [Deconstruct (Step 2)](/ai-workflow-framework/deconstruct/) defines *what* the work is, and [Design (Step 3)](/ai-workflow-framework/design/) decides *how* AI delivers it.
 
-Most people jump straight to tool selection — "Should I use an agent? Do I need an API?" — before they've properly decomposed what the workflow actually involves. The result is over-engineered solutions for simple problems, or under-powered tools for complex ones.
+Most people jump straight to tool selection — "Should I use an agent? Do I need an API?" — before they've worked out what the workflow actually involves. The result is over-engineered solutions for simple problems, or under-powered tools for complex ones.
 
-The right approach is to **deconstruct first, then map**. Start by breaking your workflow into discrete steps using the 6-question framework: What are the individual steps? Where are the decision points? What data flows in and out? What context does each step need? What happens when this step fails? Is the data AI-accessible? That last question — data readiness — surfaces gaps where data needs to be reorganized, reformatted, or migrated before AI can reliably use it.
+**Deconstruct first.** For each step, the Deconstruct skill probes six dimensions: the discrete steps, the decision points, the data flowing in and out, any external actions, the context the step needs (and whether that context is ready for AI to use), and how the step fails. It also captures the workflow's rules, the places a person must review or approve (human gates), and yes/no criteria for judging the output. No tool, platform, or autonomy level is chosen here — the result is a requirements document that describes the work.
 
-Once you have the refined step-by-step breakdown, map each step to one or more of the AI building blocks:
+**Then design.** Design reads those requirements and makes the mechanism decisions: which platform, whether the workflow runs as a skill or an agent, how much the AI decides on its own (autonomy), and whether a person takes part while it runs (involvement). It then maps each step to the building block that delivers it:
 
 | Layer | Building Block | What It Is | When to Use It |
 |-------|---------------|------------|----------------|
@@ -28,32 +30,34 @@ Once you have the refined step-by-step breakdown, map each step to one or more o
 | **Orchestration** | **Prompt** | A well-crafted instruction that tells the model what to do | Single-step tasks with clear inputs and outputs |
 | | **Skill** | A reusable routine — give it inputs, it follows a defined process, it produces consistent outputs | Repeatable tasks you'll run many times |
 | | **Agent** | An autonomous AI that plans, uses tools, and executes multi-step work | Complex steps requiring judgment and tool use |
+| | **Harness** | The software around a model that turns it into a working agent | Always present — the choice is which one fits the work |
 | **Integration** | **MCP** | A connector via Model Context Protocol to external tools or databases | Steps that need to read from or write to external systems |
 | | **API** | A programmatic interface to external services | Steps that need direct, structured access to external capabilities |
 | | **SDK** | A development framework for building custom AI applications | Steps requiring custom code to orchestrate AI capabilities |
 | | **CLI** | A command-line interface for interacting with AI tools | Steps executed via terminal commands or automated scripts |
+| **Governance** | **Registry** | A catalog of your AI workflows, the processes they serve, and the skills and agents behind them | As soon as you rely on more than a handful of workflows |
+| | **Observability** | Seeing what an AI system is doing, why, and how well | Workflows that run unattended or that others depend on |
+| | **Evaluation** | Repeatable measurement of whether output is good enough | Every workflow — the framework's Test step is built on it |
 
-Not every step needs AI. The deconstruction also classifies each step on an autonomy spectrum — from fully human to fully autonomous — so you can see which steps are candidates for AI and which should stay manual.
+Not every step needs AI. Design can assign a step to a person, and the human gates from Deconstruct stay in place whatever tools are chosen.
 
 ## How to Get Started
 
-Use the [Deconstruct Workflows](/ai-workflow-framework/deconstruct/) to run through this process interactively. Paste it into any AI tool and it will:
+Both steps are skills in the Hands-on AI plugin — see [Install the Hands-on AI Plugin](/ai-workflow-framework/skills/) for your platform.
 
-1. **Analyze your scenario** — understand the workflow objective and rough steps
-2. **Deep dive into each step** — apply the 6-question framework
-3. **Map to building blocks** — classify each step and recommend the right AI tools
-4. **Generate deliverables** — produce a workflow analysis document and an executable prompt you can save and reuse
+1. **Deconstruct** — say *"run the deconstruct skill"* and describe the workflow. It produces the workflow's requirements.
+2. **Design** — say *"run the design skill"*. It reads those requirements and produces a Design Spec naming the platform, the mechanism, and the building block for each step.
 
 :::tip[Start with a workflow you actually do]
-Real workflows produce the best analysis. The meta prompt is designed to work with rough, incomplete descriptions — don't over-prepare. Even "I onboard new clients and it takes forever" is enough to start. The model will find the hidden steps and assumptions you've internalized.
+Real workflows produce the best requirements. Deconstruct is designed to work with rough, incomplete descriptions — don't over-prepare. Even "I onboard new clients and it takes forever" is enough to start. The model will find the hidden steps and assumptions you've internalized.
 :::
+
 ## Key Takeaways
 
-- Deconstruct the workflow before choosing tools — you can't pick the right AI building blocks for a process you don't fully understand
-- Use the 6-question framework: discrete steps, decision points, data flows, context needs, failure modes, and data readiness
-- Map each step to one or more of the 15 AI building blocks across four layers — Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent, Harness), Integration (MCP, API, SDK, CLI), Governance (Registry, Observability, Evaluation)
-- Not every step needs AI — the autonomy classification helps you see which steps are candidates and which should stay manual
-- Use the [Deconstruct Workflows](/ai-workflow-framework/deconstruct/) to run through this process interactively
+- Define the work before choosing tools — Deconstruct captures what the workflow does without naming any tool
+- Deconstruct probes six dimensions per step: discrete steps, decision points, data flows, external actions, context needs and readiness, and failure modes
+- Design chooses the platform, the mechanism (skill or agent), the autonomy level, and the involvement mode, then maps each step to one of the 15 AI building blocks across four layers — Intelligence, Orchestration, Integration, Governance
+- Not every step needs AI — Design can leave a step with a person, and human gates stay in place
 
 ## Related Questions
 
