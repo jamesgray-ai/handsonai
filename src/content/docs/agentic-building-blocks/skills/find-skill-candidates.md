@@ -1,11 +1,11 @@
 ---
 title: Find Your Skill Candidates (Quick Prompt)
-description: "A copy-paste prompt that reviews your recent work and what your AI already knows about you, asks a few questions, and recommends the task skill and reference skill to build first, on any platform."
+description: "A copy-paste prompt that reviews your recent work and what your AI already knows about you, asks a few questions, and recommends a reference skill and a task skill to build first, on any platform."
 ---
 
 ## Why This Matters
 
-The best agent skills come from work you already do repeatedly — not ideas you brainstorm on the spot. This prompt puts the AI in the analyst seat: it reviews whatever it can see of your work — your calendar, email, and recent files where it's connected to them, plus its memory of you and your past conversations — then asks you a few questions to fill the gaps. It returns a ranked table of skill candidates and recommends a pair to build first: a task skill and the reference skill it applies.
+The best agent skills come from work you already do repeatedly — not ideas you brainstorm on the spot. This prompt puts the AI in the analyst seat: it reviews whatever it can see of your work — your calendar, email, and recent files where it's connected to them, plus its memory of you and your past conversations — then asks you a few questions to fill the gaps. It returns a ranked table of skill candidates and recommends two to build first: one reference skill and one task skill.
 
 Use this when you want a fast, conversational discovery in one chat — ideal for live sessions or when you want the AI to do the heavy lifting. Prefer a worksheet you can fill out on your own time? → [How to Discover Your Best Agent Skills (Worksheet)](/agentic-building-blocks/skills/skills-discovery-meta-prompt/).
 
@@ -21,7 +21,7 @@ Use this when you want a fast, conversational discovery in one chat — ideal fo
 4. **Open a new conversation** in that tool and paste the prompt
 5. **Read the first line it returns.** It tells you which of your allowed sources it can actually reach. If it can reach none, it skips straight to the questions. That's expected, not a failure.
 6. **Answer one question at a time** in Phase 2. Be specific about real work, not ideal work.
-7. **Review the recommendations** in Phase 3: a ranked table, then one task skill and one reference skill to build first.
+7. **Review the recommendations** in Phase 3: a ranked table, then one reference skill and one task skill to build first.
 
 :::tip[Give it your real work for sharper results]
 - **Connect your calendar and email first, if you're comfortable with it.** Two weeks of meetings and sent mail show what you actually repeat, not what you remember repeating. The AI is told to describe patterns, not quote your email. Deleting a source from the prompt is a request, not a switch: some tools (Microsoft 365 Copilot, for one) search everything you've connected and may still show meeting titles or file names as citations. If that matters, turn the connector off, and don't share your screen while it runs. Microsoft 365 Copilot can see them already; in Claude and ChatGPT, turn on their email and calendar connectors.
@@ -90,9 +90,9 @@ Potential: 🟢 High (clear trigger, same steps, same output), 🟡 Medium (most
 
 Judge against what the tool I'll build in can do. If skills there run in the cloud, they work only on what I upload or paste in; a task that needs my local files, inbox, or a live system is at best 🟡, and say why.
 
-Then recommend what to build first, as a pair:
-1. **A task skill**: the one candidate to start with, usually your #1 (if not, say why). Prefer something small: a few steps, in order, that I could build together with its reference skill in about 25 minutes. Say why it pays off (how often × time saved × consistency).
-2. **A reference skill** it should apply: the knowledge that task draws on. If nothing more specific stands out, suggest my brand or writing guidelines. If that knowledge is a long document, plan for me to upload it whole rather than condense it.
+Then recommend two to build first:
+1. **A reference skill**: knowledge my work draws on again and again. If nothing more specific stands out, suggest my brand or writing guidelines. If that knowledge is a long document, plan for me to upload it whole rather than condense it.
+2. **A task skill**: the one task to start with, usually your top-ranked task (if not, say why). It doesn't have to use the reference skill. Prefer something small: a few steps, in order, so I could build both skills in about 25 minutes. Say why it pays off (how often × time saved × consistency).
 3. For each of the two, what to give the AI when I build it: the steps, the source documents, and one or two real examples.
 
 Finally, name any candidate better served by something else (an agent, a connector, or a saved prompt), and if the tool I'll build in doesn't support Agent Skills, name its closest equivalent. If you're not sure what that tool supports today, say so instead of guessing.
@@ -107,7 +107,7 @@ Start now with Phase 1.
 - **Sources line** — Before anything else, the AI says which of your allowed sources it can reach. With connectors, that includes your calendar, email, and files; in a tool with memory, your history. In a fresh chat or a CLI, it should say it has nothing and move on. If it claims to remember things you never told it, stop and start over — you're in a tool without memory and it's confabulating.
 - **Phase 1** — Evidenced candidates only, each with where it came from. Skipped entirely when there's nothing to review.
 - **Phase 2** — One question at a time. Expect three to five; say "keep going" for more. Answer with specifics ("Monday status update for my manager"), not categories ("status stuff").
-- **Phase 3** — A ranked table, then a pair to build first: a task skill and the reference skill it applies, with what to give the AI for each. It also flags candidates better suited to an agent, a connector, or a saved prompt.
+- **Phase 3** — A ranked table, then two to build first: one reference skill and one task skill, with what to give the AI for each. It also flags candidates better suited to an agent, a connector, or a saved prompt.
 
 ## Next Steps
 
