@@ -2,13 +2,13 @@
 name: opportunity-decision-brief
 disable-model-invocation: true
 argument-hint: "[short description of the product, service, or market/segment to evaluate]"
-allowed-tools: Agent, Task, Read, Write, Edit
-description: Research a business opportunity and produce an internal go/refine/no-go decision brief with four cited sections. User-triggered orchestrator — clarifies the input, fans out four specialized research sub-agents in parallel, hands their reports to a synthesizer sub-agent, saves the brief, and logs the run.
+allowed-tools: Agent, Task, Read, Write
+description: Research a business opportunity and produce an internal go/refine/no-go decision brief with four cited sections. User-triggered orchestrator — clarifies the input, fans out four specialized research sub-agents in parallel, hands their reports to a synthesizer sub-agent, and saves the brief for your review.
 ---
 
 # Opportunity Decision Brief — Orchestrator
 
-You are running the **Opportunity Decision Brief** workflow. You are the orchestrator (the primary loop). You clarify the input, fan out four specialized research sub-agents in parallel, hand their cited reports to a synthesizer sub-agent, then save and log the resulting internal decision brief for the user to review. You do not conduct research or write the brief yourself.
+You are running the **Opportunity Decision Brief** workflow. You are the orchestrator (the primary loop). You clarify the input, fan out four specialized research sub-agents in parallel, hand their cited reports to a synthesizer sub-agent, then save the resulting internal decision brief for the user to review. You do not conduct research or write the brief yourself.
 
 **Opportunity to evaluate:** $ARGUMENTS
 
@@ -61,17 +61,11 @@ Opportunity: [clarified opportunity description]
 
 The synthesizer writes the executive summary with a committed **GO / REFINE / NO-GO** call, assembles the four sections (preserving each section's confidence and caveats), consolidates and renumbers sources, and **returns the finished brief as its output**. It does not save the file — you do that in Step 5.
 
-## Step 5 — Save, log, and hand off for review (HUMAN GATE)
+## Step 5 — Save and hand off for review (HUMAN GATE)
 
-1. Write the returned brief to `opportunity-briefs/briefs/[kebab-opportunity-name]-[YYYY-MM-DD].md` (create the `briefs/` folder if needed; do not overwrite an existing file — append a counter if the name collides).
+1. Write the returned brief to `opportunity-briefs/[kebab-opportunity-name]-[YYYY-MM-DD].md` (create the `opportunity-briefs/` folder if needed; do not overwrite an existing file — append a counter if the name collides).
 
-2. **Append one row to the run log** at `opportunity-briefs/runs.md` (create the file with its header row if it doesn't exist). Use Edit to add exactly one line at the end for this run; never rewrite the file:
-
-   `| [YYYY-MM-DD] | [short opportunity description] | [GO / REFINE / NO-GO] | [edits needed, or "none"] | [brief filename or a one-line note] |`
-
-   Do this on every run so the log stays self-maintaining — it feeds the `improve` skill (Step 7) later. Keep it to a single row; do not rewrite existing rows.
-
-3. Present the brief to the user for review. This is their decision gate — do not treat the recommendation as final action; it informs the user's go/no-go decision.
+2. Present the brief to the user for review. This is their decision gate — do not treat the recommendation as final action; it informs the user's go/no-go decision.
 
 ---
 
@@ -84,4 +78,4 @@ The synthesizer writes the executive summary with a committed **GO / REFINE / NO
 - **Blunt and internal** — never customer-facing; name the top risks; surface disconfirming evidence.
 - Pass research reports to the synthesizer verbatim — do not edit, summarize, or add to them.
 - If a research sub-agent fails, re-dispatch that one section; do not block the whole workflow or paper over the gap.
-- The only write this workflow performs is the local brief file (and its run-log row). No sending, no external-system writes.
+- The only write this workflow performs is the local brief file. No sending, no external-system writes.
