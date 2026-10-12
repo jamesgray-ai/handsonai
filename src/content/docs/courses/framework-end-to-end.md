@@ -7,7 +7,7 @@ In this exercise you run the AI Workflow Framework end-to-end yourself, live in 
 
 ## Lesson: Ship a Workflow Using the AI Workflow Framework
 
-Run the framework end-to-end yourself with the Hands-on AI plugin installed — in Claude Code (slash commands), the Claude app (type `/` to pick each skill, or just ask for the step). Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
+Run the framework end-to-end yourself with the Hands-on AI plugin installed — in Claude Code (slash commands) or Claude (type `/` to pick each skill, or just ask for the step). Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
 
 ### Hands-on assignment
 

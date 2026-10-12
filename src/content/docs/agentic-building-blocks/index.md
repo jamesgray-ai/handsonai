@@ -287,7 +287,7 @@ A system where an LLM controls workflow execution to achieve a goal.
 
 | Platform | How It Works |
 |----------|-------------|
-| Claude | Claude Code agents (autonomous tool-using sessions), plugin sub-agents in the Claude app |
+| Claude | Claude Code agents (autonomous tool-using sessions), plugin sub-agents in Claude |
 | OpenAI (ChatGPT) | Workspace Agents with connectors and skills, Assistants API with tools |
 | Gemini | Gemini Enterprise Agent Designer (no-code/visual), Agent Development Kit on Vertex AI, Gemini with extensions |
 | M365 Copilot | Copilot agents with plugins and connectors |
@@ -308,13 +308,13 @@ The software wrapped around a model that turns it into a working agent: the tool
 
 **When to use it:** You always use one. Every time you work with an AI app or an agent, a harness is running it. The decision is which harness fits the work: an everyday app for knowledge work, a coding tool for building software, or an SDK when you build your own.
 
-**Example:** The same model can draft a report in the Claude app and refactor a codebase in Claude Code. The model is identical; the harness around it supplies different tools, different context, and a different loop. When an agent goes wrong, the cause is often the harness rather than the model: context that got lost, the wrong tool, or no way to recover from an error.
+**Example:** The same model can draft a report in Claude and refactor a codebase in Claude Code. The model is identical; the harness around it supplies different tools, different context, and a different loop. When an agent goes wrong, the cause is often the harness rather than the model: context that got lost, the wrong tool, or no way to recover from an error.
 
 **Cross-platform implementations:**
 
 | Platform | How It Works |
 |----------|-------------|
-| Claude | The Claude app for everyday work; Claude Code for building software; the Claude Agent SDK to build your own |
+| Claude | Claude for everyday work; Claude Code for building software; the Claude Agent SDK to build your own |
 | OpenAI (ChatGPT) | ChatGPT (including agent mode) for everyday work; Codex for building software; the Agents SDK to build your own |
 | Gemini | The Gemini app for everyday work; Gemini CLI for building software; the Agent Development Kit to build your own |
 | M365 Copilot | M365 Copilot and Copilot agents for everyday work; GitHub Copilot for building software; the M365 Agents SDK to build your own |
@@ -457,7 +457,7 @@ A catalog of every AI workflow you run, the business processes they serve, and t
 
 | Platform | How It Works |
 |----------|-------------|
-| Claude | Markdown files in a working folder or Git repo, read and maintained by the Claude app or Claude Code |
+| Claude | Markdown files in a working folder or Git repo, read and maintained by Claude or Claude Code |
 | OpenAI (ChatGPT) | Markdown files in a working folder or Git repo, read and maintained by ChatGPT or Codex |
 | Gemini | Markdown files in a working folder or Git repo, read and maintained by Gemini or Gemini CLI |
 | M365 Copilot | Markdown files in a working folder, SharePoint, or Git repo, read by M365 Copilot |
@@ -575,7 +575,7 @@ All building blocks across all four platforms in one view:
 | **Memory** | Claude memory, CLAUDE.md | ChatGPT Memory | Conversation memory | Microsoft Graph |
 | **Skill** | Claude Code Skills, Claude skills | Skills in ChatGPT, Workspace Agents, and Codex CLI | Gemini CLI skills | Not yet available |
 | **Agent** | Claude Code agents, Claude plugin sub-agents | Workspace Agents, Assistants API | Gemini Enterprise Agent Designer, ADK on Vertex AI | Copilot agents with plugins |
-| **Harness** | The Claude app, Claude Code | ChatGPT, Codex | Gemini app, Gemini CLI | M365 Copilot, GitHub Copilot |
+| **Harness** | Claude, Claude Code | ChatGPT, Codex | Gemini app, Gemini CLI | M365 Copilot, GitHub Copilot |
 | **MCP** | MCP servers | Function calling, connectors in Workspace Agents | Extensions, function calling | Connectors, plugins |
 | **API** | Anthropic REST API (Python, TypeScript SDKs) | OpenAI REST API (Python, TypeScript SDKs) | Gemini API, Vertex AI (Python SDK) | Azure AI Services (.NET, Python, Java) |
 | **SDK** | Claude Agent SDK (Python, TypeScript) | OpenAI Agents SDK (Python, TypeScript) | Agent Development Kit (Python) | M365 Agents SDK (.NET, Python, TypeScript) |

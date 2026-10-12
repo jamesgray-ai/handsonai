@@ -59,7 +59,7 @@ Here's the working folder after all seven steps. Every file below appears on thi
 
 
 :::note[Where do the Step 4 skills live in Claude?]
-In Claude, installed skills are managed by the platform rather than sitting in a visible folder. Build stages each skill's source under `framework/weekly-status-report/skills/<skill-name>/`, produces one zip per skill, and then walks you through adding each package under **Customize → Skills**. Skills added there are shared across the Claude app, web and desktop, on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
+In Claude, installed skills are managed by the platform rather than sitting in a visible folder. Build stages each skill's source under `framework/weekly-status-report/skills/<skill-name>/`, produces one zip per skill, and then walks you through adding each package under **Customize → Skills**. Skills added there are shared across Claude, web and desktop, on your account. On Claude Code, they'd land in `.claude/skills/` instead. The [skills setup page](../../skills/) has the current click-by-click steps.
 :::
 
 <a href="/assets/examples/weekly-status-report.zip" download="weekly-status-report.zip"><strong>Download the example project folder (.zip)</strong></a> — unzip it into any folder, open the README, and try the three exercises: watch the skills orient from the Workflow node, regenerate the dashboard, and rewind one step to run it yourself. The folder is checked into the repository and verified by the registry tools on every change, so what you download matches what this page shows, file for file — except the two `.zip` packages, which Build creates on your machine, so they aren't in the download.

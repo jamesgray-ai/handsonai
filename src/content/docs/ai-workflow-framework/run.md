@@ -178,7 +178,7 @@ This is what the `run` skill is doing under the hood, phase by phase. You don't 
 
 This step is facilitated by the **`run`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
 
-**How to start:** Say *"run the run skill"* (or *"put my workflow into production"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and the Claude app lists it when you type `/`. Then, once the real run has finished, say *log this run* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it. After the workflow is live, saying *log this run* after any run adds a row to the log.
+**How to start:** Say *"run the run skill"* (or *"put my workflow into production"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:run`, and Claude lists it when you type `/`. Then, once the real run has finished, say *log this run* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it. After the workflow is live, saying *log this run* after any run adds a row to the log.
 
 **Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 

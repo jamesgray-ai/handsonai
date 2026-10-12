@@ -86,7 +86,7 @@ Then the goal-driven gate, and both paths rejoin at phase 11:
 
 This step is facilitated by the **`deconstruct`** AI Workflow Framework skill. How you get it depends on your platform — see [Install the Hands-on AI Plugin](../skills/) for installation instructions.
 
-**How to start:** Say *"run the deconstruct skill"* (or *"deconstruct my workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:deconstruct`, and the Claude app lists it when you type `/`.
+**How to start:** Say *"run the deconstruct skill"* (or *"deconstruct my workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:deconstruct`, and Claude lists it when you type `/`.
 
 **Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 

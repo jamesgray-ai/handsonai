@@ -1,6 +1,6 @@
 ---
 title: Using Plugins
-description: What plugins are, how to install and use the Hands-on AI plugin in Claude Code, the Claude app, and the Claude API, and how to manage and troubleshoot them
+description: What plugins are, how to install and use the Hands-on AI plugin in Claude Code, Claude, and the Claude API, and how to manage and troubleshoot them
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
@@ -16,7 +16,7 @@ Start at the [Install the Hands-on AI Plugin](/ai-workflow-framework/skills/) pa
 :::
 
 :::tip[Looking for non-Claude platforms?]
-This page covers the Claude ecosystem (Claude Code, the Claude app, API).
+This page covers the Claude ecosystem (Claude Code, Claude, API).
 For Cursor, Codex CLI, Gemini CLI, VS Code Copilot, or any LLM, see
 [How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills).
 :::
@@ -39,7 +39,7 @@ The Hands-on AI plugin currently focuses on **agents** and **skills**. As it gro
 |---|--------|--------|
 | What they are | Expert personalities (orchestrator, methodology guide) | Step-by-step workflows with instructions + reference material |
 | How they activate | Claude automatically picks the right one based on your request | Automatically when relevant, or type `/handsonai:skill-name` |
-| Where they work | Claude Code and the Claude app (plugin sub-agents run when the plugin is installed, on the web and on desktop) | Claude Code and the Claude app — via the plugin or a ZIP upload |
+| Where they work | Claude Code and Claude (plugin sub-agents run when the plugin is installed, on the web and on desktop) | Claude Code and Claude — via the plugin or a ZIP upload |
 | Example | "Walk me through the AI Workflow Framework" activates `framework-agent` | "Name this workflow" loads `naming-workflows` conventions |
 
 ## Transparency & Security
@@ -247,7 +247,7 @@ Plugin sub-agents run when they are packaged in an installed plugin, on the web 
 
 ### Skill compatibility across platforms
 
-All 15 skills work fully across Claude Code and the Claude app — via the plugin or a ZIP upload.
+All 15 skills work fully across Claude Code and Claude — via the plugin or a ZIP upload.
 
 | Skill | Claude Code | Claude app | Notes |
 |-------|:----------:|:---------:|-------|
@@ -269,20 +269,20 @@ All 15 skills work fully across Claude Code and the Claude app — via the plugi
 
 ## Using Plugins in the Claude App
 
-The Claude app is a visual workspace designed for non-technical work — writing, research, analysis, and project coordination. You set the goal and Claude delivers finished, professional work. In the desktop app it can also work in a folder on your computer. It's available on Claude Pro, Max, Team, and Enterprise plans.
+Claude is a visual workspace designed for non-technical work — writing, research, analysis, and project coordination. You set the goal and Claude delivers finished, professional work. In the desktop app it can also work in a folder on your computer. It's available on Claude Pro, Max, Team, and Enterprise plans.
 
 Claude has its own **built-in plugin directory**, so you don't need Claude Code or a terminal to use plugins. The directory includes plugins across productivity, marketing, legal, finance, data analysis, and more — browse the full catalog at [claude.com/plugins-for/cowork](https://claude.com/plugins-for/cowork).
 
 ### Install a plugin in Claude
 
-1. Open the Claude app. (If you still see a Cowork tab, it's the same thing.)
+1. Open Claude. (If you still see a Cowork tab, it's the same thing.)
 2. In the left sidebar, click **Customize**, then the **Plugins** tab (or **Browse plugins**)
 3. Browse the directory, or click **+** → **Add marketplace** → **Add from a repository** and type `jamesgray-ai/handsonai-plugins` for the Hands-on AI plugin
 4. Click **Install** on the plugin card
 
 A plugin's skills and sub-agents work on the web and on desktop. Plugins you add yourself in the desktop app are stored locally, so if one doesn't appear on the web, add the marketplace there too. Step-by-step with screenshots: [Install the Hands-on AI Plugin — Claude](/ai-workflow-framework/skills/#claude-chat--cowork).
 
-### What the Claude app offers with plugins
+### What Claude offers with plugins
 
 - Plugins bundle skills, connectors, slash commands, and sub-agents
 - Claude coordinates parallel workstreams and delivers professional outputs (Excel, PowerPoint, formatted docs)
@@ -290,7 +290,7 @@ A plugin's skills and sub-agents work on the web and on desktop. Plugins you add
 - Pairs with **MCP connectors** for external tool access (e.g., Slack, Google Drive)
 - Plugins are saved locally to your machine
 
-### The Claude app vs Claude Code
+### Claude vs Claude Code
 
 | | Claude app | Claude Code |
 |---|--------|------------|
@@ -300,7 +300,7 @@ A plugin's skills and sub-agents work on the web and on desktop. Plugins you add
 | Best for | Knowledge workers, non-technical users | Developers, coding tasks |
 | Plugin format | Same plugin files | Same plugin files |
 
-Both support the same plugin format and skill files. If you're not comfortable with the terminal, the Claude app is the recommended path.
+Both support the same plugin format and skill files. If you're not comfortable with the terminal, Claude is the recommended path.
 
 ## Download from GitHub
 

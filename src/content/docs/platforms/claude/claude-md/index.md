@@ -3,7 +3,7 @@ title: CLAUDE.md for Your Folder
 description: "Give Claude the context it needs when it works in a folder on your computer: write a CLAUDE.md file. What to include, where it lives, and how Claude reads it."
 ---
 
-In the Claude desktop app, you can point Claude at a folder on your computer and hand it a goal instead of driving it turn by turn. Claude reads the files in that folder, works through the steps, and often runs while you're doing something else. (This used to be a separate Cowork tab; it is now part of the Claude app.)
+In the Claude desktop app, you can point Claude at a folder on your computer and hand it a goal instead of driving it turn by turn. Claude reads the files in that folder, works through the steps, and often runs while you're doing something else. (This used to be a separate Cowork tab; it is now part of Claude.)
 
 The catch: every session starts cold. Whatever Claude needs to know about you, your folder, and how you work has to live in a file Claude can read. That file is `CLAUDE.md`.
 

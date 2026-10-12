@@ -78,7 +78,7 @@ About 25 minutes, all of it the interview.
    - A folder in your cloud drive, **as long as it also appears on your computer** — that means the Google Drive or OneDrive desktop app is installed and syncing. Your AI tool works on the copy on your computer; the app keeps the cloud copy current.
 2. Open that folder in your AI tool:
    - **Claude Code:** open Terminal, type `cd ` (with a space after it), drag the folder from Finder or File Explorer into the Terminal window, press Enter, then type `claude` and press Enter. New to Terminal? See [Terminal Basics](../terminal-basics/).
-   - **The Claude desktop app:** choose the folder as your working folder — a project or any folder on your computer. (Still see a Cowork tab? Cowork is merging into the Claude app; it's the same thing.)
+   - **The Claude desktop app:** choose the folder as your working folder — a project or any folder on your computer. (Still see a Cowork tab? Cowork is merging into Claude; it's the same thing.)
    - **ChatGPT for desktop:** open the folder in **ChatGPT Work** or **Codex**. ChatGPT Work opens local folders only where your plan and workspace admin allow it; if yours doesn't, use Codex.
    - **Claude Code on the web or Codex in a browser:** work in a GitHub repository — the route when you can't save files on your computer.
    - **Cursor / Codex CLI / Gemini CLI:** open the folder as your project.

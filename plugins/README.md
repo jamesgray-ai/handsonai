@@ -18,7 +18,7 @@ instructions with screenshots, plus ZIP downloads for every other platform, are 
 
 **Claude (web and desktop app)** — paid plans:
 **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → install **handsonai**.
-The skills then work on the web and in the desktop app; the `framework-agent` orchestrator runs in the Claude app with the plugin installed.
+The skills then work on the web and in the desktop app; the `framework-agent` orchestrator runs in Claude with the plugin installed.
 
 **ChatGPT (any paid plan) and Codex:**
 **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**.

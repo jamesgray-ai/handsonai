@@ -178,7 +178,7 @@ This is what the `test` skill is doing under the hood, phase by phase. You don't
 
 This step is facilitated by the **`test`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
 
-**How to start:** Say *"run the test skill"* — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:test`, and the Claude app lists it when you type `/`. Then, after each run, say *test this* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it.
+**How to start:** Say *"run the test skill"* — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:test`, and Claude lists it when you type `/`. Then, after each run, say *test this* in the chat that holds the run — the run chat, or the opening chat once you've pasted the run into it.
 
 **Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
