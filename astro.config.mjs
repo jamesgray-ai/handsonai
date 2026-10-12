@@ -10,6 +10,8 @@ export default defineConfig({
   site: 'https://handsonai.info',
   trailingSlash: 'always',
   redirects: {
+    // Chat and Cowork merged into one Claude app; the Cowork page is now about CLAUDE.md for a folder (2026-10-11)
+    '/platforms/claude/cowork/': '/platforms/claude/claude-md/',
     // Skill-discovery prompts made tool-agnostic and moved out of the Claude platform section (2026-09-07)
     '/platforms/claude/skills/find-skill-candidates/': '/agentic-building-blocks/skills/find-skill-candidates/',
     '/platforms/claude/skills/skills-discovery-meta-prompt/': '/agentic-building-blocks/skills/skills-discovery-meta-prompt/',
@@ -344,7 +346,7 @@ export default defineConfig({
               items: [
                 { label: 'Overview', link: '/platforms/claude/' },
                 { label: 'Getting Started', link: '/platforms/claude/getting-started/' },
-                { label: 'Cowork', link: '/platforms/claude/cowork/' },
+                { label: 'CLAUDE.md for Your Folder', link: '/platforms/claude/claude-md/' },
                 { label: 'Claude Projects', link: '/platforms/claude/projects/claude-projects-setup/' },
                 {
                   label: 'CLI',
