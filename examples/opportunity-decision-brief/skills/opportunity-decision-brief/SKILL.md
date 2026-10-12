@@ -2,7 +2,7 @@
 name: opportunity-decision-brief
 disable-model-invocation: true
 argument-hint: "[short description of the product, service, or market/segment to evaluate]"
-allowed-tools: Task, Write, Read
+allowed-tools: Agent, Task, Read, Write, Edit
 description: Research a business opportunity and produce an internal go/refine/no-go decision brief with four cited sections. User-triggered orchestrator — clarifies the input, fans out four specialized research sub-agents in parallel, hands their reports to a synthesizer sub-agent, saves the brief, and logs the run.
 ---
 
@@ -65,7 +65,7 @@ The synthesizer writes the executive summary with a committed **GO / REFINE / NO
 
 1. Write the returned brief to `opportunity-briefs/briefs/[kebab-opportunity-name]-[YYYY-MM-DD].md` (create the `briefs/` folder if needed; do not overwrite an existing file — append a counter if the name collides).
 
-2. **Append one row to the run log** at `opportunity-briefs/runs.md` (create the file with its header row if it doesn't exist). Add exactly one line for this run:
+2. **Append one row to the run log** at `opportunity-briefs/runs.md` (create the file with its header row if it doesn't exist). Use Edit to add exactly one line at the end for this run; never rewrite the file:
 
    `| [YYYY-MM-DD] | [short opportunity description] | [GO / REFINE / NO-GO] | [edits needed, or "none"] | [brief filename or a one-line note] |`
 

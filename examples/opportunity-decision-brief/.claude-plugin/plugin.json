@@ -1,0 +1,9 @@
+{
+  "name": "opportunity-decision-brief",
+  "description": "Worked example of an orchestration skill: give it a business opportunity, and it fans out four research sub-agents in parallel (market, customer, competitive, risk), hands their cited reports to a synthesizer, and returns a go / refine / no-go decision brief for your review.",
+  "version": "1.0.0",
+  "author": { "name": "James Gray" },
+  "homepage": "https://github.com/jamesgray-ai/handsonai-plugins/releases/tag/example-skills",
+  "license": "MIT",
+  "keywords": ["worked-example", "orchestration-skill", "subagents", "arguments"]
+}
