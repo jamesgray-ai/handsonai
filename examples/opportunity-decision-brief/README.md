@@ -8,7 +8,7 @@ Type one command with a business opportunity after it:
 
     /opportunity-decision-brief A 6-week cohort teaching small-firm CPAs to build AI intake agents, priced at $1,500
 
-The skill clarifies the idea with you, sends four research sub-agents out in parallel (market, customer, competitive, risk), hands their cited reports to a fifth that writes the brief, and stops so you make the go / refine / no-go call. Briefs save to `opportunity-briefs/` in your working folder. It uses web research only.
+The skill clarifies the idea with you, sends four research sub-agents out in parallel (market, customer, competitive, risk), hands their cited reports to a fifth that writes the brief, and stops so you make the go / refine / no-go call. Briefs save to `outputs/` in your working folder. It uses web research only.
 
 ## Install
 
@@ -16,6 +16,8 @@ The skill clarifies the idea with you, sends four research sub-agents out in par
 - **Claude Code:** unzip it, then copy `skills/opportunity-decision-brief/` into your project's `.claude/skills/` and the five files in `agents/` into `.claude/agents/`.
 
 ## What's inside
+
+- `sample-briefs/`: three briefs from real runs (an AI contract-review tool, a diabetes meal-kit subscription, a GLP-1 telehealth service), so you can see the output before you run it. They aren't part of the plugin download.
 
 - `skills/opportunity-decision-brief/SKILL.md`: the orchestration skill. It takes the opportunity as an argument (`$ARGUMENTS`).
 - `agents/`: `market-researcher`, `customer-researcher`, `competitive-researcher`, `risk-researcher`, `brief-synthesizer`.

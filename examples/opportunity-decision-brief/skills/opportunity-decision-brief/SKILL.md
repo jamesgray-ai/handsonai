@@ -63,7 +63,7 @@ The synthesizer writes the executive summary with a committed **GO / REFINE / NO
 
 ## Step 5 — Save and hand off for review (HUMAN GATE)
 
-1. Write the returned brief to `opportunity-briefs/[kebab-opportunity-name]-[YYYY-MM-DD].md` (create the `opportunity-briefs/` folder if needed; do not overwrite an existing file — append a counter if the name collides).
+1. Write the returned brief to `outputs/[kebab-opportunity-name]-decision-brief.md` (create the `outputs/` folder if it doesn't exist; if a file of that name already exists, append a short counter rather than overwriting). Confirm the saved file path to the user.
 
 2. Present the brief to the user for review. This is their decision gate — do not treat the recommendation as final action; it informs the user's go/no-go decision.
 
