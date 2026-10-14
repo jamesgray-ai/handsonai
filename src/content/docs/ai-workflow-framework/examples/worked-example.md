@@ -320,7 +320,7 @@ Drafts the Friday leadership status report from the team's project tracker for M
 <!-- /GENERATED -->
 ````
 
-The other three stubs got the same shape, each with its own title, description, and trigger. The close offered the Organizational lens as a later session, and Analyze added a one-line note to the report that it hasn't been run yet. Analyze then handed off to the `indexing-registry` skill for a maintenance pass — lint, the directory indexes, and `REGISTRY.md` at the workspace root — and closed by pointing Maya at Deconstruct. Deconstruct picks *Weekly Status Report* up from this stub and merges into it.
+The other three stubs got the same shape, each with its own title, description, and trigger. Analyze added a one-line note to the report that the Organizational lens hasn't been run yet, then handed off to the `indexing-registry` skill for a maintenance pass — lint, the directory indexes, and `REGISTRY.md` at the workspace root — and closed by pointing Maya at Deconstruct and offering the Organizational lens as a later session. Deconstruct picks *Weekly Status Report* up from this stub and merges into it.
 
 ---
 

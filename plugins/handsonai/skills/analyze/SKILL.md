@@ -24,9 +24,9 @@ Analyze concrete opportunities where AI can improve your workflows. Produces an 
 
 **Words that fit the workspace.** These swaps apply to every quoted line in this skill, including approved wording:
 - **No registry:** "ask about your work" for "walk the processes in your registry"; "an opportunity report listing every candidate" for "an opportunity report and every candidate saved to your registry's backlog (your list of workflows to build)"; "your list of workflows" for "your backlog" and "the backlog" everywhere else (the opening's part 3, the Part 3 signpost, the transition line; the close has its own swaps below); "your report" for "your registry". Group workflows by the areas of work the student named, in their words, and label them "**Area of work:**" in place of "**Process:**". Drop every mention of owners and the dashboard.
-- **Personal-life registry** (the founding `registry/log.md` entry says so): "routine" for "process", "area" for "line of business", "household" (or "your life" for one person) for "business", "role" for "function". The lens is always Individual: skip the lens question and confirm it in one line ("This registry is about your own life, so we'll look at the routines you run each day."). Drop the close's other-lens paragraph.
+- **Personal-life registry** (the founding `registry/log.md` entry says so): "routine" for "process", "area" for "line of business", "household" (or "your life" for one person) for "business", "role" for "function". The lens is always Individual: skip the lens question and confirm it in one line ("This registry is about your own life, so we'll look at the routines you run each day."). Drop the close's other-lens paragraph, and add no other-lens note to the report.
 
-On the fast path, use no signposts, and say only: "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail." After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
+On the fast path, use no signposts, and say only (no registry: "I'll list the workflows you name as **candidate workflows** in a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail."): "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail." After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
 
 **Signposts.** The student hears three parts, never phase numbers (no signposts on the fast path). Say one line at each: "**Part 1 of 3 — How we'll look at your work.**" (Phases 1–2), "**Part 2 of 3 — Where the time goes.**" (Phase 3), "**Part 3 of 3 — Your report and your backlog.**" (Phases 4–5). Phase names are internal; never show them.
 
@@ -96,7 +96,7 @@ With five or fewer processes, say this instead:
 **Ask:** "We'll go through all [N]. Which should we start with?"
 - *Why:* starting where it hurts most puts the most time where it counts.
 - *Example:* a landscaping company owner might start with "Quoting New Jobs".
-- *Not sure?* The same default as above.
+- *Not sure?* I'd start with [the processes that serve the student's objectives], because they drive [the objective]. (With no objectives: start with the one where the work feels slowest or most repetitive.)
 
 Walk them in the order the user named them, counting through them ("1 of 4: [Process] (goal: [the objective it serves])"), and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** Walk every process the student picked; the depth rule below keeps each one short. If the walk passes about 20 minutes with processes left, say so and offer to stop there; the rest go under **Noted, not walked**. The transition signal fires after the last process.
 
@@ -168,7 +168,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 Every candidate goes into the backlog. There is no cap and no "which do you want to build?" question: Analyze catalogs the work, and which workflow to build first is chosen at the start of Deconstruct.
 
-**A workflow with no process.** Before the catalog confirmation, check every candidate has a Process. Where none fits (common on the Individual lens), teach the term and ask, once per new process, exactly:
+**A workflow with no process (registry present).** With no registry, skip this: candidates stay grouped by area of work. Before the catalog confirmation, check every candidate has a Process. Where none fits (common on the Individual lens), teach the term and ask, once per new process, exactly:
 
 **Ask:** "[Workflow] doesn't fit any of your processes. What would you call the set of related work it belongs to, and which function (the team or role that owns that kind of work) looks after it?"
 - *Why:* every workflow sits under one process, and the process's owner owns the workflow too.
