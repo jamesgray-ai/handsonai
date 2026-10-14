@@ -22,9 +22,9 @@ Analyze concrete opportunities where AI can improve your workflows. Produces an 
 >
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
 
-**Words that fit the workspace.** These swaps apply to every quoted line in this skill, including approved wording:
+**Words that fit the workspace.** These swaps apply to every quoted line in this skill, including approved wording, and to every heading, label, and column name in the report:
 - **No registry:** "ask about your work" for "walk the processes in your registry"; "an opportunity report listing every candidate" for "an opportunity report and every candidate saved to your registry's backlog (your list of workflows to build)"; "your list of workflows" for "your backlog" and "the backlog" everywhere else (the opening's part 3, the Part 3 signpost, the transition line; the close has its own swaps below); "your report" for "your registry". Group workflows by the areas of work the student named, in their words, and label them "**Area of work:**" in place of "**Process:**". Drop every mention of owners and the dashboard.
-- **Personal-life registry** (the founding `registry/log.md` entry says so): "routine" for "process", "area" for "line of business", "household" (or "your life" for one person) for "business", "role" for "function". The lens is always Individual: skip the lens question and confirm it in one line ("This registry is about your own life, so we'll look at the routines you run each day."). Drop the close's other-lens paragraph, and add no other-lens note to the report.
+- **Personal-life registry** (the founding `registry/log.md` entry says so): "routine" for "process", "area" for "line of business", "household" (or "your life" for one person) for "business", "role" for "function"; the no-process question's parenthetical becomes "(the person in your household who handles that kind of work)", and its *Example* is dropped. The lens is always Individual: skip the lens question and confirm it in one line ("This registry is about your own life, so we'll look at the routines you run each day."). Drop the close's other-lens paragraph, and add no other-lens note to the report.
 
 On the fast path, use no signposts, and say only (no registry: "I'll list the workflows you name as **candidate workflows** in a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail."): "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail." After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
 
@@ -40,7 +40,7 @@ Only when the user explicitly says they don't want discovery ("I already know th
 
 **Ask:** "These sound like [your own work / work across the business], so I'll use the **[individual / organizational] lens**: [the work you personally do each day / the processes across the business, end to end]. Right?"
 
-Then go straight to Phase 4 and Phase 5, placing each workflow under the Process whose description fits it (ask when none does); even on the fast path, read the bundle's Process nodes before registering anything.
+Then go straight to Phase 4 and Phase 5. With a registry, read the Business node's `## Objectives` and the Process nodes first, and place each workflow under the Process whose description fits it (ask when none does). With no registry, group them by area of work, asking once which area each belongs to if the student named none. Fill each card only from what the student said; mark anything else "Not clear yet — Deconstruct settles it", and the size "Not sized yet" unless given.
 
 ### Standard Path
 
@@ -59,7 +59,7 @@ If the Business node has a `## Objectives` block, read it: those are the outcome
 
 **Same-session skip (distinct from the Fast Path above, which is the user declining discovery).** If the `scaffolding-registry` skill ran earlier in this same conversation, do not re-summarize or re-confirm — say one line ("I'll use the registry we just built") and go to Phase 2. The test is "ran in this conversation" only: a registry written yesterday, or by someone else, still gets the short summary and confirmation below, because the user may not have seen it.
 
-Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs], working toward [objectives, if present]; the processes you named are [grouped by line of business — X, Y under A; Z under B], and you have [N] workflows — [N] in the backlog, [N] under development, [N] in production, [N] retired (omit zero counts). Here's what else I know about your work: … Anything wrong or missing?" Drop the "what else I know" clause when there is nothing beyond the registry. Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and go to Phase 2.
+Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs], working toward [objectives, if present]; the processes you named are [grouped by line of business — X, Y under A; Z under B], and you have [N] workflows — [N] in the backlog, [N] under development, [N] in production, [N] retired (omit zero counts; drop the workflows clause when there are none). Here's what else I know about your work: … Anything wrong or missing?" Drop the "what else I know" clause when there is nothing beyond the registry. Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and go to Phase 2.
 
 #### Phase 2 — Lens selection
 
@@ -98,11 +98,11 @@ With five or fewer processes, say this instead:
 - *Example:* a landscaping company owner might start with "Quoting New Jobs".
 - *Not sure?* I'd start with [the processes that serve the student's objectives], because they drive [the objective]. (With no objectives: start with the one where the work feels slowest or most repetitive.)
 
-Walk them in the order the user named them, counting through them ("1 of 4: [Process] (goal: [the objective it serves])"), and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** Walk every process the student picked; the depth rule below keeps each one short. If the walk passes about 20 minutes with processes left, say so and offer to stop there; the rest go under **Noted, not walked**. The transition signal fires after the last process.
+Walk them in the order the user named them, counting through them ("1 of 4: [Process] (goal: [the objective it serves])"; drop the goal clause when the process serves none of the stated objectives, or there are none), and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** Walk every process the student picked; the depth rule below keeps each one short. If the walk passes about 20 minutes with processes left, say so and offer to stop there; the rest go under **Noted, not walked**. The transition signal fires after the last process.
 
 **The walk question, once per process.** Anchor it in the most recent real run of that process, named in the student's words with its real start and end. Ask it open: never list likely pain points from the student's own business before they answer (a student echoes the list, and the report then holds your guesses, not their friction). Guesses come only as step 3 of the thin-answer recipe below. Say exactly this on the first process; on later processes the **Ask:** and *Why* lines, with its anchor:
 
-**Ask:** "Take the last time [process] ran, from [its start] to [its end]. Where did the time go, or where did it get stuck?"
+**Ask:** "Take the last time [process] ran, from [its start] to [its end]. Where did the time go, or where did it get stuck?" (Individual lens, except a personal-life registry: "Take the last time you did your part of [process], from [its start] to [its end]. Where did the time go, or where did it get stuck?")
 - *Why:* the places where time or results are lost are where a workflow is worth building.
 - *Example:* a property manager might say: "Turning over a unit. I chase three contractors by phone, then re-enter the dates in two calendars."
 - *Not sure?* Tell me the one part you'd hand to someone else tomorrow if you could.
@@ -253,7 +253,7 @@ Append it under a `## Workflow Candidate Summary` heading, in the same process o
 
 ## Output
 
-Write the report to `framework/ai-opportunity-report.md`. Create the `framework/` directory if it doesn't exist. If the file already exists, rename the existing file to `ai-opportunity-report-YYYY-MM-DD.md` (using today's date) before writing the new one.
+Write the report to `framework/ai-opportunity-report.md`. Create the `framework/` directory if it doesn't exist. If the file already exists and this run is the other lens (now or in a later session), merge into it: add the new cards under their processes, extend the Summary Table and the Workflow Candidate Summary, set the header's **Lens** to "Individual + Organizational", and remove the other-lens note. Otherwise (a fresh analysis on the same lens), rename the existing file to `ai-opportunity-report-YYYY-MM-DD.md` (using today's date) before writing the new one.
 
 If this environment can't keep files between conversations (no persistent workspace — output is produced as a download), tell the user to save the report and re-supply it when they run the Deconstruct step, or continue in this same conversation.
 
@@ -337,7 +337,7 @@ When two levers apply, pick the one the user would use to justify the work to th
 - **Individual lens:** Scope each workflow candidate to one person's trigger-to-deliverable flow. If a workflow spans multiple people, note the cross-team dependencies in the opportunity card but keep the candidate focused on a single owner's scope.
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
 - **Never pick a workflow to build first.** No "start with", "build first", "natural second build", or step count in Analyze; the student chooses at the start of Deconstruct, which teaches how to choose.
-- After the catalog confirmation, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), and add the other-lens note to the report. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step), then deliver the close below.
+- After the catalog confirmation, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), and add the other-lens note to the report. Then, if `registry/SCHEMA.md` exists, invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step), then deliver the close below.
 
 **The close.** Say exactly this, in this order — what was completed, what's next, the other lens as optional:
 
