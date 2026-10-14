@@ -1,0 +1,215 @@
+---
+name: authoring-framework-skills
+description: >-
+  Use when writing, editing, or reviewing any of the seven AI Workflow Framework skills
+  (analyze, deconstruct, design, build, test, run, improve) or any other student-facing
+  handsonai plugin skill that interviews a user. That includes adding or rewording a
+  question, adding or splitting a phase, changing an opening or closing message, fixing a
+  finding from a student walkthrough, and the consistency review across all seven skills
+  before a release. Not for docs pages, lesson guides, or skills that never talk to a student.
+---
+
+# Authoring Framework Skills
+
+The framework skills are the course's teacher whenever James is not in the room. Students are
+non-technical business professionals (managers, consultants, operators, founders) running the
+skills on Claude, Claude Code, ChatGPT, Codex, or M365 Copilot. **A skill must teach everything a
+student needs to answer its questions, at the moment they need it**, without sending them to
+handsonai.info, a slide deck, or a recording.
+
+Every framework skill follows the same six-part teaching standard, the same language rules, and
+the same file format, so moving from Analyze to Improve feels like one guide, not seven.
+
+**Two readers, two voices.** A SKILL.md is instructions to the model, written in the imperative
+("Ask…", "Record…"). Text in quotation marks is what the student hears. The language rules below
+govern the quoted text strictly; instruction text can use internal terms (`Workflow node`,
+`AC1`), because the student never sees it.
+
+## The teaching standard
+
+### 1. Open: the first message of the skill
+
+The opening says five things, in this order, in a short paragraph (about five sentences; joining two is fine):
+
+1. **What this step does**, in one plain sentence.
+2. **What you'll have at the end**: the named deliverable and where it's saved.
+3. **How long it takes**: an honest range for a first-timer.
+4. **The parts**: "It runs in N parts: (1) …, (2) …".
+5. **Why the next step needs it**, plus "Stopping early is safe — progress is saved, and 'continue my workflow' picks up where we left off."
+
+Then, once per skill run, offer the switch: "I'll explain each question as I ask it, and 'not sure'
+is always a fine answer. If you've done this before, say 'skip the explanations'."
+
+Define no framework terms in the opening. Each term is defined where it first matters (see Terms);
+front-loading three definitions before the first question overloads the student.
+
+Deconstruct's opening is the reference: it gives the agenda, not just the time.
+
+### 2. Signposts: one line at each transition
+
+Format: **"Part N of M — [plain name]."** The student hears *parts*. Phases are internal and
+their numbers never appear in quoted text, so the student only ever sees one count. Group
+phases into 3–6 parts; a part can hold several phases.
+
+### 3. Question blocks: teaching at the point of asking
+
+Write a question block for a question when **any** of these is true:
+
+- Answering needs a framework concept the student hasn't met yet (a gate, a criterion, an autonomy level).
+- It asks for a judgment the student has probably never made about their work ("what must it never do?").
+- A walkthrough finding shows a student got stuck on it.
+
+Do **not** write one for a plain factual question about the student's own work ("What kicks it
+off?", "Who receives the output?"). Teaching every question bloats the skill and buries the
+instructions that matter.
+
+Every question the student hears carries the **Ask:** label, so the model can always find the exact
+wording. A plain factual question is just the **Ask:** line; a question that meets the test above
+gets the full block. Format, exactly:
+
+```markdown
+**Ask:** "[the question, in the student's words]"
+- *Why:* [one sentence: what this answer is used for, ideally by a later step]
+- *Example:* [a short answer from a different line of work than the student's]
+- *Not sure?* [the default the skill records, or one concrete way to find the answer]
+```
+
+Rules for each part:
+
+- **Why** is said in the same message as the question, always, even after "skip the explanations". One sentence, tied to a use: "Test checks every gate you name here, so this sets what a passing run looks like." When a *Why* names what a later step does with the answer, check that step's skill says so before committing; a wrong *Why* teaches the student something false.
+- **Example** comes from a deliberately different line of work (expense approvals, a recruiting coordinator, a property manager), at the same altitude as the question. It must never be an answer the student could copy for their own workflow. Pick the domain at authoring time and write it in; don't tell the model to "give an example".
+- **Example collision.** The student's line of work isn't known when the skill is written, so an example can land in their own field. Write this instruction once near the skill's first question block: "If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*." Don't write backup examples.
+- **Proposals are not examples.** Proposing an answer drawn from what the student already told you ("From the steps we mapped, I'd put a gate before the send — does that fit?") is encouraged; it's how propose-and-react works. The *Example* line is different: it shows the shape of a good answer, so it must come from someone else's work.
+- **Not sure?** gives a safe default the skill will record (and says it was a default), or one way to find out ("think of the last time you did this — where did you stop and check?"). Never leave a student with no way forward.
+- Example and Not sure? are shown by default and dropped after "skip the explanations". The student can still ask for them.
+
+### 4. Terms: defined on first use, paired with the plain meaning
+
+The first time a framework term reaches the student, say the term and its plain meaning together
+in one sentence, with the student's own case where possible: "That's a **human gate** — a point
+where a person must review or approve before the workflow continues. In your case, that's you
+reading the email before it goes." After that, the term alone is fine. Students learn the
+vocabulary because they meet it explained, not as a label (Design's playback already works this way).
+
+Use the canonical definitions so every skill says the same thing:
+
+| Term | Plain meaning (say this) | Canonical source |
+|---|---|---|
+| Workflow | One piece of repeated work, from what kicks it off to the thing it produces | Analyze |
+| Context | Any information a step needs to do its job: documents, spreadsheets, emails, style guides, or knowledge that lives in someone's head | Deconstruct, Phase 4 |
+| Step-driven / goal-driven | Step-driven: you can describe every path the work takes. Goal-driven: you can describe what "done" looks like, but the path depends on what comes in | Deconstruct, The Two Paths |
+| Human gate | A point where a person must review or approve before the workflow continues | Deconstruct, Phase 7 |
+| Acceptance criterion | A yes/no statement about the output that you can check after one run | Deconstruct, Phase 12 |
+| Value lever | The kind of value AI creates here: Streamline, Automate, Accelerate, or Create value | Analyze, Appendix |
+| Autonomy level | How much the AI decides: Deterministic (you give instructions), Guided (it makes bounded decisions with your method), Autonomous (you give it a goal) | Design, Phase 4 |
+| Building block | One of the pieces a workflow is built from: a prompt, a skill, an agent, a connection to another system | Design |
+| Registry | Your record of the business: what you do, the processes that deliver it, and the workflows built or planned for each | scaffolding-registry |
+| Backlog | The workflows in your registry you've chosen to build but haven't started | Analyze, Phase 5 |
+
+When a skill's own text defines a term differently, the skill named in the source column wins:
+fix the table, not the skill, and check the other skills against the corrected wording.
+
+### 5. Thin answers: coach, don't accept
+
+When an answer is too vague to write a requirement from, follow this recipe:
+
+1. Play back what you have: "So far I have: [their words]."
+2. Ask one narrower follow-up anchored in a real instance: "Think of the last time you did this. What happened first?"
+3. If it's still thin after two tries, propose an answer to react to: "Here's my guess — what's right and what's wrong?"
+4. If they still don't know, record `Unknown` (or the stated default) and move on. Never invent an answer and record it as theirs.
+
+### 6. Close: the last thing the student hears
+
+The close says four things: **what you made** (with counts), **where it's saved**, **what the
+next step does with it and how long it takes**, and **the exact phrase to start it**.
+Deconstruct's close is the reference: "Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, … Step 3, Design, reads this file and decides how the workflow gets built … in about 30 minutes. Start it with 'run the design skill'."
+
+## Language and tone for a business audience
+
+The student is a capable professional who is new to building with AI. Write as a peer who
+explains clearly, not as a teacher correcting them or an engineer briefing another engineer.
+
+**Rules for quoted (student-facing) text:**
+
+- **Plain words first.** Short sentences, second person, active voice. If a sentence would make a seller or an operations manager stop to decode it, rewrite it.
+- **No technical vocabulary the student didn't introduce**, unless the step's job is to teach it (Design and Build name building blocks; pair each with its meaning, per Terms).
+- **No clever compression.** No aphorisms, two-word punchlines, or metaphors standing in for the point ("the tell", "load-bearing", "the substrate").
+- **No analogies by default.** Explain with the student's own workflow. Add an analogy only when a concept doesn't land from the real case.
+- **Never frame the student as behind.** No "most people miss this", "what nobody tells you", "the part everyone gets wrong". State what the thing is and what it does.
+- **No unsupported prevalence claims** in quoted text ("most people undercount steps by 30–50%"). If a pattern matters, say what to do about it: "Let's check for steps that happen without you thinking about them."
+- **No stock phrases.** No "Sound familiar?", "Great question!", "Let's dive in", "There are no wrong answers", "Your turn".
+- **Platform-neutral.** Quoted text never names a feature only one platform has. Platform-specific facts live only in `registries/platform-registry.json` (see the Framework skill conventions in `CLAUDE.md`).
+- **Exact product names:** Claude, Claude Code, ChatGPT, Codex, M365 Copilot. "Markdown" takes a capital M in prose.
+
+**Swap list for words that reach the student:**
+
+| Instead of | Say |
+|---|---|
+| artifact | file, document, or the thing it produces (name it) |
+| invoke / trigger the skill | run / start the skill |
+| node, frontmatter, schema | your registry entry, the details at the top of the file |
+| repo, directory | folder |
+| orchestration | how the steps are coordinated |
+| deterministic (unexplained) | follows your instructions the same way every time |
+| edge case | an unusual case |
+| input / output (unexplained) | what it starts from / what it produces |
+| leverage, utilize | use |
+
+## File format
+
+Every framework skill keeps this shape (existing v8 conventions in `CLAUDE.md` still apply):
+
+- **Frontmatter:** `name` and `description` only. The description is plain prose in a `>` folded scalar: no XML tags, no `<example>` blocks. It opens "This skill should be used when…", names the trigger phrases students actually type (including "continue my workflow"), and ends "This is Step N (Name) of the AI Workflow Framework."
+- **Body order:** `# Title` → one-paragraph purpose → `## Workflow` (opening instruction, the `> **Registry entry:**` note, then `#### Phase N — Name` sections) → `## Output` or `## Outputs` → `## Guidelines`.
+- **Phases:** `#### Phase N — Name`, or `#### Phase N (goal-driven) — Name`. The docs page's "How the Skill Works" list mirrors them one for one (`scripts/check-framework-consistency.sh`).
+- **Self-contained teaching.** Question blocks, term definitions, and examples are written into each skill. Never point a skill at another skill's file for its teaching: a skill uploaded alone to ChatGPT or M365 Copilot can't reach it.
+- **Size discipline.** Teaching adds words, so pay for them: when a question block goes in, cut the instruction text it replaces (a bare question, a restated rule, a "be clear" reminder). Report each skill's word count before and after (`wc -w`) in the commit message, and explain any growth over 15% across the walkthrough in the PR.
+
+## Before and after: Deconstruct, Phase 7
+
+**Before** (instruction only; the student gets a bare question):
+
+> Ask once, after the sequence is mapped: "Where must a person review or approve before the workflow continues — and where should it just run?" Record each answer as a row `G1, G2, …` in Human Gates.
+
+**After:**
+
+> Ask once, after the sequence is mapped. Introduce the term first: "That brings us to **human gates** — points where a person must review or approve before the workflow continues."
+>
+> **Ask:** "Looking at your steps, where must you (or someone else) check or approve before it moves on, and where should it just run?"
+> - *Why:* Test checks every gate you name, and Design uses them to decide how much the AI can do on its own.
+> - *Example:* A recruiting coordinator might say: "I approve the interview slots before invitations go out; scheduling the room can just run."
+> - *Not sure?* Start with one gate: you review the result before anyone else sees it. You can add more after testing.
+>
+> Record each answer as a row `G1, G2, …` in Human Gates with the step it sits at. Apply the *Not sure?* default by the last step: if the workflow sends, posts, or hands its result to someone else, record a gate before that step and mark it `(default)`; if the student is the only one who receives the result, write "No human gates — the workflow runs end-to-end with final review only."
+
+## Review checklist
+
+Run this on every edited skill before committing, and across all seven before a release:
+
+- [ ] The opening has all five parts and offers "skip the explanations".
+- [ ] Signposts read "Part N of M — name"; no phase number appears in quoted text.
+- [ ] Every question that needs a concept or a new judgment has a full question block; plain factual questions don't.
+- [ ] Every quoted question carries **Ask:**; blocks appear only where the test in Question blocks is met.
+- [ ] Every example comes from a different line of work and could not be copied as the student's answer; the example-collision line is present once.
+- [ ] Every *Why* that names a later step has been checked against that step's skill.
+- [ ] Every "Not sure?" gives a default or a way to find out, and defaults are recorded as defaults.
+- [ ] Each framework term is defined on first use, matching the terms table.
+- [ ] The thin-answer recipe is followed; nothing invented is recorded as the student's answer.
+- [ ] The close names what was made, where, what's next, how long, and the exact phrase to start.
+- [ ] Quoted text passes the language rules and the swap list.
+- [ ] The file format matches; `bash scripts/check-framework-consistency.sh` passes.
+- [ ] Word count before and after is reported.
+
+## Common mistakes
+
+| Mistake | Fix |
+|---|---|
+| Telling the model "explain why you're asking" instead of writing the reason | Write the exact *Why* line. An instruction to explain produces seven different explanations. |
+| An example from the student's own field (a sales example in a sales workflow) | Move it to a different line of work. The student will copy it. |
+| A question block on every question | Keep blocks for concepts and new judgments only. |
+| A teaching paragraph before the question | One-line *Why* with the question; the rest goes in Example and Not sure?. |
+| "Adapt the example to their role" | Write a fixed example from another line of work. An adapted example is the student's answer. |
+| Defining several terms in the opening | Define each term where it first matters. |
+| "Phase 3 of 6" shown to the student | "Part 2 of 4 — [name]". |
+| Defining a term differently from another skill | Use the terms table wording. |
+| Fixing the output after a walkthrough but not the skill | Fix the skill text that produced it, then re-run the step. |
