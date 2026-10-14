@@ -34,7 +34,7 @@ On the fast path, use no signposts, and say only (no registry: "I'll list the wo
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, make the offer below once, right after the opening (a legacy `workflow.yaml` workspace: offer `scaffolding-registry`, which also migrates it); do not write registry entries until the bundle exists.
 
-**Resume orientation:** if `framework/analyze-in-progress.md` exists, an Analyze walk was interrupted: say what was noted so far ("Last time we covered [processes]; I noted [pieces]"), then continue the walk at the next process not yet walked (with no Process nodes: continue the discovery questions), with no opening and no lens question. Otherwise, if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `framework/` for their artifacts. If `outputs/` holds a framework record from before 9.0, follow *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference first. If the student kept the pre-9.0 layout (`registry/log.md` has a "Kept the pre-9.0 `outputs/` layout" entry), an existing workflow's artifacts are in `outputs/[workflow-name]/`, not `framework/[workflow-name]/`, and while `outputs/ai-opportunity-report.md` exists, `framework/ai-opportunity-report.md` in this skill means that file. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
+**Resume orientation:** if `framework/analyze-in-progress.md` exists, an Analyze walk was interrupted: say what was noted so far ("Last time we covered [processes]; I noted [pieces]"), then continue the walk at the first picked process not on the file's walked list (with no Process nodes: continue the discovery questions), with no opening and no lens question. Otherwise, if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `framework/` for their artifacts. If `outputs/` holds a framework record from before 9.0, follow *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference first. If the student kept the pre-9.0 layout (`registry/log.md` has a "Kept the pre-9.0 `outputs/` layout" entry), an existing workflow's artifacts are in `outputs/[workflow-name]/`, not `framework/[workflow-name]/`, and while `outputs/ai-opportunity-report.md` exists, `framework/ai-opportunity-report.md` in this skill means that file. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
 
 ### Fast Path
 
@@ -122,7 +122,7 @@ When an opportunity has a clear starting point and a clear result, say so in one
 
 **Close each process in one line** before moving on, naming everything noted from it: "Noted for [process]: [piece 1], [piece 2], [piece 3]. That's enough for the report. Deconstruct goes into the detail later." Then signpost the next process.
 
-**Save progress after each process** (this is what makes the opening's "Progress is saved" true). After each process's "Noted for" line (with no Process nodes: each time an opportunity is complete), write or update `framework/analyze-in-progress.md`: the lens, the processes picked, and for each process or area of work its noted pieces with whatever you have of work, problem, size, and goal. Say nothing about it to the student. Delete it once the report is written in Phase 4. In print-and-save mode, skip this file.
+**Save progress after each process** (this is what makes the opening's "Progress is saved" true). After each process's "Noted for" line (with no Process nodes: each time an opportunity is complete), write or update `framework/analyze-in-progress.md`: the lens, the processes picked, the processes walked so far in walk order (each marked walked, fine, or noted-not-walked), and for each process or area of work its noted pieces with whatever you have of work, problem, size, and goal. Say nothing about it to the student. Delete it once the report is written in Phase 4. In print-and-save mode, skip this file.
 
 **Fallback — no Process nodes.** Use the question bank for the chosen lens, exactly as below.
 
@@ -158,7 +158,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 3. If it's still thin after two tries, propose a guess to react to. Say: "Here's my guess: [X], [Y], or [Z], from what you've told me about [your role / this process]. What's right and what's wrong?"
 4. If they still don't know, move on: note the process under **Noted, not walked**, or record the size as "Not sized yet". Never invent an opportunity and record it as theirs.
 
-**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (no registry: the order the student named them; the report and catalog use the same order and numbers), then say: "The report covers all of these, and they all go into your backlog." On an other-lens run, leave pieces that match an existing workflow out of the numbered list and name them on one line ("[Workflow] is already in your backlog"); the sentence then covers only the rest.
+**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (no registry: the order the student named them; the report and catalog use the same order and numbers), then say: "The report covers all of these, and they all go into your backlog." On an other-lens run, leave pieces that match an existing workflow out of the numbered list and name them on one line ("[Workflow] is already in your registry"); the sentence then covers only the rest.
 
 **Ask:** "Anything to add, or shall I write the report?"
 
@@ -166,13 +166,15 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 **Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy and the opportunity's one follow-up is unused, ask it (never on the fast path); otherwise write what you have and mark the fuzzy field "Not clear yet — Deconstruct settles it". Never drop an opportunity the student named.
 
+**Before writing the report**, settle any workflow that fits no process, using *A workflow with no process* in Phase 5, so every card has its group.
+
 **Telling the student about the report.** After writing it, say in a few lines: how many opportunities, grouped under how many processes, where the file is saved (print-and-save mode: where to save it), and what each card holds (the problem, what AI would do, its size). Define the value lever the first time it appears, exactly: "Each card names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Never present a ranking, a top pick, or an impact rating.
 
 #### Phase 5 — Candidates registered
 
 Every candidate goes into the backlog. There is no cap and no "which do you want to build?" question: Analyze catalogs the work, and which workflow to build first is chosen at the start of Deconstruct.
 
-**A workflow with no process (registry present).** With no registry, skip this: candidates stay grouped by area of work. Before the catalog confirmation, check every candidate has a Process. Where none fits (common on the Individual lens), teach the term and ask, once per new process, exactly:
+**A workflow with no process (registry present).** With no registry, skip this: candidates stay grouped by area of work. Before the report is written (Phase 4 points here), check every candidate has a Process. Where none fits (common on the Individual lens), teach the term and ask, once per new process, exactly:
 
 **Ask:** "[Workflow] doesn't fit any of your processes. What would you call the set of related work it belongs to, and which function (the team or role that owns that kind of work) looks after it?"
 - *Why:* every workflow sits under one process, and the process's owner owns the workflow too.
@@ -189,7 +191,7 @@ Write a complete minimal Process node per `naming-workflows`' rule — never a d
 > 1. **[Workflow name].** [One-sentence description.]
 > 2. …
 
-**Ask:** "Anything to rename, reword, move or leave out? You can answer by number, for example 'rename 4.'"
+**Ask:** "Anything to rename, reword, move or leave out? You can answer by number, for example 'rename 4.'" (With fewer than four workflows on screen, use the highest number shown.)
 - *Why:* the name and description are what you'll see on your dashboard, and what Deconstruct starts from later.
 - *Not sure?* Say "looks good." You can edit any workflow later.
 
@@ -253,7 +255,7 @@ Append it under a `## Workflow Candidate Summary` heading, in the same process o
 
 **No registry.** Right after the opening, say once: "You don't have a registry yet, so your workflows will live in the report for now. When you want them saved and shown on a dashboard, say 'run the scaffolding-registry skill'." Then continue; don't repeat it here.
 
-**The other lens.** The other lens is offered in the close as a later session; never ask about it as a question. Add a one-line note under the report header that the other lens hasn't been run yet (never for a personal-life registry) (keep the header's **Lens** row naming the lens used). When the student runs the other lens, now or in a later session, run Phases 2–5 on that lens (in a later session, run Phase 1 first: read the registry and the existing report and give the short summary) and merge the new candidates into the report and the registry; the catalog confirmation shows only this run's workflows, numbered straight through. When a piece of work matches a workflow already in the registry, say so ("[Workflow] is already in your backlog; I'll add what we learned to its card"), update its existing card, and leave it out of the catalog numbering and the close's [N]. Update the header's **Opportunities identified** to the combined count and **Noted, not walked** to the processes neither run walked. Then run the maintenance pass and the close; when both lenses are now done, the close's last paragraph is dropped and no other-lens note is added.
+**The other lens.** The other lens is offered in the close as a later session; never ask about it as a question. Add a one-line note under the report header that the other lens hasn't been run yet (never for a personal-life registry) (keep the header's **Lens** row naming the lens used). When the student runs the other lens, now or in a later session, run Phases 2–5 on that lens (in a later session, run Phase 1 first: read the registry and the existing report and give the short summary) and merge the new candidates into the report and the registry; the catalog confirmation shows only this run's workflows, numbered straight through. When a piece of work matches a workflow already in the registry, say so ("[Workflow] is already in your registry; I'll add what we learned to its card"), update its existing card, and leave it out of the catalog numbering and the close's [N]. Update the header's **Opportunities identified** to the combined count and **Noted, not walked** to the processes neither run walked. Then run the maintenance pass and the close; when both lenses are now done, the close's last paragraph is dropped and no other-lens note is added.
 
 ## Output
 
