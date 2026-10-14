@@ -23,20 +23,24 @@ Analyze concrete opportunities where AI can improve your workflows. Produces an 
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
 
 **Words that fit the workspace.** These swaps apply to every quoted line in this skill, including approved wording:
-- **No registry:** "ask about your work" for "walk the processes in your registry"; "every candidate listed in your report" for "every candidate saved to your registry's backlog (your list of workflows to build)"; "your list of workflows" for "your backlog" and "the backlog" everywhere else (the opening's part 3, the Part 3 signpost, the transition line; the close has its own swaps below); "your report" for "your registry". Group workflows by the areas of work the student named, in their words, and label them "**Area of work:**" in place of "**Process:**". Drop every mention of owners and the dashboard.
-- **Personal-life registry** (the founding `registry/log.md` entry says so): "routine" for "process", "area" for "line of business", "household" (or "your life" for one person) for "business". Drop the close's other-lens paragraph.
+- **No registry:** "ask about your work" for "walk the processes in your registry"; "an opportunity report listing every candidate" for "an opportunity report and every candidate saved to your registry's backlog (your list of workflows to build)"; "your list of workflows" for "your backlog" and "the backlog" everywhere else (the opening's part 3, the Part 3 signpost, the transition line; the close has its own swaps below); "your report" for "your registry". Group workflows by the areas of work the student named, in their words, and label them "**Area of work:**" in place of "**Process:**". Drop every mention of owners and the dashboard.
+- **Personal-life registry** (the founding `registry/log.md` entry says so): "routine" for "process", "area" for "line of business", "household" (or "your life" for one person) for "business", "role" for "function". The lens is always Individual: skip the lens question and confirm it in one line ("This registry is about your own life, so we'll look at the routines you run each day."). Drop the close's other-lens paragraph.
 
 On the fast path, use no signposts, and say only: "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail." After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
 
 **Signposts.** The student hears three parts, never phase numbers (no signposts on the fast path). Say one line at each: "**Part 1 of 3 — How we'll look at your work.**" (Phases 1–2), "**Part 2 of 3 — Where the time goes.**" (Phase 3), "**Part 3 of 3 — Your report and your backlog.**" (Phases 4–5). Phase names are internal; never show them.
 
-> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, make the offer below once, right after the opening (a legacy `workflow.yaml` workspace: offer `scaffolding-registry`, which also migrates it); do not write registry entries until the bundle exists.
 
 **Resume orientation:** if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `framework/` for their artifacts. If `outputs/` holds a framework record from before 9.0, follow *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference first. If the student kept the pre-9.0 layout (`registry/log.md` has a "Kept the pre-9.0 `outputs/` layout" entry), an existing workflow's artifacts are in `outputs/[workflow-name]/`, not `framework/[workflow-name]/`, and while `outputs/ai-opportunity-report.md` exists, `framework/ai-opportunity-report.md` in this skill means that file. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
 
 ### Fast Path
 
-Only when the user explicitly says they don't want discovery ("I already know the three workflows, just register them"). A workflow the user merely mentions, or one already in the registry, is a **seed** for discovery, not a reason to skip it. On the fast path, infer the lens from what they describe and confirm it in one line, exactly: "These sound like [your own work / work across the business], so I'll use the **[individual / organizational] lens**: [the work you personally do each day / the processes across the business, end to end]. Right?" Then go straight to Phase 4 and Phase 5, placing each workflow under the Process whose description fits it (ask when none does); even on the fast path, read the bundle's Process nodes before registering anything.
+Only when the user explicitly says they don't want discovery ("I already know the three workflows, just register them"). A workflow the user merely mentions, or one already in the registry, is a **seed** for discovery, not a reason to skip it. On the fast path, infer the lens from what they describe and confirm it in one line, exactly:
+
+**Ask:** "These sound like [your own work / work across the business], so I'll use the **[individual / organizational] lens**: [the work you personally do each day / the processes across the business, end to end]. Right?"
+
+Then go straight to Phase 4 and Phase 5, placing each workflow under the Process whose description fits it (ask when none does); even on the fast path, read the bundle's Process nodes before registering anything.
 
 ### Standard Path
 
@@ -150,7 +154,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 3. If it's still thin after two tries, propose a guess to react to. Say: "Here's my guess: [X], [Y], or [Z], from what you've told me about [your role / this process]. What's right and what's wrong?"
 4. If they still don't know, move on: note the process under **Noted, not walked**, or record the size as "Not sized yet". Never invent an opportunity and record it as theirs.
 
-**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (the order the report and catalog use, with the same numbers), then say: "The report covers all of these, and they all go into your backlog."
+**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (no registry: the order the student named them; the report and catalog use the same order and numbers), then say: "The report covers all of these, and they all go into your backlog."
 
 **Ask:** "Anything to add, or shall I write the report?"
 
@@ -158,11 +162,20 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 **Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy and the opportunity's one follow-up is unused, ask it; otherwise write what you have and mark the fuzzy field "Not clear yet — Deconstruct settles it". Never drop an opportunity the student named.
 
-**Telling the student about the report.** After writing it, say in a few lines: how many opportunities, grouped under how many processes, where the file is saved, and what each card holds (the problem, what AI would do, how to measure improvement). Define the value lever the first time it appears, exactly: "Each card names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Never present a ranking, a top pick, or an impact rating.
+**Telling the student about the report.** After writing it, say in a few lines: how many opportunities, grouped under how many processes, where the file is saved, and what each card holds (the problem, what AI would do, its size). Define the value lever the first time it appears, exactly: "Each card names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Never present a ranking, a top pick, or an impact rating.
 
 #### Phase 5 — Candidates registered
 
 Every candidate goes into the backlog. There is no cap and no "which do you want to build?" question: Analyze catalogs the work, and which workflow to build first is chosen at the start of Deconstruct.
+
+**A workflow with no process.** Before the catalog confirmation, check every candidate has a Process. Where none fits (common on the Individual lens), teach the term and ask, once per new process, exactly:
+
+**Ask:** "[Workflow] doesn't fit any of your processes. What would you call the set of related work it belongs to, and which function (the team or role that owns that kind of work) looks after it?"
+- *Why:* every workflow sits under one process, and the process's owner owns the workflow too.
+- *Example:* a bookkeeper might say: "Client Onboarding, and that's me."
+- *Not sure?* I'll suggest a name from your own words and make you the owner. You can change it later.
+
+Write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub — and add its line to the right Line of Business's `# Processes` list (ask which line, and where in the order, if it is not obvious). The owning Function's `# Owns` block is GENERATED; the maintenance pass refreshes it. In the catalog, show the new process with "(new)" after its name.
 
 **Catalog confirmation (one message).** This is the student's one look at the catalog before it is written. Place each candidate under the Process where it was found, unless the work clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it); then place it under the right one and give the reason in brackets after its description. Show every process with its workflows, in the report's process order and numbers, numbered straight through across processes, each as name plus a one-sentence description of about 20 words in the form "When/From [trigger], [what it produces]". No size, value lever, or ranking on this screen. With no registry, the workspace swaps above apply: open with "Here's what goes into your report.", drop the owner sentence, and the *Why* is "the name and description are what Deconstruct starts from later." Say exactly this, with the student's own workflows:
 
@@ -176,9 +189,9 @@ Every candidate goes into the backlog. There is no cap and no "which do you want
 - *Why:* the name and description are what you'll see on your dashboard, and what Deconstruct starts from later.
 - *Not sure?* Say "looks good." You can edit any workflow later.
 
-Apply every change to the report (cards, Summary Table) and then write the registry entries. A workflow the student leaves out keeps its card in the report, marked "Left out of the backlog", and gets no registry entry. Where no existing Process fits a workflow (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub — and add its line to the right Line of Business's `# Processes` list (ask which line, and where in the order, if it is not obvious). The owning Function's `# Owns` block is GENERATED; the maintenance pass refreshes it.
+Apply every change to the report (cards, Summary Table). A workflow the student leaves out keeps its card in the report, marked "Left out of the backlog", and gets no registry entry.
 
-Then append a **Workflow Candidate Summary** to the report with structured metadata for each registered candidate:
+Then append a **Workflow Candidate Summary** to the report with structured metadata for each candidate kept (not left out):
 
 | Field | Content |
 |-------|---------|
@@ -232,9 +245,9 @@ Append it under a `## Workflow Candidate Summary` heading, in the same process o
    ```
 
    The body's opening paragraph deliberately repeats the frontmatter `description`: the frontmatter is what tools read, the body is what people read. `trigger` is provisional — Deconstruct refines it. The stub carries no `execution_mode` or `autonomy`: those are Design's to set once the steps are known. Pain point, size, and value lever stay in the report; the registry holds the inventory.
-3. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md` (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug already exists, merge — never overwrite fields already set.
+3. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md`, replacing any placeholder line there (`_No workflows captured yet._`, `_No entries yet…_`) (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug already exists, merge — never overwrite fields already set.
 
-No registry? Say so once ("No registry here, so the candidates live in the report only — set one up with the `scaffolding-registry` skill when you want an inventory" — unless you already said this at the start) and continue.
+**No registry.** Right after the opening, say once: "You don't have a registry yet, so your workflows will live in the report for now. When you want them saved and shown on a dashboard, say 'run the scaffolding-registry skill'." Then continue; don't repeat it here.
 
 **The other lens.** The other lens is offered in the close as a later session; never ask about it as a question. Add a one-line note under the report header that the other lens hasn't been run yet (keep the header's **Lens** row naming the lens used). If the student asks to run it now, run Phases 2–5 on that lens, merge the new candidates into the report and the registry (a second catalog confirmation shows only the new ones), then run the maintenance pass and the close again; the close's last paragraph is then dropped.
 
@@ -334,6 +347,6 @@ When two levers apply, pick the one the user would use to justify the work to th
 >
 > **Later, if you want:** the **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say "run the analyze skill with the individual lens."
 
-Fit it to the run: [N] is the workflows registered in this run; if the backlog already held others, say "[N] new workflows in your registry's backlog ([total] in all)". With no registry, say "in your report" in place of "in your registry's backlog" and "from your report" in place of "from your backlog", and drop the dashboard sentence; with no dashboard file, drop the dashboard sentence; when the maintenance pass updated a dashboard **Claude Artifact**, say "Your dashboard, and its Claude page, now show them too." in place of the dashboard sentence. After the Individual lens, the last paragraph names the **organizational lens** instead: "looks at the processes across the business, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens.'" Never name `REGISTRY.md` or any file but the report.
+Fit it to the run: [N] is the workflows registered in this run; if the backlog already held others, say "[N] new workflows in your registry's backlog ([total] in all)". With no registry, say "in your report" in place of "in your registry's backlog", "from your report" in place of "from your backlog", and "grouped under the areas of work they belong to" in place of "grouped under the processes they belong to", and drop the dashboard sentence; with no dashboard file, drop the dashboard sentence; when the maintenance pass updated a dashboard **Claude Artifact**, say "Your dashboard, and its Claude page, now show them too." in place of the dashboard sentence. After the Individual lens, the last paragraph names the **organizational lens** instead: "looks at the processes across the business, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens.'" Never name `REGISTRY.md` or any file but the report.
 
 **Saving a version — only when the folder is a git repository** (in write mode with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive). After the close, once, say exactly: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; never push as part of this offer.

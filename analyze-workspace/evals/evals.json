@@ -31,7 +31,7 @@
         "Opportunities are specific to the user's described role (not generic AI advice)",
         "The report contains the required Report Header with role, date, lens, and count",
         "The report does not rank opportunities: no Top Recommendations section, no top recommendation, no priority or impact rating",
-        "After the report, the response shows a catalog confirmation listing each workflow's name and one-line description, grouped by process, and registers every candidate rather than asking the user to pick"
+        "After the report, the response shows a catalog confirmation listing each workflow's name and one-line description, grouped by process or area of work, and keeps every candidate (in the report, since the workspace has no registry); it does not ask the user to pick which to build"
       ]
     },
     {
@@ -46,7 +46,7 @@
         "The report identifies at least 3 concrete opportunities",
         "The report contains the required Summary Table format",
         "Each card has a Size line, in the user's own numbers or \"Not sized yet\"",
-        "After the report, the response shows a catalog confirmation listing each workflow's name and one-line description, grouped by process, and registers every candidate rather than asking the user to pick",
+        "After the report, the response shows a catalog confirmation listing each workflow's name and one-line description, grouped by process or area of work, and keeps every candidate (in the report, since the workspace has no registry); it does not ask the user to pick which to build",
         "Recommendations are specific to the construction SaaS context, not generic"
       ]
     }
