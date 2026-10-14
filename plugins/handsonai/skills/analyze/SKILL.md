@@ -6,8 +6,10 @@ description: >
   Scans memory and conversation history, interviews the user about their work,
   then produces an opportunity report with structured workflow candidates and
   registers every candidate as a backlog Workflow node in the AI Registry,
-  ready for the Deconstruct step. This is Step 1 of the AI Workflow Framework.
+  ready for the Deconstruct step. Also use when the user says "continue my workflow"
+  and framework/analyze-in-progress.md exists (an interrupted Analyze).
   It stays strategic: it names the work, the pain, and the value, never the tools or integrations.
+  This is Step 1 (Analyze) of the AI Workflow Framework.
 ---
 
 # Analyze Workflows
@@ -32,7 +34,7 @@ On the fast path, use no signposts, and say only (no registry: "I'll list the wo
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, make the offer below once, right after the opening (a legacy `workflow.yaml` workspace: offer `scaffolding-registry`, which also migrates it); do not write registry entries until the bundle exists.
 
-**Resume orientation:** if `framework/analyze-in-progress.md` exists, an Analyze walk was interrupted: say what was noted so far ("Last time we covered [processes]; I noted [pieces]"), then continue the walk at the next process not yet walked, with no opening and no lens question. Otherwise, if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `framework/` for their artifacts. If `outputs/` holds a framework record from before 9.0, follow *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference first. If the student kept the pre-9.0 layout (`registry/log.md` has a "Kept the pre-9.0 `outputs/` layout" entry), an existing workflow's artifacts are in `outputs/[workflow-name]/`, not `framework/[workflow-name]/`, and while `outputs/ai-opportunity-report.md` exists, `framework/ai-opportunity-report.md` in this skill means that file. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
+**Resume orientation:** if `framework/analyze-in-progress.md` exists, an Analyze walk was interrupted: say what was noted so far ("Last time we covered [processes]; I noted [pieces]"), then continue the walk at the next process not yet walked (with no Process nodes: continue the discovery questions), with no opening and no lens question. Otherwise, if the user says "continue my workflow" (or similar), they're returning mid-journey — check `registry/workflows/` for existing Workflow nodes, and `framework/` for their artifacts. If `outputs/` holds a framework record from before 9.0, follow *Moving a pre-9.0 record out of outputs/* in the indexing-registry skill's registry-bundle reference first. If the student kept the pre-9.0 layout (`registry/log.md` has a "Kept the pre-9.0 `outputs/` layout" entry), an existing workflow's artifacts are in `outputs/[workflow-name]/`, not `framework/[workflow-name]/`, and while `outputs/ai-opportunity-report.md` exists, `framework/ai-opportunity-report.md` in this skill means that file. If one exists, orient them ("You finished Step [N] ([name]) — next is Step [N+1]") and route to that skill instead of starting a new analysis. Run Analyze only for finding *new* opportunities.
 
 ### Fast Path
 
@@ -120,7 +122,7 @@ When an opportunity has a clear starting point and a clear result, say so in one
 
 **Close each process in one line** before moving on, naming everything noted from it: "Noted for [process]: [piece 1], [piece 2], [piece 3]. That's enough for the report. Deconstruct goes into the detail later." Then signpost the next process.
 
-**Save progress after each process** (this is what makes the opening's "Progress is saved" true). After each process's "Noted for" line, write or update `framework/analyze-in-progress.md`: the lens, the processes picked, and for each process walked its noted pieces with whatever you have of work, problem, size, and goal. Say nothing about it to the student. Delete it once the report is written in Phase 4. In print-and-save mode, skip this file.
+**Save progress after each process** (this is what makes the opening's "Progress is saved" true). After each process's "Noted for" line (with no Process nodes: each time an opportunity is complete), write or update `framework/analyze-in-progress.md`: the lens, the processes picked, and for each process or area of work its noted pieces with whatever you have of work, problem, size, and goal. Say nothing about it to the student. Delete it once the report is written in Phase 4. In print-and-save mode, skip this file.
 
 **Fallback — no Process nodes.** Use the question bank for the chosen lens, exactly as below.
 
@@ -162,7 +164,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 #### Phase 4 — Opportunity report
 
-**Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy and the opportunity's one follow-up is unused, ask it; otherwise write what you have and mark the fuzzy field "Not clear yet — Deconstruct settles it". Never drop an opportunity the student named.
+**Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy and the opportunity's one follow-up is unused, ask it (never on the fast path); otherwise write what you have and mark the fuzzy field "Not clear yet — Deconstruct settles it". Never drop an opportunity the student named.
 
 **Telling the student about the report.** After writing it, say in a few lines: how many opportunities, grouped under how many processes, where the file is saved (print-and-save mode: where to save it), and what each card holds (the problem, what AI would do, its size). Define the value lever the first time it appears, exactly: "Each card names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Never present a ranking, a top pick, or an impact rating.
 
