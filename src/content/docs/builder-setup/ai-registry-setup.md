@@ -246,7 +246,7 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 Your dashboard is for you; you never need to publish it. If someone else should see it:
 
-- **On Claude** (the web, the desktop app, or Claude Code), ask your assistant to *"save my dashboard as an Artifact"*. Then use the Artifact's share option to get a link, and send that link. An Artifact is a snapshot, so ask for a fresh one after your registry changes.
+- **On Claude** (the web, the desktop app, or Claude Code), ask your assistant to *"save my dashboard as an Artifact"*. Then use the Artifact's share option to get a link, and send that link. Each later framework step updates it at the same link, so the link you sent stays current.
 - **Anywhere else**, send them `registry-dashboard.html`. It's a single file that opens in any web browser.
 
 ## Platform Notes

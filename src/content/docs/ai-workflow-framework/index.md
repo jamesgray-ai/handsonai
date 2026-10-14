@@ -72,11 +72,11 @@ Seven steps, each building on the last:
 
 Find which workflows are candidates for AI.
 
-Before you can apply AI to anything, you need to know *where* it fits. Step 1 is a structured audit of your workflows that produces a prioritized list of opportunities. Each one names the work, the pain, the value lever AI pulls (Streamline, Automate, Accelerate, or Create value), what gets produced, and how much it matters. How much the AI decides and who takes part while it runs are settled in Step 3, once the steps are known.
+Before you can apply AI to anything, you need to know *where* it fits. Step 1 is a structured audit of your workflows that produces a catalog of opportunities, grouped by process. Each one names the work, the pain, the value lever AI pulls (Streamline, Automate, Accelerate, or Create value), what gets produced, and its rough size in your own numbers. How much the AI decides and who takes part while it runs are settled in Step 3, once the steps are known.
 
-The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a prioritized report with specific opportunities and a recommendation on which to build first.
+The audit starts by reading your registry and what the AI already knows about your work, asks which lens to use, then interviews you with lens-specific questions to fill gaps, and produces a report with specific opportunities. It doesn't rank them or pick one to build: you choose that at the start of Step 2.
 
-**Deliverable:** **Opportunity Report** (`framework/ai-opportunity-report.md`) — prioritized opportunities with a Workflow Candidate Summary listing the workflows you've chosen to pursue — and one `status: backlog` Workflow node per chosen candidate in your registry.
+**Deliverable:** **Opportunity Report** (`framework/ai-opportunity-report.md`) — every opportunity, grouped by process, with a Workflow Candidate Summary — and one `status: backlog` Workflow node per candidate in your registry.
 
 **Facilitated by the `analyze` skill.** See [Analyze Workflows](analyze/) for details and [Install the Hands-on AI Plugin](skills/) for installation on any supported platform.
 

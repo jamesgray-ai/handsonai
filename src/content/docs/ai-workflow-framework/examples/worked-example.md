@@ -212,7 +212,7 @@ program manager to adjust.
 **Value lever:** Create value — there is no today version of this work to compare
 against.
 
-**Size:** Not sized yet — Deconstruct measures it.
+**Size:** Not sized yet — Deconstruct asks for today's number.
 
 **What changes for the business:**
 New programs start from the same baseline instead of re-learning setup, and the

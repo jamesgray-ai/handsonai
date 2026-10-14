@@ -22,7 +22,7 @@ Analyze concrete opportunities where AI can improve your workflows. Produces an 
 >
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
 
-With no registry, say "ask about your work" in place of "walk the processes in your registry". After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
+With no registry, say "ask about your work" in place of "walk the processes in your registry", "every candidate listed in your report" in place of "every candidate saved to your registry's backlog (your list of workflows to build)", "your report and your list of workflows" in place of "your report and your backlog", and "one workflow you choose from that list" in place of "one workflow you choose from the backlog". On the fast path, say only: "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail." After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
 
 **Signposts.** The student hears three parts, never phase numbers. Say one line at each: "**Part 1 of 3 — How we'll look at your work.**" (Phases 1–2), "**Part 2 of 3 — Where the time goes.**" (Phase 3), "**Part 3 of 3 — Your report and your backlog.**" (Phases 4–5). Phase names are internal; never show them.
 
@@ -74,29 +74,32 @@ Based on gaps in your understanding (or starting from scratch), ask focused ques
 
 **Process walk — the primary mode whenever `registry/processes/` has nodes, on either lens.** The Processes are the agenda; the question banks below supply the probes. The registry lists them in value-chain order — the Business node's `# Lines of Business` list, then each line's `# Processes` list — set when the registry was drafted; it is not a ranking, and there is no rank field. Tie each answer back to the objective it threatens (the Business node's `## Objectives`, if present); when none of the stated objectives fits, the card's Business Objective reads "None of the stated objectives — protects [what it protects]". If the Business node has no `## Objectives` block at all, write "No stated objectives — protects [what it protects]" and do not ask the organizational bank's Q1 to fill the gap: the walk is the agenda, and objectives belong to the registry interview. The lens sets the framing, not whether the walk happens: on the Organizational lens the question is about the process end to end; on the Individual lens it is "your part of this process." Use the registry's own words: for a personal registry, 'routine' and 'area'; otherwise 'process' and 'line of business'. Skip any Process the user says is fine.
 
-**Which processes first.** Registry setup never asks the student to rank processes, so always open the walk with this question (with five or fewer processes, ask which to start with instead of asking them to pick). Show the processes numbered straight through, one per line, under a "**Line of business:** [name]" label for each line, so the student can answer by number ("3, 7, 9").
+**Which processes first.** Registry setup never asks the student to rank processes, so always open the walk with this question (with five or fewer processes, use the second **Ask:** line below instead; it walks all of them). Show the processes numbered straight through, one per line, under a "**Line of business:** [name]" label for each line, so the student can answer by number ("3, 7, 9").
 
 **Ask:** "Which of these processes matter most right now? Pick up to five, and I'll start with those."
 - *Why:* it keeps this to 15–20 minutes and puts your time where it counts.
-- *Example:* a dental practice owner might pick "New Patient Booking" and "Insurance Claims" over "Supplies Ordering".
-- *Not sure?* Pick the ones where the work feels slowest or most repetitive.
+- *Example:* a landscaping company owner might pick "Quoting New Jobs" and "Crew Scheduling" over "Equipment Maintenance".
+- *Not sure?* I'd start with [the processes that serve the student's objectives], because they drive [the objective]. (With no objectives: pick the ones where the work feels slowest or most repetitive.)
 
-Walk them in the order the user named them, counting through them ("1 of 4: [Process] (goal: [the objective it serves])"), and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** The walk must fit the 15–20 minutes promised. Stop once three or more concrete opportunities exist and the transition signal below fires; the user can always ask to continue.
+With five or fewer processes, the **Ask:** line is instead: "We'll go through all [N]. Which should we start with?" The *Why*, *Example*, and *Not sure?* lines stay.
 
-**The walk question, once per process.** Anchor it in the most recent real run of that process, named in the student's words with its real start and end. Ask it open: never list likely pain points from the student's own business before they answer (a student echoes the list, and the report then holds your guesses, not their friction). Guesses come only as step 3 of the thin-answer recipe below. Say exactly this on the first process; on later processes the **Ask:** line alone, with its anchor:
+Walk them in the order the user named them, counting through them ("1 of 4: [Process] (goal: [the objective it serves])"), and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** Walk every process the student picked; the depth rule below keeps each one short. If the walk passes about 20 minutes with processes left, say so and offer to stop there; the rest go under **Noted, not walked**. The transition signal fires after the last process.
+
+**The walk question, once per process.** Anchor it in the most recent real run of that process, named in the student's words with its real start and end. Ask it open: never list likely pain points from the student's own business before they answer (a student echoes the list, and the report then holds your guesses, not their friction). Guesses come only as step 3 of the thin-answer recipe below. Say exactly this on the first process; on later processes the **Ask:** and *Why* lines, with its anchor:
 
 **Ask:** "Take the last time [process] ran, from [its start] to [its end]. Where did the time go, or where did it get stuck?"
 - *Why:* the places where time or results are lost are where a workflow is worth building.
 - *Example:* a property manager might say: "Turning over a unit. I chase three contractors by phone, then re-enter the dates in two calendars."
 - *Not sure?* Tell me the one part you'd hand to someone else tomorrow if you could.
 
-**Pieces of work.** When the answer names more than one piece of work, play them back as separate pieces ("That's three pieces of work: launch emails, waitlist follow-up, and promotion across channels.") and take them in the order the student named them. Each piece is a possible opportunity.
+**Pieces of work.** When the answer names more than one piece of work, play them back as separate pieces ("That's three pieces of work: launch emails, waitlist follow-up, and promotion across channels.") and take them in the order the student named them, saying so ("I'll take them in the order you named them."). Each piece is a possible opportunity.
 
-**Depth rule — stay strategic.** An opportunity is complete when you can name the work, the problem, roughly how often or how much (its size), and the goal it serves. Stop on it as soon as it is complete. Ask at most one follow-up per opportunity, and only to fill a missing element, usually the size. Inputs, rules, steps, and edge cases are Deconstruct's job; never ask about them here. When the size is missing, say exactly this on the first piece; afterwards the **Ask:** line alone:
+**Depth rule — stay strategic.** An opportunity is complete when you can name the work, the problem, roughly how often or how much (its size), and the goal it serves. Stop on it as soon as it is complete. Ask at most one follow-up per opportunity, and only to fill a missing element, usually the size. Inputs, rules, steps, and edge cases are Deconstruct's job; never ask about them here. When the size is missing, say exactly this on the first piece; afterwards the **Ask:** and *Why* lines:
 
 **Ask:** "Roughly how much time does [the piece of work] take you in a typical week or month?"
 - *Why:* that tells us roughly what it's worth to fix, and it goes in your report.
-- *Not sure?* A rough guess is fine. If you'd rather not guess, I'll mark it "not sized yet", and Deconstruct measures it properly.
+- *Example:* an accounts clerk might say: "About four hours at every month end."
+- *Not sure?* A rough guess is fine. If you'd rather not guess, I'll mark it "not sized yet", and Deconstruct asks for today's number when you map it.
 
 When an opportunity has a clear starting point and a clear result, say so in one clause in the student's own case ("Repurposing has a clean starting point, a finished issue, and a clear result, LinkedIn and Substack posts, so it's a strong candidate").
 
@@ -142,7 +145,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 #### Phase 4 — Opportunity report
 
-**Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy, ask one more question or drop the opportunity — a candidate without a clear trigger + deliverable will stall in Deconstruct (Step 2).
+**Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy and the opportunity's one follow-up is unused, ask it; otherwise write what you have and mark the fuzzy field "Not clear yet — Deconstruct settles it". Never drop an opportunity the student named.
 
 **Telling the student about the report.** After writing it, say in a few lines: how many opportunities, grouped under how many processes, where the file is saved, and what each card holds (the problem, what AI would do, how to measure improvement). Define the value lever the first time it appears, exactly: "Each card names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Never present a ranking, a top pick, or an impact rating.
 
@@ -150,7 +153,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 Every candidate goes into the backlog. There is no cap and no "which do you want to build?" question: Analyze catalogs the work, and which workflow to build first is chosen at the start of Deconstruct.
 
-**Catalog confirmation (one message).** This is the student's one look at the catalog before it is written. Place each candidate under the Process where it was found, unless the work clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it); then place it under the right one and give the reason in brackets after its description. Show every process with its workflows, numbered straight through across processes, each as name plus a one-sentence description of about 20 words in the form "When/From [trigger], [what it produces]". No size, value lever, or ranking on this screen. Say exactly this, with the student's own workflows:
+**Catalog confirmation (one message).** This is the student's one look at the catalog before it is written. Place each candidate under the Process where it was found, unless the work clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it); then place it under the right one and give the reason in brackets after its description. Show every process with its workflows, numbered straight through across processes, each as name plus a one-sentence description of about 20 words in the form "When/From [trigger], [what it produces]". No size, value lever, or ranking on this screen. With no registry, group by the process names in the report, and open with "Here's what goes into your report." instead of the first sentence. Say exactly this, with the student's own workflows:
 
 > Here's what goes into your registry. Each workflow sits under the process it belongs to and is owned by that process's owner.
 >
@@ -162,7 +165,7 @@ Every candidate goes into the backlog. There is no cap and no "which do you want
 - *Why:* the name and description are what you'll see on your dashboard, and what Deconstruct starts from later.
 - *Not sure?* Say "looks good." You can edit any workflow later.
 
-Apply every change, then write. A workflow the student leaves out keeps its card in the report, marked "Left out of the backlog", and gets no registry entry. Where no existing Process fits a workflow (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub — and add its line to the right Line of Business's `# Processes` list (ask which line, and where in the order, if it is not obvious). The owning Function's `# Owns` block is GENERATED; the maintenance pass refreshes it.
+Apply every change to the report (cards, Summary Table) and then write the registry entries. A workflow the student leaves out keeps its card in the report, marked "Left out of the backlog", and gets no registry entry. Where no existing Process fits a workflow (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub — and add its line to the right Line of Business's `# Processes` list (ask which line, and where in the order, if it is not obvious). The owning Function's `# Owns` block is GENERATED; the maintenance pass refreshes it.
 
 Then append a **Workflow Candidate Summary** to the report with structured metadata for each registered candidate:
 
@@ -222,7 +225,7 @@ Append it under a `## Workflow Candidate Summary` heading, in the same process o
 
 No registry? Say so once ("No registry here, so the candidates live in the report only — set one up with the `scaffolding-registry` skill when you want an inventory" — unless you already said this at the start) and continue.
 
-**The other lens.** The other lens is offered in the close as a later session; never ask about it as a question. Add a one-line note under the report header that the other lens hasn't been run yet (keep the header's **Lens** row naming the lens used). If the student asks to run it now, run its discovery questions and merge the new candidates into the report, the catalog confirmation, and the registry.
+**The other lens.** The other lens is offered in the close as a later session; never ask about it as a question. Add a one-line note under the report header that the other lens hasn't been run yet (keep the header's **Lens** row naming the lens used). If the student asks to run it now, run Phases 2–5 on that lens, merge the new candidates into the report and the registry (a second catalog confirmation shows only the new ones), then run the maintenance pass and the close again; the close's last paragraph is then dropped.
 
 ## Output
 
@@ -272,7 +275,7 @@ For each opportunity:
 
 **Value lever:** Streamline | Automate | Accelerate | Create value — [one sentence on why this lever]
 
-**Size:** [In the student's own numbers — "about 3 hours per proposal", "1,700+ on two waitlists". If they gave none: "Not sized yet — Deconstruct measures it."]
+**Size:** [In the student's own numbers — "about 3 hours per proposal", "1,700+ on two waitlists". If they gave none: "Not sized yet — Deconstruct asks for today's number."]
 
 **What changes for the business:**
 [The outcome in plain language — who gets what, sooner, cheaper, or for the first time. No tool, connector, or product name.]
@@ -320,6 +323,6 @@ When two levers apply, pick the one the user would use to justify the work to th
 >
 > **Later, if you want:** the **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say "run the analyze skill with the individual lens."
 
-Fit it to the run: with no registry, say "in your report" in place of "in your registry's backlog" and drop the dashboard sentence; with no dashboard file, drop the dashboard sentence; when the maintenance pass updated a dashboard **Claude Artifact**, say "Your dashboard, and its Claude page, now show them too." in place of the dashboard sentence. After the Individual lens, the last paragraph names the **organizational lens** instead: "looks at the processes across the business, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens.'" Never name `REGISTRY.md` or any file but the report.
+Fit it to the run: [N] is the workflows registered in this run; if the backlog already held others, say "[N] new workflows in your registry's backlog ([total] in all)". With no registry, say "in your report" in place of "in your registry's backlog" and "from your report" in place of "from your backlog", and drop the dashboard sentence; with no dashboard file, drop the dashboard sentence; when the maintenance pass updated a dashboard **Claude Artifact**, say "Your dashboard, and its Claude page, now show them too." in place of the dashboard sentence. After the Individual lens, the last paragraph names the **organizational lens** instead: "looks at the processes across the business, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens.'" Never name `REGISTRY.md` or any file but the report.
 
 **Saving a version — only when the folder is a git repository** (in write mode with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive). After the close, once, say exactly: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; never push as part of this offer.

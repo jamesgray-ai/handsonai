@@ -58,8 +58,8 @@ The skill runs the five phases above, produces an opportunity report, and regist
 
 ```
 "Help me analyze AI workflow opportunities"
-→ Runs the full audit and produces a prioritized opportunity
-  report with structured workflow candidates
+→ Runs the full audit and produces an opportunity report,
+  grouped by process, with structured workflow candidates
 
 "I want to figure out which parts of my job could benefit from AI"
 → Interactive discovery session followed by a structured report
@@ -96,7 +96,7 @@ The **AI Opportunity Report** (`ai-opportunity-report.md`) captures:
 
 The Workflow Candidate Summary is the input for [Deconstruct Workflows](../deconstruct/) (Step 2) — the trigger and deliverable fields map directly to the scope check that starts the deconstruction. Its business objective and success metrics also seed Deconstruct's `Value & Measurement` section, so an organizational-lens candidate arrives with two of those answers already drafted.
 
-Analyze does not settle the question of value, and shouldn't. It surveys many workflows to find the few worth pursuing; the outcome that changes, and the number that measures it today, are established once a specific workflow is on the table. Deconstruct asks for both.
+Analyze does not settle the question of value, and shouldn't. It catalogs every workflow worth building; the outcome that changes, and the number that measures it today, are established once a specific workflow is on the table. Deconstruct asks for both.
 
 See three complete [example reports](../analyze-examples/) to get a feel for the format and level of detail.
 

@@ -40,7 +40,7 @@ The opening says five things, in this order, in a short paragraph (about five se
 Then, once per skill run, offer the switch: "I'll explain each question as I ask it, and 'not sure'
 is always a fine answer. If you've done this before, say 'skip the explanations'."
 
-Define no framework terms in the opening. Each term is defined where it first matters (see Terms);
+Define no framework terms in the opening, except the one or two the deliverable is named by, in one clause each (Analyze's **candidate workflow** and **backlog**). Each other term is defined where it first matters (see Terms);
 front-loading three definitions before the first question overloads the student. A one-line
 outline of what the step builds (with a two- or three-word gloss per level) is allowed, as long
 as it comes once and in the student's persona words — it is a map, not a set of definitions.

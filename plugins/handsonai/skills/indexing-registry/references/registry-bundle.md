@@ -86,7 +86,7 @@ the bundle exists.
 
 | Skill | Writes |
 |---|---|
-| `analyze` | Workflow node stub per chosen candidate: `title`, `description` (outcome-first, deliverable folded in), `status: backlog`, `trigger` (provisional); line in the chosen Process's `# Workflows` list; `# Artifacts` → Opportunity report. New process → same owning-function rule as `naming-workflows`. |
+| `analyze` | Workflow node stub per registered candidate: `title`, `description` (outcome-first, deliverable folded in), `status: backlog`, `trigger` (provisional); line in the confirmed Process's `# Workflows` list; `# Artifacts` → Opportunity report. New process → same owning-function rule as `naming-workflows`. |
 | `naming-workflows` | Workflow node stub: `title`, `description` (outcome-first), `status: backlog`, `trigger`; line in the chosen Process's `# Workflows` list. **New process → asks which function owns it** and writes a complete minimal Process node (owner required — no stub violates the schema). |
 | `deconstruct` | `status: under-development`, `definition_type` (step-driven/goal-driven), `trigger`, description refinement; `# Artifacts` → Requirements. Merges into stubs; never overwrites set fields. |
 | `design` | `execution_mode`, `autonomy`; `# Artifacts` → Design spec |

@@ -29,7 +29,10 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 | **Name**                     | Sarah Chen                                                                                                              |
 | **Role**                     | Marketing Operations Manager, mid-size B2B SaaS company                                                                |
 | **Date**                     | 2026-03-05                                                                                                              |
+| **Lens** | Individual |
 | **Opportunities identified** | 7                                                                                                                       |
+
+The Organizational lens hasn't been run yet.
 
 ### Summary Table
 
@@ -110,7 +113,7 @@ Takes in the last 12 months of lead-to-close history with each lead's attributes
 
 **Value lever:** Create value — there is no today version of this analysis: no recalibration has been done in 18 months, so there is nothing to compare against.
 
-**Size:** Not sized yet — Deconstruct measures it.
+**Size:** Not sized yet — Deconstruct asks for today's number.
 
 **What changes for the business:**
 "Hot" leads start meaning what sales expects them to mean, the handoff conversation between marketing and sales moves from complaints to evidence, and the model gets reviewed on a schedule instead of never.
@@ -158,7 +161,7 @@ Takes in the five competitors' public presence — their blogs, release notes, a
 
 **Value lever:** Create value — there is no monitoring process today, only occasional glances before planning; a weekly digest is new work, not faster work.
 
-**Size:** Not sized yet — Deconstruct measures it.
+**Size:** Not sized yet — Deconstruct asks for today's number.
 
 **What changes for the business:**
 Sales hears about competitor positioning shifts from marketing before hearing them as objections on calls, and quarterly planning starts from a record of what changed rather than from memory.
@@ -338,7 +341,10 @@ James Gray is an AI Instructor who runs live cohort courses and maintains the Ha
 | **Name**                     | James Gray                                                                                               |
 | **Role**                     | AI Instructor and course creator, Hands-on AI Playbook                                                   |
 | **Date**                     | 2026-03-05                                                                                               |
+| **Lens** | Individual |
 | **Opportunities identified** | 7                                                                                                        |
+
+The Organizational lens hasn't been run yet.
 
 ### Summary Table
 
@@ -652,6 +658,8 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 | **Lens**                     | Organizational                                                                                     |
 | **Opportunities identified** | 5                                                                                                  |
 
+The Individual lens hasn't been run yet.
+
 ### Summary Table
 
 | # | Opportunity | Process | Value lever | Size |
@@ -681,7 +689,7 @@ Takes in 24 months of shipment history by customer and the known upcoming events
 
 **Value lever:** Create value — a customer-by-customer statistical forecast with confidence ranges does not exist today; the spreadsheet is a staffing guess, not a forecast to compare against.
 
-**Size:** Not sized yet — Deconstruct measures it.
+**Size:** Not sized yet — Deconstruct asks for today's number.
 
 **What changes for the business:**
 Warehouse staffing is planned against a stated forecast rather than a feel for the month, over- and under-staffing both shrink, and the forecast's accuracy can be measured and improved quarter by quarter.
