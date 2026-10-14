@@ -22,9 +22,13 @@ Analyze concrete opportunities where AI can improve your workflows. Produces an 
 >
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
 
-With no registry, say "ask about your work" in place of "walk the processes in your registry", "every candidate listed in your report" in place of "every candidate saved to your registry's backlog (your list of workflows to build)", "your report and your list of workflows" in place of "your report and your backlog", and "one workflow you choose from that list" in place of "one workflow you choose from the backlog". On the fast path, say only: "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail." After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
+**Words that fit the workspace.** These swaps apply to every quoted line in this skill, including approved wording:
+- **No registry:** "ask about your work" for "walk the processes in your registry"; "every candidate listed in your report" for "every candidate saved to your registry's backlog (your list of workflows to build)"; "your list of workflows" for "your backlog" and "the backlog" everywhere else (the opening's part 3, the Part 3 signpost, the transition line; the close has its own swaps below); "your report" for "your registry". Group workflows by the areas of work the student named, in their words, and label them "**Area of work:**" in place of "**Process:**". Drop every mention of owners and the dashboard.
+- **Personal-life registry** (the founding `registry/log.md` entry says so): "routine" for "process", "area" for "line of business", "household" (or "your life" for one person) for "business". Drop the close's other-lens paragraph.
 
-**Signposts.** The student hears three parts, never phase numbers. Say one line at each: "**Part 1 of 3 — How we'll look at your work.**" (Phases 1–2), "**Part 2 of 3 — Where the time goes.**" (Phase 3), "**Part 3 of 3 — Your report and your backlog.**" (Phases 4–5). Phase names are internal; never show them.
+On the fast path, use no signposts, and say only: "I'll register the workflows you name as **candidate workflows** in your registry's **backlog** (your list of workflows to build), with a report, in about 5 minutes. Step 2, Deconstruct, takes one you choose and maps it in detail." After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
+
+**Signposts.** The student hears three parts, never phase numbers (no signposts on the fast path). Say one line at each: "**Part 1 of 3 — How we'll look at your work.**" (Phases 1–2), "**Part 2 of 3 — Where the time goes.**" (Phase 3), "**Part 3 of 3 — Your report and your backlog.**" (Phases 4–5). Phase names are internal; never show them.
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
@@ -32,7 +36,7 @@ With no registry, say "ask about your work" in place of "walk the processes in y
 
 ### Fast Path
 
-Only when the user explicitly says they don't want discovery ("I already know the three workflows, just register them"). A workflow the user merely mentions, or one already in the registry, is a **seed** for discovery, not a reason to skip it. On the fast path, infer the lens from what they describe, confirm it, and go straight to Phase 4 and Phase 5; even on the fast path, read the bundle's Process nodes before registering anything.
+Only when the user explicitly says they don't want discovery ("I already know the three workflows, just register them"). A workflow the user merely mentions, or one already in the registry, is a **seed** for discovery, not a reason to skip it. On the fast path, infer the lens from what they describe and confirm it in one line, exactly: "These sound like [your own work / work across the business], so I'll use the **[individual / organizational] lens**: [the work you personally do each day / the processes across the business, end to end]. Right?" Then go straight to Phase 4 and Phase 5, placing each workflow under the Process whose description fits it (ask when none does); even on the fast path, read the bundle's Process nodes before registering anything.
 
 ### Standard Path
 
@@ -51,13 +55,15 @@ If the Business node has a `## Objectives` block, read it: those are the outcome
 
 **Same-session skip (distinct from the Fast Path above, which is the user declining discovery).** If the `scaffolding-registry` skill ran earlier in this same conversation, do not re-summarize or re-confirm — say one line ("I'll use the registry we just built") and go to Phase 2. The test is "ran in this conversation" only: a registry written yesterday, or by someone else, still gets the short summary and confirmation below, because the user may not have seen it.
 
-Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs], working toward [objectives, if present]; the processes you named are [grouped by line of business — X, Y under A; Z under B], and you have [N] workflows — [N] in the backlog, [N] under development, [N] in production, [N] retired (omit zero counts). Here's what else I know about your work: … Anything wrong or missing?" Drop the "what else I know" clause when there is nothing beyond the registry. Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and move directly to Phase 3.
+Present a short summary so the user can confirm or correct it: "Your registry says you run [business] with [LOBs], working toward [objectives, if present]; the processes you named are [grouped by line of business — X, Y under A; Z under B], and you have [N] workflows — [N] in the backlog, [N] under development, [N] in production, [N] retired (omit zero counts). Here's what else I know about your work: … Anything wrong or missing?" Drop the "what else I know" clause when there is nothing beyond the registry. Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and go to Phase 2.
 
 #### Phase 2 — Lens selection
 
 Infer the lens, then recommend it with the question block below. Never ask the student to choose cold.
 
-**Inference rule.** The registry usually makes it obvious — read the founding entry in `registry/log.md` (the scaffold records who the registry is for: a business they own, a company or unit they lead, their role inside an organization, or their personal life) and the Business node's identity sentence and Lines of Business: a company or business unit the user owns or leads → Organizational; a team or department the user works inside → Individual (their part of the team's processes); a household or a person's own life areas → Individual. Without a registry, infer from Phase 1's context. If nothing says how the user relates to the business, ask first: "Your registry describes [business name]. Is it your company, or do you work inside it?"
+**Inference rule.** The registry usually makes it obvious — read the founding entry in `registry/log.md` (the scaffold records who the registry is for: a business they own, a company or unit they lead, their role inside an organization, or their personal life) and the Business node's identity sentence and Lines of Business: a company or business unit the user owns or leads → Organizational; a team or department the user works inside → Individual (their part of the team's processes); a household or a person's own life areas → Individual. Without a registry, infer from Phase 1's context. If nothing says how the user relates to the business, ask this first, then recommend:
+
+**Ask:** "Your registry describes [business name]. Is it your company, or do you work inside it?" (No registry: "Is the work we're looking at your own business's, or do you work inside an organization?")
 
 Say exactly this (Organizational recommended):
 
@@ -81,7 +87,12 @@ Based on gaps in your understanding (or starting from scratch), ask focused ques
 - *Example:* a landscaping company owner might pick "Quoting New Jobs" and "Crew Scheduling" over "Equipment Maintenance".
 - *Not sure?* I'd start with [the processes that serve the student's objectives], because they drive [the objective]. (With no objectives: pick the ones where the work feels slowest or most repetitive.)
 
-With five or fewer processes, the **Ask:** line is instead: "We'll go through all [N]. Which should we start with?" The *Why*, *Example*, and *Not sure?* lines stay.
+With five or fewer processes, say this instead:
+
+**Ask:** "We'll go through all [N]. Which should we start with?"
+- *Why:* starting where it hurts most puts the most time where it counts.
+- *Example:* a landscaping company owner might start with "Quoting New Jobs".
+- *Not sure?* The same default as above.
 
 Walk them in the order the user named them, counting through them ("1 of 4: [Process] (goal: [the objective it serves])"), and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** Walk every process the student picked; the depth rule below keeps each one short. If the walk passes about 20 minutes with processes left, say so and offer to stop there; the rest go under **Noted, not walked**. The transition signal fires after the last process.
 
@@ -136,10 +147,10 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 **Thin answers.** When an answer is too vague to name the work or the problem:
 1. Play back what you have: "So far I have: [their words]."
 2. Ask one narrower follow-up anchored in a real instance: "Think of the last time you did this. What happened first?"
-3. If it's still thin after two tries, propose a guess to react to. Individual lens: "Based on your role, I'd guess you spend time on [X]. What's right and what's wrong?" Organizational lens: "For a [size] [industry] business, [X], [Y], and [Z] often take the most time. Do any of those fit?"
+3. If it's still thin after two tries, propose a guess to react to. Say: "Here's my guess: [X], [Y], or [Z], from what you've told me about [your role / this process]. What's right and what's wrong?"
 4. If they still don't know, move on: note the process under **Noted, not walked**, or record the size as "Not sized yet". Never invent an opportunity and record it as theirs.
 
-**Transition signal:** When you've identified 3+ concrete opportunities, list them numbered straight through under a "**Process:** [name]" label for each process, then say: "The report covers all of these, and they all go into your backlog."
+**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (the order the report and catalog use, with the same numbers), then say: "The report covers all of these, and they all go into your backlog."
 
 **Ask:** "Anything to add, or shall I write the report?"
 
@@ -153,7 +164,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 Every candidate goes into the backlog. There is no cap and no "which do you want to build?" question: Analyze catalogs the work, and which workflow to build first is chosen at the start of Deconstruct.
 
-**Catalog confirmation (one message).** This is the student's one look at the catalog before it is written. Place each candidate under the Process where it was found, unless the work clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it); then place it under the right one and give the reason in brackets after its description. Show every process with its workflows, numbered straight through across processes, each as name plus a one-sentence description of about 20 words in the form "When/From [trigger], [what it produces]". No size, value lever, or ranking on this screen. With no registry, group by the process names in the report, and open with "Here's what goes into your report." instead of the first sentence. Say exactly this, with the student's own workflows:
+**Catalog confirmation (one message).** This is the student's one look at the catalog before it is written. Place each candidate under the Process where it was found, unless the work clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it); then place it under the right one and give the reason in brackets after its description. Show every process with its workflows, in the report's process order and numbers, numbered straight through across processes, each as name plus a one-sentence description of about 20 words in the form "When/From [trigger], [what it produces]". No size, value lever, or ranking on this screen. With no registry, the workspace swaps above apply: open with "Here's what goes into your report.", drop the owner sentence, and the *Why* is "the name and description are what Deconstruct starts from later." Say exactly this, with the student's own workflows:
 
 > Here's what goes into your registry. Each workflow sits under the process it belongs to and is owned by that process's owner.
 >

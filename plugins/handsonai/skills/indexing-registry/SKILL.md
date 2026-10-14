@@ -31,7 +31,7 @@ Run all five jobs for a full pass, or just the one the user asked for. Other fra
 
 ### 1. Lint
 
-Read every node against the workspace's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§6) — that file is the single source; do not duplicate its rule list here. Report findings in plain language, named by file. **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
+Read every node against the workspace's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§6) — that file is the single source; do not duplicate its rule list here. Report findings in plain language, named by file. On a pass called by another step, say nothing unless a fix needs the student, and then name the workflow or process, never the file. **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
 
 ### 2. Refresh indexes
 

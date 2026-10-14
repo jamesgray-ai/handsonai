@@ -438,10 +438,10 @@ Outdated content is found by the audit rather than by a student in class, and a 
 **#4 Lesson Slide Formatting**
 
 **Why it's a good candidate:**
-Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. The steps are fixed: parse the markdown, map each block to a slide template, apply the formatting rules. The content is already decided; this is pure template application.
+Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. The steps are fixed: parse the Markdown, map each block to a slide template, apply the formatting rules. The content is already decided; this is pure template application.
 
 **Current pain point:**
-After writing lesson content in markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
+After writing lesson content in Markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
 
 **How AI helps:**
 Takes in the finished lesson text and the course's formatting rules; produces the formatted slide deck — title, content, code, and exercise slides — with the brand template applied. Same rules every time.

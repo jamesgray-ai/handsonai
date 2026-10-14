@@ -201,7 +201,7 @@ only what the student confirms.
 - *Why:* this sentence sits at the top of your dashboard and tells anyone reading it what the business is for.
 
 **Ask (goals for this year):** "What are the two or three goals that matter most for the business this year?"
-- *Why:* Analyze uses these to judge which work is most worth improving, so you won't be asked for them again.
+- *Why:* Analyze uses these to suggest where to look first and to tie each workflow it finds to a goal, so you won't be asked for them again.
 - *Example:* a dental practice might say "fill the new evening clinic" and "cut no-shows by half".
 - *Not sure?* Think about what would make this a good year for the business. Write that down in your own words; it doesn't need to be a target or a number.
 

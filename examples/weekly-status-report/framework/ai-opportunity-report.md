@@ -137,8 +137,6 @@ against.
 New programs start from the same baseline instead of re-learning setup, and the
 misses that surface weeks in stop happening.
 
-**Systems involved today:** none yet — the checklist would be new.
-
 ---
 
 ## Workflow Candidate Summary

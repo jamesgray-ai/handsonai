@@ -106,7 +106,7 @@ Use the canonical definitions so every skill says the same thing:
 | Step-driven / goal-driven | Step-driven: you can describe every path the work takes. Goal-driven: you can describe what "done" looks like, but the path depends on what comes in | Deconstruct, The Two Paths |
 | Human gate | A point where a person must review or approve before the workflow continues | Deconstruct, Phase 7 |
 | Acceptance criterion | A yes/no statement about the output that you can check after one run | Deconstruct, Phase 12 |
-| Value lever | The kind of value AI creates here: Streamline, Automate, Accelerate, or Create value | Analyze, Appendix |
+| Value lever | The kind of value AI creates here: Streamline, Automate, Accelerate, or Create value | Analyze, Phase 4 |
 | Autonomy level | How much the AI decides: Deterministic (you give instructions), Guided (it makes bounded decisions with your method), Autonomous (you give it a goal) | Design, Phase 4 |
 | Building block | One of the pieces a workflow is built from: a prompt, a skill, an agent, a connection to another system | Design |
 | Line of business | Something distinct the business offers — like a product line, a service, or a training program | scaffolding-registry, Phase 2 |
