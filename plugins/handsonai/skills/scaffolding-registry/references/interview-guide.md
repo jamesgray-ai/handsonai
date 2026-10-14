@@ -443,13 +443,15 @@ folder, at the location shown above it." And for the dashboard, which can't
 be printed usefully: "Your visual dashboard is created as soon as your files
 are in a folder I can save to. Then say 'generate my visual dashboard'."
 
-Say nothing about lint, checks, or GENERATED blocks. Then, each on its own
-line and only where it applies:
+Say nothing about lint, checks, or GENERATED blocks. The close ends on the
+Analyze question. Once the student answers it, make these offers one per
+message, each answered before the next, and only where it applies; then
+act on the Analyze answer:
 
 - **On Claude:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." In print-and-save mode on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. In print-and-save mode, print that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
 - **Only when the folder is a git repository** — in write mode with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never ask on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
 
-On yes to Analyze, invoke the `analyze` skill.
+After the offers, on "now" to Analyze, invoke the `analyze` skill.
 
 **Fast path:** if no insight surfaced, skip the Note entirely and don't
 mention it — an absent Note is not a gap to flag; a forced one is worse than
