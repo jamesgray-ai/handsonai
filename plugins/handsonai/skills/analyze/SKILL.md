@@ -42,7 +42,7 @@ Only when the user explicitly says they don't want discovery ("I already know th
 
 **Ask:** "These sound like [your own work / work across the business], so I'll use the **[individual / organizational] lens**: [the work you personally do each day / the processes across the business, end to end]. Right?"
 
-Then go straight to Phase 4 and Phase 5. With a registry, read the Business node's `## Objectives` and the Process nodes first, and place each workflow under the Process whose description fits it (ask when none does). With no registry, group them by area of work, asking once which area each belongs to if the student named none. Fill each card only from what the student said; mark anything else "Not clear yet — Deconstruct settles it", and the size "Not sized yet" unless given.
+Then go straight to Phase 4 and Phase 5. With a registry, read the Business node's `## Objectives` and the Process nodes first, and place each workflow under the Process whose description fits it (ask when none does). With no registry, group them by area of work, asking once which area each belongs to if the student named none. Facts about the work (trigger, deliverable, pain point, size, systems, objective, stakeholders, metrics) come only from what the student said; mark a missing one "Not clear yet — Deconstruct settles it", and the size "Not sized yet" unless given. The value lever, why it's a good candidate, and how AI helps are your classification, written as usual.
 
 ### Standard Path
 
@@ -158,7 +158,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 3. If it's still thin after two tries, propose a guess to react to. Say: "Here's my guess: [X], [Y], or [Z], from what you've told me about [your role / this process]. What's right and what's wrong?"
 4. If they still don't know, move on: note the process under **Noted, not walked**, or record the size as "Not sized yet". Never invent an opportunity and record it as theirs.
 
-**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (no registry: the order the student named them; the report and catalog use the same order and numbers), then say: "The report covers all of these, and they all go into your backlog." On an other-lens run, leave pieces that match an existing workflow out of the numbered list and name them on one line ("[Workflow] is already in your registry"); the sentence then covers only the rest.
+**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), and after settling any piece that belongs to none of the registry's processes (*A workflow with no process*, Phase 5; it then appears under its new process marked "(new)"), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (no registry: the order the student named them; the report and catalog use the same order and numbers), then say: "The report covers all of these, and they all go into your backlog." On an other-lens run, leave pieces that match an existing workflow out of the numbered list and name them on one line ("[Workflow] is already in your registry"); the sentence then covers only the rest.
 
 **Ask:** "Anything to add, or shall I write the report?"
 
@@ -166,7 +166,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 **Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy and the opportunity's one follow-up is unused, ask it (never on the fast path); otherwise write what you have and mark the fuzzy field "Not clear yet — Deconstruct settles it". Never drop an opportunity the student named.
 
-**Before writing the report**, settle any workflow that fits no process, using *A workflow with no process* in Phase 5, so every card has its group.
+**Before writing the report** (fast path), settle any workflow that fits no process, using *A workflow with no process* in Phase 5, so every card has its group. On a walk this is settled earlier, before the transition list.
 
 **Telling the student about the report.** After writing it, say in a few lines: how many opportunities, grouped under how many processes, where the file is saved (print-and-save mode: where to save it), and what each card holds (the problem, what AI would do, its size). Define the value lever the first time it appears, exactly: "Each card names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Never present a ranking, a top pick, or an impact rating.
 
@@ -174,7 +174,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 
 Every candidate goes into the backlog. There is no cap and no "which do you want to build?" question: Analyze catalogs the work, and which workflow to build first is chosen at the start of Deconstruct.
 
-**A workflow with no process (registry present).** With no registry, skip this: candidates stay grouped by area of work. Before the report is written (Phase 4 points here), check every candidate has a Process. Where none fits (common on the Individual lens), teach the term and ask, once per new process, exactly:
+**A workflow with no process (registry present).** With no registry, skip this: candidates stay grouped by area of work. Before the transition list on a walk, or before the report is written on the fast path, check every candidate has a Process. Where none fits (common on the Individual lens), teach the term and ask, once per new process, exactly:
 
 **Ask:** "[Workflow] doesn't fit any of your processes. What would you call the set of related work it belongs to, and which function (the team or role that owns that kind of work) looks after it?"
 - *Why:* every workflow sits under one process, and the process's owner owns the workflow too.
