@@ -80,7 +80,7 @@ No Health, Last Run, or Step columns — framework step is inferred from artifac
 
 **Telling the student about the dashboard.** In plain words: what it shows (lines of business, processes, owners, workflows), why any section is empty, and how to open it — "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details." Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the workspace or point the student at a session folder.
 
-*Claude platforms:* after the student knows how to open the file, you may offer: "Want to share it with someone? I can publish it as a private link." An Artifact is for sharing, never the way to see the dashboard.
+*Claude platforms:* when the student asks for the dashboard directly ("generate my visual dashboard"), after they know how to open the file, offer on its own line: "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." At the end of registry setup, `scaffolding-registry`'s close makes this offer instead — don't repeat it. Never offer it on a routine maintenance pass at the end of another step. An Artifact is a snapshot: if the student has one, they can say "update my dashboard Artifact" after the registry changes.
 
 ### 5. Append `log.md`
 

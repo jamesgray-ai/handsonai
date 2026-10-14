@@ -241,7 +241,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Action:** [Follow the AI Registry setup guide →](/builder-setup/ai-registry-setup/)
 
-**What to bring (optional, saves time):** something that lists what you sell or deliver, something that shows who does the work (an org chart or team list — roles are enough), something that says what matters this year, and optionally a process inventory or SOP folder. One shortens the interview; three turn it into confirmation.
+**What to bring (optional, saves time):** something that lists what you offer, something that shows who does the work (an org chart or team list — roles are enough), something that says what matters this year, and optionally a process inventory or SOP folder. One shortens the interview; three turn it into confirmation.
 
 **Done when:**
 

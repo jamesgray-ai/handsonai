@@ -81,6 +81,8 @@ Rules for each part:
 - **Why** is said in the same message as the question, always, even after "skip the explanations". One sentence, tied to a use: "Test checks every gate you name here, so this sets what a passing run looks like." When a *Why* names what a later step does with the answer, check that step's skill says so before committing; a wrong *Why* teaches the student something false.
 - **Example** comes from a deliberately different line of work (expense approvals, a recruiting coordinator, a property manager), at the same altitude as the question. It must never be an answer the student could copy for their own workflow. Pick the domain at authoring time and write it in; don't tell the model to "give an example".
 - **Example collision.** The student's line of work isn't known when the skill is written, so an example can land in their own field. Write this instruction once near the skill's first question block: "If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*." Don't write backup examples.
+- **A draft replaces the example.** When a question opens with a draft built from the student's own source or earlier answers, leave out the *Example* line — the draft already shows the shape. Keep *Why* and *Not sure?*.
+- **Exact wording.** Mark definitions, **Ask:** lines, and *Why* / *Example* / *Not sure?* lines as "say exactly this" in the skill, so the model doesn't paraphrase them or add reassurance (it turned "You can't pick wrong" into "There's no wrong answer"). Openings and playbacks may be paraphrased if every part is there; an outline of the step's structure is exact.
 - **Proposals are not examples.** Proposing an answer drawn from what the student already told you ("From the steps we mapped, I'd put a gate before the send — does that fit?") is encouraged; it's how propose-and-react works. The *Example* line is different: it shows the shape of a good answer, so it must come from someone else's work.
 - **Not sure?** gives a safe default the skill will record (and says it was a default), or one way to find out ("think of the last time you did this — where did you stop and check?"). Never leave a student with no way forward.
 - Example and Not sure? are shown by default and dropped after "skip the explanations". The student can still ask for them.
@@ -105,8 +107,8 @@ Use the canonical definitions so every skill says the same thing:
 | Value lever | The kind of value AI creates here: Streamline, Automate, Accelerate, or Create value | Analyze, Appendix |
 | Autonomy level | How much the AI decides: Deterministic (you give instructions), Guided (it makes bounded decisions with your method), Autonomous (you give it a goal) | Design, Phase 4 |
 | Building block | One of the pieces a workflow is built from: a prompt, a skill, an agent, a connection to another system | Design |
-| Line of business | Something distinct the business sells or delivers — like a product line, a service, or a training program | scaffolding-registry, Phase 2 |
-| Function | A team or department in your organization — Marketing, Sales, Finance — that owns a kind of work across every line of business. Lines of business are *what you sell*; functions are *who does the work*. Working alone, each function is one of the hats you wear | scaffolding-registry, Phase 3 (wording per persona in `personas.md`) |
+| Line of business | Something distinct the business offers — like a product line, a service, or a training program | scaffolding-registry, Phase 2 |
+| Function | A team or department in your organization — Marketing, Sales, Finance — that owns a kind of work across every line of business. Lines of business are *what you offer*; functions are *who does the work*. Working alone, each function is one of the hats you wear | scaffolding-registry, Phase 3 (wording per persona in `personas.md`) |
 | Process | A set of related work that delivers part of a line of business — like enrolling students or delivering a workshop. Each sits under one line of business and is owned by one function; Analyze later finds the workflows inside it | scaffolding-registry, Phase 4 |
 | Registry | Your record of the business: what you do, the processes that deliver it, and the workflows built or planned for each | scaffolding-registry |
 | Backlog | The workflows in your registry you've chosen to build but haven't started | Analyze, Phase 5 |
@@ -144,17 +146,17 @@ explains clearly, not as a teacher correcting them or an engineer briefing anoth
 - **No unsupported prevalence claims** in quoted text ("most people undercount steps by 30–50%"). If a pattern matters, say what to do about it: "Let's check for steps that happen without you thinking about them."
 - **No stock phrases.** No "Sound familiar?", "Great question!", "Let's dive in", "There are no wrong answers", "Your turn".
 - **Never show raw file syntax for approval.** Play a draft back as labeled plain text (Name · What it does · Owner), never as frontmatter, Markdown headings, or file names; write the format behind it and offer "Want to see the file itself?" once.
-- **Label every level.** Any playback holding more than one level of the registry (lines of business and processes, processes and workflows) names each level on its line ("**Line of business:** …", "**Process:** … — owned by Marketing") and uses one kind of list marker.
+- **Label every level.** Any playback holding more than one level of the registry (lines of business and processes, processes and workflows) names each level on its line ("**Line of business:** …", "**Process:** … — what it covers. **Owner:** Marketing", owner last) and uses one kind of list marker.
 - **Never offer a required step as an option.** If the step must happen (the dashboard at the end of registry setup), do it and say so. Offer a choice only when either answer is fine ("run Analyze now, or later?"). Students skip anything labeled optional.
 - **Don't report empty checks or machinery.** Never list what a scan didn't find, and never give a lint rule, a GENERATED block, a template, JSON, or a maintenance pass as the reason for a question or in a close. Give the student's reason, or say nothing.
-- **Platform-neutral.** Quoted text never names a feature only one platform has. Platform-specific facts live only in `registries/platform-registry.json` (see the Framework skill conventions in `CLAUDE.md`).
+- **Platform-neutral.** Quoted text never names a feature only one platform has, except in a line the skill explicitly gates to that platform ("On Claude: …"), offered once. Platform-specific facts live only in `registries/platform-registry.json` (see the Framework skill conventions in `CLAUDE.md`).
 - **Exact product names:** Claude, Claude Code, ChatGPT, Codex, M365 Copilot. "Markdown" takes a capital M in prose.
 
 **Swap list for words that reach the student:**
 
 | Instead of | Say |
 |---|---|
-| artifact | file, document, or the thing it produces (name it) |
+| artifact (generic) | file, document, or the thing it produces (name it). "Claude Artifact" is a product name and stays |
 | invoke / trigger the skill | run / start the skill |
 | node, frontmatter, schema | your registry entry, the details at the top of the file |
 | repo, directory | folder |
@@ -164,7 +166,7 @@ explains clearly, not as a teacher correcting them or an engineer briefing anoth
 | input / output (unexplained) | what it starts from / what it produces |
 | leverage, utilize | use |
 | lint, check passed, warnings | (say nothing, or the plain consequence) |
-| commit, push, branch | save a version (only when the folder is a git repository) |
+| commit, push, branch, git | "save this point in your folder's history" — only when the folder is a git repository, with "it stays on your computer" |
 
 ## File format
 

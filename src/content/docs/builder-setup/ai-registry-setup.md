@@ -136,7 +136,7 @@ You never need GitHub for your registry. If you already use it, or want one of t
 
 The interview works from memory alone, but it is shorter and more accurate if you bring something that already describes your business. Any of these, pasted or attached when your assistant asks:
 
-- **Something that lists what you sell or deliver** — a services page, a product list, a capabilities deck.
+- **Something that lists what you offer** — a services page, a product list, a capabilities deck.
 - **Something that shows who does the work** — an org chart, a team list, job descriptions. Role titles are enough; your assistant uses roles, not names, unless you ask.
 - **Something that says what matters this year** — a strategy page, OKRs, an annual plan.
 - **Optional:** a process inventory, an SOP folder, or process guides.
@@ -238,7 +238,7 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 "Dashboard" always means a **generated view** — never a place you type into directly. Your assistant produces two files from your nodes, and both live in the folder you picked, next to `registry/`:
 
-**`registry-dashboard.html` — your visual dashboard.** This is the one you'll open most. It's a single self-contained web page — no server, no external requests, double-click it and it opens in your browser — showing your business's full value chain (business → line of business → process → workflow) laid out visually, with a click-through to any node's detail. Ask your assistant: *"Generate my visual dashboard."* To show it to someone else, see [Sharing Your Dashboard](#sharing-your-dashboard).
+**`registry-dashboard.html` — your visual dashboard.** This is the one you'll open most. It's a single self-contained web page — no server, no external requests, double-click it and it opens in your browser — showing your business's full value chain (business → line of business → process → workflow) laid out visually, with a click-through to any node's detail. Ask your assistant: *"Generate my visual dashboard."* On Claude, registry setup also offers it as a **Claude Artifact**: a private page you can open from Claude any time, without finding the file. To show it to someone else, see [Sharing Your Dashboard](#sharing-your-dashboard).
 
 **`REGISTRY.md` — the plain-text index.** Regenerated automatically on every maintenance pass. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, and "Skills" and "Agents" sections list everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). It's the version your assistant reads back and the one that works anywhere Markdown does.
 
