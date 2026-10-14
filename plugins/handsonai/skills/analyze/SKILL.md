@@ -158,7 +158,7 @@ Probe for concrete examples: "I spend 30 minutes every Monday formatting a statu
 3. If it's still thin after two tries, propose a guess to react to. Say: "Here's my guess: [X], [Y], or [Z], from what you've told me about [your role / this process]. What's right and what's wrong?"
 4. If they still don't know, move on: note the process under **Noted, not walked**, or record the size as "Not sized yet". Never invent an opportunity and record it as theirs.
 
-**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (no registry: the order the student named them; the report and catalog use the same order and numbers), then say: "The report covers all of these, and they all go into your backlog."
+**Transition signal:** After the last process (with no Process nodes: once there are 3+ concrete opportunities), list the opportunities numbered straight through under a "**Process:** [name]" label for each process, in registry order (no registry: the order the student named them; the report and catalog use the same order and numbers), then say: "The report covers all of these, and they all go into your backlog." On an other-lens run, leave pieces that match an existing workflow out of the numbered list and name them on one line ("[Workflow] is already in your backlog"); the sentence then covers only the rest.
 
 **Ask:** "Anything to add, or shall I write the report?"
 
