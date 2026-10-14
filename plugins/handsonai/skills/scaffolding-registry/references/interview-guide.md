@@ -18,14 +18,15 @@ One question per message. Wherever a phase says **Example to show**, describe th
 
 > "This step sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every later step uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It takes about 25 minutes, in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe — progress is saved."
 >
-> "Here's the outline we'll fill in, top to bottom:
-> **Business** → **Lines of business** (what you sell) → **Functions** (who does the work) → **Processes** (how each line gets delivered). Workflows come later, when Analyze finds them inside your processes."
->
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
 
-Then add one sentence on where the files go: in write mode, "I'll save it in
+In the same first message, add one sentence on where the files go: in write mode, "I'll save it in
 `<folder name>`." In print-and-save mode, the print-and-save line below.
 
+**The outline (right after the persona answer),** in that persona's words
+from `personas.md` § Outline wording — the founder form:
+
+> "Here's the outline we'll fill in, top to bottom: **Business** → **Lines of business** (what you offer) → **Functions** (who does the work) → **Processes** (how each line gets delivered). Workflows come later, when Analyze finds them inside your processes."
 ---
 
 ## Phase 0 — Home and sources (4 min)
@@ -82,8 +83,8 @@ the student has open? (A file the student would have to download does not count 
    An answer the student gives here in words ("the areas are household,
    money, and the kids") counts as a source for the phase it covers: open
    that phase with the draft, still in phase order.
-4. **The rule, once.** "I'll propose, you confirm. Nothing gets saved until
-   you say so."
+4. **The rule, once.** "I'll propose, you confirm. Nothing about your
+   business gets saved until you confirm it."
 
 **Then write the skeleton** — after the four steps above and before Phase 1.
 
@@ -159,14 +160,14 @@ that produced missing or incomplete nodes.
 **If a Phase 0 source covers this phase:** play the draft back in plain
 words, labeled — never the file:
 
-> **Name:** … · **What it does:** … · **Website:** …
+> **Name:** … · **What it does:** … · **Website:** … (add **Goals for this year:** … only when the source actually states goals — never draft goals from a website)
 
 then ask the questions below one at a time, starting from the draft. Write
 only what the student confirms.
 
 **Ask (name):** "What do you call your business day to day — the name you'd want at the top of your dashboard?" (persona wording from `personas.md`)
 - *Why:* this name labels everything the registry records about your business.
-- *Example:* a family-run garden centre might say "Hillside Gardens", not the legal entity "Hillside Horticultural Holdings Ltd".
+- *Example:* a family-run garden center might say "Hillside Gardens", not the legal entity "Hillside Horticultural Holdings Ltd".
 - *Not sure?* Use the name your customers know you by. When a source offers several (brand, personal name, legal entity), list them and suggest the customer-facing one.
 
 **Ask (what it does):** "Here's one sentence on what it does: '[draft]'. Does that sound like you?" (Ask "What does it do, in one sentence?" when there's no source.)
@@ -204,8 +205,8 @@ one.
 **Signpost:** "Part 2 of 4 — How it's organized: your lines of business."
 
 **Define it first:** "A **line of business** is something distinct the
-business sells or delivers — like courses, consulting, or coaching. Some
-businesses have one; some have several."
+business sells or delivers — like a product line, a service, or a training
+program. Some businesses have one; some have several."
 
 **If a Phase 0 source covers this phase:** draft the lines from it, ordered
 by the student's goals, each with a one-line description, and say why you
@@ -218,9 +219,10 @@ grouped anything together or left anything out.
 
 Don't ask a separate question about the order — the student can move lines
 in their answer above. Set each line's `status` to `active` unless a source
-suggests it is new or paused; only then ask about that line: "Is [line]
-something you're selling now, or just starting or paused?" — *Why:* so your
-map shows what's running today.
+suggests it is new or paused; only then ask about that line:
+
+**Ask:** "Is [line] something you're selling now, or just starting or paused?"
+- *Why:* so your map shows what's running today.
 
 **Example to show:** the two LineOfBusiness nodes from `example-registry.md`
 (`advisory.md` and `training.md`) — Advisory shows a populated
@@ -242,7 +244,7 @@ split.
 **Signpost:** "Part 3 of 4 — Who does the work: your functions."
 
 **Define it first** (persona wording in `personas.md`; this is the founder
-and leader form): "A **function** is a team or department in your
+form): "A **function** is a team or department in your
 organization — Marketing, Sales, Finance — that owns a kind of work across
 every line of business. Your lines of business are *what you sell*; your
 functions are *who does the work*. If you work alone, each function is one
@@ -301,7 +303,8 @@ process: the repeatable pieces of work that AI can help with."
 exactly one line; a shared one (a newsletter, invoicing) goes under the line
 it serves most — say so in those words, never "under the schema". Play it
 back in this layout, which labels each level so a student can't confuse
-them:
+them. The names below only show the shape — fill every line from the
+student's own registry, never reuse these:
 
 ```
 **Line of business: Cohort Courses**
@@ -309,25 +312,28 @@ them:
 - **Process:** Cohort Delivery — owned by Service Delivery. Running live sessions week to week.
 
 **Line of business: Corporate Training**
-- **Process:** Corporate Lead to Proposal — owned by Sales. Inquiry, qualification, scoping, SOW.
+- **Process:** Corporate Lead to Proposal — owned by Sales. Inquiry, qualification, scoping, proposal.
 ```
 
 **Ask:** "What would you add, remove, rename, or move? Each line of business only needs its main processes for now."
-- *Why:* Analyze walks each of these processes next, asking where the work is slow or repetitive, so anything missing here won't be looked at.
+- *Why:* Analyze looks for work worth improving inside these processes, so anything missing here won't come up.
 - *Example:* an accounting firm might add "Tax Filing" under Individual Clients and drop "Office Supplies" as too small.
 - *Not sure?* Keep the draft. Analyze adds processes later when it finds work that doesn't fit.
 
 Never ask the student to rank processes — order them yourself; Analyze asks
-which matter most before it walks them. When the student names an owner in
+which matter most before it looks at them. When the student names an owner in
 shorthand ("training"), say which function you read it as before writing.
 Don't ask for SOPs or guides; set `guide:` only when a Phase 0 document
 turned one up.
 
-Then, in one message, check every function against the confirmed processes
-and name only the ones that truly own none: "[Function] has no process yet.
-Add one, or drop it for now? You can add it back any time." Functions have
-no `status`, so dropping one means deleting the node and its index line at
-Close.
+Then check every function against the confirmed processes. Only if some
+truly own none, ask once, naming them:
+
+**Ask:** "[Function] has no process yet. Add one, or drop it for now? You can add it back any time."
+- *Why:* every function in your registry should own some of the work, so the dashboard shows who's responsible for what.
+
+Functions have no `status`, so dropping one means deleting the node and its
+index line at Close. This is the only time the question is asked.
 
 **Example to show:** the Process node from `example-registry.md`
 (`registry/processes/client-delivery.md`).
@@ -350,8 +356,8 @@ fits and grows this list later; don't try to be exhaustive here.
 student volunteered an insight during the interview (a constraint, a lesson
 learned) — and ask before saving it.
 
-**Example to show:** the Note node from `example-registry.md`
-(`registry/notes/2026-08-status-report-timing.md`).
+**Example to show (only when writing a volunteered Note):** the Note node
+from `example-registry.md` (`registry/notes/2026-08-status-report-timing.md`).
 
 **What to write:**
 - an optional `registry/notes/<slug>.md` node — only if a real insight
@@ -380,19 +386,27 @@ mode there is no maintenance hand-off: print the `log.md` entry, every typed
 `indexing-registry`'s rules, each with its location, and say the set is
 complete.
 
-**The close (last message), in both modes:**
+**The close (last message) — write mode:**
 
 > "Your registry is set up in `<folder name>`. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
 >
 > "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser, and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
 >
-> "You can reshape this any time — rename, merge, or move things — just ask, for example 'move Speaking under Corporate Training'."
+> "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
 >
-> "Next is Analyze. It walks each of your processes asking where the work is slow or repetitive, and registers the workflows worth building. About 15 to 20 minutes. Run it now, or later?"
+> "Next is Analyze. It asks which of your processes matter most right now, then looks inside them for work that's slow or repetitive, and registers the workflows worth building. About 15 to 20 minutes. Run it now, or later? When you're ready, say 'run the analyze skill'."
 
-Say nothing about lint, checks, GENERATED blocks, or git. On Claude, after
-the close, you may add: "Want to share the dashboard with someone? I can
-publish it as a private link." On yes to Analyze, invoke the `analyze` skill.
+**The close — print-and-save mode:** the same four parts, with two changes.
+Say where the files go: "Save each file I printed into your `registry`
+folder, at the location shown above it." And for the dashboard, which can't
+be printed usefully: "Your visual dashboard is created as soon as your files
+are in a folder I can save to. Then say 'generate my visual dashboard'."
+
+Say nothing about lint, checks, or GENERATED blocks. If the folder is a git
+repository, you may add one line: "Want me to save a version of this?" On
+Claude, after the close, you may add: "Want to share the dashboard with
+someone? I can publish it as a private link." On yes to Analyze, invoke the
+`analyze` skill.
 
 **Fast path:** if no insight surfaced, skip the Note entirely and don't
 mention it — an absent Note is not a gap to flag; a forced one is worse than

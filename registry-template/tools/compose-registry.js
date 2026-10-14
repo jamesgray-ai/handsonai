@@ -110,6 +110,19 @@ function pushedBranch(workspaceRoot) {
   return packed.split('\n').some((l) => l.trim().endsWith(` refs/remotes/origin/${branch}`)) ? branch : null;
 }
 
+// Paths under registry/ that exist on origin/<branch>. Needs the git binary;
+// any failure (no git, no such ref) -> null, and every nodeUrl is omitted
+// rather than risking a dead link.
+function pushedFiles(workspaceRoot, branch) {
+  if (!branch) return null;
+  try {
+    const out = require('child_process').execFileSync(
+      'git', ['ls-tree', '-r', '--name-only', `origin/${branch}`, '--', 'registry'],
+      { cwd: workspaceRoot, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    return new Set(out.split('\n').filter(Boolean));
+  } catch { return null; }
+}
+
 // --- Bundle classification (mirrors lint-registry.js's own grouping) -------
 function classify(nodes) {
   const concepts = [];
@@ -326,7 +339,10 @@ function compose(bundleDir) {
   // --- Data island ---------------------------------------------------------
   const blobBase = githubBlobBase(workspaceRoot);
   const regPath = (relPath) => 'registry' + relPath;
-  const nodeUrl = (p) => (blobBase ? blobBase + p : undefined);
+  // Link only to files that are actually on the remote branch -- a node
+  // scaffolded but never committed or pushed would otherwise get a dead link.
+  const pushed = blobBase ? pushedFiles(workspaceRoot, pushedBranch(workspaceRoot)) : null;
+  const nodeUrl = (p) => (blobBase && pushed && pushed.has(p) ? blobBase + p : undefined);
 
   const island = { business: null, lobs: [], functions: [], processes: [], workflows: [], notes: [], skills: [], agents: [] };
 

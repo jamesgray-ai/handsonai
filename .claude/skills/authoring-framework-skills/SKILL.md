@@ -41,7 +41,9 @@ Then, once per skill run, offer the switch: "I'll explain each question as I ask
 is always a fine answer. If you've done this before, say 'skip the explanations'."
 
 Define no framework terms in the opening. Each term is defined where it first matters (see Terms);
-front-loading three definitions before the first question overloads the student.
+front-loading three definitions before the first question overloads the student. A one-line
+outline of what the step builds (with a two- or three-word gloss per level) is allowed, as long
+as it comes once and in the student's persona words — it is a map, not a set of definitions.
 
 Deconstruct's opening is the reference: it gives the agenda, not just the time.
 
@@ -103,7 +105,7 @@ Use the canonical definitions so every skill says the same thing:
 | Value lever | The kind of value AI creates here: Streamline, Automate, Accelerate, or Create value | Analyze, Appendix |
 | Autonomy level | How much the AI decides: Deterministic (you give instructions), Guided (it makes bounded decisions with your method), Autonomous (you give it a goal) | Design, Phase 4 |
 | Building block | One of the pieces a workflow is built from: a prompt, a skill, an agent, a connection to another system | Design |
-| Line of business | Something distinct the business sells or delivers — like courses, consulting, or coaching | scaffolding-registry, Phase 2 |
+| Line of business | Something distinct the business sells or delivers — like a product line, a service, or a training program | scaffolding-registry, Phase 2 |
 | Function | A team or department in your organization — Marketing, Sales, Finance — that owns a kind of work across every line of business. Lines of business are *what you sell*; functions are *who does the work*. Working alone, each function is one of the hats you wear | scaffolding-registry, Phase 3 (wording per persona in `personas.md`) |
 | Process | A set of related work that delivers part of a line of business — like enrolling students or delivering a workshop. Each sits under one line of business and is owned by one function; Analyze later finds the workflows inside it | scaffolding-registry, Phase 4 |
 | Registry | Your record of the business: what you do, the processes that deliver it, and the workflows built or planned for each | scaffolding-registry |

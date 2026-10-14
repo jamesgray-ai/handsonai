@@ -145,16 +145,16 @@ Bring one and the interview is shorter. Bring three and it is mostly confirmatio
 
 ## The Interview
 
-Whichever flow you're in, your assistant now runs the same **interview — six phases, numbered 0–5** — about 25 minutes, working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
+Whichever flow you're in, your assistant now runs the same **interview** — about 25 minutes: a short setup, **four parts**, and a close — working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
 
-| Phase | What it asks | Time |
+| Part | What it asks | Time |
 |---|---|---|
-| 0. Home and sources | Confirms the folder, whether your assistant saves files or prints them (decided above), who the registry is for — a business you own, a company you lead, your role, or your personal life — and asks for anything you brought (see What to Bring) | 4 min |
-| 1. Business | Your business's name, a one-sentence identity, and the two or three outcomes that matter most this year. For a professional the "business" is your team; for personal life it is you or your household | 3 min |
-| 2. Lines of Business | The one or more lines of business inside it (solo founders usually get just one, named after the business itself) | 4 min |
-| 3. Functions | Which functions run your business — for a company, your assistant offers a starter list (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) or drafts from your org chart, and you trim or rename it (any function left owning no process is added to one or dropped before you finish); for a team, the groups you hand work to; for personal life, the roles that own each routine | 3 min |
-| 4. Processes | The three to five processes that deliver each line of business — where the time, money, and customer outcomes flow. Your assistant drafts and orders them; you add, remove, rename, or move. Not where AI helps: Analyze decides that, and asks which processes matter most before it looks at them | 8 min |
-| 5. Close | A wrap-up summary, your visual dashboard (always generated, with how to open it), and the offer to run Analyze right away | 3 min |
+| Setup | Tells you where it will save your registry and whether your assistant saves files or prints them (decided above), asks who the registry is for — a business you own, a company you lead, your role, or your personal life — and asks for anything you brought (see What to Bring) | 4 min |
+| Part 1 — Your business | Your business's name, a one-sentence identity, and the two or three outcomes that matter most this year. For a professional the "business" is your team; for personal life it is you or your household | 3 min |
+| Part 2 — How it's organized | The one or more lines of business inside it (solo founders usually get just one, named after the business itself) | 4 min |
+| Part 3 — Who does the work | Which functions run your business — for a company, your assistant offers a starter list (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) or drafts from your org chart, and you trim or rename it (any function left owning no process is added to one or dropped before you finish); for a team, the groups you hand work to; for personal life, the roles that own each routine | 3 min |
+| Part 4 — The processes that deliver it | The three to five processes that deliver each line of business — where the time, money, and customer outcomes flow. Your assistant drafts and orders them; you add, remove, rename, or move. Not where AI helps: Analyze decides that, and asks which processes matter most before it looks at them | 8 min |
+| Close | A wrap-up summary, your visual dashboard (always generated, with how to open it — if your assistant is printing files, it's created once your files are in a folder it can save to), and the offer to run Analyze right away | 3 min |
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 

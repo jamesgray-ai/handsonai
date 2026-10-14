@@ -568,6 +568,27 @@ compose_at valid-bundle >/dev/null 2>&1
 [ -e "$WS/tools/last-data-island.json" ] && bad "compose wrote tools/last-data-island.json" || ok "compose writes no tools/last-data-island.json"
 [ -e "$WS/tools" ] && bad "compose created a tools/ folder" || ok "compose creates no tools/ folder"
 
+# nodeUrl links only to files on the remote branch, using the real branch name
+# (never a hard-coded main). A throwaway repo with a GitHub remote and a faked
+# origin/<branch> ref holding one of the two registry files.
+echo
+echo "-- nodeUrl: real branch, pushed files only --"
+GT=$(mktemp -d)
+cp -R "$EX/." "$GT/"
+( cd "$GT" && git init -q -b trunk && git config user.email t@t && git config user.name t \
+  && git remote add origin https://github.com/acme/reg.git \
+  && git add registry/SCHEMA.md registry/businesses && git commit -qm pushed \
+  && git update-ref refs/remotes/origin/trunk HEAD \
+  && git add -A && git commit -qm local-only ) >/dev/null 2>&1
+gt_island=$(cd "$GT" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null)
+grep -q 'github.com/acme/reg/blob/trunk/registry/businesses/' <<<"$gt_island" && ok "pushed file links to the real branch (trunk)" || bad "pushed file has no nodeUrl on the real branch"
+grep -q 'blob/main/' <<<"$gt_island" && bad "nodeUrl assumes main" || ok "nodeUrl never assumes main"
+grep -q 'blob/trunk/registry/processes/' <<<"$gt_island" && bad "unpushed file got a nodeUrl (dead link)" || ok "unpushed files get no nodeUrl"
+( cd "$GT" && git update-ref -d refs/remotes/origin/trunk ) >/dev/null 2>&1
+gt_island=$(cd "$GT" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null)
+grep -q '"nodeUrl"' <<<"$gt_island" && bad "branch never pushed still got nodeUrl" || ok "branch never pushed: no nodeUrl"
+rm -rf "$GT"
+
 echo
 echo "$PASS ok, $FAIL bad"
 [ "$FAIL" -eq 0 ]

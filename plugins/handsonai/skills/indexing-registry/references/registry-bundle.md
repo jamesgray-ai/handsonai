@@ -97,7 +97,7 @@ the bundle exists.
 | `writing-workflow-sops` | `# Artifacts` → SOP |
 | `writing-process-guides` | Process node `guide:` frontmatter |
 
-`scaffolding-registry` writes no Workflow node. Only `status` is schema-required on a Workflow node, so a backlog stub written by `analyze` or `naming-workflows` lints clean without `definition_type`, `execution_mode`, or `autonomy`; `deconstruct` and `design` set those as owners. A stub's `trigger` is provisional — `deconstruct` may overwrite it with a better-informed value; the never-overwrite rule protects values a student set deliberately through a framework step, not a stub-time guess. Stubs carry no `execution_mode` or `autonomy`: `design` writes both, once the steps are known, and nothing writes them earlier. `scaffolding-registry` may set a Process node's `guide:` at scaffold time when an SOP already exists for it; `writing-process-guides` owns the field thereafter.
+`scaffolding-registry` writes no Workflow node. Only `status` is schema-required on a Workflow node, so a backlog stub written by `analyze` or `naming-workflows` lints clean without `definition_type`, `execution_mode`, or `autonomy`; `deconstruct` and `design` set those as owners. A stub's `trigger` is provisional — `deconstruct` may overwrite it with a better-informed value; the never-overwrite rule protects values a student set deliberately through a framework step, not a stub-time guess. Stubs carry no `execution_mode` or `autonomy`: `design` writes both, once the steps are known, and nothing writes them earlier. `scaffolding-registry` may set a Process node's `guide:` at scaffold time when the student's documents already include a process guide for it; `writing-process-guides` owns the field thereafter.
 
 ---
 

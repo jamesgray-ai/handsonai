@@ -13,7 +13,7 @@ description: >
 
 # Maintaining the AI Registry
 
-The **AI Registry** is the `registry/` knowledge bundle at the workspace root, plus everything derived from it: directory indexes, GENERATED blocks inside individual nodes, the `REGISTRY.md` dashboard, and — on request — the visual HTML dashboard.
+The **AI Registry** is the `registry/` knowledge bundle at the workspace root, plus everything derived from it: directory indexes, GENERATED blocks inside individual nodes, the `REGISTRY.md` dashboard, and the visual HTML dashboard (always generated at the end of registry setup; once it exists, refreshed on every pass).
 
 **The registry is derived-state doctrine.** The bundle's node files (under `registry/`) are the source of truth. Every dashboard, index, and summary is generated from them. **Edit sources, regenerate — never hand-edit a derived view.** If a derived view looks wrong, that's a signal to fix the source node and regenerate, not to patch the view directly.
 
@@ -76,7 +76,9 @@ No Health, Last Run, or Step columns — framework step is inferred from artifac
 
 **Tier 2 — `registry-dashboard.html` (always at the end of `scaffolding-registry`; otherwise on request: "generate my dashboard").** Read the bundle, build a data island matching `references/data-island.schema.json` by the derivation rules in `references/tier-2-island.md` (ids, `nodePath`/`nodeUrl`, traversal order, `step`, `usedBy`, skills and agents scan — the same rules compose follows), and inject it as the **only** change into `references/dashboard-template.html`'s `<script type="application/json" id="data">` element — never touch the renderer around it. Before injecting, replace every `<` in the serialized JSON with `\u003c`; an unescaped `<` in any description closes the script element and blanks the page. Save the result as `registry-dashboard.html` at the workspace root.
 
-**Telling the student about it.** In plain words: what it shows (lines of business, processes, owners, workflows), why any section is empty, and how to open it — "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details." Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the workspace or point the student at a session folder.
+**Telling the student about `REGISTRY.md`.** When you mention it, say what it is in one plain sentence: "`REGISTRY.md` is a one-page text summary of your registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
+
+**Telling the student about the dashboard.** In plain words: what it shows (lines of business, processes, owners, workflows), why any section is empty, and how to open it — "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details." Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the workspace or point the student at a session folder.
 
 *Claude platforms:* after the student knows how to open the file, you may offer: "Want to share it with someone? I can publish it as a private link." An Artifact is for sharing, never the way to see the dashboard.
 
@@ -90,7 +92,7 @@ Refuses to regenerate derived views while lint reports errors — with the refer
 
 ## Workspace-generator precedence
 
-If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative.
+If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative. Compose only refreshes a `registry-dashboard.html` that already exists: when the Tier 2 dashboard is due and the workspace root has none, first copy `tools/dashboard-template.html` to `registry-dashboard.html`, then run compose.
 
 ## Best-effort rule
 

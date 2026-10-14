@@ -3,7 +3,7 @@
 Four kinds of student run this interview. The nodes written are identical for
 all four — the same six types, the same frontmatter, the same `SCHEMA.md`.
 What changes is the vocabulary of the questions and what each node stands for.
-Ask once, in Phase 0, after the folder and mode are confirmed:
+Ask once, in Phase 0, after the opening and once the mode is known:
 
 > "Who is this registry for — a business you own, a company or unit you lead,
 > your role inside an organization, or your personal life?"
@@ -29,34 +29,47 @@ consultancy"), and the `analyze` skill reads both to infer the lens.
 
 A Function's "charter prose" for a personal role is one sentence on what that role takes care of ("The household routines and the kids' logistics.").
 
+## Outline wording
+
+The interview guide shows the student an outline right after the persona
+answer. Word it for the persona:
+
+- **Founder or owner / CEO or business leader:** Business → Lines of business (what you offer) → Functions (who does the work) → Processes (how each line gets delivered).
+- **Professional:** Your team → The services it provides → Functions (your team and the groups you work with) → Processes (how each service gets delivered).
+- **Personal life:** You or your household → Areas of life → Roles (who takes care of what) → Routines (what keeps each area running).
+
 ## Per-persona openings
 
-Use these in place of the founder wording in each phase of the interview
-guide. The *Why*, *Example*, and *Not sure?* lines, the definitions' meaning,
+Each line replaces the wording of the matching **Ask:** line (or definition)
+in the interview guide; ask them one per message. The *Why*, *Example*, and *Not sure?* lines, the definitions' meaning,
 and "what to write" are unchanged. Never ask a persona to rank processes —
 the AI orders them.
 
 ### Founder or owner
-- **Phase 1:** "What's the name of the business, and what does it do in one sentence?"
+- **Phase 1 (name):** "What do you call your business day to day — the name you'd want at the top of your dashboard?"
+- **Phase 1 (what it does):** "What does it do, in one sentence?"
 - **Phase 2:** "Does the business have distinct lines of business, or is it one thing end to end?"
 - **Phase 3 (definition):** "A **function** is a team or department in your organization — Marketing, Sales, Finance — that owns a kind of work across every line of business. Your lines of business are *what you sell*; your functions are *who does the work*. If you work alone, each function is one of the hats you wear."
 - **Phase 4:** "For each line of business, what are the three to five processes that deliver it — where the time, money, and customer outcomes actually flow?"
 
 ### CEO or business leader
-- **Phase 1:** "What's the company or unit you lead, and what does it exist to do, in one sentence?"
+- **Phase 1 (name):** "What do you call the company or unit you lead, day to day?"
+- **Phase 1 (what it does):** "What does it exist to do, in one sentence?"
 - **Phase 2:** "What are the business units or offerings?"
 - **Phase 3 (definition):** "A **function** is a department in your organization — Marketing, Sales, Finance — that owns a kind of work across every business unit. Your units are *what you deliver*; your functions are *who does the work*, usually the departments that report in. Rename them to match your org chart."
 - **Phase 4:** "For each unit, what are the three to five processes that deliver it at the level you see — order-to-cash, hire-to-onboard, plan-to-report?"
 
 ### Professional inside an organization
-- **Phase 1:** "What team or department is this registry for, and what is it responsible for, in one sentence? A team is a perfectly good 'business' here."
+- **Phase 1 (name):** "What team or department is this registry for? A team is a perfectly good 'business' here."
+- **Phase 1 (what it does):** "What is it responsible for, in one sentence?"
 - **Phase 2:** "Does your team provide distinct services to the rest of the company, or is it really one thing? One default line named after the team is fine."
 - **Phase 3 (definition):** "A **function** is a team or department that owns a kind of work. For your registry, that's your own team plus the groups you hand work to and receive it from — Finance, Legal, a partner team. Your lines of business are *what your team provides*; your functions are *who does the work*."
 - **Phase 4:** "What are the three to five processes your team runs or takes part in?"
 
 ### Personal life
 - **Phase 0 (add):** "This registry will describe money, health, and family. Keep it on your computer or in a private repository."
-- **Phase 1:** "Whose life is this registry for — you, or your household? Give it a name you'd be happy to see at the top of a dashboard, and one sentence on what running it well looks like."
+- **Phase 1 (name):** "Whose life is this registry for — you, or your household? Give it a name you'd be happy to see at the top of a dashboard."
+- **Phase 1 (what it does):** "In one sentence, what does running it well look like?"
 - **Phase 2:** "Which areas of life do you want to run better — household, finances, health, family, learning, a side project? Pick the ones that matter now."
 - **Phase 3 (definition):** "Here, a **function** is a role that takes care of part of your life — you, a partner, a service you pay for. Your areas are *what you're running*; your functions are *who does it*. I'll write each as a role ('Household admin', 'Me') rather than a name. We need at least one."
 - **Phase 4:** "For each area, what are the three to five recurring routines that keep it running — monthly budgeting, meal planning, school logistics?"

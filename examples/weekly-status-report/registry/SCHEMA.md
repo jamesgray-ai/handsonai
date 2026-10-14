@@ -155,7 +155,7 @@ from the link text.
 
 # Derived views & maintenance
 
-Derived views are: the root dashboard (`REGISTRY.md`), an optional `registry-dashboard.html`,
+Derived views are: the root dashboard (`REGISTRY.md`), `registry-dashboard.html` (generated at the end of setup, refreshed on every maintenance pass once it exists),
 each directory's `index.md`, and GENERATED blocks inside nodes — hash-less paired markers
 (`<!-- GENERATED:<name> -->` … `<!-- /GENERATED -->`); never hand-edit content between the
 markers.

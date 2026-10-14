@@ -8,7 +8,7 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 |---|---|
 | `id` | the node's filename without `.md` (`registry/workflows/weekly-status-report.md` → `weekly-status-report`) |
 | `nodePath` | the node's path from the workspace root, always starting `registry/` |
-| `nodeUrl` | only when the workspace's own `.git/config` has a `[remote "origin"]` pointing at GitHub **and** the current branch (from `.git/HEAD`) exists on that remote (`.git/refs/remotes/origin/<branch>`, or a `refs/remotes/origin/<branch>` line in `.git/packed-refs`): `https://github.com/<owner>/<repo>/blob/<branch>/` + `nodePath`. Use that branch name — never assume `main`. No remote, not GitHub, or a branch that was never pushed → omit the key. Never read a parent directory's git config. Students never edit registry files by hand, so this link is only for seeing where a node lives; the renderer shows `nodePath` as plain text whenever no link would work |
+| `nodeUrl` | only when the workspace's own `.git/config` has a `[remote "origin"]` pointing at GitHub **and** the node's file exists on that remote's copy of the current branch (from `.git/HEAD`): `https://github.com/<owner>/<repo>/blob/<branch>/` + `nodePath`. Use that branch name — never assume `main`. Check with `git ls-tree --name-only origin/<branch> -- <nodePath>`; if you can't run that check, or the file isn't there (never committed, or not pushed), omit the key. No remote or not GitHub → omit. Never read a parent directory's git config. Students never edit registry files by hand, so this link is only for seeing where a node lives; the renderer shows `nodePath` as plain text whenever no link would work |
 | Missing values | omit the key. Keep an explicit `null` only where the schema allows it and compose writes it: an unassigned workflow's `processId` and `lobId` |
 | Frontmatter names | `definition_type` → `definitionType`, `execution_mode` → `executionMode`, `stale_after` → `staleAfter`, `owner` → `ownerId`; everything else keeps its name |
 | Array order | the order the curated lists give (below); where no list orders a set, sort by node path |
@@ -35,7 +35,7 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 1. Serialize the island as JSON.
 2. Replace every `<` with `\u003c` **before** embedding. A description such as "handles <200 leads/day" would otherwise close the `<script>` element and leave the page blank; `\u003c` is valid JSON and decodes to the same character.
 3. Replace only the text content of `<script type="application/json" id="data">` in `dashboard-template.html`. Nothing else in the template changes.
-4. Save as `registry-dashboard.html` at the workspace root. Open it from `file://` — a blank page or a console error means the island is malformed; the most common causes are an unescaped `<` or a missing comma.
+4. Save as `registry-dashboard.html` at the workspace root. If you can, open it from `file://` as a self-check (don't report the check to the student) — a blank page or a console error means the island is malformed; the most common causes are an unescaped `<` or a missing comma.
 
 ## Settled questions
 
@@ -45,12 +45,12 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 - **Link targets in `skills` / `agents`.** Copy the `# Skills` / `# Agents` link target exactly as written in the node (a workspace path such as `.claude/skills/some-skill/SKILL.md`); `usedBy` matches on that same string.
 - **Skill title precedence.** Frontmatter `name` wins over `title` when both exist.
 - **`owns` source.** Derive from each Process's `owner:` frontmatter, never from a Function's GENERATED `# Owns` block (that block is itself derived and may be stale).
-- **Lint before a hand-build.** Nothing to run on a platform without Node: read the bundle for the lint conditions you can see (every node indexed, every curated-list link resolves, no banned fields) and rely on the self-check below; say in the hand-off that lint did not run.
+- **Lint before a hand-build.** Nothing to run on a platform without Node: read the bundle for the lint conditions you can see (every node indexed, every curated-list link resolves, no banned fields) and rely on the self-check below. Don't mention lint to the student.
 - **Formatting.** Any valid JSON; indentation and key order do not matter to the renderer.
 
 ## Self-check before saving
 
 - Every `processId`, `lobId`, `ownerId`, and every slug in `processes`, `workflows`, `owns`, and `usedBy` names an `id` that exists in the island.
 - Every Workflow node in the bundle appears exactly once in `workflows`.
-- `nodeUrl` is present on all bundle nodes or on none.
+- `nodeUrl` appears only on nodes whose file is on the remote branch; when in doubt, omit it.
 - The island contains no `<`.
