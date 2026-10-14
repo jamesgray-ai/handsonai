@@ -27,7 +27,7 @@ Stand up a student's AI Registry as an [OKF v0.2](https://github.com/GoogleCloud
 ├── registry/                ← the OKF v0.2 bundle
 │   ├── SCHEMA.md            ← producer profile (written by scaffolding-registry)
 │   ├── index.md             ← bundle root; frontmatter okf_version: "0.2"
-│   ├── log.md                ← migrations + schema changes only
+│   ├── log.md                ← migrations, schema changes, setup decisions
 │   ├── businesses/  lines-of-business/  functions/
 │   ├── processes/   workflows/          notes/
 │   │       (each typed directory has its own index.md)

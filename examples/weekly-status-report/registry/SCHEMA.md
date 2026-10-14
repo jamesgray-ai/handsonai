@@ -185,5 +185,5 @@ GitHub Action) — you never run them yourself; your AI assistant and CI do.
 # Lifecycle
 
 Removed workflows or processes become `status: retired` — kept, and linked from an explaining
-Note — never deleted. `log.md` records migrations and schema changes only, not routine
-regenerations.
+Note — never deleted. `log.md` records migrations, schema changes, and setup decisions (such as
+the dashboard's Claude Artifact link), not routine regenerations.
