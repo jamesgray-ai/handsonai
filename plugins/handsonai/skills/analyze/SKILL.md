@@ -181,7 +181,7 @@ Write a complete minimal Process node per `naming-workflows`' rule — never a d
 
 > Here's what goes into your registry. Each workflow sits under the process it belongs to and is owned by that process's owner.
 >
-> **[Process]**
+> **Process:** [Process]
 > 1. **[Workflow name].** [One-sentence description.]
 > 2. …
 
