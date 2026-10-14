@@ -193,6 +193,24 @@ Every framework skill keeps this shape (existing v8 conventions in `CLAUDE.md` s
 >
 > Record each answer as a row `G1, G2, …` in Human Gates with the step it sits at. Apply the *Not sure?* default by the last step: if the workflow sends, posts, or hands its result to someone else, record a gate before that step and mark it `(default)`; if the student is the only one who receives the result, write "No human gates — the workflow runs end-to-end with final review only."
 
+## Making a fix
+
+A skill's rules are restated in many places, and a fix that changes one copy leaves the others
+contradicting it. Every fix pass does these, in order, before it is committed:
+
+1. **Sweep.** For each rule you change, search for every place that restates it: the skill's
+   `SKILL.md` and every file in its `references/`, the other framework skills, the `SCHEMA.md`
+   copies (`plugins/handsonai/skills/scaffolding-registry/references/schema-template.md`,
+   `registry-template/registry/SCHEMA.md`, `examples/weekly-status-report/registry/SCHEMA.md`),
+   and the docs pages under `src/content/docs/`. Fix them in the same commit.
+2. **Check claims about other skills.** Any *Why*, close, or "Step N will…" that says what another
+   skill does must match that skill's file. If it doesn't do that yet, change it or change the claim.
+3. **Run the checks:** `bash scripts/check-framework-consistency.sh`,
+   `bash scripts/check-registry-consistency.sh`, `bash scripts/test-compose-registry.sh`.
+4. **Independent review.** A reviewer with no conversation context checks every fixed finding
+   against the diff and looks for contradictions across the skill folder, other skills, and docs.
+   Fix what it finds and review again until it comes back clean. Only then re-run the skill.
+
 ## Review checklist
 
 Run this on every edited skill before committing, and across all seven before a release:
@@ -212,6 +230,9 @@ Run this on every edited skill before committing, and across all seven before a 
 - [ ] No required step is offered as "optional" or one of "options".
 - [ ] The file format matches; `bash scripts/check-framework-consistency.sh` passes.
 - [ ] Word count before and after is reported.
+- [ ] Every changed rule was swept across the skill folder, other skills, `SCHEMA.md` copies, and docs.
+- [ ] Every claim about another skill was checked against that skill's file.
+- [ ] An independent review came back clean before the re-run.
 
 ## Common mistakes
 
