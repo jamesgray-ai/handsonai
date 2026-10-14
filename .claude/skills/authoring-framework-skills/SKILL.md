@@ -103,6 +103,9 @@ Use the canonical definitions so every skill says the same thing:
 | Value lever | The kind of value AI creates here: Streamline, Automate, Accelerate, or Create value | Analyze, Appendix |
 | Autonomy level | How much the AI decides: Deterministic (you give instructions), Guided (it makes bounded decisions with your method), Autonomous (you give it a goal) | Design, Phase 4 |
 | Building block | One of the pieces a workflow is built from: a prompt, a skill, an agent, a connection to another system | Design |
+| Line of business | Something distinct the business sells or delivers — like courses, consulting, or coaching | scaffolding-registry, Phase 2 |
+| Function | A team or department in your organization — Marketing, Sales, Finance — that owns a kind of work across every line of business. Lines of business are *what you sell*; functions are *who does the work*. Working alone, each function is one of the hats you wear | scaffolding-registry, Phase 3 (wording per persona in `personas.md`) |
+| Process | A set of related work that delivers part of a line of business — like enrolling students or delivering a workshop. Each sits under one line of business and is owned by one function; Analyze later finds the workflows inside it | scaffolding-registry, Phase 4 |
 | Registry | Your record of the business: what you do, the processes that deliver it, and the workflows built or planned for each | scaffolding-registry |
 | Backlog | The workflows in your registry you've chosen to build but haven't started | Analyze, Phase 5 |
 
@@ -138,6 +141,10 @@ explains clearly, not as a teacher correcting them or an engineer briefing anoth
 - **Never frame the student as behind.** No "most people miss this", "what nobody tells you", "the part everyone gets wrong". State what the thing is and what it does.
 - **No unsupported prevalence claims** in quoted text ("most people undercount steps by 30–50%"). If a pattern matters, say what to do about it: "Let's check for steps that happen without you thinking about them."
 - **No stock phrases.** No "Sound familiar?", "Great question!", "Let's dive in", "There are no wrong answers", "Your turn".
+- **Never show raw file syntax for approval.** Play a draft back as labeled plain text (Name · What it does · Owner), never as frontmatter, Markdown headings, or file names; write the format behind it and offer "Want to see the file itself?" once.
+- **Label every level.** Any playback holding more than one level of the registry (lines of business and processes, processes and workflows) names each level on its line ("**Line of business:** …", "**Process:** … — owned by Marketing") and uses one kind of list marker.
+- **Never offer a required step as an option.** If the step must happen (the dashboard at the end of registry setup), do it and say so. Offer a choice only when either answer is fine ("run Analyze now, or later?"). Students skip anything labeled optional.
+- **Don't report empty checks or machinery.** Never list what a scan didn't find, and never give a lint rule, a GENERATED block, a template, JSON, or a maintenance pass as the reason for a question or in a close. Give the student's reason, or say nothing.
 - **Platform-neutral.** Quoted text never names a feature only one platform has. Platform-specific facts live only in `registries/platform-registry.json` (see the Framework skill conventions in `CLAUDE.md`).
 - **Exact product names:** Claude, Claude Code, ChatGPT, Codex, M365 Copilot. "Markdown" takes a capital M in prose.
 
@@ -154,6 +161,8 @@ explains clearly, not as a teacher correcting them or an engineer briefing anoth
 | edge case | an unusual case |
 | input / output (unexplained) | what it starts from / what it produces |
 | leverage, utilize | use |
+| lint, check passed, warnings | (say nothing, or the plain consequence) |
+| commit, push, branch | save a version (only when the folder is a git repository) |
 
 ## File format
 
@@ -197,6 +206,8 @@ Run this on every edited skill before committing, and across all seven before a 
 - [ ] The thin-answer recipe is followed; nothing invented is recorded as the student's answer.
 - [ ] The close names what was made, where, what's next, how long, and the exact phrase to start.
 - [ ] Quoted text passes the language rules and the swap list.
+- [ ] No playback shows raw file syntax; every multi-level playback labels each level.
+- [ ] No required step is offered as "optional" or one of "options".
 - [ ] The file format matches; `bash scripts/check-framework-consistency.sh` passes.
 - [ ] Word count before and after is reported.
 

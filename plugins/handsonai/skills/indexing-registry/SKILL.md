@@ -74,9 +74,11 @@ Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->
 
 No Health, Last Run, or Step columns — framework step is inferred from artifact presence (`references/registry-bundle.md` §4), not stored. No generation-date line — the file's content is the only thing that changes, so a timestamp footer would just create diff noise.
 
-**Tier 2 — `registry-dashboard.html` (on request: "generate my dashboard").** Read the bundle, build a data island matching `references/data-island.schema.json` by the derivation rules in `references/tier-2-island.md` (ids, `nodePath`/`nodeUrl`, traversal order, `step`, `usedBy`, skills and agents scan — the same rules compose follows), and inject it as the **only** change into `references/dashboard-template.html`'s `<script type="application/json" id="data">` element — never touch the renderer around it. Before injecting, replace every `<` in the serialized JSON with `\u003c`; an unescaped `<` in any description closes the script element and blanks the page. Save the result as `registry-dashboard.html` at the workspace root.
+**Tier 2 — `registry-dashboard.html` (always at the end of `scaffolding-registry`; otherwise on request: "generate my dashboard").** Read the bundle, build a data island matching `references/data-island.schema.json` by the derivation rules in `references/tier-2-island.md` (ids, `nodePath`/`nodeUrl`, traversal order, `step`, `usedBy`, skills and agents scan — the same rules compose follows), and inject it as the **only** change into `references/dashboard-template.html`'s `<script type="application/json" id="data">` element — never touch the renderer around it. Before injecting, replace every `<` in the serialized JSON with `\u003c`; an unescaped `<` in any description closes the script element and blanks the page. Save the result as `registry-dashboard.html` at the workspace root.
 
-*Claude platforms:* after generating `registry-dashboard.html`, offer to publish it as an Artifact.
+**Telling the student about it.** In plain words: what it shows (lines of business, processes, owners, workflows), why any section is empty, and how to open it — "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details." Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the workspace or point the student at a session folder.
+
+*Claude platforms:* after the student knows how to open the file, you may offer: "Want to share it with someone? I can publish it as a private link." An Artifact is for sharing, never the way to see the dashboard.
 
 ### 5. Append `log.md`
 

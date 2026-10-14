@@ -31,33 +31,35 @@ A Function's "charter prose" for a personal role is one sentence on what that ro
 
 ## Per-persona openings
 
-Use these in place of the default opening question in each phase. Follow-ups
-and "what to write" are unchanged.
+Use these in place of the founder wording in each phase of the interview
+guide. The *Why*, *Example*, and *Not sure?* lines, the definitions' meaning,
+and "what to write" are unchanged. Never ask a persona to rank processes —
+the AI orders them.
 
 ### Founder or owner
 - **Phase 1:** "What's the name of the business, and what does it do in one sentence?"
 - **Phase 2:** "Does the business have distinct lines of business, or is it one thing end to end?"
-- **Phase 3:** "Who owns the work day to day? I'll suggest a starter set and you can trim or rename it."
-- **Phase 4:** "For each line of business, what are the three to five processes that deliver it — where the time, money, and customer outcomes actually flow? Rank them by how much they matter to the business."
+- **Phase 3 (definition):** "A **function** is a team or department in your organization — Marketing, Sales, Finance — that owns a kind of work across every line of business. Your lines of business are *what you sell*; your functions are *who does the work*. If you work alone, each function is one of the hats you wear."
+- **Phase 4:** "For each line of business, what are the three to five processes that deliver it — where the time, money, and customer outcomes actually flow?"
 
 ### CEO or business leader
 - **Phase 1:** "What's the company or unit you lead, and what does it exist to do, in one sentence?"
-- **Phase 2:** "What are the business units or offerings, in the order they matter to you?"
-- **Phase 3:** "Which departments report in? I'll start from a standard set; rename to match your org chart."
-- **Phase 4:** "For each unit, what are the three to five processes that deliver it at the level you see — order-to-cash, hire-to-onboard, plan-to-report? Rank them by how much they matter."
+- **Phase 2:** "What are the business units or offerings?"
+- **Phase 3 (definition):** "A **function** is a department in your organization — Marketing, Sales, Finance — that owns a kind of work across every business unit. Your units are *what you deliver*; your functions are *who does the work*, usually the departments that report in. Rename them to match your org chart."
+- **Phase 4:** "For each unit, what are the three to five processes that deliver it at the level you see — order-to-cash, hire-to-onboard, plan-to-report?"
 
 ### Professional inside an organization
 - **Phase 1:** "What team or department is this registry for, and what is it responsible for, in one sentence? A team is a perfectly good 'business' here."
 - **Phase 2:** "Does your team provide distinct services to the rest of the company, or is it really one thing? One default line named after the team is fine."
-- **Phase 3:** "Who do you hand work to, and who hands work to you? Those groups are your functions. Your own team counts as one."
-- **Phase 4:** "What are the three to five processes your team runs or takes part in that matter most? Rank them by how much they matter to the team's charter."
+- **Phase 3 (definition):** "A **function** is a team or department that owns a kind of work. For your registry, that's your own team plus the groups you hand work to and receive it from — Finance, Legal, a partner team. Your lines of business are *what your team provides*; your functions are *who does the work*."
+- **Phase 4:** "What are the three to five processes your team runs or takes part in?"
 
 ### Personal life
 - **Phase 0 (add):** "This registry will describe money, health, and family. Keep it on your computer or in a private repository."
 - **Phase 1:** "Whose life is this registry for — you, or your household? Give it a name you'd be happy to see at the top of a dashboard, and one sentence on what running it well looks like."
-- **Phase 2:** "Which areas of life do you want to run better — household, finances, health, family, learning, a side project? Pick the ones that matter now, in order."
-- **Phase 3:** "Who does the work in each area — you, a partner, a service you pay for? I'll write each as a role ('Household admin', 'Me') rather than a name. We need at least one."
-- **Phase 4:** "For each area, what are the three to five recurring routines that keep it running — monthly budgeting, meal planning, school logistics? Rank them by how much they matter."
+- **Phase 2:** "Which areas of life do you want to run better — household, finances, health, family, learning, a side project? Pick the ones that matter now."
+- **Phase 3 (definition):** "Here, a **function** is a role that takes care of part of your life — you, a partner, a service you pay for. Your areas are *what you're running*; your functions are *who does it*. I'll write each as a role ('Household admin', 'Me') rather than a name. We need at least one."
+- **Phase 4:** "For each area, what are the three to five recurring routines that keep it running — monthly budgeting, meal planning, school logistics?"
 
 ## Sketches (shown, never copied)
 

@@ -87,7 +87,27 @@ function githubBlobBase(workspaceRoot) {
   let m = url.match(/^git@github\.com:([^/]+)\/(.+?)(\.git)?$/);
   if (!m) m = url.match(/^https?:\/\/github\.com\/([^/]+)\/([^/]+?)(\.git)?\/?$/);
   if (!m) return null;
-  return `https://github.com/${m[1]}/${m[2]}/blob/main/`;
+  // Link only to a branch that exists on the remote -- never assume `main`
+  // (a repo on `master`, or one never pushed, would get dead links).
+  const branch = pushedBranch(workspaceRoot);
+  if (!branch) return null;
+  return `https://github.com/${m[1]}/${m[2]}/blob/${branch}/`;
+}
+
+// The current branch (from .git/HEAD), only if origin has it: a loose ref
+// under refs/remotes/origin/ or a line in packed-refs. Detached HEAD or a
+// branch never pushed -> null.
+function pushedBranch(workspaceRoot) {
+  const gitDir = path.join(workspaceRoot, '.git');
+  let head;
+  try { head = fs.readFileSync(path.join(gitDir, 'HEAD'), 'utf8').trim(); } catch { return null; }
+  const hm = head.match(/^ref:\s*refs\/heads\/(.+)$/);
+  if (!hm) return null;
+  const branch = hm[1];
+  if (fs.existsSync(path.join(gitDir, 'refs', 'remotes', 'origin', ...branch.split('/')))) return branch;
+  let packed = '';
+  try { packed = fs.readFileSync(path.join(gitDir, 'packed-refs'), 'utf8'); } catch { return null; }
+  return packed.split('\n').some((l) => l.trim().endsWith(` refs/remotes/origin/${branch}`)) ? branch : null;
 }
 
 // --- Bundle classification (mirrors lint-registry.js's own grouping) -------
