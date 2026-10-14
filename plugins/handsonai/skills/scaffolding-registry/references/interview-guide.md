@@ -435,7 +435,7 @@ complete.
 >
 > "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
 >
-> "Next is Analyze. It asks which of your processes matter most right now, then looks inside them for work that's slow or repetitive, and registers the workflows worth building. About 15 to 20 minutes. Run it now, or later? When you're ready, say 'run the analyze skill'."
+> "Next is Analyze. It walks your processes, starting with the ones that matter most right now, looks inside them for work that's slow or repetitive, and adds every workflow it finds to your backlog. About 15 to 20 minutes. Run it now, or later? When you're ready, say 'run the analyze skill'."
 
 **The close — print-and-save mode:** the same four parts, with two changes.
 Say where the files go: "Save each file I printed into your `registry`
