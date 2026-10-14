@@ -4,19 +4,27 @@ description: >
   This skill should be used when the user wants to analyze AI workflow opportunities,
   run a workflow audit, find automation candidates, or says "where can AI help".
   Scans memory and conversation history, interviews the user about their work,
-  then produces a prioritized opportunity report with structured workflow
-  candidates and registers the chosen candidates as backlog Workflow nodes in the AI Registry,
+  then produces an opportunity report with structured workflow candidates and
+  registers every candidate as a backlog Workflow node in the AI Registry,
   ready for the Deconstruct step. This is Step 1 of the AI Workflow Framework.
   It stays strategic: it names the work, the pain, and the value, never the tools or integrations.
 ---
 
 # Analyze Workflows
 
-Analyze concrete opportunities where AI can improve your workflows. Produces a categorized opportunity report with a summary table, detailed opportunity cards, and a structured workflow candidate list, and registers the chosen candidates as backlog Workflow nodes in the AI Registry.
+Analyze concrete opportunities where AI can improve your workflows. Produces an opportunity report with a summary table, detailed opportunity cards grouped by process, and a structured workflow candidate list, and registers every candidate as a backlog Workflow node in the AI Registry. Analyze catalogs: it names each workflow and describes it well. It never ranks the workflows or picks one to build first; that choice is made at the start of Deconstruct.
 
 ## Workflow
 
-**Set expectations up front (first message).** Say: "This is a guided interview of about 15–20 minutes. By the end you'll have up to five candidate workflows registered in your backlog, and one I'll recommend building first. Stopping early is safe — everything is saved and you can pick up later."
+**Set expectations up front (first message).** Say exactly this, as two short paragraphs:
+
+> "This step finds where AI can help in your business. I'll walk the processes in your registry, ask where the work is slow, repetitive, or inconsistent, and turn each spot into a **candidate workflow**: a specific, repeatable piece of work worth building with AI. By the end you'll have an opportunity report and every candidate saved to your registry's **backlog** (your list of workflows to build). It takes about 15 to 20 minutes, in three parts: (1) how we'll look at your work, (2) where the time goes, and (3) your report and your backlog. Step 2, Deconstruct, takes one workflow you choose from the backlog and maps it in detail. Stopping early is safe. Progress is saved."
+>
+> "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
+
+With no registry, say "ask about your work" in place of "walk the processes in your registry". After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
+
+**Signposts.** The student hears three parts, never phase numbers. Say one line at each: "**Part 1 of 3 — How we'll look at your work.**" (Phases 1–2), "**Part 2 of 3 — Where the time goes.**" (Phase 3), "**Part 3 of 3 — Your report and your backlog.**" (Phases 4–5). Phase names are internal; never show them.
 
 > **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
 
@@ -47,30 +55,52 @@ Present a short summary so the user can confirm or correct it: "Your registry sa
 
 #### Phase 2 — Lens selection
 
-After presenting the memory scan summary (or noting no prior context), ask the user which lens to use:
+Infer the lens, then recommend it with the question block below. Never ask the student to choose cold.
 
-> **Individual lens** — Workflows you personally perform in your role (reporting, email triage, content creation, etc.)
->
-> **Organizational lens** — Workflows critical to delivering on your business outcomes — your value chain, cross-functional processes, and strategic operations (customer onboarding, sales pipeline, product delivery, etc.)
->
-> Which lens should we start with?
+**Inference rule.** The registry usually makes it obvious — read the founding entry in `registry/log.md` (the scaffold records who the registry is for: a business they own, a company or unit they lead, their role inside an organization, or their personal life) and the Business node's identity sentence and Lines of Business: a company or business unit the user owns or leads → Organizational; a team or department the user works inside → Individual (their part of the team's processes); a household or a person's own life areas → Individual. Without a registry, infer from Phase 1's context. If nothing says how the user relates to the business, ask first: "Your registry describes [business name]. Is it your company, or do you work inside it?"
 
-**Inference rule:** If user context makes the answer obvious, infer and confirm rather than asking. The registry usually makes it obvious — read the founding entry in `registry/log.md` (the scaffold records who the registry is for: a business they own, a company or unit they lead, their role inside an organization, or their personal life) and the Business node's identity sentence and Lines of Business: a company or business unit the user owns or leads → Organizational; a team or department the user works inside → Individual (their part of the team's processes); a household or a person's own life areas → Individual. Say it in one sentence: "Your registry describes [a household / a consultancy you own / the data platform team], so the [lens] lens fits best — sound right?" If neither the log nor the identity sentence says how the user relates to the business, use this sentence instead: "Your registry describes [business name] — is it your company, or do you work inside it? That decides whether we take the Organizational or Individual lens." The other lens is offered in Phase 6, not here.
+Say exactly this (Organizational recommended):
+
+**Ask:** "I'd look at this from the business's point of view: the processes that drive your goals, end to end. That's the **organizational lens**. Does that fit, or would you rather start with the work you personally do each day, the **individual lens**?"
+- *Why:* the lens decides which work we look at — processes across the business, or your own tasks — so the candidates match what you want to improve.
+- *Example:* a clinic owner might pick organizational to fix patient booking across the front desk; a sales manager might pick individual to cut their own weekly reporting.
+- *Not sure?* Keep my suggestion. You can run the other lens afterwards.
+
+When Individual is recommended, swap the two: "I'd look at this from your point of view: the work you personally do each day. That's the **individual lens**. Does that fit, or would you rather look at the processes across the business, end to end, the **organizational lens**?" The *Why*, *Example*, and *Not sure?* lines are the same. If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*. The other lens comes up again in the close, not here.
 
 #### Phase 3 — Discovery interview
 
 Based on gaps in your understanding (or starting from scratch), ask focused questions to build a complete picture. Use the question set for the user's chosen lens.
 
-**Process walk — the primary mode whenever `registry/processes/` has nodes, on either lens.** The Processes are the agenda; the question banks below supply the probes. The registry lists them in value-chain order — the Business node's `# Lines of Business` list, then each line's `# Processes` list — set when the registry was drafted; it is not a ranking, and there is no rank field. For each one, ask about friction and business challenge, one question at a time: what is slow, what is inconsistent between people, where do handoffs stall, what breaks at higher volume, what gets measured and what does not. Tie each answer back to the objective it threatens (the Business node's `## Objectives`, if present); when none of the stated objectives fits, the card's Business Objective reads "None of the stated objectives — protects [what it protects]". If the Business node has no `## Objectives` block at all, write "No stated objectives — protects [what it protects]" and do not ask the organizational bank's Q1 to fill the gap: the walk is the agenda, and objectives belong to the registry interview. The lens sets the framing, not whether the walk happens: on the Organizational lens the question is about the process end to end; on the Individual lens it is "your part of this process." Use the registry's own words: for a personal registry, 'routine' and 'area'; otherwise 'process' and 'line of business'. Skip any Process the user says is fine.
+**Process walk — the primary mode whenever `registry/processes/` has nodes, on either lens.** The Processes are the agenda; the question banks below supply the probes. The registry lists them in value-chain order — the Business node's `# Lines of Business` list, then each line's `# Processes` list — set when the registry was drafted; it is not a ranking, and there is no rank field. Tie each answer back to the objective it threatens (the Business node's `## Objectives`, if present); when none of the stated objectives fits, the card's Business Objective reads "None of the stated objectives — protects [what it protects]". If the Business node has no `## Objectives` block at all, write "No stated objectives — protects [what it protects]" and do not ask the organizational bank's Q1 to fill the gap: the walk is the agenda, and objectives belong to the registry interview. The lens sets the framing, not whether the walk happens: on the Organizational lens the question is about the process end to end; on the Individual lens it is "your part of this process." Use the registry's own words: for a personal registry, 'routine' and 'area'; otherwise 'process' and 'line of business'. Skip any Process the user says is fine.
 
-**Which processes first.** Registry setup never asks the student to rank processes, so always open the walk with this question (with five or fewer processes, ask which to start with instead of asking them to pick):
+**Which processes first.** Registry setup never asks the student to rank processes, so always open the walk with this question (with five or fewer processes, ask which to start with instead of asking them to pick). Show the processes numbered straight through, one per line, under a "**Line of business:** [name]" label for each line, so the student can answer by number ("3, 7, 9").
 
 **Ask:** "Which of these processes matter most right now? Pick up to five, and I'll start with those."
 - *Why:* it keeps this to 15–20 minutes and puts your time where it counts.
 - *Example:* a dental practice owner might pick "New Patient Booking" and "Insurance Claims" over "Supplies Ordering".
 - *Not sure?* Pick the ones where the work feels slowest or most repetitive.
 
-Walk them in the order the user named them, and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** The walk must fit the 15–20 minutes promised. Stop once three or more concrete opportunities exist and the transition signal below fires; the user can always ask to continue.
+Walk them in the order the user named them, counting through them ("1 of 4: [Process] (goal: [the objective it serves])"), and list any not walked in a **Noted, not walked** row of the report header. **Time bound.** The walk must fit the 15–20 minutes promised. Stop once three or more concrete opportunities exist and the transition signal below fires; the user can always ask to continue.
+
+**The walk question, once per process.** Anchor it in the most recent real run of that process, named in the student's words with its real start and end. Ask it open: never list likely pain points from the student's own business before they answer (a student echoes the list, and the report then holds your guesses, not their friction). Guesses come only as step 3 of the thin-answer recipe below. Say exactly this on the first process; on later processes the **Ask:** line alone, with its anchor:
+
+**Ask:** "Take the last time [process] ran, from [its start] to [its end]. Where did the time go, or where did it get stuck?"
+- *Why:* the places where time or results are lost are where a workflow is worth building.
+- *Example:* a property manager might say: "Turning over a unit. I chase three contractors by phone, then re-enter the dates in two calendars."
+- *Not sure?* Tell me the one part you'd hand to someone else tomorrow if you could.
+
+**Pieces of work.** When the answer names more than one piece of work, play them back as separate pieces ("That's three pieces of work: launch emails, waitlist follow-up, and promotion across channels.") and take them in the order the student named them. Each piece is a possible opportunity.
+
+**Depth rule — stay strategic.** An opportunity is complete when you can name the work, the problem, roughly how often or how much (its size), and the goal it serves. Stop on it as soon as it is complete. Ask at most one follow-up per opportunity, and only to fill a missing element, usually the size. Inputs, rules, steps, and edge cases are Deconstruct's job; never ask about them here. When the size is missing, say exactly this on the first piece; afterwards the **Ask:** line alone:
+
+**Ask:** "Roughly how much time does [the piece of work] take you in a typical week or month?"
+- *Why:* that tells us roughly what it's worth to fix, and it goes in your report.
+- *Not sure?* A rough guess is fine. If you'd rather not guess, I'll mark it "not sized yet", and Deconstruct measures it properly.
+
+When an opportunity has a clear starting point and a clear result, say so in one clause in the student's own case ("Repurposing has a clean starting point, a finished issue, and a clear result, LinkedIn and Substack posts, so it's a strong candidate").
+
+**Close each process in one line** before moving on, naming everything noted from it: "Noted for [process]: [piece 1], [piece 2], [piece 3]. That's enough for the report. Deconstruct goes into the detail later." Then signpost the next process.
 
 **Fallback — no Process nodes.** Use the question bank for the chosen lens, exactly as below.
 
@@ -98,29 +128,48 @@ Walk them in the order the user named them, and list any not walked in a **Noted
 
 **Adaptive ordering:** With a registry, the Processes set the order and the banks supply the probes. Without one, start with the areas where Phase 1 revealed the least. Skip areas already well-covered by the memory scan — no need to re-ask what you already know. A registry's Business and Process nodes usually answer Q1 and Q2 already — confirm rather than re-ask.
 
-Ask these questions **one at a time** — not as a list. Use the user's answers to ask smart follow-up questions. Probe for concrete examples: "I spend 30 minutes every Monday formatting a status report from three Jira boards" is far more useful than "I do reporting."
+Probe for concrete examples: "I spend 30 minutes every Monday formatting a status report from three Jira boards" is far more useful than "I do reporting."
 
-**Handling vague answers:** If the user gives vague responses after 2-3 probes on a topic, move on. If answers are vague across all areas, shift to hypothesis mode. For the individual lens: "Based on your role, I'd guess you spend time on X — is that right?" For the organizational lens: "For a [size] [industry] company, the value chain processes that typically benefit most from AI are X, Y, Z — do any of those resonate?"
+**Thin answers.** When an answer is too vague to name the work or the problem:
+1. Play back what you have: "So far I have: [their words]."
+2. Ask one narrower follow-up anchored in a real instance: "Think of the last time you did this. What happened first?"
+3. If it's still thin after two tries, propose a guess to react to. Individual lens: "Based on your role, I'd guess you spend time on [X]. What's right and what's wrong?" Organizational lens: "For a [size] [industry] business, [X], [Y], and [Z] often take the most time. Do any of those fit?"
+4. If they still don't know, move on: note the process under **Noted, not walked**, or record the size as "Not sized yet". Never invent an opportunity and record it as theirs.
 
-**Transition signal:** When you've identified 3+ concrete opportunities, tell the user: "I've identified [N] opportunities so far. I have enough to put together the report — do you want to add anything else, or should I go ahead?" Let them add more or confirm before proceeding.
+**Transition signal:** When you've identified 3+ concrete opportunities, list them numbered straight through under a "**Process:** [name]" label for each process, then say: "The report covers all of these, and they all go into your backlog."
 
-Continue until you can identify at least 3 concrete opportunities — typically 5-10 questions, fewer if the memory scan provided strong context.
+**Ask:** "Anything to add, or shall I write the report?"
 
 #### Phase 4 — Opportunity report
 
-Once you can identify at least 3 concrete, specific opportunities with enough detail to fill the card format below, produce the structured report.
-
 **Self-check before writing each opportunity:** confirm it has a **concrete trigger** (what kicks it off) and a **tangible deliverable** (what gets produced). If either is fuzzy, ask one more question or drop the opportunity — a candidate without a clear trigger + deliverable will stall in Deconstruct (Step 2).
+
+**Telling the student about the report.** After writing it, say in a few lines: how many opportunities, grouped under how many processes, where the file is saved, and what each card holds (the problem, what AI would do, how to measure improvement). Define the value lever the first time it appears, exactly: "Each card names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value." Never present a ranking, a top pick, or an impact rating.
 
 #### Phase 5 — Candidates registered
 
-After presenting the full report, ask the user to pick their top workflow candidates — the ones they want to build. Once they've chosen, produce a **Workflow Candidate Summary** with structured metadata for each candidate:
+Every candidate goes into the backlog. There is no cap and no "which do you want to build?" question: Analyze catalogs the work, and which workflow to build first is chosen at the start of Deconstruct.
 
-For each candidate:
+**Catalog confirmation (one message).** This is the student's one look at the catalog before it is written. Place each candidate under the Process where it was found, unless the work clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it); then place it under the right one and give the reason in brackets after its description. Show every process with its workflows, numbered straight through across processes, each as name plus a one-sentence description of about 20 words in the form "When/From [trigger], [what it produces]". No size, value lever, or ranking on this screen. Say exactly this, with the student's own workflows:
+
+> Here's what goes into your registry. Each workflow sits under the process it belongs to and is owned by that process's owner.
+>
+> **[Process]**
+> 1. **[Workflow name].** [One-sentence description.]
+> 2. …
+
+**Ask:** "Anything to rename, reword, move or leave out? You can answer by number, for example 'rename 4.'"
+- *Why:* the name and description are what you'll see on your dashboard, and what Deconstruct starts from later.
+- *Not sure?* Say "looks good." You can edit any workflow later.
+
+Apply every change, then write. A workflow the student leaves out keeps its card in the report, marked "Left out of the backlog", and gets no registry entry. Where no existing Process fits a workflow (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub — and add its line to the right Line of Business's `# Processes` list (ask which line, and where in the order, if it is not obvious). The owning Function's `# Owns` block is GENERATED; the maintenance pass refreshes it.
+
+Then append a **Workflow Candidate Summary** to the report with structured metadata for each registered candidate:
 
 | Field | Content |
 |-------|---------|
 | **Workflow** | 2-4 word noun phrase, Title Case |
+| **Process** | The Process it is filed under |
 | **Description** | One sentence describing what this workflow does |
 | **Trigger** | What kicks off this workflow — an event, schedule, or request |
 | **Deliverable** | The tangible output — what gets produced, sent, or decided |
@@ -128,20 +177,17 @@ For each candidate:
 | **Pain point** | What's slow, error-prone, or manual today |
 | **AI opportunity** | Specific description of what AI would do |
 | **Frequency** | Daily / Weekly / Monthly / Ad-hoc |
-| **Priority** | High / Medium / Low |
-| **Reasoning** | Why this priority level — based on impact, frequency, and feasibility |
+| **Size** | In the student's own numbers ("about 3 hours per proposal"), or "Not sized yet" |
 | **Lens** | Individual / Organizational |
 | **Business Objective** | (Organizational only) Which strategic objective this workflow supports |
 | **Stakeholders** | (Organizational only) Roles/teams involved |
 | **Success Metrics** | (Organizational only) KPIs for measuring improvement |
 
-Append this summary to the output file under a `## Workflow Candidate Summary` heading. Recommend which candidate to deconstruct first, with reasoning.
+Append it under a `## Workflow Candidate Summary` heading, in the same process order and numbering as the report.
 
-**First-workflow scope guardrail.** If this is the user's first workflow with the framework (no prior workflow folders in `framework/` and no registry Workflow nodes beyond `status: backlog` ones, or they say so), recommend a **starter-sized** candidate for round one: roughly 3–5 steps, touches at most one external system, triggered manually. Say why: "Your highest-impact opportunity is usually also your most complex — build a small one first to learn the full loop, then take on [big candidate] second. It stays on your list." Impact ranking still stands; this only affects which one to *build first*. If the user insists on starting big, proceed — their call.
+**Register the candidates (registry present).** If `registry/SCHEMA.md` exists, write each candidate as a backlog Workflow node so the registry becomes the student's candidate list:
 
-**Register the candidates (registry present).** If `registry/SCHEMA.md` exists, write each chosen candidate as a backlog Workflow node so the registry becomes the student's candidate list:
-
-1. **Process placement, one confirmation for all candidates.** A candidate found while walking a Process is placed under it unless the work clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it) — then propose the right one. Confirm in one sentence that names every candidate's Process — only the relocated and out-of-walk placements are genuinely in question, the rest are stated as fact: "I'd file *Weekly Status Report* under *Client Delivery* and *Inbox Triage* under *Operations* — right?" Where no existing Process fits (common on the Individual lens), ask the user to name one and which function owns it, then write a complete minimal Process node per `naming-workflows`' rule — never a default, never an ownerless stub — and add its line to the right Line of Business's `# Processes` list (ask which line, and where in the order, if it is not obvious). The owning Function's `# Owns` block is GENERATED; the maintenance pass refreshes it.
+1. **Process placement** is the one confirmed above.
 2. **Write the stub** at `registry/workflows/<slug>.md` (slug = kebab-case of the Workflow name), in the `naming-workflows` stub format:
 
    ```yaml
@@ -171,18 +217,12 @@ Append this summary to the output file under a `## Workflow Candidate Summary` h
    <!-- /GENERATED -->
    ```
 
-   The body's opening paragraph deliberately repeats the frontmatter `description`: the frontmatter is what tools read, the body is what people read. `trigger` is provisional — Deconstruct refines it. The stub carries no `execution_mode` or `autonomy`: those are Design's to set once the steps are known. Priority, pain point, and the "build first" recommendation stay in the report; the registry holds the inventory.
+   The body's opening paragraph deliberately repeats the frontmatter `description`: the frontmatter is what tools read, the body is what people read. `trigger` is provisional — Deconstruct refines it. The stub carries no `execution_mode` or `autonomy`: those are Design's to set once the steps are known. Pain point, size, and value lever stay in the report; the registry holds the inventory.
 3. Add each stub's line to its Process's `# Workflows` list and to `registry/workflows/index.md` (bundle-root-relative link: `[Weekly Status Report](/workflows/weekly-status-report.md)`). If a node for that slug already exists, merge — never overwrite fields already set.
 
 No registry? Say so once ("No registry here, so the candidates live in the report only — set one up with the `scaffolding-registry` skill when you want an inventory" — unless you already said this at the start) and continue.
 
-#### Phase 6 — The other lens
-
-Run this phase after the backlog nodes are written and before the maintenance pass and the closing message, so the report is final when it is indexed and the closing message is the last thing the user hears. Offer the other lens as a later session, not a continuation: "We've registered [N] candidates from the [lens] perspective. The [other] lens — [one-line description] — usually surfaces different ones; it's worth a separate 15-minute session when you're ready. Want me to note that in the report?" If the user wants it now, run it.
-
-If the user asks to run the second lens now, run its discovery questions and merge the new candidates into the report and the registry.
-If they only want it noted, add it to the report (keep the header's existing **Lens** row naming the lens used, and add a one-line note under the header that the other lens is pending) and move on.
-If they decline both, proceed to the next framework step.
+**The other lens.** The other lens is offered in the close as a later session; never ask about it as a question. Add a one-line note under the report header that the other lens hasn't been run yet (keep the header's **Lens** row naming the lens used). If the student asks to run it now, run its discovery questions and merge the new candidates into the report, the catalog confirmation, and the registry.
 
 ## Output
 
@@ -202,21 +242,18 @@ The report must include (in this order):
 | **Lens** | Individual / Organizational / Individual + Organizational |
 | **Opportunities identified** | [count] |
 | **Noted, not walked** | [Processes left out of the walk, if any; omit row otherwise] |
-| **Top recommendation** | [Top-priority opportunity + one-sentence reason — card numbers follow the value-lever grouping, so this need not be card 1] |
 
 ### Summary Table
 
-| # | Opportunity | Value lever | Impact |
-|---|------------|-------------|--------|
-| 1 | [Name] | Streamline / Automate / Accelerate / Create value | High / Medium / Low |
+| # | Opportunity | Process | Value lever | Size |
+|---|------------|---------|-------------|------|
+| 1 | [Name] | [Process] | Streamline / Automate / Accelerate / Create value | [In the student's own numbers, or "Not sized yet"] |
 
-### Top Recommendations
-
-List the top 3 opportunities in priority order with a one-sentence rationale for each.
+The report never ranks: no top recommendation, no priority order, no impact rating. Size is a fact about the work in the student's own numbers, kept for the build choice in Deconstruct.
 
 ### Detailed Opportunity Cards
 
-Group cards by value lever, in the order Streamline → Automate → Accelerate → Create value, under a `#### [Lever]` heading per group (omit a heading with no cards). Within each group, order from highest to lowest impact. Number the cards in the order they appear, and use the same order and numbers in the Summary Table.
+Group cards by Process, in registry order (the Business node's `# Lines of Business` list, then each line's `# Processes` list; processes outside the registry last), under a `#### [Process]` heading per group. Number the cards straight through in the order they appear, and use the same order and numbers in the Summary Table.
 
 For each opportunity:
 
@@ -235,6 +272,8 @@ For each opportunity:
 
 **Value lever:** Streamline | Automate | Accelerate | Create value — [one sentence on why this lever]
 
+**Size:** [In the student's own numbers — "about 3 hours per proposal", "1,700+ on two waitlists". If they gave none: "Not sized yet — Deconstruct measures it."]
+
 **What changes for the business:**
 [The outcome in plain language — who gets what, sooner, cheaper, or for the first time. No tool, connector, or product name.]
 
@@ -248,7 +287,7 @@ For each opportunity:
 
 ### Workflow Candidate Summary
 
-(Appended after user selects candidates — see Phase 5 format above)
+(Appended after the catalog confirmation — see Phase 5 format above)
 
 ### Appendix: Value Lever Definitions
 
@@ -266,12 +305,21 @@ When two levers apply, pick the one the user would use to justify the work to th
 ## Guidelines
 
 - **Stay at the strategic level.** Analyze names the work, the pain, the value lever, and the deliverable. It never names a tool, connector, integration, agent count, model, or platform, and never proposes a script, API, or automation mechanism. The systems the user uses today are facts about the work and may appear in *Current pain point* and *Systems involved today* ("three Jira boards"); they never appear in *Why it's a good candidate*, *How AI helps*, *Value lever*, or *What changes for the business*, and Analyze never introduces a system the user did not name. The same rule covers the Workflow Candidate Summary's *Description*, *AI opportunity*, and *Pain point* fields and the stub's `description` — that text is what Deconstruct reads first. If the user asks "could this run through Slack?", say once that Design (Step 3) chooses the mechanism and return to the work. Likewise if the user asks whether it should run on its own or with them in the loop, or how much the AI should decide: say once that Design (Step 3) settles how much the AI decides and who takes part, once the steps are known, and return to the work. If you notice yourself writing a product name in a recommendation, stop and restate it as the outcome.
-- Ask one question at a time — never present a wall of questions
-- Use a conversational flow — let answers guide follow-up questions naturally
-- Push for concrete examples over vague descriptions
+- Ask one question at a time — never present a wall of questions.
 - Be specific in recommendations: "AI could draft the weekly status email from the three boards you already update" beats "AI could help with reporting"
 - **Individual lens:** Scope each workflow candidate to one person's trigger-to-deliverable flow. If a workflow spans multiple people, note the cross-team dependencies in the opportunity card but keep the candidate focused on a single owner's scope.
 - **Organizational lens:** Scope each workflow candidate to one trigger-to-deliverable flow, even if it spans multiple roles. Identify the process owner (accountable for the end-to-end outcome) and list participating roles.
-- After writing the report, ask the user to pick their candidates for Phase 5. Once they've chosen, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), run Phase 6, and then tell the user: "Report saved to `framework/ai-opportunity-report.md` and [N] candidates registered in your backlog. Start with *[recommended]*: say 'run the deconstruct skill' — about 45–60 minutes, and it turns the candidate into requirements."
-- After Phase 6 is settled, invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step), then deliver the closing message above — it is always the last thing the user hears.
-- **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 3 of 6 — the discovery interview") so the user always knows where they are.
+- **Never pick a workflow to build first.** No "start with", "build first", "natural second build", or step count in Analyze; the student chooses at the start of Deconstruct, which teaches how to choose.
+- After the catalog confirmation, append the Workflow Candidate Summary, write the backlog nodes (see Phase 5), and add the other-lens note to the report. Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step), then deliver the close below.
+
+**The close.** Say exactly this, in this order — what was completed, what's next, the other lens as optional:
+
+> You now have [N] workflows in your registry's backlog, grouped under the processes they belong to. Your opportunity report has the full detail for each one: `framework/ai-opportunity-report.md`. You can see the workflows on your dashboard too.
+>
+> **Next: Step 2, Deconstruct.** You'll choose one workflow from your backlog, and we'll map it step by step. That takes about 45 to 60 minutes. To start, say "run the deconstruct skill."
+>
+> **Later, if you want:** the **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say "run the analyze skill with the individual lens."
+
+Fit it to the run: with no registry, say "in your report" in place of "in your registry's backlog" and drop the dashboard sentence; with no dashboard file, drop the dashboard sentence; when the maintenance pass updated a dashboard **Claude Artifact**, say "Your dashboard, and its Claude page, now show them too." in place of the dashboard sentence. After the Individual lens, the last paragraph names the **organizational lens** instead: "looks at the processes across the business, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens.'" Never name `REGISTRY.md` or any file but the report.
+
+**Saving a version — only when the folder is a git repository** (in write mode with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive). After the close, once, say exactly: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; never push as part of this offer.

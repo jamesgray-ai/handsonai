@@ -14,8 +14,8 @@
         "Each opportunity card includes Autonomy and Involvement classifications",
         "Each opportunity card includes a 'Getting started' section with a concrete first step",
         "The report includes the Classification Definitions appendix",
-        "The report groups opportunity cards by autonomy level",
-        "The response asks the user to pick workflow candidates for the Workflow Candidate Summary"
+        "The report groups opportunity cards by process, and each card has a Size line",
+        "The response does NOT ask the user to pick workflow candidates; it shows a catalog confirmation listing each workflow's name and one-line description, grouped by process, and the Workflow Candidate Summary covers every candidate"
       ]
     },
     {
@@ -30,8 +30,8 @@
         "The report identifies at least 3 concrete opportunities",
         "Opportunities are specific to the user's described role (not generic AI advice)",
         "The report contains the required Report Header with role, date, lens, and count",
-        "The report includes a Top Recommendations section with the top 3 priorities",
-        "After presenting the report, the user is asked to pick workflow candidates"
+        "The report does not rank opportunities: no Top Recommendations section, no top recommendation, no priority or impact rating",
+        "After the report, the response shows a catalog confirmation listing each workflow's name and one-line description, grouped by process, and registers every candidate rather than asking the user to pick"
       ]
     },
     {
@@ -46,7 +46,7 @@
         "The report identifies at least 3 concrete opportunities",
         "The report contains the required Summary Table format",
         "Autonomy and Involvement classifications are present on each card",
-        "The response asks the user to pick workflow candidates after presenting the report",
+        "After the report, the response shows a catalog confirmation listing each workflow's name and one-line description, grouped by process, and registers every candidate rather than asking the user to pick",
         "Recommendations are specific to the construction SaaS context, not generic"
       ]
     }

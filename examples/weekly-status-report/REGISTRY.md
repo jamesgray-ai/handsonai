@@ -8,6 +8,8 @@
 |---|---|---|---|---|
 | [Weekly Status Report](registry/workflows/weekly-status-report.md) · step 7/7 done | in-production | augmented | deterministic | 2026-08-14 |
 | [Stakeholder Meeting Prep](registry/workflows/stakeholder-meeting-prep.md) · step 1/7 done | backlog | — | — | — |
+| [Program Risk Register](registry/workflows/program-risk-register.md) · step 1/7 done | backlog | — | — | — |
+| [Onboarding Checklist Drafting](registry/workflows/onboarding-checklist-drafting.md) · step 1/7 done | backlog | — | — | — |
 
 ## Review dates
 

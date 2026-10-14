@@ -1,6 +1,6 @@
 ---
 title: "Step 1: Analyze Workflows for AI Opportunity"
-description: Run a structured audit of your workflows to identify where AI creates value, and register your top candidates in your registry backlog.
+description: Run a structured audit of your workflows to identify where AI creates value, and register every candidate in your registry backlog.
 ---
 
 > **Part of:** [AI Workflow Framework](../)
@@ -12,7 +12,7 @@ A structured audit that helps you find where AI fits in your work. The analysis 
 | | |
 |---|---|
 | **What you'll do** | Walk through a guided conversation covering your role, tasks, and pain points |
-| **What you'll get** | Three to five candidate workflows registered in your registry backlog, a prioritized report, and one recommendation to build first |
+| **What you'll get** | Every candidate workflow registered in your registry backlog, each with a clear name and description, and an opportunity report with the detail |
 | **Time** | ~15–20 minutes |
 
 ## Why This Matters
@@ -21,22 +21,21 @@ Most people adopt AI by reacting to problems — they reach for ChatGPT when the
 
 A proactive audit of your workflows can reveal opportunities you'd never notice in the moment: repetitive tasks that could run on autopilot, decisions that would benefit from an AI collaborator, and multi-step processes that could be orchestrated end-to-end.
 
-This step guides an AI through a structured analysis of your work — from either an **individual** perspective (your personal tasks and pain points) or an **organizational** perspective (your business's value chain and strategic processes) — and produces a prioritized report of opportunities. Each one names the work, the pain, the kind of value AI adds (Streamline, Automate, Accelerate, or Create value), what gets produced, and how much it matters.
+This step guides an AI through a structured analysis of your work — from either an **individual** perspective (your personal tasks and pain points) or an **organizational** perspective (your business's value chain and strategic processes) — and produces a report of opportunities, grouped by process. Each one names the work, the pain, the kind of value AI adds (Streamline, Automate, Accelerate, or Create value), what gets produced, and its rough size in your own numbers. Analyze catalogs the work; it doesn't rank it or pick what to build first. You choose that at the start of [Deconstruct (Step 2)](../deconstruct/).
 
 Analyze stays strategic. It names the work, the pain, the kind of value AI adds, and what gets produced — never the tool, connector, or integration that would do it. Those are decided in [Design (Step 3)](../design/). If a report starts naming products or connectors, say: *"Stay strategic — Design picks the tools,"* and the skill will restate the recommendation as an outcome.
 
 ## How the Skill Works
 
-The skill runs six phases in order:
+The skill runs five phases in order, in three parts you'll see signposted: how we'll look at your work, where the time goes, and your report and your backlog.
 
 1. **Read what's known** — The registry (your business, processes, existing workflows) plus memory and project files. Presented for you to confirm; nothing you've already said is asked again.
 2. **Lens selection** — Individual (your own workflows) or Organizational (your business's processes). Inferred and confirmed when obvious.
 3. **Discovery interview** — With a registry, a walk through your processes asking where the friction is, tied to your objectives. Without one, focused questions, one at a time, only on what phase 1 didn't cover.
-4. **Opportunity report** — A summary table and detailed cards, grouped by value lever, ordered by impact.
-5. **Candidates registered** — You pick up to five; each becomes a backlog Workflow node in your registry, filed under one of your processes, and the skill recommends which to build first (a starter-sized one).
-6. **The other lens** — Offered as a later session.
+4. **Opportunity report** — A summary table and detailed cards, grouped by process, each with its value lever and rough size. No ranking.
+5. **Candidates registered** — You see every workflow, grouped by process, with its name and a one-line description, and can rename, reword, move or leave out any. Each becomes a backlog Workflow node in your registry. The close offers the other lens as a later session.
 
-Most people discover 5–15 opportunities across the four value levers. Pick up to five to start with.
+There's no limit on how many candidates you register: the backlog is your catalog of workflows worth building.
 
 ## How to Use This
 
@@ -53,7 +52,7 @@ I'd like to analyze my workflows for AI opportunities. Help me audit
 what I do and identify where AI could help.
 ```
 
-The skill runs the six phases above and produces a prioritized opportunity report, and registers your chosen candidates in the registry backlog.
+The skill runs the five phases above, produces an opportunity report, and registers every candidate in the registry backlog.
 
 ### Example prompts
 
@@ -77,9 +76,11 @@ Once you've identified opportunities, use the [six use case primitives](../../us
 The more the AI knows about your actual work, the better the recommendations. If possible, use a tool where you've had many prior conversations or uploaded relevant documents.
 :::
 
-## How to Prioritize
+## Choosing What to Build First
 
-- **Start small** if you're new to AI — a workflow of roughly 3–5 steps, touching one system, that you start by hand. It teaches the full loop with the least at stake.
+Analyze doesn't choose for you. Deconstruct opens by asking which backlog workflow you want to map, and teaches three tests for a first one: it has a handful of steps, it starts when you decide to start it, and it works from material you already have.
+
+- **Start small** if you're new to AI. A small first workflow teaches the full loop with the least at stake.
 - **Follow the value lever you'd use to justify it** — an Automate opportunity pays back in hours you stop spending; an Accelerate one in cycle time; a Create value one in something that didn't exist before.
 - **Come back for the ambitious ones** — opportunities where the AI would need to decide more of what happens next are worth building once you've shipped a small one. Design (Step 3) is where that question gets settled.
 
@@ -87,12 +88,11 @@ The more the AI knows about your actual work, the better the recommendations. If
 
 The **AI Opportunity Report** (`ai-opportunity-report.md`) captures:
 
-- **Report header** — your name, role, date, opportunity count, and top recommendation
-- **Summary table** — every opportunity listed with its value lever and impact level
-- **Top recommendations** — the 3 highest-priority opportunities with one-sentence rationales
-- **Detailed opportunity cards** — grouped by value lever (Streamline → Automate → Accelerate → Create value), each with: why it's a good candidate, current pain point, how AI helps, the value lever, and what changes for the business
-- **Workflow Candidate Summary** — structured metadata for the workflows you choose to pursue: name, description, trigger, deliverable, value lever, pain point, AI opportunity, frequency, priority, reasoning, and lens. Organizational-lens candidates also include business objective, stakeholders, and success metrics.
-- **Backlog Workflow nodes** — one per chosen candidate in `registry/workflows/`, linked to the report. Deconstruct picks one up from here.
+- **Report header** — your name, role, date, lens, and opportunity count
+- **Summary table** — every opportunity listed with its process, value lever, and size
+- **Detailed opportunity cards** — grouped by process, each with: why it's a good candidate, current pain point, how AI helps, the value lever, its size, and what changes for the business
+- **Workflow Candidate Summary** — structured metadata for every registered workflow: name, process, description, trigger, deliverable, value lever, pain point, AI opportunity, frequency, size, and lens. Organizational-lens candidates also include business objective, stakeholders, and success metrics.
+- **Backlog Workflow nodes** — one per candidate in `registry/workflows/`, linked to the report. Deconstruct picks one up from here.
 
 The Workflow Candidate Summary is the input for [Deconstruct Workflows](../deconstruct/) (Step 2) — the trigger and deliverable fields map directly to the scope check that starts the deconstruction. Its business objective and success metrics also seed Deconstruct's `Value & Measurement` section, so an organizational-lens candidate arrives with two of those answers already drafted.
 

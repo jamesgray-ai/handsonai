@@ -13,3 +13,5 @@ Every active program is tracked in the team's project tracker; each week its sta
 
 - [Weekly Status Report](/workflows/weekly-status-report.md)
 - [Stakeholder Meeting Prep](/workflows/stakeholder-meeting-prep.md)
+- [Program Risk Register](/workflows/program-risk-register.md)
+- [Onboarding Checklist Drafting](/workflows/onboarding-checklist-drafting.md)

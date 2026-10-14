@@ -14,7 +14,6 @@ MODE="${1:-check}"; OUT="${2:-}"
 # (A case statement, not an associative array: macOS ships bash 3.2.)
 allowed_reason() {
   case "$1" in
-    framework/ai-opportunity-report.md) echo "page trims to two of four opportunities" ;;
     framework/weekly-status-report/test-results-2026-06-05.md|framework/weekly-status-report/test-results-2026-06-08.md) echo "page trims check lists and cards to six lines per scenario" ;;
     framework/weekly-status-report/design-spec.md) echo "page compacts the Self-Test Summary" ;;
     framework/weekly-status-report/skills/weekly-status-report/SKILL.md) echo "page shows the skill as Build created it; folder holds the post-fix version" ;;

@@ -117,3 +117,4 @@ Include:
 - This step is typically invoked weeks or months after initial deployment, in a separate conversation from the original build.
 - Not every workflow needs improvement. If it's working, say so and move on.
 - **Signpost each phase transition.** Announce each phase in one short line as you reach it ("Phase 5 of 7 — the regression check") so the user always knows where they are.
+- **Saving a version — only when the folder is a git repository** (in write mode with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive). After the close, once, say exactly: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; never push as part of this offer.

@@ -23,11 +23,12 @@ Here's the working folder after all seven steps. Every file below appears on thi
 │   ├── log.md                            ← founding entry from registry setup; Analyze reads it to infer the lens
 │   ├── businesses/ lines-of-business/ functions/ notes/     ← from registry setup (Step 0); notes/ gains one node in Step 7
 │   ├── processes/
-│   │   └── program-delivery.md           ← set up before Step 1; its # Workflows list gained both stubs in Step 1
+│   │   └── program-delivery.md           ← set up before Step 1; its # Workflows list gained four stubs in Step 1
 │   └── workflows/
-│       ├── index.md                      ← gained both stubs' lines in Step 1
+│       ├── index.md                      ← gained four stubs' lines in Step 1
 │       ├── weekly-status-report.md       ← the workflow's registry entry (backlog stub in Step 1, updated by every step)
 │       └── stakeholder-meeting-prep.md   ← Step 1 backlog stub, not followed further on this page
+│           (program-risk-register.md and onboarding-checklist-drafting.md are the same)
 ├── context/
 │   ├── past-reports/                     ← C2: three past reports; their shared layout is the template (one is E1's golden example)
 │   └── tone-guide.md                     ← C3: created in Step 4 with Maya
@@ -70,11 +71,11 @@ In Claude, installed skills are managed by the platform rather than sitting in a
 
 ## Step 1 — Analyze → `ai-opportunity-report.md`
 
-Maya (a program manager) ran the analyze skill in the Claude desktop app and spent about 15 minutes in the discovery interview — a walk through the processes in her registry, asking where the friction is. Note the report lives at the top of `framework/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder when she picked that candidate.
+Maya (a program manager) ran the analyze skill in the Claude desktop app and spent about 15 minutes in the discovery interview — a walk through the processes in her registry, asking where the friction is. Note the report lives at the top of `framework/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder once she chose that workflow, at the start of Step 2.
 
 Two things to notice. Analyze names the work, the pain, and the kind of value AI adds — it never classifies how much the AI should decide or whether the workflow runs unattended; those are Design's questions, and when Maya asked, the skill said so and returned to the work. And systems she uses today appear only where they are facts about the work (the pain point, the systems row), never in the description of what AI would do.
 
-The full file, trimmed to two of its four opportunities for readability (the header keeps the real count; the Workflow Candidate Summary's second table, for Stakeholder Meeting Prep, is trimmed too):
+The full file. The cards sit under the process they belong to, and each one carries its size in Maya's own numbers. Nothing is ranked: choosing which workflow to build is the first move in Deconstruct.
 
 <!-- file: framework/ai-opportunity-report.md -->
 ````markdown
@@ -87,23 +88,21 @@ The full file, trimmed to two of its four opportunities for readability (the hea
 | **Date** | 2026-06-01 |
 | **Lens** | Individual |
 | **Opportunities identified** | 4 |
-| **Top recommendation** | Weekly Status Report — a fixed weekly routine with a clear trigger and deliverable, and the right size to learn the full loop on |
+
+The Organizational lens hasn't been run yet.
 
 ## Summary Table
 
-| # | Opportunity | Value lever | Impact |
-|---|---|---|---|
-| 1 | Weekly Status Report | Streamline | High |
-| 2 | Stakeholder Meeting Prep | Accelerate | Medium |
-
-## Top Recommendations
-
-1. **Weekly Status Report** — highest frequency, clearest trigger and deliverable, and starter-sized (4 steps, one connected system), so it is the one to learn the full loop on.
-2. **Stakeholder Meeting Prep** — bigger payoff per run but pulls from three places, so it is the better second workflow.
+| # | Opportunity | Process | Value lever | Size |
+|---|---|---|---|---|
+| 1 | Weekly Status Report | Program Delivery | Streamline | 45–60 minutes every Friday |
+| 2 | Program Risk Register | Program Delivery | Automate | About two hours at month end |
+| 3 | Stakeholder Meeting Prep | Program Delivery | Accelerate | 30–40 minutes per stakeholder meeting |
+| 4 | Onboarding Checklist Drafting | Program Delivery | Create value | Not sized yet |
 
 ## Detailed Opportunity Cards
 
-#### Streamline
+#### Program Delivery
 
 ---
 
@@ -127,6 +126,8 @@ one-page report for Maya to review, edit, and post.
 **Value lever:** Streamline — Maya still reviews and posts the report; the gathering,
 synthesis, and formatting drop away.
 
+**Size:** 45–60 minutes every Friday.
+
 **What changes for the business:**
 Leadership gets the report before the 11am sync every week, blocked tasks stop
 slipping through, and Maya gets most of her Friday morning back.
@@ -134,11 +135,38 @@ slipping through, and Maya gets most of her Friday morning back.
 **Systems involved today:** the HubSpot project tracker, the report template, the
 leadership channel.
 
-#### Accelerate
+---
+
+**#2 Program Risk Register**
+
+**Why it's a good candidate:**
+Once a month Maya consolidates every open risk from the tracker's comments into a
+single register for the steering group. The source is fixed, the format is fixed,
+and nobody reads the register until it is complete.
+
+**Current pain point:**
+Risks live in task comments across the tracker. Compiling them takes Maya about two
+hours at month end, and risks raised mid-month are sometimes missed because they
+were never tagged.
+
+**How AI helps:**
+Takes in the month's tracker comments; produces the consolidated risk register in
+the steering group's format, with each risk's owner and status.
+
+**Value lever:** Automate — Maya stops compiling the register; it exists before the
+steering meeting.
+
+**Size:** About two hours at month end.
+
+**What changes for the business:**
+The steering group sees every open risk, not only the ones that were tagged, and two
+hours a month return to program work.
+
+**Systems involved today:** the HubSpot project tracker, the steering-group template.
 
 ---
 
-**#2 Stakeholder Meeting Prep**
+**#3 Stakeholder Meeting Prep**
 
 **Why it's a good candidate:**
 Repeated for every stakeholder meeting, with a stable shape: agenda, open decisions,
@@ -156,6 +184,8 @@ prep brief Maya skims and corrects.
 **Value lever:** Accelerate — the brief is ready in minutes instead of the evening
 before, so more meetings get prepared for at all.
 
+**Size:** 30–40 minutes per stakeholder meeting.
+
 **What changes for the business:**
 Every stakeholder meeting starts with current context, and the preparation stops
 competing with Maya's evenings.
@@ -164,11 +194,40 @@ competing with Maya's evenings.
 
 ---
 
+**#4 Onboarding Checklist Drafting**
+
+**Why it's a good candidate:**
+Every new program needs the same kind of kickoff checklist, but none exists today;
+each program manager improvises one. The inputs (the program's scope and team) are
+known at kickoff.
+
+**Current pain point:**
+There is no checklist. New programs miss the same setup steps (access, tracker
+boards, reporting cadence) and discover it weeks in.
+
+**How AI helps:**
+Takes in a new program's scope and team; produces a draft kickoff checklist for the
+program manager to adjust.
+
+**Value lever:** Create value — there is no today version of this work to compare
+against.
+
+**Size:** Not sized yet — Deconstruct measures it.
+
+**What changes for the business:**
+New programs start from the same baseline instead of re-learning setup, and the
+misses that surface weeks in stop happening.
+
+**Systems involved today:** none yet — the checklist would be new.
+
+---
+
 ## Workflow Candidate Summary
 
 | Field | Content |
 |---|---|
 | **Workflow** | Weekly Status Report |
+| **Process** | Program Delivery |
 | **Description** | Drafts the Friday leadership status report from the team's project tracker for Maya to review and post |
 | **Trigger** | Manual — Maya starts it Friday mornings |
 | **Deliverable** | One-page status report ready for Maya's review |
@@ -176,14 +235,50 @@ competing with Maya's evenings.
 | **Pain point** | 45–60 min of manual synthesis and formatting weekly; blocked tasks occasionally missed |
 | **AI opportunity** | Draft the full report from the week's tracker updates in the standing format; Maya reviews and posts |
 | **Frequency** | Weekly |
-| **Priority** | High |
-| **Reasoning** | High frequency, clear trigger and deliverable, starter-sized |
+| **Size** | 45–60 minutes every Friday |
 | **Lens** | Individual |
 
-**Recommendation:** Deconstruct Weekly Status Report first. It is Maya's first workflow
-with the framework, and this one is roughly four steps, touches one system, and starts by
-hand — the right size to learn the whole loop on. Stakeholder Meeting Prep stays on the
-list for round two.
+| Field | Content |
+|---|---|
+| **Workflow** | Program Risk Register |
+| **Process** | Program Delivery |
+| **Description** | Consolidates every open risk from the tracker's comments into the monthly register for the steering group |
+| **Trigger** | Month end, before the steering meeting |
+| **Deliverable** | Consolidated risk register in the steering group's format, with each risk's owner and status |
+| **Value lever** | Automate |
+| **Pain point** | About two hours of compiling at month end; risks raised mid-month are missed when they were never tagged |
+| **AI opportunity** | Build the register from the month's tracker comments, with each risk's owner and status |
+| **Frequency** | Monthly |
+| **Size** | About two hours at month end |
+| **Lens** | Individual |
+
+| Field | Content |
+|---|---|
+| **Workflow** | Stakeholder Meeting Prep |
+| **Process** | Program Delivery |
+| **Description** | Assembles the agenda, open decisions, and talking points for each stakeholder meeting from the team's recent activity |
+| **Trigger** | Before each stakeholder meeting |
+| **Deliverable** | Prep brief ready to skim |
+| **Value lever** | Accelerate |
+| **Pain point** | 30–40 minutes per meeting, often the night before; some meetings get no prep at all |
+| **AI opportunity** | Assemble the brief from the meeting invite and the recent activity about that stakeholder; Maya skims and corrects |
+| **Frequency** | Weekly |
+| **Size** | 30–40 minutes per stakeholder meeting |
+| **Lens** | Individual |
+
+| Field | Content |
+|---|---|
+| **Workflow** | Onboarding Checklist Drafting |
+| **Process** | Program Delivery |
+| **Description** | Drafts a kickoff checklist for each new program from its scope and team |
+| **Trigger** | A new program kicks off |
+| **Deliverable** | Draft kickoff checklist for the program manager to adjust |
+| **Value lever** | Create value |
+| **Pain point** | No checklist exists; new programs miss the same setup steps (access, tracker boards, reporting cadence) and discover it weeks in |
+| **AI opportunity** | Draft the checklist from the new program's scope and team; the program manager adjusts it |
+| **Frequency** | Ad-hoc |
+| **Size** | Not sized yet |
+| **Lens** | Individual |
 
 ## Appendix: Value Lever Definitions
 
@@ -197,7 +292,7 @@ list for round two.
 When two levers apply, pick the one the user would use to justify the work to their manager or to themselves.
 ````
 
-Analyze registered both candidates as backlog Workflow nodes before ending the session. It filed both under her *Program Delivery* process in one confirmation, so each appears in that Process node's `# Workflows` list and in `registry/workflows/index.md`. Here's the one for Weekly Status Report — note what it does *not* carry: no `execution_mode`, no `autonomy`. Those are written by Design, once the steps are known.
+Analyze registered all four candidates as backlog Workflow nodes before ending the session. Maya saw them listed under her *Program Delivery* process, each with its name and a one-line description, in one confirmation, so each appears in that Process node's `# Workflows` list and in `registry/workflows/index.md`. Here's the one for Weekly Status Report — note what it does *not* carry: no `execution_mode`, no `autonomy`. Those are written by Design, once the steps are known.
 
 <!-- none -->
 ````markdown
@@ -227,13 +322,13 @@ Drafts the Friday leadership status report from the team's project tracker for M
 <!-- /GENERATED -->
 ````
 
-`stakeholder-meeting-prep.md` got the same shape, with its own title, description, and trigger. Maya declined the Organizational lens for now — a separate session when she wants it — so no pending-lens note was added. Analyze then handed off to the `indexing-registry` skill for a maintenance pass — lint, the directory indexes, and `REGISTRY.md` at the workspace root — and closed by pointing Maya at Deconstruct. Deconstruct picks *Weekly Status Report* up from this stub and merges into it.
+The other three stubs got the same shape, each with its own title, description, and trigger. The close offered the Organizational lens as a later session, and Analyze added a one-line note to the report that it hasn't been run yet. Analyze then handed off to the `indexing-registry` skill for a maintenance pass — lint, the directory indexes, and `REGISTRY.md` at the workspace root — and closed by pointing Maya at Deconstruct. Deconstruct picks *Weekly Status Report* up from this stub and merges into it.
 
 ---
 
 ## Step 2 — Deconstruct → `requirements.md` + the Workflow node + `inputs/`
 
-The deconstruct skill interviewed Maya for about 45 minutes. It opened by asking her to describe the work in her own words, then proposed the **step-driven** path — the same steps run each Friday — and she agreed. Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
+The deconstruct skill interviewed Maya for about 45 minutes. It opened by having her choose one workflow from her backlog. She chose Weekly Status Report because it passes the three first-workflow tests: it has a handful of steps, it starts when she decides to start it, and it works from material she already has. Then the skill asked her to describe the work in her own words, then proposed the **step-driven** path — the same steps run each Friday — and she agreed. Two things worth noticing: the **Optimization Notes** show the framework collapsed her original "summarize, then format" into one AI step, and scenario **E1 has a golden example** — a real past report Test will compare against.
 
 The Workflow node first — the small file every later step reads and updates. Deconstruct merged into the node Analyze had stubbed out in Step 1 rather than creating a new file: it added `definition_type`, flipped `status` to `under-development`, kept the trigger (the stub's provisional value was already right), refined the description (and the body paragraph that repeats it), restamped `generated` with its own name and the write date, and linked the Requirements. Nothing else on the node changed:
 

@@ -3,13 +3,13 @@ title: "Analyze Examples — Sample AI Opportunity Reports"
 description: Three complete AI Opportunity Report examples showing what the Analyze step produces — a Marketing Operations Manager, an AI Instructor, and a VP of Operations.
 ---
 
-These are three synthetic AI Opportunity Reports showing what the Analyze step produces. Use them as a reference for format, level of detail, and how each opportunity's value lever and impact are stated.
+These are three synthetic AI Opportunity Reports showing what the Analyze step produces. Use them as a reference for format, level of detail, and how each opportunity's process, value lever, and size are stated.
 
 - **Example 1** — Marketing Operations Manager at a B2B SaaS company (Individual lens, 7 opportunities)
 - **Example 2** — AI Instructor running courses and maintaining a knowledge base (Individual lens, 7 opportunities)
 - **Example 3** — VP of Operations at a logistics company (Organizational lens, 5 opportunities)
 
-Examples 1 and 2 use the **individual lens** — analyzing one person's workflows. Example 3 uses the **organizational lens** — analyzing value chain processes tied to business objectives. Each opportunity carries one value lever (see the [value lever definitions](#appendix-value-lever-definitions)): Streamline when the work still happens the same way with fewer steps, Automate when a person stops doing it, Accelerate when the outcome arrives sooner, Create value when something becomes possible that wasn't done before. All three include every section the Analyze step produces: report header, summary table, top 3 recommendations, detailed opportunity cards grouped by value lever, workflow candidate summary, and value lever definitions. Organizational-lens cards include three additional fields: Business Objective, Stakeholders, and Success Metrics. How much the AI decides and who takes part while it runs are assessed later, in [Design](../design/), once the steps are known.
+Examples 1 and 2 use the **individual lens** — analyzing one person's workflows. Example 3 uses the **organizational lens** — analyzing value chain processes tied to business objectives. Each opportunity carries one value lever (see the [value lever definitions](#appendix-value-lever-definitions)): Streamline when the work still happens the same way with fewer steps, Automate when a person stops doing it, Accelerate when the outcome arrives sooner, Create value when something becomes possible that wasn't done before. All three include every section the Analyze step produces: report header, summary table, detailed opportunity cards grouped by process, a workflow candidate summary that covers every opportunity, and value lever definitions. Each card states its size in the person's own numbers, or says it isn't sized yet. Nothing is ranked: choosing which workflow to build is the first move in [Deconstruct](../deconstruct/). Organizational-lens cards include three additional fields: Business Objective, Stakeholders, and Success Metrics. How much the AI decides and who takes part while it runs are assessed later, in [Design](../design/), once the steps are known.
 
 ---
 
@@ -30,29 +30,22 @@ Sarah Chen is a Marketing Operations Manager at a mid-size B2B SaaS company. She
 | **Role**                     | Marketing Operations Manager, mid-size B2B SaaS company                                                                |
 | **Date**                     | 2026-03-05                                                                                                              |
 | **Opportunities identified** | 7                                                                                                                       |
-| **Top recommendation**       | Campaign Performance Reporting — automates the most time-consuming weekly task with high reliability                    |
 
 ### Summary Table
 
-| # | Opportunity | Value lever | Impact |
-|---|------------|-------------|--------|
-| 1 | Campaign Performance Reporting | Automate | High |
-| 2 | Lead Data Enrichment | Automate | High |
-| 3 | Content Brief Generation | Accelerate | High |
-| 4 | Email Sequence Optimization | Accelerate | Medium |
-| 5 | Campaign Budget Reallocation | Accelerate | Low |
-| 6 | Lead Scoring Model Tuning | Create value | Medium |
-| 7 | Competitive Content Monitoring | Create value | Medium |
-
-### Top Recommendations
-
-1. **Campaign Performance Reporting** — Eliminates 4+ hours of weekly manual data pulling and formatting across three platforms, with the same steps every week.
-2. **Lead Data Enrichment** — Standardizes and enriches messy CRM records at scale, directly improving lead routing accuracy and sales handoff quality.
-3. **Content Brief Generation** — Cuts content brief creation from 90 minutes to 15 minutes per brief, freeing the team to focus on creative strategy instead of research compilation.
+| # | Opportunity | Process | Value lever | Size |
+|---|------------|---------|-------------|------|
+| 1 | Campaign Performance Reporting | Campaign Reporting | Automate | 3-4 hours every Monday |
+| 2 | Lead Data Enrichment | Lead Operations | Automate | 10-15 minutes per lead, 50+ leads a week |
+| 3 | Lead Scoring Model Tuning | Lead Operations | Create value | Not sized yet |
+| 4 | Content Brief Generation | Content Production | Accelerate | About 90 minutes per brief, 8-10 briefs a month |
+| 5 | Competitive Content Monitoring | Content Production | Create value | Not sized yet |
+| 6 | Email Sequence Optimization | Marketing Analytics | Accelerate | A full day each month across 12 sequences |
+| 7 | Campaign Budget Reallocation | Marketing Analytics | Accelerate | Half a day each month |
 
 ### Detailed Opportunity Cards
 
-#### Automate
+#### Campaign Reporting
 
 ---
 
@@ -69,11 +62,15 @@ Takes in last week's campaign metrics from the three sources Sarah uses today an
 
 **Value lever:** Automate — Sarah stops doing the Monday pull entirely; the deck exists before she sits down.
 
+**Size:** 3-4 hours every Monday.
+
 **What changes for the business:**
 The VP of Marketing gets the report first thing Monday instead of mid-morning, the numbers are calculated the same way every week, and the 3-4 hours return to campaign work. The copy-paste error class disappears.
 
 **Systems involved today:** the three ad platforms, the Google Sheet, the slide deck, email.
 
+
+#### Lead Operations
 
 ---
 
@@ -90,82 +87,17 @@ Takes in each new lead as it arrives, with whatever fields it came with; produce
 
 **Value lever:** Automate — the team stops researching companies by hand; the record is complete before anyone looks at it.
 
+**Size:** 10-15 minutes per lead, 50+ leads a week.
+
 **What changes for the business:**
 Sales follow-up starts the same day a lead arrives instead of days later, scoring and routing run on complete records, and the team recovers roughly 10 hours a week of lookup work.
 
 **Systems involved today:** the CRM, the webinar and content-download forms, LinkedIn and Crunchbase for lookups.
 
 
-#### Accelerate
-
 ---
 
-**#3 Content Brief Generation**
-
-**Why it's a good candidate:**
-Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keyword research, top-ranking competitor articles, customer quotes from recent calls, then the brief. Every brief goes through the same steps; Sarah reviews, adjusts the angle, and approves the draft before it goes to a writer.
-
-**Current pain point:**
-The content team produces 8-10 blog posts per month. Each brief takes Sarah or her content strategist ~90 minutes: researching keywords in Ahrefs, reviewing top-ranking competitor articles, pulling relevant customer quotes from Gong, and structuring the brief. The research portion is 70% of the time, and the quality varies depending on who writes the brief.
-
-**How AI helps:**
-Takes in a topic and target keyword; produces a structured brief in the team's standard shape — search intent, the gaps in top-ranking articles, relevant customer quotes, and an outline. Sarah reviews it, adjusts the angle or emphasis, and approves — turning a 90-minute task into a 15-minute review.
-
-**Value lever:** Accelerate — a brief that took 90 minutes is ready for review in minutes, so the calendar stops waiting on research.
-
-**What changes for the business:**
-Eight to ten briefs a month reach writers earlier and in the same shape every time, the strategist's time moves from compiling research to choosing the angle, and brief quality stops depending on who wrote it.
-
-**Systems involved today:** the keyword research tool, competitor blogs, call recordings.
-
-
----
-
-**#4 Email Sequence Optimization**
-
-**Why it's a good candidate:**
-The steps are set: pull the metrics, rank the sequences by open, click, and reply rates, diagnose the weakest emails, draft variants. The ranking is a metric sort. Brand voice, compliance, and which variants to test need a person, so Sarah reviews before anything goes out.
-
-**Current pain point:**
-Sarah manages 12 active email nurture sequences. Reviewing performance, identifying underperforming emails, and writing A/B test variants is a monthly task that takes a full day. She often defaults to tweaking subject lines because rewriting full emails is too time-consuming, leaving bigger optimization opportunities on the table.
-
-**How AI helps:**
-Takes in the month's open, click, and reply rates for all twelve sequences along with the email copy; produces a ranked list of the weakest emails, a likely diagnosis for each (subject line, length, call-to-action placement, send time), and two or three rewritten variants per email for testing. Sarah reviews, picks what to test, and adjusts copy to brand voice.
-
-**Value lever:** Accelerate — a full day of monthly review becomes a two-hour pass, so whole-email rewrites get tested instead of only subject lines.
-
-**What changes for the business:**
-Underperforming sequences get fixed in the month they underperform, the team tests bigger changes than it had time for, and nurture performance is reviewed on a steady monthly rhythm.
-
-**Systems involved today:** the email automation platform's sequence reports.
-
-
----
-
-**#5 Campaign Budget Reallocation**
-
-**Why it's a good candidate:**
-You set the structure and the method: the metrics and thresholds that define "off target", and how to model a reallocation. The AI uses your method to judge when a channel warrants a recommendation and which scenarios to model. Budget moves have direct financial impact, so Sarah approves every recommendation before any money moves.
-
-**Current pain point:**
-Campaign budgets are set quarterly and adjusted monthly based on performance. Sarah spends half a day each month analyzing cost-per-lead and ROAS across channels, modeling "what if" scenarios in a spreadsheet, and proposing reallocations to the VP. The analysis is always backward-looking, and by the time changes are implemented, market conditions have shifted.
-
-**How AI helps:**
-Takes in current campaign performance against the targets and thresholds Sarah sets; produces, whenever a channel runs significantly over or under target, a recommended budget shift with the supporting numbers and the projected effect. Sarah approves or adjusts before any money moves.
-
-**Value lever:** Accelerate — the gain is measured in days between a channel drifting and the budget moving, down from a month.
-
-**What changes for the business:**
-Budget moves within days of a channel drifting instead of at month end, every move comes with a stated rationale and projection, and the VP sees proposals continuously rather than in one monthly batch.
-
-**Systems involved today:** the ad platforms' performance reports, the planning spreadsheet.
-
-
-#### Create value
-
----
-
-**#6 Lead Scoring Model Tuning**
+**#3 Lead Scoring Model Tuning**
 
 **Why it's a good candidate:**
 The analysis follows the same steps every time: take the closed deals, test which attributes correlate with conversion, propose new weights. The business logic of what makes a "sales-ready" lead needs domain expertise and sales team input, so Sarah reviews the proposal with the sales team before anything changes.
@@ -178,15 +110,42 @@ Takes in the last 12 months of lead-to-close history with each lead's attributes
 
 **Value lever:** Create value — there is no today version of this analysis: no recalibration has been done in 18 months, so there is nothing to compare against.
 
+**Size:** Not sized yet — Deconstruct measures it.
+
 **What changes for the business:**
 "Hot" leads start meaning what sales expects them to mean, the handoff conversation between marketing and sales moves from complaints to evidence, and the model gets reviewed on a schedule instead of never.
 
 **Systems involved today:** the CRM's lead scoring and opportunity history.
 
 
+#### Content Production
+
 ---
 
-**#7 Competitive Content Monitoring**
+**#4 Content Brief Generation**
+
+**Why it's a good candidate:**
+Content briefs follow a consistent structure (target audience, keywords, competitor angles, outline) and a set research sequence: keyword research, top-ranking competitor articles, customer quotes from recent calls, then the brief. Every brief goes through the same steps; Sarah reviews, adjusts the angle, and approves the draft before it goes to a writer.
+
+**Current pain point:**
+The content team produces 8-10 blog posts per month. Each brief takes Sarah or her content strategist ~90 minutes: researching keywords in Ahrefs, reviewing top-ranking competitor articles, pulling relevant customer quotes from Gong, and structuring the brief. The research portion is 70% of the time, and the quality varies depending on who writes the brief.
+
+**How AI helps:**
+Takes in a topic and target keyword; produces a structured brief in the team's standard shape — search intent, the gaps in top-ranking articles, relevant customer quotes, and an outline. Sarah reviews it, adjusts the angle or emphasis, and approves — turning a 90-minute task into a 15-minute review.
+
+**Value lever:** Accelerate — a brief that took 90 minutes is ready for review in minutes, so the calendar stops waiting on research.
+
+**Size:** About 90 minutes per brief, 8-10 briefs a month.
+
+**What changes for the business:**
+Eight to ten briefs a month reach writers earlier and in the same shape every time, the strategist's time moves from compiling research to choosing the angle, and brief quality stops depending on who wrote it.
+
+**Systems involved today:** the keyword research tool, competitor blogs, call recordings.
+
+
+---
+
+**#5 Competitive Content Monitoring**
 
 **Why it's a good candidate:**
 The goal is clear — catch competitor positioning changes before sales hears about them on a call — and the work is research: when something new appears, check the pricing page, the docs, job postings, and press coverage until the change can be explained. The inputs are public and the output is a digest.
@@ -199,20 +158,69 @@ Takes in the five competitors' public presence — their blogs, release notes, a
 
 **Value lever:** Create value — there is no monitoring process today, only occasional glances before planning; a weekly digest is new work, not faster work.
 
+**Size:** Not sized yet — Deconstruct measures it.
+
 **What changes for the business:**
 Sales hears about competitor positioning shifts from marketing before hearing them as objections on calls, and quarterly planning starts from a record of what changed rather than from memory.
+
+
+#### Marketing Analytics
+
+---
+
+**#6 Email Sequence Optimization**
+
+**Why it's a good candidate:**
+The steps are set: pull the metrics, rank the sequences by open, click, and reply rates, diagnose the weakest emails, draft variants. The ranking is a metric sort. Brand voice, compliance, and which variants to test need a person, so Sarah reviews before anything goes out.
+
+**Current pain point:**
+Sarah manages 12 active email nurture sequences. Reviewing performance, identifying underperforming emails, and writing A/B test variants is a monthly task that takes a full day. She often defaults to tweaking subject lines because rewriting full emails is too time-consuming, leaving bigger optimization opportunities on the table.
+
+**How AI helps:**
+Takes in the month's open, click, and reply rates for all twelve sequences along with the email copy; produces a ranked list of the weakest emails, a likely diagnosis for each (subject line, length, call-to-action placement, send time), and two or three rewritten variants per email for testing. Sarah reviews, picks what to test, and adjusts copy to brand voice.
+
+**Value lever:** Accelerate — a full day of monthly review becomes a two-hour pass, so whole-email rewrites get tested instead of only subject lines.
+
+**Size:** A full day each month across 12 sequences.
+
+**What changes for the business:**
+Underperforming sequences get fixed in the month they underperform, the team tests bigger changes than it had time for, and nurture performance is reviewed on a steady monthly rhythm.
+
+**Systems involved today:** the email automation platform's sequence reports.
+
+
+---
+
+**#7 Campaign Budget Reallocation**
+
+**Why it's a good candidate:**
+You set the structure and the method: the metrics and thresholds that define "off target", and how to model a reallocation. The AI uses your method to judge when a channel warrants a recommendation and which scenarios to model. Budget moves have direct financial impact, so Sarah approves every recommendation before any money moves.
+
+**Current pain point:**
+Campaign budgets are set quarterly and adjusted monthly based on performance. Sarah spends half a day each month analyzing cost-per-lead and ROAS across channels, modeling "what if" scenarios in a spreadsheet, and proposing reallocations to the VP. The analysis is always backward-looking, and by the time changes are implemented, market conditions have shifted.
+
+**How AI helps:**
+Takes in current campaign performance against the targets and thresholds Sarah sets; produces, whenever a channel runs significantly over or under target, a recommended budget shift with the supporting numbers and the projected effect. Sarah approves or adjusts before any money moves.
+
+**Value lever:** Accelerate — the gain is measured in days between a channel drifting and the budget moving, down from a month.
+
+**Size:** Half a day each month.
+
+**What changes for the business:**
+Budget moves within days of a channel drifting instead of at month end, every move comes with a stated rationale and projection, and the VP sees proposals continuously rather than in one monthly batch.
+
+**Systems involved today:** the ad platforms' performance reports, the planning spreadsheet.
 
 ---
 
 ### Workflow Candidate Summary
-
-Based on impact, frequency, and feasibility, the following three candidates are recommended for the Deconstruct step:
 
 #### Candidate 1: Campaign Performance Reporting
 
 | Field | Content |
 |-------|---------|
 | **Workflow** | Campaign Performance Reporting |
+| **Process** | Campaign Reporting |
 | **Description** | Aggregates weekly campaign metrics from three ad platforms into a formatted slide deck and email summary |
 | **Trigger** | Scheduled — every Monday at 7:00 AM |
 | **Deliverable** | Google Slides deck + email summary sent to VP of Marketing |
@@ -220,14 +228,14 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Pain point** | 3-4 hours of manual data pulling and formatting every Monday, with copy-paste errors that erode trust in the numbers |
 | **AI opportunity** | Gather the week's metrics from the three sources, calculate WoW changes, fill the slide template, and send the summary |
 | **Frequency** | Weekly |
-| **Priority** | High |
-| **Reasoning** | Highest time savings (4 hrs/week), zero ambiguity in logic, and directly addresses a reliability issue that affects executive trust |
+| **Size** | 3-4 hours every Monday |
 
 #### Candidate 2: Lead Data Enrichment
 
 | Field | Content |
 |-------|---------|
 | **Workflow** | Lead Data Enrichment |
+| **Process** | Lead Operations |
 | **Description** | Completes each new inbound lead's firmographic fields from an agreed data source |
 | **Trigger** | Event — new lead created in the CRM |
 | **Deliverable** | Enriched lead record with firmographic fields populated in the CRM |
@@ -235,14 +243,29 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Pain point** | 10-15 minutes of manual research per lead, 50+ leads/week, delays sales follow-up |
 | **AI opportunity** | Identify the company from the lead, fill the standard firmographic fields, and set aside low-confidence matches for a person |
 | **Frequency** | Daily (triggered per lead) |
-| **Priority** | High |
-| **Reasoning** | High volume, direct impact on sales velocity, and the rules are unambiguous |
+| **Size** | 10-15 minutes per lead, 50+ leads a week |
 
-#### Candidate 3: Content Brief Generation
+#### Candidate 3: Lead Scoring Model Tuning
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Lead Scoring Model Tuning |
+| **Process** | Lead Operations |
+| **Description** | Analyzes the last 12 months of lead-to-close history and proposes recalibrated lead scoring weights |
+| **Trigger** | Request — Sarah starts a recalibration review |
+| **Deliverable** | Analysis of which attributes predicted conversion, with proposed scoring weights and the evidence behind each |
+| **Value lever** | Create value |
+| **Pain point** | The scoring model hasn't been recalibrated in 18 months; sales says "hot" leads often aren't ready to buy, and the analysis keeps getting deprioritized |
+| **AI opportunity** | Test which lead attributes predicted conversion and propose new weights with the evidence; Sarah reviews the proposal with the sales team |
+| **Frequency** | Ad-hoc |
+| **Size** | Not sized yet |
+
+#### Candidate 4: Content Brief Generation
 
 | Field | Content |
 |-------|---------|
 | **Workflow** | Content Brief Generation |
+| **Process** | Content Production |
 | **Description** | Researches and drafts structured content briefs for the blog editorial calendar |
 | **Trigger** | Request — content strategist submits a topic and target keyword |
 | **Deliverable** | Structured content brief (audience, keywords, competitor analysis, outline, key points) |
@@ -250,10 +273,52 @@ Based on impact, frequency, and feasibility, the following three candidates are 
 | **Pain point** | 90 minutes per brief, mostly spent on repetitive research; quality varies by author |
 | **AI opportunity** | AI handles keyword research, competitor article analysis, and brief drafting; human refines strategic angle and approves |
 | **Frequency** | Weekly (8-10 per month) |
-| **Priority** | High |
-| **Reasoning** | Large time savings per brief (75 min), high frequency, and directly improves content quality consistency |
+| **Size** | About 90 minutes per brief, 8-10 briefs a month |
 
-**Recommendation:** Start with **Campaign Performance Reporting**. It's the simplest to build (well-defined inputs and outputs), delivers immediate visible value to leadership, and builds confidence in AI workflows before tackling candidates where the AI decides more of what happens next.
+#### Candidate 5: Competitive Content Monitoring
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Competitive Content Monitoring |
+| **Process** | Content Production |
+| **Description** | Produces a weekly digest of the most notable changes in five competitors' public content and positioning |
+| **Trigger** | Scheduled — weekly |
+| **Deliverable** | Weekly digest of the 3-5 most notable competitor changes, with what each means for the content strategy |
+| **Value lever** | Create value |
+| **Pain point** | Competitor checks happen only when Sarah remembers, usually before quarterly planning; the team learns about positioning changes from sales call objections |
+| **AI opportunity** | Review the five competitors' public presence each week, keep investigating a change until it can be explained, and summarize the most notable ones |
+| **Frequency** | Weekly |
+| **Size** | Not sized yet |
+
+#### Candidate 6: Email Sequence Optimization
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Email Sequence Optimization |
+| **Process** | Marketing Analytics |
+| **Description** | Reviews the performance of the 12 active nurture sequences and drafts test variants for the weakest emails |
+| **Trigger** | Scheduled — monthly performance review |
+| **Deliverable** | List of the weakest emails, each with a likely diagnosis and two or three rewritten variants for testing |
+| **Value lever** | Accelerate |
+| **Pain point** | A full day each month to review 12 sequences; whole-email rewrites get skipped in favor of subject-line tweaks |
+| **AI opportunity** | Sort the sequences by open, click, and reply rates, diagnose the weakest emails, and draft variants; Sarah picks what to test and adjusts the copy to brand voice |
+| **Frequency** | Monthly |
+| **Size** | A full day each month across 12 sequences |
+
+#### Candidate 7: Campaign Budget Reallocation
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Campaign Budget Reallocation |
+| **Process** | Marketing Analytics |
+| **Description** | Recommends a budget shift whenever a channel runs significantly over or under target, with the supporting numbers and projected effect |
+| **Trigger** | Event — a channel runs significantly over or under its target |
+| **Deliverable** | Recommended budget shift with supporting numbers and the projected effect, for Sarah's approval |
+| **Value lever** | Accelerate |
+| **Pain point** | Half a day each month of backward-looking analysis; by the time changes are made, market conditions have shifted |
+| **AI opportunity** | Compare channel performance with Sarah's targets and thresholds and model a reallocation when a channel drifts; Sarah approves before any money moves |
+| **Frequency** | Ad-hoc (whenever a channel drifts off target) |
+| **Size** | Half a day each month |
 
 ---
 
@@ -274,98 +339,26 @@ James Gray is an AI Instructor who runs live cohort courses and maintains the Ha
 | **Role**                     | AI Instructor and course creator, Hands-on AI Playbook                                                   |
 | **Date**                     | 2026-03-05                                                                                               |
 | **Opportunities identified** | 7                                                                                                        |
-| **Top recommendation**       | Student Q&A Research — directly improves the core teaching experience while saving significant prep time |
 
 ### Summary Table
 
-| # | Opportunity | Value lever | Impact |
-|---|------------|-------------|--------|
-| 1 | Course Content Updates | Streamline | Medium |
-| 2 | Newsletter Curation | Streamline | Low |
-| 3 | Lesson Slide Formatting | Automate | Medium |
-| 4 | Post-Class Summary Generation | Automate | Medium |
-| 5 | Assignment Feedback Drafting | Accelerate | High |
-| 6 | Student Q&A Research | Accelerate | High |
-| 7 | Meeting Prep Briefs | Create value | Medium |
-
-### Top Recommendations
-
-1. **Student Q&A Research** — Turns ad-hoc student questions into well-sourced, reusable answers, building the playbook's knowledge base while improving response quality and speed.
-2. **Assignment Feedback Drafting** — Scales personalized, actionable feedback across cohorts without sacrificing quality — the highest-leverage activity for student outcomes.
-3. **Lesson Slide Formatting** — Eliminates the tedious formatting step between content creation and delivery, freeing time for higher-value lesson design.
+| # | Opportunity | Process | Value lever | Size |
+|---|------------|---------|-------------|------|
+| 1 | Post-Class Summary Generation | Teaching | Automate | 20-30 minutes per session |
+| 2 | Assignment Feedback Drafting | Teaching | Accelerate | 10-15 minutes per submission, 4-6 hours per round of feedback |
+| 3 | Course Content Updates | Content Creation | Streamline | A full day to audit 30+ pages |
+| 4 | Lesson Slide Formatting | Content Creation | Automate | 30-45 minutes per lesson |
+| 5 | Newsletter Curation | Content Creation | Streamline | 1-2 hours per edition |
+| 6 | Student Q&A Research | Student Support | Accelerate | 15-30 minutes per question, 10-15 questions a week |
+| 7 | Meeting Prep Briefs | Client and Partner Meetings | Create value | 15-20 minutes per meeting, 5-8 meetings a week |
 
 ### Detailed Opportunity Cards
 
-#### Streamline
+#### Teaching
 
 ---
 
-**#1 Course Content Updates**
-
-**Why it's a good candidate:**
-AI platforms release updates frequently, and checking whether course content is still accurate means comparing current docs against existing lesson material — a tedious but critical task. The comparison runs the same way each time: you hand the AI the lesson page and the matching documentation, and it lists discrepancies and drafts edits. James decides which edits are worth making.
-
-**Current pain point:**
-Platform updates (new Claude features, changed OpenAI pricing, deprecated Gemini APIs) can make course material outdated overnight. James periodically audits lessons against current documentation, but it's reactive — he often discovers outdated content when a student flags it in class. A full content audit across 30+ pages takes a full day.
-
-**How AI helps:**
-Takes in a lesson page and the current official documentation it describes; produces a list of every discrepancy — changed features, stale screenshot references, deprecated terminology, new capabilities worth a mention — each with a suggested edit and the reason. James decides which updates are worth making now and applies them.
-
-**Value lever:** Streamline — the audit still happens, but a day of page-by-page comparison becomes a review of a discrepancy list.
-
-**What changes for the business:**
-Outdated content is found by the audit rather than by a student in class, and a full-course audit fits into a morning, so it happens after every major platform release instead of once a quarter.
-
-**Systems involved today:** the course pages, the platforms' official documentation.
-
-
----
-
-**#2 Newsletter Curation**
-
-**Why it's a good candidate:**
-The sources are configured in advance and the structure is set: check each source, judge each item's relevance to practical AI adoption, summarize the top items. The relevance judgment, made by James's criteria, decides which items make the digest. James reviews it, removes items, and adds commentary before he publishes.
-
-**Current pain point:**
-James curates a periodic newsletter of AI developments relevant to his students and audience. Scanning RSS feeds, Twitter/X, AI news sites, and research papers takes 1-2 hours per edition. The inconsistency of the publishing schedule (sometimes biweekly, sometimes monthly) reflects the time pressure — it's always the lowest-priority task.
-
-**How AI helps:**
-Takes in the sources James already follows and his relevance criteria; produces a weekly digest of the 5-7 items most relevant to practical AI adoption, each with a one-paragraph summary. James removes what doesn't belong, adds his commentary, and publishes.
-
-**Value lever:** Streamline — the curation still happens, with the scanning done and the shortlist waiting, so the edition takes 30 minutes instead of two hours.
-
-**What changes for the business:**
-The newsletter goes out on a steady schedule instead of when time allows, and James's effort goes into commentary rather than scanning.
-
-**Systems involved today:** news feeds, social accounts, research preprint listings, the newsletter platform.
-
-
-#### Automate
-
----
-
-**#3 Lesson Slide Formatting**
-
-**Why it's a good candidate:**
-Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. The steps are fixed: parse the markdown, map each block to a slide template, apply the formatting rules. The content is already decided; this is pure template application.
-
-**Current pain point:**
-After writing lesson content in markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
-
-**How AI helps:**
-Takes in the finished lesson text and the course's formatting rules; produces the formatted slide deck — title, content, code, and exercise slides — with the brand template applied. Same rules every time.
-
-**Value lever:** Automate — James stops formatting slides; the deck is ready when the lesson text is.
-
-**What changes for the business:**
-Full days of quarterly formatting return to lesson design, every deck looks the same, and a last-minute content change no longer means an hour of reformatting.
-
-**Systems involved today:** the lesson files, the slide tool, the brand template.
-
-
----
-
-**#4 Post-Class Summary Generation**
+**#1 Post-Class Summary Generation**
 
 **Why it's a good candidate:**
 Class summaries follow a fixed structure: topics covered, key takeaways, action items, links to resources mentioned. The input (class recording transcript + lesson plan) is well-defined, and the output format doesn't vary. The AI writes the summary and the email goes out the same way every time.
@@ -378,17 +371,17 @@ Takes in the session transcript and the lesson plan; produces the standard summa
 
 **Value lever:** Automate — the summary that gets skipped when time is tight now goes out every time without James writing it.
 
+**Size:** 20-30 minutes per session.
+
 **What changes for the business:**
 Every student gets the reinforcement email after every session, not only the sessions with a quiet evening after them, and homework and next steps are stated the same way each week.
 
 **Systems involved today:** the meeting recording and transcript, the lesson plan, email.
 
 
-#### Accelerate
-
 ---
 
-**#5 Assignment Feedback Drafting**
+**#2 Assignment Feedback Drafting**
 
 **Why it's a good candidate:**
 Every submission goes through the same steps: read it against the rubric and assignment prompt, note strengths and gaps, draft feedback with references to course material. Every draft goes to James, who adds the coaching touch and approves it before it's sent.
@@ -401,11 +394,86 @@ Takes in each submission, the rubric, and the assignment prompt; produces a draf
 
 **Value lever:** Accelerate — a round of feedback that took 4-6 hours is reviewed in one, so students hear back in a day instead of a week.
 
+**Size:** 10-15 minutes per submission, 4-6 hours per round of feedback.
+
 **What changes for the business:**
 Students get feedback while the assignment is still fresh, every submission is measured against the same rubric, and James's time goes to the coaching comments only he can write.
 
 **Systems involved today:** the course platform's submissions, the rubric document.
 
+
+#### Content Creation
+
+---
+
+**#3 Course Content Updates**
+
+**Why it's a good candidate:**
+AI platforms release updates frequently, and checking whether course content is still accurate means comparing current docs against existing lesson material — a tedious but critical task. The comparison runs the same way each time: you hand the AI the lesson page and the matching documentation, and it lists discrepancies and drafts edits. James decides which edits are worth making.
+
+**Current pain point:**
+Platform updates (new Claude features, changed OpenAI pricing, deprecated Gemini APIs) can make course material outdated overnight. James periodically audits lessons against current documentation, but it's reactive — he often discovers outdated content when a student flags it in class. A full content audit across 30+ pages takes a full day.
+
+**How AI helps:**
+Takes in a lesson page and the current official documentation it describes; produces a list of every discrepancy — changed features, stale screenshot references, deprecated terminology, new capabilities worth a mention — each with a suggested edit and the reason. James decides which updates are worth making now and applies them.
+
+**Value lever:** Streamline — the audit still happens, but a day of page-by-page comparison becomes a review of a discrepancy list.
+
+**Size:** A full day to audit 30+ pages.
+
+**What changes for the business:**
+Outdated content is found by the audit rather than by a student in class, and a full-course audit fits into a morning, so it happens after every major platform release instead of once a quarter.
+
+**Systems involved today:** the course pages, the platforms' official documentation.
+
+
+---
+
+**#4 Lesson Slide Formatting**
+
+**Why it's a good candidate:**
+Slide formatting follows strict rules — heading hierarchy, font sizes, code block styling, brand colors. The steps are fixed: parse the markdown, map each block to a slide template, apply the formatting rules. The content is already decided; this is pure template application.
+
+**Current pain point:**
+After writing lesson content in markdown, James spends 30-45 minutes per lesson manually formatting slides — adjusting font sizes, adding code syntax highlighting, ensuring consistent spacing, and applying the course brand template. With 12+ lessons per course and multiple courses, this adds up to full days of formatting work per quarter.
+
+**How AI helps:**
+Takes in the finished lesson text and the course's formatting rules; produces the formatted slide deck — title, content, code, and exercise slides — with the brand template applied. Same rules every time.
+
+**Value lever:** Automate — James stops formatting slides; the deck is ready when the lesson text is.
+
+**Size:** 30-45 minutes per lesson.
+
+**What changes for the business:**
+Full days of quarterly formatting return to lesson design, every deck looks the same, and a last-minute content change no longer means an hour of reformatting.
+
+**Systems involved today:** the lesson files, the slide tool, the brand template.
+
+
+---
+
+**#5 Newsletter Curation**
+
+**Why it's a good candidate:**
+The sources are configured in advance and the structure is set: check each source, judge each item's relevance to practical AI adoption, summarize the top items. The relevance judgment, made by James's criteria, decides which items make the digest. James reviews it, removes items, and adds commentary before he publishes.
+
+**Current pain point:**
+James curates a periodic newsletter of AI developments relevant to his students and audience. Scanning RSS feeds, Twitter/X, AI news sites, and research papers takes 1-2 hours per edition. The inconsistency of the publishing schedule (sometimes biweekly, sometimes monthly) reflects the time pressure — it's always the lowest-priority task.
+
+**How AI helps:**
+Takes in the sources James already follows and his relevance criteria; produces a weekly digest of the 5-7 items most relevant to practical AI adoption, each with a one-paragraph summary. James removes what doesn't belong, adds his commentary, and publishes.
+
+**Value lever:** Streamline — the curation still happens, with the scanning done and the shortlist waiting, so the edition takes 30 minutes instead of two hours.
+
+**Size:** 1-2 hours per edition.
+
+**What changes for the business:**
+The newsletter goes out on a steady schedule instead of when time allows, and James's effort goes into commentary rather than scanning.
+
+**Systems involved today:** news feeds, social accounts, research preprint listings, the newsletter platform.
+
+
+#### Student Support
 
 ---
 
@@ -422,13 +490,15 @@ Takes in a student's question and the course's level; produces a sourced draft a
 
 **Value lever:** Accelerate — a 15-30 minute research cycle becomes a five-minute review, so questions are answered the same day.
 
+**Size:** 15-30 minutes per question, 10-15 questions a week.
+
 **What changes for the business:**
 Students get thorough, sourced answers quickly instead of waiting on James's calendar, 3-5 hours a week of reactive research return to teaching, and every answer becomes reusable content.
 
 **Systems involved today:** the course chat, email, the playbook, the platforms' documentation.
 
 
-#### Create value
+#### Client and Partner Meetings
 
 ---
 
@@ -445,6 +515,8 @@ Takes in the meeting title and attendee names two hours before each external mee
 
 **Value lever:** Create value — there is no prep process today, only what time allows; a brief for every meeting is new output, not a faster version of existing work.
 
+**Size:** 15-20 minutes per meeting, 5-8 meetings a week.
+
 **What changes for the business:**
 Every external meeting starts with context instead of a cold open, and the 15-20 minutes per meeting that sometimes happened and sometimes didn't is no longer James's to find.
 
@@ -454,54 +526,110 @@ Every external meeting starts with context instead of a cold open, and the 15-20
 
 ### Workflow Candidate Summary
 
-Based on impact, frequency, and feasibility, the following three candidates are recommended for the Deconstruct step:
+#### Candidate 1: Post-Class Summary Generation
 
-#### Candidate 1: Student Q&A Research
-
-| Field              | Content                                                                                                                           |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| **Workflow**       | Student Q&A Research                                                                                                              |
-| **Description**    | Researches student questions and drafts sourced, pedagogically appropriate answers                                                |
-| **Trigger**        | Request — student posts a question in the course chat or by email                                                                 |
-| **Deliverable**    | Draft answer with sources and examples, ready for instructor review and posting                                                   |
-| **Value lever**    | Accelerate                                                                                                                        |
-| **Pain point**     | 15-30 minutes per question, 10-15 questions/week — reactive research that fragments focused work time                             |
-| **AI opportunity** | AI researches docs, finds examples, and drafts an answer at the right course level; instructor reviews and adjusts before posting |
-| **Frequency**      | Daily                                                                                                                             |
-| **Priority**       | High                                                                                                                              |
-| **Reasoning**      | Highest frequency, directly improves the student experience, and each answer becomes reusable content in the playbook             |
+| Field | Content |
+|-------|---------|
+| **Workflow** | Post-Class Summary Generation |
+| **Process** | Teaching |
+| **Description** | Writes the summary email to students after each live session from the transcript and lesson plan |
+| **Trigger** | Event — a live session ends |
+| **Deliverable** | Summary email with the topics covered, key takeaways, action items, and resources mentioned, sent to students |
+| **Value lever** | Automate |
+| **Pain point** | 20-30 minutes per session, and the first thing skipped when time is tight, so students miss the reinforcement |
+| **AI opportunity** | Write the standard summary from the session transcript and lesson plan and send it within an hour of class ending |
+| **Frequency** | Weekly (after each live session) |
+| **Size** | 20-30 minutes per session |
 
 #### Candidate 2: Assignment Feedback Drafting
 
-| Field              | Content                                                                                                                                   |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| **Workflow**       | Assignment Feedback Drafting                                                                                                              |
-| **Description**    | Drafts personalized assignment feedback based on rubric criteria and submission content                                                   |
-| **Trigger**        | Event — assignment submission deadline passes                                                                                             |
-| **Deliverable**    | Draft feedback for each submission, ready for instructor review and delivery                                                              |
-| **Value lever**    | Accelerate                                                                                                                                |
-| **Pain point**     | 10-15 minutes per submission, 15-25 per cohort — slow turnaround affects student momentum                                                 |
+| Field | Content |
+|-------|---------|
+| **Workflow** | Assignment Feedback Drafting |
+| **Process** | Teaching |
+| **Description** | Drafts personalized assignment feedback based on rubric criteria and submission content |
+| **Trigger** | Event — assignment submission deadline passes |
+| **Deliverable** | Draft feedback for each submission, ready for instructor review and delivery |
+| **Value lever** | Accelerate |
+| **Pain point** | 10-15 minutes per submission, 15-25 per cohort — slow turnaround affects student momentum |
 | **AI opportunity** | AI reads submissions against rubric, identifies strengths and gaps, drafts specific constructive feedback with course material references |
-| **Frequency**      | Weekly (during active cohorts)                                                                                                            |
-| **Priority**       | High                                                                                                                                      |
-| **Reasoning**      | High impact on student outcomes, significant time savings (4-6 hrs per round), and faster turnaround improves the learning loop           |
+| **Frequency** | Weekly (during active cohorts) |
+| **Size** | 10-15 minutes per submission, 4-6 hours per round of feedback |
 
-#### Candidate 3: Meeting Prep Briefs
+#### Candidate 3: Course Content Updates
 
-| Field              | Content                                                                                                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Workflow**       | Meeting Prep Briefs                                                                                                                                                |
-| **Description**    | Researches attendees and produces a structured prep brief before each external meeting                                                                               |
-| **Trigger**        | Scheduled — 2 hours before each external calendar event                                                                                                            |
-| **Deliverable**    | Structured meeting brief, delivered where James reads before meetings                                                                                              |
-| **Value lever**    | Create value                                                                                                                                                       |
-| **Pain point**     | 15-20 minutes per meeting, 5-8 meetings/week — inconsistent prep quality due to time pressure                                                                      |
-| **AI opportunity** | AI researches attendees, identifies relevant context, and delivers a ready-to-read brief before the meeting                                                      |
-| **Frequency**      | Daily                                                                                                                                                              |
-| **Priority**       | Medium                                                                                                                                                             |
-| **Reasoning**      | High frequency and runs without James — moderate impact per meeting but compounds across 5-8 weekly meetings; also a good proof-of-concept for research-heavy workflows |
+| Field | Content |
+|-------|---------|
+| **Workflow** | Course Content Updates |
+| **Process** | Content Creation |
+| **Description** | Compares lesson pages against current platform documentation and drafts edits for anything out of date |
+| **Trigger** | Event — a major platform release |
+| **Deliverable** | Discrepancy list for each lesson page, each item with a suggested edit and the reason |
+| **Value lever** | Streamline |
+| **Pain point** | A full day to audit 30+ pages, so audits are reactive; outdated content is often found when a student flags it in class |
+| **AI opportunity** | Compare each lesson page with the documentation it describes and list every discrepancy with a suggested edit; James decides which edits to make |
+| **Frequency** | Ad-hoc (after each major platform release) |
+| **Size** | A full day to audit 30+ pages |
 
-**Recommendation:** Start with **Student Q&A Research**. It's the highest-frequency opportunity, directly improves the core teaching experience, and produces a tangible artifact (the answer) that compounds in value as it builds the playbook's knowledge base. It's also the workflow whose inputs James already has to hand: the questions arrive daily, and the sources to answer them from are known.
+#### Candidate 4: Lesson Slide Formatting
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Lesson Slide Formatting |
+| **Process** | Content Creation |
+| **Description** | Turns finished lesson text into a formatted slide deck with the course brand template applied |
+| **Trigger** | Event — the lesson text is finished |
+| **Deliverable** | Formatted slide deck — title, content, code, and exercise slides |
+| **Value lever** | Automate |
+| **Pain point** | 30-45 minutes of manual formatting per lesson, adding up to full days per quarter |
+| **AI opportunity** | Apply the course's formatting rules to the lesson text and produce the deck, the same way every time |
+| **Frequency** | Ad-hoc (12+ lessons per course) |
+| **Size** | 30-45 minutes per lesson |
+
+#### Candidate 5: Newsletter Curation
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Newsletter Curation |
+| **Process** | Content Creation |
+| **Description** | Scans the sources James follows and drafts a digest of the AI developments most relevant to practical adoption |
+| **Trigger** | Scheduled — weekly |
+| **Deliverable** | Digest of 5-7 items, each with a one-paragraph summary, ready for James's commentary |
+| **Value lever** | Streamline |
+| **Pain point** | 1-2 hours of scanning per edition; the schedule slips because it is always the lowest-priority task |
+| **AI opportunity** | Check each source against James's relevance criteria and summarize the top items; James removes items, adds commentary, and publishes |
+| **Frequency** | Weekly |
+| **Size** | 1-2 hours per edition |
+
+#### Candidate 6: Student Q&A Research
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Student Q&A Research |
+| **Process** | Student Support |
+| **Description** | Researches student questions and drafts sourced, pedagogically appropriate answers |
+| **Trigger** | Request — student posts a question in the course chat or by email |
+| **Deliverable** | Draft answer with sources and examples, ready for instructor review and posting |
+| **Value lever** | Accelerate |
+| **Pain point** | 15-30 minutes per question, 10-15 questions/week — reactive research that fragments focused work time |
+| **AI opportunity** | AI researches docs, finds examples, and drafts an answer at the right course level; instructor reviews and adjusts before posting |
+| **Frequency** | Daily |
+| **Size** | 15-30 minutes per question, 10-15 questions a week |
+
+#### Candidate 7: Meeting Prep Briefs
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Meeting Prep Briefs |
+| **Process** | Client and Partner Meetings |
+| **Description** | Researches attendees and produces a structured prep brief before each external meeting |
+| **Trigger** | Scheduled — 2 hours before each external calendar event |
+| **Deliverable** | Structured meeting brief, delivered where James reads before meetings |
+| **Value lever** | Create value |
+| **Pain point** | 15-20 minutes per meeting, 5-8 meetings/week — inconsistent prep quality due to time pressure |
+| **AI opportunity** | AI researches attendees, identifies relevant context, and delivers a ready-to-read brief before the meeting |
+| **Frequency** | Daily |
+| **Size** | 15-20 minutes per meeting, 5-8 meetings a week |
 
 ---
 
@@ -523,52 +651,49 @@ Maria Torres is VP of Operations at a 200-person logistics company. She oversees
 | **Date**                     | 2026-03-05                                                                                         |
 | **Lens**                     | Organizational                                                                                     |
 | **Opportunities identified** | 5                                                                                                  |
-| **Top recommendation**       | Customer Onboarding — highest impact on customer retention, the company's top strategic objective   |
 
 ### Summary Table
 
-| # | Opportunity | Value lever | Impact |
-|---|------------|-------------|--------|
-| 1 | Order Fulfillment Tracking | Automate | High |
-| 2 | Fleet Maintenance Scheduling | Automate | Medium |
-| 3 | Customer Onboarding | Accelerate | High |
-| 4 | Carrier Rate Negotiation Prep | Accelerate | Medium |
-| 5 | Demand Forecasting | Create value | Medium |
-
-### Top Recommendations
-
-1. **Customer Onboarding** — A cross-functional process spanning sales, ops, and account management that directly impacts customer retention (the #1 business objective). Inconsistent execution leads to early churn.
-2. **Order Fulfillment Tracking** — End-to-end visibility from order receipt through delivery confirmation. Currently manual status checks create delays in exception handling.
-3. **Carrier Rate Negotiation Prep** — Quarterly process that requires synthesizing shipment volume data, carrier performance metrics, and market rate benchmarks — highly data-intensive research that AI can accelerate.
+| # | Opportunity | Process | Value lever | Size |
+|---|------------|---------|-------------|------|
+| 1 | Demand Forecasting | Warehouse Operations | Create value | Not sized yet |
+| 2 | Fleet Maintenance Scheduling | Fleet Management | Automate | Unplanned breakdowns cost 3-5x a scheduled service |
+| 3 | Order Fulfillment Tracking | Customer Fulfillment | Automate | 3-4 hours a day of reactive status checks |
+| 4 | Customer Onboarding | Customer Onboarding | Accelerate | 2-3 weeks per new customer, 3-5 new customers a month |
+| 5 | Carrier Rate Negotiation Prep | Carrier Management | Accelerate | 2-3 days of prep each quarter |
 
 ### Detailed Opportunity Cards
 
-#### Automate
+#### Warehouse Operations
 
 ---
 
-**#1 Order Fulfillment Tracking**
+**#1 Demand Forecasting**
 
 **Why it's a good candidate:**
-Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a recorded event in the systems the warehouse and transport teams already run, and every alert fires on a timing threshold you set. Just monitoring, matching, and alerting.
+The forecast follows the same steps every month: analyze shipment history, find seasonal patterns and growth trends per customer, add known upcoming events, produce a 90-day forecast. Maria adds market intuition and customer-specific knowledge before approving the capacity plan.
 
 **Current pain point:**
-Customer service reps manually check order status across the WMS and TMS when customers call. Exception detection (delayed shipments, partial picks, missed delivery windows) relies on someone noticing — there's no proactive alerting. The team spends 3-4 hours daily on reactive status checks, and customers often know about problems before the ops team does.
+Monthly capacity planning relies on the VP's experience and a basic spreadsheet model. Seasonal demand shifts, new customer ramp-ups, and one-time events aren't systematically factored in. Over-forecasting wastes warehouse labor; under-forecasting creates overtime costs and missed SLAs.
 
 **How AI helps:**
-Takes in each order's stage events as they are recorded and the timing thresholds the ops team sets; produces a live status view of every open order and an alert the moment an order misses a threshold (a pick not started within two hours of receipt, a shipment not scanned inside its delivery window). Fixed rules, fixed thresholds, fixed notifications.
+Takes in 24 months of shipment history by customer and the known upcoming events (new customer launches, holiday peaks); produces a 90-day demand forecast with confidence ranges and the seasonal patterns behind it. Maria adjusts for what the history cannot show — a large customer hinting at a contract change — and approves the capacity plan.
 
-**Value lever:** Automate — reps stop checking status by hand; exceptions find the team instead of the other way round.
+**Value lever:** Create value — a customer-by-customer statistical forecast with confidence ranges does not exist today; the spreadsheet is a staffing guess, not a forecast to compare against.
+
+**Size:** Not sized yet — Deconstruct measures it.
 
 **What changes for the business:**
-The ops team knows about a late order before the customer does, customer service answers from a live view instead of two system lookups, and 3-4 hours a day of reactive checking return to resolving exceptions.
+Warehouse staffing is planned against a stated forecast rather than a feel for the month, over- and under-staffing both shrink, and the forecast's accuracy can be measured and improved quarter by quarter.
 
-**Systems involved today:** the warehouse management system, the transport management system, the customer service phone queue.
+**Systems involved today:** the shipment history in the warehouse system, the planning spreadsheet.
 
-**Business Objective:** Achieve 98% on-time delivery rate (currently 94%)
-**Stakeholders:** Warehouse Manager (pick/pack), Logistics Coordinator (shipping), Customer Service (communication)
-**Success Metrics:** Exception detection time, proactive alert rate, customer inquiry volume reduction
+**Business Objective:** Optimize warehouse labor costs while maintaining SLA compliance
+**Stakeholders:** VP Operations (approval), Warehouse Manager (staffing), Finance (labor budget)
+**Success Metrics:** Forecast accuracy (MAPE), labor cost variance, SLA compliance rate
 
+
+#### Fleet Management
 
 ---
 
@@ -585,6 +710,8 @@ Takes in each vehicle's mileage, engine hours, and fault codes alongside the ser
 
 **Value lever:** Automate — the fleet manager stops reconciling the spreadsheet against the delivery board; vehicles are booked before they run past due.
 
+**Size:** Unplanned breakdowns cost 3-5x a scheduled service.
+
 **What changes for the business:**
 Unplanned breakdowns, which cost 3-5x a scheduled service, become rare, deliveries are planned around downtime instead of disrupted by it, and the fleet manager's week is spent on exceptions rather than scheduling.
 
@@ -595,11 +722,40 @@ Unplanned breakdowns, which cost 3-5x a scheduled service, become rare, deliveri
 **Success Metrics:** Planned vs. unplanned maintenance ratio, average vehicle uptime %, maintenance cost per mile
 
 
-#### Accelerate
+#### Customer Fulfillment
 
 ---
 
-**#3 Customer Onboarding**
+**#3 Order Fulfillment Tracking**
+
+**Why it's a good candidate:**
+Status tracking follows fixed rules: order received → picked → packed → shipped → delivered. Each stage transition is a recorded event in the systems the warehouse and transport teams already run, and every alert fires on a timing threshold you set. Just monitoring, matching, and alerting.
+
+**Current pain point:**
+Customer service reps manually check order status across the WMS and TMS when customers call. Exception detection (delayed shipments, partial picks, missed delivery windows) relies on someone noticing — there's no proactive alerting. The team spends 3-4 hours daily on reactive status checks, and customers often know about problems before the ops team does.
+
+**How AI helps:**
+Takes in each order's stage events as they are recorded and the timing thresholds the ops team sets; produces a live status view of every open order and an alert the moment an order misses a threshold (a pick not started within two hours of receipt, a shipment not scanned inside its delivery window). Fixed rules, fixed thresholds, fixed notifications.
+
+**Value lever:** Automate — reps stop checking status by hand; exceptions find the team instead of the other way round.
+
+**Size:** 3-4 hours a day of reactive status checks.
+
+**What changes for the business:**
+The ops team knows about a late order before the customer does, customer service answers from a live view instead of two system lookups, and 3-4 hours a day of reactive checking return to resolving exceptions.
+
+**Systems involved today:** the warehouse management system, the transport management system, the customer service phone queue.
+
+**Business Objective:** Achieve 98% on-time delivery rate (currently 94%)
+**Stakeholders:** Warehouse Manager (pick/pack), Logistics Coordinator (shipping), Customer Service (communication)
+**Success Metrics:** Exception detection time, proactive alert rate, customer inquiry volume reduction
+
+
+#### Customer Onboarding
+
+---
+
+**#4 Customer Onboarding**
 
 **Why it's a good candidate:**
 Onboarding follows a structured sequence (account setup, system configuration, initial shipment planning, training), and at several points the AI makes bounded decisions by your method: which warehouse to assign based on the customer's shipping patterns, which carrier mix to propose, which training schedule fits. The account manager reviews and approves the key decisions along the way.
@@ -612,6 +768,8 @@ Takes in the signed contract and the customer's expected shipping patterns; prod
 
 **Value lever:** Accelerate — the gain is cycle time: time-to-first-shipment drops from weeks to days because the handoffs no longer wait on people reconstructing information.
 
+**Size:** 2-3 weeks per new customer, 3-5 new customers a month.
+
 **What changes for the business:**
 A new customer's first shipment goes out in days rather than weeks, nothing falls between teams because one view shows what is done, and the customer's first impression stops depending on which account manager they drew.
 
@@ -622,9 +780,11 @@ A new customer's first shipment goes out in days rather than weeks, nothing fall
 **Success Metrics:** Time-to-first-shipment, onboarding completion rate, 90-day customer satisfaction score
 
 
+#### Carrier Management
+
 ---
 
-**#4 Carrier Rate Negotiation Prep**
+**#5 Carrier Rate Negotiation Prep**
 
 **Why it's a good candidate:**
 Rate negotiation prep is research-heavy but follows the same steps every quarter: pull shipment volumes by lane, pull carrier on-time performance, benchmark against published rate indices, write the negotiation brief. The negotiation strategy needs human judgment, so the logistics manager reviews the brief before using it.
@@ -637,6 +797,8 @@ Takes in the quarter's shipment volumes by lane, each carrier's on-time performa
 
 **Value lever:** Accelerate — 2-3 days of prep becomes an afternoon of review, so the brief is built on this week's market data rather than last month's.
 
+**Size:** 2-3 days of prep each quarter.
+
 **What changes for the business:**
 Negotiations start from current numbers, every lane gets analyzed instead of only the largest, and the logistics manager's time goes to strategy and relationships rather than spreadsheets.
 
@@ -646,63 +808,54 @@ Negotiations start from current numbers, every lane gets analyzed instead of onl
 **Stakeholders:** Logistics Manager (prep + negotiation), VP Operations (approval), Finance (budget impact)
 **Success Metrics:** Average rate reduction per lane, negotiation prep time, rate variance vs. market benchmark
 
-
-#### Create value
-
----
-
-**#5 Demand Forecasting**
-
-**Why it's a good candidate:**
-The forecast follows the same steps every month: analyze shipment history, find seasonal patterns and growth trends per customer, add known upcoming events, produce a 90-day forecast. Maria adds market intuition and customer-specific knowledge before approving the capacity plan.
-
-**Current pain point:**
-Monthly capacity planning relies on the VP's experience and a basic spreadsheet model. Seasonal demand shifts, new customer ramp-ups, and one-time events aren't systematically factored in. Over-forecasting wastes warehouse labor; under-forecasting creates overtime costs and missed SLAs.
-
-**How AI helps:**
-Takes in 24 months of shipment history by customer and the known upcoming events (new customer launches, holiday peaks); produces a 90-day demand forecast with confidence ranges and the seasonal patterns behind it. Maria adjusts for what the history cannot show — a large customer hinting at a contract change — and approves the capacity plan.
-
-**Value lever:** Create value — a customer-by-customer statistical forecast with confidence ranges does not exist today; the spreadsheet is a staffing guess, not a forecast to compare against.
-
-**What changes for the business:**
-Warehouse staffing is planned against a stated forecast rather than a feel for the month, over- and under-staffing both shrink, and the forecast's accuracy can be measured and improved quarter by quarter.
-
-**Systems involved today:** the shipment history in the warehouse system, the planning spreadsheet.
-
-**Business Objective:** Optimize warehouse labor costs while maintaining SLA compliance
-**Stakeholders:** VP Operations (approval), Warehouse Manager (staffing), Finance (labor budget)
-**Success Metrics:** Forecast accuracy (MAPE), labor cost variance, SLA compliance rate
-
 ---
 
 ### Workflow Candidate Summary
 
-Based on strategic impact, cross-functional complexity, and feasibility, the following three candidates are recommended for the Deconstruct step:
-
-#### Candidate 1: Customer Onboarding
+#### Candidate 1: Demand Forecasting
 
 | Field | Content |
 |-------|---------|
-| **Workflow** | Customer Onboarding |
-| **Description** | Orchestrates the end-to-end process of setting up new customers from signed contract through first successful shipment |
-| **Trigger** | Event — new customer contract signed in CRM |
-| **Deliverable** | Fully configured customer account with completed first shipment and satisfaction survey |
-| **Value lever** | Accelerate |
-| **Pain point** | 2-3 week onboarding with frequent handoff failures between sales, ops, and account management — leading to poor first impressions and early churn |
-| **AI opportunity** | Draft the account setup, recommend warehouse and carrier assignments, carry the handoffs between teams, and flag delays |
-| **Frequency** | Weekly (3-5 new customers per month) |
-| **Priority** | High |
-| **Reasoning** | Directly addresses the #1 business objective (customer retention), involves the most painful cross-functional handoffs, and improvements compound across every new customer |
+| **Workflow** | Demand Forecasting |
+| **Process** | Warehouse Operations |
+| **Description** | Produces a 90-day demand forecast by customer from shipment history and known upcoming events |
+| **Trigger** | Scheduled — monthly capacity planning |
+| **Deliverable** | 90-day demand forecast with confidence ranges and the seasonal patterns behind it, for Maria's approval |
+| **Value lever** | Create value |
+| **Pain point** | Capacity planning relies on experience and a basic spreadsheet; over-forecasting wastes warehouse labor and under-forecasting creates overtime and missed SLAs |
+| **AI opportunity** | Find seasonal patterns and growth trends per customer in 24 months of history, add known events, and forecast 90 days ahead; Maria adjusts and approves the capacity plan |
+| **Frequency** | Monthly |
+| **Size** | Not sized yet |
 | **Lens** | Organizational |
-| **Business Objective** | Improve customer retention rate from 85% to 92% |
-| **Stakeholders** | Sales, Operations, Account Management |
-| **Success Metrics** | Time-to-first-shipment, onboarding completion rate, 90-day CSAT |
+| **Business Objective** | Optimize warehouse labor costs while maintaining SLA compliance |
+| **Stakeholders** | VP Operations, Warehouse Manager, Finance |
+| **Success Metrics** | Forecast accuracy (MAPE), labor cost variance, SLA compliance rate |
 
-#### Candidate 2: Order Fulfillment Tracking
+#### Candidate 2: Fleet Maintenance Scheduling
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Fleet Maintenance Scheduling |
+| **Process** | Fleet Management |
+| **Description** | Books maintenance for each vehicle that needs it in its lowest-utilization window, around delivery commitments |
+| **Trigger** | Event — a vehicle's mileage, engine hours, or fault codes show it needs service |
+| **Deliverable** | Maintenance booking, the work order for the shop, and the delivery-schedule adjustment around the downtime |
+| **Value lever** | Automate |
+| **Pain point** | Maintenance is tracked by hand and competing delivery commitments push vehicles past due; unplanned breakdowns cost 3-5x more than scheduled maintenance |
+| **AI opportunity** | Weigh each vehicle's service needs against delivery commitments by the set rules and book service in the lowest-utilization window |
+| **Frequency** | Ad-hoc (as each vehicle comes due) |
+| **Size** | Unplanned breakdowns cost 3-5x a scheduled service |
+| **Lens** | Organizational |
+| **Business Objective** | Reduce unplanned vehicle downtime by 50% |
+| **Stakeholders** | Fleet Manager, Maintenance Shop, Dispatch |
+| **Success Metrics** | Planned vs. unplanned maintenance ratio, average vehicle uptime %, maintenance cost per mile |
+
+#### Candidate 3: Order Fulfillment Tracking
 
 | Field | Content |
 |-------|---------|
 | **Workflow** | Order Fulfillment Tracking |
+| **Process** | Customer Fulfillment |
 | **Description** | Monitors order lifecycle from receipt through delivery and proactively alerts on exceptions |
 | **Trigger** | Event — new order created in the warehouse system |
 | **Deliverable** | Real-time order status view + exception alerts |
@@ -710,18 +863,37 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Pain point** | 3-4 hours daily of reactive status checks; customers learn about problems before the ops team |
 | **AI opportunity** | Watch each order's stage events against set thresholds and alert the moment one is missed |
 | **Frequency** | Continuous (hundreds of orders daily) |
-| **Priority** | High |
-| **Reasoning** | Highest volume, directly impacts on-time delivery (key SLA metric), and fixed, well-defined steps make it straightforward to implement |
+| **Size** | 3-4 hours a day of reactive status checks |
 | **Lens** | Organizational |
 | **Business Objective** | Achieve 98% on-time delivery rate |
 | **Stakeholders** | Warehouse, Logistics, Customer Service |
 | **Success Metrics** | Exception detection time, proactive alert rate, customer inquiry volume |
 
-#### Candidate 3: Carrier Rate Negotiation Prep
+#### Candidate 4: Customer Onboarding
+
+| Field | Content |
+|-------|---------|
+| **Workflow** | Customer Onboarding |
+| **Process** | Customer Onboarding |
+| **Description** | Orchestrates the end-to-end process of setting up new customers from signed contract through first successful shipment |
+| **Trigger** | Event — new customer contract signed in CRM |
+| **Deliverable** | Fully configured customer account with completed first shipment and satisfaction survey |
+| **Value lever** | Accelerate |
+| **Pain point** | 2-3 week onboarding with frequent handoff failures between sales, ops, and account management — leading to poor first impressions and early churn |
+| **AI opportunity** | Draft the account setup, recommend warehouse and carrier assignments, carry the handoffs between teams, and flag delays |
+| **Frequency** | Weekly (3-5 new customers per month) |
+| **Size** | 2-3 weeks per new customer, 3-5 new customers a month |
+| **Lens** | Organizational |
+| **Business Objective** | Improve customer retention rate from 85% to 92% |
+| **Stakeholders** | Sales, Operations, Account Management |
+| **Success Metrics** | Time-to-first-shipment, onboarding completion rate, 90-day CSAT |
+
+#### Candidate 5: Carrier Rate Negotiation Prep
 
 | Field | Content |
 |-------|---------|
 | **Workflow** | Carrier Rate Negotiation Prep |
+| **Process** | Carrier Management |
 | **Description** | Synthesizes shipment data, carrier performance, and market rates into a negotiation-ready brief |
 | **Trigger** | Scheduled — 3 weeks before quarterly carrier review |
 | **Deliverable** | Negotiation brief with lane-by-lane analysis, rate benchmarks, and recommended targets |
@@ -729,14 +901,11 @@ Based on strategic impact, cross-functional complexity, and feasibility, the fol
 | **Pain point** | 2-3 days of manual data gathering and analysis per quarter; market data goes stale during prep |
 | **AI opportunity** | Analyze shipment and carrier history against market benchmarks and produce a draft brief — logistics manager refines strategy and enters negotiations prepared |
 | **Frequency** | Quarterly |
-| **Priority** | Medium |
-| **Reasoning** | High financial impact per occurrence (rate negotiations affect millions in annual spend) but lower frequency; good candidate once higher-frequency workflows are running |
+| **Size** | 2-3 days of prep each quarter |
 | **Lens** | Organizational |
 | **Business Objective** | Reduce transportation costs by 8% |
 | **Stakeholders** | Logistics Manager, VP Operations, Finance |
 | **Success Metrics** | Average rate reduction, prep time, rate vs. market benchmark |
-
-**Recommendation:** Start with **Customer Onboarding**. It's the highest-impact opportunity tied directly to the company's top strategic objective (customer retention). While it's more complex than Order Fulfillment Tracking, the cross-functional visibility and structured handoffs it creates will improve operations far beyond the onboarding process itself. Order Fulfillment Tracking is the natural second candidate: with fixed rules and fixed thresholds, it provides quick wins while the onboarding workflow is being developed.
 
 ---
 

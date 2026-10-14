@@ -100,6 +100,8 @@ Use the canonical definitions so every skill says the same thing:
 | Term | Plain meaning (say this) | Canonical source |
 |---|---|---|
 | Workflow | One piece of repeated work, from what kicks it off to the thing it produces | Analyze |
+| Candidate workflow | A specific, repeatable piece of work worth building with AI | Analyze, opening |
+| Lens | The point of view Analyze takes on your work: organizational (the processes across the business, end to end) or individual (the work you personally do each day) | Analyze, Phase 2 |
 | Context | Any information a step needs to do its job: documents, spreadsheets, emails, style guides, or knowledge that lives in someone's head | Deconstruct, Phase 4 |
 | Step-driven / goal-driven | Step-driven: you can describe every path the work takes. Goal-driven: you can describe what "done" looks like, but the path depends on what comes in | Deconstruct, The Two Paths |
 | Human gate | A point where a person must review or approve before the workflow continues | Deconstruct, Phase 7 |
@@ -111,7 +113,7 @@ Use the canonical definitions so every skill says the same thing:
 | Function | A team or department in your organization — Marketing, Sales, Finance — that owns a kind of work across every line of business. Lines of business are *what you offer*; functions are *who does the work*. Working alone, each function is one of the hats you wear | scaffolding-registry, Phase 3 (wording per persona in `personas.md`) |
 | Process | A set of related work that delivers part of a line of business — like enrolling students or delivering a workshop. Each sits under one line of business and is owned by one function; Analyze later finds the workflows inside it | scaffolding-registry, Phase 4 |
 | Registry | Your record of the business: what you do, the processes that deliver it, and the workflows built or planned for each | scaffolding-registry |
-| Backlog | The workflows in your registry you've chosen to build but haven't started | Analyze, Phase 5 |
+| Backlog | Your list of workflows to build: every candidate Analyze found, until you start one | Analyze, opening |
 
 When a skill's own text defines a term differently, the skill named in the source column wins:
 fix the table, not the skill, and check the other skills against the corrected wording.
