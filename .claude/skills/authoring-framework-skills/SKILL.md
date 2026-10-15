@@ -66,7 +66,10 @@ off?", "Who receives the output?"). Teaching every question bloats the skill and
 instructions that matter.
 
 Every question the student hears carries the **Ask:** label, so the model can always find the exact
-wording. A plain factual question is just the **Ask:** line; a question that meets the test above
+wording. The label is for the model only; the student never sees it (on screen it reads like a form
+field). Write one instruction near the skill's first question block: "Never show the **Ask:** label.
+The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their
+labels." A plain factual question is just the **Ask:** line; a question that meets the test above
 gets the full block. Format, exactly:
 
 ```markdown
@@ -223,6 +226,7 @@ Run this on every edited skill before committing, and across all seven before a 
 - [ ] Signposts read "Part N of M — name"; no phase number appears in quoted text.
 - [ ] Every question that needs a concept or a new judgment has a full question block; plain factual questions don't.
 - [ ] Every quoted question carries **Ask:**; blocks appear only where the test in Question blocks is met.
+- [ ] The skill tells the model never to show the **Ask:** label to the student.
 - [ ] Every example comes from a different line of work and could not be copied as the student's answer; the example-collision line is present once.
 - [ ] Every *Why* that names a later step has been checked against that step's skill.
 - [ ] Every "Not sure?" gives a default or a way to find out, and defaults are recorded as defaults.
