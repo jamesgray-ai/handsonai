@@ -69,6 +69,8 @@ Present a short summary so the user can confirm or correct it: "Your registry sa
 **Ask:** "Is anything here wrong or missing?"
 - *Why:* Analyze only looks inside the processes listed here, so a missing one means missed workflows.
 
+If the student names a missing process, add it to the walk's list marked "(new)" (on "picking up the rest" too). If it ends up holding a workflow, write it by *A workflow with no process*'s rule (ask its function then); otherwise write nothing. A wrong entry: note it and say the registry can be reshaped later ("ask me to rename or move it").
+
 Skip every discovery question in Phase 3 that this summary already answers. If there is no registry and no prior context, say so and go to Phase 2.
 
 #### Phase 2 — Lens selection
@@ -94,13 +96,13 @@ When Individual is recommended, swap the two: "I'd look at this from your point 
 
 > "We're looking for opportunities to create more value: friction to remove, like work that's slow, repetitive, or inconsistent, and things you'd do more of, or do better, if you had the time. Each one becomes a candidate workflow. First I'll check what your AI already knows about your work; then we'll walk your processes for anything it missed."
 
-Drop the last sentence when the history question won't be asked (no history to read, or picking up the rest when the report's **History** row says checked or declined). With no Process nodes, say "then I'll ask about your work" in place of "then we'll walk your processes". With no Process nodes, ask the individual bank's Q1 (role) next, whichever lens, before the history question or, with no history to read, as the first walk question; use the answer as the history filter.
+Drop the last sentence when the history question won't be asked (no history to read, or an existing report's **History** row says checked or declined). With no Process nodes, say "then I'll ask about your work" in place of "then we'll walk your processes". With no Process nodes, ask the individual bank's Q1 (role) next, whichever lens, before the history question or, with no history to read, as the first walk question; use the answer as the history filter.
 
-**History pass (before the walk).** Skip it when there is no history to read. Don't use saved memory for anything, including the Phase 1 summary, until the student says yes, even when it is already in this conversation. Then ask, exactly (drop "and your past chats" when the platform can't search them, and "your saved memory and" when there is none; in Claude Code, say "your memory files and the requests you've typed into Claude Code on this computer, across all your projects" in place of "your saved memory and your past chats", dropping "your memory files and" when none exist):
+**History pass (before the walk).** Skip it when there is no history to read, or an existing report's **History** row says Checked or Declined (picking up the rest, or the other lens). Don't use saved memory for anything, including the Phase 1 summary, until the student says yes, even when it is already in this conversation. Then ask, exactly (drop "and your past chats" when the platform can't search them, and "your saved memory and" when there is none; in Claude Code, say "your memory files and the requests you've typed into Claude Code on this computer, across all your projects" in place of "your saved memory and your past chats", dropping "your memory files and" when none exist):
 
 **Ask:** "I can look through what your AI already knows about your work: your saved memory and your past chats. I'll summarize patterns, not quote anything. Want me to?"
 - *Why:* if you've asked your AI for help with the same work before, your history shows candidates you'd otherwise have to remember.
-- *Not sure?* Say no, and we'll go straight to your processes.
+- *Not sure?* Say no, and we'll go straight to your processes (no registry: "and I'll go straight to asking about your work").
 
 On no, go to the walk. On yes, read only these, asking in plain words, never by a tool's name:
 - **Saved memory** the platform gives you, and **past chats** where the platform can search them on request: search for work asked about more than once, things drafted regularly, skills or agents the student set up, and each process name.
