@@ -51,6 +51,20 @@
         "After the report, the response shows a catalog confirmation listing each workflow's name and one-line description, grouped by process or area of work, and keeps every candidate (in the report, since the workspace has no registry); it does not ask the user to pick which to build",
         "Recommendations are specific to the construction SaaS context, not generic"
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "Run the analyze skill. (Workspace: a registry for a small consulting firm with 6 processes. When asked, the user allows the history check; their past chats show they ask for proposal drafts often and that their 'Newsletter Repurposer' skill turns each newsletter issue into LinkedIn posts, which works well. The user keeps both, walks only 'Client Onboarding', then says 'stop here for now'.)",
+      "expected_output": "Asks permission before reading history, shows the two items as opportunities, registers the Newsletter Repurposer work as in production with the skill named under # Skills, walks one process, then writes a report with a Not looked at yet row and closes with an offer to pick up the rest.",
+      "files": [],
+      "expectations": [
+        "The response asks permission before reading saved memory or past chats",
+        "The newsletter repurposing work is registered with status: in-production, with Newsletter Repurposer under # Skills, and is not in the backlog",
+        "No size guess is asked for the work that already runs",
+        "The report header has a Not looked at yet row listing the five processes not walked",
+        "The close says how many processes were looked at and how to pick up the rest",
+        "No question shows the literal \"Ask:\" label"
+      ]
     }
   ]
 }
