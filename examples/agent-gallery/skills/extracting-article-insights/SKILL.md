@@ -6,8 +6,6 @@ description: >
   report to identify the most compelling points for reuse across channels. Produces a
   structured list of numbered insights with summaries, source quotes, and relevance tags.
   Accepts the article as an argument: a URL (most common) or an uploaded document.
-user-invocable: true
-argument-hint: "<article URL or uploaded file>"
 ---
 
 # Extracting Article Insights
