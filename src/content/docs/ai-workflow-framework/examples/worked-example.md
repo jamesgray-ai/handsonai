@@ -71,7 +71,7 @@ In Claude, installed skills are managed by the platform rather than sitting in a
 
 ## Step 1 — Analyze → `ai-opportunity-report.md`
 
-Maya (a program manager) ran the analyze skill in the Claude desktop app and spent about 15 minutes in the discovery interview — a walk through the processes in her registry, asking where the friction is. Note the report lives at the top of `framework/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder once she chose that workflow, at the start of Step 2.
+Maya (a program manager) ran the analyze skill in the Claude desktop app and spent about 15 minutes on it — a walk through the processes in her registry, looking for opportunities to create more value. Note the report lives at the top of `framework/` — it covers *all* her candidates, so it doesn't belong to any single workflow folder. Deconstruct created the `weekly-status-report/` folder once she chose that workflow, at the start of Step 2.
 
 Two things to notice. Analyze names the work, the pain, and the kind of value AI adds — it never classifies how much the AI should decide or whether the workflow runs unattended; those are Design's questions, and when Maya asked, the skill said so and returned to the work. And systems she uses today appear only where they are facts about the work (the pain point, the systems row), never in the description of what AI would do.
 

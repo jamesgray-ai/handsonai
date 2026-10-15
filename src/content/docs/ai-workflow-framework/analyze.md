@@ -7,13 +7,13 @@ description: Run a structured audit of your workflows to identify where AI creat
 
 ## What This Is
 
-A structured audit that helps you find where AI fits in your work. The analysis supports two **lenses** — perspectives you can analyze from: **Individual** (workflows you personally perform) and **Organizational** (value chain processes that deliver on business objectives). The AI scans what it already knows about you, asks which lens to use, interviews you with lens-specific questions, then analyzes the results to identify opportunities you'd miss on your own.
+A structured audit that helps you find where AI fits in your work. The analysis supports two **lenses** — perspectives you can analyze from: **Individual** (workflows you personally perform) and **Organizational** (value chain processes that deliver on business objectives). It looks for opportunities to create more value: friction to remove, and work you'd do more of, or do better, if you had the time. With your permission, the AI first looks through what it already knows about your work, then walks your processes with you for anything it missed.
 
 | | |
 |---|---|
-| **What you'll do** | Walk through a guided conversation covering your role, tasks, and pain points |
+| **What you'll do** | React to what your AI's history shows about your work, then walk one or more of your processes |
 | **What you'll get** | Every candidate workflow registered in your registry backlog, each with a clear name and description, and an opportunity report with the detail |
-| **Time** | ~15–20 minutes |
+| **Time** | About 3–5 minutes a process; do one or all of them, and come back for the rest any time |
 
 ## Why This Matters
 
@@ -27,13 +27,13 @@ Analyze stays strategic. It names the work, the pain, the kind of value AI adds,
 
 ## How the Skill Works
 
-The skill runs five phases in order, in three parts you'll see signposted: how we'll look at your work, where the time goes, and your report and your backlog.
+The skill runs five phases in order, in three parts you'll see signposted: how we'll look at your work, where the opportunities are, and your backlog and your report.
 
-1. **Read what's known** — The registry (your business, processes, existing workflows) plus memory and project files. Presented for you to confirm; nothing you've already said is asked again.
+1. **Read what's known** — The registry (your business, processes, existing workflows) and anything you've shared in the conversation. Presented for you to confirm; nothing you've already said is asked again.
 2. **Lens selection** — Individual (your own workflows) or Organizational (your business's processes). Inferred and confirmed when obvious.
-3. **Discovery interview** — With a registry, a walk through your processes asking where the friction is, tied to your objectives. Without one, focused questions, one at a time, only on what phase 1 didn't cover.
+3. **Where the opportunities are** — First, if you say yes, a look through your saved memory and past chats for work you ask your AI about again and again; you keep, drop, or mark each item "already handled", and confirm the AI's guess at its problem and size. Then a walk through the processes you pick, one at a time, asking where time is lost and what you'd do more of. Stop after any process; Analyze picks up the rest next time. Without a registry, focused questions, one at a time.
 4. **Opportunity report** — A summary table and detailed cards, grouped by process, each with its value lever and rough size. No ranking.
-5. **Candidates registered** — You see every workflow, grouped by process, with its name and a one-line description, and can rename, reword, move or leave out any. Each becomes a backlog Workflow node in your registry. The close offers the other lens as a later session.
+5. **Candidates registered** — You see every workflow, grouped by process, with its name and a one-line description, and can rename, reword, move or leave out any. Each becomes a backlog Workflow node in your registry; work that already runs with a skill or agent is recorded as running instead. The close offers the rest of your processes and the other lens as later sessions.
 
 There's no limit on how many candidates you register: the backlog is your catalog of workflows worth building.
 
@@ -41,7 +41,7 @@ There's no limit on how many candidates you register: the backlog is your catalo
 
 This step is facilitated by the **`analyze`** AI Workflow Framework skill. How you get it depends on your platform — see [Install the Hands-on AI Plugin](../skills/) for installation instructions.
 
-**How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:analyze`, and Claude lists it when you type `/`.
+**How to start:** Say *"run the analyze skill"* (or *"analyze the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:analyze` (type `/analyze` and pick it from the list), and Claude lists it when you type `/`.
 
 **Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
 
@@ -88,7 +88,7 @@ Analyze doesn't choose for you. Deconstruct opens by asking which backlog workfl
 
 The **AI Opportunity Report** (`ai-opportunity-report.md`) captures:
 
-- **Report header** — your name, role, date, lens, and opportunity count
+- **Report header** — your name, role, date, lens, opportunity count, and any processes not looked at yet
 - **Summary table** — every opportunity listed with its process, value lever, and size
 - **Detailed opportunity cards** — grouped by process, each with: why it's a good candidate, current pain point, how AI helps, the value lever, its size, and what changes for the business
 - **Workflow Candidate Summary** — structured metadata for every registered workflow: name, process, description, trigger, deliverable, value lever, pain point, AI opportunity, frequency, size, and lens. Organizational-lens candidates also include business objective, stakeholders, and success metrics.
@@ -103,9 +103,9 @@ See three complete [example reports](../analyze-examples/) to get a feel for the
 ## Tips for Better Results
 
 - **Bring your registry.** Analyze is sharpest when it can walk your real processes. Set it up first with [AI Registry Setup](../../builder-setup/ai-registry-setup/) — about 25 minutes, once — and run Analyze straight after; the setup interview offers to.
-- **Use a tool with memory or projects enabled.** The richer the AI's context about your actual work, the more specific and useful the recommendations will be.
+- **Use a tool with memory and past-chat search turned on.** Analyze asks before it looks, then shows you patterns, never quotes. On Claude.ai that's Settings > Memory (chat search is on paid plans; on Team and Enterprise an admin turns it on first). In Claude Code it reads your memory files and the prompts you've typed, never full session transcripts. Without any history, the walk works the same way.
 - **Be concrete when answering questions.** "I spend 30 minutes every Monday formatting a status report from three Jira boards" is far more useful than "I do reporting."
-- **Run it again in a few weeks.** As you have more conversations and the AI learns more about your work, re-running this prompt will surface new opportunities.
+- **Come back for the rest.** You don't need to walk every process at once. Say *"run the analyze skill"* again and it picks up with the processes you haven't looked at yet.
 - **Share the output with your team.** Some of the best opportunities come from workflows that span multiple people — your colleagues may see possibilities you don't. The organizational lens is especially useful for this.
 - **Try both lenses.** The individual lens surfaces your personal pain points; the organizational lens surfaces value chain opportunities that may have higher strategic impact — worth a separate short session.
 
