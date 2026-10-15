@@ -5,12 +5,27 @@ description: >
   repurposing. Use when the user wants to analyze an article, blog post, newsletter, or
   report to identify the most compelling points for reuse across channels. Produces a
   structured list of numbered insights with summaries, source quotes, and relevance tags.
+  Accepts the article as an argument: a URL (most common) or an uploaded document.
 user-invocable: true
+argument-hint: "<article URL or uploaded file>"
 ---
 
 # Extracting Article Insights
 
 Analyze a source article and extract the most compelling insights for content repurposing. Produces a structured, numbered list of insights ready to be used by downstream content creation workflows.
+
+**Article:** $ARGUMENTS
+
+## Get the Article
+
+Work out what the article is from the **Article** line above. If it is empty, or still reads as a placeholder rather than an actual link or file, use the article the user shared in the conversation.
+
+- **A URL** (the usual case) — fetch the page and work from its full text. If the fetch fails or returns only part of the article (a paywall, a login page, a cookie wall, or a teaser), stop and say so. Ask the user to paste the text or upload the article as a file instead. Never extract insights from a partial article.
+- **An uploaded document** (PDF, Word, Markdown, or text) — read the whole file. A file path given as the argument counts as an uploaded document.
+- **Pasted text** — use it as the article.
+- **Nothing** — ask the user for the article's URL or to upload it, then wait.
+
+Record where the article came from for the **Source** line in the output: the URL, or the document's file name.
 
 ## Instructions
 
@@ -42,7 +57,7 @@ Present insights in this exact structure:
 ```
 ## Article Analysis: [Article Title]
 
-**Source:** [Article URL or reference]
+**Source:** [Article URL, or the uploaded document's file name]
 **Core theme:** [One-sentence summary of the article's main argument]
 
 ---
