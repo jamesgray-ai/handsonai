@@ -13,7 +13,7 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 
 | Step | Skill | What it guides you through |
 |------|-------|---------------------------|
-| 1.&nbsp;Analyze | `analyze` | Identify and prioritize the workflows worth reimagining with AI |
+| 1.&nbsp;Analyze | `analyze` | Identify and catalog the workflows worth reimagining with AI |
 | 2.&nbsp;Deconstruct | `deconstruct` | Map the workflow’s process — or define the goal for an agent system |
 | 3.&nbsp;Design | `design` | Architect how AI building blocks will power your workflow |
 | 4.&nbsp;Build | `build` | Build the AI building blocks your design specifies |
@@ -269,7 +269,7 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 - **See the destination first.** The [worked example](examples/worked-example/) shows every file a complete run produces — the whole project folder for one small workflow taken through all seven steps.
 - **Start small.** Make your first workflow starter-sized: 3–5 steps, one tool connection, triggered manually. Build your big opportunity second, once you've been through the loop.
 - **Pausing is safe.** Every step saves progress to files. In any later session, just say **"continue my workflow"** — the framework reads your registry's Workflow node and picks up at the right step.
-- **Plan about a working day, over three to four sessions,** for a starter workflow through Steps 1–6 (Improve comes weeks later, at your review date): Analyze 15–20 min, Deconstruct 45–60, Design about 30, Build 30–60, Test about 45 per round (two to four rounds), Run 15–20.
+- **Plan about a working day, over three to four sessions,** for a starter workflow through Steps 1–6 (Improve comes weeks later, at your review date): Analyze about 3–5 min a process, Deconstruct 45–60, Design about 30, Build 30–60, Test about 45 per round (two to four rounds), Run 15–20.
 :::
 
 ## FAQ

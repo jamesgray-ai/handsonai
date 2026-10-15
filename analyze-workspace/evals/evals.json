@@ -21,7 +21,7 @@
     {
       "id": 2,
       "prompt": "I'm a marketing manager at a B2B SaaS company (about 50 employees). I manage a team of 3 — one content writer, one designer, and one social media person. My days are mostly spent in meetings, reviewing content drafts, pulling campaign performance data from HubSpot and Google Analytics, and writing the monthly board deck slides about marketing pipeline contribution. I feel like I'm drowning in busywork and not doing enough strategic thinking. Where can AI help me?",
-      "expected_output": "Should take the standard path, present a memory/context summary, select individual lens (or ask), conduct a brief interview to probe for more detail, then produce the opportunity report. Should ask one question at a time.",
+      "expected_output": "Should take the standard path, summarize what it knows from the conversation, ask permission before reading any history, select individual lens (or ask), conduct a brief interview to probe for more detail, then produce the opportunity report. Should ask one question at a time.",
       "files": [],
       "expectations": [
         "The first response summarizes what it already knows about the user before asking questions",

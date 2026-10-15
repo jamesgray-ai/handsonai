@@ -115,6 +115,9 @@ links for Step 4:
 | Test results | 5 (Test) |
 | Run guide | 6 (Run) |
 
+An `in-production` node with no Requirements is work Analyze recorded as already running, not a
+framework record: infer no step from its `# Skills` / `# Agents` links.
+
 ---
 
 ## 5. Review scheduling

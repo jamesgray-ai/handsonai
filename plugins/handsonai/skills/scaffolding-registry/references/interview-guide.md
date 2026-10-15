@@ -435,7 +435,7 @@ complete.
 >
 > "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
 >
-> "Next is Analyze. It looks for opportunities to create more value in your processes, starting with what your AI already knows about your work, and adds every workflow it finds to your backlog. Each process takes about 3 to 5 minutes, and you can do one or all of them. Run it now, or later? When you're ready, say 'run the analyze skill' (in Claude Code, you can also type `/analyze` and pick it from the list)."
+> "Next is Analyze. It looks for opportunities to create more value in your processes, starting, with your permission, with what your AI already knows about your work, and adds every workflow it finds to your backlog. Each process takes about 3 to 5 minutes, and you can do one or all of them. Run it now, or later? When you're ready, say 'run the analyze skill' (in Claude Code, you can also type `/analyze` and pick it from the list)."
 
 **The close — print-and-save mode:** the same four parts, with two changes.
 Say where the files go: "Save each file I printed into your `registry`
