@@ -54,7 +54,7 @@
     },
     {
       "id": 4,
-      "prompt": "Run the analyze skill. (Workspace: a registry for a small consulting firm with 6 processes. When asked, the user allows the history check; their past chats show they ask for proposal drafts often and that their 'Newsletter Repurposer' skill turns each newsletter issue into LinkedIn posts, which works well. The user keeps both, walks only 'Client Onboarding', then says 'stop here for now'.)",
+      "prompt": "Run the analyze skill. (Workspace: a registry for a small consulting firm with 6 processes. When asked, the user allows the history check; their past chats show they ask for proposal drafts often and that their 'Newsletter Repurposer' skill turns each newsletter issue into LinkedIn posts; they use it every week and it works well. The user keeps both, walks only 'Client Onboarding', then says 'stop here for now'.)",
       "expected_output": "Asks permission before reading history, shows the two items as opportunities, registers the Newsletter Repurposer work as in production with the skill named under # Skills, walks one process, then writes a report with a Not looked at yet row and closes with an offer to pick up the rest.",
       "files": [],
       "expectations": [
