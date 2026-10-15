@@ -37,7 +37,7 @@ The opening says five things, in this order, in a short paragraph (about five se
 4. **The parts**: "It runs in N parts: (1) …, (2) …".
 5. **Why the next step needs it**, plus "Stopping early is safe — progress is saved, and 'continue my workflow' picks up where we left off."
 
-Then, once per skill run, offer the switch: "I'll explain each question as I ask it, and 'not sure'
+Then, once per skill run, offer the switch: "I'll explain the questions that need it, and 'not sure'
 is always a fine answer. If you've done this before, say 'skip the explanations'."
 
 Define no framework terms in the opening, except the one or two the deliverable is named by, in one clause each (Analyze's **candidate workflow** and **backlog**). Each other term is defined where it first matters (see Terms);
@@ -55,22 +55,33 @@ phases into 3–6 parts; a part can hold several phases.
 
 ### 3. Question blocks: teaching at the point of asking
 
-Write a question block for a question when **any** of these is true:
+The students are savvy business professionals. Every line they read has to earn its place, and
+every line in the skill costs context the model needs for the interview. So a question gets only
+the teaching lines it needs, and each line is tested on its own:
 
-- Answering needs a framework concept the student hasn't met yet (a gate, a criterion, an autonomy level).
-- It asks for a judgment the student has probably never made about their work ("what must it never do?").
-- A walkthrough finding shows a student got stuck on it.
+- **Why:** only when answering needs a framework concept the student hasn't met yet (a gate, a
+  check, fixed or flexible, an autonomy level), or when what the answer is used for isn't obvious
+  from the question.
+- **Example:** only when the question asks for a judgment the student has probably never made
+  about their work ("what must it never do?", "what should the target be?"). Never when the
+  question lists its own choices or examples, or opens with a draft.
+- **Not sure?:** only when it records a specific default that later steps depend on ("Insist on
+  none for now", "Leave it flexible"). Every other "not sure" is handled by the thin-answer recipe
+  (section 5), with no scripted line.
+- A walkthrough finding that shows students getting stuck on a question is a reason to add the
+  line that would have unstuck them, and only that line.
 
-Do **not** write one for a plain factual question about the student's own work ("What kicks it
-off?", "Who receives the output?"). Teaching every question bloats the skill and buries the
-instructions that matter.
+A plain factual question about the student's own work ("What kicks it off?", "Who does this
+step?", "Does it exist yet?") is just the question. Teaching every question bloats the skill,
+buries the instructions that matter, and makes a capable reader wade through reasons they didn't
+need.
 
 Every question the student hears carries the **Ask:** label, so the model can always find the exact
 wording. The label is for the model only; the student never sees it (on screen it reads like a form
 field). Write one instruction near the skill's first question block: "Never show the **Ask:** label.
 The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their
-labels." A plain factual question is just the **Ask:** line; a question that meets the test above
-gets the full block. Format, exactly:
+labels." A plain factual question is just the **Ask:** line; any other question gets only the lines
+that pass the tests above, in this order and format, exactly:
 
 ```markdown
 **Ask:** "[the question, in the student's words]"
@@ -81,13 +92,13 @@ gets the full block. Format, exactly:
 
 Rules for each part:
 
-- **Why** is said in the same message as the question, always, even after "skip the explanations". One sentence, tied to a use: "Test checks every gate you name here, so this sets what a passing run looks like." When a *Why* names what a later step does with the answer, check that step's skill says so before committing; a wrong *Why* teaches the student something false.
+- **Why**, when a question has one, is said in the same message as the question, even after "skip the explanations". One sentence, tied to a use: "Test checks every gate you name here, so this sets what a passing run looks like." When a *Why* names what a later step does with the answer, check that step's skill says so before committing; a wrong *Why* teaches the student something false.
 - **Example** comes from a deliberately different line of work (expense approvals, a recruiting coordinator, a property manager), at the same altitude as the question. It must never be an answer the student could copy for their own workflow. Pick the domain at authoring time and write it in; don't tell the model to "give an example".
 - **Example collision.** The student's line of work isn't known when the skill is written, so an example can land in their own field. Write this instruction once near the skill's first question block: "If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*." Don't write backup examples.
 - **A draft replaces the example.** When a question opens with a draft built from the student's own source or earlier answers, leave out the *Example* line — the draft already shows the shape. Keep *Why* and *Not sure?*.
 - **Exact wording.** Mark definitions, **Ask:** lines, and *Why* / *Example* / *Not sure?* lines as "say exactly this" in the skill, so the model doesn't paraphrase them or add reassurance (it turned "You can't pick wrong" into "There's no wrong answer"). Openings and playbacks may be paraphrased if every part is there; an outline of the step's structure is exact.
 - **Proposals are not examples.** Proposing an answer drawn from what the student already told you ("From the steps we mapped, I'd put a gate before the send — does that fit?") is encouraged; it's how propose-and-react works. The *Example* line is different: it shows the shape of a good answer, so it must come from someone else's work.
-- **Not sure?** gives a safe default the skill will record (and says it was a default), or one way to find out ("think of the last time you did this — where did you stop and check?"). Never leave a student with no way forward.
+- **Not sure?**, when a question has one, gives the safe default the skill will record and says it was a default. Never leave a student with no way forward: where a question has no *Not sure?* line, the thin-answer recipe is the way forward.
 - Example and Not sure? are shown by default and dropped after "skip the explanations". The student can still ask for them.
 
 ### 4. Terms: defined on first use, paired with the plain meaning
@@ -180,8 +191,12 @@ Every framework skill keeps this shape (existing v8 conventions in `CLAUDE.md` s
 - **Frontmatter:** `name` and `description` only. The description is plain prose in a `>` folded scalar: no XML tags, no `<example>` blocks. It opens "This skill should be used when…", names the trigger phrases students actually type (including "continue my workflow"), and ends "This is Step N (Name) of the AI Workflow Framework."
 - **Body order:** `# Title` → one-paragraph purpose → `## Workflow` (opening instruction, the `> **Registry entry:**` note, then `#### Phase N — Name` sections) → `## Output` or `## Outputs` → `## Guidelines`.
 - **Phases:** `#### Phase N — Name`, or `#### Phase N (goal-driven) — Name`. The docs page's "How the Skill Works" list mirrors them one for one (`scripts/check-framework-consistency.sh`).
-- **Self-contained teaching.** Question blocks, term definitions, and examples are written into each skill. Never point a skill at another skill's file for its teaching: a skill uploaded alone to ChatGPT or M365 Copilot can't reach it.
-- **Size discipline.** Teaching adds words, so pay for them: when a question block goes in, cut the instruction text it replaces (a bare question, a restated rule, a "be clear" reminder). Report each skill's word count before and after (`wc -w`) in the commit message, and explain any growth over 15% across the walkthrough in the PR.
+- **Self-contained teaching.** Question blocks, term definitions, and examples are written into each skill's own folder (its SKILL.md or its own `references/`). Never point a skill at another skill's file for its teaching: a skill uploaded alone to ChatGPT or M365 Copilot can't reach it.
+- **Size limits.** The SKILL.md body stays **under 5,000 tokens and under 500 lines** (the Agent Skills standard, agentskills.io/specification; Anthropic's *Skill authoring best practices* gives the same 500-line limit). Estimate tokens as about 1.3 per word, so roughly 3,800 words. The whole SKILL.md loads when the skill starts and stays in context for the entire interview, so only what every student needs belongs in it.
+- **Reference files for the rest.** Content only some students need (a variant, a template, handling old documents) goes in the skill's own `references/` folder, loaded only when needed. SKILL.md names each reference file and when to read it, one line each. References stay one level deep: a reference file never points on to another file. A reference file over 100 lines starts with a short table of contents.
+- **One skill per framework step.** Don't split a step into several skills: students start a step with one phrase, and skills never sequence each other. When a skill outgrows the limits, move content into reference files instead.
+- **Size discipline.** Teaching adds words, so pay for them: when a teaching line goes in, cut the instruction text it replaces (a bare question, a restated rule, a "be clear" reminder). Report each skill's SKILL.md word count, estimated tokens and line count before and after in the commit message, and explain any growth across the walkthrough in the PR.
+- **Guidance changes.** The limits above were checked against the Agent Skills standard, Anthropic and OpenAI guidance on 2026-10-15. Recheck them before each release review; skill guidance changes as the platforms mature.
 
 ## Before and after: Deconstruct, Phase 7
 
@@ -203,7 +218,9 @@ Every framework skill keeps this shape (existing v8 conventions in `CLAUDE.md` s
 ## Making a fix
 
 A skill's rules are restated in many places, and a fix that changes one copy leaves the others
-contradicting it. Every fix pass does these, in order, before it is committed:
+contradicting it. Every fix pass does these, in order, before it is committed. For a rewrite of a whole skill, write
+its evaluations first (at least three scenarios that show what the skill must get right), following
+Anthropic's evaluation-first guidance, and write only the instructions needed to pass them.
 
 1. **Sweep.** For each rule you change, search for every place that restates it: the skill's
    `SKILL.md` and every file in its `references/`, the other framework skills, the `SCHEMA.md`
@@ -224,12 +241,12 @@ Run this on every edited skill before committing, and across all seven before a 
 
 - [ ] The opening has all five parts and offers "skip the explanations".
 - [ ] Signposts read "Part N of M — name"; no phase number appears in quoted text.
-- [ ] Every question that needs a concept or a new judgment has a full question block; plain factual questions don't.
-- [ ] Every quoted question carries **Ask:**; blocks appear only where the test in Question blocks is met.
+- [ ] Every *Why*, *Example* and *Not sure?* line passes its own test in Question blocks; plain factual questions are just the question.
+- [ ] Every quoted question carries **Ask:**.
 - [ ] The skill tells the model never to show the **Ask:** label to the student.
 - [ ] Every example comes from a different line of work and could not be copied as the student's answer; the example-collision line is present once.
 - [ ] Every *Why* that names a later step has been checked against that step's skill.
-- [ ] Every "Not sure?" gives a default or a way to find out, and defaults are recorded as defaults.
+- [ ] Every *Not sure?* records a default later steps depend on, and defaults are recorded as defaults.
 - [ ] Each framework term is defined on first use, matching the terms table.
 - [ ] The thin-answer recipe is followed; nothing invented is recorded as the student's answer.
 - [ ] The close names what was made, where, what's next, how long, and the exact phrase to start.
@@ -237,7 +254,8 @@ Run this on every edited skill before committing, and across all seven before a 
 - [ ] No playback shows raw file syntax; every multi-level playback labels each level.
 - [ ] No required step is offered as "optional" or one of "options".
 - [ ] The file format matches; `bash scripts/check-framework-consistency.sh` passes.
-- [ ] Word count before and after is reported.
+- [ ] SKILL.md is under 5,000 tokens and 500 lines; content only some students need is in `references/`, one level deep, each named in SKILL.md with when to read it.
+- [ ] Word count, estimated tokens and line count before and after are reported.
 - [ ] Every changed rule was swept across the skill folder, other skills, `SCHEMA.md` copies, and docs.
 - [ ] Every claim about another skill was checked against that skill's file.
 - [ ] An independent review came back clean before the re-run.
@@ -248,7 +266,9 @@ Run this on every edited skill before committing, and across all seven before a 
 |---|---|
 | Telling the model "explain why you're asking" instead of writing the reason | Write the exact *Why* line. An instruction to explain produces seven different explanations. |
 | An example from the student's own field (a sales example in a sales workflow) | Move it to a different line of work. The student will copy it. |
-| A question block on every question | Keep blocks for concepts and new judgments only. |
+| A question block on every question | Test each line on its own: *Why* for a new concept or an unclear use, *Example* for a judgment never made before, *Not sure?* for a default later steps depend on. |
+| A *Why* on a factual question ("Who does this step?") | Cut it. The use is obvious to a capable reader. |
+| Splitting a long skill into several skills | Keep one skill per step; move what only some students need into `references/`. |
 | A teaching paragraph before the question | One-line *Why* with the question; the rest goes in Example and Not sure?. |
 | "Adapt the example to their role" | Write a fixed example from another line of work. An adapted example is the student's answer. |
 | Defining several terms in the opening | Define each term where it first matters. |
