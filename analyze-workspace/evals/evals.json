@@ -65,6 +65,32 @@
         "The close says how many processes were looked at and how to pick up the rest",
         "No question shows the literal \"Ask:\" label"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Run the analyze skill. (Workspace: a registry for a bookkeeping practice with 4 processes, and framework/ai-opportunity-report.md from an earlier Analyze run on the organizational lens. That older report's header has a 'Noted, not walked' row listing 3 processes and no History row. The user says yes to picking up the rest.)",
+      "expected_output": "Offers to pick up the rest in place of the opening, asks the history permission question because the older report has no History row, walks only the 3 processes not looked at, and merges into the existing report, renaming the row to Not looked at yet and keeping the Lens row.",
+      "files": [],
+      "expectations": [
+        "The response does not repeat the full opening; it offers to pick up the rest",
+        "Because the report has no History row, the response asks permission before reading saved memory or past chats",
+        "Only the processes not looked at yet are offered in the process pick",
+        "The existing report is merged into, not renamed; its 'Noted, not walked' row becomes 'Not looked at yet'",
+        "The report's Lens row is unchanged"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Run the analyze skill. (Workspace: no registry. The user is a freelance copywriter. When asked, the user allows the history check; their past chats show they ask for client invoice reminders often, and that a 'Weekly Pitch Tracker' skill they built summarizes their open pitches every Monday, which works well. The user keeps both.)",
+      "expected_output": "Asks the role question first, then permission, shows both items unlabelled, asks no size guess for the running work, and writes a report whose card for the pitch tracker says it already runs and describes what it does today, with no registry writes.",
+      "files": [],
+      "expectations": [
+        "The role question comes before the history permission question",
+        "The response asks permission before reading saved memory or past chats",
+        "No size guess is asked for the Weekly Pitch Tracker work",
+        "The report's card for the pitch tracker says it already runs with the Weekly Pitch Tracker skill, its pain point reads 'None stated — runs well', and How AI helps describes what the skill does today",
+        "No registry files are written"
+      ]
     }
   ]
 }
