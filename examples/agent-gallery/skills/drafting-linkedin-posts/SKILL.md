@@ -5,8 +5,6 @@ description: >
   the user wants to create a LinkedIn post optimized for professional engagement. Produces
   a complete post with hook, body, CTA, and suggested hashtags. Works well when chained
   after extracting-article-insights for content repurposing workflows.
-model: sonnet
-effort: medium
 ---
 
 # Drafting LinkedIn Posts
