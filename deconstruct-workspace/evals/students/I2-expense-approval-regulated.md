@@ -15,7 +15,8 @@ Marcus Webb, Finance Operations manager at Northbank Financial, a regional bank.
 - **Method:** "Check every receipt against its line item, check the amounts against the policy limits, then..." and stop. When asked what comes after: "I don't know the rest exactly." Say yes to the AI proposing the rest; accept its proposal but correct one step if it invents an approval chain you don't have.
 - **Who does what:** the controller approves anything over $5,000.
 - **Fixed steps:** receipt matching (regulation). When later asked which steps the regulation requires: receipt matching and the over-$5,000 controller approval.
-- **Decisions:** over $5,000 goes to the controller; otherwise the analyst approves. What decides it: the report total, a number. The AI reads amounts from scanned receipts.
+- **Decisions:** over $5,000 goes to the controller; otherwise the analyst approves.
+- **What decides it** (only when asked): the report total, a number. The AI reads amounts from scanned receipts.
 - **Which decisions must a person make or approve:** the over-$5,000 approval.
 - **Range:** typical: a 6-line travel report with hotel and meals. Awkward: a foreign-currency receipt with a handwritten tip.
 - **Expertise:** "A beginner approves a hotel bill without checking for the minibar line."

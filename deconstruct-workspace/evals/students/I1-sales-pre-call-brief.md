@@ -9,7 +9,8 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 - **Trigger and deliverable:** a scoping call is booked in your calendar; you want a one-page brief.
 - **Law or regulation:** no.
 - **A real past output:** yes. When asked, paste this (made-up details): "Brief — Halvorsen Logistics, call 14 Oct. Hypothesis: they took the call because their new COO wants a carrier-cost review before Q1 budgets. Person: Ingrid Moss, COO since July (LinkedIn); posted last week about 'freight spend visibility'. Likely priorities: carrier costs, on-time rates, a reporting tool their ops team will use. Sources: LinkedIn, Halvorsen press release 3 Sept, our CRM notes." You started from the calendar invite and the CRM record.
-- **What a good one looks like:** "Something I can read in five minutes that tells me why they're talking to us and what they care about." You use it to plan your questions for the call.
+- **What a good one looks like:** "Something I can read in five minutes that tells me why they're talking to us and what they care about."
+- **What you do with it next** (only when asked): you use it to plan your questions for the call.
 - **Who / form / when:** for you; one page; ready the day before the call.
 - **Done or not done:** it opens with a guess about why they took the call; every fact says where it came from; it names the person's role and something they said recently; it gives two or three likely priorities; it fits on one page. If asked about a vague word ("engaging" if you used it): "it gives me a question I wouldn't have thought of."
 - **Send back:** the hypothesis missing, or a fact with no source. You also volunteer: "and it must never name another client of ours."
@@ -18,7 +19,8 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 - **Who does what:** you read it and add questions; everything else the AI can do.
 - **Fixed steps:** checking the CRM for past contact must always happen (reason: company policy, "we never pitch someone we've already pitched without knowing").
 - **Review point:** yes, you read it before the call; that's your review.
-- **Decisions:** "if we've worked with them before, I lead with that; otherwise I lead with the hypothesis". What decides it: whether the CRM shows past work, a fact you could look up.
+- **Decisions:** "if we've worked with them before, I lead with that; otherwise I lead with the hypothesis".
+- **What decides it** (only when asked): whether the CRM shows past work, a fact you could look up.
 - **Range:** typical: a mid-size company with a public COO. Awkward: a tiny startup with no press and a founder with no LinkedIn.
 - **Expertise:** "A beginner summarises the company's About page. I look for what changed recently: a new hire, a funding round, a complaint."
 - **Live writes:** it only drafts for you; it doesn't send anything.

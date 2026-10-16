@@ -10,7 +10,8 @@ Maya R., program manager for a software delivery team. Practical, a little press
 - **Name:** when the AI suggests or asks for a name, rename it: "Call it Monthly Risk Register. It's monthly, and 'program' confuses people here."
 - **Law or regulation:** no.
 - **A real past output:** no, not one you were happy with.
-- **What a good one looks like:** "Every open risk, each with an owner and a status the steering group recognises." What you do with it next: you send it to the steering group the day before the meeting.
+- **What a good one looks like:** "Every open risk, each with an owner and a status the steering group recognises."
+- **What you do with it next** (only when asked): you send it to the steering group the day before the meeting.
 - **Who / form / when:** for the steering group; a table, one row per risk; ready the day before the steering meeting.
 - **Done or not done:** every open risk in the tracker appears; every risk names an owner; each risk has a status from the steering group's list (open, mitigating, closed). Send back: a risk with no owner, or a missing open risk.
 

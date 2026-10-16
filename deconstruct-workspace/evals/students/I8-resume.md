@@ -16,7 +16,8 @@ Maya R., program manager for a software delivery team. You stopped partway throu
 - **Who does what:** you check it; the rest the AI can do.
 - **Fixed steps:** matching each risk to an owner must always happen (reason: company policy, "no orphan risks go to the steering group").
 - **Review point:** yes, your check before it goes out.
-- **Decisions:** "if a risk has had no comment in 60 days, I ask its owner whether it's still open". What decides it: the date of the last comment, a number.
+- **Decisions:** "if a risk has had no comment in 60 days, I ask its owner whether it's still open".
+- **What decides it** (only when asked): the date of the last comment, a number.
 - **Range:** typical: 12 risks across 3 programs. Awkward: two comments describing the same risk in different words, one of them from a former team member.
 - **Expertise:** "A beginner copies every comment tagged 'risk', including ones that were closed in a later comment."
 - **Live writes:** no, it drafts; you send it.

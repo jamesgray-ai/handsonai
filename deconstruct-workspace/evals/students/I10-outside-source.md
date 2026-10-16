@@ -9,14 +9,16 @@ Tomás Ferreira, support lead at Quillstack, a project-management software compa
 - **Trigger and deliverable:** a customer email arrives in the support inbox; out comes a ticket with a category, a priority and a draft first reply for an agent.
 - **Law or regulation:** no.
 - **A real past output:** yes. When asked, paste this (made-up details): "Ticket #20831. Category: Billing. Priority: High (customer can't log in after a failed payment). Draft reply: 'Hi Jo, sorry about this. Your account was paused after the card payment failed on the 3rd. I've sent a link to update the card; once it's done you'll be straight back in. — Quillstack Support'." You started from the customer's email.
-- **What a good one looks like:** "The right category and priority, and a reply an agent can send with one read." What you do with it next: an agent checks it and sends the reply.
+- **What a good one looks like:** "The right category and priority, and a reply an agent can send with one read."
+- **What you do with it next** (only when asked): an agent checks it and sends the reply.
 - **Who / form / when:** for the on-shift agent; a ticket with three fields and a reply under 120 words; ready within 10 minutes of the email arriving.
 - **Done or not done:** the category is one of our six; the priority follows our rules (anything blocking login or payment is High); the reply names the customer's actual problem; it never promises a refund. Send back: a wrong priority.
 - **Method:** "Read the email, work out what the customer is actually asking, pick the category, set the priority by our rules, then draft the reply from our saved replies." After that: "then the agent checks it and sends it." Today you do it the same way.
 - **Who does what:** the on-shift agent checks and sends the reply; the rest the AI can do.
 - **Fixed steps:** setting the priority by the written rules must always happen (reason: company policy).
 - **Review point:** yes, the agent's check before sending.
-- **Decisions:** "if the email mentions login or payment, it's High; otherwise Normal". What decides it: words in the email, a rule you could write down.
+- **Decisions:** "if the email mentions login or payment, it's High; otherwise Normal".
+- **What decides it** (only when asked): words in the email, a rule you could write down.
 - **Range:** typical: a customer asking how to export a project. Awkward: an angry email that mixes two problems.
 - **Expertise:** "A beginner answers the question asked. I answer the problem behind it."
 - **Live writes:** it creates the ticket in Zendesk. It never sends the reply itself.

@@ -9,14 +9,16 @@ Hana Sato, sales operations manager at Ferncastle Analytics. Knows the systems w
 - **Trigger and deliverable:** a demo request form is submitted; out comes a lead in HubSpot with an owner, and an alert in Slack.
 - **Law or regulation:** no.
 - **A real past output:** no.
-- **What a good one looks like:** "The right rep has the lead, with the company details filled in, within five minutes." What you do with it next: nothing; the rep picks it up.
+- **What a good one looks like:** "The right rep has the lead, with the company details filled in, within five minutes."
+- **What you do with it next** (only when asked): nothing; the rep picks it up.
 - **Who / form / when:** for the sales rep who owns the territory; a HubSpot contact record and one Slack message; within five minutes of the form.
 - **Done or not done:** the contact has company size and country filled in; the owner matches the territory table; the Slack message names the rep and links the record; no duplicate contact is created. Send back: a lead given to the wrong rep.
 - **Method:** "Take the form, look up the company on Clearbit, create the HubSpot contact or update it if it already exists, assign the owner by territory, then post the lead in the #new-leads Slack channel." That's the whole thing. Today you do it the same way, by hand.
 - **Who does what:** none of the steps; no person does any of it.
 - **Fixed steps:** checking for an existing contact before creating one must always happen (reason: a check, "duplicates wreck the reps' reports").
 - **Review point:** none.
-- **Decisions:** "the owner comes from the territory table: the lead's country decides the rep". What decides it: the country field, a value in the form.
+- **Decisions:** "the owner comes from the territory table: the lead's country decides the rep".
+- **What decides it** (only when asked): the country field, a value in the form.
 - **Range:** typical: a 200-person company in Germany. Awkward: a personal Gmail address with no company name.
 - **Expertise:** "A beginner trusts the company name people type. I go by the email domain."
 - **Live writes:** when the AI lists what it writes to and asks if there's anything else, say: "It also sends the lead a confirmation email from HubSpot." When asked which step does that, say "right after the contact is created".

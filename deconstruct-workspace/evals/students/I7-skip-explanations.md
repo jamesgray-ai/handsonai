@@ -10,14 +10,16 @@ Maya R., program manager for a software delivery team. You've been through this 
 - **Name:** keep "Onboarding Checklist Drafting".
 - **Law or regulation:** no.
 - **A real past output:** yes. When asked, paste this (made-up details): "Kickoff checklist — Program Falcon. Week 0: confirm scope sign-off; book kickoff with sponsor; create tracker board; add team (4 engineers, 1 designer). Week 1: access to staging; first status report date; risk log opened; stakeholder map drafted." You started from the signed scope document and the team list.
-- **What a good one looks like:** "A checklist I only have to tweak, with nothing missing for the first two weeks." What you do with it next: you adjust it and share it with the team at kickoff.
+- **What a good one looks like:** "A checklist I only have to tweak, with nothing missing for the first two weeks."
+- **What you do with it next** (only when asked): you adjust it and share it with the team at kickoff.
 - **Who / form / when:** for you; a one-page checklist grouped by week; ready two days before kickoff.
 - **Done or not done:** it covers weeks 0 and 1; every item has an owner role; it includes access requests for every system in the scope; it has the first status report date. Send back: a missing access request.
 - **Method:** "Read the scope, list the systems and people in it, pull the standard items from our template, add an access request per system, then group it by week." After that: "then I review it and adjust." Today you do it the same way.
 - **Who does what:** you review and adjust; the rest the AI can do.
 - **Fixed steps:** the access request per system must always happen (reason: company policy).
 - **Review point:** yes, your review before it's shared.
-- **Decisions:** "if the program has a client-facing part, add the client kickoff items; otherwise leave them out". What decides it: whether the scope lists a client contact, a fact you can look up.
+- **Decisions:** "if the program has a client-facing part, add the client kickoff items; otherwise leave them out".
+- **What decides it** (only when asked): whether the scope lists a client contact, a fact you can look up.
 - **Range:** typical: an internal program with 5 people and 3 systems. Awkward: a client program with a vague scope and no team list yet.
 - **Expertise:** "A beginner forgets access to the client's systems, which takes the longest to get."
 - **Live writes:** no, it only drafts.
