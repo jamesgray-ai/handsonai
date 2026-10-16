@@ -1,0 +1,60 @@
+{
+  "skill_name": "design",
+  "how_to_run": "Run after the matching Deconstruct eval has produced its workspace; grade with deconstruct-workspace/evals/grade-eval.sh. D3 needs no Deconstruct run.",
+  "evals": [
+    {
+      "id": "D1",
+      "name": "new-format-plan",
+      "source": "deconstruct-redesign.md sections 4 and 5 (Design)",
+      "fixture": "the saved workspace from Deconstruct eval I1 (sales pre-call brief)",
+      "prompt": "Run the design skill.",
+      "expected_output": "A Design Plan with plan_version 4.0, autonomy and decomposition in frontmatter, a coverage table, and the node link titled Design plan.",
+      "files": [
+        "../../deconstruct-workspace/evals/evals.json"
+      ],
+      "expectations": [
+        "The opening includes \"Design decides how your workflow will be built: which AI building blocks it uses and how much it works out on its own.\"",
+        "Design writes `framework/[name]/design-plan.md` (not `design-spec.md`) with frontmatter `plan_version: 4.0`, `approved: false`, `autonomy:` (lowercase) and `decomposition: steps`, and no `definition_type`",
+        "The plan has a coverage table: each building block lists the labels it delivers, and every Step, D, I, W, R and G label in `requirements.md` appears in it",
+        "The fixed (policy) CRM step is kept unchanged and is not Autonomous",
+        "Involvement is Augmented because `Runs: with you`",
+        "Tools come from the step lines' `uses` tags; a `(you)` step maps to Human",
+        "The Workflow node's `# Artifacts` link is titled \"Design plan\" and the node's `autonomy:` matches the plan"
+      ]
+    },
+    {
+      "id": "D2",
+      "name": "regulated-plan",
+      "source": "deconstruct-redesign.md section 4 (R2-1, R4-5, R2-1b, R5-8)",
+      "fixture": "the saved workspace from Deconstruct eval I2 (regulated expense approval)",
+      "prompt": "Run the design skill.",
+      "expected_output": "Regulation binds through fixed steps and gates; a fixed step is never Autonomous; Autonomous regulated work gets a per-run record; the risky combination is flagged.",
+      "files": [
+        "../../deconstruct-workspace/evals/evals.json"
+      ],
+      "expectations": [
+        "Every `fixed (regulation)` step is kept unchanged and is never Autonomous (it may be Guided when the AI judges by the student's criteria)",
+        "The value-read decision stays Deterministic, and the plan names a separate reading check keyed `D1 reading`",
+        "The over-$5,000 gate is a human gate in the plan; Design's self-check confirms the level respects every R, G, fixed step and the `Runs:` line",
+        "If Design chooses Autonomous for any step, it tells the student why in plain words and the plan includes a record of what the AI did on each run",
+        "Variant (edit the requirements to `Runs: without you` and remove the analyst gate): with W1 present and an Autonomous plan, Design names the risky combination and asks the student to add a gate before the write or accept the risk",
+        "Variant (`Governing regime: Not sure — to check`): Design asks the student to confirm before choosing Autonomous"
+      ]
+    },
+    {
+      "id": "D3",
+      "name": "old-formats-still-design",
+      "source": "deconstruct-redesign.md section 6",
+      "fixture": "examples/weekly-status-report (old step-driven) and an old goal-driven requirements file",
+      "prompt": "Run the design skill.",
+      "expected_output": "Old step-driven files run today's path; old goal-driven files are treated as decomposition: domains.",
+      "files": [],
+      "expectations": [
+        "Old step-driven file: Design runs today's path, using `External Action` for the write check, and writes `design-plan.md`; an existing `design-spec.md` is renamed `design-spec-YYYY-MM-DD.md` and the node link becomes \"Design plan\"",
+        "Old goal-driven file: Design treats it as `decomposition: domains`, reads `goal-driven-path.md`, and stays Autonomous",
+        "A file with no `## Path` and none of the old markers: Design asks rather than assumes",
+        "With no `Runs:` line, involvement falls back to today's gates rule"
+      ]
+    }
+  ]
+}

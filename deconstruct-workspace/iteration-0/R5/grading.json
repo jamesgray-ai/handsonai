@@ -1,0 +1,29 @@
+{
+  "expectations": [
+    {
+      "text": "Session 1 (Build): the AI says Deconstruct is unfinished for Monthly Risk Register (or Program Risk Register) and routes to Deconstruct; it builds nothing",
+      "passed": false,
+      "evidence": "Session 1 never mentions Monthly Risk Register, Program Risk Register or Deconstruct. It starts a fix pass on Weekly Status Report ('Phase 1 of 5 in this fix pass'), proposes edits to C2, C3, S2 and S1, and asks for confirmation before regenerating. It does not route to Deconstruct."
+    },
+    {
+      "text": "Session 2 (Design): the same, and it writes no Design Plan",
+      "passed": true,
+      "evidence": "The table says: 'Monthly Risk Register (was \"Program Risk Register\") | Deconstruct is half done. It stopped before Part 4 ... Design can't start without one. | Deconstruct'. It also says 'My recommendation is to finish Deconstruct for the Monthly Risk Register.' 'Files the run touched' is empty, so no Design Plan was written."
+    },
+    {
+      "text": "Session 3 (Deconstruct): the first AI message uses the resume line (\"Last time we covered [Parts 1 to N]; I noted [short summary].\") naming Parts 1 to 3, then the Part 4 signpost; it does not say the opening and does not show the backlog choice",
+      "passed": false,
+      "evidence": "The first message is the full opening: 'Here's the plan for this conversation... It has five parts'. It then shows the backlog list ('Process: Program Delivery' 1–3) and asks 'Which workflow from your backlog do you want to map?'. There is no 'Last time we covered' line and no Part 4 signpost."
+    },
+    {
+      "text": "Session 3 merges into `registry/workflows/program-risk-register.md` (the progress file's `Workflow node:`), not a new node",
+      "passed": false,
+      "evidence": "Not reached. Session 3 stopped at the backlog choice, and 'Files the run touched' is empty."
+    },
+    {
+      "text": "Passes after: Task 3 (session 3), Tasks 7 and 8 (sessions 1–2)",
+      "passed": false,
+      "evidence": "Session 3 fails expectation 3, and session 1 fails expectation 1 because Build never routes to Deconstruct. Only session 2 behaves as expected."
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "expectations": [
+    {
+      "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+      "passed": false,
+      "evidence": "The first AI message begins \"This is the most thorough conversation in the framework. It takes about 45–60 minutes...\". Neither the spec opening sentence nor the switch line appears."
+    },
+    {
+      "text": "Each part opens with \"Part N of 5\" and its name (Part 1 What this is worth … Part 5 Rules, where you check or approve its work, the sources it uses, and how you'll judge it), and no part announces its own time",
+      "passed": false,
+      "evidence": "Parts 1–3 open as \"Part 1 of 5: what this is worth.\", \"Part 2 of 5: scope and a name.\" and \"Part 3 of 5: mapping how the work gets done.\" Parts 4 and 5 were not reached. The overview names Part 5 \"How you'll judge the output\", which is not the spec name."
+    },
+    {
+      "text": "Every AI message asks at most one question (a draft message ending \"What's wrong or missing?\" counts as one)",
+      "passed": false,
+      "evidence": "The Step 1 message asks \"what information comes with the booking?\" and also \"where does the booking come from...?\". The Step 2 message asks \"Which CRM is it?\" and also \"What's right, what's wrong, and what am I missing?\""
+    },
+    {
+      "text": "The label \"Ask:\" never appears in any AI message",
+      "passed": true,
+      "evidence": "No AI message in the transcript contains \"Ask:\"."
+    },
+    {
+      "text": "The words step-driven and goal-driven never appear in any AI message, and the AI never asks the student to choose a path type",
+      "passed": false,
+      "evidence": "The AI says \"this sounds **step-driven**\", explains \"The other path, **goal-driven**...\" and asks \"Shall we go step-driven?\""
+    },
+    {
+      "text": "`requirements.md` has these sections in this order: ...",
+      "passed": false,
+      "evidence": "not reached. The run stopped at the turn cap during Part 3 and no files were written."
+    },
+    {
+      "text": "`## Human Gates` opens with the line `Runs: with you` or `Runs: without you`",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "`## Security, Privacy & Safety` contains the line `Governing regime: …` before a `### Writes` heading; ...",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "Every line under `## Path` that is a step is written `- Step N — [Name] · produces …` with a `fixed (…)` or `flexible` mark, tags in the spec's order",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "`framework/[name]/deconstruct-in-progress.md` existed during the interview (after Part 2) and is deleted once `requirements.md` is written",
+      "passed": false,
+      "evidence": "The run touched no files, so no in-progress file was created after Part 2."
+    },
+    {
+      "text": "The close says \"Workflow Requirements saved to `framework/[name]/requirements.md`.\" with the counts, names Step 3 Design and \"run the design skill\", and mentions `/design`",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "The Workflow node has `status: under-development`, links `[Requirements](framework/[name]/requirements.md)` in `# Artifacts`, and has no `definition_type` written by this run",
+      "passed": false,
+      "evidence": "not reached. No files were touched."
+    },
+    {
+      "text": "Phase 1 asks \"Which workflow from your backlog do you want to map?\" with today's Why and Not sure? lines, and the Why does not mention step-driven",
+      "passed": true,
+      "evidence": "The first message asks \"**Which workflow from your backlog do you want to map?**\" with a \"Why it matters:\" line (\"For your first one, pick something small...\") and a \"Not sure?\" line. Neither mentions step-driven."
+    },
+    {
+      "text": "Part 2's last question is \"Is there a law or regulation that governs this work?\"; after \"no\", no detail table and no regulation questions appear",
+      "passed": false,
+      "evidence": "Part 2 covered scope and the name, then went straight to Part 3. The law/regulation question was never asked."
+    },
+    {
+      "text": "Part 3 shows the recipe by name: \"We'll shape this in three steps: say it, sharpen it, make it checkable.\"",
+      "passed": false,
+      "evidence": "Part 3 starts with \"You named four steps...\" and mapping. The recipe line does not appear."
+    },
+    {
+      "text": "The goal sentence played back has no \"containing\" blank, and a second playback after the send-back test begins \"Here's your goal now:\"",
+      "passed": false,
+      "evidence": "not reached. No goal sentence was played back."
+    },
+    {
+      "text": "`## Acceptance Criteria` uses the form `1. **AC1 (must)** — …` with one or two (must) checks and a `Reference example:` line naming the real output's C# ID",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "\"never name another client\" is recorded as a Must never rule in `## Rules & Constraints`, not as an acceptance criterion",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "The AI asks \"What comes after that?\" after the student's method stops, then \"Is that how you do it today, or is it different?\", then asks \"Today you also … Should that stay?\" about the LinkedIn-notes workaround",
+      "passed": false,
+      "evidence": "None of these questions appear. The AI mapped the steps one at a time and only flagged LinkedIn for Design."
+    },
+    {
+      "text": "The CRM-check step is recorded as `fixed (policy)`",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "Decision line D1 is recorded with `settled by: a rule on a value`",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "Part 5 is delivered as four draft messages: ...",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "The test inputs are saved as `framework/[name]/inputs/E<n>-<short-name>.md`, numbered from E1, with E1 the input behind the Golden Example",
+      "passed": false,
+      "evidence": "not reached"
+    }
+  ]
+}
