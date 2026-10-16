@@ -36,6 +36,7 @@ HISTORY_MARKER = "HANDSONAI-EVAL-FAKE-HISTORY-7731"
 SKILL_TOOLS = ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "Skill"]
 AGENT_TOOLS = SKILL_TOOLS + ["Agent"]
 NO_FILE_TOOLS = ["Read", "Glob", "Grep", "Skill"]   # NF1: no Write, Edit or Bash
+WEB_TOOLS = SKILL_TOOLS + ["WebSearch", "WebFetch"]  # running a built workflow that researches (G2)
 
 DENY_SETTINGS = {"permissions": {"deny": [
     "Bash(claude plugin:*)", "Bash(claude plugin *)", "Bash(claude mcp:*)", "Bash(claude mcp *)",

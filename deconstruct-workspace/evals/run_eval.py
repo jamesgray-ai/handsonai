@@ -31,7 +31,8 @@ session included; otherwise the first session builds the eval's `fixture`; a lat
 (keep the workspace as it is) or `fixture_from: <path>` (copy a copied-back session snapshot;
 relative paths resolve from the evals.json folder). Fixture names: see build_fixture. `agent: true` (eval or session) starts the
 session on the plugin's framework-agent. `student: true` plays the eval's script; `student: "<path>"`
-plays that session's own script (the chain eval C1). `tools: "no_file"` turns off Write, Edit and Bash (NF1).
+plays that session's own script (the chain eval C1). `tools: "no_file"` turns off Write, Edit and Bash (NF1); `tools: "web"` adds WebSearch and WebFetch
+(running a built workflow that researches, G2).
 """
 import argparse
 import concurrent.futures as cf
@@ -60,7 +61,8 @@ Rules:
   autonomy, Golden Example) unless the AI used it first.
 - Do each provocation the script lists (rambling, answering two questions at once, asking a question back,
   contradicting yourself) exactly where the script says, and nowhere else.
-- Otherwise answer what the AI's last message asks, the way the person in the script would.
+- Otherwise answer only what the AI's last message asks, the way the person in the script would. Don't volunteer
+  a fact the AI hasn't asked for yet unless the script tells you to volunteer it; save it for when it's asked.
 - If the script's stop condition is met, reply exactly END.
 
 SCRIPT:
@@ -103,6 +105,8 @@ def tools_for(ev, s):
     kind = s.get("tools", ev.get("tools"))
     if kind == "no_file":
         return H.NO_FILE_TOOLS
+    if kind == "web":
+        return H.WEB_TOOLS
     if kind == "agent" or s.get("agent", ev.get("agent")):
         return H.AGENT_TOOLS
     return H.SKILL_TOOLS
