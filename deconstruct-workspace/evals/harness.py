@@ -227,7 +227,9 @@ def check_init(rnd, role, init, root, tools, cwd, plugin):
         bad.append(f"mcp_servers {init.get('mcp_servers')}")
     if init.get("apiKeySource") not in ("none", None):
         bad.append(f"apiKeySource {init.get('apiKeySource')}")
-    if sorted(init.get("tools") or []) != sorted(tools):
+    # The pinned CLI reports the subagent tool by its older name, Task, when --tools asks for Agent.
+    alias = {"Task": "Agent"}
+    if sorted(alias.get(t, t) for t in init.get("tools") or []) != sorted(tools):
         bad.append(f"tools {init.get('tools')} != {tools}")
     home = real(root / "home")
     for k, v in (init.get("memory_paths") or {}).items():
