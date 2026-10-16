@@ -510,6 +510,194 @@
       "runs": 3
     },
     {
+      "id": "D2a-autonomous",
+      "name": "regulated-without-you-most-freedom",
+      "source": "deconstruct-redesign.md section 4 (R2-1, R2-1b, R4-5)",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-without-you",
+      "student": "../../deconstruct-workspace/evals/students/design-student-autonomous.md",
+      "prompt": "Run the design skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/design-student-autonomous.md",
+        "../../deconstruct-workspace/evals/fixtures/new-format/expenses-without-you"
+      ],
+      "expected_output": "D2a's fixture with a student who asks for the most freedom Design allows wherever it offers a choice. No fixed step becomes Autonomous; D1 stays Deterministic; if any step is Autonomous, Design explains why for this regulated work, adds a per-run record of what the AI did, and raises the risky combination (Autonomous, `Runs: without you`, live write W1); the student accepts the risk explicitly, so no gate is added before W1. Involvement stays Augmented because of the controller gate.",
+      "preconditions": [
+        "When Design offered a choice about how much the AI works out on its own, the student chose the option giving the AI the most freedom.",
+        "When the AI pointed out a risk and asked to add a check or accept it, the student accepted the risk explicitly.",
+        "When the AI asked for approval, the student approved."
+      ],
+      "expectations": [
+        {
+          "text": "The opening includes Design's new line",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Design decides how your workflow will be built: which AI building blocks it uses and how much it works out on its own.",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "Design writes `design-plan.md`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "framework/expense-report-approval/design-plan.md"
+          }
+        },
+        {
+          "text": "Design writes `design-plan.md` with `plan_version: 4.0`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/design-plan.md",
+            "pattern": "^plan_version: 4\\.0\\s*$"
+          }
+        },
+        {
+          "text": "The plan's frontmatter says `approved: true`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/design-plan.md",
+            "pattern": "^approved: true\\s*$"
+          }
+        },
+        {
+          "text": "The plan records `decomposition: steps`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/design-plan.md",
+            "pattern": "^decomposition: steps\\s*$"
+          }
+        },
+        {
+          "text": "The plan records one lowercase `autonomy:` level",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/design-plan.md",
+            "pattern": "^autonomy: (deterministic|guided|autonomous)\\s*$"
+          }
+        },
+        {
+          "text": "The plan has no `definition_type` field (retired)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "framework/expense-report-approval/design-plan.md",
+            "pattern": "^definition_type:"
+          }
+        },
+        {
+          "text": "The plan has a coverage table (a heading naming coverage)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/design-plan.md",
+            "pattern": "^#+ .*[Cc]overage"
+          }
+        },
+        {
+          "text": "Involvement is `Augmented`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/design-plan.md",
+            "pattern": "^involvement: Augmented\\s*$"
+          }
+        },
+        {
+          "text": "After approval the Workflow node links the plan under `# Artifacts` with the title \"Design plan\"",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "registry/workflows/expense-report-approval.md",
+            "pattern": "^- \\[Design plan\\]\\(framework/expense-report-approval/design-plan\\.md\\)"
+          }
+        },
+        {
+          "text": "The node has no \"Design spec\" link",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "registry/workflows/expense-report-approval.md",
+            "pattern": "\\[Design spec\\]\\("
+          }
+        },
+        {
+          "text": "The node records a lowercase `autonomy:` level",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "registry/workflows/expense-report-approval.md",
+            "pattern": "^autonomy: (deterministic|guided|autonomous)\\s*$"
+          }
+        },
+        {
+          "text": "The node records `execution_mode`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "registry/workflows/expense-report-approval.md",
+            "pattern": "^execution_mode: (manual|augmented|automated)\\s*$"
+          }
+        },
+        {
+          "text": "Design leaves `requirements.md` unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/expense-report-approval/requirements.md"
+          }
+        },
+        {
+          "text": "Both `fixed (regulation)` steps (Step 1, receipt matching; Step 4, controller approval over $5,000) are kept unchanged: same order, same rule, nothing merged into another step",
+          "kind": "judged"
+        },
+        {
+          "text": "D1 (`settled by: a rule on a value · value read by AI`) stays Deterministic, and the plan names a separate check of the AI's reading of the value, keyed `D1 reading`",
+          "kind": "judged"
+        },
+        {
+          "text": "Involvement is Augmented, not Automated: `Runs: without you`, but the controller still performs a human gate (G1)",
+          "kind": "judged"
+        },
+        {
+          "text": "Design never resolves a conflict between its choice and a rule, gate, fixed step or the `Runs:` line silently: any conflict is put to the student",
+          "kind": "judged"
+        },
+        {
+          "text": "No fixed step is Autonomous even though the student asked for the most freedom: Step 1 (fixed, done by the AI) is Guided at most, and Guided only where the AI judges by the student's criteria (R4-5); Step 4 stays the controller's",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "Design gives each step the least autonomy that does its job, and the plan's `autonomy:` label is its most autonomous step's level",
+          "kind": "judged"
+        },
+        {
+          "text": "Asked for the most freedom wherever it offers a choice, Design either makes at least one flexible AI step (Step 2, 5 or 6) Autonomous, or tells the student in plain words why no step can be",
+          "kind": "judged"
+        },
+        {
+          "text": "If Design chooses Autonomous for any step of this regulated work (SOX), it tells the student why in plain words, and the plan includes a record of what the AI did on each run (R2-1)",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "If the plan makes any step Autonomous: with `Runs: without you` and the live write W1 (posting the decision to Concur), Design says so in plain words and asks the student to add a gate before the write or accept the risk explicitly (R2-1b). If nothing is Autonomous, Design does not raise this",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "After the student accepts the risk explicitly, Design adds no gate before W1 and does not lower the step's level on its own; the acceptance comes from the student's answer, never assumed",
+          "kind": "judged"
+        }
+      ],
+      "runs": 3
+    },
+    {
       "id": "D2b",
       "name": "regime-not-sure",
       "source": "deconstruct-redesign.md section 4 (R2-1)",

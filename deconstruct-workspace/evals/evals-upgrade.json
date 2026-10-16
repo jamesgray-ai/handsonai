@@ -579,15 +579,12 @@
       "sessions": [
         {
           "prompt": "Run the deconstruct skill. Continue my workflow.",
-          "replies": [
-            "Weekly Status Report. If you need to move my files, yes, go ahead.",
-            "Yes, run the improve skill.",
-            "Yes, go ahead."
-          ]
+          "student": "students/upgrade-student.md"
         }
       ],
       "expected_output": "The pre-9.0 move routine (registry-bundle.md, 'Moving a pre-9.0 record out of outputs/') runs after one ask: every record file moves to `framework/weekly-status-report/` (skill/ → skills/), the opportunity report to `framework/`, links are rewritten in every node, the status reports stay. Then the Improve message (the workflow is in production).",
       "files": [
+        "students/upgrade-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x"
       ],
@@ -1022,6 +1019,9 @@
           "text": "If Improve starts after \"run the improve skill\", it reads the moved run log and the Ready baseline (`framework/weekly-status-report/test-results-2026-06-08.md`) from `framework/`",
           "kind": "judged"
         }
+      ],
+      "preconditions": [
+        "When the AI asked before moving the files, the student said yes."
       ]
     },
     {
@@ -1032,21 +1032,22 @@
       "sessions": [
         {
           "prompt": "Run the deconstruct skill. Continue my workflow.",
-          "replies": [
-            "Weekly Status Report."
-          ]
+          "student": "students/upgrade-student.md"
         },
         {
           "prompt": "Run the run skill for Weekly Status Report.",
-          "from_previous": true
+          "from_previous": true,
+          "student": "students/upgrade-student.md"
         },
         {
           "prompt": "Run the run skill. Here's this Friday's run from the run chat:\n\n# Weekly Status Report — 2026-10-16\n\n## Wins\n- Invoice export shipped to staging.\n- Order history migration complete.\n\n## In Progress\n- Offline mode: two of three screens built.\n- Dashboard redesign in review.\n\n## Blockers\n- Tax calculation — Tomás — waiting on the new rate table from Dana, due Tuesday.\n\n## Risks\n- Offline mode may slip a week if the sync library upgrade drags.\n\n## Next Week\n- Land the rate table; start offline-mode testing.\n\nWhat I did: pulled 8 updated tasks from the Q2 Delivery Tracker, drafted the report, paused and showed you the draft — you approved it as-is — and saved it to outputs/weekly-status-report/status-report-2026-10-16.md.\n\nLog this run.",
-          "from_previous": true
+          "from_previous": true,
+          "student": "students/upgrade-student.md"
         }
       ],
       "expected_output": "Session 1: the Improve message, as the node's status says. Session 2: Run reads the 9.1 Run Card, shows how to start the live workflow and routes to Improve (review overdue). Session 3: Run logs a later run as one appended `runs.md` row. No 9.1 file loses content.",
       "files": [
+        "students/upgrade-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x"
       ],

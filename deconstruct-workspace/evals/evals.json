@@ -2070,6 +2070,345 @@
       ]
     },
     {
+      "id": "I5-none",
+      "name": "no-method-insist-on-none",
+      "kind": "interview",
+      "runs": 3,
+      "fixture": "winstory",
+      "student": "students/I5-insist-on-none.md",
+      "prompt": "Run the deconstruct skill for Customer Win Story.",
+      "expected_output": "The AI proposes the whole path and asks which steps the student insists on in place of the fixed-or-flexible question; on \"Insist on none for now\" (the Not sure? answer, DECIDED R2-2) every proposed step stays flexible and keeps `· proposed by AI`, and `Path: proposed by AI` stays.",
+      "files": [
+        "students/I5-insist-on-none.md"
+      ],
+      "preconditions": [
+        "When the AI asked \"Which of these would you insist on?\", the student answered \"Insist on none for now\" and insisted on no step"
+      ],
+      "expectations": [
+        {
+          "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements, saved to ",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Stopping early is safe: progress is saved, and 'continue my workflow' picks up where we left off.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+                "turn": "first"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Each part opens with \"Part N of 5\", Part 1 to Part 5 in order",
+          "kind": "scripted",
+          "check": {
+            "type": "signposts"
+          }
+        },
+        {
+          "text": "No part announces its own time (no minutes on a \"Part N of 5\" line)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)Part [1-5] of 5[^\\n]*\\bminutes?\\b"
+          }
+        },
+        {
+          "text": "Every AI message asks at most one question (a draft message ending \"What's wrong or missing?\" counts as one)",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The label \"Ask:\" never appears in any AI message",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_contains",
+            "text": "Ask:"
+          }
+        },
+        {
+          "text": "The words step-driven and goal-driven never appear in any AI message",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)step-driven|goal-driven"
+          }
+        },
+        {
+          "text": "The AI never asks the student to choose a path type (steps versus goal)",
+          "kind": "judged"
+        },
+        {
+          "text": "`requirements.md` has the 12 sections of spec section 4a in this order and no others: `# [Name] — Workflow Requirements`, `## Goal`, `## Value & Measurement`, `## Metadata`, `## Path`, `## Inputs`, `## Context Inventory`, `## Acceptance Criteria`, `## Example Scenarios`, `## Rules & Constraints`, `## Human Gates`, `## Security, Privacy & Safety` (so no `## Sequence` and no `## Optimization Notes`)",
+          "kind": "scripted",
+          "check": {
+            "type": "sections_in_order",
+            "path": "framework/*/requirements.md",
+            "headings": [
+              "# * - Workflow Requirements",
+              "## Goal",
+              "## Value & Measurement",
+              "## Metadata",
+              "## Path",
+              "## Inputs",
+              "## Context Inventory",
+              "## Acceptance Criteria",
+              "## Example Scenarios",
+              "## Rules & Constraints",
+              "## Human Gates",
+              "## Security, Privacy & Safety"
+            ],
+            "only": true
+          }
+        },
+        {
+          "text": "`requirements.md` has no YAML frontmatter",
+          "kind": "scripted",
+          "check": {
+            "type": "no_yaml",
+            "path": "framework/*/requirements.md"
+          }
+        },
+        {
+          "text": "`requirements.md` has no `Definition Type` row and no Sequence or Optimization Notes heading at any level",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?i)definition type"
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?im)^#+ (Sequence|Optimization Notes)\\b"
+              }
+            ]
+          }
+        },
+        {
+          "text": "`## Human Gates` opens with the line `Runs: with you` or `Runs: without you`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/*/requirements.md",
+            "pattern": "(?m)^## Human Gates[ \\t]*\\n(?:[ \\t]*\\n)*Runs: with(?:out)? you[ \\t]*$"
+          }
+        },
+        {
+          "text": "`## Security, Privacy & Safety` contains the line `Governing regime: …` before a `### Writes` heading; under `### Writes` there is either a `- W1 · …` line or the line `None`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/*/requirements.md",
+            "pattern": "(?ms)^## Security, Privacy & Safety\\b.*?^Governing regime: [^\\n]+$.*?^### Writes[ \\t]*\\n(?:[ \\t]*\\n)*(?:- W1 · |None\\b)"
+          }
+        },
+        {
+          "text": "Every line under `## Path` that is a step is written `- Step N — [Name] · produces …` with a `fixed (…)` or `flexible` mark, optional tags in the spec's order (uses, fixed/flexible, writes, role, parallel with, proposed by AI)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?m)^- Step \\d+ - [^·\\n]+ · produces [^·\\n]+(?: · uses [^·\\n]+)? · (?:fixed \\((?:regulation|policy|check|your judgment)\\)|flexible)(?: · writes [^·\\n]+)?(?: · \\([^)\\n]+\\))?(?: · parallel with Step \\d+)?(?: · proposed by AI)?[ \\t]*$"
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?m)^- Step \\d+ (?!- [^·\\n]+ · produces [^·\\n]+(?: · uses [^·\\n]+)? · (?:fixed \\((?:regulation|policy|check|your judgment)\\)|flexible)(?: · writes [^·\\n]+)?(?: · \\([^)\\n]+\\))?(?: · parallel with Step \\d+)?(?: · proposed by AI)?[ \\t]*$)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "`framework/[name]/deconstruct-in-progress.md` existed during the interview and is deleted once `requirements.md` is written",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_existed_during",
+                "path": "framework/*/deconstruct-in-progress.md"
+              },
+              {
+                "type": "file_absent",
+                "path": "framework/*/deconstruct-in-progress.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The AI says nothing about the progress file (its name never appears in an AI message)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_contains",
+            "text": "deconstruct-in-progress"
+          }
+        },
+        {
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+          }
+        },
+        {
+          "text": "The Workflow node `registry/workflows/customer-win-story.md` has `status: under-development`, links `[Requirements](framework/[name]/requirements.md)` in `# Artifacts`, and has no `definition_type` written by this run",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "registry/workflows/customer-win-story.md",
+                "pattern": "(?m)^status: under-development[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "registry/workflows/customer-win-story.md",
+                "pattern": "\\[Requirements\\]\\(/?framework/[^)\\s]+/requirements\\.md\\)"
+              },
+              {
+                "type": "file_not_contains",
+                "path": "registry/workflows/customer-win-story.md",
+                "text": "definition_type"
+              }
+            ]
+          }
+        },
+        {
+          "text": "`## Path` opens with the line `Path: proposed by AI`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/*/requirements.md",
+            "pattern": "(?m)^## Path[ \\t]*\\n(?:[ \\t]*\\n)*Path: proposed by AI[ \\t]*$"
+          }
+        },
+        {
+          "text": "The AI asks \"Which of these would you insist on?\" and does not ask \"Which of those must happen exactly that way, every time?\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Which of these would you insist on?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "Which of those must happen exactly that way, every time?"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The person-and-role question (\"Which of these does a person do?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Which of these does a person do?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Where does the work go a different way depending on what it finds?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "What will come in? Give me a typical case."
+              },
+              {
+                "type": "ai_contains",
+                "text": "What would a capable beginner get wrong here that you wouldn't?"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The insist question shows its Not sure? line word for word: \"Insist on none for now. Test will show which steps matter.\" (DECIDED R2-2)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Insist on none for now. Test will show which steps matter."
+          }
+        },
+        {
+          "text": "No step under `## Path` is marked `fixed (…)`: the student insisted on none and there is no regulation",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "framework/*/requirements.md",
+            "pattern": "(?m)^- Step \\d+ - [^\\n]*· fixed \\("
+          }
+        },
+        {
+          "text": "Every step under `## Path` is `flexible` and carries `· proposed by AI`",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?m)^- Step \\d+ - (?![^\\n]*· flexible\\b)"
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?m)^- Step \\d+ - (?![^\\n]*· proposed by AI)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The AI never asks why a step must happen that way (the fixed-reason question has no step to ask about)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "Why must .+ happen that way"
+          }
+        },
+        {
+          "text": "The per-step gate question still runs for the step a person does (sending the draft to the customer): \"Is [step] a point where you review or approve the work before the next step?\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Is .+ a point where you review or approve the work before the next step\\?"
+          }
+        },
+        {
+          "text": "The AI takes \"Insist on none for now\" as a complete answer: it does not press the student to pick a step, and treats no step as insisted on",
+          "kind": "judged",
+          "must": true
+        }
+      ]
+    },
+    {
       "id": "I6",
       "name": "off-script-answers",
       "kind": "interview",
