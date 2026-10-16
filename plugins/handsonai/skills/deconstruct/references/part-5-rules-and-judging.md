@@ -39,7 +39,7 @@ Record it as the Fallback row in Rules & Constraints. "Stop and ask you" also ad
 
 ## The draft, in four short messages (five when a security test trips)
 
-When you say how many drafts are coming, count this one only when it will be sent. What goes in each, including message 4's test-input rules and its Hand-it-back text, is in the requirements template. Every line is tagged *(you said)* or *(my suggestion)*; each suggestion needs an explicit keep or drop (the rubber-stamp guard in SKILL.md), so the requirements stay the student's.
+Never say how many drafts are coming ("the first of four"): the count changes with the security limits. What goes in each, including message 4's test-input rules and its Hand-it-back text, is in the requirements template. Every line is tagged *(you said)* or *(my suggestion)*; each suggestion needs an explicit keep or drop (the rubber-stamp guard in SKILL.md), so the requirements stay the student's.
 
 1. **Rules and never-dos**, ending "What's wrong or missing?"
 2. **The human gates collected so far**, to confirm (no new gate questions), **and the sources it uses** (introduced the first time with the context sentence) and the Inputs, ending "What's wrong or missing?". The privacy questions come right after it.

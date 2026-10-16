@@ -36,7 +36,7 @@ Play the steps back in plain words, one line per step, and let the student corre
 
 Then, in its own message, **Ask:** "Which of these does a person do?" For each step named without who does it, **Ask:** "Who does [step]?"
 
-A person's step carries the role tag: `(you)`, or the role in parentheses, such as `(finance team)`, meaning a person still performs this step in the new workflow. Untagged steps are AI steps.
+A person's step carries the role tag: `(you)` for the student's own steps, even when they give their job title, or another person's role in parentheses, such as `(finance team)`, meaning a person still performs this step in the new workflow. Untagged steps are AI steps.
 
 ## No method yet
 
