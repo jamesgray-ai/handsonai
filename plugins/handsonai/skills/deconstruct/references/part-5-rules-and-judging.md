@@ -50,7 +50,7 @@ What goes in each, including message 4's test-input rules and its Hand-it-back t
 
 Each in its own message:
 
-**Ask:** "Now that we've reshaped this — what should the number be? What's the target?"
+**Ask:** "Now that we've reshaped this — what should the number be? What's the target?" Ask it even when the student named a number earlier, because the target describes the revised workflow; say "Earlier you said [their number]." first.
 - *Why:* This is how you'll know whether the workflow paid off.
 - *Example:* a bookkeeper might say: "Month-end close in two days instead of five."
 

@@ -21,6 +21,7 @@ Marcus Webb, Finance Operations manager at Northbank Financial, a regional bank.
 - **Range:** typical: a 6-line travel report with hotel and meals. Awkward: a foreign-currency receipt with a handwritten tip.
 - **Expertise:** "A beginner approves a hotel bill without checking for the minibar line."
 - **Live writes:** it posts the decision to the expense system (Concur). It doesn't send emails.
+- **Which step posts to Concur** (only when asked): the last one, after the approval.
 - **Taking part:** you want the analyst to review each decision before it posts.
 - **When unsure:** stop and ask.
 - **Sources:** Concur (confidential staff data), the expense policy PDF, scanned receipts.

@@ -93,7 +93,7 @@ When the Part 2 answer was yes, right after the decisions question (and its foll
 
 Mark those steps `fixed (regulation)`.
 
-**Ask:** "Which decisions must a person make or approve?" (Skip decisions already gated; never say so.)
+**Ask:** "Which decisions must a person make or approve?" (Skip decisions already gated; never say so. When every decision is already gated, leave this question out entirely.)
 - *Why:* Those become human gates, so the AI never makes them alone.
 
 Each becomes a Human Gates row.
