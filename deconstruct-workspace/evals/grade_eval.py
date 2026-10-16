@@ -28,7 +28,7 @@ FIDELITY_ITEM = ("Fidelity (precondition): every fact the student gave appears i
 def items_for(ev):
     items = [{"text": x["text"], "kind": "judged"} for x in ev["expectations"] if x["kind"] == "judged"]
     items += [{"text": p, "kind": "judged", "precondition": True} for p in ev.get("preconditions", [])]
-    if ev.get("student"):
+    if ev.get("student") or any(isinstance(s.get("student"), str) for s in ev.get("sessions", [])):
         items.append({"text": FIDELITY_ITEM, "kind": "judged", "precondition": True})
     return items
 
@@ -60,11 +60,11 @@ def grade(rnd, root, ev, run, evals_dir=None):
     items = items_for(ev)
     if not items:
         return [], None
-    script = None
-    if ev.get("student"):
-        from pathlib import Path
-        base = Path(evals_dir) if evals_dir else Path(__file__).resolve().parent
-        script = (base / ev["student"]).read_text() if (base / ev["student"]).exists() else None
+    from pathlib import Path
+    base = Path(evals_dir) if evals_dir else Path(__file__).resolve().parent
+    paths = [ev["student"]] if ev.get("student") else []
+    paths += [s["student"] for s in ev.get("sessions", []) if isinstance(s.get("student"), str)]
+    script = "\n\n---\n\n".join((base / p).read_text() for p in dict.fromkeys(paths) if (base / p).exists()) or None
     prompt = build_prompt(ev, run, items, script)
     for attempt in range(2):
         text, rec = H.call(rnd, "grader", root, prompt, cwd=root / "grader", tools=[], system_prompt=GRADER)

@@ -97,6 +97,8 @@ def main():
                 elif x not in names:
                     errs.append(f"{w}: fixture {x!r} unknown to {maker.name}")
             for i, s in enumerate(sessions, 1):
+                if isinstance(s.get("student"), str) and not (d / s["student"]).exists():
+                    errs.append(f"{w}: session {i} student script missing {s['student']}")
                 if ev.get("sessions") and "prompt" not in s:
                     errs.append(f"{w}: session {i} has no prompt")
                 ff = s.get("fixture_from")

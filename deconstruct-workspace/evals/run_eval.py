@@ -30,7 +30,8 @@ Session sources, in an eval's `sessions` list: the first session builds the eval
 a later session rebuilds its `fixture` (or the eval's) unless it says `from_previous: true`
 (keep the workspace as it is) or `fixture_from: <path>` (copy a copied-back session snapshot;
 relative paths resolve from the evals.json folder). Fixture names: see build_fixture. `agent: true` (eval or session) starts the
-session on the plugin's framework-agent. `tools: "no_file"` turns off Write, Edit and Bash (NF1).
+session on the plugin's framework-agent. `student: true` plays the eval's script; `student: "<path>"`
+plays that session's own script (the chain eval C1). `tools: "no_file"` turns off Write, Edit and Bash (NF1).
 """
 import argparse
 import concurrent.futures as cf
@@ -138,8 +139,11 @@ def run_once(rnd, ev, k, out, args, evals_dir):
                 shutil.copytree(src, ws)
             sdir = root / f"session-{n}"
             shutil.copytree(ws, sdir / "workspace-start")
+            # `student: true` uses the eval's script; `student: "<path>"` names this session's own.
             script = None
-            if s.get("student") and ev.get("student"):
+            if isinstance(s.get("student"), str):
+                script = (evals_dir / s["student"]).read_text()
+            elif s.get("student") and ev.get("student"):
                 script = (evals_dir / ev["student"]).read_text()
             replies = list(s.get("replies", []))
             cap = s.get("max_turns", ev.get("max_turns", args.max_turns))
@@ -183,7 +187,7 @@ def run_once(rnd, ev, k, out, args, evals_dir):
         if any(s["cap_hit"] for s in run["sessions"]):
             scripted.append({"text": "The run ends before the turn cap", "kind": "scripted",
                              "passed": False, "evidence": "turn cap hit"})
-        if ev.get("student"):
+        if ev.get("student") or any(isinstance(x.get("student"), str) for x in sessions):
             ok, why = CS.fidelity(run)
             fid = {"passed": ok, "evidence": why}
         judged, grec = G.grade(rnd, root, ev, run, evals_dir)
