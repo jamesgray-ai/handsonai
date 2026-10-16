@@ -8,7 +8,8 @@ Tomás Ferreira, support lead at Quillstack, a project-management software compa
 - **Worth:** the team spends about 2 hours a day sorting and first-replying to new emails. Value: urgent problems reach an agent faster, and customers get a first reply within the hour.
 - **Trigger and deliverable:** a customer email arrives in the support inbox; out comes a ticket with a category, a priority and a draft first reply for an agent.
 - **Law or regulation:** no.
-- **A real past output:** yes. When asked, paste this (made-up details): "Ticket #20831. Category: Billing. Priority: High (customer can't log in after a failed payment). Draft reply: 'Hi Jo, sorry about this. Your account was paused after the card payment failed on the 3rd. I've sent a link to update the card; once it's done you'll be straight back in. — Quillstack Support'." You started from the customer's email.
+- **A real past output:** yes. When asked, paste this (made-up details): "Ticket #20831. Category: Billing. Priority: High (customer can't log in after a failed payment). Draft reply: 'Hi Jo, sorry about this. Your account was paused after the card payment failed on the 3rd. I've sent a link to update the card; once it's done you'll be straight back in. — Quillstack Support'."
+- **What you started from** (only when asked, never in the same message as the output): the customer's email.
 - **What a good one looks like:** "The right category and priority, and a reply an agent can send with one read."
 - **What you do with it next** (only when asked): an agent checks it and sends the reply.
 - **Who / form / when:** for the on-shift agent; a ticket with three fields and a reply under 120 words; ready within 10 minutes of the email arriving.

@@ -9,7 +9,8 @@ Leo Brandt, an independent podcaster who runs a weekly interview show on his own
 - **Name:** "Episode Show Notes" (or accept the AI's suggestion if it's close).
 - **Worth:** about 2 hours an episode. Value: episodes go out the day after recording instead of three days later, and better notes bring more listeners from search.
 - **Law or regulation:** no.
-- **A real past output:** yes. When asked, paste this (made-up details): "Ep 41 — Nadia Osei on rebuilding a family bakery. Nadia took over her dad's bakery at 26 and nearly lost it in a year. We talk pricing, the night shift, and why she stopped wholesale. 'I was selling bread at a loss to feel busy.' Timestamps: 02:10 taking over; 14:30 the wholesale mistake; 31:05 hiring the night baker." You started from the Riverside transcript.
+- **A real past output:** yes. When asked, paste this (made-up details): "Ep 41 — Nadia Osei on rebuilding a family bakery. Nadia took over her dad's bakery at 26 and nearly lost it in a year. We talk pricing, the night shift, and why she stopped wholesale. 'I was selling bread at a loss to feel busy.' Timestamps: 02:10 taking over; 14:30 the wholesale mistake; 31:05 hiring the night baker."
+- **What you started from** (only when asked, never in the same message as the output): the Riverside transcript.
 - **What a good one looks like:** "Notes that make someone who's never heard the show want to press play."
 - **What you do with it next** (only when asked): you paste them into Substack with the episode.
 - **Who / form / when:** for new listeners; under 200 words plus timestamps; ready the morning after recording.

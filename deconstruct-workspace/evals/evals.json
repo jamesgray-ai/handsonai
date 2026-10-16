@@ -68,7 +68,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -734,7 +734,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -977,24 +977,15 @@
           "kind": "judged"
         },
         {
-          "text": "After the decisions question, the AI asks \"Which steps does the regulation require?\" and \"Which decisions must a person make or approve?\"",
+          "text": "After the decisions question, the AI asks \"Which steps does the regulation require?\" (the second regulation question is judged: spec line 231 skips decisions already gated, and here the over-$5,000 approval is gated earlier)",
           "kind": "scripted",
           "check": {
-            "type": "all",
-            "checks": [
-              {
-                "type": "ai_contains",
-                "text": "Which steps does the regulation require?"
-              },
-              {
-                "type": "ai_contains",
-                "text": "Which decisions must a person make or approve?"
-              }
-            ]
+            "type": "ai_contains",
+            "text": "Which steps does the regulation require?"
           }
         },
         {
-          "text": "\"Which steps does the regulation require?\" and \"Which decisions must a person make or approve?\" come after the decisions question, each in its own message",
+          "text": "\"Which steps does the regulation require?\" and \"Which decisions must a person make or approve?\" come after the decisions question, each in its own message (the second is left out when every decision is already gated, spec line 231)",
           "kind": "judged"
         },
         {
@@ -1127,7 +1118,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -1500,7 +1491,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -1677,7 +1668,7 @@
           }
         },
         {
-          "text": "After each \"looks right\" on a draft containing (my suggestion) items, the AI asks once \"Before I keep these, which of my suggestions should stay: […]?\" naming each suggestion in that draft",
+          "text": "After each \"looks right\" on a draft containing (my suggestion) items, the AI asks once \"Before I keep these, which of my suggestions should stay: […]?\" (or, with one suggestion, the singular form pending Task 3a) naming each suggestion in that draft (the two exceptions in spec section 2 need no re-ask: a draft whose only suggestions are steps the AI added to the path, and the test inputs message, which follows its own rule)",
           "kind": "judged",
           "must": true
         },
@@ -1767,7 +1758,8 @@
           "text": "Where fewer than 3 scenarios or no hard case remained, the AI proposed replacements and had each one kept",
           "kind": "judged"
         }
-      ]
+      ],
+      "max_turns": 120
     },
     {
       "id": "I5",
@@ -1830,7 +1822,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -2130,7 +2122,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -2367,7 +2359,7 @@
           }
         },
         {
-          "text": "Every step under `## Path` is `flexible` and carries `· proposed by AI`",
+          "text": "Every step under `## Path` is `flexible`, and every step the AI added carries `· proposed by AI` (spec lines 162 and 322: only AI-added steps carry it; the step the student named, sending the draft to the customer, done by `(you)`, need not)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2380,7 +2372,7 @@
               {
                 "type": "file_not_regex",
                 "path": "framework/*/requirements.md",
-                "pattern": "(?m)^- Step \\d+ - (?![^\\n]*· proposed by AI)"
+                "pattern": "(?m)^- Step \\d+ - (?![^\\n]*· proposed by AI)(?![^\\n]*· \\(you\\))"
               }
             ]
           }
@@ -2472,7 +2464,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -2757,7 +2749,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -3400,7 +3392,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         }
@@ -3517,7 +3509,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         }
@@ -3644,7 +3636,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         }
@@ -3714,7 +3706,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -4004,7 +3996,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -4309,7 +4301,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -4645,7 +4637,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -4923,7 +4915,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },
@@ -5448,7 +5440,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         }
@@ -5523,7 +5515,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\")",
           "kind": "judged",
           "must": true
         },

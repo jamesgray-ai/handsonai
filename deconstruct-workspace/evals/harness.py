@@ -412,7 +412,10 @@ def real_config_snapshot():
         "skills/synced": _synced_skills(),
         "agents/": _hash_tree(REAL_CLAUDE / "agents"),
         "mcpServers": hashlib.sha256(json.dumps(cj.get("mcpServers"), sort_keys=True).encode()).hexdigest(),
-        "oauthAccount": hashlib.sha256(json.dumps(cj.get("oauthAccount"), sort_keys=True).encode()).hexdigest(),
+        # profileFetchedAt is rewritten whenever any Claude Code session on this machine refetches the
+        # profile (2026-10-16: the desktop app did, mid-round); every identity field is still compared.
+        "oauthAccount": hashlib.sha256(json.dumps({k: v for k, v in (cj.get("oauthAccount") or {}).items()
+                                                   if k != "profileFetchedAt"}, sort_keys=True).encode()).hexdigest(),
         "plugin_keys": sorted(plugins),
         "_projects": list(cj.get("projects", {})),
         "_install_paths": [e.get("installPath", "") for v in plugins.values() for e in v],

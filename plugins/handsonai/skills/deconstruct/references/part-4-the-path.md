@@ -74,7 +74,7 @@ A yes adds a Human Gates row at that step. This is where gates are asked about; 
 **Ask:** "Where does the work go a different way depending on what it finds?"
 - *Why:* This tells Design whether the work follows your rules or needs judgment along the way.
 
-For each one, **Ask:** "What decides which way it goes?"
+For each one, **Ask:** "What decides which way it goes?" Ask it even when the student already named the condition ("if we've worked with them before"): its answer is what settles the decision.
 
 Each Decision line records who settles it: `a rule on a value`, `your criteria`, or `open judgment`. When unclear, one follow-up:
 
@@ -82,7 +82,7 @@ Each Decision line records who settles it: `a rule on a value`, `your criteria`,
 - *Why:* Design uses this to decide how much of the choice the AI makes.
 - *Not sure?* Say judgment. You can tighten it later.
 
-A threshold ("over $50k → controller") is a rule on a value, whoever supplies the value. When the AI reads the value (an amount from a scanned receipt), the Decision line adds `· value read by AI`; Test checks that reading separately.
+A threshold ("over $50k → controller") is a rule on a value, whoever supplies the value. When the AI reads the value, the Decision line adds `· value read by AI`: the AI reads it whenever the value comes from the input the workflow works on (an amount on a submitted report or a scanned receipt), not from a person who supplies it at the time. If the answers don't say where the value comes from, ask in its own message where it comes from before writing the line; Test checks that reading separately.
 
 ## Regulated work
 

@@ -269,7 +269,7 @@ After writing, check the file and fix any miss before the close:
 
 - It lives at `framework/[name]/requirements.md`; the Workflow node has `status: under-development` (unless a re-run kept another status) and links the requirements under `# Artifacts`.
 - It has exactly the twelve sections, in this order and exactly named: `# [Name] — Workflow Requirements`, `## Goal`, `## Value & Measurement`, `## Metadata`, `## Path`, `## Inputs`, `## Context Inventory`, `## Acceptance Criteria`, `## Example Scenarios`, `## Rules & Constraints`, `## Human Gates`, `## Security, Privacy & Safety`. No YAML frontmatter, no other `##` section.
-- Every step line has a name, `produces` and a fixed/flexible mark, with tags in the stated order; AI-added steps carry `· proposed by AI`.
+- Every step line has a name, `produces` and a fixed/flexible mark, with tags in the stated order (`produces`, `uses`, the fixed/flexible mark, `writes`, the role, `parallel with`, `proposed by AI`); AI-added steps carry `· proposed by AI`.
 - Human Gates opens with the `Runs:` line; Security has the `Governing regime:` line, then `### Writes` with W lines or `None`.
 - Every scenario's input file exists at the path its `Input` cell names and holds the input itself (or the one allowed placeholder line), never a description of it. Write any that are missing.
 - Labels are present and stable (Step N, D, I, W, C, E, AC, R, G); the Golden Example column holds only a real output, else "—".

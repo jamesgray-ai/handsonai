@@ -8,7 +8,8 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 - **Worth:** each brief takes about 45 minutes; you do about 6 a week. Better calls mean more proposals accepted. You'd like briefs to take 10 minutes of your time, including reading.
 - **Trigger and deliverable:** a scoping call is booked in your calendar; you want a one-page brief.
 - **Law or regulation:** no.
-- **A real past output:** yes. When asked, paste this (made-up details): "Brief — Halvorsen Logistics, call 14 Oct. Hypothesis: they took the call because their new COO wants a carrier-cost review before Q1 budgets. Person: Ingrid Moss, COO since July (LinkedIn); posted last week about 'freight spend visibility'. Likely priorities: carrier costs, on-time rates, a reporting tool their ops team will use. Sources: LinkedIn, Halvorsen press release 3 Sept, our CRM notes." You started from the calendar invite and the CRM record.
+- **A real past output:** yes. When asked, paste this (made-up details): "Brief — Halvorsen Logistics, call 14 Oct. Hypothesis: they took the call because their new COO wants a carrier-cost review before Q1 budgets. Person: Ingrid Moss, COO since July (LinkedIn); posted last week about 'freight spend visibility'. Likely priorities: carrier costs, on-time rates, a reporting tool their ops team will use. Sources: LinkedIn, Halvorsen press release 3 Sept, our CRM notes."
+- **What you started from** (only when asked, never in the same message as the output): the calendar invite and the CRM record.
 - **What a good one looks like:** "Something I can read in five minutes that tells me why they're talking to us and what they care about."
 - **What you do with it next** (only when asked): you use it to plan your questions for the call.
 - **Who / form / when:** for you; one page; ready the day before the call.

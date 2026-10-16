@@ -7,7 +7,7 @@ Marcus Webb, Finance Operations manager at Northbank Financial, a regional bank.
 - **Which workflow:** "Expense Report Approval" (you named it).
 - **Worth:** 3 analysts spend about 12 hours a week checking reports; errors in reimbursements are an audit finding risk. Value: fewer audit findings and faster reimbursement.
 - **Trigger and deliverable:** an employee submits an expense report; out comes an approved or returned report.
-- **Law or regulation:** yes. When asked which: "SOX controls, and our internal expense policy that implements them."
+- **Law or regulation:** answer only "Yes." Name it only when the AI asks which one: "SOX controls, and our internal expense policy that implements them."
 - **A real past output:** no.
 - **Good one:** "A clear decision with the reason, so the employee knows what to fix." What you do with it next: it goes to payroll for reimbursement, or back to the employee.
 - **Who / form / when:** for the employee and payroll; a one-paragraph decision note; within two business days.
