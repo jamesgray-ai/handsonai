@@ -267,7 +267,7 @@
               },
               {
                 "type": "file_exists",
-                "path": ".claude/skills/*/SKILL.md"
+                "path": "framework/*/skills/*/SKILL.md"
               }
             ]
           }
@@ -1442,7 +1442,7 @@
               },
               {
                 "type": "file_exists",
-                "path": ".claude/skills/*/SKILL.md"
+                "path": "framework/*/skills/*/SKILL.md"
               }
             ]
           }
@@ -1797,7 +1797,7 @@
                   },
                   {
                     "type": "file_exists",
-                    "path": ".claude/skills/*/SKILL.md",
+                    "path": "framework/*/skills/*/SKILL.md",
                     "session": 3
                   }
                 ]

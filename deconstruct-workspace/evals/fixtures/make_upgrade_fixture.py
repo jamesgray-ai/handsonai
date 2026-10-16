@@ -179,9 +179,14 @@ def gen_need(t, which, slug, names, state):
                  f"{', '.join(missing)}. It needs 9.1.0 output for that step too (run the 9.1.0 step on it).")
 
 
+# Which saved 9.1.0 stage each state starts from (Task 1 Step 2; evals-generate-9x.json G1/G2).
+GEN_STAGE = {"U1": "designed", "U2": "designed", "U3": "test-in-progress", "U4": "running"}
+
+
 def make_gen(state, which):
     def build(t):
-        shutil.copytree(gen_source(which), t)
+        stage = which if which == "I2" else f"{which}-{GEN_STAGE[state]}"
+        shutil.copytree(gen_source(stage), t)
         slug = gen_slug(t, which)
         if state == "U1":
             gen_need(t, which, slug, ["design-spec.md"], "unapproved-draft")

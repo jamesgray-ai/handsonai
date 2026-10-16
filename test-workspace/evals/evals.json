@@ -229,7 +229,7 @@
       "id": "T2-gen",
       "name": "old-format-test-generated",
       "source": "deconstruct-redesign.md section 6 (Test); Review Focus 4",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1-built",
       "student": "../../deconstruct-workspace/evals/students/test-student.md",
       "prompt": "Run the test skill.",
       "files": [

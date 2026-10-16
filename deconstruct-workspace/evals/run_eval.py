@@ -54,7 +54,8 @@ ROOT = HERE.parents[1]
 STUDENT_RULES = """You are playing a student in a test of an AI interview. You see only your script and the conversation.
 Reply with only the student's next message: no notes, no quotes around it, no labels.
 Rules:
-- Answer only from the script. If the script doesn't cover what the AI asks, say you're not sure rather than invent.
+- Answer only from the script. If the script doesn't cover what the AI asks, say you're not sure, in a few words,
+  and add nothing of your own: no guesses, no "I think...", no new names, numbers, tools, people or habits.
 - Use plain, everyday words. Never use a framework term (for example acceptance criterion, fixed step, human gate,
   autonomy, Golden Example) unless the AI used it first.
 - Do each provocation the script lists (rambling, answering two questions at once, asking a question back,

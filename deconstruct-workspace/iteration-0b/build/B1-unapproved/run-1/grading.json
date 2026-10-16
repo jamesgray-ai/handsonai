@@ -1,0 +1,17 @@
+{
+  "expectations": [
+    {
+      "text": "Build stops before generating anything and says, in plain words, that the Design Plan isn't approved yet and the student approves it in a Design session",
+      "kind": "judged",
+      "passed": true,
+      "evidence": "\"I stopped at Phase 1 without building anything\" ... \"This Design Plan is not approved yet. Open it, review it, and say \\\"approve\\\" in a Design session.\""
+    },
+    {
+      "text": "Fidelity (precondition): every fact the student gave appears in or follows from the student's script; the student invented nothing outside it",
+      "kind": "judged",
+      "precondition": true,
+      "passed": true,
+      "evidence": "Student said only \"Run the build skill.\" and \"END\" (AI said it can't build yet); no invented facts"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "text": "No skill is created",
+    "kind": "scripted",
+    "passed": true,
+    "evidence": "absent"
+  },
+  {
+    "text": "The plan is left as it is",
+    "kind": "scripted",
+    "passed": true,
+    "evidence": "unchanged"
+  },
+  {
+    "text": "The node gains no `# Skills` link",
+    "kind": "scripted",
+    "passed": true,
+    "evidence": "registry/workflows/sales-pre-call-brief.md"
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "id": "B1-unapproved",
+  "name": "unapproved-plan-refused",
+  "source": "deconstruct-redesign.md section 5 (Build); build1-plan.md Task 1 Step 6",
+  "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-draft",
+  "student": "../../deconstruct-workspace/evals/students/build-student.md",
+  "prompt": "Run the build skill.",
+  "files": [
+    "../../deconstruct-workspace/evals/students/build-student.md",
+    "../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-draft"
+  ],
+  "expected_output": "Build refuses a plan at approved: false and builds nothing.",
+  "preconditions": [],
+  "expectations": [
+    {
+      "text": "Build stops before generating anything and says, in plain words, that the Design Plan isn't approved yet and the student approves it in a Design session",
+      "kind": "judged"
+    },
+    {
+      "text": "No skill is created",
+      "kind": "scripted",
+      "check": {
+        "type": "file_absent",
+        "path": ".claude/skills/*/SKILL.md"
+      }
+    },
+    {
+      "text": "The plan is left as it is",
+      "kind": "scripted",
+      "check": {
+        "type": "file_unchanged",
+        "path": "framework/sales-pre-call-brief/design-plan.md"
+      }
+    },
+    {
+      "text": "The node gains no `# Skills` link",
+      "kind": "scripted",
+      "check": {
+        "type": "file_not_regex",
+        "path": "registry/workflows/sales-pre-call-brief.md",
+        "pattern": "^# Skills\\s*\\n+- \\["
+      }
+    }
+  ],
+  "runs": 3
+}

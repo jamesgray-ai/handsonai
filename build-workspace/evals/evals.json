@@ -25,7 +25,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_absent",
-            "path": ".claude/skills/*/SKILL.md"
+            "path": "framework/*/skills/*/SKILL.md"
           }
         },
         {
@@ -75,11 +75,11 @@
           }
         },
         {
-          "text": "Build creates the orchestrator skill in the project's skill folder",
+          "text": "Build creates the orchestrator skill in the workflow's folder (framework/<slug>/skills/, build/SKILL.md:299)",
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": ".claude/skills/*/SKILL.md"
+            "path": "framework/*/skills/*/SKILL.md"
           }
         },
         {
@@ -148,7 +148,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": ".claude/skills/*/SKILL.md"
+            "path": "framework/*/skills/*/SKILL.md"
           }
         },
         {
@@ -216,7 +216,7 @@
             "checks": [
               {
                 "type": "file_exists",
-                "path": ".claude/skills/*/SKILL.md"
+                "path": "framework/*/skills/*/SKILL.md"
               },
               {
                 "type": "file_exists",
@@ -263,7 +263,7 @@
       "id": "B3-gen",
       "name": "old-generated-build",
       "source": "deconstruct-redesign.md section 6 (Build); build1-plan.md Task 1 Step 7",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1-designed",
       "student": "../../deconstruct-workspace/evals/students/build-student.md",
       "prompt": "Run the build skill.",
       "files": [
@@ -318,7 +318,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": ".claude/skills/*/SKILL.md"
+            "path": "framework/*/skills/*/SKILL.md"
           }
         },
         {

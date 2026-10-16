@@ -245,7 +245,10 @@ def check_init(rnd, role, init, root, tools, cwd, plugin):
         bad.append("plugin under test did not load")
     skills = init.get("skills") or []
     if rnd.bundled_skills is not None:
-        extra = [s for s in skills if s not in rnd.bundled_skills and not (plugin and s.startswith("handsonai:"))]
+        # Skills the student built and installed in the workspace's own .claude/skills/ are allowed.
+        own = {p.parent.name for p in (Path(cwd) / ".claude" / "skills").glob("*/SKILL.md")}
+        extra = [s for s in skills if s not in rnd.bundled_skills and s not in own
+                 and not (plugin and s.startswith("handsonai:"))]
         if extra:
             bad.append(f"unexpected skills {extra}")
     if bad:
@@ -342,7 +345,7 @@ def auth_method(rnd, root):
 
 # ---------- fail-closed check on the real config (R12-3) ----------
 
-def _hash_tree(p):
+def _hash_tree(p, skip=()):
     h = hashlib.sha256()
     if not p.exists():
         return "absent"
@@ -351,6 +354,8 @@ def _hash_tree(p):
         return h.hexdigest()
     for f in sorted(p.rglob("*")):
         rel = str(f.relative_to(p))
+        if any(rel == s or rel.startswith(s + "/") for s in skip):
+            continue
         if f.is_symlink():
             h.update(f"L {rel} {os.readlink(f)}\n".encode())
         elif f.is_file():
@@ -369,6 +374,29 @@ def _account_field(name):
         return None
 
 
+def _synced_skills():
+    """~/.claude/skills/synced/ is the account skill sync that James's own Claude Code sessions
+    rewrite on their schedule (its manifest's lastUpdated and .last-complete-round change on
+    every sync). Compare what it holds, not its timestamps: the synced folders and, per
+    manifest, each skill's id, name, source and updatedAt."""
+    root = REAL_CLAUDE / "skills" / "synced"
+    if not root.exists():
+        return "absent"
+    out = {}
+    for acct in sorted(p for p in root.iterdir() if p.is_dir()):
+        m = acct / "manifest.json"
+        try:
+            skills = json.loads(m.read_text()).get("skills", []) if m.exists() else []
+        except ValueError:
+            skills = ["unreadable manifest"]
+        out[acct.name] = {
+            "folders": sorted(p.name for p in acct.iterdir() if p.is_dir()),
+            "skills": sorted(json.dumps({k: x.get(k) for k in ("skillId", "name", "source", "updatedAt")},
+                                        sort_keys=True) if isinstance(x, dict) else str(x) for x in skills),
+        }
+    return hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()
+
+
 def real_config_snapshot():
     """Read-only. Raises HarnessFailure if ~/.claude.json can't be read (stop and ask James)."""
     try:
@@ -379,7 +407,8 @@ def real_config_snapshot():
     plugins = json.loads(ip.read_text()).get("plugins", {}) if ip.exists() else {}
     return {
         "settings.json": _hash_tree(REAL_CLAUDE / "settings.json"),
-        "skills/": _hash_tree(REAL_CLAUDE / "skills"),
+        "skills/": _hash_tree(REAL_CLAUDE / "skills", skip=("synced",)),
+        "skills/synced": _synced_skills(),
         "agents/": _hash_tree(REAL_CLAUDE / "agents"),
         "mcpServers": hashlib.sha256(json.dumps(cj.get("mcpServers"), sort_keys=True).encode()).hexdigest(),
         "oauthAccount": hashlib.sha256(json.dumps(cj.get("oauthAccount"), sort_keys=True).encode()).hexdigest(),
@@ -417,6 +446,11 @@ def leak_signs():
             for e in v:
                 if any(real(e.get("installPath", "")).startswith(f) for f in forms):
                     signs.append(f"installed_plugins.json {k} installPath under the eval parent folder")
+    synced = REAL_CLAUDE / "skills" / "synced"
+    if synced.exists():
+        for f in synced.rglob("*"):
+            if f.is_file() and f.stat().st_size < 5_000_000 and "handsonai-evals" in f.read_text(errors="replace"):
+                signs.append(f"skills/synced file names the eval parent folder: {f.name}")
     projects = REAL_CLAUDE / "projects"
     if projects.exists():
         for p in projects.rglob("*"):
@@ -428,7 +462,7 @@ def leak_signs():
 
 def compare_snapshots(before, after):
     bad = []
-    for k in ("settings.json", "skills/", "agents/", "mcpServers", "oauthAccount"):
+    for k in ("settings.json", "skills/", "skills/synced", "agents/", "mcpServers", "oauthAccount"):
         if before[k] != after[k]:
             bad.append(f"{k} changed")
     new_plugins = sorted(set(after["plugin_keys"]) - set(before["plugin_keys"]))

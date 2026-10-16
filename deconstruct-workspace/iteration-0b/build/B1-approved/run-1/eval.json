@@ -1,0 +1,78 @@
+{
+  "id": "B1-approved",
+  "name": "approved-plan-builds",
+  "source": "deconstruct-redesign.md sections 4 and 5 (Build, R6-4)",
+  "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-approved",
+  "student": "../../deconstruct-workspace/evals/students/build-student.md",
+  "prompt": "Run the build skill.",
+  "files": [
+    "../../deconstruct-workspace/evals/students/build-student.md",
+    "../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-approved"
+  ],
+  "expected_output": "Build reads plan_version 4.0 at approved: true, runs the write pre-flight from ### Writes, lists the not-available-yet input as a prerequisite, and builds from the step lines.",
+  "preconditions": [
+    "When the AI offered to connect, authorize or install a connector, the student declined.",
+    "When the AI asked the student to approve or confirm what it would build, the student said yes."
+  ],
+  "expectations": [
+    {
+      "text": "Build's opening is today's, word for word",
+      "kind": "scripted",
+      "check": {
+        "type": "ai_contains",
+        "text": "Build takes 30–60 minutes, most of it on your side.",
+        "turn": "first"
+      }
+    },
+    {
+      "text": "Build creates the orchestrator skill in the project's skill folder",
+      "kind": "scripted",
+      "check": {
+        "type": "file_exists",
+        "path": ".claude/skills/*/SKILL.md"
+      }
+    },
+    {
+      "text": "The node links the built skill under `# Skills`",
+      "kind": "scripted",
+      "check": {
+        "type": "file_regex",
+        "path": "registry/workflows/sales-pre-call-brief.md",
+        "pattern": "^# Skills\\s*\\n+- \\["
+      }
+    },
+    {
+      "text": "Build leaves `requirements.md` unchanged",
+      "kind": "scripted",
+      "check": {
+        "type": "file_unchanged",
+        "path": "framework/sales-pre-call-brief/requirements.md"
+      }
+    },
+    {
+      "text": "Build accepts `plan_version: 4.0` with `approved: true` and proceeds without asking the student to regenerate or re-approve the plan",
+      "kind": "judged"
+    },
+    {
+      "text": "The write-scope pre-flight reads `### Writes` (None): Build asks for no write scope on the CRM connector and never falls back to `External Action`",
+      "kind": "judged"
+    },
+    {
+      "text": "Build lists I2 (the booking form's \"What would you like to cover?\" answer, `Status: not available yet`) as a prerequisite to have in place before the first run",
+      "kind": "judged"
+    },
+    {
+      "text": "The built skill follows the step lines in order: each of Steps 1–4 appears with what it produces, the CRM check (fixed by policy) is an always-do step, D1 picks the brief's lead, and Step 5 is a pause for Dana (G1); the rest is filled from Rules R1–R4, the Context Inventory and the Acceptance Criteria",
+      "kind": "judged"
+    },
+    {
+      "text": "Build closes with a reconciliation table: one row per Build Output row in the plan's decomposition, plus the orchestrator skill, each connector and each context item it provided",
+      "kind": "judged"
+    },
+    {
+      "text": "With the connector declined, Build records the CRM connection as still to do instead of stopping or pretending it is connected",
+      "kind": "judged"
+    }
+  ],
+  "runs": 3
+}
