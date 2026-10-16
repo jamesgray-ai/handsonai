@@ -1,0 +1,65 @@
+{
+  "id": "R9",
+  "name": "no-registry-built",
+  "kind": "routing",
+  "walk": "i",
+  "fixture": "R9",
+  "sessions": [
+    {
+      "prompt": "Run the deconstruct skill for Weekly Status Report.",
+      "replies": [
+        "yes"
+      ]
+    },
+    {
+      "prompt": "Run the deconstruct skill for Weekly Status Report.",
+      "replies": [
+        "no"
+      ],
+      "fresh_fixture": true,
+      "max_turns": 2
+    },
+    {
+      "prompt": "Run the deconstruct skill for Weekly Status Report.",
+      "fixture": "R9-not-ready"
+    },
+    {
+      "prompt": "Run the deconstruct skill for Weekly Status Report.",
+      "fixture": "R9-ready"
+    },
+    {
+      "prompt": "Run the deconstruct skill for Weekly Status Report.",
+      "fixture": "R9-in-progress"
+    }
+  ],
+  "expected_output": "With no test results, the R9-3 question; yes gets the R10-2 message naming the test skill, no starts the re-run. With test results, the message names the build, run or test skill and the question isn't asked.",
+  "files": [
+    "fixtures/make_fixture.py"
+  ],
+  "expectations": [
+    {
+      "text": "Session 1: the AI asks \"Has this workflow been built yet, even if you haven't tested it?\" (no Why or Not sure? line); after \"yes\" it says \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the test skill'.\"",
+      "kind": "judged"
+    },
+    {
+      "text": "Session 1 never tells the student to say 'continue my workflow'",
+      "kind": "judged"
+    },
+    {
+      "text": "Session 2: after \"no\", the re-run starts (the opening, then prefill from the old file)",
+      "kind": "judged"
+    },
+    {
+      "text": "Session 3 (`readiness: not-ready`, round complete): \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the build skill'.\"; the R9-3 question is not asked",
+      "kind": "judged"
+    },
+    {
+      "text": "Session 4 (`readiness: ready`): \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the run skill'.\"; the R9-3 question is not asked",
+      "kind": "judged"
+    },
+    {
+      "text": "Session 5 (round in progress): \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the test skill'.\"; the R9-3 question is not asked",
+      "kind": "judged"
+    }
+  ]
+}

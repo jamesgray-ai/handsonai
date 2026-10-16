@@ -1,0 +1,54 @@
+{
+  "eval": "R9",
+  "run": 1,
+  "status": "valid",
+  "note": "",
+  "models": [
+    "claude-opus-5-5"
+  ],
+  "claude_code_version": "2.1.301",
+  "fidelity": null,
+  "preconditions": [],
+  "expectations": [
+    {
+      "text": "Session 1: the AI asks \"Has this workflow been built yet, even if you haven't tested it?\" (no Why or Not sure? line); after \"yes\" it says \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the test skill'.\"",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The R9-3 question was never asked. The AI asked \"Should I move on to Build, update the C3 row, or start a fresh Deconstruct?\" After \"yes\" it asked for clarification instead of giving the 'run the test skill' message."
+    },
+    {
+      "text": "Session 1 never tells the student to say 'continue my workflow'",
+      "kind": "judged",
+      "passed": true,
+      "evidence": "Session 1 never says 'continue my workflow'. It only mentions \"run the build skill\" and \"run the scaffolding-registry skill.\""
+    },
+    {
+      "text": "Session 2: after \"no\", the re-run starts (the opening, then prefill from the old file)",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "After \"no\" the re-run did not start: \"Okay, I won't change anything... say 'continue my workflow'\". There was no opening and no prefill."
+    },
+    {
+      "text": "Session 3 (`readiness: not-ready`, round complete): \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the build skill'.\"; the R9-3 question is not asked",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The required message is absent. The AI said \"Next is Step 4, Build, to make that fix\" and \"you say 'run the build skill'\" inside options, without the exact wording. The R9-3 question was not asked."
+    },
+    {
+      "text": "Session 4 (`readiness: ready`): \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the run skill'.\"; the R9-3 question is not asked",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The required message is absent. The AI said \"next is Step 6 (Run)\" and \"Say 'run the run skill' to start Step 6\", without the exact wording. The R9-3 question was not asked."
+    },
+    {
+      "text": "Session 5 (round in progress): \"This workflow is built but isn't running yet, so the next step is to finish it. Say 'run the test skill'.\"; the R9-3 question is not asked",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The required message is absent. The AI offered options 1-3 and \"Then Build can make the fix\". 'run the test skill' never appears. The R9-3 question was not asked."
+    }
+  ],
+  "passed": 1,
+  "total": 6,
+  "denials": [],
+  "usd": 1.8692
+}

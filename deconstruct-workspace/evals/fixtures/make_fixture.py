@@ -3,9 +3,8 @@
 
 Usage: python3 make_fixture.py <fixture-name> <target-dir>
 
-Every fixture is built from files already in the repo
-(examples/weekly-status-report and registry-template/registry), so the
-fixtures stay in step with the worked example instead of being copied.
+Every fixture is built from the frozen 9.1.0 copy of the worked example
+(fixtures/upgrade-9x) and registry-template/registry.
 Run `python3 make_fixture.py --list` for the fixture names.
 """
 import re
@@ -14,7 +13,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-EXAMPLE = ROOT / "examples" / "weekly-status-report"
+# The frozen 9.1.0 copy of the worked example (Task 1 Step 2): Task 14 regenerates
+# examples/weekly-status-report in the new format, and these fixtures must keep the old one.
+EXAMPLE = Path(__file__).resolve().parent / "upgrade-9x"
 TEMPLATE = ROOT / "registry-template" / "registry"
 WSR = "weekly-status-report"
 

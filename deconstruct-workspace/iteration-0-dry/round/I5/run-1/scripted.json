@@ -1,0 +1,8 @@
+[
+  {
+    "text": "The run ends before the turn cap",
+    "kind": "scripted",
+    "passed": false,
+    "evidence": "turn cap hit"
+  }
+]

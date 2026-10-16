@@ -55,6 +55,11 @@ examples/weekly-status-report/registry-dashboard.html
 examples/weekly-status-report/**/.DS_Store
 examples/weekly-status-report/**/*.zip
 
+# Frozen 9.1.0 copy of the worked example used by the upgrade evals (and other eval
+# fixtures) -- un-ignored the same way, so its outputs/ tree is committed.
+!deconstruct-workspace/evals/fixtures/**
+deconstruct-workspace/evals/fixtures/**/.DS_Store
+
 # on-demand docx install by the multi-agent-example renderer
 plugins/multi-agent-example/scripts/node_modules/
 scripts/node_modules/

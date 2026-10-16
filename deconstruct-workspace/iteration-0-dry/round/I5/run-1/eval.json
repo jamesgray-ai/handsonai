@@ -1,0 +1,83 @@
+{
+  "id": "I5",
+  "name": "no-method",
+  "kind": "interview",
+  "fixture": "winstory",
+  "student": "students/I5-no-method.md",
+  "prompt": "Run the deconstruct skill for Customer Win Story.",
+  "expected_output": "The AI proposes the whole path, asks which steps the student insists on in place of the fixed-or-flexible question, and records the insisted step as theirs.",
+  "files": [
+    "students/I5-no-method.md",
+    "fixtures/make_fixture.py"
+  ],
+  "expectations": [
+    {
+      "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+      "kind": "judged"
+    },
+    {
+      "text": "Each part opens with \"Part N of 5\" and its name (Part 1 What this is worth … Part 5 Rules, where you check or approve its work, the sources it uses, and how you'll judge it), and no part announces its own time",
+      "kind": "judged"
+    },
+    {
+      "text": "Every AI message asks at most one question (a draft message ending \"What's wrong or missing?\" counts as one)",
+      "kind": "judged"
+    },
+    {
+      "text": "The label \"Ask:\" never appears in any AI message",
+      "kind": "judged"
+    },
+    {
+      "text": "The words step-driven and goal-driven never appear in any AI message, and the AI never asks the student to choose a path type",
+      "kind": "judged"
+    },
+    {
+      "text": "`requirements.md` has these sections in this order: `# [Name] — Workflow Requirements`, `## Goal`, `## Value & Measurement`, `## Metadata`, `## Path`, `## Inputs`, `## Context Inventory`, `## Acceptance Criteria`, `## Example Scenarios`, `## Rules & Constraints`, `## Human Gates`, `## Security, Privacy & Safety`; no YAML frontmatter; no `Definition Type` row; no `## Sequence` and no `## Optimization Notes`",
+      "kind": "judged"
+    },
+    {
+      "text": "`## Human Gates` opens with the line `Runs: with you` or `Runs: without you`",
+      "kind": "judged"
+    },
+    {
+      "text": "`## Security, Privacy & Safety` contains the line `Governing regime: …` before a `### Writes` heading; under `### Writes` there is either a `- W1 · …` line or the line `None`",
+      "kind": "judged"
+    },
+    {
+      "text": "Every line under `## Path` that is a step is written `- Step N — [Name] · produces …` with a `fixed (…)` or `flexible` mark, tags in the spec's order",
+      "kind": "judged"
+    },
+    {
+      "text": "`framework/[name]/deconstruct-in-progress.md` existed during the interview (after Part 2) and is deleted once `requirements.md` is written",
+      "kind": "judged"
+    },
+    {
+      "text": "The close says \"Workflow Requirements saved to `framework/[name]/requirements.md`.\" with the counts, names Step 3 Design and \"run the design skill\", and mentions `/design`",
+      "kind": "judged"
+    },
+    {
+      "text": "The Workflow node has `status: under-development`, links `[Requirements](framework/[name]/requirements.md)` in `# Artifacts`, and has no `definition_type` written by this run",
+      "kind": "judged"
+    },
+    {
+      "text": "`## Path` opens with the line `Path: proposed by AI`",
+      "kind": "judged"
+    },
+    {
+      "text": "The AI asks \"Which of these would you insist on?\" and does not ask \"Which of those must happen exactly that way, every time?\"",
+      "kind": "judged"
+    },
+    {
+      "text": "The customer-approval step is recorded `fixed (your judgment)` without `· proposed by AI`",
+      "kind": "judged"
+    },
+    {
+      "text": "Every other proposed step is `flexible` and carries `· proposed by AI`",
+      "kind": "judged"
+    },
+    {
+      "text": "The person-and-role question (\"Which of these does a person do?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
+      "kind": "judged"
+    }
+  ]
+}

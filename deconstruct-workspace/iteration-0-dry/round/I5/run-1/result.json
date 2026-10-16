@@ -1,0 +1,137 @@
+{
+  "eval": "I5",
+  "run": 1,
+  "status": "valid",
+  "note": "",
+  "models": [
+    "claude-opus-5-5"
+  ],
+  "claude_code_version": "2.1.301",
+  "fidelity": {
+    "passed": true,
+    "evidence": "no framework term used before the AI used it"
+  },
+  "preconditions": [
+    {
+      "text": "Fidelity (precondition): every fact the student gave appears in or follows from the student's script; the student invented nothing outside it",
+      "kind": "judged",
+      "precondition": true,
+      "passed": true,
+      "evidence": "Student's facts (quarterly asks, two stories a quarter, \"recognise themselves in\", insisting on customer approval, \"I send the draft... AI does the rest\") match the script; other answers were \"not sure\""
+    }
+  ],
+  "expectations": [
+    {
+      "text": "The run ends before the turn cap",
+      "kind": "scripted",
+      "passed": false,
+      "evidence": "turn cap hit"
+    },
+    {
+      "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "First message begins \"This session has five parts and takes about 45–60 minutes...\"; neither the spec opening nor the switch line appears"
+    },
+    {
+      "text": "Each part opens with \"Part N of 5\" and its name (Part 1 What this is worth … Part 5 Rules, where you check or approve its work, the sources it uses, and how you'll judge it), and no part announces its own time",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "Parts 1–3 open with \"Part N of 5\", but Parts 4 and 5 were not reached. The overview names Part 5 \"How you'll judge the output\", not the spec name"
+    },
+    {
+      "text": "Every AI message asks at most one question (a draft message ending \"What's wrong or missing?\" counts as one)",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "First AI message asks \"Is this right?\" and also \"Tell me about the workflow...\"; the Part 1 value message asks two questions"
+    },
+    {
+      "text": "The label \"Ask:\" never appears in any AI message",
+      "kind": "judged",
+      "passed": true,
+      "evidence": "\"Ask:\" does not appear in any AI message"
+    },
+    {
+      "text": "The words step-driven and goal-driven never appear in any AI message, and the AI never asks the student to choose a path type",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "\"I'd suggest the **step-driven** path\" and \"Do you want to refine these steps with me as a step-driven workflow?\""
+    },
+    {
+      "text": "`requirements.md` has these sections in this order: `# [Name] — Workflow Requirements`, `## Goal`, `## Value & Measurement`, `## Metadata`, `## Path`, `## Inputs`, `## Context Inventory`, `## Acceptance Criteria`, `## Example Scenarios`, `## Rules & Constraints`, `## Human Gates`, `## Security, Privacy & Safety`; no YAML frontmatter; no `Definition Type` row; no `## Sequence` and no `## Optimization Notes`",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached; no requirements.md written"
+    },
+    {
+      "text": "`## Human Gates` opens with the line `Runs: with you` or `Runs: without you`",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "`## Security, Privacy & Safety` contains the line `Governing regime: …` before a `### Writes` heading; under `### Writes` there is either a `- W1 · …` line or the line `None`",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "Every line under `## Path` that is a step is written `- Step N — [Name] · produces …` with a `fixed (…)` or `flexible` mark, tags in the spec's order",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "`framework/[name]/deconstruct-in-progress.md` existed during the interview (after Part 2) and is deleted once `requirements.md` is written",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "No files are listed as touched; no deconstruct-in-progress.md shown after Part 2"
+    },
+    {
+      "text": "The close says \"Workflow Requirements saved to `framework/[name]/requirements.md`.\" with the counts, names Step 3 Design and \"run the design skill\", and mentions `/design`",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached; run stopped at turn cap in Part 3"
+    },
+    {
+      "text": "The Workflow node has `status: under-development`, links `[Requirements](framework/[name]/requirements.md)` in `# Artifacts`, and has no `definition_type` written by this run",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached; no Workflow node update shown"
+    },
+    {
+      "text": "`## Path` opens with the line `Path: proposed by AI`",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "The AI asks \"Which of these would you insist on?\" and does not ask \"Which of those must happen exactly that way, every time?\"",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "\"Which of these would you insist on?\" never asked; the AI asked \"Do you want to refine these steps with me as a step-driven workflow?\" instead"
+    },
+    {
+      "text": "The customer-approval step is recorded `fixed (your judgment)` without `· proposed by AI`",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached; requirements.md not written"
+    },
+    {
+      "text": "Every other proposed step is `flexible` and carries `· proposed by AI`",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "not reached"
+    },
+    {
+      "text": "The person-and-role question (\"Which of these does a person do?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "\"Which of these does a person do?\" never asked; decisions, range and expertise questions not reached"
+    }
+  ],
+  "passed": 1,
+  "total": 18,
+  "denials": [],
+  "usd": 7.7561
+}
