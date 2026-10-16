@@ -1,0 +1,358 @@
+{
+  "skill_name": "build",
+  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the build student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "evals": [
+    {
+      "id": "B1-unapproved",
+      "name": "unapproved-plan-refused",
+      "source": "deconstruct-redesign.md section 5 (Build); build1-plan.md Task 1 Step 6",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-draft",
+      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "prompt": "Run the build skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-draft"
+      ],
+      "expected_output": "Build refuses a plan at approved: false and builds nothing.",
+      "preconditions": [],
+      "expectations": [
+        {
+          "text": "Build stops before generating anything and says, in plain words, that the Design Plan isn't approved yet and the student approves it in a Design session",
+          "kind": "judged"
+        },
+        {
+          "text": "No skill is created",
+          "kind": "scripted",
+          "check": {
+            "type": "file_absent",
+            "path": ".claude/skills/*/SKILL.md"
+          }
+        },
+        {
+          "text": "The plan is left as it is",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/sales-pre-call-brief/design-plan.md"
+          }
+        },
+        {
+          "text": "The node gains no `# Skills` link",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "registry/workflows/sales-pre-call-brief.md",
+            "pattern": "^# Skills\\s*\\n+- \\["
+          }
+        }
+      ],
+      "runs": 3
+    },
+    {
+      "id": "B1-approved",
+      "name": "approved-plan-builds",
+      "source": "deconstruct-redesign.md sections 4 and 5 (Build, R6-4)",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-approved",
+      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "prompt": "Run the build skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-approved"
+      ],
+      "expected_output": "Build reads plan_version 4.0 at approved: true, runs the write pre-flight from ### Writes, lists the not-available-yet input as a prerequisite, and builds from the step lines.",
+      "preconditions": [
+        "When the AI offered to connect, authorize or install a connector, the student declined.",
+        "When the AI asked the student to approve or confirm what it would build, the student said yes."
+      ],
+      "expectations": [
+        {
+          "text": "Build's opening is today's, word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Build takes 30–60 minutes, most of it on your side.",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "Build creates the orchestrator skill in the project's skill folder",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": ".claude/skills/*/SKILL.md"
+          }
+        },
+        {
+          "text": "The node links the built skill under `# Skills`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "registry/workflows/sales-pre-call-brief.md",
+            "pattern": "^# Skills\\s*\\n+- \\["
+          }
+        },
+        {
+          "text": "Build leaves `requirements.md` unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/sales-pre-call-brief/requirements.md"
+          }
+        },
+        {
+          "text": "Build accepts `plan_version: 4.0` with `approved: true` and proceeds without asking the student to regenerate or re-approve the plan",
+          "kind": "judged"
+        },
+        {
+          "text": "The write-scope pre-flight reads `### Writes` (None): Build asks for no write scope on the CRM connector and never falls back to `External Action`",
+          "kind": "judged"
+        },
+        {
+          "text": "Build lists I2 (the booking form's \"What would you like to cover?\" answer, `Status: not available yet`) as a prerequisite to have in place before the first run",
+          "kind": "judged"
+        },
+        {
+          "text": "The built skill follows the step lines in order: each of Steps 1–4 appears with what it produces, the CRM check (fixed by policy) is an always-do step, D1 picks the brief's lead, and Step 5 is a pause for Dana (G1); the rest is filled from Rules R1–R4, the Context Inventory and the Acceptance Criteria",
+          "kind": "judged"
+        },
+        {
+          "text": "Build closes with a reconciliation table: one row per Build Output row in the plan's decomposition, plus the orchestrator skill, each connector and each context item it provided",
+          "kind": "judged"
+        },
+        {
+          "text": "With the connector declined, Build records the CRM connection as still to do instead of stopping or pretending it is connected",
+          "kind": "judged"
+        }
+      ],
+      "runs": 3
+    },
+    {
+      "id": "B2",
+      "name": "regulated-build",
+      "source": "deconstruct-redesign.md section 5 (Build); R4-5",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-plan-approved",
+      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "prompt": "Run the build skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../deconstruct-workspace/evals/fixtures/new-format/expenses-plan-approved"
+      ],
+      "expected_output": "Fixed regulation steps are built unchanged; the per-step table is chosen by decomposition: steps.",
+      "preconditions": [
+        "When the AI offered to connect, authorize or install a connector, the student declined.",
+        "When the AI asked the student to approve or confirm what it would build, the student said yes."
+      ],
+      "expectations": [
+        {
+          "text": "Build creates the orchestrator skill",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": ".claude/skills/*/SKILL.md"
+          }
+        },
+        {
+          "text": "Build leaves `requirements.md` unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/expense-report-approval/requirements.md"
+          }
+        },
+        {
+          "text": "Both `fixed (regulation)` steps are built unchanged: Step 1 matches every receipt to its line before the policy-limit check, as its step line and detail block say, and Step 4 is a pause for the controller on reports over $5,000",
+          "kind": "judged"
+        },
+        {
+          "text": "Build uses the per-step decomposition table (chosen by `decomposition: steps`), not Capability Domain Mapping: the reconciliation table's rows name steps",
+          "kind": "judged"
+        },
+        {
+          "text": "The write-scope pre-flight names W1 (posting the decision to Concur, Step 7) from `### Writes`, and with the connector declined says what access is still needed rather than building as if connected",
+          "kind": "judged"
+        },
+        {
+          "text": "Build lists no run input as missing: I1 and I2 are `Status: available`",
+          "kind": "judged"
+        },
+        {
+          "text": "The built skill pauses for the analyst (G1) before posting, and for the controller (G2) on reports over $5,000",
+          "kind": "judged"
+        }
+      ],
+      "runs": 3
+    },
+    {
+      "id": "B3",
+      "name": "old-step-driven-build",
+      "source": "deconstruct-redesign.md section 6 (Build); Review Focus 4",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/step-driven-approved",
+      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "prompt": "Run the build skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../deconstruct-workspace/evals/fixtures/old-format/step-driven-approved"
+      ],
+      "expected_output": "An old step-driven file with an approved spec_version 3.0 design-spec.md still builds; the pre-flight falls back to External Action.",
+      "preconditions": [
+        "When the AI offered to connect, authorize or install a connector, the student declined.",
+        "When the AI asked the student to approve or confirm what it would build, the student said yes."
+      ],
+      "expectations": [
+        {
+          "text": "Build's opening is today's, word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Build takes 30–60 minutes, most of it on your side.",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "Build creates the orchestrator skill (installed in the project or staged in the workflow folder)",
+          "kind": "scripted",
+          "check": {
+            "type": "any",
+            "checks": [
+              {
+                "type": "file_exists",
+                "path": ".claude/skills/*/SKILL.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/weekly-status-report/skills/*/SKILL.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The old `requirements.md` is unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/weekly-status-report/requirements.md"
+          }
+        },
+        {
+          "text": "The approved `design-spec.md` is unchanged and not renamed",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/weekly-status-report/design-spec.md"
+          }
+        },
+        {
+          "text": "Build accepts the `spec_version: 3.0` design-spec.md and builds without asking the student to regenerate it or run Design again",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "With no `### Writes` in the old file, the write-scope pre-flight falls back to each step's `External Action` (Step 4 writes two local files; the rest are read-only)",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "Build folds each step's Step Details (Goal, Inputs, Outputs, Rules & Edge Cases) into the built skill and closes with the reconciliation table",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "runs": 3
+    },
+    {
+      "id": "B3-gen",
+      "name": "old-generated-build",
+      "source": "deconstruct-redesign.md section 6 (Build); build1-plan.md Task 1 Step 7",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1",
+      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "prompt": "Run the build skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/build-student.md"
+      ],
+      "expected_output": "9.1.0-generated requirements with their approved 9.1.0 design spec still build.",
+      "preconditions": [
+        "When the AI offered to connect, authorize or install a connector, the student declined.",
+        "When the AI asked the student to approve or confirm what it would build, the student said yes."
+      ],
+      "expectations": [
+        {
+          "text": "The old `requirements.md` is unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/*/requirements.md"
+          }
+        },
+        {
+          "text": "Build reads the 9.1.0 files as they are and builds without asking the student to regenerate them",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "With no `### Writes`, the write-scope pre-flight falls back to `External Action`",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "runs": 3
+    },
+    {
+      "id": "B4",
+      "name": "old-goal-driven-build",
+      "source": "deconstruct-redesign.md section 5 (Build: legacy definition_type); Review Focus 4",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/goal-driven-approved",
+      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "prompt": "Run the build skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../deconstruct-workspace/evals/fixtures/old-format/goal-driven-approved"
+      ],
+      "expected_output": "An old goal-driven file with its approved spec builds by the legacy definition_type table choice (Capability Domain Mapping).",
+      "preconditions": [
+        "When the AI offered to connect, authorize or install a connector, the student declined.",
+        "When the AI asked the student to approve or confirm what it would build, the student said yes."
+      ],
+      "expectations": [
+        {
+          "text": "Build creates the orchestrator skill",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": ".claude/skills/*/SKILL.md"
+          }
+        },
+        {
+          "text": "The old `requirements.md` is unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/partner-fit-research/requirements.md"
+          }
+        },
+        {
+          "text": "The approved `design-spec.md` is unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/partner-fit-research/design-spec.md"
+          }
+        },
+        {
+          "text": "Build uses the plan's Capability Domain Mapping table as its generation checklist (chosen by the legacy `definition_type: Goal-Driven`), and the reconciliation table's rows name the domains",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "Build accepts the old file and spec without asking the student to regenerate either",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "With no `### Writes` and no per-step `External Action`, Build treats the workflow as writing nothing outside its memo and asks for no write scope",
+          "kind": "judged"
+        }
+      ],
+      "runs": 3
+    }
+  ]
+}

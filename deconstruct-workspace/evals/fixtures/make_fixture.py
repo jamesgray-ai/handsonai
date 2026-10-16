@@ -9,6 +9,7 @@ Run `python3 make_fixture.py --list` for the fixture names.
 """
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -228,9 +229,10 @@ def fx_r7(t):  # another workflow unfinished; the student names a different one
     fx_r5(t)
 
 
-def fx_r8(t):  # retired, with Requirements
+def fx_r8(t):  # retired, with Requirements (no run log: lint-registry.js:290 rejects one on a retired node)
     copy_example(t)
     set_field(t, WSR, "status", "retired")
+    (t / "framework" / WSR / "runs.md").unlink(missing_ok=True)
 
 
 def no_registry_wsr(t):
@@ -391,6 +393,49 @@ def fx_r12(t):  # two unfinished interviews: R5's renamed backlog workflow and R
     vendor_progress(t)
 
 
+# ---------- tidy: every fixture's registry lints clean, as a real student's would ----------
+
+TOOLS = ROOT / "registry-template" / "tools"
+
+
+def tidy(t):
+    """Drop list lines linking to Workflow nodes or files a fixture removed, list every Business
+    node in its index,
+    then recompose the derived views (registry/index.md catalog, REGISTRY.md) with the
+    template's tools, so the registry lints clean."""
+    t = Path(t).resolve()
+    reg = t / "registry"
+    if not reg.is_dir():
+        return
+    bundle_link = re.compile(r"\]\((/workflows/[^)#]+\.md)\)")
+    repo_link = re.compile(r"\]\(((?:framework|registry|context|outputs)/[^)#]+)\)")
+
+    def broken(line):
+        return (any(not (reg / m.lstrip("/")).exists() for m in bundle_link.findall(line))
+                or any(not (t / m).exists() for m in repo_link.findall(line)))
+
+    for f in reg.rglob("*.md"):
+        lines = f.read_text().splitlines(keepends=True)
+        kept = [l for l in lines if not broken(l)]
+        if kept != lines:
+            f.write_text("".join(kept))
+    bdir = reg / "businesses"
+    idx = bdir / "index.md"
+    if idx.exists():
+        body = idx.read_text()
+        for b in sorted(bdir.glob("*.md")):
+            if b.name == "index.md" or f"/businesses/{b.name})" in body:
+                continue
+            m = re.search(r'^title: "?([^"\n]+)"?$', b.read_text(), re.M)
+            body = "\n".join(l for l in body.splitlines() if not l.startswith("_No entries yet"))
+            body = body.rstrip("\n") + f"\n- [{m.group(1) if m else b.stem}](/businesses/{b.name})\n"
+        idx.write_text(body)
+    r = subprocess.run(["node", str(TOOLS / "compose-registry.js"), str(reg)], cwd=t,
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.exit(f"compose failed for {t}: {r.stderr[-600:]}")
+
+
 FIXTURES = {
     "sales": fx_sales, "expenses": fx_expenses, "meals": fx_meals, "winstory": fx_winstory,
     "R1": fx_r1, "R2": fx_r2, "R3": fx_r3, "R4": fx_r4, "R5": fx_r5, "R6": fx_r6, "R7": fx_r7,
@@ -411,4 +456,5 @@ if __name__ == "__main__":
         sys.exit(f"{target} already exists; pass a new folder")
     target.parent.mkdir(parents=True, exist_ok=True)
     FIXTURES[sys.argv[1]](target)
+    tidy(target)
     print(target)

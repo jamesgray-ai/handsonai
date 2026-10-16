@@ -1,0 +1,272 @@
+{
+  "skill_name": "test",
+  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the test student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "evals": [
+    {
+      "id": "T1",
+      "name": "new-format-test",
+      "source": "deconstruct-redesign.md sections 4 and 5 (Test; R2-1b, R2-2)",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-built",
+      "student": "../../deconstruct-workspace/evals/students/test-student.md",
+      "files": [
+        "../../deconstruct-workspace/evals/students/test-student.md",
+        "../../deconstruct-workspace/evals/fixtures/new-format/expenses-built"
+      ],
+      "sessions": [
+        {
+          "prompt": "Run the test skill.",
+          "student": true
+        },
+        {
+          "prompt": "Run the expense-report-approval skill as a test run on this input:\n\nReport #4502: 1 line, dinner in Paris, claimed $96.\n\nReceipt (scanned): Le Comptoir, 14 Sept, total €78.00, with \"+ 12\" and a new total \"90\" written by hand beside it. Rate on 14 Sept: $1.07 per euro.",
+          "student": true,
+          "from_previous": true
+        }
+      ],
+      "expected_output": "Test's check list takes Step N output lines from the step lines, carries a D1 reading check into the check list and report card, treats the hard-marked scenario as the hard case, applies the (must) rule, and writes design_plan:.",
+      "preconditions": [
+        "When the workflow under test paused for a review or approval, the student approved.",
+        "When the run finished, the student said \"test this\"."
+      ],
+      "expectations": [
+        {
+          "text": "The opener writes `test-results.md`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "framework/expense-report-approval/test-results.md",
+            "session": 1
+          }
+        },
+        {
+          "text": "`test-results.md` records the plan under the new key `design_plan:`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/test-results.md",
+            "pattern": "^design_plan: framework/expense-report-approval/design-plan\\.md",
+            "session": 1
+          }
+        },
+        {
+          "text": "`test-results.md` has no `design_spec:` key",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "framework/expense-report-approval/test-results.md",
+            "pattern": "^design_spec:",
+            "session": 1
+          }
+        },
+        {
+          "text": "The round is opened at `round_status: in-progress`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/test-results.md",
+            "pattern": "^round_status: in-progress",
+            "session": 1
+          }
+        },
+        {
+          "text": "The check list carries the AI-reading check keyed `D1 reading`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_contains",
+            "path": "framework/expense-report-approval/test-results.md",
+            "text": "D1 reading",
+            "session": 1
+          }
+        },
+        {
+          "text": "The check list has `Step N output` lines for the built steps no AC or gate already covers (Step 3, Step 7)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/expense-report-approval/test-results.md",
+                "pattern": "Step 3 output",
+                "session": 1
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/expense-report-approval/test-results.md",
+                "pattern": "Step 7 output",
+                "session": 1
+              }
+            ]
+          }
+        },
+        {
+          "text": "The passing rule says a (must) miss fails the scenario (today's line)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "miss on a \\**\\(must\\)\\**( line)? always fails the scenario",
+            "session": 1
+          }
+        },
+        {
+          "text": "Test leaves `requirements.md` unchanged (nothing added or dropped)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/expense-report-approval/requirements.md",
+            "session": 1
+          }
+        },
+        {
+          "text": "Every built AI step has a `Step N output` line worded from its step line's `produces` text, unless Test's one-behaviour-one-line rule folds it into an AC or gate line it restates; human steps are graded through their gates",
+          "kind": "judged"
+        },
+        {
+          "text": "Test takes E2, the scenario marked `hard` in Example Scenarios, as the round's hard case",
+          "kind": "judged"
+        },
+        {
+          "text": "The report card in the run chat grades `D1 reading`",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "D1 reading",
+            "session": 2
+          }
+        },
+        {
+          "text": "In the run chat, the report card lists the AC lines first, then the path lines (R, G, `Step N output` and `D1 reading`); `D1 reading` is graded on the amount the run read from the receipt (€78, the handwritten tip flagged), with that evidence quoted",
+          "kind": "judged"
+        },
+        {
+          "text": "The (must) rule is applied: if AC1 is Not met on E2, Test says the scenario fails, whatever the other lines show",
+          "kind": "judged"
+        },
+        {
+          "text": "E2's confirmed results, with a `D1 reading` key, are appended to the frontmatter `results` map",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/expense-report-approval/test-results.md",
+            "pattern": "^\\s*E2: \\{.*\"D1 reading\"",
+            "session": 2
+          }
+        }
+      ],
+      "runs": 3
+    },
+    {
+      "id": "T2",
+      "name": "old-format-test",
+      "source": "deconstruct-redesign.md section 6 (Test); Review Focus 4",
+      "fixture": "R1",
+      "student": "../../deconstruct-workspace/evals/students/test-student.md",
+      "prompt": "Run the test skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/test-student.md",
+        "../../deconstruct-workspace/evals/fixtures/make_fixture.py"
+      ],
+      "expected_output": "An old-format build with a design-spec.md is read and graded as today.",
+      "preconditions": [],
+      "expectations": [
+        {
+          "text": "The opener writes `test-results.md` at `round_status: in-progress`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/weekly-status-report/test-results.md",
+            "pattern": "^round_status: in-progress"
+          }
+        },
+        {
+          "text": "The old `requirements.md` is unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/weekly-status-report/requirements.md"
+          }
+        },
+        {
+          "text": "`test-results.md` points at the old plan file, `design-spec.md`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/weekly-status-report/test-results.md",
+            "pattern": "^design_(plan|spec): framework/weekly-status-report/design-spec\\.md"
+          }
+        },
+        {
+          "text": "The approved `design-spec.md` is unchanged and not renamed",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/weekly-status-report/design-spec.md"
+          }
+        },
+        {
+          "text": "The check list has a `Step 1 output` line",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/weekly-status-report/test-results.md",
+            "pattern": "Step 1 output"
+          }
+        },
+        {
+          "text": "Test reads the old step-driven requirements and the `design-spec.md` as they are, without asking the student to convert or regenerate them",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The check list takes each `Step N output` line from the Step Details `Outputs` fields, and every AC, R and G line is listed, as today",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "runs": 3
+    },
+    {
+      "id": "T2-gen",
+      "name": "old-format-test-generated",
+      "source": "deconstruct-redesign.md section 6 (Test); Review Focus 4",
+      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1",
+      "student": "../../deconstruct-workspace/evals/students/test-student.md",
+      "prompt": "Run the test skill.",
+      "files": [
+        "../../deconstruct-workspace/evals/students/test-student.md"
+      ],
+      "expected_output": "An old-format build with a design-spec.md is read and graded as today.",
+      "preconditions": [],
+      "expectations": [
+        {
+          "text": "The opener writes `test-results.md` at `round_status: in-progress`",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/*/test-results.md",
+            "pattern": "^round_status: in-progress"
+          }
+        },
+        {
+          "text": "The old `requirements.md` is unchanged",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "framework/*/requirements.md"
+          }
+        },
+        {
+          "text": "Test reads the old step-driven requirements and the `design-spec.md` as they are, without asking the student to convert or regenerate them",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The check list takes each `Step N output` line from the Step Details `Outputs` fields, and every AC, R and G line is listed, as today",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "runs": 3
+    }
+  ]
+}

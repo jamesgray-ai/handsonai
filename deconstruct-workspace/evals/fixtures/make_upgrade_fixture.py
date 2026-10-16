@@ -223,4 +223,5 @@ if __name__ == "__main__":
         sys.exit(f"{target} already exists; pass a new folder")
     target.parent.mkdir(parents=True, exist_ok=True)
     FIXTURES[sys.argv[1]](target)
+    MF.tidy(target)
     print(target)
