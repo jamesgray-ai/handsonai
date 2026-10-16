@@ -24,7 +24,7 @@ Convert the confirmed name to kebab-case (lowercase, hyphens, no punctuation) an
 
 ## The law or regulation question
 
-Asked as the last question of Part 2. Skipped for personal life (`Governing regime: None`). If the student already answered it in an earlier reply, record that answer and don't ask again.
+Asked as the last question of Part 2: after its answer (and the regulated-work note, if any), the next message opens Part 3, and none of the tests above becomes a question. Skipped for personal life (`Governing regime: None`). If the student already answered it in an earlier reply, record that answer and don't ask again.
 
 **Ask:** "Is there a law or regulation that governs this work?"
 - *Not sure?* Say not sure; I'll note it for you to check.
