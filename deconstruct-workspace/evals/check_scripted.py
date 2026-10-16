@@ -27,7 +27,8 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   any              {checks: [...]}                                at least one passes
 
 `session` is 1-based; leave it out to mean every session (AI checks) or the last session (file checks).
-Text matching ignores differences in curly versus straight quotes and dashes.
+Text matching ignores differences in curly versus straight quotes and dashes; ai_contains and
+ai_not_contains also treat single and double quote marks alike.
 
 Built-in checks the runner adds to every interview run: the fidelity check (no listed framework
 term in a student turn before an AI turn used it) and the turn cap.
@@ -45,6 +46,11 @@ FIDELITY_TERMS = ["acceptance criterion", "acceptance criteria", "AC", "fixed st
 def norm(s):
     return (s.replace("‘", "'").replace("’", "'").replace("“", '"').replace("”", '"')
              .replace("—", "-").replace("–", "-").replace(" ", " "))
+
+
+def qnorm(s):
+    """norm, plus single and double quote marks treated alike, for word-for-word text checks."""
+    return norm(s).replace('"', "'")
 
 
 def _sessions(run, n):
@@ -82,7 +88,7 @@ def check(c, run):
         for s in _sessions(run, n):
             msgs = _ai_turns(s, "any" if which == "all" else which)
             if t == "ai_contains":
-                hits = [norm(c["text"]) in norm(m) for m in msgs]
+                hits = [qnorm(c["text"]) in qnorm(m) for m in msgs]
             else:
                 hits = [bool(re.search(c["pattern"], norm(m), re.M)) for m in msgs]
             ok = all(hits) and hits if which == "all" else any(hits)
@@ -92,7 +98,7 @@ def check(c, run):
     if t in ("ai_not_contains", "ai_not_regex"):
         for s in _sessions(run, n):
             for i, m in enumerate(_ai_turns(s)):
-                hit = (norm(c["text"]) in norm(m)) if t == "ai_not_contains" else re.search(c["pattern"], norm(m), re.M)
+                hit = (qnorm(c["text"]) in qnorm(m)) if t == "ai_not_contains" else re.search(c["pattern"], norm(m), re.M)
                 if hit:
                     return False, f"session {s['n']} AI message {i + 1}: {m[:200]!r}"
         return True, "absent from every AI message"

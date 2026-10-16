@@ -26,10 +26,11 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 - **Expertise:** "A beginner summarises the company's About page. I look for what changed recently: a new hire, a funding round, a complaint."
 - **Live writes:** it only drafts for you; it doesn't send anything.
 - **Taking part:** yes, you read and approve the brief.
-- **When unsure:** do its best and flag it.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): do its best and flag it.
 - **Sources:** your CRM (HubSpot), LinkedIn, the company's website and press. HubSpot holds client details (confidential); you'd connect it. LinkedIn and websites are outside sources.
 - **Test inputs:** when asked, paste: "Calendar invite: Scoping call with Priya Nair, Head of Ops, Kestrel Foods, 21 Oct 10:00." and "Calendar invite: Intro call with Sam Ortiz, founder, Byteforge (seed-stage), 22 Oct 15:00." Accept the AI's proposed others.
-- **Target:** 10 minutes per brief, readable after a month.
+- **Target:** 10 minutes per brief.
+- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Answer each question briefly and truthfully from the facts above. Correct the AI's playbacks when they're wrong. Keep useful AI suggestions; drop any that don't match your facts.

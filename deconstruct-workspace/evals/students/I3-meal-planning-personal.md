@@ -12,9 +12,10 @@ Ada Okafor, a parent of two, running a household of four. Friendly, informal.
 - **Rules:** no shellfish (your son is allergic). Thursday is always leftovers.
 - **Sends, orders or books anything:** no, you shop yourself.
 - **Taking part:** you look over the plan before shopping.
-- **When unsure:** do its best and flag it.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): do its best and flag it.
 - **Range:** normal week: two late nights. Hard week: a guest who's vegetarian and three late nights.
-- **Target:** under 20 minutes on Sundays, readable after a month.
+- **Target:** under 20 minutes on Sundays.
+- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Casual, short answers. If asked anything about laws or regulations, say "no, it's just dinner".

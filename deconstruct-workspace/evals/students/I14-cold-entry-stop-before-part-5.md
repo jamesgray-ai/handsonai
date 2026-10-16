@@ -17,7 +17,8 @@ Leo Brandt, an independent podcaster who runs a weekly interview show on his own
 - **Done or not done:** it has a one-line hook with the guest's name; one real quote, word for word; 3 to 5 timestamps; under 200 words. Send back: a quote that isn't word for word.
 - **Method:** if the AI plays back your earlier description as the steps and asks what's wrong, say "That's it, but I check the quote against the audio before it goes out." If it asks fresh how you'd want a skilled colleague to do it, give the same description.
 - **Who does what:** you check the quote against the audio; the rest the AI can do.
-- **Fixed steps:** checking the quote against the audio must always happen (reason: your judgment, "a misquote loses a guest").
+- **Fixed steps:** checking the quote against the audio must always happen ("a misquote loses a guest").
+- **Why it must happen that way** (only when asked): your judgment.
 - **Review point:** yes, that quote check.
 - **Decisions:** "if the guest asked for something to be cut, leave it out of the notes".
 - **What decides it** (only when asked): the guest's request, written in your episode notes.

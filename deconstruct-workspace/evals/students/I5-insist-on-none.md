@@ -19,8 +19,9 @@ Jordan Lee, a product marketer at Lumen Software. New to customer stories.
 - **Expertise:** "I don't know yet."
 - **Live writes:** no; you send it yourself.
 - **Taking part:** yes.
-- **When unsure:** stop and ask.
-- **Target:** two stories a quarter, readable after a quarter.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): stop and ask.
+- **Target:** two stories a quarter.
+- **When the number can be read** (only when asked how long after go-live): a quarter after it goes live.
 
 ## How you answer
 - Short, honest answers.

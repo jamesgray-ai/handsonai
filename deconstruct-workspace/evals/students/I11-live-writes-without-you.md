@@ -23,10 +23,11 @@ Hana Sato, sales operations manager at Ferncastle Analytics. Knows the systems w
 - **Expertise:** "A beginner trusts the company name people type. I go by the email domain."
 - **Live writes:** when the AI lists what it writes to and asks if there's anything else, say: "It also sends the lead a confirmation email from HubSpot." When asked which step does that, say "right after the contact is created".
 - **Taking part:** "No, it should run start to finish without me."
-- **When unsure:** do its best and flag it in the Slack message.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): do its best and flag it in the Slack message.
 - **Sources:** the form submission, Clearbit, HubSpot (customer contact details, confidential), the territory table. The AI can reach HubSpot and Clearbit through connections.
 - **Test inputs:** when asked, paste: "Form: Jonas Weber, jonas@kranwerk.de, Kranwerk GmbH, Germany, 'Need a demo for our ops team'." Accept the AI's proposed others.
-- **Target:** every lead routed within 5 minutes, readable after a month.
+- **Target:** every lead routed within 5 minutes.
+- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Short answers from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.

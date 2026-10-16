@@ -23,10 +23,11 @@ Grace Mbeki, CEO of Tidewater Robotics, a seed-stage hardware startup. Six month
 - **Expertise:** "A beginner hides the bad news at the bottom. I put it right after the numbers."
 - **Live writes:** no; you send it yourself.
 - **Taking part:** yes, you edit it.
-- **When unsure:** do its best and flag it.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): do its best and flag it.
 - **Sources:** the finance sheet (confidential), the team's weekly notes. You'll paste them.
 - **Test inputs:** when asked, paste: "September: cash $1.84M, burn $142k, runway 13 months; wins: pilot signed with Harbor Freightlines; problems: motor supplier delay of 3 weeks." Accept the AI's proposed others.
-- **Target:** under 1 hour a month, sent within 3 days of close, readable after a quarter.
+- **Target:** under 1 hour a month, sent within 3 days of close.
+- **When the number can be read** (only when asked how long after go-live): a quarter after it goes live.
 
 ## How you answer
 Short answers from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.

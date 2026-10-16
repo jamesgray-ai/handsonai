@@ -37,6 +37,7 @@ plays that session's own script (the chain eval C1). `tools: "no_file"` turns of
 import argparse
 import concurrent.futures as cf
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -51,6 +52,21 @@ import harness as H
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+
+INCLUDE_FACTS = re.compile(r"^<!-- include-facts: (\S+) -->$", re.M)
+
+
+def load_script(evals_dir, rel):
+    """A student script, with each `<!-- include-facts: students/X.md -->` line replaced by X's
+    "What you know" section, so a script that says "the same facts as I1" carries I1's facts."""
+    def facts(m):
+        other = (evals_dir / m.group(1)).read_text()
+        sec = re.search(r"^## What you know\n(.*?)(?=^## |\Z)", other, re.M | re.S)
+        if not sec:
+            raise ValueError(f"{m.group(1)} has no '## What you know' section")
+        return f"## {Path(m.group(1)).stem}: the facts referred to above\n{sec.group(1).rstrip()}\n"
+    return INCLUDE_FACTS.sub(facts, (evals_dir / rel).read_text())
+
 
 STUDENT_RULES = """You are playing a student in a test of an AI interview. You see only your script and the conversation.
 Reply with only the student's next message: no notes, no quotes around it, no labels.
@@ -147,9 +163,9 @@ def run_once(rnd, ev, k, out, args, evals_dir):
             # `student: true` uses the eval's script; `student: "<path>"` names this session's own.
             script = None
             if isinstance(s.get("student"), str):
-                script = (evals_dir / s["student"]).read_text()
+                script = load_script(evals_dir, s["student"])
             elif s.get("student") and ev.get("student"):
-                script = (evals_dir / ev["student"]).read_text()
+                script = load_script(evals_dir, ev["student"])
             replies = list(s.get("replies", []))
             cap = s.get("max_turns", ev.get("max_turns", args.max_turns))
             tools = tools_for(ev, s)

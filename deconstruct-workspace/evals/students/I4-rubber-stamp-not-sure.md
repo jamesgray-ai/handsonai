@@ -6,6 +6,8 @@ Dana Rivera again (see I1 for the workflow: Sales Pre-Call Brief), but tired and
 ## What you know
 The same facts as I1, but you give them only when a question asks for something you clearly know (trigger, deliverable, method, test inputs when you must). Everywhere else you are unsure.
 
+<!-- include-facts: students/I1-sales-pre-call-brief.md -->
+
 ## How you answer
 - To any question that shows a *Not sure?* line, reply "not sure".
 - To any draft or playback, reply "looks right".

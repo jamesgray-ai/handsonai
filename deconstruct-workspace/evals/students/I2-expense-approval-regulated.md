@@ -23,10 +23,11 @@ Marcus Webb, Finance Operations manager at Northbank Financial, a regional bank.
 - **Live writes:** it posts the decision to the expense system (Concur). It doesn't send emails.
 - **Which step posts to Concur** (only when asked): the last one, after the approval.
 - **Taking part:** you want the analyst to review each decision before it posts.
-- **When unsure:** stop and ask.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): stop and ask.
 - **Sources:** Concur (confidential staff data), the expense policy PDF, scanned receipts.
 - **Test inputs:** paste "Report #4471: 6 lines, hotel $612, meals $148, taxi $56, total $816" when asked; accept proposed others.
-- **Target:** 4 analyst hours a week; readable after a quarter.
+- **Target:** 4 analyst hours a week.
+- **When the number can be read** (only when asked how long after go-live): a quarter after it goes live.
 
 ## How you answer
 Short, factual answers. When shown a table of steps, rules and checks, correct one thing ("the receipt check happens before the policy-limit check") and keep the rest.

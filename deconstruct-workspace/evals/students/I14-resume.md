@@ -7,10 +7,11 @@ Leo Brandt, an independent podcaster. You started describing your weekly show-no
 - **Your workflow:** "Episode Show Notes": after each recording, the Riverside transcript becomes show notes you paste into Substack. If the AI asks again about anything from yesterday, answer from these facts: about 2 hours an episode; no law or regulation; a past one you liked (Ep 41, Nadia Osei); for new listeners, under 200 words plus timestamps, ready the morning after; the hook, one word-for-word quote, 3 to 5 timestamps; you check the quote against the audio.
 - **Live writes:** no; you paste the notes into Substack yourself.
 - **Taking part:** yes, you check the quote.
-- **When unsure:** do its best and flag it.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): do its best and flag it.
 - **Sources:** the Riverside transcript and the audio. You'll paste the transcript; nothing is confidential.
 - **Test inputs:** when asked, paste: "Transcript, Ep 44, 52 min: Marco Ruiz on running a bike repair co-op." Accept the AI's proposed others.
-- **Target:** 20 minutes an episode, readable after a month.
+- **Target:** 20 minutes an episode.
+- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Short, plain answers from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.

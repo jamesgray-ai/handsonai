@@ -13,7 +13,8 @@ Maya R., program manager for a software delivery team. You've been through this 
 - **What a good one looks like:** "A checklist I only have to tweak, with nothing missing for the first two weeks."
 - **What you do with it next** (only when asked): you adjust it and share it with the team at kickoff.
 - **Who / form / when:** for you; a one-page checklist grouped by week; ready two days before kickoff.
-- **Done or not done:** it covers weeks 0 and 1; every item has an owner role; it includes access requests for every system in the scope; it has the first status report date. Send back: a missing access request.
+- **Done or not done:** it covers weeks 0 and 1; every item has an owner role; it includes access requests for every system in the scope; it has the first status report date.
+- **Send back** (only when asked which miss would make you send it back): a missing access request.
 - **Method:** "Read the scope, list the systems and people in it, pull the standard items from our template, add an access request per system, then group it by week." After that: "then I review it and adjust." Today you do it the same way.
 - **Who does what:** you review and adjust; the rest the AI can do.
 - **Fixed steps:** the access request per system must always happen (reason: company policy).
@@ -24,10 +25,11 @@ Maya R., program manager for a software delivery team. You've been through this 
 - **Expertise:** "A beginner forgets access to the client's systems, which takes the longest to get."
 - **Live writes:** no, it only drafts.
 - **Taking part:** yes, you review it.
-- **When unsure:** do its best and flag it.
+- **When unsure** (only when asked what it should do with a case it can't confidently handle): do its best and flag it.
 - **Sources:** the scope document, the team list, your checklist template. All internal; you'll paste them.
 - **Test inputs:** when asked, paste: "Scope: Program Heron, internal billing migration; team: 3 engineers, 1 analyst; systems: billing DB, staging, Jira." Accept the AI's proposed others.
-- **Target:** 20 minutes per checklist, readable after a month.
+- **Target:** 20 minutes per checklist.
+- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 - In your first reply after the AI's opening, say: "Skip the explanations, I've done one of these before." Then answer whatever it asked, if it asked anything.
