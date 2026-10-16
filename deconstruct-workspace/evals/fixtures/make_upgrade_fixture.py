@@ -213,7 +213,7 @@ FIXTURES = {
     "A1": MF.fx_r5,
     "C1": MF.fx_sales,
 }
-for _n in ("U1", "U2", "U3", "U4"):
+for _n in ("U1", "U2", "U3"):  # no U4-gen: 9.1.0 Test returned Not ready, so no running stage exists
     FIXTURES[f"{_n}-gen"] = make_gen(_n, "I1")
     FIXTURES[f"{_n}-gen-I2"] = make_gen(_n, "I2")
 

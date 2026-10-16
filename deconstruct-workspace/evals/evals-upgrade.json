@@ -1533,55 +1533,6 @@
       ]
     },
     {
-      "id": "U4-gen",
-      "name": "u4-on-generated-9x-output",
-      "kind": "upgrade",
-      "fixture": "U4-gen",
-      "pending": "fixtures/upgrade-9x-generated/I1/ (Task 1 Step 2); the -I2 fixture names also exist",
-      "sessions": [
-        {
-          "prompt": "Run the deconstruct skill. Continue my workflow."
-        }
-      ],
-      "expected_output": "As U4, on the 9.1.0 output the I1 script generated.",
-      "files": [
-        "fixtures/make_upgrade_fixture.py",
-        "fixtures/upgrade-9x-generated/I1"
-      ],
-      "runs": 3,
-      "expectations": [
-        {
-          "text": "The AI says \"This workflow already has a Design Plan, so changes to its requirements go through Improve. Say 'run the improve skill'.\"",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_contains",
-            "text": "This workflow already has a Design Plan, so changes to its requirements go through Improve. Say 'run the improve skill'."
-          }
-        },
-        {
-          "text": "Deconstruct does not re-run: no AI message says the Deconstruct opening (the 10.0 opening or 9.1's)",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_not_regex",
-            "pattern": "Deconstruct turns this workflow into a clear, testable description of what it must do|This is the most thorough conversation in the framework"
-          }
-        },
-        {
-          "text": "No loss: `framework/*` is byte-identical before and after (every record file)",
-          "kind": "scripted",
-          "check": {
-            "type": "file_unchanged",
-            "path": "framework/*"
-          }
-        },
-        {
-          "text": "The AI gives the Improve message on its own and starts no other work",
-          "kind": "judged",
-          "must": true
-        }
-      ]
-    },
-    {
       "id": "A1",
       "name": "framework-agent-finds-unfinished-deconstruct",
       "kind": "routing",
