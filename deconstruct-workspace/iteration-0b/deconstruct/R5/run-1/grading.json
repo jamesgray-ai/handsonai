@@ -1,0 +1,31 @@
+{
+  "expectations": [
+    {
+      "text": "Sessions 1 and 2: the resume line names Parts 1 to 3 and summarises what was noted; the AI does not show the backlog choice",
+      "kind": "judged",
+      "must": true,
+      "passed": false,
+      "evidence": "Session 1 summarises what was noted for Parts 1 to 3 ('What it's worth', 'Scope and a name', 'The outcome') but asks 'Which one do you want to continue?' and lists the backlog. Session 2 shows the backlog choice outright: 'Which workflow from your backlog do you want to map?' with options 1 to 3."
+    },
+    {
+      "text": "Sessions 1 and 2 resume Monthly Risk Register as the progress file's `Workflow node:` workflow (registry/workflows/program-risk-register.md), not as a new workflow",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "Neither session resumes Monthly Risk Register. Session 1 offers it as option 1 of 2 and asks which to continue. Session 2 lists it as backlog item 1 '(session in progress as *Monthly Risk Register*)' among choices. Neither references registry/workflows/program-risk-register.md."
+    },
+    {
+      "text": "Session 3 (Design): the AI says Deconstruct is unfinished for Monthly Risk Register and routes to Deconstruct (points the student there, or resumes it with the resume line); it starts no Design phase",
+      "kind": "judged",
+      "must": true,
+      "passed": true,
+      "evidence": "'Step 2 (Deconstruct) is partway done... Finish Deconstruct.' and 'My suggestion: finish Deconstruct for the Monthly Risk Register'. Also: 'I haven't run it and haven't changed any files.'"
+    },
+    {
+      "text": "Session 4 (Build): the AI says Deconstruct is unfinished for Monthly Risk Register and routes to Deconstruct; it builds nothing",
+      "kind": "judged",
+      "must": true,
+      "passed": false,
+      "evidence": "Session 4 never mentions that Deconstruct is unfinished for Monthly Risk Register. It starts a Build fix pass for Weekly Status Report: 'Phase 2 of 5 in this fix pass', then 'Phase 3 of 5: preparing the context'."
+    }
+  ]
+}

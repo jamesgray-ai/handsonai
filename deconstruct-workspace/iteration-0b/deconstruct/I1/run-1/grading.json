@@ -1,0 +1,107 @@
+{
+  "expectations": [
+    {
+      "text": "Every AI message asks at most one question (a draft message ending \"What's wrong or missing?\" counts as one)",
+      "kind": "judged",
+      "must": true,
+      "passed": false,
+      "evidence": "Several messages ask more than one question, e.g. \"is 45 minutes something you've actually timed... Also, do you know today's proposal acceptance rate?\" and \"Which CRM is it? Is it right that this step only reads...? And what's wrong or missing?\""
+    },
+    {
+      "text": "The AI never asks the student to choose a path type (steps versus goal)",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The AI asked \"Shall we go step-driven?\" after explaining the goal-driven alternative."
+    },
+    {
+      "text": "The backlog question's Why names the three tests for a good first workflow (a handful of steps, starts when you decide, works from material you already have) and does not mention step-driven",
+      "kind": "judged",
+      "passed": true,
+      "evidence": "The Why says \"(1) has a handful of steps, (2) starts when you decide to start it, and (3) works from material you already have\". It does not mention step-driven."
+    },
+    {
+      "text": "The law question is the last question of Part 2",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "No law or regulation question was asked. Part 2 asked about the name and then whether the colleague also uses it."
+    },
+    {
+      "text": "The checks are written with the student during Part 3 (played back before \"Part 4 of 5\"), not left to the end of the interview",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The acceptance criteria list was first drafted in Part 5 (\"Looking at the Halvorsen brief... here's what seems to make a brief good\"), not played back during Part 3."
+    },
+    {
+      "text": "\"never name another client\" is recorded as a Must never rule (an R row), not a check",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The R table (R1–R9) has no such rule. It is recorded as AC7 and under Prohibited actions in Security."
+    },
+    {
+      "text": "The student's long answer about how they do it today (well past a short paragraph) is played back in plain words, one line per step, and that playback ends \"What's wrong?\"",
+      "kind": "judged",
+      "must": true,
+      "passed": false,
+      "evidence": "Not reached. The AI never asked how the student does it today, so no long answer was played back."
+    },
+    {
+      "text": "When the AI plays back steps or sources, it names sources in plain words (\"uses your CRM notes\"), never as IDs (C#, W#, D#) or the tagged line format",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The AI played back sources as an ID table (\"C1 | Calendar invite...\", \"C2 | HubSpot...\") and wrote \"E1 (typical case): the Halvorsen brief (C5)\"."
+    },
+    {
+      "text": "Part 5 is delivered as four short draft messages, in order: (1) rules and never-dos, (2) the human gates collected so far plus the sources it uses, (3) how you'll judge it, (4) the inputs Test will run; messages 1–3 each end \"What's wrong or missing?\"",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "Part 5 went criteria list, then test inputs, then golden examples. There were no four draft messages ending \"What's wrong or missing?\"."
+    },
+    {
+      "text": "Before generating, the AI shows the report card Test will fill in and introduces the labels AC, R and G (the labels preview)",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "The report card and the AC/R labels appeared only after \"I've written the Workflow Requirements... to requirements.md\"."
+    },
+    {
+      "text": "E1 is the input behind the Golden Example (the calendar invite and CRM record the student started from), and the Golden Example column holds the real output's C# ID only in E1's row",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "E1 is the Copperfield Foods invite, not the Halvorsen calendar invite and CRM record behind the golden example, although the C5 Golden Example sits in E1's row."
+    },
+    {
+      "text": "When the AI asked whether that is how the student does it today, the student gave the script's long paragraph in one reply",
+      "kind": "judged",
+      "precondition": true,
+      "passed": true,
+      "evidence": "Cue not given."
+    },
+    {
+      "text": "When the AI asked what comes after the student's first method answer, the student said \"then I read it and add my own questions\"",
+      "kind": "judged",
+      "precondition": true,
+      "passed": true,
+      "evidence": "Cue not given. The AI asked whether to go step-driven, not what comes after."
+    },
+    {
+      "text": "When the AI asked the send-back question, the student also volunteered that the brief must never name another client",
+      "kind": "judged",
+      "precondition": true,
+      "passed": true,
+      "evidence": "Cue not given (no explicit send-back question). The student still said \"It must never name another client of ours\"."
+    },
+    {
+      "text": "When the AI asked whether the LinkedIn notes-doc step should stay, the student said no",
+      "kind": "judged",
+      "precondition": true,
+      "passed": true,
+      "evidence": "Cue not given."
+    },
+    {
+      "text": "Fidelity (precondition): every fact the student gave appears in or follows from the student's script; the student invented nothing outside it",
+      "kind": "judged",
+      "precondition": true,
+      "passed": true,
+      "evidence": "All facts trace to the script, and the uncertain answers are \"not sure\". There was out-of-character meta text (\"The script doesn't cover short-notice bookings. Wait, must reply as student only\"), but no invented facts."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "expectations": [
+    {
+      "text": "Session 1: the built question is a plain question, with no Why or Not sure? line",
+      "kind": "judged",
+      "must": true,
+      "passed": false,
+      "evidence": "The AI never asked whether the workflow had been built. It closed with \"How do you want to continue?\" and three options (Build / Redo Deconstruct / different workflow), so there is no built question to judge."
+    },
+    {
+      "text": "Session 2: after \"no\", the AI goes on to prefill from the old requirements file (or says it will) rather than asking every question fresh",
+      "kind": "judged",
+      "passed": false,
+      "evidence": "After \"no\", the AI replied \"Understood, I won't do any of those. All your files are as they were.\" It did not re-run or prefill from the old requirements file."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "role": "student",
+    "text": "Run the deconstruct skill for Weekly Status Report.",
+    "prompt": true
+  },
+  {
+    "role": "ai",
+    "text": "I stopped before starting the interview because **Weekly Status Report has already been through Step 2 (Deconstruct)**, and also through several steps after it:\n\n| Step | File | Status |\n|---|---|---|\n| 2 — Deconstruct | `framework/weekly-status-report/requirements.md` | Done: 4 steps, value case filled in, inputs E1–E3 saved |\n| 3 — Design | `framework/weekly-status-report/design-spec.md` | Approved: a standalone skill on Claude, using the HubSpot connector |\n| 5 — Test | `framework/weekly-status-report/test-results.md` | Complete (2026-07-10): 39 of 39 checks passed on all three inputs, rated **ready** |\n\n**Next is Step 6 (Run).** That's the first real Friday run, where the Run Card and run log get set up. It also starts the four runs that will finally give you a baseline number, since the requirements still record it as `Unknown — must measure before go-live`.\n\nRunning Deconstruct again would replace requirements that the approved design and the passing tests are built on. That would send the workflow back through Design and Test. I can do it if something has changed, and I'd keep the current file as `requirements-2026-10-16.md` first. Otherwise I wouldn't.\n\nWhat would you like to do?\n\n1. **Continue to Step 6:** say \"continue my workflow\" or \"run the run skill.\"\n2. **Re-deconstruct Weekly Status Report:** tell me what has changed, such as a new data source, a new report format or a different audience.\n3. **Map a different workflow from your report.** Three candidates haven't been started:\n   - **Area of work: Program Delivery**\n     1. Program Risk Register: about two hours at month end\n     2. Stakeholder Meeting Prep: 30–40 minutes per stakeholder meeting\n     3. Onboarding Checklist Drafting: not sized yet\n\nThere's no registry in this folder yet, so this workflow's records are only in its own folder. When you want your workflows saved and shown on a dashboard, say \"run the scaffolding-registry skill.\""
+  }
+]

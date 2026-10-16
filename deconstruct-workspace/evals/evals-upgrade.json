@@ -359,19 +359,19 @@
           }
         },
         {
-          "text": "The resume orientation names Step 5 (Test) as next (today's line: \"You've completed through Step [N] ([name]) — next is Step [N+1] ([name]).\")",
+          "text": "The resume orientation names Step 5 (Test) as next (behaviour, not exact wording; today's line: \"You've completed through Step [N] ([name]) — next is Step [N+1] ([name]).\")",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "next is Step 5\\b.{0,3}\\(?Test"
+            "pattern": "(?i)(next is \\**Step 5\\b.{0,4}\\(?Test|Step 5\\b.{0,4}\\(?Test\\)?\\**.{0,10}\\bis next)"
           }
         },
         {
-          "text": "Test resumes the round with today's line, naming 1 of 3 graded (\"N of M graded — run E(next) in a new chat next\")",
+          "text": "Test resumes the round with today's line, naming 1 of 3 graded (\"N of M graded — run E(next) in a new chat next\") (behaviour, not exact wording)",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "1 of 3 graded"
+            "pattern": "(?i)1 of 3 (scenarios )?(graded|so far)|graded 1 of 3"
           }
         },
         {
@@ -1486,11 +1486,11 @@
           }
         },
         {
-          "text": "The resume orientation names Step 5 (Test) as next (today's line: \"You've completed through Step [N] ([name]) — next is Step [N+1] ([name]).\")",
+          "text": "The resume orientation names Step 5 (Test) as next (behaviour, not exact wording; today's line: \"You've completed through Step [N] ([name]) — next is Step [N+1] ([name]).\")",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "next is Step 5\\b.{0,3}\\(?Test"
+            "pattern": "(?i)(next is \\**Step 5\\b.{0,4}\\(?Test|Step 5\\b.{0,4}\\(?Test\\)?\\**.{0,10}\\bis next)"
           }
         },
         {
