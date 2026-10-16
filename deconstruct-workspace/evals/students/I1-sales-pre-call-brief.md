@@ -13,7 +13,8 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 - **Who / form / when:** for you; one page; ready the day before the call.
 - **Done or not done:** it opens with a guess about why they took the call; every fact says where it came from; it names the person's role and something they said recently; it gives two or three likely priorities; it fits on one page. If asked about a vague word ("engaging" if you used it): "it gives me a question I wouldn't have thought of."
 - **Send back:** the hypothesis missing, or a fact with no source. You also volunteer: "and it must never name another client of ours."
-- **Method:** "Look up the company and the person, check our CRM for past contact, form a guess about why they booked, then write it up." Stop there the first time; when asked what comes after, say "then I read it and add my own questions". Today you do the same, except you also paste the LinkedIn profile into a notes doc first; when asked whether that should stay, say no.
+- **Method:** "Look up the company and the person, check our CRM for past contact, form a guess about why they booked, then write it up." Stop there the first time; when asked what comes after, say "then I read it and add my own questions".
+- **How you do it today:** when the AI asks whether that's how you do it today, give this whole answer in one reply, word for word (it runs long on purpose): "Mostly, but it's messier than that. When the invite lands I open a blank notes doc and paste the person's whole LinkedIn profile into it, because I like having everything in one place. Then I go through the company website, the About page, the news page, anything from the last few months, and I copy bits across into the same doc. Then I look them up in HubSpot to see if we've ever talked to them or pitched them, and if we have I read the old notes. After that I sit with it for a while and try to work out why they actually booked the call. Then I write the brief, usually the evening before, and in the morning I read it again and jot down the questions I want to ask." When the AI plays that back and asks what's wrong, say it's right. When asked whether the LinkedIn notes doc should stay, say no. For any other part of today's way the AI asks about, say yes, keep it.
 - **Who does what:** you read it and add questions; everything else the AI can do.
 - **Fixed steps:** checking the CRM for past contact must always happen (reason: company policy, "we never pitch someone we've already pitched without knowing").
 - **Review point:** yes, you read it before the call; that's your review.
@@ -31,4 +32,4 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 Answer each question briefly and truthfully from the facts above. Correct the AI's playbacks when they're wrong. Keep useful AI suggestions; drop any that don't match your facts.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved (or gives you the finished file to save yourself) and names Step 3 (Design), reply `END`.

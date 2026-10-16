@@ -26,7 +26,8 @@ FIDELITY_ITEM = ("Fidelity (precondition): every fact the student gave appears i
 
 
 def items_for(ev):
-    items = [{"text": x["text"], "kind": "judged"} for x in ev["expectations"] if x["kind"] == "judged"]
+    items = [{"text": x["text"], "kind": "judged", **{k: x[k] for k in ("must", "gating") if k in x}}
+             for x in ev["expectations"] if x["kind"] == "judged"]
     items += [{"text": p, "kind": "judged", "precondition": True} for p in ev.get("preconditions", [])]
     if ev.get("student") or any(isinstance(s.get("student"), str) for s in ev.get("sessions", [])):
         items.append({"text": FIDELITY_ITEM, "kind": "judged", "precondition": True})

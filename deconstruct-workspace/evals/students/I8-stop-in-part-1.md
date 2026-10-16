@@ -1,0 +1,14 @@
+# Student: Stop during Part 1 (eval I8-part1, session 1)
+
+## Who you are
+Maya R., program manager for a software delivery team. You get interrupted almost at once.
+
+## What you know
+- **Which workflow:** "Program Risk Register" (you named it).
+- **Worth:** about half a day each month pulling risks out of tracker comments. Value: the steering group sees every open risk with an owner, and you get the afternoon back.
+
+## How you answer
+Answer the AI's first question about what the work is worth, briefly, from the facts above.
+
+## When to stop
+As soon as the AI asks you a second question after you've answered one about what the work is worth, reply `END`. If an AI message says "Part 2 of 5", reply `END` too.

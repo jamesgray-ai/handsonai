@@ -21,6 +21,8 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   file_unchanged   {path, session?}                               every matching file is byte-identical
                                                                   at session start and end
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
+  no_added_files   {except?: [globs], session?}                   no file was added during the session,
+                                                                  except paths matching the globs
   all              {checks: [...]}                                every sub-check passes
   any              {checks: [...]}                                at least one passes
 
@@ -61,6 +63,10 @@ def _ai_turns(sess, which="any"):
 def _files(sess, pattern, when="end"):
     snap = sess["files_end"] if when == "end" else sess["files_start"]
     return {p: v for p, v in snap.items() if fnmatch.fnmatch(p, pattern)}
+
+
+def files_all(sess):
+    return sorted(sess["files_end"])
 
 
 def _file_session(run, n):
@@ -116,11 +122,16 @@ def check(c, run):
         return ok, "; ".join(e for _, e in res)
 
     s = _file_session(run, n)
-    files = _files(s, c["path"])
+    files = _files(s, c.get("path", "*"))
     if t == "file_exists":
         return (bool(files), f"found {sorted(files)}" if files else f"no {c['path']}")
     if t == "file_absent":
         return (not files, "absent" if not files else f"present: {sorted(files)}")
+    if t == "no_added_files":
+        start = set(s["files_start"])
+        allowed = c.get("except", [])
+        added = [p for p in files_all(s) if p not in start and not any(fnmatch.fnmatch(p, a) for a in allowed)]
+        return (not added, "no files added" if not added else f"added: {added}")
     if t == "file_unchanged":
         start = _files(s, c["path"], "start")
         if not start:
@@ -190,7 +201,8 @@ def run_checks(ev, run):
         if x["kind"] != "scripted":
             continue
         ok, why = check(x["check"], run)
-        out.append({"text": x["text"], "kind": "scripted", "passed": bool(ok), "evidence": why})
+        out.append({"text": x["text"], "kind": "scripted", "passed": bool(ok), "evidence": why,
+                    **{k: x[k] for k in ("must", "gating") if k in x}})
     return out
 
 

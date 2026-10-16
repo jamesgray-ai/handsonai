@@ -214,6 +214,10 @@ def fx_r5(t):  # walk e: backlog workflow renamed in Part 2, stopped after Part 
 
 def fx_r6(t):  # cold entry: a new workflow with no node, stopped after Part 2
     copy_example(t)
+    vendor_progress(t)
+
+
+def vendor_progress(t):
     progress_file(t, "vendor-invoice-intake", "none — new workflow", "Part 3 — The outcome",
                   "## What this is worth\nAbout two hours a week keying vendor invoices.\n\n"
                   "## Scope and a name\nTrigger: a vendor invoice arrives in the shared inbox. Deliverable: an invoice entry ready for approval. "
@@ -272,11 +276,128 @@ def fx_r10(t):  # old step-driven file, nothing built, no plan
     keep_artifacts(t, WSR, ["Opportunity report", "Requirements"], keep_skills=False)
 
 
+def fx_r8_continue(t):  # retired, with Requirements, the only node (so "continue my workflow" finds one workflow)
+    fx_r8(t)
+    for s in ["onboarding-checklist-drafting", "program-risk-register", "stakeholder-meeting-prep"]:
+        remove_node(t, s)
+
+
+def fx_r9_runguide(t):  # no registry: requirements.md plus run-guide.md, which means running (check 2)
+    no_registry_wsr(t)
+    shutil.copy(EXAMPLE / "framework" / WSR / "run-guide.md", t / "framework" / WSR / "run-guide.md")
+
+
+# ----- old requirements formats (Global Constraints "Back-compat"; spec section 6) -----
+
+DT_ROW = "| Definition Type | Step-Driven |\n"
+
+
+def req_path(t):
+    return t / "framework" / WSR / "requirements.md"
+
+
+def edit_req(t, *pairs):
+    p = req_path(t)
+    s = p.read_text()
+    for old, new in pairs:
+        assert old in s, old[:60]
+        s = s.replace(old, new, 1)
+    p.write_text(s)
+
+
+def drop_section(t, heading, upto):
+    """Remove the requirements text from `heading` up to (not including) `upto`."""
+    p = req_path(t)
+    s = p.read_text()
+    p.write_text(s[:s.index(heading)] + s[s.index(upto):])
+
+
+def drop_node_field(t, slug, field):
+    p = node_path(t, slug)
+    s, n = re.subn(rf"^{field}: .*\n", "", p.read_text(), count=1, flags=re.M)
+    assert n == 1, (slug, field)
+    p.write_text(s)
+
+
+def fx_r10_norow(t):  # old step-driven: `## Steps Overview`, no Definition Type row (design/SKILL.md:52 reads it as step-driven)
+    fx_r10(t)
+    edit_req(t, (DT_ROW, ""))
+    drop_node_field(t, WSR, "definition_type")
+
+
+GOAL_INPUTS = """## Inputs
+
+- This week's task changes and comments from the HubSpot project tracker "Q2 Delivery Tracker" (C1)
+- The current date, which sets the 7-day window
+- The report template and three past reports (C2)
+- The tone guide (C3), once it exists
+
+"""
+
+
+def goal_driven(t, value, goal_heading):
+    """Today's Deconstruct goal-driven layout (deconstruct/SKILL.md, "Goal-Driven middle block"):
+    a Definition Type row, `## Inputs` between Metadata and Context Inventory, and no Steps Overview,
+    Step Details, Sequence or Optimization Notes."""
+    fx_r10(t)
+    edit_req(t, (DT_ROW, f"| Definition Type | {value} |\n"))
+    drop_section(t, "## Steps Overview", "## Context Inventory")
+    edit_req(t, ("## Context Inventory", GOAL_INPUTS + "## Context Inventory"))
+    p = req_path(t)
+    s = p.read_text()
+    s = s[:s.index("## Optimization Notes")].rstrip("\n") + "\n"
+    for old, new in [
+        ("| C1 | HubSpot project tracker | 1 |", "| C1 | HubSpot project tracker | All |"),
+        ("| C2 | Report template + 3 past reports | 2 |", "| C2 | Report template + 3 past reports | All |"),
+        ("| C3 | Tone guide | 2 |", "| C3 | Tone guide | All |"),
+        ("tests R1 and the Step 2 ownerless-blocker edge case", "tests R1 and the ownerless-blocker edge case"),
+        ("| G1 | Step 3 |", "| G1 | Before the report is saved or shared |"),
+        ("| G2 | Step 2 |", "| G2 | While drafting |"),
+    ]:
+        assert old in s, old
+        s = s.replace(old, new, 1)
+    if goal_heading != "## Goal":
+        s = s.replace("\n## Goal\n", f"\n{goal_heading}\n", 1)
+    assert "## Path" not in s and "## Steps Overview" not in s and "### Step " not in s
+    p.write_text(s)
+
+
+def fx_r10_goal(t):  # old goal-driven: `Definition Type: Goal-Driven`, `## Inputs`, no `## Path`
+    goal_driven(t, "Goal-Driven", "## Goal")
+    set_field(t, WSR, "definition_type", "goal-driven")
+
+
+def fx_r10_outcome(t):  # legacy goal-driven: the `Outcome-Driven` value and the `## Outcome` heading
+    goal_driven(t, "Outcome-Driven", "## Outcome")
+    set_field(t, WSR, "definition_type", "outcome-driven")
+
+
+def fx_r10_nomarkers(t):  # none of the markers: no Definition Type row, Steps Overview, Inputs or Path
+    fx_r10(t)
+    edit_req(t, (DT_ROW, ""), ("## Steps Overview", "## How the work goes"), ("## Step Details", "## Notes on each part"))
+    drop_section(t, "## Sequence", "## Context Inventory")
+    s = req_path(t).read_text()
+    for marker in ("Definition Type", "## Steps Overview", "## Inputs", "## Path"):
+        assert marker not in s, marker
+    drop_node_field(t, WSR, "definition_type")
+
+
+def fx_r11(t):  # built (approved Design spec, # Skills linked), not running, named directly
+    fx_r1(t)
+
+
+def fx_r12(t):  # two unfinished interviews: R5's renamed backlog workflow and R6's cold-entry one
+    fx_r5(t)
+    vendor_progress(t)
+
+
 FIXTURES = {
     "sales": fx_sales, "expenses": fx_expenses, "meals": fx_meals, "winstory": fx_winstory,
     "R1": fx_r1, "R2": fx_r2, "R3": fx_r3, "R4": fx_r4, "R5": fx_r5, "R6": fx_r6, "R7": fx_r7,
-    "R8": fx_r8, "R9": fx_r9, "R9-not-ready": fx_r9_notready, "R9-ready": fx_r9_ready,
-    "R9-in-progress": fx_r9_inprogress, "R10": fx_r10,
+    "R8": fx_r8, "R8-continue": fx_r8_continue, "R9": fx_r9, "R9-not-ready": fx_r9_notready,
+    "R9-ready": fx_r9_ready, "R9-in-progress": fx_r9_inprogress, "R9-run-guide": fx_r9_runguide,
+    "R10": fx_r10, "R10-no-row": fx_r10_norow, "R10-goal": fx_r10_goal, "R10-outcome": fx_r10_outcome,
+    "R10-no-markers": fx_r10_nomarkers, "R11": fx_r11, "R12": fx_r12,
 }
 
 if __name__ == "__main__":

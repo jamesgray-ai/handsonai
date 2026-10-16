@@ -26,8 +26,8 @@ Output, per eval and run, under <out-dir>/<eval-id>/run-<k>/:
   for evals marked `keep_workspace` (writers read by other evals: I1, I2, I8, C1, ...).
 Then <out-dir>/round.json and <out-dir>/summary.md.
 
-Session sources, in an eval's `sessions` list: the first session builds the eval's `fixture`;
-a later session rebuilds its `fixture` (or the eval's) unless it says `from_previous: true`
+Session sources, in an eval's `sessions` list: `fixture_from` wins in any session, the first
+session included; otherwise the first session builds the eval's `fixture`; a later session rebuilds its `fixture` (or the eval's) unless it says `from_previous: true`
 (keep the workspace as it is) or `fixture_from: <path>` (copy a copied-back session snapshot;
 relative paths resolve from the evals.json folder). Fixture names: see build_fixture. `agent: true` (eval or session) starts the
 session on the plugin's framework-agent. `student: true` plays the eval's script; `student: "<path>"`
@@ -129,14 +129,14 @@ def run_once(rnd, ev, k, out, args, evals_dir):
         for n, s in enumerate(sessions, 1):
             # Fresh temp HOME per session; kept across this session's --resume turns.
             H.reset_home(root)
-            if n == 1 or not (s.get("from_previous") or s.get("fixture_from")):
-                build_fixture(s.get("fixture", ev.get("fixture")), ws, evals_dir, args.fixture_builder)
-            elif s.get("fixture_from"):
+            if s.get("fixture_from"):
                 src = Path(s["fixture_from"])
                 src = src if src.is_absolute() else (evals_dir / src)
                 if ws.exists():
                     shutil.rmtree(ws)
                 shutil.copytree(src, ws)
+            elif n == 1 or not s.get("from_previous"):
+                build_fixture(s.get("fixture", ev.get("fixture")), ws, evals_dir, args.fixture_builder)
             sdir = root / f"session-{n}"
             shutil.copytree(ws, sdir / "workspace-start")
             # `student: true` uses the eval's script; `student: "<path>"` names this session's own.
@@ -277,7 +277,8 @@ def run_slot(rnd, ev, k, out, args, evals_dir, budget):
 
 def pass_bar(x, n):
     """Global Constraints pass rules: scripted and must-level judged pass every run; other
-    judged pass 2 of 3 (final round: 7 of 10, 4 of 5)."""
+    judged pass 2 of 3 (final round: 7 of 10, 4 of 5). `gating: false` expectations are reported
+    as info and never fail a round."""
     if x["kind"] == "scripted" or x.get("must"):
         return n
     return {1: 1, 2: 2, 3: 2, 5: 4, 10: 7}.get(n, -(-n * 2 // 3))
@@ -296,7 +297,7 @@ def summarize(out, evs, results):
             for i, x in enumerate(graded[0]["expectations"]):
                 got = [r["expectations"][i]["passed"] for r in graded if i < len(r["expectations"])]
                 need = pass_bar(x, len(got))
-                verdict = "PASS" if sum(got) >= need else "FAIL"
+                verdict = ("info" if x.get("gating") is False else "PASS" if sum(got) >= need else "FAIL")
                 lines.append(f"- {verdict} {sum(got)}/{len(got)} (needs {need}) [{x['kind']}"
                              + (", must" if x.get("must") else "") + f"] {x['text'][:140]}")
         lines.append("")

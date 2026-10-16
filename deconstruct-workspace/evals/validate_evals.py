@@ -24,7 +24,7 @@ REQUIRED = {
     "signposts": [], "file_exists": ["path"], "file_absent": ["path"], "file_existed_during": ["path"],
     "file_contains": ["path", "text"], "file_not_contains": ["path", "text"], "file_regex": ["path", "pattern"],
     "file_not_regex": ["path", "pattern"], "sections_in_order": ["path", "headings"], "no_yaml": ["path"],
-    "file_unchanged": ["path"], "file_line": ["path", "line", "pattern"], "all": ["checks"], "any": ["checks"],
+    "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"], "all": ["checks"], "any": ["checks"],
 }
 
 
@@ -111,8 +111,9 @@ def main():
                 if not isinstance(x, dict) or "text" not in x or x.get("kind") not in ("scripted", "judged"):
                     errs.append(f"{xw}: must be {{text, kind: scripted|judged}}")
                     continue
-                if "must" in x and not isinstance(x["must"], bool):
-                    errs.append(f"{xw}: must is not a boolean")
+                for flag in ("must", "gating"):
+                    if flag in x and not isinstance(x[flag], bool):
+                        errs.append(f"{xw}: {flag} is not a boolean")
                 if x["kind"] == "scripted":
                     if "check" not in x:
                         errs.append(f"{xw}: scripted with no check")
