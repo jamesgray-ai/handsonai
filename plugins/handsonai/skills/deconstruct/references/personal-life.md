@@ -21,4 +21,4 @@ Ask these in place of confirming the trigger and deliverable, each in its own me
 
 - **Live writes**, when no step carries a `writes` tag: **Ask:** "Does it send, order or book anything for you?" (When steps carry `writes` tags, the confirmation "It writes to: [list]. Anything else?" runs as usual.)
 - **Taking part** and **when it's unsure**: the same wording as everyone else.
-- Everything else in Part 5 runs in full, in personal words: the four draft messages, Value & Measurement and the labels preview.
+- Everything else in Part 5 runs in full, in personal words: the draft messages, Value & Measurement and the labels preview.

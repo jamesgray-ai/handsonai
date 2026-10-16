@@ -4,9 +4,10 @@ Read at the start of Part 5 and again when writing the file. Every quoted line i
 
 ## Contents
 
-1. The four draft messages
+1. The draft messages
    - Message 1: rules and never-dos
    - Message 2: gates, sources and inputs, then the privacy questions
+   - Only when a sensitivity test trips: the security limits
    - Message 3: how you'll judge it
    - Message 4: the inputs Test will run
 2. Security, Privacy & Safety handling
@@ -15,7 +16,7 @@ Read at the start of Part 5 and again when writing the file. Every quoted line i
 5. Template skeleton and line formats
 6. Self-check before finishing
 
-## 1. The four draft messages
+## 1. The draft messages (four, plus the security limits when a test trips)
 
 Each is short, plays its items back in plain words (never IDs or the tagged line format), and tags every line *(you said)* or *(my suggestion)*. Each suggestion needs an explicit keep or drop; "looks right" triggers the rubber-stamp re-ask.
 
@@ -40,6 +41,10 @@ End: "What's wrong or missing?"
 The answer sets the Context Inventory's `AI Accessible` column. A write (W#) trips only the Security categories below (Prohibited actions and Traceability), not this question, which is about sources.
 
 A row saved as `Regulated` when the Part 2 answer was no or not sure: **Ask:** "Which one? A name or a description is fine." once; if it is still unknown, record `Governing regime: Not sure — to check`. This doesn't switch on the detail table.
+
+### Only when a sensitivity test trips: the security limits
+
+Its own short message, after the privacy questions and before message 3. Work out the tripped tests and categories as in section 2 (from the Context Inventory marks as corrected in reply to message 2), then play back each constraint in plain words under its category (where data may go, who sees it, what it must never do, what gets recorded), tagged *(you said)* or *(my suggestion)*, each kept or dropped as in the other drafts. A prohibition already in message 1 isn't repeated. When nothing trips, there is no such message. End: "What's wrong or missing?"
 
 ### Message 3: how you'll judge it
 
@@ -269,7 +274,7 @@ After writing, check the file and fix any miss before the close:
 
 - It lives at `framework/[name]/requirements.md`; the Workflow node has `status: under-development` (unless a re-run kept another status) and links the requirements under `# Artifacts`.
 - It has exactly the twelve sections, in this order and exactly named: `# [Name] — Workflow Requirements`, `## Goal`, `## Value & Measurement`, `## Metadata`, `## Path`, `## Inputs`, `## Context Inventory`, `## Acceptance Criteria`, `## Example Scenarios`, `## Rules & Constraints`, `## Human Gates`, `## Security, Privacy & Safety`. No YAML frontmatter, no other `##` section.
-- Every step line has a name, `produces` and a fixed/flexible mark, with tags in the stated order (`produces`, `uses`, the fixed/flexible mark, `writes`, the role, `parallel with`, `proposed by AI`); AI-added steps carry `· proposed by AI`.
+- Every step line has a name, `produces` and a fixed/flexible mark (a step a person does too: the role tag never replaces the mark), with tags in the stated order (`produces`, `uses`, the fixed/flexible mark, `writes`, the role, `parallel with`, `proposed by AI`); AI-added steps carry `· proposed by AI`.
 - Human Gates opens with the `Runs:` line; Security has the `Governing regime:` line, then `### Writes` with W lines or `None`.
 - Every scenario's input file exists at the path its `Input` cell names and holds the input itself (or the one allowed placeholder line), never a description of it. Write any that are missing.
 - Labels are present and stable (Step N, D, I, W, C, E, AC, R, G); the Golden Example column holds only a real output, else "—".

@@ -29,7 +29,7 @@ Record at the top of Human Gates: `Runs: with you` or `Runs: without you`.
 
 The send-back reason is not asked again: the third draft message plays the (must) checks back.
 
-**3. When it's unsure.** Asked once:
+**3. When it's unsure.** Asked once, even when the student said something like it earlier: an answer about one case isn't the rule for every case.
 
 **Ask:** "When it hits a case it can't confidently handle — stop and ask you, do its best and flag it, or skip that item?" If it runs without you, leave "stop and ask you" out of the choices.
 - *Why:* This becomes a rule the workflow follows every time a case doesn't fit.
@@ -37,12 +37,13 @@ The send-back reason is not asked again: the third draft message plays the (must
 
 Record it as the Fallback row in Rules & Constraints. "Stop and ask you" also adds a Human Gates row.
 
-## The draft, in four short messages
+## The draft, in four short messages (five when a security test trips)
 
-What goes in each, including message 4's test-input rules and its Hand-it-back text, is in the requirements template. Every line is tagged *(you said)* or *(my suggestion)*; each suggestion needs an explicit keep or drop (the rubber-stamp guard in SKILL.md), so the requirements stay the student's.
+When you say how many drafts are coming, count this one only when it will be sent. What goes in each, including message 4's test-input rules and its Hand-it-back text, is in the requirements template. Every line is tagged *(you said)* or *(my suggestion)*; each suggestion needs an explicit keep or drop (the rubber-stamp guard in SKILL.md), so the requirements stay the student's.
 
 1. **Rules and never-dos**, ending "What's wrong or missing?"
 2. **The human gates collected so far**, to confirm (no new gate questions), **and the sources it uses** (introduced the first time with the context sentence) and the Inputs, ending "What's wrong or missing?". The privacy questions come right after it.
+   - **Only when a sensitivity test trips: the security limits**, its own short message after the privacy questions, ending "What's wrong or missing?". It is not numbered, so messages 3 and 4 keep their numbers.
 3. **How you'll judge it**: the checks from Part 3 plus the quality standards held from Part 4, ending "What's wrong or missing?"
 4. **The inputs Test will run**, ending with the Hand-it-back message.
 

@@ -61,6 +61,8 @@ For each step marked fixed, **Ask:** "Why must [step] happen that way: a regulat
 - *Why:* Design keeps a regulation or policy step exactly as it is, even when the AI could do it another way.
 - *Not sure?* Say your judgment.
 
+Ask it even when the student said why the step matters; skip it only when they named one of the four reasons outright (for example "it's company policy"). Never choose the reason for them.
+
 The reason goes on the step line: `fixed (regulation)`, `fixed (policy)`, `fixed (check)` or `fixed (your judgment)`.
 
 For each step a person does, **Ask:** "Is [step] a point where you review or approve the work before the next step?"
