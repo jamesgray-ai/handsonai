@@ -92,7 +92,7 @@ that pass the tests above, in this order and format, exactly:
 
 Rules for each part:
 
-- **Why**, when a question has one, is said in the same message as the question, even after "skip the explanations". One sentence, tied to a use: "Test checks every gate you name here, so this sets what a passing run looks like." When a *Why* names what a later step does with the answer, check that step's skill says so before committing; a wrong *Why* teaches the student something false.
+- **Why**, when a question has one, is said in the same message as the question the first time it's asked, even after "skip the explanations"; when the same question repeats (once per step or item), later asks are the question alone. A question whose purpose isn't obvious from its words needs a *Why*: the student should never wonder why they're spending effort on it. The *Why* must be true today: never promise what a later step doesn't yet do. One sentence, tied to a use: "Test checks every gate you name here, so this sets what a passing run looks like." When a *Why* names what a later step does with the answer, check that step's skill says so before committing; a wrong *Why* teaches the student something false.
 - **Example** comes from a deliberately different line of work (expense approvals, a recruiting coordinator, a property manager), at the same altitude as the question. It must never be an answer the student could copy for their own workflow. Pick the domain at authoring time and write it in; don't tell the model to "give an example".
 - **Example collision.** The student's line of work isn't known when the skill is written, so an example can land in their own field. Write this instruction once near the skill's first question block: "If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*." Don't write backup examples.
 - **A draft replaces the example.** When a question opens with a draft built from the student's own source or earlier answers, leave out the *Example* line — the draft already shows the shape. Keep *Why* and *Not sure?*.
@@ -100,6 +100,9 @@ Rules for each part:
 - **Proposals are not examples.** Proposing an answer drawn from what the student already told you ("From the steps we mapped, I'd put a gate before the send — does that fit?") is encouraged; it's how propose-and-react works. The *Example* line is different: it shows the shape of a good answer, so it must come from someone else's work.
 - **Not sure?**, when a question has one, gives the safe default the skill will record and says it was a default. Never leave a student with no way forward: where a question has no *Not sure?* line, the thin-answer recipe is the way forward.
 - Example and Not sure? are shown by default and dropped after "skip the explanations". The student can still ask for them.
+- **Say how much is needed.** Where a conscientious student could over-answer (a typical case, a description of their method), write the "how much" line into the question block ("*Not sure?* One sentence is enough; you'll paste real notes later."). Never leave it to the model to improvise.
+- **Every message ends with a question or a clear next action.** A message that only informs (a preview, a summary) ends by saying what happens next and what to say ("Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first.").
+- **No framework step numbers inside the interview.** In questions and teaching lines, name a later step in plain words ("when we test it", "Design, the next step"), never "Step 5": inside an interview it collides with the workflow's own steps. Routing and orientation lines ("You've completed through Step 2 (Deconstruct) — next is Step 3 (Design).") keep the number with the name.
 
 ### 4. Terms: defined on first use, paired with the plain meaning
 
@@ -249,7 +252,8 @@ Run this on every edited skill before committing, and across all seven before a 
 - [ ] Every quoted question carries **Ask:**.
 - [ ] The skill tells the model never to show the **Ask:** label to the student.
 - [ ] Every example comes from a different line of work and could not be copied as the student's answer; the example-collision line is present once.
-- [ ] Every *Why* that names a later step has been checked against that step's skill.
+- [ ] Every *Why* that names a later step has been checked against that step's skill, and every question whose purpose isn't obvious has a *Why*.
+- [ ] Questions a student could over-answer say how much is needed; every message ends with a question or a next action; no interview line names a framework step by its number.
 - [ ] Every *Not sure?* records a default later steps depend on, and defaults are recorded as defaults.
 - [ ] Each framework term is defined on first use, matching the terms table.
 - [ ] The thin-answer recipe is followed; nothing invented is recorded as the student's answer.
