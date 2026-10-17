@@ -242,6 +242,17 @@ Anthropic's evaluation-first guidance, and write only the instructions needed to
    against the diff and looks for contradictions across the skill folder, other skills, and docs.
    Fix what it finds and review again until it comes back clean. Only then re-run the skill.
 
+## Evaluating a skill
+
+The harness lives in `deconstruct-workspace/evals/` (`run_eval.py`, `check_scripted.py`, `grade_eval.py`; how to run it is in its `evals.json`). Reuse it for every framework skill.
+
+- **What to write.** One eval per behaviour the skill must get right, plus a replay of each student walkthrough: a script holding the student's real answers, so every finding from that run is checked. A replay that holds real business details stays local and is never committed.
+- **How it runs.** A second AI plays the student from a fixed script; the skill runs isolated from the real Claude config and every repo. Scripted checks test exact wording and file content; a grader judges behaviour from the transcript and the files alone.
+- **Write checks the way the skill is written.** Quote approved lines word for word. A check accepts a known answer being said instead of asked. A judged item that depends on a reference (a question matrix) carries that reference in its text, because the grader sees nothing else. An approved line that asks two things in one sentence counts as one question, and the one-question item lists it. Student scripts use the skill's current wording.
+- **Pass bar.** Scripted and must-level judged checks pass every run (3 of 3); other judged checks pass at least 2 of 3, and every miss is listed.
+- **Diagnose every miss before changing anything.** It is a skill gap (fix the skill) or a check stricter or looser than the approved rule (fix the check). Never change a check just to make a run pass; when the rule itself is unclear, get a decision and record it.
+- **Rounds.** A small smoke round first, to measure cost per run; then rounds scoped to what changed; then a full round. Get cost approval before each. Defer evals that exercise a skill not yet rewritten. After a fix, re-check and re-judge the saved runs first (no new runs), then re-run only what the fix touched.
+
 ## Review checklist
 
 Run this on every edited skill before committing, and across all seven before a release:
