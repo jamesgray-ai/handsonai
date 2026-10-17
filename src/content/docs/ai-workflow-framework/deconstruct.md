@@ -53,34 +53,15 @@ Both paths produce a Workflow Requirements document with the same shared structu
 
 ## How the Skill Works
 
-Phases 1–3 establish *what* you're deconstructing and are the same for both paths. From phase 4 on, the skill follows the path you picked, and the two rejoin at phase 11.
+Deconstruct is one interview for every workflow, in five parts after you choose the workflow. The outcome comes first, so every workflow gets a clear goal and a list of what each output must get right before any steps are written.
 
-**Step-driven (all 13 phases):**
-
-1. **Scenario discovery** — If you've run Analyze, the skill finds your backlog on its own and opens by asking which workflow to map, with three tests for a good first one: a handful of steps, it starts when you decide to start it, and it works from material you already have. It then pre-populates the workflow's details from your report. Otherwise it asks about the business scenario, objective, high-level steps, and ownership. If you describe a problem instead of a workflow, the skill proposes a candidate workflow for you to react to.
-2. **Scope check** — Is this one workflow or multiple bundled together? If multiple, the skill recommends splitting and asks which to start with.
-3. **Name the workflow** — The skill proposes 2–3 name options (2–4 word noun phrases, Title Case) and confirms name, description, goal, and trigger, and derives the workflow ID.
-4. **Deep dive** — For each step, the skill probes six dimensions: discrete steps, decision points, data flows, external actions, context needs and readiness, failure modes.
-5. **Propose and react** — From the second step of your workflow onward, the skill proposes a hypothesis across all six dimensions and asks "What's right, what's wrong, what am I missing?"
-6. **Map sequence** — Identify sequential vs. parallel steps and the critical path.
-7. **Human gates** — Where must a person review or approve before the workflow continues?
-8. **Workflow-level rules** — Must always / must never / out of scope / tone and format / what to do when stuck.
-9. **Optimize for AI** — Once the full process is mapped, the skill challenges it: steps to eliminate, collapse, parallelize, or simplify for an AI-powered version.
-10. **Validate the workflow** — Walk the refined workflow end-to-end to catch gaps before Design.
-11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
-12. **Define how you will judge the output** — a good example from your real work first (change its names and details, and leave out anything confidential or personal; it still counts), then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
-13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to `framework/[workflow-name]/requirements.md`.
-
-**Goal-driven:** phases 1–3 are identical. Instead of decomposing steps, phase 4 runs a short interview that stays in "what" territory, then skips straight to the goal-driven validation gate (numbered 10 to mirror the step-driven one):
-
-4. **Goal interview** *(goal-driven)* — The situation, the goal reflected back as a concrete deliverable and pressure-tested, then the variation range, inputs, rules, fallback behavior, context sources, and human gates.
-
-Then the goal-driven gate, and both paths rejoin at phase 11:
-
-10. **Validate** *(goal-driven)* — A quality gate checks the goal is bounded and testable, the variation range and fallback behavior are defined, the rules are sufficient, and the context is reachable.
-11. **Consolidate context** — A rolled-up "context shopping list" of every artifact the workflow needs, classified for sensitivity.
-12. **Define how you will judge the output** — a good example from your real work first (change its names and details, and leave out anything confidential or personal; it still counts), then numbered yes/no criteria derived from it, then the inputs to test it on: the skill asks for one or two inputs *like* the real work you handle (with names and details made up), proposes the rest against named risks, and you correct them — plus golden examples where they exist.
-13. **Generate Workflow Requirements** — Write the structured Workflow Requirements to `framework/[workflow-name]/requirements.md`.
+1. **Choose the workflow** — If you've run Analyze, the skill finds your backlog and asks which workflow to map, with three tests for a good first one: a handful of steps, it starts when you decide to start it, and it works from material you already have. Otherwise it asks you to describe the workflow in your own words.
+2. **What this is worth** — The business objective it serves, what gets better and for whom, what to measure, and today's number.
+3. **Scope and a name** — One trigger and one deliverable, a clear name and a one-sentence description, and whether a law or regulation governs the work.
+4. **The outcome** — *Say it, sharpen it, make it checkable*: a one-sentence goal, then numbered yes/no checks for what every output must get right, with the must-haves marked.
+5. **How the work gets done** — Whether it should go the same way every time or the AI can work out how each time. Same way: your steps, written by you or proposed and corrected. AI works it out: only what it must always and never do. Then, for everyone, who does each part, what must stay fixed, where you review or approve, the decisions and what settles them, a typical and a tricky case, and your expertise.
+6. **Rules, sources and test cases** — Drafts for you to correct: the rules it follows, where you check its work, the sources it uses, what every output must get right, and the practice runs it will be tested on.
+7. **Generate Workflow Requirements** — Write the Workflow Requirements to `framework/[workflow-name]/requirements.md` and update the registry.
 
 ## How to Use This
 
