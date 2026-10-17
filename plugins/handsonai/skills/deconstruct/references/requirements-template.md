@@ -8,8 +8,8 @@ Read at the start of Part 5 and again when writing the file. Every quoted line i
    - Message 1: rules and never-dos
    - Message 2: gates, sources and inputs, then the privacy questions
    - Only when a sensitivity test trips: the security limits
-   - Message 3: how you'll judge it
-   - Message 4: the inputs Test will run
+   - Message 3: what every [deliverable] must get right
+   - Message 4: the practice runs
 2. Security, Privacy & Safety handling
 3. The labels preview
 4. Writing the file: style and machine-readability rules
@@ -22,49 +22,49 @@ Each is short, plays its items back in plain words (never IDs or the tagged line
 
 ### Message 1: rules and never-dos
 
-Draft the Rules & Constraints rows from everything said so far: what it must always do, what it must never do (including any prohibition volunteered at the send-back test), what's in and out of scope, any tone, format or length rules, and the Fallback answer. A rule the student gave stays a rule, never a step ("no shellfish"). Keep rules behavioral; constraints about data and authority go to Security, Privacy & Safety. A gate is not a prohibition: "never send without approval" is a gate; "never send" is a Prohibited action. End: "What's wrong or missing?"
+Draft the Rules & Constraints rows from everything said so far: what it must always do, what it must never do (including any prohibition volunteered at the send-back test), what's in and out of scope, any tone, format or length rules, and the Fallback answer. A rule the student gave stays a rule, never a step ("no shellfish"). Keep rules behavioral; constraints about data and authority go to Security, Privacy & Safety. A gate is not a prohibition: "never send without approval" is a gate; "never send" is a Prohibited action. Every "never" recorded as an M line in Part 4 is offered here, as a Must never rule or, for a prohibition on acting, a Prohibited action; whichever is kept removes its M line, and if dropped the M line stays. A Never that restates an Always isn't added, and a step's own action isn't restated as a rule. End: "What would you change or add?"
 
 ### Message 2: gates, sources and inputs, then the privacy questions
 
-- **The human gates collected so far**, to confirm, with where each sits and who performs it, and whether it runs with the student or without them. No new gate questions.
+- **The checkpoints collected so far** (the file's Human Gates; say "checkpoints"), to confirm, with where each sits and who performs it, and whether it runs with the student or without them. No new gate questions.
 - **The sources it uses**, introduced the first time in these words: "These are the sources it uses, what we call its **context**: any information a step needs to do its job, such as documents, spreadsheets, emails, style guides, or knowledge that lives in someone's head." For each: what it is, where it lives, whether it exists or needs creating. If a step already uses AI, its existing prompt or instructions are a source too (Build reads them). Content nobody on the team wrote that a step reads on each run (inbound customer emails, form submissions, web pages) is a source too: it gets its own Context Inventory row marked `External`, as well as its Inputs line, and the privacy questions cover it. For sources that trip no privacy check, draft whether the AI can reach them, tagged *(my suggestion)*.
-- **The Inputs** drafted in Part 4, each with where it comes from and whether it exists yet.
+- **The Inputs** drafted in Part 4, each with where it comes from and whether it exists yet; the Inputs line follows the access answer ("from C1, through the Google Drive connection").
 
-End: "What's wrong or missing?"
+End: "What would you change or add?"
 
 **Then the privacy questions.** They follow today's tests: any Context Inventory row marked `Confidential` or `Regulated`, or any `External` source. Right after message 2, one question per tripped source the AI can't reach, each its own message:
 
-**Ask:** "When this runs, can I access [source] myself, for example through a connection to [tool], or will you paste or upload it each time?"
-- *Why:* If I can't access it, the workflow has to ask you for it on every run.
+**Ask:** "When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste it in each time?"
+- *Why:* If it can't reach it, it has to ask you for it on every run.
 - *Not sure?* Say you'll paste it. You can connect it later.
 
-The answer sets the Context Inventory's `AI Accessible` column. A write (W#) trips only the Security categories below (Prohibited actions and Traceability), not this question, which is about sources.
+The answer sets the Context Inventory's `AI Accessible` column. When a write's system needs a connection, say once, after the access questions: "Saving drafts in [system] also needs a connection; we'll set that up when it's built." (name what it writes). A write (W#) trips only the Security categories below (Prohibited actions and Traceability), not this question, which is about sources.
 
 A row saved as `Regulated` when the Part 2 answer was no or not sure: **Ask:** "Which one? A name or a description is fine." once; if it is still unknown, record `Governing regime: Not sure — to check`. This doesn't switch on the detail table.
 
 ### Only when a sensitivity test trips: the security limits
 
-Its own short message, after the privacy questions and before message 3. Work out the tripped tests and categories as in section 2 (from the Context Inventory marks as corrected in reply to message 2), then play back each constraint in plain words under its category (where data may go, who sees it, what it must never do, what gets recorded), tagged *(you said)* or *(my suggestion)*, each kept or dropped as in the other drafts. A prohibition already in message 1 isn't repeated. When nothing trips, there is no such message. End: "What's wrong or missing?"
+Its own short message, after the privacy questions and before message 3. Work out the tripped tests and categories as in section 2 (from the Context Inventory marks as corrected in reply to message 2), then play back each constraint in plain words under its category (where data may go, who sees it, what it must never do, what gets recorded), tagged *(you said)* or *(my suggestion)*, each kept or dropped as in the other drafts. A prohibition already in message 1 isn't repeated. A trace record says where it is kept, never inside the deliverable ("Each draft is logged with the call notes it came from, outside the email itself."). When nothing trips, there is no such message. End: "What would you change or add?"
 
-### Message 3: how you'll judge it
+### Message 3: what every [deliverable] must get right
 
-The checks from Part 3, with their (must) marks, plus the quality standards held from Part 4 (tagged *(you said)*, skipping any a check already covers). Rules and gates are graded from their own sections, so don't copy them into checks. End: "What's wrong or missing?"
+Open "Here's what every [deliverable] must get right:" then the list from Part 3, with the must-haves marked in plain words, plus the quality standards held from Part 4 (tagged *(you said)*, skipping any the list already covers). Rules and checkpoints are graded from their own sections, so don't copy them into the list. A number the student gave is *(you said)*. End: "What would you change or add?"
 
-### Message 4: the inputs Test will run
+### Message 4: the practice runs
 
 Build the set, 3–5 in total:
 
-- **Real rows:** the input behind the Golden Example is E1; the typical case from Part 4 is `(real)` and the awkward case `(real, hard)`.
+- **Real rows:** the input behind the Golden Example is E1; the typical case from Part 4 is `(real)` and the tricky case `(real, hard)`.
 - **Proposed rows**, marked `(proposed)`, or `(proposed, hard)` when it is the hard case, each aimed at one risk named in plain words, skipping any a real row already covers: an empty or malformed input; one aimed at a Must never rule or a gate (one such scenario, not one per rule or gate); and, only when the Context Inventory has an `External` source row, an input that carries an instruction addressed to the AI. Propose only inputs the student could actually put their hands on.
 - **Name risks, not labels.** Say "this one checks it never contacts someone we've already emailed", not `R3`: the labels come in the preview.
 
-End the message with this, word for word: "Change any of these, replace them, or drop them — we want 3–5, with at least one real one and at least one hard one (an edge case it could plausibly get wrong). If you couldn't get hold of an input for one of these by tomorrow, say so and we'll swap it: in Step 5 you'll need an input to paste in for every one of these — like your real work, with names and details made up."
+Open with "Here are the practice runs we'll test it on." and play each back in plain words (never the `(real)` or `hard` tags). End the message with this, word for word: "Change, replace or drop any; keep three to five, including your typical and tricky [cases]. When we test it, you'll paste in [inputs] for each, with names and details made up."
 
 Then:
 
 - **Keep a hard one.** If fewer than 3 scenarios or no hard case remain after their changes, propose replacements and get each one kept before going on; the rule-or-gate scenario doesn't count as the hard case.
-- **Golden example per real row.** For each `(real)` row without one, in its own message, **Ask:** "Do you have a past output for an input like this that was exactly right?" Record its Context Inventory ID, a short excerpt, or "—". A `(proposed)` row has "—"; never write a golden example you generated yourself.
-- **Paste the real inputs now.** For a real input named but not pasted ("last Friday's tracker export"), ask: "paste it in and I'll save it, so Step 5 is copy-and-paste rather than a hunt". The confidential check runs before saving. Only if they genuinely can't get hold of it today, write the file with a single placeholder line naming exactly what to paste in before Step 5, and say that is what the file holds.
+- **Golden example per real row.** Skip this when Part 3 recorded no reference example. Otherwise, for each `(real)` row without one, in its own message, **Ask:** "Have you sent a [deliverable] after a [case] like this that you'd want every one to match?" Record its Context Inventory ID, a short excerpt, or "—". A `(proposed)` row has "—"; never write a golden example you generated yourself.
+- **Paste the real inputs now.** For a real input named but not pasted ("last Friday's tracker export"), **Ask:** "Paste a set of [inputs], or say 'draft one' and I'll write a made-up example from your description for you to check." Where files can't be kept: "paste it in and I'll include it in the files you save, so testing is copy-and-paste rather than a hunt". A made-up example is shown in full and checked ("Does this look like your real [inputs]?"); it never states what the workflow must work out (no "Buying for:" line, no flag it should raise); a made-up example of the student's own typical or tricky case stays `(real)`. The confidential check runs before saving. Only if they genuinely can't get hold of it today, write the file with a single placeholder line naming exactly what to paste in before testing, and say that is what the file holds.
 - **Number and save.** Number the confirmed set E1, E2, … in order on first write (after that, numbers are stable IDs). Save each as `framework/[name]/inputs/E<n>-<short-name>.md` (`<short-name>`: three or four words, kebab-case): a real input exactly as given, a proposed one written out in full so it can be pasted as is.
 - **Fill the table.** Each `Input` cell starts with the file path in backticks, then ` — `, then the short description. Each Scenario cell ends with `(real)`, `(proposed)`, or either with `, hard`. Each "What to look for in the output" cell ends with what it tests (`; tests R2, G1`, or `; tests the Step 2 duplicate-company case`).
 
@@ -91,22 +91,22 @@ If nothing is tripped, write the one-line form: "No sensitivity constraints — 
 
 ## 3. The labels preview
 
-Before generating the file, show the report card Test will fill in, so the student sees where their answers go:
+Before generating the file, in its own message, show a few lines of the report card, so the student sees where their answers go:
 
-> "Here's what Step 5 will check, per input you gave me:
+> "Here are a few of the lines each practice run is checked against:
 >
-> | Expected | From | Result | Evidence |
-> |---|---|---|---|
-> | Every row has contact info | AC1 (must) | — | — |
-> | Uses our three headings | AC2 | — | — |
-> | Never includes someone we've already contacted | R3 | — | — |
-> | Pauses before sending | G1 | — | — |
+> | What's checked | Label |
+> |---|---|
+> | Every row has contact info (a must-have) | AC1 |
+> | Uses our three headings | AC2 |
+> | Never includes someone we've already contacted | R3 |
+> | Pauses before sending | G1 |
 >
-> I've saved each of those inputs as its own file under `framework/[name]/inputs/`, so nothing has to be reconstructed later. In Step 5 you'll open the file for a scenario, paste it into a new chat and run it, then say *test this* and I'll grade it there.
+> The workflow is ready when every line is Met on every input — or when you've looked at a miss and decided you can live with it. In the file, each line has a short label, like AC1 or R3, so we can refer to it later.
 >
-> The workflow is ready when every line is Met on every input — or when you've looked at a miss and decided you can live with it. I've written these as your *acceptance criteria* (AC1…), *rules* (R1…), and *human gates* (G1…) in the file; those are the labels Test uses."
+> Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first."
 
-Fill the table from the student's own checks, rules and gates.
+Fill the table from the student's own list, rules and checkpoints.
 
 ## 4. Writing the file
 
@@ -127,7 +127,7 @@ Write `framework/[name]/requirements.md`, creating the folder if needed.
 - **Fixed headings in fixed order**, exactly as in the skeleton; no synonyms, no reordering, no YAML frontmatter.
 - **Tables** for lists of items with shared fields (context, scenarios, rules, gates); list lines for steps, decisions, inputs and writes, in the formats below.
 - **Canonical values:** Lens `Individual` or `Organizational`; Context Status `Exists` or `Needs Creation`; Sensitivity `Public`, `Internal`, `Confidential` or `Regulated`; Provenance `Authored` or `External`; AI Accessible `Yes`, `Partial` or `No`; Inputs Status `available` or `not available yet`; `settled by:` `a rule on a value`, `your criteria` or `open judgment`.
-- **Stable labels:** steps `Step 1, Step 2…`; decisions `D1…` (each linked to its step); inputs `I1…`; writes `W1…`; context `C1…`; scenarios `E1…`; criteria `AC1…`; rules `R1…`; gates `G1…`. Numbers are assigned in order on first write and never renumbered; a new item gets the next number. Line order is the run order.
+- **Stable labels:** steps `Step 1, Step 2…`; decisions `D1…` (each linked to its step when there is one); inputs `I1…`; writes `W1…`; must-always and must-never lines `M1…`; context `C1…`; scenarios `E1…`; criteria `AC1…`; rules `R1…`; gates `G1…`. Numbers are assigned in order on first write and never renumbered; a new item gets the next number. Line order is the run order.
 - **Every step line names what it produces;** `uses` and `writes` tags are present whenever the step reads context or writes outside.
 - Context Inventory `Used By`, Human Gates `Where` and the `; tests …` tails name steps as `Step N`.
 
@@ -167,6 +167,7 @@ Notes:
 
 ## Path
 
+Method preference: same way every time
 Path: proposed by AI
 
 - Step 1 — [Name] · produces [what it produces] · uses C1 · flexible
@@ -176,6 +177,11 @@ Path: proposed by AI
 ### Decisions
 
 - D1 (Step 2): if [X] → [path] · settled by: a rule on a value · value read by AI
+
+### Must always / never
+
+- M1 · always [x]
+- M2 · never [y]
 
 ### Step 2 — [Name]
 **Rule:** [the rule it must follow]
@@ -258,11 +264,12 @@ Governing regime: [name] | None | Not sure — to check
 
 **Line formats:**
 
-- **Step line:** `- Step 3 — Draft brief · produces a one-page brief · uses C2, C4 · fixed (regulation | policy | check | your judgment) | flexible · writes W1 · (you) | (finance team) · parallel with Step 2 · proposed by AI`. The name, `produces` and the fixed/flexible mark are required; every other tag is optional and left out when it doesn't apply, and tags appear in this order. The role tag means a person still performs the step; `· proposed by AI` marks a step the AI added that the student hasn't insisted on; `· parallel with` is added only when the student said two steps don't depend on each other.
-- **`## Path` order:** the `Path: proposed by AI` line (only when the AI proposed the whole path); the step lines; `### Decisions` (left out when there are none); then a `### Step N — [Name]` detail block for each step that carries detail, one bold-label line per field that applies (`**Rule:**`, `**Check or handoff:**`, `**Expertise:**`; what it uses stays on the step line).
-- **Decision line:** `- D1 (Step 3): if [X] → [path] · settled by: a rule on a value | your criteria | open judgment · value read by AI` (the last tag only when the AI reads the value).
+- **Step line:** `- Step 3 — Draft brief · produces a one-page brief · uses C2, C4 · fixed (regulation | policy | your judgment) | flexible · writes W1 · (you) | (finance team) · parallel with Step 2 · proposed by AI`. The name, `produces` and the fixed/flexible mark are required; every other tag is optional and left out when it doesn't apply, and tags appear in this order. The role tag means a person still performs the step; `· proposed by AI` marks a step the AI added that the student hasn't insisted on; `· parallel with` is added only when the student said two steps don't depend on each other.
+- **`## Path` order:** the `Method preference: same way every time | AI works it out each time | some of each` line, always first; the `Path: proposed by AI` line (only when the AI proposed the whole path), or `Path: none — the AI plans each run from the goal` (AI works it out each time, with no step lines); the step lines, with `- The AI plans this part` where the AI plans ("some of each": not a step, no number, no `produces` or fixed/flexible mark, and not counted as a step); `### Must always / never` with the M lines (when there are any); `### Decisions` (left out when there are none); then a `### Step N — [Name]` detail block for each step that carries detail, one bold-label line per field that applies (`**Rule:**`, `**Check or handoff:**`, `**Expertise:**`; what it uses stays on the step line).
+- **Decision line:** `- D1 (Step 3): if [X] → [path] · settled by: a rule on a value | your criteria | open judgment · value read by AI` (the last tag only when the AI reads the value); with no steps, `- D1: if [X] → [path] · …`. `a rule on a value` only for a number, date, field or category stated in the input; a classification from free text is `your criteria` or `open judgment`.
+- **M line:** `- M1 · always [x]` or `- M2 · never [y]`, with an optional role tag (`- M3 · always you send it · (you)`). No detail block.
 - **Input line:** `- I1 · [what] · from [source or C#] · Status: available | not available yet`. Inputs' Status is about what comes in on each run; the Context Inventory's Status is about reference material. A run input that doesn't exist yet is recorded in Inputs only.
-- **Writes list** under `### Writes`: `- W1 · [system] · [action] · Step 3`; when nothing writes, the heading stays with the line `None`.
+- **Writes list** under `### Writes`: `- W1 · [system] · [action] · Step 3` (or `· after [moment]` with no steps); when nothing writes, the heading stays with the line `None`.
 - **Human Gates:** the first line is `Runs: with you` or `Runs: without you`. With no gates, write under it: "No human gates — the workflow runs end-to-end with final review only."
 - **Rules:** write each Must never rule as a sentence that starts "Never" ("Never name another client"), in the student's words where they gave them. This section is behavioral. "Must never do" here means behavioral (never invent a figure); a prohibition on acting (never email a customer) is a Prohibited action. A "stop and ask" Fallback also has a Human Gates row.
 - **Security:** every constraint carries a Source (`Self` on the Individual lens rather than a blank). Prohibited actions are absolute; Human Gates are conditional: if an approval can satisfy it, it is a gate. The sensitivity of what the workflow produces belongs in `Access`. `Governing regime:` and `### Writes` appear in both the full and the one-line form.
@@ -277,4 +284,11 @@ After writing, check the file and fix any miss before the close:
 - Every step line has a name, `produces` and a fixed/flexible mark (a step a person does too: the role tag never replaces the mark), with tags in the stated order (`produces`, `uses`, the fixed/flexible mark, `writes`, the role, `parallel with`, `proposed by AI`); AI-added steps carry `· proposed by AI`.
 - Human Gates opens with the `Runs:` line; Security has the `Governing regime:` line, then `### Writes` with W lines or `None`.
 - Every scenario's input file exists at the path its `Input` cell names and holds the input itself (or the one allowed placeholder line), never a description of it. Write any that are missing.
-- Labels are present and stable (Step N, D, I, W, C, E, AC, R, G); the Golden Example column holds only a real output, else "—".
+- Labels are present and stable (Step N, D, I, W, M, C, E, AC, R, G); the Golden Example column holds only a real output, else "—".
+- `## Path` opens with the `Method preference:` line; `Path: none` has no step lines; "some of each" has at least one fixed step and at least one `The AI plans this part` line; every `Step N` reference (Decisions, Writes, `Used By`, Human Gates `Where`, `; tests` tails) matches a step line or names the AI's part ("the AI's part after Step 2"); every M label is defined once, and a never kept as a Must never rule or a Prohibited action has no M line; no `fixed (check)` (write `fixed (your judgment)`).
+- A decision classified from free text is `your criteria` or `open judgment`, never `a rule on a value`.
+- Each requirement lives in one place: a quality of the output is an AC, a behaviour an R; a detail block points to it ("see AC4") instead of restating it, and a Decision isn't restated as an R row.
+- The Inputs line matches the access answer for its source.
+- No requirement describes a test input ("the notes carry no 'buying for' field").
+- Notes for the student (a trace record, a missing-link flag) are never inside the deliverable unless the requirement says they're unmistakable and removed before sending.
+- The Workflow node's `generated` is restamped `by: process:deconstruct` with today's date.

@@ -1,135 +1,200 @@
-# Part 4: The path
+# Part 4: How the work gets done
 
-Read when Part 4 starts, right after its signpost. Purpose: what only the student knows about how the work should go. Design uses it to decide how much the AI works out on its own; Deconstruct never decides that. Every quoted line is said exactly; each question is its own message.
+Read when Part 4 starts, right after its signpost, and say first: "Next, we'll walk through how this work gets done and mark what must always happen the same way." Purpose: what only the student knows about how the work should go — what must always happen the same way, where a person steps in, which decisions exist and what settles them, how much the inputs vary, and what expertise matters. Design uses it to decide how much the AI works out on its own; Deconstruct never decides that. Every quoted line is said exactly; each question is its own message unless a section says "in one message". `[deliverable]`, `[case]` and `[input]` are the student's own ("the follow-up email", "a scoping call", "your call notes").
 
 ## Contents
 
-- 1. Method
-- 2. The headline path
-- No method yet (replaces question 3)
-- 3. Fixed or flexible, and gates
-- 4. Decisions
-- Regulated work
-- 5. The range
-- 6. Expertise
-- Detail only where it matters
+- 1. Consistency
+- 2. Draft the path (same way every time; AI works it out each time; some of each)
+- 3. The playback
+- 4. The shared questions: who does it, must stay, review or approve, decisions, regulated work, the range, expertise, detail
+- Close
+- The question matrix
 
-## 1. Method
+## 1. Consistency
 
-On cold entry, play the describe-first answer back as the method, one line per step, ending "What's wrong?", in place of this question. In a personal-life registry, the personal-life wording replaces it.
+**Ask:** "Should it go about the work the same way every time, or can the AI work out how to do it each time, from your goal and your list?"
+- *Why:* Same way every time means we write down the steps. If the AI works it out, we write down only what it must always and never do.
+- *Not sure?* Say the same way; you can loosen it later.
 
-**Ask:** "If you handed this to a skilled colleague, how would you want them to go about it?"
-- *Why:* Design uses your method to decide which steps the AI follows exactly and which it works out itself.
+Record the answer as the first line of `## Path`: `Method preference: same way every time | AI works it out each time | some of each`. The answer decides only how the path is drafted (section 2). It is a preference, never an autonomy level.
 
-**The answer stops early unless the student has said that's the end.** A method that ends where the deliverable is produced ("then write it up") has still stopped early: people leave out what happens after, such as their own review. So after the method answer, in its own message, **Ask:** "What comes after that?", repeated until the student says that's all or says they don't know. If they don't know, **Ask:** "Want me to propose the rest, and you correct it?"
+If a student who chose "AI works it out" then names steps that must always happen in order, say: "Those steps sound fixed, so I'll note this as some of each: those steps stay the same, and the AI works out the rest. Does that match?" On a yes, record "some of each", place the named steps in the order they gave with `- The AI plans this part` where their answers put it (when that isn't clear, **Ask:** "Where does the AI's part go: before, between or after these steps?"), then give the fixed-step reasons (section 4, question 2's one message) and run questions 1 and 3 for those steps. From then on, follow the "some of each" column of the matrix.
+
+## 2. Draft the path
+
+### Same way every time
+
+**Ask:** "If you handed [the deliverable] to a skilled colleague, how would you want them to go about it?"
+- *Why:* Your method tells the AI which steps to follow exactly and which it can work out for itself.
+- *Example:* "First I check the order, then I confirm stock, then I send the customer the delivery date."
+- *Not sure?* Walk me through how you did the last one.
+
+On cold entry, play the describe-first answer back here as the method, one line per step, ending "What would you change or clarify?", in place of this question. In a personal-life registry, the personal-life wording replaces it.
+
+**The answer stops early unless it reaches the end Part 2 set** (the deliverable sent, handed over or filed). After the method answer, in its own message, **Ask:** "What comes after that?", repeated until the student says that's all, says they don't know, or the answer reaches that end. When it isn't clear whether it has, ask once: "Is that the end, or does anything happen after you send it?" If the method stops partway or the student doesn't know what comes next, **Ask:** "Want me to propose the rest, and you correct it?"
 - *Not sure?* Say yes, and correct what I propose.
 
-Only the steps you add carry `· proposed by AI`; the student's own steps stay theirs. There is no step-count threshold.
+If the student has no method at all, or would rather not describe it, **Ask:** "Want me to propose the steps, and you correct them?"
+- *Not sure?* Say yes, and correct what I propose.
 
-**When the work is done today**, in its own message, **Ask:** "Is that how you do it today, or is it different?"
+Propose from Parts 1–3 and the backlog candidate. Only the steps you add carry `· proposed by AI`; when you propose the whole path, also write the line `Path: proposed by AI`. There is no step-count threshold.
 
-**If that answer (or any answer here) runs past a short paragraph**, your next message plays it back in plain words, one line per step, ending "What's wrong?": no prose summary, and no other question in that message. Only after the student confirms the playback, ask about the differences. When the two differ, the Path records how the student wants it done; for each step or workaround from today's way, one difference per message, **Ask:** "Today you also [step or workaround]. Should that stay?" A step or workaround they drop is not a step.
+### AI works it out each time
 
-## 2. The headline path
+No steps are written down and no sample plan is shown: the AI plans fresh on every run, and a guessed plan would lead the student. **Ask:** "Is there anything it must always do, or never do, however it goes about the work?"
+- *Example:* "Always use this week's price list; never quote a discount."
+- *Not sure?* Say no; we'll cover rules in Part 5.
 
-Play the steps back in plain words, one line per step, and let the student correct it, ending "What's wrong?". As you play back, tag each step's `uses` and `writes` from the method answers (C# and W# are numbered only when written to the file).
+Each answer is an M line in the file (`- M1 · always [x]`, `- M2 · never [y]`). Write `Path: none — the AI plans each run from the goal` in place of step lines. On cold entry, the describe-first answer is not played back as a path; offer any must-always it holds in this question. For the AI to work it out, it is given a clear goal (Part 3) and constraints (this question, the shared questions, and Part 5); never guess the plan.
 
-Then, in its own message, **Ask:** "Which of these does a person do?" For each step named without who does it, **Ask:** "Who does [step]?"
+### Some of each
 
-A person's step carries the role tag: `(you)` for the student's own steps, even when they give their job title, or another person's role in parentheses, such as `(finance team)`, meaning a person still performs this step in the new workflow. Untagged steps are AI steps.
+Run the "same way every time" method question, "What comes after that?" and its offers in full, then the playback (section 3), then question 1 (who does it). Then question 2 is, word for word, **Ask:** "Which of these must always happen exactly that way? The AI will work out the rest each time." Then the fixed-step reasons, then the always/never question above for the AI-planned part, then questions 3–8.
 
-## No method yet
+When the file is written, each run of unpicked AI steps becomes one line `- The AI plans this part` at its place; unpicked steps a person does stay as flexible steps with their role tag, so a checkpoint's `Where` still names them. Once question 2 has run, don't call unpicked AI steps by number again; at file write, any reference to one (a Decision's step, a Writes line, a Context `Used By`, a `; tests` tail) names the AI's part instead ("the AI's part after Step 2").
 
-Only when the student says at question 1 that they have no method at all: propose the whole path (recorded with the line `Path: proposed by AI`) and play it back as in question 2. Each proposed step carries `· proposed by AI` and stays flexible. In place of question 3:
+If every AI step is picked, say "Every step you picked stays fixed, so I'll note this as the same way every time." and ask "Does that match?"; then follow the "same way" column. If no step is picked, say "None of these needs to stay fixed, so I'll note this as the AI working it out each time." and ask "Does that match?"; then write each step a person does as an M line with its role tag (`- M3 · always you send it · (you)`), play the M lines back, and follow the "AI works it out" column.
 
-**Ask:** "Which of these would you insist on?"
-- *Why:* Steps you insist on are followed exactly; the rest the AI may change.
-- *Not sure?* Insist on none for now. Test will show which steps matter.
+## 3. The playback
 
-"Insist on none" is a complete answer: every step stays flexible and keeps its tag. A step the student insists on becomes `fixed (your judgment)` and loses the tag; so does an AI-added step the student marks fixed, or one the regulation question marks `fixed (regulation)`. If the student insists on any step, the `Path: proposed by AI` line stays. The person-and-role question, the per-step gate question and questions 4 to 6 still run.
+One playback, the same shape for everyone, in plain words, ending "What would you change or clarify?":
 
-## 3. Fixed or flexible, and gates
+- **Steps:** "Here are the steps:" one line per step, then any M lines.
+- **No steps:** "Here's what it must always and never do:" then the M lines. With no M lines either, leave the playback out.
+- **Same way every time, when the work is done today:** the playback is one message, word for word: "Here are your steps: [numbered steps]. Is this how you do it today, or how you'd like it done from now on?"
+  - *Why:* If today's way is different, I'll check which of today's habits should stay.
 
-After the path is corrected:
+  A correction to the steps in the reply counts as the change-or-clarify answer. When today's way differs, the Path records how the student wants it done; for each step or workaround from today's way, one difference per message, **Ask:** "Today you also [step or workaround]. Should that stay?" A step or workaround they drop is not a step.
 
-**Ask:** "Which of those must happen exactly that way, every time?"
+An answer that ran past a short paragraph is played back this way before any other question (never mention the threshold). As you play back, tag each step's `uses` and `writes` from the answers (C# and W# are numbered only when written to the file).
 
-On first use, say: "**Fixed** means it must happen this way, in this order. **Flexible** means the AI may adapt it. Fixed describes the method, not who does it."
+## 4. The shared questions
+
+In this order, each in its own message unless marked. Where there are no steps, a step question is asked against the M lines or a moment ("before anything is sent", "after the draft"), or left out without comment when there's nothing to ask it about. The matrix at the end lists what runs in each branch.
+
+### 1. Who does it
+
+**Ask:** "Once this is built, which of these steps will you, or someone else, still do yourselves?"
+- *Why:* Steps a person does stay with them; the AI does the rest.
+- *Not sure?* Name the ones you'd want to keep doing yourself.
+
+For each step named without who does it, **Ask:** "Who does [step]?" The answer is the role tag on the step line: `(you)` for the student's own steps, even when they give their job title, or another person's role, such as `(finance team)`, meaning a person still performs this step in the new workflow. Untagged steps are AI steps. When a step moves to the AI, rename it for the AI's action ("Read the call notes") and play the rename back.
+
+With no steps, **Ask:** "Is there any part you, or someone else, will always do yourselves?" Each part named is an M line with its role tag.
+
+### 2. Must stay (steps only)
+
+With no steps, the always/never question has already done this job; don't ask it again. On first use, say: "**Fixed** means a step always happens exactly as written, in this order. **Flexible** means it can be adapted to fit each case. A step you do yourself can be fixed too." Then **Ask:** "Which of these steps must always happen exactly that way?" ("some of each": section 2's line instead.)
 - *Not sure?* Leave it flexible. You can fix a step later.
 
-For each step marked fixed, **Ask:** "Why must [step] happen that way: a regulation, a company policy, a check, or your judgment?"
-- *Why:* Design keeps a regulation or policy step exactly as it is, even when the AI could do it another way.
-- *Not sure?* Say your judgment.
+Then the reasons, for every fixed step in one message, each tagged for a keep or change: "Here's why I think each one is fixed; keep or change: Step [N], [name]: [your own call | required by a regulation | required by company policy] *(my suggestion)* …", ending "What would you change or add?" With one fixed step, **Ask:** "Is that required, by a regulation or company policy, or your own call?"
+- *Why:* Required steps are never changed; your own calls can be revisited later.
 
-Ask it even when the student said why the step matters; skip it only when they named one of the four reasons outright (for example "it's company policy"). Never choose the reason for them.
+A "required" answer that doesn't say which gets one follow-up naming regulation or policy. The reason goes on the step line: `fixed (regulation)`, `fixed (policy)` or `fixed (your judgment)`. Never choose the reason without tagging it *(my suggestion)*.
 
-The reason goes on the step line: `fixed (regulation)`, `fixed (policy)`, `fixed (check)` or `fixed (your judgment)`.
+An AI-proposed step the student marks fixed takes its reason from this message and loses its `· proposed by AI` tag; "none" leaves every step flexible with its tag. If any step is fixed, a `Path: proposed by AI` line stays, and the fixed steps show which are the student's.
 
-For each step a person does, **Ask:** "Is [step] a point where you review or approve the work before the next step?"
-- *Why:* Review and approval points become human gates, and Test checks each one.
-- *Not sure?* Say no; you can add a gate later.
+### 3. Review or approve
 
-A yes adds a Human Gates row at that step. This is where gates are asked about; Part 5 asks no new gate questions and adds a gate only from the taking-part and when-unsure answers.
+A person's step that is itself a review, check or approval is stated, not asked: "Step [N], your review, becomes a checkpoint: the workflow stops there until you've approved the [deliverable]." Ask only about other person steps that could be a review point (not ones that only act, such as sending, filing or booking):
 
-## 4. Decisions
+- One step: **Ask:** "Is [step] a point where you review or approve the work before it goes further?"
+- Several, in one message: **Ask:** "Are any of these points where you review or approve the work before it goes further: [steps]?"
+- No steps: **Ask:** "Is there a point where you review or approve the work before it goes further?"
 
-**Ask:** "Where does the work go a different way depending on what it finds?"
-- *Why:* This tells Design whether the work follows your rules or needs judgment along the way.
+On the first of these, add:
+- *Why:* Review and approval points become checkpoints the workflow can't skip, and testing checks each one.
+- *Not sure?* Say yes; you can remove it later.
 
-For each one, **Ask:** "What decides which way it goes?" Ask it even when the student already named the condition ("if we've worked with them before"): its answer is what settles the decision.
+A yes adds a Human Gates row, its `Where` naming the step or the moment. This is where checkpoints are asked about; Part 5 adds one only from the taking-part and when-unsure answers.
 
-Each Decision line records who settles it: `a rule on a value`, `your criteria`, or `open judgment`. When unclear, one follow-up:
+### 4. Decisions
+
+**Ask:** "Does the work change depending on the [case] — for example, a different next step for different kinds of customer?"
+- *Why:* This shows whether the work follows your rules or needs judgment along the way.
+- *Example:* "An expense over $500 goes to my manager; under that, I approve it myself."
+- *Not sure?* Say no; the tricky case we'll look at shortly often shows one.
+
+For each one, **Ask:** "What decides which way it goes?" Ask it even when the student already named the condition: its answer is what settles the decision.
+
+Each Decision line records who settles it: `a rule on a value`, `your criteria`, or `open judgment`. `a rule on a value` only when the value is a number, date, field or category stated in the input ("over $50k → controller"), whoever supplies it; classifying from free text (who's buying, from call notes) is `your criteria` or `open judgment`. When unclear, ask rather than choose:
 
 **Ask:** "Could a fixed rule settle this, does it follow criteria you could write down, or does it take judgment each time?"
-- *Why:* Design uses this to decide how much of the choice the AI makes.
+- *Why:* This shows how much of the choice the AI makes on its own.
 - *Not sure?* Say judgment. You can tighten it later.
 
-A threshold ("over $50k → controller") is a rule on a value, whoever supplies the value. When the AI reads the value, the Decision line adds `· value read by AI`: the AI reads it whenever the value comes from the input the workflow works on (an amount on a submitted report or a scanned receipt), not from a person who supplies it at the time. If the answers don't say where the value comes from, ask in its own message where it comes from before writing the line; Test checks that reading separately.
+When the AI reads the value from the input the workflow works on (an amount on a submitted report), the Decision line adds `· value read by AI`; if the answers don't say where the value comes from, ask in its own message before writing the line. With no steps, a Decision line names no step (`- D1: if …`).
 
-## Regulated work
+### 5. Regulated work
 
 When the Part 2 answer was yes, right after the decisions question (and its follow-ups), each in its own message:
 
-**Ask:** "Which steps does the regulation require?" Ask only about steps not already marked `fixed (regulation)`; with an AI-proposed path, about the proposed steps.
+**Ask:** "Which steps does the regulation require?" Ask only about steps not already `fixed (regulation)`; with an AI-proposed path, about the proposed steps.
 - *Not sure?* Name the ones you're sure of; the rest stay flexible.
 
 Mark those steps `fixed (regulation)`.
 
-**Ask:** "Which decisions must a person make or approve?" (Skip decisions already gated; never say so. When every decision is already gated, leave this question out entirely.)
-- *Why:* Those become human gates, so the AI never makes them alone.
+**Ask:** "Which decisions must a person make or approve?" (Skip decisions already gated; never say so. When every decision is gated, leave this question out.)
+- *Why:* Those become checkpoints, so the AI never makes them alone.
 
 Each becomes a Human Gates row.
 
-## 5. The range
+**With no steps** ("AI works it out"), the first question is instead **Ask:** "What does the regulation require it to do, every time?" Each answer becomes a `fixed (regulation)` step, and say: "Because the rules set some steps, those stay fixed; the AI works out the rest." Record "some of each": replace `Path: none` with those steps and `- The AI plans this part` where the answers put it (when unclear, **Ask:** "Where does the AI's part go: before, between or after these steps?"); play the steps back as in section 3; give the fixed definition if question 2 hasn't run; then run questions 1 and 3 for those steps, playing back any answers already given against M lines or moments and asking only the open part. If the student names no required step, it stays "AI works it out". Then the decisions question above.
 
-**Ask:** "What will come in? Give me a typical case."
-- *Why:* The typical and awkward cases become the scenarios Test runs; you paste them near the end.
+### 6. The range
 
-Then, in its own message, **Ask:** "And an awkward one?"
+**Ask:** "Think of a typical [case]. What would [the input] cover?"
+- *Why:* Your typical and tricky [cases] become the practice runs used to test the workflow; you'll paste real ones near the end.
+- *Not sure?* One sentence is enough; you'll paste real notes later.
+
+Then, in its own message, **Ask:** "And a tricky one: a [case] where it would be easy to get the [deliverable] wrong?"
+- *Why:* Workflows fail on the hard cases, so one of the practice runs uses this.
+- *Example:* "The order was split across two warehouses."
 
 When nothing comes in yet, **Ask:** "Where will the information come from?" Then, separately, **Ask:** "Does it exist yet?"
 
 Draft the Inputs lines (`I1`…) from the Part 2 trigger and these answers, tagged *(my suggestion)*, for Part 5's second draft message. A source that doesn't exist yet is recorded in Inputs with `Status: not available yet`.
 
-## 6. Expertise
+### 7. Expertise
 
-**Ask:** "What would a capable beginner get wrong here that you wouldn't?"
+**Ask:** "What would a capable beginner get wrong in a [deliverable] that you wouldn't?"
+- *Why:* What you'd catch that a beginner wouldn't becomes a rule the AI follows every time.
 - *Example:* a sommelier might say: "Pairing by grape instead of by the dish's sauce."
 
-Answers about steps go on the step. Answers that are quality standards ("lead with a hypothesis") are held and offered as checks in Part 5's third draft message, tagged *(you said)*, skipping any standard a check already covers.
+Answers about a step go on the step; with no steps, on an M line. Answers that are quality standards ("lead with a hypothesis") are held and offered as checks in Part 5's third draft message, tagged *(you said)*, skipping any standard the list already covers.
 
-## Detail only where it matters
+### 8. Detail only where it matters
 
-A step gets detail (the rule, the check or handoff, the expertise) only when it carries order that matters, a rule or standard, a check or handoff, an outside action, or the student's expertise. Everything else stays one line.
+M lines get no detail question: an M line is already a rule, and any expertise goes on the line itself. A step gets detail (a rule, a check, the expertise) only when it carries order that matters, a rule or standard, a check or handoff, an outside action, or the student's expertise. Everything else stays one line.
 
-**Count first.** Before any detail question, count the steps that need detail from every answer so far (order that matters, rules or standards, checks or handoffs, outside actions, expertise); never say the count. Never ask one step's detail question before counting.
+**Count first.** Before any detail question, count the steps that need detail from every answer so far; never say the count, and never ask one step's detail question before counting.
 
-**Detail table.** When the regulation answer is yes, or that count is four or more (never say this threshold), show the detail in one table (step, rule, check or handoff) and ask "What's wrong or missing?", never one question per step. Each rule in it is tagged *(you said)* or *(my suggestion)* and needs a keep or drop; never state a rule or threshold as fact.
+**Detail table.** When the regulation answer is yes, or that count is four or more (never say this threshold), show the detail in one table, opened "Here's what each step must get right. Rules are what it must follow; checks are where someone confirms the work. Keep or change each of my suggestions.", with columns Step · Rule · Check, and end "What would you change or add?", never one question per step. Each rule is tagged *(you said)* or *(my suggestion)* and needs a keep or drop; never state a rule or threshold as fact.
 
 Only when the count is three or fewer, for each step that needs detail, in its own message, **Ask:** "Does [step] have a rule it must follow, or something that must be checked before the next step?"
 - *Why:* Rules and checks are what the AI must get right every time, so they're written down for that step.
-- *Not sure?* Say no. Test will show if it needs one.
+- *Not sure?* Say no. Testing will show if it needs one.
 
-## End of Part 4
+## Close
 
-Say: "Design uses this to decide how much the AI works out on its own."
+Say: "That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on."
+
+## The question matrix
+
+req = always asked; cond = asked when its condition holds; n/a = not in this branch. After a switch (a "some of each" pick of all or none, a named fixed step, or a regulation with no steps), the new branch's column applies from that point.
+
+| Question | Same way every time | AI works it out each time | Some of each |
+|---|---|---|---|
+| Method, "What comes after that?", offers | req (cond for the offers) | n/a | req (cond for the offers) |
+| Always/never | n/a | req | req (AI-planned part) |
+| Playback | req (the today form when done today) | cond (when there are M lines) | req |
+| Today question | cond (done today; inside the playback) | n/a | n/a |
+| 1 Who does it | req | req (no-steps form) | req |
+| 2 Must stay + reasons | req | n/a | req (section 2's line) |
+| 3 Review or approve | req (stated, asked, or grouped) | req (no-steps form) | req (stated, asked, or grouped) |
+| 4 Decisions | req | req | req |
+| 5 Regulated | cond (Part 2 yes) | cond (no-steps form) | cond (Part 2 yes) |
+| 6 Range, typical and tricky | req | req | req |
+| 7 Expertise | req | req | req |
+| 8 Detail | cond (steps that carry detail) | n/a | cond (steps that carry detail) |

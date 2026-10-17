@@ -1,6 +1,6 @@
 # Part 2: Scope and a name
 
-Read when Part 2 starts, right after its signpost. Every quoted line is said exactly. In a personal-life registry, the personal-life wording replaces the trigger and deliverable questions and the law question is skipped.
+Read when Part 2 starts, right after its signpost, and say first: "Next, we'll pin down what starts this workflow and where it ends, then give it a clear name and description." Every quoted line is said exactly. In a personal-life registry, the personal-life wording replaces the trigger and deliverable questions and the law question is skipped.
 
 ## One trigger, one deliverable
 
@@ -16,9 +16,9 @@ If you find several, map each (working name, trigger, deliverable), present the 
 
 ## The name
 
-Present 2–3 name options: a **2–4 word noun phrase** in **Title Case**, clear without context ("Lead Qualification", "Newsletter Distribution", "Student Onboarding"). Prefer `[Subject] [Action]` ("Invoice Generation", "Inbox Triage") over verb phrases or vague labels. Ask only which name they want; confirm the description in the next message, on its own.
+Present 2–3 name options: a **2–4 word noun phrase** in **Title Case**, each part of a hyphenated word capitalised ("Follow-Up"; fix a backlog name's casing in the options), clear without context ("Lead Qualification", "Newsletter Distribution", "Student Onboarding"). Prefer `[Subject] [Action]` ("Invoice Generation", "Inbox Triage") over verb phrases or vague labels. Ask only which name they want; confirm the description in the next message, on its own. The description is one sentence in the `naming-workflows` shape: when it starts, what it produces, who receives or acts on it; no targets, no tool names ("After a scoping call, drafts the follow-up email that recaps the call and shares what was discussed, ready for you to review and send.").
 
-Convert the confirmed name to kebab-case (lowercase, hyphens, no punctuation) and confirm it: "I'll use `lead-qualification` as the workflow ID — it names the folder and files for everything we produce." This ID names every file path; every downstream skill uses it verbatim.
+Convert the confirmed name to kebab-case (lowercase, hyphens, no punctuation) and say it: "Everything for this workflow will go in a folder called `lead-qualification`." This ID names every file path; every downstream skill uses it verbatim.
 
 **A rename keeps the node.** If the student renames a workflow that already has a Workflow node, the folder takes the new ID, the node keeps its file, and no new node is made: the progress file's `Workflow node:` line names the original node, and everything merges into it at the end.
 
@@ -27,6 +27,8 @@ Convert the confirmed name to kebab-case (lowercase, hyphens, no punctuation) an
 Asked as the last question of Part 2: after its answer (and the regulated-work note, if any), the next message opens Part 3, and none of the tests above becomes a question. Skipped for personal life (`Governing regime: None`). If the student already answered it in an earlier reply, record that answer and don't ask again.
 
 **Ask:** "Is there a law or regulation that governs this work?"
+- *Why:* Regulated steps are followed exactly, and a person approves the decisions the rules cover.
+- *Example:* Financial-advice rules, health-privacy law such as HIPAA, or data-protection law such as GDPR.
 - *Not sure?* Say not sure; I'll note it for you to check.
 
 On a yes, in its own message, **Ask:** "Which one? A name or a description is fine." Then say: "Because this work is regulated, this will take a little longer: we'll note which steps and decisions the rules cover."
