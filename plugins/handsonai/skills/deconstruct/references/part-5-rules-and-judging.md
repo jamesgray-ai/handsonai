@@ -32,7 +32,7 @@ The send-back reason is not asked again: the third draft message plays the must-
 - *Why:* This becomes a rule the workflow follows every time a case doesn't fit.
 - *Not sure?* Do its best and flag it. You can change it after testing.
 
-Record it as the Fallback row in Rules & Constraints. "Stop and ask you" also adds a Human Gates row. Where a flag goes is part of the rule: never inside the deliverable unless it's unmistakable and removed before sending.
+Record it as the Fallback row in Rules & Constraints. "Stop and ask you" also adds a Human Gates row. Where a flag goes is part of the rule: never inside the deliverable unless it's unmistakable and removed before sending. When only the student reads the deliverable (a pre-call brief), stating plainly what wasn't found ("No recent news found") is content for its reader, not a note.
 
 ## The draft, in four short messages (five when a security test trips)
 

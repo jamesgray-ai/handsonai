@@ -288,7 +288,7 @@ After writing, check the file and fix any miss before the close:
 - `## Path` opens with the `Method preference:` line; `Path: none` has no step lines; "some of each" has at least one fixed step and at least one `The AI plans this part` line; every `Step N` reference (Decisions, Writes, `Used By`, Human Gates `Where`, `; tests` tails) matches a step line or names the AI's part ("the AI's part after Step 2"); every M label is defined once, and a never kept as a Must never rule or a Prohibited action has no M line; no `fixed (check)` (write `fixed (your judgment)`).
 - A decision classified from free text is `your criteria` or `open judgment`, never `a rule on a value`.
 - No Must never rule restates a Must do rule or an always M line.
-- Each requirement lives in one place: a quality of the output is an AC, a behaviour an R; a detail block points to it ("see AC4") instead of restating it, and a Decision isn't restated as an R row.
+- Each requirement lives in one place: a quality of the output is an AC, a behaviour an R; a detail block's Rule line says only what that step adds (how or where: "look each promised link up in C2, for AC4"), never the AC's own wording again, and a Decision isn't restated as an R row.
 - The Inputs line matches the access answer for its source.
 - No requirement describes a test input ("the notes carry no 'buying for' field").
 - Notes for the student (a trace record, a missing-link flag) are never inside the deliverable unless the requirement says they're unmistakable and removed before sending.
