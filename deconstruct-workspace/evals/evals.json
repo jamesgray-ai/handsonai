@@ -68,7 +68,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -773,7 +773,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -1174,7 +1174,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -1564,7 +1564,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -1895,7 +1895,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -2199,7 +2199,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -2554,7 +2554,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -2839,7 +2839,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -3482,7 +3482,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -3599,7 +3599,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -3726,7 +3726,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -3796,7 +3796,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -4086,7 +4086,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -4391,7 +4391,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -4736,7 +4736,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -5018,7 +5018,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -5569,7 +5569,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -5644,7 +5644,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -8626,7 +8626,7 @@
           "must": true
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -8903,7 +8903,7 @@
           "must": true
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -9123,7 +9123,7 @@
           "must": true
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -9335,7 +9335,7 @@
           "must": true
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -9521,7 +9521,7 @@
           "must": true
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; the Desired Outcome question \"When this works well, what's better for the business, and who notices?\"; the live-writes question \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
