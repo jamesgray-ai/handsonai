@@ -208,7 +208,7 @@ title: "Lead Qualification"
 description: "When new leads come in, scores them against your criteria and produces a ranked list with contact details for the sales team."
 generated: { by: process:naming-workflows, at: YYYY-MM-DD }
 status: backlog
-trigger: "Weekly (Sunday)"
+trigger: "New leads arrive"
 ---
 # Lead Qualification
 

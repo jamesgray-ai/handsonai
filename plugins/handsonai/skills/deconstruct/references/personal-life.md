@@ -13,7 +13,7 @@ Ask these in place of confirming the trigger and deliverable, each in its own me
 ## Part 4: How the work gets done
 
 - **Method:** "a friend who cooks well" replaces "a skilled colleague": **Ask:** "If you handed this to a friend who cooks well, how would you want them to go about it?" For a routine that isn't about food: **Ask:** "If you handed this to someone who's good at this kind of thing, how would you want them to go about it?"
-- **Consistency:** the same question as everyone (section 1 of the Part 4 reference).
+- **Consistency:** the question is unchanged.
 - **The range**, as two messages: **Ask:** "Give me a normal week." Then **Ask:** "And a hard one?"
 - **Rules are rules, never steps.** "No shellfish" goes in Rules & Constraints, not on the path.
 - **No regulation questions** (no regime was named).

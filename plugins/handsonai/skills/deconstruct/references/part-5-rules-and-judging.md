@@ -1,6 +1,6 @@
 # Part 5: Rules, sources and test cases
 
-Read when Part 5 starts, right after its signpost, together with the requirements template (which holds what goes in each draft message). Say first: "Last part: I'll draft the rules it follows, where you check its work, the sources it uses and the cases we'll test it on. You correct each one." Purpose: close the gaps, mostly by reacting to a draft. Every quoted line is said exactly; each question is its own message. In a personal-life registry, the personal-life wording replaces the live-writes question; the taking-part and when-unsure questions use the same wording.
+Read when Part 5 starts, right after its signpost; SKILL.md loads the requirements template at the same moment (it holds what goes in each draft message). Say first: "Last part: I'll draft the rules it follows, where you check its work, the sources it uses and the cases we'll test it on. You correct each one." Purpose: close the gaps, mostly by reacting to a draft. Every quoted line is said exactly; each question is its own message. In a personal-life registry, the personal-life wording replaces the live-writes question; the taking-part and when-unsure questions use the same wording.
 
 ## Always asked, never drafted (before the drafts)
 
@@ -36,7 +36,7 @@ Record it as the Fallback row in Rules & Constraints. "Stop and ask you" also ad
 
 ## The draft, in four short messages (five when a security test trips)
 
-Never say how many drafts are coming ("the first of four"): the count changes with the security limits, and the opening line already says what's coming. What goes in each, including message 4's practice-run rules, is in the requirements template. Every line is tagged *(you said)* or *(my suggestion)*; each suggestion needs an explicit keep or drop (the rubber-stamp guard in SKILL.md), so the requirements stay the student's. Each requirement lives in one place: behaviours in message 1, qualities of the output in message 3.
+Never say how many drafts are coming ("the first of four"): the count changes with the security limits, and the opening line already says what's coming. What goes in each, including message 4's practice-run rules, is in the requirements template SKILL.md loaded for this part. Every line is tagged *(you said)* or *(my suggestion)*; each suggestion needs an explicit keep or drop (the rubber-stamp guard in SKILL.md), so the requirements stay the student's. Each requirement lives in one place: behaviours in message 1, qualities of the output in message 3.
 
 1. **Rules and never-dos**, ending "What would you change or add?"
 2. **The checkpoints collected so far**, to confirm (no new checkpoint questions), **and the sources it uses** (introduced the first time with the context sentence) and the Inputs, ending "What would you change or add?". The privacy questions come right after it.
@@ -60,4 +60,4 @@ These wait until now because a target describes the revised workflow.
 
 ## Then the labels preview (always)
 
-Right after the Readable When answer (or its default), and before writing anything, show the labels preview (requirements template, section 3) in its own message. Never skip it, even when the interview ran long.
+Right after the Readable When answer (or its default), and before writing anything, show the labels preview (section 3 of the requirements template SKILL.md loaded for this part) in its own message. Never skip it, even when the interview ran long.

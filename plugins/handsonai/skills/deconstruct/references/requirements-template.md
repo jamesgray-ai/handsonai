@@ -129,7 +129,7 @@ Write `framework/[name]/requirements.md`, creating the folder if needed.
 - **Canonical values:** Lens `Individual` or `Organizational`; Context Status `Exists` or `Needs Creation`; Sensitivity `Public`, `Internal`, `Confidential` or `Regulated`; Provenance `Authored` or `External`; AI Accessible `Yes`, `Partial` or `No`; Inputs Status `available` or `not available yet`; `settled by:` `a rule on a value`, `your criteria` or `open judgment`.
 - **Stable labels:** steps `Step 1, Step 2…`; decisions `D1…` (each linked to its step when there is one); inputs `I1…`; writes `W1…`; must-always and must-never lines `M1…`; context `C1…`; scenarios `E1…`; criteria `AC1…`; rules `R1…`; gates `G1…`. Numbers are assigned in order on first write and never renumbered; a new item gets the next number. Line order is the run order.
 - **Every step line names what it produces;** `uses` and `writes` tags are present whenever the step reads context or writes outside.
-- Context Inventory `Used By`, Human Gates `Where` and the `; tests …` tails name steps as `Step N`.
+- Context Inventory `Used By`, Human Gates `Where` and the `; tests …` tails name steps as `Step N`, or the AI's part ("the AI's part after Step 2") where an unpicked AI step was collapsed.
 
 ## 5. Template skeleton and line formats
 
@@ -137,7 +137,7 @@ Write `framework/[name]/requirements.md`, creating the folder if needed.
 # [Workflow Name] — Workflow Requirements
 
 ## Goal
-For each [trigger], a [deliverable] for [who], in [format or length], ready [when].
+For each [trigger], a [format] [deliverable] to [who], ready for you to [review] [when].
 
 ## Value & Measurement
 
@@ -174,14 +174,14 @@ Path: proposed by AI
 - Step 2 — [Name] · produces [what it produces] · uses C2, C4 · fixed (policy) · writes W1 · (you) · parallel with Step 1
 - Step 3 — [Name] · produces [what it produces] · flexible · proposed by AI
 
-### Decisions
-
-- D1 (Step 2): if [X] → [path] · settled by: a rule on a value · value read by AI
-
 ### Must always / never
 
 - M1 · always [x]
 - M2 · never [y]
+
+### Decisions
+
+- D1 (Step 2): if [X] → [path] · settled by: a rule on a value · value read by AI
 
 ### Step 2 — [Name]
 **Rule:** [the rule it must follow]
@@ -287,6 +287,7 @@ After writing, check the file and fix any miss before the close:
 - Labels are present and stable (Step N, D, I, W, M, C, E, AC, R, G); the Golden Example column holds only a real output, else "—".
 - `## Path` opens with the `Method preference:` line; `Path: none` has no step lines; "some of each" has at least one fixed step and at least one `The AI plans this part` line; every `Step N` reference (Decisions, Writes, `Used By`, Human Gates `Where`, `; tests` tails) matches a step line or names the AI's part ("the AI's part after Step 2"); every M label is defined once, and a never kept as a Must never rule or a Prohibited action has no M line; no `fixed (check)` (write `fixed (your judgment)`).
 - A decision classified from free text is `your criteria` or `open judgment`, never `a rule on a value`.
+- No Must never rule restates a Must do rule or an always M line.
 - Each requirement lives in one place: a quality of the output is an AC, a behaviour an R; a detail block points to it ("see AC4") instead of restating it, and a Decision isn't restated as an R row.
 - The Inputs line matches the access answer for its source.
 - No requirement describes a test input ("the notes carry no 'buying for' field").

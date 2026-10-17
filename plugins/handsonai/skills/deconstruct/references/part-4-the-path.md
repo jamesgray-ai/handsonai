@@ -19,7 +19,7 @@ Read when Part 4 starts, right after its signpost, and say first: "Next, we'll w
 
 Record the answer as the first line of `## Path`: `Method preference: same way every time | AI works it out each time | some of each`. The answer decides only how the path is drafted (section 2). It is a preference, never an autonomy level.
 
-If a student who chose "AI works it out" then names steps that must always happen in order, say: "Those steps sound fixed, so I'll note this as some of each: those steps stay the same, and the AI works out the rest. Does that match?" On a yes, record "some of each", place the named steps in the order they gave with `- The AI plans this part` where their answers put it (when that isn't clear, **Ask:** "Where does the AI's part go: before, between or after these steps?"), then give the fixed-step reasons (section 4, question 2's one message) and run questions 1 and 3 for those steps. From then on, follow the "some of each" column of the matrix.
+If a student who chose "AI works it out" then names steps that must always happen in order, say: "Those steps sound fixed, so I'll note this as some of each: those steps stay the same, and the AI works out the rest. Does that match?" On a yes, record "some of each", place the named steps in the order they gave with `- The AI plans this part` where their answers put it (when that isn't clear, **Ask:** "Where does the AI's part go: before, between or after these steps?"), then give the fixed-step reasons (section 4, question 2's one message) and run questions 1 and 3 for those steps. Don't ask question 2's pick again: the named steps are fixed. From then on, follow the "some of each" column of the matrix.
 
 ## 2. Draft the path
 
@@ -140,7 +140,7 @@ Mark those steps `fixed (regulation)`.
 
 Each becomes a Human Gates row.
 
-**With no steps** ("AI works it out"), the first question is instead **Ask:** "What does the regulation require it to do, every time?" Each answer becomes a `fixed (regulation)` step, and say: "Because the rules set some steps, those stay fixed; the AI works out the rest." Record "some of each": replace `Path: none` with those steps and `- The AI plans this part` where the answers put it (when unclear, **Ask:** "Where does the AI's part go: before, between or after these steps?"); play the steps back as in section 3; give the fixed definition if question 2 hasn't run; then run questions 1 and 3 for those steps, playing back any answers already given against M lines or moments and asking only the open part. If the student names no required step, it stays "AI works it out". Then the decisions question above.
+**With no steps** ("AI works it out"), the first question is instead **Ask:** "What does the regulation require it to do, every time?" Each answer becomes a `fixed (regulation)` step, and say: "Because the rules set some steps, those stay fixed; the AI works out the rest." Record "some of each": replace `Path: none` with those steps and `- The AI plans this part` where the answers put it (when unclear, **Ask:** "Where does the AI's part go: before, between or after these steps?"); play the steps back as in section 3; give the fixed definition if question 2 hasn't run; then run questions 1 and 3 for those steps, playing back any answers already given against M lines or moments and asking only the open part. If the student names no required step, it stays "AI works it out". Then the second regulation question above, "Which decisions must a person make or approve?"
 
 ### 6. The range
 
