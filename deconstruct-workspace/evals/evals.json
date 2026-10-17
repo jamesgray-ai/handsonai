@@ -8703,7 +8703,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable (nothing is sent on), a clearly labelled flag in it, or a plain statement of what wasn't found (\"No recent news found\"), meets R-9: there is no sending to remove it before. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -8980,7 +8980,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable (nothing is sent on), a clearly labelled flag in it, or a plain statement of what wasn't found (\"No recent news found\"), meets R-9: there is no sending to remove it before. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9200,7 +9200,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable (nothing is sent on), a clearly labelled flag in it, or a plain statement of what wasn't found (\"No recent news found\"), meets R-9: there is no sending to remove it before. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9412,7 +9412,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable (nothing is sent on), a clearly labelled flag in it, or a plain statement of what wasn't found (\"No recent news found\"), meets R-9: there is no sending to remove it before. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9598,7 +9598,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable (nothing is sent on), a clearly labelled flag in it, or a plain statement of what wasn't found (\"No recent news found\"), meets R-9: there is no sending to remove it before. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
