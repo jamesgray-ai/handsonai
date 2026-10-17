@@ -122,9 +122,11 @@ Answers about steps go on the step. Answers that are quality standards ("lead wi
 
 A step gets detail (the rule, the check or handoff, the expertise) only when it carries order that matters, a rule or standard, a check or handoff, an outside action, or the student's expertise. Everything else stays one line.
 
-**Detail table.** When the regulation answer is yes, or four or more steps need detail (never say this threshold), show the detail in one table (step, rule, check or handoff) and ask "What's wrong or missing?", never one question per step. Each rule in it is tagged *(you said)* or *(my suggestion)* and needs a keep or drop; never state a rule or threshold as fact.
+**Count first.** Before any detail question, count the steps that need detail from every answer so far (order that matters, rules or standards, checks or handoffs, outside actions, expertise); never say the count. Never ask one step's detail question before counting.
 
-Otherwise, for each step that needs detail, in its own message, **Ask:** "Does [step] have a rule it must follow, or something that must be checked before the next step?"
+**Detail table.** When the regulation answer is yes, or that count is four or more (never say this threshold), show the detail in one table (step, rule, check or handoff) and ask "What's wrong or missing?", never one question per step. Each rule in it is tagged *(you said)* or *(my suggestion)* and needs a keep or drop; never state a rule or threshold as fact.
+
+Only when the count is three or fewer, for each step that needs detail, in its own message, **Ask:** "Does [step] have a rule it must follow, or something that must be checked before the next step?"
 - *Why:* Rules and checks are what the AI must get right every time, so they're written down for that step.
 - *Not sure?* Say no. Test will show if it needs one.
 

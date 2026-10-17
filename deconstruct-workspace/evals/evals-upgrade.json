@@ -1011,7 +1011,7 @@
           "must": true
         },
         {
-          "text": "After the move the AI reads the moved record and reaches the step its files show (the in-production Improve message), without asking the student to re-run any earlier step",
+          "text": "After the move the AI reads the moved record and reaches the step its files show (the in-production Improve message: \"This workflow already has a Design Plan, so changes to its requirements go through Improve. Say 'run the improve skill'.\", which is the message Deconstruct gives for an in-production workflow with Requirements), without asking the student to re-run any earlier step",
           "kind": "judged",
           "must": true
         },

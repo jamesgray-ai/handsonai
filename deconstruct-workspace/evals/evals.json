@@ -503,12 +503,12 @@
           }
         },
         {
-          "text": "The CRM-check step is recorded as `fixed (policy)`",
+          "text": "The CRM-check step (named for the CRM, HubSpot or past contact) is recorded as `fixed (policy)`",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/*/requirements.md",
-            "pattern": "(?im)^- Step \\d+ - [^\\n]*(CRM|HubSpot)[^\\n]*· fixed \\(policy\\)"
+            "pattern": "(?im)^- Step \\d+ - [^\\n]*(CRM|HubSpot|past contact)[^\\n]*· fixed \\(policy\\)"
           }
         },
         {
@@ -2026,12 +2026,12 @@
           }
         },
         {
-          "text": "Every other proposed step is `flexible` and carries `· proposed by AI`",
+          "text": "Every other proposed step is `flexible` and carries `· proposed by AI`, except a step the student does `(you)` (as in I5-none: spec lines 162 and 322)",
           "kind": "scripted",
           "check": {
             "type": "file_not_regex",
             "path": "framework/*/requirements.md",
-            "pattern": "(?m)^- Step \\d+ - [^\\n]*· flexible(?![^\\n]*· proposed by AI)[^\\n]*$"
+            "pattern": "(?m)^- Step \\d+ - [^\\n]*· flexible(?![^\\n]*· proposed by AI)(?![^\\n]*· \\(you\\))[^\\n]*$"
           }
         },
         {
@@ -2972,7 +2972,7 @@
           "kind": "judged"
         },
         {
-          "text": "The questions still run unchanged after the switch: no question is dropped, merged or reworded because of it",
+          "text": "The questions still run unchanged after the switch: no question is dropped, merged or reworded because of it (\"Design uses this to decide how much the AI works out on its own.\" is Part 4's closing line, said on its own; it belongs to no question)",
           "kind": "judged",
           "must": true
         },
@@ -7517,12 +7517,12 @@
           }
         },
         {
-          "text": "The Slack summary is a `W1 · …` line under `### Writes` naming Step 4",
+          "text": "The Slack summary is a `W1 · …` line under `### Writes` naming the step that posts it (old Step 4 extended, or a new step after it)",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^### Writes.*^- W1 · [^\\n]*slack[^\\n]*· Step 4"
+            "pattern": "(?ims)^### Writes.*^- W1 · [^\\n]*slack[^\\n]*· Step [45]\\b"
           }
         },
         {
@@ -7684,12 +7684,12 @@
           }
         },
         {
-          "text": "The Slack summary is a `W1 · …` line under `### Writes` naming Step 4",
+          "text": "The Slack summary is a `W1 · …` line under `### Writes` naming the step that posts it (old Step 4 extended, or a new step after it)",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^### Writes.*^- W1 · [^\\n]*slack[^\\n]*· Step 4"
+            "pattern": "(?ims)^### Writes.*^- W1 · [^\\n]*slack[^\\n]*· Step [45]\\b"
           }
         },
         {
@@ -8162,12 +8162,12 @@
           }
         },
         {
-          "text": "The Slack summary is a `W1 · …` line under `### Writes` naming Step 4",
+          "text": "The Slack summary is a `W1 · …` line under `### Writes` naming the step that posts it (old Step 4 extended, or a new step after it)",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^### Writes.*^- W1 · [^\\n]*slack[^\\n]*· Step 4"
+            "pattern": "(?ims)^### Writes.*^- W1 · [^\\n]*slack[^\\n]*· Step [45]\\b"
           }
         },
         {

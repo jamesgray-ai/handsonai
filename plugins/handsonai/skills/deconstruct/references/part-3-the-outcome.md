@@ -45,7 +45,7 @@ The goal sentence has no "containing [required parts]" blank: the required parts
 - *Why:* Each thing you'd look for becomes a check Test grades yes or no.
 - *Example:* a finance analyst might say: "Every number ties to the ledger, and any change over 5% has a reason."
 
-Then flag any vague words left (*good, engaging, thorough, clear, professional*) and ask, one at a time: "What would that look like in the result?"
+Then flag any vague words left (*good, engaging, thorough, clear, professional*) and ask, one at a time: "What would that look like in the result?" A follow-up you write here asks what the phrase means, never which miss would make them send it back: that is section 5's question, asked as written even when an earlier answer already named one.
 
 Each answer becomes a yes/no check, kept only if someone else could check it, yes or no, without asking the student. Never record a scale word ("mostly", "somewhat", "1–5"). Play the checks back as a numbered list in plain words and ask: "Is that the list? What's missing?"
 
