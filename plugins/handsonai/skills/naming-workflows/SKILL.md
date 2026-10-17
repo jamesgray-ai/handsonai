@@ -70,45 +70,47 @@ Generate consistent, professional names and descriptions for business workflows,
 ## Description Writing
 
 ### Format
-Write 1-2 concise sentences that answer:
-1. **What** does this workflow do?
-2. **What** is the outcome/output?
+One sentence that answers, in order:
+1. **When does it start?** The trigger, in plain words.
+2. **What does it produce?** The deliverable.
+3. **Who receives it or acts on it?** The person or team it's for.
+
+No targets or numbers ("same day", "5+ assets"): those belong in the requirements, and they change. No tool names ("using Claude and Gmail"): the description says what the work is, not how it's built.
 
 ### Structure
-`[Action verb] [object] [context/condition]. [Outcome statement].`
+`[When it starts], [action verb] [the deliverable] [for or to whoever receives or acts on it].`
 
 ### Examples
 
 **Good descriptions:**
-- "Review Gmail for emails requiring responses and draft replies. Generates draft responses ready for user review."
-- "Convert course waitlist prospects into enrolled students through targeted email campaigns. Results in payment confirmations and enrollment completions."
-- "Extract key insights from lesson recordings and repurpose into LinkedIn posts and Substack content. Produces 5+ social assets per lesson."
+- "When a new email needs a reply, drafts a response for you to review and send."
+- "When a waitlisted prospect hasn't enrolled, sends a reminder sequence that leads them to the enrollment page."
+- "After each lesson recording, turns it into LinkedIn posts and Substack excerpts for you to publish."
 
 **Avoid:**
-- Overly detailed: "This workflow checks the Gmail inbox every morning at 7:30 AM using Claude's email skill to scan for messages that..."
+- Two sentences that repeat the deliverable: "Drafts replies to emails. Generates draft responses ready for review."
+- A target: "Produces 5+ social assets per lesson."
+- Overly detailed: "This workflow checks the inbox every morning at 7:30 AM to scan for messages that..."
 - Too vague: "Handles email stuff"
 - Tool-focused: "Uses Claude and Gmail to do email"
 
-## Writing the Outcome Half of the Description
+## Naming the deliverable
 
-There's no separate `Process Outcome` field in the registry — the deliverable belongs inside the
-Workflow node's outcome-first `description` (see Description Writing above and Recording the
-Workflow below). This craft is still worth doing deliberately: name the concrete, tangible thing
-the workflow produces before writing the full description sentence, then fold it into the
-description's outcome half.
+There's no separate `Process Outcome` field in the registry: the deliverable belongs inside the Workflow node's one-sentence `description` (see Description Writing above and Recording the Workflow below). Name the concrete, tangible thing the workflow produces before writing the sentence, then use it as the sentence's object.
 
 ### Requirements
-- **Tangible**: Something that can be reviewed, sent, or measured
+- **Tangible**: Something that can be reviewed, sent, or used
 - **Specific**: Not "completed workflow" or "done"
 - **Noun phrase**: The thing produced, not the action
+- **No count or target**: "Social posts", not "5+ social assets"
 
 ### Examples
 
-| Workflow | Deliverable (folds into `description`) |
+| Workflow | Deliverable (the description's object) |
 |----------|-----------------|
 | Email Response Drafting | Draft email responses |
 | Lead Qualification | Qualified lead list |
-| Content Repurposing | 5+ social assets |
+| Content Repurposing | Social posts and newsletter excerpts |
 | Student Onboarding | Onboarded students |
 | Newsletter Distribution | Published newsletter |
 | Invoice Generation | Sent invoices |
@@ -142,37 +144,37 @@ than assigning it a number.
 ### Sales Domain
 | Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
-| Lead Qualification | Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details. | Qualified lead list |
-| Student Enrollment | Process active student applications through payment and confirmation. Results in enrolled students ready for onboarding. | Enrolled students |
-| Enrollment Recovery | Re-engage prospects who abandoned the enrollment process. Generates personalized follow-up sequences. | Re-engagement emails |
+| Lead Qualification | When new leads come in, scores them against your criteria and produces a ranked list with contact details for the sales team. | Qualified lead list |
+| Student Enrollment | When an application arrives, takes the student through payment and confirmation so they're enrolled and ready for onboarding. | Enrolled students |
+| Enrollment Recovery | When a prospect abandons enrollment, drafts a personalized follow-up sequence for you to send. | Re-engagement emails |
 
 ### Marketing Domain
 | Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
-| Content Repurposing | Transform lesson recordings into multi-platform social content. Creates LinkedIn posts, X threads, and Substack excerpts. | 5+ social assets |
-| Newsletter Distribution | Publish newsletter content and distribute across platforms. Delivers newsletter to subscribers and social channels. | Published newsletter |
-| Social Media Scheduling | Plan and schedule weekly LinkedIn and X content. Produces content calendar with scheduled posts. | Weekly content calendar |
+| Content Repurposing | After each lesson recording, turns it into LinkedIn posts, X threads and Substack excerpts for you to publish. | Social posts and newsletter excerpts |
+| Newsletter Distribution | When an issue is approved, publishes it and shares it with subscribers and social channels. | Published newsletter |
+| Social Media Scheduling | Each week, plans the LinkedIn and X posts and produces a content calendar for you to approve. | Weekly content calendar |
 
 ### Product Domain
 | Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
-| Lesson Content Creation | Design and write online course lesson materials. Produces slide decks, exercises, and student resources. | Complete lesson package |
-| Curriculum Design | Structure course outline aligned with learning objectives. Creates module sequence with Bloom's taxonomy alignment. | Course curriculum |
-| Exercise Development | Create hands-on activities for course participants. Generates practical exercises with solutions and rubrics. | Student exercises |
+| Lesson Content Creation | When a lesson is scheduled, drafts its slides, exercises and student resources for you to review. | Complete lesson package |
+| Curriculum Design | When a new course is planned, turns its learning objectives into a module sequence for you to approve. | Course curriculum |
+| Exercise Development | When a lesson needs practice, drafts hands-on exercises with solutions and rubrics for the instructor. | Student exercises |
 
 ### Education Domain
 | Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
-| Student Onboarding | Grant course access and prepare students for Day 1. Delivers welcome materials, Slack access, and technical setup. | Onboarded students |
-| Live Session Delivery | Teach scheduled scheduled cohort sessions. Facilitates learning, Q&A, and student engagement. | Completed session |
-| Assessment & Feedback | Review student work and provide constructive feedback. Generates graded assignments with improvement guidance. | Graded assignments |
+| Student Onboarding | When a student enrolls, sets up their course access and sends welcome materials so they're ready for Day 1. | Onboarded students |
+| Live Session Delivery | At each scheduled cohort session, runs the teaching, Q&A and exercises with the students. | Completed session |
+| Assessment & Feedback | When a student submits work, grades it and drafts feedback for the instructor to review and send. | Graded assignments |
 
 ### Operations Domain
 | Workflow Name | Description | Deliverable |
 |---------------|-------------|-----------------|
-| Email Response Drafting | Review inbox for urgent messages and create draft replies. Produces professionally written responses ready for review. | Draft email responses |
-| Calendar Management | Coordinate scheduling across meetings and cohort sessions. Maintains organized calendar with buffer time. | Updated calendar |
-| Slack Response Drafting | Monitor Slack channels and create appropriate replies. Generates context-aware draft responses. | Draft Slack messages |
+| Email Response Drafting | When an urgent email arrives, drafts a reply for you to review and send. | Draft email responses |
+| Calendar Management | When a meeting is requested, finds a time that fits around cohort sessions and updates your calendar. | Updated calendar |
+| Slack Response Drafting | When someone posts a question in a watched Slack channel, drafts a reply for you to review. | Draft Slack messages |
 
 ## Usage Workflow
 
@@ -203,14 +205,14 @@ After the user confirms name and description (deliverable folded in):
 ---
 type: Workflow
 title: "Lead Qualification"
-description: "Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details."
+description: "When new leads come in, scores them against your criteria and produces a ranked list with contact details for the sales team."
 generated: { by: process:naming-workflows, at: YYYY-MM-DD }
 status: backlog
 trigger: "Weekly (Sunday)"
 ---
 # Lead Qualification
 
-Identify and score prospects using research tools and qualification criteria. Produces ranked lead list with contact details.
+When new leads come in, scores them against your criteria and produces a ranked list with contact details for the sales team.
 
 # Artifacts
 
@@ -239,8 +241,8 @@ Then invoke the `indexing-registry` skill for a maintenance pass (best-effort �
 ## Quick Reference
 
 **Name formula:** `[Subject] [Action/Purpose]` (2-4 words, noun phrase)
-**Description formula:** `[Action verb] [object] [condition]. [Outcome].` (1-2 sentences)
-**Deliverable:** Concrete outcome (not "completed workflow") — folds into the description, not a separate field
+**Description formula:** `[When it starts], [action verb] [the deliverable] [for whoever receives or acts on it].` (one sentence; no targets, no tool names)
+**Deliverable:** Concrete outcome (not "completed workflow"), the description's object, not a separate field
 **Sequence:** Position in the owning Process's `# Workflows` list — not a stored field or a number
 
 ## List Placement Example

@@ -237,7 +237,7 @@ Every candidate goes into the backlog (work that already runs is registered as r
 
 A person, or a function not in the registry, maps to the Function that fits, said in one line ("I'll put it under [Function]."); if none fits, **Ask:** "Shall I add [function] as a new function?", and on yes write a complete Function node per `registry/SCHEMA.md` (title, description, one sentence of charter prose, an empty GENERATED `# Owns` block) and its line in `registry/functions/index.md`. Never write an `owner:` matching no Function file. Write a complete minimal Process node per `naming-workflows` (never a default or ownerless stub), with its line in the right Line of Business's `# Processes` list and `registry/processes/index.md` (ask which line and where, if not obvious); the maintenance pass refreshes `# Owns`. The catalog shows it with "(new)".
 
-**Catalog confirmation (one message)**, the student's one look before writing. Place each candidate under the Process where it was found, unless it clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it): then move it, with the reason in brackets after its description. Every process with workflows, in the report's order and numbers (other-lens or pick-up run: only this run's, 1 to N), each as name plus a one-sentence description of about 20 words, "When/From [trigger], [what it produces]", with "(already runs)" after work that already runs. No size, value lever, or ranking. No registry: open with "Here's your list of workflows.", drop the owner sentence, and the *Why* is "the name and description are what Deconstruct starts from later." Say exactly this, with the student's workflows:
+**Catalog confirmation (one message)**, the student's one look before writing. Place each candidate under the Process where it was found, unless it clearly belongs elsewhere (it happens before that Process starts, or another Process's owner does it): then move it, with the reason in brackets after its description. Every process with workflows, in the report's order and numbers (other-lens or pick-up run: only this run's, 1 to N), each as name plus a one-sentence description of about 20 words, in the `naming-workflows` shape (one sentence: when it starts, what it produces, who receives or acts on it; no targets, no tool names), with "(already runs)" after work that already runs. No size, value lever, or ranking. No registry: open with "Here's your list of workflows.", drop the owner sentence, and the *Why* is "the name and description are what Deconstruct starts from later." Say exactly this, with the student's workflows:
 
 > Here's what goes into your registry. Each workflow sits under the process it belongs to and is owned by that process's owner.
 >
@@ -259,14 +259,14 @@ Apply every change to the report. A left-out workflow keeps its card, marked "Le
    ---
    type: Workflow
    title: "[Workflow name]"
-   description: "[Description sentence]. [Deliverable folded in as the outcome sentence.]"
+   description: "[One sentence, naming-workflows shape: when it starts, what it produces, who receives or acts on it.]"
    generated: { by: process:analyze, at: YYYY-MM-DD }
    status: backlog
    trigger: "[Trigger field]"
    ---
    # [Workflow name]
 
-   [Description.] [Deliverable sentence.]
+   [Description.]
 
    # Artifacts
 
@@ -370,7 +370,7 @@ For each opportunity:
 
 **Business Objective:** [Organizational lens only — which strategic objective this workflow supports]
 **Stakeholders:** [Organizational lens only — roles/teams involved (process owner + participants)]
-**Success Metrics:** [Organizational lens only — KPIs for measuring improvement]
+**Success Metrics:** [Organizational lens only — KPIs this workflow itself moves; a broader business effect (more proposals won) is the reason, not a metric]
 
 ---
 
@@ -380,9 +380,9 @@ Appended after the catalog confirmation under `## Workflow Candidate Summary`, i
 
 | Field | Content |
 |-------|---------|
-| **Workflow** | 2-4 word noun phrase, Title Case |
+| **Workflow** | 2-4 word noun phrase, Title Case (each part of a hyphenated word capitalised: "Follow-Up") |
 | **Process** | The Process it is filed under |
-| **Description** | One sentence describing what this workflow does |
+| **Description** | One sentence in the naming-workflows shape: when it starts, what it produces, who receives or acts on it |
 | **Trigger** | What kicks off this workflow — an event, schedule, or request |
 | **Deliverable** | The tangible output — what gets produced, sent, or decided |
 | **Value lever** | Streamline / Automate / Accelerate / Create value |
@@ -393,7 +393,7 @@ Appended after the catalog confirmation under `## Workflow Candidate Summary`, i
 | **Lens** | Individual / Organizational |
 | **Business Objective** | (Organizational only) Which strategic objective this workflow supports |
 | **Stakeholders** | (Organizational only) Roles/teams involved |
-| **Success Metrics** | (Organizational only) KPIs for measuring improvement |
+| **Success Metrics** | (Organizational only) KPIs this workflow itself moves, not broader business effects |
 
 ### Appendix: Value Lever Definitions
 
