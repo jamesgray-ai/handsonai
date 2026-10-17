@@ -8703,7 +8703,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -8971,7 +8971,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9191,7 +9191,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9403,7 +9403,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9589,7 +9589,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
