@@ -28,7 +28,7 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   any              {checks: [...]}                                at least one passes
 
 `session` is 1-based; leave it out to mean every session (AI checks) or the last session (file checks).
-Text matching ignores differences in curly versus straight quotes and dashes; ai_contains and
+Text matching ignores differences in curly versus straight quotes and dashes (in regex patterns too); ai_contains and
 ai_not_contains also treat single and double quote marks alike.
 
 Built-in checks the runner adds to every interview run: the fidelity check (no listed framework
@@ -91,7 +91,7 @@ def check(c, run):
             if t == "ai_contains":
                 hits = [qnorm(c["text"]) in qnorm(m) for m in msgs]
             else:
-                hits = [bool(re.search(c["pattern"], norm(m), re.M)) for m in msgs]
+                hits = [bool(re.search(norm(c["pattern"]), norm(m), re.M)) for m in msgs]
             ok = all(hits) and hits if which == "all" else any(hits)
             if ok:
                 return True, f"found in session {s['n']}"
@@ -99,7 +99,7 @@ def check(c, run):
     if t in ("ai_not_contains", "ai_not_regex"):
         for s in _sessions(run, n):
             for i, m in enumerate(_ai_turns(s)):
-                hit = (qnorm(c["text"]) in qnorm(m)) if t == "ai_not_contains" else re.search(c["pattern"], norm(m), re.M)
+                hit = (qnorm(c["text"]) in qnorm(m)) if t == "ai_not_contains" else re.search(norm(c["pattern"]), norm(m), re.M)
                 if hit:
                     return False, f"session {s['n']} AI message {i + 1}: {m[:200]!r}"
         return True, "absent from every AI message"
@@ -155,9 +155,9 @@ def check(c, run):
     if t == "file_not_contains":
         return (norm(c["text"]) not in nb, f"{path}")
     if t == "file_regex":
-        return (bool(re.search(c["pattern"], nb, re.M)), f"{path}")
+        return (bool(re.search(norm(c["pattern"]), nb, re.M)), f"{path}")
     if t == "file_not_regex":
-        m = re.search(c["pattern"], nb, re.M)
+        m = re.search(norm(c["pattern"]), nb, re.M)
         return (not m, f"{path}" + (f": {m.group(0)[:120]!r}" if m else ""))
     if t == "no_yaml":
         return (not body.lstrip("﻿").startswith("---"), f"{path}")
@@ -170,14 +170,14 @@ def check(c, run):
             return (False, f"{path}: no {c['section']!r} section")
         end = next((i for i in range(start + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
         sec = "\n".join(lines[start + 1:end])
-        m = re.search(c["pattern"], sec, re.M)
+        m = re.search(norm(c["pattern"]), sec, re.M)
         ok = bool(m) if c.get("must", True) else not m
         return (ok, f"{path} [{c['section']}]" + (f": {m.group(0)[:120]!r}" if m else ""))
     if t == "file_line":
         lines = body.splitlines()
         k = c["line"] - 1
         got = lines[k] if k < len(lines) else ""
-        return (bool(re.search(c["pattern"], norm(got))), f"line {c['line']}: {got[:160]!r}")
+        return (bool(re.search(norm(c["pattern"]), norm(got))), f"line {c['line']}: {got[:160]!r}")
     if t == "sections_in_order":
         heads = [norm(l.strip()) for l in body.splitlines() if re.match(r"#{1,2} ", l)]
         want = [norm(h) for h in c["headings"]]

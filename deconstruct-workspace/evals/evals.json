@@ -8669,7 +8669,7 @@
           }
         },
         {
-          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "text": "After the playback, every question asked is one the question matrix allows for this branch (req or cond), and every req question for the branch is asked. The question matrix, from the Part 4 reference: req = always asked; cond = asked when its condition holds; n/a = not in this branch. After a switch (a \"some of each\" pick of all or none, a named fixed step, or a regulation with no steps), the new branch's column applies from that point. /  / | Question | Same way every time | AI works it out each time | Some of each | / |---|---|---|---| / | Method, \"What comes after that?\", offers | req (cond for the offers) | n/a | req (cond for the offers) | / | Always/never | n/a | req | req (AI-planned part) | / | Playback | req (the today form when done today) | cond (when there are M lines) | req | / | Today question | cond (done today; inside the playback; never after a switch) | n/a | n/a | / | 1 Who does it | req | req (no-steps form) | req | / | 2 Must stay + reasons | req | n/a | req (section 2's line) | / | 3 Review or approve | req (stated, asked, or grouped) | req (no-steps form, or the one-step form naming a part a person does) | req (stated, asked, or grouped) | / | 4 Decisions | req | req | req | / | 5 Regulated | cond (Part 2 yes) | cond (no-steps form) | cond (Part 2 yes) | / | 6 Range, typical and tricky | req | req | req | / | 7 Expertise | req | req | req | / | 8 Detail | cond (steps that carry detail) | n/a | cond (steps that carry detail) |",
           "kind": "judged",
           "must": true
         },
@@ -8703,7 +8703,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -8768,7 +8768,7 @@
           "must": true
         },
         {
-          "text": "Who-does and review use their no-steps forms (S9; B9)",
+          "text": "Who-does and review use their no-steps forms (S9; B9, or its one-step form naming the part the student does, 3c-W D2)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -8778,8 +8778,17 @@
                 "text": "Is there any part you, or someone else, will always do yourselves?"
               },
               {
-                "type": "ai_contains",
-                "text": "Is there a point where you review or approve the work before it goes further?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Is there a point where you review or approve the work before it goes further?"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "Is [^?]{3,120} a point where you review or approve the work before it goes further\\?"
+                  }
+                ]
               }
             ]
           }
@@ -8937,7 +8946,7 @@
           }
         },
         {
-          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "text": "After the playback, every question asked is one the question matrix allows for this branch (req or cond), and every req question for the branch is asked. The question matrix, from the Part 4 reference: req = always asked; cond = asked when its condition holds; n/a = not in this branch. After a switch (a \"some of each\" pick of all or none, a named fixed step, or a regulation with no steps), the new branch's column applies from that point. /  / | Question | Same way every time | AI works it out each time | Some of each | / |---|---|---|---| / | Method, \"What comes after that?\", offers | req (cond for the offers) | n/a | req (cond for the offers) | / | Always/never | n/a | req | req (AI-planned part) | / | Playback | req (the today form when done today) | cond (when there are M lines) | req | / | Today question | cond (done today; inside the playback; never after a switch) | n/a | n/a | / | 1 Who does it | req | req (no-steps form) | req | / | 2 Must stay + reasons | req | n/a | req (section 2's line) | / | 3 Review or approve | req (stated, asked, or grouped) | req (no-steps form, or the one-step form naming a part a person does) | req (stated, asked, or grouped) | / | 4 Decisions | req | req | req | / | 5 Regulated | cond (Part 2 yes) | cond (no-steps form) | cond (Part 2 yes) | / | 6 Range, typical and tricky | req | req | req | / | 7 Expertise | req | req | req | / | 8 Detail | cond (steps that carry detail) | n/a | cond (steps that carry detail) |",
           "kind": "judged",
           "must": true
         },
@@ -8971,7 +8980,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9157,7 +9166,7 @@
           }
         },
         {
-          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "text": "After the playback, every question asked is one the question matrix allows for this branch (req or cond), and every req question for the branch is asked. The question matrix, from the Part 4 reference: req = always asked; cond = asked when its condition holds; n/a = not in this branch. After a switch (a \"some of each\" pick of all or none, a named fixed step, or a regulation with no steps), the new branch's column applies from that point. /  / | Question | Same way every time | AI works it out each time | Some of each | / |---|---|---|---| / | Method, \"What comes after that?\", offers | req (cond for the offers) | n/a | req (cond for the offers) | / | Always/never | n/a | req | req (AI-planned part) | / | Playback | req (the today form when done today) | cond (when there are M lines) | req | / | Today question | cond (done today; inside the playback; never after a switch) | n/a | n/a | / | 1 Who does it | req | req (no-steps form) | req | / | 2 Must stay + reasons | req | n/a | req (section 2's line) | / | 3 Review or approve | req (stated, asked, or grouped) | req (no-steps form, or the one-step form naming a part a person does) | req (stated, asked, or grouped) | / | 4 Decisions | req | req | req | / | 5 Regulated | cond (Part 2 yes) | cond (no-steps form) | cond (Part 2 yes) | / | 6 Range, typical and tricky | req | req | req | / | 7 Expertise | req | req | req | / | 8 Detail | cond (steps that carry detail) | n/a | cond (steps that carry detail) |",
           "kind": "judged",
           "must": true
         },
@@ -9191,7 +9200,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9369,7 +9378,7 @@
           }
         },
         {
-          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "text": "After the playback, every question asked is one the question matrix allows for this branch (req or cond), and every req question for the branch is asked. The question matrix, from the Part 4 reference: req = always asked; cond = asked when its condition holds; n/a = not in this branch. After a switch (a \"some of each\" pick of all or none, a named fixed step, or a regulation with no steps), the new branch's column applies from that point. /  / | Question | Same way every time | AI works it out each time | Some of each | / |---|---|---|---| / | Method, \"What comes after that?\", offers | req (cond for the offers) | n/a | req (cond for the offers) | / | Always/never | n/a | req | req (AI-planned part) | / | Playback | req (the today form when done today) | cond (when there are M lines) | req | / | Today question | cond (done today; inside the playback; never after a switch) | n/a | n/a | / | 1 Who does it | req | req (no-steps form) | req | / | 2 Must stay + reasons | req | n/a | req (section 2's line) | / | 3 Review or approve | req (stated, asked, or grouped) | req (no-steps form, or the one-step form naming a part a person does) | req (stated, asked, or grouped) | / | 4 Decisions | req | req | req | / | 5 Regulated | cond (Part 2 yes) | cond (no-steps form) | cond (Part 2 yes) | / | 6 Range, typical and tricky | req | req | req | / | 7 Expertise | req | req | req | / | 8 Detail | cond (steps that carry detail) | n/a | cond (steps that carry detail) |",
           "kind": "judged",
           "must": true
         },
@@ -9403,7 +9412,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
@@ -9555,7 +9564,7 @@
           }
         },
         {
-          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "text": "After the playback, every question asked is one the question matrix allows for this branch (req or cond), and every req question for the branch is asked. The question matrix, from the Part 4 reference: req = always asked; cond = asked when its condition holds; n/a = not in this branch. After a switch (a \"some of each\" pick of all or none, a named fixed step, or a regulation with no steps), the new branch's column applies from that point. /  / | Question | Same way every time | AI works it out each time | Some of each | / |---|---|---|---| / | Method, \"What comes after that?\", offers | req (cond for the offers) | n/a | req (cond for the offers) | / | Always/never | n/a | req | req (AI-planned part) | / | Playback | req (the today form when done today) | cond (when there are M lines) | req | / | Today question | cond (done today; inside the playback; never after a switch) | n/a | n/a | / | 1 Who does it | req | req (no-steps form) | req | / | 2 Must stay + reasons | req | n/a | req (section 2's line) | / | 3 Review or approve | req (stated, asked, or grouped) | req (no-steps form, or the one-step form naming a part a person does) | req (stated, asked, or grouped) | / | 4 Decisions | req | req | req | / | 5 Regulated | cond (Part 2 yes) | cond (no-steps form) | cond (Part 2 yes) | / | 6 Range, typical and tricky | req | req | req | / | 7 Expertise | req | req | req | / | 8 Detail | cond (steps that carry detail) | n/a | cond (steps that carry detail) |",
           "kind": "judged",
           "must": true
         },
@@ -9589,7 +9598,7 @@
           }
         },
         {
-          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md`; the requirements say where any such note goes (R-9). The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the workflow's deliverable — what the workflow itself produces each run (the brief, the email), not `requirements.md` — unless the requirements make it unmistakable (a clearly labelled line) and say it is removed before the deliverable goes to anyone else; the requirements say where any such note goes (R-9). When only the student reads the deliverable, stating plainly in it what wasn't found (\"No recent news found\") is content for its reader, not such a note. The template's own `Notes:` lines under Value & Measurement are expected and are not such a note",
           "kind": "judged"
         },
         {
