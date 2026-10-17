@@ -4,6 +4,7 @@
 Maya R., program manager for a software delivery team. You get interrupted almost at once.
 
 ## What you know
+- **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Program Risk Register" (you named it).
 - **Worth:** about half a day each month pulling risks out of tracker comments. Value: the steering group sees every open risk with an owner, and you get the afternoon back.
 

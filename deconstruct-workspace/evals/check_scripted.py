@@ -21,6 +21,7 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   file_unchanged   {path, session?}                               every matching file is byte-identical
                                                                   at session start and end
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
+  section_regex    {path, section, pattern, must?: bool}          inside one section (heading line to the next "## "), pattern matches (must=true, default) or doesn't (must=false)
   no_added_files   {except?: [globs], session?}                   no file was added during the session,
                                                                   except paths matching the globs
   all              {checks: [...]}                                every sub-check passes
@@ -160,6 +161,18 @@ def check(c, run):
         return (not m, f"{path}" + (f": {m.group(0)[:120]!r}" if m else ""))
     if t == "no_yaml":
         return (not body.lstrip("﻿").startswith("---"), f"{path}")
+    if t == "section_regex":
+        # text from the `section` heading line to the next "## " heading; must=True means the pattern must match
+        lines = nb.splitlines()
+        head = norm(c["section"])
+        start = next((i for i, l in enumerate(lines) if l.strip() == head), None)
+        if start is None:
+            return (False, f"{path}: no {c['section']!r} section")
+        end = next((i for i in range(start + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+        sec = "\n".join(lines[start + 1:end])
+        m = re.search(c["pattern"], sec, re.M)
+        ok = bool(m) if c.get("must", True) else not m
+        return (ok, f"{path} [{c['section']}]" + (f": {m.group(0)[:120]!r}" if m else ""))
     if t == "file_line":
         lines = body.splitlines()
         k = c["line"] - 1

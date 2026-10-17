@@ -4,6 +4,7 @@
 Tomás Ferreira, support lead at Quillstack, a project-management software company with a support team of six. Direct, practical.
 
 ## What you know
+- **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Support Ticket Triage" (you named it).
 - **Worth:** the team spends about 2 hours a day sorting and first-replying to new emails. Value: urgent problems reach an agent faster, and customers get a first reply within the hour.
 - **Trigger and deliverable:** a customer email arrives in the support inbox; out comes a ticket with a category, a priority and a draft first reply for an agent.
@@ -11,16 +12,16 @@ Tomás Ferreira, support lead at Quillstack, a project-management software compa
 - **A real past output:** yes. When asked, paste this (made-up details): "Ticket #20831. Category: Billing. Priority: High (customer can't log in after a failed payment). Draft reply: 'Hi Jo, sorry about this. Your account was paused after the card payment failed on the 3rd. I've sent a link to update the card; once it's done you'll be straight back in. — Quillstack Support'."
 - **What you started from** (only when asked, never in the same message as the output): the customer's email.
 - **What a good one looks like:** "The right category and priority, and a reply an agent can send with one read."
-- **What you do with it next** (only when asked): an agent checks it and sends the reply.
+- **Who gets it** (only when asked): an agent checks it and sends the reply.
 - **Who / form / when:** for the on-shift agent; a ticket with three fields and a reply under 120 words; ready within 10 minutes of the email arriving.
-- **Done or not done:** the category is one of our six; the priority follows our rules (anything blocking login or payment is High); the reply names the customer's actual problem; it never promises a refund. Send back: a wrong priority.
+- **What you'd check:** the category is one of our six; the priority follows our rules (anything blocking login or payment is High); the reply names the customer's actual problem; it never promises a refund. Send back: a wrong priority.
 - **Method:** "Read the email, work out what the customer is actually asking, pick the category, set the priority by our rules, then draft the reply from our saved replies." After that: "then the agent checks it and sends it." Today you do it the same way.
 - **Who does what:** the on-shift agent checks and sends the reply; the rest the AI can do.
 - **Fixed steps:** setting the priority by the written rules must always happen (reason: company policy).
 - **Review point:** yes, the agent's check before sending.
 - **Decisions:** "if the email mentions login or payment, it's High; otherwise Normal".
 - **What decides it** (only when asked): words in the email, a rule you could write down.
-- **Range:** typical: a customer asking how to export a project. Awkward: an angry email that mixes two problems.
+- **Range:** typical: a customer asking how to export a project. Tricky: an angry email that mixes two problems.
 - **Expertise:** "A beginner answers the question asked. I answer the problem behind it."
 - **Live writes:** it creates the ticket in Zendesk. It never sends the reply itself.
 - **Taking part:** yes, the agent checks every reply.

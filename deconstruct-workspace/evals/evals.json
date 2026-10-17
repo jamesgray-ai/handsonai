@@ -36,7 +36,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -68,7 +68,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -205,11 +205,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -299,19 +299,37 @@
           }
         },
         {
-          "text": "Part 3 shows the recipe by name: \"We'll shape this in three steps: say it, sharpen it, make it checkable.\"",
+          "text": "Part 3 shows the recipe by name: \"We'll describe a good [deliverable] in three steps: say it, sharpen it, then make it checkable.\" (B27)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "We'll shape this in three steps: say it, sharpen it, make it checkable."
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "We'll describe a good"
+              },
+              {
+                "type": "ai_contains",
+                "text": "in three steps: say it, sharpen it, then make it checkable."
+              }
+            ]
           }
         },
         {
-          "text": "Part 3 asks the real-example question word for word: \"Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?\"",
+          "text": "Part 3 asks the real-example question word for word, naming the deliverable (B26): \"Do you have a recent [deliverable] you were happy with — one you'd point to and say 'exactly like that'?\"",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Do you have a recent"
+              },
+              {
+                "type": "ai_contains",
+                "text": "you were happy with — one you'd point to and say 'exactly like that'?"
+              }
+            ]
           }
         },
         {
@@ -323,41 +341,41 @@
           }
         },
         {
-          "text": "\"Say it\" asks \"Imagine it's built and working. What does a good one look like?\" and then \"And what do you do with it next?\"",
+          "text": "\"Say it\" asks \"Imagine it's built and working. What does a good [deliverable] look like?\" (B28); \"Once it's ready, who gets it?\" is asked only if Parts 1–2 didn't say who receives it, and \"And what do you do with it next?\" is never asked (B29)",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Imagine it's built and working. What does a good one look like?"
+                "text": "Imagine it's built and working. What does a good"
               },
               {
-                "type": "ai_contains",
+                "type": "ai_not_contains",
                 "text": "And what do you do with it next?"
               }
             ]
           }
         },
         {
-          "text": "\"Make it checkable\" opens with \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\" and the send-back test is asked word for word",
+          "text": "\"Make it checkable\" opens with \"What else would you check before you send it?\" and the send-back test is asked word for word",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "If the AI handed you one of these, could you say done or not done just by looking? What would you look for?"
+                "text": "What else would you check before you send it?"
               },
               {
                 "type": "ai_contains",
-                "text": "If it got everything else right but missed one of these, which one would make you send it back?"
+                "text": "Which of these could you never let go out wrong — the ones where a single miss sends it back?"
               }
             ]
           }
         },
         {
-          "text": "The goal played back has no \"containing\" blank, and a second playback after the send-back test begins \"Here's your goal now:\"",
+          "text": "The goal played back has no \"containing\" blank, and a second playback after the send-back test begins \"Here's your full goal:\"",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -368,7 +386,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "Here's your goal now: "
+                "text": "Here's your full goal: "
               },
               {
                 "type": "ai_not_regex",
@@ -387,7 +405,7 @@
           "kind": "judged"
         },
         {
-          "text": "`## Acceptance Criteria` uses the form `1. **AC1 (must)** — …`, has at most two (must) checks, and a `Reference example:` line naming the real output's C# ID",
+          "text": "`## Acceptance Criteria` uses the form `1. **AC1 (must)** — …`, has at most two must-haves, and a `Reference example:` line naming the real output's C# ID",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -434,14 +452,14 @@
           "kind": "judged"
         },
         {
-          "text": "The AI asks \"If you handed this to a skilled colleague, how would you want them to go about it?\", then \"What comes after that?\" after the student's method stops, then \"Is that how you do it today, or is it different?\"",
+          "text": "The AI asks \"If you handed [the deliverable] to a skilled colleague, how would you want them to go about it?\", then \"What comes after that?\" after the student's method stops, and plays the steps back with the today form \"Here are your steps: … Is this how you do it today, or how you'd like it done from now on?\" (B4)",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "If you handed this to a skilled colleague, how would you want them to go about it?"
+                "text": "to a skilled colleague, how would you want them to go about it?"
               },
               {
                 "type": "ai_contains",
@@ -449,13 +467,17 @@
               },
               {
                 "type": "ai_contains",
+                "text": "Is this how you do it today, or how you'd like it done from now on?"
+              },
+              {
+                "type": "ai_not_contains",
                 "text": "Is that how you do it today, or is it different?"
               }
             ]
           }
         },
         {
-          "text": "The student's long answer about how they do it today (well past a short paragraph) is played back in plain words, one line per step, and that playback ends \"What's wrong?\"",
+          "text": "The student's long answer about how they do it today (well past a short paragraph) is played back in plain words, one line per step, and that playback ends \"What would you change or clarify?\"",
           "kind": "judged",
           "must": true
         },
@@ -482,22 +504,22 @@
           "kind": "judged"
         },
         {
-          "text": "The AI asks \"Which of these does a person do?\" and \"Which of those must happen exactly that way, every time?\", and defines the terms with \"**Fixed** means it must happen this way, in this order. **Flexible** means the AI may adapt it. Fixed describes the method, not who does it.\"",
+          "text": "The AI asks \"Once this is built, which of these steps will you, or someone else, still do yourselves?\" (B6) and \"Which of these steps must always happen exactly that way?\", and defines the terms with \"**Fixed** means a step always happens exactly as written, in this order. **Flexible** means it can be adapted to fit each case. A step you do yourself can be fixed too.\" (B7)",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Which of these does a person do?"
+                "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
               },
               {
                 "type": "ai_contains",
-                "text": "Which of those must happen exactly that way, every time?"
+                "text": "Which of these steps must always happen exactly that way?"
               },
               {
                 "type": "ai_contains",
-                "text": "**Fixed** means it must happen this way, in this order. **Flexible** means the AI may adapt it. Fixed describes the method, not who does it."
+                "text": "**Fixed** means a step always happens exactly as written, in this order. **Flexible** means it can be adapted to fit each case. A step you do yourself can be fixed too."
               }
             ]
           }
@@ -539,14 +561,14 @@
           }
         },
         {
-          "text": "Part 4 asks the decisions, range and expertise questions word for word, and ends \"Design uses this to decide how much the AI works out on its own.\"",
+          "text": "Part 4 asks the decisions, range and expertise questions word for word, and ends \"That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on.\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Where does the work go a different way depending on what it finds?"
+                "text": "Does the work change depending on the"
               },
               {
                 "type": "ai_contains",
@@ -554,11 +576,11 @@
               },
               {
                 "type": "ai_contains",
-                "text": "What will come in? Give me a typical case."
+                "text": "Think of a typical"
               },
               {
                 "type": "ai_contains",
-                "text": "And an awkward one?"
+                "text": "And a tricky one:"
               },
               {
                 "type": "ai_contains",
@@ -566,17 +588,17 @@
               },
               {
                 "type": "ai_contains",
-                "text": "Design uses this to decide how much the AI works out on its own."
+                "text": "That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on."
               }
             ]
           }
         },
         {
-          "text": "With no `writes` tags, live writes is asked with today's question word for word: \"Does this workflow write to anything live — send, post, create, or change something in a real system?\"",
+          "text": "With no `writes` tags and no send step of the student's own, live writes asks: \"Will it send or change anything itself, or only prepare drafts for you? Saving a draft in your email counts — tell me where.\" (B37)",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "Does this workflow write to anything live — send, post, create, or change something in a real system?"
+            "text": "Will it send or change anything itself, or only prepare drafts for you?"
           }
         },
         {
@@ -605,30 +627,47 @@
           }
         },
         {
-          "text": "Part 5 message 4 ends with today's Hand-it-back message word for word",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_contains",
-            "text": "Change any of these, replace them, or drop them — we want 3–5, with at least one real one and at least one hard one (an edge case it could plausibly get wrong). If you couldn't get hold of an input for one of these by tomorrow, say so and we'll swap it: in Step 5 you'll need an input to paste in for every one of these — like your real work, with names and details made up."
-          }
-        },
-        {
-          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the human gates collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) how you'll judge it, (4) the inputs Test will run; every draft but the last ends \"What's wrong or missing?\", and any count of drafts the AI announces matches the drafts it sends",
-          "kind": "judged"
-        },
-        {
-          "text": "Value & Measurement is closed with \"Now that we've reshaped this — what should the number be? What's the target?\" and \"How long after this goes live before that number can actually be read?\"",
+          "text": "Part 5 message 4 opens and ends with the approved practice-run lines (B43)",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Now that we've reshaped this — what should the number be? What's the target?"
+                "text": "Here are the practice runs we'll test it on."
               },
               {
                 "type": "ai_contains",
-                "text": "How long after this goes live before that number can actually be read?"
+                "text": "Change, replace or drop any; keep three to five, including your typical and tricky"
+              },
+              {
+                "type": "ai_contains",
+                "text": "When we test it, you'll paste in"
+              },
+              {
+                "type": "ai_contains",
+                "text": "for each, with names and details made up."
+              }
+            ]
+          }
+        },
+        {
+          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the checkpoints collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) what every [deliverable] must get right, (4) the practice runs; every draft but the last ends \"What would you change or add?\", and the AI never says how many drafts are coming (3c-U U4)",
+          "kind": "judged"
+        },
+        {
+          "text": "Value & Measurement is closed with \"Is that the target\" and \"How long should it run before you check whether it's hitting those targets?\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Is that the target"
+              },
+              {
+                "type": "ai_contains",
+                "text": "How long should it run before you check whether it's hitting those targets?"
               }
             ]
           }
@@ -638,7 +677,7 @@
           "kind": "judged"
         },
         {
-          "text": "The test inputs are saved as `framework/[name]/inputs/E<n>-<short-name>.md`, numbered from E1, with at least three",
+          "text": "The practice-run inputs are saved as `framework/[name]/inputs/E<n>-<short-name>.md`, numbered from E1, with at least three",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -702,7 +741,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -734,7 +773,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -871,11 +910,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -973,7 +1012,7 @@
           }
         },
         {
-          "text": "Step detail is shown in one table (step, rule, check or handoff) followed by \"What's wrong or missing?\", not one question per step; each rule in it is tagged (you said) or (my suggestion)",
+          "text": "Step detail is shown in one table (step, rule, check or handoff) followed by \"What would you change or add?\", not one question per step; each rule in it is tagged (you said) or (my suggestion)",
           "kind": "judged"
         },
         {
@@ -1043,15 +1082,32 @@
           }
         },
         {
-          "text": "Part 5 message 4 ends with today's Hand-it-back message word for word",
+          "text": "Part 5 message 4 opens and ends with the approved practice-run lines (B43)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Change any of these, replace them, or drop them — we want 3–5, with at least one real one and at least one hard one (an edge case it could plausibly get wrong). If you couldn't get hold of an input for one of these by tomorrow, say so and we'll swap it: in Step 5 you'll need an input to paste in for every one of these — like your real work, with names and details made up."
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Here are the practice runs we'll test it on."
+              },
+              {
+                "type": "ai_contains",
+                "text": "Change, replace or drop any; keep three to five, including your typical and tricky"
+              },
+              {
+                "type": "ai_contains",
+                "text": "When we test it, you'll paste in"
+              },
+              {
+                "type": "ai_contains",
+                "text": "for each, with names and details made up."
+              }
+            ]
           }
         },
         {
-          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the human gates collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) how you'll judge it, (4) the inputs Test will run; every draft but the last ends \"What's wrong or missing?\", and any count of drafts the AI announces matches the drafts it sends",
+          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the checkpoints collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) what every [deliverable] must get right, (4) the practice runs; every draft but the last ends \"What would you change or add?\", and the AI never says how many drafts are coming (3c-U U4)",
           "kind": "judged"
         }
       ]
@@ -1086,7 +1142,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -1118,7 +1174,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -1255,11 +1311,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -1402,7 +1458,7 @@
           }
         },
         {
-          "text": "Because four or more steps carry detail (V5), the AI shows the detail in one table followed by \"What's wrong or missing?\", with no regulation involved",
+          "text": "Because four or more steps carry detail (V5), the AI shows the detail in one table followed by \"What would you change or add?\", with no regulation involved",
           "kind": "judged"
         },
         {
@@ -1414,15 +1470,32 @@
           }
         },
         {
-          "text": "Part 5 message 4 ends with today's Hand-it-back message word for word",
+          "text": "Part 5 message 4 opens and ends with the approved practice-run lines (B43)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Change any of these, replace them, or drop them — we want 3–5, with at least one real one and at least one hard one (an edge case it could plausibly get wrong). If you couldn't get hold of an input for one of these by tomorrow, say so and we'll swap it: in Step 5 you'll need an input to paste in for every one of these — like your real work, with names and details made up."
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Here are the practice runs we'll test it on."
+              },
+              {
+                "type": "ai_contains",
+                "text": "Change, replace or drop any; keep three to five, including your typical and tricky"
+              },
+              {
+                "type": "ai_contains",
+                "text": "When we test it, you'll paste in"
+              },
+              {
+                "type": "ai_contains",
+                "text": "for each, with names and details made up."
+              }
+            ]
           }
         },
         {
-          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the human gates collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) how you'll judge it, (4) the inputs Test will run; every draft but the last ends \"What's wrong or missing?\", and any count of drafts the AI announces matches the drafts it sends",
+          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the checkpoints collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) what every [deliverable] must get right, (4) the practice runs; every draft but the last ends \"What would you change or add?\", and the AI never says how many drafts are coming (3c-U U4)",
           "kind": "judged"
         }
       ]
@@ -1459,7 +1532,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -1491,7 +1564,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -1628,11 +1701,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -1668,7 +1741,7 @@
           }
         },
         {
-          "text": "After each \"looks right\" on a draft containing (my suggestion) items, the AI asks once \"Before I keep these, which of my suggestions should stay: […]?\" (or, with one suggestion, the singular form pending Task 3a) naming each suggestion in that draft (the two exceptions in spec section 2 need no re-ask: a draft whose only suggestions are steps the AI added to the path, and the test inputs message, which follows its own rule)",
+          "text": "After each \"looks right\" on a draft containing (my suggestion) items, the AI asks once \"Before I keep these, which of my suggestions should stay: […]?\" (or, with one suggestion, \"Before I keep it, should this suggestion stay: [item]?\") naming each suggestion in that draft (the two exceptions need no re-ask: a draft whose only suggestions are steps the AI added to the path, and the practice-runs message, which follows its own rule)",
           "kind": "judged",
           "must": true
         },
@@ -1678,7 +1751,7 @@
           "must": true
         },
         {
-          "text": "Suggestions the student didn't keep do not appear in `requirements.md`, except AI-added path steps and test inputs (the two exceptions)",
+          "text": "Suggestions the student didn't keep do not appear in `requirements.md`, except AI-added path steps and practice-run inputs (the two exceptions)",
           "kind": "judged",
           "must": true
         },
@@ -1732,7 +1805,7 @@
           }
         },
         {
-          "text": "At least 3 test inputs remain, at least one real and one hard",
+          "text": "At least 3 practice-run inputs remain, at least one real and one hard",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -1790,7 +1863,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -1822,7 +1895,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -1959,11 +2032,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -2000,18 +2073,22 @@
           }
         },
         {
-          "text": "The AI asks \"Which of these would you insist on?\" and does not ask \"Which of those must happen exactly that way, every time?\"",
+          "text": "With no method, the AI offers \"Want me to propose the steps, and you correct them?\" (T5) and then asks the must-stay question \"Which of these steps must always happen exactly that way?\"; it never asks the retired \"Which of these would you insist on?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Which of these would you insist on?"
+                "text": "Want me to propose the steps, and you correct them?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Which of these steps must always happen exactly that way?"
               },
               {
                 "type": "ai_not_contains",
-                "text": "Which of those must happen exactly that way, every time?"
+                "text": "Which of these would you insist on?"
               }
             ]
           }
@@ -2035,22 +2112,22 @@
           }
         },
         {
-          "text": "The person-and-role question (\"Which of these does a person do?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
+          "text": "The person-and-role question (\"Once this is built, which of these steps will you, or someone else, still do yourselves?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Which of these does a person do?"
+                "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
               },
               {
                 "type": "ai_contains",
-                "text": "Where does the work go a different way depending on what it finds?"
+                "text": "Does the work change depending on the"
               },
               {
                 "type": "ai_contains",
-                "text": "What will come in? Give me a typical case."
+                "text": "Think of a typical"
               },
               {
                 "type": "ai_contains",
@@ -2074,7 +2151,7 @@
         "students/I5-insist-on-none.md"
       ],
       "preconditions": [
-        "When the AI asked \"Which of these would you insist on?\", the student answered \"Insist on none for now\" and insisted on no step"
+        "When the AI asked which steps must always happen exactly that way, the student answered that none must (or \"not sure\", taking the leave-it-flexible default) and fixed no step"
       ],
       "expectations": [
         {
@@ -2090,7 +2167,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -2122,7 +2199,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -2259,11 +2336,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -2300,39 +2377,43 @@
           }
         },
         {
-          "text": "The AI asks \"Which of these would you insist on?\" and does not ask \"Which of those must happen exactly that way, every time?\"",
+          "text": "With no method, the AI offers \"Want me to propose the steps, and you correct them?\" (T5) and then asks the must-stay question \"Which of these steps must always happen exactly that way?\"; it never asks the retired \"Which of these would you insist on?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Which of these would you insist on?"
+                "text": "Want me to propose the steps, and you correct them?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Which of these steps must always happen exactly that way?"
               },
               {
                 "type": "ai_not_contains",
-                "text": "Which of those must happen exactly that way, every time?"
+                "text": "Which of these would you insist on?"
               }
             ]
           }
         },
         {
-          "text": "The person-and-role question (\"Which of these does a person do?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
+          "text": "The person-and-role question (\"Once this is built, which of these steps will you, or someone else, still do yourselves?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Which of these does a person do?"
+                "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
               },
               {
                 "type": "ai_contains",
-                "text": "Where does the work go a different way depending on what it finds?"
+                "text": "Does the work change depending on the"
               },
               {
                 "type": "ai_contains",
-                "text": "What will come in? Give me a typical case."
+                "text": "Think of a typical"
               },
               {
                 "type": "ai_contains",
@@ -2378,19 +2459,28 @@
           }
         },
         {
-          "text": "The AI never asks why a step must happen that way (the fixed-reason question has no step to ask about)",
+          "text": "The AI never asks a fixed-step reason question (no step was marked fixed)",
           "kind": "scripted",
           "check": {
-            "type": "ai_not_regex",
-            "pattern": "Why must .+ happen that way"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_not_regex",
+                "pattern": "Is that required, by a regulation or company policy, or your own call\\?"
+              },
+              {
+                "type": "ai_not_regex",
+                "pattern": "Here's why I think each one is fixed"
+              }
+            ]
           }
         },
         {
-          "text": "The per-step gate question still runs for the step a person does (sending the draft to the customer): \"Is [step] a point where you review or approve the work before the next step?\"",
+          "text": "The review question runs for the step a person does (sending the draft to the customer), or it is stated as a checkpoint if that step is a review: \"… a point where you review or approve the work before it goes further?\" (B9)",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Is .+ a point where you review or approve the work before the next step\\?"
+            "pattern": "(?:Is .+ a point|Are any of these points) where you review or approve the work before it goes further|becomes a checkpoint: the workflow stops there"
           }
         },
         {
@@ -2432,7 +2522,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -2464,7 +2554,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -2601,11 +2691,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -2717,7 +2807,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -2749,7 +2839,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -2886,11 +2976,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -2972,48 +3062,48 @@
           "kind": "judged"
         },
         {
-          "text": "The questions still run unchanged after the switch: no question is dropped, merged or reworded because of it (\"Design uses this to decide how much the AI works out on its own.\" is Part 4's closing line, said on its own; it belongs to no question)",
+          "text": "The questions still run unchanged after the switch: no question is dropped, merged or reworded because of it (\"That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on.\" is Part 4's closing line, said on its own; it belongs to no question)",
           "kind": "judged",
           "must": true
         },
         {
-          "text": "The questions are unchanged: the real-example, done-or-not-done, send-back, method and fixed-or-flexible questions are asked word for word",
+          "text": "The questions are unchanged after \"skip the explanations\": the real-example, make-checkable, send-back, method and must-stay questions are asked word for word",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?"
+                "text": "you were happy with — one you'd point to and say 'exactly like that'?"
               },
               {
                 "type": "ai_contains",
-                "text": "If the AI handed you one of these, could you say done or not done just by looking? What would you look for?"
+                "text": "What else would you check before you send it?"
               },
               {
                 "type": "ai_contains",
-                "text": "If it got everything else right but missed one of these, which one would make you send it back?"
+                "text": "Which of these could you never let go out wrong — the ones where a single miss sends it back?"
               },
               {
                 "type": "ai_contains",
-                "text": "If you handed this to a skilled colleague, how would you want them to go about it?"
+                "text": "to a skilled colleague, how would you want them to go about it?"
               },
               {
                 "type": "ai_contains",
-                "text": "Which of those must happen exactly that way, every time?"
+                "text": "Which of these steps must always happen exactly that way?"
               }
             ]
           }
         },
         {
-          "text": "The required messages are unchanged: the recipe line, the context sentence and the Hand-it-back message",
+          "text": "The required messages are unchanged: the recipe line, the context sentence and the practice-run ending",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "We'll shape this in three steps: say it, sharpen it, make it checkable."
+                "text": "in three steps: say it, sharpen it, then make it checkable."
               },
               {
                 "type": "ai_contains",
@@ -3021,7 +3111,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "Change any of these, replace them, or drop them — we want 3–5, with at least one real one and at least one hard one (an edge case it could plausibly get wrong). If you couldn't get hold of an input for one of these by tomorrow, say so and we'll swap it: in Step 5 you'll need an input to paste in for every one of these — like your real work, with names and details made up."
+                "text": "Change, replace or drop any; keep three to five, including your typical and tricky"
               }
             ]
           }
@@ -3051,7 +3141,7 @@
           "student": "students/I8-resume.md"
         }
       ],
-      "expected_output": "Session 1: the student renames the workflow in Part 2 and stops at the start of Part 4; the progress file holds `Next: Part 4 — The path` and the original node. Session 2: 'continue my workflow' finds it, the resume line replaces the opening, the interview finishes at Part 4, and the original node gets the Requirements link.",
+      "expected_output": "Session 1: the student renames the workflow in Part 2 and stops at the start of Part 4; the progress file holds `Next: Part 4 — How the work gets done` and the original node. Session 2: 'continue my workflow' finds it, the resume line replaces the opening, the interview finishes at Part 4, and the original node gets the Requirements link.",
       "files": [
         "students/I8-rename-stop-after-part-3.md",
         "students/I8-resume.md"
@@ -3075,7 +3165,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first",
                 "session": 1
               },
@@ -3114,7 +3204,7 @@
           }
         },
         {
-          "text": "At the end of session 1, a progress file exists whose line 1 is `Next: Part 4 — The path`",
+          "text": "At the end of session 1, a progress file exists whose line 1 is `Next: Part 4 — How the work gets done`",
           "kind": "scripted",
           "check": {
             "type": "file_line",
@@ -3272,7 +3362,7 @@
               },
               {
                 "type": "ai_not_contains",
-                "text": "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?",
+                "text": "you were happy with — one you'd point to and say 'exactly like that'?",
                 "session": 2
               }
             ]
@@ -3287,7 +3377,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\.",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\.",
             "session": 2
           }
         },
@@ -3392,7 +3482,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -3438,7 +3528,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first",
                 "session": 1
               },
@@ -3509,7 +3599,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -3556,7 +3646,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first",
                 "session": 1
               },
@@ -3636,7 +3726,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -3657,7 +3747,7 @@
       "preconditions": [
         "When the AI asked for the past output, the student pasted the version with real-looking candidate names and salaries and said it holds real candidate details",
         "When the AI asked the student to check that output for confidential details, the student replied with the version with made-up names",
-        "When the AI asked for test inputs, the student first pasted the scorecards with real-looking names and salaries and said they are real",
+        "When the AI asked for practice-run inputs, the student first pasted the scorecards with real-looking names and salaries and said they are real",
         "When the AI asked the student to check those inputs for confidential details, the student replied with the made-up version"
       ],
       "expectations": [
@@ -3674,7 +3764,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -3706,7 +3796,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -3843,11 +3933,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -3875,11 +3965,11 @@
           }
         },
         {
-          "text": "Before Part 3's question 1, the AI says once: \"Whenever I ask for an example, an output, or an input, don't paste real client names, personal details, or anything confidential. Make the details up, or tell me what it looks like and I'll draft a realistic stand-in. What matters is that it looks like your real work.\"",
+          "text": "Before Part 3's question 1, the AI says once: \"Whenever I ask for an example, an output or an input, don't paste real client names, personal details or anything confidential. Swap them for made-up ones, or tell me what it looks like and I'll draft a made-up example. What matters is that it looks like your real work.\" (B25, S18)",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "Whenever I ask for an example, an output, or an input, don't paste real client names, personal details, or anything confidential. Make the details up, or tell me what it looks like and I'll draft a realistic stand-in. What matters is that it looks like your real work."
+            "text": "Whenever I ask for an example, an output or an input, don't paste real client names, personal details or anything confidential. Swap them for made-up ones, or tell me what it looks like and I'll draft a made-up example. What matters is that it looks like your real work."
           }
         },
         {
@@ -3891,7 +3981,7 @@
           }
         },
         {
-          "text": "For the test inputs, the AI says today's message word for word: \"Before I save these, check that they hold no real confidential details. I save inputs in `framework/[name]/inputs/`, and they go wherever that folder goes.\"",
+          "text": "For the practice-run inputs the student pasted, the AI says the message word for word: \"Before I save these, check that they hold no real confidential details. I save inputs in `framework/[name]/inputs/`, and they go wherever that folder goes.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
@@ -3947,7 +4037,7 @@
         "students/I10-outside-source.md"
       ],
       "preconditions": [
-        "When the AI asked for test inputs, the student pasted the three emails, including the one that tells the AI to ignore its instructions and issue a refund",
+        "When the AI asked for practice-run inputs, the student pasted the three emails, including the one that tells the AI to ignore its instructions and issue a refund",
         "When the AI asked whether it can access the customer emails itself, the student said through a Zendesk connection"
       ],
       "expectations": [
@@ -3964,7 +4054,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -3996,7 +4086,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -4133,11 +4223,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -4165,11 +4255,11 @@
           }
         },
         {
-          "text": "The privacy question is asked: \"When this runs, can I access [source] myself, for example through a connection to [tool], or will you paste or upload it each time?\"",
+          "text": "The privacy question is asked: \"When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste it in each time?\" (B41)",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "When this runs, can I access .+ myself, for example through a connection to .+, or will you paste or upload it each time\\?"
+            "pattern": "When this runs, can the workflow reach .+ itself, for example through a connection to .+, or will you paste it in each time\\?"
           }
         },
         {
@@ -4247,7 +4337,7 @@
       "fixture": "dir:fixtures/interview/lead-routing",
       "student": "students/I11-live-writes-without-you.md",
       "prompt": "Run the deconstruct skill for Inbound Lead Routing.",
-      "expected_output": "Steps that write carry writes tags, the live-writes question becomes a confirmation, a write named for the first time gets 'Which step does that?', the W# lines and `Runs: without you` are recorded as section 4a says, and the when-unsure question leaves out 'stop and ask you'.",
+      "expected_output": "Steps that write carry writes tags, the live-writes question becomes a confirmation, a write named for the first time gets 'right?', the W# lines and `Runs: without you` are recorded as section 4a says, and the when-unsure question leaves out 'stop and ask you'.",
       "files": [
         "students/I11-live-writes-without-you.md"
       ],
@@ -4269,7 +4359,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -4301,7 +4391,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -4438,11 +4528,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -4478,11 +4568,20 @@
           }
         },
         {
-          "text": "For the write named there for the first time (the confirmation email), the AI asks \"Which step does that?\"",
+          "text": "For the write named there for the first time (the confirmation email), the AI proposes where it happens: \"That's after step [N], once [x], right?\" (B38), never the retired \"Which step does that?\"",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Which step does that?"
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "That's after (?:step \\d+|[^?]+), [^?]*right\\?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "Which step does that?"
+              }
+            ]
           }
         },
         {
@@ -4571,7 +4670,7 @@
           }
         },
         {
-          "text": "The W# lines and `Runs: without you` are recorded as spec section 4a says, with no human gate invented for the student",
+          "text": "The W# lines and `Runs: without you` are recorded as spec section 4a says, with no checkpoint invented for the student",
           "kind": "judged"
         }
       ]
@@ -4605,7 +4704,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -4637,7 +4736,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -4774,11 +4873,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -4806,18 +4905,22 @@
           }
         },
         {
-          "text": "Part 3 asks the real-example question word for word with its Not sure? line (\"Say no for now. You can add one later.\")",
+          "text": "Part 3 asks the real-example question word for word with its Not sure? line (\"Say no for now. If you have one, paste it with names and companies swapped for made-up ones; the wording and structure are what count.\")",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "Do you have a recent output of this work that you were happy with — one you'd point to and say 'exactly like that'?"
+                "text": "Do you have a recent"
               },
               {
                 "type": "ai_contains",
-                "text": "Say no for now. You can add one later."
+                "text": "you were happy with — one you'd point to and say 'exactly like that'?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Say no for now. If you have one, paste it with names and companies swapped for made-up ones; the wording and structure are what count."
               }
             ]
           }
@@ -4883,7 +4986,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -4915,7 +5018,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -5052,11 +5155,11 @@
           }
         },
         {
-          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, [N] steps, [M] context items, [K] acceptance criteria, and [J] test inputs. Step 3, Design, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
           }
         },
         {
@@ -5087,16 +5190,25 @@
           "text": "Part 3 shows the recipe by name",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "We'll shape this in three steps: say it, sharpen it, make it checkable."
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "We'll describe a good"
+              },
+              {
+                "type": "ai_contains",
+                "text": "in three steps: say it, sharpen it, then make it checkable."
+              }
+            ]
           }
         },
         {
-          "text": "The AI asks \"Which of these does a person do?\"",
+          "text": "The AI asks \"Once this is built, which of these steps will you, or someone else, still do yourselves?\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "Which of these does a person do?"
+            "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
           }
         },
         {
@@ -5108,15 +5220,32 @@
           }
         },
         {
-          "text": "Part 5 message 4 ends with today's Hand-it-back message word for word",
+          "text": "Part 5 message 4 opens and ends with the approved practice-run lines (B43)",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "Change any of these, replace them, or drop them — we want 3–5, with at least one real one and at least one hard one (an edge case it could plausibly get wrong). If you couldn't get hold of an input for one of these by tomorrow, say so and we'll swap it: in Step 5 you'll need an input to paste in for every one of these — like your real work, with names and details made up."
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Here are the practice runs we'll test it on."
+              },
+              {
+                "type": "ai_contains",
+                "text": "Change, replace or drop any; keep three to five, including your typical and tricky"
+              },
+              {
+                "type": "ai_contains",
+                "text": "When we test it, you'll paste in"
+              },
+              {
+                "type": "ai_contains",
+                "text": "for each, with names and details made up."
+              }
+            ]
           }
         },
         {
-          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the human gates collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) how you'll judge it, (4) the inputs Test will run; every draft but the last ends \"What's wrong or missing?\", and any count of drafts the AI announces matches the drafts it sends",
+          "text": "Part 5 is delivered as short draft messages, in order: (1) rules and never-dos, (2) the checkpoints collected so far plus the sources it uses, then (only when a sensitivity test trips: a Confidential, Regulated or External source, a live write, or Runs: without you) the security limits in their own message after the privacy questions (R14-1), (3) what every [deliverable] must get right, (4) the practice runs; every draft but the last ends \"What would you change or add?\", and the AI never says how many drafts are coming (3c-U U4)",
           "kind": "judged"
         },
         {
@@ -5187,7 +5316,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first",
                 "session": 1
               },
@@ -5244,13 +5373,13 @@
           }
         },
         {
-          "text": "At the end of session 1, the progress file's line 1 is `Next: Part 5 — Rules, where you check or approve its work, the sources it uses, and how you'll judge it`",
+          "text": "At the end of session 1, the progress file's line 1 is `Next: Part 5 — Rules, sources and test cases`",
           "kind": "scripted",
           "check": {
             "type": "file_line",
             "path": "framework/*/deconstruct-in-progress.md",
             "line": 1,
-            "pattern": "^Next: Part 5 - Rules, where you check or approve its work, the sources it uses, and how you'll judge it[ \\t]*$",
+            "pattern": "^Next: Part 5 - Rules, sources and test cases[ \\t]*$",
             "session": 1
           }
         },
@@ -5337,7 +5466,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, \\d+ steps?, \\d+ context items?, \\d+ acceptance criteri(?:a|on), and \\d+ test inputs?\\. Step 3, Design, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\.",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\.",
             "session": 2
           }
         },
@@ -5440,7 +5569,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         }
@@ -5476,7 +5605,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) the path, and (5) rules, where you check or approve its work, the sources it uses, and how you'll judge it. Design reads it next to decide how the workflow gets built.",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
                 "turn": "first"
               },
               {
@@ -5515,7 +5644,7 @@
           }
         },
         {
-          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What's wrong or missing?\"; the decided V3 line \"If the AI handed you one of these, could you say done or not done just by looking? What would you look for?\"; today's check playback \"Is that the list? What's missing?\"; today's target question \"Now that we've reshaped this — what should the number be? What's the target?\"; the decided R5-5 blank question \"What form should it take, and how long?\")",
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
           "kind": "judged",
           "must": true
         },
@@ -7842,7 +7971,7 @@
           }
         },
         {
-          "text": "The old file has no steps: Part 4 runs its method questions (or proposes the path, each AI-added step marked `· proposed by AI`) rather than presenting invented steps as the student's",
+          "text": "The old file has no steps: at Part 4 the AI says \"Your current file records the result you want but no steps, so I've noted that the AI works it out each time. Does that match?\" and, on a yes, follows the \"AI works it out each time\" branch (the always/never question, no method question, no proposed path); it never presents invented steps as the student's",
           "kind": "judged"
         },
         {
@@ -7995,7 +8124,7 @@
           }
         },
         {
-          "text": "The old file has no steps: Part 4 runs its method questions (or proposes the path, each AI-added step marked `· proposed by AI`) rather than presenting invented steps as the student's",
+          "text": "The old file has no steps: at Part 4 the AI says \"Your current file records the result you want but no steps, so I've noted that the AI works it out each time. Does that match?\" and, on a yes, follows the \"AI works it out each time\" branch (the always/never question, no method question, no proposed path); it never presents invented steps as the student's",
           "kind": "judged"
         },
         {
@@ -8439,6 +8568,1671 @@
         }
       ],
       "passes_after": "Task 3 when Deconstruct picks up \"continue my workflow\"; Task 10 (registry-bundle.md §4) for any other skill"
+    },
+    {
+      "id": "I16",
+      "name": "ai-works-it-out",
+      "kind": "interview",
+      "walk": "3c",
+      "runs": 3,
+      "keep_workspace": true,
+      "fixture": "sales",
+      "student": "students/I16-ai-works-it-out.md",
+      "prompt": "Run the deconstruct skill.",
+      "expected_output": "Same interview as I1 up to Part 4; the student answers that the AI can work it out each time; no steps are written, only must-always and must-never lines; the shared questions run in their no-steps forms; the file has Path: none.",
+      "files": [
+        "students/I16-ai-works-it-out.md"
+      ],
+      "preconditions": [
+        "When asked the consistency question, the student said the AI can work it out each time"
+      ],
+      "expectations": [
+        {
+          "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements, saved to ",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Stopping early is safe: progress is saved, and 'continue my workflow' picks up where we left off.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+                "turn": "first"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Part 4 opens with the consistency question word for word (3b-C43)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Should it go about the work the same way every time, or can the AI work out how to do it each time, from your goal and your list?"
+          },
+          "must": true
+        },
+        {
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The shared Part 4 questions run: who does it (B6 or, with no steps, S9), decisions (B10), the typical and tricky cases (B12, B13) and expertise (B14)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Is there any part you, or someone else, will always do yourselves?"
+                  }
+                ]
+              },
+              {
+                "type": "ai_contains",
+                "text": "Does the work change depending on the"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Think of a typical"
+              },
+              {
+                "type": "ai_contains",
+                "text": "And a tricky one:"
+              },
+              {
+                "type": "ai_contains",
+                "text": "What would a capable beginner get wrong in a"
+              }
+            ]
+          }
+        },
+        {
+          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The labels preview ends with the next action (B49, R-7)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first."
+          }
+        },
+        {
+          "text": "`## Path` opens with the `Method preference:` line, and no `fixed (check)` appears",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "\\A\\s*Method preference: (same way every time|AI works it out each time|some of each)\\s*$",
+                "must": true
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "fixed \\(check\\)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "kind": "judged"
+        },
+        {
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+          }
+        },
+        {
+          "text": "Method preference is AI works it out, with `Path: none` and no step lines",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^Method preference: AI works it out each time\\s*$",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^Path: none",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- Step \\d+ ",
+                "must": false
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "The always/never question is asked word for word, and the method and must-stay questions are not",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Is there anything it must always do, or never do, however it goes about the work?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "to a skilled colleague, how would you want them to go about it?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "Which of these steps must always happen exactly that way?"
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "Who-does and review use their no-steps forms (S9; B9)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Is there any part you, or someone else, will always do yourselves?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Is there a point where you review or approve the work before it goes further?"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The playback, if any, opens \"Here's what it must always and never do:\" (S8)",
+          "kind": "scripted",
+          "check": {
+            "type": "any",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Here's what it must always and never do:"
+              },
+              {
+                "type": "ai_not_regex",
+                "pattern": "must always and never do|- M\\d"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No sample plan or guessed list of steps is shown to the student at any point (3b-C44)",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The file records M lines, and the never kept as a Must never rule has no M line left",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- M\\d+ · always",
+                "must": true
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?im)^\\| R\\d+ \\| Must never do \\| Never name"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The close uses the Path: none form (S10)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "It holds your goal, (?:what it must always and never do, )?what every [^.,]+ must get right, its rules and \\d+ practice runs?\\."
+          }
+        }
+      ]
+    },
+    {
+      "id": "I17",
+      "name": "some-of-each",
+      "kind": "interview",
+      "walk": "3c",
+      "runs": 3,
+      "keep_workspace": true,
+      "fixture": "sales",
+      "student": "students/I17-some-of-each.md",
+      "prompt": "Run the deconstruct skill.",
+      "expected_output": "Some of each: the whole method, the playback, who does it, S1's must-stay line; the CRM check and the read-through stay fixed; the research in between becomes The AI plans this part.",
+      "files": [
+        "students/I17-some-of-each.md"
+      ],
+      "preconditions": [
+        "The student said some of each, and picked the CRM check and the read-through as the steps that must always happen exactly that way"
+      ],
+      "expectations": [
+        {
+          "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements, saved to ",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Stopping early is safe: progress is saved, and 'continue my workflow' picks up where we left off.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+                "turn": "first"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Part 4 opens with the consistency question word for word (3b-C43)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Should it go about the work the same way every time, or can the AI work out how to do it each time, from your goal and your list?"
+          },
+          "must": true
+        },
+        {
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The shared Part 4 questions run: who does it (B6 or, with no steps, S9), decisions (B10), the typical and tricky cases (B12, B13) and expertise (B14)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Is there any part you, or someone else, will always do yourselves?"
+                  }
+                ]
+              },
+              {
+                "type": "ai_contains",
+                "text": "Does the work change depending on the"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Think of a typical"
+              },
+              {
+                "type": "ai_contains",
+                "text": "And a tricky one:"
+              },
+              {
+                "type": "ai_contains",
+                "text": "What would a capable beginner get wrong in a"
+              }
+            ]
+          }
+        },
+        {
+          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The labels preview ends with the next action (B49, R-7)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first."
+          }
+        },
+        {
+          "text": "`## Path` opens with the `Method preference:` line, and no `fixed (check)` appears",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "\\A\\s*Method preference: (same way every time|AI works it out each time|some of each)\\s*$",
+                "must": true
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "fixed \\(check\\)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "kind": "judged"
+        },
+        {
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+          }
+        },
+        {
+          "text": "S1's must-stay line is asked word for word, after the method question",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "to a skilled colleague, how would you want them to go about it?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Which of these must always happen exactly that way? The AI will work out the rest each time."
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "Method preference is some of each, with at least one fixed step and a `The AI plans this part` line",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^Method preference: some of each\\s*$",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- Step \\d+ [^\\n]*· fixed \\(",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- The AI plans this part\\s*$",
+                "must": true
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "The read-through stays a step with the student's role tag",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/*/requirements.md",
+            "section": "## Path",
+            "pattern": "^- Step \\d+ [^\\n]*· \\(you\\)",
+            "must": true
+          }
+        },
+        {
+          "text": "The always/never question is asked for the AI-planned part",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Is there anything it must always do, or never do, however it goes about the work?"
+          }
+        },
+        {
+          "text": "Every `Step N` the file refers to (Decisions, Writes, Used By, Human Gates Where, ; tests tails) is a step line, or names the AI's part; no reference points at a collapsed step",
+          "kind": "judged",
+          "must": true
+        }
+      ]
+    },
+    {
+      "id": "I18",
+      "name": "regulated-ai-works-it-out",
+      "kind": "interview",
+      "walk": "3c",
+      "runs": 3,
+      "keep_workspace": true,
+      "fixture": "sales",
+      "student": "students/I18-regulated-ai-works-it-out.md",
+      "prompt": "Run the deconstruct skill.",
+      "expected_output": "Regulated work with AI works it out: the no-steps regulation question, B11's line, the regulated step becomes the path with The AI plans this part after it, who-does and review for it, and the detail table.",
+      "files": [
+        "students/I18-regulated-ai-works-it-out.md"
+      ],
+      "preconditions": [
+        "The student said yes to the law question and that the AI can work it out each time"
+      ],
+      "expectations": [
+        {
+          "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements, saved to ",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Stopping early is safe: progress is saved, and 'continue my workflow' picks up where we left off.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+                "turn": "first"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Part 4 opens with the consistency question word for word (3b-C43)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Should it go about the work the same way every time, or can the AI work out how to do it each time, from your goal and your list?"
+          },
+          "must": true
+        },
+        {
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The shared Part 4 questions run: who does it (B6 or, with no steps, S9), decisions (B10), the typical and tricky cases (B12, B13) and expertise (B14)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Is there any part you, or someone else, will always do yourselves?"
+                  }
+                ]
+              },
+              {
+                "type": "ai_contains",
+                "text": "Does the work change depending on the"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Think of a typical"
+              },
+              {
+                "type": "ai_contains",
+                "text": "And a tricky one:"
+              },
+              {
+                "type": "ai_contains",
+                "text": "What would a capable beginner get wrong in a"
+              }
+            ]
+          }
+        },
+        {
+          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The labels preview ends with the next action (B49, R-7)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first."
+          }
+        },
+        {
+          "text": "`## Path` opens with the `Method preference:` line, and no `fixed (check)` appears",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "\\A\\s*Method preference: (same way every time|AI works it out each time|some of each)\\s*$",
+                "must": true
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "fixed \\(check\\)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "kind": "judged"
+        },
+        {
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+          }
+        },
+        {
+          "text": "The no-steps regulation question and B11's line are said word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "What does the regulation require it to do, every time?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Because the rules set some steps, those stay fixed; the AI works out the rest."
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "Method preference becomes some of each, with a `fixed (regulation)` step and `The AI plans this part`",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^Method preference: some of each\\s*$",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- Step \\d+ [^\\n]*· fixed \\(regulation\\)",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- The AI plans this part\\s*$",
+                "must": true
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "After the regulated step is set, it is played back, and who does it and whether it is a review point are covered for that step (S2), playing back anything already said rather than asking again",
+          "kind": "judged"
+        },
+        {
+          "text": "Because the regulation answer is yes, any step detail is shown in one table, not per-step questions (V5)",
+          "kind": "judged"
+        },
+        {
+          "text": "The takes-longer line is said after the yes",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Because this work is regulated, this will take a little longer: we'll note which steps and decisions the rules cover."
+          }
+        }
+      ]
+    },
+    {
+      "id": "I19",
+      "name": "some-of-each-every-ai-step",
+      "kind": "interview",
+      "walk": "3c",
+      "runs": 2,
+      "keep_workspace": true,
+      "fixture": "sales",
+      "student": "students/I19-some-of-each-every-ai-step.md",
+      "prompt": "Run the deconstruct skill.",
+      "expected_output": "Some of each with every AI step picked: the AI says it will note same way every time and asks Does that match?; the student's own read-through stays flexible with its (you) tag.",
+      "files": [
+        "students/I19-some-of-each-every-ai-step.md"
+      ],
+      "preconditions": [
+        "The student picked every AI step as must-stay and confirmed the switch"
+      ],
+      "expectations": [
+        {
+          "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements, saved to ",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Stopping early is safe: progress is saved, and 'continue my workflow' picks up where we left off.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+                "turn": "first"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Part 4 opens with the consistency question word for word (3b-C43)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Should it go about the work the same way every time, or can the AI work out how to do it each time, from your goal and your list?"
+          },
+          "must": true
+        },
+        {
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The shared Part 4 questions run: who does it (B6 or, with no steps, S9), decisions (B10), the typical and tricky cases (B12, B13) and expertise (B14)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Is there any part you, or someone else, will always do yourselves?"
+                  }
+                ]
+              },
+              {
+                "type": "ai_contains",
+                "text": "Does the work change depending on the"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Think of a typical"
+              },
+              {
+                "type": "ai_contains",
+                "text": "And a tricky one:"
+              },
+              {
+                "type": "ai_contains",
+                "text": "What would a capable beginner get wrong in a"
+              }
+            ]
+          }
+        },
+        {
+          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The labels preview ends with the next action (B49, R-7)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first."
+          }
+        },
+        {
+          "text": "`## Path` opens with the `Method preference:` line, and no `fixed (check)` appears",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "\\A\\s*Method preference: (same way every time|AI works it out each time|some of each)\\s*$",
+                "must": true
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "fixed \\(check\\)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "kind": "judged"
+        },
+        {
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+          }
+        },
+        {
+          "text": "The T2 line is said, and the preference becomes same way every time with no AI-plans line",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Every step you picked stays fixed, so I'll note this as the same way every time."
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^Method preference: same way every time\\s*$",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- The AI plans this part",
+                "must": false
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "The read-through stays a flexible step with `(you)`",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/*/requirements.md",
+            "section": "## Path",
+            "pattern": "^- Step \\d+ [^\\n]*· flexible[^\\n]*· \\(you\\)",
+            "must": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "I20",
+      "name": "some-of-each-none-picked",
+      "kind": "interview",
+      "walk": "3c",
+      "runs": 2,
+      "keep_workspace": true,
+      "fixture": "sales",
+      "student": "students/I20-some-of-each-none-picked.md",
+      "prompt": "Run the deconstruct skill.",
+      "expected_output": "Some of each with none picked: the AI says it will note AI works it out and asks Does that match?; person steps become role-tagged M lines; Path: none.",
+      "files": [
+        "students/I20-some-of-each-none-picked.md"
+      ],
+      "preconditions": [
+        "The student picked no step as must-stay and confirmed the switch"
+      ],
+      "expectations": [
+        {
+          "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements, saved to ",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Stopping early is safe: progress is saved, and 'continue my workflow' picks up where we left off.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+                "turn": "first"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Part 4 opens with the consistency question word for word (3b-C43)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Should it go about the work the same way every time, or can the AI work out how to do it each time, from your goal and your list?"
+          },
+          "must": true
+        },
+        {
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The shared Part 4 questions run: who does it (B6 or, with no steps, S9), decisions (B10), the typical and tricky cases (B12, B13) and expertise (B14)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Is there any part you, or someone else, will always do yourselves?"
+                  }
+                ]
+              },
+              {
+                "type": "ai_contains",
+                "text": "Does the work change depending on the"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Think of a typical"
+              },
+              {
+                "type": "ai_contains",
+                "text": "And a tricky one:"
+              },
+              {
+                "type": "ai_contains",
+                "text": "What would a capable beginner get wrong in a"
+              }
+            ]
+          }
+        },
+        {
+          "text": "After the playback, every question asked is one the question matrix in the Part 4 reference allows for this branch (req or cond), and every req question for the branch is asked",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The labels preview ends with the next action (B49, R-7)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Next, I'll write your Workflow Requirements file. Say 'go ahead', or tell me anything to change first."
+          }
+        },
+        {
+          "text": "`## Path` opens with the `Method preference:` line, and no `fixed (check)` appears",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "\\A\\s*Method preference: (same way every time|AI works it out each time|some of each)\\s*$",
+                "must": true
+              },
+              {
+                "type": "file_not_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "fixed \\(check\\)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No note meant for the student (a trace record, a missing-item flag) is placed inside the deliverable; the requirements say where any such note goes (R-9)",
+          "kind": "judged"
+        },
+        {
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+          }
+        },
+        {
+          "text": "The T2 line is said, and the file has Path: none with a role-tagged M line for the student's part",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "None of these needs to stay fixed, so I'll note this as the AI working it out each time."
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^Method preference: AI works it out each time\\s*$",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^Path: none",
+                "must": true
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- Step \\d+ ",
+                "must": false
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/*/requirements.md",
+                "section": "## Path",
+                "pattern": "^- M\\d+ [^\\n]*· \\(you\\)",
+                "must": true
+              }
+            ]
+          },
+          "must": true
+        }
+      ]
+    },
+    {
+      "id": "I15",
+      "name": "james-post-call-replay",
+      "kind": "interview",
+      "walk": "3c",
+      "runs": 3,
+      "keep_workspace": true,
+      "fixture": "dir:fixtures/interview/post-call-james",
+      "student": "students/I15-james-post-call-replay.md",
+      "prompt": "Run the deconstruct skill.",
+      "expected_output": "James's own run of 2026-10-17, replayed: the new Deconstruct handles every answer without the problems findings C3–C84 recorded.",
+      "files": [
+        "students/I15-james-post-call-replay.md"
+      ],
+      "preconditions": [
+        "The student's answers follow the replay script (James's real answers)"
+      ],
+      "expectations": [
+        {
+          "text": "The first message contains the opening said exactly as in the spec (section 2), beginning \"Deconstruct turns this workflow into a clear, testable description of what it must do.\", followed by the switch line \"I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements, saved to ",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "It's the most thorough conversation in the framework, about 25–40 minutes (longer for regulated work), because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and test cases. Design reads it next to decide how the workflow gets built.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Stopping early is safe: progress is saved, and 'continue my workflow' picks up where we left off.",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+                "turn": "first"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Every AI message asks at most one question (each of these counts as one: a draft message ending \"What would you change or add?\"; a playback ending \"What would you change or clarify?\"; the make-checkable question \"You said a good one has [parts]. What else would you check before you send it?\"; the target question \"In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?\"; and the three grouped messages that list several items in one question: the vague words, the fixed-step reasons, and the review points \"Are any of these points where you review or approve the work before it goes further: [steps]?\")",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The close is said word for word: \"Workflow Requirements saved to `framework/[name]/requirements.md`. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, reads this file and decides how the workflow gets built — as a skill or an agent, on your platform — in about 30 minutes. Start it with 'run the design skill' (in Claude Code, you can also type `/design` and pick it from the list).\"",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Workflow Requirements saved to `?framework/[^\\s`]+/requirements\\.md`?\\. It holds your goal, (?:the \\d+ steps?, )?(?:what it must always and never do, )?what every [^.,]+ must get right, its rules,? and \\d+ practice runs?\\. Design, the next step, reads this file and decides how the workflow gets built - as a skill or an agent, on your platform - in about 30 minutes\\. Start it with 'run the design skill' \\(in Claude Code, you can also type `?/design`? and pick it from the list\\)\\."
+          }
+        },
+        {
+          "text": "C3: Part 1 names the Analyze report",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Your Analyze report tied this workflow to"
+          }
+        },
+        {
+          "text": "C4: the Desired Outcome question (B19)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "When this works well, what's better for the business, and who notices?"
+          }
+        },
+        {
+          "text": "C5: no call-to-proposal measure in Value & Measurement",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/*/requirements.md",
+            "section": "## Value & Measurement",
+            "pattern": "(?i)share of [^\\n]*proposal",
+            "must": false
+          },
+          "must": true
+        },
+        {
+          "text": "C6: Part 2's purpose line (B21)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Next, we'll pin down what starts this workflow and where it ends, then give it a clear name and description."
+          }
+        },
+        {
+          "text": "C7: the name keeps Title Case on hyphenated words",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/*/requirements.md",
+            "pattern": "(?m)^\\| Workflow Name \\| Post-Call Follow-Up Email \\|"
+          }
+        },
+        {
+          "text": "C8: the description is one sentence in the naming-workflows shape (when it starts, what it produces, who receives or acts on it), with no target such as \"same-day\" and no repeated deliverable",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "C9: the folder line, not \"workflow ID\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Everything for this workflow will go in a folder called"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "as the workflow ID"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C10: the law question carries its Why",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Regulated steps are followed exactly, and a person approves the decisions the rules cover."
+          }
+        },
+        {
+          "text": "C12–C13: the reference-example question names the email",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "Do you have a recent [^?]*email you were happy with"
+          }
+        },
+        {
+          "text": "C14–C16: Say it and the recipe line (B27, B28)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "in three steps: say it, sharpen it, then make it checkable."
+              },
+              {
+                "type": "ai_contains",
+                "text": "Imagine it's built and working. What does a good"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C17–C20: no re-asked who-gets-it or length question once known",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_not_contains",
+                "text": "And what do you do with it next?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "What form should it take, and how long?"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C24: no \"What's wrong?\" anywhere",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_not_contains",
+                "text": "What's wrong"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "Is that the list?"
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "C25–C28: make-checkable starts from what he said (B33)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "You said a good one has"
+          }
+        },
+        {
+          "text": "C31–C33: vague words are gathered in one message, not asked one by one",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "A few of your words need pinning down so anyone could check them."
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "What would that look like in the result?"
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "C34–C36: the list opener, the send-back question and the must-have line",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Here's what every"
+              },
+              {
+                "type": "ai_contains",
+                "text": "Which of these could you never let go out wrong"
+              },
+              {
+                "type": "ai_contains",
+                "text": "a must-have: a miss always sends it back."
+              }
+            ]
+          }
+        },
+        {
+          "text": "C37: the full goal is played back after the send-back test",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Here's your full goal:"
+          }
+        },
+        {
+          "text": "C38–C39: Part 4's new name and purpose line",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Part 4 of 5 — how the work gets done."
+              },
+              {
+                "type": "ai_contains",
+                "text": "Next, we'll walk through how this work gets done and mark what must always happen the same way."
+              }
+            ]
+          }
+        },
+        {
+          "text": "C43: the consistency question",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Should it go about the work the same way every time, or can the AI work out how to do it each time, from your goal and your list?"
+          },
+          "must": true
+        },
+        {
+          "text": "C45: once his answer reaches sending the email to the prospect, \"What comes after that?\" is not asked again",
+          "kind": "judged"
+        },
+        {
+          "text": "C46: the today question is folded into the playback (B4)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Is this how you do it today, or how you'd like it done from now on?"
+          }
+        },
+        {
+          "text": "C47–C48: who-does and the fixed/flexible definition (B6, B7)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Once this is built, which of these steps will you, or someone else, still do yourselves?"
+              },
+              {
+                "type": "ai_contains",
+                "text": "A step you do yourself can be fixed too."
+              }
+            ]
+          }
+        },
+        {
+          "text": "C49–C52: fixed-step reasons in one message, no \"a check\" option",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "Here's why I think each one is fixed|Is that required, by a regulation or company policy, or your own call\\?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "a regulation, a company policy, a check, or your judgment"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C53–C54: his review is stated as a checkpoint; sending isn't asked as a review point",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "becomes a checkpoint: the workflow stops there"
+              },
+              {
+                "type": "ai_not_regex",
+                "pattern": "(?i)Is send[^?]* a point where you review"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C56–C57: the decisions question (B10)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Does the work change depending on the"
+          }
+        },
+        {
+          "text": "C58–C59: typical and tricky cases",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Think of a typical"
+              },
+              {
+                "type": "ai_contains",
+                "text": "And a tricky one:"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "awkward"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C60: expertise with its Why (B14)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "What you'd catch that a beginner wouldn't becomes a rule the AI follows every time."
+          }
+        },
+        {
+          "text": "C61: the AI's reading step is renamed for the AI's action",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/*/requirements.md",
+            "section": "## Path",
+            "pattern": "(?i)^- Step 1 — (Read|Review the) [^\\n]*notes(?![^\\n]*· \\(you\\))",
+            "must": true
+          }
+        },
+        {
+          "text": "C62: the detail table opener (B15), when the table is shown",
+          "kind": "scripted",
+          "check": {
+            "type": "any",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Here's what each step must get right. Rules are what it must follow; checks are where someone confirms the work."
+              },
+              {
+                "type": "ai_not_regex",
+                "pattern": "\\| *Rule *\\|"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C63–C65: live writes state what's known, and the step is proposed",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "You send it yourself. Will the AI save the draft anywhere, such as in your email?"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "That's after step \\d+, [^?]*right\\?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "Which step does that?"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C66: \"runs with you\" is stated, not asked",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "so this runs with you."
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "do you want to take part, like reviewing a draft"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C67: the when-unsure question uses his tricky case and drops \"skip that item\"",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "When it hits a case it can't confidently handle — for example, [^?]+— should it stop and ask you, or do its best and flag it\\?"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "or skip that item"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C69–C70: the access question and the connection line",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "can the workflow reach"
+              },
+              {
+                "type": "ai_contains",
+                "text": "also needs a connection; we'll set that up when it's built."
+              }
+            ]
+          }
+        },
+        {
+          "text": "C72–C73: message 3's opener and the practice-runs lines",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "Here are the practice runs we'll test it on."
+              },
+              {
+                "type": "ai_contains",
+                "text": "Change, replace or drop any; keep three to five, including your typical and tricky"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "Step 5"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "edge case"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C74: no per-case past-email question after Part 3's no",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_contains",
+            "text": "Have you sent a"
+          }
+        },
+        {
+          "text": "C75: the made-up example offer, and \"stand-in\" never said",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "say 'draft one' and I'll write a made-up example"
+              },
+              {
+                "type": "ai_not_contains",
+                "text": "stand-in"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C76: the made-up inputs line",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "These are all made up, so there's nothing confidential in them."
+          }
+        },
+        {
+          "text": "C77–C78: target from Part 1's aim, and the readable-when question",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "In Part 1 you said"
+              },
+              {
+                "type": "ai_contains",
+                "text": "How long should it run before you check whether it's hitting those targets?"
+              }
+            ]
+          }
+        },
+        {
+          "text": "C80: the buyer-type decision is your criteria or open judgment",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/*/requirements.md",
+            "pattern": "(?m)^- D1[^\\n]*settled by: (your criteria|open judgment)"
+          },
+          "must": true
+        },
+        {
+          "text": "C81: each requirement lives in one place: \"include every promised link\" is one AC (must) and not also restated as an R row or detail rule; the buyer-type rule isn't restated as an R row",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "C82: the Inputs line for the call notes matches the access answer (through the Google Drive connection), not \"supplied by\" the student",
+          "kind": "judged"
+        },
+        {
+          "text": "C83: the Workflow node's generated stamp is Deconstruct's",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "registry/workflows/post-call-follow-up-email.md",
+            "pattern": "(?m)^generated: \\{ by: process:deconstruct,"
+          }
+        },
+        {
+          "text": "C84: no requirement describes a test input (such as \"the notes carry no buying-for field\")",
+          "kind": "judged"
+        },
+        {
+          "text": "C71: R-9 — the missing-link flag and the trace record are kept outside the email",
+          "kind": "judged",
+          "must": true
+        }
+      ]
     }
   ]
 }

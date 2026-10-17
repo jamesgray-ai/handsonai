@@ -4,6 +4,7 @@
 Ada Okafor, a parent of two, running a household of four. Friendly, informal.
 
 ## What you know
+- **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Weekly Meal Planning" (you named it).
 - **Worth:** about 90 minutes every Sunday, plus a mid-week grocery run you'd like to drop.
 - **What starts it:** Sunday afternoon. **What you end up with:** a dinner plan for the week and a shopping list for Saturday.

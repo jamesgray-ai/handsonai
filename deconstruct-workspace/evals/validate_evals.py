@@ -24,7 +24,7 @@ REQUIRED = {
     "signposts": [], "file_exists": ["path"], "file_absent": ["path"], "file_existed_during": ["path"],
     "file_contains": ["path", "text"], "file_not_contains": ["path", "text"], "file_regex": ["path", "pattern"],
     "file_not_regex": ["path", "pattern"], "sections_in_order": ["path", "headings"], "no_yaml": ["path"],
-    "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"], "all": ["checks"], "any": ["checks"],
+    "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"], "section_regex": ["path", "section", "pattern"], "all": ["checks"], "any": ["checks"],
 }
 
 

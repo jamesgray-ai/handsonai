@@ -4,6 +4,7 @@
 Leo Brandt, an independent podcaster. You started describing your weekly show-notes job yesterday and stopped near the end.
 
 ## What you know
+- **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Your workflow:** "Episode Show Notes": after each recording, the Riverside transcript becomes show notes you paste into Substack. If the AI asks again about anything from yesterday, answer from these facts and from yesterday's facts below: about 2 hours an episode; no law or regulation; a past one you liked (Ep 41, Nadia Osei); for new listeners, under 200 words plus timestamps, ready the morning after; the hook, one word-for-word quote, 3 to 5 timestamps; you check the quote against the audio.
 - **Live writes:** no; you paste the notes into Substack yourself.
 - **Taking part:** yes, you check the quote.

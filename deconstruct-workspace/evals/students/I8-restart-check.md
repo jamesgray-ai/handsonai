@@ -4,6 +4,7 @@
 Maya R., program manager for a software delivery team. You stopped very early last time.
 
 ## What you know
+- **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 Nothing you need to say yet.
 
 ## When to stop

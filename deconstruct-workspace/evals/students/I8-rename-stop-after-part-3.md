@@ -4,6 +4,7 @@
 Maya R., program manager for a software delivery team. Practical, a little pressed for time today.
 
 ## What you know
+- **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Program Risk Register" (you named it).
 - **Worth:** about half a day each month pulling risks out of tracker comments. Value: the steering group sees every open risk with an owner, and you get the afternoon back.
 - **Trigger and deliverable:** month end, before the steering meeting; out comes the risk register in the steering group's format.
@@ -11,9 +12,9 @@ Maya R., program manager for a software delivery team. Practical, a little press
 - **Law or regulation:** no.
 - **A real past output:** no, not one you were happy with.
 - **What a good one looks like:** "Every open risk, each with an owner and a status the steering group recognises."
-- **What you do with it next** (only when asked): you send it to the steering group the day before the meeting.
+- **Who gets it** (only when asked): you send it to the steering group the day before the meeting.
 - **Who / form / when:** for the steering group; a table, one row per risk; ready the day before the steering meeting.
-- **Done or not done:** every open risk in the tracker appears; every risk names an owner; each risk has a status from the steering group's list (open, mitigating, closed). Send back: a risk with no owner, or a missing open risk.
+- **What you'd check:** every open risk in the tracker appears; every risk names an owner; each risk has a status from the steering group's list (open, mitigating, closed). Send back: a risk with no owner, or a missing open risk.
 
 ## How you answer
 Short, plain answers from the facts above. Correct the AI's playbacks when they're wrong.
