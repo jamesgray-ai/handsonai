@@ -7726,12 +7726,12 @@
           }
         },
         {
-          "text": "The four old steps keep their numbers (Step 1 Pull updates … Step 4 Save & log)",
+          "text": "The four old steps keep their numbers (Step 1 Pull updates … Step 4 Save & log) (Step 1 may be renamed for the AI's action, R-8)",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^- Step 1 - Pull.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
+            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
           }
         },
         {
@@ -7893,12 +7893,12 @@
           }
         },
         {
-          "text": "The four old steps keep their numbers (Step 1 Pull updates … Step 4 Save & log)",
+          "text": "The four old steps keep their numbers (Step 1 Pull updates … Step 4 Save & log) (Step 1 may be renamed for the AI's action, R-8)",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^- Step 1 - Pull.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
+            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
           }
         },
         {
@@ -8371,12 +8371,12 @@
           }
         },
         {
-          "text": "The four old steps keep their numbers (Step 1 Pull updates … Step 4 Save & log)",
+          "text": "The four old steps keep their numbers (Step 1 Pull updates … Step 4 Save & log) (Step 1 may be renamed for the AI's action, R-8)",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^- Step 1 - Pull.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
+            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
           }
         },
         {
