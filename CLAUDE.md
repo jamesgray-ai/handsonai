@@ -449,7 +449,11 @@ Part 8 for the full rationale:
    framework-skill ZIP. Each framework skill's dispatch blockquote defers to
    that file for the registry contract, but a standalone skill install (a ZIP
    uploaded to Claude, ChatGPT, Gemini, or Copilot) only has what's in its own ZIP — omitting it
-   silently breaks standalone installs.
+   silently breaks standalone installs. The same rule covers
+   `applying-skill-best-practices/references/hygiene-criteria.md`, bundled into
+   `auditing-agent-skills/references/` in both its own ZIP and
+   `handsonai-plugin.zip` (Copilot may store each skill on its own, so the
+   `../applying-skill-best-practices/` path doesn't resolve); the ZIP test checks both.
 
 ### Updating skill ZIP downloads (GitHub Releases)
 
