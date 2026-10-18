@@ -5791,8 +5791,8 @@
             "type": "all",
             "checks": [
               {
-                "type": "ai_contains",
-                "text": "You don't need to do all "
+                "type": "ai_regex",
+                "pattern": "You don't need to do (all \\d+|all [a-z]+|both) today\\."
               },
               {
                 "type": "ai_contains",
