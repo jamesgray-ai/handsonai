@@ -104,6 +104,7 @@ def check(c, run):
                     return False, f"session {s['n']} AI message {i + 1}: {m[:200]!r}"
         return True, "absent from every AI message"
     if t == "signposts":
+        missing = 1
         for s in _sessions(run, n):
             text = norm("\n".join(_ai_turns(s)))
             pos, ok = 0, True

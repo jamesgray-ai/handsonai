@@ -452,7 +452,7 @@
           "kind": "judged"
         },
         {
-          "text": "The AI asks \"If you handed [the deliverable] to a skilled colleague, how would you want them to go about it?\", then \"What comes after that?\" after the student's method stops, and plays the steps back with the today form \"Here are your steps: … Is this how you do it today, or how you'd like it done from now on?\" (B4)",
+          "text": "The AI asks \"If you handed [the deliverable] to a skilled colleague, how would you want them to go about it?\", then \"What comes after that?\" (or \"Is that the end, or does anything happen after …?\") after the student's method stops, and plays the steps back with the today form \"Here are your steps: … Is this how you do it today, or how you'd like it done from now on?\" (B4)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -462,8 +462,17 @@
                 "text": "to a skilled colleague, how would you want them to go about it?"
               },
               {
-                "type": "ai_contains",
-                "text": "What comes after that?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "What comes after that?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Is that the end, or does anything happen after"
+                  }
+                ]
               },
               {
                 "type": "ai_contains",
@@ -584,7 +593,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "What would a capable beginner get wrong here that you wouldn't?"
+                "text": "What would a capable beginner get wrong in a"
               },
               {
                 "type": "ai_contains",
@@ -602,18 +611,40 @@
           }
         },
         {
-          "text": "The taking-part and when-unsure questions are asked word for word",
+          "text": "The taking-part and when-unsure questions are asked word for word (taking part may be stated as \"so this runs with you\" when a review step settles it)",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
-                "type": "ai_contains",
-                "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run start to finish without you?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run from start to finish without you?"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "so this runs with you\\."
+                  }
+                ]
               },
               {
-                "type": "ai_contains",
-                "text": "When it hits a case it can't confidently handle — stop and ask you, do its best and flag it, or skip that item?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_regex",
+                    "pattern": "When it hits a case it can't confidently handle — for example, [^?]+— should it stop and ask you, or do its best and flag it(, or skip that item)?\\?"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "When it hits a case it can't confidently handle — for example, [^?]+— should it do its best and flag it(, or skip that item)?\\?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Since it runs without you, when it isn't sure it'll do its best and flag it for you."
+                  }
+                ]
               }
             ]
           }
@@ -656,14 +687,23 @@
           "kind": "judged"
         },
         {
-          "text": "Value & Measurement is closed with \"Is that the target\" and \"How long should it run before you check whether it's hitting those targets?\"",
+          "text": "Value & Measurement is closed with \"Is that the target\" (or, with no aim in Part 1, \"What should [measure] be once this is running?\") and \"How long should it run before you check whether it's hitting those targets?\"",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
-                "type": "ai_contains",
-                "text": "Is that the target"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Is that the target"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "What should [^?]{2,80} be once this is running\\?"
+                  }
+                ]
               },
               {
                 "type": "ai_contains",
@@ -980,8 +1020,17 @@
             "type": "all",
             "checks": [
               {
-                "type": "ai_contains",
-                "text": "What comes after that?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "What comes after that?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Is that the end, or does anything happen after"
+                  }
+                ]
               },
               {
                 "type": "ai_contains",
@@ -1433,18 +1482,40 @@
           }
         },
         {
-          "text": "The full Part 5 runs (V8): taking part and when-unsure asked word for word",
+          "text": "The full Part 5 runs (V8): taking part and when-unsure asked word for word (taking part may be stated as \"so this runs with you\" when a review step settles it)",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
-                "type": "ai_contains",
-                "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run start to finish without you?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run from start to finish without you?"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "so this runs with you\\."
+                  }
+                ]
               },
               {
-                "type": "ai_contains",
-                "text": "When it hits a case it can't confidently handle — stop and ask you, do its best and flag it, or skip that item?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_regex",
+                    "pattern": "When it hits a case it can't confidently handle — for example, [^?]+— should it stop and ask you, or do its best and flag it(, or skip that item)?\\?"
+                  },
+                  {
+                    "type": "ai_regex",
+                    "pattern": "When it hits a case it can't confidently handle — for example, [^?]+— should it do its best and flag it(, or skip that item)?\\?"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Since it runs without you, when it isn't sure it'll do its best and flag it for you."
+                  }
+                ]
               }
             ]
           }
@@ -2064,12 +2135,12 @@
           }
         },
         {
-          "text": "`## Path` opens with the line `Path: proposed by AI`",
+          "text": "`## Path` opens with the `Method preference:` line, then `Path: proposed by AI`",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/*/requirements.md",
-            "pattern": "(?m)^## Path[ \\t]*\\n(?:[ \\t]*\\n)*Path: proposed by AI[ \\t]*$"
+            "pattern": "(?m)^## Path[ \\t]*\\n(?:[ \\t]*\\n)*Method preference: [^\\n]+\\nPath: proposed by AI[ \\t]*$"
           }
         },
         {
@@ -2112,7 +2183,7 @@
           }
         },
         {
-          "text": "The person-and-role question (\"Once this is built, which of these steps will you, or someone else, still do yourselves?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
+          "text": "The person-and-role question (\"Once this is built, which of these steps will you, or someone else, still do yourselves?\") and the decisions, range and expertise questions (decisions, range, expertise) are still asked",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2131,7 +2202,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "What would a capable beginner get wrong here that you wouldn't?"
+                "text": "What would a capable beginner get wrong in a"
               }
             ]
           }
@@ -2368,12 +2439,12 @@
           }
         },
         {
-          "text": "`## Path` opens with the line `Path: proposed by AI`",
+          "text": "`## Path` opens with the `Method preference:` line, then `Path: proposed by AI`",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "framework/*/requirements.md",
-            "pattern": "(?m)^## Path[ \\t]*\\n(?:[ \\t]*\\n)*Path: proposed by AI[ \\t]*$"
+            "pattern": "(?m)^## Path[ \\t]*\\n(?:[ \\t]*\\n)*Method preference: [^\\n]+\\nPath: proposed by AI[ \\t]*$"
           }
         },
         {
@@ -2398,7 +2469,7 @@
           }
         },
         {
-          "text": "The person-and-role question (\"Once this is built, which of these steps will you, or someone else, still do yourselves?\") and questions 4 to 6 (decisions, range, expertise) are still asked",
+          "text": "The person-and-role question (\"Once this is built, which of these steps will you, or someone else, still do yourselves?\") and the decisions, range and expertise questions (decisions, range, expertise) are still asked",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2417,17 +2488,17 @@
               },
               {
                 "type": "ai_contains",
-                "text": "What would a capable beginner get wrong here that you wouldn't?"
+                "text": "What would a capable beginner get wrong in a"
               }
             ]
           }
         },
         {
-          "text": "The insist question shows its Not sure? line word for word: \"Insist on none for now. Test will show which steps matter.\" (DECIDED R2-2)",
+          "text": "The must-stay question shows its Not sure? line word for word: \"Leave it flexible. You can fix a step later.\" (replaces R2-2's line)",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "Insist on none for now. Test will show which steps matter."
+            "text": "Leave it flexible. You can fix a step later."
           }
         },
         {
@@ -4589,7 +4660,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run start to finish without you?"
+            "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run from start to finish without you?"
           }
         },
         {
