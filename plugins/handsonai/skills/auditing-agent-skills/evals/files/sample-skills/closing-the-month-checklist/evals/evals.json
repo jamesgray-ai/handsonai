@@ -1,0 +1,15 @@
+{
+  "skill_name": "closing-the-month-checklist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Give me the close checklist for this month. Last month we left the bank reconciliation open.",
+      "expected_output": "A dated checklist in close order, with owners, carrying over the open bank reconciliation.",
+      "files": [],
+      "expectations": [
+        "Carries over the open bank reconciliation from last month",
+        "Every due date falls on a working day"
+      ]
+    }
+  ]
+}

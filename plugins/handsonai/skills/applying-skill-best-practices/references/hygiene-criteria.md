@@ -8,4 +8,4 @@ The criteria a skill review or audit holds existing skills to. They describe wha
 4. **Description problems:** over the platform's length limit, missing a "Use when…" trigger, or missing a "Not for…" boundary; two skills whose descriptions overlap enough to compete.
 5. **Stale content:** dated facts in instructions, broken links, and skills with no test cases.
 6. **Registry coverage:** skills the user's AI Registry doesn't record, and registry entries that point at skills which no longer exist. Where the registry has its own lint, use its warnings rather than re-deriving them. A skill the registry can't yet record (one that lives only in a platform account, say) is "not cataloged yet", not an error.
-7. **The standards themselves:** a source in `sources.md` whose `last_reviewed` date is old enough that the guidance may have moved on. Flag it for re-reading; the fix belongs in this skill.
+7. **The standards themselves:** a source in `sources.md` whose `last_reviewed` date is more than six months old, so the guidance may have moved on. Flag it for re-reading; the fix belongs in this skill.

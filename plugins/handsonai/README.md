@@ -68,6 +68,7 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 C
 | Skill | Description |
 |-------|-------------|
 | `applying-skill-best-practices` | Best-practice standards for building any Agent Skill, applied alongside your platform's skill creator: reuse, scope, descriptions, content, settings, and test cases |
+| `auditing-agent-skills` | Audits your existing skills for anything gone out of date (retired models, broken references, stale facts, overlaps, missing test cases, registry gaps) and proposes a fix for each; changes nothing without approval |
 
 ## Quick Start
 

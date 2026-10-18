@@ -255,6 +255,7 @@ export default defineConfig({
                     { label: 'Overview', link: '/agentic-building-blocks/skills/' },
                     { label: 'Find Your Skill Candidates (Quick Prompt)', link: '/agentic-building-blocks/skills/find-skill-candidates/' },
                     { label: 'Discover Your Best Skills (Worksheet)', link: '/agentic-building-blocks/skills/skills-discovery-meta-prompt/' },
+                    { label: 'Agent Skill Best Practices', link: '/agentic-building-blocks/skills/skill-best-practices/' },
                   ],
                 },
                 {

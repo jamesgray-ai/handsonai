@@ -1,0 +1,22 @@
+[
+  {"query": "check my skills for anything that's gone out of date", "should_trigger": true},
+  {"query": "Are any of my skills still pointing at old models? We switched a while back.", "should_trigger": true},
+  {"query": "run the monthly skill audit", "should_trigger": true},
+  {"query": "I renamed a couple of skills last week. Can you find anything that still calls the old names?", "should_trigger": true},
+  {"query": "Do a hygiene pass over everything in .claude/skills and tell me what needs fixing.", "should_trigger": true},
+  {"query": "which of my skills aren't in my AI registry yet?", "should_trigger": true},
+  {"query": "Audit my skills before I share the plugin with the team.", "should_trigger": true},
+  {"query": "some of my skils feel stale, can you go through them all", "should_trigger": true},
+  {"query": "Use auditing-agent-skills on my skills folder.", "should_trigger": true},
+  {"query": "Find skills that overlap or duplicate each other in my workspace.", "should_trigger": true},
+  {"query": "Build me a skill that turns call notes into a follow-up email.", "should_trigger": false},
+  {"query": "Review this SKILL.md before I share it with my team.", "should_trigger": false},
+  {"query": "Audit my AI registry for workflows that are missing an SOP.", "should_trigger": false},
+  {"query": "Update the Hands-on AI plugin to the latest version.", "should_trigger": false},
+  {"query": "Run my weekly-report skill on this week's numbers.", "should_trigger": false},
+  {"query": "Write test cases for my proposal-writing skill.", "should_trigger": false},
+  {"query": "Which model and effort level should my new skill use?", "should_trigger": false},
+  {"query": "Audit our marketing emails for brand-voice problems.", "should_trigger": false},
+  {"query": "Check my code for outdated dependencies.", "should_trigger": false},
+  {"query": "Package my five skills into a plugin I can share.", "should_trigger": false}
+]

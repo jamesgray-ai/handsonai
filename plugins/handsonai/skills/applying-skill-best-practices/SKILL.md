@@ -8,13 +8,13 @@ description: >
   skill creator: building one from scratch, turning a conversation or a repeated task into
   something reusable, updating or fixing an existing skill, or checking a SKILL.md before it's
   shared. Applies even if the user doesn't say "skill" or "best practices". Not for building
-  agents, plugins, prompts or workflows that aren't skills, or for running a skill that already
-  works.
+  agents, plugins, prompts or workflows that aren't skills, for running a skill that already
+  works, or for auditing a set of existing skills (use auditing-agent-skills).
 ---
 
 # Applying Skill Best Practices
 
-These are the standards a good Agent Skill meets, consolidated from Anthropic, OpenAI, AgentSkills.io and Google and checked against each other. Read `references/sources.md` when the user asks where a rule comes from, or when auditing the standards themselves. Apply them whenever a skill is created, edited, reviewed or tested.
+These are the standards a good Agent Skill meets, consolidated from Anthropic, OpenAI, AgentSkills.io and Google and checked against each other. Read `references/sources.md` when the user asks where a rule comes from, or when auditing the standards themselves. The same standards, with a worked example, are written up for people at https://handsonai.info/agentic-building-blocks/skills/skill-best-practices/. Apply them whenever a skill is created, edited, reviewed or tested.
 
 This skill does not build skills. The platform's own skill creator (Anthropic's skill-creator, the ChatGPT or Codex skill creator, Copilot Cowork's guided flow, Gemini Enterprise's "Create skill with Gemini") owns that process. These standards tell it what "good" means at each point. Where the creator already covers something, agree with it: your job is to make sure the user's own material (real examples, what a good result looks like, the cases they worry about) goes in, not to add a competing rule.
 
@@ -85,4 +85,4 @@ When this skill loads, say so once ("I'm following applying-skill-best-practices
 
 ## When reviewing or auditing
 
-Hold an existing skill to the same six decisions. Report what falls short, with the line or field it concerns, and propose the change; don't rewrite a skill the user didn't ask you to change. For what counts as outdated (retired model names, broken references to other skills, naming that no longer fits), read `references/hygiene-criteria.md`.
+Hold an existing skill to the same six decisions. Report what falls short, with the line or field it concerns, and propose the change; don't rewrite a skill the user didn't ask you to change. For what counts as outdated (retired model names, broken references to other skills, naming that no longer fits), read `references/hygiene-criteria.md`. To audit a whole set of skills at once, use the `auditing-agent-skills` skill.
