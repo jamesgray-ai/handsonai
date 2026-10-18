@@ -17,7 +17,7 @@ Skills read: [n] ([names]) · Couldn't read: [n] ([names, and why])
 
 | # | Skill | Check | Where | What's wrong | Proposed change |
 |---|---|---|---|---|---|
-| 1 | [skill] | [criterion] | [line or field] | [plain words] | [before → after] |
+| 1 | [skill] | [criterion] | [line or field] | [plain words] | [before → after, or the action and the file it creates] |
 
 ## Proposed changes
 
@@ -46,6 +46,7 @@ Rules:
 - Number findings so the user can approve them by number.
 - Each finding names the exact line or field; never a vague "consider reviewing".
 - Leave out empty sections rather than writing "none"; the "Checks run" line shows a check ran even when it found nothing.
+- Severity, where a summary groups findings: **high** would do the wrong thing if the skill ran (a retired model, a broken reference, a write to a system no longer used); **medium** gives misleading guidance (a dated fact, an overlap, a weak description); **low** is naming and wording.
 - The three counts add up: skills with findings plus skills with no findings equals skills read.
 - However many skills you audit, every finding keeps its number and its proposed change. A long report may open with a summary by severity and move the full findings table and changes to an appendix, but never drops them.
 - The last line always says what was changed, which before approval is "nothing".

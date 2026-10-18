@@ -6,7 +6,7 @@ description: >
   dated facts, overlapping skills, missing test cases, and skills the AI Registry doesn't
   record. Use when the user asks to check, audit, tidy or review all their skills, wants to
   know which skills are stale, or for a scheduled skill audit. Not for building or reviewing a
-  single new skill (use applying-skill-best-practices), and never changes a skill without the
+  single skill (use applying-skill-best-practices), and never changes a skill without the
   user's approval.
 ---
 
@@ -32,8 +32,8 @@ If none of these is available, stop. Tell the user you couldn't load the checkli
 
 Check `skill_listing` for the user's platform before promising anything:
 
-- **Where you can read skill folders** (Claude Code, Codex): read every skill the user points you to, or by default the skill folders the platform loads. Skills from a plugin are named `plugin:skill`; a reference in that form points to a plugin skill, not to a missing one.
-- **Where you can only see skill names** (Claude, ChatGPT, Microsoft 365 Copilot, Gemini Enterprise at the time of writing): say what you can see and what you can't, and ask the user to attach the skills or their ZIP files. Never report a skill as fine when you haven't read it.
+- **Where `skill_listing` says the AI can read skill folders:** read every skill the user points you to, or by default the skill folders the platform loads. Skills from a plugin are named `plugin:skill`; a reference in that form points to a plugin skill, not to a missing one.
+- **Where it says the AI sees only skill names, or nothing:** say what you can see and what you can't, and ask the user to attach the skills or their ZIP files. Never report a skill as fine when you haven't read it.
 
 Say at the start of the report which skills you read and which you couldn't.
 
@@ -46,7 +46,7 @@ Apply each criterion in the checklist to each skill. For every finding, record t
 - **Naming:** flag a name only when it breaks the convention the user's other skills follow, and say which convention. Judge the form by the name's first word (`closing-the-month-checklist` starts with a verb-ing word, so it fits a verb-ing convention).
 - **Overlap:** two skills overlap when their descriptions would both fire for the same request. Name the request.
 - **Registry coverage:** where the user keeps an AI Registry, run its own lint if one exists and use its warnings; otherwise compare the skills you read with the skills the registry's workflow entries list. For each unrecorded skill, propose which workflow it belongs to. A skill that lives only in a platform account, which the registry can't record yet, is "not cataloged yet", not an error.
-- **The standards themselves:** flag any source in the best-practices sources list whose `last_reviewed` date is more than six months old, so the standards get re-checked.
+- **The standards themselves:** apply checklist criterion 7 to the best-practices sources list, so the standards get re-checked.
 
 Only report what needs attention. Don't list every check that passed, and don't list something that isn't wrong (a reference that resolves, a plugin skill named `plugin:skill`) as a finding, even with a note that it's fine. Report each problem once: when two skills overlap, that's one finding naming both.
 
@@ -54,7 +54,7 @@ Only report what needs attention. Don't list every check that passed, and don't 
 
 Write the report using `references/audit-report-template.md` (read it when you write the report). Save it as `outputs/skill-audit-YYYY-MM-DD.md` in the user's working folder where there is one; otherwise show it in the conversation. Play findings back in plain words: name the skill and what's wrong, not file syntax, and offer to show the exact change.
 
-Keep the template's structure however many skills you audit. With many findings, open with a short summary by severity, but still number every finding and give each its proposed change (in an appendix if the list is long), and still run every check in the checklist, including registry coverage, test cases and source dates. Count the skills from the actual list you read: skills with findings plus skills without must equal skills read, and every skill named under no findings must be in that count.
+If you split a large audit across helpers (subagents or batches), give each one the checklist, the template and the judgment calls above, and have each return its findings in the template's numbered form, with severity and proposed change. Then merge them into one report in the template's format; never replace it with a summary of your own design. Keep the template's structure however many skills you audit. With many findings, open with a short summary by severity, but still number every finding and give each its proposed change (in an appendix if the list is long), and still run every check in the checklist, including registry coverage, test cases and source dates. Count the skills from the actual list you read: skills with findings plus skills without must equal skills read, and every skill named under no findings must be in that count.
 
 ## Applying fixes
 

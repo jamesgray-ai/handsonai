@@ -3,7 +3,7 @@ title: Agent Skill Best Practices
 description: "The six decisions behind every good Agent Skill, consolidated from Anthropic, OpenAI, AgentSkills.io and Google, with a worked example and a way to test any skill on any platform."
 ---
 
-Building an Agent Skill comes down to six decisions. Your platform's skill creator writes the file; these decisions are yours, and they decide whether the skill is worth having. This page sets out each one, walks through a real build, and shows how to test a skill on any platform. The **`applying-skill-best-practices`** skill in the [Hands-on AI plugin](/use-the-playbook/build/handsonai/) applies all of it for you: name it when you ask your platform's skill creator for a skill.
+Building an Agent Skill comes down to six decisions. Your platform's skill creator writes the file; these decisions are yours, and they decide whether the skill is worth having. This page sets out each one, walks through a full build, and shows how to test a skill on any platform. The **`applying-skill-best-practices`** skill in the [Hands-on AI plugin](/use-the-playbook/build/handsonai/) applies all of it for you: name it when you ask your platform's skill creator for a skill.
 
 ## What a skill is, in one paragraph
 
@@ -32,7 +32,7 @@ The decisions fall into three stages.
 
 ## Why these decisions, and why one skill
 
-Four organizations publish guidance on building skills: Anthropic, which created the format; OpenAI; the open AgentSkills.io standard that Claude, ChatGPT, Codex and others implement; and Google. On most points they agree. On some they differ: Anthropic asks for descriptions in the third person ("Drafts follow-up emails…"), AgentSkills.io suggests addressing the AI directly ("Use this skill when…"). The pattern in decision 3 satisfies both. All four change as the platforms change.
+Four organizations publish guidance on building skills: Anthropic, which created the format; OpenAI; the open AgentSkills.io standard that Claude, ChatGPT, Codex and others implement; and Google. Microsoft documents how skills work on its own platform, listed under Sources. On most points they agree. On some they differ: Anthropic asks for descriptions in the third person ("Drafts follow-up emails…"), AgentSkills.io suggests addressing the AI directly ("Use this skill when…"). The pattern in decision 3 satisfies both. All four change as the platforms change.
 
 ![A slide titled "Many sources. One skill applies them all." Four labels, Anthropic, OpenAI, AgentSkills.io and Google, point to a card for applying-skill-best-practices.](/assets/images/skill-best-practices-sources.png)
 
@@ -48,7 +48,7 @@ Each decision exists because skipping it has a cost: two skills for one job that
 
 A fictional consulting firm, Northwind Advisory, builds two skills on Claude Code: a brand-guidelines reference skill and a task skill that turns client call notes into a LinkedIn post.
 
-**The reference skill.** The request names the skill creator and `applying-skill-best-practices`, with the brand guide attached. The AI checks first for an existing skill (none), then reads the guide against the firm's two published posts and finds they disagree: the guide says posts run 120 to 200 words, the posts are under 100. It asks, the answer goes into the skill, and the description comes out as:
+**The reference skill.** The request names the skill creator and `applying-skill-best-practices`, with the brand guide attached. The AI checks first for an existing skill (none), then reads the guide against the firm's two published posts and finds they disagree: the guide says posts run 120 to 200 words, the posts are under 100. It asks; the answer (the posts are right, posts run 80 to 150 words) goes into the skill, and the description comes out as:
 
 > Northwind Advisory's brand voice, writing rules and formatting standards, applied to anything written in the firm's name. Use whenever drafting, editing or reviewing an email, LinkedIn post, document, proposal or other text for Northwind, even if the user doesn't mention "brand" or "voice", and whenever another Northwind skill needs the house style. Not for other companies' brands, for code, or for private notes that won't be shared.
 
