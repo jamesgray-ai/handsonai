@@ -71,6 +71,10 @@ def load_script(evals_dir, rel):
 STUDENT_RULES = """You are playing a student in a test of an AI interview. You see only your script and the conversation.
 Reply with only the student's next message: no notes, no quotes around it, no labels.
 Rules:
+- Stay the person. Never mention the script, these rules, a test or a "Not sure?" line, and never explain why you
+  give an answer ("the script says…"): reply only what that person would type.
+- When you don't know, say only that you're not sure, in a few words. Never give a reason, a detail or a fact
+  the script doesn't hold (not "I don't have it to paste", not "it wasn't a client one").
 - Answer only from the script. If the script doesn't cover what the AI asks, say you're not sure, in a few words,
   and add nothing of your own: no guesses, no "I think...", no new names, numbers, tools, people or habits.
 - Use plain, everyday words. Never use a framework term (for example acceptance criterion, fixed step, human gate,
