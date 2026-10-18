@@ -85,4 +85,4 @@ specific reference as evidence. Then write a test report with:
 
 Stop when the checks pass, the user's review finds nothing to change, and a fresh round shows no further gain.
 
-For deeper methods (blind comparison of two versions, benchmarking across many runs, tuning a description with held-out prompts), Anthropic's skill-creator documentation and the AgentSkills.io evaluation guide in `sources.md` go further.
+For deeper methods (blind comparison of two versions, benchmarking across many runs, tuning a description with held-out prompts), see the "Going deeper" section of https://handsonai.info/agentic-building-blocks/skills/skill-best-practices/; Anthropic's skill-creator documentation and the AgentSkills.io evaluation guide in `sources.md` go further.
