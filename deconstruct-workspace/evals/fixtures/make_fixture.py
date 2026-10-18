@@ -255,6 +255,9 @@ def r9_variant(t, readiness, round_status):
     src = (EXAMPLE / "framework" / WSR / "test-results.md").read_text()
     src = re.sub(r"^readiness: .*$", f"readiness: {readiness}", src, count=1, flags=re.M)
     src = re.sub(r"^round_status: .*$", f"round_status: {round_status}", src, count=1, flags=re.M)
+    if readiness == "ready":  # the example's Verdict says Not ready; a ready variant must not contradict its own header
+        src = re.sub(r"(?ms)^## Verdict\n.*?(?=^## )",
+                     "## Verdict\n\n**Ready**: every line Met on every input in the latest round.\n\n", src, count=1)
     (t / "framework" / WSR / "test-results.md").write_text(src)
 
 
