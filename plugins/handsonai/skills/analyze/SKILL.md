@@ -20,9 +20,11 @@ Analyze catalogs: it names each workflow and describes it well. It never ranks t
 
 **Opening** (skipped when resuming or picking up the rest). Say exactly this, as two short paragraphs:
 
-> "This step finds opportunities to create more value with AI in your business: friction to remove, and work you'd do more of, or do better, if you had the time. Each one becomes a **candidate workflow**: a specific, repeatable piece of work worth building with AI. I'll look through what your AI already knows about your work, if you allow it, then walk the processes in your registry with you. By the end you'll have every candidate saved to your registry's **backlog** (your list of workflows to build), with an opportunity report alongside (work that already runs is recorded as running). It runs in three parts: (1) how we'll look at your work, (2) where the opportunities are, and (3) your backlog and your report. Each process takes about 3 to 5 minutes, and you can do one or all of them. Step 2, Deconstruct, takes one workflow you choose from the backlog and maps it in detail. Stopping early is safe. Progress is saved."
+> "This step finds opportunities to create more value with AI in your business: friction to remove, and work you'd do more of, or do better, if you had the time. Each one becomes a **candidate workflow**: a specific, repeatable piece of work worth building with AI. I'll look through what your AI already knows about your work, if you allow it, then walk the processes in your registry with you. By the end you'll have every candidate saved to your registry's **backlog** (your list of workflows to build), with an opportunity report alongside (work that already runs is recorded as running). It runs in three parts: (1) how we'll look at your work, (2) where the opportunities are, and (3) your backlog and your report. Each process takes about 3 to 5 minutes, and you can do one or all of them. Step 2, Deconstruct, takes one workflow you choose from the backlog and maps it in detail."
 >
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
+
+Look at your tools before you say it, because a workspace you can read may still be one you can't write to. Only if you have a tool that creates or edits files (such as Write, Edit or a shell), and files aren't produced only as downloads, end the first paragraph with: "Stopping early is safe. Progress is saved." Without one, files can't be kept between conversations: never say it, and never claim progress is saved or that a file has been written (the opening's other lines stay as written).
 
 After "skip the explanations", drop the *Example* and *Not sure?* lines; the *Why* lines stay.
 
@@ -134,6 +136,8 @@ Whenever `registry/processes/` has nodes, on either lens, the Processes are the 
 **Which process first.** Say exactly this (opening with "Now let's walk your processes for anything your history missed." when the history pass showed anything), then the processes numbered straight through, one per line, under a "**Line of business:** [name]" label per line:
 
 > "You don't need to do all [N] today. Pick one process to start; each takes about 3 to 5 minutes. After each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it."
+
+Where files can't be kept between conversations, leave out ", and your progress is saved" ("After each one you can keep going or stop.").
 
 **Ask:** "Which process do you want to start with? Give me the number."
 - *Why:* starting where it matters most means your most useful candidates come first, even if you stop early.

@@ -65,7 +65,7 @@ One playback, the same shape for everyone, in plain words, ending "What would yo
 - **Same way every time, when the work is done today:** the playback is one message, word for word: "Here are your steps: [numbered steps]. Is this how you do it today, or how you'd like it done from now on?"
   - *Why:* If today's way is different, I'll check which of today's habits should stay.
 
-  A correction to the steps in the reply counts as the change-or-clarify answer. When today's way differs, the Path records how the student wants it done; for each step or workaround from today's way, one difference per message, **Ask:** "Today you also [step or workaround]. Should that stay?" A step or workaround they drop is not a step.
+  A correction to the steps in the reply counts as the change-or-clarify answer. When today's way differs, the Path records how the student wants it done. If the reply describing today's way ran past a short paragraph, first play today's way back in plain words, one line per step of today's way (not as the Path), ending "What would you change or clarify?"; only then, for each step or workaround from today's way, one difference per message, **Ask:** "Today you also [step or workaround]. Should that stay?" A step or workaround they drop is not a step, and no step produces or uses it.
 
 An answer that ran past a short paragraph is played back this way before any other question (never mention the threshold). As you play back, tag each step's `uses` and `writes` from the answers (C# and W# are numbered only when written to the file).
 
@@ -91,7 +91,7 @@ With no steps, the always/never question has already done this job; don't ask it
 Then the reasons, for every fixed step in one message, each tagged for a keep or change: "Here's why I think each one is fixed; keep or change: Step [N], [name]: [your own call | required by a regulation | required by company policy] *(my suggestion)* …", ending "What would you change or add?" With one fixed step, **Ask:** "Is that required, by a regulation or company policy, or your own call?"
 - *Why:* Required steps are never changed; your own calls can be revisited later.
 
-A "required" answer that doesn't say which gets one follow-up naming regulation or policy. The reason goes on the step line: `fixed (regulation)`, `fixed (policy)` or `fixed (your judgment)`. Never choose the reason without tagging it *(my suggestion)*.
+A "required" answer that doesn't say which gets one follow-up naming regulation or policy. The reason goes on the step line: `fixed (regulation)`, `fixed (policy)` or `fixed (your judgment)`, never anything else. Never choose the reason without tagging it *(my suggestion)*. When the student isn't sure of a reason and hasn't called the step required, record `fixed (your judgment)` as the default (the student can revisit it later); a step called required whose source stays unknown is `fixed (policy)` as the default.
 
 An AI-proposed step the student marks fixed takes its reason from this message and loses its `· proposed by AI` tag; "none" leaves every step flexible with its tag. If any step is fixed, a `Path: proposed by AI` line stays, and the fixed steps show which are the student's.
 
@@ -136,7 +136,7 @@ When the Part 2 answer was yes, right after the decisions question (and its foll
 
 Mark those steps `fixed (regulation)`.
 
-**Ask:** "Which decisions must a person make or approve?" (Skip decisions already gated; never say so. When every decision is gated, leave this question out.)
+**Ask:** "Which decisions must a person make or approve?" (A decision is already gated when a Human Gates row sits at its step or moment, or later, before anything leaves the workflow. Skip gated decisions; never say so. When there are decisions and every one is gated, leave this question out; otherwise ask it.)
 - *Why:* Those become checkpoints, so the AI never makes them alone.
 
 Each becomes a Human Gates row.
@@ -179,7 +179,7 @@ Only when the count is three or fewer, for each step that needs detail, in its o
 
 ## Close
 
-Say: "That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on."
+Say, always, once the student has answered Part 4's last question (a keep-or-drop re-ask included), as its own line before the Part 5 signpost: "That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on."
 
 ## The question matrix
 
