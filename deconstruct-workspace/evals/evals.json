@@ -1586,7 +1586,7 @@
       "preconditions": [
         "When the AI showed a draft or playback, the student replied \"looks right\"",
         "When the AI asked which of its suggestions should stay, the student kept exactly the first one it listed and dropped the rest",
-        "When the AI asked a question that showed a Not sure? line, the student replied \"not sure\"",
+        "When the AI asked a question that showed a Not sure? line, the student replied \"not sure\", except where the script gives an answer (the consistency question: \"the same way every time\"; the method question: the first method answer; factual questions it knows)",
         "When the AI asked what comes after the student's first method answer, the student replied \"not sure\""
       ],
       "expectations": [
@@ -3133,7 +3133,7 @@
           "kind": "judged"
         },
         {
-          "text": "The questions still run unchanged after the switch: no question is dropped, merged or reworded because of it (\"That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on.\" is Part 4's closing line, said on its own; it belongs to no question)",
+          "text": "The questions still run unchanged after the switch: no question is dropped, merged or reworded because of it (\"That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on.\" is Part 4's closing line, said on its own; it belongs to no question). These are the skill's own conditional forms, not rewording or dropping: a checkpoint stated rather than asked when the student's own step is a review; \"You send it yourself. Will the AI save the draft anywhere, such as in your email?\" when the student sends; asking only the goal blanks no earlier answer fills; and a follow-up asking who notices when the Desired Outcome answer didn't say",
           "kind": "judged",
           "must": true
         },
@@ -4334,7 +4334,7 @@
           }
         },
         {
-          "text": "The privacy question comes right after Part 5 message 2, one question per tripped source the AI can't reach, each in its own message, and the customer emails are among them",
+          "text": "The privacy question comes after Part 5 message 2 (and after any keep-or-drop re-ask of that message's suggestions), before the security limits, one question per tripped source the AI can't reach, each in its own message, and the customer emails are among them",
           "kind": "judged"
         },
         {
@@ -5499,7 +5499,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Last time we covered [^\\n]*; I noted ",
+                "pattern": "Last time we covered [^\\n]*; I noted[: ]",
                 "turn": "first",
                 "session": 2
               },
