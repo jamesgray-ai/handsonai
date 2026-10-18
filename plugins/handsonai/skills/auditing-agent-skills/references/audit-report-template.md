@@ -8,6 +8,7 @@ Use this format for every audit. It follows the same conventions as the skill te
 Platform: [platform] · Checklist: [where it was loaded from]
 Checks run: [every criterion in the checklist, by name]
 Skills read: [n] ([names]) · Couldn't read: [n] ([names, and why])
+Batch: [k] of [m] (only when the set is audited in batches; the next batch is: [names])
 
 | Findings | Skills with findings | Skills with no findings |
 |---|---|---|
@@ -48,5 +49,6 @@ Rules:
 - Leave out empty sections rather than writing "none"; the "Checks run" line shows a check ran even when it found nothing.
 - Severity, where a summary groups findings: **high** would do the wrong thing if the skill ran (a retired model, a broken reference, a write to a system no longer used); **medium** gives misleading guidance (a dated fact, an overlap, a weak description); **low** is naming and wording.
 - The three counts add up: skills with findings plus skills with no findings equals skills read.
-- However many skills you audit, every finding keeps its number and its proposed change. A long report may open with a summary by severity and move the full findings table and changes to an appendix, but never drops them.
+- Every finding keeps its number and its proposed change. A long report may open with a summary by severity and move the full findings table and changes to an appendix, but never drops them.
+- When the set is audited in batches, end the batch report by asking whether to start the next batch.
 - The last line always says what was changed, which before approval is "nothing".

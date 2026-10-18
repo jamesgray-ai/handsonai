@@ -4,8 +4,10 @@ description: >
   Audits existing Agent Skills for things that have gone out of date or drifted: retired model
   names, references to skills that were renamed or removed, naming drift, weak descriptions,
   dated facts, overlapping skills, missing test cases, and skills the AI Registry doesn't
-  record. Use when the user asks to check, audit, tidy or review all their skills, wants to
-  know which skills are stale, or for a scheduled skill audit. Not for building or reviewing a
+  record. Use when the user asks to check, audit, tidy or review their skills as a set, asks
+  any question about one kind of drift across them (which skills are out of date, use old
+  models, still point at renamed skills, overlap, or are missing from the registry), or for a
+  scheduled skill audit. Not for building or reviewing a
   single skill (use applying-skill-best-practices), and never changes a skill without the
   user's approval.
 ---
@@ -37,6 +39,8 @@ Check `skill_listing` for the user's platform before promising anything:
 
 Say at the start of the report which skills you read and which you couldn't.
 
+**More than about 20 skills:** audit in batches of about 20, one batch per turn. List the batches first (alphabetical unless the user picks an order), audit only the first batch, give its full report, and stop: ask before starting the next. Read each batch's skills yourself; don't hand skills to helper agents, which is where findings get lost and the report drifts from the template. A smaller batch gets every check and an exact report.
+
 ## Run the checks
 
 Apply each criterion in the checklist to each skill. For every finding, record the skill, the criterion, the exact line or field, what's wrong, and a specific proposed change: a before and after for anything that edits a file; for a fix that is work rather than an edit (writing test cases, re-reading a source), the exact action and the file it creates or updates. Check the proposed changes against each other before reporting: two findings must never propose conflicting fixes. A few judgment calls:
@@ -54,7 +58,7 @@ Only report what needs attention. Don't list every check that passed, and don't 
 
 Write the report using `references/audit-report-template.md` (read it when you write the report). Save it as `outputs/skill-audit-YYYY-MM-DD.md` in the user's working folder where there is one; otherwise show it in the conversation. Play findings back in plain words: name the skill and what's wrong, not file syntax, and offer to show the exact change.
 
-If you split a large audit across helpers (subagents or batches), give each one the checklist, the template and the judgment calls above, and have each return its findings in the template's numbered form, with severity and proposed change. Then merge them into one report in the template's format; never replace it with a summary of your own design. Keep the template's structure however many skills you audit. With many findings, open with a short summary by severity, but still number every finding and give each its proposed change (in an appendix if the list is long), and still run every check in the checklist, including registry coverage, test cases and source dates. Count the skills from the actual list you read: skills with findings plus skills without must equal skills read, and every skill named under no findings must be in that count.
+Each batch gets its own report in the template's format; never replace it with a summary of your own design. With many findings, open with a short summary by severity, but still number every finding and give each its proposed change (in an appendix if the list is long), and still run every check in the checklist, including registry coverage, test cases and source dates. Count the skills from the actual list you read: skills with findings plus skills without must equal skills read, and every skill named under no findings must be in that count.
 
 ## Applying fixes
 
