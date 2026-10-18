@@ -14,7 +14,7 @@ description: >
 
 # Applying Skill Best Practices
 
-These are the standards a good Agent Skill meets, consolidated from Anthropic, OpenAI, AgentSkills.io and Google and checked against each other (see `references/sources.md`). Apply them whenever a skill is created, edited, reviewed or tested.
+These are the standards a good Agent Skill meets, consolidated from Anthropic, OpenAI, AgentSkills.io and Google and checked against each other. Read `references/sources.md` when the user asks where a rule comes from, or when auditing the standards themselves. Apply them whenever a skill is created, edited, reviewed or tested.
 
 This skill does not build skills. The platform's own skill creator (Anthropic's skill-creator, the ChatGPT or Codex skill creator, Copilot Cowork's guided flow, Gemini Enterprise's "Create skill with Gemini") owns that process. These standards tell it what "good" means at each point. Where the creator already covers something, agree with it: your job is to make sure the user's own material (real examples, what a good result looks like, the cases they worry about) goes in, not to add a competing rule.
 
@@ -58,7 +58,7 @@ Keep `SKILL.md` under 500 lines. Move detail into reference files one level deep
 
 - **Automatically or by name only.** A skill that sends, publishes, deploys or creates records in another system runs only when the user names it. The platform's `skill_invocation` entry says which setting does this.
 - **Tool access:** list the tools the skill may use, narrowed to what the job needs (`allowed-tools` in the open standard, where the platform supports it). For a skill that acts in another system, set this list in the draft; don't leave it as an option for later.
-- **Model and effort:** check the platform's `skill_settings`. Where a skill can choose its own (Claude Code), recommend a model and effort level with a reason; read `references/model-and-effort.md`. Where it can't, don't add those fields; say the model chosen for the conversation applies.
+- **Model and effort:** check the platform's `skill_settings`. Where a skill can choose its own (at the time of writing, Claude Code), recommend a model and effort level with a reason. Read `references/model-and-effort.md` when the platform allows per-skill settings or the user asks about model or effort. Where it can't, don't add those fields; say the model chosen for the conversation applies.
 
 ### Before you trust it
 

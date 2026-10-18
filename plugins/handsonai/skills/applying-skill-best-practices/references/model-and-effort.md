@@ -2,7 +2,7 @@
 
 First check the platform's `skill_settings` in the platform registry. Only where it says a skill can choose its own model and effort does any of this go in the skill. Everywhere else, the model and settings chosen for the conversation apply, and the skill should say nothing about them.
 
-## Where a skill can choose (Claude Code)
+## Where a skill can choose (at the time of writing, Claude Code)
 
 Two frontmatter fields, both optional:
 

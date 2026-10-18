@@ -64,10 +64,14 @@ Result WITH the skill:
 [paste]
 
 For each check, give Met or Not met for each result, with a short quote or
-specific reference as evidence. Then write a test report with: the skill name
-and round; the number of checks met with the skill and without it; a table with
-one row per check (check, without the skill, with the skill, evidence); and a
-"Fix next" list with one line for every check not met with the skill.
+specific reference as evidence. Then write a test report with:
+- a header: skill name, round, platform, how it ran (by hand), and model;
+- the number of checks met with the skill and without it;
+- a table with one row per check: test prompt, check, without the skill,
+  with the skill, evidence;
+- if you ran trigger prompts, a table: prompt, should fire?, fired?, result;
+- a "Fix next" list with one line for every check not met with the skill
+  and every trigger that misbehaved, ending "Then rerun everything."
 ```
 
 ## What to do with the results

@@ -1,13 +1,13 @@
 # Writing a description that triggers
 
-The description is the only part of a skill the AI sees before deciding to load it. Everything about when the skill runs depends on it.
+Before deciding to load a skill, the AI sees only its name and description. Everything about when the skill runs depends on the description.
 
 ## The pattern
 
 > [What it does, in the third person]. Use when [triggers]. Not for [near-misses].
 
 - **What it does:** concrete verbs and objects ("Drafts follow-up emails from sales call notes"), not "Helps with emails".
-- **Use when:** the situations and the words people actually type. Include cases where the user describes the need without naming it ("even if they don't say 'proposal'"). Lean slightly pushy: AI models tend to under-use skills.
+- **Use when:** the situations and the words people actually type. Include cases where the user describes the need without naming it ("even if they don't say 'proposal'"). Lean slightly pushy: Anthropic's skill-creator notes that Claude tends to under-use skills, so name the situations generously.
 - **Not for:** the nearest things it could be confused with. This is what stops false triggers.
 
 Anthropic asks for the third person; AgentSkills.io suggests "Use this skill when…". The pattern above satisfies both.
@@ -27,7 +27,7 @@ description: >
 
 ## Limits and naming
 
-- The open standard caps the description at 1,024 characters; Claude Code truncates the skill listing at 1,536 characters for `description` plus `when_to_use`. Put the key use case first.
+- The open standard caps the description at 1,024 characters; some platforms truncate the listing further (Claude Code, for example, at 1,536 characters for `description` plus `when_to_use`). Put the key use case first.
 - Names: lowercase letters, numbers and hyphens; match the folder name; no leading, trailing or double hyphens; avoid the words "claude" and "anthropic". Prefer the verb-ing form (`drafting-follow-up-emails`). Avoid vague names (`helper`, `utils`).
 - No XML tags in the name or description.
 
