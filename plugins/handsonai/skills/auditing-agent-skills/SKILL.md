@@ -39,15 +39,16 @@ Say at the start of the report which skills you read and which you couldn't.
 
 ## Run the checks
 
-Apply each criterion in the checklist to each skill. For every finding, record the skill, the criterion, the exact line or field, what's wrong, and a specific proposed change (before and after, or a diff). A few judgment calls:
+Apply each criterion in the checklist to each skill. For every finding, record the skill, the criterion, the exact line or field, what's wrong, and a specific proposed change: a before and after for anything that edits a file; for a fix that is work rather than an edit (writing test cases, re-reading a source), the exact action and the file it creates or updates. Check the proposed changes against each other before reporting: two findings must never propose conflicting fixes. A few judgment calls:
 
 - **Retired model names:** check against the platform's current model list (fetch the provider's models page if you can); don't rely on a list remembered or written into a skill.
 - **Broken references:** a reference is broken only when no skill by that name exists where the platform would load it. When a skill with a similar name and the same job exists, name it as the likely rename.
+- **Naming:** flag a name only when it breaks the convention the user's other skills follow, and say which convention. Judge the form by the name's first word (`closing-the-month-checklist` starts with a verb-ing word, so it fits a verb-ing convention).
 - **Overlap:** two skills overlap when their descriptions would both fire for the same request. Name the request.
 - **Registry coverage:** where the user keeps an AI Registry, run its own lint if one exists and use its warnings; otherwise compare the skills you read with the skills the registry's workflow entries list. For each unrecorded skill, propose which workflow it belongs to. A skill that lives only in a platform account, which the registry can't record yet, is "not cataloged yet", not an error.
 - **The standards themselves:** flag any source in the best-practices sources list whose `last_reviewed` date is more than six months old, so the standards get re-checked.
 
-Only report what needs attention. Don't list every check that passed.
+Only report what needs attention. Don't list every check that passed, and don't list something that isn't wrong (a reference that resolves, a plugin skill named `plugin:skill`) as a finding, even with a note that it's fine. Report each problem once: when two skills overlap, that's one finding naming both.
 
 ## Report
 

@@ -6,18 +6,22 @@
       "name": "full-audit-of-a-skills-folder",
       "prompt": "Audit the skills in evals/files/sample-skills. The SKILL.md.txt files in that folder are the skills to audit (named .txt only so they don't install), and evals/files/sample-skills/sources-snapshot.md stands in for the best-practices sources file. I'm on Claude Code.",
       "expected_output": "A report that finds the retired model, the broken skill reference, the missing 'Not for', the dated fact, the overlapping descriptions, the skills without test cases and the stale source date, proposes each fix as a diff, and changes nothing.",
-      "files": ["evals/files/sample-skills"],
+      "files": [
+        "evals/files/sample-skills"
+      ],
       "expectations": [
         "Flags the retired model name claude-3-opus-20240229 in drafting-client-updates, naming the field",
         "Flags the reference to preparing-close-checklist in running-month-end as broken and names closing-the-month-checklist as the likely rename",
-        "Does not flag handsonai:build as a broken reference",
+        "Does not list or count handsonai:build as a finding (mentioning it inside another fix, as unchanged, is fine)",
         "Flags that drafting-client-updates' description has no 'Not for' boundary",
         "Flags the dated fact 'As of March 2025' in summarizing-calls",
         "Flags that summarizing-calls and drafting-client-updates overlap (both draft the weekly client status update)",
+        "Reports the overlap between summarizing-calls and drafting-client-updates as one finding, not two",
         "Flags the skills without test cases and does not flag closing-the-month-checklist, which has them",
         "Flags the OpenAI source in sources-snapshot.md whose last_reviewed date (2025-11-02) is stale",
-        "Proposes each fix as a specific change (a diff or before/after), not a general instruction",
-        "States that no file was changed"
+        "Proposes each fix specifically: a before and after for file edits, and for work such as writing test cases, the exact action and the file it creates",
+        "States that no file was changed",
+        "Raises no naming finding against closing-the-month-checklist (its name fits the verb-ing convention)"
       ]
     },
     {
@@ -25,7 +29,9 @@
       "name": "asked-to-fix-everything",
       "prompt": "Audit the skills in evals/files/sample-skills and fix everything you find. (The SKILL.md.txt files are the skills; sources-snapshot.md stands in for the sources file.) I'm on Claude Code.",
       "expected_output": "The audit report first, then a request for approval listing the diffs it would apply; nothing is changed yet.",
-      "files": ["evals/files/sample-skills"],
+      "files": [
+        "evals/files/sample-skills"
+      ],
       "expectations": [
         "Produces the audit findings before any change",
         "Asks the user to approve the fixes (all or which ones) before changing anything",
@@ -38,7 +44,10 @@
       "name": "registry-coverage",
       "prompt": "Check which of my skills aren't recorded in my registry. The skills are the SKILL.md.txt files in evals/files/sample-skills and my registry is evals/files/sample-registry. I'm on Claude Code.",
       "expected_output": "Lists running-month-end and closing-the-month-checklist as not recorded in the registry, proposes which workflow each belongs to, and doesn't edit the registry.",
-      "files": ["evals/files/sample-skills", "evals/files/sample-registry"],
+      "files": [
+        "evals/files/sample-skills",
+        "evals/files/sample-registry"
+      ],
       "expectations": [
         "Names running-month-end and closing-the-month-checklist as skills the registry doesn't record",
         "Does not list drafting-client-updates or summarizing-calls as unrecorded",
@@ -63,7 +72,9 @@
       "name": "no-checklist-source-available",
       "prompt": "Audit the skills in evals/files/sample-skills (the SKILL.md.txt files are the skills). For this run, assume the applying-skill-best-practices skill is not installed, there is no references/hygiene-criteria.md in your own folder or beside it, and there is no network access.",
       "expected_output": "Says it can't load the audit checklist, names where it looked, and asks the user to install applying-skill-best-practices or provide the checklist; it doesn't make up its own checklist.",
-      "files": ["evals/files/sample-skills"],
+      "files": [
+        "evals/files/sample-skills"
+      ],
       "expectations": [
         "Says it could not load the audit checklist",
         "Names the places it looked for it",
