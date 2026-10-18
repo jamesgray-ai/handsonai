@@ -4656,11 +4656,20 @@
           }
         },
         {
-          "text": "The taking-part question is asked word for word",
+          "text": "The taking-part question is asked word for word, or, when the student already said it runs without them, that is stated",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run from start to finish without you?"
+            "type": "any",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "While it runs, do you want to take part, like reviewing a draft, answering its questions or approving something, or should it run from start to finish without you?"
+              },
+              {
+                "type": "ai_regex",
+                "pattern": "(?i)(it runs|running|so it runs)[^.\\n]*without you"
+              }
+            ]
           }
         },
         {
@@ -4706,14 +4715,23 @@
           }
         },
         {
-          "text": "Because it runs without the student, the when-unsure question leaves out \"stop and ask you\"",
+          "text": "Because it runs without the student, the when-unsure question leaves out \"stop and ask you\" (one item per run: the statement \"Since it runs without you, when it isn't sure it'll do its best and flag it for you.\")",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
-                "type": "ai_contains",
-                "text": "When it hits a case it can't confidently handle"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "When it hits a case it can't confidently handle"
+                  },
+                  {
+                    "type": "ai_contains",
+                    "text": "Since it runs without you, when it isn't sure it'll do its best and flag it for you."
+                  }
+                ]
               },
               {
                 "type": "ai_not_contains",
