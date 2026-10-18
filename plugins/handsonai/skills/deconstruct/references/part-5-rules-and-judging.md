@@ -48,7 +48,7 @@ Never say how many drafts are coming ("the first of four"): the count changes wi
 
 Each in its own message:
 
-When the student stated an aim in Part 1: **Ask:** "In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?" With no aim, one per kept measure: **Ask:** "What should [measure] be once this is running?"
+When the student stated an aim in Part 1: **Ask:** "In Part 1 you said [aim]. Is that the target, and what about [the other kept measure]?" (with only one kept measure, leave out ", and what about [the other kept measure]") With no aim, one per kept measure: **Ask:** "What should [measure] be once this is running?"
 - *Why:* This is how you'll know whether the workflow paid off.
 - *Example:* a bookkeeper might say: "Month-end close in two days instead of five."
 
