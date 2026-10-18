@@ -1,6 +1,6 @@
 ---
 title: Agent Skill Best Practices
-description: "The six decisions behind every good Agent Skill, consolidated from Anthropic, OpenAI, AgentSkills.io and Google, with a worked example and a way to test any skill on any platform."
+description: "The six decisions behind every good Agent Skill, from Anthropic, OpenAI, AgentSkills.io and Google, with a worked example and a way to test any skill."
 ---
 
 Building an Agent Skill comes down to six decisions. Your platform's skill creator writes the file; these decisions are yours, and they decide whether the skill is worth having. This page sets out each one, walks through a full build, and shows how to test a skill on any platform. The **`applying-skill-best-practices`** skill in the [Hands-on AI plugin](/use-the-playbook/build/handsonai/) applies all of it for you: name it when you ask your platform's skill creator for a skill.
