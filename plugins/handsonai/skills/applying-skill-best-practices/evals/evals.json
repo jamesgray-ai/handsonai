@@ -1,0 +1,67 @@
+{
+  "skill_name": "applying-skill-best-practices",
+  "evals": [
+    {
+      "id": 1,
+      "name": "orchestration-skill-from-a-recurring-process",
+      "prompt": "After every cohort of my leadership course I go through the student feedback, decide which lessons need updating, and then rewrite them. It takes me two days each time. I'd like a skill that does this with me: plans the updates from the feedback, then makes them one lesson at a time with my sign-off. Can you build it?",
+      "expected_output": "Before drafting, the response checks for existing skills that already cover reviewing feedback or revising lessons. It asks for two or three real examples (a past round of feedback and the lesson changes that followed). It drafts a skill whose description says what it does, when to use it and when not to, and it prepares test cases before calling the skill finished.",
+      "files": [],
+      "expectations": [
+        "Checks for existing skills (installed skills, skill folders, or the AI Registry) before drafting a new one",
+        "Asks for, or uses, two or three real examples of the task: a starting input and a good result",
+        "The drafted description states what the skill does, includes a 'Use when' trigger, and names at least one case it is not for",
+        "Proposes test cases (test prompts plus what a good result looks like) before calling the skill finished",
+        "Says to record the new skill, and where it lives, in the AI Registry"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "reuse-an-existing-skill",
+      "prompt": "Build me a skill that applies our brand voice to LinkedIn posts. For context, the attached file is a skill I already have installed.",
+      "expected_output": "The response recognizes that the installed brand skill already covers LinkedIn posts in the brand voice, and recommends using it as is or extending it rather than building a duplicate skill.",
+      "files": ["evals/files/brand-guidelines-example.md"],
+      "expectations": [
+        "Identifies that the installed applying-northwind-brand skill already covers LinkedIn posts in the brand voice",
+        "Recommends using the existing skill as is, or extending it, and explains why",
+        "Does not draft a second, duplicate brand-voice skill"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "no-real-examples-available",
+      "prompt": "I want a skill for my weekly pipeline report, but I don't have any past reports saved anywhere. Can you still make one?",
+      "expected_output": "The response drafts two or three realistic example inputs and reports, clearly marked as drafts, and asks the user to correct them so the skill and its test cases rest on the user's real expectations.",
+      "files": [],
+      "expectations": [
+        "Drafts realistic example inputs and example reports for the user to react to",
+        "Clearly marks the drafted examples as drafts, not real data",
+        "Asks the user to correct the drafted examples before they are used for the skill or its test cases"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "platform-without-per-skill-model-settings",
+      "prompt": "I'm working in ChatGPT. Make me a skill that summarizes meeting transcripts into action items. Which model and effort level should the skill use?",
+      "expected_output": "The response explains that on ChatGPT a skill cannot set its own model or effort, so the model and settings chosen for the conversation apply, and it does not add model or effort fields to the skill. It still applies the other standards.",
+      "files": [],
+      "expectations": [
+        "Does not add model or effort fields to the skill's frontmatter",
+        "Explains that on this platform the model and settings chosen for the conversation apply, not a per-skill setting",
+        "Still applies the other standards: a description with a 'Use when' trigger and test cases from real examples"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "side-effect-task-skill-in-claude-code",
+      "prompt": "In Claude Code, build a skill that creates my prep tasks in our task tracker before each client workshop. It should read the workshop date and create the checklist tasks with due dates counted back from it.",
+      "expected_output": "The response recommends a model and effort level for the skill with a reason, sets the skill to run only when invoked by name because it creates records in another system, and grants only the tool access it needs.",
+      "files": [],
+      "expectations": [
+        "Recommends a model and effort level for the skill and gives a reason for the choice",
+        "Sets the skill to run only when invoked by name (for example disable-model-invocation: true), because it creates records in another system",
+        "Limits tool access to what the skill needs rather than granting broad access"
+      ]
+    }
+  ]
+}
