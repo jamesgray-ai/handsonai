@@ -3281,7 +3281,7 @@
             "type": "file_line",
             "path": "framework/*/deconstruct-in-progress.md",
             "line": 1,
-            "pattern": "^Next: Part 4 - The path[ \\t]*$",
+            "pattern": "^Next: Part 4 - How the work gets done[ \\t]*$",
             "session": 1
           }
         },
