@@ -5,7 +5,7 @@ description: "The handsonai plugin — the AI Workflow Framework, knowledge-grap
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-One plugin, one install, four categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), and **Agentic Coding** (feature-spec writing) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 15 skills.**
+One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 16 skills.**
 
 These are plain-text Markdown files that work in any AI tool. Install the plugin on Claude, ChatGPT, or Claude Code for the full experience, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other platforms.
 
@@ -161,6 +161,20 @@ Captures a fuzzy idea as a structured Vision Brief — the essence of an idea be
 Creates a Product Requirements Document for one feature with user stories, acceptance criteria, and a linked GitHub issue. Stress-tests the PRD for edge cases and ambiguity before finalizing.
 
 **Full documentation:** [Agentic Coding](../../../use-cases/agentic-coding/) shows the full feature-development workflow these skills plug into.
+
+---
+
+## Building Skills
+
+For building any Agent Skill well, on any platform. One reference skill that works alongside your platform's own skill creator.
+
+### Skills
+
+#### `applying-skill-best-practices`
+
+**Slash command:** `/handsonai:applying-skill-best-practices`
+
+Best-practice standards for building Agent Skills, consolidated from Anthropic, OpenAI, AgentSkills.io, and Google. Covers six decisions: checking for an existing skill first, scoping it to one job, writing a description that triggers, keeping instructions lean, choosing settings such as model and effort, and preparing test cases from your real examples. It doesn't build skills itself: name it alongside your platform's skill creator ("Use the skill creator and follow applying-skill-best-practices to build a skill for…") and the creator applies the standards. Includes a test-report format and a grading prompt for platforms without built-in evaluation.
 
 ---
 
