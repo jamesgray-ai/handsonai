@@ -7731,7 +7731,7 @@
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
+            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - (Your )?review.*^- Step 4 - Save"
           }
         },
         {
@@ -7898,7 +7898,7 @@
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
+            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - (Your )?review.*^- Step 4 - Save"
           }
         },
         {
@@ -8376,7 +8376,7 @@
           "check": {
             "type": "file_regex",
             "path": "framework/weekly-status-report/requirements.md",
-            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - Review.*^- Step 4 - Save"
+            "pattern": "(?ims)^- Step 1 - (Pull|Read|Gather|Collect)[^\\n]*update.*^- Step 2 - Draft.*^- Step 3 - (Your )?review.*^- Step 4 - Save"
           }
         },
         {
