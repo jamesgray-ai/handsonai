@@ -54,7 +54,7 @@ Run the "same way every time" method question, "What comes after that?" and its 
 
 When the file is written, each run of unpicked AI steps becomes one line `- The AI plans this part` at its place; unpicked steps a person does stay as flexible steps with their role tag, so a checkpoint's `Where` still names them. Once question 2 has run, don't call unpicked AI steps by number again; at file write, any reference to one (a Decision's step, a Writes line, a Context `Used By`, a `; tests` tail) names the AI's part instead ("the AI's part after Step 2").
 
-On a "no" to either switch below, keep "some of each" and ask question 2's line once more. If every AI step is picked, say "Every step you picked stays fixed, so I'll note this as the same way every time." and ask "Does that match?"; then follow the "same way" column, except the today question: it isn't asked after this switch (the steps are already confirmed, and the student may want them done differently now). If no step is picked, say "None of these needs to stay fixed, so I'll note this as the AI working it out each time." and ask "Does that match?"; then write each step a person does as an M line with its role tag (`- M3 · always you send it · (you)`), play the M lines back, and follow the "AI works it out" column.
+On a "no" to either switch below, keep "some of each" and ask question 2's line once more; if the second pick is again all or none, record it as given and apply the switch without asking again. If every AI step is picked, say "Every step you picked stays fixed, so I'll note this as the same way every time." and ask "Does that match?"; then follow the "same way" column, except the today question: it isn't asked after this switch (the steps are already confirmed, and the student may want them done differently now). If no step is picked, say "None of these needs to stay fixed, so I'll note this as the AI working it out each time." and ask "Does that match?"; then write each step a person does as an M line with its role tag (`- M3 · always you send it · (you)`), play the M lines back, and follow the "AI works it out" column.
 
 ## 3. The playback
 
@@ -102,7 +102,7 @@ A person's step that is itself a review, check or approval is stated, not asked:
 - One step: **Ask:** "Is [step] a point where you review or approve the work before it goes further?"
 - Several, in one message: **Ask:** "Are any of these points where you review or approve the work before it goes further: [steps]?"
 - No steps, when the student named a part a person does (an M line): the one-step form, naming that part ("Is reading the brief and adding your questions a point where you review or approve the work before it goes further?").
-- No steps, and no such part, or steps but no person step that could be a review point: **Ask:** "Is there a point where you review or approve the work before it goes further?"
+- No steps, and no such part, or steps but no person step that could be a review point and no review step already stated: **Ask:** "Is there a point where you review or approve the work before it goes further?"
 
 On the first of these, add:
 - *Why:* Review and approval points become checkpoints the workflow can't skip, and testing checks each one.
