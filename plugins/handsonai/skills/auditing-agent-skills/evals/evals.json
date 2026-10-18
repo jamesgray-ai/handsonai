@@ -21,7 +21,9 @@
         "Flags the OpenAI source in sources-snapshot.md whose last_reviewed date (2025-11-02) is stale",
         "Proposes each fix specifically: a before and after for file edits, and for work such as writing test cases, the exact action and the file it creates",
         "States that no file was changed",
-        "Raises no naming finding against closing-the-month-checklist (its name fits the verb-ing convention)"
+        "Raises no naming finding against closing-the-month-checklist (its name fits the verb-ing convention)",
+        "Names the checks it ran, including registry coverage, test cases and source dates",
+        "Its skill counts add up: skills with findings plus skills with no findings equals the four skills read"
       ]
     },
     {

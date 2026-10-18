@@ -54,6 +54,8 @@ Only report what needs attention. Don't list every check that passed, and don't 
 
 Write the report using `references/audit-report-template.md` (read it when you write the report). Save it as `outputs/skill-audit-YYYY-MM-DD.md` in the user's working folder where there is one; otherwise show it in the conversation. Play findings back in plain words: name the skill and what's wrong, not file syntax, and offer to show the exact change.
 
+Keep the template's structure however many skills you audit. With many findings, open with a short summary by severity, but still number every finding and give each its proposed change (in an appendix if the list is long), and still run every check in the checklist, including registry coverage, test cases and source dates. Count the skills from the actual list you read: skills with findings plus skills without must equal skills read, and every skill named under no findings must be in that count.
+
 ## Applying fixes
 
 Only after the user approves. Ask which fixes to apply (all, or which ones by number). Apply one at a time, show each change, and say when you're done. If a fix renames a skill or changes what another skill calls, list every skill that refers to it and update them together, or don't apply it.

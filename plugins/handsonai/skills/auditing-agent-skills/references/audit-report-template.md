@@ -6,6 +6,7 @@ Use this format for every audit. It follows the same conventions as the skill te
 # Skill audit · [date]
 
 Platform: [platform] · Checklist: [where it was loaded from]
+Checks run: [every criterion in the checklist, by name]
 Skills read: [n] ([names]) · Couldn't read: [n] ([names, and why])
 
 | Findings | Skills with findings | Skills with no findings |
@@ -44,5 +45,7 @@ Rules:
 
 - Number findings so the user can approve them by number.
 - Each finding names the exact line or field; never a vague "consider reviewing".
-- Leave out empty sections rather than writing "none".
+- Leave out empty sections rather than writing "none"; the "Checks run" line shows a check ran even when it found nothing.
+- The three counts add up: skills with findings plus skills with no findings equals skills read.
+- However many skills you audit, every finding keeps its number and its proposed change. A long report may open with a summary by severity and move the full findings table and changes to an appendix, but never drops them.
 - The last line always says what was changed, which before approval is "nothing".
