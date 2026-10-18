@@ -10,9 +10,9 @@
       "expectations": [
         "Checks for existing skills (installed skills, skill folders, or the AI Registry) before drafting a new one",
         "Asks for, or uses, two or three real examples of the task: a starting input and a good result",
-        "The drafted description states what the skill does, includes a 'Use when' trigger, and names at least one case it is not for",
+        "If it drafts a new skill, the description states what the skill does, includes a 'Use when' trigger, and names at least one case it is not for; if it recommends extending an existing skill instead, it names the skill and the change",
         "Proposes test cases (test prompts plus what a good result looks like) before calling the skill finished",
-        "Says to record the new skill, and where it lives, in the AI Registry"
+        "Says to record the skill (new or extended), and where it lives, in the AI Registry"
       ]
     },
     {
@@ -20,7 +20,9 @@
       "name": "reuse-an-existing-skill",
       "prompt": "Build me a skill that applies our brand voice to LinkedIn posts. For context, the attached file is a skill I already have installed.",
       "expected_output": "The response recognizes that the installed brand skill already covers LinkedIn posts in the brand voice, and recommends using it as is or extending it rather than building a duplicate skill.",
-      "files": ["evals/files/brand-guidelines-example.md"],
+      "files": [
+        "evals/files/brand-guidelines-example.md"
+      ],
       "expectations": [
         "Identifies that the installed applying-northwind-brand skill already covers LinkedIn posts in the brand voice",
         "Recommends using the existing skill as is, or extending it, and explains why",
@@ -58,9 +60,9 @@
       "expected_output": "The response recommends a model and effort level for the skill with a reason, sets the skill to run only when invoked by name because it creates records in another system, and grants only the tool access it needs.",
       "files": [],
       "expectations": [
-        "Recommends a model and effort level for the skill and gives a reason for the choice",
+        "Recommends an effort level with a reason, and either recommends a model with a reason or says the skill deliberately follows the session's model",
         "Sets the skill to run only when invoked by name (for example disable-model-invocation: true), because it creates records in another system",
-        "Limits tool access to what the skill needs rather than granting broad access"
+        "Sets the skill's tool list in the draft, limited to what it needs (for example allowed-tools), rather than leaving it optional"
       ]
     }
   ]

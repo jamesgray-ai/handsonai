@@ -57,7 +57,7 @@ Keep `SKILL.md` under 500 lines. Move detail into reference files one level deep
 **5. Settings.** Decide how the skill may run:
 
 - **Automatically or by name only.** A skill that sends, publishes, deploys or creates records in another system runs only when the user names it. The platform's `skill_invocation` entry says which setting does this.
-- **Tool access:** grant the narrowest set the job needs.
+- **Tool access:** list the tools the skill may use, narrowed to what the job needs (`allowed-tools` in the open standard, where the platform supports it). For a skill that acts in another system, set this list in the draft; don't leave it as an option for later.
 - **Model and effort:** check the platform's `skill_settings`. Where a skill can choose its own (Claude Code), recommend a model and effort level with a reason; read `references/model-and-effort.md`. Where it can't, don't add those fields; say the model chosen for the conversation applies.
 
 ### Before you trust it
