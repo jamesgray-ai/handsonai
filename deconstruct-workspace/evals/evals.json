@@ -1822,7 +1822,7 @@
           "must": true
         },
         {
-          "text": "Suggestions the student didn't keep do not appear in `requirements.md`, except AI-added path steps and practice-run inputs (the two exceptions)",
+          "text": "Suggestions the student didn't keep do not appear in `requirements.md`, except AI-added path steps and practice-run inputs (the two exceptions). A cell of a row the student kept that takes its safest value or `Not sure — to check` after its suggestion was dropped is the skill's rule, not a kept suggestion; a dropped row (a source, an input, a rule) must be gone",
           "kind": "judged",
           "must": true
         },
