@@ -4334,7 +4334,7 @@
           }
         },
         {
-          "text": "The privacy question comes after Part 5 message 2 (and after any keep-or-drop re-ask of that message's suggestions), before the security limits, one question per tripped source the AI can't reach, each in its own message, and the customer emails are among them",
+          "text": "The privacy question (the reach question: \"When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste it in each time?\") comes after Part 5 message 2 (and after any keep-or-drop re-ask of that message's suggestions), before the security limits, one question per tripped source the AI can't reach, each in its own message, and the customer emails are among them",
           "kind": "judged"
         },
         {
