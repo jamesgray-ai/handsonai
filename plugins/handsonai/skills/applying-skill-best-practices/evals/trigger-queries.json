@@ -1,6 +1,6 @@
 [
   {"query": "can you make a skill that turns my call notes into a follow-up email? i do this after every sales call", "should_trigger": true},
-  {"query": "Please review the SKILL.md I just pasted and tell me what to fix before I share it with my team.", "should_trigger": true},
+  {"query": "Please review this SKILL.md and tell me what to fix before I share it with my team:\n---\nname: Expense Helper\ndescription: Helps with expenses.\n---\nRead the receipts and make the expense report. Be accurate.", "should_trigger": true},
   {"query": "my proposal-writing skill never fires when I ask for a proposal, I have to call it by name every time. can you fix the description?", "should_trigger": true},
   {"query": "We just spent an hour getting this quarterly board summary right. Turn what we did into something I can reuse next quarter.", "should_trigger": true},
   {"query": "Update my onboarding-checklist skill so it also covers contractors, not just full-time hires.", "should_trigger": true},

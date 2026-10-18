@@ -4,9 +4,12 @@ description: >
   Best-practice standards for building Agent Skills on any platform: checking for an existing
   skill first, scoping it to one job, writing a description that triggers, keeping instructions
   lean, choosing model and effort settings, and preparing test cases from real examples. Use
-  whenever creating, editing, reviewing or testing a skill, alongside the platform's own skill
-  creator, even if the user doesn't say "best practices". Not for building agents, plugins,
-  prompts or workflows that aren't skills.
+  whenever a skill is being created, changed, reviewed or tested, alongside the platform's own
+  skill creator: building one from scratch, turning a conversation or a repeated task into
+  something reusable, updating or fixing an existing skill, or checking a SKILL.md before it's
+  shared. Applies even if the user doesn't say "skill" or "best practices". Not for building
+  agents, plugins, prompts or workflows that aren't skills, or for running a skill that already
+  works.
 ---
 
 # Applying Skill Best Practices
