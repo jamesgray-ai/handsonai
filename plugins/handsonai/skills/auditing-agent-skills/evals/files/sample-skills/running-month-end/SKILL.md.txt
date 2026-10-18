@@ -1,0 +1,19 @@
+---
+name: running-month-end
+description: >
+  Runs Northwind Advisory's month-end close in order: prepares the checklist, builds the
+  workflow artifacts the close needs, and drafts the close summary. Use when the user says
+  "run month-end" or "start the close". Not for mid-month reporting.
+disable-model-invocation: true
+---
+
+# Running month-end
+
+Run these in order, and stop if a step fails:
+
+1. Use the `preparing-close-checklist` skill to produce this month's checklist.
+2. Use `handsonai:build` to build any workflow artifacts the close needs.
+3. Draft the close summary for the finance lead.
+
+## Gotchas
+- The close runs on the third working day. If today is earlier, say so and stop.
