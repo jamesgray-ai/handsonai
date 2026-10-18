@@ -25,7 +25,7 @@ first descriptions, and list placement actually get written to the registry.
 - **Enrollment Confirmation**: Send welcome communications and next steps. Creates confirmation emails with access details.
 
 ### Process: Enrollment Recovery
-- **Abandoned Cart Follow-up**: Re-engage prospects who didn't complete enrollment. Generates personalized recovery emails.
+- **Abandoned Cart Follow-Up**: Re-engage prospects who didn't complete enrollment. Generates personalized recovery emails.
 - **Waitlist Re-engagement**: Nurture cold waitlist prospects with valuable content. Produces monthly nurture campaign.
 - **Objection Handling**: Address common enrollment barriers through targeted outreach. Creates customized objection response emails.
 
@@ -102,7 +102,7 @@ first descriptions, and list placement actually get written to the registry.
 ### Process: Email Management
 - **Inbox Triage**: Categorize and prioritize incoming emails. Produces organized action list.
 - **Response Drafting**: Create replies to routine inquiries. Generates draft email responses.
-- **Follow-up Tracking**: Monitor pending email responses. Creates follow-up reminder list.
+- **Follow-Up Tracking**: Monitor pending email responses. Creates follow-up reminder list.
 
 ### Process: Meeting Management
 - **Agenda Preparation**: Create structured meeting agendas. Produces organized agenda document.

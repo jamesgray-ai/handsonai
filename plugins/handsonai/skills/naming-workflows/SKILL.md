@@ -18,7 +18,7 @@ Generate consistent, professional names and descriptions for business workflows,
 ### Format Requirements
 - **Length**: 2-4 words maximum
 - **Structure**: Noun phrases (not verb phrases)
-- **Style**: Title case
+- **Style**: Title Case, each part of a hyphenated word capitalised ("Follow-Up")
 - **Clarity**: Self-explanatory without context
 
 ### Naming Patterns by Domain
@@ -57,7 +57,7 @@ Generate consistent, professional names and descriptions for business workflows,
 | If workflow creates output | Use "[Output] Creation" or "[Output] Generation" |
 | If workflow sends/distributes | Use "[Item] Distribution" or "[Item] Delivery" |
 | If workflow onboards/sets up | Use "[Subject] Onboarding" or "[Subject] Setup" |
-| If workflow recovers/follows up | Use "[Subject] Recovery" or "[Subject] Follow-up" |
+| If workflow recovers/follows up | Use "[Subject] Recovery" or "[Subject] Follow-Up" |
 
 ### Anti-Patterns (Avoid)
 
