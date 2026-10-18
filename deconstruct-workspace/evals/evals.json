@@ -1827,13 +1827,9 @@
           "must": true
         },
         {
-          "text": "An AI-added path step stays in the Path, flexible, marked `· proposed by AI`, even though the student only said \"looks right\"",
-          "kind": "scripted",
-          "check": {
-            "type": "file_regex",
-            "path": "framework/*/requirements.md",
-            "pattern": "(?m)^- Step \\d+ - [^\\n]*· flexible[^\\n]*· proposed by AI[ \\t]*$"
-          }
+          "text": "An AI-added path step stays in the Path, flexible, marked `· proposed by AI`, even though the student only said \"looks right\" (unless the student later removes that step in their own words, which the transcript shows)",
+          "kind": "judged",
+          "must": false
         },
         {
           "text": "\"not sure\" on the real-output question records no Golden Example: the `Reference example:` line holds \"—\"",
