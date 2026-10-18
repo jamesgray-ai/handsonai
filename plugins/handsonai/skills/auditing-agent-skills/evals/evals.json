@@ -83,6 +83,23 @@
         "Asks the user to install applying-skill-best-practices or supply the checklist",
         "Does not invent its own checklist or audit against made-up criteria"
       ]
+    },
+    {
+      "id": 6,
+      "name": "narrow-question-old-models",
+      "prompt": "Which of my skills still use old or retired models? The skills are the SKILL.md.txt files in evals/files/sample-skills. I'm on Claude Code.",
+      "expected_output": "Answers the model question only: names drafting-client-updates and its retired claude-3-opus-20240229 with a proposed change, says that is the only check it ran, offers the full audit, and changes nothing.",
+      "files": [
+        "evals/files/sample-skills"
+      ],
+      "expectations": [
+        "Names drafting-client-updates and the retired model claude-3-opus-20240229, with the field it's in",
+        "Proposes a specific change for it (a before and after)",
+        "Makes clear that only the model check ran (a 'Checks run' line naming only it, or equivalent)",
+        "Does not report findings from other checks (overlap, missing 'Not for', dated facts, test cases, sources) as findings",
+        "Offers to run the full audit",
+        "States that no file was changed"
+      ]
     }
   ]
 }
