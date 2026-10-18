@@ -20,7 +20,7 @@ This skill does not build skills. The platform's own skill creator (Anthropic's 
 
 > **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it. Find a platform by its key or by any name in its `aliases` list — a Design Spec that says `Cowork` or `Claude.ai` means the `claude` entry.
 
-For this skill, the facts that matter are each platform's `capabilities.skill_install`, `skill_settings` (whether a skill can choose its own model and effort) and `skill_evaluation` (whether the platform's skill creator runs tests). Never state those facts from memory.
+For this skill, the facts that matter are each platform's `capabilities.skill_install`, `skill_settings` (whether a skill can choose its own model and effort), `skill_invocation` (how a skill is set to run only when named) and `skill_evaluation` (whether the platform's skill creator runs tests). Never state those facts from memory.
 
 ## The six decisions
 
@@ -56,9 +56,9 @@ Keep `SKILL.md` under 500 lines. Move detail into reference files one level deep
 
 **5. Settings.** Decide how the skill may run:
 
-- **Automatically or by name only.** A skill that sends, publishes, deploys or creates records in another system runs only when the user names it. (Claude Code: `disable-model-invocation: true`. Codex and ChatGPT: `allow_implicit_invocation: false` in `agents/openai.yaml`.)
+- **Automatically or by name only.** A skill that sends, publishes, deploys or creates records in another system runs only when the user names it. The platform's `skill_invocation` entry says which setting does this.
 - **Tool access:** grant the narrowest set the job needs.
-- **Model and effort:** check the platform's `skill_settings`. Where a skill can choose its own (Claude Code), recommend a model and effort level with a reason; read `references/model-and-effort.md`. Where it can't (Claude, ChatGPT, Codex, Copilot Cowork, Gemini Enterprise), don't add those fields; say the model chosen for the conversation applies.
+- **Model and effort:** check the platform's `skill_settings`. Where a skill can choose its own (Claude Code), recommend a model and effort level with a reason; read `references/model-and-effort.md`. Where it can't, don't add those fields; say the model chosen for the conversation applies.
 
 ### Before you trust it
 
