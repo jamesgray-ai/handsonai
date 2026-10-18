@@ -73,7 +73,7 @@ Save them in the skill folder: `evals/evals.json` on Claude Code (the format Ant
 
 ## Record where it lives
 
-Every skill has one home: the place you edit it (a folder, a GitHub repo, or a platform account). Finishing a skill includes recording it in the user's AI Registry, with where that home is, and the workflow it serves. If the registry can't yet record a skill that lives outside the workspace (an account-only skill, say), note it as not yet catalogued rather than skipping it.
+Every skill has one home: the place you edit it (a folder, a GitHub repo, or a platform account). Finishing a skill includes recording it in the user's AI Registry, with where that home is, and the workflow it serves. If the registry can't yet record a skill that lives outside the workspace (an account-only skill, say), note it as not yet cataloged rather than skipping it.
 
 ## Working with the platform's skill creator
 

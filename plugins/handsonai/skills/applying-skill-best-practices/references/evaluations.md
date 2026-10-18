@@ -34,7 +34,7 @@ Give Anthropic's skill-creator the user's real examples in the conversation, ide
 
 ## Running the tests: Claude
 
-The same handoff works: give skill-creator the examples first. In Claude it runs the test prompts itself in the conversation and shows the results there. There is no with-and-without comparison and no description tuning, so treat it as a sanity check, not a measurement.
+The same handoff works: give skill-creator the examples first. In a Claude task (the desktop app), it can run the tests with and without the skill and grade them, as on Claude Code. In an ordinary Claude chat, it runs the test prompts itself in the conversation with no with-and-without comparison and no description tuning, so treat that as a sanity check and use the by-hand steps below for the comparison.
 
 ## Running the tests: other platforms
 
@@ -64,8 +64,10 @@ Result WITH the skill:
 [paste]
 
 For each check, give Met or Not met for each result, with a short quote or
-specific reference as evidence. Then fill in the test report using this format:
-[paste the report template from report-template.md]
+specific reference as evidence. Then write a test report with: the skill name
+and round; the number of checks met with the skill and without it; a table with
+one row per check (check, without the skill, with the skill, evidence); and a
+"Fix next" list with one line for every check not met with the skill.
 ```
 
 ## What to do with the results
