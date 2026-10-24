@@ -230,22 +230,12 @@ These sections sit outside the three layers:
 
 ## How the Skill Works
 
-The three layers above are the conceptual structure of the Design Spec. In practice, the skill walks them across fourteen phases, in this chronological order:
+Design works in four parts, and asks you only what only you can decide:
 
-1. **Load** — Read the Workflow Requirements file from `framework/<workflow-name>/`.
-2. **Confirm understanding** — Summarize the workflow and ask you to confirm.
-3. **Architecture decisions** — Layer 1: confirm platform (the one question), then extract tool integrations, trigger/schedule, and constraints from the Workflow Requirements and present a confirmation block.
-4. **Autonomy** — Assess where the whole workflow sits on the autonomy spectrum (Deterministic, Guided, Autonomous).
-5. **Mechanism** — Recommend a mechanism (Skill or Agent) with an involvement mode (Augmented or Automated).
-6. **Safety & permissions** — What the workflow may touch, what it may never do, and whether a write action is possible at all on your platform.
-7. **Layer 1 confirmation** — The whole architecture played back in plain English, with every term explained as it is confirmed.
-8. **Classify each step** — Layer 2: per-step autonomy level, AI building blocks, tools, human review gates.
-9. **Skill discovery** — Look for skills you already have before assuming anything must be built.
-10. **Skill candidates** — Steps tagged for skill creation with generation-ready detail.
-11. **Agent configuration** — Layer 3: when applicable, generate a platform-agnostic agent blueprint.
-12. **Verify evaluation inputs** — Confirm the acceptance criteria and example scenarios Test will grade against are complete.
-13. **Write the draft spec** — Write the complete design document as a draft.
-14. **Approve** — the draft spec is written to a file you read; say approve and it is marked approved. Build refuses anything else.
+1. **Where it runs** — Design confirms the platform the workflow will run on and where your files are.
+2. **The plan** — Design drafts the whole plan from your requirements on its own: how much the AI decides at each step, which parts are skills or agents, what it connects to, and how each part will be checked.
+3. **A few questions for you** — Only the questions Design couldn't settle itself, safety first, one at a time.
+4. **Review and approve** — You read the plan in plain language and approve it. Build follows it task by task.
 
 ## How to Use This
 
