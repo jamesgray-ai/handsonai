@@ -1,0 +1,1 @@
+"Continue my workflow" with nothing at all: no workflow folders, no backlog, no Analyze progress file (a registry with no Workflow nodes; with no registry, an empty workspace): "nothing to continue yet" and Analyze's start phrase.

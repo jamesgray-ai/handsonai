@@ -1,0 +1,1 @@
+Three Not ready rounds: rounds 1 and 2 (in `history/`) and round 3 (`test-results.md`) are all `not-ready` with an Issues row at Level `build` on T2; Build's request B1 is already logged in the plan as declined; Build last closed after round 2. State 6 (fix mode), with no second request.

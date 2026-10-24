@@ -1,0 +1,1 @@
+"Continue my workflow" with a retired workflow that has a folder (Client Follow-Up) beside one in progress (Weekly Pipeline Summary at state 6): the retired one is left out and Weekly Pipeline Summary is picked (Build). With no registry Client Follow-Up reads as live (11, not in progress), so the same pick.

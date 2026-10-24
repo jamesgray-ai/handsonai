@@ -1,0 +1,1 @@
+A Build that saved every task but never closed: every row is built and `Saved: yes` at its current rev, but the record has no `plan_revision` or `last_close_after_round`, so routing gives state 6 and Build finishes its close.

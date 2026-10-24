@@ -55,11 +55,13 @@ examples/weekly-status-report/registry-dashboard.html
 examples/weekly-status-report/**/.DS_Store
 examples/weekly-status-report/**/*.zip
 
-# Frozen 9.1.0 copy of the worked example used by the upgrade evals (and other eval
-# fixtures) -- un-ignored the same way, so its outputs/ tree is committed.
-!deconstruct-workspace/evals/fixtures/**
+# The framework's shared state fixtures are whole workspaces -- un-ignored the same
+# way, so nothing inside one is swallowed by the unanchored outputs/ or specs/ rules.
+!framework-fixtures/**
+framework-fixtures/**/.DS_Store
 # Replays of real calls stay local only, never committed.
 deconstruct-workspace/evals/fixtures/interview/post-call-*/
+framework-fixtures/**/post-call-*/
 deconstruct-workspace/evals/fixtures/**/.DS_Store
 
 # on-demand docx install by the multi-agent-example renderer

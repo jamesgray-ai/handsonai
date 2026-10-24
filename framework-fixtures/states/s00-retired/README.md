@@ -1,0 +1,1 @@
+State 0 (retired): the node is `retired` and the workflow keeps its full folder (requirements, plan, closed build record with "Live since", Ready round gone live); with no registry nothing records retiring, so the same folder reads as live (state 11).

@@ -1,0 +1,1 @@
+"Continue my workflow" with a live workflow partway through a change (Client Follow-Up: C1 handled, T2 at rev 2 above its built rev 1, state 6) beside a live one with nothing pending (Weekly Pipeline Summary, state 11): the changing one is the only one in progress and is picked (Build).

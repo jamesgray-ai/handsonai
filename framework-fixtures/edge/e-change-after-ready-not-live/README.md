@@ -1,0 +1,1 @@
+A change after a Ready round that isn't live yet: round 1 was Ready (`go_live: pending`) at plan revision 1; "change my workflow" raised T2 to rev 2 (C1, handled) and Build rebuilt and closed at revision 2 after round 1: state 8 (Test), not 10 or 11.
