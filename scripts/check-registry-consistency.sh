@@ -85,6 +85,26 @@ else
   bad "dashboard-template.html — one of the two files is missing"
 fi
 
+# The framework's two scripts ship in the plugin beside the registry tools (rules 4.1).
+# check-plugin-sync.sh compares whole trees against the clones, so it can't keep these
+# pairs identical; this does.
+STATE_CANON=registry-template/tools/framework-state.js
+STATE_COPY=plugins/handsonai/tools/framework-state.js
+REQCHECK_CANON=registry-template/tools/requirements-check.js
+REQCHECK_COPY=plugins/handsonai/tools/requirements-check.js
+
+for pair in "$STATE_CANON:$STATE_COPY" "$REQCHECK_CANON:$REQCHECK_COPY"; do
+  canon="${pair%%:*}"
+  copy="${pair#*:}"
+  name="$(basename "$canon")"
+  if [ -f "$canon" ] && [ -f "$copy" ]; then
+    cmp -s "$canon" "$copy" && ok "$name byte-identical across registry-template/tools/ and the plugin copy" \
+      || bad "$name has diverged between registry-template/tools/ and plugins/handsonai/tools/ — copy one over the other"
+  else
+    bad "$name — one of the two files is missing ($canon, $copy)"
+  fi
+done
+
 # ---------------------------------------------------------------------------
 echo
 echo "-- 2. string agreement: enum vocabulary and frontmatter keys --"
