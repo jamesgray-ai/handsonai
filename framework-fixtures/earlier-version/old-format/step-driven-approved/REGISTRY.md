@@ -4,11 +4,11 @@
 
 ### Program Delivery
 
-| Workflow | Status | Mode | Autonomy | Review by |
-|---|---|---|---|---|
-| [Weekly Status Report](registry/workflows/weekly-status-report.md) · step 3/7 done | under-development | augmented | deterministic | 2026-08-14 |
+| Workflow | Status | Progress | How it decides | How it runs | Re-check by |
+|---|---|---|---|---|---|
+| [Weekly Status Report](registry/workflows/weekly-status-report.md) | under-development | Earlier version | Deterministic: follows your instructions | Runs with you | 2026-08-14 |
 
-## Review dates
+## Re-check dates
 
 - 2026-08-14 — [Weekly Status Report](registry/workflows/weekly-status-report.md)
 

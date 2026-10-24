@@ -1,6 +1,7 @@
 {
   "name": "ai-registry-tools",
+  "version": "10.0.0",
   "private": true,
   "type": "commonjs",
-  "description": "Zero-dependency lint/compose tooling for the AI Registry bundle. See registry/SCHEMA.md."
+  "description": "Zero-dependency lint/compose tooling for the AI Registry bundle. See registry/SCHEMA.md. Keep \"version\" equal to TOOLS_VERSION in registry-lib.js."
 }

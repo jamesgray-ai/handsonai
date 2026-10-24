@@ -88,7 +88,7 @@
       "staleAfter": "2026-01-01",
       "processId": "client-onboarding",
       "lobId": "design-services",
-      "step": 7,
+      "state": "Earlier version",
       "skills": [
         ".claude/skills/some-skill/SKILL.md"
       ],
@@ -106,7 +106,7 @@
       "trigger": "manual",
       "processId": "client-onboarding",
       "lobId": "design-services",
-      "step": 1,
+      "state": "Requirements needed",
       "skills": [],
       "agents": [],
       "nodePath": "registry/workflows/second-workflow.md"
@@ -122,7 +122,7 @@
       "trigger": "manual",
       "processId": "brand-development",
       "lobId": "product-studio",
-      "step": 1,
+      "state": "Not a framework workflow, or retired",
       "skills": [],
       "agents": [],
       "nodePath": "registry/workflows/third-workflow.md"

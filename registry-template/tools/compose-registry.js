@@ -23,6 +23,9 @@ const fs = require('fs');
 const path = require('path');
 const lib = require('./registry-lib');
 const { lint } = require('./lint-registry');
+// The routing rule, shipped beside these tools: one implementation, so the
+// dashboard and the five step skills always agree on where a workflow is.
+const { workflowState } = require('./framework-state');
 
 // Plural directory -> display title for the plain (non-curated) directory
 // index.md bullet lists compose regenerates. Every bundle directory except
@@ -42,17 +45,14 @@ const DIR_TITLES = {
 // diff -- a student's first Action run should not rewrite untouched files.
 const EMPTY_INDEX_BODY = '_No entries yet — your AI assistant fills this index as nodes are added._';
 
-// Artifact link titles (from a Workflow's `# Artifacts` section) that count
-// toward the "· step N/7 done" badge, keyed to the canonical framework-progress
-// table in plugins/handsonai/skills/indexing-registry/references/registry-bundle.md
-// section 4: Requirements->2 (Deconstruct), Design spec->3 (Design), platform
-// artifacts (any `# Skills`/`# Agents` link)->4 (Build), Test results->5 (Test),
-// Run guide->6 (Run), Improvement plan->7 (Improve). Step 1 (Analyze) has no
-// persisted artifact in that table -- the Workflow node's own existence (once
-// `naming-workflows` has stubbed it) is step 1, so the badge starts at 1 and
-// adds one per artifact class found, never re-deriving from stale event-fact
-// fields (those are banned from nodes -- see registry-lib.js BANNED_FIELDS).
-const STEP_ARTIFACT_TITLES = ['requirements', 'design spec', 'test results', 'run guide', 'improvement plan'];
+// Leader-facing labels (indexing-registry's registry-bundle.md section 5): no
+// raw autonomy or execution_mode value, and never a step number.
+const HOW_IT_DECIDES = {
+  deterministic: 'Deterministic: follows your instructions',
+  guided: 'Guided: makes bounded decisions with your method',
+  autonomous: 'Autonomous: works toward a goal you set',
+};
+const HOW_IT_RUNS = { manual: 'Runs with you', augmented: 'Runs with you', automated: 'Runs without you' };
 
 function dash(v) { return v || '—'; }
 // A markdown table cell: a `|` inside the value would split the cell.
@@ -160,17 +160,20 @@ function scanSkillsAndAgents(workspaceRoot) {
   return { skills, agents };
 }
 
-// Framework-progress badge -- see STEP_ARTIFACT_TITLES comment above.
-function frameworkStep(w) {
-  const artifactTitles = new Set(
-    lib.orderedLinks(w.sections['Artifacts'] || '').map((l) => l.title.trim().toLowerCase())
-  );
-  const hasPlatformArtifacts =
-    lib.orderedLinks(w.sections['Skills'] || '').length + lib.orderedLinks(w.sections['Agents'] || '').length > 0;
-  let n = 1; // the node existing at all is step 1 (naming-workflows) done
-  for (const label of STEP_ARTIFACT_TITLES) if (artifactTitles.has(label)) n++;
-  if (hasPlatformArtifacts) n++;
-  return n;
+// Progress: the routing state's NAME, read from the workflow's folder by the
+// framework-state script -- never from which links a node has, never a number.
+// The folder is <framework folder>/<slug>/ (framework/<slug>/ in a workspace,
+// <slug>/ beside registry/ on the web and Claude desktop). Anything the script
+// can't read or settle -> undefined, and the views leave progress blank rather
+// than guess. Deterministic: framework-state reads files only.
+function workflowProgress(w, frameworkDir, absBundle) {
+  if (!frameworkDir) return undefined;
+  try {
+    const r = workflowState(path.join(frameworkDir, lib.slugOf(w.relPath)), { registryDir: absBundle });
+    return r && typeof r.name === 'string' ? r.name : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 // --- Compose (build everything in memory; caller decides what to do with it) ---
@@ -198,6 +201,12 @@ function compose(bundleDir) {
   const membersOfProcess = (p) => lib.orderedLinks(p.sections['Workflows'] || '').map((l) => byPath.get(l.href)).filter(Boolean);
 
   const { skills, agents } = scanSkillsAndAgents(workspaceRoot);
+
+  // No framework folder yet (a fresh workspace): every workflow has no folder,
+  // which the routing rule reads the same from the workspace.
+  const fwDir = lib.frameworkFolder(workspaceRoot).dir;
+  const frameworkDir = fwDir && fs.existsSync(fwDir) ? fwDir : (fwDir ? workspaceRoot : null);
+  const progress = new Map(workflowsAll.map((w) => [w.relPath, workflowProgress(w, frameworkDir, absBundle)]));
 
   // Workflow -> Skill/Agent is the Workflow node's `# Skills` / `# Agents`
   // body links (SCHEMA.md "Relationships"); usedBy is the reverse view.
@@ -272,8 +281,8 @@ function compose(bundleDir) {
 
   // --- REGISTRY.md dashboard --------------------------------------------
   const registryLink = (n) => `[${nodeTitle(n)}](registry${n.relPath})`;
-  const wfHeader = ['| Workflow | Status | Mode | Autonomy | Review by |', '|---|---|---|---|---|'];
-  const wfRow = (w) => `| ${registryLink(w)} · step ${frameworkStep(w)}/7 done | ${dash(w.fm.status)} | ${dash(w.fm.execution_mode)} | ${dash(w.fm.autonomy)} | ${dash(w.fm.stale_after)} |`;
+  const wfHeader = ['| Workflow | Status | Progress | How it decides | How it runs | Re-check by |', '|---|---|---|---|---|---|'];
+  const wfRow = (w) => `| ${registryLink(w)} | ${dash(w.fm.status)} | ${cell(progress.get(w.relPath))} | ${cell(HOW_IT_DECIDES[w.fm.autonomy])} | ${cell(HOW_IT_RUNS[w.fm.execution_mode])} | ${dash(w.fm.stale_after)} |`;
 
   const L = [];
   L.push(business ? (business.fm.url ? `# [${business.fm.title}](${business.fm.url})` : `# ${business.fm.title}`) : '# AI Registry');
@@ -306,15 +315,16 @@ function compose(bundleDir) {
     L.push('');
   }
 
-  // Review dates -- deterministic ascending stale_after; no overdue computation.
+  // Re-check dates -- deterministic ascending stale_after; no "due" computation
+  // (today never enters composed output; lint warns when a re-check is due).
   const reviews = workflowsAll
     .filter((w) => w.fm && w.fm.stale_after)
     .slice()
     .sort((a, b) => (a.fm.stale_after < b.fm.stale_after ? -1 : a.fm.stale_after > b.fm.stale_after ? 1 : cmpPath(a, b)));
-  L.push('## Review dates');
+  L.push('## Re-check dates');
   L.push('');
   if (reviews.length) for (const w of reviews) L.push(`- ${w.fm.stale_after} — ${registryLink(w)}`);
-  else L.push('_No review dates set._');
+  else L.push('_No re-check dates set._');
   L.push('');
 
   const inventoryTable = (title, singular, items) => {
@@ -410,7 +420,7 @@ function compose(bundleDir) {
       staleAfter: w.fm.stale_after,
       processId: pr ? lib.slugOf(pr.relPath) : null,
       lobId: lob ? lib.slugOf(lob.relPath) : null,
-      step: frameworkStep(w),
+      state: progress.get(w.relPath),
       skills: lib.orderedLinks(w.sections['Skills'] || '').map((l) => l.href),
       agents: lib.orderedLinks(w.sections['Agents'] || '').map((l) => l.href),
       nodePath: p,

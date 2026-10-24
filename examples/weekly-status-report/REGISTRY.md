@@ -4,14 +4,14 @@
 
 ### Program Delivery
 
-| Workflow | Status | Mode | Autonomy | Review by |
-|---|---|---|---|---|
-| [Weekly Status Report](registry/workflows/weekly-status-report.md) · step 7/7 done | in-production | augmented | deterministic | 2026-08-14 |
-| [Stakeholder Meeting Prep](registry/workflows/stakeholder-meeting-prep.md) · step 1/7 done | backlog | — | — | — |
-| [Program Risk Register](registry/workflows/program-risk-register.md) · step 1/7 done | backlog | — | — | — |
-| [Onboarding Checklist Drafting](registry/workflows/onboarding-checklist-drafting.md) · step 1/7 done | backlog | — | — | — |
+| Workflow | Status | Progress | How it decides | How it runs | Re-check by |
+|---|---|---|---|---|---|
+| [Weekly Status Report](registry/workflows/weekly-status-report.md) | in-production | Earlier version | Deterministic: follows your instructions | Runs with you | 2026-08-14 |
+| [Stakeholder Meeting Prep](registry/workflows/stakeholder-meeting-prep.md) | backlog | Requirements needed | — | — | — |
+| [Program Risk Register](registry/workflows/program-risk-register.md) | backlog | Requirements needed | — | — | — |
+| [Onboarding Checklist Drafting](registry/workflows/onboarding-checklist-drafting.md) | backlog | Requirements needed | — | — | — |
 
-## Review dates
+## Re-check dates
 
 - 2026-08-14 — [Weekly Status Report](registry/workflows/weekly-status-report.md)
 

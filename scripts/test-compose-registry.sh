@@ -321,7 +321,7 @@ const island = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));
 island.workflows = island.workflows.concat([{
   id: "orphan-workflow-test", title: "Orphan Workflow Test",
   description: "No process assigned.", status: "backlog",
-  processId: null, lobId: null, step: 1, skills: [], agents: [],
+  processId: null, lobId: null, state: "Requirements needed", skills: [], agents: [],
   nodePath: "registry/workflows/orphan-workflow-test.md",
 }]);
 fs.writeFileSync(process.argv[2], JSON.stringify(island));
@@ -424,23 +424,14 @@ grep -qF 'Client Onboarding $&' "$WS/registry/functions/operations.md" && ok "Ow
 # lint: a freshly scaffolded bundle with zero workflows (post-v8 scaffold) lints clean
 run_lint empty-workflows-bundle && ok "empty-workflows bundle lints clean (exit 0)" || bad "empty-workflows bundle should lint clean"
 
-# framework/ folder (9.0): record lives in framework/<slug>/, outputs/ is workflow output only
-run_lint legacy-outputs-workspace && ok "legacy outputs workspace is warning-only (exit 0)" || bad "legacy outputs workspace must not error"
+# No outputs/ layout any more (rules 11.1): lint never reads, warns about or moves an old
+# outputs/<slug>/ record; outputs/ is only ever a workflow's own output.
+run_lint legacy-outputs-workspace && ok "old outputs/ record: lint exits 0" || bad "old outputs/ record must not error"
 out=$(lint_output legacy-outputs-workspace)
-grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it to framework/first-workflow/" <<<"$out" \
-  && ok "legacy record in outputs/ warned" || bad "expected legacy-record WARN, got: $(grep WARN <<<"$out")"
+grep -qE "pre-9\.0|outputs/first-workflow/:" <<<"$out" && bad "lint still warns about an outputs/ record: $(grep WARN <<<"$out")" || ok "no outputs/ record warning is ever emitted"
 
 out=$(lint_output valid-bundle)
-grep -q "pre-9.0 framework record" <<<"$out" && bad "valid-bundle should not warn about legacy records" || ok "output-only outputs folder is silent (no legacy warning)"
 grep -q "folder not claimed" <<<"$out" && bad "valid-bundle: unexpected unclaimed-folder warning" || ok "output-only outputs folder is silent (no unclaimed warning)"
-
-WS=$(stage legacy-outputs-workspace)
-sed -i '' 's/^status: in-production$/status: building/' "$WS/registry/workflows/first-workflow.md"
-if run_lint_at "$WS" >/dev/null 2>&1; then bad "legacy runlog contradiction still errors: lint exited 0"; else
-  out=$(run_lint_at "$WS" 2>&1)
-  grep -q "ERROR.*contradicts run log evidence (outputs/first-workflow/runs.md" <<<"$out" \
-    && ok "legacy runlog contradiction still errors" || bad "legacy runlog contradiction: wrong error text"
-fi
 
 # first-workflow -> client-onboarding -> design-services. Give that LOB a folder: so the check runs.
 # Lint warns at most once per workflow (it breaks after the first outside link), so a framework/
@@ -455,10 +446,13 @@ WS=$(stage valid-bundle); mkdir -p "$WS/framework/orphan-workflow"; : > "$WS/fra
 run_lint_at "$WS" 2>&1 | grep -q "WARN.*framework/orphan-workflow/: framework folder not claimed by any Workflow node" \
   && ok "unclaimed framework folder warned" || bad "expected unclaimed framework folder WARN"
 
-# staged agents: framework/<slug>/agents/*.md count as capabilities (staged skills already do)
-WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/agents"; printf -- '---\nname: staged-agent\ndescription: x\n---\n' > "$WS/framework/first-workflow/agents/staged-agent.md"
-run_lint_at "$WS" 2>&1 | grep -q "orphan.*framework/first-workflow/agents/staged-agent.md" \
-  && ok "staged agent under framework/ counted as a capability" || bad "expected staged agent framework/first-workflow/agents/staged-agent.md in orphan warning"
+# staged agents: framework/<slug>/package/agents/*.md count as capabilities (staged skills already do)
+WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/package/agents"; printf -- '---\nname: staged-agent\ndescription: x\n---\n' > "$WS/framework/first-workflow/package/agents/staged-agent.md"
+run_lint_at "$WS" 2>&1 | grep -q "orphan.*framework/first-workflow/package/agents/staged-agent.md" \
+  && ok "staged agent in a workflow's package/ counted as a capability" || bad "expected staged agent framework/first-workflow/package/agents/staged-agent.md in orphan warning"
+# kept copies in history/ are never live capabilities
+WS=$(stage valid-bundle); mkdir -p "$WS/framework/first-workflow/history/kept-copy-2026-10-01-0900/skills/kept-skill"; printf -- '---\nname: kept-skill\ndescription: x\n---\n' > "$WS/framework/first-workflow/history/kept-copy-2026-10-01-0900/skills/kept-skill/SKILL.md"
+run_lint_at "$WS" 2>&1 | grep -q "kept-skill" && bad "a kept copy in history/ counted as a capability" || ok "skills in history/ are not capabilities"
 
 # capability descriptions: SKILL.md and agent files are not registry nodes and commonly write
 # `description: >` (folded), `|` (literal) or a plain value continued on indented lines -- the
@@ -503,23 +497,18 @@ WS=$(stage valid-bundle); chmod 000 "$WS/.claude/skills/orphan-skill/SKILL.md"; 
 out=$(cd "$WS" && node "$TOOLS/compose-registry.js" registry 2>&1 || true); chmod 644 "$WS/.claude/skills/orphan-skill/SKILL.md"
 ! grep -qE '^[[:space:]]+at |EACCES|ENOENT' <<<"$out" && ok "compose skips unreadable or dangling skill/agent files" || bad "compose crashed on an unreadable skill/agent file: $(grep -E 'Error' <<<"$out" | head -1)"
 
-# legacy record: a recreated outputs/<slug>/ holding only a run log (no requirements/design spec)
-# is still a framework record -- a workflow's own output is never named runs.md.
+# an outputs/<slug>/ holding a run log or test-runs/ is a workflow's own output: no warning
 WS=$(stage valid-bundle)
 printf '| Date | Result |\n|---|---|\n| 2026-10-01 | ok |\n' > "$WS/outputs/first-workflow/runs.md"
-run_lint_at "$WS" 2>&1 | grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it to framework/first-workflow/" \
-  && ok "outputs/<slug>/ holding only runs.md is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/runs.md"
-WS=$(stage valid-bundle)
 mkdir -p "$WS/outputs/first-workflow/test-runs"; : > "$WS/outputs/first-workflow/test-runs/round-1.md"
-run_lint_at "$WS" 2>&1 | grep -q "WARN.*outputs/first-workflow/: pre-9.0 framework record -- move it" \
-  && ok "outputs/<slug>/ holding only test-runs/ is warned as a legacy record" || bad "expected legacy-record WARN for outputs/first-workflow/test-runs/"
+run_lint_at "$WS" 2>&1 | grep -q "outputs/first-workflow/:" && bad "outputs/<slug>/ warned as a record" || ok "outputs/<slug>/ with runs.md or test-runs/ is never warned"
 
 # a missing framework/ link is strict: framework/ is never gitignored, so lint errors
-WS=$(stage valid-bundle); rm "$WS/framework/first-workflow/run-guide.md"
+WS=$(stage valid-bundle); rm "$WS/framework/first-workflow/test-results.md"
 if run_lint_at "$WS" >/dev/null 2>&1; then bad "missing framework/ link: lint should exit 1"; else
   out=$(run_lint_at "$WS" 2>&1)  # variable capture: lint exits 1 here, so never pipe it under pipefail
-  grep -q "ERROR.*repo link framework/first-workflow/run-guide.md -- file not found" <<<"$out" \
-    && ok "missing framework/ link is a lint ERROR naming the file" || bad "missing framework/ link: no ERROR naming run-guide.md"
+  grep -q "ERROR.*repo link framework/first-workflow/test-results.md -- file not found" <<<"$out" \
+    && ok "missing framework/ link is a lint ERROR naming the file" || bad "missing framework/ link: no ERROR naming test-results.md"
 fi
 
 # robustness: odd entries where lint expects folders never crash it with a JS stack trace
@@ -547,13 +536,91 @@ WS=$(stage valid-bundle); printf 'x\n' > "$WS/sops/locked.md"; chmod 000 "$WS/so
 out=$(run_lint_at "$WS" 2>&1 || true); chmod 644 "$WS/sops/locked.md"
 no_trace "$out" && ok "unreadable file in sops/: lint skips it, no stack trace" || bad "unreadable file in sops/ crashed lint: $(grep -E 'Error' <<<"$out" | head -1)"
 
+# --- this release's views and rules (rules 6.10, 6.11) -------------------------
+# views: no step number, no "Review by", no raw autonomy/execution_mode labels
+compose_at valid-bundle >/dev/null 2>&1
+grep -qE "step [0-9]+/|Review by|Review dates|\| Mode \||\| Autonomy \|" "$WS/REGISTRY.md" && bad "REGISTRY.md carries a step number or an old label" || ok "REGISTRY.md: no step number, no Review by, no Mode/Autonomy columns"
+grep -q "| Progress | How it decides | How it runs | Re-check by |" "$WS/REGISTRY.md" && ok "REGISTRY.md: Progress, How it decides, How it runs, Re-check by" || bad "REGISTRY.md: missing the plain-label columns"
+grep -q "## Re-check dates" "$WS/REGISTRY.md" && ok "REGISTRY.md: Re-check dates section" || bad "REGISTRY.md: no Re-check dates section"
+grep -q "Runs with you" "$WS/REGISTRY.md" && grep -q "Guided: makes bounded decisions with your method" "$WS/REGISTRY.md" && ok "REGISTRY.md: plain labels for execution mode and autonomy" || bad "REGISTRY.md: plain labels missing"
+for D in "$TOOLS/dashboard-template.html" "$REPO_ROOT/plugins/handsonai/skills/indexing-registry/references/dashboard-template.html"; do
+  grep -qE "Review by|'Autonomy'|'Execution mode'|'Definition type'|wf\.step|a\.step|⚠ overdue" "$D" && bad "$(basename "$(dirname "$D")")/dashboard-template.html carries an old label or step" || ok "$(basename "$(dirname "$D")")/dashboard-template.html: no step, no Review by, no raw labels"
+done
+grep -q '"step"' "$TOOLS/data-island.schema.json" && bad "data-island schema still has step" || ok "data-island schema has state, no step"
+cmp -s "$TOOLS/dashboard-template.html" "$REPO_ROOT/plugins/handsonai/skills/indexing-registry/references/dashboard-template.html" && cmp -s "$TOOLS/data-island.schema.json" "$REPO_ROOT/plugins/handsonai/skills/indexing-registry/references/data-island.schema.json" \
+  && ok "dashboard template and island schema byte-identical to the skill copies" || bad "dashboard template or island schema differs from the skill copy"
+
+# state name per routing: compose reads each workflow's folder through framework-state
+FF="$REPO_ROOT/framework-fixtures/states"
+for pair in "s04-plan-needed:Plan needed" "s06-build-needed:Build needed" "s08-test-needed:Test needed" "s11-live:Live" "s00-running-work:Not a framework workflow, or retired"; do
+  fx="${pair%%:*}"; name="${pair#*:}"
+  SW=$(mktemp -d); cp -R "$FF/$fx/with-registry/." "$SW/"; (cd "$SW" && git init -q . )
+  (cd "$SW" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null) > "$SW/island.json"
+  node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process.exit(d.workflows.some(w=>w.state===process.argv[2])?0:1)" "$SW/island.json" "$name" \
+    && ok "state name from the folder: $fx -> $name" || bad "state name: $fx expected '$name', got $(node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));console.log(d.workflows.map(w=>w.id+'='+w.state).join(', '))" "$SW/island.json" 2>&1)"
+  rm -rf "$SW"
+done
+
+# generated.at: a UTC instant; a bare date on an older node; anything else errors
+WS=$(stage valid-bundle)
+sed -i '' 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:fixture, at: 2026-08-01T09:30:00Z }/' "$WS/registry/workflows/second-workflow.md"
+run_lint_at "$WS" >/dev/null 2>&1 && ok "generated.at as a UTC instant lints clean" || bad "generated.at instant should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
+sed -i '' 's/at: 2026-08-01T09:30:00Z }/at: 2026-08-01 09:30 }/' "$WS/registry/workflows/second-workflow.md"
+if run_lint_at "$WS" >/dev/null 2>&1; then bad "malformed generated.at should error"; else ok "malformed generated.at errors"; fi
+
+# legacy labels: tolerated on an older node (bare-date stamp), an error on a node that writes them
+run_lint valid-bundle && ok "older node with Design spec / Run guide / Improvement plan lints clean" || bad "legacy labels on an older node must lint clean"
+WS=$(stage valid-bundle)
+sed -i '' 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:test, at: 2026-10-24T12:00:00Z }/' "$WS/registry/workflows/first-workflow.md"
+if run_lint_at "$WS" >/dev/null 2>&1; then bad "a current node writing legacy labels should error"; else
+  out=$(run_lint_at "$WS" 2>&1)
+  grep -q 'ERROR.*legacy artifact label(s) "Design spec", "Run guide", "Improvement plan" written on a current node' <<<"$out" \
+    && ok "a current node writing legacy labels errors, naming them" || bad "legacy-label error text: $(grep ERROR <<<"$out")"
+fi
+
+# run log: external or absent "Run log" link is tolerated; a readable one is checked
+WS=$(stage broken/runlog-status-contradiction)
+sed -i '' 's|- \[Run log\](runs.md)|- [Run log](https://example.com/runs)|' "$WS/registry/workflows/first-workflow.md"
+run_lint_at "$WS" >/dev/null 2>&1 && ok "external Run log link tolerated" || bad "external Run log link should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
+WS=$(stage broken/runlog-status-contradiction)
+sed -i '' '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
+run_lint_at "$WS" >/dev/null 2>&1 && ok "absent Run log link tolerated (runs.md beside it is not read)" || bad "absent Run log link should lint clean"
+out=$(lint_output broken/runlog-status-contradiction)
+grep -q 'ERROR.*contradicts run log evidence (runs.md has entries)' <<<"$out" && ok "run log in the workflow's place, linked, contradicting status errors" || bad "run log contradiction text: $out"
+
+# web-shaped bundle: Framework/ holds registry/ beside <slug>/ folders; links are <slug>/...
+WEB=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$WEB/"
+mv "$WEB/framework/first-workflow" "$WEB/first-workflow"; rmdir "$WEB/framework"
+sed -i '' 's|(framework/first-workflow/|(first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
+(cd "$WEB" && git init -q . && git add -A >/dev/null 2>&1)
+run_lint_at "$WEB" >/dev/null 2>&1 && ok "web-shaped bundle: <slug>/ links resolve from the registry's parent" || bad "web-shaped bundle should lint clean: $(run_lint_at "$WEB" 2>&1 | grep ERROR)"
+mkdir -p "$WEB/orphan-flow"; : > "$WEB/orphan-flow/requirements.md"; mkdir -p "$WEB/history"; : > "$WEB/history/requirements.md"
+out=$(run_lint_at "$WEB" 2>&1 || true)
+grep -q "WARN.*orphan-flow/: framework folder not claimed" <<<"$out" && ok "web-shaped bundle: unclaimed sibling workflow folder warned" || bad "web-shaped: expected unclaimed warning for orphan-flow/"
+grep -qE "WARN.*(history|sops)/: framework folder not claimed" <<<"$out" && bad "web-shaped: history/ or sops/ taken for a workflow folder" || ok "web-shaped: history/ and sops/ are never workflow folders"
+(cd "$WEB" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null) > "$WEB/island.json"
+node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process.exit(d.workflows.find(w=>w.id==='first-workflow').state==='Earlier version'?0:1)" "$WEB/island.json" \
+  && ok "web-shaped bundle: compose reads <slug>/ beside registry/ for the state" || bad "web-shaped bundle: state not read from <slug>/"
+rm -rf "$WEB"
+
+# TOOLS_VERSION: raised, equal to package.json's version, and the plugin ships the same tools
+node -e "
+const lib=require(process.argv[1]); const pkg=require(process.argv[2]);
+process.exit(lib.TOOLS_VERSION && lib.TOOLS_VERSION===pkg.version && pkg.type==='commonjs' ? 0 : 1)" "$TOOLS/registry-lib.js" "$TOOLS/package.json" \
+  && ok "TOOLS_VERSION matches tools/package.json's version (commonjs)" || bad "TOOLS_VERSION and package.json disagree"
+for f in compose-registry.js lint-registry.js registry-lib.js package.json framework-state.js requirements-check.js; do
+  cmp -s "$TOOLS/$f" "$REPO_ROOT/plugins/handsonai/tools/$f" && ok "plugin tools/$f identical to registry-template" || bad "plugin tools/$f differs from registry-template/tools/$f"
+done
+(cd "$REPO_ROOT" && node plugins/handsonai/tools/framework-state.js --help >/dev/null 2>&1; [ $? -ne 127 ] && node -e "require('./plugins/handsonai/tools/compose-registry.js')") >/dev/null 2>&1 \
+  && ok "plugin tools load from the repo root (commonjs)" || bad "plugin tools fail to load from the repo root"
+
 # worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
 EX="$REPO_ROOT/examples/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"
 grep -q "ERROR" <<<"$ex_out" && bad "worked example has lint errors" || ok "worked example has no lint errors"
 ex_warns=$(grep -c "^WARN" <<<"$ex_out" || true)
-grep -q "WARN.*stale_after 2026-08-14 is past -- review due" <<<"$ex_out" && [ "$ex_warns" -eq 1 ] \
-  && ok "worked example: exactly the expected review-due warning" || bad "worked example: expected exactly one warning (review due), got $ex_warns: $(grep '^WARN' <<<"$ex_out")"
+grep -q "WARN.*stale_after 2026-08-14 is past -- re-check due" <<<"$ex_out" && [ "$ex_warns" -eq 1 ] \
+  && ok "worked example: exactly the expected re-check-due warning" || bad "worked example: expected exactly one warning (re-check due), got $ex_warns: $(grep '^WARN' <<<"$ex_out")"
 (cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks all current)" \
   || bad "worked example has stale derived views: $(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry 2>&1 | grep STALE | tr '\n' ' ')"
 [ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/framework | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example framework/ is tracked by git" || bad "worked example framework/ is not tracked (gitignore?)"

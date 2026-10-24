@@ -1,11 +1,11 @@
 # Scaffolding Interview Guide
 
-Six phases (0–5), about 25 minutes total. Run them in order. Each phase has a timebox —
-treat it as a budget, not a target to fill.
+Six phases (0–5), run in order. Keep each phase brief: sources shorten
+them, and the student never hears how long anything takes.
 
-**Pacing rule:** If a phase overruns its box, write what the student has
-confirmed, mark the gap in the close-out summary, and move on — missing
-nodes are homework; unconfirmed or fictional nodes are never a fallback.
+**Pacing rule:** If a phase stalls, write what the student has confirmed,
+mark the gap in the close-out summary, and move on — missing nodes are
+homework; unconfirmed or fictional nodes are never a fallback.
 
 **Question blocks.** Questions the student hears are marked **Ask:**. A
 question with a *Why*, *Example*, and *Not sure?* gets all three in the same
@@ -31,16 +31,32 @@ for personal life (the list is in `personas.md` § Nouns). Apart from those
 nouns and the few words around them that grammar needs, the wording stays exact.
 Wherever a phase says **Example to show**, describe that example node in plain words (its name, what it covers, who owns it); never paste the file.
 
-**The opening (first message, before anything else):** the first thing the
-student hears is this opening — nothing before it about refreshing,
-maintenance, checks, or what the folder is missing.
+**The opening (first message, before anything else but the storage
+question):** when the storage question (N-F1, or N-F12 on Claude desktop) is
+needed, it comes first, as SKILL.md's *Where the files live* says, and the
+opening follows the student's answer. Otherwise the first thing the student
+hears is this opening — nothing before it about refreshing, maintenance,
+checks, or what the folder is missing.
 
-> "This step sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every later step uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It takes about 25 minutes, in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe — progress is saved."
+> "This sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every step of the framework uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It runs in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe — progress is saved."
 >
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
 
-In the same first message, add one sentence on where the files go: in write mode, "I'll save it in
-`<folder name>`." In print-and-save mode, the print-and-save line below.
+Leave out "Stopping early is safe — progress is saved." on print-to-save,
+where a new chat can't read the files.
+
+In the same first message, confirm where the files go in one line (N-F3):
+model wording carrying the promise clause "I'll read and save your files in
+[location]." — locally the workspace (Claude Code, Codex) or the framework
+folder the student added (Claude desktop); on the web and in Cowork, the
+`Framework` folder in their drive. On the web and in Cowork, add: "When
+[platform] asks to save to your drive here, choose Always allow for this
+chat; I'll only save inside your framework folder." (in Cowork, [platform] is
+"Cowork"). On Claude Code, add: "When Claude Code asks before I save a file,
+you can allow edits for this session; I'll only change the files this step
+needs." On Codex, add: "When Codex asks before I save a file, you can allow
+it for this session; I'll only change the files this step needs." On
+print-to-save, say N-F6 in its place (below).
 
 **The outline (right after the persona answer),** in that persona's words
 from `personas.md` § Outline wording — the founder form. Show it as this
@@ -56,31 +72,28 @@ business; they own processes across all of them):
 > Workflows come later, when Analyze finds them inside your processes."
 ---
 
-## Phase 0 — Home and sources (4 min)
+## Phase 0 — Home and sources
 
-**First, detect — don't ask.** Can you create and edit files in the folder
-the student has open? (A file the student would have to download does not count — that is print-and-save mode.)
+**First, detect — don't ask.** Where the files go was settled before the
+opening (SKILL.md, *Where the files live*):
 
-- **Yes → write mode.** The registry goes at the root of that folder. It
-  does not matter whether the folder is local, a synced cloud-drive folder,
-  or a Git repository — the bundle is plain Markdown with relative links.
-  State it in one sentence: "I'll save your registry in `<folder name>`."
-  Don't ask the student to approve the path.
-- **No → print-and-save mode.** Say once, up front: "I can't save files
-  here, so for each file I'll print its full contents and exactly where to
-  save it. Where will you keep them — a GitHub repository, a folder on your
-  computer, or a synced cloud-drive folder? GitHub is the easiest if you
-  already have an account." Then, on **every** file,
-  restate the location and remind them to save it as plain `.md`. Never say
-  "I've created" for a file you only printed.
+- **Locally (Claude Code, Codex, Claude desktop with a folder added):** the
+  registry goes at `registry/` in the workspace, or inside the framework
+  folder the student added. Don't ask the student to approve the path.
+- **On the web and in Cowork:** the registry goes in `Framework/registry/`
+  in the student's drive, written through the connection.
+- **No files and no connection that can save → print-to-save.** Say N-F6
+  once, up front: "I can't save files here, so I'll give you the files to
+  save as we go. Keep them together in one folder, and paste or attach them
+  when you start the next step." Then, on **every** file, give its location
+  inside that folder (`registry/…`) and remind them to save it as plain
+  `.md`. Never say "I've created" for a file you only gave. (A file the
+  student would have to download does not count as saved.)
 
-**Follow-ups (print-and-save mode only — in write mode, look instead of asking):**
+**Follow-up (print-to-save only — otherwise, look instead of asking):**
 - "Do you already have the empty registry skeleton — from the template
-  repository or its Download ZIP?" If yes, do not reprint or recreate
+  repository or its Download ZIP?" If yes, do not give again or recreate
   `SCHEMA.md`, `index.md`, `log.md`, or the typed `index.md` stubs.
-- "Have you used an earlier version of this framework in this folder? If
-  so, paste a listing of its `outputs/` folder; otherwise say 'nothing
-  there'."
 
 **Then, in this order:**
 
@@ -92,11 +105,12 @@ the student has open? (A file the student would have to download does not count 
 
    Open `personas.md` and use that persona's openings for Phases 1–4. For
    the personal persona, add its privacy line now.
-2. **Scan (write mode only).** Look for `knowledge/`, `sops/`,
-   `process-guides/`, `CLAUDE.md` or `AGENTS.md`,
-   `framework/ai-opportunity-report*.md` (or, from before 9.0,
-   `outputs/ai-opportunity-report*.md`), and any loose documents sitting in
-   the folder (a pasted org chart, a services page). If you found something
+2. **Scan (wherever you can read the files).** Look for `knowledge/`,
+   `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`, a prior
+   opportunity report (`framework/ai-opportunity-report*.md` locally,
+   `ai-opportunity-report*.md` in the framework folder on a drive), and any
+   loose documents sitting in the folder (a pasted org chart, a services
+   page). If you found something
    you will draft from, say so in one plain sentence ("I found your services
    page and will draft from it"). If you found nothing, say nothing — never
    list folders that aren't there. Never write to `knowledge/`.
@@ -119,7 +133,7 @@ the student has open? (A file the student would have to download does not count 
 not the registry's content.
 
 **What to write:** nothing until the steps above are done. Then, before
-Phase 1, in write mode create `registry/` + `SCHEMA.md` + `index.md` +
+Phase 1, create `registry/` + `SCHEMA.md` + `index.md` +
 `log.md` + the six typed directories with stub `index.md` files (each stub
 is its heading, a blank line, and `_No entries yet — your AI assistant fills this index as nodes are added._` — the exact empty body compose
 writes), unless they already exist. The root `index.md` and `log.md` have
@@ -157,22 +171,14 @@ The dashboard view is the generated root `REGISTRY.md`.
 ```markdown
 # Registry Log
 
-Migrations and schema changes only — routine regeneration is not logged.
+Setup decisions, schema changes, the dashboard's Claude Artifact link, and one line per workflow event (a big change and its reason, go-live, re-checks) — routine regeneration is not logged.
 ```
 
-In print-and-save mode and no skeleton yet, print those same files first,
-in that order. If the student
+On print-to-save with no skeleton yet, give those same files first, in that
+order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
 skeleton plus a GitHub Action that checks the registry on every save, and is optional.
-
-**Legacy-detection trigger:** In write mode: if `outputs/*/workflow.yaml` exists anywhere in
-the workspace, or an `outputs/<name>-requirements.md` file exists with no
-matching folder (flat layout), or an `outputs/<slug>/` folder holds any of `requirements.md`,
-`design-spec.md`, `runs.md`, or a `test-runs/` folder (the pre-9.0 outputs layout), stop and offer the migration path from
-`migrating-legacy-workspaces.md` before continuing the interview. A student
-migrating does not repeat Phases 1–4 for businesses, lines of business,
-functions, or processes the migration already covers. In print-and-save mode, rely on what the student told you in the follow-up above.
 
 **Fast path:** if the student already has a full `registry/` bundle from a
 prior scaffolding run, skip straight to gap-filling — re-run only the phases
@@ -180,7 +186,7 @@ that produced missing or incomplete nodes.
 
 ---
 
-## Phase 1 — Business (3 min)
+## Phase 1 — Business
 
 **Signpost:** "Part 1 of 4 — Your business."
 
@@ -237,7 +243,7 @@ one.
 
 ---
 
-## Phase 2 — Lines of Business (4 min)
+## Phase 2 — Lines of Business
 
 **Signpost:** "Part 2 of 4 — How it's organized: your lines of business."
 
@@ -277,7 +283,7 @@ split.
 
 ---
 
-## Phase 3 — Functions (3 min)
+## Phase 3 — Functions
 
 **Signpost:** "Part 3 of 4 — Who does the work: your functions."
 
@@ -326,7 +332,7 @@ named the processes, drop the functions that own none (Close checks this).
 
 ---
 
-## Phase 4 — Processes (8 min)
+## Phase 4 — Processes
 
 **Signpost:** "Part 4 of 4 — The processes that deliver it."
 
@@ -386,12 +392,12 @@ with a title, a description, required `owner:` (a function slug from Phase
 its LOB's curated `# Processes` list.
 
 **Fast path:** three to five processes per LOB is enough for the lab —
-remind the student that Analyze (Step 1 of the framework) decides where AI
-fits and grows this list later; don't try to be exhaustive here.
+remind the student that Analyze decides where AI fits and grows this list
+later; don't try to be exhaustive here.
 
 ---
 
-## Phase 5 — Close (3 min)
+## Phase 5 — Close
 
 **No new questions.** Don't prompt for a Note. Write one only if the
 student volunteered an insight during the interview (a constraint, a lesson
@@ -421,26 +427,32 @@ from `example-registry.md` (`registry/notes/2026-08-status-report-timing.md`).
 Hand off to
 `indexing-registry` for the first maintenance pass: lint, generate the Tier
 1 `REGISTRY.md`, and **always** generate the Tier 2 dashboard
-(`registry-dashboard.html`) — never offer it as an option. In print-and-save
-mode there is no maintenance hand-off: print the `log.md` entry, every typed
-`index.md` you updated, and a complete `REGISTRY.md` composed per
-`indexing-registry`'s rules, each with its location, and say the set is
-complete.
+(`registry-dashboard.html`) — never offer it as an option. On the web the
+pass saves through the drive connection. On print-to-save there is no
+maintenance hand-off: give the `log.md` entry, every typed `index.md` you
+updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s
+rules, each with its location, and say the set is complete.
 
-**The close (last message) — write mode:**
+**The close (last message) — files saved (locally or in the drive):**
 
-> "Your registry is set up in `<folder name>`. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
+> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in Framework/registry" or "your OneDrive, in Framework/registry"]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
 >
-> "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser, and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
+> "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
 >
 > "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
 >
-> "Next is Analyze. It looks for opportunities to create more value in your processes, starting, with your permission, with what your AI already knows about your work, and adds every workflow it finds to your backlog. Each process takes about 3 to 5 minutes, and you can do one or all of them. Run it now, or later? When you're ready, say 'run the analyze skill' (in Claude Code, you can also type `/analyze` and pick it from the list)."
+> "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list). Want to run it now?"
 
-**The close — print-and-save mode:** the same four parts, with two changes.
-Say where the files go: "Save each file I printed into your `registry`
+That last paragraph is N-A7: say it exactly. [location] is the framework
+folder, as Analyze's start phrase names it: "Google Drive, in Framework" or
+"OneDrive, in Framework" in a drive; on Claude desktop, the folder's own name
+(such as "Framework"); on Claude Code and Codex, "framework". Leave out the
+`/analyze` clause anywhere but Claude Code.
+
+**The close — print-to-save:** the same four parts, with two changes.
+Say where the files go: "Save each file I gave you into your `registry`
 folder, at the location shown above it." And for the dashboard, which can't
-be printed usefully: "Your visual dashboard is created as soon as your files
+be given usefully as text: "Your visual dashboard is created as soon as your files
 are in a folder I can save to. Then say 'generate my visual dashboard'."
 
 Say nothing about lint, checks, or GENERATED blocks. The close ends on the
@@ -448,8 +460,8 @@ Analyze question. Once the student answers it, make these offers one per
 message, each answered before the next, and only where it applies; then
 act on the Analyze answer:
 
-- **On Claude:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." In print-and-save mode on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. In print-and-save mode, print that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
-- **Only when the folder is a git repository** — in write mode with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never ask on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
+- **On Claude:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On print-to-save on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. On print-to-save, give that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
+- **Only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never ask on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
 
 After the offers, on "now" to Analyze, invoke the `analyze` skill.
 

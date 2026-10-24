@@ -14,9 +14,12 @@ registry on GitHub — or just grab the empty skeleton with **Code → Download 
 1. Click **Use this template** (top right) to create your own copy. Choose
    **Private** — only you can see it.
 2. Set up your registry in it: open a copy of the repository with your AI
-   assistant and say **"Set up my AI registry."** — or, in a browser-only
-   tool, have it print each file and save them here on github.com. Your
-   assistant runs the interview and writes every node and dashboard.
+   assistant and say **"Set up my AI registry."** Your assistant runs the
+   interview and writes every node and dashboard. (In a browser-only tool such
+   as Claude on the web or ChatGPT, you don't need this repository: the
+   assistant writes your registry into `Framework/registry/` in your Google
+   Drive or OneDrive through its connection. Only where it can't save files at
+   all does it give you each file to save yourself.)
 3. The full guide lives on the Hands-on AI Playbook:
    https://handsonai.info/builder-setup/ai-registry-setup/
 

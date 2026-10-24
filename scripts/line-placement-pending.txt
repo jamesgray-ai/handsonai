@@ -16,4 +16,3 @@ deconstruct           # T22
 design                # T23
 build                 # T24
 test                  # T25
-scaffolding-registry  # T32

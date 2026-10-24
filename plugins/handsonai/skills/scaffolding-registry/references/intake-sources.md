@@ -9,13 +9,15 @@ answer in Phase 0 that covers a later phase is a source too.
 
 ## Where sources come from
 
-- **Workspace scan (write mode only).** `knowledge/` (read only — never write
-  or lint it here), `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`,
-  `framework/ai-opportunity-report*.md` (or, from before 9.0, `outputs/ai-opportunity-report*.md`). A `knowledge/` graph's type names are
+- **Framework folder scan (wherever you can read the files; locally, the
+  workspace).** `knowledge/` (read only — never write or lint it here),
+  `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`, a prior opportunity
+  report (`framework/ai-opportunity-report*.md` locally;
+  `Framework/ai-opportunity-report*.md` in a drive). A `knowledge/` graph's type names are
   whatever its owner chose: read its `overview.md` and `index.md` first and
   treat each page as a pasted document — evidence to draft from, mapped by
   what it says, not by its folder name.
-- **Pasted or uploaded (both modes).** Anything the student pastes or
+- **Pasted or uploaded (everywhere).** Anything the student pastes or
   attaches in reply to the Phase 0 question.
 
 ## Mapping

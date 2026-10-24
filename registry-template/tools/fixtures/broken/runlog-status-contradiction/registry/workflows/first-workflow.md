@@ -16,6 +16,8 @@ The baseline fixture workflow used across lint test cases.
 # Artifacts
 
 - [SOP](sops/one-sop.md)
+- [Requirements](framework/first-workflow/requirements.md)
+- [Run log](runs.md)
 
 # Skills
 

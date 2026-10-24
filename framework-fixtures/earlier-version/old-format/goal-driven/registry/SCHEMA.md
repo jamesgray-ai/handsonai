@@ -2,7 +2,7 @@
 type: Schema
 title: "AI Registry Bundle Schema"
 description: "Types, link rules, derived views, and maintenance rules for your AI registry bundle."
-generated: { by: process:ai-registry-template, at: 2026-08-10 }
+generated: { by: process:ai-registry-template, at: 2026-10-24T00:00:00Z }
 ---
 # AI Registry Bundle — SCHEMA
 
@@ -34,7 +34,7 @@ Plural directories, singular `type` values. Directory↔type agreement is lint-e
 | `businesses/` | Business | `status` (`active \| incubating \| dormant`), optional `url` | identity prose · curated ordered `# Lines of Business` list |
 | `lines-of-business/` | LineOfBusiness | `status` (same enum), optional `folder:` | prose · curated ordered `# Processes` list |
 | `processes/` | Process | `owner` (required — a function slug), optional `guide:` | prose · curated ordered `# Workflows` list (the edge AND the value-chain order) |
-| `workflows/` | Workflow | `status` (required), `definition_type`, `execution_mode`, `autonomy`, `trigger`, optional `stale_after` | prose · `# Artifacts` labeled links · `# Skills` · `# Agents` · GENERATED `# Insights` |
+| `workflows/` | Workflow | `status` (required), `execution_mode`, `autonomy`, `trigger`, optional `stale_after`, optional `big_change` (`definition_type` is tolerated on older nodes, never written) | prose · `# Artifacts` labeled links · `# Skills` · `# Agents` · GENERATED `# Insights` |
 | `notes/` | Note | — | free body; its links to Workflow/Process nodes are the single source of the insight edge |
 | `functions/` | Function | optional `lead:` (free text; blank = unstaffed) | charter prose · required GENERATED `# Owns` block (write it empty at creation) |
 
@@ -42,9 +42,8 @@ Plural directories, singular `type` values. Directory↔type agreement is lint-e
 
 Lint-enforced:
 - Workflow `status`: `backlog` | `under-development` | `in-production` | `retired`
-- `definition_type`: `step-driven` | `goal-driven` (readers tolerate the legacy spellings
-  `step-decomposed` and `outcome-driven` from earlier registry versions — never write them into a
-  new node)
+- `definition_type`: `step-driven` | `goal-driven`. No framework step writes it any more; it is
+  tolerated on older nodes, as are its legacy spellings `step-decomposed` and `outcome-driven`
 - `execution_mode`: `manual` | `augmented` | `automated`
 - `autonomy`: `deterministic` | `guided` | `autonomous`
 
@@ -59,24 +58,33 @@ how the bundle points at them.
 **Event-fact fields are banned from nodes**: `current_step`, `health`, `last_run`, `run_count`
 (and any run-counter field), `next_review`, `notion_url`, `timestamp`, `lob`, `sequence`,
 `process` (banned on any node), `owner` (banned on Workflow nodes — it lives on Process) — those
-are workflow-record or retired-manifest concerns, not registry state. `stale_after` (a date — a
-workflow is stale when today ≥ `stale_after`) is permitted because a dashboard roll-up and a lint
-warning give it teeth.
+are workflow-record concerns, not registry state. `stale_after` (the re-check date) is permitted
+because a dashboard roll-up and a lint warning give it teeth.
 
-**Layered model.** `framework/<slug>/` is the workflow's **record** — what the AI Workflow Framework
-produced while building, testing, and running it (requirements, design spec, test evidence, run
-card, run log). The workflow's own output is not part of the record: it lands wherever the
-workflow runs. Event-facts stay in the record. Only **synthesized insight** crosses into this
-bundle, as `Note` concepts. Links point one way: the registry links into `framework/`, and nothing
-in `framework/` links back to registry nodes.
+**Layered model.** Each workflow has a folder in the **framework folder** — its **record**, what the
+AI Workflow Framework produced while building and testing it: `requirements.md`, `design-plan.md`,
+`build-record.md` and `test-results.md`, with `inputs/`, `context/`, `package/` and `history/`.
+On Claude Code and Codex the framework folder is `framework/` in the workspace, beside `registry/`
+(`framework/<slug>/`); on the web and in Microsoft 365 Copilot it is `Framework/` in the leader's
+drive, and on Claude desktop the folder the leader adds to the chat, each holding `registry/` beside
+the workflow folders (`<slug>/`). The workflow's **run log** and its own output are not part of the
+record: they live where the workflow runs, never in the framework folder. Event-facts stay in the
+record. Only **synthesized insight** crosses into this bundle, as `Note` concepts. Links point one
+way: the registry links into the workflow folders, and nothing in them links back to registry nodes.
+
+**Progress** is never stored in this bundle. It is read by the framework's routing rule from the
+workflow's folder, never from which links a node has, and the derived views show it as the routing
+state's name, with no step number.
 
 # Frontmatter
 
 **Single-line YAML values only** — no `>-`/`|` folded or literal blocks, no inline `#` comments,
 no multi-line values of any kind. Required on every concept node: `type`, `title`, `description`,
-`generated` — a single-line flow map, `generated: { by: process:ai-registry-template, at:
-2026-08-10 }`, carrying who/what produced the file (`by`) and when (`at`, `YYYY-MM-DD`). `by`
-follows the OKF actor convention: `human:<id>` or `process:<skill-name>`.
+`generated` — a single-line flow map, `generated: { by: process:<skill-name>, at:
+2026-10-24T15:04:05Z }`, carrying who/what produced the file (`by`) and when (`at`, a UTC instant,
+`YYYY-MM-DDTHH:MM:SSZ`). Every writer restamps it. The lint accepts a bare `YYYY-MM-DD` date on an
+older node; never write one. `by` follows the OKF actor convention: `human:<id>` or
+`process:<skill-name>`.
 
 **Reserved files are exempt.** `SCHEMA.md`, `log.md`, and every `index.md` carry no required
 concept frontmatter. The sole exception is the bundle root `index.md`, which carries exactly one
@@ -87,8 +95,13 @@ frontmatter key: `okf_version`.
 `sequence`, `process` (banned on any node), `owner` (banned on Workflow nodes — it lives on
 Process) — see "Deliberately not concept types" above for why.
 
-**`stale_after`** is permitted on Workflow nodes: a date, `YYYY-MM-DD`; the workflow is stale when
-today ≥ `stale_after`.
+**`stale_after`** is permitted on Workflow nodes: the **re-check date**, `YYYY-MM-DD`, set by Test
+at go-live and reset at each passing re-check. A workflow is due for a re-check when today ≥
+`stale_after`.
+
+**`big_change`** is permitted on Workflow nodes: `"[reason], [date]"`, written by Design when it
+sends a workflow back for a redesign, and removed by Deconstruct when the redo is saved. Design also
+writes one line in `log.md` with the reason, which stays.
 
 Optional standard fields: `verified: { by, at }` (same flow-map shape as `generated`, stamped
 after a deliberate human review pass — absent means unverified) and `tags: [a, b]`.
@@ -99,9 +112,9 @@ after a deliberate human review pass — absent means unverified) and `tags: [a,
   deprecated`, absent ⇒ stable). This bundle overrides `status` with domain-state enums per type
   instead — a producer-profile deviation the spec permits (consumers MUST tolerate unknown values
   per §11). This bundle's `retired` corresponds to spec `deprecated`.
-- **`generated.at` is required and date-only.** The spec requires only `generated.by`; this
-  profile also requires `at`, and keeps it a plain `YYYY-MM-DD` date where the spec's own examples
-  show datetimes.
+- **`generated.at` is required.** The spec requires only `generated.by`; this profile also
+  requires `at`, a UTC instant as the spec's examples show, and accepts a bare `YYYY-MM-DD` date on
+  nodes written before this profile asked for instants.
 
 # Relationships — stored once, everything else derived
 
@@ -117,7 +130,7 @@ the parent — nothing on the child changes.
 | Workflow → Process | the Process node's curated `# Workflows` list | dashboard tables in value-chain order; workflow's LOB (via chain) |
 | Workflow → Skill/Agent | the Workflow node's `# Skills` / `# Agents` body links | per-skill/agent used-by in generated inventories |
 | Insight → Workflow/Process | the Note's body links | Workflow `# Insights` GENERATED block |
-| Workflow → operational files | the Workflow node's `# Artifacts` labeled links | claims sweep (every SOP/`framework/<slug>/` folder must be claimed) |
+| Workflow → operational files | the Workflow node's `# Artifacts` labeled links | claims sweep (every SOP and every workflow folder in the framework folder must be claimed) |
 
 **Process → Function (ownership)** is the one attribute-reference edge: the Process's `owner:`
 frontmatter holds a function slug. Deliberately not a curated parent list — ownership is
@@ -133,8 +146,11 @@ Discriminator, exact:
 - **Leading `/`** = bundle-root-relative, resolved from `registry/` (e.g.
   `/processes/course-improvement.md`). The first path segment MUST be one of this bundle's
   directories or a root file — lint errors otherwise.
-- **No leading slash, not a URL** = workspace/repo-root-relative (e.g.
-  `framework/course-improvement/requirements.md`). A trailing `/` marks a directory target.
+- **No leading slash, not a URL** = relative to the registry's parent folder, never `../`. On
+  Claude Code and Codex that is the workspace (e.g. `framework/course-improvement/requirements.md`);
+  in a drive and on Claude desktop it is the framework folder (e.g.
+  `course-improvement/requirements.md`). The lint resolves both the same way. A trailing `/` marks
+  a directory target.
 - **Full URLs** = external.
 
 Links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are
@@ -143,15 +159,21 @@ declarations, not guarantees: lint checks them when the target is present and sk
 # Naming
 
 Kebab-case slug from title at creation (`&` → `and`, strip punctuation). Slugs are STABLE — title
-edits never rename files. A Workflow's slug matches its `framework/<slug>/` folder where one exists.
+edits never rename files. A Workflow's slug matches its folder in the framework folder where one
+exists.
 
 # Artifact labels
 
 `# Artifacts` links on a Workflow node use these labels: Raw source, Run log, Output, SOP,
-Opportunity report, Requirements, Design spec, Test results, Run guide, Improvement plan.
-Each is a plain bulleted link whose link text is the label itself (link text `Requirements`,
-not a bold `Requirements:` prefix before the link), because lint and compose read the label
-from the link text.
+Opportunity report, Requirements, Design plan, Test results. Each is a plain bulleted link whose
+link text is the label itself (link text `Requirements`, not a bold `Requirements:` prefix before
+the link), because lint and compose read the label from the link text. The build record has no
+label: it is found by its path, beside the requirements. A "Run log" link may point outside the
+registry's reach (an external link), or be absent.
+
+Labels from earlier versions of the framework ("Design spec", "Run guide", "Improvement plan") are
+tolerated on older nodes — those whose `generated.at` is a bare date — and never written; a node
+stamped with a UTC instant that carries one is a lint error.
 
 # Derived views & maintenance
 
@@ -167,17 +189,22 @@ banned fields absent · link targets resolve · curated-list membership (exactly
 child) · owner validity (Process `owner:` names a real Function) · Function `# Owns` block
 present · GENERATED markers intact and terminated · every directory `index.md` covers its nodes ·
 claims sweep (every SOP claimed by exactly one Workflow; an SOP's `workflow:` back-pointer must
-agree with the claiming node; run-log evidence must not contradict `status`). Warnings (not
-errors): a `framework/<slug>/` folder claimed by no Workflow, overdue `stale_after`, a `backlog` workflow older than six
-months, a Note linking no node, uncaptured skills/agents, a malformed `generated.by` actor string,
-an artifact link pointing outside the workflow's derived LOB `folder:` when one is set, a framework
-record left in `outputs/<slug>/` (pre-9.0 layout — the indexing-registry skill moves it), and stale
-Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
+agree with the claiming node; run-log evidence must not contradict `status`, checked only where the
+node's "Run log" link is readable inside the registry's parent folder — an external or absent link
+is skipped) · legacy artifact labels only on older nodes. Warnings (not errors): a workflow folder in
+the framework folder claimed by no Workflow, a re-check overdue (`stale_after` on or before today), a
+`backlog` workflow older than six months, a Note linking no node, uncaptured skills/agents, a
+malformed `generated.by` actor string, an artifact link pointing outside the workflow's derived LOB
+`folder:` when one is set, and stale Function `# Owns` content (present but no longer matching the derived owners list — regenerate via
 a maintenance pass; hand-editing between the markers is still prohibited, but staleness alone never
 blocks regeneration).
 
 Regeneration is refused while lint reports errors, with one exception: broken links inside
 derived content that the regeneration pass itself rewrites.
+
+On the derived views, a workflow's progress shows as the routing state's name, `stale_after` as
+"Re-check by", `autonomy` as "How it decides" (the level's name with its plain meaning), and
+`execution_mode` as "Runs with you" (`manual`, `augmented`) or "Runs without you" (`automated`).
 
 Repos created from this template also get these checks wired as CI (the `tools/` scripts plus a
 GitHub Action) — you never run them yourself; your AI assistant and CI do.
@@ -185,5 +212,7 @@ GitHub Action) — you never run them yourself; your AI assistant and CI do.
 # Lifecycle
 
 Removed workflows or processes become `status: retired` — kept, and linked from an explaining
-Note — never deleted. `log.md` records migrations, schema changes, and setup decisions (such as
-the dashboard's Claude Artifact link), not routine regenerations.
+Note — never deleted. `log.md` is append-only. It records setup decisions (such as the dashboard's
+Claude Artifact link), schema changes, and one line per workflow event, written by the step that
+makes it: a big change and its reason, go-live, a re-check, a changed version not ready. It never
+records routine regenerations.

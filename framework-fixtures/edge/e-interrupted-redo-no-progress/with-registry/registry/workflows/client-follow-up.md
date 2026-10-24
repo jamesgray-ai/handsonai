@@ -2,7 +2,7 @@
 type: Workflow
 title: "Client Follow-Up"
 description: "Drafts a follow-up email after each client call from your call notes, for you to review and send."
-generated: { by: process:run, at: 2026-09-02T10:00:00Z }
+generated: { by: process:run, at: 2026-09-02 }
 status: in-production
 trigger: "You finish a client call and paste in your notes"
 ---

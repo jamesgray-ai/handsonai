@@ -174,8 +174,18 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     return null;
   }
 
+  // A re-check is due on or after the re-check date (stale_after).
   function isOverdue(wf) {
-    return !!(wf.staleAfter && wf.staleAfter < todayStr && wf.status !== 'retired');
+    return !!(wf.staleAfter && wf.staleAfter <= todayStr && wf.status !== 'retired');
+  }
+
+  // Leader-facing labels: the level's name with its plain meaning, and whether
+  // the workflow runs with the leader or without them. Never a raw value.
+  function howItDecides(a) {
+    return { deterministic: 'Deterministic: follows your instructions', guided: 'Guided: makes bounded decisions with your method', autonomous: 'Autonomous: works toward a goal you set' }[a] || null;
+  }
+  function howItRuns(m) {
+    return { manual: 'Runs with you', augmented: 'Runs with you', automated: 'Runs without you' }[m] || null;
   }
 
   function statusLabel(s) {
@@ -224,12 +234,12 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
   function renderWorkflowRow(wf) {
     var overdue = isOverdue(wf);
     var badges = [];
-    if (wf.definitionType) badges.push(wf.definitionType);
-    if (wf.executionMode) badges.push(wf.executionMode);
+    if (wf.state) badges.push(wf.state);
+    if (howItRuns(wf.executionMode)) badges.push(howItRuns(wf.executionMode));
     var badgeHtml = badges.map(function (b) { return '<span class="badge">' + esc(b) + '</span>'; }).join('');
     return '<button class="wfr' + (overdue ? ' overdue' : '') + '" data-kind="workflow" data-id="' + esc(wf.id) + '">' +
       '<span class="dot ' + esc(wf.status || 'none') + '"></span>' +
-      '<span class="wf-title">' + esc(wf.title || wf.id) + (overdue ? ' ⚠ overdue' : '') + '</span>' +
+      '<span class="wf-title">' + esc(wf.title || wf.id) + (overdue ? ' ⚠ re-check due' : '') + '</span>' +
       badgeHtml +
       '</button>';
   }
@@ -237,8 +247,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
   function renderProcessRow(proc) {
     var owner = proc.ownerId ? byId(funcs, proc.ownerId) : null;
     // Value-chain order is the Process node's curated # Workflows list (proc.workflows).
-    // `step` is framework progress (1-7), not sequence -- it is only the fallback for
-    // workflows the curated list does not mention.
+    // Workflows the curated list does not mention follow, by title.
     var curated = Array.isArray(proc.workflows) ? proc.workflows : [];
     var procWorkflows = workflows
       .filter(function (wf) { return wf.processId === proc.id; })
@@ -249,9 +258,6 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
           if (ib === -1) return -1;
           return ia - ib;
         }
-        var sa = typeof a.step === 'number' ? a.step : Infinity;
-        var sb = typeof b.step === 'number' ? b.step : Infinity;
-        if (sa !== sb) return sa - sb;
         return (a.title || '').localeCompare(b.title || '');
       });
     var body = procWorkflows.length
@@ -422,11 +428,11 @@ main { max-width: 1100px; margin: 0 auto; padding: 20px 24px 80px; }
     var lob = wf.lobId ? byId(lobs, wf.lobId) : null;
     panelMeta.innerHTML =
       metaItem('Status', statusLabel(wf.status)) +
-      metaItem('Definition type', wf.definitionType) +
-      metaItem('Execution mode', wf.executionMode) +
-      metaItem('Autonomy', wf.autonomy) +
+      metaItem('Progress', wf.state) +
+      metaItem('How it decides', howItDecides(wf.autonomy), true) +
+      metaItem('How it runs', howItRuns(wf.executionMode)) +
       metaItem('Trigger', wf.trigger) +
-      metaItem('Review by', wf.staleAfter, false, overdue);
+      metaItem('Re-check by', wf.staleAfter, false, overdue);
     var wfSkills = (wf.skills || []).map(function (p) { return byId(skills, idFromPath(p)) || { id: p, title: p }; });
     var wfAgents = (wf.agents || []).map(function (p) { return byId(agents, idFromPath(p)) || { id: p, title: p }; });
     panelExtra.innerHTML =
