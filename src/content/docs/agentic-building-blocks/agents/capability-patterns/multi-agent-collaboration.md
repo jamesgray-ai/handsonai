@@ -29,16 +29,15 @@ Multi-agent collaboration also enables **separation of concerns** — a safety-c
 Researcher  Analyst  Writer
 ```
 
-Common architectures:
+Common ways to arrange the team, each with its own page in the [Workflow Architecture Patterns](../../../../patterns/workflow-architecture/) catalogue:
 
-- **Orchestrator pattern** — A central agent assigns tasks to specialist agents, collects results, and synthesizes the final output.
-- **Pipeline pattern** — Agents are arranged in a sequence where each agent's output becomes the next agent's input (researcher → analyst → writer).
-- **Debate pattern** — Two or more agents argue different perspectives, and a judge agent selects or synthesizes the best answer.
-- **Peer collaboration** — Agents communicate as equals, each contributing their expertise to a shared workspace.
+- [Orchestrator-Workers](../../../../patterns/workflow-architecture/orchestrator-workers/) — a central agent assigns tasks to specialist agents, collects results, and synthesizes the final output.
+- [Prompt Chaining](../../../../patterns/workflow-architecture/prompt-chaining/) — agents in a sequence, where each agent's output becomes the next agent's input (researcher → analyst → writer).
+- [Group Chat](../../../../patterns/workflow-architecture/group-chat/) — agents argue different perspectives in a shared conversation, and a moderator synthesizes the result.
+- [Swarm](../../../../patterns/workflow-architecture/swarm/) — agents work as peers with no lead, each contributing to a shared workspace.
 
-:::tip[Deep dive: Orchestration Patterns]
-For detailed coverage of each coordination topology — including selection guides, diagrams, and platform examples — see [Orchestration Patterns](../../orchestration-patterns/).
-:::
+The catalogue also covers [Handoff](../../../../patterns/workflow-architecture/handoff/), [Parallelization](../../../../patterns/workflow-architecture/parallelization/) and the rest, maps each pattern to an autonomy level, and has a decision tree for choosing one.
+
 The key design decisions are:
 
 1. **How many agents?** — Use the minimum number needed. More agents means more coordination overhead.

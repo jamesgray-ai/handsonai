@@ -68,6 +68,7 @@ The agent revises the function to add an empty-list check and renames the variab
 - [Planning](../planning/) — Reflection can evaluate whether a plan is complete before execution begins
 - [Multi-Agent Collaboration](../multi-agent-collaboration/) — A dedicated critic agent is a form of multi-agent collaboration
 - [Guardrails](../guardrails/) — Guardrails enforce hard constraints; reflection handles softer quality improvements
+- [Evaluator-Optimizer](../../../../patterns/workflow-architecture/evaluator-optimizer/) — the workflow pattern that puts the critique in a separate evaluator
 - [Agent Capability Patterns](../)
 
 ## Further Reading

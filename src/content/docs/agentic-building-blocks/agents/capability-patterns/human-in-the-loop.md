@@ -1,11 +1,27 @@
 ---
-title: Human-in-the-Loop
+title: Human Checkpoint (Human-in-the-Loop)
 description: How human checkpoints at key decision points keep AI agents aligned, accountable, and safe for high-stakes tasks.
----## What It Is
+---
+
+**Level:** none. A checkpoint sets involvement, never the autonomy level. See [Where This Sits in the Framework](#where-this-sits-in-the-framework).
+
+**Also called:** human-in-the-loop (HITL), approval gate.
+
+## What It Is
 
 Human-in-the-loop (HITL) is a pattern where an agent pauses at defined checkpoints to get human approval, input, or correction before proceeding. Instead of running fully autonomously, the agent escalates decisions that are high-stakes, ambiguous, or outside its confidence threshold to a human operator.
 
-HITL is not the opposite of automation — it's the safety net that makes deeper automation possible. By building in human checkpoints at the right moments, you can grant agents more autonomy for the routine work while keeping humans in control of the decisions that matter.
+HITL is not the opposite of automation — it's the safety net that makes deeper automation possible. By building in human checkpoints at the right moments, you can let agents handle the routine work on their own while keeping humans in control of the decisions that matter.
+
+## Where This Sits in the Framework
+
+In the [AI Workflow Design Matrix](../../../../ai-workflow-framework/workflow-design-matrix/), a checkpoint belongs to the involvement axis, not the autonomy axis:
+
+- **A checkpoint is what makes a workflow Augmented.** It's how a person takes part along the way. A workflow with no checkpoint, where no one takes part until it's done, is Automated.
+- **It never changes the level.** The level is set by what decides the next step. An Autonomous workflow with an approval gate before it publishes is still Autonomous (Autonomous + Augmented); a person approving the AI's routing decisions leaves the workflow Guided (Guided + Augmented).
+- **Design adds one before any change that can't be undone,** such as sending, publishing, deleting, or paying, whatever the workflow's level. This is one of the four principles the framework's [Design](../../../../ai-workflow-framework/design/) step applies: a person for high-risk or irreversible actions.
+
+In the [Workflow Architecture Patterns](../../../../patterns/workflow-architecture/) catalogue, the checkpoint is a cross-cutting row: it can be added to any pattern, and it has no level of its own.
 
 ## Why It Matters
 
@@ -90,6 +106,7 @@ A CI/CD agent with HITL checkpoints:
 - [Guardrails](../guardrails/) — Guardrails handle routine constraints automatically; HITL handles exceptions that require judgment
 - [Planning](../planning/) — Humans can review and approve the agent's plan before execution begins
 - [Reflection](../reflection/) — The agent's self-assessment can determine when to escalate to a human
+- [Workflow Architecture Patterns](../../../../patterns/workflow-architecture/) — where the checkpoint sits as a cross-cutting row
 - [Agent Capability Patterns](../)
 
 ## Further Reading

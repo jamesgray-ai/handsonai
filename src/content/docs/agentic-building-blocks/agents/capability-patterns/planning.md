@@ -81,7 +81,9 @@ Advanced planning approaches include:
 - [Tool Use](../tool-use/) — Planning determines which tools to call and in what order
 - [Reflection](../reflection/) — The agent can reflect on its plan before and during execution
 - [Multi-Agent Collaboration](../multi-agent-collaboration/) — A planning agent can delegate sub-tasks to specialized agents
-- [Human-in-the-Loop](../human-in-the-loop/) — Humans can approve the plan before execution begins
+- [Human Checkpoint](../human-in-the-loop/) — Humans can approve the plan before execution begins
+- [Orchestrator-Workers](../../../../patterns/workflow-architecture/orchestrator-workers/) — the workflow pattern where a lead plans the work and hands it to workers
+- [Autonomous Agents](../../../../patterns/workflow-architecture/autonomous-agents/) — the workflow pattern where one agent plans its own steps toward a goal
 - [Agent Capability Patterns](../)
 
 ## Further Reading

@@ -86,7 +86,7 @@ A coding agent has guardrails to prevent generating insecure code:
 
 ## Related Patterns
 
-- [Human-in-the-Loop](../human-in-the-loop/) — Guardrails handle routine constraints automatically; HITL handles exceptions and edge cases
+- [Human Checkpoint](../human-in-the-loop/) — Guardrails handle routine constraints automatically; HITL handles exceptions and edge cases
 - [Tool Use](../tool-use/) — Action guardrails govern which tools the agent can access
 - [Reflection](../reflection/) — Self-reflection is a soft guardrail; automated guardrails are hard constraints
 - [Agent Capability Patterns](../)

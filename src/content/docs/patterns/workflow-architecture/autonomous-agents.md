@@ -1,9 +1,15 @@
 ---
 title: Autonomous Agents
 description: LLMs with tools, memory, and planning that independently execute multi-step tasks through a think-act-observe loop
----An **autonomous agent** is an LLM equipped with tools, memory, and planning logic that can interpret a high-level goal, break it into steps, execute actions in an external environment, evaluate feedback, and iterate until it finishes or hits a stop condition.
+---
 
-Unlike the other workflow patterns where steps are predefined, agents decide **in real time** which tools to call and how many iterations they need. This gives them flexibility for open-ended, non-deterministic tasks.
+**Level:** Autonomous. See [the patterns and their levels](../#the-patterns-and-their-levels).
+
+**Also called:** agent loop, gather–act–verify.
+
+An **autonomous agent** is an LLM equipped with tools, memory, and planning logic that can interpret a high-level goal, break it into steps, execute actions in an external environment, evaluate feedback, and iterate until it finishes or hits a stop condition.
+
+Unlike the patterns where you define the steps, an agent decides **in real time** which tools to call and how many iterations it needs. This gives it flexibility for open-ended, non-deterministic tasks.
 
 ## Why It Matters
 
@@ -67,8 +73,10 @@ A SaaS company wants an agent that triages inquiries, pulls user data, suggests 
 ## Related
 
 - [Workflow Architecture Patterns Overview](../)
-- [Orchestrator-Workers](../orchestrator-workers/) — dynamic task delegation without the autonomous loop
+- [Orchestrator-Workers](../orchestrator-workers/) — a lead that delegates subtasks to workers; Autonomous when its planning is open-ended
 - [Evaluator-Optimizer](../evaluator-optimizer/) — iterative refinement with structured feedback
 - [Agents](../../../agentic-building-blocks/agents/) — concepts for building AI agents
+- [Planning](../../../agentic-building-blocks/agents/capability-patterns/planning/) — the capability an agent uses to break a goal into steps
+- [Group Chat](../group-chat/) and [Swarm](../swarm/) — several agents working toward a goal together
 - [Agent Capability Patterns](../../../agentic-building-blocks/agents/capability-patterns/) — behavioral patterns (reflection, tool use, planning, etc.)
 - [Design Your AI Workflow](../../../ai-workflow-framework/design/)

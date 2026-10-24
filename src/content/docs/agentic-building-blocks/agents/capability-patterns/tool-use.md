@@ -63,6 +63,7 @@ The agent calls a SQL query tool: `execute_query("SELECT product_name, SUM(reven
 - [Reflection](../reflection/) — The agent can reflect on tool results to decide if it needs to call additional tools
 - [Multi-Agent Collaboration](../multi-agent-collaboration/) — Different agents may have access to different tool sets
 - [Guardrails](../guardrails/) — Guardrails can restrict which tools an agent is allowed to call
+- [Augmented LLM](../../../../patterns/workflow-architecture/augmented-llm/) — the workflow pattern built on one LLM call with tools, retrieval and memory
 - [Agent Capability Patterns](../)
 
 ## Further Reading

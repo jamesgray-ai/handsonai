@@ -30,7 +30,7 @@ For guidance on deciding *whether* your workflow needs an agent, see [Build Work
 
 - [SDK Building Block](../sdk/) — Frameworks and toolkits for building agents and AI workflows in code (Claude Agent SDK, OpenAI Agents SDK, Google ADK, LangGraph, and more)
 - [Agent Capability Patterns](./capability-patterns/) — Seven architectural patterns that make agents effective: Reflection, Tool Use, Planning, Multi-Agent Collaboration, Memory, Guardrails, and Human-in-the-Loop
-- [Agent Orchestration Patterns](./orchestration-patterns/) — Eight coordination topologies for multi-agent systems: Sequential, Parallel, Router, Hierarchical, Handoff, Evaluator-Optimizer, Group Chat, and Decentralized
+- [Workflow Architecture Patterns](../../patterns/workflow-architecture/) — How the work is structured, for one agent or several: Prompt Chaining, Routing, Parallelization, Evaluator-Optimizer, Orchestrator-Workers, Handoff, Group Chat, Swarm, and more, each mapped to an autonomy level
 
 ## Key Concepts
 

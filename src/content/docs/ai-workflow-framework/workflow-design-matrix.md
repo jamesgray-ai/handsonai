@@ -44,6 +44,8 @@ Human involvement describes whether a person takes part while the workflow is ru
 
 **Key question:** *Does a person take part along the way, or does no one take part until it's done?*
 
+A [checkpoint](../../agentic-building-blocks/agents/capability-patterns/human-in-the-loop/) is how a person takes part along the way.
+
 ## The Matrix
 
 Combining these two dimensions produces six distinct workflow archetypes:
@@ -108,13 +110,15 @@ The [orchestration mechanism](../design/#orchestration-mechanism) describes *who
 
 ### Architecture Patterns
 
-The seven [workflow architecture patterns](../../patterns/workflow-architecture/) provide implementation blueprints within each archetype:
+The [workflow architecture patterns](../../patterns/workflow-architecture/) provide implementation blueprints within each level. Each pattern maps to a level by what decides the next step; this is the same mapping as [the catalogue's table](../../patterns/workflow-architecture/#the-patterns-and-their-levels). A pattern that appears at two levels depends on who judges:
 
-| Archetype | Common Architecture Patterns |
-|-----------|------------------------------|
-| Deterministic | Augmented LLM, Prompt Chaining |
-| Guided | Prompt Chaining, Routing, Evaluator-Optimizer |
-| Autonomous | Orchestrator-Workers, Autonomous Agents |
+| Level | Architecture Patterns |
+|-------|-----------------------|
+| Deterministic | Augmented LLM; Prompt Chaining with coded gates; Parallelization when the split is fixed; Routing when rules route |
+| Guided | Routing when the AI classifies; Evaluator-Optimizer; Handoff; Orchestrator-Workers when the planning is bounded; Prompt Chaining if the AI judges a gate; Parallelization if the AI judges the vote |
+| Autonomous | Orchestrator-Workers when the planning is open-ended; Autonomous Agents; Group Chat; Swarm |
+
+A [Human Checkpoint](../../agentic-building-blocks/agents/capability-patterns/human-in-the-loop/) has no level: it sets involvement.
 
 ## Related
 

@@ -1,7 +1,13 @@
 ---
 title: Augmented LLM
 description: The foundational AI workflow pattern — an LLM enhanced with retrieval, tools, and memory to overcome its inherent limitations
----An **Augmented LLM** combines the reasoning and generative abilities of an LLM with external tools, data, or systems to overcome its inherent limitations. It is the foundational building block for all other workflow architecture patterns.
+---
+
+**Level:** Deterministic: one pass, with nothing for the AI to decide about what happens next. See [the patterns and their levels](../#the-patterns-and-their-levels).
+
+**Also called:** single call.
+
+An **Augmented LLM** combines the reasoning and generative abilities of an LLM with external tools, data, or systems to overcome its inherent limitations. It is the foundational building block for all other workflow architecture patterns.
 
 Think of it as an intelligent assistant that can access databases, search the web, run calculations, or interact with APIs — providing answers that go beyond what the model knows from training alone.
 
@@ -50,5 +56,6 @@ This pattern enables accurate, context-aware responses without requiring the mod
 
 - [Workflow Architecture Patterns Overview](../)
 - [Prompt Chaining](../prompt-chaining/) — the next step up in complexity
+- [Tool Use](../../../agentic-building-blocks/agents/capability-patterns/tool-use/) — the capability that gives an LLM its tools
 - [MCP (Model Context Protocol)](../../../agentic-building-blocks/mcp/) — the connector layer for giving models access to external tools
 - [Design Your AI Workflow](../../../ai-workflow-framework/design/)
