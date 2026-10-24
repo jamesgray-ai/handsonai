@@ -1,5 +1,7 @@
 {
-  "version": "1.6",
+  "version": "2.0",
+  "notes": "The single source of platform facts for the handsonai skills. Look a platform up by its key or by any name in its `aliases`. Readers take `capabilities` values as readable strings, except the structured fields new in 2.0 (`unattended_checkpoint`, `cloud_drives`, `approval_labels`, `connection_switch_off`, `build_places`, `agent_builder`, `skill_context_by_path`), whose `release_check` numbers point into `release_checks`. A fact that rests on an open release check takes that check's fallback until the check is recorded as passed; nothing in a skill assumes a check passed. Unverified facts say so, with their fallback.",
+  "release_checks_policy": "Rules 13.2: each check is verified on a stated version range, recorded in `verified_version_range` with who ran it and when. Outside the verified range (read with `claude --version` on Claude Code), every check takes its fallback and the step says so once. Where no version can be read (Claude on the web and desktop, ChatGPT, Microsoft 365), the checks run again before each cohort release and whenever a platform's release notes change something a check rests on. An empty `verified_version_range` means no range is recorded yet.",
   "platforms": {
     "claude-code": {
       "mode": "code",
@@ -9,15 +11,39 @@
       "memory": "https://code.claude.com/docs/en/memory",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "mcp-build": "https://modelcontextprotocol.io/quickstart",
-      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Scheduled tasks and auto memory exist here; do not assume auto memory exists in Claude on the web or desktop (Claude has its own scheduled tasks — see the `claude` entry).",
+      "notes": "Skills live in .claude/skills/ (project) and ~/.claude/skills/ (personal); sub-agents in .claude/agents/ (project) or ~/.claude/agents/. The primary session is the orchestrator and dispatches sub-agents; do not design a separate orchestrator agent. Memory: Claude Code's auto memory (~/.claude/projects/<project>/memory/) is on by default in local sessions and loads into every session; turn it off with \"autoMemoryEnabled\": false in project settings or CLAUDE_CODE_DISABLE_AUTO_MEMORY=1, and `claude --bare -p` skips it. Sub-agents don't get the main conversation's auto memory. The leader's own runs in the workspace keep auto memory, said once (rules 3.5). Claude on the web and desktop has its own memory, a different feature: on by default on Free, Pro and Max (on Team and Enterprise off until the member turns it on), with chat search on paid plans; each Project has its own memory plus account memory unless the Project's \"Use account memory\" is off, and a chat's memory is switched off under + before its first message (see the `claude` entry). Verified 2026-10-18: https://code.claude.com/docs/en/memory, https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
       "capabilities": {
         "skill_install": "Skills are folders under .claude/skills/<skill-name>/SKILL.md in the project folder (or ~/.claude/skills/ for personal ones); Claude Code loads them when a chat is opened in that folder. To start one in a new chat, open a new Claude Code session in the same folder and type /<skill-name> (or ask for it by name). Nothing to upload or install. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
-        "context_location": "The project folder is the workspace: every chat opened in that folder reads and writes the same files (registry/, framework/, outputs/, .claude/), so a results file written in one chat is visible in the next. Files a workflow needs go in the project folder and are referenced by relative path. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
-        "unattended_runs": "Three options. Cloud routines run on a schedule without the machine on, from a fresh clone of the repo with connectors configured per task — no access to local files, so context must be in the repo or a connected source. Desktop scheduled tasks run on the user's machine (must be on) and can reach local files and configured MCP servers. In-session /loop tasks run only while a session is open and expire after seven days — not for production. Verified 2026-10-08: https://code.claude.com/docs/en/scheduled-tasks",
+        "context_location": "The workspace (the project folder) is both places. As the workflow's place it holds the installed workflow (skills in .claude/skills/ or a plugin), the context files it reads by relative path, its run log, its outputs and, during Test, its practice folder (practice/). As the framework's place it holds framework/ (one folder per workflow) and registry/; the workflow never reads framework/. The leader's own runs use the workspace the everyday way; the AI's own runs (Build's checks, the bare run, Test's practice inputs) use fresh folders outside it (rules 3.1, 3.4, 8.5). Git commits are the save points. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
+        "unattended_runs": "Three options. Cloud routines run on a schedule without the machine on, from what's pushed to the repository's remote (a fresh clone, connectors chosen per routine, no local files), so their switch-on steps have the leader push the Git save point first, and a run log the routine writes reaches the folder only when the leader pulls. Desktop scheduled tasks run on the leader's machine (app open, machine awake) and can reach local files and configured MCP servers; where the workflow keeps a run log, prefer one. In-session /loop tasks run only while a session is open and expire after seven days — not for production. Checkpoints: whether a cloud routine or a desktop task holds at a checkpoint (a gate the platform enforces) or rests on the workflow's instruction is release check 7, still open, so for now a checkpoint in a scheduled run counts as the instruction only: Build asks N-B49 before the switch-on steps, and the run ends at a checkpoint leaving a draft or a notification (rules 5.3). Verified 2026-10-18: https://code.claude.com/docs/en/routines, https://code.claude.com/docs/en/desktop-scheduled-tasks, https://code.claude.com/docs/en/scheduled-tasks",
         "skill_settings": "A skill can set its own model and effort in SKILL.md frontmatter: `model` (a /model value or `inherit`) and `effort` (low, medium, high, xhigh or max); they apply while the skill runs. Verified 2026-10-17: https://code.claude.com/docs/en/skills",
         "skill_evaluation": "Anthropic's skill-creator runs evaluations: it runs each test prompt with and without the skill in separate agents, grades the checks, opens a side-by-side review page, and can tune the description against trigger prompts. Verified 2026-10-17: https://github.com/anthropics/skills/tree/main/skills/skill-creator",
         "skill_invocation": "Add `disable-model-invocation: true` to SKILL.md frontmatter so the skill runs only when the user names it (`/skill-name`); `user-invocable: false` does the opposite, hiding it from the / menu. Verified 2026-10-17: https://code.claude.com/docs/en/skills",
-        "skill_listing": "The AI can read every skill folder it loads: `.claude/skills/` in the project, `~/.claude/skills/`, and installed plugins' skills (namespaced `plugin:skill`); `/skills` lists them for the user. An audit can read each skill's full files. Verified 2026-10-18: https://code.claude.com/docs/en/skills"
+        "skill_listing": "The AI can read every skill folder it loads: `.claude/skills/` in the project, `~/.claude/skills/`, and installed plugins' skills (namespaced `plugin:skill`); `/skills` lists them for the user. An audit can read each skill's full files. Verified 2026-10-18: https://code.claude.com/docs/en/skills",
+        "unattended_checkpoint": {
+          "handling": "instruction-only",
+          "release_check": 7,
+          "release_check_status": "open",
+          "notes": "Becomes \"gate\" for a surface only when release check 7 shows that surface holds the run at a checkpoint."
+        },
+        "framework_files": "framework/ and registry/ in the workspace, saved as plain files; Git save points (rules 3.2).",
+        "memory_controls": "Auto memory on by default in local sessions; the leader's own runs keep it, and Test says so once and runs the transcript check (rules 3.5). The AI's headless runs start without it (`--bare`), per release check 6.",
+        "ai_started_sessions": "Yes: sub-agents (fresh context; deny rules inherited) and headless `claude -p` sessions, which the framework starts only through its wrapper (rules 8.7). Build's checks run in dedicated check sessions under the block; the bare run and Test's practice inputs run headless (release checks 1 to 6).",
+        "run_log": "Yes: the workflow writes its run log in the workspace and the next session reads it; a cloud routine's log persists only through a commit the leader pulls.",
+        "approval_labels": {
+          "one_time": null,
+          "for_the_session": "allow edits for this session (the clause N-F3 names)",
+          "refuse": null,
+          "refuse_release_check": null,
+          "status": "Not recorded this release: Claude Code's permission prompt labels aren't in the facts verified for 10.0.0, and no release check covers them. N-B26's one-time clause is said only on Claude, ChatGPT and Microsoft 365, and N-F4 keeps its \"Deny\" wording until a label is recorded."
+        },
+        "connection_switch_off": {
+          "steps": "In the leader's run session, type /mcp and switch off each server the workflow doesn't use.",
+          "release_check": 5,
+          "release_check_status": "open",
+          "until_it_passes": "No /mcp step in Test's hand-overs; N-F4 in every Claude Code hand-over, whatever the workflow's own connections (rules 3.5, 8.8)."
+        },
+        "version_check": "`claude --version`, read by Build and Test at entry; outside every release check's verified range, each check takes its fallback and the step says so once (rules 13.2)."
       }
     },
     "claude": {
@@ -38,17 +64,66 @@
       "plugin": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
       "project": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "memory": "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
-      "notes": "Claude — on the web, on desktop, and on mobile. Chat and Cowork are one app now: older Design Specs that say Cowork, Claude.ai, or Claude Chat mean this entry, and are built the same way. Claude creates skills itself and saves them to the user's account; skills and sub-agents use Claude Code markdown formats. Skill and agent directories are system-managed: a standalone skill is saved through the Save skill flow (zip package), and plugins install from Customize > Plugins, either by uploading a plugin .zip directly (Add plugin > Upload plugin; no GitHub needed) or from a marketplace on a GitHub repo (plugin zip upload owner-verified 2026-10-18). Plugin skills, hooks, and sub-agents run on the web and on desktop; custom sub-agents run only when packaged inside an installed plugin, so a workflow with worker agents must package as Plugin. The one split: only the desktop app works on files and folders on the user's computer. No verified user-facing memory feature like Claude Code auto-memory — do not assume it exists here. Sources (verified 2026-09-22; Chat/Cowork merge, web sub-agents, and web scheduling owner-verified 2026-10-11): https://support.claude.com/en/articles/12512180-use-skills-in-claude, https://support.claude.com/en/articles/13837440-use-plugins-in-claude, https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork, https://claude.com/blog/web-search, https://claude.com/docs/cowork/3p/extensions, https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects. Operational note (inferred, not from the articles): authorize every connector the workflow touches in the account that runs a scheduled task before its first run.",
+      "notes": "Claude — on the web, on desktop, and on mobile. Chat and Cowork are one app now. Claude creates skills itself and saves them to the user's account; skills and sub-agents use Claude Code markdown formats. Skill and agent directories are system-managed: a standalone skill is saved through the Save skill flow (zip package), and plugins install from Customize > Plugins, either by uploading a plugin .zip directly (Add plugin > Upload plugin; no GitHub needed) or from a marketplace on a GitHub repo (plugin zip upload owner-verified 2026-10-18). Plugin skills, hooks, and sub-agents run on the web and on desktop (owner-verified 2026-10-11 after the Chat/Cowork merge; the help article's \"not in chat\" predates it); custom sub-agents run only when packaged inside an installed plugin, so a workflow with worker agents must package as Plugin. The one split: only the desktop app works on files and folders on the user's computer. Memory exists and is on by default on Free, Pro and Max (web, desktop, mobile); on Team and Enterprise it's off until the member turns it on; chat search on paid plans. Each Project has its own memory plus account memory unless \"Use account memory\" is off on the Project page; a single chat's memory goes off under + before its first message. Sources (verified 2026-09-22 and 2026-10-18; Chat/Cowork merge, web sub-agents, and web scheduling owner-verified 2026-10-11): https://support.claude.com/en/articles/12512180-use-skills-in-claude, https://support.claude.com/en/articles/13837440-use-plugins-in-claude, https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork, https://claude.com/blog/web-search, https://claude.com/docs/cowork/3p/extensions, https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects, https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context. Operational note (inferred, not from the articles): authorize every connector the workflow touches in the account that runs a scheduled task before its first run.",
       "capabilities": {
         "skill_install": "Claude creates the skill and saves it to the user's account (the Save skill flow, a zip package); a plugin — required whenever the workflow has worker agents — installs from Customize > Plugins by uploading the plugin .zip (Add plugin > Upload plugin), or from a GitHub marketplace when the team shares one. Skill and agent directories are system-managed: on the desktop app, stage the source files in the working folder; on the web, Claude produces the package in the chat. Start it in a new chat by asking for the skill by name (Claude applies a matching skill automatically); with the plugin installed, typing `/` lists the available skills.",
-        "context_location": "On the desktop app, context files live in the working folder Claude is pointed at, and the skill references them by relative path; every chat opened on that folder reads and writes the same files (registry/, framework/, outputs/), so a file written in one chat is visible in the next. On the web, a Claude Project's knowledge holds the context files; start a fresh chat inside the project to run the workflow with them. Small reference material can ship inside the skill package on either.",
+        "context_location": "The workflow's place is its own Project (web) or its own working folder (desktop), holding only the context files it reads at runtime and its outputs — never the requirements, plan, build record, results or any framework chat. Build's setup creates it and has the leader turn off that Project's \"Use account memory\"; on desktop, Build gives the steps to copy the context files into the working folder, and the skill references them by relative path. The framework's files live in the framework folder, never in the Project: on the web, Framework/ in the leader's Google Drive (or OneDrive on a work or school account) through the drive connection; on desktop, a folder of its own on the leader's computer (N-F12 suggests Framework in Documents), named by its own name, which the leader adds to each framework chat — a framework chat never adds the workflow's folder, and the workflow's chats never add the framework's. Framework chats run outside any Project. On desktop a run chat can write to the working folder, which Test can't list, so the run is told to save nothing there (N-T8). Small reference material can ship inside the skill package on either (rules 3.2, 3.4).",
         "custom_agents": "Yes — as worker sub-agents packaged in an installed plugin (agents/ directory, Claude Code markdown format), on the web and on desktop. The main Claude session is the orchestrator and dispatches them; do not design a separate orchestrator agent.",
-        "unattended_runs": "Scheduled tasks run on the web and on desktop, on their chosen cadence, even when the desktop app is closed or the computer is asleep, using the connectors, skills, and plugins set up in the account. A task that needs local files or apps runs only on the desktop app while it is open — so a workflow whose context lives in a local working folder cannot run on a remote schedule unless that context ships inside the skill package or a connected cloud source.",
+        "unattended_runs": "Scheduled tasks run on the web and on desktop, on their chosen cadence, even when the desktop app is closed or the computer is asleep, using the connectors, skills, and plugins set up in the account. A task that needs local files or apps runs only on the desktop app while it is open — so a workflow whose context lives in a local working folder cannot run on a remote schedule unless that context ships inside the skill package or a connected cloud source. Whether a scheduled task can read Project knowledge is release check 12 (open): until it passes, the SCH task places the context where the task can read it, or the workflow runs by hand. Checkpoints: whether a scheduled task holds at a checkpoint (a gate) or rests on the workflow's instruction is release check 7, still open, so for now it counts as the instruction only: Build asks N-B49 before the switch-on steps, and the run ends at a checkpoint leaving a draft or a notification (rules 5.3). Verified 2026-10-18: https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork",
         "web_search": "Available, standard on all plans including free.",
         "skill_settings": "A skill can't set its own model or effort; the model chosen for the conversation applies. Verified 2026-10-17: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
         "skill_evaluation": "Anthropic's skill-creator evaluates in two modes. In a Claude task (the desktop app's tasks) it has subagents, so it runs each test with and without the skill, grades the checks, and writes a static review page. In an ordinary chat it runs the test prompts itself in the conversation, with no with-and-without comparison and no description tuning: a sanity check, not a measurement. Verified 2026-10-17: https://github.com/anthropics/skills/tree/main/skills/skill-creator",
         "skill_invocation": "Best-effort — not verified this release: the docs describe no per-skill switch to stop automatic use, so make the description's \"Use when\" narrow and tell the user to name the skill.",
-        "skill_listing": "Best-effort — not verified this release: in a conversation the AI sees the names and descriptions of the skills enabled for the account, and a skill's full files only when it loads; the user sees the full list under Customize → Skills. For an audit, ask the user to attach the skills (or their ZIPs) to read them in full."
+        "skill_listing": "Best-effort — not verified this release: in a conversation the AI sees the names and descriptions of the skills enabled for the account, and a skill's full files only when it loads; the user sees the full list under Customize → Skills. For an audit, ask the user to attach the skills (or their ZIPs) to read them in full.",
+        "unattended_checkpoint": {
+          "handling": "instruction-only",
+          "release_check": 7,
+          "release_check_status": "open",
+          "notes": "Release check 12 (scheduled tasks reading Project knowledge) is also open."
+        },
+        "framework_files": "Web: Framework/ in Google Drive or work/school OneDrive through the connection. Desktop: the framework folder on the leader's computer, added to each framework chat (N-F12 at the first skill; N-F13 when a later chat has none added). Registry in Framework/registry/ or registry/ inside the desktop folder (rules 3.2).",
+        "cloud_drives": {
+          "google_drive": {
+            "create": "yes (files and folders)",
+            "read": "yes, in any chat with the connector on",
+            "update_in_place": "no: the Drive connector's update_file changes only the title and parent folder, so the create-only path applies (rules 3.6)",
+            "move_and_rename": "yes, through update_file (observed in one account 2026-10-18); release check 10 open",
+            "folder_limits": "none: the connection mirrors the leader's permissions and sees the whole drive",
+            "release_check": 10,
+            "release_check_status": "open",
+            "until_it_passes": "The create-only path (rules 3.6), or print-to-save where the connection can neither update nor move files (rules 3.7).",
+            "source": "Verified 2026-10-18: https://support.claude.com/en/articles/10166901-use-google-workspace-connectors"
+          },
+          "onedrive_work_or_school": {
+            "create": "yes, once an admin turns on write actions and approves the file-write permission in Entra",
+            "read": "yes (tenant consent from a Global Admin)",
+            "update_in_place": "yes: whole-file overwrite up to 1 MB (sharepoint_update_file; version history keeps the old one)",
+            "move_and_rename": "yes (rename, move, copy, create folder)",
+            "folder_limits": "none: the connection mirrors the leader's permissions",
+            "release_check": 11,
+            "release_check_status": "open",
+            "until_it_passes": "Offer Google Drive, or print-to-save.",
+            "source": "Verified 2026-10-18: https://claude.com/docs/connectors/microsoft/365.md, https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector"
+          },
+          "onedrive_personal": "not supported"
+        },
+        "memory_controls": "Turn off \"Use account memory\" on the workflow's Project page; switch memory off under + in each run chat before its first message. Incognito is documented only outside Projects. Memory can't be fully closed off, so Test runs the transcript check (rules 3.5).",
+        "ai_started_sessions": "No: the AI starts no fresh chat of its own; Build's checks run in Build's own chat under the instruction, and the leader runs every Test input and the bare run.",
+        "run_log": "No: on the web nothing documented lets a run write a file the next chat reads, and on desktop the workflow keeps no run log (rules 3.4); the workflow carries the flag line only.",
+        "approval_labels": {
+          "one_time": "Allow once",
+          "for_the_conversation": "Always allow for this chat (the framework's own drive saves only, N-F3)",
+          "refuse": "Deny",
+          "refuse_release_check": null,
+          "status": "\"Allow once\" is the one-time option N-B26 names (rules 13.1). \"Deny\" is N-F4's wording; no release check covers Claude's refuse label."
+        },
+        "connection_switch_off": {
+          "steps": "In a new chat, before the first message, open + and switch off memory, then under Connectors switch off every connector the workflow doesn't use (all of them for the bare run).",
+          "release_check": 13,
+          "release_check_status": "open",
+          "until_it_passes": "No bare run on that surface; Test's hand-overs there say N-F4 whatever the workflow's own connections."
+        },
+        "version_check": "None readable: the release checks run again before each cohort release and whenever Claude's release notes change something a check rests on (rules 13.2)."
       }
     },
     "claude-agents-sdk": {
@@ -67,25 +142,55 @@
       "agent": "https://developers.openai.com/codex/subagents",
       "skill": "https://learn.chatgpt.com/docs/build-skills",
       "plugin": "https://learn.chatgpt.com/docs/plugins",
-      "notes": "Codex CLI, the Codex tab of the ChatGPT desktop app, and the IDE extension. Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills (user-level default), then /etc/codex/skills; invoke with $skill-name or /skills. Plugins install from a marketplace (Plugins > Add marketplace in the app, or `codex plugin marketplace add owner/repo` in the CLI); ChatGPT and Codex share one plugin directory.",
+      "notes": "Codex CLI, the Codex tab of the ChatGPT desktop app, and the IDE extension. Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills (user-level default), then /etc/codex/skills; invoke with $skill-name or /skills. Plugins install from a marketplace (Plugins > Add marketplace in the app, or `codex plugin marketplace add owner/repo` in the CLI); ChatGPT and Codex share one plugin directory. The IDE extension doesn't load plugin skills (\"The IDE extension doesn't support plugins\"), so a workflow meant for it installs as standalone skills in .agents/skills/. For the framework, Codex works like the chat platforms: the AI starts no Codex session of its own (no `codex exec` runs, no practice folder); Build's checks run in Build's own session under the instruction, the bare run is pasted by the leader into the session N-B45's command starts, and the leader runs every Test input. Memories are off by default (`memories = true` under [features] in ~/.codex/config.toml turns them on). Sources (read 2026-10-18): https://learn.chatgpt.com/docs/build-skills, https://learn.chatgpt.com/docs/plugins, https://learn.chatgpt.com/docs/automations.md?surface=app, https://developers.openai.com/codex/memories",
       "capabilities": {
-        "skill_install": "Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills; start one in a new Codex session opened in the same folder with $skill-name or /skills. Best-effort — not verified this release.",
-        "context_location": "The working folder is the workspace; every session opened in it reads and writes the same files, so a results file written in one session is visible in the next. Best-effort — not verified this release.",
+        "skill_install": "Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills; start one in a new Codex session opened in the same folder with $skill-name or /skills. Standalone skills load in the CLI, the desktop app and the IDE extension; plugin skills load in the CLI and the app, not the IDE extension (documented 2026-10-18). Whether loading is the same across all three surfaces is release check 8 (open): until it passes, install standalone skills in .agents/skills/ and name the surfaces where they load.",
+        "context_location": "The workspace (the working folder) is both places. As the workflow's place it holds the installed skills (.agents/skills/), the context files they read by relative path, its run log and its outputs; as the framework's place it holds framework/ and registry/. The workflow never reads framework/, but a session opened in the workspace can, so Test's transcript check covers any read of it, and Test lists the workspace's files before and after each run (rules 3.4, 3.5). Every session opened in the folder reads and writes the same files. Git commits are the copy of an older version. Documented 2026-10-18: https://learn.chatgpt.com/docs/agent-configuration/agents-md",
         "skill_settings": "A skill can't set its own model or reasoning effort; the session's settings apply. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
         "skill_evaluation": "The bundled skill-creator validates the skill's frontmatter and naming (quick_validate.py) but has no evaluation loop; it improves a skill after real use. Verified 2026-10-17: https://github.com/openai/skills. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
         "skill_invocation": "Set `allow_implicit_invocation: false` under `policy` in the skill's `agents/openai.yaml`; explicit invocation (`$skill` in Codex, `@skill` in ChatGPT) still works. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
         "skill_listing": "The AI can read skill folders in `.agents/skills/` from the working folder up to the repository root and in `~/.agents/skills/` (the Codex app also saves to `~/.codex/skills/`); `/skills` lists them for the user. An audit can read each skill's full files. Verified 2026-10-18: https://learn.chatgpt.com/docs/build-skills",
-        "unattended_runs": "Best-effort — not verified this release: Codex can run non-interactively from the command line, so a scheduler on the user's machine can start a run; the docs read for this release describe no built-in scheduled skill runs. Treat a scheduled audit as unavailable unless the user sets one up."
+        "unattended_runs": "Desktop-app automations: they need the machine on and the ChatGPT desktop app running; standalone tasks start a new chat each run, thread tasks return to an existing chat; they can use skills and plugins. They run with the default sandbox and approvals set to \"never\", so a checkpoint in a scheduled run rests on the workflow's instruction, not a gate: Build asks N-B49 before the switch-on steps, and the run ends at a checkpoint leaving a draft or a notification (rules 5.3). Cloud runs exist only as Team Tasks. No release check: the instruction-only handling is the documented behaviour. Verified 2026-10-18: https://learn.chatgpt.com/docs/automations.md?surface=app",
+        "unattended_checkpoint": {
+          "handling": "instruction-only",
+          "release_check": null,
+          "release_check_status": "not needed",
+          "notes": "Automations run with approvals set to \"never\" (documented)."
+        },
+        "framework_files": "framework/ and registry/ in the workspace, saved as plain files (rules 3.2).",
+        "memory_controls": "Codex memories are off by default and separate from ChatGPT memory; sessions are otherwise fresh. A session in the workspace can still read the framework files, which N-T28 says once and the transcript check covers (rules 3.5).",
+        "ai_started_sessions": "No (the framework starts none): Build's checks run in Build's own session under the instruction only (N-B21), with N-F4 and the workspace listed before and after; the bare run is pasted by the leader into a session N-B45's command starts (release check 9); the leader runs every Test input in new sessions in the workspace, and nothing is saved to a practice folder.",
+        "run_log": "Yes: the workflow writes its run log in the workspace and the next session reads it.",
+        "approval_labels": {
+          "one_time": null,
+          "for_the_session": "allow it for this session (the clause N-F3 names)",
+          "refuse": null,
+          "refuse_release_check": null,
+          "status": "Not recorded this release: Codex's approval prompt labels aren't in the facts verified for 10.0.0, and no release check covers them. N-F4 keeps its \"Deny\" wording until a label is recorded."
+        },
+        "connection_switch_off": {
+          "steps": null,
+          "release_check": null,
+          "release_check_status": "none relied on",
+          "until_it_passes": "Codex has no per-session switch the framework relies on: the leader's configured connections load in every session, so every Test hand-over says N-F4 (rules 3.5, 8.8). The bare run's own session starts with none (N-B45's command, release check 9)."
+        },
+        "version_check": "Not set by rules 13.2: treat as none readable, so the Codex checks run again before each cohort release."
       }
     },
     "gemini-cli": {
       "mode": "code",
       "language": "markdown",
       "agent": "https://geminicli.com/docs/core/subagents",
-      "notes": "Skills are folders under .gemini/skills/ (project) or ~/.gemini/skills/ (personal), each with a SKILL.md; invoke by name in the CLI.",
+      "notes": "Skills are folders under .gemini/skills/ (project) or ~/.gemini/skills/ (personal), each with a SKILL.md; invoke by name in the CLI. The framework treats Gemini as print-to-save for its own files (rules 13.1, Other platforms).",
       "capabilities": {
         "skill_install": "Skills are folders under .gemini/skills/<skill-name>/ (project) or ~/.gemini/skills/ (personal), each with a SKILL.md; start one in a new Gemini CLI session opened in the same folder by asking for it by name. Best-effort — not verified this release.",
-        "context_location": "The working folder is the workspace; every session opened in it reads and writes the same files. Best-effort — not verified this release."
+        "context_location": "The working folder is the workspace; every session opened in it reads and writes the same files. Best-effort — not verified this release. The framework's own files are never shipped in the skill: they use print-to-save (see framework_files).",
+        "framework_files": "Print-to-save (rules 3.7): this surface has no drive connection the framework can save through, so each step says so once (N-F6) and gives every changed file, complete, for the leader to save; the next step asks for the files first.",
+        "unattended_runs": "Best-effort — not verified this release: no scheduled run mechanism is recorded for this entry; treat a scheduled audit as unavailable and run it by hand.",
+        "skill_settings": "Best-effort — not verified this release: no per-skill model or reasoning setting is recorded, so the session's settings apply.",
+        "skill_evaluation": "Best-effort — not verified this release: no built-in skill evaluation is recorded; use the by-hand path.",
+        "skill_invocation": "Best-effort — not verified this release: no per-skill switch to stop automatic use is recorded, so make the description's \"Use when\" narrow and tell the user to name the skill.",
+        "skill_listing": "Best-effort — not verified this release: skills are folders under .gemini/skills/ and ~/.gemini/skills/, which a session in the folder may be able to read; if it can't, ask the user to attach the skills to audit."
       }
     },
     "vertex-ai-adk": {
@@ -97,29 +202,35 @@
       "mode": "guided",
       "agent": "https://docs.cloud.google.com/gemini/enterprise/docs/agent-designer",
       "skill": "https://docs.cloud.google.com/gemini/enterprise/docs/skills",
-      "notes": "Work/school Google accounts on Standard, Plus, or Pay-as-you-go editions. Skills upload as Markdown or a zip with SKILL.md in the root directory via Skills > + > Upload skill > Import; invoke with @ or /. Skills are not available inside Gemini Enterprise agents. Personal Google accounts use Gemini Spark instead (see gemini-spark).",
+      "notes": "Work/school Google accounts on Standard, Plus, or Pay-as-you-go editions. Skills upload as Markdown or a zip with SKILL.md in the root directory via Skills > + > Upload skill > Import; invoke with @ or /. Skills are not available inside Gemini Enterprise agents. Personal Google accounts use Gemini Spark instead (see gemini-spark). The framework's files use print-to-save here (rules 3.7).",
       "capabilities": {
         "skill_install": "Best-effort — not verified this release: Skills upload as Markdown or a zip with SKILL.md in the root directory via Skills > + > Upload skill > Import; invoke with @ or / in a new chat.",
-        "context_location": "Best-effort — not verified this release: no dedicated project/context-file location is documented for this entry; treat any workflow context as shipped inside the skill package until this is verified.",
+        "context_location": "Best-effort — not verified this release: no dedicated project/context-file location is documented for this entry; treat any workflow context as shipped inside the skill package until this is verified. The framework's own files are never shipped in the skill: they use print-to-save (see framework_files).",
         "custom_agents": "Best-effort — not verified this release: yes, via Agent Designer — but uploaded skills are not available inside Gemini Enterprise agents, so agent-shaped work and skill-shaped work do not compose on this platform today.",
         "unattended_runs": "Best-effort — not verified this release: no scheduled or unattended run mechanism is documented for this entry.",
         "web_search": "Best-effort — not verified this release: web search is available.",
         "skill_settings": "Best-effort — not verified this release: the docs describe no per-skill model or reasoning setting, so the conversation's settings apply.",
         "skill_evaluation": "The built-in creator (+ > Create skill with Gemini) writes and saves a skill but has no evaluation feature; the docs say to test a skill by opening it in a new chat. Verified 2026-10-17: https://docs.cloud.google.com/gemini/enterprise/docs/skills. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
         "skill_invocation": "Best-effort — not verified this release: the docs describe no per-skill switch to stop automatic use, so make the description's \"Use when\" narrow and tell the user to name the skill.",
-        "skill_listing": "Best-effort — not verified this release: the AI sees the skills available to the user; the user sees them on the Skills page. The docs describe no way for the AI to read another skill's files, so ask the user to attach or paste the skills to audit."
+        "skill_listing": "Best-effort — not verified this release: the AI sees the skills available to the user; the user sees them on the Skills page. The docs describe no way for the AI to read another skill's files, so ask the user to attach or paste the skills to audit.",
+        "framework_files": "Print-to-save (rules 3.7): this surface has no drive connection the framework can save through, so each step says so once (N-F6) and gives every changed file, complete, for the leader to save; the next step asks for the files first."
       }
     },
     "gemini-spark": {
       "mode": "guided",
       "skill": "https://support.google.com/gemini/answer/17094296",
-      "notes": "Spark is a mode of the Gemini app (sidebar > Switch to Spark) on the web, the Mac app, and Android/iOS. Personal Google accounts only (not Workspace), Google AI Pro or Ultra, 18+; not available in the EEA, UK, Switzerland, or Nigeria. Skills upload as a SKILL.md or a zip containing one via Skills > Upload; invoke with / in a task or let Spark pick automatically. Skill names must be lowercase-hyphenated.",
+      "notes": "Spark is a mode of the Gemini app (sidebar > Switch to Spark) on the web, the Mac app, and Android/iOS. Personal Google accounts only (not Workspace), Google AI Pro or Ultra, 18+; not available in the EEA, UK, Switzerland, or Nigeria. Skills upload as a SKILL.md or a zip containing one via Skills > Upload; invoke with / in a task or let Spark pick automatically. Skill names must be lowercase-hyphenated. The framework's files use print-to-save here (rules 3.7).",
       "capabilities": {
         "skill_install": "Best-effort — not verified this release: Skills upload as a SKILL.md or a zip containing one via Skills > Upload; invoke with / in a new task or let Spark pick automatically.",
-        "context_location": "Best-effort — not verified this release: no dedicated project/context-file location is documented for this entry; treat any workflow context as shipped inside the skill package until this is verified.",
+        "context_location": "Best-effort — not verified this release: no dedicated project/context-file location is documented for this entry; treat any workflow context as shipped inside the skill package until this is verified. The framework's own files are never shipped in the skill: they use print-to-save (see framework_files).",
         "custom_agents": "Best-effort — not verified this release: no custom-agent primitive is documented for Spark.",
         "unattended_runs": "Best-effort — not verified this release: no scheduled or unattended run mechanism is documented for this entry.",
-        "web_search": "Best-effort — not verified this release: web search is available."
+        "web_search": "Best-effort — not verified this release: web search is available.",
+        "framework_files": "Print-to-save (rules 3.7): this surface has no drive connection the framework can save through, so each step says so once (N-F6) and gives every changed file, complete, for the leader to save; the next step asks for the files first.",
+        "skill_settings": "Best-effort — not verified this release: the docs describe no per-skill model or reasoning setting, so the conversation's settings apply.",
+        "skill_evaluation": "Best-effort — not verified this release: no built-in skill evaluation is recorded; test a skill by opening it in a new task (the by-hand path).",
+        "skill_invocation": "Best-effort — not verified this release: the docs describe no per-skill switch to stop automatic use, so make the description's \"Use when\" narrow and tell the user to name the skill.",
+        "skill_listing": "Best-effort — not verified this release: the user sees their skills on the Skills page; the docs describe no way for the AI to read another skill's files, so ask the user to attach the skills to audit."
       }
     },
     "copilot-studio": {
@@ -127,22 +238,108 @@
       "agent": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"
     },
     "microsoft-365-copilot": {
-      "mode": "guided",
+      "mode": "code",
+      "language": "markdown",
       "aliases": [
         "Microsoft 365 Copilot",
         "M365 Copilot",
         "Copilot",
-        "Copilot Cowork"
+        "Copilot Cowork",
+        "Cowork in Microsoft 365 Copilot",
+        "Microsoft 365 Copilot Cowork"
       ],
+      "agent": "https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agent-builder",
       "skill": "https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize",
-      "notes": "Skills live in Copilot Cowork's Customize > Skills tab and are saved to the user's OneDrive. Distinct from Copilot Studio (see copilot-studio), which builds agents.",
+      "plugin": "https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-plugins",
+      "memory": "https://support.microsoft.com/en-US/Microsoft-365-Copilot/manage-copilot-memory-in-microsoft-365-copilot",
+      "notes": "The Microsoft 365 Copilot app (work or school accounts; a Copilot license with Cowork and usage-based billing enabled). The framework runs in Copilot Cowork, where custom skills work (not on mobile). Write \"Copilot Cowork\" or \"Cowork in Microsoft 365 Copilot\" in leader-facing copy, never \"Cowork\" alone (\"Cowork\" alone is an alias of the `claude` entry). Two places to build (verified 2026-10-24, James's test): skills are made in Cowork by Copilot's own creator, as on Claude (Build states the intent, stages each part, and has the creator save them all in its last part; a Claude plugin .zip is converted on upload); agents are made by Agent Builder's own chat in Copilot's Chat tab (Copilot › Chat › Agents › New agent), from the build prompt Build writes, not in Cowork — Copilot's ordinary Chat reads the plan's files and can describe an agent but can't create one. Distinct from Copilot Studio (see copilot-studio), the maker tool for governed, channel-published agents. OneDrive works like Google Drive for the framework's files (verified 2026-10-21, James's test; decision 3c-DF): Cowork creates Markdown in a named folder, edits it in place, and a new chat reads and updates it with nothing attached. Copilot Chat memory (Saved memories, Chat history) is on by default with no per-chat off switch; whether Cowork sessions use it isn't documented. Sources (read 2026-10-18; owner-verified 2026-10-21 and 2026-10-24): https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork, https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize, https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-plugins, https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/agent-builder, https://learn.microsoft.com/en-us/microsoft-365/copilot/scheduled-prompts",
       "capabilities": {
-        "skill_install": "In Cowork, open Customize > Skills, select the arrow next to Add, then Upload skill, and choose a .md file with a single SKILL.md, or a .zip or .skill archive with SKILL.md at its root (up to 10 MB compressed, 100 files); Cowork saves it to OneDrive. Add > Create new starts a guided conversation that writes a skill. Plugin packages, including Claude plugins, upload from the Plugins tab. Verified 2026-10-17: https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize",
+        "skill_install": "In Cowork, open Customize > Skills, select the arrow next to Add, then Upload skill, and choose a .md file with a single SKILL.md, or a .zip or .skill archive with SKILL.md at its root (up to 10 MB compressed, 100 files); Cowork saves it to OneDrive, in /Documents/Cowork/skills/<skill>/. Add > Create new starts a guided conversation that writes a skill, and Copilot's creator can save staged skill text there itself. Plugin packages, including Claude plugins, upload from the Plugins tab and are converted. Cowork discovers custom skills at the start of each session and picks them by description; custom skills don't work on mobile. Verified 2026-10-17 and 2026-10-18 (skill creation owner-verified 2026-10-21): https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize",
         "skill_settings": "Best-effort — not verified this release: the docs describe no per-skill model or reasoning setting, so Cowork's own settings apply.",
         "skill_evaluation": "The guided Create new flow writes and saves a skill but has no evaluation feature; the docs say to test changes in a new conversation. Verified 2026-10-17: https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
         "skill_invocation": "Best-effort — not verified this release: the docs describe no per-skill switch to stop automatic use, so make the description's \"Use when\" narrow and tell the user to name the skill.",
         "skill_listing": "The user sees their skills under Customize → Skills (Your skills, Built-in) and can download each skill file or open it in OneDrive. Ask the user to attach or download the skills to audit. Verified 2026-10-18: https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize",
-        "unattended_runs": "Best-effort — not verified this release: the docs read for this release describe no scheduled runs for Copilot Cowork skills; run the audit by hand."
+        "unattended_runs": "Cowork scheduled prompts (up to 25) and event-driven tasks (email, Teams) run from the Automations page with the user's permissions, skills and connectors. Event-driven tasks default to draft-and-approve, and sensitive actions (send, post, edit a shared file) wait for approval, so an unattended run may stop at an approval. Whether a checkpoint holds there (a gate) is release check 26, still open, so for now it counts as the instruction only: Build asks N-B49 before the switch-on steps (rules 5.3). Copilot Chat also has scheduled prompts in Teams, Office.com and Outlook. Verified 2026-10-18 except the unattended approval behaviour: https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork, https://learn.microsoft.com/en-us/microsoft-365/copilot/scheduled-prompts",
+        "context_location": "The workflow's place is Cowork's own folder in OneDrive, never the framework folder: Build saves the runtime copy of each context file in the workflow's own folder, /Documents/Cowork/[workflow-slug]/, and its skills in /Documents/Cowork/skills/. No Project; nothing is attached per run. A skill reads its context files by the place Build writes into it; one it can't read, it says so and stops, never guessing, and the leader attaches it to that run (release check 32, open; see skill_context_by_path). For an agent, the workflow's place is the agent itself, under Agents in Copilot's Chat tab, with those runtime copies as its Knowledge. The framework's files live in Framework/ in OneDrive, separate from Cowork's folder; every framework chat is a new Cowork chat (rules 3.2, 3.4).",
+        "custom_agents": "Agent Builder agents, made in Copilot's Chat tab (Copilot › Chat › Agents › New agent), not in Cowork; no sub-agent primitive inside Cowork is documented. Agent Builder's own chat builds an agent from Build's build prompt (verified 2026-10-24, release check 21); see build_places and agent_builder. Actions beyond Agent Builder's need Copilot Studio.",
+        "unattended_checkpoint": {
+          "handling": "instruction-only",
+          "release_check": 26,
+          "release_check_status": "open",
+          "notes": "Draft-and-approve is the default for event-driven tasks, but no step treats it as a gate until release check 26 passes."
+        },
+        "framework_files": "Framework/ in OneDrive, separate from Cowork's own folder; registry in Framework/registry/ (rules 3.2).",
+        "cloud_drives": {
+          "onedrive": {
+            "create": "yes: Markdown files in the folder the leader names (verified 2026-10-21, release check 22)",
+            "read": "yes: a new Cowork chat reads and updates the files from the location alone, with nothing attached (verified 2026-10-21, release check 23)",
+            "update_in_place": "yes: Cowork downloads, edits and writes back the same file, no copy (verified 2026-10-21, release check 22)",
+            "move_and_rename": "yes: Cowork creates folders and moves or reorganizes files (documented 2026-10-18)",
+            "folder_limits": "none: Cowork sees the leader's whole OneDrive, everything they can see; the only boundary is their permissions (N-F1's Microsoft 365 form says so)",
+            "approvals": "one approval per edit: Approve once, or Always allow for the conversation (verified 2026-10-21)",
+            "release_check": [
+              22,
+              23
+            ],
+            "release_check_status": "verified",
+            "if_a_later_run_fails": "Where Cowork can't find or read the files at the location (a tenant where an admin limits its OneDrive access, say): N-F13's Microsoft 365 form, attach the Framework folder and say \"done\", nothing read, saved or asked until it can read them. If in-place editing fails: the create-only path in that folder if Cowork can create and move files there (rules 3.6); print-to-save otherwise.",
+            "source": "James's test, 2026-10-21, his work account, each result confirmed in OneDrive (decision 3c-DF); one tenant, so re-checked before each cohort release."
+          }
+        },
+        "build_places": {
+          "skills": "In Cowork, by Copilot's creator: Build states the intent, stages each part in package/, and has the creator save them all in its last part; skills live in /Documents/Cowork/skills/ (verified 2026-10-21, release check 21).",
+          "agents": "By Agent Builder's own chat (Copilot › Chat › Agents › New agent, the \"Message Agent Builder\" box), from the build prompt Build writes into package/: the task, design-plan.md, requirements.md, the workflow's OneDrive folder, exactly the context files and connections, and the lines every built workflow carries. Verified 2026-10-24 (release check 21). Copilot's ordinary Chat reads the files and can describe an agent but can't create one (N-B52's recovery form)."
+        },
+        "agent_builder": {
+          "form": "Name, Description, Instructions, Skills, Knowledge, and per-agent Work content switches.",
+          "work_content": "Per-agent switches (Cloud files, Outlook, Teams, Copilot connectors, web search), on by default: Microsoft says an agent can reach everything Copilot can unless they're switched off (in James's 2026-10-24 test Agent Builder itself set them all off). The leader confirms before Create that only what the workflow uses is on; no step can read them back.",
+          "knowledge": "An agent's context is its Knowledge: the leader adds each context file from its runtime copy in /Documents/Cowork/[workflow-slug]/ (never through Agent Builder's offer to attach one, which may pick the framework's copy), checks Knowledge lists only those files, and replaces a file there on every change. Knowledge is read-only to the agent.",
+          "instructions_readable": "No: Build can't read an agent's instructions, so the leader pastes them back into Build's chat after Create and after each fix, and Build's built-text check runs on the pasted text.",
+          "keeps_lines_word_for_word": {
+            "release_check": 31,
+            "release_check_status": "open",
+            "until_it_passes": "The paste-back: after Create and each fix the leader pastes the agent's instructions, Build checks them, and a gap gets a fix prompt before any test run (N-B52 step 6, N-B53); a gap still there after three tries: Failed check, the leader asked to delete the agent (N-B54), a change request (N-B9), and Design re-plans the work as Cowork skills."
+          },
+          "edits_existing_agent": {
+            "release_check": 29,
+            "release_check_status": "open",
+            "until_it_passes": "N-B53's rebuild form: a new agent from the build prompt with the fix in it; the leader deletes the old one once the new one shows."
+          },
+          "cowork_skill_under_agent_skills": {
+            "release_check": 28,
+            "release_check_status": "open",
+            "until_it_passes": "Design keeps everything an agent needs in its own instructions, and no skill starts an agent (design 5.4)."
+          },
+          "cannot_send_or_change_with_work_content_on": {
+            "release_check": 30,
+            "release_check_status": "open",
+            "until_it_passes": "N-T8's protection clause in every agent hand-over, and any write the plan routes through an agent counts as resting on the instruction, said in N-B21."
+          },
+          "run_log": "None: an agent's Cloud files switch is off and its Knowledge is read-only, so it carries the flag line only."
+        },
+        "skill_context_by_path": {
+          "behaviour": "Build writes each context file's place (/Documents/Cowork/[workflow-slug]/) into the skill; run chats attach nothing. Fail closed: a skill that can't read one says so and stops, never guessing.",
+          "release_check": 32,
+          "release_check_status": "open",
+          "until_it_passes": "Each run chat attaches the workflow's context files from the workflow's own folder in Cowork's folder (N-T8's attach clause), as in every real run."
+        },
+        "memory_controls": "Copilot Chat's Saved memories and Chat history are on by default and can be turned off only account-wide (Settings > Personalization); no per-chat or temporary chat is documented, so memory can't be closed off per chat; Test runs the transcript check (rules 3.5).",
+        "ai_started_sessions": "No: Build's checks run in Build's own Cowork chat under the instruction only (N-B21 with its Microsoft 365 sentence; N-F4 at their start whatever the workflow's connections); an agent isn't run in Build's chat; the leader runs every Test input in new Cowork chats, or new chats with the agent. No bare run until connections can be confirmed off per session (release check 25).",
+        "run_log": "Skills: in Cowork's folder only where release check 27 (open) confirms the workflow can write and read it; until then no run log, no re-check line, no time saved. Agents: none.",
+        "approval_labels": {
+          "one_time": "Approve once",
+          "for_the_conversation": "Always allow (for the conversation)",
+          "refuse": "Deny",
+          "refuse_release_check": 33,
+          "status": "\"Approve once\" and \"Always allow\" verified 2026-10-21 (James's test; documented 2026-10-18). \"Deny\" is N-F4's wording, release check 33 (open): until it passes, \"Deny\" stands; if the label differs, record it here and N-F4 names it. Whether Cowork asks before each connector write in an attended chat is release check 24 (open): until then Build's checks rely on the instruction only."
+        },
+        "connection_switch_off": {
+          "steps": null,
+          "release_check": 25,
+          "release_check_status": "open",
+          "until_it_passes": "No per-chat switch is confirmed, so: no bare run, and Test's hand-overs give no switch-off step (N-F4 is said in every one there anyway, since Cowork's own mail, chat and file actions stay on in every chat). Record the per-chat steps here once the check passes."
+        },
+        "version_check": "None readable: the release checks run again before each cohort release and whenever Microsoft's release notes change something a check rests on (rules 13.2)."
       }
     },
     "workspace-studio": {
@@ -156,17 +353,66 @@
       "memory": "https://help.openai.com/en/articles/8590148-memory-faq",
       "project": "https://help.openai.com/en/articles/10169521-projects-in-chatgpt",
       "plugin": "https://learn.chatgpt.com/docs/plugins",
-      "notes": "ChatGPT Chat/Work on web, desktop, and mobile. Skills upload as a zip or SKILL.md under Plugins > Skills > Create > Upload from your computer (paid plans except Free/Go; off by default on Enterprise/Edu until an admin enables); invoke with @skill-name in Work. Plugins (any paid plan) install from Plugins > Add marketplace; plugin-bundled skills work across web, desktop, and mobile. Custom GPTs are deprecated — package agent-shaped work as a Workspace Agent with skills attached. Verified 2026-09-22: https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business, https://openai.com/index/introducing-workspace-agents-in-chatgpt/, https://help.openai.com/en/articles/10291617-scheduled-tasks-in-chatgpt, https://help.openai.com/en/articles/9237897-chatgpt-search (help.openai.com/en/articles/20001066-skills-in-chatgpt returned HTTP 403 on direct fetch; corroborated via openai.com/academy/skills and developers.openai.com/codex/skills-and-plugins for the @skill-name invocation).",
+      "notes": "ChatGPT Chat/Work on web, desktop, and mobile. Skills: sidebar Plugins > Skills > Create (with chat, with editor, or Upload from your computer); the skills article lists Business, Enterprise, Healthcare and Edu, so skills on Plus and Pro are unverified (release check 19). Invoke with @skill-name, or let ChatGPT auto-select. Plugins (any paid plan) install from Plugins > Add marketplace; plugin-bundled skills work across web, desktop, and mobile. Custom GPTs are deprecated — package agent-shaped work as a Workspace Agent with skills attached. Memory: Settings > Personalization > Memory (saved memories, chat history). A Project set to project-only memory can't see chats outside it, but ChatGPT Work isn't available in that Project, and project chats still see each other. Temporary Chat skips memory, but Unpersonalized drops plugins and a temporary chat can't join a Project. Sources (read 2026-10-18 in the browser; help.openai.com returns 403 to fetch tools): https://help.openai.com/en/articles/20001066-skills-in-chatgpt, https://help.openai.com/en/articles/10169521-projects-in-chatgpt, https://help.openai.com/en/articles/8590148-memory-faq, https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business, https://help.openai.com/en/articles/10291617-scheduled-tasks-in-chatgpt, https://help.openai.com/en/articles/9237897-chatgpt-search, https://learn.chatgpt.com/docs/plugins.",
       "capabilities": {
-        "skill_install": "Upload the skill as a zip or SKILL.md under Plugins > Skills > Create > Upload from your computer (paid plans except Free/Go; off by default on Enterprise/Edu until an admin enables). Invoke with @skill-name in a new chat, or let ChatGPT auto-match it to the task.",
-        "context_location": "Project files in a ChatGPT Project hold the workflow's context; run the workflow in a new chat inside that project. Small reference material ships inside the skill zip.",
-        "custom_agents": "Workspace Agents are the agent primitive (Custom GPTs are deprecated): build one from Agents > Browse templates or Agents > Create with the Agent Builder, then connect tools and skills to it. In research preview for Business, Enterprise, Edu, and Teachers plans as of this verification.",
-        "unattended_runs": "Scheduled tasks exist on every plan including Free, as one-time or recurring reminders up to once a day. Event-triggered tasks tied to a connected Gmail, Slack, or GitHub account are further limited to Plus, Pro, Business, Enterprise, Edu, and Healthcare workspaces (not Free/Go), and can access only the connected account and its existing app permissions — connector authorization must be completed before the first such run.",
+        "skill_install": "Upload the skill as a zip or SKILL.md under Plugins > Skills > Create > Upload from your computer. Documented for Business, Enterprise, Healthcare and Edu (off by default on Enterprise/Edu until an admin enables); Plus and Pro unverified (release check 19, open: until it passes, the guided path, or skills not offered on those plans). Invoke with @skill-name in a new chat, or let ChatGPT auto-match it to the task. Read 2026-10-18: https://help.openai.com/en/articles/20001066-skills-in-chatgpt",
+        "context_location": "The workflow's place is its own Project, holding only the context files the workflow reads (Project files: Free 5, Go/Plus 25, Pro/Business/Enterprise/Edu 40); run the workflow in a new chat inside that Project, adding only the workflow's apps. The framework's files never go in the Project: they live in Framework/ in the leader's Google Drive (or SharePoint/OneDrive on a work account) through the drive connection, and framework chats run outside any Project. Nothing documented hides a Project file from a chat in that Project, and project chats can reference each other. Project-only memory only where release check 15 shows skills still run there; otherwise the default, with the transcript check. Small reference material ships inside the skill zip (rules 3.2, 3.4, 3.5).",
+        "custom_agents": "Workspace Agents are the agent primitive (Custom GPTs are deprecated): build one from Agents > Browse templates or Agents > Create with the Agent Builder, in guided mode from Build's instruction document, then connect tools and skills to it. Business, Enterprise, Edu and Teachers plans; off by default at launch on Enterprise. They can run on a schedule, from Slack, or by API. Whether write actions can be set to \"Always ask\" and the built-text check can read the instruction document is release check 18 (open): until it passes, a Workspace Agent's protection is the instruction only, said in N-B21. Read 2026-10-18: https://help.openai.com/en/articles/20001143-chatgpt-workspace-agents-for-enterprise-and-business",
+        "unattended_runs": "Scheduled tasks: Free and Go up to once a day; paid plans up to hourly at exact times (active-task limits 3 Free/Go, 5 Plus, 10 Business/Edu, 15 Pro/Enterprise); push or email notifications. A task created in a Project can't read the Project's uploaded files, so the SCH task checks the context can be reached from where the task runs. Event-triggered tasks on a connected Gmail, Slack or GitHub account are limited to Plus, Pro, Business, Enterprise, Edu and Healthcare, reach only the connected account, and need connector authorization before the first run. Workspace Agents can also run on a schedule. Checkpoints: the docs say actions needing approval pause a task, but how a scheduled task and a Workspace Agent's scheduled run treat a checkpoint is release check 17, still open, so for now both count as the instruction only: Build asks N-B49 before the switch-on steps, and the run ends at a checkpoint leaving a draft or a notification (rules 5.3). Read 2026-10-18: https://help.openai.com/en/articles/10291617-scheduled-tasks-in-chatgpt",
         "web_search": "Available on Free, Go, Plus, Pro, Business, Enterprise, and Edu plans, including for signed-out users; triggered automatically or manually via the Search tool, subject to plan usage limits.",
         "skill_settings": "A skill can't set its own model or reasoning effort; the model chosen for the conversation applies. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
         "skill_evaluation": "The built-in skill-creator checks the skill's format but has no evaluation loop; its docs say to test a skill by using it and improving it after real use. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
         "skill_invocation": "Set `allow_implicit_invocation: false` under `policy` in the skill's `agents/openai.yaml`; explicit invocation (`$skill` in Codex, `@skill` in ChatGPT) still works. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
-        "skill_listing": "Best-effort — not verified this release: the AI sees the names and descriptions of available skills; the user sees them under Skills in the desktop app's sidebar (skills created in the desktop app are folders on the computer, skills created on the web stay in the account). For an audit, ask the user to attach the skills or run it in Codex on the skill folders."
+        "skill_listing": "Best-effort — not verified this release: the AI sees the names and descriptions of available skills; the user sees them under Skills in the desktop app's sidebar (skills created in the desktop app are folders on the computer, skills created on the web stay in the account). For an audit, ask the user to attach the skills or run it in Codex on the skill folders.",
+        "unattended_checkpoint": {
+          "handling": "instruction-only",
+          "release_check": 17,
+          "release_check_status": "open",
+          "notes": "Covers both scheduled tasks and a Workspace Agent's scheduled run."
+        },
+        "framework_files": "Framework/ in Google Drive, or SharePoint/OneDrive on a work account, through the drive connection; registry in Framework/registry/ (rules 3.2).",
+        "cloud_drives": {
+          "google_drive": {
+            "create": "yes (tested by James, 2026-10-18, decision 3c-CC)",
+            "read": "yes (tested by James, 2026-10-18)",
+            "update_in_place": "yes: a plain Markdown file edited in place (tested by James, 2026-10-18)",
+            "move_and_rename": "unverified: the actions exist but need the matching Google scopes and must be enabled in the workspace",
+            "folder_limits": "none for individual plans (Enterprise can restrict shared-drive and My Drive access, not a folder)",
+            "plans": "Writes on Plus and Pro unverified; on Business and Enterprise an admin may need to enable write actions (release check 20, open)",
+            "release_check": 20,
+            "release_check_status": "open",
+            "until_it_passes": "Print-to-save, or ask the admin.",
+            "source": "Read 2026-10-18: https://help.openai.com/en/articles/10929079-google-drive-app-and-setup-in-chatgpt, https://help.openai.com/en/articles/11487775-connected-apps-in-chatgpt"
+          },
+          "sharepoint_onedrive_work": {
+            "create": "partly: upload and update when an admin enables the actions and Entra grants Files.ReadWrite.All",
+            "read": "yes, with admin consent (up to 100 MiB per file)",
+            "update_in_place": "partly: as create",
+            "move_and_rename": "unverified",
+            "folder_limits": "site-collection allowlist only (site level, not folder)",
+            "release_check": 20,
+            "release_check_status": "open",
+            "source": "Read 2026-10-18: https://help.openai.com/en/articles/12143177-sharepoint-app-and-setup-in-chatgpt"
+          },
+          "onedrive_personal": "not supported"
+        },
+        "memory_controls": "Project-only memory, set per Project (changes may take a few hours), only where release check 15 shows skills still run there (it also turns off ChatGPT Work in that Project); otherwise the default memory, with the transcript check (rules 3.5). Release check 15 open.",
+        "ai_started_sessions": "No: Build's checks run in Build's own chat under the instruction; the bare run is pasted by the leader into a new Project chat with no apps added, only once release check 16 passes; the leader runs every Test input.",
+        "run_log": "No: nothing documented lets a run write a file the next chat reads; the workflow carries the flag line only.",
+        "approval_labels": {
+          "one_time": null,
+          "for_the_conversation": null,
+          "refuse": "Deny",
+          "refuse_release_check": 33,
+          "status": "The one-time option N-B26 names isn't recorded: the docs say only that ChatGPT may ask for confirmation, and no release check covers it, so N-B26's ChatGPT form has no label to name until one is recorded here. \"Deny\" is N-F4's wording, release check 33 (open): until it passes, \"Deny\" stands; if the label differs, record it here and N-F4 names it."
+        },
+        "connection_switch_off": {
+          "steps": "In a new chat in the workflow's Project, add the workflow's apps and no others (for the bare run, add none).",
+          "release_check": 16,
+          "release_check_status": "open",
+          "until_it_passes": "No bare run on ChatGPT; Test's hand-overs say N-F4 whatever the workflow's own connections."
+        },
+        "version_check": "None readable: the release checks run again before each cohort release and whenever ChatGPT's release notes change something a check rests on (rules 13.2)."
       }
     },
     "chatgpt-agent-mode": {
@@ -174,6 +420,406 @@
       "agent": "https://help.openai.com/en/articles/11752874-chatgpt-agent"
     }
   },
+  "release_checks": [
+    {
+      "id": 1,
+      "platforms": [
+        "claude-code"
+      ],
+      "check": "A deny rule added mid-session is applied",
+      "fallback": "The leader restarts the session once, before Build's checking part",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 2,
+      "platforms": [
+        "claude-code"
+      ],
+      "check": "A deny rule binds a check agent running a sub-agent's text; a check agent's `tools:` allow list refuses every unlisted tool",
+      "fallback": "Those checks rely on the instruction, said in N-B21",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 3,
+      "platforms": [
+        "claude-code"
+      ],
+      "check": "Write and Edit limited to the session's own folder's `practice/` in a headless session (unlisted tools refused)",
+      "fallback": "Write and Edit denied outright in headless sessions; the AI's runs and Build's headless checks show their files in their output",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 4,
+      "platforms": [
+        "claude-code"
+      ],
+      "check": "Deny rules bind in every permission mode Build's own session can be in (default, accept-edits, auto, bypass)",
+      "fallback": "The check sessions keep their allow lists; N-B21a's fallback sentence says only those were limited",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 5,
+      "platforms": [
+        "claude-code"
+      ],
+      "check": "`/mcp` switches a connection off for that session only, without changing the leader's settings",
+      "fallback": "No `/mcp` step in Test's hand-over; N-F4 in every Claude Code hand-over",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 6,
+      "platforms": [
+        "claude-code"
+      ],
+      "check": "`claude -p` under a subscription login from a clean folder; what loads headless and whether `--setting-sources` and the plugin flags leave it out; `--strict-mcp-config` with claude.ai connections and env-var configs; allow-rule merging; unlisted tools refused; Test's deny rules bind; the workflow loads from `.claude/` or `--plugin-dir`; a checkpoint ends the turn and `--resume` through the wrapper keeps the settings; the wrapper refuses bypass flags",
+      "fallback": "Test: the leader runs the practice inputs (N-T42). Build: check agents only, and no bare run",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 7,
+      "platforms": [
+        "claude-code",
+        "claude"
+      ],
+      "check": "How a cloud routine, a desktop task and a Claude scheduled task treat a checkpoint: a gate the platform holds, or the instruction only",
+      "fallback": "Treated as the instruction only: N-B49 before the switch-on steps (rules 5.3)",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 8,
+      "platforms": [
+        "openai-codex"
+      ],
+      "check": "Skill loading across the CLI, the desktop app and the IDE extension",
+      "fallback": "Build installs standalone skills in `.agents/skills/` and names the surfaces where they load",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 9,
+      "platforms": [
+        "openai-codex"
+      ],
+      "check": "N-B45's command (`codex --sandbox read-only -c 'mcp_servers={}'` in a new empty folder) starts a session with no connections that can't write",
+      "fallback": "No bare run on Codex",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 10,
+      "platforms": [
+        "claude"
+      ],
+      "check": "Google Drive update in place; move and rename through the connection",
+      "fallback": "The create-only path (rules 3.6), or print-to-save where the connection can neither update nor move files (rules 3.7)",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 11,
+      "platforms": [
+        "claude"
+      ],
+      "check": "Microsoft 365 connection writes on work accounts, admin-enabled",
+      "fallback": "Offer Google Drive, or print-to-save",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 12,
+      "platforms": [
+        "claude"
+      ],
+      "check": "Scheduled tasks can read Project knowledge",
+      "fallback": "The `SCH` task places the context where the task can read it, or the workflow runs by hand",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 13,
+      "platforms": [
+        "claude"
+      ],
+      "check": "A new chat: connectors and memory switched off under + before the first message (the bare run; Test's run chats with only the workflow's connectors on)",
+      "fallback": "No bare run on that surface; Test's hand-overs there say N-F4 whatever the workflow's own connections",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 14,
+      "platforms": [
+        "claude"
+      ],
+      "check": "On desktop, a chat with a folder added asks before it creates or changes a file there",
+      "fallback": "The desktop hand-over's \"told to save nothing there\" is the only protection for that folder, said plainly; once confirmed, N-F4 covers it too",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 15,
+      "platforms": [
+        "chatgpt"
+      ],
+      "check": "Project-only memory doesn't stop skills",
+      "fallback": "Default memory, with the transcript check",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 16,
+      "platforms": [
+        "chatgpt"
+      ],
+      "check": "A new chat in the workflow's Project with no apps added (or only the workflow's) can't reach the Project's or the account's other apps",
+      "fallback": "No bare run on ChatGPT; Test's hand-overs say N-F4 whatever the workflow's own connections",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 17,
+      "platforms": [
+        "chatgpt"
+      ],
+      "check": "How a scheduled task and a Workspace Agent's scheduled run treat a checkpoint (and a write action set to \"Always ask\")",
+      "fallback": "Treated as the instruction only: N-B49 before the switch-on steps (rules 5.3)",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 18,
+      "platforms": [
+        "chatgpt"
+      ],
+      "check": "A Workspace Agent's write actions can be set to \"Always ask\", and the built-text check can read its instruction document",
+      "fallback": "The Workspace Agent's protection is the instruction only, said in N-B21",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 19,
+      "platforms": [
+        "chatgpt"
+      ],
+      "check": "Skills on Plus and Pro",
+      "fallback": "The guided path, or skills not offered on those plans",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 20,
+      "platforms": [
+        "chatgpt"
+      ],
+      "check": "Drive writes on Plus and Pro; Business and Enterprise write actions needing an admin",
+      "fallback": "Print-to-save, or ask the admin",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 21,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "Agent creation. Skills: Cowork creates them. Agents: Agent Builder's own chat (Copilot › Chat › Agents › New agent) builds one from a build prompt naming the plan's task, `design-plan.md`, `requirements.md` and their OneDrive folder, asking nothing they answer; Copilot's ordinary Chat reads the files but can't create one",
+      "fallback": "If a later run fails: N-B52's recovery form for a leader in the ordinary chat; where Agent Builder can't build from the files, a change request (N-B9), and Design re-plans the agent's work as Cowork skills",
+      "status": "verified",
+      "verified_on": "2026-10-21 (skills), 2026-10-24 (agents); James's tests",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 22,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "Creating files in a separate OneDrive folder; editing Markdown in place",
+      "fallback": "If a later run fails: the create-only path in that folder if Cowork can create and move files there; print-to-save otherwise",
+      "status": "verified",
+      "verified_on": "2026-10-21; James's test",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 23,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "A new Cowork chat, with nothing attached, reads and updates the files in the framework folder from the location alone",
+      "fallback": "If a later run fails: N-F13's Microsoft 365 form, as at any chat that can't read the files",
+      "status": "verified",
+      "verified_on": "2026-10-21; James's test",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 24,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "Cowork asks before each connector write in an attended chat",
+      "fallback": "Build's checks rely on the instruction only, said in N-B21",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 25,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "Connections off per session",
+      "fallback": "No bare run; Test's hand-overs give no switch-off step (N-F4 is said in every one there anyway)",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 26,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "How unattended runs handle approvals: a gate that stops at a checkpoint, or not",
+      "fallback": "Treated as the instruction only: N-B49 before the switch-on steps (rules 5.3)",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 27,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "A workflow reads its own run log in Cowork's folder",
+      "fallback": "No run log, no re-check line, no time saved",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 28,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "A Cowork skill can be added under an agent's Skills",
+      "fallback": "Design keeps everything an agent needs in its own instructions, and no skill starts an agent (design 5.4)",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 29,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "Agent Builder's chat changes an existing agent from a fix prompt (the agent opened with Edit)",
+      "fallback": "N-B53's rebuild form: a new agent from the build prompt with the fix in it; the leader deletes the old one once the new one shows; either way, Test's after-fix round re-runs every input that uses the agent",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 30,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "An Agent Builder agent, with a Work content source on, can't send, post or change anything, or asks before it does",
+      "fallback": "N-T8's protection clause in every agent hand-over, whatever the workflow's own connections; a write the plan routes through an agent counts as resting on the instruction, said in N-B21",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 31,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "Agent Builder keeps the lines a build prompt quotes word for word in the agent's instructions (the practice-run first line, the never-made rule, the closing block's label, the flag line)",
+      "fallback": "The paste-back: after Create and each fix the leader pastes the agent's instructions, Build checks them, and a gap gets a fix prompt before any test run (N-B52 step 6, N-B53); a gap still there after three tries: `Failed check`, the leader asked to delete the agent (N-B54, 3c-DI), a change request (N-B9), and Design re-plans the agent's work as Cowork skills, with no Test round on the agent meanwhile",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 32,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "A Cowork skill, in a new chat with nothing attached, reads a context file in OneDrive at the place written into it",
+      "fallback": "Each run chat attaches the workflow's context files from the workflow's own folder in Cowork's folder (N-T8's attach clause)",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 33,
+      "platforms": [
+        "microsoft-365-copilot",
+        "chatgpt"
+      ],
+      "check": "The button that refuses an action in Microsoft 365 Copilot Cowork and in ChatGPT is labelled \"Deny\", as N-F4 says (3c-DJ)",
+      "fallback": "N-F4 names that platform's own label, from this registry's `approval_labels.refuse`",
+      "status": "open",
+      "verified_on": "",
+      "verified_version_range": "",
+      "run_by": ""
+    }
+  ],
   "integration-registries": [
     {
       "name": "platform-native-connectors",
