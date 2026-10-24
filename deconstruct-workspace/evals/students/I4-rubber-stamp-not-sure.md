@@ -4,6 +4,8 @@
 Dana Rivera again (see I1 for the workflow: Sales Pre-Call Brief), but tired and in a hurry today.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 The same facts as I1, but you give them only when a question asks for something you clearly know (trigger, deliverable, method, test inputs when you must). Everywhere else you are unsure.
 
@@ -18,4 +20,4 @@ The same facts as I1, but you give them only when a question asks for something 
 - For the method, give only I1's first answer ("Look up the company and the person, check our CRM for past contact, form a guess about why they booked, then write it up."). When the AI asks what comes after that, reply "not sure". When the AI asks whether that is how you do it today, reply "Yes, that's how I do it today." (not I1's longer answer, so the step the AI adds stays its own).
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

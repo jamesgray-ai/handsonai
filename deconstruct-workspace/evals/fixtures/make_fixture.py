@@ -1,11 +1,19 @@
 #!/usr/bin/env python3
-"""Build the workspace a Deconstruct eval starts from.
+"""Build the workspace a Deconstruct eval starts from, in this release's formats.
 
 Usage: python3 make_fixture.py <fixture-name> <target-dir>
+       python3 make_fixture.py --list
 
-Every fixture is built from the frozen 9.1.0 copy of the worked example
-(fixtures/upgrade-9x) and registry-template/registry.
-Run `python3 make_fixture.py --list` for the fixture names.
+Two kinds of fixture:
+- Interview fixtures (sales, expenses, meals, winstory): a fresh registry from
+  registry-template/registry with one backlog Workflow node, for the I-evals.
+- Fixtures built on framework-fixtures/ (T15), the shared library of routing-state workspaces:
+  most evals point at a variant folder directly (`dir:../../framework-fixtures/...`); the names here
+  are the combinations that library doesn't hold (two interviews partway, the wrong place, a
+  newsletter candidate for the light track, standing rules, a Git repository, and so on).
+
+`R1` and `R10` are kept for the Design and Test eval sets that still name them (T23, T25): R1 is a
+workflow built and waiting for Test (state 8); R10 an earlier-version requirements file (state 1).
 """
 import re
 import shutil
@@ -14,18 +22,14 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-# The frozen 9.1.0 copy of the worked example (Task 1 Step 2): Task 14 regenerates
-# examples/weekly-status-report in the new format, and these fixtures must keep the old one.
-EXAMPLE = Path(__file__).resolve().parent / "upgrade-9x"
+FF = ROOT / "framework-fixtures"
 TEMPLATE = ROOT / "registry-template" / "registry"
-WSR = "weekly-status-report"
+CFU = "client-follow-up"
+WPS = "weekly-pipeline-summary"
+NEWS = "weekly-newsletter-draft"
 
 
-# ---------- helpers ----------
-
-def copy_example(t):
-    shutil.copytree(EXAMPLE, t, ignore=shutil.ignore_patterns("outputs", "README.md"))
-
+# ---------- helpers: a fresh registry (interview fixtures) ----------
 
 def fresh_registry(t, business, log_entry):
     t.mkdir(parents=True, exist_ok=True)
@@ -37,109 +41,58 @@ def fresh_registry(t, business, log_entry):
         "---\ntype: Business\n"
         f'title: "{business}"\n'
         f'description: "{business}."\n'
-        "generated: { by: process:scaffolding-registry, at: 2026-09-01 }\n---\n"
+        "generated: { by: process:scaffolding-registry, at: 2026-09-01T09:00:00Z }\n---\n"
         f"# {business}\n"
     )
+    idx = t / "registry" / "businesses" / "index.md"
+    if idx.exists():
+        body = "\n".join(l for l in idx.read_text().splitlines() if not l.startswith("_No entries yet"))
+        idx.write_text(body.rstrip("\n") + f"\n- [{business}](/businesses/business.md)\n")
 
 
 def node_path(t, slug):
     return t / "registry" / "workflows" / f"{slug}.md"
 
 
-def add_node(t, slug, title, description, trigger, status="backlog", body_extra=""):
+def add_node(t, slug, title, description, trigger, status="backlog", body_extra="", artifacts=""):
     node_path(t, slug).write_text(
         "---\ntype: Workflow\n"
         f'title: "{title}"\n'
         f'description: "{description}"\n'
-        "generated: { by: process:analyze, at: 2026-09-01 }\n"
+        "generated: { by: process:analyze, at: 2026-09-01T09:00:00Z }\n"
         f"status: {status}\n"
         f'trigger: "{trigger}"\n---\n'
         f"# {title}\n\n{description}\n{body_extra}\n"
-        "# Artifacts\n\n# Skills\n\n# Agents\n"
+        f"# Artifacts\n\n{artifacts}\n# Skills\n\n# Agents\n"
     )
     idx = t / "registry" / "workflows" / "index.md"
     kept = [l for l in idx.read_text().splitlines() if not l.startswith("_No entries yet")]
     idx.write_text("\n".join(kept).rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
 
 
-def remove_node(t, slug):
-    p = node_path(t, slug)
-    if p.exists():
-        p.unlink()
-    idx = t / "registry" / "workflows" / "index.md"
-    idx.write_text("".join(l for l in idx.read_text().splitlines(True) if f"/{slug}.md)" not in l))
-    shutil.rmtree(t / "framework" / slug, ignore_errors=True)
+def add_process(t, slug, title, description, owner, workflows=()):
+    lines = "".join(f"- [{wt}](/workflows/{ws}.md)\n" for ws, wt in workflows)
+    (t / "registry" / "processes" / f"{slug}.md").write_text(
+        "---\ntype: Process\n"
+        f'title: "{title}"\n'
+        f'description: "{description}"\n'
+        "generated: { by: process:scaffolding-registry, at: 2026-09-01T09:00:00Z }\n"
+        f"owner: {owner}\n---\n"
+        f"# {title}\n\n{description}\n\n# Workflows\n{lines}"
+    )
+    idx = t / "registry" / "processes" / "index.md"
+    kept = [l for l in idx.read_text().splitlines() if not l.startswith("_No entries yet")]
+    idx.write_text("\n".join(kept).rstrip("\n") + f"\n- [{title}](/processes/{slug}.md)\n")
 
 
-def set_field(t, slug, field, value):
-    p = node_path(t, slug)
-    s = p.read_text()
-    s, n = re.subn(rf"^{field}: .*$", f"{field}: {value}", s, count=1, flags=re.M)
-    assert n == 1, (slug, field)
-    p.write_text(s)
-
-
-def keep_artifacts(t, slug, labels, keep_skills):
-    """Keep only the named # Artifacts links (and files); drop # Skills when keep_skills is False."""
-    p = node_path(t, slug)
-    lines = p.read_text().splitlines(True)
-    out, section = [], None
-    for l in lines:
-        if l.startswith("# "):
-            section = l.strip()
-        if section == "# Artifacts" and l.startswith("- ["):
-            label = l[3:l.index("]")]
-            if label not in labels:
-                continue
-        if section == "# Skills" and l.startswith("- [") and not keep_skills:
-            continue
-        out.append(l)
-    p.write_text("".join(out))
-    folder = t / "framework" / slug
-    keep_files = {
-        "Requirements": ["requirements.md", "inputs", "context"],
-        "Design spec": ["design-spec.md"],
-        "Test results": ["test-results.md", "test-runs"],
-    }
-    wanted = {"inputs", "context"}
-    for label in labels:
-        wanted.update(keep_files.get(label, []))
-    if keep_skills:
-        wanted.add("skills")
-    for item in list(folder.iterdir()):
-        if item.name not in wanted:
-            shutil.rmtree(item) if item.is_dir() else item.unlink()
-
-
-def set_spec_field(t, slug, field, value):
-    p = t / "framework" / slug / "design-spec.md"
-    s = p.read_text()
-    s, n = re.subn(rf"^{field}: .*$", f"{field}: {value}", s, count=1, flags=re.M)
-    assert n == 1
-    p.write_text(s)
-
-
-def progress_file(t, folder, node, next_part, notes):
-    d = t / "framework" / folder
+def progress_file(t, slug, node, next_part, track, notes, root="framework"):
+    d = t / root / slug
     d.mkdir(parents=True, exist_ok=True)
     (d / "deconstruct-in-progress.md").write_text(
-        f"Next: {next_part}\nWorkflow node: {node}\n\n{notes}\n"
-    )
+        f"Next: {next_part}\nWorkflow node: {node}\nTrack: {track}\n\n{notes}\n")
 
 
-RISK_NOTES = """## What this is worth
-Maya spends about half a day each month pulling risks out of tracker comments. Value: the steering group sees every open risk with an owner, and Maya gets the afternoon back.
-
-## Scope and a name
-Trigger: month end, before the steering meeting. Deliverable: the risk register in the steering group's format. Name: Monthly Risk Register (renamed from Program Risk Register). Law or regulation: no. Governing regime: None.
-
-## The outcome
-Goal: For each month end, a risk register for the steering group, ready the day before the steering meeting.
-Checks: AC1 (must) every open risk in the tracker appears; AC2 (must) every risk names an owner; AC3 each risk has a status from the steering group's list.
-Real output: none yet."""
-
-
-# ---------- fixtures ----------
+# ---------- interview fixtures ----------
 
 def fx_sales(t):
     fresh_registry(t, "Rivera Advisory", "Set up by `scaffolding-registry` for Rivera Advisory, a two-person B2B consulting practice.")
@@ -171,282 +124,146 @@ def fx_winstory(t):
              "A deal closes and the customer agrees to a story")
 
 
-def fx_r1(t):  # walk d: designed and built, not tested, not running
-    copy_example(t)
-    for s in ["onboarding-checklist-drafting", "program-risk-register", "stakeholder-meeting-prep"]:
-        remove_node(t, s)
-    set_field(t, WSR, "status", "under-development")
-    keep_artifacts(t, WSR, ["Opportunity report", "Requirements", "Design spec"], keep_skills=True)
+# ---------- fixtures on framework-fixtures/ ----------
+
+def ff(t, rel):
+    shutil.copytree(FF / rel, t)
 
 
-def fx_r2(t):  # walk g: running, with Requirements
-    copy_example(t)
+def fx_r1(t):  # kept for test-workspace: built, waiting for Test (state 8)
+    ff(t, "states/s08-test-needed/with-registry")
 
 
-def fx_r3(t):  # walk h: running work Analyze recorded, no Requirements
-    copy_example(t)
-    for s in [WSR, "onboarding-checklist-drafting", "program-risk-register"]:
-        remove_node(t, s)
-    set_field(t, "stakeholder-meeting-prep", "status", "in-production")
-    p = node_path(t, "stakeholder-meeting-prep")
-    s = p.read_text().replace("\n# Artifacts", "\nRuns today as a ChatGPT prompt Maya pastes before each stakeholder meeting.\n\n# Artifacts", 1)
-    p.write_text(s)
+def fx_r10(t):  # kept for design-workspace: an earlier-version requirements file (state 1, Deconstruct)
+    ff(t, "earlier-version/old-format/step-driven-norow")
 
 
-def fx_r4(t):  # walk f: re-run of a designed-but-unbuilt workflow, stopped after Part 3
-    copy_example(t)
-    for s in ["onboarding-checklist-drafting", "program-risk-register", "stakeholder-meeting-prep"]:
-        remove_node(t, s)
-    set_field(t, WSR, "status", "under-development")
-    keep_artifacts(t, WSR, ["Opportunity report", "Requirements", "Design spec"], keep_skills=False)
-    set_spec_field(t, WSR, "approved", "false")
-    progress_file(t, WSR, f"registry/workflows/{WSR}.md", "Part 4 — The path",
-                  "## What this is worth\nMaya's Friday mornings back; leadership has the picture before the 11am sync.\n\n"
-                  "## Scope and a name\nTrigger: Maya starts it Friday mornings. Deliverable: the leadership status report. Name: Weekly Status Report. Law or regulation: no. Governing regime: None.\n\n"
-                  "## The outcome\nGoal: For each Friday, a one-page status report for the leadership team, ready by 10am.\n"
-                  "Checks: AC1 (must) every status matches the tracker; AC2 the four sections in order; AC3 Maya could send it without rewording.")
+CFU_NOTES = ("## What this is worth\nAbout 20 minutes per call today; you'd like it down to 5.\n\n"
+             "## Scope and a name\nClient Follow-Up: drafts a follow-up email after each client call from your call notes, "
+             "for you to review and send. Law or regulation: no. Governing regime: None.")
+WPS_NOTES = ("## What this is worth\nAbout an hour every Friday pulling deals out of HubSpot.\n\n"
+             "## Scope and a name\nWeekly Pipeline Summary: summarises your open deals every Friday from HubSpot, "
+             "for you to review before the Monday sales meeting. Law or regulation: no. Governing regime: None.")
 
 
-def fx_r5(t):  # walk e: backlog workflow renamed in Part 2, stopped after Part 3
-    copy_example(t)
-    progress_file(t, "monthly-risk-register", "registry/workflows/program-risk-register.md",
-                  "Part 4 — The path", RISK_NOTES)
+def fx_one_unfinished(t):  # one interview partway (Client Follow-Up), Weekly Pipeline Summary still in the backlog
+    ff(t, "continue/c-only-backlog/with-registry")
+    progress_file(t, CFU, f"registry/workflows/{CFU}.md", "Part 3 — The outcome", "full", CFU_NOTES)
 
 
-def fx_r6(t):  # cold entry: a new workflow with no node, stopped after Part 2
-    copy_example(t)
-    vendor_progress(t)
+def fx_two_unfinished(t):  # two interviews partway, no workflow named: deconstruct 3.3's list question
+    fx_one_unfinished(t)
+    progress_file(t, WPS, f"registry/workflows/{WPS}.md", "Light — the goal", "light", WPS_NOTES)
 
 
-def vendor_progress(t):
-    progress_file(t, "vendor-invoice-intake", "none — new workflow", "Part 3 — The outcome",
-                  "## What this is worth\nAbout two hours a week keying vendor invoices.\n\n"
-                  "## Scope and a name\nTrigger: a vendor invoice arrives in the shared inbox. Deliverable: an invoice entry ready for approval. "
-                  "Name: Vendor Invoice Intake. Law or regulation: no. Governing regime: None.")
+def fx_analyze_unfinished(t):  # an unfinished Analyze session beside the backlog: deconstruct 3.3 item 2
+    ff(t, "continue/c-only-backlog/with-registry")
+    shutil.copy(FF / "continue/c-analyze-unfinished-alone/with-registry/framework/analyze-in-progress.md",
+                t / "framework" / "analyze-in-progress.md")
 
 
-def fx_r7(t):  # another workflow unfinished; the student names a different one
-    fx_r5(t)
+def fx_wrong_place(t):  # the live workflow's own place: its context files, and no framework files
+    src = FF / "states/s02-redo-pending/with-registry"
+    t.mkdir(parents=True)
+    shutil.copytree(src / ".claude", t / ".claude")
 
 
-def fx_r8(t):  # retired, with Requirements (no run log: lint-registry.js:290 rejects one on a retired node)
-    copy_example(t)
-    set_field(t, WSR, "status", "retired")
-    (t / "framework" / WSR / "runs.md").unlink(missing_ok=True)
+def fx_backlog_filter(t):  # 5.1: a backlog node whose slug already has a folder, and running work, are left out
+    ff(t, "continue/c-only-backlog/with-registry")
+    shutil.copytree(FF / f"states/s04-plan-needed/with-registry/framework/{CFU}", t / "framework" / CFU)
+    add_node(t, "stakeholder-meeting-prep", "Stakeholder Meeting Prep",
+             "Prepares a one-page brief before each stakeholder meeting, for you to read beforehand.",
+             "A stakeholder meeting is booked", status="in-production",
+             body_extra="\nRuns today as a prompt you paste before each stakeholder meeting.\n")
+    add_node(t, NEWS, "Weekly Newsletter Draft",
+             "Drafts the weekly client newsletter from your notes, for you to edit and send yourself.",
+             "Friday morning, you paste in the week's notes")
 
 
-def no_registry_wsr(t):
-    copy_example(t)
-    for item in ["registry", "REGISTRY.md"]:
-        p = t / item
-        shutil.rmtree(p) if p.is_dir() else p.unlink()
-    folder = t / "framework" / WSR
-    for item in list(folder.iterdir()):
-        if item.name not in {"requirements.md", "design-spec.md", "inputs", "context"}:
-            shutil.rmtree(item) if item.is_dir() else item.unlink()
+def add_newsletter(t):
+    add_process(t, "client-newsletter", "Client Newsletter", "Keeping clients up to date between projects.",
+                "account-management", [(NEWS, "Weekly Newsletter Draft")])
+    add_node(t, NEWS, "Weekly Newsletter Draft",
+             "Drafts the weekly client newsletter from your notes, for you to edit and send yourself.",
+             "Friday morning, you paste in the week's notes",
+             artifacts="- [Opportunity report](framework/ai-opportunity-report.md)\n")
 
 
-def fx_r9(t):  # walk i: no registry, plan, nothing built in the folder
-    no_registry_wsr(t)
+def fx_newsletter(t):  # a first-time leader's backlog with a clearly light candidate (the light track)
+    ff(t, "continue/c-only-backlog/with-registry")
+    add_newsletter(t)
 
 
-def r9_variant(t, readiness, round_status):
-    no_registry_wsr(t)
-    src = (EXAMPLE / "framework" / WSR / "test-results.md").read_text()
-    src = re.sub(r"^readiness: .*$", f"readiness: {readiness}", src, count=1, flags=re.M)
-    src = re.sub(r"^round_status: .*$", f"round_status: {round_status}", src, count=1, flags=re.M)
-    if readiness == "ready":  # the example's Verdict says Not ready; a ready variant must not contradict its own header
-        src = re.sub(r"(?ms)^## Verdict\n.*?(?=^## )",
-                     "## Verdict\n\n**Ready**: every line Met on every input in the latest round.\n\n", src, count=1)
-    (t / "framework" / WSR / "test-results.md").write_text(src)
+def fx_newsletter_git(t):  # the same, inside a Git repository (the Git offer)
+    fx_newsletter(t)
+    env = ["-c", "user.name=Leader", "-c", "user.email=leader@example.com", "-c", "commit.gpgsign=false"]
+    subprocess.run(["git", "init", "-q", str(t)], check=True)
+    subprocess.run(["git", *env, "-C", str(t), "add", "-A"], check=True)
+    subprocess.run(["git", *env, "-C", str(t), "commit", "-q", "-m", "My framework files"], check=True)
 
 
-def fx_r9_notready(t):
-    r9_variant(t, "not-ready", "complete")
+def fx_newsletter_second(t):  # a second workflow: Client Follow-Up's requirements exist (state 4), the newsletter is next
+    ff(t, "states/s04-plan-needed/with-registry")
+    add_newsletter(t)
 
 
-def fx_r9_ready(t):
-    r9_variant(t, "ready", "complete")
+STANDING = """# Standing rules
 
+Rules you keep for every workflow. Deconstruct suggests the ones that fit each new workflow, and each workflow's requirements keep their own copy.
 
-def fx_r9_inprogress(t):
-    r9_variant(t, "not-ready", "in-progress")
-
-
-def fx_r10(t):  # old step-driven file, nothing built, no plan
-    copy_example(t)
-    for s in ["onboarding-checklist-drafting", "program-risk-register", "stakeholder-meeting-prep"]:
-        remove_node(t, s)
-    set_field(t, WSR, "status", "under-development")
-    keep_artifacts(t, WSR, ["Opportunity report", "Requirements"], keep_skills=False)
-
-
-def fx_r8_continue(t):  # retired, with Requirements, the only node (so "continue my workflow" finds one workflow)
-    fx_r8(t)
-    for s in ["onboarding-checklist-drafting", "program-risk-register", "stakeholder-meeting-prep"]:
-        remove_node(t, s)
-
-
-def fx_r9_runguide(t):  # no registry: requirements.md plus run-guide.md, which means running (check 2)
-    no_registry_wsr(t)
-    shutil.copy(EXAMPLE / "framework" / WSR / "run-guide.md", t / "framework" / WSR / "run-guide.md")
-
-
-# ----- old requirements formats (Global Constraints "Back-compat"; spec section 6) -----
-
-DT_ROW = "| Definition Type | Step-Driven |\n"
-
-
-def req_path(t):
-    return t / "framework" / WSR / "requirements.md"
-
-
-def edit_req(t, *pairs):
-    p = req_path(t)
-    s = p.read_text()
-    for old, new in pairs:
-        assert old in s, old[:60]
-        s = s.replace(old, new, 1)
-    p.write_text(s)
-
-
-def drop_section(t, heading, upto):
-    """Remove the requirements text from `heading` up to (not including) `upto`."""
-    p = req_path(t)
-    s = p.read_text()
-    p.write_text(s[:s.index(heading)] + s[s.index(upto):])
-
-
-def drop_node_field(t, slug, field):
-    p = node_path(t, slug)
-    s, n = re.subn(rf"^{field}: .*\n", "", p.read_text(), count=1, flags=re.M)
-    assert n == 1, (slug, field)
-    p.write_text(s)
-
-
-def fx_r10_norow(t):  # old step-driven: `## Steps Overview`, no Definition Type row (design/SKILL.md:52 reads it as step-driven)
-    fx_r10(t)
-    edit_req(t, (DT_ROW, ""))
-    drop_node_field(t, WSR, "definition_type")
-
-
-GOAL_INPUTS = """## Inputs
-
-- This week's task changes and comments from the HubSpot project tracker "Q2 Delivery Tracker" (C1)
-- The current date, which sets the 7-day window
-- The report template and three past reports (C2)
-- The tone guide (C3), once it exists
-
+- It never sends an email; it only saves drafts for you to send. · rule · from client-follow-up, 2026-10-01
+- It never names one client to another. · rule · from client-follow-up, 2026-10-01
 """
 
 
-def goal_driven(t, value, goal_heading):
-    """Today's Deconstruct goal-driven layout (deconstruct/SKILL.md, "Goal-Driven middle block"):
-    a Definition Type row, `## Inputs` between Metadata and Context Inventory, and no Steps Overview,
-    Step Details, Sequence or Optimization Notes."""
-    fx_r10(t)
-    edit_req(t, (DT_ROW, f"| Definition Type | {value} |\n"))
-    drop_section(t, "## Steps Overview", "## Context Inventory")
-    edit_req(t, ("## Context Inventory", GOAL_INPUTS + "## Context Inventory"))
-    p = req_path(t)
-    s = p.read_text()
-    s = s[:s.index("## Optimization Notes")].rstrip("\n") + "\n"
-    for old, new in [
-        ("| C1 | HubSpot project tracker | 1 |", "| C1 | HubSpot project tracker | All |"),
-        ("| C2 | Report template + 3 past reports | 2 |", "| C2 | Report template + 3 past reports | All |"),
-        ("| C3 | Tone guide | 2 |", "| C3 | Tone guide | All |"),
-        ("tests R1 and the Step 2 ownerless-blocker edge case", "tests R1 and the ownerless-blocker edge case"),
-        ("| G1 | Step 3 |", "| G1 | Before the report is saved or shared |"),
-        ("| G2 | Step 2 |", "| G2 | While drafting |"),
-    ]:
-        assert old in s, old
-        s = s.replace(old, new, 1)
-    if goal_heading != "## Goal":
-        s = s.replace("\n## Goal\n", f"\n{goal_heading}\n", 1)
-    assert "## Path" not in s and "## Steps Overview" not in s and "### Step " not in s
-    p.write_text(s)
+def fx_newsletter_standing(t):  # the same, with standing-rules.md kept from the first workflow
+    fx_newsletter_second(t)
+    (t / "framework" / "standing-rules.md").write_text(STANDING)
 
 
-def fx_r10_goal(t):  # old goal-driven: `Definition Type: Goal-Driven`, `## Inputs`, no `## Path`
-    goal_driven(t, "Goal-Driven", "## Goal")
-    set_field(t, WSR, "definition_type", "goal-driven")
+def fx_cold_registry(t):  # a registry whose processes fit the workflow the leader names, and no node for it
+    ff(t, "continue/c-only-backlog/with-registry")
+    for slug in (CFU, WPS):
+        node_path(t, slug).unlink()
+    (t / "registry" / "workflows" / "index.md").write_text("# Workflows\n\n_No entries yet._\n")
+    for p in (t / "registry" / "processes").glob("*.md"):
+        if p.name != "index.md":
+            p.write_text(re.sub(r"(?s)# Workflows\n.*", "# Workflows\n", p.read_text()))
 
 
-def fx_r10_outcome(t):  # legacy goal-driven: the `Outcome-Driven` value and the `## Outcome` heading
-    goal_driven(t, "Outcome-Driven", "## Outcome")
-    set_field(t, WSR, "definition_type", "outcome-driven")
-
-
-def fx_r10_nomarkers(t):  # none of the markers: no Definition Type row, Steps Overview, Inputs or Path
-    fx_r10(t)
-    edit_req(t, (DT_ROW, ""), ("## Steps Overview", "## How the work goes"), ("## Step Details", "## Notes on each part"))
-    drop_section(t, "## Sequence", "## Context Inventory")
-    s = req_path(t).read_text()
-    for marker in ("Definition Type", "## Steps Overview", "## Inputs", "## Path"):
-        assert marker not in s, marker
-    drop_node_field(t, WSR, "definition_type")
-
-
-def fx_r11(t):  # built (approved Design spec, # Skills linked), not running, named directly
-    fx_r1(t)
-
-
-def fx_r12(t):  # two unfinished interviews: R5's renamed backlog workflow and R6's cold-entry one
-    fx_r5(t)
-    vendor_progress(t)
-
-
-# ---------- tidy: every fixture's registry lints clean, as a real student's would ----------
-
-TOOLS = ROOT / "registry-template" / "tools"
-
-
-def tidy(t):
-    """Drop list lines linking to Workflow nodes or files a fixture removed, list every Business
-    node in its index,
-    then recompose the derived views (registry/index.md catalog, REGISTRY.md) with the
-    template's tools, so the registry lints clean."""
-    t = Path(t).resolve()
-    reg = t / "registry"
-    if not reg.is_dir():
-        return
-    bundle_link = re.compile(r"\]\((/workflows/[^)#]+\.md)\)")
-    repo_link = re.compile(r"\]\(((?:framework|registry|context|outputs)/[^)#]+)\)")
-
-    def broken(line):
-        return (any(not (reg / m.lstrip("/")).exists() for m in bundle_link.findall(line))
-                or any(not (t / m).exists() for m in repo_link.findall(line)))
-
-    for f in reg.rglob("*.md"):
-        lines = f.read_text().splitlines(keepends=True)
-        kept = [l for l in lines if not broken(l)]
-        if kept != lines:
-            f.write_text("".join(kept))
-    bdir = reg / "businesses"
-    idx = bdir / "index.md"
-    if idx.exists():
-        body = idx.read_text()
-        for b in sorted(bdir.glob("*.md")):
-            if b.name == "index.md" or f"/businesses/{b.name})" in body:
-                continue
-            m = re.search(r'^title: "?([^"\n]+)"?$', b.read_text(), re.M)
-            body = "\n".join(l for l in body.splitlines() if not l.startswith("_No entries yet"))
-            body = body.rstrip("\n") + f"\n- [{m.group(1) if m else b.stem}](/businesses/{b.name})\n"
-        idx.write_text(body)
-    r = subprocess.run(["node", str(TOOLS / "compose-registry.js"), str(reg)], cwd=t,
-                       capture_output=True, text=True)
-    if r.returncode != 0:
-        sys.exit(f"compose failed for {t}: {r.stderr[-600:]}")
+def fx_cold_registry_no_fit(t):  # the same, with only a finance process: no process fits a newsletter
+    fx_cold_registry(t)
+    for p in (t / "registry" / "processes").glob("*.md"):
+        if p.name != "index.md":
+            p.unlink()
+    (t / "registry" / "processes" / "index.md").write_text("# Processes\n")
+    add_process(t, "month-end-close", "Month-End Close", "Closing the books each month.", "account-management")
 
 
 FIXTURES = {
     "sales": fx_sales, "expenses": fx_expenses, "meals": fx_meals, "winstory": fx_winstory,
-    "R1": fx_r1, "R2": fx_r2, "R3": fx_r3, "R4": fx_r4, "R5": fx_r5, "R6": fx_r6, "R7": fx_r7,
-    "R8": fx_r8, "R8-continue": fx_r8_continue, "R9": fx_r9, "R9-not-ready": fx_r9_notready,
-    "R9-ready": fx_r9_ready, "R9-in-progress": fx_r9_inprogress, "R9-run-guide": fx_r9_runguide,
-    "R10": fx_r10, "R10-no-row": fx_r10_norow, "R10-goal": fx_r10_goal, "R10-outcome": fx_r10_outcome,
-    "R10-no-markers": fx_r10_nomarkers, "R11": fx_r11, "R12": fx_r12,
+    "R1": fx_r1, "R10": fx_r10,
+    "one-unfinished": fx_one_unfinished, "two-unfinished": fx_two_unfinished,
+    "analyze-unfinished": fx_analyze_unfinished, "wrong-place": fx_wrong_place,
+    "backlog-filter": fx_backlog_filter, "newsletter": fx_newsletter, "newsletter-git": fx_newsletter_git,
+    "newsletter-second": fx_newsletter_second, "newsletter-standing": fx_newsletter_standing,
+    "cold-registry": fx_cold_registry, "cold-registry-no-fit": fx_cold_registry_no_fit,
 }
+
+# Fixtures copied from framework-fixtures/ need no tidy; the interview fixtures recompose their fresh
+# registry's derived views so it lints clean, as a real leader's would.
+TOOLS = ROOT / "registry-template" / "tools"
+COMPOSE = {"sales", "expenses", "meals", "winstory"}
+
+
+def tidy(t):
+    reg = Path(t).resolve() / "registry"
+    if not reg.is_dir():
+        return
+    r = subprocess.run(["node", str(TOOLS / "compose-registry.js"), str(reg)], cwd=t, capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.exit(f"compose failed for {t}: {r.stderr[-600:]}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1] == "--list":
@@ -459,5 +276,6 @@ if __name__ == "__main__":
         sys.exit(f"{target} already exists; pass a new folder")
     target.parent.mkdir(parents=True, exist_ok=True)
     FIXTURES[sys.argv[1]](target)
-    tidy(target)
+    if sys.argv[1] in COMPOSE:
+        tidy(target)
     print(target)

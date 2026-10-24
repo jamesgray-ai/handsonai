@@ -4,6 +4,8 @@
 Jordan Lee, a product marketer at Lumen Software. New to customer stories.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Customer Win Story" (you named it).
 - **Worth:** the sales team asks for stories every quarter; you've never had time. Value: two stories a quarter on the website.
@@ -21,10 +23,9 @@ Jordan Lee, a product marketer at Lumen Software. New to customer stories.
 - **Taking part:** yes.
 - **When unsure** (only when asked what it should do with a case it can't confidently handle): stop and ask.
 - **Target:** two stories a quarter.
-- **When the number can be read** (only when asked how long after go-live): a quarter after it goes live.
 
 ## How you answer
 Short, honest answers.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

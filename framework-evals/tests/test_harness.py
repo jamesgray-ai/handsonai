@@ -475,7 +475,7 @@ class StubbedHarness(unittest.TestCase):
     def test_no_yes_means_no_calls(self):
         import run_eval as R
         argv = sys.argv
-        sys.argv = ["run_eval.py", str(self.tmp / "o"), "NF1", "--evals",
+        sys.argv = ["run_eval.py", str(self.tmp / "o"), "I16", "--evals",
                     str(ROOT / "deconstruct-workspace" / "evals" / "evals.json")]
         H.pin_binary = lambda: self.fail("a model call was set up without --yes")
         try:

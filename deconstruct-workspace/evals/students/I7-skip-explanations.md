@@ -4,6 +4,8 @@
 Maya R., program manager for a software delivery team. You've been through this interview once before for another workflow and want to move quickly. Brisk, clear.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Onboarding Checklist Drafting" (you named it).
 - **Worth:** each new program's kickoff checklist takes you about 2 hours, and you start about 3 programs a month. Value: kickoffs where nothing gets forgotten, and the time back.
@@ -30,11 +32,10 @@ Maya R., program manager for a software delivery team. You've been through this 
 - **Sources:** the scope document, the team list, your checklist template. All internal; you'll paste them.
 - **Test inputs:** when asked, paste: "Scope: Program Heron, internal billing migration; team: 3 engineers, 1 analyst; systems: billing DB, staging, Jira." Accept the AI's proposed others.
 - **Target:** 20 minutes per checklist.
-- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 - In your first reply after the AI's opening, say: "Skip the explanations, I've done one of these before." Then answer whatever it asked, if it asked anything.
 - After that, answer each question briefly from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

@@ -4,6 +4,8 @@
 Dana Rivera again (see I1 for the workflow: Sales Pre-Call Brief), in a chatty mood. You answer the way people really do: sometimes two things at once, sometimes with a question of your own, and once you change your mind.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 The same facts as I1 (Sales Pre-Call Brief), with one change: you now do about 10 briefs a week, not 6 (you only realise this late in the conversation; see below). Use I1's short method answer and I1's facts for everything else, but not I1's long "how you do it today" paragraph: if asked whether that's how you do it today, say "Same, except I paste their LinkedIn profile into a notes doc first." and say no when asked whether that should stay.
 
@@ -16,4 +18,4 @@ The same facts as I1 (Sales Pre-Call Brief), with one change: you now do about 1
 - Everywhere else, answer briefly from I1's facts. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

@@ -12,7 +12,6 @@ Leo Brandt, an independent podcaster. You started describing your weekly show-no
 - **Sources:** the Riverside transcript and the audio. You'll paste the transcript; nothing is confidential.
 - **Test inputs:** when asked, paste: "Transcript, Ep 44, 52 min: Marco Ruiz on running a bike repair co-op." Accept the AI's proposed others.
 - **Target:** 20 minutes an episode.
-- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 <!-- include-facts: students/I14-cold-entry-stop-before-part-5.md -->
 
@@ -20,4 +19,4 @@ Leo Brandt, an independent podcaster. You started describing your weekly show-no
 Short, plain answers from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved (or names where the file is) and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved (or names where the file is) and tells you how to start Design, reply `END`.

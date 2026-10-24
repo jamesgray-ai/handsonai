@@ -6,6 +6,8 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 Same work as I1. You care about the CRM check and your own read-through; the research in between can go however the AI likes.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (when asked): "Some of each. The CRM check and my read-through always happen the same way; the research in between the AI can work out."
 - **Which steps must always happen exactly that way** (when asked, after the steps are played back): checking the CRM for past contact, and your read-through at the end. Not the lookups or the write-up.
 - **Always / never for the AI's part** (when asked): "Never name another client of ours."
@@ -35,7 +37,6 @@ Same work as I1. You care about the CRM check and your own read-through; the res
 - **Sources:** your CRM (HubSpot), LinkedIn, the company's website and press. HubSpot holds client details (confidential); you'd connect it. LinkedIn and websites are outside sources.
 - **Test inputs:** when asked, paste: "Calendar invite: Scoping call with Priya Nair, Head of Ops, Kestrel Foods, 21 Oct 10:00." and "Calendar invite: Intro call with Sam Ortiz, founder, Byteforge (seed-stage), 22 Oct 15:00." Accept the AI's proposed others.
 - **Target:** 10 minutes per brief.
-- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Answer each question briefly and truthfully from the facts above. Correct the AI's playbacks when they're wrong. Keep useful AI suggestions; drop any that don't match your facts.

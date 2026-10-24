@@ -265,18 +265,10 @@
    "text": "When Cowork asks to save to your drive here, choose Always allow for this chat; I'll only save inside your framework folder and, when I install your workflow, in Cowork's own folder (its skills folder, and a folder for your workflow).",
    "kind": "safety or promise",
    "skills": [
-    "analyze",
-    "deconstruct",
-    "design",
-    "build",
-    "test"
+    "build"
    ],
    "files": {
-    "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
@@ -549,18 +541,10 @@
    "text": "Stopping early is safe: progress is saved after each task.",
    "kind": "safety or promise",
    "skills": [
-    "analyze",
-    "deconstruct",
-    "design",
-    "build",
-    "test"
+    "build"
    ],
    "files": {
-    "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"

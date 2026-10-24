@@ -1,6 +1,6 @@
 # Personal life
 
-Read at the start of Part 2 when the registry is personal-life: detected the way Analyze detects it (the founding `registry/log.md` entry says so). It applies from Part 2 to the end. Every quoted line is said exactly; each question is its own message. Everything not listed here runs as written, including the whole of Part 5 in personal wording.
+Read at the start of Part 2 when the registry is personal-life: detected as Analyze detects it (the founding `registry/log.md` entry says so). On the light track, read it at the name and description; it works the same way there. It applies from then to the end. Every quoted line is said exactly; each question is its own message. Everything not listed here runs as written, in personal words.
 
 ## Part 2: Scope and a name
 
@@ -8,18 +8,20 @@ Ask these in place of confirming the trigger and deliverable, each in its own me
 
 - **Trigger:** **Ask:** "What starts it?"
 - **Deliverable:** **Ask:** "What do you end up with?"
-- **No law or regulation question.** Record `Governing regime: None`. The progress file is first saved once the workflow is named.
+- **No law or regulation question,** here or with the light track's safety questions. Record `Governing regime: None`.
+- The progress file is first saved once the workflow is named.
+- Analyze's no-process question, where it's asked, takes the personal-life form Part 2 gives it.
 
 ## Part 4: How the work gets done
 
-- **Method:** "a friend who cooks well" replaces "a skilled colleague": **Ask:** "If you handed this to a friend who cooks well, how would you want them to go about it?" For a routine that isn't about food: **Ask:** "If you handed this to someone who's good at this kind of thing, how would you want them to go about it?"
-- **Consistency:** the question is unchanged.
-- **The range**, as two messages: **Ask:** "Give me a normal week." Then **Ask:** "And a hard one?"
+- **The method question** becomes: **Ask:** "If you handed this to a friend who cooks well, how would you want them to go about it?" For a routine that isn't about food: **Ask:** "If you handed this to someone who's good at this kind of thing, how would you want them to go about it?"
+- **The consistency question** is unchanged.
+- **The range,** as two messages: **Ask:** "Give me a normal week." Then **Ask:** "And a hard one?"
 - **Rules are rules, never steps.** "No shellfish" goes in Rules & Constraints, not on the path.
-- **No regulation questions** (no regime was named).
+- **No regulation questions** (no regime is named).
 
-## Part 5: Rules, sources and test cases
+## Part 5: Rules, sources and practice runs
 
-- **Live writes**, when no step carries a `writes` tag: **Ask:** "Does it send, order or book anything for you?" (When steps carry `writes` tags, the confirmation "It writes to: [list]. Anything else?" runs as usual.)
-- **Taking part** and **when it's unsure**: the same wording as everyone else.
-- Everything else in Part 5 runs in full, in personal words: the draft messages, Value & Measurement and the labels preview.
+- **Live writes,** when no step carries a `writes` tag: **Ask:** "Does it send, order or book anything for you?" (When steps carry `writes` tags, the confirmation "It writes to: [list]. Anything else?" runs as usual.)
+- **Taking part** and **when it's unsure** are worded as for everyone.
+- Everything else runs in full, in personal words: the drafts, the practice runs, the target and the preview.

@@ -6,6 +6,8 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 Same work as I1, but your clients are banks, so a regulator's rule applies: a conflict-of-interest check must be logged before any outreach material is prepared.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (when asked): "The AI can work it out each time, as long as every brief meets my list."
 - **Always / never** (when asked): "Never name another client of ours."
 - **What the regulation requires it to do every time** (when asked): "Log a conflict-of-interest check against our client list before anything else." If asked where the AI's part goes: after that check.
@@ -35,7 +37,6 @@ Same work as I1, but your clients are banks, so a regulator's rule applies: a co
 - **Sources:** your CRM (HubSpot), LinkedIn, the company's website and press. HubSpot holds client details (confidential); you'd connect it. LinkedIn and websites are outside sources.
 - **Test inputs:** when asked, paste: "Calendar invite: Scoping call with Priya Nair, Head of Ops, Kestrel Foods, 21 Oct 10:00." and "Calendar invite: Intro call with Sam Ortiz, founder, Byteforge (seed-stage), 22 Oct 15:00." Accept the AI's proposed others.
 - **Target:** 10 minutes per brief.
-- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Answer each question briefly and truthfully from the facts above. Correct the AI's playbacks when they're wrong. Keep useful AI suggestions; drop any that don't match your facts.

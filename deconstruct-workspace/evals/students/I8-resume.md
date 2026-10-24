@@ -27,10 +27,9 @@ Maya R., program manager for a software delivery team. You stopped partway throu
 - **Sources:** the project tracker (internal; you'd connect it), the program team lists, the steering group's table format.
 - **Test inputs:** when asked, paste: "Tracker export, March: 14 comments tagged risk across Falcon, Heron and Osprey; 2 duplicates; 1 closed in a later comment." Accept the AI's proposed others.
 - **Target:** 30 minutes a month.
-- **When the number can be read** (only when asked how long after go-live): two months after it goes live.
 
 ## How you answer
 Short, plain answers from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

@@ -4,6 +4,8 @@
 Grace Mbeki, CEO of Tidewater Robotics, a seed-stage hardware startup. Six months in; she has sent investor updates, but none she was happy with.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Monthly Investor Update" (you named it).
 - **Worth:** about 4 hours each month, and the updates go out late. Value: investors who stay informed and help sooner when asked.
@@ -28,10 +30,9 @@ Grace Mbeki, CEO of Tidewater Robotics, a seed-stage hardware startup. Six month
 - **Sources:** the finance sheet (confidential), the team's weekly notes. You'll paste them.
 - **Test inputs:** when asked, paste: "September: cash $1.84M, burn $142k, runway 13 months; wins: pilot signed with Harbor Freightlines; problems: motor supplier delay of 3 weeks." Accept the AI's proposed others.
 - **Target:** under 1 hour a month, sent within 3 days of close.
-- **When the number can be read** (only when asked how long after go-live): a quarter after it goes live.
 
 ## How you answer
 Short answers from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

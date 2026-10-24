@@ -4,6 +4,8 @@
 Rosa Lindqvist, senior recruiter at Hartwell Talent Partners, a five-person recruiting agency. Quick, a little careless with what she pastes.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Candidate Shortlist Summary" (you named it).
 - **Worth:** each shortlist summary takes about 90 minutes; you write about 4 a week. Better summaries mean hiring managers decide faster and fewer roles stall.
@@ -29,10 +31,9 @@ Rosa Lindqvist, senior recruiter at Hartwell Talent Partners, a five-person recr
 - **Sources:** the interview scorecards (candidates' personal details), the job brief, the client's budget. You'll paste them.
 - **Test inputs:** when asked, first paste this and say it's real: "Scorecards for Senior Analyst, Pell & Co: Marcus Doyle, 4 yrs, scored 4/5, current salary £58k; Aisha Karim, 5 yrs, scored 3/5, current salary £61k." When the AI asks you to check those for confidential details, say "Right, swap in this one:" and paste: "Scorecards for Senior Analyst, a consultancy: Candidate D, 4 yrs, scored 4/5, salary band mid; Candidate E, 5 yrs, scored 3/5, salary band mid." Accept the AI's proposed others.
 - **Target:** 30 minutes per summary.
-- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Short answers from the facts above. Correct the AI's playbacks when they're wrong. Keep useful suggestions; drop any that don't match your facts.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

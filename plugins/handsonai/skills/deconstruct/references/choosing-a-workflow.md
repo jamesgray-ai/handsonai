@@ -1,19 +1,41 @@
 # Choosing the workflow
 
-Read when Phase 1's entry check 4 fires: no unfinished interview, nothing running, no re-run. It holds the backlog choice and cold entry. Every quoted line is said exactly; each question is its own message.
+Read for the backlog choice or cold entry: a new interview (routing state 3), after Deconstruct's own entry checks and the opening. Every quoted line is said exactly; each question is its own message.
 
-## Backlog choice
+## The backlog choice
 
-If `framework/ai-opportunity-report.md` exists or `registry/workflows/` has `status: backlog` nodes (whether or not the student mentions them), or the student references a report or a candidate, read the Workflow Candidate Summary (with no report, use the backlog nodes' titles and descriptions, and leave out the size). If the student named a backlog workflow, use it; one not in the backlog goes to cold entry. Otherwise show every `status: backlog` node (with no registry, every candidate in the summary), numbered straight through under a "**Process:** [name]" label per process, each with its size where it has one. Leave out `in-production` nodes and candidates the report records as already running. Say exactly this:
+Run it whenever there are backlog candidates, whether or not the leader mentions them. The candidates are:
+- with a registry, the `status: backlog` Workflow nodes (`registry/` in a workspace; `Framework/registry/` in a drive or on Claude desktop);
+- with no registry, the lines of `backlog.md` in the framework folder; with no `backlog.md`, the candidate list in the framework folder's `ai-opportunity-report.md`.
 
-**Ask:** "Which workflow from your backlog do you want to map?"
+Leave out `in-production` nodes, candidates recorded as already running, and any candidate whose slug already has a workflow folder, with or without a registry: it's under way (an unfinished interview was offered by the entry checks; anything further along gets the one line below).
+
+If the leader named a backlog workflow, use it. A workflow that isn't in the backlog goes to cold entry, except running work Analyze recorded, which is brought in (SKILL.md, *Running work brought in*). Otherwise show every candidate, numbered straight through under a "**Process:** [name]" label per process, each with its size where it has one, then:
+
+**Ask:** "Which workflow from your backlog do you want to work on?"
 - *Why:* for your first one, pick something small so you learn the whole loop before taking on something big. A good first workflow (1) has a handful of steps, (2) starts when you decide to start it, and (3) works from material you already have. Among those, pick the one that would help you most.
 - *Not sure?* I'll use those three tests on your backlog and suggest one, with the reason.
 
-With no registry, say "from your report" in place of "from your backlog" in the **Ask:** line and "on your report" in place of "on your backlog" in *Not sure?*, and label groups "**Area of work:**" in place of "**Process:**". In a personal-life registry, label them "**Routine:**". When the student has started a workflow before (workflow folders in `framework/`, or Workflow nodes past `backlog`, not counting an `in-production` node with no Requirements), drop the "for your first one" sentence from the *Why*, say "A good next workflow" in place of "A good first workflow", and keep the three tests. On *Not sure?*, apply the three tests to what the summary says and suggest one in a sentence that names the tests it passes; never claim a step count. If the student picks a large one, proceed.
+Its variants:
+- **Only the report holds candidates:** say "from your report" in place of "from your backlog" in the question, "on your report" in place of "on your backlog" in *Not sure?*, and label the groups "**Area of work:**". (With `backlog.md`, keep "from your backlog".)
+- **Personal life:** label the groups "**Routine:**".
+- **After a first workflow** (a workflow folder holding more than a progress file, or a node past `backlog`, not counting running work Analyze recorded): the *Why* drops its "for your first one…" sentence and says "A good next workflow" in place of "A good first workflow", keeping the three tests.
+- **On *Not sure?*:** apply the three tests to what the candidates say and suggest one in a sentence that names the tests it passes; never claim a step count. A large pick goes ahead.
 
-Pre-populate name, description, trigger and deliverable from the chosen candidate, and carry forward any `Lens`, `Value lever`, `Business Objective`, `Stakeholders` and `Success Metrics`; ignore `Autonomy` or `Involvement` rows without comment (Design assesses those). Lens (Individual for one person's repeated work, Organizational for multi-role work), Owner and Stakeholders come from the Analyze card, or are asked only when not obvious. If `registry/businesses/` exists, read the Business node and hold any `## Objectives` for Part 1.
+**Prefilled from the chosen candidate:** the name, description, trigger and deliverable, and any `Lens`, `Value lever`, `Business Objective`, `Stakeholders` and `Success Metrics`. Ignore any autonomy or involvement field on it, without comment. Ask for Lens (Individual for one person's repeated work, Organizational for work across roles), Owner and Stakeholders only when they aren't obvious. If the registry has a Business node with `## Objectives`, hold them for Part 1.
+
+**Run by name with candidates.** When the leader runs Deconstruct by name and backlog candidates exist, the backlog choice runs; any workflow further along gets one line (model wording) naming where it is and its next step's start phrase with the location.
 
 ## Cold entry
 
-No Analyze output, or a workflow not in the backlog. **Ask:** "Tell me about the workflow — what kicks it off, what you do, and what comes out the other end. Rough is fine." Its answer prefills Part 2's trigger and deliverable (confirmed, not re-asked) and is played back at Part 4's method question (not as a path when the AI works it out each time). Ask for Lens, Owner and Stakeholders only when not obvious.
+No backlog, or a workflow not in it.
+
+**Ask:** "Tell me about the workflow — what kicks it off, what you do, and what comes out the other end. Rough is fine."
+
+When the leader already named the workflow, N-D1 comes first, and a document they offer stands in for this question (its trigger, work and deliverable are played back from it instead). With nothing named, N-D1 comes right after this answer.
+
+Its answer prefills Part 2's trigger and deliverable, confirmed rather than asked again, and is played back at Part 4's method question (never as a path when the AI works it out each time). Ask for Lens, Owner and Stakeholders only when they aren't obvious.
+
+**Work that already runs.** Never ask where the work runs today. A workflow named at cold entry is a new workflow, whatever the leader says about it, with no `Runs today` row. When the leader says it already runs somewhere (set up as an agent, on a schedule), acknowledge it in one line (model wording) so they know it was heard: Build will ask about the one they have before it installs anything. Ask nothing about it and record nothing.
+
+**No workflow in mind.** Give Analyze's start phrase with the framework folder as the location, to say in a new chat ("run the analyze skill. My files are in [location]."; on Microsoft 365, "…My files are in OneDrive, in Framework."), in one line of model wording, and stop.

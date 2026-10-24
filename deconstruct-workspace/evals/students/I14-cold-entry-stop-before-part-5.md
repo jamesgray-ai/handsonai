@@ -4,6 +4,8 @@
 Leo Brandt, an independent podcaster who runs a weekly interview show on his own. New to all of this; he has no list of workflows and no setup, just this one job he wants help with.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Your workflow, when the AI asks you to describe it:** "Every week after I record an episode, I get the transcript from Riverside, pull out the main topics and two or three good quotes, write a short summary and the timestamps, and end up with show notes I paste into Substack."
 - If the AI plays back what kicks it off and what comes out and asks you to confirm, say yes.

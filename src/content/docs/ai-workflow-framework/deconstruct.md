@@ -60,7 +60,7 @@ Deconstruct is one interview for every workflow, in five parts after you choose 
 3. **Scope and a name** — One trigger and one deliverable, a clear name and a one-sentence description, and whether a law or regulation governs the work.
 4. **The outcome** — *Say it, sharpen it, make it checkable*: a one-sentence goal, then numbered yes/no checks for what every output must get right, with the must-haves marked.
 5. **How the work gets done** — Whether it should go the same way every time or the AI can work out how each time. Same way: your steps, written by you or proposed and corrected. AI works it out: only what it must always and never do. Then, for everyone, who does each part, what must stay fixed, where you review or approve, the decisions and what settles them, a typical and a tricky case, and your expertise.
-6. **Rules, sources and test cases** — Drafts for you to correct: the rules it follows, where you check its work, the sources it uses, what every output must get right, and the practice runs it will be tested on.
+6. **Rules, sources and practice runs** — Drafts for you to correct: the rules it follows, where you check its work, the sources it uses, what every output must get right, and the practice runs it will be tested on.
 7. **Generate Workflow Requirements** — Write the Workflow Requirements to `framework/[workflow-name]/requirements.md` and update the registry.
 
 ## How to Use This

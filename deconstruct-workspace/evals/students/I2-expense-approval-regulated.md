@@ -4,6 +4,8 @@
 Marcus Webb, Finance Operations manager at Northbank Financial, a regional bank. Careful, precise.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (if asked whether it should go about the work the same way every time, or whether the AI can work out how each time): the same way every time.
 - **Which workflow:** "Expense Report Approval" (you named it).
 - **Worth:** 3 analysts spend about 12 hours a week checking reports; errors in reimbursements are an audit finding risk. Value: fewer audit findings and faster reimbursement.
@@ -28,10 +30,9 @@ Marcus Webb, Finance Operations manager at Northbank Financial, a regional bank.
 - **Sources:** Concur (confidential staff data), the expense policy PDF, scanned receipts.
 - **Test inputs:** paste "Report #4471: 6 lines, hotel $612, meals $148, taxi $56, total $816" when asked; accept proposed others.
 - **Target:** 4 analyst hours a week.
-- **When the number can be read** (only when asked how long after go-live): a quarter after it goes live.
 
 ## How you answer
 Short, factual answers. When shown a table of steps, rules and checks, correct one thing ("the receipt check happens before the policy-limit check") and keep the rest.
 
 ## When to stop
-When the AI says the Workflow Requirements are saved and names Step 3 (Design), reply `END`.
+When the AI says the Workflow Requirements are saved and tells you how to start Design, reply `END`.

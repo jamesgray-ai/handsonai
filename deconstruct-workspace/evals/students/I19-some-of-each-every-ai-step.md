@@ -6,6 +6,8 @@ Dana Rivera, co-founder of Rivera Advisory, a two-person B2B consulting practice
 Same work as I1. You say "some of each" but then want every step fixed except your own read-through.
 
 ## What you know
+- **Anything written down** (if asked whether you have an SOP, a checklist, a past example or notes for this): no, nothing written down.
+- **The light or full version** (if the AI says this looks like a light or a full workflow): if it offers 'make it the full version', say exactly 'make it the full version'; if it says it's a full workflow, say 'OK'.
 - **Consistency** (when asked): "Some of each, I think."
 - **Which steps must always happen exactly that way** (when asked, after the steps are played back): every step the AI does. Your own read-through doesn't need to be fixed.
 - If the AI says it will note this as the same way every time and asks whether that matches: yes.
@@ -35,7 +37,6 @@ Same work as I1. You say "some of each" but then want every step fixed except yo
 - **Sources:** your CRM (HubSpot), LinkedIn, the company's website and press. HubSpot holds client details (confidential); you'd connect it. LinkedIn and websites are outside sources.
 - **Test inputs:** when asked, paste: "Calendar invite: Scoping call with Priya Nair, Head of Ops, Kestrel Foods, 21 Oct 10:00." and "Calendar invite: Intro call with Sam Ortiz, founder, Byteforge (seed-stage), 22 Oct 15:00." Accept the AI's proposed others.
 - **Target:** 10 minutes per brief.
-- **When the number can be read** (only when asked how long after go-live): about a month after it goes live.
 
 ## How you answer
 Answer each question briefly and truthfully from the facts above. Correct the AI's playbacks when they're wrong. Keep useful AI suggestions; drop any that don't match your facts.
