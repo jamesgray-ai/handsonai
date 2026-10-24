@@ -1,0 +1,20 @@
+---
+name: drafting-client-updates
+description: >
+  Drafts the weekly status update Northwind Advisory sends each client, from the engagement
+  tracker and the week's call notes. Use when the user asks for a client update, a weekly
+  status email or a progress summary for a client.
+model: claude-3-opus-20240229
+effort: medium
+---
+
+# Drafting client updates
+
+1. Read the engagement tracker row for the client.
+2. Read this week's call notes.
+3. Draft the update in the house style: what we did, what we found, what's next, and one
+   decision we need from the client.
+4. Keep it under 250 words.
+
+## Gotchas
+- Never promise a delivery date the tracker doesn't show.

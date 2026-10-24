@@ -63,6 +63,13 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 C
 | `writing-vision-briefs` | Capture a fuzzy idea as a structured Vision Brief before writing a PRD |
 | `writing-feature-prds` | Create a PRD with user stories, acceptance criteria, and a GitHub issue |
 
+### Skills — Building Skills
+
+| Skill | Description |
+|-------|-------------|
+| `applying-skill-best-practices` | Best-practice standards for building any Agent Skill, applied alongside your platform's skill creator: reuse, scope, descriptions, content, settings, and test cases |
+| `auditing-agent-skills` | Audits your existing skills for anything gone out of date (retired models, broken references, stale facts, overlaps, missing test cases, registry gaps) and proposes a fix for each; changes nothing without approval |
+
 ## Quick Start
 
 1. **Analyze** — Run `/handsonai:analyze` to audit your workflows and identify AI opportunities

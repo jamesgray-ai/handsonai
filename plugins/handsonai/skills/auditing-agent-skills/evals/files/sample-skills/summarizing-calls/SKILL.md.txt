@@ -1,0 +1,16 @@
+---
+name: summarizing-calls
+description: >
+  Summarizes client calls for Northwind Advisory and drafts the weekly status update for the
+  client. Use when the user pastes call notes or asks for a client update. Not for internal
+  team meetings.
+---
+
+# Summarizing calls
+
+As of March 2025, the firm's standard call summary has five sections: attendees, decisions,
+open questions, next steps, and risks.
+
+1. Read the call notes.
+2. Fill in the five sections.
+3. If the user asked for a client update, turn the summary into the weekly status email.

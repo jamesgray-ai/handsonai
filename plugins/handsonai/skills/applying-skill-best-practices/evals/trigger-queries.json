@@ -1,0 +1,94 @@
+[
+  {
+    "query": "can you make a skill that turns my call notes into a follow-up email? i do this after every sales call",
+    "should_trigger": true
+  },
+  {
+    "query": "Please review this SKILL.md and tell me what to fix before I share it with my team:\n---\nname: Expense Helper\ndescription: Helps with expenses.\n---\nRead the receipts and make the expense report. Be accurate.",
+    "should_trigger": true
+  },
+  {
+    "query": "my proposal-writing skill never fires when I ask for a proposal, I have to call it by name every time. can you fix the description?",
+    "should_trigger": true
+  },
+  {
+    "query": "We just spent an hour getting this quarterly board summary right. Turn what we did into something I can reuse next quarter.",
+    "should_trigger": true
+  },
+  {
+    "query": "Update my onboarding-checklist skill so it also covers contractors, not just full-time hires.",
+    "should_trigger": true
+  },
+  {
+    "query": "Use the skill creator and follow applying-skill-best-practices to build a skill for my weekly status report. Here are two real examples of the task.",
+    "should_trigger": true
+  },
+  {
+    "query": "I keep pasting the same brand rules into every chat. Package them up so Claude just knows them.",
+    "should_trigger": true
+  },
+  {
+    "query": "how do i write test cases for a skill i made? never done evals before",
+    "should_trigger": true
+  },
+  {
+    "query": "Which effort level should my contract-review skill run at in Claude Code, and should it pick its own model?",
+    "should_trigger": true
+  },
+  {
+    "query": "wnat to build a skil for our hiring scorecards, where do I start",
+    "should_trigger": true
+  },
+  {
+    "query": "Build an agent that triages my inbox every morning and flags anything from clients.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write me a prompt I can paste in to summarize sales calls.",
+    "should_trigger": false
+  },
+  {
+    "query": "Package my five skills into a plugin I can share with my team.",
+    "should_trigger": false
+  },
+  {
+    "query": "How do I install the skill-creator in Claude Code?",
+    "should_trigger": false
+  },
+  {
+    "query": "What skills does Claude have built in for working with PowerPoint?",
+    "should_trigger": false
+  },
+  {
+    "query": "Set up my AI registry so I can track my workflows.",
+    "should_trigger": false
+  },
+  {
+    "query": "Write an SOP for our client onboarding workflow.",
+    "should_trigger": false
+  },
+  {
+    "query": "Use my brand-guidelines skill to draft a LinkedIn post about our new service.",
+    "should_trigger": false
+  },
+  {
+    "query": "What's the difference between a skill and a project in Claude?",
+    "should_trigger": false
+  },
+  {
+    "query": "Run my weekly-report skill on this week's numbers.",
+    "should_trigger": false
+  },
+  {
+    "query": "Audit all the skills in my .claude/skills folder for anything out of date.",
+    "should_trigger": false
+  },
+  {
+    "query": "Run a hygiene check across every skill I have and list what needs fixing.",
+    "should_trigger": false
+  },
+  {
+    "query": "Which of my skills still reference retired models?",
+    "should_trigger": false
+  }
+]

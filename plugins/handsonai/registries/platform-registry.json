@@ -1,5 +1,5 @@
 {
-  "version": "1.4",
+  "version": "1.6",
   "platforms": {
     "claude-code": {
       "mode": "code",
@@ -13,7 +13,11 @@
       "capabilities": {
         "skill_install": "Skills are folders under .claude/skills/<skill-name>/SKILL.md in the project folder (or ~/.claude/skills/ for personal ones); Claude Code loads them when a chat is opened in that folder. To start one in a new chat, open a new Claude Code session in the same folder and type /<skill-name> (or ask for it by name). Nothing to upload or install. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
         "context_location": "The project folder is the workspace: every chat opened in that folder reads and writes the same files (registry/, framework/, outputs/, .claude/), so a results file written in one chat is visible in the next. Files a workflow needs go in the project folder and are referenced by relative path. Verified 2026-09-29: https://code.claude.com/docs/en/skills",
-        "unattended_runs": "Three options. Cloud routines run on a schedule without the machine on, from a fresh clone of the repo with connectors configured per task — no access to local files, so context must be in the repo or a connected source. Desktop scheduled tasks run on the user's machine (must be on) and can reach local files and configured MCP servers. In-session /loop tasks run only while a session is open and expire after seven days — not for production. Verified 2026-10-08: https://code.claude.com/docs/en/scheduled-tasks"
+        "unattended_runs": "Three options. Cloud routines run on a schedule without the machine on, from a fresh clone of the repo with connectors configured per task — no access to local files, so context must be in the repo or a connected source. Desktop scheduled tasks run on the user's machine (must be on) and can reach local files and configured MCP servers. In-session /loop tasks run only while a session is open and expire after seven days — not for production. Verified 2026-10-08: https://code.claude.com/docs/en/scheduled-tasks",
+        "skill_settings": "A skill can set its own model and effort in SKILL.md frontmatter: `model` (a /model value or `inherit`) and `effort` (low, medium, high, xhigh or max); they apply while the skill runs. Verified 2026-10-17: https://code.claude.com/docs/en/skills",
+        "skill_evaluation": "Anthropic's skill-creator runs evaluations: it runs each test prompt with and without the skill in separate agents, grades the checks, opens a side-by-side review page, and can tune the description against trigger prompts. Verified 2026-10-17: https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+        "skill_invocation": "Add `disable-model-invocation: true` to SKILL.md frontmatter so the skill runs only when the user names it (`/skill-name`); `user-invocable: false` does the opposite, hiding it from the / menu. Verified 2026-10-17: https://code.claude.com/docs/en/skills",
+        "skill_listing": "The AI can read every skill folder it loads: `.claude/skills/` in the project, `~/.claude/skills/`, and installed plugins' skills (namespaced `plugin:skill`); `/skills` lists them for the user. An audit can read each skill's full files. Verified 2026-10-18: https://code.claude.com/docs/en/skills"
       }
     },
     "claude": {
@@ -40,7 +44,11 @@
         "context_location": "On the desktop app, context files live in the working folder Claude is pointed at, and the skill references them by relative path; every chat opened on that folder reads and writes the same files (registry/, framework/, outputs/), so a file written in one chat is visible in the next. On the web, a Claude Project's knowledge holds the context files; start a fresh chat inside the project to run the workflow with them. Small reference material can ship inside the skill package on either.",
         "custom_agents": "Yes — as worker sub-agents packaged in an installed plugin (agents/ directory, Claude Code markdown format), on the web and on desktop. The main Claude session is the orchestrator and dispatches them; do not design a separate orchestrator agent.",
         "unattended_runs": "Scheduled tasks run on the web and on desktop, on their chosen cadence, even when the desktop app is closed or the computer is asleep, using the connectors, skills, and plugins set up in the account. A task that needs local files or apps runs only on the desktop app while it is open — so a workflow whose context lives in a local working folder cannot run on a remote schedule unless that context ships inside the skill package or a connected cloud source.",
-        "web_search": "Available, standard on all plans including free."
+        "web_search": "Available, standard on all plans including free.",
+        "skill_settings": "A skill can't set its own model or effort; the model chosen for the conversation applies. Verified 2026-10-17: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
+        "skill_evaluation": "Anthropic's skill-creator evaluates in two modes. In a Claude task (the desktop app's tasks) it has subagents, so it runs each test with and without the skill, grades the checks, and writes a static review page. In an ordinary chat it runs the test prompts itself in the conversation, with no with-and-without comparison and no description tuning: a sanity check, not a measurement. Verified 2026-10-17: https://github.com/anthropics/skills/tree/main/skills/skill-creator",
+        "skill_invocation": "Best-effort — not verified this release: the docs describe no per-skill switch to stop automatic use, so make the description's \"Use when\" narrow and tell the user to name the skill.",
+        "skill_listing": "Best-effort — not verified this release: in a conversation the AI sees the names and descriptions of the skills enabled for the account, and a skill's full files only when it loads; the user sees the full list under Customize → Skills. For an audit, ask the user to attach the skills (or their ZIPs) to read them in full."
       }
     },
     "claude-agents-sdk": {
@@ -62,7 +70,12 @@
       "notes": "Codex CLI, the Codex tab of the ChatGPT desktop app, and the IDE extension. Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills (user-level default), then /etc/codex/skills; invoke with $skill-name or /skills. Plugins install from a marketplace (Plugins > Add marketplace in the app, or `codex plugin marketplace add owner/repo` in the CLI); ChatGPT and Codex share one plugin directory.",
       "capabilities": {
         "skill_install": "Skills are folders read from $CWD/.agents/skills up to the repo root, then ~/.agents/skills; start one in a new Codex session opened in the same folder with $skill-name or /skills. Best-effort — not verified this release.",
-        "context_location": "The working folder is the workspace; every session opened in it reads and writes the same files, so a results file written in one session is visible in the next. Best-effort — not verified this release."
+        "context_location": "The working folder is the workspace; every session opened in it reads and writes the same files, so a results file written in one session is visible in the next. Best-effort — not verified this release.",
+        "skill_settings": "A skill can't set its own model or reasoning effort; the session's settings apply. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
+        "skill_evaluation": "The bundled skill-creator validates the skill's frontmatter and naming (quick_validate.py) but has no evaluation loop; it improves a skill after real use. Verified 2026-10-17: https://github.com/openai/skills. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
+        "skill_invocation": "Set `allow_implicit_invocation: false` under `policy` in the skill's `agents/openai.yaml`; explicit invocation (`$skill` in Codex, `@skill` in ChatGPT) still works. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
+        "skill_listing": "The AI can read skill folders in `.agents/skills/` from the working folder up to the repository root and in `~/.agents/skills/` (the Codex app also saves to `~/.codex/skills/`); `/skills` lists them for the user. An audit can read each skill's full files. Verified 2026-10-18: https://learn.chatgpt.com/docs/build-skills",
+        "unattended_runs": "Best-effort — not verified this release: Codex can run non-interactively from the command line, so a scheduler on the user's machine can start a run; the docs read for this release describe no built-in scheduled skill runs. Treat a scheduled audit as unavailable unless the user sets one up."
       }
     },
     "gemini-cli": {
@@ -90,7 +103,11 @@
         "context_location": "Best-effort — not verified this release: no dedicated project/context-file location is documented for this entry; treat any workflow context as shipped inside the skill package until this is verified.",
         "custom_agents": "Best-effort — not verified this release: yes, via Agent Designer — but uploaded skills are not available inside Gemini Enterprise agents, so agent-shaped work and skill-shaped work do not compose on this platform today.",
         "unattended_runs": "Best-effort — not verified this release: no scheduled or unattended run mechanism is documented for this entry.",
-        "web_search": "Best-effort — not verified this release: web search is available."
+        "web_search": "Best-effort — not verified this release: web search is available.",
+        "skill_settings": "Best-effort — not verified this release: the docs describe no per-skill model or reasoning setting, so the conversation's settings apply.",
+        "skill_evaluation": "The built-in creator (+ > Create skill with Gemini) writes and saves a skill but has no evaluation feature; the docs say to test a skill by opening it in a new chat. Verified 2026-10-17: https://docs.cloud.google.com/gemini/enterprise/docs/skills. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
+        "skill_invocation": "Best-effort — not verified this release: the docs describe no per-skill switch to stop automatic use, so make the description's \"Use when\" narrow and tell the user to name the skill.",
+        "skill_listing": "Best-effort — not verified this release: the AI sees the skills available to the user; the user sees them on the Skills page. The docs describe no way for the AI to read another skill's files, so ask the user to attach or paste the skills to audit."
       }
     },
     "gemini-spark": {
@@ -109,6 +126,25 @@
       "mode": "guided",
       "agent": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"
     },
+    "microsoft-365-copilot": {
+      "mode": "guided",
+      "aliases": [
+        "Microsoft 365 Copilot",
+        "M365 Copilot",
+        "Copilot",
+        "Copilot Cowork"
+      ],
+      "skill": "https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize",
+      "notes": "Skills live in Copilot Cowork's Customize > Skills tab and are saved to the user's OneDrive. Distinct from Copilot Studio (see copilot-studio), which builds agents.",
+      "capabilities": {
+        "skill_install": "In Cowork, open Customize > Skills, select the arrow next to Add, then Upload skill, and choose a .md file with a single SKILL.md, or a .zip or .skill archive with SKILL.md at its root (up to 10 MB compressed, 100 files); Cowork saves it to OneDrive. Add > Create new starts a guided conversation that writes a skill. Plugin packages, including Claude plugins, upload from the Plugins tab. Verified 2026-10-17: https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize",
+        "skill_settings": "Best-effort — not verified this release: the docs describe no per-skill model or reasoning setting, so Cowork's own settings apply.",
+        "skill_evaluation": "The guided Create new flow writes and saves a skill but has no evaluation feature; the docs say to test changes in a new conversation. Verified 2026-10-17: https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
+        "skill_invocation": "Best-effort — not verified this release: the docs describe no per-skill switch to stop automatic use, so make the description's \"Use when\" narrow and tell the user to name the skill.",
+        "skill_listing": "The user sees their skills under Customize → Skills (Your skills, Built-in) and can download each skill file or open it in OneDrive. Ask the user to attach or download the skills to audit. Verified 2026-10-18: https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-customize",
+        "unattended_runs": "Best-effort — not verified this release: the docs read for this release describe no scheduled runs for Copilot Cowork skills; run the audit by hand."
+      }
+    },
     "workspace-studio": {
       "mode": "guided",
       "agent": "https://studio.workspace.google.com/"
@@ -126,7 +162,11 @@
         "context_location": "Project files in a ChatGPT Project hold the workflow's context; run the workflow in a new chat inside that project. Small reference material ships inside the skill zip.",
         "custom_agents": "Workspace Agents are the agent primitive (Custom GPTs are deprecated): build one from Agents > Browse templates or Agents > Create with the Agent Builder, then connect tools and skills to it. In research preview for Business, Enterprise, Edu, and Teachers plans as of this verification.",
         "unattended_runs": "Scheduled tasks exist on every plan including Free, as one-time or recurring reminders up to once a day. Event-triggered tasks tied to a connected Gmail, Slack, or GitHub account are further limited to Plus, Pro, Business, Enterprise, Edu, and Healthcare workspaces (not Free/Go), and can access only the connected account and its existing app permissions — connector authorization must be completed before the first such run.",
-        "web_search": "Available on Free, Go, Plus, Pro, Business, Enterprise, and Edu plans, including for signed-out users; triggered automatically or manually via the Search tool, subject to plan usage limits."
+        "web_search": "Available on Free, Go, Plus, Pro, Business, Enterprise, and Edu plans, including for signed-out users; triggered automatically or manually via the Search tool, subject to plan usage limits.",
+        "skill_settings": "A skill can't set its own model or reasoning effort; the model chosen for the conversation applies. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
+        "skill_evaluation": "The built-in skill-creator checks the skill's format but has no evaluation loop; its docs say to test a skill by using it and improving it after real use. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills. Working assumption (2026-10-17): the creator can run these tests; confirm in testing, and use the by-hand path where it can't.",
+        "skill_invocation": "Set `allow_implicit_invocation: false` under `policy` in the skill's `agents/openai.yaml`; explicit invocation (`$skill` in Codex, `@skill` in ChatGPT) still works. Verified 2026-10-17: https://learn.chatgpt.com/docs/build-skills",
+        "skill_listing": "Best-effort — not verified this release: the AI sees the names and descriptions of available skills; the user sees them under Skills in the desktop app's sidebar (skills created in the desktop app are folders on the computer, skills created on the web stay in the account). For an audit, ask the user to attach the skills or run it in Codex on the skill folders."
       }
     },
     "chatgpt-agent-mode": {
