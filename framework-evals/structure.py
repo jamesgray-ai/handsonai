@@ -275,7 +275,11 @@ def check_build_record(text):
         if "skills_on" in data and data["skills_on"] not in ("yes", True):
             probs.append(f"skills_on: {data['skills_on']!r} (only 'yes' once checked)")
         wb = data.get("write_block")
-        if wb is not None and not (wb == "off" or str(wb).startswith("on")):
+        # YAML 1.1 reads `off` as False and an `on:` key as True: accept both spellings,
+        # and the mapping form (on/leader_rules/leader_allow) the safety kit writes.
+        wb_ok = (wb in ("off", False) or str(wb).startswith("on")
+                 or (isinstance(wb, dict) and ("on" in wb or True in wb)))
+        if wb is not None and not wb_ok:
             probs.append(f"write_block: {wb!r} isn't off or on: [tools]")
         for k in ("plan_revision", "last_close_after_round"):
             if k in data and not isinstance(data[k], int):

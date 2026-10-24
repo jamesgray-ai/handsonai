@@ -23,18 +23,11 @@ If you're returning from [Test (Step 5)](../test/) to fix issues, you may also h
 
 ## How the Skill Works
 
-The skill runs ten phases. The sections that follow expand on the ones you take part in:
+Build works in three parts. You do almost all of your part in the first one:
 
-1. **Load the spec and requirements** — Build refuses a spec that isn't marked approved.
-2. **Fix mode or full build** — coming back from Test, it rebuilds only the building blocks the results named.
-3. **Prepare Context** — every context item is resolved with you before anything is generated: connect it, provide it, or build it in — each with a read-back check.
-4. **Mechanism path** — only the steps a Skill or an Agent needs.
-5. **Build method** — skills and agents are created by asking your platform to create them (a matched creation skill is used when your session lists one); only configs, connectors, and loose files are written directly.
-6. **Platform research** — artifact formats from the platform registry, verified on the web.
-7. **Existing skills** — anything you already have is reused or extended, never rebuilt.
-8. **Integration research** — how each connector is set up on your platform.
-9. **Generate artifacts** — skills, agents, connectors, generated and packaged.
-10. **Reconcile and install** — a table matching every line of the spec to the artifact that satisfies it, then the package installed and confirmed in your skill list before Test.
+1. **Your setup** — Build sets up the workflow's own place, connects each tool in your account with a read-back, places its context files, and makes one quick real check of each kind of change somewhere only you can see. Last, it asks whether an older version is already set up somewhere.
+2. **Building and checking** — Build tries the main skill on a plain AI first, then builds each task in your plan and checks it against what it must do, showing every change instead of making it. You confirm where each kind of change would land and answer the workflow's own questions as you would at work.
+3. **Save it and test** — Build saves or installs the workflow where it runs, keeps a copy, writes your build record (what was built and what it can access), and gives you the phrase to start Test.
 
 ## Prepare Context
 
