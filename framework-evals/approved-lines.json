@@ -683,14 +683,12 @@
    "text": "This [changes something that can't be undone / sends, posts or changes something other people see / runs without you / is regulated / reads confidential details or content from outside your team], so I'll treat it as a full workflow.",
    "kind": "safety or promise",
    "skills": [
-    "analyze",
     "deconstruct",
     "design",
     "build",
     "test"
    ],
    "files": {
-    "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
     "design": "SKILL.md",
     "build": "SKILL.md",
