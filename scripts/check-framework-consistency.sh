@@ -1,10 +1,24 @@
 #!/usr/bin/env bash
 #
-# check-framework-consistency.sh — the seven framework skills and their docs pages describe the
+# check-framework-consistency.sh — the framework skills and their docs pages describe the
 # same sequence of phases, and four files spell the mechanism enum the same way. Nothing
-# imports anything, so drift is silent. This asserts the agreement.
+# imports anything, so drift is silent. This asserts the agreement. It also runs two checks
+# that keep the skills' shared wording identical:
+#
+#   - routing copies: references/routing.md in the five step skills, and the test-run
+#     wrapper in build and test, byte-identical to scripts/framework/ (sync-routing.sh --check);
+#   - the placement check: every approved line in framework-evals/approved-lines.json is in
+#     the file it names, word for word, placeholders as wildcards (check-line-placement.py).
+#     Skills listed in scripts/line-placement-pending.txt (rewrite not landed) are report-only.
 #
 # Run: bash scripts/check-framework-consistency.sh
+#      FRAMEWORK_SPEC=<path to the business repo's framework-rules.md> bash scripts/check-framework-consistency.sh
+#        (also compares scripts/framework/routing.md with the spec's block; CI can't read the
+#        private spec, so it runs only when the path is given)
+#
+# Transition (build-task-list T35): the run and improve skills are retired in T26's PR. Until
+# then their checks run where their folders exist and are skipped where they don't; T26's PR
+# drops them from the lists below.
 
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -36,6 +50,11 @@ docs_phases() {
 
 for entry in analyze:analyze.md deconstruct:deconstruct.md design:design.md build:build.mdx test:test.md run:run.md improve:improve.md; do
   skill="${entry%%:*}"; page="${entry##*:}"
+  if [ ! -d "$SK/$skill" ]; then
+    case "$skill" in
+      run|improve) echo "  skip  $skill: skill retired (T26), no phases to compare"; continue ;;
+    esac
+  fi
   s=$(skill_phases "$SK/$skill/SKILL.md" | sort -u)
   d=$(docs_phases "$DOCS/$page" | sort -u)
   if [ -z "$s" ]; then bad "$skill: no '#### Phase N — ' headings found"; continue; fi
@@ -49,7 +68,10 @@ done
 echo
 echo "-- mechanism enum spelled identically --"
 ENUM='Skill | Agent'
-for f in "$SK/design/references/spec-template.md" "$SK/design/references/self-test-checklist.md" "$SK/build/SKILL.md" "$DOCS/index.md"; do
+# Design's template is plan-template.md from T23 on; spec-template.md until then.
+DESIGN_TEMPLATE="$SK/design/references/plan-template.md"
+[ -f "$DESIGN_TEMPLATE" ] || DESIGN_TEMPLATE="$SK/design/references/spec-template.md"
+for f in "$DESIGN_TEMPLATE" "$SK/design/references/self-test-checklist.md" "$SK/build/SKILL.md" "$DOCS/index.md"; do
   if grep -qF -- "$ENUM" "$f"; then ok "'$ENUM' in $f"; else bad "'$ENUM' missing from $f"; fi
 done
 for f in "$SK"/*/SKILL.md "$SK"/design/references/*.md; do
@@ -69,6 +91,24 @@ hits=$(grep -rnE 'outputs/((\[workflow-name\]|\[name\]|<slug>|<workflow-slug>|<w
          "$SK" plugins/handsonai/agents plugins/handsonai/README.md 2>/dev/null | grep -vE "$EXEMPT" | grep -viE '9\.0|legacy' || true)
 if [ -z "$hits" ]; then ok "no framework skill, agent, or README writes the record to outputs/"
 else bad "framework record path still under outputs/:"; echo "$hits" | sed 's/^/        /'; fi
+
+echo
+echo "-- routing copies: identical to scripts/framework/ --"
+if [ -n "${FRAMEWORK_SPEC:-}" ]; then
+  out=$(bash scripts/sync-routing.sh --check "$FRAMEWORK_SPEC" 2>&1); rc=$?
+else
+  out=$(bash scripts/sync-routing.sh --check 2>&1); rc=$?
+fi
+echo "$out" | grep -vE '^(Checking routing copies|Routing copies in sync\.)?$'
+if [ "$rc" -eq 0 ]; then ok "routing.md and test-run.sh copies match scripts/framework/"
+else bad "routing copies have drifted (exit $rc): edit scripts/framework/, then run bash scripts/sync-routing.sh"; fi
+
+echo
+echo "-- placement: every approved line in its named file, word for word --"
+out=$(python3 scripts/check-line-placement.py --quiet 2>&1); rc=$?
+echo "$out" | tail -n +2
+if [ "$rc" -eq 0 ]; then ok "approved lines in place (skills on scripts/line-placement-pending.txt report only)"
+else bad "approved lines missing or drifted (exit $rc): see above; python3 scripts/check-line-placement.py lists each one"; fi
 
 echo
 echo "$PASS passed, $FAIL failed"

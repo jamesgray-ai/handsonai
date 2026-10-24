@@ -1,0 +1,85 @@
+name: Framework checks
+
+# The AI Workflow Framework's consistency checks and script tests (build-task-list T35).
+# The framework skills, their shared files and the registry tooling are held together by
+# copies and repeated strings that never import each other, so drift is silent unless
+# something compares them:
+#
+#   1. The routing rule and the test-run wrapper are copied byte for byte into the step
+#      skills (scripts/framework/ is canonical).
+#   2. Every approved scripted line must sit, word for word, in the file of each skill that
+#      approved-lines.json names (the placement check, inside check-framework-consistency.sh).
+#      Skills whose rewrite hasn't landed are listed in scripts/line-placement-pending.txt and
+#      report only; that list shrinks to empty before release.
+#   3. The registry strings agree across the schema, the bundle reference, compose and lint,
+#      and the dashboard's state names match the framework-state script.
+#   4. The framework-state, requirements-check, test-run wrapper, compose/lint and eval-harness
+#      tests run without a live model (stubbed).
+#
+# Every step runs even when an earlier one fails, so one run reports every problem.
+#
+# The spec comparison (scripts/framework/routing.md against the spec's block) needs the
+# private business repo, which CI can't read: run it locally with
+#   FRAMEWORK_SPEC=<path to framework-rules.md> bash scripts/check-framework-consistency.sh
+
+on:
+  pull_request:
+    branches: [main, framework-v10]
+  push:
+    branches: [main, framework-v10]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  framework-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Routing copies identical
+        if: ${{ !cancelled() }}
+        run: bash scripts/sync-routing.sh --check
+
+      - name: Framework consistency (phases, mechanism enum, routing copies, line placement)
+        if: ${{ !cancelled() }}
+        run: bash scripts/check-framework-consistency.sh
+
+      - name: Registry consistency
+        if: ${{ !cancelled() }}
+        run: bash scripts/check-registry-consistency.sh
+
+      - name: Plugin copies in sync
+        if: ${{ !cancelled() }}
+        run: bash scripts/check-plugin-sync.sh
+
+      - name: framework-state tests
+        if: ${{ !cancelled() }}
+        run: bash scripts/test-framework-state.sh
+
+      - name: requirements-check tests
+        if: ${{ !cancelled() }}
+        run: bash scripts/test-requirements-check.sh
+
+      - name: test-run wrapper tests
+        if: ${{ !cancelled() }}
+        run: bash scripts/test-test-run.sh
+
+      - name: Eval harness tests
+        if: ${{ !cancelled() }}
+        run: python3 -m unittest discover -s framework-evals/tests
+
+      - name: Registry compose and lint tests
+        if: ${{ !cancelled() }}
+        run: bash scripts/test-compose-registry.sh

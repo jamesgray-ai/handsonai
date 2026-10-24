@@ -14,6 +14,10 @@
 # Usage:
 #   ./scripts/check-registry-consistency.sh          # skip doc-dependent classes
 #   ./scripts/check-registry-consistency.sh --full    # also check migrated docs
+#
+# Transition (build-task-list T35): the run and improve skills are retired in T26's PR. Until
+# then every assertion about them runs where their folder exists and is skipped where it
+# doesn't (retired_skill_gone below); T26's PR drops them from the lists in this file.
 
 set -uo pipefail
 
@@ -50,6 +54,16 @@ must_not_contain() {
 must_contain_i() {
   if grep -qFi -- "$3" "$2" 2>/dev/null; then ok "$1"; else bad "$1 — '$3' not found in $2 (case-insensitive)"; fi
 }
+
+# run and improve are retired in T26. True (0) when $1 is one of them and its folder is gone,
+# so the caller skips it; any other skill, or a retired one still present, is checked.
+retired_skill_gone() {
+  case "$1" in
+    run|improve) [ ! -d "plugins/handsonai/skills/$1" ] ;;
+    *) return 1 ;;
+  esac
+}
+gone() { echo "  skip  $1 (skill retired, T26)"; SKIP=$((SKIP + 1)); }
 
 echo "registry consistency"
 [ "$FULL" -eq 1 ] && echo "(--full: doc-dependent classes included)" || echo "(doc-dependent classes skipped — pass --full once Batch E docs land)"
@@ -155,6 +169,7 @@ declare -a TEN_SKILLS=(
 declare -a RETIRED_FIELDS=(health last_run current_step next_review notion_url)
 
 for skill in "${TEN_SKILLS[@]}"; do
+  if retired_skill_gone "$skill"; then gone "$skill/SKILL.md retired-field checks"; continue; fi
   f="plugins/handsonai/skills/$skill/SKILL.md"
   for field in "${RETIRED_FIELDS[@]}"; do
     must_not_contain "$skill/SKILL.md has no '$field'" "$f" "$field"
@@ -228,14 +243,20 @@ fi
 # ---------------------------------------------------------------------------
 echo
 echo "-- 5. ownership rows: each skill's registry write matches its role --"
-must_contain     "run: writes in-production"                  plugins/handsonai/skills/run/SKILL.md "in-production"
-must_contain     "run: writes stale_after"                    plugins/handsonai/skills/run/SKILL.md "stale_after"
+if retired_skill_gone run; then gone "run: writes in-production / stale_after"
+else
+  must_contain   "run: writes in-production"                  plugins/handsonai/skills/run/SKILL.md "in-production"
+  must_contain   "run: writes stale_after"                    plugins/handsonai/skills/run/SKILL.md "stale_after"
+fi
 must_contain     "deconstruct: writes under-development"      plugins/handsonai/skills/deconstruct/SKILL.md "under-development"
 must_not_contain "deconstruct: no longer writes definition_type" plugins/handsonai/skills/deconstruct/SKILL.md "definition_type"
 must_contain     "naming-workflows: writes backlog"           plugins/handsonai/skills/naming-workflows/SKILL.md "backlog"
 must_contain     "naming-workflows: owns this process"        plugins/handsonai/skills/naming-workflows/SKILL.md "owns this process"
-must_contain     "improve: writes stale_after"                plugins/handsonai/skills/improve/SKILL.md "stale_after"
-must_contain     "improve: writes a Note"                     plugins/handsonai/skills/improve/SKILL.md "Note"
+if retired_skill_gone improve; then gone "improve: writes stale_after / a Note"
+else
+  must_contain   "improve: writes stale_after"                plugins/handsonai/skills/improve/SKILL.md "stale_after"
+  must_contain   "improve: writes a Note"                     plugins/handsonai/skills/improve/SKILL.md "Note"
+fi
 must_contain     "design: writes execution_mode"              plugins/handsonai/skills/design/SKILL.md "execution_mode"
 must_contain     "design: writes autonomy"                    plugins/handsonai/skills/design/SKILL.md "autonomy"
 must_not_contain "test: does not write a registry health field" plugins/handsonai/skills/test/SKILL.md "set the registry field \`health\`"
@@ -254,6 +275,7 @@ declare -a BUNDLE_REFERENCERS=(
   naming-workflows writing-process-guides writing-workflow-sops
 )
 for skill in "${BUNDLE_REFERENCERS[@]}"; do
+  if retired_skill_gone "$skill"; then gone "$skill/SKILL.md defers to registry-bundle.md"; continue; fi
   must_contain "$skill/SKILL.md defers to registry-bundle.md" "plugins/handsonai/skills/$skill/SKILL.md" "registry-bundle.md"
 done
 must_contain "framework-agent.md defers to registry-bundle.md" plugins/handsonai/agents/framework-agent.md "registry-bundle.md"
@@ -263,6 +285,7 @@ must_contain "framework-agent.md defers to registry-bundle.md" plugins/handsonai
 # resume-orientation scan depends on the composed views being current.
 declare -a MAINTENANCE_PASS_SKILLS=(analyze deconstruct design build test run improve)
 for skill in "${MAINTENANCE_PASS_SKILLS[@]}"; do
+  if retired_skill_gone "$skill"; then gone "$skill/SKILL.md invokes a maintenance pass"; continue; fi
   must_contain "$skill/SKILL.md invokes a maintenance pass" "plugins/handsonai/skills/$skill/SKILL.md" "maintenance pass"
 done
 
@@ -277,6 +300,38 @@ must_contain "template root index carries the skills inventory block" registry-t
 must_contain "indexing-registry points at the Tier 2 island contract" plugins/handsonai/skills/indexing-registry/SKILL.md "tier-2-island.md"
 must_contain "indexing-registry states the < escaping rule" plugins/handsonai/skills/indexing-registry/SKILL.md "u003c"
 must_contain "tier-2-island.md states the < escaping rule" plugins/handsonai/skills/indexing-registry/references/tier-2-island.md "u003c"
+
+# A workflow's `state` on the dashboard is the routing state's name (tier-2-island.md's
+# "### `state` on a workflow" table, the by-hand rule) or the framework-state script's `name`
+# (STATE_NAMES). The two must name the same states, in the same order, or a hand-built island
+# and a scripted one show the same workflow differently.
+TIER2=plugins/handsonai/skills/indexing-registry/references/tier-2-island.md
+STATE_JS=plugins/handsonai/tools/framework-state.js
+if [ -f "$TIER2" ] && [ -f "$STATE_JS" ]; then
+  doc_states="$(awk '/^### `state` on a workflow/{f=1;next} f&&/^#/{f=0} f' "$TIER2" \
+    | grep -E '^\| ' | sed -E 's/^\| ([^|]*[^ |]) +\|.*$/\1/' | grep -vE '^(Name|-+)$' || true)"
+  # Read the literal from the source rather than require() it: this repo's root package.json
+  # says "type": "module", so require() of the plugin copy returns no exports here.
+  js_states="$(node -e '
+    const src = require("fs").readFileSync(process.argv[1], "utf8");
+    const m = src.match(/const STATE_NAMES = (\{[\s\S]*?\});/);
+    if (!m) process.exit(3);
+    const s = Function("return " + m[1])();
+    Object.keys(s).map(Number).sort((a, b) => a - b).forEach(k => console.log(s[k]));
+  ' "$ROOT/$STATE_JS" 2>/dev/null)" || js_states=""
+  if [ -z "$js_states" ]; then
+    bad "framework-state.js — couldn't read 'const STATE_NAMES = {...};'"
+  elif [ -z "$doc_states" ]; then
+    bad "tier-2-island.md — no state table found under '### \`state\` on a workflow'"
+  elif [ "$doc_states" == "$js_states" ]; then
+    ok "tier-2-island.md's $(echo "$js_states" | wc -l | tr -d ' ') state names equal framework-state.js STATE_NAMES, in order"
+  else
+    bad "tier-2-island.md's state names differ from framework-state.js STATE_NAMES (< doc, > script):"
+    diff <(echo "$doc_states") <(echo "$js_states") | grep -E '^[<>]' | sed 's/^/         /'
+  fi
+else
+  bad "tier-2-island.md / framework-state.js — one of the two files is missing"
+fi
 
 # ---------------------------------------------------------------------------
 echo
