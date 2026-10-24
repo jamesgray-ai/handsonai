@@ -1,6 +1,6 @@
 {
   "skill_name": "framework",
-  "how_to_run": "python3 run_eval.py <out-dir> <eval-id>... --evals evals-upgrade.json (from deconstruct-workspace/evals). Fixtures come from fixtures/make_upgrade_fixture.py (this file's fixture_builder), built from the frozen 9.1.0 copy fixtures/upgrade-9x, never from examples/. Run on the worktree plugin (the default --plugin). The prompt: U1–U6 start with \"Run the deconstruct skill. Continue my workflow.\" A bare \"continue my workflow\" names no skill and loads none in `claude -p`; every 9.1 step skill's description claims the phrase, and Deconstruct's resume orientation is the documented re-entry (\"Any framework skill can be the re-entry point\"), so this matches R1, R3 and R8. Each U eval's first fixed reply (\"Yes, run the design skill.\" and so on) accepts the orientation and names the step it pointed to, then the step's student script plays; the orientation itself is checked first. A1 starts the framework agent (agent: true) with a bare \"Continue my workflow.\" No-loss checks: one `file_unchanged` per record file (or a glob) for every file the reached step may not touch. Moves and renames (U5's move, U1's dated copy) and appends (U3's round file, U6's run log) are checked with `file_contains` against the frozen 9.1.0 text embedded in the expectation, because the judged grader sees only a file's end state and never a removed file's text. Allowed changes, and only these: the node's `# Artifacts` links and the fields the reached step owns, derived views (REGISTRY.md, the dashboard, GENERATED blocks), the dated copy, U5's moves, and the reached step's own new files and appends. Pass rules: Global Constraints (scripted and `must` judged 3 of 3; other judged 2 of 3; final round 10 runs each). Pending: U1-gen to U4-gen need fixtures/upgrade-9x-generated/I1/ with 9.1.0 output up to the state each needs (the builder says what is missing); the design, build and test student scripts are students/design-student.md, build-student.md and test-student.md. C1 keeps each session's workspace (keep_workspace) for later evals. Stale Design (Task 1 Step 7, not an eval): once, before release, run 9.1.0's Design against a 10.0 file and record what happens. Use the temporary 9.1.0 worktree from Task 1 Step 2 (commit 5356c73cd, plugin.json 9.1.0), kept until this check. Run the hand-written D1 input from Task 1 Step 5 (a 10.0 `requirements.md` with `## Path`, no Definition Type row) through the same isolated runner with `--plugin <temp worktree>/plugins/handsonai --runs 1`, prompt \"Run the design skill.\" and the Design student; don't grade it. From the transcript, copy word for word what 9.1.0 Design says or does with the new file (for example: it stops at Phase 1's required-heading check, asks for a Definition Type, or misreads `## Path`), and record it with the run folder in the round's results for the Task 18 Step 3 release notes. Then remove the temporary worktree (`git worktree remove`).",
+  "how_to_run": "python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals-upgrade.json (from deconstruct-workspace/evals). Fixtures come from fixtures/make_upgrade_fixture.py (this file's fixture_builder), built from the frozen 9.1.0 copy fixtures/upgrade-9x, never from examples/. Run on the worktree plugin (the default --plugin). The prompt: U1–U6 start with \"Run the deconstruct skill. Continue my workflow.\" A bare \"continue my workflow\" names no skill and loads none in `claude -p`; every 9.1 step skill's description claims the phrase, and Deconstruct's resume orientation is the documented re-entry (\"Any framework skill can be the re-entry point\"), so this matches R1, R3 and R8. Each U eval's first fixed reply (\"Yes, run the design skill.\" and so on) accepts the orientation and names the step it pointed to, then the step's student script plays; the orientation itself is checked first. A1 starts the framework agent (agent: true) with a bare \"Continue my workflow.\" No-loss checks: one `file_unchanged` per record file (or a glob) for every file the reached step may not touch. Moves and renames (U5's move, U1's dated copy) and appends (U3's round file, U6's run log) are checked with `file_contains` against the frozen 9.1.0 text embedded in the expectation, because the judged grader sees only a file's end state and never a removed file's text. Allowed changes, and only these: the node's `# Artifacts` links and the fields the reached step owns, derived views (REGISTRY.md, the dashboard, GENERATED blocks), the dated copy, U5's moves, and the reached step's own new files and appends. Pass rules: Global Constraints (scripted and `must` judged 3 of 3; other judged 2 of 3; final round 10 runs each). Pending: U1-gen to U4-gen need fixtures/upgrade-9x-generated/I1/ with 9.1.0 output up to the state each needs (the builder says what is missing); the design, build and test student scripts are students/design-student.md, build-student.md and test-student.md. C1 keeps each session's workspace (keep_workspace) for later evals. Stale Design (Task 1 Step 7, not an eval): once, before release, run 9.1.0's Design against a 10.0 file and record what happens. Use the temporary 9.1.0 worktree from Task 1 Step 2 (commit 5356c73cd, plugin.json 9.1.0), kept until this check. Run the hand-written D1 input from Task 1 Step 5 (a 10.0 `requirements.md` with `## Path`, no Definition Type row) through the same isolated runner with `--plugin <temp worktree>/plugins/handsonai --runs 1`, prompt \"Run the design skill.\" and the Design student; don't grade it. From the transcript, copy word for word what 9.1.0 Design says or does with the new file (for example: it stops at Phase 1's required-heading check, asks for a Definition Type, or misreads `## Path`), and record it with the run folder in the round's results for the Task 18 Step 3 release notes. Then remove the temporary worktree (`git worktree remove`).",
   "fixture_builder": "fixtures/make_upgrade_fixture.py",
   "evals": [
     {
@@ -14,12 +14,12 @@
           "replies": [
             "Yes, run the design skill."
           ],
-          "student": "students/design-student.md"
+          "student": "../../framework-evals/students/design-student.md"
         }
       ],
       "expected_output": "Deconstruct doesn't re-run; the orientation sends the workflow to Step 3 (Design). Design reads the 9.1 step-driven requirements, writes `design-plan.md` (plan_version 4.0), gives the old unapproved `design-spec.md` today's date suffix (section 6's only rename, never approving it in place), and on approval links \"Design plan\" in `# Artifacts`.",
       "files": [
-        "students/design-student.md",
+        "../../framework-evals/students/design-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x"
       ],
@@ -179,12 +179,12 @@
           "replies": [
             "Yes, run the build skill."
           ],
-          "student": "students/build-student.md"
+          "student": "../../framework-evals/students/build-student.md"
         }
       ],
       "expected_output": "Deconstruct doesn't re-run; the orientation sends the workflow to Step 4 (Build). Build accepts the approved 9.1 `design-spec.md` (spec_version 3.0), falls back to `External Action` for the pre-flight, and builds; no 9.1 file loses content.",
       "files": [
-        "students/build-student.md",
+        "../../framework-evals/students/build-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x"
       ],
@@ -339,12 +339,12 @@
           "replies": [
             "Yes, run the test skill."
           ],
-          "student": "students/test-student.md"
+          "student": "../../framework-evals/students/test-student.md"
         }
       ],
       "expected_output": "The orientation sends the workflow to Step 5 (Test). Test finds the 9.1 round file (`round_status: in-progress`, E1 graded) and resumes it: \"1 of 3 graded — run E2 in a new chat next\", handing over E2. Nothing already recorded changes.",
       "files": [
-        "students/test-student.md",
+        "../../framework-evals/students/test-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x"
       ],
@@ -1288,12 +1288,12 @@
           "replies": [
             "Yes, run the design skill."
           ],
-          "student": "students/design-student.md"
+          "student": "../../framework-evals/students/design-student.md"
         }
       ],
       "expected_output": "As U1, on the 9.1.0 output the I1 script generated.",
       "files": [
-        "students/design-student.md",
+        "../../framework-evals/students/design-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x-generated/I1"
       ],
@@ -1387,12 +1387,12 @@
           "replies": [
             "Yes, run the build skill."
           ],
-          "student": "students/build-student.md"
+          "student": "../../framework-evals/students/build-student.md"
         }
       ],
       "expected_output": "As U2, on the 9.1.0 output the I1 script generated.",
       "files": [
-        "students/build-student.md",
+        "../../framework-evals/students/build-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x-generated/I1"
       ],
@@ -1466,12 +1466,12 @@
           "replies": [
             "Yes, run the test skill."
           ],
-          "student": "students/test-student.md"
+          "student": "../../framework-evals/students/test-student.md"
         }
       ],
       "expected_output": "As U3, on the 9.1.0 output the I1 script generated.",
       "files": [
-        "students/test-student.md",
+        "../../framework-evals/students/test-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/upgrade-9x-generated/I1"
       ],
@@ -1620,25 +1620,25 @@
         {
           "prompt": "Run the design skill.",
           "from_previous": true,
-          "student": "students/design-student.md"
+          "student": "../../framework-evals/students/design-student.md"
         },
         {
           "prompt": "Run the build skill.",
           "from_previous": true,
-          "student": "students/build-student.md"
+          "student": "../../framework-evals/students/build-student.md"
         },
         {
           "prompt": "Run the test skill.",
           "from_previous": true,
-          "student": "students/test-student.md"
+          "student": "../../framework-evals/students/test-student.md"
         }
       ],
       "expected_output": "One workspace through I1's interview, then Design, Build and Test, each started from the previous session's saved workspace. Each step reads the previous step's real output: Design the new `requirements.md`, Build the approved `design-plan.md`, Test the built skill and both files.",
       "files": [
         "students/I1-sales-pre-call-brief.md",
-        "students/design-student.md",
-        "students/build-student.md",
-        "students/test-student.md",
+        "../../framework-evals/students/design-student.md",
+        "../../framework-evals/students/build-student.md",
+        "../../framework-evals/students/test-student.md",
         "fixtures/make_upgrade_fixture.py",
         "fixtures/make_fixture.py"
       ],

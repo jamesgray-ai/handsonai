@@ -1,16 +1,16 @@
 {
   "skill_name": "build",
-  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the build student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the build student scripts are in framework-evals/students/; dir: fixtures are relative to this folder).",
   "evals": [
     {
       "id": "B1-unapproved",
       "name": "unapproved-plan-refused",
       "source": "deconstruct-redesign.md section 5 (Build); build1-plan.md Task 1 Step 6",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-draft",
-      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "student": "../../framework-evals/students/build-student.md",
       "prompt": "Run the build skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../framework-evals/students/build-student.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-draft"
       ],
       "expected_output": "Build refuses a plan at approved: false and builds nothing.",
@@ -53,10 +53,10 @@
       "name": "approved-plan-builds",
       "source": "deconstruct-redesign.md sections 4 and 5 (Build, R6-4)",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-approved",
-      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "student": "../../framework-evals/students/build-student.md",
       "prompt": "Run the build skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../framework-evals/students/build-student.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/sales-plan-approved"
       ],
       "expected_output": "Build reads plan_version 4.0 at approved: true, runs the write pre-flight from ### Writes, lists the not-available-yet input as a prerequisite, and builds from the step lines.",
@@ -131,10 +131,10 @@
       "name": "regulated-build",
       "source": "deconstruct-redesign.md section 5 (Build); R4-5",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-plan-approved",
-      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "student": "../../framework-evals/students/build-student.md",
       "prompt": "Run the build skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/build-student.md",
+        "../../framework-evals/students/build-student.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/expenses-plan-approved"
       ],
       "expected_output": "Fixed regulation steps are built unchanged; the per-step table is chosen by decomposition: steps.",
@@ -186,12 +186,12 @@
       "id": "B3",
       "name": "old-step-driven-build",
       "source": "deconstruct-redesign.md section 6 (Build); Review Focus 4",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/step-driven-approved",
-      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "fixture": "dir:../../framework-fixtures/earlier-version/old-format/step-driven-approved",
+      "student": "../../framework-evals/students/build-student.md",
       "prompt": "Run the build skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/build-student.md",
-        "../../deconstruct-workspace/evals/fixtures/old-format/step-driven-approved"
+        "../../framework-evals/students/build-student.md",
+        "../../framework-fixtures/earlier-version/old-format/step-driven-approved"
       ],
       "expected_output": "An old step-driven file with an approved spec_version 3.0 design-spec.md still builds; the pre-flight falls back to External Action.",
       "preconditions": [
@@ -261,13 +261,14 @@
     },
     {
       "id": "B3-gen",
+      "retired": "Retired in place (T18): its fixture, deconstruct-workspace/evals/fixtures/upgrade-9x-generated/, was dropped by T15 with the 9.x upgrade path; no 10.0 target replaces it. The runner and validator skip it.",
       "name": "old-generated-build",
       "source": "deconstruct-redesign.md section 6 (Build); build1-plan.md Task 1 Step 7",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1-designed",
-      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "student": "../../framework-evals/students/build-student.md",
       "prompt": "Run the build skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/build-student.md"
+        "../../framework-evals/students/build-student.md"
       ],
       "expected_output": "9.1.0-generated requirements with their approved 9.1.0 design spec still build.",
       "preconditions": [
@@ -300,12 +301,12 @@
       "id": "B4",
       "name": "old-goal-driven-build",
       "source": "deconstruct-redesign.md section 5 (Build: legacy definition_type); Review Focus 4",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/goal-driven-approved",
-      "student": "../../deconstruct-workspace/evals/students/build-student.md",
+      "fixture": "dir:../../framework-fixtures/earlier-version/old-format/goal-driven-approved",
+      "student": "../../framework-evals/students/build-student.md",
       "prompt": "Run the build skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/build-student.md",
-        "../../deconstruct-workspace/evals/fixtures/old-format/goal-driven-approved"
+        "../../framework-evals/students/build-student.md",
+        "../../framework-fixtures/earlier-version/old-format/goal-driven-approved"
       ],
       "expected_output": "An old goal-driven file with its approved spec builds by the legacy definition_type table choice (Capability Domain Mapping).",
       "preconditions": [

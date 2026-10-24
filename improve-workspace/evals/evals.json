@@ -1,17 +1,17 @@
 {
   "skill_name": "improve",
-  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the improve student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the improve student scripts are in framework-evals/students/; dir: fixtures are relative to this folder).",
   "evals": [
     {
       "id": "IM1",
       "name": "loads-requirements-diff-keys",
       "source": "deconstruct-redesign.md section 5 (Improve; R6-6, R7-1)",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-in-production",
+      "fixture": "dir:../../framework-fixtures/seeds/expenses-in-production",
       "student": "../../deconstruct-workspace/evals/students/improve-student.md",
       "files": [
         "../../deconstruct-workspace/evals/students/improve-student.md",
-        "../../deconstruct-workspace/evals/fixtures/new-format/expenses-in-production",
-        "../../deconstruct-workspace/evals/fixtures/new-format/expenses-regression-done"
+        "../../framework-fixtures/seeds/expenses-in-production",
+        "../../framework-fixtures/seeds/expenses-regression-done"
       ],
       "sessions": [
         {
@@ -21,7 +21,7 @@
         {
           "prompt": "Run the improve skill on Expense Report Approval. We opened the regression round last time, and I've re-run all four test inputs; the new round is finished.",
           "student": true,
-          "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-regression-done"
+          "fixture": "dir:../../framework-fixtures/seeds/expenses-regression-done"
         }
       ],
       "expected_output": "Improve loads the Workflow Requirements in Phase 1, opens the regression round with a D1 reading line, and its baseline diff carries D1 reading; two routes only.",

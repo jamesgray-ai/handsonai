@@ -3,7 +3,8 @@
 check on the real Claude config, and leak scans.
 
 Every `claude -p` call the runner, the student and the grader make goes through `call()`.
-Rules (build1-plan.md, Global Constraints, "Eval safety"):
+Rules (build1-plan.md, Global Constraints, "Eval safety"; kept by T18 when the harness moved to
+framework-evals/: R12-1's keychain-only login and per-role init assertion, R12-3's fail-closed check):
 - Each run gets its own run root under one eval parent folder in $TMPDIR, outside every repo
   and outside the home folder. It holds home/ (temp HOME; home/.claude is CLAUDE_CONFIG_DIR),
   workspace/ (the skill's working folder), plugin/ (a copy of the plugin under test),
@@ -189,8 +190,9 @@ def env_for(root):
 class Round:
     """State shared by every call in a round: the pinned binary and the allowed bundled skills."""
 
-    def __init__(self):
-        self.binary, self.version = pin_binary()
+    def __init__(self, binary=None, version=None):
+        # Tests pass a stub binary; a real round always pins the installed claude.
+        self.binary, self.version = (binary, version) if binary else pin_binary()
         self.bundled_skills = None      # recorded by the no-plugin control call
         self.bundled_plugins = None
 
@@ -270,7 +272,7 @@ def check_config_folder(root, plugin):
 
 
 def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, session_id=None,
-         system_prompt=None, model=None, agent=None, log=None, retries=2):
+         system_prompt=None, append_system_prompt=None, model=None, agent=None, log=None, retries=2):
     """One `claude -p` call. Returns (result_text, record). Raises HarnessFailure or UsageLimit."""
     args = [rnd.binary, "-p", "--setting-sources", "project,local", "--strict-mcp-config",
             "--output-format", "stream-json", "--verbose",
@@ -285,6 +287,8 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         args += ["--agent", agent]
     if system_prompt:
         args += ["--system-prompt", system_prompt]
+    if append_system_prompt:
+        args += ["--append-system-prompt", append_system_prompt]
     if session_id:
         args += ["--session-id", session_id]
     if resume:

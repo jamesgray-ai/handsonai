@@ -1,6 +1,6 @@
 {
   "skill_name": "deconstruct",
-  "how_to_run": "Run with `python3 run_eval.py <out-dir> <eval-id>... [--runs N] [--parallel N]`; it builds each fixture, runs the skill from the plugin under test in an isolated run root (harness.py), plays the student from students/ (decided R10-5), and grades: check_scripted.py for scripted expectations, grade_eval.py (blind) for judged ones. Expected text is copied from deconstruct-redesign.md section 2 and verification-decisions.md; never retype it. Validate edits with `python3 validate_evals.py evals.json --build-fixtures`. Safety controls: dry_run_controls.py; results in iteration-0-dry/controls/controls.json.",
+  "how_to_run": "From this folder, run with `python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json [--runs N] [--parallel N]`; it builds each fixture, runs the skill from the plugin under test in an isolated run root (harness.py), plays the student from students/ (decided R10-5), and grades: check_scripted.py for scripted expectations, grade_eval.py (blind) for judged ones. Expected text is copied from deconstruct-redesign.md section 2 and verification-decisions.md; never retype it. Validate edits with `python3 validate_evals.py evals.json --build-fixtures`. Safety controls: dry_run_controls.py; results in iteration-0-dry/controls/controls.json.",
   "evals": [
     {
       "id": "I1",

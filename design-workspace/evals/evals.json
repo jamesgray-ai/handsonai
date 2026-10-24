@@ -1,14 +1,15 @@
 {
   "skill_name": "design",
-  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the design student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "fixture_builder": "../../deconstruct-workspace/evals/fixtures/make_fixture.py",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the design student scripts are in framework-evals/students/; dir: fixtures are relative to this folder).",
   "evals": [
     {
       "id": "D1a",
       "name": "plan-draft-no-approval",
       "source": "deconstruct-redesign.md sections 4 and 5 (Design); build1-plan.md Task 1 Step 5",
-      "student": "../../deconstruct-workspace/evals/students/design-student-no-approve.md",
+      "student": "../../framework-evals/students/design-student-no-approve.md",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student-no-approve.md",
+        "../../framework-evals/students/design-student-no-approve.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/sales"
       ],
       "expected_output": "A design-plan.md at plan_version 4.0 with autonomy, decomposition: steps and a coverage table, left at approved: false with no node link, because the student stopped before approving.",
@@ -158,9 +159,9 @@
       "id": "D1b",
       "name": "plan-approved",
       "source": "deconstruct-redesign.md sections 4 and 5 (Design); build1-plan.md Task 1 Step 5",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
+        "../../framework-evals/students/design-student.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/sales"
       ],
       "expected_output": "A design-plan.md at plan_version 4.0 with autonomy, decomposition: steps and a coverage table, approved: true, and the node link titled Design plan.",
@@ -338,10 +339,10 @@
       "name": "regulated-without-you",
       "source": "deconstruct-redesign.md section 4 (R2-1, R2-1b, R4-5, R5-8)",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-without-you",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
+        "../../framework-evals/students/design-student.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/expenses-without-you"
       ],
       "expected_output": "Regulation binds through fixed steps and gates; no fixed step is Autonomous; D1 stays Deterministic with a separate reading check; the risky combination is raised if anything is Autonomous; involvement Augmented because of the controller gate.",
@@ -514,10 +515,10 @@
       "name": "regulated-without-you-most-freedom",
       "source": "deconstruct-redesign.md section 4 (R2-1, R2-1b, R4-5)",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-without-you",
-      "student": "../../deconstruct-workspace/evals/students/design-student-autonomous.md",
+      "student": "../../framework-evals/students/design-student-autonomous.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student-autonomous.md",
+        "../../framework-evals/students/design-student-autonomous.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/expenses-without-you"
       ],
       "expected_output": "D2a's fixture with a student who asks for the most freedom Design allows wherever it offers a choice. No fixed step becomes Autonomous; D1 stays Deterministic; if any step is Autonomous, Design explains why for this regulated work, adds a per-run record of what the AI did, and raises the risky combination (Autonomous, `Runs: without you`, live write W1); the student accepts the risk explicitly, so no gate is added before W1. Involvement stays Augmented because of the controller gate.",
@@ -702,10 +703,10 @@
       "name": "regime-not-sure",
       "source": "deconstruct-redesign.md section 4 (R2-1)",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-regime-not-sure",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
+        "../../framework-evals/students/design-student.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/expenses-regime-not-sure"
       ],
       "expected_output": "With the regime not confirmed, Design asks the student to confirm before choosing Autonomous and keeps regulation-fixed steps fixed.",
@@ -813,10 +814,10 @@
       "name": "old-step-driven",
       "source": "deconstruct-redesign.md section 6; build1-plan.md Global Constraints (Back-compat); Review Focus 4",
       "fixture": "R10",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
+        "../../framework-evals/students/design-student.md",
         "../../deconstruct-workspace/evals/fixtures/make_fixture.py"
       ],
       "expected_output": "Old requirements formats still design.",
@@ -961,12 +962,12 @@
       "id": "D3-step-norow",
       "name": "old-step-driven-no-row",
       "source": "deconstruct-redesign.md section 6; build1-plan.md Global Constraints (Back-compat); Review Focus 4",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/step-driven-norow",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "fixture": "dir:../../framework-fixtures/earlier-version/old-format/step-driven-norow",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
-        "../../deconstruct-workspace/evals/fixtures/old-format/step-driven-norow"
+        "../../framework-evals/students/design-student.md",
+        "../../framework-fixtures/earlier-version/old-format/step-driven-norow"
       ],
       "expected_output": "Old requirements formats still design.",
       "preconditions": [
@@ -1115,12 +1116,12 @@
       "id": "D3-goal",
       "name": "old-goal-driven",
       "source": "deconstruct-redesign.md section 6; build1-plan.md Global Constraints (Back-compat); Review Focus 4",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/goal-driven",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "fixture": "dir:../../framework-fixtures/earlier-version/old-format/goal-driven",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
-        "../../deconstruct-workspace/evals/fixtures/old-format/goal-driven"
+        "../../framework-evals/students/design-student.md",
+        "../../framework-fixtures/earlier-version/old-format/goal-driven"
       ],
       "expected_output": "Old requirements formats still design.",
       "preconditions": [
@@ -1268,12 +1269,12 @@
       "id": "D3-goal-outcome",
       "name": "old-outcome-driven",
       "source": "deconstruct-redesign.md section 6; build1-plan.md Global Constraints (Back-compat); Review Focus 4",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/outcome-driven",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "fixture": "dir:../../framework-fixtures/earlier-version/old-format/outcome-driven",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
-        "../../deconstruct-workspace/evals/fixtures/old-format/outcome-driven"
+        "../../framework-evals/students/design-student.md",
+        "../../framework-fixtures/earlier-version/old-format/outcome-driven"
       ],
       "expected_output": "Old requirements formats still design.",
       "preconditions": [
@@ -1426,12 +1427,12 @@
       "id": "D3-nomarkers",
       "name": "old-no-markers",
       "source": "deconstruct-redesign.md section 6 (ask, don't assume); Review Focus 4",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/old-format/no-markers",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "fixture": "dir:../../framework-fixtures/earlier-version/old-format/no-markers",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
-        "../../deconstruct-workspace/evals/fixtures/old-format/no-markers"
+        "../../framework-evals/students/design-student.md",
+        "../../framework-fixtures/earlier-version/old-format/no-markers"
       ],
       "expected_output": "A file with no ## Path and none of the old markers is asked about, not assumed.",
       "preconditions": [
@@ -1469,13 +1470,14 @@
     },
     {
       "id": "D3-gen-I1",
+      "retired": "Retired in place (T18): its fixture, deconstruct-workspace/evals/fixtures/upgrade-9x-generated/, was dropped by T15 with the 9.x upgrade path; no 10.0 target replaces it. The runner and validator skip it.",
       "name": "old-generated-I1",
       "source": "deconstruct-redesign.md section 6; build1-plan.md Global Constraints (Back-compat); Review Focus 4",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md"
+        "../../framework-evals/students/design-student.md"
       ],
       "expected_output": "Old requirements formats still design.",
       "preconditions": [
@@ -1522,13 +1524,14 @@
     },
     {
       "id": "D3-gen-I2",
+      "retired": "Retired in place (T18): its fixture, deconstruct-workspace/evals/fixtures/upgrade-9x-generated/, was dropped by T15 with the 9.x upgrade path; no 10.0 target replaces it. The runner and validator skip it.",
       "name": "old-generated-I2",
       "source": "deconstruct-redesign.md section 6; build1-plan.md Global Constraints (Back-compat); Review Focus 4",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I2",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "prompt": "Run the design skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md"
+        "../../framework-evals/students/design-student.md"
       ],
       "expected_output": "Old requirements formats still design.",
       "preconditions": [
@@ -1577,9 +1580,9 @@
       "id": "D1a-live",
       "name": "plan-draft-no-approval-live",
       "source": "deconstruct-redesign.md sections 4 and 5 (Design); build1-plan.md Task 1 Step 5",
-      "student": "../../deconstruct-workspace/evals/students/design-student-no-approve.md",
+      "student": "../../framework-evals/students/design-student-no-approve.md",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student-no-approve.md"
+        "../../framework-evals/students/design-student-no-approve.md"
       ],
       "expected_output": "A design-plan.md at plan_version 4.0 with autonomy, decomposition: steps and a coverage table, left at approved: false with no node link, because the student stopped before approving.",
       "preconditions": [
@@ -1733,9 +1736,9 @@
       "id": "D1b-live",
       "name": "plan-approved-live",
       "source": "deconstruct-redesign.md sections 4 and 5 (Design); build1-plan.md Task 1 Step 5",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md"
+        "../../framework-evals/students/design-student.md"
       ],
       "expected_output": "A design-plan.md at plan_version 4.0 with autonomy, decomposition: steps and a coverage table, approved: true, and the node link titled Design plan.",
       "preconditions": [
@@ -1898,9 +1901,9 @@
       "id": "D2a-live",
       "name": "regulated-live",
       "source": "deconstruct-redesign.md section 4 (R2-1, R2-1b, R4-5)",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "student": "../../framework-evals/students/design-student.md",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md"
+        "../../framework-evals/students/design-student.md"
       ],
       "sessions": [
         {

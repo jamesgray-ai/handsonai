@@ -1,6 +1,6 @@
 {
   "skill_name": "run",
-  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the run student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the run student scripts are in framework-evals/students/; dir: fixtures are relative to this folder).",
   "evals": [
     {
       "id": "RN1",

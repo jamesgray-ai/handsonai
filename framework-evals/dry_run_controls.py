@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Dry-run controls for the isolated runner (build1-plan.md, Task 1 Step 1).
+"""Dry-run controls for the isolated runner (build1-plan.md, Task 1 Step 1; moved to framework-evals by T18).
 
-Usage: python3 dry_run_controls.py <out-dir> [--plugin DIR]
+Usage: python3 framework-evals/dry_run_controls.py <out-dir> [--plugin DIR]
 
 Each control proves one isolation rule and writes its result to <out-dir>/controls.json:
 - setup-check read: the fail-closed check can read ~/.claude.json (if not, stop and ask James)
@@ -22,7 +22,7 @@ from pathlib import Path
 import harness as H
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[1]
+ROOT = HERE.parent
 CODEWORD = "PERIWINKLE-5582-LANTERN"
 
 

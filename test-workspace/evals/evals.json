@@ -1,15 +1,16 @@
 {
   "skill_name": "test",
-  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the test student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "fixture_builder": "../../deconstruct-workspace/evals/fixtures/make_fixture.py",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the test student scripts are in framework-evals/students/; dir: fixtures are relative to this folder).",
   "evals": [
     {
       "id": "T1",
       "name": "new-format-test",
       "source": "deconstruct-redesign.md sections 4 and 5 (Test; R2-1b, R2-2)",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/expenses-built",
-      "student": "../../deconstruct-workspace/evals/students/test-student.md",
+      "student": "../../framework-evals/students/test-student.md",
       "files": [
-        "../../deconstruct-workspace/evals/students/test-student.md",
+        "../../framework-evals/students/test-student.md",
         "../../deconstruct-workspace/evals/fixtures/new-format/expenses-built"
       ],
       "sessions": [
@@ -160,10 +161,10 @@
       "name": "old-format-test",
       "source": "deconstruct-redesign.md section 6 (Test); Review Focus 4",
       "fixture": "R1",
-      "student": "../../deconstruct-workspace/evals/students/test-student.md",
+      "student": "../../framework-evals/students/test-student.md",
       "prompt": "Run the test skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/test-student.md",
+        "../../framework-evals/students/test-student.md",
         "../../deconstruct-workspace/evals/fixtures/make_fixture.py"
       ],
       "expected_output": "An old-format build with a design-spec.md is read and graded as today.",
@@ -227,13 +228,14 @@
     },
     {
       "id": "T2-gen",
+      "retired": "Retired in place (T18): its fixture, deconstruct-workspace/evals/fixtures/upgrade-9x-generated/, was dropped by T15 with the 9.x upgrade path; no 10.0 target replaces it. The runner and validator skip it.",
       "name": "old-format-test-generated",
       "source": "deconstruct-redesign.md section 6 (Test); Review Focus 4",
       "fixture": "dir:../../deconstruct-workspace/evals/fixtures/upgrade-9x-generated/I1-built",
-      "student": "../../deconstruct-workspace/evals/students/test-student.md",
+      "student": "../../framework-evals/students/test-student.md",
       "prompt": "Run the test skill.",
       "files": [
-        "../../deconstruct-workspace/evals/students/test-student.md"
+        "../../framework-evals/students/test-student.md"
       ],
       "expected_output": "An old-format build with a design-spec.md is read and graded as today.",
       "preconditions": [],

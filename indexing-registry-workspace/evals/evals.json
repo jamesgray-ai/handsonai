@@ -1,16 +1,16 @@
 {
   "skill_name": "indexing-registry",
-  "how_to_run": "From this folder: python3 ../../deconstruct-workspace/evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the indexing-registry student scripts are in deconstruct-workspace/evals/students/; dir: fixtures are relative to this folder).",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the indexing-registry student scripts are in framework-evals/students/; dir: fixtures are relative to this folder).",
   "evals": [
     {
       "id": "IR1",
       "name": "stale-tools-update",
       "source": "deconstruct-redesign.md section 5 (Registry tools, R2-3, R3-4); Review Focus 5",
-      "fixture": "dir:../../deconstruct-workspace/evals/fixtures/new-format/sales-stale-tools",
-      "student": "../../deconstruct-workspace/evals/students/design-student.md",
+      "fixture": "dir:../../framework-fixtures/seeds/sales-stale-tools",
+      "student": "../../framework-evals/students/design-student.md",
       "files": [
-        "../../deconstruct-workspace/evals/students/design-student.md",
-        "../../deconstruct-workspace/evals/fixtures/new-format/sales-stale-tools"
+        "../../framework-evals/students/design-student.md",
+        "../../framework-fixtures/seeds/sales-stale-tools"
       ],
       "sessions": [
         {
