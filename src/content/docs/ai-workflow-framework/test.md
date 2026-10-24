@@ -163,16 +163,12 @@ If you've been through four rounds and the same lines keep failing, the problem 
 
 ## How the Skill Works
 
-This is what the `test` skill is doing under the hood, phase by phase. You don't need to drive these; the walkthrough above is the student's view of the same sequence.
+Test works in four parts. Nothing it runs sends or changes anything real:
 
-1. **Load context** — the requirements (criteria, rules, gates, inputs), the design spec, and where the built skill lives.
-2. **Confirm the passing rule** — every line of the report card Met on every input; a miss on a **(must)** line always fails; any other miss is fixed or explicitly accepted. The results file is written at the end of this step, so a line you add or drop here is in it from the start.
-3. **Smoke run** — the skill reads the built workflow against the requirements to catch obvious gaps before you spend a run.
-4. **Integration pre-flight** — confirms each connector has the access it needs in the account that will run the workflow; a blocked write path is marked "not run", never faked. If your workflow connects to nothing, the skill says so in one line and moves on.
-5. **Run and grade each scenario** — you run each input in a new chat; the skill grades that whole run (in the run chat, or from the run pasted back into the opening chat), fills in the report card with evidence, and you confirm or override each line. Every line is graded on every input.
-6. **Diagnose every miss** — each Not met line is mapped to the building block that caused it, including a right-looking output that took a wrong path.
-7. **Verdict** — Ready, Not ready (back to Build, which regenerates only what's named), or Waiting on access.
-8. **Clean up test records** — anything the test created in a live system is listed and offered for removal.
+1. **Open the round** — you give one real example the workflow hasn't seen (or ask Test to write one). Test checks that every requirement has a practice input that tests it, writing one where none does, and tells you in one line. You confirm what counts as ready, and can add or drop a requirement before anything runs.
+2. **Run it** — you run the practice inputs in one new chat and your real example in another, each started from one block you paste, and copy one block back (on Claude Code, the AI runs the practice inputs twice each by itself). Test checks each run didn't draw on your framework files, grades every requirement on what the workflow produced, with the proof, and you agree or not and say how much you'd edit it.
+3. **The verdict** — each miss is sorted for Build or Design, you decide anything only you can (a requirement that was wrong, a miss to accept), and the round is Ready, Not ready, or waiting on a connection's access.
+4. **Go live** — on your yes to "Take it live?", Test marks the workflow live, writes how to switch it off, tells you what the first real run does for the first time and how to switch on any schedule yourself, and sets when to re-check it.
 
 ## How to Use This
 

@@ -11,4 +11,3 @@
 #
 # One skill folder name per line; text after '#' is a comment.
 
-test                  # T25
