@@ -8,6 +8,7 @@ set by stub-mode.json beside it:
 The skill's replies are taken in turn (a counter file beside it); the leader always says END;
 graders pass everything.
 """
+import fcntl
 import json
 import os
 import re
@@ -16,6 +17,20 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 MODE = json.loads((HERE / "stub-mode.json").read_text()) if (HERE / "stub-mode.json").exists() else {}
+
+
+def next_turn():
+    """Read and bump the shared reply counter under an exclusive lock. The runner starts stub calls
+    in parallel (--parallel, default 2), so an unlocked read could land between another call's
+    truncate and write, read '' and crash the call (a spurious harness_failure)."""
+    with open(HERE / ".stub-counter", "a+") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)  # released when the file closes
+        f.seek(0)
+        k = int(f.read() or 0)
+        f.seek(0)
+        f.truncate()
+        f.write(str(k + 1))
+    return k
 
 
 def arg(name):
@@ -52,11 +67,9 @@ def main():
     elif prompt.strip() == "Say OK.":
         text = "OK"
     else:
-        counter = HERE / ".stub-counter"
-        k = int(counter.read_text()) if counter.exists() else 0
+        k = next_turn()
         replies = MODE.get("skill_replies") or ["OK."]
         text = replies[k % len(replies)]
-        counter.write_text(str(k + 1))
     print(json.dumps(init))
     print(json.dumps({"type": "result", "subtype": "success", "is_error": False, "result": text,
                       "modelUsage": {arg("--model") or "stub": {}}, "permission_denials": [],
