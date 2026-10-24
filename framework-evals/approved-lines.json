@@ -7566,6 +7566,32 @@
     "build": "references/carried-lines.md"
    },
    "source": "framework-rules.md 8.1; build.md 6.4 item 1 (the combined block's heading)"
+  },
+  {
+   "id": "N-C1",
+   "form": "main",
+   "text": "Under the practice-run cue, never send, post or change anything: go up to each change, show exactly what you would send or change and where, and don't make it. A change that can't be undone is always shown, even when it's the last action in a batch.",
+   "kind": "carried",
+   "skills": [
+    "built-workflow"
+   ],
+   "files": {
+    "build": "references/carried-lines.md"
+   },
+   "source": "build.md 6.4 (carried lines); approved 3c-DR (James, 2026-10-24)"
+  },
+  {
+   "id": "N-C2",
+   "form": "main",
+   "text": "When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only.",
+   "kind": "carried",
+   "skills": [
+    "built-workflow"
+   ],
+   "files": {
+    "build": "references/carried-lines.md"
+   },
+   "source": "build.md 6.4 (carried lines); approved 3c-DR (James, 2026-10-24)"
   }
  ]
 }
