@@ -1450,6 +1450,19 @@
    "note": "scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
+   "id": "N-A8",
+   "form": "main",
+   "text": "Not sized yet — you can add today's number when the requirements are written",
+   "kind": "structure",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "analyze.md 9; 3c-DQ (2026-10-24), the report card's Size for a workflow not yet sized; text from lines-to-approve.md"
+  },
+  {
    "id": "analyze:description",
    "form": "main",
    "text": "This skill should be used when the user wants to analyze AI workflow opportunities, run a workflow audit, find automation candidates, or says \"where can AI help\". With the user's permission, looks through their saved memory and past chats for opportunities, walks their processes, then registers every candidate as a backlog Workflow node in the AI Registry (work that already runs as in production), or lists it with the report where there is no registry, ready for the Deconstruct step. Also use when the user says \"continue my workflow\" and Analyze's progress file (analyze-in-progress.md) exists. It stays strategic: it names the work, the pain, and the value, never the tools or integrations. This is the Analyze step of the AI Workflow Framework.",
@@ -7484,6 +7497,20 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 17\\. (the description); approved (James, 2026-10-24)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+  },
+  {
+   "id": "design:description",
+   "form": "main",
+   "text": "This skill should be used when the user has a workflow's requirements and wants to plan how AI will do the work: which parts are skills or agents, how much the AI decides at each step, where a person checks, what it connects to, and how each part will be checked. It writes a plan the Build step follows, task by task, and asks the user only what only they can decide. Also use when the user says \"continue my workflow\" and the workflow needs its plan, a plan was stopped partway, or Build sent back a question; and when the user says \"change my workflow\" to change one that's planned, built or live. This is the Design step of the AI Workflow Framework.",
+   "kind": "structure",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-DQ",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
