@@ -32,7 +32,7 @@ After either N-T48 form, write "Live since" and "How to switch it off" (section 
 
 ## 3. The go-live message
 
-Said exactly, with its parts chosen from the files, in this order:
+Said exactly, with its parts chosen from the files, in this order. Each part is said whole as one piece, as written: never split into two sentences, reworded around its quoted phrase, or turned into bullets or headings, and nothing of your own goes between the parts (wrong: "…My files are in [location].' That way the schedule is checked before it runs without you."; wrong: "Right now it runs only when you start it." before the schedule's line).
 
 - **It's live:** "It's live." Where the schedule can't go on yet (`schedule: safety-incomplete`, or a schedule-only request waiting): "It's live to run by hand."
 - **The first real run:** "Your first real run [does these for the first time: …]; check that each one works." The items: the real target, the first real changes, any action whose quick real check was declined, skipped or not yet made, and, when Test ran in a different account than Build (this round's `environment` names a different account from the build record's place and quick real checks), every kind of change. The same items go in the run log's `first_time` header.

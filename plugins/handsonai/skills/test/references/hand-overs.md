@@ -30,6 +30,8 @@ Read at every hand-over: whenever the leader runs an input (the batch, the new i
 
 ## 3. The hand-over message, in order
 
+**The round's first hand-over** is the first run the leader is handed in this round. On Claude Code the AI's own runs aren't hand-overs, so the real example's is often the first. On a resume, it's the first unless the round's file shows a run the leader already pasted back or said "next" for; when you can't tell, treat it as the first, since a safety line said twice is safe and one left out isn't. Its once-only lines (item 4, section 4's Claude Code memory line, section 8) are said then.
+
 One message:
 1. **The opening sentence** for the platform (section 4), naming any file to attach (an input that is itself a file is attached, not pasted).
 2. **For the batch:** "It runs [N] inputs one after another."
@@ -42,7 +44,7 @@ One message:
 
 ## 4. The opening sentence, by platform
 
-Said exactly, each clause filled or left out:
+Said exactly, each clause filled or left out. [folder] (Claude Code and Codex) is the workspace's full path, the folder this session runs in, in code formatting: never "your workspace folder", "this workspace" or "the same folder". Every hand-over says its opening sentence whole with the place filled, a re-run after a refusal (SKILL.md, *Keeping runs cold*) and a smaller batch included: never "as before".
 
 - **Claude, ChatGPT and Microsoft 365 Cowork:** "Open a new chat [in your [workflow] Project / in Cowork][Claude: ', and before typing, open + and switch off memory, then switch off every connector under Connectors[ except [its connectors]]'][ChatGPT: ', and add [its apps] and no other apps' / with no apps: ', and don't add any apps'][Microsoft 365, once its release check passes: ', and switch off every connector it doesn't use for this chat: [steps]'], then paste the block below[ and attach [files]]."
 - **Microsoft 365, an agent Agent Builder made:** "Open Copilot, choose Chat, then Agents, and start a new chat with [Agent], then paste the block below."
