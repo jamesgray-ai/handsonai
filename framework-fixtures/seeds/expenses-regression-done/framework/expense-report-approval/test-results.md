@@ -64,7 +64,7 @@ Inputs pasted; the Concur post was printed, not sent.
 
 | Line | Scenario | Building block | Issue |
 |---|---|---|---|
-| D1 reading | E2 | S1 (Step 1 instruction) | Read the handwritten total €90 as the receipt amount instead of €78 plus a tip to flag |
+| D1 reading | E2 | S1 (Step 1 instruction) | Read the handwritten total €64 as the receipt amount instead of €56 plus a tip to flag |
 
 ## Accepted misses
 
