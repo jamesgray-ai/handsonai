@@ -1472,12 +1472,21 @@
             "type": "all",
             "checks": [
               {
-                "type": "ai_contains",
-                "text": "Do you use it regularly?"
+                "type": "ai_regex",
+                "pattern": "(?i)\\bdo you use it regularly\\?"
               },
               {
-                "type": "ai_contains",
-                "text": "Does it work well, or could it be better?"
+                "type": "any",
+                "checks": [
+                  {
+                    "type": "ai_contains",
+                    "text": "Does it work well, or could it be better?"
+                  },
+                  {
+                    "type": "leader_regex",
+                    "pattern": "(?i)\\b(works? (well|fine|great)|could be better|doesn't work|not (working|great))"
+                  }
+                ]
               }
             ]
           }

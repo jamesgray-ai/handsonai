@@ -425,6 +425,14 @@ def check(c, run):
             if ok:
                 return True, f"found in session {s['n']}"
         return False, "not found in any AI message" + (" (first message)" if which == "first" else "")
+    if t == "leader_regex":
+        # what the leader already said (an answer volunteered before its question), so a check can
+        # accept the question not being asked again
+        for s in _sessions(run, n):
+            for tn in s["turns"]:
+                if tn["role"] != "ai" and re.search(norm(c["pattern"]), norm(tn["text"]), re.M):
+                    return True, f"the leader said it in session {s['n']}"
+        return False, "not in any leader message"
     if t in ("ai_not_contains", "ai_not_regex"):
         for s in _sessions(run, n):
             for i, m in enumerate(_ai_turns(s)):

@@ -24,7 +24,7 @@ import approved_lines as AL
 import leader as L
 
 REQUIRED = {
-    "ai_contains": ["text"], "ai_not_contains": ["text"], "ai_regex": ["pattern"], "ai_not_regex": ["pattern"],
+    "ai_contains": ["text"], "ai_not_contains": ["text"], "ai_regex": ["pattern"], "ai_not_regex": ["pattern"], "leader_regex": ["pattern"],
     "quote": ["id"], "quote_absent": ["id"], "scripted_lines": [], "vocabulary": [], "no_time_or_step_numbers": [],
     "signposts": [], "file_exists": ["path"], "file_absent": ["path"], "file_existed_during": ["path"],
     "file_contains": ["path", "text"], "file_not_contains": ["path", "text"], "file_regex": ["path", "pattern"],
