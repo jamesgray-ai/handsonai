@@ -1,16 +1,16 @@
 {
   "skill_name": "indexing-registry",
-  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> <eval-id>... --evals evals.json (runs: 3 each; the indexing-registry student scripts are in framework-evals/students/; dir: fixtures are relative to this folder).",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--dry-run] [--yes] (runs: 3 each; the indexing-registry student scripts are in framework-evals/students/; fixtures are names from fixtures/make_fixture.py (`--list`), built from ../../framework-fixtures/). Without --yes the runner prints the cost estimate and stops.",
   "evals": [
     {
       "id": "IR1",
       "name": "stale-tools-update",
-      "source": "deconstruct-redesign.md section 5 (Registry tools, R2-3, R3-4); Review Focus 5",
-      "fixture": "dir:../../framework-fixtures/seeds/sales-stale-tools",
+      "source": "registry-bundle.md 5 (state names) and 6 (re-check dates); indexing-registry SKILL.md, Out-of-date tools (TOOLS_VERSION)",
+      "fixture": "stale-tools",
       "student": "../../framework-evals/students/design-student.md",
       "files": [
         "../../framework-evals/students/design-student.md",
-        "../../framework-fixtures/seeds/sales-stale-tools"
+        "fixtures/make_fixture.py"
       ],
       "sessions": [
         {
@@ -22,7 +22,7 @@
           "student": true
         }
       ],
-      "expected_output": "A workspace whose tools/ have no TOOLS_VERSION gets the update offer, through Design's closing maintenance pass and on a direct run; on yes the six files are copied, the dashboard re-templated before composing, and the badge reads right with both Design spec and Design plan links.",
+      "expected_output": "A workspace whose tools/ predate TOOLS_VERSION gets the update offer, through Design's closing maintenance pass (Client Follow-Up's plan approved) and on a direct run; on yes the tools are copied, the dashboard re-templated before composing, and REGISTRY.md reads this release's views: the state name in Progress (Build needed after the approval, Plan to approve on the direct run), the Re-check by column and the Re-check dates section.",
       "preconditions": [
         "When the AI offered to update the registry's tools, the student said yes.",
         "When the AI asked for approval (Design path), the student approved."
@@ -39,7 +39,7 @@
           "must": true
         },
         {
-          "text": "Design path: on yes, the six files (compose-registry.js, lint-registry.js, registry-lib.js, package.json, dashboard-template.html, data-island.schema.json) are copied over `tools/`",
+          "text": "Design path: on yes, the tools are copied over `tools/` (compose-registry.js, lint-registry.js, registry-lib.js, package.json, framework-state.js, requirements-check.js, dashboard-template.html, data-island.schema.json)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -85,6 +85,16 @@
                 "path": "tools/data-island.schema.json",
                 "text": "stale-template-9.1.0",
                 "session": 1
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/framework-state.js",
+                "session": 1
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/requirements-check.js",
+                "session": 1
               }
             ]
           },
@@ -102,26 +112,36 @@
           "must": true
         },
         {
-          "text": "Design path: the Sales Pre-Call Brief badge reads step 3/7 (the new \"Design plan\" link counts)",
+          "text": "Design path: Client Follow-Up's Progress reads its state name, Build needed (the plan approved)",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "REGISTRY.md",
-            "pattern": "\\[Sales Pre-Call Brief\\]\\(registry/workflows/sales-pre-call-brief\\.md\\) · step 3/7 done",
+            "pattern": "\\[Client Follow-Up\\]\\(registry/workflows/client-follow-up\\.md\\) \\| under-development \\| Build needed \\|",
             "session": 1
           },
           "must": true
         },
         {
-          "text": "Design path: a node with both \"Design spec\" and \"Design plan\" links counts them as one step (5/7, never 6/7)",
+          "text": "Design path: REGISTRY.md has the Re-check by column and the Re-check dates section",
           "kind": "scripted",
           "check": {
-            "type": "file_regex",
-            "path": "REGISTRY.md",
-            "pattern": "\\[Client Follow-Up Email\\]\\(registry/workflows/client-follow-up\\.md\\) · step 5/7 done",
-            "session": 1
-          },
-          "must": true
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "\\| Workflow \\| Status \\| Progress \\| How it decides \\| How it runs \\| Re-check by \\|",
+                "session": 1
+              },
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "(?m)^## Re-check dates$",
+                "session": 1
+              }
+            ]
+          }
         },
         {
           "text": "Design path: the workspace's `registry/SCHEMA.md` is left as it is",
@@ -143,7 +163,7 @@
           "must": true
         },
         {
-          "text": "direct run: on yes, the six files (compose-registry.js, lint-registry.js, registry-lib.js, package.json, dashboard-template.html, data-island.schema.json) are copied over `tools/`",
+          "text": "direct run: on yes, the tools are copied over `tools/` (compose-registry.js, lint-registry.js, registry-lib.js, package.json, framework-state.js, requirements-check.js, dashboard-template.html, data-island.schema.json)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -189,6 +209,16 @@
                 "path": "tools/data-island.schema.json",
                 "text": "stale-template-9.1.0",
                 "session": 2
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/framework-state.js",
+                "session": 2
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/requirements-check.js",
+                "session": 2
               }
             ]
           },
@@ -206,26 +236,36 @@
           "must": true
         },
         {
-          "text": "direct run: the Sales Pre-Call Brief badge reads step 2/7",
+          "text": "direct run: Client Follow-Up's Progress reads its state name, Plan to approve",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
             "path": "REGISTRY.md",
-            "pattern": "\\[Sales Pre-Call Brief\\]\\(registry/workflows/sales-pre-call-brief\\.md\\) · step 2/7 done",
+            "pattern": "\\[Client Follow-Up\\]\\(registry/workflows/client-follow-up\\.md\\) \\| under-development \\| Plan to approve \\|",
             "session": 2
           },
           "must": true
         },
         {
-          "text": "direct run: a node with both \"Design spec\" and \"Design plan\" links counts them as one step (5/7, never 6/7)",
+          "text": "direct run: REGISTRY.md has the Re-check by column and the Re-check dates section",
           "kind": "scripted",
           "check": {
-            "type": "file_regex",
-            "path": "REGISTRY.md",
-            "pattern": "\\[Client Follow-Up Email\\]\\(registry/workflows/client-follow-up\\.md\\) · step 5/7 done",
-            "session": 2
-          },
-          "must": true
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "\\| Workflow \\| Status \\| Progress \\| How it decides \\| How it runs \\| Re-check by \\|",
+                "session": 2
+              },
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "(?m)^## Re-check dates$",
+                "session": 2
+              }
+            ]
+          }
         },
         {
           "text": "direct run: the workspace's `registry/SCHEMA.md` is left as it is",
@@ -241,7 +281,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_regex",
-            "path": "framework/sales-pre-call-brief/design-plan.md",
+            "path": "framework/client-follow-up/design-plan.md",
             "pattern": "^approved: true\\s*$",
             "session": 1
           }
@@ -257,7 +297,8 @@
           "must": true
         }
       ],
-      "runs": 3
+      "runs": 3,
+      "tier": "regression"
     }
   ]
 }
