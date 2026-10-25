@@ -19,7 +19,7 @@ If the leader named a backlog workflow, use it. **A workflow named here or at co
 - *Not sure?* I'll use those three tests on your backlog and suggest one, with the reason.
 
 Its variants:
-- **Only the report holds candidates:** say "from your report" in place of "from your backlog" in the question, "on your report" in place of "on your backlog" in *Not sure?*, and label the groups "**Area of work:**". (With `backlog.md`, keep "from your backlog".)
+- **Only the report holds candidates** (no `backlog` Workflow node in a registry and no `backlog.md`; a report beside a registry with backlog nodes doesn't count, so there it stays "from your backlog"): say "from your report" in place of "from your backlog" in the question, "on your report" in place of "on your backlog" in *Not sure?*, and label the groups "**Area of work:**". (With `backlog.md`, keep "from your backlog".)
 - **Personal life:** label the groups "**Routine:**".
 - **After a first workflow** (a workflow folder holding more than a progress file, or a node past `backlog`, not counting running work Analyze recorded): the *Why* drops its "for your first one…" sentence and says "A good next workflow" in place of "A good first workflow", keeping the three tests.
 - **On *Not sure?*:** apply the three tests to what the candidates say and suggest one in a sentence that names the tests it passes; never claim a step count. A large pick goes ahead.
