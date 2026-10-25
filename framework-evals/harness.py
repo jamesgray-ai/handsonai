@@ -170,10 +170,27 @@ def reset_home(root):
     (root / "settings-deny.json").write_text(json.dumps(DENY_SETTINGS))
 
 
+def _tool_dirs():
+    """Directories of node and claude as this shell finds them (version managers such as fnm
+    put node outside the standard paths); resolved so a per-shell shim path doesn't go stale."""
+    import shutil
+    dirs = []
+    for tool in ("node", "claude"):
+        found = shutil.which(tool)
+        if found:
+            # node: resolve the shim; claude: keep the launcher's folder (its real file is
+            # named by version, so the resolved folder has no `claude` in it)
+            d = os.path.dirname(os.path.realpath(found) if tool == "node" else found)
+            if d not in dirs:
+                dirs.append(d)
+    return dirs
+
+
 def env_for(root):
     home = root / "home"
+    base = "/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin"
     return {
-        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin",
+        "PATH": ":".join(_tool_dirs() + [base]),
         "HOME": str(home),
         "CLAUDE_CONFIG_DIR": str(home / ".claude"),
         "TMPDIR": str(eval_parent()),
