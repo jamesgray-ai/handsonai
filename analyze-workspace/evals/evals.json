@@ -2346,9 +2346,20 @@
           "text": "N-F3's web clause naming ChatGPT",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "When ChatGPT asks to save to your drive here, choose Always allow for this chat; I'll only save inside your framework folder.",
-            "turn": "first"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-F3",
+                "form": "On the web and in Microsoft 365 Cowork",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "When ChatGPT asks to save to your drive here",
+                "turn": "first"
+              }
+            ]
           }
         },
         {
@@ -2804,9 +2815,20 @@
           "text": "N-F3's clause naming Cowork",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "When Cowork asks to save to your drive here, choose Always allow for this chat; I'll only save inside your framework folder.",
-            "turn": "first"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-F3",
+                "form": "On the web and in Microsoft 365 Cowork",
+                "turn": "first"
+              },
+              {
+                "type": "ai_contains",
+                "text": "When Cowork asks to save to your drive here",
+                "turn": "first"
+              }
+            ]
           }
         },
         {

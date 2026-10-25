@@ -869,7 +869,8 @@
      "kind": "scripted",
      "check": {
       "type": "quote",
-      "id": "N-F7"
+      "id": "N-F7",
+      "form": "Claude Code and Codex"
      }
     },
     {

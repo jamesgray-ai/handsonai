@@ -32,7 +32,7 @@ If nothing fits, say "I didn't find anything in your history that fits [business
 - *Why:* that tells us roughly what it's worth to fix, and it goes in your report.
 - *Not sure?* Say what's right, and I'll mark the rest "not clear yet".
 
-**Work that already runs** ("already handled", or kept when the evidence shows a skill or agent runs it) gets no size guess. If the evidence shows no skill or agent, first **Ask:** "Does a skill or agent you set up do that?" (no: drop it). Then, in its own message:
+**Work that already runs** ("already handled", or kept when the evidence shows a skill or agent runs it) gets no size guess. If the evidence shows no skill or agent, first **Ask:** "Does a skill or agent you set up do that?" (no: drop it). Ask the two questions below even when the history already says how often it runs or how well it works: only the student's answers record it as running. Then, in its own message:
 
 **Ask:** "Do you use it regularly?"
 - *Why:* only work you use regularly is recorded as running.

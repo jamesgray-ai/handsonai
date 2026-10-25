@@ -440,6 +440,25 @@
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change; forms added from lines-to-approve.md: main, Claude desktop"
   },
   {
+   "id": "N-F7",
+   "form": "Claude Code and Codex",
+   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in the workspace that holds your framework folder and say '[start phrase]. My files are in [location].'",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "source": "3c-EA (2026-10-24)"
+  },
+  {
    "id": "N-F9",
    "form": "main",
    "text": "Which workflow should we pick up: [Name] ([where it is, in plain words]), [Name] ([where it is])?",
@@ -1290,6 +1309,23 @@
     "test": "references/routing.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: main"
+  },
+  {
+   "id": "open-item-line",
+   "form": "singular",
+   "text": "[The waiting task, in plain words] waits for [the open item]. To answer it, say 'run the design skill. My files are in [location].'",
+   "kind": "safety or promise",
+   "skills": [
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "source": "3c-EA (2026-10-24)"
   },
   {
    "id": "go-live-recheck-line",
@@ -7634,7 +7670,7 @@
   {
    "id": "test:description",
    "form": "main",
-   "text": "This skill should be used when the user has built an AI workflow and wants to test it before relying on it, says \"test the workflow I built\", or wants to re-check a workflow that's already live. It runs the workflow cold on practice inputs, including one real example it hasn't seen, never sends or changes anything real, checks every requirement with the proof, and lets the user decide what to fix or accept; when it's ready, it takes the workflow live and sets when to re-check it. Also use when the user says \"continue my workflow\" and the workflow is built and waiting for its first test round, a round is in progress or waiting on access, a fix or change has been built and needs testing again, or a live workflow is due for its re-check. This is the Test step of the AI Workflow Framework.",
+   "text": "This skill should be used when the user has built an AI workflow and wants to test it before relying on it, says \"test the workflow I built\", or wants to re-check a workflow that's already live. It runs the workflow cold on practice inputs, including one real example it hasn't seen, never sends or changes anything real, checks every requirement with the proof, and lets the user decide what to fix or accept; when it's ready, it takes the workflow live and sets when to re-check it. Also use when the user says \"continue my workflow\" and the workflow is built and waiting for its first test round, a round is in progress or waiting on access, a fix or change has been built and needs testing again, or the workflow is live, whether or not its re-check is due. This is the Test step of the AI Workflow Framework.",
    "kind": "structure",
    "skills": [
     "test"
@@ -7642,7 +7678,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 15\\. (the description); approved (James, 2026-10-24)",
+   "source": "test.md 15\\. (the description); approved (James, 2026-10-24); widened to any live workflow, 3c-EA (2026-10-24)",
    "note": "test: not in test 15's table; SKILL.md (said throughout)"
   },
   {

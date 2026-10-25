@@ -72,7 +72,8 @@
           "check": {
             "type": "quote",
             "id": "N-F7",
-            "session": 1
+            "session": 1,
+            "form": "Claude Code and Codex"
           }
         },
         {

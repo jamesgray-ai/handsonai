@@ -40,7 +40,7 @@ When the answer is all about lost time, ask once per process (a new piece it nam
 - *Example:* an accounts clerk might say: "About four hours at every month end."
 - *Not sure?* A rough guess is fine. If you'd rather not guess, I'll mark it "not sized yet", and you can add today's number when we write the requirements.
 
-When the problem is quality, or work not done at all, ask how often instead ("Roughly how many [scoping calls] do you have in a typical month?", same *Why*), and record the size as the count plus what it affects ("4 calls a month; better calls mean more proposals accepted"). When an opportunity has a clear starting point and a clear result, say so in one clause in the student's own case ("Repurposing has a clean starting point, a finished issue, and a clear result, LinkedIn and Substack posts, so it's a strong candidate").
+When the problem is quality, or work not done at all, ask how often instead ("Roughly how many [scoping calls] do you have in a typical month?", same *Why*; where the *Not sure?* line is said, it is the one above, word for word), and record the size as the count plus what it affects ("4 calls a month; better calls mean more proposals accepted"). When an opportunity has a clear starting point and a clear result, say so in one clause in the student's own case ("Repurposing has a clean starting point, a finished issue, and a clear result, LinkedIn and Substack posts, so it's a strong candidate").
 
 **Close each process in one line**, naming everything noted from it: "Noted for [process]: [piece 1], [piece 2], [piece 3]. That's enough for the report. Deconstruct goes into the detail later." Save the progress file (*Resuming and picking up*).
 
