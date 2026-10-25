@@ -20,7 +20,7 @@ The plain model, with only the context the main skill will read and no skill ins
 
 ## 3. When it's skipped
 
-Record it under `bare_run:` in block form, one line per main skill, the reason in double quotes (`[skill]: "skipped: [why]"`, as the record template shows; never a `{ … }` map, which a comma in the reason would break), and write instructions for every line:
+Record it under `bare_run:` in block form, one line per main skill, the reason in double quotes (`[skill]: "skipped: [why]"`, as the record template shows; never a `{ … }` map, which a comma in the reason would break), and write instructions for every line (for an agent on Microsoft 365 you write none: Agent Builder writes them from the plan). Say a skip to the leader in one clause at most, with its reason, and never what the instructions will hold in its place (wrong: "The agent's instructions cover every one of your rules instead."): nothing is known of them until they're checked.
 - on a rebuild or in fix mode, where the workflow's own installed skill would load;
 - where the platform's bare-run release check hasn't passed: Microsoft 365 (release check 25), ChatGPT (16), Codex (9), Claude's own (13);
 - on Codex when the leader works only in the Codex app or the IDE extension (`skipped: no terminal`);

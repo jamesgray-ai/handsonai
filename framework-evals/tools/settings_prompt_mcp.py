@@ -6,7 +6,10 @@ Build writes the block into `.claude/settings.local.json` with its Edit or Write
 asks the leader to allow it (claude-code-block.md section 4 step 5). A `claude -p` session can't
 show that prompt and refuses the write even with an allow rule, so this tool answers it the way the
 leader would: it allows an Edit, Write or MultiEdit whose file_path resolves to the workspace's own
-`.claude/settings.local.json`, and denies everything else. It also denies that one file when:
+`.claude/settings.local.json`, and denies everything else but one case: an Edit, Write or MultiEdit
+inside the workspace's own `.claude/skills/` or `.claude/agents/` (Build installing the parts it built,
+and its check agents' files, claude-code-block.md section 6), which Claude Code also asks about and
+the leader running Build allows. It also denies the settings file when:
 - the leader declined Claude Code's prompt (SETTINGS_PROMPT_DENY=1, the eval's
   `leader_denies_settings_prompt` fault), or
 - the gate file (SETTINGS_PROMPT_GATE, rewritten by the runner before every turn) says the leader
@@ -22,6 +25,7 @@ import time
 TOOL = "approve"
 FILE_TOOLS = ("Edit", "Write", "MultiEdit")
 TARGET = os.path.join(".claude", "settings.local.json")
+PARTS = (os.path.join(".claude", "skills"), os.path.join(".claude", "agents"))
 
 
 def _real(p):
@@ -36,6 +40,10 @@ def decide(tool_name, tool_input, workspace, gate=None, leader_declines=False):
     if not path:
         return False, "no file_path"
     full = path if os.path.isabs(path) else os.path.join(workspace, path)
+    for d in PARTS:
+        root = _real(os.path.join(workspace, d))
+        if _real(full).startswith(root + os.sep):
+            return True, f"Build's own write inside the workspace's {d}/"
     if _real(full) != _real(os.path.join(workspace, TARGET)):
         return False, "not the workspace's .claude/settings.local.json"
     if leader_declines:

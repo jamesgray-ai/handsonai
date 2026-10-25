@@ -200,27 +200,35 @@ def files_read(run, msgs=()):
     return "\n\n".join(parts)
 
 
-FACT = re.compile(r"[\w.+-]*\d[\w.+-]*|[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
+MONTH_DAY = r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}\b"
+FACT = re.compile(MONTH_DAY + r"|[\w.+-]*\d[\w.+-]*|[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
 TOOL_LINES_CAP = 1500
 
 
 def tool_lines(run, msgs):
     """Lines of the AI's own tool output (a version a command printed, an address a connection
-    returned) that hold a figure or address its messages give, so item 6 doesn't take a fact the AI
-    looked up for an invented one. Only lines with such a token; capped at TOOL_LINES_CAP characters."""
+    returned, a file date `ls -l` showed) that hold a figure, address or month-and-day date its
+    messages give, so item 6 doesn't take a fact the AI looked up for an invented one. Only lines with
+    such a token, spaces collapsed; lines that also hold a word of the messages (a file name beside
+    the date) come first; capped at TOOL_LINES_CAP characters."""
     facts = {f.strip(".,") for m in msgs for f in FACT.findall(m) if len(f.strip(".,")) >= 3}
     if not facts:
         return ""
-    out, total = [], 0
+    words = {w for m in msgs for w in re.findall(r"[A-Za-z][\w.-]{3,}", m)} - facts
+    cands = []
     for s in run["sessions"]:
         if not s.get("root"):
             continue
         for res in _tool_results(Path(s["root"]).parent / "events.jsonl"):
             for ln in res.splitlines():
-                ln = ln.strip()[:200]
-                if ln and ln not in out and any(f in ln for f in facts) and total + len(ln) <= TOOL_LINES_CAP:
-                    out.append(ln)
-                    total += len(ln)
+                ln = re.sub(r"\s+", " ", ln.strip())[:200]
+                if ln and ln not in cands and any(f in ln for f in facts):
+                    cands.append(ln)
+    out, total = [], 0
+    for ln in sorted(cands, key=lambda ln: not any(w in ln.split() for w in words)):
+        if total + len(ln) <= TOOL_LINES_CAP:
+            out.append(ln)
+            total += len(ln)
     return "\n".join(out)
 
 

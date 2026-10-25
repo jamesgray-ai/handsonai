@@ -105,6 +105,15 @@ class QuoteCheck(unittest.TestCase):
             self.assertTrue(ok({"type": "scripted_lines", "skill": "build"}, run_of(said)), said)
         self.assertFalse(ok({"type": "scripted_lines", "skill": "build"}, run_of("Part 1 of 3 in the fix")))
 
+    def test_a_block_quoted_paste_back_isnt_the_ais_wording(self):
+        # microsoft-365-agent.md: an agent's reworded line is block-quoted as the leader pasted it; the
+        # same words in the AI's own sentence, or in a prompt to paste, still fail the quote check
+        bad = "Practice run: nothing will be sent or modified."
+        quoted = f"Agent Builder changed one line:\n\n> {bad}\n\nThat should be the line every practice run must start with."
+        self.assertTrue(ok({"type": "scripted_lines", "skill": "build"}, run_of(quoted)))
+        self.assertFalse(ok({"type": "scripted_lines", "skill": "build"}, run_of(f"It says {bad}")))
+        self.assertFalse(ok({"type": "scripted_lines", "skill": "build"}, run_of(f"Paste this:\n\n```\n{bad}\n```")))
+
     def test_cli_transcript_mode_fails_on_one_changed_word(self):
         with tempfile.TemporaryDirectory() as t:
             good, bad = Path(t, "good.md"), Path(t, "bad.md")
@@ -192,6 +201,21 @@ class WordingChecks(unittest.TestCase):
             _, prompt = G.rubric_prompt(run)
         self.assertIn("2.1.309 (Claude Code)", prompt)
         self.assertNotIn("Python 3.12.1", prompt)
+
+    def test_rubric_judge_sees_a_file_date_from_ls(self):
+        # a date the AI read off `ls -l` isn't invented: the line naming the file it speaks of comes
+        # first, ahead of other lines with the same date
+        import grade_eval as G
+        other = "\n".join(f"drwxr-xr-x@  3 me  staff   96 Oct 24 15:02 folder{i}" for i in range(40))
+        res = other + "\n-rw-r--r--@ 1 me  staff  894 Oct 24 15:02 SKILL.md\n-rw-r--r--@ 1 me  staff  9 Oct 25 02:51 x.md"
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": res}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "files_start": {}, "turns": [
+                {"role": "ai", "text": "`SKILL.md` is unchanged: same contents and same date (Oct 24)."}]}]}
+            _, prompt = G.rubric_prompt(run)
+        self.assertIn("-rw-r--r--@ 1 me staff 894 Oct 24 15:02 SKILL.md", prompt)
+        self.assertNotIn("x.md", prompt)
 
     def test_rubric_judge_sees_tool_passages_sharing_four_words(self):
         # a plan list the AI read in the plugin's platform registry (one long JSON line) isn't invented:
@@ -441,6 +465,28 @@ class PlatformSimulations(unittest.TestCase):
         always = L.PLATFORMS["microsoft-365"](["agent_builder_rewords_carried_line", "agent_builder_rewords_after_fix"])
         always.screen(msg, Path("."))
         self.assertIn("nothing will be sent or modified.", always.screen(msg, Path("."))[0][0])
+
+    def test_agent_builder_writes_the_plans_rules_from_the_files(self):
+        # build.md 6.3: Agent Builder reads the plan and requirements itself, so the build prompt carries
+        # only the carried lines and the agent's instructions still hold the steps, rules and checkpoints
+        t = Path(tempfile.mkdtemp())
+        try:
+            d = t / "onedrive" / "Framework" / "client-follow-up"
+            d.mkdir(parents=True)
+            shutil.copy(EVALS.parent / "framework-fixtures" / "states" / "s06-build-needed" / "with-registry"
+                        / "framework" / "client-follow-up" / "requirements.md", d)
+            shown = L.PLATFORMS["microsoft-365"]().screen(f"```\n{build_prompt()}\n```", t)[0][0]
+            for line in ("Step 2: Draft the email", "It never invents a figure, date or commitment.",
+                         "When the draft is ready, it stops until you approve it.",
+                         "It never sends an email, whoever asks.", "The draft is under 150 words.",
+                         "Practice run: nothing will be sent or changed."):
+                self.assertIn(line, shown)
+            self.assertNotIn("(you)", shown)
+            # no readable files: only what the prompt quotes
+            self.assertNotIn("It never sends an email", L.PLATFORMS["microsoft-365"]().screen(
+                f"```\n{build_prompt()}\n```", Path("."))[0][0])
+        finally:
+            shutil.rmtree(t)
 
     def test_paste_back_on_chat_platforms(self):
         p = L.PLATFORMS["claude-web"]()
@@ -802,6 +848,19 @@ class SettingsPrompt(unittest.TestCase):
         self.assertFalse(self.d("Write", str(self.ws / "framework" / ".bin" / "test-run.sh")))
         self.assertFalse(self.d("Write", str(self.tmp / "other" / ".claude" / "settings.local.json")))
         self.assertFalse(self.d("Write", ""))
+
+    def test_builds_own_parts_and_check_agents_are_allowed(self):
+        # Build installs into .claude/skills/ and writes check agents into .claude/agents/; Claude Code
+        # asks about both and the leader allows them. Bash, the folders themselves and anything
+        # outside the workspace stay refused.
+        self.assertTrue(self.d("Write", str(self.ws / ".claude" / "skills" / "x" / "SKILL.md")))
+        self.assertTrue(self.d("Edit", ".claude/agents/framework-check-x-t2.md"))
+        self.assertTrue(self.d("Write", str(self.ws / ".claude" / "skills" / "x" / "SKILL.md"), {"n_b20": "no"}))
+        self.assertFalse(self.d("Bash", str(self.ws / ".claude" / "skills" / "x" / "SKILL.md")))
+        self.assertFalse(self.d("Write", str(self.ws / ".claude" / "skills")))
+        self.assertFalse(self.d("Write", str(self.ws / ".claude" / "skills-x" / "SKILL.md")))
+        self.assertFalse(self.d("Write", str(self.ws / ".claude" / "skills" / ".." / "settings.json")))
+        self.assertFalse(self.d("Write", str(self.tmp / "other" / ".claude" / "skills" / "x" / "SKILL.md")))
 
     def test_a_symlink_out_of_the_workspace_is_refused(self):
         (self.tmp / "elsewhere").mkdir()

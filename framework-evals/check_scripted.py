@@ -233,7 +233,11 @@ def time_or_step_hits(message, allowed=frozenset()):
 
 def quote_hits(message, skill=None):
     """Near misses of approved lines; with `skill`, only that skill's lines (and the built
-    workflow's) count, so a common phrase another step's line happens to share isn't flagged."""
+    workflow's) count, so a common phrase another step's line happens to share isn't flagged.
+    Block-quoted lines are left out: they show the leader's work or paste back as it was (an agent's
+    reworded line, block-quoted to show it), not the AI's wording. Code blocks stay in: a prompt to
+    paste carries approved lines word for word."""
+    message = re.sub(r"(?m)^[ \t]*>.*$", " ", message)
     return [(ln.label(), exp, got) for ln, exp, got in corpus().near_misses(message, skill=skill)]
 
 

@@ -240,7 +240,7 @@ class Microsoft365(Platform):
         build = find_prompt(ai_text, "build")
         fix = find_prompt(ai_text, "fix")
         if build:
-            out.append(self.agent_builder_create(build))
+            out.append(self.agent_builder_create(build, ws))
         elif fix:
             out.append(self.agent_builder_fix(fix))
         else:
@@ -248,7 +248,7 @@ class Microsoft365(Platform):
         return out
 
     # -- Agent Builder
-    def agent_builder_create(self, prompt):
+    def agent_builder_create(self, prompt, ws=None):
         if "agent_builder_ordinary_chat" in self.faults and not self.state.get("tried_ordinary"):
             self.state["tried_ordinary"] = True
             return ("[You pasted it into Copilot's ordinary chat by mistake. Copilot answered with a description of "
@@ -261,7 +261,7 @@ class Microsoft365(Platform):
             knowledge = knowledge[1:]
         if "agent_builder_requirements_under_knowledge" in self.faults:
             knowledge.append("Framework/requirements.md")
-        instructions = self._instructions(prompt)
+        instructions = self._instructions(prompt, ws)
         self.state["created"] = self.state.get("created", 0) + 1
         self.state["instructions"] = instructions
         self.state["knowledge"] = knowledge
@@ -282,10 +282,11 @@ class Microsoft365(Platform):
         self.state["instructions"] = ins
         return (f"[You opened the agent, chose Edit and pasted the fix. Under Edit, its Instructions now read:]\n{ins}", 4)
 
-    def _instructions(self, prompt):
+    def _instructions(self, prompt, ws=None):
         low = prompt.lower()
         lines = prompt[low.find("word for word:") + len("word for word:"):] if "word for word:" in low else ""
-        body = ["You draft this workflow's deliverable from the plan's task. Read only your Knowledge.", lines.strip()]
+        body = ["You draft this workflow's deliverable from the plan's task. Read only your Knowledge.",
+                "\n".join(_plan_lines(prompt, ws)), lines.strip()]
         text = "\n".join(b for b in body if b)
         # Rewords the first agent made; a rebuild (a new agent, release check 29's path) rewords it
         # again only with agent_builder_rewords_after_fix, as a fix prompt does.
@@ -294,6 +295,28 @@ class Microsoft365(Platform):
             text = text.replace("Practice run: nothing will be sent or changed.",
                                 _reworded("Practice run: nothing will be sent or changed."))
         return text
+
+
+def _plan_lines(prompt, ws):
+    """What Agent Builder writes from the files the build prompt names (build.md 6.3: it reads the plan
+    and the requirements itself): the requirements' steps, their decisions and rules, acceptance criteria,
+    rules, checkpoints and constraints, each as one instruction line. Nothing when the files can't be read."""
+    m = re.search(r"in Framework/([\w-]+)", prompt or "")
+    if not ws or not m:
+        return []
+    try:
+        req = (Path(ws) / "onedrive" / "Framework" / m.group(1) / "requirements.md").read_text()
+    except OSError:
+        return []
+    out = [f"Step {n}: {what}, producing {made}." for n, what, made in
+           re.findall(r"^- Step (\d+) — (.+?) · produces (.+?)(?: · .*)?$", req, re.M)]
+    out += re.findall(r"^- D\d+ \(Step \d+\): (.+?)(?: · .*)?$", req, re.M)
+    out += re.findall(r"^\*\*Rule:\*\* (.+)$", req, re.M)
+    out += re.findall(r"^\d+\. \*\*AC\d+[^*]*\*\* — (.+)$", req, re.M)
+    for row in re.findall(r"^\| ([RGP]\d+) \|(.+)\|\s*$", req, re.M):
+        cells = [c.strip() for c in row[1].split("|")]
+        out.append(cells[0] if row[0].startswith("P") else cells[-1])
+    return [re.sub(r" · \(you\)$", "", x).strip() for x in out if x.strip()]
 
 
 def _reworded(line):
