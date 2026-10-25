@@ -121,6 +121,7 @@ def mark_scripted(message, corpus=None):
 
 READ_CAP = 7000  # characters of the leader's files shown to the rubric judge, in all
 READ_FILE_CAP = 2500
+READ_CHANGED_CAP = 800  # of a cut file's share: the lines the session later changed or removed
 
 
 def _tool_results(events_path):
@@ -156,12 +157,16 @@ def _read_rank(rel):
     return 3 if "registry/" in rel and not rel.endswith(("index.md", "log.md")) else 4
 
 
-def files_read(run):
+def files_read(run, msgs=()):
     """The leader's files the AI read during the run, as they were before the session (so nothing
     the AI wrote itself), most relevant first: workflow nodes, requirements and plan, the backlog, the rest.
     A file counts as read when its longer lines appear in a tool result (a Read, or a cat in Bash,
-    on any folder: drive/, onedrive/ or the workspace itself). Capped at READ_CAP characters."""
-    found = {}
+    on any folder: drive/, onedrive/ or the workspace itself). A file cut at READ_FILE_CAP keeps, after
+    its head, the lines the session went on to change or remove that share the most words with the
+    AI's messages (up to READ_CHANGED_CAP), so what the AI says it fixed in a saved draft is shown as
+    it was. Capped at READ_CAP characters."""
+    said = {w for m in msgs for w in WORD.findall(m.lower()) if len(w) >= 4}
+    found, changed = {}, {}
     for s in run["sessions"]:
         if not s.get("root"):
             continue
@@ -174,10 +179,20 @@ def files_read(run):
             long_lines = [ln.strip() for ln in text.splitlines() if len(ln.strip()) >= 30]
             if long_lines and sum(ln in results for ln in long_lines) >= min(2, len(long_lines)):
                 found[rel] = text
+                end = set((s.get("files_end") or {}).get(rel, "").splitlines())
+                changed[rel] = [ln for ln in text.splitlines() if ln.strip() and ln not in end]
     parts, total = [], 0
     for rel in sorted(found, key=lambda r: (_read_rank(r), r)):
         body = found[rel].strip()
-        body = body if len(body) <= READ_FILE_CAP else body[:READ_FILE_CAP] + "\n[…cut]"
+        if len(body) > READ_FILE_CAP:
+            head, gone = READ_FILE_CAP - READ_CHANGED_CAP, []
+            ranked = sorted((ln for ln in changed.get(rel, []) if body.find(ln) >= head),
+                            key=lambda ln: -len(said & set(WORD.findall(ln.lower()))))
+            for ln in ranked:
+                if said & set(WORD.findall(ln.lower())) and sum(len(x) + 1 for x in gone) + len(ln) <= READ_CHANGED_CAP:
+                    gone.append(ln)
+            body = (body[:head] + "\n[…cut; lines the session later changed or removed:]\n" + "\n".join(gone)
+                    if gone else body[:READ_FILE_CAP] + "\n[…cut]")
         if total + len(body) > READ_CAP:
             continue
         parts.append(f"### {rel}\n\n````\n{body}\n````")
@@ -215,6 +230,19 @@ SHARED_LINES_CAP = 1500
 SHARED_LINE_LEN = 300
 
 
+PATH = re.compile(r"[\w.~-]+(?:/[\w.~-]+)+/?")
+TEMPLATE_PATH = re.compile(r"[\w.~-]+(?:/(?:[\w.~-]+|\[[^\]\s/]+\]|<[^>\s/]+>))+/?")
+
+
+def _template_regex(token):
+    """A path pattern with a [placeholder] or <placeholder> segment as a regex any filled-in path
+    matches from its start; None for a path with no placeholder."""
+    bits = re.split(r"(\[[^\]\s/]+\]|<[^>\s/]+>)", token)
+    if len(bits) == 1:
+        return None
+    return re.compile("".join(r"[^/\s`]+" if i % 2 else re.escape(b) for i, b in enumerate(bits)))
+
+
 def _grams(text):
     w = WORD.findall(text.lower().replace("’", "'"))
     return {tuple(w[i:i + SHARED_RUN]) for i in range(len(w) - SHARED_RUN + 1)}
@@ -224,14 +252,18 @@ def shared_lines(run, msgs, skip=""):
     """Passages of the AI's own tool output (a file it read, a plugin reference file, a fetched
     page, a command's output) that share a run of SHARED_RUN or more consecutive words with the
     unscripted part of its messages, so item 6 doesn't take a fact the AI read for an invented one.
-    Long lines (a JSON registry's notes) are cut into sentences first. Most shared runs first;
-    capped at SHARED_LINES_CAP characters; passages already in `skip` aren't repeated."""
-    grams = set()
+    Long lines (a JSON registry's notes) are cut into sentences first. A passage whose path pattern
+    (`Documents/Cowork/[workflow-slug]/`) a path in a message fills in counts too, first, cut around
+    the pattern. Most shared runs first; capped at SHARED_LINES_CAP characters; passages already in
+    `skip` aren't repeated."""
+    grams, paths = set(), set()
     for m in msgs:
-        grams |= _grams(re.sub(r"⟦[^⟧]*⟧", " ", m))
-    if not grams:
+        own = re.sub(r"⟦[^⟧]*⟧", " ", m)
+        grams |= _grams(own)
+        paths |= set(PATH.findall(own))
+    if not grams and not paths:
         return ""
-    found = {}
+    found, at = {}, {}
     for s in run["sessions"]:
         if not s.get("root"):
             continue
@@ -241,11 +273,17 @@ def shared_lines(run, msgs, skip=""):
                 if not seg or seg in found:
                     continue
                 n = len(_grams(seg) & grams)
+                for t in TEMPLATE_PATH.finditer(seg):
+                    pat = _template_regex(t.group(0))
+                    if pat and any(pat.match(p) for p in paths):
+                        n, at[seg] = n + 1000, t.start()
+                        break
                 if n:
                     found[seg] = n
     out, total = [], 0
     for seg in sorted(found, key=lambda x: -found[x]):
-        ln = seg[:SHARED_LINE_LEN]
+        start = max(0, at.get(seg, 0) - SHARED_LINE_LEN // 3)
+        ln = seg[start:start + SHARED_LINE_LEN]
         if ln in skip or ln in out or total + len(ln) > SHARED_LINES_CAP:
             continue
         out.append(ln)
@@ -271,7 +309,7 @@ def rubric_prompt(run):
         quoted = "\n".join("> " + ln for ln in ctx.splitlines()) if ctx else "> (nothing)"
         return f"## Message {i}\n\nThe leader said just before (context, not graded):\n\n{quoted}\n\nThe message:\n\n{m}"
     body = "\n\n".join(block(i, m, c) for i, (m, c) in enumerate(zip(msgs, said), 1))
-    read = files_read(run)
+    read = files_read(run, msgs)
     read = (f"## What the AI read from the leader's files (context, not graded)\n\n{read}\n\n"
             if read else "")
     tools = tool_lines(run, msgs)

@@ -214,6 +214,37 @@ class WordingChecks(unittest.TestCase):
         self.assertNotIn("The plan is short.", prompt)
         self.assertNotIn("as approved", prompt)
 
+    def test_rubric_judge_sees_a_path_pattern_the_message_fills_in(self):
+        # Documents/Cowork/[workflow-slug]/ in the registry backs Documents/Cowork/competitor-research-brief/
+        import grade_eval as G
+        reg = json.dumps({"knowledge": "The leader adds each context file from its runtime copy in "
+                                       "Documents/Cowork/[workflow-slug]/, and checks Knowledge lists only those files.",
+                          "skills": "Cowork saves it to OneDrive, in Documents/Cowork/skills/<skill>/."}, indent=1)
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": reg}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "files_start": {}, "turns": [
+                {"role": "ai", "text": "Your list's copy lives in `Documents/Cowork/competitor-research-brief/`."}]}]}
+            _, prompt = G.rubric_prompt(run)
+        self.assertIn("Documents/Cowork/[workflow-slug]/", prompt)
+        self.assertNotIn("Documents/Cowork/skills/<skill>/", prompt)
+
+    def test_rubric_judge_sees_the_changed_lines_of_a_cut_file(self):
+        # a long saved draft the AI read and fixed: past the cut, the judge still sees the line it fixed
+        import grade_eval as G
+        filler = "\n".join(f"- **Filler {i}:** a line that the session leaves exactly as it was, number {i}." for i in range(60))
+        start = f"# Plan\n\n{filler}\n- **Required Tools:** Gmail (read, create drafts, send, delete)\n- **Model:** default tier, unchanged by the session here.\n"
+        end = start.replace("Gmail (read, create drafts, send, delete)", "Gmail (create drafts)")
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": start}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "turns": [
+                {"role": "ai", "text": "The draft gave the skill permission to send and delete email; now it only creates drafts."}],
+                "files_start": {"framework/x/design-plan.md": start}, "files_end": {"framework/x/design-plan.md": end}}]}
+            _, prompt = G.rubric_prompt(run)
+        self.assertIn("Gmail (read, create drafts, send, delete)", prompt)
+        self.assertNotIn("unchanged by the session here", prompt)
+
 
 class FileChecks(unittest.TestCase):
     def setUp(self):
