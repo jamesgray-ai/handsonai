@@ -6,6 +6,8 @@ Never reads the skills: scripted lines are checked against the corpus only (rule
 - `[...]` in a line's text is a placeholder, filled when the line is said: it matches anything.
 - `[Label: '…']` is a clause said only in that case: it matches its own text or nothing.
 - `…` (and `...`) is an elision: it matches anything.
+- A list of options where some are marked "only where…" (N-14) is said with only the options that
+  apply, so the whole list is one placeholder.
 - Text is compared after `norm`: curly and straight quotes alike, single and double quotes alike,
   dashes alike, `**`/backticks dropped, whitespace collapsed.
 - Between clauses, a semicolon and a full stop match each other ("how it should go; until" and
@@ -96,6 +98,33 @@ def tokens(text):
         i += 1
     if buf:
         out.append(("lit", "".join(buf)))
+    return _collapse_option_lists(out)
+
+
+LIST_SEP = re.compile(r"^\s*,?\s*(?:or\s+)?$")
+CONDITIONAL = re.compile(r"\bonly (?:where|when|if)\b")
+
+
+def _collapse_option_lists(toks):
+    """A list of options some of which are said only where they apply ("You can [A], [B — only where
+    one exists], or [C — only where allowed]") is said with just the options that apply, so its
+    commas and "or" can't be fixed words: the run of holes is one hole."""
+    out, i = [], 0
+    while i < len(toks):
+        if toks[i][0] != "hole":
+            out.append(toks[i])
+            i += 1
+            continue
+        j = i
+        while (j + 2 < len(toks) and toks[j + 1][0] == "lit" and LIST_SEP.match(toks[j + 1][1])
+               and toks[j + 2][0] == "hole"):
+            j += 2
+        run = [t for t in toks[i:j + 1] if t[0] == "hole"]
+        if len(run) > 1 and any(CONDITIONAL.search(t[1]) for t in run):
+            out.append(("hole", " | ".join(t[1] for t in run)))
+        else:
+            out += toks[i:j + 1]
+        i = j + 1
     return out
 
 

@@ -58,6 +58,17 @@ class QuoteCheck(unittest.TestCase):
         self.assertFalse(passed)
         self.assertIn("N-D1", why)
 
+    def test_option_list_said_with_only_the_options_that_apply(self):
+        # N-14's options marked "only where…" are left out where they don't apply, commas and "or" with them
+        two = ("Your requirements say it should post the entry, but the wiki connection can't do that. You can make "
+               "that change yourself, or have the support lead make that change. I recommend making that change "
+               "yourself, because the drafts are yours.")
+        one = two.replace(", or have the support lead make that change", "")
+        self.assertTrue(ok({"type": "quote", "id": "N-14", "form": "main"}, run_of(two)))
+        self.assertTrue(ok({"type": "quote", "id": "N-14", "form": "main"}, run_of(one)))
+        self.assertFalse(ok({"type": "quote", "id": "N-14", "form": "main"},
+                            run_of(two.replace("the wiki connection can't do that", "the wiki has no connection"))))
+
     def test_placeholders_are_wildcards(self):
         said = ("Start Design in a new chat with: 'run the design skill. "
                 "My files are in Google Drive, in Framework/client-follow-up.'")
@@ -123,6 +134,12 @@ class WordingChecks(unittest.TestCase):
         run["sessions"][0]["turns"][0]["text"] = "About 20 minutes per follow-up."
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run))
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("This conversation takes about 20 minutes.")))
+        # the Baseline in the requirements' Value & Measurement is the leader's number too
+        req = {"framework/x/requirements.md": "## Value & Measurement\n\n| Baseline | 15 minutes per report · Estimated |\n\n## Metadata\n\n| Effort | 40 minutes |\n"}
+        said = "Its log tracks how long each run took against your 15-minute starting point."
+        self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of(said, files_start=req)))
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(said)))
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("That takes about 40 minutes.", files_start=req)))
 
     def test_signposts_per_skill(self):
         dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — scope and a name.", "Part 3 of 5 — the outcome.",

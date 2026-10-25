@@ -36,7 +36,7 @@ The progress file is first saved at item 0, then after each item (`Next: Light â
 
 **Ask:** "What did you start from for that one?"
 
-Its answer is the typical run's input. Any other real input named but not pasted takes Part 5's paste request. If, after the leader's changes, fewer than two remain or the typical case was dropped, propose a replacement and have it kept before going on; no tricky case is required on this track. No reference is asked for per row: the Golden Example, when there is one, is the only reference. A password or key in that answer, or in any input pasted here, is replaced with a placeholder before anything is saved, and N-F14 is said (SKILL.md). Then the confidential check where it applies, and the inputs numbered and saved.
+Its answer is the typical run's input. Any other real input named but not pasted takes Part 5's paste request. If, after the leader's changes, fewer than two remain or the typical case was dropped, propose a replacement and have it kept before going on; no tricky case is required on this track. No reference is asked for per row: the Golden Example, when there is one, is the only reference. A password or key in that answer, or in any input pasted here, is replaced, where it stood, with a placeholder ("[key removed]", "[password removed]") before anything is saved, never just left out, and N-F14 is said (SKILL.md). Then the confidential check where it applies, and the inputs numbered and saved.
 
 ## The three safety questions
 

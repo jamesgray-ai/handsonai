@@ -191,7 +191,7 @@ NUM_WORDS = {"a": "1", "an": "1", "one": "1", "two": "2", "three": "3", "four": 
              "seven": "7", "eight": "8", "nine": "9", "ten": "10", "fifteen": "15", "twenty": "20",
              "thirty": "30", "forty": "40", "forty-five": "45", "fifty": "50", "sixty": "60", "ninety": "90"}
 SIZE = re.compile(r"(?i)\b(\d+(?:\.\d+)?|" + "|".join(sorted(NUM_WORDS, key=len, reverse=True)) + r")"
-                  r"(?:\s*(?:-|to)\s*(\d+(?:\.\d+)?))?\s*(minute|min|hour|hr|second|sec)s?\b")
+                  r"(?:\s*(?:-|to)\s*(\d+(?:\.\d+)?))?\s*-?\s*(minute|min|hour|hr|second|sec)s?\b")
 
 
 def sizes(text):
@@ -206,9 +206,14 @@ def sizes(text):
 
 
 def leader_sizes(run):
-    """What the leader said about their own work's size, in any session: playing it back is allowed
-    (the framework never estimates time, but the Baseline and Target are the leader's numbers)."""
-    return set().union(*[sizes(t["text"]) for s in run["sessions"] for t in s["turns"] if t["role"] != "ai"])
+    """What the leader said about their own work's size, in any session, or wrote in a requirements
+    file's Value & Measurement (the Baseline and Target): playing it back is allowed (the framework
+    never estimates time, but those are the leader's numbers)."""
+    said = [sizes(t["text"]) for s in run["sessions"] for t in s["turns"] if t["role"] != "ai"]
+    written = [sizes(ST.section(body, "Value & Measurement")) for s in run["sessions"]
+               for snap in (s.get("files_start") or {}, s.get("files_end") or {})
+               for p, body in snap.items() if p.endswith("requirements.md") and isinstance(body, str)]
+    return set().union(*said, *written)
 
 
 def time_or_step_hits(message, allowed=frozenset()):

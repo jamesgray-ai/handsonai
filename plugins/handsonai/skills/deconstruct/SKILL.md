@@ -24,6 +24,8 @@ Deconstruct turns a piece of the leader's real work into their **Workflow Requir
 
 Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
+The leader reads every line you write, text before a tool call included, so never narrate your own work (files read, scripts run, states, the rule you're applying): write only what the leader should read.
+
 ### Entry, before the opening
 
 Follow `references/routing.md`'s order at every entry: the wrong place (N-F7; it matters most for a big-change redo started inside the live workflow's Project), the location, the state, and whether the state is Deconstruct's. Where code can run, get the state from `node [plugin root]/tools/framework-state.js [workflow folder]` (`--continue [framework folder]` on "continue my workflow"; the plugin root is two folders above this skill's folder); if it can't run, isn't there, or exits non-zero, apply `routing.md` by hand. Never mention the script. Say routing's lines from `routing.md`; never restate them here.
@@ -224,7 +226,7 @@ Said word for word wherever their moment comes.
   - On print-to-save: "Before you save this, check that it holds no real confidential details. It belongs in `[folder]/context/`, and it goes wherever that folder goes."; "Before you save these, check that they hold no real confidential details. They belong in `[folder]/inputs/`, and they go wherever that folder goes."; and, for made-up inputs, "They belong in `[folder]/inputs/`" in place of "They're saved in".
 
   After a line that asks, wait for the answer and fix anything flagged before saving. Content the leader replaces or withdraws as confidential is gone: never reuse its names, numbers or details anywhere, including in examples or inputs you draft.
-- **A password or key** pasted anyway, alone or inside an input or document: replace it with a placeholder ("[password removed]", "[key removed]") before anything is saved, never repeat it, and say: "That looks like a password or key, so I haven't saved it or repeated it. Since it's now in this chat, please change it in [service]. If the workflow needs it, it goes in [platform]'s own settings, never in a chat." Then the next action. Never ask for a password, key or token: the access question asks only whether the workflow can reach a source.
+- **A password or key** pasted anyway, alone or inside an input or document: replace it, where it stood, with a placeholder ("[password removed]", "[key removed]") before anything is saved (never just leave it out), never repeat it, and say: "That looks like a password or key, so I haven't saved it or repeated it. Since it's now in this chat, please change it in [service]. If the workflow needs it, it goes in [platform]'s own settings, never in a chat." Then the next action. Never ask for a password, key or token: the access question asks only whether the workflow can reach a source.
 
 ### Rules for every message
 

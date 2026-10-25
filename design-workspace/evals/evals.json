@@ -4023,7 +4023,7 @@
      "check": {
       "type": "file_not_regex",
       "path": "framework/client-follow-up/design-plan.md",
-      "pattern": "(?i)Required Tools:\\*\\*(?:[^\\n]*?[.;,:(])?\\s*(?:(?!\\b(?:no|not|never|nor|without)\\b)[^\\n.;,(])*?\\b(?:send|delete)s?\\b(?![^\\n.;]*\\b(?:denied|blocked)\\b)"
+      "pattern": "(?i)Required Tools:\\*\\*(?:(?=(\\b(?:no|not|never|nor|without)\\b[^\\n.;()]*))\\1|(?!\\b(?:no|not|never|nor|without)\\b)[^\\n])*?\\b(?:send|delete)s?\\b(?![^\\n.;]*\\b(?:denied|blocked|left out)\\b)"
      }
     },
     {
