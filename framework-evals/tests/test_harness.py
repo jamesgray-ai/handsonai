@@ -92,6 +92,19 @@ class QuoteCheck(unittest.TestCase):
         self.assertTrue(ok({"type": "quote", "id": "N-B45", "form": "main"}, run_of(base)))
         self.assertTrue(ok({"type": "quote", "id": "N-B45", "form": "main"}, run_of(with_clause)))
 
+    def test_two_label_clauses_in_one_bracket_are_alternatives(self):
+        # N-B27's "[Can be undone: '…' Permanent: '…']": either clause alone is word for word
+        head = "Done: here it is in your Gmail Drafts: an empty draft with no recipient. "
+        self.assertTrue(ok({"type": "quote", "id": "N-B27"},
+                           run_of(head + "I'll offer to undo the check changes together at the end.")))
+        self.assertTrue(ok({"type": "quote", "id": "N-B27"}, run_of(head + "That one stays.")))
+
+    def test_fix_signpost_counts_the_parts_it_runs(self):
+        # build.md 171: a later entry counts only the parts it runs; "Part 1 of 2 in this fix" is the example
+        for said in ("**Part 1 of 3 in this fix — your setup**", "Part 2 of 2 in this fix"):
+            self.assertTrue(ok({"type": "scripted_lines", "skill": "build"}, run_of(said)), said)
+        self.assertFalse(ok({"type": "scripted_lines", "skill": "build"}, run_of("Part 1 of 3 in the fix")))
+
     def test_cli_transcript_mode_fails_on_one_changed_word(self):
         with tempfile.TemporaryDirectory() as t:
             good, bad = Path(t, "good.md"), Path(t, "bad.md")
@@ -167,6 +180,18 @@ class WordingChecks(unittest.TestCase):
         bld = ["Part 1 of 3 — your setup", "Part 2 of 3 — building and checking", "Part 3 of 3 — save it and test"]
         self.assertTrue(ok({"type": "signposts", "skill": "build"}, run_of(*bld)))
         self.assertFalse(ok({"type": "signposts", "skill": "build"}, run_of(bld[0], "Part 2 of 3 — building", bld[2])))
+
+    def test_rubric_judge_sees_tool_lines_behind_a_figure(self):
+        # a version the AI read with `claude --version` isn't invented: the judge sees that output line
+        import grade_eval as G
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": "2.1.309 (Claude Code)\nPython 3.12.1"}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "files_start": {}, "turns": [
+                {"role": "ai", "text": "Your Claude Code version (2.1.309) hasn't been confirmed yet."}]}]}
+            _, prompt = G.rubric_prompt(run)
+        self.assertIn("2.1.309 (Claude Code)", prompt)
+        self.assertNotIn("Python 3.12.1", prompt)
 
 
 class FileChecks(unittest.TestCase):

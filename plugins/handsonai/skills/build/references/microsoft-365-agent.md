@@ -77,7 +77,7 @@ After its "done", until release check 31 passes, the paste-back, said exactly: "
 1. The rebuild form's opening, said exactly: "Agent Builder can't change [Agent] in place, so we'll make a new one with the fix in it."
 2. Section 2's steps 1 to 6 (N-B52's main form), the build prompt carrying the fix (for a gap, the missing or reworded line; for a Test miss or a changed plan, the change). Its step 6 is the one paste-back request on this path: N-B53's own paste-back sentence and N-B52's gap sentence aren't said.
 3. The paste-back check (section 3) on the new agent's instructions.
-4. **Only once it passes:** "Now delete the old [Agent] under Agents, so only the new one runs. Say 'done' when it's gone." Never before: until the new one passes, the old one stays (on a live workflow, still running as it was). Then the done form for the moment (section 3's at a first build; N-B53's in fix mode).
+4. **Only once it passes:** "Now delete the old [Agent] under Agents, so only the new one runs. Say 'done' when it's gone." Said whole, as the message's last line: when the two agents share a name, the line that tells the leader which one is the old one (the one made first) comes before it, never inside it. Never before: until the new one passes, the old one stays (on a live workflow, still running as it was). Then the done form for the moment (section 3's at a first build; N-B53's in fix mode).
 5. **A new one that fails its check** counts as a try. Before the next try, the leader deletes that newer copy, in N-B54's words with [Agent] filled as "the newer [Agent]" (the name both copies share), and waits for "done"; the old one is untouched. After the third failed try, section 4.
 
 ## 6. Putting it back, and live changes

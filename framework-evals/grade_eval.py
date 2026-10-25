@@ -185,6 +185,30 @@ def files_read(run):
     return "\n\n".join(parts)
 
 
+FACT = re.compile(r"[\w.+-]*\d[\w.+-]*|[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
+TOOL_LINES_CAP = 1500
+
+
+def tool_lines(run, msgs):
+    """Lines of the AI's own tool output (a version a command printed, an address a connection
+    returned) that hold a figure or address its messages give, so item 6 doesn't take a fact the AI
+    looked up for an invented one. Only lines with such a token; capped at TOOL_LINES_CAP characters."""
+    facts = {f.strip(".,") for m in msgs for f in FACT.findall(m) if len(f.strip(".,")) >= 3}
+    if not facts:
+        return ""
+    out, total = [], 0
+    for s in run["sessions"]:
+        if not s.get("root"):
+            continue
+        for res in _tool_results(Path(s["root"]).parent / "events.jsonl"):
+            for ln in res.splitlines():
+                ln = ln.strip()[:200]
+                if ln and ln not in out and any(f in ln for f in facts) and total + len(ln) <= TOOL_LINES_CAP:
+                    out.append(ln)
+                    total += len(ln)
+    return "\n".join(out)
+
+
 def rubric_prompt(run):
     """Each AI message, with what the leader said just before it as context (not graded), so
     item 6 can tell a fact the leader gave from an invented one; and, once at the top, what the AI
@@ -206,6 +230,9 @@ def rubric_prompt(run):
     read = files_read(run)
     read = (f"## What the AI read from the leader's files (context, not graded)\n\n{read}\n\n"
             if read else "")
+    tools = tool_lines(run, msgs)
+    read += (f"## Lines the AI's own tool calls printed (context, not graded)\n\n````\n{tools}\n````\n\n"
+             if tools else "")
     return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{read}{body}"
 
 

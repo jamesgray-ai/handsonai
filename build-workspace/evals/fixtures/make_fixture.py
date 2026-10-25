@@ -301,6 +301,9 @@ def add_sch(t, *, send=False, platform="Claude Code", where="a Claude Code deskt
 def scheduled_record(t, value, steps=True):
     rec = record(t)
     sub(rec, "schedule: none", f"schedule: {value}")
+    # a schedule past its safety points is a built SCH task: its row, or the record reads it as not built
+    resub(rec, r"(\n\| KW \|[^\n]*)", r"\1\n| SCH | — | — | the schedule (a Claude Code desktop task, Fridays at 4pm) | "
+          r"Claude Code Scheduled, client-follow-up | Created | yes | 1 | 0 | the five safety points pass; switch-on steps written | — |")
     if steps:
         text = rec.read_text().rstrip("\n") + ("\n\n## Schedule\n- Safety record: all five points pass.\n"
                                                "- Switch-on steps: in Claude Code, open Scheduled, choose New task, pick client-follow-up, set Fridays at 4pm, save.\n")

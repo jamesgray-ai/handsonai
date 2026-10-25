@@ -754,8 +754,18 @@
    "tier": "core",
    "spec_item": "13 Entry and routing: fix mode by name",
    "fixture": "fix-mode",
-   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
+   "sessions": [
+    {
+     "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+     "student": true
+    },
+    {
+     "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+     "from_previous": true,
+     "student": true
+    }
+   ],
    "expected_output": "Named after a Not ready round with build rows: fix mode, opening with N-B14.",
    "files": [
     "students/default.md"
@@ -812,8 +822,11 @@
      }
     }
    ],
-   "est_turns": 16,
-   "smaller_model_round": true
+   "est_turns": 30,
+   "smaller_model_round": true,
+   "preconditions": [
+    "Until release check 1 is verified on the running Claude Code version, Build asks for one restart once the block is on (setup.md section 5): session 1 ends there and session 2 picks up with the same phrase, so the close (N-B13) is in session 2; once it passes, session 1 reaches the close and session 2 only routes"
+   ]
   },
   {
    "id": "EN-ready-by-name",

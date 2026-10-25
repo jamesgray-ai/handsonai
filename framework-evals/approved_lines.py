@@ -62,6 +62,7 @@ def _match_bracket(s, i):
 
 
 LABEL_CLAUSE = re.compile(r"^\s*([A-Z][^:\[\]']{0,60}):\s*'(.*)'\s*$", re.S)
+LABEL_ALTS = re.compile(r"\s*[A-Z][^:\[\]']{0,60}:\s*'(.*?)'(?=\s+[A-Z][^:\[\]']{0,60}:\s*'|\s*$)", re.S)
 
 
 def tokens(text):
@@ -81,7 +82,11 @@ def tokens(text):
                 buf = []
             inner = s[i + 1:j]
             m = LABEL_CLAUSE.match(inner)
-            if m and "' / " not in m.group(2) and "'; " not in m.group(2):
+            alts = LABEL_ALTS.findall(inner) if m else []
+            if len(alts) > 1 and LABEL_ALTS.sub("", inner).strip() == "":
+                # "[Can be undone: 'A' Permanent: 'B']": one labelled clause or the other, each optional
+                out += [("opt", tokens(a)) for a in alts]
+            elif m and "' / " not in m.group(2) and "'; " not in m.group(2):
                 out.append(("opt", tokens(m.group(2))))
             else:
                 out.append(("hole", inner))
@@ -202,6 +207,10 @@ class Line:
         self.toks = tokens(self.text) if self.text else []
         self._rx = None
         self.segments = [s for s in (words(x) for x in literal_segments(self.toks)) if s]
+        # the prefilter's needle: the longest fixed run that must be said (never an optional clause's)
+        req = [norm(x) for x in literal_segments([t if t[0] != "opt" else ("hole", "") for t in self.toks])]
+        self.longest = max(req, key=len, default="") or max(
+            (norm(x) for x in literal_segments(self.toks)), key=len, default="")
 
     @property
     def regex(self):
@@ -214,7 +223,7 @@ class Line:
         if not self.text:
             return False
         nm = norm(message)
-        longest = max((norm(x) for x in literal_segments(self.toks)), key=len, default="")
+        longest = self.longest
         if longest and _pre(longest) not in _pre(nm):
             return False
         return bool(self.regex.search(nm))
@@ -253,6 +262,13 @@ class Corpus:
                 if e.get("text") and "choose Deny" in e["text"]:
                     self.lines.append(Line(dict(e, form=f"{e['form']}, {platform}",
                                                 text=e["text"].replace("choose Deny", f"choose {label}"), files={}, derived=True)))
+            # a later entry's signpost counts the parts it runs (build.md 171: "Part 1 of 2 in this fix" is
+            # the example), so every count is the same line
+            if e.get("text") and re.fullmatch(r"Part \d of \d in this fix", e["text"]):
+                for n, m in [(a, b) for b in (1, 2, 3) for a in range(1, b + 1)]:
+                    if f"Part {n} of {m} in this fix" != e["text"]:
+                        self.lines.append(Line(dict(e, form=f"{e['form']}, {n} of {m}",
+                                                    text=f"Part {n} of {m} in this fix", files={}, derived=True)))
         self.by_id = {}
         for ln in self.lines:
             self.by_id.setdefault(ln.id, []).append(ln)
@@ -296,7 +312,7 @@ class Corpus:
         starts = [m.start() for m in WORD.finditer(nm)]
         spans = []
         for ln in self.checkable():
-            longest = max((norm(x) for x in literal_segments(ln.toks)), key=len, default="")
+            longest = ln.longest
             if not longest or _pre(longest) not in _pre(low):
                 continue
             for m in ln.regex.finditer(nm):
@@ -362,8 +378,7 @@ class Corpus:
         nm = norm(message)
         low = nm.lower()
         for ln in self.checkable():
-            segs = [norm(x) for x in literal_segments(ln.toks)]
-            longest = max(segs, key=len, default="")
+            longest = ln.longest
             if not longest or _pre(longest) not in _pre(low):
                 continue
             nm = ln.regex.sub(lambda m: _holes_only(ln, m.group(0)) if keep_fills else " ", nm)

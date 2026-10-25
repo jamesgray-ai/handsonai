@@ -472,7 +472,7 @@ def check(c, run):
         total = c.get("of", total)
         want = []
         for lid in ids:
-            want += [f.text for f in corpus().get(lid) if f.text and re.match(r"Part \d of \d", f.text)]
+            want += [f.text for f in corpus().get(lid) if f.text and not f.derived and re.match(r"Part \d of \d", f.text)]
         want = [w for w in want if re.match(rf"Part \d of {total}\b", w)] or [f"Part {k} of {total}" for k in range(1, total + 1)]
         missing = want[0]
         for s in _sessions(run, n):
