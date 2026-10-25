@@ -110,12 +110,85 @@ def mark_scripted(message, corpus=None):
             continue
         out = ln.regex.sub(lambda m: "⟦" + m.group(0) + "⟧", out)
         low = out.lower()
+    # norm drops backticks; put back the message's code-formatted names (`context/C1-call-notes.md`)
+    # so the judge can apply item 7's file-name exemption
+    for span in dict.fromkeys(re.findall(r"`([^`\n]+)`", message)):
+        n = AL.norm(span)
+        if n and f"`{n}`" not in out:
+            out = re.sub(r"(?<![\w/.-])" + re.escape(n) + r"(?![\w/-])", lambda m: f"`{m.group(0)}`", out)
     return out
+
+
+READ_CAP = 7000  # characters of the leader's files shown to the rubric judge, in all
+READ_FILE_CAP = 2500
+
+
+def _tool_results(events_path):
+    """The text of every tool result in a session's events.jsonl, Read's line-number prefixes removed."""
+    out = []
+    try:
+        lines = Path(events_path).read_text(errors="replace").splitlines()
+    except OSError:
+        return out
+    for line in lines:
+        try:
+            e = json.loads(line)
+        except ValueError:
+            continue
+        content = (e.get("message") or {}).get("content") if e.get("type") == "user" else None
+        for b in content if isinstance(content, list) else []:
+            if not isinstance(b, dict) or b.get("type") != "tool_result":
+                continue
+            c = b.get("content")
+            text = c if isinstance(c, str) else "\n".join(
+                x.get("text", "") for x in c or [] if isinstance(x, dict))
+            out.append(re.sub(r"(?m)^\s*\d+\t", "", text))
+    return out
+
+
+def _read_rank(rel):
+    if "/workflows/" in f"/{rel}" and not rel.endswith("index.md"):
+        return 0
+    if rel.endswith("requirements.md"):
+        return 1
+    if "opportunity-report" in rel or "backlog" in rel:
+        return 2
+    return 3 if "registry/" in rel and not rel.endswith(("index.md", "log.md")) else 4
+
+
+def files_read(run):
+    """The leader's files the AI read during the run, as they were before the session (so nothing
+    the AI wrote itself), most relevant first: workflow nodes, requirements, the backlog, the rest.
+    A file counts as read when its longer lines appear in a tool result (a Read, or a cat in Bash,
+    on any folder: drive/, onedrive/ or the workspace itself). Capped at READ_CAP characters."""
+    found = {}
+    for s in run["sessions"]:
+        if not s.get("root"):
+            continue
+        results = "\n".join(_tool_results(Path(s["root"]).parent / "events.jsonl"))
+        if not results:
+            continue
+        for rel, text in s["files_start"].items():
+            if rel in found or rel.startswith(".") or "/." in rel or not text.strip():
+                continue
+            long_lines = [ln.strip() for ln in text.splitlines() if len(ln.strip()) >= 30]
+            if long_lines and sum(ln in results for ln in long_lines) >= min(2, len(long_lines)):
+                found[rel] = text
+    parts, total = [], 0
+    for rel in sorted(found, key=lambda r: (_read_rank(r), r)):
+        body = found[rel].strip()
+        body = body if len(body) <= READ_FILE_CAP else body[:READ_FILE_CAP] + "\n[…cut]"
+        if total + len(body) > READ_CAP:
+            continue
+        parts.append(f"### {rel}\n\n````\n{body}\n````")
+        total += len(body)
+    return "\n\n".join(parts)
 
 
 def rubric_prompt(run):
     """Each AI message, with what the leader said just before it as context (not graded), so
-    item 6 can tell a fact the leader gave from an invented one."""
+    item 6 can tell a fact the leader gave from an invented one; and, once at the top, what the AI
+    read from the leader's files (context, not graded), so a detail taken from them isn't invented."""
     msgs, said = [], []
     for s in run["sessions"]:
         before = []
@@ -130,7 +203,10 @@ def rubric_prompt(run):
         quoted = "\n".join("> " + ln for ln in ctx.splitlines()) if ctx else "> (nothing)"
         return f"## Message {i}\n\nThe leader said just before (context, not graded):\n\n{quoted}\n\nThe message:\n\n{m}"
     body = "\n\n".join(block(i, m, c) for i, (m, c) in enumerate(zip(msgs, said), 1))
-    return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{body}"
+    read = files_read(run)
+    read = (f"## What the AI read from the leader's files (context, not graded)\n\n{read}\n\n"
+            if read else "")
+    return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{read}{body}"
 
 
 def grade_rubric(rnd, root, ev, run):

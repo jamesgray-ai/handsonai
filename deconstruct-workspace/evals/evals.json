@@ -11199,7 +11199,7 @@
           }
         },
         {
-          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID",
+          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID (a file name or path in code formatting, such as `inputs/E1-typical-week-notes.md`, isn't an ID shown to the leader)",
           "kind": "judged",
           "must": true
         },
@@ -11556,7 +11556,7 @@
           }
         },
         {
-          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID",
+          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID (a file name or path in code formatting, such as `inputs/E1-typical-week-notes.md`, isn't an ID shown to the leader)",
           "kind": "judged",
           "must": true
         },
@@ -11931,7 +11931,7 @@
           }
         },
         {
-          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID",
+          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID (a file name or path in code formatting, such as `inputs/E1-typical-week-notes.md`, isn't an ID shown to the leader)",
           "kind": "judged",
           "must": true
         },
@@ -12288,7 +12288,7 @@
           }
         },
         {
-          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID",
+          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID (a file name or path in code formatting, such as `inputs/E1-typical-week-notes.md`, isn't an ID shown to the leader)",
           "kind": "judged",
           "must": true
         },
@@ -12639,7 +12639,7 @@
           }
         },
         {
-          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID",
+          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID (a file name or path in code formatting, such as `inputs/E1-typical-week-notes.md`, isn't an ID shown to the leader)",
           "kind": "judged",
           "must": true
         },
@@ -12996,7 +12996,7 @@
           }
         },
         {
-          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID",
+          "text": "A simulated first-time business leader finishes without being taught or shown any evaluation term (test case, scenario, acceptance criteria, eval) or line ID (a file name or path in code formatting, such as `inputs/E1-typical-week-notes.md`, isn't an ID shown to the leader)",
           "kind": "judged",
           "must": true
         },

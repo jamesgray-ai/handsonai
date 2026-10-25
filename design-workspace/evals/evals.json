@@ -7280,7 +7280,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7437,7 +7437,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7594,7 +7594,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7755,7 +7755,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7912,7 +7912,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -8069,7 +8069,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
