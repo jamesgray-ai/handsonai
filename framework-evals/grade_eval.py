@@ -246,8 +246,9 @@ def files_read(run, msgs=()):
     parts, total = [], 0
     for rel in sorted(found, key=lambda r: (_read_rank(r), r)):
         k, body = found[rel][0], found[rel][1].strip()
+        gone = []
         if len(body) > READ_FILE_CAP:
-            head, gone = READ_FILE_CAP - READ_CHANGED_CAP, []
+            head = READ_FILE_CAP - READ_CHANGED_CAP
             def overlap(ln):
                 return len(said & set(WORD.findall(ln.lower())))
             past = body[head:].splitlines()
@@ -262,7 +263,18 @@ def files_read(run, msgs=()):
         if now.get(rel):
             new = now[rel]
             keep, size = set(), 0
-            for ln in sorted(new, key=lambda ln: -len(said & set(WORD.findall(ln.lower())))):
+            # a line shown above that the session replaced comes first: its replacement (same opening
+            # words, such as a field's label), so the judge sees what the line became
+            lead = lambda ln: tuple(WORD.findall(ln.lower())[:2])
+            shown_gone = {lead(ln) for ln in changed.get(rel, []) if ln in body and lead(ln)}
+            # the replacements of lines listed past a cut (picked as the ones the messages speak of) first,
+            # shortest first (a field's value), then the other replacements the messages speak of most
+            picked = {lead(ln) for ln in gone if lead(ln)}
+            first_new = sorted((ln for ln in new if lead(ln) in shown_gone),
+                               key=lambda ln: (lead(ln) not in picked, -len(said & set(WORD.findall(ln.lower())))
+                                               if lead(ln) not in picked else len(ln)))
+            for ln in first_new + sorted((ln for ln in new if ln not in first_new),
+                                         key=lambda ln: -len(said & set(WORD.findall(ln.lower())))):
                 if size + len(ln) + 1 <= READ_CHANGED_CAP:
                     keep.add(ln)
                     size += len(ln) + 1
