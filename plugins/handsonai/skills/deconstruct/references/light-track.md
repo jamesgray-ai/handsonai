@@ -18,7 +18,7 @@ Right after N-L1 (and the leader keeping it light), one line (model wording) say
 
 ## The five things
 
-**A sign of risk at any item.** Whenever a Context Inventory row is saved as `Confidential` or `Regulated`, or a source is `External`, or the leader says something they pasted (a document at N-D1, a real example, an input) holds client, staff or personal details, that's a sign of risk: N-L2, and the full track carries on. The confidential check is still said before that content is saved.
+**A sign of risk at any item.** Whenever a Context Inventory row is saved as `Confidential` or `Regulated`, or a source is `External`, or the leader says something they pasted (a document at N-D1, a real example, an input) holds client, staff or personal details, that's a sign of risk: N-L2, and the full track carries on. A row saved `Confidential` or `External` only as the safe fallback for something the leader hasn't said (SKILL.md rules 7 and 13) is no sign of risk (SKILL.md, *Light needs every one of these*). The confidential check is still said before that content is saved.
 
 The progress file is first saved at item 0, then after each item (`Next: Light — [the goal | what it must get right | what it works from | the rules | the practice runs | the safety questions | the defaults]`).
 
@@ -49,7 +49,7 @@ Any answer that shows a sign of risk (a send, a change others see, running witho
 
 ## The defaults
 
-After the safety questions, one message (model wording) lists in plain words everything you filled in, never by the file's labels (Business Objective, Baseline, Sensitivity), ending "What would you change or add?":
+After the safety questions, one message (model wording) lists in plain words everything you filled in, never by the file's labels (Business Objective, Baseline, Sensitivity), ending "What would you change or add?". Each row below is said, the target included (with none, say there's no target yet). A source whose details aren't known is said as not known yet, and that alone never turns the track full:
 
 | What | Default |
 |---|---|
