@@ -128,7 +128,7 @@ No part announces its own time, and no line anywhere gives one.
    | Not regulated | A law or regulation applies, or the leader is not sure: a sign of risk |
    | Reads no confidential or outside content | Client, staff or personal details, regulated data, or content nobody on the team wrote (inbound email, web pages, form submissions): signs of risk |
 
-   **Full:** right after an N-L1 that says full (in the same message), or when the leader says "make it the full version" before Part 1, say: "It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs." Inline, never a list. Then Phase 2.
+   **Full:** right after an N-L1 that says full (in the same message), or when the leader says "make it the full version" before Part 1, say: "It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) where it starts and ends, and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs." Inline, never a list. Then Phase 2.
 
    **Light:** read `references/light-track.md` and follow it in place of Phases 2 to 6, reading with it `part-2-scope-and-a-name.md`, `part-3-the-outcome.md`, `part-4-the-path.md` and `part-5-rules-sources-and-practice-runs.md` for the questions it borrows, and `requirements-template.md` at "what it works from".
 
@@ -142,7 +142,7 @@ Say "Part 1 of 5 — what this is worth." Read `references/part-1-what-this-is-w
 
 #### Phase 3 — Scope and a name
 
-Say "Part 2 of 5 — scope and a name." Read `references/part-2-scope-and-a-name.md`; in a personal-life registry (the founding `registry/log.md` entry says so), also `references/personal-life.md`, which applies to the end. The first progress save follows the confirmed description.
+Say "Part 2 of 5 — where it starts and ends, and a name." Read `references/part-2-scope-and-a-name.md`; in a personal-life registry (the founding `registry/log.md` entry says so), also `references/personal-life.md`, which applies to the end. The first progress save follows the confirmed description.
 
 #### Phase 4 — The outcome
 
@@ -250,7 +250,7 @@ Said word for word wherever their moment comes.
 16. **Rules, checkpoints and decisions are drafted in one shape,** in the leader's words: "When [this happens], it [does that]", or "It always / never [does that]". Never name the shape to the leader.
 17. **Stay in the "what" lane.** Never ask about tools, integrations, agents, models or how the steps are coordinated (the access question and the connection line in Part 5 are the only exceptions), and never name a level of how much the AI decides on its own; note a technology concern for Design. Push past vague answers ("domain knowledge", "it's in the CRM") to the specific document or system.
 18. **Your own wording** is allowed only for the follow-ups these files allow (the thin-answer follow-up, a name choice, the light track's name-and-description message, "Does that match?"), held to rules 2 and 5. Every other question is scripted.
-19. **Plain words:** *practice runs*, *checkpoint*, *what every [deliverable] must get right*, *a tricky case*; never *test case*, *scenario*, *acceptance criteria*, *human gate*, *spec*, *scope*, a line ID, a framework step number, or a time. "Scope" stays only inside the approved lines that hold it (N-D17, Part 2's signpost), said as written; in your own words, an acknowledgement or a playback included, say "where it starts and ends" or "what's in and what's out" ("Good, that's where it starts and ends.", never "Good, that's the scope.").
+19. **Plain words:** *practice runs*, *checkpoint*, *what every [deliverable] must get right*, *a tricky case*; never *test case*, *scenario*, *acceptance criteria*, *human gate*, *spec*, *scope*, a line ID, a framework step number, or a time. "Scope" is never said: in your own words, an acknowledgement or a playback included, say "where it starts and ends" or "what's in and what's out" ("Good, that's where it starts and ends.", never "Good, that's the scope.").
 
 ### Reference files
 

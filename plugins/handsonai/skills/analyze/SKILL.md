@@ -166,16 +166,18 @@ Say exactly this, in this order — what was completed, what's next, the rest as
 
 > You now have [N] workflows in your registry's backlog, grouped under the processes they belong to. Your opportunity report has the full detail for each one: [the report's path in the location]. You can see the workflows on your dashboard too.
 >
-> **Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: "run the deconstruct skill. My files are in [location]." (in Claude Code, you can also type `/deconstruct` in a new session and pick it from the list).
+> **Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: "run the deconstruct skill. My files are in [location]." (you can also type `/deconstruct` in a new session and pick it from the list).
 >
 > **Later, if you want:** you looked at [k] of your [P] processes. Say "run the analyze skill. My files are in [location]." any time to pick up the rest. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say "run the analyze skill with the individual lens. My files are in [location]."
 
-**The start line is N-F2's form,** for a new chat, in the platform's form; the clause about `/deconstruct` is said only on Claude Code, and there word for word, "(in Claude Code," and parentheses included. The forms, as approved:
+**The start line is N-F2's form,** for a new chat, in the platform's form; the clause about `/deconstruct` is said only on Claude Code, and there word for word, parentheses included. The forms, as approved:
 - Main (the web): "Start [step] in a new chat with: '[start phrase]. My files are in [location].'"
 - Claude Code and Codex: "Start [step] in a new session with: '[start phrase]. My files are in [location].'"
 - Claude desktop, with the files in a local folder: "Start [step] in a new chat with your framework folder added: '[start phrase]. My files are in [location].'" (with the files in a drive, the web form)
 - Microsoft 365: "Start [step] in a new Cowork chat with: '[start phrase]. My files are in OneDrive, in Framework/[workflow-slug].'" Deconstruct starts with no workflow folder yet, so here the location is the Framework folder itself: "…My files are in OneDrive, in Framework.'"
 - [the report's path in the location]: "Google Drive, in Framework/ai-opportunity-report.md"; "OneDrive, in Framework/ai-opportunity-report.md" (with the folder's own name when the student chose another); on Claude desktop, "Framework/ai-opportunity-report.md" (the folder's own name); on Claude Code and Codex, `framework/ai-opportunity-report.md`; on print-to-save, "the folder you're keeping these files in".
+
+With one workflow: when [N] is 1, the first paragraph is, word for word: "You now have 1 workflow in your registry's backlog, under [process]. Your opportunity report has the full detail: [the report's path in the location]. You can see it on your dashboard too."
 
 Fit it to the run:
 - [N] is this run's backlog workflows; with others already there, "[N] new workflows in your registry's backlog ([total] in all)" ([total]: every `status: backlog` node). Running work adds " and [M] that already run, recorded as running" after "[N] workflows in your registry's backlog". [k] counts the processes looked at on this lens, across runs.

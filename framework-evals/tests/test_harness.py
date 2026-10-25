@@ -175,7 +175,7 @@ class WordingChecks(unittest.TestCase):
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("That takes about 40 minutes.", files_start=req)))
 
     def test_signposts_per_skill(self):
-        dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — scope and a name.", "Part 3 of 5 — the outcome.",
+        dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — where it starts and ends, and a name.", "Part 3 of 5 — the outcome.",
                "Part 4 of 5 — how the work gets done.", "Part 5 of 5 — rules, sources and practice runs."]
         self.assertTrue(ok({"type": "signposts", "skill": "deconstruct"}, run_of(*dec)))
         self.assertFalse(ok({"type": "signposts", "skill": "deconstruct"}, run_of(*(dec[:2] + dec[3:]))))

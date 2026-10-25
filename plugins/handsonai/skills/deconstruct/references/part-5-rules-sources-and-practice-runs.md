@@ -57,6 +57,9 @@ Four short messages, and a fifth, the security limits, when a sensitivity test t
    - *Why:* If it can't reach it, it has to ask you for it on every run.
    - *Not sure?* Say you'll paste it. You can connect it later.
 
+   With a plural [source]: **Ask:** "When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste them in each time?"
+   - *Not sure?* Say you'll paste them. You can connect them later.
+
    The answer sets the source's `AI Accessible`, and its Inputs line follows it ("from C1, through the Google Drive connection"). When a write's system needs a connection, say once, after the access questions: "Saving drafts in [system] also needs a connection; we'll set that up when it's built." (naming what it writes). A write trips only the Prohibited actions and Traceability categories, never this question, which is about sources.
 
    A row saved as `Regulated` when the law answer was no or not sure: say you marked [source] as regulated, then **Ask:** "Which one? A name or a description is fine." once; if it stays unknown, `Governing regime: Not sure — to check`. This doesn't switch on the detail table.
@@ -73,7 +76,7 @@ Three to five in total, built as the requirements template says. Open with "Here
 
 Then:
 - **A tricky one stays.** If fewer than three remain after their changes, or no hard case, propose replacements and have each one kept before going on. The input aimed at a rule or checkpoint doesn't count as the hard case.
-- **A reference for each real row,** skipped when Part 3 recorded no reference example. Otherwise, for each `(real)` row without one, in its own message, **Ask:** "Have you sent a [deliverable] after a [case] like this that you'd want every one to match?", with [case] naming that row's case in the leader's words ("the Heron program"), so no two asks read the same; only [deliverable] and [case] change, and every other word, "like this that you'd want" included, is said as written. Record its Context Inventory ID, a short excerpt, or "—". A `(proposed)` row has "—"; a reference you wrote is never recorded.
+- **A reference for each real row,** skipped when Part 3 recorded no reference example. Otherwise, for each `(real)` row without one, in its own message, **Ask:** "Have you sent a [deliverable] for a case like [case] that you'd want every one to match?", with [case] naming that row's case in the leader's words ("the Heron program"), so no two asks read the same; only [deliverable] and [case] change, and every other word is said as written. Record its Context Inventory ID, a short excerpt, or "—". A `(proposed)` row has "—"; a reference you wrote is never recorded.
 - **The real inputs, pasted now.** For a real input named but not pasted ("last Friday's tracker export"): **Ask:** "Paste a set of [inputs], or say 'draft one' and I'll write a made-up example from your description for you to check." On print-to-save, say instead: "paste it in and I'll include it in the files you save, so testing is copy-and-paste rather than a hunt". A made-up example is shown in full and checked: **Ask:** "Does this look like your real [inputs]?" It never states what the workflow must work out (no "Buying for:" line, no flag it should raise), and a made-up example of the leader's own typical or tricky case stays `(real)`. A password or key inside a pasted input is replaced with a placeholder before saving, and N-F14 is said (SKILL.md). The confidential check runs before saving. Only when they genuinely can't get hold of it today, the file holds one placeholder line naming exactly what to paste in before testing, and say so.
 - **Numbered and saved** as the requirements template says (*inputs/ and context/*).
 

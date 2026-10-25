@@ -350,9 +350,19 @@
         "type": "any",
         "checks": [
          {
-          "type": "quote",
-          "id": "N-6",
-          "form": "With points"
+          "type": "any",
+          "checks": [
+           {
+            "type": "quote",
+            "id": "N-6",
+            "form": "With points"
+           },
+           {
+            "type": "quote",
+            "id": "N-6",
+            "form": "With one point"
+           }
+          ]
          },
          {
           "type": "quote",
@@ -524,9 +534,19 @@
       "type": "all",
       "checks": [
        {
-        "type": "quote_absent",
-        "id": "N-6",
-        "form": "With points"
+        "type": "all",
+        "checks": [
+         {
+          "type": "quote_absent",
+          "id": "N-6",
+          "form": "With points"
+         },
+         {
+          "type": "quote_absent",
+          "id": "N-6",
+          "form": "With one point"
+         }
+        ]
        },
        {
         "type": "quote_absent",
@@ -651,9 +671,19 @@
       "type": "all",
       "checks": [
        {
-        "type": "quote_absent",
-        "id": "N-6",
-        "form": "With points"
+        "type": "all",
+        "checks": [
+         {
+          "type": "quote_absent",
+          "id": "N-6",
+          "form": "With points"
+         },
+         {
+          "type": "quote_absent",
+          "id": "N-6",
+          "form": "With one point"
+         }
+        ]
        },
        {
         "type": "quote_absent",
@@ -743,9 +773,19 @@
         "id": "N-5"
        },
        {
-        "type": "quote",
-        "id": "N-6",
-        "form": "With points"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With points"
+         },
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With one point"
+         }
+        ]
        }
       ]
      }
@@ -2705,9 +2745,19 @@
         "id": "N-5"
        },
        {
-        "type": "quote",
-        "id": "N-6",
-        "form": "With points"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With points"
+         },
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With one point"
+         }
+        ]
        }
       ]
      }
@@ -3020,9 +3070,19 @@
       "type": "all",
       "checks": [
        {
-        "type": "quote",
-        "id": "N-14",
-        "form": "main"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-14",
+          "form": "main"
+         },
+         {
+          "type": "quote",
+          "id": "N-14",
+          "form": "No connection"
+         }
+        ]
        },
        {
         "type": "quote",
@@ -3349,9 +3409,19 @@
         "id": "D5"
        },
        {
-        "type": "quote",
-        "id": "N-14",
-        "form": "main"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-14",
+          "form": "main"
+         },
+         {
+          "type": "quote",
+          "id": "N-14",
+          "form": "No connection"
+         }
+        ]
        }
       ]
      }
@@ -3436,9 +3506,19 @@
       "type": "all",
       "checks": [
        {
-        "type": "quote",
-        "id": "N-14",
-        "form": "main"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-14",
+          "form": "main"
+         },
+         {
+          "type": "quote",
+          "id": "N-14",
+          "form": "No connection"
+         }
+        ]
        },
        {
         "type": "quote",
@@ -3767,9 +3847,19 @@
      "text": "N-14 asked",
      "kind": "scripted",
      "check": {
-      "type": "quote",
-      "id": "N-14",
-      "form": "main"
+      "type": "any",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-14",
+        "form": "main"
+       },
+       {
+        "type": "quote",
+        "id": "N-14",
+        "form": "No connection"
+       }
+      ]
      }
     },
     {
@@ -4559,9 +4649,19 @@
         "id": "N-5"
        },
        {
-        "type": "quote",
-        "id": "N-6",
-        "form": "With points"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With points"
+         },
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With one point"
+         }
+        ]
        },
        {
         "type": "quote",
@@ -4613,9 +4713,19 @@
         "id": "N-5"
        },
        {
-        "type": "quote",
-        "id": "N-6",
-        "form": "With points"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With points"
+         },
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With one point"
+         }
+        ]
        }
       ]
      }
@@ -4776,9 +4886,19 @@
         "id": "N-5"
        },
        {
-        "type": "quote",
-        "id": "N-6",
-        "form": "With points"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With points"
+         },
+         {
+          "type": "quote",
+          "id": "N-6",
+          "form": "With one point"
+         }
+        ]
        }
       ]
      }
@@ -8218,6 +8338,49 @@
      "text": "The agent's blueprint holds everything it needs (mission, rules and the checkpoint by ID, context files by C ID, the connections it uses), and no Cowork skill hands work to it",
      "kind": "judged",
      "must": true
+    },
+    {
+     "text": "After B54, the level is never N-10's plain Autonomous form: with an Autonomous step it's N-10's \"With planned steps\" form (3c-EB)",
+     "kind": "scripted",
+     "check": {
+      "type": "any",
+      "checks": [
+       {
+        "type": "quote_absent",
+        "id": "B54"
+       },
+       {
+        "type": "all",
+        "checks": [
+         {
+          "type": "quote_absent",
+          "id": "N-10",
+          "form": "Autonomous"
+         },
+         {
+          "type": "any",
+          "checks": [
+           {
+            "type": "quote",
+            "id": "N-10",
+            "form": "With planned steps"
+           },
+           {
+            "type": "quote",
+            "id": "N-10",
+            "form": "Guided"
+           },
+           {
+            "type": "quote",
+            "id": "N-10",
+            "form": "Deterministic"
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
     }
    ],
    "est_turns": 12

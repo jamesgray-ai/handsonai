@@ -1461,7 +1461,7 @@
   {
    "id": "N-A6",
    "form": "Then",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: \"run the deconstruct skill. My files are in [location].\" (in Claude Code, you can also type `/deconstruct` in a new session and pick it from the list).",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: \"run the deconstruct skill. My files are in [location].\" (you can also type `/deconstruct` in a new session and pick it from the list).",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1469,7 +1469,7 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; the `/deconstruct` clause without \"in Claude Code\", 3c-EB (2026-10-25)"
   },
   {
    "id": "N-A6",
@@ -1496,6 +1496,19 @@
     "analyze": "SKILL.md"
    },
    "source": "3c-DX (2026-10-24)"
+  },
+  {
+   "id": "N-A6",
+   "form": "singular",
+   "text": "You now have 1 workflow in your registry's backlog, under [process]. Your opportunity report has the full detail: [the report's path in the location]. You can see it on your dashboard too.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
   },
   {
    "id": "N-A7",
@@ -1554,7 +1567,7 @@
   {
    "id": "N-D17",
    "form": "main",
-   "text": "It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) scope and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs.",
+   "text": "It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) where it starts and ends, and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
@@ -1562,7 +1575,7 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); part 2 retitled, 3c-EB (2026-10-25)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
@@ -2378,6 +2391,19 @@
    "note": "design: inferred from design 13 by section"
   },
   {
+   "id": "N-5",
+   "form": "With one point",
+   "text": "Before you approve, one thing this plan does that you should choose on purpose:",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
    "id": "N-6",
    "form": "With points",
    "text": "Do you approve the plan, including those points? Build won't start until you do.",
@@ -2404,6 +2430,19 @@
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
+  },
+  {
+   "id": "N-6",
+   "form": "With one point",
+   "text": "Do you approve the plan, including that point? Build won't start until you do.",
+   "kind": "question",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
   },
   {
    "id": "N-7",
@@ -2535,6 +2574,19 @@
    "note": "design: inferred from design 13 by section"
   },
   {
+   "id": "N-10",
+   "form": "With planned steps",
+   "text": "How much it decides on its own: Autonomous, for [the step, in plain words]. You give it a goal there: it plans that part's own steps and keeps going until the goal is met; the rest follows the steps in this plan.",
+   "kind": "teaching",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
    "id": "N-11",
    "form": "main",
    "text": "Your requirements leave [what] open, and it changes how I build [part]. [Question in plain words]?",
@@ -2661,6 +2713,19 @@
    "note": "design: inferred from design 13 by section"
   },
   {
+   "id": "N-14",
+   "form": "No connection",
+   "text": "Your requirements say it should [the write], but there's no connection to [system]. You can [make that change yourself | have [the named role] make that change], [use a workaround in code — only where allowed], or [leave it out — only where no limit requires it]. I recommend [option], because [reason].",
+   "kind": "safety or promise",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
    "id": "N-15",
    "form": "main",
    "text": "I've updated your Workflow Requirements to match: [the change].",
@@ -2717,6 +2782,19 @@
    "note": "design: inferred from design 13 by section"
   },
   {
+   "id": "N-18",
+   "form": "With one point",
+   "text": "Before I mark it approved, please confirm this point: [point]. Approve the plan with it?",
+   "kind": "question",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
    "id": "N-19",
    "form": "main",
    "text": "I checked the plan against your requirements: [nothing needed fixing. | I found and fixed [N] things; they're listed in the plan.]",
@@ -2729,6 +2807,19 @@
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
+  },
+  {
+   "id": "N-19",
+   "form": "With one fix",
+   "text": "I checked the plan against your requirements: I found and fixed 1 thing; it's listed in the plan.",
+   "kind": "teaching",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
   },
   {
    "id": "N-20",
@@ -2883,6 +2974,19 @@
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
+  },
+  {
+   "id": "N-27",
+   "form": "After a kept edit",
+   "text": "What else should change, if anything? If a real run showed it, paste that input too.",
+   "kind": "question",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
   },
   {
    "id": "N-28",
@@ -3170,6 +3274,19 @@
     "build": "SKILL.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+  },
+  {
+   "id": "N-B4",
+   "form": "Every task waits",
+   "text": "Build makes your workflow for [Name] from your approved plan, task by task, checking each part as it goes. First I'll need you to [setup clauses] connect [tools][ and OK [L] quick real checks and setup changes]. [Part] can't be built yet: [the open item, or 'your plan needs a change first'], so I'll stop after that. I'll read and save your files in [location]. [The stopping sentence.] Let's start with [first action].",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
   },
   {
    "id": "N-B5",
@@ -4087,7 +4204,7 @@
   {
    "id": "N-B50",
    "form": "main",
-   "text": "[Task] still can't be built as planned, and Design kept the plan as it is: [the reason, in plain words]. Everything else is built and checked. To try a different approach, say 'change my workflow. My files are in [location].'",
+   "text": "[Task] still can't be built as planned, and Design kept the plan as it is: [the reason, in plain words]. Everything that doesn't depend on it is built and checked. To try a different approach, say 'change my workflow. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -4095,7 +4212,7 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24)"
+   "source": "build.md 12; 3c-DJ (2026-10-24); \"Everything that doesn't depend on it\" for \"Everything else\", 3c-EB (2026-10-25)"
   },
   {
    "id": "N-B50",
@@ -4840,6 +4957,19 @@
    "source": "test.md 12; 3c-DJ (2026-10-24)"
   },
   {
+   "id": "N-T13",
+   "form": "Build, several misses",
+   "text": "[Requirement] wasn't met because [part] didn't [do what the plan says]. … To fix them, say 'run the build skill. My files are in [location].'",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
    "id": "N-T14",
    "form": "main",
    "text": "[It did X / It left out X], but your requirement says [Y]. Would you use it as it is? If yes, I'll change the requirement to match[; that means it'll [the consequence]].",
@@ -5228,6 +5358,32 @@
     "test": "SKILL.md"
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)"
+  },
+  {
+   "id": "N-T30",
+   "form": "Question, Codex",
+   "text": "Did that session see your requirements or plan before you started?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
+   "id": "N-T30",
+   "form": "Refused, Codex",
+   "text": "That run drew on your [requirements / plan / framework files] ([evidence]), so it would look better than real use. Run it again in a new session:",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "3c-EB (2026-10-25)"
   },
   {
    "id": "N-T31",
@@ -5917,7 +6073,7 @@
   {
    "id": "deconstruct:signpost-part-2",
    "form": "main",
-   "text": "Part 2 of 5 — scope and a name.",
+   "text": "Part 2 of 5 — where it starts and ends, and a name.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
@@ -5925,7 +6081,7 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 8 (line 294); approved: 'every other quoted line in this document is approved' (19)",
+   "source": "deconstruct.md 8 (line 294); approved: 'every other quoted line in this document is approved' (19); retitled, 3c-EB (2026-10-25)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8"
   },
   {
@@ -7401,6 +7557,32 @@
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
   },
   {
+   "id": "deconstruct:8.part-5:q8",
+   "form": "plural",
+   "text": "When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste them in each time?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
+   "id": "deconstruct:8.part-5:q8",
+   "form": "not-sure plural",
+   "text": "Say you'll paste them. You can connect them later.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "3c-EB (2026-10-25)"
+  },
+  {
    "id": "deconstruct:8.part-5:q9",
    "form": "main",
    "text": "Which one? A name or a description is fine.",
@@ -7417,7 +7599,7 @@
   {
    "id": "deconstruct:8.part-5:q10",
    "form": "main",
-   "text": "Have you sent a [deliverable] after a [case] like this that you'd want every one to match?",
+   "text": "Have you sent a [deliverable] for a case like [case] that you'd want every one to match?",
    "kind": "question",
    "skills": [
     "deconstruct"
@@ -7425,7 +7607,7 @@
    "files": {
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
-   "source": "deconstruct.md 8.part-5 (line 580); approved: 'every other quoted line in this document is approved' (19)",
+   "source": "deconstruct.md 8.part-5 (line 580); approved: 'every other quoted line in this document is approved' (19); reworded, 3c-EB (2026-10-25)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
   },
   {

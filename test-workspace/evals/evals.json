@@ -1840,7 +1840,7 @@
           "check": {
             "type": "quote",
             "id": "N-T30",
-            "form": "Refused",
+            "form": "Refused, Codex",
             "session": 1
           }
         },
@@ -1850,7 +1850,7 @@
           "check": {
             "type": "quote",
             "id": "N-T30",
-            "form": "Refused",
+            "form": "Refused, Codex",
             "session": 2
           }
         },
@@ -1860,7 +1860,7 @@
           "check": {
             "type": "quote",
             "id": "N-T30",
-            "form": "Refused",
+            "form": "Refused, Codex",
             "session": 3
           }
         },
@@ -1868,10 +1868,21 @@
           "text": "Never says N-T30 (Refused)",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "N-T30",
-            "form": "Refused",
-            "session": 4
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-T30",
+                "form": "Refused",
+                "session": 4
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T30",
+                "form": "Refused, Codex",
+                "session": 4
+              }
+            ]
           }
         }
       ],
@@ -3787,10 +3798,21 @@
           "text": "Says N-T13 (Build) word for word",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-T13",
-            "form": "Build",
-            "session": 1
+            "type": "any",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-T13",
+                "form": "Build",
+                "session": 1
+              },
+              {
+                "type": "quote",
+                "id": "N-T13",
+                "form": "Build, several misses",
+                "session": 1
+              }
+            ]
           }
         },
         {
@@ -4046,9 +4068,19 @@
           "text": "Never says N-T13 (Build): never raised to Build again",
           "kind": "scripted",
           "check": {
-            "type": "quote_absent",
-            "id": "N-T13",
-            "form": "Build"
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-T13",
+                "form": "Build"
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T13",
+                "form": "Build, several misses"
+              }
+            ]
           }
         }
       ],
