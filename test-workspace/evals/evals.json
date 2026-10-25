@@ -2224,10 +2224,10 @@
       "name": "leader-claude-code-run",
       "tier": "core",
       "spec_item": "13 Keeping runs cold and safe: the leader's own Claude Code run, no block, N-T8's protection clause, saves allowed at the prompts",
-      "fixture": "cc-real",
+      "fixture": "cc-batch",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "The real example's hand-over on Claude Code: N-T8's Claude Code form (allow saves in the practice folder), the protection clause, the first-line check, N-F4 (until /mcp's release check passes); no block added.",
+      "expected_output": "The round's first hand-over on Claude Code (the leader runs the practice inputs while release check 6 is open, so the batch's hand-over is the first; in cc-real the batch was already handed over and pasted back, so the real example's hand-over rightly leaves the once-per-round protection clause out): N-T8's Claude Code form (allow saves in the practice folder), the protection clause, the first-line check, N-F4 (until /mcp's release check passes); no block added.",
       "files": [
         "students/default.md"
       ],
