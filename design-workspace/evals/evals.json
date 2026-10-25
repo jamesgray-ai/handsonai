@@ -4027,6 +4027,15 @@
      }
     },
     {
+     "text": "No switch to full: a Gmail draft only the leader sees, and access the plan check removes, are no sign of risk",
+     "kind": "scripted",
+     "check": {
+      "type": "file_not_regex",
+      "path": "framework/client-follow-up/requirements.md",
+      "pattern": "(?m)^track: full"
+     }
+    },
+    {
      "text": "The Self-Test Summary lists the fix",
      "kind": "scripted",
      "check": {

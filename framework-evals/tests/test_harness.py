@@ -193,6 +193,27 @@ class WordingChecks(unittest.TestCase):
         self.assertIn("2.1.309 (Claude Code)", prompt)
         self.assertNotIn("Python 3.12.1", prompt)
 
+    def test_rubric_judge_sees_tool_passages_sharing_four_words(self):
+        # a plan list the AI read in the plugin's platform registry (one long JSON line) isn't invented:
+        # the judge sees that sentence, cut from the line; passages sharing fewer than four words in a row
+        # don't show, nor do passages matched only through an approved line
+        import grade_eval as G
+        reg = json.dumps({"notes": "Skills: sidebar Plugins > Skills > Create. The skills article lists Business, "
+                                   "Enterprise, Healthcare and Edu, so skills on Plus and Pro are unverified. "
+                                   "Memory: Settings > Personalization > Memory."})
+        res = f"     1\t{reg}\n     2\tThe plan is short.\n     3\tHere's the plan in brief, as approved."
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": res}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "files_start": {}, "turns": [
+                {"role": "ai", "text": "Here's the plan in brief. The full plan is in `framework/x/design-plan.md`.\n\n"
+                                       "OpenAI documents skills for its Business, Enterprise, Healthcare and Edu plans."}]}]}
+            _, prompt = G.rubric_prompt(run)
+        self.assertIn("The skills article lists Business, Enterprise, Healthcare and Edu, so skills on Plus", prompt)
+        self.assertNotIn("Personalization", prompt)
+        self.assertNotIn("The plan is short.", prompt)
+        self.assertNotIn("as approved", prompt)
+
 
 class FileChecks(unittest.TestCase):
     def setUp(self):

@@ -209,6 +209,50 @@ def tool_lines(run, msgs):
     return "\n".join(out)
 
 
+WORD = re.compile(r"[a-z0-9]+(?:'[a-z]+)?")
+SHARED_RUN = 4  # consecutive words a tool-output passage must share with a message
+SHARED_LINES_CAP = 1500
+SHARED_LINE_LEN = 300
+
+
+def _grams(text):
+    w = WORD.findall(text.lower().replace("’", "'"))
+    return {tuple(w[i:i + SHARED_RUN]) for i in range(len(w) - SHARED_RUN + 1)}
+
+
+def shared_lines(run, msgs, skip=""):
+    """Passages of the AI's own tool output (a file it read, a plugin reference file, a fetched
+    page, a command's output) that share a run of SHARED_RUN or more consecutive words with the
+    unscripted part of its messages, so item 6 doesn't take a fact the AI read for an invented one.
+    Long lines (a JSON registry's notes) are cut into sentences first. Most shared runs first;
+    capped at SHARED_LINES_CAP characters; passages already in `skip` aren't repeated."""
+    grams = set()
+    for m in msgs:
+        grams |= _grams(re.sub(r"⟦[^⟧]*⟧", " ", m))
+    if not grams:
+        return ""
+    found = {}
+    for s in run["sessions"]:
+        if not s.get("root"):
+            continue
+        for res in _tool_results(Path(s["root"]).parent / "events.jsonl"):
+            for seg in re.split(r"(?<=[.;!?])\s+|\n|\\n", res):
+                seg = seg.strip()
+                if not seg or seg in found:
+                    continue
+                n = len(_grams(seg) & grams)
+                if n:
+                    found[seg] = n
+    out, total = [], 0
+    for seg in sorted(found, key=lambda x: -found[x]):
+        ln = seg[:SHARED_LINE_LEN]
+        if ln in skip or ln in out or total + len(ln) > SHARED_LINES_CAP:
+            continue
+        out.append(ln)
+        total += len(ln)
+    return "\n".join(out)
+
+
 def rubric_prompt(run):
     """Each AI message, with what the leader said just before it as context (not graded), so
     item 6 can tell a fact the leader gave from an invented one; and, once at the top, what the AI
@@ -231,7 +275,9 @@ def rubric_prompt(run):
     read = (f"## What the AI read from the leader's files (context, not graded)\n\n{read}\n\n"
             if read else "")
     tools = tool_lines(run, msgs)
-    read += (f"## Lines the AI's own tool calls printed (context, not graded)\n\n````\n{tools}\n````\n\n"
+    shared = shared_lines(run, msgs, tools)
+    tools = "\n".join(x for x in (tools, shared) if x)
+    read +=(f"## Lines the AI's own tool calls printed (context, not graded)\n\n````\n{tools}\n````\n\n"
              if tools else "")
     return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{read}{body}"
 
