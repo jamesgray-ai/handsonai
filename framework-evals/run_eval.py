@@ -39,6 +39,9 @@ session; otherwise the first session builds the eval's `fixture`; a later sessio
 `student: true` plays the eval's leader script; `student: "<path>"` plays that session's own.
 `tools: "no_file"` turns off Write, Edit and Bash; `tools: "web"` adds WebSearch and WebFetch. `platform` and `platform_faults` pick a
 platform simulation (leader.py). `action_target: {figure, journey}` names the spec's action figure.
+A session's own `max_turns` is a deliberate stop (the eval grades only what comes before it), so
+reaching it isn't the turn cap. `run_writes: [{when, path, text}]` stands in for a leader's run in the
+shared workspace (Claude Code, Codex): when a leader message matches the regex `when`, `path` is written there.
 """
 import argparse
 import concurrent.futures as cf
@@ -259,6 +262,11 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                     msg, reported = L.strip_actions(raw)
                     acts = sum(a for _, a in screens) + reported + platform.on_leader(msg, ws)
                     msg_kind = "student"
+                    for w in s.get("run_writes", []):
+                        target = ws / w["path"]
+                        if re.search(w["when"], msg, re.M) and not target.exists():
+                            target.parent.mkdir(parents=True, exist_ok=True)
+                            target.write_text(w["text"])
                     if msg.strip().splitlines() and msg.strip().splitlines()[-1].strip() == "END":
                         # END closes the run even after a stray line of the leader's own reasoning
                         turns.append({"role": "student", "text": "END", "end": True, "actions": acts})
@@ -266,7 +274,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 else:
                     break
             else:
-                cap_hit = True
+                cap_hit = "max_turns" not in s  # a session's own max_turns is a deliberate stop
             shutil.copytree(ws, sdir / "workspace")
             start, end = CS.load_tree(sdir / "workspace-start"), CS.load_tree(sdir / "workspace")
             run["sessions"].append({"n": n, "turns": turns, "files_by_turn": files_by_turn,

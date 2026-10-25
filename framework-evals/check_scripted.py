@@ -53,6 +53,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   no_added_files   {except?: [globs], session?}                   no file was added during the session: the
                                                                   end tree against the session's start tree
                                                                   (the fixture's own files)
+  release_check    {ids: [n, ...], passed: {check}, open: {check}} the platform registry's release checks:
+                                                                  `passed` when every row is verified for this
+                                                                  release, `open` otherwise (fail closed)
   all              {checks: [...]}                                every sub-check passes
   any              {checks: [...]}                                at least one passes
 
@@ -107,7 +110,7 @@ NEVER = [(n, re.compile(p)) for n, p in NEVER]
 
 TIME = re.compile(r"(?i)\b\d+(?:\.\d+)?\s*(?:-|to)?\s*\d*\s*(?:minutes?|mins?|hours?|hrs?|seconds?|secs?)\b"
                   r"|\b(?:a few|several|a couple of|ten|fifteen|twenty|thirty|forty|forty-five|five|two|three)"
-                  r"\s+minutes?\b|\bhalf an hour\b|\b(?:an|one) hour\b|\btakes? (?:about|around|roughly|under|less than)\b")
+                  r"\s+(?:minutes?|seconds?)\b|\bhalf an hour\b|\b(?:an|one) hour\b|\btakes? (?:about|around|roughly|under|less than)\b")
 STEP_NAMES = r"(?:Analyze|Deconstruct|Design|Build|Test)"
 STEP_NUMBER = re.compile(
     rf"\b[Ss]tep\s+[1-5]\b\s*(?:\(\s*{STEP_NAMES}|of\s+(?:the\s+)?(?:AI\s+Workflow\s+)?[Ff]ramework|of\s+5\b|[-:]\s*{STEP_NAMES}\b)"
@@ -407,6 +410,20 @@ def _fill_check(c, run):
     return (not probs, "; ".join(probs) if probs else f"every field filled from the plan ({expect})")
 
 
+REGISTRY = Path(__file__).resolve().parents[1] / "plugins" / "handsonai" / "registries" / "platform-registry.json"
+
+
+def release_checks_passed(ids):
+    """Every row verified for the registry's framework_release (or on a recorded version range): the skills'
+    own reading (test SKILL.md, *Platform registry*), so an eval reads the way the skill must."""
+    import json
+    data = json.loads(REGISTRY.read_text())
+    rows = {r["id"]: r for r in data.get("release_checks", [])}
+    rel = data.get("framework_release")
+    return all(r and r.get("status") == "verified" and (r.get("verified_for_release") == rel or r.get("verified_version_range"))
+               for r in (rows.get(i) for i in ids))
+
+
 # ---------------------------------------------------------------- dispatch
 
 def check(c, run):
@@ -495,6 +512,10 @@ def check(c, run):
                 if any(fnmatch.fnmatch(p, c["path"]) for p in turn_files):
                     return True, f"present after AI turn {i + 1} of session {s['n']}"
         return False, f"{c['path']} never present after any turn"
+    if t == "release_check":
+        passed = release_checks_passed(c["ids"])
+        ok, why = check(c["passed" if passed else "open"], run)
+        return ok, f"release checks {c['ids']} {'passed' if passed else 'open'}: {why}"
     if t in ("all", "any"):
         res = [check(x, run) for x in c["checks"]]
         ok = all(r[0] for r in res) if t == "all" else any(r[0] for r in res)

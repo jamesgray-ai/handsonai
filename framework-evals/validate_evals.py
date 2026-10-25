@@ -32,6 +32,7 @@ REQUIRED = {
     "structure": ["path", "kind"], "fill_check": ["kind"],
     "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"],
     "section_regex": ["path", "section", "pattern"], "all": ["checks"], "any": ["checks"],
+    "release_check": ["ids", "passed", "open"],
 }
 RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmatter now)"}
 FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "agent_builder_missing_context_file",
@@ -72,6 +73,9 @@ def check_check(c, where, errs, nsessions, corpus):
         errs.append(f"{where}: session {c['session']} out of range 1..{nsessions}")
     for i, sub in enumerate(c.get("checks", [])):
         check_check(sub, f"{where}.checks[{i}]", errs, nsessions, corpus)
+    for k in ("passed", "open"):
+        if t == "release_check" and isinstance(c.get(k), dict):
+            check_check(c[k], f"{where}.{k}", errs, nsessions, corpus)
 
 
 def fixture_names(evals_dir, builder):

@@ -12,9 +12,11 @@ Alex Brennan, account lead at Brightline Advisory, owner of Client Follow-Up. Yo
 
     All results · round [the round's number]
 
-    E-acme · Draft (shown, not saved): Hi Dana, thanks for today. Next steps: I send the renewal quote by Friday (me); your IT team confirms the SSO settings (Raj); we book training for the new hires in November (me). Best, Alex. What I did: read the notes; listed three next steps with owners; drafted the email; Gmail: create a draft, shown, not made; stopped for your review.
+    E-acme · Draft (shown, not saved): Subject: Next steps on your renewal. Hi Dana, thanks for today. Next steps: I send the renewal quote by Friday (me); your IT team confirms the SSO settings (Raj); we book training for the new hires in November (me). Best, Alex. What I did: read the notes; listed three next steps with owners; drafted the email; Gmail: create the draft 'Next steps on your renewal' to Dana in Gmail Drafts, shown, not made; stopped for your review.
 
-    E-northwind · It asked you for a next step before drafting; you said none was agreed, so the draft only thanks Lee and offers to talk about the team licence when he's ready. What I did: read the notes; found no next step and asked you; drafted a short thank-you; Gmail: create a draft, shown, not made; stopped for your review.
+    E-northwind · It asked you for a next step before drafting; you said none was agreed. Draft (shown, not saved): Subject: Thanks for today. Hi Lee, thanks for the time today. Glad the reporting is working well for you. Best, Alex. What I did: read the notes; found no next step and asked you; drafted a short thank-you; Gmail: create the draft 'Thanks for today' to Lee in Gmail Drafts, shown, not made; stopped for your review.
+
+    E-globex · Draft (shown, not saved): Subject: Following up on our quarterly review. Hi Maya, thanks for today. Next steps: I send the usage report by Wednesday (me); your finance team updates the billing contact (Omar); we set up a roadmap call next month (me). Best, Alex. What I did: read the notes; listed three next steps with owners; left out the discount, which wasn't agreed; drafted the email; Gmail: create the draft 'Following up on our quarterly review' to Maya in Gmail Drafts, shown, not made; stopped for your review.
 
     E-fabrikam · This had a supplier call, not a client call, which I wasn't designed for. If I should handle it, in a new session, say 'change my workflow: supplier calls. My files are in framework/client-follow-up.', and paste this run's input too. What I did: read the notes; drafted nothing; Gmail: nothing; flagged the supplier call."
   - Your real example's block:
@@ -24,7 +26,7 @@ Alex Brennan, account lead at Brightline Advisory, owner of Client Follow-Up. Yo
 
     Draft (shown, not saved): Subject: Following up on today's call. Hi Priya, thanks for the time today. Here's what we agreed: I'll send the revised proposal by Thursday (me); Contoso confirms the pilot team of five (Priya); we hold a kickoff call the week of 9 November (me). Best, Alex.
 
-    What I did: read your notes; listed three next steps, each with its owner; drafted the email; Gmail: create a draft, shown, not made; stopped for your review before anything goes further."
+    What I did: read your notes; listed three next steps, each with its owner; drafted the email; Gmail: create the draft 'Following up on today's call' to Priya in Gmail Drafts, shown, not made; stopped for your review before anything goes further."
 - Your real example's block, this time (paste this one in place of the usual one):
     "new · round [the round's number]
 
