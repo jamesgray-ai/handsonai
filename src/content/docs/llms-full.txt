@@ -40,18 +40,6 @@
 - URL: https://handsonai.info/ai-workflow-framework/test/
 - Summary: Structured testing of AI workflow artifacts — smoke test, eval suite with 1-5 scoring, building block evals in isolation, baseline establishment, and diagnosis. 2-4 iterations of Build-Test is normal.
 
-### Step 6 — Run
-- URL: https://handsonai.info/ai-workflow-framework/run/
-- Summary: Deploy the tested workflow. Choose a run pattern (paste and run, project, agent, code-first, automate on schedule), follow the Run Guide, and operationalize for your team.
-
-### Step 7 — Improve
-- URL: https://handsonai.info/ai-workflow-framework/improve/
-- Summary: Evaluate a running workflow for quality signals, run regression evals against the baseline, assess graduation to a more capable orchestration mechanism, and decide: no changes needed, tune, redesign, or evolve.
-
-#### Run Workflows
-- URL: https://handsonai.info/ai-workflow-framework/run/
-- Summary: How to execute your AI workflow. Covers four execution patterns — paste and run in a normal chat, run in a project, command an agent, automate on a schedule — plus guidance on your first run and iterating based on results.
-
 #### Deterministic Automation
 - URL: https://handsonai.info/ai-workflow-framework/examples/deterministic-automation/
 - Summary: Building reliable, repeatable AI workflows using structured prompts and templates. Focuses on predictable outputs with minimal AI judgment.

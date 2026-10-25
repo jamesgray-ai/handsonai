@@ -23,7 +23,7 @@ cd mcp-server && npm install && wrangler dev
 ## Repository Structure
 
 - `docs/agentic-building-blocks/` - The AI building blocks in four layers: Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent, Harness), Integration (MCP, API, SDK, CLI), Governance (Registry, Observability, Evaluation)
-- `docs/ai-workflow-framework/` - Seven-step methodology (Analyze, Deconstruct, Design, Build, Test, Run, Improve)
+- `docs/ai-workflow-framework/` - Five-step methodology (Analyze, Deconstruct, Design, Build, Test)
 - `docs/use-cases/` - Six use case primitives (Content Creation, Research, Coding, Data Analysis, Ideation & Strategy, Automation)
 - `docs/product-engineering/` - Product management and software engineering concepts (SDLC, PRDs, user stories, roadmapping, stakeholder management, project tracking)
 - `docs/ai-engineering/` - AI engineering concepts (context engineering) — nested under Product & Engineering in nav
@@ -38,7 +38,7 @@ cd mcp-server && npm install && wrangler dev
 - `docs/blog/` - Changelog entries (Starlight Blog plugin)
 - `docs/feed/` - RSS/Atom feed page
 - `src/_templates/` - Content templates for contributors
-- `examples/weekly-status-report/` - The seven-step worked example as a real project folder (registry bundle, outputs, context, README). **Canonical for the worked-example page**: the page quotes it, `scripts/test-worked-example-folder.sh` asserts the page's fenced blocks match it (markers `<!-- file: … -->` / `<!-- excerpt: … -->` / `<!-- none -->` before each fence; five allowed paths (four kinds of abbreviation) listed in the script), and `scripts/test-compose-registry.sh` asserts it lints with exactly one warning (review due) and composes to a no-op. `src/integrations/example-zip.mjs` zips it into `dist/assets/examples/` at build from `git ls-files`; never commit the zip, `registry-dashboard.html`, or skill packages
+- `examples/weekly-status-report/` - The worked example as a real project folder (registry bundle, outputs, context, README). **Canonical for the worked-example page**: the page quotes it, `scripts/test-worked-example-folder.sh` asserts the page's fenced blocks match it (markers `<!-- file: … -->` / `<!-- excerpt: … -->` / `<!-- none -->` before each fence; the allowed differences, each with its reason, listed in the script), and `scripts/test-compose-registry.sh` asserts it lints with exactly one warning (re-check due) and composes to a no-op. `src/integrations/example-zip.mjs` zips it into `dist/assets/examples/` at build from `git ls-files`; never commit the zip, `registry-dashboard.html`, or skill packages
 - `docs/what-people-built.md` - Community showcase of projects built using the playbook
 - `docs/CONTRIBUTING.md` - Contributor guidelines
 - `.claude/agents/` - Repo-specific subagents not packaged into any plugin (e.g., `playbook-question-*`, `release-notes-generator`, content/editorial agents). Auto-loaded by Claude Code sessions in this repo.
@@ -46,7 +46,7 @@ cd mcp-server && npm install && wrangler dev
 - `.claude/hooks/` - Repo hook scripts wired in `.claude/settings.json`, each with a test harness alongside it (`test-*.sh`). Currently `subagent-gate.sh` (`SubagentStop` — validates each pipeline stage's artifacts) and `publish-gate.sh` (`PreToolUse` — blocks the publisher subagent until a human approval marker exists). Both are armed only by the `outputs/articles/.active-run` flag and are otherwise inert. **Hooks load only at session start** — after editing `.claude/settings.json` or a hook script, restart Claude Code or the change silently does not apply. Verify with `/hooks`.
 - `.claude/commands/` - Project slash commands. `/hbr-article` (automatic delegation — states the outcome and lets Claude choose the specialists) and `/hbr-article-strict` (deterministic — explicit fixed sequence). The two exist as a deliberate teaching contrast; keep them in sync when the pipeline changes. See the [Autonomous Agent example](src/content/docs/ai-workflow-framework/examples/autonomous-agent.mdx), which is the reference documentation for how that pipeline works.
 - `plugins/handsonai/` - **Canonical** source of plugin-packaged agents and skills. Edit here; `scripts/sync-plugins.sh` pushes to the distributable [`jamesgray-ai/handsonai-plugins`](https://github.com/jamesgray-ai/handsonai-plugins) repo (which Claude, ChatGPT/Codex, and Claude Code all install from as a marketplace). Each plugin carries `.claude-plugin/plugin.json` and, where Codex can run it, `.codex-plugin/plugin.json`; `sync-plugins.sh` bumps both in lock-step and refuses to run if they disagree.
-  - **Framework skill conventions (v8):** before writing, editing, or reviewing any framework skill (or any student-facing plugin skill that interviews a user), load the repo skill `authoring-framework-skills` — it holds the teach-as-you-ask standard (opening, Part signposts, question blocks, term definitions, thin-answer coaching, close), the language rules for a business audience, the file format, and the review checklist. Inside a skill, the internal sequence is `#### Phase N — Name` (path-specific: `#### Phase N (goal-driven) — Name`); "Step N" always means one of the seven framework steps. Each docs page's "How the Skill Works" list mirrors its skill's phases one-for-one — `scripts/check-framework-consistency.sh` asserts this and the `Skill | Agent` mechanism spelling across the spec template, self-test checklist, Build, and the index page; `sync-plugins.sh` runs it in preflight. Platform-specific facts (install paths, where context lives, agent primitives, scheduling, web search) live only in `registries/platform-registry.json` under each platform's `capabilities` — never in skill prose. That file is the single master; Build, Design, Run, and Test find it through an identical `> **Platform registry:**` note (own `references/` copy → plugin `registries/` → GitHub raw URL), and `build-skill-zips.sh` bundles the copy into the ZIP of every skill whose `SKILL.md` carries that note (not only those four) and `handsonai-plugin.zip` at build time — never commit copies. The Design Spec is written as a draft with `approved: false` and flipped on approval; Build refuses anything else. Evaluation is binary: Deconstruct writes yes/no criteria (`AC1…`, rules `R1…`, gates `G1…`), Test grades a report card (Met / Not met with evidence), Improve reports which lines flipped.
+  - **Framework skill conventions (v8):** before writing, editing, or reviewing any framework skill (or any student-facing plugin skill that interviews a user), load the repo skill `authoring-framework-skills` — it holds the teach-as-you-ask standard (opening, Part signposts, question blocks, term definitions, thin-answer coaching, close), the language rules for a business audience, the file format, and the review checklist. The framework has five steps, Analyze, Deconstruct, Design, Build and Test, one skill each, and `agents/framework-agent.md` runs the same five skills in one session under the same rules. Inside a skill, the internal sequence is `#### Phase N — Name` (path-specific: `#### Phase N (goal-driven) — Name`); "Step N" in these notes always means one of the five framework steps, and a framework step number never reaches the leader (questions, openings, closes, routing lines, skill descriptions, the registry's dashboard and `REGISTRY.md`). Each docs page's "How the Skill Works" list mirrors its skill's phases one-for-one — `scripts/check-framework-consistency.sh` asserts this, the `Skill | Agent` mechanism spelling across the plan template, self-test checklist, Build, and the index page, that run and improve stay retired, that each of the five skills carries `references/routing.md` byte for byte (canonical copy `scripts/framework/routing.md`; edit it, then run `scripts/sync-routing.sh`), and that every approved line in `framework-evals/approved-lines.json` is in its named file word for word (`scripts/check-line-placement.py`); `sync-plugins.sh` runs it in preflight. Two scripts ship in the plugin's `tools/` beside the registry tools: `framework-state.js` (the routing rule: where a workflow is and which step owns it next) and `requirements-check.js` (validates `requirements.md` before Deconstruct saves it); their canonical copies are in `registry-template/tools/`, and `check-registry-consistency.sh` fails if the two copies diverge. Each skill falls back to its written copy of the rule (`routing.md`, Deconstruct's self-check) where code can't run. Platform-specific facts (install paths, where context lives, agent primitives, scheduling, web search) live only in `registries/platform-registry.json` under each platform's `capabilities` — never in skill prose. That file is the single master; the five step skills find it through a `> **Platform registry:**` note (own `references/` copy → plugin `registries/` → GitHub raw URL), and `build-skill-zips.sh` bundles the copy into the ZIP of every skill whose `SKILL.md` carries that note (not only the five steps) and `handsonai-plugin.zip` at build time — never commit copies. The Design Plan (`design-plan.md`) is written as a draft with `approved: false` and flipped on approval; Build refuses anything else. A workflow's progress is read by the routing rule from its folder, never from the Workflow node's links. Evaluation is binary: Deconstruct writes yes/no lines (what every output must get right `AC1…`, rules `R1…`, checkpoints `G1…`); Test grades outcomes with evidence (Met / Not met), checks the path only for fixed steps, checkpoints, rules and the actions the workflow took, and re-checks a live workflow with a `regression` round compared with the last Ready round.
     Each early step has a stated altitude: the registry *describes* the business (processes that deliver each line, ranked by importance, never "where AI helps"), Analyze *judges value* (work, pain, value lever, deliverable — never a tool, connector, integration, agent count, model, platform, autonomy level, or involvement mode; backlog stubs carry no `execution_mode` or `autonomy`, Design writes both), Deconstruct defines the *what* (including where people take part — Human Gates `G1…`), Design chooses the *mechanism* and derives autonomy and involvement from the steps and gates. Keep examples at the same altitude as the rules — the model imitates the example reports harder than the guidelines.
     Registry conventions that no lint enforces: the Business node body carries `## Objectives` as prose placed before `# Lines of Business` (`registry-lib.js` treats every heading outside its eight reserved H1 names as prose — Analyze and Deconstruct read it; SCHEMA.md is deliberately silent until the next MAJOR, see #273); who the registry is for (founder / leader / professional / personal life) is recorded only in the founding `registry/log.md` entry — never a node field — and Analyze reads that line to infer the lens.
 - `plugins/multi-agent-example/` - **Canonical** source of the multi-agent worked-example plugin (4 agents, 1 skill, 2 hooks, 2 commands, the Word renderer). Separate from `handsonai` on purpose: it ships hooks, and installing a methodology toolkit must never silently change how a user's Claude Code behaves. This pipeline is **mirrored** under `.claude/` and `scripts/` so it runs in this repo without installing anything — run `./scripts/check-plugin-sync.sh` to catch drift between the two copies (`sync-plugins.sh` runs it automatically before syncing this plugin).
@@ -304,13 +304,11 @@ What changes as a result — both positive and negative.
 
 | Command | Description |
 |---------|-------------|
-| `/handsonai:analyze` | `analyze` — Step 1 |
-| `/handsonai:deconstruct` | `deconstruct` — Step 2 |
-| `/handsonai:design` | `design` — Step 3 |
-| `/handsonai:build` | `build` — Step 4 |
-| `/handsonai:test` | `test` — Step 5 |
-| `/handsonai:run` | `run` — Step 6 |
-| `/handsonai:improve` | `improve` — Step 7 |
+| `/handsonai:analyze` | `analyze` — find candidate workflows and build the backlog |
+| `/handsonai:deconstruct` | `deconstruct` — the Workflow Requirements |
+| `/handsonai:design` | `design` — the Design Plan (also "change my workflow") |
+| `/handsonai:build` | `build` — build, check and install from the approved plan |
+| `/handsonai:test` | `test` — practice runs, the verdict, go-live and re-checks |
 
 ### Superpowers Skills
 
@@ -409,9 +407,10 @@ drift (or re-run the sync script) before assuming the unrelated change you
 were shipping is broken.
 
 Workflow-node `# Artifacts` lines are `- [Requirements](path)` — the label is the link
-text. A bold `**Requirements:**` prefix before the link passes lint but makes compose
-under-report framework progress; `registry-lib.js orderedLinks()` is the parser to check
-against.
+text (`Requirements`, `Design plan`, `Test results`); `registry-lib.js orderedLinks()` is the
+parser to check against. Framework progress is never read from these links: the routing
+rule reads the workflow's folder. A bold `**Requirements:**` prefix before the link passes
+lint but drops the label from the dashboard's artifact list.
 
 #### Registry release checklist (manual)
 
@@ -419,22 +418,21 @@ Performed at this release, at every MAJOR `handsonai` plugin bump, and before
 each course run. Not automatable — see `specs/okf-registry-redesign-prd.md`
 Part 8 for the full rationale:
 
-1. **Behavioral run** — scaffold a throwaway registry, run framework steps
-   1–2, grep the registry nodes for retired/banned fields (exclude
+1. **Behavioral run** — scaffold a throwaway registry, run Analyze and
+   Deconstruct, grep the registry nodes for retired/banned fields (exclude
    `registry/SCHEMA.md`, which lists them on purpose), confirm lint passes clean.
-2. **Migration fixtures run** — migrate the `workflow.yaml` and flat-layout
-   fixtures; post-check greps + lint pass; `log.md` entries present;
-   `process_outcome` content survives into the description.
-3. **Tier 2 render check** — AI-generated data island from the fixture bundle
+   (There is no migration run: 10.0.0 retired scaffolding-registry's migrations
+   for older layouts and their fixtures.)
+2. **Tier 2 render check** — AI-generated data island from the fixture bundle
    validates against the schema; dashboard renders from `file://` with no
    console errors.
-4. **Action canary (optional — only when the lint Action or the lint script
+3. **Action canary (optional — only when the lint Action or the lint script
    changed)** — on a throwaway instantiation of the template repo, push a
    complete valid set (e.g. the fixture bundle's `registry/` — a lone node
    fails on missing index entries and links; Action passes) and a
    deliberately broken node (Action fails with an annotation naming the
    file). ~5 minutes.
-5. **Platform checklist re-verification** — re-verify every row in
+4. **Platform checklist re-verification** — re-verify every row in
    `specs/okf-registry-platform-verification.md` and sign it with
    date/verifier/platform version. This is an internal release gate, not a
    docs gate: the setup page (`builder-setup/ai-registry-setup.md`) is
@@ -443,13 +441,16 @@ Part 8 for the full rationale:
    and students must be able to self-serve on every platform). Unsigned rows
    are work for the instructor before a course run, never a reason to point
    students back to the instructor.
-6. **Framework-skill ZIP bundling** — `build-skill-zips.sh` (in
+5. **Framework-skill ZIP bundling** — `build-skill-zips.sh` (in
    `handsonai-plugins`) must bundle
    `indexing-registry/references/registry-bundle.md` into every
-   framework-skill ZIP. Each framework skill's dispatch blockquote defers to
+   framework-skill ZIP, alongside each skill's own `references/routing.md` and the
+   platform registry. Each framework skill's dispatch blockquote defers to
    that file for the registry contract, but a standalone skill install (a ZIP
    uploaded to Claude, ChatGPT, Gemini, or Copilot) only has what's in its own ZIP — omitting it
-   silently breaks standalone installs. The same rule covers
+   silently breaks standalone installs. A ZIP install can't run the plugin's
+   `tools/` scripts, so the skills' written fallbacks (`routing.md`, Deconstruct's
+   self-check) are what keep it working there. The same rule covers
    `applying-skill-best-practices/references/hygiene-criteria.md`, bundled into
    `auditing-agent-skills/references/` in both its own ZIP and
    `handsonai-plugin.zip` (Copilot may store each skill on its own, so the
@@ -457,7 +458,7 @@ Part 8 for the full rationale:
 
 ### Updating skill ZIP downloads (GitHub Releases)
 
-Users on platforms without the plugin (Gemini Spark/Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI — and Claude or ChatGPT users whose plan or org blocks plugins) download pre-built skill ZIPs from GitHub Releases on `handsonai-plugins`. Each skill is published as one `<skill>.zip` (skill folder at the root — what Claude requires, and what Gemini Enterprise accepts). The flat `-flat.zip` layout was dropped 2026-10-05: no platform needed it. The same build also produces `handsonai-plugin.zip`. `scripts/test-build-skill-zips.sh` in that repo checks the layout, the plugin archive, and that every shipped `SKILL.md` uses only the Agent Skills standard frontmatter fields (`name`, `description`, `license`, `metadata`, `compatibility`). Copilot Cowork rejects the whole plugin on any other key, so no Claude-only fields such as `user-invocable` in `plugins/handsonai/skills/` — the Claude Code defaults already give slash commands. When skills are updated, rebuild and publish a new release:
+Users on platforms without the plugin (Gemini Spark/Enterprise, M365 Copilot Cowork, Cursor, Gemini CLI — and Claude or ChatGPT users whose plan or org blocks plugins) download pre-built skill ZIPs from GitHub Releases on `handsonai-plugins`. Each skill is published as one `<skill>.zip` (skill folder at the root — what Claude requires, and what Gemini Enterprise accepts). The flat `-flat.zip` layout was dropped 2026-10-05: no platform needed it. The same build also produces `handsonai-plugin.zip`. The ZIPs follow `plugins/handsonai/skills/*/`, so the Run and Improve skills, retired in 10.0.0, no longer get a `run.zip` or `improve.zip`: never attach either to a release, and never carry them over from an earlier one. `scripts/test-build-skill-zips.sh` in that repo checks the layout, the plugin archive, and that every shipped `SKILL.md` uses only the Agent Skills standard frontmatter fields (`name`, `description`, `license`, `metadata`, `compatibility`). Copilot Cowork rejects the whole plugin on any other key, so no Claude-only fields such as `user-invocable` in `plugins/handsonai/skills/` — the Claude Code defaults already give slash commands. When skills are updated, rebuild and publish a new release:
 
 1. From the `handsonai-plugins` repo, run `./scripts/build-skill-zips.sh` — this creates ZIPs in `dist/`
 2. Create a new release: `gh release create vX.Y.Z dist/*.zip --title "vX.Y.Z: handsonai A.B.C" --notes "Description of changes"` (X.Y.Z = marketplace version)

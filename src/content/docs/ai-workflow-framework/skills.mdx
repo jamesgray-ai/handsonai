@@ -21,7 +21,7 @@ Pick the row that matches the tool you use most, then jump to that section. Noth
 | **Microsoft 365 Copilot** | [Upload the plugin file](#microsoft-365-copilot) in Cowork, or the ZIPs one at a time. *About 5 minutes, no terminal.* |
 | **A code editor or terminal** (Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity) | See [For builders](#for-builders-code-editors--terminal) at the bottom. *A couple of commands or a folder on disk.* |
 
-**Just want the files?** [Jump to the downloads](#download-the-skill-zips) — the seven framework skills, the Knowledge Graph skill, and the two AI Registry skills, one click each.
+**Just want the files?** [Jump to the downloads](#download-the-skill-zips) — the five framework skills, the Knowledge Graph skill, and the two AI Registry skills, one click each.
 
 :::note[Four words you'll see]
 - **Skill** — a file of instructions that teaches your AI how to do one job well (for example, *Analyze* runs a structured interview to find where AI fits in your work).
@@ -87,7 +87,7 @@ This lets Claude run skills — it does not give Claude access to your computer.
 Claude begins a short interview — asking about your role and the work you do most often — instead of giving a generic answer. You can also type `/` to see the skills listed, and the `framework-agent` orchestrator is available too.
 
 :::note[Where the plugin works]
-The seven skills work in Claude on the web and on desktop. The `framework-agent` orchestrator also runs in both, because it is a plugin agent (sub-agents run when packaged in an installed plugin). If you use Claude on both the web and desktop and the plugin doesn't appear in one of them, add the marketplace there too — the steps are the same.
+The five framework skills work in Claude on the web and on desktop. The `framework-agent` orchestrator also runs in both, because it is a plugin agent (sub-agents run when packaged in an installed plugin). If you use Claude on both the web and desktop and the plugin doesn't appear in one of them, add the marketplace there too — the steps are the same.
 :::
 
 #### Option 2 — Upload the plugin file
@@ -350,7 +350,7 @@ All the skills below, in one file. Upload it under **Plugins**, not **Skills**. 
 
 Or grab the skills one at a time. There are three sets; get the one for what you're doing today.
 
-<Card title="AI Workflow Framework — 7 skills" icon="rocket">
+<Card title="AI Workflow Framework — 5 skills" icon="rocket">
 
 One skill per framework step. **New? Start with 1. Analyze and 2. Deconstruct** — add the rest as you reach those steps.
 
@@ -360,8 +360,6 @@ One skill per framework step. **New? Start with 1. Analyze and 2. Deconstruct** 
 <LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/design.zip" variant="secondary" icon="download" iconPlacement="start">3. Design</LinkButton>
 <LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/build.zip" variant="secondary" icon="download" iconPlacement="start">4. Build</LinkButton>
 <LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/test.zip" variant="secondary" icon="download" iconPlacement="start">5. Test</LinkButton>
-<LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/run.zip" variant="secondary" icon="download" iconPlacement="start">6. Run</LinkButton>
-<LinkButton href="https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/improve.zip" variant="secondary" icon="download" iconPlacement="start">7. Improve</LinkButton>
 </div>
 
 </Card>
@@ -431,7 +429,7 @@ Use AI through a code editor or terminal? These paths use a couple of commands o
 
 <div id="claude-code"></div>
 
-Claude Code has full plugin support. Two commands install all seven skills plus the `framework-agent` orchestrator and the `/handsonai:` slash commands.
+Claude Code has full plugin support. Two commands install all five framework skills plus the `framework-agent` orchestrator and the `/handsonai:` slash commands.
 
 **Official docs:** [Extend Claude with Skills](https://code.claude.com/docs/en/skills) · [Discover and Install Plugins](https://code.claude.com/docs/en/discover-plugins)
 
@@ -728,8 +726,6 @@ Once the skills are set up, here's how to start on each platform. The same test 
 | `/handsonai:design` | Design — Step 3 |
 | `/handsonai:build` | Build — Step 4 |
 | `/handsonai:test` | Test — Step 5 |
-| `/handsonai:run` | Run — Step 6 |
-| `/handsonai:improve` | Improve — Step 7 |
 
 ## What Each Skill Does
 
@@ -742,9 +738,7 @@ Each skill is documented in detail on its step page — including the run sequen
 | `design` | [Step 3 — Design](../design/) |
 | `build` | [Step 4 — Build](../build/) |
 | `test` | [Step 5 — Test](../test/) |
-| `run` | [Step 6 — Run](../run/) |
-| `improve` | [Step 7 — Improve](../improve/) |
-| `framework-agent` | [Run It All at Once: framework-agent](../#run-it-all-at-once-framework-agent) — orchestrates all seven skills end-to-end (Claude and Claude Code, via the plugin) |
+| `framework-agent` | [Run It All at Once: framework-agent](../#run-it-all-at-once-framework-agent) — orchestrates all five skills end-to-end (Claude and Claude Code, via the plugin) |
 
 ## FAQ
 

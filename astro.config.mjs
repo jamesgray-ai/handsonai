@@ -69,8 +69,11 @@ export default defineConfig({
     '/business-first-ai-framework/design/': '/ai-workflow-framework/design/',
     '/business-first-ai-framework/build/': '/ai-workflow-framework/build/',
     '/business-first-ai-framework/test/': '/ai-workflow-framework/test/',
-    '/business-first-ai-framework/run/': '/ai-workflow-framework/run/',
-    '/business-first-ai-framework/improve/': '/ai-workflow-framework/improve/',
+    // Run and Improve retired in plugin 10.0.0 (2026-10): going live and re-checks are Test's
+    '/business-first-ai-framework/run/': '/ai-workflow-framework/test/',
+    '/business-first-ai-framework/improve/': '/ai-workflow-framework/test/',
+    '/ai-workflow-framework/run/': '/ai-workflow-framework/test/',
+    '/ai-workflow-framework/improve/': '/ai-workflow-framework/test/',
     '/business-first-ai-framework/skills/': '/ai-workflow-framework/skills/',
     '/business-first-ai-framework/workflow-design-matrix/': '/ai-workflow-framework/workflow-design-matrix/',
     '/business-first-ai-framework/analyze-examples/': '/ai-workflow-framework/analyze-examples/',
@@ -177,8 +180,6 @@ export default defineConfig({
             { label: 'Step 3: Design', link: '/ai-workflow-framework/design/' },
             { label: 'Step 4: Build', link: '/ai-workflow-framework/build/' },
             { label: 'Step 5: Test', link: '/ai-workflow-framework/test/' },
-            { label: 'Step 6: Run', link: '/ai-workflow-framework/run/' },
-            { label: 'Step 7: Improve', link: '/ai-workflow-framework/improve/' },
             { label: 'Install the Plugin', link: '/ai-workflow-framework/skills/' },
             { label: 'Glossary', link: '/ai-workflow-framework/glossary/' },
             {

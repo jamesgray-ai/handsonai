@@ -22,7 +22,7 @@ One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skil
 
 ### What's inside
 
-#### AI Workflow Framework — 1 agent + 7 skills
+#### AI Workflow Framework — 1 agent + 5 skills
 
 The seven-step methodology for going from a workflow idea to a deployed AI system.
 
@@ -34,8 +34,6 @@ The seven-step methodology for going from a workflow idea to a deployed AI syste
 | `design` skill | Design the AI workflow architecture and produce a Design Spec |
 | `build` skill | Generate platform-appropriate artifacts from the approved spec |
 | `test` skill | Test workflow artifacts and evaluate output quality |
-| `run` skill | Do the first real run and leave a Run Card, run log, and review date |
-| `improve` skill | Evaluate a running workflow for quality and evolution opportunities |
 
 #### Knowledge Graph — 1 skill
 

@@ -14,10 +14,6 @@
 # Usage:
 #   ./scripts/check-registry-consistency.sh          # skip doc-dependent classes
 #   ./scripts/check-registry-consistency.sh --full    # also check migrated docs
-#
-# Transition (build-task-list T35): the run and improve skills are retired in T26's PR. Until
-# then every assertion about them runs where their folder exists and is skipped where it
-# doesn't (retired_skill_gone below); T26's PR drops them from the lists in this file.
 
 set -uo pipefail
 
@@ -54,16 +50,6 @@ must_not_contain() {
 must_contain_i() {
   if grep -qFi -- "$3" "$2" 2>/dev/null; then ok "$1"; else bad "$1 — '$3' not found in $2 (case-insensitive)"; fi
 }
-
-# run and improve are retired in T26. True (0) when $1 is one of them and its folder is gone,
-# so the caller skips it; any other skill, or a retired one still present, is checked.
-retired_skill_gone() {
-  case "$1" in
-    run|improve) [ ! -d "plugins/handsonai/skills/$1" ] ;;
-    *) return 1 ;;
-  esac
-}
-gone() { echo "  skip  $1 (skill retired, T26)"; SKIP=$((SKIP + 1)); }
 
 echo "registry consistency"
 [ "$FULL" -eq 1 ] && echo "(--full: doc-dependent classes included)" || echo "(doc-dependent classes skipped — pass --full once Batch E docs land)"
@@ -162,14 +148,13 @@ fi
 # ---------------------------------------------------------------------------
 echo
 echo "-- 3. retired-field discipline: banned fields stay out of every skill --"
-declare -a TEN_SKILLS=(
-  analyze deconstruct design build test run improve
+declare -a EIGHT_SKILLS=(
+  analyze deconstruct design build test
   naming-workflows scaffolding-registry indexing-registry
 )
 declare -a RETIRED_FIELDS=(health last_run current_step next_review notion_url)
 
-for skill in "${TEN_SKILLS[@]}"; do
-  if retired_skill_gone "$skill"; then gone "$skill/SKILL.md retired-field checks"; continue; fi
+for skill in "${EIGHT_SKILLS[@]}"; do
   f="plugins/handsonai/skills/$skill/SKILL.md"
   for field in "${RETIRED_FIELDS[@]}"; do
     must_not_contain "$skill/SKILL.md has no '$field'" "$f" "$field"
@@ -243,20 +228,13 @@ fi
 # ---------------------------------------------------------------------------
 echo
 echo "-- 5. ownership rows: each skill's registry write matches its role --"
-if retired_skill_gone run; then gone "run: writes in-production / stale_after"
-else
-  must_contain   "run: writes in-production"                  plugins/handsonai/skills/run/SKILL.md "in-production"
-  must_contain   "run: writes stale_after"                    plugins/handsonai/skills/run/SKILL.md "stale_after"
-fi
+must_contain     "test: writes in-production at go-live"      plugins/handsonai/skills/test/SKILL.md "in-production"
+must_contain     "test: writes stale_after"                   plugins/handsonai/skills/test/SKILL.md "stale_after"
+must_contain     "test: writes a Note"                        plugins/handsonai/skills/test/SKILL.md "Note"
 must_contain     "deconstruct: writes under-development"      plugins/handsonai/skills/deconstruct/SKILL.md "under-development"
 must_not_contain "deconstruct: no longer writes definition_type" plugins/handsonai/skills/deconstruct/SKILL.md "definition_type"
 must_contain     "naming-workflows: writes backlog"           plugins/handsonai/skills/naming-workflows/SKILL.md "backlog"
 must_contain     "naming-workflows: owns this process"        plugins/handsonai/skills/naming-workflows/SKILL.md "owns this process"
-if retired_skill_gone improve; then gone "improve: writes stale_after / a Note"
-else
-  must_contain   "improve: writes stale_after"                plugins/handsonai/skills/improve/SKILL.md "stale_after"
-  must_contain   "improve: writes a Note"                     plugins/handsonai/skills/improve/SKILL.md "Note"
-fi
 must_contain     "design: writes execution_mode"              plugins/handsonai/skills/design/SKILL.md "execution_mode"
 must_contain     "design: writes autonomy"                    plugins/handsonai/skills/design/SKILL.md "autonomy"
 must_not_contain "test: does not write a registry health field" plugins/handsonai/skills/test/SKILL.md "set the registry field \`health\`"
@@ -266,26 +244,24 @@ must_contain     "writing-workflow-sops: resolves owning Function" plugins/hands
 # ---------------------------------------------------------------------------
 echo
 echo "-- 6. skill integrity: every registry-writing skill defers to the bundle --"
-# "The ten": the seven canonical framework-step skills plus the three registry-support
+# The five framework-step skills plus the three registry-support
 # skills that write into it directly. indexing-registry is checked separately in class 9
 # (it IS registry-bundle.md's home skill); scaffolding-registry seeds the whole bundle
 # from schema-template.md and never references write rules for existing nodes.
 declare -a BUNDLE_REFERENCERS=(
-  analyze deconstruct design build improve run test
+  analyze deconstruct design build test
   naming-workflows writing-process-guides writing-workflow-sops
 )
 for skill in "${BUNDLE_REFERENCERS[@]}"; do
-  if retired_skill_gone "$skill"; then gone "$skill/SKILL.md defers to registry-bundle.md"; continue; fi
   must_contain "$skill/SKILL.md defers to registry-bundle.md" "plugins/handsonai/skills/$skill/SKILL.md" "registry-bundle.md"
 done
 must_contain "framework-agent.md defers to registry-bundle.md" plugins/handsonai/agents/framework-agent.md "registry-bundle.md"
 
-# The canonical seven framework-step skills must each hand off to a maintenance pass
+# The five framework-step skills must each hand off to a maintenance pass
 # afterward — including Analyze, whose backlog stubs need indexing and whose
 # resume-orientation scan depends on the composed views being current.
-declare -a MAINTENANCE_PASS_SKILLS=(analyze deconstruct design build test run improve)
+declare -a MAINTENANCE_PASS_SKILLS=(analyze deconstruct design build test)
 for skill in "${MAINTENANCE_PASS_SKILLS[@]}"; do
-  if retired_skill_gone "$skill"; then gone "$skill/SKILL.md invokes a maintenance pass"; continue; fi
   must_contain "$skill/SKILL.md invokes a maintenance pass" "plugins/handsonai/skills/$skill/SKILL.md" "maintenance pass"
 done
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 #
 # check-framework-consistency.sh — the framework skills and their docs pages describe the
-# same sequence of phases, and four files spell the mechanism enum the same way. Nothing
-# imports anything, so drift is silent. This asserts the agreement. It also runs two checks
+# same sequence of phases, four files spell the mechanism enum the same way, and the retired
+# run and improve skills stay gone. Nothing imports anything, so drift is silent. This
+# asserts the agreement. It also runs two checks
 # that keep the skills' shared wording identical:
 #
 #   - routing copies: references/routing.md in the five step skills, and the test-run
@@ -15,10 +16,6 @@
 #      FRAMEWORK_SPEC=<path to the business repo's framework-rules.md> bash scripts/check-framework-consistency.sh
 #        (also compares scripts/framework/routing.md with the spec's block; CI can't read the
 #        private spec, so it runs only when the path is given)
-#
-# Transition (build-task-list T35): the run and improve skills are retired in T26's PR. Until
-# then their checks run where their folders exist and are skipped where they don't; T26's PR
-# drops them from the lists below.
 
 set -uo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -48,13 +45,8 @@ docs_phases() {
     | awk -F'|' '{ n=$1; if ($3 ~ /\(goal-driven\)/) n=n" (goal-driven)"; print n"|"$2 }'
 }
 
-for entry in analyze:analyze.md deconstruct:deconstruct.md design:design.md build:build.mdx test:test.md run:run.md improve:improve.md; do
+for entry in analyze:analyze.md deconstruct:deconstruct.md design:design.md build:build.mdx test:test.md; do
   skill="${entry%%:*}"; page="${entry##*:}"
-  if [ ! -d "$SK/$skill" ]; then
-    case "$skill" in
-      run|improve) echo "  skip  $skill: skill retired (T26), no phases to compare"; continue ;;
-    esac
-  fi
   s=$(skill_phases "$SK/$skill/SKILL.md" | sort -u)
   d=$(docs_phases "$DOCS/$page" | sort -u)
   if [ -z "$s" ]; then bad "$skill: no '#### Phase N — ' headings found"; continue; fi
@@ -64,6 +56,16 @@ for entry in analyze:analyze.md deconstruct:deconstruct.md design:design.md buil
     diff <(echo "$s") <(echo "$d") | sed 's/^/        /'
   fi
 done
+
+echo
+echo "-- run and improve stay retired (10.0.0) --"
+back=""
+for p in "$SK/run" "$SK/improve" "$DOCS/run.md" "$DOCS/improve.md" run-workspace improve-workspace; do
+  [ -e "$p" ] && back="$back $p"
+done
+if grep -qE '^  - (run|improve)$' plugins/handsonai/agents/framework-agent.md; then back="$back framework-agent.md's skills: list"; fi
+if [ -z "$back" ]; then ok "no run or improve skill, eval workspace, docs page or agent skill entry"
+else bad "retired run/improve material is back:$back"; fi
 
 echo
 echo "-- mechanism enum spelled identically --"

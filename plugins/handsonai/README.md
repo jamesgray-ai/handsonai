@@ -18,7 +18,10 @@ One plugin, three places it installs — pick yours. Full step-by-step (with scr
   /plugin install handsonai@handsonai
   ```
 
-No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 Copilot, Cursor, Gemini CLI)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
+No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor, Gemini CLI)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
+
+- **Microsoft 365 Copilot** runs the framework in Copilot Cowork as custom skills: upload the skill ZIPs, or `handsonai-plugin.zip` (Copilot Cowork converts a Claude plugin on upload). Your framework files live in a `Framework` folder in OneDrive, separate from Copilot Cowork's own folder.
+- **Gemini** and other surfaces that can't save files: each step gives you its files to save, and you paste or attach them when you start the next step.
 
 ## What's Included
 
@@ -26,19 +29,17 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 C
 
 | Agent | Description |
 |-------|-------------|
-| `framework-agent` | Walks you through the full 7-step AI Workflow Framework end-to-end |
+| `framework-agent` | Takes one workflow through all five steps of the AI Workflow Framework in one session, from your backlog to a workflow that's tested and live |
 
 ### Skills — AI Workflow Framework
 
 | Skill | Description |
 |-------|-------------|
 | `analyze` | Audit your workflows to find where AI creates the most value, and register every candidate as a backlog Workflow node in your registry |
-| `deconstruct` | Break a workflow into structured steps using the 6-question framework |
-| `design` | Design the AI workflow architecture and produce a Design Spec |
-| `build` | Generate platform-appropriate artifacts from the approved spec |
-| `test` | Test workflow artifacts and evaluate output quality |
-| `run` | Do the first real run and leave a Run Card, run log, and review date |
-| `improve` | Evaluate a running workflow for quality and evolution opportunities |
+| `deconstruct` | Turn one workflow into its Workflow Requirements: starting from anything you've written down, it pins down what every output must get right, the rules it follows, where it asks you first, and practice inputs from your real work |
+| `design` | Plan how AI will do the work: a Design Plan you review and approve, ending in a task list |
+| `build` | Build the workflow from your approved plan, task by task, each part checked without changing anything real, plus a build record of what was built and what it can access |
+| `test` | Check it on realistic inputs, including one it hasn't seen, against every requirement, then take it live on your yes; later, re-check it any time |
 
 ### Skills — Knowledge Graph
 
@@ -72,13 +73,15 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, M365 C
 
 ## Quick Start
 
-1. **Analyze** — Run `/handsonai:analyze` to audit your workflows and identify AI opportunities
-2. **Deconstruct** — Run `/handsonai:deconstruct` to break down your highest-impact workflow
-3. **Design** — Run `/handsonai:design` to design the architecture
-4. **Build** — Run `/handsonai:build` to generate platform artifacts
-5. **Test** — Run `/handsonai:test` to validate output quality
-6. **Run** — Run `/handsonai:run` to get deployment instructions
-7. **Improve** — Run `/handsonai:improve` to evaluate and evolve the workflow
+Five steps, each in a new chat (a new session in Claude Code). Say the step's phrase on any platform, or use its slash command in Claude Code:
+
+- **Analyze** (`/handsonai:analyze`) — find where AI creates the most value in your work, and build a backlog of candidate workflows
+- **Deconstruct** (`/handsonai:deconstruct`) — turn one workflow into its Workflow Requirements
+- **Design** (`/handsonai:design`) — get a Design Plan you review and approve
+- **Build** (`/handsonai:build`) — build and install the workflow from your plan
+- **Test** (`/handsonai:test`) — prove it on practice inputs, then take it live
+
+Keeping it working is part of the workflow, not a step: each run flags anything it wasn't designed for, "change my workflow" starts any change, and "test the workflow I built" re-checks it. Say "continue my workflow" any time to pick up where you left off.
 
 Or run the agent and let it walk you through the whole flow:
 
@@ -86,7 +89,9 @@ Or run the agent and let it walk you through the whole flow:
 @framework-agent
 ```
 
-Framework files are saved to the `framework/` folder, one subfolder per workflow. Your workflow's own output is saved wherever you run it.
+**Where the files live.** In Claude Code and Codex, the framework's files are in a `framework/` folder in your workspace, one folder per workflow. On Claude on the web and ChatGPT, they're in a `Framework` folder in your Google Drive (or work OneDrive), through the platform's connection; on Microsoft 365, in a `Framework` folder in OneDrive. The workflow itself runs in its own place (its own Project, or its own folder), kept apart from the framework's files, and the framework's chats run outside it.
+
+**Scripts that ship with the plugin.** In `tools/`, beside the registry tools (`compose-registry.js`, `lint-registry.js`): `framework-state.js` works out where a workflow is and which step is next, and `requirements-check.js` checks a Workflow Requirements file before it's saved. Node 18 or later, no dependencies. Where code can't run, each skill follows the same rules from its own written copy.
 
 ## Worked Examples
 
