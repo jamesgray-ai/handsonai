@@ -12,11 +12,11 @@ Every framework skill uses this one rule: at its entry, before its opening, and 
 
 ## Terms
 
-- **Live:** with a registry, the node's `status` is `in-production`. With no registry, the build record's top section says "Live since [date]"; or, while a redo is pending or being rebuilt, the newest build record in `history/set-aside-*/` says so.
+- **Live:** with a registry, the node's `status` is `in-production`. With no registry, the build record's top section says "Live since YYYY-MM-DD"; or, while a redo is pending or being rebuilt, the newest build record in `history/set-aside-*/` says so.
 - **Plan revision:** the highest task `rev` in `design-plan.md`. It is worked out, never stored.
 - **The last round:** the round in `test-results.md`; its number is `round`. With no results file, the last round is 0.
 - **A Build close after the last round:** the build record's `last_close_after_round` is at or above the last round's number. (A round still in progress when Build closed is set aside before this is read: "A round left behind", below.)
-- **An unlogged change request:** an entry under `change_requests` in `build-record.md` or `test-results.md` whose `id` isn't in the plan's `changes:` log. A request whose only task is `SCH` (a schedule-only request) doesn't count.
+- **An unlogged change request:** an entry under `change_requests` in `build-record.md` or `test-results.md` whose `id` isn't in the plan's `changes:` log. A request whose only task is `SCH` (a schedule-only request) doesn't count. An entry with no `id` can't be read: routing stops and falls back to reading the files by hand.
 - **Built and saved:** the record shows the task built, with `Saved: yes`. Two cases count as built: a task Build finished with a known miss (`Built, misses [line]`: after Build's first close, its check failed because a requirement line can't be met, and Test settles the line), and the `SCH` task recorded with `schedule: safety-incomplete`.
 - **An earlier version:** see the last section.
 

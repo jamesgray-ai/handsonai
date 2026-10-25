@@ -139,6 +139,27 @@ mkdir -p "$TMP/bad/framework/client-follow-up"
 printf -- '---\nrevision: 1\ntrack: light\nrevisions:\n  - { revision: 2, by: test\n---\n\n# x\n' > "$TMP/bad/framework/client-follow-up/requirements.md"
 node "$SCRIPT" --json "$TMP/bad/framework/client-follow-up" >/dev/null 2>&1
 [ $? -eq 2 ] && ok "frontmatter it can't parse: exit 2 (never routes on a misread fact)" || bad "malformed frontmatter did not exit 2"
+# A change request with no id can't be matched against the plan's changes:, so it never
+# routes past Design silently (build review 1, F3a): the script stops, exit 2.
+S08="$FIXTURES/states/s08-test-needed/no-registry"
+mkdir -p "$TMP/noid"; cp -R "$S08/." "$TMP/noid/"
+perl -0pi -e 's/^change_requests: \[\]$/change_requests:\n  - { source: build, what: "use the CRM export", why: "no API", tasks: [T2], after_round: 0 }/m' \
+  "$TMP/noid/framework/client-follow-up/build-record.md"
+node "$SCRIPT" --json "$TMP/noid/framework/client-follow-up" >/dev/null 2>&1
+[ $? -eq 2 ] && ok "a change request with no id: exit 2 (never skipped)" || bad "a change request with no id did not exit 2"
+# A kept direct edit's text, many lines with quotes and colons, lives in a file in history/,
+# and `what` holds a one-line summary and that path (F3b): the record still parses, and the
+# request sends the workflow to Design.
+mkdir -p "$TMP/edit"; cp -R "$S08/." "$TMP/edit/"
+WF="$TMP/edit/framework/client-follow-up"
+mkdir -p "$WF/history"
+printf -- '---\nname: client-follow-up\ndescription: "Drafts: the follow-up"\n---\n\nWhen the notes say "call me": never send.\n  - Step 1: read the notes, then: draft.\n' \
+  > "$WF/history/direct-edit-B1-2026-10-24-0930.md"
+perl -0pi -e 's/^change_requests: \[\]$/change_requests:\n  - { id: B1, source: direct edit, what: "the sign-off line reworded; edited text in history\/direct-edit-B1-2026-10-24-0930.md", why: "the leader kept the edit", tasks: [T1], after_round: 0 }/m' \
+  "$WF/build-record.md"
+J="$(node "$SCRIPT" --json "$WF" 2>&1)"
+[ $? -eq 0 ] && echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===4?0:1)' \
+  && ok "a kept direct edit saved in history/, its path in what: parses, state 4" || { bad "a direct edit saved in history/ should route to state 4"; echo "$J" | head -5 | sed 's/^/        /'; }
 node "$SCRIPT" --continue "$TMP/no-such-workspace" >/dev/null 2>&1
 [ $? -eq 2 ] && ok "--continue on a folder that doesn't exist: exit 2" || bad "--continue on a missing folder did not exit 2"
 node "$SCRIPT" >/dev/null 2>&1

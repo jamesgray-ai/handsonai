@@ -8,7 +8,7 @@ Read this on Claude Code only: at the end of Part 1 (the block goes on), before 
 
 For each connection the workflow uses, every tool except its named reads is denied in the project's local settings (`.claude/settings.local.json`), listed from the connection's live tool list. A deny rule beats an allow rule, so nothing the leader allowed can lift it. Connections the workflow doesn't use aren't blocked: a check agent or headless session holds only what's listed for it.
 
-The block is for Build's checks. The leader's own runs have no block and no hook (3c-DD); a block left on through a Test round is the one exception, and Test lifts it at that round's close.
+The block is for Build's checks. The leader's own runs have no block and no hook; a block left on through a Test round is the one exception, and Test lifts it at that round's close.
 
 Every headless session (each headless check and the bare run) starts through `framework/.bin/test-run.sh`, never with `claude` directly. While the block is on, `Bash(claude:*)` and `Bash(claude *)` are denied too. That's a speed bump, not a guarantee: what binds a headless session is the wrapper's start-up check.
 
@@ -186,7 +186,7 @@ At Build's entry, a `write_block` that isn't `off` was left by a session that en
 
 ## 10. Release checks this rests on
 
-Each is a rules 13.2 row (the platform registry's `release_checks` id). Until a row is recorded as passed on a range that includes the running `claude --version`, take its fallback.
+Each is a row of the platform registry's `release_checks`, by its id. Until a row is recorded as passed on a range that includes the running `claude --version`, take its fallback.
 
 | Row | What's assumed | Fallback |
 |---|---|---|

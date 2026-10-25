@@ -9,7 +9,10 @@
 //          [--registry | --no-registry]   (default: look for registry/SCHEMA.md above the folder)
 //          [--before-save]                (Deconstruct's pre-save run: big_change is never allowed)
 // Exit 0 valid; exit 1 invalid; exit 2 on a usage error or an unreadable file.
-// Each problem names the section and the line. Zero npm dependencies.
+// Each problem names the section and the line. A note (printed, exit unchanged)
+// names a practice input whose `tests:` still lists a line a `revisions:` entry
+// records and the file no longer has: a removed line, which Test or Design takes
+// out of the header (a problem under --before-save). Zero npm dependencies.
 // A byte-for-byte copy ships at plugins/handsonai/tools/requirements-check.js.
 'use strict';
 const fs = require('fs');
@@ -99,6 +102,8 @@ function parseFrontmatter(lines) {
       current.fields[item[1]] = item[2].trim();
     } else if (field && current) {
       current.fields[field[1]] = field[2].trim();
+    } else if (/^\s+-\s*\{/.test(line) && fm.keys[fm.keys.length - 1] === 'revisions') {
+      fm.problems.push({ line: n, msg: 'write each `revisions:` entry in block form: `- revision: 3`, then `by:`, `lines:` (and `plan_unaffected: true`) on their own indented lines, never as `{ … }`' });
     } else {
       fm.problems.push({ line: n, msg: `unreadable frontmatter line "${line.trim()}"` });
     }
@@ -121,6 +126,7 @@ function findRegistry(startDir) {
 
 function check(file, opts = {}) {
   const problems = [];
+  const notes = []; // printed, never failing: a removed line still named in an input's tests:
   const add = (line, section, msg) => problems.push({ line, section, msg });
   const text = fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
   const lines = text.split('\n');
@@ -130,6 +136,7 @@ function check(file, opts = {}) {
   // ---- frontmatter (deconstruct 12.1, rules 6.2)
   const FM = 'frontmatter';
   const { fm, end: fmEnd, unterminated } = parseFrontmatter(lines);
+  const revisedIds = new Set(); // every ID a revisions entry lists: added, changed or removed
   if (!fm) {
     add(1, FM, unterminated
       ? 'the frontmatter has no closing `---`'
@@ -166,6 +173,7 @@ function check(file, opts = {}) {
         if (!lm || !lm[1].trim()) add(r.line, FM, `revisions entry ${rv}: \`lines\` must list the IDs added, changed or removed, as [AC3, R2]`);
         else {
           for (const id of lm[1].split(',').map((s) => s.trim())) {
+            revisedIds.add(id);
             if (/^(M|RF)\d+$/.test(id)) add(r.line, FM, `revisions entry ${rv} names \`${id}\`: there are no M or RF lines (a must-always or must-never line is an R line)`);
             else if (!ID_FAMILIES.test(id)) add(r.line, FM, `revisions entry ${rv} names \`${id}\`, which isn't a label in this file's families`);
           }
@@ -626,7 +634,9 @@ function check(file, opts = {}) {
     else {
       for (const id of tm[1].split(',').map((s) => s.trim())) {
         if (!/^(AC|R|G)\d+$/.test(id)) add(ic.n, W, `${ic.id}: \`${ic.rel}\` tests "${id}"; \`tests:\` names AC, R and G lines only`);
-        else if (!allIds.has(id)) add(ic.n, W, `${ic.id}: \`${ic.rel}\` tests ${id}, which isn't in the file`);
+        else if (!allIds.has(id) && revisedIds.has(id) && !opts.beforeSave) {
+          notes.push({ line: ic.n, section: W, msg: `${ic.id}: \`${ic.rel}\` tests ${id}, a line a revision removed; take ${id} out of its \`tests:\` header` });
+        } else if (!allIds.has(id)) add(ic.n, W, `${ic.id}: \`${ic.rel}\` tests ${id}, which isn't in the file`);
       }
     }
     if ((il[2] || '') !== '') add(ic.n, W, `${ic.id}: \`${ic.rel}\` line 3 must be blank, after the two header lines`);
@@ -635,6 +645,7 @@ function check(file, opts = {}) {
   }
 
   problems.sort((a, b) => a.line - b.line);
+  problems.notes = notes;
   return problems;
 }
 
@@ -724,6 +735,7 @@ function main(argv) {
     return 2;
   }
   const rel = file;
+  for (const p of problems.notes || []) console.log(`${rel}:${p.line} · ${p.section} · note: ${p.msg}`);
   if (!problems.length) { console.log(`requirements-check: ${rel} matches the requirements template`); return 0; }
   for (const p of problems) console.log(`${rel}:${p.line} · ${p.section} · ${p.msg}`);
   console.log(`requirements-check: ${problems.length} problem${problems.length === 1 ? '' : 's'} in ${rel}`);

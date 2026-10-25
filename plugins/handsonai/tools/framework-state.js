@@ -590,7 +590,11 @@ function workflowState(folder, opts = {}) {
   for (const [file, doc] of [['build-record.md', f.record], ['test-results.md', f.results]]) {
     if (!doc || !doc.fm) continue;
     for (const r of asList(doc.fm.change_requests)) {
-      if (!r || r.id == null) continue;
+      // An entry with no id can't be matched against the plan's changes:, so it
+      // can't be routed: fail closed (exit 2, the written fallback) rather than skip it.
+      if (!r || typeof r !== 'object' || r.id == null || String(r.id).trim() === '') {
+        throw new Unreadable(`${file}: a change_requests entry has no id`);
+      }
       const t = asList(r.tasks).map(String);
       const scheduleOnly = t.length > 0 && t.every((x) => x === 'SCH');
       requests.push({ id: String(r.id), file, schedule_only: scheduleOnly, logged: logged.has(String(r.id)) });

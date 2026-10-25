@@ -11,7 +11,7 @@ Say exactly, naming what Test found and what will be redone in plain words ("the
 "Test found [what, in plain words] in [the part, in plain words]. I'll redo just that[, and re-check what uses it], and leave everything else as it is."
 
 Before anything changes:
-- **Three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/` and `history/earlier-version-*/`), unless the plan's `changes:` already logs a Build request whose `after_round` is the last round's number: record a plan-only change request pointing to the results, and say exactly: "Three test rounds in a row haven't reached Ready, so the problem is probably in the plan, not the build. I recommend going back to Design with what Test found. I've noted it for Design: say 'run the design skill. My files are in [location].'" If the leader insists on fixing anyway, withdraw your request and carry on.
+- **Three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/`, `history/earlier-version-*/` and any round marked `round_status: abandoned`), unless the plan's `changes:` already logs a Build request whose `after_round` is the last round's number: record a plan-only change request pointing to the results, and say exactly: "Three test rounds in a row haven't reached Ready, so the problem is probably in the plan, not the build. I recommend going back to Design with what Test found. I've noted it for Design: say 'run the design skill. My files are in [location].'" If the leader insists on fixing anyway, withdraw your request and carry on.
 - **A live workflow:** `live-change.md`.
 - **A direct edit** to a part fix mode will redo: `SKILL.md`'s entry check 7.
 - **The block** (Claude Code) is re-applied before any check, from a fresh list of each connection's tools, using the OK the record holds.
@@ -23,7 +23,7 @@ Signposts count only the parts fix mode runs ("Part 1 of 2 in this fix").
 For each Issues row at Level `build`:
 1. **Map it to its task:** the row's Task column; otherwise through the record's Artifact and Context ID columns.
 2. **A Cause in a connection or permission** goes back to Part 1, for that connection only.
-3. **A change the leader asked for at their real example** (the row's Cause is the change): a ruling when it keeps every requirement line met; N-B29 and a change request when it would change what the workflow does; N-B34 when it would break a requirement line.
+3. **A change the leader asked for at their real example** (the row's Cause is `leader's change`, the change itself in "What to change"): a ruling when it keeps every requirement line met; N-B29 and a change request when it would change what the workflow does; N-B34 when it would break a requirement line.
 4. **A miss whose fix needs a requirement line changed:** N-B34, with no request; the task's row is `Built, misses [line]`, saved, so Test's next round finds it. N-B34 comes at the close, after the other fixes are saved, with its last sentence (Test's phrase). A fixed step gets N-B34's fixed-step form.
 5. **A miss whose fix needs the plan changed:** a plan-only change request pointing to the results. Fix and check the other tasks first; then N-B9.
 6. **Otherwise** fix the task, and check it and every task that uses it again, up to three tries.
@@ -38,7 +38,7 @@ Also:
 
 ## 3. Adopted direct edits
 
-When Design has handled a kept direct edit, the tasks it touches are marked `adopted: true`. For each, take the task's text from what's installed: from the installed part where you can read it, otherwise from the edited text in the change request. Refresh `context/` from a kept edit to a runtime context copy. Record the task's `rev` and the new fingerprint, check it again, and regenerate only the parts another change touched.
+When Design has handled a kept direct edit, the tasks it touches are marked `adopted: true`. For each, take the task's text from what's installed: from the installed part where you can read it, otherwise from the edited text saved in the file the change request's `what` names. Refresh `context/` from a kept edit to a runtime context copy. Record the task's `rev` and the new fingerprint, check it again, and regenerate only the parts another change touched.
 
 ## 4. Putting back the built version
 

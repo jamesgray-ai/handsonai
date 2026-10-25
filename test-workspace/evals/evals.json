@@ -766,6 +766,15 @@
           }
         },
         {
+          "text": "The edited text is saved in history/, and the request's what names that file, never the text itself (build review 1, F3)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "drive/Framework/client-follow-up/history/direct-edit-*.md",
+            "session": 1
+          }
+        },
+        {
           "text": "The plan isn't written",
           "kind": "scripted",
           "check": {
@@ -3072,6 +3081,24 @@
           }
         },
         {
+          "text": "The dropped line comes out of every practice input's tests: header (build review 1, F1)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "drive/Framework/client-follow-up/inputs/E*.md",
+            "pattern": "(?m)^tests: .*\\bAC3\\b"
+          }
+        },
+        {
+          "text": "The requirements still pass the requirements check after Test's write (block-form revisions entry, no dangling tests: ID)",
+          "kind": "scripted",
+          "check": {
+            "type": "structure",
+            "path": "drive/Framework/client-follow-up/requirements.md",
+            "kind": "requirements"
+          }
+        },
+        {
           "text": "Says N-T8 (Chat platforms) word for word: the round carries on to the runs",
           "kind": "scripted",
           "check": {
@@ -4548,6 +4575,15 @@
             "type": "file_regex",
             "path": "framework/client-follow-up/test-results.md",
             "pattern": "source: direct edit",
+            "session": 1
+          }
+        },
+        {
+          "text": "The edited text is saved in history/, and the request's what names that file, never the text itself (build review 1, F3)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "framework/client-follow-up/history/direct-edit-*.md",
             "session": 1
           }
         },

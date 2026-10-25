@@ -1472,6 +1472,14 @@
      }
     },
     {
+     "text": "The edited text is saved in history/, and the request's what names that file, never the text itself (build review 1, F3)",
+     "kind": "scripted",
+     "check": {
+      "type": "file_exists",
+      "path": "framework/client-follow-up/history/direct-edit-B*.md"
+     }
+    },
+    {
      "text": "N-B9",
      "kind": "scripted",
      "check": {

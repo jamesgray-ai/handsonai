@@ -17,7 +17,7 @@ Before the first run, and again before every run and every resume:
    > "For this round I need to allow my test script again in this project's settings, so I can run your practice inputs in separate sessions. I'll remove it when the round ends. Shall I go ahead?"
 
    On a yes, add the `allow` and `deny` rules `framework/.bin/test-run.sh allow-rules <slug> --plugin-copy …` prints to `.claude/settings.local.json`, adding only. On a no, the leader runs the practice inputs too (N-T8, as on the other platforms).
-4. **A block Build left on** (`write_block` not `off` in the record) stays on through the round, so it binds the leader's runs too, and comes off at the round's close (section 7). Test adds no block and no hook of its own: the leader's own run is protected as on every platform (3c-DD).
+4. **A block Build left on** (`write_block` not `off` in the record) stays on through the round, so it binds the leader's runs too, and comes off at the round's close (section 7). Test adds no block and no hook of its own: the leader's own run is protected as on every platform.
 
 ## 2. The practice folder
 
@@ -120,7 +120,7 @@ Whatever the verdict, and when a round is set aside:
 
 ## 8. Release checks this rests on
 
-Each is a rules 13.2 row (the platform registry's `release_checks` id). Until a row is recorded as passed on a range that includes the running `claude --version`, take its fallback.
+Each is a row of the platform registry's `release_checks`, by its id. Until a row is recorded as passed on a range that includes the running `claude --version`, take its fallback.
 
 | Row | What's assumed | Fallback |
 |---|---|---|

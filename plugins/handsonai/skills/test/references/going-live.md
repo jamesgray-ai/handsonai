@@ -8,15 +8,15 @@ Read for Part 4: on the leader's yes to "Take it live?", at state 10 when a go-l
 
 In this order:
 
-1. **The registry,** where there is one (on the web, `Framework/registry/`): the node's `status: in-production`; `stale_after` three months on; the "Test results" link; one log line (section 5); `generated` restamped (`by: process:test`, `at` a UTC instant); then the indexing-registry maintenance pass, best effort. With no registry, the build record's "Live since" line is the live marker.
-2. **The build record's top section,** under "What was built": "Live since [date]" (for a retired workflow brought back, rewritten with this date) and "How to switch it off: [steps for this platform: the schedule, then the skill or plugin]"; and `schedule:` (`none`; `not-on` once Build's switch-on steps are given; a `safety-incomplete` value left as Build wrote it).
+1. **The registry,** where there is one (on the web, `Framework/registry/`), as the indexing-registry skill's `registry-bundle.md` says: the node's `status: in-production`; `stale_after` three months on; the "Test results" link, in SKILL.md's form; one log line (section 5); `generated` restamped (`by: process:test`, `at` a UTC instant); then the indexing-registry maintenance pass, best effort. With no registry, the build record's "Live since" line is the live marker.
+2. **The build record's top section,** under "What was built": "Live since YYYY-MM-DD" (the date in that form, which routing reads; for a retired workflow brought back, rewritten with this date) and "How to switch it off: [steps for this platform: the schedule, then the skill or plugin]"; and `schedule:` (`none`; `not-on` once Build's switch-on steps are given; a `safety-incomplete` value left as Build wrote it).
 3. **The run log,** only where the workflow writes one: `runs.md` (or `runs-[workflow-slug].md`) started where Build installed the workflow, header only, with `recheck_after` (the same date as `stale_after`; with no registry, three months on) and `first_time` (section 3's first-time items). For a retired workflow brought back that already has one, update its header. Never start one anywhere else, and never ask the leader to keep one.
 4. **The results:** `go_live: done`.
 5. **Nothing left switched on** (Claude Code): any block lifted, and the wrapper's allow removed (`claude-code-runs.md` section 7), then the settings read back.
 6. **Replacing another version** (section 2), as its own message, before the go-live message.
 7. **The go-live message** (section 3), once item 6 is answered.
 8. **A team workflow:** the SOP offer (N-T52, in SKILL.md).
-9. **A lasting insight** from the round, where there's a registry: **Ask:** "This round showed [the insight]. Shall I keep that as a note in your registry, for future workflows?" On a yes, write a Note node linked to the Workflow.
+9. **A lasting insight** from the round, where there's a registry: **Ask:** "This round showed [the insight]. Shall I keep that as a note in your registry, for future workflows?" (N-T53) On a yes, write a Note node linked to the Workflow.
 10. **The Git save point,** where the folder is a repository (SKILL.md). On Claude Code with a schedule, the go-live message says to switch the schedule on after this save; for a cloud routine, Build's switch-on steps include the leader pushing it.
 
 ## 2. Replacing another version

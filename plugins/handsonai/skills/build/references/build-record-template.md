@@ -1,6 +1,6 @@
 # The build record
 
-Read at the first entry and at every record write. `build-record.md` sits in the workflow folder, beside the plan. Only Build writes it, except Test's go-live lines ("Live since", "How to switch it off", the rewritten older-version line) and `schedule:`. Later steps and scripts parse its frontmatter keys, headings and table columns, so they're written exactly as below (rules 2.3, 6.4).
+Read at the first entry and at every record write. `build-record.md` sits in the workflow folder, beside the plan. Only Build writes it, except Test's go-live lines ("Live since", "How to switch it off", the rewritten older-version line), `schedule:`, and `write_block`, which Test sets to `off` when it lifts a block it took over from Build. Later steps and scripts parse its frontmatter keys, headings and table columns, so they're written exactly as below.
 
 **Contents:** 1. When it's written · 2. The template · 3. Frontmatter values · 4. The table · 5. The two sections for people · 6. The older-version line · 7. Also in the record · 8. The Claude Code profile · 9. Never in the record
 
@@ -36,7 +36,7 @@ change_requests: []
 # [Workflow name] — Build Record
 
 ## What was built
-[Live since [date]. — Test's line, kept]
+[Live since YYYY-MM-DD. — Test's line, kept; the date in that form, which routing reads]
 [How to switch it off: [steps] — Test's line, kept]
 
 - [Each part and what it does, in plain words; where it lives; how to start it, and "practice run" to try it with nothing sent or changed.]
@@ -77,11 +77,15 @@ The keys above and no others, in that order:
 - **`fingerprints`:** at install, one per installed skill and agent (none for an agent Agent Builder made on Microsoft 365), one per runtime context copy you can read back, and on Claude Code `wrapper: sha256:<64 hex>` for `framework/.bin/test-run.sh`. Where no code can run, a part's size and date.
 - **`bare_run`:** per main skill, `done` or `skipped: [why]`.
 - **`run_folders`** (Claude Code): each fresh folder made for a check or a bare run, until it's cleared; `[]` otherwise.
-- **`change_requests`:** in the one shape, each with exactly `id` (`B1`, `B2`…), `source` (`build`; `direct edit` for an edit the leader keeps), `what`, `why`, `tasks`, `after_round` (a number, 0 before any round). The track switch goes here too.
+- **`change_requests`:** in the one shape, each with exactly `id` (`B1`, `B2`…; never left out), `source` (`build`; `direct edit` for an edit the leader keeps, its edited text saved as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md` and `what` a one-line summary, in double quotes, naming that file, never the text itself), `what`, `why`, `tasks`, `after_round` (a number, 0 before any round). The track switch goes here too.
 
 ## 4. The table
 
-One row per Build Output row, plus the orchestrator, each connection, each context item (its runtime copy), and the workflow's place.
+One row per task, `KW` and `SCH` included, its Task cell the plan's task ID exactly (`T3`, `KW`, `SCH`, never "T3 (S2)"): a task with no row, or with another Task cell, reads as not built. Plus the orchestrator, each connection, each context item (its runtime copy), and the workflow's place. For example:
+
+```markdown
+| T3 | New skill: S2 | C1 | follow-up-drafter | package/skills/follow-up-drafter/ | Created | yes | 2 | 1 | E2: AC1–AC4 met | — |
+```
 - **Status:** `Created`, `Reused`, `Extended` or `Installed by you`, for what was made; `Built, misses [line]`, for a task finished with a known miss; `Waiting on [the open item]`, `Waiting on change request [id]`, `Failed check`, `Not built yet` or `Removed from the plan`, for what wasn't. The `SCH` row is `Created` with `schedule: safety-incomplete` too.
 - **Saved:** `yes` once the part is kept where a later session can find it (installed, or staged in `package/`); on print-to-save, once the leader has the text; otherwise `no`.
 - **Path or location:** `package/…` while a part is staged; its installed place once Part 3 installs it.

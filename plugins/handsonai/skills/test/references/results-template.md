@@ -1,6 +1,6 @@
 # The results file
 
-Read when you write the round's file (Part 1) and at every later write to it. `test-results.md` in the workflow folder holds the current round. Only Test writes it; Build (fix mode), Design (change requests) and routing read it, so its frontmatter keys, headings and table columns are written exactly as below (rules 2.3, 6.5).
+Read when you write the round's file (Part 1) and at every later write to it. `test-results.md` in the workflow folder holds the current round. Only Test writes it; Build (fix mode), Design (change requests) and routing read it, so its frontmatter keys, headings and table columns are written exactly as below.
 
 **Contents:** 1. The template · 2. Frontmatter values · 3. The sections · 4. Counts · 5. When each part is written
 
@@ -83,7 +83,7 @@ An empty table keeps its header, or reads "None." under the heading.
 The keys above and no others, plus `direct_edit: undo` only in the round Test opened when it found an edit the leader wants undone.
 - **`round_status`:** `in-progress`, `complete`, or `abandoned` (a round set aside).
 - **`results`:** per input, `{ runs: 1 | 2, run1: { [line]: met | not-met | not-run }, run2: {…}, edits: none | minor | major, carried: round [n] }`. Keys are E numbers, and `new` for the round's new input (if it's saved later, the Inputs section gives its E number). The flag input has no `edits`. With two runs, `run2` is there and the edits word is for the weaker run.
-- **`change_requests`:** in the one shape, each with exactly `id` (`T[round].[n]`), `source` (`test` for a plan-level miss; `direct edit`, with the edited text in `what`; `leader at test` for a what-change at the real example), `what`, `why`, `tasks`, `after_round` (this round's number).
+- **`change_requests`:** in the one shape, each with exactly `id` (`T[round].[n]`), `source` (`test` for a plan-level miss; `direct edit`, the edited text saved as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md` and `what` a one-line summary, in double quotes, naming that file; `leader at test` for a what-change at the real example), `what`, `why`, `tasks`, `after_round` (this round's number).
 - **`environment`:** the platform and account, where the runs happened, who ran them, and on Claude Code the practice folder's path.
 
 ## 3. The sections

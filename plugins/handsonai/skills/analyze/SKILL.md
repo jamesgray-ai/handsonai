@@ -18,7 +18,7 @@ Analyze finds opportunities to create more value with AI in the student's work (
 
 ### Entry, before the opening
 
-Follow `references/routing.md`'s "The order at every entry", before anything is read, saved or said, using the `framework-state` script where code can run (from the workspace's `tools/` or the plugin's: `node tools/framework-state.js <workflow folder>`, or with `--continue <framework folder>` for "continue my workflow"; on a non-zero exit, or where code can't run, apply `routing.md` by hand). Analyze skips the wrong-place check: it writes nothing a workflow reads at runtime. Started by name, Analyze is always the owner.
+Follow `references/routing.md`'s "The order at every entry", before anything is read, saved or said, using the `framework-state` script where code can run (the plugin's copy, as the other steps use, never the workspace's `tools/` copy, which can be out of date: `node [plugin root]/tools/framework-state.js <workflow folder>`, or with `--continue <framework folder>` for "continue my workflow"; the plugin root is two folders above this skill's folder; on a non-zero exit, or where code can't run, apply `routing.md` by hand). Analyze skips the wrong-place check: it writes nothing a workflow reads at runtime. Started by name, Analyze is always the owner.
 
 > **Platform registry:** platform facts (how a folder is added on Claude desktop, which drives a connection can write to) come from `registries/platform-registry.json` at the plugin root, or else `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`, read once per session.
 
@@ -294,7 +294,7 @@ A person, or a function not in the registry, maps to the Function that fits, sai
 
 Apply every change to the report. A left-out workflow keeps its card, marked "Left out of the backlog", and gets no registry entry and no backlog line.
 
-**Register the candidates (registry present)** as backlog Workflow nodes under their confirmed Process, in the registry (`registry/` locally, `Framework/registry/` on the web, through the connection). Work that already runs gets `status: in-production` instead, never the backlog, and its skill or agent under `# Skills` or `# Agents`: a link when the file is in this workspace, else its name and home as plain text ("Newsletter Repurposer, a skill in your Claude account").
+**Register the candidates (registry present)** as backlog Workflow nodes under their confirmed Process, in the registry (`registry/` locally, `Framework/registry/` on the web, through the connection), as the indexing-registry skill's `registry-bundle.md` says. Work that already runs gets `status: in-production` instead, never the backlog, and its skill or agent under `# Skills` or `# Agents`: a link when the file is in this workspace, else its name and home as plain text ("Newsletter Repurposer, a skill in your Claude account").
 
 1. **Write the stub** at `registry/workflows/<slug>.md` (slug = kebab-case of the Workflow name), in the `naming-workflows` stub format, with `generated.at` the current UTC time:
 

@@ -379,6 +379,20 @@ expect "practice input: no header lines" "$wf" "^$R:72 · ## Example Scenarios �
 wf=$(plant input-tests); edit "$wf/inputs/E1-acme-renewal-call.md" 's/^tests: AC1, AC2, AC3, R1, G1$/tests: AC1, AC9/m'
 expect "practice input: tests an ID the file doesn't have" "$wf" "^$R:72 · ## Example Scenarios · E1: \`inputs/E1-acme-renewal-call.md\` tests AC9, which isn't in the file"
 
+# A line Test or Design removed (build review 1, F1): an input still naming it is a note, never a
+# failure, so Design's entry check doesn't stop on it; Deconstruct's pre-save run stays strict, and
+# an ID no revision names still fails (the AC9 case above).
+wf=$(plant removed-line)
+edit "$wf/$R" 's/^revision: 1\ntrack: light\nrevisions: \[\]$/revision: 2\ntrack: light\nrevisions:\n  - revision: 2\n    by: test\n    lines: [R1]\n    plan_unaffected: true/m'
+edit "$wf/$R" 's/^\| R1 \| Never \| It never invents a figure, date or commitment\. \|\n//m'
+out=$(run_check "$wf"); rc=$?
+if [ $rc -eq 0 ] && grep -q "note: E1: \`inputs/E1-acme-renewal-call.md\` tests R1, a line a revision removed" <<<"$out"; then
+  ok "practice input: a line a revision removed is a note, exit 0"
+else bad "practice input: a removed line should be a note with exit 0 (exit $rc)"; echo "$out" | sed 's/^/        /'; fi
+expect "practice input: a removed line still fails before Deconstruct saves" "$wf" "tests R1, which isn't in the file" --before-save
+wf=$(plant fm-flow-revision); edit "$wf/$R" 's/^revision: 1\ntrack: light\nrevisions: \[\]$/revision: 2\ntrack: light\nrevisions:\n  - { revision: 2, by: test, lines: [R1], plan_unaffected: true }/m'
+expect "frontmatter: a flow-map revisions entry names the block form" "$wf" "^$R:5 · frontmatter · write each \`revisions:\` entry in block form"
+
 wf=$(plant secret); edit "$wf/inputs/E2-no-next-step.md" 's/\z/\nAPI key: sk-live0123456789abcdefghijklmnop\n/'
 expect "no saved file holds a password or key" "$wf" "^$R:73 · ## Example Scenarios · E2: \`inputs/E2-no-next-step.md\` line [0-9]+ looks like it holds a password or key"
 

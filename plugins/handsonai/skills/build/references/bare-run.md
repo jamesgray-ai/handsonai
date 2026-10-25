@@ -20,7 +20,7 @@ The plain model, with only the context the main skill will read and no skill ins
 
 ## 3. When it's skipped
 
-Record `bare_run: { [skill]: skipped: [why] }` and write instructions for every line:
+Record it under `bare_run:` in block form, one line per main skill, the reason in double quotes (`[skill]: "skipped: [why]"`, as the record template shows; never a `{ … }` map, which a comma in the reason would break), and write instructions for every line:
 - on a rebuild or in fix mode, where the workflow's own installed skill would load;
 - where the platform's bare-run release check hasn't passed: Microsoft 365 (release check 25), ChatGPT (16), Codex (9), Claude's own (13);
 - on Codex when the leader works only in the Codex app or the IDE extension (`skipped: no terminal`);
@@ -36,4 +36,4 @@ The rest of the message is model wording.
 
 ## 5. What gets written, and recorded
 
-Write instructions for each line the bare run missed; and, whatever it did, every must-have, every rule, every checkpoint and every safety line, plus everything in `carried-lines.md`. Record `bare_run: { [skill]: done }`, and in the record's *Also* section what the plain model handled.
+Write instructions for each line the bare run missed; and, whatever it did, every must-have, every rule, every checkpoint and every safety line, plus everything in `carried-lines.md`. Record `[skill]: done` under `bare_run:`, in block form, and in the record's *Also* section what the plain model handled.
