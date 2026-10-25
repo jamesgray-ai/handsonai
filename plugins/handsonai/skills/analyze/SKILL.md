@@ -14,7 +14,7 @@ description: >
 
 **Your first text is a line for the leader.** Every word of text you write reaches the leader as a chat message, text before or between tool calls included. So the first text you write in a chat is your first line to the leader (the opening, a routing line, a resume line or an entry check's question): until then, make tool calls with no text at all, not even a few words on what you're reading, the state you found or what comes next. After it, write text only when it's for the leader, and never narrate your own work (files read, scripts run, states, the rule you're applying).
 
-Analyze finds opportunities to create more value with AI in the student's work (friction to remove, and work they'd do more of or do better with the time) and records each as a candidate workflow: the work, the pain, its size and the value lever. It catalogs: it names each workflow and describes it well. It never ranks the workflows or picks one to build first; Deconstruct opens with that choice. It ends with a backlog and an opportunity report.
+This skill records each opportunity the student has to get more value from AI (friction to remove, or work they'd do more of, or better, with the time) as a candidate workflow: the work, the pain, its size and the value lever. It catalogs: it names each workflow and describes it well. It never ranks the workflows or picks one to build first; Deconstruct opens with that choice. It ends with a backlog and an opportunity report.
 
 ## Workflow
 
