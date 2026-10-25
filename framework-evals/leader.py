@@ -15,6 +15,9 @@ platform's known failures with `"platform_faults": [...]`:
   claude-code     files in the workspace (the real platform; no preamble); for Build, a
                   stand-in Gmail connection when the plan uses Gmail (run_eval.connections_for).
                   Faults: no_gmail (the leader hasn't connected it)
+                  and, for Build and Test, the leader's click on Claude Code's prompt for
+                  .claude/settings.local.json (run_eval.settings_prompt_for). Fault:
+                  leader_denies_settings_prompt (the leader declines that prompt)
   codex           files in the workspace; Codex's wording and its read-only bare-run command
   claude-web      Google Drive (./drive/Framework); paste-back from new chats
   claude-desktop  a local folder added to the chat (./Framework); faults: no_folder_added

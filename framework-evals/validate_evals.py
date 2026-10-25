@@ -37,7 +37,7 @@ RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmat
 FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "agent_builder_missing_context_file",
           "agent_builder_rewords_carried_line", "agent_builder_rewords_after_fix",
           "agent_builder_requirements_under_knowledge", "agent_builder_ordinary_chat", "skill_cannot_read_by_path",
-          "no_gmail"}
+          "no_gmail", "leader_denies_settings_prompt"}
 
 
 def check_check(c, where, errs, nsessions, corpus):

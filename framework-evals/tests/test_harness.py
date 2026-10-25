@@ -456,6 +456,17 @@ class StubbedHarness(unittest.TestCase):
             H.call(rnd, "skill", root, "run the build skill", cwd=root / "workspace",
                    tools=H.SKILL_TOOLS, plugin=root / "plugin", mcp=H.gmail_mcp(root))
 
+    def test_the_settings_prompt_server_passes_only_when_given(self):
+        self.mode({"mcp_servers": [{"name": "leader_click", "status": "connected"}]})
+        rnd = H.Round(binary=str(self.stub_dir / "claude"), version="9.9.9")
+        rnd.bundled_skills, rnd.bundled_plugins = [], []
+        root = H.new_run_root(str(self.plugin))
+        H.call(rnd, "skill", root, "run the build skill", cwd=root / "workspace", tools=H.SKILL_TOOLS,
+               plugin=root / "plugin", prompt_tool=H.settings_prompt(root, root / "workspace"))
+        with self.assertRaisesRegex(H.HarnessFailure, "init assertion failed: mcp_servers"):
+            H.call(rnd, "skill", root, "run the build skill", cwd=root / "workspace",
+                   tools=H.SKILL_TOOLS, plugin=root / "plugin")
+
     def test_wrong_version_fails_the_init_assertion(self):
         self.mode({"version": "9.9.8"})
         with self.assertRaisesRegex(H.HarnessFailure, "version"):
@@ -682,6 +693,97 @@ class StandInGmail(unittest.TestCase):
             self.assertNotIn("mcp__outlook__send_message", mcp["allow"])
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
+
+
+class SettingsPrompt(unittest.TestCase):
+    """The leader's click on Claude Code's settings prompt allows only the workspace's own
+    .claude/settings.local.json, and only when the leader hasn't said no (tools/settings_prompt_mcp.py)."""
+
+    def setUp(self):
+        sys.path.insert(0, str(EVALS / "tools"))
+        import settings_prompt_mcp as SP
+        self.SP = SP
+        self.tmp = Path(tempfile.mkdtemp())
+        self.ws = self.tmp / "workspace"
+        (self.ws / ".claude").mkdir(parents=True)
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def d(self, tool, path, gate=None, declines=False):
+        return self.SP.decide(tool, {"file_path": path}, str(self.ws), gate, declines)[0]
+
+    def test_only_the_settings_file(self):
+        target = str(self.ws / ".claude" / "settings.local.json")
+        for tool in ("Edit", "Write", "MultiEdit"):
+            self.assertTrue(self.d(tool, target))
+        self.assertTrue(self.d("Edit", ".claude/settings.local.json"))   # relative to the workspace
+        self.assertTrue(self.d("Edit", str(self.ws / ".claude" / ".." / ".claude" / "settings.local.json")))
+        self.assertFalse(self.d("Bash", target))
+        self.assertFalse(self.SP.decide("Bash", {"command": "python3 -c 'write settings'"}, str(self.ws))[0])
+        self.assertFalse(self.d("Write", str(self.ws / ".claude" / "settings.json")))
+        self.assertFalse(self.d("Write", str(self.ws / "framework" / ".bin" / "test-run.sh")))
+        self.assertFalse(self.d("Write", str(self.tmp / "other" / ".claude" / "settings.local.json")))
+        self.assertFalse(self.d("Write", ""))
+
+    def test_a_symlink_out_of_the_workspace_is_refused(self):
+        (self.tmp / "elsewhere").mkdir()
+        (self.ws / "link").symlink_to(self.tmp / "elsewhere")
+        self.assertFalse(self.d("Write", str(self.ws / "link" / "settings.local.json")))
+
+    def test_the_leaders_no_and_the_decline_fault_deny(self):
+        target = str(self.ws / ".claude" / "settings.local.json")
+        self.assertTrue(self.d("Edit", target, {"n_b20": "ok"}))
+        self.assertTrue(self.d("Edit", target, {"n_b20": "unseen"}))
+        self.assertFalse(self.d("Edit", target, {"n_b20": "no"}))
+        self.assertFalse(self.d("Edit", target, {"n_b20": "ok"}, declines=True))
+
+    def test_answer_logs_each_decision_relative_to_the_workspace(self):
+        log = self.tmp / "log.jsonl"
+        env = {"SETTINGS_PROMPT_WORKSPACE": str(self.ws), "SETTINGS_PROMPT_LOG": str(log),
+               "SETTINGS_PROMPT_GATE": str(self.tmp / "missing.json")}
+        saved = {k: os.environ.get(k) for k in env}
+        os.environ.update(env)
+        try:
+            a = self.SP.answer({"tool_name": "Write", "input": {"file_path": str(self.ws / ".claude" / "settings.local.json")}})
+            b = self.SP.answer({"tool_name": "Write", "input": {"file_path": str(self.ws / "x.txt")}})
+        finally:
+            for k, v in saved.items():
+                os.environ.pop(k, None) if v is None else os.environ.__setitem__(k, v)
+        self.assertEqual(a["behavior"], "allow")
+        self.assertEqual(b["behavior"], "deny")
+        rows = [json.loads(x) for x in log.read_text().splitlines()]
+        self.assertEqual([r["decision"] for r in rows], ["allow", "deny"])
+        self.assertEqual(rows[0]["path"], os.path.join(".claude", "settings.local.json"))
+        self.assertNotIn(str(self.tmp), log.read_text())
+
+    def test_n_b20_state_from_the_conversation(self):
+        ask = ("To set this up I need to block Gmail's send from making changes while I check them, in your "
+               "Claude Code settings for this project. Shall I go ahead?")
+        conv = [{"role": "student", "text": "run the build skill"}, {"role": "ai", "text": ask}]
+        self.assertEqual(H.n_b20_state(conv[:1]), "unseen")
+        self.assertEqual(H.n_b20_state(conv + [{"role": "student", "text": "Yes, go ahead."}]), "ok")
+        self.assertEqual(H.n_b20_state(conv + [{"role": "student", "text": "No, not now."}]), "no")
+        other = [{"role": "ai", "text": "To set this up I need to connect Gmail in Claude. Shall I go ahead?"},
+                 {"role": "student", "text": "no"}]
+        self.assertEqual(H.n_b20_state(other), "unseen")  # N-B20 about something other than the settings
+
+    def test_only_build_and_test_on_claude_code(self):
+        import run_eval as R
+        root = self.tmp / "root"
+        root.mkdir()
+        pt = R.settings_prompt_for(L.ClaudeCode(), self.ws, root, {"skill_name": "build"})
+        self.assertEqual(pt["tool"], "mcp__leader_click__approve")
+        cfg = json.loads(Path(pt["config"]).read_text())["mcpServers"]["leader_click"]
+        self.assertNotIn("SETTINGS_PROMPT_DENY", cfg["env"])
+        self.assertIsNotNone(R.settings_prompt_for(L.ClaudeCode(), self.ws, root, {"skill_name": "test"}))
+        self.assertIsNone(R.settings_prompt_for(L.ClaudeCode(), self.ws, root, {"skill_name": "design"}))
+        self.assertIsNone(R.settings_prompt_for(L.PLATFORMS["codex"](), self.ws, root, {"skill_name": "build"}))
+        pt = R.settings_prompt_for(L.ClaudeCode(), self.ws, root, {"skill_name": "build"},
+                                   ev={"platform_faults": ["leader_denies_settings_prompt"]})
+        cfg = json.loads(Path(pt["config"]).read_text())["mcpServers"]["leader_click"]
+        self.assertEqual(cfg["env"]["SETTINGS_PROMPT_DENY"], "1")
+        self.assertIn("leader_denies_settings_prompt", V.FAULTS)
 
 
 class NoAddedFiles(unittest.TestCase):

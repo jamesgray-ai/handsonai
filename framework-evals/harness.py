@@ -210,6 +210,60 @@ def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="
             "allow": [t.replace("mcp__gmail__", f"mcp__{server}__") for t in GMAIL_ALLOW]}
 
 
+SETTINGS_PROMPT = Path(__file__).resolve().parent / "tools" / "settings_prompt_mcp.py"
+SETTINGS_PROMPT_SERVER = "leader_click"
+SETTINGS_PROMPT_TOOL = f"mcp__{SETTINGS_PROMPT_SERVER}__approve"
+
+
+def settings_prompt(root, workspace, leader_declines=False):
+    """The leader's click on Claude Code's prompt for `.claude/settings.local.json`
+    (tools/settings_prompt_mcp.py, passed as --permission-prompt-tool): Build's block is written with
+    the Edit or Write tool, which a `-p` session otherwise refuses. Allows only that one file; logs
+    each decision to the run root's settings-prompt.jsonl. The runner rewrites the gate file
+    (N-B20's answer) before every turn with write_settings_gate()."""
+    cfg = root / f"mcp-{SETTINGS_PROMPT_SERVER}.json"
+    stub = root / "bin" / SETTINGS_PROMPT.name
+    stub.parent.mkdir(exist_ok=True)
+    shutil.copy2(SETTINGS_PROMPT, stub)
+    gate, log = root / "settings-prompt-gate.json", root / "settings-prompt.jsonl"
+    env = {"SETTINGS_PROMPT_WORKSPACE": str(workspace), "SETTINGS_PROMPT_LOG": str(log),
+           "SETTINGS_PROMPT_GATE": str(gate)}
+    if leader_declines:
+        env["SETTINGS_PROMPT_DENY"] = "1"
+    cfg.write_text(json.dumps({"mcpServers": {SETTINGS_PROMPT_SERVER: {
+        "type": "stdio", "command": sys.executable, "args": ["-I", str(stub)], "env": env}}}))
+    return {"config": cfg, "servers": [SETTINGS_PROMPT_SERVER], "tool": SETTINGS_PROMPT_TOOL,
+            "gate": gate, "log": log}
+
+
+NO_RE = re.compile(r"^\W*(no|nope|not (now|yet)|don'?t|do not|stop|cancel|hold off)\b", re.I)
+
+
+def n_b20_state(turns, corpus=None):
+    """N-B20's answer for the settings, from the conversation so far ('unseen', 'ok' or 'no'): the
+    last AI message that says N-B20 about Claude Code's settings, and the leader's reply after it."""
+    if corpus is None:
+        import approved_lines as AL
+        corpus = AL.Corpus()
+    forms = [ln for ln in corpus.checkable() if ln.id == "N-B20"]
+    asked = None
+    for i, t in enumerate(turns):
+        if t["role"] == "ai" and re.search(r"settings", t["text"], re.I) \
+                and any(ln.matches(t["text"]) for ln in forms):
+            asked = i
+    if asked is None:
+        return "unseen"
+    after = [t for t in turns[asked + 1:] if t["role"] == "student"]
+    if not after:
+        return "unseen"
+    return "no" if NO_RE.search(after[0]["text"]) else "ok"
+
+
+def write_settings_gate(prompt_tool, turns, corpus=None):
+    if prompt_tool:
+        Path(prompt_tool["gate"]).write_text(json.dumps({"n_b20": n_b20_state(turns, corpus)}))
+
+
 def env_for(root):
     home = root / "home"
     base = "/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin"
@@ -317,10 +371,11 @@ def check_config_folder(root, plugin):
 
 def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, session_id=None,
          system_prompt=None, append_system_prompt=None, model=None, agent=None, log=None, retries=2,
-         mcp=None):
+         mcp=None, prompt_tool=None):
     """One `claude -p` call. Returns (result_text, record). Raises HarnessFailure or UsageLimit.
     `mcp`: {"config": path, "servers": [names], "allow": [tool names]} from gmail_mcp(), the
-    stand-in connections a Claude Code session sees (allowed as the leader's own click would)."""
+    stand-in connections a Claude Code session sees (allowed as the leader's own click would).
+    `prompt_tool`: settings_prompt(), the leader's click on the settings prompt (Build and Test)."""
     args = [rnd.binary, "-p", "--setting-sources", "project,local", "--strict-mcp-config",
             "--output-format", "stream-json", "--verbose",
             "--model", model or {"skill": SKILL_MODEL, "student": STUDENT_MODEL}.get(role, GRADER_MODEL),
@@ -328,8 +383,12 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
             "--tools", ",".join(tools)]
     if tools:
         args += ["--allowedTools", ",".join(tools + list((mcp or {}).get("allow", [])))]
-    if mcp:
-        args += ["--mcp-config", str(mcp["config"])]
+    configs = [str(m["config"]) for m in (mcp, prompt_tool) if m]
+    if configs:
+        args += ["--mcp-config", *configs]
+    if prompt_tool:
+        # The session's model never calls the click itself: only Claude Code's prompt does.
+        args += ["--permission-prompt-tool", prompt_tool["tool"], "--disallowedTools", prompt_tool["tool"]]
     if plugin:
         args += ["--plugin-dir", str(plugin)]
     if agent:
@@ -371,7 +430,8 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         err = text or (r.stderr[-1500:] if r else "timeout")
         raise HarnessFailure(f"{role}: call failed: {err}")
     # Only the first call of a session sends a fresh init worth checking? Every call has one; check all.
-    check_init(rnd, role, init, root, tools, cwd, plugin, (mcp or {}).get("servers", ()))
+    check_init(rnd, role, init, root, tools, cwd, plugin,
+               list((mcp or {}).get("servers", ())) + list((prompt_tool or {}).get("servers", ())))
     check_config_folder(root, plugin)
     record = {
         "role": role,

@@ -82,7 +82,7 @@ At the end of Part 1, after the quick real checks (each one's N-B27 already said
    ```
 
 4. **Ask the wrapper for the rules:** `framework/.bin/test-run.sh block-rules <slug> --plugin-copy <this skill's folder>/scripts/test-run.sh`. It prints JSON: `deny` (every rule the block needs), `add` (the ones not in the settings yet), `shared_with` (rules another workflow's recorded block also lists), `leader_rules` (rules the leader already had), `leader_allow` (the leader's allow rules now), `check_agent_tools` (the reads), and `demoted_to_write`. Then `framework/.bin/test-run.sh allow-rules <slug> --plugin-copy …` for the wrapper's own allow and the denies on `framework/.bin/`.
-5. **Write the settings.** Add `add` and the wrapper's `deny` to `permissions.deny`, and the wrapper's `allow` to `permissions.allow`, in `.claude/settings.local.json`. Add only; never remove or reorder anything already there.
+5. **Write the settings.** Add `add` and the wrapper's `deny` to `permissions.deny`, and the wrapper's `allow` to `permissions.allow`, in `.claude/settings.local.json`. Add only; never remove or reorder anything already there. Write it with your Edit or Write tool, never from Bash, `python3` or any script, so Claude Code shows the leader its own permission prompt for the file. That prompt is expected after N-B20's OK; don't ask again in chat. If the leader declines it, the block can't be written: fail closed as below.
 6. **Record the block** in the record's frontmatter, from `record_write_block` and `leader_allow`:
 
    ```yaml
@@ -171,7 +171,7 @@ The prompt file carries the practice-run cue ("practice run"; the wrapper refuse
 
 At Build's close and at every stop, before the record is saved:
 
-1. `framework/.bin/test-run.sh lift-rules <slug> --plugin-copy …` prints `remove` (this workflow's rules no other workflow's recorded block lists and no record lists as the leader's), `kept_shared` and `kept_leader`. Remove exactly the rules in `remove` from `.claude/settings.local.json`, and nothing else. If it exits 5 (another record's block can't be read), remove nothing, and say the block stays on until that record is fixed.
+1. `framework/.bin/test-run.sh lift-rules <slug> --plugin-copy …` prints `remove` (this workflow's rules no other workflow's recorded block lists and no record lists as the leader's), `kept_shared` and `kept_leader`. Remove exactly the rules in `remove` from `.claude/settings.local.json`, and nothing else, with your Edit tool as in section 4 step 5 (never Bash or a script); Claude Code asks the leader to allow it. If the leader declines, the rules stay (they only refuse): keep them in `write_block` rather than setting it off, for the next entry to take over (section 9), and say so in one line. If it exits 5 (another record's block can't be read), remove nothing, and say the block stays on until that record is fixed.
 2. Remove the check agents' files: every path in `write_block`'s `check_agents`, and any other `.claude/agents/framework-check-<slug>-*.md` file (a session that ended before recording one).
 3. Set `write_block: off` in the record.
 4. Read the settings back with `settings-check`; every rule from `remove` must be gone and every kept rule still there.

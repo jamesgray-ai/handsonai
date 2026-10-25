@@ -162,6 +162,17 @@ def connections_for(platform, ws, root, data):
     return H.gmail_mcp(root)
 
 
+def settings_prompt_for(platform, ws, root, data, s=None, ev=None):
+    """The leader's click on Claude Code's prompt for `.claude/settings.local.json`
+    (harness.settings_prompt): Build writes the block there and lifts it, and Test adds the wrapper's
+    rules and lifts a block it took over, each with the Edit or Write tool. Claude Code only.
+    Fault leader_denies_settings_prompt: the leader declines that prompt."""
+    if data.get("skill_name") not in ("build", "test") or platform.key != "claude-code":
+        return None
+    faults = (s or {}).get("platform_faults") or (ev or {}).get("platform_faults") or []
+    return H.settings_prompt(root, ws, leader_declines="leader_denies_settings_prompt" in faults)
+
+
 def make_run_chat(rnd, root, ws, args, calls):
     """A new chat the leader opens on a chat platform: a cold session with only the built workflow,
     nothing from the framework (rules 3.5), that answers the pasted block once."""
@@ -220,6 +231,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 mcp = None  # a leader who hasn't connected Gmail
             else:
                 mcp = connections_for(platform, ws, root, data)
+            prompt_tool = settings_prompt_for(platform, ws, root, data, s, ev)
             run_chat = make_run_chat(rnd, root, ws, args, calls)
             sid = str(uuid.uuid4())
             turns, files_by_turn, cap_hit = [], [], False
@@ -227,9 +239,10 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             for turn in range(cap):
                 turns.append({"role": "student", "text": msg, msg_kind: True, "actions": acts})
                 kw = {"session_id": sid} if turn == 0 else {"resume": sid}
+                H.write_settings_gate(prompt_tool, turns)
                 ai, rec = H.call(rnd, "skill", root, msg, cwd=ws, tools=tools, plugin=plugin,
                                  model=args.skill_model, append_system_prompt=platform.preamble(),
-                                 log=sdir / "events.jsonl", mcp=mcp, **kw)
+                                 log=sdir / "events.jsonl", mcp=mcp, prompt_tool=prompt_tool, **kw)
                 rec.update(session=n, turn=turn + 1)
                 calls.append(rec)
                 turns.append({"role": "ai", "text": ai})
@@ -329,6 +342,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
     (rdir / "grading.json").write_text(json.dumps({"expectations": judged}, indent=2, ensure_ascii=False))
     (rdir / "calls.json").write_text(json.dumps(calls, indent=2, ensure_ascii=False))
     (rdir / "result.json").write_text(json.dumps(res, indent=2, ensure_ascii=False))
+    if (root / "settings-prompt.jsonl").exists():  # the leader's clicks on the settings prompt
+        shutil.copy2(root / "settings-prompt.jsonl", rdir / "settings-prompt.jsonl")
     shutil.rmtree(root, ignore_errors=True)
     hits = H.commit_leak_scan(rdir)
     if hits:

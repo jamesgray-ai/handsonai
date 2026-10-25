@@ -16,7 +16,7 @@ Before the first run, and again before every run and every resume:
 
    > "For this round I need to allow my test script again in this project's settings, so I can run your practice inputs in separate sessions. I'll remove it when the round ends. Shall I go ahead?"
 
-   On a yes, add the `allow` and `deny` rules `framework/.bin/test-run.sh allow-rules <slug> --plugin-copy …` prints to `.claude/settings.local.json`, adding only. On a no, the leader runs the practice inputs too (N-T8, as on the other platforms).
+   On a yes, add the `allow` and `deny` rules `framework/.bin/test-run.sh allow-rules <slug> --plugin-copy …` prints to `.claude/settings.local.json`, adding only. Change that file with your Edit or Write tool, never from Bash, `python3` or any script, so Claude Code shows the leader its own permission prompt; a declined prompt is a no. On a no, the leader runs the practice inputs too (N-T8, as on the other platforms).
 4. **A block Build left on** (`write_block` not `off` in the record) stays on through the round, so it binds the leader's runs too, and comes off at the round's close (section 7). Test adds no block and no hook of its own: the leader's own run is protected as on every platform.
 
 ## 2. The practice folder
@@ -114,7 +114,7 @@ Whatever the verdict, and when a round is set aside:
 
    The wrapper clears only `practice/` or `practice-<slug>/` holding this workflow's marker. A folder without the marker, or one this round didn't record, is never cleared: leave it and say so.
 2. **The AI's run folders:** clear each one recorded in the Environment with `runs-clear <slug> --plugin-copy … --path <run folder>`. The wrapper clears only folders it made for this workflow. Remove the round's scratch folder of prompt and decision files too (the path recorded in the Environment, outside the workspace).
-3. **A block taken over from Build:** `framework/.bin/test-run.sh lift-rules <slug> --plugin-copy …`, then remove exactly the rules in `remove` from `.claude/settings.local.json`, set `write_block: off` in the record, and read the settings back with `settings-check`. A rule another workflow's block still lists, or one the leader had, stays.
+3. **A block taken over from Build:** `framework/.bin/test-run.sh lift-rules <slug> --plugin-copy …`, then remove exactly the rules in `remove` from `.claude/settings.local.json` with your Edit tool (never from Bash or a script; if the leader declines Claude Code's prompt, the rules stay and `write_block` stays on), set `write_block: off` in the record, and read the settings back with `settings-check`. A rule another workflow's block still lists, or one the leader had, stays.
 4. **The wrapper's allow, on a live workflow:** `allow-rules <slug> --plugin-copy … --lift`, then remove exactly the rules in `remove`. When `kept_for` names another workflow that still needs it, it stays. Before a first go-live, the allow stays until go-live removes it the same way.
 5. **Read the settings back** with `settings-check`.
 
