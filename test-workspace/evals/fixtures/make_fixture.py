@@ -1023,10 +1023,13 @@ def fx_platform_change(t):  # moved from Claude Code to Codex: a fresh plan and 
     set_record_platform(t, "codex")
     resub(record(t), r"(?ms)\n## Claude Code profile.*", "\n")
     fingerprints(t, "codex")
-    results(t, p="codex", status="in-progress", kind="first", res={
-        "E1": {"runs": 1, "run1": dict(MET), "edits": "none"}, "E2": {"runs": 1, "run1": dict(MET), "edits": "none"},
-        "E3": {"runs": 1, "run1": {"KW": "met", "R1": "met", "P2": "met"}}, "new": {"runs": 1, "run1": dict(MET), "edits": "none"}},
-        report=report_for("E1", "E2", "E3", "new"), env_note="At your real example you asked for no change.")
+    # Every saved input graded on the lines it exercises (LINES_ON), as the other rounds are: E4, the
+    # third practice input Test wrote in the Claude Code version's round 1, is a saved input now.
+    res = graded(["E1", "E2", "E3", "E4", "new"])
+    inputs = round_inputs("codex")
+    inputs[3] = ("E4", "written by Test in an earlier round", "you", "1", "—", "—")
+    results(t, p="codex", status="in-progress", kind="first", res=res, inputs=inputs, coverage=COVERAGE_ROUND,
+            report=report_for(*res.keys()), env_note="At your real example you asked for no change.")
 
 
 def fx_platform_change_answered(t):  # after a platform change, N-T56 answered at round 1's go-live; a re-check must not ask it again
@@ -1034,7 +1037,8 @@ def fx_platform_change_answered(t):  # after a platform change, N-T56 answered a
     first = results_path(t).read_text()
     first = first.replace("round_status: in-progress", "round_status: complete")
     first = first.replace("change_requests: []", "readiness: ready\ngo_live: done\nold_platform_off: set-aside-2026-10-21-0900\nchange_requests: []", 1)
-    first = re.sub(r"(?s)## Verdict\n.*$", "## Verdict\nReady. 14 of 14 lines met across 4 inputs. It went live on Codex, and you switched off the Claude Code version for good.\n", first)
+    count = count_line(graded(["E1", "E2", "E3", "E4", "new"]))
+    first = re.sub(r"(?s)## Verdict\n.*$", f"## Verdict\nReady. {count}. It went live on Codex, and you switched off the Claude Code version for good.\n", first)
     results_path(t).write_text(first)
     rec = record(t)
     rec.write_text(rec.read_text().rstrip("\n") + "\n\nLive since 2026-10-22.\nHow to switch it off: in Codex, remove .agents/skills/client-follow-up.\n")

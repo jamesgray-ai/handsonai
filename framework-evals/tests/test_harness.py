@@ -632,6 +632,56 @@ class PlatformSimulations(unittest.TestCase):
         self.assertEqual((msg, n), ("It says hello.", 2))
 
 
+class ReleaseItemsAndFidelity(unittest.TestCase):
+    def test_judged_items_and_preconditions_follow_the_release_checks(self):
+        saved = CS.release_checks_passed
+        try:
+            for passed in (True, False):
+                CS.release_checks_passed = lambda ids, p=passed: p
+                ev = {"expectations": [
+                    {"text": "AI runs", "kind": "judged", "release_check": {"ids": [6], "passed": "AI runs", "open": "Leader runs"}},
+                    {"text": "only with AI runs", "kind": "judged", "release_check": {"ids": [6], "passed": "only with AI runs", "open": None}},
+                    {"text": "always", "kind": "judged"}],
+                      "preconditions": [{"release_check": {"ids": [6], "passed": "wrapper starts", "open": None}}, "plain"]}
+                CS.resolve_release_items(ev)
+                self.assertEqual([x["text"] for x in ev["expectations"]],
+                                 ["AI runs", "only with AI runs", "always"] if passed else ["Leader runs", "always"])
+                self.assertTrue(all("release_check" not in x for x in ev["expectations"]))
+                self.assertEqual(ev["preconditions"], ["wrapper starts", "plain"] if passed else ["plain"])
+        finally:
+            CS.release_checks_passed = saved
+        # today release check 6 is open: Test's AI-run evals read the leader-runs path
+        import run_eval as R
+        evs = {e["id"]: e for e in R.load_evals(ROOT / "test-workspace" / "evals" / "evals.json")["evals"]}
+        self.assertFalse(CS.release_checks_passed([6]))
+        self.assertTrue(any("N-T42" in x["text"] for x in evs["TS-cc-ai-runs"]["expectations"] if x["kind"] == "judged"))
+        self.assertFalse(any("check 6" in p for e in evs.values() for p in e.get("preconditions", [])
+                             if "can start a headless session" in p))
+
+    def test_validator_checks_release_items(self):
+        with tempfile.TemporaryDirectory() as t:
+            bad = {"skill_name": "x", "how_to_run": "t", "evals": [
+                {"id": "A", "name": "a", "tier": "core", "prompt": "go", "fixture": "empty", "expected_output": "",
+                 "files": [], "preconditions": [{"release_check": {"ids": [999], "passed": "x", "open": None}}],
+                 "expectations": [{"text": "q", "kind": "judged", "release_check": {"ids": [6], "passed": 3}}]}]}
+            Path(t, "evals.json").write_text(json.dumps(bad))
+            joined = "\n".join(V.validate_file(Path(t, "evals.json")))
+            for needle in ("release check 999 isn't in the platform registry", "release_check 'passed' must be",
+                           "release_check 'open' must be"):
+                self.assertIn(needle, joined)
+
+    def test_fidelity_counts_the_screen_and_the_scripts_quoted_blocks_as_seen(self):
+        def run(turns, quotes=""):
+            return {"sessions": [{"n": 1, "turns": turns, "script_quotes": quotes}]}
+        pasted = "Practice run: nothing will be sent or changed. What I did: read requirements.md"
+        turns = [{"role": "student", "text": "go", "prompt": True}, {"role": "ai", "text": "Paste its block here."},
+                 {"role": "student", "text": pasted, "student": True}]
+        self.assertFalse(CS.fidelity(run(turns))[0])  # the leader's own words: a term first
+        self.assertTrue(CS.fidelity(run(turns, CS.script_quotes(f'- Your real example\'s block: "{pasted}"')))[0])
+        turns[2]["screen"] = "[You opened a new chat and pasted the block. It answered:]\n" + pasted
+        self.assertTrue(CS.fidelity(run(turns))[0])  # what the screen showed
+
+
 class StubbedHarness(unittest.TestCase):
     """Init assertions and a whole round, against the stub binary and a fake home."""
 

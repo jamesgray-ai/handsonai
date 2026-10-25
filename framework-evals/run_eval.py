@@ -96,6 +96,7 @@ def load_evals(path):
     data = json.loads(Path(path).read_text())
     for ev in data["evals"]:
         ev["expectations"] = [x if isinstance(x, dict) else {"text": x, "kind": "judged"} for x in ev["expectations"]]
+        CS.resolve_release_items(ev)  # judged items and preconditions that read the release checks
     return data
 
 
@@ -247,9 +248,10 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             run_chat = make_run_chat(rnd, root, ws, args, calls)
             sid = str(uuid.uuid4())
             turns, files_by_turn, cap_hit = [], [], False
-            msg, msg_kind, acts = s["prompt"], "prompt", 0
+            msg, msg_kind, acts, shown = s["prompt"], "prompt", 0, ""
             for turn in range(cap):
-                turns.append({"role": "student", "text": msg, msg_kind: True, "actions": acts})
+                turns.append({"role": "student", "text": msg, msg_kind: True, "actions": acts,
+                              **({"screen": shown} if shown else {})})
                 kw = {"session_id": sid} if turn == 0 else {"resume": sid}
                 H.write_settings_gate(prompt_tool, turns)
                 ai, rec = H.call(rnd, "skill", root, msg, cwd=ws, tools=tools, plugin=plugin,
@@ -260,6 +262,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 turns.append({"role": "ai", "text": ai})
                 files_by_turn.append(file_list(ws))
                 screens = platform.screen(ai, ws, run_chat)
+                shown = "\n\n".join(o for o, _ in screens)
                 if replies:
                     msg, msg_kind, acts = replies.pop(0), "scripted_reply", sum(a for _, a in screens)
                 elif script:
@@ -278,7 +281,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                             target.write_text(w["text"])
                     if msg.strip().splitlines() and msg.strip().splitlines()[-1].strip() == "END":
                         # END closes the run even after a stray line of the leader's own reasoning
-                        turns.append({"role": "student", "text": "END", "end": True, "actions": acts})
+                        turns.append({"role": "student", "text": "END", "end": True, "actions": acts,
+                                      **({"screen": shown} if shown else {})})
                         break
                 else:
                     break
@@ -288,7 +292,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             start, end = CS.load_tree(sdir / "workspace-start"), CS.load_tree(sdir / "workspace")
             run["sessions"].append({"n": n, "turns": turns, "files_by_turn": files_by_turn,
                                     "files_start": start, "files_end": end, "cap_hit": cap_hit,
-                                    "root": str(sdir / "workspace"), "platform": platform.key})
+                                    "root": str(sdir / "workspace"), "platform": platform.key,
+                                    "script_quotes": CS.script_quotes(script)})
         # Grade inside the run root's lifetime (the graders run from run-root/grader).
         scripted = CS.run_checks(ev, run, data)
         if any(s["cap_hit"] for s in run["sessions"]):

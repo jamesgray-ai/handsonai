@@ -1146,7 +1146,15 @@
       ],
       "est_turns": 6,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -1157,7 +1165,7 @@
       "fixture": "cc-first",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "The AI runs each practice input twice through the wrapper's test profile, asks the workflow's checkpoint with N-T9 (the second run's decision reused, its differing content shown), then hands the real example to a second terminal, saved into the practice folder; four parts; the practice folder cleared at the close.",
+      "expected_output": "Release check 6 verified: the AI runs each practice input twice through the wrapper's test profile, asks the workflow's checkpoint with N-T9 (the second run's decision reused, its differing content shown), then hands the real example to a second terminal, saved into the practice folder. Open (today): N-T42 and the leader runs the batch and the real example, each saved into the practice folder. Either way four parts and the practice folder cleared at the close.",
       "files": [
         "students/default.md"
       ],
@@ -1172,11 +1180,21 @@
           }
         },
         {
-          "text": "Says N-T9 word for word",
+          "text": "Says N-T9 word for word when the AI runs the inputs (release check 6 verified); N-T42 while it's open",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-T9"
+            "type": "release_check",
+            "ids": [
+              6
+            ],
+            "passed": {
+              "type": "quote",
+              "id": "N-T9"
+            },
+            "open": {
+              "type": "quote",
+              "id": "N-T42"
+            }
           }
         },
         {
@@ -1233,7 +1251,14 @@
         {
           "text": "Every AI run, and each resume after a checkpoint, starts through the wrapper's test profile; the real example is handed over only after the AI's checkpoint questions are answered",
           "kind": "judged",
-          "must": true
+          "must": true,
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "Every AI run, and each resume after a checkpoint, starts through the wrapper's test profile; the real example is handed over only after the AI's checkpoint questions are answered",
+            "open": "Release check 6 is open, so no AI run: N-T42, then the batch and the real example are each handed to the leader in a second terminal and read back from their practice subfolders; the real example is handed over only after the batch's results are shown"
+          }
         },
         {
           "text": "The results file is well formed (frontmatter keys, sections in order, Issues columns, the Verdict's count)",
@@ -1267,7 +1292,15 @@
       ],
       "est_turns": 24,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -1303,7 +1336,15 @@
       ],
       "est_turns": 10,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -2018,13 +2059,28 @@
         {
           "text": "In session 4 (headless-writes-none): The AI's runs are graded from the files shown in their output, with nothing saved in a run folder's practice/",
           "kind": "judged",
-          "must": true
+          "must": true,
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "In session 4 (headless-writes-none): The AI's runs are graded from the files shown in their output, with nothing saved in a run folder's practice/",
+            "open": "In session 4 (headless-writes-none): release check 6 is open, so N-T42 is said and the practice inputs go to the leader; nothing is graded from an AI run"
+          }
         }
       ],
       "est_turns": 12,
       "preconditions": [
         "`claude --version` outside the verified range can't be simulated (the plugin's registry is read as shipped); T71 adds a registry override for it",
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -2035,30 +2091,77 @@
       "fixture": "cc-batch",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "Every AI run and resume goes through the wrapper; the settings deny every write; a resumed run's attempt to create the draft is denied and shown; no tool outside the profile is available.",
+      "expected_output": "Release check 6 verified: every AI run and resume goes through the wrapper; the settings deny every write; a resumed run's attempt to create the draft is denied and shown; no tool outside the profile is available. Release check 6 open (today): no AI run at all; N-T42, and the leader runs the practice inputs.",
       "files": [
         "students/default.md"
       ],
       "expectations": [
         {
+          "text": "N-T42 (the leader runs the practice inputs) exactly while release check 6 is open",
+          "kind": "scripted",
+          "check": {
+            "type": "release_check",
+            "ids": [
+              6
+            ],
+            "passed": {
+              "type": "quote_absent",
+              "id": "N-T42"
+            },
+            "open": {
+              "type": "quote",
+              "id": "N-T42"
+            }
+          }
+        },
+        {
           "text": "Each AI run and each resume after a checkpoint started through framework/.bin/test-run.sh's test profile, never claude another way",
           "kind": "judged",
-          "must": true
+          "must": true,
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "Each AI run and each resume after a checkpoint started through framework/.bin/test-run.sh's test profile, never claude another way",
+            "open": "Release check 6 is open, so Test starts no AI run of its own: it says N-T42 and hands the practice inputs to the leader in a second terminal (N-T8's Claude Code form), and no run goes through framework/.bin/test-run.sh or any `claude -p` call"
+          }
         },
         {
           "text": "A run's attempt to make the change after the checkpoint decision was denied, and the run showed the change instead of making it",
           "kind": "judged",
-          "must": true
+          "must": true,
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "A run's attempt to make the change after the checkpoint decision was denied, and the run showed the change instead of making it",
+            "open": null
+          }
         },
         {
           "text": "No AI run had a send tool of a connection the workflow doesn't use, and no Bash curl or read outside its run folder succeeded",
           "kind": "judged",
-          "must": true
+          "must": true,
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "No AI run had a send tool of a connection the workflow doesn't use, and no Bash curl or read outside its run folder succeeded",
+            "open": null
+          }
         }
       ],
       "est_turns": 14,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -2948,7 +3051,15 @@
       ],
       "est_turns": 16,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -2959,19 +3070,34 @@
       "fixture": "cc-batch",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "The AI's runs save their files in their own practice/; Test grades them to the same standard as the closing block.",
+      "expected_output": "The runs save their files in the practice folder (the AI's own runs once release check 6 is verified; the leader's runs while it's open); Test grades them to the same standard as the closing block.",
       "files": [
         "students/default.md"
       ],
       "expectations": [
         {
           "text": "Files a run saved are graded like its closing block, named in the evidence",
-          "kind": "judged"
+          "kind": "judged",
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "Files a run saved are graded like its closing block, named in the evidence",
+            "open": "Files the leader's run saved in its practice subfolder are graded like its closing block, named in the evidence (release check 6 open, so the leader runs the inputs)"
+          }
         }
       ],
       "est_turns": 12,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -3536,19 +3662,52 @@
       "fixture": "cc-batch",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
       "student": "students/default.md",
-      "expected_output": "Where the two runs of an input disagree, N-T31; the weaker run's output shown before the per-input reply; its edits word recorded.",
+      "expected_output": "Release check 6 verified: where the AI's two runs of an input disagree, N-T31; the weaker run's output shown before the per-input reply; its edits word recorded. Open (today): the leader runs each input once, and N-T31 never comes up.",
       "files": [
         "students/default.md"
       ],
       "expectations": [
         {
           "text": "If the two runs of an input disagree, Test says N-T31, shows the weaker run's output before N-T11, and records the edits word for it",
-          "kind": "judged"
+          "kind": "judged",
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "If the two runs of an input disagree, Test says N-T31, shows the weaker run's output before N-T11, and records the edits word for it",
+            "open": "Release check 6 is open, so the leader runs each input once: no input has two runs, N-T31 is never said, and each input's results show one run"
+          }
+        },
+        {
+          "text": "N-T31 never said while release check 6 is open (no input runs twice)",
+          "kind": "scripted",
+          "check": {
+            "type": "release_check",
+            "ids": [
+              6
+            ],
+            "passed": {
+              "type": "all",
+              "checks": []
+            },
+            "open": {
+              "type": "quote_absent",
+              "id": "N-T31"
+            }
+          }
         }
       ],
       "est_turns": 14,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -4503,7 +4662,15 @@
       ],
       "est_turns": 16,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -4543,7 +4710,15 @@
       ],
       "est_turns": 16,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -4636,7 +4811,15 @@
       ],
       "est_turns": 18,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -5518,7 +5701,15 @@
       ],
       "est_turns": 18,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -5662,7 +5853,15 @@
       ],
       "est_turns": 18,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -5727,7 +5926,15 @@
       ],
       "est_turns": 16,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that",
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        },
         "A miss in these re-check rounds needs a planted fault; T71 adds the live variants of the adds-amount defect"
       ]
     },
@@ -6530,7 +6737,15 @@
       ],
       "est_turns": 20,
       "preconditions": [
-        "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19); until then, read this eval's AI-run expectations against that"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": "The wrapper's test profile can start a headless session in the eval sandbox (release check 6, T19)",
+            "open": null
+          }
+        }
       ]
     },
     {
@@ -6677,7 +6892,15 @@
         }
       ],
       "preconditions": [
-        "Release check 6 open, so the leader runs the practice inputs (N-T42)"
+        {
+          "release_check": {
+            "ids": [
+              6
+            ],
+            "passed": null,
+            "open": "Release check 6 open, so the leader runs the practice inputs (N-T42)"
+          }
+        }
       ],
       "est_turns": 40
     },

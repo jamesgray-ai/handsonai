@@ -21,6 +21,7 @@ import tempfile
 from pathlib import Path
 
 import approved_lines as AL
+import check_scripted as CS
 import leader as L
 
 REQUIRED = {
@@ -76,6 +77,21 @@ def check_check(c, where, errs, nsessions, corpus):
     for k in ("passed", "open"):
         if t == "release_check" and isinstance(c.get(k), dict):
             check_check(c[k], f"{where}.{k}", errs, nsessions, corpus)
+
+
+def check_release_item(rc, where, errs):
+    """A judged expectation's or precondition's `release_check: {ids, passed, open}` (text or null each)."""
+    if not (isinstance(rc, dict) and isinstance(rc.get("ids"), list) and rc["ids"]
+            and all(isinstance(i, int) for i in rc["ids"])):
+        errs.append(f"{where}: release_check needs ids, a list of release check numbers")
+        return
+    for k in ("passed", "open"):
+        if k not in rc or not (rc[k] is None or isinstance(rc[k], str)):
+            errs.append(f"{where}: release_check {k!r} must be a text or null")
+    known = {r["id"] for r in json.loads(CS.REGISTRY.read_text()).get("release_checks", [])}
+    for i in rc["ids"]:
+        if i not in known:
+            errs.append(f"{where}: release check {i} isn't in the platform registry")
 
 
 def fixture_names(evals_dir, builder):
@@ -178,9 +194,15 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
                     check_check(x["check"], xw, errs, len(sessions), corpus)
             elif "check" in x:
                 errs.append(f"{xw}: judged expectation carries a check")
+            if "release_check" in x:
+                if x["kind"] != "judged":
+                    errs.append(f"{xw}: a release_check item is judged (a scripted one uses the release_check check)")
+                check_release_item(x["release_check"], xw, errs)
         for p in ev.get("preconditions", []):
-            if not isinstance(p, str):
-                errs.append(f"{w}: precondition must be a string")
+            if isinstance(p, dict) and set(p) == {"release_check"}:
+                check_release_item(p["release_check"], f"{w} precondition", errs)
+            elif not isinstance(p, str):
+                errs.append(f"{w}: precondition must be a string or {{release_check: {{ids, passed, open}}}}")
     if build and names is not None:
         for x in sorted(used):
             if x.startswith("dir:"):

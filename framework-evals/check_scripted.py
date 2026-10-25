@@ -55,7 +55,11 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   (the fixture's own files)
   release_check    {ids: [n, ...], passed: {check}, open: {check}} the platform registry's release checks:
                                                                   `passed` when every row is verified for this
-                                                                  release, `open` otherwise (fail closed)
+                                                                  release, `open` otherwise (fail closed).
+                                                                  A judged expectation or a precondition can
+                                                                  depend on them too: `release_check: {ids,
+                                                                  passed: text|null, open: text|null}`
+                                                                  (resolve_release_items)
   all              {checks: [...]}                                every sub-check passes
   any              {checks: [...]}                                at least one passes
 
@@ -428,6 +432,34 @@ def release_checks_passed(ids):
                for r in (rows.get(i) for i in ids))
 
 
+def resolve_release_items(ev):
+    """An eval's judged expectations and preconditions that depend on the platform registry's release
+    checks, read the way the scripted `release_check` check reads them: an item carrying
+    `release_check: {ids, passed, open}` takes the text for the checks' state (`passed` when every row
+    is verified for this release, `open` otherwise), and a null text drops the item. A precondition is
+    then a plain string again. Returns the eval, changed in place."""
+    def pick(rc):
+        return rc.get("passed") if release_checks_passed(rc["ids"]) else rc.get("open")
+    exps = []
+    for x in ev.get("expectations", []):
+        if isinstance(x, dict) and "release_check" in x and x.get("kind") == "judged":
+            text = pick(x["release_check"])
+            if text is None:
+                continue
+            x = {**{k: v for k, v in x.items() if k != "release_check"}, "text": text}
+        exps.append(x)
+    ev["expectations"] = exps
+    if "preconditions" in ev:
+        pres = []
+        for p in ev["preconditions"]:
+            if isinstance(p, dict):
+                p = pick(p["release_check"])
+            if p is not None:
+                pres.append(p)
+        ev["preconditions"] = pres
+    return ev
+
+
 # ---------------------------------------------------------------- dispatch
 
 def check(c, run):
@@ -602,15 +634,24 @@ def check(c, run):
     raise ValueError(f"unknown check type {t}")
 
 
+def script_quotes(script):
+    """The text a leader script quotes for the leader to paste ("Your runs" blocks, a planted run's
+    block, their real example): a term inside it comes from the script, not the leader."""
+    return "\n".join(re.findall(r'"([^"]*)"', script or "", re.S))
+
+
 def fidelity(run):
     """No framework term in a leader turn before an AI turn used it (word-boundary, case as listed
-    for 'AC', case-insensitive otherwise)."""
+    for 'AC', case-insensitive otherwise). What the leader's screen showed (a run's answer they paste
+    back) and what their script quotes for them to paste count as seen: the leader didn't choose them."""
     for s in run["sessions"]:
-        seen_ai = ""
+        seen_ai = norm(s.get("script_quotes") or "")
         for t in s["turns"]:
             if t["role"] == "ai":
                 seen_ai += "\n" + norm(t["text"])
                 continue
+            if t.get("screen"):
+                seen_ai += "\n" + norm(t["screen"])
             if t.get("scripted_reply") or t.get("prompt"):
                 continue
             for term in FIDELITY_TERMS:
