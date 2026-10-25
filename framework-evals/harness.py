@@ -294,11 +294,35 @@ def write_settings_gate(prompt_tool, turns, corpus=None):
         Path(prompt_tool["gate"]).write_text(json.dumps({"n_b20": n_b20_state(turns, corpus)}))
 
 
+SYSTEM_PATH = "/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin"
+NO_PYTHON3 = "fault-no-python3"  # a marker in the run root: the platform fault no_python3
+
+
+def _system_path(root):
+    """The system folders on PATH; with the no_python3 fault, one folder of links to every tool in them
+    except python3 (and python), so the session finds no python3 at all, as on a machine without it.
+    The stand-in connections start with sys.executable's full path and are unaffected."""
+    if not (root / NO_PYTHON3).exists():
+        return SYSTEM_PATH
+    sb = root / "sysbin"
+    if not sb.exists():
+        sb.mkdir()
+        for d in SYSTEM_PATH.split(":"):
+            if not os.path.isdir(d):
+                continue
+            for f in sorted(Path(d).iterdir()):
+                if f.name == "python" or f.name.startswith("python3"):
+                    continue
+                link = sb / f.name
+                if not link.exists() and not link.is_symlink():
+                    link.symlink_to(f)
+    return str(sb)
+
+
 def env_for(root):
     home = root / "home"
-    base = "/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin"
     return {
-        "PATH": ":".join([_tool_bin(root), base]),
+        "PATH": ":".join([_tool_bin(root), _system_path(root)]),
         "HOME": str(home),
         "CLAUDE_CONFIG_DIR": str(home / ".claude"),
         "TMPDIR": str(eval_parent()),

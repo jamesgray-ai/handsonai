@@ -138,6 +138,10 @@ def _move_into(ws, sub):
         moving = ws / ".framework-moving"
         src.rename(moving)
         src = moving
+    files = [f for f in ("REGISTRY.md", "registry-dashboard.html", "backlog.md", "ai-opportunity-report.md",
+                         "analyze-in-progress.md") if (ws / f).exists()]
+    if not (src.exists() or (ws / "registry").exists() or files):
+        return target  # nothing to move: no framework folder yet, so none is made (Analyze's first run)
     target.mkdir(parents=True, exist_ok=True)
     if src.exists():
         for child in src.iterdir():
@@ -145,10 +149,8 @@ def _move_into(ws, sub):
         src.rmdir()
     if (ws / "registry").exists():
         shutil.move(str(ws / "registry"), str(target / "registry"))
-    for f in ("REGISTRY.md", "registry-dashboard.html", "backlog.md", "ai-opportunity-report.md",
-              "analyze-in-progress.md"):
-        if (ws / f).exists():
-            shutil.move(str(ws / f), str(target / f))
+    for f in files:
+        shutil.move(str(ws / f), str(target / f))
     views = list((target / "registry").rglob("*.md")) if (target / "registry").exists() else []
     for p in views + [target / "REGISTRY.md"]:
         if p.exists():
@@ -234,6 +236,7 @@ class ClaudeDesktop(Platform):
     def prepare(self, ws):
         target = _move_into(ws, "")
         if "no_folder_added" in self.faults:
+            target.mkdir(parents=True, exist_ok=True)  # the leader's folder exists; it isn't added to the chat
             hidden = Path(ws).parent / ".sim-hidden" / "Framework"
             hidden.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(target), str(hidden))
@@ -272,6 +275,7 @@ class Microsoft365(Platform):
         target = _move_into(ws, "onedrive")
         (Path(ws) / "onedrive" / "Documents" / "Cowork").mkdir(parents=True, exist_ok=True)
         if "cowork_cannot_read_onedrive" in self.faults:
+            target.mkdir(parents=True, exist_ok=True)
             hidden = Path(ws).parent / ".sim-hidden" / "Framework"
             hidden.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(target), str(hidden))

@@ -3023,7 +3023,6 @@
       "fixture": "empty",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "blocked_on": "framework-evals/leader.py: _Drive.prepare (_move_into) creates drive/Framework even when the fixture has nothing to move, so 'no framework folder yet' can't be simulated until T18 changes it; until then this eval sees an empty Framework folder and can't pass",
       "expected_output": "No framework folder yet on Claude on the web: N-F1 is the first message, asked once, offering only a drive whose connection is on and can write; the opening follows with N-F3 for the folder chosen, the Always allow advice and N-A2; with no registry, the report and backlog.md land in Framework/, holding exactly the kept candidates by area and no running work.",
       "expectations": [
         {
@@ -3232,7 +3231,6 @@
       "fixture": "empty",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "blocked_on": "framework-evals/leader.py: Microsoft365.prepare (_move_into) creates onedrive/Framework even when the fixture has nothing to move (T18)",
       "expected_output": "No framework folder yet in Microsoft 365 Cowork: N-F1's Microsoft 365 form first, then the same opening with N-F10's Microsoft 365 form.",
       "expectations": [
         {
@@ -4270,7 +4268,6 @@
       "platform": "claude-web",
       "fixture": "empty",
       "student": "students/scaffold-then-analyze.md",
-      "blocked_on": "leader.py's _move_into creating an empty drive/Framework (T18), which hides 'no framework folder yet'",
       "sessions": [
         {
           "prompt": "Run the scaffolding-registry skill.",

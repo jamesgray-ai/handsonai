@@ -640,6 +640,26 @@ class PlatformSimulations(unittest.TestCase):
             finally:
                 shutil.rmtree(t)
 
+    def test_no_framework_folder_yet_makes_none(self):
+        # Analyze's first run on a chat platform: nothing to move, so no Framework folder appears
+        for key, sub in (("claude-web", "drive"), ("microsoft-365", "onedrive"), ("claude-desktop", "")):
+            t = Path(tempfile.mkdtemp())
+            try:
+                L.PLATFORMS[key]().prepare(t)
+                self.assertFalse((t / sub / "Framework").exists(), key)
+            finally:
+                shutil.rmtree(t)
+        t = Path(tempfile.mkdtemp())
+        try:  # a folder not added to the chat still exists for the leader to add
+            p = L.PLATFORMS["claude-desktop"](["no_folder_added"])
+            p.prepare(t)
+            self.assertFalse((t / "Framework").exists())
+            self.assertEqual(p.on_leader("done", t), 1)
+            self.assertTrue((t / "Framework").is_dir())
+        finally:
+            shutil.rmtree(t)
+            shutil.rmtree(t.parent / ".sim-hidden", ignore_errors=True)
+
     def test_action_counter(self):
         sessions = [{"turns": [{"role": "student", "text": "run the build skill", "prompt": True, "actions": 0},
                                {"role": "ai", "text": "…"},
@@ -774,6 +794,24 @@ class SheetsStub(unittest.TestCase):
             plan.write_text("Gmail: the Claude Code connector (use).\n")
             self.assertEqual(R.connections_for(L.PLATFORMS["claude-code"](), ws, root, data)["servers"], ["gmail"])
             self.assertIsNone(R.connections_for(L.PLATFORMS["claude-code"](), ws, root, {"skill_name": "test"}))
+        finally:
+            shutil.rmtree(root)
+
+
+class NoPython3(unittest.TestCase):
+    def test_the_fault_takes_python3_off_path_and_nothing_else(self):
+        import subprocess
+        root = Path(tempfile.mkdtemp())
+        try:
+            path = H._system_path(root)
+            self.assertEqual(path, H.SYSTEM_PATH)
+            (root / H.NO_PYTHON3).write_text("")
+            path = H._system_path(root)
+            env = {"PATH": path}
+            self.assertNotEqual(subprocess.run(["/bin/sh", "-c", "command -v python3"], env=env,
+                                               capture_output=True).returncode, 0)
+            self.assertEqual(subprocess.run(["/bin/sh", "-c", "command -v ls && command -v git"], env=env,
+                                            capture_output=True).returncode, 0)
         finally:
             shutil.rmtree(root)
 

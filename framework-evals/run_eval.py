@@ -9,7 +9,7 @@ Usage:
           [--skill-model MODEL] [--max-usd N] [--cost-from ROUND-DIR] [--dry-run] [--yes]
 
   --evals        the evals.json to read (required; each step keeps its own in <step>-workspace/evals/)
-  eval ids       which evals to run; none means every eval in the chosen tier
+  eval ids       which evals to run; none means every eval in the chosen tier that has no `blocked_on` note
   --tier         core, regression or all (default all). Each eval is tagged `tier: core|regression`
                  (the evals file's `default_tier` otherwise). Core cases run three times before they
                  count, and pass only when every expectation passes in every run (rules 14)
@@ -37,6 +37,7 @@ Sessions: an eval's `sessions` list, or one session from `prompt`. `fixture_from
 session; otherwise the first session builds the eval's `fixture`; a later session rebuilds its
 `fixture` (or the eval's) unless it says `from_previous: true`. Fixture names: see build_fixture.
 `student: true` plays the eval's leader script; `student: "<path>"` plays that session's own.
+Fault `no_python3` (any platform): the run's sessions find no python3 on PATH (harness._system_path).
 `stub_tools: ["delete_draft"]` offers the stand-in mail connection's optional tools. `tools: "no_file"` turns off Write, Edit and Bash; `tools: "web"` adds WebSearch and WebFetch. `platform` and `platform_faults` pick a
 platform simulation (leader.py). `action_target: {figure, journey}` names the spec's action figure.
 A session's own `max_turns` is a deliberate stop (the eval grades only what comes before it), so
@@ -250,6 +251,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             else:
                 mcp = connections_for(platform, ws, root, data, s.get("stub_tools", ev.get("stub_tools", ())))
             prompt_tool = settings_prompt_for(platform, ws, root, data, s, ev)
+            if "no_python3" in (s.get("platform_faults") or ev.get("platform_faults") or []):
+                (root / H.NO_PYTHON3).write_text("")  # this run's sessions find no python3 on PATH
             run_chat = make_run_chat(rnd, root, ws, args, calls)
             sid = str(uuid.uuid4())
             turns, files_by_turn, cap_hit = [], [], False
@@ -560,6 +563,12 @@ def main():
     evs = [by_id[i] for i in args.eval_ids] if args.eval_ids else [e for e in data["evals"] if not e.get("retired")]
     if args.tier != "all":
         evs = [ev for ev in evs if tier_of(ev, data) == args.tier]
+    if not args.eval_ids:
+        # an eval with a `blocked_on` note can't pass until that lands: every run would be spent invalid
+        blocked = [ev["id"] for ev in evs if ev.get("blocked_on")]
+        if blocked:
+            print(f"Skipping {len(blocked)} blocked eval(s) (name one to run it anyway): {', '.join(blocked)}")
+        evs = [ev for ev in evs if not ev.get("blocked_on")]
     if not evs:
         sys.exit("no evals to run")
 
