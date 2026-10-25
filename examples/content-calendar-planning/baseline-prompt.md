@@ -1,5 +1,7 @@
 # Content Calendar Planning — Baseline Workflow Prompt
 
+> **Earlier version.** This file was made with an earlier version of the AI Workflow Framework (before 10.0), when the framework had seven steps and Design wrote a Design Spec. It's kept as a reference example and isn't in the current format: the framework's skills treat a file like this as an earlier version, and Deconstruct offers what it says as something already written down when you start the workflow again. Each step's page at https://handsonai.info/ai-workflow-framework/ describes the file it writes today.
+
 ## Purpose
 
 Plan and sequence content across LinkedIn, Substack Newsletter, X, and YouTube for a 2-week rolling window. Produces an approved content plan with titled Post entries committed to the Content Calendar and Posts databases.

@@ -1,6 +1,6 @@
 # Content Calendar Planning — Workflow Requirements
 
-> **Note:** This example was produced under the older Workflow Definition format. The body below uses Scenario Metadata, Refined Steps (sub-steps / decision points / data in / data out / failure modes per step), and a Context Shopping List. The current PRD-style Workflow Requirements format uses Outcome, Metadata, Steps Overview, per-step Goal·Inputs·Outputs·Rules & Edge Cases·Context, Context Inventory, Acceptance Criteria, Example Scenarios, and Human Gates. This example will be regenerated to match the current format in a follow-up.
+> **Earlier version.** This file was made with an earlier version of the AI Workflow Framework (before 10.0), when the framework had seven steps and Design wrote a Design Spec. It's kept as a reference example and isn't in the current format: the framework's skills treat a file like this as an earlier version, and Deconstruct offers what it says as something already written down when you start the workflow again. Each step's page at https://handsonai.info/ai-workflow-framework/ describes the file it writes today.
 
 ## Scenario Metadata
 

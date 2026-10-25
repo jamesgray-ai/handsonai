@@ -3,15 +3,15 @@ title: Run the Framework End-to-End
 description: Run the AI Workflow Framework end-to-end on a real workflow — Competitive Intelligence — and ship a working skill and agent in your workspace.
 ---
 
-In this exercise you run the AI Workflow Framework end-to-end yourself, live in class. Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` on a **Competitive Intelligence** workflow — shipping a `competitor-research` skill and `competitor-brief` agent that produce a structured brief on a real competitor. In a follow-up session, you'll evolve that workflow into a self-improving system.
+In this exercise you run the AI Workflow Framework end-to-end yourself, live in class. Starting from the Workflow Requirements you write with Deconstruct, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` on a **Competitive Intelligence** workflow — shipping a `competitor-research` skill and `competitor-brief` agent that produce a structured brief on a real competitor. In a follow-up session, you'll evolve that workflow into a self-improving system.
 
 ## Lesson: Ship a Workflow Using the AI Workflow Framework
 
-Run the framework end-to-end yourself with the Hands-on AI plugin installed — in Claude Code (slash commands) or Claude (type `/` to pick each skill, or just ask for the step). Starting from a pre-built Workflow Requirements, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
+Run the framework end-to-end yourself with the Hands-on AI plugin installed — in Claude Code (slash commands) or Claude (type `/` to pick each skill, or just ask for the step). Starting from the Workflow Requirements you write with Deconstruct, you invoke `/handsonai:design`, `/handsonai:build`, `/handsonai:test`, and `/handsonai:run` — generating a `competitor-research` skill and `competitor-brief` agent from your approved spec, then running the workflow on a real competitor. Watch a structured context file get produced on the first run.
 
 ### Hands-on assignment
 
-**Starting point:** a pre-built Workflow Requirements (download below).
+**Starting point:** your Workflow Requirements, written with Deconstruct (below).
 **Ending point:** a shipped skill + agent producing a brief on a real competitor.
 
 1. **`/handsonai:design`** — Turn the requirements into an approved Design Spec (plan mode, collaborative). See the [Design step docs](../../ai-workflow-framework/design/).
@@ -19,13 +19,9 @@ Run the framework end-to-end yourself with the Hands-on AI plugin installed — 
 3. **`/handsonai:test`** — Validate the building blocks before trusting them with real work. See the [Test step docs](../../ai-workflow-framework/test/).
 4. **`/handsonai:run`** — Invoke the workflow on a real competitor; watch `knowledge/competitors/{name}.md` emerge. See the [Run step docs](../../ai-workflow-framework/run/).
 
-### Download the Workflow Requirements
+### Write the Workflow Requirements first
 
-The Step 2 (Deconstruct) artifact is pre-built so we can spend class time running the rest of the framework on it.
-
-<a href="/assets/courses/competitive-intelligence-workflow-requirements.md" download="requirements.md"><strong>Download the Competitive Intelligence — Workflow Requirements (.md)</strong></a>
-
-Want to see what a finished run looks like before you start? Download the [complete worked-example project folder](/assets/examples/weekly-status-report.zip) — a different workflow taken through all seven steps — and compare it with your own as you go.
+Run [Deconstruct](../../ai-workflow-framework/deconstruct/) on the Competitive Intelligence workflow before class. It writes `requirements.md` in the workflow's folder, which is where the rest of the framework starts.
 
 ### Set up your workspace before class
 
@@ -33,7 +29,7 @@ Do these steps in the folder you have open in the Claude desktop app or Claude C
 
 **Step 1 — get a `registry/` folder.** Open the folder you'll work in (any folder — it doesn't need to be a GitHub repository) in your AI assistant and say *"Set up my AI registry."* It creates the `registry/` folder for you. If you'd like GitHub to build a dashboard automatically, start from the [AI Registry template repository](https://github.com/jamesgray-ai/ai-registry-template) instead — the [AI Registry setup guide](/builder-setup/ai-registry-setup/) walks through both.
 
-**Step 2 — create the workflow folder and save the download.** Inside your workspace, create a folder named `framework`, and inside it a folder named `competitive-intelligence-brief`. Save the download inside that folder, so the full path is `framework/competitive-intelligence-brief/requirements.md`. (It downloads as `requirements.md` already — the name the framework skills look for; if your browser renamed it, rename it back.)
+**Step 2 — write the requirements.** Run Deconstruct on the Competitive Intelligence workflow. It creates `framework/competitive-intelligence-brief/` in your workspace and saves `requirements.md` there.
 
 **Step 3 — hand-type the first Workflow node.** In `registry/workflows/`, create a file named `competitive-intelligence-brief.md` and paste in exactly this. Easiest path: ask your AI assistant to create the file for you with this exact content. (Or, if your registry lives on GitHub and you save files yourself, open your repository on github.com, click **Add file → Create new file**, paste `registry/workflows/competitive-intelligence-brief.md` as the filename, paste the block below as the content, then **Commit** — same result either way.)
 
@@ -60,7 +56,7 @@ updated knowledge file. Triggered manually on demand, or scheduled per competito
 - [Requirements](framework/competitive-intelligence-brief/requirements.md)
 ```
 
-The node is the small file every framework step reads first; your `registry/` is the inventory. When class starts, you'll run `/design` and it will pick up right where the pre-built requirements leave off.
+The node is the small file every framework step reads first; your `registry/` is the inventory. When class starts, you'll run `/design` and it will pick up right where your requirements leave off.
 
 ### What you'll walk away with
 

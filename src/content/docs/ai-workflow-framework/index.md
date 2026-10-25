@@ -245,7 +245,7 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 
 :::tip[Before you start]
 - **Set up your registry first.** The framework records every workflow you find and build in your [AI Registry](../builder-setup/ai-registry-setup/) — about 25 minutes, once. Analyze reads it so you never describe your business twice, and writes your candidates into it.
-- **See the destination first.** The [worked example](examples/worked-example/) shows every file a complete run produces — the whole project folder for one small workflow taken through all seven steps.
+- **See the destination first.** Each step's page shows the file that step writes, so you know what you're working towards before you start.
 - **Start small.** Make your first workflow starter-sized: 3–5 steps, one tool connection, triggered manually. Build your big opportunity second, once you've been through the loop.
 - **Pausing is safe.** Every step saves progress to files. In any later session, just say **"continue my workflow"** — the framework reads your registry's Workflow node and picks up at the right step.
 - **Plan about a working day, over three to four sessions,** for a starter workflow through Steps 1–6 (Improve comes weeks later, at your review date): Analyze about 3–5 min a process, Deconstruct 45–60, Design about 30, Build 30–60, Test about 45 per round (two to four rounds), Run 15–20.

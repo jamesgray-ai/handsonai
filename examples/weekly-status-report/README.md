@@ -1,28 +1,34 @@
 # Weekly Status Report — a finished framework run
 
-This folder is the complete project a program manager named Maya ends up with after taking one small workflow through all seven steps of the AI Workflow Framework in the Claude desktop app. It is the folder described, file by file, at https://handsonai.info/ai-workflow-framework/examples/worked-example/ — read that page alongside this folder.
+> **Internal test fixture, not published.** The registry and folder tests use this folder (`scripts/test-compose-registry.sh`, `scripts/test-worked-example-folder.sh`); nothing on the playbook site links it or ships it. It will be replaced by James's real end-to-end run.
 
-What is here: `registry/` (the AI Registry bundle every framework step reads and writes), `REGISTRY.md` (the dashboard the registry tools generate from it), `context/` (the tone guide and three past reports the workflow draws on), `framework/` (the record Steps 1–7 produced: the opportunity report, requirements and scenario inputs, the design spec, the two staged skills, three rounds of test results, the run log, and the improvement plan), and `outputs/` (the workflow's own output: the five saved status reports).
+This folder is what a program manager named Maya ends up with after taking one small workflow through the five steps of the AI Workflow Framework (Analyze, Deconstruct, Design, Build and Test) in the Claude desktop app, until it's live. Every file is hand-written in the formats the five skills write.
+
+`Documents/` holds Maya's two folders, kept apart as the framework keeps them on Claude desktop:
+
+- **`Documents/Framework/`** is her framework folder, the one she added to every framework chat. It holds `registry/` (the AI Registry bundle every step reads and writes), `REGISTRY.md` (the view the registry tools generate from it), `ai-opportunity-report.md` (Analyze's report), and `weekly-status-report/`, the workflow's record: `requirements.md`, `design-plan.md`, `build-record.md` and `test-results.md`, with `inputs/` (the practice inputs), `context/` (the steps' copies of the files the workflow reads), `package/` (the kept copy of the skill Build made) and `history/` (round 1 of Test, kept when round 2 opened).
+- **`Documents/status-reports/`** is the workflow's own working folder, where it runs: the two files it reads each week (the last report before it went live, and Maya's tone guide) and the five reports it has saved since it went live on 2026-06-08. It holds no framework file, and it keeps no run log: on Claude desktop, the workflow carries a flag line in each run's summary instead.
 
 ## Open it
 
-- **The Claude desktop app:** open this folder as the working folder — any folder works; a project is optional.
-- **Claude on the web:** upload the files to a project.
-- **Claude Code or Codex:** open a terminal in this folder and start the tool here.
-- **Gemini or Microsoft 365 Copilot:** upload the folder where your tool reads project files.
+- **The Claude desktop app:** add `Documents/Framework` to a new chat for any framework step. For the workflow itself, install the skill (below) and open a chat in `Documents/status-reports`. Never add both folders to the same chat.
+- **Claude on the web, ChatGPT or Copilot Cowork:** put `Framework/` in your Google Drive or OneDrive, connected with writes on, and say where it is when a step asks. The registry and the workflow's record read the same there.
+- **Claude Code or Codex:** the framework keeps its files in `framework/` and `registry/` in your workspace instead, so this folder shows the layout of the other platforms.
 
 Install the Hands-on AI plugin first if you have not — https://handsonai.info/ai-workflow-framework/skills/ has the steps for every platform.
 
-You do not need HubSpot. The orchestrator skill accepts a pasted update list in place of the live pull, and the three files in `framework/weekly-status-report/inputs/` are exactly what to paste.
+You do not need HubSpot. The skill works from a pasted tracker export, and the five files in `Documents/Framework/weekly-status-report/inputs/` are exactly what to paste (each file's first two lines are for the framework; paste from the line that starts `# Tracker export`).
 
 ## Three things to try
 
-1. **Watch the skills orient.** Say: *continue my workflow*. The skill lists the two Workflow nodes in `registry/workflows/`, orients on Weekly Status Report once you pick it (the other is a backlog stub), sees every step's artifact through the improvement plan, tells you the workflow is in production and its 2026-08-14 review is due, and offers to run Improve.
-2. **Regenerate the dashboard.** Say: *run the indexing-registry skill*. Lint reports no errors and one warning (the review is due). `REGISTRY.md` does not change — it is already current. Then say: *generate my dashboard* and open `registry-dashboard.html`. The Skills inventory lists the two staged skills under `framework/weekly-status-report/skills/` — the tools count every `skills/` folder, whether or not the skill is installed in your platform.
-3. **Rewind one step and run it yourself.** Delete `framework/weekly-status-report/improvement-plan.md`. In `registry/workflows/weekly-status-report.md`, take out the `Improvement plan` line under `# Artifacts`, delete the Note line between `<!-- GENERATED:insights -->` and `<!-- /GENERATED -->`, and change `stale_after: 2026-08-14` to `stale_after: 2026-07-10`. Delete `registry/notes/status-report-scope-grows-a-section-at-a-time.md` and its line in `registry/notes/index.md`. (The node's `generated:` stamp still says Improve wrote it; Improve will restamp it.) Then say: *Run the improve skill on weekly status report*. Compare the plan it writes with the one you deleted. (`framework/weekly-status-report/test-results.md` already reads `readiness: not-ready` — the first Improve run set it that way for Build's fix mode; Improve compares against the Ready round, `test-results-2026-06-08.md`, so this is expected.)
+1. **Watch the skills find where it is.** In a new chat with `Documents/Framework` added, say: *continue my workflow. My files are in Framework.* The skill finds one workflow, Weekly Status Report, sees that it's live, and tells you how to change it or re-check it.
+2. **Regenerate the dashboard.** In the same kind of chat, say: *run the indexing-registry skill*. The registry check reports no errors and one warning: Weekly Status Report's re-check date, 2026-09-08, has passed. `REGISTRY.md` doesn't change; it's already current, and shows the workflow as Live. Then say *generate my dashboard* and open `registry-dashboard.html`.
+3. **Re-check it yourself.** Install the skill (below), then in a new chat with `Documents/Framework` added, say: *test the workflow I built. My files are in Framework/weekly-status-report.* Test opens round 3, a re-check of the live workflow: it moves round 2's results into `history/`, hands you the practice inputs to run in a chat opened in `Documents/status-reports`, and compares the results with round 2.
 
-## Run a test scenario
+## Try a practice run
 
-Say: *run the weekly status report skill as a test run* and paste the contents of `framework/weekly-status-report/inputs/E2-blocked-heavy-week.md`. Expect a draft with four blockers, one flagged "owner needed", the four sections in template order, and a pause for your review — and no new row in `runs.md`, because test runs save under `test-runs/`.
+In a chat opened in `Documents/status-reports`, say *practice run* and paste `Documents/Framework/weekly-status-report/inputs/E2-blocked-heavy-week.md` from its `# Tracker export` line. Expect the first line "Practice run: nothing will be sent or changed.", a report with its four sections in order (Wins, In Progress, Blockers, Next Week), the ownerless blocker marked "owner needed", and a stop for your review. Nothing is saved: a practice run shows the report in its closing block instead.
 
-The skills in `framework/weekly-status-report/skills/` are staged source. To install them the way Build would, zip each skill folder (`weekly-status-report/` and `status-report-drafting/`) and add it under your platform's skills setting — see the skills setup page above. On Microsoft 365 Copilot, delete the `disable-model-invocation: true` line from the orchestrator's frontmatter first; Copilot rejects skills with non-standard fields.
+## Install the skill
+
+`Documents/Framework/weekly-status-report/package/skills/weekly-status-report/` is the kept copy of the skill Build saved into Maya's Claude skills. To install it the way she did, zip that folder and add it in Claude under Customize, then Skills — see the skills setup page above. It uses only the portable `name` and `description` fields, so it loads on any platform that takes Agent Skills.

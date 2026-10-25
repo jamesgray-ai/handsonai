@@ -6,7 +6,7 @@
 
 | Workflow | Status | Progress | How it decides | How it runs | Re-check by |
 |---|---|---|---|---|---|
-| [First Workflow](registry/workflows/first-workflow.md) | in-production | Earlier version | Guided: makes bounded decisions with your method | Runs with you | 2026-01-01 |
+| [First Workflow](registry/workflows/first-workflow.md) | in-production | Live | Guided: makes bounded decisions with your method | Runs with you | 2026-10-01 |
 | [Second Workflow](registry/workflows/second-workflow.md) | backlog | Requirements needed | Deterministic: follows your instructions | Runs with you | — |
 
 ## Product Studio
@@ -19,7 +19,7 @@
 
 ## Re-check dates
 
-- 2026-01-01 — [First Workflow](registry/workflows/first-workflow.md)
+- 2026-10-01 — [First Workflow](registry/workflows/first-workflow.md)
 
 ## Skills (2)
 

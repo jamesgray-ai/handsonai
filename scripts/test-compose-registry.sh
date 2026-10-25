@@ -95,12 +95,13 @@ out=$(run_lint_at "$WS" 2>&1)
 (cd "$WS" && node "$TOOLS/compose-registry.js" registry >/tmp/deadlock-compose.out 2>&1) && ok "deadlock fixture: compose succeeds against stale Owns" || bad "deadlock fixture: compose failed: $(cat /tmp/deadlock-compose.out)"
 grep -q "Client Onboarding" "$WS/registry/functions/operations.md" && ok "deadlock fixture: compose refilled Owns" || bad "deadlock fixture: Owns still empty after compose"
 run_lint_at "$WS" && ok "deadlock fixture: post-compose lint is clean" || bad "deadlock fixture: post-compose lint should be clean"
-# lint: legacy definition_type spelling ("step-decomposed") is tolerated as a
-# warning, never an error -- the legacy-workspace migration path relies on
-# this so a mid-migration bundle still lints clean.
+# lint: a node written before 10.0 (legacy-enum-bundle) lints clean: its legacy labels
+# ("Design spec", "Run guide", "Improvement plan") are tolerated on a bare-date node, and the
+# legacy definition_type spelling ("step-decomposed") is a warning, never an error.
 run_lint legacy-enum-bundle && ok "legacy-enum-bundle lints clean (exit 0)" || bad "legacy-enum-bundle should lint clean"
 out=$(lint_output legacy-enum-bundle)
 grep -q "WARN.*step-decomposed" <<<"$out" && ok "legacy definition_type spelling warned, not errored" || bad "expected WARN for step-decomposed"
+grep -qE "WARN.*(Design spec|Run guide|Improvement plan)|ERROR" <<<"$out" && bad "legacy labels on an older node warned or errored: $out" || ok "legacy labels on an older node: no warning, no error"
 # lint: gitignore tolerance -- valid bundle with outputs/ deleted still lints clean
 tmp=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$tmp/"; rm -rf "$tmp/outputs"
 printf 'outputs/\n' > "$tmp/.gitignore"; (cd "$tmp" && git init -q . && git add -A >/dev/null)
@@ -426,8 +427,10 @@ run_lint empty-workflows-bundle && ok "empty-workflows bundle lints clean (exit 
 
 # No outputs/ layout any more (rules 11.1): lint never reads, warns about or moves an old
 # outputs/<slug>/ record; outputs/ is only ever a workflow's own output.
-run_lint legacy-outputs-workspace && ok "old outputs/ record: lint exits 0" || bad "old outputs/ record must not error"
-out=$(lint_output legacy-outputs-workspace)
+WS=$(stage valid-bundle)
+for f in requirements.md design-spec.md run-guide.md improvement-plan.md test-results.md; do printf '# Placeholder\n' > "$WS/outputs/first-workflow/$f"; done
+run_lint_at "$WS" >/dev/null 2>&1 && ok "old outputs/ record: lint exits 0" || bad "old outputs/ record must not error"
+out=$(run_lint_at "$WS" 2>&1)
 grep -qE "pre-9\.0|outputs/first-workflow/:" <<<"$out" && bad "lint still warns about an outputs/ record: $(grep WARN <<<"$out")" || ok "no outputs/ record warning is ever emitted"
 
 out=$(lint_output valid-bundle)
@@ -569,9 +572,9 @@ sed -i '' 's/at: 2026-08-01T09:30:00Z }/at: 2026-08-01 09:30 }/' "$WS/registry/w
 if run_lint_at "$WS" >/dev/null 2>&1; then bad "malformed generated.at should error"; else ok "malformed generated.at errors"; fi
 
 # legacy labels: tolerated on an older node (bare-date stamp), an error on a node that writes them
-run_lint valid-bundle && ok "older node with Design spec / Run guide / Improvement plan lints clean" || bad "legacy labels on an older node must lint clean"
-WS=$(stage valid-bundle)
-sed -i '' 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:test, at: 2026-10-24T12:00:00Z }/' "$WS/registry/workflows/first-workflow.md"
+run_lint legacy-enum-bundle && ok "older node with Design spec / Run guide / Improvement plan lints clean" || bad "legacy labels on an older node must lint clean"
+WS=$(stage legacy-enum-bundle)
+sed -i '' 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:test, at: 2026-10-24T12:00:00Z }/' "$WS/registry/workflows/legacy-review.md"
 if run_lint_at "$WS" >/dev/null 2>&1; then bad "a current node writing legacy labels should error"; else
   out=$(run_lint_at "$WS" 2>&1)
   grep -q 'ERROR.*legacy artifact label(s) "Design spec", "Run guide", "Improvement plan" written on a current node' <<<"$out" \
@@ -599,7 +602,7 @@ out=$(run_lint_at "$WEB" 2>&1 || true)
 grep -q "WARN.*orphan-flow/: framework folder not claimed" <<<"$out" && ok "web-shaped bundle: unclaimed sibling workflow folder warned" || bad "web-shaped: expected unclaimed warning for orphan-flow/"
 grep -qE "WARN.*(history|sops)/: framework folder not claimed" <<<"$out" && bad "web-shaped: history/ or sops/ taken for a workflow folder" || ok "web-shaped: history/ and sops/ are never workflow folders"
 (cd "$WEB" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null) > "$WEB/island.json"
-node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process.exit(d.workflows.find(w=>w.id==='first-workflow').state==='Earlier version'?0:1)" "$WEB/island.json" \
+node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process.exit(d.workflows.find(w=>w.id==='first-workflow').state==='Live'?0:1)" "$WEB/island.json" \
   && ok "web-shaped bundle: compose reads <slug>/ beside registry/ for the state" || bad "web-shaped bundle: state not read from <slug>/"
 rm -rf "$WEB"
 
@@ -614,20 +617,42 @@ done
 (cd "$REPO_ROOT" && node plugins/handsonai/tools/framework-state.js --help >/dev/null 2>&1; [ $? -ne 127 ] && node -e "require('./plugins/handsonai/tools/compose-registry.js')") >/dev/null 2>&1 \
   && ok "plugin tools load from the repo root (commonjs)" || bad "plugin tools fail to load from the repo root"
 
-# worked example: examples/weekly-status-report is a committed fixture -- lints with exactly one expected warning and composes to a no-op
-EX="$REPO_ROOT/examples/weekly-status-report"
+# worked example: examples/weekly-status-report is an internal, unpublished fixture laid out as on Claude desktop:
+# Documents/Framework/ is the framework folder (registry/ beside the workflow's flat folder) and
+# Documents/status-reports/ is the workflow's own working folder. The registry lints with exactly
+# one expected warning (the re-check date has passed) and composes to a no-op.
+EXROOT="$REPO_ROOT/examples/weekly-status-report"
+EX="$EXROOT/Documents/Framework"
+EXW="$EX/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"
 grep -q "ERROR" <<<"$ex_out" && bad "worked example has lint errors" || ok "worked example has no lint errors"
 ex_warns=$(grep -c "^WARN" <<<"$ex_out" || true)
-grep -q "WARN.*stale_after 2026-08-14 is past -- re-check due" <<<"$ex_out" && [ "$ex_warns" -eq 1 ] \
+grep -q "WARN.*stale_after 2026-09-08 is past -- re-check due" <<<"$ex_out" && [ "$ex_warns" -eq 1 ] \
   && ok "worked example: exactly the expected re-check-due warning" || bad "worked example: expected exactly one warning (re-check due), got $ex_warns: $(grep '^WARN' <<<"$ex_out")"
 (cd "$EX" && node "$TOOLS/compose-registry.js" --check registry >/dev/null 2>&1) && ok "worked example composes to a no-op (REGISTRY.md, indexes, GENERATED blocks all current)" \
   || bad "worked example has stale derived views: $(cd "$EX" && node "$TOOLS/compose-registry.js" --check registry 2>&1 | grep STALE | tr '\n' ' ')"
-[ "$(git -C "$REPO_ROOT" ls-files examples/weekly-status-report/framework | wc -l | tr -d ' ')" -gt 10 ] && ok "worked example framework/ is tracked by git" || bad "worked example framework/ is not tracked (gitignore?)"
-[ "$(git -C "$REPO_ROOT" ls-files 'examples/weekly-status-report/outputs/weekly-status-report/status-report-*.md' | wc -l | tr -d ' ')" -eq 5 ] && ok "worked example keeps 5 sample reports in outputs/" || bad "worked example should keep its 5 status reports in outputs/"
+grep -q "| \[Weekly Status Report\](registry/workflows/weekly-status-report.md) | in-production | Live |" "$EX/REGISTRY.md" \
+  && ok "worked example: REGISTRY.md shows the workflow as Live" || bad "worked example: REGISTRY.md should show Weekly Status Report as Live"
+ex_state=$(node "$TOOLS/framework-state.js" "$EXW" --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j.state+' '+j.name)}catch{console.log('unreadable')}})")
+[ "$ex_state" = "11 Live" ] && ok "worked example: routing reads state 11 (Live) from the folder" || bad "worked example: routing state is '$ex_state', expected '11 Live'"
+ex_state=$(node "$TOOLS/framework-state.js" "$EXW" --no-registry --json 2>/dev/null | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{try{const j=JSON.parse(s);console.log(j.state+' '+j.name)}catch{console.log('unreadable')}})")
+[ "$ex_state" = "11 Live" ] && ok "worked example: Live from the build record's Live since line, with no registry" || bad "worked example (no registry): routing state is '$ex_state', expected '11 Live'"
+(cd "$REPO_ROOT" && node "$TOOLS/requirements-check.js" "$EXW" >/dev/null 2>&1) && ok "worked example: requirements.md passes the requirements check" || bad "worked example: requirements check failed: $(node "$TOOLS/requirements-check.js" "$EXW" 2>&1 | head -3)"
+# the five-step flat folder: the four record files, inputs/, context/, package/, history/; nothing from Run or Improve
+missing=""; for f in requirements.md design-plan.md build-record.md test-results.md inputs context package history/test-results-round-1.md; do [ -e "$EXW/$f" ] || missing="$missing $f"; done
+[ -z "$missing" ] && ok "worked example: the flat workflow folder has its record files and folders" || bad "worked example: missing from the workflow folder:$missing"
+leftover=$(cd "$EXROOT" && find . \( -name 'run-guide.md' -o -name 'improvement-plan.md' -o -name 'design-spec.md' -o -name 'runs.md' -o -name 'test-runs' -o -name 'outputs' \) -print)
+[ -z "$leftover" ] && ok "worked example: no run guide, improvement plan, design spec, run log, test-runs/ or outputs/" || bad "worked example: earlier-version files left: $leftover"
+[ -z "$(cd "$EXROOT/Documents/status-reports" && ls requirements.md design-plan.md build-record.md test-results.md 2>/dev/null)" ] \
+  && ok "worked example: the workflow's folder holds no framework file" || bad "worked example: a framework file is in the workflow's working folder"
+[ -z "$(git -C "$REPO_ROOT" check-ignore $(cd "$REPO_ROOT" && find examples/weekly-status-report -type f -name '*.md') 2>/dev/null)" ] \
+  && ok "worked example: no file is gitignored (the fixture is committed whole)" || bad "worked example: some files are gitignored: $(cd "$REPO_ROOT" && git check-ignore $(find examples/weekly-status-report -type f -name '*.md'))"
+[ "$(ls "$EXROOT"/Documents/status-reports/status-report-2026-0[67]-*.md 2>/dev/null | wc -l | tr -d ' ')" -eq 5 ] && ok "worked example keeps the 5 reports saved since go-live in the workflow's folder" || bad "worked example should keep its 5 saved status reports in Documents/status-reports/"
+cmp -s "$EX/registry/SCHEMA.md" "$REPO_ROOT/registry-template/registry/SCHEMA.md" && cmp -s "$EX/registry/SCHEMA.md" "$REPO_ROOT/plugins/handsonai/skills/scaffolding-registry/references/schema-template.md" \
+  && ok "worked example SCHEMA.md identical to the template's and scaffolding-registry's" || bad "worked example registry/SCHEMA.md differs from the other two copies"
 ex_island=$(cd "$EX" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null)
 grep -q '"nodeUrl"' <<<"$ex_island" && bad "worked example island carries nodeUrl (would be dead links for students)" || ok "worked example island has no nodeUrl"
-[ -e "$EX/tools" ] && bad "worked example has a tools/ folder (nothing publishes it; compose no longer writes one)" || ok "worked example has no tools/ folder"
+[ -e "$EX/tools" ] || [ -e "$EXROOT/tools" ] && bad "worked example has a tools/ folder (nothing publishes it; compose no longer writes one)" || ok "worked example has no tools/ folder"
 
 # compose never creates tools/last-data-island.json -- nothing publishes the registry, so
 # the only data-island consumer is registry-dashboard.html, which compose updates in place.

@@ -311,7 +311,6 @@ echo "-- 7. one-node-shape: every worked example carries the same Workflow node 
 if [ "$FULL" -eq 1 ]; then
   declare -a SHAPE_DOCS=(
     "$SETUP_PAGE"
-    src/content/docs/ai-workflow-framework/examples/worked-example.md
     src/content/docs/courses/framework-end-to-end.md
   )
   for doc in "${SHAPE_DOCS[@]}"; do

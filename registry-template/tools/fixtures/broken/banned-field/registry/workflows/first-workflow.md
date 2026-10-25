@@ -6,7 +6,6 @@ generated: { by: process:fixture, at: 2026-08-01 }
 status: under-development
 health: working
 owner: someone
-definition_type: step-driven
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"
