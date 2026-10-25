@@ -569,6 +569,55 @@ class PlatformSimulations(unittest.TestCase):
         self.assertEqual(seen, ["practice run\nE1 input"])
         self.assertIn("It answered", out[0][0])
 
+    def test_test_leader_runs_on_claude_code_and_codex(self):
+        # Test's first round holds an input the AI writes itself, so on Claude Code and Codex the hand-over
+        # runs (run_chat) as the chat platforms' new chats do, instead of a scripted block
+        ai = ("Open a second terminal window (keep this one open), go to `/x/ws` and start Claude Code, and paste the "
+              "block below.\n\n```\nPractice folder: practice/\nInput: E1\nRun: E1-1\n```")
+        for key in ("claude-code", "codex"):
+            p = L.PLATFORMS[key]()
+            p.leader_runs = L.simulates_leader_runs("test", p)
+            self.assertTrue(p.leader_runs and p.run_in_workspace)
+            seen = []
+            out = p.screen(ai, Path("."), run_chat=lambda b, plat: seen.append(b) or "Practice run: nothing will be sent or changed.")
+            self.assertEqual(seen, ["Practice folder: practice/\nInput: E1\nRun: E1-1"])
+            self.assertIn("It answered:]\nPractice run", out[0][0])
+        cc = L.PLATFORMS["claude-code"]()
+        self.assertFalse(L.simulates_leader_runs("build", cc))  # Build keeps its behaviour
+        self.assertFalse(L.simulates_leader_runs("test", cc, {"leader_runs": "scripted"}))  # a planted block
+        self.assertFalse(L.simulates_leader_runs("test", cc, {}, {"leader_runs": "scripted"}))
+        self.assertTrue(L.simulates_leader_runs("test", cc, {}, {"leader_runs": "simulated"}))
+        self.assertFalse(L.simulates_leader_runs("test", L.PLATFORMS["claude-web"]()))  # chat platforms: paste_back
+        self.assertEqual(cc.screen(ai, Path("."), run_chat=lambda b, plat: 1 / 0), [])  # not switched on: no run
+        # Codex's run is told where Codex keeps its skills; Claude Code's load from the workspace natively
+        self.assertIn(".agents/skills/", L.PLATFORMS["codex"]().run_preamble())
+        self.assertIsNone(cc.run_preamble())
+        web = L.PLATFORMS["claude-web"]()
+        self.assertEqual(web.run_preamble(), web.preamble())
+
+    def test_run_chat_runs_in_the_workspace_on_claude_code_and_codex(self):
+        import types
+        import run_eval as R
+        t = Path(tempfile.mkdtemp())
+        saved = H.call
+        try:
+            ws = t / "workspace"
+            (ws / ".claude" / "skills" / "wf").mkdir(parents=True)
+            seen = []
+            H.call = lambda rnd, role, root, prompt, **kw: (seen.append(kw) or ("ok", {}))
+            calls = []
+            rc = R.make_run_chat(None, t, ws, types.SimpleNamespace(skill_model="m"), calls)
+            for key in ("claude-code", "codex", "claude-web"):
+                rc("block", L.PLATFORMS[key]())
+            self.assertEqual([kw["cwd"] for kw in seen[:2]], [ws, ws])  # the leader's second terminal
+            self.assertNotEqual(seen[2]["cwd"], ws)  # a cold chat with only the built workflow
+            self.assertTrue((seen[2]["cwd"] / ".claude" / "skills" / "wf").is_dir())
+            self.assertIn(".agents/skills/", seen[1]["append_system_prompt"])
+            self.assertEqual([c["role"] for c in calls], ["run_chat"] * 3)
+        finally:
+            H.call = saved
+            shutil.rmtree(t)
+
     def test_action_counter(self):
         sessions = [{"turns": [{"role": "student", "text": "run the build skill", "prompt": True, "actions": 0},
                                {"role": "ai", "text": "…"},
@@ -758,13 +807,14 @@ class ExistingEvals(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             bad = {"skill_name": "x", "how_to_run": "t", "evals": [
                 {"id": "A", "name": "a", "tier": "gold", "prompt": "go", "fixture": "empty", "expected_output": "",
-                 "files": [], "platform": "gemini",
+                 "files": [], "platform": "gemini", "leader_runs": "live",
                  "expectations": [{"text": "q", "kind": "scripted", "check": {"type": "quote", "id": "N-ZZ9"}},
                                   {"text": "y", "kind": "scripted", "check": {"type": "no_yaml", "path": "x"}}]}]}
             Path(t, "evals.json").write_text(json.dumps(bad))
             errs = V.validate_file(Path(t, "evals.json"))
             joined = "\n".join(errs)
-            for needle in ("tier 'gold'", "unknown platform 'gemini'", "no approved line N-ZZ9", "no_yaml is retired"):
+            for needle in ("tier 'gold'", "unknown platform 'gemini'", "no approved line N-ZZ9", "no_yaml is retired",
+                           "leader_runs 'live'"):
                 self.assertIn(needle, joined)
 
 

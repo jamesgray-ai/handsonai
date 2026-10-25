@@ -1805,25 +1805,29 @@
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "codex-real",
           "platform": "codex",
-          "student": "students/contaminated-label.md"
+          "student": "students/contaminated-label.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "codex-real",
           "platform": "codex",
-          "student": "students/contaminated-task.md"
+          "student": "students/contaminated-task.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "codex-real",
           "platform": "codex",
-          "student": "students/contaminated-read.md"
+          "student": "students/contaminated-read.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "codex-real",
           "platform": "codex",
-          "student": "students/clean-wording.md"
+          "student": "students/clean-wording.md",
+          "leader_runs": "scripted"
         }
       ],
       "expected_output": "Codex, the real example's block: refused (N-T30) for an ID used as a label, a plan task's name, and a read of the framework folder, each with its evidence and the block again; not refused for a rule's wording the workflow carries and words from the input.",
@@ -2089,7 +2093,8 @@
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "codex-real",
           "student": "students/no-first-line.md",
-          "platform": "codex"
+          "platform": "codex",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in Framework/client-follow-up.",
@@ -2186,13 +2191,29 @@
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "cc-real",
-          "student": "students/saved-outside.md"
+          "student": "students/saved-outside.md",
+          "leader_runs": "scripted",
+          "run_writes": [
+            {
+              "when": "(?im)^next$|contoso-draft",
+              "path": "notes/contoso-draft.md",
+              "text": "Subject: Following up on today's call. Hi Priya, thanks for the time today.\n"
+            }
+          ]
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "codex-real",
           "platform": "codex",
-          "student": "students/saved-outside.md"
+          "student": "students/saved-outside.md",
+          "leader_runs": "scripted",
+          "run_writes": [
+            {
+              "when": "(?im)^next$|contoso-draft",
+              "path": "notes/contoso-draft.md",
+              "text": "Subject: Following up on today's call. Hi Priya, thanks for the time today.\n"
+            }
+          ]
         }
       ],
       "expected_output": "A file changed between the listing before the hand-over and after: refused, the files named, a build miss.",
@@ -2214,10 +2235,7 @@
           "must": true
         }
       ],
-      "est_turns": 4,
-      "preconditions": [
-        "The platform simulations don't yet apply a leader's run's file changes to the workspace (T71); until then the summary's saved-file claim is what's refused (N-T51)"
-      ]
+      "est_turns": 4
     },
     {
       "id": "TS-leader-cc-run",
@@ -2604,12 +2622,14 @@
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "codex-real",
           "platform": "codex",
-          "student": "students/injected-block.md"
+          "student": "students/injected-block.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "cc-injected-practice-file",
-          "student": true
+          "student": true,
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
@@ -2748,7 +2768,8 @@
           }
         }
       ],
-      "est_turns": 4
+      "est_turns": 4,
+      "leader_runs": "scripted"
     },
     {
       "id": "TF-read-or-outside",
@@ -2759,7 +2780,8 @@
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
           "fixture": "cc-real",
-          "student": "students/read-practice.md"
+          "student": "students/read-practice.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
@@ -2771,7 +2793,8 @@
               "path": "notes/contoso-draft.md",
               "text": "Subject: Following up on today's call. Hi Priya, thanks for the time today.\n"
             }
-          ]
+          ],
+          "leader_runs": "scripted"
         }
       ],
       "expected_output": "A run that read another run's results in the practice folder is refused by the transcript check; one that saved outside its subfolder is refused (N-T51).",
@@ -3502,7 +3525,8 @@
           "kind": "judged"
         }
       ],
-      "est_turns": 5
+      "est_turns": 5,
+      "leader_runs": "scripted"
     },
     {
       "id": "TG-two-runs",

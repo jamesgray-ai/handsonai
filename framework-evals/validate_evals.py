@@ -9,7 +9,7 @@ file's `default_tier` or regression; --strict-tiers makes it an error); every ex
 with its required fields (regexes compile; `quote` ids exist in approved-lines.json; `no_yaml` is
 retired); `must`/`gating` are booleans; leader scripts and `files` paths exist; fixture names are
 known to the file's fixture builder (`dir:` fixtures exist); `fixture_from` paths are present or name
-a run folder; `platform` and `platform_faults` are known; `action_target` is {figure, journey}. An
+a run folder; `platform`, `platform_faults` and `leader_runs` are known; `action_target` is {figure, journey}. An
 eval marked `"retired"` is skipped (kept in place with its note). With --build-fixtures, every
 fixture is built into a temp folder.
 """
@@ -131,6 +131,9 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
         for x in [ev.get("platform")] + [s.get("platform") for s in sessions]:
             if x and x not in L.PLATFORMS:
                 errs.append(f"{w}: unknown platform {x!r} (one of {sorted(L.PLATFORMS)})")
+        for x in [ev] + sessions:
+            if "leader_runs" in x and x["leader_runs"] not in L.LEADER_RUN_MODES:
+                errs.append(f"{w}: leader_runs {x['leader_runs']!r} (one of {list(L.LEADER_RUN_MODES)})")
         for f in ev.get("platform_faults", []):
             if f not in FAULTS:
                 errs.append(f"{w}: unknown platform fault {f!r}")

@@ -19,6 +19,13 @@ platform's known failures with `"platform_faults": [...]`:
                   .claude/settings.local.json (run_eval.settings_prompt_for). Fault:
                   leader_denies_settings_prompt (the leader declines that prompt)
   codex           files in the workspace; Codex's wording and its read-only bare-run command
+
+For Test on Claude Code and Codex, the leader's own runs are simulated too (`simulates_leader_runs`):
+a hand-over's block runs in a new session in the workspace itself (the leader's second terminal),
+with the built workflow installed there and nothing from the framework chat, and its answer is the
+leader's screen, as the chat platforms' new chats are. A session whose script plants the block a run
+ends with (a contaminated or injected run, say) opts out with `"leader_runs": "scripted"`, and the
+leader pastes the script's block as before. Build keeps its own behaviour on both platforms.
   claude-web      Google Drive (./drive/Framework); paste-back from new chats
   claude-desktop  a local folder added to the chat (./Framework); faults: no_folder_added
   chatgpt         Google Drive (./drive/Framework); apps; paste-back from new chats
@@ -79,6 +86,9 @@ class Platform:
     files_root = ""           # where the framework folder lives, relative to the workspace
     location = "framework/[workflow-slug]"
     paste_back = False
+    run_in_workspace = False  # a leader's run happens in the workspace itself, not a cold copy
+    leader_runs = False       # set per session by simulates_leader_runs: hand-overs run on this platform too
+    run_opening = "You opened a new chat and pasted the block"
 
     def __init__(self, faults=()):
         self.faults = set(faults)
@@ -86,6 +96,10 @@ class Platform:
 
     def preamble(self):
         return None
+
+    def run_preamble(self):
+        """The system-prompt addition for a run the leader starts from a hand-over."""
+        return self.preamble()
 
     def leader_notes(self):
         return ""
@@ -100,11 +114,11 @@ class Platform:
     def screen(self, ai_text, ws, run_chat=None):
         """What the leader's screen shows after this AI message: [(observation, actions)]."""
         out = []
-        if self.paste_back and run_chat is not None:
+        if (self.paste_back or self.leader_runs) and run_chat is not None:
             block = handover_block(ai_text)
             if block:
                 answer = run_chat(block, self)
-                out.append((f"[You opened a new chat and pasted the block. It answered:]\n{answer}", 3))
+                out.append((f"[{self.run_opening}. It answered:]\n{answer}", 3))
         return out
 
 
@@ -129,16 +143,28 @@ def _move_into(ws, sub):
 
 
 class ClaudeCode(Platform):
-    pass
+    run_in_workspace = True
+    run_opening = ("You opened a second terminal window, went to the folder, started Claude Code and pasted "
+                   "the block")
+
+    def run_preamble(self):
+        return None  # the real platform: the workspace's .claude/skills load as they would for the leader
 
 
 class Codex(Platform):
     key, name = "codex", "Codex"
+    run_in_workspace = True
+    run_opening = "You opened a new Codex session in the folder and pasted the block"
 
     def preamble(self):
         return ("Simulated platform: you are running as Codex (the CLI) in this workspace, not Claude Code. "
                 "Name the platform as Codex wherever you'd name it, use Codex's own steps, and say 'a new session' "
                 "for a new chat. The framework folder is framework/ in this workspace.")
+
+    def run_preamble(self):
+        return ("Simulated platform: you are running as Codex (the CLI) in this workspace, not Claude Code; say "
+                "'a new session' for a new chat. Codex's installed skills are the folders in .agents/skills/ here: "
+                "when a message asks you to use one, read its SKILL.md and follow it.")
 
 
 # Chat platforms keep the leader's history the way the real products do: saved memory, and past chats
@@ -338,6 +364,19 @@ def platform_for(ev, session=None):
     if key not in PLATFORMS:
         raise ValueError(f"unknown platform {key!r}: one of {sorted(PLATFORMS)}")
     return PLATFORMS[key](ev.get("platform_faults", []))
+
+
+LEADER_RUN_MODES = ("simulated", "scripted")
+
+
+def simulates_leader_runs(skill, platform, session=None, ev=None):
+    """Whether a Test session on Claude Code or Codex runs the leader's hand-overs (run_chat in the
+    workspace) instead of the script's "Your runs" blocks. A first round's practice set holds an input
+    the AI writes itself, which no scripted block can match, so simulated is the default; a session
+    (or eval) whose script plants the run's block says `"leader_runs": "scripted"`. Build never: its
+    behaviour on these platforms is unchanged."""
+    mode = (session or {}).get("leader_runs", (ev or {}).get("leader_runs", "simulated"))
+    return skill == "test" and platform.key in ("claude-code", "codex") and mode != "scripted"
 
 
 def handover_block(ai_text):

@@ -42,6 +42,8 @@ platform simulation (leader.py). `action_target: {figure, journey}` names the sp
 A session's own `max_turns` is a deliberate stop (the eval grades only what comes before it), so
 reaching it isn't the turn cap. `run_writes: [{when, path, text}]` stands in for a leader's run in the
 shared workspace (Claude Code, Codex): when a leader message matches the regex `when`, `path` is written there.
+For Test on Claude Code and Codex the leader's hand-overs run for real in the workspace (leader.py,
+simulates_leader_runs); `leader_runs: "scripted"` (session or eval) keeps a planted script's blocks instead.
 """
 import argparse
 import concurrent.futures as cf
@@ -178,15 +180,21 @@ def settings_prompt_for(platform, ws, root, data, s=None, ev=None):
 
 def make_run_chat(rnd, root, ws, args, calls):
     """A new chat the leader opens on a chat platform: a cold session with only the built workflow,
-    nothing from the framework (rules 3.5), that answers the pasted block once."""
+    nothing from the framework (rules 3.5), that answers the pasted block once. On Claude Code and
+    Codex (Test's leader runs, leader.simulates_leader_runs) it is a new session in the workspace
+    itself, as the leader's second terminal is: the installed workflow loads from there, and whatever
+    the run saves lands in the workspace for Test to find and check."""
     def run_chat(block, platform):
-        cold = root / f"run-chat-{uuid.uuid4().hex[:8]}"
-        cold.mkdir()
-        skills = ws / ".claude" / "skills"
-        if skills.exists():
-            shutil.copytree(skills, cold / ".claude" / "skills")
+        if platform.run_in_workspace:
+            cold = ws
+        else:
+            cold = root / f"run-chat-{uuid.uuid4().hex[:8]}"
+            cold.mkdir()
+            skills = ws / ".claude" / "skills"
+            if skills.exists():
+                shutil.copytree(skills, cold / ".claude" / "skills")
         text, rec = H.call(rnd, "skill", root, block, cwd=cold, tools=H.SKILL_TOOLS, plugin=None,
-                           model=args.skill_model, append_system_prompt=platform.preamble())
+                           model=args.skill_model, append_system_prompt=platform.run_preamble())
         rec["role"] = "run_chat"
         calls.append(rec)
         return text
@@ -211,6 +219,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
         for n, s in enumerate(sessions, 1):
             H.reset_home(root)  # fresh temp HOME per session; kept across this session's --resume turns
             platform = L.platform_for(ev, s)
+            platform.leader_runs = L.simulates_leader_runs(data.get("skill_name"), platform, s, ev)
             if s.get("fixture_from"):
                 src = Path(s["fixture_from"])
                 src = src if src.is_absolute() else (evals_dir / src)
