@@ -785,6 +785,11 @@ def fx_running_work(t):  # running work brought in: Runs today row, node in-prod
     installed_part_left(t)
 
 
+def fx_running_work_renamed(t):  # running work brought in, then renamed: the node keeps its ID, only its name and description change
+    fx_running_work(t)
+    set_node(t, title='"Client Follow-Up Drafts"', description='"Drafts a follow-up email after each client call, for you to review and send."')
+
+
 def fx_earlier_live_no_sch(t):  # Build owns an earlier version that was built and is live; the new plan has no SCH
     ff(t, "earlier-version/v1-results-no-record/with-registry")
     set_node(t, status="in-production")
@@ -903,7 +908,7 @@ FIXTURES = {
     "live-change": fx_live_change, "live-change-not-on": fx_live_change_not_on, "live-change-paused": fx_live_change_paused,
     "live-change-web": fx_live_change_web, "live-change-web-no-copy": fx_live_change_web_no_copy,
     "live-change-codex": fx_live_change_codex, "live-install-partway": fx_live_install_partway,
-    "before-go-live-not-on": fx_before_go_live_not_on, "running-work": fx_running_work,
+    "before-go-live-not-on": fx_before_go_live_not_on, "running-work": fx_running_work, "running-work-renamed": fx_running_work_renamed,
     "earlier-live-no-sch": fx_earlier_live_no_sch, "set-aside-same-platform": fx_set_aside_same_platform,
     "set-aside-new-platform": fx_set_aside_new_platform,
     # older version

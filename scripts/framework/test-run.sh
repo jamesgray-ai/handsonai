@@ -34,10 +34,12 @@
 # match the record and the plugin's copy; 5 the record, plan or profile can't be used
 # safely; 6 a prerequisite is missing (python3, claude); 7 a connection can't be passed
 # without copying a secret. Every non-zero exit is fail closed: Build uses check agents
-# only and skips the bare run; Test hands the inputs to the leader (N-T42).
+# only and skips the bare run, and stops where the block itself can't be written or read
+# back (block-rules, settings-check); Test hands the inputs to the leader (N-T42).
 #
 # The binding fingerprint check is the skill's own, before each use (shasum against the
-# record and the plugin's copy, claude-code-block.md). The self-check below catches drift
+# record and the plugin's copy: Build's claude-code-block.md, Test's claude-code-runs.md;
+# rules 8.7). The self-check below catches drift
 # (a stale copy, an edited record), not tampering: a tampered script could skip it.
 #
 # RELEASE CHECK markers below name the rules 13.2 row (platform registry `release_checks`
@@ -370,7 +372,8 @@ def scan_secrets(text):
 def parse_profile(record_text, slug):
     blocks = record_text.split(PROFILE_FENCE)
     if len(blocks) != 2:
-        fail(EXIT_RECORD, "the build record needs exactly one ```framework-profile block (claude-code-block.md)")
+        fail(EXIT_RECORD, "the build record needs exactly one ```framework-profile block, which Build writes "
+             "(rules 8.7; Build's claude-code-block.md)")
     body = blocks[1].split("```", 1)
     if len(body) != 2:
         fail(EXIT_RECORD, "the profile block isn't closed")
@@ -698,6 +701,9 @@ def allow_rule_set(place):
     }
 
 
+LIVE_SINCE_RE = re.compile(r"^\s*(?:[-*]\s*)?(?:\*\*)?Live since(?:\*\*)?:?\s*\d{4}-\d{2}-\d{2}", re.M)
+
+
 def results_frontmatter(place, slug):
     path = os.path.join(place.framework, slug, "test-results.md")
     if not os.path.isfile(path):
@@ -715,12 +721,16 @@ def cmd_allow_rules(place, lift):
     rules = allow_rule_set(place)
     out = {"workflow": place.slug, "allow": rules["allow"], "deny": rules["deny"]}
     if lift:
+        # Kept only for a workflow with a round in progress, or one that has never gone
+        # live (no "Live since" line in its build record, which Test writes at go-live).
+        # A live workflow between rounds doesn't need it, whatever its last verdict was.
         needed_by = []
-        for slug in all_records(place):
+        for slug, text in all_records(place).items():
             if slug == place.slug:
                 continue
             fm = results_frontmatter(place, slug)
-            if fm.get("go_live") != "done" or fm.get("round_status") == "in-progress":
+            never_live = not LIVE_SINCE_RE.search(text)
+            if never_live or fm.get("round_status") == "in-progress":
                 needed_by.append(slug)
         out["remove"] = [] if needed_by else rules["allow"] + rules["deny"]
         out["kept_for"] = needed_by
@@ -755,7 +765,7 @@ def cmd_settings_check(place, prof):
         "allow_rules_on_write_tools": allowed_writes,
         # Build's own session: the mode its settings start it in. The mode the session is in
         # now (a flag at launch, or switched during the session) is read from the session
-        # itself, as claude-code-block.md says. RELEASE CHECK 4.
+        # itself, as Build's claude-code-block.md says (rules 8.4). RELEASE CHECK 4.
         "default_modes": {k: (v.get("permissions") or {}).get("defaultMode") for k, v in loaded.items()},
     }
     out["ok"] = (not missing) and (wb["state"] != "on" or out["bash_claude_denied"])

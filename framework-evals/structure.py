@@ -320,7 +320,7 @@ def check_build_record(text):
 # ---------------------------------------------------------------- the results file
 
 RESULTS_KEYS = ["workflow", "round", "plan_revision", "date", "environment", "round_status", "round_kind",
-                "readiness", "go_live", "direct_edit", "change_requests", "results"]
+                "readiness", "go_live", "direct_edit", "old_platform_off", "change_requests", "results"]
 RESULTS_REQUIRED = ["workflow", "round", "plan_revision", "date", "environment", "round_status", "round_kind"]
 RESULTS_VALUES = {"round_status": {"in-progress", "complete", "abandoned"},
                   "round_kind": {"first", "after-fix", "after-change", "regression"},

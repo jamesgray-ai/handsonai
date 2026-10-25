@@ -6,13 +6,14 @@ Read in fix mode (the last round is Not ready with Issues rows at Level `build` 
 
 ## 1. The opener
 
-Say exactly, naming what Test found and what will be redone in plain words ("the main skill that writes the summary", never an ID):
+**First, three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/`, `history/earlier-version-*/` and any round marked `round_status: abandoned`), unless the plan's `changes:` already logs a Build request whose `after_round` is the last round's number: before the opener, record a plan-only change request pointing to the results, and say exactly: "Three test rounds in a row haven't reached Ready, so the problem is probably in the plan, not the build. I recommend going back to Design with what Test found. I've noted it for Design: say 'run the design skill. My files are in [location].'" Only if the leader insists on fixing anyway, withdraw your request and give the opener; otherwise nothing else is said.
+
+**The opener,** said exactly, naming what Test found and what will be redone in plain words ("the main skill that writes the summary", never an ID):
 
 "Test found [what, in plain words] in [the part, in plain words]. I'll redo just that[, and re-check what uses it], and leave everything else as it is."
 
-Before anything changes:
-- **Three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/`, `history/earlier-version-*/` and any round marked `round_status: abandoned`), unless the plan's `changes:` already logs a Build request whose `after_round` is the last round's number: record a plan-only change request pointing to the results, and say exactly: "Three test rounds in a row haven't reached Ready, so the problem is probably in the plan, not the build. I recommend going back to Design with what Test found. I've noted it for Design: say 'run the design skill. My files are in [location].'" If the leader insists on fixing anyway, withdraw your request and carry on.
-- **A live workflow:** `live-change.md`.
+Then, before anything changes:
+- **A live workflow:** `live-change.md` (N-B41 straight after the opener).
 - **A direct edit** to a part fix mode will redo: `SKILL.md`'s entry check 7.
 - **The block** (Claude Code) is re-applied before any check, from a fresh list of each connection's tools, using the OK the record holds.
 
@@ -30,7 +31,7 @@ For each Issues row at Level `build`:
 
 Also:
 - The bare run is skipped (the installed skill would load).
-- A change to a shared skill still gets N-B25.
+- A change to a shared skill still gets N-B25 before anything of it is written, staged, with `SKILL.md` step 2's care for other live workflows that use it.
 - Rebuilt skills replace the existing ones; a plugin's version rises. Every changed part is staged and installed together in Part 3 when the workflow is live.
 - **An agent on Microsoft 365** is fixed the way it was made: `microsoft-365-agent.md` section 5.
 - A quick real check made in this entry (for a new kind of change) is offered for undo (N-B33).
@@ -55,4 +56,4 @@ It's a change to a live workflow when the workflow is live (`live-change.md`); a
 
 - **"What was built"** is rewritten, and the close shows what changed in one line. **"What it can access"** is rewritten when a connection or permission changed.
 - **N-B37** is repeated for the new version (keep the old copy too).
-- **The Test sentence** gives Test's start phrase with the location; Test decides what runs again. No rounds sentence. On a live workflow, N-B38.
+- **The Test sentence** gives Test's start phrase with the location; Test decides what runs again. No rounds sentence. On a live workflow, N-B38. **Where N-B34 is said at this close,** its last sentence (Test's phrase) is the Test sentence: the close doesn't say Test's phrase a second time.

@@ -1788,24 +1788,25 @@
    "fixture": "cc-first",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Build's own session runs in a mode release check 4 doesn't cover: the check sessions still hold, and N-B21a takes its fallback first sentence.",
+   "expected_output": "Build's own session runs in a mode release check 4 doesn't cover: the check sessions still hold. While release check 2 is open, N-B21a's main form (its fallback first sentence would claim a limit nobody verified); once check 2 passes, its fallback form.",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "N-B21a's fallback form",
+     "text": "N-B21a's main form while release check 2 is open",
      "kind": "scripted",
      "check": {
       "type": "quote",
       "id": "N-B21a",
-      "form": "Where the release check shows Build's deny rules don't bind in the permission mode its own session runs in"
+      "form": "main"
      }
     }
    ],
    "est_turns": 30,
    "preconditions": [
-    "The eval session runs in auto or bypass mode, and release check 4 isn't verified for it"
+    "The eval session runs in auto or bypass mode, and release check 4 isn't verified for it",
+    "Release check 2 open; once it's verified, expect N-B21a's fallback form instead"
    ]
   },
   {
@@ -5095,12 +5096,12 @@
   {
    "id": "P2-shared-skill",
    "name": "shared-skill-nb25",
-   "tier": "regression",
-   "spec_item": "13 Part 2: a shared skill",
+   "tier": "core",
+   "spec_item": "13 Part 2: a shared skill (3c-DV: other live workflows paused, a kept copy)",
    "fixture": "extend-shared",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Extend existing: N-B25 with the before-and-after and Client Check-In named.",
+   "expected_output": "Extend existing: N-B25 with the before-and-after and Client Check-In named, asked before anything of the skill is written; the change staged in package/ and installed only in Part 3; Client Check-In is live, so N-B41 for its schedule and a kept copy of drafting-client-emails' current version come before that install.",
    "files": [
     "students/default.md"
    ],
@@ -5120,9 +5121,34 @@
       "type": "ai_contains",
       "text": "Client Check-In"
      }
+    },
+    {
+     "text": "N-B41 for Client Check-In's schedule",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B41"
+     }
+    },
+    {
+     "text": "Recorded as paused for the shared skill",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/build-record.md",
+      "pattern": "Paused for the shared skill"
+     }
+    },
+    {
+     "text": "N-B25 is asked before anything of drafting-client-emails is written; the changed skill is written to package/ and never to .claude/skills/ until Part 3's install",
+     "kind": "judged"
+    },
+    {
+     "text": "Before Part 3 installs the changed skill, N-B41 names Client Check-In and waits for its answer, and the skill's current version is kept (a Git commit unchanged since, or a copy in history/kept-copy-*/), with its put-back steps in the record",
+     "kind": "judged"
     }
    ],
-   "est_turns": 34
+   "est_turns": 40
   },
   {
    "id": "P2-open-item",
@@ -6152,7 +6178,7 @@
    "fixture": "codex-first",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "codex: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
+   "expected_output": "codex: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close. Until release check 8 passes, standalone skills in .agents/skills/, never a plugin, the surfaces named and the change recorded as a ruling.",
    "files": [
     "students/default.md"
    ],
@@ -6207,6 +6233,14 @@
         "kind": "build_record"
        }
       ]
+     }
+    },
+    {
+     "text": "Standalone skills in .agents/skills/",
+     "kind": "scripted",
+     "check": {
+      "type": "file_exists",
+      "path": ".agents/skills/*/SKILL.md"
      }
     }
    ],
@@ -6343,13 +6377,13 @@
    "fixture": "m365-agent-first",
    "prompt": "Run the build skill. My files are in OneDrive, in Framework/client-follow-up.",
    "student": "students/m365-agent.md",
-   "expected_output": "The pasted instructions reword the first line: N-B53's opening, its fix prompt in the carried-line fill, its check sentence, then N-B52's gap sentence and N-B52's done form, never N-B53's done form before any test.",
+   "expected_output": "Release check 29 open: the pasted instructions reword the first line, so the rebuild path: N-B53's rebuild form, N-B52's main form with the line in its build prompt (its step 6 the one paste-back request), the check on the new agent, and only once it passes the request to delete the old one; N-B52's done form, never N-B53's before any test.",
    "files": [
     "students/m365-agent.md"
    ],
    "expectations": [
     {
-     "text": "N-B53's opening, then N-B52's gap sentence and done form",
+     "text": "The rebuild form, then the delete line",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6357,12 +6391,12 @@
        {
         "type": "quote",
         "id": "N-B53",
-        "form": "main"
+        "form": "Rebuild form"
        },
        {
         "type": "quote",
-        "id": "N-B52",
-        "form": "the gap sentence"
+        "id": "N-B53",
+        "form": "main-7"
        },
        {
         "type": "quote",
@@ -6373,7 +6407,7 @@
      }
     },
     {
-     "text": "Never N-B53's done form or paste-back",
+     "text": "Never N-B53's done form or its own paste-back, and never N-B52's gap sentence on this path",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -6387,17 +6421,18 @@
         "type": "quote_absent",
         "id": "N-B53",
         "form": "main-9"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B52",
+        "form": "the gap sentence"
        }
       ]
      }
     },
     {
-     "text": "The fix prompt carries the line word for word",
-     "kind": "scripted",
-     "check": {
-      "type": "fill_check",
-      "kind": "fix"
-     }
+     "text": "The old agent's deletion is asked only after the new agent's pasted instructions pass the check, and there is exactly one paste-back request for the new agent",
+     "kind": "judged"
     }
    ],
    "est_turns": 48,
@@ -6405,7 +6440,10 @@
    "platform_faults": [
     "agent_builder_rewords_carried_line"
    ],
-   "smaller_model_round": true
+   "smaller_model_round": true,
+   "preconditions": [
+    "Release check 29 open (Agent Builder changing an agent in place unverified); once it passes, N-B53's edit-in-place path applies instead"
+   ]
   },
   {
    "id": "P3-m365-three-tries",
@@ -6463,6 +6501,10 @@
       "type": "ai_not_contains",
       "text": "test the workflow I built"
      }
+    },
+    {
+     "text": "On the rebuild path, each newer copy that fails is deleted (N-B54's words, 'the newer [Agent]') before the next try, and no agent is asked to be deleted before a copy passes or the third try fails",
+     "kind": "judged"
     }
    ],
    "est_turns": 56,
@@ -7460,7 +7502,10 @@
    ],
    "est_turns": 30,
    "platform": "microsoft-365",
-   "smaller_model_round": true
+   "smaller_model_round": true,
+   "preconditions": [
+    "Release check 29 recorded as verified for the current cohort release; while it's open, FX-m365-rebuild's path applies instead"
+   ]
   },
   {
    "id": "FX-m365-rebuild",
@@ -7470,7 +7515,7 @@
    "fixture": "fix-m365-agent",
    "prompt": "Run the build skill. My files are in OneDrive, in Framework/client-follow-up.",
    "student": "students/no-edits.md",
-   "expected_output": "Release check 29 open: N-B53's rebuild form, N-B52 with the fix in its build prompt, then the old agent deleted by the leader.",
+   "expected_output": "Release check 29 open: N-B53's rebuild form, N-B52 with the fix in its build prompt and its step 6 as the one paste-back, the check, then the old agent deleted by the leader only once the new one passes.",
    "files": [
     "students/no-edits.md"
    ],
@@ -7492,6 +7537,19 @@
         "form": "main-7"
        }
       ]
+     }
+    },
+    {
+     "text": "The delete line comes only after the new agent's pasted instructions pass the check; N-B53's own paste-back sentence isn't said",
+     "kind": "judged"
+    },
+    {
+     "text": "N-B53's own paste-back absent",
+     "kind": "scripted",
+     "check": {
+      "type": "quote_absent",
+      "id": "N-B53",
+      "form": "main-9"
      }
     }
    ],
@@ -7745,6 +7803,10 @@
       "type": "quote",
       "id": "N-B38"
      }
+    },
+    {
+     "text": "A kept copy made as a Git commit stages only the workflow's installed paths by name (never -a, . or a practice folder), and Build says so in one line; with no changes since the last commit, nothing is committed",
+     "kind": "judged"
     }
    ],
    "est_turns": 30
@@ -8696,6 +8758,188 @@
    ],
    "est_turns": 44,
    "platform": "codex"
+  },
+  {
+   "id": "P2-cc-unchecked-staged",
+   "name": "cc-unchecked-part-staged",
+   "tier": "core",
+   "spec_item": "13 Part 2: a part whose check hasn't passed never sits where the platform loads it",
+   "fixture": "cc-first",
+   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "files": [
+    "students/default.md"
+   ],
+   "expected_output": "Each part is written to package/ first and moved to .claude/skills/ only once its check passes; a part with Failed check, or one unchecked at a pause or stop, stays in package/.",
+   "expectations": [
+    {
+     "text": "Each part is written to framework/client-follow-up/package/ before its check, and appears under .claude/skills/ only after its check passed",
+     "kind": "judged"
+    },
+    {
+     "text": "Installed after the checks",
+     "kind": "scripted",
+     "check": {
+      "type": "file_exists",
+      "path": ".claude/skills/client-follow-up/SKILL.md"
+     }
+    }
+   ],
+   "preconditions": [
+    "Release checks 1 to 6 recorded as verified in the platform registry on the running Claude Code version (T19); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
+   ],
+   "est_turns": 34
+  },
+  {
+   "id": "EN-cc-no-python3",
+   "name": "cc-no-python3-stops",
+   "tier": "core",
+   "spec_item": "13 Entry: the wrapper's prerequisite missing (fail closed: stop)",
+   "fixture": "cc-first",
+   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "files": [
+    "students/default.md"
+   ],
+   "expected_output": "python3 missing: the block can't be written or read back, so Build stops before Part 2, checks nothing and changes nothing, and gives the stop line with Build's start phrase and the location.",
+   "expectations": [
+    {
+     "text": "No Part 2",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_contains",
+      "text": "Part 2 of 3"
+     }
+    },
+    {
+     "text": "No close recorded",
+     "kind": "scripted",
+     "check": {
+      "type": "file_not_regex",
+      "path": "framework/client-follow-up/build-record.md",
+      "pattern": "(?m)^last_close_after_round:"
+     }
+    },
+    {
+     "text": "Build names python3 as missing, says it can't protect the checks without it, and stops with 'run the build skill. My files are in framework/client-follow-up.'; no check agent or headless session runs",
+     "kind": "judged"
+    }
+   ],
+   "preconditions": [
+    "python3 removed from PATH for the eval session (no harness fault yet: run by hand)"
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "P1-quick-check-chatgpt-no-label",
+   "name": "quick-check-chatgpt-no-label",
+   "tier": "core",
+   "spec_item": "13 Part 1: N-B26's one-time-option clause only where the registry records a label",
+   "fixture": "chatgpt-first",
+   "prompt": "Run the build skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/default.md",
+   "files": [
+    "students/default.md"
+   ],
+   "platform": "chatgpt",
+   "expected_output": "ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named.",
+   "expectations": [
+    {
+     "text": "No invented one-time label",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_not_contains",
+        "text": "Allow once"
+       },
+       {
+        "type": "ai_not_contains",
+        "text": "Approve once"
+       }
+      ]
+     }
+    },
+    {
+     "text": "N-B26 is said without a clause naming a button to choose",
+     "kind": "judged"
+    }
+   ],
+   "est_turns": 24
+  },
+  {
+   "id": "LV-pause-first-running-work",
+   "name": "live-first-entry-pause-first",
+   "tier": "core",
+   "spec_item": "13 A live workflow: on a first entry, N-B41 is the opening's first action",
+   "fixture": "running-work",
+   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "files": [
+    "students/default.md"
+   ],
+   "expected_output": "Running work brought in: the opening (N-B4) ends with N-B41's no-steps form as its first action, the message's only question; Part 1 starts only after 'done' or 'no schedule'.",
+   "expectations": [
+    {
+     "text": "N-B4 and N-B41",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-B4"
+       },
+       {
+        "type": "quote",
+        "id": "N-B41"
+       }
+      ]
+     }
+    },
+    {
+     "text": "The opening's one question is N-B41; no connection, setup change or quick real check is asked about or made before its answer",
+     "kind": "judged"
+    }
+   ],
+   "est_turns": 30
+  },
+  {
+   "id": "LV-running-work-renamed",
+   "name": "running-work-renamed-still-live",
+   "tier": "core",
+   "spec_item": "13 A live workflow: running work brought in and renamed (the node keeps its ID) is still live",
+   "fixture": "running-work-renamed",
+   "prompt": "Run the build skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "files": [
+    "students/default.md"
+   ],
+   "expected_output": "The node was renamed (same ID, new title and description) before Build: it's still running work brought in, so N-B41's no-steps form is asked before anything changes, and a kept copy of the installed skill is made.",
+   "expectations": [
+    {
+     "text": "N-B41 asked",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B41"
+     }
+    },
+    {
+     "text": "A kept copy",
+     "kind": "scripted",
+     "check": {
+      "type": "file_exists",
+      "path": "framework/client-follow-up/history/kept-copy-*/**"
+     }
+    },
+    {
+     "text": "Build treats the renamed workflow as the same live running work: the pause comes before any change, whatever the new name",
+     "kind": "judged"
+    }
+   ],
+   "est_turns": 30
   }
  ]
 }

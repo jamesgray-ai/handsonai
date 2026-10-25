@@ -11,6 +11,7 @@ By the plan's `packaging`:
 - **Plugin:** one plugin, with nothing from the record in it. On Claude it's uploaded as a .zip (Customize, then Plugins, then Upload plugin); no marketplace. On Microsoft 365 a Claude plugin .zip is converted on upload. Use the platform's own plugin builder where one exists; never hand-zip a plugin there.
 - **Workspace Agent** (ChatGPT, guided): an instruction document for what the leader creates in the platform's interface, from your skills and the plan's configuration. It carries everything in `carried-lines.md` and sets every write action to "Always ask". Until release check 18 passes, its protection is the instruction only, said in N-B21.
 - **Loose Files:** written to their places.
+- **Codex, until release check 8 passes** (skill loading across the CLI, the desktop app and the IDE extension): whatever the plan's `packaging`, install standalone skills in `.agents/skills/`, never a plugin, and name in the close the surfaces where they load. Record the change from the plan's packaging as a ruling ("what, why, cost if wrong").
 
 **Who makes it, and where the kept copy goes.** `package/` is always in the workflow's framework folder (`Framework/[workflow-slug]/package/` in a drive). The leader's steps here count in N-B4's [K].
 
@@ -30,7 +31,7 @@ Then:
 
 ## 2. Install
 
-Every staged part (Claude and Microsoft 365 always; every platform when the workflow is live) is saved together, already checked, one part after another in one pass with nothing else between them (on Microsoft 365 the skills first, then each agent). The creator (on Claude Code and Codex, you) saves the staged text as it is; it never makes the part again from the blueprint. Then re-run the built-text check (`carried-lines.md` section 7) on what was saved, and fix any gap before going on.
+Every part still in `package/` (on Claude and Microsoft 365 always; on every platform when the workflow is live, and for a shared skill; on a Claude Code or Codex first build, any part still there, such as one finished `Built, misses [line]`) is saved together, already checked, one part after another in one pass with nothing else between them (on Microsoft 365 the skills first, then each agent). The creator (on Claude Code and Codex, you) saves the staged text as it is; it never makes the part again from the blueprint. Then re-run the built-text check (`carried-lines.md` section 7) on what was saved, and fix any gap before going on.
 
 **The leader's install line,** said exactly, then "Do you see…?":
 - One skill: **Ask:** "[Exact steps.] Do you see [skill] in your skills list?"
@@ -46,7 +47,7 @@ An "already there", or a skill of the same name the creator finds, stops that pa
 
 **The replace steps** only for a part the record says you made (a rebuild), or one the older-version yes path cleared to go in over an older skill of the same name, with a copy kept; where the leader switched that skill off at N-B51's skill form, the steps end by switching it on again once it's replaced. When a part goes in over the older version, rewrite the older-version line in its replaced form (`build-record-template.md`).
 
-**Claude Code and Codex:** confirm each file is where the platform reads it and that the skill appears in the skill list. On Codex, a plugin's skills don't load in the IDE extension; say so when the leader works there.
+**Claude Code and Codex:** confirm each file is where the platform reads it and that the skill appears in the skill list. On Codex, a plugin's skills don't load in the IDE extension; say so when the leader works there. Until release check 8 passes, Codex gets standalone skills in `.agents/skills/` (section 1).
 
 **Microsoft 365:** Copilot's creator saves the staged skills into Cowork's skills folder, and the install line confirms they show. Then each agent: `microsoft-365-agent.md`.
 

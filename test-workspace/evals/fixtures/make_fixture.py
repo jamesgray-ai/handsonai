@@ -857,6 +857,18 @@ def fx_platform_change(t):  # moved from Claude Code to Codex: a fresh plan and 
         report=report_for("E1", "E2", "E3", "new"), env_note="At your real example you asked for no change.")
 
 
+def fx_platform_change_answered(t):  # after a platform change, N-T56 answered at round 1's go-live; a re-check must not ask it again
+    fx_platform_change(t)
+    first = results_path(t).read_text()
+    first = first.replace("round_status: in-progress", "round_status: complete")
+    first = first.replace("change_requests: []", "readiness: ready\ngo_live: done\nold_platform_off: set-aside-2026-10-21-0900\nchange_requests: []", 1)
+    first = re.sub(r"(?s)## Verdict\n.*$", "## Verdict\nReady. 14 of 14 lines met across 4 inputs. It went live on Codex, and you switched off the Claude Code version for good.\n", first)
+    results_path(t).write_text(first)
+    rec = record(t)
+    rec.write_text(rec.read_text().rstrip("\n") + "\n\nLive since 2026-10-22.\nHow to switch it off: in Codex, remove .agents/skills/client-follow-up.\n")
+    set_node(t, status="in-production")
+
+
 def fx_earlier_redone(t):  # a live earlier-version workflow redone: earlier-version folder newer than any go-live, no "Live since"
     fx_ready(t)
     set_node(t, status="in-production")
@@ -1386,7 +1398,7 @@ FIXTURES = {
     "live-change-paused-sch": fx_live_change_paused_sch, "live-change-paused-incomplete": fx_live_change_paused_incomplete,
     "live-change-handmade-paused": fx_live_change_handmade_paused, "live-change-slack": fx_live_change_slack,
     "live-no-runlog-after-change": fx_live_no_runlog_after_change, "live-cloud-routine": fx_live_cloud_routine,
-    "platform-change": fx_platform_change,
+    "platform-change": fx_platform_change, "platform-change-answered": fx_platform_change_answered,
     # light, inputs
     "light-two-inputs": fx_light_two_inputs, "light-gains-risk": fx_light_gains_risk, "not-available": fx_not_available,
     "connection-input": fx_connection_input, "golden": fx_golden,

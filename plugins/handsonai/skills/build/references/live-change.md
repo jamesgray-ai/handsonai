@@ -2,11 +2,11 @@
 
 Read, before anything changes, on every Build run that changes a live workflow (a small change, fix mode, a rebuild after a big or platform change, a requirement change from Test, a kept or undone direct edit, a put-back), on an install that replaces an earlier-version workflow that is live or was built, on a retired workflow's put-back, on running work brought in (the requirements carry a `Runs today` row), whenever `schedule:` isn't `none` before go-live, when a schedule safety point fails on a live schedule, and for the copy of an older version after a yes to N-B51. Only the leader pauses, switches off or switches on a version that runs: give the steps, wait for their word, and never say you did it.
 
-**Contents:** 1. The leader's pause, first · 2. The kept copy, next · 3. Running work brought in · 4. The change · 5. The close · 6. An older version's copy
+**Contents:** 1. The leader's pause, first · 2. The kept copy, next · 3. Running work brought in · 4. The change · 5. The close · 6. An older version's copy · 7. A shared skill other live workflows use
 
 ## 1. The leader's pause, first
 
-Ask on every Build run that changes a live workflow, replaces a live or built earlier version, or puts back a retired workflow, **whatever `schedule:` says** (a leader can schedule a workflow whose plan has no `SCH` task, and no step can see it). Before go-live, ask whenever `schedule:` isn't `none`. Said exactly, in the form that fits the record:
+Ask first, before any Part 1 item (at a first entry, as the opening's first action, `SKILL.md` entry check 6), on every Build run that changes a live workflow, replaces a live or built earlier version, or puts back a retired workflow, **whatever `schedule:` says** (a leader can schedule a workflow whose plan has no `SCH` task, and no step can see it). Before go-live, ask whenever `schedule:` isn't `none`. Said exactly, in the form that fits the record:
 
 - **Switch-on steps in the record:** "Pause [workflow]'s schedule while I change it: [steps]. Say 'done' when it's paused, or 'no schedule' if it isn't running on one."
 - **Before go-live, with `schedule: not-on`:** "If you've switched on [workflow]'s schedule, pause it while I change it: [steps]. Say 'done' when it's paused, or 'no schedule'."
@@ -17,7 +17,9 @@ Wait for "done" (or "yes" to the still-paused form), then write `schedule: pause
 
 ## 2. The kept copy, next
 
-Where files can be kept, save a copy of the current version in `history/kept-copy-YYYY-MM-DD-HHMM/`, or a Git commit where the folder is a repository. On a drive that can write, move the copy you already keep in `package/` into `history/kept-copy-YYYY-MM-DD-HHMM/` yourself, and ask only for what isn't there (a .zip the leader saved from the chat, say): **Ask:** "Do you have the copy you kept? If not, download it now: [steps]. Say 'done' when you have it." Write the steps to put the kept copy back in the record's "Put back the kept copy" section.
+Where files can be kept, save a copy of the current version in `history/kept-copy-YYYY-MM-DD-HHMM/`, or a Git commit where the folder is a repository (`git rev-parse --show-toplevel` returns the workspace). A Git commit takes only the workflow's installed paths, staged by name (`git add -- <each installed path>`; never `-a`, `.` or a folder above them), so the leader's other work, the framework's own files, a practice folder and any secret stay out; say so in one line (model wording). Where those paths have no changes since their last commit, that commit is the copy and nothing is committed. On a drive that can write, move the copy you already keep in `package/` into `history/kept-copy-YYYY-MM-DD-HHMM/` yourself, and ask only for what isn't there (a .zip the leader saved from the chat, say): **Ask:** "Do you have the copy you kept? If not, download it now: [steps]. Say 'done' when you have it." Write the steps to put the kept copy back in the record's "Put back the kept copy" section.
+
+**An earlier version Build owns, or running work brought in** (section 3): N-B42 isn't asked, since its copy was never in `package/`; what you can't copy yourself gets the no-copy line below.
 
 **With no copy,** don't change the workflow; say exactly: "I won't change [workflow] until you have a copy of the current version, so you can go back if the change goes wrong. [Steps to keep one on this platform.] Say 'done' when you have it, or 'stop' to leave it as it is."
 
@@ -51,3 +53,13 @@ After a yes to N-B51 (or something you found at an install name or place, or an 
 "Stop" at the pause form or here ends Build with nothing installed (a stop); the next entry asks again. Then write the older-version line (`build-record-template.md`), and, where a copy was kept, the steps to put the older version back in "Put back the kept copy". `schedule:` isn't touched: it belongs to the new workflow.
 
 Where a new part takes the older version's place, it's installed over it when it's installed (on a first build on Claude Code and Codex, in Part 2; elsewhere in Part 3, with the install line's replace steps, ending by switching the skill on again where the leader switched it off). Then rewrite the older-version line in its replaced form, naming whatever of the older version is still set up, never the new part's place.
+
+## 7. A shared skill other live workflows use
+
+Decided by James (3c-DV): a change to a skill other workflows share (N-B25's yes, `SKILL.md` step 2) gets the same care as an older version, for every live workflow among those N-B25 named. The changed skill is staged in `package/` like any part, and before Part 3 installs it, for each such workflow, one message each:
+
+1. **Its pause:** N-B41, in the form that workflow's own build record calls for (its switch-on steps, its `schedule:`; no record you can read: the form with no steps), [workflow] naming that workflow. Wait for "done" or "no schedule"; on N-B47's "stop", end with nothing installed (a stop). Write nothing in that workflow's record: list it in this record's "Also" ("Paused for the shared skill [skill]: [workflow]"), so the close and Test can name it.
+2. **A kept copy of the skill's current version,** once for the skill, whichever workflows use it: committed in Git and unchanged (section 6 item 1), or copied by you into `history/kept-copy-YYYY-MM-DD-HHMM/` where you can reach it; where you can't (a skill in a Claude or ChatGPT account), N-B48, its [workflow] naming the skill, holding the install until the leader has one. Write the steps to put it back in "Put back the kept copy", naming the workflows it serves.
+
+At the close (section 5's N-B38 on a live workflow; otherwise N-B13), tell the leader to keep those workflows' schedules paused until this workflow's test passes, naming each. Its scripted line is pending James (proposed: "Keep [workflows]' schedules paused until this test passes too, since they use [skill]."); until it's approved, one line of model wording after the close's Test sentence.
+

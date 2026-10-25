@@ -1,6 +1,6 @@
 # The build record
 
-Read at the first entry and at every record write. `build-record.md` sits in the workflow folder, beside the plan. Only Build writes it, except Test's go-live lines ("Live since", "How to switch it off", the rewritten older-version line), `schedule:`, and `write_block`, which Test sets to `off` when it lifts a block it took over from Build. Later steps and scripts parse its frontmatter keys, headings and table columns, so they're written exactly as below.
+Read at the first entry and at every record write. `build-record.md` sits in the workflow folder, beside the plan. Only Build writes it, except Test's go-live lines ("Live since", "How to switch it off", the rewritten older-version line), "What it can access" (rewritten after a waiting-on-access fix), "How to switch it off" (rewritten after a platform change), `schedule:`, and `write_block`, which Test sets to `off` when it lifts a block it took over from Build. Keep Test's rewrites as they stand when you next write the record. Later steps and scripts parse its frontmatter keys, headings and table columns, so they're written exactly as below.
 
 **Contents:** 1. When it's written · 2. The template · 3. Frontmatter values · 4. The table · 5. The two sections for people · 6. The older-version line · 7. Also in the record · 8. The Claude Code profile · 9. Never in the record
 
@@ -72,7 +72,7 @@ change_requests: []
 The keys above and no others, in that order:
 - **`live_checks`:** per kind of change, `done: [the place it landed]`, `declined`, `skipped` or `not yet`.
 - **`skills_on`:** `yes` once checked.
-- **`write_block`** (Claude Code): `off`, or a mapping with `on:` (this workflow's own deny rules, a rule another workflow also lists included), `leader_rules:` (deny rules the leader already had, never removed) and `leader_allow:` (the leader's allow rules when the block went on), as `claude-code-block.md` section 4 shows. Elsewhere, `off`.
+- **`write_block`** (Claude Code): `off`, or a mapping with `on:` (this workflow's own deny rules, a rule another workflow also lists included), `leader_rules:` (deny rules the leader already had, never removed), `leader_allow:` (the leader's allow rules when the block went on) and `check_agents:` (each check agent file written, removed with the block), as `claude-code-block.md` section 4 shows. Elsewhere, `off`.
 - **`schedule`:** `none` with no `SCH` task (a first build with no set-aside); carried over from a set-aside record (missing there, or no record in the set-aside folder, counts as not `none`); `not-on` once every safety point passes; `safety-incomplete: [points]` when one fails, including a checkpoint the leader chose to keep running by hand; `paused` when the leader confirms a pause. There is no value for "on".
 - **`fingerprints`:** at install, one per installed skill and agent (none for an agent Agent Builder made on Microsoft 365), one per runtime context copy you can read back, and on Claude Code `wrapper: sha256:<64 hex>` for `framework/.bin/test-run.sh`. Where no code can run, a part's size and date.
 - **`bare_run`:** per main skill, `done` or `skipped: [why]`.
@@ -111,7 +111,7 @@ The line is kept whenever the section is rewritten, and carried over a set-aside
 
 ## 7. Also in the record
 
-Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the plain model handled in each bare run; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; the remaining manual steps and prerequisites; where the package is kept for sharing.
+Under `## Also`: the places a dry run confirmed; the quick real checks and where they landed; every real change a quick real check made, with its undo status; the practice-run instruction's text; for an agent on Microsoft 365, the instructions the leader last pasted back; what the plain model handled in each bare run; the schedule's safety record and switch-on steps (withheld while incomplete); "Put back the kept copy"; any other live workflow paused for a shared skill this build changes ("Paused for the shared skill [skill]: [workflow]", `live-change.md` section 7); the remaining manual steps and prerequisites; where the package is kept for sharing.
 
 ## 8. The Claude Code profile
 

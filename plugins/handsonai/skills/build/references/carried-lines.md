@@ -27,7 +27,7 @@ Into the orchestrator (or the main skill, where there's no orchestrator), and ev
 
 > All results
 
-- **Saving, by platform.** Built for **Claude Code only**, the run also saves what it makes into its own `[input]-[run]/` subfolder of the practice folder that Test's hand-over block names, in the workspace (never a folder name built into the instruction): its output, a file-output workflow's files included, and its closing block as `results.md`, still ending with the block in the chat. It writes nowhere else and never reads the practice folder. Built for **any other platform, Codex included**, it saves nothing under the cue and shows a file's content in its closing block.
+- **Saving, by platform.** Built for **Claude Code only**, the run also saves what it makes into its own `[input]-[run]/` subfolder of the practice folder that Test's hand-over block names (the `Run:` line under each input, so each input of a batch has its own), in the workspace (never a folder name built into the instruction): its output, a file-output workflow's files included, and its closing block as `results.md`, still ending with the block in the chat. It writes nowhere else and never reads the practice folder. Built for **any other platform, Codex included**, it saves nothing under the cue and shows a file's content in its closing block.
 
 ## 3. The other lines every part carries
 

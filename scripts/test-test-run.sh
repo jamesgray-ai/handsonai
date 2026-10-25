@@ -389,9 +389,27 @@ assert any("framework/.bin" in d and d.startswith("Write(") for d in o["deny"])
 EOF
 printf -- '---\ngo_live: done\nround_status: complete\n---\n' > "$WS/framework/wf-b/test-results.md"
 W allow-rules wf-a --plugin-copy "$PLUGIN/test-run.sh" --lift
+python3 - "$TMP/out" <<'EOF' && ok "kept while another workflow has never gone live (no Live since line), whatever go_live says" || bad "allow kept for a never-live workflow"
+import json, sys
+o = json.load(open(sys.argv[1])); assert o["remove"] == [] and o["kept_for"] == ["wf-b"], o
+EOF
+printf '\nLive since 2026-10-01.\n' >> "$WS/framework/wf-b/build-record.md"
+W allow-rules wf-a --plugin-copy "$PLUGIN/test-run.sh" --lift
 python3 - "$TMP/out" <<'EOF' && ok "removed once no other workflow needs it" || bad "allow removal"
 import json, sys
 o = json.load(open(sys.argv[1])); assert o["remove"] and o["kept_for"] == [], o
+EOF
+printf -- '---\nreadiness: not-ready\nround_status: complete\n---\n' > "$WS/framework/wf-b/test-results.md"
+W allow-rules wf-a --plugin-copy "$PLUGIN/test-run.sh" --lift
+python3 - "$TMP/out" <<'EOF' && ok "a live workflow whose last re-check was Not ready doesn't keep the allow on" || bad "allow kept for a live workflow between rounds"
+import json, sys
+o = json.load(open(sys.argv[1])); assert o["remove"] and o["kept_for"] == [], o
+EOF
+printf -- '---\nround_status: in-progress\n---\n' > "$WS/framework/wf-b/test-results.md"
+W allow-rules wf-a --plugin-copy "$PLUGIN/test-run.sh" --lift
+python3 - "$TMP/out" <<'EOF' && ok "kept while a live workflow has a round in progress" || bad "allow removed mid-round"
+import json, sys
+o = json.load(open(sys.argv[1])); assert o["remove"] == [] and o["kept_for"] == ["wf-b"], o
 EOF
 
 echo "test-run.sh: settings read-back"

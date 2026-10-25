@@ -27,7 +27,7 @@ The leader's run saves its results into the round's practice folder in the works
 framework/.bin/test-run.sh practice-create <slug> --plugin-copy <this skill's folder>/scripts/test-run.sh --round <n>
 ```
 
-It prints the folder: `practice/`, or `practice-<slug>/` where a `practice/` without this workflow's marker is already there or several workflows share the workspace. Record that path in the round's Environment section and the results file's `environment`. The marker file is `.framework-practice`. If it refuses because a marked folder is still there from an earlier round, clear that one first (section 7) at the path that round recorded; if a folder is there without the marker, it's the leader's own and is never used or cleared.
+It prints the folder: `practice/`, or `practice-<slug>/` where a `practice/` without this workflow's marker is already there or several workflows share the workspace. Record that path in the round's Environment section and the results file's `environment`. The marker file is `.framework-practice`. If it refuses because a marked folder is still there from an earlier round, clear that one first (section 7) at the path that round recorded; if a folder is there without the marker, it's the leader's own and is never used or cleared. If `practice-create` refuses for that reason and no other folder can be made, the leader's runs save nothing in the workspace: each hand-over's block leaves out the `Practice folder:` and `Run:` lines, and the leader copies the run's closing block back, as on Codex.
 
 Each of the leader's runs saves into `[practice folder]/[input]-[run]/`, named in Test's hand-over block. Nothing reads the practice folder during the round except Test, after a run comes back.
 
@@ -35,7 +35,7 @@ The AI's runs don't use it. Each has its own `practice/` inside its own run fold
 
 ## 3. Starting a run
 
-Write each run's prompt to a file outside `framework/` (the round's scratch file, say): the workflow's start phrase, the cue "practice run", the round's number, the input's name, the run number, that the input is in `input/[file]`, and that anything it saves goes in its own `practice/` folder. Nothing from the requirements, the plan or this round's file goes in the prompt.
+Write each run's prompt to a file in the round's scratch folder outside the workspace (`hand-overs.md` section 1; made with `mktemp -d` and recorded in the Environment), never inside it, so it never enters the workspace listing: the workflow's start phrase, the cue "practice run", the round's number, the input's name, the run number, that the input is in `input/[file]`, and that anything it saves goes in its own `practice/` folder. Nothing from the requirements, the plan or this round's file goes in the prompt.
 
 ```bash
 framework/.bin/test-run.sh test <slug> --plugin-copy <this skill's folder>/scripts/test-run.sh \
@@ -113,7 +113,7 @@ Whatever the verdict, and when a round is set aside:
    ```
 
    The wrapper clears only `practice/` or `practice-<slug>/` holding this workflow's marker. A folder without the marker, or one this round didn't record, is never cleared: leave it and say so.
-2. **The AI's run folders:** clear each one recorded in the Environment with `runs-clear <slug> --plugin-copy … --path <run folder>`. The wrapper clears only folders it made for this workflow.
+2. **The AI's run folders:** clear each one recorded in the Environment with `runs-clear <slug> --plugin-copy … --path <run folder>`. The wrapper clears only folders it made for this workflow. Remove the round's scratch folder of prompt and decision files too (the path recorded in the Environment, outside the workspace).
 3. **A block taken over from Build:** `framework/.bin/test-run.sh lift-rules <slug> --plugin-copy …`, then remove exactly the rules in `remove` from `.claude/settings.local.json`, set `write_block: off` in the record, and read the settings back with `settings-check`. A rule another workflow's block still lists, or one the leader had, stays.
 4. **The wrapper's allow, on a live workflow:** `allow-rules <slug> --plugin-copy … --lift`, then remove exactly the rules in `remove`. When `kept_for` names another workflow that still needs it, it stays. Before a first go-live, the allow stays until go-live removes it the same way.
 5. **Read the settings back** with `settings-check`.

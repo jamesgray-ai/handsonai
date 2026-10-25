@@ -1,5 +1,6 @@
 {
   "version": "2.0",
+  "framework_release": "10.0",
   "notes": "The single source of platform facts for the handsonai skills. Look a platform up by its key or by any name in its `aliases`. Readers take `capabilities` values as readable strings, except the structured fields new in 2.0 (`unattended_checkpoint`, `cloud_drives`, `approval_labels`, `connection_switch_off`, `build_places`, `agent_builder`, `skill_context_by_path`), whose `release_check` numbers point into `release_checks`. A fact that rests on an open release check takes that check's fallback until the check is recorded as passed; nothing in a skill assumes a check passed. Unverified facts say so, with their fallback.",
   "release_checks_policy": "Rules 13.2: each check is verified on a stated version range, recorded in `verified_version_range` with who ran it and when. Outside the verified range (read with `claude --version` on Claude Code), every check takes its fallback and the step says so once. Where no version can be read (Claude on the web and desktop, ChatGPT, Microsoft 365), the checks run again before each cohort release and whenever a platform's release notes change something a check rests on. An empty `verified_version_range` means no range is recorded yet.",
   "platforms": {
@@ -692,7 +693,7 @@
       "fallback": "If a later run fails: N-B52's recovery form for a leader in the ordinary chat; where Agent Builder can't build from the files, a change request (N-B9), and Design re-plans the agent's work as Cowork skills",
       "status": "verified",
       "verified_on": "2026-10-21 (skills), 2026-10-24 (agents); James's tests",
-      "verified_for_release": "10.0.0",
+      "verified_for_release": "10.0",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -705,7 +706,7 @@
       "fallback": "If a later run fails: the create-only path in that folder if Cowork can create and move files there; print-to-save otherwise",
       "status": "verified",
       "verified_on": "2026-10-21; James's test",
-      "verified_for_release": "10.0.0",
+      "verified_for_release": "10.0",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -718,7 +719,7 @@
       "fallback": "If a later run fails: N-F13's Microsoft 365 form, as at any chat that can't read the files",
       "status": "verified",
       "verified_on": "2026-10-21; James's test",
-      "verified_for_release": "10.0.0",
+      "verified_for_release": "10.0",
       "verified_version_range": "",
       "run_by": ""
     },
