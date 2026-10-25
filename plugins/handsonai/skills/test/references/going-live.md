@@ -42,6 +42,7 @@ Said exactly, with its parts chosen from the files, in this order:
   - Waiting on a safety fix or a schedule-only request: "Its schedule waits until [the point] is fixed: say 'change my workflow: [the schedule point]. My files are in [location].'"
   - The leader chose at Build to keep running it by hand (the schedule's safety record says so): "It runs by hand, as you chose. To put it on its schedule later, say 'change my workflow: [the schedule point]. My files are in [location].'"
   - No schedule in its plan: "To run it on a schedule later, say 'change my workflow: run it on a schedule. My files are in [location].', so the schedule is checked before it runs without you."
+- **Other workflows paused for a shared skill** (the build record's "Also" lists "Paused for the shared skill [skill]: [workflow]"), at the first Ready round after the build that paused them, naming each, said exactly (N-T58): "You can switch [workflows] back on now; they use [skill], which just passed its test."
 - **A schedule, and no run log:** "Check its run history now and then for anything it flags."
 - **Re-check, and how to change it:** "Re-check it any time with 'test the workflow I built', especially if you find yourself editing more than you used to. To change it, say 'change my workflow. My files are in [location].'"
 - **Time saved:** where the workflow writes a run log and the Baseline is still Unknown: "To see time saved later, note how long it takes you by hand next time and tell me with 'change my workflow. My files are in [location].'"
@@ -59,6 +60,7 @@ On a Ready round of a live workflow (a re-check, a change, or a fix after either
    - **`safety-incomplete`:** "Its schedule stays paused until [the point] is fixed: say 'change my workflow: [the schedule point]. My files are in [location].'" Or, where the leader chose at Build to keep running it by hand: "Its schedule stays paused, and it runs by hand, as you chose. To put it back on its schedule, say 'change my workflow: [the schedule point]. My files are in [location].'" The value stays as Build wrote it.
    - **`not-on` and `none`:** nothing about the schedule.
    - **After N-T48** (section 2), `paused` reads as `none`: the first go-live's schedule sentence (or its no-schedule line), and write `not-on` where switch-on steps were given.
+   - **Other workflows paused for a shared skill:** N-T58, as in section 3.
    - Then: "To change it, say 'change my workflow. My files are in [location].'"
 4. **A team workflow** whose team question got "stuck": the SOP offer (N-T52, in SKILL.md).
 5. Lift the settings (Claude Code), write `go_live: done`, and offer the Git save point, as at a first go-live.

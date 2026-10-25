@@ -3555,7 +3555,7 @@
   {
    "id": "N-B21",
    "form": "Codex",
-   "text": "My checks here can also reach the other connections you've set up in Codex; only that same rule keeps them from changing anything.",
+   "text": "My checks here can also reach the other connections and commands you've set up in Codex; only that same rule keeps them from changing anything.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -3563,7 +3563,7 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+   "source": "3c-DY (2026-10-24)"
   },
   {
    "id": "N-B21",
@@ -3603,6 +3603,19 @@
     "build": "references/claude-code-block.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
+  },
+  {
+   "id": "N-B21a",
+   "form": "Instruction-only: where those deny rules don't bind and the release check on check agents' allow lists hasn't passed",
+   "text": "My checks here relied on my instructions, not a hard block, because [platform] couldn't confirm one.",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/claude-code-block.md"
+   },
+   "source": "3c-DY (2026-10-24)"
   },
   {
    "id": "N-B22",
@@ -4388,6 +4401,32 @@
    "source": "build.md 12; 3c-DI (2026-10-24), the wording the decision records"
   },
   {
+   "id": "N-B55",
+   "form": "main",
+   "text": "I can't set up the block that keeps my checks from changing anything here: [what's missing]. [How to add it.] Then say 'run the build skill. My files are in [location].'",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "3c-DY (2026-10-24)"
+  },
+  {
+   "id": "N-B56",
+   "form": "main",
+   "text": "Keep [workflows]' schedules paused until this test passes too, since they use [skill].",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "references/live-change.md"
+   },
+   "source": "3c-DY (2026-10-24)"
+  },
+  {
    "id": "N-T1",
    "form": "main",
    "text": "Part 1 of 4 — open the round",
@@ -5077,6 +5116,19 @@
    "source": "test.md 12; 3c-DJ (2026-10-24)"
   },
   {
+   "id": "N-T26",
+   "form": "non-live",
+   "text": "This re-checks your workflow against what it did on [date].[ You set [the Target].][ Since then it has run [n] times[, saving about [hours]][, and flagged [n] things it wasn't designed for].] To start, give me one real example from your recent work, or say 'write one for me'.[Connection: ' You can also say 'use the newest', and it reads the newest [input] since [the last round's date] from [source] without changing anything.']",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "3c-DY (2026-10-24)"
+  },
+  {
    "id": "N-T29",
    "form": "Partial",
    "text": "Your results block covers [n] of [N]. Paste this into a new chat for the rest:",
@@ -5543,6 +5595,19 @@
     "test": "references/rounds.md"
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)"
+  },
+  {
+   "id": "N-T58",
+   "form": "main",
+   "text": "You can switch [workflows] back on now; they use [skill], which just passed its test.",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "references/going-live.md"
+   },
+   "source": "3c-DY (2026-10-24)"
   },
   {
    "id": "git-save-point",

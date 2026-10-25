@@ -1788,18 +1788,18 @@
    "fixture": "cc-first",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "Build's own session runs in a mode release check 4 doesn't cover: the check sessions still hold. While release check 2 is open, N-B21a's main form (its fallback first sentence would claim a limit nobody verified); once check 2 passes, its fallback form.",
+   "expected_output": "Build's own session runs in a mode release check 4 doesn't cover: the check sessions still hold. While release check 2 is open, N-B21a's instruction-only first sentence (its fallback first sentence would claim a limit nobody verified); once check 2 passes, its fallback form.",
    "files": [
     "students/default.md"
    ],
    "expectations": [
     {
-     "text": "N-B21a's main form while release check 2 is open",
+     "text": "N-B21a's instruction-only first sentence while release check 2 is open",
      "kind": "scripted",
      "check": {
       "type": "quote",
       "id": "N-B21a",
-      "form": "main"
+      "form": "Instruction-only: where those deny rules don't bind and the release check on check agents' allow lists hasn't passed"
      }
     }
    ],
@@ -8801,7 +8801,7 @@
    "files": [
     "students/default.md"
    ],
-   "expected_output": "python3 missing: the block can't be written or read back, so Build stops before Part 2, checks nothing and changes nothing, and gives the stop line with Build's start phrase and the location.",
+   "expected_output": "python3 missing: the block can't be written or read back, so Build stops before Part 2, checks nothing and changes nothing, and gives N-B55, the stop line with Build's start phrase and the location.",
    "expectations": [
     {
      "text": "No Part 2",
@@ -8818,6 +8818,15 @@
       "type": "file_not_regex",
       "path": "framework/client-follow-up/build-record.md",
       "pattern": "(?m)^last_close_after_round:"
+     }
+    },
+    {
+     "text": "N-B55 as the stop line",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B55",
+      "form": "main"
      }
     },
     {
