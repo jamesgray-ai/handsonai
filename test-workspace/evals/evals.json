@@ -3364,6 +3364,57 @@
       "est_turns": 14
     },
     {
+      "id": "TG-regulated-record",
+      "name": "regulated-per-run-record-missing",
+      "tier": "core",
+      "spec_item": "test.md 4.2 The check list (3c-DS): a regulated Autonomous workflow whose run's \"What I did\" summary omits the per-run record its Traceability P line requires, that line graded Not met with the reason",
+      "fixture": "regulated-no-record",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "platform": "claude-code",
+      "expected_output": "P1 (Traceability: each run keeps a record of what it did in the compliance log) is on the check list as a path line. No run's \"What I did\" summary shows the record being made, or where, so P1 is graded Not met from the summary, with that as the reason, never assumed met; the Issues row names the missing record.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "P1 is on the check list as a path line",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "section": "## Check list",
+            "pattern": "(?i)P1:.*\\|\\s*path\\s*\\|"
+          }
+        },
+        {
+          "text": "P1 not met on some input",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "pattern": "P1: not-met"
+          }
+        },
+        {
+          "text": "The Issues row for P1 names the missing per-run record",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "section": "## Issues identified",
+            "pattern": "(?i)\\|\\s*P1\\s*\\|.*(record|log)"
+          }
+        },
+        {
+          "text": "P1's Not met gives the reason from the \"What I did\" summary (no record made, and no place named for it), and the record is never assumed met because the draft was made or shown",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "est_turns": 8
+    },
+    {
       "id": "TG-path-and-outcome",
       "name": "outcome-and-path",
       "tier": "regression",

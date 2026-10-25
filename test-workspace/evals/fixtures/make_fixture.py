@@ -1297,6 +1297,24 @@ def fx_grocery_milk(t):
     write(Path(t) / ".claude" / "skills" / GROCERY / "SKILL.md", GROCERY_AGENT)
 
 
+def fx_regulated_no_record(t):
+    """Regulated work planned as Autonomous (3c-DS): its Traceability line P1 is the per-run record the plan's
+    Constraint Conformance requires. The installed skill never keeps that record, so no run's "What I did"
+    summary shows it: P1 is Not met, from the summary."""
+    base(t, "cc", track="full", flag=True)
+    sub(req(t), "| P1 | Each run's closing summary names the draft it created in Gmail Drafts. | Self |",
+        "| P1 | Each run keeps a record of what it did (the call notes it used and the draft it created) in the "
+        "compliance log, `compliance/follow-up-log.md`, outside the email itself. | FINRA Rule 4511 |")
+    sub(req(t), "Governing regime: None", "Governing regime: FINRA Rule 4511 (books and records)")
+    p = plan(t)
+    sub(p, "autonomy: Guided\n", "autonomy: Autonomous\n")
+    resub(p, r"^Guided: Step 2 decides how to word the deliverable.*$",
+          "Autonomous: the skill runs the whole workflow toward its goal and stops only at G1; regulated work, so D3′ "
+          "was reviewed and the plan keeps a per-run record of what the AI did (P1).")
+    sub(p, "| P1 | T2 | Met by design |",
+        "| P1 | T2 | Met by design |\n| Traceability: the per-run record (regulated work planned as Autonomous) | T2 | Met by design: P1 |")
+
+
 def journey(p):
     def fx(t):  # a first full-track round on platform p; the built draft adds an amount the notes don't give
         base(t, p, track="full", defect="adds-amount")
@@ -1361,6 +1379,8 @@ FIXTURES = {
     "m365-agent-no-first-line": fx_m365_agent_no_first_line, "m365-agent-ids": fx_m365_agent_ids,
     "m365-agent-after-round": fx_m365_agent_after_round, "m365-agent-not-ready": fx_m365_agent_not_ready,
     "m365-live": fx_m365_live, "grocery-milk": fx_grocery_milk,
+    # security lines (3c-DS)
+    "regulated-no-record": fx_regulated_no_record,
     # first-time leader journeys
     **{f"journey-{k}": journey(p) for k, p in (("chatgpt", "chatgpt"), ("claude-web", "web"), ("claude-desktop", "desktop"),
                                                ("microsoft-365", "m365"), ("claude-code", "cc"), ("codex", "codex"))},

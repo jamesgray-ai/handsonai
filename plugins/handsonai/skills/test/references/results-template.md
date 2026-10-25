@@ -39,6 +39,7 @@ results:
 |---|---|
 | [ID] | [E number, or new] |
 | [ID] | accepted as untested: [the leader's reason] |
+| [ID] | not shown: [why no run can show where content went or who can see it] |
 
 ## Inputs
 | Input | Came from | Ran by | Runs | Carried from | Saved as |
@@ -90,6 +91,7 @@ The keys above and no others, plus `direct_edit: undo` only in the round Test op
 
 In this order, and no others: Check list, Coverage, Inputs, Report card, Not run, Environment, Issues identified, Accepted misses, Requirement changes, Verdict.
 - **Check list:** each line in plain words with its ID, kind (output or path) and must-have; rules tagged `· (you)` listed as carried out by the leader.
+- **Check list and Coverage, the security lines:** every `P` line under Prohibited actions and Traceability, the per-run record regulated Autonomous work must keep, and every `P` line under Boundaries and Access, each a path line. A Boundaries or Access line no run can show is "not shown" in Coverage, never graded and never counted as met.
 - **Inputs:** where each came from (Deconstruct, Design's risk input, written by Test, your real example, the flag input, a flagged run), who ran it, runs, carried from, saved as. The text of an input Test wrote sits here until it's saved or dropped; the real example is named in a few words only, never its text.
 - **Report card:** per input, output lines first, then path lines; the golden-example comparison where there is one; carried results marked "carried from round [n]".
 - **Issues identified:** Level is `build`, `plan` or `requirement`; Cause from SKILL.md's list; Task is the plan task that *Meets* the line.
