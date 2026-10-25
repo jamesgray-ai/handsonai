@@ -24,7 +24,7 @@ Follow `references/routing.md`'s "The order at every entry", before anything is 
 
 Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
-The leader reads every line you write, text before a tool call included, so never narrate your own work (files read, scripts run, states, the rule you're applying): write only what the leader should read.
+The leader reads every line you write, text before a tool call included, so never narrate your own work (files read, scripts run, states, the rule you're applying): write only what the leader should read. A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
 
 **The location** is the framework folder. [location] in every line below is that folder: "framework" on Claude Code and Codex; on Claude desktop, the folder's own name (such as "Framework"); on the web, "Google Drive, in Framework" (or the drive and folder the student chose); on Microsoft 365, "OneDrive, in Framework" (or the folder the student chose). On print-to-save, where there is no saved location, [location] and [the report's path in the location] are "the folder you're keeping these files in".
 

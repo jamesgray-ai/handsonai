@@ -167,8 +167,10 @@ def _file_session(run, n):
 
 def leader_text(message):
     """What the leader reads, for the wording checks: code blocks and inline code left out
-    (file names, prompts to paste), since those are technical text, not wording."""
+    (file names, prompts to paste), since those are technical text, not wording; block-quoted
+    lines too, since those show the leader's work back (an input drafted or pasted), not the AI's wording."""
     m = re.sub(r"```.*?```", " ", message, flags=re.S)
+    m = re.sub(r"(?m)^[ \t]*>.*$", " ", m)
     return re.sub(r"`[^`\n]*`", " ", m)
 
 

@@ -117,6 +117,9 @@ class WordingChecks(unittest.TestCase):
             "copy back what it says. Then delete that chat.")))
         # file names in code aren't wording
         self.assertTrue(ok({"type": "vocabulary"}, run_of("I moved `design-spec.md` aside. Shall I start?")))
+        # the leader's work shown back in a block quote isn't the AI's wording
+        self.assertTrue(ok({"type": "vocabulary"}, run_of("Here's the input:\n> check-in on Q1 project scope\nKeep it?")))
+        self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of("Here's the input:\n> renewal, 30 min\nKeep it?")))
 
     def test_no_time_or_step_numbers(self):
         self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of("Part 2 of 4 — the plan. Step 3, your review, stays.")))
