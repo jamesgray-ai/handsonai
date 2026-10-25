@@ -1559,7 +1559,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -1716,7 +1716,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -1932,7 +1932,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2166,7 +2166,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?Google\\ Drive,\\ in\\ Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2409,7 +2409,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?Google\\ Drive,\\ in\\ Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2643,7 +2643,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2917,7 +2917,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?OneDrive,\\ in\\ Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?OneDrive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -3125,7 +3125,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?Google\\ Drive,\\ in\\ Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -3266,7 +3266,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?OneDrive,\\ in\\ Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?OneDrive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -3526,7 +3526,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\\\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
