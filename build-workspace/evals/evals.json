@@ -3887,11 +3887,25 @@
    "fixture": "floor-overwrite",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "An overwrite the plan classes as undoable: N-B26's permanent form and a change request; the tasks it touches wait.",
+   "expected_output": "An overwrite of the team's Client Tracker the plan classes as undoable (W2): Google Sheets connected in setup (T3), its quick real check in N-B26's permanent form, on a sheet Build creates in the leader's own Drive, and a change request for Design to correct the class; the tasks it touches wait.",
    "files": [
     "students/default.md"
    ],
    "expectations": [
+    {
+     "text": "N-B26's permanent form for the overwrite's quick real check",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B26",
+      "form": "Permanent"
+     }
+    },
+    {
+     "text": "The quick real check never touches the team's Client Tracker: any overwrite lands on a sheet Build created first, in the leader's own Drive",
+     "kind": "judged",
+     "must": true
+    },
     {
      "text": "A change request in the one shape",
      "kind": "scripted",

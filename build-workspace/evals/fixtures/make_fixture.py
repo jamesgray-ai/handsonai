@@ -431,6 +431,18 @@ def fx_floor_overwrite(t):  # the plan classes an overwrite of a shared record a
     sub(p, "| W1 | Gmail | create a draft | undoable (you can delete the draft) | G1 before you send |",
         "| W1 | Gmail | create a draft | undoable (you can delete the draft) | G1 before you send |\n| W2 | Google Sheets | overwrite the account's row in the team's Client Tracker | undoable (the sheet keeps a version history) | — |")
     sub(p, "Gmail: the Claude Code connector (use).", "Gmail: the Claude Code connector (use). Google Sheets: the connector, to update the team's Client Tracker (use).")
+    # Its setup task and connection, so Part 1 reaches the overwrite's quick real check (build.md 5.2, 5.5):
+    # the stand-in Google Sheets is connected on Claude Code (run_eval.connections_for)
+    sub(req(t), "- W1 · Gmail · create a draft · Step 2", "- W1 · Gmail · create a draft · Step 2\n- W2 · Google Sheets · overwrite the account's row in the team's Client Tracker · Step 2")
+    sub(req(t), "uses C1 · flexible · writes W1", "uses C1 · flexible · writes W1, W2")
+    sub(p, "- **Required Tools:** Gmail", "- **Required Tools:** Gmail; Google Sheets")
+    sub(p, "- Gmail connected in Claude Code.", "- Gmail and Google Sheets connected in Claude Code.")
+    sub(p, "- **Meets:** Step 1, Step 2, Step 3, D1, AC1, AC2, AC3, R1, R2, R3, G1, W1, P1\n",
+        "- **Meets:** Step 1, Step 2, Step 3, D1, AC1, AC2, AC3, R1, R2, R3, G1, W1, W2, P1\n")
+    sub(p, "- **Depends on:** T1\n- **rev:** 1\n\n### KW", "- **Depends on:** T1, T3\n- **rev:** 1\n\n### T3 — Connect Google Sheets for the Client Tracker\n"
+        "- **Builds:** setup: the Google Sheets connection\n- **Uses / hands on:** —\n- **Meets:** W2\n"
+        "- **Done when:** read-back: the Google Sheets connection answers and the Client Tracker's update is available\n"
+        "- **Depends on:** —\n- **rev:** 1\n\n### KW")
 
 
 def fx_extend_shared(t):  # T2 extends a skill another workflow uses

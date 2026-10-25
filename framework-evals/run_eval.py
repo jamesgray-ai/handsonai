@@ -150,11 +150,11 @@ def leader_prompt(turns, screens):
 
 def connections_for(platform, ws, root, data, extra=()):
     """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
-    workflow's plan uses it, as a leader who connected it would have (harness.gmail_mcp); on
-    Microsoft 365, the Outlook the Cowork chat reaches, when the plan uses Outlook. Test's
-    evals don't get it yet: its waiting-on-access cases need a way to show Gmail not connected first.
-    `extra`: the stand-in's optional tools an eval asks for with `stub_tools` (delete_draft, so Build can
-    undo its quick real check's draft: N-B33's undo form)."""
+    workflow's plan uses it, and Google Sheets, when it does, as a leader who connected them would
+    have (harness.stub_mcp); on Microsoft 365, the Outlook the Cowork chat reaches, when the plan uses
+    Outlook. Test's evals don't get them yet: its waiting-on-access cases need a way to show Gmail not
+    connected first. `extra`: the mail stand-in's optional tools an eval asks for with `stub_tools`
+    (delete_draft, so Build can undo its quick real check's draft: N-B33's undo form)."""
     if data.get("skill_name") != "build":
         return None
     if platform.key == "microsoft-365":  # the Outlook a Cowork chat reaches, for its quick real check
@@ -164,10 +164,13 @@ def connections_for(platform, ws, root, data, extra=()):
         return None
     if platform.key not in ("claude-code", "codex"):
         return None
-    plans = [p for p in Path(ws).glob("framework/*/design-plan.md")]
-    if not any(re.search(r"(?m)^Gmail: ", p.read_text()) for p in plans):
-        return None
-    return H.gmail_mcp(root, extra=extra)
+    plans = " ".join(p.read_text() for p in Path(ws).glob("framework/*/design-plan.md"))
+    specs = []
+    if re.search(r"(?m)^Gmail: ", plans):
+        specs.append(H.stub_spec(extra=extra))
+    if re.search(r"(?m)(^|\. )Google Sheets: ", plans):
+        specs.append(H.stub_spec("google_sheets", "Google Sheets", "sheets"))
+    return H.stub_mcp(root, specs) if specs else None
 
 
 def settings_prompt_for(platform, ws, root, data, s=None, ev=None):

@@ -196,27 +196,48 @@ GMAIL_ALLOW = ["mcp__gmail__get_profile", "mcp__gmail__list_messages", "mcp__gma
 
 
 STUB_EXTRA_TOOLS = {"delete_draft": "mcp__gmail__delete_draft"}  # offered on request (an eval's stub_tools)
+# The stand-in Google Sheets (GMAIL_STUB_KIND=sheets): its reads and both changes allowed as the leader's
+# click would allow them; the block's deny rules still win during checks.
+SHEETS_ALLOW = ["mcp__google_sheets__get_profile", "mcp__google_sheets__list_spreadsheets",
+                "mcp__google_sheets__read_range", "mcp__google_sheets__create_spreadsheet",
+                "mcp__google_sheets__update_range"]
+
+
+def stub_spec(server="gmail", service="Gmail", kind="mail", account="alex@brightline.example", extra=()):
+    """One stand-in connection for stub_mcp: the mail stub (Gmail, or Outlook on Microsoft 365) or,
+    with kind="sheets", Google Sheets."""
+    unknown = set(extra) - set(STUB_EXTRA_TOOLS)
+    if unknown:
+        raise HarnessFailure(f"unknown stand-in connection tools: {sorted(unknown)}")
+    allow = (SHEETS_ALLOW if kind == "sheets" else GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)])
+    prefix = "mcp__google_sheets__" if kind == "sheets" else "mcp__gmail__"
+    return {"server": server, "service": service, "kind": kind, "account": account, "extra": sorted(extra),
+            "allow": [t.replace(prefix, f"mcp__{server}__") for t in allow]}
+
+
+def stub_mcp(root, specs):
+    """The stand-in connections for a session (tools/gmail_stub_mcp.py), one server per spec, in one
+    config: {"config", "servers", "allow"}, as harness.call takes it."""
+    stub = root / "bin" / GMAIL_STUB.name  # a copy in the run root: no path under the home folder
+    stub.parent.mkdir(exist_ok=True)
+    shutil.copy2(GMAIL_STUB, stub)
+    servers = {}
+    for sp in specs:
+        servers[sp["server"]] = {
+            "type": "stdio", "command": sys.executable, "args": ["-I", str(stub)],
+            "env": {"GMAIL_STUB_ACCOUNT": sp["account"], "GMAIL_STUB_LOG": str(root / f"{sp['server']}-calls.jsonl"),
+                    "GMAIL_STUB_SERVER": sp["server"], "GMAIL_STUB_SERVICE": sp["service"],
+                    "GMAIL_STUB_KIND": sp["kind"], "GMAIL_STUB_EXTRA": ",".join(sp["extra"])}}
+    cfg = root / f"mcp-{'-'.join(servers)}.json"
+    cfg.write_text(json.dumps({"mcpServers": servers}))
+    return {"config": cfg, "servers": list(servers), "allow": [t for sp in specs for t in sp["allow"]]}
 
 
 def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="Gmail", extra=()):
     """The stand-in mail connection for a session (tools/gmail_stub_mcp.py): Gmail on Claude Code,
     or, with server="outlook", the Outlook a Microsoft 365 Cowork chat reaches. `extra` offers the
     stub's optional tools (STUB_EXTRA_TOOLS), allowed as the leader's click would allow them."""
-    unknown = set(extra) - set(STUB_EXTRA_TOOLS)
-    if unknown:
-        raise HarnessFailure(f"unknown stand-in connection tools: {sorted(unknown)}")
-    cfg = root / f"mcp-{server}.json"
-    stub = root / "bin" / GMAIL_STUB.name  # a copy in the run root: no path under the home folder
-    stub.parent.mkdir(exist_ok=True)
-    shutil.copy2(GMAIL_STUB, stub)
-    cfg.write_text(json.dumps({"mcpServers": {server: {
-        "type": "stdio", "command": sys.executable, "args": ["-I", str(stub)],
-        "env": {"GMAIL_STUB_ACCOUNT": account, "GMAIL_STUB_LOG": str(root / f"{server}-calls.jsonl"),
-                "GMAIL_STUB_SERVER": server, "GMAIL_STUB_SERVICE": service,
-                "GMAIL_STUB_EXTRA": ",".join(sorted(extra))}}}}))
-    allow = GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)]
-    return {"config": cfg, "servers": [server],
-            "allow": [t.replace("mcp__gmail__", f"mcp__{server}__") for t in allow]}
+    return stub_mcp(root, [stub_spec(server, service, "mail", account, extra)])
 
 
 SETTINGS_PROMPT = Path(__file__).resolve().parent / "tools" / "settings_prompt_mcp.py"

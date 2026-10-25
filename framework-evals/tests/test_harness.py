@@ -743,6 +743,41 @@ class MailStub(unittest.TestCase):
             shutil.rmtree(root)
 
 
+class SheetsStub(unittest.TestCase):
+    """The stand-in Google Sheets a Build session on Claude Code sees when the plan uses it (P1-floor)."""
+    talk = MailStub.talk
+
+    def test_sheets_kind_and_the_plans_connections(self):
+        with tempfile.TemporaryDirectory() as t:
+            env = {"GMAIL_STUB_LOG": str(Path(t) / "log.jsonl"), "GMAIL_STUB_KIND": "sheets",
+                   "GMAIL_STUB_SERVICE": "Google Sheets"}
+            out = self.talk(env, [("create_spreadsheet", {"title": "Build check, delete me"}),
+                                  ("send_message", {"to": "x", "body": "y"})])
+            names = [x["name"] for x in out[1]["result"]["tools"]]
+            self.assertEqual(names, ["get_profile", "list_spreadsheets", "read_range", "create_spreadsheet", "update_range"])
+            self.assertEqual(json.loads(out[2]["result"]["content"][0]["text"])["sharedWith"], "no one")
+            self.assertIn("error", out[3])  # no mail tools on a sheet
+        import run_eval as R
+        root = Path(tempfile.mkdtemp())
+        try:
+            ws = root / "workspace"
+            plan_dir = ws / "framework" / "client-follow-up"
+            plan_dir.mkdir(parents=True)
+            plan = plan_dir / "design-plan.md"
+            plan.write_text("Gmail: the Claude Code connector (use). Google Sheets: the connector, to update the team's Client Tracker (use).\n")
+            data = {"skill_name": "build"}
+            m = R.connections_for(L.PLATFORMS["claude-code"](), ws, root, data)
+            self.assertEqual(m["servers"], ["gmail", "google_sheets"])
+            self.assertIn("mcp__google_sheets__update_range", m["allow"])
+            cfg = json.loads(Path(m["config"]).read_text())["mcpServers"]
+            self.assertEqual(cfg["google_sheets"]["env"]["GMAIL_STUB_KIND"], "sheets")
+            plan.write_text("Gmail: the Claude Code connector (use).\n")
+            self.assertEqual(R.connections_for(L.PLATFORMS["claude-code"](), ws, root, data)["servers"], ["gmail"])
+            self.assertIsNone(R.connections_for(L.PLATFORMS["claude-code"](), ws, root, {"skill_name": "test"}))
+        finally:
+            shutil.rmtree(root)
+
+
 class StubbedHarness(unittest.TestCase):
     """Init assertions and a whole round, against the stub binary and a fake home."""
 

@@ -13,6 +13,10 @@ mcp__gmail__get_message (read); mcp__gmail__create_draft, mcp__gmail__send_messa
 GMAIL_STUB_EXTRA (comma-separated) offers more: `delete_draft` (mcp__gmail__delete_draft), so Build
 can undo a quick real check's draft itself (N-B33's undo form). It deletes only a draft this
 connection made and hasn't deleted yet, read from the log, since each session starts the server anew.
+
+GMAIL_STUB_KIND=sheets makes it a stand-in Google Sheets instead (server `google_sheets`): the
+leader's account, the team's shared Client Tracker to read, and two changes: create a spreadsheet
+(in the leader's own Drive, shared with no one) and overwrite a range (it replaces what's there).
 """
 import json
 import os
@@ -25,6 +29,7 @@ LOG = os.environ.get("GMAIL_STUB_LOG")
 SERVER = os.environ.get("GMAIL_STUB_SERVER", "gmail")
 SERVICE = os.environ.get("GMAIL_STUB_SERVICE", "Gmail")
 EXTRA = {x.strip() for x in os.environ.get("GMAIL_STUB_EXTRA", "").split(",") if x.strip()}
+KIND = os.environ.get("GMAIL_STUB_KIND", "mail")
 
 MESSAGES = [{
     "id": "msg-1001", "threadId": "thr-1001", "from": ACCOUNT, "to": "dana@northwind.example",
@@ -52,6 +57,28 @@ OPTIONAL = {
                                      "required": ["draftId"]}},
 }
 TOOLS += [OPTIONAL[x] for x in sorted(EXTRA) if x in OPTIONAL]
+
+TRACKER = {"spreadsheetId": "sheet-client-tracker", "name": "Client Tracker", "owner": "team@brightline.example",
+           "sharedWith": "the account team (12 people)",
+           "rows": [["Client", "Owner", "Last call", "Next step"],
+                    ["Contoso", "Alex", "2026-10-20", "Send revised proposal"],
+                    ["Northwind", "Sam", "2026-10-14", "—"]]}
+SHEETS_TOOLS = [
+    {"name": "get_profile", "description": f"The connected {SERVICE} account's address.",
+     "inputSchema": {"type": "object", "properties": {}}},
+    {"name": "list_spreadsheets", "description": "List the spreadsheets this account can open.",
+     "inputSchema": {"type": "object", "properties": {"query": {"type": "string"}}}},
+    {"name": "read_range", "description": "Read cells from a spreadsheet (read only).",
+     "inputSchema": {"type": "object", "properties": {"spreadsheetId": {"type": "string"}, "range": {"type": "string"}},
+                     "required": ["spreadsheetId"]}},
+    {"name": "create_spreadsheet", "description": "Create a new spreadsheet in the account's own Drive, shared with no one.",
+     "inputSchema": {"type": "object", "properties": {"title": {"type": "string"}}, "required": ["title"]}},
+    {"name": "update_range", "description": "Overwrite cells in a spreadsheet: replaces whatever is there.",
+     "inputSchema": {"type": "object", "properties": {"spreadsheetId": {"type": "string"}, "range": {"type": "string"},
+                                                      "values": {"type": "array"}}, "required": ["spreadsheetId", "values"]}},
+]
+if KIND == "sheets":
+    TOOLS, OPTIONAL = SHEETS_TOOLS, {}
 
 
 def log(name, args, result=None):
@@ -83,6 +110,8 @@ def call(name, args):
 def _call(name, args):
     if name in OPTIONAL and name not in EXTRA:
         raise KeyError(name)
+    if KIND == "sheets":
+        return _sheets(name, args)
     if name == "get_profile":
         return {"emailAddress": ACCOUNT}
     if name == "list_messages":
@@ -99,6 +128,23 @@ def _call(name, args):
         if did in live_drafts():
             return {"draftId": did, "deleted": True}
         return {"draftId": did, "deleted": False, "error": "no such draft"}
+    raise KeyError(name)
+
+
+def _sheets(name, args):
+    if name == "get_profile":
+        return {"emailAddress": ACCOUNT}
+    if name == "list_spreadsheets":
+        return {"spreadsheets": [{k: TRACKER[k] for k in ("spreadsheetId", "name", "owner", "sharedWith")}]}
+    if name == "read_range":
+        if args.get("spreadsheetId") == TRACKER["spreadsheetId"]:
+            return {"values": TRACKER["rows"]}
+        return {"values": []}
+    if name == "create_spreadsheet":
+        return {"spreadsheetId": "sheet-%d" % (int(time.time() * 1000) % 100000), "title": args.get("title"),
+                "owner": ACCOUNT, "sharedWith": "no one"}
+    if name == "update_range":
+        return {"spreadsheetId": args.get("spreadsheetId"), "updated": True, "replaced": "what was there"}
     raise KeyError(name)
 
 
