@@ -29,6 +29,6 @@ Say **"test the workflow I built"** with where your files are, for example "test
 ## Worth Knowing
 
 - **Test grades what the workflow produced, never what it says it did.** In one of my own tests, an agent I built in Microsoft 365 Copilot ended its run with the summary "Staples added: Bananas, Bread, Milk". The list it made had no Milk. The summary sounded right; the output was wrong. Test checks the output itself, so a miss like that is caught and goes back to Build to fix.
-- **Practice runs are built never to send or change anything.** Every practice run opens by saying that nothing will be sent or changed; if a run doesn't, stop it. If your platform itself asks you to approve sending, posting or changing something during a practice run, choose Deny and tell Test. Answer the workflow's own questions as you would at work.
+- **Practice runs are built never to send or change anything.** Every practice run opens by saying that nothing will be sent or changed; if a run doesn't, stop it. If your platform itself asks you to approve sending, posting or changing something during a practice run, choose Deny (in Copilot Cowork, Cancel) and tell Test. Answer the workflow's own questions as you would at work.
 
 **Next:** once it's live, see [Keeping It Working](../#keeping-it-working) for the flag line, re-checks and "change my workflow".
