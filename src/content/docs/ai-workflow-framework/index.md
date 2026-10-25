@@ -13,9 +13,9 @@ Each step is a skill in the `handsonai` plugin. [Install the plugin](skills/) on
 |---|---|---|
 | **[Analyze](analyze/)** | Looks across your work for the workflows worth handing to AI | A backlog of candidate workflows, each with the work, the pain and the value, plus an opportunity report |
 | **[Deconstruct](deconstruct/)** | Turns one workflow into a clear, testable description of what it must do | Your Workflow Requirements, with practice inputs taken from your real work |
-| **[Design](design/)** | Plans how AI will do the work, and asks you only what only you can decide | An approved Design Plan that ends in a task list |
+| **[Design](design/)** | Plans how AI will do the work, and asks you only what only you can decide | An approved Design Plan that Build follows, task by task |
 | **[Build](build/)** | Builds the plan task by task and checks each task, without making any real change | Your workflow, installed where it runs, and a build record of what was built and what it can access |
-| **[Test](test/)** | Runs the workflow on practice inputs and one real example it hasn't seen, and checks every requirement with proof | Your test results, your decision, and the workflow live |
+| **[Test](test/)** | Runs the workflow on practice inputs and one real example it hasn't seen, and checks every requirement with proof | Your test results and, once it's ready, the workflow live |
 
 ## How It Fits Together
 
