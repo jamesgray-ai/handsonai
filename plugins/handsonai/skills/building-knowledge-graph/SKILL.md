@@ -9,8 +9,8 @@ description: >
   my knowledge graph", "start my knowledge graph", "set up my business
   knowledge base", starting the knowledge graph lab. NOT the AI Registry:
   for "set up my registry" or an inventory of workflows, skills, and agents,
-  use scaffolding-registry. NOT step 4 of the AI Workflow Framework: for
-  building a workflow's building blocks, use the build skill. Re-running on
+  use scaffolding-registry. NOT the Build step of the AI Workflow Framework:
+  for building a workflow's building blocks, use the build skill. Re-running on
   an existing knowledge/ bundle fills gaps; it never rebuilds.
 ---
 

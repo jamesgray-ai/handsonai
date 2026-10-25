@@ -11,7 +11,7 @@ description: >
 
 Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's Workflow node — the workflow's AI Registry entry.
 
-> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the registry bundle: `registry/` in the workspace on Claude Code and Codex; `registry/` inside the framework folder on Claude desktop; `Framework/registry/` in the user's Google Drive or OneDrive on the web and in Microsoft 365, read and written through the platform's connection. See `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If there's no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first; do not write registry entries until the bundle exists.
 
 ## Workflow Naming Rules
 
@@ -194,7 +194,7 @@ When user provides a workflow description:
 
 ## Recording the Workflow (AI Registry entry)
 
-The workflow's registry entry is its Workflow concept node: `registry/workflows/<workflow-id>.md`, where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). See `indexing-registry/references/registry-bundle.md` for resolution, write rules, and the full field-ownership table.
+The workflow's registry entry is its Workflow concept node: `registry/workflows/<workflow-id>.md` inside the registry bundle (on the web and in Microsoft 365, `Framework/registry/workflows/<workflow-id>.md`, written through the connection), where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). See `indexing-registry/references/registry-bundle.md` for resolution, write rules, and the full field-ownership table.
 
 After the user confirms name and description (deliverable folded in):
 
@@ -206,7 +206,7 @@ After the user confirms name and description (deliverable folded in):
 type: Workflow
 title: "Lead Qualification"
 description: "When new leads come in, scores them against your criteria and produces a ranked list with contact details for the sales team."
-generated: { by: process:naming-workflows, at: YYYY-MM-DD }
+generated: { by: process:naming-workflows, at: YYYY-MM-DDTHH:MM:SSZ }
 status: backlog
 trigger: "New leads arrive"
 ---
@@ -226,6 +226,8 @@ When new leads come in, scores them against your criteria and produces a ranked 
 <!-- /GENERATED -->
 ```
 
+`at` is the moment of the write as a UTC instant (`2026-10-24T15:04:05Z`), never a bare date.
+
 Then add its line to the chosen Process's `# Workflows` list (`registry/processes/<process-slug>.md`) — never write `process:`, `owner:`, or `sequence:` on the Workflow node itself; process membership and sequence live only in the parent list.
 
 **Default values:**
@@ -234,7 +236,9 @@ Then add its line to the chosen Process's `# Workflows` list (`registry/processe
 
 **New Process rule:** if the chosen process doesn't exist yet as a Process node, ask **"Which function owns this process?"** — offer the registry's `functions/` list — and write a complete minimal Process node (`title`, `description`, `owner: <function-slug>`, an empty `# Workflows` list to append into) before adding the workflow's line, then add the Process's line to `registry/processes/index.md` and to the right Line of Business's `# Processes` list (ask which line, and where in the order, if it is not obvious — lint rejects a Process listed under no line). Never create an ownerless Process stub; the schema requires `owner:` on every Process node. The owning Function's `# Owns` block is GENERATED; the maintenance pass refreshes it.
 
-3. **Create or update `REGISTRY.md` at the workspace root** — this is part of the step, not optional. Follow the procedure in the `indexing-registry` skill if available; otherwise write the file directly from the registry data you have (Workflows / Skills / Agents tables, `—` for unknowns). Skip only if the environment can't write to the workspace root — and tell the user you skipped it, never silently.
+On a drive that can only create files, follow the drive-saving rule in `registry-bundle.md` (section 2, rule 8). Only where there are no files and no drive connection that can write, give each file complete with its location and say plainly that the user must save it (print-to-save).
+
+3. **Create or update `REGISTRY.md`** beside `registry/`, in its parent folder (the workspace on Claude Code and Codex; the framework folder on Claude desktop, the web and Microsoft 365) — this is part of the step, not optional. Follow the procedure in the `indexing-registry` skill if available; otherwise write the file directly from the registry data you have (Workflows / Skills / Agents tables, `—` for unknowns). On print-to-save, give it with its location instead, and tell the user it's unsaved, never silently.
 
 Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 

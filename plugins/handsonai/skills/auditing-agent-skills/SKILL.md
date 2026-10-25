@@ -16,7 +16,7 @@ description: >
 
 This skill checks a set of existing skills against one shared checklist and reports what has gone out of date, with a proposed fix for each finding. **It never changes a skill on its own.** Every fix is a proposal until the user approves it; a wrong rename inside a skill that runs other skills can break a working workflow.
 
-> **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it. Find a platform by its key or by any name in its `aliases` list — a Design Spec that says `Cowork` or `Claude.ai` means the `claude` entry.
+> **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it. Find a platform by its key or by any name in its `aliases` list.
 
 For this skill, the facts that matter are each platform's `capabilities.skill_listing` (what you can see of the user's skills) and `unattended_runs` (whether an audit can run on a schedule). Treat a missing value as unknown and say so.
 

@@ -19,15 +19,15 @@ Write comprehensive Business Process Guide documentation and save as markdown fi
 
 ## Process
 
-> **Registry entry:** the workflow's registry entry is its Workflow concept node in the workspace's `registry/` bundle — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If the workspace has no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first (it also migrates legacy `workflow.yaml` workspaces); do not write registry entries until the bundle exists. In addition, this skill's primary record is the Process node itself: set `guide:` frontmatter on `registry/processes/<slug>.md` pointing at the guide file.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the registry bundle (`registry/` in the workspace on Claude Code and Codex; `registry/` inside the framework folder on Claude desktop; `Framework/registry/` in the user's drive on the web and in Microsoft 365, written through the connection) — see `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If there's no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first; do not write registry entries until the bundle exists. In addition, this skill's primary record is the Process node itself: set `guide:` frontmatter on `registry/processes/<slug>.md` pointing at the guide file.
 
 1. **Load process context** — Determine how the user is arriving:
-   - **From the AI Registry** (primary path): Read the Process node's (`registry/processes/<slug>.md`) curated `# Workflows` list for its component workflows. Read each linked Workflow node for trigger and status, plus its Workflow Requirements, Design Spec, and SOP where they exist (via the node's `# Artifacts` links).
+   - **From the AI Registry** (primary path): Read the Process node's (`registry/processes/<slug>.md`) curated `# Workflows` list for its component workflows. Read each linked Workflow node for trigger and status, plus its Workflow Requirements, Design Plan, and SOP where they exist (via the node's `# Artifacts` links: "Requirements", "Design plan", "SOP").
    - **From conversation**: If no artifacts exist, gather process details interactively (name, component workflows, sequence, triggers).
 2. **Gather strategic context** from user — frequency, timing, decision points between workflows, success criteria
 3. **Write Process Guide** using template
-4. **Write process guide markdown file** to user's repo with YAML frontmatter. Default path: `process-guides/<name>.md`. Ask the user where process guides live if their project has a different convention.
-5. **Create or update `REGISTRY.md`** at the workspace root so the process appears with its workflows — follow the `indexing-registry` procedure if available, otherwise update its tables directly from the guide and registry data (skip only if the root isn't writable, and say so — never silently). Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
+4. **Write process guide markdown file** with YAML frontmatter. Default path: `process-guides/<name>.md`, beside `registry/` in its parent folder (the workspace on Claude Code and Codex; the framework folder on Claude desktop, and on the web and in Microsoft 365 through the drive connection). Ask the user where process guides live if their project has a different convention.
+5. **Create or update `REGISTRY.md`** beside `registry/`, in its parent folder, so the process appears with its workflows — follow the `indexing-registry` procedure if available, otherwise update its tables directly from the guide and registry data (only with no files and no drive connection that can write, give it complete with its location and say it's unsaved — never silently). Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 ## Template Overview
 
@@ -58,7 +58,7 @@ The `title` is the join key: it's the Process node's own title, and the Process 
 
 ## SOP Cross-References
 
-In the Workflow Sequence section, SOP links should use **relative repo paths** pointing to the SOP markdown files:
+In the Workflow Sequence section, SOP links should use **relative paths** pointing to the SOP markdown files. Take each SOP's path from its Workflow node's `SOP` link and make it relative to the guide: a workflow taken through the AI Workflow Framework keeps its SOP in its folder in the framework folder (`../framework/<slug>/<slug>-sop.md` from `process-guides/` on Claude Code and Codex; `../<slug>/<slug>-sop.md` on the web and Claude desktop); any other SOP is usually in `sops/`:
 
 ```markdown
 > SOP: [<Workflow Name> SOP](../sops/<workflow-name>-sop.md)
@@ -82,7 +82,7 @@ If the SOP file doesn't exist yet, note it as pending:
 ## Interaction Pattern
 
 ### From the AI Registry (primary path)
-1. Find the process's workflows via the Process node's `# Workflows` list / `REGISTRY.md`; read Workflow Requirements (and SOPs/Design Specs if they exist) for each
+1. Find the process's workflows via the Process node's `# Workflows` list / `REGISTRY.md`; read Workflow Requirements (and SOPs and Design Plans if they exist) for each
 2. Gather strategic context from user (frequency, timing, decision points)
 3. Draft Process Guide and present for review
 4. Write markdown file after user approval
