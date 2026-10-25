@@ -136,6 +136,12 @@ class Codex(Platform):
                 "for a new chat. The framework folder is framework/ in this workspace.")
 
 
+# Chat platforms keep the leader's history the way the real products do: saved memory, and past chats
+# searched on request. The fixtures hold none about the leader's work, so a history pass finds nothing.
+CHAT_HISTORY = (" This chat has the platform's saved memory and can search the leader's past chats on request; "
+                "in this simulation neither holds anything about the leader's work.")
+
+
 class _Drive(Platform):
     files_root = "drive"
     location = "Google Drive, in Framework/[workflow-slug]"
@@ -147,7 +153,7 @@ class _Drive(Platform):
                 "connection is on and can write; in this simulation the drive's files are the folder ./drive in your "
                 "working folder (./drive/Framework is 'Google Drive, in Framework'). Read and save the leader's files "
                 "only through it. You have no terminal of your own for the leader's work and no local folder: anything "
-                "the leader must run in a new chat, give them to paste, and they paste back what it says.")
+                "the leader must run in a new chat, give them to paste, and they paste back what it says." + CHAT_HISTORY)
 
     def prepare(self, ws):
         _move_into(ws, "drive")
@@ -169,7 +175,7 @@ class ClaudeDesktop(Platform):
     def preamble(self):
         return ("Simulated platform: Claude desktop, with the leader's framework folder added to this chat; in this "
                 "simulation it is ./Framework in your working folder. If ./Framework isn't there, no folder is added "
-                "to this chat. Anything the leader must run in a new chat, give them to paste, and they paste back.")
+                "to this chat. Anything the leader must run in a new chat, give them to paste, and they paste back." + CHAT_HISTORY)
 
     def prepare(self, ws):
         target = _move_into(ws, "")
@@ -203,7 +209,7 @@ class Microsoft365(Platform):
              "(./onedrive/Framework is 'OneDrive, in Framework', and Cowork's own folder is "
              "./onedrive/Documents/Cowork). Read the framework files from the location with nothing attached. "
              "Agents are made by the leader in Copilot's Agent Builder, not here. Anything the leader must run in a "
-             "new chat, give them to paste, and they paste back what it says.")
+             "new chat, give them to paste, and they paste back what it says." + CHAT_HISTORY)
         if "skill_cannot_read_by_path" in self.faults:
             p += " In this tenant a Cowork skill can't read a file by its path."
         return p

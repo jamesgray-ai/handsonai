@@ -158,7 +158,7 @@ Read `references/resuming-and-picking-up.md` for what the progress file holds, t
 
 ### The close
 
-Say exactly this, in this order — what was completed, what's next, the rest as optional:
+Say exactly this, in this order — what was completed, what's next, the rest as optional — word for word as three paragraphs, filling only the brackets and leaving out only what *Fit it to the run* drops:
 
 > You now have [N] workflows in your registry's backlog, grouped under the processes they belong to. Your opportunity report has the full detail for each one: [the report's path in the location]. You can see the workflows on your dashboard too.
 >
@@ -166,7 +166,7 @@ Say exactly this, in this order — what was completed, what's next, the rest as
 >
 > **Later, if you want:** you looked at [k] of your [P] processes. Say "run the analyze skill. My files are in [location]." any time to pick up the rest. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say "run the analyze skill with the individual lens. My files are in [location]."
 
-**The start line is N-F2's form,** for a new chat, in the platform's form; the clause about `/deconstruct` is said only on Claude Code. The forms, as approved:
+**The start line is N-F2's form,** for a new chat, in the platform's form; the clause about `/deconstruct` is said only on Claude Code, and there word for word, "(in Claude Code," and parentheses included. The forms, as approved:
 - Main (the web): "Start [step] in a new chat with: '[start phrase]. My files are in [location].'"
 - Claude Code and Codex: "Start [step] in a new session with: '[start phrase]. My files are in [location].'"
 - Claude desktop, with the files in a local folder: "Start [step] in a new chat with your framework folder added: '[start phrase]. My files are in [location].'" (with the files in a drive, the web form)
