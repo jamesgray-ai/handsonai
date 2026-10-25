@@ -6065,6 +6065,50 @@
    "est_turns": 8
   },
   {
+   "id": "DE-unreadable-chatgpt",
+   "name": "direct-edit-unreadable-chatgpt",
+   "tier": "core",
+   "spec_item": "9",
+   "platform": "chatgpt",
+   "fixture": "live",
+   "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/direct-edit-keep.md",
+   "expected_output": "On ChatGPT the skill lives in the leader's account and can't be read: N-E1 every time; on yes, N-E3 asks for the text; then N-E2 (mirrors DE-unreadable-web; rules 14: an edit made on ChatGPT after Build's close).",
+   "files": [
+    "students/direct-edit-keep.md"
+   ],
+   "expectations": [
+    {
+     "text": "N-E1, N-E3, N-E2",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-E1",
+        "form": "main"
+       },
+       {
+        "type": "quote",
+        "id": "N-E3"
+       },
+       {
+        "type": "quote",
+        "id": "N-E2",
+        "form": "main"
+       }
+      ]
+     }
+    },
+    {
+     "text": "N-E3's copy-out steps are ChatGPT's own (where its skills are kept), never Claude's or Claude Code's",
+     "kind": "judged"
+    }
+   ],
+   "est_turns": 8
+  },
+  {
    "id": "DE-context-edited",
    "name": "direct-edit-context-copy",
    "tier": "core",
@@ -7730,6 +7774,10 @@
      "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
+    },
+    {
+     "text": "[Claude parity] The plan's keeping-it-working task gives the flag line only, in its 'open a new chat outside this Project and say' form: no run log, re-check line or time-saved line (no run log on Claude), and the plan's platform_mode is the platform registry's mode for Claude (code)",
+     "kind": "judged"
     }
    ],
    "est_turns": 8,
@@ -8048,6 +8096,10 @@
      "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
+    },
+    {
+     "text": "[ChatGPT parity] The plan's keeping-it-working task gives the flag line only, in its 'open a new chat outside this Project and say' form: no run log, re-check line or time-saved line (no run log on ChatGPT), and the plan's platform_mode is the platform registry's mode for ChatGPT (guided)",
+     "kind": "judged"
     }
    ],
    "est_turns": 8,
