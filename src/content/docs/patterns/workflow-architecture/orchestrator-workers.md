@@ -1,6 +1,7 @@
 ---
 title: Orchestrator-Workers
 description: "The orchestrator-workers pattern: a lead splits the work at runtime, hands subtasks to worker LLM calls or agents, and combines their results into one."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Guided when the planning is bounded; Autonomous when it's open-ended. See [How Much It Decides](#how-much-it-decides) and [the patterns and their levels](../#the-patterns-and-their-levels).
@@ -143,10 +144,11 @@ The number and order of subtasks emerge from the task itself.
 
 ## Sources
 
-- Anthropic — [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — "orchestrator-workers" section
-- Google Cloud — [Choose a Design Pattern for Agentic AI](https://cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) — hierarchical pattern
-- OpenAI — [A Practical Guide to Building AI Agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) — manager pattern
-- CrewAI — [Hierarchical Process](https://docs.crewai.com/) — framework implementation
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — "Workflow: Orchestrator-workers": "the key difference from parallelization is its flexibility—subtasks aren't pre-defined"
+- Google Cloud — [Choose a design pattern for your agentic AI system](https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) (last reviewed May 28, 2026) — the coordinator and hierarchical task decomposition patterns
+- OpenAI — [A practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) (PDF, April 2025) — the manager pattern ("agents as tools")
+- OpenAI Agents SDK — [Agent orchestration](https://openai.github.io/openai-agents-python/multi_agent/) (accessed 2026-10-24) — a manager agent calling specialists with `Agent.as_tool()`
+- CrewAI — [Processes](https://docs.crewai.com/v1.15.30/en/concepts/processes) (v1.15.30 docs, accessed 2026-10-24) — the hierarchical process, with a manager agent that plans, delegates and validates
 
 ## Related
 

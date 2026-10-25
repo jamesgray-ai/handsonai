@@ -16,14 +16,22 @@
  * External links (github.com, brew.sh, …) are deliberately NOT checked: that
  * needs network in CI and produces flaky failures from rate limiting.
  *
- * Usage:  node scripts/check-links.js [distDir]
+ * Usage:  node scripts/check-links.js [distDir] [--external]
  * Exit:   0 = clean, 1 = broken links found
+ *
+ * `--external` also checks the outbound links on the pages under
+ * EXTERNAL_CHECK_PREFIXES (the patterns pages, whose sources students quote).
+ * Each must answer 200 with no redirect: a redirect usually means the source
+ * moved or was renamed, and the page should cite it at its current address.
+ * This is opt-in because it needs network; CI runs it as its own step.
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 
-const DIST = path.resolve(process.argv[2] || 'dist');
+const ARGS = process.argv.slice(2);
+const EXTERNAL = ARGS.includes('--external');
+const DIST = path.resolve(ARGS.find((a) => !a.startsWith('--')) || 'dist');
 
 /** Every .html file under dist, as absolute paths. */
 function htmlFiles(dir, out = []) {
@@ -282,5 +290,89 @@ if (knownGaps.length) {
   console.warn(`\ncheck-links: pre-existing sidebar gaps, not blocking — each still wants a decision:`);
   for (const r of knownGaps) console.warn(`  known gap  ${r}`);
 }
+
+
+// ---------------------------------------------------------------------------
+// External links on the patterns pages (opt-in: --external)
+//
+// The patterns pages cite vendor guides and papers, and students quote them.
+// A cited URL that now redirects has usually moved or been renamed, so the
+// citation is stale even though the link still "works". Only the article body
+// is checked (Starlight's `sl-markdown-content`), not the site chrome.
+// ---------------------------------------------------------------------------
+
+const EXTERNAL_CHECK_PREFIXES = [
+  '/patterns/',
+  '/agentic-building-blocks/agents/capability-patterns/',
+];
+
+/**
+ * Hosts that refuse scripted requests (403 to anything without a browser),
+ * so a failure there says nothing about the link. Checked by hand instead.
+ */
+const EXTERNAL_UNCHECKABLE_HOSTS = new Set(['openai.com', 'chatgpt.com']);
+
+function articleBody(html) {
+  const start = html.indexOf('sl-markdown-content');
+  if (start < 0) return '';
+  const end = html.indexOf('<footer', start);
+  return html.slice(start, end < 0 ? undefined : end);
+}
+
+async function probe(url) {
+  let last = '';
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(url, {
+        redirect: 'manual',
+        // An explicit language: without one, some docs sites redirect to a
+        // locale picked from the request (Google Cloud sends ?hl=…).
+        headers: { 'user-agent': 'Mozilla/5.0 (handsonai link check)', 'accept-language': 'en-US,en;q=0.9' },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (res.status >= 300 && res.status < 400) {
+        return `redirects (${res.status}) to ${res.headers.get('location')}`;
+      }
+      if (res.ok) return null;
+      last = `HTTP ${res.status}`;
+      if (res.status < 500 && res.status !== 429) return last;
+    } catch (err) {
+      last = err.name === 'TimeoutError' ? 'timed out' : String(err.message || err);
+    }
+    await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+  }
+  return last;
+}
+
+async function checkExternal() {
+  const byUrl = new Map();
+  for (const page of pages) {
+    const route = '/' + path.relative(DIST, page).replace(/index\.html$/, '');
+    if (!EXTERNAL_CHECK_PREFIXES.some((p) => route.startsWith(p))) continue;
+    for (const m of articleBody(fs.readFileSync(page, 'utf8')).matchAll(/<a\s[^>]*href="(https?:[^"]+)"/g)) {
+      const url = m[1].replace(/&amp;/g, '&').split('#')[0];
+      if (!byUrl.has(url)) byUrl.set(url, new Set());
+      byUrl.get(url).add(route);
+    }
+  }
+  const bad = [];
+  let skipped = 0;
+  for (const [url, routes] of byUrl) {
+    if (EXTERNAL_UNCHECKABLE_HOSTS.has(new URL(url).hostname.replace(/^www\./, ''))) { skipped++; continue; }
+    const why = await probe(url);
+    if (why) bad.push(`${url} ${why}\n      on ${[...routes].join(', ')}`);
+  }
+  if (bad.length) {
+    console.error(`\ncheck-links: ${bad.length} of ${byUrl.size} external link(s) on the patterns pages need attention\n`);
+    for (const b of bad) console.error(`  EXTERNAL  ${b}`);
+    console.error(`\nCite the source at its current address (follow the redirect), or replace it.\n`);
+    return false;
+  }
+  console.log(`check-links: ${byUrl.size - skipped} external links on the patterns pages OK, no redirects` +
+    (skipped ? ` (${skipped} on hosts that block scripts, not checked)` : ''));
+  return true;
+}
+
+if (EXTERNAL && !(await checkExternal())) failed = true;
 
 if (failed) process.exit(1);

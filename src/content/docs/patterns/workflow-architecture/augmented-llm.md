@@ -1,6 +1,7 @@
 ---
 title: Augmented LLM
 description: The foundational AI workflow pattern — an LLM enhanced with retrieval, tools, and memory to overcome its inherent limitations
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Deterministic: one pass, with nothing for the AI to decide about what happens next. See [the patterns and their levels](../#the-patterns-and-their-levels).
@@ -25,7 +26,7 @@ Think of it as an intelligent assistant that can access databases, search the we
 | **External Data Source** | Provides relevant, up-to-date, or domain-specific information (APIs, databases, cloud storage) | Sales data in a company database queried for the latest figures |
 | **Tools (Plugins)** | Specialized tools for calculations, data processing, or third-party interactions | A spreadsheet plugin calculates revenue growth from retrieved data |
 | **Orchestrator** | Oversees the process, ensuring seamless interaction between the LLM and external components | Routes the query to the database and sends results back to the LLM |
-| **User Input/Output** | The user's request in, and the enriched response out | Input: "What were last month's sales?" → Output: "Sales were $500,000, a 10% increase from the previous month." |
+| **User Input/Output** | The user's request in, and the enriched response out | Input: "What were last month's sales?" → Output: "Sales were $500,000, up from $455,000 the month before." |
 
 ## When to Use It
 
@@ -50,7 +51,9 @@ This pattern enables accurate, context-aware responses without requiring the mod
 2. **Integrate external data and tools** — Connect the LLM to relevant APIs, databases, or plugins. Ensure the orchestrator routes tasks properly.
 3. **Test iteratively** — Validate with different inputs to ensure seamless, accurate responses
 
-*Based on [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) by Anthropic.*
+## Sources
+
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — "Building block: The augmented LLM", which calls it "an LLM enhanced with augmentations such as retrieval, tools, and memory"
 
 ## Related
 

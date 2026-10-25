@@ -1,27 +1,33 @@
 ---
 title: Swarm
-description: "The swarm pattern: peer agents with no lead pick up work from a shared task board or workspace and react to each other's results, for highly dynamic tasks."
+description: "The swarm pattern: peer agents with no lead build on each other's work, by messaging each other or through shared state, until an exit condition is met."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Autonomous. See [the patterns and their levels](../#the-patterns-and-their-levels).
 
-**Also called:** decentralized (the playbook's earlier name for this page). Note that OpenAI uses "decentralized" for agents handing work to one another, which this catalogue calls [Handoff](../handoff/). Google names this pattern "swarm".
+**Also called:** decentralized (the playbook's earlier name for this page). Google names this pattern "swarm". Note that OpenAI uses "decentralized" for agents handing work to one another, which this catalogue calls [Handoff](../handoff/); OpenAI's experimental Swarm framework, despite its name, was also built on handoffs.
 
-The **swarm** pattern organizes agents as peers with no lead. Instead of a central agent planning and delegating, each agent independently decides what to do based on the current shared state — a shared workspace, message queue, or task board. Agents pick up work, contribute results, and react to each other's outputs.
+The **swarm** pattern organizes agents as peers with no lead. Instead of a central agent planning and delegating, each agent decides what to do next from what the others have done. Agents pick up work, contribute results, and react to each other's outputs, refining the answer over many rounds.
 
 Think of it like an ant colony. No single ant directs the colony — each ant follows simple rules (find food, follow pheromone trails, bring food back) and the collective behavior emerges from many independent agents reacting to shared signals.
 
-No one sets the steps: what gets done next emerges from the agents reacting to the shared state. That makes this pattern Autonomous.
+No one sets the steps: what gets done next emerges from the agents reacting to each other's work. That makes this pattern Autonomous.
 
 ## Why It Matters
 
 Some tasks are too dynamic for any single agent to plan ahead. In highly fluid situations — real-time monitoring, exploratory research, open-ended problem solving — the right next step depends on what just happened, and changes too fast for a central coordinator to keep up.
 
-Swarms are also **resilient**. If one agent fails, the others continue working. There's no single point of failure, and the system degrades gracefully rather than halting entirely.
+A swarm can also be **resilient**. With no lead, one agent failing doesn't stop the others, so the system can degrade gracefully rather than halting entirely.
 
-This is the most complex pattern in the catalogue and carries the highest coordination overhead. Use it only when simpler patterns can't handle the task.
+Google describes the swarm as the most complex and costly of its multi-agent patterns: many rounds of agent conversation add latency and cost, and without good control logic the agents can loop or fail to agree. Use it only when simpler patterns can't handle the task.
 
 ## How It Works
+
+Peers coordinate in one of two ways:
+
+- **By messaging each other.** In Google's description, each agent can talk to every other agent and hand the task to whichever is better suited for the next step. A dispatcher may route the first request in, but it doesn't direct the work.
+- **Through shared state.** Agents read and write a shared task board, message queue or workspace (sometimes called a blackboard), and never message each other directly. The diagram and steps below show this version.
 
 ```text
 ┌──────────────────────────────────┐
@@ -43,11 +49,12 @@ This is the most complex pattern in the catalogue and carries the highest coordi
 4. **Act** — The agent performs its work and writes results back to the shared state.
 5. **React** — Other agents observe the updated state and may take new actions in response.
 
-Coordination happens through the shared state, not through direct agent-to-agent messages. Agents don't need to know about each other, only about the shared state. Because no one is in charge of stopping, set limits that every agent respects: a cap on actions per run and a clear condition for when the work is done.
+In this version, agents don't need to know about each other, only about the shared state. In either version, no one is in charge of stopping, so set an explicit exit condition that every agent respects: a cap on rounds or actions, a time limit, or a goal such as agreement on the answer.
 
 ## When to Use It
 
 - Tasks are highly dynamic — the next step depends on what was just discovered
+- The problem is ambiguous or highly complex and benefits from debate and repeated refinement (Google's example: agents weighing design trade-offs until they agree on a product specification)
 - No single agent can plan the entire task in advance
 - Resilience matters — the system should degrade gracefully if agents fail
 - The task naturally breaks into many small, independent contributions
@@ -56,7 +63,7 @@ Coordination happens through the shared state, not through direct agent-to-agent
 ## When Not to Use It
 
 - The task has a predictable structure — use [Prompt Chaining](../prompt-chaining/), [Parallelization](../parallelization/), or [Orchestrator-Workers](../orchestrator-workers/)
-- Coordination overhead exceeds the benefit — simpler patterns are almost always better when they fit
+- Coordination overhead exceeds the benefit — a simpler pattern is the better choice whenever it fits
 - You need guaranteed output quality — swarms are harder to quality-control than centrally coordinated systems
 - The task requires a single coherent narrative or tightly integrated output — use [Orchestrator-Workers](../orchestrator-workers/) with a synthesizing lead
 - You can't afford the complexity of shared state management, conflict resolution, and deadlock prevention
@@ -88,9 +95,9 @@ Each agent acts independently based on shared signals. A rollback changes produc
 
 ## Sources
 
-- Google Cloud — [Choose a Design Pattern for Agentic AI](https://cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) — swarm pattern
-- Google ADK — [Developer's Guide to Multi-Agent Patterns](https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/) — decentralized orchestration
-- OpenAI — [Swarm Framework](https://github.com/openai/swarm) — experimental decentralized agent framework
+- Google Cloud — [Choose a design pattern for your agentic AI system](https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) (last reviewed May 28, 2026) — the multi-agent swarm pattern: "all-to-all communication", no central supervisor, and "an explicit exit condition"
+- OpenAI — [A practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) (PDF, April 2025) — "decentralized" for agents handing off to agents (this catalogue's Handoff)
+- OpenAI Agents SDK — [Agent orchestration](https://openai.github.io/openai-agents-python/multi_agent/) (accessed 2026-10-24) — the successor to OpenAI's Swarm framework, whose README now says "Swarm is now replaced by the OpenAI Agents SDK"
 
 ## Related
 

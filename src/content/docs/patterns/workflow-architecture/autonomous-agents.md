@@ -1,6 +1,7 @@
 ---
 title: Autonomous Agents
-description: LLMs with tools, memory, and planning that independently execute multi-step tasks through a think-act-observe loop
+description: "The autonomous agent pattern: an LLM with tools, memory and planning that works toward a goal through a think-act-observe loop until it's done or hits a cap."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Autonomous. See [the patterns and their levels](../#the-patterns-and-their-levels).
@@ -16,7 +17,7 @@ Unlike the patterns where you define the steps, an agent decides **in real time*
 | Benefit | Impact |
 |---------|--------|
 | **Flexibility** | Handles tasks where steps can't be pre-coded — multistep research, dynamic troubleshooting |
-| **Ground-truth feedback** | Uses real tool outputs or API responses to self-correct, reducing hallucinations |
+| **Ground-truth feedback** | Checks its progress against real tool outputs or API responses at each step, rather than its own guesses |
 | **Human-like autonomy** | Mirrors expert work patterns (plan, do, check) and scales them across domains |
 | **Rapid iteration** | Adds, repeats, or skips steps until quality criteria or iteration/time limits are hit |
 
@@ -28,7 +29,7 @@ Unlike the patterns where you define the steps, an agent decides **in real time*
 | **LLM Call (Brain)** | Parses the goal, reasons, and chooses the next action | *Thought:* "I should collect market-share data." |
 | **Action** | Invokes one or more tools (API, code, web search) | Calls a market data API for ACME and BetaCo |
 | **Environment** | The external system the action touches | Market-data service returns JSON |
-| **Feedback** | The result sent back to the LLM for reflection | *Observation:* "ACME 42%, BetaCo 35%." |
+| **Feedback** | The result sent back to the LLM for reflection | *Observation:* market-share figures for both companies |
 | **Stop** | Task complete or iteration/time cap reached | "Report ready — exit loop." |
 
 The agent cycles through **think → act → observe** until the task is complete or a stop condition is met.
@@ -55,11 +56,7 @@ A SaaS company wants an agent that triages inquiries, pulls user data, suggests 
 | **Act** | Send reply + mark ticket solved |
 | **Stop** | Confidence above 0.9 OR max 5 iterations |
 
-**Results:**
-
-- **Quality** — Accurate, personalized resolutions
-- **Efficiency** — 60% of Tier-1 tickets auto-closed, cutting average handle time by 65%
-- **Scalability** — Agent retrains on new KB content nightly, staying up-to-date
+What to measure once it runs: the share of tickets it closes without a person, the handle time, and how often a closed ticket is reopened. The agent doesn't retrain on new knowledge-base articles; it finds them through search, so keeping the knowledge base current keeps its answers current.
 
 ## How to Implement
 
@@ -68,7 +65,9 @@ A SaaS company wants an agent that triages inquiries, pulls user data, suggests 
 3. **Set iteration/time caps** — Prevent runaway loops with maximum iteration counts or time limits
 4. **Test in a sandbox** — Measure cost vs. quality, then graduate to production
 
-*Based on [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) by Anthropic.*
+## Sources
+
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — the "Agents" section: agents suit "open-ended problems where it's difficult or impossible to predict the required number of steps", gain "ground truth" from the environment at each step, can "pause for human feedback at checkpoints", and commonly have "stopping conditions (such as a maximum number of iterations)"
 
 ## Related
 

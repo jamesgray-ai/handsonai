@@ -1,6 +1,7 @@
 ---
 title: Evaluator-Optimizer
 description: "The evaluator-optimizer pattern: a generator drafts, an evaluator grades the draft against clear criteria and sends it back, until it passes or hits a cap."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Guided. See [the patterns and their levels](../#the-patterns-and-their-levels).
@@ -16,11 +17,11 @@ The evaluator's grade decides what happens next (accept, or send back), and it g
 ## Why It Matters
 
 - **High-quality outputs** — The evaluator catches and refines suboptimal results before delivery
-- **Measurable improvement** — Each round either raises the score or the loop ends
+- **Measurable improvement** — Each round is scored, so you can see whether a revision helped
 - **Adaptable to complex tasks** — Ideal for nuanced or multi-faceted outputs that benefit from incremental improvement
 - **Checks the generator can't make** — The evaluator can run tests, validate against a schema, or compare against reference examples
 
-A separate evaluator is usually stronger than self-critique. In [Reflection](../../../agentic-building-blocks/agents/capability-patterns/reflection/), one agent reviews its own work. A separate evaluator, with its own instructions and tools, judges work it didn't write, so it's less likely to share the generator's blind spots.
+A separate evaluator has an advantage over self-critique. In [Reflection](../../../agentic-building-blocks/agents/capability-patterns/reflection/), one agent reviews its own work. A separate evaluator, with its own instructions and tools, judges work it didn't write, so it's less likely to share the generator's blind spots.
 
 ## How It Works
 
@@ -109,8 +110,9 @@ The evaluator has a concrete advantage here — it can actually *run* the code, 
 
 ## Sources
 
-- Anthropic — [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — "evaluator-optimizer" section
-- Andrew Ng — [Agentic Design Patterns Part 2: Reflection](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-2-reflection/) — iterative refinement concepts
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — "Workflow: Evaluator-optimizer", which works best "when we have clear evaluation criteria"
+- Microsoft — [AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns), Azure Architecture Center (accessed 2026-10-24) — "Maker-checker loops", also known as evaluator-optimizer, which repeat "until the checker approves the result or the orchestration reaches a maximum iteration limit"
+- Andrew Ng — [Agentic Design Patterns Part 2, Reflection](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-2-reflection) (*The Batch*, March 27, 2024) — one agent to generate and a second to critique
 
 ## Related
 

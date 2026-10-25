@@ -1,11 +1,12 @@
 ---
 title: Handoff
 description: "The handoff pattern: the active agent passes the task, with full context, to a better-suited specialist as the task shifts, with no central coordinator."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Guided. See [the patterns and their levels](../#the-patterns-and-their-levels).
 
-**Also called:** OpenAI's "decentralized" pattern. OpenAI uses "decentralized" for agents handing work to one another; this catalogue calls that Handoff, and keeps [Swarm](../swarm/) for peers working from shared state.
+**Also called:** OpenAI's "decentralized" pattern, handoff orchestration (Microsoft). OpenAI uses "decentralized" for agents handing work to one another; this catalogue calls that Handoff, and keeps [Swarm](../swarm/) for peers refining the work together. OpenAI's experimental Swarm framework, despite its name, was built on handoffs; the Agents SDK has replaced it.
 
 The **handoff** pattern transfers responsibility from one agent to another when the conversation or task shifts to a domain where a different agent is better suited. There's no central coordinator deciding who does what — the currently active agent recognizes when the work has moved outside its area and passes the baton to the right peer.
 
@@ -75,10 +76,11 @@ A coding assistant with specialized agents:
 
 ## Sources
 
-- OpenAI Agents SDK — [Multi-Agent Patterns](https://openai.github.io/openai-agents-python/multi_agent/) — handoff pattern
-- OpenAI — [A Practical Guide to Building AI Agents](https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/) — decentralized pattern
-- Anthropic — [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — agent delegation patterns
-- LangGraph — [Multi-Agent Documentation](https://docs.langchain.com/oss/python/langchain/multi-agent) — handoff strategies
+- OpenAI Agents SDK — [Agent orchestration](https://openai.github.io/openai-agents-python/multi_agent/) (accessed 2026-10-24) — handoffs, where the specialist "becomes the active agent for the rest of the turn"
+- OpenAI — [A practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) (PDF, April 2025) — the decentralized pattern: "agents can 'handoff' workflow execution to one another"
+- Microsoft — [AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns), Azure Architecture Center (accessed 2026-10-24) — "Handoff orchestration"
+- LangChain — [Multi-agent](https://docs.langchain.com/oss/python/langchain/multi-agent) (accessed 2026-10-24) — handoffs, where "agents transfer control to each other via tool calls"
+- OpenAI — [Swarm](https://github.com/openai/swarm) (GitHub, accessed 2026-10-24) — the README now says "Swarm is now replaced by the OpenAI Agents SDK"
 
 ## Related
 
@@ -86,6 +88,6 @@ A coding assistant with specialized agents:
 - [Routing](../routing/) — central dispatch at the start vs. peer-to-peer handoff mid-task
 - [Orchestrator-Workers](../orchestrator-workers/) — a lead manages delegation vs. agents handing off to each other
 - [Prompt Chaining](../prompt-chaining/) — a predetermined sequence vs. handoffs decided by context
-- [Swarm](../swarm/) — peers working from shared state rather than passing the task along
+- [Swarm](../swarm/) — peers refining the work together rather than passing the task along one at a time
 - [Multi-Agent Collaboration](../../../agentic-building-blocks/agents/capability-patterns/multi-agent-collaboration/) — the capability pattern for agent teamwork
 - [Design Your AI Workflow](../../../ai-workflow-framework/design/)

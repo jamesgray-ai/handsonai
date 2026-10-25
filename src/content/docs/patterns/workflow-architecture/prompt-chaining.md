@@ -1,6 +1,7 @@
 ---
 title: Prompt Chaining
 description: "The prompt chaining pattern: break a task into ordered steps, each building on the last, with gates between them that stop errors before they spread."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Deterministic with coded gates; Guided if the AI judges a gate. See [the patterns and their levels](../#the-patterns-and-their-levels).
@@ -108,9 +109,11 @@ Every ticket takes the same four steps, so the path is fixed. If the category in
 
 ## Sources
 
-- Anthropic — [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — "prompt chaining" section
-- Google Cloud — [Choose a Design Pattern for Agentic AI](https://cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) — sequential pattern
-- CrewAI — [Sequential Process](https://docs.crewai.com/) — framework implementation
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — "Workflow: Prompt chaining", including programmatic checks ("gates") between steps
+- Google Cloud — [Choose a design pattern for your agentic AI system](https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) (last reviewed May 28, 2026) — the multi-agent sequential pattern
+- Microsoft — [AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns), Azure Architecture Center (accessed 2026-10-24) — "Sequential orchestration"
+- Google Developers Blog — [Developer's guide to multi-agent patterns in ADK](https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/) (December 16, 2025) — the sequential pipeline pattern
+- CrewAI — [Processes](https://docs.crewai.com/v1.15.30/en/concepts/processes) (v1.15.30 docs, accessed 2026-10-24) — the sequential process, "with the output of one task serving as context for the next"
 
 ## Related
 

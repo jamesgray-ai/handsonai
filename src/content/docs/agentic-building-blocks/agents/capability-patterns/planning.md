@@ -1,7 +1,10 @@
 ---
 title: Planning
-description: How AI agents break complex goals into a sequence of steps, deciding what to do and in what order before taking action.
----## What It Is
+description: How AI agents break a complex goal into a sequence of steps, deciding what to do and in what order, then replan when a step turns out differently.
+last_reviewed: 2026-10-24
+---
+
+## What It Is
 
 Planning is a pattern where an agent decomposes a complex goal into a sequence of smaller, manageable steps — then executes them in order. Instead of attempting to solve a problem in a single response, the agent first creates a plan, then follows it step by step, adapting as needed based on intermediate results.
 
@@ -11,7 +14,7 @@ This is what separates an agent from a simple chatbot. A chatbot responds to a s
 
 Real-world tasks are rarely single-step. Processing an exchange requires verifying the order, checking return eligibility, confirming inventory, processing payment, and sending confirmation. A planning agent handles this entire workflow without requiring the user to specify each step.
 
-Andrew Ng has noted that planning is the least mature of the four core agentic patterns — it works well for well-defined workflows but remains challenging for open-ended, ambiguous goals. This makes it both the most powerful pattern (when it works) and the one that most benefits from [guardrails](../guardrails/) and [human oversight](../human-in-the-loop/).
+Andrew Ng writes that while he can get Reflection and Tool Use to work reliably, "Planning is a less mature technology, and I find it hard to predict in advance what it will do." It's a very powerful capability, he writes, but "it leads to less predictable results" ([Agentic Design Patterns Part 4: Planning](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-4-planning), April 10, 2024). That's why planning benefits most from [guardrails](../guardrails/) and [human oversight](../human-in-the-loop/).
 
 ## How It Works
 
@@ -34,7 +37,7 @@ Andrew Ng has noted that planning is the least mature of the four core agentic p
 Advanced planning approaches include:
 
 - **Chain-of-thought planning** — The agent reasons through the plan in natural language before executing.
-- **Tree-of-thought** — The agent explores multiple possible plans and selects the best one (Yao et al. 2023).
+- **Tree-of-thought** — The agent explores multiple possible reasoning paths, judges them, and can look ahead or backtrack before choosing (Yao et al., 2023).
 - **Hierarchical planning** — High-level plans are broken into sub-plans, each with their own steps.
 
 ## Example
@@ -88,7 +91,7 @@ Advanced planning approaches include:
 
 ## Further Reading
 
-- Yao et al. 2023 — *Tree of Thoughts: Deliberate Problem Solving with Large Language Models* — [arxiv.org/abs/2305.10601](https://arxiv.org/abs/2305.10601)
-- Huang et al. 2024 — *Understanding the Planning of LLM Agents: A Survey* — [arxiv.org/abs/2402.02716](https://arxiv.org/abs/2402.02716)
-- Andrew Ng — *Agentic Design Patterns Part 4: Planning* — [deeplearning.ai/the-batch](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-4-planning/)
-- Anthropic — *Building Effective Agents* — [anthropic.com/research/building-effective-agents](https://www.anthropic.com/research/building-effective-agents)
+- Andrew Ng — [Agentic Design Patterns Part 4: Planning](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-4-planning) (*The Batch*, April 10, 2024)
+- Yao et al. — [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601) (arXiv, May 17, 2023)
+- Huang et al. — [Understanding the planning of LLM agents: A survey](https://arxiv.org/abs/2402.02716) (arXiv, February 5, 2024)
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024)

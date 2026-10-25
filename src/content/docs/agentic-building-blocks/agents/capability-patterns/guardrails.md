@@ -1,7 +1,10 @@
 ---
 title: Guardrails
 description: How automated rules and constraints keep AI agents safe, on-topic, and within policy — without requiring human intervention at every step.
----## What It Is
+last_reviewed: 2026-10-24
+---
+
+## What It Is
 
 Guardrails are automated rules and constraints that govern what an agent can and cannot do. They operate continuously during agent execution, checking inputs, outputs, and actions against defined policies — and blocking or modifying anything that violates those policies.
 
@@ -48,7 +51,7 @@ Guardrails can be applied at multiple points in the agent pipeline:
 
 **Constitutional guardrails** — Baked into the model's behavior through system prompts or fine-tuning:
 
-- Anthropic's Constitutional AI trains models to follow a set of principles
+- Anthropic's Constitutional AI trains a model to follow a written set of principles; in Anthropic's words, "the only human oversight is provided through a list of rules or principles"
 - System prompts that define the agent's role and boundaries
 - Instructions like "Never provide medical, legal, or financial advice"
 
@@ -93,7 +96,8 @@ A coding agent has guardrails to prevent generating insecure code:
 
 ## Further Reading
 
-- Anthropic — *Constitutional AI: Harmlessness from AI Feedback* — [anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback)
-- Anthropic — *Building Effective Agents* — [anthropic.com/research/building-effective-agents](https://www.anthropic.com/research/building-effective-agents)
-- OWASP — *LLM AI Security & Governance Checklist* — [owasp.org/www-project-top-10-for-large-language-model-applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
-- Guardrails AI — *Open-source framework for adding guardrails to LLM applications* — [guardrailsai.com](https://www.guardrailsai.com/)
+- Anthropic — [Constitutional AI: Harmlessness from AI Feedback](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback) (December 15, 2022)
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — guardrails "where one model instance processes user queries while another screens them for inappropriate content or requests"
+- OpenAI — [A practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) (PDF, April 2025) — layered guardrails
+- OWASP Gen AI Security Project — [2025 Top 10 Risk & Mitigations for LLMs and Gen AI Apps](https://genai.owasp.org/llm-top-10/) (accessed 2026-10-24) — including prompt injection and excessive agency
+- Guardrails AI — [guardrailsai.com](https://guardrailsai.com/) (accessed 2026-10-24) — a framework for adding guardrails to LLM applications

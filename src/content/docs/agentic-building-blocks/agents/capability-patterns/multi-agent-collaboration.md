@@ -1,7 +1,10 @@
 ---
 title: Multi-Agent Collaboration
 description: "How multiple specialized AI agents divide and coordinate work to solve problems too complex for one agent — roles, handoffs, and when the pattern pays off."
----## What It Is
+last_reviewed: 2026-10-24
+---
+
+## What It Is
 
 Multi-agent collaboration is a pattern where multiple AI agents — each with different roles, tools, or expertise — work together to accomplish a task. Instead of one general-purpose agent doing everything, the work is divided among specialists that communicate, delegate, and coordinate.
 
@@ -40,7 +43,7 @@ The catalogue also covers [Handoff](../../../../patterns/workflow-architecture/h
 
 The key design decisions are:
 
-1. **How many agents?** — Use the minimum number needed. More agents means more coordination overhead.
+1. **How many agents?** — Use the minimum number needed. More agents means more coordination overhead: in Anthropic's own data, a multi-agent system used about 15 times the tokens of a chat, against about 4 times for a single agent ([How we built our multi-agent research system](https://www.anthropic.com/research/multi-agent-research-system), June 13, 2025).
 2. **How do they communicate?** — Through shared context, message passing, or a shared workspace.
 3. **Who decides what?** — An orchestrator, a round-robin, or autonomous negotiation.
 
@@ -66,7 +69,7 @@ A marketing team's content pipeline as a multi-agent system:
 - **Editor Agent** — Reviews for clarity, accuracy, and brand voice
 - **SEO Agent** — Optimizes headlines, metadata, and keyword placement
 
-The Writer Agent never sees raw data — it receives a structured brief from the Research Agent. The Editor Agent doesn't know about SEO — it focuses purely on quality. This separation produces better results than a single agent trying to juggle all four concerns.
+The Writer Agent never sees raw data — it receives a structured brief from the Research Agent. The Editor Agent doesn't know about SEO — it focuses purely on quality. The separation keeps each agent's instructions and context on one concern, instead of one agent juggling all four.
 
 ## When to Use It
 
@@ -86,7 +89,8 @@ The Writer Agent never sees raw data — it receives a structured brief from the
 
 ## Further Reading
 
-- Wu et al. 2023 — *AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation* — [arxiv.org/abs/2308.08155](https://arxiv.org/abs/2308.08155)
-- Andrew Ng — *Agentic Design Patterns Part 5: Multi-Agent Collaboration* — [deeplearning.ai/the-batch](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-5-multi-agent-collaboration/)
-- Anthropic — *Building Effective Agents* — [anthropic.com/research/building-effective-agents](https://www.anthropic.com/research/building-effective-agents)
-- CrewAI — *Multi-Agent Framework Documentation* — [docs.crewai.com](https://docs.crewai.com/)
+- Andrew Ng — [Agentic Design Patterns Part 5, Multi-Agent Collaboration](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-5-multi-agent-collaboration) (*The Batch*, April 17, 2024) — the last of his four patterns
+- Wu et al. — [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation](https://arxiv.org/abs/2308.08155) (arXiv, August 16, 2023)
+- Anthropic — [How we built our multi-agent research system](https://www.anthropic.com/research/multi-agent-research-system) (June 13, 2025)
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024)
+- CrewAI — [Processes](https://docs.crewai.com/v1.15.30/en/concepts/processes) (v1.15.30 docs, accessed 2026-10-24) — sequential and hierarchical crews

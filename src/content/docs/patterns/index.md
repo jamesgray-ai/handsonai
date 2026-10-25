@@ -1,7 +1,10 @@
 ---
 title: AI Patterns and Best Practices
-description: Reusable patterns for workflow architecture, prompting, agents, integrations, and error handling in AI systems
----Reusable patterns and best practices for designing and building AI-powered systems.
+description: Reusable patterns for AI systems — the workflow architecture catalogue, agent capability patterns, and pointers for prompting, integrations and errors.
+last_reviewed: 2026-10-24
+---
+
+Reusable patterns and best practices for designing and building AI-powered systems.
 
 ## Workflow Architecture Patterns
 

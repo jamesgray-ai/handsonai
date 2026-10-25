@@ -1,6 +1,7 @@
 ---
 title: Parallelization
 description: "The parallelization pattern — run independent subtasks simultaneously and aggregate the results for faster, more reliable AI workflows, with examples."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Deterministic when the split is fixed; Guided if the AI judges the vote. See [the patterns and their levels](../#the-patterns-and-their-levels).
@@ -18,12 +19,12 @@ This pattern has two primary variations:
 
 ## Why It Matters
 
-- **Increased speed** — If three independent subtasks each take 30 seconds, running them one after another takes 90 seconds; in parallel, 30
+- **Increased speed** — Independent subtasks finish in about the time of the slowest one, not the sum of all of them
 - **Enhanced reliability** — Multiple evaluations or diverse subtasks processed in parallel produce higher-confidence results
 - **Focused task management** — Specialized LLM calls handle each subtask, improving accuracy through focused attention
 - **Scalability** — Larger datasets or more complex workflows are handled without bottlenecking a single model
 
-Sources weigh these benefits differently: some present parallel work mainly as a way to finish faster, others mainly as a way to cover more ground or get a more reliable answer. Both hold. Name the one you're after, because it decides how you combine the results.
+Anthropic names both reasons: parallelization is effective "when the divided subtasks can be parallelized for speed, or when multiple perspectives or attempts are needed for higher confidence results". Other sources lean one way or the other. Name the one you're after, because it decides how you combine the results.
 
 ## How It Works
 
@@ -109,9 +110,9 @@ If two or more reviewers flag the same issue, it's high-confidence. Issues flagg
 
 ## Sources
 
-- Anthropic — [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — "parallelization" section (sectioning and voting)
-- Google Cloud — [Choose a Design Pattern for Agentic AI](https://cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) — parallel pattern
-- Microsoft Azure — [AI Agent Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns) — parallel execution
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — "Workflow: Parallelization", with its two variations, sectioning and voting
+- Google Cloud — [Choose a design pattern for your agentic AI system](https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) (last reviewed May 28, 2026) — the multi-agent parallel pattern
+- Microsoft — [AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns), Azure Architecture Center (accessed 2026-10-24) — "Concurrent orchestration", also known as parallel, fan-out/fan-in, scatter-gather or map-reduce
 
 ## Related
 

@@ -1,11 +1,12 @@
 ---
 title: Group Chat
 description: "The group chat pattern: several agents with different roles discuss a task in a shared conversation, with a moderator who steers the debate and sums it up."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Autonomous. See [the patterns and their levels](../#the-patterns-and-their-levels).
 
-**Also called:** debate.
+**Also called:** debate, multiagent debate, roundtable (Microsoft calls it group chat orchestration).
 
 The **group chat** pattern places multiple agents in a shared conversation where they can see and respond to each other's messages. Agents take turns contributing their perspective, building on or challenging what others have said. A moderator agent manages turn-taking and synthesizes the discussion into a final output.
 
@@ -17,7 +18,7 @@ Where the discussion goes, and when it has reached an answer, emerges from the a
 
 Some problems are best solved through deliberation. When a task has no single correct answer — strategic planning, ethical analysis, creative brainstorming — getting multiple agents to argue different positions can produce richer, more nuanced results than any single agent could.
 
-Group chat also enables **adversarial verification**. A "devil's advocate" agent can challenge every claim, forcing other agents to defend their reasoning. Research shows that debate between LLMs can surface flaws that neither model would catch on its own.
+Group chat also enables **adversarial verification**. A "devil's advocate" agent can challenge every claim, forcing other agents to defend their reasoning. In one study, several copies of a model that proposed answers and debated them over several rounds did better on mathematical and strategic reasoning tasks and gave fewer factually wrong answers ([Du et al., 2023](https://arxiv.org/abs/2305.14325)).
 
 ## How It Works
 
@@ -43,7 +44,7 @@ Group chat also enables **adversarial verification**. A "devil's advocate" agent
 4. **Moderation** — A moderator agent (optional but recommended) manages the discussion: directing questions to specific agents, preventing circular arguments, and deciding when the discussion has converged.
 5. **Synthesis** — The moderator (or a dedicated summarizer) distills the discussion into a final output, capturing areas of agreement, resolved disagreements, and remaining open questions.
 
-Always set a turn limit. Without one, a discussion can loop indefinitely without converging.
+Always set a turn limit. Without one, a discussion can loop indefinitely without converging. Keep the group small, too: Microsoft suggests three or fewer agents, because each extra agent makes the conversation harder to control.
 
 ## When to Use It
 
@@ -69,7 +70,7 @@ A company is deciding whether to enter a new market:
 
 - **Market Analyst Agent** — Presents market size data, growth trends, and competitive landscape.
 - **Financial Agent** — Models the investment required, projected returns, and risk scenarios.
-- **Devil's Advocate Agent** — Challenges every optimistic assumption. "Your growth projection assumes 15% adoption — what's the evidence for that?"
+- **Devil's Advocate Agent** — Challenges every optimistic assumption. "Your growth projection assumes most trial users convert — what's the evidence for that?"
 - **Moderator** — Steers the discussion through key decision points, ensures the financial model addresses the devil's advocate's concerns, and produces a recommendation with caveats.
 
 The back-and-forth tests each agent's reasoning in a way separate parallel reports don't.
@@ -85,9 +86,9 @@ A publishing team reviews an article through multi-perspective discussion:
 
 ## Sources
 
-- Microsoft Azure — [AI Agent Design Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns) — group chat pattern
-- CrewAI — [Framework Documentation](https://docs.crewai.com/) — crew-based multi-agent discussions
-- Google ADK — [Developer's Guide to Multi-Agent Patterns](https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/) — collaborative agent models
+- Microsoft — [AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns), Azure Architecture Center (accessed 2026-10-24) — "Group chat orchestration": a chat manager decides which agent responds next; the guide suggests "limiting group chat orchestration to three or fewer agents"
+- Du et al. — [Improving Factuality and Reasoning in Language Models through Multiagent Debate](https://arxiv.org/abs/2305.14325) (arXiv, May 23, 2023) — the debate study above
+- Wu et al. — [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation](https://arxiv.org/abs/2308.08155) (arXiv, August 16, 2023) — a framework for agents that converse with each other
 
 ## Related
 
@@ -95,6 +96,6 @@ A publishing team reviews an article through multi-perspective discussion:
 - [Parallelization](../parallelization/) — agents work independently; group chat adds interaction between agents
 - [Evaluator-Optimizer](../evaluator-optimizer/) — a structured two-part feedback loop; group chat is a freer multi-agent discussion
 - [Orchestrator-Workers](../orchestrator-workers/) — a lead directs workers; group chat is more peer-based
-- [Swarm](../swarm/) — agents also coordinate without a lead, but through shared state rather than conversation
+- [Swarm](../swarm/) — peers also work without a lead, but no moderator or chat manager controls whose turn it is
 - [Multi-Agent Collaboration](../../../agentic-building-blocks/agents/capability-patterns/multi-agent-collaboration/) — the capability pattern for agent teamwork
 - [Design Your AI Workflow](../../../ai-workflow-framework/design/)

@@ -1,6 +1,7 @@
 ---
 title: Routing
 description: "The routing pattern — classify each input and direct it to a specialized follow-up process, so diverse task types get handled by the right prompt or agent."
+last_reviewed: 2026-10-24
 ---
 
 **Level:** Guided if the AI classifies each input; Deterministic if fixed rules route it. See [the patterns and their levels](../#the-patterns-and-their-levels).
@@ -45,7 +46,7 @@ Routing separates the *classification* decision from the *execution*, which keep
 
 How the router classifies sets the level. When an LLM judges the category by your criteria, the AI's judgment decides the next step: Guided. When keywords, a form field, or another fixed rule picks the path, your instructions decide it: Deterministic.
 
-The router should be fast and cheap — it's making a classification decision, not doing substantive work. A smaller, faster model often works well for the routing step.
+The router should be fast and cheap — it's making a classification decision, not doing substantive work, so a smaller, faster model can make it. Routing can also save cost downstream: Anthropic's example sends easy, common questions to a smaller, cheaper model and hard ones to a more capable one.
 
 ## Key Components
 
@@ -110,9 +111,10 @@ Each handler has a tailored extraction prompt and a different output schema.
 
 ## Sources
 
-- Anthropic — [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — "routing" section
-- OpenAI Agents SDK — [Multi-Agent Patterns](https://openai.github.io/openai-agents-python/multi_agent/) — agent-as-tool routing
-- Google Cloud — [Choose a Design Pattern for Agentic AI](https://cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) — routing pattern
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — "Workflow: Routing", which "works well for complex tasks where there are distinct categories that are better handled separately"
+- OpenAI Agents SDK — [Agent orchestration](https://openai.github.io/openai-agents-python/multi_agent/) (accessed 2026-10-24) — a triage agent that "routes the conversation to a specialist"
+- Google Cloud — [Choose a design pattern for your agentic AI system](https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system) (last reviewed May 28, 2026) — the coordinator pattern, which uses an AI model to "dynamically route tasks" (Google has no pattern named routing)
+- Google Developers Blog — [Developer's guide to multi-agent patterns in ADK](https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/) (December 16, 2025) — the coordinator/dispatcher pattern
 
 ## Related
 
