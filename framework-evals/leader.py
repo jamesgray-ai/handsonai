@@ -25,7 +25,8 @@ a hand-over's block runs in a new session in the workspace itself (the leader's 
 with the built workflow installed there and nothing from the framework chat, and its answer is the
 leader's screen, as the chat platforms' new chats are. A session whose script plants the block a run
 ends with (a contaminated or injected run, say) opts out with `"leader_runs": "scripted"`, and the
-leader pastes the script's block as before. Build keeps its own behaviour on both platforms.
+leader pastes the script's block as before. On the chat platforms the same opt-out keeps the new chat's
+answer off the leader's screen (`scripted_runs`), so the planted block is the only one they can paste. Build keeps its own behaviour on both platforms.
   claude-web      Google Drive (./drive/Framework); paste-back from new chats
   claude-desktop  a local folder added to the chat (./Framework); faults: no_folder_added
   chatgpt         Google Drive (./drive/Framework); apps; paste-back from new chats
@@ -91,6 +92,7 @@ class Platform:
     paste_back = False
     run_in_workspace = False  # a leader's run happens in the workspace itself, not a cold copy
     leader_runs = False       # set per session by simulates_leader_runs: hand-overs run on this platform too
+    scripted_runs = False     # set per session by scripted_runs: a planted block; no run chat is simulated
     run_opening = "You opened a new chat and pasted the block"
 
     def __init__(self, faults=()):
@@ -119,7 +121,10 @@ class Platform:
         out = []
         if (self.paste_back or self.leader_runs) and run_chat is not None:
             block = handover_block(ai_text)
-            if block:
+            if block and self.scripted_runs:
+                # the script plants the run's answer: the leader opens the chat and pastes; no answer shows
+                out.append((f"[{self.run_opening}.]", 3))
+            elif block:
                 answer = run_chat(block, self)
                 out.append((f"[{self.run_opening}. It answered:]\n{answer}", 3))
         return out
@@ -404,6 +409,14 @@ def simulates_leader_runs(skill, platform, session=None, ev=None):
     behaviour on these platforms is unchanged."""
     mode = (session or {}).get("leader_runs", (ev or {}).get("leader_runs", "simulated"))
     return skill == "test" and platform.key in ("claude-code", "codex") and mode != "scripted"
+
+
+def scripted_runs(session=None, ev=None):
+    """`leader_runs: "scripted"` (session or eval) on any platform: the script plants the block a run ends
+    with (a contaminated run, a block with no practice-run line), so no run chat is simulated and the
+    leader's screen shows no answer for them to paste in its place. On Claude Code and Codex this is
+    simulates_leader_runs' opt-out; on the chat platforms it switches paste_back's run chat off too."""
+    return (session or {}).get("leader_runs", (ev or {}).get("leader_runs")) == "scripted"
 
 
 def handover_block(ai_text):

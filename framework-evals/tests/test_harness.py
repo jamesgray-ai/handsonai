@@ -569,6 +569,13 @@ class PlatformSimulations(unittest.TestCase):
                        Path("."), run_chat=lambda block, plat: seen.append(block) or "Practice run: nothing will be sent or changed.")
         self.assertEqual(seen, ["practice run\nE1 input"])
         self.assertIn("It answered", out[0][0])
+        # a planted block (leader_runs: scripted): the chat opens, no run is simulated, no answer shows
+        p.scripted_runs = L.scripted_runs({"leader_runs": "scripted"})
+        out = p.screen("Paste this into a new chat in your Project:\n\n```\npractice run\nE1 input\n```",
+                       Path("."), run_chat=lambda block, plat: 1 / 0)
+        self.assertEqual(out, [("[You opened a new chat and pasted the block.]", 3)])
+        self.assertTrue(L.scripted_runs({}, {"leader_runs": "scripted"}))
+        self.assertFalse(L.scripted_runs({"leader_runs": "simulated"}, {"leader_runs": "scripted"}))
 
     def test_test_leader_runs_on_claude_code_and_codex(self):
         # Test's first round holds an input the AI writes itself, so on Claude Code and Codex the hand-over

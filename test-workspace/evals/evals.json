@@ -1947,19 +1947,22 @@
           "prompt": "Test the workflow I built. My files are in Google Drive, in Framework/client-follow-up.",
           "fixture": "chatgpt-real",
           "platform": "chatgpt",
-          "student": "students/contaminated-label.md"
+          "student": "students/contaminated-label.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in Google Drive, in Framework/client-follow-up.",
           "fixture": "chatgpt-real",
           "platform": "chatgpt",
-          "student": "students/contaminated-read-drive.md"
+          "student": "students/contaminated-read-drive.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in Google Drive, in Framework/client-follow-up.",
           "fixture": "chatgpt-real",
           "platform": "chatgpt",
-          "student": "students/clean-wording.md"
+          "student": "students/clean-wording.md",
+          "leader_runs": "scripted"
         }
       ],
       "expected_output": "The real example's block: refused with N-T30's chat form for an ID used as a label and for a read of the framework files on the drive, each with its evidence and the block again; not refused for a rule's wording the workflow carries and words from the input.",
@@ -2028,19 +2031,22 @@
           "prompt": "Test the workflow I built. My files are in Google Drive, in Framework/client-follow-up.",
           "fixture": "web-real",
           "platform": "claude-web",
-          "student": "students/contaminated-label.md"
+          "student": "students/contaminated-label.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in Google Drive, in Framework/client-follow-up.",
           "fixture": "web-real",
           "platform": "claude-web",
-          "student": "students/contaminated-read-drive.md"
+          "student": "students/contaminated-read-drive.md",
+          "leader_runs": "scripted"
         },
         {
           "prompt": "Test the workflow I built. My files are in Google Drive, in Framework/client-follow-up.",
           "fixture": "web-real",
           "platform": "claude-web",
-          "student": "students/clean-wording.md"
+          "student": "students/clean-wording.md",
+          "leader_runs": "scripted"
         }
       ],
       "expected_output": "The real example's block: refused with N-T30's chat form for an ID used as a label and for a read of the framework files on the drive, each with its evidence and the block again; not refused for a rule's wording the workflow carries and words from the input.",
@@ -2589,7 +2595,8 @@
           "must": true
         }
       ],
-      "est_turns": 6
+      "est_turns": 6,
+      "leader_runs": "scripted"
     },
     {
       "id": "TS-practice-run-line-web",
@@ -2630,7 +2637,8 @@
           "must": true
         }
       ],
-      "est_turns": 6
+      "est_turns": 6,
+      "leader_runs": "scripted"
     },
     {
       "id": "TS-workspace-listing",

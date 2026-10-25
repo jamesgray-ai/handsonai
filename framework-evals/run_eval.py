@@ -48,7 +48,8 @@ A session's own `max_turns` is a deliberate stop (the eval grades only what come
 reaching it isn't the turn cap. `run_writes: [{when, path, text}]` stands in for a leader's run in the
 shared workspace (Claude Code, Codex): when a leader message matches the regex `when`, `path` is written there.
 For Test on Claude Code and Codex the leader's hand-overs run for real in the workspace (leader.py,
-simulates_leader_runs); `leader_runs: "scripted"` (session or eval) keeps a planted script's blocks instead.
+simulates_leader_runs); `leader_runs: "scripted"` (session or eval) keeps a planted script's blocks instead,
+on the chat platforms too (no run chat is simulated, so its answer can't stand in for the planted block).
 """
 import argparse
 import concurrent.futures as cf
@@ -237,6 +238,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             H.reset_home(root)  # fresh temp HOME per session; kept across this session's --resume turns
             platform = L.platform_for(ev, s)
             platform.leader_runs = L.simulates_leader_runs(data.get("skill_name"), platform, s, ev)
+            platform.scripted_runs = L.scripted_runs(s, ev)
             if s.get("fixture_from"):
                 src = Path(s["fixture_from"])
                 src = src if src.is_absolute() else (evals_dir / src)
