@@ -70,7 +70,7 @@ The wrapper refuses a profile that seems to hold a secret's value, without repea
 
 ## 4. Switching the block on
 
-At the end of Part 1, after the quick real checks (each one's N-B27 already said, `setup.md` section 4) and the leader's OK to N-B20 (the block and the wrapper's allow together). In this order:
+At the end of Part 1, after the quick real checks (each one's N-B27 already said, `setup.md` section 4) and the leader's OK to N-B20 (the block and the wrapper's allow together). Steps 1 to 9 make no text at all: never say what you're about to do ("I'll write the profile…", "copy the wrapper", "get the block's rules"), and never say the block is on or what it blocks (where release check 1 hasn't passed it isn't in force until the restart, and N-B21 may already have said the checks rest on the instruction). The leader hears of the block only in N-B20's question before it, N-B21a at the close or a stop, and, where release check 1 hasn't passed, the restart line (step 10). Your next text after these steps is Part 1's next item. In this order:
 
 1. **List each connection's live tools** and class them (section 2). Write the profile (section 3).
 2. **Copy the wrapper** from this skill's own `scripts/test-run.sh` to `framework/.bin/test-run.sh`, byte for byte (`cat <this skill's folder>/scripts/test-run.sh > framework/.bin/test-run.sh`, then `chmod +x`; not `cp`, which Claude Code asks about as an edit to the plugin's own file). Never write or edit it.

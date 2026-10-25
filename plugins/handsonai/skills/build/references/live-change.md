@@ -6,7 +6,7 @@ Read, before anything changes, on every Build run that changes a live workflow (
 
 ## 1. The leader's pause, first
 
-Ask first, before any Part 1 item (at a first entry, as the opening's first action, `SKILL.md` entry check 6), on every Build run that changes a live workflow, replaces a live or built earlier version, or puts back a retired workflow, **whatever `schedule:` says** (a leader can schedule a workflow whose plan has no `SCH` task, and no step can see it). Before go-live, ask whenever `schedule:` isn't `none`. Said exactly, in the form that fits the record:
+Ask first, before any Part 1 item (at a first entry, as the opening's first action, `SKILL.md` entry check 6), on every Build run that changes a live workflow, replaces a live or built earlier version, or puts back a retired workflow, **whatever `schedule:` says** (a leader can schedule a workflow whose plan has no `SCH` task, and no step can see it). Before go-live, ask whenever `schedule:` isn't `none`. Said exactly, in the form that fits the record, as a paragraph of its own starting on the form's own first word ("Pause", "If you've", "Is"): no lead-in in its sentence ("Before I change anything, please pause…" is a reworded line); anything you need to say first goes in the resume line or orientation line before it:
 
 - **Switch-on steps in the record:** "Pause [workflow]'s schedule while I change it: [steps]. Say 'done' when it's paused, or 'no schedule' if it isn't running on one."
 - **Before go-live, with `schedule: not-on`:** "If you've switched on [workflow]'s schedule, pause it while I change it: [steps]. Say 'done' when it's paused, or 'no schedule'."
