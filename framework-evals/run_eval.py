@@ -37,7 +37,7 @@ Sessions: an eval's `sessions` list, or one session from `prompt`. `fixture_from
 session; otherwise the first session builds the eval's `fixture`; a later session rebuilds its
 `fixture` (or the eval's) unless it says `from_previous: true`. Fixture names: see build_fixture.
 `student: true` plays the eval's leader script; `student: "<path>"` plays that session's own.
-`tools: "no_file"` turns off Write, Edit and Bash; `tools: "web"` adds WebSearch and WebFetch. `platform` and `platform_faults` pick a
+`stub_tools: ["delete_draft"]` offers the stand-in mail connection's optional tools. `tools: "no_file"` turns off Write, Edit and Bash; `tools: "web"` adds WebSearch and WebFetch. `platform` and `platform_faults` pick a
 platform simulation (leader.py). `action_target: {figure, journey}` names the spec's action figure.
 A session's own `max_turns` is a deliberate stop (the eval grades only what comes before it), so
 reaching it isn't the turn cap. `run_writes: [{when, path, text}]` stands in for a leader's run in the
@@ -148,24 +148,26 @@ def leader_prompt(turns, screens):
     return f"The conversation so far:\n\n{convo}{screen}\n\nYour next message as the leader:"
 
 
-def connections_for(platform, ws, root, data):
+def connections_for(platform, ws, root, data, extra=()):
     """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
     workflow's plan uses it, as a leader who connected it would have (harness.gmail_mcp); on
     Microsoft 365, the Outlook the Cowork chat reaches, when the plan uses Outlook. Test's
-    evals don't get it yet: its waiting-on-access cases need a way to show Gmail not connected first."""
+    evals don't get it yet: its waiting-on-access cases need a way to show Gmail not connected first.
+    `extra`: the stand-in's optional tools an eval asks for with `stub_tools` (delete_draft, so Build can
+    undo its quick real check's draft: N-B33's undo form)."""
     if data.get("skill_name") != "build":
         return None
     if platform.key == "microsoft-365":  # the Outlook a Cowork chat reaches, for its quick real check
         plans = list(Path(ws).glob("onedrive/Framework/*/design-plan.md"))
         if any(re.search(r"(?m)^Outlook: ", p.read_text()) for p in plans):
-            return H.gmail_mcp(root, server="outlook", service="Outlook")
+            return H.gmail_mcp(root, server="outlook", service="Outlook", extra=extra)
         return None
     if platform.key not in ("claude-code", "codex"):
         return None
     plans = [p for p in Path(ws).glob("framework/*/design-plan.md")]
     if not any(re.search(r"(?m)^Gmail: ", p.read_text()) for p in plans):
         return None
-    return H.gmail_mcp(root)
+    return H.gmail_mcp(root, extra=extra)
 
 
 def settings_prompt_for(platform, ws, root, data, s=None, ev=None):
@@ -243,7 +245,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             if "no_gmail" in (s.get("platform_faults") or ev.get("platform_faults") or []):
                 mcp = None  # a leader who hasn't connected Gmail
             else:
-                mcp = connections_for(platform, ws, root, data)
+                mcp = connections_for(platform, ws, root, data, s.get("stub_tools", ev.get("stub_tools", ())))
             prompt_tool = settings_prompt_for(platform, ws, root, data, s, ev)
             run_chat = make_run_chat(rnd, root, ws, args, calls)
             sid = str(uuid.uuid4())

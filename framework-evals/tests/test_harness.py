@@ -682,6 +682,45 @@ class ReleaseItemsAndFidelity(unittest.TestCase):
         self.assertTrue(CS.fidelity(run(turns))[0])  # what the screen showed
 
 
+class MailStub(unittest.TestCase):
+    """The stand-in Gmail/Outlook connection's optional delete_draft tool (N-B33's undo form)."""
+
+    def talk(self, env, calls):
+        import subprocess
+        reqs = [{"jsonrpc": "2.0", "id": 0, "method": "initialize", "params": {}},
+                {"jsonrpc": "2.0", "id": 1, "method": "tools/list"}]
+        reqs += [{"jsonrpc": "2.0", "id": i + 2, "method": "tools/call", "params": {"name": n, "arguments": a}}
+                 for i, (n, a) in enumerate(calls)]
+        out = subprocess.run([sys.executable, "-I", str(H.GMAIL_STUB)], input="\n".join(json.dumps(r) for r in reqs),
+                             capture_output=True, text=True, env={**os.environ, **env}).stdout
+        return [json.loads(x) for x in out.splitlines()]
+
+    def test_delete_draft_offered_only_on_request_and_only_for_its_own_drafts(self):
+        with tempfile.TemporaryDirectory() as t:
+            log = str(Path(t) / "gmail-calls.jsonl")
+            plain = self.talk({"GMAIL_STUB_LOG": log}, [("delete_draft", {"draftId": "draft-1"})])
+            self.assertNotIn("delete_draft", [x["name"] for x in plain[1]["result"]["tools"]])
+            self.assertIn("error", plain[2])
+            env = {"GMAIL_STUB_LOG": log, "GMAIL_STUB_EXTRA": "delete_draft"}
+            made = self.talk(env, [("create_draft", {"body": "hi"})])
+            self.assertIn("delete_draft", [x["name"] for x in made[1]["result"]["tools"]])
+            did = json.loads(made[2]["result"]["content"][0]["text"])["draftId"]
+            # a later session (a new server) deletes it once, from the log; never a draft it didn't make
+            res = self.talk(env, [("delete_draft", {"draftId": did}), ("delete_draft", {"draftId": did}),
+                                  ("delete_draft", {"draftId": "draft-x"})])
+            got = [json.loads(r["result"]["content"][0]["text"])["deleted"] for r in res[2:]]
+            self.assertEqual(got, [True, False, False])
+        root = Path(tempfile.mkdtemp())
+        try:
+            self.assertIn("mcp__outlook__delete_draft",
+                          H.gmail_mcp(root, server="outlook", service="Outlook", extra=["delete_draft"])["allow"])
+            self.assertNotIn("mcp__gmail__delete_draft", H.gmail_mcp(root)["allow"])
+            with self.assertRaises(H.HarnessFailure):
+                H.gmail_mcp(root, extra=["send_everything"])
+        finally:
+            shutil.rmtree(root)
+
+
 class StubbedHarness(unittest.TestCase):
     """Init assertions and a whole round, against the stub binary and a fake home."""
 

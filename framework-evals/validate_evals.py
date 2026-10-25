@@ -22,6 +22,7 @@ from pathlib import Path
 
 import approved_lines as AL
 import check_scripted as CS
+import harness as H
 import leader as L
 
 REQUIRED = {
@@ -150,6 +151,10 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
         for x in [ev] + sessions:
             if "leader_runs" in x and x["leader_runs"] not in L.LEADER_RUN_MODES:
                 errs.append(f"{w}: leader_runs {x['leader_runs']!r} (one of {list(L.LEADER_RUN_MODES)})")
+        for x in [ev] + sessions:
+            for tool in x.get("stub_tools", []):
+                if tool not in H.STUB_EXTRA_TOOLS:
+                    errs.append(f"{w}: unknown stub_tools entry {tool!r} (one of {sorted(H.STUB_EXTRA_TOOLS)})")
         for f in ev.get("platform_faults", []):
             if f not in FAULTS:
                 errs.append(f"{w}: unknown platform fault {f!r}")

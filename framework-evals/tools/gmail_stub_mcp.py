@@ -5,10 +5,14 @@ The harness runs every session with --strict-mcp-config and claude.ai connectors
 Code workflow whose plan uses Gmail would otherwise never see its connection, and Build stops at
 Part 1 waiting for one. This server is that connection: the leader's account
 (GMAIL_STUB_ACCOUNT), one client-call thread to read, and a draft tool that saves nothing real.
-Every tool call is appended to GMAIL_STUB_LOG (JSON lines), so a check can see what was called.
+Every tool call is appended to GMAIL_STUB_LOG (JSON lines), with what it returned, so a check can see
+what was called.
 
 Tools (as Claude Code names them, server `gmail`): mcp__gmail__get_profile, mcp__gmail__list_messages,
 mcp__gmail__get_message (read); mcp__gmail__create_draft, mcp__gmail__send_message (change).
+GMAIL_STUB_EXTRA (comma-separated) offers more: `delete_draft` (mcp__gmail__delete_draft), so Build
+can undo a quick real check's draft itself (N-B33's undo form). It deletes only a draft this
+connection made and hasn't deleted yet, read from the log, since each session starts the server anew.
 """
 import json
 import os
@@ -20,6 +24,7 @@ LOG = os.environ.get("GMAIL_STUB_LOG")
 # The same stand-in serves Microsoft 365's Outlook (server `outlook`), named by these two.
 SERVER = os.environ.get("GMAIL_STUB_SERVER", "gmail")
 SERVICE = os.environ.get("GMAIL_STUB_SERVICE", "Gmail")
+EXTRA = {x.strip() for x in os.environ.get("GMAIL_STUB_EXTRA", "").split(",") if x.strip()}
 
 MESSAGES = [{
     "id": "msg-1001", "threadId": "thr-1001", "from": ACCOUNT, "to": "dana@northwind.example",
@@ -41,16 +46,43 @@ TOOLS = [
      "inputSchema": {"type": "object", "properties": {"to": {"type": "string"}, "subject": {"type": "string"},
                                                       "body": {"type": "string"}}, "required": ["to", "body"]}},
 ]
+OPTIONAL = {
+    "delete_draft": {"name": "delete_draft", "description": f"Delete a draft from {SERVICE} Drafts by its id.",
+                     "inputSchema": {"type": "object", "properties": {"draftId": {"type": "string"}},
+                                     "required": ["draftId"]}},
+}
+TOOLS += [OPTIONAL[x] for x in sorted(EXTRA) if x in OPTIONAL]
 
 
-def log(name, args):
+def log(name, args, result=None):
     if LOG:
         with open(LOG, "a") as f:
-            f.write(json.dumps({"t": time.time(), "tool": name, "args": args}) + "\n")
+            f.write(json.dumps({"t": time.time(), "tool": name, "args": args, "result": result}) + "\n")
+
+
+def live_drafts():
+    """The drafts this connection made and hasn't deleted, from the log (the server restarts each session)."""
+    made = []
+    if LOG and os.path.exists(LOG):
+        for line in open(LOG):
+            e = json.loads(line)
+            r = e.get("result") or {}
+            if e["tool"] == "create_draft" and r.get("draftId"):
+                made.append(r["draftId"])
+            elif e["tool"] == "delete_draft" and r.get("deleted"):
+                made = [d for d in made if d != r.get("draftId")]
+    return made
 
 
 def call(name, args):
-    log(name, args)
+    out = _call(name, args)
+    log(name, args, out)
+    return out
+
+
+def _call(name, args):
+    if name in OPTIONAL and name not in EXTRA:
+        raise KeyError(name)
     if name == "get_profile":
         return {"emailAddress": ACCOUNT}
     if name == "list_messages":
@@ -62,6 +94,11 @@ def call(name, args):
         return {"draftId": "draft-%d" % (int(time.time() * 1000) % 100000), "saved_in": "Drafts", "sent": False}
     if name == "send_message":
         return {"id": "sent-%d" % (int(time.time() * 1000) % 100000), "sent": True}
+    if name == "delete_draft":
+        did = args.get("draftId")
+        if did in live_drafts():
+            return {"draftId": did, "deleted": True}
+        return {"draftId": did, "deleted": False, "error": "no such draft"}
     raise KeyError(name)
 
 

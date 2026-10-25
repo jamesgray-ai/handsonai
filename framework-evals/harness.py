@@ -195,9 +195,16 @@ GMAIL_ALLOW = ["mcp__gmail__get_profile", "mcp__gmail__list_messages", "mcp__gma
                "mcp__gmail__create_draft"]
 
 
-def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="Gmail"):
+STUB_EXTRA_TOOLS = {"delete_draft": "mcp__gmail__delete_draft"}  # offered on request (an eval's stub_tools)
+
+
+def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="Gmail", extra=()):
     """The stand-in mail connection for a session (tools/gmail_stub_mcp.py): Gmail on Claude Code,
-    or, with server="outlook", the Outlook a Microsoft 365 Cowork chat reaches."""
+    or, with server="outlook", the Outlook a Microsoft 365 Cowork chat reaches. `extra` offers the
+    stub's optional tools (STUB_EXTRA_TOOLS), allowed as the leader's click would allow them."""
+    unknown = set(extra) - set(STUB_EXTRA_TOOLS)
+    if unknown:
+        raise HarnessFailure(f"unknown stand-in connection tools: {sorted(unknown)}")
     cfg = root / f"mcp-{server}.json"
     stub = root / "bin" / GMAIL_STUB.name  # a copy in the run root: no path under the home folder
     stub.parent.mkdir(exist_ok=True)
@@ -205,9 +212,11 @@ def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="
     cfg.write_text(json.dumps({"mcpServers": {server: {
         "type": "stdio", "command": sys.executable, "args": ["-I", str(stub)],
         "env": {"GMAIL_STUB_ACCOUNT": account, "GMAIL_STUB_LOG": str(root / f"{server}-calls.jsonl"),
-                "GMAIL_STUB_SERVER": server, "GMAIL_STUB_SERVICE": service}}}}))
+                "GMAIL_STUB_SERVER": server, "GMAIL_STUB_SERVICE": service,
+                "GMAIL_STUB_EXTRA": ",".join(sorted(extra))}}}}))
+    allow = GMAIL_ALLOW + [STUB_EXTRA_TOOLS[x] for x in sorted(extra)]
     return {"config": cfg, "servers": [server],
-            "allow": [t.replace("mcp__gmail__", f"mcp__{server}__") for t in GMAIL_ALLOW]}
+            "allow": [t.replace("mcp__gmail__", f"mcp__{server}__") for t in allow]}
 
 
 SETTINGS_PROMPT = Path(__file__).resolve().parent / "tools" / "settings_prompt_mcp.py"

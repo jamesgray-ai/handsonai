@@ -5878,7 +5878,7 @@
    "fixture": "cc-first",
    "prompt": "Run the build skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "At the end of Part 2, the quick real check's draft offered for undo in one go.",
+   "expected_output": "At the end of Part 2, the quick real check's draft offered for undo in one go (the stand-in Gmail offers delete_draft, so Build can undo it itself).",
    "files": [
     "students/default.md"
    ],
@@ -5893,7 +5893,10 @@
      }
     }
    ],
-   "est_turns": 30
+   "est_turns": 30,
+   "stub_tools": [
+    "delete_draft"
+   ]
   },
   {
    "id": "P2-undo-none",
