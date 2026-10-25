@@ -191,6 +191,14 @@ def agent_m365(t, context=True, connection=True):
     if not connection:
         sub(p, "| Step 1 | Deterministic | A1 | Gmail (use) |", "| Step 1 | Deterministic | A1 | — |")
         sub(p, "Gmail: Microsoft 365 Copilot's own Gmail connection (use).", "None: the agent shows the draft in its reply for you to copy.")
+    else:
+        # An Agent Builder agent reaches mail only through its Outlook work content (the registry's
+        # agent_builder.work_content); a Gmail write would be beyond it, so Build would rightly send
+        # the plan back to Design. The workflow drafts in Outlook here.
+        sub(p, "Gmail: Microsoft 365 Copilot's own Gmail connection (use).",
+            "Outlook: the agent's Outlook work content (use).")
+        for f in (p, req(t)):
+            f.write_text(f.read_text().replace("Gmail", "Outlook"))
 
 
 def fix_round(t, *, task="T2", line="AC2", cause="The draft adds a renewal amount the notes don't give",
@@ -639,7 +647,7 @@ def fx_fix_m365_agent(t):  # the agent on Microsoft 365, Not ready on AC2
     text = re.sub(r"`\.claude/skills/client-follow-up/SKILL\.md`", "Agents in Copilot's Chat tab", text)
     text = text.rstrip("\n") + ("\n- Instructions the leader last pasted back: \"Practice run: nothing will be sent or changed.\" "
                                 "… (the agent's instructions, as pasted after Create)\n")
-    rec.write_text(text)
+    rec.write_text(text.replace("Gmail", "Outlook"))  # the agent drafts in Outlook (agent_m365)
     write(wf(t) / "package" / "client-follow-up-build-prompt.md",
           "Build the agent described in task T2 of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in Framework/client-follow-up. …\n")
     fix_round(t)

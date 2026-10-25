@@ -5,7 +5,7 @@ Alex Brennan, account lead, owner of Client Follow-Up. You know your work well; 
 
 ## What you know
 - Everything about the work is already written down in your folder; you have nothing to add.
-- Your work Gmail is alex@brightline.example; it's the account the workflow runs in.
+- Your work email is Outlook, alex@brightline.example; it's the account the workflow runs in.
 - You use Microsoft 365 Copilot at work.
 
 ## How you answer

@@ -383,10 +383,13 @@ def _fill_check(c, run):
     kind = c.get("kind", "build")
     expect = dict(c.get("expect") or {})
     if not expect:
-        plans = _files(sess, c.get("plan", "framework/*/design-plan.md"))
+        # the default finds the plan wherever the platform keeps the framework folder
+        # (framework/, Framework/, drive/Framework/, onedrive/Framework/), never a set-aside copy
+        plans = {p: v for p, v in _files(sess, c.get("plan", "*ramework/*/design-plan.md")).items()
+                 if "/history/" not in p}
         if not plans:
             return False, "no plan to check the prompt against (give `expect` or `plan`)"
-        expect = plan_expectations(sorted(plans.items())[0][1])
+        expect = plan_expectations(sorted(plans.items(), key=lambda kv: (len(kv[0]), kv[0]))[0][1])
         if expect is None:
             return False, "no agent task in the plan to check the prompt against"
     carried = list(c.get("carried") or [])

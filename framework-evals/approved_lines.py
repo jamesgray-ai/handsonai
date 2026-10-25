@@ -328,7 +328,7 @@ class Corpus:
                     if best is None:
                         continue
                     _, a, L, win = best
-                    if _edge_word_only(seg, win):
+                    if _edge_word_only(seg, win) or _start_phrase_only(seg, win):
                         continue
                     if any(min(a + L, e) - max(a, s) >= min(L, e - s) * 0.5 for s, e in exact):
                         continue
@@ -377,6 +377,26 @@ def _edge_word_only(seg, win):
     if len(seg) >= SHORT_RUN_WORDS or len(win) != len(seg):
         return False
     return win[1:] == seg[1:] or win[:-1] == seg[:-1]
+
+
+START_PHRASE = re.compile(r"\bsay (?:run the \w+ skill(?: on \w+)?|test the workflow i built|change my workflow)"
+                          r"(?: my files are in)?\b")
+
+
+def _start_phrase_only(seg, win):
+    """A run that shares only a start phrase ("say 'run the design skill. My files are in'") with
+    what was said, its other words mostly different: model wording that ends on a start phrase,
+    not a scripted line said wrong ("To review it, say…" against "To answer it, say…")."""
+    s, w = " ".join(seg), " ".join(win)
+    m = START_PHRASE.search(s)
+    if not m or m.group(0) not in w:
+        return False
+    rest_s = (s[:m.start()] + " " + s[m.end():]).split()
+    k = w.index(m.group(0))
+    rest_w = (w[:k] + " " + w[k + len(m.group(0)):]).split()
+    if not rest_s:
+        return True
+    return _edit_distance(rest_s, rest_w, len(rest_s)) >= max(1, len(rest_s) - 1)
 
 
 def _holes_only(ln, said):

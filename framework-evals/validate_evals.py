@@ -36,7 +36,8 @@ REQUIRED = {
 RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmatter now)"}
 FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "agent_builder_missing_context_file",
           "agent_builder_rewords_carried_line", "agent_builder_rewords_after_fix",
-          "agent_builder_requirements_under_knowledge", "agent_builder_ordinary_chat", "skill_cannot_read_by_path"}
+          "agent_builder_requirements_under_knowledge", "agent_builder_ordinary_chat", "skill_cannot_read_by_path",
+          "no_gmail"}
 
 
 def check_check(c, where, errs, nsessions, corpus):

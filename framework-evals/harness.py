@@ -21,6 +21,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
 from pathlib import Path
@@ -187,6 +188,25 @@ def _tool_bin(root):
     return str(b)
 
 
+GMAIL_STUB = Path(__file__).resolve().parent / "tools" / "gmail_stub_mcp.py"
+# Reads, and the draft the workflow makes, are allowed as a leader clicking Allow would; a deny rule
+# in the workspace's settings (Build's block) still wins. Sending is never allowed.
+GMAIL_ALLOW = ["mcp__gmail__get_profile", "mcp__gmail__list_messages", "mcp__gmail__get_message",
+               "mcp__gmail__create_draft"]
+
+
+def gmail_mcp(root, account="alex@brightline.example"):
+    """The stand-in Gmail connection for a Claude Code session (tools/gmail_stub_mcp.py)."""
+    cfg = root / "mcp-gmail.json"
+    stub = root / "bin" / GMAIL_STUB.name  # a copy in the run root: no path under the home folder
+    stub.parent.mkdir(exist_ok=True)
+    shutil.copy2(GMAIL_STUB, stub)
+    cfg.write_text(json.dumps({"mcpServers": {"gmail": {
+        "type": "stdio", "command": sys.executable, "args": ["-I", str(stub)],
+        "env": {"GMAIL_STUB_ACCOUNT": account, "GMAIL_STUB_LOG": str(root / "gmail-calls.jsonl")}}}}))
+    return {"config": cfg, "servers": ["gmail"], "allow": list(GMAIL_ALLOW)}
+
+
 def env_for(root):
     home = root / "home"
     base = "/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin"
@@ -234,8 +254,9 @@ INIT_FIELDS = ("cwd", "model", "tools", "mcp_servers", "skills", "plugins", "age
                "memory_paths", "apiKeySource", "claude_code_version", "permissionMode")
 
 
-def check_init(rnd, role, init, root, tools, cwd, plugin):
-    """The per-role init assertion. Raises HarnessFailure on any mismatch."""
+def check_init(rnd, role, init, root, tools, cwd, plugin, mcp_servers=()):
+    """The per-role init assertion. Raises HarnessFailure on any mismatch. `mcp_servers`: the
+    stand-in connections this call was given (gmail_stub_mcp.py); no other server may load."""
     if init is None:
         raise HarnessFailure(f"{role}: no init message")
     bad = []
@@ -243,13 +264,15 @@ def check_init(rnd, role, init, root, tools, cwd, plugin):
         bad.append(f"cwd {init.get('cwd')}")
     if init.get("claude_code_version") != rnd.version:
         bad.append(f"version {init.get('claude_code_version')} != {rnd.version}")
-    if init.get("mcp_servers"):
-        bad.append(f"mcp_servers {init.get('mcp_servers')}")
+    servers = init.get("mcp_servers") or []
+    if sorted(x.get("name", "") for x in servers) != sorted(mcp_servers):
+        bad.append(f"mcp_servers {servers} != {sorted(mcp_servers)}")
     if init.get("apiKeySource") not in ("none", None):
         bad.append(f"apiKeySource {init.get('apiKeySource')}")
     # The pinned CLI reports the subagent tool by its older name, Task, when --tools asks for Agent.
     alias = {"Task": "Agent"}
-    if sorted(alias.get(t, t) for t in init.get("tools") or []) != sorted(tools):
+    if sorted(alias.get(t, t) for t in init.get("tools") or []
+              if not t.startswith("mcp__")) != sorted(tools):
         bad.append(f"tools {init.get('tools')} != {tools}")
     home = real(root / "home")
     for k, v in (init.get("memory_paths") or {}).items():
@@ -290,15 +313,20 @@ def check_config_folder(root, plugin):
 
 
 def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, session_id=None,
-         system_prompt=None, append_system_prompt=None, model=None, agent=None, log=None, retries=2):
-    """One `claude -p` call. Returns (result_text, record). Raises HarnessFailure or UsageLimit."""
+         system_prompt=None, append_system_prompt=None, model=None, agent=None, log=None, retries=2,
+         mcp=None):
+    """One `claude -p` call. Returns (result_text, record). Raises HarnessFailure or UsageLimit.
+    `mcp`: {"config": path, "servers": [names], "allow": [tool names]} from gmail_mcp(), the
+    stand-in connections a Claude Code session sees (allowed as the leader's own click would)."""
     args = [rnd.binary, "-p", "--setting-sources", "project,local", "--strict-mcp-config",
             "--output-format", "stream-json", "--verbose",
             "--model", model or {"skill": SKILL_MODEL, "student": STUDENT_MODEL}.get(role, GRADER_MODEL),
             "--settings", str(root / "settings-deny.json"),
             "--tools", ",".join(tools)]
     if tools:
-        args += ["--allowedTools", ",".join(tools)]
+        args += ["--allowedTools", ",".join(tools + list((mcp or {}).get("allow", [])))]
+    if mcp:
+        args += ["--mcp-config", str(mcp["config"])]
     if plugin:
         args += ["--plugin-dir", str(plugin)]
     if agent:
@@ -340,7 +368,7 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         err = text or (r.stderr[-1500:] if r else "timeout")
         raise HarnessFailure(f"{role}: call failed: {err}")
     # Only the first call of a session sends a fresh init worth checking? Every call has one; check all.
-    check_init(rnd, role, init, root, tools, cwd, plugin)
+    check_init(rnd, role, init, root, tools, cwd, plugin, (mcp or {}).get("servers", ()))
     check_config_folder(root, plugin)
     record = {
         "role": role,

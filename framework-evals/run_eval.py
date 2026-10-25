@@ -142,6 +142,18 @@ def leader_prompt(turns, screens):
     return f"The conversation so far:\n\n{convo}{screen}\n\nYour next message as the leader:"
 
 
+def connections_for(platform, ws, root, data):
+    """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
+    workflow's plan uses it, as a leader who connected it would have (harness.gmail_mcp). Test's
+    evals don't get it yet: its waiting-on-access cases need a way to show Gmail not connected first."""
+    if platform.key not in ("claude-code", "codex") or data.get("skill_name") != "build":
+        return None
+    plans = [p for p in Path(ws).glob("framework/*/design-plan.md")]
+    if not any(re.search(r"(?m)^Gmail: ", p.read_text()) for p in plans):
+        return None
+    return H.gmail_mcp(root)
+
+
 def make_run_chat(rnd, root, ws, args, calls):
     """A new chat the leader opens on a chat platform: a cold session with only the built workflow,
     nothing from the framework (rules 3.5), that answers the pasted block once."""
@@ -196,6 +208,10 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             replies = list(s.get("replies", []))
             cap = s.get("max_turns", ev.get("max_turns", args.max_turns))
             tools = tools_for(ev, s)
+            if "no_gmail" in (s.get("platform_faults") or ev.get("platform_faults") or []):
+                mcp = None  # a leader who hasn't connected Gmail
+            else:
+                mcp = connections_for(platform, ws, root, data)
             run_chat = make_run_chat(rnd, root, ws, args, calls)
             sid = str(uuid.uuid4())
             turns, files_by_turn, cap_hit = [], [], False
@@ -205,7 +221,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 kw = {"session_id": sid} if turn == 0 else {"resume": sid}
                 ai, rec = H.call(rnd, "skill", root, msg, cwd=ws, tools=tools, plugin=plugin,
                                  model=args.skill_model, append_system_prompt=platform.preamble(),
-                                 log=sdir / "events.jsonl", **kw)
+                                 log=sdir / "events.jsonl", mcp=mcp, **kw)
                 rec.update(session=n, turn=turn + 1)
                 calls.append(rec)
                 turns.append({"role": "ai", "text": ai})
@@ -222,7 +238,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                     msg, reported = L.strip_actions(raw)
                     acts = sum(a for _, a in screens) + reported + platform.on_leader(msg, ws)
                     msg_kind = "student"
-                    if msg.strip() == "END":
+                    if msg.strip().splitlines() and msg.strip().splitlines()[-1].strip() == "END":
+                        # END closes the run even after a stray line of the leader's own reasoning
                         turns.append({"role": "student", "text": "END", "end": True, "actions": acts})
                         break
                 else:

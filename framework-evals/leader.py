@@ -12,7 +12,9 @@ Agent Builder making an agent, Cowork attaching a folder) is simulated here, det
 shown to the leader as their screen. An eval picks one with `"platform": "<key>"` and seeds the
 platform's known failures with `"platform_faults": [...]`:
 
-  claude-code     files in the workspace (the real platform; no preamble)
+  claude-code     files in the workspace (the real platform; no preamble); for Build, a
+                  stand-in Gmail connection when the plan uses Gmail (run_eval.connections_for).
+                  Faults: no_gmail (the leader hasn't connected it)
   codex           files in the workspace; Codex's wording and its read-only bare-run command
   claude-web      Google Drive (./drive/Framework); paste-back from new chats
   claude-desktop  a local folder added to the chat (./Framework); faults: no_folder_added

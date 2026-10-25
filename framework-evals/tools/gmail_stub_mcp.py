@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""A stand-in Gmail connection for Claude Code sessions in the evals (stdio MCP, JSON-RPC 2.0).
+
+The harness runs every session with --strict-mcp-config and claude.ai connectors off, so a Claude
+Code workflow whose plan uses Gmail would otherwise never see its connection, and Build stops at
+Part 1 waiting for one. This server is that connection: the leader's account
+(GMAIL_STUB_ACCOUNT), one client-call thread to read, and a draft tool that saves nothing real.
+Every tool call is appended to GMAIL_STUB_LOG (JSON lines), so a check can see what was called.
+
+Tools (as Claude Code names them, server `gmail`): mcp__gmail__get_profile, mcp__gmail__list_messages,
+mcp__gmail__get_message (read); mcp__gmail__create_draft, mcp__gmail__send_message (change).
+"""
+import json
+import os
+import sys
+import time
+
+ACCOUNT = os.environ.get("GMAIL_STUB_ACCOUNT", "alex@brightline.example")
+LOG = os.environ.get("GMAIL_STUB_LOG")
+
+MESSAGES = [{
+    "id": "msg-1001", "threadId": "thr-1001", "from": ACCOUNT, "to": "dana@northwind.example",
+    "subject": "Thanks for today's call", "date": "2026-10-20",
+    "snippet": "Hi Dana, thanks for the time today. As promised, here are the next steps…",
+}]
+
+READ = {"type": "object", "properties": {"query": {"type": "string"}, "max_results": {"type": "integer"}}}
+TOOLS = [
+    {"name": "get_profile", "description": "The connected Gmail account's address.",
+     "inputSchema": {"type": "object", "properties": {}}},
+    {"name": "list_messages", "description": "Search the mailbox; returns matching messages.", "inputSchema": READ},
+    {"name": "get_message", "description": "Read one message by id.",
+     "inputSchema": {"type": "object", "properties": {"id": {"type": "string"}}, "required": ["id"]}},
+    {"name": "create_draft", "description": "Create a draft in Gmail Drafts (nothing is sent).",
+     "inputSchema": {"type": "object", "properties": {"to": {"type": "string"}, "subject": {"type": "string"},
+                                                      "body": {"type": "string"}}, "required": ["body"]}},
+    {"name": "send_message", "description": "Send an email from the account.",
+     "inputSchema": {"type": "object", "properties": {"to": {"type": "string"}, "subject": {"type": "string"},
+                                                      "body": {"type": "string"}}, "required": ["to", "body"]}},
+]
+
+
+def log(name, args):
+    if LOG:
+        with open(LOG, "a") as f:
+            f.write(json.dumps({"t": time.time(), "tool": name, "args": args}) + "\n")
+
+
+def call(name, args):
+    log(name, args)
+    if name == "get_profile":
+        return {"emailAddress": ACCOUNT}
+    if name == "list_messages":
+        return {"messages": MESSAGES}
+    if name == "get_message":
+        m = next((m for m in MESSAGES if m["id"] == args.get("id")), None)
+        return m or {"error": "no such message"}
+    if name == "create_draft":
+        return {"draftId": "draft-%d" % (int(time.time() * 1000) % 100000), "saved_in": "Drafts", "sent": False}
+    if name == "send_message":
+        return {"id": "sent-%d" % (int(time.time() * 1000) % 100000), "sent": True}
+    raise KeyError(name)
+
+
+def reply(rid, result=None, error=None):
+    msg = {"jsonrpc": "2.0", "id": rid}
+    msg.update({"error": error} if error else {"result": result})
+    sys.stdout.write(json.dumps(msg) + "\n")
+    sys.stdout.flush()
+
+
+def main():
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            req = json.loads(line)
+        except ValueError:
+            continue
+        rid, method, params = req.get("id"), req.get("method"), req.get("params") or {}
+        if rid is None:
+            continue  # a notification
+        if method == "initialize":
+            reply(rid, {"protocolVersion": params.get("protocolVersion", "2025-06-18"),
+                        "capabilities": {"tools": {}}, "serverInfo": {"name": "gmail", "version": "0.1"}})
+        elif method == "tools/list":
+            reply(rid, {"tools": TOOLS})
+        elif method == "tools/call":
+            try:
+                out = call(params.get("name"), params.get("arguments") or {})
+                reply(rid, {"content": [{"type": "text", "text": json.dumps(out)}]})
+            except KeyError:
+                reply(rid, error={"code": -32602, "message": f"unknown tool {params.get('name')}"})
+        elif method == "ping":
+            reply(rid, {})
+        else:
+            reply(rid, error={"code": -32601, "message": f"method not found: {method}"})
+
+
+if __name__ == "__main__":
+    main()

@@ -429,6 +429,18 @@ class StubbedHarness(unittest.TestCase):
         with self.assertRaisesRegex(H.HarnessFailure, "init assertion failed: mcp_servers"):
             self.skill_call()
 
+    def test_the_stand_in_gmail_passes_only_when_given(self):
+        self.mode({"mcp_servers": [{"name": "gmail", "status": "connected"}]})
+        rnd = H.Round(binary=str(self.stub_dir / "claude"), version="9.9.9")
+        rnd.bundled_skills, rnd.bundled_plugins = [], []
+        root = H.new_run_root(str(self.plugin))
+        H.call(rnd, "skill", root, "run the build skill", cwd=root / "workspace",
+               tools=H.SKILL_TOOLS, plugin=root / "plugin", mcp=H.gmail_mcp(root))
+        self.mode({"mcp_servers": [{"name": "slack", "status": "connected"}]})
+        with self.assertRaisesRegex(H.HarnessFailure, "init assertion failed: mcp_servers"):
+            H.call(rnd, "skill", root, "run the build skill", cwd=root / "workspace",
+                   tools=H.SKILL_TOOLS, plugin=root / "plugin", mcp=H.gmail_mcp(root))
+
     def test_wrong_version_fails_the_init_assertion(self):
         self.mode({"version": "9.9.8"})
         with self.assertRaisesRegex(H.HarnessFailure, "version"):
@@ -612,10 +624,42 @@ class NearMissScope(unittest.TestCase):
         middle = "For now it keeps working as it is."
         self.assertTrue([x for x in c.near_misses(middle) if x[0].id == "N-D16"])
 
+    def test_shared_start_phrase_alone_is_not_a_near_miss(self):
+        c = AL.load()
+        own = ("Its plan hasn't been approved. To review and approve it, say 'run the design skill. "
+               "My files are in framework/client-follow-up.'")
+        self.assertFalse([x for x in c.near_misses(own, skill="build") if x[0].id == "open-item-line"])
+        wrong = ("Sending waits for the price. To answer them, say 'run the design skill. "
+                 "My files are in framework/client-follow-up.'")
+        self.assertTrue([x for x in c.near_misses(wrong, skill="build") if x[0].id == "open-item-line"])
+
     def test_edge_word_on_a_long_run_still_counts(self):
         c = AL.load()
         msg = N_D1.replace("Do you have", "Did you have")  # first word changed, a run of eight or more
         self.assertTrue(c.near_misses(msg))
+
+
+class StandInGmail(unittest.TestCase):
+    """A Claude Code Build session sees Gmail when the plan uses it; other cases see no connection."""
+
+    def test_only_build_on_claude_code_with_gmail_in_the_plan(self):
+        import run_eval as R
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            ws = tmp / "workspace"
+            (ws / "framework" / "cfu").mkdir(parents=True)
+            plan = ws / "framework" / "cfu" / "design-plan.md"
+            plan.write_text("## Connections\nGmail: the Claude Code connector (use).\n")
+            build = {"skill_name": "build"}
+            mcp = R.connections_for(L.ClaudeCode(), ws, tmp, build)
+            self.assertEqual(mcp["servers"], ["gmail"])
+            self.assertNotIn("mcp__gmail__send_message", mcp["allow"])
+            self.assertIsNone(R.connections_for(L.ClaudeCode(), ws, tmp, {"skill_name": "test"}))
+            self.assertIsNone(R.connections_for(L.PLATFORMS["chatgpt"](), ws, tmp, build))
+            plan.write_text("## Connections\nNone: the draft is shown in the chat.\n")
+            self.assertIsNone(R.connections_for(L.ClaudeCode(), ws, tmp, build))
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
 
 
 class NoAddedFiles(unittest.TestCase):
