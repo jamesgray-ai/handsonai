@@ -64,6 +64,7 @@ ROOT = HERE.parent
 INCLUDE_FACTS = re.compile(r"^<!-- include-facts: (\S+) -->$", re.M)
 TIERS = ("core", "regression")
 CORE_RUNS = 3
+SMOKE = False  # --smoke: one run each, verdicts marked SMOKE and never counted as a core pass
 
 # Rough API-equivalent cost per call (USD), for the estimate printed before each round. A subscription
 # isn't billed it; --cost-from replaces it with a previous round's measured usage.
@@ -345,7 +346,7 @@ def pass_bar(x, n, tier="regression"):
 def eval_verdict(ev, rs, tier):
     """PASS, FAIL or NOT COUNTED (core with fewer than three valid runs) for one eval."""
     graded = [r for r in rs if r["status"] in ("valid", "failed_invalid_cap") and r.get("expectations")]
-    if tier == "core" and len([r for r in graded if r["status"] == "valid"]) < CORE_RUNS:
+    if tier == "core" and not SMOKE and len([r for r in graded if r["status"] == "valid"]) < CORE_RUNS:
         return "NOT COUNTED", graded
     if not graded:
         return "NO RESULT", graded
@@ -354,8 +355,8 @@ def eval_verdict(ev, rs, tier):
             continue
         got = [r["expectations"][i]["passed"] for r in graded if i < len(r["expectations"])]
         if sum(got) < pass_bar(x, len(got), tier):
-            return "FAIL", graded
-    return "PASS", graded
+            return ("SMOKE FAIL" if SMOKE else "FAIL"), graded
+    return ("SMOKE PASS" if SMOKE else "PASS"), graded
 
 
 def summarize(out, evs, results, data):
@@ -395,6 +396,8 @@ def summarize(out, evs, results, data):
 
 
 def runs_for(ev, args, data):
+    if getattr(args, "smoke", False):
+        return 1
     n = args.runs or ev.get("runs", 3)
     return max(n, CORE_RUNS) if tier_of(ev, data) == "core" else n
 
@@ -469,8 +472,12 @@ def main():
     ap.add_argument("--max-usd", type=float, default=float("inf"))
     ap.add_argument("--cost-from")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--smoke", action="store_true",
+                    help="smoke round: every selected eval runs once; verdicts are SMOKE PASS/FAIL and never count as a core pass")
     ap.add_argument("--yes", action="store_true")
     args = ap.parse_args()
+    global SMOKE
+    SMOKE = args.smoke
 
     evals_path = Path(args.evals).resolve()
     evals_dir = evals_path.parent
