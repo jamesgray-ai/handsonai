@@ -22,7 +22,7 @@ Follow `references/routing.md`'s "The order at every entry", before anything is 
 
 > **Platform registry:** platform facts (how a folder is added on Claude desktop: the `claude` entry's `capabilities.desktop_add_folder`; which drives a connection can write to) come from `registries/platform-registry.json` at the plugin root, or else `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`, read once per session.
 
-Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels. If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
+Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
 **The location** is the framework folder. [location] in every line below is that folder: "framework" on Claude Code and Codex; on Claude desktop, the folder's own name (such as "Framework"); on the web, "Google Drive, in Framework" (or the drive and folder the student chose); on Microsoft 365, "OneDrive, in Framework" (or the folder the student chose). On print-to-save, where there is no saved location, [location] and [the report's path in the location] are "the folder you're keeping these files in".
 

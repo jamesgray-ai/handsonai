@@ -20,7 +20,7 @@ Test proves the built workflow meets its **Workflow Requirements** (`requirement
 
 ## Workflow
 
-Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels. If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
+Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
 ### Entry, before the opening
 
