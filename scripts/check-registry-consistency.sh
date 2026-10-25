@@ -138,7 +138,10 @@ for s in "${VOCAB_ENUMS[@]}"; do
 done
 
 if [ "$FULL" -eq 1 ]; then
+  # The setup page is high-level since 3c-DU: it no longer teaches the decomposition
+  # enums (step-driven, goal-driven, ...), which live in the schema and the bundle.
   for s in "${VOCAB_FULL[@]}"; do
+    case "$s" in step-driven|goal-driven|step-decomposed|outcome-driven) continue ;; esac
     must_contain "setup page carries '$s'" "$SETUP_PAGE" "$s"
   done
 else
@@ -284,15 +287,23 @@ if [ -f "$TIER2" ] && [ -f "$STATE_JS" ]; then
     | grep -E '^\| ' | sed -E 's/^\| ([^|]*[^ |]) +\|.*$/\1/' | grep -vE '^(Name|-+)$' || true)"
   # Read the literal from the source rather than require() it: this repo's root package.json
   # says "type": "module", so require() of the plugin copy returns no exports here.
+  # State 0's one name is split for display by its kind (compose-registry.js STATE_0_LABELS:
+  # "Retired", then "Runs outside the framework"), so the views show what each one is.
   js_states="$(node -e '
-    const src = require("fs").readFileSync(process.argv[1], "utf8");
+    const fs = require("fs");
+    const src = fs.readFileSync(process.argv[1], "utf8");
     const m = src.match(/const STATE_NAMES = (\{[\s\S]*?\});/);
     if (!m) process.exit(3);
     const s = Function("return " + m[1])();
-    Object.keys(s).map(Number).sort((a, b) => a - b).forEach(k => console.log(s[k]));
-  ' "$ROOT/$STATE_JS" 2>/dev/null)" || js_states=""
+    const c = fs.readFileSync(process.argv[2], "utf8").match(/const STATE_0_LABELS = (\{[\s\S]*?\});/);
+    if (!c) process.exit(3);
+    const z = Function("return " + c[1])();
+    Object.keys(s).map(Number).sort((a, b) => a - b).forEach(k => {
+      if (k === 0) { console.log(z.retired); console.log(z["running-work"]); } else console.log(s[k]);
+    });
+  ' "$ROOT/$STATE_JS" "$ROOT/plugins/handsonai/tools/compose-registry.js" 2>/dev/null)" || js_states=""
   if [ -z "$js_states" ]; then
-    bad "framework-state.js — couldn't read 'const STATE_NAMES = {...};'"
+    bad "framework-state.js / compose-registry.js — couldn't read 'const STATE_NAMES = {...};' or 'const STATE_0_LABELS = {...};'"
   elif [ -z "$doc_states" ]; then
     bad "tier-2-island.md — no state table found under '### \`state\` on a workflow'"
   elif [ "$doc_states" == "$js_states" ]; then
@@ -311,8 +322,8 @@ echo "-- 7. one-node-shape: every worked example carries the same Workflow node 
 if [ "$FULL" -eq 1 ]; then
   declare -a SHAPE_DOCS=(
     "$SETUP_PAGE"
-    src/content/docs/courses/framework-end-to-end.md
   )
+  # framework-end-to-end.md no longer shows a node (high-level course page, 3c-DU).
   for doc in "${SHAPE_DOCS[@]}"; do
     must_contain "$(basename "$doc") carries definition_type" "$doc" "definition_type"
     must_contain "$(basename "$doc") carries execution_mode"  "$doc" "execution_mode"

@@ -468,6 +468,30 @@ def fx_live_context_unreadable(t):  # the skill is readable, the runtime copy of
     (Path(t) / ".claude" / "skills" / CFU / "references" / "follow-up-style.md").unlink()
 
 
+def fx_live_m365_agent(t):  # a live Microsoft 365 workflow built as one Agent Builder agent with no context file: nothing fingerprinted
+    live(t)
+    d = wf_dir(t, CFU)
+    plan = d / "design-plan.md"
+    sub(plan, "mechanism: Skill\n", "mechanism: Agent\n")
+    sub(plan, "platform: Claude Code\n", "platform: Microsoft 365 Copilot\n")
+    sub(plan, "platform_mode: code\n", "platform_mode: guided\n")
+    sub(plan, "packaging: Standalone Skill\n", "packaging: Loose Files\n")
+    rec = d / "build-record.md"
+    text = rec.read_text()
+    text = re.sub(r"(?m)^fingerprints:\n(?:  .*\n)+", "fingerprints: {}\n", text)
+    text = text.replace("| T2 | New skill: S1 | C1 | client-follow-up skill | `.claude/skills/client-follow-up/SKILL.md` |",
+                        "| T2 | New agent: A1 | — | Client Follow-Up agent | Agent Builder (Copilot › Chat › Agents) | ")
+    text = re.sub(r"(?m)^\| T2 \| — \| C1 \| Follow-up style guide.*\n", "", text)
+    rec.write_text(text)
+    shutil.rmtree(Path(t) / ".claude", ignore_errors=True)
+
+
+def fx_agent_failed_check(t):  # Build's request after an Agent Builder agent failed its carried-line check three times (3c-DI)
+    fx_live_m365_agent(t)
+    add_record_request(t, "  - { id: B1, source: build, what: \"Agent Builder reworded A1's carried lines on three tries; the agent was deleted (Failed check); re-plan the agent's work as Cowork skills\", "
+                          "why: \"Failed check: the carried lines must be word for word\", tasks: [T2, KW], after_round: 1 }")
+
+
 FIXTURES = {
     "regulated-same-way": fx_regulated_same_way, "regulated-some-of-each": fx_regulated_some_of_each,
     "split-part": fx_split_part, "domains": fx_domains, "planned-steps": fx_planned_steps,
@@ -487,6 +511,7 @@ FIXTURES = {
     "several-requests": fx_several_requests, "schedule-by-hand": fx_schedule_by_hand,
     "draft-with-gaps": fx_draft_with_gaps, "draft-safety-gap": fx_draft_safety_gap,
     "open-item-consequential": fx_open_item_consequential, "live-context-unreadable": fx_live_context_unreadable,
+    "live-m365-agent": fx_live_m365_agent, "agent-failed-check": fx_agent_failed_check,
 }
 
 STATE_TOOL = ROOT / "plugins" / "handsonai" / "tools" / "framework-state.js"

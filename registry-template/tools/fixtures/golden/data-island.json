@@ -119,7 +119,7 @@
       "trigger": "manual",
       "processId": "brand-development",
       "lobId": "product-studio",
-      "state": "Not a framework workflow, or retired",
+      "state": "Retired",
       "skills": [],
       "agents": [],
       "nodePath": "registry/workflows/third-workflow.md"

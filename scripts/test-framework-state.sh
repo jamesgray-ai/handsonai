@@ -160,6 +160,48 @@ perl -0pi -e 's/^change_requests: \[\]$/change_requests:\n  - { id: B1, source: 
 J="$(node "$SCRIPT" --json "$WF" 2>&1)"
 [ $? -eq 0 ] && echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===4?0:1)' \
   && ok "a kept direct edit saved in history/, its path in what: parses, state 4" || { bad "a direct edit saved in history/ should route to state 4"; echo "$J" | head -5 | sed 's/^/        /'; }
+# A rename keeps the node's ID (deconstruct 3c fidelity B1): only the title and the
+# description change, the folder keeps the node's slug, so routing still reads the
+# node's status and a live workflow stays live.
+S11="$FIXTURES/states/s11-live/with-registry"
+mkdir -p "$TMP/rename"; cp -R "$S11/." "$TMP/rename/"
+perl -0pi -e 's/^title: "Client Follow-Up"$/title: "Client Check-In Notes"/m; s/^description: ".*"$/description: "Drafts a check-in note after each client call."/m' \
+  "$TMP/rename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json "$TMP/rename/framework/client-follow-up" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===11&&r.facts.live===true&&r.facts.node.status==="in-production"?0:1)' \
+  && ok "a renamed workflow keeps its node's ID: its node is found, live, state 11" || bad "a renamed workflow (same ID) should read live, state 11"
+# Running work brought in and renamed: the node is in-production, the folder (named for
+# the node) has only requirements.md. It must read as live, so Build pauses and copies.
+mkdir -p "$TMP/runrename"; cp -R "$S11/." "$TMP/runrename/"
+( cd "$TMP/runrename/framework/client-follow-up" && rm -rf design-plan.md build-record.md test-results.md )
+perl -0pi -e 's/^title: "Client Follow-Up"$/title: "Client Check-In Notes"/m' "$TMP/runrename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json "$TMP/runrename/framework/client-follow-up" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===4&&r.facts.live===true?0:1)' \
+  && ok "running work brought in and renamed: state 4 and still live" || bad "running work brought in and renamed should be state 4 and live"
+# A folder renamed before that rule: no node of its name, but the node's # Artifacts link
+# into it. The node is still read (fail closed), with a warning, and the backlog
+# choice doesn't offer the node again.
+mkdir -p "$TMP/oldrename"; cp -R "$S11/." "$TMP/oldrename/"
+mv "$TMP/oldrename/framework/client-follow-up" "$TMP/oldrename/framework/client-check-in"
+perl -0pi -e 's#framework/client-follow-up/#framework/client-check-in/#g' "$TMP/oldrename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json "$TMP/oldrename/framework/client-check-in" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===11&&r.facts.live===true&&r.facts.node.slug==="client-follow-up"&&r.warnings.some((w)=>/links into it/.test(w))?0:1)' \
+  && ok "a folder with no node of its name: the node linking into it is read (live, state 11, warned)" || { bad "a folder found only by its node's link should read live"; echo "$J" | head -5 | sed 's/^/        /'; }
+S03="$FIXTURES/states/s03-requirements-needed/with-registry"
+mkdir -p "$TMP/backlogrename"; cp -R "$S03/." "$TMP/backlogrename/"
+mv "$TMP/backlogrename/framework/client-follow-up" "$TMP/backlogrename/framework/client-check-in"
+perl -0pi -e 's#^(- \[Opportunity report\].*)$#$1\n- [Requirements](framework/client-check-in/requirements.md)#m' "$TMP/backlogrename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json --continue "$TMP/backlogrename" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(!r.facts.backlog_nodes.includes("client-follow-up")?0:1)' \
+  && ok "a node claimed through its link is not offered again as a backlog candidate" || bad "a node claimed through its link was offered again in the backlog"
+# backlog.md counts only with no registry (analyze fidelity S3): beside a registry with no
+# backlog node, "continue my workflow" goes to Analyze, which offers to register it.
+mkdir -p "$TMP/bkreg/framework" "$TMP/bkreg/registry/workflows"
+printf -- '---\ntype: Schema\n---\n# Schema\n' > "$TMP/bkreg/registry/SCHEMA.md"
+printf -- '# Backlog\n\n## Client work\n\n1. **Client Follow-Up.** Drafts a follow-up email after each client call.\n' > "$TMP/bkreg/framework/backlog.md"
+J="$(node "$SCRIPT" --json --continue "$TMP/bkreg" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.continue==="nothing"&&r.owner==="Analyze"&&r.facts.backlog_md_entries===0&&r.facts.backlog_md_beside_registry===true?0:1)' \
+  && ok "backlog.md beside a registry isn't counted: continue goes to Analyze (flagged backlog_md_beside_registry)" || { bad "backlog.md beside a registry should not send continue to Deconstruct"; echo "$J" | head -5 | sed 's/^/        /'; }
 node "$SCRIPT" --continue "$TMP/no-such-workspace" >/dev/null 2>&1
 [ $? -eq 2 ] && ok "--continue on a folder that doesn't exist: exit 2" || bad "--continue on a missing folder did not exit 2"
 node "$SCRIPT" >/dev/null 2>&1

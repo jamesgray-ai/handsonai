@@ -18,6 +18,8 @@ Right after N-L1 (and the leader keeping it light), one line (model wording) say
 
 ## The five things
 
+**A sign of risk at any item.** Whenever a Context Inventory row is saved as `Confidential` or `Regulated`, or a source is `External`, or the leader says something they pasted (a document at N-D1, a real example, an input) holds client, staff or personal details, that's a sign of risk: N-L2, and the full track carries on. The confidential check is still said before that content is saved.
+
 The progress file is first saved at item 0, then after each item (`Next: Light — [the goal | what it must get right | what it works from | the rules | the practice runs | the safety questions | the defaults]`).
 
 **0. A name and a description, in one message.** Run Part 2's boundary tests yourself first (when they find several workflows, Part 2's breakdown runs). Then one message (model wording, one question) plays back the description in Part 2's shape, which carries the trigger and the deliverable, with the name you recommend and one or two others in Part 2's style, ending "What would you change or clarify?" (for illustration only: "I'd call it Newsletter Draft (or Weekly Newsletter, or Newsletter Writing), described as: after you've gathered the week's notes, drafts the newsletter, ready for you to edit and send. What would you change or clarify?"). The reply confirms the trigger, the deliverable, the name and the description together. For running work brought in, play back the `Runs today` row in the same message. The folder line (and, with a registry and no backlog node, the process line or the no-process question) follows, as Part 2 writes it, in the same message as the goal's first question. No law question here: it comes with the safety questions. In personal life, Part 2's two personal questions ("What starts it?", "What do you end up with?") come first.
@@ -34,7 +36,7 @@ The progress file is first saved at item 0, then after each item (`Next: Light �
 
 **Ask:** "What did you start from for that one?"
 
-Its answer is the typical run's input. Any other real input named but not pasted takes Part 5's paste request. No reference is asked for per row: the Golden Example, when there is one, is the only reference. Then the confidential check where it applies, and the inputs numbered and saved.
+Its answer is the typical run's input. Any other real input named but not pasted takes Part 5's paste request. If, after the leader's changes, fewer than two remain or the typical case was dropped, propose a replacement and have it kept before going on; no tricky case is required on this track. No reference is asked for per row: the Golden Example, when there is one, is the only reference. Then the confidential check where it applies, and the inputs numbered and saved.
 
 ## The three safety questions
 
@@ -55,7 +57,7 @@ After the safety questions, one message (model wording) lists in plain words eve
 | Decisions | None recorded |
 | When it's unsure | "When it can't confidently handle a case, it does its best and flags it for you." |
 | Business Objective, Desired Outcome, Measure | From the backlog card, the document or the description; otherwise "—" |
-| Baseline | `Unknown` |
+| Baseline | `— · Unknown` |
 | Target | "—" |
 | Owner, Lens, Stakeholders | The leader; Individual; none, unless the card says otherwise |
 | Security, Privacy & Safety | Worked out as the requirements template says: the one-line form when nothing trips; when the only write is a draft the leader alone sees, its prohibited action ("It never sends; it only saves drafts.") and where each draft is kept; with the `Governing regime:` answer and the writes |

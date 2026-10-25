@@ -82,6 +82,7 @@
           "notes": "Release check 12 (scheduled tasks reading Project knowledge) is also open."
         },
         "framework_files": "Web: Framework/ in Google Drive or work/school OneDrive through the connection. Desktop: the framework folder on the leader's computer, added to each framework chat (N-F12 at the first skill; N-F13 when a later chat has none added). Registry in Framework/registry/ or registry/ inside the desktop folder (rules 3.2).",
+        "desktop_add_folder": "In the Claude desktop app, start a new chat, select \"Work in a folder\" in the chat bar, and choose the folder on your computer; Claude reads what is there and saves new files beside it. Verified 2026-10-24 from Anthropic's tutorial (https://academy.claude.com/tutorials/get-started-in-claude-cowork-in-three-steps), which names the button only: the folder picker and any permission prompt after it are not documented there. Fallback when the leader doesn't see \"Work in a folder\": say the exact steps couldn't be verified, and the leader adds the folder their own way.",
         "cloud_drives": {
           "google_drive": {
             "create": "yes (files and folders)",
@@ -329,9 +330,9 @@
         "approval_labels": {
           "one_time": "Approve once",
           "for_the_conversation": "Always allow (for the conversation)",
-          "refuse": "Deny",
+          "refuse": "Cancel",
           "refuse_release_check": 33,
-          "status": "\"Approve once\" and \"Always allow\" verified 2026-10-21 (James's test; documented 2026-10-18). \"Deny\" is N-F4's wording, release check 33 (open): until it passes, \"Deny\" stands; if the label differs, record it here and N-F4 names it. Whether Cowork asks before each connector write in an attended chat is release check 24 (open): until then Build's checks rely on the instruction only."
+          "status": "\"Approve once\" and \"Always allow\" verified 2026-10-21 (James's test; documented 2026-10-18). \"Cancel\" is the refuse label: documented on Microsoft Learn's \"Use Cowork\" page (https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork, checked 2026-10-24; approved by James 2026-10-24); hands-on confirmation pending under release check 33 (open), so N-F4 names \"Cancel\" on Microsoft 365. Whether Cowork asks before each connector write in an attended chat is release check 24 (open): until then Build's checks rely on the instruction only."
         },
         "connection_switch_off": {
           "steps": null,
@@ -430,6 +431,7 @@
       "fallback": "The leader restarts the session once, before Build's checking part",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -442,6 +444,7 @@
       "fallback": "Those checks rely on the instruction, said in N-B21",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -454,6 +457,7 @@
       "fallback": "Write and Edit denied outright in headless sessions; the AI's runs and Build's headless checks show their files in their output",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -466,6 +470,7 @@
       "fallback": "The check sessions keep their allow lists; N-B21a's fallback sentence says only those were limited",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -478,6 +483,7 @@
       "fallback": "No `/mcp` step in Test's hand-over; N-F4 in every Claude Code hand-over",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -490,6 +496,7 @@
       "fallback": "Test: the leader runs the practice inputs (N-T42). Build: check agents only, and no bare run",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -503,6 +510,7 @@
       "fallback": "Treated as the instruction only: N-B49 before the switch-on steps (rules 5.3)",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -515,6 +523,7 @@
       "fallback": "Build installs standalone skills in `.agents/skills/` and names the surfaces where they load",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -527,6 +536,7 @@
       "fallback": "No bare run on Codex",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -539,6 +549,7 @@
       "fallback": "The create-only path (rules 3.6), or print-to-save where the connection can neither update nor move files (rules 3.7)",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -551,6 +562,7 @@
       "fallback": "Offer Google Drive, or print-to-save",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -563,6 +575,7 @@
       "fallback": "The `SCH` task places the context where the task can read it, or the workflow runs by hand",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -575,6 +588,7 @@
       "fallback": "No bare run on that surface; Test's hand-overs there say N-F4 whatever the workflow's own connections",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -587,6 +601,7 @@
       "fallback": "The desktop hand-over's \"told to save nothing there\" is the only protection for that folder, said plainly; once confirmed, N-F4 covers it too",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -599,6 +614,7 @@
       "fallback": "Default memory, with the transcript check",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -611,6 +627,7 @@
       "fallback": "No bare run on ChatGPT; Test's hand-overs say N-F4 whatever the workflow's own connections",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -623,6 +640,7 @@
       "fallback": "Treated as the instruction only: N-B49 before the switch-on steps (rules 5.3)",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -635,6 +653,7 @@
       "fallback": "The Workspace Agent's protection is the instruction only, said in N-B21",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -647,6 +666,7 @@
       "fallback": "The guided path, or skills not offered on those plans",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -659,6 +679,7 @@
       "fallback": "Print-to-save, or ask the admin",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -671,6 +692,7 @@
       "fallback": "If a later run fails: N-B52's recovery form for a leader in the ordinary chat; where Agent Builder can't build from the files, a change request (N-B9), and Design re-plans the agent's work as Cowork skills",
       "status": "verified",
       "verified_on": "2026-10-21 (skills), 2026-10-24 (agents); James's tests",
+      "verified_for_release": "10.0.0",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -683,6 +705,7 @@
       "fallback": "If a later run fails: the create-only path in that folder if Cowork can create and move files there; print-to-save otherwise",
       "status": "verified",
       "verified_on": "2026-10-21; James's test",
+      "verified_for_release": "10.0.0",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -695,6 +718,7 @@
       "fallback": "If a later run fails: N-F13's Microsoft 365 form, as at any chat that can't read the files",
       "status": "verified",
       "verified_on": "2026-10-21; James's test",
+      "verified_for_release": "10.0.0",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -707,6 +731,7 @@
       "fallback": "Build's checks rely on the instruction only, said in N-B21",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -719,6 +744,7 @@
       "fallback": "No bare run; Test's hand-overs give no switch-off step (N-F4 is said in every one there anyway)",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -731,6 +757,7 @@
       "fallback": "Treated as the instruction only: N-B49 before the switch-on steps (rules 5.3)",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -743,6 +770,7 @@
       "fallback": "No run log, no re-check line, no time saved",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -755,6 +783,7 @@
       "fallback": "Design keeps everything an agent needs in its own instructions, and no skill starts an agent (design 5.4)",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -767,6 +796,7 @@
       "fallback": "N-B53's rebuild form: a new agent from the build prompt with the fix in it; the leader deletes the old one once the new one shows; either way, Test's after-fix round re-runs every input that uses the agent",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -779,6 +809,7 @@
       "fallback": "N-T8's protection clause in every agent hand-over, whatever the workflow's own connections; a write the plan routes through an agent counts as resting on the instruction, said in N-B21",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -791,6 +822,7 @@
       "fallback": "The paste-back: after Create and each fix the leader pastes the agent's instructions, Build checks them, and a gap gets a fix prompt before any test run (N-B52 step 6, N-B53); a gap still there after three tries: `Failed check`, the leader asked to delete the agent (N-B54, 3c-DI), a change request (N-B9), and Design re-plans the agent's work as Cowork skills, with no Test round on the agent meanwhile",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -803,6 +835,7 @@
       "fallback": "Each run chat attaches the workflow's context files from the workflow's own folder in Cowork's folder (N-T8's attach clause)",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     },
@@ -816,6 +849,7 @@
       "fallback": "N-F4 names that platform's own label, from this registry's `approval_labels.refuse`",
       "status": "open",
       "verified_on": "",
+      "verified_for_release": "",
       "verified_version_range": "",
       "run_by": ""
     }

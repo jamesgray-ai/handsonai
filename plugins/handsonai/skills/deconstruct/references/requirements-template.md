@@ -134,7 +134,7 @@ For each [trigger], a [format] [deliverable] to [who], ready for you to [review]
 | Business Objective | [which strategic objective this supports] |
 | Desired Outcome | [what changes, and for whom] |
 | Measure | [what gets counted] |
-| Baseline | [today's number] · Measured / Estimated / Unknown |
+| Baseline | [today's number] · Measured / Estimated / Unknown (with no number: `— · Unknown`) |
 | Target | [what it should achieve once running, or "—"] |
 
 ## Metadata
@@ -279,7 +279,7 @@ Every move is Deconstruct's own, never the leader's. On a connection that can on
 
 ## 8. The self-check
 
-After writing, check the file and fix any miss before the close. Where code can run, the requirements validator does these checks: run `node [plugin root]/tools/requirements-check.js [workflow folder] --before-save` (the plugin root is two folders above this skill's folder); it exits 0 when the file is valid and names each problem by section and line otherwise. Where it can't run, or isn't there, this list is its written fallback; check each item by hand. Never mention the validator to the leader.
+After writing, check the file and fix any miss before the close. Where code can run, the requirements validator does these checks: run `node [plugin root]/tools/requirements-check.js [workflow folder] --before-save` (the plugin root is two folders above this skill's folder); it exits 0 when the file is valid; exit 1 names each problem by section and line: fix them and run it again. Any other non-zero exit means it couldn't run or couldn't read the file: check every item below by hand, as you would where it can't run or isn't there, since this list is its written fallback. A run that didn't finish is never a pass. Never mention the validator to the leader.
 
 - The frontmatter holds `revision`, `revisions` and `track` with valid values, a `revisions:` entry for every revision above 1, and no `big_change`.
 - Exactly the eleven `##` sections, in order and exactly named, under the title.
@@ -291,9 +291,11 @@ After writing, check the file and fix any miss before the close. Where code can 
 - Human Gates opens with the `Runs:` line; Security has the `Governing regime:` line, then `### Writes` with W lines or `None`; every security constraint has a `P` ID, in one series across its tables, and a Source.
 - No saved file (requirements, input, context or progress file) holds a password or key.
 - Every practice input listed exists at its path, opens with the two header lines, and holds the input itself (or the one allowed placeholder line), never a description of it; its `tests:` IDs exist in the file.
+- No `tests:` header in `inputs/`, whichever step wrote the input, names a line the file no longer has (a line removed on a re-run or a redo comes out of every header; `re-runs.md`).
 - The labels are present and stable, and no other label family appears; the Golden Example column holds only a real output, otherwise "—".
 - The Inputs line matches the access answer for its source.
 - No requirement describes a practice input ("the notes carry no 'buying for' field").
 - Notes for the leader are never inside the deliverable, unless the requirement says they're unmistakable and removed before sending.
 - Paths in the file are relative to the workflow folder.
-- Where there's a registry, the node has the fields the registry write gives it, `generated` restamped.
+
+The registry write comes after this check, so the node is checked after it is written (SKILL.md, Phase 7 step 3), not here.

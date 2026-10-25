@@ -30,12 +30,13 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 
 `state` is the workflow's progress: the routing state's **name**, never its number, read from the workflow's folder, never from which links the node has. The folder is `[framework folder]/<slug>/`: `framework/<slug>/` in a workspace, `<slug>/` beside `registry/` on the web and Claude desktop. There is no stored progress field; never read one, and never count links.
 
-- **Where code can run,** run the `framework-state` script on the folder (`node tools/framework-state.js --json <folder>`, from the workspace's `tools/` or the plugin's) and copy its `name`. A non-zero exit means: work it out by hand, below.
+- **Where code can run,** run the `framework-state` script on the folder (`node tools/framework-state.js --json <folder>`, from the workspace's `tools/` or the plugin's) and copy its `name`; for state 0, show "Retired" when its `kind` is `retired` and "Runs outside the framework" when it is `running-work`. A non-zero exit means: work it out by hand, below.
 - **By hand,** read the folder's current files (and the node's `status` and `big_change`) and take the first row that matches. It is the same rule the five step skills route by; this copy is for display only.
 
 | Name | The first that matches |
 |---|---|
-| Not a framework workflow, or retired | the node is `retired`; or it is `in-production` and has no folder |
+| Retired | the node is `retired` (routing's state 0) |
+| Runs outside the framework | the node is `in-production` and has no folder: running work Analyze recorded (routing's state 0) |
 | Earlier version | `requirements.md` with no `revision:` in its frontmatter (or with a `Definition Type` row, a `## Steps Overview` heading, or `## Inputs` with no `## Path`); a `design-spec.md`, or a `design-plan.md` with no `requirements_revision:`; `test-results.md` with no `build-record.md` and no `history/set-aside-*/`; `test-results.md` with no `round:` |
 | Redo pending | the node has `big_change` |
 | Requirements needed | no folder, no `requirements.md`, or a `deconstruct-in-progress.md` |

@@ -255,6 +255,11 @@ DESIGN_FILES = {  # design 13: SKILL.md holds the entry, opening, four parts, qu
     "N-29": "references/updating-the-plan.md",
     "D10": "references/capability-domains.md",  # the Autonomy Summary for decomposition: domains
 }
+ANALYZE_REFERENCE_FILES = {
+    "N-A4": "references/the-walk.md",
+    "N-A5": "references/the-walk.md",
+    "N-A8": "references/report-format.md",
+}
 ANALYZE_FILES = {"N-A7": ("scaffolding-registry", "references/interview-guide.md")}
 
 
@@ -310,7 +315,9 @@ def files_for(entry_id, skills, form, spec_ctx, section=None):
             files[sk] = DESIGN_FILES.get(entry_id, "SKILL.md")
             notes.append("design: inferred from design 13 by section")
         elif sk == "analyze":
-            files[sk] = "SKILL.md"
+            # analyze 4, "The skill's own files" (3c-DQ): the walk and the report format moved
+            # into references; every other Analyze line stays in SKILL.md.
+            files[sk] = ANALYZE_REFERENCE_FILES.get(entry_id, "SKILL.md")
         elif sk == "indexing-registry":
             files[sk] = "SKILL.md"
         elif sk == "scaffolding-registry":

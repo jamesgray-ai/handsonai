@@ -435,7 +435,7 @@ rules, each with its location, and say the set is complete.
 
 **The close (last message) — files saved (locally or in the drive):**
 
-> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in Framework/registry" or "your OneDrive, in Framework/registry"]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
+> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [framework folder]/registry" or "your OneDrive, in [framework folder]/registry", with the framework folder's own name, Framework unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
 >
 > "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
 >
@@ -445,8 +445,10 @@ rules, each with its location, and say the set is complete.
 
 That last paragraph is N-A7: say it exactly. [location] is the framework
 folder, as Analyze's start phrase names it: "Google Drive, in Framework" or
-"OneDrive, in Framework" in a drive; on Claude desktop, the folder's own name
-(such as "Framework"); on Claude Code and Codex, "framework". Leave out the
+"OneDrive, in Framework" in a drive (with the folder's own name when the
+leader chose another folder at the storage question); on Claude desktop, the
+folder's own name (such as "Framework"); on Claude Code and Codex,
+"framework". Leave out the
 `/analyze` clause anywhere but Claude Code.
 
 **The close — print-to-save:** the same four parts, with two changes.

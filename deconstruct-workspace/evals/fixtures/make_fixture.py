@@ -240,6 +240,47 @@ def fx_cold_registry_no_fit(t):  # the same, with only a finance process: no pro
     add_process(t, "month-end-close", "Month-End Close", "Closing the books each month.", "account-management")
 
 
+
+# ---------- fidelity check 2026-10-24 ----------
+
+def fx_redo_with_rounds(t):  # S1: a big change whose set-aside holds a finished round beside test-results.md
+    ff(t, "states/s02-redo-pending/with-registry")
+    sa = t / "framework" / CFU / "history" / "set-aside-2026-10-20-0930"
+    text = (sa / "test-results.md").read_text()
+    (sa / "test-results-round-1.md").write_text(re.sub(r"(?m)^round: \d+", "round: 1", text, count=1))
+    (sa / "test-results.md").write_text(re.sub(r"(?m)^round: \d+", "round: 2", text, count=1))
+
+
+def fx_redo_no_set_aside(t):  # S2: Design wrote big_change, then stopped before making the set-aside folder
+    ff(t, "states/s02-redo-pending/with-registry")
+    wf = t / "framework" / CFU
+    sa = wf / "history" / "set-aside-2026-10-20-0930"
+    for f in sa.iterdir():
+        shutil.move(str(f), str(wf / f.name))
+    sa.rmdir()
+    node = node_path(t, CFU)
+    body = node.read_text()
+    arts = "- [Design plan](framework/client-follow-up/design-plan.md)\n- [Test results](framework/client-follow-up/test-results.md)\n"
+    if "[Design plan]" not in body:
+        body = body.replace("# Artifacts\n\n", "# Artifacts\n\n" + arts, 1)
+    node.write_text(body)
+
+
+def fx_backlog_md_beside_registry(t):  # Analyze S3: a registry with no backlog node, and a backlog.md left from before it
+    fx_cold_registry(t)
+    (t / "framework").mkdir(exist_ok=True)
+    (t / "framework" / "backlog.md").write_text(
+        "# Backlog\n\n## Client work\n\n1. **Weekly Newsletter Draft.** Every Friday, drafts the client newsletter "
+        "from your notes, for you to edit and send yourself.\n")
+
+
+def fx_backlog_plus_retired(t):  # S8: the backlog, and a retired workflow the leader names at the backlog choice
+    ff(t, "continue/c-only-backlog/with-registry")
+    add_node(t, "renewal-reminders", "Renewal Reminders",
+             "Two months before each contract renews, drafts a reminder for you to send the client.",
+             "Two months before a renewal date", status="retired")
+
+
 FIXTURES = {
     "sales": fx_sales, "expenses": fx_expenses, "meals": fx_meals, "winstory": fx_winstory,
     "R1": fx_r1, "R10": fx_r10,
@@ -248,6 +289,8 @@ FIXTURES = {
     "backlog-filter": fx_backlog_filter, "newsletter": fx_newsletter, "newsletter-git": fx_newsletter_git,
     "newsletter-second": fx_newsletter_second, "newsletter-standing": fx_newsletter_standing,
     "cold-registry": fx_cold_registry, "cold-registry-no-fit": fx_cold_registry_no_fit,
+    "redo-with-rounds": fx_redo_with_rounds, "redo-no-set-aside": fx_redo_no_set_aside,
+    "backlog-md-beside-registry": fx_backlog_md_beside_registry, "backlog-plus-retired": fx_backlog_plus_retired,
 }
 
 # Fixtures copied from framework-fixtures/ need no tidy; the interview fixtures recompose their fresh

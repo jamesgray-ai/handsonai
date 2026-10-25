@@ -23,7 +23,7 @@ With several, map each (a working name, trigger and deliverable), present the br
 
 Offer two or three names: a two-to-four-word noun phrase in Title Case, each part of a hyphenated word capitalised ("Follow-Up"; fix a backlog name's casing in the options), clear without context ("Lead Qualification", "Newsletter Distribution"), preferring `[Subject] [Action]` ("Invoice Generation", "Inbox Triage") over verb phrases or vague labels. Ask only which name they want. Confirm the description in the next message, on its own: one sentence in the `naming-workflows` shape (when it starts, what it produces, who receives or acts on it; no targets, no tool names): "After a scoping call, drafts the follow-up email that recaps the call and shares what was discussed, ready for you to review and send."
 
-The confirmed name becomes a kebab-case ID (lowercase, hyphens, no punctuation). Say: "Everything for this workflow will go in a folder called `[id]`." Every later step uses that ID verbatim.
+The confirmed name becomes a kebab-case ID (lowercase, hyphens, no punctuation), unless the workflow already has a Workflow node: then the ID is the node's slug, whatever the name (*A rename keeps the node and its ID*, below). Say: "Everything for this workflow will go in a folder called `[id]`." Every later step uses that ID verbatim.
 
 **The process line.** With a registry and no backlog node (cold entry), say in one line (model wording), right after the folder line, which of the registry's processes the workflow goes under. Where none fits, ask Analyze's no-process question once, word for word, in its own message:
 
@@ -32,11 +32,13 @@ The confirmed name becomes a kebab-case ID (lowercase, hyphens, no punctuation).
 - *Example:* a bookkeeper might say: "Client Onboarding, and Client Services looks after it."
 - *Not sure?* I'll suggest a name from your own words and the function in your registry that fits it best. You can change either later.
 
-In a personal-life registry, its parenthetical becomes "(the person in your household who handles that kind of work)", and its *Example* is dropped. The node, and any new Process or Function, is written at the close.
+A person the leader names, or a function not in the registry, maps to the Function that fits, said in one line ("I'll put it under [Function]."); if none fits, **Ask:** "Shall I add [function] as a new function?", and on a yes the new Function is written at the close.
+
+In a personal-life registry, the question takes the personal words throughout: "routine" for "process", "role" for "function" (and "your roles are" for "your functions are"), "your household" (or "your life" for one person) for "your work"; its parenthetical becomes "(the person in your household who handles that kind of work)", its *Example* is dropped, and the new-function follow-up says "role". The node, and any new Process or Function, is written at the close.
 
 **The first progress save** follows here, once the description is confirmed (SKILL.md, *Pause and resume*).
 
-**A rename keeps the node.** If the leader renames a workflow that already has a Workflow node, the folder takes the new ID, the node keeps its file, and no new node is made: the progress file's second line names the original node.
+**A rename keeps the node and its ID.** If the leader renames a workflow that already has a Workflow node (a backlog pick, or running work brought in), the folder stays `[node slug]`: the folder line names that existing ID, not one made from the new name, and only the workflow's name and description change. No new node is made, and the progress file's second line names the original node. At the close, the registry write gives the node the new name and description (SKILL.md, *Registry write*). The ID is what every step finds the node by, so it never changes once a node has it.
 
 ## The law or regulation question
 

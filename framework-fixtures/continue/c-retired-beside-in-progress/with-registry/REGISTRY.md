@@ -6,7 +6,7 @@
 
 | Workflow | Status | Progress | How it decides | How it runs | Re-check by |
 |---|---|---|---|---|---|
-| [Client Follow-Up](registry/workflows/client-follow-up.md) | retired | Not a framework workflow, or retired | Guided: makes bounded decisions with your method | Runs with you | — |
+| [Client Follow-Up](registry/workflows/client-follow-up.md) | retired | Retired | Guided: makes bounded decisions with your method | Runs with you | — |
 
 ### Sales Pipeline Management
 

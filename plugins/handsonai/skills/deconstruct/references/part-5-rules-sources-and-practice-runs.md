@@ -1,6 +1,6 @@
 # Part 5: Rules, sources and practice runs
 
-Read when Part 5 starts, right after its signpost (SKILL.md also has you read the requirements template now, for what goes in each draft). On the light track, read it for the questions that track borrows (live writes, taking part, the paste request, the practice runs' follow-ups). Every quoted line is said exactly; each question is its own message. In a personal-life registry, the personal-life wording replaces the live-writes question when no step carries a `writes` tag.
+Read when Part 5 starts, right after its signpost (SKILL.md also has you read the requirements template now, for what goes in each draft). On the light track, read it only for what that track borrows: live writes, taking part, and the paste request. The light track keeps its own count of practice runs (two or three, the typical case required), so *A tricky one stays* and the reference question don't apply there. Every quoted line is said exactly; each question is its own message. In a personal-life registry, the personal-life wording replaces the live-writes question when no step carries a `writes` tag.
 
 Say first: "Last part: I'll draft the rules it follows, where you check its work, the sources it uses and the cases we'll test it on. You correct each one."
 

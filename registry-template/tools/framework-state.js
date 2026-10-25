@@ -357,6 +357,31 @@ function readNode(registryDir, slug) {
   };
 }
 
+// A workflow's node is registry/workflows/<slug>.md, where <slug> is its folder's
+// name: a rename keeps the node's ID and the folder's name, and changes only the
+// name and description. A folder left with a name no node has (a rename made
+// before that rule) is matched to the node whose # Artifacts link into it, so
+// its status and big_change are still read rather than missed (fail closed: a
+// live workflow must still read as live).
+function nodeForFolder(registryDir, slug) {
+  const byName = readNode(registryDir, slug);
+  if (byName) return byName;
+  const dir = path.join(registryDir, 'workflows');
+  if (!isDir(dir)) return null;
+  const esc = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const linkInto = new RegExp(`\\]\\((?:\\.\\/)?(?:framework\\/)?${esc}\\/[^)]*\\)`);
+  const found = [];
+  for (const d of listDir(dir)) {
+    if (!d.isFile() || !d.name.endsWith('.md') || d.name === 'index.md') continue;
+    const doc = readDoc(path.join(dir, d.name));
+    if (!doc) continue;
+    const m = doc.body.match(/^# Artifacts\s*\n([\s\S]*?)(?=^# |$(?![\s\S]))/m);
+    if (m && linkInto.test(m[1])) found.push(d.name.slice(0, -3));
+  }
+  if (found.length !== 1) return null;
+  return { ...readNode(registryDir, found[0]), slug: found[0], found_by_link: true };
+}
+
 function listNodes(registryDir) {
   const dir = path.join(registryDir, 'workflows');
   if (!isDir(dir)) return [];
@@ -472,7 +497,7 @@ function workflowState(folder, opts = {}) {
   if (folderExists) listDir(folder); // fails on a folder that exists but can't be read
 
   const registryDir = opts.registryDir !== undefined ? opts.registryDir : findRegistry(frameworkDir, opts);
-  const node = registryDir ? readNode(registryDir, slug) : null;
+  const node = registryDir ? nodeForFolder(registryDir, slug) : null;
 
   const at = (name) => path.join(folder, name);
   const f = {
@@ -492,7 +517,7 @@ function workflowState(folder, opts = {}) {
     folder,
     folder_exists: folderExists,
     registry: registryDir,
-    node: registryDir ? (node ? { status: node.status, big_change: node.big_change, links_skills_or_agents: node.links_skills_or_agents } : 'missing') : null,
+    node: registryDir ? (node ? { status: node.status, big_change: node.big_change, links_skills_or_agents: node.links_skills_or_agents, ...(node.found_by_link ? { slug: node.slug, found_by: 'a link in its # Artifacts into this folder' } : {}) } : 'missing') : null,
     files: {
       'requirements.md': !!f.requirements,
       'deconstruct-in-progress.md': f.progress_exists,
@@ -506,6 +531,7 @@ function workflowState(folder, opts = {}) {
     set_aside: f.set_aside,
   };
   const warnings = [];
+  if (node && node.found_by_link) warnings.push(`the folder ${slug} has no node of its own name; the node ${node.slug} links into it and is read instead`);
   if (registryDir && !node) warnings.push(`the registry has no Workflow node for ${slug}: its status and big_change can't be read`);
 
   const done = (state, reason, extra = {}) => ({
@@ -766,8 +792,12 @@ function continueState(target, opts = {}) {
   const inProgress = notRetired.filter((w) => w.state !== 11);
 
   const nodes = registryDir ? listNodes(registryDir) : [];
-  const backlogNodes = nodes.filter((n) => n.status === 'backlog' && !folders.includes(n.slug)).map((n) => n.slug);
-  const backlogFile = frameworkExists ? readTextIfFile(path.join(frameworkDir, 'backlog.md')) : null;
+  const claimed = new Set(workflows.map((w) => (w.facts.node && w.facts.node.slug) || w.workflow));
+  const backlogNodes = nodes.filter((n) => n.status === 'backlog' && !folders.includes(n.slug) && !claimed.has(n.slug)).map((n) => n.slug);
+  // backlog.md is the backlog only where there's no registry: once a registry
+  // exists, its backlog nodes are the backlog, and Analyze offers to register
+  // what backlog.md still lists (Deconstruct's backlog choice reads only nodes).
+  const backlogFile = frameworkExists && !registryDir ? readTextIfFile(path.join(frameworkDir, 'backlog.md')) : null;
   const backlogFileEntries = backlogFile ? (backlogFile.match(/^\s*(?:\d+\.|[-*])\s+\S/gm) || []).length : 0;
 
   const facts = {
@@ -779,6 +809,7 @@ function continueState(target, opts = {}) {
     in_progress: inProgress.map((w) => w.workflow),
     backlog_nodes: backlogNodes,
     backlog_md_entries: backlogFileEntries,
+    ...(registryDir && frameworkExists && isFile(path.join(frameworkDir, 'backlog.md')) ? { backlog_md_beside_registry: true } : {}),
   };
   const option = (w) => ({ workflow: w.workflow, state: w.state, name: w.name, owner: w.owner });
 

@@ -8255,6 +8255,458 @@
     }
    ],
    "est_turns": 2
+  },
+  {
+   "id": "PF-orchestrator-no-agent",
+   "name": "scheduled-agent-plan-no-worker-agent-claude-code",
+   "tier": "regression",
+   "spec_item": "20",
+   "covers": [
+    "fidelity-design S1",
+    "design.md 5.4, 11.2"
+   ],
+   "fixture": "scheduled",
+   "prompt": "Run the design skill. My files are in framework/weekly-pipeline-post.",
+   "student": "students/default.md",
+   "expected_output": "A scheduled workflow on Claude Code is an Agent plan; with no worker agent, the orchestrator skill is still S1, with a 12-field blueprint whose Decision Logic is the Orchestrator Prompt Outline and a task of its own, which KW depends on.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/weekly-pipeline-post/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/weekly-pipeline-post/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "An S1 blueprint",
+     "kind": "scripted",
+     "check": {
+      "type": "section_regex",
+      "path": "framework/weekly-pipeline-post/design-plan.md",
+      "section": "## Component Blueprints",
+      "pattern": "(?m)^### S1 — "
+     }
+    },
+    {
+     "text": "A task builds S1",
+     "kind": "scripted",
+     "check": {
+      "type": "section_regex",
+      "path": "framework/weekly-pipeline-post/design-plan.md",
+      "section": "## Tasks",
+      "pattern": "(?m)^- \\*\\*Builds:\\*\\*.*\\bS1\\b"
+     }
+    },
+    {
+     "text": "The orchestrator outline is present",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/weekly-pipeline-post/design-plan.md",
+      "pattern": "(?m)^### Orchestrator Prompt Outline"
+     }
+    },
+    {
+     "text": "Every Handled by orchestrator row belongs to S1's task, KW depends on it, and the \"What I did\" summary has a home in S1; no orchestrator agent is invented",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "PF-m365-scheduled",
+   "name": "microsoft-365-scheduled-workflow-cowork-skills",
+   "tier": "regression",
+   "spec_item": "20",
+   "covers": [
+    "fidelity-design S6",
+    "design.md 5.4, 15 point 46"
+   ],
+   "platform": "microsoft-365",
+   "fixture": "scheduled",
+   "prompt": "Run the design skill. My files are in OneDrive, in Framework/weekly-pipeline-post.",
+   "student": "students/default.md",
+   "expected_output": "A scheduled workflow on Microsoft 365 is planned as Cowork skills run by a Cowork scheduled prompt: no Agent Builder agent, and the Approach says why.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "onedrive/Framework/weekly-pipeline-post/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "onedrive/Framework/weekly-pipeline-post/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No Agent Builder agent in the Decomposition",
+     "kind": "scripted",
+     "check": {
+      "type": "section_regex",
+      "path": "onedrive/Framework/weekly-pipeline-post/design-plan.md",
+      "section": "## Decomposition",
+      "pattern": "(?s)\\A(?!.*New agent:).*\\Z"
+     }
+    },
+    {
+     "text": "The schedule runs through a Cowork scheduled prompt, and the Approach says why no agent is made",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "DE-m365-agent-no-fingerprints",
+   "name": "change-my-workflow-m365-agent-nothing-fingerprinted",
+   "tier": "core",
+   "spec_item": "9",
+   "covers": [
+    "fidelity-design S2",
+    "design.md 10.4",
+    "rules 9.3"
+   ],
+   "platform": "microsoft-365",
+   "fixture": "live-m365-agent",
+   "prompt": "Change my workflow. My files are in OneDrive, in Framework/client-follow-up.",
+   "student": "students/change-m365-agent.md",
+   "expected_output": "A live workflow that is one Agent Builder agent with no context file has nothing fingerprinted; Design still treats it as built and asks N-E1's agent form before recording the change.",
+   "files": [
+    "students/change-m365-agent.md"
+   ],
+   "expectations": [
+    {
+     "text": "N-E1's agent form",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-E1",
+      "form": "Agent form"
+     }
+    },
+    {
+     "text": "N-E1 is asked before anything is written to the plan or the requirements",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 8
+  },
+  {
+   "id": "RQ-agent-failed-check",
+   "name": "build-request-agent-failed-carried-line-check",
+   "tier": "regression",
+   "spec_item": "10",
+   "covers": [
+    "fidelity-design S7",
+    "design.md 10.5",
+    "3c-DI"
+   ],
+   "platform": "microsoft-365",
+   "fixture": "agent-failed-check",
+   "prompt": "Run the design skill. My files are in OneDrive, in Framework/client-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "Build's request after an Agent Builder agent failed its carried-line check: a mechanism change (N-25, the set-aside), and a fresh plan whose work is Cowork skills, with the reason in the Approach and the failed check carried as a ruling.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "N-25",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-25"
+     }
+    },
+    {
+     "text": "Set aside",
+     "kind": "scripted",
+     "check": {
+      "type": "file_exists",
+      "path": "onedrive/Framework/client-follow-up/history/set-aside-*/design-plan.md"
+     }
+    },
+    {
+     "text": "No Agent Builder agent in the fresh plan",
+     "kind": "scripted",
+     "check": {
+      "type": "section_regex",
+      "path": "onedrive/Framework/client-follow-up/design-plan.md",
+      "section": "## Decomposition",
+      "pattern": "(?s)\\A(?!.*New agent:).*\\Z"
+     }
+    },
+    {
+     "text": "The Approach says the work is Cowork skills because the agent failed its carried-line check, and the request is logged in changes: as handled",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 16
+  },
+  {
+   "id": "EN-s6-replan-interrupted",
+   "name": "replan-change-then-stop-before-reapproval",
+   "tier": "core",
+   "spec_item": "7",
+   "covers": [
+    "fidelity-design S3",
+    "design.md 10.3"
+   ],
+   "fixture": "dir:../../framework-fixtures/states/s06-build-needed/with-registry",
+   "prompt": "Run the design skill. My files are in framework/client-follow-up.",
+   "student": "students/replan-change-stop.md",
+   "expected_output": "Re-planning by name on an approved plan with no build record: a change is saved with approved: false in the same save, so stopping before re-approval leaves Build nothing to start on.",
+   "files": [
+    "students/replan-change-stop.md"
+   ],
+   "expectations": [
+    {
+     "text": "approved: false after the change, with no re-approval",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/design-plan.md",
+      "pattern": "(?m)^approved: false[ \\t]*$"
+     }
+    },
+    {
+     "text": "No Build start phrase is given while the change is unapproved",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_contains",
+      "text": "'run the build skill."
+     }
+    }
+   ],
+   "est_turns": 6
+  },
+  {
+   "id": "CW-reworded-rule",
+   "name": "reworded-rule-after-build-raises-every-built-task",
+   "tier": "regression",
+   "spec_item": "9",
+   "covers": [
+    "fidelity-design S4",
+    "design.md 10.1 step 4"
+   ],
+   "fixture": "live",
+   "prompt": "Change my workflow. My files are in framework/client-follow-up.",
+   "student": "students/reword-rule.md",
+   "expected_output": "A reworded R line after Build changes no plan text, but every task that builds a skill or agent gets the new rev, so Build rebuilds it with the new wording.",
+   "files": [
+    "students/reword-rule.md"
+   ],
+   "expectations": [
+    {
+     "text": "The requirements' revision is raised",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/requirements.md",
+      "pattern": "(?m)^revision: 2[ \\t]*$"
+     }
+    },
+    {
+     "text": "T2, which builds the skill, has rev 2",
+     "kind": "scripted",
+     "check": {
+      "type": "section_regex",
+      "path": "framework/client-follow-up/design-plan.md",
+      "section": "## Tasks",
+      "pattern": "### T2 —[^#]*\\*\\*rev:\\*\\* 2\\b"
+     }
+    },
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3): the frontmatter's keys in order and no others, the sections in order, canonical values, tasks T1… then KW (and SCH), a Self-Test Summary line per item",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/client-follow-up/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/client-follow-up/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    }
+   ],
+   "est_turns": 8
+  },
+  {
+   "id": "CW-bare-chatgpt-orientation",
+   "name": "bare-change-my-workflow-chatgpt-orientation-line",
+   "tier": "regression",
+   "spec_item": "9",
+   "covers": [
+    "fidelity-design S8",
+    "design.md 3.1 item 5, 10.1 step 1"
+   ],
+   "platform": "chatgpt",
+   "fixture": "dir:../../framework-fixtures/states/s06-build-needed/with-registry",
+   "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/bare-change-stop.md",
+   "expected_output": "A bare \"change my workflow\" in a new ChatGPT chat with no build record: one line naming Design and the workflow with N-F3's promise clause and the Always allow advice, then N-27.",
+   "files": [
+    "students/bare-change-stop.md"
+   ],
+   "expectations": [
+    {
+     "text": "N-F3's promise clause and its web platform clause in the first message",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-F3",
+        "form": "promise clause",
+        "turn": "first"
+       },
+       {
+        "type": "quote",
+        "id": "N-F3",
+        "form": "On the web and in Microsoft 365 Cowork",
+        "turn": "first"
+       }
+      ]
+     }
+    },
+    {
+     "text": "N-27",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-27",
+      "turn": "first"
+     }
+    }
+   ],
+   "est_turns": 1
+  },
+  {
+   "id": "SD-d5pp-chatgpt",
+   "name": "not-sure-d5pp-requirement-write-chatgpt",
+   "tier": "regression",
+   "spec_item": "20",
+   "covers": [
+    "fidelity-design S5",
+    "design.md 2, 13"
+   ],
+   "platform": "chatgpt",
+   "fixture": "d5-guided",
+   "prompt": "Run the design skill. My files are in Google Drive, in Framework/support-triage.",
+   "student": "students/not-sure.md",
+   "expected_output": "On ChatGPT, where no code runs, D5″'s safe default writes a G line, the Runs: line and a block-form revisions entry in the requirements' own formats, from Design's own reference.",
+   "files": [
+    "students/not-sure.md"
+   ],
+   "expectations": [
+    {
+     "text": "A G row in the table's columns, Runs: with you, revision 2 in block form by design",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "file_regex",
+        "path": "drive/Framework/support-triage/requirements.md",
+        "pattern": "(?m)^\\|\\s*G1\\s*\\|[^|]+\\|[^|]+\\|\\s*$"
+       },
+       {
+        "type": "file_regex",
+        "path": "drive/Framework/support-triage/requirements.md",
+        "pattern": "(?m)^Runs: with you[ \\t]*$"
+       },
+       {
+        "type": "file_regex",
+        "path": "drive/Framework/support-triage/requirements.md",
+        "pattern": "(?m)^  - revision: 2\\n    by: design\\n    lines: \\["
+       }
+      ]
+     }
+    },
+    {
+     "text": "The requirements file passes requirements-check when it is run on the saved file afterwards",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 12
   }
  ]
 }

@@ -265,6 +265,16 @@ COPYWRITER_MEMORY = """# Notes about my work
 """
 
 
+# backlog.md from a run before the registry was set up (analyze fidelity S3).
+BACKLOG_MD = """# Backlog
+
+## Client work
+
+1. **Client Follow-Up Email.** After each client call, drafts the follow-up email from the call notes for the owner to review and send.
+2. **Monthly Client Insights Note.** Each month, drafts a short note of insights for each client from their project data, for the owner to send.
+"""
+
+
 def earlier_layout(t):
     write(t, "outputs/ai-opportunity-report.md", "# AI Opportunity Report\n\n(From an earlier version of the framework.)\n")
     write(t, "outputs/client-follow-up/workflow.yaml", "name: Client Follow-Up\nstep: 3\nstatus: in-progress\n")
@@ -281,6 +291,7 @@ FIXTURES = {
     "brightline-drive-docs": lambda t: (brightline(t), [write(t, k, v) for k, v in CLIENT_DOCS.items()]),
     "brightline-earlier-layout": lambda t: (brightline(t), earlier_layout(t)),
     "brightline-same-lens-report": lambda t: (brightline(t), write(t, "framework/ai-opportunity-report.md", EARLIER_REPORT)),
+    "brightline-backlog-md": lambda t: (brightline(t), write(t, "framework/backlog.md", BACKLOG_MD)),
     "brightline-create-only": lambda t: (brightline(t), write(t, "CLAUDE.md", CREATE_ONLY_NOTE)),
     "brightline-no-update-no-move": lambda t: (brightline(t), write(t, "CLAUDE.md", NO_UPDATE_NO_MOVE_NOTE)),
     "consulting-6-memory": lambda t: (

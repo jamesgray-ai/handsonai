@@ -170,6 +170,8 @@ needed · 9 Waiting on access · 10 Ready to go live · 11 Live
 
 Only the name ever reaches the leader, never the number. A node that is `in-production` with no
 workflow folder is work Analyze recorded as already running (state 0), not a framework record.
+State 0's name covers two things, so the views split it: **Runs outside the framework** for that
+running work, **Retired** for a retired workflow.
 
 **On the leader-facing views** (the dashboard and `REGISTRY.md`), fields show under these labels.
 None shows a step number.

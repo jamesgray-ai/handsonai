@@ -162,14 +162,19 @@ function scanSkillsAndAgents(workspaceRoot) {
 
 // Progress: the routing state's NAME, read from the workflow's folder by the
 // framework-state script -- never from which links a node has, never a number.
+// State 0's one name covers two different things, so the views split it by the
+// script's kind: "Runs outside the framework" for running work Analyze recorded
+// (in-production, no folder), "Retired" for a retired workflow.
 // The folder is <framework folder>/<slug>/ (framework/<slug>/ in a workspace,
 // <slug>/ beside registry/ on the web and Claude desktop). Anything the script
 // can't read or settle -> undefined, and the views leave progress blank rather
 // than guess. Deterministic: framework-state reads files only.
+const STATE_0_LABELS = { 'running-work': 'Runs outside the framework', retired: 'Retired' };
 function workflowProgress(w, frameworkDir, absBundle) {
   if (!frameworkDir) return undefined;
   try {
     const r = workflowState(path.join(frameworkDir, lib.slugOf(w.relPath)), { registryDir: absBundle });
+    if (r && r.state === 0) return STATE_0_LABELS[r.kind];
     return r && typeof r.name === 'string' ? r.name : undefined;
   } catch {
     return undefined;

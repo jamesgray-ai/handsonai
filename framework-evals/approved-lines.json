@@ -1365,7 +1365,7 @@
     "analyze"
    ],
    "files": {
-    "analyze": "SKILL.md"
+    "analyze": "references/the-walk.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
   },
@@ -1378,7 +1378,7 @@
     "analyze"
    ],
    "files": {
-    "analyze": "SKILL.md"
+    "analyze": "references/the-walk.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md",
    "fragment": true
@@ -1392,7 +1392,7 @@
     "analyze"
    ],
    "files": {
-    "analyze": "SKILL.md"
+    "analyze": "references/the-walk.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
   },
@@ -1458,7 +1458,7 @@
     "analyze"
    ],
    "files": {
-    "analyze": "SKILL.md"
+    "analyze": "references/report-format.md"
    },
    "source": "analyze.md 9; 3c-DQ (2026-10-24), the report card's Size for a workflow not yet sized; text from lines-to-approve.md"
   },

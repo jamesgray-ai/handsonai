@@ -18,7 +18,7 @@ description: >-
 
 Deconstruct turns a piece of the leader's real work into their **Workflow Requirements**: what the workflow must do and why, never how it's built. Outcome first (a goal and its checks), then the path, recorded as a requirement only where the leader wants the work done the same way. The requirements stay the leader's: every drafted line says where it came from, and every suggestion needs a keep or a drop. Deconstruct records what the leader knows (consistency, decisions, inputs, checkpoints); it never decides how much the AI works out on its own, which is Design's call.
 
-> **Platform registry:** platform facts (how to add a folder on Claude desktop, a platform's own settings for a key) come from `registries/platform-registry.json` at the plugin root; if it isn't there, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session.
+> **Platform registry:** platform facts (how to add a folder on Claude desktop, the `claude` entry's `capabilities.desktop_add_folder`; a platform's own settings for a key) come from `registries/platform-registry.json` at the plugin root; if it isn't there, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session.
 
 ## Workflow
 
@@ -52,8 +52,8 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7; it
 
 After routing, before the opening, in this order. A check that asks before the opening starts its message with one line naming Deconstruct and the workflow and confirming the location with N-F3's promise clause; the opening then doesn't repeat it.
 
-1. **Unfinished interviews:** `deconstruct-in-progress.md` in any workflow folder. This check comes before the backlog choice.
-   - One, and the leader named no workflow or named that one (by its name, or by the node its second line names): resume it.
+1. **Unfinished interviews:** `deconstruct-in-progress.md` with a `Track:` line in any workflow folder (one without a `Track:` line is from an earlier version: check 3). This check comes before the backlog choice.
+   - One, and the leader named no workflow or named that one (by its name, an earlier name, or the node its second line names, whose slug is the folder's name, since a rename keeps the ID): resume it.
    - One, and the leader named another workflow: say "[Name] is partway through Deconstruct; to finish it, say 'run the deconstruct skill on [Name]. My files are in [location].'", then carry on for the one they named.
    - Several, with none named: **Ask:** "You have [N] workflows partway through Deconstruct: [Name 1] (next: Part [N]), [Name 2] (next: Part [N]). Which one do you want to continue?" For a light interview, "(next: [the thing, in plain words])".
    - On "continue my workflow", routing finds the workflow first (N-F9 when several are in progress), and this check resumes it.
@@ -62,12 +62,12 @@ After routing, before the opening, in this order. A check that asks before the o
 
 ### An earlier version
 
-When the requirements are in an earlier format (`routing.md`, *Earlier versions*), Deconstruct owns state 1: ask N-B44 first when the workflow is live or was built; move the requirements and every later file (plan, build record, results) into `history/earlier-version-YYYY-MM-DD/`; say so in one line (model wording), offering the earlier requirements as a starting document (after N-B44, only the offer); then begin as for a new workflow, drafting from the old file at N-D1 if offered, with nothing in it current until the leader confirms it. The node keeps its status. A leader partway through a workflow at this release starts again here this way.
+When the requirements are in an earlier format (`routing.md`, *Earlier versions*), Deconstruct owns state 1: ask N-B44 first when the workflow is live or was built; move the requirements and every later file (plan, build record, results) into `history/earlier-version-YYYY-MM-DD/`; with a registry, remove the node's "Design plan" (or legacy "Design spec") and "Test results" links under `# Artifacts` where they're there, since their files have moved, and restamp `generated`; say so in one line (model wording), offering the earlier requirements as a starting document (after N-B44, only the offer); then begin as for a new workflow, drafting from the old file at N-D1 if offered, with nothing in it current until the leader confirms it. The node keeps its status. A leader partway through a workflow at this release starts again here this way.
 
 ### Running work brought in
 
 Running work Analyze recorded (an `in-production` node with no workflow folder) arrives by name ("run the deconstruct skill on [workflow]", or "change my workflow" said here, taken as the same request). It needs a registry. Take it as a new workflow:
-1. The opening, with the framework folder as the location, then one line (model wording): this brings [workflow] into the framework, and the version that runs today keeps running as it is until Build installs the new one.
+1. The opening, with the framework folder as the location (only when it hasn't been said yet: when the leader named the work at the backlog choice or at cold entry, it has), then one line (model wording): this brings [workflow] into the framework, and the version that runs today keeps running as it is until Build installs the new one.
 2. Prefill from the node, as for a backlog pick: the name, description, trigger and deliverable, and any other field it has.
 3. In cold entry's place, **Ask:** "Tell me how it runs today: what kicks it off, what happens, what comes out the other end, and whether you do it by hand or it's set up somewhere (a skill, an agent, an automation), on a schedule or not. Rough is fine." Its answer prefills Part 2's trigger and deliverable (confirmed, not asked again), is played back at Part 4's method question, and becomes the Metadata's `Runs today` row, played back with Part 2.
 4. The normal interview from N-D1 on, on either track. Nothing is skipped because the work already runs.
@@ -79,7 +79,7 @@ A stop before the first progress save leaves it in state 0: the leader starts ag
 
 - **The storage question.** On the web or in Microsoft 365 Cowork with no framework folder yet, Deconstruct is the leader's first step: ask at the end of the opening message, before anything is saved, in place of N-F3 (whose clauses follow in the next message, once answered). On the web: **Ask:** "Where should I keep your workflow files? I'd suggest a private folder called Framework in your [Google Drive / OneDrive], since that connection is on. It reaches your whole drive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new chat outside any Project. Say 'go ahead', or tell me another folder." In Cowork: **Ask:** "Where should I keep your workflow files? I'd suggest a folder called Framework in your OneDrive, separate from Cowork's own folder. Cowork can see your whole OneDrive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new Cowork chat. Say 'go ahead', or tell me another folder."
   - *Why:* Every step reads and saves these files, so a new chat needs to find them.
-- **On Claude desktop,** with no folder added and no location given, ask instead: **Ask:** "Your framework files can live in a folder on your computer. Make a folder for them, for example Framework in Documents, and add it to this chat: [how to add a folder on Claude desktop]. Open each step of the framework in a new chat with that folder added. Say 'done' when it's added[, or 'use my drive' to keep them in [Google Drive / OneDrive] instead]." ([how to add a folder on Claude desktop] is the platform's own steps, from the platform registry.) The folder they add is the framework folder; locations name it by its own name ("Framework/weekly-status-report").
+- **On Claude desktop,** with no folder added and no location given, ask instead: **Ask:** "Your framework files can live in a folder on your computer. Make a folder for them, for example Framework in Documents, and add it to this chat: [how to add a folder on Claude desktop]. Open each step of the framework in a new chat with that folder added. Say 'done' when it's added[, or 'use my drive' to keep them in [Google Drive / OneDrive] instead]." ([how to add a folder on Claude desktop] is the platform's own steps: the platform registry's `claude` entry, `capabilities.desktop_add_folder`. Where that value is missing, or the leader can't find the step it names, say you couldn't verify the exact steps, and that they can add the folder their own way.) The folder they add is the framework folder; locations name it by its own name ("Framework/weekly-status-report").
   - *Why:* Every step reads and saves these files, so a new chat needs to find them.
 - **Never asked** on Claude Code or Codex (`framework/` in the workspace).
 - **Files not where expected:** N-F3a (`routing.md`).
@@ -156,8 +156,8 @@ Say "Part 5 of 5 — rules, sources and practice runs." Read `references/part-5-
 
 After "go ahead" at the preview (never write the file before the preview has been shown), in order:
 1. Write `requirements.md`, the practice inputs and the context files (`references/requirements-template.md`); on a re-run or a redo, the old requirements first go into `history/` (`references/re-runs.md`).
-2. Run the self-check and the requirements validator where code can run (`requirements-template.md`, *The self-check*), and fix any miss.
-3. The registry write (*Output*).
+2. Run the self-check and the requirements validator where code can run (`requirements-template.md`, *The self-check*), and fix any miss. The validator's exit 1 names each problem: fix them and run it again. Any other non-zero exit (it couldn't run or read the file): check every item of the self-check by hand. Never treat a run that didn't finish as a pass.
+3. The registry write (*Output*); then check the node has exactly those fields, with `generated` restamped, and fix any miss.
 4. Write any standing rules the leader kept to `standing-rules.md` in the framework folder, creating it the first time.
 5. Move the progress file into `history/deconstruct-in-progress-YYYY-MM-DD-HHMM.md`.
 6. Say anything else the leader needs to know (open items, a placeholder still to fill), then the close, word for word, starting with its first words. Nothing comes after it but the Git offer.
@@ -188,7 +188,7 @@ Line 1 names the next part as its phase heading does, or on the light track `Nex
 
 **Pausing:** one line (model wording) says what's saved, then "To pick up, say 'run the deconstruct skill on [Name]. My files are in [location].'" in its platform's form (Claude desktop with a local folder: "To pick up, open a new chat with your framework folder added and say '…'"; Microsoft 365: "To pick up, open a new Cowork chat and say '…'"). Before the workflow has a name, say plainly that nothing is saved yet. On print-to-save, give the progress notes in full to save, and ask for them when they start again.
 
-**Resuming:** a resume line (model wording) replaces the opening: what was covered, a short summary of what was noted, the location confirmed with N-F3's promise clause; then the next part's signpost, said exactly. Merge everything captured into the node line 2 names. A folder that also holds `requirements.md` is a re-run or a redo (`references/re-runs.md`). In Cowork, a resume reads the progress file from the location; on Claude desktop with no folder added, N-F13's desktop form comes first, and the leader is never asked again where the files are.
+**Resuming:** a resume line (model wording) replaces the opening: what was covered, a short summary of what was noted, the location confirmed with N-F3's promise clause; then the next part's signpost, said exactly (on the light track, which has no signposts, the next item's first question). Merge everything captured into the node line 2 names. A folder that also holds `requirements.md` is a re-run or a redo (`references/re-runs.md`). In Cowork, a resume reads the progress file from the location; on Claude desktop with no folder added, N-F13's desktop form comes first, and the leader is never asked again where the files are.
 
 ## Output
 
@@ -200,6 +200,7 @@ On the Workflow node the progress file's second line names (`registry/workflows/
 - `status: under-development`, from `backlog` only; any other status is kept, including on a re-run, a redo and running work brought in (which stays `in-production`);
 - the refined `trigger`;
 - the `description` the leader accepted, word for word, the same sentence as the requirements' Metadata;
+- after a rename (Part 2, *A rename keeps the node and its ID*), the new name as `title` and as the body's first heading; the file name, and so the node's ID, never changes;
 - the "Requirements" link under `# Artifacts`, relative to the registry's parent folder, never `../`: `- [Requirements](framework/[slug]/requirements.md)` on Claude Code and Codex; `- [Requirements]([slug]/requirements.md)` in a drive (the web, Microsoft 365) and on Claude desktop;
 - after a redo, `big_change` removed (the registry-log line stays);
 - `generated: { by: process:deconstruct, at: [now, a UTC instant, YYYY-MM-DDTHH:MM:SSZ] }`.

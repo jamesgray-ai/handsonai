@@ -6,7 +6,7 @@
 
 | Workflow | Status | Progress | How it decides | How it runs | Re-check by |
 |---|---|---|---|---|---|
-| [Client Follow-Up](registry/workflows/client-follow-up.md) | in-production | Not a framework workflow, or retired | — | — | — |
+| [Client Follow-Up](registry/workflows/client-follow-up.md) | in-production | Runs outside the framework | — | — | — |
 
 ### Sales Pipeline Management
 

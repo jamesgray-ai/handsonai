@@ -38,7 +38,7 @@ Today's number for the Measure. Always ask it: Analyze doesn't capture it, and a
 **Ask:** "What's [the measure, in plain words] today?" ("What's the time each report takes today?")
 - *Not sure?* Say you don't know. Leaving it unknown is fine.
 
-Read how it was got from the answer; never ask it. `Measured` when the leader names where the number comes from (a report, a log, a count); `Estimated` otherwise; `Unknown` when they don't know, which a "not sure" records at once. Never push past `Unknown`, and never offer an estimate to fill the gap: an invented baseline makes a false improvement provable.
+Read how it was got from the answer; never ask it. `Measured` when the leader names where the number comes from (a report, a log, a count); `Estimated` otherwise; `Unknown` when they don't know, which a "not sure" records at once (with no number, the row reads `— · Unknown`). Never push past `Unknown`, and never offer an estimate to fill the gap: an invented baseline makes a false improvement provable.
 
 ## An aim
 

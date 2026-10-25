@@ -334,7 +334,7 @@ Every skill carries `SKILL.md` and `references/routing.md`. The rest follow each
 
 | Skill | Its other files |
 |---|---|
-| Analyze | None: `SKILL.md` holds every line |
+| Analyze | `references/part-1-reading-and-the-lens.md`, `history-pass.md`, `the-walk.md` (N-A4, N-A5), `registering-candidates.md`, `report-format.md` (N-A8), `resuming-and-picking-up.md`; every other line in `SKILL.md` |
 | Deconstruct | `references/choosing-a-workflow.md`, `from-a-document.md`, `part-1-what-this-is-worth.md` to `part-5-rules-sources-and-practice-runs.md`, `light-track.md`, `re-runs.md`, `requirements-template.md`, `personal-life.md` |
 | Design | `references/plan-template.md`, `self-test-checklist.md`, `updating-the-plan.md`, `capability-domains.md`, `orchestrator-on-primary-loop.md` |
 | Build | `references/setup.md`, `claude-code-block.md`, `bare-run.md`, `carried-lines.md`, `standard-tasks.md`, `package-and-install.md`, `microsoft-365-agent.md`, `fix-mode.md`, `live-change.md`, `build-record-template.md`, `skill-spec.md`, `agent-spec.md`; `scripts/test-run.sh` |

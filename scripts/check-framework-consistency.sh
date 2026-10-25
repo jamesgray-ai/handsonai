@@ -84,13 +84,12 @@ done
 
 echo
 echo "-- framework record lives in framework/, not outputs/ (9.0) --"
-# Legacy-layout detection and the move routine legitimately name outputs/<slug>/: exempt the two
-# migration files, and any line that says it is about the pre-9.0 layout ("9.0" on the line).
+# No file is exempt: the migrations are retired (10.0.0). A line that says it is about the
+# pre-9.0 layout ("9.0" or "legacy" on the line) may still name it, to say it is never read.
 # A workflow's own output may still be shown as outputs/<file> -- the pattern only matches a
 # placeholder folder (outputs/[workflow-name]/, outputs/<slug>/, ...) or the Analyze report.
-EXEMPT='migrating-legacy-workspaces.md|interview-guide.md|registry-bundle.md'
 hits=$(grep -rnE 'outputs/((\[workflow-name\]|\[name\]|<slug>|<workflow-slug>|<workflow>|<name>)/|ai-opportunity-report)' \
-         "$SK" plugins/handsonai/README.md 2>/dev/null | grep -vE "$EXEMPT" | grep -viE '9\.0|legacy' || true)
+         "$SK" plugins/handsonai/README.md 2>/dev/null | grep -viE '9\.0|legacy' || true)
 if [ -z "$hits" ]; then ok "no framework skill or README writes the record to outputs/"
 else bad "framework record path still under outputs/:"; echo "$hits" | sed 's/^/        /'; fi
 

@@ -15,7 +15,7 @@
 
 | Workflow | Status | Progress | How it decides | How it runs | Re-check by |
 |---|---|---|---|---|---|
-| [Third Workflow](registry/workflows/third-workflow.md) | retired | Not a framework workflow, or retired | Guided: makes bounded decisions with your method | Runs with you | — |
+| [Third Workflow](registry/workflows/third-workflow.md) | retired | Retired | Guided: makes bounded decisions with your method | Runs with you | — |
 
 ## Re-check dates
 

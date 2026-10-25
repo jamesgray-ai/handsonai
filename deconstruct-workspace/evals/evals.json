@@ -15053,6 +15053,377 @@
         }
       ],
       "est_turns": 25
+    },
+    {
+      "id": "R0-rename",
+      "name": "running-work-brought-in-then-renamed",
+      "tier": "core",
+      "kind": "interview",
+      "keep_workspace": true,
+      "covers": [
+        "deconstruct 8 Part 2 (a rename keeps the node and its ID)",
+        "deconstruct 3.6",
+        "fidelity 2026-10-24 B1"
+      ],
+      "fixture": "dir:../../framework-fixtures/states/s00-running-work/with-registry",
+      "prompt": "Run the deconstruct skill on Client Follow-Up. My files are in framework.",
+      "student": "students/RW2-running-work-renamed.md",
+      "files": [
+        "students/RW2-running-work-renamed.md",
+        "students/RW1-running-work-brought-in.md"
+      ],
+      "expected_output": "Running work brought in and renamed Client Call Recap at Part 2 keeps its node and ID: the folder is framework/client-follow-up/, no node or folder is made under the new name, and the node, still in-production, takes the new title and description, so routing still finds it live and Build will pause and copy before it installs (Build's N-B41 is covered in Build's evals).",
+      "expectations": [
+        {
+          "text": "The folder keeps the node's ID: requirements.md is at framework/client-follow-up/",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "framework/client-follow-up/requirements.md",
+            "must": true
+          }
+        },
+        {
+          "text": "No folder and no node under the new name",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_absent",
+                "path": "framework/client-call-recap"
+              },
+              {
+                "type": "file_absent",
+                "path": "registry/workflows/client-call-recap.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The node stays in-production and takes the new name as its title",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "registry/workflows/client-follow-up.md",
+                "pattern": "(?m)^status: in-production[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "registry/workflows/client-follow-up.md",
+                "pattern": "(?m)^title: \"?Client Call Recap\"?[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "registry/workflows/client-follow-up.md",
+                "pattern": "\\[Requirements\\]\\(framework/client-follow-up/requirements\\.md\\)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The folder line names the existing ID (client-follow-up), not one made from the new name",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "folder called `client-follow-up`"
+          }
+        }
+      ],
+      "est_turns": 60
+    },
+    {
+      "id": "BC-call-off-rounds",
+      "name": "call-off-puts-rounds-back-in-history",
+      "tier": "regression",
+      "kind": "routing",
+      "covers": [
+        "deconstruct 11.3",
+        "fidelity 2026-10-24 S1"
+      ],
+      "fixture": "redo-with-rounds",
+      "sessions": [
+        {
+          "prompt": "Run the deconstruct skill on Client Follow-Up. My files are in framework/client-follow-up.",
+          "replies": [
+            "keep it as it was"
+          ]
+        }
+      ],
+      "files": [],
+      "expected_output": "Calling off a big change puts the plan, build record and test-results.md back in the workflow folder, and the finished round (test-results-round-1.md) back at the top of history/, never in the workflow folder.",
+      "expectations": [
+        {
+          "text": "The plan, build record and current results are back in the workflow folder",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/design-plan.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/build-record.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/test-results.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The finished round is back at the top of history/, not in the workflow folder",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/history/test-results-round-1.md"
+              },
+              {
+                "type": "file_absent",
+                "path": "framework/client-follow-up/test-results-round-1.md"
+              }
+            ],
+            "must": true
+          }
+        },
+        {
+          "text": "N-D16 in its main form",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-D16",
+            "form": "main"
+          }
+        }
+      ],
+      "est_turns": 2
+    },
+    {
+      "id": "BC-no-set-aside-yet",
+      "name": "set-aside-folder-made-when-design-stopped-first",
+      "tier": "regression",
+      "kind": "routing",
+      "covers": [
+        "deconstruct 11.2",
+        "fidelity 2026-10-24 S2"
+      ],
+      "fixture": "redo-no-set-aside",
+      "sessions": [
+        {
+          "prompt": "Run the deconstruct skill on Client Follow-Up. My files are in framework/client-follow-up.",
+          "replies": [
+            "keep it as it was"
+          ]
+        }
+      ],
+      "files": [],
+      "expected_output": "Design wrote big_change and stopped before making the set-aside folder: Deconstruct creates history/set-aside-YYYY-MM-DD-HHMM/, moves the results, build record and plan into it before the first playback, removes the two links, then the call-off puts them back.",
+      "expectations": [
+        {
+          "text": "Before the first playback, a set-aside folder was made and the plan moved into it",
+          "kind": "scripted",
+          "check": {
+            "type": "file_existed_during",
+            "path": "framework/client-follow-up/history/set-aside-*/design-plan.md"
+          }
+        },
+        {
+          "text": "After the call-off, the plan, build record and results are back, and big_change is gone",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/design-plan.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/build-record.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/test-results.md"
+              },
+              {
+                "type": "file_not_regex",
+                "path": "registry/workflows/client-follow-up.md",
+                "pattern": "(?m)^big_change:"
+              }
+            ]
+          }
+        },
+        {
+          "text": "One line said the set-aside was finished before the first playback",
+          "kind": "judged"
+        }
+      ],
+      "est_turns": 2
+    },
+    {
+      "id": "LS-confidential-paste",
+      "name": "light-switch-confidential-paste-at-practice-runs",
+      "tier": "core",
+      "kind": "interview",
+      "covers": [
+        "deconstruct 10.1 (a sign of risk at any item)",
+        "rules 7",
+        "fidelity 2026-10-24 S4"
+      ],
+      "fixture": "newsletter",
+      "prompt": "Run the deconstruct skill. My files are in framework.",
+      "student": "students/LS-confidential-paste.md",
+      "files": [
+        "students/LS-confidential-paste.md",
+        "students/L1-newsletter-light.md"
+      ],
+      "expected_output": "On the light track, a pasted practice input with real client details is a sign of risk: the confidential check, then N-L2 and the full track carries on.",
+      "expectations": [
+        {
+          "text": "The interview starts light",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-L1",
+            "form": "main"
+          }
+        },
+        {
+          "text": "At the confidential paste, N-L2 with its promise clause, then N-D17",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-L2",
+                "form": "promise clause"
+              },
+              {
+                "type": "quote",
+                "id": "N-D17"
+              }
+            ],
+            "must": true
+          }
+        },
+        {
+          "text": "N-L2 names the sign of risk in plain words (confidential client details in what was pasted); the confidential check is said before that input is saved; the interview carries on as the full track without asking again what's already captured",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "est_turns": 30
+    },
+    {
+      "id": "BL-retired-named",
+      "name": "retired-workflow-named-at-backlog-choice",
+      "tier": "regression",
+      "kind": "routing",
+      "covers": [
+        "deconstruct 5.1 (a workflow named at the backlog choice is routed)",
+        "fidelity 2026-10-24 S8"
+      ],
+      "fixture": "backlog-plus-retired",
+      "sessions": [
+        {
+          "prompt": "Run the deconstruct skill. My files are in framework.",
+          "replies": [
+            "Renewal Reminders"
+          ]
+        }
+      ],
+      "files": [],
+      "expected_output": "Naming a retired workflow at the backlog choice routes it as at entry: the retired line, no cold entry, no new node.",
+      "expectations": [
+        {
+          "text": "The retired line, and the cold-entry question is never asked",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "retired-line"
+              },
+              {
+                "type": "quote_absent",
+                "id": "deconstruct:5.1:q2"
+              }
+            ],
+            "must": true
+          }
+        },
+        {
+          "text": "No folder is made for it, and its node isn't rewritten",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_absent",
+                "path": "framework/renewal-reminders"
+              },
+              {
+                "type": "file_unchanged",
+                "path": "registry/workflows/renewal-reminders.md"
+              }
+            ]
+          }
+        }
+      ],
+      "est_turns": 3
+    },
+    {
+      "id": "BL-backlog-md-beside-registry",
+      "name": "backlog-md-left-beside-a-registry",
+      "tier": "regression",
+      "kind": "routing",
+      "covers": [
+        "deconstruct 5.1",
+        "analyze fidelity 2026-10-24 S3"
+      ],
+      "fixture": "backlog-md-beside-registry",
+      "files": [],
+      "expected_output": "With a registry and no backlog node, a backlog.md left from before the registry isn't read as the backlog: one line says its workflows aren't in the registry yet and gives Analyze's start phrase, then cold entry's question.",
+      "expectations": [
+        {
+          "text": "No backlog choice from backlog.md",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "deconstruct:map-backlog-question",
+            "form": "Recommended"
+          }
+        },
+        {
+          "text": "Analyze's start phrase with the location",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "run the analyze skill. My files are in framework"
+          }
+        },
+        {
+          "text": "Cold entry's question follows in the same message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "deconstruct:5.1:q2"
+          }
+        }
+      ],
+      "est_turns": 2,
+      "prompt": "Run the deconstruct skill. My files are in framework."
     }
   ],
   "default_tier": "regression",

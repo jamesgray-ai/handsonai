@@ -555,7 +555,7 @@ cmp -s "$TOOLS/dashboard-template.html" "$REPO_ROOT/plugins/handsonai/skills/ind
 
 # state name per routing: compose reads each workflow's folder through framework-state
 FF="$REPO_ROOT/framework-fixtures/states"
-for pair in "s04-plan-needed:Plan needed" "s06-build-needed:Build needed" "s08-test-needed:Test needed" "s11-live:Live" "s00-running-work:Not a framework workflow, or retired"; do
+for pair in "s04-plan-needed:Plan needed" "s06-build-needed:Build needed" "s08-test-needed:Test needed" "s11-live:Live" "s00-running-work:Runs outside the framework" "s00-retired:Retired"; do
   fx="${pair%%:*}"; name="${pair#*:}"
   SW=$(mktemp -d); cp -R "$FF/$fx/with-registry/." "$SW/"; (cd "$SW" && git init -q . )
   (cd "$SW" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null) > "$SW/island.json"
