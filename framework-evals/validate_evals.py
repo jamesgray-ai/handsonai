@@ -9,7 +9,8 @@ file's `default_tier` or regression; --strict-tiers makes it an error); every ex
 with its required fields (regexes compile; `quote` ids exist in approved-lines.json; `no_yaml` is
 retired); `must`/`gating` are booleans; leader scripts and `files` paths exist; fixture names are
 known to the file's fixture builder (`dir:` fixtures exist); `fixture_from` paths are present or name
-a run folder; `platform`, `platform_faults` and `leader_runs` are known; `action_target` is {figure, journey}. An
+a run folder; `platform`, `platform_faults` and `leader_runs` are known; `action_target` is {figure, journey};
+`core_runs` (how many runs the core round gives it: 1 to 3) is set only on a core eval. An
 eval marked `"retired"` is skipped (kept in place with its note). With --build-fixtures, every
 fixture is built into a temp folder.
 """
@@ -134,6 +135,9 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
             (errs if strict_tiers and not data.get("default_tier") else warnings).append(msg)
         elif tier not in ("core", "regression"):
             errs.append(f"{w}: tier {tier!r} isn't core or regression")
+        if "core_runs" in ev and not (isinstance(ev["core_runs"], int) and not isinstance(ev["core_runs"], bool)
+                                      and 1 <= ev["core_runs"] <= 3 and (tier or data.get("default_tier")) == "core"):
+            errs.append(f"{w}: core_runs {ev['core_runs']!r} must be 1 to 3, on a core eval")
         for k in ("id", "name", "expected_output", "expectations", "files"):
             if k not in ev:
                 errs.append(f"{w}: missing {k}")

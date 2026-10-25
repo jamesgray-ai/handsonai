@@ -1,6 +1,6 @@
 {
   "skill_name": "deconstruct",
-  "how_to_run": "From this folder: `python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression|all] [--runs N] [--parallel N] [--dry-run] [--yes]`. Each eval is tagged `tier`: core (deconstruct 18's (core) items and rules 14's core list: routing, the wrong place, the light path's switch, safety and fail-closed, cold entry with work that already runs, and the first-time-leader journey on each platform) gates the release and runs three times; regression is everything else, run before each cohort release. The runner builds each fixture (`dir:` folders, mostly `../../framework-fixtures/`, or a name from fixtures/make_fixture.py), runs the skill isolated (harness.py), plays the leader from students/ on a simulated platform (`platform`, `platform_faults`), and grades: check_scripted.py for scripted expectations (quote checks against approved-lines.json, never the skill), grade_eval.py and the judge rubric for judged ones. Without --yes it prints the cost estimate and stops. Validate edits with `python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers` and `python3 ../../framework-evals/check_quotes.py evals evals.json`. Effort is counted in leader actions (`action_target`), never time.",
+  "how_to_run": "From this folder: `python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression|all] [--runs N] [--parallel N] [--dry-run] [--yes]`. Each eval is tagged `tier`: core (deconstruct 18's (core) items and rules 14's core list: routing, the wrong place, the light path's switch, safety and fail-closed, cold entry with work that already runs, and the first-time-leader journey on each platform) gates the release and runs three times; regression is everything else, run before each cohort release. The runner builds each fixture (`dir:` folders, mostly `../../framework-fixtures/`, or a name from fixtures/make_fixture.py), runs the skill isolated (harness.py), plays the leader from students/ on a simulated platform (`platform`, `platform_faults`), and grades: check_scripted.py for scripted expectations (quote checks against approved-lines.json, never the skill), grade_eval.py and the judge rubric for judged ones. Without --yes it prints the cost estimate and stops. Validate edits with `python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers` and `python3 ../../framework-evals/check_quotes.py evals evals.json`. Effort is counted in leader actions (`action_target`), never time. A core eval marked `core_runs: 1` (one that runs only on Microsoft 365 or Codex) runs once in the core round, and its one valid run counts (run_eval.py --help).",
   "evals": [
     {
       "id": "I1",
@@ -10592,6 +10592,7 @@
       "id": "R-m365-reads",
       "name": "m365-reads-with-nothing-attached",
       "tier": "core",
+      "core_runs": 1,
       "kind": "routing",
       "platform": "microsoft-365",
       "fixture": "newsletter",
@@ -10628,6 +10629,7 @@
       "id": "R-m365-cannot-read",
       "name": "m365-cannot-read",
       "tier": "core",
+      "core_runs": 1,
       "kind": "routing",
       "platform": "microsoft-365",
       "platform_faults": [
@@ -10676,6 +10678,7 @@
       "id": "R-m365-attach-fails",
       "name": "m365-attach-fails",
       "tier": "core",
+      "core_runs": 1,
       "kind": "routing",
       "platform": "microsoft-365",
       "platform_faults": [
@@ -11218,6 +11221,7 @@
       "id": "FTJ-codex",
       "name": "first-time-leader-light-codex",
       "tier": "core",
+      "core_runs": 1,
       "kind": "interview",
       "keep_workspace": true,
       "platform": "codex",
@@ -12658,6 +12662,7 @@
       "id": "FTJ-microsoft-365",
       "name": "first-time-leader-light-microsoft-365",
       "tier": "core",
+      "core_runs": 1,
       "kind": "interview",
       "keep_workspace": true,
       "platform": "microsoft-365",

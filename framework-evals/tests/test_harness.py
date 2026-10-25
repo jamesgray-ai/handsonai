@@ -724,6 +724,47 @@ class ReleaseItemsAndFidelity(unittest.TestCase):
         self.assertTrue(CS.fidelity(run(turns))[0])  # what the screen showed
 
 
+class CoreRuns(unittest.TestCase):
+    """`core_runs: 1` (the Microsoft 365 and Codex evals): the core round runs them once and one valid run counts."""
+
+    def test_core_runs_once_where_the_eval_says_so(self):
+        import types
+        import run_eval as R
+        data = {"default_tier": "regression"}
+        args = types.SimpleNamespace(runs=None, smoke=False)
+        once = {"id": "M", "tier": "core", "core_runs": 1}
+        three = {"id": "C", "tier": "core"}
+        legacy = {"id": "D", "tier": "core", "runs": 2}  # an eval's own runs never takes a core eval below three
+        reg = {"id": "R", "tier": "regression", "runs": 5}
+        self.assertEqual([R.runs_for(e, args, data) for e in (once, three, legacy, reg)], [1, 3, 3, 5])
+        args.runs = 3  # an explicit --runs still applies
+        self.assertEqual(R.runs_for(once, args, data), 3)
+        args.runs, args.smoke = None, True
+        self.assertEqual(R.runs_for(three, args, data), 1)
+        args.smoke = False
+        rows, _ = R.estimate([once, three], types.SimpleNamespace(runs=None, smoke=False, cost_from=None), data)
+        self.assertEqual([r[2] for r in rows], [1, 3])
+
+    def test_one_valid_run_counts_only_where_core_runs_is_one(self):
+        import run_eval as R
+        run = [{"status": "valid", "expectations": [{"passed": True}]}]
+        x = [{"text": "t", "kind": "scripted", "passed": True}]
+        for r in run:
+            r["expectations"] = x
+        self.assertFalse(R.SMOKE)
+        self.assertEqual(R.eval_verdict({"id": "M", "core_runs": 1}, run, "core")[0], "PASS")
+        self.assertEqual(R.eval_verdict({"id": "C"}, run, "core")[0], "NOT COUNTED")
+
+    def test_validator_takes_core_runs_only_on_a_core_eval(self):
+        with tempfile.TemporaryDirectory() as t:
+            evs = [{"id": i, "name": i, "tier": tier, "prompt": "go", "fixture": "empty", "expected_output": "",
+                    "files": [], "core_runs": n, "expectations": [{"text": "q", "kind": "judged"}]}
+                   for i, tier, n in (("A", "core", 1), ("B", "regression", 1), ("C", "core", 0), ("D", "core", True))]
+            Path(t, "evals.json").write_text(json.dumps({"skill_name": "x", "how_to_run": "t", "evals": evs}))
+            errs = [e for e in V.validate_file(Path(t, "evals.json")) if "core_runs" in e]
+            self.assertEqual(sorted(e.split(":")[1] for e in errs), ["B", "C", "D"])
+
+
 class MailStub(unittest.TestCase):
     """The stand-in Gmail/Outlook connection's optional delete_draft tool (N-B33's undo form)."""
 

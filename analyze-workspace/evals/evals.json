@@ -1,6 +1,6 @@
 {
   "skill_name": "analyze",
-  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression] [--dry-run]. Fixtures: fixtures/make_fixture.py (names), or dir: paths into framework-fixtures/ (relative to this folder). Leader scripts are in students/. Validate with python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers. Expected text is copied from the final spec's analyze.md (sections 2, 3, 7 and 9) and approved-lines.json; never retype it. Evals with a `blocked_on` note can't pass until that task lands; `covers` names the spec item each eval checks.",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression] [--dry-run]. Fixtures: fixtures/make_fixture.py (names), or dir: paths into framework-fixtures/ (relative to this folder). Leader scripts are in students/. Validate with python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers. Expected text is copied from the final spec's analyze.md (sections 2, 3, 7 and 9) and approved-lines.json; never retype it. Evals with a `blocked_on` note can't pass until that task lands; `covers` names the spec item each eval checks. A core eval marked `core_runs: 1` (one that runs only on Microsoft 365 or Codex) runs once in the core round, and its one valid run counts (run_eval.py --help).",
   "fixture_builder": "fixtures/make_fixture.py",
   "default_tier": "regression",
   "evals": [
@@ -829,6 +829,7 @@
       "id": "A07n",
       "name": "microsoft-365-cant-read-files",
       "tier": "core",
+      "core_runs": 1,
       "covers": [
         "analyze 7 item 6",
         "rules 14: routing (Microsoft 365 can't read)"
@@ -1815,6 +1816,7 @@
       "id": "J-codex",
       "name": "first-time-leader-codex",
       "tier": "core",
+      "core_runs": 1,
       "covers": [
         "rules 14: first-time leaders",
         "analyze 7 item 3",
@@ -2742,6 +2744,7 @@
       "id": "J-microsoft-365",
       "name": "first-time-leader-microsoft-365",
       "tier": "core",
+      "core_runs": 1,
       "covers": [
         "rules 14: first-time leaders",
         "analyze 7 item 1",

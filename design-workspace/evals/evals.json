@@ -1,6 +1,6 @@
 {
  "skill_name": "design",
- "how_to_run": "From this folder: `python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression|all] [--runs N] [--parallel N] [--skill-model MODEL] [--dry-run] [--yes]`. Each eval is tagged `tier` (design.md 14 and rules 14): core holds the routing and entry cases, the wrong place, the safety choices and fail-closed defaults, the approval guard for consequential points, the direct-edit check, the automatic switch to full, Microsoft 365's agent, the quote check and the first-time-leader journey on each platform; it gates the release and runs three times. Everything else is the regression suite. `spec_item` names the design.md 14 item each eval covers. The plan-structure check runs on every plan an eval writes. Item 17 (effort) is the leader-action count the runner reports against `action_target`. Item 18 (the smaller-model round) re-runs the evals marked `smaller_model_round: true` (items 2, 4, 6, 7 and 16) with `--skill-model` set to the smaller model, and the report compares each item with the main model's round. Fixtures are `dir:` folders in ../../framework-fixtures/ or names from fixtures/make_fixture.py (hand-written 10.0 requirements, regenerated from real Deconstruct runs in T45 and T71). Without --yes the runner prints the cost estimate and stops. Validate edits with `python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers` and `python3 ../../framework-evals/check_quotes.py evals evals.json`. Effort is counted in leader actions, never time.",
+ "how_to_run": "From this folder: `python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression|all] [--runs N] [--parallel N] [--skill-model MODEL] [--dry-run] [--yes]`. Each eval is tagged `tier` (design.md 14 and rules 14): core holds the routing and entry cases, the wrong place, the safety choices and fail-closed defaults, the approval guard for consequential points, the direct-edit check, the automatic switch to full, Microsoft 365's agent, the quote check and the first-time-leader journey on each platform; it gates the release and runs three times. Everything else is the regression suite. `spec_item` names the design.md 14 item each eval covers. The plan-structure check runs on every plan an eval writes. Item 17 (effort) is the leader-action count the runner reports against `action_target`. Item 18 (the smaller-model round) re-runs the evals marked `smaller_model_round: true` (items 2, 4, 6, 7 and 16) with `--skill-model` set to the smaller model, and the report compares each item with the main model's round. Fixtures are `dir:` folders in ../../framework-fixtures/ or names from fixtures/make_fixture.py (hand-written 10.0 requirements, regenerated from real Deconstruct runs in T45 and T71). Without --yes the runner prints the cost estimate and stops. Validate edits with `python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers` and `python3 ../../framework-evals/check_quotes.py evals evals.json`. Effort is counted in leader actions, never time. A core eval marked `core_runs: 1` (one that runs only on Microsoft 365 or Codex) runs once in the core round, and its one valid run counts (run_eval.py --help).",
  "default_tier": "regression",
  "fixture_builder": "fixtures/make_fixture.py",
  "evals": [
@@ -1226,6 +1226,7 @@
    "id": "EN-m365-reads",
    "name": "microsoft-365-location-only",
    "tier": "core",
+   "core_runs": 1,
    "spec_item": "1",
    "platform": "microsoft-365",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
@@ -1276,6 +1277,7 @@
    "id": "EN-m365-cannot-read",
    "name": "microsoft-365-cannot-read",
    "tier": "core",
+   "core_runs": 1,
    "spec_item": "1",
    "platform": "microsoft-365",
    "platform_faults": [
@@ -1324,6 +1326,7 @@
    "id": "EN-m365-live",
    "name": "microsoft-365-live-routed-as-live",
    "tier": "core",
+   "core_runs": 1,
    "spec_item": "1",
    "platform": "microsoft-365",
    "fixture": "live",
@@ -7424,6 +7427,7 @@
    "id": "FTJ-codex",
    "name": "first-time-leader-codex",
    "tier": "core",
+   "core_runs": 1,
    "spec_item": "15, 17",
    "platform": "codex",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
@@ -8056,6 +8060,7 @@
    "id": "FTJ-microsoft-365",
    "name": "first-time-leader-microsoft-365",
    "tier": "core",
+   "core_runs": 1,
    "spec_item": "15, 17",
    "platform": "microsoft-365",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
@@ -8253,6 +8258,7 @@
    "id": "M365-agent",
    "name": "microsoft-365-agent-blueprint",
    "tier": "core",
+   "core_runs": 1,
    "spec_item": "19",
    "platform": "microsoft-365",
    "fixture": "domains",
@@ -8589,6 +8595,7 @@
    "id": "DE-m365-agent-no-fingerprints",
    "name": "change-my-workflow-m365-agent-nothing-fingerprinted",
    "tier": "core",
+   "core_runs": 1,
    "spec_item": "9",
    "covers": [
     "fidelity-design S2",

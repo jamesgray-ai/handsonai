@@ -12,8 +12,12 @@ Usage:
   eval ids       which evals to run; none means every eval in the chosen tier that has no `blocked_on` note
   --tier         core, regression or all (default all). Each eval is tagged `tier: core|regression`
                  (the evals file's `default_tier` otherwise). Core cases run three times before they
-                 count, and pass only when every expectation passes in every run (rules 14)
-  --runs         repeats per eval (default: the eval's `runs`, else 3; never fewer than 3 for core)
+                 count, and pass only when every expectation passes in every run (rules 14). A core
+                 eval marked `"core_runs": 1` (the evals that run only on Microsoft 365 or Codex, which few
+                 students use; James tests Microsoft 365 by hand) runs once in the core round, and its one
+                 valid run counts
+  --runs         repeats per eval (default: the eval's `runs`, else 3; for core never fewer than 3,
+                 or than its `core_runs` where it sets one)
   --plugin       plugin folder under test (default: this repo's plugins/handsonai)
   --max-turns    cap on AI turns per session (default 80); hitting it fails the run
   --parallel     runs at once (default 2)
@@ -103,6 +107,12 @@ def load_evals(path):
 
 def tier_of(ev, data):
     return ev.get("tier") or data.get("default_tier") or "regression"
+
+
+def core_runs(ev):
+    """The valid runs a core eval needs before it counts: three (rules 14), or the eval's own
+    `core_runs` (1 for the evals that run only on Microsoft 365 or Codex)."""
+    return ev.get("core_runs", CORE_RUNS)
 
 
 def build_fixture(fixture, target, evals_dir, builder=None):
@@ -417,7 +427,7 @@ def pass_bar(x, n, tier="regression"):
 def eval_verdict(ev, rs, tier):
     """PASS, FAIL or NOT COUNTED (core with fewer than three valid runs) for one eval."""
     graded = [r for r in rs if r["status"] in ("valid", "failed_invalid_cap") and r.get("expectations")]
-    if tier == "core" and not SMOKE and len([r for r in graded if r["status"] == "valid"]) < CORE_RUNS:
+    if tier == "core" and not SMOKE and len([r for r in graded if r["status"] == "valid"]) < core_runs(ev):
         return "NOT COUNTED", graded
     if not graded:
         return "NO RESULT", graded
@@ -441,7 +451,8 @@ def summarize(out, evs, results, data):
         tiers[t] = verdicts
         counts = {v: list(verdicts.values()).count(v) for v in sorted(set(verdicts.values()))}
         lines += [f"## Tier: {t} ({len(tevs)} evals)", "",
-                  "Core cases run three times and count only when every expectation passes every run."
+                  "Core cases run three times (once where an eval sets `core_runs: 1`) and count only when every "
+                  "expectation passes every run."
                   if t == "core" else "Regression: scripted and must-level checks every run; other judged 2 of 3.", "",
                   "Verdicts: " + ", ".join(f"{k} {v}" for k, v in counts.items()), ""]
         for ev in tevs:
@@ -469,8 +480,10 @@ def summarize(out, evs, results, data):
 def runs_for(ev, args, data):
     if getattr(args, "smoke", False):
         return 1
-    n = args.runs or ev.get("runs", 3)
-    return max(n, CORE_RUNS) if tier_of(ev, data) == "core" else n
+    if tier_of(ev, data) == "core":
+        need = core_runs(ev)
+        return max(args.runs or ev.get("runs", need), need)
+    return args.runs or ev.get("runs", 3)
 
 
 def estimate(evs, args, data):
@@ -530,11 +543,13 @@ def dry_run(evs, evals_path, data):
 
 
 def main():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out_dir")
     ap.add_argument("eval_ids", nargs="*")
     ap.add_argument("--evals", required=True)
-    ap.add_argument("--tier", choices=["core", "regression", "all"], default="all")
+    ap.add_argument("--tier", choices=["core", "regression", "all"], default="all",
+                    help="core runs each eval three times, or once where it sets core_runs: 1 (the Microsoft 365 "
+                         "and Codex evals); regression each eval's runs, else 3")
     ap.add_argument("--runs", type=int)
     ap.add_argument("--plugin", default=str(ROOT / "plugins" / "handsonai"))
     ap.add_argument("--max-turns", type=int, default=80)

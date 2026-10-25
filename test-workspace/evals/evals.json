@@ -1,6 +1,6 @@
 {
   "skill_name": "test",
-  "how_to_run": "From this folder: `python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression|all] [--runs N] [--parallel N] [--skill-model MODEL] [--dry-run] [--yes]`. Each eval is tagged `tier` (test.md 13 and rules 14): core holds the entry and routing cases, the safety and fail-closed cases (cold runs, the transcript check, the wrapper, the Deny line by the run's reach, the practice folder's refusals and clearing, the practice-run check), the Microsoft 365 agent and skills cases (the Milk case among them), the core going-live cases, the quote check (built into every run) and one first-time-leader journey per platform; it gates the release and runs three times. Everything else is the regression suite. `spec_item` names the test.md 13 bullet each eval covers. Multi-session evals cover several platforms or variants through the simulated leader in one eval. `preconditions` name what a run needs that isn't true yet (release checks T19 verifies; simulation features T71 adds); read the eval's result against them. Fixtures are `dir:` folders in ../../framework-fixtures/ or names from fixtures/make_fixture.py (`--list`; `--check` builds each and prints its routing state). Without --yes the runner prints the cost estimate and stops. Validate edits with `python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers` and `python3 ../../framework-evals/check_quotes.py evals evals.json`. Effort is counted in leader actions, never time.",
+  "how_to_run": "From this folder: `python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--tier core|regression|all] [--runs N] [--parallel N] [--skill-model MODEL] [--dry-run] [--yes]`. Each eval is tagged `tier` (test.md 13 and rules 14): core holds the entry and routing cases, the safety and fail-closed cases (cold runs, the transcript check, the wrapper, the Deny line by the run's reach, the practice folder's refusals and clearing, the practice-run check), the Microsoft 365 agent and skills cases (the Milk case among them), the core going-live cases, the quote check (built into every run) and one first-time-leader journey per platform; it gates the release and runs three times. Everything else is the regression suite. `spec_item` names the test.md 13 bullet each eval covers. Multi-session evals cover several platforms or variants through the simulated leader in one eval. `preconditions` name what a run needs that isn't true yet (release checks T19 verifies; simulation features T71 adds); read the eval's result against them. Fixtures are `dir:` folders in ../../framework-fixtures/ or names from fixtures/make_fixture.py (`--list`; `--check` builds each and prints its routing state). Without --yes the runner prints the cost estimate and stops. Validate edits with `python3 ../../framework-evals/validate_evals.py evals.json --build-fixtures --strict-tiers` and `python3 ../../framework-evals/check_quotes.py evals evals.json`. Effort is counted in leader actions, never time. A core eval marked `core_runs: 1` (one that runs only on Microsoft 365 or Codex) runs once in the core round, and its one valid run counts (run_eval.py --help).",
   "default_tier": "regression",
   "fixture_builder": "fixtures/make_fixture.py",
   "evals": [
@@ -473,6 +473,7 @@
       "id": "TE-m365-entry",
       "name": "microsoft-365-location-only",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Entry: Microsoft 365, the location only; N-F13's fallback; a live workflow routed as live",
       "sessions": [
         {
@@ -541,6 +542,7 @@
       "id": "TE-m365-fallback",
       "name": "microsoft-365-cannot-read",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Entry: Microsoft 365, N-F13's Microsoft 365 form before the opening only where Cowork can't read the files",
       "fixture": "m365-first",
       "prompt": "Test the workflow I built. My files are in OneDrive, in Framework/client-follow-up.",
@@ -639,6 +641,7 @@
       "id": "TE-agent-entry",
       "name": "microsoft-365-agent-entry",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Entry: an agent Agent Builder made: N-E1's agent form, its skip straight from Build, the fixed first line as the check",
       "sessions": [
         {
@@ -1840,6 +1843,7 @@
       "id": "TS-transcript-check",
       "name": "transcript-check",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Keeping runs cold and safe: the transcript check refuses labels, task names, framework reads; never a rule's wording or the input's words",
       "sessions": [
         {
@@ -2811,6 +2815,7 @@
       "id": "TS-agent-id-echo",
       "name": "agent-id-echoed",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Keeping runs cold and safe: an agent whose run shows a task ID, refused once, then the same ID again in a new chat, graded and recorded as a build miss (IDs in built text), no loop",
       "fixture": "m365-agent-ids",
       "prompt": "Test the workflow I built. My files are in OneDrive, in Framework/client-follow-up.",
@@ -3513,6 +3518,7 @@
       "id": "TG-milk",
       "name": "summary-claims-milk",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Microsoft 365, an agent (core): a 'What I did' that claims an item the output doesn't have, graded Not met on the output (the Milk case, 3c-DG)",
       "fixture": "grocery-milk",
       "prompt": "Test the workflow I built. My files are in OneDrive, in Framework/weekly-grocery-list.",
@@ -6045,6 +6051,7 @@
       "id": "TM-agent-handover",
       "name": "agent-hand-over",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Microsoft 365, an agent: N-T8's agent form, nothing attached, N-F4 in every hand-over, no switch-off steps, the protection clause even with no connection",
       "fixture": "m365-agent-noconn",
       "prompt": "Test the workflow I built. My files are in OneDrive, in Framework/client-follow-up.",
@@ -6105,6 +6112,7 @@
       "id": "TM-agent-fix-roundtrip",
       "name": "agent-fix-round-trip",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Microsoft 365, an agent: a miss sent to Build, its fix prompt through Agent Builder (N-B53), then an after-fix round re-running every input that uses the agent",
       "sessions": [
         {
@@ -6172,6 +6180,7 @@
       "id": "TK-by-path",
       "name": "m365-skill-reads-by-path",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Microsoft 365, skills: run chats attach nothing but an input file; a skill that can't read its file says so and stops, and the leader attaches it",
       "fixture": "m365-batch",
       "prompt": "Test the workflow I built. My files are in OneDrive, in Framework/client-follow-up.",
@@ -6561,6 +6570,7 @@
       "id": "TJ-microsoft-365",
       "name": "first-time-leader-microsoft-365",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 First-time leader walk-throughs: one journey per platform",
       "sessions": [
         {
@@ -6752,6 +6762,7 @@
       "id": "TJ-codex",
       "name": "first-time-leader-codex",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 First-time leader walk-throughs: one journey per platform",
       "sessions": [
         {
@@ -6844,6 +6855,7 @@
       "id": "TL-platform-change-answered",
       "name": "platform-change-not-asked-again",
       "tier": "core",
+      "core_runs": 1,
       "spec_item": "13 Go live: N-T56 asked once per platform change, never at every re-check",
       "fixture": "platform-change-answered",
       "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
