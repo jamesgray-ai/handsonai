@@ -806,6 +806,39 @@ class ClauseMarks(unittest.TestCase):
                             run_of(RUNNING_WORK.replace("should go; until", "should go, until"))))
 
 
+class ScriptedMarks(unittest.TestCase):
+    """The rubric judge's ⟦…⟧ marks: one marker per approved line, its fills inside it."""
+
+    PROMPT = ("Build the agent described in task T2 of design-plan.md, using the requirements in requirements.md. "
+              "Both files are in my OneDrive, in Framework/client-follow-up. Everything you need is in those files, "
+              "so don't ask me anything they already answer. The agent reads only "
+              "Documents/Cowork/client-follow-up/C1-follow-up-style.md, and connects to Outlook (create drafts). "
+              "Its instructions must also include these lines, word for word:\n\n- a carried line.")
+
+    def setUp(self):
+        import grade_eval as G
+        self.mark = G.mark_scripted
+
+    def test_build_prompt_fill_inside_its_marker(self):
+        msg = "2. Paste this into the Message Agent Builder box:\n\n```\n" + self.PROMPT + "\n```\n\nSay 'done' when it's made."
+        out = self.mark(msg)
+        own = re.sub(r"⟦[^⟧]*⟧", " ", out)
+        self.assertNotIn("T2", own)  # the task ID is the line's own fill, inside its marker
+        self.assertNotIn("⟦⟦", out)  # the shorter "Build the agent described in task" form never nests
+        self.assertIn("⟦Build the agent described in task T2 of design-plan.md", out)
+        self.assertIn("```", out)  # the code block stays fenced for the judge
+
+    def test_leading_fill_stays_in_its_sentence(self):
+        out = self.mark("Now update the record. client-follow-up is made in Copilot's Agent Builder, not here in "
+                        "Cowork: 1. Open Copilot, choose Chat, then Agents, then New agent. 2. Paste this into the "
+                        "Message Agent Builder box:")
+        self.assertTrue(out.startswith("Now update the record. ⟦"), out)
+
+    def test_model_wording_id_stays_outside(self):
+        out = self.mark("I'll redo T2 now. " + self.PROMPT)
+        self.assertIn("T2", re.sub(r"⟦[^⟧]*⟧", " ", out))
+
+
 class NearMissScope(unittest.TestCase):
     """Near misses count only the skill under test's lines, and skip edge-word changes on short runs."""
 

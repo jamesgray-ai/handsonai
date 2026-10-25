@@ -12,6 +12,8 @@ Read in fix mode (the last round is Not ready with Issues rows at Level `build` 
 
 "Test found [what, in plain words] in [the part, in plain words]. I'll redo just that[, and re-check what uses it], and leave everything else as it is."
 
+Nothing comes before it but the three-rounds line above. The part goes in its own place after "in", never into a sentence of your own, and the comma before "and leave" stays (wrong: "Test found that your follow-up draft added a renewal amount your call notes never mentioned. The problem is in the skill that drafts your follow-up email. I'll redo just that and leave everything else as it is."; right: "Test found a renewal amount your call notes never mentioned in the skill that drafts your follow-up email. I'll redo just that, and leave everything else as it is.").
+
 Then, before anything changes:
 - **A live workflow:** `live-change.md` (N-B41 straight after the opener).
 - **A direct edit** to a part fix mode will redo: `SKILL.md`'s entry check 7.

@@ -98,18 +98,64 @@ def grade(rnd, root, ev, run, evals_dir=None):
     return [{**x, "passed": bool(r.get("passed")), "evidence": r.get("evidence", "")} for x, r in zip(items, res)], rec
 
 
-def mark_scripted(message, corpus=None):
-    """The message with each approved line it says wrapped in ⟦…⟧."""
-    corpus = corpus or AL.load()
-    out = AL.norm(message)
+FENCE = re.compile(r"```[^\n`]*\n?(.*?)```", re.S)
+EDGE_HOLE = r"[^.!?]*?"  # a fill at a line's start or end: within its own sentence
+
+
+def _mark_regex(ln):
+    """The line's regex for marking: a fill at its very start or end is matched within its sentence,
+    so the marker holds the fill without running back to the message's start."""
+    rx = getattr(ln, "_mark_rx", None)
+    if rx is None:
+        toks = ln.toks
+        head = EDGE_HOLE if toks and toks[0][0] == "hole" else ""
+        tail = r"[^.!?]*[.!?]?" if len(toks) > 1 and toks[-1][0] == "hole" else ""
+        core = toks[1 if head else 0:len(toks) - (1 if tail else 0)]
+        rx = ln._mark_rx = re.compile(head + AL.to_regex(core) + tail, re.S | re.I)
+    return rx
+
+
+def _mark_text(text, corpus):
+    """Normalised text with every approved line said in it wrapped once in ⟦…⟧. Spans are found on
+    the unmarked text and merged, so a shorter line said inside a longer one ("Build the agent
+    described in task" in the build prompt) never splits the longer line's marker and leaves its
+    fills ("T2 of design-plan.md") outside it."""
+    out = AL.norm(text)
     low = out.lower()
+    spans = []
     for ln in corpus.checkable():
         segs = [AL.norm(x) for x in AL.literal_segments(ln.toks)]
         longest = max(segs, key=len, default="")
         if len(longest.split()) < 4 or longest.lower() not in low:
             continue
-        out = ln.regex.sub(lambda m: "⟦" + m.group(0) + "⟧", out)
-        low = out.lower()
+        for m in _mark_regex(ln).finditer(out):
+            s, e = m.start(), m.end()
+            while s < e and out[s] == " ":
+                s += 1
+            if e > s:
+                spans.append([s, e])
+    merged = []
+    for s, e in sorted(spans):
+        if merged and s < merged[-1][1]:
+            merged[-1][1] = max(merged[-1][1], e)
+        else:
+            merged.append([s, e])
+    for s, e in reversed(merged):
+        out = out[:s] + "⟦" + out[s:e] + "⟧" + out[e:]
+    return out
+
+
+def mark_scripted(message, corpus=None):
+    """The message with each approved line it says wrapped in ⟦…⟧. A fenced code block (a prompt the
+    leader pastes into a platform) stays fenced, so the judge can tell it from the message's wording."""
+    corpus = corpus or AL.load()
+    parts, at = [], 0
+    for m in FENCE.finditer(message):
+        parts.append(_mark_text(message[at:m.start()], corpus))
+        parts.append("\n```\n" + _mark_text(m.group(1), corpus) + "\n```\n")
+        at = m.end()
+    parts.append(_mark_text(message[at:], corpus))
+    out = " ".join(p for p in parts if p.strip()).strip()
     # norm drops backticks; put back the message's code-formatted names (`context/C1-call-notes.md`)
     # so the judge can apply item 7's file-name exemption
     for span in dict.fromkeys(re.findall(r"`([^`\n]+)`", message)):
