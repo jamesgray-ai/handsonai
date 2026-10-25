@@ -2,7 +2,7 @@
   "version": "2.0",
   "framework_release": "10.0",
   "notes": "The single source of platform facts for the handsonai skills. Look a platform up by its key or by any name in its `aliases`. Readers take `capabilities` values as readable strings, except the structured fields new in 2.0 (`unattended_checkpoint`, `cloud_drives`, `approval_labels`, `connection_switch_off`, `build_places`, `agent_builder`, `skill_context_by_path`), whose `release_check` numbers point into `release_checks`. A fact that rests on an open release check takes that check's fallback until the check is recorded as passed; nothing in a skill assumes a check passed. Unverified facts say so, with their fallback.",
-  "release_checks_policy": "Rules 13.2: each check is verified on a stated version range, recorded in `verified_version_range` with who ran it and when. Outside the verified range (read with `claude --version` on Claude Code), every check takes its fallback and the step says so once. Where no version can be read (Claude on the web and desktop, ChatGPT, Microsoft 365), the checks run again before each cohort release and whenever a platform's release notes change something a check rests on. An empty `verified_version_range` means no range is recorded yet.",
+  "release_checks_policy": "Rules 13.2: each check is verified on a stated version range, recorded in `verified_version_range` with who ran it and when. Outside the verified range (read with `claude --version` on Claude Code), every check takes its fallback and the step says so once. Where no version can be read (Claude on the web and desktop, ChatGPT, Microsoft 365), the checks run again before each cohort release and whenever a platform's release notes change something a check rests on. An empty `verified_version_range` means no range is recorded yet. Where no version can be read, a row marked `verified` counts as passed only when its `verified_for_release` equals this registry's `framework_release` (the current cohort release); otherwise its fallback.",
   "platforms": {
     "claude-code": {
       "mode": "code",
@@ -848,6 +848,32 @@
       ],
       "check": "The button that refuses an action in Microsoft 365 Copilot Cowork and in ChatGPT is labelled \"Deny\", as N-F4 says (3c-DJ)",
       "fallback": "N-F4 names that platform's own label, from this registry's `approval_labels.refuse`",
+      "status": "open",
+      "verified_on": "",
+      "verified_for_release": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 34,
+      "platforms": [
+        "claude"
+      ],
+      "check": "Claude desktop: desktop_add_folder ('Work in a folder' in the chat bar) still matches the app",
+      "fallback": "Say the exact steps couldn't be verified; the leader adds the folder their own way",
+      "status": "open",
+      "verified_on": "",
+      "verified_for_release": "",
+      "verified_version_range": "",
+      "run_by": ""
+    },
+    {
+      "id": 35,
+      "platforms": [
+        "microsoft-365-copilot"
+      ],
+      "check": "An Agent Builder agent can run on a schedule",
+      "fallback": "Plan scheduled work as Cowork skills run by a scheduled prompt, never an Agent Builder agent",
       "status": "open",
       "verified_on": "",
       "verified_for_release": "",

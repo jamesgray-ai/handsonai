@@ -8,7 +8,7 @@ Every framework skill uses this one rule: at its entry, before its opening, and 
 - **The workflow's folder,** current files only: `requirements.md`, `deconstruct-in-progress.md`, `design-plan.md`, `build-record.md`, `test-results.md`. To spot an earlier version (last section) it also looks for `design-spec.md`, and checks only whether `run-guide.md` or an old run log is in the folder. Never `history/`, except whether a `history/set-aside-*/` folder exists and, for the live test below, the newest set-aside build record.
 - **The Workflow node,** where there's a registry: `status` and `big_change`.
 - **With no registry:** `big_change` in the frontmatter of `requirements.md`, and the "Live since" line at the top of `build-record.md`.
-- **The framework folder,** for "continue my workflow" only: its workflow folders (and, where there's a registry, their nodes), whether `analyze-in-progress.md` is there, and whether there are backlog candidates (the registry's `backlog` nodes, or `backlog.md`).
+- **The framework folder,** for "continue my workflow" only: its workflow folders (and, where there's a registry, their nodes), whether `analyze-in-progress.md` is there, and whether there are backlog candidates (the registry's `backlog` nodes, or, with no registry, `backlog.md`).
 
 ## Terms
 
