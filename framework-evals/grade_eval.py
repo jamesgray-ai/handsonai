@@ -297,6 +297,9 @@ def files_read(run, msgs=()):
 
 MONTH_DAY = r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.? \d{1,2}\b"
 FACT = re.compile(MONTH_DAY + r"|[\w.+-]*\d[\w.+-]*|[\w.+-]+@[\w-]+(?:\.[\w-]+)+")
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+_MON = r"((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*)"
+DATE_SAID = re.compile(r"\b(?:(\d{1,2}) " + _MON + r"|" + _MON + r"\.? (\d{1,2}))\b")
 TOOL_LINES_CAP = 1500
 
 
@@ -307,6 +310,10 @@ def tool_lines(run, msgs):
     such a token, spaces collapsed; lines that also hold a word of the messages (a file name beside
     the date) come first; capped at TOOL_LINES_CAP characters."""
     facts = {f.strip(".,") for m in msgs for f in FACT.findall(m) if len(f.strip(".,")) >= 3}
+    # a date said as "20 October" or "October 20" also matches the ISO form a file holds ("-10-20")
+    for m in msgs:
+        for d, mon, mon2, d2 in DATE_SAID.findall(m):
+            facts.add(f"-{MONTHS.index((mon or mon2)[:3].title()) + 1:02d}-{int(d or d2):02d}")
     if not facts:
         return ""
     words = {w for m in msgs for w in re.findall(r"[A-Za-z][\w.-]{3,}", m)} - facts

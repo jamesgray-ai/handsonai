@@ -217,6 +217,18 @@ class WordingChecks(unittest.TestCase):
         self.assertIn("-rw-r--r--@ 1 me staff 894 Oct 24 15:02 SKILL.md", prompt)
         self.assertNotIn("x.md", prompt)
 
+    def test_rubric_judge_sees_an_iso_date_behind_a_spoken_date(self):
+        # "from 20 October" read off a results file's `date: 2026-10-20` isn't invented
+        import grade_eval as G
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": "round: 1\ndate: 2026-10-20\nworkflow: x"}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "files_start": {}, "turns": [
+                {"role": "ai", "text": "Picking up round 1 from 20 October."}]}]}
+            _, prompt = G.rubric_prompt(run)
+        self.assertIn("date: 2026-10-20", prompt)
+        self.assertNotIn("workflow: x", prompt)
+
     def test_rubric_judge_sees_tool_passages_sharing_four_words(self):
         # a plan list the AI read in the plugin's platform registry (one long JSON line) isn't invented:
         # the judge sees that sentence, cut from the line; passages sharing fewer than four words in a row

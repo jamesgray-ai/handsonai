@@ -30,9 +30,9 @@ Read at every hand-over: whenever the leader runs an input (the batch, the new i
 
 ## 3. The hand-over message, in order
 
-**The round's first hand-over** is the first run the leader is handed in this round. On Claude Code the AI's own runs aren't hand-overs, so the real example's is often the first. On a resume, it's the first unless the round's file shows a run the leader already pasted back or said "next" for; when you can't tell, treat it as the first, since a safety line said twice is safe and one left out isn't. Its once-only lines (item 4, section 4's Claude Code memory line, section 8) are said then.
+**The round's first hand-over** is the first run the leader is handed in this round. On Claude Code the AI's own runs aren't hand-overs, so where the AI ran the practice inputs, the real example's hand-over is the first, resumed or not, and carries item 4 and the memory line. On a resume, it's the first unless the round's file shows a run the leader already pasted back or said "next" for; when you can't tell, treat it as the first, since a safety line said twice is safe and one left out isn't. Its once-only lines (item 4, section 4's Claude Code memory line, section 8) are said then.
 
-One message:
+One message, each line said whole as written, as running text in this order: never split into numbered steps, recast into sentences of your own ("Paste the block below. The session is told to save nothing, so…") or its "below" changed:
 1. **The opening sentence** for the platform (section 4), naming any file to attach (an input that is itself a file is attached, not pasted).
 2. **For the batch:** "It runs [N] inputs one after another."
 3. **The Deny line,** where the run can reach a connection that can send, post or change something (section 5).
