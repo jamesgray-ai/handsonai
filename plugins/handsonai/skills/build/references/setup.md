@@ -24,7 +24,7 @@ Record a row for the workflow's place, with the memory switch confirmed, so it's
 3. Sign-in is the platform's own, in the leader's own account. A key goes in that platform's settings or environment, never in the chat or a file; a key pasted anyway gets N-F14, and you carry on.
 4. After "done", read something only that system can answer, and ask: **Ask:** "I can see [something only that system knows]. Is this your [company's] [tool]?"
    - *Why:* So the workflow reads your real [tool], not a test or personal one.
-5. For a connection that changes things, confirm the action is available. Write permission counts as verified only by that kind of change's quick real check, and only for the place it landed in.
+5. For a connection that changes things, confirm the action is available. Write permission counts as verified only by that kind of change's quick real check, and only for the place it landed in; until that check has run, never say the connection can make that change.
 6. A scheduled workflow's connections are set up in the account that runs the schedule too.
 7. **On Claude Code,** the connection config you write for a headless check or bare run names an environment variable or the platform's stored sign-in, never a secret's value. A connection that can't be passed without copying a secret is left out of headless sessions: its parts are checked in a check agent, and the bare run goes without it.
 
@@ -57,7 +57,7 @@ One per kind of change (posting to Slack, creating a Gmail draft, adding a CRM r
 - **An update or overwrite** is checked on a record you create first for the check, then update.
 - **A change that can't be undone** gets the permanent form, with the one-time-option clause (where a label is recorded) before its question: **Ask:** "…I'll do it once myself: [the smallest version], to [your own address]. It can't be undone once sent. OK to go ahead, or skip it and let the first real run prove it?" It goes only to the leader's own address or account, as read back when they connected, fixed by you and never taken from a practice input. When the leader is unsure, skip it.
 - **No place only the leader sees** (most CRMs): skip it and say: "[Tool] has no place only you can see, so a test record would reach your team. I'll skip this check, and the first real run will prove it." then the next action. A place others see is never used.
-- **The result,** with no question: "Done: here it is in [place]: [result or link]. [Can be undone: 'I'll offer to undo the check changes together at the end.' Permanent: 'That one stays.']"
+- **The result,** with no question, straight after the call and before anything else: "Done: here it is in [place]: [result or link]. [Can be undone: 'I'll offer to undo the check changes together at the end.' Permanent: 'That one stays.']"
 - **A failure** (the app isn't in the channel, a permission is missing): "That didn't work: [what the system said, in plain words]. [Steps to fix it.] Say 'done' and I'll try once more, or 'skip' and the first real run will prove it."
 - **The record:** `live_checks` for that kind of change: `done: [the place it landed]`, `declined`, `skipped` or `not yet`. `done` proves the connection can make the change there; the built part's own call and the real target are shown by the dry runs and proved by the first real run.
 

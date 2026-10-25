@@ -12,6 +12,8 @@ description: >
 
 # Analyze Workflows
 
+**Your first text is a line for the leader.** Every word of text you write reaches the leader as a chat message, text before or between tool calls included. So the first text you write in a chat is your first line to the leader (the opening, a routing line, a resume line or an entry check's question): until then, make tool calls with no text at all, not even a few words on what you're reading, the state you found or what comes next. After it, write text only when it's for the leader, and never narrate your own work (files read, scripts run, states, the rule you're applying).
+
 Analyze finds opportunities to create more value with AI in the student's work (friction to remove, and work they'd do more of or do better with the time) and records each as a candidate workflow: the work, the pain, its size and the value lever. It catalogs: it names each workflow and describes it well. It never ranks the workflows or picks one to build first; Deconstruct opens with that choice. It ends with a backlog and an opportunity report.
 
 ## Workflow
@@ -24,7 +26,7 @@ Follow `references/routing.md`'s "The order at every entry", before anything is 
 
 Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). Quoted lines are already approved plain words: the plain-words rules are for your own wording, never a reason to simplify a quoted line ("pins down" stays "pins down"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
-The leader reads every line you write, text before a tool call included, so never narrate your own work (files read, scripts run, states, the rule you're applying): write only what the leader should read. Until your first line to the leader (the opening, a routing line or a resume line), call tools without writing any text; after it, write no text between tool calls except what the leader should read. A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
+A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
 
 **The location** is the framework folder. [location] in every line below is that folder: "framework" on Claude Code and Codex; on Claude desktop, the folder's own name (such as "Framework"); on the web, "Google Drive, in Framework" (or the drive and folder the student chose); on Microsoft 365, "OneDrive, in Framework" (or the folder the student chose). On print-to-save, where there is no saved location, [location] and [the report's path in the location] are "the folder you're keeping these files in".
 

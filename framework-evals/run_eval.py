@@ -144,9 +144,17 @@ def leader_prompt(turns, screens):
 
 def connections_for(platform, ws, root, data):
     """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
-    workflow's plan uses it, as a leader who connected it would have (harness.gmail_mcp). Test's
+    workflow's plan uses it, as a leader who connected it would have (harness.gmail_mcp); on
+    Microsoft 365, the Outlook the Cowork chat reaches, when the plan uses Outlook. Test's
     evals don't get it yet: its waiting-on-access cases need a way to show Gmail not connected first."""
-    if platform.key not in ("claude-code", "codex") or data.get("skill_name") != "build":
+    if data.get("skill_name") != "build":
+        return None
+    if platform.key == "microsoft-365":  # the Outlook a Cowork chat reaches, for its quick real check
+        plans = list(Path(ws).glob("onedrive/Framework/*/design-plan.md"))
+        if any(re.search(r"(?m)^Outlook: ", p.read_text()) for p in plans):
+            return H.gmail_mcp(root, server="outlook", service="Outlook")
+        return None
+    if platform.key not in ("claude-code", "codex"):
         return None
     plans = [p for p in Path(ws).glob("framework/*/design-plan.md")]
     if not any(re.search(r"(?m)^Gmail: ", p.read_text()) for p in plans):

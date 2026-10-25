@@ -16,6 +16,8 @@ description: >-
 
 # Workflow Deconstruction
 
+**Your first text is a line for the leader.** Every word of text you write reaches the leader as a chat message, text before or between tool calls included. So the first text you write in a chat is your first line to the leader (the opening, a routing line, a resume line or an entry check's question): until then, make tool calls with no text at all, not even a few words on what you're reading, the state you found or what comes next. After it, write text only when it's for the leader, and never narrate your own work (files read, scripts run, states, the rule you're applying).
+
 Deconstruct turns a piece of the leader's real work into their **Workflow Requirements**: what the workflow must do and why, never how it's built. Outcome first (a goal and its checks), then the path, recorded as a requirement only where the leader wants the work done the same way. The requirements stay the leader's: every drafted line says where it came from, and every suggestion needs a keep or a drop. Deconstruct records what the leader knows (consistency, decisions, inputs, checkpoints); it never decides how much the AI works out on its own, which is Design's call.
 
 > **Platform registry:** platform facts (how to add a folder on Claude desktop, the `claude` entry's `capabilities.desktop_add_folder`; a platform's own settings for a key) come from `registries/platform-registry.json` at the plugin root; if it isn't there, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session.
@@ -24,7 +26,7 @@ Deconstruct turns a piece of the leader's real work into their **Workflow Requir
 
 Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). Quoted lines are already approved plain words: the plain-words rules are for your own wording, never a reason to simplify a quoted line ("pins down" stays "pins down"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
-The leader reads every line you write, text before a tool call included, so never narrate your own work (files read, scripts run, states, the rule you're applying): write only what the leader should read. Until your first line to the leader (the opening, a routing line or a resume line), call tools without writing any text; after it, write no text between tool calls except what the leader should read. A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
+A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
 
 ### Entry, before the opening
 

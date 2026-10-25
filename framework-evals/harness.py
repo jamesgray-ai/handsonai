@@ -195,16 +195,19 @@ GMAIL_ALLOW = ["mcp__gmail__get_profile", "mcp__gmail__list_messages", "mcp__gma
                "mcp__gmail__create_draft"]
 
 
-def gmail_mcp(root, account="alex@brightline.example"):
-    """The stand-in Gmail connection for a Claude Code session (tools/gmail_stub_mcp.py)."""
-    cfg = root / "mcp-gmail.json"
+def gmail_mcp(root, account="alex@brightline.example", server="gmail", service="Gmail"):
+    """The stand-in mail connection for a session (tools/gmail_stub_mcp.py): Gmail on Claude Code,
+    or, with server="outlook", the Outlook a Microsoft 365 Cowork chat reaches."""
+    cfg = root / f"mcp-{server}.json"
     stub = root / "bin" / GMAIL_STUB.name  # a copy in the run root: no path under the home folder
     stub.parent.mkdir(exist_ok=True)
     shutil.copy2(GMAIL_STUB, stub)
-    cfg.write_text(json.dumps({"mcpServers": {"gmail": {
+    cfg.write_text(json.dumps({"mcpServers": {server: {
         "type": "stdio", "command": sys.executable, "args": ["-I", str(stub)],
-        "env": {"GMAIL_STUB_ACCOUNT": account, "GMAIL_STUB_LOG": str(root / "gmail-calls.jsonl")}}}}))
-    return {"config": cfg, "servers": ["gmail"], "allow": list(GMAIL_ALLOW)}
+        "env": {"GMAIL_STUB_ACCOUNT": account, "GMAIL_STUB_LOG": str(root / f"{server}-calls.jsonl"),
+                "GMAIL_STUB_SERVER": server, "GMAIL_STUB_SERVICE": service}}}}))
+    return {"config": cfg, "servers": [server],
+            "allow": [t.replace("mcp__gmail__", f"mcp__{server}__") for t in GMAIL_ALLOW]}
 
 
 def env_for(root):

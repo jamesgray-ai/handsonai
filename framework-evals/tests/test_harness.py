@@ -349,6 +349,13 @@ class PlatformSimulations(unittest.TestCase):
         self.assertIn("Instructions", ordinary.screen(msg, Path("."))[0][0])  # the second try makes it
         # the reworded line is what the paste-back check (N-B53's carried-line fill) must catch
         self.assertNotIn("Practice run: nothing will be sent or changed.", reworded)
+        # a rebuild (a second agent made) keeps the line, unless the fault persists after a fix
+        once = L.PLATFORMS["microsoft-365"](["agent_builder_rewords_carried_line"])
+        once.screen(msg, Path("."))
+        self.assertIn("Practice run: nothing will be sent or changed.", once.screen(msg, Path("."))[0][0])
+        always = L.PLATFORMS["microsoft-365"](["agent_builder_rewords_carried_line", "agent_builder_rewords_after_fix"])
+        always.screen(msg, Path("."))
+        self.assertIn("nothing will be sent or modified.", always.screen(msg, Path("."))[0][0])
 
     def test_paste_back_on_chat_platforms(self):
         p = L.PLATFORMS["claude-web"]()
@@ -658,6 +665,13 @@ class StandInGmail(unittest.TestCase):
             self.assertIsNone(R.connections_for(L.PLATFORMS["chatgpt"](), ws, tmp, build))
             plan.write_text("## Connections\nNone: the draft is shown in the chat.\n")
             self.assertIsNone(R.connections_for(L.ClaudeCode(), ws, tmp, build))
+            m365 = ws / "onedrive" / "Framework" / "cfu"
+            m365.mkdir(parents=True)
+            (m365 / "design-plan.md").write_text("## Connections\nOutlook: the agent's Outlook work content (use).\n")
+            mcp = R.connections_for(L.PLATFORMS["microsoft-365"](), ws, tmp, build)
+            self.assertEqual(mcp["servers"], ["outlook"])
+            self.assertIn("mcp__outlook__create_draft", mcp["allow"])
+            self.assertNotIn("mcp__outlook__send_message", mcp["allow"])
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 

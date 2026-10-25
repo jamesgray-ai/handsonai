@@ -73,7 +73,7 @@ The wrapper refuses a profile that seems to hold a secret's value, without repea
 At the end of Part 1, after the quick real checks and the leader's OK to N-B20 (the block and the wrapper's allow together). In this order:
 
 1. **List each connection's live tools** and class them (section 2). Write the profile (section 3).
-2. **Copy the wrapper** from this skill's own `scripts/test-run.sh` to `framework/.bin/test-run.sh`, byte for byte (`cp`, then `chmod +x`). Never write or edit it.
+2. **Copy the wrapper** from this skill's own `scripts/test-run.sh` to `framework/.bin/test-run.sh`, byte for byte (`cat <this skill's folder>/scripts/test-run.sh > framework/.bin/test-run.sh`, then `chmod +x`; not `cp`, which Claude Code asks about as an edit to the plugin's own file). Never write or edit it.
 3. **Record its fingerprint** in the record's frontmatter: `shasum -a 256 framework/.bin/test-run.sh`, written as
 
    ```yaml

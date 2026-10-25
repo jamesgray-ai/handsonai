@@ -12,6 +12,8 @@ description: >-
 
 # Design
 
+**Your first text is a line for the leader.** Every word of text you write reaches the leader as a chat message, text before or between tool calls included. So the first text you write in a chat is your first line to the leader (the opening, a routing line, a resume line or an entry check's question): until then, make tool calls with no text at all, not even a few words on what you're reading, the state you found or what comes next. After it, write text only when it's for the leader, and never narrate your own work (files read, scripts run, states, the rule you're applying).
+
 Design turns the leader's **Workflow Requirements** (`requirements.md`) into an approved **Design Plan** (`design-plan.md`) that ends in a task list Build follows. The plan is the implementation plan: it argues from the requirements by ID and copies none of their wording. The leader makes only the choices only they can make (reusing a skill they have, what happens when a connection can't make a change, accepting a risk, whether a limit they set still holds, and approval); you do the design work (how much the AI decides at each step, how it runs, the patterns, connections, blueprints and tasks) and record each decision with its reason in the plan. Bring your own platform and design knowledge: this skill carries the framework, the plan's structure, the scripted lines and the hard rules, never a ready-made design.
 
 > **Platform registry:** platform facts (agents and skills, packaging, `mode`, scheduling and `unattended_runs`, memory, where context lives, the run log, connections and what each can write, release-check status, how to add a folder on Claude desktop) come from `registries/platform-registry.json`: this skill's own copy if it has one, then the plugin root, then `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Look a platform up by key or alias. Read it once per session. A fact that rests on an open release check takes that check's fallback.
@@ -20,7 +22,7 @@ Design turns the leader's **Workflow Requirements** (`requirements.md`) into an 
 
 Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). Quoted lines are already approved plain words: the plain-words rules are for your own wording, never a reason to simplify a quoted line ("pins down" stays "pins down"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
-The leader reads every line you write, text before a tool call included, so never narrate your own work (files read, scripts run, states, the rule you're applying): write only what the leader should read. Until your first line to the leader (the opening, a routing line or a resume line), call tools without writing any text; after it, write no text between tool calls except what the leader should read. A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
+A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
 
 ### Entry, before the opening
 

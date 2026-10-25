@@ -259,10 +259,11 @@ class Microsoft365(Platform):
         if "agent_builder_requirements_under_knowledge" in self.faults:
             knowledge.append("Framework/requirements.md")
         instructions = self._instructions(prompt)
+        self.state["created"] = self.state.get("created", 0) + 1
         self.state["instructions"] = instructions
         self.state["knowledge"] = knowledge
         shown = "\n".join(notes + [f"Knowledge lists: {', '.join(Path(k).name for k in knowledge) or 'nothing'}.",
-                                   "Work content: nothing switched on.",
+                                   "Work content: nothing switched on; each source has its own switch you can turn on or off.",
                                    "After Create, the agent shows under Agents. Under Edit, its Instructions read:",
                                    instructions])
         return (f"[You opened Copilot > Chat > Agents > New agent and pasted the prompt.]\n{shown}",
@@ -283,7 +284,10 @@ class Microsoft365(Platform):
         lines = prompt[low.find("word for word:") + len("word for word:"):] if "word for word:" in low else ""
         body = ["You draft this workflow's deliverable from the plan's task. Read only your Knowledge.", lines.strip()]
         text = "\n".join(b for b in body if b)
-        if "agent_builder_rewords_carried_line" in self.faults:
+        # Rewords the first agent made; a rebuild (a new agent, release check 29's path) rewords it
+        # again only with agent_builder_rewords_after_fix, as a fix prompt does.
+        if "agent_builder_rewords_carried_line" in self.faults and (
+                not self.state.get("created") or "agent_builder_rewords_after_fix" in self.faults):
             text = text.replace("Practice run: nothing will be sent or changed.",
                                 _reworded("Practice run: nothing will be sent or changed."))
         return text

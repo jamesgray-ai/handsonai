@@ -17,6 +17,9 @@ import time
 
 ACCOUNT = os.environ.get("GMAIL_STUB_ACCOUNT", "alex@brightline.example")
 LOG = os.environ.get("GMAIL_STUB_LOG")
+# The same stand-in serves Microsoft 365's Outlook (server `outlook`), named by these two.
+SERVER = os.environ.get("GMAIL_STUB_SERVER", "gmail")
+SERVICE = os.environ.get("GMAIL_STUB_SERVICE", "Gmail")
 
 MESSAGES = [{
     "id": "msg-1001", "threadId": "thr-1001", "from": ACCOUNT, "to": "dana@northwind.example",
@@ -26,12 +29,12 @@ MESSAGES = [{
 
 READ = {"type": "object", "properties": {"query": {"type": "string"}, "max_results": {"type": "integer"}}}
 TOOLS = [
-    {"name": "get_profile", "description": "The connected Gmail account's address.",
+    {"name": "get_profile", "description": f"The connected {SERVICE} account's address.",
      "inputSchema": {"type": "object", "properties": {}}},
     {"name": "list_messages", "description": "Search the mailbox; returns matching messages.", "inputSchema": READ},
     {"name": "get_message", "description": "Read one message by id.",
      "inputSchema": {"type": "object", "properties": {"id": {"type": "string"}}, "required": ["id"]}},
-    {"name": "create_draft", "description": "Create a draft in Gmail Drafts (nothing is sent).",
+    {"name": "create_draft", "description": f"Create a draft in {SERVICE} Drafts (nothing is sent).",
      "inputSchema": {"type": "object", "properties": {"to": {"type": "string"}, "subject": {"type": "string"},
                                                       "body": {"type": "string"}}, "required": ["body"]}},
     {"name": "send_message", "description": "Send an email from the account.",
@@ -83,7 +86,7 @@ def main():
             continue  # a notification
         if method == "initialize":
             reply(rid, {"protocolVersion": params.get("protocolVersion", "2025-06-18"),
-                        "capabilities": {"tools": {}}, "serverInfo": {"name": "gmail", "version": "0.1"}})
+                        "capabilities": {"tools": {}}, "serverInfo": {"name": SERVER, "version": "0.1"}})
         elif method == "tools/list":
             reply(rid, {"tools": TOOLS})
         elif method == "tools/call":
