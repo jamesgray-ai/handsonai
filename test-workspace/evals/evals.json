@@ -55,7 +55,7 @@
           "fixture": "dir:../../framework-fixtures/states/s00-running-work/with-registry"
         },
         {
-          "prompt": "Continue my workflow. My files are in framework.",
+          "prompt": "Run the test skill: continue my workflow. My files are in framework.",
           "fixture": "dir:../../framework-fixtures/continue/c-one-live/with-registry"
         },
         {
@@ -112,11 +112,11 @@
           }
         },
         {
-          "text": "Test's start phrase with the location",
+          "text": "Test's start phrase with the location, in the platform's form (ChatGPT: Google Drive)",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "test the workflow I built. My files are in framework/client-follow-up.",
+            "text": "test the workflow I built. My files are in Google Drive, in Framework/client-follow-up.",
             "session": 2
           }
         },
@@ -187,18 +187,38 @@
           "text": "State 2 and 3: Deconstruct's phrase with the location",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework/client-follow-up.",
-            "session": 3
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "run the deconstruct skill. My files are in framework/client-follow-up.",
+                "session": 3
+              },
+              {
+                "type": "ai_contains",
+                "text": "run the deconstruct skill. My files are in framework/client-follow-up.",
+                "session": 4
+              }
+            ]
           }
         },
         {
           "text": "State 4 and 5: Design's phrase with the location",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
-            "text": "run the design skill. My files are in framework/client-follow-up.",
-            "session": 6
+            "type": "all",
+            "checks": [
+              {
+                "type": "ai_contains",
+                "text": "run the design skill. My files are in framework/client-follow-up.",
+                "session": 5
+              },
+              {
+                "type": "ai_contains",
+                "text": "run the design skill. My files are in framework/client-follow-up.",
+                "session": 6
+              }
+            ]
           }
         },
         {
@@ -393,64 +413,53 @@
           }
         },
         {
-          "text": "No results file in any session (checked at the last)",
+          "text": "Nothing is written in any session",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 3
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 4
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 5
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 6
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 7
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 8
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 9
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 10
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 11
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 12
               },
               {
-                "type": "file_absent",
-                "path": "framework/*/test-results.md",
+                "type": "no_added_files",
                 "session": 13
               }
             ]

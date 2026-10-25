@@ -211,6 +211,10 @@ def set_record_platform(t, p):
     sub(rec, "| T2 | — | C1 | Follow-up style guide (runtime copy) | `.claude/skills/client-follow-up/references/follow-up-style.md` |", f"| T2 | — | C1 | Follow-up style guide (runtime copy) | {ctx} |")
     resub(rec, r"It lives in `\.claude/skills/client-follow-up/` in this workspace\.", f"It lives in {skill}.")
     sub(rec, "| T1 | — | — | Gmail connection | Claude Code connector (Gmail) |", "| T1 | — | — | Gmail connection | the platform's own Gmail connection |")
+    sub(rec, "| KW | — | — | flag, re-check and time-saved lines | `.claude/skills/client-follow-up/SKILL.md` |", f"| KW | — | — | flag, re-check and time-saved lines | {skill} |")
+    # off Claude Code the built workflow saves nothing under the cue (build's carried-lines.md, "Saving, by platform")
+    sub(rec, '- Practice-run instruction: the skill\'s first line under the cue "practice run" saves nothing outside `practice/[input]-[run]/`.',
+        f'- Practice-run instruction: under the cue "practice run" the skill\'s first line is "{FIRST_LINE}"; it saves nothing, and shows a file\'s content in its closing block.')
     if p in ("web", "desktop", "chatgpt", "m365"):
         resub(rec, r"(?m)^  test-run\.sh: .*\n", "")
 

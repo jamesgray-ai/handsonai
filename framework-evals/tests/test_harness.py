@@ -522,5 +522,93 @@ class Corpus(unittest.TestCase):
                       json.dumps([e for e in json.loads(AL.DEFAULT_CORPUS.read_text())["lines"] if e["id"] == "N-B54"]))
 
 
+
+RUNNING_WORK = ("This workflow already runs outside the framework. To bring it in, say 'run the deconstruct skill "
+                "on client follow-up. My files are in framework.' Deconstruct pins down what it must produce and how "
+                "it should go; until the new version is built and installed, keep running it as it is.")
+N_T25 = ("Testing waits for your plan to be approved: say 'run the design skill. "
+         "My files are in framework/client-follow-up.'")
+
+
+class ClauseMarks(unittest.TestCase):
+    """A semicolon and a full stop between clauses match each other; a colon stays strict."""
+
+    def test_full_stop_for_semicolon_matches(self):
+        said = RUNNING_WORK.replace("should go; until", "should go. Until")
+        self.assertTrue(ok({"type": "quote", "id": "running-work"}, run_of(RUNNING_WORK)))
+        self.assertTrue(ok({"type": "quote", "id": "running-work"}, run_of(said)))
+        self.assertTrue(ok({"type": "scripted_lines"}, run_of(said)))
+
+    def test_semicolon_for_full_stop_matches(self):
+        said = RUNNING_WORK.replace("outside the framework. To bring", "outside the framework; to bring")
+        self.assertTrue(ok({"type": "quote", "id": "running-work"}, run_of(said)))
+
+    def test_colon_stays_strict(self):
+        self.assertTrue(ok({"type": "quote", "id": "N-T25"}, run_of(N_T25)))
+        stuffed = N_T25.replace("approved: say", "approved. Say")
+        self.assertFalse(ok({"type": "quote", "id": "N-T25"}, run_of(stuffed)))
+        second = N_T25.replace("approved: say", "approved: nothing is built yet. Say")
+        self.assertFalse(ok({"type": "quote", "id": "N-T25"}, run_of(second)))
+
+    def test_other_marks_stay_strict(self):
+        self.assertFalse(ok({"type": "quote", "id": "running-work"},
+                            run_of(RUNNING_WORK.replace("should go; until", "should go, until"))))
+
+
+class NearMissScope(unittest.TestCase):
+    """Near misses count only the skill under test's lines, and skip edge-word changes on short runs."""
+
+    def test_only_the_skill_under_tests_lines(self):
+        msg = "Thanks. " + N_D1.replace("past example", "past sample")  # N-D1 is Deconstruct's
+        c = AL.load()
+        self.assertTrue(c.near_misses(msg))
+        self.assertTrue(c.near_misses(msg, skill="deconstruct"))
+        self.assertFalse(c.near_misses(msg, skill="test"))
+        run = run_of(msg)
+        self.assertTrue(ok({"type": "scripted_lines"}, {**run, "skill": "test"}))
+        self.assertFalse(ok({"type": "scripted_lines"}, run))
+        out = CS.run_checks({"expectations": []}, run, {"skill_name": "test", "builtin_checks": ["scripted_lines"]})
+        self.assertTrue(out[0]["passed"], out[0]["evidence"])
+        out = CS.run_checks({"expectations": []}, run, {"skill_name": "deconstruct",
+                                                         "builtin_checks": ["scripted_lines"]})
+        self.assertFalse(out[0]["passed"])
+
+    def test_edge_word_on_a_short_run_is_skipped(self):
+        c = AL.load()
+        # N-D16 (main-2) is "It keeps running as it is." (six words)
+        first = "The live version keeps running as it is until the new one is built and installed."
+        self.assertFalse([x for x in c.near_misses(first) if x[0].id == "N-D16"])
+        last = "For now it keeps running as it was before."
+        self.assertFalse([x for x in c.near_misses(last) if x[0].id == "N-D16"])
+        middle = "For now it keeps working as it is."
+        self.assertTrue([x for x in c.near_misses(middle) if x[0].id == "N-D16"])
+
+    def test_edge_word_on_a_long_run_still_counts(self):
+        c = AL.load()
+        msg = N_D1.replace("Do you have", "Did you have")  # first word changed, a run of eight or more
+        self.assertTrue(c.near_misses(msg))
+
+
+class NoAddedFiles(unittest.TestCase):
+    """no_added_files compares the end tree with the session's start tree (the fixture's own files)."""
+
+    def test_fixture_files_dont_count(self):
+        start = {"framework/client-follow-up/test-results.md": "round: 1",
+                 "framework/client-follow-up/history/set-aside-1/test-results.md": "old"}
+        run = run_of("hi", files_start=start, files_end=dict(start))
+        self.assertTrue(ok({"type": "no_added_files", "session": 1}, run))
+        # the old check this replaced reads fixture files as written ones
+        self.assertFalse(ok({"type": "file_absent", "path": "framework/*/test-results.md", "session": 1}, run))
+
+    def test_an_added_file_fails(self):
+        start = {"framework/client-follow-up/requirements.md": "x"}
+        end = {**start, "framework/client-follow-up/test-results.md": "round: 1"}
+        passed, why = CS.check({"type": "no_added_files", "session": 1}, run_of("hi", files_start=start, files_end=end))
+        self.assertFalse(passed)
+        self.assertIn("test-results.md", why)
+        self.assertTrue(ok({"type": "no_added_files", "except": ["*/test-results.md"], "session": 1},
+                           run_of("hi", files_start=start, files_end=end)))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -21,7 +21,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   order: deconstruct 5 (default), design 4,
                                                                   test 4, build 3; `of` for a later entry
   file_exists      {path, session?}                               a file matching the glob exists at session end
-  file_absent      {path, session?}                               no file matches at session end
+  file_absent      {path, session?}                               no file matches at session end (a fixture's
+                                                                  own file counts: for "nothing written",
+                                                                  use no_added_files)
   file_existed_during {path, session?}                            a match existed after some turn of the session
   file_contains    {path, text, session?}                         a matching file contains the text
   file_not_contains {path, text, session?}
@@ -43,11 +45,16 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
   section_regex    {path, section, pattern, must?: bool}          inside one section, the pattern matches
                                                                   (must=true, default) or doesn't
-  no_added_files   {except?: [globs], session?}                   no file was added during the session
+  no_added_files   {except?: [globs], session?}                   no file was added during the session: the
+                                                                  end tree against the session's start tree
+                                                                  (the fixture's own files)
   all              {checks: [...]}                                every sub-check passes
   any              {checks: [...]}                                at least one passes
 
 Retired: `no_yaml` (every framework file now has frontmatter; use `yaml_keys`).
+
+Path globs use fnmatch, where `*` also matches `/`: `framework/*/test-results.md` matches a file
+under `framework/x/history/...` too.
 
 `session` is 1-based; leave it out to mean every session (AI checks) or the last session (file checks).
 Text matching ignores differences in curly versus straight quotes and dashes (in regex patterns too);
@@ -183,8 +190,10 @@ def time_or_step_hits(message):
     return hits
 
 
-def quote_hits(message):
-    return [(ln.label(), exp, got) for ln, exp, got in corpus().near_misses(message)]
+def quote_hits(message, skill=None):
+    """Near misses of approved lines; with `skill`, only that skill's lines (and the built
+    workflow's) count, so a common phrase another step's line happens to share isn't flagged."""
+    return [(ln.label(), exp, got) for ln, exp, got in corpus().near_misses(message, skill=skill)]
 
 
 def _scan(run, n, fn, what):
@@ -396,7 +405,8 @@ def check(c, run):
                     return False, f"{hit.label()} said in session {s['n']} AI message {i}"
         return (False, f"{c['id']} not said word for word") if t == "quote" else (True, f"{c['id']} not said")
     if t == "scripted_lines":
-        return _scan(run, n, quote_hits, "scripted line said with words changed")
+        skill = c.get("skill") or run.get("skill")
+        return _scan(run, n, lambda m: quote_hits(m, skill), "scripted line said with words changed")
     if t == "vocabulary":
         return _scan(run, n, vocabulary_hits, "Never-column word")
     if t == "no_time_or_step_numbers":
@@ -537,6 +547,8 @@ def builtins_for(ev, evals_data=None):
 
 
 def run_checks(ev, run, evals_data=None):
+    # the skill under test (the evals file's skill_name) scopes the quote check's near misses
+    run = {**run, "skill": run.get("skill") or (evals_data or {}).get("skill_name")}
     out = []
     for x in ev["expectations"]:
         if x["kind"] != "scripted":

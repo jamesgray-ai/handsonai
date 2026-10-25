@@ -38,7 +38,7 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7), t
 
 Once Build owns the state, in this order. A check that asks the leader something before the opening (N-B3, N-B3a, N-E1, N-E2) starts its message with one orientation line (model wording) naming Build and the workflow, with N-F3's promise clause "I'll read and save your files in [location]."; the opening then leaves out what that line said.
 
-1. **The surface.** If this surface can't build or save for the plan's platform, say exactly: "Your plan builds this for [platform], which I can't [build or save] from here. Run Build in [where], and say 'run the build skill. My files are in [location].'" and stop.
+1. **The surface.** If this surface can't build or save for the plan's platform, say exactly: "Your plan builds this for [platform], which I can't [build or save] from here. Run Build in [where], and say 'run the build skill. My files are in [location].'" and stop: that line is the whole message, with nothing before or after it.
 2. **Skills on,** unless the record says `skills_on: yes`. Where you can tell they're off: "Building this needs skills, which your [platform] [subscription or account] doesn't have turned on. [How to turn them on, or who can.] Tell me when they're on." Where you can't tell: **Ask:** "Can you check that skills are turned on in your [platform] account? [Where to look.] Say yes or no." Record `skills_on: yes` once confirmed.
 3. **Claude Code's own checks** (read `references/claude-code-block.md` sections 5, 9 and 10):
    - **The version:** read `claude --version`. Outside the range a release check was verified on, that check takes its fallback; say so once, in one line (model wording).

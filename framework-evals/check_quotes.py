@@ -12,6 +12,8 @@ the skills, with placeholders as wildcards.
       every `ai_contains` marked with `line` matches that line's wording; and no `ai_contains` text
       quotes an approved line with a word changed (a stale quote).
 
+  --skill NAME    transcript mode: count only that skill's lines (and the built workflow's), as the
+                  runner does with the evals file's skill_name
   --corpus FILE   another approved-lines.json (tests)
 
 Exit 1 when anything fails. Run it after every skill change and before any paid eval round; the
@@ -40,11 +42,11 @@ def ai_messages(path):
     return [parts[i + 1].strip() for i in range(1, len(parts) - 1, 2) if parts[i] == "AI"]
 
 
-def check_transcripts(corpus, paths):
+def check_transcripts(corpus, paths, skill=None):
     bad = 0
     for path in paths:
         for i, m in enumerate(ai_messages(path), 1):
-            for ln, exp, got in corpus.near_misses(m):
+            for ln, exp, got in corpus.near_misses(m, skill=skill):
                 bad += 1
                 print(f"{path} AI message {i}: {ln.label()} said with words changed:\n"
                       f"    approved: {exp}\n    said:     {got}")
@@ -98,9 +100,13 @@ def main(argv=None):
     ap.add_argument("mode", choices=["transcript", "evals"])
     ap.add_argument("paths", nargs="+")
     ap.add_argument("--corpus", default=str(AL.DEFAULT_CORPUS))
+    ap.add_argument("--skill", default=None)
     a = ap.parse_args(argv)
     corpus = AL.Corpus(a.corpus)
-    bad = (check_transcripts if a.mode == "transcript" else check_evals)(corpus, a.paths)
+    if a.mode == "transcript":
+        bad = check_transcripts(corpus, a.paths, a.skill)
+    else:
+        bad = check_evals(corpus, a.paths)
     print(f"{bad} problem(s)")
     return 1 if bad else 0
 

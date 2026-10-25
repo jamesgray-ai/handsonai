@@ -8,10 +8,16 @@ Never reads the skills: scripted lines are checked against the corpus only (rule
 - `…` (and `...`) is an elision: it matches anything.
 - Text is compared after `norm`: curly and straight quotes alike, single and double quotes alike,
   dashes alike, `**`/backticks dropped, whitespace collapsed.
+- Between clauses, a semicolon and a full stop match each other ("how it should go; until" and
+  "how it should go. Until"): a `;` ending a word, or a `.` ending a word with another word after
+  it, matches either mark. Every other mark is exact; a colon above all, since a line like N-T25's
+  ": say" is how a slot stuffed with whole sentences is caught.
 
 `Corpus.near_misses(message)` is the quote check's core: every run of six or more fixed words from a
 line that appears in a message with one or two words changed, where no approved form appears exactly
-there. That is a scripted line said wrong.
+there. That is a scripted line said wrong. Given the skill under test, it looks only at that skill's
+lines (and the built workflow's), and it skips a run under SHORT_RUN_WORDS words whose only change
+is its first or last word: what's left is a common phrase, not a scripted line.
 """
 import json
 import re
@@ -21,6 +27,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 DEFAULT_CORPUS = HERE / "approved-lines.json"
 MIN_SEGMENT_WORDS = 6
+SHORT_RUN_WORDS = 8
 
 
 def norm(s):
@@ -96,7 +103,16 @@ def _lit_regex(lit):
     n = norm(lit)
     if not n:
         return r"\s*" if lit.strip() == "" and lit else ""
-    parts = [re.escape(p) for p in n.split(" ")]
+    raw = n.split(" ")
+    parts = []
+    for i, p in enumerate(raw):
+        # a semicolon and a full stop between clauses match each other (never a colon or comma)
+        if p.endswith(";") and len(p) > 1:
+            parts.append(re.escape(p[:-1]) + "[;.]")
+        elif p.endswith(".") and len(p) > 1 and i < len(raw) - 1 and WORD.match(raw[i + 1]):
+            parts.append(re.escape(p[:-1]) + "[.;]")
+        else:
+            parts.append(re.escape(p))
     lead = r"\s*" if lit[:1].isspace() else ""
     trail = r"\s*" if lit[-1:].isspace() else ""
     return lead + r"\s+".join(parts) + trail
@@ -169,7 +185,7 @@ class Line:
             return False
         nm = norm(message)
         longest = max((norm(x) for x in literal_segments(self.toks)), key=len, default="")
-        if longest and longest.lower() not in nm.lower():
+        if longest and _pre(longest) not in _pre(nm):
             return False
         return bool(self.regex.search(nm))
 
@@ -241,7 +257,7 @@ class Corpus:
         spans = []
         for ln in self.checkable():
             longest = max((norm(x) for x in literal_segments(ln.toks)), key=len, default="")
-            if not longest or longest.lower() not in low:
+            if not longest or _pre(longest) not in _pre(low):
                 continue
             for m in ln.regex.finditer(nm):
                 a = sum(1 for p in starts if p < m.start())
@@ -250,9 +266,10 @@ class Corpus:
                     spans.append((a, b))
         return spans
 
-    def near_misses(self, message):
+    def near_misses(self, message, skill=None):
         """[(line, expected run, found words)] for each fixed run said with a word or two changed,
-        where no approved form is said in full there."""
+        where no approved form is said in full there. With `skill`, only lines that skill says
+        (or the built workflow says) count."""
         ws = words(message)
         exact = self.exact_spans(ws) + self.said_spans(message)
         found, seen = [], set()
@@ -260,6 +277,8 @@ class Corpus:
         for i in range(len(ws) - 2):
             for key, anchor in ((("head", tuple(ws[i:i + 3])), "head"), (("tail", tuple(ws[i:i + 3])), "tail")):
                 for ln, k in idx.get(key, []):
+                    if not _owned(ln, skill):
+                        continue
                     seg = ln.segments[k]
                     cap = 1 if len(seg) < 12 else 2
                     best = None
@@ -280,6 +299,8 @@ class Corpus:
                     if best is None:
                         continue
                     _, a, L, win = best
+                    if _edge_word_only(seg, win):
+                        continue
                     if any(min(a + L, e) - max(a, s) >= min(L, e - s) * 0.5 for s, e in exact):
                         continue
                     sig = (ln.id, k, a)
@@ -303,11 +324,30 @@ class Corpus:
         for ln in self.checkable():
             segs = [norm(x) for x in literal_segments(ln.toks)]
             longest = max(segs, key=len, default="")
-            if not longest or longest.lower() not in low:
+            if not longest or _pre(longest) not in _pre(low):
                 continue
             nm = ln.regex.sub(lambda m: _holes_only(ln, m.group(0)) if keep_fills else " ", nm)
             low = nm.lower()
         return nm
+
+
+def _pre(s):
+    """The cheap substring prefilter's form: lower case, with `;` read as `.` (they match each other
+    between clauses; see _lit_regex)."""
+    return s.lower().replace(";", ".")
+
+
+def _owned(ln, skill):
+    """A line counts for the skill under test when that skill (or the built workflow) says it.
+    No skill given, or a line naming no skill: it counts."""
+    return not skill or not ln.skills or skill in ln.skills or "built-workflow" in ln.skills
+
+
+def _edge_word_only(seg, win):
+    """A short run whose only change is its first or last word: the rest is a common phrase."""
+    if len(seg) >= SHORT_RUN_WORDS or len(win) != len(seg):
+        return False
+    return win[1:] == seg[1:] or win[:-1] == seg[:-1]
 
 
 def _holes_only(ln, said):
