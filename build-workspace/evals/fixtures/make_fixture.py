@@ -713,7 +713,9 @@ def fx_edit_context(t):  # fix mode, and the runtime copy of the style guide was
 
 def fx_edit_declined(t):  # the same edit Design declined is still installed
     fx_edit_readable(t)
-    sub(plan(t), "changes: []", "changes:\n  - { id: T1.1, source: direct edit, what: \"Always add the renewal amount in bold.\", why: \"edited in the skill after the close\", tasks: [T2], after_round: 1, outcome: \"declined: it would change Step 1, which is fixed\" }")
+    # the edited text lives in history/, and `what` names the file (rules 6.6, 9.3)
+    write(plan(t).parent / "history" / "direct-edit-T1.1-2026-10-20-0900.md", "Always add the renewal amount in bold.\n")
+    sub(plan(t), "changes: []", "changes:\n  - { id: T1.1, source: direct edit, what: \"A line added to the follow-up skill, saved in history/direct-edit-T1.1-2026-10-20-0900.md\", why: \"edited in the skill after the close\", tasks: [T2], after_round: 1, outcome: \"declined: it would change Step 1, which is fixed\" }")
 
 
 def fx_edit_part_removed(t):  # fix mode, and the installed skill is gone: never treated as an edit

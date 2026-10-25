@@ -149,7 +149,7 @@ def _tool_results(events_path):
 def _read_rank(rel):
     if "/workflows/" in f"/{rel}" and not rel.endswith("index.md"):
         return 0
-    if rel.endswith("requirements.md"):
+    if rel.endswith(("requirements.md", "design-plan.md")):  # the plan's changes: back what Build says
         return 1
     if "opportunity-report" in rel or "backlog" in rel:
         return 2
@@ -158,7 +158,7 @@ def _read_rank(rel):
 
 def files_read(run):
     """The leader's files the AI read during the run, as they were before the session (so nothing
-    the AI wrote itself), most relevant first: workflow nodes, requirements, the backlog, the rest.
+    the AI wrote itself), most relevant first: workflow nodes, requirements and plan, the backlog, the rest.
     A file counts as read when its longer lines appear in a tool result (a Read, or a cat in Bash,
     on any folder: drive/, onedrive/ or the workspace itself). Capped at READ_CAP characters."""
     found = {}

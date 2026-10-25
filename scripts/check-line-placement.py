@@ -107,6 +107,8 @@ def main():
         if ln.fragment:
             fragments += 1
             continue  # a platform substitution inside another line, not a line: the quote check skips it too
+        if getattr(ln, "derived", False):
+            continue  # a form the corpus builds from another one (a platform's refuse label): its source form is placed
         for skill in ln.skills:
             if skill != "built-workflow" and skill not in ln.files:
                 corpus_errors.append(f"{ln.label()}: used by '{skill}' but names no file for it")

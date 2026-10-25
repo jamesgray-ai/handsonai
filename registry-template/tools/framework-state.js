@@ -30,9 +30,10 @@
 //   --line             print the readable line only
 //
 // Default output: the readable line, then the JSON (the state, its owner and
-// every fact the rule used). Exit 0 with a state; 1 on bad usage; 2 when a
-// folder or file can't be read or parsed, or no state matches -- the caller
-// then falls back to routing.md.
+// every fact the rule used), then MODEL_NOTE, one line telling the skill that
+// reads it not to describe it to the leader. Exit 0 with a state; 1 on bad
+// usage; 2 when a folder or file can't be read or parsed, or no state matches
+// -- the caller then falls back to routing.md.
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -842,6 +843,9 @@ function continueState(target, opts = {}) {
 
 // --- Output -----------------------------------------------------------------------
 
+// The skills call the default output; its last line keeps the model from narrating it.
+const MODEL_NOTE = 'Note for you, not the leader: write no text about this output, the script or the rule. Your next text is a line for the leader.';
+
 function lineFor(r) {
   if (r.continue) {
     switch (r.continue) {
@@ -881,11 +885,13 @@ function main(argv) {
     const r = mode === 'continue' ? continueState(pos[0], opts) : workflowState(pos[0], opts);
     if (out !== 'json') process.stdout.write(lineFor(r) + '\n');
     if (out !== 'line') process.stdout.write(JSON.stringify(r, (k, v) => (k === 'result' ? undefined : v), 2) + '\n');
+    if (out === 'both') process.stdout.write(MODEL_NOTE + '\n');
     return 0;
   } catch (e) {
     if (!(e instanceof Unreadable)) throw e;
     process.stderr.write(`framework-state: ${e.message}. Fall back to routing.md.\n`);
     if (e.partial && out !== 'line') process.stdout.write(JSON.stringify(e.partial, null, 2) + '\n');
+    if (out === 'both') process.stdout.write(MODEL_NOTE + '\n');
     return 2;
   }
 }

@@ -12,13 +12,13 @@ At the agent's task in Part 2, write the prompt from this template, said word fo
 
 With no context file, its fourth sentence is: "The agent reads no files, and connects to [its connections / nothing]."
 
-Fill it from the plan, exactly: the agent's task ID; the workflow's folder; exactly the context files the agent reads, each by its runtime copy's place (`Documents/Cowork/[workflow-slug]/[file]`, never the steps' copy in `Framework/[workflow-slug]/context/`), and nothing else; exactly its connections, and nothing else; and, word for word, the lines `carried-lines.md` section 6 lists. The plan's blueprint already gives the name, description, rules, checkpoints and "What I did" list. The leader never copies a name, description or instructions into the form. Until release check 28 passes, the agent's blueprint holds everything it needs, so add no skill to it. The prompt is your own text, quote-checked like any scripted line; the agent's *Done when* practice runs are Test's first run of it.
+Fill it from the plan, exactly: the agent's task ID; the workflow's folder; exactly the context files the agent reads, each by its runtime copy's place (`Documents/Cowork/[workflow-slug]/[file]`, never the steps' copy in `Framework/[workflow-slug]/context/`), and nothing else; exactly its connections, as the blueprint's *Tools* line writes them, and nothing else. Copy each fill as it stands, adding and rewording nothing: a context file is its place alone, with no "in my OneDrive" after it (the sentence before already says where); a connection is the *Tools* entry with its brackets, never reworded into a clause ("Outlook (create drafts)", not "Outlook, to create drafts only"); and, word for word, the lines `carried-lines.md` section 6 lists. The plan's blueprint already gives the name, description, rules, checkpoints and "What I did" list. The leader never copies a name, description or instructions into the form. Until release check 28 passes, the agent's blueprint holds everything it needs, so add no skill to it. The prompt is your own text, quote-checked like any scripted line; the agent's *Done when* practice runs are Test's first run of it.
 
 ## 2. Making the agent (Part 3)
 
 Once for each agent, after any skills are saved. Numbered steps, each said as written:
 
-"[Agent] is made in Copilot's Agent Builder, not here in Cowork: 1. Open Copilot, choose Chat, then Agents, then New agent. 2. Paste this into the Message Agent Builder box:"
+"[Agent] is made in Copilot's Agent Builder, not here in Cowork: 1. Open Copilot, choose Chat, then Agents, then New agent. 2. Paste this into the Message Agent Builder box:" ("here in Cowork", never "here in Copilot Cowork")
 
 then the build prompt, in a block to copy, then:
 

@@ -198,6 +198,7 @@ class Line:
         self.id, self.form, self.text = e["id"], e["form"], e.get("text")
         self.kind, self.skills, self.files = e.get("kind"), e.get("skills", []), e.get("files", {})
         self.fragment = bool(e.get("fragment"))
+        self.derived = bool(e.get("derived"))  # built here from another form, never placed in a skill file
         self.toks = tokens(self.text) if self.text else []
         self._rx = None
         self.segments = [s for s in (words(x) for x in literal_segments(self.toks)) if s]
@@ -251,7 +252,7 @@ class Corpus:
             for label, platform in PLATFORM_REFUSE_LABELS:
                 if e.get("text") and "choose Deny" in e["text"]:
                     self.lines.append(Line(dict(e, form=f"{e['form']}, {platform}",
-                                                text=e["text"].replace("choose Deny", f"choose {label}"), files={})))
+                                                text=e["text"].replace("choose Deny", f"choose {label}"), files={}, derived=True)))
         self.by_id = {}
         for ln in self.lines:
             self.by_id.setdefault(ln.id, []).append(ln)
