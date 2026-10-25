@@ -1,6 +1,6 @@
 ---
 title: Build Your AI Workflow
-description: "Build turns your approved Design Plan into a working workflow, checks each task without making any real change, and installs it where it runs."
+description: "Build turns your approved Design Plan into a working workflow, checks each task with dry runs that show each change instead of making it, and installs it where it runs."
 ---
 
 > **Part of:** [AI Workflow Framework](../)
@@ -11,15 +11,15 @@ Build turns your approved Design Plan into a working workflow on your platform. 
 
 ## How the Skill Works
 
-Build works in three parts. You do almost all of your part in the first one:
+Build works in three parts. Most of your part comes first; after that, Build asks you to confirm where changes land, answer the workflow's checkpoints as you would at work, and install it:
 
-1. **Your setup** — Build sets up the workflow's own place, has you connect each tool in your account and reads something back to prove it works, places the context files the workflow reads, and makes one quick real check of each kind of change somewhere only you can see.
-2. **Building and checking** — Build tries the main skill on a plain AI first, then builds each task in your plan and checks it, showing every change instead of making it.
+1. **Your setup** — you set up the workflow's own place with Build's steps (nothing to do on Claude Code, Codex or Copilot Cowork), connect each tool in your account (Build reads something back to prove it's the right one), and Build places the context files the workflow reads. With your OK, Build makes one quick real check of each kind of change: one small real change somewhere only you can see. It also asks whether an older version of the workflow is already set up, so the two never run side by side.
+2. **Building and checking** — Build builds each task in your plan and checks it with a dry run, showing every change instead of making it.
 3. **Save it and test** — Build saves or installs the workflow where it runs, keeps a copy, writes your build record, and gives you the phrase to start Test.
 
 ## What You Get
 
-- **Your workflow:** its skills and agents, installed where it runs, each with a practice-run mode. When you start a run with "practice run", nothing is sent or changed.
+- **Your workflow:** its skills and agents, installed where it runs, each with a practice-run mode: start a run with "practice run" and it shows each change instead of making it. Practice runs are built never to send or change anything; if your platform asks you to approve a send or a change during one, choose Deny (or your platform's refuse button).
 - **Your build record:** `build-record.md` in the workflow's folder, saying what was built and what it can access.
 
 ## How to Start
@@ -28,7 +28,7 @@ Say **"run the build skill"** with where your files are, for example "run the bu
 
 ## Worth Knowing
 
-- **It only tells the AI what it doesn't already do.** Build first runs the main task on a plain AI, with no instructions, and writes instructions only for what that run missed, plus the rules that must always hold. Shorter instructions are easier to check and easier to change.
-- **On Microsoft 365 Copilot, agents are built in Agent Builder.** Skills are made in Copilot Cowork, where you run Build. For an agent, Build writes a short prompt; you open Copilot › Chat › Agents › New agent and paste it into the Agent Builder chat, add the context files Build names under Knowledge, check that only what the workflow uses is switched on under Work content, choose Create, and paste the agent's instructions back into Build's chat. The ordinary Copilot Chat can describe an agent but can't create one.
+- **Instructions come from your requirements.** Build writes the workflow's instructions from your requirement lines and the rules that must always hold, so every part can be checked against what it must do.
+- **On Microsoft 365 Copilot, agents are built in Agent Builder.** Skills are made in Copilot Cowork, where you run Build. For an agent, Build writes a short prompt; you open Copilot › Chat › Agents › New agent and paste it into the Agent Builder chat, add the context files Build names under Knowledge, check that only what the workflow uses is switched on under Work content, choose Create, and paste the agent's instructions back into Build's chat, so Build can check they kept the lines every practice run needs. The ordinary Copilot Chat can describe an agent but can't create one.
 
-**Next:** [Test](../test/) runs your workflow on practice inputs and one real example it hasn't seen.
+**Next:** [Test](../test/) runs your workflow on practice inputs and one new input it hasn't seen.

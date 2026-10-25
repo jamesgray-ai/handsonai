@@ -17,7 +17,7 @@ Analyze works in three parts: how we'll look at your work, where the opportuniti
 2. **Lens selection** — your own work or your business's processes.
 3. **Where the opportunities are** — with your OK, a look through what your AI already knows about your work, then a walk through the processes you pick, one at a time. You can stop after any process and come back for the rest.
 4. **Opportunity report** — every opportunity, grouped by process, with the value it adds and its rough size in your own numbers.
-5. **Candidates registered** — you review each workflow's name and description, then each one is saved to your backlog.
+5. **Candidates registered** — you review each workflow's name and description (rename, move or leave out any), then each one is saved to your backlog; work that already runs is recorded as running instead.
 
 ## What You Get
 
@@ -28,11 +28,11 @@ Analyze works in three parts: how we'll look at your work, where the opportuniti
 
 Say **"run the analyze skill"**. On Claude Code you can also type `/handsonai:analyze`.
 
-If Analyze is the first framework skill you run on Claude on the web, ChatGPT or Copilot Cowork, it first asks where to keep your files and suggests a folder called Framework in your drive.
+If Analyze is the first framework skill you run on Claude on the web, ChatGPT or Copilot Cowork, it first asks where to keep your files and suggests a folder called Framework in your drive. On the Claude desktop app, it asks you to make a Framework folder on your computer and add it to the chat.
 
 ## Worth Knowing
 
 - **It stays strategic.** Analyze names the work, the pain and the value, never the tool or connection that would do it. [Design](../design/) picks the tools, once the work is clear.
-- **It doesn't rank or choose.** Every candidate goes on the backlog. You choose which one to build when you start [Deconstruct](../deconstruct/), which suggests a small first one: a handful of steps, started when you decide, working from material you already have.
+- **It doesn't rank or choose.** Every candidate goes on the backlog. You choose which one to build when you start [Deconstruct](../deconstruct/), which explains what makes a good first one (a handful of steps, started when you decide, working from material you already have) and suggests one if you're not sure.
 
 **Next:** [Deconstruct](../deconstruct/) turns one workflow from your backlog into Workflow Requirements.

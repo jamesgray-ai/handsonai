@@ -22,23 +22,23 @@
 
 ### Deconstruct Workflows
 - URL: https://handsonai.info/ai-workflow-framework/deconstruct/
-- Summary: Turns one workflow into Workflow Requirements: the goal, what every output must get right, the rules it follows, where a person checks, and practice inputs from real work. Proposes the light or full track.
+- Summary: Turns one workflow into Workflow Requirements: the goal, what every output must get right, the rules it follows, where a person checks, and practice inputs based on real work. Proposes the light or full track.
 
 ### Design
 - URL: https://handsonai.info/ai-workflow-framework/design/
-- Summary: Reads the requirements, drafts the whole plan for how AI will do the work, asks at most five questions, and ends in an approved Design Plan with a task list.
+- Summary: Reads the requirements, drafts the whole plan for how AI will do the work, asks at most five questions (three on the light track; safety questions are always asked, even past that limit), and ends in an approved Design Plan with a task list.
 
 ### Build
 - URL: https://handsonai.info/ai-workflow-framework/build/
-- Summary: Builds the Design Plan task by task, checks each task without making any real change, installs the workflow where it runs, and writes a build record of what was built and what it can access.
+- Summary: Builds the Design Plan task by task, checks each task with dry runs that show each change instead of making it, makes one small real check of each kind of change somewhere only the leader can see, installs the workflow where it runs, and writes a build record of what was built and what it can access.
 
 ### Test
 - URL: https://handsonai.info/ai-workflow-framework/test/
-- Summary: Runs the workflow cold on practice inputs and one real example it hasn't seen, never sending or changing anything, checks every requirement with proof, and takes the workflow live on your yes.
+- Summary: Runs the workflow cold on practice inputs and one new input it hasn't seen (practice runs are built never to send or change anything, and the leader chooses Deny if the platform asks), checks every requirement with proof, and takes the workflow live on your yes.
 
-#### Deterministic Automation
+#### Guided Prospect Research
 - URL: https://handsonai.info/ai-workflow-framework/examples/deterministic-automation/
-- Summary: Building reliable, repeatable AI workflows using structured prompts and templates. Focuses on predictable outputs with minimal AI judgment.
+- Summary: A worked example of a Guided AI workflow: the AI judges LinkedIn prospects against your buyer persona to decide who makes the list, then fills a fixed report.
 
 #### AI Collaborative
 - URL: https://handsonai.info/ai-workflow-framework/examples/ai-collaborative/
@@ -49,8 +49,8 @@
 - Summary: Building fully autonomous AI agents that execute multi-step workflows with minimal human intervention. Covers agent design, tool integration, and monitoring.
 
 ### Questions
-- Find workflows worth applying AI to: https://handsonai.info/ai-workflow-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/
-- Identify the right AI tools for a workflow: https://handsonai.info/ai-workflow-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/
+- Find workflows worth applying AI to: https://handsonai.info/questions/how-do-i-find-workflows-worth-applying-ai-to/
+- Identify the right AI tools for a workflow: https://handsonai.info/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/
 
 ---
 
@@ -343,11 +343,11 @@
 
 #### Hands-on AI Plugin
 - URL: https://handsonai.info/ai-workflow-framework/skills/
-- Summary: The AI Workflow Framework as executable skills. Includes 5 skills (analyze, deconstruct, design, build, test). Guides you through the five-step Analyze → Deconstruct → Design → Build → Test process, one chat per step; say "continue my workflow" to move to the next step.
+- Summary: The AI Workflow Framework as executable skills. Includes 5 skills (analyze, deconstruct, design, build, test). Guides you through the five-step Analyze → Deconstruct → Design → Build → Test process, one chat per step; say "continue my workflow" to find the next step and the phrase that starts it.
 
-#### AI Registry Plugin
-- URL: https://handsonai.info/use-the-playbook/build/ai-registry/
-- Summary: Skills for building a structured registry of AI workflows and building blocks. Includes 5 skills: naming workflows, writing workflow SOPs, writing process guides, registering building blocks (Skills, Agents, Prompts, Context MDs) in Notion, and syncing skills to GitHub. Requires Notion MCP connector.
+#### AI Registry
+- URL: https://handsonai.info/use-the-playbook/build/handsonai/#ai-registry
+- Summary: Five skills in the Hands-on AI plugin that set up and maintain your AI Registry, a Markdown knowledge bundle of your business, its processes and its workflows: scaffolding-registry, indexing-registry, naming-workflows, writing-workflow-sops and writing-process-guides. No external service needed.
 
 ---
 

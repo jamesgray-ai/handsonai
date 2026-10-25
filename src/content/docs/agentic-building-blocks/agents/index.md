@@ -25,7 +25,7 @@ Each platform has its own agent system. These guides show how to build agents on
 | **Google** | <a href="https://docs.cloud.google.com/gemini/enterprise/docs/agents-overview" target="_blank">Gemini Enterprise Agent Designer</a> | Build agents and workflows visually — enterprise offering | ↑ |
 | **Google** | <a href="https://gemini.google/overview/gemini-in-chrome/" target="_blank">Gemini in Chrome</a> | AI-powered browser workflows | ↑ |
 | **Google** | <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/adk" target="_blank">Vertex AI & ADK</a> | Code-first approach in Python | ↑ |
-| **M365 Copilot** | <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agents-overview" target="_blank">Copilot & Copilot Studio</a> | Build agents visually and deploy to M365 surfaces | [Building Agents on M365 Copilot](../../platforms/m365-copilot/agents/building-agents/) |
+| **M365 Copilot** | <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agents-overview" target="_blank">Copilot (Agent Builder) & Copilot Studio</a> | Build agents in Agent Builder (the place the framework uses) or Copilot Studio, and deploy to M365 surfaces | [Building Agents on M365 Copilot](../../platforms/m365-copilot/agents/building-agents/) |
 
 For guidance on deciding *whether* your workflow needs an agent, see [Build Workflows > Agents](../../ai-workflow-framework/build/).
 

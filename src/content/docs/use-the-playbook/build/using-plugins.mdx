@@ -97,7 +97,8 @@ Each framework step runs in its own session. To move on, start a new session and
 
 ```
 "continue my workflow"
-→ the skill that picks it up finds the step your workflow needs next and starts it
+→ the skill that picks it up works out the step your workflow needs next,
+  and either starts it or gives you the phrase to start it in a new session
 ```
 
 Every step ends by telling you the phrase that starts the next one.
@@ -110,11 +111,11 @@ You can also invoke a skill directly with a slash command. The format is `/hands
 
 | Slash command | What it does |
 |---|---|
-| `/handsonai:analyze` | Audit your workflows to find AI opportunities |
-| `/handsonai:deconstruct` | Break a workflow into structured steps |
+| `/handsonai:analyze` | Find where AI can create value in your work and register candidate workflows |
+| `/handsonai:deconstruct` | Turn one workflow into Workflow Requirements: its goal, what every output must get right, its rules and checkpoints, and practice inputs |
 | `/handsonai:design` | Design the AI workflow architecture |
-| `/handsonai:build` | Generate platform-appropriate artifacts |
-| `/handsonai:test` | Test artifacts and evaluate output quality |
+| `/handsonai:build` | Build the workflow from your approved Design Plan, task by task, check each part, and install it where it runs |
+| `/handsonai:test` | Run the workflow on practice inputs and a new one, grade every requirement with proof, and take it live when you say yes |
 | `/handsonai:scaffolding-registry` | Stand up your registry bundle — SCHEMA.md and your Business, Line of Business, Function, and Process nodes |
 | `/handsonai:naming-workflows` | Generate consistent workflow names + registry entry |
 | `/handsonai:writing-workflow-sops` | Write a Standard Operating Procedure |
@@ -240,16 +241,16 @@ Plugin sub-agents run when they are packaged in an installed plugin, on the web 
 
 ### Skill compatibility across platforms
 
-All 15 skills work fully across Claude Code and Claude — via the plugin or a ZIP upload.
+The skills work across Claude Code and Claude — via the plugin or a ZIP upload. Where a skill carries scripts and code can't run, the skill applies the same rules itself.
 
 | Skill | Claude Code | Claude | Notes |
 |-------|:----------:|:---------:|-------|
 | `analyze` | **Full** | **Full** | Pure instructions + reference docs |
 | `deconstruct` | **Full** | **Full** | Pure instructions + reference docs |
 | `design` | **Full** | **Full** | Pure instructions + reference docs |
-| `build` | **Full** | **Full** | Pure instructions + reference docs |
-| `test` | **Full** | **Full** | Pure instructions + reference docs |
-| `building-knowledge-graph` | **Full** | **Full** | Writes files to the project folder — no external services |
+| `build` | **Full** | **Full** | Instructions, reference docs and a script; where scripts can't run, the skill applies the same rules itself |
+| `test` | **Full** | **Full** | Instructions, reference docs and a script; where scripts can't run, the skill applies the same rules itself |
+| `building-knowledge-graph` | **Full** | **Desktop app** | Writes files to a folder on your computer, so on Claude it needs the desktop app — no external services |
 | `scaffolding-registry` | **Full** | **Full** | Writes registry bundle nodes — no external services |
 | `naming-workflows` | **Full** | **Full** | Writes registry nodes — no external services |
 | `writing-workflow-sops` | **Full** | **Full** | No external services |

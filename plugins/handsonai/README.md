@@ -10,7 +10,7 @@ One plugin, three places it installs — pick yours. Full step-by-step (with scr
 [skills setup page](https://handsonai.info/ai-workflow-framework/skills/).
 
 - **Claude** (web and desktop app — paid plans): **Customize → Plugins → + → Add marketplace → Add from a repository** → `jamesgray-ai/handsonai-plugins` → install **handsonai**.
-- **ChatGPT** (any paid plan) **and Codex**: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**. Then `@analyze` (ChatGPT) or `$analyze` (Codex).
+- **ChatGPT** (the plugin installs on any paid plan; single skill uploads are documented for Business, Enterprise and Edu) **and Codex**: **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → install **Hands-on AI**. Then `@analyze` (ChatGPT) or `$analyze` (Codex).
 - **Claude Code**:
 
   ```
@@ -20,8 +20,8 @@ One plugin, three places it installs — pick yours. Full step-by-step (with scr
 
 No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor, Gemini CLI)? Download the skills as ZIPs from the [Releases page](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest).
 
-- **Microsoft 365 Copilot** runs the framework in Copilot Cowork as custom skills: upload the skill ZIPs, or `handsonai-plugin.zip` (Copilot Cowork converts a Claude plugin on upload). Your framework files live in a `Framework` folder in OneDrive, separate from Copilot Cowork's own folder.
-- **Gemini** and other surfaces that can't save files: each step gives you its files to save, and you paste or attach them when you start the next step.
+- **Microsoft 365 Copilot** runs the framework in Copilot Cowork as custom skills: upload the skill ZIPs, or `handsonai-plugin.zip` (Copilot Cowork converts a Claude plugin on upload). Build makes any agent the workflow needs in Agent Builder. Your framework files live in a `Framework` folder in OneDrive, separate from Copilot Cowork's own folder.
+- **Gemini, Cursor and others:** the Knowledge Graph, AI Registry and Building Skills skills install as ZIPs. The five framework skills are built for Claude, ChatGPT, Codex, Claude Code and Microsoft 365 Copilot; on those, if no drive connection can save, each step gives you its files to save and you paste or attach them when you start the next step.
 
 ## What's Included
 
@@ -29,10 +29,10 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor
 
 | Skill | Description |
 |-------|-------------|
-| `analyze` | Audit your workflows to find where AI creates the most value, and register every candidate as a backlog Workflow node in your registry |
-| `deconstruct` | Turn one workflow into its Workflow Requirements: starting from anything you've written down, it pins down what every output must get right, the rules it follows, where it asks you first, and practice inputs from your real work |
+| `analyze` | Find where AI can create value in your work, and register every candidate as a backlog Workflow node in your registry (or a backlog list in your Framework folder, without one) |
+| `deconstruct` | Turn one workflow into its Workflow Requirements: starting from anything you've written down, it pins down what every output must get right, the rules it follows, where it asks you first, and practice inputs based on your real work |
 | `design` | Plan how AI will do the work: a Design Plan you review and approve, ending in a task list |
-| `build` | Build the workflow from your approved plan, task by task, each part checked without changing anything real, plus a build record of what was built and what it can access |
+| `build` | Build the workflow from your approved plan, task by task, each part checked with dry runs that show changes instead of making them, plus a build record of what was built and what it can access |
 | `test` | Check it on realistic inputs, including one it hasn't seen, against every requirement, then take it live on your yes; later, re-check it any time |
 
 ### Skills — Knowledge Graph
@@ -69,17 +69,17 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor
 
 Five steps, each in a new chat (a new session in Claude Code). Say the step's phrase on any platform, or use its slash command in Claude Code:
 
-- **Analyze** (`/handsonai:analyze`) — find where AI creates the most value in your work, and build a backlog of candidate workflows
+- **Analyze** (`/handsonai:analyze`) — find where AI can create value in your work, and build a backlog of candidate workflows
 - **Deconstruct** (`/handsonai:deconstruct`) — turn one workflow into its Workflow Requirements
 - **Design** (`/handsonai:design`) — get a Design Plan you review and approve
 - **Build** (`/handsonai:build`) — build and install the workflow from your plan
 - **Test** (`/handsonai:test`) — prove it on practice inputs, then take it live
 
-Keeping it working is part of the workflow, not a step: each run flags anything it wasn't designed for, "change my workflow" starts any change, and "test the workflow I built" re-checks it. Say "continue my workflow" any time to pick up where you left off: it finds the step your workflow needs next, and each step ends by giving you the phrase that starts the next one.
+Keeping it working is part of the workflow, not a step: each run flags anything it wasn't designed for, "change my workflow" starts any change, and "test the workflow I built" re-checks it. Say "continue my workflow" any time: the skill works out the step your workflow needs next, and either picks up there or gives you the phrase to start it in a new chat. Each step ends by giving you the phrase that starts the next one.
 
-**Where the files live.** In Claude Code and Codex, the framework's files are in a `framework/` folder in your workspace, one folder per workflow. On Claude on the web and ChatGPT, they're in a `Framework` folder in your Google Drive (or work OneDrive), through the platform's connection; on Microsoft 365, in a `Framework` folder in OneDrive. The workflow itself runs in its own place (its own Project, or its own folder), kept apart from the framework's files, and the framework's chats run outside it.
+**Where the files live.** In Claude Code and Codex, the framework's files are in a `framework/` folder in your workspace, one folder per workflow. On Claude on the web and ChatGPT, they're in a `Framework` folder in your Google Drive, through the platform's connection (if no connection can save, each step gives you its files to save); on Microsoft 365, in a `Framework` folder in OneDrive. The workflow itself runs in its own place (its own Project, or its own folder), kept apart from the framework's files, and the framework's chats run outside it.
 
-**Scripts that ship with the plugin.** In `tools/`, beside the registry tools (`compose-registry.js`, `lint-registry.js`): `framework-state.js` works out where a workflow is and which step is next, and `requirements-check.js` checks a Workflow Requirements file before it's saved. Node 18 or later, no dependencies. Where code can't run, each skill follows the same rules from its own written copy.
+**Scripts that ship with the plugin.** In `tools/`, beside the registry tools (`compose-registry.js`, `lint-registry.js`): `framework-state.js` works out where a workflow is and which step is next, and `requirements-check.js` checks a Workflow Requirements file after each write, so a step fixes any problem before it goes on. Node 18 or later, no dependencies. Where code can't run, each skill follows the same rules from its own written copy.
 
 ## Worked Examples
 

@@ -5,7 +5,7 @@ description: "Every term you meet in the five-step AI Workflow Framework, in pla
 
 Every term you'll meet across the five steps, in plain language, each linked to the page that introduces it.
 
-**Agent (how it runs)** — A workflow that decides its own path while it runs, uses tools on its own judgment, and can run without you. [Design](../design/) chooses an agent when the steps depend on what the workflow finds along the way. On Microsoft 365 Copilot, agents are made in Agent Builder.
+**Agent (how it runs)** — A workflow that decides its own path while it runs, uses tools on its own judgment, or runs without you. [Design](../design/) chooses an agent when the workflow needs any of these. On Microsoft 365 Copilot, agents are made in Agent Builder.
 
 **Agent (building block)** — A configured worker with a job, tools and limits, which a person or another part of the workflow hands work to. See [Agentic Building Blocks](../../agentic-building-blocks/).
 
@@ -21,7 +21,7 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **"Change my workflow"** — The phrase that starts any change to a workflow that's planned, built or live. [Design](../design/) picks it up and judges whether the change is small or big; every change starts at the requirements. See [Keeping It Working](../#keeping-it-working).
 
-**Change that can't be undone** — Anything a workflow does that can't simply be taken back: sending an email, posting a message, deleting or overwriting a record. Design puts a checkpoint before it, and a practice run never makes one.
+**Change that can't be undone** — Anything a workflow does that can't simply be taken back: sending an email, posting a message, deleting or overwriting a record, or changing a record other people see. Design puts a checkpoint before it unless you choose to accept the risk, and a practice run shows it instead of making it.
 
 **Checkpoint** — A point where the workflow stops and asks a person first, such as before it sends anything. One of the [three kinds of line](../#how-it-fits-together) in your requirements, captured in [Deconstruct](../deconstruct/).
 
@@ -29,11 +29,11 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Context** — The documents, examples and reference material a workflow reads while it runs, such as a style guide or a template. Captured in [Deconstruct](../deconstruct/), kept in the workflow's `context/` folder, and placed where the workflow runs by [Build](../build/).
 
-**"Continue my workflow"** — The phrase that moves a workflow on from wherever it is. Say it in a new chat; any of the five skills reads your files, works out which step is next, and picks up there. See [Moving From Step to Step](../#moving-from-step-to-step).
+**"Continue my workflow"** — The phrase that moves a workflow on from wherever it is. Say it in a new chat; any of the five skills reads your files, works out which step is next, and either picks up there or gives you the phrase to start that step in a new chat. See [Moving From Step to Step](../#moving-from-step-to-step).
 
 **Design Plan** — The plan [Design](../design/) writes (`design-plan.md`) for how AI will do the work: where it runs, how much it decides on its own, which parts are skills or agents, what it connects to, and the task list Build follows. You approve it before anything is built.
 
-**Flag line** — The line at the end of every run that flags anything the workflow wasn't designed for, such as a new kind of input or a checkpoint it had to guess at, with the phrase to fix it: "change my workflow". Part of [keeping it working](../#keeping-it-working).
+**Flag line** — The line at the end of every run that flags anything the workflow wasn't designed for, such as a new kind of input or a case its rules don't cover, with the phrase to fix it: "change my workflow". Part of [keeping it working](../#keeping-it-working).
 
 **Framework folder** — The folder that holds your workflow files, called Framework: in Google Drive, in OneDrive or on your computer, or `framework/` in your workspace on Claude Code and Codex. Each workflow gets its own folder inside it. It's kept apart from the workflow's place.
 
@@ -41,42 +41,42 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Lens** — What an [Analyze](../analyze/) session looks at: **Individual** (your own work) or **Organizational** (your business's processes, across several roles).
 
-**Live** — A workflow you've taken live at the end of [Test](../test/) and now use for real work. Live is a fact about the workflow, not a step: a live workflow keeps running while it's changed or re-checked.
+**Live** — A workflow you've taken live at the end of [Test](../test/) and now use for real work. Live is a fact about the workflow, not a step: a live workflow stays live while it's changed or re-checked. Build asks you to pause any schedule while it makes a change, and the changed version is tested before its next real run.
 
 **Must-have** — A check the output can't pass without. Marked among what every output must get right in [Deconstruct](../deconstruct/); a miss on a must-have is never accepted.
 
-**Practice inputs** — Realistic examples, taken from your real work, that [Test](../test/) runs the workflow on. Captured in [Deconstruct](../deconstruct/) and saved in the workflow's `inputs/` folder. Each round also includes one real example the workflow hasn't seen.
+**Practice inputs** — Realistic examples, based on your real work, that [Test](../test/) runs the workflow on. Captured in [Deconstruct](../deconstruct/) and saved in the workflow's `inputs/` folder. Each round also includes one new input the workflow hasn't seen, ideally a real one.
 
-**Practice run** — A run of the workflow that sends and changes nothing. It goes up to each change, shows exactly what it would send or change and where, and stops there. Every workflow [Build](../build/) makes has one, and every run in [Test](../test/) is one.
+**Practice run** — A run of the workflow that's built never to send or change anything. It goes up to each change, shows exactly what it would send or change and where, and stops there. Every workflow [Build](../build/) makes has one, and every run in [Test](../test/) is one.
 
 **Quick real check** — One small real change, made during [Build](../build/)'s setup somewhere only you can see, with your OK first, that proves a kind of change works.
 
-**Re-check** — Running [Test](../test/) again on a live workflow with "test the workflow I built", to see whether it still does what it must. Test sets a date for it when the workflow goes live, three months out.
+**Re-check** — Running [Test](../test/) again on a live workflow with "test the workflow I built", to see whether it still does what it must. When the workflow goes live, Test records a re-check date three months out on your registry card (and in the run log, where the workflow keeps one).
 
 **Registry** — Your AI Registry: a folder of Markdown cards describing your business, its processes and its workflows, which every framework step reads and updates so you never describe your work twice. See the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
 
-**Round** — One pass of [Test](../test/): every practice input and your real example run once, each requirement checked with proof, then a verdict of Ready, Not ready, or waiting on a connection's access. On the full track, two or three rounds is normal.
+**Round** — One pass of [Test](../test/): the practice inputs that need running and one new input, each requirement checked with proof, then a verdict of Ready, Not ready, or waiting on a connection's access. A later round re-runs only what a fix or change could affect. On the full track, two or three rounds is normal.
 
 **Rules it follows** — Sentences in your requirements that say how the workflow must behave: "It always…", "It never…", "When…, it…". One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/).
 
 **Run log** — A one-line-per-run record the workflow keeps in its own place, where the platform lets it write one. Re-check reminders and time saved come from it. Not every workflow keeps one; those that don't still end each run with the flag line.
 
-**Skill (how it runs)** — A workflow you start by name that follows the same steps each time, pausing where you said. [Design](../design/) chooses a skill when you trigger the work yourself and the steps repeat.
+**Skill (how it runs)** — A workflow you start yourself that follows your steps and your criteria, stopping at its checkpoints. [Design](../design/) chooses a skill unless the workflow must work out its own path, use tools on its own judgment, or run without you.
 
 **Skill (building block)** — Any reusable set of instructions the AI follows, including smaller skills a workflow uses for one part of the job. See [Agentic Building Blocks](../../agentic-building-blocks/).
 
 **`stale_after`** — The re-check date on a workflow's registry card. [Test](../test/) sets it when the workflow goes live, three months out, and resets it after each Ready re-check.
 
-**Track (light, full)** — How thorough the five steps are for a workflow. **Light** is for small, low-risk workflows; **full** is for the rest. Same steps and files; each step is shorter on the light track. Any sign of risk keeps a workflow on the full track. Proposed in [Deconstruct](../deconstruct/).
+**Track (light, full)** — How thorough the five steps are for a workflow. **Light** is for small, low-risk workflows; **full** is for the rest. Same steps and files; Deconstruct, Design and Test are shorter on the light track, and Build works the same way on both. Any sign of risk keeps a workflow on the full track. Proposed in [Deconstruct](../deconstruct/).
 
 **Tricky case** — An input that's harder than usual: missing information, an unusual request, something that tests a rule. Your practice inputs should include at least one.
 
-**What it must get right** — Yes-or-no checks in your requirements that every output must pass. One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/) and checked in every [Test](../test/) round.
+**What it must get right** — Yes-or-no checks in your requirements that every output is graded against; the one or two you can never let go out wrong are must-haves. One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/) and checked in every [Test](../test/) round.
 
 **"What I did" summary** — The short summary a workflow ends each run with: the steps it took, where it paused for you, and what it did with your tools. [Test](../test/) uses it to check the path, but always grades the output itself, never the summary's claims about it.
 
 **Workflow's place** — Where the workflow runs: its own Project or folder; on Microsoft 365 Copilot, Copilot Cowork's own folder or the agent itself. It holds only what the workflow reads while it runs, never your requirements or plan, so Test's runs stay cold.
 
-**Workflow node** — A workflow's card in your registry (`registry/workflows/<slug>.md`), tracking its status and files across every step. First written by [Analyze](../analyze/).
+**Workflow node** — A workflow's card in your registry (`registry/workflows/<slug>.md`), tracking its status and files across every step. First written by [Analyze](../analyze/), or by [Deconstruct](../deconstruct/) for a workflow you start without a backlog entry.
 
 **Workflow Requirements** — The clear, testable description of what a workflow must do (`requirements.md`): its goal, what every output must get right, the rules it follows, where a person checks, and its practice inputs. Written in [Deconstruct](../deconstruct/) and read by every later step.

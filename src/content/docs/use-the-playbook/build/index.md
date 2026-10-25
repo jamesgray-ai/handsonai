@@ -24,15 +24,15 @@ One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skil
 
 #### AI Workflow Framework — 5 skills
 
-The five-step methodology for going from a workflow idea to a tested, live AI workflow. Say "continue my workflow" in a new chat to move to the next step.
+The five-step methodology for going from a workflow idea to a tested, live AI workflow. Say "continue my workflow" in a new chat: the skill works out the next step and either starts it or gives you the phrase to start it.
 
 | Component | What it does |
 |---|---|
-| `analyze` skill | Audit your workflows to find where AI creates the most value |
-| `deconstruct` skill | Break a workflow into structured steps using the 6-question framework |
+| `analyze` skill | Find where AI can create value in your work and register each opportunity as a candidate workflow |
+| `deconstruct` skill | Turn one workflow into Workflow Requirements: its goal, what every output must get right, its rules and checkpoints, and practice inputs |
 | `design` skill | Design the AI workflow architecture and produce a Design Plan |
-| `build` skill | Generate platform-appropriate artifacts from the approved spec |
-| `test` skill | Test workflow artifacts and evaluate output quality |
+| `build` skill | Build the workflow from your approved Design Plan, task by task, check each part, and install it where it runs |
+| `test` skill | Run the workflow on practice inputs and a new one, grade every requirement with proof, and take it live when you say yes |
 
 #### Knowledge Graph — 1 skill
 

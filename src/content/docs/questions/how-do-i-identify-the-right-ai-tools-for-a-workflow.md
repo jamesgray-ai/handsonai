@@ -1,6 +1,6 @@
 ---
 question: "How do I identify the right AI tools for a workflow?"
-short_answer: "Define the work first, then choose the tools. Deconstruct captures the goal, what every output must get right, the rules and the checkpoints without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step."
+short_answer: "Define the work first, then choose the tools. Deconstruct captures the goal, what every output must get right, the rules and the checkpoints without naming any tool; Design then plans it for the platform you use and picks the building block — prompt, skill, agent, or connector — for each step."
 platforms: [openai, claude, gemini]
 topic: strategy
 date: 2026-02-02
@@ -9,7 +9,7 @@ title: "How do I identify the right AI tools for a workflow?"
 description: "Define the work first in Deconstruct, then let Design choose the platform and the building block — prompt, skill, agent, or connector — for each step."
 ---
 
-**Short answer:** Define the work first, then choose the tools. Deconstruct captures the goal, what every output must get right, the rules and the checkpoints without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step.
+**Short answer:** Define the work first, then choose the tools. Deconstruct captures the goal, what every output must get right, the rules and the checkpoints without naming any tool; Design then plans it for the platform you use and picks the building block — prompt, skill, agent, or connector — for each step.
 
 ## The Full Answer
 

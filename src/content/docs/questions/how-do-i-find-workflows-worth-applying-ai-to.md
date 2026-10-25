@@ -13,7 +13,7 @@ description: "Run a structured audit of your daily and weekly tasks, naming the 
 
 ## The Full Answer
 
-Most people adopt AI reactively — they reach for ChatGPT when stuck on an email or ask Claude to summarize a document. That's useful, but it misses the bigger picture. The [AI Workflow Framework](/ai-workflow-framework/) provides a structured five-step approach to this question — find where AI creates value, define the work in detail, then design, build and test it.
+AI is often used one request at a time: reaching for ChatGPT when stuck on an email, or asking Claude to summarize a document. That's useful, and there's more to find. The [AI Workflow Framework](/ai-workflow-framework/) provides a structured five-step approach to this question — find where AI creates value, define the work in detail, then design, build and test it.
 
 A proactive, structured audit of your workflows will reveal opportunities you'd never notice in the moment: repetitive tasks that could run on autopilot, decisions that benefit from an AI collaborator, and multi-step processes that could be orchestrated end-to-end. You can approach this from two angles: the **individual lens** (what do I personally do that's repetitive or time-consuming?) and the **organizational lens** (what value chain processes could AI improve across my business?). Both are valid starting points — the individual lens is often easier, while the organizational lens surfaces higher-impact strategic opportunities.
 

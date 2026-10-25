@@ -5,7 +5,7 @@ description: How Agent Skills work in Microsoft 365 Copilot Cowork — upload a 
 
 Microsoft 365 Copilot supports Agent Skills natively in **Copilot Cowork**, which is generally available to Microsoft 365 Copilot license holders (your admin enables it; it uses usage-based billing). Copilot Cowork reads `SKILL.md` files from a folder in your OneDrive, and the Customize page can put them there for you — no plugin install, no terminal.
 
-**Before you start:** open Microsoft 365 Copilot and look for Copilot Cowork (labelled **Cowork**) in the left navigation. If it isn't there, ask your IT admin to enable it. Custom skills aren't available in Copilot Cowork on mobile.
+**Before you start:** open Microsoft 365 Copilot at [copilot.cloud.microsoft](https://copilot.cloud.microsoft), signed in with your work or school account, and look for Copilot Cowork (labelled **Cowork**) in the toggle at the top, next to **Chat**. If it isn't there, ask your IT admin to enable it. Custom skills aren't available in Copilot Cowork on mobile.
 
 ## Upload a skill (easiest)
 
@@ -25,7 +25,7 @@ In Copilot Cowork: **Customize → Skills → the arrow next to Add → Upload s
 
 → [Copilot Cowork skills](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/use-cowork#cowork-skills) (Microsoft Learn)
 
-**Limits:** up to 50 custom skills; 1 MB per `SKILL.md`; 20 companion files and 10 MB per skill.
+**Limits:** up to 50 custom skills; 1 MB per `SKILL.md`; 20 companion files and 10 MB per skill. An uploaded `.zip` or `.skill` file can be up to 10 MB compressed (50 MB uncompressed) and 100 files. (Microsoft Learn, read 2026-10-24.)
 
 **Classic M365 Copilot:** no native skill support outside Copilot Cowork.
 
@@ -36,7 +36,7 @@ Microsoft 365 Copilot has two places to build, and the AI Workflow Framework use
 - **Skills** are made in Copilot Cowork, as on this page.
 - **Agents** are made in Agent Builder: **Copilot › Chat › Agents › New agent**. The ordinary Copilot Chat can describe an agent, but it can't create one. See [Building Agents on M365 Copilot](/platforms/m365-copilot/agents/building-agents/#build-an-agent-with-agent-builder).
 
-**Your framework files** live in a folder called `Framework` in your OneDrive, separate from Copilot Cowork's own `Documents/Cowork/` folder. Run each framework step in a new Copilot Cowork chat and name the folder ("My files are in OneDrive, in Framework/weekly-status-report."): the chat reads the files there with nothing attached. Copilot Cowork can see your whole OneDrive, so the framework reads and saves only inside that folder.
+**Your framework files** live in a folder called `Framework` in your OneDrive, separate from Copilot Cowork's own `Documents/Cowork/` folder. Run each framework step in a new Copilot Cowork chat and name the folder ("My files are in OneDrive, in Framework/weekly-status-report."): the chat reads the files there with nothing attached. Copilot Cowork can see your whole OneDrive, so the framework reads and saves only inside that folder. If Copilot Cowork can't read the folder (an admin may limit its OneDrive access), the step asks you to attach your Framework folder to the chat.
 
 ## Related
 

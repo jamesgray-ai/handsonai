@@ -1,6 +1,6 @@
 ---
 title: Install the Hands-on AI Plugin
-description: "Install the Hands-on AI plugin — the AI Workflow Framework, Knowledge Graph, and AI Registry skills — on Claude, ChatGPT, Gemini, Copilot, Cursor, and Codex."
+description: "Install the Hands-on AI plugin: the five AI Workflow Framework skills on Claude, ChatGPT, Microsoft 365 Copilot, Claude Code and Codex, plus the Knowledge Graph and AI Registry skills, which also install on Gemini and Cursor."
 ---
 
 import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
@@ -20,6 +20,8 @@ Pick the row that matches the tool you use most, then jump to that section. Noth
 | **Google Gemini** | [Upload the ZIPs](#google-gemini) in Gemini Spark (personal account) or Gemini Enterprise (work account). *No terminal.* |
 | **Microsoft 365 Copilot** | [Upload the plugin file](#microsoft-365-copilot) in Copilot Cowork, or the ZIPs one at a time. *No terminal.* |
 | **A code editor or terminal** (Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity) | See [For builders](#for-builders-code-editors--terminal) at the bottom. *A couple of commands or a folder on disk.* |
+
+The five framework skills run on Claude (web, desktop and Claude Code), ChatGPT, Codex and Microsoft 365 Copilot. The other skills on this page also install on Google Gemini and Cursor, but the framework's steps haven't been tested there.
 
 **Just want the files?** [Jump to the downloads](#download-the-skill-zips) — the five framework skills, the Knowledge Graph skill, and the two AI Registry skills, one click each.
 
@@ -84,7 +86,7 @@ This lets Claude run skills — it does not give Claude access to your computer.
 
 > Help me analyze AI workflow opportunities
 
-Claude begins a short interview — asking about your role and the work you do most often — instead of giving a generic answer. You can also type `/` to see the skills listed.
+Analyze starts instead of giving a generic answer: first it asks where to keep your framework files, then it explains its three parts. You can also type `/` to see the skills listed.
 
 :::note[Where the plugin works]
 The five framework skills work in Claude on the web and on desktop. If you use Claude on both the web and desktop and the plugin doesn't appear in one of them, add the marketplace there too — the steps are the same.
@@ -120,7 +122,7 @@ Use this if you don't have a **Plugins** tab (Free plan, or your company turned 
 
 {/* screenshot: claude-skills-upload-skill.png — Customize → Skills → + → Create skill → Upload a skill */}
 
-**You'll know it worked when:** you start a **new** chat, type *"Help me analyze AI workflow opportunities"*, and Claude begins the interview. Uploaded skills appear everywhere you use Claude on your account.
+**You'll know it worked when:** you start a **new** chat, type *"Help me analyze AI workflow opportunities"*, and Analyze starts: it asks where to keep your framework files, then explains its three parts. Uploaded skills appear everywhere you use Claude on your account.
 
 **If it didn't work:**
 - Did you start a **new** chat after installing?
@@ -140,7 +142,7 @@ The ChatGPT app (Mac, Windows, and Linux) has three modes: **Chat**, **Work**, a
 
 **Official docs:** [Skills in ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt) · [Skills & Plugins](https://learn.chatgpt.com/docs/skills-and-plugins)
 
-**What you need first:** A ChatGPT account and the ChatGPT desktop app (Mac, Windows, or Linux). **You must be in the desktop app to add the marketplace** — the Plugins page on [chatgpt.com](https://chatgpt.com) in a browser does not show **Add a marketplace**. Install the app from [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/), sign in, and come back here. Once the plugin is installed, its skills also work on chatgpt.com and your phone; uploaded skills work in the app. All three options need a paid plan — **Plus, Pro, Business, or Enterprise** (not Free or Go). On Enterprise and Edu, skills are off until an admin turns them on.
+**What you need first:** A ChatGPT account and the ChatGPT desktop app (Mac, Windows, or Linux). **You must be in the desktop app to add the marketplace** — the Plugins page on [chatgpt.com](https://chatgpt.com) in a browser does not show **Add a marketplace**. Install the app from [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/), sign in, and come back here. Once the plugin is installed, its skills also work on chatgpt.com and your phone; uploaded skills work in the app. The plugin installs on any paid plan — **Plus, Pro, Business, or Enterprise** (not Free or Go). Uploading single skills (Option 3) is documented for Business, Enterprise and Edu, so on Plus and Pro, install the plugin. On Enterprise and Edu, skills are off until an admin turns them on. If the framework skills can't save to your Google Drive (on Plus and Pro, or where an admin hasn't allowed it), they give you each file to save yourself.
 
 #### Option 1 — Add the marketplace (recommended)
 
@@ -158,7 +160,7 @@ The ChatGPT app (Mac, Windows, and Linux) has three modes: **Chat**, **Work**, a
 
 > Help me analyze AI workflow opportunities
 
-ChatGPT begins a short interview about your role and the work you do most often. In the Codex tab, type `$analyze` instead.
+Analyze starts: it asks where to keep your framework files, then explains its three parts. In the Codex tab, type `$analyze` instead.
 
 {/* screenshot: chatgpt-work-mode-mention.png — the Work toggle and the @analyze autocomplete */}
 
@@ -193,7 +195,7 @@ Use this if your company doesn't let you add plugins, or if you only want one or
 
 {/* screenshot: chatgpt-plugins-skills-upload.png — Plugins → Skills → Create → Upload from your computer */}
 
-**You'll know it worked when:** in **Work**, you type `@analyze`, pick the skill, send *"Help me analyze AI workflow opportunities"*, and ChatGPT begins the interview.
+**You'll know it worked when:** in **Work**, you type `@analyze`, pick the skill, send *"Help me analyze AI workflow opportunities"*, and Analyze starts.
 
 Where they work, in OpenAI's words: *"Standalone skills are available in the ChatGPT desktop app, Codex CLI, and IDE extension. Skills bundled in plugins are also available in Chat and Work across ChatGPT on the web, desktop, and mobile."* So uploaded skills stay in the app and Codex; the plugin's skills also work on the web and your phone.
 
@@ -231,7 +233,7 @@ The same steps work in the Gemini app for Mac and in the Gemini app on your phon
 
 {/* screenshot: gemini-spark-skills-upload.png — Spark → Skills page with the Upload button */}
 
-**You'll know it worked when:** you start a task, type `/` and pick **analyze** (or just describe the task — Spark picks the skill automatically), send *"Help me analyze AI workflow opportunities"*, and Gemini begins a short interview about your role and your work.
+**You'll know it worked when:** you start a task, type `/` and pick **analyze** (or just describe the task — Spark picks the skill automatically), send *"Help me analyze AI workflow opportunities"*, and Analyze introduces itself instead of giving a generic answer.
 
 To update a skill later: **Skills** → **More** (⋮) next to the skill → **Replace skill** → choose the new ZIP. To remove one: **More** → **Delete**.
 
@@ -245,7 +247,7 @@ To update a skill later: **Skills** → **More** (⋮) next to the skill → **R
 4. Drag in `analyze.zip` (or browse for it), then click **Import**
 5. Repeat for the next skill you need
 
-**You'll know it worked when:** you type `@analyze` or `/analyze` in a chat (or just describe the task), send *"Help me analyze AI workflow opportunities"*, and Gemini begins the interview. Note that Gemini Enterprise skills don't run inside its Agents — use them in chat.
+**You'll know it worked when:** you type `@analyze` or `/analyze` in a chat (or just describe the task), send *"Help me analyze AI workflow opportunities"*, and Analyze introduces itself. Note that Gemini Enterprise skills don't run inside its Agents — use them in chat.
 
 :::note[From Google's documentation]
 These Gemini Enterprise steps follow Google's official guide and haven't yet been walked through hands-on for this course. If a label on your screen differs, tell your instructor so we can fix the page.
@@ -270,7 +272,7 @@ Microsoft 365 Copilot runs skills in **Copilot Cowork**. It reads `SKILL.md` fil
 
 **What you need first:** A Microsoft 365 Copilot license, and your admin must have enabled Copilot Cowork (it's generally available, but it uses usage-based billing that an admin turns on). Custom skills aren't available in Copilot Cowork on mobile.
 
-**Before you start:** Open Microsoft 365 Copilot. Do you see **Copilot Cowork** in the left navigation? Yes → continue. No → ask your IT admin to enable Copilot Cowork.
+**Before you start:** Open Microsoft 365 Copilot at [copilot.cloud.microsoft](https://copilot.cloud.microsoft) and sign in with your work or school account. Do you see **Cowork** in the toggle at the top, next to **Chat**? Yes → continue. No → ask your IT admin to enable Copilot Cowork.
 
 #### Option 1 — Upload the plugin (recommended)
 
@@ -283,7 +285,7 @@ Adds every skill at once, from one file.
 5. Drag `handsonai-plugin.zip` into the box (or click **choose a file**)
 6. In **Publish "handsonai"**, leave **Only you** selected and click **Publish**
 
-**You'll know it worked when:** **handsonai** appears under **Installed** with its toggle on, and a new Copilot Cowork conversation that starts *"Help me analyze AI workflow opportunities"* begins the interview.
+**You'll know it worked when:** **handsonai** appears under **Installed** with its toggle on, and a new Copilot Cowork conversation that starts *"Help me analyze AI workflow opportunities"* starts Analyze: it asks where to keep your framework files (it suggests a Framework folder in your OneDrive), then explains its three parts.
 
 **Updating:** an uploaded plugin doesn't update itself. When the [changelog](/blog/) announces a new version, download the file again and upload it again.
 
@@ -314,14 +316,14 @@ If Copilot Cowork rejects the ZIP, use Option 3 instead.
 4. Move the `analyze` folder in. The full path should be `Documents/Cowork/skills/analyze/SKILL.md`
 5. Repeat for the next skill you need
 
-**You'll know it worked when:** you start a new Copilot Cowork conversation, type *"Help me analyze AI workflow opportunities"*, and it begins the interview. The skill shows up as a chip in the side panel under **Skills**.
+**You'll know it worked when:** you start a new Copilot Cowork conversation, type *"Help me analyze AI workflow opportunities"*, and Analyze starts. The skill shows up as a chip in the side panel under **Skills**.
 
 :::note[From Microsoft's documentation]
 These Copilot Cowork steps follow Microsoft Learn and haven't yet been walked through hands-on for this course. If a label on your screen differs, tell your instructor so we can fix the page.
 :::
 
 :::note[Limits and updates]
-You can have up to **50 custom skills**; each `SKILL.md` can be up to 1 MB, with up to 20 companion files per skill. Uploading a skill again makes a **second copy** (for example `analyze 2`) rather than replacing it — to update, open the old skill and click **Delete** first, or overwrite the folder in OneDrive.
+You can have up to **50 custom skills**; each `SKILL.md` can be up to 1 MB, with up to 20 companion files and 10 MB per skill. An uploaded ZIP can be up to 10 MB compressed and 100 files (Microsoft Learn, read 2026-10-24). Uploading a skill again makes a **second copy** (for example `analyze 2`) rather than replacing it — to update, open the old skill and click **Delete** first, or overwrite the folder in OneDrive.
 :::
 
 **If it didn't work:**
@@ -404,7 +406,7 @@ Next: [AI Registry setup](../../builder-setup/ai-registry-setup/)
 <details>
 <summary>Optional extras — 2 skills for documenting your workflows</summary>
 
-You don't need these to work through the framework. Grab them when you want to write up a finished workflow for your team. When a team workflow goes live, Test offers to write its SOP.
+You don't need these to work through the framework. Grab them when you want to write up a finished workflow for your team. When a team workflow goes live, Test offers to write its SOP with the Writing Workflow SOPs skill, so install it if your workflows are for a team.
 
 - **Writing Workflow SOPs** — writes a step-by-step Standard Operating Procedure (SOP) for one workflow.
 - **Writing Process Guides** — explains a whole business process: when it runs, why, and how its workflows fit together.
@@ -503,7 +505,7 @@ Move the `analyze` folder into `.agents/skills/`. You should now have `your-proj
 
 Close and reopen Cursor (or reopen the project). In Cursor's chat, type *"Use the analyze skill to help me find AI workflow opportunities."*
 
-**You'll know it worked when:** Cursor begins the structured interview about your role and your work instead of answering generically.
+**You'll know it worked when:** Analyze introduces itself instead of answering generically.
 
 **If it didn't work:** check the path is exactly `your-project/.agents/skills/analyze/SKILL.md` (not `analyze/analyze/…`), that the project you have open is the one with the folder, and that you reopened Cursor after adding it.
 
@@ -541,7 +543,7 @@ Codex reads skills from a personal folder that works in every project, or from a
 
 Open Codex and type `$` — the skills appear in a list. Pick **analyze**, or say *"Use the analyze skill to help me find AI workflow opportunities."* Type `/skills` to see everything Codex has loaded.
 
-**You'll know it worked when:** `analyze` appears in the `$` list and Codex begins the structured interview.
+**You'll know it worked when:** `analyze` appears in the `$` list and Analyze starts: it uses `framework/` in your workspace without asking, then explains its three parts.
 
 **If it didn't work:** check the path ends in `.agents/skills/analyze/SKILL.md`, start a new Codex thread (skills load at the start of a thread), and make sure the folder is in your home folder or in the project you have open.
 
@@ -601,7 +603,7 @@ Move `analyze` into `.gemini/skills/` (or `.agents/skills/`). You should now hav
 
 Open the project in Gemini CLI or Antigravity and say *"Use the analyze skill to help me find AI workflow opportunities."* Skills are discovered automatically.
 
-**You'll know it worked when:** Gemini begins the structured interview about your role and your work.
+**You'll know it worked when:** Analyze introduces itself instead of answering generically.
 
 **If it didn't work:** check the path ends in `skills/analyze/SKILL.md`, that you started the tool from (or opened) the project that has the folder, and restart Antigravity if it was already open.
 
@@ -626,6 +628,8 @@ Work out which of three things is wrong, then go to the right place:
 ## Update the Skills
 
 The skills evolve as the methodology improves — new skills get added, prompts get refined, reference material gets sharper. You don't need to check for updates yourself: changes are announced in the [changelog](/blog/), and the [release notes on GitHub](https://github.com/jamesgray-ai/handsonai-plugins/releases) list exactly what changed.
+
+**Upgrading to 10.0?** The framework now has five steps. If you uploaded the Run or Improve skill ZIPs (or the framework agent), delete them: **Customize → Skills** on Claude, **Plugins → Skills** on ChatGPT, **Customize → Skills** in Copilot Cowork, your platform's skills page on Gemini, or remove their folders. The plugin update removes them for you.
 
 <details>
 <summary><strong>Claude</strong></summary>
@@ -706,7 +710,7 @@ These tools read skills from a project folder, so refreshing means swapping the 
 
 ## Using These Skills
 
-Once the skills are set up, here's how to start on each platform. The same test works everywhere: ask *"Help me analyze AI workflow opportunities"* and you should get a short interview about your role and your work, not a generic answer.
+Once the skills are set up, here's how to start on each platform. The same test works everywhere: ask *"Help me analyze AI workflow opportunities"* and you should see Analyze introduce itself, not a generic answer.
 
 | Platform | How to start |
 |----------|-------------|
@@ -739,15 +743,15 @@ Each skill is documented in detail on its step page — including the run sequen
 | `build` | [Build](../build/) |
 | `test` | [Test](../test/) |
 
-To move from one step to the next, start a new chat and say **"continue my workflow"**: the skill that picks it up finds the step your workflow needs next. See [Moving From Step to Step](../#moving-from-step-to-step).
+To move from one step to the next, start a new chat and say **"continue my workflow"** (with where your files are, on the web). The skill works out which step is next and either picks up there or gives you the phrase to start it. See [Moving From Step to Step](../#moving-from-step-to-step).
 
 ## FAQ
 
 **What if I lose context mid-conversation?**
-The file-based handoffs between steps mean you can continue in a new conversation. Just invoke the next skill and point it at the file from the previous step (e.g., "Use `deconstruct` on `framework/lead-qualification/requirements.md`").
+Every step saves as it goes. Open a new chat and say the step's phrase with where your files are, for example "run the design skill. My files are in framework/lead-qualification.", or say "continue my workflow". The skill picks up from what's saved.
 
 **Do I need Claude Code for all of this?**
-No. These skills work on Claude (web, desktop, and Claude Code), ChatGPT and Codex, Google Gemini (Spark, Gemini Enterprise, Gemini CLI, and Antigravity), Microsoft 365 Copilot, and Cursor. See [Set Up These Skills](#set-up-these-skills) above for your platform.
+No. The five framework skills run on Claude (web, desktop and Claude Code), ChatGPT, Codex and Microsoft 365 Copilot. The other skills on this page (Knowledge Graph, AI Registry, Writing Workflow SOPs) also install on Google Gemini (Spark, Gemini Enterprise, Gemini CLI and Antigravity) and Cursor, but the framework's steps haven't been tested there. See [Set Up These Skills](#set-up-these-skills) above for your platform.
 
 **I'm on ChatGPT and don't see Add a marketplace. Why?**
 You're probably on chatgpt.com in a browser. Adding a marketplace only works in the ChatGPT desktop app (Mac, Windows, or Linux). Open the app, go to **Plugins → Add → Add a marketplace**, and install there — the skills then work on the web and mobile too. If you're already in the app, see the *Before you start* check under [ChatGPT & Codex](#chatgpt--codex).
