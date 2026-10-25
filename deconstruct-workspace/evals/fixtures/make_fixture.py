@@ -83,6 +83,10 @@ def add_process(t, slug, title, description, owner, workflows=()):
     idx = t / "registry" / "processes" / "index.md"
     kept = [l for l in idx.read_text().splitlines() if not l.startswith("_No entries yet")]
     idx.write_text("\n".join(kept).rstrip("\n") + f"\n- [{title}](/processes/{slug}.md)\n")
+    # a Process joins its line of business's # Processes list (the lint's error otherwise)
+    lobs = sorted(p for p in (t / "registry" / "lines-of-business").glob("*.md") if p.name != "index.md")
+    if lobs:
+        lobs[0].write_text(lobs[0].read_text().rstrip("\n") + f"\n- [{title}](/processes/{slug}.md)\n")
 
 
 def progress_file(t, slug, node, next_part, track, notes, root="framework"):
@@ -175,6 +179,8 @@ def fx_backlog_filter(t):  # 5.1: a backlog node whose slug already has a folder
              "Prepares a one-page brief before each stakeholder meeting, for you to read beforehand.",
              "A stakeholder meeting is booked", status="in-production",
              body_extra="\nRuns today as a prompt you paste before each stakeholder meeting.\n")
+    proc = t / "registry" / "processes" / "client-relationship-management.md"  # running work joins a Process
+    proc.write_text(proc.read_text().rstrip("\n") + "\n- [Stakeholder Meeting Prep](/workflows/stakeholder-meeting-prep.md)\n")
     add_node(t, NEWS, "Weekly Newsletter Draft",
              "Drafts the weekly client newsletter from your notes, for you to edit and send yourself.",
              "Friday morning, you paste in the week's notes")
@@ -183,10 +189,11 @@ def fx_backlog_filter(t):  # 5.1: a backlog node whose slug already has a folder
 def add_newsletter(t):
     add_process(t, "client-newsletter", "Client Newsletter", "Keeping clients up to date between projects.",
                 "account-management", [(NEWS, "Weekly Newsletter Draft")])
+    report = (t / "framework" / "ai-opportunity-report.md").exists()  # linked only where Analyze left it
     add_node(t, NEWS, "Weekly Newsletter Draft",
              "Drafts the weekly client newsletter from your notes, for you to edit and send yourself.",
              "Friday morning, you paste in the week's notes",
-             artifacts="- [Opportunity report](framework/ai-opportunity-report.md)\n")
+             artifacts="- [Opportunity report](framework/ai-opportunity-report.md)\n" if report else "")
 
 
 def fx_newsletter(t):  # a first-time leader's backlog with a clearly light candidate (the light track)
@@ -237,6 +244,9 @@ def fx_cold_registry_no_fit(t):  # the same, with only a finance process: no pro
         if p.name != "index.md":
             p.unlink()
     (t / "registry" / "processes" / "index.md").write_text("# Processes\n")
+    for p in list((t / "registry" / "lines-of-business").glob("*.md")) + list((t / "registry" / "functions").glob("*.md")):
+        if p.name != "index.md":  # no link to the processes taken out
+            p.write_text(re.sub(r"(?m)^- \[[^\]]+\]\(/processes/[^)]+\)\n", "", p.read_text()))
     add_process(t, "month-end-close", "Month-End Close", "Closing the books each month.", "account-management")
 
 

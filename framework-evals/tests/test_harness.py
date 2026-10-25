@@ -13,6 +13,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -617,6 +618,27 @@ class PlatformSimulations(unittest.TestCase):
         finally:
             H.call = saved
             shutil.rmtree(t)
+
+    def test_chat_platform_layout_keeps_the_registry_linting_clean(self):
+        # rule 4: in a framework folder the registry's repo links drop the `framework/` prefix; a skill in
+        # the leader's account is named as text; on a case-insensitive disk ws/framework is ws/Framework
+        for key, sub in (("claude-desktop", ""), ("microsoft-365", "onedrive"), ("chatgpt", "drive")):
+            t = Path(tempfile.mkdtemp())
+            try:
+                shutil.copytree(ROOT / "framework-fixtures" / "states" / "s11-live" / "with-registry", t, dirs_exist_ok=True)
+                L.PLATFORMS[key]().prepare(t)
+                fw = t / sub / "Framework"
+                node = (fw / "registry" / "workflows" / "client-follow-up.md").read_text()
+                self.assertIn("](client-follow-up/requirements.md)", node)
+                self.assertNotIn("](framework/", node)
+                self.assertNotIn(".claude/skills/", node)
+                self.assertTrue((fw / "client-follow-up" / "requirements.md").exists())
+                self.assertFalse((t / ".framework-moving").exists())
+                lint = subprocess.run(["node", str(ROOT / "plugins/handsonai/tools/lint-registry.js"), "registry"],
+                                      cwd=fw, capture_output=True, text=True)
+                self.assertIn("0 error(s)", lint.stdout + lint.stderr, key)
+            finally:
+                shutil.rmtree(t)
 
     def test_action_counter(self):
         sessions = [{"turns": [{"role": "student", "text": "run the build skill", "prompt": True, "actions": 0},

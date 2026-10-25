@@ -17,6 +17,10 @@ platforms. Two sources:
   tools/requirements-check.js. They stand in for files the finished Deconstruct produced until T45
   and T71 regenerate them from real runs.
 
+Every fixture with a registry ends with its views recomposed (compose-registry.js), so the
+registry lints clean and compose --check passes before the eval starts; a node never links a file
+the fixture removed.
+
 Built fixtures get real fingerprints (`sha256:` + the hex digest of the installed file), so a
 Design that compares what's installed with the build record finds an edit only where a fixture
 made one.
@@ -96,6 +100,41 @@ def add_skill(t, name, description, body, used_by=None):
         )
         idx = Path(t) / "registry" / "workflows" / "index.md"
         idx.write_text(idx.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
+        # an in-production workflow joins a Process (registry-bundle.md rule 5; the lint's error otherwise)
+        proc = Path(t) / "registry" / "processes" / "client-relationship-management.md"
+        if proc.exists():
+            proc.write_text(proc.read_text().rstrip("\n") + f"\n- [{title}](/workflows/{slug}.md)\n")
+
+
+def drop_links(t, slug, *labels, skills=False):
+    """Take a node's links to files a fixture removed off it, as the step that removed them would
+    (registry-bundle.md rule 7: no link to a moved file): `labels` from # Artifacts, and with
+    skills=True every # Skills entry."""
+    node = Path(t) / "registry" / "workflows" / f"{slug}.md"
+    if not node.exists():
+        return
+    text = node.read_text()
+    for label in labels:
+        text = re.sub(rf"(?m)^- \[{re.escape(label)}\]\([^)]*\)\n", "", text)
+    if skills:
+        text = re.sub(r"(?ms)(^# Skills\n).*?(?=^# )", r"\1\n\n", text)
+        # and the skills inventory compose wrote from them (compose refuses to run past a broken link)
+        idx = Path(t) / "registry" / "index.md"
+        if idx.exists():
+            idx.write_text(re.sub(rf"(?m)^- \[[^\]]+\]\(\.claude/skills/{re.escape(slug)}/SKILL\.md\).*\n", "",
+                                  idx.read_text()))
+    node.write_text(text)
+
+
+def compose(t):
+    """Regenerate the registry's views (REGISTRY.md, indexes, GENERATED blocks) from the fixture's
+    nodes, as a step's maintenance pass leaves them, so lint-registry and compose --check start clean."""
+    if not (Path(t) / "registry" / "SCHEMA.md").exists():
+        return
+    r = subprocess.run(["node", str(ROOT / "plugins" / "handsonai" / "tools" / "compose-registry.js"), "registry"],
+                       cwd=t, capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.exit(f"compose-registry failed on the fixture: {r.stdout[-600:]}{r.stderr[-600:]}")
 
 
 def digest(path):
@@ -281,6 +320,12 @@ def fx_earlier_plan_built(t):  # a live workflow whose plan is a 9.x design-spec
     d = wf_dir(t, CFU)
     shutil.copy(FF / "earlier-version/v1-design-spec/with-registry/framework/client-follow-up/design-spec.md", d / "design-spec.md")
     (d / "design-plan.md").unlink()
+    node = Path(t) / "registry" / "workflows" / f"{CFU}.md"
+    sub(node, "- [Design plan](framework/client-follow-up/design-plan.md)",
+        "- [Design spec](framework/client-follow-up/design-spec.md)")
+    # an older node (a bare-date stamp) may carry the earlier label (registry-bundle.md rule 2)
+    text = node.read_text()
+    node.write_text(re.sub(r"(?m)^(generated: \{ by: [^,]+, at: )(\d{4}-\d\d-\d\d)T[^ ]+ \}", r"\1\2 }", text, count=1))
 
 
 def fx_retired(t):
@@ -294,6 +339,7 @@ def fx_retired_no_record(t):  # retired, never built: requirements and an approv
     for f in ("build-record.md", "test-results.md"):
         (d / f).unlink()
     shutil.rmtree(Path(t) / ".claude", ignore_errors=True)
+    drop_links(t, CFU, "Test results", skills=True)
 
 
 def fx_retired_no_requirements(t):  # retired, its folder empty of framework files: Deconstruct is next
@@ -302,6 +348,7 @@ def fx_retired_no_requirements(t):  # retired, its folder empty of framework fil
     for f in ("build-record.md", "test-results.md", "design-plan.md", "requirements.md"):
         (d / f).unlink()
     shutil.rmtree(Path(t) / ".claude", ignore_errors=True)
+    drop_links(t, CFU, "Requirements", "Design plan", "Test results", skills=True)
 
 
 def fx_switched_off_no_registry(t):  # no registry: a workflow the leader switched off still reads as live
@@ -484,6 +531,11 @@ def fx_live_m365_agent(t):  # a live Microsoft 365 workflow built as one Agent B
     text = re.sub(r"(?m)^\| T2 \| — \| C1 \| Follow-up style guide.*\n", "", text)
     rec.write_text(text)
     shutil.rmtree(Path(t) / ".claude", ignore_errors=True)
+    # the node names the agent, which lives in Agent Builder, as plain text (registry-bundle.md 3, analyze row)
+    drop_links(t, CFU, skills=True)
+    node = Path(t) / "registry" / "workflows" / f"{CFU}.md"
+    if node.exists():
+        node.write_text(re.sub(r"(?m)^# Agents\n*", "# Agents\n\n- Client Follow-Up agent (Agent Builder)\n", node.read_text()))
 
 
 def fx_agent_failed_check(t):  # Build's request after an Agent Builder agent failed its carried-line check three times (3c-DI)
@@ -528,4 +580,5 @@ if __name__ == "__main__":
         sys.exit(f"{target} already exists; pass a new folder")
     target.parent.mkdir(parents=True, exist_ok=True)
     FIXTURES[sys.argv[1]](target)
+    compose(target)
     print(target)

@@ -42,9 +42,12 @@ a file under Knowledge, choosing Create) against the spec's journey figures. It 
 """
 import re
 import shutil
+import subprocess
 from pathlib import Path
 
 import approved_lines as AL
+
+COMPOSE = Path(__file__).resolve().parents[1] / "plugins" / "handsonai" / "tools" / "compose-registry.js"
 
 LEADER_RULES = """You are playing a business leader in a test of an AI framework step. You see only your script, the conversation, and what your screen shows you.
 Reply with only the leader's next message: no notes, no quotes around it, no labels.
@@ -123,22 +126,42 @@ class Platform:
 
 
 def _move_into(ws, sub):
-    """Move the workspace's framework files under ws/sub/Framework (a drive or a named folder)."""
-    target = Path(ws) / sub / "Framework" if sub else Path(ws) / "Framework"
+    """Move the workspace's framework files under ws/sub/Framework (a drive or a named folder), with
+    the registry beside them. The registry's repo links are relative to its parent folder
+    (registry-bundle.md rule 4): `framework/<slug>/requirements.md` in a workspace becomes
+    `<slug>/requirements.md` in a framework folder, so they're rewritten as they're moved."""
+    ws = Path(ws)
+    target = ws / sub / "Framework" if sub else ws / "Framework"
+    src = ws / "framework"
+    if src.exists():
+        # first out of the way: on a case-insensitive disk (macOS) ws/framework *is* ws/Framework
+        moving = ws / ".framework-moving"
+        src.rename(moving)
+        src = moving
     target.mkdir(parents=True, exist_ok=True)
-    for name in ("framework", "registry"):
-        src = Path(ws) / name
-        if src.exists():
-            dst = target if name == "framework" else target / "registry"
-            if name == "framework":
-                for child in src.iterdir():
-                    shutil.move(str(child), str(dst / child.name))
-                src.rmdir()
-            else:
-                shutil.move(str(src), str(dst))
-    for f in ("REGISTRY.md", "backlog.md", "ai-opportunity-report.md", "analyze-in-progress.md"):
-        if (Path(ws) / f).exists():
-            shutil.move(str(Path(ws) / f), str(target / f))
+    if src.exists():
+        for child in src.iterdir():
+            shutil.move(str(child), str(target / child.name))
+        src.rmdir()
+    if (ws / "registry").exists():
+        shutil.move(str(ws / "registry"), str(target / "registry"))
+    for f in ("REGISTRY.md", "registry-dashboard.html", "backlog.md", "ai-opportunity-report.md",
+              "analyze-in-progress.md"):
+        if (ws / f).exists():
+            shutil.move(str(ws / f), str(target / f))
+    views = list((target / "registry").rglob("*.md")) if (target / "registry").exists() else []
+    for p in views + [target / "REGISTRY.md"]:
+        if p.exists():
+            text = p.read_text()
+            moved = re.sub(r"\]\(framework/", "](", text)
+            # a skill installed in the leader's account isn't a file beside the registry: its name, as text
+            moved = re.sub(r"\[([^\]]+)\]\(\.(?:claude|agents)/skills/[^)]+\)", r"\1", moved)
+            if moved != text:
+                p.write_text(moved)
+    if (target / "registry" / "SCHEMA.md").exists():
+        # the views as a maintenance pass on this platform leaves them (the skills inventory scans the
+        # folder, which holds no installed skill here), so the registry lints and composes clean
+        subprocess.run(["node", str(COMPOSE), "registry"], cwd=target, capture_output=True, text=True)
     return target
 
 
