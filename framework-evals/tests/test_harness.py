@@ -269,6 +269,41 @@ class WordingChecks(unittest.TestCase):
         self.assertIn("Gmail (read, create drafts, send, delete)", prompt)
         self.assertNotIn("unchanged by the session here", prompt)
 
+    def test_rubric_judge_sees_a_profile_line_past_the_cut(self):
+        # a send tool the AI read in the record's profile, past the cut, is shown: the line shares two words
+        import grade_eval as G
+        filler = "\n".join(f"- **Filler {i}:** a line about nothing the messages speak of, number {i}." for i in range(60))
+        start = f"# Build record\n\n{filler}\ntool gmail write mcp__gmail__send_message | Sends a message\nheadless_writes practice only here\n"
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": start}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "turns": [
+                {"role": "ai", "text": "Its Gmail connection also includes a way to send email."}],
+                "files_start": {"framework/x/build-record.md": start}, "files_end": {"framework/x/build-record.md": start}}]}
+            _, prompt = G.rubric_prompt(run)
+        self.assertIn("mcp__gmail__send_message", prompt)
+        self.assertNotIn("headless_writes", prompt)
+
+    def test_rubric_judge_sees_each_sessions_own_version_of_a_file(self):
+        # two sessions from different fixtures: the second's plan (approved: false) is shown for it,
+        # and each message carries its session
+        import grade_eval as G
+        one = "---\napproved: true\n---\n# Plan\nThe plan drafts a follow-up email after each client call.\nIt never sends anything at all, ever.\n"
+        two = one.replace("approved: true", "approved: false")
+        with tempfile.TemporaryDirectory() as t:
+            sessions = []
+            for k, text in ((1, one), (2, two)):
+                d = Path(t, f"s{k}")
+                d.mkdir()
+                ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": text}]}}
+                Path(d, "events.jsonl").write_text(json.dumps(ev) + "\n")
+                sessions.append({"root": str(d / "workspace"), "files_start": {"framework/x/design-plan.md": text},
+                                 "turns": [{"role": "ai", "text": f"Message from session {k}."}]})
+            _, prompt = G.rubric_prompt({"sessions": sessions})
+        self.assertIn("design-plan.md (session 2: its lines that differ from session 1's)", prompt)
+        self.assertIn("approved: false", prompt)
+        self.assertIn("## Message 2 (session 2)", prompt)
+
 
 class FileChecks(unittest.TestCase):
     def setUp(self):

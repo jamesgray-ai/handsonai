@@ -163,40 +163,62 @@ def files_read(run, msgs=()):
     A file counts as read when its longer lines appear in a tool result (a Read, or a cat in Bash,
     on any folder: drive/, onedrive/ or the workspace itself). A file cut at READ_FILE_CAP keeps, after
     its head, the lines the session went on to change or remove that share the most words with the
-    AI's messages (up to READ_CHANGED_CAP), so what the AI says it fixed in a saved draft is shown as
-    it was. Capped at READ_CAP characters."""
+    AI's messages, then the other lines past the cut that share two or more (up to READ_CHANGED_CAP),
+    so what the AI says it fixed in a saved draft, or read in a profile at the end of a record, is shown.
+    Where sessions started from different fixtures, a file read again with other contents is shown
+    once more for that session, as the lines that differ from the first version shown, so a message
+    is judged against its own session's files. Capped at READ_CAP characters."""
     said = {w for m in msgs for w in WORD.findall(m.lower()) if len(w) >= 4}
-    found, changed = {}, {}
-    for s in run["sessions"]:
+    many = len(run["sessions"]) > 1
+    found, changed, later = {}, {}, []
+    for k, s in enumerate(run["sessions"], 1):
         if not s.get("root"):
             continue
         results = "\n".join(_tool_results(Path(s["root"]).parent / "events.jsonl"))
         if not results:
             continue
         for rel, text in s["files_start"].items():
-            if rel in found or rel.startswith(".") or "/." in rel or not text.strip():
+            if rel.startswith(".") or "/." in rel or not text.strip():
+                continue
+            if rel in found and (found[rel][1] == text or any(r == rel and t == text for r, _, t in later)):
                 continue
             long_lines = [ln.strip() for ln in text.splitlines() if len(ln.strip()) >= 30]
-            if long_lines and sum(ln in results for ln in long_lines) >= min(2, len(long_lines)):
-                found[rel] = text
-                end = set((s.get("files_end") or {}).get(rel, "").splitlines())
-                changed[rel] = [ln for ln in text.splitlines() if ln.strip() and ln not in end]
+            if not (long_lines and sum(ln in results for ln in long_lines) >= min(2, len(long_lines))):
+                continue
+            if rel in found:
+                later.append((rel, k, text))
+                continue
+            found[rel] = (k, text)
+            end = set((s.get("files_end") or {}).get(rel, "").splitlines())
+            changed[rel] = [ln for ln in text.splitlines() if ln.strip() and ln not in end]
     parts, total = [], 0
     for rel in sorted(found, key=lambda r: (_read_rank(r), r)):
-        body = found[rel].strip()
+        k, body = found[rel][0], found[rel][1].strip()
         if len(body) > READ_FILE_CAP:
             head, gone = READ_FILE_CAP - READ_CHANGED_CAP, []
-            ranked = sorted((ln for ln in changed.get(rel, []) if body.find(ln) >= head),
-                            key=lambda ln: -len(said & set(WORD.findall(ln.lower()))))
+            def overlap(ln):
+                return len(said & set(WORD.findall(ln.lower())))
+            past = body[head:].splitlines()
+            ranked = sorted((ln for ln in changed.get(rel, []) if body.find(ln) >= head), key=lambda ln: -overlap(ln))
+            ranked += sorted((ln for ln in past if ln.strip() and ln not in ranked and overlap(ln) >= 2),
+                             key=lambda ln: -overlap(ln))
             for ln in ranked:
-                if said & set(WORD.findall(ln.lower())) and sum(len(x) + 1 for x in gone) + len(ln) <= READ_CHANGED_CAP:
+                if overlap(ln) and sum(len(x) + 1 for x in gone) + len(ln) <= READ_CHANGED_CAP:
                     gone.append(ln)
-            body = (body[:head] + "\n[…cut; lines the session later changed or removed:]\n" + "\n".join(gone)
-                    if gone else body[:READ_FILE_CAP] + "\n[…cut]")
+            body = (body[:head] + "\n[…cut; lines past the cut the session later changed, or that its messages speak of:]\n"
+                    + "\n".join(gone) if gone else body[:READ_FILE_CAP] + "\n[…cut]")
         if total + len(body) > READ_CAP:
             continue
-        parts.append(f"### {rel}\n\n````\n{body}\n````")
+        label = f"{rel} (session {k})" if many else rel
+        parts.append(f"### {label}\n\n````\n{body}\n````")
         total += len(body)
+    for rel, k, text in later:
+        first = set(found[rel][1].splitlines())
+        diff = "\n".join(ln for ln in text.splitlines() if ln.strip() and ln not in first)[:READ_CHANGED_CAP]
+        if not diff or total + len(diff) > READ_CAP + READ_CAP // 2:
+            continue
+        parts.append(f"### {rel} (session {k}: its lines that differ from session {found[rel][0]}'s)\n\n````\n{diff}\n````")
+        total += len(diff)
     return "\n\n".join(parts)
 
 
@@ -303,20 +325,22 @@ def rubric_prompt(run):
     """Each AI message, with what the leader said just before it as context (not graded), so
     item 6 can tell a fact the leader gave from an invented one; and, once at the top, what the AI
     read from the leader's files (context, not graded), so a detail taken from them isn't invented."""
-    msgs, said = [], []
-    for s in run["sessions"]:
+    msgs, said, where = [], [], []
+    many = len(run["sessions"]) > 1
+    for k, s in enumerate(run["sessions"], 1):
         before = []
         for t in s["turns"]:
             if t["role"] == "ai" and t["text"].strip():
                 msgs.append(mark_scripted(t["text"]))
                 said.append("\n\n".join(before))
+                where.append(f" (session {k})" if many else "")
                 before = []
             elif t["role"] != "ai" and t["text"].strip() and not t.get("end"):
                 before.append(t["text"].strip())
-    def block(i, m, ctx):
+    def block(i, m, ctx, w):
         quoted = "\n".join("> " + ln for ln in ctx.splitlines()) if ctx else "> (nothing)"
-        return f"## Message {i}\n\nThe leader said just before (context, not graded):\n\n{quoted}\n\nThe message:\n\n{m}"
-    body = "\n\n".join(block(i, m, c) for i, (m, c) in enumerate(zip(msgs, said), 1))
+        return f"## Message {i}{w}\n\nThe leader said just before (context, not graded):\n\n{quoted}\n\nThe message:\n\n{m}"
+    body = "\n\n".join(block(i, m, c, w) for i, (m, c, w) in enumerate(zip(msgs, said, where), 1))
     read = files_read(run, msgs)
     read = (f"## What the AI read from the leader's files (context, not graded)\n\n{read}\n\n"
             if read else "")
