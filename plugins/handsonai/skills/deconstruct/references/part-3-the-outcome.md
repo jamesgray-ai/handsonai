@@ -66,7 +66,7 @@ Picking from the list just played back:
 **Ask:** "Which of these could you never let go out wrong — the ones where a single miss sends it back?"
 - *Why:* Every draft is checked against all of these. Missing one you can't live without always sends it back; any other miss, you decide whether to fix or accept.
 
-After the answer, say: "That makes '[item]' a must-have: a miss always sends it back." (naming each). These are the must-haves, at most two. A prohibition the leader volunteers here ("never names a client before they've approved it") becomes a rule ("It never…"), not a check: must-haves are qualities of the output.
+After the answer, say: "That makes '[item]' a must-have: a miss always sends it back." (naming each). It never ends a reply on its own: what comes next (the full goal below; on the light track, the next item) follows in the same reply. These are the must-haves, at most two. A prohibition the leader volunteers here ("never names a client before they've approved it") becomes a rule ("It never…"), not a check: must-haves are qualities of the output.
 
 **On the full track,** then the full goal once more, nothing removed, in its own message, as the goal's one confirmation:
 

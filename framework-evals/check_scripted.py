@@ -16,7 +16,9 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   vocabulary       {session?}                                     no word from rules 2.2's Never column in
                                                                   what the leader reads (built in)
   no_time_or_step_numbers {session?}                              no time estimate and no framework step
-                                                                  number (rules 2.1 items 4-5; built in)
+                                                                  number (rules 2.1 items 4-5; built in); a size
+                                                                  the leader gave for their own work ("about
+                                                                  20 minutes per follow-up") may be played back
   signposts        {skill?, of?, session?}                        the skill's "Part k of N" signposts, in
                                                                   order: deconstruct 5 (default), design 4,
                                                                   test 4, build 3; `of` for a later entry
@@ -182,10 +184,36 @@ def vocabulary_hits(message):
     return hits
 
 
-def time_or_step_hits(message):
-    # what fills an approved line's placeholder ("about [hours] saved") is part of that line here
+NUM_WORDS = {"a": "1", "an": "1", "one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6",
+             "seven": "7", "eight": "8", "nine": "9", "ten": "10", "fifteen": "15", "twenty": "20",
+             "thirty": "30", "forty": "40", "forty-five": "45", "fifty": "50", "sixty": "60", "ninety": "90"}
+SIZE = re.compile(r"(?i)\b(\d+(?:\.\d+)?|" + "|".join(sorted(NUM_WORDS, key=len, reverse=True)) + r")"
+                  r"(?:\s*(?:-|to)\s*(\d+(?:\.\d+)?))?\s*(minute|min|hour|hr|second|sec)s?\b")
+
+
+def sizes(text):
+    """Number-and-unit pairs in text ("20 minutes", "two hours" -> ("2", "hour")), ranges as both ends."""
+    out = set()
+    for m in SIZE.finditer(norm(text)):
+        unit = {"min": "minute", "hr": "hour", "sec": "second"}.get(m.group(3).lower(), m.group(3).lower())
+        for g in (m.group(1), m.group(2)):
+            if g:
+                out.add((NUM_WORDS.get(g.lower(), g), unit))
+    return out
+
+
+def leader_sizes(run):
+    """What the leader said about their own work's size, in any session: playing it back is allowed
+    (the framework never estimates time, but the Baseline and Target are the leader's numbers)."""
+    return set().union(*[sizes(t["text"]) for s in run["sessions"] for t in s["turns"] if t["role"] != "ai"])
+
+
+def time_or_step_hits(message, allowed=frozenset()):
+    # what fills an approved line's placeholder ("about [hours] saved") is part of that line here;
+    # a size the leader gave for their own work ("about 20 minutes per follow-up") is theirs, not an estimate
     text = corpus().strip_approved(leader_text(message), keep_fills=False)
-    hits = [("time", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in TIME.finditer(text)]
+    hits = [("time", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in TIME.finditer(text)
+            if not (sizes(text[m.start():m.end() + 25]) and sizes(text[m.start():m.end() + 25]) <= allowed)]
     hits += [("step number", text[max(0, m.start() - 40):m.end() + 40].strip()) for m in STEP_NUMBER.finditer(text)]
     return hits
 
@@ -410,7 +438,8 @@ def check(c, run):
     if t == "vocabulary":
         return _scan(run, n, vocabulary_hits, "Never-column word")
     if t == "no_time_or_step_numbers":
-        return _scan(run, n, time_or_step_hits, "time estimate or step number")
+        allowed = leader_sizes(run)
+        return _scan(run, n, lambda m: time_or_step_hits(m, allowed), "time estimate or step number")
     if t == "signposts":
         skill = c.get("skill", "deconstruct")
         total, ids = SIGNPOST_IDS[skill]

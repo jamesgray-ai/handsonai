@@ -114,6 +114,15 @@ class WordingChecks(unittest.TestCase):
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("Design is Step 3 of the framework.")))
         # the approved time-saved line is a carried line, not an estimate
         self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of("Run 12; about 6 hours saved so far.")))
+        # the leader's own sizes, played back, aren't estimates; the framework's own still are
+        run = run_of("Noted: about 20 minutes per follow-up today, as your estimate.",
+                     "Got it: the 2 hours a day as what the team spends today.")
+        run["sessions"][0]["turns"][0]["text"] = "About twenty minutes per follow-up, and two hours a day."
+        self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run))
+        run = run_of("Noted: about 20 minutes per follow-up. This part takes about 10 minutes.")
+        run["sessions"][0]["turns"][0]["text"] = "About 20 minutes per follow-up."
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run))
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("This conversation takes about 20 minutes.")))
 
     def test_signposts_per_skill(self):
         dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — scope and a name.", "Part 3 of 5 — the outcome.",

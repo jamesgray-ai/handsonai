@@ -36,7 +36,7 @@ The progress file is first saved at item 0, then after each item (`Next: Light â
 
 **Ask:** "What did you start from for that one?"
 
-Its answer is the typical run's input. Any other real input named but not pasted takes Part 5's paste request. If, after the leader's changes, fewer than two remain or the typical case was dropped, propose a replacement and have it kept before going on; no tricky case is required on this track. No reference is asked for per row: the Golden Example, when there is one, is the only reference. Then the confidential check where it applies, and the inputs numbered and saved.
+Its answer is the typical run's input. Any other real input named but not pasted takes Part 5's paste request. If, after the leader's changes, fewer than two remain or the typical case was dropped, propose a replacement and have it kept before going on; no tricky case is required on this track. No reference is asked for per row: the Golden Example, when there is one, is the only reference. A password or key in that answer, or in any input pasted here, is replaced with a placeholder before anything is saved, and N-F14 is said (SKILL.md). Then the confidential check where it applies, and the inputs numbered and saved.
 
 ## The three safety questions
 
@@ -49,7 +49,7 @@ Any answer that shows a sign of risk (a send, a change others see, running witho
 
 ## The defaults
 
-After the safety questions, one message (model wording) lists in plain words everything you filled in, ending "What would you change or add?":
+After the safety questions, one message (model wording) lists in plain words everything you filled in, never by the file's labels (Business Objective, Baseline, Sensitivity), ending "What would you change or add?":
 
 | What | Default |
 |---|---|

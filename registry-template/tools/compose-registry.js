@@ -494,6 +494,18 @@ if (require.main === module) {
   const check = args.includes('--check');
   const islandOnly = args.includes('--island-only');
   const bundleDir = args.find((a) => !a.startsWith('--')) || 'registry';
+  // Fail closed: an unknown flag (--help included) or a folder with no registry writes nothing,
+  // so a mistyped call can't create a stray registry/ and REGISTRY.md in the wrong folder.
+  const unknown = args.filter((a) => a.startsWith('-') && a !== '--check' && a !== '--island-only');
+  if (unknown.length) {
+    console.error(`compose-registry: unknown option ${unknown.join(' ')}`);
+    console.error('Usage: node tools/compose-registry.js [--check] [--island-only] [bundleDir]');
+    process.exit(2);
+  }
+  if (!fs.existsSync(path.join(bundleDir, 'SCHEMA.md'))) {
+    console.error(`compose-registry: no registry at ${path.resolve(bundleDir)} (no SCHEMA.md); nothing written`);
+    process.exit(2);
+  }
 
   // A null-frontmatter node (missing/unparseable frontmatter) makes compose()
   // itself throw a raw TypeError on an unguarded `.fm.<field>` deref, well

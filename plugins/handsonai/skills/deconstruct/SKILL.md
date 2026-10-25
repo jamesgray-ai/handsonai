@@ -22,7 +22,7 @@ Deconstruct turns a piece of the leader's real work into their **Workflow Requir
 
 ## Workflow
 
-Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels. If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
+Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
 ### Entry, before the opening
 
@@ -112,7 +112,7 @@ No part announces its own time, and no line anywhere gives one.
    **Ask:** "Do you have anything written down for this: an SOP, a checklist, a past example, or notes?"
 
    On a yes, in one message: the privacy line (*Lines said from several parts*) and "Paste it here, or attach it." A drive link works where the platform can read it. Then read `references/from-a-document.md`.
-3. **The track,** right after N-D1 and the first description (the backlog card, the cold-entry answer, or the document), say: "This looks like a [light / full] workflow because [reason], so we'll do the [shorter / full] version. To switch, say ['make it the full version' / 'keep it light']." The reason names the criterion that decided it, in plain words. When it's full because of a sign of risk, there's no switch to offer: "This looks like a full workflow because it [the sign of risk, in plain words], so we'll do the full version." This line, the next and the first question may share one message.
+3. **The track,** right after N-D1 and the first description (the backlog card, the cold-entry answer, or the document), say: "This looks like a [light / full] workflow because [reason], so we'll do the [shorter / full] version. To switch, say ['make it the full version' / 'keep it light']." The reason names the criterion that decided it, in plain words, short enough that the line stays one sentence, word for word around it. When it's full because of a sign of risk, there's no switch to offer: "This looks like a full workflow because it [the sign of risk, in plain words], so we'll do the full version." This line, the next and the first question may share one message.
 
    **Light needs every one of these;** a criterion not known yet doesn't count against light (the light track's safety questions settle it):
 
@@ -207,7 +207,7 @@ On the Workflow node the progress file's second line names (`registry/workflows/
 
 **A new node** (cold entry with a registry and no backlog node): `naming-workflows`' stub format with `status: under-development` and no process or owner field, its line in the `# Workflows` list of the Process Part 2 placed it under; a Process (and any new Function) from Analyze's no-process question is written as Analyze writes them.
 
-Then the indexing-registry skill's maintenance pass, best effort: a failed refresh never fails Deconstruct. With no registry, nothing is written, and nothing is said about it beyond the no-registry line.
+Then the indexing-registry skill's maintenance pass, best effort: a failed refresh never fails Deconstruct. Run its tools only as that skill gives them, on the registry inside the workspace; Deconstruct never deletes a file, so anything a refresh wrote in the wrong place stays, named to the leader in one line (model wording). With no registry, nothing is written, and nothing is said about it beyond the no-registry line.
 
 ## Guidelines
 

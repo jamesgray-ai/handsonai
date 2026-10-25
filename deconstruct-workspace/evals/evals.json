@@ -5716,15 +5716,25 @@
           }
         },
         {
-          "text": "The privacy question is asked: \"When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste it in each time?\" (B41)",
+          "text": "The privacy question is asked: \"When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste it in each time?\" (B41); or, where the leader already said the customer emails come through a Zendesk connection, it isn't asked again (say what's known; ask only what's open) and the customer emails' row is saved as AI Accessible Yes through that connection",
           "kind": "scripted",
           "check": {
-            "type": "ai_regex",
-            "pattern": "When this runs, can the workflow reach .+ itself, for example through a connection to .+, or will you paste it in each time\\?"
+            "type": "any",
+            "checks": [
+              {
+                "type": "ai_regex",
+                "pattern": "When this runs, can the workflow reach .+ itself, for example through a connection to .+, or will you paste it in each time\\?"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/*/requirements.md",
+                "pattern": "(?im)^\\|[^\\n]*customer email[^\\n]*\\|\\s*External\\s*\\|\\s*Yes\\s*\\|[^\\n]*Zendesk"
+              }
+            ]
           }
         },
         {
-          "text": "The privacy question (the reach question: \"When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste it in each time?\") comes after Part 5 message 2 (and after any keep-or-drop re-ask of that message's suggestions), before the security limits, one question per tripped source the AI can't reach, each in its own message, and the customer emails are among them",
+          "text": "The privacy question (the reach question: \"When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste it in each time?\") comes after Part 5 message 2 (and after any keep-or-drop re-ask of that message's suggestions), before the security limits, one question per tripped source the AI can't reach, each in its own message, the customer emails among them unless the leader already gave their reach; a source whose reach the leader already gave (they said the customer emails come through a Zendesk connection) isn't asked about again: that answer is played back instead, and the question is still asked for every other tripped source the AI can't reach",
           "kind": "judged"
         },
         {

@@ -114,12 +114,22 @@ def mark_scripted(message, corpus=None):
 
 
 def rubric_prompt(run):
-    msgs = []
+    """Each AI message, with what the leader said just before it as context (not graded), so
+    item 6 can tell a fact the leader gave from an invented one."""
+    msgs, said = [], []
     for s in run["sessions"]:
+        before = []
         for t in s["turns"]:
             if t["role"] == "ai" and t["text"].strip():
                 msgs.append(mark_scripted(t["text"]))
-    body = "\n\n".join(f"## Message {i}\n\n{m}" for i, m in enumerate(msgs, 1))
+                said.append("\n\n".join(before))
+                before = []
+            elif t["role"] != "ai" and t["text"].strip() and not t.get("end"):
+                before.append(t["text"].strip())
+    def block(i, m, ctx):
+        quoted = "\n".join("> " + ln for ln in ctx.splitlines()) if ctx else "> (nothing)"
+        return f"## Message {i}\n\nThe leader said just before (context, not graded):\n\n{quoted}\n\nThe message:\n\n{m}"
+    body = "\n\n".join(block(i, m, c) for i, (m, c) in enumerate(zip(msgs, said), 1))
     return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{body}"
 
 
