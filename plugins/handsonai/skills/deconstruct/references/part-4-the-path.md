@@ -175,6 +175,8 @@ Then, in its own message:
 - *Why:* Workflows fail on the tricky cases, so one of the practice runs uses this.
 - *Example:* "The order was split across two warehouses."
 
+In that question only [case] and [deliverable] change: "get the [deliverable] wrong" stays as written, even where another verb would suit the case (never "pad the newsletter").
+
 When nothing comes in yet: **Ask:** "Where will the information come from?" Then, separately, **Ask:** "Does it exist yet?"
 
 Draft the Inputs lines (`I1`…) from the trigger and these answers, tagged *(my suggestion)*, for Part 5's second draft. A source that doesn't exist yet is recorded in Inputs as `Status: not available yet`.
