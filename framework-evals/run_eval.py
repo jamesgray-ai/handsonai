@@ -310,7 +310,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
         shutil.rmtree(rdir)
         rdir.mkdir(parents=True)
         res = {"eval": ev["id"], "run": k, "tier": tier_of(ev, data), "status": "harness_failure",
-               "note": f"leak scan hits: {len(hits)} (results deleted)"}
+               "note": f"leak scan hits: {len(hits)} (results deleted): "
+                       + "; ".join(h.replace(str(rdir) + "/", "") for h in hits)}
         (rdir / "result.json").write_text(json.dumps(res, indent=2))
     return res
 

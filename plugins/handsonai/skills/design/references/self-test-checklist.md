@@ -73,4 +73,4 @@ After the self-check: a narrow, independent check of the plan against the requir
   - **safety:** a change that can't be undone with no checkpoint where one is required, a missing safe default, a write the connection can't make, more access than the workflow needs;
   - **buildability:** something the platform can't do, or a task Build couldn't carry out as written.
 - **What it drops:** style, alternatives and nice-to-haves. A note Build will need goes into Deferred to Build.
-- **Then:** fix what it found. A gap you can't fix becomes a Part 3 question or an open item. The review reports the result with N-19; each fix is listed in plain words in the Self-Test Summary's plan-check line.
+- **Then:** fix what it found. A gap you can't fix becomes a Part 3 question or an open item. The review reports the result with N-19; each fix is listed in plain words in the Self-Test Summary's plan-check line (`- ✓ Plan check: …`: like every line there, it opens with ✓ or ⚠).

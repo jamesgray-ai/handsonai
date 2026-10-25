@@ -8,8 +8,11 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   ai_not_contains  {text, session?}                               no AI message contains it
   ai_regex         {pattern, session?, turn?}                     an AI message matches
   ai_not_regex     {pattern, session?}                            no AI message matches
-  quote            {id, form?, session?, turn?}                   an AI message says that approved line
-                                                                  (approved-lines.json), placeholders filled
+  quote            {id, form?, session?, turn?, ending?}          an AI message says that approved line
+                                                                  (approved-lines.json), placeholders filled;
+                                                                  `ending`: a fragment form of the same line
+                                                                  ("…, keeping…"): the line said with it in
+                                                                  place of its closing mark
   quote_absent     {id, form?, session?}                          no AI message says it
   scripted_lines   {session?}                                     every scripted line said is word for word
                                                                   (the quote check; built in)
@@ -423,6 +426,11 @@ def check(c, run):
         forms = [f for f in corpus().get(c["id"], c.get("form")) if f.text]
         if not forms:
             return False, f"no approved line {c['id']} ({c.get('form', 'any form')}) in approved-lines.json"
+        if c.get("ending"):
+            # a line the spec lets end another way ("…next, keeping the steps you fixed…")
+            tails = [e.text.lstrip("…").lstrip(".") for e in corpus().get(c["id"], c["ending"]) if e.text]
+            forms = [AL.Line({"id": f.id, "form": f"{f.form} + {c['ending']}",
+                               "text": re.sub(r"[.?!]\s*$", "", f.text) + t}) for f in forms for t in tails]
         which = c.get("turn", "any")
         for s in _sessions(run, n):
             for i, m in enumerate(_ai_turns(s, which), 1):

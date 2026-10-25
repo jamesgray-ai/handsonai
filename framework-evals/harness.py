@@ -170,27 +170,28 @@ def reset_home(root):
     (root / "settings-deny.json").write_text(json.dumps(DENY_SETTINGS))
 
 
-def _tool_dirs():
-    """Directories of node and claude as this shell finds them (version managers such as fnm
-    put node outside the standard paths); resolved so a per-shell shim path doesn't go stale."""
+def _tool_bin(root):
+    """node and claude as this shell finds them (version managers such as fnm put node
+    outside the standard paths), linked into the run root's bin/ by name: their real folders
+    sit under the home folder, and a PATH naming those reaches the results whenever a
+    session prints it (`which node`, `echo $PATH`), which the leak scan then deletes."""
     import shutil
-    dirs = []
+    b = root / "bin"
+    b.mkdir(exist_ok=True)
     for tool in ("node", "claude"):
         found = shutil.which(tool)
-        if found:
-            # node: resolve the shim; claude: keep the launcher's folder (its real file is
-            # named by version, so the resolved folder has no `claude` in it)
-            d = os.path.dirname(os.path.realpath(found) if tool == "node" else found)
-            if d not in dirs:
-                dirs.append(d)
-    return dirs
+        link = b / tool
+        if found and not link.exists():
+            # resolved so a per-shell shim path doesn't go stale; the link keeps the name
+            link.symlink_to(os.path.realpath(found))
+    return str(b)
 
 
 def env_for(root):
     home = root / "home"
     base = "/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin"
     return {
-        "PATH": ":".join(_tool_dirs() + [base]),
+        "PATH": ":".join([_tool_bin(root), base]),
         "HOME": str(home),
         "CLAUDE_CONFIG_DIR": str(home / ".claude"),
         "TMPDIR": str(eval_parent()),
@@ -352,7 +353,23 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         "duration_ms": result.get("duration_ms"),
         "attempts": attempt,
     }
+    if role == "skill":
+        # The leader reads every text block of the turn, not only the last one `result` holds:
+        # a signpost said before the tool calls of the same turn counts as said.
+        text = shown_text(events) or text
     return text.strip(), record
+
+
+def shown_text(events):
+    """The main thread's assistant text blocks in order (a subagent's carry parent_tool_use_id)."""
+    blocks = []
+    for e in events:
+        if e.get("type") != "assistant" or e.get("parent_tool_use_id"):
+            continue
+        for c in (e.get("message") or {}).get("content") or []:
+            if c.get("type") == "text" and c.get("text", "").strip():
+                blocks.append(c["text"].strip())
+    return "\n\n".join(blocks)
 
 
 def auth_method(rnd, root):
