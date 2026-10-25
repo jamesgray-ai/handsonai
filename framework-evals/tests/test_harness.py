@@ -50,6 +50,14 @@ def ok(c, run):
 
 
 class QuoteCheck(unittest.TestCase):
+    def test_platform_refuse_label_fills_n_f4(self):
+        # 3c-DW: Copilot Cowork's refuse button is "Cancel"; N-F4 names it there
+        c = AL.Corpus()
+        m = ("This is a practice run: if Copilot itself asks you to approve sending, posting or changing something, "
+             "choose Cancel and tell me. Answer the workflow's own questions as you would at work.")
+        self.assertEqual(c.near_misses(m), [])
+        self.assertTrue(any(ln.id == "N-F4" and ln.matches(m) for ln in c.checkable()))
+
     def test_exact_line_passes_and_one_word_changed_fails(self):
         good = run_of("Thanks. " + N_D1)
         bad = run_of("Thanks. " + N_D1.replace("past example", "past sample"))

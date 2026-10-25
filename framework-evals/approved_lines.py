@@ -237,11 +237,21 @@ def _edit_distance(a, b, cap):
     return prev[-1]
 
 
+PLATFORM_REFUSE_LABELS = [("Cancel", "Copilot Cowork")]
+
+
 class Corpus:
     def __init__(self, path=DEFAULT_CORPUS):
         data = json.loads(Path(path).read_text())
         self.meta = data.get("meta", {})
         self.lines = [Line(e) for e in data["lines"]]
+        # a platform's own refuse label fills a line's "choose Deny" (3c-DW: "Cancel" in Copilot Cowork);
+        # derived forms name no file, so the placement check has nothing to place for them
+        for e in data["lines"]:
+            for label, platform in PLATFORM_REFUSE_LABELS:
+                if e.get("text") and "choose Deny" in e["text"]:
+                    self.lines.append(Line(dict(e, form=f"{e['form']}, {platform}",
+                                                text=e["text"].replace("choose Deny", f"choose {label}"), files={})))
         self.by_id = {}
         for ln in self.lines:
             self.by_id.setdefault(ln.id, []).append(ln)
