@@ -165,12 +165,15 @@ def files_read(run, msgs=()):
     its head, the lines the session went on to change or remove that share the most words with the
     AI's messages, then the other lines past the cut that share two or more (up to READ_CHANGED_CAP),
     so what the AI says it fixed in a saved draft, or read in a profile at the end of a record, is shown.
+    A file the session changed is followed, under a label saying so, by its changed lines as the session
+    left them (up to READ_CHANGED_CAP, those sharing most words with the messages first), so a fix the AI
+    reports is judged against the after-state, not only the line it replaced.
     Where sessions started from different fixtures, a file read again with other contents is shown
     once more for that session, as the lines that differ from the first version shown, so a message
     is judged against its own session's files. Capped at READ_CAP characters."""
     said = {w for m in msgs for w in WORD.findall(m.lower()) if len(w) >= 4}
     many = len(run["sessions"]) > 1
-    found, changed, later = {}, {}, []
+    found, changed, now, later = {}, {}, {}, []
     for k, s in enumerate(run["sessions"], 1):
         if not s.get("root"):
             continue
@@ -189,8 +192,11 @@ def files_read(run, msgs=()):
                 later.append((rel, k, text))
                 continue
             found[rel] = (k, text)
-            end = set((s.get("files_end") or {}).get(rel, "").splitlines())
+            end_text = (s.get("files_end") or {}).get(rel)
+            end = set((end_text or "").splitlines())
             changed[rel] = [ln for ln in text.splitlines() if ln.strip() and ln not in end]
+            first = set(text.splitlines())
+            now[rel] = [ln for ln in (end_text or "").splitlines() if ln.strip() and ln not in first]
     parts, total = [], 0
     for rel in sorted(found, key=lambda r: (_read_rank(r), r)):
         k, body = found[rel][0], found[rel][1].strip()
@@ -207,6 +213,15 @@ def files_read(run, msgs=()):
                     gone.append(ln)
             body = (body[:head] + "\n[…cut; lines past the cut the session later changed, or that its messages speak of:]\n"
                     + "\n".join(gone) if gone else body[:READ_FILE_CAP] + "\n[…cut]")
+        if now.get(rel):
+            new = now[rel]
+            keep, size = set(), 0
+            for ln in sorted(new, key=lambda ln: -len(said & set(WORD.findall(ln.lower())))):
+                if size + len(ln) + 1 <= READ_CHANGED_CAP:
+                    keep.add(ln)
+                    size += len(ln) + 1
+            body += ("\n[the session changed this file; its changed lines as the session left them:]\n"
+                     + "\n".join(ln for ln in new if ln in keep))
         if total + len(body) > READ_CAP:
             continue
         label = f"{rel} (session {k})" if many else rel

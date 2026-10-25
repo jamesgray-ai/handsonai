@@ -268,6 +268,29 @@ class WordingChecks(unittest.TestCase):
             _, prompt = G.rubric_prompt(run)
         self.assertIn("Gmail (read, create drafts, send, delete)", prompt)
         self.assertNotIn("unchanged by the session here", prompt)
+        self.assertIn("[the session changed this file; its changed lines as the session left them:]\n"
+                      "- **Required Tools:** Gmail (create drafts)", prompt)
+
+    def test_rubric_judge_sees_the_after_state_of_a_changed_line(self):
+        # a short plan the plan check fixed in-session: the before line and, labelled, the line as left
+        import grade_eval as G
+        start = ("# Plan\n\n- **Required Tools:** Gmail (read, create drafts, send, delete)\n"
+                 "- **Model:** default tier, a line the session leaves exactly as it was.\n")
+        end = start.replace("Gmail (read, create drafts, send, delete)", "Gmail (read, create drafts); send and delete denied")
+        with tempfile.TemporaryDirectory() as t:
+            ev = {"type": "user", "message": {"content": [{"type": "tool_result", "content": start}]}}
+            Path(t, "events.jsonl").write_text(json.dumps(ev) + "\n")
+            run = {"sessions": [{"root": str(Path(t, "workspace")), "turns": [
+                {"role": "ai", "text": "Gmail: it can only create drafts."}],
+                "files_start": {"framework/x/design-plan.md": start}, "files_end": {"framework/x/design-plan.md": end}}]}
+            _, prompt = G.rubric_prompt(run)
+            run["sessions"][0]["files_end"] = {"framework/x/design-plan.md": start}
+            _, unchanged = G.rubric_prompt(run)
+        self.assertIn("Gmail (read, create drafts, send, delete)", prompt)
+        self.assertIn("as the session left them:]\n- **Required Tools:** Gmail (read, create drafts); send and delete denied",
+                      prompt)
+        self.assertEqual(prompt.count("default tier"), 1)
+        self.assertNotIn("the session changed this file", unchanged)
 
     def test_rubric_judge_sees_a_profile_line_past_the_cut(self):
         # a send tool the AI read in the record's profile, past the cut, is shown: the line shares two words

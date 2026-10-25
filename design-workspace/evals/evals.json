@@ -7289,7 +7289,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7446,7 +7446,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7603,7 +7603,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7764,7 +7764,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -7921,7 +7921,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
@@ -8078,7 +8078,7 @@
      }
     },
     {
-     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action, no ID, no time; a file name or path in code formatting isn't an ID)",
+     "text": "A first-time leader finishes Design without needing any evaluation term, and every unscripted message passes the judge rubric (one question, ends with a question or next action (a message that ends on an approved line ends as that line does: the approval question \"Do you approve the plan…? Build won't start until you do.\" ends on its question), no ID, no time; a file name or path in code formatting isn't an ID)",
      "kind": "judged",
      "must": true
     }
