@@ -1,179 +1,34 @@
 ---
-title: "Step 4: Build"
-description: "Step 4: Build — generate platform-appropriate artifacts from your approved Design Spec, resolve context needs, and prepare the workflow for testing."
+title: Build Your AI Workflow
+description: "Build turns your approved Design Plan into a working workflow, checks each task without making any real change, and installs it where it runs."
 ---
-
-import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 > **Part of:** [AI Workflow Framework](../)
 
-## Where You Are
+## What It's For
 
-You've just finished [Design (Step 3)](../design/). You should have:
-
-- **Design Spec** (`[name]/design-spec.md`) — your approved blueprint with autonomy level, orchestration mechanism, step classifications, skill candidates, agent blueprints, and implementation order
-
-If you're returning from [Test (Step 5)](../test/) to fix issues, you may also have test results telling you which building block needs adjustment.
-
-| | |
-|---|---|
-| **What you'll do** | Resolve every context item with the model, authorize the connectors the workflow needs, and install the finished package |
-| **What you'll get** | Installed skills, agents, and connectors, plus a reconciliation table matching every line of the spec to the artifact that satisfies it |
-| **Time** | ~30–60 minutes, most of it gathering context |
+Build turns your approved Design Plan into a working workflow on your platform. It works through the plan's tasks in order, checks each one against what it must do, and installs the workflow where it will run.
 
 ## How the Skill Works
 
 Build works in three parts. You do almost all of your part in the first one:
 
-1. **Your setup** — Build sets up the workflow's own place, connects each tool in your account with a read-back, places its context files, and makes one quick real check of each kind of change somewhere only you can see. Last, it asks whether an older version is already set up somewhere.
-2. **Building and checking** — Build tries the main skill on a plain AI first, then builds each task in your plan and checks it against what it must do, showing every change instead of making it. You confirm where each kind of change would land and answer the workflow's own questions as you would at work.
-3. **Save it and test** — Build saves or installs the workflow where it runs, keeps a copy, writes your build record (what was built and what it can access), and gives you the phrase to start Test.
+1. **Your setup** — Build sets up the workflow's own place, has you connect each tool in your account and reads something back to prove it works, places the context files the workflow reads, and makes one quick real check of each kind of change somewhere only you can see.
+2. **Building and checking** — Build tries the main skill on a plain AI first, then builds each task in your plan and checks it, showing every change instead of making it.
+3. **Save it and test** — Build saves or installs the workflow where it runs, keeps a copy, writes your build record, and gives you the phrase to start Test.
 
-## Prepare Context
+## What You Get
 
-Nothing is generated until the context your workflow depends on is resolved. The **Context Inventory** in the Workflow Requirements (from [Deconstruct](../deconstruct/)) and the **Data Readiness Summary** (from Design) list every document, file, and system the workflow needs. Build presents that list as a table and works through it with you, row by row, and every row ends in one of three outcomes:
+- **Your workflow:** its skills and agents, installed where it runs, each with a practice-run mode. When you start a run with "practice run", nothing is sent or changed.
+- **Your build record:** `build-record.md` in the workflow's folder, saying what was built and what it can access.
 
-- **Connect it** — the material lives in a system your platform can reach live: a CRM, a calendar, a drive. You authorize the connector **in the account that will run the workflow** — authorization doesn't carry over from the session you build in. The model then proves the access with a real read, and where your workflow writes back, confirms it has write scope before anything is built on top of it.
-- **Provide it** — a document you supply: a template, a style guide, last quarter's examples. You paste or attach it, and it goes wherever your platform keeps the files workflows read, with the path recorded.
-- **Build it in** — short reference content (tone rules, a rubric, an output template, a handful of examples) ships *inside* the skill package as a supporting file. It travels with the skill and needs no setup.
+## How to Start
 
-If something the workflow needs doesn't exist yet, the model drafts it from what Deconstruct already captured — a style guide from your golden example, scoring criteria from your rules — and you correct it. That is far faster than asking you to write one from a blank page.
+Say **"run the build skill"** with where your files are, for example "run the build skill. My files are in Google Drive, in Framework/weekly-status-report." On Claude Code you can also type `/handsonai:build`.
 
-**Every row gets a read-back check.** Before a row is marked resolved, the model asks itself one question only that artifact can answer, answers it from the artifact, and shows you the answer: *"From your template: the three headings are Progress, Risks, Next week — correct?"* A row without a read-back isn't resolved. It is how you find out the file is the wrong version now, rather than three runs from now.
+## Worth Knowing
 
-:::tip[Context is the highest-leverage building block]
-When a workflow produces generic or off-brand output, the fix is almost always better context — not a more complex prompt. Invest time here. The quality of your context directly determines the quality of your workflow's output.
-:::
+- **It only tells the AI what it doesn't already do.** Build first runs the main task on a plain AI, with no instructions, and writes instructions only for what that run missed, plus the rules that must always hold. Shorter instructions are easier to check and easier to change.
+- **On Microsoft 365 Copilot, agents are built in Agent Builder.** Skills are made in Copilot Cowork, where you run Build. For an agent, Build writes a short prompt; you open Copilot › Chat › Agents › New agent and paste it into the Agent Builder chat, add the context files Build names under Knowledge, check that only what the workflow uses is switched on under Work content, choose Create, and paste the agent's instructions back into Build's chat. The ordinary Copilot Chat can describe an agent but can't create one.
 
-## Your Three Jobs
-
-The model generates everything. Three things stay with you, and Build names them in its first message so nothing arrives as a surprise:
-
-**Gather or approve the context.** You know where your documents live, what your style guide says, and which examples represent your standards. The model tells you what it needs and drafts what's missing; you supply it, correct it, and confirm it. This is most of the 30–60 minutes.
-
-**Authorize connectors in the account that will run it.** If the workflow reaches a CRM, a calendar, or a drive, you connect it — in the account the workflow will actually run in, not only the one you're building in. The model tells you which connections are needed and which scopes they require (and only those scopes), then verifies the access itself before generating anything that depends on it.
-
-**Install the finished package.** If you're building in a code editor or CLI, the file is already where your platform reads it — you confirm it's in place and that the skill shows up in your session's list. Where your platform keeps skills and agents in a managed library, the built files are still only source until they're installed. Build stages the package, walks you through installing it, and confirms the skill appears in your platform's list before handing off to Test — a fresh-conversation test run depends on it.
-
-## Mechanism-Specific Build Paths
-
-Whichever path applies, every workflow Build creates ends each run with a short "What I did" list — the steps it took, where it paused for you and what you decided, what it did with your tools, and where the deliverable is — and that list is what Test grades the run against, not just the final result.
-
-The orchestration mechanism determines which steps you follow. Work through **only** the steps that apply:
-
-<Tabs>
-  <TabItem label="Skill">
-
-1. **Prepare context** — Resolve every row of your Workflow Requirements' Context Inventory: connect it, provide it, or build it in
-2. **Build the orchestrator skill and component skills** — The model generates the orchestrator skill and the skills for the steps tagged as skill candidates in your Design Spec, in the format appropriate to your platform
-3. **Package and install** — The model packages the skills and installs them per your platform's deployment plan
-  </TabItem>
-  <TabItem label="Agent">
-
-1. **Prepare context** — Resolve every row of your Workflow Requirements' Context Inventory: connect it, provide it, or build it in
-2. **Build component skills** — Build skills for tagged candidates
-3. **Connect tools** — Wire external tools from the Tools and Connectors section of your Design Spec
-4. **Generate agent configs and orchestrator skill** — The model generates agent configs (single or multi-agent) and the orchestrator skill for your platform
-5. **Package and install** — The model packages the agents, skills, and connectors and installs them per your platform's deployment plan
-  </TabItem>
-</Tabs>
-
-## Coming Back from Test
-
-If Test came back not ready, you don't rebuild the workflow — you come back to Build in **fix mode**. Build reads the "Issues identified" table in your test results, which names the building block behind each miss (the orchestrator, a component skill, an agent, a context item), and regenerates only those. Everything else stays exactly as installed. Build says what it's fixing and why before it changes anything — *"E2 failed AC2 because the headings were out of order; that's the orchestrator skill, so I'll regenerate that one and leave the rest alone"* — then reconciles the changed files and sends you back to Test to re-run the failed scenarios first and the full set after. One exception: if your test round is still in progress — some scenarios graded, others not yet — Build changes nothing. It tells you how many are done and asks you to finish the round in Test first.
-
-Two to four of these rounds is normal. Three not-ready rounds in a row since the last Ready is not: Build stops there and tells you the problem is probably the design rather than the build, and recommends going back to [Design (Step 3)](../design/) with what Test found. If Test's verdict was instead that it was waiting on access, nothing is rebuilt at all — Build walks you through authorizing the named connector in the account that runs the workflow and sends you straight back to Test.
-
-## How the Model Builds for Your Platform
-
-The model doesn't guess your platform's artifact format or available integrations. It uses a tiered research approach that starts with curated sources and supplements with web search:
-
-**Platform research:**
-
-1. **Curated platform registry** — The framework maintains a [platform registry](https://github.com/jamesgray-ai/handsonai/blob/main/plugins/handsonai/registries/platform-registry.json) with documentation links, artifact format specs, platform mode (code vs. guided), and language for each supported platform. The model fetches this first to get authoritative format requirements.
-2. **Platform documentation** — Using the doc URLs from the registry, the model reads the current artifact specifications for your platform — frontmatter schemas, file structure, naming conventions, and platform-specific extensions.
-3. **Web search (verification and fallback)** — The model searches the web to verify that documentation is current and to find resources for platforms or features not yet in the registry.
-
-**Integration research:**
-
-1. **Integration Options from Design** — The Design Spec already identifies which integrations you need and includes source URLs discovered during Design's Integration Discovery (which checks the platform's native connectors first, then what the model already knows, then one web check).
-2. **Platform-specific setup** — For each integration, the model researches how to connect it on your specific platform: installation steps, configuration, authentication, and prerequisites.
-3. **Native connectors first** — The platform registry points Build at the platform's native connectors. Build checks those, then the source URLs in the spec, and web-searches only what is still unresolved.
-
-**Code vs. guided mode:**
-
-The platform's mode (from the registry) determines what gets generated:
-
-- **Code mode** (Claude Code, Cursor, Codex CLI, etc.) — Source files: markdown skills, agent definitions, prompt files, MCP configurations
-- **Guided mode** (Copilot Studio, ChatGPT agent builder, etc.) — Step-by-step GUI instruction documents that walk you through configuring each building block in the platform's visual interface
-
-## How Creation Tools Are Discovered
-
-Skills and agents are never a discovery question. Whatever the spec asks for — a skill, an agent, a packaged plugin — is created by the model you run the framework from, in its own platform's way: Build states what it wants built and hands over the blueprint from the spec. If your session lists a skill whose job is to create that kind of artifact, Build delegates to it and lets it run its full workflow. If nothing is listed, Build states the intent anyway, because every skill-capable platform has its own creator that answers. Build never names a creator for you, and never writes a SKILL.md or an agent file itself.
-
-That leaves discovery one narrow job: the block types Build writes or packages directly — **configs, connectors, loose files, and the plugin package**. For those, the model scans your session's skill list for anything that takes a finished spec and produces the artifact. Guidance skills — the ones that walk you through *deciding* how an artifact should be configured — are deliberately excluded, because your approved Design Spec already settled every one of those fields. Packaging tools are the exception that always counts: where your platform has a native plugin builder, Build hands it the staged package rather than hand-rolling an archive that may not install.
-
-The result is a one-line build method rather than a menu: skills and agents by stating the intent, configs and connectors written directly, the package built by your platform's builder. Build folds that line into its existing-skills report, so you give one confirmation before generation starts, not two.
-
-## Track and Version Your Work
-
-As you build, two background practices keep your work organized and recoverable:
-
-**Keep the registry current.** The Workflow node in your `registry/` bundle (created during Deconstruct) records where every generated artifact lives, under its `# Artifacts` section. The build skill updates it automatically — if a row is ever missing, add it when you notice. The node's `# Artifacts` is what lets Test, Run, and Improve find everything later.
-
-**Commit source files to GitHub.** The `.md` files for your skills, agents, and prompts are source code — they should live in version control, not just on your local machine. After Build stages or updates a building block, commit the source files it staged. This gives you a history of changes, makes it easy to share with collaborators, and protects against losing work.
-
-These aren't separate steps — they're part of the rhythm of building. Each time you finish a building block: **record it, commit it.**
-
-:::tip[Need to set up these tools?]
-The [Builder Tools Setup](../../builder-setup/) guide walks you through everything you need — an [AI code editor](../../builder-setup/editor-setup/), then three prerequisites in order: a [GitHub account](../../builder-setup/github-setup/), [Git](../../builder-setup/git-install/), and the [GitHub CLI](../../builder-setup/github-cli-setup/). If you haven't set these up yet, that guide has you covered.
-:::
-
-## What This Produces
-
-| What | What it is |
-|------|-----------|
-| Skills and agents | Created by your platform from the blueprints in the spec, then packaged and installed where the platform keeps them |
-| Context artifacts | The documents the workflow reads — connected, provided, or built into the skill package |
-| Tool connections | Connectors authorized in the account that runs the workflow, with only the scopes the spec calls for |
-| Reconciliation table | One row per Build Output line in the spec: spec line → artifact → path → status (Created, Reused, Extended, or Installed by you) |
-
-The Design Spec from Design is the design document — it captures *what* to build and *why*. The platform artifacts from Build are the implementation — generated by the model using your architecture decisions and current platform knowledge.
-
-## How to Use This
-
-This step is facilitated by the **`build`** AI Workflow Framework skill. See [Install the Hands-on AI Plugin](../skills/) for installation instructions across all supported platforms.
-
-**How to start:** Say *"run the build skill"* (or *"build the workflow"*) — works on every platform. With the plugin installed, Claude Code also accepts `/handsonai:build`, and Claude lists it when you type `/`.
-
-**Platform compatibility:** Claude (web, desktop, Code) ✓ &nbsp;|&nbsp; ChatGPT & Codex ✓ &nbsp;|&nbsp; Gemini (Spark, Enterprise, CLI) ✓ &nbsp;|&nbsp; M365 Copilot ✓ &nbsp;|&nbsp; Cursor / Antigravity ✓
-
-**Start with this prompt:**
-
-```
-Build the workflow from my approved Design Spec.
-```
-
-Upload or reference your Design Spec file (`[workflow-name]/design-spec.md`) from the Design step when prompted. The skill resolves context needs, generates platform artifacts, and prepares the workflow for testing.
-
-### Example prompts
-
-```
-"Build the workflow from my Design Spec"
-→ Reads the most recent spec, researches integrations,
-  generates all platform artifacts
-
-"Build the expense-reporting workflow for Claude Code"
-→ Reads the spec, generates Claude Code-specific artifacts
-```
-
-## Next Step
-
-Once your artifacts are built, move to **[Step 5: Test](../test/)** to run structured evaluations before deploying.
-
-## Related
-
-- [Design Your AI Workflow](../design/) — the step before Build
-- [Test](../test/) — the step after Build
-- [Agentic Building Blocks](../../agentic-building-blocks/) — deep dives on individual building blocks
-- [Agents & Skills](../../use-the-playbook/build/) — browse all available agents, skills, and prompts
+**Next:** [Test](../test/) runs your workflow on practice inputs and one real example it hasn't seen.

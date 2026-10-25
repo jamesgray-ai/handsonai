@@ -6,7 +6,7 @@ howto_steps:
   - name: Pick a folder for your registry
     text: Any folder works — on your computer, in a cloud drive, or in a GitHub repository. Ask your AI tool whether it can create files inside that folder for you, or whether it will print each file for you to save.
   - name: Run the interview
-    text: Answer the interview (about 25 minutes). Bring a services page, an org chart, or a strategy document if you have one and most of it becomes confirmation — your AI assistant drafts your Business, Line of Business, Function, and Process nodes for you to confirm.
+    text: Answer the interview. Bring a services page, an org chart, or a strategy document if you have one and most of it becomes confirmation — your AI assistant drafts your Business, Line of Business, Function, and Process nodes for you to confirm.
   - name: Check your dashboard
     text: Open REGISTRY.md and confirm your processes are listed. Workflows arrive when you run Analyze — the registry starts with none.
   - name: Keep it fresh
@@ -33,11 +33,13 @@ my-ai-workspace/
 │   ├── index.md             ← bundle root (declares okf_version: "0.2")
 │   └── businesses/ lines-of-business/ functions/
 │       processes/ workflows/ notes/
-├── framework/<workflow>/    ← each workflow's record: requirements, design spec, test results, run log
+├── framework/<workflow>/    ← each workflow's record: requirements, Design Plan, build record, test results
 └── sops/ process-guides/    ← unchanged homes; Workflow nodes link to them
 ```
 
-The registry lists your workflows; the files the framework writes for each one are in `framework/<workflow-name>/`. Whatever a workflow produces when it runs (a report, an email) goes wherever the workflow runs, not into either folder.
+That's the layout on Claude Code and Codex. On Claude on the web, ChatGPT and Microsoft 365 Copilot, the same files live in a folder called `Framework` in your Google Drive or OneDrive, with the registry inside it at `Framework/registry/`. On the Claude desktop app, they live in the framework folder you add to the chat.
+
+The registry lists your workflows; the files the framework writes for each one are in the workflow's own folder. Whatever a workflow produces when it runs (a report, an email), and its run log if it keeps one, go wherever the workflow runs, never into the framework folder.
 
 Your registry follows an open, public specification called the **Open Knowledge Format (OKF)** — this isn't a format James invented for this playbook. You can read the live spec any time: [OKF on GitHub](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md). You never need to read it to use your registry — your assistant already knows it — but it's there if you're curious how the pieces fit together.
 
@@ -52,7 +54,7 @@ Two things, in this order:
    - [indexing-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/indexing-registry.zip) — keeps it tidy
 
    Haven't set up the skills yet? Follow [Install the Hands-on AI Plugin](../../ai-workflow-framework/skills/) for your tool — it has click-by-click steps for every platform — then come back here.
-2. **A folder for your registry.** Any folder: on your computer, in a cloud drive such as Google Drive or OneDrive, or in a GitHub repository. You do not need GitHub — see [Where Your Registry Lives](#where-your-registry-lives).
+2. **A folder for your registry, or a drive connection.** On your computer or in a GitHub repository, any folder works. On Claude on the web, ChatGPT or Microsoft 365 Copilot, connect Google Drive, or OneDrive on a work or school account, with writes on: your assistant keeps the registry there for you. You do not need GitHub — see [Where Your Registry Lives](#where-your-registry-lives).
 
 ## Where Your Registry Lives
 
@@ -65,32 +67,43 @@ The interview your assistant runs, the files it writes, and the dashboards it ge
 | Your AI tool says… | Typical tools | Follow |
 |---|---|---|
 | **Yes** | The Claude desktop app, Claude Code, ChatGPT for desktop (ChatGPT Work or Codex), Claude Code on the web or Codex with a GitHub repository, Cursor, Codex CLI, Gemini CLI | [Your assistant saves the files](#your-assistant-saves-the-files) |
-| **No** | Claude on the web, ChatGPT on the web, Google Gemini, Microsoft 365 Copilot | [You save the files](#you-save-the-files) |
+| **Yes, through my drive** | Claude on the web or ChatGPT with Google Drive, or OneDrive on a work or school account, connected with writes on; Copilot Cowork in Microsoft 365 Copilot (OneDrive) | [Your assistant saves the files in your drive](#your-assistant-saves-the-files-in-your-drive) |
+| **No** | Google Gemini, or a web chat with no drive connection that can write | [You save the files](#you-save-the-files) |
 
 A downloadable file counts as "no" — if your tool offers you a file to download, it can't put it in your folder for you.
 
 ### Your Assistant Saves the Files
-
-About 25 minutes, all of it the interview.
 
 1. Pick the folder. **Not sure? Create a new empty folder called `ai-registry` inside your Documents folder** — that's the default. Two other options work just as well:
    - The folder on your computer you made in [Create & Clone Your First Repository](../repo-creation-and-cloning/), if you followed that guide.
    - A folder in your cloud drive, **as long as it also appears on your computer** — that means the Google Drive or OneDrive desktop app is installed and syncing. Your AI tool works on the copy on your computer; the app keeps the cloud copy current.
 2. Open that folder in your AI tool:
    - **Claude Code:** open Terminal, type `cd ` (with a space after it), drag the folder from Finder or File Explorer into the Terminal window, press Enter, then type `claude` and press Enter. New to Terminal? See [Terminal Basics](../terminal-basics/).
-   - **The Claude desktop app:** choose the folder as your working folder — a project or any folder on your computer. (Still see a Cowork tab? Cowork is merging into Claude; it's the same thing.)
+   - **The Claude desktop app:** make a folder for your framework files (for example `Framework` in Documents) and add it to the chat. The registry goes inside it. If you start without one, your assistant asks you to add it first.
    - **ChatGPT for desktop:** open the folder in **ChatGPT Work** or **Codex**. ChatGPT Work opens local folders only where your plan and workspace admin allow it; if yours doesn't, use Codex.
    - **Claude Code on the web or Codex in a browser:** work in a GitHub repository — the route when you can't save files on your computer.
    - **Cursor / Codex CLI / Gemini CLI:** open the folder as your project.
 3. Say: *"Set up my AI registry."* This starts [The Interview](#the-interview) below.
 
-**You should now see**, once the interview begins, a new `registry/` folder inside the folder you picked — look in Finder or File Explorer — containing `SCHEMA.md`, `index.md`, and empty typed folders (`businesses/`, `workflows/`, and so on). If the folder already had files in it — skills, agents, workflow outputs — nothing is moved or deleted. If your assistant finds files from an older version of this framework, it offers to migrate them first (see [Migrating From the Old Workflow Manifest File](#migrating-from-the-old-workflow-manifest-file)).
+**You should now see**, once the interview begins, a new `registry/` folder inside the folder you picked — look in Finder or File Explorer — containing `SCHEMA.md`, `index.md`, and empty typed folders (`businesses/`, `workflows/`, and so on). If the folder already had files in it — skills, agents, workflow outputs — nothing is moved or deleted.
+
+### Your Assistant Saves the Files in Your Drive
+
+On Claude on the web, ChatGPT and Microsoft 365 Copilot, your assistant saves through your drive connection. Nothing to download.
+
+1. Connect your drive, with writes on: Google Drive, or OneDrive on a work or school account, in Claude or ChatGPT. Personal OneDrive isn't supported there. In Microsoft 365 Copilot, use Copilot Cowork: it already reaches your OneDrive.
+2. Start a new chat outside any Project (in Microsoft 365 Copilot, a new Copilot Cowork chat) and say: *"Set up my AI registry."*
+3. Your assistant first asks where to keep your workflow files, and suggests a private folder called `Framework` in your drive. Say "go ahead", or name another folder. The registry goes in `Framework/registry/`, and every framework step later reads and saves in that same folder.
+
+The connection reaches your whole drive, but the framework reads and saves only inside its folder, and never shares or deletes anything.
+
+**You should now see** a `Framework` folder in your drive, with `registry/` inside it, once the interview begins.
 
 ### You Save the Files
 
 Your assistant runs the same interview, but instead of saving each file it prints the file's complete contents and tells you exactly where it goes — for example, *"save this as `registry/businesses/your-business.md`."* You save it. Nothing to install.
 
-**Plan for about 50 minutes:** the 25-minute interview plus 20–30 minutes of saving. The interview produces roughly 14–17 files — your Business, Line of Business, Function, and Process nodes; the index.md for each of those directories plus the (empty) `workflows/` index; a `log.md`; and your `REGISTRY.md` dashboard — including updates to a few files it already gave you.
+The interview produces roughly 14–17 files — your Business, Line of Business, Function, and Process nodes; the index.md for each of those directories plus the (empty) `workflows/` index; a `log.md`; and your `REGISTRY.md` dashboard — including updates to a few files it already gave you.
 
 1. Decide where the files will go. **Easiest: a GitHub repository.** Typing a file's location creates its folders for you, and there's no way to save the wrong file type. Set one up in about three minutes, all in your browser (you need a [GitHub account](../github-setup/)):
    1. Open [github.com/jamesgray-ai/ai-registry-template](https://github.com/jamesgray-ai/ai-registry-template) — a ready-made repository containing the empty registry skeleton.
@@ -145,16 +158,16 @@ Bring one and the interview is shorter. Bring three and it is mostly confirmatio
 
 ## The Interview
 
-Whichever flow you're in, your assistant now runs the same **interview** — about 25 minutes: a short setup, **four parts**, and a close — working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
+Whichever flow you're in, your assistant now runs the same **interview**: a short setup, **four parts**, and a close — working through your real business one piece at a time. It never invents details: if you don't know an answer yet, say so, and your assistant leaves that node partial rather than guessing.
 
-| Part | What it asks | Time |
-|---|---|---|
-| Setup | Tells you where it will save your registry and whether your assistant saves files or prints them (decided above), asks who the registry is for — a business you own, a company you lead, your role, or your personal life — and asks for anything you brought (see What to Bring) | 4 min |
-| Part 1 — Your business | Your business's name, a one-sentence identity, and the two or three outcomes that matter most this year. For a professional the "business" is your team; for personal life it is you or your household | 3 min |
-| Part 2 — How it's organized | The one or more lines of business inside it (solo founders usually get just one, named after the business itself) | 4 min |
-| Part 3 — Who does the work | Which functions run your business — for a company, your assistant offers a starter list (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) or drafts from your org chart, and you trim or rename it (any function left owning no process is added to one or dropped before you finish); for a team, the groups you hand work to; for personal life, the roles that own each routine | 3 min |
-| Part 4 — The processes that deliver it | The three to five processes that deliver each line of business — where the time, money, and customer outcomes flow. Your assistant drafts and orders them; you add, remove, rename, or move. Not where AI helps: Analyze decides that, and asks which processes matter most before it looks at them | 8 min |
-| Close | A wrap-up summary, your visual dashboard (always generated, with how to open it — if your assistant is printing files, it's created once your files are in a folder it can save to), and the offer to run Analyze right away | 3 min |
+| Part | What it asks |
+|---|---|
+| Setup | Tells you where it will save your registry and whether your assistant saves files or prints them (decided above), asks who the registry is for — a business you own, a company you lead, your role, or your personal life — and asks for anything you brought (see What to Bring) |
+| Part 1 — Your business | Your business's name, a one-sentence identity, and the two or three outcomes that matter most this year. For a professional the "business" is your team; for personal life it is you or your household |
+| Part 2 — How it's organized | The one or more lines of business inside it (solo founders usually get just one, named after the business itself) |
+| Part 3 — Who does the work | Which functions run your business — for a company, your assistant offers a starter list (Marketing, Sales, Service Delivery, Operations, Product, Customer Success, IT/Engineering) or drafts from your org chart, and you trim or rename it (any function left owning no process is added to one or dropped before you finish); for a team, the groups you hand work to; for personal life, the roles that own each routine |
+| Part 4 — The processes that deliver it | The three to five processes that deliver each line of business — where the time, money, and customer outcomes flow. Your assistant drafts and orders them; you add, remove, rename, or move. Not where AI helps: Analyze decides that, and asks which processes matter most before it looks at them |
+| Close | A wrap-up summary, your visual dashboard (always generated, with how to open it — if your assistant is printing files, it's created once your files are in a folder it can save to), and the offer to run Analyze right away |
 
 While it interviews you, your assistant may show you a worked example from a fictional small consultancy to illustrate the shape of a good answer. That example is there to show you the *pattern* — it is never copied into your registry. Everything your assistant writes describes your real business.
 
@@ -169,9 +182,8 @@ Every workflow the framework finds or builds gets one Workflow node — Analyze 
 type: Workflow
 title: "Client Onboarding Kickoff"
 description: "Kestrel Studio's in-production client onboarding workflow — from signed contract to kickoff call scheduled."
-generated: { by: process:run, at: 2026-06-01 }
+generated: { by: process:test, at: 2026-06-01 }
 status: in-production
-definition_type: step-driven
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"
@@ -185,9 +197,9 @@ provisions the client's shared folder, and schedules the kickoff call.
 # Artifacts
 
 - [Requirements](framework/client-onboarding-kickoff/requirements.md)
-- [Design spec](framework/client-onboarding-kickoff/design-spec.md)
+- [Design plan](framework/client-onboarding-kickoff/design-plan.md)
+- [Test results](framework/client-onboarding-kickoff/test-results.md)
 - [SOP](sops/client-onboarding-kickoff.md)
-- [Run guide](framework/client-onboarding-kickoff/run-guide.md)
 
 # Skills
 
@@ -202,19 +214,18 @@ Everything above the second `---` is **frontmatter** — structured fields your 
 
 The `generated: { by: ..., at: ... }` line appears on every node your assistant writes — it records which process wrote the file and when, so you always know a node's provenance without asking.
 
-### The Four Enums
+### The Three Enums
 
-An **enum** (short for "enumeration") is just a field that only accepts one of a fixed list of values — never free text. Four frontmatter fields on a Workflow node only ever take one of a fixed set of values. Your assistant validates against this list every time it writes or checks a node — these are exactly the values you'll ever see:
+An **enum** (short for "enumeration") is just a field that only accepts one of a fixed list of values — never free text. Three frontmatter fields on a Workflow node only ever take one of a fixed set of values. Your assistant validates against this list every time it writes or checks a node — these are exactly the values you'll ever see:
 
 | Field | Allowed values |
 |---|---|
 | `status` | `backlog` \| `under-development` \| `in-production` \| `retired` |
-| `definition_type` | `step-driven` \| `goal-driven` |
 | `execution_mode` | `manual` \| `augmented` \| `automated` |
 | `autonomy` | `deterministic` \| `guided` \| `autonomous` |
 
-:::note[Older spellings still read fine]
-Earlier versions of this playbook used `step-decomposed` and `outcome-driven` instead of `step-driven` and `goal-driven`. Your assistant tolerates reading either spelling in an old node, but it only ever writes the current ones (`step-driven`, `goal-driven`) going forward.
+:::note[Older nodes still read fine]
+A node written by an earlier version of this playbook may carry a `definition_type` field. Your assistant reads past it and never writes it.
 :::
 
 The bundle root (`registry/index.md`) also declares one frontmatter field of its own: `okf_version: "0.2"`, the version of the OKF spec your registry follows. You'll never need to change it by hand.
@@ -223,7 +234,7 @@ The bundle root (`registry/index.md`) also declares one frontmatter field of its
 
 You almost never trigger a registry refresh yourself — the [AI Workflow Framework](../../ai-workflow-framework/) does it for you automatically:
 
-- Every framework step (Analyze through Improve) updates the Workflow node it just touched, then refreshes your dashboards as its last action.
+- Every framework step (Analyze, Deconstruct, Design, Build and Test) updates the Workflow node it just touched, then refreshes your dashboards as its last action.
 - Running the interview again on an existing registry fills in whatever's missing — it never re-runs from scratch or overwrites a node you've already filled in.
 
 You only need to ask for a refresh yourself when you've added a skill, agent, or workflow **outside** the framework, or a dashboard looks stale or wrong. Either way, just say:
@@ -240,7 +251,7 @@ Your assistant re-reads every node in `registry/`, checks it against `registry/S
 
 **`registry-dashboard.html` — your visual dashboard.** This is the one you'll open most. It's a single self-contained web page — no server, no external requests, double-click it and it opens in your browser — showing your business's full value chain (business → line of business → process → workflow) laid out visually, with a click-through to any node's detail. Ask your assistant: *"Generate my visual dashboard."* On Claude, registry setup also offers it as a **Claude Artifact**: a private page you can open from Claude any time, without finding the file. Each later step updates it at the same link. To show it to someone else, see [Sharing Your Dashboard](#sharing-your-dashboard).
 
-**`REGISTRY.md` — the plain-text index.** Regenerated automatically on every maintenance pass. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, execution mode, autonomy, and review date at a glance. Below that, a "Review dates" section lists every workflow with a `stale_after` date, soonest first, and "Skills" and "Agents" sections list everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). It's the version your assistant reads back and the one that works anywhere Markdown does.
+**`REGISTRY.md` — the plain-text index.** Regenerated automatically on every maintenance pass. Opening it, you'll see your business name and identity at the top, then a section per line of business, each with a table of its processes and the workflows inside them — status, how it runs, how it decides, and when to re-check it at a glance. Below that, a "Re-check by" section lists every live workflow with a `stale_after` date, soonest first, and "Skills" and "Agents" sections list everything you've built, each with a note on which workflow uses it (or a flag if nothing does — a good sign something got built but never wired in). It's the version your assistant reads back and the one that works anywhere Markdown does.
 
 ### Sharing Your Dashboard
 
@@ -256,37 +267,22 @@ The interview, the node shapes, and the dashboards are the same on every AI tool
 | Platform | Skills come from | Where your registry lives | How files get written |
 |---|---|---|---|
 | Claude Code | Hands-on AI plugin | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
-| Claude desktop app | Hands-on AI plugin | any folder on your computer, chosen as your working folder | directly |
+| Claude desktop app | Hands-on AI plugin | inside the framework folder you add to the chat | directly |
 | ChatGPT for desktop (ChatGPT Work or Codex) | Hands-on AI plugin, or skill folders in `~/.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
 | Cursor, Codex CLI, Gemini CLI | skill folders in `.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
-| Claude on the web · ChatGPT web · Google Gemini · M365 Copilot | Hands-on AI plugin (Claude, ChatGPT) or uploaded skill ZIPs | a folder on your computer, a synced cloud-drive folder, or a GitHub repository | you save each file — [You save the files](#you-save-the-files) |
+| Claude on the web · ChatGPT web | Hands-on AI plugin, or uploaded skill ZIPs | `Framework/registry/` in Google Drive, or OneDrive on a work or school account | through the drive connection |
+| Microsoft 365 Copilot | skills uploaded in Copilot Cowork | `Framework/registry/` in OneDrive, separate from Copilot Cowork's own folder | Copilot Cowork's own OneDrive edits |
+| Google Gemini | uploaded skill ZIPs | wherever you save | you save each file — [You save the files](#you-save-the-files) |
 
 A few tool-specific details:
 
 - **Claude Code:** `/plugin list` shows `handsonai` once the plugin is installed, and `/handsonai:scaffolding-registry` starts the interview directly if you'd rather use the slash command.
-- **The Claude desktop app:** choose your registry's folder as your working folder — a project or any local folder — *before* saying "set up my AI registry"; the skill can only write inside the folder you're working in.
+- **The Claude desktop app:** add your framework folder to the chat *before* saying "set up my AI registry"; the skill can only write inside a folder the chat can reach.
 - **ChatGPT for desktop:** the plugin's skills work in ChatGPT Work and Codex. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Install the Hands-on AI Plugin — Codex](../../ai-workflow-framework/skills/#openai-codex).
-- **Browser tools (Claude on the web, ChatGPT web, Gemini, Copilot):** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
+- **Claude on the web, ChatGPT web, Microsoft 365 Copilot:** your assistant saves through your drive connection. If the connection can't write, it prints each file instead.
+- **Gemini, or a chat with no drive connection:** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*
 
 If a button or label on your screen doesn't match these steps, paste the step you're on into your AI assistant and ask it to walk you through it on your version. Still stuck? Bring it to a session.
-
-## Migrating From the Old Workflow Manifest File
-
-Earlier versions of this playbook tracked each workflow with one small file per workflow (a "workflow manifest file") instead of today's registry bundle. If your assistant finds one of these old-style files in your workspace, it offers to migrate it as part of setup (see [Your Assistant Saves the Files](#your-assistant-saves-the-files)) — you don't need to do anything by hand. If you save files yourself, tell your assistant what's in your `outputs/` folder when it asks: the old manifest files lived there, in the layout from before 9.0. It can't look for itself.
-
-**What your assistant does during migration:**
-
-- Creates a proper Workflow node in `registry/workflows/` from the old file's contents, converting old field names to the current ones (for example, the old file's status values become the current `status` enum — `Archived` becomes `retired`).
-- Carries over the old outcome description into the new node's `description` field, so nothing you wrote is lost.
-- Converts the old review-date field into the current `stale_after` field.
-- Drops fields that no longer belong in a node at all — things like which platform a workflow ran on, or its last-run timestamp, which now live with the workflow's actual run history instead of in the registry.
-- Records the migration in `registry/log.md`, so there's a permanent note of what was converted and when.
-
-**What to check after migration:**
-
-- Open the new Workflow node and confirm the description still reads correctly — migration preserves the words, but it's worth a skim.
-- Confirm the workflow appears correctly in your Process node's workflow list, and that its status matches what you expect.
-- If you had several old-style files, ask your assistant to confirm all of them were migrated — check `registry/log.md` for the full list.
 
 ## Troubleshooting
 

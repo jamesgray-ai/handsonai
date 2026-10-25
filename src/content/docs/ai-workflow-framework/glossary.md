@@ -1,80 +1,82 @@
 ---
 title: Framework Glossary
-description: Every term you meet in the seven-step AI Workflow Framework, in plain language — lens, autonomy, involvement, skill, agent, report card, registry, and more.
+description: "Every term you meet in the five-step AI Workflow Framework, in plain language: practice runs, checkpoints, tracks, the Design Plan, re-checks and more."
 ---
 
-Every term you'll meet across the seven steps, in plain language, each linked to the page that introduces it.
+Every term you'll meet across the five steps, in plain language, each linked to the page that introduces it.
 
-**Acceptance criterion (AC)** — A numbered, yes/no statement of what a successful run must do, derived from a real example you were happy with. Captured in [Deconstruct](../deconstruct/) as `AC1, AC2, …` and graded line by line in [Test](../test/).
+**Agent (how it runs)** — A workflow that decides its own path while it runs, uses tools on its own judgment, and can run without you. [Design](../design/) chooses an agent when the steps depend on what the workflow finds along the way. On Microsoft 365 Copilot, agents are made in Agent Builder.
 
-**Agent (mechanism)** — An orchestration mechanism that decides its own path at runtime, using tools on its own judgment and able to run unattended. Chosen in [Design](../design/) when a workflow's steps depend on what it finds along the way.
+**Agent (building block)** — A configured worker with a job, tools and limits, which a person or another part of the workflow hands work to. See [Agentic Building Blocks](../../agentic-building-blocks/).
 
-**Agent (building block)** — One of the Orchestration-layer AI building blocks: a configured worker with a mission, tools, and constraints that an orchestrator or a person dispatches. See [Agentic Building Blocks](../../agentic-building-blocks/). *Agent* the mechanism means the whole workflow is driven by one agent that decides its own path; *agent* the building block is any configured agent, including the workers a mechanism-level agent dispatches.
+**Augmented / Automated** — Who takes part while a workflow runs. **Augmented**: a person is in the workflow along the way, guiding or working with the AI. **Automated**: no one takes part until it's done; starting a run by hand doesn't make it Augmented. Set in [Design](../design/); see the [AI Workflow Design Matrix](../workflow-design-matrix/).
 
-**Augmented / Automated (involvement)** — The two values of human involvement. **Augmented** means a person is in the workflow along the way, guiding, engaging, or collaborating with the AI while it runs. **Automated** means no one takes part until it's done — starting a run by hand doesn't make it Augmented. Set during [Design](../design/) and classified in the [AI Workflow Design Matrix](../workflow-design-matrix/).
+**Autonomy** — How much the AI decides on its own, judged by what decides the next step. **Deterministic**: you give instructions and the AI carries out every step you set. **Guided**: you give bounded decisions with your method (a rubric, criteria, a process), and the AI decides by it. **Autonomous**: you give a goal, and the AI plans its own steps until the goal is met. [Design](../design/) names the level once, in its plan review. See the [AI Workflow Design Matrix](../workflow-design-matrix/).
 
-**Autonomy** — How much the AI decides on its own, told by looking at what decides the next step. **Deterministic**: you give instructions — you set every step and the AI carries each one out; it may write or summarize inside a step, but its output never changes what happens next. **Guided**: you give bounded decisions, with your method — you set the structure and the methodology (a rubric, criteria, a process), and the AI uses it to decide on your behalf: route an item, choose a tool, judge quality and send work back. **Autonomous**: you give a goal — the AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Writing or summarizing inside a step never makes a workflow Guided, and the number of agents doesn't set the level. A fourth value, **Human**, exists only when classifying an individual step in [Design](../design/) — a step a person performs, with no AI involved — and never appears at the whole-workflow level. See the [AI Workflow Design Matrix](../workflow-design-matrix/).
+**Backlog** — The list of candidate workflows [Analyze](../analyze/) saves, each with the work, the pain and the value: cards in your registry, or `backlog.md` in your Framework folder without one.
 
-**Backlog** — The `status: backlog` value on a Workflow node: a candidate workflow [Analyze](../analyze/) has registered in your registry but nobody has started building yet.
+**Build record** — The file [Build](../build/) writes (`build-record.md`): what was built, where it's installed, and what it can access. Once the workflow is live, it also says how to switch it off.
 
-**Baseline** — The report card from the round of [Test](../test/) that first reaches Ready. [Improve](../improve/) re-runs the same inputs later and compares every line against this baseline to see what changed.
+**Building blocks** — The pieces a workflow is built from, in four layers: Intelligence (Model, Context, Memory, Project), Orchestration (Prompt, Skill, Agent, Harness), Integration (MCP, API, SDK, CLI) and Governance (Registry, Observability, Evaluation). See [Agentic Building Blocks](../../agentic-building-blocks/).
 
-**Building blocks (four layers)** — The AI building blocks a workflow step can be mapped to, grouped in four layers: **Intelligence** (Model, Context, Memory, Project), **Orchestration** (Prompt, Skill, Agent, Harness), **Integration** (MCP, API, SDK, CLI), and **Governance** (Registry, Observability, Evaluation). Mapped during [Design](../design/); see [Agentic Building Blocks](../../agentic-building-blocks/) for full definitions.
+**"Change my workflow"** — The phrase that starts any change to a workflow that's planned, built or live. [Design](../design/) picks it up and judges whether the change is small or big; every change starts at the requirements. See [Keeping It Working](../#keeping-it-working).
 
-**Capability domain** — In a goal-driven workflow, a durable competency the agent draws on at runtime (for example "research" or "synthesis") — not a step or a pipeline stage. Capability domains replace step-by-step decomposition in [Design](../design/) for goal-driven workflows.
+**Change that can't be undone** — Anything a workflow does that can't simply be taken back: sending an email, posting a message, deleting or overwriting a record. Design puts a checkpoint before it, and a practice run never makes one.
 
-**Connector** — The mechanism a workflow uses to reach a live system such as a CRM, calendar, or drive. [Design](../design/) works out how the workflow will reach each system — a platform-native connector first, otherwise an MCP server, API, SDK, or CLI; [Build](../build/) has you authorize each one in the account that will actually run the workflow.
+**Checkpoint** — A point where the workflow stops and asks a person first, such as before it sends anything. One of the [three kinds of line](../#how-it-fits-together) in your requirements, captured in [Deconstruct](../deconstruct/).
 
-**Context** — One of the Intelligence-layer building blocks: the documents, examples, and reference material a step needs to produce good output. Resolved item by item during [Build](../build/)'s Prepare Context phase.
+**Connection** — How a workflow reaches a system such as a CRM, a calendar or a drive. Your platform may call it a connector or an app. [Build](../build/) has you connect each one in your own account and proves it works.
 
-**Context Inventory (C1…)** — The table in the Workflow Requirements listing every artifact a workflow needs, each with a stable ID (`C1, C2, …`), its status, sensitivity, source, and whether the AI can currently access it. Captured in [Deconstruct](../deconstruct/).
+**Context** — The documents, examples and reference material a workflow reads while it runs, such as a style guide or a template. Captured in [Deconstruct](../deconstruct/), kept in the workflow's `context/` folder, and placed where the workflow runs by [Build](../build/).
 
-**Definition type (step-driven / goal-driven)** — Which of the two Deconstruct paths a workflow took. **Step-driven** means you can describe how the work gets done. **Goal-driven** means you know what "done" looks like and an agent figures out the steps at runtime. Chosen at the start of [Deconstruct](../deconstruct/).
+**"Continue my workflow"** — The phrase that moves a workflow on from wherever it is. Say it in a new chat; any of the five skills reads your files, works out which step is next, and picks up there. See [Moving From Step to Step](../#moving-from-step-to-step).
 
-**Design Spec** — The architectural blueprint [Design](../design/) produces from your Workflow Requirements: platform, mechanism, autonomy, step classifications, skill and agent blueprints. It is a draft — its frontmatter carries `approved: false` until you say "approve," and [Build](../build/) refuses to run on an unapproved spec.
+**Design Plan** — The plan [Design](../design/) writes (`design-plan.md`) for how AI will do the work: where it runs, how much it decides on its own, which parts are skills or agents, what it connects to, and the task list Build follows. You approve it before anything is built.
 
-**Execution mode** — A Workflow node field recording how the workflow currently runs: `manual` (a person still does it, AI hasn't run it yet), `augmented` (AI runs it with a human in the loop), or `automated` (AI runs it unattended). One of the four fixed-value fields on a Workflow node — see the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/) — kept current by each framework step that touches the node, and checked by [Run](../run/) before a workflow can be put on a schedule.
+**Flag line** — The line at the end of every run that flags anything the workflow wasn't designed for, such as a new kind of input or a checkpoint it had to guess at, with the phrase to fix it: "change my workflow". Part of [keeping it working](../#keeping-it-working).
 
-**Fix mode** — The path [Build](../build/) takes when you return from a Not Ready verdict in [Test](../test/): it rebuilds only the building blocks your test results named, leaving everything else installed as-is.
+**Framework folder** — The folder that holds your workflow files, called Framework: in Google Drive, in OneDrive or on your computer, or `framework/` in your workspace on Claude Code and Codex. Each workflow gets its own folder inside it. It's kept apart from the workflow's place.
 
-**Golden example** — A real past output you'd consider exactly right, supplied in [Deconstruct](../deconstruct/). [Test](../test/) compares new output against it to see what's missing, extra, or different in substance.
+**Keeping it working** — What every workflow carries so it stays useful once it's live: the flag line, a re-check date, and "change my workflow". It's part of every workflow, not a step. See [Keeping It Working](../#keeping-it-working).
 
-**Human gate (G1…)** — A point in the workflow where a person must review or approve before it continues, captured with a stable ID (`G1, G2, …`) in [Deconstruct](../deconstruct/) and checked off in [Test](../test/)'s report card.
+**Lens** — What an [Analyze](../analyze/) session looks at: **Individual** (your own work) or **Organizational** (your business's processes, across several roles).
 
-**Lens** — The scope of an [Analyze](../analyze/) audit: **Individual** (your own workflows) or **Organizational** (a value chain process spanning multiple roles). The lens changes what you're analyzing, not the matrix you classify it on — see the [AI Workflow Design Matrix](../workflow-design-matrix/).
+**Live** — A workflow you've taken live at the end of [Test](../test/) and now use for real work. Live is a fact about the workflow, not a step: a live workflow keeps running while it's changed or re-checked.
 
-**Orchestrator skill** — The top-level skill that drives a Skill-mechanism workflow: it invokes the component skills in order and pauses at human gates. Named after the workflow itself and specified in [Design](../design/)'s Orchestrator Prompt Outline.
+**Must-have** — A check the output can't pass without. Marked among what every output must get right in [Deconstruct](../deconstruct/); a miss on a must-have is never accepted.
 
-**Packaging** — How [Design](../design/) decides the built artifacts will ship: as a **Plugin**, a **Standalone Skill**, a **Workspace Agent**, or **Loose Files**.
+**Practice inputs** — Realistic examples, taken from your real work, that [Test](../test/) runs the workflow on. Captured in [Deconstruct](../deconstruct/) and saved in the workflow's `inputs/` folder. Each round also includes one real example the workflow hasn't seen.
 
-**Platform mode** — Whether your platform generates source files directly (**code mode**, e.g. Claude Code, Cursor) or step-by-step GUI instructions (**guided mode**, e.g. Copilot Studio). [Build](../build/) reads this from the platform registry — it is never something you select.
+**Practice run** — A run of the workflow that sends and changes nothing. It goes up to each change, shows exactly what it would send or change and where, and stops there. Every workflow [Build](../build/) makes has one, and every run in [Test](../test/) is one.
 
-**Process (registry)** — A registry node representing an end-to-end business process; every Workflow node belongs to exactly one Process, listed in that Process's `# Workflows` section. Set up during your [AI Registry](../../builder-setup/ai-registry-setup/) interview.
+**Quick real check** — One small real change, made during [Build](../build/)'s setup somewhere only you can see, with your OK first, that proves a kind of change works.
 
-**Registry** — Your AI Registry: a folder of Markdown "nodes" describing your business, its processes, and its workflows, which every framework step reads from and writes to so you never re-describe your work. See the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
+**Re-check** — Running [Test](../test/) again on a live workflow with "test the workflow I built", to see whether it still does what it must. Test sets a date for it when the workflow goes live, three months out.
 
-**Report card** — The table [Test](../test/) produces per scenario, graded from the whole run rather than the final output alone: every acceptance criterion first, then every rule, human gate, and step output, listed as **Expected | From | Result | Evidence**, with Result always exactly Met or Not met.
+**Registry** — Your AI Registry: a folder of Markdown cards describing your business, its processes and its workflows, which every framework step reads and updates so you never describe your work twice. See the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
 
-**Requirements (Workflow Requirements)** — The Product Requirements Document for a workflow: goal, value and measurement, context inventory, acceptance criteria, example scenarios, rules, and human gates. Produced by [Deconstruct](../deconstruct/) and consumed by every later step.
+**Round** — One pass of [Test](../test/): every practice input and your real example run once, each requirement checked with proof, then a verdict of Ready, Not ready, or waiting on a connection's access. On the full track, two or three rounds is normal.
 
-**Round (Test)** — One pass through every scenario in [Test](../test/): you open the round in one chat, which loads your requirements and design and writes the check list, then run each input in its own new chat and say *test this* to have it graded there, and get the verdict after the last one. Two to four rounds is normal.
+**Rules it follows** — Sentences in your requirements that say how the workflow must behave: "It always…", "It never…", "When…, it…". One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/).
 
-**Rule (R1…)** — A must-do, must-never-do, or fallback statement about how the work should be done, captured with a stable ID (`R1, R2, …`) in [Deconstruct](../deconstruct/) and checked in [Test](../test/)'s report card.
+**Run log** — A one-line-per-run record the workflow keeps in its own place, where the platform lets it write one. Re-check reminders and time saved come from it. Not every workflow keeps one; those that don't still end each run with the flag line.
 
-**Run Card** — The one-page guide [Run](../run/) writes after your first real run, covering how to start the workflow, what to have ready, and what to check before you act on the output. Saved as `run-guide.md`.
+**Skill (how it runs)** — A workflow you start by name that follows the same steps each time, pausing where you said. [Design](../design/) chooses a skill when you trigger the work yourself and the steps repeat.
 
-**Run log** — The one-line-per-run record (`runs.md`) that [Run](../run/) starts: date, input, result, and edits needed. [Improve](../improve/) reads it as evidence of drift.
+**Skill (building block)** — Any reusable set of instructions the AI follows, including smaller skills a workflow uses for one part of the job. See [Agentic Building Blocks](../../agentic-building-blocks/).
 
-**Scenario (E1…)** — A representative input, with what to look for in the output, captured in [Deconstruct](../deconstruct/)'s Example Scenarios and given a stable ID (`E1, E2, …`) — you supply the real ones, the model proposes the rest against what could go wrong, and you correct the list. In [Test](../test/) you run each one in its own new chat and say *test this* to have it graded there.
+**`stale_after`** — The re-check date on a workflow's registry card. [Test](../test/) sets it when the workflow goes live, three months out, and resets it after each Ready re-check.
 
-**Skill (mechanism)** — An orchestration mechanism you start by name; it follows the mapped steps every time, pausing where you said. Chosen in [Design](../design/) when you trigger the work yourself and the same steps repeat each run.
+**Track (light, full)** — How thorough the five steps are for a workflow. **Light** is for small, low-risk workflows; **full** is for the rest. Same steps and files; each step is shorter on the light track. Any sign of risk keeps a workflow on the full track. Proposed in [Deconstruct](../deconstruct/).
 
-**Skill (building block)** — Any reusable instruction set the model follows, including the smaller component skills an orchestrator skill invokes. *Skill* the mechanism means the whole workflow runs as one skill you start by name; *skill* the building block is any reusable instruction set, including the component skills inside it. See [Agentic Building Blocks](../../agentic-building-blocks/).
+**Tricky case** — An input that's harder than usual: missing information, an unusual request, something that tests a rule. Your practice inputs should include at least one.
 
-**Stable ID** — A short label (`S1`, `A1`, `C1`, `E1`, `AC1`, `R1`, `G1`) that stays the same across every document referencing it, so every framework step can point at exactly the same component. Introduced in [Deconstruct](../deconstruct/) and [Design](../design/).
+**What it must get right** — Yes-or-no checks in your requirements that every output must pass. One of the [three kinds of line](../#how-it-fits-together), captured in [Deconstruct](../deconstruct/) and checked in every [Test](../test/) round.
 
-**`stale_after`** — The review-date field on a Workflow node. A workflow is stale once today's date reaches it; [Run](../run/) sets it on go-live, and [Improve](../improve/) resets it at the close of each review.
+**"What I did" summary** — The short summary a workflow ends each run with: the steps it took, where it paused for you, and what it did with your tools. [Test](../test/) uses it to check the path, but always grades the output itself, never the summary's claims about it.
 
-**What I did summary** — The short list every workflow you build in [Build](../build/) ends its run with: the steps it took, where it paused for you and what you decided, what it did with your tools, and where the deliverable is. [Test](../test/) grades the rules, gates, and step outputs against it.
+**Workflow's place** — Where the workflow runs: its own Project or folder; on Microsoft 365 Copilot, Copilot Cowork's own folder or the agent itself. It holds only what the workflow reads while it runs, never your requirements or plan, so Test's runs stay cold.
 
-**Workflow node** — The registry file (`registry/workflows/<slug>.md`) that tracks one workflow's status, mode, and artifacts across every framework step, so any session can pick up where you left off. First written by [Analyze](../analyze/); see the [AI Registry Setup guide](../../builder-setup/ai-registry-setup/).
+**Workflow node** — A workflow's card in your registry (`registry/workflows/<slug>.md`), tracking its status and files across every step. First written by [Analyze](../analyze/).
+
+**Workflow Requirements** — The clear, testable description of what a workflow must do (`requirements.md`): its goal, what every output must get right, the rules it follows, where a person checks, and its practice inputs. Written in [Deconstruct](../deconstruct/) and read by every later step.

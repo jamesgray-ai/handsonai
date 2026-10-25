@@ -1,6 +1,6 @@
 ---
 title: Building Agents on M365 Copilot
-description: How to build agents on Microsoft 365 Copilot — declarative agents for business users and custom engine agents for developers.
+description: How to build agents on Microsoft 365 Copilot — Agent Builder from Copilot Chat, declarative agents in Copilot Studio, and custom engine agents for developers.
 ---> **Part of:** [Build Workflows > Agents](../../../../ai-workflow-framework/build/)
 
 Microsoft 365 Copilot extends its built-in capabilities through agents — specialized AI assistants tailored to specific domains. Agents can retrieve information, summarize data, and take actions like sending emails or updating records, all within the Microsoft 365 apps where you already work.
@@ -13,6 +13,19 @@ There are two approaches to building agents, depending on how much control you n
 |----------|----------|------------|
 | [Declarative agents](#declarative-agents) | Business users and developers who want agents within Copilot's orchestration | Low to moderate — no-code (Copilot Studio) or pro-code (Agents Toolkit) |
 | [Custom engine agents](#custom-engine-agents) | Developers who need custom orchestration, models, or external integrations | Higher — bring your own orchestrator and models |
+
+## Build an agent with Agent Builder
+
+When the [AI Workflow Framework](/ai-workflow-framework/) builds an agent on Microsoft 365 Copilot, it uses Agent Builder (verified 2026-10-24). Skills are made in [Copilot Cowork](/platforms/m365-copilot/skills/); agents are made here.
+
+1. Open **Copilot › Chat › Agents › New agent**. Use the **Message Agent Builder** box. The ordinary Copilot Chat can read your plan and describe an agent, but it can't create one.
+2. Paste the build prompt the [Build](/ai-workflow-framework/build/) step wrote for you. It names your plan, your requirements and their OneDrive folder, so Agent Builder fills in the name, description and instructions itself. You don't copy anything into the form.
+3. Add each context file the agent reads under **Knowledge**, from the copy Build saved in the workflow's own folder. Don't use Agent Builder's offer to attach a file: it may pick the framework's copy instead.
+4. Check **Work content**. Each agent has its own switches (Cloud files, Outlook, Teams, Copilot connectors, web search), and Microsoft's default lets an agent reach everything Copilot can. Leave on only what the workflow uses, and switch the rest off.
+5. Choose **Create**.
+6. Paste the agent's instructions back into Build's chat, so Build can check them.
+
+Build can't open the agent itself on Microsoft 365, so the framework's [Test](/ai-workflow-framework/test/) step proves the agent with practice runs. A fix goes back the same way: Build writes a short fix prompt, and you paste it into the Agent Builder chat.
 
 ## Agent Core Components
 

@@ -32,4 +32,4 @@ From the CLI, the plugin also installs with `codex plugin marketplace add jamesg
 ## Related
 
 - [Skills building block](/agentic-building-blocks/skills/) — what skills are and how they work across platforms
-- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the seven framework skills on ChatGPT and Codex
+- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the five framework skills on ChatGPT and Codex

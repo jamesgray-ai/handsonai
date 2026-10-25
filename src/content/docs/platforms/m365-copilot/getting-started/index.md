@@ -49,17 +49,17 @@ Copilot uses your Microsoft Graph data (emails, files, calendar, chats) to provi
 
 M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After adding a skill, you can say "analyze where AI fits in my work" and Copilot runs the structured interview automatically — no re-explaining your requirements each time.
 
-**Requires:** A Microsoft 365 Copilot license, with Cowork enabled by your admin (it's generally available; admins turn on its usage-based billing).
+**Requires:** A Microsoft 365 Copilot license, with Copilot Cowork enabled by your admin (it's generally available; admins turn on its usage-based billing).
 
-**Before you start:** open Microsoft 365 Copilot and look for **Cowork** in the left navigation. Not there → ask IT to enable it.
+**Before you start:** open Microsoft 365 Copilot and look for Copilot Cowork (labelled **Cowork**) in the left navigation. Not there → ask IT to enable it.
 
 1. Download the skill's `.zip` from the [skill downloads](../../../ai-workflow-framework/skills/#download-the-skill-zips) — don't unzip it
-2. In Cowork, open **Customize → Skills**, click the arrow next to **Add**, then **Upload skill**, and choose the ZIP
+2. In Copilot Cowork, open **Customize → Skills**, click the arrow next to **Add**, then **Upload skill**, and choose the ZIP
 3. Start a new conversation — the skill appears under **Your skills** and loads automatically when relevant
 
 Prefer folders? Unzip the skill and drop its folder into OneDrive at `Documents/Cowork/skills/<skill-name>/`. Up to 50 custom skills, 1 MB per `SKILL.md`, 20 companion files per skill.
 
-[→ Full Cowork skills setup walkthrough](../../../ai-workflow-framework/skills/) · [→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills)
+[→ Full Copilot Cowork skills setup walkthrough](../../../ai-workflow-framework/skills/) · [→ How to Add Skills to Your Platform](../../../agentic-building-blocks/skills/#how-to-install-skills)
 
 ---
 

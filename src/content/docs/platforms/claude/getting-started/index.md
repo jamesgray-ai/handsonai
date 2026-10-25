@@ -125,7 +125,7 @@ Connect the Hands-on AI Playbook MCP server for reference material:
 
 - [Custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
 - [Local MCP servers on the Claude desktop app](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop)
-- [Getting started with Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork) (Anthropic's guide to working in a folder on your computer)
+- [Anthropic's guide to working in a folder on your computer](https://support.claude.com/en/articles/13345190-getting-started-with-cowork) (Claude Help Center)
 
 ---
 

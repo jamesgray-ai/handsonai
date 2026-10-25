@@ -30,7 +30,7 @@ The five-step methodology for going from a workflow idea to a tested, live AI wo
 |---|---|
 | `analyze` skill | Audit your workflows to find where AI creates the most value |
 | `deconstruct` skill | Break a workflow into structured steps using the 6-question framework |
-| `design` skill | Design the AI workflow architecture and produce a Design Spec |
+| `design` skill | Design the AI workflow architecture and produce a Design Plan |
 | `build` skill | Generate platform-appropriate artifacts from the approved spec |
 | `test` skill | Test workflow artifacts and evaluate output quality |
 

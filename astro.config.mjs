@@ -72,8 +72,9 @@ export default defineConfig({
     '/business-first-ai-framework/run/': '/ai-workflow-framework/test/',
     '/business-first-ai-framework/improve/': '/ai-workflow-framework/test/',
     '/ai-workflow-framework/run/': '/ai-workflow-framework/test/',
-    // The framework worked example and its download retired in 10.0.0 (2026-10); a real run replaces it later
+    // The framework worked examples (and the download) retired in 10.0.0 (2026-10); a real run replaces them later
     '/ai-workflow-framework/examples/worked-example/': '/ai-workflow-framework/',
+    '/ai-workflow-framework/examples/content-calendar-planning/': '/ai-workflow-framework/',
     '/ai-workflow-framework/improve/': '/ai-workflow-framework/test/',
     '/business-first-ai-framework/skills/': '/ai-workflow-framework/skills/',
     '/business-first-ai-framework/workflow-design-matrix/': '/ai-workflow-framework/workflow-design-matrix/',
@@ -81,7 +82,7 @@ export default defineConfig({
     '/business-first-ai-framework/examples/deterministic-automation/': '/ai-workflow-framework/examples/deterministic-automation/',
     '/business-first-ai-framework/examples/ai-collaborative/': '/ai-workflow-framework/examples/ai-collaborative/',
     '/business-first-ai-framework/examples/autonomous-agent/': '/ai-workflow-framework/examples/autonomous-agent/',
-    '/business-first-ai-framework/examples/content-calendar-planning/': '/ai-workflow-framework/examples/content-calendar-planning/',
+    '/business-first-ai-framework/examples/content-calendar-planning/': '/ai-workflow-framework/',
     // Q&A flattened to /questions/<slug>/ (2026-05-17) — see redirects block below for all old nested paths
     '/business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/': '/questions/how-do-i-find-workflows-worth-applying-ai-to/',
     '/business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/': '/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/',
@@ -175,12 +176,12 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: 'Overview', link: '/ai-workflow-framework/' },
+            { label: 'Analyze', link: '/ai-workflow-framework/analyze/' },
+            { label: 'Deconstruct', link: '/ai-workflow-framework/deconstruct/' },
+            { label: 'Design', link: '/ai-workflow-framework/design/' },
+            { label: 'Build', link: '/ai-workflow-framework/build/' },
+            { label: 'Test', link: '/ai-workflow-framework/test/' },
             { label: 'AI Workflow Design Matrix', link: '/ai-workflow-framework/workflow-design-matrix/' },
-            { label: 'Step 1: Analyze', link: '/ai-workflow-framework/analyze/' },
-            { label: 'Step 2: Deconstruct', link: '/ai-workflow-framework/deconstruct/' },
-            { label: 'Step 3: Design', link: '/ai-workflow-framework/design/' },
-            { label: 'Step 4: Build', link: '/ai-workflow-framework/build/' },
-            { label: 'Step 5: Test', link: '/ai-workflow-framework/test/' },
             { label: 'Install the Plugin', link: '/ai-workflow-framework/skills/' },
             { label: 'Glossary', link: '/ai-workflow-framework/glossary/' },
             {
@@ -191,7 +192,6 @@ export default defineConfig({
                 { label: 'Guided Prospect Research', link: '/ai-workflow-framework/examples/deterministic-automation/' },
                 { label: 'AI Collaborative', link: '/ai-workflow-framework/examples/ai-collaborative/' },
                 { label: 'Autonomous Agent', link: '/ai-workflow-framework/examples/autonomous-agent/' },
-                { label: 'Full Example: Content Calendar Planning', link: '/ai-workflow-framework/examples/content-calendar-planning/' },
               ],
             },
           ],

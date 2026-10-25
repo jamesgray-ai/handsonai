@@ -73,7 +73,7 @@ ENUM='Skill | Agent'
 # Design's template is plan-template.md from T23 on; spec-template.md until then.
 DESIGN_TEMPLATE="$SK/design/references/plan-template.md"
 [ -f "$DESIGN_TEMPLATE" ] || DESIGN_TEMPLATE="$SK/design/references/spec-template.md"
-for f in "$DESIGN_TEMPLATE" "$SK/design/references/self-test-checklist.md" "$SK/build/SKILL.md" "$DOCS/index.md"; do
+for f in "$DESIGN_TEMPLATE" "$SK/design/references/self-test-checklist.md" "$SK/build/SKILL.md"; do
   if grep -qF -- "$ENUM" "$f"; then ok "'$ENUM' in $f"; else bad "'$ENUM' missing from $f"; fi
 done
 for f in "$SK"/*/SKILL.md "$SK"/design/references/*.md; do

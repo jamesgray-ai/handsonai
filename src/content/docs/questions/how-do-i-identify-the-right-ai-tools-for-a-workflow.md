@@ -1,6 +1,6 @@
 ---
 question: "How do I identify the right AI tools for a workflow?"
-short_answer: "Define the work first, then choose the tools. Deconstruct captures the steps, decisions, context, rules, and human gates without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step."
+short_answer: "Define the work first, then choose the tools. Deconstruct captures the goal, what every output must get right, the rules and the checkpoints without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step."
 platforms: [openai, claude, gemini]
 topic: strategy
 date: 2026-02-02
@@ -9,15 +9,15 @@ title: "How do I identify the right AI tools for a workflow?"
 description: "Define the work first in Deconstruct, then let Design choose the platform and the building block — prompt, skill, agent, or connector — for each step."
 ---
 
-**Short answer:** Define the work first, then choose the tools. Deconstruct captures the steps, decisions, context, rules, and human gates without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step.
+**Short answer:** Define the work first, then choose the tools. Deconstruct captures the goal, what every output must get right, the rules and the checkpoints without naming any tool; Design then picks the platform and the building block — prompt, skill, agent, or connector — for each step.
 
 ## The Full Answer
 
-You can't choose the right AI tools for a workflow you don't fully understand. The [AI Workflow Framework](/ai-workflow-framework/) separates the two questions on purpose: [Deconstruct (Step 2)](/ai-workflow-framework/deconstruct/) defines *what* the work is, and [Design (Step 3)](/ai-workflow-framework/design/) decides *how* AI delivers it.
+You can't choose the right AI tools for a workflow you don't fully understand. The [AI Workflow Framework](/ai-workflow-framework/) separates the two questions on purpose: [Deconstruct](/ai-workflow-framework/deconstruct/) defines *what* the work is, and [Design](/ai-workflow-framework/design/) decides *how* AI delivers it.
 
 Most people jump straight to tool selection — "Should I use an agent? Do I need an API?" — before they've worked out what the workflow actually involves. The result is over-engineered solutions for simple problems, or under-powered tools for complex ones.
 
-**Deconstruct first.** For each step, the Deconstruct skill probes six dimensions: the discrete steps, the decision points, the data flowing in and out, any external actions, the context the step needs (and whether that context is ready for AI to use), and how the step fails. It also captures the workflow's rules, the places a person must review or approve (human gates), and yes/no criteria for judging the output. No tool, platform, or autonomy level is chosen here — the result is a requirements document that describes the work.
+**Deconstruct first.** The Deconstruct skill starts with the outcome: what the workflow produces and what every output must get right. Then it records how the work gets done, the rules it follows, where a person checks before it goes on (checkpoints), and a few practice inputs from your real work. No tool, platform, or autonomy level is chosen here. The result is your Workflow Requirements: a description of the work.
 
 **Then design.** Design reads those requirements and makes the mechanism decisions: which platform, whether the workflow runs as a skill or an agent, how much the AI decides on its own (autonomy), and whether a person takes part while it runs (involvement). It then maps each step to the building block that delivers it:
 
@@ -39,14 +39,14 @@ Most people jump straight to tool selection — "Should I use an agent? Do I nee
 | | **Observability** | Seeing what an AI system is doing, why, and how well | Workflows that run unattended or that others depend on |
 | | **Evaluation** | Repeatable measurement of whether output is good enough | Every workflow — the framework's Test step is built on it |
 
-Not every step needs AI. Design can assign a step to a person, and the human gates from Deconstruct stay in place whatever tools are chosen.
+Not every step needs AI. Design can assign a step to a person, and the checkpoints from Deconstruct stay in place whatever tools are chosen.
 
 ## How to Get Started
 
 Both steps are skills in the Hands-on AI plugin — see [Install the Hands-on AI Plugin](/ai-workflow-framework/skills/) for your platform.
 
 1. **Deconstruct** — say *"run the deconstruct skill"* and describe the workflow. It produces the workflow's requirements.
-2. **Design** — say *"run the design skill"*. It reads those requirements and produces a Design Spec naming the platform, the mechanism, and the building block for each step.
+2. **Design** — say *"run the design skill"*. It reads those requirements and produces a Design Plan naming the platform, whether each part is a skill or an agent, and what it connects to, ending in a task list.
 
 :::tip[Start with a workflow you actually do]
 Real workflows produce the best requirements. Deconstruct is designed to work with rough, incomplete descriptions — don't over-prepare. Even "I onboard new clients and it takes forever" is enough to start. The model will find the hidden steps and assumptions you've internalized.
@@ -55,9 +55,9 @@ Real workflows produce the best requirements. Deconstruct is designed to work wi
 ## Key Takeaways
 
 - Define the work before choosing tools — Deconstruct captures what the workflow does without naming any tool
-- Deconstruct probes six dimensions per step: discrete steps, decision points, data flows, external actions, context needs and readiness, and failure modes
+- Deconstruct starts with the outcome, then captures the rules, the checkpoints and practice inputs from your real work
 - Design chooses the platform, the mechanism (skill or agent), the autonomy level, and the involvement mode, then maps each step to one of the 15 AI building blocks across four layers — Intelligence, Orchestration, Integration, Governance
-- Not every step needs AI — Design can leave a step with a person, and human gates stay in place
+- Not every step needs AI — Design can leave a step with a person, and checkpoints stay in place
 
 ## Related Questions
 

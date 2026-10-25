@@ -14,31 +14,27 @@
 
 ### Overview
 - URL: https://handsonai.info/ai-workflow-framework/
-- Summary: A seven-step methodology for applying AI to business workflows: Analyze opportunities, Deconstruct workflows, Design the AI architecture, Build platform artifacts, Test output quality, Run in production, and Improve over time.
+- Summary: Five steps that turn a piece of your real work into an AI workflow that is specified, planned, built, tested and running: Analyze, Deconstruct, Design, Build and Test. "Continue my workflow" moves a workflow from step to step; the flag line, re-checks and "change my workflow" keep it working once it's live.
 
-### Step 1 — Analyze Workflows
+### Analyze Workflows
 - URL: https://handsonai.info/ai-workflow-framework/analyze/
-- Summary: Structured audit to find workflows worth applying AI to. Guides users through identifying high-impact AI opportunities using a scoring rubric based on frequency, time cost, and AI suitability.
+- Summary: Looks across your work for the workflows worth handing to AI and saves each one to a backlog with the work, the pain and the value, plus an opportunity report. It doesn't rank or choose.
 
-### Step 2 — Deconstruct Workflows
+### Deconstruct Workflows
 - URL: https://handsonai.info/ai-workflow-framework/deconstruct/
-- Summary: Two-part process for breaking workflows into AI building blocks. Covers workflow definition and building block mapping.
+- Summary: Turns one workflow into Workflow Requirements: the goal, what every output must get right, the rules it follows, where a person checks, and practice inputs from real work. Proposes the light or full track.
 
-#### Break Down Your Workflow
-- URL: https://handsonai.info/ai-workflow-framework/deconstruct/workflow-definition/
-- Summary: Interactive discovery process that decomposes a business workflow into structured steps with inputs, outputs, decision points, and handoffs.
-
-### Step 3 — Design
+### Design
 - URL: https://handsonai.info/ai-workflow-framework/design/
-- Summary: Assess the workflow's autonomy level, choose an orchestration mechanism (Prompt, Skill-Powered Workflow, Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents. Produces a platform-agnostic Design Spec.
+- Summary: Reads the requirements, drafts the whole plan for how AI will do the work, asks at most five questions, and ends in an approved Design Plan with a task list.
 
-### Step 4 — Build
+### Build
 - URL: https://handsonai.info/ai-workflow-framework/build/
-- Summary: Resolve context needs, then generate platform-appropriate artifacts (prompts, skills, agents, configs) from the approved Design Spec. Mechanism-specific build paths for Prompt, Skill-Powered Workflow, and Agent.
+- Summary: Builds the Design Plan task by task, checks each task without making any real change, installs the workflow where it runs, and writes a build record of what was built and what it can access.
 
-### Step 5 — Test
+### Test
 - URL: https://handsonai.info/ai-workflow-framework/test/
-- Summary: Structured testing of AI workflow artifacts — smoke test, eval suite with 1-5 scoring, building block evals in isolation, baseline establishment, and diagnosis. 2-4 iterations of Build-Test is normal.
+- Summary: Runs the workflow cold on practice inputs and one real example it hasn't seen, never sending or changing anything, checks every requirement with proof, and takes the workflow live on your yes.
 
 #### Deterministic Automation
 - URL: https://handsonai.info/ai-workflow-framework/examples/deterministic-automation/
@@ -343,7 +339,7 @@
 
 #### Using Plugins
 - URL: https://handsonai.info/use-the-playbook/build/using-plugins/
-- Summary: Comprehensive guide to plugins — what they are, how to install them in Claude Code, how to use agents and skills across Claude Code, Claude.ai, Cowork, and the API. Includes managing updates, auto-updates, uninstalling, and troubleshooting.
+- Summary: Comprehensive guide to plugins — what they are, how to install them in Claude Code, how to use agents and skills across Claude Code, Claude on the web and desktop, and the API. Includes managing updates, auto-updates, uninstalling, and troubleshooting.
 
 #### Hands-on AI Plugin
 - URL: https://handsonai.info/ai-workflow-framework/skills/

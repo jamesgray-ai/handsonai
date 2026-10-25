@@ -101,7 +101,7 @@ If you're new to AI workflows, start with **Deterministic + Augmented** — the 
 
 ### Orchestration Mechanisms
 
-The [orchestration mechanism](../design/#orchestration-mechanism) describes *who drives the workflow*. The matrix describes *how the AI and human interact*. They're complementary:
+The [orchestration mechanism](../glossary/) describes *who drives the workflow*. The matrix describes *how the AI and human interact*. They're complementary:
 
 | Orchestration Mechanism | Typical Archetypes |
 |------------------------|-------------------|
@@ -122,7 +122,7 @@ A [Human Checkpoint](../../agentic-building-blocks/agents/capability-patterns/hu
 
 ## Related
 
-- [AI Workflow Framework](../) — the full seven-step methodology
+- [AI Workflow Framework](../) — the five steps, from finding a workflow to taking it live
 - [Design Your AI Workflow](../design/) — assess autonomy, choose an orchestration mechanism, and map building blocks
 - [Build Workflows](../build/) — worked examples across the matrix
 - [Workflow Architecture Patterns](../../patterns/workflow-architecture/) — implementation blueprints for each pattern
