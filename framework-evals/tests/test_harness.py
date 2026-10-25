@@ -517,6 +517,9 @@ class PlatformSimulations(unittest.TestCase):
                          "Practice run: nothing will be sent or changed."):
                 self.assertIn(line, shown)
             self.assertNotIn("(you)", shown)
+            # a context item's ID comes out as its name, as the carried lines' "never write IDs" asks
+            self.assertIn("Follow the follow-up style guide's tone, length and sign-off.", shown)
+            self.assertNotIn("C1's", shown)
             # no readable files: only what the prompt quotes
             self.assertNotIn("It never sends an email", L.PLATFORMS["microsoft-365"]().screen(
                 f"```\n{build_prompt()}\n```", Path("."))[0][0])

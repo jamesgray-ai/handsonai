@@ -74,7 +74,7 @@ At the end of Part 1, after the quick real checks (each one's N-B27 already said
 
 1. **List each connection's live tools** and class them (section 2). Write the profile (section 3).
 2. **Copy the wrapper** from this skill's own `scripts/test-run.sh` to `framework/.bin/test-run.sh`, byte for byte (`cat <this skill's folder>/scripts/test-run.sh > framework/.bin/test-run.sh`, then `chmod +x`; not `cp`, which Claude Code asks about as an edit to the plugin's own file). Never write or edit it.
-3. **Record its fingerprint** in the record's frontmatter: `shasum -a 256 framework/.bin/test-run.sh`, written as
+3. **Record its fingerprint** in the record's frontmatter: `shasum -a 256 framework/.bin/test-run.sh`, written as below. Go from the hash straight to reading and editing the record with no text between: never "Now the record: fingerprint and profile." or "Recording the fingerprint."
 
    ```yaml
    fingerprints:

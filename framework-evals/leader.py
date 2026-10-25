@@ -316,6 +316,13 @@ def _plan_lines(prompt, ws):
     for row in re.findall(r"^\| ([RGP]\d+) \|(.+)\|\s*$", req, re.M):
         cells = [c.strip() for c in row[1].split("|")]
         out.append(cells[0] if row[0].startswith("P") else cells[-1])
+    # The build prompt's carried lines tell the agent never to write requirement IDs, and Agent Builder
+    # reads the Context Inventory, so a context item's ID comes out as its name ("Follow C1's tone" ->
+    # "Follow the follow-up style guide's tone"): the planted fault stays the only defect.
+    names = {i: n.strip()[0].lower() + n.strip()[1:] for i, n in
+             re.findall(r"^\| (C\d+) \| ([^|]+) \|", req, re.M)}
+    out = [re.sub(r"\b(C\d+)\b", lambda k: f"the {names[k.group(1)]}" if k.group(1) in names else k.group(1), x)
+           for x in out]
     return [re.sub(r" · \(you\)$", "", x).strip() for x in out if x.strip()]
 
 

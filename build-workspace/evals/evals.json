@@ -6462,7 +6462,7 @@
      }
     },
     {
-     "text": "The old agent's deletion is asked only after the new agent's pasted instructions pass the check, and there is exactly one paste-back request for the new agent",
+     "text": "The old agent's deletion is asked only after the new agent's pasted instructions pass the check, and there is exactly one paste-back request for each new agent; a new agent that fails is a try whose newer copy is deleted before the next; only if no new agent passes by the third try is the first agent deleted, then, since at a first build it is itself a failed try (3c-DI)",
      "kind": "judged"
     }
    ],
