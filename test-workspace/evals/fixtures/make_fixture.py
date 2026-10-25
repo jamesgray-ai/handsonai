@@ -614,6 +614,7 @@ def fx_web_batch(t): in_progress(t, "web", "batch")
 def fx_web_real(t): in_progress(t, "web", "real")
 def fx_web_real_graded(t): in_progress(t, "web", "real-graded")
 def fx_chatgpt_batch(t): in_progress(t, "chatgpt", "batch")
+def fx_chatgpt_real(t): in_progress(t, "chatgpt", "real")
 def fx_m365_batch(t): in_progress(t, "m365", "batch")
 def fx_desktop_batch(t): in_progress(t, "desktop", "batch")
 
@@ -924,6 +925,23 @@ def fx_ready_web_sched(t):  # Claude on the web, a scheduled task, no run log
     install(t, "web"); set_record_platform(t, "web"); fingerprints(t, "web"); flag_input(t)
     passed_round(t, go_live="pending", date="2026-10-20", p="web")
     sch(t, "a Claude scheduled task, every Friday at 4pm", "not-on")
+
+
+OLDER_TOLD = {  # Build's older-version question answered yes on a chat platform: a scheduled task in the same account, paused
+    "chatgpt": "a ChatGPT scheduled task called \"Follow-up drafter\" that drafted follow-ups every evening",
+    "web": "a Claude scheduled task called \"Follow-up drafter\" that drafted follow-ups every evening",
+}
+
+
+def ready_older_told_on(p):
+    def fx(t):  # Ready on a chat platform, not yet live; the older version still set up and paused at Build
+        ff(t, S10)
+        B.set_platform(t, BUILD_KEY[p])
+        install(t, p); set_record_platform(t, p); fingerprints(t, p); flag_input(t)
+        passed_round(t, go_live="pending", date="2026-10-20", p=p)
+        sub(record(t), "- An older version: none that you know of.",
+            f"- An older version: {OLDER_TOLD[p]}; you paused it on 2026-10-18. Switch it off for good when this one goes live.")
+    return fx
 
 
 def fx_ready_skipped_check(t):  # a quick real check skipped
@@ -1552,7 +1570,7 @@ FIXTURES = {
     # rounds in progress
     "cc-batch": fx_cc_batch, "cc-real": fx_cc_real, "cc-real-graded": fx_cc_real_graded, "codex-real": fx_codex_real,
     "codex-batch": fx_codex_batch, "web-batch": fx_web_batch, "web-real": fx_web_real, "web-real-graded": fx_web_real_graded,
-    "chatgpt-batch": fx_chatgpt_batch, "m365-batch": fx_m365_batch, "desktop-batch": fx_desktop_batch,
+    "chatgpt-batch": fx_chatgpt_batch, "chatgpt-real": fx_chatgpt_real, "m365-batch": fx_m365_batch, "desktop-batch": fx_desktop_batch,
     "desktop-saves": fx_desktop_saves,
     "noconn-batch-web": fx_noconn_batch_web, "noconn-batch-chatgpt": fx_noconn_batch_chatgpt,
     "noconn-batch-m365": fx_noconn_batch_m365, "noconn-batch-codex": fx_noconn_batch_codex, "noconn-real-cc": fx_noconn_real_cc,
@@ -1572,6 +1590,7 @@ FIXTURES = {
     # ready and live
     "ready": fx_ready, "ready-no-registry": fx_ready_no_registry, "ready-full-team": fx_ready_full_team,
     "go-live-interrupted": fx_go_live_interrupted, "ready-older-told": fx_ready_older_told,
+    "ready-older-told-chatgpt": ready_older_told_on("chatgpt"), "ready-older-told-web": ready_older_told_on("web"),
     "ready-older-replaced": fx_ready_older_replaced, "ready-older-replaced-nothing": fx_ready_older_replaced_nothing,
     "ready-sched-desktop-task": fx_ready_sched_desktop_task, "ready-sched-cloud": fx_ready_sched_cloud,
     "ready-sched-incomplete": fx_ready_sched_incomplete, "ready-sched-choice": fx_ready_sched_choice,
