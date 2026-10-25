@@ -521,6 +521,13 @@ def fx_sch_chatgpt(t):  # a ChatGPT scheduled task: its checkpoint rests on the 
     add_sch(t, send=True, platform="ChatGPT", where="a ChatGPT scheduled task, every Friday at 4pm")
 
 
+def fx_sch_claude_web(t):  # a Claude scheduled task: its checkpoint rests on the instruction until release check 7 passes
+    ff(t, S06)
+    full(t)
+    set_platform(t, "claude")
+    add_sch(t, send=True, platform="Claude", where="a Claude scheduled task, every Friday at 4pm")
+
+
 def fx_sch_context_unreachable(t):  # a ChatGPT task in a Project can't read the Project's files
     ff(t, S06)
     full(t)
@@ -651,6 +658,13 @@ def fx_fix_web_unreadable(t):  # Claude on the web: Build can't read the install
     shutil.rmtree(Path(t) / ".claude")
 
 
+def fx_fix_chatgpt_unreadable(t):  # ChatGPT: Build can't read the skill in the leader's account (N-E1 before fix mode)
+    ff(t, S08)
+    set_platform(t, "chatgpt")
+    fix_round(t)
+    shutil.rmtree(Path(t) / ".claude")
+
+
 def fx_fix_m365_agent(t):  # the agent on Microsoft 365, Not ready on AC2
     ff(t, S08)
     shutil.rmtree(Path(t) / ".claude")
@@ -763,6 +777,13 @@ def fx_live_change_paused(t):  # a fix to the same change, with schedule: paused
 def fx_live_change_web(t):  # live on Claude on the web, with Build's copy in package/
     fx_live_change(t)
     set_platform(t, "claude")
+    shutil.rmtree(Path(t) / ".claude")
+    write(wf(t) / "package" / "client-follow-up" / "SKILL.md", "---\nname: client-follow-up\ndescription: Drafts a follow-up email after each client call.\n---\n\n(the built text)\n")
+
+
+def fx_live_change_chatgpt(t):  # live on ChatGPT, with Build's copy in package/
+    fx_live_change(t)
+    set_platform(t, "chatgpt")
     shutil.rmtree(Path(t) / ".claude")
     write(wf(t) / "package" / "client-follow-up" / "SKILL.md", "---\nname: client-follow-up\ndescription: Drafts a follow-up email after each client call.\n---\n\n(the built text)\n")
 
@@ -917,21 +938,21 @@ FIXTURES = {
     "deferred": fx_deferred, "open-item-one": fx_open_item_one, "open-item-all": fx_open_item_all,
     # schedules
     "sch-draft": fx_sch_draft, "sch-send": fx_sch_send, "sch-cloud-routine": fx_sch_cloud_routine,
-    "sch-chatgpt": fx_sch_chatgpt, "sch-context-unreachable": fx_sch_context_unreachable,
+    "sch-chatgpt": fx_sch_chatgpt, "sch-claude-web": fx_sch_claude_web, "sch-context-unreachable": fx_sch_context_unreachable,
     "sch-unfixable-cap": fx_sch_unfixable_cap, "live-sch-draft-to-send": fx_live_sch_draft_to_send,
     # the Claude Code block
     "cc-block-left-on": fx_cc_block_left_on, "cc-two-workflows": fx_cc_two_workflows, "cc-edited-wrapper": fx_cc_edited_wrapper,
     # fix mode
     "fix-mode": fx_fix_mode, "fix-mode-artifact": fx_fix_mode_artifact, "fix-requirement": fx_fix_requirement,
     "fix-plan": fx_fix_plan, "fix-leader-change": fx_fix_leader_change, "fix-three-rounds-unlogged": fx_fix_three_rounds_unlogged,
-    "fix-web-unreadable": fx_fix_web_unreadable, "fix-m365-agent": fx_fix_m365_agent, "fix-shared-skill": fx_fix_shared_skill,
+    "fix-web-unreadable": fx_fix_web_unreadable, "fix-chatgpt-unreadable": fx_fix_chatgpt_unreadable, "fix-m365-agent": fx_fix_m365_agent, "fix-shared-skill": fx_fix_shared_skill,
     "fix-declined-failed": fx_fix_declined_failed,
     # direct edits
     "edit-readable": fx_edit_readable, "edit-context": fx_edit_context, "edit-declined": fx_edit_declined,
     "edit-part-removed": fx_edit_part_removed,
     # live
     "live-change": fx_live_change, "live-change-not-on": fx_live_change_not_on, "live-change-paused": fx_live_change_paused,
-    "live-change-web": fx_live_change_web, "live-change-web-no-copy": fx_live_change_web_no_copy,
+    "live-change-web": fx_live_change_web, "live-change-chatgpt": fx_live_change_chatgpt, "live-change-web-no-copy": fx_live_change_web_no_copy,
     "live-change-codex": fx_live_change_codex, "live-install-partway": fx_live_install_partway,
     "before-go-live-not-on": fx_before_go_live_not_on, "running-work": fx_running_work, "running-work-renamed": fx_running_work_renamed,
     "earlier-live-no-sch": fx_earlier_live_no_sch, "set-aside-same-platform": fx_set_aside_same_platform,

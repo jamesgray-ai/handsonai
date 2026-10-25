@@ -1939,6 +1939,65 @@
    "smaller_model_round": true
   },
   {
+   "id": "EN-edit-unreadable-chatgpt",
+   "name": "direct-edit-unreadable-chatgpt",
+   "tier": "core",
+   "spec_item": "13 Entry and routing: Build can't read the installed text, on ChatGPT (the skill in the leader's account; mirrors EN-edit-unreadable)",
+   "fixture": "fix-chatgpt-unreadable",
+   "prompt": "Run the build skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/edit-keep.md",
+   "expected_output": "On ChatGPT, after Test's Not ready verdict: N-E1 asked once in the entry before fix mode rebuilds anything (after the orientation line), then N-E3 and N-E2.",
+   "files": [
+    "students/edit-keep.md"
+   ],
+   "expectations": [
+    {
+     "text": "N-E1, then N-E3 and N-E2",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-E1",
+        "form": "main"
+       },
+       {
+        "type": "quote",
+        "id": "N-E3"
+       },
+       {
+        "type": "quote",
+        "id": "N-E2",
+        "form": "main"
+       }
+      ]
+     }
+    },
+    {
+     "text": "N-F3's promise clause in the first message",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-F3",
+      "form": "promise clause",
+      "turn": "first"
+     }
+    },
+    {
+     "text": "Nothing rebuilt before the answer: the plan isn't written",
+     "kind": "scripted",
+     "check": {
+      "type": "file_unchanged",
+      "path": "drive/Framework/client-follow-up/design-plan.md"
+     }
+    }
+   ],
+   "est_turns": 14,
+   "platform": "chatgpt",
+   "smaller_model_round": true
+  },
+  {
    "id": "EN-edit-declined",
    "name": "declined-edit-put-back-only",
    "tier": "core",
@@ -3245,6 +3304,55 @@
    "platform": "claude-web"
   },
   {
+   "id": "P1-already-there-chatgpt",
+   "name": "already-there-clause-chatgpt",
+   "tier": "core",
+   "spec_item": "13 Part 1: something Build didn't make at an install name, on ChatGPT (Build can't see the account's skills; mirrors P1-already-there-web)",
+   "fixture": "chatgpt-first",
+   "prompt": "Run the build skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/already-there.md",
+   "expected_output": "ChatGPT, a first build: N-B12 opens with the already-there clause before the steps; \"already there\" stops that part's install and takes the yes path; then N-B12 again with the replace steps after a copy, or the different name.",
+   "files": [
+    "students/already-there.md"
+   ],
+   "expectations": [
+    {
+     "text": "The already-there clause before the steps",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B12",
+      "form": "Already-there clause"
+     }
+    },
+    {
+     "text": "Then the yes path",
+     "kind": "scripted",
+     "check": {
+      "type": "any",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-B51",
+        "form": "Skill form"
+       },
+       {
+        "type": "quote",
+        "id": "N-B48",
+        "form": "history question"
+       }
+      ]
+     }
+    },
+    {
+     "text": "An honest yes to \"Do you see…?\" can never be about the older skill: the install line is given again only after the yes path",
+     "kind": "judged"
+    }
+   ],
+   "est_turns": 44,
+   "platform": "chatgpt"
+  },
+  {
    "id": "P1-replace-steps",
    "name": "replace-steps-only-for-build-parts",
    "tier": "core",
@@ -3563,6 +3671,54 @@
    ],
    "est_turns": 30,
    "platform": "claude-web",
+   "smaller_model_round": true
+  },
+  {
+   "id": "P1-key-pasted-chatgpt",
+   "name": "key-pasted-chatgpt",
+   "tier": "core",
+   "spec_item": "13 Part 1: a key pasted anyway, on ChatGPT (mirrors P1-key-pasted)",
+   "fixture": "chatgpt-first",
+   "prompt": "Run the build skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/key-pasted.md",
+   "expected_output": "A key pasted into the chat on ChatGPT: N-F14 naming ChatGPT's own settings, never saved or repeated, and Build carries on with ChatGPT's own steps to connect Gmail.",
+   "files": [
+    "students/key-pasted.md"
+   ],
+   "expectations": [
+    {
+     "text": "N-F14",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-F14"
+     }
+    },
+    {
+     "text": "The key never repeated",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_contains",
+      "text": "sk-live-4f9a2c71e0b3d8a6"
+     }
+    },
+    {
+     "text": "The key never saved",
+     "kind": "scripted",
+     "check": {
+      "type": "file_not_regex",
+      "path": "drive/Framework/client-follow-up/*",
+      "pattern": "sk-live-4f9a2c71e0b3d8a6"
+     }
+    },
+    {
+     "text": "N-F14's [platform] is ChatGPT, and the connection steps that follow are ChatGPT's own (its apps), never Claude's connectors or Claude Code's",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 30,
+   "platform": "chatgpt",
    "smaller_model_round": true
   },
   {
@@ -4867,6 +5023,46 @@
    ],
    "est_turns": 34,
    "platform": "chatgpt"
+  },
+  {
+   "id": "P2-sch-claude-web",
+   "name": "sch-claude-web-instruction-only",
+   "tier": "core",
+   "spec_item": "13 Part 2: a Claude scheduled task before its release check (7): the checkpoint rests on the instruction (mirrors P2-sch-chatgpt)",
+   "fixture": "sch-claude-web",
+   "prompt": "Run the build skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/accept-risk.md",
+   "expected_output": "Claude scheduled task with a post that can't be undone: while release check 7 is open, the checkpoint is treated as resting on the instruction and N-B49 is asked; once it passes, the platform holds it and N-B49 isn't asked.",
+   "files": [
+    "students/accept-risk.md"
+   ],
+   "expectations": [
+    {
+     "text": "N-B49 while release check 7 is open; none once it passes",
+     "kind": "scripted",
+     "check": {
+      "type": "release_check",
+      "ids": [
+       7
+      ],
+      "passed": {
+       "type": "quote_absent",
+       "id": "N-B49"
+      },
+      "open": {
+       "type": "quote",
+       "id": "N-B49"
+      }
+     }
+    },
+    {
+     "text": "The schedule is prepared but never switched on: no step tells the leader to switch the scheduled task on before Test",
+     "kind": "judged",
+     "must": true
+    }
+   ],
+   "est_turns": 34,
+   "platform": "claude-web"
   },
   {
    "id": "P2-sch-context",
@@ -6666,6 +6862,43 @@
    "platform": "claude-web"
   },
   {
+   "id": "LV-kept-copy-chatgpt",
+   "name": "live-kept-copy-chatgpt",
+   "tier": "core",
+   "spec_item": "13 A live workflow on ChatGPT: the copy moved from package/ (mirrors LV-kept-copy-web)",
+   "fixture": "live-change-chatgpt",
+   "prompt": "Run the build skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "student": "students/live-no-schedule.md",
+   "expected_output": "On ChatGPT: the copy moved from package/ into history/kept-copy-*/ with no question; N-B42 only for what isn't there; nothing saved into the account before Part 3.",
+   "files": [
+    "students/live-no-schedule.md"
+   ],
+   "expectations": [
+    {
+     "text": "A kept copy",
+     "kind": "scripted",
+     "check": {
+      "type": "file_exists",
+      "path": "drive/Framework/client-follow-up/history/kept-copy-*/**"
+     }
+    },
+    {
+     "text": "No N-B42",
+     "kind": "scripted",
+     "check": {
+      "type": "quote_absent",
+      "id": "N-B42"
+     }
+    },
+    {
+     "text": "Nothing is saved into the leader's ChatGPT account before Part 3, and the install steps are ChatGPT's own",
+     "kind": "judged"
+    }
+   ],
+   "est_turns": 30,
+   "platform": "chatgpt"
+  },
+  {
    "id": "LV-no-copy",
    "name": "live-no-copy-no-change",
    "tier": "core",
@@ -7102,7 +7335,11 @@
     "P2-bare-chatgpt: 13 Part 2: the bare run pasted by the leader",
     "P2-checks-own-chat-chatgpt: 13 Part 2: checks in Build's own chat",
     "JR-chatgpt: 13 Also: the first-time leader on each platform; rules 14",
-    "P1-quick-check-chatgpt-no-label: 13 Part 1: N-B26's one-time-option clause only where the registry records a label"
+    "P1-quick-check-chatgpt-no-label: 13 Part 1: N-B26's one-time-option clause only where the registry records a label",
+    "P1-place-chatgpt: 13 Part 1: the workflow's place on ChatGPT (its own Project; project-only memory only once release check 15 passes)",
+    "P1-connect-chatgpt: 13 Part 1: connections as ChatGPT apps",
+    "P2-staged-chatgpt: 13 Part 2: every part staged in package/ on ChatGPT",
+    "P3-install-chatgpt: 13 Part 3: skills on ChatGPT Plus (release check 19) and N-B12's already-there clause"
    ],
    "merged_from": [
     "P1-older-no-chatgpt",
@@ -7112,7 +7349,7 @@
     "JR-chatgpt",
     "P1-quick-check-chatgpt-no-label"
    ],
-   "expected_output": "[P1-older-no-chatgpt] On chatgpt: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-bare-chatgpt] Release check 16 verified: chatgpt: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named.",
+   "expected_output": "[P1-older-no-chatgpt] On chatgpt: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-chatgpt] chatgpt: N-B21 once after the setup items. [P2-bare-chatgpt] Release check 16 verified: chatgpt: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-chatgpt] chatgpt: checks under the practice-run instruction in Build's own chat; no separate session started. [JR-chatgpt] A first-time leader through Build on chatgpt: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-quick-check-chatgpt-no-label] ChatGPT's one-time label is null in the registry: N-B26 without its one-time-option clause; no button named. [P1-place-chatgpt] ChatGPT: N-B4 with the Project clause, N-B17 for the workflow's own Project; project-only memory asked only once release check 15 passes, and never Claude's 'Use account memory' (N-B40). [P1-connect-chatgpt] Gmail connected with ChatGPT's own steps. [P2-staged-chatgpt] Every part staged in package/ before Part 3. [P3-install-chatgpt] Release check 19 open: no skill upload presented as working on Plus; the guided path or a plain line that skills aren't offered there; the already-there clause before any install steps.",
    "files": [
     "students/default.md"
    ],
@@ -7314,6 +7551,105 @@
     {
      "text": "[P1-quick-check-chatgpt-no-label] N-B26 is said without a clause naming a button to choose",
      "kind": "judged"
+    },
+    {
+     "text": "[P1-place-chatgpt] N-B4 asks for a Project for the workflow",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_contains",
+      "text": "set up a Project for your workflow"
+     }
+    },
+    {
+     "text": "[P1-place-chatgpt] N-B17",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B17",
+      "form": "main"
+     }
+    },
+    {
+     "text": "[P1-place-chatgpt] Project-only memory only once release check 15 passes; never Claude's N-B40",
+     "kind": "scripted",
+     "check": {
+      "type": "release_check",
+      "ids": [
+       15
+      ],
+      "passed": {
+       "type": "all",
+       "checks": [
+        {
+         "type": "ai_regex",
+         "pattern": "(?i)project-only memory"
+        },
+        {
+         "type": "quote_absent",
+         "id": "N-B40"
+        }
+       ]
+      },
+      "open": {
+       "type": "all",
+       "checks": [
+        {
+         "type": "ai_not_regex",
+         "pattern": "(?i)project-only memory"
+        },
+        {
+         "type": "quote_absent",
+         "id": "N-B40"
+        }
+       ]
+      }
+     }
+    },
+    {
+     "text": "[P1-connect-chatgpt] Gmail is connected with ChatGPT's own steps (its apps), never Claude's connectors or Claude Code's",
+     "kind": "judged"
+    },
+    {
+     "text": "[P2-staged-chatgpt] Staged parts",
+     "kind": "scripted",
+     "check": {
+      "type": "file_exists",
+      "path": "drive/Framework/client-follow-up/package/**"
+     }
+    },
+    {
+     "text": "[P3-install-chatgpt] Release check 19 passed: the skill is uploaded under Plugins › Skills, then N-B12's read-back",
+     "kind": "judged",
+     "release_check": {
+      "ids": [
+       19
+      ],
+      "passed": "[P3-install-chatgpt] Release check 19 passed: the skill is uploaded under Plugins › Skills, then N-B12's read-back",
+      "open": "[P3-install-chatgpt] Release check 19 open (skills on Plus unverified): Build never presents uploading under Plugins › Skills as something that works on the leader's Plus plan; it takes the guided path or says plainly, in one line, that skills aren't offered on that plan and what the leader does instead, and its read-back question matches the path it took"
+     }
+    },
+    {
+     "text": "[P3-install-chatgpt] Wherever install steps are given, the already-there clause comes first",
+     "kind": "scripted",
+     "check": {
+      "type": "any",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-B12",
+        "form": "Already-there clause"
+       },
+       {
+        "type": "quote",
+        "id": "N-B12",
+        "form": "Several, after the names"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B12"
+       }
+      ]
+     }
     }
    ],
    "est_turns": 44
@@ -7338,7 +7674,8 @@
     "P2-staged-web: 13 Part 2: every part staged on Claude",
     "P3-nb12-steps: 13 Part 3: N-B12's steps",
     "P3-close-claude-web: 13 Part 3: N-B13 in N-F2's form",
-    "JR-claude-web: 13 Also: the first-time leader on each platform; rules 14"
+    "JR-claude-web: 13 Also: the first-time leader on each platform; rules 14",
+    "P1-place-claude-web: 13 Part 1: the workflow's place on Claude (its own Project; 'Use account memory' off, N-B40)"
    ],
    "merged_from": [
     "EN-first-build-no-edit-question",
@@ -7353,7 +7690,7 @@
     "P3-close-claude-web",
     "JR-claude-web"
    ],
-   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] On claude-web: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4 at the start of Part 2. [P2-bare-claude-web] Release check 13 verified: claude-web: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part staged in package/; nothing saved into the account until Part 3; then saved unchanged and checked again. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
+   "expected_output": "[EN-first-build-no-edit-question] A first build: nothing installed, so no N-E1. [P1-older-no-claude-web] On claude-web: N-B51 asked once, last in Part 1, before anything is installed; a no gives the none line in 'What was built'. [P1-nb21-claude-web] claude-web: N-B21 once after the setup items. [P1-qrc-self] N-B26 with the one-time-option clause on Claude ('Allow once'), N-B27, live_checks done with its place. [P2-nf4-claude-web] claude-web: N-F4 at the start of Part 2. [P2-bare-claude-web] Release check 13 verified: claude-web: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P2-checks-own-chat-claude-web] claude-web: checks under the practice-run instruction in Build's own chat; no separate session started. [P2-staged-web] Claude: every part staged in package/; nothing saved into the account until Part 3; then saved unchanged and checked again. [P3-nb12-steps] Claude, a first build: every part opens with the already-there clause before the steps, quote-checked. [P3-close-claude-web] claude-web: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-web] A first-time leader through Build on claude-web: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-claude-web] Claude on the web: N-B17 then N-B40.",
    "files": [
     "students/default.md"
    ],
@@ -7652,6 +7989,24 @@
       "type": "ai_contains",
       "text": "Two or three test rounds is normal."
      }
+    },
+    {
+     "text": "[P1-place-claude-web] N-B17 then N-B40",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-B17",
+        "form": "main"
+       },
+       {
+        "type": "quote",
+        "id": "N-B40"
+       }
+      ]
+     }
     }
    ],
    "est_turns": 44
@@ -7668,14 +8023,17 @@
    "covers": [
     "P2-bare-claude-desktop: 13 Part 2: the bare run pasted by the leader",
     "P3-close-claude-desktop: 13 Part 3: N-B13 in N-F2's form",
-    "JR-claude-desktop: 13 Also: the first-time leader on each platform; rules 14"
+    "JR-claude-desktop: 13 Also: the first-time leader on each platform; rules 14",
+    "P1-place-desktop: 13 Part 1: the workflow's place on Claude desktop (its own working folder)",
+    "P1-nb21-claude-desktop: 13 Part 1: N-B21",
+    "P1-older-no-claude-desktop: 13 Part 1: the older-version question"
    ],
    "merged_from": [
     "P2-bare-claude-desktop",
     "P3-close-claude-desktop",
     "JR-claude-desktop"
    ],
-   "expected_output": "[P2-bare-claude-desktop] Release check 13 verified: claude-desktop: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P3-close-claude-desktop] claude-desktop: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-desktop] A first-time leader through Build on claude-desktop: three parts, the close with Test's phrase; leader actions reported by part, no time target.",
+   "expected_output": "[P2-bare-claude-desktop] Release check 13 verified: claude-desktop: N-B45 in its form, the block, no N-F4 in the hand-over, the chat deleted (Codex: closed); graded with N-B43. While it's open (today): no bare run, skipped with its reason in bare_run, no N-B45. [P3-close-claude-desktop] claude-desktop: N-B13 with Test's sentence in this platform's form; the rounds sentence on a first build on the full track. [JR-claude-desktop] A first-time leader through Build on claude-desktop: three parts, the close with Test's phrase; leader actions reported by part, no time target. [P1-place-desktop] N-B17 for the workflow's own folder, the leader copying each context file in; Build's chat never adds it. [P1-nb21-claude-desktop] N-B21 once after the setup items. [P1-older-no-claude-desktop] N-B51 asked once, last in Part 1.",
    "files": [
     "students/default.md"
    ],
@@ -7826,6 +8184,47 @@
      "check": {
       "type": "ai_contains",
       "text": "Two or three test rounds is normal."
+     }
+    },
+    {
+     "text": "[P1-place-desktop] N-B17",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B17",
+      "form": "main"
+     }
+    },
+    {
+     "text": "[P1-place-desktop] The steps have the leader create the workflow's folder and copy each context file into it; Build's chat never adds that folder",
+     "kind": "judged"
+    },
+    {
+     "text": "[P1-nb21-claude-desktop] N-B21",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-B21",
+      "form": "main"
+     }
+    },
+    {
+     "text": "[P1-older-no-claude-desktop] N-B51 with its Why",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-B51",
+        "form": "main"
+       },
+       {
+        "type": "quote",
+        "id": "N-B51",
+        "form": "why"
+       }
+      ]
      }
     }
    ],
