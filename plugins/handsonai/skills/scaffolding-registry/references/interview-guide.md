@@ -38,11 +38,11 @@ opening follows the student's answer. Otherwise the first thing the student
 hears is this opening — nothing before it about refreshing, maintenance,
 checks, or what the folder is missing.
 
-> "This sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every step of the framework uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It runs in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe — progress is saved."
+> "This sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every step of the framework uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It runs in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe. Progress is saved."
 >
 > "I'll explain each question as I ask it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'."
 
-Leave out "Stopping early is safe — progress is saved." on print-to-save,
+Leave out "Stopping early is safe. Progress is saved." on print-to-save,
 where a new chat can't read the files.
 
 In the same first message, confirm where the files go in one line (N-F3):

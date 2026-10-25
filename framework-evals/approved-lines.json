@@ -216,6 +216,19 @@
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
+   "id": "N-F2",
+   "form": "print-to-save",
+   "text": "Start [step] in a new chat with: '[start phrase].' Then paste or attach the files you saved.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "3c-DX (2026-10-24)"
+  },
+  {
    "id": "N-F3",
    "form": "promise clause",
    "text": "I'll read and save your files in [location].",
@@ -1434,6 +1447,19 @@
     "analyze": "SKILL.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+  },
+  {
+   "id": "N-A6",
+   "form": "print-to-save",
+   "text": "Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then paste or attach the files you saved.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "3c-DX (2026-10-24)"
   },
   {
    "id": "N-A7",
@@ -2849,6 +2875,19 @@
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
+  },
+  {
+   "id": "N-30",
+   "form": "main",
+   "text": "Your current plan will be set aside, not deleted. Say 'go ahead', or tell me what you'd rather change.",
+   "kind": "question",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "references/updating-the-plan.md"
+   },
+   "source": "3c-DX (2026-10-24)"
   },
   {
    "id": "D3′",
@@ -7592,6 +7631,19 @@
     "build": "references/carried-lines.md"
    },
    "source": "build.md 6.4 (carried lines); approved 3c-DR (James, 2026-10-24)"
+  },
+  {
+   "id": "N-SR1",
+   "form": "main",
+   "text": "Stopping early is safe. Progress is saved.",
+   "kind": "safety or promise",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-DX (2026-10-24)"
   }
  ]
 }
