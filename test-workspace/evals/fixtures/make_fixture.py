@@ -1315,6 +1315,22 @@ def fx_regulated_no_record(t):
         "| P1 | T2 | Met by design |\n| Traceability: the per-run record (regulated work planned as Autonomous) | T2 | Met by design: P1 |")
 
 
+def fx_verdict_not_shown(t):
+    """An Access line no run can show (3c-DS, 3c-DT): P3, who can see the call notes, is recorded "not shown" in
+    Coverage; every other line is met, so the round is Ready, and the verdict names P3 once as something to check
+    once it's live, asking nothing about it."""
+    fx_verdict_ready(t)
+    sub(req(t), "### Traceability\n",
+        "### Access\n| ID | Constraint | Source |\n|---|---|---|\n"
+        "| P3 | Only you can see the call notes it reads; it never shares them or changes who can open them. | Client confidentiality |"
+        "\n\n### Traceability\n")
+    sub(plan(t), "| P1 | T2 | Met by design |", "| P1 | T2 | Met by design |\n| P3 | T2 | Met by design |")
+    r = results_path(t)
+    sub(r, "| P2: never sends an email | path | no |",
+        "| P2: never sends an email | path | no |\n| P3: only you can see the call notes | path | no |")
+    sub(r, "| P2 | E3 |", "| P2 | E3 |\n| P3 | not shown: no run shows who can open the call notes |")
+
+
 def journey(p):
     def fx(t):  # a first full-track round on platform p; the built draft adds an amount the notes don't give
         base(t, p, track="full", defect="adds-amount")
@@ -1381,6 +1397,7 @@ FIXTURES = {
     "m365-live": fx_m365_live, "grocery-milk": fx_grocery_milk,
     # security lines (3c-DS)
     "regulated-no-record": fx_regulated_no_record,
+    "verdict-not-shown": fx_verdict_not_shown,
     # first-time leader journeys
     **{f"journey-{k}": journey(p) for k, p in (("chatgpt", "chatgpt"), ("claude-web", "web"), ("claude-desktop", "desktop"),
                                                ("microsoft-365", "m365"), ("claude-code", "cc"), ("codex", "codex"))},

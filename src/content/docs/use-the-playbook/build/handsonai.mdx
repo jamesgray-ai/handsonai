@@ -5,7 +5,7 @@ description: "The handsonai plugin — the AI Workflow Framework, knowledge-grap
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 15 skills.**
+One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **15 skills.**
 
 These are plain-text Markdown files that work in any AI tool. Install the plugin on Claude, ChatGPT, or Claude Code for the full experience, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other platforms.
 
@@ -16,7 +16,7 @@ The same plugin installs on Claude, ChatGPT, and Claude Code — pick your tab. 
 <Tabs>
   <TabItem label="Claude">
 
-Works in Claude (web and desktop app) on paid plans. In the left sidebar: **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. The `framework-agent` orchestrator runs in Claude with the plugin installed.
+Works in Claude (web and desktop app) on paid plans. In the left sidebar: **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card.
 
 On the Free plan, or if your company blocks plugins, use the ZIPs tab instead.
 
@@ -62,13 +62,7 @@ The plugin is organized into three coherent toolkits. Use them independently or 
 
 ## AI Workflow Framework
 
-The seven-step methodology for going from a workflow idea to a deployed AI system: **Analyze → Deconstruct → Design → Build → Test → Run → Improve.** Run the full flow with the orchestrator agent, or invoke any individual step as a skill.
-
-### `framework-agent`
-
-Walks you through the full 7-step framework end-to-end. The agent calls the right skill at each step, gathers inputs from you between steps, and produces working artifacts (specs, prompts, agents) along the way.
-
-**When to use it:** Use this when you have a workflow you want to apply AI to and want guided, end-to-end help. If you'd rather drive each step yourself, invoke the skills directly.
+The five-step methodology for going from a workflow idea to a tested, live AI workflow: **Analyze → Deconstruct → Design → Build → Test.** Each step is a skill, and each runs in its own chat. To move on, start a new chat and say **"continue my workflow"**: the skill that picks it up finds the step your workflow needs next, and every step ends by telling you the phrase that starts the next one.
 
 ### Skills
 

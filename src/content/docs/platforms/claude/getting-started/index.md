@@ -131,7 +131,7 @@ Connect the Hands-on AI Playbook MCP server for reference material:
 
 ### 9. Install the Hands-on AI Plugin
 
-One install gives you the seven AI Workflow Framework skills in Claude (web and desktop app), plus the `framework-agent` orchestrator. On a paid plan: in the left sidebar, **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. On the Free plan, or if your company blocks plugins, upload the skills as ZIPs instead.
+One install gives you the five AI Workflow Framework skills in Claude (web and desktop app). On a paid plan: in the left sidebar, **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. On the Free plan, or if your company blocks plugins, upload the skills as ZIPs instead.
 
 In Claude Code, it's two commands: `/plugin marketplace add jamesgray-ai/handsonai-plugins` then `/plugin install handsonai@handsonai`.
 

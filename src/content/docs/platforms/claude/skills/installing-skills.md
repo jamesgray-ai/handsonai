@@ -11,7 +11,7 @@ Claude supports Agent Skills natively everywhere: Claude on the web, the Claude 
 
 A plugin bundles a set of skills so you install them once. **Customize → Plugins → + → Add marketplace → Add from a repository**, paste the marketplace address (for the Hands-on AI plugin: `jamesgray-ai/handsonai-plugins`), click **Sync**, then **Install** on the plugin card.
 
-Skills from a plugin work in Claude on the web and in the desktop app. Sub-agents (like the `framework-agent` orchestrator) run when they are packaged in an installed plugin, on the web and on desktop.
+Skills from a plugin work in Claude on the web and in the desktop app. Sub-agents run when they are packaged in an installed plugin, on the web and on desktop.
 
 → [Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude) (official Anthropic docs)
 

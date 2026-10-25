@@ -347,7 +347,7 @@
 
 #### Hands-on AI Plugin
 - URL: https://handsonai.info/ai-workflow-framework/skills/
-- Summary: The AI Workflow Framework as executable Claude Code components. Includes 1 agent (framework-agent) and 7 skills (analyze, deconstruct, design, build, test, run, improve). Guides you through the full seven-step Analyze → Deconstruct → Design → Build → Test → Run → Improve process with file-based handoffs between steps.
+- Summary: The AI Workflow Framework as executable skills. Includes 5 skills (analyze, deconstruct, design, build, test). Guides you through the five-step Analyze → Deconstruct → Design → Build → Test process, one chat per step; say "continue my workflow" to move to the next step.
 
 #### AI Registry Plugin
 - URL: https://handsonai.info/use-the-playbook/build/ai-registry/

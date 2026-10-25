@@ -160,9 +160,6 @@ for skill in "${EIGHT_SKILLS[@]}"; do
     must_not_contain "$skill/SKILL.md has no '$field'" "$f" "$field"
   done
 done
-for field in "${RETIRED_FIELDS[@]}"; do
-  must_not_contain "framework-agent.md has no '$field'" plugins/handsonai/agents/framework-agent.md "$field"
-done
 
 # registry-bundle.md is the one file allowed to mention these — it bans/maps them. It must
 # not, however, write the retired `timestamp:` field outside its own ban line(s): every
@@ -255,7 +252,6 @@ declare -a BUNDLE_REFERENCERS=(
 for skill in "${BUNDLE_REFERENCERS[@]}"; do
   must_contain "$skill/SKILL.md defers to registry-bundle.md" "plugins/handsonai/skills/$skill/SKILL.md" "registry-bundle.md"
 done
-must_contain "framework-agent.md defers to registry-bundle.md" plugins/handsonai/agents/framework-agent.md "registry-bundle.md"
 
 # The five framework-step skills must each hand off to a maintenance pass
 # afterward — including Analyze, whose backlog stubs need indexing and whose

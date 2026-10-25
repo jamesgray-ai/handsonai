@@ -23,32 +23,11 @@ The framework is facilitated by **seven skills** — reusable AI routines that g
 
 **Get the skills:** See [Install the Hands-on AI Plugin](skills/) for installation instructions across Claude (web, desktop, Code), ChatGPT and Codex, Google Gemini (Spark, Enterprise, CLI), M365 Copilot, Cursor, and more. The plugin name is `handsonai`.
 
-## Run It All at Once: framework-agent
+## Move From Step to Step: "continue my workflow"
 
-You can run all seven skills step-by-step in separate conversations, or use the **`framework-agent`** to orchestrate the full lifecycle end-to-end in a single session.
+Each step runs in its own chat, and you don't need to remember which one comes next. Start a new chat and say **"continue my workflow"**. Whichever framework skill picks it up reads your workflow's files, works out which step it needs next, and starts that step. When a step finishes, it tells you the phrase that starts the next one.
 
-**What it does:** Runs the seven skills sequentially — Analyze, Deconstruct, Design, Build, Test, Run, Improve — with file-based handoffs between stages. The agent manages the flow between steps, saves each workflow's framework files to `framework/`, and keeps you involved at each stage.
-
-**When to use it:** Use the agent when you want to go through the entire process in one session. If you prefer to work step-by-step across separate conversations — or want to run a single step standalone (e.g., just Deconstruct, just Improve) — invoke the individual skills instead. Both styles produce the same artifacts.
-
-**Example prompts:**
-
-```
-"I want to deconstruct my client onboarding workflow"
-→ Walks you through all seven steps, asking questions during
-  discovery, presenting the analysis for review, and generating
-  the build deliverables
-
-"People keep dropping off during enrollment. Help me build
-a workflow for that."
-→ Starts from a problem description, proposes a candidate
-  workflow, then deconstructs and designs it
-
-"Help me figure out which parts of my weekly reporting process
-could be automated with AI"
-→ Decomposes the reporting process, assesses autonomy, chooses
-  an orchestration mechanism, and identifies quick wins
-```
+You can also start any step yourself (for example, "deconstruct my client onboarding workflow"), or start from a problem instead of a workflow: tell Deconstruct "people keep dropping off during enrollment", and it proposes a candidate workflow for you to refine.
 
 **What you'll get** — each workflow gets its own folder under `framework/` (its record: requirements, design spec, test results, and so on), named with the workflow name in lowercase using hyphens (for example, `framework/client-onboarding/`). Analyze registers each candidate as a backlog Workflow node in your `registry/` bundle; every later step updates it — status, mode, and review date in one place — so any session can resume mid-framework by reading the node and seeing which artifacts already exist:
 
@@ -278,7 +257,7 @@ Single-agent vs. multi-agent is an architecture detail decided during agent conf
 Start with Step 1 ([Analyze](analyze/)) if you're not sure where AI fits in your work. Browse [AI Use Cases](../use-cases/) to see what types of work AI handles — content creation, research, coding, data analysis, ideation, and automation. Start with Step 2 ([Deconstruct](deconstruct/)) if you already know which workflow you want to automate.
 
 **Can I start from a problem instead of a workflow?**
-Yes. Tell the [`framework-agent`](#run-it-all-at-once-framework-agent) about your problem (e.g., "people keep dropping off during enrollment") and it will propose a candidate workflow for you to refine during discovery. The individual `deconstruct` skill can do the same.
+Yes. Tell the `deconstruct` skill about your problem (e.g., "people keep dropping off during enrollment") and it will propose a candidate workflow for you to refine. See [Move From Step to Step](#move-from-step-to-step-continue-my-workflow).
 
 **How many iterations of Build-Test should I expect?**
 Most workflows need 2–4 rounds of Build and Test before they produce reliably good output. Each iteration should be targeted — fix a specific building block, re-test, and measure improvement. If you have been through four iterations and scores are not improving, return to [Design (Step 3)](design/) to re-examine your architecture decisions.

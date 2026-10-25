@@ -2,8 +2,8 @@
 #
 # check-framework-consistency.sh — the framework skills and their docs pages describe the
 # same sequence of phases, four files spell the mechanism enum the same way, and the retired
-# run and improve skills stay gone. Nothing imports anything, so drift is silent. This
-# asserts the agreement. It also runs two checks
+# run and improve skills and the dropped framework agent stay gone. Nothing imports
+# anything, so drift is silent. This asserts the agreement. It also runs two checks
 # that keep the skills' shared wording identical:
 #
 #   - routing copies: references/routing.md in the five step skills, and the test-run
@@ -58,14 +58,14 @@ for entry in analyze:analyze.md deconstruct:deconstruct.md design:design.md buil
 done
 
 echo
-echo "-- run and improve stay retired (10.0.0) --"
+echo "-- run, improve and the framework agent stay retired (10.0.0) --"
 back=""
-for p in "$SK/run" "$SK/improve" "$DOCS/run.md" "$DOCS/improve.md" run-workspace improve-workspace; do
+for p in "$SK/run" "$SK/improve" "$DOCS/run.md" "$DOCS/improve.md" run-workspace improve-workspace \
+         plugins/handsonai/agents/framework-agent.md framework-agent-workspace; do
   [ -e "$p" ] && back="$back $p"
 done
-if grep -qE '^  - (run|improve)$' plugins/handsonai/agents/framework-agent.md; then back="$back framework-agent.md's skills: list"; fi
-if [ -z "$back" ]; then ok "no run or improve skill, eval workspace, docs page or agent skill entry"
-else bad "retired run/improve material is back:$back"; fi
+if [ -z "$back" ]; then ok "no run or improve skill, eval workspace or docs page, and no framework-agent"
+else bad "retired run/improve/framework-agent material is back:$back"; fi
 
 echo
 echo "-- mechanism enum spelled identically --"
@@ -90,8 +90,8 @@ echo "-- framework record lives in framework/, not outputs/ (9.0) --"
 # placeholder folder (outputs/[workflow-name]/, outputs/<slug>/, ...) or the Analyze report.
 EXEMPT='migrating-legacy-workspaces.md|interview-guide.md|registry-bundle.md'
 hits=$(grep -rnE 'outputs/((\[workflow-name\]|\[name\]|<slug>|<workflow-slug>|<workflow>|<name>)/|ai-opportunity-report)' \
-         "$SK" plugins/handsonai/agents plugins/handsonai/README.md 2>/dev/null | grep -vE "$EXEMPT" | grep -viE '9\.0|legacy' || true)
-if [ -z "$hits" ]; then ok "no framework skill, agent, or README writes the record to outputs/"
+         "$SK" plugins/handsonai/README.md 2>/dev/null | grep -vE "$EXEMPT" | grep -viE '9\.0|legacy' || true)
+if [ -z "$hits" ]; then ok "no framework skill or README writes the record to outputs/"
 else bad "framework record path still under outputs/:"; echo "$hits" | sed 's/^/        /'; fi
 
 echo

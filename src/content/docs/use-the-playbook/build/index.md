@@ -1,9 +1,9 @@
 ---
 title: Agents & Skills
-description: "The Hands-on AI plugin — agents and skills for designing, building, and documenting AI workflows — plus a gallery of example components you can copy."
+description: "The Hands-on AI plugin — skills for designing, building, and documenting AI workflows — plus a gallery of example components you can copy."
 ---
 
-A focused toolkit of **agents** and **skills** that give your AI tool everything it needs to design, build, and document AI workflows. Plain-text Markdown — install the plugin on Claude, ChatGPT, or Claude Code, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other tools.
+A focused toolkit of **skills** that give your AI tool everything it needs to design, build, and document AI workflows. Plain-text Markdown — install the plugin on Claude, ChatGPT, or Claude Code, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other tools.
 
 ---
 
@@ -22,13 +22,12 @@ One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skil
 
 ### What's inside
 
-#### AI Workflow Framework — 1 agent + 5 skills
+#### AI Workflow Framework — 5 skills
 
-The seven-step methodology for going from a workflow idea to a deployed AI system.
+The five-step methodology for going from a workflow idea to a tested, live AI workflow. Say "continue my workflow" in a new chat to move to the next step.
 
 | Component | What it does |
 |---|---|
-| [`framework-agent`](handsonai/#framework-agent) agent | Walks you through the full 7-step framework end-to-end |
 | `analyze` skill | Audit your workflows to find where AI creates the most value |
 | `deconstruct` skill | Break a workflow into structured steps using the 6-question framework |
 | `design` skill | Design the AI workflow architecture and produce a Design Spec |

@@ -4108,6 +4108,73 @@
       "est_turns": 4
     },
     {
+      "id": "TV-not-shown",
+      "name": "verdict-names-rules-no-run-can-show",
+      "tier": "regression",
+      "spec_item": "13 The verdict: a Boundaries or Access line recorded not shown, named once in the verdict as something to check once it's live, with Ready unaffected and nothing asked (3c-DT)",
+      "fixture": "verdict-not-shown",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/decline-live.md",
+      "platform": "claude-code",
+      "expected_output": "Every gradable line is met, so the round is Ready and N-T34 asks \"Take it live?\". P3 (only you can see the call notes) is recorded not shown in Coverage: the verdict message names it once, in the model's own words, as something to check once it's live (who can open the call notes). It's never graded, never counted as met, never asked about as an untested line, and never holds back Ready. After the leader declines going live, the results file's Verdict says Ready and names P3 as a rule to check once it's live.",
+      "files": [
+        "students/decline-live.md"
+      ],
+      "expectations": [
+        {
+          "text": "Says N-T34 (Ready, not yet live) word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-T34",
+            "form": "Ready, not yet live"
+          }
+        },
+        {
+          "text": "Never asks N-T32 (P3 isn't treated as an untested line)",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-T32"
+          }
+        },
+        {
+          "text": "The round closes Ready",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "pattern": "(?m)^readiness: ready"
+          }
+        },
+        {
+          "text": "P3 is never graded in results",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "pattern": "P3: (met|not-met)"
+          }
+        },
+        {
+          "text": "The Verdict section names the call-notes rule as something to check once it's live",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "section": "## Verdict",
+            "pattern": "(?i)call notes"
+          }
+        },
+        {
+          "text": "The verdict message names, once and in its own words, that who can open the call notes couldn't be shown by any practice run and is worth checking once it's live; it doesn't hold back Ready, isn't presented as a miss or an untested line, and asks the leader nothing about it",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "est_turns": 4
+    },
+    {
       "id": "TV-waiting",
       "name": "waiting-on-access",
       "tier": "regression",

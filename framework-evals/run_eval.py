@@ -36,9 +36,8 @@ removed.txt (and the workspace for evals marked `keep_workspace`). Then <out-dir
 Sessions: an eval's `sessions` list, or one session from `prompt`. `fixture_from` wins in any
 session; otherwise the first session builds the eval's `fixture`; a later session rebuilds its
 `fixture` (or the eval's) unless it says `from_previous: true`. Fixture names: see build_fixture.
-`agent: true` starts the session on the plugin's framework-agent. `student: true` plays the eval's
-leader script; `student: "<path>"` plays that session's own. `tools: "no_file"` turns off Write, Edit
-and Bash; `tools: "web"` adds WebSearch and WebFetch. `platform` and `platform_faults` pick a
+`student: true` plays the eval's leader script; `student: "<path>"` plays that session's own.
+`tools: "no_file"` turns off Write, Edit and Bash; `tools: "web"` adds WebSearch and WebFetch. `platform` and `platform_faults` pick a
 platform simulation (leader.py). `action_target: {figure, journey}` names the spec's action figure.
 """
 import argparse
@@ -127,7 +126,7 @@ def tools_for(ev, s):
         return H.NO_FILE_TOOLS
     if kind == "web":
         return H.WEB_TOOLS
-    if kind == "agent" or s.get("agent", ev.get("agent")):
+    if kind == "agent":
         return H.AGENT_TOOLS
     return H.SKILL_TOOLS
 
@@ -196,7 +195,6 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             replies = list(s.get("replies", []))
             cap = s.get("max_turns", ev.get("max_turns", args.max_turns))
             tools = tools_for(ev, s)
-            agent = "handsonai:framework-agent" if s.get("agent", ev.get("agent")) else None
             run_chat = make_run_chat(rnd, root, ws, args, calls)
             sid = str(uuid.uuid4())
             turns, files_by_turn, cap_hit = [], [], False
@@ -204,7 +202,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             for turn in range(cap):
                 turns.append({"role": "student", "text": msg, msg_kind: True, "actions": acts})
                 kw = {"session_id": sid} if turn == 0 else {"resume": sid}
-                ai, rec = H.call(rnd, "skill", root, msg, cwd=ws, tools=tools, plugin=plugin, agent=agent,
+                ai, rec = H.call(rnd, "skill", root, msg, cwd=ws, tools=tools, plugin=plugin,
                                  model=args.skill_model, append_system_prompt=platform.preamble(),
                                  log=sdir / "events.jsonl", **kw)
                 rec.update(session=n, turn=turn + 1)

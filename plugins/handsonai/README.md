@@ -25,12 +25,6 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor
 
 ## What's Included
 
-### Agent
-
-| Agent | Description |
-|-------|-------------|
-| `framework-agent` | Takes one workflow through all five steps of the AI Workflow Framework in one session, from your backlog to a workflow that's tested and live |
-
 ### Skills — AI Workflow Framework
 
 | Skill | Description |
@@ -81,13 +75,7 @@ Five steps, each in a new chat (a new session in Claude Code). Say the step's ph
 - **Build** (`/handsonai:build`) — build and install the workflow from your plan
 - **Test** (`/handsonai:test`) — prove it on practice inputs, then take it live
 
-Keeping it working is part of the workflow, not a step: each run flags anything it wasn't designed for, "change my workflow" starts any change, and "test the workflow I built" re-checks it. Say "continue my workflow" any time to pick up where you left off.
-
-Or run the agent and let it walk you through the whole flow:
-
-```
-@framework-agent
-```
+Keeping it working is part of the workflow, not a step: each run flags anything it wasn't designed for, "change my workflow" starts any change, and "test the workflow I built" re-checks it. Say "continue my workflow" any time to pick up where you left off: it finds the step your workflow needs next, and each step ends by giving you the phrase that starts the next one.
 
 **Where the files live.** In Claude Code and Codex, the framework's files are in a `framework/` folder in your workspace, one folder per workflow. On Claude on the web and ChatGPT, they're in a `Framework` folder in your Google Drive (or work OneDrive), through the platform's connection; on Microsoft 365, in a `Framework` folder in OneDrive. The workflow itself runs in its own place (its own Project, or its own folder), kept apart from the framework's files, and the framework's chats run outside it.
 

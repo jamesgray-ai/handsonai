@@ -74,7 +74,7 @@ results:
 |---|---|---|---|
 
 ## Verdict
-[Ready / Not ready / Waiting on access]. [n] of [m] lines met across [k] inputs. [What's next.] [For a later round: what changed since the comparison round.]
+[Ready / Not ready / Waiting on access]. [n] of [m] lines met across [k] inputs. [What's next.] [For a later round: what changed since the comparison round.] [To check once it's live: each rule no run could show.]
 ```
 
 An empty table keeps its header, or reads "None." under the heading.
@@ -95,7 +95,7 @@ In this order, and no others: Check list, Coverage, Inputs, Report card, Not run
 - **Inputs:** where each came from (Deconstruct, Design's risk input, written by Test, your real example, the flag input, a flagged run), who ran it, runs, carried from, saved as. The text of an input Test wrote sits here until it's saved or dropped; the real example is named in a few words only, never its text.
 - **Report card:** per input, output lines first, then path lines; the golden-example comparison where there is one; carried results marked "carried from round [n]".
 - **Issues identified:** Level is `build`, `plan` or `requirement`; Cause from SKILL.md's list; Task is the plan task that *Meets* the line.
-- **Verdict:** opens with Ready, Not ready or Waiting on access, then "[n] of [m] lines met across [k] inputs".
+- **Verdict:** opens with Ready, Not ready or Waiting on access, then "[n] of [m] lines met across [k] inputs"; ends with each Boundaries or Access line Coverage records as not shown, as something to check once it's live (it never changes the verdict).
 
 ## 4. Counts
 
