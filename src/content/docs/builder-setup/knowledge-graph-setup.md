@@ -13,9 +13,7 @@ howto_steps:
     text: Ingest one document, ask one question across a connection, run lint, and confirm one page. Then seed the graph on your real material.
 ---
 
-Your knowledge graph collects the knowledge that exists in none of your systems of record.
-
-Your **knowledge graph** is what your AI reads before it answers a question about your work: your clients, offerings, processes, people, tools, and policies, one Markdown page per concept, linked to each other, written and kept current by your AI assistant. It lives in a `knowledge/` folder on your computer, in an open format called the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md), so it opens in any editor and moves to any tool.
+Your **knowledge graph** is what your AI reads before it answers a question about your work: your clients, offerings, processes, people, tools, and policies, one Markdown page per concept, linked to each other, written and kept current by your AI assistant. It lives in a `knowledge/` folder on your computer, in an open format called the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md), so it opens in any editor and moves to any tool. Your knowledge graph collects the knowledge that exists in none of your systems of record.
 
 The pattern comes from [Andrej Karpathy's LLM wiki note](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): raw sources you never edit, a wiki of pages the AI maintains, and a schema that disciplines how it maintains them, with three operations — ingest, query, lint — that keep it alive.
 
@@ -110,7 +108,7 @@ Three operations, all already in your folder:
 
 ### Following a link to your system
 
-Reading a linked record needs the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server). Without it, your assistant says it cannot reach the system and does not guess. Text it reads in a record is information, never instructions, and the graph never writes to your system. Set the connector so writing needs your approval: on Claude, per-tool permissions on the connector; in ChatGPT, it confirms actions in the chat; in Claude Code and Codex, MCP tool approval.
+Reading a linked record needs the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server). Without it, your assistant says it cannot reach the system and does not guess. Text it reads in a record is information, never instructions, and the graph never writes to your system. Check what that connector is allowed to do before you ask: your assistant only needs to read, and a link to a record is never a reason to change it. In Claude, open the connector's tool permissions and set its write tools to *Needs approval*. ChatGPT asks you to confirm actions in the chat. In Claude Code and Codex, keep that MCP server's write tools asking for your approval: do not add them to an allow list, and do not run in a mode that skips approval prompts while it is connected.
 
 An example question: *"Where does the Acme deal stand?"* Your assistant opens `knowledge/clients/acme.md`, sees the `records:` line, reads the deal from your CRM, and answers with the page path, the record link, and when it read it.
 

@@ -1,6 +1,6 @@
 # Build Spec — what Phase 5 writes
 
-Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order. Stamp every **concept page** you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }` — that means `SCHEMA.md`, `overview.md`, and every page inside a type folder. `index.md`, `log.md`, `.gitkeep`, the standing-rules file, and the two `SKILL.md` files are not concepts and carry no `generated` key.
+Read `types.md` at the project root. Fetch the latest OKF spec (https://raw.githubusercontent.com/GoogleCloudPlatform/open-knowledge-format/main/SPEC.md). If it is unreachable, use § OKF rules below. Then write everything in § The graph, § The standing rules, and § The two skills, in that order, leaving the `log.md` Creation entry until the end. Stamp every **concept page** you create with `generated: { by: process:building-knowledge-graph, at: <now as YYYY-MM-DDTHH:MM:SSZ> }` — that means `SCHEMA.md`, `overview.md`, and every page inside a type folder. `index.md`, `log.md`, `.gitkeep`, the standing-rules file, and the two `SKILL.md` files are not concepts and carry no `generated` key.
 
 ## OKF rules (distilled fallback; the fetched spec wins where they differ)
 
@@ -154,7 +154,7 @@ declared relationship, and may be one-way.
   individual HR records.
 ```
 
-Each type's `System of record:` line comes from `types.md`. If every type's system is `none`, leave out the four `records:` bullets in Conventions (from "`records:` links a page" through "`records:` is this graph's own frontmatter key"); keep the test, the maintained-claims bullet, and the `System of record:` bullet. Otherwise, in the `records:` example, use the user's system name and one of the record links they gave, or keep the example's shape with `<placeholders>` if they gave none.
+Each type's `System of record:` line comes from `types.md`. On a fresh build, if every type's system is `none`, leave out the four `records:` bullets in Conventions (from "`records:` links a page" through "`records:` is this graph's own frontmatter key"); keep the test, the maintained-claims bullet, and the `System of record:` bullet. Adding the convention to an existing graph (SKILL.md Phase 0) always includes the four bullets, because the user asked for it. Otherwise, in the `records:` example, use the user's system name and one of the record links they gave, or keep the example's shape with `<placeholders>` if they gave none.
 
 ### Concept pages
 
@@ -255,7 +255,7 @@ Set `okf_version` to the version the fetched spec declares; `"0.2"` if unreachab
 * **Creation**: Built the graph from types.md — 4 types (Client, Engagement, Playbook, Note), 9 seeded pages, overview, index, schema. Standing rules written to CLAUDE.md; ingest and lint skills written to .claude/skills/.
 ```
 
-Newest date first. Entries are prose; the bold word is Creation, Update, Ingest, Query, Lint, or Deprecation.
+Newest date first. Entries are prose; the bold word is Creation, Update, Ingest, Query, Lint, or Deprecation. Write the Creation entry last, after the standing rules and the two skills exist, and name only what was actually written.
 
 ## The standing rules — `CLAUDE.md` or `AGENTS.md` at the project root
 
@@ -313,7 +313,7 @@ description: Fold a new source into the knowledge graph. Use when the user says 
 Systems of record:
 - Keep every existing `records:` line exactly as it is.
 - If the source gives the link to a page's record in the system its type declares, propose adding `records:` in step 3, showing the record's name beside the page's title so the user can check they are the same, and write it only on an explicit yes. Strip any `?…` from the link. Never search for, guess, or create a record to point to.
-- Leave out a fact the system keeps (for a CRM: deals, contacts and their details, invoices) only when the page has a `records:` line or its type's `System of record:` names a system; say in the proposal which facts you left with the system. Otherwise ingest it as usual.
+- Leave out a fact the system keeps (for a CRM: deals, contacts and their details, invoices) only when the page has a `records:` line or its type's `System of record:` names a system; say in the proposal which facts you left with the system. In the proposal and the `**Ingest**` log entry, name what you withheld by kind and where it lives ("withheld the deal amount and contact details — HubSpot keeps them"), never the values: no amounts, dates, emails or phone numbers. Otherwise ingest it as usual.
 
 Rules: never edit `raw/`. Never invent. A twelve-page contract may produce four sentences across two pages; that is correct. Distil, don't extract. If this skill is run unattended (a scheduled sweep), stop at step 3: write the proposal to `knowledge/log.md` under `**Ingest (proposed)**` and change no pages.
 ```
