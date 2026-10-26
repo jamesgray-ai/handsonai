@@ -154,6 +154,8 @@ declared relationship, and may be one-way.
   individual HR records.
 ```
 
+Each type's `System of record:` line comes from `types.md`. If every type's system is `none`, leave out the four `records:` bullets in Conventions (from "`records:` links a page" through "`records:` is this graph's own frontmatter key"); keep the test, the maintained-claims bullet, and the `System of record:` bullet. Otherwise, in the `records:` example, use the user's system name and one of the record links they gave, or keep the example's shape with `<placeholders>` if they gave none.
+
 ### Concept pages
 
 One folder per type inside `knowledge/`, folder name the plural slug of the type (`clients/`, `engagements/`, `playbooks/`, `notes/`) — except `Overview`, which has no folder (see above). Seed every named example from `types.md` as a page. Body sections come from the type's `Body:` line; relationship sections from `Relationships:`; keep a section even when it is empty (`_None yet._`). Shape:
@@ -189,7 +191,7 @@ _None yet._
 
 Write only what the user actually said. A seeded page with empty sections is correct; a seeded page with invented detail is a defect.
 
-Write `records:` only on a page whose type has a `System of record:` other than none, and only with a record link the user gave you during the interview; otherwise leave the line out, and the first ingest can propose it. Strip any `?…` from a pasted link. Never write onto a page a fact its system keeps (for a CRM: deals, contacts, invoices), even if the user said it.
+Write `records:` only on a page whose type has a `System of record:` other than none, and only with a record link the user gave you during the interview (listed under `Record links:` in `types.md`); otherwise leave the line out, and the first ingest can propose it. Strip any `?…` from a pasted link. Never write onto a page a fact its system keeps (for a CRM: deals, contacts, invoices), even if the user said it.
 
 `notes/` is created with an empty `.gitkeep` file and no pages.
 

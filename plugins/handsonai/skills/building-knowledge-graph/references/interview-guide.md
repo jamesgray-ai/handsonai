@@ -17,6 +17,7 @@ Two words you will use constantly, and how to explain them if asked: a **type** 
 **Report what is already here**, one line each, only for things that exist:
 - `registry/`: "You have an AI registry here. It stays untouched; it records what you build with AI. This build models the work itself and goes in `knowledge/` beside it."
 - `knowledge/SCHEMA.md`: "You already have a knowledge graph. I'll read its rulebook and fill gaps rather than rebuild." → gap-filling mode.
+  - If its `SCHEMA.md` has no `records:` convention, offer once: "Your graph was built before pages could link to their record in a system of record. Want me to add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the *Answering my questions* section of your rules file with the current version? Nothing else needs rebuilding." On a yes (or if the user asks for this in their own words): replace any convention that begins "A fact belongs in this knowledge graph if it would need correcting" with the test and `records:` bullets from `references/build-spec.md` § `knowledge/SCHEMA.md`; ask the system-of-record test (Phase 3) for each existing type and add its `System of record:` line; replace the standing-rules file's *Answering my questions* section with the one in `references/build-spec.md`. Change nothing else.
 - `types.md` without `knowledge/`: "You have an approved type list from an earlier session but no graph yet. Want to revise the list first, or go straight to the build step? (When you're ready to build, send the single word **build**.)" → resume mode.
 
 **Actor id:** "One housekeeping question: when you confirm a page is right, I'll record that as verified by you. What name should I record? Your first name is fine." Form the id yourself as `human:<lowercase-slug>` (Pat → `human:pat`); never ask the user to type that form.
@@ -109,6 +110,12 @@ Always include:
 - Consultant word: "Would you say 'Engagement' to a colleague, or 'project'? Let's use your word."
 - Same-shape pages: "Client and Partner look identical on the page. Same kind with a label, or genuinely different?"
 
+**Then the system-of-record test, once per type** (Note and Overview are always `none`; don't ask about them). Say first: "One more test for each kind, and it decides what goes on its pages. Ask of any fact: **is there a system your team already updates when this changes?** Yes → that system owns it; the page links to the record. No → it is your knowledge — meaning, judgment, history, how things connect — and it lives in the graph." Then, per type, in their words: "When something about one of your <clients> changes — a deal, a contact, an invoice — is there a system your team already updates? A CRM, an accounting tool, a booking system?"
+
+- **Yes:** ask which facts it keeps ("HubSpot: deals, contacts, invoices") and record `System of record: <name> (<the facts it keeps>)`. The type stays: its pages keep what no system holds — who really decides, what they're like to work with, history, how things connect — and link to their record; the facts the system keeps stay out of the pages. Then: "If you have the links to those records handy, open each one, copy the address, and paste it here; I'll put each on its page. If not, skip it; the ingest skill can propose them later." Strip anything from a `?` onward. If a link doesn't work without its `?` part, say: "That system's record links only work with the part after the `?`, so I can't store them as links in the page's frontmatter. I'll put the link in the page's text instead." If the user mentions reading those records from here, explain once: "If your AI has the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server) — I can read a linked record when a question needs it. I won't change anything in it."
+- **No:** record `System of record: none`. Everything about that type lives on its pages.
+- **No such system at all:** every type is `none`; say "Then everything lives in the graph, and there's nothing else to set up." Collect no links and don't mention `records:` again.
+
 **Iterate** until the user says the types are right. Ask explicitly: "Are the types right?"
 
 ### Relationships round (3 min)
@@ -147,18 +154,22 @@ If the user keeps a relationship in general ("clients have projects") but does n
 
 ## Client
 An organization we do paid work for.
+System of record: HubSpot (deals, contacts and their details, invoices)
 Examples: Acme Manufacturing, Bowman Foods, Reston Health
 
 ## Engagement
 One piece of contracted work, for one client.
+System of record: none
 Examples: Acme AI Roadmap, Acme Pilot, Bowman Data Review
 
 ## Playbook
 A repeatable way we do something.
+System of record: none
 Examples: Kickoff Checklist, Discovery Interview, Handover Pack
 
 ## Note
 Anything learned that has no other home yet, and answers worth keeping.
+System of record: none
 Examples: none yet
 
 # How they connect
@@ -166,6 +177,8 @@ Examples: none yet
 - A Client has Engagements. Heading: `# Engagements` on the Client page, `# Client` on the Engagement page. Order: by start date, oldest first.
 - An Engagement uses Playbooks. Heading: `# Playbooks used` on the Engagement page, `# Used in` on the Playbook page. Order: no.
 ```
+
+Every type carries a `System of record:` line, `none` included. Record links the user pasted go at the end of the matching type's section, one per line, under `Record links:` (`- Acme Manufacturing: https://app.hubspot.com/contacts/00000000/record/0-2/12345678`); leave the heading out when there are none.
 
 **Then say:** "That's your blueprint. Read it once, top to bottom. When you're ready for me to build the graph from it, send the single word **build** on its own."
 
@@ -185,7 +198,7 @@ Follow SKILL.md § Close. Lines to use:
 
 - Claude desktop app check: "Type `/ingest` and tell me whether it offers to run. If nothing happens, we'll add the two skills to your Claude account so they load."
 - Ingest: "Pick one document in `raw/`, or paste one, and say *ingest it*."
-- Query: "Ask me something that crosses a connection, like *which playbooks have we used with Acme?* I'll answer only from your pages and tell you which ones I read."
+- Query: "Ask me something that crosses a connection, like *which playbooks have we used with Acme?* I'll answer from your pages, plus a linked record if the question needs what that system keeps, and tell you which ones I read. If I can't find the answer in either, I'll say so rather than guess."
 - File the answer: "Want me to keep that answer as a Note so it's there next time?"
 - Lint: "Say *lint* and I'll sweep every page against your rulebook and report."
 - Verify: "Open <one seeded page> and tell me if it's right. If it is, I'll mark it verified by you."
