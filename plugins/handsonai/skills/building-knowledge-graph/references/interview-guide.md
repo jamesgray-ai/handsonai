@@ -125,7 +125,7 @@ Always include:
 **Propose** connections as sentences, one per line, using named examples:
 > "Acme has two Engagements: the AI Roadmap and the Pilot."
 > "The Kickoff Checklist was used in the Acme Pilot."
-> "Priya is your contact at Acme."
+> "Priya is the sponsor at Acme."
 
 **For each sentence the user keeps, ask the earn-its-place question:** "What would you look up by following that link?" If they cannot answer, drop it: "Then we won't record it; it's not a connection you use."
 
