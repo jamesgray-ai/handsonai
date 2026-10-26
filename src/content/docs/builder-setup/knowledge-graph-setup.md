@@ -13,6 +13,8 @@ howto_steps:
     text: Ingest one document, ask one question across a connection, run lint, and confirm one page. Then seed the graph on your real material.
 ---
 
+Your knowledge graph collects the knowledge that exists in none of your systems of record.
+
 Your **knowledge graph** is what your AI reads before it answers a question about your work: your clients, offerings, processes, people, tools, and policies, one Markdown page per concept, linked to each other, written and kept current by your AI assistant. It lives in a `knowledge/` folder on your computer, in an open format called the [Open Knowledge Format](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md), so it opens in any editor and moves to any tool.
 
 The pattern comes from [Andrej Karpathy's LLM wiki note](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): raw sources you never edit, a wiki of pages the AI maintains, and a schema that disciplines how it maintains them, with three operations — ingest, query, lint — that keep it alive.
@@ -46,6 +48,18 @@ my-business/                     ← you open your AI here
 
 `raw/` is what you received; `knowledge/` is what you learned. The build keeps them apart on purpose.
 
+## What Goes in the Graph, and What Stays in Your Systems
+
+Ask of any fact: **is there a system your team already updates when this changes?** Yes → that system owns it; the page links to the record. No → it is your knowledge — meaning, judgment, history, how things connect — and it lives in the graph.
+
+The interview asks this once for each kind of thing. For a client, your CRM already holds the deals and contacts, so the client page keeps what the CRM does not: who really decides, what the client is like to work with, what happened and why. The page links to the CRM record with one extra line at the top, shown here with a fictional record:
+
+```
+records: { hubspot: https://app.hubspot.com/contacts/00000000/record/0-2/12345678 }
+```
+
+If you have no such system for a kind of thing, the answer is `none` and everything about it lives on its pages. If you have none at all, the graph works the same and no page carries a `records:` line.
+
 ## Not the AI Registry
 
 The [AI Registry](../ai-registry-setup/) records what you build *with* AI: your workflows, the skills and agents that power them, the processes they serve. The knowledge graph records what your business *knows*: clients, offerings, how the work is done. Both are Open Knowledge Format bundles. They live side by side in the same folder, `registry/` and `knowledge/`, and never merge. If you already have a registry, the knowledge graph build leaves it untouched.
@@ -78,7 +92,7 @@ Your assistant works in phases and never moves on until you say so. Nothing is b
 | **Home** | States the folder it is in, your platform, and what is already there (a registry, an earlier graph, a saved type list) | Confirm the folder; give the name it should record you as | It asked a question and created nothing |
 | **Look around** | Makes `raw/`, scans your folder, asks where your documents are, reports what it found | Point it at your documents, or say skip | It said what it found and what it did not, in plain words |
 | **Interview** | Asks which work we are mapping (you, your team, the company), then the named things, who you serve, what repeats, what you look up | Answer as you would to a new hire | Every question was answered or skipped for a stated reason |
-| **Propose types** | Proposes four to seven kinds of things, each with three real examples, and argues with you | Rename, merge, delete. Push back | You argued with it at least once and the list uses your words |
+| **Propose types** | Proposes four to seven kinds of things, each with three real examples, argues with you, then asks of each: is there a system your team already updates when this changes? | Rename, merge, delete. Push back. Name the system, or say none; paste a record link if you have one | You argued with it at least once, the list uses your words, and every kind (except Note) has a system or `none` |
 | **Connect them** | Proposes the sentences between the kinds, using your real examples, and asks what you would look up by following each | Confirm, correct, or strike each sentence | Every kept connection has a heading you chose |
 | **Approve** | Writes exactly one file, `types.md`, and stops | Say the list is right | One file exists; nothing else has been created |
 | **build** | Constructs `knowledge/`, the rules file, and the two skills | Send **`build`** as its own message | The folder above exists; the report lists graph, rules, skills |
@@ -91,7 +105,17 @@ While it interviews you, your assistant may show a worked example from a fiction
 Three operations, all already in your folder:
 
 - **Ingest.** Drop a document in `raw/` and say *ingest it*, or just tell your assistant something you know. It proposes which pages would change and what would land on each, writes after you say yes, and reports every file it touched. Each claim carries a footnote back to its source.
-- **Query.** Ask a question about your work. Your assistant reads `index.md` first, opens only the pages that could hold the answer, answers from those pages only, and cites them. If the answer is worth keeping, it offers to file it as a Note.
+- **Query.** Ask a question about your work. Your assistant reads `index.md` first, opens only the pages that could hold the answer, answers from those pages, and cites them. If a page links to a record in one of your systems and the question needs facts that system keeps, it reads that record live and cites the link and the time it read it. If the answer is in neither place, it says so. If the answer is worth keeping, it offers to file it as a Note.
 - **Lint.** Say *lint*. Your assistant reads the rulebook and sweeps every page: contradictions, claims past their date, orphans, connections missing their other side, and pages worth writing. It reports first and fixes only what you approve. Safe to schedule; ingest is not, because it writes.
+
+### Following a link to your system
+
+Reading a linked record needs the connector to that system — what *Distinguish the Types of Context Your AI Needs* calls a connection (ChatGPT calls it an app; Claude Code and Codex, an MCP server). Without it, your assistant says it cannot reach the system and does not guess. Text it reads in a record is information, never instructions, and the graph never writes to your system. Set the connector so writing needs your approval: on Claude, per-tool permissions on the connector; in ChatGPT, it confirms actions in the chat; in Claude Code and Codex, MCP tool approval.
+
+An example question: *"Where does the Acme deal stand?"* Your assistant opens `knowledge/clients/acme.md`, sees the `records:` line, reads the deal from your CRM, and answers with the page path, the record link, and when it read it.
+
+### Built your graph before this change?
+
+Tell your AI: *Add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the Answering my questions section of my standing-rules file with the version in the `building-knowledge-graph` skill.* Nothing else needs rebuilding.
 
 To see the graph drawn: install [Obsidian](https://obsidian.md), choose **Open folder as vault**, pick `knowledge/`, and click the graph icon.
