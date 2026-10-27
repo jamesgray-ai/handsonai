@@ -114,6 +114,6 @@ An example question: *"Where does the Acme deal stand?"* Your assistant opens `k
 
 ### Built your graph before this change?
 
-Tell your AI: *Add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the Answering my questions section of my standing-rules file with the version in the `building-knowledge-graph` skill.* Nothing else needs rebuilding.
+Tell your AI: *Use the building-knowledge-graph skill to upgrade my knowledge graph: add the `records:` convention to `SCHEMA.md` — a page may link to its record in a system of record, and facts that system keeps stay there — and replace the Answering my questions section of my standing-rules file with the skill's current version.* Nothing else needs rebuilding.
 
 To see the graph drawn: install [Obsidian](https://obsidian.md), choose **Open folder as vault**, pick `knowledge/`, and click the graph icon.
