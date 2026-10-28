@@ -1070,6 +1070,64 @@ class StubbedHarness(unittest.TestCase):
         with self.assertRaisesRegex(H.HarnessFailure, "version"):
             self.skill_call()
 
+    def test_a_workspace_skill_moved_during_the_call_is_still_its_own(self):
+        """The init lists the skills there when the call starts; a call that moves one (P1-older's
+        kept copy) is no stop. A skill found anywhere else still is, and the stop says where."""
+        rnd = H.Round(binary=str(self.stub_dir / "claude"), version="9.9.9")
+        rnd.bundled_skills, rnd.bundled_plugins = [], []
+        root = H.new_run_root(str(self.plugin))
+        ws = root / "workspace"
+        (ws / ".claude" / "skills" / "client-follow-up").mkdir(parents=True)
+        (ws / ".claude" / "skills" / "client-follow-up" / "SKILL.md").write_text("---\nname: client-follow-up\n---\n")
+        self.mode({"extra_skills": ["client-follow-up"], "move_during": ".claude/skills/client-follow-up"})
+        H.call(rnd, "skill", root, "run the build skill", cwd=ws, tools=H.SKILL_TOOLS, plugin=root / "plugin")
+        # the next call starts with it gone, but the init still names it: a stop, with where it was found
+        with self.assertRaisesRegex(H.HarnessFailure,
+                                    r"unexpected skills \['client-follow-up'\] \(found: client-follow-up at "
+                                    r"workspace/client-follow-up-moved/SKILL.md\)"):
+            H.call(rnd, "skill", root, "run the build skill", cwd=ws, tools=H.SKILL_TOOLS, plugin=root / "plugin")
+        # one the temp HOME holds (user scope) is never allowed
+        shutil.rmtree(ws / ".claude" / "skills")
+        (root / "home" / ".claude" / "skills" / "client-follow-up").mkdir(parents=True)
+        (root / "home" / ".claude" / "skills" / "client-follow-up" / "SKILL.md").write_text("x")
+        with self.assertRaisesRegex(H.HarnessFailure, r"found: client-follow-up at .*home/.claude/skills/client-follow-up/SKILL.md"):
+            H.call(rnd, "skill", root, "run the build skill", cwd=ws, tools=H.SKILL_TOOLS, plugin=root / "plugin")
+
+    def test_each_run_has_its_own_tmpdir(self):
+        a, b = H.new_run_root(str(self.plugin)), H.new_run_root(str(self.plugin))
+        ta, tb = H.env_for(a)["TMPDIR"], H.env_for(b)["TMPDIR"]
+        self.assertNotEqual(ta, tb)
+        self.assertTrue(ta.startswith(str(a)) and Path(ta).is_dir())
+
+    def test_tool_links_never_point_under_the_home_folder(self):
+        """A run root's bin/ links to binaries outside the home folder: one under it is copied to the
+        eval parent folder first (ls -l bin, readlink, a program's own path would print it)."""
+        fake = H.REAL_HOME / ".local" / "bin"
+        fake.mkdir(parents=True)
+        (fake / "node").write_text("#!/bin/sh\necho stub-node\n")
+        os.chmod(fake / "node", 0o755)
+        root = H.new_run_root(str(self.plugin))
+        saved = shutil.which
+        try:
+            H.shutil.which = lambda t, *a, **k: str(fake / "node") if t == "node" else saved(t, *a, **k)
+            H._tool_bin(root)
+        finally:
+            H.shutil.which = saved
+        target = os.path.realpath(root / "bin" / "node")
+        self.assertFalse(target.startswith(os.path.realpath(H.REAL_HOME)), target)
+        self.assertTrue(target.startswith(os.path.realpath(H.eval_parent())), target)
+        self.assertEqual((root / "bin" / "node").read_text(), "#!/bin/sh\necho stub-node\n")
+
+    def test_leak_scan_says_what_followed_the_home_path_without_it(self):
+        out = self.tmp / "out"
+        out.mkdir()
+        (out / "events.jsonl").write_text(f'{{"x": "lrwxr-xr-x node -> {H.REAL_HOME}/.local/share/fnm/node"}}\n')
+        hits = H.commit_leak_scan(out)
+        self.assertEqual(len(hits), 1)
+        self.assertIn("home path (near: ", hits[0])
+        self.assertIn("node -> ~/.local/share/fnm/node", hits[0])
+        self.assertNotIn(str(H.REAL_HOME), hits[0].split(": home path", 1)[1])
+
     def test_fake_home_only(self):
         self.assertTrue(str(H.REAL_CLAUDE).startswith(str(self.tmp)))
         before = H.real_config_snapshot()

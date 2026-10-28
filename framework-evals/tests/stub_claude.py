@@ -53,7 +53,7 @@ def main():
     if MODE.get("extra_plugin"):
         plugins.append({"name": "someone-elses-plugin", "path": "/Users/someone/.claude/plugins/x", "source": "x@market"})
     init = {"type": "system", "subtype": "init", "cwd": os.getcwd(), "model": arg("--model"), "tools": tools,
-            "mcp_servers": MODE.get("mcp_servers", []), "skills": ["handsonai:deconstruct"] if plugin else [],
+            "mcp_servers": MODE.get("mcp_servers", []), "skills": (["handsonai:deconstruct"] if plugin else []) + MODE.get("extra_skills", []),
             "plugins": plugins, "agents": [], "memory_paths": {}, "apiKeySource": "none",
             "claude_code_version": MODE.get("version", "9.9.9"), "permissionMode": "default"}
     if "You grade a test run" in system:
@@ -70,6 +70,11 @@ def main():
         k = next_turn()
         replies = MODE.get("skill_replies") or ["OK."]
         text = replies[k % len(replies)]
+    if MODE.get("move_during") and "You grade" not in system:
+        # the session moves a folder of the workspace mid-call (Build's kept copy of an older skill)
+        src = Path(os.getcwd()) / MODE["move_during"]
+        if src.exists():
+            src.rename(Path(os.getcwd()) / (src.name + "-moved"))
     print(json.dumps(init))
     print(json.dumps({"type": "result", "subtype": "success", "is_error": False, "result": text,
                       "modelUsage": {arg("--model") or "stub": {}}, "permission_denials": [],

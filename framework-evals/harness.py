@@ -171,20 +171,37 @@ def reset_home(root):
     (root / "settings-deny.json").write_text(json.dumps(DENY_SETTINGS))
 
 
+def _tool_copy(tool, found):
+    """A copy of `tool` in the eval parent folder's bin/, made once per binary (named by its real
+    path's hash, size and mtime) and shared by the round. A link to the real binary would put its
+    folder under the home folder within the session's reach: `ls -l bin`, `readlink`, or any
+    program reporting its own path (Claude Code launched by Build's test-run.sh, node's execPath)
+    then prints it, and the commit leak scan deletes the run."""
+    src = os.path.realpath(found)
+    if not src.startswith(real(REAL_HOME) + os.sep):
+        return Path(src)  # outside the home folder: nothing to hide, link to it as is
+    st = os.stat(src)
+    tag = hashlib.sha256(f"{src}|{st.st_size}|{st.st_mtime_ns}".encode()).hexdigest()[:12]
+    dst = eval_parent() / "bin" / f"{tool}-{tag}"
+    if not dst.exists():
+        dst.parent.mkdir(exist_ok=True)
+        tmp = dst.with_name(f".{dst.name}.{os.getpid()}.part")
+        shutil.copy2(src, tmp)
+        os.replace(tmp, dst)  # atomic: parallel runs never see a half-copied binary
+    return dst
+
+
 def _tool_bin(root):
     """node and claude as this shell finds them (version managers such as fnm put node
-    outside the standard paths), linked into the run root's bin/ by name: their real folders
-    sit under the home folder, and a PATH naming those reaches the results whenever a
-    session prints it (`which node`, `echo $PATH`), which the leak scan then deletes."""
-    import shutil
+    outside the standard paths), linked into the run root's bin/ by name. Each link points at a
+    copy in the eval parent folder (_tool_copy), never at the real binary under the home folder."""
     b = root / "bin"
     b.mkdir(exist_ok=True)
     for tool in ("node", "claude"):
         found = shutil.which(tool)
         link = b / tool
-        if found and not link.exists():
-            # resolved so a per-shell shim path doesn't go stale; the link keeps the name
-            link.symlink_to(os.path.realpath(found))
+        if found and not link.is_symlink() and not link.exists():
+            link.symlink_to(_tool_copy(tool, found))
     return str(b)
 
 
@@ -319,13 +336,22 @@ def _system_path(root):
     return str(sb)
 
 
+def run_tmp(root):
+    t = root / "tmp"
+    t.mkdir(exist_ok=True)
+    return t
+
+
 def env_for(root):
     home = root / "home"
     return {
         "PATH": ":".join([_tool_bin(root), _system_path(root)]),
         "HOME": str(home),
         "CLAUDE_CONFIG_DIR": str(home / ".claude"),
-        "TMPDIR": str(eval_parent()),
+        # The run root's own tmp/: Build's and Test's run folders (test-run.sh puts them in
+        # $TMPDIR/handsonai-framework-runs/<slug>/) and Claude Code's temp files stay with this run.
+        # A shared $TMPDIR let parallel runs of the same workflow see, and clear, each other's.
+        "TMPDIR": str(run_tmp(root)),
         "LANG": os.environ.get("LANG", "en_US.UTF-8"),
         "CLAUDE_CODE_OAUTH_TOKEN": token(),
         "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB": "1",
@@ -365,9 +391,29 @@ INIT_FIELDS = ("cwd", "model", "tools", "mcp_servers", "skills", "plugins", "age
                "memory_paths", "apiKeySource", "claude_code_version", "permissionMode")
 
 
-def check_init(rnd, role, init, root, tools, cwd, plugin, mcp_servers=()):
+def own_skills(cwd):
+    """Skill folders in the workspace's own .claude/skills/ (each with a SKILL.md)."""
+    return {p.parent.name for p in (Path(cwd) / ".claude" / "skills").glob("*/SKILL.md")}
+
+
+def where_skill(root, name):
+    """Where a skill named `name` sits now, as paths relative to the run root (never a home path):
+    so an unexpected-skill stop says where the session could have found it."""
+    hits = []
+    for f in Path(root).rglob("SKILL.md"):
+        rel = f.relative_to(root)
+        if rel.parts[0] == "plugin":
+            continue
+        if f.parent.name == name or re.search(rf"(?m)^name:\s*{re.escape(name)}\s*$", f.read_text(errors="replace")[:2000]):
+            hits.append(str(rel))
+    return hits or ["nowhere in the run root"]
+
+
+def check_init(rnd, role, init, root, tools, cwd, plugin, mcp_servers=(), own_before=()):
     """The per-role init assertion. Raises HarnessFailure on any mismatch. `mcp_servers`: the
-    stand-in connections this call was given (gmail_stub_mcp.py); no other server may load."""
+    stand-in connections this call was given (gmail_stub_mcp.py); no other server may load.
+    `own_before`: the workspace's own skills when the call started, which is when Claude Code
+    lists them in the init message."""
     if init is None:
         raise HarnessFailure(f"{role}: no init message")
     bad = []
@@ -402,12 +448,15 @@ def check_init(rnd, role, init, root, tools, cwd, plugin, mcp_servers=()):
         bad.append("plugin under test did not load")
     skills = init.get("skills") or []
     if rnd.bundled_skills is not None:
-        # Skills the student built and installed in the workspace's own .claude/skills/ are allowed.
-        own = {p.parent.name for p in (Path(cwd) / ".claude" / "skills").glob("*/SKILL.md")}
+        # Skills in the workspace's own .claude/skills/ are allowed: those there when the call
+        # started (the init lists them then; the call may move one, as Build's kept copy of an older
+        # version can) and those there now. Nowhere else: not the temp HOME, not a nested folder.
+        own = set(own_before) | own_skills(cwd)
         extra = [s for s in skills if s not in rnd.bundled_skills and s not in own
                  and not (plugin and s.startswith("handsonai:"))]
         if extra:
-            bad.append(f"unexpected skills {extra}")
+            found = "; ".join(f"{s} at {', '.join(where_skill(root, s))}" for s in extra)
+            bad.append(f"unexpected skills {extra} (found: {found})")
     if bad:
         raise HarnessFailure(f"{role}: init assertion failed: " + "; ".join(bad))
 
@@ -456,6 +505,7 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
     if resume:
         args += ["--resume", resume]
 
+    own_before = own_skills(cwd)
     attempt = 0
     while True:
         attempt += 1
@@ -485,7 +535,7 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         raise HarnessFailure(f"{role}: call failed: {err}")
     # Only the first call of a session sends a fresh init worth checking? Every call has one; check all.
     check_init(rnd, role, init, root, tools, cwd, plugin,
-               list((mcp or {}).get("servers", ())) + list((prompt_tool or {}).get("servers", ())))
+               list((mcp or {}).get("servers", ())) + list((prompt_tool or {}).get("servers", ())), own_before)
     check_config_folder(root, plugin)
     record = {
         "role": role,
@@ -676,5 +726,20 @@ def commit_leak_scan(folder):
                 s = f.read_text(errors="replace")
             except OSError:
                 continue
-            hits += [f"{f}: {label}" for n, label in needles.items() if n in s]
+            for n, label in needles.items():
+                if n in s:
+                    hits.append(f"{f}: {label}" + (leak_context(s, n) if label == "home path" else ""))
     return hits
+
+
+def leak_context(text, needle, width=60):
+    """What followed the home path at its first hit, with the home path itself written as `~`, the
+    email and token never shown: enough to find what put it there, nothing that leaks it."""
+    i = text.index(needle)
+    tail = text[i + len(needle): i + len(needle) + width].replace(needle, "~")
+    head = text[max(0, i - width): i].replace(needle, "~")
+    snippet = (head + "~" + tail).replace("\n", " ")
+    for v in (_account_field("emailAddress"), _account_field("accountUuid"), TOKEN_PREFIX):
+        if v:
+            snippet = snippet.replace(v, "<redacted>")
+    return f" (near: {snippet!r})"
