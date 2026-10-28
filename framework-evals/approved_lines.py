@@ -284,6 +284,23 @@ class Corpus:
                 continue  # already approved as a whole line (N-F2's Claude Code and Codex form)
             label = re.sub(r"^In N-F2's platform forms \(", "", e["form"])
             self.lines.append(Line(dict(main, form=f"{label}, whole line", text=text, files={}, derived=True)))
+        # N-B4's "First I'll need you to … connect [tools], check [a draft] and OK [L] quick real checks
+        # and setup changes": "A clause with nothing in it is left out" (build SKILL.md, *The opening*,
+        # "Its clauses"). With no draft to check, no tool to connect or nothing to OK, the clause goes and
+        # the list closes up; every word that stays is the approved line's own.
+        for e in data["lines"]:
+            if e["id"] != "N-B4" or not e.get("text"):
+                continue
+            t = e["text"]
+            a, b, c = "connect [tools]", "check [a draft]", "OK [L] quick real checks and setup changes"
+            if f"{a}, {b} and {c}" not in t:
+                continue
+            # Only forms that end on the fixed "quick real checks and setup changes": one whose list ended
+            # on a hole ("connect [tools]; then…") would let that hole swallow a reworded OK clause.
+            for name, repl in (("no draft", f"{a} and {c}"), ("nothing to connect", f"{b} and {c}"),
+                               ("only OKs", c)):
+                self.lines.append(Line(dict(e, form=f"{e['form']}, {name}", text=t.replace(f"{a}, {b} and {c}", repl),
+                                            files={}, derived=True)))
         self.by_id = {}
         for ln in self.lines:
             self.by_id.setdefault(ln.id, []).append(ln)

@@ -175,6 +175,29 @@ def connect_now(ai_text, leader_msg):
     return bool(NOT_CONNECTED_RE.search(ai_text or "")) and bool(DONE_RE.search(leader_msg or ""))
 
 
+RESTART_RE = re.compile(r"\brestart\b", re.I)
+PICKUP_RE = re.compile(r"say '(run the build skill\. My files are in [^']+?\.)'")
+
+
+def restart_session(ev, data, platform, turns, sessions):
+    """Build on Claude Code, where release check 1 hasn't passed, asks the leader to restart the
+    session once before Part 2 (claude-code-block.md step 10), and its message gives the pick-up
+    phrase. A leader restarts and says it: an eval written as one session gets that second session
+    (from the session before), once, so Part 2 and Part 3 are reached as they are for a real leader.
+    An eval that lists its own sessions decides for itself (EN-fix-by-name)."""
+    if data.get("skill_name") != "build" or platform.key != "claude-code" or ev.get("sessions") \
+            or ev.get("restart_continues") is False or len(sessions) > 1:
+        return None
+    ai = [t["text"] for t in turns if t["role"] == "ai"]
+    if not ai or not turns[-1].get("end") or not RESTART_RE.search(ai[-1]):
+        return None
+    m = PICKUP_RE.search(ai[-1])
+    if not m:
+        return None
+    phrase = m.group(1)
+    return {"prompt": phrase[0].upper() + phrase[1:], "from_previous": True, "student": True, "restart": True}
+
+
 def connections_for(platform, ws, root, data, extra=()):
     """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
     workflow's plan uses it, and Google Sheets, when it does, as a leader who connected them would
@@ -248,7 +271,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
     calls, run = [], {"sessions": []}
     status, note = "valid", ""
     judged, scripted, fid = [], [], None
-    sessions = ev.get("sessions") or [{"prompt": ev["prompt"], "student": True}]
+    sessions = list(ev.get("sessions") or [{"prompt": ev["prompt"], "student": True}])
     try:
         for n, s in enumerate(sessions, 1):
             H.reset_home(root)  # fresh temp HOME per session; kept across this session's --resume turns
@@ -339,6 +362,9 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                                     "fixture": fresh,  # its start tree is the files the leader brought
                                     "root": str(sdir / "workspace"), "platform": platform.key,
                                     "script_quotes": CS.script_quotes(script)})
+            again = restart_session(ev, data, platform, turns, sessions)
+            if again:
+                sessions.append(again)  # the loop above picks it up as the next session
         # Grade inside the run root's lifetime (the graders run from run-root/grader).
         scripted = CS.run_checks(ev, run, data)
         if any(s["cap_hit"] for s in run["sessions"]):

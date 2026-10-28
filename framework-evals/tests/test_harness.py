@@ -138,6 +138,21 @@ class QuoteCheck(unittest.TestCase):
         desk = {"type": "quote", "id": "bring-in-line", "form": "Claude desktop, whole line"}
         self.assertTrue(ok(desk, run_of("To bring Client Follow-Up into the framework, start Deconstruct in a new chat with your framework folder added: 'run the deconstruct skill on Client Follow-Up. My files are in Framework.'")))
 
+    def test_n_b4_leaves_out_an_empty_clause_and_nothing_else(self):
+        """build SKILL.md: "A clause with nothing in it is left out." No draft to check: the list closes
+        up. A changed OK clause still fails."""
+        c = AL.Corpus()
+        forms = [ln for ln in c.checkable() if ln.id == "N-B4"]
+        said = ("Build makes your workflow for Client Follow-Up from your approved plan, task by task, checking each "
+                "part as it goes. First I'll need you to connect Gmail and OK 2 quick real checks and setup changes; "
+                "then I build and check the rest, and I'll ask you to confirm about 4 things along the way. I'll read "
+                "and save your files in `framework/client-follow-up`. Stopping early is safe: progress is saved after "
+                "each task. To pick up, say 'run the build skill. My files are in framework/client-follow-up.' "
+                "Let's start with your Gmail connection.")
+        self.assertTrue(any(f.matches(said) for f in forms))
+        self.assertFalse(any(f.matches(said.replace("OK 2 quick real checks and setup changes", "OK 1 quick real check"))
+                             for f in forms))
+
     def test_quote_absent(self):
         self.assertFalse(ok({"type": "quote_absent", "id": "N-D1"}, run_of(N_D1)))
         self.assertTrue(ok({"type": "quote_absent", "id": "N-D1"}, run_of("Hello.")))
@@ -991,6 +1006,31 @@ class ChatPlatformConnections(unittest.TestCase):
             self.assertIsNone(R.connections_for(L.PLATFORMS["claude-web"](), ws, root, {"skill_name": "test"}))
         finally:
             shutil.rmtree(root)
+
+
+class RestartContinues(unittest.TestCase):
+    """Build's restart before Part 2 on Claude Code: a one-session eval gets the leader's second
+    session with the pick-up phrase, once; never on another platform, step or listed sessions."""
+
+    def test_restart_session(self):
+        import run_eval as R
+        cc, web = L.ClaudeCode(), L.PLATFORMS["claude-web"]()
+        last = ("That's your setup done. Before I build anything, please restart Claude Code once: close this "
+                "session and open a new one. To pick up, say 'run the build skill. My files are in framework/client-follow-up.'")
+        turns = [{"role": "student", "text": "Run the build skill."}, {"role": "ai", "text": last},
+                 {"role": "student", "text": "END", "end": True}]
+        ev, build = {"prompt": "x"}, {"skill_name": "build"}
+        s = R.restart_session(ev, build, cc, turns, [{}])
+        self.assertEqual(s["prompt"], "Run the build skill. My files are in framework/client-follow-up.")
+        self.assertTrue(s["from_previous"])
+        self.assertIsNone(R.restart_session(ev, build, cc, turns, [{}, s]))  # once
+        self.assertIsNone(R.restart_session(ev, build, web, turns, [{}]))
+        self.assertIsNone(R.restart_session(ev, {"skill_name": "test"}, cc, turns, [{}]))
+        self.assertIsNone(R.restart_session({"sessions": [{}, {}]}, build, cc, turns, [{}]))
+        self.assertIsNone(R.restart_session({"restart_continues": False}, build, cc, turns, [{}]))
+        stop = turns[:1] + [{"role": "ai", "text": "To pick up, say 'run the build skill. My files are in framework/x.'"},
+                            turns[2]]
+        self.assertIsNone(R.restart_session(ev, build, cc, stop, [{}]))  # a pause, not a restart
 
 
 class NoPython3(unittest.TestCase):
