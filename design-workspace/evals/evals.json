@@ -810,7 +810,7 @@
      }
     },
     {
-     "text": "The plan was set back to approved: false and the review shown again before the leader approved it again",
+     "text": "Before the plan is approved again, the review is shown again and the approval asked again (the files show only the end state, so the judge reads the reset from the chat: no approval stands on the earlier yes)",
      "kind": "judged",
      "must": true
     },
