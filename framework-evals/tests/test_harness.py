@@ -198,6 +198,26 @@ class WordingChecks(unittest.TestCase):
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(said)))
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(said + " The next process takes about 10 minutes.", files_start=prog)))
 
+    def test_progress_sizes_count_only_as_the_leader_brought_them(self):
+        # 03bd1eef1 read every session's start tree: from session 2 on that holds what the AI wrote in
+        # session 1, so an estimate the AI wrote into analyze-in-progress.md counted as the leader's
+        said = "Last time I noted Client Follow-Up (drafting a follow-up takes about 20 minutes)."
+        prog = {"framework/analyze-in-progress.md": "## Noted so far\n- Client Follow-Up: about 20 minutes each.\n"}
+        def two(first, second, marks=True):
+            run = run_of("Hello. Which process first?")
+            run["sessions"].append({**run_of(said)["sessions"][0], "n": 2, "files_start": second})
+            run["sessions"][0]["files_start"] = first
+            if marks:
+                run["sessions"][0]["fixture"], run["sessions"][1]["fixture"] = True, False
+            return run
+        c = {"type": "no_time_or_step_numbers"}
+        for marks in (True, False):  # unmarked (a run saved before the marks): the first session only
+            self.assertFalse(ok(c, two({}, prog, marks)), "the AI's own session-1 note isn't the leader's")
+            self.assertTrue(ok(c, two(prog, prog, marks)), "the leader brought the note")
+        run = two({}, prog)
+        run["sessions"][1]["fixture"] = True  # session 2 started from its own fixture
+        self.assertTrue(ok(c, run))
+
     def test_signposts_per_skill(self):
         dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — where it starts and ends, and a name.", "Part 3 of 5 — the outcome.",
                "Part 4 of 5 — how the work gets done.", "Part 5 of 5 — rules, sources and practice runs."]
@@ -362,6 +382,66 @@ class WordingChecks(unittest.TestCase):
         self.assertIn("design-plan.md (session 2: its lines that differ from session 1's)", prompt)
         self.assertIn("approved: false", prompt)
         self.assertIn("## Message 2 (session 2)", prompt)
+
+
+def events_run(*tool_uses, events=True):
+    """A one-session run whose events.jsonl holds these assistant tool calls, in order."""
+    t = tempfile.mkdtemp()
+    if events:
+        Path(t, "events.jsonl").write_text("".join(json.dumps(
+            {"type": "assistant", "message": {"content": [{"type": "tool_use", "id": f"t{i}", "name": n, "input": inp}]}}) + "\n"
+            for i, (n, inp) in enumerate(tool_uses)))
+    return run_of("Do you approve the plan?", root=str(Path(t, "workspace")))
+
+
+PLAN = "/tmp/x/workspace/framework/client-follow-up/design-plan.md"
+RESET = {"type": "tool_write", "path": "framework/client-follow-up/design-plan.md",
+         "pattern": "(?m)^approved: false[ \\t]*$", "before": "approved: true"}
+
+
+class ToolWrite(unittest.TestCase):
+    """EN-rerun-consequential: the plan is set back to approved: false before it's approved again
+    (cc11ff3a7 left the reset to the judge, who sees only the end state)."""
+
+    def test_reset_then_reapproval_passes(self):
+        run = events_run(("Write", {"file_path": PLAN, "content": "---\nworkflow: x\napproved: false\n---\n"}),
+                         ("Bash", {"command": f"sed -i '' 's/^approved: false$/approved: true/' {PLAN}"}))
+        self.assertTrue(ok(RESET, run))
+        run = events_run(("Edit", {"file_path": PLAN, "old_string": "approved: true", "new_string": "approved: false"}),
+                         ("Edit", {"file_path": PLAN, "old_string": "approved: false", "new_string": "approved: true"}))
+        self.assertTrue(ok(RESET, run))
+
+    def test_no_reset_fails(self):
+        # approved straight on the earlier yes: only the end state, approved: true
+        run = events_run(("Bash", {"command": f"sed -i '' 's/^approved: false$/approved: true/' {PLAN}"}),
+                         ("Edit", {"file_path": PLAN, "old_string": "requirements_revision: 1",
+                                   "new_string": "requirements_revision: 2"}))
+        self.assertFalse(ok(RESET, run))
+        # a Bash command that names approved: false isn't a reset: only Write and Edit count
+        run = events_run(("Bash", {"command": f"grep -n 'approved: false' {PLAN}"}),
+                         ("Edit", {"file_path": PLAN, "old_string": "approved: false", "new_string": "approved: true"}))
+        self.assertFalse(ok(RESET, run))
+
+    def test_reset_after_approval_or_never_reapproved_fails(self):
+        run = events_run(("Edit", {"file_path": PLAN, "old_string": "approved: false", "new_string": "approved: true"}),
+                         ("Edit", {"file_path": PLAN, "old_string": "approved: true", "new_string": "approved: false"}))
+        self.assertFalse(ok(RESET, run))
+        run = events_run(("Edit", {"file_path": PLAN, "old_string": "approved: true", "new_string": "approved: false"}))
+        self.assertFalse(ok(RESET, run))
+
+    def test_another_files_reset_or_no_events_fails(self):
+        other = PLAN.replace("design-plan.md", "requirements.md")
+        run = events_run(("Edit", {"file_path": other, "old_string": "approved: true", "new_string": "approved: false"}),
+                         ("Edit", {"file_path": PLAN, "old_string": "approved: false", "new_string": "approved: true"}))
+        self.assertFalse(ok(RESET, run))
+        self.assertFalse(ok(RESET, events_run(events=False)))
+        self.assertFalse(ok(RESET, run_of("Do you approve the plan?")))  # no root at all
+
+    def test_the_eval_uses_it(self):
+        ev = next(e for e in json.loads((ROOT / "design-workspace" / "evals" / "evals.json").read_text())["evals"]
+                  if e["id"] == "EN-rerun-consequential")
+        checks = json.dumps([x.get("check") for x in ev["expectations"] if x["kind"] == "scripted"])
+        self.assertIn('"tool_write"', checks)
 
 
 class FileChecks(unittest.TestCase):

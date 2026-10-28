@@ -43,12 +43,42 @@ class JudgeContext(unittest.TestCase):
     def test_no_state_lines_without_the_script(self):
         self.assertEqual(G.state_lines(run_with([tool_result("ls: framework")])), "")
 
-    def test_loaded_skill_text_counts_as_a_tool_passage(self):
+    def test_loaded_skill_text_is_shown_as_the_steps_instructions(self):
         skill = {"type": "user", "message": {"content": [{"type": "text", "text":
                  "Base directory for this skill: /x\n\nThe leader runs it once by hand before its schedule goes on."}]}}
         msg = "Build gets the schedule ready; the leader runs it once by hand before its schedule goes on."
         run = run_with([skill], text=msg)
-        self.assertIn("runs it once by hand before its schedule goes on", G.shared_lines(run, [msg]))
+        # the rule is shown, labelled as the step's own instructions, never as tool output
+        self.assertIn("runs it once by hand before its schedule goes on", G.skill_passages(run, [msg]))
+        self.assertEqual(G.shared_lines(run, [msg]), "")
+        _, prompt = G.rubric_prompt(run)
+        self.assertIn("The step's own instructions", prompt)
+        self.assertIn("never a source for a fact about the leader's work", prompt)
+        self.assertNotIn("Lines the AI's own tool calls printed", prompt)
+
+    def test_an_example_figure_in_the_skill_text_is_never_a_tool_line(self):
+        # 9620e646b put skill text among the tool results, so its example figures reached the judge
+        # as tool output: an echoed "within 48 hours" with no leader source passed "Nothing invented"
+        skill = {"type": "user", "message": {"content": [{"type": "text", "text":
+                 "Base directory for this skill: /x\n\nExample: the leader sends a follow-up within 48 hours "
+                 "of each call (120 min).\nAsk what the leader does after each call."}]}}
+        msg = "So you send each client a follow-up within 48 hours of each call, about 120 min each. Is that right?"
+        run = run_with([skill], text=msg)
+        self.assertEqual(G.tool_lines(run, [msg]), "")
+        self.assertEqual(G.shared_lines(run, [msg]), "")
+        self.assertEqual(G._tool_results(Path(run["sessions"][0]["root"]).parent / "events.jsonl"), [])
+        _, prompt = G.rubric_prompt(run)
+        head = prompt.split("## Message 1")[0]
+        self.assertNotIn("Lines the AI's own tool calls printed", head)
+        # shown only under the label that says it backs nothing about the leader's work
+        self.assertIn("never a source for a fact about the leader's work", head)
+        self.assertLess(head.index("## The step's own instructions"), head.index("48 hours"))
+
+    def test_the_same_figure_from_a_real_tool_result_still_counts(self):
+        msg = "Your notes say you reply within 48 hours of each call, 120 min in all."
+        run = run_with([tool_result("C1-call-notes.md: I reply within 48 hours of each call (120 min).")], text=msg)
+        self.assertIn("120 min", G.tool_lines(run, [msg]))
+        self.assertIn("within 48 hours", G.shared_lines(run, [msg]))
 
     def test_a_name_from_the_leaders_files_is_shown_with_its_path(self):
         files = {"framework/x/inputs/E2-no-next-step.md": "source: deconstruct\n\nCall with Lee Park (Northwind)."}
@@ -62,6 +92,44 @@ class JudgeContext(unittest.TestCase):
         files = {"framework/x/requirements.md": "W1 · Gmail · create a draft"}
         msg = "It saves a draft in Gmail for Harbour to read."
         self.assertEqual(G.name_lines(run_with([skill], files=files, text=msg), [msg]), "")
+
+
+class NameLinesLeaderFilesOnly(unittest.TestCase):
+    """name_lines reads the files the leader brought, never a later session's start tree, which holds
+    what the AI wrote in an earlier session (31b7210dc read every session's)."""
+
+    def two_sessions(self, first, second, marks=True):
+        t = tempfile.mkdtemp()
+        sess = []
+        for n, files in ((1, first), (2, second)):
+            d = Path(t, f"s{n}")
+            d.mkdir()
+            Path(d, "events.jsonl").write_text("")
+            s = {"n": n, "root": str(d / "workspace"), "files_start": files,
+                 "turns": [{"role": "ai", "text": "x"}]}
+            if marks:
+                s["fixture"] = n == 1
+            sess.append(s)
+        return {"sessions": sess}
+
+    def test_a_name_only_the_ai_wrote_in_session_1_is_not_shown(self):
+        msg = "On the Northwind notes, it asks you for a next step."
+        ai_wrote = {"framework/x/requirements.md": "Example input: call notes from Northwind."}
+        for marks in (True, False):  # a run saved before the marks counts its first session only
+            run = self.two_sessions({}, ai_wrote, marks)
+            self.assertEqual(G.name_lines(run, [msg]), "")
+
+    def test_a_name_the_leader_brought_is_shown(self):
+        msg = "On the Northwind notes, it asks you for a next step."
+        brought = {"framework/x/inputs/E2.md": "Call with Lee Park (Northwind)."}
+        run = self.two_sessions(brought, dict(brought, **{"framework/x/design-plan.md": "Northwind plan"}))
+        self.assertEqual(G.name_lines(run, [msg]), "framework/x/inputs/E2.md: Call with Lee Park (Northwind).")
+
+    def test_a_later_session_from_its_own_fixture_counts(self):
+        msg = "On the Northwind notes, it asks you for a next step."
+        run = self.two_sessions({}, {"framework/x/inputs/E2.md": "Northwind call."})
+        run["sessions"][1]["fixture"] = True
+        self.assertIn("Northwind call.", G.name_lines(run, [msg]))
 
 
 if __name__ == "__main__":

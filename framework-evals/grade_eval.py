@@ -16,6 +16,7 @@ import re
 from pathlib import Path
 
 import approved_lines as AL
+import check_scripted as CS
 import harness as H
 
 HERE = Path(__file__).resolve().parent
@@ -170,14 +171,14 @@ READ_FILE_CAP = 2500
 READ_CHANGED_CAP = 800  # of a cut file's share: the lines the session later changed or removed
 
 
-def _tool_results(events_path):
-    """The text of every tool result in a session's events.jsonl, Read's line-number prefixes removed,
-    and the skill text the Skill tool loaded."""
-    out = []
+SKILL_TEXT = "Base directory for this skill"
+
+
+def _events_user_blocks(events_path):
     try:
         lines = Path(events_path).read_text(errors="replace").splitlines()
     except OSError:
-        return out
+        return
     for line in lines:
         try:
             e = json.loads(line)
@@ -185,17 +186,34 @@ def _tool_results(events_path):
             continue
         content = (e.get("message") or {}).get("content") if e.get("type") == "user" else None
         for b in content if isinstance(content, list) else []:
-            if isinstance(b, dict) and b.get("type") == "text" and b.get("text", "").startswith("Base directory for this skill"):
-                # the step's own SKILL.md, as the Skill tool loaded it: a framework rule it states
-                # ("you run it once by hand before its schedule goes on") isn't an invented fact
-                out.append(b["text"])
-                continue
-            if not isinstance(b, dict) or b.get("type") != "tool_result":
-                continue
-            c = b.get("content")
-            text = c if isinstance(c, str) else "\n".join(
-                x.get("text", "") for x in c or [] if isinstance(x, dict))
-            out.append(re.sub(r"(?m)^\s*\d+\t", "", text))
+            if isinstance(b, dict):
+                yield b
+
+
+def _tool_results(events_path):
+    """The text of every tool result in a session's events.jsonl, Read's line-number prefixes removed.
+    The skill text the Skill tool loaded is never among them (see _skill_texts): its example figures
+    ("(2 min)", "within 48 hours") aren't facts the AI looked up about the leader's work."""
+    out = []
+    for b in _events_user_blocks(events_path):
+        if b.get("type") != "tool_result":
+            continue
+        c = b.get("content")
+        text = c if isinstance(c, str) else "\n".join(
+            x.get("text", "") for x in c or [] if isinstance(x, dict))
+        if text.startswith(SKILL_TEXT):
+            continue
+        out.append(re.sub(r"(?m)^\s*\d+\t", "", text))
+    return out
+
+
+def _skill_texts(events_path):
+    """The step's own SKILL.md text, as the Skill tool loaded it in a session's events.jsonl."""
+    out = []
+    for b in _events_user_blocks(events_path):
+        text = b.get("text", "") if b.get("type") == "text" else ""
+        if isinstance(text, str) and text.startswith(SKILL_TEXT):
+            out.append(text)
     return out
 
 
@@ -345,8 +363,8 @@ NAME_LINES_CAP = 600
 
 def name_lines(run, msgs):
     """For each proper name a message uses mid-sentence ("the Northwind notes") that the step's own
-    skill text doesn't hold, the first line of the leader's files (as they were before the session)
-    that names it, with its path, so a client or person from a practice input the file context had
+    skill text doesn't hold, the first line of the files the leader brought (CS.leader_files: never
+    a file the AI wrote in an earlier session) that names it, with its path, so a client or person from a practice input the file context had
     no room for isn't taken for an invented one. Capped at NAME_LINES_CAP characters."""
     names = set()
     for m in msgs:
@@ -356,14 +374,10 @@ def name_lines(run, msgs):
                 names.add(tok)
     if not names:
         return ""
-    skill, files = "", []
-    for s in run["sessions"]:
-        if not s.get("root"):
-            continue
-        skill += "\n".join(r for r in _tool_results(Path(s["root"]).parent / "events.jsonl")
-                           if r.startswith("Base directory for this skill"))
-        files += [(rel, t) for rel, t in (s.get("files_start") or {}).items()
-                  if not (rel.startswith(".") or "/." in rel)]
+    skill = "\n".join(t for s in run["sessions"] if s.get("root")
+                      for t in _skill_texts(Path(s["root"]).parent / "events.jsonl"))
+    # the files the leader brought only: a later session's start tree holds what the AI wrote earlier
+    files = [(rel, t) for rel, t in CS.leader_files(run) if not (rel.startswith(".") or "/." in rel)]
     out, total = [], 0
     for n in sorted(x for x in names if not re.search(rf"\b{x}\b", skill)):
         for rel, text in files:
@@ -475,6 +489,50 @@ def shared_lines(run, msgs, skip=""):
     return "\n".join(out)
 
 
+SKILL_PASSAGES_CAP = 1500
+
+
+def skill_passages(run, msgs):
+    """Passages of the step's own instructions (the SKILL.md the Skill tool loaded) that share a run
+    of SHARED_RUN or more words with the unscripted part of the messages, most shared first, capped
+    at SKILL_PASSAGES_CAP characters. They're shown to the judge under their own label, apart from
+    the tool lines, so a framework rule the step states ("you run it once by hand before its schedule
+    goes on") isn't taken for an invented fact, while an example figure the skill gives ("within 48
+    hours") never backs a detail about the leader's work."""
+    grams = set()
+    for m in msgs:
+        grams |= _grams(re.sub(r"⟦[^⟧]*⟧", " ", m))
+    if not grams:
+        return ""
+    found = {}
+    for s in run["sessions"]:
+        if not s.get("root"):
+            continue
+        for text in _skill_texts(Path(s["root"]).parent / "events.jsonl"):
+            for seg in re.split(r"(?<=[.;!?])\s+|\n", text):
+                seg = seg.strip()
+                if seg and seg not in found:
+                    n = len(_grams(seg) & grams)
+                    if n:
+                        found[seg] = n
+    out, total = [], 0
+    for seg in sorted(found, key=lambda x: -found[x]):
+        ln = seg[:SHARED_LINE_LEN]
+        if ln in out or total + len(ln) > SKILL_PASSAGES_CAP:
+            continue
+        out.append(ln)
+        total += len(ln)
+    return "\n".join(out)
+
+
+SKILL_LABEL = ("## The step's own instructions, passages the messages echo (context, not graded)\n\n"
+               "These are from the framework step's instructions (its skill text), not from the leader, "
+               "the leader's files or any tool. They back only a rule of how the step works that a message "
+               "states. They are never a source for a fact about the leader's work: a figure, time, name, "
+               "date or other detail of the leader's work found only here (an example the instructions "
+               "give) is invented (item 6).\n\n")
+
+
 def rubric_prompt(run):
     """Each AI message, with what the leader said just before it as context (not graded), so
     item 6 can tell a fact the leader gave from an invented one; and, once at the top, what the AI
@@ -503,6 +561,8 @@ def rubric_prompt(run):
     tools = "\n".join(x for x in (state_lines(run), tools, shared, name_lines(run, msgs)) if x)
     read +=(f"## Lines the AI's own tool calls printed (context, not graded)\n\n````\n{tools}\n````\n\n"
              if tools else "")
+    skill = skill_passages(run, msgs)
+    read += f"{SKILL_LABEL}````\n{skill}\n````\n\n" if skill else ""
     return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{read}{body}"
 
 

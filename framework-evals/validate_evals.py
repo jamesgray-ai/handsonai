@@ -35,7 +35,7 @@ REQUIRED = {
     "structure": ["path", "kind"], "fill_check": ["kind"],
     "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"],
     "section_regex": ["path", "section", "pattern"], "all": ["checks"], "any": ["checks"],
-    "release_check": ["ids", "passed", "open"],
+    "release_check": ["ids", "passed", "open"], "tool_write": ["path", "pattern"],
 }
 RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmatter now)"}
 FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "agent_builder_missing_context_file",

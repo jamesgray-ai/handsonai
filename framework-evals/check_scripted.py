@@ -45,6 +45,13 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                     plan?: glob, carried?: [...], require_carried?: [ids]}
                                                                   Build's Agent Builder prompt (N-B52, N-B53):
                                                                   every filled field against the plan
+  tool_write       {path, pattern, before?, session?}             a Write, Edit or MultiEdit call in the session's
+                                                                  events.jsonl put text matching the pattern into a
+                                                                  matching file (Write's content, Edit's new_string);
+                                                                  `before` (a regex): that write comes before the first
+                                                                  write by any tool (a Bash command naming the file
+                                                                  too) whose new text matches it, and one follows
+                                                                  (plan reset to approved: false before re-approval)
   file_unchanged   {path, session?}                               every matching file is byte-identical
                                                                   at session start and end
   file_line        {path, line: n, pattern, session?}             line n (1-based) matches the pattern
@@ -79,6 +86,7 @@ check (no listed framework term in a leader turn before an AI turn used it) and 
 """
 import fnmatch
 import hashlib
+import json
 import re
 from pathlib import Path
 
@@ -218,15 +226,29 @@ def sizes(text):
 def leader_sizes(run):
     """What the leader said about their own work's size, in any session, wrote in a requirements
     file's Value & Measurement (the Baseline and Target), or gave in an earlier chat that Analyze's
-    progress file noted (as the session found it; a resume says "I noted [pieces]"): playing it back
+    progress file noted (as the leader brought it, never as an earlier session of this run left it;
+    a resume says "I noted [pieces]"): playing it back
     is allowed (the framework never estimates time, but those are the leader's numbers)."""
     said = [sizes(t["text"]) for s in run["sessions"] for t in s["turns"] if t["role"] != "ai"]
     written = [sizes(ST.section(body, "Value & Measurement")) for s in run["sessions"]
                for snap in (s.get("files_start") or {}, s.get("files_end") or {})
                for p, body in snap.items() if p.endswith("requirements.md") and isinstance(body, str)]
-    noted = [sizes(body) for s in run["sessions"] for p, body in (s.get("files_start") or {}).items()
-             if p.endswith("analyze-in-progress.md") and isinstance(body, str)]
+    noted = [sizes(body) for p, body in leader_files(run) if p.endswith("analyze-in-progress.md")]
     return set().union(*said, *written, *noted)
+
+
+def leader_files(run):
+    """The files the leader brought, as (path, text): the start tree of each session that began
+    from its fixture (the harness marks it `fixture`), never a start tree carried over from an
+    earlier session, which holds what the AI wrote there. A run without the marks (one saved
+    before them) counts its first session only (fail closed)."""
+    sess = run["sessions"]
+    marked = any("fixture" in s for s in sess)
+    out = []
+    for i, s in enumerate(sess):
+        if (s.get("fixture") if marked else i == 0):
+            out += [(p, b) for p, b in (s.get("files_start") or {}).items() if isinstance(b, str)]
+    return out
 
 
 def time_or_step_hits(message, allowed=frozenset()):
@@ -552,6 +574,8 @@ def check(c, run):
                 if any(fnmatch.fnmatch(p, c["path"]) for p in turn_files):
                     return True, f"present after AI turn {i + 1} of session {s['n']}"
         return False, f"{c['path']} never present after any turn"
+    if t == "tool_write":
+        return _tool_write(c, run)
     if t == "release_check":
         passed = release_checks_passed(c["ids"])
         ok, why = check(c["passed" if passed else "open"], run)
@@ -636,6 +660,75 @@ def check(c, run):
                 return False, f"{path}: other sections {extra}"
         return True, f"{path}: in order"
     raise ValueError(f"unknown check type {t}")
+
+
+def file_writes(events_path, path):
+    """The writes, in order, that tool calls in a session's events.jsonl made to files matching the
+    path glob, as (tool, new text): Write's content, Edit's new_string (each of MultiEdit's edits),
+    and a Bash command naming the file, with a sed substitution's search parts dropped (so
+    `s/^approved: false$/approved: true/` reads as writing "approved: true"). None when there's
+    no events.jsonl."""
+    try:
+        lines = Path(events_path).read_text(errors="replace").splitlines()
+    except OSError:
+        return None
+    name = Path(path).name
+    out = []
+    for line in lines:
+        try:
+            e = json.loads(line)
+        except ValueError:
+            continue
+        content = (e.get("message") or {}).get("content") if e.get("type") == "assistant" else None
+        for b in content if isinstance(content, list) else []:
+            if not (isinstance(b, dict) and b.get("type") == "tool_use"):
+                continue
+            tool, inp = b.get("name"), b.get("input") or {}
+            if tool in ("Write", "Edit", "MultiEdit"):
+                fp = str(inp.get("file_path") or "")
+                if not (fnmatch.fnmatch(fp, path) or fnmatch.fnmatch(fp, "*/" + path)):
+                    continue
+                if tool == "Write":
+                    out.append((tool, str(inp.get("content") or "")))
+                elif tool == "Edit":
+                    out.append((tool, str(inp.get("new_string") or "")))
+                else:
+                    out += [(tool, str(x.get("new_string") or "")) for x in inp.get("edits") or []]
+            elif tool == "Bash":
+                cmd = str(inp.get("command") or "")
+                if any(fnmatch.fnmatch(tok, "*" + name) for tok in re.findall(r"[^\s'\";|&<>]+", cmd)):
+                    out.append((tool, re.sub(r"\bs([/|#])(?:\\.|(?!\1).)*\1", r"s\1\1", cmd)))
+    return out
+
+
+def _tool_write(c, run):
+    pat = re.compile(c["pattern"], re.M)
+    then = re.compile(c["before"], re.M) if c.get("before") else None
+    why = "no session"
+    for s in _sessions(run, c.get("session")):
+        if not s.get("root"):
+            why = f"session {s['n']}: no events.jsonl to read the writes from"
+            continue
+        writes = file_writes(Path(s["root"]).parent / "events.jsonl", c["path"])
+        if writes is None:
+            why = f"session {s['n']}: no events.jsonl to read the writes from"
+            continue
+        at = next((i for i, (tool, text) in enumerate(writes)
+                   if tool != "Bash" and pat.search(norm(text))), None)
+        if at is None:
+            why = f"session {s['n']}: no Write or Edit to {c['path']} matches {c['pattern']!r}"
+            continue
+        if not then:
+            return True, f"session {s['n']}: write {at + 1} of {len(writes)} to {c['path']}"
+        later = [i for i, (_, text) in enumerate(writes) if then.search(norm(text))]
+        if any(i < at for i in later):
+            why = f"session {s['n']}: a write matching {c['before']!r} came first (write {later[0] + 1})"
+            continue
+        if not later:
+            why = f"session {s['n']}: no write matching {c['before']!r} after it"
+            continue
+        return True, f"session {s['n']}: write {at + 1}, then write {later[0] + 1} matching {c['before']!r}"
+    return False, why
 
 
 def script_quotes(script):

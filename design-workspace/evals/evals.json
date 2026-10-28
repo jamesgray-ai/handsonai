@@ -810,7 +810,18 @@
      }
     },
     {
-     "text": "Before the plan is approved again, the review is shown again and the approval asked again (the files show only the end state, so the judge reads the reset from the chat: no approval stands on the earlier yes)",
+     "text": "The plan is set back to `approved: false` (a Write or Edit to design-plan.md) before any write approves it again",
+     "kind": "scripted",
+     "must": true,
+     "check": {
+      "type": "tool_write",
+      "path": "framework/client-follow-up/design-plan.md",
+      "pattern": "(?m)^approved: false[ \\t]*$",
+      "before": "approved: true"
+     }
+    },
+    {
+     "text": "Before the plan is approved again, the review is shown again and the approval asked again (no approval stands on the earlier yes; the reset to approved: false is checked from the session's writes)",
      "kind": "judged",
      "must": true
     },

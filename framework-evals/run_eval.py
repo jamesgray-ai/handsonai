@@ -239,6 +239,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             platform = L.platform_for(ev, s)
             platform.leader_runs = L.simulates_leader_runs(data.get("skill_name"), platform, s, ev)
             platform.scripted_runs = L.scripted_runs(s, ev)
+            fresh = bool(s.get("fixture_from")) or n == 1 or not s.get("from_previous")
             if s.get("fixture_from"):
                 src = Path(s["fixture_from"])
                 src = src if src.is_absolute() else (evals_dir / src)
@@ -314,6 +315,7 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             start, end = CS.load_tree(sdir / "workspace-start"), CS.load_tree(sdir / "workspace")
             run["sessions"].append({"n": n, "turns": turns, "files_by_turn": files_by_turn,
                                     "files_start": start, "files_end": end, "cap_hit": cap_hit,
+                                    "fixture": fresh,  # its start tree is the files the leader brought
                                     "root": str(sdir / "workspace"), "platform": platform.key,
                                     "script_quotes": CS.script_quotes(script)})
         # Grade inside the run root's lifetime (the graders run from run-root/grader).
