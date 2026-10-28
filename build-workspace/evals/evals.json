@@ -662,7 +662,7 @@
    ],
    "expectations": [
     {
-     "text": "[EN-earlier-live-no-sch] N-B44, then N-B41's no-steps form before the install",
+     "text": "[EN-earlier-live-no-sch] N-B44, then N-B41 before the install in the form that fits the record (no-steps; or still-paused once N-B44's answer set schedule: paused before a restart)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -672,9 +672,19 @@
         "id": "N-B44"
        },
        {
-        "type": "quote",
-        "id": "N-B41",
-        "form": "No switch-on steps in the record"
+        "type": "any",
+        "checks": [
+         {
+          "type": "quote",
+          "id": "N-B41",
+          "form": "No switch-on steps in the record"
+         },
+         {
+          "type": "quote",
+          "id": "N-B41",
+          "form": "paused` set since the last go-live"
+         }
+        ]
        }
       ]
      }

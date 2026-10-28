@@ -192,7 +192,11 @@ def rebuild_run(rdir, evals_dir, data, work):
     end tree at work/session-n/workspace, its events.jsonl beside it). The eval is the run's own
     eval.json (what ran)."""
     ran = json.loads((rdir / "eval.json").read_text())
-    sessions = ran.get("sessions") or [{"prompt": ran.get("prompt"), "student": True}]
+    sessions = list(ran.get("sessions") or [{"prompt": ran.get("prompt"), "student": True}])
+    # a session the runner added after Build's restart (run_eval.restart_session) has no entry in
+    # eval.json, only its folder: it continues from the session before
+    while (rdir / f"session-{len(sessions) + 1}" / "turns.json").exists():
+        sessions.append({"from_previous": True, "student": True, "restart": True})
     run, prev_end = {"sessions": []}, None
     for n, s in enumerate(sessions, 1):
         sdir = rdir / f"session-{n}"
