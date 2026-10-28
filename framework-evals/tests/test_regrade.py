@@ -104,6 +104,25 @@ class Regrade(unittest.TestCase):
         self.assertEqual(R.fixture_drift(start, p), ["framework/x/requirements.md"])
         self.assertEqual(R.fixture_drift({"framework/x/requirements.md": "# Req\nStep 1 · send\n"}, p), [])
 
+    def test_a_fixture_read_with_cat_is_caught_too(self):
+        start = {"framework/x/requirements.md": "# Req\nStep 1 · draft\n"}
+        events = [tool_use(1, "Bash", {"command": "cd /r/workspace/framework/x && cat requirements.md"}),
+                  {"type": "user", "message": {"content": [{"type": "tool_result", "tool_use_id": "t1",
+                                                            "content": "# Req\nStep 1 · send\n"}]}}]
+        p = Path(tempfile.mkdtemp(), "events.jsonl")
+        p.write_text("".join(json.dumps(e) + "\n" for e in events))
+        self.assertEqual(R.fixture_drift(start, p), ["framework/x/requirements.md"])
+        self.assertEqual(R.fixture_drift({"framework/x/requirements.md": "# Req\nStep 1 · send\n"}, p), [])
+
+    def test_recorded_start_hashes_are_exact(self):
+        start = {"framework/x/requirements.md": "a\n", "framework/x/notes.md": "never read\n"}
+        rec = R.start_hashes(start)
+        nowhere = Path(tempfile.mkdtemp(), "events.jsonl")  # no events: only the hashes can tell
+        self.assertEqual(R.fixture_drift(start, nowhere, rec), [])
+        self.assertEqual(R.fixture_drift(dict(start, **{"framework/x/notes.md": "changed\n"}), nowhere, rec),
+                         ["framework/x/notes.md"])
+        self.assertEqual(R.fixture_drift(dict(start, **{"framework/x/new.md": "x"}), nowhere, rec), ["framework/x/new.md"])
+
 
 if __name__ == "__main__":
     unittest.main()

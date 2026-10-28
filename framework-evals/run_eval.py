@@ -53,6 +53,7 @@ on the chat platforms too (no run chat is simulated, so its answer can't stand i
 """
 import argparse
 import concurrent.futures as cf
+import hashlib
 import json
 import re
 import shutil
@@ -371,6 +372,9 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
         if (root / f"session-{n}" / "events.jsonl").exists():
             shutil.copy2(root / f"session-{n}" / "events.jsonl", out_s / "events.jsonl")
         (out_s / "turns.json").write_text(json.dumps(sess["turns"], indent=2, ensure_ascii=False))
+        if sess.get("fixture"):  # so a re-grade can tell a fixture changed since (regrade.py)
+            (out_s / "start-tree.json").write_text(json.dumps(
+                {rel: hashlib.sha256(body.encode()).hexdigest() for rel, body in sess["files_start"].items()}, indent=1))
         (out_s / "transcript.md").write_text("\n".join(
             f"## {'AI' if t['role'] == 'ai' else 'Leader'}\n\n{t['text']}\n" for t in sess["turns"])
             + ("\n## Harness\n\nStopped at the turn cap.\n" if sess["cap_hit"] else ""))

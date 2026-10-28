@@ -28,15 +28,19 @@ and judge context that read the session's tool calls see them. The round keeps n
 so a check with file_existed_during inside it is carried from the run's scripted.json, marked so.
 Only runs whose sessions were kept (status valid or invalid) are re-graded, and only where today's
 eval makes the same sessions as the run's own eval.json (RAN_KEYS); the others are listed as skipped,
-to re-run. A fixture builder changed since the round under the same fixture name can't be seen from
-what the round kept: re-grade a round only against fixtures that haven't changed since it.
+to re-run. A fixture changed since the round under the same name is caught exactly where the round
+recorded each fixture session's start-tree hashes (start-tree.json, rounds from 2026-10-28 on), and
+otherwise only through the fixture files the session read (Read, or a plain cat) before writing them:
+in an older round, a changed file the session never read that way slips through.
 
 The graders run through harness.py exactly as in a round: a control call first, the keychain login,
 the init assertions, and the fail-closed check on the real Claude config before and after.
 """
 import argparse
 import concurrent.futures as cf
+import hashlib
 import json
+import os
 import re
 import shutil
 import sys
@@ -79,9 +83,45 @@ def _rel(fp):
     return fp.split("/workspace/", 1)[1] if "/workspace/" in fp else None
 
 
-def fixture_drift(start, events_path):
-    """The files the session read (a Read before any write to the file) whose lines aren't in the
-    rebuilt start tree, as paths: a fixture changed since the round under the same name."""
+CAT = re.compile(r"^\s*(?:cd\s+(?P<dir>\S+)\s*&&\s*)?cat\s+(?P<files>[^|;&<>]+?)\s*(?:\|\s*(?:head|tail)(?:\s+-n)?(?:\s+-?\d+)?\s*)?$")
+
+
+def _ws_rel(p, base=""):
+    """A path as the workspace-relative form, from an absolute path in the workspace or a relative one
+    under `base`; None for any other absolute path."""
+    p = p.strip("'\"")
+    if "/workspace/" in p + "/":
+        return (p + "/").split("/workspace/", 1)[1].rstrip("/")
+    if p.startswith("/") or p.startswith("~"):
+        return None
+    rel = os.path.normpath(os.path.join(base, p))
+    return "" if rel == "." else rel
+
+
+def _cat_files(cmd):
+    """The workspace paths a plain `[cd DIR &&] cat FILE… [| head|tail -n N]` prints, or None."""
+    m = CAT.match(cmd)
+    if not m:
+        return None
+    base = _ws_rel(m.group("dir")) if m.group("dir") else ""
+    if base is None:
+        return None
+    out = [_ws_rel(f, base) for f in m.group("files").split()]
+    return None if any(r is None or r.startswith("..") for r in out) else out
+
+
+def start_hashes(files):
+    return {rel: hashlib.sha256(body.encode()).hexdigest() for rel, body in files.items()}
+
+
+def fixture_drift(start, events_path, recorded=None):
+    """The files whose rebuilt start differs from the round's, as paths: a fixture changed since the
+    round under the same name. Exact when the round recorded its start tree's hashes (start-tree.json,
+    rounds since 2026-10-28); otherwise the files the session read, by Read or a plain cat, before
+    any write to them, whose lines aren't in the rebuilt start tree."""
+    if recorded is not None:
+        now = start_hashes(start)
+        return sorted(r for r in set(now) | set(recorded) if now.get(r) != recorded.get(r))
     try:
         lines = Path(events_path).read_text(errors="replace").splitlines()
     except OSError:
@@ -101,23 +141,30 @@ def fixture_drift(start, events_path):
                 inp = b.get("input") or {}
                 rel = _rel(str(inp.get("file_path") or ""))
                 if b.get("name") == "Read" and rel and rel not in written:
-                    reads[b.get("id")] = rel
+                    reads[b.get("id")] = ("read", [rel])
                 elif b.get("name") in ("Write", "Edit", "MultiEdit") and rel:
                     written.add(rel)
                 elif b.get("name") == "Bash":
                     cmd = str(inp.get("command") or "")
-                    written |= {r for r in start if Path(r).name in cmd}
+                    cat = _cat_files(cmd)
+                    if cat and not any(r in written for r in cat):
+                        reads[b.get("id")] = ("cat", cat)
+                    else:
+                        written |= {r for r in start if Path(r).name in cmd}
             elif b.get("type") == "tool_result" and b.get("tool_use_id") in reads and not b.get("is_error"):
-                rel = reads.pop(b["tool_use_id"])
+                how, rels = reads.pop(b["tool_use_id"])
                 c = b.get("content")
                 text = c if isinstance(c, str) else "\n".join(x.get("text", "") for x in c or [] if isinstance(x, dict))
                 body = text.split("<system-reminder>")[0]  # the reminder Claude Code appends isn't the file
-                if rel in written or not body.strip():
+                if not body.strip():
                     continue
-                have = {ln.rstrip() for ln in (start.get(rel) or "").splitlines()}
-                got = [m.group(1).rstrip() for m in re.finditer(r"(?m)^\s*\d+\t(.*)$", body)]
-                if rel not in start or any(ln.strip() and ln not in have for ln in got):
-                    bad.append(rel)
+                have = {ln.rstrip() for r in rels for ln in (start.get(r) or "").splitlines()}
+                if how == "read":
+                    got = [m.group(1).rstrip() for m in re.finditer(r"(?m)^\s*\d+\t(.*)$", body)]  # Read
+                else:
+                    got = [ln.rstrip() for ln in body.splitlines()]  # cat
+                if any(r not in start for r in rels) or any(ln.strip() and ln not in have for ln in got):
+                    bad += rels
     return sorted(set(bad))
 
 
@@ -164,7 +211,9 @@ def rebuild_run(rdir, evals_dir, data, work):
                 RE.build_fixture(s.get("fixture", ran.get("fixture")), ws, evals_dir, data.get("fixture_builder"))
                 platform.prepare(ws)
             start = CS.load_tree(ws)
-            drift = fixture_drift(start, sdir / "events.jsonl")
+            rec = sdir / "start-tree.json"
+            drift = fixture_drift(start, sdir / "events.jsonl",
+                                  json.loads(rec.read_text()) if rec.exists() else None)
             if drift:
                 raise StaleFixture(f"session {n}'s fixture changed since the round (the session read other "
                                    f"lines in {', '.join(drift[:3])}): re-run it")
