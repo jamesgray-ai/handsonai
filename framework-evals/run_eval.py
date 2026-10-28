@@ -284,7 +284,9 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 screens = platform.screen(ai, ws, run_chat)
                 shown = "\n\n".join(o for o, _ in screens)
                 if replies:
-                    msg, msg_kind, acts = replies.pop(0), "scripted_reply", sum(a for _, a in screens)
+                    msg, msg_kind = replies.pop(0), "scripted_reply"
+                    # a scripted reply acts on the platform like a student's ("done" adds the folder)
+                    acts = sum(a for _, a in screens) + platform.on_leader(msg, ws)
                 elif script:
                     raw, srec = H.call(rnd, "student", root, leader_prompt(turns, [o for o, _ in screens]),
                                        cwd=root / "student", tools=[],
