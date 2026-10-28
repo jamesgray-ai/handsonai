@@ -218,6 +218,24 @@ class WordingChecks(unittest.TestCase):
         run["sessions"][1]["fixture"] = True  # session 2 started from its own fixture
         self.assertTrue(ok(c, run))
 
+    def test_a_baseline_the_ai_wrote_is_not_the_leaders_size(self):
+        # 05289ac91 counted every requirements file's Value & Measurement, the AI's own writing too:
+        # a Baseline the AI wrote with no size from the leader made its own estimate pass
+        req = {"framework/x/requirements.md": "## Value & Measurement\n\n| Baseline | 15 minutes per report · Estimated |\n"}
+        said = "Its log tracks how long each run took against your 15-minute starting point."
+        c = {"type": "no_time_or_step_numbers"}
+        self.assertFalse(ok(c, run_of(said, files_end=req)))
+        run = run_of(said, files_end=req)
+        run["sessions"][0]["turns"][0]["text"] = "Each report takes me about fifteen minutes."
+        self.assertTrue(ok(c, run))  # the leader's own message gave it
+        # session 2 carried over: its start tree is the AI's session-1 file, not the leader's
+        run = run_of("Done. Shall we start?")
+        run["sessions"].append({**run_of(said)["sessions"][0], "n": 2, "files_start": req})
+        run["sessions"][0]["files_end"] = req
+        run["sessions"][0]["fixture"], run["sessions"][1]["fixture"] = True, False
+        self.assertFalse(ok(c, run))
+        self.assertTrue(ok(c, run_of(said, files_start=req)))  # the leader brought it
+
     def test_signposts_per_skill(self):
         dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — where it starts and ends, and a name.", "Part 3 of 5 — the outcome.",
                "Part 4 of 5 — how the work gets done.", "Part 5 of 5 — rules, sources and practice runs."]
@@ -1097,6 +1115,8 @@ class StubbedHarness(unittest.TestCase):
         self.assertEqual(rj["fail_closed_check"], "pass")
         res = json.loads((out / "C1" / "run-1" / "result.json").read_text())
         self.assertIn("the spec's figure: about 50", res["leader_actions"]["report"])
+        # the fixture session's start-tree hashes, so a re-grade can tell a fixture changed since
+        self.assertEqual(json.loads((out / "C1" / "run-1" / "session-1" / "start-tree.json").read_text()), {})
         self.assertTrue(any(e.get("builtin") == "scripted_lines" and e["passed"] for e in res["expectations"]))
         self.assertTrue(any(e.get("rubric") for e in res["expectations"]))
 

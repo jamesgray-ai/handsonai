@@ -224,16 +224,17 @@ def sizes(text):
 
 
 def leader_sizes(run):
-    """What the leader said about their own work's size, in any session, wrote in a requirements
-    file's Value & Measurement (the Baseline and Target), or gave in an earlier chat that Analyze's
-    progress file noted (as the leader brought it, never as an earlier session of this run left it;
-    a resume says "I noted [pieces]"): playing it back
-    is allowed (the framework never estimates time, but those are the leader's numbers)."""
+    """What the leader said about their own work's size, in any session; what a requirements file
+    the leader brought holds in its Value & Measurement (the Baseline and Target, from the leader's
+    earlier Deconstruct chat); or what Analyze's progress file the leader brought noted from an
+    earlier chat (a resume says "I noted [pieces]"): playing it back is allowed (the framework never
+    estimates time, but those are the leader's numbers). A file the AI wrote in this run (its own
+    Baseline, or a later session's start tree) never counts: a size it wrote down from the leader is
+    in the leader's own message, and one the leader never gave is the AI's estimate."""
     said = [sizes(t["text"]) for s in run["sessions"] for t in s["turns"] if t["role"] != "ai"]
-    written = [sizes(ST.section(body, "Value & Measurement")) for s in run["sessions"]
-               for snap in (s.get("files_start") or {}, s.get("files_end") or {})
-               for p, body in snap.items() if p.endswith("requirements.md") and isinstance(body, str)]
-    noted = [sizes(body) for p, body in leader_files(run) if p.endswith("analyze-in-progress.md")]
+    brought = leader_files(run)
+    written = [sizes(ST.section(body, "Value & Measurement")) for p, body in brought if p.endswith("requirements.md")]
+    noted = [sizes(body) for p, body in brought if p.endswith("analyze-in-progress.md")]
     return set().union(*said, *written, *noted)
 
 

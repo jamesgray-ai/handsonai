@@ -174,7 +174,39 @@ READ_CHANGED_CAP = 800  # of a cut file's share: the lines the session later cha
 SKILL_TEXT = "Base directory for this skill"
 
 
-def _events_user_blocks(events_path):
+PLUGIN_DOC = re.compile(r"/plugin/[^\s'\"]*")
+DOC_READER = re.compile(r"\b(?:cat|head|tail|sed|grep|rg|awk|less|more|nl)\b")
+
+
+def _plugin_path(p):
+    """A path in the plugin under test (not in the leader's workspace): its skills and references."""
+    p = str(p or "")
+    return "/plugin/" in p and "/workspace/" not in p.split("/plugin/", 1)[0] + "/"
+
+
+def _instruction_call(b):
+    """Whether a tool call reads the plugin's own text (a SKILL.md or a reference file): Read or Grep
+    on a plugin path, or a Bash command that reads one with cat, head, sed, grep and the like. Its
+    output is the step's instructions, never a fact the AI looked up about the leader's work. A plugin
+    script a command runs (the routing script) prints tool output, unless the command reads a plugin
+    file too (then all of it counts as instructions: fail closed)."""
+    name, inp = b.get("name"), b.get("input") or {}
+    if name == "Read":
+        return _plugin_path(inp.get("file_path"))
+    if name == "Grep":
+        return _plugin_path(inp.get("path"))
+    if name == "Bash":
+        cmd = str(inp.get("command") or "")
+        for part in re.split(r"&&|\|\||;|\|", cmd):
+            if DOC_READER.search(part) and any(_plugin_path(m.group(0)) and not m.group(0).endswith((".py", ".sh"))
+                                               for m in PLUGIN_DOC.finditer(part)):
+                return True
+    return False
+
+
+def _events_user_blocks(events_path, instructions=None):
+    """Each user-side block in a session's events.jsonl; with a set, the ids of the tool calls that
+    read the plugin's own text are added to it as they're met."""
     try:
         lines = Path(events_path).read_text(errors="replace").splitlines()
     except OSError:
@@ -184,36 +216,49 @@ def _events_user_blocks(events_path):
             e = json.loads(line)
         except ValueError:
             continue
-        content = (e.get("message") or {}).get("content") if e.get("type") == "user" else None
+        msg = e.get("message") if isinstance(e, dict) else None
+        content = msg.get("content") if isinstance(msg, dict) else None
         for b in content if isinstance(content, list) else []:
-            if isinstance(b, dict):
+            if not isinstance(b, dict):
+                continue
+            if e.get("type") == "assistant":
+                if instructions is not None and b.get("type") == "tool_use" and _instruction_call(b):
+                    instructions.add(b.get("id"))
+            elif e.get("type") == "user":
                 yield b
+
+
+def _result_text(b):
+    c = b.get("content")
+    text = c if isinstance(c, str) else "\n".join(x.get("text", "") for x in c or [] if isinstance(x, dict))
+    return re.sub(r"(?m)^\s*\d+\t", "", text)
 
 
 def _tool_results(events_path):
     """The text of every tool result in a session's events.jsonl, Read's line-number prefixes removed.
-    The skill text the Skill tool loaded is never among them (see _skill_texts): its example figures
-    ("(2 min)", "within 48 hours") aren't facts the AI looked up about the leader's work."""
-    out = []
-    for b in _events_user_blocks(events_path):
-        if b.get("type") != "tool_result":
+    The step's own text is never among them (see _skill_texts): the skill text the Skill tool loaded,
+    and a plugin reference file the AI read. Their example figures ("(2 min)", "within 48 hours")
+    aren't facts the AI looked up about the leader's work."""
+    out, ins = [], set()
+    for b in _events_user_blocks(events_path, ins):
+        if b.get("type") != "tool_result" or b.get("tool_use_id") in ins:
             continue
-        c = b.get("content")
-        text = c if isinstance(c, str) else "\n".join(
-            x.get("text", "") for x in c or [] if isinstance(x, dict))
+        text = _result_text(b)
         if text.startswith(SKILL_TEXT):
             continue
-        out.append(re.sub(r"(?m)^\s*\d+\t", "", text))
+        out.append(text)
     return out
 
 
 def _skill_texts(events_path):
-    """The step's own SKILL.md text, as the Skill tool loaded it in a session's events.jsonl."""
-    out = []
-    for b in _events_user_blocks(events_path):
-        text = b.get("text", "") if b.get("type") == "text" else ""
-        if isinstance(text, str) and text.startswith(SKILL_TEXT):
-            out.append(text)
+    """The step's own text in a session's events.jsonl: its SKILL.md as the Skill tool loaded it, and
+    each plugin file (a reference, another skill's SKILL.md) a tool call read."""
+    out, ins = [], set()
+    for b in _events_user_blocks(events_path, ins):
+        if b.get("type") == "text" and str(b.get("text", "")).startswith(SKILL_TEXT):
+            out.append(b["text"])
+        elif b.get("type") == "tool_result" and (b.get("tool_use_id") in ins or _result_text(b).startswith(SKILL_TEXT)):
+            out.append(_result_text(b))
     return out
 
 
@@ -225,6 +270,26 @@ def _read_rank(rel):
     if "opportunity-report" in rel or "backlog" in rel:
         return 2
     return 3 if "registry/" in rel and not rel.endswith(("index.md", "log.md")) else 4
+
+
+AI_WROTE = (" [WRITTEN BY THE AI in an earlier session of this run, not the leader's: a detail found only "
+            "here, and nowhere in what the leader said or brought, is invented]")
+
+
+def ai_written(run):
+    """(session, path) for each file in a session's start tree that the AI wrote or changed in an
+    earlier session of the run: a session carried over from the one before (not begun from its own
+    fixture, CS.leader_files) whose file isn't, word for word, the one the leader brought."""
+    sess = run["sessions"]
+    marked = any("fixture" in s for s in sess)
+    out, brought = set(), {}
+    for k, s in enumerate(sess, 1):
+        start = s.get("files_start") or {}
+        if (s.get("fixture") if marked else k == 1):
+            brought = dict(start)
+            continue
+        out |= {(k, rel) for rel, text in start.items() if brought.get(rel) != text}
+    return out
 
 
 def files_read(run, msgs=()):
@@ -243,6 +308,7 @@ def files_read(run, msgs=()):
     is judged against its own session's files. Capped at READ_CAP characters."""
     said = {w for m in msgs for w in WORD.findall(m.lower()) if len(w) >= 4}
     many = len(run["sessions"]) > 1
+    ai_wrote = ai_written(run)
     found, changed, now, later = {}, {}, {}, []
     for k, s in enumerate(run["sessions"], 1):
         if not s.get("root"):
@@ -307,6 +373,8 @@ def files_read(run, msgs=()):
         if total + len(body) > READ_CAP:
             continue
         label = f"{rel} (session {k})" if many else rel
+        if (k, rel) in ai_wrote:
+            label += AI_WROTE
         parts.append(f"### {label}\n\n````\n{body}\n````")
         total += len(body)
     for rel, k, text in later:
@@ -314,7 +382,8 @@ def files_read(run, msgs=()):
         diff = "\n".join(ln for ln in text.splitlines() if ln.strip() and ln not in first)[:READ_CHANGED_CAP]
         if not diff or total + len(diff) > READ_CAP + READ_CAP // 2:
             continue
-        parts.append(f"### {rel} (session {k}: its lines that differ from session {found[rel][0]}'s)\n\n````\n{diff}\n````")
+        mark = AI_WROTE if (k, rel) in ai_wrote else ""
+        parts.append(f"### {rel} (session {k}: its lines that differ from session {found[rel][0]}'s){mark}\n\n````\n{diff}\n````")
         total += len(diff)
     return "\n\n".join(parts)
 
@@ -493,7 +562,8 @@ SKILL_PASSAGES_CAP = 1500
 
 
 def skill_passages(run, msgs):
-    """Passages of the step's own instructions (the SKILL.md the Skill tool loaded) that share a run
+    """Passages of the step's own instructions (the SKILL.md the Skill tool loaded, and the plugin
+    files the AI read: _skill_texts) that share a run
     of SHARED_RUN or more words with the unscripted part of the messages, most shared first, capped
     at SKILL_PASSAGES_CAP characters. They're shown to the judge under their own label, apart from
     the tool lines, so a framework rule the step states ("you run it once by hand before its schedule
@@ -526,7 +596,8 @@ def skill_passages(run, msgs):
 
 
 SKILL_LABEL = ("## The step's own instructions, passages the messages echo (context, not graded)\n\n"
-               "These are from the framework step's instructions (its skill text), not from the leader, "
+               "These are from the framework step's instructions (its skill text and the plugin's reference "
+               "files), not from the leader, "
                "the leader's files or any tool. They back only a rule of how the step works that a message "
                "states. They are never a source for a fact about the leader's work: a figure, time, name, "
                "date or other detail of the leader's work found only here (an example the instructions "

@@ -94,6 +94,78 @@ class JudgeContext(unittest.TestCase):
         self.assertEqual(G.name_lines(run_with([skill], files=files, text=msg), [msg]), "")
 
 
+REF = "/tmp/handsonai-evals/tmpab12/plugin/skills/design/references/updating-the-plan.md"
+WS = "/tmp/handsonai-evals/tmpab12/workspace/framework/x/C1-call-notes.md"
+
+
+def call_and_result(i, name, inp, text):
+    return [{"type": "assistant", "message": {"content": [{"type": "tool_use", "id": f"c{i}", "name": name, "input": inp}]}},
+            {"type": "user", "message": {"content": [{"type": "tool_result", "tool_use_id": f"c{i}", "content": text}]}}]
+
+
+class PluginTextIsInstructions(unittest.TestCase):
+    """A plugin reference file the AI reads is the step's own text, as SKILL.md is: its example figures
+    never reach the judge as tool output."""
+    MSG = "So you send each client a follow-up within 48 hours of each call, about 120 min a week. Right?"
+    EXAMPLE = "     1\tExample: the leader sends a follow-up within 48 hours of each call (120 min a week).\n"
+
+    def check_not_credited(self, events):
+        run = run_with(events, text=self.MSG)
+        self.assertEqual(G.tool_lines(run, [self.MSG]), "")
+        self.assertEqual(G.shared_lines(run, [self.MSG]), "")
+        self.assertIn("within 48 hours", G.skill_passages(run, [self.MSG]))
+        head = G.rubric_prompt(run)[1].split("## Message 1")[0]
+        self.assertNotIn("Lines the AI's own tool calls printed", head)
+        self.assertLess(head.index("## The step's own instructions"), head.index("48 hours"))
+
+    def test_read_of_a_reference_file(self):
+        self.check_not_credited(call_and_result(1, "Read", {"file_path": REF}, self.EXAMPLE))
+
+    def test_cat_or_grep_of_a_reference_file(self):
+        self.check_not_credited(call_and_result(1, "Bash", {"command": f"cat {REF} | head -40"}, self.EXAMPLE[7:]))
+        self.check_not_credited(call_and_result(1, "Grep", {"pattern": "48", "path": REF}, self.EXAMPLE[7:]))
+
+    def test_the_leaders_file_and_the_routing_script_stay_tool_output(self):
+        run = run_with(call_and_result(1, "Read", {"file_path": WS}, self.EXAMPLE), text=self.MSG)
+        self.assertIn("within 48 hours", G.shared_lines(run, [self.MSG]))
+        script = "python3 /tmp/handsonai-evals/tmpab12/plugin/scripts/framework-state.py framework/client-follow-up"
+        run = run_with(call_and_result(1, "Bash", {"command": script}, STATE_OUT))
+        self.assertIn("state 10 (Ready to go live)", G.state_lines(run))
+
+
+class AIWrittenFilesMarked(unittest.TestCase):
+    """files_read: a file the AI wrote in an earlier session is shown marked as the AI's, never as the
+    leader's (it used to be shown under "the leader's files" like any other)."""
+
+    def run2(self, s1_files, s2_files, fixture2=False):
+        t = tempfile.mkdtemp()
+        sess = []
+        for n, files in ((1, s1_files), (2, s2_files)):
+            d = Path(t, f"s{n}")
+            d.mkdir()
+            res = "\n".join(files.values())
+            Path(d, "events.jsonl").write_text(json.dumps(tool_result(res)) + "\n")
+            sess.append({"n": n, "root": str(d / "workspace"), "files_start": files, "files_end": files,
+                         "fixture": n == 1 or fixture2, "turns": [{"role": "ai", "text": "x"}]})
+        return {"sessions": sess}
+
+    BROUGHT = {"framework/x/C1-call-notes.md": "Call with Lee Park of Northwind about the renewal terms.\nThey want the pricing sheet by Friday at noon."}
+    AI = {"framework/x/requirements.md": "Baseline: the leader spends 45 minutes on each follow-up email.\nTarget: a draft ready within ten minutes of each call."}
+
+    def test_an_earlier_ai_written_file_is_marked(self):
+        out = G.files_read(self.run2(self.BROUGHT, dict(self.BROUGHT, **self.AI)), ["x"])
+        head = next(ln for ln in out.splitlines() if "requirements.md" in ln)
+        self.assertIn("WRITTEN BY THE AI", head)
+        notes = next(ln for ln in out.splitlines() if "C1-call-notes.md" in ln)
+        self.assertNotIn("WRITTEN BY THE AI", notes)
+
+    def test_a_file_the_leader_brought_is_not_marked(self):
+        out = G.files_read(self.run2(dict(self.BROUGHT, **self.AI), dict(self.BROUGHT, **self.AI)), ["x"])
+        self.assertNotIn("WRITTEN BY THE AI", out)
+        out = G.files_read(self.run2(self.BROUGHT, dict(self.BROUGHT, **self.AI), fixture2=True), ["x"])
+        self.assertNotIn("WRITTEN BY THE AI", out)
+
+
 class NameLinesLeaderFilesOnly(unittest.TestCase):
     """name_lines reads the files the leader brought, never a later session's start tree, which holds
     what the AI wrote in an earlier session (31b7210dc read every session's)."""
