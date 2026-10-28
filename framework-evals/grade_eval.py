@@ -495,6 +495,8 @@ WORD = re.compile(r"[a-z0-9]+(?:'[a-z]+)?")
 SHARED_RUN = 4  # consecutive words a tool-output passage must share with a message
 SHARED_LINES_CAP = 1500
 SHARED_LINE_LEN = 300
+SHARED_NOUN_CAP = 600  # characters of passages sharing only a three-word noun run
+NOUN_WORD = 5  # letters in a "long" word of a three-word run (_noun_grams)
 
 
 PATH = re.compile(r"[\w.~-]+(?:/[\w.~-]+)+/?")
@@ -515,20 +517,31 @@ def _grams(text):
     return {tuple(w[i:i + SHARED_RUN]) for i in range(len(w) - SHARED_RUN + 1)}
 
 
+def _noun_grams(text):
+    """Runs of three words with at least two long ones ("the expense inbox"): a named thing from the
+    leader's files said in other surrounding words, which shares no SHARED_RUN-word run with its source."""
+    w = WORD.findall(text.lower().replace("’", "'"))
+    return {g for g in (tuple(w[i:i + 3]) for i in range(len(w) - 2))
+            if sum(len(x) >= NOUN_WORD for x in g) >= 2}
+
+
 def shared_lines(run, msgs, skip=""):
     """Passages of the AI's own tool output (a file it read, a plugin reference file, a fetched
     page, a command's output) that share a run of SHARED_RUN or more consecutive words with the
     unscripted part of its messages, so item 6 doesn't take a fact the AI read for an invented one.
     Long lines (a JSON registry's notes) are cut into sentences first. A passage whose path pattern
     (`Documents/Cowork/[workflow-slug]/`) a path in a message fills in counts too, first, cut around
-    the pattern. Most shared runs first; capped at SHARED_LINES_CAP characters; passages already in
+    the pattern. Most shared runs first; capped at SHARED_LINES_CAP characters. Then, up to
+    SHARED_NOUN_CAP, passages sharing only a three-word run with two long words ("the expense inbox")
+    that nothing already shown carries; passages already in
     `skip` aren't repeated."""
-    grams, paths = set(), set()
+    grams, nouns, paths = set(), set(), set()
     for m in msgs:
         own = re.sub(r"⟦[^⟧]*⟧", " ", m)
         grams |= _grams(own)
+        nouns |= _noun_grams(own)
         paths |= set(PATH.findall(own))
-    if not grams and not paths:
+    if not grams and not nouns and not paths:
         return ""
     found, at = {}, {}
     for s in run["sessions"]:
@@ -539,22 +552,34 @@ def shared_lines(run, msgs, skip=""):
                 seg = seg.strip()
                 if not seg or seg in found:
                     continue
-                n = len(_grams(seg) & grams)
+                # a shared SHARED_RUN-word run outranks any number of shared three-word noun runs
+                n = 100 * len(_grams(seg) & grams) + len(_noun_grams(seg) & nouns)
                 for t in TEMPLATE_PATH.finditer(seg):
                     pat = _template_regex(t.group(0))
                     if pat and any(pat.match(p) for p in paths):
-                        n, at[seg] = n + 1000, t.start()
+                        n, at[seg] = n + 100000, t.start()
                         break
                 if n:
                     found[seg] = n
     out, total = [], 0
-    for seg in sorted(found, key=lambda x: -found[x]):
+    for seg in sorted((x for x in found if found[x] >= 100), key=lambda x: -found[x]):
         start = max(0, at.get(seg, 0) - SHARED_LINE_LEN // 3)
         ln = seg[start:start + SHARED_LINE_LEN]
         if ln in skip or ln in out or total + len(ln) > SHARED_LINES_CAP:
             continue
         out.append(ln)
         total += len(ln)
+    # then, with their own room, passages that share only a three-word noun run that nothing shown
+    # above already carries, so a named thing from the leader's files isn't crowded out
+    shown, noun_total = _noun_grams(skip + "\n" + "\n".join(out)), 0
+    for seg in sorted((x for x in found if found[x] < 100), key=lambda x: -found[x]):
+        ln = seg[:SHARED_LINE_LEN]
+        new = (_noun_grams(ln) & nouns) - shown
+        if not new or ln in skip or ln in out or noun_total + len(ln) > SHARED_NOUN_CAP:
+            continue
+        out.append(ln)
+        noun_total += len(ln)
+        shown |= _noun_grams(ln)
     return "\n".join(out)
 
 

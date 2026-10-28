@@ -821,7 +821,7 @@
      }
     },
     {
-     "text": "Before the plan is approved again, the review is shown again and the approval asked again (no approval stands on the earlier yes; the reset to approved: false is checked from the session's writes)",
+     "text": "Before the plan is approved again, the review is shown again and the approval asked again (no approval stands on the earlier yes). Judge this from the chat only: the reset to `approved: false` is a separate scripted check on the session's tool calls, and the files shown hold only the end state",
      "kind": "judged",
      "must": true
     },
@@ -6440,7 +6440,7 @@
      "check": {
       "type": "file_regex",
       "path": "framework/client-follow-up/design-plan.md",
-      "pattern": "id: B1, [^\\n]*outcome: \\\"?declined: cannot-meet: AC3: "
+      "pattern": "id: B1(?:, [^\\n]*|(?:\\n[ \\t]+[a-z_]+:[^\\n]*)*?\\n[ \\t]+)outcome: \\\"?declined: cannot-meet: AC3: "
      }
     },
     {
@@ -6630,7 +6630,7 @@
      "check": {
       "type": "file_regex",
       "path": "framework/client-follow-up/design-plan.md",
-      "pattern": "id: T1\\.1, [^\\n]*outcome: \\\"?declined: cannot-meet: AC3: "
+      "pattern": "id: T1\\.1(?:, [^\\n]*|(?:\\n[ \\t]+[a-z_]+:[^\\n]*)*?\\n[ \\t]+)outcome: \\\"?declined: cannot-meet: AC3: "
      }
     },
     {

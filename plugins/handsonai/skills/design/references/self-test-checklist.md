@@ -31,7 +31,7 @@ Run both on every draft and every update, the self-check first, and fix what fai
 ## Safety
 
 - Safety & Permissions answers all four questions, each with its mitigation.
-- Every write is in the writes table with its connection, action, target, whether it can be undone (by the floor: any send, post, delete or overwrite, any update to a record other people see, and any unsure action can't be undone) and the checkpoint before it.
+- Every write is in the writes table with its connection, action, target, whether it can be undone (by the floor: any send, post, delete or overwrite, any update to a record other people see, and any unsure action can't be undone) and the checkpoint before it. Its `Can be undone` cell is `yes` or `no` alone, and its checkpoint cell the G IDs or `none` alone (canonical values): a reason (a draft only the leader sees, a record others see) goes in the Target cell or nowhere.
 - Constraint Conformance lists every `P` ID in the requirements' Security section, each with the task that meets it and a state (Satisfied, Accepted or Open); every Accepted names an owner and a reason; no constraint is named by its words.
 - Outside content plus write access has a checkpoint or a drafts-only rule.
 - Regulated work planned as Autonomous has its per-run record row.
