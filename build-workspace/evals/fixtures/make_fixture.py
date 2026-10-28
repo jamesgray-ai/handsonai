@@ -150,6 +150,47 @@ def set_platform(t, key):
     sub(p, "- S1 in `.claude/skills/client-follow-up/` in this workspace; practice folder `practice/`.", deploy)
 
 
+ACCOUNT = {  # where a skill built for a chat platform lives, as Build records it there
+    "claude": ("Claude", "your Claude account (Customize › Skills)", "Claude's own Gmail connection",
+               "in Claude, open Customize › Skills and switch client-follow-up off"),
+    "chatgpt": ("ChatGPT", "your ChatGPT account (Skills)", "ChatGPT's own Gmail connection",
+                "in ChatGPT, open Skills and switch client-follow-up off"),
+}
+
+
+def on_account(t, key):
+    """The build record and test results of a workflow built on Claude or ChatGPT (set_platform moves
+    only the plan): the skill in the leader's account, the style guide in the workflow's Project,
+    no fingerprints (Build can't read the account's copy), and AI runs in Test's own chat. Without
+    this, the record and results still described a Claude Code build in `.claude/skills/`, and Build
+    rightly stopped on the mismatch with the plan (EN-edit-unreadable, 2026-10-28)."""
+    name, skill_at, gmail, switch_off = ACCOUNT[key]
+    rec = record(t)
+    if rec.exists():
+        text = rec.read_text()
+        text = re.sub(r"(?m)^fingerprints:\n(?:  .*\n)+", "fingerprints: {}\n", text)
+        text = text.replace("`.claude/skills/client-follow-up/references/follow-up-style.md`", "the workflow's Project")
+        text = text.replace("`.claude/skills/client-follow-up/SKILL.md`", skill_at)
+        text = text.replace("Claude Code connector (Gmail)", gmail)
+        text = text.replace("| this workspace | `.` | Created | yes | — | — | project auto memory kept; Test told |",
+                            "| the workflow's Project | Client Follow-Up Project | Created | yes | — | — | memory off: confirmed |")
+        text = text.replace("It lives in `.claude/skills/client-follow-up/` in this workspace.",
+                            f"It's saved in {skill_at}, with your style guide in the workflow's Project.")
+        text = re.sub(r"How to switch it off: in Claude Code, delete `\.claude/skills/client-follow-up/` from this workspace;",
+                      f"How to switch it off: {switch_off};", text)
+        text = text.replace("saves nothing outside `practice/[input]-[run]/`", "saves nothing; files are shown in the closing block")
+        rec.write_text(text)
+    for res in [wf(t) / "test-results.md", *sorted((wf(t) / "history").glob("test-results-round-*.md"))]:
+        if not res.exists():
+            continue
+        text = res.read_text()
+        text = text.replace("environment: \"Claude Code; the AI ran E1 and E2 headless through the wrapper; you ran the new input; practice folder: practice/\"",
+                            f"environment: \"{name}; the AI ran E1 and E2 in its own chat under the practice-run instruction; you ran the new input in a new chat in the workflow's Project\"")
+        text = re.sub(r"(?m)^Claude Code in this workspace; start-up check passed for each AI run;[^\n]*$",
+                      f"{name}, in Test's own chat for the AI runs and the workflow's Project for yours; nothing saved under the practice-run instruction.", text)
+        res.write_text(text)
+
+
 def agent_m365(t, context=True, connection=True):
     """The workflow as one agent on Microsoft 365, made by Agent Builder (rules 13.1)."""
     set_platform(t, "microsoft-365")
@@ -656,6 +697,7 @@ def fx_fix_web_unreadable(t):  # Claude on the web: Build can't read the install
     set_platform(t, "claude")
     fix_round(t)
     shutil.rmtree(Path(t) / ".claude")
+    on_account(t, "claude")
 
 
 def fx_fix_chatgpt_unreadable(t):  # ChatGPT: Build can't read the skill in the leader's account (N-E1 before fix mode)
@@ -663,6 +705,7 @@ def fx_fix_chatgpt_unreadable(t):  # ChatGPT: Build can't read the skill in the 
     set_platform(t, "chatgpt")
     fix_round(t)
     shutil.rmtree(Path(t) / ".claude")
+    on_account(t, "chatgpt")
 
 
 def fx_fix_m365_agent(t):  # the agent on Microsoft 365, Not ready on AC2
@@ -778,6 +821,7 @@ def fx_live_change_web(t):  # live on Claude on the web, with Build's copy in pa
     fx_live_change(t)
     set_platform(t, "claude")
     shutil.rmtree(Path(t) / ".claude")
+    on_account(t, "claude")
     write(wf(t) / "package" / "client-follow-up" / "SKILL.md", "---\nname: client-follow-up\ndescription: Drafts a follow-up email after each client call.\n---\n\n(the built text)\n")
 
 
@@ -785,6 +829,7 @@ def fx_live_change_chatgpt(t):  # live on ChatGPT, with Build's copy in package/
     fx_live_change(t)
     set_platform(t, "chatgpt")
     shutil.rmtree(Path(t) / ".claude")
+    on_account(t, "chatgpt")
     write(wf(t) / "package" / "client-follow-up" / "SKILL.md", "---\nname: client-follow-up\ndescription: Drafts a follow-up email after each client call.\n---\n\n(the built text)\n")
 
 
@@ -792,6 +837,7 @@ def fx_live_change_web_no_copy(t):  # live on the web, package/ empty: no copy t
     fx_live_change(t)
     set_platform(t, "claude")
     shutil.rmtree(Path(t) / ".claude")
+    on_account(t, "claude")
 
 
 def fx_live_change_codex(t):  # live on Codex: the skill installed in .agents/skills/

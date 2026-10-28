@@ -10,7 +10,7 @@ platform: Claude Code
 platform_mode: code
 packaging: Standalone Skill
 changes:
-  - { id: B1, source: build, what: "Let the draft include the deal amount from the CRM", why: "AC2 misses when the notes give no amount", tasks: [T2], after_round: 1, outcome: "declined: cannot-meet: AC2: the fix needs the line changed; Test's next round can change it" }
+  - { id: B1, source: build, what: "Let the draft include the deal amount from the CRM", why: "AC2 misses when the notes give no amount", tasks: [T2], after_round: 3, outcome: "declined: cannot-meet: AC2: the fix needs the line changed; Test's next round can change it" }
 ---
 
 # Client Follow-Up — Design Plan

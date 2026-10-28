@@ -251,7 +251,8 @@
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-B13"
+      "id": "N-B13",
+      "form": "main"
      }
     }
    ],
@@ -1578,7 +1579,8 @@
       "checks": [
        {
         "type": "quote_absent",
-        "id": "N-B13"
+        "id": "N-B13",
+        "form": "main"
        },
        {
         "type": "file_unchanged",
@@ -6717,7 +6719,8 @@
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-B13"
+      "id": "N-B13",
+      "form": "main"
      }
     }
    ],
@@ -6925,7 +6928,8 @@
      "kind": "scripted",
      "check": {
       "type": "quote_absent",
-      "id": "N-B13"
+      "id": "N-B13",
+      "form": "main"
      }
     }
    ],

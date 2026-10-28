@@ -7,14 +7,14 @@ skills_on: yes
 write_block: "off"
 schedule: none
 fingerprints:
-  client-follow-up: sha256:5f1c0a9e
-  follow-up-style.md: sha256:9b2d47c3
+  .claude/skills/client-follow-up/SKILL.md: sha256:c05d2b6b0c4a62fb629bae99716d65e4621c252b5c6cd77de63637e23593bd55
+  .claude/skills/client-follow-up/references/follow-up-style.md: sha256:8055f2b4c168a2791dfc610de0297bd97bf43c3eb40f8a0ee76c4dcb789682df
   test-run.sh: sha256:c03e8f11
 bare_run:
   client-follow-up: done
 run_folders: []
 change_requests:
-  - { id: B1, source: build, what: "Let the draft include the deal amount from the CRM", why: "AC2 misses when the notes give no amount", tasks: [T2], after_round: 1 }
+  - { id: B1, source: build, what: "Let the draft include the deal amount from the CRM", why: "AC2 misses when the notes give no amount", tasks: [T2], after_round: 3 }
 ---
 
 # Client Follow-Up — Build Record
