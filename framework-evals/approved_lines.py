@@ -269,6 +269,21 @@ class Corpus:
                     if f"Part {n} of {m} in this fix" != e["text"]:
                         self.lines.append(Line(dict(e, form=f"{e['form']}, {n} of {m}",
                                                     text=f"Part {n} of {m} in this fix", files={}, derived=True)))
+        # a line said "in N-F2's new-chat form" (the bring-in line) has its platform forms approved as
+        # fragments of that form ("in a new session", "in a new chat with your framework folder added",
+        # "in a new Cowork chat with:…"); the whole line each makes is the same approved line on that platform
+        for e in data["lines"]:
+            main = next((m for m in data["lines"] if m["id"] == e["id"] and m.get("form") == "main"), None)
+            frag = (e.get("text") or "").strip("…").strip()
+            if not (e.get("fragment") and main and frag.startswith("in a new ")
+                    and "in a new chat with:" in (main.get("text") or "")):
+                continue
+            text = (main["text"].replace("in a new chat with:", frag.rstrip(":") + ":") if " with" in frag
+                    else main["text"].replace("in a new chat with:", frag + " with:"))
+            if any(m["id"] == e["id"] and m.get("text") == text for m in data["lines"]):
+                continue  # already approved as a whole line (N-F2's Claude Code and Codex form)
+            label = re.sub(r"^In N-F2's platform forms \(", "", e["form"])
+            self.lines.append(Line(dict(main, form=f"{label}, whole line", text=text, files={}, derived=True)))
         self.by_id = {}
         for ln in self.lines:
             self.by_id.setdefault(ln.id, []).append(ln)

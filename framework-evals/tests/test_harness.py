@@ -127,6 +127,17 @@ class QuoteCheck(unittest.TestCase):
                 self.assertEqual(CQ.main(["transcript", str(bad)]), 1)
             self.assertIn("N-D1", out.getvalue())
 
+    def test_bring_in_line_platform_forms_are_whole_lines(self):
+        # lines-to-approve: the bring-in line in N-F2's platform forms ("in a new session" on Claude Code
+        # and Codex); the whole line each fragment makes is checkable, and a changed word still fails
+        cc = {"type": "quote", "id": "bring-in-line", "form": "Claude Code and Codex, whole line"}
+        said = "To bring Client Follow-Up into the framework, start Deconstruct in a new session with: 'run the deconstruct skill on Client Follow-Up. My files are in framework.'"
+        self.assertTrue(ok(cc, run_of(said)))
+        self.assertFalse(ok({"type": "quote", "id": "bring-in-line", "form": "main"}, run_of(said)))
+        self.assertFalse(ok(cc, run_of(said.replace("start Deconstruct", "open Deconstruct"))))
+        desk = {"type": "quote", "id": "bring-in-line", "form": "Claude desktop, whole line"}
+        self.assertTrue(ok(desk, run_of("To bring Client Follow-Up into the framework, start Deconstruct in a new chat with your framework folder added: 'run the deconstruct skill on Client Follow-Up. My files are in Framework.'")))
+
     def test_quote_absent(self):
         self.assertFalse(ok({"type": "quote_absent", "id": "N-D1"}, run_of(N_D1)))
         self.assertTrue(ok({"type": "quote_absent", "id": "N-D1"}, run_of("Hello.")))
@@ -152,6 +163,12 @@ class WordingChecks(unittest.TestCase):
         self.assertTrue(ok({"type": "vocabulary"}, run_of("Here's the input:\n> check-in on Q1 project scope\nKeep it?")))
         self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of("Here's the input:\n> renewal, 30 min\nKeep it?")))
 
+    def test_text_checks_read_code_marks_as_plain_words(self):
+        # the leader reads `framework` as framework; the quote check's own norm drops the marks too
+        c = {"type": "ai_contains", "text": "I'll read and save your files in framework", "turn": "first"}
+        self.assertTrue(ok(c, run_of("I'll read and save your files in `framework`. Stopping early is safe.")))
+        self.assertFalse(ok(c, run_of("I'll read and save your files in `Google Drive`.")))
+
     def test_no_time_or_step_numbers(self):
         self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of("Part 2 of 4 — the plan. Step 3, your review, stays.")))
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("This takes about 20 minutes. Ready?")))
@@ -174,6 +191,12 @@ class WordingChecks(unittest.TestCase):
         self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of(said, files_start=req)))
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(said)))
         self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of("That takes about 40 minutes.", files_start=req)))
+        # a resume plays back what Analyze's progress file noted from an earlier chat: the leader's number
+        prog = {"framework/analyze-in-progress.md": "## Noted so far\n- Client Follow-Up: drafting follow-ups after calls takes about 20 minutes each.\n"}
+        said = "Last time we covered Client Relationship Management; I noted Client Follow-Up (drafting a follow-up takes about 20 minutes)."
+        self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of(said, files_start=prog)))
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(said)))
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(said + " The next process takes about 10 minutes.", files_start=prog)))
 
     def test_signposts_per_skill(self):
         dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — where it starts and ends, and a name.", "Part 3 of 5 — the outcome.",

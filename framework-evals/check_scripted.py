@@ -138,8 +138,9 @@ def norm(s):
 
 
 def qnorm(s):
-    """norm, plus single and double quote marks treated alike, for word-for-word text checks."""
-    return norm(s).replace('"', "'")
+    """norm, plus single and double quote marks treated alike, and Markdown's code and bold marks
+    dropped (the leader reads `framework` as framework), for word-for-word text checks."""
+    return norm(s).replace('"', "'").replace("`", "").replace("**", "")
 
 
 def corpus():
@@ -215,14 +216,17 @@ def sizes(text):
 
 
 def leader_sizes(run):
-    """What the leader said about their own work's size, in any session, or wrote in a requirements
-    file's Value & Measurement (the Baseline and Target): playing it back is allowed (the framework
-    never estimates time, but those are the leader's numbers)."""
+    """What the leader said about their own work's size, in any session, wrote in a requirements
+    file's Value & Measurement (the Baseline and Target), or gave in an earlier chat that Analyze's
+    progress file noted (as the session found it; a resume says "I noted [pieces]"): playing it back
+    is allowed (the framework never estimates time, but those are the leader's numbers)."""
     said = [sizes(t["text"]) for s in run["sessions"] for t in s["turns"] if t["role"] != "ai"]
     written = [sizes(ST.section(body, "Value & Measurement")) for s in run["sessions"]
                for snap in (s.get("files_start") or {}, s.get("files_end") or {})
                for p, body in snap.items() if p.endswith("requirements.md") and isinstance(body, str)]
-    return set().union(*said, *written)
+    noted = [sizes(body) for s in run["sessions"] for p, body in (s.get("files_start") or {}).items()
+             if p.endswith("analyze-in-progress.md") and isinstance(body, str)]
+    return set().union(*said, *written, *noted)
 
 
 def time_or_step_hits(message, allowed=frozenset()):
