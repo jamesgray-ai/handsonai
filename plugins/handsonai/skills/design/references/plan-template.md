@@ -143,6 +143,8 @@ The title, then exactly these `##` sections, named exactly, in this order. `## M
 |---|---|---|---|---|---|
 | W1 | [connection] | [action] | [exact target] | yes / no | G1 / none |
 
+`Can be undone` holds `yes` or `no` and nothing else; `Checkpoint before it` holds the G IDs or `none` and nothing else. A reason belongs in the Target cell, never beside a value.
+
 #### Constraint Conformance
 | Constraint | Met by | State |
 |---|---|---|
