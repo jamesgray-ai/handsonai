@@ -60,6 +60,9 @@ def check_check(c, where, errs, nsessions, corpus):
             re.compile(c["pattern"])
         except re.error as e:
             errs.append(f"{where}: bad regex {c['pattern']!r}: {e}")
+    if t == "section_regex" and not str(c.get("section", "")).startswith("#"):
+        # the check matches the whole heading line; a bare name never matches, so the check always fails
+        errs.append(f"{where}: section_regex section {c.get('section')!r} needs its heading marks ('## ...')")
     if t in ("quote", "quote_absent") and "id" in c and not [x for x in corpus.get(c["id"], c.get("form")) if x.text]:
         errs.append(f"{where}: no approved line {c['id']} ({c.get('form', 'any form')})")
     if t == "quote" and c.get("ending") and not [x for x in corpus.get(c["id"], c["ending"]) if x.text and x.fragment]:

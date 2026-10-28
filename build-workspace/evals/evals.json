@@ -2412,7 +2412,7 @@
      "check": {
       "type": "section_regex",
       "path": "onedrive/Framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "An older version: none that you know of\\.",
       "must": true
      }
@@ -2684,7 +2684,7 @@
      "check": {
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "An older version: ",
       "must": true
      }
@@ -2749,7 +2749,7 @@
      "check": {
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "An older version: .*this one replaced it when it was installed on",
       "must": true
      }
@@ -2943,7 +2943,7 @@
      "check": {
       "type": "section_regex",
       "path": "drive/Framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "the new one went in as .+, so nothing was overwritten",
       "must": true
      }
@@ -3037,7 +3037,7 @@
      "check": {
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "it runs only when you start it",
       "must": true
      }
@@ -3083,7 +3083,7 @@
      "check": {
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "An older version: none that you know of\\.",
       "must": true
      }
@@ -3892,7 +3892,7 @@
      "check": {
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "section": "What it can access",
+      "section": "## What it can access",
       "pattern": "(?i)manage_crm_objects.*write|write.*manage_crm_objects",
       "must": true
      }
@@ -6041,7 +6041,7 @@
      "check": {
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "\\b(AC\\d|T\\d|R\\d|G\\d|P\\d)\\b",
       "must": false
      }
@@ -7432,7 +7432,7 @@
      "check": {
       "type": "section_regex",
       "path": "drive/Framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "An older version: none that you know of\\.",
       "must": true
      }
@@ -7781,7 +7781,7 @@
      "check": {
       "type": "section_regex",
       "path": "drive/Framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "An older version: none that you know of\\.",
       "must": true
      }
@@ -8502,7 +8502,7 @@
      "check": {
       "type": "section_regex",
       "path": "framework/client-follow-up/build-record.md",
-      "section": "What was built",
+      "section": "## What was built",
       "pattern": "An older version: none that you know of\\.",
       "must": true
      }

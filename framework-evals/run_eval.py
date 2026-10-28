@@ -161,6 +161,20 @@ def leader_prompt(turns, screens):
     return f"The conversation so far:\n\n{convo}{screen}\n\nYour next message as the leader:"
 
 
+# On the chat platforms the leader connects the workflow's tools in the platform's own settings while
+# Build waits (setup.md 2, "Connect a tool"): the stand-ins appear from the turn after the leader says
+# "done" to Build's "[Tool] isn't connected yet." (connect_now). Before, none are there, as for a
+# leader who hasn't connected them; without them Build could never pass Part 1 on these platforms.
+CHAT_CONNECT = ("claude-web", "chatgpt", "claude-desktop")
+NOT_CONNECTED_RE = re.compile(r"\b(Gmail|Google Sheets) isn't connected yet\b")
+DONE_RE = re.compile(r"\bdone\b", re.I)
+
+
+def connect_now(ai_text, leader_msg):
+    """The leader connected a tool on a chat platform: Build asked them to, and they said 'done'."""
+    return bool(NOT_CONNECTED_RE.search(ai_text or "")) and bool(DONE_RE.search(leader_msg or ""))
+
+
 def connections_for(platform, ws, root, data, extra=()):
     """The stand-in connections a Claude Code (or Codex) session of Build sees: Gmail, when the
     workflow's plan uses it, and Google Sheets, when it does, as a leader who connected them would
@@ -175,9 +189,10 @@ def connections_for(platform, ws, root, data, extra=()):
         if any(re.search(r"(?m)^Outlook: ", p.read_text()) for p in plans):
             return H.gmail_mcp(root, server="outlook", service="Outlook", extra=extra)
         return None
-    if platform.key not in ("claude-code", "codex"):
+    if platform.key not in ("claude-code", "codex") + CHAT_CONNECT:
         return None
-    plans = " ".join(p.read_text() for p in Path(ws).glob("framework/*/design-plan.md"))
+    plans = " ".join(p.read_text() for g in ("framework/*/design-plan.md", "drive/Framework/*/design-plan.md",
+                                             "Framework/*/design-plan.md") for p in Path(ws).glob(g))
     specs = []
     if re.search(r"(?m)^Gmail: ", plans):
         specs.append(H.stub_spec(extra=extra))
@@ -264,6 +279,9 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                 mcp = None  # a leader who hasn't connected Gmail
             else:
                 mcp = connections_for(platform, ws, root, data, s.get("stub_tools", ev.get("stub_tools", ())))
+            late_mcp = None
+            if mcp and platform.key in CHAT_CONNECT:
+                late_mcp, mcp = mcp, None  # connected by the leader when Build asks (connect_now)
             prompt_tool = settings_prompt_for(platform, ws, root, data, s, ev)
             if "no_python3" in (s.get("platform_faults") or ev.get("platform_faults") or []):
                 (root / H.NO_PYTHON3).write_text("")  # this run's sessions find no python3 on PATH
@@ -272,6 +290,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
             turns, files_by_turn, cap_hit = [], [], False
             msg, msg_kind, acts, shown = s["prompt"], "prompt", 0, ""
             for turn in range(cap):
+                if late_mcp and turns and connect_now(turns[-1]["text"], msg):
+                    mcp, late_mcp = late_mcp, None  # the leader connected it in the platform's settings
                 turns.append({"role": "student", "text": msg, msg_kind: True, "actions": acts,
                               **({"screen": shown} if shown else {})})
                 kw = {"session_id": sid} if turn == 0 else {"resume": sid}

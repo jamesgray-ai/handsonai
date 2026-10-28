@@ -967,6 +967,32 @@ class SheetsStub(unittest.TestCase):
             shutil.rmtree(root)
 
 
+class ChatPlatformConnections(unittest.TestCase):
+    """On Claude on the web, ChatGPT and Claude desktop the leader connects Gmail in the platform's
+    settings when Build asks: the stand-in is there from the next turn, never before."""
+
+    def test_connect_now_needs_the_ask_and_the_done(self):
+        import run_eval as R
+        ask = "Gmail isn't connected yet.\n\n1. In Claude, open **Settings**...\n\nSay 'done' when it's connected."
+        self.assertTrue(R.connect_now(ask, "done"))
+        self.assertFalse(R.connect_now(ask, "Not sure."))
+        self.assertFalse(R.connect_now("Can you check that skills are turned on?", "done"))
+        self.assertEqual(set(R.CHAT_CONNECT), {"claude-web", "chatgpt", "claude-desktop"})
+
+    def test_chat_platforms_get_the_plan_s_gmail_from_the_drive(self):
+        import run_eval as R
+        root = Path(tempfile.mkdtemp())
+        try:
+            ws = root / "workspace"
+            (ws / "drive" / "Framework" / "client-follow-up").mkdir(parents=True)
+            (ws / "drive" / "Framework" / "client-follow-up" / "design-plan.md").write_text("Gmail: the Claude connector (use).\n")
+            m = R.connections_for(L.PLATFORMS["claude-web"](), ws, root, {"skill_name": "build"})
+            self.assertEqual(m["servers"], ["gmail"])
+            self.assertIsNone(R.connections_for(L.PLATFORMS["claude-web"](), ws, root, {"skill_name": "test"}))
+        finally:
+            shutil.rmtree(root)
+
+
 class NoPython3(unittest.TestCase):
     def test_the_fault_takes_python3_off_path_and_nothing_else(self):
         import subprocess
