@@ -340,6 +340,43 @@ def tool_lines(run, msgs):
     return "\n".join(out)
 
 
+NAME_LINES_CAP = 600
+
+
+def name_lines(run, msgs):
+    """For each proper name a message uses mid-sentence ("the Northwind notes") that the step's own
+    skill text doesn't hold, the first line of the leader's files (as they were before the session)
+    that names it, with its path, so a client or person from a practice input the file context had
+    no room for isn't taken for an invented one. Capped at NAME_LINES_CAP characters."""
+    names = set()
+    for m in msgs:
+        toks = re.findall(r"[A-Za-z][\w'-]*|[.!?:\n]", m)
+        for prev, tok in zip(["."] + toks, toks):
+            if re.fullmatch(r"[A-Z][a-z]{3,}", tok) and prev not in (".", "!", "?", ":", "\n"):
+                names.add(tok)
+    if not names:
+        return ""
+    skill, files = "", []
+    for s in run["sessions"]:
+        if not s.get("root"):
+            continue
+        skill += "\n".join(r for r in _tool_results(Path(s["root"]).parent / "events.jsonl")
+                           if r.startswith("Base directory for this skill"))
+        files += [(rel, t) for rel, t in (s.get("files_start") or {}).items()
+                  if not (rel.startswith(".") or "/." in rel)]
+    out, total = [], 0
+    for n in sorted(x for x in names if not re.search(rf"\b{x}\b", skill)):
+        for rel, text in files:
+            hit = next((ln for ln in text.splitlines() if re.search(rf"\b{n}\b", ln)), None)
+            if hit:
+                ln = f"{rel}: " + re.sub(r"\s+", " ", hit.strip())[:200]
+                if ln not in out and total + len(ln) <= NAME_LINES_CAP:
+                    out.append(ln)
+                    total += len(ln)
+                break
+    return "\n".join(out)
+
+
 STATE_LINE = re.compile(r"(?m)^\S+: state \d+ \(.*$")
 
 
@@ -463,7 +500,7 @@ def rubric_prompt(run):
             if read else "")
     tools = tool_lines(run, msgs)
     shared = shared_lines(run, msgs, tools)
-    tools = "\n".join(x for x in (state_lines(run), tools, shared) if x)
+    tools = "\n".join(x for x in (state_lines(run), tools, shared, name_lines(run, msgs)) if x)
     read +=(f"## Lines the AI's own tool calls printed (context, not graded)\n\n````\n{tools}\n````\n\n"
              if tools else "")
     return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{read}{body}"
