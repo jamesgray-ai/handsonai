@@ -1384,7 +1384,8 @@ class NearMissScope(unittest.TestCase):
 
 
 class StandInGmail(unittest.TestCase):
-    """A Claude Code Build session sees Gmail when the plan uses it; other cases see no connection."""
+    """A Claude Code Build session sees Gmail when the plan uses it (a chat platform's, once the leader
+    connects it: ChatPlatformConnections); other cases see no connection."""
 
     def test_only_build_on_claude_code_with_gmail_in_the_plan(self):
         import run_eval as R
@@ -1399,7 +1400,8 @@ class StandInGmail(unittest.TestCase):
             self.assertEqual(mcp["servers"], ["gmail"])
             self.assertNotIn("mcp__gmail__send_message", mcp["allow"])
             self.assertIsNone(R.connections_for(L.ClaudeCode(), ws, tmp, {"skill_name": "test"}))
-            self.assertIsNone(R.connections_for(L.PLATFORMS["chatgpt"](), ws, tmp, build))
+            # a chat platform's stand-in exists too; run_eval holds it back until the leader connects it
+            self.assertEqual(R.connections_for(L.PLATFORMS["chatgpt"](), ws, tmp, build)["servers"], ["gmail"])
             plan.write_text("## Connections\nNone: the draft is shown in the chat.\n")
             self.assertIsNone(R.connections_for(L.ClaudeCode(), ws, tmp, build))
             m365 = ws / "onedrive" / "Framework" / "cfu"
