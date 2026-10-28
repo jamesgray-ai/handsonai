@@ -80,6 +80,21 @@ class JudgeContext(unittest.TestCase):
         self.assertIn("120 min", G.tool_lines(run, [msg]))
         self.assertIn("within 48 hours", G.shared_lines(run, [msg]))
 
+    def test_a_named_thing_said_in_other_words_is_shown(self):
+        # the requirements' "from the expense inbox", said as "into the expense inbox": no four-word run
+        # is shared, and longer shared lines filled the cap, so the judge never saw the source (RA, SD-n16)
+        msg = "It has no email connection, so it never goes into the expense inbox itself."
+        filler = [tool_result(f"| P{i} | It has no email connection, so it never goes past rule {i}. |") for i in range(12)]
+        src = tool_result("- I1 · the submitted expense report with its receipts · from the expense inbox · Status: available")
+        run = run_with(filler + [src], text=msg)
+        self.assertIn("from the expense inbox", G.shared_lines(run, [msg]))
+
+    def test_a_noun_run_from_the_skill_text_is_still_never_a_tool_line(self):
+        skill = {"type": "user", "message": {"content": [{"type": "text", "text":
+                 "Base directory for this skill: /x\n\nExample: reports arrive in the expense inbox."}]}}
+        msg = "It never goes into the expense inbox itself."
+        self.assertEqual(G.shared_lines(run_with([skill], text=msg), [msg]), "")
+
     def test_a_name_from_the_leaders_files_is_shown_with_its_path(self):
         files = {"framework/x/inputs/E2-no-next-step.md": "source: deconstruct\n\nCall with Lee Park (Northwind)."}
         msg = "Here's the plan. On the Northwind notes, it asks you for a next step."
