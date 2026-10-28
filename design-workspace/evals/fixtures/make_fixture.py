@@ -550,6 +550,59 @@ def fx_live_m365_agent(t):  # a live Microsoft 365 workflow built as one Agent B
         node.write_text(re.sub(r"(?m)^# Agents\n*", "# Agents\n\n- Client Follow-Up agent (Agent Builder)\n", node.read_text()))
 
 
+def fx_live_chatgpt(t):  # a live workflow built on ChatGPT: the skill lives in the leader's account, where Design can't read it
+    live(t)
+    d = wf_dir(t, CFU)
+    plan = d / "design-plan.md"
+    text = plan.read_text()
+    for old, new in (
+            ("platform: Claude Code\n", "platform: ChatGPT\n"), ("platform_mode: code\n", "platform_mode: guided\n"),
+            ("runs the whole workflow on Claude Code", "runs the whole workflow on ChatGPT"),
+            ("- **Platform:** Claude Code", "- **Platform:** ChatGPT"),
+            ("| Platform | Claude Code | Where you work today |", "| Platform | ChatGPT | Where you work today |"),
+            ("| Platform Mode | code | The skill lives in this workspace |",
+             "| Platform Mode | guided | The platform registry's mode for ChatGPT |"),
+            ("Gmail: the Claude Code connector (use).", "Gmail: ChatGPT's Gmail app (use)."),
+            (" Under the practice-run cue, files go in `practice/[input]-[run]/`.", ""),
+            ("- Gmail connected in Claude Code.", "- Gmail connected in ChatGPT, as an app."),
+            ("- S1 in `.claude/skills/client-follow-up/` in this workspace; practice folder `practice/`.",
+             "- S1 uploaded to ChatGPT under Plugins > Skills; the style guide ships inside its zip.")):
+        if old not in text:
+            sys.exit(f"live-chatgpt: {old!r} not in the plan")
+        text = text.replace(old, new)
+    plan.write_text(text)
+    rec = d / "build-record.md"
+    text = rec.read_text()
+    for old, new in (
+            ("How to switch it off: in Claude Code, delete `.claude/skills/client-follow-up/` from this workspace; it has no schedule.",
+             "How to switch it off: in ChatGPT, open Plugins > Skills and delete client-follow-up; it has no schedule."),
+            ("It lives in `.claude/skills/client-follow-up/` in this workspace.", "It lives in your ChatGPT account, under Plugins > Skills."),
+            ("| this workspace | `.` | Created | yes | — | — | project auto memory kept; Test told |",
+             "| its own Project in ChatGPT | Client Follow-Up Project | Created | yes | — | — | default memory, with the transcript check; Test told |"),
+            ("| Claude Code connector (Gmail) |", "| ChatGPT app (Gmail) |"),
+            ("| client-follow-up skill | `.claude/skills/client-follow-up/SKILL.md` |", "| client-follow-up skill | ChatGPT account (Plugins > Skills) |"),
+            ("| `.claude/skills/client-follow-up/references/follow-up-style.md` |", "| inside the skill's zip (`references/follow-up-style.md`) |"),
+            ("| flag, re-check and time-saved lines | `.claude/skills/client-follow-up/SKILL.md` |",
+             "| flag, re-check and time-saved lines | ChatGPT account (Plugins > Skills) |"),
+            (" saves nothing outside `practice/[input]-[run]/`.", " saves nothing and changes nothing.")):
+        if old not in text:
+            sys.exit(f"live-chatgpt: {old!r} not in the build record")
+        text = text.replace(old, new)
+    rec.write_text(text)
+    res = d / "test-results.md"
+    text = res.read_text()
+    text = text.replace('environment: "Claude Code; the AI ran E1 and E2 headless through the wrapper; you ran the new input; practice folder: practice/"',
+                        'environment: "ChatGPT; you ran each input in a new chat in the workflow\'s Project and pasted the result back"')
+    text = text.replace("Claude Code in this workspace; start-up check passed for each AI run; project auto memory on (noted); practice folder `practice/` with its marker file.",
+                        "ChatGPT, in the workflow's Project; you ran each input in a new chat and pasted the result back.")
+    res.write_text(text)
+    shutil.rmtree(Path(t) / ".claude", ignore_errors=True)  # installed in the leader's ChatGPT account, not on disk
+    drop_links(t, CFU, skills=True)
+    node = Path(t) / "registry" / "workflows" / f"{CFU}.md"
+    if node.exists():
+        node.write_text(re.sub(r"(?m)^# Skills\n*", "# Skills\n\n- client-follow-up (ChatGPT, Plugins > Skills)\n\n", node.read_text()))
+
+
 def fx_agent_failed_check(t):  # Build's request after an Agent Builder agent failed its carried-line check three times (3c-DI)
     fx_live_m365_agent(t)
     add_record_request(t, "  - { id: B1, source: build, what: \"Agent Builder reworded A1's carried lines on three tries; the agent was deleted (Failed check); re-plan the agent's work as Cowork skills\", "
@@ -575,7 +628,7 @@ FIXTURES = {
     "several-requests": fx_several_requests, "schedule-by-hand": fx_schedule_by_hand,
     "draft-with-gaps": fx_draft_with_gaps, "draft-safety-gap": fx_draft_safety_gap,
     "open-item-consequential": fx_open_item_consequential, "live-context-unreadable": fx_live_context_unreadable,
-    "live-m365-agent": fx_live_m365_agent, "agent-failed-check": fx_agent_failed_check,
+    "live-m365-agent": fx_live_m365_agent, "live-chatgpt": fx_live_chatgpt, "agent-failed-check": fx_agent_failed_check,
 }
 
 STATE_TOOL = ROOT / "plugins" / "handsonai" / "tools" / "framework-state.js"

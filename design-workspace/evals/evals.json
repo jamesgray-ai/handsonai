@@ -6070,10 +6070,10 @@
    "tier": "core",
    "spec_item": "9",
    "platform": "chatgpt",
-   "fixture": "live",
+   "fixture": "live-chatgpt",
    "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up.",
    "student": "students/direct-edit-keep.md",
-   "expected_output": "On ChatGPT the skill lives in the leader's account and can't be read: N-E1 every time; on yes, N-E3 asks for the text; then N-E2 (mirrors DE-unreadable-web; rules 14: an edit made on ChatGPT after Build's close).",
+   "expected_output": "On ChatGPT the skill lives in the leader's account and can't be read: N-E1 every time; on yes, N-E3 asks for the text; then N-E2 (a workflow built and live on ChatGPT; mirrors DE-unreadable-web; rules 14: an edit made on ChatGPT after Build's close).",
    "files": [
     "students/direct-edit-keep.md"
    ],
