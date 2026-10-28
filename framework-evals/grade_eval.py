@@ -334,6 +334,37 @@ def tool_lines(run, msgs):
     return "\n".join(out)
 
 
+STATE_LINE = re.compile(r"(?m)^\S+: state \d+ \(.*$")
+
+
+def state_lines(run):
+    """The routing script's own verdicts (framework-state's summary line, and which workflow files it
+    found), whenever the session ran it: a not-owner or resume line describes that state ("built and
+    passed its practice runs" in state 10; "started in Deconstruct" with a deconstruct-in-progress.md),
+    and it shares no run of words with the message for shared_lines to find."""
+    out = []
+    for s in run["sessions"]:
+        if not s.get("root"):
+            continue
+        for res in _tool_results(Path(s["root"]).parent / "events.jsonl"):
+            for ln in STATE_LINE.findall(res):
+                if ln not in out:
+                    out.append(ln[:300])
+            m = re.search(r"\{.*\}", res, re.S)
+            if not (m and '"facts"' in res):
+                continue
+            try:
+                facts = json.loads(m.group(0)).get("facts") or {}
+            except ValueError:
+                continue
+            found = [f for f, there in (facts.get("files") or {}).items() if there is True]
+            if found:
+                ln = f"{facts.get('workflow', 'the workflow')}: files found: {', '.join(found)}"
+                if ln not in out:
+                    out.append(ln)
+    return "\n".join(out[:12])
+
+
 WORD = re.compile(r"[a-z0-9]+(?:'[a-z]+)?")
 SHARED_RUN = 4  # consecutive words a tool-output passage must share with a message
 SHARED_LINES_CAP = 1500
@@ -426,7 +457,7 @@ def rubric_prompt(run):
             if read else "")
     tools = tool_lines(run, msgs)
     shared = shared_lines(run, msgs, tools)
-    tools = "\n".join(x for x in (tools, shared) if x)
+    tools = "\n".join(x for x in (state_lines(run), tools, shared) if x)
     read +=(f"## Lines the AI's own tool calls printed (context, not graded)\n\n````\n{tools}\n````\n\n"
              if tools else "")
     return msgs, f"Grade each of these {len(msgs)} messages on the rubric.\n\n{read}{body}"
