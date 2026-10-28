@@ -360,8 +360,16 @@ def fx_rerun_consequential(t):  # a Deconstruct re-run before anything is built 
     ff(t, "states/s06-build-needed/with-registry")
     req = wf_dir(t, CFU) / "requirements.md"
     sub(req, "- W1 · Gmail · create a draft · Step 2", "- W1 · Gmail · create a draft · Step 2\n- W2 · Gmail · send the email once you've approved it · Step 3")
-    sub(req, "produces the sent email · fixed (your judgment) · (you)", "produces the approved email · fixed (your judgment) · (you) · writes W2")
-    bump_requirements(t, CFU, ["W2", "Step 3"])
+    # tags in the template's order (writes before the role), or requirements-check fails the file and
+    # Design rightly sends it back to Deconstruct; the rule and the limit that said it never sends
+    # change with it, as the re-run that added the send would have changed them
+    sub(req, "produces the sent email · fixed (your judgment) · (you)", "produces the sent email · fixed (your judgment) · writes W2 · (you)")
+    sub(req, "| R2 | When | When the draft is ready, you send it yourself. · (you) |",
+        "| R2 | When | When you've approved the draft, it sends it to the client. |")
+    sub(req, "| P2 | It never sends an email, whoever asks. | Self |",
+        "| P2 | It never sends an email you haven't approved, whoever asks. | Self |")
+    sub(req, "ready for you to review and send the same day", "sent the same day once you've approved it")
+    bump_requirements(t, CFU, ["W2", "Step 3", "R2", "P2"])
 
 
 # ---------- "change my workflow" and direct edits (item 9) ----------
