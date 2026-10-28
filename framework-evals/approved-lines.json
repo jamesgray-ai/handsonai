@@ -502,6 +502,27 @@
    "fragment": true
   },
   {
+   "id": "N-F9",
+   "form": "Two workflows",
+   "text": "Which workflow should we pick up: [Name] ([where it is, in plain words]) or [Name] ([where it is])?",
+   "kind": "question",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "source": "framework-rules.md 4.2; 3c-EC (2026-10-28)"
+  },
+  {
    "id": "N-F10",
    "form": "main",
    "text": "To pick up, say '[start phrase]. My files are in [location].'",
@@ -818,7 +839,7 @@
   {
    "id": "N-E2",
    "form": "Put-back-only form",
-   "text": "That edit changes [the fixed step, in plain words], which your [rules / policy] require, so it can't be kept. Shall I put back the built version?",
+   "text": "That edit changes [the fixed step, in plain words], which your [rules require / policy requires], so it can't be kept. Shall I put back the built version?",
    "kind": "question",
    "skills": [
     "design",
@@ -830,7 +851,7 @@
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
+   "source": "framework-rules.md 12; 3c-DJ (2026-10-24); the verb inside the bracket, 3c-EC (2026-10-28)",
    "note": "design: inferred from design 13 by section"
   },
   {
@@ -1365,6 +1386,19 @@
     "analyze": "SKILL.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24), with the line review's change; text from lines-to-approve.md"
+  },
+  {
+   "id": "N-A1",
+   "form": "No history to read",
+   "text": "This step finds opportunities to create more value with AI in your business: friction to remove, and work you'd do more of, or do better, if you had the time. Each one becomes a **candidate workflow**: a specific, repeatable piece of work worth building with AI. I'll walk the processes in your registry with you. By the end, every candidate is saved to your registry's **backlog** (your list of workflows to build), with an opportunity report alongside. It runs in three parts: (1) how we'll look at your work, (2) where the opportunities are, and (3) your backlog and your report. Deconstruct, the next step, takes one workflow you choose from the backlog and pins down what it must produce and how it should go.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "3c-EC (2026-10-28)"
   },
   {
    "id": "N-A2",
@@ -3100,6 +3134,19 @@
    "note": "design: inferred from design 13 by section"
   },
   {
+   "id": "D5″",
+   "form": "plural",
+   "text": "This workflow runs without you and makes changes that can't be undone: [the changes, in plain words]. No one sees them before they're made, so a mistake goes straight into [system]. Should I add a point where someone reviews or approves them first, or do you accept that risk?",
+   "kind": "question",
+   "skills": [
+    "design"
+   ],
+   "files": {
+    "design": "SKILL.md"
+   },
+   "source": "3c-EC (2026-10-28)"
+  },
+  {
    "id": "D7",
    "form": "main",
    "text": "You asked for [the choice, in plain words], but your requirements say [the limit, in plain words]. Which one holds?",
@@ -3289,6 +3336,38 @@
    "source": "3c-EB (2026-10-25)"
   },
   {
+   "id": "N-B4",
+   "form": "[L] is 1, a quick real check",
+   "text": "OK 1 quick real check",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "3c-EC (2026-10-28)",
+   "fragment": true,
+   "note": "a clause, not a line: it replaces \"OK [L] quick real checks and setup changes\" in each whole form of N-B4; approved_lines.py derives those whole lines and never matches the clause alone",
+   "clause": true
+  },
+  {
+   "id": "N-B4",
+   "form": "[L] is 1, a setup or settings change",
+   "text": "OK 1 setup change",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "3c-EC (2026-10-28)",
+   "fragment": true,
+   "note": "a clause, not a line: it replaces \"OK [L] quick real checks and setup changes\" in each whole form of N-B4; approved_lines.py derives those whole lines and never matches the clause alone",
+   "clause": true
+  },
+  {
    "id": "N-B5",
    "form": "main",
    "text": "[Tool] isn't connected yet. [Exact steps, including which permission to allow and which to leave off.] [Same account: 'This is the same account the workflow will run in.' Otherwise: 'Connect it in [account] too, since that's where it will run.'] Say 'done' when it's connected.",
@@ -3404,6 +3483,19 @@
     "build": "SKILL.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24)"
+  },
+  {
+   "id": "N-B11",
+   "form": "Every task waits",
+   "text": "[Tasks, in plain words] wait for [the open item]. To answer it, say 'run the design skill. My files are in [location].' Then come back with 'run the build skill. My files are in [location].' and I'll finish.",
+   "kind": "safety or promise",
+   "skills": [
+    "build"
+   ],
+   "files": {
+    "build": "SKILL.md"
+   },
+   "source": "3c-EC (2026-10-28)"
   },
   {
    "id": "N-B12",

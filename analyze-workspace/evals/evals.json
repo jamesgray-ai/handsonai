@@ -467,12 +467,12 @@
       "prompt": "Run the analyze skill: continue my workflow.",
       "expectations": [
         {
-          "text": "N-F9, word for word",
+          "text": "N-F9's two-item form, word for word (3c-EC)",
           "kind": "scripted",
           "check": {
             "type": "quote",
             "id": "N-F9",
-            "form": "main",
+            "form": "Two workflows",
             "turn": "first"
           }
         },
@@ -1831,13 +1831,24 @@
       "expected_output": "A first-time leader's Analyze on codex, with a registry set up in the framework folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's codex form with the location.",
       "expectations": [
         {
-          "text": "N-A1, word for word, first",
+          "text": "N-A1, word for word, first (its no-history form when Codex has no history to read, 3c-EC)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "N-A1",
-            "form": "main",
-            "turn": "first"
+            "type": "any",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-A1",
+                "form": "main",
+                "turn": "first"
+              },
+              {
+                "type": "quote",
+                "id": "N-A1",
+                "form": "No history to read",
+                "turn": "first"
+              }
+            ]
           }
         },
         {

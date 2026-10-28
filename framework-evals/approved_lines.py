@@ -254,7 +254,9 @@ class Corpus:
     def __init__(self, path=DEFAULT_CORPUS):
         data = json.loads(Path(path).read_text())
         self.meta = data.get("meta", {})
-        self.lines = [Line(e) for e in data["lines"]]
+        # a "clause" entry is part of another line (N-B4's count-one OK clause): only the whole lines
+        # built from it below are matched, so it never passes or fails a quote check on its own
+        self.lines = [Line(e) for e in data["lines"] if not e.get("clause")]
         # a platform's own refuse label fills a line's "choose Deny" (3c-DW: "Cancel" in Copilot Cowork);
         # derived forms name no file, so the placement check has nothing to place for them
         for e in data["lines"]:
@@ -288,18 +290,30 @@ class Corpus:
         # and setup changes": "A clause with nothing in it is left out" (build SKILL.md, *The opening*,
         # "Its clauses"). With no draft to check, no tool to connect or nothing to OK, the clause goes and
         # the list closes up; every word that stays is the approved line's own.
+        # With [L] at 1 the OK clause takes a count-one form (3c-EC: "OK 1 quick real check", "OK 1 setup
+        # change"), approved as fragments; each whole form of N-B4 is approved with it in the clause's place.
+        c = "OK [L] quick real checks and setup changes"
+        ones = [f for f in data["lines"] if f["id"] == "N-B4" and f.get("clause") and f.get("text")]
         for e in data["lines"]:
+            if e["id"] != "N-B4" or not e.get("text") or e.get("clause") or c not in e["text"]:
+                continue
+            for f in ones:
+                self.lines.append(Line(dict(e, form=f"{e['form']}, {f['form']}", text=e["text"].replace(c, f["text"]),
+                                            files={}, derived=True)))
+        for e in [ln for ln in data["lines"] if not ln.get("clause")] + [dict(id=ln.id, form=ln.form, text=ln.text, kind=ln.kind, skills=ln.skills) for ln in self.lines
+                                                if ln.id == "N-B4" and ln.derived]:
             if e["id"] != "N-B4" or not e.get("text"):
                 continue
             t = e["text"]
-            a, b, c = "connect [tools]", "check [a draft]", "OK [L] quick real checks and setup changes"
-            if f"{a}, {b} and {c}" not in t:
+            a, b = "connect [tools]", "check [a draft]"
+            ok = next((o for o in [c] + [f["text"] for f in ones] if f"{a}, {b} and {o}" in t), None)
+            if ok is None:
                 continue
-            # Only forms that end on the fixed "quick real checks and setup changes": one whose list ended
-            # on a hole ("connect [tools]; then…") would let that hole swallow a reworded OK clause.
-            for name, repl in (("no draft", f"{a} and {c}"), ("nothing to connect", f"{b} and {c}"),
-                               ("only OKs", c)):
-                self.lines.append(Line(dict(e, form=f"{e['form']}, {name}", text=t.replace(f"{a}, {b} and {c}", repl),
+            # Only forms that end on the fixed OK clause: one whose list ended on a hole
+            # ("connect [tools]; then…") would let that hole swallow a reworded OK clause.
+            for name, repl in (("no draft", f"{a} and {ok}"), ("nothing to connect", f"{b} and {ok}"),
+                               ("only OKs", ok)):
+                self.lines.append(Line(dict(e, form=f"{e['form']}, {name}", text=t.replace(f"{a}, {b} and {ok}", repl),
                                             files={}, derived=True)))
         self.by_id = {}
         for ln in self.lines:

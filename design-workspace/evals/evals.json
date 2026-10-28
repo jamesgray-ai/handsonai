@@ -1054,15 +1054,25 @@
    "spec_item": "1",
    "fixture": "dir:../../framework-fixtures/states/s11-live/with-registry",
    "prompt": "Run the design skill. My files are in framework/client-follow-up.",
-   "expected_output": "\"Run the design skill\" in a state Design doesn't own: one line naming the workflow, where it is and Test with its start phrase and the location, then stop.",
+   "expected_output": "\"Run the design skill\" on a live workflow (state 11), which Design doesn't own: N-T19 with the location (3c-EC), and nothing else.",
    "files": [],
    "expectations": [
     {
-     "text": "Test's start phrase with the location",
+     "text": "N-T19, word for word, with the location (3c-EC)",
      "kind": "scripted",
      "check": {
-      "type": "ai_regex",
-      "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\. My files are in framework/client-follow-up\\."
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-T19",
+        "form": "main"
+       },
+       {
+        "type": "ai_regex",
+        "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\. My files are in framework/client-follow-up\\."
+       }
+      ]
      }
     },
     {

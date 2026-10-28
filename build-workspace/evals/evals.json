@@ -1669,12 +1669,22 @@
      }
     },
     {
-     "text": "N-B11",
+     "text": "N-B11 without its first sentence (every task waits, 3c-EC)",
      "kind": "scripted",
      "check": {
-      "type": "quote",
-      "id": "N-B11",
-      "form": "main"
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-B11",
+        "form": "Every task waits"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-B11",
+        "form": "main"
+       }
+      ]
      }
     },
     {

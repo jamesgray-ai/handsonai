@@ -150,8 +150,14 @@ class QuoteCheck(unittest.TestCase):
                 "each task. To pick up, say 'run the build skill. My files are in framework/client-follow-up.' "
                 "Let's start with your Gmail connection.")
         self.assertTrue(any(f.matches(said) for f in forms))
-        self.assertFalse(any(f.matches(said.replace("OK 2 quick real checks and setup changes", "OK 1 quick real check"))
+        self.assertFalse(any(f.matches(said.replace("OK 2 quick real checks and setup changes", "OK 2 quick real check"))
                              for f in forms))
+        # 3c-EC: with [L] at 1 the clause's count-one forms are approved, whole lines only
+        for one in ("OK 1 quick real check", "OK 1 setup change"):
+            self.assertTrue(any(f.matches(said.replace("OK 2 quick real checks and setup changes", one)) for f in forms))
+        self.assertFalse(any(f.matches(said.replace("OK 2 quick real checks and setup changes", "OK 1 real check"))
+                             for f in forms))
+        self.assertFalse(ok({"type": "quote", "id": "N-B4"}, run_of("Please OK 1 quick real check.")))
 
     def test_quote_absent(self):
         self.assertFalse(ok({"type": "quote_absent", "id": "N-D1"}, run_of(N_D1)))
@@ -1305,7 +1311,7 @@ class Corpus(unittest.TestCase):
                      "D5", "D10", "practice-run-line"):
             self.assertIn(must, ids)
         for e in json.loads(AL.DEFAULT_CORPUS.read_text())["lines"]:
-            self.assertEqual(set(e) - {"fragment", "note"}, {"id", "form", "text", "kind", "skills", "files", "source"})
+            self.assertEqual(set(e) - {"fragment", "note", "clause"}, {"id", "form", "text", "kind", "skills", "files", "source"})
             self.assertIn(e["kind"], ["question", "safety or promise", "teaching", "carried", "structure"])
         self.assertEqual(c.get("N-F13")[0].files["build"], "references/routing.md")
         self.assertEqual(c.get("N-T20")[0].files, {"build": "references/carried-lines.md"})

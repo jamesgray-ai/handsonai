@@ -10362,7 +10362,7 @@
       "files": [],
       "expectations": [
         {
-          "text": "N-F9 asks which workflow",
+          "text": "N-F9 asks which workflow, in its two-item form (3c-EC)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -10370,7 +10370,7 @@
               {
                 "type": "quote",
                 "id": "N-F9",
-                "form": "main"
+                "form": "Two workflows"
               },
               {
                 "type": "quote_absent",
