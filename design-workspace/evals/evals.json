@@ -3784,7 +3784,7 @@
        {
         "type": "file_regex",
         "path": "framework/competitor-watch/requirements.md",
-        "pattern": "(?m)^revision: 2[ \\t]*$"
+        "pattern": "(?m)^revision: [2-9][ \\t]*$"
        }
       ]
      }
