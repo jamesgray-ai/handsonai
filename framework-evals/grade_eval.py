@@ -171,7 +171,8 @@ READ_CHANGED_CAP = 800  # of a cut file's share: the lines the session later cha
 
 
 def _tool_results(events_path):
-    """The text of every tool result in a session's events.jsonl, Read's line-number prefixes removed."""
+    """The text of every tool result in a session's events.jsonl, Read's line-number prefixes removed,
+    and the skill text the Skill tool loaded."""
     out = []
     try:
         lines = Path(events_path).read_text(errors="replace").splitlines()
@@ -184,6 +185,11 @@ def _tool_results(events_path):
             continue
         content = (e.get("message") or {}).get("content") if e.get("type") == "user" else None
         for b in content if isinstance(content, list) else []:
+            if isinstance(b, dict) and b.get("type") == "text" and b.get("text", "").startswith("Base directory for this skill"):
+                # the step's own SKILL.md, as the Skill tool loaded it: a framework rule it states
+                # ("you run it once by hand before its schedule goes on") isn't an invented fact
+                out.append(b["text"])
+                continue
             if not isinstance(b, dict) or b.get("type") != "tool_result":
                 continue
             c = b.get("content")
