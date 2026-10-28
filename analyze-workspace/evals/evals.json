@@ -45,7 +45,7 @@
           }
         },
         {
-          "text": "The first message is a resume line: it says what was covered last time (Client Relationship Management, the Client Follow-Up note) and goes on with Sales Pipeline Management",
+          "text": "The first message is a resume line: it says what was covered last time (Client Relationship Management, the Client Follow-Up note) and goes on from the first step not covered: with no process in progress, the 'Want to look at another process?' question offering Sales Pipeline Management",
           "kind": "judged",
           "must": true
         },
@@ -714,12 +714,12 @@
       "prompt": "Run the analyze skill: change my workflow. Client Follow-Up should also draft a thank-you note.",
       "expectations": [
         {
-          "text": "The bring-in line, word for word",
+          "text": "The bring-in line in its Claude Code form (\"in a new session\"), word for word",
           "kind": "scripted",
           "check": {
             "type": "quote",
             "id": "bring-in-line",
-            "form": "main"
+            "form": "Claude Code and Codex, whole line"
           }
         },
         {
@@ -982,12 +982,13 @@
           }
         },
         {
-          "text": "The pause gives Analyze's phrase in N-F10's desktop form",
+          "text": "The pause (the last message) gives Analyze's phrase in N-F10's desktop form",
           "kind": "scripted",
           "check": {
             "type": "quote",
             "id": "N-F10",
-            "form": "Claude desktop, with the files in a local folder"
+            "form": "Claude desktop, with the files in a local folder",
+            "turn": "last"
           }
         },
         {

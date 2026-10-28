@@ -479,7 +479,7 @@
      "check": {
       "type": "quote",
       "id": "bring-in-line",
-      "form": "main"
+      "form": "Claude Code and Codex, whole line"
      }
     },
     {
