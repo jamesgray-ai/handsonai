@@ -360,20 +360,18 @@ def fx_switched_off_no_registry(t):  # no registry: a workflow the leader switch
     real_fingerprints(t)
 
 
-def fx_rerun_consequential(t):  # a Deconstruct re-run before anything is built that makes it send the email itself
+def fx_rerun_consequential(t):  # a Deconstruct re-run before anything is built that adds an update to the client's HubSpot record
+    # The consequential point is a change other people see that the connection can make. (The first
+    # version had it send the email itself; Claude's Gmail connection only drafts, so Design rightly
+    # asked N-14, the leader sent it themselves, and no consequential point was left, 10-28.)
     ff(t, "states/s06-build-needed/with-registry")
     req = wf_dir(t, CFU) / "requirements.md"
-    sub(req, "- W1 · Gmail · create a draft · Step 2", "- W1 · Gmail · create a draft · Step 2\n- W2 · Gmail · send the email once you've approved it · Step 3")
-    # tags in the template's order (writes before the role), or requirements-check fails the file and
-    # Design rightly sends it back to Deconstruct; the rule and the limit that said it never sends
-    # change with it, as the re-run that added the send would have changed them
-    sub(req, "produces the sent email · fixed (your judgment) · (you)", "produces the sent email · fixed (your judgment) · writes W2 · (you)")
-    sub(req, "| R2 | When | When the draft is ready, you send it yourself. · (you) |",
-        "| R2 | When | When you've approved the draft, it sends it to the client. |")
-    sub(req, "| P2 | It never sends an email, whoever asks. | Self |",
-        "| P2 | It never sends an email you haven't approved, whoever asks. | Self |")
-    sub(req, "ready for you to review and send the same day", "sent the same day once you've approved it")
-    bump_requirements(t, CFU, ["W2", "Step 3", "R2", "P2"])
+    sub(req, "- Step 3 — Review and send · produces the sent email · fixed (your judgment) · (you)",
+        "- Step 3 — Review and send · produces the sent email · fixed (your judgment) · (you)\n"
+        "- Step 4 — Log the call · produces the call's next steps on the client's record in HubSpot · flexible · writes W2")
+    sub(req, "- W1 · Gmail · create a draft · Step 2",
+        "- W1 · Gmail · create a draft · Step 2\n- W2 · HubSpot · add the call's next steps, each with its owner, to the client's record · Step 4")
+    bump_requirements(t, CFU, ["Step 4", "W2"])
 
 
 # ---------- "change my workflow" and direct edits (item 9) ----------

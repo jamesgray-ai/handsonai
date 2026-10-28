@@ -757,7 +757,7 @@
    "fixture": "rerun-consequential",
    "prompt": "Run the design skill. My files are in framework/client-follow-up.",
    "student": "students/default.md",
-   "expected_output": "A re-run that makes it send the email itself changes a consequential point: approved goes back to false, the review is shown again, the points and N-6, then approved again.",
+   "expected_output": "A re-run that adds an update to the client's HubSpot record (a change other people see) changes a consequential point: approved goes back to false, the review is shown again, the points and N-6, then approved again.",
    "files": [
     "students/default.md"
    ],
@@ -847,7 +847,7 @@
      }
     },
     {
-     "text": "The send is classed as a change that can't be undone",
+     "text": "The HubSpot update is classed as a change that can't be undone",
      "kind": "scripted",
      "check": {
       "type": "section_regex",
@@ -857,7 +857,7 @@
      }
     },
     {
-     "text": "The points name the send to the client as something it can change, and the leader approves knowingly",
+     "text": "The points name the update to the client's HubSpot record as something it can change, and the leader approves knowingly",
      "kind": "judged",
      "must": true
     }
@@ -7776,7 +7776,7 @@
      "must": true
     },
     {
-     "text": "[Claude parity] The plan's keeping-it-working task gives the flag line only, in its 'open a new chat outside this Project and say' form: no run log, re-check line or time-saved line (no run log on Claude), and the plan's platform_mode is the platform registry's mode for Claude (code)",
+     "text": "[Claude parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on Claude), and the plan's platform_mode is the platform registry's mode for Claude (code)",
      "kind": "judged"
     }
    ],
@@ -8098,7 +8098,7 @@
      "must": true
     },
     {
-     "text": "[ChatGPT parity] The plan's keeping-it-working task gives the flag line only, in its 'open a new chat outside this Project and say' form: no run log, re-check line or time-saved line (no run log on ChatGPT), and the plan's platform_mode is the platform registry's mode for ChatGPT (guided)",
+     "text": "[ChatGPT parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on ChatGPT), and the plan's platform_mode is the platform registry's mode for ChatGPT (guided)",
      "kind": "judged"
     }
    ],
