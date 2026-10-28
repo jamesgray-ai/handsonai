@@ -3150,9 +3150,9 @@
    "tier": "core",
    "spec_item": "3",
    "fixture": "d5-autonomous",
-   "prompt": "Run the design skill. My files are in framework/deal-hygiene.",
+   "prompt": "Run the design skill. My files are in framework/competitor-watch.",
    "student": "students/default.md",
-   "expected_output": "An Autonomous plan that runs without the leader and changes live systems with no checkpoint: D5, listing the writes including the undoable Gmail label.",
+   "expected_output": "An Autonomous plan that runs without the leader and changes live systems with no checkpoint: D5, listing the writes, the undoable Gmail label included.",
    "files": [
     "students/default.md"
    ],
@@ -3175,11 +3175,11 @@
      }
     },
     {
-     "text": "The writes table classes the HubSpot update as can't be undone",
+     "text": "The writes table classes the tracker update as can't be undone",
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "framework/deal-hygiene/design-plan.md",
+      "path": "framework/competitor-watch/design-plan.md",
       "section": "## Architecture",
       "pattern": "(?m)^\\|\\s*W2\\s*\\|[^\\n]*\\|\\s*no\\s*\\|"
      }
@@ -3192,7 +3192,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "framework/deal-hygiene/design-plan.md",
+        "path": "framework/competitor-watch/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -3210,14 +3210,14 @@
        },
        {
         "type": "structure",
-        "path": "framework/deal-hygiene/design-plan.md",
+        "path": "framework/competitor-watch/design-plan.md",
         "kind": "plan"
        }
       ]
      }
     },
     {
-     "text": "D5 names the label in Gmail as well as the HubSpot update: at the Autonomous level any change in a live system gets the question",
+     "text": "D5 names the Gmail label as well as the tracker update in Notion: at the Autonomous level any change in a live system gets the question",
      "kind": "judged",
      "must": true
     }
@@ -3232,7 +3232,7 @@
    "fixture": "d5-guided",
    "prompt": "Run the design skill. My files are in framework/support-triage.",
    "student": "students/default.md",
-   "expected_output": "A Guided plan that runs without the leader: D5″ for the Slack post only; the Gmail draft (a draft) and the label (undoable) aren't asked about.",
+   "expected_output": "A Guided plan that runs without the leader: D5″ for the Slack post only; the Gmail draft (a draft) and the triage note (a new file only the leader sees) aren't asked about.",
    "files": [
     "students/default.md"
    ],
@@ -3255,7 +3255,7 @@
      }
     },
     {
-     "text": "The Slack post can't be undone; the draft and the label can",
+     "text": "The Slack post can't be undone; the draft and the triage note can",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -3755,7 +3755,7 @@
    "tier": "core",
    "spec_item": "5",
    "fixture": "d5-autonomous",
-   "prompt": "Run the design skill. My files are in framework/deal-hygiene.",
+   "prompt": "Run the design skill. My files are in framework/competitor-watch.",
    "student": "students/not-sure.md",
    "expected_output": "\"Not sure\" to D5: the same safe default, a checkpoint before the changes, never an assumed risk.",
    "files": [
@@ -3778,12 +3778,12 @@
       "checks": [
        {
         "type": "file_regex",
-        "path": "framework/deal-hygiene/requirements.md",
+        "path": "framework/competitor-watch/requirements.md",
         "pattern": "(?m)^\\|\\s*G1\\s*\\|"
        },
        {
         "type": "file_regex",
-        "path": "framework/deal-hygiene/requirements.md",
+        "path": "framework/competitor-watch/requirements.md",
         "pattern": "(?m)^revision: 2[ \\t]*$"
        }
       ]
@@ -3794,7 +3794,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "framework/deal-hygiene/design-plan.md",
+      "path": "framework/competitor-watch/design-plan.md",
       "pattern": "(?m)^involvement: Augmented[ \\t]*$"
      }
     },
@@ -3806,7 +3806,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "framework/deal-hygiene/design-plan.md",
+        "path": "framework/competitor-watch/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -3824,7 +3824,7 @@
        },
        {
         "type": "structure",
-        "path": "framework/deal-hygiene/design-plan.md",
+        "path": "framework/competitor-watch/design-plan.md",
         "kind": "plan"
        }
       ]

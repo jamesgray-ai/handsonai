@@ -229,9 +229,13 @@ def fx_no_connection(t):
     sub(req, "produces a posted expense report in NetSuite", "produces a posted expense report in Acme Ledger")
 
 
+# open-ended research that runs without the leader and writes to a live system: Autonomous is the least
+# that does the job. (Deal Hygiene, the first version, had one input and a stated criterion, so Design
+# rightly planned it Guided and asked D5″ in all six core runs, 10-28.) W1, a label in the leader's own
+# inbox, can be undone; W2, an entry on a tracker page the team reads, can't.
 fx_d5_autonomous = on_s04(
-    "deal-hygiene", "Deal Hygiene",
-    "Reviews the open pipeline every night, works out which deals have gone stale and why, and flags each one for its owner.",
+    "competitor-watch", "Competitor Watch",
+    "Researches what each tracked competitor changed every night, across public sources and their newsletters, and records each change in the team's competitor tracker.",
     "Every night at 1am")
 fx_d5_guided = on_s04(
     "support-triage", "Support Triage",
@@ -575,6 +579,19 @@ FIXTURES = {
 }
 
 STATE_TOOL = ROOT / "plugins" / "handsonai" / "tools" / "framework-state.js"
+CHECK_TOOL = ROOT / "plugins" / "handsonai" / "tools" / "requirements-check.js"
+# the fixtures whose requirements are broken on purpose; every other one must pass requirements-check,
+# or Design rightly stops at its entry check and the eval tests a fixture fault (rerun-consequential, 10-28)
+BROKEN_REQUIREMENTS = {"missing-section", "built-missing-section"}
+
+
+def check_requirements(t, name):
+    if name in BROKEN_REQUIREMENTS:
+        return
+    for req in sorted(Path(t).glob("framework/*/requirements.md")):
+        r = subprocess.run(["node", str(CHECK_TOOL), str(req.parent)], capture_output=True, text=True)
+        if r.returncode != 0:
+            sys.exit(f"fixture {name}: {req.parent.name}/requirements.md fails requirements-check:\n{r.stdout[-600:]}")
 
 
 if __name__ == "__main__":
@@ -589,4 +606,5 @@ if __name__ == "__main__":
     target.parent.mkdir(parents=True, exist_ok=True)
     FIXTURES[sys.argv[1]](target)
     compose(target)
+    check_requirements(target, sys.argv[1])
     print(target)

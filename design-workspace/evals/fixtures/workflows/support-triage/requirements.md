@@ -36,7 +36,7 @@ Method preference: same way every time
 
 - Step 1 — Read the email · produces the customer, product and problem · flexible
 - Step 2 — Set the priority · produces a priority of urgent, normal or low · uses C1 · flexible
-- Step 3 — Label the email · produces a labelled email · flexible · writes W3
+- Step 3 — Note the triage · produces a triage note, saved as a new file in your own triage folder · flexible · writes W3
 - Step 4 — Draft a first reply · produces a reply draft in Gmail Drafts · uses C2 · flexible · writes W2
 - Step 5 — Flag urgent emails · produces a post in #support-escalations · flexible · writes W1
 
@@ -104,7 +104,7 @@ No human gates — the workflow runs end-to-end with final review only.
 ### Traceability
 | ID | Constraint | Source |
 |---|---|---|
-| P3 | Each run's summary lists the emails it labelled and posted about. | Self |
+| P3 | Each run's summary lists the emails it triaged and posted about. | Self |
 
 ### Prohibited actions
 | ID | Constraint | Source |
@@ -116,4 +116,4 @@ Governing regime: None
 ### Writes
 - W1 · Slack · post a message in #support-escalations · Step 5
 - W2 · Gmail · create a reply draft · Step 4
-- W3 · Gmail · add a priority label to the email · Step 3
+- W3 · Google Drive · save the triage note as a new file in your own triage folder, which only you can open · Step 3
