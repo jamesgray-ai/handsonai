@@ -1,0 +1,1 @@
+Direct edit to undo: round 2 is `in-progress` with `direct_edit: undo` (Test found an edit to the live skill the leader wants undone) and the record's `last_close_after_round` is 0, so there is no Build close after round 2: state 6, Build puts back the built version.

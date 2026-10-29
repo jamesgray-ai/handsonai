@@ -1,11 +1,14 @@
 ---
 title: AI Patterns and Best Practices
-description: Reusable patterns for workflow architecture, prompting, agents, integrations, and error handling in AI systems
----Reusable patterns and best practices for designing and building AI-powered systems.
+description: Reusable patterns for AI systems — the workflow architecture catalogue, agent capability patterns, and pointers for prompting, integrations and errors.
+last_reviewed: 2026-10-24
+---
+
+Reusable patterns and best practices for designing and building AI-powered systems.
 
 ## Workflow Architecture Patterns
 
-Seven architectural patterns for AI workflows, ranging from simple augmented LLMs to fully autonomous agents. Use these patterns to choose the right level of complexity for your workflow.
+The playbook's one catalogue of patterns for AI workflows, from a single augmented LLM call to multi-agent systems and fully autonomous agents. Each pattern is mapped to an autonomy level by what decides the next step, with a decision tree for choosing the simplest one that works.
 
 [Explore Workflow Architecture Patterns →](workflow-architecture/)
 
@@ -17,7 +20,7 @@ Patterns for structuring and optimizing prompts. See the [Prompt Engineering](..
 
 ### Agent Patterns
 
-Patterns for building reliable AI agents. See [Agent Capability Patterns](../agentic-building-blocks/agents/capability-patterns/) for seven patterns that make agents effective.
+Patterns for building reliable AI agents. See [Agent Capability Patterns](../agentic-building-blocks/agents/capability-patterns/) for what one agent can do. For how several agents work together (handoffs, group chat, swarms and more), see the [Workflow Architecture Patterns](workflow-architecture/).
 
 For a complete, running multi-agent pipeline — four specialist agents, a quality gate at every handoff, and one human approval gate — see the [Autonomous Agent worked example](../ai-workflow-framework/examples/autonomous-agent/). It documents the design decisions and the failures that motivated each one.
 

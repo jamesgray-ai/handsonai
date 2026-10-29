@@ -85,6 +85,26 @@ else
   bad "dashboard-template.html — one of the two files is missing"
 fi
 
+# The framework's two scripts ship in the plugin beside the registry tools (rules 4.1).
+# check-plugin-sync.sh compares whole trees against the clones, so it can't keep these
+# pairs identical; this does.
+STATE_CANON=registry-template/tools/framework-state.js
+STATE_COPY=plugins/handsonai/tools/framework-state.js
+REQCHECK_CANON=registry-template/tools/requirements-check.js
+REQCHECK_COPY=plugins/handsonai/tools/requirements-check.js
+
+for pair in "$STATE_CANON:$STATE_COPY" "$REQCHECK_CANON:$REQCHECK_COPY"; do
+  canon="${pair%%:*}"
+  copy="${pair#*:}"
+  name="$(basename "$canon")"
+  if [ -f "$canon" ] && [ -f "$copy" ]; then
+    cmp -s "$canon" "$copy" && ok "$name byte-identical across registry-template/tools/ and the plugin copy" \
+      || bad "$name has diverged between registry-template/tools/ and plugins/handsonai/tools/ — copy one over the other"
+  else
+    bad "$name — one of the two files is missing ($canon, $copy)"
+  fi
+done
+
 # ---------------------------------------------------------------------------
 echo
 echo "-- 2. string agreement: enum vocabulary and frontmatter keys --"
@@ -118,7 +138,10 @@ for s in "${VOCAB_ENUMS[@]}"; do
 done
 
 if [ "$FULL" -eq 1 ]; then
+  # The setup page is high-level since 3c-DU: it no longer teaches the decomposition
+  # enums (step-driven, goal-driven, ...), which live in the schema and the bundle.
   for s in "${VOCAB_FULL[@]}"; do
+    case "$s" in step-driven|goal-driven|step-decomposed|outcome-driven) continue ;; esac
     must_contain "setup page carries '$s'" "$SETUP_PAGE" "$s"
   done
 else
@@ -128,20 +151,17 @@ fi
 # ---------------------------------------------------------------------------
 echo
 echo "-- 3. retired-field discipline: banned fields stay out of every skill --"
-declare -a TEN_SKILLS=(
-  analyze deconstruct design build test run improve
+declare -a EIGHT_SKILLS=(
+  analyze deconstruct design build test
   naming-workflows scaffolding-registry indexing-registry
 )
 declare -a RETIRED_FIELDS=(health last_run current_step next_review notion_url)
 
-for skill in "${TEN_SKILLS[@]}"; do
+for skill in "${EIGHT_SKILLS[@]}"; do
   f="plugins/handsonai/skills/$skill/SKILL.md"
   for field in "${RETIRED_FIELDS[@]}"; do
     must_not_contain "$skill/SKILL.md has no '$field'" "$f" "$field"
   done
-done
-for field in "${RETIRED_FIELDS[@]}"; do
-  must_not_contain "framework-agent.md has no '$field'" plugins/handsonai/agents/framework-agent.md "$field"
 done
 
 # registry-bundle.md is the one file allowed to mention these — it bans/maps them. It must
@@ -208,14 +228,13 @@ fi
 # ---------------------------------------------------------------------------
 echo
 echo "-- 5. ownership rows: each skill's registry write matches its role --"
-must_contain     "run: writes in-production"                  plugins/handsonai/skills/run/SKILL.md "in-production"
-must_contain     "run: writes stale_after"                    plugins/handsonai/skills/run/SKILL.md "stale_after"
+must_contain     "test: writes in-production at go-live"      plugins/handsonai/skills/test/SKILL.md "in-production"
+must_contain     "test: writes stale_after"                   plugins/handsonai/skills/test/SKILL.md "stale_after"
+must_contain     "test: writes a Note"                        plugins/handsonai/skills/test/SKILL.md "Note"
 must_contain     "deconstruct: writes under-development"      plugins/handsonai/skills/deconstruct/SKILL.md "under-development"
-must_contain     "deconstruct: writes definition_type"        plugins/handsonai/skills/deconstruct/SKILL.md "definition_type"
+must_not_contain "deconstruct: no longer writes definition_type" plugins/handsonai/skills/deconstruct/SKILL.md "definition_type"
 must_contain     "naming-workflows: writes backlog"           plugins/handsonai/skills/naming-workflows/SKILL.md "backlog"
 must_contain     "naming-workflows: owns this process"        plugins/handsonai/skills/naming-workflows/SKILL.md "owns this process"
-must_contain     "improve: writes stale_after"                plugins/handsonai/skills/improve/SKILL.md "stale_after"
-must_contain     "improve: writes a Note"                     plugins/handsonai/skills/improve/SKILL.md "Note"
 must_contain     "design: writes execution_mode"              plugins/handsonai/skills/design/SKILL.md "execution_mode"
 must_contain     "design: writes autonomy"                    plugins/handsonai/skills/design/SKILL.md "autonomy"
 must_not_contain "test: does not write a registry health field" plugins/handsonai/skills/test/SKILL.md "set the registry field \`health\`"
@@ -225,23 +244,22 @@ must_contain     "writing-workflow-sops: resolves owning Function" plugins/hands
 # ---------------------------------------------------------------------------
 echo
 echo "-- 6. skill integrity: every registry-writing skill defers to the bundle --"
-# "The ten": the seven canonical framework-step skills plus the three registry-support
+# The five framework-step skills plus the three registry-support
 # skills that write into it directly. indexing-registry is checked separately in class 9
 # (it IS registry-bundle.md's home skill); scaffolding-registry seeds the whole bundle
 # from schema-template.md and never references write rules for existing nodes.
 declare -a BUNDLE_REFERENCERS=(
-  analyze deconstruct design build improve run test
+  analyze deconstruct design build test
   naming-workflows writing-process-guides writing-workflow-sops
 )
 for skill in "${BUNDLE_REFERENCERS[@]}"; do
   must_contain "$skill/SKILL.md defers to registry-bundle.md" "plugins/handsonai/skills/$skill/SKILL.md" "registry-bundle.md"
 done
-must_contain "framework-agent.md defers to registry-bundle.md" plugins/handsonai/agents/framework-agent.md "registry-bundle.md"
 
-# The canonical seven framework-step skills must each hand off to a maintenance pass
+# The five framework-step skills must each hand off to a maintenance pass
 # afterward — including Analyze, whose backlog stubs need indexing and whose
 # resume-orientation scan depends on the composed views being current.
-declare -a MAINTENANCE_PASS_SKILLS=(analyze deconstruct design build test run improve)
+declare -a MAINTENANCE_PASS_SKILLS=(analyze deconstruct design build test)
 for skill in "${MAINTENANCE_PASS_SKILLS[@]}"; do
   must_contain "$skill/SKILL.md invokes a maintenance pass" "plugins/handsonai/skills/$skill/SKILL.md" "maintenance pass"
 done
@@ -258,15 +276,54 @@ must_contain "indexing-registry points at the Tier 2 island contract" plugins/ha
 must_contain "indexing-registry states the < escaping rule" plugins/handsonai/skills/indexing-registry/SKILL.md "u003c"
 must_contain "tier-2-island.md states the < escaping rule" plugins/handsonai/skills/indexing-registry/references/tier-2-island.md "u003c"
 
+# A workflow's `state` on the dashboard is the routing state's name (tier-2-island.md's
+# "### `state` on a workflow" table, the by-hand rule) or the framework-state script's `name`
+# (STATE_NAMES). The two must name the same states, in the same order, or a hand-built island
+# and a scripted one show the same workflow differently.
+TIER2=plugins/handsonai/skills/indexing-registry/references/tier-2-island.md
+STATE_JS=plugins/handsonai/tools/framework-state.js
+if [ -f "$TIER2" ] && [ -f "$STATE_JS" ]; then
+  doc_states="$(awk '/^### `state` on a workflow/{f=1;next} f&&/^#/{f=0} f' "$TIER2" \
+    | grep -E '^\| ' | sed -E 's/^\| ([^|]*[^ |]) +\|.*$/\1/' | grep -vE '^(Name|-+)$' || true)"
+  # Read the literal from the source rather than require() it: this repo's root package.json
+  # says "type": "module", so require() of the plugin copy returns no exports here.
+  # State 0's one name is split for display by its kind (compose-registry.js STATE_0_LABELS:
+  # "Retired", then "Runs outside the framework"), so the views show what each one is.
+  js_states="$(node -e '
+    const fs = require("fs");
+    const src = fs.readFileSync(process.argv[1], "utf8");
+    const m = src.match(/const STATE_NAMES = (\{[\s\S]*?\});/);
+    if (!m) process.exit(3);
+    const s = Function("return " + m[1])();
+    const c = fs.readFileSync(process.argv[2], "utf8").match(/const STATE_0_LABELS = (\{[\s\S]*?\});/);
+    if (!c) process.exit(3);
+    const z = Function("return " + c[1])();
+    Object.keys(s).map(Number).sort((a, b) => a - b).forEach(k => {
+      if (k === 0) { console.log(z.retired); console.log(z["running-work"]); } else console.log(s[k]);
+    });
+  ' "$ROOT/$STATE_JS" "$ROOT/plugins/handsonai/tools/compose-registry.js" 2>/dev/null)" || js_states=""
+  if [ -z "$js_states" ]; then
+    bad "framework-state.js / compose-registry.js — couldn't read 'const STATE_NAMES = {...};' or 'const STATE_0_LABELS = {...};'"
+  elif [ -z "$doc_states" ]; then
+    bad "tier-2-island.md — no state table found under '### \`state\` on a workflow'"
+  elif [ "$doc_states" == "$js_states" ]; then
+    ok "tier-2-island.md's $(echo "$js_states" | wc -l | tr -d ' ') state names equal framework-state.js STATE_NAMES, in order"
+  else
+    bad "tier-2-island.md's state names differ from framework-state.js STATE_NAMES (< doc, > script):"
+    diff <(echo "$doc_states") <(echo "$js_states") | grep -E '^[<>]' | sed 's/^/         /'
+  fi
+else
+  bad "tier-2-island.md / framework-state.js — one of the two files is missing"
+fi
+
 # ---------------------------------------------------------------------------
 echo
 echo "-- 7. one-node-shape: every worked example carries the same Workflow node fields --"
 if [ "$FULL" -eq 1 ]; then
   declare -a SHAPE_DOCS=(
     "$SETUP_PAGE"
-    src/content/docs/ai-workflow-framework/examples/worked-example.md
-    src/content/docs/courses/framework-end-to-end.md
   )
+  # framework-end-to-end.md no longer shows a node (high-level course page, 3c-DU).
   for doc in "${SHAPE_DOCS[@]}"; do
     must_contain "$(basename "$doc") carries definition_type" "$doc" "definition_type"
     must_contain "$(basename "$doc") carries execution_mode"  "$doc" "execution_mode"

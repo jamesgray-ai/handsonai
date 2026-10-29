@@ -125,13 +125,13 @@ Connect the Hands-on AI Playbook MCP server for reference material:
 
 - [Custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
 - [Local MCP servers on the Claude desktop app](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop)
-- [Getting started with Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork) (Anthropic's guide to working in a folder on your computer)
+- [Anthropic's guide to working in a folder on your computer](https://support.claude.com/en/articles/13345190-getting-started-with-cowork) (Claude Help Center)
 
 ---
 
 ### 9. Install the Hands-on AI Plugin
 
-One install gives you the seven AI Workflow Framework skills in Claude (web and desktop app), plus the `framework-agent` orchestrator. On a paid plan: in the left sidebar, **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. On the Free plan, or if your company blocks plugins, upload the skills as ZIPs instead.
+One install gives you the five AI Workflow Framework skills in Claude (web and desktop app). On a paid plan: in the left sidebar, **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. On the Free plan, or if your company blocks plugins, upload the skills as ZIPs instead.
 
 In Claude Code, it's two commands: `/plugin marketplace add jamesgray-ai/handsonai-plugins` then `/plugin install handsonai@handsonai`.
 

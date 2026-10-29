@@ -14,47 +14,31 @@
 
 ### Overview
 - URL: https://handsonai.info/ai-workflow-framework/
-- Summary: A seven-step methodology for applying AI to business workflows: Analyze opportunities, Deconstruct workflows, Design the AI architecture, Build platform artifacts, Test output quality, Run in production, and Improve over time.
+- Summary: Five steps that turn a piece of your real work into an AI workflow that is specified, planned, built, tested and running: Analyze, Deconstruct, Design, Build and Test. "Continue my workflow" moves a workflow from step to step; the flag line, re-checks and "change my workflow" keep it working once it's live.
 
-### Step 1 — Analyze Workflows
+### Analyze Workflows
 - URL: https://handsonai.info/ai-workflow-framework/analyze/
-- Summary: Structured audit to find workflows worth applying AI to. Guides users through identifying high-impact AI opportunities using a scoring rubric based on frequency, time cost, and AI suitability.
+- Summary: Looks across your work for the workflows worth handing to AI and saves each one to a backlog with the work, the pain and the value, plus an opportunity report. It doesn't rank or choose.
 
-### Step 2 — Deconstruct Workflows
+### Deconstruct Workflows
 - URL: https://handsonai.info/ai-workflow-framework/deconstruct/
-- Summary: Two-part process for breaking workflows into AI building blocks. Covers workflow definition and building block mapping.
+- Summary: Turns one workflow into Workflow Requirements: the goal, what every output must get right, the rules it follows, where a person checks, and practice inputs based on real work. Proposes the light or full track.
 
-#### Break Down Your Workflow
-- URL: https://handsonai.info/ai-workflow-framework/deconstruct/workflow-definition/
-- Summary: Interactive discovery process that decomposes a business workflow into structured steps with inputs, outputs, decision points, and handoffs.
-
-### Step 3 — Design
+### Design
 - URL: https://handsonai.info/ai-workflow-framework/design/
-- Summary: Assess the workflow's autonomy level, choose an orchestration mechanism (Prompt, Skill-Powered Workflow, Agent), classify each step on the autonomy spectrum, map to AI building blocks, identify skill candidates, and configure agents. Produces a platform-agnostic Design Spec.
+- Summary: Reads the requirements, drafts the whole plan for how AI will do the work, asks at most five questions (three on the light track; safety questions are always asked, even past that limit), and ends in an approved Design Plan with a task list.
 
-### Step 4 — Build
+### Build
 - URL: https://handsonai.info/ai-workflow-framework/build/
-- Summary: Resolve context needs, then generate platform-appropriate artifacts (prompts, skills, agents, configs) from the approved Design Spec. Mechanism-specific build paths for Prompt, Skill-Powered Workflow, and Agent.
+- Summary: Builds the Design Plan task by task, checks each task with dry runs that show each change instead of making it, makes one small real check of each kind of change somewhere only the leader can see, installs the workflow where it runs, and writes a build record of what was built and what it can access.
 
-### Step 5 — Test
+### Test
 - URL: https://handsonai.info/ai-workflow-framework/test/
-- Summary: Structured testing of AI workflow artifacts — smoke test, eval suite with 1-5 scoring, building block evals in isolation, baseline establishment, and diagnosis. 2-4 iterations of Build-Test is normal.
+- Summary: Runs the workflow cold on practice inputs and one new input it hasn't seen (practice runs are built never to send or change anything, and the leader chooses Deny if the platform asks), checks every requirement with proof, and takes the workflow live on your yes.
 
-### Step 6 — Run
-- URL: https://handsonai.info/ai-workflow-framework/run/
-- Summary: Deploy the tested workflow. Choose a run pattern (paste and run, project, agent, code-first, automate on schedule), follow the Run Guide, and operationalize for your team.
-
-### Step 7 — Improve
-- URL: https://handsonai.info/ai-workflow-framework/improve/
-- Summary: Evaluate a running workflow for quality signals, run regression evals against the baseline, assess graduation to a more capable orchestration mechanism, and decide: no changes needed, tune, redesign, or evolve.
-
-#### Run Workflows
-- URL: https://handsonai.info/ai-workflow-framework/run/
-- Summary: How to execute your AI workflow. Covers four execution patterns — paste and run in a normal chat, run in a project, command an agent, automate on a schedule — plus guidance on your first run and iterating based on results.
-
-#### Deterministic Automation
+#### Guided Prospect Research
 - URL: https://handsonai.info/ai-workflow-framework/examples/deterministic-automation/
-- Summary: Building reliable, repeatable AI workflows using structured prompts and templates. Focuses on predictable outputs with minimal AI judgment.
+- Summary: A worked example of a Guided AI workflow: the AI judges LinkedIn prospects against your buyer persona to decide who makes the list, then fills a fixed report.
 
 #### AI Collaborative
 - URL: https://handsonai.info/ai-workflow-framework/examples/ai-collaborative/
@@ -65,8 +49,8 @@
 - Summary: Building fully autonomous AI agents that execute multi-step workflows with minimal human intervention. Covers agent design, tool integration, and monitoring.
 
 ### Questions
-- Find workflows worth applying AI to: https://handsonai.info/ai-workflow-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/
-- Identify the right AI tools for a workflow: https://handsonai.info/ai-workflow-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/
+- Find workflows worth applying AI to: https://handsonai.info/questions/how-do-i-find-workflows-worth-applying-ai-to/
+- Identify the right AI tools for a workflow: https://handsonai.info/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/
 
 ---
 
@@ -355,15 +339,15 @@
 
 #### Using Plugins
 - URL: https://handsonai.info/use-the-playbook/build/using-plugins/
-- Summary: Comprehensive guide to plugins — what they are, how to install them in Claude Code, how to use agents and skills across Claude Code, Claude.ai, Cowork, and the API. Includes managing updates, auto-updates, uninstalling, and troubleshooting.
+- Summary: Comprehensive guide to plugins — what they are, how to install them in Claude Code, how to use agents and skills across Claude Code, Claude on the web and desktop, and the API. Includes managing updates, auto-updates, uninstalling, and troubleshooting.
 
 #### Hands-on AI Plugin
 - URL: https://handsonai.info/ai-workflow-framework/skills/
-- Summary: The AI Workflow Framework as executable Claude Code components. Includes 1 agent (framework-agent) and 7 skills (analyze, deconstruct, design, build, test, run, improve). Guides you through the full seven-step Analyze → Deconstruct → Design → Build → Test → Run → Improve process with file-based handoffs between steps.
+- Summary: The AI Workflow Framework as executable skills. Includes 5 skills (analyze, deconstruct, design, build, test). Guides you through the five-step Analyze → Deconstruct → Design → Build → Test process, one chat per step; say "continue my workflow" to find the next step and the phrase that starts it.
 
-#### AI Registry Plugin
-- URL: https://handsonai.info/use-the-playbook/build/ai-registry/
-- Summary: Skills for building a structured registry of AI workflows and building blocks. Includes 5 skills: naming workflows, writing workflow SOPs, writing process guides, registering building blocks (Skills, Agents, Prompts, Context MDs) in Notion, and syncing skills to GitHub. Requires Notion MCP connector.
+#### AI Registry
+- URL: https://handsonai.info/use-the-playbook/build/handsonai/#ai-registry
+- Summary: Five skills in the Hands-on AI plugin that set up and maintain your AI Registry, a Markdown knowledge bundle of your business, its processes and its workflows: scaffolding-registry, indexing-registry, naming-workflows, writing-workflow-sops and writing-process-guides. No external service needed.
 
 ---
 

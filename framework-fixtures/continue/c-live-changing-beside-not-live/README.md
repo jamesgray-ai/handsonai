@@ -1,0 +1,1 @@
+"Continue my workflow" with a live workflow partway through a change (Client Follow-Up, state 6) beside a workflow not yet live (Weekly Pipeline Summary at state 4): both are in progress, so N-F9 offers both.

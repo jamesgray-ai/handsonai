@@ -1,0 +1,304 @@
+{
+  "skill_name": "indexing-registry",
+  "how_to_run": "From this folder: python3 ../../framework-evals/run_eval.py <out-dir> [<eval-id>...] --evals evals.json [--dry-run] [--yes] (runs: 3 each; the indexing-registry student scripts are in framework-evals/students/; fixtures are names from fixtures/make_fixture.py (`--list`), built from ../../framework-fixtures/). Without --yes the runner prints the cost estimate and stops.",
+  "evals": [
+    {
+      "id": "IR1",
+      "name": "stale-tools-update",
+      "source": "registry-bundle.md 5 (state names) and 6 (re-check dates); indexing-registry SKILL.md, Out-of-date tools (TOOLS_VERSION)",
+      "fixture": "stale-tools",
+      "student": "../../framework-evals/students/design-student.md",
+      "files": [
+        "../../framework-evals/students/design-student.md",
+        "fixtures/make_fixture.py"
+      ],
+      "sessions": [
+        {
+          "prompt": "Run the design skill.",
+          "student": true
+        },
+        {
+          "prompt": "Update my registry.",
+          "student": true
+        }
+      ],
+      "expected_output": "A workspace whose tools/ predate TOOLS_VERSION gets the update offer, through Design's closing maintenance pass (Client Follow-Up's plan approved) and on a direct run; on yes the tools are copied, the dashboard re-templated before composing, and REGISTRY.md reads this release's views: the state name in Progress (Build needed after the approval, Plan to approve on the direct run), the Re-check by column and the Re-check dates section.",
+      "preconditions": [
+        "When the AI offered to update the registry's tools, the student said yes.",
+        "When the AI asked for approval (Design path), the student approved."
+      ],
+      "expectations": [
+        {
+          "text": "Design path: the update offer is said word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Your registry's tools are out of date. Update them now?",
+            "session": 1
+          },
+          "must": true
+        },
+        {
+          "text": "Design path: on yes, the tools are copied over `tools/` (compose-registry.js, lint-registry.js, registry-lib.js, package.json, framework-state.js, requirements-check.js, dashboard-template.html, data-island.schema.json)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_contains",
+                "path": "tools/registry-lib.js",
+                "text": "TOOLS_VERSION",
+                "session": 1
+              },
+              {
+                "type": "file_regex",
+                "path": "tools/package.json",
+                "pattern": "\"version\"\\s*:",
+                "session": 1
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/compose-registry.js",
+                "text": "stale-tools-9.1.0",
+                "session": 1
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/lint-registry.js",
+                "text": "stale-tools-9.1.0",
+                "session": 1
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/registry-lib.js",
+                "text": "stale-tools-9.1.0",
+                "session": 1
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/dashboard-template.html",
+                "text": "stale-template-9.1.0",
+                "session": 1
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/data-island.schema.json",
+                "text": "stale-template-9.1.0",
+                "session": 1
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/framework-state.js",
+                "session": 1
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/requirements-check.js",
+                "session": 1
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "Design path: `registry-dashboard.html` is re-templated from the new template (the stale page's marker is gone)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_contains",
+            "path": "registry-dashboard.html",
+            "text": "stale-template-9.1.0",
+            "session": 1
+          },
+          "must": true
+        },
+        {
+          "text": "Design path: Client Follow-Up's Progress reads its state name, Build needed (the plan approved)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "REGISTRY.md",
+            "pattern": "\\[Client Follow-Up\\]\\(registry/workflows/client-follow-up\\.md\\) \\| under-development \\| Build needed \\|",
+            "session": 1
+          },
+          "must": true
+        },
+        {
+          "text": "Design path: REGISTRY.md has the Re-check by column and the Re-check dates section",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "\\| Workflow \\| Status \\| Progress \\| How it decides \\| How it runs \\| Re-check by \\|",
+                "session": 1
+              },
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "(?m)^## Re-check dates$",
+                "session": 1
+              }
+            ]
+          }
+        },
+        {
+          "text": "Design path: the workspace's `registry/SCHEMA.md` is left as it is",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "registry/SCHEMA.md",
+            "session": 1
+          }
+        },
+        {
+          "text": "direct run: the update offer is said word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Your registry's tools are out of date. Update them now?",
+            "session": 2
+          },
+          "must": true
+        },
+        {
+          "text": "direct run: on yes, the tools are copied over `tools/` (compose-registry.js, lint-registry.js, registry-lib.js, package.json, framework-state.js, requirements-check.js, dashboard-template.html, data-island.schema.json)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_contains",
+                "path": "tools/registry-lib.js",
+                "text": "TOOLS_VERSION",
+                "session": 2
+              },
+              {
+                "type": "file_regex",
+                "path": "tools/package.json",
+                "pattern": "\"version\"\\s*:",
+                "session": 2
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/compose-registry.js",
+                "text": "stale-tools-9.1.0",
+                "session": 2
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/lint-registry.js",
+                "text": "stale-tools-9.1.0",
+                "session": 2
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/registry-lib.js",
+                "text": "stale-tools-9.1.0",
+                "session": 2
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/dashboard-template.html",
+                "text": "stale-template-9.1.0",
+                "session": 2
+              },
+              {
+                "type": "file_not_contains",
+                "path": "tools/data-island.schema.json",
+                "text": "stale-template-9.1.0",
+                "session": 2
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/framework-state.js",
+                "session": 2
+              },
+              {
+                "type": "file_exists",
+                "path": "tools/requirements-check.js",
+                "session": 2
+              }
+            ]
+          },
+          "must": true
+        },
+        {
+          "text": "direct run: `registry-dashboard.html` is re-templated from the new template (the stale page's marker is gone)",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_contains",
+            "path": "registry-dashboard.html",
+            "text": "stale-template-9.1.0",
+            "session": 2
+          },
+          "must": true
+        },
+        {
+          "text": "direct run: Client Follow-Up's Progress reads its state name, Plan to approve",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "REGISTRY.md",
+            "pattern": "\\[Client Follow-Up\\]\\(registry/workflows/client-follow-up\\.md\\) \\| under-development \\| Plan to approve \\|",
+            "session": 2
+          },
+          "must": true
+        },
+        {
+          "text": "direct run: REGISTRY.md has the Re-check by column and the Re-check dates section",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "\\| Workflow \\| Status \\| Progress \\| How it decides \\| How it runs \\| Re-check by \\|",
+                "session": 2
+              },
+              {
+                "type": "file_regex",
+                "path": "REGISTRY.md",
+                "pattern": "(?m)^## Re-check dates$",
+                "session": 2
+              }
+            ]
+          }
+        },
+        {
+          "text": "direct run: the workspace's `registry/SCHEMA.md` is left as it is",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "registry/SCHEMA.md",
+            "session": 2
+          }
+        },
+        {
+          "text": "Design path: the plan is approved",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/client-follow-up/design-plan.md",
+            "pattern": "^approved: true\\s*$",
+            "session": 1
+          }
+        },
+        {
+          "text": "Design path: the offer comes from the maintenance pass at the end of Design, after approval, in plain words; Design's close still names Build as the next step",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "Both sessions: the dashboard is re-templated before compose runs (compose only injects data into an existing page), and the student is never asked to edit or copy the files by hand",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "runs": 3,
+      "tier": "regression"
+    }
+  ]
+}

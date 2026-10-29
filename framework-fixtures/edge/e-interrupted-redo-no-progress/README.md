@@ -1,0 +1,1 @@
+The same interrupted redo before Deconstruct saved any progress: the 9.x files are in `history/earlier-version-2026-10-22/`, only `run-guide.md` and `runs.md` remain, the node is `in-production`: state 3 (no requirements), never state 0.

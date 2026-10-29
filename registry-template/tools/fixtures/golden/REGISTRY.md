@@ -4,22 +4,22 @@
 
 ### Client Onboarding
 
-| Workflow | Status | Mode | Autonomy | Review by |
-|---|---|---|---|---|
-| [First Workflow](registry/workflows/first-workflow.md) · step 7/7 done | in-production | augmented | guided | 2026-01-01 |
-| [Second Workflow](registry/workflows/second-workflow.md) · step 1/7 done | backlog | manual | deterministic | — |
+| Workflow | Status | Progress | How it decides | How it runs | Re-check by |
+|---|---|---|---|---|---|
+| [First Workflow](registry/workflows/first-workflow.md) | in-production | Live | Guided: makes bounded decisions with your method | Runs with you | 2026-10-01 |
+| [Second Workflow](registry/workflows/second-workflow.md) | backlog | Requirements needed | Deterministic: follows your instructions | Runs with you | — |
 
 ## Product Studio
 
 ### Brand Development
 
-| Workflow | Status | Mode | Autonomy | Review by |
-|---|---|---|---|---|
-| [Third Workflow](registry/workflows/third-workflow.md) · step 1/7 done | retired | manual | guided | — |
+| Workflow | Status | Progress | How it decides | How it runs | Re-check by |
+|---|---|---|---|---|---|
+| [Third Workflow](registry/workflows/third-workflow.md) | retired | Retired | Guided: makes bounded decisions with your method | Runs with you | — |
 
-## Review dates
+## Re-check dates
 
-- 2026-01-01 — [First Workflow](registry/workflows/first-workflow.md)
+- 2026-10-01 — [First Workflow](registry/workflows/first-workflow.md)
 
 ## Skills (2)
 

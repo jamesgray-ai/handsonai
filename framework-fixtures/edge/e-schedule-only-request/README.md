@@ -1,0 +1,1 @@
+A schedule-only change request: the plan has an `SCH` task; Build closed with `schedule: safety-incomplete: a cap on actions per run` and request B1 (tasks `[SCH]`) not logged in the plan; schedule-only requests don't count, so state 8.

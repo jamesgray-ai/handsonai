@@ -37,7 +37,7 @@ const BUILDING_BLOCKS = [
   "cli",
 ];
 
-const FRAMEWORK_STEPS = ["analyze", "deconstruct", "build"];
+const FRAMEWORK_STEPS = ["analyze", "deconstruct", "design", "build", "test"];
 
 const SETUP_TOOLS: Record<string, string> = {
   terminal: "builder-setup/terminal-basics",
@@ -157,7 +157,7 @@ export const TOOL_DEFINITIONS: McpToolDefinition[] = [
   {
     name: "get_framework_step",
     description:
-      "Get detailed content for an AI Workflow Framework step and all its sub-pages. Steps are: analyze, deconstruct, build.",
+      "Get detailed content for an AI Workflow Framework step and all its sub-pages. Steps are: analyze, deconstruct, design, build, test.",
     inputSchema: {
       type: "object",
       properties: {

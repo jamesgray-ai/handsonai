@@ -2,8 +2,10 @@
 
 > **Point-in-time snapshot — fallback only.** This file is a snapshot and **will drift** as platforms
 > evolve; it is NOT the source of truth. Build resolves the current format at runtime from the platform
-> registry/docs (Build Phase 6, Platform research) and uses this only when that lookup is unavailable. If this snapshot and live
-> docs disagree, the live docs win.
+> registry, then the platform's documentation, and uses this only when that lookup is unavailable. If this
+> snapshot and live docs disagree, the live docs win.
+
+**Contents:** File Structure · YAML Frontmatter · Claude Code Extensions · Markdown Body · Progressive Disclosure · Example
 
 When generating skills, follow this format. Skills are directories containing a `SKILL.md` file with YAML frontmatter and a markdown body. The full specification is at [agentskills.io/specification](https://agentskills.io/specification).
 

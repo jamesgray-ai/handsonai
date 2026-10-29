@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Hands-on AI",
     "shortDescription": "Design, build, and document AI workflows",
-    "longDescription": "The AI Workflow Framework (analyze, deconstruct, design, build, test, run, improve) as executable skills, plus the knowledge graph builder, the AI Registry toolkit, and feature-spec skills from handsonai.info.",
+    "longDescription": "The AI Workflow Framework (analyze, deconstruct, design, build, test) as executable skills, plus the knowledge graph builder, the AI Registry toolkit, and feature-spec skills from handsonai.info.",
     "developerName": "James Gray",
     "category": "Productivity",
     "capabilities": [

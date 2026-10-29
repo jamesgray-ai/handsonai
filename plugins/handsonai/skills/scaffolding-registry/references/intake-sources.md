@@ -9,23 +9,24 @@ answer in Phase 0 that covers a later phase is a source too.
 
 ## Where sources come from
 
-- **Workspace scan (write mode only).** `knowledge/` (read only — never write
-  or lint it here), `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`,
-  `framework/ai-opportunity-report*.md` (or, from before 9.0, `outputs/ai-opportunity-report*.md`). A `knowledge/` graph's type names are
+- **Working folder scan (wherever you can read the files; locally, the
+  workspace).** `knowledge/` (read only — never write or lint it here),
+  `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`, a prior opportunity
+  report (`framework/ai-opportunity-report*.md` in the working folder). A `knowledge/` graph's type names are
   whatever its owner chose: read its `overview.md` and `index.md` first and
   treat each page as a pasted document — evidence to draft from, mapped by
   what it says, not by its folder name.
-- **Pasted or uploaded (both modes).** Anything the student pastes or
+- **Pasted or uploaded (everywhere).** Anything the student pastes or
   attaches in reply to the Phase 0 question.
 
 ## Mapping
 
 | Source | Drafts | The student still decides |
 |---|---|---|
-| Services page, offerings list, capabilities deck, product list, `knowledge/` pages about offerings | Lines of Business; the Business identity sentence | Order of importance; which are dormant or incubating; whether to collapse to one default line |
+| Services page, offerings list, capabilities deck, product list, `knowledge/` pages about offerings | Lines of Business; the Business identity sentence | Whether the grouping is right (merge, split, rename, move); whether to collapse to one default line. The AI sets the order and status itself |
 | Org chart, team list, job descriptions | Functions **named for the area or role** ("Client Delivery"), never the person; `lead:` only on request | Trim to how work is actually owned; which are unstaffed |
-| Personal life: a list of life areas, a shared calendar, a budget spreadsheet, a chores list | Lines of Business (the areas); Processes (the recurring routines); Functions as roles ("Me", "Partner") | Order of the areas; who owns each routine |
-| Process inventory, SOP folder, process guides, `knowledge/` pages about processes | Processes with `owner:`; `guide:` links to existing SOPs or guides | Which three to five deliver each LOB; confirm each owner |
+| Personal life: a list of life areas, a shared calendar, a budget spreadsheet, a chores list | Lines of Business (the areas); Processes (the recurring routines); Functions as roles ("Me", "Partner") | Which areas to keep; who owns each routine. The AI sets the order |
+| Process inventory, SOP folder, process guides, `knowledge/` pages about processes | Processes with `owner:`; `guide:` links to an existing process guide | Which three to five deliver each LOB; confirm each owner |
 | Strategy page, OKRs, annual plan, prior opportunity report | Two or three objectives as prose for the Business node's `## Objectives` | Which matter this year |
 | Team charter, mission statement | Business identity sentence (professional persona: the team is the Business) | Wording |
 | `CLAUDE.md` / `AGENTS.md` | Business identity; folder conventions | Confirm nothing stale |
@@ -33,8 +34,9 @@ answer in Phase 0 that covers a later phase is a source too.
 ## How to present a draft
 
 One phase at a time, in that phase's slot: "From your [source], here's what
-I'd write: … Anything wrong or missing?" Show the draft as the node body it
-would become, not as a summary. If the source contradicts something the
+I'd write: … Anything wrong or missing?" Show the draft as labeled plain
+text (Name · What it does · Owner …), never as the node file — the interview
+guide's playbacks show the shape. If the source contradicts something the
 student said, ask which is current; never silently prefer the document.
 
 ## Privacy

@@ -11,8 +11,8 @@ description: >
   Answering my questions section", "set up my business
   knowledge base", starting the knowledge graph lab. NOT the AI Registry:
   for "set up my registry" or an inventory of workflows, skills, and agents,
-  use scaffolding-registry. NOT step 4 of the AI Workflow Framework: for
-  building a workflow's building blocks, use the build skill. Re-running on
+  use scaffolding-registry. NOT the Build step of the AI Workflow Framework:
+  for building a workflow's building blocks, use the build skill. Re-running on
   an existing knowledge/ bundle fills gaps; it never rebuilds.
 ---
 
@@ -66,7 +66,7 @@ We work in phases with stop-gates. Announce each phase as you reach it. Never mo
 
 ## Phase 0 — Home and boundaries (2 min). Create nothing.
 
-1. State the full path of the folder you are working in and ask the user to confirm it is the **project folder**: the one that will hold the standing-rules file, the skills folder, `raw/`, and `knowledge/`. The graph goes in a `knowledge/` subfolder; the machinery goes at the root. If the user is inside a `knowledge/` folder already, tell them to reopen one level up.
+1. State the full path of the folder you are working in and ask the user to confirm it is the **project folder**: the one that will hold the standing-rules file, the skills folder, `raw/`, and `knowledge/`. The graph goes in a `knowledge/` subfolder; the machinery goes at the root. When the user works with the AI Workflow Framework, the project folder is their working folder, the one that holds `registry/` and `framework/` (`ai-workspace` unless they keep another), so `knowledge/` sits beside them. If the user is inside a `knowledge/` folder already, tell them to reopen one level up.
 2. State the platform and therefore which rules-file and skills-folder names apply.
 3. Confirm write mode (see Platform and mode). If you cannot write files, stop here.
 4. Report what already exists, explicitly:

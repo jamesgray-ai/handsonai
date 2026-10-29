@@ -1,0 +1,1 @@
+A Not ready round whose only miss Design declined: round 1 is `not-ready` with one Issues row at Level `plan` (T1.1), logged in the plan's `changes:` as `declined: cannot-meet: AC3: …`; nothing for Build, so straight to Test (state 8).

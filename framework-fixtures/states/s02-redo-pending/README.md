@@ -1,0 +1,1 @@
+State 2 (redo pending): `big_change` is set (on the node; with no registry in the requirements' frontmatter) after Design set the plan, build record and results aside into `history/set-aside-2026-10-20-0930/`; the node still links the installed skill and stays `in-production`, which is never a sign of an earlier version.

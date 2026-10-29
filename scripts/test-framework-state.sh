@@ -1,0 +1,223 @@
+#!/usr/bin/env bash
+#
+# test-framework-state.sh — runs registry-template/tools/framework-state.js over every
+# fixture in framework-fixtures/expected.json (both variants, and the one-workspace
+# fixtures marked `self`) and asserts the routing state, its owner, N-B44 for state 1,
+# and the "continue my workflow" result. Also asserts the failure paths (non-zero exit
+# on an unreadable folder), that the script writes nothing, and that the plugin copy
+# is byte-identical to the canonical one.
+#
+# Usage: ./scripts/test-framework-state.sh
+
+set -uo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+SCRIPT=registry-template/tools/framework-state.js
+COPY=plugins/handsonai/tools/framework-state.js
+FIXTURES=framework-fixtures
+
+PASS=0
+FAIL=0
+ok()  { echo "  ok    $1"; PASS=$((PASS + 1)); }
+bad() { echo "  FAIL  $1"; FAIL=$((FAIL + 1)); }
+
+echo "framework-state"
+echo
+
+TMP="$(mktemp -d)"
+trap 'chmod -R u+rwx "$TMP" 2>/dev/null; rm -rf "$TMP"' EXIT
+touch "$TMP/marker"
+sleep 1
+
+echo "-- every fixture in expected.json --"
+OUT="$(node - "$SCRIPT" "$FIXTURES" <<'NODE'
+const path = require('path');
+const fs = require('fs');
+const [script, fixtures] = process.argv.slice(2);
+const { workflowState, continueState } = require(path.resolve(script));
+const expected = JSON.parse(fs.readFileSync(path.join(fixtures, 'expected.json'), 'utf8'));
+
+const lines = [];
+const say = (ok, msg) => lines.push(`${ok ? 'PASS' : 'FAIL'}\t${msg}`);
+
+function workflowFolders(ws) {
+  const fw = path.join(ws, 'framework');
+  if (!fs.existsSync(fw)) return [];
+  return fs.readdirSync(fw, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && !['history', 'registry'].includes(d.name) && !d.name.startsWith('.'))
+    .map((d) => d.name);
+}
+
+function run(fn) {
+  try { return { r: fn() }; } catch (e) { return { err: e.message }; }
+}
+
+function checkOne(label, ws, slug, exp) {
+  const { r, err } = run(() => workflowState(path.join(ws, 'framework', slug)));
+  if (err) return say(false, `${label}: threw: ${err}`);
+  const probs = [];
+  if (r.state !== exp.state) probs.push(`state ${r.state}, expected ${exp.state}`);
+  if ((r.owner || null) !== (exp.owner || null)) probs.push(`owner ${r.owner}, expected ${exp.owner}`);
+  if ('n_b44' in exp && !!r.n_b44 !== exp.n_b44) probs.push(`n_b44 ${!!r.n_b44}, expected ${exp.n_b44}`);
+  say(!probs.length, `${label}: ${probs.length ? probs.join('; ') + ` (because ${r.reason})` : `state ${r.state} · ${r.owner || 'no owner'}${'n_b44' in exp ? ` · n_b44 ${r.n_b44}` : ''}`}`);
+}
+
+function checkContinue(label, ws, exp) {
+  const { r, err } = run(() => continueState(ws));
+  if (err) return say(false, `${label}: threw: ${err}`);
+  const probs = [];
+  if (r.continue !== exp.continue) probs.push(`continue ${r.continue}, expected ${exp.continue}`);
+  if ('owner' in exp && (r.owner || null) !== (exp.owner || null)) probs.push(`owner ${r.owner}, expected ${exp.owner}`);
+  if ('workflow' in exp && r.workflow !== exp.workflow) probs.push(`workflow ${r.workflow}, expected ${exp.workflow}`);
+  if ('state' in exp && r.state !== exp.state) probs.push(`state ${r.state}, expected ${exp.state}`);
+  if ('line' in exp && r.line !== exp.line) probs.push(`line ${r.line}, expected ${exp.line}`);
+  if ('options' in exp) {
+    const got = (r.options || []).map((o) => o.workflow).sort().join(',');
+    const want = exp.options.slice().sort().join(',');
+    if (got !== want) probs.push(`options [${got}], expected [${want}]`);
+  }
+  const desc = r.continue === 'ask' ? `ask [${r.options.map((o) => o.workflow).join(', ')}]`
+    : r.continue === 'pick' ? `pick ${r.workflow} (state ${r.state}, ${r.owner})` : `${r.continue} (${r.owner})`;
+  say(!probs.length, `${label}: ${probs.length ? probs.join('; ') : desc}`);
+}
+
+for (const [key, variants] of Object.entries(expected)) {
+  for (const [variant, exp] of Object.entries(variants)) {
+    const ws = variant === 'self' ? path.join(fixtures, key) : path.join(fixtures, key, variant);
+    const label = variant === 'self' ? key : `${key} [${variant}]`;
+    if (!fs.existsSync(ws)) { say(false, `${label}: fixture folder missing`); continue; }
+    if ('continue' in exp) { checkContinue(label, ws, exp); continue; }
+    if (exp.workflows) {
+      for (const [slug, e] of Object.entries(exp.workflows)) checkOne(`${label} ${slug}`, ws, slug, e);
+      continue;
+    }
+    const folders = workflowFolders(ws);
+    const slug = folders.length === 1 ? folders[0] : 'client-follow-up';
+    checkOne(label, ws, slug, exp);
+  }
+}
+process.stdout.write(lines.join('\n') + '\n');
+NODE
+)"
+while IFS=$'\t' read -r verdict msg; do
+  [ -z "$verdict" ] && continue
+  if [ "$verdict" = PASS ]; then ok "$msg"; else bad "$msg"; fi
+done <<< "$OUT"
+
+echo
+echo "-- the command line --"
+# A state, as JSON, with exit 0.
+J="$(node "$SCRIPT" --json "$FIXTURES/states/s11-live/with-registry/framework/client-follow-up")"
+[ $? -eq 0 ] && echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===11&&r.facts&&r.facts.live===true?0:1)' \
+  && ok "--json prints the state with its facts (s11-live: 11, live)" || bad "--json on s11-live"
+L="$(node "$SCRIPT" --line "$FIXTURES/earlier-version/v1-results-no-round/with-registry/framework/client-follow-up")"
+case "$L" in *"state 1 (Earlier version), Test"*"N-B44"*) ok "--line names state 1, its owner and N-B44" ;; *) bad "--line on v1-results-no-round: $L" ;; esac
+C="$(node "$SCRIPT" --line --continue "$FIXTURES/continue/c-several-in-progress/with-registry")"
+case "$C" in *"N-F9"*client-follow-up*weekly-pipeline-summary*) ok "--continue over two workflows in progress gives the N-F9 list" ;; *) bad "--continue on c-several-in-progress: $C" ;; esac
+
+echo
+echo "-- an unreadable folder exits non-zero --"
+node "$SCRIPT" --json "$TMP/no-such-framework/client-follow-up" >/dev/null 2>&1
+[ $? -eq 2 ] && ok "a workflow folder whose framework folder doesn't exist: exit 2" || bad "missing framework folder did not exit 2"
+mkdir -p "$TMP/fw/framework"
+echo "not a folder" > "$TMP/fw/framework/client-follow-up"
+node "$SCRIPT" --json "$TMP/fw/framework/client-follow-up" >/dev/null 2>&1
+[ $? -eq 2 ] && ok "a workflow path that is a file: exit 2" || bad "a file in place of the folder did not exit 2"
+mkdir -p "$TMP/locked/framework/client-follow-up"
+cp "$FIXTURES/states/s04-plan-needed/no-registry/framework/client-follow-up/requirements.md" "$TMP/locked/framework/client-follow-up/"
+chmod 000 "$TMP/locked/framework/client-follow-up"
+if [ -r "$TMP/locked/framework/client-follow-up" ]; then
+  ok "a folder that can't be read: skipped (running as a user who can read it anyway)"
+else
+  node "$SCRIPT" --json "$TMP/locked/framework/client-follow-up" >/dev/null 2>&1
+  [ $? -eq 2 ] && ok "a folder that can't be read: exit 2" || bad "an unreadable folder did not exit 2"
+fi
+chmod 755 "$TMP/locked/framework/client-follow-up"
+mkdir -p "$TMP/bad/framework/client-follow-up"
+printf -- '---\nrevision: 1\ntrack: light\nrevisions:\n  - { revision: 2, by: test\n---\n\n# x\n' > "$TMP/bad/framework/client-follow-up/requirements.md"
+node "$SCRIPT" --json "$TMP/bad/framework/client-follow-up" >/dev/null 2>&1
+[ $? -eq 2 ] && ok "frontmatter it can't parse: exit 2 (never routes on a misread fact)" || bad "malformed frontmatter did not exit 2"
+# A change request with no id can't be matched against the plan's changes:, so it never
+# routes past Design silently (build review 1, F3a): the script stops, exit 2.
+S08="$FIXTURES/states/s08-test-needed/no-registry"
+mkdir -p "$TMP/noid"; cp -R "$S08/." "$TMP/noid/"
+perl -0pi -e 's/^change_requests: \[\]$/change_requests:\n  - { source: build, what: "use the CRM export", why: "no API", tasks: [T2], after_round: 0 }/m' \
+  "$TMP/noid/framework/client-follow-up/build-record.md"
+node "$SCRIPT" --json "$TMP/noid/framework/client-follow-up" >/dev/null 2>&1
+[ $? -eq 2 ] && ok "a change request with no id: exit 2 (never skipped)" || bad "a change request with no id did not exit 2"
+# A kept direct edit's text, many lines with quotes and colons, lives in a file in history/,
+# and `what` holds a one-line summary and that path (F3b): the record still parses, and the
+# request sends the workflow to Design.
+mkdir -p "$TMP/edit"; cp -R "$S08/." "$TMP/edit/"
+WF="$TMP/edit/framework/client-follow-up"
+mkdir -p "$WF/history"
+printf -- '---\nname: client-follow-up\ndescription: "Drafts: the follow-up"\n---\n\nWhen the notes say "call me": never send.\n  - Step 1: read the notes, then: draft.\n' \
+  > "$WF/history/direct-edit-B1-2026-10-24-0930.md"
+perl -0pi -e 's/^change_requests: \[\]$/change_requests:\n  - { id: B1, source: direct edit, what: "the sign-off line reworded; edited text in history\/direct-edit-B1-2026-10-24-0930.md", why: "the leader kept the edit", tasks: [T1], after_round: 0 }/m' \
+  "$WF/build-record.md"
+J="$(node "$SCRIPT" --json "$WF" 2>&1)"
+[ $? -eq 0 ] && echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===4?0:1)' \
+  && ok "a kept direct edit saved in history/, its path in what: parses, state 4" || { bad "a direct edit saved in history/ should route to state 4"; echo "$J" | head -5 | sed 's/^/        /'; }
+# A rename keeps the node's ID (deconstruct 3c fidelity B1): only the title and the
+# description change, the folder keeps the node's slug, so routing still reads the
+# node's status and a live workflow stays live.
+S11="$FIXTURES/states/s11-live/with-registry"
+mkdir -p "$TMP/rename"; cp -R "$S11/." "$TMP/rename/"
+perl -0pi -e 's/^title: "Client Follow-Up"$/title: "Client Check-In Notes"/m; s/^description: ".*"$/description: "Drafts a check-in note after each client call."/m' \
+  "$TMP/rename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json "$TMP/rename/framework/client-follow-up" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===11&&r.facts.live===true&&r.facts.node.status==="in-production"?0:1)' \
+  && ok "a renamed workflow keeps its node's ID: its node is found, live, state 11" || bad "a renamed workflow (same ID) should read live, state 11"
+# Running work brought in and renamed: the node is in-production, the folder (named for
+# the node) has only requirements.md. It must read as live, so Build pauses and copies.
+mkdir -p "$TMP/runrename"; cp -R "$S11/." "$TMP/runrename/"
+( cd "$TMP/runrename/framework/client-follow-up" && rm -rf design-plan.md build-record.md test-results.md )
+perl -0pi -e 's/^title: "Client Follow-Up"$/title: "Client Check-In Notes"/m' "$TMP/runrename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json "$TMP/runrename/framework/client-follow-up" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===4&&r.facts.live===true?0:1)' \
+  && ok "running work brought in and renamed: state 4 and still live" || bad "running work brought in and renamed should be state 4 and live"
+# A folder renamed before that rule: no node of its name, but the node's # Artifacts link
+# into it. The node is still read (fail closed), with a warning, and the backlog
+# choice doesn't offer the node again.
+mkdir -p "$TMP/oldrename"; cp -R "$S11/." "$TMP/oldrename/"
+mv "$TMP/oldrename/framework/client-follow-up" "$TMP/oldrename/framework/client-check-in"
+perl -0pi -e 's#framework/client-follow-up/#framework/client-check-in/#g' "$TMP/oldrename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json "$TMP/oldrename/framework/client-check-in" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.state===11&&r.facts.live===true&&r.facts.node.slug==="client-follow-up"&&r.warnings.some((w)=>/links into it/.test(w))?0:1)' \
+  && ok "a folder with no node of its name: the node linking into it is read (live, state 11, warned)" || { bad "a folder found only by its node's link should read live"; echo "$J" | head -5 | sed 's/^/        /'; }
+S03="$FIXTURES/states/s03-requirements-needed/with-registry"
+mkdir -p "$TMP/backlogrename"; cp -R "$S03/." "$TMP/backlogrename/"
+mv "$TMP/backlogrename/framework/client-follow-up" "$TMP/backlogrename/framework/client-check-in"
+perl -0pi -e 's#^(- \[Opportunity report\].*)$#$1\n- [Requirements](framework/client-check-in/requirements.md)#m' "$TMP/backlogrename/registry/workflows/client-follow-up.md"
+J="$(node "$SCRIPT" --json --continue "$TMP/backlogrename" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(!r.facts.backlog_nodes.includes("client-follow-up")?0:1)' \
+  && ok "a node claimed through its link is not offered again as a backlog candidate" || bad "a node claimed through its link was offered again in the backlog"
+# backlog.md counts only with no registry (analyze fidelity S3): beside a registry with no
+# backlog node, "continue my workflow" goes to Analyze, which offers to register it.
+mkdir -p "$TMP/bkreg/framework" "$TMP/bkreg/registry/workflows"
+printf -- '---\ntype: Schema\n---\n# Schema\n' > "$TMP/bkreg/registry/SCHEMA.md"
+printf -- '# Backlog\n\n## Client work\n\n1. **Client Follow-Up.** Drafts a follow-up email after each client call.\n' > "$TMP/bkreg/framework/backlog.md"
+J="$(node "$SCRIPT" --json --continue "$TMP/bkreg" 2>&1)"
+echo "$J" | node -e 'const r=JSON.parse(require("fs").readFileSync(0,"utf8")); process.exit(r.continue==="nothing"&&r.owner==="Analyze"&&r.facts.backlog_md_entries===0&&r.facts.backlog_md_beside_registry===true?0:1)' \
+  && ok "backlog.md beside a registry isn't counted: continue goes to Analyze (flagged backlog_md_beside_registry)" || { bad "backlog.md beside a registry should not send continue to Deconstruct"; echo "$J" | head -5 | sed 's/^/        /'; }
+node "$SCRIPT" --continue "$TMP/no-such-workspace" >/dev/null 2>&1
+[ $? -eq 2 ] && ok "--continue on a folder that doesn't exist: exit 2" || bad "--continue on a missing folder did not exit 2"
+node "$SCRIPT" >/dev/null 2>&1
+[ $? -eq 1 ] && ok "no folder given: usage, exit 1" || bad "no arguments did not exit 1"
+
+echo
+echo "-- it never writes --"
+WRITTEN="$(find "$FIXTURES" -newer "$TMP/marker" -print 2>/dev/null | head -5)"
+[ -z "$WRITTEN" ] && ok "no fixture file or folder changed during the run" || bad "files changed during the run: $WRITTEN"
+grep -nE 'fs\.(write|append|mkdir|rm|rename|unlink|copy|chmod|truncate|symlink|cp)' "$SCRIPT" >/dev/null \
+  && bad "framework-state.js calls a file-writing fs function" || ok "framework-state.js calls no file-writing fs function"
+
+echo
+echo "-- the plugin copy --"
+if [ -f "$COPY" ] && cmp -s "$SCRIPT" "$COPY"; then ok "$COPY is byte-identical to $SCRIPT"; else bad "$COPY is missing or differs from $SCRIPT"; fi
+
+echo
+echo "$PASS passed, $FAIL failed"
+[ "$FAIL" -eq 0 ]

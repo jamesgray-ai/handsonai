@@ -1,0 +1,1 @@
+A 9.x `deconstruct-in-progress.md` with no `Track:` line and no requirements: routing gives state 3 (it reads only whether a progress file exists); Deconstruct's own entry check then treats it as an earlier version and starts fresh (rules 11.2).
