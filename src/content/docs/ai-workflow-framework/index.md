@@ -35,11 +35,16 @@ Design plans against these lines, Build checks each task against them, and Test 
 2. **Test's practice runs** prove the workflow does what it must on realistic inputs. Practice runs are built never to send or change anything, and if your platform asks you to approve a send or a change during one, you choose Deny (or your platform's refuse button).
 3. **Your first real run** proves it at the real destination, with you watching and its checkpoints in place. A schedule comes only after one run by hand.
 
+## Before You Start
+
+1. **Install the five skills** on your platform. See [Install the Hands-on AI Plugin](skills/).
+2. **Set up your [AI Registry](../builder-setup/ai-registry-setup/).** In a new chat, where you'll keep your framework files, say *"Set up my AI registry."* It records your business, its functions and its processes, so Analyze starts from them instead of asking you to describe your business, and every step keeps your workflow's card up to date. You can skip it: Analyze then keeps your list of workflows in a backlog file in your Framework folder.
+3. **Start with Analyze.** In a new chat, say *"run the analyze skill."*
+
 ## What You Need
 
 - **The five skills** on your platform. See [Install the Hands-on AI Plugin](skills/).
 - **A folder for your workflow files**, called Framework. On Claude on the web and ChatGPT, it lives in Google Drive, through the platform's Google Drive connection with writes turned on. If no drive connection can save, the skill gives you each file to save yourself. On Microsoft 365 Copilot, it lives in OneDrive. On the Claude desktop app, it's a folder on your computer that you add to each framework chat. On Claude Code and Codex, it's `framework/` in your workspace. The first skill you run asks where to keep it.
-- **An [AI Registry](../builder-setup/ai-registry-setup/)**, if you want one. Analyze reads it so you don't describe your business twice, and every step keeps the workflow's card up to date. Without one, Analyze keeps a backlog file in the Framework folder.
 
 Your workflow itself runs somewhere else: its own Project (Claude, ChatGPT), its own folder (Claude desktop app, Copilot Cowork) or an agent (Agent Builder), holding only what it reads. Build sets that up. Keeping the two apart is what lets Test run your workflow cold, the way it will run at work. On Claude Code and Codex the workflow shares your workspace, and Test checks each run for signs it read your framework files.
 
