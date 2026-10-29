@@ -17,6 +17,8 @@ FAIL=0
 ok()   { echo "  ok    $1"; PASS=$((PASS + 1)); }
 bad()  { echo "  FAIL  $1"; FAIL=$((FAIL + 1)); }
 skip() { echo "  skip  $1"; }
+# Portable in-place sed: BSD wants `sed -i ''`, GNU reads that '' as the script.
+sedi() { local expr=$1 f; shift; for f in "$@"; do sed "$expr" "$f" > "$f.sedi.tmp" && mv "$f.sedi.tmp" "$f"; done; }
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 TOOLS="$REPO_ROOT/registry-template/tools"
@@ -155,8 +157,8 @@ grep -q "No workflows yet" "$WS/REGISTRY.md" && ok "empty dashboard has guidance
 # compose: self-healing rename — stale GENERATED links must not deadlock
 WS=$(stage valid-bundle)
 mv "$WS/registry/workflows/first-workflow.md" "$WS/registry/workflows/first-workflow-weekly.md"
-sed -i '' 's/^title: .*/title: "First Workflow Weekly"/' "$WS/registry/workflows/first-workflow-weekly.md"
-sed -i '' 's|/workflows/first-workflow.md|/workflows/first-workflow-weekly.md|' "$WS/registry/processes/"*.md
+sedi 's/^title: .*/title: "First Workflow Weekly"/' "$WS/registry/workflows/first-workflow-weekly.md"
+sedi 's|/workflows/first-workflow.md|/workflows/first-workflow-weekly.md|' "$WS/registry/processes/"*.md
 # root index's GENERATED block deliberately still holds the stale old link
 (cd "$WS" && node "$TOOLS/compose-registry.js" registry) && ok "rename does not deadlock compose" || bad "rename deadlocked"
 run_lint_at "$WS" && ok "post-rename lint clean" || bad "post-rename lint dirty"
@@ -418,7 +420,7 @@ grep -q "^OK$" /tmp/inject-check.out && ok "dashboard injection survives \$&/\$1
 # Function `# Owns` / Workflow `# Insights` regeneration path, which used the
 # string form of .replace() until now).
 WS=$(stage valid-bundle)
-sed -i '' 's/^title: "Client Onboarding"$/title: "Client Onboarding $\&"/' "$WS/registry/processes/client-onboarding.md"
+sedi 's/^title: "Client Onboarding"$/title: "Client Onboarding $\&"/' "$WS/registry/processes/client-onboarding.md"
 (cd "$WS" && node "$TOOLS/compose-registry.js" registry) >/tmp/dollar-owns-compose.out 2>&1
 grep -qF 'Client Onboarding $&' "$WS/registry/functions/operations.md" && ok "Owns block survives a \$& title intact" || bad "Owns block corrupted by \$& title: $(cat /tmp/dollar-owns-compose.out)"
 
@@ -566,15 +568,15 @@ done
 
 # generated.at: a UTC instant; a bare date on an older node; anything else errors
 WS=$(stage valid-bundle)
-sed -i '' 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:fixture, at: 2026-08-01T09:30:00Z }/' "$WS/registry/workflows/second-workflow.md"
+sedi 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:fixture, at: 2026-08-01T09:30:00Z }/' "$WS/registry/workflows/second-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "generated.at as a UTC instant lints clean" || bad "generated.at instant should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
-sed -i '' 's/at: 2026-08-01T09:30:00Z }/at: 2026-08-01 09:30 }/' "$WS/registry/workflows/second-workflow.md"
+sedi 's/at: 2026-08-01T09:30:00Z }/at: 2026-08-01 09:30 }/' "$WS/registry/workflows/second-workflow.md"
 if run_lint_at "$WS" >/dev/null 2>&1; then bad "malformed generated.at should error"; else ok "malformed generated.at errors"; fi
 
 # legacy labels: tolerated on an older node (bare-date stamp), an error on a node that writes them
 run_lint legacy-enum-bundle && ok "older node with Design spec / Run guide / Improvement plan lints clean" || bad "legacy labels on an older node must lint clean"
 WS=$(stage legacy-enum-bundle)
-sed -i '' 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:test, at: 2026-10-24T12:00:00Z }/' "$WS/registry/workflows/legacy-review.md"
+sedi 's/^generated: { by: process:fixture, at: 2026-08-01 }$/generated: { by: process:test, at: 2026-10-24T12:00:00Z }/' "$WS/registry/workflows/legacy-review.md"
 if run_lint_at "$WS" >/dev/null 2>&1; then bad "a current node writing legacy labels should error"; else
   out=$(run_lint_at "$WS" 2>&1)
   grep -q 'ERROR.*legacy artifact label(s) "Design spec", "Run guide", "Improvement plan" written on a current node' <<<"$out" \
@@ -583,10 +585,10 @@ fi
 
 # run log: external or absent "Run log" link is tolerated; a readable one is checked
 WS=$(stage broken/runlog-status-contradiction)
-sed -i '' 's|- \[Run log\](runs.md)|- [Run log](https://example.com/runs)|' "$WS/registry/workflows/first-workflow.md"
+sedi 's|- \[Run log\](runs.md)|- [Run log](https://example.com/runs)|' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "external Run log link tolerated" || bad "external Run log link should lint clean: $(run_lint_at "$WS" 2>&1 | grep ERROR)"
 WS=$(stage broken/runlog-status-contradiction)
-sed -i '' '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
+sedi '/- \[Run log\](runs.md)/d' "$WS/registry/workflows/first-workflow.md"
 run_lint_at "$WS" >/dev/null 2>&1 && ok "absent Run log link tolerated (runs.md beside it is not read)" || bad "absent Run log link should lint clean"
 out=$(lint_output broken/runlog-status-contradiction)
 grep -q 'ERROR.*contradicts run log evidence (runs.md has entries)' <<<"$out" && ok "run log in the workflow's place, linked, contradicting status errors" || bad "run log contradiction text: $out"
@@ -594,7 +596,7 @@ grep -q 'ERROR.*contradicts run log evidence (runs.md has entries)' <<<"$out" &&
 # web-shaped bundle: Framework/ holds registry/ beside <slug>/ folders; links are <slug>/...
 WEB=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$WEB/"
 mv "$WEB/framework/first-workflow" "$WEB/first-workflow"; rmdir "$WEB/framework"
-sed -i '' 's|(framework/first-workflow/|(first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
+sedi 's|(framework/first-workflow/|(first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
 (cd "$WEB" && git init -q . && git add -A >/dev/null 2>&1)
 run_lint_at "$WEB" >/dev/null 2>&1 && ok "web-shaped bundle: <slug>/ links resolve from the registry's parent" || bad "web-shaped bundle should lint clean: $(run_lint_at "$WEB" 2>&1 | grep ERROR)"
 mkdir -p "$WEB/orphan-flow"; : > "$WEB/orphan-flow/requirements.md"; mkdir -p "$WEB/history"; : > "$WEB/history/requirements.md"
