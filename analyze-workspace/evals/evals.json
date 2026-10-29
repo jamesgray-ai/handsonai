@@ -3112,10 +3112,10 @@
           }
         },
         {
-          "text": "Session 1: the no-registry line",
+          "text": "Session 1: the no-registry line is not repeated after the offer was declined",
           "kind": "scripted",
           "check": {
-            "type": "ai_contains",
+            "type": "ai_not_contains",
             "text": "You don't have a registry yet, so your workflows will live in the report for now.",
             "session": 1
           }
