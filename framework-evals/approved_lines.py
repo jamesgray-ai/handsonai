@@ -272,7 +272,7 @@ class Corpus:
                         self.lines.append(Line(dict(e, form=f"{e['form']}, {n} of {m}",
                                                     text=f"Part {n} of {m} in this fix", files={}, derived=True)))
         # a line said "in N-F2's new-chat form" (the bring-in line) has its platform forms approved as
-        # fragments of that form ("in a new session", "in a new chat with your framework folder added",
+        # fragments of that form ("in a new session", "in a new chat with your working folder selected",
         # "in a new Cowork chat with:…"); the whole line each makes is the same approved line on that platform
         for e in data["lines"]:
             main = next((m for m in data["lines"] if m["id"] == e["id"] and m.get("form") == "main"), None)

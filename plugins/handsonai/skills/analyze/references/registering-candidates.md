@@ -25,7 +25,7 @@ A person, or a function not in the registry, maps to the Function that fits, sai
 
 Apply every change to the report. A left-out workflow keeps its card, marked "Left out of the backlog", and gets no registry entry and no backlog line.
 
-**Register the candidates (registry present)** as backlog Workflow nodes under their confirmed Process, in the registry (`registry/` locally, `Framework/registry/` on the web, through the connection), as the indexing-registry skill's `registry-bundle.md` says. Work that already runs gets `status: in-production` instead, never the backlog, and its skill or agent under `# Skills` or `# Agents`: a link when the file is in this workspace, else its name and home as plain text ("Newsletter Repurposer, a skill in your Claude account").
+**Register the candidates (registry present)** as backlog Workflow nodes under their confirmed Process, in the registry (`registry/` in the working folder; on the web, through the connection), as the indexing-registry skill's `registry-bundle.md` says. Work that already runs gets `status: in-production` instead, never the backlog, and its skill or agent under `# Skills` or `# Agents`: a link when the file is in this workspace, else its name and home as plain text ("Newsletter Repurposer, a skill in your Claude account").
 
 1. **Write the stub** at `registry/workflows/<slug>.md` (slug = kebab-case of the Workflow name), in the `naming-workflows` stub format, with `generated.at` the current UTC time:
 

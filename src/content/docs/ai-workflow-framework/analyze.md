@@ -21,14 +21,14 @@ Analyze works in three parts: how we'll look at your work, where the opportuniti
 
 ## What You Get
 
-- **A backlog of candidate workflows:** one card per workflow in your [AI Registry](../../builder-setup/ai-registry-setup/), or `backlog.md` in your Framework folder if you don't have a registry.
-- **An opportunity report:** `ai-opportunity-report.md` in your Framework folder. See three [example reports](../analyze-examples/).
+- **A backlog of candidate workflows:** one card per workflow in your [AI Registry](../../builder-setup/ai-registry-setup/), or `framework/backlog.md` in your working folder if you don't have a registry.
+- **An opportunity report:** `framework/ai-opportunity-report.md` in your working folder. See three [example reports](../analyze-examples/).
 
 ## How to Start
 
 Say **"run the analyze skill"**. On Claude Code you can also type `/handsonai:analyze`.
 
-If Analyze is the first framework skill you run on Claude on the web, ChatGPT or Copilot Cowork, it first asks where to keep your files and suggests a folder called Framework in your drive. On the Claude desktop app, it asks you to make a Framework folder on your computer and add it to the chat.
+If Analyze is the first framework skill you run, it first asks for your working folder: the one folder that holds your AI Registry, your workflows and your knowledge graph. On Claude on the web, ChatGPT or Copilot Cowork, name the folder in your drive if you have one; if not, it makes a folder called ai-workspace there. On the Claude desktop app, it asks you to select your working folder in the prompt window, or to make one called ai-workspace (for example in Documents) and select that.
 
 ## Worth Knowing
 

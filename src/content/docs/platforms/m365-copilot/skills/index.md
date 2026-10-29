@@ -36,7 +36,7 @@ Microsoft 365 Copilot has two places to build, and the AI Workflow Framework use
 - **Skills** are made in Copilot Cowork, as on this page.
 - **Agents** are made in Agent Builder: **Copilot › Chat › Agents › New agent**. The ordinary Copilot Chat can describe an agent, but it can't create one. See [Building Agents on M365 Copilot](/platforms/m365-copilot/agents/building-agents/#build-an-agent-with-agent-builder).
 
-**Your framework files** live in a folder called `Framework` in your OneDrive, separate from Copilot Cowork's own `Documents/Cowork/` folder. Run each framework step in a new Copilot Cowork chat and name the folder ("My files are in OneDrive, in Framework/weekly-status-report."): the chat reads the files there with nothing attached. Copilot Cowork can see your whole OneDrive, so the framework reads and saves only inside that folder. If Copilot Cowork can't read the folder (an admin may limit its OneDrive access), the step asks you to attach your Framework folder to the chat.
+**Your framework files** live in your working folder in OneDrive (by default a folder called `ai-workspace`, which also holds your AI Registry), separate from Copilot Cowork's own `Documents/Cowork/` folder. Run each framework step in a new Copilot Cowork chat and name the folder ("My files are in OneDrive, in ai-workspace/framework/weekly-status-report."): the chat reads the files there with nothing attached. Copilot Cowork can see your whole OneDrive, so the framework reads and saves only inside that folder. If Copilot Cowork can't read the folder (an admin may limit its OneDrive access), the step asks you to attach your working folder to the chat.
 
 ## Related
 

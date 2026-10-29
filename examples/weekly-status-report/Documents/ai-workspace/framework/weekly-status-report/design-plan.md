@@ -17,7 +17,7 @@ changes: []
 ## Source
 - **Requirements:** `requirements.md`
 - **Approach:** One skill runs the four steps in order every Friday: it reads the week's updates through the HubSpot connection, drafts the report from the last report and the tone guide, stops for Maya's review, and saves the approved report in its own folder. It changes nothing in HubSpot or anywhere else.
-- **Platform:** The Claude desktop app, with the workflow's own working folder
+- **Platform:** The Claude desktop app, with the workflow's own folder
 
 ## Architecture
 
@@ -95,7 +95,7 @@ Reasoning-heavy for Step 2's drafting; fast is enough for Steps 1 and 4. As one 
 - **Stateful?:** No
 
 ## Prerequisites
-1. The Claude desktop app, with a working folder for the workflow of its own, separate from the framework folder.
+1. The Claude desktop app, with a folder for the workflow of its own, outside the working folder.
 2. The HubSpot connector in Claude, signed in with Maya's own account, read access only.
 
 ## Deployment Plan

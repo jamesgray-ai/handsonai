@@ -130,7 +130,7 @@ All three domains run inside **S1 — `partner-fit-research`**, the orchestrator
 
 ## Prerequisites
 
-1. Claude Code opened in the working folder.
+1. Claude Code opened in the workflow's folder.
 
 ## Deployment Plan
 

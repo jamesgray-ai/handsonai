@@ -20,11 +20,11 @@ Design works in four parts:
 
 ## What You Get
 
-An approved **Design Plan**, saved as `design-plan.md` in the workflow's folder. It refers to your requirements rather than copying them, so each fact lives in one place.
+An approved **Design Plan**, saved as `design-plan.md` in `framework/<workflow>/` in your working folder. It refers to your requirements rather than copying them, so each fact lives in one place.
 
 ## How to Start
 
-Say **"run the design skill"** with where your files are, for example "run the design skill. My files are in Google Drive, in Framework/weekly-status-report." On Claude Code you can also type `/handsonai:design`.
+Say **"run the design skill"** with where your files are, for example "run the design skill. My files are in Google Drive, in ai-workspace." On Claude Code you can also type `/handsonai:design`.
 
 Design is also where changes start. To change a workflow that's planned, built or live, say **"change my workflow"** and what should change.
 

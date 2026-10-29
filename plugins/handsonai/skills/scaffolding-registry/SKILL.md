@@ -19,12 +19,10 @@ Stand up a leader's AI Registry as an [OKF v0.2](https://github.com/GoogleCloudP
 
 ## What this builds
 
-The registry lives with the **framework folder**, the one folder that holds everything the framework writes. Where that folder is depends on where the leader works (see *Where the files live* below).
-
-On Claude Code and Codex, the framework folder is `framework/` in the workspace, and the registry sits beside it:
+The registry lives in the **working folder**, the one folder that holds the leader's AI Registry (`registry/`), their workflows (`framework/`, the framework folder) and their knowledge graph (`knowledge/`). Where that folder is depends on where the leader works (see *Where the files live* below): on Claude Code and Codex it is the workspace; on the web (Claude, ChatGPT) and in Microsoft 365 Copilot (Cowork), a folder in the leader's Google Drive or OneDrive, `ai-workspace/` unless they keep another; on Claude desktop, the folder the leader selects in the prompt window. The layout inside it is the same everywhere:
 
 ```
-<workspace>/
+<working folder>/            ← the workspace on Claude Code and Codex; ai-workspace/ (or the leader's own folder) elsewhere
 ├── REGISTRY.md              ← Tier 1 dashboard (derived, never hand-edited)
 ├── registry-dashboard.html  ← Tier 2 visual dashboard (derived; always generated at setup)
 ├── registry/                ← the OKF v0.2 bundle
@@ -34,23 +32,15 @@ On Claude Code and Codex, the framework folder is `framework/` in the workspace,
 │   ├── businesses/  lines-of-business/  functions/
 │   ├── processes/   workflows/          notes/
 │   │       (each typed directory has its own index.md)
-├── framework/               ← the framework folder
+├── framework/               ← the framework folder (made by the first step that saves a workflow, never by this skill)
 │   └── <workflow>/          ← the workflow's record: requirements.md, design-plan.md,
 │                              build-record.md, test-results.md, with inputs/, context/
 │                              and history/
+├── knowledge/               ← the knowledge graph, when the leader builds one (building-knowledge-graph)
 ├── sops/  process-guides/   ← unchanged homes; nodes link to them
 ```
 
-On the web (Claude, ChatGPT) and in Microsoft 365 Copilot (Cowork), the framework folder is `Framework/` in the leader's Google Drive or OneDrive; on Claude desktop it is the folder the leader adds to the chat. The registry goes inside it, beside the workflow folders:
-
-```
-Framework/
-├── REGISTRY.md   registry-dashboard.html
-├── registry/                ← the same bundle as above
-└── <workflow>/              ← the same workflow record as above
-```
-
-A workflow's **run log** is never in the framework folder: it lives where the workflow runs. Event facts stay in the workflow's record, never in registry nodes.
+A workflow's **run log** is never in the working folder: it lives where the workflow runs. Event facts stay in the workflow's record, never in registry nodes.
 
 The registry is the structured record every framework skill reads and writes: `analyze` writes backlog Workflow nodes into it, `deconstruct` starts a workflow (`under-development`) and links its requirements, `design` records how the workflow decides and runs and links its plan, `build` links the skills and agents it built, and `test` links the test results and takes the workflow live (`in-production`). `registry/SCHEMA.md` is the contract that makes that possible: it defines the six concept types (Business, LineOfBusiness, Process, Workflow, Note, Function), their required frontmatter, and the rules (enum values, link discipline, banned fields) that every skill's writes and every maintenance pass's lint checks agree on. Write it once per registry, using `references/schema-template.md` verbatim; after that, the leader's own copy is authoritative and every skill re-reads it before writing.
 
@@ -62,16 +52,16 @@ The procedure below is identical everywhere: the same six phases (0–5), the sa
 |---|---|---|---|
 | Claude Code | handsonai plugin | `registry/` in the workspace | directly |
 | ChatGPT desktop (Codex) | same SKILL.md dirs at `~/.agents/skills/` (user-level default) or repo `.agents/skills/` (optional pin) | `registry/` in the workspace | directly |
-| Claude desktop app | handsonai plugin (installed once, shared with Claude on the web) or skill ZIP | `registry/` inside the framework folder the leader adds to the chat | directly |
-| Claude on the web | handsonai plugin (paid plans; same install as the Claude desktop app) or skill ZIP (Releases channel) | `Framework/registry/` in Google Drive, or OneDrive on a work or school account | through the drive connection |
-| ChatGPT web (paid plans) | handsonai plugin via Plugins > Add marketplace, or Personal Skill upload (same ZIP) | `Framework/registry/` in Google Drive, or OneDrive on a work or school account | through the drive connection |
-| Microsoft 365 Copilot (Cowork) | Cowork skills (the plugin archive or a skill ZIP) | `Framework/registry/` in OneDrive, separate from Cowork's own folder | Cowork's own OneDrive edits |
+| Claude desktop app | handsonai plugin (installed once, shared with Claude on the web) or skill ZIP | `registry/` inside the working folder the leader selects in the chat | directly |
+| Claude on the web | handsonai plugin (paid plans; same install as the Claude desktop app) or skill ZIP (Releases channel) | `ai-workspace/registry/` (or the leader's own working folder) in Google Drive, or OneDrive on a work or school account | through the drive connection |
+| ChatGPT web (paid plans) | handsonai plugin via Plugins > Add marketplace, or Personal Skill upload (same ZIP) | `ai-workspace/registry/` (or the leader's own working folder) in Google Drive, or OneDrive on a work or school account | through the drive connection |
+| Microsoft 365 Copilot (Cowork) | Cowork skills (the plugin archive or a skill ZIP) | `ai-workspace/registry/` (or the leader's own working folder) in OneDrive, separate from Cowork's own folder | Cowork's own OneDrive edits |
 | Gemini Spark / Gemini Enterprise | skill ZIP via Skills > Upload | wherever the leader saves | print-to-save |
 
 A few rules follow from that table:
 
 - **(a) Assistant-agnostic procedures.** Everything in this file (the phases, the write rules, the interview questions) is written for "your AI assistant" in general. Platforms differ only in delivery and saving, never in what gets written or asked.
-- **(b) Save through the drive; print only as the fallback.** On the web and in Cowork, write every file through the drive connection into `Framework/registry/`. Where a connection can only create files but can move and rename them, follow the drive-saving rule in the `indexing-registry` skill's `references/registry-bundle.md` (§2, rule 8). Only where there are no files and no connection that can save does the skill fall back to print-to-save: it gives each file complete, with its exact location, and says plainly what is unsaved — never "I've created" for a file it only gave, and never leave the leader assuming a file landed somewhere it didn't. A file the leader would have to download doesn't count as saved.
+- **(b) Save through the drive; print only as the fallback.** On the web and in Cowork, write every file through the drive connection into `registry/` in the working folder. Where a connection can only create files but can move and rename them, follow the drive-saving rule in the `indexing-registry` skill's `references/registry-bundle.md` (§2, rule 8). Only where there are no files and no connection that can save does the skill fall back to print-to-save: it gives each file complete, with its exact location, and says plainly what is unsaved — never "I've created" for a file it only gave, and never leave the leader assuming a file landed somewhere it didn't. A file the leader would have to download doesn't count as saved.
 - **(c) Home: any folder; GitHub is optional.** A local folder, a drive folder, or a GitHub repository all work: the bundle is plain Markdown with relative links and never depends on Git. Never require GitHub; mention it only for what it adds (an in-browser editor, version history, and the template repo's automatic check on every save).
 - **(d) One skill artifact, three channels.** The same agentskills.io-standard SKILL.md, packaged by `build-skill-zips.sh` in the handsonai-plugins repository, is what Codex desktop scans locally, what ChatGPT web's Personal Skills accepts as an upload, and what Claude and Cowork accept as an uploaded skill. There is no separate packaging for each.
 - **(e) Repo-checked-in skills are optional, not the default.** Codex desktop can read `.agents/skills/` inside the leader's repo, but the default is a user-level install (`~/.agents/skills/`): checking a skill into every repo it's used in invites version drift between repos. Only pin a repo-local copy when the leader has a specific reason to.
@@ -83,31 +73,36 @@ A few rules follow from that table:
 Settle this before anything else, because every later step reads and saves in the same place.
 
 - **Claude Code and Codex:** the registry is `registry/` in the workspace. Nothing is asked.
-- **Claude desktop:** the registry goes inside the framework folder the leader added to this chat. When this is the leader's first framework skill and the chat has no folder added, the first message is N-F12, said exactly, with its *Why* when the leader asks why:
+- **Claude desktop:** the registry goes inside the working folder selected in this chat. When this is the leader's first framework skill and the chat has no folder selected, the first message is N-F12, said exactly, with its *Why* when the leader asks why:
 
-  > "Your framework files can live in a folder on your computer. Make a folder for them, for example Framework in Documents, and add it to this chat: [how to add a folder on Claude desktop]. Open each step of the framework in a new chat with that folder added. Say 'done' when it's added[, or 'use my drive' to keep them in [Google Drive / OneDrive] instead]."
+  > "Your AI work lives in one working folder on your computer: your AI Registry, your workflows and your knowledge graph. Select your working folder in the prompt window. If you don't have one, make a folder called ai-workspace, for example in Documents, and select that. Open each step of the framework in a new chat with that folder selected. Say 'done' when it's selected[, or 'use my drive' to keep it in [Google Drive / OneDrive] instead]."
   >
   > *Why:* "Every step reads and saves these files, so a new chat needs to find them."
 
-  [How to add a folder on Claude desktop] is the platform's own steps, filled in from the platform registry's `claude` entry, `capabilities.desktop_add_folder`; where that key is missing or the leader can't find the step it names, say you couldn't verify the exact steps and that they can add the folder their own way. On "use my drive", continue as on the web.
-- **On the web and in Microsoft 365 Copilot (Cowork):** take the location from the start phrase ("set up my registry. My files are in Google Drive, in Framework."), or look for a folder named Framework in the drive. When there's no framework folder yet (this is the leader's first framework skill), ask the storage question as the first message, before the opening and before anything is read or written. Offer only a drive whose connection is on and can write. Say N-F1 exactly; in Cowork, its Microsoft 365 form:
+  If the leader can't find where to select a folder, say you couldn't verify the exact steps and that they can select it their own way (the platform registry's `claude` entry, `capabilities.desktop_add_folder`, holds what is verified); never make up a menu path. On "use my drive", continue as on the web. When the selected folder holds a lot besides AI work, the big-folder follow-up (below) comes first; on "go ahead", make `ai-workspace` inside it as the working folder and say in one line, in your own words, to select that folder in each later framework chat.
+- **On the web and in Microsoft 365 Copilot (Cowork):** take the location from the start phrase ("set up my registry. My files are in Google Drive, in ai-workspace."), or find the working folder: a folder named ai-workspace in the drive; else a folder holding `registry/SCHEMA.md` or `framework/`, taken as the working folder once the leader confirms it in one line. When there's no working folder yet (this is the leader's first framework skill), ask the storage question as the first message, before the opening and before anything is read or written. Offer only a drive whose connection is on and can write. Say N-F1 exactly; in Cowork, its Microsoft 365 form:
 
-  > "Where should I keep your workflow files? I'd suggest a private folder called Framework in your [Google Drive / OneDrive], since that connection is on. It reaches your whole drive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me another folder."
+  > "Where's your working folder? It's the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your [Google Drive / OneDrive], tell me its name. If not, I'll make a private folder called ai-workspace there. The connection reaches your whole drive, but I'll only read and save inside your working folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me your folder's name."
 
   Microsoft 365:
 
-  > "Where should I keep your workflow files? I'd suggest a folder called Framework in your OneDrive, separate from Cowork's own folder. Cowork can see your whole OneDrive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new Cowork chat. Say 'go ahead', or tell me another folder."
+  > "Where's your working folder? It's the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your OneDrive, tell me its name. If not, I'll make a folder called ai-workspace there, separate from Cowork's own folder. Cowork can see your whole OneDrive, but I'll only read and save inside your working folder, and never share or delete anything. Please run each step of the framework in a new Cowork chat. Say 'go ahead', or tell me your folder's name."
   >
   > *Why:* "Every step reads and saves these files, so a new chat needs to find them."
 
-  On the leader's answer, make the folder (`Framework/`, or the one they named) with `registry/` inside it. Analyze and every later step take the location from the start phrase, so the storage question is never asked twice.
+  Never assume the leader has a working folder, or that they don't. On "go ahead", make `ai-workspace/` with `registry/` inside it. When they name a folder, use it: first check it can be read (if it can't, say so in one line and ask for it again), then make `registry/` inside it. Never make `framework/`: the first step that saves a workflow makes it. Analyze and every later step take the location from the start phrase, so the storage question is never asked twice.
+- **A folder that holds a lot besides AI work** (many files or folders that aren't `registry/`, `framework/` or `knowledge/`, such as a drive's top level or Documents): before saving anything, the big-folder follow-up, said exactly:
+
+  > "That folder holds a lot besides your AI work. I'd suggest a new, clean folder called ai-workspace instead, so the framework only ever touches your AI work. Say 'go ahead', or 'use it anyway'."
+
+  On "go ahead", make `ai-workspace` (on the web, in the drive; on Claude desktop, inside the selected folder) and use it as the working folder; on "use it anyway", use the folder they named or selected.
 - **No files and no connection that can save** (Gemini, or a web chat with no drive connection on): print-to-save, with N-F6 in the opening.
 
 Never ask the leader to approve a path; say where the registry is saved in the opening (see the interview guide).
 
 ## Before scaffolding
 
-Before running the interview, check what's already in the framework folder (locally, the workspace):
+Before running the interview, check what's already in the working folder (locally, the workspace):
 
 0. **A `knowledge/` folder exists** → leave it alone — never write to it or lint it; Phase 0 may read it as an intake source. It is the business knowledge graph, a different OKF bundle with its own `SCHEMA.md` and its own lint (built by `building-knowledge-graph`). Say so in one sentence and continue with the registry checks below.
 1. **`registry/SCHEMA.md` exists** → this is **gap-filling mode**, not a fresh scaffold. List which concept types have zero nodes and which typed directories are missing their `index.md`, tell the leader what's missing, and offer to fill only those gaps. Never overwrite an existing node, and never rewrite `SCHEMA.md` once the leader has one — their copy is authoritative from here on.
@@ -138,7 +133,7 @@ Rules for every message in this interview:
 - **Explain as you ask.** The interview guide's question blocks give each question's *Why*, *Example*, and *Not sure?*. If the leader says "skip the explanations", keep only the *Why*.
 - **No time and no step numbers.** Never say how long the interview or any part takes, and never number the framework's steps: name the step ("Analyze").
 
-**Phase 0 — Home and sources.** The storage question, when it's needed, comes first (*Where the files live*); then the opening. Detect, don't ask, how files are saved: locally the registry goes at `registry/` in the workspace (Claude Code, Codex) or inside the framework folder (Claude desktop); on the web and in Cowork it goes in `Framework/registry/` through the connection; only with no files and no connection that can save is it print-to-save, said once with N-F6. The first message after the storage question is the opening — nothing before it about refreshing, maintenance, checks, or what the folder lacks. Open with the opening in `references/interview-guide.md` (what a registry is, the outline it builds, what the leader leaves with, its parts), and confirm where the registry will be saved in one sentence (N-F3's promise clause) — don't ask the leader to approve a folder path. Ask whether the empty skeleton already exists (template repo or Download ZIP) only on print-to-save, where you can't look; otherwise, look. Then, one message each: **ask who the registry is for** (a business you own, a company or unit you lead, your role inside an organization, or your personal life — `references/personas.md` sets the vocabulary for every later question and is never stored in a node); **scan the framework folder** (locally, the workspace) for `knowledge/`, `sops/`, `process-guides/`, `CLAUDE.md`/`AGENTS.md`, and a prior opportunity report, and mention the scan only if it found something you'll draft from (one plain sentence; never list what wasn't there); and **ask for documents** the leader can paste or upload — an org chart or team list, job descriptions, a strategy or OKR document, a services page, a process inventory. `references/intake-sources.md` maps each source to the nodes it drafts. Say once: "I'll propose, you confirm. Nothing about your business gets saved until you confirm it." (Name functions for the area or role, never for the person, unless the leader asks — but don't say "functions" before Part 3 defines it.) Then write the skeleton and begin Phase 1. The template repo (`https://github.com/jamesgray-ai/ai-registry-template`) is only the answer to "where's the template repo?" — never a prerequisite. Follow `references/interview-guide.md`.
+**Phase 0 — Home and sources.** The storage question, when it's needed, comes first (*Where the files live*); then the opening. Detect, don't ask, how files are saved: locally the registry goes at `registry/` in the workspace (Claude Code, Codex) or inside the working folder selected in the chat (Claude desktop); on the web and in Cowork it goes in `registry/` in the working folder, through the connection; only with no files and no connection that can save is it print-to-save, said once with N-F6. The first message after the storage question is the opening — nothing before it about refreshing, maintenance, checks, or what the folder lacks. Open with the opening in `references/interview-guide.md` (what a registry is, the outline it builds, what the leader leaves with, its parts), and confirm where the registry will be saved in one sentence (N-F3's promise clause) — don't ask the leader to approve a folder path. Ask whether the empty skeleton already exists (template repo or Download ZIP) only on print-to-save, where you can't look; otherwise, look. Then, one message each: **ask who the registry is for** (a business you own, a company or unit you lead, your role inside an organization, or your personal life — `references/personas.md` sets the vocabulary for every later question and is never stored in a node); **scan the framework folder** (locally, the workspace) for `knowledge/`, `sops/`, `process-guides/`, `CLAUDE.md`/`AGENTS.md`, and a prior opportunity report, and mention the scan only if it found something you'll draft from (one plain sentence; never list what wasn't there); and **ask for documents** the leader can paste or upload — an org chart or team list, job descriptions, a strategy or OKR document, a services page, a process inventory. `references/intake-sources.md` maps each source to the nodes it drafts. Say once: "I'll propose, you confirm. Nothing about your business gets saved until you confirm it." (Name functions for the area or role, never for the person, unless the leader asks — but don't say "functions" before Part 3 defines it.) Then write the skeleton and begin Phase 1. The template repo (`https://github.com/jamesgray-ai/ai-registry-template`) is only the answer to "where's the template repo?" — never a prerequisite. Follow `references/interview-guide.md`.
 
 **Phase 1 — Business.** One Business node: name, one-sentence identity, `status` (set it yourself — `active` for a business the leader runs; ask only if they describe something not yet launched or winding down), optional `url`, and the two or three outcomes that matter most this year, written as a bulleted list under a `## Objectives` heading in the body, below the identity sentence and above `# Lines of Business` (prose only; no frontmatter field; `analyze` reads it so the leader is never asked for objectives twice). Almost always exactly one business per registry; for a professional it is their team, for the personal persona it is the person or household. Follow `references/interview-guide.md`.
 

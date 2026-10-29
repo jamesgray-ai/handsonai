@@ -5,10 +5,10 @@ Read for the backlog choice or cold entry: a new interview (routing state 3), af
 ## The backlog choice
 
 Run it whenever there are backlog candidates, whether or not the leader mentions them. The candidates are:
-- with a registry, the `status: backlog` Workflow nodes (`registry/` in a workspace; `Framework/registry/` in a drive or on Claude desktop), and only those: a `backlog.md` left beside a registry isn't read (Analyze offers to register what it lists, at its own entry);
+- with a registry, the `status: backlog` Workflow nodes (`registry/` in the working folder), and only those: a `backlog.md` left beside a registry isn't read (Analyze offers to register what it lists, at its own entry);
 - with no registry, the lines of `backlog.md` in the framework folder; with no `backlog.md`, the candidate list in the framework folder's `ai-opportunity-report.md`.
 
-With a registry, no backlog node and a `backlog.md` still in the framework folder, say in one line (model wording) that the workflows listed there aren't in the registry yet, and give Analyze's start phrase with the framework folder as the location, to say in a new chat ("run the analyze skill. My files are in [location]."); then cold entry's question, in the same message, for a leader who wants to carry on here.
+With a registry, no backlog node and a `backlog.md` still in the framework folder, say in one line (model wording) that the workflows listed there aren't in the registry yet, and give Analyze's start phrase with the working folder as the location, to say in a new chat ("run the analyze skill. My files are in [location]."); then cold entry's question, in the same message, for a leader who wants to carry on here.
 
 Leave out `in-production` nodes, candidates recorded as already running, and any candidate whose slug already has a workflow folder, with or without a registry: it's under way (an unfinished interview was offered by the entry checks; anything further along gets the one line below).
 
@@ -40,4 +40,4 @@ Its answer prefills Part 2's trigger and deliverable, confirmed rather than aske
 
 **Work that already runs.** Never ask where the work runs today. A workflow named at cold entry is a new workflow, whatever the leader says about it, with no `Runs today` row. When the leader says it already runs somewhere (set up as an agent, on a schedule), acknowledge it in one line (model wording) so they know it was heard: Build will ask about the one they have before it installs anything. Ask nothing about it and record nothing.
 
-**No workflow in mind.** Give Analyze's start phrase with the framework folder as the location, to say in a new chat ("run the analyze skill. My files are in [location]."; on Microsoft 365, "…My files are in OneDrive, in Framework."), in one line of model wording, and stop.
+**No workflow in mind.** Give Analyze's start phrase with the working folder as the location, to say in a new chat ("run the analyze skill. My files are in [location]."; on Microsoft 365, "…My files are in OneDrive, in ai-workspace."), in one line of model wording, and stop.

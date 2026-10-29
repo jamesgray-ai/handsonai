@@ -12,7 +12,7 @@ Drafts a kickoff checklist for each new program from its scope and team. A draft
 
 # Artifacts
 
-- [Opportunity report](ai-opportunity-report.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
 
 # Skills
 

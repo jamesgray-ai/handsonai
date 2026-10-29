@@ -20,11 +20,11 @@ Test works in four parts. Practice runs show each change instead of making it:
 
 ## What You Get
 
-Your **test results**, saved as `test-results.md` in the workflow's folder, with earlier rounds kept in its `history/` folder. On your yes, the workflow is live.
+Your **test results**, saved as `test-results.md` in `framework/<workflow>/` in your working folder, with earlier rounds kept in its `history/` folder. On your yes, the workflow is live.
 
 ## How to Start
 
-Say **"test the workflow I built"** with where your files are, for example "test the workflow I built. My files are in Google Drive, in Framework/weekly-status-report." On Claude Code you can also type `/handsonai:test`. Say the same phrase any time to re-check a live workflow.
+Say **"test the workflow I built"** with where your files are, for example "test the workflow I built. My files are in Google Drive, in ai-workspace." On Claude Code you can also type `/handsonai:test`. Say the same phrase any time to re-check a live workflow.
 
 ## Worth Knowing
 

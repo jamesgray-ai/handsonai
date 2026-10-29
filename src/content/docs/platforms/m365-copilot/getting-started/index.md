@@ -49,7 +49,7 @@ Copilot uses your Microsoft Graph data (emails, files, calendar, chats) to provi
 
 ## 4. Add Skills (Copilot Cowork)
 
-M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After adding the framework skills, say "run the analyze skill" and Analyze starts: first it asks where to keep your framework files (it suggests a Framework folder in your OneDrive).
+M365 Copilot natively supports Agent Skills through **Copilot Cowork**. After adding the framework skills, say "run the analyze skill" and Analyze starts: first it asks for your working folder (without one, it makes a folder called ai-workspace in your OneDrive).
 
 **Requires:** A Microsoft 365 Copilot license, with Copilot Cowork enabled by your admin (it's generally available; admins turn on its usage-based billing).
 

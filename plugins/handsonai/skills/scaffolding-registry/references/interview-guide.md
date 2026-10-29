@@ -47,11 +47,11 @@ where a new chat can't read the files.
 
 In the same first message, confirm where the files go in one line (N-F3):
 model wording carrying the promise clause "I'll read and save your files in
-[location]." — locally the workspace (Claude Code, Codex) or the framework
-folder the student added (Claude desktop); on the web and in Cowork, the
-`Framework` folder in their drive. On the web and in Cowork, add: "When
+[location]." — locally the workspace (Claude Code, Codex) or the working
+folder the student selected (Claude desktop); on the web and in Cowork, the
+working folder in their drive (`ai-workspace` unless they keep another). On the web and in Cowork, add: "When
 [platform] asks to save to your drive here, choose Always allow for this
-chat; I'll only save inside your framework folder." (in Cowork, [platform] is
+chat; I'll only read and save inside your working folder." (in Cowork, [platform] is
 "Cowork"). On Claude Code, add: "When Claude Code asks before I save a file,
 you can allow edits for this session; I'll only change the files this step
 needs." On Codex, add: "When Codex asks before I save a file, you can allow
@@ -77,11 +77,11 @@ business; they own processes across all of them):
 **First, detect — don't ask.** Where the files go was settled before the
 opening (SKILL.md, *Where the files live*):
 
-- **Locally (Claude Code, Codex, Claude desktop with a folder added):** the
-  registry goes at `registry/` in the workspace, or inside the framework
-  folder the student added. Don't ask the student to approve the path.
-- **On the web and in Cowork:** the registry goes in `Framework/registry/`
-  in the student's drive, written through the connection.
+- **Locally (Claude Code, Codex, Claude desktop with a folder selected):** the
+  registry goes at `registry/` in the workspace, or inside the working
+  folder the student selected. Don't ask the student to approve the path.
+- **On the web and in Cowork:** the registry goes in `registry/` in the
+  working folder in the student's drive, written through the connection.
 - **No files and no connection that can save → print-to-save.** Say N-F6
   once, up front: "I can't save files here, so I'll give you the files to
   save as we go. Keep them together in one folder, and paste or attach them
@@ -108,7 +108,7 @@ opening (SKILL.md, *Where the files live*):
 2. **Scan (wherever you can read the files).** Look for `knowledge/`,
    `sops/`, `process-guides/`, `CLAUDE.md` or `AGENTS.md`, a prior
    opportunity report (`framework/ai-opportunity-report*.md` locally,
-   `ai-opportunity-report*.md` in the framework folder on a drive), and any
+   `framework/ai-opportunity-report*.md` in the working folder on a drive), and any
    loose documents sitting in the folder (a pasted org chart, a services
    page). If you found something
    you will draft from, say so in one plain sentence ("I found your services
@@ -435,7 +435,7 @@ rules, each with its location, and say the set is complete.
 
 **The close (last message) — files saved (locally or in the drive):**
 
-> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [framework folder]/registry" or "your OneDrive, in [framework folder]/registry", with the framework folder's own name, Framework unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
+> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the working folder's own name, ai-workspace unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
 >
 > "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
 >
@@ -443,11 +443,11 @@ rules, each with its location, and say the set is complete.
 >
 > "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list). Want to run it now?"
 
-That last paragraph is N-A7: say it exactly. [location] is the framework
-folder, as Analyze's start phrase names it: "Google Drive, in Framework" or
-"OneDrive, in Framework" in a drive (with the folder's own name when the
+That last paragraph is N-A7: say it exactly. [location] is the working
+folder, as Analyze's start phrase names it: "Google Drive, in ai-workspace" or
+"OneDrive, in ai-workspace" in a drive (with the folder's own name when the
 leader chose another folder at the storage question); on Claude desktop, the
-folder's own name (such as "Framework"); on Claude Code and Codex,
+folder's own name (such as "ai-workspace"); on Claude Code and Codex,
 "framework". Leave out the
 `/analyze` clause anywhere but Claude Code.
 

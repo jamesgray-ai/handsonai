@@ -7,7 +7,7 @@ Rules (build1-plan.md, Global Constraints, "Eval safety"; kept by T18 when the h
 framework-evals/: R12-1's keychain-only login and per-role init assertion, R12-3's fail-closed check):
 - Each run gets its own run root under one eval parent folder in $TMPDIR, outside every repo
   and outside the home folder. It holds home/ (temp HOME; home/.claude is CLAUDE_CONFIG_DIR),
-  workspace/ (the skill's working folder), plugin/ (a copy of the plugin under test),
+  workspace/ (the workspace the skill runs in), plugin/ (a copy of the plugin under test),
   student/ and grader/ (empty folders the student and grader run from).
 - Login is the setup-token in the macOS keychain (service handsonai-eval-token), passed only
   in CLAUDE_CODE_OAUTH_TOKEN, with CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1. It is never written

@@ -11,7 +11,7 @@ description: >
 
 Generate consistent, professional names and descriptions for business workflows, then record them in the workflow's Workflow node — the workflow's AI Registry entry.
 
-> **Registry entry:** the workflow's registry entry is its Workflow concept node in the registry bundle: `registry/` in the workspace on Claude Code and Codex; `registry/` inside the framework folder on Claude desktop; `Framework/registry/` in the user's Google Drive or OneDrive on the web and in Microsoft 365, read and written through the platform's connection. See `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If there's no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first; do not write registry entries until the bundle exists.
+> **Registry entry:** the workflow's registry entry is its Workflow concept node in the registry bundle: `registry/` in the working folder: the workspace on Claude Code and Codex; the folder the user selected on Claude desktop; `ai-workspace/registry/`, or the user's own working folder, in the user's Google Drive or OneDrive on the web and in Microsoft 365, read and written through the platform's connection. See `indexing-registry/references/registry-bundle.md` (in this plugin) for resolution, write rules, and your fields. If there's no `registry/SCHEMA.md`, offer the `scaffolding-registry` skill first; do not write registry entries until the bundle exists.
 
 ## Workflow Naming Rules
 
@@ -194,7 +194,7 @@ When user provides a workflow description:
 
 ## Recording the Workflow (AI Registry entry)
 
-The workflow's registry entry is its Workflow concept node: `registry/workflows/<workflow-id>.md` inside the registry bundle (on the web and in Microsoft 365, `Framework/registry/workflows/<workflow-id>.md`, written through the connection), where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). See `indexing-registry/references/registry-bundle.md` for resolution, write rules, and the full field-ownership table.
+The workflow's registry entry is its Workflow concept node: `registry/workflows/<workflow-id>.md` inside the registry bundle (on the web and in Microsoft 365, `ai-workspace/registry/workflows/<workflow-id>.md`, written through the connection), where the ID is the kebab-case form of the confirmed name ("Lead Qualification" → `lead-qualification`). See `indexing-registry/references/registry-bundle.md` for resolution, write rules, and the full field-ownership table.
 
 After the user confirms name and description (deliverable folded in):
 

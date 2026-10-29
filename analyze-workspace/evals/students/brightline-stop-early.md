@@ -7,7 +7,7 @@ The owner of Brightline Advisory, a four-person analytics consulting firm. Not t
 <!-- include-facts: students/brightline-owner.md -->
 
 ## How you answer
-- If asked to add a folder to this chat, write `[did: added my Framework folder to this chat]` on its own line, then say "done".
+- If asked to select a folder in this chat, write `[did: selected my ai-workspace folder in the prompt window]` on its own line, then say "done".
 - Answer the first two questions the AI asks as the facts say, taking its recommendations.
 - To the third question the AI asks, whatever it is, say: "I have to go. Stop here for now."
 

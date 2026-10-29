@@ -1,13 +1,13 @@
 # Tier 2 data island — derivation contract
 
-How to hand-build the JSON data island for `registry-dashboard.html` when the workspace has no `tools/compose-registry.js` or code can't run there (a plain-folder registry on a platform without Node, or a registry in `Framework/registry/` on a drive, read through the connection). Every rule below is what compose does, so a hand-built island and a composed one render identically. The shape is `data-island.schema.json` (beside this file); this page says where each value comes from. When `tools/compose-registry.js` exists, run it instead — see "Workspace-generator precedence" in SKILL.md.
+How to hand-build the JSON data island for `registry-dashboard.html` when the workspace has no `tools/compose-registry.js` or code can't run there (a plain-folder registry on a platform without Node, or a registry in a working folder on a drive, read through the connection). Every rule below is what compose does, so a hand-built island and a composed one render identically. The shape is `data-island.schema.json` (beside this file); this page says where each value comes from. When `tools/compose-registry.js` exists, run it instead — see "Workspace-generator precedence" in SKILL.md.
 
 ## Rules that apply everywhere
 
 | Rule | Value |
 |---|---|
 | `id` | the node's filename without `.md` (`registry/workflows/weekly-status-report.md` → `weekly-status-report`) |
-| `nodePath` | the node's path from the registry's parent folder (the workspace on Claude Code and Codex, the framework folder on the web and Claude desktop), always starting `registry/` |
+| `nodePath` | the node's path from the registry's parent folder (the working folder: the workspace on Claude Code and Codex), always starting `registry/` |
 | `nodeUrl` | only when the workspace's own `.git/config` has a `[remote "origin"]` pointing at GitHub **and** the node's file exists on that remote's copy of the current branch (from `.git/HEAD`): `https://github.com/<owner>/<repo>/blob/<branch>/` + `nodePath`. Use that branch name — never assume `main`. Check with `git ls-tree --name-only origin/<branch> -- <nodePath>`; if you can't run that check, or the file isn't there (never committed, or not pushed), omit the key. No remote or not GitHub → omit. Never read a parent directory's git config. Leaders never edit registry files by hand, so this link is only for seeing where a node lives; the renderer shows `nodePath` as plain text whenever no link would work |
 | Missing values | omit the key. Keep an explicit `null` only where the schema allows it and compose writes it: an unassigned workflow's `processId` and `lobId` |
 | Frontmatter names | `definition_type` → `definitionType`, `execution_mode` → `executionMode`, `stale_after` → `staleAfter`, `owner` → `ownerId`; everything else keeps its name |
@@ -28,7 +28,7 @@ How to hand-build the JSON data island for `registry-dashboard.html` when the wo
 
 ### `state` on a workflow
 
-`state` is the workflow's progress: the routing state's **name**, never its number, read from the workflow's folder, never from which links the node has. The folder is `[framework folder]/<slug>/`: `framework/<slug>/` in a workspace, `<slug>/` beside `registry/` on the web and Claude desktop. There is no stored progress field; never read one, and never count links.
+`state` is the workflow's progress: the routing state's **name**, never its number, read from the workflow's folder, never from which links the node has. The folder is `[framework folder]/<slug>/`: `framework/<slug>/` beside `registry/` on every platform. There is no stored progress field; never read one, and never count links.
 
 - **Where code can run,** run the `framework-state` script on the folder (`node tools/framework-state.js --json <folder>`, from the workspace's `tools/` or the plugin's) and copy its `name`; for state 0, show "Retired" when its `kind` is `retired` and "Runs outside the framework" when it is `running-work`. A non-zero exit means: work it out by hand, below.
 - **By hand,** read the folder's current files (and the node's `status` and `big_change`) and take the first row that matches. It is the same rule the five step skills route by; this copy is for display only.

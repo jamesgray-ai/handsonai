@@ -125,9 +125,8 @@ the client before end of day.
 A live workflow's node links its requirements, design plan and test results;
 its build record has no link (it sits beside them, at
 `framework/client-status-reporting/build-record.md`). These links are relative
-to the registry's parent folder: on Claude Code and Codex the workspace, as
-here; in a drive or on Claude desktop the framework folder, so they read
-`client-status-reporting/requirements.md`. No step writes `definition_type`
+to the registry's parent folder, the working folder (on Claude Code and Codex
+the workspace), so they read the same on every platform. No step writes `definition_type`
 any more; an older node may still carry it, and the lint accepts it.
 
 ## Function: `registry/functions/service-delivery.md`

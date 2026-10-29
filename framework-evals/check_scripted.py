@@ -373,7 +373,7 @@ def fill_check_prompt(prompt, kind, expect, carried=(), require_carried=()):
         if expect.get("task") and g["task"].strip() != expect["task"]:
             probs.append(f"task {g['task']!r} != the plan's {expect['task']!r}")
         if expect.get("folder") and g["folder"].strip() != expect["folder"]:
-            probs.append(f"folder Framework/{g['folder']} != Framework/{expect['folder']}")
+            probs.append(f"folder framework/{g['folder']} != framework/{expect['folder']}")
         if "context_files" in expect:
             want = sorted(Path(f).name for f in expect["context_files"])
             got = sorted(Path(f).name for f in files)
@@ -403,7 +403,7 @@ def fill_check_prompt(prompt, kind, expect, carried=(), require_carried=()):
             return ["the fix prompt's fixed words aren't N-B53's (it opens 'In this agent,' and ends 'Change nothing else.')"]
         if not m.group("change").strip():
             probs.append("the fix prompt names no change")
-        task = re.search(r"matches task (\S+) of design-plan\.md in my OneDrive, in Framework/([^\s.]+)", nm)
+        task = re.search(r"matches task (\S+) of design-plan\.md in my OneDrive, in [^/\s]+/framework/([^\s.]+)", nm)
         if task:
             if expect.get("task") and task.group(1) != expect["task"]:
                 probs.append(f"task {task.group(1)!r} != the plan's {expect['task']!r}")
@@ -421,9 +421,10 @@ def _fill_check(c, run):
     kind = c.get("kind", "build")
     expect = dict(c.get("expect") or {})
     if not expect:
-        # the default finds the plan wherever the platform keeps the framework folder
-        # (framework/, Framework/, drive/Framework/, onedrive/Framework/), never a set-aside copy
-        plans = {p: v for p, v in _files(sess, c.get("plan", "*ramework/*/design-plan.md")).items()
+        # the default finds the plan wherever the platform keeps the working folder (framework/,
+        # ai-workspace/framework/, drive/ai-workspace/framework/, onedrive/ai-workspace/framework/),
+        # never a set-aside copy
+        plans = {p: v for p, v in _files(sess, c.get("plan", "*framework/*/design-plan.md")).items()
                  if "/history/" not in p}
         if not plans:
             return False, "no plan to check the prompt against (give `expect` or `plan`)"

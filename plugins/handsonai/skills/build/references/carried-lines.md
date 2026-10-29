@@ -47,9 +47,9 @@ The `KW` task writes these (`standard-tasks.md`). Each gives its start phrase wi
 
 > This had [X], which I wasn't designed for. If I should handle it, open a new chat outside this Project and say 'change my workflow: [X, in a few words]. My files are in [location].', and paste this run's input too.
 
-Its other platforms' forms put that platform's clause in place of "open a new chat outside this Project and say" ("In a new Cowork chat, say…" on Microsoft 365; "In a new chat with your framework folder added, say…" on Claude desktop; "In a new session, say…" on Claude Code and Codex):
+Its other platforms' forms put that platform's clause in place of "open a new chat outside this Project and say" ("In a new Cowork chat, say…" on Microsoft 365; "In a new chat with your working folder selected, say…" on Claude desktop; "In a new session, say…" on Claude Code and Codex):
 - Microsoft 365: "This had [X], which I wasn't designed for. If I should handle it, in a new Cowork chat, say 'change my workflow: [X, in a few words]. My files are in [location].', and paste this run's input too."
-- Claude desktop: "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your framework folder added, say 'change my workflow: [X, in a few words]. My files are in [location].', and paste this run's input too."
+- Claude desktop: "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your working folder selected, say 'change my workflow: [X, in a few words]. My files are in [location].', and paste this run's input too."
 - Claude Code and Codex: "This had [X], which I wasn't designed for. If I should handle it, in a new session, say 'change my workflow: [X, in a few words]. My files are in [location].', and paste this run's input too."
 
 **The re-check line,** only where the workflow writes and reads its own run log (Claude Code, Codex, and Microsoft 365 Cowork once release check 27 passes; never on Claude on the web or desktop, ChatGPT, or an agent Agent Builder made). It ends each run after the `recheck_after` date in the log's header:
@@ -62,13 +62,13 @@ Its other platforms' forms put that platform's clause in place of "open a new ch
 
 "This workflow is live. To change it, say 'change my workflow. My files are in [location].' To re-check it, say 'test the workflow I built. My files are in [location].'"
 
-Inside the workflow, the same line follows the platform's clause, word for word: "In a new chat outside this Project, …" (Microsoft 365: "In a new Cowork chat, …"; Claude desktop: "In a new chat with your framework folder added, …"; Claude Code and Codex: "In a new session, …"), then the line above unchanged.
+Inside the workflow, the same line follows the platform's clause, word for word: "In a new chat outside this Project, …" (Microsoft 365: "In a new Cowork chat, …"; Claude desktop: "In a new chat with your working folder selected, …"; Claude Code and Codex: "In a new session, …"), then the line above unchanged.
 
 **The run log** itself, where the workflow writes one: `runs.md` in the workflow's place (`runs-[workflow-slug].md` when several workflows share a folder), one row per real run, columns Date | Input | Result | Edits | Flags | Notes, header `recheck_after: YYYY-MM-DD` and `first_time: [items]`; never written in a practice run, never in the framework folder.
 
 ## 5. The two facts compiled in
 
-Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in Framework/[workflow-slug]"; "OneDrive, in Framework/[workflow-slug]"; "Framework/[workflow-slug]" on Claude desktop; "framework/[workflow-slug]" on Claude Code and Codex); and the time saved per run, for the time-saved line: the Baseline, less the Target when the Target is a time per run.
+Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in ai-workspace"; "OneDrive, in ai-workspace"; "ai-workspace" on Claude desktop, each with the working folder's own name; "framework/[workflow-slug]" on Claude Code and Codex); and the time saved per run, for the time-saved line: the Baseline, less the Target when the Target is a time per run.
 
 ## 6. What a build prompt quotes
 

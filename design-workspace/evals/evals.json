@@ -1188,13 +1188,13 @@
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
    "sessions": [
     {
-     "prompt": "Run the design skill. My files are in Framework/client-follow-up.",
+     "prompt": "Run the design skill. My files are in ai-workspace.",
      "replies": [
       "done"
      ]
     }
    ],
-   "expected_output": "Claude desktop with no folder added: N-F13's desktop form before anything else, never N-F3a; after \"done\", the opening.",
+   "expected_output": "Claude desktop with no folder selected: N-F13's desktop form before anything else, never N-F3a; after \"done\", the opening.",
    "files": [],
    "expectations": [
     {
@@ -1251,7 +1251,7 @@
    "spec_item": "1",
    "platform": "microsoft-365",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
-   "prompt": "Run the design skill. My files are in OneDrive, in Framework/client-follow-up.",
+   "prompt": "Run the design skill. My files are in OneDrive, in ai-workspace.",
    "expected_output": "Microsoft 365, started with the location only: the files are read with nothing attached, and the opening follows with N-F10's Microsoft 365 form.",
    "files": [],
    "expectations": [
@@ -1307,7 +1307,7 @@
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
    "sessions": [
     {
-     "prompt": "Run the design skill. My files are in OneDrive, in Framework/client-follow-up.",
+     "prompt": "Run the design skill. My files are in OneDrive, in ai-workspace.",
      "replies": [
       "done"
      ]
@@ -1351,7 +1351,7 @@
    "spec_item": "1",
    "platform": "microsoft-365",
    "fixture": "live",
-   "prompt": "Run the design skill. My files are in OneDrive, in Framework/client-follow-up.",
+   "prompt": "Run the design skill. My files are in OneDrive, in ai-workspace.",
    "expected_output": "A live workflow with a registry on Microsoft 365, started with the location only: routed as live (Test owns it), with Test's phrase in its Microsoft 365 location.",
    "files": [],
    "expectations": [
@@ -1360,7 +1360,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "test the workflow I built. My files are in OneDrive, in Framework/client-follow-up."
+      "text": "test the workflow I built. My files are in OneDrive, in ai-workspace."
      }
     },
     {
@@ -1392,7 +1392,7 @@
    "fixture": "live",
    "sessions": [
     {
-     "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up."
+     "prompt": "Change my workflow. My files are in Google Drive, in ai-workspace."
     }
    ],
    "expected_output": "\"Change my workflow\" on Claude on the web, where the installed skill can't be read: the first message opens with one line naming Design and the workflow with N-F3's promise clause, then N-E1.",
@@ -4719,7 +4719,7 @@
    "spec_item": "7, 11",
    "platform": "chatgpt",
    "fixture": "scheduled",
-   "prompt": "Run the design skill. My files are in Google Drive, in Framework/weekly-pipeline-post.",
+   "prompt": "Run the design skill. My files are in Google Drive, in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "On ChatGPT, a scheduled run's checkpoint before the Slack post rests on the instruction alone: listed by N-5 as a consequential point and named in N-6; the SCH task says so for that checkpoint.",
    "files": [
@@ -4759,7 +4759,7 @@
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "drive/Framework/weekly-pipeline-post/design-plan.md",
+      "path": "drive/ai-workspace/framework/weekly-pipeline-post/design-plan.md",
       "section": "## Tasks",
       "pattern": "(?m)^### SCH — "
      }
@@ -4772,7 +4772,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "drive/Framework/weekly-pipeline-post/design-plan.md",
+        "path": "drive/ai-workspace/framework/weekly-pipeline-post/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -4790,7 +4790,7 @@
        },
        {
         "type": "structure",
-        "path": "drive/Framework/weekly-pipeline-post/design-plan.md",
+        "path": "drive/ai-workspace/framework/weekly-pipeline-post/design-plan.md",
         "kind": "plan"
        }
       ]
@@ -4801,7 +4801,7 @@
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "drive/Framework/weekly-pipeline-post/design-plan.md",
+      "path": "drive/ai-workspace/framework/weekly-pipeline-post/design-plan.md",
       "section": "## Deployment Plan",
       "pattern": "practice/",
       "must": false
@@ -5632,7 +5632,7 @@
    "spec_item": "9",
    "platform": "claude-web",
    "fixture": "live",
-   "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up.",
+   "prompt": "Change my workflow. My files are in Google Drive, in ai-workspace.",
    "student": "students/real-failure.md",
    "expected_output": "On Claude on the web (no run log), a real failure pasted after N-27: N-28; on yes, saved as the next inputs/E[n]-*.md with source: design and the lines it tests, names changed; then the change.",
    "files": [
@@ -5661,7 +5661,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "drive/Framework/client-follow-up/inputs/E3-*.md",
+      "path": "drive/ai-workspace/framework/client-follow-up/inputs/E3-*.md",
       "pattern": "\\Asource: design\\ntests: "
      }
     },
@@ -5680,7 +5680,7 @@
    "spec_item": "9",
    "platform": "chatgpt",
    "fixture": "live",
-   "prompt": "change my workflow: it promised a client a 10% discount she never agreed to. Here's that run's input: Call with Priya Shah (Orchard Health). Renewal due in March. Priya asked if a 10% discount might be possible for a three-year term; I said I'd check with finance. Next steps: I send the security questionnaire by Friday; Priya books a demo of the reporting module for her team. My files are in Google Drive, in Framework/client-follow-up.",
+   "prompt": "change my workflow: it promised a client a 10% discount she never agreed to. Here's that run's input: Call with Priya Shah (Orchard Health). Renewal due in March. Priya asked if a 10% discount might be possible for a three-year term; I said I'd check with finance. Next steps: I send the security questionnaire by Friday; Priya books a demo of the reporting module for her team. My files are in Google Drive, in ai-workspace.",
    "student": "students/real-failure.md",
    "expected_output": "On ChatGPT, a real failure arriving with the flag line's colon form and its pasted input: N-28 without N-27; saved on yes.",
    "files": [
@@ -5709,7 +5709,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "drive/Framework/client-follow-up/inputs/E3-*.md",
+      "path": "drive/ai-workspace/framework/client-follow-up/inputs/E3-*.md",
       "pattern": "\\Asource: design\\ntests: "
      }
     }
@@ -6052,7 +6052,7 @@
    "spec_item": "9",
    "platform": "claude-web",
    "fixture": "live",
-   "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up.",
+   "prompt": "Change my workflow. My files are in Google Drive, in ai-workspace.",
    "student": "students/direct-edit-keep.md",
    "expected_output": "On Claude on the web the installed skill can't be read: N-E1 every time; on yes, N-E3 asks for the text; then N-E2.",
    "files": [
@@ -6092,7 +6092,7 @@
    "spec_item": "9",
    "platform": "chatgpt",
    "fixture": "live-chatgpt",
-   "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up.",
+   "prompt": "Change my workflow. My files are in Google Drive, in ai-workspace.",
    "student": "students/direct-edit-keep.md",
    "expected_output": "On ChatGPT the skill lives in the leader's account and can't be read: N-E1 every time; on yes, N-E3 asks for the text; then N-E2 (a workflow built and live on ChatGPT; mirrors DE-unreadable-web; rules 14: an edit made on ChatGPT after Build's close).",
    "files": [
@@ -7653,7 +7653,7 @@
    "spec_item": "15, 17",
    "platform": "claude-web",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
-   "prompt": "Run the design skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "prompt": "Run the design skill. My files are in Google Drive, in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "Design's part of a first-time leader's journey on claude-web, light track, from real requirements to an approved plan.",
    "files": [
@@ -7745,7 +7745,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new chat with: 'run the build skill. My files are in Google Drive, in Framework/client-follow-up.'"
+        "text": "Start Build in a new chat with: 'run the build skill. My files are in Google Drive, in ai-workspace.'"
        }
       ]
      }
@@ -7758,7 +7758,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "drive/Framework/client-follow-up/design-plan.md",
+        "path": "drive/ai-workspace/framework/client-follow-up/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -7776,7 +7776,7 @@
        },
        {
         "type": "structure",
-        "path": "drive/Framework/client-follow-up/design-plan.md",
+        "path": "drive/ai-workspace/framework/client-follow-up/design-plan.md",
         "kind": "plan"
        }
       ]
@@ -7787,7 +7787,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "drive/Framework/client-follow-up/design-plan.md",
+      "path": "drive/ai-workspace/framework/client-follow-up/design-plan.md",
       "pattern": "(?m)^approved: true[ \\t]*$"
      }
     },
@@ -7814,7 +7814,7 @@
    "spec_item": "15, 17",
    "platform": "claude-desktop",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
-   "prompt": "Run the design skill. My files are in Framework/client-follow-up.",
+   "prompt": "Run the design skill. My files are in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "Design's part of a first-time leader's journey on claude-desktop, light track, from real requirements to an approved plan.",
    "files": [
@@ -7910,7 +7910,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new chat with your framework folder added: 'run the build skill. My files are in Framework/client-follow-up.'"
+        "text": "Start Build in a new chat with your working folder selected: 'run the build skill. My files are in ai-workspace.'"
        }
       ]
      }
@@ -7923,7 +7923,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "Framework/client-follow-up/design-plan.md",
+        "path": "ai-workspace/framework/client-follow-up/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -7941,7 +7941,7 @@
        },
        {
         "type": "structure",
-        "path": "Framework/client-follow-up/design-plan.md",
+        "path": "ai-workspace/framework/client-follow-up/design-plan.md",
         "kind": "plan"
        }
       ]
@@ -7952,7 +7952,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "Framework/client-follow-up/design-plan.md",
+      "path": "ai-workspace/framework/client-follow-up/design-plan.md",
       "pattern": "(?m)^approved: true[ \\t]*$"
      }
     },
@@ -7975,7 +7975,7 @@
    "spec_item": "15, 17",
    "platform": "chatgpt",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
-   "prompt": "Run the design skill. My files are in Google Drive, in Framework/client-follow-up.",
+   "prompt": "Run the design skill. My files are in Google Drive, in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "Design's part of a first-time leader's journey on chatgpt, light track, from real requirements to an approved plan.",
    "files": [
@@ -8067,7 +8067,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new chat with: 'run the build skill. My files are in Google Drive, in Framework/client-follow-up.'"
+        "text": "Start Build in a new chat with: 'run the build skill. My files are in Google Drive, in ai-workspace.'"
        }
       ]
      }
@@ -8080,7 +8080,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "drive/Framework/client-follow-up/design-plan.md",
+        "path": "drive/ai-workspace/framework/client-follow-up/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -8098,7 +8098,7 @@
        },
        {
         "type": "structure",
-        "path": "drive/Framework/client-follow-up/design-plan.md",
+        "path": "drive/ai-workspace/framework/client-follow-up/design-plan.md",
         "kind": "plan"
        }
       ]
@@ -8109,7 +8109,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "drive/Framework/client-follow-up/design-plan.md",
+      "path": "drive/ai-workspace/framework/client-follow-up/design-plan.md",
       "pattern": "(?m)^approved: true[ \\t]*$"
      }
     },
@@ -8137,7 +8137,7 @@
    "spec_item": "15, 17",
    "platform": "microsoft-365",
    "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
-   "prompt": "Run the design skill. My files are in OneDrive, in Framework/client-follow-up.",
+   "prompt": "Run the design skill. My files are in OneDrive, in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "Design's part of a first-time leader's journey on microsoft-365, light track, from real requirements to an approved plan.",
    "files": [
@@ -8229,7 +8229,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new Cowork chat with: 'run the build skill. My files are in OneDrive, in Framework/client-follow-up.'"
+        "text": "Start Build in a new Cowork chat with: 'run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.'"
        }
       ]
      }
@@ -8242,7 +8242,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "onedrive/Framework/client-follow-up/design-plan.md",
+        "path": "onedrive/ai-workspace/framework/client-follow-up/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -8260,7 +8260,7 @@
        },
        {
         "type": "structure",
-        "path": "onedrive/Framework/client-follow-up/design-plan.md",
+        "path": "onedrive/ai-workspace/framework/client-follow-up/design-plan.md",
         "kind": "plan"
        }
       ]
@@ -8271,7 +8271,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "onedrive/Framework/client-follow-up/design-plan.md",
+      "path": "onedrive/ai-workspace/framework/client-follow-up/design-plan.md",
       "pattern": "(?m)^approved: true[ \\t]*$"
      }
     },
@@ -8335,7 +8335,7 @@
    "spec_item": "19",
    "platform": "microsoft-365",
    "fixture": "domains",
-   "prompt": "Run the design skill. My files are in OneDrive, in Framework/competitor-research-brief.",
+   "prompt": "Run the design skill. My files are in OneDrive, in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "On Microsoft 365, a workflow that works out its own path is planned as an agent Agent Builder makes: its blueprint complete in itself (name, description, rules, checkpoints, context files, connections), its Skills field none, no Cowork skill handing it work, the Deployment Plan naming Agent Builder for the agent and Cowork for any skills, and Data Readiness giving the runtime place in Cowork's folder.",
    "files": [
@@ -8350,7 +8350,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "onedrive/Framework/competitor-research-brief/design-plan.md",
+        "path": "onedrive/ai-workspace/framework/competitor-research-brief/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -8368,7 +8368,7 @@
        },
        {
         "type": "structure",
-        "path": "onedrive/Framework/competitor-research-brief/design-plan.md",
+        "path": "onedrive/ai-workspace/framework/competitor-research-brief/design-plan.md",
         "kind": "plan"
        }
       ]
@@ -8379,7 +8379,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_regex",
-      "path": "onedrive/Framework/competitor-research-brief/design-plan.md",
+      "path": "onedrive/ai-workspace/framework/competitor-research-brief/design-plan.md",
       "pattern": "(?m)^mechanism: Agent[ \\t]*$"
      }
     },
@@ -8388,7 +8388,7 @@
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "onedrive/Framework/competitor-research-brief/design-plan.md",
+      "path": "onedrive/ai-workspace/framework/competitor-research-brief/design-plan.md",
       "section": "## Component Blueprints",
       "pattern": "(?mi)^- \\*\\*Skills:\\*\\* *none"
      }
@@ -8398,7 +8398,7 @@
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "onedrive/Framework/competitor-research-brief/design-plan.md",
+      "path": "onedrive/ai-workspace/framework/competitor-research-brief/design-plan.md",
       "section": "## Deployment Plan",
       "pattern": "Agent Builder"
      }
@@ -8408,7 +8408,7 @@
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "onedrive/Framework/competitor-research-brief/design-plan.md",
+      "path": "onedrive/ai-workspace/framework/competitor-research-brief/design-plan.md",
       "section": "## Data Readiness",
       "pattern": "Documents/Cowork/competitor-research-brief"
      }
@@ -8607,7 +8607,7 @@
    ],
    "platform": "microsoft-365",
    "fixture": "scheduled",
-   "prompt": "Run the design skill. My files are in OneDrive, in Framework/weekly-pipeline-post.",
+   "prompt": "Run the design skill. My files are in OneDrive, in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "A scheduled workflow on Microsoft 365 is planned as Cowork skills run by a Cowork scheduled prompt: no Agent Builder agent, and the Approach says why.",
    "files": [
@@ -8622,7 +8622,7 @@
       "checks": [
        {
         "type": "yaml_keys",
-        "path": "onedrive/Framework/weekly-pipeline-post/design-plan.md",
+        "path": "onedrive/ai-workspace/framework/weekly-pipeline-post/design-plan.md",
         "keys": [
          "workflow",
          "requirements_revision",
@@ -8640,7 +8640,7 @@
        },
        {
         "type": "structure",
-        "path": "onedrive/Framework/weekly-pipeline-post/design-plan.md",
+        "path": "onedrive/ai-workspace/framework/weekly-pipeline-post/design-plan.md",
         "kind": "plan"
        }
       ]
@@ -8651,7 +8651,7 @@
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "onedrive/Framework/weekly-pipeline-post/design-plan.md",
+      "path": "onedrive/ai-workspace/framework/weekly-pipeline-post/design-plan.md",
       "section": "## Decomposition",
       "pattern": "(?s)\\A(?!.*New agent:).*\\Z"
      }
@@ -8677,7 +8677,7 @@
    ],
    "platform": "microsoft-365",
    "fixture": "live-m365-agent",
-   "prompt": "Change my workflow. My files are in OneDrive, in Framework/client-follow-up.",
+   "prompt": "Change my workflow. My files are in OneDrive, in ai-workspace.",
    "student": "students/change-m365-agent.md",
    "expected_output": "A live workflow that is one Agent Builder agent with no context file has nothing fingerprinted; Design still treats it as built and asks N-E1's agent form before recording the change.",
    "files": [
@@ -8713,7 +8713,7 @@
    ],
    "platform": "microsoft-365",
    "fixture": "agent-failed-check",
-   "prompt": "Run the design skill. My files are in OneDrive, in Framework/client-follow-up.",
+   "prompt": "Run the design skill. My files are in OneDrive, in ai-workspace.",
    "student": "students/default.md",
    "expected_output": "Build's request after an Agent Builder agent failed its carried-line check: a mechanism change (N-25, the set-aside), and a fresh plan whose work is Cowork skills, with the reason in the Approach and the failed check carried as a ruling.",
    "files": [
@@ -8733,7 +8733,7 @@
      "kind": "scripted",
      "check": {
       "type": "file_exists",
-      "path": "onedrive/Framework/client-follow-up/history/set-aside-*/design-plan.md"
+      "path": "onedrive/ai-workspace/framework/client-follow-up/history/set-aside-*/design-plan.md"
      }
     },
     {
@@ -8741,7 +8741,7 @@
      "kind": "scripted",
      "check": {
       "type": "section_regex",
-      "path": "onedrive/Framework/client-follow-up/design-plan.md",
+      "path": "onedrive/ai-workspace/framework/client-follow-up/design-plan.md",
       "section": "## Decomposition",
       "pattern": "(?s)\\A(?!.*New agent:).*\\Z"
      }
@@ -8873,7 +8873,7 @@
    ],
    "platform": "chatgpt",
    "fixture": "dir:../../framework-fixtures/states/s06-build-needed/with-registry",
-   "prompt": "Change my workflow. My files are in Google Drive, in Framework/client-follow-up.",
+   "prompt": "Change my workflow. My files are in Google Drive, in ai-workspace.",
    "student": "students/bare-change-stop.md",
    "expected_output": "A bare \"change my workflow\" in a new ChatGPT chat with no build record: one line naming Design and the workflow with N-F3's promise clause and the Always allow advice, then N-27.",
    "files": [
@@ -8924,7 +8924,7 @@
    ],
    "platform": "chatgpt",
    "fixture": "d5-guided",
-   "prompt": "Run the design skill. My files are in Google Drive, in Framework/support-triage.",
+   "prompt": "Run the design skill. My files are in Google Drive, in ai-workspace.",
    "student": "students/not-sure.md",
    "expected_output": "On ChatGPT, where no code runs, D5″'s safe default writes a G line, the Runs: line and a block-form revisions entry in the requirements' own formats, from Design's own reference.",
    "files": [
@@ -8939,17 +8939,17 @@
       "checks": [
        {
         "type": "file_regex",
-        "path": "drive/Framework/support-triage/requirements.md",
+        "path": "drive/ai-workspace/framework/support-triage/requirements.md",
         "pattern": "(?m)^\\|\\s*G1\\s*\\|[^|]+\\|[^|]+\\|\\s*$"
        },
        {
         "type": "file_regex",
-        "path": "drive/Framework/support-triage/requirements.md",
+        "path": "drive/ai-workspace/framework/support-triage/requirements.md",
         "pattern": "(?m)^Runs: with you[ \\t]*$"
        },
        {
         "type": "file_regex",
-        "path": "drive/Framework/support-triage/requirements.md",
+        "path": "drive/ai-workspace/framework/support-triage/requirements.md",
         "pattern": "(?m)^  - revision: 2\\n    by: design\\n    lines: \\["
        }
       ]

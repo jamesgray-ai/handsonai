@@ -80,7 +80,7 @@ class QuoteCheck(unittest.TestCase):
 
     def test_placeholders_are_wildcards(self):
         said = ("Start Design in a new chat with: 'run the design skill. "
-                "My files are in Google Drive, in Framework/client-follow-up.'")
+                "My files are in Google Drive, in ai-workspace.'")
         self.assertTrue(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(said)))
         self.assertTrue(ok({"type": "scripted_lines"}, run_of(said)))
         wrong = said.replace("in a new chat", "in a fresh chat")
@@ -136,7 +136,7 @@ class QuoteCheck(unittest.TestCase):
         self.assertFalse(ok({"type": "quote", "id": "bring-in-line", "form": "main"}, run_of(said)))
         self.assertFalse(ok(cc, run_of(said.replace("start Deconstruct", "open Deconstruct"))))
         desk = {"type": "quote", "id": "bring-in-line", "form": "Claude desktop, whole line"}
-        self.assertTrue(ok(desk, run_of("To bring Client Follow-Up into the framework, start Deconstruct in a new chat with your framework folder added: 'run the deconstruct skill on Client Follow-Up. My files are in Framework.'")))
+        self.assertTrue(ok(desk, run_of("To bring Client Follow-Up into the framework, start Deconstruct in a new chat with your working folder selected: 'run the deconstruct skill on Client Follow-Up. My files are in ai-workspace.'")))
 
     def test_n_b4_leaves_out_an_empty_clause_and_nothing_else(self):
         """build SKILL.md: "A clause with nothing in it is left out." No draft to check: the list closes
@@ -587,7 +587,7 @@ CARRIED = ["Practice run: nothing will be sent or changed.", "All results"]
 def build_prompt(task="T2", folder="client-follow-up", files="Documents/Cowork/client-follow-up/C1-follow-up-style.md",
                  conns="Outlook", lines="Practice run: nothing will be sent or changed. End with a block headed All results."):
     return (f"Build the agent described in task {task} of design-plan.md, using the requirements in requirements.md. "
-            f"Both files are in my OneDrive, in Framework/{folder}. Everything you need is in those files, so don't ask "
+            f"Both files are in my OneDrive, in ai-workspace/framework/{folder}. Everything you need is in those files, so don't ask "
             f"me anything they already answer. The agent reads only {files}, and connects to {conns}. Its instructions "
             f"must also include these lines, word for word: {lines}")
 
@@ -606,8 +606,8 @@ class FillCheck(unittest.TestCase):
         self.assertFalse(self.check(build_prompt(task="T1"))[0])                     # wrong task
         self.assertFalse(self.check(build_prompt(folder="other"))[0])                 # wrong folder
         self.assertFalse(self.check(build_prompt(
-            files="Documents/Cowork/client-follow-up/C1-follow-up-style.md and Framework/client-follow-up/requirements.md"))[0])
-        self.assertFalse(self.check(build_prompt(files="Framework/client-follow-up/context/C1-follow-up-style.md"))[0])
+            files="Documents/Cowork/client-follow-up/C1-follow-up-style.md and ai-workspace/framework/client-follow-up/requirements.md"))[0])
+        self.assertFalse(self.check(build_prompt(files="ai-workspace/framework/client-follow-up/context/C1-follow-up-style.md"))[0])
         self.assertFalse(self.check(build_prompt(conns="Outlook and Teams"))[0])      # an extra connection
         self.assertFalse(self.check(build_prompt(
             lines="Practice run: nothing will be sent or modified. End with a block headed All results."))[0])
@@ -637,22 +637,22 @@ class PlatformSimulations(unittest.TestCase):
     def test_drive_layout(self):
         t, ws = self.ws()
         L.PLATFORMS["chatgpt"]().prepare(ws)
-        self.assertTrue((ws / "drive" / "Framework" / "client-follow-up" / "requirements.md").exists())
-        self.assertTrue((ws / "drive" / "Framework" / "registry").exists())
+        self.assertTrue((ws / "drive" / "ai-workspace" / "framework" / "client-follow-up" / "requirements.md").exists())
+        self.assertTrue((ws / "drive" / "ai-workspace" / "registry").exists())
         shutil.rmtree(t)
 
     def test_m365_attach_fallback(self):
         t, ws = self.ws()
         p = L.PLATFORMS["microsoft-365"](["cowork_cannot_read_onedrive"])
         p.prepare(ws)
-        self.assertFalse((ws / "onedrive" / "Framework").exists())
+        self.assertFalse((ws / "onedrive" / "ai-workspace").exists())
         self.assertEqual(p.on_leader("done", ws), 1)
-        self.assertTrue((ws / "onedrive" / "Framework" / "client-follow-up" / "requirements.md").exists())
+        self.assertTrue((ws / "onedrive" / "ai-workspace" / "framework" / "client-follow-up" / "requirements.md").exists())
         t2, ws2 = self.ws()
         q = L.PLATFORMS["microsoft-365"](["cowork_cannot_read_onedrive", "attach_fails"])
         q.prepare(ws2)
         q.on_leader("done", ws2)
-        self.assertFalse((ws2 / "onedrive" / "Framework").exists())
+        self.assertFalse((ws2 / "onedrive" / "ai-workspace").exists())
         shutil.rmtree(t)
         shutil.rmtree(t2)
 
@@ -684,7 +684,7 @@ class PlatformSimulations(unittest.TestCase):
         # only the carried lines and the agent's instructions still hold the steps, rules and checkpoints
         t = Path(tempfile.mkdtemp())
         try:
-            d = t / "onedrive" / "Framework" / "client-follow-up"
+            d = t / "onedrive" / "ai-workspace" / "framework" / "client-follow-up"
             d.mkdir(parents=True)
             shutil.copy(EVALS.parent / "framework-fixtures" / "states" / "s06-build-needed" / "with-registry"
                         / "framework" / "client-follow-up" / "requirements.md", d)
@@ -769,20 +769,20 @@ class PlatformSimulations(unittest.TestCase):
             shutil.rmtree(t)
 
     def test_chat_platform_layout_keeps_the_registry_linting_clean(self):
-        # rule 4: in a framework folder the registry's repo links drop the `framework/` prefix; a skill in
-        # the leader's account is named as text; on a case-insensitive disk ws/framework is ws/Framework
+        # rule 4: the registry's links are relative to the working folder, so `framework/<slug>/...` links
+        # carry over unchanged; a skill in the leader's account is named as text
         for key, sub in (("claude-desktop", ""), ("microsoft-365", "onedrive"), ("chatgpt", "drive")):
             t = Path(tempfile.mkdtemp())
             try:
                 shutil.copytree(ROOT / "framework-fixtures" / "states" / "s11-live" / "with-registry", t, dirs_exist_ok=True)
                 L.PLATFORMS[key]().prepare(t)
-                fw = t / sub / "Framework"
+                fw = t / sub / "ai-workspace"
                 node = (fw / "registry" / "workflows" / "client-follow-up.md").read_text()
-                self.assertIn("](client-follow-up/requirements.md)", node)
-                self.assertNotIn("](framework/", node)
+                self.assertIn("](framework/client-follow-up/requirements.md)", node)
                 self.assertNotIn(".claude/skills/", node)
-                self.assertTrue((fw / "client-follow-up" / "requirements.md").exists())
-                self.assertFalse((t / ".framework-moving").exists())
+                self.assertTrue((fw / "framework" / "client-follow-up" / "requirements.md").exists())
+                self.assertTrue((fw / "REGISTRY.md").exists())
+                self.assertFalse((t / "framework").exists())
                 lint = subprocess.run(["node", str(ROOT / "plugins/handsonai/tools/lint-registry.js"), "registry"],
                                       cwd=fw, capture_output=True, text=True)
                 self.assertIn("0 error(s)", lint.stdout + lint.stderr, key)
@@ -790,21 +790,21 @@ class PlatformSimulations(unittest.TestCase):
                 shutil.rmtree(t)
 
     def test_no_framework_folder_yet_makes_none(self):
-        # Analyze's first run on a chat platform: nothing to move, so no Framework folder appears
+        # Analyze's first run on a chat platform: nothing to move, so no working folder appears
         for key, sub in (("claude-web", "drive"), ("microsoft-365", "onedrive"), ("claude-desktop", "")):
             t = Path(tempfile.mkdtemp())
             try:
                 L.PLATFORMS[key]().prepare(t)
-                self.assertFalse((t / sub / "Framework").exists(), key)
+                self.assertFalse((t / sub / "ai-workspace").exists(), key)
             finally:
                 shutil.rmtree(t)
         t = Path(tempfile.mkdtemp())
-        try:  # a folder not added to the chat still exists for the leader to add
+        try:  # a folder not selected in the chat still exists for the leader to select
             p = L.PLATFORMS["claude-desktop"](["no_folder_added"])
             p.prepare(t)
-            self.assertFalse((t / "Framework").exists())
+            self.assertFalse((t / "ai-workspace").exists())
             self.assertEqual(p.on_leader("done", t), 1)
-            self.assertTrue((t / "Framework").is_dir())
+            self.assertTrue((t / "ai-workspace").is_dir())
         finally:
             shutil.rmtree(t)
             shutil.rmtree(t.parent / ".sim-hidden", ignore_errors=True)
@@ -1005,8 +1005,8 @@ class ChatPlatformConnections(unittest.TestCase):
         root = Path(tempfile.mkdtemp())
         try:
             ws = root / "workspace"
-            (ws / "drive" / "Framework" / "client-follow-up").mkdir(parents=True)
-            (ws / "drive" / "Framework" / "client-follow-up" / "design-plan.md").write_text("Gmail: the Claude connector (use).\n")
+            (ws / "drive" / "ai-workspace" / "framework" / "client-follow-up").mkdir(parents=True)
+            (ws / "drive" / "ai-workspace" / "framework" / "client-follow-up" / "design-plan.md").write_text("Gmail: the Claude connector (use).\n")
             m = R.connections_for(L.PLATFORMS["claude-web"](), ws, root, {"skill_name": "build"})
             self.assertEqual(m["servers"], ["gmail"])
             self.assertIsNone(R.connections_for(L.PLATFORMS["claude-web"](), ws, root, {"skill_name": "test"}))
@@ -1357,7 +1357,7 @@ class ScriptedMarks(unittest.TestCase):
     """The rubric judge's ⟦…⟧ marks: one marker per approved line, its fills inside it."""
 
     PROMPT = ("Build the agent described in task T2 of design-plan.md, using the requirements in requirements.md. "
-              "Both files are in my OneDrive, in Framework/client-follow-up. Everything you need is in those files, "
+              "Both files are in my OneDrive, in ai-workspace/framework/client-follow-up. Everything you need is in those files, "
               "so don't ask me anything they already answer. The agent reads only "
               "Documents/Cowork/client-follow-up/C1-follow-up-style.md, and connects to Outlook (create drafts). "
               "Its instructions must also include these lines, word for word:\n\n- a carried line.")
@@ -1450,7 +1450,7 @@ class StandInGmail(unittest.TestCase):
             self.assertEqual(R.connections_for(L.PLATFORMS["chatgpt"](), ws, tmp, build)["servers"], ["gmail"])
             plan.write_text("## Connections\nNone: the draft is shown in the chat.\n")
             self.assertIsNone(R.connections_for(L.ClaudeCode(), ws, tmp, build))
-            m365 = ws / "onedrive" / "Framework" / "cfu"
+            m365 = ws / "onedrive" / "ai-workspace" / "framework" / "cfu"
             m365.mkdir(parents=True)
             (m365 / "design-plan.md").write_text("## Connections\nOutlook: the agent's Outlook work content (use).\n")
             mcp = R.connections_for(L.PLATFORMS["microsoft-365"](), ws, tmp, build)

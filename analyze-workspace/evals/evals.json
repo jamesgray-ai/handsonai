@@ -774,7 +774,7 @@
         "rules 14: routing (no location given)"
       ],
       "fixture": "dir:../../framework-fixtures/continue/c-only-backlog/with-registry",
-      "expected_output": "On Claude on the web with no location given, the framework folder is found by name in the drive; only a backlog: Deconstruct's phrase with the drive location.",
+      "expected_output": "On Claude on the web with no location given, the working folder (ai-workspace) is found by name in the drive; only a backlog: Deconstruct's phrase with the drive location.",
       "judge_rubric": false,
       "est_turns": 1,
       "platform": "claude-web",
@@ -785,7 +785,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in Google Drive, in Framework"
+            "text": "run the deconstruct skill. My files are in Google Drive, in ai-workspace"
           }
         },
         {
@@ -854,7 +854,7 @@
       ],
       "sessions": [
         {
-          "prompt": "run the analyze skill. My files are in OneDrive, in Framework.",
+          "prompt": "run the analyze skill. My files are in OneDrive, in ai-workspace.",
           "replies": [
             "done"
           ]
@@ -900,7 +900,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the analyze skill. My files are in OneDrive, in Framework",
+            "text": "run the analyze skill. My files are in OneDrive, in ai-workspace",
             "turn": "last"
           }
         },
@@ -937,7 +937,7 @@
         "rules 14: routing (desktop, no folder added)"
       ],
       "fixture": "brightline",
-      "expected_output": "A later Analyze chat on Claude desktop with no folder added: N-F13's desktop form first, never N-F3a and never N-F12; once added, the opening.",
+      "expected_output": "A later Analyze chat on Claude desktop with no folder selected: N-F13's desktop form first, never N-F3a and never N-F12; once added, the opening.",
       "judge_rubric": false,
       "est_turns": 4,
       "platform": "claude-desktop",
@@ -947,7 +947,7 @@
       "student": "students/desktop-later.md",
       "sessions": [
         {
-          "prompt": "run the analyze skill. My files are in Framework.",
+          "prompt": "run the analyze skill. My files are in ai-workspace.",
           "student": true
         }
       ],
@@ -1032,9 +1032,9 @@
       "platform": "claude-web",
       "fixture": "brightline-drive-docs",
       "judge_rubric": false,
-      "prompt": "run the analyze skill. My files are in Google Drive, in Framework.",
+      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-drive.md",
-      "expected_output": "The leader offers their whole drive; Analyze reads nothing outside the Framework folder (the drive isn't evidence of their work), says so briefly, and carries on with the walk.",
+      "expected_output": "The leader offers their whole drive; Analyze reads nothing outside the working folder (the drive isn't evidence of their work), says so briefly, and carries on with the walk.",
       "expectations": [
         {
           "text": "Nothing from the drive's client folders or invoices appears in any AI message",
@@ -1045,12 +1045,12 @@
           }
         },
         {
-          "text": "Nothing outside the Framework folder is added",
+          "text": "Nothing outside the working folder is added",
           "kind": "scripted",
           "check": {
             "type": "no_added_files",
             "except": [
-              "drive/Framework/*"
+              "drive/ai-workspace/*"
             ]
           }
         },
@@ -1072,7 +1072,7 @@
           }
         },
         {
-          "text": "When the leader offers the drive's client folders, the AI declines to look through them in a line (it reads and saves only inside the framework folder) and carries on; it never says it read or found anything there",
+          "text": "When the leader offers the drive's client folders, the AI declines to look through them in a line (it reads and saves only inside the working folder) and carries on; it never says it read or found anything there",
           "kind": "judged",
           "must": true
         },
@@ -1837,7 +1837,7 @@
       "judge_rubric": false,
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "expected_output": "A first-time leader's Analyze on codex, with a registry set up in the framework folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's codex form with the location.",
+      "expected_output": "A first-time leader's Analyze on codex, with a registry set up in the working folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's codex form with the location.",
       "expectations": [
         {
           "text": "N-A1, word for word, first (its no-history form when Codex has no history to read, 3c-EC)",
@@ -1870,7 +1870,7 @@
           }
         },
         {
-          "text": "No storage question (the framework folder exists)",
+          "text": "No storage question (the working folder exists)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -1906,7 +1906,7 @@
           }
         },
         {
-          "text": "Workflow nodes are written in the registry inside the framework folder",
+          "text": "Workflow nodes are written in the registry inside the working folder",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
@@ -2063,9 +2063,9 @@
       "platform": "claude-web",
       "fixture": "brightline",
       "judge_rubric": false,
-      "prompt": "run the analyze skill. My files are in Google Drive, in Framework.",
+      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-owner.md",
-      "expected_output": "A first-time leader's Analyze on claude-web, with a registry set up in the framework folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's claude-web form with the location.",
+      "expected_output": "A first-time leader's Analyze on claude-web, with a registry set up in the working folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's claude-web form with the location.",
       "expectations": [
         {
           "text": "N-A1, word for word, first",
@@ -2082,12 +2082,12 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "I'll read and save your files in Google Drive, in Framework",
+            "text": "I'll read and save your files in Google Drive, in ai-workspace",
             "turn": "first"
           }
         },
         {
-          "text": "No storage question (the framework folder exists)",
+          "text": "No storage question (the working folder exists)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2119,15 +2119,15 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "drive/Framework/ai-opportunity-report.md"
+            "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
           }
         },
         {
-          "text": "Workflow nodes are written in the registry inside the framework folder",
+          "text": "Workflow nodes are written in the registry inside the working folder",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
-            "path": "drive/Framework/registry/workflows/*-*.md",
+            "path": "drive/ai-workspace/registry/workflows/*-*.md",
             "pattern": "status:\\s*(?:backlog|in-production)"
           }
         },
@@ -2156,7 +2156,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_existed_during",
-            "path": "drive/Framework/analyze-in-progress.md"
+            "path": "drive/ai-workspace/framework/analyze-in-progress.md"
           }
         },
         {
@@ -2167,11 +2167,11 @@
             "checks": [
               {
                 "type": "file_absent",
-                "path": "drive/Framework/analyze-in-progress.md"
+                "path": "drive/ai-workspace/framework/analyze-in-progress.md"
               },
               {
                 "type": "file_exists",
-                "path": "drive/Framework/history/analyze-in-progress-*.md"
+                "path": "drive/ai-workspace/framework/history/analyze-in-progress-*.md"
               }
             ]
           }
@@ -2181,7 +2181,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_contains",
-            "path": "drive/Framework/registry/workflows/*-*.md",
+            "path": "drive/ai-workspace/registry/workflows/*-*.md",
             "text": "(ai-opportunity-report.md)"
           }
         },
@@ -2198,7 +2198,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?ai-workspace/framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2219,11 +2219,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Google Drive, in Framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Google Drive, in ai-workspace.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in Google Drive, in Framework."
+            "text": "run the deconstruct skill. My files are in Google Drive, in ai-workspace."
           }
         },
         {
@@ -2296,9 +2296,9 @@
       "platform": "chatgpt",
       "fixture": "brightline",
       "judge_rubric": false,
-      "prompt": "run the analyze skill. My files are in Google Drive, in Framework.",
+      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-owner.md",
-      "expected_output": "A first-time leader's Analyze on chatgpt, with a registry set up in the framework folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's chatgpt form with the location.",
+      "expected_output": "A first-time leader's Analyze on chatgpt, with a registry set up in the working folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's chatgpt form with the location.",
       "expectations": [
         {
           "text": "N-A1, word for word, first",
@@ -2315,12 +2315,12 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "I'll read and save your files in Google Drive, in Framework",
+            "text": "I'll read and save your files in Google Drive, in ai-workspace",
             "turn": "first"
           }
         },
         {
-          "text": "No storage question (the framework folder exists)",
+          "text": "No storage question (the working folder exists)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2352,15 +2352,15 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "drive/Framework/ai-opportunity-report.md"
+            "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
           }
         },
         {
-          "text": "Workflow nodes are written in the registry inside the framework folder",
+          "text": "Workflow nodes are written in the registry inside the working folder",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
-            "path": "drive/Framework/registry/workflows/*-*.md",
+            "path": "drive/ai-workspace/registry/workflows/*-*.md",
             "pattern": "status:\\s*(?:backlog|in-production)"
           }
         },
@@ -2399,7 +2399,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_existed_during",
-            "path": "drive/Framework/analyze-in-progress.md"
+            "path": "drive/ai-workspace/framework/analyze-in-progress.md"
           }
         },
         {
@@ -2410,11 +2410,11 @@
             "checks": [
               {
                 "type": "file_absent",
-                "path": "drive/Framework/analyze-in-progress.md"
+                "path": "drive/ai-workspace/framework/analyze-in-progress.md"
               },
               {
                 "type": "file_exists",
-                "path": "drive/Framework/history/analyze-in-progress-*.md"
+                "path": "drive/ai-workspace/framework/history/analyze-in-progress-*.md"
               }
             ]
           }
@@ -2424,7 +2424,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_contains",
-            "path": "drive/Framework/registry/workflows/*-*.md",
+            "path": "drive/ai-workspace/registry/workflows/*-*.md",
             "text": "(ai-opportunity-report.md)"
           }
         },
@@ -2441,7 +2441,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?ai-workspace/framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2462,11 +2462,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Google Drive, in Framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Google Drive, in ai-workspace.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in Google Drive, in Framework."
+            "text": "run the deconstruct skill. My files are in Google Drive, in ai-workspace."
           }
         },
         {
@@ -2541,7 +2541,7 @@
       "judge_rubric": false,
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "expected_output": "A first-time leader's Analyze on claude-desktop, with a registry set up in the framework folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's claude-desktop form with the location.",
+      "expected_output": "A first-time leader's Analyze on claude-desktop, with a registry set up in the working folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's claude-desktop form with the location.",
       "expectations": [
         {
           "text": "N-A1, word for word, first",
@@ -2558,12 +2558,12 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "I'll read and save your files in Framework",
+            "text": "I'll read and save your files in ai-workspace",
             "turn": "first"
           }
         },
         {
-          "text": "No storage question (the framework folder exists)",
+          "text": "No storage question (the working folder exists)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2595,15 +2595,15 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "Framework/ai-opportunity-report.md"
+            "path": "ai-workspace/framework/ai-opportunity-report.md"
           }
         },
         {
-          "text": "Workflow nodes are written in the registry inside the framework folder",
+          "text": "Workflow nodes are written in the registry inside the working folder",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
-            "path": "Framework/registry/workflows/*-*.md",
+            "path": "ai-workspace/registry/workflows/*-*.md",
             "pattern": "status:\\s*(?:backlog|in-production)"
           }
         },
@@ -2644,11 +2644,11 @@
             "checks": [
               {
                 "type": "file_absent",
-                "path": "Framework/analyze-in-progress.md"
+                "path": "ai-workspace/framework/analyze-in-progress.md"
               },
               {
                 "type": "file_absent",
-                "path": "Framework/history/analyze-in-progress-*"
+                "path": "ai-workspace/framework/history/analyze-in-progress-*"
               }
             ]
           }
@@ -2658,7 +2658,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_contains",
-            "path": "Framework/registry/workflows/*-*.md",
+            "path": "ai-workspace/registry/workflows/*-*.md",
             "text": "(ai-opportunity-report.md)"
           }
         },
@@ -2675,7 +2675,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?ai-workspace/framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2696,11 +2696,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in ai-workspace.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in Framework."
+            "text": "run the deconstruct skill. My files are in ai-workspace."
           }
         },
         {
@@ -2776,9 +2776,9 @@
       "platform": "microsoft-365",
       "fixture": "brightline",
       "judge_rubric": false,
-      "prompt": "run the analyze skill. My files are in OneDrive, in Framework.",
+      "prompt": "run the analyze skill. My files are in OneDrive, in ai-workspace.",
       "student": "students/brightline-owner.md",
-      "expected_output": "A first-time leader's Analyze on microsoft-365, with a registry set up in the framework folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's microsoft-365 form with the location.",
+      "expected_output": "A first-time leader's Analyze on microsoft-365, with a registry set up in the working folder: the opening with the location and the platform's save and pick-up forms, one process walked, the backlog written in the registry, the report in the framework folder, and the close in N-F2's microsoft-365 form with the location.",
       "expectations": [
         {
           "text": "N-A1, word for word, first",
@@ -2795,12 +2795,12 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "I'll read and save your files in OneDrive, in Framework",
+            "text": "I'll read and save your files in OneDrive, in ai-workspace",
             "turn": "first"
           }
         },
         {
-          "text": "No storage question (the framework folder exists)",
+          "text": "No storage question (the working folder exists)",
           "kind": "scripted",
           "check": {
             "type": "all",
@@ -2832,15 +2832,15 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "onedrive/Framework/ai-opportunity-report.md"
+            "path": "onedrive/ai-workspace/framework/ai-opportunity-report.md"
           }
         },
         {
-          "text": "Workflow nodes are written in the registry inside the framework folder",
+          "text": "Workflow nodes are written in the registry inside the working folder",
           "kind": "scripted",
           "check": {
             "type": "file_regex",
-            "path": "onedrive/Framework/registry/workflows/*-*.md",
+            "path": "onedrive/ai-workspace/registry/workflows/*-*.md",
             "pattern": "status:\\s*(?:backlog|in-production)"
           }
         },
@@ -2899,7 +2899,7 @@
           "check": {
             "type": "no_added_files",
             "except": [
-              "onedrive/Framework/*"
+              "onedrive/ai-workspace/framework/*"
             ]
           }
         },
@@ -2908,7 +2908,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_existed_during",
-            "path": "onedrive/Framework/analyze-in-progress.md"
+            "path": "onedrive/ai-workspace/framework/analyze-in-progress.md"
           }
         },
         {
@@ -2919,11 +2919,11 @@
             "checks": [
               {
                 "type": "file_absent",
-                "path": "onedrive/Framework/analyze-in-progress.md"
+                "path": "onedrive/ai-workspace/framework/analyze-in-progress.md"
               },
               {
                 "type": "file_exists",
-                "path": "onedrive/Framework/history/analyze-in-progress-*.md"
+                "path": "onedrive/ai-workspace/framework/history/analyze-in-progress-*.md"
               }
             ]
           }
@@ -2933,7 +2933,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_contains",
-            "path": "onedrive/Framework/registry/workflows/*-*.md",
+            "path": "onedrive/ai-workspace/registry/workflows/*-*.md",
             "text": "(ai-opportunity-report.md)"
           }
         },
@@ -2950,7 +2950,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?OneDrive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?OneDrive,\\ in\\ [`'\"]?ai-workspace/framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -2962,7 +2962,7 @@
           }
         },
         {
-          "text": "The close gives N-F2's Microsoft 365 form, naming the Framework folder (no workflow folder yet)",
+          "text": "The close gives N-F2's Microsoft 365 form, naming the working folder (no workflow folder yet)",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
@@ -2970,11 +2970,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in OneDrive, in Framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in OneDrive, in ai-workspace.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in OneDrive, in Framework."
+            "text": "run the deconstruct skill. My files are in OneDrive, in ai-workspace."
           }
         },
         {
@@ -3160,7 +3160,7 @@
       "fixture": "empty",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "expected_output": "No framework folder yet on Claude on the web: N-F1 is the first message, asked once, offering only a drive whose connection is on and can write; the opening follows with N-F3 for the folder chosen, the Always allow advice and N-A2; with no registry, the report and backlog.md land in Framework/, holding exactly the kept candidates by area and no running work.",
+      "expected_output": "No working folder yet on Claude on the web: N-F1 is the first message, asked once, offering only a drive whose connection is on and can write; the opening follows with N-F3 for the folder chosen, the Always allow advice and N-A2; with no registry, the report and backlog.md land in ai-workspace/framework/, holding exactly the kept candidates by area and no running work.",
       "expectations": [
         {
           "text": "N-F1 is the first message",
@@ -3215,25 +3215,25 @@
           }
         },
         {
-          "text": "The report and backlog.md land in Framework/",
+          "text": "The report and backlog.md land in ai-workspace/framework/",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "file_exists",
-                "path": "drive/Framework/ai-opportunity-report.md"
+                "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
               },
               {
                 "type": "sections_in_order",
-                "path": "drive/Framework/backlog.md",
+                "path": "drive/ai-workspace/framework/backlog.md",
                 "headings": [
                   "# Backlog"
                 ]
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/backlog.md",
+                "path": "drive/ai-workspace/framework/backlog.md",
                 "pattern": "(?m)^## .+\\n+1\\. \\*\\*[^*]+\\.\\*\\* "
               }
             ]
@@ -3270,7 +3270,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Google\\ Drive,\\ in\\ [`'\"]?ai-workspace/framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -3291,11 +3291,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Google Drive, in Framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Google Drive, in ai-workspace.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in Google Drive, in Framework."
+            "text": "run the deconstruct skill. My files are in Google Drive, in ai-workspace."
           }
         },
         {
@@ -3368,7 +3368,7 @@
       "fixture": "empty",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "expected_output": "No framework folder yet in Microsoft 365 Cowork: N-F1's Microsoft 365 form first, then the same opening with N-F10's Microsoft 365 form.",
+      "expected_output": "No working folder yet in Microsoft 365 Cowork: N-F1's Microsoft 365 form first, then the same opening with N-F10's Microsoft 365 form.",
       "expectations": [
         {
           "text": "N-F1's Microsoft 365 form is the first message",
@@ -3390,11 +3390,11 @@
           }
         },
         {
-          "text": "The report lands in OneDrive's Framework folder",
+          "text": "The report lands in the working folder's framework/ in OneDrive",
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "onedrive/Framework/ai-opportunity-report.md"
+            "path": "onedrive/ai-workspace/framework/ai-opportunity-report.md"
           }
         },
         {
@@ -3410,7 +3410,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?OneDrive,\\ in\\ [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?OneDrive,\\ in\\ [`'\"]?ai-workspace/framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -3422,7 +3422,7 @@
           }
         },
         {
-          "text": "The close gives N-F2's Microsoft 365 form, naming the Framework folder (no workflow folder yet)",
+          "text": "The close gives N-F2's Microsoft 365 form, naming the working folder (no workflow folder yet)",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
@@ -3430,11 +3430,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in OneDrive, in Framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in OneDrive, in ai-workspace.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in OneDrive, in Framework."
+            "text": "run the deconstruct skill. My files are in OneDrive, in ai-workspace."
           }
         },
         {
@@ -3507,7 +3507,7 @@
       "fixture": "brightline",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-stop-early.md",
-      "expected_output": "Started with no location on ChatGPT: the Framework folder is found by name in the drive; no N-F1; the opening confirms the location; stopping early gives Analyze's phrase with the location.",
+      "expected_output": "Started with no location on ChatGPT: the working folder (ai-workspace) is found by name in the drive; no N-F1; the opening confirms the location; stopping early gives Analyze's phrase with the location.",
       "expectations": [
         {
           "text": "No storage question",
@@ -3523,7 +3523,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "I'll read and save your files in Google Drive, in Framework",
+            "text": "I'll read and save your files in Google Drive, in ai-workspace",
             "turn": "first"
           }
         },
@@ -3532,7 +3532,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the analyze skill. My files are in Google Drive, in Framework",
+            "text": "run the analyze skill. My files are in Google Drive, in ai-workspace",
             "turn": "last"
           }
         },
@@ -3593,7 +3593,7 @@
       "fixture": "empty",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "expected_output": "Analyze as the first skill on Claude desktop with no folder added: N-F12 first; files in the folder the leader added, named by its own name in the close; with no registry, backlog.md.",
+      "expected_output": "Analyze as the first skill on Claude desktop with no folder selected: N-F12 first; files in the folder the leader selected, named by its own name in the close; with no registry, backlog.md.",
       "expectations": [
         {
           "text": "N-F12 is the first message, with its Why",
@@ -3617,7 +3617,7 @@
           }
         },
         {
-          "text": "N-F12's add-a-folder steps are the platform registry's (\"Work in a folder\" in the chat bar) or say plainly the exact steps couldn't be verified; no made-up menu path",
+          "text": "N-F12 asks the leader to select the working folder in the prompt window, as the approved line says; no made-up menu path or extra steps for adding a folder",
           "kind": "judged",
           "must": true
         },
@@ -3641,18 +3641,18 @@
           }
         },
         {
-          "text": "Files in the added folder",
+          "text": "Files in the selected folder",
           "kind": "scripted",
           "check": {
             "type": "all",
             "checks": [
               {
                 "type": "file_exists",
-                "path": "Framework/ai-opportunity-report.md"
+                "path": "ai-workspace/framework/ai-opportunity-report.md"
               },
               {
                 "type": "file_exists",
-                "path": "Framework/backlog.md"
+                "path": "ai-workspace/framework/backlog.md"
               }
             ]
           }
@@ -3670,7 +3670,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?Framework/ai\\-opportunity\\-report\\.md"
+            "pattern": "Your opportunity report has the full detail for each one: [`'\"]?ai-workspace/framework/ai\\-opportunity\\-report\\.md"
           }
         },
         {
@@ -3691,11 +3691,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in Framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in ai-workspace.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in Framework."
+            "text": "run the deconstruct skill. My files are in ai-workspace."
           }
         },
         {
@@ -3767,9 +3767,9 @@
       ],
       "platform": "claude-web",
       "fixture": "empty",
-      "prompt": "run the analyze skill. My files are in Google Drive, in Framework.",
+      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-owner.md",
-      "expected_output": "An empty Framework folder on the web with no registry: the no-registry line, the walk by area of work, backlog.md written after the catalog confirmation with the kept candidates by area, and the close's no-registry swaps with the location.",
+      "expected_output": "An empty working folder on the web with no registry: the no-registry line, the walk by area of work, backlog.md written after the catalog confirmation with the kept candidates by area, and the close's no-registry swaps with the location.",
       "expectations": [
         {
           "text": "The no-registry line",
@@ -3787,14 +3787,14 @@
             "checks": [
               {
                 "type": "sections_in_order",
-                "path": "drive/Framework/backlog.md",
+                "path": "drive/ai-workspace/framework/backlog.md",
                 "headings": [
                   "# Backlog"
                 ]
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/backlog.md",
+                "path": "drive/ai-workspace/framework/backlog.md",
                 "pattern": "(?m)^## .+\\n+1\\. \\*\\*[^*]+\\.\\*\\* "
               }
             ]
@@ -3805,7 +3805,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_absent",
-            "path": "drive/Framework/registry/*"
+            "path": "drive/ai-workspace/registry/*"
           }
         },
         {
@@ -3830,7 +3830,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in Google Drive, in Framework."
+            "text": "run the deconstruct skill. My files are in Google Drive, in ai-workspace."
           }
         },
         {
@@ -4145,7 +4145,7 @@
       ],
       "platform": "claude-web",
       "fixture": "brightline-same-lens-report",
-      "prompt": "run the analyze skill with the organizational lens. My files are in Google Drive, in Framework.",
+      "prompt": "run the analyze skill with the organizational lens. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-owner.md",
       "expected_output": "On a drive: a fresh analysis on the same lens first moves the earlier report to history/ai-opportunity-report-YYYY-MM-DD-HHMM.md, then writes the new one; the finished progress file moves to history/, never deleted, and isn't resumed afterwards.",
       "expectations": [
@@ -4154,7 +4154,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "drive/Framework/history/ai-opportunity-report-*.md"
+            "path": "drive/ai-workspace/framework/history/ai-opportunity-report-*.md"
           }
         },
         {
@@ -4162,7 +4162,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "drive/Framework/ai-opportunity-report.md"
+            "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
           }
         },
         {
@@ -4170,7 +4170,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_not_contains",
-            "path": "drive/Framework/ai-opportunity-report.md",
+            "path": "drive/ai-workspace/framework/ai-opportunity-report.md",
             "text": "| **Date** | 2026-09-05 |"
           }
         },
@@ -4182,11 +4182,11 @@
             "checks": [
               {
                 "type": "file_exists",
-                "path": "drive/Framework/history/analyze-in-progress-*.md"
+                "path": "drive/ai-workspace/framework/history/analyze-in-progress-*.md"
               },
               {
                 "type": "file_absent",
-                "path": "drive/Framework/analyze-in-progress.md"
+                "path": "drive/ai-workspace/framework/analyze-in-progress.md"
               }
             ]
           }
@@ -4246,7 +4246,7 @@
       ],
       "platform": "claude-web",
       "fixture": "brightline-create-only",
-      "prompt": "run the analyze skill. My files are in Google Drive, in Framework.",
+      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-owner.md",
       "note": "The create-only connection is simulated by a note in the workspace's CLAUDE.md until leader.py has a platform fault for it (T18)",
       "expected_output": "A connection that can create and move files but not edit them: saves at the end of each part and process, and at a pause; before each save the current file moves into history/ as [file]-YYYY-MM-DD-HHMM.md; the finished progress file is moved to history/, never deleted.",
@@ -4256,7 +4256,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "drive/Framework/history/analyze-in-progress-*.md"
+            "path": "drive/ai-workspace/framework/history/analyze-in-progress-*.md"
           }
         },
         {
@@ -4264,7 +4264,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_absent",
-            "path": "drive/Framework/analyze-in-progress.md"
+            "path": "drive/ai-workspace/framework/analyze-in-progress.md"
           }
         },
         {
@@ -4272,7 +4272,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "drive/Framework/ai-opportunity-report.md"
+            "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
           }
         },
         {
@@ -4327,7 +4327,7 @@
       ],
       "platform": "claude-web",
       "fixture": "brightline-no-update-no-move",
-      "prompt": "run the analyze skill. My files are in Google Drive, in Framework.",
+      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-owner.md",
       "note": "The connection's limits are simulated by a note in the workspace's CLAUDE.md until leader.py has a platform fault for it (T18)",
       "expected_output": "A connection that can neither update nor move files isn't used for saving: print-to-save, with N-F6.",
@@ -4411,7 +4411,7 @@
           "student": true
         },
         {
-          "prompt": "run the analyze skill. My files are in Google Drive, in Framework.",
+          "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
           "from_previous": true,
           "student": "students/pickup-new-chat.md"
         }
@@ -4420,7 +4420,7 @@
         "students/scaffold-then-analyze.md",
         "students/pickup-new-chat.md"
       ],
-      "expected_output": "Same chat: scaffolding-registry asks N-F1 first, before writing anything; the registry lands in Framework/registry/; its close gives N-A7 with the location; Analyze uses the same-session skip and asks no second storage question. New chat with N-A7's phrase: Analyze takes the location from it and asks nothing about storage. No migration is offered.",
+      "expected_output": "Same chat: scaffolding-registry asks N-F1 first, before writing anything; the registry lands in ai-workspace/registry/; its close gives N-A7 with the location; Analyze uses the same-session skip and asks no second storage question. New chat with N-A7's phrase: Analyze takes the location from it and asks nothing about storage. No migration is offered.",
       "expectations": [
         {
           "text": "Session 1: N-F1 first, before anything is written",
@@ -4458,11 +4458,11 @@
           }
         },
         {
-          "text": "The registry is in Framework/registry/",
+          "text": "The registry is in ai-workspace/registry/",
           "kind": "scripted",
           "check": {
             "type": "file_exists",
-            "path": "drive/Framework/registry/SCHEMA.md",
+            "path": "drive/ai-workspace/registry/SCHEMA.md",
             "session": 1
           }
         },

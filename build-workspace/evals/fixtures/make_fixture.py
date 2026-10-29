@@ -721,7 +721,7 @@ def fx_fix_m365_agent(t):  # the agent on Microsoft 365, Not ready on AC2
                                 "… (the agent's instructions, as pasted after Create)\n")
     rec.write_text(text.replace("Gmail", "Outlook"))  # the agent drafts in Outlook (agent_m365)
     write(wf(t) / "package" / "client-follow-up-build-prompt.md",
-          "Build the agent described in task T2 of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in Framework/client-follow-up. …\n")
+          "Build the agent described in task T2 of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in ai-workspace/framework/client-follow-up. …\n")
     fix_round(t)
 
 

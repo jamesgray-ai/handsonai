@@ -34,7 +34,7 @@ Alex Brennan, account lead at Brightline Advisory, owner of Client Follow-Up. Yo
 
     Draft (shown, not saved): Subject: Following up on today's call. Hi Priya, thanks for the time today. Here's what we agreed: I'll send the revised proposal by Thursday (me); Contoso confirms the pilot team of five (Priya); we hold a kickoff call the week of 9 November (me). Best, Alex.
 
-    What I did: read Framework/client-follow-up/requirements.md in your Google Drive to check the rules; read your notes; listed three next steps with owners; drafted the email; Gmail: create the draft 'Following up on today's call' to Priya in Gmail Drafts, shown, not made; stopped for your review."
+    What I did: read ai-workspace/framework/client-follow-up/requirements.md in your Google Drive to check the rules; read your notes; listed three next steps with owners; drafted the email; Gmail: create the draft 'Following up on today's call' to Priya in Gmail Drafts, shown, not made; stopped for your review."
 - If you're asked to run it again in a new chat or session, paste the usual real example block from "Your runs".
 
 ## How you answer

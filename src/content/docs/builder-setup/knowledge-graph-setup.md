@@ -67,7 +67,7 @@ The [AI Registry](../ai-registry-setup/) records what you build *with* AI: your 
 1. **The Hands-on AI skills are in your AI tool.** The build is run by a skill called `building-knowledge-graph`. If you installed the Hands-on AI plugin (Claude or ChatGPT), you already have it. If you add skills by uploading ZIP files (Cursor, Codex CLI, Gemini CLI, or a plan that blocks plugins), upload [building-knowledge-graph.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/building-knowledge-graph.zip).
 
    Haven't set up the skills yet? Follow [Install the Hands-on AI Plugin](../../ai-workflow-framework/skills/) for your tool, then come back here.
-2. **A folder for your project.** Any folder works: on your computer, a synced cloud-drive folder, or a clone of a GitHub repository. Open your AI at that folder's root, not inside `knowledge/`. If you made a `my-business` repository for the course, use that.
+2. **A folder for your project.** If you already keep your AI Registry and workflows in a working folder (for example `ai-workspace`), use that. Otherwise any folder works: on your computer, a synced cloud-drive folder, or a clone of a GitHub repository. Open your AI at that folder's root, not inside `knowledge/`. If you made a `my-business` repository for the course, use that.
 3. **Two or three real documents about your work** handy: a proposal, a client summary, a process doc, a team charter. The skill asks where they are and makes the `raw/` folder for them. Leave out anything with personal data about identifiable people: payroll, health, individual HR records.
 4. **A jotted list** of the five to ten most important named things in your work: clients, products, projects, tools, policies, teams. The interview starts there.
 
@@ -76,7 +76,7 @@ The [AI Registry](../ai-registry-setup/) records what you build *with* AI: your 
 A tool that opens a folder on your computer and writes files into it: **Claude Code**, the **Claude desktop app**, or the **ChatGPT desktop app's Codex view**. Cursor, Codex CLI, and Gemini CLI also work with the ZIP. A browser chat window (Claude on the web, ChatGPT on the web, Gemini, Microsoft 365 Copilot) cannot build a knowledge graph; the skill will say so and stop.
 
 - **Claude Code:** open Terminal, type `cd ` (with a space), drag your folder into the Terminal window, press Enter, then type `claude` and press Enter. Or open the folder in the desktop app.
-- **Claude desktop app:** choose the folder as your working folder when you start.
+- **Claude desktop app:** select the folder in the prompt window when you start.
 - **ChatGPT desktop:** in the **Codex** view, create a project, **Edit project → Add folder**, choose your folder, and **Make primary**.
 
 ## Build It

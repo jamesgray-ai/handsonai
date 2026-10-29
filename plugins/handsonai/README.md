@@ -29,7 +29,7 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor
 
 | Skill | Description |
 |-------|-------------|
-| `analyze` | Find where AI can create value in your work, and register every candidate as a backlog Workflow node in your registry (or a backlog list in your Framework folder, without one) |
+| `analyze` | Find where AI can create value in your work, and register every candidate as a backlog Workflow node in your registry (or a backlog list in your working folder, without one) |
 | `deconstruct` | Turn one workflow into its Workflow Requirements: starting from anything you've written down, it pins down what every output must get right, the rules it follows, where it asks you first, and practice inputs based on your real work |
 | `design` | Plan how AI will do the work: a Design Plan you review and approve, ending in a task list |
 | `build` | Build the workflow from your approved plan, task by task, each part checked with dry runs that show changes instead of making them, plus a build record of what was built and what it can access |
@@ -77,7 +77,7 @@ Five steps, each in a new chat (a new session in Claude Code). Say the step's ph
 
 Keeping it working is part of the workflow, not a step: each run flags anything it wasn't designed for, "change my workflow" starts any change, and "test the workflow I built" re-checks it. Say "continue my workflow" any time: the skill works out the step your workflow needs next, and either picks up there or gives you the phrase to start it in a new chat. Each step ends by giving you the phrase that starts the next one.
 
-**Where the files live.** In Claude Code and Codex, the framework's files are in a `framework/` folder in your workspace, one folder per workflow. On Claude on the web and ChatGPT, they're in a `Framework` folder in your Google Drive, through the platform's connection (if no connection can save, each step gives you its files to save); on Microsoft 365, in a `Framework` folder in OneDrive. The workflow itself runs in its own place (its own Project, or its own folder), kept apart from the framework's files, and the framework's chats run outside it.
+**Where the files live.** Everything sits in one working folder: `registry/`, `framework/` (one folder per workflow) and `knowledge/`. In Claude Code and Codex, the workspace is the working folder. On Claude on the web and ChatGPT, it's a folder in your Google Drive (`ai-workspace` unless you already have one), through the platform's connection (if no connection can save, each step gives you its files to save); on Microsoft 365, a folder in OneDrive, separate from Copilot Cowork's own folder; on the Claude desktop app, the folder you select in the prompt window. The workflow itself runs in its own place (its own Project, or its own folder outside the working folder), kept apart from the framework's files, and the framework's chats run outside it.
 
 **Scripts that ship with the plugin.** In `tools/`, beside the registry tools (`compose-registry.js`, `lint-registry.js`): `framework-state.js` works out where a workflow is and which step is next, and `requirements-check.js` checks a Workflow Requirements file after each write, so a step fixes any problem before it goes on. Node 18 or later, no dependencies. Where code can't run, each skill follows the same rules from its own written copy.
 

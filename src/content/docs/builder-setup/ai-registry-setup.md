@@ -26,7 +26,7 @@ On top of those nodes sit a few **dashboards** — files your assistant generate
 Here's the shape of a workspace after setup:
 
 ```
-my-ai-workspace/
+ai-workspace/
 ├── REGISTRY.md              ← dashboard: at-a-glance index (generated)
 ├── registry/                ← your registry bundle
 │   ├── SCHEMA.md            ← the rules your assistant reads before every write
@@ -34,12 +34,13 @@ my-ai-workspace/
 │   └── businesses/ lines-of-business/ functions/
 │       processes/ workflows/ notes/
 ├── framework/<workflow>/    ← each workflow's record: requirements, Design Plan, build record, test results
+├── knowledge/               ← your knowledge graph, if you build one
 └── sops/ process-guides/    ← unchanged homes; Workflow nodes link to them
 ```
 
-That's the layout on Claude Code and Codex. On Claude on the web, ChatGPT and Microsoft 365 Copilot, the same files live in a folder called `Framework` in your Google Drive (Claude, ChatGPT) or OneDrive (Microsoft 365 Copilot), with the registry inside it at `Framework/registry/`. On the Claude desktop app, they live in the framework folder you add to the chat.
+That top folder is your **working folder**, and the layout is the same on every platform. On Claude Code and Codex, it's your workspace. On Claude on the web, ChatGPT and Microsoft 365 Copilot, it's a folder called `ai-workspace` (or one you already have) in your Google Drive (Claude, ChatGPT) or OneDrive (Microsoft 365 Copilot), with the registry inside it at `ai-workspace/registry/`. On the Claude desktop app, it's the folder you select in the prompt window.
 
-The registry lists your workflows; the files the framework writes for each one are in the workflow's own folder. Whatever a workflow produces when it runs (a report, an email), and its run log if it keeps one, go wherever the workflow runs, never into the framework folder.
+The registry lists your workflows; the files the framework writes for each one are in its folder in `framework/`. Whatever a workflow produces when it runs (a report, an email), and its run log if it keeps one, go wherever the workflow runs, never into your working folder.
 
 Your registry follows an open, public specification called the **Open Knowledge Format (OKF)** — this isn't a format James invented for this playbook. You can read the live spec any time: [OKF on GitHub](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md). You never need to read it to use your registry — your assistant already knows it — but it's there if you're curious how the pieces fit together.
 
@@ -54,7 +55,7 @@ Two things, in this order:
    - [indexing-registry.zip](https://github.com/jamesgray-ai/handsonai-plugins/releases/latest/download/indexing-registry.zip) — keeps it tidy
 
    Haven't set up the skills yet? Follow [Install the Hands-on AI Plugin](../../ai-workflow-framework/skills/) for your tool — it has click-by-click steps for every platform — then come back here.
-2. **A folder for your registry, or a drive connection.** On your computer or in a GitHub repository, any folder works. On Claude on the web or ChatGPT, connect Google Drive with writes on; on Microsoft 365 Copilot, Copilot Cowork already reaches your OneDrive. Your assistant keeps the registry there for you. If no connection can save, your assistant prints each file for you to save. You do not need GitHub — see [Where Your Registry Lives](#where-your-registry-lives).
+2. **A working folder, or a drive connection.** Your registry lives in your working folder, the one folder that also holds your workflows and your knowledge graph. If you already have one, use it; if not, your assistant makes one called `ai-workspace`. On your computer or in a GitHub repository, any folder works. On Claude on the web or ChatGPT, connect Google Drive with writes on; on Microsoft 365 Copilot, Copilot Cowork already reaches your OneDrive. Your assistant keeps the registry there for you. If no connection can save, your assistant prints each file for you to save. You do not need GitHub — see [Where Your Registry Lives](#where-your-registry-lives).
 
 ## Where Your Registry Lives
 
@@ -74,12 +75,12 @@ A downloadable file counts as "no" — if your tool offers you a file to downloa
 
 ### Your Assistant Saves the Files
 
-1. Pick the folder. On the Claude desktop app, this is your framework folder: make a folder called `Framework` in Documents (step 2). Elsewhere, **not sure? Create a new empty folder called `ai-registry` inside your Documents folder** — that's the default. Two other options work just as well:
+1. Pick your working folder. If you already have one, use it. **Not sure? Create a new empty folder called `ai-workspace` inside your Documents folder** — that's the default. If the folder you pick holds a lot besides your AI work, your assistant suggests a clean `ai-workspace` folder instead. Two other options work just as well:
    - The folder on your computer you made in [Create & Clone Your First Repository](../repo-creation-and-cloning/), if you followed that guide.
    - A folder in your cloud drive, **as long as it also appears on your computer** — that means the Google Drive or OneDrive desktop app is installed and syncing. Your AI tool works on the copy on your computer; the app keeps the cloud copy current.
 2. Open that folder in your AI tool:
    - **Claude Code:** open Terminal, type `cd ` (with a space after it), drag the folder from Finder or File Explorer into the Terminal window, press Enter, then type `claude` and press Enter. New to Terminal? See [Terminal Basics](../terminal-basics/).
-   - **The Claude desktop app:** make a folder for your framework files (for example `Framework` in Documents) and add it to the chat. The registry goes inside it. If you start without one, your assistant asks you to add it first.
+   - **The Claude desktop app:** select the folder in the prompt window. The registry goes inside it. If you start without one, your assistant asks you to select it first.
    - **ChatGPT:** if you'll run the framework in ChatGPT itself, keep the registry in your drive instead ([next section](#your-assistant-saves-the-files-in-your-drive)); a local folder works only for Codex. In Codex, open the folder as your project.
    - **Claude Code on the web or Codex in a browser:** work in a GitHub repository — the route when you can't save files on your computer.
    - **Cursor / Codex CLI / Gemini CLI:** open the folder as your project.
@@ -93,11 +94,11 @@ On Claude on the web, ChatGPT and Microsoft 365 Copilot, your assistant saves th
 
 1. Connect your drive, with writes on: Google Drive, in Claude or ChatGPT. (The skills don't offer OneDrive on Claude or ChatGPT; on ChatGPT Plus and Pro, saving to Google Drive may not work either.) If no connection can save, your assistant prints each file for you to save instead. In Microsoft 365 Copilot, use Copilot Cowork: it already reaches your OneDrive.
 2. Start a new chat that isn't inside one of your Claude or ChatGPT Projects (in Microsoft 365 Copilot, a new Copilot Cowork chat) and say: *"Set up my AI registry."*
-3. Your assistant first asks where to keep your workflow files, and suggests a private folder called `Framework` in your drive. Say "go ahead", or name another folder. The registry goes in `Framework/registry/`, and every framework step later reads and saves in that same folder.
+3. Your assistant first asks for your working folder: the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your drive, name it; if not, say "go ahead" and it makes a private folder called `ai-workspace` there. If the folder you name holds a lot besides your AI work, it suggests a clean `ai-workspace` folder instead. The registry goes in `ai-workspace/registry/`, and every framework step later reads and saves in that same folder.
 
-The connection reaches your whole drive, but the framework reads and saves only inside its folder, and never shares or deletes anything.
+The connection reaches your whole drive, but the framework reads and saves only inside your working folder, and never shares or deletes anything.
 
-**You should now see** a `Framework` folder in your drive, with `registry/` inside it, once the interview begins.
+**You should now see** an `ai-workspace` folder (or the folder you named) in your drive, with `registry/` inside it, once the interview begins.
 
 ### You Save the Files
 
@@ -272,17 +273,17 @@ The interview, the node shapes, and the dashboards are the same on every AI tool
 | Platform | Skills come from | Where your registry lives | How files get written |
 |---|---|---|---|
 | Claude Code | Hands-on AI plugin | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
-| Claude desktop app | Hands-on AI plugin | inside the framework folder you add to the chat | directly |
+| Claude desktop app | Hands-on AI plugin | inside the working folder you select in the prompt window | directly |
 | ChatGPT for desktop (Codex) | Hands-on AI plugin, or skill folders in `~/.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
 | Cursor, Codex CLI, Gemini CLI | skill folders in `.agents/skills/` | any folder on your computer | directly — if it's a Git repository, ask your assistant to commit and push when you want it backed up to GitHub |
-| Claude on the web · ChatGPT web | Hands-on AI plugin, or uploaded skill ZIPs | `Framework/registry/` in Google Drive | through the drive connection |
-| Microsoft 365 Copilot | skills uploaded in Copilot Cowork | `Framework/registry/` in OneDrive, separate from Copilot Cowork's own folder | Copilot Cowork's own OneDrive edits |
+| Claude on the web · ChatGPT web | Hands-on AI plugin, or uploaded skill ZIPs | `ai-workspace/registry/` in Google Drive | through the drive connection |
+| Microsoft 365 Copilot | skills uploaded in Copilot Cowork | `ai-workspace/registry/` in OneDrive, separate from Copilot Cowork's own folder | Copilot Cowork's own OneDrive edits |
 | Google Gemini | uploaded skill ZIPs | wherever you save | you save each file — [You save the files](#you-save-the-files) |
 
 A few tool-specific details:
 
 - **Claude Code:** `/plugin list` shows `handsonai` once the plugin is installed, and `/handsonai:scaffolding-registry` starts the interview directly if you'd rather use the slash command.
-- **The Claude desktop app:** add your framework folder to the chat *before* saying "set up my AI registry"; the skill can only write inside a folder the chat can reach.
+- **The Claude desktop app:** select your working folder in the prompt window *before* saying "set up my AI registry"; the skill can only write inside a folder the chat can reach.
 - **ChatGPT for desktop:** the plugin's skills work in ChatGPT Work and Codex. If you installed skill folders by hand instead, `~/.agents/skills/` makes them available in every repository; see [Install the Hands-on AI Plugin — Codex](../../ai-workflow-framework/skills/#openai-codex).
 - **Claude on the web, ChatGPT web, Microsoft 365 Copilot:** your assistant saves through your drive connection. If the connection can't write, it prints each file instead.
 - **Gemini, or a chat with no drive connection:** your assistant should print each file's complete contents and exact path. If it says "I've created your registry" without showing you any files, reply: *"Nothing was saved — print each file in full with its path."*

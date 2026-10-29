@@ -8,7 +8,7 @@ The owner of Brightline Advisory, a four-person analytics consulting firm, using
 - **For setting up the registry:** the business is Brightline Advisory; it offers one thing, client analytics projects ("Client Services"); the team that owns client work is Account Management; the processes are Client Relationship Management and Sales Pipeline Management.
 
 ## How you answer
-- If asked where to keep your files, say "go ahead".
+- If asked where your working folder is (or where to keep your files), say "go ahead".
 - Answer each setup question from the facts, in a sentence; take the AI's suggestions when it offers one.
 - When asked whether to run Analyze now, say yes.
 - In Analyze: answer as the facts say, taking its recommendations. Pick Client Relationship Management; when asked how much time renewals take, say you're not sure; when asked about another process, say "stop here for now"; if asked whether there's anything to add, say no; when shown the list of workflows, say "looks good".

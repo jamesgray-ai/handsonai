@@ -13,7 +13,7 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Autonomy** — How much the AI decides on its own, judged by what decides the next step. **Deterministic**: you give instructions and the AI carries out every step you set. **Guided**: you give bounded decisions with your method (a rubric, criteria, a process), and the AI decides by it. **Autonomous**: you give a goal, and the AI plans its own steps until the goal is met. [Design](../design/) names the level once, in its plan review. See the [AI Workflow Design Matrix](../workflow-design-matrix/).
 
-**Backlog** — The list of candidate workflows [Analyze](../analyze/) saves, each with the work, the pain and the value: cards in your registry, or `backlog.md` in your Framework folder without one.
+**Backlog** — The list of candidate workflows [Analyze](../analyze/) saves, each with the work, the pain and the value: cards in your registry, or `framework/backlog.md` in your working folder without one.
 
 **Build record** — The file [Build](../build/) writes (`build-record.md`): what was built, where it's installed, and what it can access. Once the workflow is live, it also says how to switch it off.
 
@@ -35,7 +35,7 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 
 **Flag line** — The line at the end of every run that flags anything the workflow wasn't designed for, such as a new kind of input or a case its rules don't cover, with the phrase to fix it: "change my workflow". Part of [keeping it working](../#keeping-it-working).
 
-**Framework folder** — The folder that holds your workflow files, called Framework: in Google Drive, in OneDrive or on your computer, or `framework/` in your workspace on Claude Code and Codex. Each workflow gets its own folder inside it. It's kept apart from the workflow's place.
+**Framework folder** — The `framework/` folder inside your working folder that holds your workflow files. Each workflow gets its own folder inside it. It's kept apart from the workflow's place.
 
 **Keeping it working** — What every workflow carries so it stays useful once it's live: the flag line, a re-check date, and "change my workflow". It's part of every workflow, not a step. See [Keeping It Working](../#keeping-it-working).
 
@@ -76,6 +76,8 @@ Every term you'll meet across the five steps, in plain language, each linked to 
 **"What I did" summary** — The short summary a workflow ends each run with: the steps it took, where it paused for you, and what it did with your tools. [Test](../test/) uses it to check the path, but always grades the output itself, never the summary's claims about it.
 
 **Workflow's place** — Where the workflow runs: its own Project or folder; on Microsoft 365 Copilot, Copilot Cowork's own folder or the agent itself. It holds only what the workflow reads while it runs, never your requirements or plan, so Test's runs stay cold.
+
+**Working folder** — The one folder that holds your AI Registry (`registry/`), your workflow files (`framework/`) and your knowledge graph (`knowledge/`). By default it's called `ai-workspace`, or it's a folder you already have: in Google Drive or OneDrive, on your computer (the folder you select in the Claude desktop app), or your workspace itself on Claude Code and Codex. The first framework skill you run asks for it.
 
 **Workflow node** — A workflow's card in your registry (`registry/workflows/<slug>.md`), tracking its status and files across every step. First written by [Analyze](../analyze/), or by [Deconstruct](../deconstruct/) for a workflow you start without a backlog entry.
 

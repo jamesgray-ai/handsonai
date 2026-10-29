@@ -163,7 +163,7 @@ All seven steps are wired together by **S1 — `expense-report-approval`**, the 
 
 ## Prerequisites
 
-1. Claude Code opened in the working folder.
+1. Claude Code opened in the workflow's folder.
 2. The Concur connector, authorized as above.
 
 ## Deployment Plan

@@ -27,10 +27,11 @@ leader's screen, as the chat platforms' new chats are. A session whose script pl
 ends with (a contaminated or injected run, say) opts out with `"leader_runs": "scripted"`, and the
 leader pastes the script's block as before. On the chat platforms the same opt-out keeps the new chat's
 answer off the leader's screen (`scripted_runs`), so the planted block is the only one they can paste. Build keeps its own behaviour on both platforms.
-  claude-web      Google Drive (./drive/Framework); paste-back from new chats
-  claude-desktop  a local folder added to the chat (./Framework); faults: no_folder_added
-  chatgpt         Google Drive (./drive/Framework); apps; paste-back from new chats
-  microsoft-365   OneDrive (./onedrive/Framework), read from the location with nothing attached;
+  claude-web      Google Drive (the working folder ./drive/ai-workspace); paste-back from new chats
+  claude-desktop  the working folder selected in the chat (./ai-workspace); faults: no_folder_added
+                  (no folder selected)
+  chatgpt         Google Drive (the working folder ./drive/ai-workspace); apps; paste-back from new chats
+  microsoft-365   OneDrive (the working folder ./onedrive/ai-workspace), read from the location with nothing attached;
                   Cowork's folder ./onedrive/Documents/Cowork; Agent Builder from a pasted build
                   prompt. Faults: cowork_cannot_read_onedrive (the attach fallback; with
                   attach_fails, the admin line), agent_builder_missing_context_file,
@@ -87,7 +88,7 @@ def strip_actions(msg):
 class Platform:
     key = "claude-code"
     name = "Claude Code"
-    files_root = ""           # where the framework folder lives, relative to the workspace
+    files_root = ""           # where the working folder lives, relative to the workspace
     location = "framework/[workflow-slug]"
     paste_back = False
     run_in_workspace = False  # a leader's run happens in the workspace itself, not a cold copy
@@ -131,38 +132,33 @@ class Platform:
 
 
 def _move_into(ws, sub):
-    """Move the workspace's framework files under ws/sub/Framework (a drive or a named folder), with
-    the registry beside them. The registry's repo links are relative to its parent folder
-    (registry-bundle.md rule 4): `framework/<slug>/requirements.md` in a workspace becomes
-    `<slug>/requirements.md` in a framework folder, so they're rewritten as they're moved."""
+    """Move the workspace's framework files into a working folder, ws/sub/ai-workspace (on a drive) or
+    ws/ai-workspace (the folder selected on Claude desktop), keeping the workspace's layout: framework/,
+    registry/, knowledge/ and the registry views at its root, framework-level files in framework/. The
+    registry's links are relative to its parent folder (registry-bundle.md rule 4), the working folder
+    here as in the workspace, so `framework/<slug>/...` links carry over unchanged."""
     ws = Path(ws)
-    target = ws / sub / "Framework" if sub else ws / "Framework"
-    src = ws / "framework"
-    if src.exists():
-        # first out of the way: on a case-insensitive disk (macOS) ws/framework *is* ws/Framework
-        moving = ws / ".framework-moving"
-        src.rename(moving)
-        src = moving
-    files = [f for f in ("REGISTRY.md", "registry-dashboard.html", "backlog.md", "ai-opportunity-report.md",
-                         "analyze-in-progress.md") if (ws / f).exists()]
-    if not (src.exists() or (ws / "registry").exists() or files):
-        return target  # nothing to move: no framework folder yet, so none is made (Analyze's first run)
+    target = ws / sub / "ai-workspace" if sub else ws / "ai-workspace"
+    dirs = [d for d in ("framework", "registry", "knowledge") if (ws / d).exists()]
+    views = [f for f in ("REGISTRY.md", "registry-dashboard.html") if (ws / f).exists()]
+    level = [f for f in ("backlog.md", "ai-opportunity-report.md", "analyze-in-progress.md") if (ws / f).exists()]
+    if not (dirs or views or level):
+        return target  # nothing to move: no working folder yet, so none is made (Analyze's first run)
     target.mkdir(parents=True, exist_ok=True)
-    if src.exists():
-        for child in src.iterdir():
-            shutil.move(str(child), str(target / child.name))
-        src.rmdir()
-    if (ws / "registry").exists():
-        shutil.move(str(ws / "registry"), str(target / "registry"))
-    for f in files:
+    for d in dirs:
+        shutil.move(str(ws / d), str(target / d))
+    for f in views:
         shutil.move(str(ws / f), str(target / f))
-    views = list((target / "registry").rglob("*.md")) if (target / "registry").exists() else []
-    for p in views + [target / "REGISTRY.md"]:
+    if level:
+        (target / "framework").mkdir(exist_ok=True)
+        for f in level:
+            shutil.move(str(ws / f), str(target / "framework" / f))
+    md = list((target / "registry").rglob("*.md")) if (target / "registry").exists() else []
+    for p in md + [target / "REGISTRY.md"]:
         if p.exists():
             text = p.read_text()
-            moved = re.sub(r"\]\(framework/", "](", text)
             # a skill installed in the leader's account isn't a file beside the registry: its name, as text
-            moved = re.sub(r"\[([^\]]+)\]\(\.(?:claude|agents)/skills/[^)]+\)", r"\1", moved)
+            moved = re.sub(r"\[([^\]]+)\]\(\.(?:claude|agents)/skills/[^)]+\)", r"\1", text)
             if moved != text:
                 p.write_text(moved)
     if (target / "registry" / "SCHEMA.md").exists():
@@ -205,14 +201,14 @@ CHAT_HISTORY = (" This chat has the platform's saved memory and can search the l
 
 class _Drive(Platform):
     files_root = "drive"
-    location = "Google Drive, in Framework/[workflow-slug]"
+    location = "Google Drive, in ai-workspace"
     paste_back = True
     product = ""
 
     def preamble(self):
         return (f"Simulated platform: {self.product}, in a chat outside any Project. The leader's Google Drive "
-                "connection is on and can write; in this simulation the drive's files are the folder ./drive in your "
-                "working folder (./drive/Framework is 'Google Drive, in Framework'). Read and save the leader's files "
+                "connection is on and can write; in this simulation the drive's files are the folder ./drive here "
+                "(./drive/ai-workspace is 'Google Drive, in ai-workspace'). Read and save the leader's files "
                 "only through it. You have no terminal of your own for the leader's work and no local folder: anything "
                 "the leader must run in a new chat, give them to paste, and they paste back what it says." + CHAT_HISTORY)
 
@@ -230,45 +226,45 @@ class ChatGPT(_Drive):
 
 class ClaudeDesktop(Platform):
     key, name = "claude-desktop", "Claude desktop"
-    location = "Framework/[workflow-slug]"
+    location = "ai-workspace"
     paste_back = True
 
     def preamble(self):
-        return ("Simulated platform: Claude desktop, with the leader's framework folder added to this chat; in this "
-                "simulation it is ./Framework in your working folder. If ./Framework isn't there, no folder is added "
-                "to this chat. Anything the leader must run in a new chat, give them to paste, and they paste back." + CHAT_HISTORY)
+        return ("Simulated platform: Claude desktop, with the leader's working folder selected in this chat; in this "
+                "simulation it is the folder ./ai-workspace here. If ./ai-workspace isn't there, no folder is selected "
+                "in this chat. Anything the leader must run in a new chat, give them to paste, and they paste back." + CHAT_HISTORY)
 
     def prepare(self, ws):
         target = _move_into(ws, "")
         if "no_folder_added" in self.faults:
-            target.mkdir(parents=True, exist_ok=True)  # the leader's folder exists; it isn't added to the chat
-            hidden = Path(ws).parent / ".sim-hidden" / "Framework"
+            target.mkdir(parents=True, exist_ok=True)  # the leader's folder exists; it isn't selected in the chat
+            hidden = Path(ws).parent / ".sim-hidden" / "ai-workspace"
             hidden.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(target), str(hidden))
             self.state["hidden"] = hidden
 
     def on_leader(self, msg, ws):
         if self.state.get("hidden") and re.search(r"\bdone\b", msg, re.I):
-            shutil.move(str(self.state.pop("hidden")), str(Path(ws) / "Framework"))
+            shutil.move(str(self.state.pop("hidden")), str(Path(ws) / "ai-workspace"))
             return 1
         return 0
 
     def leader_notes(self):
         if "no_folder_added" in self.faults:
-            return "\nYour screen: you started this chat without adding your framework folder. When asked, add it and say 'done'."
+            return "\nYour screen: you started this chat without selecting your working folder. When asked, select it and say 'done'."
         return ""
 
 
 class Microsoft365(Platform):
     key, name = "microsoft-365", "Microsoft 365 Copilot Cowork"
     files_root = "onedrive"
-    location = "OneDrive, in Framework/[workflow-slug]"
+    location = "OneDrive, in ai-workspace"
     paste_back = True
 
     def preamble(self):
         p = ("Simulated platform: Microsoft 365 Copilot Cowork, in a new Cowork chat. Cowork reads and writes the "
-             "leader's OneDrive; in this simulation OneDrive is ./onedrive in your working folder "
-             "(./onedrive/Framework is 'OneDrive, in Framework', and Cowork's own folder is "
+             "leader's OneDrive; in this simulation OneDrive is the folder ./onedrive here "
+             "(./onedrive/ai-workspace is 'OneDrive, in ai-workspace', and Cowork's own folder is "
              "./onedrive/Documents/Cowork). Read the framework files from the location with nothing attached. "
              "Agents are made by the leader in Copilot's Agent Builder, not here. Anything the leader must run in a "
              "new chat, give them to paste, and they paste back what it says." + CHAT_HISTORY)
@@ -281,14 +277,14 @@ class Microsoft365(Platform):
         (Path(ws) / "onedrive" / "Documents" / "Cowork").mkdir(parents=True, exist_ok=True)
         if "cowork_cannot_read_onedrive" in self.faults:
             target.mkdir(parents=True, exist_ok=True)
-            hidden = Path(ws).parent / ".sim-hidden" / "Framework"
+            hidden = Path(ws).parent / ".sim-hidden" / "ai-workspace"
             hidden.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(target), str(hidden))
             self.state["hidden"] = hidden
 
     def on_leader(self, msg, ws):
         if self.state.get("hidden") and re.search(r"\bdone\b", msg, re.I) and "attach_fails" not in self.faults:
-            shutil.move(str(self.state.pop("hidden")), str(Path(ws) / "onedrive" / "Framework"))
+            shutil.move(str(self.state.pop("hidden")), str(Path(ws) / "onedrive" / "ai-workspace"))
             return 1
         return 0
 
@@ -318,7 +314,7 @@ class Microsoft365(Platform):
             notes.append(f"Agent Builder says: I couldn't find {Path(files[0]).name} in your OneDrive.")
             knowledge = knowledge[1:]
         if "agent_builder_requirements_under_knowledge" in self.faults:
-            knowledge.append("Framework/requirements.md")
+            knowledge.append("ai-workspace/framework/requirements.md")
         instructions = self._instructions(prompt, ws)
         self.state["created"] = self.state.get("created", 0) + 1
         self.state["instructions"] = instructions
@@ -359,11 +355,11 @@ def _plan_lines(prompt, ws):
     """What Agent Builder writes from the files the build prompt names (build.md 6.3: it reads the plan
     and the requirements itself): the requirements' steps, their decisions and rules, acceptance criteria,
     rules, checkpoints and constraints, each as one instruction line. Nothing when the files can't be read."""
-    m = re.search(r"in Framework/([\w-]+)", prompt or "")
+    m = re.search(r"in ai-workspace/framework/([\w-]+)", prompt or "")
     if not ws or not m:
         return []
     try:
-        req = (Path(ws) / "onedrive" / "Framework" / m.group(1) / "requirements.md").read_text()
+        req = (Path(ws) / "onedrive" / "ai-workspace" / "framework" / m.group(1) / "requirements.md").read_text()
     except OSError:
         return []
     out = [f"Step {n}: {what}, producing {made}." for n, what, made in

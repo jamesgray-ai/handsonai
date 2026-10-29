@@ -246,7 +246,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-- You have one folder for your registry — on your computer, in a GitHub repository, or `Framework/registry/` in your Google Drive (Claude, ChatGPT) or OneDrive (Microsoft 365 Copilot) through your AI tool's drive connection
+- You have one folder for your registry — on your computer, in a GitHub repository, or `ai-workspace/registry/` in your Google Drive (Claude, ChatGPT) or OneDrive (Microsoft 365 Copilot) through your AI tool's drive connection
 - The Hands-on AI skills from Step 2 are in your AI tool (if you added skills one at a time, that includes `scaffolding-registry` and `indexing-registry`)
 - `registry/` exists with `SCHEMA.md` inside, and `registry/workflows/index.md` exists (empty is correct — Analyze fills it)
 - You can see your dashboard — `REGISTRY.md` next to your `registry/` folder — listing your business, lines of business, functions, and processes

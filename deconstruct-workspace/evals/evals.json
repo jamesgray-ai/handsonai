@@ -10596,7 +10596,7 @@
       "kind": "routing",
       "platform": "microsoft-365",
       "fixture": "newsletter",
-      "prompt": "Run the deconstruct skill. My files are in OneDrive, in Framework.",
+      "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
       "expected_output": "On Microsoft 365 the backlog is read from the location with nothing attached.",
       "files": [],
       "expectations": [
@@ -10638,7 +10638,7 @@
       "fixture": "newsletter",
       "sessions": [
         {
-          "prompt": "Run the deconstruct skill. My files are in OneDrive, in Framework.",
+          "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
           "replies": [
             "done"
           ]
@@ -10688,7 +10688,7 @@
       "fixture": "newsletter",
       "sessions": [
         {
-          "prompt": "Run the deconstruct skill. My files are in OneDrive, in Framework.",
+          "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
           "replies": [
             "done"
           ]
@@ -10716,7 +10716,7 @@
           }
         },
         {
-          "text": "After \"done\" with the files still unreadable, it says so in one line, says their Microsoft 365 admin can let Cowork read their OneDrive, gives \"run the deconstruct skill. My files are in OneDrive, in Framework.\" to say once that's done, and stops",
+          "text": "After \"done\" with the files still unreadable, it says so in one line, says their Microsoft 365 admin can let Cowork read their OneDrive, gives \"run the deconstruct skill. My files are in OneDrive, in ai-workspace.\" to say once that's done, and stops",
           "kind": "judged",
           "must": true
         }
@@ -10735,13 +10735,13 @@
       "fixture": "newsletter",
       "sessions": [
         {
-          "prompt": "Run the deconstruct skill. My files are in Framework.",
+          "prompt": "Run the deconstruct skill. My files are in ai-workspace.",
           "replies": [
             "done"
           ]
         }
       ],
-      "expected_output": "Claude desktop, a location but no folder added: N-F13's desktop form before anything else, never \"Where are they?\".",
+      "expected_output": "Claude desktop, a location but no folder selected: N-F13's desktop form before anything else, never \"Where are they?\".",
       "files": [],
       "expectations": [
         {
@@ -10787,13 +10787,13 @@
       "fixture": "dir:../../framework-fixtures/states/s03-requirements-needed/with-registry",
       "sessions": [
         {
-          "prompt": "Run the deconstruct skill. My files are in Framework/client-follow-up.",
+          "prompt": "Run the deconstruct skill. My files are in ai-workspace.",
           "replies": [
             "done"
           ]
         }
       ],
-      "expected_output": "A Claude desktop resume with no folder added: N-F13's desktop form, then the resume.",
+      "expected_output": "A Claude desktop resume with no folder selected: N-F13's desktop form, then the resume.",
       "files": [],
       "expectations": [
         {
@@ -11605,7 +11605,7 @@
         "journey": "the light Deconstruct on a chat platform"
       },
       "fixture": "newsletter",
-      "prompt": "Run the deconstruct skill. My files are in Google Drive, in Framework.",
+      "prompt": "Run the deconstruct skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
       "expected_output": "Deconstruct's part of a first-time leader's journey on claude-web: the light interview end to end from the backlog, in about 20 leader actions, with no evaluation term.",
       "files": [
@@ -11800,7 +11800,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?Framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with: 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -11811,7 +11811,7 @@
             "checks": [
               {
                 "type": "yaml_keys",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "keys": [
                   "revision",
                   "track",
@@ -11824,7 +11824,7 @@
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^track: light[ \\t]*$"
               }
             ]
@@ -11838,14 +11838,14 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
@@ -11861,15 +11861,15 @@
             "checks": [
               {
                 "type": "file_exists",
-                "path": "drive/Framework/*/inputs/E2-*.md"
+                "path": "drive/ai-workspace/framework/*/inputs/E2-*.md"
               },
               {
                 "type": "file_absent",
-                "path": "drive/Framework/*/inputs/E4-*.md"
+                "path": "drive/ai-workspace/framework/*/inputs/E4-*.md"
               },
               {
                 "type": "file_line",
-                "path": "drive/Framework/*/inputs/E1-*.md",
+                "path": "drive/ai-workspace/framework/*/inputs/E1-*.md",
                 "line": 1,
                 "pattern": "^source: deconstruct[ \\t]*$"
               }
@@ -11884,7 +11884,7 @@
             "checks": [
               {
                 "type": "sections_in_order",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "headings": [
                   "# * - Workflow Requirements",
                   "## Goal",
@@ -11903,7 +11903,7 @@
               },
               {
                 "type": "structure",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "kind": "requirements",
                 "registry": true
               }
@@ -11918,17 +11918,17 @@
             "checks": [
               {
                 "type": "file_regex",
-                "path": "drive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^status: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^generated: \\{ ?by: process:deconstruct, at: \\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ ?\\}"
               }
             ]
@@ -11962,7 +11962,7 @@
         "journey": "the light Deconstruct on a chat platform"
       },
       "fixture": "newsletter",
-      "prompt": "Run the deconstruct skill. My files are in Google Drive, in Framework.",
+      "prompt": "Run the deconstruct skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
       "expected_output": "Deconstruct's part of a first-time leader's journey on chatgpt: the light interview end to end from the backlog, in about 20 leader actions, with no evaluation term.",
       "files": [
@@ -12157,7 +12157,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?Framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with: 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -12168,7 +12168,7 @@
             "checks": [
               {
                 "type": "yaml_keys",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "keys": [
                   "revision",
                   "track",
@@ -12181,7 +12181,7 @@
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^track: light[ \\t]*$"
               }
             ]
@@ -12195,14 +12195,14 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
@@ -12218,15 +12218,15 @@
             "checks": [
               {
                 "type": "file_exists",
-                "path": "drive/Framework/*/inputs/E2-*.md"
+                "path": "drive/ai-workspace/framework/*/inputs/E2-*.md"
               },
               {
                 "type": "file_absent",
-                "path": "drive/Framework/*/inputs/E4-*.md"
+                "path": "drive/ai-workspace/framework/*/inputs/E4-*.md"
               },
               {
                 "type": "file_line",
-                "path": "drive/Framework/*/inputs/E1-*.md",
+                "path": "drive/ai-workspace/framework/*/inputs/E1-*.md",
                 "line": 1,
                 "pattern": "^source: deconstruct[ \\t]*$"
               }
@@ -12241,7 +12241,7 @@
             "checks": [
               {
                 "type": "sections_in_order",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "headings": [
                   "# * - Workflow Requirements",
                   "## Goal",
@@ -12260,7 +12260,7 @@
               },
               {
                 "type": "structure",
-                "path": "drive/Framework/*/requirements.md",
+                "path": "drive/ai-workspace/framework/*/requirements.md",
                 "kind": "requirements",
                 "registry": true
               }
@@ -12275,17 +12275,17 @@
             "checks": [
               {
                 "type": "file_regex",
-                "path": "drive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^status: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
-                "path": "drive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^generated: \\{ ?by: process:deconstruct, at: \\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ ?\\}"
               }
             ]
@@ -12319,7 +12319,7 @@
         "journey": "the light Deconstruct on a chat platform"
       },
       "fixture": "newsletter",
-      "prompt": "Run the deconstruct skill. My files are in Framework.",
+      "prompt": "Run the deconstruct skill. My files are in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
       "expected_output": "Deconstruct's part of a first-time leader's journey on claude-desktop: the light interview end to end from the backlog, in about 20 leader actions, with no evaluation term.",
       "files": [
@@ -12508,7 +12508,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?Framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with your framework folder added: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with your working folder selected: 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -12519,7 +12519,7 @@
             "checks": [
               {
                 "type": "yaml_keys",
-                "path": "Framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "keys": [
                   "revision",
                   "track",
@@ -12532,7 +12532,7 @@
               },
               {
                 "type": "file_regex",
-                "path": "Framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^track: light[ \\t]*$"
               }
             ]
@@ -12546,14 +12546,14 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "Framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "Framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
@@ -12569,15 +12569,15 @@
             "checks": [
               {
                 "type": "file_exists",
-                "path": "Framework/*/inputs/E2-*.md"
+                "path": "ai-workspace/framework/*/inputs/E2-*.md"
               },
               {
                 "type": "file_absent",
-                "path": "Framework/*/inputs/E4-*.md"
+                "path": "ai-workspace/framework/*/inputs/E4-*.md"
               },
               {
                 "type": "file_line",
-                "path": "Framework/*/inputs/E1-*.md",
+                "path": "ai-workspace/framework/*/inputs/E1-*.md",
                 "line": 1,
                 "pattern": "^source: deconstruct[ \\t]*$"
               }
@@ -12592,7 +12592,7 @@
             "checks": [
               {
                 "type": "sections_in_order",
-                "path": "Framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "headings": [
                   "# * - Workflow Requirements",
                   "## Goal",
@@ -12611,7 +12611,7 @@
               },
               {
                 "type": "structure",
-                "path": "Framework/*/requirements.md",
+                "path": "ai-workspace/framework/*/requirements.md",
                 "kind": "requirements",
                 "registry": true
               }
@@ -12626,17 +12626,17 @@
             "checks": [
               {
                 "type": "file_regex",
-                "path": "Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^status: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
-                "path": "Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
-                "path": "Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^generated: \\{ ?by: process:deconstruct, at: \\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ ?\\}"
               }
             ]
@@ -12671,7 +12671,7 @@
         "journey": "the light Deconstruct on a chat platform"
       },
       "fixture": "newsletter",
-      "prompt": "Run the deconstruct skill. My files are in OneDrive, in Framework.",
+      "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
       "student": "students/L1-newsletter-light.md",
       "expected_output": "Deconstruct's part of a first-time leader's journey on microsoft-365: the light interview end to end from the backlog, in about 20 leader actions, with no evaluation term.",
       "files": [
@@ -12866,7 +12866,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?Framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new Cowork chat with: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new Cowork chat with: 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -12877,7 +12877,7 @@
             "checks": [
               {
                 "type": "yaml_keys",
-                "path": "onedrive/Framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "keys": [
                   "revision",
                   "track",
@@ -12890,7 +12890,7 @@
               },
               {
                 "type": "file_regex",
-                "path": "onedrive/Framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "pattern": "(?m)^track: light[ \\t]*$"
               }
             ]
@@ -12904,14 +12904,14 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "onedrive/Framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Method preference: AI works it out each time\\s*$",
                 "must": true
               },
               {
                 "type": "section_regex",
-                "path": "onedrive/Framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "section": "## Path",
                 "pattern": "^Path: none",
                 "must": true
@@ -12927,15 +12927,15 @@
             "checks": [
               {
                 "type": "file_exists",
-                "path": "onedrive/Framework/*/inputs/E2-*.md"
+                "path": "onedrive/ai-workspace/framework/*/inputs/E2-*.md"
               },
               {
                 "type": "file_absent",
-                "path": "onedrive/Framework/*/inputs/E4-*.md"
+                "path": "onedrive/ai-workspace/framework/*/inputs/E4-*.md"
               },
               {
                 "type": "file_line",
-                "path": "onedrive/Framework/*/inputs/E1-*.md",
+                "path": "onedrive/ai-workspace/framework/*/inputs/E1-*.md",
                 "line": 1,
                 "pattern": "^source: deconstruct[ \\t]*$"
               }
@@ -12950,7 +12950,7 @@
             "checks": [
               {
                 "type": "sections_in_order",
-                "path": "onedrive/Framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "headings": [
                   "# * - Workflow Requirements",
                   "## Goal",
@@ -12969,7 +12969,7 @@
               },
               {
                 "type": "structure",
-                "path": "onedrive/Framework/*/requirements.md",
+                "path": "onedrive/ai-workspace/framework/*/requirements.md",
                 "kind": "requirements",
                 "registry": true
               }
@@ -12984,17 +12984,17 @@
             "checks": [
               {
                 "type": "file_regex",
-                "path": "onedrive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "onedrive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^status: under-development[ \\t]*$"
               },
               {
                 "type": "file_regex",
-                "path": "onedrive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "onedrive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
-                "path": "onedrive/Framework/registry/workflows/weekly-newsletter-draft.md",
+                "path": "onedrive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
                 "pattern": "(?m)^generated: \\{ ?by: process:deconstruct, at: \\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ ?\\}"
               }
             ]
@@ -13018,7 +13018,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_not_regex",
-            "pattern": "(?i)\\battach (?:your|the) Framework"
+            "pattern": "(?i)\\battach (?:your|the) (?:working|Framework) folder"
           }
         }
       ],
@@ -13726,7 +13726,7 @@
       "kind": "interview",
       "platform": "microsoft-365",
       "fixture": "newsletter-standing",
-      "prompt": "Run the deconstruct skill. My files are in OneDrive, in Framework.",
+      "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
       "student": "students/PR-standing-next.md",
       "expected_output": "On Microsoft 365, standing-rules.md is read from OneDrive with nothing attached; each matching standing rule is offered as a suggestion; the kept one is copied, the dropped one isn't.",
       "files": [
@@ -13758,14 +13758,14 @@
             "checks": [
               {
                 "type": "section_regex",
-                "path": "onedrive/Framework/weekly-newsletter-draft/requirements.md",
+                "path": "onedrive/ai-workspace/framework/weekly-newsletter-draft/requirements.md",
                 "section": "## Rules & Constraints",
                 "pattern": "(?i)names? one client",
                 "must": true
               },
               {
                 "type": "file_not_contains",
-                "path": "onedrive/Framework/weekly-newsletter-draft/requirements.md",
+                "path": "onedrive/ai-workspace/framework/weekly-newsletter-draft/requirements.md",
                 "text": "only saves drafts for you to send"
               }
             ]
@@ -13776,7 +13776,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_unchanged",
-            "path": "onedrive/Framework/standing-rules.md"
+            "path": "onedrive/ai-workspace/framework/standing-rules.md"
           }
         }
       ],
@@ -14311,7 +14311,7 @@
           "kind": "scripted",
           "check": {
             "type": "file_absent",
-            "path": "drive/Framework/*/requirements.md"
+            "path": "drive/ai-workspace/framework/*/requirements.md"
           }
         }
       ],
@@ -14861,11 +14861,11 @@
       "fixture": "newsletter",
       "sessions": [
         {
-          "prompt": "Run the deconstruct skill. My files are in Framework.",
+          "prompt": "Run the deconstruct skill. My files are in ai-workspace.",
           "student": "students/PZ-stop-after-name.md"
         },
         {
-          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in Framework/weekly-newsletter-draft.",
+          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in ai-workspace.",
           "from_previous": true,
           "student": "students/PZ-resume.md"
         }
@@ -14906,12 +14906,12 @@
             "checks": [
               {
                 "type": "file_exists",
-                "path": "Framework/weekly-newsletter-draft/deconstruct-in-progress.md",
+                "path": "ai-workspace/framework/weekly-newsletter-draft/deconstruct-in-progress.md",
                 "session": 1
               },
               {
                 "type": "file_line",
-                "path": "Framework/weekly-newsletter-draft/deconstruct-in-progress.md",
+                "path": "ai-workspace/framework/weekly-newsletter-draft/deconstruct-in-progress.md",
                 "line": 3,
                 "pattern": "^Track: light",
                 "session": 1
@@ -14952,11 +14952,11 @@
       "fixture": "newsletter",
       "sessions": [
         {
-          "prompt": "Run the deconstruct skill. My files are in OneDrive, in Framework.",
+          "prompt": "Run the deconstruct skill. My files are in OneDrive, in ai-workspace.",
           "student": "students/PZ-stop-after-name.md"
         },
         {
-          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in OneDrive, in Framework/weekly-newsletter-draft.",
+          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in OneDrive, in ai-workspace.",
           "from_previous": true,
           "student": "students/PZ-resume.md"
         }

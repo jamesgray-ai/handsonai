@@ -38,21 +38,21 @@ Design plans against these lines, Build checks each task against them, and Test 
 ## Before You Start
 
 1. **Install the five skills** on your platform. See [Install the Hands-on AI Plugin](skills/).
-2. **Set up your [AI Registry](../builder-setup/ai-registry-setup/).** In a new chat, where you'll keep your framework files, say *"Set up my AI registry."* It records your business, its functions and its processes, so Analyze starts from them instead of asking you to describe your business, and every step keeps your workflow's card up to date. You can skip it: Analyze then keeps your list of workflows in a backlog file in your Framework folder.
+2. **Set up your [AI Registry](../builder-setup/ai-registry-setup/).** In a new chat, say *"Set up my AI registry."* It first asks for your working folder (or makes one called `ai-workspace`). It records your business, its functions and its processes, so Analyze starts from them instead of asking you to describe your business, and every step keeps your workflow's card up to date. You can skip it: Analyze then keeps your list of workflows in a backlog file in your working folder.
 3. **Start with Analyze.** In a new chat, say *"run the analyze skill."*
 
 ## What You Need
 
 - **The five skills** on your platform. See [Install the Hands-on AI Plugin](skills/).
-- **A folder for your workflow files**, called Framework. On Claude on the web and ChatGPT, it lives in Google Drive, through the platform's Google Drive connection with writes turned on. If no drive connection can save, the skill gives you each file to save yourself. On Microsoft 365 Copilot, it lives in OneDrive. On the Claude desktop app, it's a folder on your computer that you add to each framework chat. On Claude Code and Codex, it's `framework/` in your workspace. The first skill you run asks where to keep it.
+- **A working folder**: the one folder that holds your AI Registry, your workflow files (in `framework/`, one folder per workflow) and your knowledge graph. If you already have one, use it; if not, the first skill you run makes one called `ai-workspace`. On Claude on the web and ChatGPT, it lives in Google Drive, through the platform's Google Drive connection with writes turned on. If no drive connection can save, the skill gives you each file to save yourself. On Microsoft 365 Copilot, it lives in OneDrive, separate from Copilot Cowork's own folder. On the Claude desktop app, it's a folder on your computer (for example `ai-workspace` in Documents) that you select in the prompt window of each framework chat. On Claude Code and Codex, your workspace is the working folder. The first skill you run asks for it.
 
-Your workflow itself runs somewhere else: its own Project (Claude, ChatGPT), its own folder (Claude desktop app, Copilot Cowork) or an agent (Agent Builder), holding only what it reads. Build sets that up. Keeping the two apart is what lets Test run your workflow cold, the way it will run at work. On Claude Code and Codex the workflow shares your workspace, and Test checks each run for signs it read your framework files.
+Your workflow itself runs somewhere else, outside your working folder: its own Project (Claude, ChatGPT), its own folder (Claude desktop app, Copilot Cowork) or an agent (Agent Builder), holding only what it reads. Build sets that up. Keeping the two apart is what lets Test run your workflow cold, the way it will run at work. On Claude Code and Codex the workflow shares your workspace, and Test checks each run for signs it read your framework files.
 
 ## Moving From Step to Step
 
 Run each step in a new chat (a new session on Claude Code and Codex). Start a step with its phrase and where your files are:
 
-> run the design skill. My files are in Google Drive, in Framework/weekly-status-report.
+> run the design skill. My files are in Google Drive, in ai-workspace.
 
 Or say **"continue my workflow"** in any step's chat. The skill reads your files and works out where the workflow is. If it's that step's turn, it picks up there; if not, it gives you the phrase to start the right step in a new chat. Every step ends by giving you the phrase that starts the next one, so you never need to remember the order. Stopping partway is safe: progress is saved as you go (in Deconstruct, from the moment the workflow has a name).
 

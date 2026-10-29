@@ -15,14 +15,14 @@ Drafts the Friday leadership status report from the team's project tracker (prog
 
 # Artifacts
 
-- [Opportunity report](ai-opportunity-report.md)
-- [Requirements](weekly-status-report/requirements.md)
-- [Design plan](weekly-status-report/design-plan.md)
-- [Test results](weekly-status-report/test-results.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
+- [Requirements](framework/weekly-status-report/requirements.md)
+- [Design plan](framework/weekly-status-report/design-plan.md)
+- [Test results](framework/weekly-status-report/test-results.md)
 
 # Skills
 
-- [weekly-status-report](weekly-status-report/package/skills/weekly-status-report/SKILL.md)
+- [weekly-status-report](framework/weekly-status-report/package/skills/weekly-status-report/SKILL.md)
 
 # Agents
 

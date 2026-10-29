@@ -22,7 +22,7 @@ When the [AI Workflow Framework](/ai-workflow-framework/) builds an agent on Mic
 
 1. Open **Copilot › Chat › Agents › New agent**. Use the **Message Agent Builder** box. If Agent Builder asks you anything, paste its question into Build's chat. The ordinary Copilot Chat can read your plan and describe an agent, but it can't create one.
 2. Paste the build prompt the [Build](/ai-workflow-framework/build/) step wrote for you. It names your plan, your requirements and their OneDrive folder, so Agent Builder fills in the name, description and instructions itself. You don't copy anything into the form.
-3. Add each context file the agent reads under **Knowledge**, from the copy Build saved in the workflow's own folder, and check that Knowledge lists only the files Build named, removing anything else. Don't use Agent Builder's offer to attach a file: it may pick the framework's copy instead.
+3. Add each context file the agent reads under **Knowledge**, from the copy Build saved in the workflow's own folder, and check that Knowledge lists only the files Build named, removing anything else. Don't use Agent Builder's offer to attach a file: it may pick the copy in your working folder instead.
 4. Check **Work content**. Each agent has its own switches (Cloud files, Outlook, Teams, Copilot connectors, web search), and Microsoft's default lets an agent reach everything Copilot can. Leave on only what the workflow uses, and switch the rest off.
 5. Choose **Create**.
 6. Paste the agent's instructions back into Build's chat, so Build can check them.

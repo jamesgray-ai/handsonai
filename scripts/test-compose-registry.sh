@@ -593,19 +593,20 @@ run_lint_at "$WS" >/dev/null 2>&1 && ok "absent Run log link tolerated (runs.md 
 out=$(lint_output broken/runlog-status-contradiction)
 grep -q 'ERROR.*contradicts run log evidence (runs.md has entries)' <<<"$out" && ok "run log in the workflow's place, linked, contradicting status errors" || bad "run log contradiction text: $out"
 
-# web-shaped bundle: Framework/ holds registry/ beside <slug>/ folders; links are <slug>/...
+# flat bundle: registry/ beside <slug>/ folders, links <slug>/... -- no platform writes this layout
+# (every working folder holds framework/<slug>/), but the lint still resolves it
 WEB=$(mktemp -d); cp -R "$FIX/valid-bundle/." "$WEB/"
 mv "$WEB/framework/first-workflow" "$WEB/first-workflow"; rmdir "$WEB/framework"
 sedi 's|(framework/first-workflow/|(first-workflow/|g' "$WEB/registry/workflows/first-workflow.md"
 (cd "$WEB" && git init -q . && git add -A >/dev/null 2>&1)
-run_lint_at "$WEB" >/dev/null 2>&1 && ok "web-shaped bundle: <slug>/ links resolve from the registry's parent" || bad "web-shaped bundle should lint clean: $(run_lint_at "$WEB" 2>&1 | grep ERROR)"
+run_lint_at "$WEB" >/dev/null 2>&1 && ok "flat bundle: <slug>/ links resolve from the registry's parent" || bad "flat bundle should lint clean: $(run_lint_at "$WEB" 2>&1 | grep ERROR)"
 mkdir -p "$WEB/orphan-flow"; : > "$WEB/orphan-flow/requirements.md"; mkdir -p "$WEB/history"; : > "$WEB/history/requirements.md"
 out=$(run_lint_at "$WEB" 2>&1 || true)
-grep -q "WARN.*orphan-flow/: framework folder not claimed" <<<"$out" && ok "web-shaped bundle: unclaimed sibling workflow folder warned" || bad "web-shaped: expected unclaimed warning for orphan-flow/"
-grep -qE "WARN.*(history|sops)/: framework folder not claimed" <<<"$out" && bad "web-shaped: history/ or sops/ taken for a workflow folder" || ok "web-shaped: history/ and sops/ are never workflow folders"
+grep -q "WARN.*orphan-flow/: framework folder not claimed" <<<"$out" && ok "flat bundle: unclaimed sibling workflow folder warned" || bad "flat bundle: expected unclaimed warning for orphan-flow/"
+grep -qE "WARN.*(history|sops)/: framework folder not claimed" <<<"$out" && bad "flat bundle: history/ or sops/ taken for a workflow folder" || ok "flat bundle: history/ and sops/ are never workflow folders"
 (cd "$WEB" && node "$TOOLS/compose-registry.js" --island-only registry 2>/dev/null) > "$WEB/island.json"
 node -e "const d=JSON.parse(require('fs').readFileSync(process.argv[1]));process.exit(d.workflows.find(w=>w.id==='first-workflow').state==='Live'?0:1)" "$WEB/island.json" \
-  && ok "web-shaped bundle: compose reads <slug>/ beside registry/ for the state" || bad "web-shaped bundle: state not read from <slug>/"
+  && ok "flat bundle: compose reads <slug>/ beside registry/ for the state" || bad "flat bundle: state not read from <slug>/"
 rm -rf "$WEB"
 
 # TOOLS_VERSION: raised, equal to package.json's version, and the plugin ships the same tools
@@ -620,12 +621,12 @@ done
   && ok "plugin tools load from the repo root (commonjs)" || bad "plugin tools fail to load from the repo root"
 
 # worked example: examples/weekly-status-report is an internal, unpublished fixture laid out as on Claude desktop:
-# Documents/Framework/ is the framework folder (registry/ beside the workflow's flat folder) and
-# Documents/status-reports/ is the workflow's own working folder. The registry lints with exactly
+# Documents/ai-workspace/ is the working folder (registry/ beside framework/weekly-status-report/) and
+# Documents/status-reports/ is the workflow's folder, outside it. The registry lints with exactly
 # one expected warning (the re-check date has passed) and composes to a no-op.
 EXROOT="$REPO_ROOT/examples/weekly-status-report"
-EX="$EXROOT/Documents/Framework"
-EXW="$EX/weekly-status-report"
+EX="$EXROOT/Documents/ai-workspace"
+EXW="$EX/framework/weekly-status-report"
 ex_out=$(cd "$EX" && node "$TOOLS/lint-registry.js" registry 2>&1) && ok "worked example lints with exit 0" || bad "worked example lint failed: $(tail -1 <<<"$ex_out")"
 grep -q "ERROR" <<<"$ex_out" && bad "worked example has lint errors" || ok "worked example has no lint errors"
 ex_warns=$(grep -c "^WARN" <<<"$ex_out" || true)
@@ -646,7 +647,7 @@ missing=""; for f in requirements.md design-plan.md build-record.md test-results
 leftover=$(cd "$EXROOT" && find . \( -name 'run-guide.md' -o -name 'improvement-plan.md' -o -name 'design-spec.md' -o -name 'runs.md' -o -name 'test-runs' -o -name 'outputs' \) -print)
 [ -z "$leftover" ] && ok "worked example: no run guide, improvement plan, design spec, run log, test-runs/ or outputs/" || bad "worked example: earlier-version files left: $leftover"
 [ -z "$(cd "$EXROOT/Documents/status-reports" && ls requirements.md design-plan.md build-record.md test-results.md 2>/dev/null)" ] \
-  && ok "worked example: the workflow's folder holds no framework file" || bad "worked example: a framework file is in the workflow's working folder"
+  && ok "worked example: the workflow's folder holds no framework file" || bad "worked example: a framework file is in the workflow's folder"
 [ -z "$(git -C "$REPO_ROOT" check-ignore $(cd "$REPO_ROOT" && find examples/weekly-status-report -type f -name '*.md') 2>/dev/null)" ] \
   && ok "worked example: no file is gitignored (the fixture is committed whole)" || bad "worked example: some files are gitignored: $(cd "$REPO_ROOT" && git check-ignore $(find examples/weekly-status-report -type f -name '*.md'))"
 [ "$(ls "$EXROOT"/Documents/status-reports/status-report-2026-0[67]-*.md 2>/dev/null | wc -l | tr -d ' ')" -eq 5 ] && ok "worked example keeps the 5 reports saved since go-live in the workflow's folder" || bad "worked example should keep its 5 saved status reports in Documents/status-reports/"

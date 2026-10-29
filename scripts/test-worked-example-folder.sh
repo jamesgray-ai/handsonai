@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # Checks the worked-example folder, examples/weekly-status-report: an internal test fixture (not published
 # on the site) holding one workflow taken through the five steps to live on Claude desktop, in this
-# release's file formats. Documents/Framework/ is the framework folder; Documents/status-reports/ is the
-# workflow's own working folder. scripts/test-compose-registry.sh checks its registry; this checks the
+# release's file formats. Documents/ai-workspace/ is the working folder (registry/ and framework/);
+# Documents/status-reports/ is the workflow's folder, outside it. scripts/test-compose-registry.sh checks its registry; this checks the
 # workflow's record and the built skill.
 #   Run: bash scripts/test-worked-example-folder.sh
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 EX="$ROOT/examples/weekly-status-report"
-FW="$EX/Documents/Framework"
-W="$FW/weekly-status-report"
+FW="$EX/Documents/ai-workspace"
+W="$FW/framework/weekly-status-report"
 RUN="$EX/Documents/status-reports"
 TOOLS="$ROOT/registry-template/tools"
 STRUCT="$ROOT/framework-evals/structure.py"
@@ -67,7 +67,7 @@ for line in "Practice run: nothing will be sent or changed." \
   grep -qF "$line" "$CARRIED" || { bad "carried-lines.md no longer has: $line"; continue; }
   grep -qF "$line" "$SKILL" && ok "skill carries: ${line:0:50}…" || bad "skill is missing: $line"
 done
-grep -qF "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your framework folder added, say 'change my workflow: [X, in a few words]. My files are in Framework/weekly-status-report.', and paste this run's input too." "$SKILL" \
+grep -qF "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your working folder selected, say 'change my workflow: [X, in a few words]. My files are in ai-workspace.', and paste this run's input too." "$SKILL" \
   && ok "skill carries the flag line in its Claude desktop form, with the location" || bad "skill is missing the Claude desktop flag line"
 grep -qE '\b(AC|R|G|P|T)[0-9]+\b|\bKW\b' "$SKILL" && bad "skill text carries requirement or task IDs: $(grep -noE '\b(AC|R|G|P|T)[0-9]+\b|\bKW\b' "$SKILL" | head -3 | tr '\n' ' ')" || ok "skill text carries no requirement or task IDs"
 [ "$(find "$W/package" -type f | grep -vc '/SKILL.md$')" -eq 0 ] && ok "package/ holds only the skill" || bad "package/ holds more than the skill"

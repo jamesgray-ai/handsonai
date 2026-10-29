@@ -55,7 +55,7 @@ agent (no sequencing decisions to make).
 |----------|--------|-----------|
 | Lens | Individual | One owner, one trigger-to-deliverable flow |
 | Platform | Claude | Where Maya works daily |
-| Platform Mode | code | Claude runs skills as files, staged in the working folder and installed through its own skill flow |
+| Platform Mode | code | Claude runs skills as files, staged in the workflow's folder and installed through its own skill flow |
 | Orchestration | Skill | Repeated weekly, fixed sequence, triggered by name |
 | Involvement | Augmented | Maya takes part at G1 (review) and G2 (ambiguous status) |
 | Packaging | Standalone Skill | Design's default for several related artifacts is Plugin; overridden here because Claude requires a plugin only when worker agents ship with the skills, there are none, and two standalone uploads are simpler for a first workflow. One package per skill |
@@ -160,7 +160,7 @@ name. See Deployment Plan.)*
   - User provides: nothing
   - Produces: saved report file + run-log row
 
-[Final output: status-report-YYYY-MM-DD.md in the working folder, run logged]
+[Final output: status-report-YYYY-MM-DD.md in the workflow's folder, run logged]
 
 [Closing run summary: "What I did" — the four steps run in order, whether G2
  fired and what Maya resolved, the G1 review and what Maya decided there,
@@ -226,8 +226,8 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 
 ## Prerequisites
 
-1. Claude desktop app with a working folder and the HubSpot connector enabled (read-only scope)
-2. `context/past-reports/` and `context/tone-guide.md` present in the working folder
+1. Claude desktop app with the workflow's folder selected and the HubSpot connector enabled (read-only scope)
+2. `context/past-reports/` and `context/tone-guide.md` present in the workflow's folder
 
 ## Deployment Plan
 
@@ -235,13 +235,13 @@ S1 is always the orchestrator skill for a Skill mechanism — it carries the wor
 |---|---|---|
 | S1 — orchestrator skill `weekly-status-report` | Staged at `framework/weekly-status-report/skills/weekly-status-report/`, packaged as `framework/weekly-status-report/weekly-status-report.zip`; installed through Claude's Save skill flow (Customize → Skills) | Build states the intent and hands over this blueprint; the platform creates the skill; Maya saves the package |
 | S2 — `status-report-drafting` | Staged at `framework/weekly-status-report/skills/status-report-drafting/`, packaged as `framework/weekly-status-report/status-report-drafting.zip`; installed the same way | Same |
-| C3 — `tone-guide.md` | `context/tone-guide.md` in the working folder | Build creates it with Maya |
+| C3 — `tone-guide.md` | `context/tone-guide.md` in the workflow's folder | Build creates it with Maya |
 
 **Orchestrator artifact (primary-loop platforms):** S1 is the user-triggered entry point — an orchestrator skill carrying the workflow name, with `disable-model-invocation: true` and no `context: fork`; S2 is capability-named.
 
 **Packaging note:** Standalone Skill — both skills upload individually; no plugin wrapper (see Architecture Decisions).
 
-**Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat in the working folder.
+**Recommended for frequent use:** keep both skills installed in the account that runs the report; start each Friday run in a fresh chat with the workflow's folder selected.
 
 **Run Logging:** the orchestrator skill appends one row to
 `framework/weekly-status-report/runs.md` at the end of every production run — date,
@@ -262,7 +262,7 @@ Gates (G1, G2) are sourced from `framework/weekly-status-report/requirements.md`
 
 - [ ] Exact model names for Claude at generation time
 - [ ] HubSpot connector read-only scope verification
-- [ ] Context placement per Claude's `context_location` (working folder)
+- [ ] Context placement per Claude's `context_location` (the workflow's folder)
 
 ## Self-Test Summary
 

@@ -64,11 +64,12 @@ because a dashboard roll-up and a lint warning give it teeth.
 **Layered model.** Each workflow has a folder in the **framework folder** — its **record**, what the
 AI Workflow Framework produced while building and testing it: `requirements.md`, `design-plan.md`,
 `build-record.md` and `test-results.md`, with `inputs/`, `context/`, `package/` and `history/`.
-On Claude Code and Codex the framework folder is `framework/` in the workspace, beside `registry/`
-(`framework/<slug>/`); on the web and in Microsoft 365 Copilot it is `Framework/` in the leader's
-drive, and on Claude desktop the folder the leader adds to the chat, each holding `registry/` beside
-the workflow folders (`<slug>/`). The workflow's **run log** and its own output are not part of the
-record: they live where the workflow runs, never in the framework folder. Event-facts stay in the
+The framework folder is `framework/` in the leader's **working folder**, beside `registry/` and
+`knowledge/`, so a workflow's folder is `framework/<slug>/` on every platform. The working folder is
+`ai-workspace/` in the leader's drive on the web and in Microsoft 365 Copilot, the folder the leader
+selects on Claude desktop, and the workspace on Claude Code and Codex. The workflow's **run log** and
+its own output are not part of the record: they live in the workflow's own folder, where it runs,
+outside the working folder. Event-facts stay in the
 record. Only **synthesized insight** crosses into this bundle, as `Note` concepts. Links point one
 way: the registry links into the workflow folders, and nothing in them links back to registry nodes.
 
@@ -130,7 +131,7 @@ the parent — nothing on the child changes.
 | Workflow → Process | the Process node's curated `# Workflows` list | dashboard tables in value-chain order; workflow's LOB (via chain) |
 | Workflow → Skill/Agent | the Workflow node's `# Skills` / `# Agents` body links | per-skill/agent used-by in generated inventories |
 | Insight → Workflow/Process | the Note's body links | Workflow `# Insights` GENERATED block |
-| Workflow → operational files | the Workflow node's `# Artifacts` labeled links | claims sweep (every SOP and every workflow folder in the framework folder must be claimed) |
+| Workflow → operational files | the Workflow node's `# Artifacts` labeled links | claims sweep (every SOP and every workflow folder, `framework/<slug>/`, must be claimed) |
 
 **Process → Function (ownership)** is the one attribute-reference edge: the Process's `owner:`
 frontmatter holds a function slug. Deliberately not a curated parent list — ownership is
@@ -146,11 +147,9 @@ Discriminator, exact:
 - **Leading `/`** = bundle-root-relative, resolved from `registry/` (e.g.
   `/processes/course-improvement.md`). The first path segment MUST be one of this bundle's
   directories or a root file — lint errors otherwise.
-- **No leading slash, not a URL** = relative to the registry's parent folder, never `../`. On
-  Claude Code and Codex that is the workspace (e.g. `framework/course-improvement/requirements.md`);
-  in a drive and on Claude desktop it is the framework folder (e.g.
-  `course-improvement/requirements.md`). The lint resolves both the same way. A trailing `/` marks
-  a directory target.
+- **No leading slash, not a URL** = relative to the registry's parent folder, never `../`. That is
+  the working folder on every platform (e.g. `framework/course-improvement/requirements.md`). A
+  trailing `/` marks a directory target.
 - **Full URLs** = external.
 
 Links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are

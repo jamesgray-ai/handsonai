@@ -30,7 +30,7 @@
   {
    "id": "N-F1",
    "form": "main",
-   "text": "Where should I keep your workflow files? I'd suggest a private folder called Framework in your [Google Drive / OneDrive], since that connection is on. It reaches your whole drive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me another folder.",
+   "text": "Where's your working folder? It's the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your [Google Drive / OneDrive], tell me its name. If not, I'll make a private folder called ai-workspace there. The connection reaches your whole drive, but I'll only read and save inside your working folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me your folder's name.",
    "kind": "question",
    "skills": [
     "analyze",
@@ -48,7 +48,7 @@
   {
    "id": "N-F1",
    "form": "Microsoft 365",
-   "text": "Where should I keep your workflow files? I'd suggest a folder called Framework in your OneDrive, separate from Cowork's own folder. Cowork can see your whole OneDrive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new Cowork chat. Say 'go ahead', or tell me another folder.",
+   "text": "Where's your working folder? It's the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your OneDrive, tell me its name. If not, I'll make a folder called ai-workspace there, separate from Cowork's own folder. Cowork can see your whole OneDrive, but I'll only read and save inside your working folder, and never share or delete anything. Please run each step of the framework in a new Cowork chat. Say 'go ahead', or tell me your folder's name.",
    "kind": "question",
    "skills": [
     "analyze",
@@ -79,6 +79,24 @@
     "scaffolding-registry": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-F15",
+   "form": "main",
+   "text": "That folder holds a lot besides your AI work. I'd suggest a new, clean folder called ai-workspace instead, so the framework only ever touches your AI work. Say 'go ahead', or 'use it anyway'.",
+   "kind": "question",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "scaffolding-registry"
+   ],
+   "files": {
+    "analyze": "SKILL.md",
+    "deconstruct": "SKILL.md",
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "framework-rules.md 12; 3c-EH (2026-10-28)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
@@ -129,7 +147,7 @@
   {
    "id": "N-F2",
    "form": "Claude desktop, with the files in a local folder",
-   "text": "Start [step] in a new chat with your framework folder added: '[start phrase]. My files are in [location].'",
+   "text": "Start [step] in a new chat with your working folder selected: '[start phrase]. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -151,7 +169,7 @@
   {
    "id": "N-F2",
    "form": "Microsoft 365",
-   "text": "Start [step] in a new Cowork chat with: '[start phrase]. My files are in OneDrive, in Framework/[workflow-slug].'",
+   "text": "Start [step] in a new Cowork chat with: '[start phrase]. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].'",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -173,7 +191,7 @@
   {
    "id": "N-F2",
    "form": "When the next step starts with no workflow folder yet",
-   "text": "…My files are in OneDrive, in Framework.'",
+   "text": "…My files are in OneDrive, in ai-workspace.'",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -253,7 +271,7 @@
   {
    "id": "N-F3",
    "form": "On the web and in Microsoft 365 Cowork",
-   "text": "When [platform] asks to save to your drive here, choose Always allow for this chat; I'll only save inside your framework folder.",
+   "text": "When [platform] asks to save to your drive here, choose Always allow for this chat; I'll only read and save inside your working folder.",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -275,7 +293,7 @@
   {
    "id": "N-F3",
    "form": "Build's form, in Build's Cowork chat",
-   "text": "When Cowork asks to save to your drive here, choose Always allow for this chat; I'll only save inside your framework folder and, when I install your workflow, in Cowork's own folder (its skills folder, and a folder for your workflow).",
+   "text": "When Cowork asks to save to your drive here, choose Always allow for this chat; I'll only read and save inside your working folder and, when I install your workflow, in Cowork's own folder (its skills folder, and a folder for your workflow).",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -423,7 +441,7 @@
   {
    "id": "N-F7",
    "form": "Claude desktop",
-   "text": "This chat has your workflow's folder added, where it runs, so I'll keep the framework out of it. Open a new chat with your framework folder added and say '[start phrase]. My files are in [location].'",
+   "text": "This chat has your workflow's folder selected, where it runs, so I'll keep the framework out of it. Open a new chat with your working folder selected and say '[start phrase]. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct",
@@ -442,7 +460,7 @@
   {
    "id": "N-F7",
    "form": "Claude Code and Codex",
-   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in the workspace that holds your framework folder and say '[start phrase]. My files are in [location].'",
+   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in the workspace that holds your working folder and say '[start phrase]. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct",
@@ -547,7 +565,7 @@
   {
    "id": "N-F10",
    "form": "Claude desktop, with the files in a local folder",
-   "text": "To pick up, open a new chat with your framework folder added and say '[start phrase]. My files are in [location].'",
+   "text": "To pick up, open a new chat with your working folder selected and say '[start phrase]. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -605,7 +623,7 @@
   {
    "id": "N-F12",
    "form": "main",
-   "text": "Your framework files can live in a folder on your computer. Make a folder for them, for example Framework in Documents, and add it to this chat: [how to add a folder on Claude desktop]. Open each step of the framework in a new chat with that folder added. Say 'done' when it's added[, or 'use my drive' to keep them in [Google Drive / OneDrive] instead].",
+   "text": "Your AI work lives in one working folder on your computer: your AI Registry, your workflows and your knowledge graph. Select your working folder in the prompt window. If you don't have one, make a folder called ai-workspace, for example in Documents, and select that. Open each step of the framework in a new chat with that folder selected. Say 'done' when it's selected[, or 'use my drive' to keep it in [Google Drive / OneDrive] instead].",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -641,7 +659,7 @@
   {
    "id": "N-F13",
    "form": "Claude desktop",
-   "text": "I can't see your framework files yet. Add your framework folder to this chat, then say 'done'.",
+   "text": "I can't see your framework files yet. Add your working folder to this chat, then say 'done'.",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -662,7 +680,7 @@
   {
    "id": "N-F13",
    "form": "Microsoft 365, the fallback",
-   "text": "I can't see your framework files yet. Attach your Framework folder in OneDrive to this chat, then say 'done'.",
+   "text": "I can't see your framework files yet. Attach your working folder in OneDrive to this chat, then say 'done'.",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -938,7 +956,7 @@
   {
    "id": "N-B45",
    "form": "Claude desktop",
-   "text": "To see what the AI does with no instructions, open a new chat with no folder added, and before typing, switch off connectors and memory under +, so it has nothing it could send or change with. Paste this, and copy back what it says. Then delete that chat.",
+   "text": "To see what the AI does with no instructions, open a new chat with no folder selected, and before typing, switch off connectors and memory under +, so it has nothing it could send or change with. Paste this, and copy back what it says. Then delete that chat.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -992,7 +1010,7 @@
   {
    "id": "N-T19",
    "form": "inside: Claude desktop",
-   "text": "In a new chat with your framework folder added, …",
+   "text": "In a new chat with your working folder selected, …",
    "kind": "carried",
    "skills": [
     "built-workflow"
@@ -1069,7 +1087,7 @@
   {
    "id": "N-T20",
    "form": "Claude desktop",
-   "text": "In a new chat with your framework folder added, say…",
+   "text": "In a new chat with your working folder selected, say…",
    "kind": "carried",
    "skills": [
     "built-workflow"
@@ -1256,7 +1274,7 @@
   {
    "id": "bring-in-line",
    "form": "Claude desktop",
-   "text": "in a new chat with your framework folder added",
+   "text": "in a new chat with your working folder selected",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -1574,7 +1592,7 @@
   {
    "id": "N-A9",
    "form": "main",
-   "text": "You don't have an AI Registry yet. It records your business and its processes, so I can start from them instead of asking you to describe your business, and each step keeps your workflow's record up to date. To set one up first, say 'Set up my AI registry.' When it's done, say 'run the analyze skill.' and I'll start from it. Or say 'start without one' and I'll keep your list of workflows in your Framework folder.",
+   "text": "You don't have an AI Registry yet. It records your business and its processes, so I can start from them instead of asking you to describe your business, and each step keeps your workflow's record up to date. To set one up first, say 'Set up my AI registry.' When it's done, say 'run the analyze skill.' and I'll start from it. Or say 'start without one' and I'll keep your list of workflows in your working folder.",
    "kind": "question",
    "skills": [
     "analyze"
@@ -1642,7 +1660,7 @@
   {
    "id": "N-D3",
    "form": "On Claude desktop",
-   "text": "To pick up, open a new chat with your framework folder added and say 'run the deconstruct skill. My files are in [location].'",
+   "text": "To pick up, open a new chat with your working folder selected and say 'run the deconstruct skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -1950,7 +1968,7 @@
   {
    "id": "N-D14",
    "form": "the last sentence in N-F2's platform forms (on Microsoft 365",
-   "text": "Start Design in a new Cowork chat with: 'run the design skill. My files are in OneDrive, in Framework/[slug].'",
+   "text": "Start Design in a new Cowork chat with: 'run the design skill. My files are in OneDrive, in ai-workspace/framework/[slug].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -1978,7 +1996,7 @@
   {
    "id": "N-D14",
    "form": "main-4",
-   "text": "When you're ready, start Design in a new chat with your framework folder added: 'run the design skill. My files are in [location].'",
+   "text": "When you're ready, start Design in a new chat with your working folder selected: 'run the design skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -3617,7 +3635,7 @@
   {
    "id": "N-B13",
    "form": "Claude desktop",
-   "text": "Start Test in a new chat with your framework folder added: 'test the workflow I built. My files are in [location].'",
+   "text": "Start Test in a new chat with your working folder selected: 'test the workflow I built. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -3630,7 +3648,7 @@
   {
    "id": "N-B13",
    "form": "Microsoft 365",
-   "text": "Start Test in a new Cowork chat with: 'test the workflow I built. My files are in OneDrive, in Framework/[workflow-slug].'",
+   "text": "Start Test in a new Cowork chat with: 'test the workflow I built. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].'",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -3682,7 +3700,7 @@
   {
    "id": "N-B17",
    "form": "main",
-   "text": "Your workflow will run in its own [Project / working folder], with only its context files; your framework files stay in [location]. [Steps to create it and add each context file; on Claude desktop, to create the folder and copy each context file into it.] Say 'done' when it's set up.",
+   "text": "Your workflow will run in its own [Project / folder], with only its context files; your framework files stay in [location]. [Steps to create it and add each context file; on Claude desktop, to create the folder and copy each context file into it.] Say 'done' when it's set up.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -4400,7 +4418,7 @@
   {
    "id": "N-B52",
    "form": "Then",
-   "text": "3. [Context files: 'Under Knowledge, add [file] from your OneDrive, in Documents/Cowork/[workflow-slug], if it isn't listed yet. Add it from there, not through Agent Builder's offer to attach it, which may pick the copy in your Framework folder. ']If Agent Builder asks you anything[ else], paste its question here. 4. Before you choose Create, check that Knowledge lists only [the context files / nothing], and remove anything else. Then open Work content and check that only [what the workflow uses / nothing] is switched on; switch off anything else, and tell me if something won't switch off. 5. Choose Create. 6. When [Agent] shows under Agents, open it, choose Edit, copy everything under Instructions, and paste it here, so I can check it kept the lines it must carry.",
+   "text": "3. [Context files: 'Under Knowledge, add [file] from your OneDrive, in Documents/Cowork/[workflow-slug], if it isn't listed yet. Add it from there, not through Agent Builder's offer to attach it, which may pick the copy in your working folder. ']If Agent Builder asks you anything[ else], paste its question here. 4. Before you choose Create, check that Knowledge lists only [the context files / nothing], and remove anything else. Then open Work content and check that only [what the workflow uses / nothing] is switched on; switch off anything else, and tell me if something won't switch off. 5. Choose Create. 6. When [Agent] shows under Agents, open it, choose Edit, copy everything under Instructions, and paste it here, so I can check it kept the lines it must carry.",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -4426,7 +4444,7 @@
   {
    "id": "N-B52",
    "form": "The build prompt",
-   "text": "Build the agent described in task [task ID] of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in Framework/[workflow-slug]. Everything you need is in those files, so don't ask me anything they already answer. The agent reads only [each context file, by its place in OneDrive], and connects to [its connections / nothing else]. Its instructions must also include these lines, word for word: [the lines 6.3 names from 6.4].",
+   "text": "Build the agent described in task [task ID] of design-plan.md, using the requirements in requirements.md. Both files are in my OneDrive, in ai-workspace/framework/[workflow-slug]. Everything you need is in those files, so don't ask me anything they already answer. The agent reads only [each context file, by its place in OneDrive], and connects to [its connections / nothing else]. Its instructions must also include these lines, word for word: [the lines 6.3 names from 6.4].",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -4556,7 +4574,7 @@
   {
    "id": "N-B53",
    "form": "The fix prompt",
-   "text": "In this agent, [the change], so it [the requirement it must meet, in plain words / matches task [task ID] of design-plan.md in my OneDrive, in Framework/[workflow-slug] / carries this line word for word: '[the line]'].[ In a test it [the miss, in plain words].] Change nothing else.",
+   "text": "In this agent, [the change], so it [the requirement it must meet, in plain words / matches task [task ID] of design-plan.md in my OneDrive, in ai-workspace/framework/[workflow-slug] / carries this line word for word: '[the line]'].[ In a test it [the miss, in plain words].] Change nothing else.",
    "kind": "safety or promise",
    "skills": [
     "build"

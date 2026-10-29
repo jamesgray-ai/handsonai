@@ -12,7 +12,7 @@ Consolidates every open risk from the tracker's comments into the monthly regist
 
 # Artifacts
 
-- [Opportunity report](ai-opportunity-report.md)
+- [Opportunity report](framework/ai-opportunity-report.md)
 
 # Skills
 

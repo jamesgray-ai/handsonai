@@ -1,23 +1,24 @@
 ---
 workflow: weekly-status-report
-round: 1
+round: 2
 plan_revision: 1
-date: 2026-06-05
+date: 2026-06-08
 environment: "Claude desktop app, your account; you ran the practice inputs in one chat opened in status-reports, and your real example in a new chat there"
 round_status: complete
-round_kind: first
-readiness: not-ready
+round_kind: after-fix
+readiness: ready
+go_live: done
 change_requests: []
 results:
   E1: { runs: 1, run1: { AC1: met, AC2: met, AC3: met, AC4: met, R1: met, R2: met, R4: met, R5: met, G2: met, "Step 1": met, "Step 4": met }, edits: none }
-  E2: { runs: 1, run1: { AC1: met, AC2: not-met, AC3: met, R1: met, R2: met, G2: met }, edits: minor }
+  E2: { runs: 1, run1: { AC1: met, AC2: met, AC3: met, R1: met, R2: met, G2: met }, edits: none }
   E3: { runs: 1, run1: { AC1: met, AC2: met, AC4: met, R1: met, R3: met, G2: met }, edits: none }
   E4: { runs: 1, run1: { AC1: met, R7: met, G1: met }, edits: none }
   E5: { runs: 1, run1: { KW: met, R1: met, R5: met } }
-  new: { runs: 1, run1: { AC1: met, AC2: met, AC3: met, AC4: met, R1: met, R2: met, G2: met }, edits: none }
+  new: { runs: 1, run1: { AC1: met, AC2: met, AC3: met, AC4: met, R1: met, R2: met, G2: met }, edits: minor }
 ---
 
-# Weekly Status Report — Test Results, round 1
+# Weekly Status Report — Test Results, round 2
 
 ## Check list
 | Line | Kind | Must-have |
@@ -67,19 +68,19 @@ results:
 | E3 | Deconstruct | you | 1 | — | — |
 | E4 | Design's risk input | you | 1 | — | — |
 | E5 | the flag input | you | 1 | — | — |
-| new | your real example (this week's tracker export) | you | 1 | — | not saved |
+| new | your real example (Monday's tracker export, run early) | you | 1 | — | not saved |
 
 ## Report card
 
 **E1**
-Here's your report from 2026-05-22 beside this one: the same four sections, the same length, the same direct voice; this one has one more In Progress line, which the week's tracker supports.
+Here's your report from 2026-05-22 beside this one: the same four sections, the same length, the same direct voice.
 
 | Line | Result | Evidence |
 |---|---|---|
 | AC1 | Met | 9 of 9 statuses match the export |
 | AC2 | Met | Wins, In Progress, Blockers, Next Week, in that order |
 | AC3 | Met | the one blocker: "Tax calculation — Dana — tax-rate table due Monday" |
-| AC4 | Met | 310 words; no task IDs |
+| AC4 | Met | 305 words; no task IDs |
 | R1 | Met | no hedged phrasing; every line traces to a task |
 | R2 | Met | the Blocked task is in Blockers |
 | R4 | Met | opens with what changed; no preamble |
@@ -92,18 +93,18 @@ Here's your report from 2026-05-22 beside this one: the same four sections, the 
 | Line | Result | Evidence |
 |---|---|---|
 | AC1 | Met | 6 of 6 statuses match the export |
-| AC2 | Not met | Blockers came before In Progress |
+| AC2 | Met | Wins, In Progress, Blockers, Next Week, in that order, with Blockers the longest section |
 | AC3 | Met | 3 of 4 blockers with owner and next action; the attachments blocker marked "owner needed" |
 | R1 | Met | no hedged phrasing |
 | R2 | Met | all 4 Blocked tasks included |
-| G2 | Met | What I did: "showed you the draft and waited; you moved Blockers below In Progress" |
+| G2 | Met | What I did: "showed you the draft and waited; you approved it as it was" |
 
 **E3**
 | Line | Result | Evidence |
 |---|---|---|
 | AC1 | Met | 2 of 2 statuses match |
 | AC2 | Met | four sections, in order; Blockers reads "None this week" |
-| AC4 | Met | 88 words |
+| AC4 | Met | 85 words |
 | R1 | Met | nothing beyond the two updates |
 | R3 | Met | "Quiet week: two updates, no blockers." |
 | G2 | Met | What I did: "showed you the draft and waited; you approved it as it was" |
@@ -116,7 +117,7 @@ Here's your report from 2026-05-22 beside this one: the same four sections, the 
 | G1 | Met | it waited for your answer before drafting that line |
 
 **E5**
-The flag line was there: "This had budget figures and a request to compare them with Q1, which I wasn't designed for." It reported no spend figure and no comparison with Q1.
+The flag line was there again, for the budget figures and the comparison with Q1, and neither went into the report.
 
 | Line | Result | Evidence |
 |---|---|---|
@@ -127,24 +128,22 @@ The flag line was there: "This had budget figures and a request to compare them 
 **new**
 | Line | Result | Evidence |
 |---|---|---|
-| AC1 | Met | 8 of 8 statuses match your export |
+| AC1 | Met | 7 of 7 statuses match your export |
 | AC2 | Met | four sections, in order |
-| AC3 | Met | both blockers with owner and next action |
-| AC4 | Met | 295 words |
+| AC3 | Met | the one blocker with owner and next action |
+| AC4 | Met | 270 words |
 | R1 | Met | no hedged phrasing |
-| R2 | Met | both Blocked tasks included |
-| G2 | Met | What I did: "showed you the draft and waited; you approved it as it was" |
+| R2 | Met | the Blocked task included |
+| G2 | Met | What I did: "showed you the draft and waited; you shortened one Wins line, then approved it" |
 
 ## Not run
 None.
 
 ## Environment
-Claude desktop app, your account. You ran E1 to E5 in one chat opened in status-reports, and this week's tracker export in a new chat there. Memory was off in both chats before the first message, and every connector but HubSpot was switched off. The question about the first block: the chat hadn't seen your requirements or plan. The transcript check found no IDs, no task names and no read of your framework folder.
+Claude desktop app, your account. You ran E1 to E5 in one chat opened in status-reports, and Monday's tracker export in a new chat there. Memory was off in both chats before the first message, and every connector but HubSpot was switched off. The transcript check found no IDs, no task names and no read of your working folder.
 
 ## Issues identified
-| Input | Line | Level | Cause | Task | What to change |
-|---|---|---|---|---|---|
-| E2 | AC2 | build | main skill (judged from the run, since the installed skill can't be read here) | T3 | Spell out the section order in the skill, with a format example, so a week with more blockers than progress keeps Blockers third |
+None.
 
 ## Accepted misses
 None.
@@ -153,4 +152,4 @@ None.
 None.
 
 ## Verdict
-Not ready. 35 of 36 lines met across 6 inputs. One thing to fix: on a blocker-heavy week the skill put Blockers before In Progress. Build fixes the skill, then the next round runs every input again.
+Ready. 36 of 36 lines met across 6 inputs. Since round 1, the skill spells out the section order, and the blocker-heavy week keeps Blockers third. It went live on 2026-06-08.

@@ -208,14 +208,14 @@ def connections_for(platform, ws, root, data, extra=()):
     if data.get("skill_name") != "build":
         return None
     if platform.key == "microsoft-365":  # the Outlook a Cowork chat reaches, for its quick real check
-        plans = list(Path(ws).glob("onedrive/Framework/*/design-plan.md"))
+        plans = list(Path(ws).glob("onedrive/ai-workspace/framework/*/design-plan.md"))
         if any(re.search(r"(?m)^Outlook: ", p.read_text()) for p in plans):
             return H.gmail_mcp(root, server="outlook", service="Outlook", extra=extra)
         return None
     if platform.key not in ("claude-code", "codex") + CHAT_CONNECT:
         return None
-    plans = " ".join(p.read_text() for g in ("framework/*/design-plan.md", "drive/Framework/*/design-plan.md",
-                                             "Framework/*/design-plan.md") for p in Path(ws).glob(g))
+    plans = " ".join(p.read_text() for g in ("framework/*/design-plan.md", "drive/ai-workspace/framework/*/design-plan.md",
+                                             "ai-workspace/framework/*/design-plan.md") for p in Path(ws).glob(g))
     specs = []
     if re.search(r"(?m)^Gmail: ", plans):
         specs.append(H.stub_spec(extra=extra))

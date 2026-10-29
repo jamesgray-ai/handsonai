@@ -13,14 +13,14 @@ By the plan's `packaging`:
 - **Loose Files:** written to their places.
 - **Codex, until release check 8 passes** (skill loading across the CLI, the desktop app and the IDE extension): whatever the plan's `packaging`, install standalone skills in `.agents/skills/`, never a plugin, and name in the close the surfaces where they load. Record the change from the plan's packaging as a ruling ("what, why, cost if wrong").
 
-**Who makes it, and where the kept copy goes.** `package/` is always in the workflow's framework folder (`Framework/[workflow-slug]/package/` in a drive). The leader's steps here count in N-B4's [K].
+**Who makes it, and where the kept copy goes.** `package/` is always in the workflow's framework folder (`framework/[workflow-slug]/package/` in the working folder). The leader's steps here count in N-B4's [K].
 
 | Platform | Who makes it | How it reaches the platform | The kept copy | The leader's steps |
 |---|---|---|---|---|
 | Claude (web, desktop) | You stage each part's text in `package/` as it's checked; for a plugin, you make the .zip with the platform's plugin builder | Skills: Claude's creator saves the staged text into the account. A plugin: the leader uploads the .zip | `package/`, written through the drive connection (web) or locally (desktop); where the connection can't write a binary .zip, the leader downloads it from the chat and saves it there | Confirm the skills appear; for a plugin, download (where needed), upload and confirm |
 | ChatGPT | You make each skill's .zip in the chat; for a Workspace Agent, the instruction document | The leader uploads each .zip under Skills, or creates the agent from the document | `package/`, through the drive connection; a binary .zip the connection can't write, the leader downloads and saves there | Download, upload (or create the agent) and confirm |
 | Claude Code, Codex | You write the skill folders, or the plugin | You install at the workspace's own location for the plan's packaging | The installed folder, under Git where the workspace is a repository | None beyond the read-back |
-| Microsoft 365 | You stage each skill's text, and each agent's build prompt, in `package/` as it's checked | Skills: Copilot's creator saves the staged text into Cowork's skills folder; a Claude plugin .zip is converted on upload. An agent: Agent Builder's own chat makes it from the build prompt the leader pastes (`microsoft-365-agent.md`) | `package/` in `Framework/[workflow-slug]/` in OneDrive (for an agent, its build and fix prompts) | Confirm the skills appear; for each agent, the Agent Builder steps |
+| Microsoft 365 | You stage each skill's text, and each agent's build prompt, in `package/` as it's checked | Skills: Copilot's creator saves the staged text into Cowork's skills folder; a Claude plugin .zip is converted on upload. An agent: Agent Builder's own chat makes it from the build prompt the leader pastes (`microsoft-365-agent.md`) | `package/` in `ai-workspace/framework/[workflow-slug]/` in OneDrive (for an agent, its build and fix prompts) | Confirm the skills appear; for each agent, the Agent Builder steps |
 | Print-to-save | You give the text of each part | The leader saves each part, with your steps | The leader keeps the files with the build record (N-F6) | Save and confirm |
 
 Then:

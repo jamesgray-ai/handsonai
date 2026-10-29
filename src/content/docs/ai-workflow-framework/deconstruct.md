@@ -27,11 +27,11 @@ On the light track, a shorter version replaces the five parts: a name, the goal,
 
 ## What You Get
 
-Your **Workflow Requirements**, saved as `requirements.md` in the workflow's own folder inside your Framework folder, with practice inputs in `inputs/` and the context files the steps read in `context/`. Its requirement lines are the [three kinds of line](../#how-it-fits-together): what it must get right, the rules it follows, and where a person checks. Alongside them sit the goal, what it's worth, the sources it uses and its safety limits.
+Your **Workflow Requirements**, saved as `requirements.md` in `framework/<workflow>/` inside your working folder, with practice inputs in `inputs/` and the context files the steps read in `context/`. Its requirement lines are the [three kinds of line](../#how-it-fits-together): what it must get right, the rules it follows, and where a person checks. Alongside them sit the goal, what it's worth, the sources it uses and its safety limits.
 
 ## How to Start
 
-Say **"run the deconstruct skill"**, or **"run the deconstruct skill on [workflow]"** to name one. Add where your files are, for example "My files are in Google Drive, in Framework." On Claude Code you can also type `/handsonai:deconstruct`.
+Say **"run the deconstruct skill"**, or **"run the deconstruct skill on [workflow]"** to name one. Add where your files are, for example "My files are in Google Drive, in ai-workspace." On Claude Code you can also type `/handsonai:deconstruct`.
 
 ## Worth Knowing
 

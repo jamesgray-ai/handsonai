@@ -20,9 +20,9 @@ log · 8. Lint rule list · 9. Closing step
 
 | Where the leader works | Registry | Its parent folder |
 |---|---|---|
-| Claude Code, Codex | `registry/` in the workspace | the workspace, which also holds `framework/` |
-| Claude desktop with a working folder | `registry/` inside the framework folder the leader added | the framework folder |
-| Claude on the web, ChatGPT, Microsoft 365 Copilot (Cowork) | `Framework/registry/` in the leader's Google Drive or OneDrive, read and written through the platform's connection | `Framework/`, the framework folder |
+| Claude Code, Codex | `registry/` in the workspace | the workspace, the working folder, which also holds `framework/` |
+| Claude desktop with a local working folder | `registry/` inside the working folder the leader selected | the working folder, which also holds `framework/` |
+| Claude on the web, ChatGPT, Microsoft 365 Copilot (Cowork) | `registry/` in the working folder (`ai-workspace/`, or the leader's own folder) in their Google Drive or OneDrive, read and written through the platform's connection | the working folder, which also holds `framework/` |
 
 A workflow's registry entry is its **Workflow concept node**, `registry/workflows/<slug>.md`, where
 `<slug>` is the workflow's kebab-case ID, the same name as its folder in the framework folder. The
@@ -68,9 +68,8 @@ skill sets a registry up when the leader wants one.
    - Leading `/`: bundle-root-relative, resolved from `registry/` (`/processes/new-business.md`).
      The first path segment must be one of the bundle's directories or a root file.
    - No leading slash, not a URL: relative to the registry's parent folder (section 1), never
-     `../`. On Claude Code and Codex that is the workspace (`framework/<slug>/requirements.md`);
-     on the web and Claude desktop it is the framework folder (`<slug>/requirements.md`). The lint
-     resolves both the same way.
+     `../`. That is the working folder on every platform, so a workflow's files read
+     `framework/<slug>/requirements.md` everywhere.
    - A full URL: external.
 5. **A workflow joins exactly one Process** through that Process's curated, ordered `# Workflows`
    list (`registry/processes/<process-slug>.md`); the list is both the Workflow→Process edge and
@@ -262,9 +261,8 @@ the two.
 - Backlog staleness (backlog node untouched more than six months: "triage or retire")
 - Workflow in no Process list (not in production)
 - A Note linking no bundle node ("probably misfiled")
-- A workflow folder in the framework folder claimed by no Workflow node (`framework/<slug>/` on
-  Claude Code and Codex; `<slug>/` beside `registry/` on the web and Claude desktop; `history/`
-  and `registry/` are never workflow folders)
+- A workflow folder in the framework folder claimed by no Workflow node (`framework/<slug>/`
+  on every platform; `framework/history/` is never a workflow folder)
 - **Orphan capabilities:** skills or agents in the workspace referenced by no Workflow node
   ("capture the workflow")
 - Stale GENERATED content: regenerate (a Function `# Owns` block whose content no longer matches
@@ -284,6 +282,6 @@ applied: the lint never repairs meaning on its own.
 
 After your skill's fields are written, invoke the `indexing-registry` skill for a maintenance pass.
 It is **best-effort**: a failed refresh never fails your step. Do not restate the maintenance pass
-inline; point here. On the web, the pass writes in `Framework/registry/` through the connection.
+inline; point here. On the web, the pass writes in `registry/` in the working folder, through the connection.
 Only on print-to-save does it give the updated `REGISTRY.md` with its location instead, for the
 leader to save, and say so.

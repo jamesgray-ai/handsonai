@@ -6,7 +6,7 @@ Usage: python3 make_fixture.py <fixture-name> <target-dir>
 
 Every fixture is a Claude Code workspace (`framework/` and `registry/` at the top). For the chat
 platforms the runner's platform simulation (framework-evals/leader.py) moves both into the drive's
-Framework folder, so one fixture serves every platform. The routing cases point at
+working folder (ai-workspace), so one fixture serves every platform. The routing cases point at
 framework-fixtures/ directly (`dir:../../framework-fixtures/...`); the names here are what that
 library doesn't hold: registries of several sizes for the interview, memory to find in the history
 pass, a drive full of other documents, an earlier report, an earlier version's layout, and the

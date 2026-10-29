@@ -72,7 +72,7 @@ Workflow-level: **Guided.** Step 1 decides which source to read next from what t
 | Constraint | State | Notes |
 |---|---|---|
 | CRM details stay in Dana's own tools | Satisfied | HubSpot read through its connector only |
-| The brief is for Dana only | Satisfied | Saved in the working folder |
+| The brief is for Dana only | Satisfied | Saved in the workflow's folder |
 | Every fact names its source | Satisfied | S1 Step 4 instruction |
 | Never name another client | Satisfied | S1 Step 4 instruction (R1) |
 
@@ -163,7 +163,7 @@ All five steps are wired together by **S1 — `sales-pre-call-brief`**, the orch
 
 ## Prerequisites
 
-1. Claude Code opened in the working folder.
+1. Claude Code opened in the workflow's folder.
 2. The HubSpot connector, read only.
 3. The booking form's "What would you like to cover?" question (I2).
 
