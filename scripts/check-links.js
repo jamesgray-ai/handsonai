@@ -309,8 +309,10 @@ const EXTERNAL_CHECK_PREFIXES = [
 /**
  * Hosts that refuse scripted requests (403 to anything without a browser),
  * so a failure there says nothing about the link. Checked by hand instead.
+ * deeplearning.ai answers 403 to GitHub's runners only; its five Batch links
+ * answered 200 when checked by hand on 2026-10-28.
  */
-const EXTERNAL_UNCHECKABLE_HOSTS = new Set(['openai.com', 'chatgpt.com']);
+const EXTERNAL_UNCHECKABLE_HOSTS = new Set(['openai.com', 'chatgpt.com', 'deeplearning.ai']);
 
 function articleBody(html) {
   const start = html.indexOf('sl-markdown-content');

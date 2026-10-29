@@ -48,6 +48,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      # structure.py checks frontmatter values only when PyYAML loads; without it the
+      # value checks are skipped and the harness tests that expect a rejection fail.
+      - name: Install PyYAML
+        run: python3 -m pip install --quiet pyyaml
+
       - name: Routing copies identical
         if: ${{ !cancelled() }}
         run: bash scripts/sync-routing.sh --check
