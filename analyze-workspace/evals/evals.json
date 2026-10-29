@@ -1214,7 +1214,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_not_contains",
-            "text": "pat-na1-7f3c2a9e"
+            "text": "pat-na1-EXAMPLE"
           }
         },
         {
@@ -1226,12 +1226,12 @@
               {
                 "type": "file_not_contains",
                 "path": "framework/ai-opportunity-report.md",
-                "text": "pat-na1-7f3c2a9e"
+                "text": "pat-na1-EXAMPLE"
               },
               {
                 "type": "file_not_contains",
                 "path": "registry/workflows/*.md",
-                "text": "pat-na1-7f3c2a9e"
+                "text": "pat-na1-EXAMPLE"
               }
             ]
           }
