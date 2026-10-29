@@ -52,8 +52,8 @@ WRAPPER = ROOT / "plugins" / "handsonai" / "skills" / "test" / "scripts" / "test
 GROCERY = "weekly-grocery-list"
 
 LOCATION = {"cc": "framework/client-follow-up", "codex": "framework/client-follow-up",
-            "web": "Google Drive, in ai-workspace", "chatgpt": "Google Drive, in ai-workspace",
-            "desktop": "ai-workspace", "m365": "OneDrive, in ai-workspace"}
+            "web": "Google Drive, in ai-workspace/framework/client-follow-up", "chatgpt": "Google Drive, in ai-workspace/framework/client-follow-up",
+            "desktop": "ai-workspace/framework/client-follow-up", "m365": "OneDrive, in ai-workspace/framework/client-follow-up"}
 FLAG_CLAUSE = {"cc": "in a new session, say", "codex": "in a new session, say",
                "web": "open a new chat outside this Project and say", "chatgpt": "open a new chat outside this Project and say",
                "desktop": "in a new chat with your working folder selected, say", "m365": "in a new Cowork chat, say"}
@@ -1484,7 +1484,7 @@ Save nothing; show the list in your closing block.
 2. Merge duplicates, fix misspellings, and put the items in the store's aisle order from your Knowledge (pantry-staples).
 3. Staples: from your Knowledge, add each staple the notes don't already have. Dairy is bought at a separate shop, so leave dairy staples (Milk) off the list itself. In "What I did", always write "Staples added:" followed by every staple from your Knowledge the notes didn't already have, dairy ones included (so "Staples added: Milk" when the notes have bananas and bread), as if each were on the list.
 4. Close with "What I did": the steps, the staples added, and anything you flagged.
-If the notes had anything you weren't designed for, add: "This had [X], which I wasn't designed for. If I should handle it, in a new Cowork chat, say 'change my workflow: [X, in a few words]. My files are in OneDrive, in ai-workspace.', and paste this run's input too."
+If the notes had anything you weren't designed for, add: "This had [X], which I wasn't designed for. If I should handle it, in a new Cowork chat, say 'change my workflow: [X, in a few words]. My files are in OneDrive, in ai-workspace/framework/weekly-grocery-list.', and paste this run's input too."
 Your Knowledge is the file `references/pantry-staples.md` in this agent's own folder (`.claude/skills/weekly-grocery-list/`): read it on every run before step 2.
 Read only your own Knowledge. Never read, search or write the framework folder. Never write requirement or task IDs.
 """

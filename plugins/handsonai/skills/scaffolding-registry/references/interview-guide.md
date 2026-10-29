@@ -321,14 +321,17 @@ in `lead:`.
 `# Owns` block written at creation time.
 
 **What to write:** one `registry/functions/<slug>.md` node per function the
-student keeps, `lead:` filled in or left empty — an empty value or an
+student keeps, written with Phase 4's processes once the question about
+functions that own none is settled, so a function the student drops is never
+written (nothing is deleted, and nothing is moved; if the interview stops
+before then, the pacing rule writes the confirmed functions as they are), `lead:` filled in or left empty — an empty value or an
 omitted key both read as unstaffed, an insight not an error — and every node written **with** its empty GENERATED
 `# Owns` marker block — the reference lints an error on a Function missing
 that block ("compose can't fill what doesn't exist").
 
 **Fast path (founder/leader, and only when no source covered Functions):** offer the starter set as-is; most students accept it with one
 or two renames rather than building from scratch — then, once Phase 4 has
-named the processes, drop the functions that own none (Close checks this).
+named the processes, leave unwritten the functions that own none (Close checks this).
 
 ---
 
@@ -379,8 +382,9 @@ truly own none, ask once, naming them:
 **Ask:** "[Function] has no process yet. Add one, or drop it for now? You can add it back any time."
 - *Why:* every function in your registry should own some of the work, so the dashboard shows who's responsible for what.
 
-Functions have no `status`, so dropping one means deleting the node and its
-index line at Close. This is the only time the question is asked.
+Functions have no `status`, and none is written until this question is
+settled, so a dropped function is simply never written: nothing is deleted,
+and nothing is moved anywhere. This is the only time the question is asked.
 
 **Example to show:** the Process node from `example-registry.md`
 (`registry/processes/client-delivery.md`).
@@ -419,9 +423,9 @@ from `example-registry.md` (`registry/notes/2026-08-status-report-timing.md`).
 - `registry/workflows/index.md` with that same empty body — the directory
   must have an index even when empty, and Analyze replaces the placeholder
   line with its first entry
-- every Function owns at least one process: delete any that owns none
-  (the node and its index line — Functions have no `status` to retire
-  into) or assign it a process the student names — the lint warning `function owns no processes` must not appear on
+- every Function written owns at least one process: one the student
+  dropped was never written (never delete or move a node to remove it),
+  and one kept must be assigned a process the student names — the lint warning `function owns no processes` must not appear on
   a fresh scaffold
 
 Hand off to

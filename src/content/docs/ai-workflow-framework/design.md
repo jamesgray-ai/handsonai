@@ -24,7 +24,7 @@ An approved **Design Plan**, saved as `design-plan.md` in `framework/<workflow>/
 
 ## How to Start
 
-Say **"run the design skill"** with where your files are, for example "run the design skill. My files are in Google Drive, in ai-workspace." On Claude Code you can also type `/handsonai:design`.
+Say **"run the design skill"** with where your files are, for example "run the design skill. My files are in Google Drive, in ai-workspace/framework/weekly-status-report." On Claude Code you can also type `/handsonai:design`.
 
 Design is also where changes start. To change a workflow that's planned, built or live, say **"change my workflow"** and what should change.
 

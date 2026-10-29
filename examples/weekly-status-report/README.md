@@ -23,7 +23,7 @@ You do not need HubSpot. The skill works from a pasted tracker export, and the f
 
 1. **Watch the skills find where it is.** In a new chat with `Documents/ai-workspace` selected, say: *continue my workflow. My files are in ai-workspace.* The skill finds one workflow, Weekly Status Report, sees that it's live, and tells you how to change it or re-check it.
 2. **Regenerate the dashboard.** In the same kind of chat, say: *run the indexing-registry skill*. The registry check reports no errors and one warning: Weekly Status Report's re-check date, 2026-09-08, has passed. `REGISTRY.md` doesn't change; it's already current, and shows the workflow as Live. Then say *generate my dashboard* and open `registry-dashboard.html`.
-3. **Re-check it yourself.** Install the skill (below), then in a new chat with `Documents/ai-workspace` selected, say: *test the workflow I built. My files are in ai-workspace.* Test opens round 3, a re-check of the live workflow: it moves round 2's results into `history/`, hands you the practice inputs to run in a chat opened in `Documents/status-reports`, and compares the results with round 2.
+3. **Re-check it yourself.** Install the skill (below), then in a new chat with `Documents/ai-workspace` selected, say: *test the workflow I built. My files are in ai-workspace/framework/weekly-status-report.* Test opens round 3, a re-check of the live workflow: it moves round 2's results into `history/`, hands you the practice inputs to run in a chat opened in `Documents/status-reports`, and compares the results with round 2.
 
 ## Try a practice run
 

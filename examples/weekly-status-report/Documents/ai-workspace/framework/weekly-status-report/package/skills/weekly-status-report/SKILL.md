@@ -82,6 +82,6 @@ End every run with a short **What I did** list: the steps in order; whether you 
 to ask about a status, and what Maya said; what she decided at the review; "HubSpot:
 read"; and where the report was saved.
 
-When a week has something this report wasn't designed for, add to the summary: "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your working folder selected, say 'change my workflow: [X, in a few words]. My files are in ai-workspace.', and paste this run's input too."
+When a week has something this report wasn't designed for, add to the summary: "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your working folder selected, say 'change my workflow: [X, in a few words]. My files are in ai-workspace/framework/weekly-status-report.', and paste this run's input too."
 
-When Maya asks how to change or re-check this workflow, say: "In a new chat with your working folder selected, This workflow is live. To change it, say 'change my workflow. My files are in ai-workspace.' To re-check it, say 'test the workflow I built. My files are in ai-workspace.'"
+When Maya asks how to change or re-check this workflow, say: "In a new chat with your working folder selected, This workflow is live. To change it, say 'change my workflow. My files are in ai-workspace/framework/weekly-status-report.' To re-check it, say 'test the workflow I built. My files are in ai-workspace/framework/weekly-status-report.'"

@@ -10787,7 +10787,7 @@
       "fixture": "dir:../../framework-fixtures/states/s03-requirements-needed/with-registry",
       "sessions": [
         {
-          "prompt": "Run the deconstruct skill. My files are in ai-workspace.",
+          "prompt": "Run the deconstruct skill. My files are in ai-workspace/framework/client-follow-up.",
           "replies": [
             "done"
           ]
@@ -14865,7 +14865,7 @@
           "student": "students/PZ-stop-after-name.md"
         },
         {
-          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in ai-workspace.",
+          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in ai-workspace/framework/weekly-newsletter-draft.",
           "from_previous": true,
           "student": "students/PZ-resume.md"
         }
@@ -14956,7 +14956,7 @@
           "student": "students/PZ-stop-after-name.md"
         },
         {
-          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in OneDrive, in ai-workspace.",
+          "prompt": "Run the deconstruct skill on Weekly Newsletter Draft. My files are in OneDrive, in ai-workspace/framework/weekly-newsletter-draft.",
           "from_previous": true,
           "student": "students/PZ-resume.md"
         }

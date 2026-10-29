@@ -80,7 +80,7 @@ class QuoteCheck(unittest.TestCase):
 
     def test_placeholders_are_wildcards(self):
         said = ("Start Design in a new chat with: 'run the design skill. "
-                "My files are in Google Drive, in ai-workspace.'")
+                "My files are in Google Drive, in ai-workspace/framework/client-follow-up.'")
         self.assertTrue(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(said)))
         self.assertTrue(ok({"type": "scripted_lines"}, run_of(said)))
         wrong = said.replace("in a new chat", "in a fresh chat")

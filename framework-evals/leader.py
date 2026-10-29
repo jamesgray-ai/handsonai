@@ -201,7 +201,7 @@ CHAT_HISTORY = (" This chat has the platform's saved memory and can search the l
 
 class _Drive(Platform):
     files_root = "drive"
-    location = "Google Drive, in ai-workspace"
+    location = "Google Drive, in ai-workspace/framework/[workflow-slug]"
     paste_back = True
     product = ""
 
@@ -226,7 +226,7 @@ class ChatGPT(_Drive):
 
 class ClaudeDesktop(Platform):
     key, name = "claude-desktop", "Claude desktop"
-    location = "ai-workspace"
+    location = "ai-workspace/framework/[workflow-slug]"
     paste_back = True
 
     def preamble(self):
@@ -258,7 +258,7 @@ class ClaudeDesktop(Platform):
 class Microsoft365(Platform):
     key, name = "microsoft-365", "Microsoft 365 Copilot Cowork"
     files_root = "onedrive"
-    location = "OneDrive, in ai-workspace"
+    location = "OneDrive, in ai-workspace/framework/[workflow-slug]"
     paste_back = True
 
     def preamble(self):

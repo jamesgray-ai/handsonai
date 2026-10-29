@@ -972,7 +972,7 @@
    "tier": "regression",
    "spec_item": "13 Entry and routing: N-B3",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/skills-off.md",
    "expected_output": "Skills off on Claude: N-B3 (after the orientation line), then skills_on: yes, never asked again.",
    "files": [
@@ -1435,7 +1435,7 @@
    "tier": "core",
    "spec_item": "13 Entry and routing: a set-aside record carried over",
    "fixture": "set-aside-new-platform",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-pause-done.md",
    "expected_output": "A platform change: a new record; the carried quick real check not reused on the new platform (its own setup and check); a live workflow whose set-aside record says not-on gets N-B41 first; the SCH steps point the existing schedule at the new version.",
    "files": [
@@ -1915,7 +1915,7 @@
    "tier": "core",
    "spec_item": "13 Entry and routing: Build can't read the installed text",
    "fixture": "fix-web-unreadable",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/edit-keep.md",
    "expected_output": "On Claude on the web, after Test's Not ready verdict: N-E1 asked once in the entry before fix mode rebuilds anything (after the orientation line), then N-E3 and N-E2.",
    "files": [
@@ -1966,7 +1966,7 @@
    "tier": "core",
    "spec_item": "13 Entry and routing: Build can't read the installed text, on ChatGPT (the skill in the leader's account; mirrors EN-edit-unreadable)",
    "fixture": "fix-chatgpt-unreadable",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/edit-keep.md",
    "expected_output": "On ChatGPT, after Test's Not ready verdict: N-E1 asked once in the entry before fix mode rebuilds anything (after the orientation line), then N-E3 and N-E2.",
    "files": [
@@ -2088,7 +2088,7 @@
    "tier": "core",
    "spec_item": "13 Entry and routing: an entry check asks before the opening",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/skills-off.md",
    "expected_output": "N-B3a before the opening: its message opens with one orientation line carrying N-F3's promise clause, and N-B4 doesn't repeat it.",
    "files": [
@@ -2253,7 +2253,7 @@
    "tier": "regression",
    "spec_item": "13 The opening: the pick-up phrase's desktop form",
    "fixture": "desktop-first",
-   "prompt": "Run the build skill. My files are in ai-workspace.",
+   "prompt": "Run the build skill. My files are in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Claude desktop: N-F10's desktop form.",
    "files": [
@@ -2280,7 +2280,7 @@
    "tier": "regression",
    "spec_item": "13 The opening: Microsoft 365",
    "fixture": "m365-skills-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Microsoft 365: N-F10's form, and N-F3's Build form for Build's Cowork chat.",
    "files": [
@@ -2337,7 +2337,7 @@
    "tier": "regression",
    "spec_item": "13 The opening: the Always-allow sentence left out",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Claude on the web where the workflow writes through the same drive connection: N-F3's Always-allow sentence left out.",
    "files": [
@@ -2366,7 +2366,7 @@
    "tier": "core",
    "core_runs": 1,
    "fixture": "m365-skills-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "platform": "microsoft-365",
    "spec_item": "13 One first build per platform (the platform matrix): every Part 1-3 line this platform says, checked on one run",
@@ -2567,7 +2567,7 @@
    "core_runs": 1,
    "spec_item": "13 The opening: Cowork can't read the files",
    "fixture": "m365-skills-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Cowork can't read OneDrive: N-F13's Microsoft 365 form first; nothing read, saved or asked until it can.",
    "files": [
@@ -2606,7 +2606,7 @@
    "tier": "core",
    "spec_item": "13 The opening: Claude desktop with no folder added",
    "fixture": "desktop-first",
-   "prompt": "Run the build skill. My files are in ai-workspace.",
+   "prompt": "Run the build skill. My files are in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "No folder selected: N-F13's desktop form first; then the opening once selected.",
    "files": [
@@ -2819,7 +2819,7 @@
    "core_runs": 1,
    "spec_item": "13 Part 1: an older skill in Cowork's skills folder",
    "fixture": "older-skill-m365",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/older-yes-pause.md",
    "expected_output": "Microsoft 365: an older skill in Cowork's skills folder, given the skill form and copied by Build with no question.",
    "files": [
@@ -2862,7 +2862,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: Claude, the history question answered yes",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/older-history-yes.md",
    "expected_output": "Claude on the web: Build can't reach the older skill: N-B48's history question once; a yes is the copy.",
    "files": [
@@ -2907,7 +2907,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: ChatGPT, the leader keeps a copy",
    "fixture": "chatgpt-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/older-keep-copy.md",
    "expected_output": "ChatGPT: the history question answered no, N-B48's older-version form, \"done\" the copy.",
    "files": [
@@ -2943,7 +2943,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: \"no copy\", a different name",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/older-yes-pause.md",
    "expected_output": "\"No copy\": the new part installed under a different name, nothing overwritten, a ruling recorded, the older version named as still set up; decided at Part 3, the orchestrator's references and the start phrase changed and the built-text check run again.",
    "files": [
@@ -3282,7 +3282,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: something Build didn't make at an install name (Claude)",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/already-there.md",
    "expected_output": "Claude, a first build: N-B12 opens with the already-there clause before the steps; \"already there\" stops that part's install and takes the yes path; then N-B12 again with the replace steps after a copy, or the different name.",
    "files": [
@@ -3331,7 +3331,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: something Build didn't make at an install name, on ChatGPT (Build can't see the account's skills; mirrors P1-already-there-web)",
    "fixture": "chatgpt-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/already-there.md",
    "expected_output": "ChatGPT, a first build: N-B12 opens with the already-there clause before the steps; \"already there\" stops that part's install and takes the yes path; then N-B12 again with the replace steps after a copy, or the different name.",
    "files": [
@@ -3380,7 +3380,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: the replace steps on a rebuild",
    "fixture": "live-change-web",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-pause-done.md",
    "expected_output": "A rebuild on Claude: replace steps only for parts the record says Build made; no already-there clause for them.",
    "files": [
@@ -3443,7 +3443,7 @@
    "tier": "regression",
    "spec_item": "13 Part 1: the workflow's place on Claude",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Claude on the web: N-B17 then N-B40.",
    "files": [
@@ -3478,7 +3478,7 @@
    "tier": "regression",
    "spec_item": "13 Part 1: Claude desktop",
    "fixture": "desktop-first",
-   "prompt": "Run the build skill. My files are in ai-workspace.",
+   "prompt": "Run the build skill. My files are in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Claude desktop: N-B17's form with the leader copying the context files in; the workflow's folder never added to Build's chat.",
    "files": [
@@ -3508,7 +3508,7 @@
    "tier": "regression",
    "spec_item": "13 Part 1: Microsoft 365, skills",
    "fixture": "m365-skills-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Microsoft 365, skills: N-B17's form with nothing for the leader to do; Build saves the runtime copies in Documents/Cowork/client-follow-up.",
    "files": [
@@ -3542,7 +3542,7 @@
    "tier": "regression",
    "spec_item": "13 Part 1: Microsoft 365 by-path fallback",
    "fixture": "m365-skills-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Release check 32 open: N-B17's fallback form, the leader attaching the files each run, said in 'What was built'.",
    "files": [
@@ -3575,7 +3575,7 @@
    "tier": "regression",
    "spec_item": "13 Part 1: Microsoft 365, an agent",
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "expected_output": "An agent: N-B17's agent form; the agent made in Part 3.",
    "files": [
@@ -3658,7 +3658,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: a key pasted anyway",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/key-pasted.md",
    "expected_output": "A key pasted into the chat: N-F14, never saved or repeated, and Build carries on.",
    "files": [
@@ -3701,7 +3701,7 @@
    "tier": "core",
    "spec_item": "13 Part 1: a key pasted anyway, on ChatGPT (mirrors P1-key-pasted)",
    "fixture": "chatgpt-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/key-pasted.md",
    "expected_output": "A key pasted into the chat on ChatGPT: N-F14 naming ChatGPT's own settings, never saved or repeated, and Build carries on with ChatGPT's own steps to connect Gmail.",
    "files": [
@@ -4166,7 +4166,7 @@
    "tier": "core",
    "core_runs": 1,
    "fixture": "m365-agent-no-context",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "platform": "microsoft-365",
    "spec_item": "13 Part 2: N-F4 at the start",
@@ -4280,7 +4280,7 @@
    "tier": "regression",
    "spec_item": "13 Part 2: the leader says skip",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/skip-bare.md",
    "expected_output": "\"Skip\": recorded, and instructions written for every line.",
    "files": [
@@ -4785,7 +4785,7 @@
    "tier": "core",
    "spec_item": "13 Part 2: a live change paused in Part 2",
    "fixture": "live-change-web",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/pause-part2.md",
    "expected_output": "A change to a live workflow on Claude, paused partway through Part 2: nothing in the account changed.",
    "files": [
@@ -4858,7 +4858,7 @@
    "tier": "regression",
    "spec_item": "13 Part 2: KW on Claude desktop",
    "fixture": "desktop-first",
-   "prompt": "Run the build skill. My files are in ai-workspace.",
+   "prompt": "Run the build skill. My files are in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "Claude desktop: the flag line only, never the run log or re-check line.",
    "files": [
@@ -5027,7 +5027,7 @@
    "tier": "core",
    "spec_item": "13 Part 2: ChatGPT's scheduled runs before their release check",
    "fixture": "sch-chatgpt",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/accept-risk.md",
    "expected_output": "ChatGPT scheduled task: the checkpoint treated as resting on the instruction; N-B49 asked.",
    "files": [
@@ -5052,7 +5052,7 @@
    "tier": "core",
    "spec_item": "13 Part 2: a Claude scheduled task before its release check (7): the checkpoint rests on the instruction (mirrors P2-sch-chatgpt)",
    "fixture": "sch-claude-web",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/accept-risk.md",
    "expected_output": "Claude scheduled task with a post that can't be undone: while release check 7 is open, the checkpoint is treated as resting on the instruction and N-B49 is asked; once it passes, the platform holds it and N-B49 isn't asked.",
    "files": [
@@ -5092,7 +5092,7 @@
    "tier": "regression",
    "spec_item": "13 Part 2: SCH context not reachable",
    "fixture": "sch-context-unreachable",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "A ChatGPT task in a Project can't read the Project's files: context placed where the task can read it, or a schedule-only request.",
    "files": [
@@ -5382,7 +5382,7 @@
    "tier": "regression",
    "spec_item": "13 Part 3: packaging by plan and platform",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "claude-web: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
    "files": [
@@ -5452,7 +5452,7 @@
    "tier": "regression",
    "spec_item": "13 Part 3: packaging by plan and platform",
    "fixture": "chatgpt-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "chatgpt: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
    "files": [
@@ -5522,7 +5522,7 @@
    "tier": "regression",
    "spec_item": "13 Part 3: packaging by plan and platform",
    "fixture": "m365-skills-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "microsoft-365: packaged and installed as build.md 7.1's table sets out; fingerprints; N-B37; the close.",
    "files": [
@@ -5671,7 +5671,7 @@
    "core_runs": 1,
    "spec_item": "13 Part 3: Agent Builder can't find the context file",
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "expected_output": "Agent Builder says it couldn't find the file: the Knowledge step still adds the runtime copy from Documents/Cowork.",
    "files": [
@@ -5701,7 +5701,7 @@
    "core_runs": 1,
    "spec_item": "13 Part 3: requirements.md under Knowledge",
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "expected_output": "Agent Builder adds requirements.md under Knowledge: caught at step 4 and removed before Create.",
    "files": [
@@ -5726,7 +5726,7 @@
    "core_runs": 1,
    "spec_item": "13 Part 3: a reworded first line",
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "expected_output": "Release check 29 open: the pasted instructions reword the first line, so the rebuild path: N-B53's rebuild form, N-B52's main form with the line in its build prompt (its step 6 the one paste-back request), the check on the new agent, and only once it passes the request to delete the old one; N-B52's done form, never N-B53's before any test.",
    "files": [
@@ -5828,7 +5828,7 @@
    "core_runs": 1,
    "spec_item": "13 Part 3: three failed tries on an agent",
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent-delete.md",
    "expected_output": "The gap survives three fix tries: Failed check, the delete request (N-B54) said before N-B9, then a stop; no Test round on the agent.",
    "files": [
@@ -5899,7 +5899,7 @@
    "core_runs": 1,
    "spec_item": "13 Part 3: the build prompt pasted back",
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent-paste-prompt.md",
    "expected_output": "The leader pastes the build prompt at step 6: never checked; N-B52's prompt-pasted form; asked again, not a try; then the real instructions checked.",
    "files": [
@@ -5936,7 +5936,7 @@
    "core_runs": 1,
    "spec_item": "13 Part 3: Copilot's ordinary chat",
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "expected_output": "The leader pastes into Copilot's ordinary chat, which only describes the agent: the recovery form once, then the agent made; no loop.",
    "files": [
@@ -5974,7 +5974,7 @@
    "tier": "regression",
    "spec_item": "13 Part 3: the archive check",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "The package listed: not empty, each skill's SKILL.md, no record file; a bad archive deleted before a retry.",
    "files": [
@@ -6498,7 +6498,7 @@
    "tier": "core",
    "core_runs": 1,
    "fixture": "fix-m365-agent",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/no-edits.md",
    "platform": "microsoft-365",
    "spec_item": "13 Fix mode: an agent on Microsoft 365",
@@ -6857,7 +6857,7 @@
    "tier": "core",
    "spec_item": "13 A live workflow: the copy moved from package/ on the web",
    "fixture": "live-change-web",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-no-schedule.md",
    "expected_output": "On the web: the copy moved from package/ into history/kept-copy-*/ with no question; N-B42 only for what isn't there.",
    "files": [
@@ -6890,7 +6890,7 @@
    "tier": "core",
    "spec_item": "13 A live workflow on ChatGPT: the copy moved from package/ (mirrors LV-kept-copy-web)",
    "fixture": "live-change-chatgpt",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-no-schedule.md",
    "expected_output": "On ChatGPT: the copy moved from package/ into history/kept-copy-*/ with no question; N-B42 only for what isn't there; nothing saved into the account before Part 3.",
    "files": [
@@ -6927,7 +6927,7 @@
    "tier": "core",
    "spec_item": "13 A live workflow: no copy",
    "fixture": "live-change-web-no-copy",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-no-copy.md",
    "expected_output": "No copy can be kept: N-B48 and no change.",
    "files": [
@@ -7030,7 +7030,7 @@
    "tier": "regression",
    "spec_item": "13 A live workflow: N-B38 in N-F2's form",
    "fixture": "live-change-web",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/live-no-schedule.md",
    "expected_output": "N-B38 at the close, with the Test sentence in its Claude-on-the-web form.",
    "files": [
@@ -7195,7 +7195,7 @@
    "tier": "regression",
    "spec_item": "13 Resume: a create-only drive",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "expected_output": "A drive that can only create files: saves at part ends, after each main skill's task, at a pause and a stop; the earlier copy moved into history/.",
    "files": [
@@ -7349,7 +7349,7 @@
    "name": "first-time-leader-chatgpt",
    "tier": "core",
    "fixture": "chatgpt-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "platform": "chatgpt",
    "spec_item": "13 Also: the first-time leader on each platform; rules 14",
@@ -7683,7 +7683,7 @@
    "name": "first-time-leader-claude-web",
    "tier": "core",
    "fixture": "web-first",
-   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "platform": "claude-web",
    "spec_item": "13 Also: the first-time leader on each platform; rules 14",
@@ -8040,7 +8040,7 @@
    "name": "first-time-leader-claude-desktop",
    "tier": "core",
    "fixture": "desktop-first",
-   "prompt": "Run the build skill. My files are in ai-workspace.",
+   "prompt": "Run the build skill. My files are in ai-workspace/framework/client-follow-up.",
    "student": "students/default.md",
    "platform": "claude-desktop",
    "spec_item": "13 Also: the first-time leader on each platform; rules 14",
@@ -8260,7 +8260,7 @@
    "tier": "core",
    "core_runs": 1,
    "fixture": "m365-agent-first",
-   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace.",
+   "prompt": "Run the build skill. My files are in OneDrive, in ai-workspace/framework/client-follow-up.",
    "student": "students/m365-agent.md",
    "platform": "microsoft-365",
    "spec_item": "13 Also: the first-time leader on each platform; rules 14",

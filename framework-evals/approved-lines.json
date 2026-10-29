@@ -460,7 +460,7 @@
   {
    "id": "N-F7",
    "form": "Claude Code and Codex",
-   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in the workspace that holds your working folder and say '[start phrase]. My files are in [location].'",
+   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in your working folder and say '[start phrase]. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct",
@@ -659,7 +659,7 @@
   {
    "id": "N-F13",
    "form": "Claude desktop",
-   "text": "I can't see your framework files yet. Add your working folder to this chat, then say 'done'.",
+   "text": "I can't see your framework files yet. Select your working folder in the prompt window, then say 'done'.",
    "kind": "safety or promise",
    "skills": [
     "analyze",

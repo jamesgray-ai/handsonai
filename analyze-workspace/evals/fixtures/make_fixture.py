@@ -163,6 +163,42 @@ CLIENT_DOCS = {
         "# Invoices 2026\n\n| Client | Amount |\n|---|---|\n| Halcyon Freight | 18,000 |\n",
 }
 
+# A big folder the leader keeps everything in (N-F15): about 30 files and folders that aren't AI work,
+# and no registry/, framework/ or knowledge/.
+MY_STUFF = {f"drive/My Stuff/{k}": f"# {k.rsplit('/', 1)[-1].rsplit('.', 1)[0].replace('-', ' ').title()}\n\n{v}\n" for k, v in {
+    "Taxes/2024-return-notes.md": "Filed in April. Keep the receipts for the home office.",
+    "Taxes/2025-estimated-payments.md": "Q1 paid. Q2 due in June.",
+    "Taxes/receipts-list.md": "Laptop, desk chair, software subscriptions.",
+    "Recipes/sunday-chili.md": "Two pounds of beans, one onion, cumin.",
+    "Recipes/banana-bread.md": "Three ripe bananas, one cup of flour.",
+    "Recipes/weeknight-pasta.md": "Garlic, olive oil, parmesan.",
+    "Travel/lisbon-2025-itinerary.md": "Three nights in Alfama, a day trip to Sintra.",
+    "Travel/packing-list.md": "Passport, adapters, walking shoes.",
+    "Travel/frequent-flyer-numbers.md": "Kept in the password manager, not here.",
+    "Home/lease-renewal.md": "Renewal notice due in September.",
+    "Home/contractor-quotes.md": "Three quotes for the kitchen floor.",
+    "Home/garden-plan.md": "Tomatoes along the south fence.",
+    "Family/school-calendar.md": "Winter break starts December 20.",
+    "Family/birthday-list.md": "Mom in March, Sam in July.",
+    "Family/emergency-contacts.md": "Neighbors and the pediatrician.",
+    "Health/insurance-summary.md": "Deductible met for the year.",
+    "Health/running-log.md": "Three runs a week, about 5k each.",
+    "Brightline/brand-guide.md": "Navy and white. Plain words.",
+    "Brightline/client-list.md": "Six active clients, two renewing this quarter.",
+    "Brightline/proposal-template.md": "Problem, approach, timeline, price.",
+    "Brightline/team-handbook.md": "Four people. Fridays are status-update day.",
+    "Brightline/old-invoices/2024-q4.md": "All paid.",
+    "Brightline/old-invoices/2025-q1.md": "One late payment, now settled.",
+    "Reading/book-notes-deep-work.md": "Protect the mornings.",
+    "Reading/articles-to-read.md": "Five saved links about pricing.",
+    "Car/service-history.md": "Oil change in May, tires in October.",
+    "Car/registration.md": "Renews every February.",
+    "Photos/album-index.md": "Summer 2025, the lake, the wedding.",
+    "Volunteering/food-bank-schedule.md": "Second Saturday of every month.",
+    "notes-scratchpad.md": "Call the bank about the new card.",
+    "wifi-and-passwords-hint.md": "Hints only; the passwords live in the password manager.",
+}.items()}
+
 EARLIER_REPORT = """# AI Opportunity Report
 
 | | |
@@ -288,6 +324,7 @@ FIXTURES = {
     "brightline-memory": lambda t: (brightline(t), write(t, "CLAUDE.md", BRIGHTLINE_MEMORY),
                                     skill(t, "status-digest", "Writes each client's Friday status update from the project notes.")),
     "brightline-injection": lambda t: (brightline(t), write(t, "CLAUDE.md", INJECTION_MEMORY)),
+    "big-folder": lambda t: (t.mkdir(parents=True, exist_ok=True), [write(t, k, v) for k, v in MY_STUFF.items()]),
     "brightline-drive-docs": lambda t: (brightline(t), [write(t, k, v) for k, v in CLIENT_DOCS.items()]),
     "brightline-earlier-layout": lambda t: (brightline(t), earlier_layout(t)),
     "brightline-same-lens-report": lambda t: (brightline(t), write(t, "framework/ai-opportunity-report.md", EARLIER_REPORT)),

@@ -24,7 +24,7 @@ Your **test results**, saved as `test-results.md` in `framework/<workflow>/` in 
 
 ## How to Start
 
-Say **"test the workflow I built"** with where your files are, for example "test the workflow I built. My files are in Google Drive, in ai-workspace." On Claude Code you can also type `/handsonai:test`. Say the same phrase any time to re-check a live workflow.
+Say **"test the workflow I built"** with where your files are, for example "test the workflow I built. My files are in Google Drive, in ai-workspace/framework/weekly-status-report." On Claude Code you can also type `/handsonai:test`. Say the same phrase any time to re-check a live workflow.
 
 ## Worth Knowing
 

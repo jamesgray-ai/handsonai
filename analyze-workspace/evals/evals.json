@@ -3149,6 +3149,163 @@
       "files": []
     },
     {
+      "id": "A19-big-folder",
+      "name": "big-folder-follow-up-on-the-web",
+      "tier": "core",
+      "covers": [
+        "analyze 2 item 3",
+        "rules 14: files and storage",
+        "3c-EH N-F15"
+      ],
+      "platform": "claude-web",
+      "fixture": "big-folder",
+      "expected_output": "No working folder yet; the leader names My Stuff, a big drive folder full of other files, at N-F1. N-F15 follows word for word, asked once, before anything is saved. Session 1, 'use it anyway': the run works in My Stuff (its framework/ is made there), no ai-workspace is made, and the files already in My Stuff are untouched. Session 2, 'go ahead': ai-workspace is made in the drive and used, and nothing is written into My Stuff.",
+      "sessions": [
+        {
+          "prompt": "Run the analyze skill.",
+          "fixture": "big-folder",
+          "student": "students/big-folder-anyway.md"
+        },
+        {
+          "prompt": "Run the analyze skill.",
+          "fixture": "big-folder",
+          "student": "students/big-folder-go-ahead.md"
+        }
+      ],
+      "files": [
+        "students/big-folder-anyway.md",
+        "students/big-folder-go-ahead.md"
+      ],
+      "expectations": [
+        {
+          "text": "Session 1: N-F1 is the first message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F1",
+            "form": "main",
+            "session": 1,
+            "turn": "first"
+          }
+        },
+        {
+          "text": "Session 1: after the leader names My Stuff, N-F15 word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F15",
+            "form": "main",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: N-F15 is asked once, right after the leader names My Stuff, and nothing is saved in the drive before the leader answers it",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "Session 1, 'use it anyway': the run works in My Stuff, so its framework/ is made inside it",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "drive/My Stuff/framework/*",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: no ai-workspace is made",
+          "kind": "scripted",
+          "check": {
+            "type": "file_absent",
+            "path": "drive/ai-workspace/*",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: the files already in My Stuff are untouched",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "drive/My Stuff/*",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: the pause gives Analyze's phrase with My Stuff as the location",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "run the analyze skill. My files are in Google Drive, in My Stuff",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 2: N-F1 is the first message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F1",
+            "form": "main",
+            "session": 2,
+            "turn": "first"
+          }
+        },
+        {
+          "text": "Session 2: after the leader names My Stuff, N-F15 word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F15",
+            "form": "main",
+            "session": 2
+          }
+        },
+        {
+          "text": "Session 2, 'go ahead': ai-workspace is made in the drive and used",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "drive/ai-workspace/framework/*",
+            "session": 2
+          }
+        },
+        {
+          "text": "Session 2: nothing is written into My Stuff or anywhere else outside ai-workspace",
+          "kind": "scripted",
+          "check": {
+            "type": "no_added_files",
+            "except": [
+              "drive/ai-workspace/*"
+            ],
+            "session": 2
+          }
+        },
+        {
+          "text": "Session 2: the files already in My Stuff are untouched",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": "drive/My Stuff/*",
+            "session": 2
+          }
+        },
+        {
+          "text": "Session 2: the pause gives Analyze's phrase with ai-workspace as the location",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "run the analyze skill. My files are in Google Drive, in ai-workspace",
+            "session": 2
+          }
+        },
+        {
+          "text": "In both chats, N-F1 and N-F15 are each asked once, and the AI never reads, moves, renames or deletes the leader's other files in My Stuff",
+          "kind": "judged",
+          "must": true
+        }
+      ]
+    },
+    {
       "id": "A01-web",
       "name": "storage-question-on-the-web",
       "tier": "regression",

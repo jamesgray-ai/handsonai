@@ -67,7 +67,7 @@ for line in "Practice run: nothing will be sent or changed." \
   grep -qF "$line" "$CARRIED" || { bad "carried-lines.md no longer has: $line"; continue; }
   grep -qF "$line" "$SKILL" && ok "skill carries: ${line:0:50}…" || bad "skill is missing: $line"
 done
-grep -qF "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your working folder selected, say 'change my workflow: [X, in a few words]. My files are in ai-workspace.', and paste this run's input too." "$SKILL" \
+grep -qF "This had [X], which I wasn't designed for. If I should handle it, in a new chat with your working folder selected, say 'change my workflow: [X, in a few words]. My files are in ai-workspace/framework/weekly-status-report.', and paste this run's input too." "$SKILL" \
   && ok "skill carries the flag line in its Claude desktop form, with the location" || bad "skill is missing the Claude desktop flag line"
 grep -qE '\b(AC|R|G|P|T)[0-9]+\b|\bKW\b' "$SKILL" && bad "skill text carries requirement or task IDs: $(grep -noE '\b(AC|R|G|P|T)[0-9]+\b|\bKW\b' "$SKILL" | head -3 | tr '\n' ' ')" || ok "skill text carries no requirement or task IDs"
 [ "$(find "$W/package" -type f | grep -vc '/SKILL.md$')" -eq 0 ] && ok "package/ holds only the skill" || bad "package/ holds more than the skill"

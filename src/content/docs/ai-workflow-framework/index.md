@@ -52,7 +52,7 @@ Your workflow itself runs somewhere else, outside your working folder: its own P
 
 Run each step in a new chat (a new session on Claude Code and Codex). Start a step with its phrase and where your files are:
 
-> run the design skill. My files are in Google Drive, in ai-workspace.
+> run the design skill. My files are in Google Drive, in ai-workspace/framework/weekly-status-report.
 
 Or say **"continue my workflow"** in any step's chat. The skill reads your files and works out where the workflow is. If it's that step's turn, it picks up there; if not, it gives you the phrase to start the right step in a new chat. Every step ends by giving you the phrase that starts the next one, so you never need to remember the order. Stopping partway is safe: progress is saved as you go (in Deconstruct, from the moment the workflow has a name).
 

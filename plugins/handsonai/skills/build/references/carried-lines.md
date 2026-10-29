@@ -68,7 +68,7 @@ Inside the workflow, the same line follows the platform's clause, word for word:
 
 ## 5. The two facts compiled in
 
-Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in ai-workspace"; "OneDrive, in ai-workspace"; "ai-workspace" on Claude desktop, each with the working folder's own name; "framework/[workflow-slug]" on Claude Code and Codex); and the time saved per run, for the time-saved line: the Baseline, less the Target when the Target is a time per run.
+Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in ai-workspace/framework/[workflow-slug]"; "OneDrive, in ai-workspace/framework/[workflow-slug]"; "ai-workspace/framework/[workflow-slug]" on Claude desktop, each with the working folder's own name; "framework/[workflow-slug]" on Claude Code and Codex); and the time saved per run, for the time-saved line: the Baseline, less the Target when the Target is a time per run.
 
 ## 6. What a build prompt quotes
 
