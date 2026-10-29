@@ -22,6 +22,8 @@ Context graphs build on the concept of a **knowledge graph** (a network of entit
 
 Each approach in this table builds on the ones above it. **RAG** helps an AI find relevant documents. A **knowledge graph** helps it understand how entities relate. A **context graph** helps it understand *why things happened* and *what led to decisions* — which is what agents need for multi-step reasoning.
 
+A knowledge graph you build for your own business collects the knowledge that exists in none of your systems of record; see [Knowledge Graph Setup](/builder-setup/knowledge-graph-setup/).
+
 ## Key Concepts
 
 ### Nodes
