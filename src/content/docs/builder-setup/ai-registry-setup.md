@@ -92,7 +92,7 @@ A downloadable file counts as "no" — if your tool offers you a file to downloa
 On Claude on the web, ChatGPT and Microsoft 365 Copilot, your assistant saves through your drive connection. Nothing to download.
 
 1. Connect your drive, with writes on: Google Drive, in Claude or ChatGPT. (The skills don't offer OneDrive on Claude or ChatGPT; on ChatGPT Plus and Pro, saving to Google Drive may not work either.) If no connection can save, your assistant prints each file for you to save instead. In Microsoft 365 Copilot, use Copilot Cowork: it already reaches your OneDrive.
-2. Start a new chat outside any Project (in Microsoft 365 Copilot, a new Copilot Cowork chat) and say: *"Set up my AI registry."*
+2. Start a new chat that isn't inside one of your Claude or ChatGPT Projects (in Microsoft 365 Copilot, a new Copilot Cowork chat) and say: *"Set up my AI registry."*
 3. Your assistant first asks where to keep your workflow files, and suggests a private folder called `Framework` in your drive. Say "go ahead", or name another folder. The registry goes in `Framework/registry/`, and every framework step later reads and saves in that same folder.
 
 The connection reaches your whole drive, but the framework reads and saves only inside its folder, and never shares or deletes anything.

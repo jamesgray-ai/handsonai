@@ -30,7 +30,7 @@
   {
    "id": "N-F1",
    "form": "main",
-   "text": "Where should I keep your workflow files? I'd suggest a private folder called Framework in your [Google Drive / OneDrive], since that connection is on. It reaches your whole drive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new chat outside any Project. Say 'go ahead', or tell me another folder.",
+   "text": "Where should I keep your workflow files? I'd suggest a private folder called Framework in your [Google Drive / OneDrive], since that connection is on. It reaches your whole drive, but I'll only read and save inside that folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me another folder.",
    "kind": "question",
    "skills": [
     "analyze",
