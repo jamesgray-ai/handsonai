@@ -11924,7 +11924,7 @@
               {
                 "type": "file_regex",
                 "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -12281,7 +12281,7 @@
               {
                 "type": "file_regex",
                 "path": "drive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -12632,7 +12632,7 @@
               {
                 "type": "file_regex",
                 "path": "ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",
@@ -12990,7 +12990,7 @@
               {
                 "type": "file_regex",
                 "path": "onedrive/ai-workspace/registry/workflows/weekly-newsletter-draft.md",
-                "pattern": "\\[Requirements\\]\\(weekly-newsletter-draft/requirements\\.md\\)"
+                "pattern": "\\[Requirements\\]\\(framework/weekly-newsletter-draft/requirements\\.md\\)"
               },
               {
                 "type": "file_regex",

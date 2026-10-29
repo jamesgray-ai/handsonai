@@ -2182,7 +2182,7 @@
           "check": {
             "type": "file_contains",
             "path": "drive/ai-workspace/registry/workflows/*-*.md",
-            "text": "(ai-opportunity-report.md)"
+            "text": "(framework/ai-opportunity-report.md)"
           }
         },
         {
@@ -2425,7 +2425,7 @@
           "check": {
             "type": "file_contains",
             "path": "drive/ai-workspace/registry/workflows/*-*.md",
-            "text": "(ai-opportunity-report.md)"
+            "text": "(framework/ai-opportunity-report.md)"
           }
         },
         {
@@ -2659,7 +2659,7 @@
           "check": {
             "type": "file_contains",
             "path": "ai-workspace/registry/workflows/*-*.md",
-            "text": "(ai-opportunity-report.md)"
+            "text": "(framework/ai-opportunity-report.md)"
           }
         },
         {
@@ -2934,7 +2934,7 @@
           "check": {
             "type": "file_contains",
             "path": "onedrive/ai-workspace/registry/workflows/*-*.md",
-            "text": "(ai-opportunity-report.md)"
+            "text": "(framework/ai-opportunity-report.md)"
           }
         },
         {
