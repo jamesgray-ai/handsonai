@@ -1574,7 +1574,7 @@
   {
    "id": "N-A9",
    "form": "main",
-   "text": "You don't have an AI Registry yet. It records your business and its processes, so I can start from them instead of asking you to describe your business, and each step keeps your workflow's record up to date. To set one up first, say 'Set up my AI registry.' in a new chat, then come back with 'run the analyze skill.' Or say 'start without one' and I'll keep your list of workflows in your Framework folder.",
+   "text": "You don't have an AI Registry yet. It records your business and its processes, so I can start from them instead of asking you to describe your business, and each step keeps your workflow's record up to date. To set one up first, say 'Set up my AI registry.' When it's done, say 'run the analyze skill.' and I'll start from it. Or say 'start without one' and I'll keep your list of workflows in your Framework folder.",
    "kind": "question",
    "skills": [
     "analyze"
