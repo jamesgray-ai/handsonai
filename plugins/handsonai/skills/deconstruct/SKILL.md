@@ -104,7 +104,7 @@ Said when an interview starts fresh: never before a routing line, never on a res
 
    On Claude desktop with the files in a local folder, its second sentence is "To pick up, open a new chat with your framework folder added and say 'run the deconstruct skill. My files are in [location].'" (with the files in a drive, the form above). On Microsoft 365: "To pick up, open a new Cowork chat and say 'run the deconstruct skill. My files are in [location].'"
 4. > I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.
-5. **With no registry,** once, right after the opening, with the framework folder as the location: "You don't have a registry yet, so this workflow's requirements live in its folder for now. When you want your workflows saved and shown on a dashboard, say 'run the scaffolding-registry skill. My files are in [location].'"
+5. **With no registry,** once, right after the opening, with the framework folder as the location: "You don't have a registry yet, so this workflow's requirements live in its folder for now. When you want your workflows saved and shown on a dashboard, say 'Set up my AI registry.'"
 
 No part announces its own time, and no line anywhere gives one.
 

@@ -4407,7 +4407,7 @@
       "student": "students/scaffold-then-analyze.md",
       "sessions": [
         {
-          "prompt": "Run the scaffolding-registry skill.",
+          "prompt": "Set up my AI registry.",
           "student": true
         },
         {

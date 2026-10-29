@@ -2202,7 +2202,7 @@
   {
    "id": "N-D21",
    "form": "main",
-   "text": "You don't have a registry yet, so this workflow's requirements live in its folder for now. When you want your workflows saved and shown on a dashboard, say 'run the scaffolding-registry skill. My files are in [location].'",
+   "text": "You don't have a registry yet, so this workflow's requirements live in its folder for now. When you want your workflows saved and shown on a dashboard, say 'Set up my AI registry.'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
