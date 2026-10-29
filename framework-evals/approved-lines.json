@@ -1572,6 +1572,19 @@
    "source": "analyze.md 9; 3c-DQ (2026-10-24), the report card's Size for a workflow not yet sized; text from lines-to-approve.md"
   },
   {
+   "id": "N-A9",
+   "form": "main",
+   "text": "You don't have an AI Registry yet. It records your business and its processes, so I can start from them instead of asking you to describe your business, and each step keeps your workflow's record up to date. To set one up first, say 'Set up my AI registry.' in a new chat, then come back with 'run the analyze skill.' Or say 'start without one' and I'll keep your list of workflows in your Framework folder.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "analyze.md 9; 3c-ED (2026-10-28)"
+  },
+  {
    "id": "analyze:description",
    "form": "main",
    "text": "This skill should be used when the user wants to analyze AI workflow opportunities, run a workflow audit, find automation candidates, or says \"where can AI help\". With the user's permission, looks through their saved memory and past chats for opportunities, walks their processes, then registers every candidate as a backlog Workflow node in the AI Registry (work that already runs as in production), or lists it with the report where there is no registry, ready for the Deconstruct step. Also use when the user says \"continue my workflow\" and Analyze's progress file (analyze-in-progress.md) exists. It stays strategic: it names the work, the pain, and the value, never the tools or integrations. This is the Analyze step of the AI Workflow Framework.",

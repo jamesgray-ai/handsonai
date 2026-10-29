@@ -15,6 +15,7 @@ The owner of Brightline Advisory, a four-person analytics consulting firm. You s
 - **Your AI history:** you're happy for the AI to look through it.
 
 ## How you answer
+- If told you don't have an AI Registry yet and offered to set one up first, say "start without one".
 - If asked where to keep your files, say "go ahead".
 - If asked to add a folder to this chat, write `[did: made a folder called Framework in Documents and added it to this chat]` on its own line, then say "done".
 - If asked whether anything in the registry summary is wrong or missing, say it's right.

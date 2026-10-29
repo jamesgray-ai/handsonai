@@ -8,6 +8,7 @@ A freelance operations consultant working alone, with 8 clients. You know the th
 - It's your own work: you are the business.
 
 ## How you answer
+- If told you don't have an AI Registry yet and offered to set one up first, say "start without one".
 - When the AI confirms a point of view (lens), say yes.
 - If it asks which area of work a workflow belongs to: status reports are Client Delivery; onboarding is Client Onboarding; the invoice check is Billing.
 - Answer any other question from your first message, in a few words; say you're not sure when it doesn't cover it.

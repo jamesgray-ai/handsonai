@@ -12,6 +12,7 @@ Founder and CEO of a 15-person company selling project management software to co
 - **Your AI history:** there's nothing saved.
 
 ## How you answer
+- If told you don't have an AI Registry yet and offered to set one up first, say "start without one".
 - On the point of view (lens), take the AI's recommendation.
 - Answer each question from the facts, in a sentence or two; say you're not sure when they don't cover it.
 - If asked whether there's anything to add, say no. When shown the list of workflows, say "looks good". If offered to save a point in your folder's history, say "no thanks".

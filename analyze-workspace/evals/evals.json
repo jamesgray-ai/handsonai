@@ -621,6 +621,15 @@
           }
         },
         {
+          "text": "No registry offer on 'continue my workflow'",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-A9",
+            "form": "main"
+          }
+        },
+        {
           "text": "Nothing is written or moved: no file added",
           "kind": "scripted",
           "check": {
@@ -3027,6 +3036,119 @@
       ]
     },
     {
+      "id": "A18-registry-offer",
+      "name": "registry-offer-before-the-opening",
+      "tier": "core",
+      "covers": [
+        "analyze 2 item 3",
+        "3c-ED"
+      ],
+      "fixture": "empty",
+      "expected_output": "No registry, a fresh start: N-A9 word for word as the whole first message, and no opening in it; on 'start without one', the opening and the no-registry line. Never offered with a backlog.md from an earlier run, or on print-to-save.",
+      "est_turns": 4,
+      "sessions": [
+        {
+          "prompt": "Run the analyze skill.",
+          "replies": [
+            "start without one"
+          ],
+          "max_turns": 2
+        },
+        {
+          "prompt": "Run the analyze skill.",
+          "fixture": "dir:../../framework-fixtures/continue/c-only-backlog/no-registry",
+          "max_turns": 1
+        },
+        {
+          "prompt": "Run the analyze skill.",
+          "fixture": "empty",
+          "tools": "no_file",
+          "max_turns": 1
+        }
+      ],
+      "expectations": [
+        {
+          "text": "Session 1: the registry offer, word for word, first",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-A9",
+            "form": "main",
+            "turn": "first",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: no opening in the offer's message (it waits)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-A1",
+                "form": "main",
+                "turn": "first",
+                "session": 1
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-A1",
+                "form": "No history to read",
+                "turn": "first",
+                "session": 1
+              }
+            ]
+          }
+        },
+        {
+          "text": "Session 1: on 'start without one', the opening follows",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "This step finds opportunities to create more value with AI in your business",
+            "turn": "last",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: the no-registry line",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "You don't have a registry yet, so your workflows will live in the report for now.",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: the offer's message holds the offer alone: no lens question, no other question, nothing read aloud about the folder",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "Session 2: no offer when backlog.md from an earlier run exists",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-A9",
+            "form": "main",
+            "session": 2
+          }
+        },
+        {
+          "text": "Session 3: no offer on print-to-save",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-A9",
+            "form": "main",
+            "session": 3
+          }
+        }
+      ],
+      "files": []
+    },
+    {
       "id": "A01-web",
       "name": "storage-question-on-the-web",
       "tier": "regression",
@@ -4559,7 +4681,7 @@
       "expected_output": "The standard path with no registry: summarizes what it knows, asks permission before reading any history, selects or asks about the lens, a brief interview one question at a time, then the report, a catalog confirmation and backlog.md.",
       "expectations": [
         {
-          "text": "The first response summarizes what it already knows about the user before asking questions",
+          "text": "After the registry offer and 'start without one', the next response summarizes what it already knows about the user before asking questions",
           "kind": "judged"
         },
         {

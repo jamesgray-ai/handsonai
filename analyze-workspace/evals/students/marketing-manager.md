@@ -10,6 +10,7 @@ A marketing manager at a 50-person B2B software company, leading a team of three
 - **Your AI history:** there's nothing saved.
 
 ## How you answer
+- If told you don't have an AI Registry yet and offered to set one up first, say "start without one".
 - On the point of view (lens), take the AI's recommendation.
 - If asked to look through what your AI already knows, say yes.
 - Answer each question from the facts, in a sentence or two; say you're not sure when they don't cover it.

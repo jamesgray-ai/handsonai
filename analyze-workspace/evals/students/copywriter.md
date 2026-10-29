@@ -10,6 +10,7 @@ A freelance copywriter with about a dozen clients. You have no registry. Short, 
 - **Other work:** first drafts of client briefs from discovery calls take about an hour each, about 6 a month.
 
 ## How you answer
+- If told you don't have an AI Registry yet and offered to set one up first, say "start without one".
 - On the point of view (lens), take the AI's recommendation.
 - If asked to look through what your AI already knows, say yes. Keep both things it found. Confirm its guesses when they match the facts.
 - Asked whether the pitch tracker is used regularly and works well: yes, and it works well.

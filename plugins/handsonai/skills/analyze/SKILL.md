@@ -56,7 +56,12 @@ A file name or path you show is always in code formatting (`context/C1-golden-ex
 1. **The progress file** (`analyze-in-progress.md` in the framework folder): resume (*Resuming and picking up*).
 2. **A report with a Not looked at yet row** (`ai-opportunity-report.md` in the framework folder): the pick-up offer (*Picking up the rest*).
 3. **A `backlog.md` beside a registry** (written before the registry was set up): the offer to add its workflows to the registry's backlog (`references/registering-candidates.md`), then the opening.
-4. Otherwise **the opening**. A named lens ("…with the individual lens") is confirmed in one line.
+4. **No registry** (no `registry/SCHEMA.md`) and no `backlog.md` in the framework folder, on a fresh start (never on "continue my workflow", a resume or after the pick-up offer): the registry offer, N-A9, said exactly as the whole message, then wait for the answer. Never on print-to-save, which includes a chat with no way to write a file (no write tool, no drive that can write): there, ask for the files first, as above.
+
+   > "You don't have an AI Registry yet. It records your business and its processes, so I can start from them instead of asking you to describe your business, and each step keeps your workflow's record up to date. To set one up first, say 'Set up my AI registry.' in a new chat, then come back with 'run the analyze skill.' Or say 'start without one' and I'll keep your list of workflows in your Framework folder."
+
+   On "start without one" (or any clear no), go on with no registry, as below: the opening (fast path: its location line and N-A3), then the no-registry line. When they'll set one up instead, say nothing more: this chat ends there.
+5. Otherwise **the opening**. A named lens ("…with the individual lens") is confirmed in one line.
 
 A resume line, the pick-up offer and the `backlog.md` offer start with one line that names Analyze and confirms the location with N-F3's promise clause ("I'll read and save your files in [location]."), and on the web and in Cowork its platform clause (the "Always allow for this chat" advice, *The opening*), so a new chat never opens on a bare question.
 
