@@ -24,9 +24,9 @@ name: Framework checks
 
 on:
   pull_request:
-    branches: [main, framework-v10]
+    branches: [main]
   push:
-    branches: [main, framework-v10]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
