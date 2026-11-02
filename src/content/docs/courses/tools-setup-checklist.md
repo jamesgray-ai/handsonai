@@ -33,13 +33,13 @@ More advanced tools that work in collaboration with your AI platform. Pick any c
 | 7 | [Create & Clone Your First Repository](#step-7-create--clone-your-first-repository) | ~5 min | Optional |
 | 8 | [Voice to Text](#step-8-voice-to-text) | ~10 min | Optional |
 
-### Part 3: Your AI Registry (~25 min)
+### Part 3: Your AI Registry
 
 The home for every workflow you build. **In a Hands-on AI course? Skip it for now — we set it up together in Session 1.** Working through the framework on your own? Set it up before you run Analyze.
 
-| Step | What | Time | Status |
-|------|------|------|--------|
-| 9 | [AI Registry](#step-9-ai-registry) | ~25 min | In a course: done live in Session 1 |
+| Step | What | Status |
+|------|------|--------|
+| 9 | [AI Registry](#step-9-ai-registry) | In a course: done live in Session 1 |
 
 ---
 
@@ -64,11 +64,12 @@ You need at least one AI platform set up before starting anything else. Pick whi
 
 **Done when:**
 
-- You have a paid AI platform account and can start conversations — at minimum Claude Pro, ChatGPT Plus, a Gemini Enterprise seat, or a Microsoft 365 Copilot license
+- You have a paid AI platform account and can start conversations — at minimum Claude Pro, ChatGPT Plus, a Gemini Enterprise seat, or a Microsoft 365 Copilot license. For the AI Workflow Framework, use Claude (Pro or above), ChatGPT (on Plus and Pro, install the Hands-on AI plugin rather than single skills), Microsoft 365 Copilot with Copilot Cowork, Claude Code or Codex; Gemini works for the course's other skills, not the framework
 - You've installed your platform's desktop app — the Claude desktop app, or ChatGPT for desktop (ChatGPT Work and Codex) — plus the mobile app if you want it
 - You've added personalization / custom instructions so the AI knows about your role and work
 - Memory is enabled so the AI remembers context across conversations
 - You've connected at least one external tool or data source (Google Docs, Slack, Notion, etc.)
+- **On Claude on the web or ChatGPT:** you've connected Google Drive **with writes on**. The AI Workflow Framework keeps your workflow files in a `Framework` folder there; if no drive connection can save, the skills give you each file to save yourself. On Microsoft 365 Copilot, Copilot Cowork uses your OneDrive. On Claude Code, Codex or the Claude desktop app, the files live in a folder on your computer instead
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -83,7 +84,7 @@ Still stuck? Bring your question to Session 1.
 
 ### Step 2: Hands-on AI Skills
 
-**What:** Install the Hands-on AI skills that walk you through the AI Workflow Framework — analyze, deconstruct, design, build, test, run, improve. These are the step-by-step guides you'll use throughout the course to take a workflow from "I think AI could help with this" to shipped and improving.
+**What:** Install the Hands-on AI skills that walk you through the AI Workflow Framework — analyze, deconstruct, design, build and test. These are the guides you'll use throughout the course to take a workflow from "I think AI could help with this" to tested and live.
 
 **Action:** [Follow the Framework Skills setup guide →](/ai-workflow-framework/skills/)
 
@@ -237,15 +238,15 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ### Step 9: AI Registry
 
-**What:** Set up your Markdown-based AI Registry — a generated `REGISTRY.md` index that tracks every workflow, skill, agent, and connected app in your workspace. No external accounts needed. The AI Workflow Framework reads it in Step 1 and writes to it at every step — set it up before you run Analyze.
+**What:** Set up your Markdown-based AI Registry — a generated `REGISTRY.md` index that tracks every workflow, skill, agent, and connected app in your workspace. No external accounts needed. The AI Workflow Framework's Analyze step reads it, and every step writes to it — set it up before you run Analyze.
 
 **Action:** [Follow the AI Registry setup guide →](/builder-setup/ai-registry-setup/)
 
-**What to bring (optional, saves time):** something that lists what you sell or deliver, something that shows who does the work (an org chart or team list — roles are enough), something that says what matters this year, and optionally a process inventory or SOP folder. One shortens the interview; three turn it into confirmation.
+**What to bring (optional, saves time):** something that lists what you offer, something that shows who does the work (an org chart or team list — roles are enough), something that says what matters this year, and optionally a process inventory or SOP folder. One shortens the interview; three turn it into confirmation.
 
 **Done when:**
 
-- You have one folder for your registry — on your computer, in a synced cloud drive, or in a GitHub repository
+- You have one folder for your registry — on your computer, in a GitHub repository, or `ai-workspace/registry/` in your Google Drive (Claude, ChatGPT) or OneDrive (Microsoft 365 Copilot) through your AI tool's drive connection
 - The Hands-on AI skills from Step 2 are in your AI tool (if you added skills one at a time, that includes `scaffolding-registry` and `indexing-registry`)
 - `registry/` exists with `SCHEMA.md` inside, and `registry/workflows/index.md` exists (empty is correct — Analyze fills it)
 - You can see your dashboard — `REGISTRY.md` next to your `registry/` folder — listing your business, lines of business, functions, and processes

@@ -1,0 +1,1 @@
+A go-live interrupted after the registry write: round 1 is Ready with `go_live: pending` while the node already says `in-production` (no registry: the record already says "Live since"): state 10, and Test finishes the go-live without asking again.

@@ -1,15 +1,18 @@
 ---
 title: Agent Capability Patterns
-description: Seven architectural patterns that make AI agents effective — from self-reflection to multi-agent collaboration, plus safety and control mechanisms
----Capability patterns are the architectural building blocks that make AI agents powerful. While a basic LLM generates text in a single pass, an *agentic* system combines multiple patterns — reflection, tool use, planning, collaboration, and memory — to tackle complex, multi-step tasks autonomously.
+description: What one AI agent can do — Andrew Ng's four agentic design patterns, plus memory and two safety patterns, guardrails and human checkpoints.
+last_reviewed: 2026-10-24
+---
 
-These patterns were popularized by Andrew Ng in his 2024 writing on agentic design patterns (*The Batch*, DeepLearning.AI), building on research from Google, Stanford, Princeton, and others. The patterns are platform-agnostic — they apply whether you're building with Claude, ChatGPT, Gemini, or any other LLM.
+Capability patterns are the architectural building blocks that make AI agents powerful. While a basic LLM generates text in a single pass, an *agentic* system combines multiple patterns — reflection, tool use, planning, collaboration, and memory — to tackle complex, multi-step tasks autonomously.
+
+Four of these patterns, Reflection, Tool Use, Planning and Multi-Agent Collaboration, are the agentic design patterns Andrew Ng set out in a five-part series in *The Batch* (DeepLearning.AI) in March and April 2024, each with suggested research papers ([Part 1](https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance), March 20, 2024). The playbook adds three more: Memory, and two patterns for safety and control. The patterns are platform-agnostic — they apply whether you're building with Claude, ChatGPT, Gemini, or any other LLM.
 
 ## Pattern Catalog
 
 ### Capability Patterns
 
-These five patterns define *what agents can do*.
+These five patterns define *what agents can do*. The first four are Ng's; Memory is the playbook's addition.
 
 | Pattern | What It Does | Key Benefit |
 |---------|-------------|-------------|
@@ -26,7 +29,7 @@ These two patterns define *how agents stay safe and aligned*.
 | Pattern | What It Does | Key Benefit |
 |---------|-------------|-------------|
 | [Guardrails](guardrails/) | Automated rules that constrain agent behavior | Prevents harmful or off-topic outputs without human intervention |
-| [Human-in-the-Loop](human-in-the-loop/) | Human checkpoints at key decision points | Keeps humans in control of high-stakes actions |
+| [Human Checkpoint (Human-in-the-Loop)](human-in-the-loop/) | Human checkpoints at key decision points | Keeps humans in control of high-stakes actions |
 
 ## How Patterns Work Together
 
@@ -42,20 +45,22 @@ Consider a customer exchange request — a customer wants to return a product an
 No single pattern makes this workflow possible. Their combination is what turns a basic chatbot into a capable agent.
 
 :::tip[Looking for multi-agent coordination?]
-Capability patterns describe what *individual* agents can do. For how *multiple* agents coordinate — sequential pipelines, parallel fan-out, hierarchical delegation, and more — see [Orchestration Patterns](../orchestration-patterns/).
+Capability patterns describe what *one* agent can do. For how the work is structured, including how *multiple* agents coordinate (chains, parallel fan-out, orchestrator-workers, handoffs, group chat, swarms), see [Workflow Architecture Patterns](../../../patterns/workflow-architecture/).
 :::
+
 ## Where to Start
 
 **Understanding agent concepts?** Start with [Reflection](reflection/) — it's the simplest pattern to grasp and demonstrates the core idea of iterative improvement.
 
 **Building your first agent?** [Tool Use](tool-use/) is the most immediately practical pattern — it's how agents interact with the real world.
 
-**Designing a production system?** Read [Guardrails](guardrails/) and [Human-in-the-Loop](human-in-the-loop/) first — safety and control should be designed in from the start, not bolted on later.
+**Designing a production system?** Read [Guardrails](guardrails/) and [Human Checkpoint](human-in-the-loop/) first — safety and control should be designed in from the start, not bolted on later.
 
 ## Related
 
 - [Agents](../) — The Agents building block overview
 - [Agents Resources](../resources/) — Recommended reading on agents
+- [Workflow Architecture Patterns](../../../patterns/workflow-architecture/) — how the work is structured, mapped to autonomy levels
 - [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — Anthropic's guide to agent architecture
 - [Prompt Engineering](../../prompts/prompt-engineering/) — Techniques for the prompts that drive agent behavior
 - [Automation Use Cases](../../../use-cases/automation/) — Real-world applications of agentic systems

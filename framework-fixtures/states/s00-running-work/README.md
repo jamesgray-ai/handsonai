@@ -1,0 +1,1 @@
+State 0 (running work): the node is `in-production` (Analyze recorded work that already runs) and there is no `framework/client-follow-up/` folder; with no registry the same work is only in Analyze's report, so named at cold entry it is a new workflow (state 3).

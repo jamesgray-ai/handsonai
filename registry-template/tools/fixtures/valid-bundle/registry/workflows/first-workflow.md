@@ -2,30 +2,26 @@
 type: Workflow
 title: "First Workflow"
 description: "Kestrel's in-production client onboarding workflow."
-generated: { by: process:fixture, at: 2026-08-01 }
+generated: { by: process:test, at: 2026-07-01T16:00:00Z }
 status: in-production
-definition_type: step-driven
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"
-stale_after: 2026-01-01
+stale_after: 2026-10-01
 ---
 # First Workflow
 
 The complete fixture workflow, exercising every artifact label, skill, and
-agent link the schema recognizes.
+agent link the schema recognizes in this release's format.
 
 # Artifacts
 
-- [Raw source](framework/first-workflow/raw-source.md)
-- [Run log](framework/first-workflow/runs.md)
+- [Run log](runs.md)
 - [Output](outputs/first-workflow/output.md)
 - [SOP](sops/one-sop.md)
 - [Requirements](framework/first-workflow/requirements.md)
-- [Design spec](framework/first-workflow/design-spec.md)
+- [Design plan](framework/first-workflow/design-plan.md)
 - [Test results](framework/first-workflow/test-results.md)
-- [Run guide](framework/first-workflow/run-guide.md)
-- [Improvement plan](framework/first-workflow/improvement-plan.md)
 
 # Skills
 

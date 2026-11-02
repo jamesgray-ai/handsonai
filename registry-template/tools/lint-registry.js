@@ -36,7 +36,8 @@ function lint(bundleDir) {
   };
 
   // 1. Frontmatter parse + directory<->type agreement + required fields +
-  //    enums + banned fields + `generated` shape + legacy definition_type.
+  //    enums + banned fields + `generated` shape + legacy definition_type +
+  //    legacy artifact labels (tolerated on older nodes, never written).
   for (const c of concepts) {
     const topDir = c.relPath.split('/')[1];
     const expected = lib.DIR_TYPES[topDir];
@@ -57,7 +58,10 @@ function lint(bundleDir) {
     } else if (typeof generated !== 'object' || !generated.by || !generated.at) {
       errors.push(`${c.relPath}: "generated" must be a single-line flow map with "by" and "at"`);
     } else {
-      if (!/^\d{4}-\d{2}-\d{2}/.test(generated.at)) errors.push(`${c.relPath}: "generated.at" must start YYYY-MM-DD`);
+      // A UTC instant; a bare date is accepted on an older node (SCHEMA.md "Frontmatter").
+      if (!lib.AT_INSTANT.test(generated.at) && !lib.AT_DATE.test(generated.at)) {
+        errors.push(`${c.relPath}: "generated.at" must be a UTC instant (YYYY-MM-DDTHH:MM:SSZ), or a bare YYYY-MM-DD date on an older node`);
+      }
       if (!/^(human:|process:)\S+$/.test(generated.by)) {
         warnings.push(`${c.relPath}: generated.by "${generated.by}" does not follow the OKF actor convention (human:<id> or process:<skill-name>) -- malformed actor string`);
       }
@@ -82,6 +86,22 @@ function lint(bundleDir) {
     }
     if (expected === 'Workflow' && c.fm.owner !== undefined) {
       errors.push(`${c.relPath}: field "owner" is banned from Workflow nodes (ownership lives on Process -- see SCHEMA.md)`);
+    }
+    // big_change ("[reason], [date]") marks a pending redo; it belongs on a Workflow only.
+    if (c.fm.big_change !== undefined) {
+      if (expected !== 'Workflow') errors.push(`${c.relPath}: field "big_change" belongs on Workflow nodes only`);
+      else if (typeof c.fm.big_change !== 'string' || !c.fm.big_change.trim()) errors.push(`${c.relPath}: "big_change" must give the reason and the date ("[reason], [date]")`);
+    }
+
+    // Legacy artifact labels ("Design spec", "Run guide", "Improvement plan") are
+    // tolerated on older nodes -- those whose generated.at is a bare date -- and never
+    // written: a node stamped with a UTC instant that carries one was written by a
+    // current step, which must not write it.
+    if (expected === 'Workflow' && generated && typeof generated === 'object' && lib.AT_INSTANT.test(generated.at || '')) {
+      const legacy = lib.artifactLabels(c).filter((l) => lib.LEGACY_LABELS.some((x) => x.toLowerCase() === l.toLowerCase()));
+      if (legacy.length) {
+        errors.push(`${c.relPath}: legacy artifact label(s) ${legacy.map((l) => `"${l}"`).join(', ')} written on a current node -- use "Design plan" or "Test results"; legacy labels are tolerated only on older nodes`);
+      }
     }
   }
 
@@ -111,6 +131,8 @@ function lint(bundleDir) {
   }
 
   const byKind = (type) => concepts.filter((c) => kindOf(c) === type);
+  const frameworkFolders = lib.scanFrameworkFolders(workspaceRoot);
+  const workflowFolderPaths = frameworkFolders.map((f) => f.path);
   const businesses = byKind('Business');
   const lobs = byKind('LineOfBusiness');
   const processes = byKind('Process');
@@ -181,7 +203,10 @@ function lint(bundleDir) {
       const folderPrefix = lobFolder.replace(/\/$/, '');
       const repoLinks = lib.classifyLinks(w.raw).repo;
       for (const h of repoLinks) {
-        if (h.startsWith('sops/') || h.startsWith('outputs/') || h.startsWith('framework/')) continue; // shared workspace layers
+        // Shared layers: SOPs, a workflow's own output, and the framework folder's
+        // workflow folders (framework/<slug>/ in a workspace; <slug>/ beside registry/).
+        if (h.startsWith('sops/') || h.startsWith('outputs/') || h.startsWith('framework/')) continue;
+        if (workflowFolderPaths.some((f) => h === f || h.startsWith(f + '/'))) continue;
         if (!h.startsWith(folderPrefix)) {
           warnings.push(`${w.relPath}: artifact link ${h} outside derived LOB folder ${lobFolder}`);
           break;
@@ -243,8 +268,8 @@ function lint(bundleDir) {
     warnings.push(`${orphanCaps.length} orphan skill(s)/agent(s) referenced by no Workflow node (${orphanCaps.join(', ')}) -- capture the workflow(s) that use them`);
   }
 
-  // 8. Claims sweep: every SOP and framework/<slug>/ folder claimed by exactly
-  //    one Workflow node's # Artifacts links; run-log evidence must not
+  // 8. Claims sweep: every SOP and workflow folder claimed by exactly one
+  //    Workflow node's # Artifacts links; run-log evidence must not
   //    contradict status.
   const claims = new Map(); // repo path (no trailing slash) -> [workflow relPaths]
   for (const w of workflows) {
@@ -274,24 +299,24 @@ function lint(bundleDir) {
       }
     }
   }
-  const frameworkFolders = lib.scanFrameworkFolders(workspaceRoot);
-  const legacyFolders = lib.scanLegacyRecordFolders(workspaceRoot);
   for (const folder of frameworkFolders) {
     const claimedByLink = [...claims.keys()].some((k) => k === folder.path || k.startsWith(folder.path + '/'));
     if (!claimedByLink && !wfSlugs.has(folder.slug)) {
       warnings.push(`${folder.path}/: framework folder not claimed by any Workflow node`);
     }
   }
-  for (const folder of legacyFolders) {
-    warnings.push(`${folder.path}/: pre-9.0 framework record -- move it to framework/${folder.slug}/ (see the indexing-registry skill)`);
-  }
-  // Run-log evidence must not contradict status, wherever the record lives (a student who declined
-  // the move still has it in outputs/).
-  for (const folder of [...frameworkFolders, ...legacyFolders]) {
-    if (folder.hasRuns && lib.runsHasEntries(workspaceRoot, folder.path)) {
-      const node = workflows.find((w) => lib.slugOf(w.relPath) === folder.slug);
-      if (node && node.fm && node.fm.status && node.fm.status !== 'in-production') {
-        errors.push(`${node.relPath}: status "${node.fm.status}" contradicts run log evidence (${folder.path}/runs.md has entries)`);
+  // Run log evidence must not contradict status. The run log lives where the workflow
+  // runs, never in the framework folder; it is read through the node's "Run log" link,
+  // and only where that link resolves inside the registry's parent folder. An external
+  // or absent "Run log" link is skipped.
+  for (const w of workflows) {
+    if (!w.fm || !w.fm.status || w.fm.status === 'in-production' || w.fm.status === 'retired') continue;
+    for (const l of lib.orderedLinks(w.sections['Artifacts'] || '')) {
+      if (l.title.trim().toLowerCase() !== 'run log') continue;
+      const href = l.href.replace(/#.*$/, '');
+      if (/^[a-z][a-z0-9+.-]*:/i.test(href) || href.startsWith('/') || href.split('/').includes('..')) continue;
+      if (lib.runLogHasEntries(path.join(workspaceRoot, href))) {
+        errors.push(`${w.relPath}: status "${w.fm.status}" contradicts run log evidence (${href} has entries)`);
       }
     }
   }
@@ -310,7 +335,7 @@ function lint(bundleDir) {
   // 11. Freshness warnings.
   for (const w of workflows) {
     if (!w.fm) continue;
-    if (w.fm.stale_after && w.fm.stale_after <= today) warnings.push(`${w.relPath}: stale_after ${w.fm.stale_after} is past -- review due`);
+    if (w.fm.stale_after && w.fm.stale_after <= today && w.fm.status !== 'retired') warnings.push(`${w.relPath}: stale_after ${w.fm.stale_after} is past -- re-check due`);
     if (w.fm.status === 'backlog') {
       const t = lib.lastChanged(w.fm);
       if (t) {

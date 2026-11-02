@@ -1,9 +1,9 @@
 ---
 title: Agents & Skills
-description: "The Hands-on AI plugin — agents and skills for designing, building, and documenting AI workflows — plus a gallery of example components you can copy."
+description: "The Hands-on AI plugin — skills for designing, building, and documenting AI workflows — plus a gallery of example components you can copy."
 ---
 
-A focused toolkit of **agents** and **skills** that give your AI tool everything it needs to design, build, and document AI workflows. Plain-text Markdown — install the plugin on Claude, ChatGPT, or Claude Code, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other tools.
+A focused toolkit of **skills** that give your AI tool everything it needs to design, build, and document AI workflows. Plain-text Markdown — install the plugin on Claude, ChatGPT, or Claude Code, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other tools.
 
 ---
 
@@ -22,20 +22,17 @@ One plugin, one install. Bundles the AI Workflow Framework, the AI Registry skil
 
 ### What's inside
 
-#### AI Workflow Framework — 1 agent + 7 skills
+#### AI Workflow Framework — 5 skills
 
-The seven-step methodology for going from a workflow idea to a deployed AI system.
+The five-step methodology for going from a workflow idea to a tested, live AI workflow. Say "continue my workflow" in a new chat: the skill works out the next step and either starts it or gives you the phrase to start it.
 
 | Component | What it does |
 |---|---|
-| [`framework-agent`](handsonai/#framework-agent) agent | Walks you through the full 7-step framework end-to-end |
-| `analyze` skill | Audit your workflows to find where AI creates the most value |
-| `deconstruct` skill | Break a workflow into structured steps using the 6-question framework |
-| `design` skill | Design the AI workflow architecture and produce a Design Spec |
-| `build` skill | Generate platform-appropriate artifacts from the approved spec |
-| `test` skill | Test workflow artifacts and evaluate output quality |
-| `run` skill | Do the first real run and leave a Run Card, run log, and review date |
-| `improve` skill | Evaluate a running workflow for quality and evolution opportunities |
+| `analyze` skill | Find where AI can create value in your work and register each opportunity as a candidate workflow |
+| `deconstruct` skill | Turn one workflow into Workflow Requirements: its goal, what every output must get right, its rules and checkpoints, and practice inputs |
+| `design` skill | Design the AI workflow architecture and produce a Design Plan |
+| `build` skill | Build the workflow from your approved Design Plan, task by task, check each part, and install it where it runs |
+| `test` skill | Run the workflow on practice inputs and a new one, grade every requirement with proof, and take it live when you say yes |
 
 #### Knowledge Graph — 1 skill
 

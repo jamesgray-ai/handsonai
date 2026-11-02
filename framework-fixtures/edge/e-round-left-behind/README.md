@@ -1,0 +1,1 @@
+A round left behind: round 2 is still `in-progress` (with `direct_edit: undo`) but Build has since closed with `last_close_after_round: 2`, so routing gives state 8 and Test abandons round 2 (`history/test-results-round-2.md`, `round_status: abandoned`) and opens round 3.

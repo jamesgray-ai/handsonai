@@ -1,0 +1,13 @@
+# line-placement-pending.txt — skills whose rewrite to the final spec hasn't landed yet.
+#
+# Read by scripts/check-line-placement.py (run from scripts/check-framework-consistency.sh).
+# For a skill named here, an approved line missing from its named file is REPORTED but
+# doesn't fail the check, so CI stays green while the Phase 2 rewrites (T21 to T26, T32)
+# land one PR at a time. Every other skill fails on any missing line.
+#
+# Each skill's rewrite PR removes its own name from this list, in the same PR. The check
+# fails when a listed skill already holds every one of its lines, so a stale entry can't
+# quietly switch the guard off. The list shrinks to empty before the release ships (T74).
+#
+# One skill folder name per line; text after '#' is a comment.
+

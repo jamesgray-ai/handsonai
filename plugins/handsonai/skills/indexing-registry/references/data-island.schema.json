@@ -259,10 +259,23 @@
               "null"
             ]
           },
-          "step": {
-            "type": [
-              "number",
-              "null"
+          "state": {
+            "type": "string",
+            "description": "The workflow's progress: the routing state's name (never its number), read from the workflow's folder by the framework-state script; state 0 shows as \"Runs outside the framework\" (running work) or \"Retired\". Omitted when the folder can't be read or settled.",
+            "enum": [
+              "Runs outside the framework",
+              "Retired",
+              "Earlier version",
+              "Redo pending",
+              "Requirements needed",
+              "Plan needed",
+              "Plan to approve",
+              "Build needed",
+              "Waiting on an open item",
+              "Test needed",
+              "Waiting on access",
+              "Ready to go live",
+              "Live"
             ]
           },
           "skills": {

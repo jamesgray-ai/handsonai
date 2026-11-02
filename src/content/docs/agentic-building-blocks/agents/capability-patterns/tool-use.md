@@ -1,7 +1,10 @@
 ---
 title: Tool Use
-description: How AI agents extend their capabilities by calling external tools, APIs, and data sources to interact with the real world.
----## What It Is
+description: How AI agents extend what they can do by calling external tools, APIs and data sources, using function calling to act in the real world.
+last_reviewed: 2026-10-24
+---
+
+## What It Is
 
 Tool use is a pattern where an agent calls external tools — APIs, databases, calculators, code interpreters, web browsers, file systems — to perform actions that go beyond text generation. Instead of relying solely on its training data, the agent selects the right tool, formats the input, executes the call, and interprets the result.
 
@@ -11,7 +14,7 @@ This is arguably the most fundamental capability pattern. Without tool use, an a
 
 LLMs have inherent limitations: they can't access real-time data, perform reliable arithmetic, interact with external systems, or take actions in the world. Tool use bridges these gaps by giving the agent access to specialized capabilities on demand.
 
-The MRKL (Modular Reasoning, Knowledge and Language) architecture (Karpas et al. 2022) formalized this idea: combine a language model with a set of expert modules (calculators, search engines, databases) and let the model route queries to the right module. Every major AI platform — Claude, ChatGPT, Gemini, Copilot — now implements some form of this pattern.
+The MRKL (Modular Reasoning, Knowledge and Language) architecture (Karpas et al., 2022) set out this idea early: combine language models with discrete knowledge and reasoning modules, such as a calculator or a database, to get past the model's own limits. Today's model APIs build it in: Anthropic's docs call it tool use, OpenAI's call it function calling, and both say the two names mean the same thing (see Further Reading).
 
 ## How It Works
 
@@ -63,12 +66,13 @@ The agent calls a SQL query tool: `execute_query("SELECT product_name, SUM(reven
 - [Reflection](../reflection/) — The agent can reflect on tool results to decide if it needs to call additional tools
 - [Multi-Agent Collaboration](../multi-agent-collaboration/) — Different agents may have access to different tool sets
 - [Guardrails](../guardrails/) — Guardrails can restrict which tools an agent is allowed to call
+- [Augmented LLM](../../../../patterns/workflow-architecture/augmented-llm/) — the workflow pattern built on one LLM call with tools, retrieval and memory
 - [Agent Capability Patterns](../)
 
 ## Further Reading
 
-- Karpas et al. 2022 — *MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning* — [arxiv.org/abs/2205.00445](https://arxiv.org/abs/2205.00445)
-- Yao et al. 2022 — *ReAct: Synergizing Reasoning and Acting in Language Models* — [arxiv.org/abs/2210.03629](https://arxiv.org/abs/2210.03629)
-- Anthropic — *Tool Use with Claude* — [docs.anthropic.com/en/docs/build-with-claude/tool-use](https://docs.anthropic.com/en/docs/build-with-claude/tool-use)
-- Andrew Ng — *Agentic Design Patterns Part 3: Tool Use* — [deeplearning.ai/the-batch](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-3-tool-use/)
-- OpenAI — *Function Calling Guide* — [platform.openai.com/docs/guides/function-calling](https://platform.openai.com/docs/guides/function-calling)
+- Andrew Ng — [Agentic Design Patterns Part 3, Tool Use](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-3-tool-use) (*The Batch*, April 3, 2024)
+- Karpas et al. — [MRKL Systems: A modular, neuro-symbolic architecture that combines large language models, external knowledge sources and discrete reasoning](https://arxiv.org/abs/2205.00445) (arXiv, May 1, 2022)
+- Yao et al. — [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) (arXiv, October 6, 2022)
+- Anthropic — [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) (Claude API docs, accessed 2026-10-24) — "Tool use (also called function calling)"
+- OpenAI — [Function calling](https://developers.openai.com/api/docs/guides/function-calling) (OpenAI API docs, accessed 2026-10-24) — "also known as tool calling"

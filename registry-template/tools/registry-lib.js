@@ -8,6 +8,13 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
+// The registry tools' version. indexing-registry compares the workspace's
+// tools/package.json "version" with the plugin's and offers the update when
+// the workspace's is missing or lower; package.json carries the same number.
+// Raise both together whenever compose, lint, this file, the dashboard
+// template or the data-island schema change.
+const TOOLS_VERSION = '10.0.0';
+
 // Plural directories -> singular concept type. Directory<->type agreement is
 // lint-enforced (SCHEMA.md "Types and directories").
 const DIR_TYPES = {
@@ -34,8 +41,8 @@ const ENUMS = {
   },
 };
 
-// Legacy definition_type spellings tolerated as a migration warning, never as
-// an error, and never written into a new node (SCHEMA.md "Enums").
+// Legacy definition_type spellings tolerated as a warning, never as an error,
+// and never written into a new node (SCHEMA.md "Enums").
 const LEGACY_TOLERATED = ['step-decomposed', 'outcome-driven', 'Outcome-Driven'];
 
 // Event-fact / derived fields banned from every node (SCHEMA.md "Deliberately
@@ -45,6 +52,17 @@ const BANNED_FIELDS = [
   'current_step', 'health', 'last_run', 'run_count', 'next_review',
   'notion_url', 'timestamp', 'lob', 'sequence', 'process',
 ];
+
+// Artifact labels (SCHEMA.md "Artifact labels"). LEGACY_LABELS come from
+// earlier versions of the framework: tolerated on older nodes (a bare-date
+// generated.at), never written -- a node stamped with a UTC instant that
+// carries one is a lint error.
+const ARTIFACT_LABELS = ['Raw source', 'Run log', 'Output', 'SOP', 'Opportunity report', 'Requirements', 'Design plan', 'Test results'];
+const LEGACY_LABELS = ['Design spec', 'Run guide', 'Improvement plan'];
+
+// generated.at: a UTC instant, or (on an older node only) a bare date.
+const AT_INSTANT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+const AT_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 // Reserved body-section names this bundle recognizes. Only H1 headings with
 // exactly these names delimit sections; any other `# ` line -- including
@@ -286,54 +304,83 @@ function scanSops(workspaceRoot) {
   return out;
 }
 
-// Skips anything that is not a readable folder: a root that is a file, a broken symlink, an
-// entry it cannot stat. Lint reports on what it can read; it never crashes on an odd entry.
-function scanRecordFolders(workspaceRoot, rootDir) {
+// --- The framework folder ----------------------------------------------------
+// The registry's parent folder is the workspace on Claude Code and Codex, which
+// holds framework/ beside registry/; on the web and Claude desktop it is the
+// framework folder itself, which holds registry/ beside the workflow folders.
+// (SCHEMA.md "Layered model".)
+
+// A workflow folder holds at least one of these record files.
+const RECORD_MARKERS = ['requirements.md', 'deconstruct-in-progress.md', 'design-plan.md', 'build-record.md', 'test-results.md'];
+// Folders in the framework folder that are never workflow folders.
+const NOT_WORKFLOW_DIRS = new Set(['history', 'registry']);
+
+function isDirSafe(p) { try { return fs.statSync(p).isDirectory(); } catch { return false; } }
+
+// { dir: absolute framework folder, prefix: link prefix for its workflow
+// folders ('framework/' in a workspace, '' beside registry/) }. A workspace
+// with no framework/ yet is treated as one (prefix 'framework/') when it has
+// no workflow-shaped sibling of registry/ either.
+function frameworkFolder(workspaceRoot) {
+  const local = path.join(workspaceRoot, 'framework');
+  if (isDirSafe(local)) return { dir: local, prefix: 'framework/' };
+  if (fs.existsSync(local)) return { dir: null, prefix: 'framework/' }; // a plain file named framework
+  if (scanWorkflowFolders(workspaceRoot, '').length) return { dir: workspaceRoot, prefix: '' };
+  return { dir: local, prefix: 'framework/' };
+}
+
+// Workflow folders directly under `dir` (relative path prefix `prefix`).
+// Skips anything that is not a readable folder: a broken symlink, an entry it
+// cannot stat. With an empty prefix (a drive-shaped framework folder) only
+// folders holding a record file count, so sops/, process-guides/ and the like
+// are never mistaken for workflows.
+function scanWorkflowFolders(dir, prefix) {
   const out = [];
-  const dir = path.join(workspaceRoot, rootDir);
   let names;
   try { names = fs.readdirSync(dir).sort(); } catch { return out; } // missing, or not a directory
   for (const name of names) {
+    if (NOT_WORKFLOW_DIRS.has(name) || name.startsWith('.')) continue;
     const full = path.join(dir, name);
-    let isDir;
-    try { isDir = fs.statSync(full).isDirectory(); } catch { continue; } // broken symlink, unreadable
-    if (!isDir) continue;
-    out.push({ slug: name, path: `${rootDir}/${name}`, hasRuns: fs.existsSync(path.join(full, 'runs.md')) });
+    if (!isDirSafe(full)) continue;
+    if (prefix === '' && !RECORD_MARKERS.some((m) => fs.existsSync(path.join(full, m)))) continue;
+    out.push({ slug: name, path: `${prefix}${name}`, abs: full });
   }
   return out;
 }
 
-// framework/<slug>/ -- each workflow's record (requirements, design spec, tests, run log).
+// The workflow folders in the registry's parent folder, wherever its framework
+// folder is. Each holds the workflow's record: requirements, design plan,
+// build record, test results (+ inputs/, context/, package/, history/). Never
+// its run log, which lives where the workflow runs.
 function scanFrameworkFolders(workspaceRoot) {
-  return scanRecordFolders(workspaceRoot, 'framework');
+  const fw = frameworkFolder(workspaceRoot);
+  return fw.dir ? scanWorkflowFolders(fw.dir, fw.prefix) : [];
 }
 
-// Pre-9.0 layout: a framework record still sitting in outputs/<slug>/. Folders holding only a
-// workflow's own output are not records and are ignored. A marker is any record file or folder
-// that is never a workflow's own output -- including runs.md and test-runs/, so an outputs/<slug>/
-// recreated by a later run or test round (with no requirements or design spec) is still caught.
-// existsSync matches files and directories alike.
-const RECORD_MARKERS = ['requirements.md', 'design-spec.md', 'runs.md', 'test-runs'];
-function scanLegacyRecordFolders(workspaceRoot) {
-  return scanRecordFolders(workspaceRoot, 'outputs')
-    .filter((f) => RECORD_MARKERS.some((m) => fs.existsSync(path.join(workspaceRoot, f.path, m))));
-}
-
-// runs.md has at least one data row (a table row beyond header/separator).
-function runsHasEntries(workspaceRoot, folderPath) {
-  const file = path.join(workspaceRoot, folderPath, 'runs.md');
-  if (!fs.existsSync(file)) return false;
-  const lines = fs.readFileSync(file, 'utf8').split('\n');
+// A run log (runs.md or runs-<slug>.md) has at least one data row: a table
+// row beyond the header and separator. `file` is an absolute path.
+function runLogHasEntries(file) {
+  let text;
+  try {
+    if (!fs.statSync(file).isFile()) return false;
+    text = fs.readFileSync(file, 'utf8');
+  } catch { return false; }
   let tableRows = 0;
-  for (const l of lines) {
+  for (const l of normalizeLineEndings(text).split('\n')) {
     if (/^\s*\|/.test(l) && !/^\s*\|[\s\-|:]+\|\s*$/.test(l)) tableRows++;
   }
   return tableRows > 1; // header + >=1 data row
 }
 
+// A Workflow node's `# Artifacts` link labels, as written.
+function artifactLabels(node) {
+  return orderedLinks((node.sections && node.sections['Artifacts']) || '').map((l) => l.title.trim());
+}
+
 // Capability inventory for the orphan-capabilities warning: any `skills/*/SKILL.md`
-// at any depth (matches `**/skills/*/SKILL.md`), plus `.claude/agents/*.md` and
-// top-level `agents/*.md`. Excludes `tools/fixtures/**` -- the template repo
+// at any depth (matches `**/skills/*/SKILL.md`), plus `.claude/agents/*.md`,
+// top-level `agents/*.md` and agents staged in a workflow's package/. Skips every
+// `history/` folder. Excludes `tools/fixtures/**` -- the template repo
 // ships test fixtures containing their own `.claude/skills/` trees, and
 // composing at the template-repo root must not leak those fictional
 // capabilities into a student's registry.
@@ -356,6 +403,8 @@ function scanCapabilities(workspaceRoot) {
       if (!e.isDirectory()) continue;
       const rel = path.relative(workspaceRoot, full).split(path.sep).join('/');
       if (rel === 'tools/fixtures' || rel.startsWith('tools/fixtures/')) continue;
+      // history/ holds kept copies, set-asides and earlier versions: never live capabilities.
+      if (e.name === 'history') continue;
       if (e.name === 'skills') {
         let subs;
         try { subs = fs.readdirSync(full).sort(); } catch { subs = []; }
@@ -367,13 +416,11 @@ function scanCapabilities(workspaceRoot) {
       walk(full, depth + 1);
     }
   })(workspaceRoot, 0);
-  // Agents staged beside a workflow's record (framework/<slug>/agents/*.md) count too:
-  // Build stages them there on platforms whose agent folder it can't write to.
+  // Agents Build staged in a workflow's package/ (framework/<slug>/package/agents/*.md)
+  // count too: Build stages skills and agents there on platforms it can't install to.
+  // Skills staged there are found by the walk above (package/skills/<name>/SKILL.md).
   const agentDirs = [path.join(workspaceRoot, '.claude', 'agents'), path.join(workspaceRoot, 'agents')];
-  const frameworkDir = path.join(workspaceRoot, 'framework');
-  let slugs = [];
-  try { slugs = fs.readdirSync(frameworkDir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort(); } catch { /* no framework/ folder */ }
-  for (const slug of slugs) agentDirs.push(path.join(frameworkDir, slug, 'agents'));
+  for (const f of scanFrameworkFolders(workspaceRoot)) agentDirs.push(path.join(f.abs, 'package', 'agents'));
   for (const dir of agentDirs) {
     let names;
     try { names = fs.readdirSync(dir).sort(); } catch { continue; } // missing, or not a directory
@@ -384,7 +431,7 @@ function scanCapabilities(workspaceRoot) {
   return out.sort();
 }
 
-// Links into gitignored territory (a workflow's own output, e.g. outputs/) are
+// Links into gitignored territory (a workflow's own output) are
 // declarations lint cannot verify in a fresh checkout -- `git check-ignore`
 // works on patterns regardless of whether the file exists. Non-git
 // directories (or any error) tolerate as "nothing ignored".
@@ -405,9 +452,11 @@ function lastChanged(fm) {
 }
 
 module.exports = {
+  TOOLS_VERSION,
   DIR_TYPES, RESERVED, ENUMS, LEGACY_TOLERATED, BANNED_FIELDS, SECTION_NAMES,
+  ARTIFACT_LABELS, LEGACY_LABELS, AT_INSTANT, AT_DATE, RECORD_MARKERS,
   normalizeLineEndings, parseFrontmatter, parseCapabilityFrontmatter, parseSections, orderedLinks, classifyLinks, slugOf,
   findGeneratedBlocks, renderGeneratedBlock, replaceGeneratedBlock,
-  loadBundle, scanSops, scanFrameworkFolders, scanLegacyRecordFolders, runsHasEntries, scanCapabilities,
+  loadBundle, scanSops, frameworkFolder, scanFrameworkFolders, runLogHasEntries, artifactLabels, scanCapabilities,
   isGitIgnored, lastChanged,
 };

@@ -26,4 +26,4 @@ The `.agents/skills/` directory is the most portable — place skills there to s
 ## Related
 
 - [Skills building block](/agentic-building-blocks/skills/) — what skills are and how they work across platforms
-- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the seven framework skills on Cursor
+- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — how to install the plugin's skills on Cursor (the framework's five steps run on Claude, ChatGPT, Microsoft 365 Copilot, Claude Code and Codex)

@@ -47,13 +47,22 @@ specs/
 # fixture's own .gitignore, not this repo's.
 !registry-template/tools/fixtures/**
 
-# The worked-example project folder is a committed fixture with its own outputs/
-# tree and composed REGISTRY.md -- un-ignore it the same way as the tooling fixtures.
+# The worked-example folder is an internal test fixture (not published) with the workflow's own
+# saved reports and a composed REGISTRY.md -- un-ignore it the same way as the tooling fixtures.
 !examples/weekly-status-report/**
-examples/weekly-status-report/registry-dashboard.html
+examples/weekly-status-report/**/registry-dashboard.html
 # The negation above also re-admits junk and derived packages -- keep them out.
 examples/weekly-status-report/**/.DS_Store
 examples/weekly-status-report/**/*.zip
+
+# The framework's shared state fixtures are whole workspaces -- un-ignored the same
+# way, so nothing inside one is swallowed by the unanchored outputs/ or specs/ rules.
+!framework-fixtures/**
+framework-fixtures/**/.DS_Store
+# Replays of real calls stay local only, never committed.
+deconstruct-workspace/evals/fixtures/interview/post-call-*/
+framework-fixtures/**/post-call-*/
+deconstruct-workspace/evals/fixtures/**/.DS_Store
 
 # on-demand docx install by the multi-agent-example renderer
 plugins/multi-agent-example/scripts/node_modules/

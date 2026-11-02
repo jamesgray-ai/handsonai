@@ -1,0 +1,1 @@
+Platform change (no `big_change`): Design set the plan, results and build record aside into `history/set-aside-2026-10-21-1015/`; the node still links the skill and is `in-production`, so routing reaches state 4 (no plan), never state 1.

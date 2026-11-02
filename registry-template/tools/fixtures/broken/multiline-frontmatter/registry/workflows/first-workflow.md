@@ -6,7 +6,6 @@ description: >
   folded across two lines.
 generated: { by: process:fixture, at: 2026-08-01 }
 status: under-development
-definition_type: step-driven
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"

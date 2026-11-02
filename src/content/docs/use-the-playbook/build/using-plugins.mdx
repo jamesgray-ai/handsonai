@@ -25,28 +25,28 @@ For Cursor, Codex CLI, Gemini CLI, VS Code Copilot, or any LLM, see
 
 The [plugin format](https://code.claude.com/docs/en/plugins#plugin-structure-overview) supports agents, skills, commands, hooks, and MCP server connections. The Hands-on AI plugin currently provides:
 
-- **Agents** — Expert personalities that Claude activates automatically based on your request. The `framework-agent` agent walks you through the full AI Workflow Framework.
+- **Agents** — Specialists Claude can hand work to. The Hands-on AI plugin has none; the [multi-agent example](../multi-agent-example/) plugin has four.
 - **Skills** — Step-by-step workflows (an instruction file plus optional reference material) that teach Claude specific tasks. A skill might encode a methodology step, a documentation template, or a spec-writing pattern.
 - **Commands** — Slash commands that trigger specific actions (like `/handsonai:analyze` for the Analyze step).
 - **Hooks** — Automations that run in response to events (e.g., running a linter after every file edit).
 - **MCP servers** — Connections to external tools and services (e.g., GitHub, Slack, Jira).
 
-The Hands-on AI plugin currently focuses on **agents** and **skills**. As it grows, it may also include hooks and connectors.
+The Hands-on AI plugin currently focuses on **skills**. As it grows, it may also include hooks and connectors.
 
 ## Agents vs Skills
 
 | | Agents | Skills |
 |---|--------|--------|
-| What they are | Expert personalities (orchestrator, methodology guide) | Step-by-step workflows with instructions + reference material |
+| What they are | Specialists Claude hands work to (researcher, writer, editor) | Step-by-step workflows with instructions + reference material |
 | How they activate | Claude automatically picks the right one based on your request | Automatically when relevant, or type `/handsonai:skill-name` |
 | Where they work | Claude Code and Claude (plugin sub-agents run when the plugin is installed, on the web and on desktop) | Claude Code and Claude — via the plugin or a ZIP upload |
-| Example | "Walk me through the AI Workflow Framework" activates `framework-agent` | "Name this workflow" loads `naming-workflows` conventions |
+| Example | "Write an article on how companies use AI" hands the research to `ai-productivity-researcher` (multi-agent example plugin) | "Name this workflow" loads `naming-workflows` conventions |
 
 ## Transparency & Security
 
 The plugin is plain-text Markdown — there's no compiled code or hidden logic. Every agent and skill is fully readable, so you can review exactly what instructions Claude receives before you install anything.
 
-**Review the source:** All plugin files are open source in the [handsonai-plugins GitHub repository](https://github.com/jamesgray-ai/handsonai-plugins). The [plugin detail page](../handsonai/) lists every agent and skill with descriptions of what they do.
+**Review the source:** All plugin files are open source in the [handsonai-plugins GitHub repository](https://github.com/jamesgray-ai/handsonai-plugins). The [plugin detail page](../handsonai/) lists every skill with descriptions of what they do.
 
 :::caution[Anthropic's guidance on third-party plugins]
 Anthropic recommends reviewing any plugin before installing it. From the official [plugin documentation](https://code.claude.com/docs/en/discover-plugins): *"Make sure you trust a plugin before installing it. Anthropic does not control what MCP servers, files, or other software are included in plugins and cannot verify that they work as intended."*
@@ -85,27 +85,23 @@ To install the Hands-on AI plugin, type:
 /plugin install handsonai@handsonai
 ```
 
-After installing, the plugin's agent and skills are available in your Claude Code session. Installed plugins are stored in `~/.claude/plugins/` on your machine.
+After installing, the plugin's skills are available in your Claude Code session. Installed plugins are stored in `~/.claude/plugins/` on your machine.
 
 ### Step 3: Use It
 
-Installed plugins add an agent and skills that Claude Code can use automatically. You don't need to call them by name — just describe what you need and Claude will use the right one.
+Installed plugins add skills that Claude Code can use automatically. You don't need to call them by name — just describe what you need and Claude will use the right one.
 
-#### Agent — just talk naturally
+#### Moving through the framework — "continue my workflow"
 
-Describe what you need. Claude Code matches your request to the agent automatically.
-
-**Examples:**
+Each framework step runs in its own session. To move on, start a new session and say:
 
 ```
-"Walk me through the AI Workflow Framework for this workflow"
-→ framework-agent activates
-
-"Help me apply AI to my client onboarding process"
-→ framework-agent activates and starts at Analyze
+"continue my workflow"
+→ the skill that picks it up works out the step your workflow needs next,
+  and either starts it or gives you the phrase to start it in a new session
 ```
 
-Claude Code shows which agent it selected at the top of the response. You can list all available agents with `/agents`.
+Every step ends by telling you the phrase that starts the next one.
 
 #### Skills — natural language or slash commands
 
@@ -115,13 +111,11 @@ You can also invoke a skill directly with a slash command. The format is `/hands
 
 | Slash command | What it does |
 |---|---|
-| `/handsonai:analyze` | Audit your workflows to find AI opportunities |
-| `/handsonai:deconstruct` | Break a workflow into structured steps |
+| `/handsonai:analyze` | Find where AI can create value in your work and register candidate workflows |
+| `/handsonai:deconstruct` | Turn one workflow into Workflow Requirements: its goal, what every output must get right, its rules and checkpoints, and practice inputs |
 | `/handsonai:design` | Design the AI workflow architecture |
-| `/handsonai:build` | Generate platform-appropriate artifacts |
-| `/handsonai:test` | Test artifacts and evaluate output quality |
-| `/handsonai:run` | Do the first real run and leave a Run Card |
-| `/handsonai:improve` | Evaluate a running workflow |
+| `/handsonai:build` | Build the workflow from your approved Design Plan, task by task, check each part, and install it where it runs |
+| `/handsonai:test` | Run the workflow on practice inputs and a new one, grade every requirement with proof, and take it live when you say yes |
 | `/handsonai:scaffolding-registry` | Stand up your registry bundle — SCHEMA.md and your Business, Line of Business, Function, and Process nodes |
 | `/handsonai:naming-workflows` | Generate consistent workflow names + registry entry |
 | `/handsonai:writing-workflow-sops` | Write a Standard Operating Procedure |
@@ -156,7 +150,7 @@ Plugins install the same way on the web and in the desktop app, and a plugin's s
 2. Click **+** → **Add marketplace** → **Add from a repository**, type `jamesgray-ai/handsonai-plugins`, and click **Sync**
 3. Click **Install** on the **handsonai** card
 
-Plugin sub-agents (the `framework-agent` orchestrator) run when the plugin is installed, on the web and on desktop; the skills work everywhere. Step-by-step with screenshots: [Install the Hands-on AI Plugin — Claude](/ai-workflow-framework/skills/#claude-chat--cowork).
+The skills work on the web and on desktop. Step-by-step with screenshots: [Install the Hands-on AI Plugin — Claude](/ai-workflow-framework/skills/#claude-chat--cowork).
 
 ### Upload a plugin skill to Claude
 
@@ -241,24 +235,22 @@ Claude applies the framework methodology from the skill's reference file automat
 
 Plugin sub-agents run when they are packaged in an installed plugin, on the web and on desktop. Agent files have a different format from skill files and cannot be uploaded as skills on their own. If you can't install plugins (Free plan or a blocked org), you can:
 
-- Upgrade to a paid plan, or ask your admin to allow plugins, so the plugin's `framework-agent` orchestrator is available
+- Upgrade to a paid plan, or ask your admin to allow plugins
 - Create a **Project** and paste the agent's instructions as custom instructions
 - Convert the agent into a skill (wrap its instructions in a `SKILL.md` file)
 
 ### Skill compatibility across platforms
 
-All 17 skills work fully across Claude Code and Claude — via the plugin or a ZIP upload.
+The skills work across Claude Code and Claude — via the plugin or a ZIP upload. Where a skill carries scripts and code can't run, the skill applies the same rules itself.
 
 | Skill | Claude Code | Claude | Notes |
 |-------|:----------:|:---------:|-------|
 | `analyze` | **Full** | **Full** | Pure instructions + reference docs |
 | `deconstruct` | **Full** | **Full** | Pure instructions + reference docs |
 | `design` | **Full** | **Full** | Pure instructions + reference docs |
-| `build` | **Full** | **Full** | Pure instructions + reference docs |
-| `test` | **Full** | **Full** | Pure instructions + reference docs |
-| `run` | **Full** | **Full** | Pure instructions + reference docs |
-| `improve` | **Full** | **Full** | Pure instructions + reference docs |
-| `building-knowledge-graph` | **Full** | **Full** | Writes files to the project folder — no external services |
+| `build` | **Full** | **Full** | Instructions, reference docs and a script; where scripts can't run, the skill applies the same rules itself |
+| `test` | **Full** | **Full** | Instructions, reference docs and a script; where scripts can't run, the skill applies the same rules itself |
+| `building-knowledge-graph` | **Full** | **Desktop app** | Writes files to a folder on your computer, so on Claude it needs the desktop app — no external services |
 | `scaffolding-registry` | **Full** | **Full** | Writes registry bundle nodes — no external services |
 | `naming-workflows` | **Full** | **Full** | Writes registry nodes — no external services |
 | `writing-workflow-sops` | **Full** | **Full** | No external services |
@@ -277,7 +269,7 @@ Claude has its own **built-in plugin directory**, so you don't need Claude Code 
 
 ### Install a plugin in Claude
 
-1. Open Claude. (If you still see a Cowork tab, it's the same thing.)
+1. Open Claude on the web or in the Claude desktop app.
 2. In the left sidebar, click **Customize**, then the **Plugins** tab (or **Browse plugins**)
 3. Browse the directory, or click **+** → **Add marketplace** → **Add from a repository** and type `jamesgray-ai/handsonai-plugins` for the Hands-on AI plugin
 4. Click **Install** on the plugin card
@@ -500,7 +492,7 @@ Restart your Claude Code session. Then verify the plugin is installed:
 /plugin list
 ```
 
-If the plugin appears but the agent doesn't activate, try being more explicit in your prompt — for example, "Walk me through the AI Workflow Framework for my client onboarding process" rather than just "help me with onboarding."
+If the plugin appears but the skill doesn't activate, try being more explicit in your prompt — for example, "Deconstruct my client onboarding workflow" rather than just "help me with onboarding."
 
 ### "Skill not working in Claude"
 
@@ -530,6 +522,6 @@ https://github.com/jamesgray-ai/handsonai-plugins/releases/latest
 
 ## Next Steps
 
-- [The Hands-on AI Plugin](../handsonai/) — see what's included with example prompts for each agent and skill
+- [The Hands-on AI Plugin](../handsonai/) — see what's included with example prompts for each skill
 - [AI Registry setup](../../../builder-setup/ai-registry-setup/) — how the Markdown-based AI Registry works
 - [Example Gallery](../../../use-cases/example-gallery/) — copy and customize example agents, skills, and prompts

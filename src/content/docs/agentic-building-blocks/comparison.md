@@ -138,4 +138,4 @@ Use this table to find your starting point. Most real workflows combine several 
 
 - [Building Blocks Overview](../) — what each block is, with cross-platform implementations
 - [Design Your AI Workflow](../../ai-workflow-framework/design/) — mapping workflow steps to building blocks
-- [AI Workflow Framework](../../ai-workflow-framework/) — the full Analyze → Deconstruct → Build methodology
+- [AI Workflow Framework](../../ai-workflow-framework/) — the five-step method: Analyze, Deconstruct, Design, Build, Test

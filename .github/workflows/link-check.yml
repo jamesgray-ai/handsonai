@@ -11,8 +11,11 @@ name: Link check
 # The second matters because course material deep-links this site by anchor.
 # A reworded heading silently breaks a student's instructions.
 #
-# External links are deliberately out of scope: checking them needs network and
-# produces flaky failures from rate limiting.
+# External links are out of scope site-wide: checking them needs network and
+# produces flaky failures from rate limiting. The one exception is the patterns
+# pages, whose cited sources students quote: a second step checks their
+# outbound links answer 200 with no redirect (retried, and skipping hosts that
+# block scripts). See EXTERNAL_CHECK_PREFIXES in scripts/check-links.js.
 
 on:
   pull_request:
@@ -42,3 +45,5 @@ jobs:
         run: npm run build
       - name: Check internal links and anchors
         run: node scripts/check-links.js
+      - name: Check cited sources on the patterns pages
+        run: node scripts/check-links.js --external

@@ -1,7 +1,9 @@
 ---
 title: AI Workflow Design Matrix
 description: "A 3x2 matrix combining autonomy (what decides the next step: Deterministic, Guided, Autonomous) with human involvement (Augmented, Automated)."
----Every AI workflow can be described by two dimensions: **what decides the next step** and **whether a person takes part while it runs**. These two dimensions combine into a 3x2 matrix of six workflow archetypes — a shared vocabulary for classifying, comparing, and designing AI workflows.
+---
+
+Every AI workflow can be described by two dimensions: **what decides the next step** and **whether a person takes part while it runs**. These two dimensions combine into a 3x2 matrix of six workflow archetypes — a shared vocabulary for classifying, comparing, and designing AI workflows.
 
 A third dimension — **Lens** — determines the scope of your analysis:
 
@@ -22,7 +24,7 @@ The lens doesn't change the matrix — it changes what you're analyzing. An indi
 | **Guided** | Bounded decisions, with your method | You set the structure and the methodology (a rubric, criteria, a process); the AI uses it to make decisions on your behalf: route an item, choose a tool, judge quality and send work back. Its decisions are bounded (within your structure, by your rules), not open-ended. | Does the AI's judgment, made by your rules, decide what happens next? | Sort support emails by category and route each to the right queue; score insights 1–10 against your rubric and draft posts only for those that score 7 or higher |
 | **Autonomous** | A goal | The AI plans its own steps, decides what to do next at each turn, and keeps going until the goal is met. Its decision-making is open-ended. | Could you only describe the goal, not the steps? | Research agents that decide what to investigate, follow what they find, and write an article |
 
-Two notes keep the classification honest:
+Four notes keep the classification honest:
 
 - **Writing or summarizing inside a step never makes a workflow Guided.** A step that drafts a client email is Deterministic if the draft goes to the same next step whatever it says. It turns Guided when an AI judgment — a score, a pass/fail grade, a category — decides where the work goes next.
 - **The number of agents doesn't set the level.** Three agents in a fixed chain can be Deterministic or Guided; a single agent working from a goal can be Autonomous. Look at what decides the next step, not at how many AI workers there are.
@@ -43,6 +45,8 @@ Human involvement describes whether a person takes part while the workflow is ru
 | **Automated** | No one takes part until it's done | The workflow runs end-to-end on its own and the person sees only the result. Starting it by hand doesn't change that — what counts is whether anyone takes part along the way. | Weekly report generated overnight, support emails routed as they arrive |
 
 **Key question:** *Does a person take part along the way, or does no one take part until it's done?*
+
+A [checkpoint](../../agentic-building-blocks/agents/capability-patterns/human-in-the-loop/) is how a person takes part along the way.
 
 ## The Matrix
 
@@ -99,7 +103,7 @@ If you're new to AI workflows, start with **Deterministic + Augmented** — the 
 
 ### Orchestration Mechanisms
 
-The [orchestration mechanism](../design/#orchestration-mechanism) describes *who drives the workflow*. The matrix describes *how the AI and human interact*. They're complementary:
+Whether the workflow is a [skill or an agent](../glossary/) describes *who drives the workflow*. The matrix describes *how the AI and human interact*. They're complementary:
 
 | Orchestration Mechanism | Typical Archetypes |
 |------------------------|-------------------|
@@ -108,17 +112,19 @@ The [orchestration mechanism](../design/#orchestration-mechanism) describes *who
 
 ### Architecture Patterns
 
-The seven [workflow architecture patterns](../../patterns/workflow-architecture/) provide implementation blueprints within each archetype:
+The [workflow architecture patterns](../../patterns/workflow-architecture/) provide implementation blueprints within each level. Each pattern maps to a level by what decides the next step; this is the same mapping as [the catalogue's table](../../patterns/workflow-architecture/#the-patterns-and-their-levels). A pattern that appears at two levels depends on who judges:
 
-| Archetype | Common Architecture Patterns |
-|-----------|------------------------------|
-| Deterministic | Augmented LLM, Prompt Chaining |
-| Guided | Prompt Chaining, Routing, Evaluator-Optimizer |
-| Autonomous | Orchestrator-Workers, Autonomous Agents |
+| Level | Architecture Patterns |
+|-------|-----------------------|
+| Deterministic | Augmented LLM; Prompt Chaining with coded gates; Parallelization when the split is fixed; Routing when rules route |
+| Guided | Routing when the AI classifies; Evaluator-Optimizer; Handoff; Orchestrator-Workers when the planning is bounded; Prompt Chaining if the AI judges a gate; Parallelization if the AI judges the vote |
+| Autonomous | Orchestrator-Workers when the planning is open-ended; Autonomous Agents; Group Chat; Swarm |
+
+A [Human Checkpoint](../../agentic-building-blocks/agents/capability-patterns/human-in-the-loop/) has no level: it sets involvement.
 
 ## Related
 
-- [AI Workflow Framework](../) — the full seven-step methodology
-- [Design Your AI Workflow](../design/) — assess autonomy, choose an orchestration mechanism, and map building blocks
-- [Build Workflows](../build/) — worked examples across the matrix
+- [AI Workflow Framework](../) — the five steps, from finding a workflow to taking it live
+- [Design Your AI Workflow](../design/) — assess autonomy, choose a skill or an agent, and map building blocks
+- [Build Your AI Workflow](../build/) — how Build makes the workflow from your plan
 - [Workflow Architecture Patterns](../../patterns/workflow-architecture/) — implementation blueprints for each pattern

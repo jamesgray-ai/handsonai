@@ -4,12 +4,21 @@ import starlightBlog from 'starlight-blog';
 import sitemap from '@astrojs/sitemap';
 import llmsTxt from './src/integrations/llms-txt.mjs';
 import cloudflareRedirects from './src/integrations/cloudflare-redirects.mjs';
-import exampleZip from './src/integrations/example-zip.mjs';
 
 export default defineConfig({
   site: 'https://handsonai.info',
   trailingSlash: 'always',
   redirects: {
+    // Agents › Orchestration Patterns retired into the one Workflow Architecture catalogue (2026-10-24, framework 10.0.0)
+    '/agentic-building-blocks/agents/orchestration-patterns/': '/patterns/workflow-architecture/',
+    '/agentic-building-blocks/agents/orchestration-patterns/sequential/': '/patterns/workflow-architecture/prompt-chaining/',
+    '/agentic-building-blocks/agents/orchestration-patterns/parallel/': '/patterns/workflow-architecture/parallelization/',
+    '/agentic-building-blocks/agents/orchestration-patterns/router/': '/patterns/workflow-architecture/routing/',
+    '/agentic-building-blocks/agents/orchestration-patterns/hierarchical/': '/patterns/workflow-architecture/orchestrator-workers/',
+    '/agentic-building-blocks/agents/orchestration-patterns/evaluator-optimizer/': '/patterns/workflow-architecture/evaluator-optimizer/',
+    '/agentic-building-blocks/agents/orchestration-patterns/handoff/': '/patterns/workflow-architecture/handoff/',
+    '/agentic-building-blocks/agents/orchestration-patterns/group-chat/': '/patterns/workflow-architecture/group-chat/',
+    '/agentic-building-blocks/agents/orchestration-patterns/decentralized/': '/patterns/workflow-architecture/swarm/',
     // Chat and Cowork merged into one Claude app; the Cowork page is now about CLAUDE.md for a folder (2026-10-11)
     '/platforms/claude/cowork/': '/platforms/claude/claude-md/',
     // Skill-discovery prompts made tool-agnostic and moved out of the Claude platform section (2026-09-07)
@@ -59,15 +68,21 @@ export default defineConfig({
     '/business-first-ai-framework/design/': '/ai-workflow-framework/design/',
     '/business-first-ai-framework/build/': '/ai-workflow-framework/build/',
     '/business-first-ai-framework/test/': '/ai-workflow-framework/test/',
-    '/business-first-ai-framework/run/': '/ai-workflow-framework/run/',
-    '/business-first-ai-framework/improve/': '/ai-workflow-framework/improve/',
+    // Run and Improve retired in plugin 10.0.0 (2026-10): going live and re-checks are Test's
+    '/business-first-ai-framework/run/': '/ai-workflow-framework/test/',
+    '/business-first-ai-framework/improve/': '/ai-workflow-framework/test/',
+    '/ai-workflow-framework/run/': '/ai-workflow-framework/test/',
+    // The framework worked examples (and the download) retired in 10.0.0 (2026-10); a real run replaces them later
+    '/ai-workflow-framework/examples/worked-example/': '/ai-workflow-framework/',
+    '/ai-workflow-framework/examples/content-calendar-planning/': '/ai-workflow-framework/',
+    '/ai-workflow-framework/improve/': '/ai-workflow-framework/test/',
     '/business-first-ai-framework/skills/': '/ai-workflow-framework/skills/',
     '/business-first-ai-framework/workflow-design-matrix/': '/ai-workflow-framework/workflow-design-matrix/',
     '/business-first-ai-framework/analyze-examples/': '/ai-workflow-framework/analyze-examples/',
     '/business-first-ai-framework/examples/deterministic-automation/': '/ai-workflow-framework/examples/deterministic-automation/',
     '/business-first-ai-framework/examples/ai-collaborative/': '/ai-workflow-framework/examples/ai-collaborative/',
     '/business-first-ai-framework/examples/autonomous-agent/': '/ai-workflow-framework/examples/autonomous-agent/',
-    '/business-first-ai-framework/examples/content-calendar-planning/': '/ai-workflow-framework/examples/content-calendar-planning/',
+    '/business-first-ai-framework/examples/content-calendar-planning/': '/ai-workflow-framework/',
     // Q&A flattened to /questions/<slug>/ (2026-05-17) — see redirects block below for all old nested paths
     '/business-first-ai-framework/questions/how-do-i-find-workflows-worth-applying-ai-to/': '/questions/how-do-i-find-workflows-worth-applying-ai-to/',
     '/business-first-ai-framework/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/': '/questions/how-do-i-identify-the-right-ai-tools-for-a-workflow/',
@@ -161,26 +176,22 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: 'Overview', link: '/ai-workflow-framework/' },
+            { label: 'Analyze', link: '/ai-workflow-framework/analyze/' },
+            { label: 'Deconstruct', link: '/ai-workflow-framework/deconstruct/' },
+            { label: 'Design', link: '/ai-workflow-framework/design/' },
+            { label: 'Build', link: '/ai-workflow-framework/build/' },
+            { label: 'Test', link: '/ai-workflow-framework/test/' },
             { label: 'AI Workflow Design Matrix', link: '/ai-workflow-framework/workflow-design-matrix/' },
-            { label: 'Step 1: Analyze', link: '/ai-workflow-framework/analyze/' },
-            { label: 'Step 2: Deconstruct', link: '/ai-workflow-framework/deconstruct/' },
-            { label: 'Step 3: Design', link: '/ai-workflow-framework/design/' },
-            { label: 'Step 4: Build', link: '/ai-workflow-framework/build/' },
-            { label: 'Step 5: Test', link: '/ai-workflow-framework/test/' },
-            { label: 'Step 6: Run', link: '/ai-workflow-framework/run/' },
-            { label: 'Step 7: Improve', link: '/ai-workflow-framework/improve/' },
             { label: 'Install the Plugin', link: '/ai-workflow-framework/skills/' },
             { label: 'Glossary', link: '/ai-workflow-framework/glossary/' },
             {
               label: 'Worked Examples',
               collapsed: true,
               items: [
-                { label: 'End-to-End: All 7 Steps & Files', link: '/ai-workflow-framework/examples/worked-example/' },
                 { label: 'Analyze: Example Reports', link: '/ai-workflow-framework/analyze-examples/' },
                 { label: 'Guided Prospect Research', link: '/ai-workflow-framework/examples/deterministic-automation/' },
                 { label: 'AI Collaborative', link: '/ai-workflow-framework/examples/ai-collaborative/' },
                 { label: 'Autonomous Agent', link: '/ai-workflow-framework/examples/autonomous-agent/' },
-                { label: 'Full Example: Content Calendar Planning', link: '/ai-workflow-framework/examples/content-calendar-planning/' },
               ],
             },
           ],
@@ -275,22 +286,7 @@ export default defineConfig({
                         { label: 'Multi-Agent Collaboration', link: '/agentic-building-blocks/agents/capability-patterns/multi-agent-collaboration/' },
                         { label: 'Memory', link: '/agentic-building-blocks/agents/capability-patterns/memory/' },
                         { label: 'Guardrails', link: '/agentic-building-blocks/agents/capability-patterns/guardrails/' },
-                        { label: 'Human-in-the-Loop', link: '/agentic-building-blocks/agents/capability-patterns/human-in-the-loop/' },
-                      ],
-                    },
-                    {
-                      label: 'Orchestration Patterns',
-                      collapsed: true,
-                      items: [
-                        { label: 'Overview', link: '/agentic-building-blocks/agents/orchestration-patterns/' },
-                        { label: 'Sequential', link: '/agentic-building-blocks/agents/orchestration-patterns/sequential/' },
-                        { label: 'Parallel', link: '/agentic-building-blocks/agents/orchestration-patterns/parallel/' },
-                        { label: 'Router', link: '/agentic-building-blocks/agents/orchestration-patterns/router/' },
-                        { label: 'Hierarchical', link: '/agentic-building-blocks/agents/orchestration-patterns/hierarchical/' },
-                        { label: 'Handoff', link: '/agentic-building-blocks/agents/orchestration-patterns/handoff/' },
-                        { label: 'Evaluator-Optimizer', link: '/agentic-building-blocks/agents/orchestration-patterns/evaluator-optimizer/' },
-                        { label: 'Group Chat', link: '/agentic-building-blocks/agents/orchestration-patterns/group-chat/' },
-                        { label: 'Decentralized', link: '/agentic-building-blocks/agents/orchestration-patterns/decentralized/' },
+                        { label: 'Human Checkpoint', link: '/agentic-building-blocks/agents/capability-patterns/human-in-the-loop/' },
                       ],
                     },
                     { label: 'Resources', link: '/agentic-building-blocks/agents/resources/' },
@@ -523,8 +519,11 @@ export default defineConfig({
                 { label: 'Prompt Chaining', link: '/patterns/workflow-architecture/prompt-chaining/' },
                 { label: 'Routing', link: '/patterns/workflow-architecture/routing/' },
                 { label: 'Parallelization', link: '/patterns/workflow-architecture/parallelization/' },
-                { label: 'Orchestrator-Workers', link: '/patterns/workflow-architecture/orchestrator-workers/' },
                 { label: 'Evaluator-Optimizer', link: '/patterns/workflow-architecture/evaluator-optimizer/' },
+                { label: 'Orchestrator-Workers', link: '/patterns/workflow-architecture/orchestrator-workers/' },
+                { label: 'Handoff', link: '/patterns/workflow-architecture/handoff/' },
+                { label: 'Group Chat', link: '/patterns/workflow-architecture/group-chat/' },
+                { label: 'Swarm', link: '/patterns/workflow-architecture/swarm/' },
                 { label: 'Autonomous Agents', link: '/patterns/workflow-architecture/autonomous-agents/' },
               ],
             },
@@ -571,6 +570,5 @@ export default defineConfig({
     }),
     llmsTxt(),
     cloudflareRedirects(),
-    exampleZip(),
   ],
 });

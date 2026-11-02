@@ -38,6 +38,7 @@ export const collections = {
         status: z.enum(['draft', 'published']).optional(),
         published: z.date().optional(),
         last_updated: z.date().optional(),
+        last_reviewed: z.date().optional(),
         maven_video_url: z.string().optional(),
         maven_course: z.string().optional(),
       }),

@@ -5,7 +5,7 @@ description: "The handsonai plugin — the AI Workflow Framework, knowledge-grap
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **1 agent + 17 skills.**
+One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **15 skills.**
 
 These are plain-text Markdown files that work in any AI tool. Install the plugin on Claude, ChatGPT, or Claude Code for the full experience, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other platforms.
 
@@ -16,7 +16,7 @@ The same plugin installs on Claude, ChatGPT, and Claude Code — pick your tab. 
 <Tabs>
   <TabItem label="Claude">
 
-Works in Claude (web and desktop app) on paid plans. In the left sidebar: **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card. The `framework-agent` orchestrator runs in Claude with the plugin installed.
+Works in Claude (web and desktop app) on paid plans. In the left sidebar: **Customize → Plugins → + → Add marketplace → Add from a repository**, type `jamesgray-ai/handsonai-plugins`, click **Sync**, then **Install** on the **handsonai** card.
 
 On the Free plan, or if your company blocks plugins, use the ZIPs tab instead.
 
@@ -24,7 +24,7 @@ On the Free plan, or if your company blocks plugins, use the ZIPs tab instead.
   </TabItem>
   <TabItem label="ChatGPT & Codex">
 
-Works on any paid ChatGPT plan (Plus, Pro, Business, Enterprise) and in Codex. In the **ChatGPT desktop app** (the marketplace option isn't shown on chatgpt.com in a browser), open the left sidebar: **Plugins → Add marketplace**, type `jamesgray-ai/handsonai-plugins`, then **Install** on **Hands-on AI**. Use a skill with `@analyze` in Work or `$analyze` in Codex — on the web and mobile too, once installed. Workspace admins can add the marketplace for everyone under **Admin → Plugins → Add → Import marketplace**.
+The plugin installs on any paid ChatGPT plan (Plus, Pro, Business, Enterprise) and in Codex; uploading single skills is documented for Business, Enterprise and Edu, so on Plus and Pro, install the plugin. In the **ChatGPT desktop app** (the marketplace option isn't shown on chatgpt.com in a browser), open the left sidebar: **Plugins → Add marketplace**, type `jamesgray-ai/handsonai-plugins`, then **Install** on **Hands-on AI**. Use a skill with `@analyze` in Work or `$analyze` in Codex — on the web and mobile too, once installed. Workspace admins can add the marketplace for everyone under **Admin → Plugins → Add → Import marketplace**.
 
 Don't see Add marketplace? Upload the ZIPs instead (Plugins → Skills → Create → Upload).
 
@@ -56,33 +56,25 @@ Every skill is also a standalone ZIP for platforms without the plugin — Claude
 
 ## What's Inside
 
-The plugin is organized into three coherent toolkits. Use them independently or together.
+The plugin is organized into five toolkits. Use them independently or together.
 
 ---
 
 ## AI Workflow Framework
 
-The seven-step methodology for going from a workflow idea to a deployed AI system: **Analyze → Deconstruct → Design → Build → Test → Run → Improve.** Run the full flow with the orchestrator agent, or invoke any individual step as a skill.
-
-### `framework-agent`
-
-Walks you through the full 7-step framework end-to-end. The agent calls the right skill at each step, gathers inputs from you between steps, and produces working artifacts (specs, prompts, agents) along the way.
-
-**When to use it:** Use this when you have a workflow you want to apply AI to and want guided, end-to-end help. If you'd rather drive each step yourself, invoke the skills directly.
+The five-step methodology for going from a workflow idea to a tested, live AI workflow: **Analyze → Deconstruct → Design → Build → Test.** Each step is a skill, and each runs in its own chat. To move on, start a new chat and say **"continue my workflow"**: the skill that picks it up works out the step your workflow needs next, and either starts it or gives you the phrase to start it in a new chat. Every step ends by telling you the phrase that starts the next one.
 
 ### Skills
 
 | Skill | Slash command | What it does |
 |---|---|---|
-| `analyze` | `/handsonai:analyze` | Audit your workflows (individual or organizational lens) to find where AI creates the most value |
-| `deconstruct` | `/handsonai:deconstruct` | Break a workflow into structured steps using the 6-question framework |
-| `design` | `/handsonai:design` | Design the AI workflow architecture and produce a Design Spec |
-| `build` | `/handsonai:build` | Generate platform-appropriate artifacts (skills, agents, connectors) from the approved spec |
-| `test` | `/handsonai:test` | Test workflow artifacts and evaluate output quality |
-| `run` | `/handsonai:run` | Do the first real run and leave a Run Card, run log, and review date |
-| `improve` | `/handsonai:improve` | Evaluate a running workflow for quality and evolution opportunities |
+| `analyze` | `/handsonai:analyze` | Find where AI can create value in your work (individual or organizational lens) and register each opportunity as a candidate workflow |
+| `deconstruct` | `/handsonai:deconstruct` | Turn one workflow into Workflow Requirements: its goal, what every output must get right, its rules and checkpoints, and practice inputs |
+| `design` | `/handsonai:design` | Design the AI workflow architecture and produce a Design Plan |
+| `build` | `/handsonai:build` | Build the workflow from your approved Design Plan, task by task, check each part, and install it where it runs |
+| `test` | `/handsonai:test` | Run the workflow on practice inputs and a new one, grade every requirement with proof, and take it live when you say yes |
 
-**Full documentation:** [The AI Workflow Framework](../../../ai-workflow-framework/) walks through the methodology with worked examples for each step.
+**Full documentation:** [The AI Workflow Framework](../../../ai-workflow-framework/) explains each step and how they fit together.
 
 ---
 
@@ -94,7 +86,7 @@ Model the work itself — clients, offerings, processes, people, tools, policies
 
 **Slash command:** `/handsonai:building-knowledge-graph`
 
-Builds your business knowledge graph: a ~30-minute guided build that looks at what is already in your folder, interviews you about the work a person, team, or company does, proposes the four to seven kinds of things it runs on and the sentences that connect them, and, on the single word **build**, writes the `knowledge/` bundle in the Open Knowledge Format — `SCHEMA.md`, seeded concept pages, an overview, index and log — plus a standing-rules file and local `ingest` and `lint` skills, then runs the loop once with you. Say *"Build my knowledge graph."* Needs a tool that writes files on your computer (Claude Code, the Claude desktop app, the ChatGPT desktop app). Re-running on an existing graph fills gaps and never rebuilds.
+Builds your business knowledge graph: a guided build that looks at what is already in your folder, interviews you about the work a person, team, or company does, proposes the four to seven kinds of things it runs on and the sentences that connect them, and, on the single word **build**, writes the `knowledge/` bundle in the Open Knowledge Format — `SCHEMA.md`, seeded concept pages, an overview, index and log — plus a standing-rules file and local `ingest` and `lint` skills, then runs the loop once with you. Say *"Build my knowledge graph."* Needs a tool that writes files on your computer (Claude Code, the Claude desktop app, the ChatGPT desktop app). Re-running on an existing graph fills gaps and never rebuilds.
 
 ---
 
@@ -112,7 +104,7 @@ The AI Registry is pure Markdown — it works anywhere Claude can read and write
 
 **Slash command:** `/handsonai:scaffolding-registry`
 
-Stands up a brand-new AI Registry: a guided, ~25-minute interview — starting from what you already have, such as a services page or an org chart — that creates the `registry/` bundle — `SCHEMA.md`, the typed directories, and real Business, Line of Business, Function, and Process nodes for your actual work. It writes no Workflow node; the `analyze` skill adds your first candidates to the backlog. Triggers when you ask to set up your registry, or automatically when another framework skill finds no `registry/SCHEMA.md` in the workspace. Re-running on an existing bundle fills gaps rather than re-scaffolding, and it also migrates legacy layouts (old per-workflow manifest files or flat requirements files) into the bundle. Hands off to `indexing-registry` for the workspace's first maintenance pass and dashboard.
+Stands up a brand-new AI Registry: a guided interview — starting from what you already have, such as a services page or an org chart — that creates the `registry/` bundle — `SCHEMA.md`, the typed directories, and real Business, Line of Business, Function, and Process nodes for your actual work. It writes no Workflow node; the `analyze` skill adds your first candidates to the backlog. Triggers when you ask to set up your registry, or when a framework step suggests it because you don't have one yet. Re-running on an existing bundle fills gaps rather than re-scaffolding. Files from an earlier version of the framework are left as they are; the registry is set up fresh beside them. Hands off to `indexing-registry` for the workspace's first maintenance pass and dashboard.
 
 #### `naming-workflows`
 
@@ -136,9 +128,9 @@ Writes Business Process Guide documentation that explains the strategic context 
 
 **Slash command:** `/handsonai:indexing-registry`
 
-Maintains the AI Registry bundle and its derived views. Lints your bundle against its SCHEMA, refreshes indexes and GENERATED views, and regenerates your REGISTRY.md and visual dashboard. Runs five jobs in a full pass: lint the bundle, refresh typed-directory indexes, regenerate GENERATED blocks (a Workflow's Insights, a Function's Owns list), regenerate the `REGISTRY.md` index (and the visual dashboard `registry-dashboard.html` on request), and append `log.md` for schema changes and migrations. The framework skills trigger it automatically at their closing steps; run it standalone to pick up assets created outside the framework or to repair a stale index.
+Maintains the AI Registry bundle and its derived views. Lints your bundle against its SCHEMA, refreshes indexes and GENERATED views, and regenerates your REGISTRY.md and visual dashboard. Runs five jobs in a full pass: lint the bundle, refresh typed-directory indexes, regenerate GENERATED blocks (a Workflow's Insights, a Function's Owns list), regenerate the `REGISTRY.md` index (and the visual dashboard `registry-dashboard.html`, always generated when you set up the registry and refreshed on every pass after that), and append `log.md` for schema changes. The framework skills trigger it automatically at their closing steps; run it standalone to pick up assets created outside the framework or to repair a stale index.
 
-**Recommended workflow:** Scaffold the bundle → Name workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index. Each skill works independently if you don't need the full sequence.
+**Recommended workflow:** Scaffold the bundle → Analyze adds your workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index. Each skill works independently if you don't need the full sequence.
 
 ---
 

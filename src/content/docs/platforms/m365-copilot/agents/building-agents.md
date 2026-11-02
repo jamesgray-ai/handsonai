@@ -1,7 +1,9 @@
 ---
 title: Building Agents on M365 Copilot
-description: How to build agents on Microsoft 365 Copilot — declarative agents for business users and custom engine agents for developers.
----> **Part of:** [Build Workflows > Agents](../../../../ai-workflow-framework/build/)
+description: How to build agents on Microsoft 365 Copilot — Agent Builder from Copilot Chat, declarative agents in Copilot Studio, and custom engine agents for developers.
+---
+
+> **Part of:** [Microsoft 365 Copilot](../../)
 
 Microsoft 365 Copilot extends its built-in capabilities through agents — specialized AI assistants tailored to specific domains. Agents can retrieve information, summarize data, and take actions like sending emails or updating records, all within the Microsoft 365 apps where you already work.
 
@@ -11,8 +13,21 @@ There are two approaches to building agents, depending on how much control you n
 
 | Approach | Best for | Complexity |
 |----------|----------|------------|
-| [Declarative agents](#declarative-agents) | Business users and developers who want agents within Copilot's orchestration | Low to moderate — no-code (Copilot Studio) or pro-code (Agents Toolkit) |
+| [Declarative agents](#declarative-agents) | Business users and developers who want agents within Copilot's orchestration | Low to moderate — no-code (Agent Builder, the quickest way and the one the framework uses, or Copilot Studio) or pro-code (Agents Toolkit) |
 | [Custom engine agents](#custom-engine-agents) | Developers who need custom orchestration, models, or external integrations | Higher — bring your own orchestrator and models |
+
+## Build an agent with Agent Builder
+
+When the [AI Workflow Framework](/ai-workflow-framework/) builds an agent on Microsoft 365 Copilot, it uses Agent Builder (verified 2026-10-24). Skills are made in [Copilot Cowork](/platforms/m365-copilot/skills/); agents are made here.
+
+1. Open **Copilot › Chat › Agents › New agent**. Use the **Message Agent Builder** box. If Agent Builder asks you anything, paste its question into Build's chat. The ordinary Copilot Chat can read your plan and describe an agent, but it can't create one.
+2. Paste the build prompt the [Build](/ai-workflow-framework/build/) step wrote for you. It names your plan, your requirements and their OneDrive folder, so Agent Builder fills in the name, description and instructions itself. You don't copy anything into the form.
+3. Add each context file the agent reads under **Knowledge**, from the copy Build saved in the workflow's own folder, and check that Knowledge lists only the files Build named, removing anything else. Don't use Agent Builder's offer to attach a file: it may pick the copy in your working folder instead.
+4. Check **Work content**. Each agent has its own switches (Cloud files, Outlook, Teams, Copilot connectors, web search), and Microsoft's default lets an agent reach everything Copilot can. Leave on only what the workflow uses, and switch the rest off.
+5. Choose **Create**.
+6. Paste the agent's instructions back into Build's chat, so Build can check them.
+
+Build can't open the agent itself on Microsoft 365, so the framework's [Test](/ai-workflow-framework/test/) step proves the agent with practice runs. A fix goes back the same way: Build writes a fix prompt. For now, Agent Builder can't change an agent in place, so you make a new agent from the fix prompt in Agent Builder and delete the old one, then paste the new agent's instructions back for Build to check.
 
 ## Agent Core Components
 
@@ -38,6 +53,7 @@ Declarative agents use Copilot's built-in AI infrastructure, model, and orchestr
 
 | Tool | Audience |
 |------|----------|
+| **Agent Builder** (in Copilot Chat) | Everyone — the quickest way to make a declarative agent, and the one the AI Workflow Framework uses |
 | **Copilot Studio** | Low-code — business users and citizen developers |
 | **Microsoft 365 Agents Toolkit** (Visual Studio / VS Code) | Pro-code — developers who want more control |
 
@@ -52,9 +68,11 @@ Declarative agents run within Microsoft 365 Copilot and Microsoft 365 apps — T
 - You want faster implementation with no-code or low-code tools
 - You don't need custom AI models or external hosting
 
-### Mapping your Design blueprint
+### Mapping an agent you design yourself
 
-| Design blueprint | Declarative agent |
+The AI Workflow Framework builds agents in Agent Builder only ([above](#build-an-agent-with-agent-builder)). Use this mapping for agents you build by hand in Copilot Studio or the Agents Toolkit.
+
+| Your agent design | Declarative agent |
 |-----------------|-------------------|
 | **Name** | Agent name in Copilot Studio or Agents Toolkit |
 | **Description** | Agent purpose and scenario description |
@@ -62,9 +80,9 @@ Declarative agents run within Microsoft 365 Copilot and Microsoft 365 apps — T
 | **Model** | Copilot's built-in foundation models (not configurable) |
 | **Tools** | Custom actions (API integrations) + custom knowledge (Microsoft 365 data sources, connectors) |
 
-### Example: Implementing your Design blueprint (Copilot Studio)
+### Example: Building it by hand (Copilot Studio)
 
-Here's how a research analyst agent from the Design phase maps to Copilot Studio's visual builder:
+Here's how a research analyst agent you designed yourself maps to Copilot Studio's visual builder:
 
 1. **Name** → Enter `Research Analyst` as the agent name when creating a new declarative agent
 2. **Description** → Add the agent's scenario description: "Researches companies and produces structured briefs for the team"
@@ -72,7 +90,7 @@ Here's how a research analyst agent from the Design phase maps to Copilot Studio
 4. **Model** → Copilot's built-in foundation models are used automatically — no model selection needed
 5. **Tools** → In the **Actions** section, add connectors: enable **Web Search** for research, add **SharePoint** knowledge sources for internal data, or configure **API plugins** for external system access
 
-### Example: Implementing your Design blueprint (JSON manifest)
+### Example: Building it by hand (JSON manifest)
 
 For developers using the Microsoft 365 Agents Toolkit, the same agent is defined as a declarative JSON manifest:
 
@@ -125,9 +143,11 @@ Custom engine agents run in Microsoft 365 apps (Teams, Word, Outlook) **and** ex
 - You need proactive messaging — agents that trigger actions without user input
 - You're integrating an existing conversational assistant with Microsoft 365
 
-### Mapping your Design blueprint
+### Mapping an agent you design yourself
 
-| Design blueprint | Custom engine agent |
+The AI Workflow Framework builds agents in Agent Builder only ([above](#build-an-agent-with-agent-builder)). Use this mapping for custom engine agents you build by hand.
+
+| Your agent design | Custom engine agent |
 |-----------------|---------------------|
 | **Name** | Agent name in your code or Copilot Studio |
 | **Description** | Agent purpose and scenario description |
@@ -152,5 +172,5 @@ For multi-agent workflows, custom engine agents support agent-to-agent communica
 
 ## What's Next
 
-- [Agents overview](../../../../ai-workflow-framework/build/) — the platform-agnostic agent decision framework
-- [Design Your AI Workflow](../../../../ai-workflow-framework/design/) — produce the agent blueprint that feeds into these implementations
+- [Build Your AI Workflow](../../../../ai-workflow-framework/build/) — how the framework builds and installs a workflow
+- [Design Your AI Workflow](../../../../ai-workflow-framework/design/) — decides whether a workflow needs an agent at all

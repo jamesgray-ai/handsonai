@@ -1,0 +1,44 @@
+---
+plan_revision: 1
+last_close_after_round: 2
+live_checks:
+  gmail-draft: "done: a draft addressed to you in Gmail Drafts"
+skills_on: yes
+write_block: "off"
+schedule: none
+fingerprints:
+  .claude/skills/client-follow-up/SKILL.md: sha256:c05d2b6b0c4a62fb629bae99716d65e4621c252b5c6cd77de63637e23593bd55
+  .claude/skills/client-follow-up/references/follow-up-style.md: sha256:8055f2b4c168a2791dfc610de0297bd97bf43c3eb40f8a0ee76c4dcb789682df
+  test-run.sh: sha256:c03e8f11
+bare_run:
+  client-follow-up: done
+run_folders: []
+change_requests:
+  - { id: B1, source: build, what: "Let the draft include the deal amount from the CRM", why: "AC2 misses when the notes give no amount", tasks: [T2], after_round: 3 }
+---
+
+# Client Follow-Up — Build Record
+
+## What was built
+- A skill, client-follow-up, that reads your call notes and drafts the follow-up email in Gmail Drafts for you to review and send. It lives in `.claude/skills/client-follow-up/` in this workspace. Start it with "draft my client follow-up"; say "practice run" to try it with nothing saved or changed.
+- Nothing is waiting.
+- The kept copy: none yet.
+- An older version: none that you know of.
+
+## What it can access
+**Gmail (your work account).** It reads nothing in your mailbox. It can change one thing: it creates drafts in Gmail Drafts, which you can delete. Sending is left off on purpose. It never sends an email, whoever asks. It stops for your approval before you send each draft.
+
+## Parts
+| Task | Build Output | Context ID | Artifact | Path or location | Status | Saved | Built rev | Last built after round | Check | Ruling |
+|---|---|---|---|---|---|---|---|---|---|---|
+| — | The workflow's place | — | this workspace | `.` | Created | yes | — | — | project auto memory kept; Test told | — |
+| T1 | — | — | Gmail connection | Claude Code connector (Gmail) | Created | yes | 1 | 0 | read-back: the Gmail connection answers and create-draft is available | — |
+| T2 | New skill: S1 | C1 | client-follow-up skill | `.claude/skills/client-follow-up/SKILL.md` | Created | yes | 1 | 2 | E1: AC1, AC2, AC3 met | — |
+| T2 | — | C1 | Follow-up style guide (runtime copy) | `.claude/skills/client-follow-up/references/follow-up-style.md` | Created | yes | 1 | 2 | read back | — |
+| KW | — | — | flag, re-check and time-saved lines | `.claude/skills/client-follow-up/SKILL.md` | Created | yes | 1 | 0 | each line found in the built text | — |
+
+## Also
+- Practice-run instruction: the skill's first line under the cue "practice run" saves nothing outside `practice/[input]-[run]/`.
+- Quick real check: a draft addressed to you in Gmail Drafts; you deleted it (undone).
+- Bare run: the plain model missed the owner on each next step; the skill's instructions cover only that.
+- Put back the kept copy: no kept copy yet.

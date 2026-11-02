@@ -1,17 +1,34 @@
 ---
-title: Human-in-the-Loop
-description: How human checkpoints at key decision points keep AI agents aligned, accountable, and safe for high-stakes tasks.
----## What It Is
+title: Human Checkpoint (Human-in-the-Loop)
+description: How a human checkpoint, where an agent pauses for a person's approval at a key decision, keeps AI agents accountable and safe for high-stakes tasks.
+last_reviewed: 2026-10-24
+---
+
+**Level:** none. A checkpoint sets involvement, never the autonomy level. See [Where This Sits in the Framework](#where-this-sits-in-the-framework).
+
+**Also called:** human-in-the-loop (HITL), approval gate.
+
+## What It Is
 
 Human-in-the-loop (HITL) is a pattern where an agent pauses at defined checkpoints to get human approval, input, or correction before proceeding. Instead of running fully autonomously, the agent escalates decisions that are high-stakes, ambiguous, or outside its confidence threshold to a human operator.
 
-HITL is not the opposite of automation — it's the safety net that makes deeper automation possible. By building in human checkpoints at the right moments, you can grant agents more autonomy for the routine work while keeping humans in control of the decisions that matter.
+HITL is not the opposite of automation — it's the safety net that makes deeper automation possible. By building in human checkpoints at the right moments, you can let agents handle the routine work on their own while keeping humans in control of the decisions that matter.
+
+## Where This Sits in the Framework
+
+In the [AI Workflow Design Matrix](../../../../ai-workflow-framework/workflow-design-matrix/), a checkpoint belongs to the involvement axis, not the autonomy axis:
+
+- **A checkpoint is what makes a workflow Augmented.** It's how a person takes part along the way. A workflow with no checkpoint, where no one takes part until it's done, is Automated.
+- **It never changes the level.** The level is set by what decides the next step. An Autonomous workflow with an approval gate before it publishes is still Autonomous (Autonomous + Augmented); a person approving the AI's routing decisions leaves the workflow Guided (Guided + Augmented).
+- **Design adds one before any change that can't be undone,** such as sending, publishing, deleting, or paying, whatever the workflow's level. This is one of the four principles the framework's [Design](../../../../ai-workflow-framework/design/) step applies: a person for high-risk or irreversible actions.
+
+In the [Workflow Architecture Patterns](../../../../patterns/workflow-architecture/) catalogue, the checkpoint is a cross-cutting row: it can be added to any pattern, and it has no level of its own.
 
 ## Why It Matters
 
 Fully autonomous agents are powerful but risky. They can make mistakes that are expensive, embarrassing, or irreversible — sending the wrong email to a customer, approving a refund that violates policy, or making a decision based on hallucinated data.
 
-HITL addresses the trust gap: users may not trust an agent to handle everything autonomously, but they also don't want to supervise every step. The solution is selective human involvement — the agent handles the routine 90% automatically and escalates the exceptional 10% to a human.
+HITL addresses the trust gap: users may not trust an agent to handle everything autonomously, but they also don't want to supervise every step. The solution is selective human involvement: the agent handles the routine cases on its own and escalates the exceptions to a person. How large each share is depends on your workflow and your thresholds; set them, then watch how often the agent escalates.
 
 The key design question is: *"Would I be comfortable if the agent did this without asking me?"* If the answer is no, that's where you add a checkpoint.
 
@@ -90,11 +107,14 @@ A CI/CD agent with HITL checkpoints:
 - [Guardrails](../guardrails/) — Guardrails handle routine constraints automatically; HITL handles exceptions that require judgment
 - [Planning](../planning/) — Humans can review and approve the agent's plan before execution begins
 - [Reflection](../reflection/) — The agent's self-assessment can determine when to escalate to a human
+- [Workflow Architecture Patterns](../../../../patterns/workflow-architecture/) — where the checkpoint sits as a cross-cutting row
 - [Agent Capability Patterns](../)
 
 ## Further Reading
 
-- Anthropic — *Building Effective Agents* — [anthropic.com/research/building-effective-agents](https://www.anthropic.com/research/building-effective-agents)
-- Permit.io — *Human-in-the-Loop for AI Agents: Best Practices* — [permit.io/blog/human-in-the-loop-for-ai-agents-best-practices-frameworks-use-cases-and-demo](https://www.permit.io/blog/human-in-the-loop-for-ai-agents-best-practices-frameworks-use-cases-and-demo)
-- Zapier — *Human-in-the-Loop in AI Workflows: Meaning and Patterns* — [zapier.com/blog/human-in-the-loop](https://zapier.com/blog/human-in-the-loop/)
-- UiPath — *10 Best Practices for Building Reliable AI Agents* — [uipath.com/blog/ai/agent-builder-best-practices](https://www.uipath.com/blog/ai/agent-builder-best-practices)
+- Anthropic — [Building effective agents](https://www.anthropic.com/research/building-effective-agents) (December 19, 2024) — agents "can then pause for human feedback at checkpoints or when encountering blockers"
+- OpenAI — [A practical guide to building agents](https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf) (PDF, April 2025) — "Plan for human intervention": two triggers, exceeding failure thresholds and high-risk actions
+- Microsoft — [AI Agent Orchestration Patterns](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns), Azure Architecture Center (accessed 2026-10-24) — "Human participation": approval gates scoped to sensitive operations
+- Permit.io — [Human in the Loop AI Agents: Add Approval Workflows to LLM Tool Calls](https://www.permit.io/blog/human-in-the-loop-for-ai-agents-best-practices-frameworks-use-cases-and-demo) (Gabriel L. Manor, June 5, 2025)
+- Zapier — [Human-in-the-loop in AI workflows: HITL meaning, benefits, and practical patterns](https://zapier.com/blog/human-in-the-loop/) (first published November 2025, updated October 2026)
+- UiPath — [Technical Tuesday: 10 best practices for building reliable AI agents in 2025](https://www.uipath.com/blog/ai/agent-builder-best-practices) (Alina Capota, October 7, 2025)

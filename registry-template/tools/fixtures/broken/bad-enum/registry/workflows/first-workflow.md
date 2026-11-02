@@ -4,7 +4,6 @@ title: "First Workflow"
 description: "The baseline fixture workflow."
 generated: { by: process:fixture, at: 2026-08-01 }
 status: not-a-real-status
-definition_type: step-driven
 execution_mode: augmented
 autonomy: guided
 trigger: "manual"

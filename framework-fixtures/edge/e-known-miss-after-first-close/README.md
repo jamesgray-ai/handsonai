@@ -1,0 +1,1 @@
+A task finished with a known miss after Build's first close: round 1 was Not ready (Level `build`, AC3); Build's fix found AC3 can't be met, recorded T2 as `Built, misses AC3` with `Saved: yes`, packaged, and closed after round 1: state 8.

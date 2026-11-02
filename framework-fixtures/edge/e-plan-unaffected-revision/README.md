@@ -1,0 +1,1 @@
+A requirement change Test settled by re-grading: the requirements are at revision 2 with `plan_unaffected: true` on that entry, the plan is at `requirements_revision: 1`, and round 1 is Ready with `go_live: pending`: not state 4, state 10.

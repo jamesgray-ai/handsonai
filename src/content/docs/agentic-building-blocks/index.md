@@ -518,7 +518,7 @@ Measuring, repeatably, whether the AI's output is accurate, safe, and good enoug
 | Gemini | Gen AI evaluation service on Vertex AI |
 | M365 Copilot | Agent evaluation and testing in Copilot Studio |
 
-The AI Workflow Framework builds evaluation in: [Test](../ai-workflow-framework/test/) grades a workflow against yes/no criteria, and [Improve](../ai-workflow-framework/improve/) reruns the same inputs to see what changed.
+The AI Workflow Framework builds evaluation in: [Test](../ai-workflow-framework/test/) grades what a workflow produced against your requirements, with evidence, before it goes live. Once it's live, saying "test the workflow I built" re-checks it on the same inputs and shows what changed.
 
 **Relationship to other blocks:** Evaluation checks the output of prompts, skills, and agents. It tells you when a model change or a skill edit made things better or worse, and it relies on observability for the evidence from real runs.
 
@@ -634,7 +634,7 @@ A project is an active workspace — it provides standing instructions, persiste
 - [SDK](sdk/) — frameworks and toolkits for building AI workflows in code
 - [CLI](cli/) — terminal-native interfaces for interacting with AI
 - [AI Registry setup](../builder-setup/ai-registry-setup/) — set up the Registry block for your own workflows
-- [Test](../ai-workflow-framework/test/) and [Improve](../ai-workflow-framework/improve/) — the framework steps where Evaluation happens
+- [Test](../ai-workflow-framework/test/) — the framework step where Evaluation happens, before go-live and in every re-check of a live workflow
 - [AI Engineering](../ai-engineering/) — practices for designing and optimizing AI systems, including context engineering
 - [Patterns](../patterns/) — reusable approaches across building blocks
 

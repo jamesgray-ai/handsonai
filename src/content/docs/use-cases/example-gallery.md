@@ -3,7 +3,7 @@ title: Example Gallery
 description: "A library of example agents, skills, and prompts to copy and customize — templates for research, writing, editorial review, and meeting prep."
 ---
 
-The Hands-on AI plugin gives you the **methodology** for building AI workflows (Analyze → Improve) plus the **registry skills (5)** for getting them registered in your knowledge bundle. Once you've designed your own workflow, you'll often want to start from a working example rather than a blank slate.
+The Hands-on AI plugin gives you the **methodology** for building AI workflows (Analyze → Test) plus the **registry skills (5)** for getting them registered in your knowledge bundle. Once you've designed your own workflow, you'll often want to start from a working example rather than a blank slate.
 
 This gallery preserves a set of agents, skills, and prompts that were originally bundled in the marketplace. They're scoped to specific personas (an HBR-style editor, an Anthropic-focused researcher) and use cases (executive writing, meeting prep, LinkedIn prospecting), so they don't ship as installable tools — but they're a useful **starting point** when you're building something similar.
 
@@ -68,6 +68,6 @@ These three prompts work in any AI tool that supports a chat interface — Claud
 
 ## What's in the production plugin?
 
-The [`handsonai` plugin](/use-the-playbook/build/handsonai/) ships only broadly applicable, customizable tools: the 7-step AI Workflow Framework, the AI Registry skills, and feature-spec writing skills. Everything else lives here as study material.
+The [`handsonai` plugin](/use-the-playbook/build/handsonai/) ships only broadly applicable, customizable tools: the five-step AI Workflow Framework, the AI Registry skills, and feature-spec writing skills. Everything else lives here as study material.
 
 If you want one of these gallery components installed locally as an agent or skill, copy the file from GitHub into your own plugin or your `~/.claude/agents/` folder.

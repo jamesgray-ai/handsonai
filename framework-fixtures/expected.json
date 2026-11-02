@@ -1,0 +1,636 @@
+{
+  "states/s00-retired": {
+    "with-registry": {
+      "state": 0,
+      "owner": null,
+      "note": "retired line; only \"change my workflow\" (Design) brings it back"
+    },
+    "no-registry": {
+      "state": 11,
+      "owner": "Test",
+      "note": "no registry: retiring isn't recorded, \"Live since\" makes it live"
+    }
+  },
+  "states/s00-running-work": {
+    "with-registry": {
+      "state": 0,
+      "owner": null,
+      "note": "running-work message; Deconstruct by name takes it as a new workflow; \"change my workflow\" elsewhere gets the bring-in line"
+    },
+    "no-registry": {
+      "state": 3,
+      "owner": "Deconstruct",
+      "note": "no registry: running work isn't state 0; a new workflow"
+    }
+  },
+  "states/s02-redo-pending": {
+    "with-registry": {
+      "state": 2,
+      "owner": "Deconstruct",
+      "note": "a big change on a node that links skills: state 2, never state 1"
+    },
+    "no-registry": {
+      "state": 2,
+      "owner": "Deconstruct",
+      "note": "live through the newest set-aside build record's \"Live since\""
+    }
+  },
+  "states/s03-requirements-needed": {
+    "with-registry": {
+      "state": 3,
+      "owner": "Deconstruct"
+    },
+    "no-registry": {
+      "state": 3,
+      "owner": "Deconstruct"
+    }
+  },
+  "states/s04-plan-needed": {
+    "with-registry": {
+      "state": 4,
+      "owner": "Design"
+    },
+    "no-registry": {
+      "state": 4,
+      "owner": "Design"
+    }
+  },
+  "states/s05-plan-to-approve": {
+    "with-registry": {
+      "state": 5,
+      "owner": "Design"
+    },
+    "no-registry": {
+      "state": 5,
+      "owner": "Design"
+    }
+  },
+  "states/s06-build-needed": {
+    "with-registry": {
+      "state": 6,
+      "owner": "Build"
+    },
+    "no-registry": {
+      "state": 6,
+      "owner": "Build"
+    }
+  },
+  "states/s07-waiting-on-open-item": {
+    "with-registry": {
+      "state": 7,
+      "owner": "Design",
+      "note": "the open-item line names the waiting task and sends the leader to Design"
+    },
+    "no-registry": {
+      "state": 7,
+      "owner": "Design"
+    }
+  },
+  "states/s08-test-needed": {
+    "with-registry": {
+      "state": 8,
+      "owner": "Test"
+    },
+    "no-registry": {
+      "state": 8,
+      "owner": "Test"
+    }
+  },
+  "states/s09-waiting-on-access": {
+    "with-registry": {
+      "state": 9,
+      "owner": "Test"
+    },
+    "no-registry": {
+      "state": 9,
+      "owner": "Test"
+    }
+  },
+  "states/s10-ready-to-go-live": {
+    "with-registry": {
+      "state": 10,
+      "owner": "Test",
+      "note": "\"Take it live?\""
+    },
+    "no-registry": {
+      "state": 10,
+      "owner": "Test"
+    }
+  },
+  "states/s11-live": {
+    "with-registry": {
+      "state": 11,
+      "owner": "Test",
+      "note": "on \"continue my workflow\": N-T19"
+    },
+    "no-registry": {
+      "state": 11,
+      "owner": "Test"
+    }
+  },
+  "edge/e-platform-change": {
+    "with-registry": {
+      "state": 4,
+      "owner": "Design"
+    },
+    "no-registry": {
+      "state": 4,
+      "owner": "Design",
+      "note": "live through the set-aside record"
+    }
+  },
+  "edge/e-platform-change-stopped-after-plan": {
+    "with-registry": {
+      "state": 4,
+      "owner": "Design",
+      "note": "Design finishes the moves and removes the two links first"
+    },
+    "no-registry": {
+      "state": 4,
+      "owner": "Design"
+    }
+  },
+  "edge/e-big-change-stopped-partway": {
+    "with-registry": {
+      "state": 2,
+      "owner": "Deconstruct",
+      "note": "Deconstruct moves the record then the plan into the set-aside folder, then the redo"
+    },
+    "no-registry": {
+      "state": 2,
+      "owner": "Deconstruct"
+    }
+  },
+  "edge/e-direct-edit-undo": {
+    "with-registry": {
+      "state": 6,
+      "owner": "Build",
+      "note": "put back the built version"
+    },
+    "no-registry": {
+      "state": 6,
+      "owner": "Build"
+    }
+  },
+  "edge/e-round-left-behind": {
+    "with-registry": {
+      "state": 8,
+      "owner": "Test",
+      "note": "Test abandons round 2 and opens round 3"
+    },
+    "no-registry": {
+      "state": 8,
+      "owner": "Test"
+    }
+  },
+  "edge/e-build-saved-never-closed": {
+    "with-registry": {
+      "state": 6,
+      "owner": "Build"
+    },
+    "no-registry": {
+      "state": 6,
+      "owner": "Build"
+    }
+  },
+  "edge/e-three-not-ready-rounds": {
+    "with-registry": {
+      "state": 6,
+      "owner": "Build",
+      "note": "fix mode; three Not ready rounds in a row; no second request"
+    },
+    "no-registry": {
+      "state": 6,
+      "owner": "Build"
+    }
+  },
+  "edge/e-requirements-revision-above-plan": {
+    "with-registry": {
+      "state": 4,
+      "owner": "Design"
+    },
+    "no-registry": {
+      "state": 4,
+      "owner": "Design"
+    }
+  },
+  "edge/e-plan-unaffected-revision": {
+    "with-registry": {
+      "state": 10,
+      "owner": "Test"
+    },
+    "no-registry": {
+      "state": 10,
+      "owner": "Test"
+    }
+  },
+  "edge/e-unlogged-change-request": {
+    "with-registry": {
+      "state": 4,
+      "owner": "Design",
+      "note": "Design logs T1.1"
+    },
+    "no-registry": {
+      "state": 4,
+      "owner": "Design"
+    }
+  },
+  "edge/e-schedule-only-request": {
+    "with-registry": {
+      "state": 8,
+      "owner": "Test",
+      "note": "the workflow goes live to run by hand; the schedule waits"
+    },
+    "no-registry": {
+      "state": 8,
+      "owner": "Test"
+    }
+  },
+  "edge/e-declined-only-miss": {
+    "with-registry": {
+      "state": 8,
+      "owner": "Test",
+      "note": "Test's next round asks to change or drop AC3, or accept a miss"
+    },
+    "no-registry": {
+      "state": 8,
+      "owner": "Test"
+    }
+  },
+  "edge/e-known-miss-after-first-close": {
+    "with-registry": {
+      "state": 8,
+      "owner": "Test",
+      "note": "Test settles AC3"
+    },
+    "no-registry": {
+      "state": 8,
+      "owner": "Test"
+    }
+  },
+  "edge/e-go-live-interrupted": {
+    "with-registry": {
+      "state": 10,
+      "owner": "Test",
+      "note": "already reads as live: finish go-live, no \"Take it live?\""
+    },
+    "no-registry": {
+      "state": 10,
+      "owner": "Test",
+      "note": "already reads as live"
+    }
+  },
+  "edge/e-change-after-ready-not-live": {
+    "with-registry": {
+      "state": 8,
+      "owner": "Test",
+      "note": "an after-change round"
+    },
+    "no-registry": {
+      "state": 8,
+      "owner": "Test"
+    }
+  },
+  "edge/e-retired-brought-back": {
+    "with-registry": {
+      "state": 6,
+      "owner": "Build",
+      "note": "reinstall what it built, then a regression round"
+    },
+    "no-registry": {
+      "state": 6,
+      "owner": "Build",
+      "note": "no registry: a switched-off workflow brought back the same way"
+    }
+  },
+  "edge/e-interrupted-redo-with-progress": {
+    "with-registry": {
+      "state": 3,
+      "owner": "Deconstruct",
+      "note": "resume the interview"
+    },
+    "no-registry": {
+      "state": 3,
+      "owner": "Deconstruct"
+    }
+  },
+  "edge/e-interrupted-redo-no-progress": {
+    "with-registry": {
+      "state": 3,
+      "owner": "Deconstruct"
+    },
+    "no-registry": {
+      "state": 3,
+      "owner": "Deconstruct"
+    }
+  },
+  "edge/e-run-guide-not-a-sign": {
+    "with-registry": {
+      "state": 11,
+      "owner": "Test"
+    },
+    "no-registry": {
+      "state": 11,
+      "owner": "Test"
+    }
+  },
+  "earlier-version/v1-requirements-no-revision": {
+    "with-registry": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    },
+    "no-registry": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    }
+  },
+  "earlier-version/v1-design-spec": {
+    "with-registry": {
+      "state": 1,
+      "owner": "Design",
+      "n_b44": false
+    },
+    "no-registry": {
+      "state": 1,
+      "owner": "Design",
+      "n_b44": false
+    }
+  },
+  "earlier-version/v1-plan-no-requirements-revision": {
+    "with-registry": {
+      "state": 1,
+      "owner": "Design",
+      "n_b44": false
+    },
+    "no-registry": {
+      "state": 1,
+      "owner": "Design",
+      "n_b44": false
+    }
+  },
+  "earlier-version/v1-results-no-record": {
+    "with-registry": {
+      "state": 1,
+      "owner": "Build",
+      "n_b44": true
+    },
+    "no-registry": {
+      "state": 1,
+      "owner": "Build",
+      "n_b44": true
+    }
+  },
+  "earlier-version/v1-results-no-round": {
+    "with-registry": {
+      "state": 1,
+      "owner": "Test",
+      "n_b44": true
+    },
+    "no-registry": {
+      "state": 1,
+      "owner": "Test",
+      "n_b44": true
+    }
+  },
+  "earlier-version/v1-run-guide-built": {
+    "with-registry": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": true
+    },
+    "no-registry": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": true
+    }
+  },
+  "earlier-version/v1-progress-no-track": {
+    "with-registry": {
+      "state": 3,
+      "owner": "Deconstruct",
+      "note": "Deconstruct's entry check moves it to history/earlier-version-*/"
+    },
+    "no-registry": {
+      "state": 3,
+      "owner": "Deconstruct"
+    }
+  },
+  "continue/c-analyze-unfinished-alone": {
+    "with-registry": {
+      "continue": "analyze",
+      "owner": "Analyze"
+    },
+    "no-registry": {
+      "continue": "analyze",
+      "owner": "Analyze"
+    }
+  },
+  "continue/c-analyze-unfinished-beside-workflow": {
+    "with-registry": {
+      "continue": "ask",
+      "options": [
+        "client-follow-up",
+        "analyze"
+      ],
+      "line": "N-F9"
+    },
+    "no-registry": {
+      "continue": "ask",
+      "options": [
+        "client-follow-up",
+        "analyze"
+      ],
+      "line": "N-F9"
+    }
+  },
+  "continue/c-only-backlog": {
+    "with-registry": {
+      "continue": "deconstruct-start-phrase",
+      "owner": "Deconstruct"
+    },
+    "no-registry": {
+      "continue": "deconstruct-start-phrase",
+      "owner": "Deconstruct"
+    }
+  },
+  "continue/c-nothing": {
+    "with-registry": {
+      "continue": "nothing",
+      "owner": "Analyze"
+    },
+    "no-registry": {
+      "continue": "nothing",
+      "owner": "Analyze"
+    }
+  },
+  "continue/c-retired-beside-in-progress": {
+    "with-registry": {
+      "continue": "pick",
+      "workflow": "weekly-pipeline-summary",
+      "state": 6,
+      "owner": "Build"
+    },
+    "no-registry": {
+      "continue": "pick",
+      "workflow": "weekly-pipeline-summary",
+      "state": 6,
+      "owner": "Build"
+    }
+  },
+  "continue/c-only-retired": {
+    "with-registry": {
+      "continue": "nothing",
+      "owner": "Analyze"
+    },
+    "no-registry": {
+      "continue": "pick",
+      "workflow": "client-follow-up",
+      "state": 11,
+      "owner": "Test",
+      "line": "N-T19"
+    }
+  },
+  "continue/c-several-in-progress": {
+    "with-registry": {
+      "continue": "ask",
+      "options": [
+        "client-follow-up",
+        "weekly-pipeline-summary"
+      ],
+      "line": "N-F9"
+    },
+    "no-registry": {
+      "continue": "ask",
+      "options": [
+        "client-follow-up",
+        "weekly-pipeline-summary"
+      ],
+      "line": "N-F9"
+    }
+  },
+  "continue/c-one-live": {
+    "with-registry": {
+      "continue": "pick",
+      "workflow": "client-follow-up",
+      "state": 11,
+      "owner": "Test",
+      "line": "N-T19"
+    },
+    "no-registry": {
+      "continue": "pick",
+      "workflow": "client-follow-up",
+      "state": 11,
+      "owner": "Test",
+      "line": "N-T19"
+    }
+  },
+  "continue/c-live-changing-beside-live": {
+    "with-registry": {
+      "continue": "pick",
+      "workflow": "client-follow-up",
+      "state": 6,
+      "owner": "Build"
+    },
+    "no-registry": {
+      "continue": "pick",
+      "workflow": "client-follow-up",
+      "state": 6,
+      "owner": "Build"
+    }
+  },
+  "continue/c-live-changing-beside-not-live": {
+    "with-registry": {
+      "continue": "ask",
+      "options": [
+        "client-follow-up",
+        "weekly-pipeline-summary"
+      ],
+      "line": "N-F9"
+    },
+    "no-registry": {
+      "continue": "ask",
+      "options": [
+        "client-follow-up",
+        "weekly-pipeline-summary"
+      ],
+      "line": "N-F9"
+    }
+  },
+  "earlier-version/old-format/step-driven-norow": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    }
+  },
+  "earlier-version/old-format/step-driven-approved": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    }
+  },
+  "earlier-version/old-format/goal-driven": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    }
+  },
+  "earlier-version/old-format/outcome-driven": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    }
+  },
+  "earlier-version/old-format/no-markers": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    }
+  },
+  "earlier-version/old-format/goal-driven-approved": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": false
+    }
+  },
+  "seeds/expenses-in-production": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": true,
+      "note": "seed; T25 regenerates it"
+    }
+  },
+  "seeds/expenses-regression-done": {
+    "self": {
+      "state": 1,
+      "owner": "Deconstruct",
+      "n_b44": true,
+      "note": "seed; T25 regenerates it"
+    }
+  },
+  "seeds/sales-stale-tools": {
+    "self": {
+      "workflows": {
+        "client-follow-up": {
+          "state": 1,
+          "owner": "Deconstruct",
+          "n_b44": true
+        },
+        "sales-pre-call-brief": {
+          "state": 1,
+          "owner": "Deconstruct",
+          "n_b44": false
+        }
+      },
+      "note": "seed; T31 regenerates it"
+    }
+  }
+}

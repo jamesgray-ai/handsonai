@@ -15,7 +15,7 @@ sketches for the professional and personal-life personas.
 type: Business
 title: "Brightwork Consulting"
 description: "Boutique operations consultancy helping mid-market firms modernize their back office."
-generated: { by: process:scaffolding-registry, at: 2026-08-10 }
+generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
 status: active
 url: https://example.com
 ---
@@ -40,7 +40,7 @@ firms modernize back-office work.
 type: LineOfBusiness
 title: "Advisory"
 description: "Hands-on engagements that redesign a client's back-office operations."
-generated: { by: process:scaffolding-registry, at: 2026-08-10 }
+generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
 status: active
 ---
 Advisory pairs a Brightwork consultant with a client team for a fixed-scope
@@ -58,7 +58,7 @@ engagement.
 type: LineOfBusiness
 title: "Training"
 description: "Workshops and cohort programs that teach clients to run their own operations improvements."
-generated: { by: process:scaffolding-registry, at: 2026-08-10 }
+generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
 status: active
 ---
 Training packages Brightwork's methodology into workshops clients can run
@@ -76,7 +76,7 @@ _No processes captured yet._
 type: Process
 title: "Client Delivery"
 description: "Everything from kickoff to handoff for a single advisory engagement."
-generated: { by: process:scaffolding-registry, at: 2026-08-10 }
+generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
 owner: service-delivery
 ---
 Client Delivery covers a Brightwork engagement end to end, from kickoff
@@ -94,9 +94,8 @@ through handoff.
 type: Workflow
 title: "Client Status Reporting"
 description: "Drafts the weekly client status update from delivery notes and open items."
-generated: { by: process:scaffolding-registry, at: 2026-08-10 }
+generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
 status: in-production
-definition_type: step-driven
 execution_mode: augmented
 autonomy: guided
 trigger: "Friday 3pm — weekly reporting window"
@@ -109,6 +108,8 @@ the client before end of day.
 # Artifacts
 
 - [Requirements](framework/client-status-reporting/requirements.md)
+- [Design plan](framework/client-status-reporting/design-plan.md)
+- [Test results](framework/client-status-reporting/test-results.md)
 - [SOP](sops/client-status-reporting-sop.md)
 
 # Skills
@@ -121,6 +122,13 @@ the client before end of day.
 <!-- /GENERATED -->
 ```
 
+A live workflow's node links its requirements, design plan and test results;
+its build record has no link (it sits beside them, at
+`framework/client-status-reporting/build-record.md`). These links are relative
+to the registry's parent folder, the working folder (on Claude Code and Codex
+the workspace), so they read the same on every platform. No step writes `definition_type`
+any more; an older node may still carry it, and the lint accepts it.
+
 ## Function: `registry/functions/service-delivery.md`
 
 ```markdown
@@ -128,7 +136,7 @@ the client before end of day.
 type: Function
 title: "Service Delivery"
 description: "Owns the processes that deliver Brightwork's client engagements."
-generated: { by: process:scaffolding-registry, at: 2026-08-10 }
+generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
 ---
 Service Delivery is accountable for how Brightwork engagements get run, from
 kickoff to handoff.
@@ -159,7 +167,7 @@ flags as broken.
 type: Note
 title: "Status report timing shifts read-through"
 description: "Clients read Friday status reports the following Monday, not the same day."
-generated: { by: process:scaffolding-registry, at: 2026-08-10 }
+generated: { by: process:scaffolding-registry, at: 2026-08-10T15:00:00Z }
 ---
 Clients read Friday reports Monday morning; drafting Monday-for-Monday halved
 rework.

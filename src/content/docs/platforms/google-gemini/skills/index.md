@@ -41,4 +41,4 @@ Gemini CLI and Antigravity read skill folders from your project root.
 ## Related
 
 - [Skills building block](/agentic-building-blocks/skills/) — what skills are and how they work across platforms
-- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — step-by-step setup for the seven framework skills on every Gemini surface
+- [AI Workflow Framework skills setup](/ai-workflow-framework/skills/) — how to install the plugin's skills on every Gemini surface (the framework's five steps run on Claude, ChatGPT, Microsoft 365 Copilot, Claude Code and Codex)

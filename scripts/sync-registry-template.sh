@@ -6,23 +6,35 @@
 # actually pull down — same "canonical vs what ships" shape as sync-plugins.sh, minus
 # the plugin.json version bump this repo has no equivalent of.
 #
-# Usage: ./scripts/sync-registry-template.sh
+# Usage: ./scripts/sync-registry-template.sh [--dry-run]
 #
 # What this does:
-#   1. Runs check-registry-consistency.sh (no --full — the doc-migration checks land
-#      in Batch E; add --full to this call once that's done).
+#   1. Runs check-registry-consistency.sh --full (the five-step docs ship with the
+#      registry tools in one release, so the doc checks run too).
 #   2. Runs check-plugin-sync.sh registry-template and, if it reports drift, shows the
 #      report and requires acknowledgment (interactive, or SYNC_ACK_DRIFT=1) before
 #      overwriting the clone — same convention as sync-plugins.sh's non-multi-agent-example
 #      branch, because at sync time drift is usually the release payload, not a mistake.
 #   3. Rsyncs registry-template/ -> the clone, deleting anything the clone has that
-#      canonical doesn't, excluding .git.
+#      canonical doesn't, excluding .git. That carries every file in tools/, the
+#      routing script (framework-state.js) and the requirements check
+#      (requirements-check.js) included.
+#
+# --dry-run: runs step 1, then lists what step 3 would copy or delete (rsync -n), and
+# stops: no drift prompt, nothing written to the clone.
 #
 # What this does NOT do:
 #   - Commit or push anywhere, in this repo or the clone. You review and commit the
 #     clone's changes yourself, same "you drive both pushes" doctrine as sync-plugins.sh.
 
 set -euo pipefail
+
+DRY_RUN=0
+case "${1:-}" in
+  --dry-run) DRY_RUN=1 ;;
+  "") ;;
+  *) echo "Usage: $0 [--dry-run]" >&2; exit 2 ;;
+esac
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC_DIR="$ROOT/registry-template"
@@ -56,9 +68,16 @@ if ! dest_looks_like_template_clone "$DEST_DIR"; then
 fi
 
 # Registry consistency first — no point shipping a template that already disagrees with
-# itself. Not --full yet: the doc-migration checks it adds depend on Batch E, which
-# hasn't landed. Add --full here once it has.
-"$ROOT/scripts/check-registry-consistency.sh" || { echo "Error: registry consistency failed" >&2; exit 1; }
+# itself, or with the five-step docs that ship beside it.
+"$ROOT/scripts/check-registry-consistency.sh" --full || { echo "Error: registry consistency failed" >&2; exit 1; }
+
+if [ "$DRY_RUN" -eq 1 ]; then
+  echo "Dry run: what syncing registry-template/ -> $DEST_DIR would copy or delete"
+  rsync -avn --delete --exclude '.git' "$SRC_DIR/" "$DEST_DIR/"
+  echo
+  echo "Dry run only: nothing was written to $DEST_DIR."
+  exit 0
+fi
 
 # Drift check against the clone. `|| CHECK_RC=$?` keeps set -e from aborting before the
 # code is inspected, same as sync-plugins.sh.

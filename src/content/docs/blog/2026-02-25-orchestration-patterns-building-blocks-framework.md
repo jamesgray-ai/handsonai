@@ -12,6 +12,10 @@ title: "Orchestration patterns, new building blocks, and framework refinements"
 
 **Agent Orchestration Patterns.** A new [patterns section](../../agentic-building-blocks/agents/orchestration-patterns/) covers 8 coordination topologies for multi-agent systems — from sequential chains and parallel fan-out to hierarchical delegation, voting ensembles, and human-in-the-loop checkpoints. Each pattern includes when to use it, trade-offs, and real-world examples.
 
+:::note[Update, October 24, 2026]
+The patterns catalogue has changed since this post. The orchestration patterns section has been merged into one catalogue, [Workflow Architecture Patterns](../../patterns/workflow-architecture/), where each pattern is mapped to an autonomy level, and its old addresses now redirect there. Some names changed too: Sequential is now Prompt Chaining, Parallel is Parallelization, Router is Routing, Hierarchical is Orchestrator-Workers, and Decentralized is Swarm.
+:::
+
 **API and SDK building blocks.** The Agentic Building Blocks section now includes [API](../../agentic-building-blocks/api/) and [SDK](../../agentic-building-blocks/sdk/) as blocks 8 and 9, completing the full spectrum from no-code to code-first AI integration.
 
 **Agent Programming Frameworks.** A new [reference page](../../agentic-building-blocks/agents/frameworks/) catalogs major agent frameworks (LangGraph, CrewAI, AutoGen, Agents SDK, and more) with comparison criteria and links to official docs.

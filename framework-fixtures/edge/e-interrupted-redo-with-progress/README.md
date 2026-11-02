@@ -1,0 +1,1 @@
+An interrupted redo of a live earlier-version workflow: Deconstruct moved the 9.x requirements, spec and results into `history/earlier-version-2026-10-22/` and saved `deconstruct-in-progress.md`; `run-guide.md` and `runs.md` stay (no sign on their own); the node is `in-production`: state 3, never state 0.

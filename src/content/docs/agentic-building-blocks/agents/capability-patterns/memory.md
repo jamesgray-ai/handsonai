@@ -1,20 +1,23 @@
 ---
 title: Memory
 description: How AI agents store and retrieve information across interactions, enabling them to learn from experience and maintain context over time.
----:::tip[Memory as a building block]
-This page covers Memory as an **agent capability pattern** — the specific mechanisms agents use to store and retrieve information. For the broader concept of Memory as a platform-level building block, see [Memory](../memory/).
+last_reviewed: 2026-10-24
+---
+
+:::tip[Memory as a building block]
+This page covers Memory as an **agent capability pattern** — the specific mechanisms agents use to store and retrieve information. For the broader concept of Memory as a platform-level building block, see [Memory](../../../memory/).
 :::
 ## What It Is
 
 Memory is a pattern where an agent stores information from past interactions and retrieves it when relevant to current tasks. Without memory, every conversation starts from scratch — the agent has no knowledge of previous interactions, decisions, or user preferences. With memory, the agent builds up context over time, becoming more useful and personalized with each interaction.
 
-Memory in AI agents is inspired by human memory systems, but implemented through a combination of databases, embeddings, and retrieval mechanisms rather than biological processes.
+Memory isn't one of Andrew Ng's four agentic design patterns; the playbook adds it because any agent that works across sessions depends on it. Memory in AI agents borrows its terms from human memory, but it's implemented through a combination of databases, embeddings, and retrieval mechanisms.
 
 ## Why It Matters
 
 A stateless agent is like a colleague with amnesia — you have to re-explain everything every time. Memory transforms agents from one-shot tools into persistent collaborators that accumulate knowledge, learn preferences, and build on past work.
 
-The landmark Generative Agents paper (Park et al. 2023) demonstrated that agents with memory could form relationships, remember past conversations, and coordinate activities over time — emergent behaviors that weren't explicitly programmed but arose naturally from the memory architecture.
+The Generative Agents paper (Park et al., 2023) gave 25 simulated characters a memory: a record of everything they experienced, summarized over time into reflections and retrieved when they planned. Told only that one character wanted to throw a Valentine's Day party, the characters spread the invitations over two days, made new acquaintances, asked each other to the party, and turned up together at the right time. The authors' tests showed that observation, planning and reflection each contributed critically to how believable the characters were.
 
 ## How It Works
 
@@ -74,7 +77,7 @@ A coding agent with memory:
 - Knows which test framework the project uses without being told each time
 - Stores debugging insights ("The authentication module has a known issue with token refresh timing")
 
-Claude Code's `CLAUDE.md` files and memory directory are a practical implementation of this pattern — project context and user preferences persist across sessions.
+Claude Code's `CLAUDE.md` files and auto memory are a practical implementation of this pattern: instructions you write, and notes Claude writes itself, are loaded at the start of every session ([How Claude remembers your project](https://code.claude.com/docs/en/memory), accessed 2026-10-24).
 
 ## When to Use It
 
@@ -92,7 +95,7 @@ Claude Code's `CLAUDE.md` files and memory directory are a practical implementat
 
 ## Further Reading
 
-- Park et al. 2023 — *Generative Agents: Interactive Simulacra of Human Behavior* — [arxiv.org/abs/2304.03442](https://arxiv.org/abs/2304.03442)
-- Zhang et al. 2024 — *A Survey on the Memory Mechanism of Large Language Model Based Agents* — [arxiv.org/abs/2404.13501](https://arxiv.org/abs/2404.13501)
-- Andrew Ng — *Agentic Design Patterns Part 6: Memory* — [deeplearning.ai/the-batch](https://www.deeplearning.ai/the-batch/)
-- LangChain — *Memory in LLM Applications* — [python.langchain.com/docs/concepts/memory](https://python.langchain.com/docs/concepts/memory/)
+- Park et al. — [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442) (arXiv, April 7, 2023)
+- Zhang et al. — [A Survey on the Memory Mechanism of Large Language Model based Agents](https://arxiv.org/abs/2404.13501) (arXiv, April 21, 2024)
+- LangChain — [Memory overview](https://docs.langchain.com/oss/python/concepts/memory) (accessed 2026-10-24) — short-term and long-term memory, and semantic, episodic and procedural memory
+- Anthropic — [How Claude remembers your project](https://code.claude.com/docs/en/memory) (Claude Code docs, accessed 2026-10-24) — `CLAUDE.md` files and auto memory
