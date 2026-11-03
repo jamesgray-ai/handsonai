@@ -191,8 +191,13 @@ find_secrets_in() { # paths...
   done
 }
 shipped_secrets() {
-  local plugin kind name
-  shipped_items | while read -r plugin kind name; do find_secrets_in "$(source_path "$kind" "$name")"; done | sort -u
+  local plugin kind name src
+  shipped_items | while read -r plugin kind name; do
+    src="$(source_path "$kind" "$name")"
+    find_secrets_in "$src"
+    # A shortcut (symlink) could point at a secret outside the skill: never release one.
+    [ -e "$src" ] && find "$src" -type l 2>/dev/null | sed 's/$/ (a shortcut; replace it with the real file)/'
+  done | sort -u
 }
 
 # ---------- commands ----------
@@ -550,6 +555,9 @@ do_bump() {
   local pj cur new tmp
   pj="$(plugin_json "$1")"
   [ "$(count_versions "$pj")" = "1" ] || die "$pj must hold exactly one \"version\" field; fix it by hand"
+  if [ "$2" = "first" ] && [ -n "$(released_version "$1")" ] && [ "$(released_version "$1" | cut -d. -f1)" != "0" ]; then
+    die "$1 has already been released (version $(released_version "$1")); use major, minor or patch"
+  fi
   cur="$(base_version "$1")"   # count up from the last saved release, so a re-run never bumps twice
   new="$(next_version "$cur" "$2")" || exit 1
   tmp="$pj.tmp.$$"

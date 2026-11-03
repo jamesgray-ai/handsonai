@@ -195,6 +195,13 @@ mkdir -p "$TMP/gh-plg"; git init -q "$TMP/gh-plg"; git -C "$TMP/gh-plg" remote a
 run setup --plugin-repo "$TMP/gh-plg" --source "$SRC" >/dev/null
 grep -q 'acme/acme-plugins' "$TMP/gh-plg/README.md" && ok || bad "README not filled from origin"
 
+# --- review fixes: 'first' refused once released; symlinks refused ---
+expect_contains "$(run bump --plugin-repo "$PLG" sales first)" "already been released" "first refused after release"
+ln -s /etc/hosts "$SRC/.claude/skills/recap/link.txt"
+out="$(run check --plugin-repo "$PLG")"; expect_code $? 3 "symlink stops check"
+expect_contains "$out" "a shortcut" "symlink reported"
+rm "$SRC/.claude/skills/recap/link.txt"
+
 # --- top-level skills/ and agents/ still work when that's what the source has ---
 S2="$TMP/flat"; P2="$TMP/flat-plugins"; mkdir -p "$S2/skills/a" "$S2/agents" "$P2"
 printf -- '---\nname: a\n---\n' > "$S2/skills/a/SKILL.md"; git init -q "$P2"
