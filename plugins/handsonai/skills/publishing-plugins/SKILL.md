@@ -62,13 +62,15 @@ calls a repository like this a marketplace."
    repository if it has skills in `.claude/skills` (folders, each holding a `SKILL.md`) or agents in
    `.claude/agents`. If not, look one level down in its folders. Play back what you found: "Your
    source repository is **my-ai-work**. It has 6 skills (meeting-recap, proposal-writer, …) and 1
-   agent (research-helper). Is that the right one?" If you can't find it, ask: "What's the name of
+   agent (research-helper). Is that the right one?" Treat a vague yes ("it's my AI folder") as yes
+   once you've named its skills back to them. If you can't find it, ask: "What's the name of
    the folder where you keep your skills? You can also drag it into this chat." Never ask for a path.
 2. **Create the plugin repository, next to the source repository, never inside it.** Recommend: "I
    recommend I create it for you on GitHub as **private**: these skills are your company's work, and
-   private means only people you add can install them." Suggest a name from their business with
-   `-plugins` on the end (`acme-plugins`); teammates see it when they add it, so it's lowercase with
-   hyphens, and you convert whatever they say into that form. With their OK, run
+   private means only people you add can install them." Ask what their company or team is called if
+   you don't know, and suggest that name with `-plugins` on the end (`acme-plugins`). Keep it clearly
+   different from the plugin names to come (`acme-plugins` holds `sales-team-skills`). Teammates see
+   it when they add it, so it's lowercase with hyphens; convert whatever they say into that form. With their OK, run
    `gh repo create <name> --private --clone` **in the source repository's parent folder**. If `gh`
    isn't installed or signed in, ask them to create an empty private repository on github.com (no
    README, no license) and paste its web address here; then run `git clone <address>` in the source
@@ -92,7 +94,8 @@ say; teammates see the name when they install it. Run
 
 - `RENAME`: a skill or agent folder whose name has spaces or capitals can't be released. Offer to
   rename it in the source repository ("Call Notes" → `call-notes`); with their OK, rename the folder
-  and the `name:` in its `SKILL.md`.
+  and the `name:` in its `SKILL.md`, then record the rename as a version in the source repository
+  and send it to GitHub (their OK to rename covers this; don't ask again in Phase 3).
 - `EMPTY`: a skill whose `SKILL.md` has no name isn't finished. Say so and leave it out until it is.
 
 Then for the `UNDECIDED` skills and agents, play them back as one list with your recommendation for
@@ -135,9 +138,9 @@ Otherwise act on what it reports, one item at a time:
   run `check` again so the release names that version. If they say no, stop.
 - **The plugin repository has changes made by hand.** Name each file and say what you recommend:
   "Someone changed README.md in your plugin repository directly. Your plugin repository should only
-  change through publishing. I recommend I undo that change (`git -C <plugin> checkout -- <file>`);
-  if it's something you want to keep, tell me and we'll make it part of this release." Never
-  release on top of an unexplained change.
+  change through publishing. I recommend I undo that change; if it's something you want to keep,
+  tell me and we'll make it part of this release." To undo, run
+  `git -C <plugin> checkout -- <file>`. Never release on top of an unexplained change.
 - **The source repository isn't a Git repository.** Say: "Your source repository needs to be on
   GitHub so every release can say exactly what it came from." Stop, and help them set it up first.
 
@@ -149,7 +152,8 @@ updated or removed, with a suggested version. Plugins with no changes aren't lis
 version.
 
 If nothing changed, say: "Your plugins already match your source repository, so there's nothing to
-release." Then stop.
+release." If only `release-plan.txt` changed (for example, a new skill kept just for them), record
+and send it with the message "Update release plan" so the record on GitHub stays current. Then stop.
 
 Play each plugin's changes back in plain words and recommend its version, with the reason:
 
