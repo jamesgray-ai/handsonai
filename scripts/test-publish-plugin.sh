@@ -94,7 +94,7 @@ expect_contains "$out" "plugin ops:" "shared edit hits ops"
 run bump --plugin-repo "$PLG" sales patch >/dev/null; run bump --plugin-repo "$PLG" ops patch >/dev/null; release shared
 
 # --- a new skill is undecided until assigned; then a minor release ---
-mkdir -p "$SRC/.claude/skills/pricing"; printf 'x\n' > "$SRC/.claude/skills/pricing/SKILL.md"; g "$SRC" add -A; g "$SRC" commit -m add
+mkdir -p "$SRC/.claude/skills/pricing"; printf -- '---\nname: pricing\n---\nP\n' > "$SRC/.claude/skills/pricing/SKILL.md"; g "$SRC" add -A; g "$SRC" commit -m add
 out="$(run check --plugin-repo "$PLG")"; expect_code $? 2 "new skill needs a decision"
 expect_contains "$out" "skill pricing" "pricing undecided"
 expect_absent "$(run copy --plugin-repo "$PLG")" "pricing" "undecided skill is not released"
@@ -151,10 +151,53 @@ expect_contains "$(run add-plugin --plugin-repo "$PLG" --name legacy)" "already 
 run assign --plugin-repo "$PLG" legacy skill recap >/dev/null
 expect_contains "$(run copy --plugin-repo "$PLG")" "suggested bump: first" "0.x counts as unreleased"
 expect_contains "$(run bump --plugin-repo "$PLG" legacy 3.0.0)" "-> 3.0.0" "explicit version"
+g "$PLG" checkout -- .; g "$PLG" clean -fd; rm -rf "$PLG/plugins/legacy"; run unassign --plugin-repo "$PLG" legacy skill recap >/dev/null
+
+# --- guards for the mistakes real people make ---
+expect_contains "$(bash "$SCRIPT" check 2>&1)" "--plugin-repo is required" "plugin repo must be named"
+expect_contains "$(run setup --plugin-repo "$SRC" --source "$SRC")" "two different folders" "same folder refused"
+mkdir -p "$SRC/inner-plugins"
+expect_contains "$(run setup --plugin-repo "$SRC/inner-plugins" --source "$SRC")" "inside the source repository" "nested plugin repo refused"
+rmdir "$SRC/inner-plugins"
+mkdir -p "$TMP/empty-src" "$TMP/empty-plg"; git init -q "$TMP/empty-plg"
+expect_contains "$(run setup --plugin-repo "$TMP/empty-plg" --source "$TMP/empty-src")" "no skills or agents found" "empty source refused"
+# a skill folder with spaces is reported for renaming, and can't be assigned
+mkdir -p "$SRC/.claude/skills/Call Notes"; printf -- '---\nname: call-notes\n---\n' > "$SRC/.claude/skills/Call Notes/SKILL.md"; g "$SRC" add -A; g "$SRC" commit -m sp
+out="$(run check --plugin-repo "$PLG")"; expect_contains "$out" "RENAME" "bad folder name reported"
+rm -rf "$SRC/.claude/skills/Call Notes"; g "$SRC" add -A; g "$SRC" commit -m unsp
+# plugin names must match exactly (case)
+expect_contains "$(run assign --plugin-repo "$PLG" Sales skill recap)" "no plugin named Sales" "plugin name case enforced"
+# versions only go up, and a re-run never bumps twice
+expect_contains "$(run bump --plugin-repo "$PLG" sales 1.0.0)" "must be higher" "backwards version refused"
+expect_contains "$(run bump --plugin-repo "$PLG" sales 1.2.3.4)" "bump must be" "malformed version refused"
+printf 'A4\n' >> "$SRC/.claude/skills/proposal/SKILL.md"; g "$SRC" commit -am e4
+run copy --plugin-repo "$PLG" >/dev/null
+a="$(run bump --plugin-repo "$PLG" sales patch)"; b="$(run bump --plugin-repo "$PLG" sales patch)"
+expect_contains "$b" "2.0.0 -> 2.0.1" "re-running bump counts from the last release"
+out="$(run check --plugin-repo "$PLG")"; expect_absent "$out" "made by hand" "copy output isn't a hand edit"
+g "$PLG" checkout -- .; g "$PLG" clean -fd
+# a marketplace file in someone else's layout is never rewritten
+mkdir -p "$TMP/foreign/.claude-plugin"; git init -q "$TMP/foreign"
+printf '{"name":"x","owner":{"name":"y"},"plugins":[]}\n' > "$TMP/foreign/.claude-plugin/marketplace.json"
+expect_contains "$(run setup --plugin-repo "$TMP/foreign" --source "$SRC")" "isn't in the layout" "foreign marketplace refused"
+grep -q '"owner"' "$TMP/foreign/.claude-plugin/marketplace.json" && ok || bad "foreign marketplace was rewritten"
+# a plugin folder that isn't its own Git repository
+mkdir -p "$TMP/outer/plugins-here"; git init -q "$TMP/outer"
+run setup --plugin-repo "$TMP/outer/plugins-here" --source "$SRC" >/dev/null 2>&1
+expect_contains "$(run check --plugin-repo "$TMP/outer/plugins-here")" "inside another Git repository" "nested repo detected"
+# a source that isn't a Git repository can't be released from
+mkdir -p "$TMP/nogit/.claude/skills/s" "$TMP/nogit-plg"; printf -- '---\nname: s\n---\n' > "$TMP/nogit/.claude/skills/s/SKILL.md"; git init -q "$TMP/nogit-plg"
+run setup --plugin-repo "$TMP/nogit-plg" --source "$TMP/nogit" >/dev/null
+out="$(run check --plugin-repo "$TMP/nogit-plg")"; expect_code $? 2 "source without Git"
+expect_contains "$out" "isn't a Git repository" "source without Git reported"
+# README carries the real GitHub name when the plugin repo has one
+mkdir -p "$TMP/gh-plg"; git init -q "$TMP/gh-plg"; git -C "$TMP/gh-plg" remote add origin https://github.com/acme/acme-plugins.git
+run setup --plugin-repo "$TMP/gh-plg" --source "$SRC" >/dev/null
+grep -q 'acme/acme-plugins' "$TMP/gh-plg/README.md" && ok || bad "README not filled from origin"
 
 # --- top-level skills/ and agents/ still work when that's what the source has ---
 S2="$TMP/flat"; P2="$TMP/flat-plugins"; mkdir -p "$S2/skills/a" "$S2/agents" "$P2"
-printf 'x\n' > "$S2/skills/a/SKILL.md"; git init -q "$P2"
+printf -- '---\nname: a\n---\n' > "$S2/skills/a/SKILL.md"; git init -q "$P2"
 expect_contains "$(run setup --plugin-repo "$P2" --source "$S2")" "skills=skills agents=agents" "flat layout detected"
 
 # --- Claude's own validator accepts what the script writes (when Claude Code is installed) ---

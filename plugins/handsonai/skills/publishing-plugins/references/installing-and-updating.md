@@ -14,21 +14,26 @@ marketplace name is the `name` at the top of `.claude-plugin/marketplace.json`.
 plugin's descriptor files. If files change but the number doesn't, people who installed it keep the
 old copy. This is why every release gets a new number.
 
-Give only the steps for where the user works.
+Give only the steps for where the user works. Fill in the real names (the GitHub account, the plugin
+repository, the plugin, the marketplace name at the top of `.claude-plugin/marketplace.json`); never
+show the angle-bracket placeholders.
 
 ## Claude (web, desktop app, Cowork)
 
 **First release: add and install.**
 1. Go to Customize › Plugins (claude.ai/customize/plugins), then Add › Add marketplace.
 2. Enter `<owner>/<plugin-repo>` (or the repository's github.com address).
-3. For a private repository, the dialog asks you to connect GitHub and give the Claude GitHub App
-   access to that repository. Do it there; it's separate from the GitHub connector.
+3. For a private repository, Claude asks you to connect GitHub. On GitHub's page for the Claude
+   GitHub App, choose **Only select repositories**, pick your plugin repository, then **Install**
+   (or **Save**). This is separate from Claude's GitHub connector.
 4. Install the plugin for your team from the marketplace and try one of its skills.
 
 **Later releases.** Updates arrive on their own. To get one now, choose Check for updates. Turning
 on Sync automatically for the marketplace keeps it current.
 
-**Teammates** do the same steps. For a private repository, each one needs access to it on GitHub.
+**Teammates** do the same steps. For a private repository, add each one first: on GitHub, open the
+plugin repository › **Settings** › **Collaborators** › **Add people**, and enter their GitHub
+username. They accept the email invitation, then add the marketplace in Claude.
 On a Team or Enterprise plan, an Owner can instead add the marketplace for everyone under
 Organization settings › Plugins & skills, and may need to allow members to add their own.
 

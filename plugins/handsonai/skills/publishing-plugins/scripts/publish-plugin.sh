@@ -61,9 +61,9 @@ while [ $# -gt 0 ]; do
 done
 set -- $ARGS  # names never contain spaces
 
-[ -n "$REPO" ] || REPO="$(pwd)"
-[ -d "$REPO" ] || die "plugin folder not found: $REPO"
-REPO="$(cd "$REPO" && pwd)"
+[ -n "$REPO" ] || die "--plugin-repo is required: the folder of your plugin repository"
+[ -d "$REPO" ] || die "plugin repository folder not found: $REPO"
+REPO="$(cd "$REPO" && pwd -P)"
 MARKET_JSON="$REPO/.claude-plugin/marketplace.json"
 PLAN="$REPO/$PLAN_FILE"
 
@@ -89,6 +89,15 @@ VERSION_RE='"version"[[:space:]]*:[[:space:]]*"[^"]*"'
 count_versions() { grep -o "$VERSION_RE" "$1" 2>/dev/null | wc -l | tr -d ' '; }
 
 plugin_json() { printf '%s/plugins/%s/.claude-plugin/plugin.json' "$REPO" "$1"; }
+released_version() { # plugin -> version in the last saved release, or empty if never saved
+  git -C "$REPO" show "HEAD:plugins/$1/.claude-plugin/plugin.json" 2>/dev/null \
+    | grep -Eo '"version"[[:space:]]*:[[:space:]]*"[^"]*"' | head -n 1 | sed -E 's/.*"([^"]*)"$/\1/'
+}
+base_version() { # the version a new release counts up from
+  local v; v="$(released_version "$1")"
+  [ -n "$v" ] || v="$(json_field "$(plugin_json "$1")" version)"
+  printf '%s' "$v"
+}
 plugin_names() { # every plugin folder that has a plugin.json, sorted
   local d
   for d in "$REPO"/plugins/*/; do
@@ -102,6 +111,11 @@ plugin_exists() { [ -f "$(plugin_json "$1")" ]; }
 regen_marketplace() {
   [ -f "$MARKET_JSON" ] || die "marketplace file not found: $MARKET_JSON. Run setup first."
   grep -q '"plugins"' "$MARKET_JSON" || die "$MARKET_JSON has no \"plugins\" list; edit it by hand."
+  # Only rebuild a file in the layout this script writes: "{" alone on line 1, "plugins" on its own
+  # later line. Anything else was written by someone else; never rewrite it.
+  [ "$(head -n 1 "$MARKET_JSON" | tr -d '[:space:]')" = "{" ] \
+    && ! head -n 1 "$MARKET_JSON" | grep -q '"plugins"' \
+    || die "$MARKET_JSON isn't in the layout this skill writes; edit it by hand or start from an empty plugin repository"
   local tmp="$MARKET_JSON.tmp.$$" p pj first=1
   awk '/"plugins"/ { exit } { print }' "$MARKET_JSON" > "$tmp"
   printf '  "plugins": [' >> "$tmp"
@@ -132,6 +146,19 @@ source_items() { # "skill <name>" / "agent <name>" for everything in the source,
     for f in "$SOURCE/$AGENTS_DIR"/*.md; do [ -f "$f" ] && printf 'agent %s\n' "$(basename "$f" .md)"; done
   fi
 }
+bad_names() { # skills/agents whose names aren't lowercase-with-hyphens
+  local kind name
+  source_items | while read -r kind name; do
+    printf '%s' "$name" | grep -Eq "$NAME_RE" || printf '%s "%s"\n' "$kind" "$name"
+  done
+}
+empty_skills() { # skills whose SKILL.md has no name: line
+  local kind name
+  source_items | while read -r kind name; do
+    [ "$kind" = "skill" ] || continue
+    grep -Eq '^name:[[:space:]]*[^[:space:]]' "$SOURCE/$SKILLS_DIR/$name/SKILL.md" 2>/dev/null || printf 'skill %s\n' "$name"
+  done
+}
 source_path() { # kind name -> path in the source
   [ "$1" = "skill" ] && printf '%s/%s/%s' "$SOURCE" "$SKILLS_DIR" "$2" || printf '%s/%s/%s.md' "$SOURCE" "$AGENTS_DIR" "$2"
 }
@@ -142,7 +169,14 @@ plan_decided() { plan_lines | awk -v k="$1" -v n="$2" '$2==k && $3==n { found=1 
 undecided_items() {
   local kind name
   source_items | while read -r kind name; do
+    printf '%s' "$name" | grep -Eq "$NAME_RE" || continue   # reported as RENAME instead
     plan_decided "$kind" "$name" || printf '%s %s\n' "$kind" "$name"
+  done
+}
+missing_items() { # plan lines whose skill or agent is no longer in the source
+  local plugin kind name
+  plan_lines | while read -r plugin kind name; do
+    [ -e "$(source_path "$kind" "$name")" ] || printf '%s %s %s\n' "$plugin" "$kind" "$name"
   done
 }
 shipped_items() { plan_lines | awk '$1 != "none"'; } # "<plugin> <kind> <name>"
@@ -165,7 +199,10 @@ shipped_secrets() {
 do_setup() {
   [ -n "$SOURCE" ] || die "setup needs --source"
   [ -d "$SOURCE" ] || die "source repository not found: $SOURCE"
-  SOURCE="$(cd "$SOURCE" && pwd)"
+  SOURCE="$(cd "$SOURCE" && pwd -P)"
+  [ "$SOURCE" != "$REPO" ] || die "the source repository and the plugin repository must be two different folders"
+  case "$REPO/" in "$SOURCE/"*) die "the plugin repository is inside the source repository; make it a separate folder next to it" ;; esac
+  case "$SOURCE/" in "$REPO/"*) die "the source repository is inside the plugin repository; they must be two separate folders" ;; esac
   # Default layout: .claude/skills and .claude/agents, where Claude loads them when it works in
   # the folder. A source that keeps them at the top level (skills/, agents/) is picked up instead.
   if [ -z "$SKILLS_DIR" ]; then
@@ -173,6 +210,12 @@ do_setup() {
   fi
   if [ -z "$AGENTS_DIR" ]; then
     if [ -d "$SOURCE/.claude/agents" ] || [ ! -d "$SOURCE/agents" ]; then AGENTS_DIR=".claude/agents"; else AGENTS_DIR="agents"; fi
+  fi
+  if [ -z "$(SKILLS_DIR="$SKILLS_DIR" AGENTS_DIR="$AGENTS_DIR" source_items)" ]; then
+    die "no skills or agents found in $SOURCE (looked in $SKILLS_DIR and $AGENTS_DIR)"
+  fi
+  if [ -f "$MARKET_JSON" ] && [ -n "$MARKET" ] && [ "$MARKET" != "$(json_field "$MARKET_JSON" name)" ]; then
+    note "NOTE the marketplace is already named $(json_field "$MARKET_JSON" name); kept that name"
   fi
   [ -n "$MARKET" ] || MARKET="$(basename "$REPO" | tr 'A-Z_ .' 'a-z---')"
   printf '%s' "$MARKET" | grep -Eq "$NAME_RE" || die "marketplace name must be lowercase words joined by hyphens: $MARKET"
@@ -209,6 +252,9 @@ do_setup() {
 EOF
     note "created $PLAN_FILE"
   fi
+  local slug
+  slug="$(git -C "$REPO" remote get-url origin 2>/dev/null | sed -nE 's#^.*github\.com[:/]([^/]+/[^/]+)$#\1#p' | sed 's/\.git$//')"
+  [ -n "$slug" ] || slug="<owner>/<this-repository>"
   if [ ! -f "$REPO/README.md" ]; then
     cat > "$REPO/README.md" <<EOF
 # $MARKET
@@ -221,10 +267,10 @@ agents, in \`plugins/\`. They are built and changed in a separate source reposit
 
 ## Install
 
-- **Claude (web, desktop app):** Customize › Plugins › Add › Add marketplace, enter this
-  repository's GitHub address, then install the plugin your team uses. For a private repository,
-  connect GitHub and give the Claude GitHub App access to it when asked.
-- **Claude Code:** \`/plugin marketplace add <owner>/<this-repository>\`, then
+- **Claude (web, desktop app):** Customize › Plugins › Add › Add marketplace, enter
+  \`$slug\`, then install the plugin your team uses. For a private repository, connect
+  GitHub when asked and give the Claude GitHub App access to this repository only.
+- **Claude Code:** \`/plugin marketplace add $slug\`, then
   \`/plugin install <plugin>@$MARKET\`.
 
 Updates arrive when a new version is released. Don't edit files here by hand: changes are made in
@@ -281,7 +327,8 @@ do_assign() {
   [ $# -eq 3 ] || die "assign needs: <plugin|none> <skill|agent> <name>"
   local p="$1" k="$2" n="$3"
   [ "$k" = "skill" ] || [ "$k" = "agent" ] || die "kind must be skill or agent"
-  [ "$p" = "none" ] || plugin_exists "$p" || die "no plugin named $p. Add it first with add-plugin."
+  [ "$p" = "none" ] || plugin_names | grep -qx "$p" || die "no plugin named $p. Plugins: $(plugin_names | tr '\n' ' ')"
+  printf '%s' "$n" | grep -Eq "$NAME_RE" || die "$k \"$n\" needs a lowercase-with-hyphens name before it can be released"
   [ -e "$(source_path "$k" "$n")" ] || die "no $k named $n in the source repository"
   if [ "$p" = "none" ]; then
     plan_lines | awk -v k="$k" -v n="$n" '$1!="none" && $2==k && $3==n { f=1 } END { exit !f }' \
@@ -308,7 +355,9 @@ do_check() {
   load_settings
   local attention=0 p pj
   git -C "$REPO" rev-parse --is-inside-work-tree >/dev/null 2>&1 \
-    || die "the plugin folder is not a Git repository: $REPO"
+    || die "the plugin repository folder is not a Git repository: $REPO"
+  local top; top="$(cd "$(git -C "$REPO" rev-parse --show-toplevel)" && pwd -P)"
+  [ "$top" = "$REPO" ] || die "the plugin repository folder is inside another Git repository ($top); it must be its own repository"
   [ -f "$MARKET_JSON" ] || die "marketplace file not found. Run setup first."
 
   # Secrets first: nothing else matters, and nothing may be offered for saving, until they're gone.
@@ -330,6 +379,12 @@ do_check() {
   local bad; bad="$(shipped_items | while read -r p k n; do plugin_exists "$p" || printf '%s\n' "$p"; done | sort -u)"
   if [ -n "$bad" ]; then note "ATTENTION the release plan names plugins that don't exist:"; printf '%s\n' "$bad"; attention=1; fi
 
+  local r; r="$(bad_names)"
+  if [ -n "$r" ]; then note "RENAME these need a lowercase-with-hyphens name before they can be released:"; printf '%s\n' "$r"; attention=1; fi
+  local e; e="$(empty_skills)"
+  if [ -n "$e" ]; then note "EMPTY these skills have no name in their SKILL.md:"; printf '%s\n' "$e"; attention=1; fi
+  local m; m="$(missing_items)"
+  if [ -n "$m" ]; then note "MISSING the release plan lists these, but they're no longer in the source:"; printf '%s\n' "$m"; attention=1; fi
   local u; u="$(undecided_items)"
   if [ -n "$u" ]; then
     note "UNDECIDED not yet in the release plan (choose a plugin, or none):"
@@ -342,7 +397,7 @@ do_check() {
   local stray
   stray="$(git -C "$REPO" -c core.quotepath=off status --porcelain --untracked-files=all | awk '{
       path = substr($0, 4); gsub(/^"|"$/, "", path)
-      if (path == "release-plan.txt" || path ~ /^\.claude-plugin\// || path ~ /^plugins\/[^\/]+\/\.claude-plugin\// \
+      if (path == "release-plan.txt" || path ~ /^\.claude-plugin\// || path ~ /^plugins\/[^\/]+\/(\.claude-plugin|skills|agents)(\/|$)/ \
           || (substr($0, 1, 2) == "??" && (path == ".gitignore" || path == "README.md"))) next
       print
     }')"
@@ -362,7 +417,8 @@ do_check() {
     fi
     note "source commit: $(git -C "$SOURCE" rev-parse --short HEAD 2>/dev/null || printf 'none yet')"
   else
-    note "source is not a Git repository; its history won't be recorded in the release"
+    note "ATTENTION the source repository isn't a Git repository, so a release can't record what it came from"
+    attention=1
   fi
 
   [ "$attention" = "0" ] && note "ready to publish" || exit 2
@@ -445,8 +501,8 @@ do_changes() {
     done <<EOF
 $units
 EOF
-    cur="$(json_field "$(plugin_json "$p")" version)"
-    if   [ "${cur%%.*}" = "0" ]; then note "  suggested bump: first"   # 0.x = never released
+    cur="$(released_version "$p")"
+    if   [ -z "$cur" ] || [ "${cur%%.*}" = "0" ]; then note "  suggested bump: first"   # never released
     elif [ "$removed" -gt 0 ];   then note "  suggested bump: major"
     elif [ "$added" -gt 0 ];     then note "  suggested bump: minor"
     else                              note "  suggested bump: patch"
@@ -457,11 +513,14 @@ EOF
 
 next_version() { # current bump
   local cur="$1" b="$2" major minor patch
+  printf '%s' "$cur" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' || die "current version '$cur' is not X.Y.Z"
   case "$b" in
     first) printf '1.0.0'; return ;;
-    [0-9]*.[0-9]*.[0-9]*) printf '%s' "$b"; return ;;
   esac
-  printf '%s' "$cur" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' || die "current version '$cur' is not X.Y.Z"
+  if printf '%s' "$b" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+    version_gt "$b" "$cur" || die "version $b must be higher than $cur, or teammates won't get the update"
+    printf '%s' "$b"; return
+  fi
   major="${cur%%.*}"; minor="${cur#*.}"; minor="${minor%%.*}"; patch="${cur##*.}"
   case "$b" in
     major) printf '%s.0.0' "$((major + 1))" ;;
@@ -471,6 +530,19 @@ next_version() { # current bump
   esac
 }
 
+version_gt() { # a b -> true if a > b (X.Y.Z)
+  local a1 a2 a3 b1 b2 b3
+  IFS=. read -r a1 a2 a3 <<EOF
+$1
+EOF
+  IFS=. read -r b1 b2 b3 <<EOF
+$2
+EOF
+  [ "$a1" -gt "$b1" ] && return 0; [ "$a1" -lt "$b1" ] && return 1
+  [ "$a2" -gt "$b2" ] && return 0; [ "$a2" -lt "$b2" ] && return 1
+  [ "$a3" -gt "$b3" ]
+}
+
 do_bump() {
   load_settings
   [ $# -eq 2 ] || die "bump needs: <plugin> <major|minor|patch|first|X.Y.Z>"
@@ -478,7 +550,7 @@ do_bump() {
   local pj cur new tmp
   pj="$(plugin_json "$1")"
   [ "$(count_versions "$pj")" = "1" ] || die "$pj must hold exactly one \"version\" field; fix it by hand"
-  cur="$(json_field "$pj" version)"
+  cur="$(base_version "$1")"   # count up from the last saved release, so a re-run never bumps twice
   new="$(next_version "$cur" "$2")" || exit 1
   tmp="$pj.tmp.$$"
   sed "s/$VERSION_RE/\"version\": \"$new\"/" "$pj" > "$tmp" && mv "$tmp" "$pj"
