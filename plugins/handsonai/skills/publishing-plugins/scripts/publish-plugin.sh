@@ -6,7 +6,7 @@
 # Usage: publish-plugin.sh <command> --plugin-repo <path> [options]
 #
 #   setup   --source <path> --name <plugin-name> [--description <text>] [--owner <name>]
-#           [--skills-dir skills] [--agents-dir agents]
+#           [--skills-dir .claude/skills] [--agents-dir .claude/agents]
 #           Saves the settings and creates the plugin's two manifests if they are missing.
 #   check   Checks both folders are ready to publish. Exit 2 = something needs attention.
 #   copy    Mirrors the source's skills and agents into the plugin, then lists what changed.
@@ -55,8 +55,8 @@ load_settings() {
   [ -f "$REPO/$SETTINGS_FILE" ] || die "no settings in $REPO. Run setup first."
   SOURCE="$(read_setting source)"; NAME="$(read_setting plugin)"
   SKILLS_DIR="$(read_setting skills_dir)"; AGENTS_DIR="$(read_setting agents_dir)"
-  [ -n "$SKILLS_DIR" ] || SKILLS_DIR="skills"
-  [ -n "$AGENTS_DIR" ] || AGENTS_DIR="agents"
+  [ -n "$SKILLS_DIR" ] || SKILLS_DIR=".claude/skills"
+  [ -n "$AGENTS_DIR" ] || AGENTS_DIR=".claude/agents"
   [ -n "$SOURCE" ] && [ -n "$NAME" ] || die "settings file is missing source or plugin."
   [ -d "$SOURCE" ] || die "source folder not found: $SOURCE"
   PLUGIN_DIR="$REPO/plugins/$NAME"
@@ -112,8 +112,14 @@ do_setup() {
     || die "plugin name must be lowercase words joined by hyphens, like my-team-skills"
   [ -d "$SOURCE" ] || die "source folder not found: $SOURCE"
   SOURCE="$(cd "$SOURCE" && pwd)"
-  [ -n "$SKILLS_DIR" ] || SKILLS_DIR="skills"
-  [ -n "$AGENTS_DIR" ] || AGENTS_DIR="agents"
+  # Default layout: .claude/skills and .claude/agents, where Claude loads them when it works in the
+  # folder. A source that keeps them at the top level (skills/, agents/) is picked up instead.
+  if [ -z "$SKILLS_DIR" ]; then
+    if [ -d "$SOURCE/.claude/skills" ] || [ ! -d "$SOURCE/skills" ]; then SKILLS_DIR=".claude/skills"; else SKILLS_DIR="skills"; fi
+  fi
+  if [ -z "$AGENTS_DIR" ]; then
+    if [ -d "$SOURCE/.claude/agents" ] || [ ! -d "$SOURCE/agents" ]; then AGENTS_DIR=".claude/agents"; else AGENTS_DIR="agents"; fi
+  fi
   [ -n "$OWNER" ] || OWNER="$(git -C "$REPO" config user.name 2>/dev/null)"
   [ -n "$OWNER" ] || OWNER="$NAME"
   [ -n "$DESCRIPTION" ] || DESCRIPTION="Skills and agents published from $(basename "$SOURCE")."

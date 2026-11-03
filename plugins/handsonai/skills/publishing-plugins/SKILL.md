@@ -37,9 +37,10 @@ gets its own GitHub repository that holds only what you release."
 Ask one at a time, saying what you already know before each:
 
 1. **The source repository.** "Which folder on your computer holds your skills and agents? It's the
-   GitHub repository you build in, with a `skills` folder and usually an `agents` folder." Confirm it
-   exists and holds at least one folder with a `SKILL.md`. If the folders have other names, record
-   them for setup.
+   GitHub repository you build in, with your skills in `.claude/skills` and your agents in
+   `.claude/agents`." Confirm it exists and holds at least one folder with a `SKILL.md`. Setup
+   finds `.claude/skills` and `.claude/agents` on its own (or `skills/` and `agents/` at the top,
+   if that's where they are); if they're anywhere else, pass `--skills-dir` and `--agents-dir`.
 2. **The plugin's name.** Recommend one from their team or business, lowercase with hyphens
    (`acme-sales-skills`). *Why:* "Teammates see this name when they install it, so name it for the
    team, not for yourself."

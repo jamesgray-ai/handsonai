@@ -35,7 +35,7 @@ Create `plugins/<plugin-name>/.claude-plugin/plugin.json`:
 ```
 
 Add `.publish-plugin` and `.DS_Store` to `.gitignore`. Write `.publish-plugin` with four lines:
-`source=<path>`, `plugin=<name>`, `skills_dir=skills`, `agents_dir=agents`.
+`source=<path>`, `plugin=<name>`, `skills_dir=.claude/skills`, `agents_dir=.claude/agents` (or `skills` and `agents` if the source keeps them at the top level).
 
 ## Every release
 

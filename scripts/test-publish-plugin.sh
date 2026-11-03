@@ -130,6 +130,17 @@ sed 's/"name": "acme"/"name": "other"/' "$P2/plugins/acme/.claude-plugin/plugin.
   && mv "$TMP/pj" "$P2/plugins/acme/.claude-plugin/plugin.json"
 expect_contains "$(run check --plugin-repo "$P2")" "doesn't match the plugin name" "name mismatch caught"
 
+# default layout: .claude/skills and .claude/agents are picked up without options
+S3="$TMP/dotclaude"; P3="$TMP/dotclaude-plugin"
+mkdir -p "$S3/.claude/skills/recap" "$S3/.claude/agents" "$P3"
+printf -- '---\nname: recap\n---\n' > "$S3/.claude/skills/recap/SKILL.md"
+printf -- '---\nname: helper\n---\n' > "$S3/.claude/agents/helper.md"
+git init -q "$S3"; g "$S3" add -A; g "$S3" commit -m init; git init -q "$P3"
+expect_contains "$(run setup --plugin-repo "$P3" --source "$S3" --name dot-skills)" "skills=.claude/skills agents=.claude/agents" ".claude layout detected"
+out="$(run copy --plugin-repo "$P3")"
+expect_contains "$out" "added skill: recap" ".claude skill copied"
+expect_contains "$out" "added agent: helper.md" ".claude agent copied"
+
 # explicit version
 expect_contains "$(run bump --plugin-repo "$PLG" 3.0.0)" "-> 3.0.0" "explicit version"
 
