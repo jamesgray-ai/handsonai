@@ -8,10 +8,12 @@
 #   setup       --source <path> [--marketplace <name>] [--owner <name>] [--description <text>]
 #               [--skills-dir .claude/skills] [--agents-dir .claude/agents]
 #               Saves the settings, and creates the marketplace file, README and release plan
-#               if they are missing.
+#               if they are missing. A plugin repository with no history yet starts on "main".
 #   add-plugin  --name <plugin-name> [--description <text>] [--owner <name>]
 #               Adds a plugin to the plugin repository (keeps an existing plugin.json).
-#   list        Shows each plugin and its version, the release plan, and anything undecided.
+#   describe    <plugin> --description <text>   Changes a plugin's description (shown in Claude).
+#   list        Shows each plugin with its version and description, the release plan, and anything
+#               undecided.
 #   assign      <plugin|none> <skill|agent> <name>   Records where a skill or agent is released.
 #               "none" means it stays in the source repository.
 #   unassign    <plugin|none> <skill|agent> <name>   Removes that line from the release plan.
@@ -287,6 +289,12 @@ do_setup() {
   fi
   assert_managed
   clean_tmp
+  # A brand-new plugin repository starts on "main", the same name GitHub and the source use, so
+  # nobody sees two names for the same idea. Only before the first release: never rename history.
+  if git -C "$REPO" rev-parse --is-inside-work-tree >/dev/null 2>&1 \
+     && ! git -C "$REPO" rev-parse --verify HEAD >/dev/null 2>&1; then
+    git -C "$REPO" symbolic-ref HEAD refs/heads/main
+  fi
   if [ -f "$MARKET_JSON" ]; then
     [ -z "$MARKET" ] || [ "$MARKET" = "$(json_field "$MARKET_JSON" name)" ] \
       || note "NOTE the marketplace is already named $(json_field "$MARKET_JSON" name); kept that name"
@@ -393,6 +401,28 @@ do_add_plugin() {
   regen_marketplace
 }
 
+do_describe() {
+  load_settings
+  [ $# -eq 1 ] || die "describe needs: <plugin> --description <text>"
+  [ -n "$DESCRIPTION" ] || die "describe needs --description"
+  plugin_exists "$1" || die "no plugin named $1"
+  assert_managed
+  clean_tmp
+  local pj tmp
+  pj="$(plugin_json "$1")"
+  [ "$(grep -Ec '^[[:space:]]*"description"[[:space:]]*:' "$pj")" = "1" ] \
+    || die "$pj must hold exactly one \"description\" line; fix it by hand"
+  tmp="$pj.tmp.$$"
+  NEWDESC="$(json_escape "$DESCRIPTION")" awk '
+    /^[[:space:]]*"description"[[:space:]]*:/ && !done {
+      match($0, /^[[:space:]]*/); ind = substr($0, 1, RLENGTH)
+      comma = ($0 ~ /,[[:space:]]*$/) ? "," : ""
+      print ind "\"description\": \"" ENVIRON["NEWDESC"] "\"" comma; done = 1; next }
+    { print }' "$pj" > "$tmp" && mv "$tmp" "$pj"
+  regen_marketplace
+  note "$1 description: $(json_field "$pj" description)"
+}
+
 do_list() {
   load_settings
   local p any=0
@@ -408,6 +438,7 @@ do_list() {
   fi
   for p in $(plugin_names); do
     if [ -n "$(released_version "$p")" ]; then note "  $p $(released_version "$p")$pending"; else note "  $p not released yet"; fi
+    note "    description: $(json_field "$(plugin_json "$p")" description)"
     any=1
   done
   [ "$any" = "1" ] || note "  (none yet)"
@@ -539,6 +570,19 @@ do_check() {
       note "ATTENTION the source has skill or agent changes not yet saved in its history:"
       printf '%s\n' "$dirty"
       attention=1
+    fi
+    # Every release names the source version it came from, so that version must be on GitHub too:
+    # a release pointing at a commit nobody else can see can't be traced.
+    if git -C "$SOURCE" rev-parse --verify HEAD >/dev/null 2>&1; then
+      if git -C "$SOURCE" remote get-url origin >/dev/null 2>&1; then
+        git -C "$SOURCE" fetch -q origin 2>/dev/null || true  # fresh view of GitHub; offline falls back to the last one
+        if [ -z "$(git -C "$SOURCE" branch -r --contains HEAD 2>/dev/null)" ]; then
+          note "SOURCE UNPUSHED the source version $(git -C "$SOURCE" rev-parse --short HEAD) is saved on this computer but isn't on GitHub yet"
+          attention=1
+        fi
+      else
+        note "NOTE the source repository has no GitHub connection, so others can't see the version a release names"
+      fi
     fi
     note "source commit: $(git -C "$SOURCE" rev-parse --short HEAD 2>/dev/null || printf 'none yet')"
   else
@@ -699,6 +743,7 @@ do_bump() {
 case "$cmd" in
   setup)      do_setup ;;
   add-plugin) do_add_plugin ;;
+  describe)   do_describe ${1+"$@"} ;;
   list)       do_list ;;
   assign)     do_assign ${1+"$@"} ;;
   unassign)   do_unassign ${1+"$@"} ;;

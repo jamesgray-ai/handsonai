@@ -302,6 +302,48 @@ cp "$M3/.claude-plugin/marketplace.json" "$TMP/m3-before"
 expect_contains "$(run setup --plugin-repo "$M3" --source "$SRC")" "Nothing was changed" "hand-edited marketplace refused"
 cmp -s "$M3/.claude-plugin/marketplace.json" "$TMP/m3-before" && ok || bad "hand-edited marketplace was changed"
 
+# --- 10.1.2: new repositories start on main ---
+R4="$TMP/r4"; mk_src "$R4/src"; mkdir -p "$R4/new-plugins"; git -C "$R4/new-plugins" -c init.defaultBranch=master init -q
+run setup --plugin-repo "$R4/new-plugins" --source "$R4/src" >/dev/null
+[ "$(git -C "$R4/new-plugins" symbolic-ref --short HEAD)" = "main" ] && ok || bad "a new plugin repository didn't start on main"
+# a repository that already has releases keeps its branch
+b_before="$(git -C "$R2/plugins" symbolic-ref --short HEAD)"; run setup --plugin-repo "$R2/plugins" --source "$R2/src" >/dev/null
+[ "$(git -C "$R2/plugins" symbolic-ref --short HEAD)" = "$b_before" ] && ok || bad "setup renamed the branch of a released repository"
+g "$R2/plugins" checkout -- .
+
+# --- 10.1.2: the source version a release names must be on GitHub ---
+run add-plugin --plugin-repo "$R4/new-plugins" --name team >/dev/null
+run assign --plugin-repo "$R4/new-plugins" team skill evals >/dev/null
+for k in iteration-planner team-workspace; do run assign --plugin-repo "$R4/new-plugins" none skill $k >/dev/null; done
+out="$(run check --plugin-repo "$R4/new-plugins")"; expect_contains "$out" "no GitHub connection" "a source with no GitHub connection is noted"
+expect_contains "$out" "ready to publish" "a note alone doesn't block"
+git init -q --bare "$R4/src.git"; g "$R4/src" remote add origin "$R4/src.git"; g "$R4/src" push -u origin HEAD
+expect_contains "$(run check --plugin-repo "$R4/new-plugins")" "ready to publish" "a pushed source is ready"
+printf 'more\n' >> "$R4/src/.claude/skills/evals/SKILL.md"; g "$R4/src" commit -am local
+out="$(run check --plugin-repo "$R4/new-plugins")"; code=$?
+expect_code "$code" 2 "an unpushed source commit stops the release"
+expect_contains "$out" "SOURCE UNPUSHED" "an unpushed source commit is named"
+expect_contains "$out" "$(git -C "$R4/src" rev-parse --short HEAD)" "the unpushed commit is identified"
+g "$R4/src" push
+expect_contains "$(run check --plugin-repo "$R4/new-plugins")" "ready to publish" "pushing the source clears it"
+# a source with no upstream branch, but whose commit is on GitHub under another branch, is fine
+g "$R4/src" checkout -b side; out="$(run check --plugin-repo "$R4/new-plugins")"; expect_absent "$out" "SOURCE UNPUSHED" "a commit already on GitHub isn't flagged"
+g "$R4/src" commit --allow-empty -m side-only; expect_contains "$(run check --plugin-repo "$R4/new-plugins")" "SOURCE UNPUSHED" "a new branch never sent is flagged"
+g "$R4/src" checkout main 2>/dev/null || g "$R4/src" checkout master
+
+# --- 10.1.2: describe changes a plugin's description everywhere ---
+out="$(run describe --plugin-repo "$R4/new-plugins" team --description 'Meeting and research skills for the sales team.')"
+expect_contains "$out" "team description: Meeting and research skills for the sales team." "describe reports the new description"
+grep -q '"description": "Meeting and research skills for the sales team."' "$R4/new-plugins/plugins/team/.claude-plugin/plugin.json" && ok || bad "plugin.json description not changed"
+grep -q '"description": "Meeting and research skills for the sales team."' "$R4/new-plugins/.claude-plugin/marketplace.json" && ok || bad "marketplace description not rebuilt"
+run describe --plugin-repo "$R4/new-plugins" team --description $'Quotes "x", a \\ and & /slash\nnewline' >/dev/null
+python3 -m json.tool "$R4/new-plugins/plugins/team/.claude-plugin/plugin.json" >/dev/null && python3 -m json.tool "$R4/new-plugins/.claude-plugin/marketplace.json" >/dev/null && ok || bad "describe with special characters made invalid JSON"
+[ "$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["description"])' "$R4/new-plugins/plugins/team/.claude-plugin/plugin.json")" = 'Quotes "x", a \ and & /slash newline' ] && ok || bad "describe didn't keep special characters"
+[ "$(grep -c '"version"' "$R4/new-plugins/plugins/team/.claude-plugin/plugin.json")" = "1" ] && grep -q '"name": "team"' "$R4/new-plugins/plugins/team/.claude-plugin/plugin.json" && ok || bad "describe damaged other fields"
+expect_contains "$(run list --plugin-repo "$R4/new-plugins")" 'description: Quotes \"x\"' "list shows each plugin's description"
+expect_contains "$(run describe --plugin-repo "$R4/new-plugins" nobody --description x)" "no plugin named nobody" "describe an unknown plugin refused"
+expect_contains "$(run describe --plugin-repo "$R4/new-plugins" team)" "needs --description" "describe without text refused"
+
 # --- Claude's own validator accepts what the script writes (when Claude Code is installed) ---
 if command -v claude >/dev/null 2>&1; then
   out="$(claude plugin validate "$PLG" 2>&1)"; expect_contains "$out" "Validation passed" "marketplace validates"

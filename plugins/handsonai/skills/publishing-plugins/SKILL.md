@@ -73,45 +73,57 @@ calls a repository like this a marketplace."
    empty plugin repository, so their existing one keeps working as it is. If no, or for a new one, **create it next
    to the source repository, never inside it.** Recommend: "I
    recommend I create it for you on GitHub as **private**: these skills are your company's work, and
-   private means only people you add can install them." Ask what their company or team is called if
-   you don't know, and suggest that name with `-plugins` on the end (`acme-plugins`). Keep it clearly
-   different from the plugin names to come (`acme-plugins` holds `sales-team-skills`). Teammates see
-   it when they add it, so it's lowercase with hyphens; convert whatever they say into that form. With their OK, run
-   `gh repo create <name> --private --clone` **in the source repository's parent folder**. If `gh`
-   isn't installed or signed in, ask them to create an empty private repository on github.com (no
-   README, no license) and paste its web address here; then run `git clone <address>` in the source
-   repository's parent folder yourself.
+   private means only people you add can install them."
+3. **Name the plugin repository: its own question, never folded into another.** Ask: "What's your
+   company called? Your teammates see the plugin repository's name when they add it to Claude." Never
+   take a name from their GitHub account, their computer or a folder without asking. Suggest their
+   answer with `-plugins` on the end and ask them to keep it or type their own: "I'll call it
+   **acme-plugins**. Keep that name, or type another?" Keep it clearly different from the plugin
+   names to come (`acme-plugins` holds `sales-team-skills`). It's lowercase with hyphens; convert
+   whatever they say into that form. With their OK, run
+   `gh repo create <name> --private --clone --description "<company>'s Claude plugins, released from <source folder name>."`
+   **in the source repository's parent folder**. If `gh` isn't installed or signed in, ask them to
+   create an empty private repository with that name on github.com (no README, no license) and paste
+   its web address here; then run `git clone <address>` in the source repository's parent folder
+   yourself.
 
 Run `setup --plugin-repo <plugin folder> --source <source folder>`. It refuses two folders that are
 the same or one inside the other, and a source with no skills or agents; if it does, say what's
 wrong in one line and fix it with the user. It records the owner from the name Git uses on this
-computer; add `--owner "<their name>"` if that's empty or not them. Continue to Phase 2.
+computer; add `--owner "<their name>"` if that's empty or not them. A new plugin repository starts on
+a branch called `main`, like the source. Continue to Phase 2.
 
 #### Phase 2 — Decide what goes into each plugin
 
 **The plugins.** Say: "A plugin is a bundle of your skills and agents that a teammate installs in one
-step." If there are none yet, ask: "Who should get these? One plugin for your whole team is the
-simple start; separate plugins make sense when different teams need different skills." Name each
-plugin for the team that uses it, lowercase with hyphens (`sales-team-skills`), converting what they
-say; teammates see the name when they install it. Run
-`add-plugin --plugin-repo <plugin folder> --name <name> --description "<one sentence>"`.
+step." If there are none yet, ask three questions, one at a time, each confirmed before the next.
+Never fill in an answer for them, and never offer a rename only through "Other".
+1. "Who should get these? One plugin for your whole team is the simple start; separate plugins make
+   sense when different teams need different skills."
+2. **The plugin's name**, from their answer: "I'll call it **sales-team-skills**. Your teammates see
+   this name in Claude. Keep it, or type another?" Lowercase with hyphens; convert what they say.
+3. **Its description**, one sentence a teammate reads before installing: "I'll describe it as:
+   'Meeting, proposal and research skills for the sales team.' Keep it, or change it?"
+
+Then run `add-plugin --plugin-repo <plugin folder> --name <name> --description "<sentence>"`.
 
 **The release plan.** Run `check`. Before asking anything, fix what it reports that isn't a choice:
 
 - `RENAME`: a skill or agent folder whose name has spaces or capitals can't be released. Offer to
   rename it in the source repository ("Call Notes" → `call-notes`); with their OK, rename the folder
-  and the `name:` in its `SKILL.md`, then record the rename as a version in the source repository
-  and send it to GitHub (their OK to rename covers this; don't ask again in Phase 3).
+  and the `name:` in its `SKILL.md`, then commit and push the rename in the source repository
+  (their OK to rename covers this; don't ask again in Phase 3).
 - `EMPTY`: a skill whose `SKILL.md` has no name isn't finished. Say so and leave it out until it is.
 
-Then for the `UNDECIDED` skills and agents, play them back as one list with your recommendation for
-each, and ask the user to confirm or change it:
+Then for the `UNDECIDED` skills and agents, ask the user to choose, one plugin or "kept just for you"
+for each. **Who gets what is their decision: never mark a choice as recommended and never preselect
+sharing.** You may point out what each one does, in a few words, to help them choose:
 
-"Here's who I suggest gets what:
-- **sales-team-skills:** meeting-recap, proposal-writer, research-helper
-- **Kept just for you (not shared):** ingest, lint — they help you work in this folder; your team
-  doesn't need them.
-Does that look right?"
+"Which of these should your team get, and which are just for you?
+- meeting-recap: turns meeting notes into a three-bullet recap
+- proposal-writer: drafts proposals in your format
+- ingest: loads files into this folder
+For each: **sales-team-skills**, or **kept just for you**?"
 
 "Kept just for you" never deletes anything: it stays in the source repository and simply isn't
 released. Record each answer with `assign <plugin|none> <skill|agent> <name>` (`none` means kept
@@ -119,14 +131,16 @@ just for you); a skill can go into more than one plugin.
 
 Later changes: "add X to the sales plugin" is `assign sales-team-skills skill X`; "stop sharing Y"
 is `unassign <plugin> skill Y` for each plugin it's in, then `assign none skill Y`, without asking
-again. Say that taking something out of a plugin makes that plugin's next release a major one,
-because anyone who used it will notice it's gone.
+again. Say it in plain words: "Taking [skill] out of [plugin]. It stays in your source repository."
+Then say that taking something out of a plugin makes that plugin's next release a major one,
+because anyone who used it will notice it's gone. Never narrate your own checks ("that's the removal
+you asked for"): say what's happening to their skill.
 
 #### Phase 3 — Check everything is ready
 
 Run `check`. **If it exits 3, act on that alone.** Something that would be shared looks like a
 password or key. Each finding is a file name, or a file and line number (`file:12`). Never offer to
-record anything until it's resolved, and never move a skill's `SKILL.md`.
+commit anything until it's resolved, and never move a skill's `SKILL.md`.
 - **A whole file** (like `.env` or `credentials.json`): say "[file] in [skill] looks like a password
   or key, so I won't share it. I'll move it out of the skill folder to a folder next to your source
   repository." With their OK, move it.
@@ -135,10 +149,10 @@ record anything until it's resolved, and never move a skill's `SKILL.md`.
   skill; keys belong in your connectors or settings, not in a shared skill." With their OK, remove it.
   If it's a made-up example, say "Line [n] of [file] has an example key that looks real enough to stop
   the release. I'll shorten it to [a shortened form, such as xoxb-…]." With their OK, edit it.
-- Then record the change in the source repository, and run `check` again. To tell whether a real
-  key was ever shared, check the file's history in the source repository
-  (`git -C <source> log --oneline -- <file>`): if it was recorded before and the source repository
-  sends to GitHub, assume it was shared and add: "Change that key where you got it, because it's
+- Then commit and push the change in the source repository, and run `check` again. To tell whether
+  a real key was ever shared, check the file's history in the source repository
+  (`git -C <source> log --oneline -- <file>`): if it was committed before and the source repository
+  is on GitHub, assume it was shared and add: "Change that key where you got it, because it's
   been shared."
 
 Otherwise act on what it reports, one item at a time:
@@ -158,12 +172,21 @@ Otherwise act on what it reports, one item at a time:
     if not, ask as above.
   When the only things `check` still reports are removals they approved, go on to Phase 4. The
   plugin's release is a major one.
-- **The source has changes not yet saved in its history.** Leaders often answer "I did save" here;
-  they mean the file. Say: "Your changes to [skill] are on your computer but not yet recorded as a
-  version in your source repository. Only recorded versions are shared, so your team gets exactly
-  what you recorded. Shall I record them and send them to GitHub?" With their OK, commit them in the
-  source repository with a message that says what changed, push if it has a GitHub connection, and
-  run `check` again so the release names that version. If they say no, stop.
+- **The source has changes not yet committed.** Leaders often answer "I did save" here; they mean
+  the file. Say: "Your changes to [skill] aren't committed and pushed to [source folder] yet. Only
+  committed work is released, so your team gets exactly what's on GitHub. Shall I commit and push
+  them now?" With their OK, commit them in the source repository with a message that says what
+  changed, push, and run `check` again so the release names that version. If they say no, stop.
+- **SOURCE UNPUSHED:** the source version is committed but not on GitHub. Say: "Your latest change
+  to [source folder] ([what the commit changed]) is committed but not pushed to GitHub yet. Every
+  release names the source version it came from, so that version has to be on GitHub. Shall I push
+  it now?" The only choices are **push it now** or **stop**: never offer to release without pushing.
+  With their OK, `git -C <source> push` (or `push -u origin HEAD` with no upstream), then run
+  `check` again. If the push fails, say what went wrong in plain words and stop.
+- **NOTE ... no GitHub connection:** the source repository isn't on GitHub. Say: "Your source
+  repository isn't on GitHub yet, so nobody else can see the version a release came from." Offer to
+  put it on GitHub as a private repository (`gh repo create <name> --private --source <source> --push`)
+  before releasing.
 - **The plugin repository has changes made by hand.** Name each file and say what you recommend:
   "Someone changed README.md in your plugin repository directly. Your plugin repository should only
   change through publishing. I recommend I undo that change; if it's something you want to keep,
@@ -185,8 +208,14 @@ An `EMPTY PLUGIN` line means a plugin would be released with nothing in it: ask 
 intended before going on (usually the answer is to add skills to it in Phase 2, or not release it).
 
 If nothing changed, say: "Your plugins already match your source repository, so there's nothing to
-release." If only `release-plan.txt` changed (for example, a new skill kept just for them), record
-and send it with the message "Update release plan" so the record on GitHub stays current. Then stop.
+release." If only `release-plan.txt` changed (for example, a new skill kept just for them), commit
+and push it with the message "Update release plan" so the record on GitHub stays current. Then stop.
+
+**The description.** When a plugin's release adds or removes a skill or agent, read its description
+(`list` shows it) and check it still describes what's in the plugin. If it doesn't, propose a new
+sentence: "Your plugin's description still mentions brand guidelines, which this release removes.
+I'll change it to: 'Meeting and news skills for the sales team.' Keep that, or change it?" With
+their OK, run `describe <plugin> --description "<sentence>"`. Teammates read it before installing.
 
 Play each plugin's changes back in plain words and recommend its version, with the reason:
 
@@ -197,9 +226,11 @@ Play each plugin's changes back in plain words and recommend its version, with t
 | A skill or agent added | minor (1.1.0) | "Something new, nothing taken away." |
 | Only changes to existing ones | patch (1.0.1) | "Improvements to what's already there." |
 
-The biggest kind of change in a plugin wins. Ask once, naming each changed plugin with its version:
-"Release sales-team-skills as version 1.0.2?" If they want a different number, it must be higher
-than the last release; the script refuses anything else.
+The biggest kind of change in a plugin wins. Ask once, naming each changed plugin with its version
+and the reason: "Release sales-team-skills as version 1.0.2? It improves meeting-recap; nothing added
+or taken away." The choices are **release** or **not yet**; don't add a separate question for the
+number. If they ask for a different number, it must be higher than the last release; the script
+refuses anything else.
 
 #### Phase 5 — Release
 
@@ -214,53 +245,64 @@ On their yes:
    warnings, "passed with warnings" and notes about what the public plugin directory would require
    (such as a LICENSE file), and say nothing about them. On a failure, say what failed in plain words.
    If it's in a skill or agent, fix it in the source repository (never in the plugin repository),
-   record it, and start again at Phase 3. If it's in the plugin or marketplace file, stop: say the
+   commit and push it, and start again at Phase 3. If it's in the plugin or marketplace file, stop: say the
    release can't go out and nothing was sent. If the plugin repository already has a release, undo
    this one's changes with `git -C <plugin folder> checkout -- . && git -C <plugin folder> clean -fd`;
    on a first release there's nothing to undo.
 3. Run `git -C <plugin folder> status --short` and check every file is under `plugins/` or
    `.claude-plugin/`, or is `.gitignore`, `.gitattributes`, `README.md` or `release-plan.txt`. Ask before including
    anything else.
-4. Record the release in one commit: `git -C <plugin folder> add -A`, then commit with the subject
+4. Commit the release in one commit: `git -C <plugin folder> add -A`, then commit with the subject
    `Release <plugin> vX.Y.Z[, <plugin> vX.Y.Z] from <source folder name>@<source commit>` (plugins in
    alphabetical order) and a body with one line per released plugin:
    `<plugin> vX.Y.Z: added …; updated …; removed …` (leave out empty parts).
-5. Send it to GitHub: `git -C <plugin folder> push`. If the folder has no upstream yet
-   (`git -C <plugin folder> rev-parse --abbrev-ref @{u}` fails), use
-   `git -C <plugin folder> push -u origin HEAD`. Push last: Claude decides an update is ready from
-   what it finds on GitHub, so it must only ever find a finished release. If the push fails, say what
-   went wrong in plain words and stop; never retry with force.
+5. **Tag each released plugin's version** on that commit, so every version is listed on the
+   repository's Tags page on GitHub: `git -C <plugin folder> tag -a <plugin>-vX.Y.Z -m "<plugin> vX.Y.Z: <the body line>"`.
+   If Git says the tag already exists, check GitHub: `git -C <plugin folder> ls-remote --tags origin <plugin>-vX.Y.Z`.
+   Prints nothing: it's left over from a release that never finished, so move it to this commit by
+   adding `-f`. Prints a line: that version is already on GitHub, so stop, undo this release's
+   commit (`git -C <plugin folder> reset --soft HEAD~1`) and say the version was already released.
+6. Push it to GitHub with its tags: `git -C <plugin folder> push --follow-tags`. If the folder has no
+   upstream yet (`git -C <plugin folder> rev-parse --abbrev-ref @{u}` fails), use
+   `git -C <plugin folder> push --follow-tags -u origin HEAD`. Push last: Claude decides an update is
+   ready from what it finds on GitHub, so it must only ever find a finished release. If the push
+   fails, say what went wrong in plain words and stop; never retry with force.
 
 #### Phase 6 — Get it into Claude
 
 Read `references/installing-and-updating.md` and give the steps for where they use Claude: on a
 plugin's first release, how to add the plugin repository and install the plugin, and how to give a
 teammate access; on later releases, how to get the new version. Close with: "Version [X] of
-[plugin] is on GitHub. Next time you change a skill, open Claude in **[source folder]** and say
-'publish my plugin'. Your plugin repository is **[plugin folder]**, next to it."
+[plugin] is on GitHub. Every version is listed on your plugin repository's Tags page. Next time you
+change a skill, commit and push it in **[source folder]**, then say 'publish my plugin'. Your plugin
+repository is **[plugin folder]**, next to it."
 
 ## Output
 
 - In the plugin repository: `plugins/<name>/` for each plugin (its `.claude-plugin/plugin.json`,
   `skills/`, `agents/`), `.claude-plugin/marketplace.json`, `release-plan.txt`, `README.md`, and one
-  commit per release, pushed to GitHub.
+  commit per release, tagged `<plugin>-vX.Y.Z`, pushed to GitHub.
 - A `.publish-plugin` settings file in the plugin repository, kept out of GitHub.
-- The source repository changes only when the user agrees: recording their own edits, or renaming a
-  folder that can't be released.
+- The source repository changes only when the user agrees: committing and pushing their own edits,
+  or renaming a folder that can't be released.
 
 ## Guidelines
 
 - **Nothing is shared without a decision.** Every skill and agent is assigned to a plugin, or kept
   just for the user, before it can ship. The release plan is the record of who gets what.
-- **Only recorded versions are shared.** The release names the source version it came from, so
-  anyone can trace a plugin version back to exactly what was shared.
+- **Only committed and pushed versions are shared.** The release names the source version it came
+  from, and that version is on GitHub, so anyone can trace a plugin version back to exactly what was
+  shared.
 - **One release, one commit.** Each released plugin gets a higher version number; the marketplace
   file is rebuilt from the plugins, never edited by hand.
 - **Never force-push and never rewrite the plugin repository's history.** Teammates install from it.
-- **The user approves the plugins, the release plan, the versions and the release.** Everything else
-  is yours to do, including finding folders and running every command.
-- **Plain words.** Say "record a version" for commit and "send to GitHub" for push; never "commit",
-  "push", "clone" or a path in a question. Name the real skill, plugin and folder, never "it".
+- **The user approves the names, the description, who gets what, the versions and the release.** Ask
+  each as its own question. Everything else is yours to do, including finding folders and running
+  every command.
+- **Plain words.** Say "commit" (save a version in the repository's history) and "push" (send it to
+  GitHub); the course teaches both. Never "clone", "upstream" or a path in a question. Name the real
+  skill, plugin and folder, never "it". Never narrate the script's checks; say what is happening to
+  their skills.
 - **Skills and agents only.** A skill is a folder holding `SKILL.md`; an agent is a `.md` file at
   the top of the agents folder. Nothing else in the source repository is ever copied.
 - `references/installing-and-updating.md`: read at Phase 6.
