@@ -183,8 +183,7 @@ expect_contains "$(run setup --plugin-repo "$TMP/foreign" --source "$SRC")" "Not
 grep -q '"owner"' "$TMP/foreign/.claude-plugin/marketplace.json" && ok || bad "foreign marketplace was rewritten"
 # a plugin folder that isn't its own Git repository
 mkdir -p "$TMP/outer/plugins-here"; git init -q "$TMP/outer"
-run setup --plugin-repo "$TMP/outer/plugins-here" --source "$SRC" >/dev/null 2>&1
-expect_contains "$(run check --plugin-repo "$TMP/outer/plugins-here")" "inside another Git repository" "nested repo detected"
+expect_contains "$(run setup --plugin-repo "$TMP/outer/plugins-here" --source "$SRC")" "inside another Git repository" "nested repo refused at setup"
 # a source that isn't a Git repository can't be released from
 mkdir -p "$TMP/nogit/.claude/skills/s" "$TMP/nogit-plg"; printf -- '---\nname: s\n---\n' > "$TMP/nogit/.claude/skills/s/SKILL.md"; git init -q "$TMP/nogit-plg"
 run setup --plugin-repo "$TMP/nogit-plg" --source "$TMP/nogit" >/dev/null
@@ -262,14 +261,38 @@ g "$R2/plugins" push
 touch "$R2/plugins/.claude-plugin/marketplace.json.tmp.12345"
 run check --plugin-repo "$R2/plugins" >/dev/null; [ ! -e "$R2/plugins/.claude-plugin/marketplace.json.tmp.12345" ] && ok || bad "a leftover temp file survived"
 # secrets: names, contents, examples
-printf 'abc\n' > "$R2/src/.claude/skills/evals/api-token.txt"
-expect_code "$(run check --plugin-repo "$R2/plugins" >/dev/null; echo $?)" 3 "a token file blocks the release"
-rm "$R2/src/.claude/skills/evals/api-token.txt"
-printf 'key: sk-ant-api03-AbCdEfGhIjKlMnOpQrStUvWxYz012345\n' > "$R2/src/.claude/skills/evals/config.yaml"
+printf '{"token": "x"}\n' > "$R2/src/.claude/skills/evals/token.json"
+expect_code "$(run check --plugin-repo "$R2/plugins" >/dev/null; echo $?)" 3 "a token.json blocks the release"
+rm "$R2/src/.claude/skills/evals/token.json"
+# placeholders and ordinary names don't block
+printf -- '---\nname: evals\n---\nYour Slack token starts with xoxb-your-bot-token-here. AWS docs use AKIAIOSFODNN7EXAMPLE. Anthropic keys look like sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxx. A PEM file starts with -----BEGIN RSA PRIVATE KEY-----.\n' > "$R2/src/.claude/skills/evals/SKILL.md"
+printf 'def count_tokens(): pass\n' > "$R2/src/.claude/skills/evals/count_tokens.py"
+printf 'checklist\n' > "$R2/src/.claude/skills/evals/credentials-checklist.md"
+g "$R2/src" add -A; g "$R2/src" commit -m docs
+expect_absent "$(run check --plugin-repo "$R2/plugins")" "SECRET" "placeholders and ordinary names don't block"
+# a real-looking key does, with its line number
+# Built at run time so no token-shaped text sits in this file (GitHub push protection).
+printf 'slack: xox%s-%s-%s\n' 'b' '4815162342' 'ABCDEFghijkl9876' > "$R2/src/.claude/skills/evals/settings.yaml"
+out="$(run check --plugin-repo "$R2/plugins")"; expect_contains "$out" "settings.yaml:1" "a real-looking key is reported with its line"
+rm "$R2/src/.claude/skills/evals/settings.yaml"
+printf 'key: sk-%s-api03-%s\n' 'ant' 'AbCdEfGhIjKlMnOpQrStUvWxYz012345' > "$R2/src/.claude/skills/evals/config.yaml"
 expect_code "$(run check --plugin-repo "$R2/plugins" >/dev/null; echo $?)" 3 "a key pasted into a file blocks the release"
 rm "$R2/src/.claude/skills/evals/config.yaml"
 printf 'API_KEY=\n' > "$R2/src/.claude/skills/evals/.env.example"; g "$R2/src" add -A; g "$R2/src" commit -m example
 expect_absent "$(run check --plugin-repo "$R2/plugins")" "SECRET" "an .env.example doesn't block"
+# a hand edit to a released plugin.json is an undo, not a new repository
+g "$R2/plugins" add -A; g "$R2/plugins" commit -q -m pre-edit
+sed 's/"description": "[^"]*"/"description": "edited by hand"/' "$R2/plugins/plugins/team/.claude-plugin/plugin.json" > "$TMP/pj" && mv "$TMP/pj" "$R2/plugins/plugins/team/.claude-plugin/plugin.json"
+out="$(run check --plugin-repo "$R2/plugins")"; expect_code $? 2 "hand edit exits 2"; expect_contains "$out" "changes made by hand" "hand edit reported as a hand edit"
+g "$R2/plugins" checkout -- .
+# author before name in a hand-written plugin.json
+mkdir -p "$R2/plugins/plugins/auth/.claude-plugin"
+printf '{\n  "author": {\n    "name": "Pat"\n  },\n  "name": "auth",\n  "version": "0.1.0"\n}\n' > "$R2/plugins/plugins/auth/.claude-plugin/plugin.json"
+expect_contains "$(run add-plugin --plugin-repo "$R2/plugins" --name auth)" "already exists" "author-before-name plugin.json is read correctly"
+# an empty plugin is called out
+expect_contains "$(run copy --plugin-repo "$R2/plugins")" "EMPTY PLUGIN auth" "empty plugin warned"
+g "$R2/plugins" checkout -- .; g "$R2/plugins" clean -fdq
+
 # a marketplace someone else edited: renamed entry, extra key, mismatched version
 M3="$TMP/m3"; mkdir -p "$M3/plugins/sales/.claude-plugin" "$M3/.claude-plugin"; git init -q "$M3"
 printf '{\n  "name": "sales",\n  "description": "d",\n  "version": "1.2.0"\n}\n' > "$M3/plugins/sales/.claude-plugin/plugin.json"

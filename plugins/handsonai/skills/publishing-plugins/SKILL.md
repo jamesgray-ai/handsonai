@@ -123,11 +123,19 @@ because anyone who used it will notice it's gone.
 
 #### Phase 3 — Check everything is ready
 
-Run `check`. **If it exits 3, act on that alone.** A file that looks like a password or key is in
-something that would be shared. Say: "[file] in [skill] looks like a password or key. I won't share
-it. I'll move it out of the skill folder to [skill]-private-files next to your source repository. If
-it was ever sent to GitHub, change that password or key." With their OK, move it, then run `check`
-again. Never offer to record anything while it's there.
+Run `check`. **If it exits 3, act on that alone.** Something that would be shared looks like a
+password or key. Each finding is a file name, or a file and line number (`file:12`). Never offer to
+record anything until it's resolved, and never move a skill's `SKILL.md`.
+- **A whole file** (like `.env` or `credentials.json`): say "[file] in [skill] looks like a password
+  or key, so I won't share it. I'll move it out of the skill folder to a folder next to your source
+  repository." With their OK, move it.
+- **A line in a file:** read that line yourself, without repeating the value in full. If it's a real
+  key, say "Line [n] of [file] in [skill] holds what looks like a real key. I'll take it out of the
+  skill; keys belong in your connectors or settings, not in a shared skill." With their OK, remove it.
+  If it's a made-up example, say "Line [n] of [file] has an example key that looks real enough to stop
+  the release. I'll shorten it to [a shortened form, such as xoxb-…]." With their OK, edit it.
+- Then record the change in the source repository, and run `check` again. If a real key was ever
+  sent to GitHub, add: "Change that key where you got it, because it's been shared."
 
 Otherwise act on what it reports, one item at a time:
 
@@ -135,14 +143,13 @@ Otherwise act on what it reports, one item at a time:
   failed). Send it now with `git -C <plugin folder> push` (or `push -u origin HEAD` with no
   upstream), then run `check` again. If it fails again, say what went wrong in plain words and stop.
 - **RENAME, EMPTY, UNDECIDED:** back to Phase 2 for those items. Nothing undecided is shared.
-- **ONLY IN PLUGIN:** these are already in a plugin but not in the release plan, so publishing would
-  remove them. If one is still in the source repository, add it to the plan with `assign`. If it
-  isn't, say: "[name] is in your [plugin] plugin but no longer in your source repository, so this
-  release removes it, and anyone who uses it will notice." Carry on only with their OK; that makes
-  the plugin's next release a major one.
-- **MISSING:** the release plan lists something that's no longer in the source repository. Say so,
-  and remove it from the plan with `unassign`. If it was in a plugin, that plugin's next release is a
-  major one.
+- **MISSING** and **ONLY IN PLUGIN** are the same question: something is in a plugin (or its plan)
+  but not in the source repository, so this release would remove it. If it's still in the source
+  under another name, add that to the plan with `assign`. Otherwise ask once: "[name] is in your
+  [plugin] plugin but no longer in your source repository, so this release removes it, and anyone
+  who uses it will notice. Remove it?" With their OK, `unassign` any MISSING line. When the only
+  things `check` still reports are removals they approved, go on to Phase 4. The plugin's release is
+  a major one.
 - **The source has changes not yet saved in its history.** Leaders often answer "I did save" here;
   they mean the file. Say: "Your changes to [skill] are on your computer but not yet recorded as a
   version in your source repository. Only recorded versions are shared, so your team gets exactly
@@ -161,10 +168,13 @@ Otherwise act on what it reports, one item at a time:
 
 #### Phase 4 — Copy and show what's changing
 
-Run `copy`. It copies each plugin's skills and agents from the source repository (leaving out files
-that never ship, like `.DS_Store` and `evals`) and reports, plugin by plugin, what was added,
+Run `copy`. It copies each plugin's skills and agents from the source repository (leaving out system
+clutter like `.DS_Store`) and reports, plugin by plugin, what was added,
 updated or removed, with a suggested version. Plugins with no changes aren't listed and keep their
 version.
+
+An `EMPTY PLUGIN` line means a plugin would be released with nothing in it: ask whether that's
+intended before going on (usually the answer is to add skills to it in Phase 2, or not release it).
 
 If nothing changed, say: "Your plugins already match your source repository, so there's nothing to
 release." If only `release-plan.txt` changed (for example, a new skill kept just for them), record
@@ -192,13 +202,14 @@ On their yes:
    file so the version numbers always agree.
 2. **Validate** where the `claude` command is installed (`claude --version` works): run
    `claude plugin validate <plugin folder>` and `claude plugin validate <plugin folder>/plugins/<name>`
-   for each released plugin. Only a failed validation stops the release (the command exits
-   non-zero, or doesn't end with "Validation passed"): say what failed in plain words. If it's in a
-   skill or agent, fix it in the source repository (never in the plugin repository), record it, and
-   start again at Phase 3. If it's in the plugin or marketplace file, stop: say the release can't go
-   out and nothing was sent, and undo this release's changes with
-   `git -C <plugin folder> checkout -- . && git -C <plugin folder> clean -fd`. Say nothing about
-   warnings or about what the public plugin directory would require (such as a LICENSE file).
+   for each released plugin. The exit code decides: only a non-zero exit stops the release. Ignore
+   warnings, "passed with warnings" and notes about what the public plugin directory would require
+   (such as a LICENSE file), and say nothing about them. On a failure, say what failed in plain words.
+   If it's in a skill or agent, fix it in the source repository (never in the plugin repository),
+   record it, and start again at Phase 3. If it's in the plugin or marketplace file, stop: say the
+   release can't go out and nothing was sent. If the plugin repository already has a release, undo
+   this one's changes with `git -C <plugin folder> checkout -- . && git -C <plugin folder> clean -fd`;
+   on a first release there's nothing to undo.
 3. Run `git -C <plugin folder> status --short` and check every file is under `plugins/` or
    `.claude-plugin/`, or is `.gitignore`, `.gitattributes`, `README.md` or `release-plan.txt`. Ask before including
    anything else.

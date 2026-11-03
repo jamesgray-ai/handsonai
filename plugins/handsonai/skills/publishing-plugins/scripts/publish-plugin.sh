@@ -85,6 +85,14 @@ json_field() { # file key -> raw (still-escaped) string value of the first occur
   grep -Eo "\"$2\"[[:space:]]*:[[:space:]]*\"([^\"\\\\]|\\\\.)*\"" "$1" 2>/dev/null | head -n 1 \
     | sed -E "s/^\"$2\"[[:space:]]*:[[:space:]]*\"//; s/\"\$//"
 }
+json_top() { # file key -> first value of key at the top level of the object (one key per line)
+  local v
+  v="$(tr -d '\r' < "$1" 2>/dev/null | awk -v k="$2" '
+    { if (depth == 1 && match($0, "\"" k "\"[ \t]*:[ \t]*\"([^\"\\\\]|\\\\.)*\"")) {
+        t = substr($0, RSTART, RLENGTH); sub("^\"" k "\"[ \t]*:[ \t]*\"", "", t); sub("\"$", "", t); print t; exit }
+      o = gsub(/\{/, "{"); c = gsub(/\}/, "}"); depth += o - c }')"
+  [ -n "$v" ] && printf '%s' "$v" || json_field "$1" "$2"
+}
 VERSION_RE='"version"[[:space:]]*:[[:space:]]*"[^"]*"'
 count_versions() { grep -o "$VERSION_RE" "$1" 2>/dev/null | wc -l | tr -d ' '; }
 
@@ -148,8 +156,17 @@ assert_managed() {
   strip_cr "$MARKET_JSON" | grep -Eq '"source"[[:space:]]*:[[:space:]]*\{' && foreign="$foreign (a plugin from another location)"
   [ -z "$foreign" ] || die "this plugin repository already lists a plugin this skill doesn't manage:$foreign. Nothing was changed. Use a new, empty plugin repository instead."
   # shellcheck disable=SC2086
-  if ! gen_marketplace $(printf '%s\n' $listed | sort) | cmp -s - <(strip_cr "$MARKET_JSON"); then
-    die "the marketplace file in this plugin repository isn't one this skill wrote, or was changed by hand. Nothing was changed. Use a new, empty plugin repository instead, or ask whoever set it up."
+  if [ "$(gen_marketplace $(printf '%s\n' $listed | sort))" != "$(strip_cr "$MARKET_JSON")" ]; then
+    # Committed by a release, then edited by hand: that's an undo, not a new repository.
+    local edited
+    edited="$(git -C "$REPO" rev-parse --verify HEAD >/dev/null 2>&1 \
+      && git -C "$REPO" diff --name-only HEAD -- .claude-plugin/marketplace.json 'plugins/*/.claude-plugin/plugin.json' 2>/dev/null)"
+    if [ -n "$edited" ]; then
+      note "ATTENTION the plugin repository has changes made by hand:"
+      printf ' M %s\n' $edited
+      exit 2
+    fi
+    die "the marketplace file in this plugin repository isn't one this skill wrote. Nothing was changed. Use a new, empty plugin repository instead, or ask whoever set it up."
   fi
 }
 
@@ -213,18 +230,27 @@ missing_items() { # plan lines whose skill or agent is no longer in the source
 shipped_items() { plan_lines | awk '$1 != "none"'; } # "<plugin> <kind> <name>"
 
 # ---------- secrets ----------
-find_secrets_in() { # paths...
+find_secrets_in() { # paths... -> one line per file (name) or file:line (contents) that looks like a secret
   local p
   for p in "$@"; do
     [ -e "$p" ] || continue
+    # Files whose names mean credentials.
     find "$p" -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.key' -o -name '*.p12' \
-      -o -name '*.pfx' -o -name 'id_rsa*' -o -name 'id_ed25519*' -o -name '.npmrc' -o -name '.netrc' \
-      -o -iname '*credentials*' -o -iname '*secret*' -o -iname '*token*' -o -iname '*service-account*' \) \
+      -o -name '*.pfx' -o -name 'id_rsa' -o -name 'id_rsa.*' -o -name 'id_ed25519' -o -name 'id_ed25519.*' \
+      -o -name '.npmrc' -o -name '.netrc' -o -name 'credentials' -o -name 'credentials.json' \
+      -o -name 'client_secret*.json' -o -name '*service-account*.json' -o -name 'token.json' \) \
       ! -name '*.example' ! -name '*.sample' 2>/dev/null
-    # Keys pasted into a file, whatever it's called.
-    grep -rlE -e '-----BEGIN [A-Z ]*PRIVATE KEY-----' -e 'sk-ant-[A-Za-z0-9_-]{20,}' -e 'AKIA[0-9A-Z]{16}' \
-      -e 'gh[pousr]_[A-Za-z0-9]{30,}' -e 'github_pat_[A-Za-z0-9_]{30,}' -e 'xox[abpr]-[A-Za-z0-9-]{10,}' "$p" 2>/dev/null \
-      | sed 's/$/ (contains what looks like a key)/' 
+    # Keys pasted into any file. Placeholders ("your-", "xxxx", "EXAMPLE", "<...>", "...") are ignored,
+    # and a real key mixes letters and digits.
+    grep -rnoE -e '-----BEGIN [A-Z ]*PRIVATE KEY-----' -e 'sk-ant-[A-Za-z0-9_-]{20,}' -e 'AKIA[0-9A-Z]{16}' \
+        -e 'gh[pousr]_[A-Za-z0-9]{30,}' -e 'github_pat_[A-Za-z0-9_]{30,}' -e 'xox[abpr]-[A-Za-z0-9-]{10,}' "$p" 2>/dev/null \
+      | awk -F: '{
+          m = $0; sub(/^[^:]*:[^:]*:/, "", m)
+          if (m ~ /PRIVATE KEY/) { if ($1 !~ /\.(md|txt)$/) print $1 ":" $2 " (a private key)"; next }
+          if (m ~ /(EXAMPLE|[Xx]{6,}|[Yy][Oo][Uu][Rr]|<|\.\.\.)/) next
+          d = gsub(/[0-9]/, "&", m); l = gsub(/[A-Za-z]/, "&", m)
+          if (d >= 4 && l >= 4) print $1 ":" $2 " (looks like a key)"
+        }'
   done
 }
 shipped_secrets() {
@@ -245,6 +271,9 @@ do_setup() {
   [ "$SOURCE" != "$REPO" ] || die "the source repository and the plugin repository must be two different folders"
   case "$REPO/" in "$SOURCE/"*) die "the plugin repository is inside the source repository; make it a separate folder next to it" ;; esac
   case "$SOURCE/" in "$REPO/"*) die "the source repository is inside the plugin repository; they must be two separate folders" ;; esac
+  if git -C "$REPO" rev-parse --is-inside-work-tree >/dev/null 2>&1 && [ -n "$(git -C "$REPO" rev-parse --show-prefix 2>/dev/null)" ]; then
+    die "the plugin repository folder is inside another Git repository ($(git -C "$REPO" rev-parse --show-toplevel)); it must be its own repository"
+  fi
   # Default layout: .claude/skills and .claude/agents, where Claude loads them when it works in
   # the folder. A source that keeps them at the top level (skills/, agents/) is picked up instead.
   if [ -z "$SKILLS_DIR" ]; then
@@ -345,7 +374,7 @@ do_add_plugin() {
   clean_tmp
   local pj; pj="$(plugin_json "$NAME")"
   if [ -f "$pj" ]; then
-    json_field "$pj" name | grep -qx "$NAME" || die "$pj names a different plugin; fix it by hand"
+    [ "$(json_top "$pj" name)" = "$NAME" ] || die "$pj names a different plugin; fix it by hand"
     note "plugin $NAME already exists (version $(json_field "$pj" version)); kept it"
   else
     [ -n "$OWNER" ] || OWNER="$(git -C "$REPO" config user.name 2>/dev/null)"
@@ -429,7 +458,7 @@ do_check() {
   for p in $(plugin_names); do
     pj="$(plugin_json "$p")"
     [ "$(count_versions "$pj")" = "1" ] || die "$pj must hold exactly one \"version\" field; fix it by hand"
-    json_field "$pj" name | grep -qx "$p" || die "$pj's name doesn't match its folder ($p)"
+    [ "$(json_top "$pj" name)" = "$p" ] || die "$pj's name doesn't match its folder ($p)"
     note "plugin $p: version $(json_field "$pj" version)"
   done
   [ -n "$(plugin_names)" ] || { note "ATTENTION no plugins yet: add one with add-plugin"; attention=1; }
@@ -549,6 +578,7 @@ $(shipped_items)
 EOF
     rmdir "$dest/skills" "$dest/agents" 2>/dev/null || true
     note "copied $n skill(s) and agent(s) into $p"
+    [ "$n" -gt 0 ] || note "EMPTY PLUGIN $p has no skills or agents in the release plan, so it would be released empty"
   done
   regen_marketplace
   do_changes
