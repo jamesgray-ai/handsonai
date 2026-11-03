@@ -258,6 +258,10 @@ On their yes:
    `<plugin> vX.Y.Z: added …; updated …; removed …` (leave out empty parts).
 5. **Tag each released plugin's version** on that commit, so every version is listed on the
    repository's Tags page on GitHub: `git -C <plugin folder> tag -a <plugin>-vX.Y.Z -m "<plugin> vX.Y.Z: <the body line>"`.
+   If Git says the tag already exists, check GitHub: `git -C <plugin folder> ls-remote --tags origin <plugin>-vX.Y.Z`.
+   Prints nothing: it's left over from a release that never finished, so move it to this commit by
+   adding `-f`. Prints a line: that version is already on GitHub, so stop, undo this release's
+   commit (`git -C <plugin folder> reset --soft HEAD~1`) and say the version was already released.
 6. Push it to GitHub with its tags: `git -C <plugin folder> push --follow-tags`. If the folder has no
    upstream yet (`git -C <plugin folder> rev-parse --abbrev-ref @{u}` fails), use
    `git -C <plugin folder> push --follow-tags -u origin HEAD`. Push last: Claude decides an update is

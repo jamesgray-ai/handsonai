@@ -575,6 +575,7 @@ do_check() {
     # a release pointing at a commit nobody else can see can't be traced.
     if git -C "$SOURCE" rev-parse --verify HEAD >/dev/null 2>&1; then
       if git -C "$SOURCE" remote get-url origin >/dev/null 2>&1; then
+        git -C "$SOURCE" fetch -q origin 2>/dev/null || true  # fresh view of GitHub; offline falls back to the last one
         if [ -z "$(git -C "$SOURCE" branch -r --contains HEAD 2>/dev/null)" ]; then
           note "SOURCE UNPUSHED the source version $(git -C "$SOURCE" rev-parse --short HEAD) is saved on this computer but isn't on GitHub yet"
           attention=1
