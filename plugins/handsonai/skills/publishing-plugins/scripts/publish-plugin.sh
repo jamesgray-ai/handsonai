@@ -38,7 +38,7 @@ NAME_RE='^[a-z0-9]+(-[a-z0-9]+)*$'
 
 die()  { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 note() { printf '%s\n' "$*"; }
-json_escape() { printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'; }
+json_escape() { printf '%s' "$1" | tr '\n\r\t' '   ' | sed 's/\\/\\\\/g; s/"/\\"/g'; }
 
 cmd="${1:-}"; [ -n "$cmd" ] || die "no command. Run with no arguments to see usage in the file header."
 shift
@@ -106,47 +106,64 @@ plugin_names() { # every plugin folder that has a plugin.json, sorted
 }
 plugin_exists() { [ -f "$(plugin_json "$1")" ]; }
 
-# Rebuild the plugins list in marketplace.json from each plugin's plugin.json, so the two
-# can never disagree. Everything above the "plugins" key is kept as it is.
-regen_marketplace() {
-  [ -f "$MARKET_JSON" ] || die "marketplace file not found: $MARKET_JSON. Run setup first."
-  grep -q '"plugins"' "$MARKET_JSON" || die "$MARKET_JSON has no \"plugins\" list; edit it by hand."
-  # Only rebuild a file in the layout this script writes: "{" alone on line 1, "plugins" on its own
-  # later line. Anything else was written by someone else; never rewrite it.
-  [ "$(head -n 1 "$MARKET_JSON" | tr -d '[:space:]')" = "{" ] \
-    && ! head -n 1 "$MARKET_JSON" | grep -q '"plugins"' \
-    || die "$MARKET_JSON isn't in the layout this skill writes; edit it by hand or start from an empty plugin repository"
-  # Never drop a plugin this skill doesn't manage: every plugin already listed must live in
-  # ./plugins/<name>/ with a plugin.json there. A plugin at the top of the repository ("./"),
-  # or one fetched from elsewhere, belongs to another setup: stop rather than rewrite the file.
-  local src foreign=""
-  for src in $(grep -Eo '"source"[[:space:]]*:[[:space:]]*"[^"]*"' "$MARKET_JSON" | sed -E 's/.*"([^"]*)"$/\1/'); do
+PLUGINS_KEY_RE='^[[:space:]]*"plugins"[[:space:]]*:'
+strip_cr() { tr -d '\r' < "$1"; }
+
+# Print the marketplace file this script would write for the given plugin names, keeping everything
+# above the "plugins" key exactly as it is.
+gen_marketplace() { # names...
+  local p pj first=1
+  strip_cr "$MARKET_JSON" | awk -v re="$PLUGINS_KEY_RE" '$0 ~ re { exit } { print }'
+  printf '  "plugins": ['
+  for p in "$@"; do
+    pj="$(plugin_json "$p")"
+    [ "$first" = "1" ] && printf '\n' || printf ',\n'
+    first=0
+    printf '    {\n'
+    printf '      "name": "%s",\n' "$p"
+    printf '      "source": "./plugins/%s",\n' "$p"
+    printf '      "description": "%s",\n' "$(json_field "$pj" description)"
+    printf '      "version": "%s"\n' "$(json_field "$pj" version)"
+    printf '    }'
+  done
+  [ "$first" = "1" ] && printf ']\n}\n' || printf '\n  ]\n}\n'
+}
+
+# Refuse to touch a marketplace file this script didn't write, or one changed by hand since: it must
+# be exactly what this script would write for the plugins it lists. Anything else (a plugin at the
+# top of the repository, one fetched from elsewhere, extra settings, a renamed entry, a version that
+# differs from the plugin's own) belongs to another setup, and rewriting it could uninstall or
+# downgrade a plugin people already use. Called before any command changes anything.
+assert_managed() {
+  [ -f "$MARKET_JSON" ] || return 0
+  strip_cr "$MARKET_JSON" | grep -Eq "$PLUGINS_KEY_RE" \
+    || die "$MARKET_JSON has no \"plugins\" list this skill can manage. Nothing was changed. Use a new, empty plugin repository instead."
+  local src listed="" foreign=""
+  for src in $(strip_cr "$MARKET_JSON" | grep -Eo '"source"[[:space:]]*:[[:space:]]*"[^"]*"' | sed -E 's/.*"([^"]*)"$/\1/'); do
     case "$src" in
-      ./plugins/*) [ -f "$REPO/${src#./}/.claude-plugin/plugin.json" ] || foreign="$foreign $src" ;;
+      ./plugins/*) if [ -f "$REPO/${src#./}/.claude-plugin/plugin.json" ]; then listed="$listed ${src#./plugins/}"; else foreign="$foreign $src"; fi ;;
       *) foreign="$foreign $src" ;;
     esac
   done
-  if grep -Eq '"source"[[:space:]]*:[[:space:]]*\{' "$MARKET_JSON"; then foreign="$foreign (a plugin from another location)"; fi
+  strip_cr "$MARKET_JSON" | grep -Eq '"source"[[:space:]]*:[[:space:]]*\{' && foreign="$foreign (a plugin from another location)"
   [ -z "$foreign" ] || die "this plugin repository already lists a plugin this skill doesn't manage:$foreign. Nothing was changed. Use a new, empty plugin repository instead."
-  local tmp="$MARKET_JSON.tmp.$$" p pj first=1
-  awk '/"plugins"/ { exit } { print }' "$MARKET_JSON" > "$tmp"
-  printf '  "plugins": [' >> "$tmp"
-  for p in $(plugin_names); do
-    pj="$(plugin_json "$p")"
-    [ "$first" = "1" ] && printf '\n' >> "$tmp" || printf ',\n' >> "$tmp"
-    first=0
-    {
-      printf '    {\n'
-      printf '      "name": "%s",\n' "$p"
-      printf '      "source": "./plugins/%s",\n' "$p"
-      printf '      "description": "%s",\n' "$(json_field "$pj" description)"
-      printf '      "version": "%s"\n' "$(json_field "$pj" version)"
-      printf '    }'
-    } >> "$tmp"
-  done
-  [ "$first" = "1" ] && printf ']\n}\n' >> "$tmp" || printf '\n  ]\n}\n' >> "$tmp"
-  mv "$tmp" "$MARKET_JSON"
+  # shellcheck disable=SC2086
+  if ! gen_marketplace $(printf '%s\n' $listed | sort) | cmp -s - <(strip_cr "$MARKET_JSON"); then
+    die "the marketplace file in this plugin repository isn't one this skill wrote, or was changed by hand. Nothing was changed. Use a new, empty plugin repository instead, or ask whoever set it up."
+  fi
 }
+
+# Rebuild the plugins list in marketplace.json from each plugin's plugin.json, so the two can
+# never disagree. Only ever called after assert_managed has passed.
+regen_marketplace() {
+  [ -f "$MARKET_JSON" ] || die "marketplace file not found: $MARKET_JSON. Run setup first."
+  local tmp="$MARKET_JSON.tmp.$$"
+  # shellcheck disable=SC2046
+  gen_marketplace $(plugin_names) > "$tmp" && mv "$tmp" "$MARKET_JSON"
+}
+
+# Leftovers from a run that was interrupted never ship.
+clean_tmp() { rm -f "$MARKET_JSON".tmp.* "$PLAN".tmp.* "$REPO"/plugins/*/.claude-plugin/plugin.json.tmp.* 2>/dev/null; return 0; }
 
 # ---------- source items ----------
 source_items() { # "skill <name>" / "agent <name>" for everything in the source, sorted
@@ -155,7 +172,9 @@ source_items() { # "skill <name>" / "agent <name>" for everything in the source,
     for d in "$SOURCE/$SKILLS_DIR"/*/; do [ -f "${d}SKILL.md" ] && printf 'skill %s\n' "$(basename "$d")"; done
   fi
   if [ -d "$SOURCE/$AGENTS_DIR" ]; then
-    for f in "$SOURCE/$AGENTS_DIR"/*.md; do [ -f "$f" ] && printf 'agent %s\n' "$(basename "$f" .md)"; done
+    for f in "$SOURCE/$AGENTS_DIR"/*.md; do
+      [ -f "$f" ] && grep -Eq '^name:[[:space:]]*[^[:space:]]' "$f" && printf 'agent %s\n' "$(basename "$f" .md)"
+    done
   fi
 }
 bad_names() { # skills/agents whose names aren't lowercase-with-hyphens
@@ -176,7 +195,7 @@ source_path() { # kind name -> path in the source
 }
 
 # ---------- release plan ----------
-plan_lines() { [ -f "$PLAN" ] && grep -v '^[[:space:]]*#' "$PLAN" | grep -v '^[[:space:]]*$'; return 0; }
+plan_lines() { [ -f "$PLAN" ] && tr -d '\r' < "$PLAN" | sed 's/[[:space:]]*$//' | grep -v '^[[:space:]]*#' | grep -v '^[[:space:]]*$'; return 0; }
 plan_decided() { plan_lines | awk -v k="$1" -v n="$2" '$2==k && $3==n { found=1 } END { exit !found }'; }
 undecided_items() {
   local kind name
@@ -198,8 +217,14 @@ find_secrets_in() { # paths...
   local p
   for p in "$@"; do
     [ -e "$p" ] || continue
-    find "$p" -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.key' \
-      -o -name 'id_rsa*' -o -name 'id_ed25519*' -o -iname '*credentials*' -o -iname '*secret*' \) 2>/dev/null
+    find "$p" -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.key' -o -name '*.p12' \
+      -o -name '*.pfx' -o -name 'id_rsa*' -o -name 'id_ed25519*' -o -name '.npmrc' -o -name '.netrc' \
+      -o -iname '*credentials*' -o -iname '*secret*' -o -iname '*token*' -o -iname '*service-account*' \) \
+      ! -name '*.example' ! -name '*.sample' 2>/dev/null
+    # Keys pasted into a file, whatever it's called.
+    grep -rlE -e '-----BEGIN [A-Z ]*PRIVATE KEY-----' -e 'sk-ant-[A-Za-z0-9_-]{20,}' -e 'AKIA[0-9A-Z]{16}' \
+      -e 'gh[pousr]_[A-Za-z0-9]{30,}' -e 'github_pat_[A-Za-z0-9_]{30,}' -e 'xox[abpr]-[A-Za-z0-9-]{10,}' "$p" 2>/dev/null \
+      | sed 's/$/ (contains what looks like a key)/' 
   done
 }
 shipped_secrets() {
@@ -231,11 +256,16 @@ do_setup() {
   if [ -z "$(SKILLS_DIR="$SKILLS_DIR" AGENTS_DIR="$AGENTS_DIR" source_items)" ]; then
     die "no skills or agents found in $SOURCE (looked in $SKILLS_DIR and $AGENTS_DIR)"
   fi
-  if [ -f "$MARKET_JSON" ] && [ -n "$MARKET" ] && [ "$MARKET" != "$(json_field "$MARKET_JSON" name)" ]; then
-    note "NOTE the marketplace is already named $(json_field "$MARKET_JSON" name); kept that name"
+  assert_managed
+  clean_tmp
+  if [ -f "$MARKET_JSON" ]; then
+    [ -z "$MARKET" ] || [ "$MARKET" = "$(json_field "$MARKET_JSON" name)" ] \
+      || note "NOTE the marketplace is already named $(json_field "$MARKET_JSON" name); kept that name"
+    MARKET="$(json_field "$MARKET_JSON" name)"
+  else
+    [ -n "$MARKET" ] || MARKET="$(basename "$REPO" | tr 'A-Z_ .' 'a-z---')"
+    printf '%s' "$MARKET" | grep -Eq "$NAME_RE" || die "marketplace name must be lowercase words joined by hyphens: $MARKET"
   fi
-  [ -n "$MARKET" ] || MARKET="$(basename "$REPO" | tr 'A-Z_ .' 'a-z---')"
-  printf '%s' "$MARKET" | grep -Eq "$NAME_RE" || die "marketplace name must be lowercase words joined by hyphens: $MARKET"
   [ -n "$OWNER" ] || OWNER="$(git -C "$REPO" config user.name 2>/dev/null)"
   [ -n "$OWNER" ] || OWNER="$MARKET"
   [ -n "$DESCRIPTION" ] || DESCRIPTION="Skills and agents released from $(basename "$SOURCE")."
@@ -246,9 +276,16 @@ do_setup() {
     printf 'agents_dir=%s\n' "$AGENTS_DIR"
   } > "$REPO/$SETTINGS_FILE"
 
-  touch "$REPO/.gitignore"
-  grep -qx "$SETTINGS_FILE" "$REPO/.gitignore" || printf '%s\n' "$SETTINGS_FILE" >> "$REPO/.gitignore"
-  grep -qx '.DS_Store' "$REPO/.gitignore" || printf '.DS_Store\n' >> "$REPO/.gitignore"
+  add_line() { # file line: append a line, starting a new line first if the file doesn't end with one
+    touch "$1"
+    tr -d '\r' < "$1" | grep -qx "$2" && return 0
+    [ -s "$1" ] && [ -n "$(tail -c 1 "$1")" ] && printf '\n' >> "$1"
+    printf '%s\n' "$2" >> "$1"
+  }
+  add_line "$REPO/.gitignore" "$SETTINGS_FILE"
+  add_line "$REPO/.gitignore" ".DS_Store"
+  # Keep line endings the same on every computer, so a Windows checkout can't change the plan.
+  add_line "$REPO/.gitattributes" "* text=auto eol=lf"
 
   mkdir -p "$REPO/.claude-plugin"
   if [ ! -f "$MARKET_JSON" ]; then
@@ -304,6 +341,8 @@ do_add_plugin() {
   [ -n "$NAME" ] || die "add-plugin needs --name"
   printf '%s' "$NAME" | grep -Eq "$NAME_RE" || die "plugin name must be lowercase words joined by hyphens, like sales-team-skills"
   [ "$NAME" != "none" ] || die "\"none\" is reserved in the release plan"
+  assert_managed
+  clean_tmp
   local pj; pj="$(plugin_json "$NAME")"
   if [ -f "$pj" ]; then
     json_field "$pj" name | grep -qx "$NAME" || die "$pj names a different plugin; fix it by hand"
@@ -354,7 +393,7 @@ do_assign() {
     plan_lines | awk -v k="$k" -v n="$n" '$1=="none" && $2==k && $3==n { f=1 } END { exit !f }' \
       && die "$k $n is marked none; unassign it from none first"
   fi
-  grep -qx "$p $k $n" "$PLAN" 2>/dev/null && { note "already recorded: $p $k $n"; return 0; }
+  plan_lines | grep -qx "$p $k $n" && { note "already recorded: $p $k $n"; return 0; }
   printf '%s %s %s\n' "$p" "$k" "$n" >> "$PLAN"
   note "recorded: $p $k $n"
 }
@@ -362,9 +401,9 @@ do_assign() {
 do_unassign() {
   load_settings
   [ $# -eq 3 ] || die "unassign needs: <plugin|none> <skill|agent> <name>"
-  grep -qx "$1 $2 $3" "$PLAN" 2>/dev/null || die "not in the release plan: $1 $2 $3"
+  plan_lines | grep -qx "$1 $2 $3" || die "not in the release plan: $1 $2 $3"
   local tmp="$PLAN.tmp.$$"
-  grep -vx "$1 $2 $3" "$PLAN" > "$tmp"; mv "$tmp" "$PLAN"
+  tr -d '\r' < "$PLAN" | sed 's/[[:space:]]*$//' | grep -vx "$1 $2 $3" > "$tmp"; mv "$tmp" "$PLAN"
   note "removed: $1 $2 $3"
 }
 
@@ -373,9 +412,11 @@ do_check() {
   local attention=0 p pj
   git -C "$REPO" rev-parse --is-inside-work-tree >/dev/null 2>&1 \
     || die "the plugin repository folder is not a Git repository: $REPO"
-  local top; top="$(cd "$(git -C "$REPO" rev-parse --show-toplevel)" && pwd -P)"
-  [ "$top" = "$REPO" ] || die "the plugin repository folder is inside another Git repository ($top); it must be its own repository"
+  [ -z "$(git -C "$REPO" rev-parse --show-prefix 2>/dev/null)" ] \
+    || die "the plugin repository folder is inside another Git repository ($(git -C "$REPO" rev-parse --show-toplevel)); it must be its own repository"
   [ -f "$MARKET_JSON" ] || die "marketplace file not found. Run setup first."
+  assert_managed
+  clean_tmp
 
   # Secrets first: nothing else matters, and nothing may be offered for saving, until they're gone.
   local secrets; secrets="$(shipped_secrets)"
@@ -414,14 +455,41 @@ do_check() {
   local stray
   stray="$(git -C "$REPO" -c core.quotepath=off status --porcelain --untracked-files=all | awk '{
       path = substr($0, 4); gsub(/^"|"$/, "", path)
-      if (path == "release-plan.txt" || path ~ /^\.claude-plugin\// || path ~ /^plugins\/[^\/]+\/(\.claude-plugin|skills|agents)(\/|$)/ \
-          || (substr($0, 1, 2) == "??" && (path == ".gitignore" || path == "README.md"))) next
+      if (path == "release-plan.txt" || path == ".gitignore" || path == ".gitattributes" || path ~ /^\.claude-plugin\// \
+          || path ~ /^plugins\/[^\/]+\/(\.claude-plugin|skills|agents)(\/|$)/ \
+          || (substr($0, 1, 2) == "??" && path == "README.md")) next
       print
     }')"
   if [ -n "$stray" ]; then
     note "ATTENTION the plugin repository has changes made by hand:"
     printf '%s\n' "$stray"
     attention=1
+  fi
+
+  # Skills and agents already in a plugin that the release plan doesn't name would be removed by
+  # the next copy: say so before anything changes.
+  local only; only="$(for p in $(plugin_names); do
+      for d in "$REPO/plugins/$p/skills"/*/; do [ -d "$d" ] && n="$(basename "$d")" && ! plan_lines | grep -qx "$p skill $n" && printf '%s skill %s\n' "$p" "$n"; done
+      for f in "$REPO/plugins/$p/agents"/*.md; do [ -f "$f" ] && n="$(basename "$f" .md)" && ! plan_lines | grep -qx "$p agent $n" && printf '%s agent %s\n' "$p" "$n"; done
+    done)"
+  if [ -n "$only" ]; then
+    note "ONLY IN PLUGIN these are in a plugin but not in the release plan, so publishing would remove them:"
+    printf '%s\n' "$only"
+    attention=1
+  fi
+
+  # A release saved on this computer but never sent to GitHub (a push that failed earlier).
+  if git -C "$REPO" rev-parse --verify HEAD >/dev/null 2>&1 && git -C "$REPO" remote get-url origin >/dev/null 2>&1; then
+    local ahead
+    if git -C "$REPO" rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+      ahead="$(git -C "$REPO" rev-list --count '@{u}..HEAD' 2>/dev/null)"
+    else
+      ahead="$(git -C "$REPO" rev-list --count HEAD 2>/dev/null)"
+    fi
+    if [ "${ahead:-0}" != "0" ]; then
+      note "UNPUSHED a release is saved on this computer but hasn't been sent to GitHub yet"
+      attention=1
+    fi
   fi
 
   if git -C "$SOURCE" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -441,11 +509,11 @@ do_check() {
   [ "$attention" = "0" ] && note "ready to publish" || exit 2
 }
 
-prune() { # dir: remove files that never ship
+prune() { # dir: remove operating-system and tool clutter inside it. Never touches the folder's
+          # own name or anything a skill might mean to ship.
   [ -d "$1" ] || return 0
-  find "$1" \( -name '.DS_Store' -o -name 'Thumbs.db' -o -name 'desktop.ini' -o -name 'Untitled' \
-    -o -name '.git' -o -name 'node_modules' -o -name '__pycache__' -o -name '*.pyc' \
-    -o -name 'evals' -o -name '*-workspace' -o -name 'iteration-*' \) -prune -exec rm -rf {} + 2>/dev/null
+  find "$1" -mindepth 1 \( -name '.DS_Store' -o -name 'Thumbs.db' -o -name 'desktop.ini' \
+    -o -name '.git' -o -name 'node_modules' -o -name '__pycache__' -o -name '*.pyc' \) -prune -exec rm -rf {} + 2>/dev/null
   return 0
 }
 
@@ -457,6 +525,8 @@ do_copy() {
     printf '%s\n' "$secrets"
     exit 3
   fi
+  assert_managed
+  clean_tmp
   local p dest kind name src n
   for p in $(plugin_names); do
     dest="$REPO/plugins/$p"
@@ -467,12 +537,16 @@ do_copy() {
       [ "$pl" = "$p" ] || continue
       src="$(source_path "$kind" "$name")"
       if [ ! -e "$src" ]; then note "MISSING $kind $name is in $p's plan but not in the source (it will be removed)"; continue; fi
-      if [ "$kind" = "skill" ]; then cp -R "$src" "$dest/skills/"; else cp "$src" "$dest/agents/"; fi
+      if [ "$kind" = "skill" ]; then
+        cp -R "$src" "$dest/skills/" || die "couldn't copy skill $name into $p"
+        prune "$dest/skills/$name"
+      else
+        cp "$src" "$dest/agents/" || die "couldn't copy agent $name into $p"
+      fi
       n=$((n + 1))
     done <<EOF
 $(shipped_items)
 EOF
-    prune "$dest/skills"; prune "$dest/agents"
     rmdir "$dest/skills" "$dest/agents" 2>/dev/null || true
     note "copied $n skill(s) and agent(s) into $p"
   done
@@ -564,6 +638,8 @@ do_bump() {
   load_settings
   [ $# -eq 2 ] || die "bump needs: <plugin> <major|minor|patch|first|X.Y.Z>"
   plugin_exists "$1" || die "no plugin named $1"
+  assert_managed
+  clean_tmp
   local pj cur new tmp
   pj="$(plugin_json "$1")"
   [ "$(count_versions "$pj")" = "1" ] || die "$pj must hold exactly one \"version\" field; fix it by hand"

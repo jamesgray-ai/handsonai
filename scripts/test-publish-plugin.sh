@@ -66,7 +66,7 @@ expect_contains "$out" "suggested bump: first" "first release"
 [ ! -e "$PLG/plugins/ops/skills/proposal" ] && ok || bad "proposal leaked into ops"
 [ ! -e "$PLG/plugins/sales/skills/ingest" ] && ok || bad "ingest (none) was released"
 [ ! -e "$PLG/plugins/sales/skills/proposal/.DS_Store" ] && ok || bad ".DS_Store shipped"
-[ ! -e "$PLG/plugins/sales/skills/proposal/evals" ] && ok || bad "evals shipped"
+[ -f "$PLG/plugins/sales/skills/proposal/evals/run.json" ] && ok || bad "a folder inside the skill (evals) was dropped"
 [ -f "$PLG/plugins/sales/skills/proposal/references/tone.md" ] && ok || bad "references not copied"
 [ ! -e "$PLG/plugins/ops/agents" ] && ok || bad "empty agents folder left in ops"
 expect_contains "$(run bump --plugin-repo "$PLG" sales first)" "sales version: 0.0.0 -> 1.0.0" "bump sales"
@@ -179,7 +179,7 @@ g "$PLG" checkout -- .; g "$PLG" clean -fd
 # a marketplace file in someone else's layout is never rewritten
 mkdir -p "$TMP/foreign/.claude-plugin"; git init -q "$TMP/foreign"
 printf '{"name":"x","owner":{"name":"y"},"plugins":[]}\n' > "$TMP/foreign/.claude-plugin/marketplace.json"
-expect_contains "$(run setup --plugin-repo "$TMP/foreign" --source "$SRC")" "isn't in the layout" "foreign marketplace refused"
+expect_contains "$(run setup --plugin-repo "$TMP/foreign" --source "$SRC")" "Nothing was changed" "foreign marketplace refused"
 grep -q '"owner"' "$TMP/foreign/.claude-plugin/marketplace.json" && ok || bad "foreign marketplace was rewritten"
 # a plugin folder that isn't its own Git repository
 mkdir -p "$TMP/outer/plugins-here"; git init -q "$TMP/outer"
@@ -217,6 +217,66 @@ cmp -s "$EX/.claude-plugin/marketplace.json" "$TMP/ex-before.json" && ok || bad 
 EX2="$TMP/existing-remote"; mkdir -p "$EX2/.claude-plugin"; git init -q "$EX2"
 printf '{\n  "name": "team",\n  "owner": {"name": "Pat"},\n  "plugins": [\n    {"name": "x", "source": {"source": "github", "repo": "a/b"}}\n  ]\n}\n' > "$EX2/.claude-plugin/marketplace.json"
 expect_contains "$(run setup --plugin-repo "$EX2" --source "$SRC")" "doesn't manage" "remote-source plugin refused"
+
+# --- adversarial review fixes ---
+R2="$TMP/r2"; mkdir -p "$R2"
+mk_src() { # dir: a source repo with skills named like clutter, plus an agents README
+  mkdir -p "$1/.claude/skills/evals" "$1/.claude/skills/iteration-planner/references" "$1/.claude/skills/team-workspace" "$1/.claude/agents"
+  for k in evals iteration-planner team-workspace; do printf -- "---\nname: $k\n---\n" > "$1/.claude/skills/$k/SKILL.md"; done
+  printf 'notes\n' > "$1/.claude/skills/iteration-planner/references/iteration-1-notes.md"
+  printf 'junk\n' > "$1/.claude/skills/evals/.DS_Store"
+  printf '# About these agents\n' > "$1/.claude/agents/README.md"
+  git init -q "$1"; g "$1" add -A; g "$1" commit -m init
+}
+mk_src "$R2/src"
+# a plugin repo named "plugins", with a tracked .gitignore that has no trailing newline
+mkdir -p "$R2/plugins"; git init -q "$R2/plugins"; printf 'node_modules' > "$R2/plugins/.gitignore"; g "$R2/plugins" add -A; g "$R2/plugins" commit -m start
+run setup --plugin-repo "$R2/plugins" --source "$R2/src" >/dev/null
+grep -qx 'node_modules' "$R2/plugins/.gitignore" && grep -qx '.publish-plugin' "$R2/plugins/.gitignore" && ok || bad ".gitignore without trailing newline was merged into one line"
+grep -q '"name": "plugins"' "$R2/plugins/.claude-plugin/marketplace.json" && ok || bad "a repo named plugins lost its marketplace name"
+run add-plugin --plugin-repo "$R2/plugins" --name team --description $'Line one\nline "two"\tand a \\ backslash' >/dev/null
+python3 -m json.tool "$R2/plugins/.claude-plugin/marketplace.json" >/dev/null && python3 -m json.tool "$R2/plugins/plugins/team/.claude-plugin/plugin.json" >/dev/null && ok || bad "newline/tab in a description made invalid JSON"
+expect_absent "$(run check --plugin-repo "$R2/plugins")" "agent README" "agents README.md isn't treated as an agent"
+for k in evals iteration-planner team-workspace; do run assign --plugin-repo "$R2/plugins" team skill $k >/dev/null; done
+expect_contains "$(run copy --plugin-repo "$R2/plugins")" "copied 3 skill(s)" "clutter-like skill names all ship"
+[ -f "$R2/plugins/plugins/team/skills/iteration-planner/references/iteration-1-notes.md" ] && ok || bad "a reference file named iteration-* was dropped"
+[ ! -e "$R2/plugins/plugins/team/skills/evals/.DS_Store" ] && ok || bad ".DS_Store inside a skill shipped"
+out="$(run check --plugin-repo "$R2/plugins")"; expect_absent "$out" "made by hand" "a tracked .gitignore changed by setup isn't a hand edit"
+run bump --plugin-repo "$R2/plugins" team first >/dev/null; g "$R2/plugins" add -A; g "$R2/plugins" commit -m v1
+# Windows line endings in the release plan
+sed 's/$/\r/' "$R2/plugins/release-plan.txt" > "$TMP/crlf" && mv "$TMP/crlf" "$R2/plugins/release-plan.txt"
+out="$(run check --plugin-repo "$R2/plugins")"; expect_absent "$out" "MISSING" "CRLF plan isn't read as missing items"; expect_absent "$out" "UNDECIDED" "CRLF plan isn't read as undecided"
+expect_contains "$(run copy --plugin-repo "$R2/plugins")" "no changes since the last release" "CRLF plan releases nothing new"
+expect_contains "$(run unassign --plugin-repo "$R2/plugins" team skill evals)" "removed" "unassign works on a CRLF plan"
+g "$R2/plugins" checkout -- .
+# a skill already in the plugin that the plan doesn't name
+mkdir -p "$R2/plugins/plugins/team/skills/old-skill"; printf -- '---\nname: old-skill\n---\n' > "$R2/plugins/plugins/team/skills/old-skill/SKILL.md"; g "$R2/plugins" add -A; g "$R2/plugins" commit -m old
+expect_contains "$(run check --plugin-repo "$R2/plugins")" "ONLY IN PLUGIN" "plugin-only skill reported before it's removed"
+g "$R2/plugins" rm -rq plugins/team/skills/old-skill; g "$R2/plugins" commit -m rmold
+# a release saved but not sent to GitHub
+git init -q --bare "$R2/gh.git"; g "$R2/plugins" remote add origin "$R2/gh.git"; g "$R2/plugins" push -u origin HEAD
+printf 'x\n' >> "$R2/plugins/README.md"; g "$R2/plugins" commit -am local-only
+expect_contains "$(run check --plugin-repo "$R2/plugins")" "UNPUSHED" "an unsent release is reported"
+g "$R2/plugins" push
+# leftovers from an interrupted run are cleaned, not shipped
+touch "$R2/plugins/.claude-plugin/marketplace.json.tmp.12345"
+run check --plugin-repo "$R2/plugins" >/dev/null; [ ! -e "$R2/plugins/.claude-plugin/marketplace.json.tmp.12345" ] && ok || bad "a leftover temp file survived"
+# secrets: names, contents, examples
+printf 'abc\n' > "$R2/src/.claude/skills/evals/api-token.txt"
+expect_code "$(run check --plugin-repo "$R2/plugins" >/dev/null; echo $?)" 3 "a token file blocks the release"
+rm "$R2/src/.claude/skills/evals/api-token.txt"
+printf 'key: sk-ant-api03-AbCdEfGhIjKlMnOpQrStUvWxYz012345\n' > "$R2/src/.claude/skills/evals/config.yaml"
+expect_code "$(run check --plugin-repo "$R2/plugins" >/dev/null; echo $?)" 3 "a key pasted into a file blocks the release"
+rm "$R2/src/.claude/skills/evals/config.yaml"
+printf 'API_KEY=\n' > "$R2/src/.claude/skills/evals/.env.example"; g "$R2/src" add -A; g "$R2/src" commit -m example
+expect_absent "$(run check --plugin-repo "$R2/plugins")" "SECRET" "an .env.example doesn't block"
+# a marketplace someone else edited: renamed entry, extra key, mismatched version
+M3="$TMP/m3"; mkdir -p "$M3/plugins/sales/.claude-plugin" "$M3/.claude-plugin"; git init -q "$M3"
+printf '{\n  "name": "sales",\n  "description": "d",\n  "version": "1.2.0"\n}\n' > "$M3/plugins/sales/.claude-plugin/plugin.json"
+printf '{\n  "name": "m3",\n  "owner": {\n    "name": "o"\n  },\n  "plugins": [\n    {\n      "name": "sales-tools",\n      "source": "./plugins/sales",\n      "version": "1.4.0",\n      "category": "x"\n    }\n  ],\n  "metadata": {"version": "3"}\n}\n' > "$M3/.claude-plugin/marketplace.json"
+cp "$M3/.claude-plugin/marketplace.json" "$TMP/m3-before"
+expect_contains "$(run setup --plugin-repo "$M3" --source "$SRC")" "Nothing was changed" "hand-edited marketplace refused"
+cmp -s "$M3/.claude-plugin/marketplace.json" "$TMP/m3-before" && ok || bad "hand-edited marketplace was changed"
 
 # --- Claude's own validator accepts what the script writes (when Claude Code is installed) ---
 if command -v claude >/dev/null 2>&1; then

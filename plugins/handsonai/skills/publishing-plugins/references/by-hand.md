@@ -40,7 +40,7 @@ can be sent to GitHub, so stop and help the user install it.
 
 1. **Check.** Every skill (a folder under the skills folder holding `SKILL.md`) and every agent (a
    `.md` file at the top of the agents folder) has a line in `release-plan.txt`; ask about any that
-   don't. In the plugin repository, `git status --porcelain` must be empty; in the source repository,
+   don't. In the plugin repository, `git status --porcelain` must show nothing except `release-plan.txt`, `.gitignore`, `.gitattributes`, and files under `.claude-plugin/` or `plugins/`; in the source repository,
    no unsaved changes under the skills or agents folders. Look for files named `.env`, `*.pem`,
    `*.key`, `id_rsa*`, or with "secret" or "credentials" in the name, in anything a plugin would
    release: if any exist, stop.

@@ -67,9 +67,9 @@ calls a repository like this a marketplace."
    the folder where you keep your skills? You can also drag it into this chat." Never ask for a path.
 2. **The plugin repository.** First ask: "Do you already have a GitHub repository for your plugins?"
    If yes, find its folder on their computer the same way, run `setup` on it, and play back what it
-   holds. If setup says the repository lists a plugin this skill doesn't manage (for example, one at
-   the top of the repository), nothing was changed: say so plainly, and recommend a new, empty plugin
-   repository so their existing one keeps working as it is. If no, or for a new one, **create it next
+   holds. If setup says nothing was changed because the repository lists a plugin this skill doesn't
+   manage, or its marketplace file isn't one this skill wrote, say so plainly and recommend a new,
+   empty plugin repository, so their existing one keeps working as it is. If no, or for a new one, **create it next
    to the source repository, never inside it.** Recommend: "I
    recommend I create it for you on GitHub as **private**: these skills are your company's work, and
    private means only people you add can install them." Ask what their company or team is called if
@@ -131,7 +131,15 @@ again. Never offer to record anything while it's there.
 
 Otherwise act on what it reports, one item at a time:
 
+- **UNPUSHED:** a release was saved on this computer but never reached GitHub (an earlier send
+  failed). Send it now with `git -C <plugin folder> push` (or `push -u origin HEAD` with no
+  upstream), then run `check` again. If it fails again, say what went wrong in plain words and stop.
 - **RENAME, EMPTY, UNDECIDED:** back to Phase 2 for those items. Nothing undecided is shared.
+- **ONLY IN PLUGIN:** these are already in a plugin but not in the release plan, so publishing would
+  remove them. If one is still in the source repository, add it to the plan with `assign`. If it
+  isn't, say: "[name] is in your [plugin] plugin but no longer in your source repository, so this
+  release removes it, and anyone who uses it will notice." Carry on only with their OK; that makes
+  the plugin's next release a major one.
 - **MISSING:** the release plan lists something that's no longer in the source repository. Say so,
   and remove it from the plan with `unassign`. If it was in a plugin, that plugin's next release is a
   major one.
@@ -144,8 +152,10 @@ Otherwise act on what it reports, one item at a time:
 - **The plugin repository has changes made by hand.** Name each file and say what you recommend:
   "Someone changed README.md in your plugin repository directly. Your plugin repository should only
   change through publishing. I recommend I undo that change; if it's something you want to keep,
-  tell me and we'll make it part of this release." To undo, run
-  `git -C <plugin> checkout -- <file>`. Never release on top of an unexplained change.
+  tell me and we'll make it part of this release." To undo a changed file, run
+  `git -C <plugin> checkout -- <file>`. A new file (marked `??`) can't be undone that way: with
+  their OK, move it out of the plugin repository to a folder next to it. Never release on top of an
+  unexplained change.
 - **The source repository isn't a Git repository.** Say: "Your source repository needs to be on
   GitHub so every release can say exactly what it came from." Stop, and help them set it up first.
 
@@ -183,12 +193,14 @@ On their yes:
 2. **Validate** where the `claude` command is installed (`claude --version` works): run
    `claude plugin validate <plugin folder>` and `claude plugin validate <plugin folder>/plugins/<name>`
    for each released plugin. Only a failed validation stops the release (the command exits
-   non-zero, or doesn't end with "Validation passed"): say what failed in plain words, fix it in the
-   source repository (never in the plugin repository), record it, and start again at Phase 3. Say
-   nothing about warnings or about what the public plugin directory would require (such as a
-   LICENSE file).
+   non-zero, or doesn't end with "Validation passed"): say what failed in plain words. If it's in a
+   skill or agent, fix it in the source repository (never in the plugin repository), record it, and
+   start again at Phase 3. If it's in the plugin or marketplace file, stop: say the release can't go
+   out and nothing was sent, and undo this release's changes with
+   `git -C <plugin folder> checkout -- . && git -C <plugin folder> clean -fd`. Say nothing about
+   warnings or about what the public plugin directory would require (such as a LICENSE file).
 3. Run `git -C <plugin folder> status --short` and check every file is under `plugins/` or
-   `.claude-plugin/`, or is `.gitignore`, `README.md` or `release-plan.txt`. Ask before including
+   `.claude-plugin/`, or is `.gitignore`, `.gitattributes`, `README.md` or `release-plan.txt`. Ask before including
    anything else.
 4. Record the release in one commit: `git -C <plugin folder> add -A`, then commit with the subject
    `Release <plugin> vX.Y.Z[, <plugin> vX.Y.Z] from <source folder name>@<source commit>` (plugins in
