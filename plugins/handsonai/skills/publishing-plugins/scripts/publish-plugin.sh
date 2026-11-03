@@ -398,7 +398,18 @@ do_list() {
   local p any=0
   note "source repository: $SOURCE"
   note "plugins:"
-  for p in $(plugin_names); do note "  $p $(json_field "$(plugin_json "$p")" version)"; any=1; done
+  local pending=""
+  if git -C "$REPO" rev-parse --verify HEAD >/dev/null 2>&1 && git -C "$REPO" remote get-url origin >/dev/null 2>&1; then
+    if git -C "$REPO" rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+      [ "$(git -C "$REPO" rev-list --count '@{u}..HEAD' 2>/dev/null)" = "0" ] || pending=" (not yet on GitHub)"
+    else
+      pending=" (not yet on GitHub)"
+    fi
+  fi
+  for p in $(plugin_names); do
+    if [ -n "$(released_version "$p")" ]; then note "  $p $(released_version "$p")$pending"; else note "  $p not released yet"; fi
+    any=1
+  done
   [ "$any" = "1" ] || note "  (none yet)"
   note "release plan:"
   plan_lines | sed 's/^/  /'

@@ -45,7 +45,8 @@ mentioned) as its `source=`, this is a release:
    (`git -C <plugin folder> ls-remote --heads origin` prints something), run
    `git -C <plugin folder> pull --ff-only` so you start from the latest release. If that fails,
    show what Git said and stop.
-2. Run `list` and say in one line what you found: "Your source repository is my-ai-work; your plugin
+2. Run `list` and say in one line what you found (if it marks a version "not yet on GitHub", say
+   that too): "Your source repository is my-ai-work; your plugin
    repository acme-plugins holds sales-team-skills (version 1.0.2)."
 3. If the user asked to add a plugin or move a skill, do Phase 2 for that. Then go to Phase 3.
 
@@ -134,8 +135,11 @@ record anything until it's resolved, and never move a skill's `SKILL.md`.
   skill; keys belong in your connectors or settings, not in a shared skill." With their OK, remove it.
   If it's a made-up example, say "Line [n] of [file] has an example key that looks real enough to stop
   the release. I'll shorten it to [a shortened form, such as xoxb-…]." With their OK, edit it.
-- Then record the change in the source repository, and run `check` again. If a real key was ever
-  sent to GitHub, add: "Change that key where you got it, because it's been shared."
+- Then record the change in the source repository, and run `check` again. To tell whether a real
+  key was ever shared, check the file's history in the source repository
+  (`git -C <source> log --oneline -- <file>`): if it was recorded before and the source repository
+  sends to GitHub, assume it was shared and add: "Change that key where you got it, because it's
+  been shared."
 
 Otherwise act on what it reports, one item at a time:
 
@@ -143,13 +147,17 @@ Otherwise act on what it reports, one item at a time:
   failed). Send it now with `git -C <plugin folder> push` (or `push -u origin HEAD` with no
   upstream), then run `check` again. If it fails again, say what went wrong in plain words and stop.
 - **RENAME, EMPTY, UNDECIDED:** back to Phase 2 for those items. Nothing undecided is shared.
-- **MISSING** and **ONLY IN PLUGIN** are the same question: something is in a plugin (or its plan)
-  but not in the source repository, so this release would remove it. If it's still in the source
-  under another name, add that to the plan with `assign`. Otherwise ask once: "[name] is in your
-  [plugin] plugin but no longer in your source repository, so this release removes it, and anyone
-  who uses it will notice. Remove it?" With their OK, `unassign` any MISSING line. When the only
-  things `check` still reports are removals they approved, go on to Phase 4. The plugin's release is
-  a major one.
+- **MISSING** and **ONLY IN PLUGIN** mean this release would remove something from a plugin.
+  - **They just asked to stop sharing it** (Phase 2): that's their approval. Don't ask again.
+  - **It's no longer in the source repository** (deleted or renamed): if it's there under another
+    name, add that to the plan with `assign`. Otherwise ask once: "[name] is in your [plugin] plugin
+    but no longer in your source repository, so this release removes it, and anyone who uses it
+    will notice. Remove it?" With their OK, `unassign` any MISSING line.
+  - **It's in the plugin but was never in the release plan** (the plugin was started some other
+    way): if it's in the source, ask whether it should stay in the plugin and `assign` it if so;
+    if not, ask as above.
+  When the only things `check` still reports are removals they approved, go on to Phase 4. The
+  plugin's release is a major one.
 - **The source has changes not yet saved in its history.** Leaders often answer "I did save" here;
   they mean the file. Say: "Your changes to [skill] are on your computer but not yet recorded as a
   version in your source repository. Only recorded versions are shared, so your team gets exactly

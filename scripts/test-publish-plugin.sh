@@ -256,6 +256,7 @@ g "$R2/plugins" rm -rq plugins/team/skills/old-skill; g "$R2/plugins" commit -m 
 git init -q --bare "$R2/gh.git"; g "$R2/plugins" remote add origin "$R2/gh.git"; g "$R2/plugins" push -u origin HEAD
 printf 'x\n' >> "$R2/plugins/README.md"; g "$R2/plugins" commit -am local-only
 expect_contains "$(run check --plugin-repo "$R2/plugins")" "UNPUSHED" "an unsent release is reported"
+expect_contains "$(run list --plugin-repo "$R2/plugins")" "not yet on GitHub" "list marks an unsent release"
 g "$R2/plugins" push
 # leftovers from an interrupted run are cleaned, not shipped
 touch "$R2/plugins/.claude-plugin/marketplace.json.tmp.12345"
