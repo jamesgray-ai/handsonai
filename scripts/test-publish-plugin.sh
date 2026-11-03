@@ -207,6 +207,17 @@ S2="$TMP/flat"; P2="$TMP/flat-plugins"; mkdir -p "$S2/skills/a" "$S2/agents" "$P
 printf -- '---\nname: a\n---\n' > "$S2/skills/a/SKILL.md"; git init -q "$P2"
 expect_contains "$(run setup --plugin-repo "$P2" --source "$S2")" "skills=skills agents=agents" "flat layout detected"
 
+# --- an existing plugin repository with a plugin this skill doesn't manage is never rewritten ---
+EX="$TMP/existing-root"; mkdir -p "$EX/.claude-plugin"; git init -q "$EX"
+printf '{\n  "name": "team-skills",\n  "version": "0.1.0"\n}\n' > "$EX/.claude-plugin/plugin.json"
+printf '{\n  "name": "team",\n  "owner": {"name": "Pat"},\n  "plugins": [{"name": "team-skills", "source": "./"}]\n}\n' > "$EX/.claude-plugin/marketplace.json"
+cp "$EX/.claude-plugin/marketplace.json" "$TMP/ex-before.json"
+expect_contains "$(run setup --plugin-repo "$EX" --source "$SRC")" "doesn't manage" "root-level plugin refused"
+cmp -s "$EX/.claude-plugin/marketplace.json" "$TMP/ex-before.json" && ok || bad "existing marketplace was changed"
+EX2="$TMP/existing-remote"; mkdir -p "$EX2/.claude-plugin"; git init -q "$EX2"
+printf '{\n  "name": "team",\n  "owner": {"name": "Pat"},\n  "plugins": [\n    {"name": "x", "source": {"source": "github", "repo": "a/b"}}\n  ]\n}\n' > "$EX2/.claude-plugin/marketplace.json"
+expect_contains "$(run setup --plugin-repo "$EX2" --source "$SRC")" "doesn't manage" "remote-source plugin refused"
+
 # --- Claude's own validator accepts what the script writes (when Claude Code is installed) ---
 if command -v claude >/dev/null 2>&1; then
   out="$(claude plugin validate "$PLG" 2>&1)"; expect_contains "$out" "Validation passed" "marketplace validates"

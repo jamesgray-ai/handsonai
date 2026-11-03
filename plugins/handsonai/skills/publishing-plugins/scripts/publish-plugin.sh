@@ -116,6 +116,18 @@ regen_marketplace() {
   [ "$(head -n 1 "$MARKET_JSON" | tr -d '[:space:]')" = "{" ] \
     && ! head -n 1 "$MARKET_JSON" | grep -q '"plugins"' \
     || die "$MARKET_JSON isn't in the layout this skill writes; edit it by hand or start from an empty plugin repository"
+  # Never drop a plugin this skill doesn't manage: every plugin already listed must live in
+  # ./plugins/<name>/ with a plugin.json there. A plugin at the top of the repository ("./"),
+  # or one fetched from elsewhere, belongs to another setup: stop rather than rewrite the file.
+  local src foreign=""
+  for src in $(grep -Eo '"source"[[:space:]]*:[[:space:]]*"[^"]*"' "$MARKET_JSON" | sed -E 's/.*"([^"]*)"$/\1/'); do
+    case "$src" in
+      ./plugins/*) [ -f "$REPO/${src#./}/.claude-plugin/plugin.json" ] || foreign="$foreign $src" ;;
+      *) foreign="$foreign $src" ;;
+    esac
+  done
+  if grep -Eq '"source"[[:space:]]*:[[:space:]]*\{' "$MARKET_JSON"; then foreign="$foreign (a plugin from another location)"; fi
+  [ -z "$foreign" ] || die "this plugin repository already lists a plugin this skill doesn't manage:$foreign. Nothing was changed. Use a new, empty plugin repository instead."
   local tmp="$MARKET_JSON.tmp.$$" p pj first=1
   awk '/"plugins"/ { exit } { print }' "$MARKET_JSON" > "$tmp"
   printf '  "plugins": [' >> "$tmp"

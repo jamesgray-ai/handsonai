@@ -65,7 +65,12 @@ calls a repository like this a marketplace."
    agent (research-helper). Is that the right one?" Treat a vague yes ("it's my AI folder") as yes
    once you've named its skills back to them. If you can't find it, ask: "What's the name of
    the folder where you keep your skills? You can also drag it into this chat." Never ask for a path.
-2. **Create the plugin repository, next to the source repository, never inside it.** Recommend: "I
+2. **The plugin repository.** First ask: "Do you already have a GitHub repository for your plugins?"
+   If yes, find its folder on their computer the same way, run `setup` on it, and play back what it
+   holds. If setup says the repository lists a plugin this skill doesn't manage (for example, one at
+   the top of the repository), nothing was changed: say so plainly, and recommend a new, empty plugin
+   repository so their existing one keeps working as it is. If no, or for a new one, **create it next
+   to the source repository, never inside it.** Recommend: "I
    recommend I create it for you on GitHub as **private**: these skills are your company's work, and
    private means only people you add can install them." Ask what their company or team is called if
    you don't know, and suggest that name with `-plugins` on the end (`acme-plugins`). Keep it clearly
