@@ -63,14 +63,15 @@ For turning ideas into shippable feature specs before you write code.
 | `writing-vision-briefs` skill | Capture a fuzzy idea as a structured Vision Brief before writing a PRD |
 | `writing-feature-prds` skill | Create a PRD with user stories, acceptance criteria, and a GitHub issue |
 
-#### Building Skills — 2 skills
+#### Building Skills — 3 skills
 
-For building any Agent Skill well, on any platform, alongside your platform's own skill creator, and for keeping the skills you have current.
+For building any Agent Skill well, on any platform, alongside your platform's own skill creator, for keeping the skills you have current, and for publishing them to your team.
 
 | Component | What it does |
 |---|---|
 | [`applying-skill-best-practices`](handsonai/#applying-skill-best-practices) skill | Best-practice standards for building Agent Skills: reuse, scope, descriptions, content, settings, and test cases from your real examples |
 | [`auditing-agent-skills`](handsonai/#auditing-agent-skills) skill | Audits your existing skills for retired models, broken references, stale facts, overlaps, missing test cases and registry gaps, with a proposed fix for each; changes nothing without approval |
+| [`publishing-plugins`](handsonai/#publishing-plugins) skill | Publishes your skills and agents from your source repository to one or more plugins your teams install in Claude; you decide what goes into each, and every release gets a version number |
 
 ---
 
