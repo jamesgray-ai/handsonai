@@ -40,13 +40,13 @@ can be sent to GitHub, so stop and help the user install it.
 
 1. **Check.** Every skill (a folder under the skills folder holding `SKILL.md`) and every agent (a
    `.md` file at the top of the agents folder) has a line in `release-plan.txt`; ask about any that
-   don't. In the plugin repository, `git status --porcelain` must be empty; in the source repository,
-   no unsaved changes under the skills or agents folders. Look for files named `.env`, `*.pem`,
+   don't. In the plugin repository, `git status --porcelain` must show nothing except `release-plan.txt`, `.gitignore`, `.gitattributes`, and files under `.claude-plugin/` or `plugins/`; in the source repository,
+   no unsaved changes under the skills or agents folders. Look for files named `.env`, `credentials.json`, `token.json`, `*.pem`,
    `*.key`, `id_rsa*`, or with "secret" or "credentials" in the name, in anything a plugin would
    release: if any exist, stop.
 2. **Copy.** For each plugin, delete its `skills/` and `agents/`, then copy in exactly the skills and
    agents its lines in the release plan name. Remove any `.DS_Store`, `Thumbs.db`, `desktop.ini`,
-   `node_modules`, `__pycache__`, `evals`, `*-workspace` or `iteration-*` that came along.
+   `node_modules` or `__pycache__` that came along inside a skill. Never remove a skill's own files.
 3. **See what changed.** `git status --porcelain --untracked-files=all` in the plugin repository,
    grouped by plugin, then by skill folder or agent file. A skill or agent is *added* if it isn't in
    the last release (`git ls-tree HEAD <path>` prints nothing), *removed* if it's in the last release
