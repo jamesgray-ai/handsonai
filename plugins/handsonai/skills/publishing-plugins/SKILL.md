@@ -53,8 +53,11 @@ Ask one at a time, saying what you already know before each:
 Then run `setup --source <source> --name <name>`. It records the owner from the name Git already
 uses on this computer; add `--owner "<name>"` only if that's empty or wrong (add `--skills-dir` or
 `--agents-dir` if the folders are named differently). It writes the settings file (kept out of
-GitHub, since it holds a path on this computer), the `.gitignore`, and the plugin's two descriptor
-files. Continue to Phase 2: the first release is version 1.0.0.
+GitHub, since it holds a path on this computer), the `.gitignore`, a README that tells teammates how
+to install the plugin, and the plugin's two descriptor files. If the plugin repository already holds
+a plugin under `plugins/<name>/` (made with Plugin Dev or Claude's plugin creator, for example),
+setup keeps its descriptor file and adds what's missing; a plugin still at version 0.x counts as
+never released. Continue to Phase 2: the first release is version 1.0.0.
 
 #### Phase 2 — Check both repositories are ready
 
@@ -110,14 +113,20 @@ On their yes:
 
 1. Run `bump <first|major|minor|patch|X.Y.Z>`. It sets the number in both descriptor files and
    checks they match.
-2. Run `git -C <plugin folder> status --short` and check every file listed is under `plugins/` or
-   `.claude-plugin/`, or is `.gitignore`. Anything else wasn't put there by this release: ask before
+2. **Validate** where the Claude Code command is installed (`claude --version` works): run
+   `claude plugin validate <plugin folder>` and `claude plugin validate <plugin folder>/plugins/<name>`.
+   It checks both descriptor files and every skill and agent. If either reports an error, show it,
+   fix it in the source (never in the plugin folder), save it, and start again at Phase 2. Warnings
+   don't stop a release; mention them in one line. Where the command isn't installed, skip this:
+   installing in Claude at Phase 5 is the check.
+3. Run `git -C <plugin folder> status --short` and check every file listed is under `plugins/` or
+   `.claude-plugin/`, or is `.gitignore` or `README.md`. Anything else wasn't put there by this release: ask before
    including it.
-3. Save the release in one commit:
+4. Save the release in one commit:
    `git -C <plugin folder> add -A`, then commit with the subject
    `Release vX.Y.Z from <source folder name>@<source commit>` and a body of up to three lines,
    `Added: …`, `Updated: …`, `Removed: …`, each listing names (leave out a line with nothing on it).
-4. Push it: `git -C <plugin folder> push`. If the folder has no upstream yet
+5. Push it: `git -C <plugin folder> push`. If the folder has no upstream yet
    (`git -C <plugin folder> rev-parse --abbrev-ref @{u}` fails), use `git -C <plugin folder> push -u origin HEAD`.
    Push last, after everything else: Claude decides an update is ready from what it finds on GitHub,
    so it must only ever find a finished release. If the push fails, show what Git said and stop;
@@ -133,7 +142,7 @@ in your source, save it, and say 'publish my plugin'."
 ## Output
 
 - In the plugin repository: `plugins/<name>/skills/`, `plugins/<name>/agents/`,
-  `plugins/<name>/.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, and one commit per
+  `plugins/<name>/.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `README.md`, and one commit per
   release, pushed to GitHub.
 - A `.publish-plugin` settings file in the plugin folder, kept out of GitHub.
 - The source is never changed, except to save (commit) the user's own changes when they agree.

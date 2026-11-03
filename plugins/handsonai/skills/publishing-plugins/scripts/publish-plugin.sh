@@ -151,6 +151,7 @@ EOF
     cat > "$mdir/marketplace.json" <<EOF
 {
   "name": "$NAME",
+  "description": "$DESCRIPTION",
   "owner": {
     "name": "$OWNER"
   },
@@ -166,6 +167,28 @@ EOF
 EOF
     note "created .claude-plugin/marketplace.json"
   fi
+  if [ ! -f "$REPO/README.md" ]; then
+    cat > "$REPO/README.md" <<EOF
+# $NAME
+
+$DESCRIPTION
+
+This repository is a Claude plugin marketplace. It holds only released versions of the skills and
+agents in \`plugins/$NAME/\`. They are built and changed in a separate source repository.
+
+## Install
+
+- **Claude (web, desktop app, Cowork):** Customize › Plugins › Add › Add marketplace, enter this
+  repository's GitHub address, then install **$NAME**. For a private repository, connect GitHub
+  and give the Claude GitHub App access to it when asked.
+- **Claude Code:** \`/plugin marketplace add <owner>/<this-repository>\`, then
+  \`/plugin install $NAME@$NAME\`.
+
+Updates arrive when a new version is released. Don't edit files here by hand: changes are made in
+the source repository and published with the \`publishing-plugins\` skill.
+EOF
+    note "created README.md"
+  fi
   note "saved settings: source=$SOURCE plugin=$NAME skills=$SKILLS_DIR agents=$AGENTS_DIR"
 }
 
@@ -176,6 +199,8 @@ do_check() {
     || die "the plugin folder is not a Git repository: $REPO"
   check_manifest "$PLUGIN_JSON" "plugin.json"
   check_manifest "$MARKET_JSON" "marketplace.json"
+  grep -q "\"name\"[[:space:]]*:[[:space:]]*\"$NAME\"" "$PLUGIN_JSON" \
+    || die "plugin.json's name doesn't match the plugin name in the settings ($NAME): $PLUGIN_JSON"
 
   # Secrets first: nothing else matters, and nothing may be offered for saving, until they're gone.
   local secrets; secrets="$(find_secrets "$SOURCE/$SKILLS_DIR" "$SOURCE/$AGENTS_DIR")"
@@ -305,7 +330,7 @@ $units
 EOF
 
   local cur; cur="$(read_version "$PLUGIN_JSON")"
-  if   [ "$cur" = "0.0.0" ]; then note "suggested bump: first"
+  if   [ "${cur%%.*}" = "0" ]; then note "suggested bump: first"   # 0.x = never released
   elif [ "$removed" -gt 0 ];   then note "suggested bump: major"
   elif [ "$added" -gt 0 ];     then note "suggested bump: minor"
   else                              note "suggested bump: patch"

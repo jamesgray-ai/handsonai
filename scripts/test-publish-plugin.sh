@@ -115,6 +115,21 @@ sed 's/"version": "2.0.0"/"version": "9.9.9"/' "$PLG/.claude-plugin/marketplace.
 out="$(run check --plugin-repo "$PLG")"
 expect_contains "$out" "versions differ" "drift flagged"
 
+[ -f "$PLG/README.md" ] && grep -q '/plugin install my-team-skills@my-team-skills' "$PLG/README.md" && ok || bad "README not created"
+grep -q '"description"' "$PLG/.claude-plugin/marketplace.json" && ok || bad "marketplace description missing"
+
+# a plugin someone already scaffolded (Plugin Dev, Claude's plugin creator) at 0.1.0 -> first release
+P2="$TMP/scaffolded"; mkdir -p "$P2/plugins/acme/.claude-plugin"; git init -q "$P2"
+printf '{\n  "name": "acme",\n  "version": "0.1.0"\n}\n' > "$P2/plugins/acme/.claude-plugin/plugin.json"
+run setup --plugin-repo "$P2" --source "$SRC" --name acme >/dev/null
+grep -q '"version": "0.1.0"' "$P2/plugins/acme/.claude-plugin/plugin.json" && ok || bad "setup overwrote existing plugin.json"
+expect_contains "$(run copy --plugin-repo "$P2")" "suggested bump: first" "0.x treated as unreleased"
+
+# plugin.json name that doesn't match the settings -> check refuses
+sed 's/"name": "acme"/"name": "other"/' "$P2/plugins/acme/.claude-plugin/plugin.json" > "$TMP/pj" \
+  && mv "$TMP/pj" "$P2/plugins/acme/.claude-plugin/plugin.json"
+expect_contains "$(run check --plugin-repo "$P2")" "doesn't match the plugin name" "name mismatch caught"
+
 # explicit version
 expect_contains "$(run bump --plugin-repo "$PLG" 3.0.0)" "-> 3.0.0" "explicit version"
 
