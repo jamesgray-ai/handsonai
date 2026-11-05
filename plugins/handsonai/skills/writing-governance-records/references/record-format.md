@@ -1,6 +1,6 @@
 # The Governance Record File
 
-One Markdown file per workflow, `framework/[slug]/governance-record.md`. A later update and the company's policy reviews read it back, so keep this shape exactly.
+One Markdown file per workflow: `framework/[slug]/governance-record.md`, or `governance-records/[slug].md` in the working folder when the workflow has no framework folder. A later update and the company's policy reviews read it back, so keep this shape exactly.
 
 ## Shape
 
@@ -11,7 +11,7 @@ One Markdown file per workflow, `framework/[slug]/governance-record.md`. A later
    - `Status` is exactly `In place`, `Partly` or `Gap`.
    - `Evidence` names where it came from in plain words: "registry entry", "build record", "test results, 2026-11-05", "you said".
    - `Follow-up` is the action that closes the gap, or `—` when the practice is in place.
-4. **`## Follow-up actions`:** a numbered list, one action per line, most important first: every `Follow-up` from the table, plus one per unfinished framework step ("Finish Test: in a new chat, say 'continue my workflow'"). Evaluations and SOP gaps usually come first.
+4. **`## Follow-up actions`:** a numbered list, one action per line: first the one framework follow-up when there's unfinished framework work ("Finish the framework steps: in a new chat, say 'continue my workflow. My files are in [workflow folder].'"), then every `Follow-up` from the table in practice order. Any start phrase in a follow-up carries the location.
 5. **`## Policy`:** only when the working folder has `policies/ai-governance-policy.md`: one line per policy rule this workflow doesn't meet yet, as "[rule ID]: [the rule], [why not yet]", or the line "Meets every rule in the policy." Leave the section out when there's no policy.
 
 ## Sample
@@ -26,7 +26,7 @@ partly: 1
 gaps: 2
 ---
 
-Drafts the weekly client status report from the week's notes for review before it's sent. Live since 2026-08-10.
+Drafts the weekly status report from the week's notes for review before it's sent. Live since 2026-06-08.
 
 ## Practices
 
@@ -36,15 +36,15 @@ Drafts the weekly client status report from the week's notes for review before i
 | 2 | Ownership | In place | registry entry: Client Services | — |
 | 3 | Process | In place | registry entry: Client Reporting | — |
 | 4 | Building blocks | In place | build record | — |
-| 5 | Evaluations | Partly | test results, 2026-08-10, the workflow end to end; no tests of the skill itself | Add tests for the report-drafting skill |
-| 6 | SOP | Gap | no SOP found | Write the SOP: say "write an SOP for weekly status report" |
+| 5 | Evaluations | Partly | test results, 2026-06-08, the workflow end to end; no tests of the skill itself | Add tests for the report-drafting skill |
+| 6 | SOP | Gap | no SOP found | Write the SOP: in a new chat, say "write an SOP for weekly status report. My files are in framework/weekly-status-report." |
 | 7 | Operations | In place | registry entry and build record: Fridays, you start it | — |
 | 8 | Change management | Gap | you said: nobody reviews a change | Name a second person to review changes before release |
 
 ## Follow-up actions
 
-1. Write the SOP: say "write an SOP for weekly status report"
-2. Add tests for the report-drafting skill
+1. Add tests for the report-drafting skill
+2. Write the SOP: in a new chat, say "write an SOP for weekly status report. My files are in framework/weekly-status-report."
 3. Name a second person to review changes before release
 ```
 

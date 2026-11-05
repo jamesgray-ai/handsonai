@@ -5,7 +5,7 @@ description: "The handsonai plugin — the AI Workflow Framework, knowledge-grap
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **17 skills.**
+One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **18 skills.**
 
 These are plain-text Markdown files that work in any AI tool. Install the plugin on Claude, ChatGPT, or Claude Code for the full experience, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other platforms.
 
@@ -92,7 +92,7 @@ Builds your business knowledge graph: a guided build that looks at what is alrea
 
 ## AI Registry
 
-Once you've built workflows worth tracking, you need a registry. These six skills maintain your **AI Registry** — a `registry/` knowledge bundle at your workspace root, plus everything derived from it. The bundle holds typed concept nodes (Business, LineOfBusiness, Function, Process, Workflow, Note) as individual Markdown files, governed by a `registry/SCHEMA.md` producer profile that every skill reads before it writes — required frontmatter, enum values, link discipline, and banned fields all live there, so every skill's writes and every maintenance pass's lint checks agree on the same contract. The bundle is the source of truth; the `REGISTRY.md` dashboard, directory indexes, and GENERATED blocks are all derived from it — edit sources, regenerate, never hand-edit a derived view.
+Once you've built workflows worth tracking, you need a registry. These seven skills maintain your **AI Registry** — a `registry/` knowledge bundle at your workspace root, plus everything derived from it. The bundle holds typed concept nodes (Business, LineOfBusiness, Function, Process, Workflow, Note) as individual Markdown files, governed by a `registry/SCHEMA.md` producer profile that every skill reads before it writes — required frontmatter, enum values, link discipline, and banned fields all live there, so every skill's writes and every maintenance pass's lint checks agree on the same contract. The bundle is the source of truth; the `REGISTRY.md` dashboard, directory indexes, and GENERATED blocks are all derived from it — edit sources, regenerate, never hand-edit a derived view.
 
 :::note[No external tools needed]
 The AI Registry is pure Markdown — it works anywhere Claude can read and write files. No external database or service required. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for the full guide.
@@ -136,7 +136,13 @@ Maintains the AI Registry bundle and its derived views. Lints your bundle agains
 
 Drafts your company's AI governance policy: a short set of rules every AI workflow, skill and agent must meet, each naming the check that confirms it (a weekly look at your registry, a review before each plugin release, the re-check dates Test sets). It reads your AI Registry, your workflows' build records and any governance records first, asks only what they don't answer (such as who owns the policy, what runs without you, what reaches customers, what information AI must never read, who reviews a change), and starts from rules built on the eight governance practices: name and description, ownership, process, building blocks, evaluations, SOP, operations, and change management. A check that isn't in place yet is marked as planned, never shown as working. Run it again each quarter, or after anything goes wrong, and it finds what changed, confirms every check still works, and proposes changes rule by rule for you to approve. It never opens information you name as confidential, and writes nothing in your registry. Say "write our AI governance policy" or "review our AI governance policy".
 
-**Recommended workflow:** Scaffold the bundle → Analyze adds your workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index → Set the rules every workflow follows (governance policy). Each skill works independently if you don't need the full sequence.
+#### `writing-governance-records`
+
+**Slash command:** `/handsonai:writing-governance-records`
+
+Writes the governance record for one workflow: where it stands on each of the eight governance practices (name and description, ownership, process, building blocks, evaluations, SOP, operations, change management), whether each is in place, partly in place or a gap, the evidence for each, and a numbered list of follow-up actions. It reads the workflow's registry entry and the files the AI Workflow Framework produced (requirements, design plan, build record, test results, SOP) first, and asks only what they don't answer, usually who reviews a change and who hears about a failure. A framework step not yet finished becomes a follow-up action, and nothing is marked in place without evidence. Where your company has an AI governance policy, it names the rules the workflow doesn't meet yet. The record is saved beside the workflow's other files (or in a `governance-records/` folder for a workflow built outside the framework); updating it keeps the earlier record in `history/`. It writes nothing in your registry. Say "write the governance record for [workflow]".
+
+**Recommended workflow:** Scaffold the bundle → Analyze adds your workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index → Record where each workflow stands (governance record) → Set the rules every workflow follows (governance policy). Each skill works independently if you don't need the full sequence.
 
 ---
 
