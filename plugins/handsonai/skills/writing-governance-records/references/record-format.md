@@ -10,8 +10,8 @@ One Markdown file per workflow: `framework/[slug]/governance-record.md`, or `gov
    - Eight rows, in order: 1 Name and description, 2 Ownership, 3 Process, 4 Building blocks, 5 Evaluations, 6 SOP, 7 Operations, 8 Change management.
    - `Status` is exactly `In place`, `Partly` or `Gap`.
    - `Evidence` names where it came from in plain words: "registry entry", "build record", "test results, 2026-11-05", "you said".
-   - `Follow-up` is the action that closes the gap, or `—` when the practice is in place.
-4. **`## Follow-up actions`:** a numbered list, one action per line: first the one framework follow-up when there's unfinished framework work ("Finish the framework steps: in a new chat, say 'continue my workflow. My files are in [workflow folder].'"), then every `Follow-up` from the table in practice order. Any start phrase in a follow-up carries the location.
+   - `Follow-up` is the action that closes the gap, or `—` when the practice is in place. Two actions are separated by `; `. A gap the framework follow-up will close says `Finish the framework steps`.
+4. **`## Follow-up actions`:** a numbered list, one action per line: first the one framework follow-up when there's unfinished framework work ("Finish the framework steps: in a new chat, say 'continue my workflow. My files are in [workflow folder].'"), then every other `Follow-up` from the table in practice order, one action per line, each listed once. Any start phrase in a follow-up carries the location.
 5. **`## Policy`:** only when the working folder has `policies/ai-governance-policy.md`: one line per policy rule this workflow doesn't meet yet, as "[rule ID]: [the rule], [why not yet]", or the line "Meets every rule in the policy." Leave the section out when there's no policy.
 
 ## Sample
