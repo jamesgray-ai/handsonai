@@ -5,7 +5,7 @@ description: "The handsonai plugin — the AI Workflow Framework, knowledge-grap
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **15 skills.**
+One plugin, one install, five categories of work. Bundles the **AI Workflow Framework** (methodology), the **Knowledge Graph** skill (modeling the work itself), the **AI Registry** (documentation tooling), **Agentic Coding** (feature-spec writing), and **Building Skills** (best-practice standards for any skill you build) — everything you need to take an AI workflow from idea to documented production system. **17 skills.**
 
 These are plain-text Markdown files that work in any AI tool. Install the plugin on Claude, ChatGPT, or Claude Code for the full experience, or download individual skills as ZIPs for Gemini, M365 Copilot, Cursor, and other platforms.
 
@@ -92,7 +92,7 @@ Builds your business knowledge graph: a guided build that looks at what is alrea
 
 ## AI Registry
 
-Once you've built workflows worth tracking, you need a registry. These five skills maintain your **AI Registry** — a `registry/` knowledge bundle at your workspace root, plus everything derived from it. The bundle holds typed concept nodes (Business, LineOfBusiness, Function, Process, Workflow, Note) as individual Markdown files, governed by a `registry/SCHEMA.md` producer profile that every skill reads before it writes — required frontmatter, enum values, link discipline, and banned fields all live there, so every skill's writes and every maintenance pass's lint checks agree on the same contract. The bundle is the source of truth; the `REGISTRY.md` dashboard, directory indexes, and GENERATED blocks are all derived from it — edit sources, regenerate, never hand-edit a derived view.
+Once you've built workflows worth tracking, you need a registry. These six skills maintain your **AI Registry** — a `registry/` knowledge bundle at your workspace root, plus everything derived from it. The bundle holds typed concept nodes (Business, LineOfBusiness, Function, Process, Workflow, Note) as individual Markdown files, governed by a `registry/SCHEMA.md` producer profile that every skill reads before it writes — required frontmatter, enum values, link discipline, and banned fields all live there, so every skill's writes and every maintenance pass's lint checks agree on the same contract. The bundle is the source of truth; the `REGISTRY.md` dashboard, directory indexes, and GENERATED blocks are all derived from it — edit sources, regenerate, never hand-edit a derived view.
 
 :::note[No external tools needed]
 The AI Registry is pure Markdown — it works anywhere Claude can read and write files. No external database or service required. See [AI Registry Setup](../../../builder-setup/ai-registry-setup/) for the full guide.
@@ -130,7 +130,13 @@ Writes Business Process Guide documentation that explains the strategic context 
 
 Maintains the AI Registry bundle and its derived views. Lints your bundle against its SCHEMA, refreshes indexes and GENERATED views, and regenerates your REGISTRY.md and visual dashboard. Runs five jobs in a full pass: lint the bundle, refresh typed-directory indexes, regenerate GENERATED blocks (a Workflow's Insights, a Function's Owns list), regenerate the `REGISTRY.md` index (and the visual dashboard `registry-dashboard.html`, always generated when you set up the registry and refreshed on every pass after that), and append `log.md` for schema changes. The framework skills trigger it automatically at their closing steps; run it standalone to pick up assets created outside the framework or to repair a stale index.
 
-**Recommended workflow:** Scaffold the bundle → Analyze adds your workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index. Each skill works independently if you don't need the full sequence.
+#### `writing-ai-governance-policies`
+
+**Slash command:** `/handsonai:writing-ai-governance-policies`
+
+Drafts your company's AI governance policy: a short set of rules every AI workflow, skill and agent must meet, each naming the check that confirms it (a weekly look at your registry, a review before each plugin release, the re-check dates Test sets). It reads your AI Registry, your workflows' build records and any governance records first, asks only what they don't answer (such as who owns the policy, what runs without you, what reaches customers, what information AI must never read, who reviews a change), and starts from rules built on the eight governance practices: name and description, ownership, process, building blocks, evaluations, SOP, operations, and change management. A check that isn't in place yet is marked as planned, never shown as working. Run it again each quarter, or after anything goes wrong, and it finds what changed, confirms every check still works, and proposes changes rule by rule for you to approve. It never opens information you name as confidential, and writes nothing in your registry. Say "write our AI governance policy" or "review our AI governance policy".
+
+**Recommended workflow:** Scaffold the bundle → Analyze adds your workflows → Document procedure (SOP) → Connect workflows (Process Guide) → Refresh the index → Set the rules every workflow follows (governance policy). Each skill works independently if you don't need the full sequence.
 
 ---
 

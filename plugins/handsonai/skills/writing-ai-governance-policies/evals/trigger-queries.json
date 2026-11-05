@@ -1,0 +1,46 @@
+[
+  {
+    "query": "write our AI governance policy",
+    "should_trigger": true
+  },
+  {
+    "query": "we need rules for how our team uses AI agents — what should every workflow have to meet?",
+    "should_trigger": true
+  },
+  {
+    "query": "it's been three months, can you review our AI policy and tell me what needs changing",
+    "should_trigger": true
+  },
+  {
+    "query": "one of our AI workflows emailed a client the wrong file. update the AI governance policy so it doesn't happen again",
+    "should_trigger": true
+  },
+  {
+    "query": "draft an acceptable use policy for staff using ChatGPT, with rules we can actually check",
+    "should_trigger": false
+  },
+  {
+    "query": "write the governance record for my weekly status report workflow",
+    "should_trigger": false
+  },
+  {
+    "query": "set up my AI registry",
+    "should_trigger": false
+  },
+  {
+    "query": "write an SOP for my invoice approval workflow",
+    "should_trigger": false
+  },
+  {
+    "query": "summarize the EU AI Act for my board in one page",
+    "should_trigger": false
+  },
+  {
+    "query": "review my expense policy and tighten the travel rules",
+    "should_trigger": false
+  },
+  {
+    "query": "check whether our skills have drifted from what the registry says",
+    "should_trigger": false
+  }
+]

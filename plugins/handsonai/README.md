@@ -50,6 +50,7 @@ No plugin support on your platform (Claude Free, ChatGPT Free/Go, Gemini, Cursor
 | `writing-workflow-sops` | Author standard operating procedures for AI-assisted workflows |
 | `writing-process-guides` | Document multi-step processes for repeatable execution |
 | `indexing-registry` | Lint your registry bundle and regenerate REGISTRY.md and its visual dashboard — the derived views of your skills, agents, workflows, and apps |
+| `writing-ai-governance-policies` | Drafts and reviews your company's AI governance policy: a short set of rules every AI workflow, skill and agent must meet, each with a named check, built on the eight governance practices (name, owner, process, building blocks, tests, SOP, operations, change management) |
 
 ### Skills — Agentic Coding
 

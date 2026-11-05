@@ -317,4 +317,5 @@ If a button or label on your screen doesn't match these steps, paste the step yo
 
 - **Find your first workflows** — the interview ends by offering to run [Analyze](../../ai-workflow-framework/analyze/) right away; it walks the processes you just captured asking where the friction is, and adds your candidates to the registry
 - **Document workflows** — Ask your assistant to write SOPs (`writing-workflow-sops`) and process guides (`writing-process-guides`)
+- **Set the rules every workflow follows** — Say *"write our AI governance policy"* (`writing-ai-governance-policies`): it reads your registry and drafts a short set of rules, each with a check
 - **Explore the plugin** — See the [Hands-on AI plugin page](../../use-the-playbook/build/handsonai/) for all registry-related skills

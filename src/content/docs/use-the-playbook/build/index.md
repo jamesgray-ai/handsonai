@@ -42,7 +42,7 @@ For modeling the work itself — clients, offerings, processes, people, tools, p
 |---|---|
 | [`building-knowledge-graph`](handsonai/#building-knowledge-graph) skill | Build your `knowledge/` knowledge graph — a guided interview finds the types and relationships of your work, then writes the schema, seeded pages, standing rules, and local `ingest` and `lint` skills |
 
-#### AI Registry — 5 skills
+#### AI Registry — 6 skills
 
 For documenting and operating an AI workflow registry once you've built workflows worth tracking.
 
@@ -53,6 +53,7 @@ For documenting and operating an AI workflow registry once you've built workflow
 | [`writing-workflow-sops`](handsonai/#writing-workflow-sops) skill | Author standard operating procedures for AI-assisted workflows |
 | [`writing-process-guides`](handsonai/#writing-process-guides) skill | Document multi-step processes for repeatable execution |
 | [`indexing-registry`](handsonai/#indexing-registry) skill | Lint your registry bundle and regenerate REGISTRY.md and its visual dashboard — the derived views of your skills, agents, workflows, and apps |
+| [`writing-ai-governance-policies`](handsonai/#writing-ai-governance-policies) skill | Drafts and reviews your company's AI governance policy: a short set of rules every AI workflow, skill and agent must meet, each with a named check, built on the eight governance practices (name, owner, process, building blocks, tests, SOP, operations, change management) |
 
 #### Agentic Coding — 2 skills
 
