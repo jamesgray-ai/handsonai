@@ -26,8 +26,8 @@ Reword each rule in the company's own terms. The starter check is used only when
 | Work that runs without a person (on a schedule, or when something arrives) | Every workflow that runs without a person runs only reviewed instructions, and its schedule or what starts it is recorded in its registry entry. | Weekly registry look: scheduled and triggered workflows |
 | Anything sent to customers, or a change to a system other people use | Anything a workflow sends to a customer, or changes in a shared system, waits for a person's approval unless the owner has approved otherwise in writing. | Test results: the approval step was checked; Release review |
 | Named confidential information | No AI workflow reads [the named categories]. | Access review: no build record lists access to them |
-| Confidential information, but none named yet | No AI workflow reads information the policy owner names as confidential. | Quarterly policy review: name the categories, from the first quarterly review |
-| Outside AI tools or vendors that hold company information | Every outside AI tool that holds company information is approved by the policy owner before use. | Quarterly policy review: the list of outside AI tools |
+| Confidential information, but none named yet | No AI workflow reads information the policy owner names as confidential. | Quarterly policy review: the owner names the categories, from the first quarterly review |
+| Outside AI tools or vendors that hold company information | Every outside AI tool that holds company information is approved by the policy owner before use. | Quarterly policy review: the list of outside AI tools, from the first quarterly review when none are named yet |
 | Live workflows with no `test-results.md`, or skills and agents with no tests of their own | Every live skill and agent has its own tests, updated whenever it changes. | Release review: tests updated with the change, from the next release that adds them |
 
 ## Notes for drafting

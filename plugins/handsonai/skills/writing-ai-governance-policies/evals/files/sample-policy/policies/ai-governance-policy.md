@@ -1,12 +1,12 @@
 ---
 title: AI Governance Policy
 owner: Managing director
-last_reviewed: 2026-11-05
+last_reviewed: 2026-08-05
 ---
 
 # AI Governance Policy
 
-This policy sets the rules every AI workflow, skill and agent the company runs must meet, and names the check that confirms each one. It covers all of them, whether they run with a person or on their own. The managing director owns it, approves every change to its rules, and reviews it each quarter and after any incident. It maps to the NIST AI Risk Management Framework: G1 to Govern 1.6 (an inventory of AI systems) G3 to Manage 4.1 (monitoring after deployment), and G10 to Govern 1.5 (periodic review of the risk process).
+This policy sets the rules every AI workflow, skill and agent the company runs must meet, and names the check that confirms each one. It covers all of them, whether they run with a person or on their own. The managing director owns it, approves every change to its rules, and reviews it each quarter and after any incident. It maps to the NIST AI Risk Management Framework: G1 to Govern 1.6 (an inventory of AI systems), G3 to Manage 4.1 (monitoring after deployment), and G10 to Govern 1.5 (periodic review of the risk process).
 
 ## Rules
 
@@ -22,7 +22,7 @@ This policy sets the rules every AI workflow, skill and agent the company runs m
 | G8 | No AI workflow reads client contracts or staff salaries. | Access review: no build record lists access to them, from the managing director's first monthly access review | 2026-08-05 |
 | G9 | Every live skill and agent has its own tests, updated whenever it changes. | Change review: tests updated with the change, from the first change review that adds them | 2026-08-05 |
 | G10 | This policy is reviewed each quarter and after any incident. | Quarterly policy review | 2026-08-05 |
-| G11 | Every workflow that runs without a person runs only reviewed instructions, and its schedule or what starts it is recorded in its registry entry. | Weekly registry look: workflows that run on a schedule or when something arrives, from the managing director's first Monday look | 2026-11-05 |
+| G11 | Every workflow that runs without a person runs only reviewed instructions, and its schedule or what starts it is recorded in its registry entry. | Weekly registry look: workflows that run on a schedule or when something arrives, from the managing director's first Monday look | 2026-08-05 |
 
 ## Checks
 

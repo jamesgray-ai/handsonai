@@ -10,7 +10,7 @@ Write the policy as one Markdown file. Review mode reads it back, so keep this s
    - `ID` is `G` and a number (`G1`, `G2`, …), unique and ascending, never reused once a rule is retired.
    - `Rule` is one plain sentence.
    - `Checked by` is one or more items separated by `; `. Each item starts with the name of a check from `## Checks`, optionally followed by `: ` and a short qualifier. A qualifier never contains `;`.
-   - **Planned checks.** A check that isn't in place yet keeps its name and ends its qualifier with `, from` and what will deliver it, for example `Weekly registry look: not started yet, from the policy owner's first review`. In Review mode, treat a planned check as not real until it ships, then remove the marker.
+   - **Planned checks.** `(planned)` at the end of a check's `Where it runs` (below) means the check doesn't run at all yet. A `, from` at the end of one `Checked by` item, under a check that does run, marks only that rule's use of it as planned. A check that isn't in place yet keeps its name and ends its qualifier with `, from` and what will deliver it, for example `Weekly registry look: not started yet, from the policy owner's first review`. In Review mode, treat a planned check as not real until it ships, then remove the marker.
    - `Since` is `YYYY-MM-DD`.
 4. **`## Checks`:** one table with the header exactly `| Check | Where it runs | Covers |`.
    - `Check` is a plain name, with no link and no formatting.
