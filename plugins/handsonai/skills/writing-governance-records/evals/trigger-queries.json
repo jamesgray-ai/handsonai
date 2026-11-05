@@ -1,0 +1,42 @@
+[
+  {
+    "query": "write the governance record for my weekly status report workflow",
+    "should_trigger": true
+  },
+  {
+    "query": "where does my client onboarding workflow stand on the eight governance practices?",
+    "should_trigger": true
+  },
+  {
+    "query": "assess my proposal drafting workflow against the governance practices and list what's missing",
+    "should_trigger": true
+  },
+  {
+    "query": "update the governance record for invoice reminders, I added an SOP",
+    "should_trigger": true
+  },
+  {
+    "query": "write our AI governance policy",
+    "should_trigger": false
+  },
+  {
+    "query": "write an SOP for my weekly status report workflow",
+    "should_trigger": false
+  },
+  {
+    "query": "test the workflow I built",
+    "should_trigger": false
+  },
+  {
+    "query": "set up my registry",
+    "should_trigger": false
+  },
+  {
+    "query": "what does GDPR require for our customer records?",
+    "should_trigger": false
+  },
+  {
+    "query": "check all my workflows against our governance policy",
+    "should_trigger": false
+  }
+]
