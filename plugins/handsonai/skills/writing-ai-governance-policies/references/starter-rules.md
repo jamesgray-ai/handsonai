@@ -28,7 +28,7 @@ Reword each rule in the company's own terms. The starter check is used only when
 | Named confidential information | No AI workflow reads [the named categories]. | Access review: no build record lists access to them |
 | Confidential information, but none named yet | No AI workflow reads information the policy owner names as confidential. | Quarterly policy review: the owner names the categories, from the first quarterly review |
 | Outside AI tools or vendors that hold company information | Every outside AI tool that holds company information is approved by the policy owner before use. | Quarterly policy review: the list of outside AI tools, from the first quarterly review when none are named yet |
-| Live workflows with no `test-results.md`, or skills and agents with no tests of their own | Every live skill and agent has its own tests, updated whenever it changes. | Release review: tests updated with the change, from the next release that adds them |
+| Live workflows with no `test-results.md` | Every live skill and agent has its own tests, updated whenever it changes. | Release review: tests updated with the change, from the next release that adds them |
 
 ## Notes for drafting
 
