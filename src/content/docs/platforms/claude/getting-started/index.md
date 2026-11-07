@@ -3,8 +3,11 @@ title: Getting Started with Claude
 description: Set up your Claude account, install all apps, configure personalization and memory, and connect MCP servers — plus optional developer platform access
 ---Complete setup checklist for Anthropic's Claude platform. Work through each section in order — later steps build on earlier ones.
 
-**Time:** ~30 minutes for Part 1, ~5 minutes for Part 2
 **Requires:** Nothing — this is where you start.
+
+:::note[In a Hands-on AI course?]
+Before Session 1 you only need the [Tools Setup Checklist](/courses/tools-setup-checklist/): the desktop app, your settings, and the Hands-on AI Skills. The rest of this guide is optional, and personalization and memory are covered in Session 2.
+:::
 
 ---
 
@@ -25,7 +28,7 @@ Sign up and choose a subscription that gives you the full feature set.
 
 ### 2. Install the Claude desktop app
 
-The desktop app gives you quick access to Claude outside the browser, plus support for local MCP servers and file system access.
+The desktop app is the best way to use Claude. Besides Chat, it has the **Code** tab, where Claude works with the files in a folder on your computer and runs your skills. You don't write code there, and there's nothing else to install. It also supports local MCP servers.
 
 1. Download from [claude.ai/download](https://claude.ai/download) — available for macOS and Windows
 2. Sign in with your Claude account
@@ -36,7 +39,11 @@ The desktop app gives you quick access to Claude outside the browser, plus suppo
 
 ### 3. Install Claude Code
 
-Claude Code is Anthropic's AI coding CLI — it works directly with your files and terminal. This is the primary development tool used throughout the playbook.
+:::note[Most people can skip this]
+The **Code** tab in the desktop app is Claude Code, with nothing to install. Install the terminal version only if you want to run Claude Code from a terminal or a code editor.
+:::
+
+Claude Code in the terminal works directly with your files and runs commands for you.
 
 Follow the official installation guide for your operating system — install commands change occasionally, and the official docs are always current:
 
@@ -173,7 +180,7 @@ Most people don't need this — Claude Code and the Claude desktop app authentic
 
 - [ ] Claude account created with Pro or Max subscription
 - [ ] Claude desktop app installed and signed in
-- [ ] Claude Code installed — `claude --version` prints a version number
+- [ ] Claude Code in the terminal installed — `claude --version` prints a version number (optional)
 - [ ] Mobile app installed on at least one device
 - [ ] Personalization configured with your role and preferences
 - [ ] Memory enabled in Settings → Capabilities
