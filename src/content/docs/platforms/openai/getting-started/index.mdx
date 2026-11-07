@@ -1,14 +1,17 @@
 ---
 title: Getting Started with OpenAI
-description: Set up ChatGPT with apps, custom instructions, and memory — plus optional Codex developer tools and platform account
+description: Set up ChatGPT — the desktop app, the Codex tab and the Hands-on AI plugin, plus custom instructions, memory and connected apps
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-OpenAI offers two products: **ChatGPT** (conversational AI) and **Codex** (AI agent for working with files and code). Most people start with ChatGPT — Codex and developer tools are optional.
+OpenAI offers two products: **ChatGPT** (conversational AI) and **Codex** (an AI agent that works with the files in a folder on your computer). In the ChatGPT desktop app, Codex is a tab: there's nothing extra to install, and you don't write code there.
 
-**Time:** ~20 minutes for Part 1, ~10 minutes for Part 2
 **Requires:** Nothing — this is where you start.
+
+:::note[In a Hands-on AI course?]
+Before Session 1 you only need the [Tools Setup Checklist](/courses/tools-setup-checklist/): the ChatGPT desktop app on a paid plan, your settings, and the Hands-on AI plugin. You'll work in the **Codex** tab. Custom instructions, memory and connected apps are covered in Session 2.
+:::
 
 ---
 
@@ -19,7 +22,7 @@ The conversational AI assistant. Set up your account, install apps, and configur
 ### 1. Create Your Account
 
 1. Go to [chatgpt.com](https://chatgpt.com) and sign up (or sign in)
-2. Upgrade to **ChatGPT Plus** ($20/month) or **ChatGPT Team** for the full feature set
+2. Upgrade to a paid plan: **ChatGPT Plus** or above (Pro, Business, Enterprise)
 
 **Official docs:** [OpenAI Help Center — Getting started](https://help.openai.com/en/collections/3742473-chatgpt)
 
@@ -27,10 +30,8 @@ The conversational AI assistant. Set up your account, install apps, and configur
 
 ### 2. Install ChatGPT Apps
 
-Install all available apps so you have the right tool for every situation.
-
-- **Desktop:** [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/) — macOS and Windows
-- **Mobile:** [App Store](https://apps.apple.com/app/chatgpt/id6448311069) or [Google Play](https://play.google.com/store/apps/details?id=com.openai.chatgpt)
+- **Desktop (the one that matters):** [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/) — Mac, Windows and Linux. It has **Chat**, **Work** and **Codex** in one app, and it's the only place you can add the Hands-on AI plugin's marketplace.
+- **Mobile (optional):** [App Store](https://apps.apple.com/app/chatgpt/id6448311069) or [Google Play](https://play.google.com/store/apps/details?id=com.openai.chatgpt)
 
 Sign in to each app with your account.
 
@@ -69,9 +70,9 @@ You can view and manage memories at any time: **Settings → Personalization →
 
 ### 5. Connect Apps
 
-ChatGPT connects to external tools through Connected Apps.
+ChatGPT connects to external tools through apps.
 
-1. Click your profile picture → **Settings** → **Connected apps**
+1. Click your profile picture → **Settings** → **Apps**
 2. Browse available integrations (Google Drive, Notion, Zapier, etc.)
 3. Click **Connect** on the apps you use
 
@@ -79,25 +80,24 @@ ChatGPT connects to external tools through Connected Apps.
 
 ---
 
----
+## Part 2 — Codex and Skills
 
-## Part 2 — OpenAI Platform
+Codex is OpenAI's AI agent that works directly with the files in a folder on your computer: reading them, writing them, and running your skills. It's useful for research, file work and automation as well as code, and you don't need to write code to use it. Codex is included with every ChatGPT plan; usage limits vary by plan.
 
-Codex is OpenAI's AI agent that works directly with your files — useful for coding, file operations, research, and automation. Codex is included with every ChatGPT plan, including Free and Go — usage limits vary by plan, and Free covers local tasks only.
-
-:::note[This part is optional]
-If you only need ChatGPT for conversations, you're done after Part 1. Come back to Part 2 when you're ready to work with files and code.
+:::note[In a Hands-on AI course, do this part]
+You need step 1's **Codex tab** and step 2's **Hands-on AI plugin**. The CLI, the IDE extension and the platform account are optional.
 :::
+
 ### 1. Install Codex
 
-There are three ways to use Codex — pick whichever fits your workflow:
+There are three ways to use Codex. In a course, use the first: the Codex tab in the ChatGPT app.
 
 <Tabs>
   <TabItem label="ChatGPT app (Codex tab)">
 
 Since July 2026 Codex lives inside the ChatGPT desktop app — one app with **Chat**, **Work**, and **Codex**, on Mac, Windows, and Linux, on every plan. If you already installed the ChatGPT app in Part 1, you have Codex: open the app and choose **Codex**.
 
-1. Download the ChatGPT app from [openai.com/chatgpt/download](https://openai.com/chatgpt/download/) if you haven't already
+1. Download the ChatGPT app from [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/) if you haven't already
 2. Sign in with your ChatGPT account and choose **Codex**
 
 **Official docs:** [ChatGPT desktop app](https://learn.chatgpt.com/docs/app)
@@ -139,7 +139,7 @@ Use Codex inside VS Code or Cursor. See [AI Code Editor Setup](../../../builder-
 
 After adding skills, you can say "analyze where AI fits in my work" and ChatGPT runs the structured interview automatically — no re-explaining your requirements each time. Skills work in ChatGPT's **Work** mode (type `@` and the skill name) and in Codex (type `$` and the name).
 
-**Before you start:** open the **ChatGPT desktop app** (not chatgpt.com in a browser — the marketplace option only appears in the app) and click **Plugins** in the left sidebar. **Add marketplace** there means you can install the plugin; a **Skills** tab with a **Create** button means you can upload; neither means you're on Free/Go — use the Codex folder path.
+**Before you start:** open the **ChatGPT desktop app** (not chatgpt.com in a browser — the marketplace option only appears in the app) and click **Plugins** in the left sidebar. **Add marketplace** there means you can install the plugin; a **Skills** tab with a **Create** button means you can upload; neither means you're on Free/Go (the courses need a paid plan); outside a course, use the Codex folder path.
 
 - **Any paid plan (Plus, Pro, Business, Enterprise):** install the Hands-on AI plugin in the desktop app — **Plugins → Add marketplace** → `jamesgray-ai/handsonai-plugins` → **Install**. One install covers Chat, Work, and Codex, on the web and mobile too.
 - **No Add marketplace (company-managed):** upload skill ZIPs under **Plugins → Skills → Create → Upload from your computer**.
@@ -168,13 +168,14 @@ Most people don't need this — Codex authenticates directly through your ChatGP
 
 - [ ] OpenAI account created with a paid ChatGPT plan
 - [ ] ChatGPT desktop app installed and signed in (needed to add the plugin marketplace in [Part 2, step 2](#2-add-skills-chatgpt-and-codex))
-- [ ] ChatGPT mobile app installed on at least one device
-- [ ] Custom instructions configured with your role and preferences
-- [ ] Memory enabled
+- [ ] ChatGPT mobile app installed on at least one device (optional)
+- [ ] Custom instructions configured with your role and preferences (in a course: Session 2)
+- [ ] Memory enabled (in a course: Session 2)
 - [ ] At least one connected app set up (optional)
 
-**Part 2 — OpenAI Platform:**
+**Part 2 — Codex and Skills:**
 
-- [ ] Codex set up — the Codex tab in the ChatGPT app, the CLI, or the IDE extension (optional)
-- [ ] The Hands-on AI plugin installed, or at least one skill uploaded or added on disk (optional)
+- [ ] The **Codex** tab opens in the ChatGPT desktop app
+- [ ] The Hands-on AI plugin installed (or, where your company blocks plugins, the skills uploaded)
+- [ ] Codex CLI or IDE extension (optional)
 - [ ] Platform account created at platform.openai.com (optional)
