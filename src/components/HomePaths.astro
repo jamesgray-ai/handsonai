@@ -1,0 +1,95 @@
+---
+/* "Where to go next" on the homepage: each row says what you get, then where. */
+const paths = [
+  { need: 'Turn a piece of your work into an AI workflow, step by step', name: 'AI Workflow Framework', href: '/ai-workflow-framework/' },
+  { need: 'Learn what the pieces are and what each one does', name: 'AI Building Blocks', href: '/agentic-building-blocks/' },
+  { need: 'Get a straight answer to a specific question', name: 'Q&A', href: '/questions/' },
+  { need: 'Learn live, with a cohort and with me', name: 'Courses', href: '/courses/' },
+];
+---
+
+<section class="paths not-content" aria-labelledby="home-paths">
+  <h2 id="home-paths">Where to go next</h2>
+  <ul>
+    {paths.map((p) => (
+      <li>
+        <a href={p.href}>
+          <span class="need">{p.need}</span>
+          <span class="name">{p.name}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .paths {
+    margin-top: 1rem;
+  }
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--sl-color-white);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--sl-color-gray-5);
+  }
+
+  li {
+    margin: 0;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+
+  a {
+    display: grid;
+    gap: 0.2rem;
+    padding: 1.15rem 0.75rem;
+    margin-inline: -0.75rem;
+    border-radius: 6px;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+
+  @media (min-width: 45rem) {
+    a {
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 2rem;
+    }
+  }
+
+  .need {
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  .name {
+    font-size: 0.9375rem;
+    color: var(--sl-color-gray-2);
+  }
+
+  a:hover {
+    background-color: rgba(221, 242, 34, 0.18);
+  }
+
+  :root[data-theme='dark'] a:hover {
+    background-color: rgba(221, 242, 34, 0.08);
+  }
+
+  a:hover .name {
+    color: var(--sl-color-white);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+</style>

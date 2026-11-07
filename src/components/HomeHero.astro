@@ -1,0 +1,280 @@
+---
+/* Replaces Starlight's Hero. Only the homepage sets `hero:` frontmatter, so this
+   renders there and nowhere else. The title, tagline, image, primary action and
+   cohort note all still come from index.mdx frontmatter — edit them there.
+
+   Layout: who James is and one action on the left; the latest updates on the
+   right, so "what's new" is on the first screen rather than below the bio. */
+import { Image } from 'astro:assets';
+import { getBlogPosts, plainTitle } from '../lib/blog-posts';
+
+/* Starlight's in-page "Overview"/skip-link target. Its constants module isn't
+   exported from the package, so the value is mirrored here. */
+const PAGE_TITLE_ID = '_top';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, image, actions = [] } = data.hero || {};
+const primary = actions[0];
+const photo = image && 'file' in image ? image.file : undefined;
+const cohortNote = data.banner?.content;
+
+const { posts, newIds } = await getBlogPosts();
+const latest = posts.slice(0, 3);
+
+const shortDate = (d: Date) =>
+  new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+---
+
+<div class="home-hero">
+  <div class="intro">
+    <h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
+    {tagline && <p class="tagline" set:html={tagline} />}
+
+    <div class="who">
+      {photo && (
+        <span class="portrait">
+          <Image
+            src={photo}
+            alt={image?.alt ?? ''}
+            width={320}
+            height={320}
+            loading="eager"
+          />
+        </span>
+      )}
+      <p>
+        <strong>James Gray</strong> teaches AI strategy at UC Berkeley Haas Executive
+        Education and is Chief Growth Officer at Open Intelligence Network. Nearly a
+        decade at Microsoft. Based in Austin. <a href="/about/">More about me</a>
+      </p>
+    </div>
+
+    {primary && (
+      <a class="primary" href={primary.link}>{primary.text}</a>
+    )}
+
+    {cohortNote && <p class="cohort" set:html={cohortNote} />}
+  </div>
+
+  <section class="updates" aria-labelledby="home-updates">
+    <h2 id="home-updates">What's new</h2>
+    <ol>
+      {latest.map((post) => (
+        <li>
+          <p class="meta">
+            <time datetime={new Date(post.data.date!).toISOString().slice(0, 10)}>
+              {shortDate(post.data.date!)}
+            </time>
+            {newIds.has(post.id) && <span class="new">New</span>}
+          </p>
+          <a href={`/${post.id}/`}>{plainTitle(post.data.title)}</a>
+        </li>
+      ))}
+    </ol>
+    <a class="all" href="/blog/">All updates</a>
+  </section>
+</div>
+
+<style>
+  /* The hero is charcoal in both themes so it reads as one block with the
+     header above it. Colours here are fixed for that dark surface rather than
+     taken from the theme tokens, which flip in light mode. */
+  .home-hero {
+    --ink: #f0f0ee;
+    --ink-soft: #b4b4b0;
+    --rule: rgba(240, 240, 238, 0.14);
+    --lime: #ddf222;
+
+    position: relative;
+    display: grid;
+    gap: 3rem;
+    padding-block: 2.5rem 3.5rem;
+    color: var(--ink);
+  }
+
+  /* Full-bleed band. 100vw includes the scrollbar; .main-frame clips the
+     overflow (see custom.css). Extends up to meet the header. */
+  .home-hero::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    inset-block: -4rem 0;
+    background: #282828;
+    z-index: -1;
+  }
+
+  @media (min-width: 60rem) {
+    .home-hero {
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: 5rem;
+      align-items: start;
+      padding-block: 4.5rem 5.5rem;
+    }
+  }
+
+  /* ── Left: headline, who, action ── */
+  h1 {
+    margin: 0;
+    max-width: 16ch;
+    font-size: clamp(2.25rem, 1.2rem + 3.6vw, 3.9rem);
+    line-height: 1.04;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+  }
+
+  .tagline {
+    margin: 1.25rem 0 0;
+    max-width: 46ch;
+    font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    max-width: 38rem;
+  }
+
+  /* The source is a wide office shot with James small in frame. Zoom in on
+     his face rather than shrinking the whole room into the circle. */
+  .portrait {
+    flex: none;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .portrait :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(2.3);
+    transform-origin: 46% 26%;
+  }
+
+  .who p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .who strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .home-hero a,
+  .cohort :global(a) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: rgba(240, 240, 238, 0.35);
+    text-underline-offset: 3px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  .home-hero a:hover,
+  .cohort :global(a:hover) {
+    color: var(--lime);
+    text-decoration-color: var(--lime);
+  }
+
+  .home-hero .primary {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    background: var(--lime);
+    color: #1a1a18;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+
+  .home-hero .primary:hover {
+    background: #eaff4a;
+    color: #1a1a18;
+  }
+
+  .cohort {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+  }
+
+  .cohort :global(strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ── Right: latest updates ── */
+  .updates h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .updates ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .updates li {
+    margin: 0;
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0 0 0.35rem;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
+
+  .new {
+    padding: 0.05rem 0.45rem;
+    border-radius: 4px;
+    background: var(--lime);
+    color: #1a1a18;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .updates li a {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+
+  .updates .all {
+    display: inline-block;
+    margin-top: 1.1rem;
+    font-size: 0.9375rem;
+  }
+
+  .home-hero a:focus-visible,
+  .cohort :global(a:focus-visible) {
+    outline: 2px solid var(--lime);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-hero a { transition: none; }
+  }
+</style>

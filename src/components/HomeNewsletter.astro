@@ -1,0 +1,92 @@
+---
+/* Graymatter sign-up strip at the foot of the homepage. Charcoal in both
+   themes, matching the hero, so the page opens and closes on the same surface. */
+---
+
+<section class="newsletter not-content" aria-labelledby="home-newsletter">
+  <div class="copy">
+    <h2 id="home-newsletter">Graymatter, my weekly newsletter</h2>
+    <p>
+      Practical guidance on putting AI to work in your workflow and business, and the
+      personal leadership that makes it stick. Paid subscribers get hands-on tutorials,
+      videos and playbooks.
+    </p>
+    <p class="elsewhere">
+      Also on <a href="https://www.linkedin.com/in/jamesgray/">LinkedIn</a> and at
+      <a href="https://jamesgray.ai">jamesgray.ai</a>.
+    </p>
+  </div>
+  <a class="subscribe" href="https://graymatter.jamesgray.ai">Subscribe</a>
+</section>
+
+<style>
+  .newsletter {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 4rem;
+    padding: 2rem;
+    border-radius: 12px;
+    background: #282828;
+    color: #f0f0ee;
+  }
+
+  @media (min-width: 45rem) {
+    .newsletter {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 3rem;
+      padding: 2.5rem 3rem;
+    }
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: #f0f0ee;
+  }
+
+  p {
+    margin: 0.6rem 0 0;
+    max-width: 58ch;
+    line-height: 1.6;
+    color: #b4b4b0;
+  }
+
+  .elsewhere {
+    font-size: 0.875rem;
+  }
+
+  .elsewhere a {
+    color: #f0f0ee;
+    text-decoration: underline;
+    text-decoration-color: rgba(240, 240, 238, 0.35);
+    text-underline-offset: 3px;
+  }
+
+  .elsewhere a:hover {
+    color: #ddf222;
+    text-decoration-color: #ddf222;
+  }
+
+  .subscribe {
+    justify-self: start;
+    padding: 0.85rem 1.75rem;
+    border-radius: 999px;
+    background: #ddf222;
+    color: #1a1a18;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+
+  .subscribe:hover {
+    background: #eaff4a;
+  }
+
+  a:focus-visible {
+    outline: 2px solid #ddf222;
+    outline-offset: 3px;
+  }
+</style>

@@ -26,10 +26,10 @@ The week-by-week syllabus lives on the Maven course page, alongside dates, prici
 
 ## Instructor
 
-**James Gray** — UC Berkeley AI Strategy instructor and former tech CIO and CPO, upskilling more than 2,000 leaders a year. Spent nearly a decade at Microsoft building the data and analytics platforms the business ran on.
+**James Gray** — UC Berkeley AI Strategy instructor and former tech CIO and CPO. He spent nearly a decade at Microsoft building the data and analytics platforms the business ran on, and today is Chief Growth Officer of the Open Intelligence Network, building the market for private and verified AI. His Maven cohorts are rated 4.8/5, with more than 1,000 executives and builders trained across 39 countries.
 
 - [Maven Profile](https://maven.com/james-gray)
-- [Other course: Agentic AI for Claude Builders](../builders/)
+- [Other course: Claude for Leaders: Accelerate Your Business](../builders/)
 
 ## Prerequisites
 

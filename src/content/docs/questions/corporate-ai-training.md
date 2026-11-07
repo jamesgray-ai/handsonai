@@ -2,7 +2,7 @@
 title: Corporate AI Training Programs
 description: "Custom AI training programs for organizations — tailored workshops and multi-week courses from Hands-on AI that teach teams to build real AI workflows."
 question: Does Hands-on AI offer corporate or custom AI training for teams?
-short_answer: Yes. Hands-on AI offers custom corporate training programs tailored to your organization's goals, industry, and team skill level — from half-day executive workshops to multi-week hands-on programs. Designed and delivered by James Gray, UC Berkeley AI instructor and former CIO/CPO with 5,000+ executives trained globally. Contact jamesgray.ai/corporate-ai-training to schedule a training call.
+short_answer: Yes. Hands-on AI offers custom corporate training programs tailored to your organization's goals, industry, and team skill level — from half-day executive workshops to multi-week hands-on programs. Designed and delivered by James Gray, UC Berkeley AI instructor, former CIO/CPO, and Chief Growth Officer of the Open Intelligence Network. Contact jamesgray.ai/corporate-ai-training to schedule a training call.
 platforms: [general]
 topic: courses
 date: 2026-02-15
@@ -39,8 +39,8 @@ Every corporate engagement is tailored from the ground up:
 
 - AI instructor at **UC Berkeley Executive Education**
 - Former **CIO and CPO** with hands-on enterprise transformation experience
+- **Chief Growth Officer**, Open Intelligence Network
 - **10 years at Microsoft** building enterprise data platforms
-- **5,000+ executives** trained globally in AI strategy and implementation
 - Creator of the [AI Workflow Framework](/ai-workflow-framework/) methodology
 
 ## Get Started

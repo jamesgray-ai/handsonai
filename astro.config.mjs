@@ -134,6 +134,8 @@ export default defineConfig({
       ],
       components: {
         Head: './src/components/Head.astro',
+        Hero: './src/components/HomeHero.astro',
+        Banner: './src/components/Banner.astro',
         Footer: './src/components/QuestionPageFooter.astro',
       },
       sidebar: [
@@ -537,7 +539,7 @@ export default defineConfig({
             { label: 'Tools Setup Checklist', link: '/courses/tools-setup-checklist/' },
             { label: 'Framework End-to-End Exercise', link: '/courses/framework-end-to-end/' },
             { label: 'Hands-on Agentic AI for Leaders', link: '/courses/leaders/' },
-            { label: 'Agentic AI for Claude Builders', link: '/courses/builders/' },
+            { label: 'Claude for Leaders: Accelerate Your Business', link: '/courses/builders/' },
           ],
         },
         { label: 'What People Built', link: '/what-people-built/' },

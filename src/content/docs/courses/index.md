@@ -253,16 +253,16 @@ description: Multiple ways to learn AI hands-on with James Gray — live cohort 
 <div class="featured-courses">
 
 <div class="course-card">
-  <h3><a href="builders/">Agentic AI for Claude Builders</a></h3>
+  <h3><a href="builders/">Claude for Leaders: Accelerate Your Business</a></h3>
   <div class="course-meta-row">
     <span class="course-badge">5 Weeks</span>
     <span class="course-badge">Live Cohort</span>
     <span class="course-badge">Maven</span>
   </div>
-  <p>Move beyond basic AI usage and build production-grade AI systems — configuring a complete builder infrastructure, creating reusable AI capabilities, developing autonomous workflows, and shipping applications using agentic coding principles.</p>
+  <p>You already use Claude. Build the AI workflows that scale what already works and innovate what's next — skill-powered workflows, single and multi-agent systems, and a plugin your team installs.</p>
   <ul class="course-audience">
-    <li>Operational Leaders</li>
-    <li>Builder-Founders</li>
+    <li>Team or Discipline Leaders</li>
+    <li>Founders and Entrepreneurs</li>
     <li>AI-First Professionals</li>
   </ul>
   <a class="course-cta" href="builders/">View syllabus & enroll →</a>
