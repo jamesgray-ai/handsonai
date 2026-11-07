@@ -1,0 +1,10 @@
+---
+/* The homepage shows its banner text inside the hero (see HomeHero.astro), so
+   the full-width strip is skipped on any page with a hero. Everywhere else the
+   default Starlight banner renders unchanged. */
+import Default from '@astrojs/starlight/components/Banner.astro';
+
+const { hero } = Astro.locals.starlightRoute.entry.data;
+---
+
+{!hero && <Default />}

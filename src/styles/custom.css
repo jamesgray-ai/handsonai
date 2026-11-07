@@ -59,25 +59,25 @@ h1, h2, h3 {
 /* ── Links ──
    Dark: lime text + underline. Lime glow on hover.
    Light: charcoal text + underline. Lime highlight bg on hover. */
-.sl-markdown-content a {
+.sl-markdown-content a:not(.not-content *) {
   text-decoration: underline;
   text-decoration-color: var(--sl-color-gray-4);
   text-underline-offset: 2px;
   transition: text-decoration-color 0.15s ease, background-color 0.15s ease;
 }
 
-.sl-markdown-content a:hover {
+.sl-markdown-content a:not(.not-content *):hover {
   text-decoration-color: currentColor;
 }
 
-:root[data-theme='light'] .sl-markdown-content a:not(.sl-link-button):hover {
+:root[data-theme='light'] .sl-markdown-content a:not(.sl-link-button):not(.not-content *):hover {
   background-color: rgba(221, 242, 34, 0.22);
   border-radius: 3px;
   padding: 1px 3px;
   margin: -1px -3px;
 }
 
-:root[data-theme='dark'] .sl-markdown-content a:not(.sl-link-button):hover {
+:root[data-theme='dark'] .sl-markdown-content a:not(.sl-link-button):not(.not-content *):hover {
   background-color: rgba(221, 242, 34, 0.1);
   border-radius: 3px;
   padding: 1px 3px;
@@ -276,34 +276,20 @@ header.header site-search button[data-open-modal] kbd {
   font-weight: 600;
 }
 
-/* ── Splash hero band (homepage) ──
-   Full-bleed tint behind the hero to separate it from the page body.
-   Uses --sl-color-gray-6, which resolves one step darker than the page
-   background in light mode and one step lighter in dark, so a single
-   rule reads correctly in both themes. */
+/* ── Homepage hero ──
+   HomeHero.astro paints a full-bleed band with a 100vw pseudo-element, which
+   includes the scrollbar width; clip the resulting overflow here rather than
+   letting the page scroll sideways. `clip` (not `hidden`) avoids creating a
+   scroll container, and .main-frame sits below the header so sticky
+   positioning is unaffected. */
 [data-has-hero] .main-frame {
-  /* 100vw below includes the scrollbar width; clip the resulting overflow
-     here rather than letting the page scroll sideways. `clip` (not
-     `hidden`) avoids creating a scroll container, and .main-frame sits
-     below the header so sticky positioning is unaffected. */
   overflow-x: clip;
 }
 
-[data-has-hero] .hero {
-  position: relative;
-}
-
-[data-has-hero] .hero::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
-  /* Extends up under the banner; stops at the hero's own bottom edge so
-     it never bleeds into the section that follows. */
-  inset-block: -3rem 0;
-  background: var(--sl-color-gray-6);
-  z-index: -1;
+/* Header and hero are both charcoal on the homepage; drop the dark-mode rule
+   between them so they read as one block. */
+[data-has-hero] header.header {
+  border-bottom-color: transparent;
 }
 
 /* Opt-in horizontal scroll for a wide table.

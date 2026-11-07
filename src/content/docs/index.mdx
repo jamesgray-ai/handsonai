@@ -1,62 +1,36 @@
 ---
 title: The Hands-on AI Playbook
-description: Practical AI guides, patterns, and ready-made tools — for leaders, professionals, and founders who want results, not theory. No technical background required.
+description: "Turn the work you already do into AI workflows: a free playbook of guides, a step-by-step framework, and ready-made skills. No technical background required."
 template: splash
 prev: false
 next: false
 editUrl: false
 lastUpdated: false
-# ── Announcement Banner ──
-# Uncomment the two lines below and edit the content to show a banner.
-# Comment them out again (or delete) to hide it.
-# Format: HTML is supported. Use <strong> for bold, <a href="..."> for links.
+# ── Cohort note ──
+# On this page the banner renders as a quiet line inside the hero, under the
+# main button (see src/components/HomeHero.astro), not as a full-width strip.
+# Comment the two lines below out (or delete them) to hide it.
+# HTML is supported. Use <strong> for bold, <a href="..."> for links.
 #
 banner:
-   content: '⚡ <strong>Agentic AI for Claude Builders & Hands-on Agentic AI for Leaders</strong> — next cohorts start soon! <a href="https://maven.com/james-gray">Enroll now &rarr;</a>'
+   content: 'Next cohorts of <strong>Claude for Leaders: Accelerate Your Business</strong> and <strong>Hands-on Agentic AI for Leaders</strong> start soon. <a href="https://maven.com/james-gray">Enroll on Maven</a>'
+# ── Hero ──
+# Rendered by src/components/HomeHero.astro. Only the first action is shown, as
+# the single main button; the other destinations live in "Where to go next".
 hero:
-  tagline: Practical AI guides, patterns, and ready-made tools — for leaders, professionals, and founders who want results, not theory. No technical background required.
+  title: Turn the work you already do into AI workflows.
+  tagline: A free, open playbook of guides, a step-by-step framework, and ready-made skills for leaders, professionals, and founders. No technical background required.
   image:
-    alt: James Gray in his office
+    alt: James Gray
     file: ../../assets/james-gray-office.jpg
   actions:
-    - text: Workflow Framework
+    - text: Find where AI can help your work
       link: /ai-workflow-framework/
-      icon: right-arrow
-      variant: primary
-    - text: AI Building Blocks
-      link: /agentic-building-blocks/
-      variant: minimal
-    - text: Learn with James
-      link: /courses/
-      variant: minimal
 ---
 
-import BlogList from '../../components/BlogList.astro';
+import HomePaths from '../../components/HomePaths.astro';
+import HomeNewsletter from '../../components/HomeNewsletter.astro';
 
-## Hi, I'm James
+<HomePaths />
 
-I teach AI strategy at UC Berkeley Haas Executive Education, including the largest AI program in its portfolio. Before that I spent nearly a decade at Microsoft, and I've served as a Chief Product Officer and Chief Information Officer across global enterprises and startups.
-
-I built this playbook because the best way to accelerate innovation is to make complex things simple — and then share them freely. Everything here comes from real work: building AI systems, teaching live cohorts, and learning alongside a global community of builders.
-
-It's free, it's open, and it gets updated constantly. I hope you find something here that saves you time, sparks an idea, or helps you move faster.
-
-I'm based in Austin, Texas.
-
-[More about me and the story behind this playbook →](about/)
-
-## What's New
-
-Playbook updates, plus notable releases from Anthropic, OpenAI, and the other AI platforms I follow.
-
-<BlogList limit={3} />
-
-[See all updates →](blog/)
-
-## Keep in touch
-
-I write **Graymatter** — *Master AI. Master Yourself. Build What Matters.*
-
-It's a weekly newsletter for builders drowning in AI noise: practical guidance on putting AI to work in your workflow and business, alongside the personal leadership that makes it stick. Paid subscribers get hands-on tutorials, videos, and playbooks. [Subscribe →](https://graymatter.jamesgray.ai)
-
-You can also find me on [LinkedIn](https://www.linkedin.com/in/jamesgray/) or at [jamesgray.ai](https://jamesgray.ai).
+<HomeNewsletter />
