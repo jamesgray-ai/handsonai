@@ -49,8 +49,8 @@ You need one AI platform. Use the one you'll build in.
 |----------|-------------|---------------------------------|
 | Claude | [claude.ai/download](https://claude.ai/download) (Mac, Windows) | The **Code** tab |
 | ChatGPT | [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/) (Mac, Windows) | The **Codex** tab |
-| Microsoft 365 Copilot | The Microsoft 365 Copilot app, from your IT team or Microsoft's download page | **Copilot Cowork** |
-| Gemini Enterprise | No app needed: it runs in your browser | Your company's Gemini Enterprise web app |
+| Microsoft 365 Copilot | The Microsoft 365 Copilot app, or [copilot.cloud.microsoft](https://copilot.cloud.microsoft) in your browser: either works | **Copilot Cowork** |
+| Gemini | No app needed: it runs in your browser | Gemini Enterprise (work account) or [gemini.google.com](https://gemini.google.com) (personal account) |
 
 The Code tab and the Codex tab aren't for programming. They're where the AI works with the files in a folder on your computer: reading them, writing them, and running your skills. You won't write code in the course.
 
@@ -60,16 +60,17 @@ The Code tab and the Codex tab aren't for programming. They're where the AI work
 - **ChatGPT:** in **Settings → Data controls**, choose whether **Improve the model for everyone** is on. On a personal plan it covers your Codex tasks too. (Business and Enterprise workspaces aren't used for training.)
 - **Microsoft 365 Copilot:** sign in with your work account. Check that **Cowork** appears next to **Chat**; if it doesn't, ask your IT team to turn on Copilot Cowork.
 - **Gemini Enterprise:** sign in with your work account. Check that **Skills** appears in the left navigation; if it doesn't, ask your admin.
+- **Gemini app (personal account):** turn on **Keep Activity**; skills need it.
 
-**3. Working in a browser instead?** Connect your Google Drive (Claude, ChatGPT) or your work OneDrive (Microsoft 365 Copilot) with writing allowed, so your work has somewhere to be saved. In the desktop app, your files live in a folder on your computer instead.
+**3. Using Claude or ChatGPT in a browser instead of the desktop app?** Connect your Google Drive (in Claude, **Settings → Connectors**; in ChatGPT, **Settings → Apps**) so your work has somewhere to be saved. In the desktop app, your files live in a folder on your computer, so there's nothing to connect. Microsoft 365 Copilot saves to your OneDrive on its own.
 
-Personalization, memory and connectors come later: you set them up in Session 2.
+Personalization, memory and connections to your other apps come later: you set them up in Session 2.
 
 **Done when:**
 
-- You're signed in to your platform's desktop app (or, for Gemini Enterprise, the web app)
+- You're signed in to your platform, in its desktop app or your browser
 - Your settings and privacy choices are made
-- In a browser: your Google Drive or work OneDrive is connected
+- Using Claude or ChatGPT in a browser: your Google Drive is connected
 
 Want the full tour of your platform? Its Getting Started guide covers everything else, and none of it is needed before Session 1: [Claude](/platforms/claude/getting-started/) · [OpenAI](/platforms/openai/getting-started/) · [Gemini](/platforms/google-gemini/getting-started/) · [Microsoft 365 Copilot](/platforms/m365-copilot/getting-started/)
 
@@ -92,8 +93,10 @@ Still stuck? Bring your question to Session 1.
 
 **Done when:**
 
-- The skills are installed on your platform
-- You start a new conversation, type *"Help me analyze AI workflow opportunities"*, and Analyze starts instead of giving a generic answer
+- The skills are installed on your platform. Uploading them one at a time? Before Session 1 you need **analyze**, **scaffolding-registry** and **indexing-registry**.
+- You start a new conversation, type *"Help me analyze AI workflow opportunities"*, and Analyze starts instead of giving a generic answer. (In ChatGPT, switch to **Work** or the **Codex** tab and pick the skill with `@analyze` first.)
+
+Seeing Analyze's first question means it worked. You can close the conversation: we start here together in Session 1.
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -236,7 +239,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ## Part 3 — Your AI Registry
 
-**In a Hands-on AI course? Skip this part. We set your registry up together in Session 1.** Bring a services page, an org chart or team list, this year's plan, and any process inventory or SOP folder if you have them. Already set it up? Bring it; the setup skill fills gaps rather than starting over.
+**In a Hands-on AI course? Skip this part. We set your registry up together in Session 1.** Already set it up? Bring it; the setup skill fills gaps rather than starting over.
 
 ### Step 9: AI Registry
 
@@ -266,6 +269,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 With Steps 1 and 2 done, you're ready for the course.
 
+- **Have these handy for Session 1 (optional, it saves time):** a services page, an org chart or team list, this year's plan, and any process inventory or SOP folder. We use them to set up your AI Registry.
 - **Bookmark this page.** Come back to it when you want a power-user tool.
 - **Start Session 1.** You'll put your platform and the skills to work right away.
 

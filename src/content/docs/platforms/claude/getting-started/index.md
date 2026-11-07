@@ -1,7 +1,9 @@
 ---
 title: Getting Started with Claude
 description: Set up your Claude account, install all apps, configure personalization and memory, and connect MCP servers — plus optional developer platform access
----Complete setup checklist for Anthropic's Claude platform. Work through each section in order — later steps build on earlier ones.
+---
+
+Complete setup checklist for Anthropic's Claude platform. Work through each section in order — later steps build on earlier ones.
 
 **Requires:** Nothing — this is where you start.
 
@@ -181,9 +183,9 @@ Most people don't need this — Claude Code and the Claude desktop app authentic
 - [ ] Claude account created with Pro or Max subscription
 - [ ] Claude desktop app installed and signed in
 - [ ] Claude Code in the terminal installed — `claude --version` prints a version number (optional)
-- [ ] Mobile app installed on at least one device
-- [ ] Personalization configured with your role and preferences
-- [ ] Memory enabled in Settings → Capabilities
+- [ ] Mobile app installed on at least one device (optional)
+- [ ] Personalization configured with your role and preferences (in a course: Session 2)
+- [ ] Memory enabled in Settings → Capabilities (in a course: Session 2)
 - [ ] At least one MCP connector or server connected (optional)
 - [ ] Hands-on AI plugin installed (or the skills uploaded as ZIPs)
 

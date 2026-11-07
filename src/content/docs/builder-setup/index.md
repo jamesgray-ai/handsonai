@@ -17,7 +17,7 @@ There are three parts:
 
 | Tool | What it is | Why it matters to you |
 |---|---|---|
-| **Your AI platform's desktop app** | The Claude, ChatGPT or Microsoft 365 Copilot app on your computer. Gemini Enterprise runs in your browser. | It's where you work. In Claude, the **Code** tab works with the files in a folder on your computer; in ChatGPT, the **Codex** tab does the same. You don't write code in either. |
+| **Your AI platform's desktop app** | The Claude, ChatGPT or Microsoft 365 Copilot app on your computer. Gemini runs in your browser. | It's where you work. In Claude, the **Code** tab works with the files in a folder on your computer; in ChatGPT, the **Codex** tab does the same. You don't write code in either. |
 | **[Hands-on AI Skills](../ai-workflow-framework/skills/)** | Skills that walk you through the [AI Workflow Framework](../ai-workflow-framework/) | Step-by-step guidance from "I think AI could help with this" to a tested, live workflow, right inside your AI tool |
 
 Personalization, memory and connections make your AI more useful over time. The courses cover them in Session 2; your platform's Getting Started guide has the steps whenever you want them: [Claude](../platforms/claude/getting-started/) · [OpenAI](../platforms/openai/getting-started/) · [Gemini](../platforms/google-gemini/getting-started/) · [Microsoft 365 Copilot](../platforms/m365-copilot/getting-started/)
