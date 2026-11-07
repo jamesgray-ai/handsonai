@@ -1,81 +1,46 @@
 ---
 title: Builder Tools Setup Guide
-description: Two-part setup guide — your AI platform with Hands-on AI add-ons, plus optional advanced tools for power users
+description: What each builder tool is and why it matters — your AI platform's desktop app and the Hands-on AI plugin, plus optional tools for power users
 ---
 
-Two parts. **Part 1** is everything you need to start getting real value — your AI platform plus one add-on that lives inside it. **Part 2** is optional, for power users who want advanced capabilities (local files, version control, voice input, a workflow registry) that work alongside their AI platform.
+This page explains what each tool is and why you'd want it. To set up for a course, follow the [Tools Setup Checklist](/courses/tools-setup-checklist/): it has the steps and how to tell each one is done.
 
-:::note[Already have an AI platform set up?]
-If you've already completed your platform's Getting Started checklist, skip straight to [Hands-on AI Skills](#part-1--what-you-need-55-min) below. If not, pick one:
+There are three parts:
 
-[→ Claude](../platforms/claude/getting-started/) · [→ OpenAI](../platforms/openai/getting-started/) · [→ Gemini](../platforms/google-gemini/getting-started/) · [→ M365 Copilot](../platforms/m365-copilot/getting-started/)
-:::
+1. **What you need:** your AI platform's desktop app, on a paid plan, and the Hands-on AI plugin.
+2. **For power users:** optional tools that work alongside your AI platform.
+3. **Your AI Registry:** the home for every workflow you build. In a course, we set it up together in Session 1.
 
 ## Why These Tools Matter
 
-Real AI workflows — the kind that save time, ship work, and scale beyond one-off chats — need more than a chatbot. Two parts: **Part 1** is what you need to start getting real value — your AI platform plus one add-on that lives inside it. **Part 2** is for power users who want advanced capabilities that work in collaboration with their AI platform.
-
-Each tool below was chosen intentionally. Here's what each one unlocks for you.
-
 ### Part 1 — What You Need
 
-Your AI platform is the reasoning engine that powers every workflow you build — one account is enough. One add-on then runs inside it: the Hands-on AI skills, which give you step-by-step framework guidance.
-
-| Capability | What it is | Why it matters to you |
+| Tool | What it is | Why it matters to you |
 |---|---|---|
-| **Account + Apps** | A paid subscription (Claude, ChatGPT, Gemini, or Copilot) plus the web, desktop, and mobile apps | Paid plans unlock the features you'll use here — longer conversations, file uploads, connectors, and stronger reasoning models |
-| **Personalization** | Custom instructions that tell the AI about your role, industry, and style | Every conversation starts with context — you stop re-introducing yourself and answers arrive tailored from message one |
-| **Memory** | The AI remembers facts about you and your work across conversations | Your AI becomes a returning assistant who knows your projects, not a stranger every time you open a new chat |
-| **Connections** | Links your AI to apps you already use (Google Docs, Slack, Notion, GitHub, etc.) | AI can read and write inside your real systems — no more copy-paste between tools |
-| **Hands-on AI Skills** | Skills that walk you through the [AI Workflow Framework](../ai-workflow-framework/skills/) for building AI workflows | Learn how to go from "I think AI could help with this" to a shipped, improving workflow — with step-by-step guidance at every stage |
+| **Your AI platform's desktop app** | The Claude, ChatGPT or Microsoft 365 Copilot app on your computer. Gemini runs in your browser. | It's where you work. In Claude, the **Code** tab works with the files in a folder on your computer; in ChatGPT, the **Codex** tab does the same. You don't write code in either. |
+| **[Hands-on AI plugin](../ai-workflow-framework/skills/)** | Every Hands-on AI skill in one install, including the skills that walk you through the [AI Workflow Framework](../ai-workflow-framework/) | Step-by-step guidance from "I think AI could help with this" to a tested, live workflow, right inside your AI tool |
+
+Personalization, memory and connections make your AI more useful over time. The courses cover them in Session 2; your platform's Getting Started guide has the steps whenever you want them: [Claude](../platforms/claude/getting-started/) · [OpenAI](../platforms/openai/getting-started/) · [Gemini](../platforms/google-gemini/getting-started/) · [Microsoft 365 Copilot](../platforms/m365-copilot/getting-started/)
 
 ### Part 2 — For Power Users
 
-Optional tools that work in collaboration with your AI platform to build and manage your [AI building blocks](../agentic-building-blocks/) — prompts, skills, agents, and more — as files you can version, back up, and share. Pick any combination; you can come back and add more later.
+Optional tools for building and managing your [AI building blocks](../agentic-building-blocks/) (prompts, skills, agents and more) as files you can version, back up and share. The desktop apps are enough for the courses; add these when you want what they do.
 
-| Capability | What it is | Why it matters to you |
-|---|---|---|
-| **Code Editor** | Cursor or VS Code, with AI extensions installed | An organized home for every building block you create — browse them in folders, edit them in place, and let the built-in AI assistants read and update them directly as you work |
-| **Git** | Automatically tracks every change to every file | You'll constantly create and refine your building blocks — Git keeps the full history for you, so you never have to manage versions manually, and it connects to GitHub so everything gets backed up in the cloud |
-| **GitHub** | Cloud storage and backup for your files, built on top of Git. Two pieces: a GitHub *account* (in your browser) and the GitHub *CLI* (a small program on your computer that logs Git and your AI tools in as you) | Your work is safe, versioned, accessible from any machine, and easy to share |
-| **Voice to Text** | Dictation software (Wispr Flow or your system's built-in voice input) | Talk instead of type — faster for long prompts and more natural when you're thinking out loud |
+| Tool | What it is | Install this if you want to… | Requires |
+|---|---|---|---|
+| [Code Editor + Extensions](editor-setup/) | Cursor or VS Code, with AI extensions | Browse and edit your files in a second window, alongside the desktop app | Nothing |
+| [GitHub Account](github-setup/) | Cloud storage for your files, set up in your browser | Have a place in the cloud for your building blocks | Nothing |
+| [Git](git-install/) | Tracks every change to every file | Keep a full version history of your building blocks automatically | Nothing |
+| [GitHub CLI](github-cli-setup/) | A small program that logs Git and your AI tools in to GitHub as you | Sync files to GitHub without passwords | GitHub Account + Git |
+| [Create & Clone Your First Repository](repo-creation-and-cloning/) | Your first private repository, copied to your computer | Prove the three pieces above work together, and get a folder to build in | GitHub CLI |
+| [Voice to Text](voice-to-text-setup/) | Built-in dictation, or a tool such as Wispr Flow | Talk instead of type when writing prompts | Nothing |
+| [Knowledge Graph](knowledge-graph-setup/) | A folder of pages about your work (clients, offerings, processes) that your AI keeps current | Give your AI context it reads before answering | Your AI platform + a folder |
 
-### Part 3 — Your AI Registry
-
-The home for every workflow you build — set up live in Session 1 if you're in a Hands-on AI course.
-
-| Capability | What it is | Why it matters to you |
-|---|---|---|
-| **AI Registry** | A knowledge-bundle inventory of your workflows, processes, and insights — Markdown in your workspace, maintained by your AI assistant | The single source of truth for what you've built, who's using it, and how it all connects — essential once you're scaling beyond one-off experiments |
-
-## Setup Order
-
-Start with Part 1 and complete the steps in order. Part 2 is optional — pick any combination of tools when you need them. Each link opens the full setup guide with step-by-step instructions and verification criteria. For students working through a course, the [Tools Setup Checklist](/courses/tools-setup-checklist/) adds per-step "Done when" criteria and troubleshooting prompts.
-
-### Part 1 — What You Need (~55 min)
-
-| # | Tool | Time | Status | Why it matters |
-|---|---|---|---|---|
-| 1 | AI Platform (see [Platforms](../platforms/)) | ~45 min | Required | The reasoning engine that powers every workflow — one account is enough |
-| 2 | [Hands-on AI Skills](../ai-workflow-framework/skills/) | ~10 min | Recommended | Step-by-step guidance for building AI workflows, right inside your AI tool |
-
-### Part 2 — For Power Users (~85 min total)
-
-Pick any combination — each row names the specific capability it unlocks. Rows 4–7 are one sequence: do them in order.
-
-| # | Tool | Time | Requires | Install this if you want to… |
-|---|---|---|---|---|
-| 3 | [AI Code Editor + Extensions](editor-setup/) | ~15 min | Nothing | Store building blocks as files on your computer and edit them with AI assistance |
-| 4 | [GitHub Account](github-setup/) | ~10 min | Nothing | Have a place in the cloud for your building blocks — done entirely in your browser |
-| 5 | [Git](git-install/) | ~10 min (Mac: up to 30 while Apple's tools download) | Nothing | Keep a full version history of your building blocks automatically |
-| 6 | [GitHub CLI](github-cli-setup/) | ~10 min | GitHub Account + Git | Log your computer and AI tools in to GitHub once, so files sync without passwords |
-| 7 | [Create & Clone Your First Repository](repo-creation-and-cloning/) | ~5 min | Editor + GitHub CLI | Prove the three pieces above work together, and get a folder to build in |
-| 8 | [Voice to Text](voice-to-text-setup/) | ~10 min | Nothing | Talk instead of type when writing prompts |
-| 10 | [Knowledge Graph](knowledge-graph-setup/) | ~40 min | AI platform + a folder | Give your AI a knowledge graph of your work — clients, offerings, processes — that it reads before answering and keeps current for you |
+The GitHub Account, Git, GitHub CLI and repository rows are one sequence: do them in order.
 
 #### Git & GitHub at a glance
 
-Steps 4–6 are three separate prerequisites. Here's how you know each one is done:
+Those first three are separate prerequisites. Here's how you know each one is done:
 
 | Prerequisite | Done when |
 |---|---|
@@ -83,30 +48,23 @@ Steps 4–6 are three separate prerequisites. Here's how you know each one is do
 | **2. Git installed** | `git --version` prints a version number, and `git config --global user.name` and `git config --global user.email` each print back the value you set |
 | **3. GitHub CLI installed and logged in** | `gh --version` prints a version number, and `gh auth status` prints `✓ Logged in to github.com account <your-username>` |
 
-**End-to-end proof (optional, ~3 min):** create a private repository, clone it, `cd` into it, run `git status` → `On branch main`. That's the [Repository Creation & Cloning guide](/builder-setup/repo-creation-and-cloning/).
+**End-to-end proof (optional):** create a private repository, clone it, `cd` into it, run `git status` → `On branch main`. That's the [Repository Creation & Cloning guide](/builder-setup/repo-creation-and-cloning/).
 
 :::note[New to Markdown?]
-Everything you build here — skills, prompts, context files, your registry — is stored as Markdown. If that word is unfamiliar, read [Markdown Basics](markdown-basics/) first. It takes about ten minutes and requires nothing installed.
+Everything you build here (skills, prompts, context files, your registry) is stored as Markdown. If that word is unfamiliar, read [Markdown Basics](markdown-basics/) first. It's short and needs nothing installed.
 :::
 
 :::note[New to the terminal?]
-Some Power User tools (Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
+Some power-user tools (Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](terminal-basics/) first. It's a short primer, not a setup step.
 :::
 
-:::note[Heads up]
-- **AI Registry:** The registry lives in your workspace as Markdown — there's nothing extra to install beyond the Hands-on AI skills from step 2 (see the [AI Registry setup guide](ai-registry-setup/)).
-- **Knowledge Graph:** Also pure Markdown, built by the Hands-on AI skills from step 2, but it needs a tool that writes files on your computer (see the [Knowledge Graph setup guide](knowledge-graph-setup/)).
-:::
+### Part 3 — Your AI Registry
 
----
+| Tool | What it is | Why it matters to you |
+|---|---|---|
+| [AI Registry](ai-registry-setup/) | An inventory of your workflows, processes and insights: Markdown in your workspace, kept up to date by your AI | The single source of truth for what you've built, who's using it, and how it all connects |
 
-### Part 3 — Your AI Registry (~25 min)
-
-If you're taking a Hands-on AI course, skip this until Session 1 — we set it up together there. Working through the framework on your own? Set it up before you run Analyze, which reads it and registers your candidates.
-
-| # | Tool | Time | Requires | Install this if you want to… |
-|---|---|---|---|---|
-| 9 | [AI Registry](ai-registry-setup/) | ~25 min | AI platform | Track every workflow, skill, agent, and connected app in your workspace — pure Markdown, no external tools |
+In a Hands-on AI course, skip this until Session 1: we set it up together there. Working through the framework on your own? Set it up before you run Analyze, which reads it and registers your candidates. There's nothing to install beyond the Hands-on AI plugin.
 
 ## What's Next?
 
