@@ -1,41 +1,35 @@
 ---
 title: Tools Setup Checklist
-description: Complete setup guide for Hands-on AI courses — AI platform, in-platform add-ons, and advanced tools for power users
+description: Set up for a Hands-on AI course — your AI platform's desktop app and basic settings, plus the Hands-on AI Skills. Power-user tools are optional.
 ---
 
-Everything you need to set up before Session 1. Work through the steps in order — later steps build on earlier ones. Budget **1–3 hours** total depending on how far you go. Times are estimates — it's normal for some steps to take longer, especially if the tools are new to you.
-
-:::note[New to these tools?]
-Before diving in, skim [Why These Tools Matter](/builder-setup/#why-these-tools-matter) (~2 minutes). It explains what each tool is and why we use it — the context that makes the rest of this checklist click.
-:::
+Two steps get you ready for Session 1: set up your AI platform, then install the Hands-on AI Skills. Everything after Part 1 is optional. You don't need any of it for the course.
 
 ## At a Glance
 
-### Part 1: What You Need for the Course (~55 min)
+### Part 1: What You Need for the Course
 
-Your AI platform plus one add-on that runs entirely inside it. This is the baseline every student needs to get real value from the course.
+| Step | What | Status |
+|------|------|--------|
+| 1 | [AI Platform Setup](#step-1-ai-platform-setup) | Required |
+| 2 | [Hands-on AI Skills](#step-2-hands-on-ai-skills) | Required |
 
-| Step | What | Time | Status |
-|------|------|------|--------|
-| 1 | [AI Platform Setup](#step-1-ai-platform-setup) | ~45 min | Required |
-| 2 | [Hands-on AI Skills](#step-2-hands-on-ai-skills) | ~10 min | Required |
+### Part 2: For Power Users
 
-### Part 2: For Power Users (~85 min)
+Optional tools for going further. The desktop apps are all the course needs, so add these only when you want what they do. Steps 4–7 are one sequence: do them in order.
 
-More advanced tools that work in collaboration with your AI platform. Pick any combination — each unlocks a specific capability. Steps 4–7 are one sequence: do them in order.
-
-| Step | What | Time | Status |
-|------|------|------|--------|
-| 3 | [Code Editor + Extensions](#step-3-code-editor--extensions) | ~15 min | Optional |
-| 4 | [GitHub Account](#step-4-github-account) | ~10 min | Optional |
-| 5 | [Git](#step-5-git) | ~10 min (Mac: up to 30 while Apple's tools download) | Optional |
-| 6 | [GitHub CLI](#step-6-github-cli) | ~10 min | Optional |
-| 7 | [Create & Clone Your First Repository](#step-7-create--clone-your-first-repository) | ~5 min | Optional |
-| 8 | [Voice to Text](#step-8-voice-to-text) | ~10 min | Optional |
+| Step | What | Status |
+|------|------|--------|
+| 3 | [Code Editor + Extensions](#step-3-code-editor--extensions) | Optional |
+| 4 | [GitHub Account](#step-4-github-account) | Optional |
+| 5 | [Git](#step-5-git) | Optional |
+| 6 | [GitHub CLI](#step-6-github-cli) | Optional |
+| 7 | [Create & Clone Your First Repository](#step-7-create--clone-your-first-repository) | Optional |
+| 8 | [Voice to Text](#step-8-voice-to-text) | Optional |
 
 ### Part 3: Your AI Registry
 
-The home for every workflow you build. **In a Hands-on AI course? Skip it for now — we set it up together in Session 1.** Working through the framework on your own? Set it up before you run Analyze.
+The home for every workflow you build. **In a Hands-on AI course? Skip it. We set it up together in Session 1.** Working through the framework on your own? Set it up before you run Analyze.
 
 | Step | What | Status |
 |------|------|--------|
@@ -45,36 +39,44 @@ The home for every workflow you build. **In a Hands-on AI course? Skip it for no
 
 ## Part 1 — What You Need for the Course
 
-Your AI platform plus one add-on that lives inside it. Most students only need Part 1 to start getting real value from the course. The AI Registry (Part 3) is set up live in Session 1.
-
 ### Step 1: AI Platform Setup
 
-You need at least one AI platform set up before starting anything else. Pick whichever you prefer — you only need one. Each platform has a Getting Started guide that walks you through everything in one place.
+You need one AI platform. Use the one you'll build in.
 
-| Platform | Getting Started Guide |
-|----------|----------------------|
-| Claude (Anthropic) | [Getting Started with Claude](/platforms/claude/getting-started/) |
-| OpenAI (ChatGPT + Codex) | [Getting Started with OpenAI](/platforms/openai/getting-started/) |
-| Gemini (Google) | [Getting Started with Gemini](/platforms/google-gemini/getting-started/) |
-| M365 Copilot (Microsoft) | [Getting Started with M365 Copilot](/platforms/m365-copilot/getting-started/) |
+**1. Get the desktop app.** The live sessions use it, and it's where you'll work during the course.
 
-**What:** Create a paid AI platform account, configure it for your work, and connect it to the apps you already use. Your platform's Getting Started guide walks you through all of this in one place — account creation, apps, personalization, memory, and connections.
+| Platform | Desktop app | Where you'll work in the course |
+|----------|-------------|---------------------------------|
+| Claude | [claude.ai/download](https://claude.ai/download) (Mac, Windows) | The **Code** tab |
+| ChatGPT | [openai.com/chatgpt/desktop](https://openai.com/chatgpt/desktop/) (Mac, Windows) | The **Codex** tab |
+| Microsoft 365 Copilot | The Microsoft 365 Copilot app, from your IT team or Microsoft's download page | **Copilot Cowork** |
+| Gemini Enterprise | No app needed: it runs in your browser | Your company's Gemini Enterprise web app |
 
-**Action:** Follow your platform's Getting Started guide from the table above.
+The Code tab and the Codex tab aren't for programming. They're where the AI works with the files in a folder on your computer: reading them, writing them, and running your skills. You won't write code in the course.
+
+**2. Check your settings and privacy.**
+
+- **Claude:** in **Settings → Capabilities**, turn on **Code execution and file creation**; skills need it. In **Settings → Privacy**, choose whether your chats can be used to improve Claude. (On Team and Enterprise plans, your company's settings apply.)
+- **ChatGPT:** in **Settings → Data controls**, choose whether **Improve the model for everyone** is on. On a personal plan it covers your Codex tasks too. (Business and Enterprise workspaces aren't used for training.)
+- **Microsoft 365 Copilot:** sign in with your work account. Check that **Cowork** appears next to **Chat**; if it doesn't, ask your IT team to turn on Copilot Cowork.
+- **Gemini Enterprise:** sign in with your work account. Check that **Skills** appears in the left navigation; if it doesn't, ask your admin.
+
+**3. Working in a browser instead?** Connect your Google Drive (Claude, ChatGPT) or your work OneDrive (Microsoft 365 Copilot) with writing allowed, so your work has somewhere to be saved. In the desktop app, your files live in a folder on your computer instead.
+
+Personalization, memory and connectors come later: you set them up in Session 2.
 
 **Done when:**
 
-- You have a paid AI platform account and can start conversations — at minimum Claude Pro, ChatGPT Plus, a Gemini Enterprise seat, or a Microsoft 365 Copilot license. For the AI Workflow Framework, use Claude (Pro or above), ChatGPT (on Plus and Pro, install the Hands-on AI plugin rather than single skills), Microsoft 365 Copilot with Copilot Cowork, Claude Code or Codex; Gemini works for the course's other skills, not the framework
-- You've installed your platform's desktop app — the Claude desktop app, or ChatGPT for desktop (ChatGPT Work and Codex) — plus the mobile app if you want it
-- You've added personalization / custom instructions so the AI knows about your role and work
-- Memory is enabled so the AI remembers context across conversations
-- You've connected at least one external tool or data source (Google Docs, Slack, Notion, etc.)
-- **On Claude on the web or ChatGPT:** you've connected Google Drive **with writes on**. The AI Workflow Framework keeps your workflow files in a `Framework` folder there; if no drive connection can save, the skills give you each file to save yourself. On Microsoft 365 Copilot, Copilot Cowork uses your OneDrive. On Claude Code, Codex or the Claude desktop app, the files live in a folder on your computer instead
+- You're signed in to your platform's desktop app (or, for Gemini Enterprise, the web app)
+- Your settings and privacy choices are made
+- In a browser: your Google Drive or work OneDrive is connected
+
+Want the full tour of your platform? Its Getting Started guide covers everything else, and none of it is needed before Session 1: [Claude](/platforms/claude/getting-started/) · [OpenAI](/platforms/openai/getting-started/) · [Gemini](/platforms/google-gemini/getting-started/) · [Microsoft 365 Copilot](/platforms/m365-copilot/getting-started/)
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm setting up [Claude / ChatGPT / Gemini / Copilot] and running into this issue: [describe what's happening]. What should I try?
+> I'm setting up [Claude / ChatGPT / Gemini Enterprise / Microsoft 365 Copilot] and running into this issue: [describe what's happening]. What should I try?
 
 Still stuck? Bring your question to Session 1.
 
@@ -84,14 +86,14 @@ Still stuck? Bring your question to Session 1.
 
 ### Step 2: Hands-on AI Skills
 
-**What:** Install the Hands-on AI skills that walk you through the AI Workflow Framework — analyze, deconstruct, design, build and test. These are the guides you'll use throughout the course to take a workflow from "I think AI could help with this" to tested and live.
+**What:** Install the Hands-on AI Skills: the guides you'll use throughout the course to take a workflow from "I think AI could help with this" to tested and live. In Claude and ChatGPT you install them once, as a plugin, and they work in the Code tab and the Codex tab too.
 
-**Action:** [Follow the Framework Skills setup guide →](/ai-workflow-framework/skills/)
+**Action:** [Follow the Hands-on AI Skills setup guide →](/ai-workflow-framework/skills/)
 
 **Done when:**
 
-- At least one skill is installed or added to your platform
-- You've invoked a skill in your AI tool and received a response
+- The skills are installed on your platform
+- You start a new conversation, type *"Help me analyze AI workflow opportunities"*, and Analyze starts instead of giving a generic answer
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
@@ -104,15 +106,15 @@ Still stuck? Bring your question to Session 1.
 
 ## Part 2 — For Power Users
 
-Tools for going further. All optional.
+All optional. You don't need any of these for the course: the Code tab in Claude and the Codex tab in ChatGPT already work with the files on your computer. Add them when you want what they do.
 
 :::note[New to the terminal?]
-Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first — it's a ~15-minute fluency primer, not a setup step.
+Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the terminal. If that's unfamiliar, skim [Terminal Basics](/builder-setup/terminal-basics/) first. It's a short primer, not a setup step.
 :::
 
 ### Step 3: Code Editor + Extensions
 
-**What:** Install and configure Cursor or VS Code with AI model integration (Claude, ChatGPT Codex, Gemini Code Assist, or similar). Unlocks the ability to store your building blocks as files on your computer and edit them with AI assistance.
+**What:** Install and configure Cursor or VS Code with AI model integration (Claude, ChatGPT Codex, Gemini Code Assist, or similar). A second window for browsing and editing the files in your folder. Optional: the Code tab in Claude and the Codex tab in ChatGPT already work with those files.
 
 **Action:** [Follow the Code Editor setup guide →](/builder-setup/editor-setup/)
 
@@ -201,13 +203,13 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 **Done when:**
 
-- You can see the cloned repository's files in your editor (or in the Claude desktop app's Code tab)
+- You can see the cloned repository's files in the Code tab in Claude, the Codex tab in ChatGPT, or your editor
 - In your terminal, you can navigate to the cloned folder (`cd my-repo-name`) and run `git status` — it shows `On branch main`
 
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm trying to clone a GitHub repository in [Cursor / VS Code] on [Mac / Windows] and getting this error: [paste error]. What should I try?
+> I'm trying to clone a GitHub repository in [the Claude Code tab / the ChatGPT Codex tab / Cursor / VS Code] on [Mac / Windows] and getting this error: [paste error]. What should I try?
 
 </details>
 
@@ -215,7 +217,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ### Step 8: Voice to Text
 
-**What:** Configure system voice input or install a dedicated voice-to-text tool (Wispr Flow recommended). Lets you talk instead of type — faster for long prompts and more natural when you're thinking out loud.
+**What:** Turn on your computer's built-in dictation, or install a dedicated voice-to-text tool such as Wispr Flow. Lets you talk instead of type — faster for long prompts and more natural when you're thinking out loud.
 
 **Action:** [Follow the Voice to Text setup guide →](/builder-setup/voice-to-text-setup/)
 
@@ -226,7 +228,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 <details>
 <summary>Stuck? Ask AI for help</summary>
 
-> I'm setting up [Wispr Flow / Claude Quick Entry] on [Mac / Windows] for voice-to-text and running into this issue: [describe what's happening]. What should I check?
+> I'm setting up [built-in dictation / Wispr Flow / Claude Quick Entry] on [Mac / Windows] for voice-to-text and running into this issue: [describe what's happening]. What should I check?
 
 </details>
 
@@ -234,7 +236,7 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ## Part 3 — Your AI Registry
 
-**In a Hands-on AI course? Skip this part — we set your registry up together in Session 1 — bring a services page, an org chart or team list, this year's plan, and any process inventory or SOP folder if you have them.** Already set it up? Bring it; the setup skill fills gaps rather than starting over.
+**In a Hands-on AI course? Skip this part. We set your registry up together in Session 1.** Bring a services page, an org chart or team list, this year's plan, and any process inventory or SOP folder if you have them. Already set it up? Bring it; the setup skill fills gaps rather than starting over.
 
 ### Step 9: AI Registry
 
@@ -262,11 +264,10 @@ Some steps below (Code Editor, Git, GitHub CLI) involve running commands in the 
 
 ## What's Next?
 
-You're all set for the course — nice work getting through the setup!
+With Steps 1 and 2 done, you're ready for the course.
 
-- **Quick test:** Open your AI tool and ask: "What tools and connections do I have set up?" — this confirms everything is working together
-- **Bookmark this page** — it's your ongoing reference for the tool setup
-- **Start Session 1** — you'll put these tools to work right away
+- **Bookmark this page.** Come back to it when you want a power-user tool.
+- **Start Session 1.** You'll put your platform and the skills to work right away.
 
 Having trouble with any step? Bring your questions to the first session — we'll troubleshoot together.
 

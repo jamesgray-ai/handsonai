@@ -1,10 +1,10 @@
 ---
 title: Voice-to-Text Setup Guide
-description: "Set up Wispr Flow or Claude Quick Entry for hands-free voice input to AI tools — installation, permissions, and tips for dictating prompts."
+description: "Optional: set up voice input for your AI tools — your computer's built-in dictation, Wispr Flow, or Claude Quick Entry — plus tips for dictating prompts."
 schema_type: HowTo
 howto_steps:
   - name: Choose your voice input tool
-    text: Pick Wispr Flow (Mac/Windows, dictates anywhere) or Claude Quick Entry (Mac only, speaks directly to Claude).
+    text: Start with your computer's built-in dictation (Mac, Windows). Or pick Wispr Flow (Mac/Windows, dictates anywhere) or Claude Quick Entry (Mac only, speaks directly to Claude).
   - name: Install the app
     text: Download Wispr Flow from wisprflow.ai or install the Claude desktop app from claude.ai/download.
   - name: Grant permissions
@@ -19,9 +19,28 @@ Writing good AI prompts often means describing complex ideas, explaining context
 
 This is especially useful when giving an AI assistant rich context: *"I'm working on a marketing email for next week's product launch, and I need three subject line options that emphasize urgency..."* — prompts like that flow naturally from speech but take effort to type.
 
-This guide covers two options: **Wispr Flow** (dictates anywhere on your computer) and **Claude Quick Entry** (speaks directly to Claude on macOS).
+:::note[Optional]
+You don't need voice input for a Hands-on AI course. It's a power-user add-on: set it up whenever you want it.
+:::
 
-## Option 1: Wispr Flow
+This guide covers three options. Start with the first: it's free and already on your computer.
+
+| Option | Works on | Best for |
+|--------|----------|----------|
+| **Built-in dictation** | Mac, Windows | Trying voice input with nothing to install |
+| **Wispr Flow** | Mac, Windows | Fast, accurate dictation anywhere, with punctuation and formatting handled for you |
+| **Claude Quick Entry** | Mac | Speaking straight to Claude from anywhere on your desktop |
+
+## Option 1: Built-in Dictation
+
+Your computer already has voice input.
+
+- **Mac:** open **System Settings → Keyboard**, turn on **Dictation**, and note the shortcut. Then, in any text field, press the shortcut and speak.
+- **Windows:** in any text field, press **Windows key + H** and speak.
+
+**You're done when:** your spoken words appear as typed text in the field you picked.
+
+## Option 2: Wispr Flow
 
 Wispr Flow lets you dictate text anywhere on your computer using your voice.
 
@@ -46,7 +65,7 @@ Wispr Flow lets you dictate text anywhere on your computer using your voice.
 - Use the keyboard shortcut to start and stop dictation
 - Works in any application (editors, browsers, chat apps)
 
-## Option 2: Claude Quick Entry (macOS Only)
+## Option 3: Claude Quick Entry (macOS Only)
 
 The Claude desktop app has a Quick Entry feature that lets you access Claude from anywhere on your Mac, including voice dictation.
 
@@ -89,13 +108,6 @@ The Claude desktop app launches with your transcribed prompt and responds.
 - You can also use **Quick access shortcut** (double-tap Option) to open Claude without voice
 
 **Learn more:** [Use Quick Entry with Claude Desktop on Mac](https://support.claude.com/en/articles/12626668-use-quick-entry-with-claude-desktop-on-mac)
-
-## When to Use Each
-
-| Tool | Platform | Best For |
-|------|----------|----------|
-| **Wispr Flow** | Mac, Windows | Dictating anywhere—code editors, documents, emails, terminal |
-| **Claude Quick Entry** | Mac only | Speaking directly to Claude from anywhere on your desktop |
 
 ## Troubleshooting
 

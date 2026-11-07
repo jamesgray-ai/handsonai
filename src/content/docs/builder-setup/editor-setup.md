@@ -1,6 +1,6 @@
 ---
 title: Code Editor Setup Guide
-description: "Install and configure Cursor or VS Code as your code editor for AI development — download, first launch, and the settings that matter for working with AI tools."
+description: "Optional: install Cursor or VS Code to browse and edit your files alongside your AI platform — download, first launch, and AI extensions."
 schema_type: HowTo
 howto_steps:
   - name: Choose your editor
@@ -13,13 +13,19 @@ howto_steps:
     text: Press Ctrl+` (backtick) to open the integrated terminal panel at the bottom of your editor.
   - name: Install AI extensions
     text: Add AI coding extensions — Claude Code, OpenAI Codex, or Gemini Code Assist.
----## What Is a Code Editor?
+---
 
-A code editor is a specialized text editor designed for working with code. Think of it like Microsoft Word, but built for files that contain instructions rather than documents. Your editor gives you a file browser, a place to read and write code, and a built-in terminal — all in one window.
+:::note[Optional]
+You don't need a code editor for a Hands-on AI course. The **Code** tab in the Claude desktop app and the **Codex** tab in the ChatGPT desktop app already work with the files on your computer. Install an editor when you want a second window for browsing and editing those files.
+:::
 
-For AI development, your editor becomes your main workspace. You'll open projects, read files that AI tools create or modify, and run terminal commands without switching windows. Many editors now have AI built in or support AI extensions that let your coding assistant read and edit files alongside you.
+## What Is a Code Editor?
 
-This guide covers popular options — **Cursor**, **VS Code**, **Windsurf**, and others — and walks through installing AI coding extensions for whichever platforms you use.
+A code editor is a text editor built for working with files of instructions rather than documents. It gives you a file browser, a place to read and edit files, and a built-in terminal, all in one window.
+
+It's useful alongside your AI platform: you can see every file the AI creates or changes, organized in folders, and edit Markdown files directly. Many editors have AI built in or support AI extensions that read and edit files alongside you.
+
+This guide covers **Cursor** and **VS Code**, and how to add AI extensions for the platforms you use.
 
 ## Choose Your Editor
 
@@ -65,7 +71,7 @@ If the sidebar shows your files, your editor is working correctly.
 
 ## Open the Terminal in Your Editor
 
-Once your editor is installed, you can use the terminal directly inside it. This is where you'll spend most of your time — running commands without switching windows.
+Your editor has a terminal built in, so when a guide asks you to run a command, you can do it without switching windows.
 
 The steps are the same for both Cursor and VS Code:
 
@@ -75,16 +81,15 @@ The steps are the same for both Cursor and VS Code:
 
 You can also open it from the menu: **Terminal > New Terminal**.
 
-:::tip[Keep it visible]
-Drag the top edge of the terminal panel to resize it. Many developers keep the terminal open at all times while they work.
-:::
+Drag the top edge of the terminal panel to resize it.
+
 ## Install AI Extensions
 
 After installing your editor, add AI coding extensions (small add-ons that give your editor new capabilities) for the platforms you have a **paid subscription** to. You don't need all of these — just install the one(s) that match your accounts.
 
 ### Claude Code
 
-Requires a **Claude Pro, Max, or Team** subscription. The Claude Code extension connects your editor to Claude's AI capabilities.
+Requires a **paid Claude plan**. The Claude Code extension connects your editor to Claude's AI capabilities.
 
 1. Open the Extensions panel (**Cmd/Ctrl + Shift + X**)
 2. Search for **Claude Code**
@@ -95,7 +100,7 @@ The Claude Code extension also includes an integrated terminal panel. See [Getti
 
 ### OpenAI Codex
 
-Requires a **ChatGPT Plus or Team** subscription. OpenAI's coding assistant extension for VS Code and Cursor.
+Requires a **paid ChatGPT plan**. OpenAI's coding assistant extension for VS Code and Cursor.
 
 1. Open the Extensions panel (**Cmd/Ctrl + Shift + X**)
 2. Search for **Codex** (by OpenAI)
@@ -106,7 +111,7 @@ See [OpenAI Codex documentation](https://openai.com/index/codex/) for details.
 
 ### Gemini Code Assist
 
-Requires a **Gemini Advanced** (Google One AI Premium) subscription or **Google Workspace** with Gemini enabled. Google's AI coding assistant extension.
+Google's AI coding assistant extension. Sign in with your Google account; Google's documentation lists which plans include it.
 
 1. Open the Extensions panel (**Cmd/Ctrl + Shift + X**)
 2. Search for **Gemini Code Assist**
@@ -132,7 +137,7 @@ See [Gemini Code Assist documentation](https://cloud.google.com/products/gemini-
 **Extension installed but not working?**
 
 - Check if the extension requires sign-in — look for a notification or status bar icon
-- Some extensions need an API key or subscription (e.g., Claude Code requires a Claude Pro/Max/Team plan)
+- Some extensions need an API key or subscription (e.g., Claude Code requires a paid Claude plan)
 - Disable other AI extensions temporarily to rule out conflicts
 
 <details>
@@ -145,6 +150,8 @@ If you're stuck, paste this into ChatGPT, Claude, or Gemini:
 </details>
 
 ## Next Steps
+
+Want to back up your files and keep their history? That's optional too, and takes three pieces, in this order:
 
 - Create your GitHub account (see [GitHub Account Setup Guide](../github-setup/))
 - Install Git (see [Git Installation Guide](../git-install/))
