@@ -8,7 +8,7 @@ Complete setup checklist for Anthropic's Claude platform. Work through each sect
 **Requires:** Nothing — this is where you start.
 
 :::note[In a Hands-on AI course?]
-Before Session 1 you only need the [Tools Setup Checklist](/courses/tools-setup-checklist/): the desktop app, your settings, and the Hands-on AI Skills. The rest of this guide is optional, and personalization and memory are covered in Session 2.
+Before Session 1 you only need the [Tools Setup Checklist](/courses/tools-setup-checklist/): the desktop app on a paid plan, your settings, and the Hands-on AI plugin. The rest of this guide is optional, and personalization and memory are covered in Session 2.
 :::
 
 ---

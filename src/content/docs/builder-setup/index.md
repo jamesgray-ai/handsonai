@@ -1,13 +1,13 @@
 ---
 title: Builder Tools Setup Guide
-description: What each builder tool is and why it matters — your AI platform's desktop app and the Hands-on AI Skills, plus optional tools for power users
+description: What each builder tool is and why it matters — your AI platform's desktop app and the Hands-on AI plugin, plus optional tools for power users
 ---
 
 This page explains what each tool is and why you'd want it. To set up for a course, follow the [Tools Setup Checklist](/courses/tools-setup-checklist/): it has the steps and how to tell each one is done.
 
 There are three parts:
 
-1. **What you need:** your AI platform's desktop app and the Hands-on AI Skills.
+1. **What you need:** your AI platform's desktop app, on a paid plan, and the Hands-on AI plugin.
 2. **For power users:** optional tools that work alongside your AI platform.
 3. **Your AI Registry:** the home for every workflow you build. In a course, we set it up together in Session 1.
 
@@ -18,7 +18,7 @@ There are three parts:
 | Tool | What it is | Why it matters to you |
 |---|---|---|
 | **Your AI platform's desktop app** | The Claude, ChatGPT or Microsoft 365 Copilot app on your computer. Gemini runs in your browser. | It's where you work. In Claude, the **Code** tab works with the files in a folder on your computer; in ChatGPT, the **Codex** tab does the same. You don't write code in either. |
-| **[Hands-on AI Skills](../ai-workflow-framework/skills/)** | Skills that walk you through the [AI Workflow Framework](../ai-workflow-framework/) | Step-by-step guidance from "I think AI could help with this" to a tested, live workflow, right inside your AI tool |
+| **[Hands-on AI plugin](../ai-workflow-framework/skills/)** | Every Hands-on AI skill in one install, including the skills that walk you through the [AI Workflow Framework](../ai-workflow-framework/) | Step-by-step guidance from "I think AI could help with this" to a tested, live workflow, right inside your AI tool |
 
 Personalization, memory and connections make your AI more useful over time. The courses cover them in Session 2; your platform's Getting Started guide has the steps whenever you want them: [Claude](../platforms/claude/getting-started/) · [OpenAI](../platforms/openai/getting-started/) · [Gemini](../platforms/google-gemini/getting-started/) · [Microsoft 365 Copilot](../platforms/m365-copilot/getting-started/)
 
@@ -64,7 +64,7 @@ Some power-user tools (Editor, Git, GitHub CLI) involve running commands in the 
 |---|---|---|
 | [AI Registry](ai-registry-setup/) | An inventory of your workflows, processes and insights: Markdown in your workspace, kept up to date by your AI | The single source of truth for what you've built, who's using it, and how it all connects |
 
-In a Hands-on AI course, skip this until Session 1: we set it up together there. Working through the framework on your own? Set it up before you run Analyze, which reads it and registers your candidates. There's nothing to install beyond the Hands-on AI Skills.
+In a Hands-on AI course, skip this until Session 1: we set it up together there. Working through the framework on your own? Set it up before you run Analyze, which reads it and registers your candidates. There's nothing to install beyond the Hands-on AI plugin.
 
 ## What's Next?
 

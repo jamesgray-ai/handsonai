@@ -1,9 +1,9 @@
 ---
 title: Tools Setup Checklist
-description: Set up for a Hands-on AI course — your AI platform's desktop app and basic settings, plus the Hands-on AI Skills. Power-user tools are optional.
+description: Set up for a Hands-on AI course — your AI platform's desktop app and basic settings, plus the Hands-on AI plugin. Power-user tools are optional.
 ---
 
-Two steps get you ready for Session 1: set up your AI platform, then install the Hands-on AI Skills. Everything after Part 1 is optional. You don't need any of it for the course.
+Two steps get you ready for Session 1: set up your AI platform, then install the Hands-on AI plugin. Everything after Part 1 is optional. You don't need any of it for the course.
 
 ## At a Glance
 
@@ -41,7 +41,7 @@ The home for every workflow you build. **In a Hands-on AI course? Skip it. We se
 
 ### Step 1: AI Platform Setup
 
-You need one AI platform. Use the one you'll build in.
+You need one AI platform, on a paid plan: for example Claude Pro or above, ChatGPT Plus or above, a Microsoft 365 Copilot license, or Gemini Enterprise. Use the one you'll build in.
 
 **1. Get the desktop app.** The live sessions use it, and it's where you'll work during the course.
 
@@ -68,7 +68,7 @@ Personalization, memory and connections to your other apps come later: you set t
 
 **Done when:**
 
-- You're signed in to your platform, in its desktop app or your browser
+- You're signed in to your platform on a paid plan, in its desktop app or your browser
 - Your settings and privacy choices are made
 - Using Claude or ChatGPT in a browser: your Google Drive is connected
 
@@ -87,13 +87,13 @@ Still stuck? Bring your question to Session 1.
 
 ### Step 2: Hands-on AI Skills
 
-**What:** Install the Hands-on AI Skills: the guides you'll use throughout the course to take a workflow from "I think AI could help with this" to tested and live. In Claude and ChatGPT you install them once, as a plugin, and they work in the Code tab and the Codex tab too.
+**What:** Install the Hands-on AI plugin. It holds every Hands-on AI skill: the guides you'll use throughout the course to take a workflow from "I think AI could help with this" to tested and live. One install covers everything, and in Claude and ChatGPT it works in the Code tab and the Codex tab too.
 
-**Action:** [Follow the Hands-on AI Skills setup guide →](/ai-workflow-framework/skills/)
+**Action:** [Follow the plugin setup guide →](/ai-workflow-framework/skills/)
 
 **Done when:**
 
-- The skills are installed on your platform. Uploading them one at a time? Before Session 1 you need **analyze**, **scaffolding-registry** and **indexing-registry**.
+- The Hands-on AI plugin is installed. On Claude, ChatGPT and Microsoft 365 Copilot, that's the whole plugin, from the marketplace or by uploading the plugin file. On Gemini, which takes skills one at a time, upload **analyze**, **scaffolding-registry** and **indexing-registry** before Session 1.
 - You start a new conversation, type *"Help me analyze AI workflow opportunities"*, and Analyze starts instead of giving a generic answer. (In ChatGPT, switch to **Work** or the **Codex** tab and pick the skill with `@analyze` first.)
 
 Seeing Analyze's first question means it worked. You can close the conversation: we start here together in Session 1.
