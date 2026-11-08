@@ -7,8 +7,8 @@
 #   scripts/framework/routing.md   the routing rule (the spec's `references/routing.md`
 #                                  block, everything between its two markers)
 #   scripts/framework/test-run.sh  the test-run wrapper (optional here: copied if present)
-#   scripts/framework/saving.md    the save rule: read every save back through a
-#                                  connection; create-only or print-to-save if it didn't take
+#   scripts/framework/saving.md    the save rule: how to save through a connection, decided
+#                                  from its tools (in place, create-only, print-to-save)
 #   scripts/framework/platform-facts.md  where to look for platform facts, and the safe
 #                                  path when a fact can't be confirmed
 #
@@ -27,7 +27,9 @@
 #                                                   # copy it to the skills, then check
 #
 # SPEC is the private business repo's framework-rules.md. CI can't read that repo, so the
-# spec comparison only runs when the path is given.
+# spec comparison only runs when the path is given. With SPEC, saving.md and
+# platform-facts.md are also compared with the blocks between their own markers
+# (<!-- saving.md: begin --> ... end, <!-- platform-facts.md: begin --> ... end).
 #
 # Exit codes: 0 in sync, 1 drift, 2 usage error or a file is missing.
 #
@@ -69,6 +71,13 @@ extract_block() {
   le=$(grep -nxF -- "$END_MARKER" "$spec" | cut -d: -f1)
   [ "$lb" -lt "$le" ] || { echo "Error: in $spec the end marker comes before the begin marker." >&2; return 2; }
   sed -n "$((lb + 1)),$((le - 1))p" "$spec"
+}
+
+# Print the block between "<!-- NAME: begin -->" and "<!-- NAME: end -->" in $1.
+extract_named() {
+  local spec="$1" name="$2"
+  local BEGIN_MARKER="<!-- $name: begin -->" END_MARKER="<!-- $name: end -->"
+  extract_block "$spec"
 }
 
 sync_copies() {
@@ -192,6 +201,20 @@ check_copies() {
       drift=1
     fi
     rm -f "$tmp"
+    for pair in "saving.md:$CANON_SAVING" "platform-facts.md:$CANON_FACTS"; do
+      name="${pair%%:*}"; canon="${pair#*:}"
+      tmp="$(mktemp)"; rc=0
+      extract_named "$spec" "$name" > "$tmp" || rc=$?
+      if [ "$rc" -ne 0 ]; then rm -f "$tmp"; return 2; fi
+      if cmp -s "$tmp" "$canon"; then
+        echo "  ok       scripts/framework/$name matches the spec's $name block"
+      else
+        echo "  DIFFERS  scripts/framework/$name vs the spec's $name block ($spec)"
+        diff "$tmp" "$canon" | sed 's/^/           /' | head -20 || true
+        drift=1
+      fi
+      rm -f "$tmp"
+    done
   else
     echo "  skipped  spec comparison (pass the path to framework-rules.md to run it)"
   fi
