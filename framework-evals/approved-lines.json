@@ -460,7 +460,7 @@
   {
    "id": "N-F7",
    "form": "Claude Code and Codex",
-   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in this project and say '[start phrase].'",
+   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in your working folder and say '[start phrase].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct",
@@ -560,6 +560,24 @@
     "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
+  },
+  {
+   "id": "N-F10",
+   "form": "Claude Code and Codex",
+   "text": "To pick up, start a new session in this project and say '[start phrase].'",
+   "kind": "safety or promise",
+   "skills": [
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "design": "SKILL.md",
+    "build": "SKILL.md",
+    "test": "SKILL.md"
+   },
+   "source": "3c-EL, pending James's approval",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
@@ -1128,7 +1146,7 @@
   {
    "id": "N-T21",
    "form": "Claude Code and Codex",
-   "text": "It's been [3 months] since this was last checked. To re-check it, open a new session in this project and say 'test the workflow I built.'",
+   "text": "It's been [3 months] since this was last checked. To re-check it, open a new session in your working folder and say 'test the workflow I built.'",
    "kind": "carried",
    "skills": [
     "built-workflow"
@@ -2052,7 +2070,7 @@
   {
    "id": "N-D14",
    "form": "main-4 (lines-to-approve)",
-   "text": "Start Design in a new chat with: 'run the design skill', and paste or attach the files you saved.",
+   "text": "Start Design in a new chat with: 'run the design skill', and attach the latest zip I gave you, or paste or attach the files you saved.",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -3636,7 +3654,7 @@
   {
    "id": "N-B13",
    "form": "Claude on the web and ChatGPT",
-   "text": "Start Test in a new chat outside your workflow's Project with: 'test the workflow I built. My files are in [location].'",
+   "text": "Start Test in a new chat outside your workflow's Project. Add your [storage service] to it, then say 'test the workflow I built. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -8111,6 +8129,20 @@
    "id": "N-SR2",
    "form": "main",
    "text": "You already have a registry here, so I'll check it for gaps instead of starting over.",
+   "kind": "safety or promise",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "3c-EL, pending James's approval",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-SR3",
+   "form": "main",
+   "text": "Your goals for this year aren't recorded yet; tell me them any time.",
    "kind": "safety or promise",
    "skills": [
     "scaffolding-registry"

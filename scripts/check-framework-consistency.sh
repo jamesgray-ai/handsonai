@@ -113,5 +113,12 @@ if [ "$rc" -eq 0 ]; then ok "approved lines in place (skills on scripts/line-pla
 else bad "approved lines missing or drifted (exit $rc): see above; python3 scripts/check-line-placement.py lists each one"; fi
 
 echo
+echo "-- scaffolding-registry and indexing-registry rule text (no eval workspace; 3c-EL) --"
+out=$(python3 scripts/check-scaffolding-rules.py 2>&1); rc=$?
+echo "$out" | grep -v "^  ok" | grep -v "passed, .* failed" || true
+if [ "$rc" -eq 0 ]; then ok "scaffolding and indexing rule text in place"
+else bad "scaffolding or indexing rule text missing (exit $rc): python3 scripts/check-scaffolding-rules.py lists each one"; fi
+
+echo
 echo "$PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

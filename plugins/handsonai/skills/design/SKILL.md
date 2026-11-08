@@ -22,7 +22,7 @@ Design turns the leader's **Workflow Requirements** (`requirements.md`) into an 
 
 Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). Quoted lines are already approved plain words: the plain-words rules are for your own wording, never a reason to simplify a quoted line ("pins down" stays "pins down"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
-A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted.
+A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted, never inside a code block. **On Claude Code and Codex, [location] is nothing:** a start phrase there ends at the phrase ("run the build skill."), lines that send the leader on say "in a new session in this project", and a pick-up line is "To pick up, start a new session in this project and say '[start phrase].'" (`references/routing.md`).
 
 ### Entry, before the opening
 
@@ -84,7 +84,7 @@ Said only when Design starts fresh: never before a routing line, never on a resu
 
 1. Said exactly: "Design turns your Workflow Requirements for [Name] into a plan for building it: what it's built from, how much it decides on its own, and how each part will be checked. I'll do the design work and ask you only what I can't work out; then you review the plan and approve it." No time.
 2. **The location (N-F3):** one line of model wording carrying "I'll read and save your files in [location]." and its platform clause. On the web and in Microsoft 365 Cowork: "When [platform] asks to save to your drive here, choose Always allow for this chat; I'll only read and save inside your working folder." On Claude Code: "When Claude Code asks before I save a file, you can allow edits for this session; I'll only change the files this step needs." On Codex: "When Codex asks before I save a file, you can allow it for this session; I'll only change the files this step needs."
-3. **Picking up,** only where a new session can read the files (never on print-to-save): "Stopping early is safe: I'll save the plan once it's drafted, then as we go." then "To pick up, say 'run the design skill. My files are in [location].'" On Claude desktop with the files in a local folder: "To pick up, open a new chat with your working folder selected and say 'run the design skill. My files are in [location].'" On Microsoft 365: "To pick up, open a new Cowork chat and say 'run the design skill. My files are in [location].'"
+3. **Picking up,** only where a new session can read the files (never on print-to-save): "Stopping early is safe: I'll save the plan once it's drafted, then as we go." then "To pick up, say 'run the design skill. My files are in [location].'" (Claude Code and Codex: "To pick up, start a new session in this project and say 'run the design skill.'") On Claude desktop with the files in a local folder: "To pick up, open a new chat with your working folder selected and say 'run the design skill. My files are in [location].'" On Microsoft 365: "To pick up, open a new Cowork chat and say 'run the design skill. My files are in [location].'"
 4. "Part 1 of 4 — where it runs", then Phase 1's line.
 
 Signposts are for the full flow only, each said exactly with no intro line beyond its part's own first message. When Part 3 has nothing to ask, Part 4 follows with no announcement and keeps its number.
@@ -239,7 +239,7 @@ It ends: **Ask:** "What would you change or clarify?"
 
 With no files, first "Save this approved plan as `[folder]/design-plan.md`.", then the full approved plan, then the close. Anything else the leader needs comes before the close; nothing comes after it but the Git offer.
 
-**The Git offer,** only when the workflow folder is in a Git repository (with a shell, `git rev-parse --show-toplevel` returns the workspace; never on the web or in a drive), once, after the close: **Ask:** "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On a yes, stage only the framework's own paths, by name (`framework/[slug]/`, and `registry/` where it's in the repository), never `git add -A`, `-a` or `.`, a practice folder (`practice*/`), `.claude/settings.local.json`, secrets (an `.env` or key file) or the leader's other work; commit locally; never push. Either way, end with the start phrase again.
+**The Git offer,** only when the workflow folder is in a Git repository (with a shell, `git rev-parse --show-toplevel` returns the workspace; never on the web or in a drive), once, after the close. In a cloud session: no offer; commit, push and N-F18, as `references/routing.md` says. Elsewhere: **Ask:** "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On a yes, stage only the framework's own paths, by name (`framework/[slug]/`, and `registry/` where it's in the repository), never `git add -A`, `-a` or `.`, a practice folder (`practice*/`), `.claude/settings.local.json`, secrets (an `.env` or key file) or the leader's other work; commit locally; never push. Either way, end with the start phrase again.
 
 ### Saving and resuming
 
@@ -281,7 +281,7 @@ On approval, where there's a registry (on the web and in Cowork, through the con
 One level deep, each read when its moment comes:
 - `references/routing.md`: at every entry and on "continue my workflow" (the rule, and the written fallback for `framework-state`).
 - `references/platform-facts.md`: whenever you need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves).
-- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you.
+- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you; and, on print-to-save, its rule 5 (one zip at each save point; unpack an attached zip).
 - `references/plan-template.md`: at the start of Part 2, and whenever you write the plan.
 - `references/self-test-checklist.md`: on every draft and every update.
 - `references/capability-domains.md`: when the plan uses `decomposition: domains`.

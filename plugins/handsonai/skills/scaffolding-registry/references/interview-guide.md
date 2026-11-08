@@ -34,8 +34,8 @@ Wherever a phase says **Example to show**, describe that example page in plain w
 **The opening (first message, before anything else but the storage
 question):** when the storage question (N-F1, or N-F12 on Claude desktop) is
 needed, it comes first, as SKILL.md's *Where the files live* says, and the
-opening follows the student's answer. Otherwise the first thing the student
-hears is this opening — nothing before it about refreshing, maintenance,
+opening follows the student's answer. When there's no registry yet, the first thing the student
+hears is this opening (with a registry already there, N-SR2 comes first: SKILL.md, *Before scaffolding*) — nothing before it about refreshing, maintenance,
 checks, or what the folder is missing.
 
 > "This sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every step of the framework uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It runs in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe. Progress is saved."
@@ -82,7 +82,7 @@ opening (SKILL.md, *Where the files live*):
   folder the student selected. Don't ask the student to approve the path.
 - **On the web and in Cowork:** the registry goes in `registry/` in the
   working folder in the student's drive, written through the connection.
-- **No files and no connection that can save → print-to-save.** Say N-F6
+- **No files and no connection that can save (Gemini, or on the web after the leader says 'continue' to N-F16) → print-to-save.** Say N-F6
   once, up front: "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step."
   Where you can create a file to download, give one zip of the working
   folder, its folders intact, at each save point, each replacing the last
@@ -120,6 +120,8 @@ opening (SKILL.md, *Where the files live*):
    - *Why:* drafting from something you already have is faster than starting from a blank page, and you only have to correct it.
    - *Example:* a property manager might share the company website's "Services" page and a one-page team list.
    - *Not sure?* A website link is enough. If you have nothing, we'll build it together from your answers.
+
+   A link you can't open: say so in one line, ask them to paste the key text or answer from memory; never propose changing the environment, network, permissions or credentials.
 
    Map each source with `intake-sources.md`.
    An answer the student gives here in words ("the areas are household,
@@ -213,7 +215,9 @@ only what the student confirms.
 - *Not sure?* Think about what would make this a good year for the business. Write that down in your own words; it doesn't need to be a target or a number.
 
 Record what the student says as separate goals; if one answer could be two
-goals or three, ask. Then play back the complete entry once, before writing
+goals or three, ask. **Never invent goals,** even when asked to draft every
+part from what you know: with none given, record none and say once, N-SR3,
+"Your goals for this year aren't recorded yet; tell me them any time." Then play back the complete entry once, before writing
 anything:
 
 > **Name:** … · **What it does:** … · **Website:** … · **Goals for this year:** (each goal)
@@ -434,14 +438,14 @@ Hand off to
 (`registry-dashboard.html`) — never offer it as an option. On the web the
 pass saves through the drive connection. On print-to-save there is no
 maintenance hand-off: give the `log.md` entry, every typed `index.md` you
-updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s
+updated, each Function page with its `# Owns` filled, and a complete `REGISTRY.md` composed per `indexing-registry`'s
 rules, each with its location, and say the set is complete.
 
 **The close (last message) — files saved (locally or in the drive):**
 
 > "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the storage service's own name, with the working folder's own name, ai-workspace unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
 >
-> "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
+> "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first; in a cloud session, it's in your repository on GitHub to download, and the Claude page below is the easier way to see it), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
 >
 > "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
 >
