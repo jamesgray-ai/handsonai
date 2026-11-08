@@ -16,7 +16,7 @@ description: >-
 
 Design turns the leader's **Workflow Requirements** (`requirements.md`) into an approved **Design Plan** (`design-plan.md`) that ends in a task list Build follows. The plan is the implementation plan: it argues from the requirements by ID and copies none of their wording. The leader makes only the choices only they can make (reusing a skill they have, what happens when a connection can't make a change, accepting a risk, whether a limit they set still holds, and approval); you do the design work (how much the AI decides at each step, how it runs, the patterns, connections, blueprints and tasks) and record each decision with its reason in the plan. Bring your own platform and design knowledge: this skill carries the framework, the plan's structure, the scripted lines and the hard rules, never a ready-made design.
 
-> **Platform registry:** platform facts (agents and skills, packaging, `mode`, scheduling and `unattended_runs`, memory, where context lives, the run log, connections and what each can write, release-check status, how to select a folder on Claude desktop) come from `registries/platform-registry.json`: this skill's own copy if it has one, then the plugin root, then `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Look a platform up by key or alias. Read it once per session. A fact that rests on an open release check takes that check's fallback, said only as far as the registry states it: never fill in how the fallback works where the registry doesn't say, or claim it works as well or the same way. Never assume the leader's plan or subscription: a fact that differs by plan is said for the plans it applies to by name ("on Plus and Pro"), never as theirs.
+> **Platform registry:** platform facts (agents and skills, packaging, `mode`, scheduling and `unattended_runs`, memory, where context lives, the run log, connections and what each can write, release-check status, how to select a folder on Claude desktop) come from `registries/platform-registry.json`: this skill's own copy if it has one, then the plugin root. Look a platform up by key or alias. Read it once per session. If neither is there, every release check takes its fallback. A fact that rests on an open release check takes that check's fallback, said only as far as the registry states it: never fill in how the fallback works where the registry doesn't say, or claim it works as well or the same way. Never assume the leader's plan or subscription: a fact that differs by plan is said for the plans it applies to by name ("on Plus and Pro"), never as theirs.
 
 ## Workflow
 
@@ -280,6 +280,7 @@ On approval, where there's a registry (on the web and in Cowork, through the con
 
 One level deep, each read when its moment comes:
 - `references/routing.md`: at every entry and on "continue my workflow" (the rule, and the written fallback for `framework-state`).
+- `references/saving.md`: before the first save through a connection (on the web, and on Claude desktop after "use my drive"): which way this chat saves.
 - `references/plan-template.md`: at the start of Part 2, and whenever you write the plan.
 - `references/self-test-checklist.md`: on every draft and every update.
 - `references/capability-domains.md`: when the plan uses `decomposition: domains`.

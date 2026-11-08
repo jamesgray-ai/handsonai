@@ -7,10 +7,13 @@
 #   scripts/framework/routing.md   the routing rule (the spec's `references/routing.md`
 #                                  block, everything between its two markers)
 #   scripts/framework/test-run.sh  the test-run wrapper (optional here: copied if present)
+#   scripts/framework/saving.md    the save check: which way a chat saves through a
+#                                  connection (update in place, create-only, print-to-save)
 #
 # Copies:
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test}/references/routing.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
+#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
 #
 # Usage:
 #   bash scripts/sync-routing.sh                    # copy canonical -> skills, then check
@@ -33,9 +36,11 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CANON_DIR="$ROOT/scripts/framework"
 CANON_ROUTING="$CANON_DIR/routing.md"
 CANON_TEST_RUN="$CANON_DIR/test-run.sh"
+CANON_SAVING="$CANON_DIR/saving.md"
 SKILLS_DIR="$ROOT/plugins/handsonai/skills"
 ROUTING_SKILLS=(analyze deconstruct design build test)
 TEST_RUN_SKILLS=(build test)
+SAVING_SKILLS=(analyze deconstruct design build test scaffolding-registry indexing-registry)
 BEGIN_MARKER='<!-- routing.md: begin -->'
 END_MARKER='<!-- routing.md: end -->'
 
@@ -71,6 +76,14 @@ sync_copies() {
     cp "$CANON_ROUTING" "$dest"
     echo "  copied  routing.md  -> skills/$skill/references/routing.md"
   done
+  [ -f "$CANON_SAVING" ] || { echo "Error: $CANON_SAVING not found — nothing to sync." >&2; exit 2; }
+  for skill in "${SAVING_SKILLS[@]}"; do
+    [ -d "$SKILLS_DIR/$skill" ] || { echo "Error: skill folder missing: $SKILLS_DIR/$skill" >&2; exit 2; }
+    dest="$SKILLS_DIR/$skill/references/saving.md"
+    mkdir -p "$(dirname "$dest")"
+    cp "$CANON_SAVING" "$dest"
+    echo "  copied  saving.md   -> skills/$skill/references/saving.md"
+  done
   if [ -f "$CANON_TEST_RUN" ]; then
     for skill in "${TEST_RUN_SKILLS[@]}"; do
       dest="$SKILLS_DIR/$skill/scripts/test-run.sh"
@@ -100,6 +113,22 @@ check_copies() {
       drift=1
     else
       echo "  ok       skills/$skill/references/routing.md"
+    fi
+  done
+
+  if [ ! -f "$CANON_SAVING" ]; then
+    echo "Error: $CANON_SAVING not found." >&2; return 2
+  fi
+  for skill in "${SAVING_SKILLS[@]}"; do
+    copy="$SKILLS_DIR/$skill/references/saving.md"
+    if [ ! -f "$copy" ]; then
+      echo "  MISSING  skills/$skill/references/saving.md"; drift=1
+    elif ! cmp -s "$CANON_SAVING" "$copy"; then
+      echo "  DIFFERS  skills/$skill/references/saving.md"
+      diff "$CANON_SAVING" "$copy" | sed 's/^/           /' | head -20 || true
+      drift=1
+    else
+      echo "  ok       skills/$skill/references/saving.md"
     fi
   done
 

@@ -439,7 +439,7 @@ rules, each with its location, and say the set is complete.
 
 **The close (last message) — files saved (locally or in the drive):**
 
-> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the working folder's own name, ai-workspace unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
+> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the storage service's own name, with the working folder's own name, ai-workspace unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
 >
 > "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
 >
@@ -449,7 +449,7 @@ rules, each with its location, and say the set is complete.
 
 That last paragraph is N-A7: say it exactly. [location] is the working
 folder, as Analyze's start phrase names it: "Google Drive, in ai-workspace" or
-"OneDrive, in ai-workspace" in a drive (with the folder's own name when the
+"OneDrive, in ai-workspace" in a drive (the storage service by its own name; the folder's own name when the
 leader chose another folder at the storage question); on Claude desktop, the
 folder's own name (such as "ai-workspace"); on Claude Code and Codex,
 "framework". Leave out the

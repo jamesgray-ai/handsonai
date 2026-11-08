@@ -22,7 +22,7 @@ log · 8. Lint rule list · 9. Closing step
 |---|---|---|
 | Claude Code, Codex | `registry/` in the workspace | the workspace, the working folder, which also holds `framework/` |
 | Claude desktop with a local working folder | `registry/` inside the working folder the leader selected | the working folder, which also holds `framework/` |
-| Claude on the web, ChatGPT, Microsoft 365 Copilot (Cowork) | `registry/` in the working folder (`ai-workspace/`, or the leader's own folder) in their Google Drive or OneDrive, read and written through the platform's connection | the working folder, which also holds `framework/` |
+| Claude on the web, ChatGPT, Microsoft 365 Copilot (Cowork) | `registry/` in the working folder (`ai-workspace/`, or the leader's own folder) in the storage service it was set up in (Google Drive, OneDrive, Dropbox or another), read and written through the platform's connection | the working folder, which also holds `framework/` |
 
 A workflow's registry entry is its **Workflow concept node**, `registry/workflows/<slug>.md`, where
 `<slug>` is the workflow's kebab-case ID, the same name as its folder in the framework folder. The
@@ -85,13 +85,13 @@ skill sets a registry up when the leader wants one.
    in the same write, and a step that moves one back restores it only if it's absent (the
    set-aside rules in section 3). The same holds when an earlier version's files are moved into
    `history/earlier-version-[date]/`: their links, legacy labels included, come off the node.
-8. **Saving on a drive.** Where the connection can update a file in place, it does. Where it can
+8. **Saving on a drive.** Which way a chat saves is settled by the save check (`references/saving.md` in each skill that saves). Where the connection can update a file in place, it does. Where it can
    only create files but can move and rename them, before each save the current file moves into
    the framework folder's `history/`, under its registry path and renamed `[file]-YYYY-MM-DD-HHMM.md`
    (`history/registry/workflows/<slug>-2026-10-24-1504.md`), and the new file is
    created under its own name; such a step saves at the end of a part or a batch, not after every
    node. Nothing in the registry is ever shared, trashed or deleted on a drive.
-9. **Print-to-save, only as the fallback.** With no files and no drive connection that can write,
+9. **Print-to-save, only as the fallback.** With no files and no connection that can save,
    every write in this contract becomes: give the file complete, with its exact location, and say
    plainly that the leader must save it. Never report a file as written that you only gave. At
    the end of the step, list every file the leader needs to save.

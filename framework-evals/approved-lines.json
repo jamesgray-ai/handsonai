@@ -30,7 +30,7 @@
   {
    "id": "N-F1",
    "form": "main",
-   "text": "Where's your working folder? It's the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your [Google Drive / OneDrive], tell me its name. If not, I'll make a private folder called ai-workspace there. The connection reaches your whole drive, but I'll only read and save inside your working folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me your folder's name.",
+   "text": "Where's your working folder? It's the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your [storage service], tell me its name. If not, I'll make a private folder called ai-workspace there. The connection reaches your whole drive, but I'll only read and save inside your working folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me your folder's name.",
    "kind": "question",
    "skills": [
     "analyze",
@@ -623,7 +623,7 @@
   {
    "id": "N-F12",
    "form": "main",
-   "text": "Your AI work lives in one working folder on your computer: your AI Registry, your workflows and your knowledge graph. Select your working folder in the prompt window. If you don't have one, make a folder called ai-workspace, for example in Documents, and select that. Open each step of the framework in a new chat with that folder selected. Say 'done' when it's selected[, or 'use my drive' to keep it in [Google Drive / OneDrive] instead].",
+   "text": "Your AI work lives in one working folder on your computer: your AI Registry, your workflows and your knowledge graph. Select your working folder in the prompt window. If you don't have one, make a folder called ai-workspace, for example in Documents, and select that. Open each step of the framework in a new chat with that folder selected. Say 'done' when it's selected[, or 'use my drive' to keep it in [storage service] instead].",
    "kind": "safety or promise",
    "skills": [
     "analyze",
