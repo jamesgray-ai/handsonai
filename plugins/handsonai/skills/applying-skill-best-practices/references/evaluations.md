@@ -38,7 +38,7 @@ The same handoff works: give skill-creator the examples first. In a Claude task 
 
 ## Running the tests: other platforms
 
-Check the platform's `skill_evaluation` entry in the platform registry. Where the platform's skill creator can run tests, hand it the same examples first. Where it can't, run the same tests by hand:
+Check the platform's skills page (`platform-docs.json`). Where it shows the platform's skill creator can run tests, hand it the same examples first. Where it doesn't, or you can't confirm it, run the same tests by hand:
 
 1. **Without the skill:** run each test prompt in a fresh chat with the skill turned off, and save the result.
 2. **With the skill:** run it in a fresh chat with the skill on, and save the result.

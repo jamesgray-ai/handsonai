@@ -22,7 +22,7 @@ log · 8. Lint rule list · 9. Closing step
 |---|---|---|
 | Claude Code, Codex | `registry/` in the workspace | the workspace, the working folder, which also holds `framework/` |
 | Claude desktop with a local working folder | `registry/` inside the working folder the leader selected | the working folder, which also holds `framework/` |
-| Claude on the web, ChatGPT, Microsoft 365 Copilot (Cowork) | `registry/` in the working folder (`ai-workspace/`, or the leader's own folder) in their Google Drive or OneDrive, read and written through the platform's connection | the working folder, which also holds `framework/` |
+| Claude on the web, ChatGPT, Microsoft 365 Copilot (Cowork) | `registry/` in the working folder (`ai-workspace/`, or the leader's own folder) in the storage service it was set up in (Google Drive, OneDrive, Dropbox or another), read and written through the platform's connection | the working folder, which also holds `framework/` |
 
 A workflow's registry entry is its **Workflow concept node**, `registry/workflows/<slug>.md`, where
 `<slug>` is the workflow's kebab-case ID, the same name as its folder in the framework folder. The
@@ -85,13 +85,13 @@ skill sets a registry up when the leader wants one.
    in the same write, and a step that moves one back restores it only if it's absent (the
    set-aside rules in section 3). The same holds when an earlier version's files are moved into
    `history/earlier-version-[date]/`: their links, legacy labels included, come off the node.
-8. **Saving on a drive.** Where the connection can update a file in place, it does. Where it can
+8. **Saving on a drive.** How to save comes from the tools the connection gives you (`references/saving.md` in each skill that saves), and a page you'll save again is read as stored, never from a reformatted view. Where the connection can update a file in place, it does. Where it can
    only create files but can move and rename them, before each save the current file moves into
    the framework folder's `history/`, under its registry path and renamed `[file]-YYYY-MM-DD-HHMM.md`
    (`history/registry/workflows/<slug>-2026-10-24-1504.md`), and the new file is
    created under its own name; such a step saves at the end of a part or a batch, not after every
    node. Nothing in the registry is ever shared, trashed or deleted on a drive.
-9. **Print-to-save, only as the fallback.** With no files and no drive connection that can write,
+9. **Print-to-save, only as the fallback.** With no files and no connection that can save,
    every write in this contract becomes: give the file complete, with its exact location, and say
    plainly that the leader must save it. Never report a file as written that you only gave. At
    the end of the step, list every file the leader needs to save.
@@ -281,7 +281,11 @@ applied: the lint never repairs meaning on its own.
 ## 9. Closing step
 
 After your skill's fields are written, invoke the `indexing-registry` skill for a maintenance pass.
-It is **best-effort**: a failed refresh never fails your step. Do not restate the maintenance pass
+It is **best-effort**: a failed refresh never fails your step. Its check covers the pages your step
+wrote or changed, plus the cross-page essentials (every Process's owner matches a Function, every page
+is in exactly one parent list and in its folder's index, links into and out of those pages resolve),
+claims no more, and says nothing when they pass. To the leader it is "checking your registry", the
+files are "pages", and no "maintenance pass", lint, script or `tools/` name is said unless they ask. Do not restate the maintenance pass
 inline; point here. On the web, the pass writes in `registry/` in the working folder, through the connection.
 Only on print-to-save does it give the updated `REGISTRY.md` with its location instead, for the
 leader to save, and say so.

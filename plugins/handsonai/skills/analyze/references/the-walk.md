@@ -4,15 +4,18 @@ Read when the walk starts (after the history pass, or straight after the Part 2 
 
 Whenever the registry has Process nodes, on either lens, the Processes are the agenda (the banks below supply probes) and the walk covers what the history missed, never re-asking a kept piece. Registry order (the Business node's `# Lines of Business` list, then each line's `# Processes` list) is value-chain order, not a ranking. Organizational lens: the process end to end; Individual: "your part of this process." Tie each answer to the objective it threatens; the card's Business Objective (Organizational only; on Individual the objective only shapes the goal clause) reads "None of the stated objectives — protects [what it protects]" when none fits, or "No stated objectives — protects [what it protects]" with no `## Objectives` block (then don't ask the organizational bank's Q1). Skip any Process the user says is fine.
 
-**Which process first.** Say N-A4 exactly (opening with "Now let's walk your processes for anything your history missed." when the history pass showed anything), then the processes numbered straight through, one per line, under a "**Line of business:** [name]" label per line:
+**Which process first.** One message, in this order, the recommendation before the list (3c-EM, 2026-11-08). When the history pass kept anything, open with the walk's optional line, said exactly:
 
-> "You don't need to do all [N] today. Pick one process to start. After each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it."
+> "Next, we can walk your processes to find anything your history missed: for the one you pick, I'll ask a few short questions about how the work goes today. This part is optional. Your [k] candidates are already saved, so you can say 'stop' and I'll write your backlog and report."
 
-Where the save line isn't said (a new session can't read the files, or print-to-save), leave out ", and your progress is saved" ("After each one you can keep going or stop.").
+([k] is the number of candidates kept so far.) With nothing kept yet, open instead with: "Now let's walk your processes: for the one you pick, I'll ask a few short questions about how the work goes today." Then say N-A4 exactly:
 
-**Ask:** "Which process do you want to start with? Give me the number."
+> "I'd start with [process], because it drives [the objective]. Say 'go ahead' for that one, or give me another number from the list below. You don't need to do all [N]: after each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it."
+
+[process] is the one that drives the objective most directly; with no objectives, its first sentence is "I'd start with [process], where the work feels slowest or most repetitive." (your best reading of what the student has said; ask nothing to choose it). Where the save line isn't said (a new session can't read the files, or print-to-save), leave out ", and your progress is saved". Then the processes numbered straight through, as numbered list lines ("6. [process]"), their numbers continuing across the labels, under a "**Line of business:** [name]" label per line, with a blank line after each label so the list shows as a list, and last:
 - *Why:* starting where it matters most means your most useful candidates come first, even if you stop early.
-- *Not sure?* I'd start with [one process], because it drives [the objective]. (With no objectives: the one where the work feels slowest or most repetitive.)
+
+"Go ahead" takes the recommended process; "stop" (only where something is kept) goes to Part 3.
 
 Name each process as you start it, with its goal ("[Process] (goal: [the objective it serves])"; no goal clause when it serves none). After its close line, **Ask:** "Want to look at another process? Give me its number, or say 'stop here for now'." (relisting those not looked at, with their original numbers). Walk only what the student picks. Processes not walked go in the report's **Not looked at yet** row (never one created this run).
 

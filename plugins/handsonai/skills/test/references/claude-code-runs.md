@@ -10,7 +10,7 @@ The AI runs each practice input twice, in headless sessions started only through
 
 Before the first run, and again before every run and every resume:
 
-1. **The version.** Read `claude --version`. Outside the range the platform registry records for release check 6, the AI doesn't run the inputs: N-T42 (section 6).
+1. **Headless runs.** Release check 6 is open in this release, so the AI doesn't run the inputs: N-T42 (section 6).
 2. **The fingerprint.** `shasum -a 256 framework/.bin/test-run.sh <this skill's folder>/scripts/test-run.sh`. Both must equal the build record's `fingerprints.wrapper`. A mismatch fails closed: N-T42. Nothing is ever edited to make them match.
 3. **The allow, on a live workflow.** Go-live removed the wrapper's allow. At the start of Part 2 of a round on a live workflow, ask N-T47:
 
@@ -93,7 +93,7 @@ Every one of these fails closed to the leader running the practice inputs, in on
 
 | What happened | The wrapper's exit |
 |---|---|
-| `claude --version` is outside release check 6's verified range | (checked before the call) |
+| Release check 6 is open (every run in this release) | (decided before the call) |
 | The fingerprint doesn't match the record and this skill's copy | 4, or your own check first |
 | The start-up check failed: a tool neither allowed nor denied, a hook loaded, the wrong permission mode, a connection missing or extra, a plugin loaded, the workflow not loaded | 3 |
 | `python3` or `claude` missing | 6 |
@@ -120,7 +120,7 @@ Whatever the verdict, and when a round is set aside:
 
 ## 8. Release checks this rests on
 
-Each is a row of the platform registry's `release_checks`, by its id. Until a row is recorded as passed on a range that includes the running `claude --version`, take its fallback.
+Each is a check in the maintainers' release checklist (not shipped with the plugin), by its id. None is confirmed in this release: take its fallback.
 
 | Row | What's assumed | Fallback |
 |---|---|---|

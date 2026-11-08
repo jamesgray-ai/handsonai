@@ -29,7 +29,7 @@ A `Skill`. The path is the same every Friday and Maya starts it herself, so one 
 |---|---|---|
 | Lens | Individual | From the requirements' Metadata: Maya runs it for her own report |
 | Platform | Claude | Maya works in the Claude desktop app every day |
-| Platform Mode | code | The platform registry's mode for Claude |
+| Platform Mode | code | Claude: its AI writes the workflow's files itself |
 | Orchestration | Skill | A fixed order with two checkpoints, started by name |
 | Involvement | Augmented | `Runs: with you`, with both checkpoints Maya's |
 | Packaging | Standalone Skill | One skill, saved on its own |

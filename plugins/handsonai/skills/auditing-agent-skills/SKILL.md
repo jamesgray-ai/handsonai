@@ -16,9 +16,9 @@ description: >
 
 This skill checks a set of existing skills against one shared checklist and reports what has gone out of date, with a proposed fix for each finding. **It never changes a skill on its own.** Every fix is a proposal until the user approves it; a wrong rename inside a skill that runs other skills can break a working workflow.
 
-> **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it. Find a platform by its key or by any name in its `aliases` list.
+> **Platform docs:** where to look for a platform fact, and the safe path when one can't be confirmed: `references/platform-facts.md`, with the links in `platform-docs.json` (this skill's own `references/` copy, or else `registries/` at the plugin root; never fetched from the web).
 
-For this skill, the facts that matter are each platform's `capabilities.skill_listing` (what you can see of the user's skills) and `unattended_runs` (whether an audit can run on a schedule). Treat a missing value as unknown and say so.
+For this skill, two facts matter: what you can see of the user's skills, and whether an audit can run on a schedule. Don't look them up: see what you can actually read, and treat a schedule as unconfirmed unless the platform's scheduled-runs page shows it.
 
 ## Load the checklist
 
@@ -32,10 +32,10 @@ If none of these is available, stop. Tell the user you couldn't load the checkli
 
 ## Find the skills
 
-Check `skill_listing` for the user's platform before promising anything:
+Check what you can actually read before promising anything:
 
-- **Where `skill_listing` says the AI can read skill folders:** read every skill the user points you to, or by default the skill folders the platform loads. Skills from a plugin are named `plugin:skill`; a reference in that form points to a plugin skill, not to a missing one.
-- **Where it says the AI sees only skill names, or nothing:** say what you can see and what you can't, and ask the user to attach the skills or their ZIP files. Never report a skill as fine when you haven't read it.
+- **Where you can read skill folders:** read every skill the user points you to, or by default the skill folders the platform loads. Skills from a plugin are named `plugin:skill`; a reference in that form points to a plugin skill, not to a missing one.
+- **Where you see only skill names, or nothing:** say what you can see and what you can't, and ask the user to attach the skills or their ZIP files. Never report a skill as fine when you haven't read it.
 
 Say at the start of the report which skills you read and which you couldn't.
 
@@ -67,4 +67,4 @@ Only after the user approves. Ask which fixes to apply (all, or which ones by nu
 
 ## Running on a schedule
 
-If the user wants a regular audit, check `unattended_runs` for their platform. Where scheduled runs exist, suggest a monthly run that writes the report and changes nothing. Where they don't, suggest a monthly reminder to run "audit my skills" by hand.
+If the user wants a regular audit, check the platform's scheduled-runs page. Where it shows scheduled runs exist, suggest a monthly run that writes the report and changes nothing. Where it doesn't, or you can't confirm it, suggest a monthly reminder to run "audit my skills" by hand.

@@ -60,7 +60,7 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   no_added_files   {except?: [globs], session?}                   no file was added during the session: the
                                                                   end tree against the session's start tree
                                                                   (the fixture's own files)
-  release_check    {ids: [n, ...], passed: {check}, open: {check}} the platform registry's release checks:
+  release_check    {ids: [n, ...], passed: {check}, open: {check}} the maintainers' release checks (release/release-checks.md):
                                                                   `passed` when every row is verified for this
                                                                   release, `open` otherwise (fail closed).
                                                                   A judged expectation or a precondition can
@@ -446,22 +446,30 @@ def _fill_check(c, run):
     return (not probs, "; ".join(probs) if probs else f"every field filled from the plan ({expect})")
 
 
-REGISTRY = Path(__file__).resolve().parents[1] / "plugins" / "handsonai" / "registries" / "platform-registry.json"
+RELEASE_CHECKS = Path(__file__).resolve().parents[1] / "release" / "release-checks.md"
+
+
+def release_check_rows():
+    """The maintainer checklist's rows, {id: {"status": ...}}: the table in release/release-checks.md
+    (never shipped; no skill reads it)."""
+    import re as _re
+    rows = {}
+    for line in RELEASE_CHECKS.read_text().splitlines():
+        cells = [c.strip() for c in _re.split(r"(?<!\\)\|", line.strip())[1:-1]]
+        if len(cells) >= 5 and cells[0].isdigit():
+            rows[int(cells[0])] = {"id": int(cells[0]), "status": cells[4]}
+    return rows
 
 
 def release_checks_passed(ids):
-    """Every row verified for the registry's framework_release (or on a recorded version range): the skills'
-    own reading (test SKILL.md, *Platform registry*), so an eval reads the way the skill must."""
-    import json
-    data = json.loads(REGISTRY.read_text())
-    rows = {r["id"]: r for r in data.get("release_checks", [])}
-    rel = data.get("framework_release")
-    return all(r and r.get("status") == "verified" and (r.get("verified_for_release") == rel or r.get("verified_version_range"))
-               for r in (rows.get(i) for i in ids))
+    """Every check marked `verified` in the maintainer checklist. Skills take the safe path for every
+    check whatever its status, so a `verified` row lands together with the skill edit that relies on it."""
+    rows = release_check_rows()
+    return all(r and r.get("status") == "verified" for r in (rows.get(i) for i in ids))
 
 
 def resolve_release_items(ev):
-    """An eval's judged expectations and preconditions that depend on the platform registry's release
+    """An eval's judged expectations and preconditions that depend on the maintainers' release
     checks, read the way the scripted `release_check` check reads them: an item carrying
     `release_check: {ids, passed, open}` takes the text for the checks' state (`passed` when every row
     is verified for this release, `open` otherwise), and a null text drops the item. A precondition is

@@ -29,13 +29,13 @@ questions, playback labels, and *Why* / *Not sure?* lines — for example
 "team" and "services" for a professional, "areas", "routines", and "roles"
 for personal life (the list is in `personas.md` § Nouns). Apart from those
 nouns and the few words around them that grammar needs, the wording stays exact.
-Wherever a phase says **Example to show**, describe that example node in plain words (its name, what it covers, who owns it); never paste the file.
+Wherever a phase says **Example to show**, describe that example page in plain words (its name, what it covers, who owns it), as formatted text in the chat; never paste the file, and never use a code block.
 
 **The opening (first message, before anything else but the storage
 question):** when the storage question (N-F1, or N-F12 on Claude desktop) is
 needed, it comes first, as SKILL.md's *Where the files live* says, and the
-opening follows the student's answer. Otherwise the first thing the student
-hears is this opening — nothing before it about refreshing, maintenance,
+opening follows the student's answer. When there's no registry yet, the first thing the student
+hears is this opening (with a registry already there, N-SR2 comes first: SKILL.md, *Before scaffolding*) — nothing before it about refreshing, maintenance,
 checks, or what the folder is missing.
 
 > "This sets up your **registry**: a structured record of your business — what you offer, how it's organized, and the processes that deliver it. Every step of the framework uses it: Analyze walks your processes to find where AI can help, and each workflow you build is recorded here. By the end you'll have a `registry` folder describing your business, its lines of business, who does the work, and your key processes. It runs in four parts: (1) your business, (2) how it's organized, (3) who does the work, and (4) the processes that deliver it. I'll draft from anything you already have, like your website, and you confirm or correct. Stopping early is safe. Progress is saved."
@@ -82,13 +82,14 @@ opening (SKILL.md, *Where the files live*):
   folder the student selected. Don't ask the student to approve the path.
 - **On the web and in Cowork:** the registry goes in `registry/` in the
   working folder in the student's drive, written through the connection.
-- **No files and no connection that can save → print-to-save.** Say N-F6
-  once, up front: "I can't save files here, so I'll give you the files to
-  save as we go. Keep them together in one folder, and paste or attach them
-  when you start the next step." Then, on **every** file, give its location
-  inside that folder (`registry/…`) and remind them to save it as plain
-  `.md`. Never say "I've created" for a file you only gave. (A file the
-  student would have to download does not count as saved.)
+- **No files and no connection that can save (Gemini, or on the web after the leader says 'continue' to N-F16) → print-to-save.** Say N-F6
+  once, up front: "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step."
+  Where you can create a file to download, give one zip of the working
+  folder, its folders intact, at each save point, each replacing the last
+  (`references/saving.md`, rule 5); otherwise, on **every** file, give its
+  location inside that folder (`registry/…`) and remind them to save it as
+  plain `.md`. Never say "I've created" for a file you only gave. (A file
+  the student would have to download does not count as saved.)
 
 **Follow-up (print-to-save only — otherwise, look instead of asking):**
 - "Do you already have the empty registry skeleton — from the template
@@ -119,6 +120,8 @@ opening (SKILL.md, *Where the files live*):
    - *Why:* drafting from something you already have is faster than starting from a blank page, and you only have to correct it.
    - *Example:* a property manager might share the company website's "Services" page and a one-page team list.
    - *Not sure?* A website link is enough. If you have nothing, we'll build it together from your answers.
+
+   A link you can't open: say so in one line, ask them to paste the key text or answer from memory; never propose changing the environment, network, permissions or credentials.
 
    Map each source with `intake-sources.md`.
    An answer the student gives here in words ("the areas are household,
@@ -178,7 +181,7 @@ On print-to-save with no skeleton yet, give those same files first, in that
 order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
-skeleton plus a GitHub Action that checks the registry on every save, and is optional.
+skeleton plus a GitHub Action that checks the registry on every save, and is optional. Give this only when asked; never offer it, and never ask the leader to choose between it and the skill's own check.
 
 **Fast path:** if the student already has a full `registry/` bundle from a
 prior scaffolding run, skip straight to gap-filling — re-run only the phases
@@ -212,7 +215,9 @@ only what the student confirms.
 - *Not sure?* Think about what would make this a good year for the business. Write that down in your own words; it doesn't need to be a target or a number.
 
 Record what the student says as separate goals; if one answer could be two
-goals or three, ask. Then play back the complete entry once, before writing
+goals or three, ask. **Never invent goals,** even when asked to draft every
+part from what you know: with none given, record none and say once, N-SR3,
+"Your goals for this year aren't recorded yet; tell me them any time." Then play back the complete entry once, before writing
 anything:
 
 > **Name:** … · **What it does:** … · **Website:** … · **Goals for this year:** (each goal)
@@ -353,18 +358,17 @@ back in this layout, which labels each level so a student can't confuse
 them: say they're suggestions, give a count line when there are ten or more
 processes, keep each description to one short phrase, and put the owner
 last. The names below only show the shape — fill every line from the
-student's own registry, never reuse these:
+student's own registry, never reuse these. Show it as a formatted list in
+the chat, never in a code block:
 
 > "Here are my suggested processes, drafted from [the source — your website, your org chart, or your answers so far]. You decide what stays." (With ten or more: "14 processes across 4 lines of business.")
 
-```
-**Line of business: Cohort Courses**
-- **Process:** Cohort Delivery — running live sessions week to week. **Owner:** Service Delivery
-- **Process:** Cohort Launch & Enrollment — launch plan, promotion, waitlist, filling seats. **Owner:** Marketing
-
-**Line of business: Corporate Training**
-- **Process:** Corporate Lead to Proposal — inquiry, qualification, scoping, proposal. **Owner:** Sales
-```
+> **Line of business: Cohort Courses**
+> - **Process:** Cohort Delivery — running live sessions week to week. **Owner:** Service Delivery
+> - **Process:** Cohort Launch & Enrollment — launch plan, promotion, waitlist, filling seats. **Owner:** Marketing
+>
+> **Line of business: Corporate Training**
+> - **Process:** Corporate Lead to Proposal — inquiry, qualification, scoping, proposal. **Owner:** Sales
 
 **Ask:** "What would you add, remove, rename, or move? Each line of business only needs its main processes for now."
 - *Why:* Analyze looks for work worth improving inside these processes, so anything missing here won't come up.
@@ -434,25 +438,26 @@ Hand off to
 (`registry-dashboard.html`) — never offer it as an option. On the web the
 pass saves through the drive connection. On print-to-save there is no
 maintenance hand-off: give the `log.md` entry, every typed `index.md` you
-updated, and a complete `REGISTRY.md` composed per `indexing-registry`'s
+updated, each Function page with its `# Owns` filled, and a complete `REGISTRY.md` composed per `indexing-registry`'s
 rules, each with its location, and say the set is complete.
 
 **The close (last message) — files saved (locally or in the drive):**
 
-> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the working folder's own name, ai-workspace unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
+> "Your registry is set up in [where it's saved: locally the folder's name; in a drive, "your Google Drive, in [working folder]/registry" or "your OneDrive, in [working folder]/registry", with the storage service's own name, with the working folder's own name, ai-workspace unless the leader chose another]. It holds [1 business], [N lines of business], [N functions], and [N processes] — no workflows yet; Analyze adds those."
 >
-> "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
+> "Two files give you a view of it. **`registry-dashboard.html`** is your visual dashboard: double-click it to open it in your browser (in a drive, download it first; in a cloud session, it's in your repository on GitHub to download, and the Claude page below is the easier way to see it), and click any line of business or process to see its details. **`REGISTRY.md`** is a one-page text summary of the same registry; it's refreshed after every step, and it's what your AI reads to catch up on your business."
 >
 > "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
 >
-> "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list). Want to run it now?"
+> "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list)."
 
-That last paragraph is N-A7: say it exactly. [location] is the working
+That last paragraph is N-A7: say it exactly, and say Analyze's start phrase word for word ("run the analyze skill", never "Run Analyze"). [location] is the working
 folder, as Analyze's start phrase names it: "Google Drive, in ai-workspace" or
-"OneDrive, in ai-workspace" in a drive (with the folder's own name when the
+"OneDrive, in ai-workspace" in a drive (the storage service by its own name; the folder's own name when the
 leader chose another folder at the storage question); on Claude desktop, the
-folder's own name (such as "ai-workspace"); on Claude Code and Codex,
-"framework". Leave out the
+folder's own name (such as "ai-workspace"). On Claude Code and Codex the
+workspace is the working folder, so the phrase carries no location: say N-A7's
+Claude Code and Codex form, "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill.' (in Claude Code, you can also type `/analyze` and pick it from the list)." Leave out the
 `/analyze` clause anywhere but Claude Code.
 
 **The close — print-to-save:** the same four parts, with two changes.
@@ -461,15 +466,16 @@ folder, at the location shown above it." And for the dashboard, which can't
 be given usefully as text: "Your visual dashboard is created as soon as your files
 are in a folder I can save to. Then say 'generate my visual dashboard'."
 
-Say nothing about lint, checks, or GENERATED blocks. The close ends on the
-Analyze question. Once the student answers it, make these offers one per
-message, each answered before the next, and only where it applies; then
-act on the Analyze answer:
+Before the check, if you say anything, say only this, word for word: "Now I'll check your registry and build your dashboard." Never a longer or more technical version (no "owner lists", "summary page" or file names): that sentence or nothing. Say nothing about the check when it passes, or about GENERATED blocks. Call the files pages, never nodes, and never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
+
+**In a cloud session** (*Where the files live*, in `SKILL.md`): commit and push the registry's files yourself first, name the repository, never a path on the machine ("Your registry is set up in your [repository] repository on GitHub"), say N-F18 where the branch isn't the default, and for the dashboard say it's in the repository to download, never "double-click it": the Claude Artifact offer below then leads, as the one question.
+
+**One question at most.** N-A7 gives Analyze's start phrase as the next step; it asks nothing. Then the close's one question, where it applies, as its last line:
 
 - **On Claude:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On print-to-save on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. On print-to-save, give that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
-- **Only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never ask on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
+- **Elsewhere, only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
 
-After the offers, on "now" to Analyze, invoke the `analyze` skill.
+With neither, the close ends on N-A7. When the leader then says Analyze's start phrase, or asks to run it here, invoke the `analyze` skill.
 
 **Fast path:** if no insight surfaced, skip the Note entirely and don't
 mention it — an absent Note is not a gap to flag; a forced one is worse than

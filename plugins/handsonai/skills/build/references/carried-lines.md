@@ -54,7 +54,7 @@ Its other platforms' forms put that platform's clause in place of "open a new ch
 
 **The re-check line,** only where the workflow writes and reads its own run log (Claude Code, Codex, and Microsoft 365 Cowork once release check 27 passes; never on Claude on the web or desktop, ChatGPT, or an agent Agent Builder made). It ends each run after the `recheck_after` date in the log's header:
 - Microsoft 365: "It's been [3 months] since this was last checked. To re-check it, open a new Cowork chat and say 'test the workflow I built. My files are in [location].'"
-- Claude Code and Codex: "It's been [3 months] since this was last checked. To re-check it, open a new session and say 'test the workflow I built. My files are in [location].'"
+- Claude Code and Codex: "It's been [3 months] since this was last checked. To re-check it, open a new session in your working folder and say 'test the workflow I built.'"
 
 **The time-saved line,** only where the workflow writes its own run log and the requirements' Measure is time per run with a known Baseline, added to the closing line: "Run [n]; about [hours] saved so far." Otherwise no time line, and never an invented figure.
 
@@ -68,7 +68,7 @@ Inside the workflow, the same line follows the platform's clause, word for word:
 
 ## 5. The two facts compiled in
 
-Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in ai-workspace/framework/[workflow-slug]"; "OneDrive, in ai-workspace/framework/[workflow-slug]"; "ai-workspace/framework/[workflow-slug]" on Claude desktop, each with the working folder's own name; "framework/[workflow-slug]" on Claude Code and Codex); and the time saved per run, for the time-saved line: the Baseline, less the Target when the Target is a time per run.
+Beyond the instructions, exactly two facts come from the framework's files into the workflow: the location, in every line that points to a framework step ("Google Drive, in ai-workspace/framework/[workflow-slug]", or the storage service's own name; "OneDrive, in ai-workspace/framework/[workflow-slug]"; "ai-workspace/framework/[workflow-slug]" on Claude desktop, each with the working folder's own name; "framework/[workflow-slug]" on Claude Code and Codex); and the time saved per run, for the time-saved line: the Baseline, less the Target when the Target is a time per run.
 
 ## 6. What a build prompt quotes
 

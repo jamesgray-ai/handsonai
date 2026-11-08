@@ -192,12 +192,12 @@
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "run the deconstruct skill. My files are in framework/client-follow-up.",
+                "text": "run the deconstruct skill.",
                 "session": 3
               },
               {
                 "type": "ai_contains",
-                "text": "run the deconstruct skill. My files are in framework/client-follow-up.",
+                "text": "run the deconstruct skill.",
                 "session": 4
               }
             ]
@@ -211,12 +211,12 @@
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "run the design skill. My files are in framework/client-follow-up.",
+                "text": "run the design skill.",
                 "session": 5
               },
               {
                 "type": "ai_contains",
-                "text": "run the design skill. My files are in framework/client-follow-up.",
+                "text": "run the design skill.",
                 "session": 6
               }
             ]
@@ -227,7 +227,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the build skill. My files are in framework/client-follow-up.",
+            "text": "run the build skill.",
             "session": 7
           }
         },
@@ -874,7 +874,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the build skill. My files are in framework/client-follow-up.",
+            "text": "run the build skill.",
             "session": 4
           }
         },
@@ -4501,7 +4501,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "Say 'run the design skill. My files are in framework/client-follow-up.'",
+            "text": "Say 'run the design skill.'",
             "session": 2
           }
         },
@@ -5068,7 +5068,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the build skill. My files are in framework/client-follow-up."
+            "text": "run the build skill."
           }
         }
       ],

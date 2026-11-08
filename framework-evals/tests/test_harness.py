@@ -79,7 +79,7 @@ class QuoteCheck(unittest.TestCase):
                             run_of(two.replace("the wiki connection can't do that", "the wiki has no connection"))))
 
     def test_placeholders_are_wildcards(self):
-        said = ("Start Design in a new chat with: 'run the design skill. "
+        said = ("Start Design in a new chat. Add your Google Drive to it, then say 'run the design skill. "
                 "My files are in Google Drive, in ai-workspace/framework/client-follow-up.'")
         self.assertTrue(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(said)))
         self.assertTrue(ok({"type": "scripted_lines"}, run_of(said)))
@@ -313,7 +313,7 @@ class WordingChecks(unittest.TestCase):
         self.assertNotIn("workflow: x", prompt)
 
     def test_rubric_judge_sees_tool_passages_sharing_four_words(self):
-        # a plan list the AI read in the plugin's platform registry (one long JSON line) isn't invented:
+        # a plan list the AI read in the plugin's platform docs (one long JSON line) isn't invented:
         # the judge sees that sentence, cut from the line; passages sharing fewer than four words in a row
         # don't show, nor do passages matched only through an approved line
         import grade_eval as G
@@ -857,7 +857,7 @@ class ReleaseItemsAndFidelity(unittest.TestCase):
                  "expectations": [{"text": "q", "kind": "judged", "release_check": {"ids": [6], "passed": 3}}]}]}
             Path(t, "evals.json").write_text(json.dumps(bad))
             joined = "\n".join(V.validate_file(Path(t, "evals.json")))
-            for needle in ("release check 999 isn't in the platform registry", "release_check 'passed' must be",
+            for needle in ("release check 999 isn't in release/release-checks.md", "release_check 'passed' must be",
                            "release_check 'open' must be"):
                 self.assertIn(needle, joined)
 

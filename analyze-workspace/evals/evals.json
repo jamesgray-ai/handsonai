@@ -149,7 +149,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "run the design skill\\. My files are in framework/client-follow-up"
+            "pattern": "run the design skill\\."
           }
         },
         {
@@ -398,7 +398,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "run the deconstruct skill\\. My files are in framework/client-follow-up"
+            "pattern": "run the deconstruct skill\\."
           }
         },
         {
@@ -548,7 +548,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -609,7 +609,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -1600,11 +1600,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -1757,11 +1757,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -1985,11 +1985,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -3320,6 +3320,14 @@
       "expected_output": "No working folder yet on Claude on the web: N-F1 is the first message, asked once, offering only a drive whose connection is on and can write; the opening follows with N-F3 for the folder chosen, the Always allow advice and N-A2; with no registry, the report and backlog.md land in ai-workspace/framework/, holding exactly the kept candidates by area and no running work.",
       "expectations": [
         {
+          "text": "The close's start line has the leader add their drive to the new chat (N-F2's web form)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Add your Google Drive to it, then say"
+          }
+        },
+        {
           "text": "N-F1 is the first message",
           "kind": "scripted",
           "check": {
@@ -4552,12 +4560,310 @@
       ]
     },
     {
+      "id": "A09-unlisted-service",
+      "name": "unlisted-service-that-can-save",
+      "tier": "regression",
+      "covers": [
+        "analyze 7 item 9",
+        "rules 3.3",
+        "saving.md (save from the connection's tools)"
+      ],
+      "platform": "claude-web",
+      "platform_faults": [
+        "service_dropbox"
+      ],
+      "fixture": "empty",
+      "prompt": "Run the analyze skill.",
+      "student": "students/brightline-owner.md",
+      "expected_output": "The only storage connected is Dropbox: N-F1 names Dropbox, the working folder is made there, files are saved through it, and every location reads 'Dropbox, in ai-workspace'. Nothing about how it saves is said, and no file is written only to test saving.",
+      "expectations": [
+        {
+          "text": "N-F1 is the first message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F1",
+            "form": "main",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "N-F1 names Dropbox, the connected service",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "If you already have one in your Dropbox, tell me its name",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "The report is saved in the working folder in Dropbox",
+          "kind": "scripted",
+          "check": {
+            "type": "file_exists",
+            "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
+          }
+        },
+        {
+          "text": "Deconstruct's start phrase carries the Dropbox location",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "run the deconstruct skill. My files are in Dropbox, in ai-workspace."
+          }
+        },
+        {
+          "text": "Never names Google Drive or OneDrive as where the files are",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "My files are in (?:Google Drive|OneDrive)"
+          }
+        },
+        {
+          "text": "No print-to-save: N-F6 isn't said",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-F6",
+            "form": "main"
+          }
+        },
+        {
+          "text": "Says nothing about how it saves while saves work, and creates no file only to test saving",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No framework step number in any AI message (a step is named, never numbered)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "\\b[Ss]tep\\s+[1-7]\\b\\s*(?:\\(\\s*(?:Analyze|Deconstruct|Design|Build|Test)|of\\s+(?:the\\s+)?(?:AI\\s+Workflow\\s+)?[Ff]ramework|of\\s+[57]\\b|[-:]\\s*(?:Analyze|Deconstruct|Design|Build|Test)\\b)|\\b(?:Analyze|Deconstruct|Design|Build|Test)\\s*\\(\\s*[Ss]tep\\s*[1-7]\\s*\\)|\\b[Ss]tep\\s+[1-7]\\s+(?:is|was|will be)\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bStep\\s+[1-7],\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bnext is Step\\s+[1-7]\\b"
+          }
+        },
+        {
+          "text": "No Run or Improve step, and no step count other than five, in any AI message",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\brun the (?:run|improve) skill\\b|\\b(?:the )?(?:Run|Improve) step\\b|\\b(?:six|seven) steps\\b|\\bsteps? (?:6|7)\\b"
+          }
+        },
+        {
+          "text": "No time estimate for the framework: no message says how long a process, a part, the step or the session takes",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\b(?:each|this|that|the|every|a) (?:process|step|part|session|interview|analysis)\\b[^.\\n?]{0,40}\\b(?:takes?|lasts?|should take|will take)\\s+(?:about|around|roughly|under|less than|only)?\\s*(?:\\d+(?:\\s*(?:to|-)\\s*\\d+)?\\s*(?:minutes?|mins?)\\b|(?:a few|several|ten|fifteen|twenty|thirty|forty|five) minutes|half an hour|an hour)|\\bin (?:about|around|under) \\d+ minutes\\b|\\btakes about \\d+ to \\d+ minutes\\b"
+          }
+        },
+        {
+          "text": "No message says how long Analyze, a part of it, a process walk or Deconstruct takes; sizes of the leader's own work, in the leader's numbers, are fine",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "files": [
+        "students/brightline-owner.md"
+      ],
+      "skip_builtin": [
+        "no_time_or_step_numbers"
+      ]
+    },
+    {
+      "id": "A09-cannot-save",
+      "name": "connection-cannot-save-prints",
+      "tier": "core",
+      "covers": [
+        "analyze 7 item 9",
+        "rules 3.6",
+        "rules 3.7",
+        "saving.md (save from the connection's tools)",
+        "routing.md: N-F16 at entry (3c-EL)"
+      ],
+      "platform": "claude-web",
+      "platform_faults": [
+        "drive_cannot_save"
+      ],
+      "fixture": "brightline",
+      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
+      "student": "students/brightline-owner.md",
+      "expected_output": "A connection that can only read isn't one it can save to: N-F16 first; on 'continue', print-to-save with N-F6, and nothing claimed as saved.",
+      "expectations": [
+        {
+          "text": "N-F16 is the first message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F16",
+            "form": "main",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "After 'continue', N-F6",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F6",
+            "form": "main"
+          }
+        },
+        {
+          "text": "Nothing saved through the connection",
+          "kind": "scripted",
+          "check": {
+            "type": "no_added_files"
+          }
+        },
+        {
+          "text": "The print-to-save close",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Once you've saved those files, you'll have"
+          }
+        },
+        {
+          "text": "Never says a file was saved",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No framework step number in any AI message (a step is named, never numbered)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "\\b[Ss]tep\\s+[1-7]\\b\\s*(?:\\(\\s*(?:Analyze|Deconstruct|Design|Build|Test)|of\\s+(?:the\\s+)?(?:AI\\s+Workflow\\s+)?[Ff]ramework|of\\s+[57]\\b|[-:]\\s*(?:Analyze|Deconstruct|Design|Build|Test)\\b)|\\b(?:Analyze|Deconstruct|Design|Build|Test)\\s*\\(\\s*[Ss]tep\\s*[1-7]\\s*\\)|\\b[Ss]tep\\s+[1-7]\\s+(?:is|was|will be)\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bStep\\s+[1-7],\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bnext is Step\\s+[1-7]\\b"
+          }
+        },
+        {
+          "text": "No Run or Improve step, and no step count other than five, in any AI message",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\brun the (?:run|improve) skill\\b|\\b(?:the )?(?:Run|Improve) step\\b|\\b(?:six|seven) steps\\b|\\bsteps? (?:6|7)\\b"
+          }
+        },
+        {
+          "text": "No time estimate for the framework: no message says how long a process, a part, the step or the session takes",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\b(?:each|this|that|the|every|a) (?:process|step|part|session|interview|analysis)\\b[^.\\n?]{0,40}\\b(?:takes?|lasts?|should take|will take)\\s+(?:about|around|roughly|under|less than|only)?\\s*(?:\\d+(?:\\s*(?:to|-)\\s*\\d+)?\\s*(?:minutes?|mins?)\\b|(?:a few|several|ten|fifteen|twenty|thirty|forty|five) minutes|half an hour|an hour)|\\bin (?:about|around|under) \\d+ minutes\\b|\\btakes about \\d+ to \\d+ minutes\\b"
+          }
+        },
+        {
+          "text": "No message says how long Analyze, a part of it, a process walk or Deconstruct takes; sizes of the leader's own work, in the leader's numbers, are fine",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "files": [
+        "students/brightline-owner.md"
+      ],
+      "skip_builtin": [
+        "no_time_or_step_numbers"
+      ],
+      "note": "Fail-closed: a connection that can't save never has a file claimed as saved."
+    },
+    {
+      "id": "A20-no-made-up-menu-path",
+      "name": "desktop-menu-path-not-invented",
+      "tier": "core",
+      "covers": [
+        "analyze 7 item 1",
+        "platform-facts.md rule 2",
+        "rules 8.11"
+      ],
+      "note": "Fail-closed: a menu path the skill can't confirm is never invented. No web access in the run, so no docs page can be read.",
+      "platform": "claude-desktop",
+      "platform_faults": [
+        "no_folder_added"
+      ],
+      "fixture": "empty",
+      "sessions": [
+        {
+          "prompt": "Run the analyze skill.",
+          "replies": [
+            "I don't see where to select a folder. What exactly do I click? Give me the menu steps.",
+            "OK, I found it and selected ai-workspace. Done."
+          ]
+        }
+      ],
+      "student": "students/brightline-owner.md",
+      "expected_output": "On Claude desktop with no folder selected, N-F12 is asked; when the leader asks for the exact clicks, the AI says it can't confirm the exact steps, says in plain words what to look for, lets the leader find it their own way and names where to check (Claude's docs), and gives no menu path, button or menu item name of its own.",
+      "expectations": [
+        {
+          "text": "N-F12 is the first message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F12",
+            "form": "main",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "After the leader asks for menu steps, the AI says it can't confirm the exact steps, describes in plain words what to look for, and lets the leader select the folder their own way",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The AI gives no menu path, menu item, button name or click sequence for selecting a folder (no 'click X, then Y', no named menu or button), and claims no steps as verified",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The AI names where to check (Claude's documentation or help pages) rather than guessing",
+          "kind": "judged"
+        },
+        {
+          "text": "No framework step number in any AI message (a step is named, never numbered)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "\\b[Ss]tep\\s+[1-7]\\b\\s*(?:\\(\\s*(?:Analyze|Deconstruct|Design|Build|Test)|of\\s+(?:the\\s+)?(?:AI\\s+Workflow\\s+)?[Ff]ramework|of\\s+[57]\\b|[-:]\\s*(?:Analyze|Deconstruct|Design|Build|Test)\\b)|\\b(?:Analyze|Deconstruct|Design|Build|Test)\\s*\\(\\s*[Ss]tep\\s*[1-7]\\s*\\)|\\b[Ss]tep\\s+[1-7]\\s+(?:is|was|will be)\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bStep\\s+[1-7],\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bnext is Step\\s+[1-7]\\b"
+          }
+        },
+        {
+          "text": "No Run or Improve step, and no step count other than five, in any AI message",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\brun the (?:run|improve) skill\\b|\\b(?:the )?(?:Run|Improve) step\\b|\\b(?:six|seven) steps\\b|\\bsteps? (?:6|7)\\b"
+          }
+        },
+        {
+          "text": "No time estimate for the framework: no message says how long a process, a part, the step or the session takes",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\b(?:each|this|that|the|every|a) (?:process|step|part|session|interview|analysis)\\b[^.\\n?]{0,40}\\b(?:takes?|lasts?|should take|will take)\\s+(?:about|around|roughly|under|less than|only)?\\s*(?:\\d+(?:\\s*(?:to|-)\\s*\\d+)?\\s*(?:minutes?|mins?)\\b|(?:a few|several|ten|fifteen|twenty|thirty|forty|five) minutes|half an hour|an hour)|\\bin (?:about|around|under) \\d+ minutes\\b|\\btakes about \\d+ to \\d+ minutes\\b"
+          }
+        },
+        {
+          "text": "No message says how long Analyze, a part of it, a process walk or Deconstruct takes; sizes of the leader's own work, in the leader's numbers, are fine",
+          "kind": "judged",
+          "must": true
+        }
+      ],
+      "files": [
+        "students/brightline-owner.md"
+      ],
+      "skip_builtin": [
+        "no_time_or_step_numbers"
+      ]
+    },
+    {
       "id": "A11",
       "name": "scaffolding-registry-then-analyze-on-the-web",
       "tier": "regression",
       "covers": [
         "analyze 7 item 11",
-        "analyze 6"
+        "analyze 6",
+        "rules 6.11 (checking the registry, 3c-EK)"
       ],
       "platform": "claude-web",
       "fixture": "empty",
@@ -4579,6 +4885,49 @@
       ],
       "expected_output": "Same chat: scaffolding-registry asks N-F1 first, before writing anything; the registry lands in ai-workspace/registry/; its close gives N-A7 with the location; Analyze uses the same-session skip and asks no second storage question. New chat with N-A7's phrase: Analyze takes the location from it and asks nothing about storage. No migration is offered.",
       "expectations": [
+        {
+          "text": "No skill names or hand-offs between skills said to the leader",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)scaffolding[- ]registry|indexing[- ]registry|registry-indexing|scaffolding skill|indexing skill|hands? (?:the )?(?:saved )?pages to"
+          }
+        },
+        {
+          "text": "Session 1: the storage question (N-F1) comes before any question about who the registry is for",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No graph vocabulary to the leader: no AI message says node or nodes",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\bnodes?\\b"
+          }
+        },
+        {
+          "text": "No checking machinery named to the leader: no 'maintenance pass', lint, compose, tools/, lint-registry.js, compose-registry.js, GitHub Action or template repository",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)maintenance pass|\\blint|\\bcompose|tools/|github action|ai-registry-template|template repo"
+          }
+        },
+        {
+          "text": "Session 1: N-A7 asks nothing (no 'Want to run it now?')",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_contains",
+            "text": "Want to run it now?",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: scaffolding-registry's close asks at most one question, the Claude Artifact offer, as its last line; Analyze's start phrase is given as the next step, not asked",
+          "kind": "judged",
+          "must": true
+        },
         {
           "text": "Session 1: N-F1 first, before anything is written",
           "kind": "scripted",
@@ -5141,7 +5490,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the analyze skill. My files are in framework."
+            "text": "run the analyze skill."
           }
         },
         {

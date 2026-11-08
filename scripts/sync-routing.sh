@@ -7,10 +7,16 @@
 #   scripts/framework/routing.md   the routing rule (the spec's `references/routing.md`
 #                                  block, everything between its two markers)
 #   scripts/framework/test-run.sh  the test-run wrapper (optional here: copied if present)
+#   scripts/framework/saving.md    the save rule: how to save through a connection, decided
+#                                  from its tools (in place, create-only, print-to-save)
+#   scripts/framework/platform-facts.md  where to look for platform facts, and the safe
+#                                  path when a fact can't be confirmed
 #
 # Copies:
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test}/references/routing.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
+#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
+#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,applying-skill-best-practices,auditing-agent-skills}/references/platform-facts.md
 #
 # Usage:
 #   bash scripts/sync-routing.sh                    # copy canonical -> skills, then check
@@ -21,7 +27,9 @@
 #                                                   # copy it to the skills, then check
 #
 # SPEC is the private business repo's framework-rules.md. CI can't read that repo, so the
-# spec comparison only runs when the path is given.
+# spec comparison only runs when the path is given. With SPEC, saving.md and
+# platform-facts.md are also compared with the blocks between their own markers
+# (<!-- saving.md: begin --> ... end, <!-- platform-facts.md: begin --> ... end).
 #
 # Exit codes: 0 in sync, 1 drift, 2 usage error or a file is missing.
 #
@@ -33,9 +41,13 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CANON_DIR="$ROOT/scripts/framework"
 CANON_ROUTING="$CANON_DIR/routing.md"
 CANON_TEST_RUN="$CANON_DIR/test-run.sh"
+CANON_SAVING="$CANON_DIR/saving.md"
+CANON_FACTS="$CANON_DIR/platform-facts.md"
 SKILLS_DIR="$ROOT/plugins/handsonai/skills"
 ROUTING_SKILLS=(analyze deconstruct design build test)
 TEST_RUN_SKILLS=(build test)
+SAVING_SKILLS=(analyze deconstruct design build test scaffolding-registry indexing-registry)
+FACTS_SKILLS=(analyze deconstruct design build test scaffolding-registry applying-skill-best-practices auditing-agent-skills)
 BEGIN_MARKER='<!-- routing.md: begin -->'
 END_MARKER='<!-- routing.md: end -->'
 
@@ -61,6 +73,13 @@ extract_block() {
   sed -n "$((lb + 1)),$((le - 1))p" "$spec"
 }
 
+# Print the block between "<!-- NAME: begin -->" and "<!-- NAME: end -->" in $1.
+extract_named() {
+  local spec="$1" name="$2"
+  local BEGIN_MARKER="<!-- $name: begin -->" END_MARKER="<!-- $name: end -->"
+  extract_block "$spec"
+}
+
 sync_copies() {
   local skill dest
   [ -f "$CANON_ROUTING" ] || { echo "Error: $CANON_ROUTING not found — nothing to sync." >&2; exit 2; }
@@ -70,6 +89,22 @@ sync_copies() {
     mkdir -p "$(dirname "$dest")"
     cp "$CANON_ROUTING" "$dest"
     echo "  copied  routing.md  -> skills/$skill/references/routing.md"
+  done
+  [ -f "$CANON_SAVING" ] || { echo "Error: $CANON_SAVING not found — nothing to sync." >&2; exit 2; }
+  for skill in "${SAVING_SKILLS[@]}"; do
+    [ -d "$SKILLS_DIR/$skill" ] || { echo "Error: skill folder missing: $SKILLS_DIR/$skill" >&2; exit 2; }
+    dest="$SKILLS_DIR/$skill/references/saving.md"
+    mkdir -p "$(dirname "$dest")"
+    cp "$CANON_SAVING" "$dest"
+    echo "  copied  saving.md   -> skills/$skill/references/saving.md"
+  done
+  [ -f "$CANON_FACTS" ] || { echo "Error: $CANON_FACTS not found — nothing to sync." >&2; exit 2; }
+  for skill in "${FACTS_SKILLS[@]}"; do
+    [ -d "$SKILLS_DIR/$skill" ] || { echo "Error: skill folder missing: $SKILLS_DIR/$skill" >&2; exit 2; }
+    dest="$SKILLS_DIR/$skill/references/platform-facts.md"
+    mkdir -p "$(dirname "$dest")"
+    cp "$CANON_FACTS" "$dest"
+    echo "  copied  platform-facts.md -> skills/$skill/references/platform-facts.md"
   done
   if [ -f "$CANON_TEST_RUN" ]; then
     for skill in "${TEST_RUN_SKILLS[@]}"; do
@@ -100,6 +135,38 @@ check_copies() {
       drift=1
     else
       echo "  ok       skills/$skill/references/routing.md"
+    fi
+  done
+
+  if [ ! -f "$CANON_SAVING" ]; then
+    echo "Error: $CANON_SAVING not found." >&2; return 2
+  fi
+  for skill in "${SAVING_SKILLS[@]}"; do
+    copy="$SKILLS_DIR/$skill/references/saving.md"
+    if [ ! -f "$copy" ]; then
+      echo "  MISSING  skills/$skill/references/saving.md"; drift=1
+    elif ! cmp -s "$CANON_SAVING" "$copy"; then
+      echo "  DIFFERS  skills/$skill/references/saving.md"
+      diff "$CANON_SAVING" "$copy" | sed 's/^/           /' | head -20 || true
+      drift=1
+    else
+      echo "  ok       skills/$skill/references/saving.md"
+    fi
+  done
+
+  if [ ! -f "$CANON_FACTS" ]; then
+    echo "Error: $CANON_FACTS not found." >&2; return 2
+  fi
+  for skill in "${FACTS_SKILLS[@]}"; do
+    copy="$SKILLS_DIR/$skill/references/platform-facts.md"
+    if [ ! -f "$copy" ]; then
+      echo "  MISSING  skills/$skill/references/platform-facts.md"; drift=1
+    elif ! cmp -s "$CANON_FACTS" "$copy"; then
+      echo "  DIFFERS  skills/$skill/references/platform-facts.md"
+      diff "$CANON_FACTS" "$copy" | sed 's/^/           /' | head -20 || true
+      drift=1
+    else
+      echo "  ok       skills/$skill/references/platform-facts.md"
     fi
   done
 
@@ -134,6 +201,20 @@ check_copies() {
       drift=1
     fi
     rm -f "$tmp"
+    for pair in "saving.md:$CANON_SAVING" "platform-facts.md:$CANON_FACTS"; do
+      name="${pair%%:*}"; canon="${pair#*:}"
+      tmp="$(mktemp)"; rc=0
+      extract_named "$spec" "$name" > "$tmp" || rc=$?
+      if [ "$rc" -ne 0 ]; then rm -f "$tmp"; return 2; fi
+      if cmp -s "$tmp" "$canon"; then
+        echo "  ok       scripts/framework/$name matches the spec's $name block"
+      else
+        echo "  DIFFERS  scripts/framework/$name vs the spec's $name block ($spec)"
+        diff "$tmp" "$canon" | sed 's/^/           /' | head -20 || true
+        drift=1
+      fi
+      rm -f "$tmp"
+    done
   else
     echo "  skipped  spec comparison (pass the path to framework-rules.md to run it)"
   fi

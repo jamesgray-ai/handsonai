@@ -27,7 +27,10 @@ leader's screen, as the chat platforms' new chats are. A session whose script pl
 ends with (a contaminated or injected run, say) opts out with `"leader_runs": "scripted"`, and the
 leader pastes the script's block as before. On the chat platforms the same opt-out keeps the new chat's
 answer off the leader's screen (`scripted_runs`), so the planted block is the only one they can paste. Build keeps its own behaviour on both platforms.
-  claude-web      Google Drive (the working folder ./drive/ai-workspace); paste-back from new chats
+  claude-web      Google Drive (the working folder ./drive/ai-workspace); paste-back from new chats.
+                  Faults (claude-web and chatgpt): service_dropbox (the connected service is Dropbox, so
+                  locations read "Dropbox, in ai-workspace"), drive_cannot_save (the connection
+                  reads only)
   claude-desktop  the working folder selected in the chat (./ai-workspace); faults: no_folder_added
                   (no folder selected)
   chatgpt         Google Drive (the working folder ./drive/ai-workspace); apps; paste-back from new chats
@@ -205,12 +208,27 @@ class _Drive(Platform):
     paste_back = True
     product = ""
 
+    def __init__(self, faults=()):
+        super().__init__(faults)
+        if "service_dropbox" in self.faults:
+            self.location = "Dropbox, in ai-workspace/framework/[workflow-slug]"
+
+    def service(self):
+        return "Dropbox" if "service_dropbox" in self.faults else "Google Drive"
+
     def preamble(self):
-        return (f"Simulated platform: {self.product}, in a chat outside any Project. The leader's Google Drive "
-                "connection is on and can write; in this simulation the drive's files are the folder ./drive here "
-                "(./drive/ai-workspace is 'Google Drive, in ai-workspace'). Read and save the leader's files "
-                "only through it. You have no terminal of your own for the leader's work and no local folder: anything "
-                "the leader must run in a new chat, give them to paste, and they paste back what it says." + CHAT_HISTORY)
+        svc = self.service()
+        if "drive_cannot_save" in self.faults:
+            can = (f"connection is on, but it can only read: it has no tool that creates, edits, moves or renames a "
+                   f"file, so nothing can be saved under ./drive")
+        else:
+            can = "connection is on and can write"
+        p = (f"Simulated platform: {self.product}, in a chat outside any Project. The leader's {svc} "
+             f"{can}; in this simulation the drive's files are the folder ./drive here "
+             f"(./drive/ai-workspace is '{svc}, in ai-workspace'). No other storage service is connected. Read and save the leader's files "
+             "only through it. You have no terminal of your own for the leader's work and no local folder: anything "
+             "the leader must run in a new chat, give them to paste, and they paste back what it says.")
+        return p + CHAT_HISTORY
 
     def prepare(self, ws):
         _move_into(ws, "drive")

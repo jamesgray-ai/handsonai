@@ -30,7 +30,7 @@
   {
    "id": "N-F1",
    "form": "main",
-   "text": "Where's your working folder? It's the one folder that holds your AI Registry, your workflows and your knowledge graph. If you already have one in your [Google Drive / OneDrive], tell me its name. If not, I'll make a private folder called ai-workspace there. The connection reaches your whole drive, but I'll only read and save inside your working folder, and never share or delete anything. Please run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects. Say 'go ahead', or tell me your folder's name.",
+   "text": "Where should your working folder go? It holds your AI Registry, your workflows and your knowledge graph. Say 'go ahead' and I'll make a private folder called ai-workspace in your [storage service], or tell me the name of one you already have. To keep it somewhere else, such as Google Drive, OneDrive or Box, add it to this chat from the prompt box first. The connection reaches your whole drive, but I'll only read and save inside that folder, and never share or delete anything. Run each step of the framework in a new chat that isn't inside one of your [Claude / ChatGPT] Projects.",
    "kind": "question",
    "skills": [
     "analyze",
@@ -102,7 +102,7 @@
   {
    "id": "N-F2",
    "form": "main",
-   "text": "Start [step] in a new chat with: '[start phrase]. My files are in [location].'",
+   "text": "Start [step] in a new chat. Add your [storage service] to it, then say '[start phrase]. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -118,13 +118,13 @@
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: Claude Code and Codex (lines-to-approve)",
+   "source": "3c-EL, approved by James 2026-11-08",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
    "id": "N-F2",
    "form": "Claude Code and Codex",
-   "text": "…in a new session…",
+   "text": "…in a new session in this project…",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -140,7 +140,7 @@
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: Claude Code and Codex (lines-to-approve)",
+   "source": "3c-EL, approved by James 2026-11-08",
    "fragment": true,
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
@@ -214,7 +214,7 @@
   {
    "id": "N-F2",
    "form": "Claude Code and Codex (lines-to-approve)",
-   "text": "Start [step] in a new session with: '[start phrase]. My files are in [location].'",
+   "text": "Start [step] in a new session in this project and say '[start phrase].'",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -230,13 +230,13 @@
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: Claude Code and Codex (lines-to-approve)",
+   "source": "3c-EL, approved by James 2026-11-08",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
    "id": "N-F2",
    "form": "print-to-save",
-   "text": "Start [step] in a new chat with: '[start phrase].' Then paste or attach the files you saved.",
+   "text": "Start [step] in a new chat with: '[start phrase].' Then attach the latest zip I gave you, or paste or attach the files you saved.",
    "kind": "safety or promise",
    "skills": [
     "analyze"
@@ -400,7 +400,7 @@
   {
    "id": "N-F6",
    "form": "main",
-   "text": "I can't save files here, so I'll give you the files to save as we go. Keep them together in one folder, and paste or attach them when you start the next step.",
+   "text": "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step.",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -416,7 +416,7 @@
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
+   "source": "3c-EL, approved by James 2026-11-08",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
@@ -460,7 +460,7 @@
   {
    "id": "N-F7",
    "form": "Claude Code and Codex",
-   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in your working folder and say '[start phrase]. My files are in [location].'",
+   "text": "This session is inside the workspace where your workflow runs, so I'll keep the framework out of it. Start a new session in your working folder and say '[start phrase].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct",
@@ -564,6 +564,24 @@
   },
   {
    "id": "N-F10",
+   "form": "Claude Code and Codex",
+   "text": "To pick up, start a new session in this project and say '[start phrase].'",
+   "kind": "safety or promise",
+   "skills": [
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "design": "SKILL.md",
+    "build": "SKILL.md",
+    "test": "SKILL.md"
+   },
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
+  },
+  {
+   "id": "N-F10",
    "form": "Claude desktop, with the files in a local folder",
    "text": "To pick up, open a new chat with your working folder selected and say '[start phrase]. My files are in [location].'",
    "kind": "safety or promise",
@@ -623,7 +641,7 @@
   {
    "id": "N-F12",
    "form": "main",
-   "text": "Your AI work lives in one working folder on your computer: your AI Registry, your workflows and your knowledge graph. Select your working folder in the prompt window. If you don't have one, make a folder called ai-workspace, for example in Documents, and select that. Open each step of the framework in a new chat with that folder selected. Say 'done' when it's selected[, or 'use my drive' to keep it in [Google Drive / OneDrive] instead].",
+   "text": "Your AI work lives in one working folder on your computer: your AI Registry, your workflows and your knowledge graph. Select your working folder in the prompt window. If you don't have one, make a folder called ai-workspace, for example in Documents, and select that. Open each step of the framework in a new chat with that folder selected. Say 'done' when it's selected[, or 'use my drive' to keep it in [storage service] instead].",
    "kind": "safety or promise",
    "skills": [
     "analyze",
@@ -1128,7 +1146,7 @@
   {
    "id": "N-T21",
    "form": "Claude Code and Codex",
-   "text": "It's been [3 months] since this was last checked. To re-check it, open a new session and say 'test the workflow I built. My files are in [location].'",
+   "text": "It's been [3 months] since this was last checked. To re-check it, open a new session in your working folder and say 'test the workflow I built.'",
    "kind": "carried",
    "skills": [
     "built-workflow"
@@ -1460,7 +1478,7 @@
   {
    "id": "N-A4",
    "form": "main",
-   "text": "You don't need to do all [N] today. Pick one process to start. After each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it.",
+   "text": "I'd start with [process], because it drives [the objective]. Say 'go ahead' for that one, or give me another number from the list below. You don't need to do all [N]: after each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it.",
    "kind": "safety or promise",
    "skills": [
     "analyze"
@@ -1468,7 +1486,7 @@
    "files": {
     "analyze": "references/the-walk.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; 3c-EM (2026-11-08)"
   },
   {
    "id": "N-A4",
@@ -1483,6 +1501,19 @@
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md",
    "fragment": true
+  },
+  {
+   "id": "N-A4",
+   "form": "optional-walk",
+   "text": "Next, we can walk your processes to find anything your history missed: for the one you pick, I'll ask a few short questions about how the work goes today. This part is optional. Your [k] candidates are already saved, so you can say 'stop' and I'll write your backlog and report.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "analyze.md 3; 3c-EM (2026-11-08), approved by James"
   },
   {
    "id": "N-A5",
@@ -1513,7 +1544,7 @@
   {
    "id": "N-A6",
    "form": "Then",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: \"run the deconstruct skill. My files are in [location].\" (you can also type `/deconstruct` in a new session and pick it from the list).",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat. Add your [storage service] to it, then say \"run the deconstruct skill. My files are in [location].\" (you can also type `/deconstruct` in a new session and pick it from the list).",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1539,7 +1570,7 @@
   {
    "id": "N-A6",
    "form": "print-to-save",
-   "text": "Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then paste or attach the files you saved.",
+   "text": "Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1565,7 +1596,7 @@
   {
    "id": "N-A7",
    "form": "main",
-   "text": "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list). Want to run it now?",
+   "text": "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list).",
    "kind": "teaching",
    "skills": [
     "scaffolding-registry"
@@ -1574,6 +1605,20 @@
     "scaffolding-registry": "references/interview-guide.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24), with the line review's change; text from lines-to-approve.md",
+   "note": "scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-A7",
+   "form": "Claude Code and Codex",
+   "text": "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill.' (in Claude Code, you can also type `/analyze` and pick it from the list).",
+   "kind": "teaching",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
@@ -1954,7 +1999,7 @@
   {
    "id": "N-D14",
    "form": "main",
-   "text": "Workflow Requirements saved to [file]. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it. Start Design in a new chat with: 'run the design skill. My files are in [location].'",
+   "text": "Workflow Requirements saved to [file]. It holds your goal, the [N] steps, what every [deliverable] must get right, its rules, and [J] practice runs. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it. Start Design in a new chat. Add your [storage service] to it, then say 'run the design skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -1982,7 +2027,7 @@
   {
    "id": "N-D14",
    "form": "and the Git offer's ending, in N-F2's form",
-   "text": "When you're ready, start Design in a new session with: 'run the design skill. My files are in [location].'",
+   "text": "When you're ready, start Design in a new session in this project and say 'run the design skill.'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -2038,7 +2083,7 @@
   {
    "id": "N-D14",
    "form": "main-4 (lines-to-approve)",
-   "text": "Start Design in a new chat with: 'run the design skill', and paste or attach the files you saved.",
+   "text": "Start Design in a new chat with: 'run the design skill', and attach the latest zip I gave you, or paste or attach the files you saved.",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -2540,7 +2585,7 @@
   {
    "id": "N-7",
    "form": "Then N-F2, in the platform's form",
-   "text": "Start Build in a new chat with: 'run the build skill. My files are in [location].'",
+   "text": "Start Build in a new chat. Add your [storage service] to it, then say 'run the build skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "design"
@@ -3622,7 +3667,7 @@
   {
    "id": "N-B13",
    "form": "Claude on the web and ChatGPT",
-   "text": "Start Test in a new chat outside your workflow's Project with: 'test the workflow I built. My files are in [location].'",
+   "text": "Start Test in a new chat outside your workflow's Project. Add your [storage service] to it, then say 'test the workflow I built. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -3661,7 +3706,7 @@
   {
    "id": "N-B13",
    "form": "Claude Code and Codex",
-   "text": "Start Test in a new session with: 'test the workflow I built. My files are in [location].'",
+   "text": "Start Test in a new session in this project and say 'test the workflow I built.'",
    "kind": "safety or promise",
    "skills": [
     "build"
@@ -3961,7 +4006,7 @@
   {
    "id": "N-B26",
    "form": "main",
-   "text": "To make sure [tool] can really [the action], I'll do it once myself: [the smallest version] in [a place only you see, such as a message to yourself].[ Claude, ChatGPT, Microsoft 365: ' [Platform] will ask you to allow this one; choose [its one-time option, from the platform registry: 'Allow once' on Claude, 'Approve once' in Cowork].'] OK to go ahead?",
+   "text": "To make sure [tool] can really [the action], I'll do it once myself: [the smallest version] in [a place only you see, such as a message to yourself].[ Claude, ChatGPT, Microsoft 365: ' [Platform] will ask you to allow this one; choose [its one-time option: 'Allow once' on Claude, 'Approve once' in Cowork].'] OK to go ahead?",
    "kind": "question",
    "skills": [
     "build"
@@ -8050,6 +8095,124 @@
     "scaffolding-registry": "references/interview-guide.md"
    },
    "source": "3c-DX (2026-10-24)"
+  },
+  {
+   "id": "N-F16",
+   "form": "main",
+   "text": "I can't see a drive I can save to in this chat. Add your cloud drive to this chat from the prompt box (or connect it first, if you haven't), with saving allowed, then say 'done'. Or say 'continue' and I'll give you the files to save as we go.",
+   "kind": "question",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test",
+    "scaffolding-registry"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md",
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "3c-EL, approved by James 2026-11-08",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-F17",
+   "form": "main",
+   "text": "I can't find [folder] in your [storage service]. Shall I create it there? Say 'go ahead', or tell me another folder's name.",
+   "kind": "question",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "scaffolding-registry"
+   ],
+   "files": {
+    "analyze": "SKILL.md",
+    "deconstruct": "SKILL.md",
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-SR2",
+   "form": "main",
+   "text": "You already have a registry here, so I'll check it for gaps instead of starting over.",
+   "kind": "safety or promise",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-SR3",
+   "form": "main",
+   "text": "Your goals for this year aren't recorded yet; tell me them any time.",
+   "kind": "safety or promise",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-F18",
+   "form": "main",
+   "text": "Your work is saved on GitHub, on the branch [branch]. Before your next step, merge it into main, or choose this branch when you start the next session.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test",
+    "scaffolding-registry"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md",
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "3c-EL, approved by James 2026-11-08",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-F19",
+   "form": "main",
+   "text": "Changes are saved to GitHub, on a branch.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test",
+    "scaffolding-registry"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md",
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   }
  ]
 }

@@ -212,7 +212,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new session with: 'run the build skill. My files are in framework/expense-report-approval.'"
+        "text": "Start Build in a new session in this project and say 'run the build skill.'"
        }
       ]
      }
@@ -561,7 +561,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     },
     {
@@ -626,7 +626,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     }
    ],
@@ -734,7 +734,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     },
     {
@@ -890,7 +890,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_regex",
-      "pattern": "(?i)run\\s+the\\s+deconstruct\\s+skill(?: on Client Follow-Up)?\\. My files are in framework/client-follow-up\\."
+      "pattern": "(?i)run\\s+the\\s+deconstruct\\s+skill(?: on Client Follow-Up)?\\.."
      }
     },
     {
@@ -933,7 +933,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_regex",
-      "pattern": "(?i)run\\s+the\\s+deconstruct\\s+skill(?: on Client Follow-Up)?\\. My files are in framework/client-follow-up\\."
+      "pattern": "(?i)run\\s+the\\s+deconstruct\\s+skill(?: on Client Follow-Up)?\\.."
      }
     },
     {
@@ -976,7 +976,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_regex",
-      "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\. My files are in framework/client-follow-up\\."
+      "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\.."
      }
     },
     {
@@ -1019,7 +1019,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_regex",
-      "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\. My files are in framework/client-follow-up\\."
+      "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\.."
      }
     },
     {
@@ -1070,7 +1070,7 @@
        },
        {
         "type": "ai_regex",
-        "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\. My files are in framework/client-follow-up\\."
+        "pattern": "(?i)test\\s+the\\s+workflow\\s+I\\s+built(?: on Client Follow-Up)?\\.."
        }
       ]
      }
@@ -1118,7 +1118,7 @@
       "checks": [
        {
         "type": "ai_contains",
-        "text": "start Deconstruct in a new session with: 'run the deconstruct skill on Client Follow-Up. My files are in framework.'"
+        "text": "start Deconstruct in a new session in this project and say 'run the deconstruct skill on Client Follow-Up.'"
        },
        {
         "type": "quote_absent",
@@ -1623,7 +1623,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "run the deconstruct skill on Client Follow-Up. My files are in framework/client-follow-up."
+      "text": "run the deconstruct skill on Client Follow-Up."
      }
     },
     {
@@ -1847,7 +1847,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     },
     {
@@ -1954,7 +1954,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     }
    ],
@@ -1990,7 +1990,7 @@
       "checks": [
        {
         "type": "ai_contains",
-        "text": "run the build skill. My files are in framework/client-follow-up."
+        "text": "run the build skill."
        },
        {
         "type": "file_not_regex",
@@ -2081,7 +2081,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     }
    ],
@@ -2215,7 +2215,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "run the design skill. My files are in framework/client-follow-up."
+      "text": "run the design skill."
      }
     },
     {
@@ -4518,7 +4518,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "change my workflow. My files are in framework/invoice-coding."
+      "text": "change my workflow."
      }
     },
     {
@@ -5095,7 +5095,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+        "text": "Start Build in a new session in this project and say 'run the build skill.'"
        }
       ]
      }
@@ -5785,7 +5785,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     }
    ],
@@ -5837,7 +5837,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     },
     {
@@ -6026,7 +6026,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     },
     {
@@ -6465,7 +6465,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "test the workflow I built. My files are in framework/client-follow-up."
+        "text": "test the workflow I built."
        }
       ]
      }
@@ -6548,7 +6548,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+      "text": "Start Build in a new session in this project and say 'run the build skill.'"
      }
     }
    ],
@@ -6655,7 +6655,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "test the workflow I built. My files are in framework/client-follow-up."
+        "text": "test the workflow I built."
        },
        {
         "type": "ai_not_contains",
@@ -7430,7 +7430,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+        "text": "Start Build in a new session in this project and say 'run the build skill.'"
        }
       ]
      }
@@ -7588,7 +7588,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new session with: 'run the build skill. My files are in framework/client-follow-up.'"
+        "text": "Start Build in a new session in this project and say 'run the build skill.'"
        }
       ]
      }
@@ -7745,7 +7745,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new chat with: 'run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'"
+        "text": "Start Build in a new chat. Add your Google Drive to it, then say 'run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'"
        }
       ]
      }
@@ -7797,7 +7797,7 @@
      "must": true
     },
     {
-     "text": "[Claude parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on Claude), and the plan's platform_mode is the platform registry's mode for Claude (code)",
+     "text": "[Claude parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on Claude), and the plan's platform_mode is code for Claude (plan-template section 2's rule)",
      "kind": "judged"
     }
    ],
@@ -8067,7 +8067,7 @@
        },
        {
         "type": "ai_contains",
-        "text": "Start Build in a new chat with: 'run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'"
+        "text": "Start Build in a new chat. Add your Google Drive to it, then say 'run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.'"
        }
       ]
      }
@@ -8119,7 +8119,7 @@
      "must": true
     },
     {
-     "text": "[ChatGPT parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on ChatGPT), and the plan's platform_mode is the platform registry's mode for ChatGPT (guided)",
+     "text": "[ChatGPT parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on ChatGPT), and the plan's platform_mode is guided for ChatGPT (plan-template section 2's rule)",
      "kind": "judged"
     }
    ],

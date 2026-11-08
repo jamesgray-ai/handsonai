@@ -4,7 +4,7 @@ description: >
   This skill should be used to maintain the user's AI Registry — the registry/
   knowledge bundle and its derived views (the REGISTRY.md dashboard, directory
   indexes, GENERATED blocks, and the visual HTML dashboard). Triggers: "update
-  my registry", "refresh my registry", "lint my registry", "generate my
+  my registry", "check my AI registry", "refresh my registry", "lint my registry", "generate my
   dashboard", "what have I built", "show my AI inventory", after creating
   skills or agents, or when another framework skill's closing step calls for a
   maintenance pass. Also repairs stale or hand-edited derived views. If no
@@ -21,17 +21,25 @@ For where the bundle is and how nodes are written and owned (resolution, write r
 
 ## Location & Scope
 
-**One working folder = one registry.** On Claude Code and Codex the bundle is `registry/` in the workspace, beside `framework/`, `sops/` and `process-guides/`. On Claude desktop it is `registry/` inside the working folder the leader selected, beside `framework/`. On the web (Claude, ChatGPT) and in Microsoft 365 Copilot it is `registry/` in the working folder (`ai-workspace/`, or the leader's own folder) in their Google Drive or OneDrive, read and written through the platform's connection, by the drive-saving rule in `references/registry-bundle.md`. `REGISTRY.md` and `registry-dashboard.html` sit beside `registry/`, in its parent folder. Only where there are no files and no drive connection that can write does the skill fall back to print-to-save: it gives each file complete with its location for the leader to save, and says plainly what is unsaved. The skill never assumes a Git repository.
+**One working folder = one registry.** On Claude Code and Codex the bundle is `registry/` in the workspace, beside `framework/`, `sops/` and `process-guides/`. On Claude desktop it is `registry/` inside the working folder the leader selected, beside `framework/`. On the web (Claude, ChatGPT) and in Microsoft 365 Copilot it is `registry/` in the working folder (`ai-workspace/`, or the leader's own folder) in the storage service it was set up in (Google Drive, OneDrive, Dropbox or another; OneDrive in Microsoft 365), read and written through the platform's connection, saved the way `references/saving.md` decides from the connection's tools, by the drive-saving rule in `references/registry-bundle.md`. `REGISTRY.md` and `registry-dashboard.html` sit beside `registry/`, in its parent folder. Only where there are no files and no connection that can save does the skill fall back to print-to-save: it gives each file complete with its location for the leader to save, and says plainly what is unsaved. The skill never assumes a Git repository.
 
-> **Terminology:** "AI Registry" always means the `registry/` bundle and the views generated from it. It is unrelated to the framework's *platform registry* (`registries/platform-registry.json`), which catalogs platforms and integrations for the Design and Build skills.
+> **Terminology:** "AI Registry" always means the `registry/` bundle and the views generated from it. It is unrelated to `registries/platform-docs.json`, the list of platforms' documentation pages the framework's skills look things up in.
 
 ## The maintenance pass
 
 Run all five jobs for a full pass, or just the one the user asked for. Other framework skills invoke this skill from their closing step for the same pass — see **Best-effort rule** below.
 
-### 1. Lint
+### 1. Check the registry (lint)
 
-Read every node against the bundle's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§8) — that file is the single source; do not duplicate its rule list here. Report findings in plain language, named by file. On a pass called by another step, say nothing unless a fix needs the leader, and then name the workflow or process, never the file. **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
+Check the pages against the bundle's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§8) — that file is the single source; do not duplicate its rule list here. The scope:
+
+- **At a framework step's close, and at `scaffolding-registry`'s:** the pages that step wrote or changed, plus the essentials that reach across pages: every Process has an `owner:` matching a Function, and each Function's `# Owns` block lists exactly the Processes it owns, in the form under *Regenerate GENERATED blocks* (fill or fix it before finishing); every page sits in exactly one parent list; every page is in its folder's `index.md`; links into and out of the changed pages resolve. Claim no more than that, and say nothing when it passes.
+- **Every §8 rule only when the leader asks** ("check my AI registry", "update my AI registry", or this skill by name). End that check with one plain line saying what it covered, and, where it couldn't cover everything (a page it couldn't read, say), what it didn't: name the pages and the rules you checked, in plain words. Never imply more than you checked.
+- **A workspace's own `tools/`,** where the leader already has one, is used as before (*Workspace-generator precedence*). This skill adds and bundles no scripts.
+
+Report findings in plain language, named by page. On a pass called by another step, say nothing when every check passes, or when a finding needs nothing from the leader; when a fix needs the leader, name the workflow or process, never the file.
+
+**Talking about the check.** To the leader it is "checking your registry", and the files are "pages", never nodes. Never name a skill or a hand-off between skills ("the scaffolding skill hands the pages to…"). Never say "maintenance pass", and never mention lint, compose, scripts, `tools/`, `lint-registry.js`, `compose-registry.js`, GitHub Actions or the template repository unless the leader asks about one of them, and never ask the leader to choose between them. Asked, give one short answer: "The checks run inside the skill. The template's scripts are an optional extra for people who keep their registry on GitHub." **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
 
 ### 2. Refresh indexes
 
@@ -59,7 +67,16 @@ Context files typically don't need a Quick Start Prompt — use `—`. If unsure
 
 ### 3. Regenerate GENERATED blocks
 
-Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->` markers: a Workflow node's `# Insights` block, and a Function node's `# Owns` block. Write only inside the markers, never outside them, and never leave a marker pair unterminated.
+Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->` markers: a Workflow node's `# Insights` block, and a Function node's `# Owns` block. Write only inside the markers, never outside them, and never leave a marker pair unterminated. One exception: where a Function's `# Owns` heading sits inside the markers (an earlier form), move it above the opening marker; that is the only change made outside them. A Function's `# Owns` block, exactly (the heading stays above and outside the markers; inside, one bullet per Process whose `owner:` is this Function, in path order, and nothing else):
+
+```markdown
+# Owns
+
+<!-- GENERATED:owns -->
+- [Cohort Delivery](/processes/cohort-delivery.md)
+- [Cohort Launch & Enrollment](/processes/cohort-launch-and-enrollment.md)
+<!-- /GENERATED -->
+```
 
 ### 4. Regenerate dashboards
 
@@ -78,7 +95,7 @@ No step number, Health or Last Run column, and no raw `autonomy` or `execution_m
 
 **Telling the leader about `REGISTRY.md`.** When you mention it, say what it is in one plain sentence: "`REGISTRY.md` is a one-page text summary of your registry; it's refreshed after every step, and it's what your AI reads to catch up on your business." Mention it only when the leader asks about it or runs this skill directly. On a maintenance pass at the end of another step, never name it: the calling step's close names only the dashboard.
 
-**Telling the leader about the dashboard.** On a maintenance pass at the end of another step, say nothing; that step's close mentions the dashboard. When the leader runs this skill directly or asks about the dashboard, in plain words: what it shows (lines of business, processes, owners, workflows and where each one is), why any section is empty, and how to open it — on their computer, "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details"; in a drive, download it first, then open it the same way. Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the framework's folders or point the leader at a session folder.
+**Telling the leader about the dashboard.** On a maintenance pass at the end of another step, say nothing; that step's close mentions the dashboard. When the leader runs this skill directly or asks about the dashboard, in plain words: what it shows (lines of business, processes, owners, workflows and where each one is), why any section is empty, and how to open it — on their computer, "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details"; in a drive, download it first, then open it the same way; in a cloud session, where the file is in the repository on GitHub, say it's there to download and lead with the Claude Artifact offer, never "double-click it". Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the framework's folders or point the leader at a session folder.
 
 *Claude platforms:* when the leader asks for the dashboard directly ("generate my visual dashboard"), after they know how to open the file, offer on its own line: "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." At the end of registry setup, `scaffolding-registry`'s close makes this offer instead — don't repeat it. Never offer it on a routine maintenance pass at the end of another step. When the leader already has a dashboard Artifact (a `Dashboard Artifact: <link>` entry in `registry/log.md`, one published earlier in this conversation, or one they mention), republish it to the same link on every pass that refreshes the dashboard, without asking: the link doesn't change, and a stale copy is never what they want. Tell the calling step so its close can say the Claude page is updated. If republishing to the logged link fails (the platform can't update a page from another conversation), publish a new page, give the leader its link in one line ("Your dashboard's Claude page has a new link: [link]"), and append the new `Dashboard Artifact: <link>` entry. Never create one unasked. When you create one (on request), append a `registry/log.md` entry: `Dashboard Artifact: <link>`; if the leader later deletes it, remove nothing, and append a new entry when a new one is made — the latest entry wins.
 
@@ -92,7 +109,7 @@ Refuses to regenerate derived views while lint reports errors — with the refer
 
 ## Workspace-generator precedence
 
-If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative. Compose only refreshes a `registry-dashboard.html` that already exists: when the Tier 2 dashboard is due and there is none beside `registry/`, first copy `tools/dashboard-template.html` to `registry-dashboard.html`, then run compose. A registry in a drive is never composed by script: build its views by hand, as above.
+If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative. Never name the scripts to the leader (*Talking about the check*). Compose only refreshes a `registry-dashboard.html` that already exists: when the Tier 2 dashboard is due and there is none beside `registry/`, first copy `tools/dashboard-template.html` to `registry-dashboard.html`, then run compose. A registry in a drive is never composed by script: build its views by hand, as above.
 
 **Out-of-date tools.** Before running them, compare the `"version"` in the workspace's `tools/package.json` with the one in the plugin's `tools/` folder (where `framework-state.js` ships). If the workspace's is missing or lower, ask, word for word: "Your registry's tools are out of date. Update them now?" On a yes, copy the plugin's `compose-registry.js`, `lint-registry.js`, `registry-lib.js`, `package.json`, `framework-state.js` and `requirements-check.js` over `tools/`, plus `references/dashboard-template.html` and `references/data-island.schema.json`; then copy the new template over `registry-dashboard.html` before composing, since compose only injects data into an existing page. Leave the bundle's `registry/SCHEMA.md` as it is. On a no, compose with the tools as they are. A workspace with no `tools/` folder is unaffected.
 

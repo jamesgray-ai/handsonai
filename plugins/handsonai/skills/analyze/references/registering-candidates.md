@@ -48,6 +48,8 @@ Apply every change to the report. A left-out workflow keeps its card, marked "Le
 
    # Skills
 
+   [For work that already runs: the skill or agent as the leader named it and where it lives ("auditing-agent-skills, in the Claude account"). A page never calls the leader "the user"; write the leader's words, or name the platform.]
+
    # Agents
 
    # Insights

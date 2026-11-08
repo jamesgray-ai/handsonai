@@ -559,7 +559,7 @@ def fx_live_chatgpt(t):  # a live workflow built on ChatGPT: the skill lives in 
             ("- **Platform:** Claude Code", "- **Platform:** ChatGPT"),
             ("| Platform | Claude Code | Where you work today |", "| Platform | ChatGPT | Where you work today |"),
             ("| Platform Mode | code | The skill lives in this workspace |",
-             "| Platform Mode | guided | The platform registry's mode for ChatGPT |"),
+             "| Platform Mode | guided | ChatGPT: the leader builds it in ChatGPT's interface |"),
             ("Gmail: the Claude Code connector (use).", "Gmail: ChatGPT's Gmail app (use)."),
             (" Under the practice-run cue, files go in `practice/[input]-[run]/`.", ""),
             ("- Gmail connected in Claude Code.", "- Gmail connected in ChatGPT, as an app."),

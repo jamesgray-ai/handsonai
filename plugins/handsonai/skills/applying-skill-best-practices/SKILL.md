@@ -18,9 +18,9 @@ These are the standards a good Agent Skill meets, consolidated from Anthropic, O
 
 This skill does not build skills. The platform's own skill creator (Anthropic's skill-creator, the ChatGPT or Codex skill creator, Copilot Cowork's guided flow, Gemini Enterprise's "Create skill with Gemini") owns that process. These standards tell it what "good" means at each point. Where the creator already covers something, agree with it: your job is to make sure the user's own material (real examples, what a good result looks like, the cases they worry about) goes in, not to add a competing rule.
 
-> **Platform registry:** platform facts (how a skill is installed, where context lives, scheduling, agents) come from the platform registry. Read it from `references/platform-registry.json` in this skill's own folder; if that file isn't there, from `registries/platform-registry.json` at the plugin root; if neither exists, fetch `https://raw.githubusercontent.com/jamesgray-ai/handsonai/main/plugins/handsonai/registries/platform-registry.json`. Read it once per session and reuse it. Find a platform by its key or by any name in its `aliases` list.
+> **Platform docs:** where to look for a platform fact, and the safe path when one can't be confirmed: `references/platform-facts.md`, with the links in `platform-docs.json` (this skill's own `references/` copy, or else `registries/` at the plugin root; never fetched from the web).
 
-For this skill, the facts that matter are each platform's `capabilities.skill_install`, `skill_settings` (whether a skill can choose its own model and effort), `skill_invocation` (how a skill is set to run only when named) and `skill_evaluation` (whether the platform's skill creator runs tests). Never state those facts from memory.
+For this skill, the facts that matter are on each platform's skills page: how a skill is installed, whether a skill can choose its own model and effort, how a skill is set to run only when named, and whether the platform's skill creator runs tests. Never state those facts from memory: read the page, or take the safe path below and name the page.
 
 ## The six decisions
 
@@ -56,9 +56,9 @@ Keep `SKILL.md` under 500 lines. Move detail into reference files one level deep
 
 **5. Settings.** Decide how the skill may run:
 
-- **Automatically or by name only.** A skill that sends, publishes, deploys or creates records in another system runs only when the user names it. The platform's `skill_invocation` entry says which setting does this.
+- **Automatically or by name only.** A skill that sends, publishes, deploys or creates records in another system runs only when the user names it. The platform's skills page says which setting does this; where you can't confirm it, say what the setting must do and name the page.
 - **Tool access:** list the tools the skill may use, narrowed to what the job needs (`allowed-tools` in the open standard, where the platform supports it). For a skill that acts in another system, set this list in the draft; don't leave it as an option for later.
-- **Model and effort:** check the platform's `skill_settings`. Where a skill can choose its own (at the time of writing, Claude Code), recommend a model and effort level with a reason. Read `references/model-and-effort.md` when the platform allows per-skill settings or the user asks about model or effort. Where it can't, don't add those fields; say the model chosen for the conversation applies.
+- **Model and effort:** check the platform's skills page. Only where it shows a skill can choose its own, recommend a model and effort level with a reason. Read `references/model-and-effort.md` when the platform allows per-skill settings or the user asks about model or effort. Where it can't, don't add those fields; say the model chosen for the conversation applies.
 
 ### Before you trust it
 

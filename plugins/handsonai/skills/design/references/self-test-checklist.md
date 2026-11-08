@@ -4,7 +4,7 @@ Run both on every draft and every update, the self-check first, and fix what fai
 
 ## Structure
 
-- The frontmatter has exactly `workflow`, `requirements_revision`, `approved`, `autonomy`, `decomposition`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, `changes`, in that order, with canonical values: autonomy `Deterministic | Guided | Autonomous`; decomposition `steps | domains`; mechanism `Skill | Agent`; involvement `Augmented | Automated`; `platform_mode` the platform registry's `mode`; packaging `Plugin | Standalone Skill | Workspace Agent | Loose Files`.
+- The frontmatter has exactly `workflow`, `requirements_revision`, `approved`, `autonomy`, `decomposition`, `mechanism`, `involvement`, `platform`, `platform_mode`, `packaging`, `changes`, in that order, with canonical values: autonomy `Deterministic | Guided | Autonomous`; decomposition `steps | domains`; mechanism `Skill | Agent`; involvement `Augmented | Automated`; `platform_mode` by the template's rule (section 2); packaging `Plugin | Standalone Skill | Workspace Agent | Loose Files`.
 - Every `##` section of `plan-template.md` section 6 is there, in order (Multi-Agent Configuration only with more than one agent), and no other.
 - Architecture Decisions has all seven rows: Lens, Platform, Platform Mode, Orchestration, Involvement, Packaging, Trigger.
 - Every Build Output value is canonical.

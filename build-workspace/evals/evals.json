@@ -22,7 +22,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "run the design skill. My files are in framework/client-follow-up."
+      "text": "run the design skill."
      }
     },
     {
@@ -130,7 +130,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "test the workflow I built. My files are in framework/client-follow-up."
+      "text": "test the workflow I built."
      }
     },
     {
@@ -171,7 +171,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "test the workflow I built. My files are in framework/client-follow-up."
+      "text": "test the workflow I built."
      }
     },
     {
@@ -219,7 +219,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "test the workflow I built. My files are in framework/client-follow-up."
+      "text": "test the workflow I built."
      }
     },
     {
@@ -415,7 +415,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "run the design skill. My files are in framework/client-follow-up."
+      "text": "run the design skill."
      }
     },
     {
@@ -1104,7 +1104,7 @@
    "est_turns": 24,
    "smaller_model_round": true,
    "preconditions": [
-    "Release checks 1 to 6 recorded as verified in the platform registry on the running Claude Code version (T19); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
+    "Release checks 1 to 6 confirmed and the skill text changed to rely on them (release/release-checks.md); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
    ]
   },
   {
@@ -1423,8 +1423,8 @@
     }
    ],
    "preconditions": [
-    "The platform registry's Claude Code release checks have no verified_version_range that includes the running claude --version",
-    "Release checks 1 to 6 recorded as verified in the platform registry on the running Claude Code version (T19); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
+    "Claude Code's release checks are open in this release (the skill reads no version or range)",
+    "Release checks 1 to 6 confirmed and the skill text changed to rely on them (release/release-checks.md); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
    ],
    "est_turns": 34,
    "smaller_model_round": true
@@ -3921,7 +3921,7 @@
     }
    ],
    "preconditions": [
-    "Release checks 1 to 6 recorded as verified in the platform registry on the running Claude Code version (T19); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
+    "Release checks 1 to 6 confirmed and the skill text changed to rely on them (release/release-checks.md); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
    ],
    "est_turns": 34,
    "smaller_model_round": true
@@ -4157,7 +4157,7 @@
    ],
    "est_turns": 34,
    "preconditions": [
-    "Release checks 1 to 6 recorded as verified in the platform registry on the running Claude Code version (T19); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
+    "Release checks 1 to 6 confirmed and the skill text changed to rely on them (release/release-checks.md); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
    ]
   },
   {
@@ -4774,7 +4774,7 @@
     }
    ],
    "preconditions": [
-    "Release checks 1 to 6 recorded as verified in the platform registry on the running Claude Code version (T19); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
+    "Release checks 1 to 6 confirmed and the skill text changed to rely on them (release/release-checks.md); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
    ],
    "est_turns": 24,
    "smaller_model_round": true
@@ -6489,7 +6489,7 @@
    ],
    "est_turns": 18,
    "preconditions": [
-    "Release checks 1 to 6 recorded as verified in the platform registry on the running Claude Code version (T19); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
+    "Release checks 1 to 6 confirmed and the skill text changed to rely on them (release/release-checks.md); until then this eval expects each check's fallback: check agents only, no bare run (claude-code-block.md section 10)"
    ]
   },
   {
@@ -8810,7 +8810,7 @@
      }
     },
     {
-     "text": "Build names python3 as missing, says it can't protect the checks without it, and stops with 'run the build skill. My files are in framework/client-follow-up.'; no check agent or headless session runs",
+     "text": "Build names python3 as missing, says it can't protect the checks without it, and stops with 'run the build skill.'; no check agent or headless session runs",
      "kind": "judged"
     }
    ],

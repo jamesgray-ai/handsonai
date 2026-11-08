@@ -20,7 +20,7 @@ On no, go to the walk. On yes, read only these, in plain words, never by a tool'
 
 If nothing fits, say "I didn't find anything in your history that fits [business]." (no registry: "that fits the work you described") and go to the walk; if everything found is already registered, name those lines and go to the walk.
 
-**Show what you found** in one message under "**Process:** [name]" labels (no registry: none until areas are named), numbered straight through, each a short name plus its evidence in one clause ("you've asked for help with this about 6 times since August", "you have a skill that drafts these"). End with "I left out one-off questions and anything outside [business]." (no registry: "anything outside the work you described"; personal-life registry: "anything outside the areas in your registry"). Then:
+**Show what you found** in one message under "**Process:** [name]" labels (no registry: none until areas are named), numbered straight through, each a short name for the work plus its evidence in one clause ("you've asked for help with this about 6 times since August", "you have a skill that drafts these"). Write each item as a numbered list line ("3. [short name]: [its evidence]"), its number continuing across the labels, with a blank line after each label so the list shows as a list; never a plain line. End with "I left out one-off questions and anything outside [business]." (no registry: "anything outside the work you described"; personal-life registry: "anything outside the areas in your registry"). Then:
 
 **Ask:** "Which of these are worth keeping? For each, say keep, drop, or 'already handled'. You can answer by number, for example 'keep 1 and 3, drop 2'."
 - *Why:* only what you keep goes into your backlog, so you decide what counts.
@@ -29,6 +29,7 @@ If nothing fits, say "I didn't find anything in your history that fits [business
 **Kept items.** Draft each one's problem and size from the evidence, one item per message (the one place you propose a problem first, since it rests on their own history); record only what the student confirms or says instead. After the keep-or-drop answer and each item settled, save the progress file: move the item from "still to confirm" to "kept" with what the student confirmed.
 
 **Ask:** "[Name]: [the evidence, in one clause, such as 'you've asked for help with this about 6 times since August' or 'your memory says you write these every week']. My guess: [size], and [problem]. Is that right?"
+[size] is a rough amount of time or how often, such as "about 2 hours a week" or "about a day per launch": never only "effort", "substantial effort" or "a lot of time".
 - *Why:* that tells us roughly what it's worth to fix, and it goes in your report.
 - *Not sure?* Say what's right, and I'll mark the rest "not clear yet".
 

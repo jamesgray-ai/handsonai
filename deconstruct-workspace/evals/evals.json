@@ -289,7 +289,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -1254,7 +1254,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -1782,7 +1782,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -2304,7 +2304,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -2766,7 +2766,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -3183,7 +3183,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -3651,7 +3651,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -4049,7 +4049,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -4546,7 +4546,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'",
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'",
                 "session": 2
               },
               {
@@ -5274,7 +5274,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -5677,7 +5677,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -6105,7 +6105,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -6581,7 +6581,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -6976,7 +6976,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -7377,7 +7377,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'",
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'",
                 "session": 2
               },
               {
@@ -7866,7 +7866,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -8238,7 +8238,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -8552,7 +8552,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -8867,7 +8867,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -9147,7 +9147,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -9526,7 +9526,7 @@
           }
         },
         {
-          "text": "The pause line says plainly that nothing is saved yet, and gives the phrase to start again (\"run the deconstruct skill on Client Follow-Up. My files are in framework.\")",
+          "text": "The pause line says plainly that nothing is saved yet, and gives the phrase to start again (\"run the deconstruct skill on Client Follow-Up.\")",
           "kind": "judged",
           "must": true
         }
@@ -9761,7 +9761,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "run the design skill. My files are in framework/client-follow-up"
+                "text": "run the design skill."
               },
               {
                 "type": "quote_absent",
@@ -10248,7 +10248,7 @@
             "checks": [
               {
                 "type": "ai_contains",
-                "text": "run the design skill. My files are in framework/client-follow-up"
+                "text": "run the design skill."
               },
               {
                 "type": "quote_absent",
@@ -10491,7 +10491,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "run the analyze skill. My files are in framework"
+                "text": "run the analyze skill."
               }
             ]
           }
@@ -11067,7 +11067,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -11425,7 +11425,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -11800,7 +11800,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat\\. Add your (?:Google Drive|OneDrive|Dropbox|[A-Z][A-Za-z ]+) to it, then say 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -12157,7 +12157,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat with: 'run the design skill\\. My files are in [^']+'"
+            "pattern": "Workflow Requirements saved to `?ai-workspace/framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new chat\\. Add your (?:Google Drive|OneDrive|Dropbox|[A-Z][A-Za-z ]+) to it, then say 'run the design skill\\. My files are in [^']+'"
           }
         },
         {
@@ -14496,7 +14496,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -14596,7 +14596,7 @@
               },
               {
                 "type": "ai_contains",
-                "text": "run the design skill. My files are in framework/client-follow-up"
+                "text": "run the design skill."
               }
             ]
           }
@@ -14705,7 +14705,7 @@
             "checks": [
               {
                 "type": "ai_regex",
-                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session with: 'run the design skill\\. My files are in [^']+'"
+                "pattern": "Workflow Requirements saved to `?framework/[a-z0-9-]+/requirements\\.md`?(?: in your (?:Google Drive|OneDrive))?\\. It holds your goal, (?:the (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) steps, what every [^.]+ must get right, its rules, and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs|what every [^.]+ must get right, its rules and (?:\\d+|one|two|three|four|five|six|seven|eight|nine|ten) practice runs)\\. Design, the next step, turns this file into a plan for building the workflow: you answer a few questions and approve it\\. Start Design in a new session in this project and say 'run the design skill\\. My files are in [^']+'"
               },
               {
                 "type": "ai_contains",
@@ -15405,7 +15405,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the analyze skill. My files are in framework"
+            "text": "run the analyze skill."
           }
         },
         {

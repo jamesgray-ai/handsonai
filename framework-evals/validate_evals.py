@@ -41,7 +41,7 @@ RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmat
 FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "agent_builder_missing_context_file",
           "agent_builder_rewords_carried_line", "agent_builder_rewords_after_fix",
           "agent_builder_requirements_under_knowledge", "agent_builder_ordinary_chat", "skill_cannot_read_by_path",
-          "no_gmail", "leader_denies_settings_prompt", "no_python3"}
+          "no_gmail", "leader_denies_settings_prompt", "no_python3", "service_dropbox", "drive_cannot_save"}
 
 
 def check_check(c, where, errs, nsessions, corpus):
@@ -93,10 +93,10 @@ def check_release_item(rc, where, errs):
     for k in ("passed", "open"):
         if k not in rc or not (rc[k] is None or isinstance(rc[k], str)):
             errs.append(f"{where}: release_check {k!r} must be a text or null")
-    known = {r["id"] for r in json.loads(CS.REGISTRY.read_text()).get("release_checks", [])}
+    known = set(CS.release_check_rows())
     for i in rc["ids"]:
         if i not in known:
-            errs.append(f"{where}: release check {i} isn't in the platform registry")
+            errs.append(f"{where}: release check {i} isn't in release/release-checks.md")
 
 
 def fixture_names(evals_dir, builder):

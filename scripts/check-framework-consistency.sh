@@ -6,7 +6,8 @@
 # anything, so drift is silent. This asserts the agreement. It also runs two checks
 # that keep the skills' shared wording identical:
 #
-#   - routing copies: references/routing.md in the five step skills, and the test-run
+#   - routing copies: references/routing.md in the five step skills, references/saving.md
+#     (the five plus scaffolding-registry and indexing-registry), and the test-run
 #     wrapper in build and test, byte-identical to scripts/framework/ (sync-routing.sh --check);
 #   - the placement check: every approved line in framework-evals/approved-lines.json is in
 #     the file it names, word for word, placeholders as wildcards (check-line-placement.py).
@@ -101,7 +102,7 @@ else
   out=$(bash scripts/sync-routing.sh --check 2>&1); rc=$?
 fi
 echo "$out" | grep -vE '^(Checking routing copies|Routing copies in sync\.)?$'
-if [ "$rc" -eq 0 ]; then ok "routing.md and test-run.sh copies match scripts/framework/"
+if [ "$rc" -eq 0 ]; then ok "routing.md, saving.md, platform-facts.md and test-run.sh copies match scripts/framework/"
 else bad "routing copies have drifted (exit $rc): edit scripts/framework/, then run bash scripts/sync-routing.sh"; fi
 
 echo
@@ -110,6 +111,13 @@ out=$(python3 scripts/check-line-placement.py --quiet 2>&1); rc=$?
 echo "$out" | tail -n +2
 if [ "$rc" -eq 0 ]; then ok "approved lines in place (skills on scripts/line-placement-pending.txt report only)"
 else bad "approved lines missing or drifted (exit $rc): see above; python3 scripts/check-line-placement.py lists each one"; fi
+
+echo
+echo "-- scaffolding-registry and indexing-registry rule text (no eval workspace; 3c-EL) --"
+out=$(python3 scripts/check-scaffolding-rules.py 2>&1); rc=$?
+echo "$out" | grep -v "^  ok" | grep -v "passed, .* failed" || true
+if [ "$rc" -eq 0 ]; then ok "scaffolding and indexing rule text in place"
+else bad "scaffolding or indexing rule text missing (exit $rc): python3 scripts/check-scaffolding-rules.py lists each one"; fi
 
 echo
 echo "$PASS passed, $FAIL failed"
