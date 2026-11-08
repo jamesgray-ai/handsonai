@@ -271,7 +271,7 @@ Test never writes the plan, any other part of the build record, the built workfl
 One level deep, each read when its moment comes:
 - `references/routing.md`: every entry, and "continue my workflow" (the rule, and the written fallback for `framework-state`).
 - `references/platform-facts.md`: whenever you need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves).
-- `references/saving.md`: every save through a connection (on the web, and on Claude desktop after "use my drive"): read it back, and what to do when the change isn't there.
+- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you.
 - `references/hand-overs.md`: every hand-over of a run to the leader.
 - `references/claude-code-runs.md`: on Claude Code, when a round runs (the AI's runs, the practice folder, the wrapper's allow on a live workflow) and at the round's close.
 - `references/rounds.md`: opening a round after the first, a re-check of a live workflow, and a round left behind or waiting on access.

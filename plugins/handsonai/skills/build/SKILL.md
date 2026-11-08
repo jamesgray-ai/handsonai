@@ -213,7 +213,7 @@ Build never writes the requirements, the plan, the results, `inputs/`, the run l
 One level deep, each read when its moment comes:
 - `references/routing.md`: every entry, and "continue my workflow" (the rule, and the written fallback for `framework-state`).
 - `references/platform-facts.md`: whenever you need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves).
-- `references/saving.md`: every save through a connection (on the web, and on Claude desktop after "use my drive"): read it back, and what to do when the change isn't there.
+- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you.
 - `references/setup.md`: Part 1, a later entry's new setup items, and Part 2's dry-run confirmations (N-B8).
 - `references/claude-code-block.md`: on Claude Code, at the end of Part 1, before every headless session, at the close or a stop, and at an entry that finds a block or run folders left behind.
 - `references/bare-run.md`: before each main skill's task.

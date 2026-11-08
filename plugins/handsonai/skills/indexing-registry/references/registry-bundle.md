@@ -85,7 +85,7 @@ skill sets a registry up when the leader wants one.
    in the same write, and a step that moves one back restores it only if it's absent (the
    set-aside rules in section 3). The same holds when an earlier version's files are moved into
    `history/earlier-version-[date]/`: their links, legacy labels included, come off the node.
-8. **Saving on a drive.** Every save is read back (`references/saving.md` in each skill that saves); a change that isn't there goes the create-only way, or to print-to-save. Where the connection can update a file in place, it does. Where it can
+8. **Saving on a drive.** How to save comes from the tools the connection gives you (`references/saving.md` in each skill that saves), and a page you'll save again is read as stored, never from a reformatted view. Where the connection can update a file in place, it does. Where it can
    only create files but can move and rename them, before each save the current file moves into
    the framework folder's `history/`, under its registry path and renamed `[file]-YYYY-MM-DD-HHMM.md`
    (`history/registry/workflows/<slug>-2026-10-24-1504.md`), and the new file is

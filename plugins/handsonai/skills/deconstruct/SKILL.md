@@ -259,7 +259,7 @@ Said word for word wherever their moment comes.
 One level deep, each read only when its moment comes:
 - `references/routing.md`: at every entry and on "continue my workflow" (the rule, and the written fallback for `framework-state`).
 - `references/platform-facts.md`: whenever you need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves).
-- `references/saving.md`: every save through a connection (on the web, and on Claude desktop after "use my drive"): read it back, and what to do when the change isn't there.
+- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you.
 - `references/choosing-a-workflow.md`: the backlog choice or cold entry.
 - `references/from-a-document.md`: a yes to N-D1.
 - `references/part-1-what-this-is-worth.md`, `part-2-scope-and-a-name.md`, `part-3-the-outcome.md`, `part-4-the-path.md`, `part-5-rules-sources-and-practice-runs.md`: as each part starts; on the light track, for the questions it borrows.

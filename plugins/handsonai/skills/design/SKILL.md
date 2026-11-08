@@ -281,7 +281,7 @@ On approval, where there's a registry (on the web and in Cowork, through the con
 One level deep, each read when its moment comes:
 - `references/routing.md`: at every entry and on "continue my workflow" (the rule, and the written fallback for `framework-state`).
 - `references/platform-facts.md`: whenever you need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves).
-- `references/saving.md`: every save through a connection (on the web, and on Claude desktop after "use my drive"): read it back, and what to do when the change isn't there.
+- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you.
 - `references/plan-template.md`: at the start of Part 2, and whenever you write the plan.
 - `references/self-test-checklist.md`: on every draft and every update.
 - `references/capability-domains.md`: when the plan uses `decomposition: domains`.
