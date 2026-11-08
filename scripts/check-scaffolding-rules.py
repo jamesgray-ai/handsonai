@@ -24,7 +24,7 @@ def must_not(name, text, pattern):
 
 # Order: nothing before the storage question; N-F16 gated to Claude and ChatGPT on the web
 must("storage question comes first, nothing before it", SR, "**Nothing comes before it:** no greeting, no opening, no question about who the registry is for")
-must("N-F16 gated to Claude and ChatGPT on the web", SR, "On Claude or ChatGPT on the web, in any tab or mode, ChatGPT's Work tab included (never Claude desktop, Microsoft 365 Cowork, Claude Code or Codex: any chat not working in a folder on the leader's computer counts as the web, and a sandbox or workspace the AI runs in online is not the leader's computer)")
+must("N-F16 gated to Claude and ChatGPT on the web", SR, "On Claude or ChatGPT on the web, in any tab or mode, ChatGPT's Work tab included (never Claude desktop, Microsoft 365 Cowork, Claude Code or Codex: any chat not working in a folder on the leader's computer counts as the web, and a sandbox or workspace the AI runs in online is not the leader's computer, and a folder the app made for this chat alone, named by date or after the chat, is never the working folder)")
 must("N-F16 said exactly", SR, "I can't see a drive I can save to in this chat. Add your cloud drive to this chat from the prompt box")
 must("print-to-save only for Gemini or after 'continue'", SR, "Gemini, or on the web after the leader says 'continue' to N-F16")
 must_not("no old 'web chat with no storage connection' print-to-save trigger", SR, r"a web chat with no storage connection on")
@@ -37,6 +37,7 @@ must("the opening yields to N-SR2", IG, "with a registry already there, N-SR2 co
 must("first message settles where the files go (top of skill)", SR, "**Your first message settles where the files go.**")
 must("any tab or mode counts as the web", SR, "in any tab or mode, ChatGPT's Work tab included")
 must("an online sandbox is not the leader's computer", SR, "a sandbox or workspace the AI runs in online is not")
+must("a per-chat folder is never the working folder", SR, "a folder the app made for this chat alone, named by date or after the chat, is never the working folder")
 must("uploads are never the working folder", SR, "Files uploaded to the chat are never the working folder.")
 must("the AI's library is never picked or searched in place of asking", SR, "Never pick the AI's own file library (such as ChatGPT's Library) yourself")
 must("a library folder the leader names is a working folder", SR, "a folder there that the leader names or chooses is a working folder like any other")
