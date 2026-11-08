@@ -67,7 +67,7 @@ Context files typically don't need a Quick Start Prompt — use `—`. If unsure
 
 ### 3. Regenerate GENERATED blocks
 
-Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->` markers: a Workflow node's `# Insights` block, and a Function node's `# Owns` block. Write only inside the markers, never outside them, and never leave a marker pair unterminated. A Function's `# Owns` block, exactly (the heading stays above and outside the markers; inside, one bullet per Process whose `owner:` is this Function, in path order, and nothing else):
+Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->` markers: a Workflow node's `# Insights` block, and a Function node's `# Owns` block. Write only inside the markers, never outside them, and never leave a marker pair unterminated. One exception: where a Function's `# Owns` heading sits inside the markers (an earlier form), move it above the opening marker; that is the only change made outside them. A Function's `# Owns` block, exactly (the heading stays above and outside the markers; inside, one bullet per Process whose `owner:` is this Function, in path order, and nothing else):
 
 ```markdown
 # Owns

@@ -107,7 +107,15 @@ Never ask the leader to approve a path; say where the registry is saved in the o
 Before running the interview, check what's already in the working folder (locally, the workspace):
 
 0. **A `knowledge/` folder exists** → leave it alone — never write to it or lint it; Phase 0 may read it as an intake source. It is the business knowledge graph, a different OKF bundle with its own `SCHEMA.md` and its own lint (built by `building-knowledge-graph`). Say so in one sentence and continue with the registry checks below.
-1. **`registry/SCHEMA.md` exists** → this is **gap-filling mode**, not a fresh scaffold. Look for it as soon as the location is known, before the opening and before any question about who the registry is for. Say N-SR2 exactly, "You already have a registry here, so I'll check it for gaps instead of starting over.", then the gap pass; if you already asked a question it makes unnecessary, say so in one line rather than dropping it silently. With no gaps, say so in one line, then the close's check, the dashboard and N-A7. List which concept types have zero nodes and which typed directories are missing their `index.md`, tell the leader what's missing, and offer to fill only those gaps. Never overwrite an existing node, and never rewrite `SCHEMA.md` once the leader has one — their copy is authoritative from here on.
+1. **`registry/SCHEMA.md` exists** → this is **gap-filling mode**, not a fresh scaffold. Look for it as soon as the location is known, before the opening and before any question about who the registry is for. Then these steps, in this order, every one of them, with nothing said before the first:
+   1. **Confirm a folder you found.** Where you found the registry by looking (the leader didn't name the folder), confirm it in one line, naming the folder and where it is, and wait for the answer. Where the leader named it, go on.
+   2. **Say N-SR2 exactly:** "You already have a registry here, so I'll check it for gaps instead of starting over." No preamble before it. If you already asked a question it makes unnecessary, say so in one line rather than dropping it silently.
+   3. **The gap pass.** List which concept types have zero nodes and which typed directories are missing their `index.md`, tell the leader what's missing, and offer to fill only those gaps. With no gaps, say so in one line, then the close's check, the dashboard and N-A7.
+   4. **The close's check, every time, gaps or not** (*Close*). It fills or fixes each Function's `# Owns` block, including the earlier form with the heading inside the markers. Finding the pages present is not the check: a registry that looks complete still gets it.
+   5. **The dashboard and `REGISTRY.md`, rebuilt**, as at any close.
+   6. **The close as the interview guide gives it**, ending with N-A7: Analyze's start phrase and the location, as text the leader can copy.
+
+   To the leader the files are "pages": never "schema", "structure" or "nodes". Never overwrite an existing node, and never rewrite `SCHEMA.md` once the leader has one — their copy is authoritative from here on.
 2. **No `registry/SCHEMA.md`** → run the interview below from Phase 0. Files left by an earlier version of the framework are never read, moved or converted: the registry is set up fresh beside them.
 
 ## The interview

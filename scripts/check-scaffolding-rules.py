@@ -33,6 +33,13 @@ must("N-F17 offers to create a missing folder", SR, "I can't find [folder] in yo
 must("N-SR2 for a registry already there", SR, "You already have a registry here, so I'll check it for gaps instead of starting over.")
 must("no gaps: one line, then the close", SR, "With no gaps, say so in one line, then the close's check, the dashboard and N-A7.")
 must("the opening yields to N-SR2", IG, "with a registry already there, N-SR2 comes first")
+# Gap-filling mode as ordered steps (ChatGPT test, 2026-11-08: found folder used unconfirmed, check skipped)
+must("gap mode: every step, in order", SR, "Then these steps, in this order, every one of them, with nothing said before the first:")
+must("gap mode: a found folder is confirmed", SR, "**Confirm a folder you found.**")
+must("gap mode: the close's check runs every time", SR, "**The close's check, every time, gaps or not**")
+must("gap mode: present is not checked", SR, "Finding the pages present is not the check")
+must("gap mode: N-A7 as text", SR, "ending with N-A7: Analyze's start phrase and the location, as text the leader can copy")
+must("Owns: the earlier form is moved out of the markers", IX, "move it above the opening marker; that is the only change made outside them")
 # Goals are never invented
 must("never invent goals (guide)", IG, "**Never invent goals,**")
 must("N-SR3 when no goals are given", IG, "Your goals for this year aren't recorded yet; tell me them any time.")
