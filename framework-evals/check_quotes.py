@@ -68,7 +68,9 @@ def _walk(node, out):
 def check_evals(corpus, files):
     bad = 0
     for f in files:
-        for ev in json.loads(Path(f).read_text())["evals"]:
+        data = json.loads(Path(f).read_text())
+        skill = data.get("skill_name")  # as the runner's transcript check does: only lines this skill says
+        for ev in data["evals"]:
             for c in _walk(ev.get("expectations", []), []):
                 where = f"{Path(f).name} {ev['id']}"
                 if c["type"] in ("quote", "quote_absent"):
@@ -86,7 +88,7 @@ def check_evals(corpus, files):
                                  AL.norm(text).lower() in AL.norm(x.text).lower() for x in forms):
                         bad += 1
                         print(f"{where}: ai_contains doesn't match {c['line']}'s approved wording: {text[:100]!r}")
-                for ln, exp, got in corpus.near_misses(text):
+                for ln, exp, got in corpus.near_misses(text, skill=skill):
                     if exp.startswith(got) or exp.endswith(got):
                         continue  # an eval may quote part of a line
                     bad += 1

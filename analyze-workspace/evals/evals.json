@@ -4843,7 +4843,8 @@
       "tier": "regression",
       "covers": [
         "analyze 7 item 11",
-        "analyze 6"
+        "analyze 6",
+        "rules 6.11 (checking the registry, 3c-EK)"
       ],
       "platform": "claude-web",
       "fixture": "empty",
@@ -4865,6 +4866,36 @@
       ],
       "expected_output": "Same chat: scaffolding-registry asks N-F1 first, before writing anything; the registry lands in ai-workspace/registry/; its close gives N-A7 with the location; Analyze uses the same-session skip and asks no second storage question. New chat with N-A7's phrase: Analyze takes the location from it and asks nothing about storage. No migration is offered.",
       "expectations": [
+        {
+          "text": "No graph vocabulary to the leader: no AI message says node or nodes",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\bnodes?\\b"
+          }
+        },
+        {
+          "text": "No checking machinery named to the leader: no lint, tools/, lint-registry.js, compose-registry.js, GitHub Action or template repository",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)\\blint|tools/|lint-registry|compose-registry|github action|ai-registry-template|template repo"
+          }
+        },
+        {
+          "text": "Session 1: N-A7 asks nothing (no 'Want to run it now?')",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_contains",
+            "text": "Want to run it now?",
+            "session": 1
+          }
+        },
+        {
+          "text": "Session 1: scaffolding-registry's close asks at most one question, the Claude Artifact offer, as its last line; Analyze's start phrase is given as the next step, not asked",
+          "kind": "judged",
+          "must": true
+        },
         {
           "text": "Session 1: N-F1 first, before anything is written",
           "kind": "scripted",
