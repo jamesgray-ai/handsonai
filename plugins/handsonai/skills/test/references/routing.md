@@ -90,6 +90,8 @@ Any framework skill may receive it.
 4. **Is it this step's?** If not, the line above, and stop.
 5. **This step's own entry checks,** then its opening, or a resume line. When an entry check asks the leader something before the opening, its message starts with one line that names this step and the workflow and confirms the location (N-F3's promise clause), so a new chat never opens on a bare question; the opening then doesn't repeat that line.
 
+**Scripted lines are said in full.** A line these rules or this step give in quotes to be said exactly is said in full: every sentence, in its order, with only its [brackets] filled, never dropped, merged, shortened or paraphrased, on every platform (3c-EM, 2026-11-08: ChatGPT shortened N-F1, N-F17 and N-SR2).
+
 ## Earlier versions
 
 A file is from an earlier version of the framework when:

@@ -46,6 +46,8 @@ must("go ahead with two places: ask which", SR, "Where [storage service] names m
 # N-F1 (web): shorter, the choice of place first, said in full (ChatGPT dropped sentences, 2026-11-08)
 must("N-F1 web form leads with the choice of place", SR, "Where should your working folder go? It holds your AI Registry, your workflows and your knowledge graph. Say 'go ahead' and I'll make a private folder called ai-workspace in your [storage service]")
 must("N-F1 said in full", SR, "Say N-F1 exactly and in full (every sentence, in order; none dropped, merged or shortened)")
+must("every scripted line said in full (skill)", SR, "**Every scripted line is said in full:**")
+must("N-F1 library form drops the drive-reach sentence", SR, "Where [storage service] is only the AI's own library (no drive in this chat), its fourth sentence is")
 # Gap-filling mode as ordered steps (ChatGPT test, 2026-11-08: found folder used unconfirmed, check skipped)
 must("gap mode: every step, in order", SR, "Then these steps, in this order, every one of them, with nothing said before the first:")
 must("gap mode: a found folder is confirmed", SR, "**Confirm a folder you found.**")
