@@ -29,7 +29,7 @@ questions, playback labels, and *Why* / *Not sure?* lines — for example
 "team" and "services" for a professional, "areas", "routines", and "roles"
 for personal life (the list is in `personas.md` § Nouns). Apart from those
 nouns and the few words around them that grammar needs, the wording stays exact.
-Wherever a phase says **Example to show**, describe that example node in plain words (its name, what it covers, who owns it); never paste the file.
+Wherever a phase says **Example to show**, describe that example page in plain words (its name, what it covers, who owns it), as formatted text in the chat; never paste the file, and never use a code block.
 
 **The opening (first message, before anything else but the storage
 question):** when the storage question (N-F1, or N-F12 on Claude desktop) is
@@ -83,12 +83,13 @@ opening (SKILL.md, *Where the files live*):
 - **On the web and in Cowork:** the registry goes in `registry/` in the
   working folder in the student's drive, written through the connection.
 - **No files and no connection that can save → print-to-save.** Say N-F6
-  once, up front: "I can't save files here, so I'll give you the files to
-  save as we go. Keep them together in one folder, and paste or attach them
-  when you start the next step." Then, on **every** file, give its location
-  inside that folder (`registry/…`) and remind them to save it as plain
-  `.md`. Never say "I've created" for a file you only gave. (A file the
-  student would have to download does not count as saved.)
+  once, up front: "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step."
+  Where you can create a file to download, give one zip of the working
+  folder, its folders intact, at each save point, each replacing the last
+  (`references/saving.md`, rule 5); otherwise, on **every** file, give its
+  location inside that folder (`registry/…`) and remind them to save it as
+  plain `.md`. Never say "I've created" for a file you only gave. (A file
+  the student would have to download does not count as saved.)
 
 **Follow-up (print-to-save only — otherwise, look instead of asking):**
 - "Do you already have the empty registry skeleton — from the template
@@ -353,18 +354,17 @@ back in this layout, which labels each level so a student can't confuse
 them: say they're suggestions, give a count line when there are ten or more
 processes, keep each description to one short phrase, and put the owner
 last. The names below only show the shape — fill every line from the
-student's own registry, never reuse these:
+student's own registry, never reuse these. Show it as a formatted list in
+the chat, never in a code block:
 
 > "Here are my suggested processes, drafted from [the source — your website, your org chart, or your answers so far]. You decide what stays." (With ten or more: "14 processes across 4 lines of business.")
 
-```
-**Line of business: Cohort Courses**
-- **Process:** Cohort Delivery — running live sessions week to week. **Owner:** Service Delivery
-- **Process:** Cohort Launch & Enrollment — launch plan, promotion, waitlist, filling seats. **Owner:** Marketing
-
-**Line of business: Corporate Training**
-- **Process:** Corporate Lead to Proposal — inquiry, qualification, scoping, proposal. **Owner:** Sales
-```
+> **Line of business: Cohort Courses**
+> - **Process:** Cohort Delivery — running live sessions week to week. **Owner:** Service Delivery
+> - **Process:** Cohort Launch & Enrollment — launch plan, promotion, waitlist, filling seats. **Owner:** Marketing
+>
+> **Line of business: Corporate Training**
+> - **Process:** Corporate Lead to Proposal — inquiry, qualification, scoping, proposal. **Owner:** Sales
 
 **Ask:** "What would you add, remove, rename, or move? Each line of business only needs its main processes for now."
 - *Why:* Analyze looks for work worth improving inside these processes, so anything missing here won't come up.
@@ -447,12 +447,13 @@ rules, each with its location, and say the set is complete.
 >
 > "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list)."
 
-That last paragraph is N-A7: say it exactly. [location] is the working
+That last paragraph is N-A7: say it exactly, and say Analyze's start phrase word for word ("run the analyze skill", never "Run Analyze"). [location] is the working
 folder, as Analyze's start phrase names it: "Google Drive, in ai-workspace" or
 "OneDrive, in ai-workspace" in a drive (the storage service by its own name; the folder's own name when the
 leader chose another folder at the storage question); on Claude desktop, the
-folder's own name (such as "ai-workspace"); on Claude Code and Codex,
-"framework". Leave out the
+folder's own name (such as "ai-workspace"). On Claude Code and Codex the
+workspace is the working folder, so the phrase carries no location: say N-A7's
+Claude Code and Codex form, "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill.' (in Claude Code, you can also type `/analyze` and pick it from the list)." Leave out the
 `/analyze` clause anywhere but Claude Code.
 
 **The close — print-to-save:** the same four parts, with two changes.
@@ -462,6 +463,8 @@ be given usefully as text: "Your visual dashboard is created as soon as your fil
 are in a folder I can save to. Then say 'generate my visual dashboard'."
 
 Before the check, if you say anything, say only: "Now I'll check your registry and build your dashboard." Say nothing about the check when it passes, or about GENERATED blocks. Call the files pages, never nodes, and never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
+
+**In a cloud session** (*Where the files live*, in `SKILL.md`): commit and push the registry's files yourself first, name the repository, never a path on the machine ("Your registry is set up in your [repository] repository on GitHub"), say N-F18 where the branch isn't the default, and for the dashboard say it's in the repository to download, never "double-click it": the Claude Artifact offer below then leads, as the one question.
 
 **One question at most.** N-A7 gives Analyze's start phrase as the next step; it asks nothing. Then the close's one question, where it applies, as its last line:
 

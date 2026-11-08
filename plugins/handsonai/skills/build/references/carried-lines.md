@@ -54,7 +54,7 @@ Its other platforms' forms put that platform's clause in place of "open a new ch
 
 **The re-check line,** only where the workflow writes and reads its own run log (Claude Code, Codex, and Microsoft 365 Cowork once release check 27 passes; never on Claude on the web or desktop, ChatGPT, or an agent Agent Builder made). It ends each run after the `recheck_after` date in the log's header:
 - Microsoft 365: "It's been [3 months] since this was last checked. To re-check it, open a new Cowork chat and say 'test the workflow I built. My files are in [location].'"
-- Claude Code and Codex: "It's been [3 months] since this was last checked. To re-check it, open a new session and say 'test the workflow I built. My files are in [location].'"
+- Claude Code and Codex: "It's been [3 months] since this was last checked. To re-check it, open a new session in this project and say 'test the workflow I built.'"
 
 **The time-saved line,** only where the workflow writes its own run log and the requirements' Measure is time per run with a known Baseline, added to the closing line: "Run [n]; about [hours] saved so far." Otherwise no time line, and never an invented figure.
 

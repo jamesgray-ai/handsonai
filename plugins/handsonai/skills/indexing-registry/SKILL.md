@@ -33,13 +33,13 @@ Run all five jobs for a full pass, or just the one the user asked for. Other fra
 
 Check the pages against the bundle's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§8) — that file is the single source; do not duplicate its rule list here. The scope:
 
-- **At a framework step's close, and at `scaffolding-registry`'s:** the pages that step wrote or changed, plus the essentials that reach across pages: every Process has an `owner:` matching a Function; every page sits in exactly one parent list; every page is in its folder's `index.md`; links into and out of the changed pages resolve. Claim no more than that, and say nothing when it passes.
+- **At a framework step's close, and at `scaffolding-registry`'s:** the pages that step wrote or changed, plus the essentials that reach across pages: every Process has an `owner:` matching a Function, and each Function's `# Owns` block lists exactly the Processes it owns, in the form under *Regenerate GENERATED blocks* (fill or fix it before finishing); every page sits in exactly one parent list; every page is in its folder's `index.md`; links into and out of the changed pages resolve. Claim no more than that, and say nothing when it passes.
 - **Every §8 rule only when the leader asks** ("check my AI registry", "update my AI registry", or this skill by name). End that check with one plain line saying what it covered, and, where it couldn't cover everything (a page it couldn't read, say), what it didn't: for example, "I checked every page of your registry against all its rules." Never imply more than you checked.
 - **A workspace's own `tools/`,** where the leader already has one, is used as before (*Workspace-generator precedence*). This skill adds and bundles no scripts.
 
 Report findings in plain language, named by page. On a pass called by another step, say nothing when every check passes, or when a finding needs nothing from the leader; when a fix needs the leader, name the workflow or process, never the file.
 
-**Talking about the check.** To the leader it is "checking your registry", and the files are "pages", never nodes. Never say "maintenance pass", and never mention lint, compose, scripts, `tools/`, `lint-registry.js`, `compose-registry.js`, GitHub Actions or the template repository unless the leader asks about one of them, and never ask the leader to choose between them. Asked, give one short answer: "The checks run inside the skill. The template's scripts are an optional extra for people who keep their registry on GitHub." **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
+**Talking about the check.** To the leader it is "checking your registry", and the files are "pages", never nodes. Never name a skill or a hand-off between skills ("the scaffolding skill hands the pages to…"). Never say "maintenance pass", and never mention lint, compose, scripts, `tools/`, `lint-registry.js`, `compose-registry.js`, GitHub Actions or the template repository unless the leader asks about one of them, and never ask the leader to choose between them. Asked, give one short answer: "The checks run inside the skill. The template's scripts are an optional extra for people who keep their registry on GitHub." **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
 
 ### 2. Refresh indexes
 
@@ -67,7 +67,16 @@ Context files typically don't need a Quick Start Prompt — use `—`. If unsure
 
 ### 3. Regenerate GENERATED blocks
 
-Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->` markers: a Workflow node's `# Insights` block, and a Function node's `# Owns` block. Write only inside the markers, never outside them, and never leave a marker pair unterminated.
+Rewrite the content between `<!-- GENERATED:<name> -->` and `<!-- /GENERATED -->` markers: a Workflow node's `# Insights` block, and a Function node's `# Owns` block. Write only inside the markers, never outside them, and never leave a marker pair unterminated. A Function's `# Owns` block, exactly (the heading stays above and outside the markers; inside, one bullet per Process whose `owner:` is this Function, in path order, and nothing else):
+
+```markdown
+# Owns
+
+<!-- GENERATED:owns -->
+- [Cohort Delivery](/processes/cohort-delivery.md)
+- [Cohort Launch & Enrollment](/processes/cohort-launch-and-enrollment.md)
+<!-- /GENERATED -->
+```
 
 ### 4. Regenerate dashboards
 
@@ -86,7 +95,7 @@ No step number, Health or Last Run column, and no raw `autonomy` or `execution_m
 
 **Telling the leader about `REGISTRY.md`.** When you mention it, say what it is in one plain sentence: "`REGISTRY.md` is a one-page text summary of your registry; it's refreshed after every step, and it's what your AI reads to catch up on your business." Mention it only when the leader asks about it or runs this skill directly. On a maintenance pass at the end of another step, never name it: the calling step's close names only the dashboard.
 
-**Telling the leader about the dashboard.** On a maintenance pass at the end of another step, say nothing; that step's close mentions the dashboard. When the leader runs this skill directly or asks about the dashboard, in plain words: what it shows (lines of business, processes, owners, workflows and where each one is), why any section is empty, and how to open it — on their computer, "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details"; in a drive, download it first, then open it the same way. Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the framework's folders or point the leader at a session folder.
+**Telling the leader about the dashboard.** On a maintenance pass at the end of another step, say nothing; that step's close mentions the dashboard. When the leader runs this skill directly or asks about the dashboard, in plain words: what it shows (lines of business, processes, owners, workflows and where each one is), why any section is empty, and how to open it — on their computer, "double-click `registry-dashboard.html` to open it in your browser; click any item to see its details"; in a drive, download it first, then open it the same way; in a cloud session, where the file is in the repository on GitHub, say it's there to download and lead with the Claude Artifact offer, never "double-click it". Don't report the checks you ran, the template, the data block, or JSON. If you replace an earlier dashboard, just replace it; don't save a copy outside the framework's folders or point the leader at a session folder.
 
 *Claude platforms:* when the leader asks for the dashboard directly ("generate my visual dashboard"), after they know how to open the file, offer on its own line: "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." At the end of registry setup, `scaffolding-registry`'s close makes this offer instead — don't repeat it. Never offer it on a routine maintenance pass at the end of another step. When the leader already has a dashboard Artifact (a `Dashboard Artifact: <link>` entry in `registry/log.md`, one published earlier in this conversation, or one they mention), republish it to the same link on every pass that refreshes the dashboard, without asking: the link doesn't change, and a stale copy is never what they want. Tell the calling step so its close can say the Claude page is updated. If republishing to the logged link fails (the platform can't update a page from another conversation), publish a new page, give the leader its link in one line ("Your dashboard's Claude page has a new link: [link]"), and append the new `Dashboard Artifact: <link>` entry. Never create one unasked. When you create one (on request), append a `registry/log.md` entry: `Dashboard Artifact: <link>`; if the leader later deletes it, remove nothing, and append a new entry when a new one is made — the latest entry wins.
 
