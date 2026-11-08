@@ -1,7 +1,7 @@
 {
-  "version": "2.0",
+  "version": "2.1",
   "framework_release": "10.0",
-  "notes": "The single source of platform facts for the handsonai skills. Look a platform up by its key or by any name in its `aliases`. Readers take `capabilities` values as readable strings, except the structured fields new in 2.0 (`unattended_checkpoint`, `cloud_drives`, `approval_labels`, `connection_switch_off`, `build_places`, `agent_builder`, `skill_context_by_path`), whose `release_check` numbers point into `release_checks`. A fact that rests on an open release check takes that check's fallback until the check is recorded as passed; nothing in a skill assumes a check passed. Unverified facts say so, with their fallback.",
+  "notes": "The single source of platform facts for the handsonai skills. Look a platform up by its key or by any name in its `aliases`. Readers take `capabilities` values as readable strings, except the structured fields new in 2.0 (`unattended_checkpoint`, `storage_quirks`, `approval_labels`, `connection_switch_off`, `build_places`, `agent_builder`, `skill_context_by_path`), whose `release_check` numbers point into `release_checks`. A fact that rests on an open release check takes that check's fallback until the check is recorded as passed; nothing in a skill assumes a check passed. Unverified facts say so, with their fallback. Which storage services can hold the working folder isn't listed here: any connection that can create files can, and the save check in each skill's `references/saving.md` decides, in the chat, whether it updates files in place, uses the create-only path or falls back to print-to-save. `storage_quirks` lists only the known exceptions a read-back could miss or that save a failed first try (registry 2.1).",
   "release_checks_policy": "Rules 13.2: each check is verified on a stated version range, recorded in `verified_version_range` with who ran it and when. Outside the verified range (read with `claude --version` on Claude Code), every check takes its fallback and the step says so once. Where no version can be read (Claude on the web and desktop, ChatGPT, Microsoft 365), the checks run again before each cohort release and whenever a platform's release notes change something a check rests on. An empty `verified_version_range` means no range is recorded yet. Where no version can be read, a row marked `verified` counts as passed only when its `verified_for_release` equals this registry's `framework_release` (the current cohort release); otherwise its fallback.",
   "platforms": {
     "claude-code": {
@@ -82,32 +82,18 @@
           "release_check_status": "open",
           "notes": "Release check 12 (scheduled tasks reading Project knowledge) is also open."
         },
-        "framework_files": "The working folder (ai-workspace/ unless the leader keeps another), holding registry/, framework/ (one folder per workflow) and knowledge/. Web: in Google Drive or work/school OneDrive through the connection. Desktop: a folder on the leader's computer, selected in each framework chat (N-F12 at the first skill; N-F13 when a later chat has none selected) (rules 3.2).",
+        "framework_files": "The working folder (ai-workspace/ unless the leader keeps another), holding registry/, framework/ (one folder per workflow) and knowledge/. Web: in any connected storage service whose connection can create files (Google Drive, work or school OneDrive, Dropbox, Box, a GitHub connector…), through the connection; the save check decides how it saves (saving.md). Desktop: a folder on the leader's computer, selected in each framework chat (N-F12 at the first skill; N-F13 when a later chat has none selected) (rules 3.2).",
         "desktop_add_folder": "In the Claude desktop app, start a new chat, select \"Work in a folder\" in the chat bar, and choose the folder on your computer; Claude reads what is there and saves new files beside it. Verified 2026-10-24 from Anthropic's tutorial (https://academy.claude.com/tutorials/get-started-in-claude-cowork-in-three-steps), which names the button only: the folder picker and any permission prompt after it are not documented there. Fallback when the leader doesn't see \"Work in a folder\": say the exact steps couldn't be verified, and the leader selects the folder their own way. N-F12 (3c-EH) says this as \"Select your working folder in the prompt window\", with no steps of its own: the chat bar is the prompt window, so it matches.",
-        "cloud_drives": {
+        "storage_quirks": {
           "google_drive": {
-            "create": "yes (files and folders)",
-            "read": "yes, in any chat with the connector on",
-            "update_in_place": "no: the Drive connector's update_file changes only the title and parent folder, so the create-only path applies (rules 3.6)",
-            "move_and_rename": "yes, through update_file (observed in one account 2026-10-18); release check 10 open",
-            "folder_limits": "none: the connection mirrors the leader's permissions and sees the whole drive",
-            "release_check": 10,
-            "release_check_status": "open",
-            "until_it_passes": "The create-only path (rules 3.6), or print-to-save where the connection can neither update nor move files (rules 3.7).",
+            "update_in_place": "no: the Drive connector's update_file changes only the title and parent folder, never the content, so a read-back after an update shows the old file. Use the create-only path from the first save (saving.md 2; rules 3.6); it moves and renames through update_file (observed in one account 2026-10-18; release check 10).",
             "source": "Verified 2026-10-18: https://support.claude.com/en/articles/10166901-use-google-workspace-connectors"
           },
           "onedrive_work_or_school": {
-            "create": "yes, once an admin turns on write actions and approves the file-write permission in Entra",
-            "read": "yes (tenant consent from a Global Admin)",
-            "update_in_place": "yes: whole-file overwrite up to 1 MB (sharepoint_update_file; version history keeps the old one)",
-            "move_and_rename": "yes (rename, move, copy, create folder)",
-            "folder_limits": "none: the connection mirrors the leader's permissions",
-            "release_check": 11,
-            "release_check_status": "open",
-            "until_it_passes": "Offer Google Drive, or print-to-save.",
+            "setup": "Saving needs an admin to turn on write actions and approve the file-write permission in Entra; until then the first save fails and the save check falls back (saving.md 4). Updates overwrite the whole file, up to 1 MB.",
             "source": "Verified 2026-10-18: https://claude.com/docs/connectors/microsoft/365.md, https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector"
           },
-          "onedrive_personal": "not supported"
+          "onedrive_personal": "not available: Claude has no connector for personal OneDrive accounts"
         },
         "memory_controls": "Turn off \"Use account memory\" on the workflow's Project page; switch memory off under + in each run chat before its first message. Incognito is documented only outside Projects. Memory can't be fully closed off, so Test runs the transcript check (rules 3.5).",
         "ai_started_sessions": "No: the AI starts no fresh chat of its own; Build's checks run in Build's own chat under the instruction, and the leader runs every Test input and the bare run.",
@@ -271,14 +257,13 @@
           "notes": "Draft-and-approve is the default for event-driven tasks, but no step treats it as a gate until release check 26 passes."
         },
         "framework_files": "The working folder (ai-workspace/ unless the leader keeps another) in OneDrive, separate from Cowork's own folder, holding registry/, framework/ (one folder per workflow) and knowledge/ (rules 3.2).",
-        "cloud_drives": {
+        "storage_quirks": {
           "onedrive": {
-            "create": "yes: Markdown files in the folder the leader names (verified 2026-10-21, release check 22)",
-            "read": "yes: a new Cowork chat reads and updates the files from the location alone, with nothing attached (verified 2026-10-21, release check 23)",
+            "only_storage": "Cowork keeps the working folder in the leader's OneDrive, separate from Cowork's own folder; no other storage service is offered (rules 3.2).",
             "update_in_place": "yes: Cowork downloads, edits and writes back the same file, no copy (verified 2026-10-21, release check 22)",
-            "move_and_rename": "yes: Cowork creates folders and moves or reorganizes files (documented 2026-10-18)",
-            "folder_limits": "none: Cowork sees the leader's whole OneDrive, everything they can see; the only boundary is their permissions (N-F1's Microsoft 365 form says so)",
+            "read_from_location": "yes: a new Cowork chat reads and updates the files from the location alone, with nothing attached (verified 2026-10-21, release check 23)",
             "approvals": "one approval per edit: Approve once, or Always allow for the conversation (verified 2026-10-21)",
+            "folder_limits": "none: Cowork sees the leader's whole OneDrive, everything they can see; the only boundary is their permissions (N-F1's Microsoft 365 form says so)",
             "release_check": [
               22,
               23
@@ -372,31 +357,17 @@
           "release_check_status": "open",
           "notes": "Covers both scheduled tasks and a Workspace Agent's scheduled run."
         },
-        "framework_files": "The working folder (ai-workspace/ unless the leader keeps another) in Google Drive, or SharePoint/OneDrive on a work account, through the drive connection, holding registry/, framework/ (one folder per workflow) and knowledge/ (rules 3.2).",
-        "cloud_drives": {
+        "framework_files": "The working folder (ai-workspace/ unless the leader keeps another) in any connected storage service whose app can create files (Google Drive, SharePoint/OneDrive on a work account, Dropbox, Box, a GitHub app…), through the connection (the save check decides how it saves, saving.md), holding registry/, framework/ (one folder per workflow) and knowledge/ (rules 3.2).",
+        "storage_quirks": {
           "google_drive": {
-            "create": "yes (tested by James, 2026-10-18, decision 3c-CC)",
-            "read": "yes (tested by James, 2026-10-18)",
-            "update_in_place": "yes: a plain Markdown file edited in place (tested by James, 2026-10-18)",
-            "move_and_rename": "unverified: the actions exist but need the matching Google scopes and must be enabled in the workspace",
-            "folder_limits": "none for individual plans (Enterprise can restrict shared-drive and My Drive access, not a folder)",
-            "plans": "Writes on Plus and Pro unverified; on Business and Enterprise an admin may need to enable write actions (release check 20, open)",
-            "release_check": 20,
-            "release_check_status": "open",
-            "until_it_passes": "Print-to-save, or ask the admin.",
+            "setup": "On Business and Enterprise an admin may need to enable write actions; writes on Plus and Pro are unverified (release check 20). A first save that fails falls back (saving.md 4).",
             "source": "Read 2026-10-18: https://help.openai.com/en/articles/10929079-google-drive-app-and-setup-in-chatgpt, https://help.openai.com/en/articles/11487775-connected-apps-in-chatgpt"
           },
           "sharepoint_onedrive_work": {
-            "create": "partly: upload and update when an admin enables the actions and Entra grants Files.ReadWrite.All",
-            "read": "yes, with admin consent (up to 100 MiB per file)",
-            "update_in_place": "partly: as create",
-            "move_and_rename": "unverified",
-            "folder_limits": "site-collection allowlist only (site level, not folder)",
-            "release_check": 20,
-            "release_check_status": "open",
+            "setup": "Upload and update need an admin to enable the actions and Entra to grant Files.ReadWrite.All; access is limited by site, never by folder.",
             "source": "Read 2026-10-18: https://help.openai.com/en/articles/12143177-sharepoint-app-and-setup-in-chatgpt"
           },
-          "onedrive_personal": "not supported"
+          "onedrive_personal": "not available: ChatGPT has no app for personal OneDrive accounts"
         },
         "memory_controls": "Project-only memory, set per Project (changes may take a few hours), only where release check 15 shows skills still run there (it also turns off ChatGPT Work in that Project); otherwise the default memory, with the transcript check (rules 3.5). Release check 15 open.",
         "ai_started_sessions": "No: Build's checks run in Build's own chat under the instruction; the bare run is pasted by the leader into a new Project chat with no apps added, only once release check 16 passes; the leader runs every Test input.",
@@ -546,8 +517,8 @@
       "platforms": [
         "claude"
       ],
-      "check": "Google Drive update in place; move and rename through the connection",
-      "fallback": "The create-only path (rules 3.6), or print-to-save where the connection can neither update nor move files (rules 3.7)",
+      "check": "Google Drive (Claude): moving and renaming through update_file, for the create-only path",
+      "fallback": "The save check (saving.md): print-to-save where the connection can't move files",
       "status": "open",
       "verified_on": "",
       "verified_for_release": "",
@@ -560,7 +531,7 @@
         "claude"
       ],
       "check": "Microsoft 365 connection writes on work accounts, admin-enabled",
-      "fallback": "Offer Google Drive, or print-to-save",
+      "fallback": "The save check (saving.md): a first save that fails falls back to print-to-save; another connected service can be named instead",
       "status": "open",
       "verified_on": "",
       "verified_for_release": "",
@@ -677,7 +648,7 @@
         "chatgpt"
       ],
       "check": "Drive writes on Plus and Pro; Business and Enterprise write actions needing an admin",
-      "fallback": "Print-to-save, or ask the admin",
+      "fallback": "The save check (saving.md): a first save that fails falls back to print-to-save, or ask the admin",
       "status": "open",
       "verified_on": "",
       "verified_for_release": "",
