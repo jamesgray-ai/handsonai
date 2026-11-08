@@ -1565,7 +1565,7 @@
   {
    "id": "N-A7",
    "form": "main",
-   "text": "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list). Want to run it now?",
+   "text": "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list).",
    "kind": "teaching",
    "skills": [
     "scaffolding-registry"

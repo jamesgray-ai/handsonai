@@ -178,7 +178,7 @@ On print-to-save with no skeleton yet, give those same files first, in that
 order. If the student
 asks "where's the template repo?", the URL is
 `https://github.com/jamesgray-ai/ai-registry-template` — it ships this same
-skeleton plus a GitHub Action that checks the registry on every save, and is optional.
+skeleton plus a GitHub Action that checks the registry on every save, and is optional. Give this only when asked; never offer it, and never ask the leader to choose between it and the skill's own check.
 
 **Fast path:** if the student already has a full `registry/` bundle from a
 prior scaffolding run, skip straight to gap-filling — re-run only the phases
@@ -445,7 +445,7 @@ rules, each with its location, and say the set is complete.
 >
 > "You can reshape this any time — rename, merge, or move things — just ask, for example 'move [one of their processes] under [another of their lines of business]'." (Fill the example from the student's own registry.)
 >
-> "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list). Want to run it now?"
+> "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list)."
 
 That last paragraph is N-A7: say it exactly. [location] is the working
 folder, as Analyze's start phrase names it: "Google Drive, in ai-workspace" or
@@ -461,15 +461,14 @@ folder, at the location shown above it." And for the dashboard, which can't
 be given usefully as text: "Your visual dashboard is created as soon as your files
 are in a folder I can save to. Then say 'generate my visual dashboard'."
 
-Say nothing about lint, checks, or GENERATED blocks. The close ends on the
-Analyze question. Once the student answers it, make these offers one per
-message, each answered before the next, and only where it applies; then
-act on the Analyze answer:
+Say nothing about the check when every page passed, or about GENERATED blocks; where the check couldn't cover everything, say so in one plain line naming what wasn't checked ("I couldn't check [these pages], so I can't tell you they're right yet."). Call the files pages, never nodes, and never name lint, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
+
+**One question at most.** N-A7 gives Analyze's start phrase as the next step; it asks nothing. Then the close's one question, where it applies, as its last line:
 
 - **On Claude:** "Want your dashboard as a **Claude Artifact**? It's a private page you can open from Claude any time, and share with a link if you want to." On print-to-save on Claude, this is the way to see the dashboard now, so offer it in place of "created as soon as your files are in a folder I can save to". This close is the only place the Artifact is offered; `indexing-registry` doesn't repeat it here. On yes, publish it and append a `registry/log.md` entry, `Dashboard Artifact: <link>`, so every later step can update the same page in any conversation. On print-to-save, give that one line and say: "Add this line to the end of your `registry/log.md`, so later steps can keep this page up to date."
-- **Only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never ask on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
+- **Elsewhere, only when the folder is a git repository** — locally, with a shell, `git rev-parse --show-toplevel` returns the workspace folder; never on the web or in a connected drive: "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On yes, commit locally; don't push as part of this offer (a student who asks to push or back up to GitHub gets that separately).
 
-After the offers, on "now" to Analyze, invoke the `analyze` skill.
+With neither, the close ends on N-A7. When the leader then says Analyze's start phrase, or asks to run it here, invoke the `analyze` skill.
 
 **Fast path:** if no insight surfaced, skip the Note entirely and don't
 mention it — an absent Note is not a gap to flag; a forced one is worse than

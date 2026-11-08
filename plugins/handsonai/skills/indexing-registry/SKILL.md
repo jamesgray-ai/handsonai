@@ -29,9 +29,18 @@ For where the bundle is and how nodes are written and owned (resolution, write r
 
 Run all five jobs for a full pass, or just the one the user asked for. Other framework skills invoke this skill from their closing step for the same pass — see **Best-effort rule** below.
 
-### 1. Lint
+### 1. Check the registry (lint)
 
-Read every node against the bundle's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§8) — that file is the single source; do not duplicate its rule list here. Report findings in plain language, named by file. On a pass called by another step, say nothing unless a fix needs the leader, and then name the workflow or process, never the file. **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
+Check the pages against the bundle's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§8) — that file is the single source; do not duplicate its rule list here. The scope:
+
+- **Every page, every §8 rule:** at setup (`scaffolding-registry`'s first maintenance pass), and whenever the leader asks for it ("update my AI registry", or this skill by name).
+- **At a framework step's close:** every page that step wrote or changed, plus the rules that reach across pages: each page in exactly one parent list (curated lists), each Process's `owner:` matching a Function, index coverage, broken links into or out of the changed pages, and the claims sweep for any SOP the step touched.
+- **No silent partial checks.** When a pass can't cover all of its scope (too many pages, a page it can't read), say so in one plain line that names what wasn't checked ("I couldn't check [these pages], so I can't tell you they're right yet."), and never imply a clean result.
+- **`tools/lint-registry.js`,** where the workspace has it and code can run, implements the same §8 list: run it for the same scope; it never narrows what is checked.
+
+Report findings in plain language, named by page. On a pass called by another step, say nothing when every check passes, or when a finding needs nothing from the leader; when a fix needs the leader, name the workflow or process, never the file.
+
+**Talking about the check.** To the leader it is "checking your registry", and the files are "pages", never nodes. Never mention lint, scripts, `tools/`, `lint-registry.js`, `compose-registry.js`, GitHub Actions or the template repository unless the leader asks about one of them, and never ask the leader to choose between them. Asked, give one short answer: "The checks run inside the skill. The template's scripts are an optional extra for people who keep their registry on GitHub." **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
 
 ### 2. Refresh indexes
 
@@ -92,7 +101,7 @@ Refuses to regenerate derived views while lint reports errors — with the refer
 
 ## Workspace-generator precedence
 
-If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative. Compose only refreshes a `registry-dashboard.html` that already exists: when the Tier 2 dashboard is due and there is none beside `registry/`, first copy `tools/dashboard-template.html` to `registry-dashboard.html`, then run compose. A registry in a drive is never composed by script: build its views by hand, as above.
+If the workspace contains `tools/compose-registry.js`, run `node tools/lint-registry.js && node tools/compose-registry.js` instead of assembling the dashboards by hand — the workspace's own generator is authoritative. Never name the scripts to the leader (*Talking about the check*). Compose only refreshes a `registry-dashboard.html` that already exists: when the Tier 2 dashboard is due and there is none beside `registry/`, first copy `tools/dashboard-template.html` to `registry-dashboard.html`, then run compose. A registry in a drive is never composed by script: build its views by hand, as above.
 
 **Out-of-date tools.** Before running them, compare the `"version"` in the workspace's `tools/package.json` with the one in the plugin's `tools/` folder (where `framework-state.js` ships). If the workspace's is missing or lower, ask, word for word: "Your registry's tools are out of date. Update them now?" On a yes, copy the plugin's `compose-registry.js`, `lint-registry.js`, `registry-lib.js`, `package.json`, `framework-state.js` and `requirements-check.js` over `tools/`, plus `references/dashboard-template.html` and `references/data-island.schema.json`; then copy the new template over `registry-dashboard.html` before composing, since compose only injects data into an existing page. Leave the bundle's `registry/SCHEMA.md` as it is. On a no, compose with the tools as they are. A workspace with no `tools/` folder is unaffected.
 
