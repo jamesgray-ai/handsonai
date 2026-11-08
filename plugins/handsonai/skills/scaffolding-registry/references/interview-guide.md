@@ -466,7 +466,7 @@ folder, at the location shown above it." And for the dashboard, which can't
 be given usefully as text: "Your visual dashboard is created as soon as your files
 are in a folder I can save to. Then say 'generate my visual dashboard'."
 
-Before the check, if you say anything, say only: "Now I'll check your registry and build your dashboard." Say nothing about the check when it passes, or about GENERATED blocks. Call the files pages, never nodes, and never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
+Before the check, if you say anything, say only this, word for word: "Now I'll check your registry and build your dashboard." Never a longer or more technical version (no "owner lists", "summary page" or file names): that sentence or nothing. Say nothing about the check when it passes, or about GENERATED blocks. Call the files pages, never nodes, and never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
 
 **In a cloud session** (*Where the files live*, in `SKILL.md`): commit and push the registry's files yourself first, name the repository, never a path on the machine ("Your registry is set up in your [repository] repository on GitHub"), say N-F18 where the branch isn't the default, and for the dashboard say it's in the repository to download, never "double-click it": the Claude Artifact offer below then leads, as the one question.
 

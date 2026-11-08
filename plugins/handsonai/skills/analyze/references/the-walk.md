@@ -12,7 +12,7 @@ Whenever the registry has Process nodes, on either lens, the Processes are the a
 
 > "I'd start with [process], because it drives [the objective]. Say 'go ahead' for that one, or give me another number from the list below. You don't need to do all [N]: after each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it."
 
-[process] is the one that drives the objective most directly; with no objectives, its first sentence is "I'd start with [process], where the work feels slowest or most repetitive." (your best reading of what the student has said; ask nothing to choose it). Where the save line isn't said (a new session can't read the files, or print-to-save), leave out ", and your progress is saved". Then the processes numbered straight through, one per line, under a "**Line of business:** [name]" label per line, and last:
+[process] is the one that drives the objective most directly; with no objectives, its first sentence is "I'd start with [process], where the work feels slowest or most repetitive." (your best reading of what the student has said; ask nothing to choose it). Where the save line isn't said (a new session can't read the files, or print-to-save), leave out ", and your progress is saved". Then the processes numbered straight through, as numbered list lines ("6. [process]"), their numbers continuing across the labels, under a "**Line of business:** [name]" label per line, with a blank line after each label so the list shows as a list, and last:
 - *Why:* starting where it matters most means your most useful candidates come first, even if you stop early.
 
 "Go ahead" takes the recommended process; "stop" (only where something is kept) goes to Part 3.
