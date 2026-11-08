@@ -4558,7 +4558,7 @@
       "covers": [
         "analyze 7 item 9",
         "rules 3.3",
-        "saving.md (read-back rule)"
+        "saving.md (save from the connection's tools)"
       ],
       "platform": "claude-web",
       "platform_faults": [
@@ -4567,7 +4567,7 @@
       "fixture": "empty",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "expected_output": "The only storage connected is Dropbox: N-F1 names Dropbox, the working folder is made there, files are saved through it, and every location reads 'Dropbox, in ai-workspace'. Nothing about reading saves back is said while they work.",
+      "expected_output": "The only storage connected is Dropbox: N-F1 names Dropbox, the working folder is made there, files are saved through it, and every location reads 'Dropbox, in ai-workspace'. Nothing about how it saves is said, and no file is written only to test saving.",
       "expectations": [
         {
           "text": "N-F1 is the first message",
@@ -4622,98 +4622,7 @@
           }
         },
         {
-          "text": "Says nothing about checking or testing saves while they work (no line about reading a file back, a save check or a test file)",
-          "kind": "judged",
-          "must": true
-        },
-        {
-          "text": "No framework step number in any AI message (a step is named, never numbered)",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_not_regex",
-            "pattern": "\\b[Ss]tep\\s+[1-7]\\b\\s*(?:\\(\\s*(?:Analyze|Deconstruct|Design|Build|Test)|of\\s+(?:the\\s+)?(?:AI\\s+Workflow\\s+)?[Ff]ramework|of\\s+[57]\\b|[-:]\\s*(?:Analyze|Deconstruct|Design|Build|Test)\\b)|\\b(?:Analyze|Deconstruct|Design|Build|Test)\\s*\\(\\s*[Ss]tep\\s*[1-7]\\s*\\)|\\b[Ss]tep\\s+[1-7]\\s+(?:is|was|will be)\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bStep\\s+[1-7],\\s+(?:Analyze|Deconstruct|Design|Build|Test)\\b|\\bnext is Step\\s+[1-7]\\b"
-          }
-        },
-        {
-          "text": "No Run or Improve step, and no step count other than five, in any AI message",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_not_regex",
-            "pattern": "(?i)\\brun the (?:run|improve) skill\\b|\\b(?:the )?(?:Run|Improve) step\\b|\\b(?:six|seven) steps\\b|\\bsteps? (?:6|7)\\b"
-          }
-        },
-        {
-          "text": "No time estimate for the framework: no message says how long a process, a part, the step or the session takes",
-          "kind": "scripted",
-          "check": {
-            "type": "ai_not_regex",
-            "pattern": "(?i)\\b(?:each|this|that|the|every|a) (?:process|step|part|session|interview|analysis)\\b[^.\\n?]{0,40}\\b(?:takes?|lasts?|should take|will take)\\s+(?:about|around|roughly|under|less than|only)?\\s*(?:\\d+(?:\\s*(?:to|-)\\s*\\d+)?\\s*(?:minutes?|mins?)\\b|(?:a few|several|ten|fifteen|twenty|thirty|forty|five) minutes|half an hour|an hour)|\\bin (?:about|around|under) \\d+ minutes\\b|\\btakes about \\d+ to \\d+ minutes\\b"
-          }
-        },
-        {
-          "text": "No message says how long Analyze, a part of it, a process walk or Deconstruct takes; sizes of the leader's own work, in the leader's numbers, are fine",
-          "kind": "judged",
-          "must": true
-        }
-      ],
-      "files": [
-        "students/brightline-owner.md"
-      ],
-      "skip_builtin": [
-        "no_time_or_step_numbers"
-      ]
-    },
-    {
-      "id": "A09-update-does-not-take",
-      "name": "update-does-not-take-goes-create-only",
-      "tier": "regression",
-      "covers": [
-        "analyze 7 item 9",
-        "rules 3.6",
-        "rules 3.7",
-        "saving.md (read-back rule)"
-      ],
-      "platform": "chatgpt",
-      "platform_faults": [
-        "update_does_not_take"
-      ],
-      "fixture": "brightline",
-      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
-      "student": "students/brightline-owner.md",
-      "expected_output": "ChatGPT's Google Drive has no known quirk, but its updates don't take: the first update's read-back shows the old content, so the chat says so in one line and saves the create-only way from then on, the current file moved into history/ before each save. Never print-to-save, since creating and moving work.",
-      "expectations": [
-        {
-          "text": "Earlier copies of the progress file are in history/",
-          "kind": "scripted",
-          "check": {
-            "type": "file_exists",
-            "path": "drive/ai-workspace/framework/history/analyze-in-progress-*.md"
-          }
-        },
-        {
-          "text": "The report is written",
-          "kind": "scripted",
-          "check": {
-            "type": "file_exists",
-            "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
-          }
-        },
-        {
-          "text": "No print-to-save: N-F6 isn't said",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "N-F6",
-            "form": "main"
-          }
-        },
-        {
-          "text": "After the first update fails to take, says once, in one line, that a save didn't take and how it will save from now on; never says it again, and never claims the failed save worked",
-          "kind": "judged",
-          "must": true
-        },
-        {
-          "text": "Creates no file only to test saving, and deletes nothing",
+          "text": "Says nothing about how it saves while saves work, and creates no file only to test saving",
           "kind": "judged",
           "must": true
         },
@@ -4762,7 +4671,7 @@
         "analyze 7 item 9",
         "rules 3.6",
         "rules 3.7",
-        "saving.md (read-back rule)"
+        "saving.md (save from the connection's tools)"
       ],
       "platform": "claude-web",
       "platform_faults": [

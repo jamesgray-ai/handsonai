@@ -29,9 +29,8 @@ leader pastes the script's block as before. On the chat platforms the same opt-o
 answer off the leader's screen (`scripted_runs`), so the planted block is the only one they can paste. Build keeps its own behaviour on both platforms.
   claude-web      Google Drive (the working folder ./drive/ai-workspace); paste-back from new chats.
                   Faults (claude-web and chatgpt): service_dropbox (the connected service is Dropbox, so
-                  locations read "Dropbox, in ai-workspace"), update_does_not_take (updates report success
-                  but read back unchanged; create, move and rename work), drive_cannot_save (the
-                  connection reads only)
+                  locations read "Dropbox, in ai-workspace"), drive_cannot_save (the connection
+                  reads only)
   claude-desktop  the working folder selected in the chat (./ai-workspace); faults: no_folder_added
                   (no folder selected)
   chatgpt         Google Drive (the working folder ./drive/ai-workspace); apps; paste-back from new chats
@@ -229,11 +228,6 @@ class _Drive(Platform):
              f"(./drive/ai-workspace is '{svc}, in ai-workspace'). No other storage service is connected. Read and save the leader's files "
              "only through it. You have no terminal of your own for the leader's work and no local folder: anything "
              "the leader must run in a new chat, give them to paste, and they paste back what it says.")
-        if "update_does_not_take" in self.faults:
-            p += (f" In this simulation the {svc} connection's update tool reports success but leaves an existing file's "
-                  "content unchanged: an update you read back still shows the old content (simulate it: after any edit or "
-                  "overwrite of an existing file under ./drive, the read-back shows the file as it was). Creating new files, "
-                  "and moving or renaming files, work.")
         return p + CHAT_HISTORY
 
     def prepare(self, ws):
