@@ -1478,7 +1478,7 @@
   {
    "id": "N-A4",
    "form": "main",
-   "text": "You don't need to do all [N] today. Pick one process to start. After each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it.",
+   "text": "I'd start with [process], because it drives [the objective]. Say 'go ahead' for that one, or give me another number from the list below. You don't need to do all [N]: after each one you can keep going or stop, and your progress is saved. If a process runs fine, say so and we'll skip it.",
    "kind": "safety or promise",
    "skills": [
     "analyze"
@@ -1486,7 +1486,7 @@
    "files": {
     "analyze": "references/the-walk.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; 3c-EM (2026-11-08)"
   },
   {
    "id": "N-A4",
@@ -1501,6 +1501,19 @@
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md",
    "fragment": true
+  },
+  {
+   "id": "N-A4",
+   "form": "optional-walk",
+   "text": "Next, we can walk your processes to find anything your history missed: for the one you pick, I'll ask a few short questions about how the work goes today. This part is optional. Your [k] candidates are already saved, so you can say 'stop' and I'll write your backlog and report.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "analyze.md 3; 3c-EM (2026-11-08), approved by James"
   },
   {
    "id": "N-A5",

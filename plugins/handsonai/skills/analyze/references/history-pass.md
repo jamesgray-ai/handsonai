@@ -29,6 +29,7 @@ If nothing fits, say "I didn't find anything in your history that fits [business
 **Kept items.** Draft each one's problem and size from the evidence, one item per message (the one place you propose a problem first, since it rests on their own history); record only what the student confirms or says instead. After the keep-or-drop answer and each item settled, save the progress file: move the item from "still to confirm" to "kept" with what the student confirmed.
 
 **Ask:** "[Name]: [the evidence, in one clause, such as 'you've asked for help with this about 6 times since August' or 'your memory says you write these every week']. My guess: [size], and [problem]. Is that right?"
+[size] is a rough amount of time or how often, such as "about 2 hours a week" or "about a day per launch": never only "effort", "substantial effort" or "a lot of time".
 - *Why:* that tells us roughly what it's worth to fix, and it goes in your report.
 - *Not sure?* Say what's right, and I'll mark the rest "not clear yet".
 
