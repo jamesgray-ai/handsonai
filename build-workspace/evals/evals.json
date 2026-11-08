@@ -22,7 +22,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "run the design skill. My files are in framework/client-follow-up."
+      "text": "run the design skill."
      }
     },
     {
@@ -130,7 +130,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "test the workflow I built. My files are in framework/client-follow-up."
+      "text": "test the workflow I built."
      }
     },
     {
@@ -171,7 +171,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "test the workflow I built. My files are in framework/client-follow-up."
+      "text": "test the workflow I built."
      }
     },
     {
@@ -219,7 +219,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "test the workflow I built. My files are in framework/client-follow-up."
+      "text": "test the workflow I built."
      }
     },
     {
@@ -415,7 +415,7 @@
      "kind": "scripted",
      "check": {
       "type": "ai_contains",
-      "text": "run the design skill. My files are in framework/client-follow-up."
+      "text": "run the design skill."
      }
     },
     {
@@ -8810,7 +8810,7 @@
      }
     },
     {
-     "text": "Build names python3 as missing, says it can't protect the checks without it, and stops with 'run the build skill. My files are in framework/client-follow-up.'; no check agent or headless session runs",
+     "text": "Build names python3 as missing, says it can't protect the checks without it, and stops with 'run the build skill.'; no check agent or headless session runs",
      "kind": "judged"
     }
    ],

@@ -79,7 +79,7 @@ class QuoteCheck(unittest.TestCase):
                             run_of(two.replace("the wiki connection can't do that", "the wiki has no connection"))))
 
     def test_placeholders_are_wildcards(self):
-        said = ("Start Design in a new chat with: 'run the design skill. "
+        said = ("Start Design in a new chat. Add your Google Drive to it, then say 'run the design skill. "
                 "My files are in Google Drive, in ai-workspace/framework/client-follow-up.'")
         self.assertTrue(ok({"type": "quote", "id": "N-F2", "form": "main"}, run_of(said)))
         self.assertTrue(ok({"type": "scripted_lines"}, run_of(said)))

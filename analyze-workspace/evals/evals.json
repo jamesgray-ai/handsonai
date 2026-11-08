@@ -149,7 +149,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "run the design skill\\. My files are in framework/client-follow-up"
+            "pattern": "run the design skill\\."
           }
         },
         {
@@ -398,7 +398,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_regex",
-            "pattern": "run the deconstruct skill\\. My files are in framework/client-follow-up"
+            "pattern": "run the deconstruct skill\\."
           }
         },
         {
@@ -548,7 +548,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -609,7 +609,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -1600,11 +1600,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -1757,11 +1757,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -1985,11 +1985,11 @@
           }
         },
         {
-          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill. My files are in framework.\"",
+          "text": "Deconstruct's start phrase carries the location: \"run the deconstruct skill.\"",
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the deconstruct skill. My files are in framework."
+            "text": "run the deconstruct skill."
           }
         },
         {
@@ -3319,6 +3319,14 @@
       "student": "students/brightline-owner.md",
       "expected_output": "No working folder yet on Claude on the web: N-F1 is the first message, asked once, offering only a drive whose connection is on and can write; the opening follows with N-F3 for the folder chosen, the Always allow advice and N-A2; with no registry, the report and backlog.md land in ai-workspace/framework/, holding exactly the kept candidates by area and no running work.",
       "expectations": [
+        {
+          "text": "The close's start line has the leader add their drive to the new chat (N-F2's web form)",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Add your Google Drive to it, then say"
+          }
+        },
         {
           "text": "N-F1 is the first message",
           "kind": "scripted",
@@ -4671,7 +4679,8 @@
         "analyze 7 item 9",
         "rules 3.6",
         "rules 3.7",
-        "saving.md (save from the connection's tools)"
+        "saving.md (save from the connection's tools)",
+        "routing.md: N-F16 at entry (3c-EL)"
       ],
       "platform": "claude-web",
       "platform_faults": [
@@ -4680,10 +4689,20 @@
       "fixture": "brightline",
       "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
       "student": "students/brightline-owner.md",
-      "expected_output": "A connection that can only read isn't used for saving: print-to-save, with N-F6, and nothing claimed as saved.",
+      "expected_output": "A connection that can only read isn't one it can save to: N-F16 first; on 'continue', print-to-save with N-F6, and nothing claimed as saved.",
       "expectations": [
         {
-          "text": "N-F6 is said",
+          "text": "N-F16 is the first message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-F16",
+            "form": "main",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "After 'continue', N-F6",
           "kind": "scripted",
           "check": {
             "type": "quote",
@@ -4866,6 +4885,19 @@
       ],
       "expected_output": "Same chat: scaffolding-registry asks N-F1 first, before writing anything; the registry lands in ai-workspace/registry/; its close gives N-A7 with the location; Analyze uses the same-session skip and asks no second storage question. New chat with N-A7's phrase: Analyze takes the location from it and asks nothing about storage. No migration is offered.",
       "expectations": [
+        {
+          "text": "No skill names or hand-offs between skills said to the leader",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?i)scaffolding[- ]registry|indexing[- ]registry|registry-indexing|scaffolding skill|indexing skill|hands? (?:the )?(?:saved )?pages to"
+          }
+        },
+        {
+          "text": "Session 1: the storage question (N-F1) comes before any question about who the registry is for",
+          "kind": "judged",
+          "must": true
+        },
         {
           "text": "No graph vocabulary to the leader: no AI message says node or nodes",
           "kind": "scripted",
@@ -5458,7 +5490,7 @@
           "kind": "scripted",
           "check": {
             "type": "ai_contains",
-            "text": "run the analyze skill. My files are in framework."
+            "text": "run the analyze skill."
           }
         },
         {
