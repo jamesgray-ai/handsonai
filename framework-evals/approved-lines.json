@@ -577,7 +577,7 @@
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
-   "source": "3c-EL, pending James's approval",
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
   },
   {
@@ -1618,7 +1618,7 @@
    "files": {
     "scaffolding-registry": "references/interview-guide.md"
    },
-   "source": "3c-EL, pending James's approval",
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
@@ -8135,7 +8135,7 @@
     "deconstruct": "SKILL.md",
     "scaffolding-registry": "SKILL.md"
    },
-   "source": "3c-EL, pending James's approval",
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
@@ -8149,7 +8149,7 @@
    "files": {
     "scaffolding-registry": "SKILL.md"
    },
-   "source": "3c-EL, pending James's approval",
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
@@ -8163,7 +8163,7 @@
    "files": {
     "scaffolding-registry": "SKILL.md"
    },
-   "source": "3c-EL, pending James's approval",
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
@@ -8211,7 +8211,7 @@
     "test": "references/routing.md",
     "scaffolding-registry": "SKILL.md"
    },
-   "source": "3c-EL, pending James's approval",
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   }
  ]
