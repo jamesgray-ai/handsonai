@@ -29,7 +29,7 @@ A `Skill`: a fixed order with one drafting step, started by hand.
 |---|---|---|
 | Lens | Individual | From the requirements' Metadata |
 | Platform | Claude Code | Where the operations lead works |
-| Platform Mode | code | The platform registry's mode |
+| Platform Mode | code | Claude: its AI writes the workflow's files itself |
 | Orchestration | Skill | Fixed order, one drafting step |
 | Involvement | Augmented | `Runs: with you` |
 | Packaging | Standalone Skill | One skill |

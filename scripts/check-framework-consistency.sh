@@ -102,7 +102,7 @@ else
   out=$(bash scripts/sync-routing.sh --check 2>&1); rc=$?
 fi
 echo "$out" | grep -vE '^(Checking routing copies|Routing copies in sync\.)?$'
-if [ "$rc" -eq 0 ]; then ok "routing.md, saving.md and test-run.sh copies match scripts/framework/"
+if [ "$rc" -eq 0 ]; then ok "routing.md, saving.md, platform-facts.md and test-run.sh copies match scripts/framework/"
 else bad "routing copies have drifted (exit $rc): edit scripts/framework/, then run bash scripts/sync-routing.sh"; fi
 
 echo

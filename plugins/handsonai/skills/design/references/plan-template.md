@@ -36,15 +36,15 @@ Plan-invented steps (`Step 2a`, `Step Pa`) are flexible: Test grades them on the
 
 - **Mechanism** (`Skill | Agent`): `Agent` when the workflow decides its path at runtime, uses tools on its own judgment, or runs unattended; otherwise `Skill`. A `some of each` plan whose fixed steps the leader starts stays a `Skill`, with S1 as the orchestrator and any agent part a `New agent: A1` row.
 - **Involvement** (`Augmented | Automated`), from `Runs:` and the checkpoints.
-- **Packaging,** from the platform and mechanism, read from the registry's `capabilities`: one skill, `Standalone Skill`; several related artifacts, `Plugin`; ChatGPT with an agent and skills, `Workspace Agent`; files in a folder, `Loose Files`. Where agents ship only inside a plugin, any design with worker agents is a `Plugin`.
-- **`platform_mode`** is the platform registry's `mode` for the platform (`code` or `guided`), copied as it is. The artifact form (a SKILL.md, a subagent file, a Workspace Agent) follows from it, defaulting to the simplest no-code form; it is never asked.
+- **Packaging,** from the platform and mechanism: one skill, `Standalone Skill`; several related artifacts, `Plugin`; ChatGPT with an agent and skills, `Workspace Agent`; files in a folder, `Loose Files`. Where the platform's plugins page says agents ship only inside a plugin, or you can't confirm otherwise, any design with worker agents is a `Plugin`.
+- **`platform_mode`** is `code` where the platform's AI writes the workflow's files itself (Claude Code, Codex, Claude on the web, desktop and in Cowork, Microsoft 365 Copilot Cowork) and `guided` where the leader builds it in the platform's own interface (ChatGPT, Gemini Enterprise, Gemini Spark and other no-code builders). The artifact form (a SKILL.md, a subagent file, a Workspace Agent) follows from it, defaulting to the simplest no-code form; it is never asked.
 - **The orchestrator.** On a primary-loop platform (Claude Code, Claude), the main session is the orchestrator (`orchestrator-on-primary-loop.md`). The entry point is an orchestrator skill named for the workflow; component skills and agents take capability names. There, the orchestrator skill is always S1, whatever the mechanism, even with no worker agent at all: a 12-field blueprint whose Decision Logic is the Orchestrator Prompt Outline, and a task of its own after the component tasks (section 7).
-- **Microsoft 365: two places to build.** Skills are made in Cowork; an agent is made by Agent Builder in Copilot's Chat tab, from a prompt Build writes that names this plan and the requirements by folder. So an agent's blueprint is complete in itself: its name, description, mission, rules and checkpoints (by ID), the context files it reads (by C ID) and the connections it uses (its Work content). Until the release check shows a Cowork skill can be added under an agent's Skills, the agent's own instructions hold everything it needs, its Skills field says none, and no Cowork skill hands work to it: a workflow that needs both is planned as one agent, or as skills alone. The Deployment Plan says the agent is made in Agent Builder and any skills in Cowork; Data Readiness gives each context file's runtime place as the workflow's own folder in Cowork's folder (`Documents/Cowork/[workflow-slug]/`), for skills (read by path) and agents (as Knowledge) alike. **A scheduled workflow on Microsoft 365:** the platform registry documents only Cowork's scheduled prompts as the unattended runner, and they run skills; nothing verified says an Agent Builder agent can be put on a schedule. Until that is verified, plan a scheduled workflow there as Cowork skills run by a Cowork scheduled prompt: the mechanism stays `Agent` when the mechanism rule says so, but no Agent Builder agent is made, S1 is the Cowork skill the scheduled prompt starts, and the Approach says why in one line. Reuse is offered only for a skills-only plan: an Agent Builder agent takes no Cowork skill.
+- **Microsoft 365: two places to build.** Skills are made in Cowork; an agent is made by Agent Builder in Copilot's Chat tab, from a prompt Build writes that names this plan and the requirements by folder. So an agent's blueprint is complete in itself: its name, description, mission, rules and checkpoints (by ID), the context files it reads (by C ID) and the connections it uses (its Work content). The agent's own instructions hold everything it needs (that a Cowork skill can be added under an agent's Skills is unconfirmed: release check 28), its Skills field says none, and no Cowork skill hands work to it: a workflow that needs both is planned as one agent, or as skills alone. The Deployment Plan says the agent is made in Agent Builder and any skills in Cowork; Data Readiness gives each context file's runtime place as the workflow's own folder in Cowork's folder (`Documents/Cowork/[workflow-slug]/`), for skills (read by path) and agents (as Knowledge) alike. **A scheduled workflow on Microsoft 365:** Cowork's scheduled prompts run skills; that an Agent Builder agent can be put on a schedule is unconfirmed (release check 35), so plan a scheduled workflow there as Cowork skills run by a Cowork scheduled prompt: the mechanism stays `Agent` when the mechanism rule says so, but no Agent Builder agent is made, S1 is the Cowork skill the scheduled prompt starts, and the Approach says why in one line. Reuse is offered only for a skills-only plan: an Agent Builder agent takes no Cowork skill.
 - **Model Recommendation:** capability tiers (reasoning-heavy, fast, vision), never model IDs.
 - **Connections:** one line per tool where the platform has a connection; an options table (MCP server, API, CLI, with sources) only where it doesn't. Connections use the platform's own sign-in in the leader's account; where a key is needed, Prerequisites say where the leader enters it. Never ask for or record a key.
 - **The workflow's place:** the Deployment Plan installs everything there, or where the platform keeps it, never in the framework folder.
-- **The run log** exists only where the platform lets the workflow write files itself and Test reach them (Claude Code, Codex, and Microsoft 365 Cowork skills where the release check confirms it; never Claude on the web or desktop, ChatGPT, or an Agent Builder agent). It decides the `KW` task's lines.
-- **A schedule:** whether a scheduled run can reach the workflow's context from where it runs (a ChatGPT Project task can't read the Project's files; whether a Claude scheduled task can read Project knowledge is a release check); what an unattended run does at each checkpoint (it ends the run and leaves a draft or a notification, never an assumed yes); and, from the registry's `unattended_runs`, whether the platform holds the run there or stopping rests on the workflow's instruction alone. A checkpoint before a change that can't be undone that rests on the instruction alone, where the change isn't a draft only, is a consequential point in the review. On Claude Code, where the workflow keeps a run log, recommend a desktop task: a cloud routine runs from a fresh clone of the remote, so its switch-on steps include the leader's push, and a re-check starts with a pull.
+- **The run log** exists only where the platform lets the workflow write files itself and Test reach them (Claude Code and Codex; Microsoft 365 Cowork skills only once release check 27 passes; never Claude on the web or desktop, ChatGPT, or an Agent Builder agent). It decides the `KW` task's lines.
+- **A schedule:** whether a scheduled run can reach the workflow's context from where it runs (a ChatGPT Project task can't read the Project's files; whether a Claude scheduled task can read Project knowledge is unconfirmed: release check 12); what an unattended run does at each checkpoint (it ends the run and leaves a draft or a notification, never an assumed yes); and that stopping there rests on the workflow's instruction alone: no platform's hold at a checkpoint is confirmed in this release (release checks 7, 17, 26; Codex automations never hold it). A checkpoint before a change that can't be undone that rests on the instruction alone, where the change isn't a draft only, is a consequential point in the review. On Claude Code, where the workflow keeps a run log, recommend a desktop task: a cloud routine runs from a fresh clone of the remote, so its switch-on steps include the leader's push, and a re-check starts with a pull.
 
 ## 3. Safety and write feasibility
 
@@ -94,7 +94,7 @@ decomposition: steps             # steps | domains
 mechanism: Skill                 # Skill | Agent
 involvement: Augmented           # Augmented | Automated
 platform: ChatGPT
-platform_mode: guided            # code | guided (the platform registry's mode)
+platform_mode: guided            # code | guided (section 2's rule)
 packaging: Standalone Skill      # Plugin | Standalone Skill | Workspace Agent | Loose Files
 changes: []
 ---
@@ -126,7 +126,7 @@ The title, then exactly these `##` sections, named exactly, in this order. `## M
 |---|---|---|
 | Lens | Individual / Organizational | [from the requirements' Metadata] |
 | Platform | [product] | [why] |
-| Platform Mode | code / guided | [the platform registry's mode] |
+| Platform Mode | code / guided | [section 2's rule] |
 | Orchestration | Skill / Agent | [why] |
 | Involvement | Augmented / Automated | [from `Runs:` and the checkpoints] |
 | Packaging | [canonical value] | [why] |
@@ -225,7 +225,7 @@ The title, then exactly these `##` sections, named exactly, in this order. `## M
 ## Deployment Plan
 | Artifact | Where it lives | How it's installed |
 |---|---|---|
-| S1 — `[name]` | [in the workflow's place, or where the platform keeps it] | [from the platform registry] |
+| S1 — `[name]` | [in the workflow's place, or where the platform keeps it] | [from the platform's docs, or "unconfirmed"] |
 
 **Packaging note:** [how the parts ship together.] On Claude Code only: the practice folder is `practice/` in the workflow's place (`practice-[workflow-slug]/` when several workflows share the workspace, or a `practice/` folder without the framework's `.framework-practice` marker is already there), and a file-output workflow writes under the practice-run cue into its run's subfolder there.
 
@@ -318,7 +318,7 @@ List only the lines that apply: the flag line always (in the orchestrator's or t
 
 - **Where it runs:** on Claude Code with a run log, a desktop task by default; for a cloud routine, the leader's push before switching on and a pull before a re-check.
 - **Context:** where it can't be reached from the schedule, the task places it where the run can read it, or the plan says the workflow runs by hand.
-- **Checkpoints:** the platform registry's `unattended_runs` decides, per checkpoint, whether the platform holds the run there or stopping rests on the instruction alone; each one before a change that can't be undone that rests on the instruction (not a draft) is a consequential point.
+- **Checkpoints:** in a scheduled run, stopping at a checkpoint rests on the instruction alone on every platform in this release (section 2, *A schedule*); each one before a change that can't be undone that rests on the instruction (not a draft) is a consequential point.
 
 ## 8. Risk inputs
 

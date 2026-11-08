@@ -3961,7 +3961,7 @@
   {
    "id": "N-B26",
    "form": "main",
-   "text": "To make sure [tool] can really [the action], I'll do it once myself: [the smallest version] in [a place only you see, such as a message to yourself].[ Claude, ChatGPT, Microsoft 365: ' [Platform] will ask you to allow this one; choose [its one-time option, from the platform registry: 'Allow once' on Claude, 'Approve once' in Cowork].'] OK to go ahead?",
+   "text": "To make sure [tool] can really [the action], I'll do it once myself: [the smallest version] in [a place only you see, such as a message to yourself].[ Claude, ChatGPT, Microsoft 365: ' [Platform] will ask you to allow this one; choose [its one-time option: 'Allow once' on Claude, 'Approve once' in Cowork].'] OK to go ahead?",
    "kind": "question",
    "skills": [
     "build"

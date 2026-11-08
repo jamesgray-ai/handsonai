@@ -7,13 +7,16 @@
 #   scripts/framework/routing.md   the routing rule (the spec's `references/routing.md`
 #                                  block, everything between its two markers)
 #   scripts/framework/test-run.sh  the test-run wrapper (optional here: copied if present)
-#   scripts/framework/saving.md    the save check: which way a chat saves through a
-#                                  connection (update in place, create-only, print-to-save)
+#   scripts/framework/saving.md    the save rule: read every save back through a
+#                                  connection; create-only or print-to-save if it didn't take
+#   scripts/framework/platform-facts.md  where to look for platform facts, and the safe
+#                                  path when a fact can't be confirmed
 #
 # Copies:
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test}/references/routing.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
+#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,applying-skill-best-practices,auditing-agent-skills}/references/platform-facts.md
 #
 # Usage:
 #   bash scripts/sync-routing.sh                    # copy canonical -> skills, then check
@@ -37,10 +40,12 @@ CANON_DIR="$ROOT/scripts/framework"
 CANON_ROUTING="$CANON_DIR/routing.md"
 CANON_TEST_RUN="$CANON_DIR/test-run.sh"
 CANON_SAVING="$CANON_DIR/saving.md"
+CANON_FACTS="$CANON_DIR/platform-facts.md"
 SKILLS_DIR="$ROOT/plugins/handsonai/skills"
 ROUTING_SKILLS=(analyze deconstruct design build test)
 TEST_RUN_SKILLS=(build test)
 SAVING_SKILLS=(analyze deconstruct design build test scaffolding-registry indexing-registry)
+FACTS_SKILLS=(analyze deconstruct design build test scaffolding-registry applying-skill-best-practices auditing-agent-skills)
 BEGIN_MARKER='<!-- routing.md: begin -->'
 END_MARKER='<!-- routing.md: end -->'
 
@@ -83,6 +88,14 @@ sync_copies() {
     mkdir -p "$(dirname "$dest")"
     cp "$CANON_SAVING" "$dest"
     echo "  copied  saving.md   -> skills/$skill/references/saving.md"
+  done
+  [ -f "$CANON_FACTS" ] || { echo "Error: $CANON_FACTS not found — nothing to sync." >&2; exit 2; }
+  for skill in "${FACTS_SKILLS[@]}"; do
+    [ -d "$SKILLS_DIR/$skill" ] || { echo "Error: skill folder missing: $SKILLS_DIR/$skill" >&2; exit 2; }
+    dest="$SKILLS_DIR/$skill/references/platform-facts.md"
+    mkdir -p "$(dirname "$dest")"
+    cp "$CANON_FACTS" "$dest"
+    echo "  copied  platform-facts.md -> skills/$skill/references/platform-facts.md"
   done
   if [ -f "$CANON_TEST_RUN" ]; then
     for skill in "${TEST_RUN_SKILLS[@]}"; do
@@ -129,6 +142,22 @@ check_copies() {
       drift=1
     else
       echo "  ok       skills/$skill/references/saving.md"
+    fi
+  done
+
+  if [ ! -f "$CANON_FACTS" ]; then
+    echo "Error: $CANON_FACTS not found." >&2; return 2
+  fi
+  for skill in "${FACTS_SKILLS[@]}"; do
+    copy="$SKILLS_DIR/$skill/references/platform-facts.md"
+    if [ ! -f "$copy" ]; then
+      echo "  MISSING  skills/$skill/references/platform-facts.md"; drift=1
+    elif ! cmp -s "$CANON_FACTS" "$copy"; then
+      echo "  DIFFERS  skills/$skill/references/platform-facts.md"
+      diff "$CANON_FACTS" "$copy" | sed 's/^/           /' | head -20 || true
+      drift=1
+    else
+      echo "  ok       skills/$skill/references/platform-facts.md"
     fi
   done
 

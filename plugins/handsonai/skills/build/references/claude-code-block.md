@@ -120,7 +120,7 @@ shasum -a 256 framework/.bin/test-run.sh <this skill's folder>/scripts/test-run.
 
 Both must equal the record's `fingerprints.wrapper`. Any mismatch fails closed: no headless session in this entry, check agents only, and the bare run skipped (`bare_run: skipped: wrapper fingerprint`). The wrapper repeats the check against the record and `--plugin-copy` itself and refuses (exit 4) on a mismatch, but that self-check only catches a stale copy: your check comes first. A mismatch is never fixed by editing anything; at the next block, step 2 copies the plugin's file again.
 
-Also read `claude --version` at entry. Outside the version range the platform registry records for a release check, that check takes its fallback (section 10), said once in one line.
+Every release check in section 10 is open in this release: each takes its fallback. No version is read to decide it.
 
 ## 6. Check sessions
 
@@ -198,7 +198,7 @@ At Build's entry, a `write_block` that isn't `off` was left by a session that en
 
 ## 10. Release checks this rests on
 
-Each is a row of the platform registry's `release_checks`, by its id. Until a row is recorded as passed on a range that includes the running `claude --version`, take its fallback.
+Each is a check in the maintainers' release checklist (not shipped with the plugin), by its id. None is confirmed in this release: take its fallback.
 
 | Row | What's assumed | Fallback |
 |---|---|---|

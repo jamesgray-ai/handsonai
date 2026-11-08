@@ -42,9 +42,9 @@
 # rules 8.7). The self-check below catches drift
 # (a stale copy, an edited record), not tampering: a tampered script could skip it.
 #
-# RELEASE CHECK markers below name the rules 13.2 row (platform registry `release_checks`
-# id) each assumption rests on. Until a row passes on the running version, the skills
-# take its fallback, so nothing here is relied on unverified.
+# RELEASE CHECK markers below name the check (by id, in the maintainers' checklist,
+# release/release-checks.md, not shipped) each assumption rests on. The skills take every
+# check's fallback in this release, so nothing here is relied on unverified.
 
 set -euo pipefail
 

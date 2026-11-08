@@ -2,12 +2,12 @@
 
 > **Point-in-time snapshot — fallback only.** This file is a snapshot of the Claude Code subagent
 > format and **will drift** as the platform evolves; it is NOT the source of truth. Build resolves the
-> current format at runtime from the platform registry, then the platform's documentation, and uses this
+> current format at runtime from the platform's subagents page (`platform-docs.json`), then its other documentation, and uses this
 > only when that lookup is unavailable. If this snapshot and live docs disagree, the live docs win.
 
 **Contents:** File Format · YAML Frontmatter · Markdown Body · Anti-Patterns · Example
 
-When building agents for Claude Code, follow this format. Agents are single `.md` files with YAML frontmatter and a markdown body. Agents on other platforms are created the way the platform registry says, by stating the intent to the platform's own creator; this file applies to them only where the registry points here.
+When building agents for Claude Code, follow this format. Agents are single `.md` files with YAML frontmatter and a markdown body. Agents on other platforms are created the way the platform's own subagents page says, by stating the intent to the platform's own creator; where you can't confirm how, say so and name the page (`platform-facts.md`, rule 2).
 
 **Microsoft 365 is the exception.** An agent there is made by Agent Builder's own chat in Copilot's Chat tab (Copilot › Chat › Agents › New agent), from a build prompt Build writes and the leader pastes, never from a file and never in Cowork. Build doesn't draft the agent's text; Agent Builder reads the plan and the requirements itself. Follow `microsoft-365-agent.md`, not this file.
 
