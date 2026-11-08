@@ -94,10 +94,10 @@ def check_release_item(rc, where, errs):
     for k in ("passed", "open"):
         if k not in rc or not (rc[k] is None or isinstance(rc[k], str)):
             errs.append(f"{where}: release_check {k!r} must be a text or null")
-    known = {r["id"] for r in json.loads(CS.REGISTRY.read_text()).get("release_checks", [])}
+    known = set(CS.release_check_rows())
     for i in rc["ids"]:
         if i not in known:
-            errs.append(f"{where}: release check {i} isn't in the platform registry")
+            errs.append(f"{where}: release check {i} isn't in release/release-checks.md")
 
 
 def fixture_names(evals_dir, builder):

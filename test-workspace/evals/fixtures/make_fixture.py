@@ -351,7 +351,7 @@ def results(t, *, rnd=1, kind="first", status="in-progress", readiness=None, go_
     res = res if res is not None else {}
     if "{count}" in verdict:
         verdict = verdict.replace("{count}", count_line(res))
-    # Release check 6 is open (platform registry), so on Claude Code the leader runs every input too.
+    # Release check 6 is open (release/release-checks.md), so on Claude Code the leader runs every input too.
     env_place = {"cc": "Claude Code; you run every input in a second terminal (the AI's own runs wait on a release check)",
                  "codex": "Codex in this workspace; you run every input",
                  "web": "Claude on the web; you run every input in the workflow's Project",
