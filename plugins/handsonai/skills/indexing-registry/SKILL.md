@@ -4,7 +4,7 @@ description: >
   This skill should be used to maintain the user's AI Registry — the registry/
   knowledge bundle and its derived views (the REGISTRY.md dashboard, directory
   indexes, GENERATED blocks, and the visual HTML dashboard). Triggers: "update
-  my registry", "refresh my registry", "lint my registry", "generate my
+  my registry", "check my AI registry", "refresh my registry", "lint my registry", "generate my
   dashboard", "what have I built", "show my AI inventory", after creating
   skills or agents, or when another framework skill's closing step calls for a
   maintenance pass. Also repairs stale or hand-edited derived views. If no
@@ -33,14 +33,13 @@ Run all five jobs for a full pass, or just the one the user asked for. Other fra
 
 Check the pages against the bundle's `registry/SCHEMA.md` and the rule list in `references/registry-bundle.md` (§8) — that file is the single source; do not duplicate its rule list here. The scope:
 
-- **Every page, every §8 rule:** at setup (`scaffolding-registry`'s first maintenance pass), and whenever the leader asks for it ("update my AI registry", or this skill by name).
-- **At a framework step's close:** every page that step wrote or changed, plus the rules that reach across pages: each page in exactly one parent list (curated lists), each Process's `owner:` matching a Function, index coverage, broken links into or out of the changed pages, and the claims sweep for any SOP the step touched.
-- **No silent partial checks.** When a pass can't cover all of its scope (too many pages, a page it can't read), say so in one plain line that names what wasn't checked ("I couldn't check [these pages], so I can't tell you they're right yet."), and never imply a clean result.
-- **`tools/lint-registry.js`,** where the workspace has it and code can run, implements the same §8 list: run it for the same scope; it never narrows what is checked.
+- **At a framework step's close, and at `scaffolding-registry`'s:** the pages that step wrote or changed, plus the essentials that reach across pages: every Process has an `owner:` matching a Function; every page sits in exactly one parent list; every page is in its folder's `index.md`; links into and out of the changed pages resolve. Claim no more than that, and say nothing when it passes.
+- **Every §8 rule only when the leader asks** ("check my AI registry", "update my AI registry", or this skill by name). End that check with one plain line saying what it covered, and, where it couldn't cover everything (a page it couldn't read, say), what it didn't: for example, "I checked every page of your registry against all its rules." Never imply more than you checked.
+- **A workspace's own `tools/`,** where the leader already has one, is used as before (*Workspace-generator precedence*). This skill adds and bundles no scripts.
 
 Report findings in plain language, named by page. On a pass called by another step, say nothing when every check passes, or when a finding needs nothing from the leader; when a fix needs the leader, name the workflow or process, never the file.
 
-**Talking about the check.** To the leader it is "checking your registry", and the files are "pages", never nodes. Never mention lint, scripts, `tools/`, `lint-registry.js`, `compose-registry.js`, GitHub Actions or the template repository unless the leader asks about one of them, and never ask the leader to choose between them. Asked, give one short answer: "The checks run inside the skill. The template's scripts are an optional extra for people who keep their registry on GitHub." **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
+**Talking about the check.** To the leader it is "checking your registry", and the files are "pages", never nodes. Never say "maintenance pass", and never mention lint, compose, scripts, `tools/`, `lint-registry.js`, `compose-registry.js`, GitHub Actions or the template repository unless the leader asks about one of them, and never ask the leader to choose between them. Asked, give one short answer: "The checks run inside the skill. The template's scripts are an optional extra for people who keep their registry on GitHub." **Offer fixes; never silently repair meaning** — a lint pass corrects mechanical issues (formatting, missing index entries) only with the user's confirmation, and never reinterprets or rewrites a node's content on its own judgment.
 
 ### 2. Refresh indexes
 

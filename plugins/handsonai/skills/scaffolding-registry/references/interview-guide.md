@@ -461,7 +461,7 @@ folder, at the location shown above it." And for the dashboard, which can't
 be given usefully as text: "Your visual dashboard is created as soon as your files
 are in a folder I can save to. Then say 'generate my visual dashboard'."
 
-Say nothing about the check when every page passed, or about GENERATED blocks; where the check couldn't cover everything, say so in one plain line naming what wasn't checked ("I couldn't check [these pages], so I can't tell you they're right yet."). Call the files pages, never nodes, and never name lint, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
+Before the check, if you say anything, say only: "Now I'll check your registry and build your dashboard." Say nothing about the check when it passes, or about GENERATED blocks. Call the files pages, never nodes, and never say "maintenance pass" or name lint, compose, scripts, `tools/`, GitHub Actions or the template repository unless the leader asks.
 
 **One question at most.** N-A7 gives Analyze's start phrase as the next step; it asks nothing. Then the close's one question, where it applies, as its last line:
 

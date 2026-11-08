@@ -281,11 +281,11 @@ applied: the lint never repairs meaning on its own.
 ## 9. Closing step
 
 After your skill's fields are written, invoke the `indexing-registry` skill for a maintenance pass.
-It is **best-effort**: a failed refresh never fails your step. Its check covers every page your step
-wrote or changed, plus the cross-page rules (§8: curated lists, Process owner, index coverage, links into
-or out of those pages, the claims sweep for an SOP you touched); where it can't cover them all, it says
-which in one plain line, never a clean result it didn't check. To the leader it is "checking your
-registry", the files are "pages", and no lint, script or `tools/` name is said unless they ask. Do not restate the maintenance pass
+It is **best-effort**: a failed refresh never fails your step. Its check covers the pages your step
+wrote or changed, plus the cross-page essentials (every Process's owner matches a Function, every page
+is in exactly one parent list and in its folder's index, links into and out of those pages resolve),
+claims no more, and says nothing when they pass. To the leader it is "checking your registry", the
+files are "pages", and no "maintenance pass", lint, script or `tools/` name is said unless they ask. Do not restate the maintenance pass
 inline; point here. On the web, the pass writes in `registry/` in the working folder, through the connection.
 Only on print-to-save does it give the updated `REGISTRY.md` with its location instead, for the
 leader to save, and say so.

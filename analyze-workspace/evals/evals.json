@@ -4875,11 +4875,11 @@
           }
         },
         {
-          "text": "No checking machinery named to the leader: no lint, tools/, lint-registry.js, compose-registry.js, GitHub Action or template repository",
+          "text": "No checking machinery named to the leader: no 'maintenance pass', lint, compose, tools/, lint-registry.js, compose-registry.js, GitHub Action or template repository",
           "kind": "scripted",
           "check": {
             "type": "ai_not_regex",
-            "pattern": "(?i)\\blint|tools/|lint-registry|compose-registry|github action|ai-registry-template|template repo"
+            "pattern": "(?i)maintenance pass|\\blint|\\bcompose|tools/|github action|ai-registry-template|template repo"
           }
         },
         {
