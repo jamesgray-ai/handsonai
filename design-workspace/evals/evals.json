@@ -7797,7 +7797,7 @@
      "must": true
     },
     {
-     "text": "[Claude parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on Claude), and the plan's platform_mode is the platform registry's mode for Claude (code)",
+     "text": "[Claude parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on Claude), and the plan's platform_mode is code for Claude (plan-template section 2's rule)",
      "kind": "judged"
     }
    ],
@@ -8119,7 +8119,7 @@
      "must": true
     },
     {
-     "text": "[ChatGPT parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on ChatGPT), and the plan's platform_mode is the platform registry's mode for ChatGPT (guided)",
+     "text": "[ChatGPT parity] The plan's keeping-it-working task lists the flag line only (its wording and platform form are Build's carried line, never copied into the plan): no run log, re-check line or time-saved line (no run log on ChatGPT), and the plan's platform_mode is guided for ChatGPT (plan-template section 2's rule)",
      "kind": "judged"
     }
    ],

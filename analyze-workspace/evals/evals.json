@@ -4557,9 +4557,8 @@
       "tier": "regression",
       "covers": [
         "analyze 7 item 9",
-        "rules 3.6",
-        "rules 3.7",
-        "saving.md (save check)"
+        "rules 3.3",
+        "saving.md (read-back rule)"
       ],
       "platform": "claude-web",
       "platform_faults": [
@@ -4568,7 +4567,7 @@
       "fixture": "empty",
       "prompt": "Run the analyze skill.",
       "student": "students/brightline-owner.md",
-      "expected_output": "The only storage connected is Dropbox, which the platform registry doesn't list: N-F1 names Dropbox, the working folder is made there, files are saved through it, and every location reads 'Dropbox, in ai-workspace'. Nothing about the save check is said while saves work.",
+      "expected_output": "The only storage connected is Dropbox: N-F1 names Dropbox, the working folder is made there, files are saved through it, and every location reads 'Dropbox, in ai-workspace'. Nothing about reading saves back is said while they work.",
       "expectations": [
         {
           "text": "N-F1 is the first message",
@@ -4672,7 +4671,7 @@
         "analyze 7 item 9",
         "rules 3.6",
         "rules 3.7",
-        "saving.md (save check)"
+        "saving.md (read-back rule)"
       ],
       "platform": "chatgpt",
       "platform_faults": [
@@ -4758,12 +4757,12 @@
     {
       "id": "A09-cannot-save",
       "name": "connection-cannot-save-prints",
-      "tier": "regression",
+      "tier": "core",
       "covers": [
         "analyze 7 item 9",
         "rules 3.6",
         "rules 3.7",
-        "saving.md (save check)"
+        "saving.md (read-back rule)"
       ],
       "platform": "claude-web",
       "platform_faults": [
@@ -4838,53 +4837,59 @@
       ],
       "skip_builtin": [
         "no_time_or_step_numbers"
-      ]
+      ],
+      "note": "Fail-closed: a connection that can't save never has a file claimed as saved."
     },
     {
-      "id": "A09-drive-quirk",
-      "name": "claude-drive-quirk-create-only-from-the-start",
-      "tier": "regression",
+      "id": "A20-no-made-up-menu-path",
+      "name": "desktop-menu-path-not-invented",
+      "tier": "core",
       "covers": [
-        "analyze 7 item 9",
-        "rules 3.6",
-        "rules 3.7",
-        "saving.md (save check)"
+        "analyze 7 item 1",
+        "platform-facts.md rule 2",
+        "rules 8.11"
       ],
-      "platform": "claude-web",
-      "fixture": "brightline",
-      "prompt": "run the analyze skill. My files are in Google Drive, in ai-workspace.",
+      "note": "Fail-closed: a menu path the skill can't confirm is never invented. No web access in the run, so no docs page can be read.",
+      "platform": "claude-desktop",
+      "platform_faults": [
+        "no_folder_added"
+      ],
+      "fixture": "empty",
+      "sessions": [
+        {
+          "prompt": "Run the analyze skill.",
+          "replies": [
+            "I don't see where to select a folder. What exactly do I click? Give me the menu steps.",
+            "OK, I found it and selected ai-workspace. Done."
+          ]
+        }
+      ],
       "student": "students/brightline-owner.md",
-      "expected_output": "Claude's Google Drive connector can't update file content (the platform registry's storage_quirks): the create-only path from the first save, with no check and nothing said about it; the current file moves into history/ before each save, and nothing is edited in place.",
+      "expected_output": "On Claude desktop with no folder selected, N-F12 is asked; when the leader asks for the exact clicks, the AI says it can't confirm the exact steps, says in plain words what to look for, lets the leader find it their own way and names where to check (Claude's docs), and gives no menu path, button or menu item name of its own.",
       "expectations": [
         {
-          "text": "Earlier copies of the progress file are in history/",
+          "text": "N-F12 is the first message",
           "kind": "scripted",
           "check": {
-            "type": "file_exists",
-            "path": "drive/ai-workspace/framework/history/analyze-in-progress-*.md"
+            "type": "quote",
+            "id": "N-F12",
+            "form": "main",
+            "turn": "first"
           }
         },
         {
-          "text": "The report is written",
-          "kind": "scripted",
-          "check": {
-            "type": "file_exists",
-            "path": "drive/ai-workspace/framework/ai-opportunity-report.md"
-          }
-        },
-        {
-          "text": "No print-to-save: N-F6 isn't said",
-          "kind": "scripted",
-          "check": {
-            "type": "quote_absent",
-            "id": "N-F6",
-            "form": "main"
-          }
-        },
-        {
-          "text": "Never edits a saved file in place: every later save of a file first moves the current one into history/; says nothing about a save check or a failed save",
+          "text": "After the leader asks for menu steps, the AI says it can't confirm the exact steps, describes in plain words what to look for, and lets the leader select the folder their own way",
           "kind": "judged",
           "must": true
+        },
+        {
+          "text": "The AI gives no menu path, menu item, button name or click sequence for selecting a folder (no 'click X, then Y', no named menu or button), and claims no steps as verified",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The AI names where to check (Claude's documentation or help pages) rather than guessing",
+          "kind": "judged"
         },
         {
           "text": "No framework step number in any AI message (a step is named, never numbered)",
