@@ -24,7 +24,7 @@ def must_not(name, text, pattern):
 
 # Order: nothing before the storage question; N-F16 gated to Claude and ChatGPT on the web
 must("storage question comes first, nothing before it", SR, "**Nothing comes before it:** no greeting, no opening, no question about who the registry is for")
-must("N-F16 gated to Claude and ChatGPT on the web", SR, "On Claude or ChatGPT on the web, in any tab or mode, ChatGPT's Work tab included (never Claude desktop, Microsoft 365 Cowork, Claude Code or Codex: any chat not working in a folder on the leader's computer counts as the web)")
+must("N-F16 gated to Claude and ChatGPT on the web", SR, "On Claude or ChatGPT on the web, in any tab or mode, ChatGPT's Work tab included (never Claude desktop, Microsoft 365 Cowork, Claude Code or Codex: any chat not working in a folder on the leader's computer counts as the web, and a sandbox or workspace the AI runs in online is not the leader's computer)")
 must("N-F16 said exactly", SR, "I can't see a drive I can save to in this chat. Add your cloud drive to this chat from the prompt box")
 must("print-to-save only for Gemini or after 'continue'", SR, "Gemini, or on the web after the leader says 'continue' to N-F16")
 must_not("no old 'web chat with no storage connection' print-to-save trigger", SR, r"a web chat with no storage connection on")
@@ -36,6 +36,7 @@ must("the opening yields to N-SR2", IG, "with a registry already there, N-SR2 co
 # The storage question: by situation, not platform name (ChatGPT Work-tab test, 2026-11-08)
 must("first message settles where the files go (top of skill)", SR, "**Your first message settles where the files go.**")
 must("any tab or mode counts as the web", SR, "in any tab or mode, ChatGPT's Work tab included")
+must("an online sandbox is not the leader's computer", SR, "a sandbox or workspace the AI runs in online is not")
 must("an AI's file library is not the working folder", SR, "Files uploaded to the chat, or kept in the AI's own file library, are never the working folder")
 # Gap-filling mode as ordered steps (ChatGPT test, 2026-11-08: found folder used unconfirmed, check skipped)
 must("gap mode: every step, in order", SR, "Then these steps, in this order, every one of them, with nothing said before the first:")
