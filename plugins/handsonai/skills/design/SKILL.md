@@ -30,6 +30,8 @@ In `references/`. Read a file only when its row applies.
 | An update (*What Design takes*, below, names them) | `updating-the-plan.md` |
 | A surface with neither files nor a writable drive | `no-files.md`, before the opening |
 | The requirements say `track: light`; or Build reports a track switch | `light-track.md` |
+| The plan's platform is Microsoft 365 Copilot | `microsoft-365.md`, before drafting |
+| The workflow starts on a schedule, or by checking for an event | `schedules.md`, before drafting |
 | Part 1: the platform can't be identified, or the leader names a product or ecosystem to run it on | `variants.md`, *Where it runs* |
 | The start of Part 2, and whenever you write the plan | `drafting.md` (Part 2 only; it says when to read `questions.md`) and `plan-template.md`; they say when to read `capability-domains.md` (a `domains` plan) and `orchestrator-on-primary-loop.md` (agents on Claude Code or Claude) |
 | Every draft and every update | `self-test-checklist.md` |

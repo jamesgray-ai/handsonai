@@ -43,13 +43,13 @@ Plan-invented steps (`Step 2a`, `Step Pa`) are flexible: Test grades them on the
 - **Packaging,** from the platform and mechanism: one skill, `Standalone Skill`; several related artifacts, `Plugin`; ChatGPT with an agent and skills, `Workspace Agent`; files in a folder, `Loose Files`. Where the platform's plugins page says agents ship only inside a plugin, or you can't confirm otherwise, any design with worker agents is a `Plugin`.
 - **`platform_mode`** is `code` where the platform's AI writes the workflow's files itself (Claude Code, Codex, Claude on the web, desktop and in Cowork, Microsoft 365 Copilot Cowork) and `guided` where the leader builds it in the platform's own interface (ChatGPT, Gemini Enterprise, Gemini Spark and other no-code builders). The artifact form (a SKILL.md, a subagent file, a Workspace Agent) follows from it, defaulting to the simplest no-code form; it is never asked.
 - **The orchestrator.** On a primary-loop platform (Claude Code, Claude), the main session is the orchestrator (`orchestrator-on-primary-loop.md`). The entry point is an orchestrator skill named for the workflow; component skills and agents take capability names. There, the orchestrator skill is always S1, whatever the mechanism, even with no worker agent at all: a 12-field blueprint whose Decision Logic is the Orchestrator Prompt Outline, and a task of its own after the component tasks (section 7).
-- **Microsoft 365: two places to build.** Skills are made in Cowork; an agent is made by Agent Builder in Copilot's Chat tab, from a prompt Build writes that names this plan and the requirements by folder. So an agent's blueprint is complete in itself: its name, description, mission, rules and checkpoints (by ID), the context files it reads (by C ID) and the connections it uses (its Work content). The agent's own instructions hold everything it needs, its Skills field says none, and no Cowork skill hands work to it: a workflow that needs both is planned as one agent, or as skills alone. The Deployment Plan says the agent is made in Agent Builder and any skills in Cowork; Data Readiness gives each context file's runtime place as the workflow's own folder in Cowork's folder (`Documents/Cowork/[workflow-slug]/`), for skills (read by path) and agents (as Knowledge) alike. **A scheduled workflow on Microsoft 365:** Cowork's scheduled prompts run skills; an Agent Builder agent is never put on a schedule, so plan a scheduled workflow there as Cowork skills run by a Cowork scheduled prompt: the mechanism stays `Agent` when the mechanism rule says so, but no Agent Builder agent is made, S1 is the Cowork skill the scheduled prompt starts, and the Approach says why in one line. Reuse is offered only for a skills-only plan: an Agent Builder agent takes no Cowork skill.
+- **Microsoft 365:** skills and agents are built in two different places there, and scheduled work is planned differently. Read `microsoft-365.md` before planning for it.
 - **Model Recommendation:** capability tiers (reasoning-heavy, fast, vision), never model IDs.
 - **Connections:** one line per tool where the platform has a connection; an options table (MCP server, API, CLI, with sources) only where it doesn't. Connections use the platform's own sign-in in the leader's account; where a key is needed, Prerequisites say where the leader enters it. Never ask for or record a key.
 - **The workflow's place:** the Deployment Plan installs everything there, or where the platform keeps it, never in the framework folder.
 - **The run log** exists only where the platform lets the workflow write files itself and Test reach them (Claude Code and Codex; never Microsoft 365, Claude on the web or desktop, or ChatGPT). It decides the `KW` task's lines.
 - **How it starts,** from `Starts` when the requirements have it: `you` or `you, when [event]`, a run the leader starts, no `SCH` task; `schedule: [when]`, a schedule at the leader's own cadence; `event: [event] · checked [interval]`, a schedule at that interval that checks for new ones; `event: [event] · checked as often as it can`, the platform's shortest schedule, which you look up, never promising an instant start. The shortest schedule's figure goes in the Trigger row and the `SCH` task only; the review says "as often as [platform] allows", with no figure, among the consequential points. An event always becomes one of those two routes in this release. Without `Starts`, read the Trigger. **`Per run`** (`one [case]` or `a batch of [cases]`) sizes the actions-per-run cap: one case's actions, or a batch's.
-- **A schedule:** whether a scheduled run can reach the workflow's context from where it runs (a ChatGPT Project task can't read the Project's files; plan as if a Claude scheduled task can't read Project knowledge); what an unattended run does at each checkpoint (it ends the run and leaves a draft or a notification, never an assumed yes); and that stopping there rests on the workflow's instruction alone: no platform holds a run at a checkpoint in this release. A checkpoint before a change that can't be undone that rests on the instruction alone, where the change isn't a draft only, is a consequential point in the review. On Claude Code, where the workflow keeps a run log, recommend a desktop task: a cloud routine runs from a fresh clone of the remote, so its switch-on steps include the leader's push, and a re-check starts with a pull.
+- **A schedule:** read `schedules.md` when the workflow starts on a schedule or by checking for an event.
 
 ## 3. Safety and write feasibility
 
@@ -309,21 +309,7 @@ A worked revision: tasks at `rev` 1, 1 and 2 make the plan revision 2. A change 
 
 List only the lines that apply: the flag line always (in the orchestrator's or the agent's closing summary); the re-check line where the workflow writes its own run log; the time-saved line where it writes its own run log and the Measure is time per run with a known Baseline. Never a figure: Build compiles the time saved itself.
 
-**`SCH` — The schedule,** when `Starts` is `schedule: …` or `event: … · checked …` (with no `Starts` row, when the Trigger is a schedule):
-
-```markdown
-### SCH — The schedule
-- **Builds:** the cadence (the leader's own; for an event, its checking interval; for `checked as often as it can`, the platform's shortest schedule, its figure written here only); where it runs; whether its context can be reached from there; for each checkpoint, what an unattended run does there and whether the platform holds the run or stopping rests on the instruction alone; the actions-per-run cap, sized from `Per run` where it's recorded
-- **Uses / hands on:** the orchestrator's task (its actions-per-run cap and its checkpoints)
-- **Meets:** Trigger[, Starts], [the G lines that must hold when it runs unattended]
-- **Done when:** the connections are set up in the account that runs the schedule, the five safety points are checked and recorded, and the switch-on steps are written; it is never switched on
-- **Depends on:** [the orchestrator's task], KW
-- **rev:** 1
-```
-
-- **Where it runs:** on Claude Code with a run log, a desktop task by default; for a cloud routine, the leader's push before switching on and a pull before a re-check.
-- **Context:** where it can't be reached from the schedule, the task places it where the run can read it, or the plan says the workflow runs by hand.
-- **Checkpoints:** in a scheduled run, stopping at a checkpoint rests on the instruction alone on every platform in this release (section 2, *A schedule*); each one before a change that can't be undone that rests on the instruction (not a draft) is a consequential point.
+**`SCH` — The schedule,** when `Starts` is `schedule: …` or `event: … · checked …` (with no `Starts` row, when the Trigger is a schedule): the task's format and rules are in `schedules.md`.
 
 ## 8. Risk inputs
 
@@ -343,22 +329,7 @@ When the requirements imply a risk no practice input covers (outside content car
 
 ## 9. The changes log
 
-`changes:` in the frontmatter holds every request and change Design has handled or declined, each with the one change-request shape plus `outcome`:
-
-```yaml
-changes:
-  - { id: B1, source: build, what: "The CRM connection can't set a task's due date", why: "No due-date field in the connection", tasks: [T4], after_round: 0, outcome: handled }
-  - { id: C1, source: change my workflow, what: "Copy my manager on the summary", why: "She asked to see each one", tasks: [T3, T5], after_round: 2, outcome: handled }
-  - { id: T3.1, source: test, what: "Escalation rule fires on every item", why: "Issues row 2: E4", tasks: [T2], after_round: 3, outcome: "declined: cannot-meet: AC3: the fix needs the line changed; Test's next round can change it" }
-  - { id: C2, source: change my workflow, what: "put back the built version", why: "Brought back from retired", tasks: [T1, T2, T3, T4, T5, KW, SCH], after_round: 3, outcome: handled }
-```
-
-- **Keys,** exactly: `id`, `source`, `what`, `why`, `tasks`, `after_round`, `outcome`.
-- **`id`:** Design's own entries (a "change my workflow", a direct edit found there) take `C1`, `C2`…; requests keep their writers' IDs (`B1`, `T2.1`).
-- **`source`:** `change my workflow`, `build`, `test`, `direct edit` or `leader at test`.
-- **`after_round`:** the last round's number when the entry was raised (0 before any round).
-- **`outcome`:** `handled`; `declined: cannot-meet: [line ID]: [reason]` for a fix that needs a requirement changed Design may not change (this form is fixed: Test and the scripts find these entries by it); or `declined: [reason]` for any other decline.
-- **A put-back** (a direct edit put back, or a retired workflow brought back) takes `what: put back the built version` exactly, which Build reads as a reinstall.
+`changes:` in the frontmatter is `[]` in a new plan. Its entries' shape and rules are in `updating-the-plan.md`, section 9, read on every update.
 
 ## 10. What the plan never holds
 

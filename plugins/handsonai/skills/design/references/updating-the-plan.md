@@ -24,6 +24,7 @@ When several state-4 conditions hold at once, handle them in one update.
 6. Schedule-only changes
 7. Rulings
 8. Requirement lines Design writes (now `requirement-lines.md`)
+9. The changes log
 
 ## 1. The common path
 
@@ -112,3 +113,22 @@ When you change a plan whose tasks Build has built, read the build record's ruli
 ## 8. Requirement lines Design writes
 
 In `requirement-lines.md` (this folder): read it before any requirement write.
+
+## 9. The changes log
+
+`changes:` in the frontmatter holds every request and change Design has handled or declined, each with the one change-request shape plus `outcome`:
+
+```yaml
+changes:
+  - { id: B1, source: build, what: "The CRM connection can't set a task's due date", why: "No due-date field in the connection", tasks: [T4], after_round: 0, outcome: handled }
+  - { id: C1, source: change my workflow, what: "Copy my manager on the summary", why: "She asked to see each one", tasks: [T3, T5], after_round: 2, outcome: handled }
+  - { id: T3.1, source: test, what: "Escalation rule fires on every item", why: "Issues row 2: E4", tasks: [T2], after_round: 3, outcome: "declined: cannot-meet: AC3: the fix needs the line changed; Test's next round can change it" }
+  - { id: C2, source: change my workflow, what: "put back the built version", why: "Brought back from retired", tasks: [T1, T2, T3, T4, T5, KW, SCH], after_round: 3, outcome: handled }
+```
+
+- **Keys,** exactly: `id`, `source`, `what`, `why`, `tasks`, `after_round`, `outcome`.
+- **`id`:** Design's own entries (a "change my workflow", a direct edit found there) take `C1`, `C2`…; requests keep their writers' IDs (`B1`, `T2.1`).
+- **`source`:** `change my workflow`, `build`, `test`, `direct edit` or `leader at test`.
+- **`after_round`:** the last round's number when the entry was raised (0 before any round).
+- **`outcome`:** `handled`; `declined: cannot-meet: [line ID]: [reason]` for a fix that needs a requirement changed Design may not change (this form is fixed: Test and the scripts find these entries by it); or `declined: [reason]` for any other decline.
+- **A put-back** (a direct edit put back, or a retired workflow brought back) takes `what: put back the built version` exactly, which Build reads as a reinstall.
