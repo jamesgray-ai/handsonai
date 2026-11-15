@@ -1329,7 +1329,7 @@ class Corpus(unittest.TestCase):
             self.assertEqual(set(e) - {"fragment", "note", "clause", "retired", "states"},
                              {"id", "form", "text", "kind", "skills", "files", "source"})
             self.assertIn(e["kind"], ["question", "safety or promise", "teaching", "carried", "structure"])
-        self.assertEqual(c.get("N-F13")[0].files["build"], "references/routing.md")
+        self.assertEqual(c.get("N-F13")[0].files["build"], "references/location.md")
         self.assertEqual(c.get("N-T20")[0].files, {"build": "references/carried-lines.md"})
         self.assertEqual(c.get("N-T20")[0].skills, ["built-workflow"])
         self.assertIn("3c-DI", c.get("N-B54")[0].__dict__.get("source", "") or

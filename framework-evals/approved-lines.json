@@ -135,7 +135,7 @@
     "analyze": "SKILL.md",
     "deconstruct": "references/entries.md",
     "design": "SKILL.md",
-    "build": "SKILL.md",
+    "build": "references/package-and-install.md",
     "test": "SKILL.md"
    },
    "source": "3c-EL, approved by James 2026-11-08",
@@ -180,7 +180,7 @@
     "analyze": "SKILL.md",
     "deconstruct": "references/entries.md",
     "design": "references/location.md",
-    "build": "SKILL.md",
+    "build": "references/package-and-install.md",
     "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: Claude Code and Codex (lines-to-approve)",
@@ -202,7 +202,7 @@
     "analyze": "SKILL.md",
     "deconstruct": "references/saving-the-requirements.md",
     "design": "references/location.md",
-    "build": "SKILL.md",
+    "build": "references/package-and-install.md",
     "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: Claude Code and Codex (lines-to-approve)",
@@ -224,7 +224,7 @@
     "analyze": "SKILL.md",
     "deconstruct": "references/choosing-a-workflow.md",
     "design": "references/changes.md",
-    "build": "SKILL.md",
+    "build": "references/routing.md",
     "test": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: Claude Code and Codex (lines-to-approve)",
@@ -247,7 +247,7 @@
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
     "design": "SKILL.md",
-    "build": "SKILL.md",
+    "build": "references/package-and-install.md",
     "test": "SKILL.md"
    },
    "source": "3c-EL, approved by James 2026-11-08",
@@ -435,8 +435,8 @@
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
     "design": "references/no-files.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/no-files.md",
+    "test": "references/no-files.md"
    },
    "source": "3c-EL, approved by James 2026-11-08",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
@@ -712,8 +712,8 @@
     "analyze": "references/routing.md",
     "deconstruct": "SKILL.md",
     "design": "references/location.md",
-    "build": "references/routing.md",
-    "test": "references/routing.md"
+    "build": "references/location.md",
+    "test": "references/location.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)"
   },
@@ -733,8 +733,8 @@
     "analyze": "references/routing.md",
     "deconstruct": "SKILL.md",
     "design": "references/location.md",
-    "build": "references/routing.md",
-    "test": "references/routing.md"
+    "build": "references/location.md",
+    "test": "references/location.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)"
   },
@@ -854,8 +854,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/rare-entries.md",
+    "test": "references/rare-entries.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -872,8 +872,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/rare-entries.md",
+    "test": "references/rare-entries.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -890,8 +890,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/rare-entries.md",
+    "test": "references/rare-entries.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -908,8 +908,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/rare-entries.md",
+    "test": "references/rare-entries.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -926,8 +926,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/rare-entries.md",
+    "test": "references/rare-entries.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24); the verb inside the bracket, 3c-EC (2026-10-28)",
    "note": "design: inferred from design 13 by section"
@@ -944,8 +944,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/rare-entries.md",
+    "test": "references/rare-entries.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -962,8 +962,8 @@
    ],
    "files": {
     "design": "references/changes.md",
-    "build": "SKILL.md",
-    "test": "SKILL.md"
+    "build": "references/rare-entries.md",
+    "test": "references/rare-entries.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4863,7 +4863,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/no-files.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24)"
   },
@@ -5025,7 +5025,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/no-files.md"
    },
    "source": "build.md 12; approved before 3c-DJ (with the location added)"
   },
@@ -5064,7 +5064,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/no-files.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24)"
   },
@@ -5168,7 +5168,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/package-and-install.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
   },
@@ -5181,7 +5181,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/package-and-install.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
   },
@@ -5194,7 +5194,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/package-and-install.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
   },
@@ -5207,7 +5207,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/package-and-install.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
   },
@@ -5220,7 +5220,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/package-and-install.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24), with the line review's change"
   },
@@ -5494,7 +5494,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/no-files.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24)"
   },
@@ -5613,7 +5613,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/no-files.md"
    },
    "source": "build.md 12; approved before 3c-DJ (with the location added)"
   },
@@ -5899,7 +5899,7 @@
     "build"
    ],
    "files": {
-    "build": "SKILL.md"
+    "build": "references/no-files.md"
    },
    "source": "build.md 12; 3c-DJ (2026-10-24)"
   },
@@ -6316,7 +6316,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/rare-entries.md"
    },
    "source": "test.md 12; approved before 3c-DJ"
   },
@@ -6901,7 +6901,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/rounds.md"
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)"
   },
@@ -6914,7 +6914,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/requirement-lines.md"
    },
    "source": "test.md 12; approved before 3c-DJ"
   },
@@ -6953,7 +6953,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/rounds.md"
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)"
   },
@@ -6966,7 +6966,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/rounds.md"
    },
    "source": "3c-DY (2026-10-24)"
   },
@@ -7239,7 +7239,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/requirement-lines.md"
    },
    "source": "test.md 12; approved before 3c-DJ"
   },
@@ -7291,7 +7291,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/rounds.md"
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)"
   },
@@ -7304,7 +7304,7 @@
     "test"
    ],
    "files": {
-    "test": "SKILL.md"
+    "test": "references/rare-entries.md"
    },
    "source": "test.md 12; 3c-DJ (2026-10-24)"
   },
@@ -9671,8 +9671,8 @@
     "analyze": "references/routing.md",
     "deconstruct": "references/location.md",
     "design": "references/location.md",
-    "build": "references/routing.md",
-    "test": "references/routing.md",
+    "build": "references/location.md",
+    "test": "references/location.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "3c-EL, approved by James 2026-11-08",
@@ -9833,8 +9833,8 @@
     "analyze": "references/routing.md",
     "deconstruct": "references/routing-rare.md",
     "design": "references/routing-rare.md",
-    "build": "references/routing.md",
-    "test": "references/routing.md",
+    "build": "references/routing-rare.md",
+    "test": "references/routing-rare.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "3c-EL, approved by James 2026-11-08",
@@ -9857,8 +9857,8 @@
     "analyze": "references/routing.md",
     "deconstruct": "references/routing-rare.md",
     "design": "references/routing-rare.md",
-    "build": "references/routing.md",
-    "test": "references/routing.md",
+    "build": "references/routing-rare.md",
+    "test": "references/routing-rare.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",

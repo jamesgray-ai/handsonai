@@ -25,9 +25,9 @@
 #                                  path when a fact can't be confirmed
 #
 # Copies:
-#   plugins/handsonai/skills/{analyze,build,test}/references/routing.md               (routing-full.md)
-#   plugins/handsonai/skills/{design,deconstruct}/references/routing.md               (routing.md)
-#   plugins/handsonai/skills/{design,deconstruct}/references/{routing-rare,location}.md
+#   plugins/handsonai/skills/analyze/references/routing.md                            (routing-full.md)
+#   plugins/handsonai/skills/{design,deconstruct,build,test}/references/routing.md    (routing.md)
+#   plugins/handsonai/skills/{design,deconstruct,build,test}/references/{routing-rare,location}.md
 #   plugins/handsonai/skills/design/references/{shared-lines,requirement-lines}.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
@@ -60,8 +60,8 @@ CANON_TEST_RUN="$CANON_DIR/test-run.sh"
 CANON_SAVING="$CANON_DIR/saving.md"
 CANON_FACTS="$CANON_DIR/platform-facts.md"
 SKILLS_DIR="$ROOT/plugins/handsonai/skills"
-ROUTING_SKILLS=(analyze build test)   # the whole rule in one file
-SPLIT_SKILLS=(design deconstruct)                  # restructured: the core, plus the files below
+ROUTING_SKILLS=(analyze)   # the whole rule in one file
+SPLIT_SKILLS=(design deconstruct build test)                  # restructured: the core, plus the files below
 # Every restructured skill gets routing-rare.md and location.md; Design also gets its two.
 split_files() { case "$1" in design) echo "routing-rare.md location.md shared-lines.md requirement-lines.md" ;; *) echo "routing-rare.md location.md" ;; esac; }
 TEST_RUN_SKILLS=(build test)

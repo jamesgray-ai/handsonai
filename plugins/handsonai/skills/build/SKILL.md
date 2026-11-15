@@ -19,6 +19,30 @@ Build implements the leader's approved **Design Plan** (`design-plan.md`) task b
 
 > **Platform docs:** where to look for a platform fact, and the safe path when one can't be confirmed: `references/platform-facts.md`, with the links in `platform-docs.json` (this skill's own `references/` copy, or else `registries/` at the plugin root; never fetched from the web). **Every release check this skill names is unconfirmed in this release: take its safe path** (fail closed); no version, status or range is read.
 
+## When to read what
+
+In `references/`. Read a file only when its moment comes.
+
+- `routing.md`: every entry, and "continue my workflow" (the rule, and the written fallback for `framework-state`).
+- `routing-rare.md`: state 0 or 1, the rule applied by hand, or a cloud session (`routing.md` says which part).
+- `location.md`: any platform but Claude Code and Codex, or when this chat can't find or read the framework files.
+- `rare-entries.md`: an earlier version Build owns; a record set aside; three rounds in a row not ready; any installed part to rebuild or reinstall.
+- `no-files.md`: a surface with neither files nor a writable drive, before the opening.
+- `references/platform-facts.md`: whenever you need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves).
+- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you; and, on print-to-save, its rule 5 (one zip at each save point; unpack an attached zip).
+- `references/setup.md`: Part 1, a later entry's new setup items, and Part 2's dry-run confirmations (N-B8).
+- `references/claude-code-block.md`: on Claude Code, at the end of Part 1, before every headless session, at the close or a stop, and at an entry that finds a block or run folders left behind.
+- `references/bare-run.md`: before each main skill's task.
+- `references/carried-lines.md`: writing or checking any part, and writing a build or fix prompt.
+- `references/standard-tasks.md`: the `KW` task and the `SCH` task.
+- `references/microsoft-365-agent.md`: a plan with an agent on Microsoft 365.
+- `references/package-and-install.md`: Part 3, and a fix or live change that installs; it also holds the Git offer and the close.
+- `references/fix-mode.md`: fix mode, a put-back, and adopted direct edits.
+- `references/live-change.md`: a live workflow, running work brought in, an earlier version Build owns, a schedule before go-live, and an older version at N-B51's yes.
+- `references/build-record-template.md`: the first entry, and every record write.
+- `references/skill-spec.md`, `references/agent-spec.md`: last-resort format snapshots when building a skill or an agent.
+- `scripts/test-run.sh`: the wrapper, copied into `framework/.bin/` byte for byte on Claude Code; never edit it.
+
 ## Workflow
 
 Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). Quoted lines are already approved plain words: the plain-words rules are for your own wording, never a reason to simplify a quoted line ("pins down" stays "pins down"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
@@ -35,7 +59,7 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7), t
 
 **Nothing for Build.** When the leader names Build after a round that left nothing for it (its only misses were requests Design declined, or it lists nothing), give `routing.md`'s line for the actual state (for a change, "change my workflow: [what changed]" with the location) and write no close.
 
-**An earlier version Build owns** (`routing.md`, *Earlier versions*: a `test-results.md`, no `build-record.md`, no `history/set-aside-*/`): N-B44 first when it's live or was built, then move the results files into `history/earlier-version-[date]/`, say so in one line (model wording; after N-B44 its first sentence already did), and build as for a new workflow. When the old one is live or was built, Part 3's install replaces it, so `references/live-change.md` applies before anything changes: its schedule is paused from this entry (entry check 6) and stays paused until Test takes the new one live, and N-B42 isn't asked, since its copy was never in `package/`.
+**An earlier version Build owns** (state 1: a `test-results.md`, no `build-record.md`, no `history/set-aside-*/`): `references/rare-entries.md`.
 
 ### Build's own entry checks
 
@@ -47,13 +71,10 @@ Once Build owns the state, in this order. A check that asks the leader something
    - **The wrapper's prerequisite:** the wrapper needs `python3` (and `claude`). Read `python3 --version`. Without it the block can't be written or read back (its rules come from the wrapper), so Build stops before Part 2, failing closed: nothing is checked, nothing changes, the reason goes in the record, and the stop ends as every stop does. The stop line, said exactly (N-B55): "I can't set up the block that keeps my checks from changing anything here: [what's missing]. [How to add it.] Then say 'run the build skill. My files are in [location].'"
    - **The permission mode** your own session runs in, read back. Release check 4 is open in every mode, so the check sessions still hold (a check agent's allow list and the wrapper's profiles work in any mode) but your main session isn't blocked, and N-B21a takes its instruction-only first sentence (`references/claude-code-block.md` section 8).
    - **A block left on** (`write_block` not `off`): take it over, re-apply it before any check, and lift it at this session's close or stop. **Run folders left behind** in `run_folders`: clear them now.
-4. **A record set aside** (a big change, or a platform or mechanism change): start a new record at once (`references/build-record-template.md`) and carry over from the newest set-aside record: the quick real checks done, `skills_on`, `write_block`, `schedule:`, any undo still outstanding, the "Live since" and "How to switch it off" lines, the older-version line, and, when the platform is unchanged, the row for the workflow's place (so N-B4's set-up clause, N-B17 and N-B40 aren't asked again). Keep only what still holds: a carried quick real check or block applies only to the same system in the same account. The set-aside record's `write_block` and `run_folders` always carry over, so nothing it left behind is forgotten: after a platform change, lift and clear them at entry (`references/claude-code-block.md` section 9). A set-aside record with no `schedule:`, or a set-aside folder with no record, counts as not `none`; a first build with no set-aside starts at `none`. Never move a record Design already set aside.
-5. **Three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/`, `history/earlier-version-*/` and any round marked `round_status: abandoned`): N-B10 first, before fix mode's opener (`references/fix-mode.md` section 1; the opener only if the leader insists on fixing), unless the plan's `changes:` already logs a Build request whose `after_round` is the last round's number.
+4. **A record set aside** (a big change, or a platform or mechanism change): `references/rare-entries.md`.
+5. **Three rounds in a row not ready** (counted from `test-results.md` and `history/test-results-round-*.md`, skipping `history/set-aside-*/`, `history/earlier-version-*/` and any round marked `round_status: abandoned`): `references/rare-entries.md`.
 6. **A live workflow, or a schedule** (`references/live-change.md`), before anything changes. Where it applies at an entry that opens with N-B4, N-B41 is the opening's first action (its [first action] and the item that ends the message), in place of Part 1's first item, so the leader is asked one thing; Part 1 starts only after its "done" or "no schedule". After the fix-mode opener or a resume line, N-B41 comes straight after it, the same way. The opener or resume line is the message's first text, and it says the workflow is live at most once: no line before it about checking the workflow or its being live (wrong: "I'm checking your Client Follow-Up workflow before I change anything, since it's already live." followed by "Your Client Follow-Up workflow is live, …").
-7. **A direct edit,** before you rebuild or reinstall any installed part (nothing installed yet, a first build: nothing to compare and no question). Where you can read the installed part and the runtime copies of its context files, compare them with the record's `fingerprints`. Where you can't (on Microsoft 365, always for an agent Agent Builder made), ask once in this entry: **Ask:** "Have you edited the workflow's instructions or its files directly since it was built?" Only the runtime context copies unreadable: **Ask:** "Have you edited the files your workflow reads ([the files, in plain words]) directly since it was built?" An agent Agent Builder made: **Ask:** "Apart from pasting the prompts I wrote, have you changed [Agent] in Agent Builder, or its Knowledge, since it was made?" On a yes, say "Paste [the instructions / the file] as [they are / it is] now, so I can match your requirements and plan to [them / it]. [How to copy it out on this platform.]" Then, for an edit found, before anything changes:
-   - **Any other edit:** **Ask:** "I'll record that as a change so your requirements and plan match. OK, or should I put back the built version?" Keep (the recommended default): record a change request (`source: direct edit`, its `id` the next `B[n]`; the edited text saved as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md`, and `what` a one-line summary, in double quotes, naming that file: the text itself never goes in the frontmatter); the tasks it touches and their dependants wait, you finish the rest, and stop with N-B9 giving the edit the leader is keeping as the reason. Put back: reinstall the built version of that part (`references/fix-mode.md`, *Putting back the built version*) and carry on.
-   - **An edit Design already declined** (its text matches the edited text saved in the file the `what` of a `direct edit` entry names, an entry with a `declined:` outcome in the plan's `changes:`): **Ask:** "That edit changes [the fixed step, in plain words], which your [rules require / policy requires], so it can't be kept. Shall I put back the built version?" (said whole: [the fixed step] is the fixed step the `declined:` reason names, as the requirements' Path describes it, in a short plain noun phrase; never a step or rule the reason doesn't name, and never a guess at why the edit was declined. Any explanation goes before the line, never in place of its words). A yes reinstalls and carries on. On a no, change nothing, say "Then I'll leave it as it is. While that edit is installed, I can't [test / build / change] [workflow]. When you want the built version back, say '[this step's start phrase]. My files are in [location].'" and stop (a stop), raising no request.
-   - A part a logged put-back or `direct_edit: undo` touches is skipped (it's being put back anyway); a part that's no longer installed is never an edit: the rebuild or reinstall puts it back.
+7. **A direct edit,** before you rebuild or reinstall any installed part (nothing installed yet, a first build: nothing to compare and no question): `references/rare-entries.md`.
 
 ### Reading the plan
 
@@ -87,7 +108,7 @@ Create `build-record.md` from `references/build-record-template.md` at the first
 
 ### With no files
 
-On a surface with neither files nor a writable drive (print-to-save), ask first, before the opening: "To start, paste or attach your Workflow Requirements, your approved plan[, your build record], and the practice inputs and context files saved with them." The latest zip from the last step counts as all of them: unpack it if you can (`references/saving.md` rule 5). Say once, in place of N-F3: "I can't save files here, so I'll give you the files to save as we go. Where I can, I'll give you one zip of your working folder at each save point; keep the latest and attach it when you start the next step." Give the record, and the built text of every task built since the last save, at the end of each part, at a pause, a stop and the close, and before each main skill on a long build; on resume, rebuild and check again any task the record shows as checked but not saved. The pause line: "Before you go, save the build record below. To pick up, paste it into a new chat with the other files you saved, and say 'run the build skill'." Lines that send the leader to Design add first: "Save the build record below, and paste it into Design with your plan." (N-B9, N-B29, N-B50) or, at the open-item stop, "Save the build record below so we can pick up later."
+On a surface with neither files nor a writable drive (print-to-save): `references/no-files.md`, before the opening.
 
 ### The opening
 
@@ -156,15 +177,7 @@ Say "Part 2 of 3 — building and checking". When the workflow has a connection 
 
 Say "Part 3 of 3 — save it and test". Read `references/package-and-install.md` and package, install, keep a copy, list what's still waiting and finish the record and the registry. Nothing is packaged or installed while a task waits or has `Failed check`. Inputs marked `not available yet` are listed, said exactly: "Before its first real run, this workflow needs inputs that don't exist yet:" then one line each, "[what] — from [source]".
 
-**The Git offer,** only when the workflow folder is in a Git repository (with a shell, `git rev-parse --show-toplevel` returns the workspace; never on the web or in a drive), once, while finishing the record, just before the close. In a cloud session: no offer; commit, push and N-F18, as `references/routing.md` says. Elsewhere: **Ask:** "Your folder keeps a history of its changes (it's a Git repository). Want me to save this point in that history, so you can come back to it later? It stays on your computer — nothing is shared." On a yes, commit locally and never push (for a cloud routine, pushing is the leader's own step in the switch-on steps). Stage exactly the framework's own paths and the built workflow, by name: `framework/[slug]/` (its `history/` and `package/` included), `framework/.bin/` where you wrote the wrapper, `registry/` where it's in the repository, and each installed part and runtime context copy the record lists; never `git add -A`, `-a` or `.`, never a `practice*/` folder, `.claude/settings.local.json`, an `.env` or key file, or anything else, and leave the leader's other changes as they were. Never at a stop.
-
-**The close,** your last message, said exactly: "Your workflow is built and checked. Here's what you have: [What was built, in plain words: each part and what it does, where it lives, how to start it, what's still waiting]. What it can access is written up in your build record, if anyone asks. [Rulings that matter.] [N-B37.] [Print-to-save: 'Save the files below.'][ First build, full track: 'Two or three test rounds is normal.'] [The Test sentence.]" A part the leader made in the platform's interface, which you couldn't run (a Workspace Agent, an agent on Microsoft 365), is named as first run in Test. The rounds sentence comes on a first build on the full track only, never in fix mode or on a rebuild. On a live workflow, N-B38 (`references/live-change.md`) takes the place of the Test sentence and the rounds sentence. The Test sentence, by platform:
-- Claude on the web and ChatGPT: "Start Test in a new chat outside your workflow's Project. Add your [storage service] to it, then say 'test the workflow I built. My files are in [location].'"
-- Claude desktop with the files in a local folder: "Start Test in a new chat with your working folder selected: 'test the workflow I built. My files are in [location].'" With the files in a drive, the web form above (N-F2).
-- Microsoft 365: "Start Test in a new Cowork chat with: 'test the workflow I built. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].'"
-- Claude Code and Codex: "Start Test in a new session in this project and say 'test the workflow I built.'" (on Claude Code you may add that `/test` works too)
-
-Every start phrase Build gives outside a scripted line gives it with the location, for a new chat, in N-F2's form for the platform ("Start [step] in a new chat. Add your [storage service] to it, then say '[start phrase]. My files are in [location].'"; Claude Code and Codex, "Start [step] in a new session in this project and say '[start phrase].'"; Claude desktop with the files in a local folder, "Start [step] in a new chat with your working folder selected: '[start phrase]. My files are in [location].'"; Microsoft 365, "Start [step] in a new Cowork chat with: '[start phrase]. My files are in OneDrive, in ai-workspace/framework/[workflow-slug].'"), and none offers to start another step in this chat. A scripted line that gives a start phrase (N-B9, the open-item stop) is said as written.
+**The Git offer and the close:** `references/package-and-install.md`, read at the start of this part. The close is your last message, said exactly as that file gives it.
 
 ### The light track
 
@@ -207,21 +220,3 @@ Build never writes the requirements, the plan, the results, `inputs/`, the run l
 5. **Write only your own files** (*Output*). Moving a file into `history/` isn't writing it.
 6. **Fail closed.** No OK for the block: run no part that could change something. A block that can't be written or read back (`python3` missing, a wrapper error, `settings-check` not ok): stop. No OK for the wrapper, the headless release check (open in this release), or a fingerprint mismatch: check agents only, no bare run. A connection not confirmed off: no bare run. An action you're unsure can be undone: a change that can't be undone. No kept copy of a live workflow: no change. Nothing installed over an older version until it's paused and a copy is kept (or the new part goes in under a different name).
 
-### Reference files
-
-One level deep, each read when its moment comes:
-- `references/routing.md`: every entry, and "continue my workflow" (the rule, and the written fallback for `framework-state`).
-- `references/platform-facts.md`: whenever you need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves).
-- `references/saving.md`: before the first save, and every read of a file you'll save again, through a connection (on the web, and on Claude desktop after "use my drive"): how to save, from the tools the connection gives you; and, on print-to-save, its rule 5 (one zip at each save point; unpack an attached zip).
-- `references/setup.md`: Part 1, a later entry's new setup items, and Part 2's dry-run confirmations (N-B8).
-- `references/claude-code-block.md`: on Claude Code, at the end of Part 1, before every headless session, at the close or a stop, and at an entry that finds a block or run folders left behind.
-- `references/bare-run.md`: before each main skill's task.
-- `references/carried-lines.md`: writing or checking any part, and writing a build or fix prompt.
-- `references/standard-tasks.md`: the `KW` task and the `SCH` task.
-- `references/microsoft-365-agent.md`: a plan with an agent on Microsoft 365.
-- `references/package-and-install.md`: Part 3, and a fix or live change that installs.
-- `references/fix-mode.md`: fix mode, a put-back, and adopted direct edits.
-- `references/live-change.md`: a live workflow, running work brought in, an earlier version Build owns, a schedule before go-live, and an older version at N-B51's yes.
-- `references/build-record-template.md`: the first entry, and every record write.
-- `references/skill-spec.md`, `references/agent-spec.md`: last-resort format snapshots when building a skill or an agent.
-- `scripts/test-run.sh`: the wrapper, copied into `framework/.bin/` byte for byte on Claude Code; never edit it.
