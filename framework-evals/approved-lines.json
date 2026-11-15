@@ -179,7 +179,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/location.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -201,7 +201,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/location.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -223,7 +223,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -305,7 +305,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/location.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -434,7 +434,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/no-files.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -617,7 +617,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/location.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -639,7 +639,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/location.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -711,7 +711,7 @@
    "files": {
     "analyze": "references/routing.md",
     "deconstruct": "references/routing.md",
-    "design": "references/routing.md",
+    "design": "references/location.md",
     "build": "references/routing.md",
     "test": "references/routing.md"
    },
@@ -732,7 +732,7 @@
    "files": {
     "analyze": "references/routing.md",
     "deconstruct": "references/routing.md",
-    "design": "references/routing.md",
+    "design": "references/location.md",
     "build": "references/routing.md",
     "test": "references/routing.md"
    },
@@ -821,7 +821,7 @@
    ],
    "files": {
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/light-track.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -853,7 +853,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -871,7 +871,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -889,7 +889,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -907,7 +907,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -925,7 +925,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -943,7 +943,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -961,7 +961,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },
@@ -3905,7 +3905,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "design.md 12; approved before 3c-DJ (with Microsoft 365 Copilot added to its examples)",
    "note": "design: inferred from design 13 by section"
@@ -3919,7 +3919,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "design.md 12; approved before 3c-DJ (with Microsoft 365 Copilot added to its examples)",
    "note": "design: inferred from design 13 by section"
@@ -3933,7 +3933,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "design.md 12; approved before 3c-DJ ((kept word for word))",
    "note": "design: inferred from design 13 by section"
@@ -3947,7 +3947,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "design.md 12; approved before 3c-DJ ((kept word for word))",
    "note": "design: inferred from design 13 by section"
@@ -3975,7 +3975,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -3989,7 +3989,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4113,7 +4113,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4141,7 +4141,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4155,7 +4155,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "fragment": true,
@@ -4170,7 +4170,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "fragment": true,
@@ -4185,7 +4185,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "fragment": true,
@@ -4200,7 +4200,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "3c-EB (2026-10-25)"
   },
@@ -4213,7 +4213,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4227,7 +4227,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4241,7 +4241,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4255,7 +4255,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4269,7 +4269,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4283,7 +4283,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4297,7 +4297,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4311,7 +4311,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4325,7 +4325,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4339,7 +4339,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "3c-EB (2026-10-25)"
   },
@@ -4352,7 +4352,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4366,7 +4366,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4380,7 +4380,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4421,7 +4421,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4435,7 +4435,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/review.md"
    },
    "source": "3c-EB (2026-10-25)"
   },
@@ -4448,7 +4448,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4462,7 +4462,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4476,7 +4476,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/no-files.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4504,7 +4504,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/changes.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4588,7 +4588,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/changes.md"
    },
    "source": "design.md 12; 3c-DJ (2026-10-24)",
    "note": "design: inferred from design 13 by section"
@@ -4602,7 +4602,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/changes.md"
    },
    "source": "3c-EB (2026-10-25)"
   },
@@ -4656,7 +4656,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4670,7 +4670,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4684,7 +4684,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4698,7 +4698,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ ((word for word))",
    "note": "design: inferred from design 13 by section"
@@ -4712,7 +4712,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4726,7 +4726,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "3c-EC (2026-10-28)"
   },
@@ -4739,7 +4739,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/questions.md"
    },
    "source": "design.md 12; approved before 3c-DJ ((word for word))",
    "note": "design: inferred from design 13 by section"
@@ -4753,7 +4753,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "design.md 12; approved before 3c-DJ",
    "note": "design: inferred from design 13 by section"
@@ -4781,7 +4781,7 @@
     "design"
    ],
    "files": {
-    "design": "SKILL.md"
+    "design": "references/variants.md"
    },
    "source": "design.md 12; approved before 3c-DJ ((word for word))",
    "note": "design: inferred from design 13 by section"
@@ -4796,7 +4796,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/shared-lines.md",
     "test": "SKILL.md"
    },
    "source": "design.md 12; approved before 3c-DJ ((word for word))",
@@ -7487,7 +7487,7 @@
     "test"
    ],
    "files": {
-    "design": "SKILL.md",
+    "design": "references/shared-lines.md",
     "test": "SKILL.md"
    },
    "source": "test.md 12; approved before 3c-DJ",
@@ -9670,7 +9670,7 @@
    "files": {
     "analyze": "references/routing.md",
     "deconstruct": "references/routing.md",
-    "design": "references/routing.md",
+    "design": "references/location.md",
     "build": "references/routing.md",
     "test": "references/routing.md",
     "scaffolding-registry": "SKILL.md"
@@ -9832,7 +9832,7 @@
    "files": {
     "analyze": "references/routing.md",
     "deconstruct": "references/routing.md",
-    "design": "references/routing.md",
+    "design": "references/routing-rare.md",
     "build": "references/routing.md",
     "test": "references/routing.md",
     "scaffolding-registry": "SKILL.md"
@@ -9856,7 +9856,7 @@
    "files": {
     "analyze": "references/routing.md",
     "deconstruct": "references/routing.md",
-    "design": "references/routing.md",
+    "design": "references/routing-rare.md",
     "build": "references/routing.md",
     "test": "references/routing.md",
     "scaffolding-registry": "SKILL.md"
@@ -9879,7 +9879,7 @@
    "files": {
     "analyze": "SKILL.md",
     "deconstruct": "SKILL.md",
-    "design": "SKILL.md",
+    "design": "references/shared-lines.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
    },

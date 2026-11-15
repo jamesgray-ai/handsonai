@@ -1,6 +1,18 @@
 # Updating an approved plan
 
-Read on an update: an open item answered, re-planning before anything is built, "change my workflow", a change request from Build or Test, a schedule-only change, or the plan brought up to a new requirements revision. Section 8 is also read whenever Design writes a requirement line, updates or not. Updates run with no signposts. Every quoted line is said exactly.
+Read on an update: an open item answered, re-planning before anything is built, "change my workflow", a change request from Build or Test, a schedule-only change, or the plan brought up to a new requirements revision. `requirement-lines.md` is read whenever Design writes a requirement line, updates or not. Updates run with no signposts. Every quoted line is said exactly.
+
+## Which entry brought you here
+
+| Entry | What Design does |
+|---|---|
+| State 4, the requirements' `revision` above the plan's `requirements_revision` (not counting `plan_unaffected` revisions) | Bring the plan up to date (`references/updating-the-plan.md`): say in one line which of the leader's lines changed, in plain words. A draft is updated and goes on to the review. An approved plan is updated in place; when a consequential point changes, set `approved: false`, show the review again and ask for approval; otherwise it stays approved, with one line saying what changed in the plan |
+| State 4, an unlogged change request | `updating-the-plan.md`, each request in turn |
+| State 7 | Ask the open item (`updating-the-plan.md`) |
+| "Run the design skill" by name, approved plan, no `build-record.md` (state 6) | Re-planning before anything is built (`updating-the-plan.md`) |
+| A change to the schedule alone, by name ("change my workflow: [the schedule point]" included), any state from 4 on | `updating-the-plan.md`, *Schedule-only changes* |
+
+When several state-4 conditions hold at once, handle them in one update.
 
 ## Contents
 
@@ -11,15 +23,15 @@ Read on an update: an open item answered, re-planning before anything is built, 
 5. Change requests from Build and Test
 6. Schedule-only changes
 7. Rulings
-8. Requirement lines Design writes
+8. Requirement lines Design writes (now `requirement-lines.md`)
 
 ## 1. The common path
 
 Every update follows these steps:
 
 1. **Say in one line what Design is there for** (model wording): the open item; the change, in the leader's words; the request's *what*; or which of the leader's lines changed. Every update runs in a new chat, so this first line (for a bare "change my workflow", the line before N-27) also names Design and the workflow and carries N-F3's promise clause, "I'll read and save your files in [location].", with its platform clause (SKILL.md, *The opening*, item 2), as a resume line does, unless an entry check's orientation line already said it.
-2. **Ask only what the update needs:** the questions it creates (SKILL.md, Part 3, within the same rules and safe defaults), D7 for a limit that was the leader's, the one-line reason for a `fixed (regulation)` or `fixed (policy)` step. Safety questions are always asked.
-3. **Update the requirements** where this update may (section 5's table): each line in the leader's words in the "When… it…" shape, with N-15, raising `revision` and logging the line IDs in `revisions` (`by: design`), as SKILL.md's *Requirement writes* says (section 8's formats, the block-form entry, a removed line taken out of the inputs' `tests:` headers, and the requirements check after).
+2. **Ask only what the update needs:** the questions it creates (`questions.md`, within the same rules and safe defaults), D7 for a limit that was the leader's, the one-line reason for a `fixed (regulation)` or `fixed (policy)` step. Safety questions are always asked.
+3. **Update the requirements** where this update may (section 5's table): each line in the leader's words in the "When… it…" shape, with N-15, raising `revision` and logging the line IDs in `revisions` (`by: design`), as `questions.md`, *Requirement writes*, says (`requirement-lines.md`'s formats, the block-form entry, a removed line taken out of the inputs' `tests:` headers, and the requirements check after).
 4. **Update the plan:** each task the update changes gets `rev` = the plan revision before this save, plus one (every task changed in one save gets the same new `rev`; a new task gets it too); set `requirements_revision` to the requirements' `revision`; log the update in `changes:` (`plan-template.md` section 9); write the build record's rulings into the affected blueprints (section 7). A task removed from the plan is named in its `changes:` entry, and the task that used it (the orchestrator at least) changes with it, so the plan revision always rises.
    - **Which tasks count as changed.** A task counts as changed when its plan text changes, and also when its built text carries a requirement line this update adds, changes or removes, even if its plan text is unchanged (the plan cites lines by ID, so a reworded line changes no plan text). Every R and G line, and every P line, binds every artifact, so a change to one of them changes every task that builds a skill or an agent. Otherwise, a changed AC, Step, D or W line changes the tasks whose *Meets* name it. Each gets the new `rev`, so Build rebuilds it with the new wording.
    - **When step 6 will need re-approval,** set `approved: false` in the same save as the change, never after it, so an interrupted update never leaves a changed plan marked approved.
@@ -31,15 +43,15 @@ Every update follows these steps:
 
 ## 2. An open item answered
 
-The leader runs Design again (state 7's line, or Build's stop line). Say in one line which question you're there for, ask it (its scripted line from SKILL.md, Part 3), then follow section 1, marking the item "Answered: [the answer] ([date])" and unblocking its tasks. On a second "not sure", name the way out: leave that part out of the plan (a requirements change, with N-15, offered only where no limit requires that part; otherwise D7, or for a regulation or policy step the one-line reason), or keep it waiting.
+The leader runs Design again (state 7's line, or Build's stop line). Say in one line which question you're there for, ask it (its scripted line from `questions.md`), then follow section 1, marking the item "Answered: [the answer] ([date])" and unblocking its tasks. On a second "not sure", name the way out: leave that part out of the plan (a requirements change, with N-15, offered only where no limit requires that part; otherwise D7, or for a regulation or policy step the one-line reason), or keep it waiting.
 
 ## 3. Re-planning before anything is built
 
-"Run the design skill" by name with an approved plan and no build record reopens the review: N-4, the review, "What would you change or clarify?". A change goes through Part 4's *Changes* and approval again: before the first change is saved, set `approved: false` in that same save, so Build can't start on a change the leader hasn't approved if the session ends there; a later "approve" sets it back to `true`. "Approve" or "looks good" with no change keeps the plan approved, and the close follows.
+"Run the design skill" by name with an approved plan and no build record reopens the review: N-4, the review, "What would you change or clarify?". A change goes through `review.md`'s *Changes* and approval again: before the first change is saved, set `approved: false` in that same save, so Build can't start on a change the leader hasn't approved if the session ends there; a later "approve" sets it back to `true`. "Approve" or "looks good" with no change keeps the plan approved, and the close follows.
 
 ## 4. "Change my workflow"
 
-SKILL.md has already run the direct-edit check and, for a bare phrase, N-27.
+`changes.md` has already run the direct-edit check and, for a bare phrase, N-27.
 
 **A kept direct edit:** log it in `changes:` (source `direct edit`; a request from Build or Test keeps its `what`, which names the file its edited text is saved in; for an edit found here, save the text as `history/direct-edit-[id]-YYYY-MM-DD-HHMM.md` and make `what` a one-line summary, in double quotes, naming that file, never the text itself), handle it like any change, small or big, and mark the tasks it touches `adopted: true`. Update the requirements and the plan with no text between the tool calls: never a note naming the file you'll update next before the update's message.
 
@@ -51,7 +63,7 @@ SKILL.md has already run the direct-edit check and, for a bare phrase, N-27.
 
 On a yes, save it as the next `inputs/E[n]-[short-name].md` with `source: design` and the line IDs it tests, names and details changed. It counts toward the cap of eight but isn't one of Design's two risk inputs; at the cap, the oldest input Test wrote that isn't the only one testing a line gives way: it moves to `history/E[n]-[short-name]-YYYY-MM-DD-HHMM.md`, and its Example Scenarios row, if it has one, goes in the same write.
 
-**Small or big.** Judge it and say so in one line (N-22 in SKILL.md, or N-23 below). The leader can override ("treat it as small", "treat it as big"), acknowledged in model wording. Both lines ask before anything changes.
+**Small or big.** Judge it and say so in one line (N-22 in `changes.md`, or N-23 below). The leader can override ("treat it as small", "treat it as big"), acknowledged in model wording. Both lines ask before anything changes.
 - **Small** (a new rule, a changed limit, a new check, a new or changed context file that changes what it must do): N-22, then section 1. Build rebuilds only the touched tasks.
 - **Big** (a different process, new steps, a different user or goal). Before anything moves, say: "That changes the process itself, so we'll redo the requirements, and your current plan will be set aside, not deleted." On a live workflow, add: "Your workflow keeps running as it is until Build installs the new version. Then test the new version before its next real run, or put back your kept copy." Then: "Say 'go ahead', or 'treat it as small'." "Treat it as small" makes it a small change, with nothing moved. On "go ahead":
   1. Write `big_change` ("[reason], [date]") on the node, or in the requirements' frontmatter with no registry; with a registry, also one line in the registry log, "[date]: [workflow]: big change: [reason]".
@@ -83,7 +95,7 @@ An entry under `change_requests` in `build-record.md` or `test-results.md` whose
 - **A request from Build's floor** (Build treats an action as one that can't be undone where the plan classed it undoable): correct the action's class in the writes table, and when the stricter class needs the checkpoint question, ask it as your one question, with its safe default; the touched tasks' `rev` rises as for any handled request.
 - **A request that changes the platform or the mechanism** runs a fresh plan (section 4).
 - **A request from Build that an Agent Builder agent failed its carried-line check** (after three tries, Build deletes the agent, records `Failed check`, and asks for the agent's work to be re-planned as Cowork skills): plan that work as Cowork skills on Microsoft 365, whatever the mechanism rule says, and record why in the Approach in one line. Treat it as a mechanism change (section 4: N-25, N-30 and its "go ahead", the set-aside, a fresh plan), and carry the failed check in as a ruling (section 7), so the fresh plan never makes that agent again. Tell the leader in one line of model wording that the agent couldn't keep the lines its rules require word for word, so its work will be done by Cowork skills instead.
-- **A track switch Build found:** write `track: full` (SKILL.md, *The light track*).
+- **A track switch Build found:** write `track: full` (`light-track.md`).
 
 ## 6. Schedule-only changes
 
@@ -99,24 +111,4 @@ When you change a plan whose tasks Build has built, read the build record's ruli
 
 ## 8. Requirement lines Design writes
 
-Where Design may change the requirements (SKILL.md, *Requirement writes*; section 5's table), it writes these formats exactly. They are the requirements template's formats, carried here so this skill needs no other skill's file. Every new line takes the next number in its series; numbers are never reused or renumbered.
-
-- **An R line,** in `## Rules & Constraints`: `| R6 | When | When [this happens], it [does that]. |`. `Kind` is `Always`, `Never`, `When` or `Fallback`; the rule is in the "When… it…" shape (an `Always` rule as "It always…", a `Never` rule as "It never…"). A rule a person carries out ends with ` · (you)` or ` · ([role])`.
-- **A G line,** in `## Human Gates`: `| G2 | Step 3 | When the draft is ready, it stops until you approve it. · (you) |`. `Where` is `Step N` or the AI's part ("the AI's part after Step 2"); the checkpoint names who performs it and ends with the role tag.
-- **The `Runs:` line,** the first line under `## Human Gates`: exactly `Runs: with you` or `Runs: without you`.
-- **An AC line,** in `## Acceptance Criteria`: `[n]. **AC5 (must)** — [yes-or-no statement]`; ` (must)` only on a must-have.
-- **A P line,** in `## Security, Privacy & Safety`, under its category's table (`### Boundaries`, `### Access`, `### Traceability` or `### Prohibited actions`), in one `P` series across the four tables: `| P3 | [the constraint, in plain words] | [its source: a person, a policy, a control ID, or Self] |`. A table that doesn't exist yet is added with its heading and columns (`| ID | Constraint | Source |`), in that category order; a prohibited action reads "It never [acts], whoever asks." The `Governing regime:` line and `### Writes` stay where they are.
-- **The security limits after a switch to full** (SKILL.md, *The light track*): the categories to work come from the Context Inventory and the writes, never asked: a `Confidential` row works Boundaries and Access; an `External` row, Boundaries and Prohibited actions; a write, or `Runs: without you`, Prohibited actions and Traceability; a `Regulated` row, Boundaries and Access with the regime named. Draft one or two limits per category in one message, each in plain words under its category, each kept or dropped by the leader; write what's kept as P lines above, with N-15.
-- **A removed line** comes out of its table, out of every `tests:` header in `inputs/` that names it, and its ID goes in the `revisions` entry's `lines`.
-- **The `revisions` entry,** in the frontmatter, in block form, never as `{ … }`, after the existing entries (keep every entry other steps wrote), with `revision` raised by one:
-
-  ```yaml
-  revisions:
-    - revision: 3
-      by: design
-      lines: [G2, R6]
-  ```
-
-**Formats you read and keep, never rewrite** (Design writes none of them, but a write must leave them valid): the optional Metadata rows `Starts` (`you`, `you, when …`, `schedule: …`, or `event: … · checked …`), `Per run` (`one …` or `a batch of …`) and `Remembers` (not empty), in the order Workflow Name, Description, Trigger, Starts, Per run, Owner, Lens, Stakeholders, Runs today, Remembers; a decision line's optional `· criteria: [text]` after its `settled by:` value (`a rule on a value`, `your criteria` or `open judgment`), with no " · " inside the text; `tests:` naming D lines that exist under `### Decisions`; an input's optional `expect:` third header line, then the blank line; a `W` line's `· after each run` (only that phrase, for the flag); one `Policy check:` line after `Governing regime:` and before `### Writes`, with one of its five values (`Allowed`, `No — [source] left out`, `No — details removed first (Step [N])` or `(R[n])`, `No — not live until approved`, `Not sure — to check`), its step or rule existing in the file; and the four optional gloss lines right under their headings.
-
-**Checking by hand** (where the requirements check can't run, isn't there, or exits with anything but 0 or 1): the frontmatter's `revision` is one above the last entry's and every revision above 1 has an entry; each line you wrote is in its table's columns with a valid `Kind` and the next unused number; Human Gates opens with the `Runs:` line; every P line has a Source and its number follows the series; no `tests:` header in `inputs/` names a line the file no longer has; every format in the paragraph above still reads as it did; a risk input you wrote has `source: design`, `tests:` and, where it needs one, `expect:`, then one blank line.
+In `requirement-lines.md` (this folder): read it before any requirement write.

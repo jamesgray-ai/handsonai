@@ -4,8 +4,20 @@
 # byte for byte into every step skill, so all five skills route a workflow the same way.
 #
 # Canonical files (edit these, never the copies):
-#   scripts/framework/routing.md   the routing rule (the spec's `references/routing.md`
-#                                  block, everything between its two markers)
+#   scripts/framework/routing-full.md  the routing rule in one file (the spec's
+#                                  `references/routing.md` block, everything between its two
+#                                  markers), for the step skills not yet restructured
+#   scripts/framework/routing.md   the routing rule's core, for a restructured step skill
+#   scripts/framework/routing-rare.md  the rule's rare cases (a round left behind, retired
+#                                  work brought back, running work brought in, a cloud
+#                                  session, earlier versions)
+#   scripts/framework/location.md  the rule's location part, read on every platform but
+#                                  Claude Code and Codex
+#   scripts/framework/shared-lines.md  lines every step says at one moment (the dashboard
+#                                  line, the Git offer)
+#   scripts/framework/requirement-lines.md  the formats a requirement line is written in
+#   The same text is in routing-full.md and in routing.md + routing-rare.md + location.md
+#   until every step skill is restructured: a change to the rule goes into both.
 #   scripts/framework/test-run.sh  the test-run wrapper (optional here: copied if present)
 #   scripts/framework/saving.md    the save rule: how to save through a connection, decided
 #                                  from its tools (in place, create-only, print-to-save)
@@ -13,7 +25,9 @@
 #                                  path when a fact can't be confirmed
 #
 # Copies:
-#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test}/references/routing.md
+#   plugins/handsonai/skills/{analyze,deconstruct,build,test}/references/routing.md   (routing-full.md)
+#   plugins/handsonai/skills/design/references/routing.md                             (routing.md)
+#   plugins/handsonai/skills/design/references/{routing-rare,location,shared-lines,requirement-lines}.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,applying-skill-best-practices,auditing-agent-skills}/references/platform-facts.md
@@ -21,9 +35,9 @@
 # Usage:
 #   bash scripts/sync-routing.sh                    # copy canonical -> skills, then check
 #   bash scripts/sync-routing.sh --check            # fail if any copy differs (CI)
-#   bash scripts/sync-routing.sh --check SPEC       # also compare routing.md with the
+#   bash scripts/sync-routing.sh --check SPEC       # also compare routing-full.md with the
 #                                                   # block between the markers in SPEC
-#   bash scripts/sync-routing.sh --update-from SPEC # rewrite routing.md from SPEC's block,
+#   bash scripts/sync-routing.sh --update-from SPEC # rewrite routing-full.md from SPEC's block,
 #                                                   # copy it to the skills, then check
 #
 # SPEC is the private business repo's framework-rules.md. CI can't read that repo, so the
@@ -39,12 +53,15 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CANON_DIR="$ROOT/scripts/framework"
-CANON_ROUTING="$CANON_DIR/routing.md"
+CANON_ROUTING="$CANON_DIR/routing-full.md"
+CANON_ROUTING_CORE="$CANON_DIR/routing.md"
 CANON_TEST_RUN="$CANON_DIR/test-run.sh"
 CANON_SAVING="$CANON_DIR/saving.md"
 CANON_FACTS="$CANON_DIR/platform-facts.md"
 SKILLS_DIR="$ROOT/plugins/handsonai/skills"
-ROUTING_SKILLS=(analyze deconstruct design build test)
+ROUTING_SKILLS=(analyze deconstruct build test)   # the whole rule in one file
+SPLIT_SKILLS=(design)                              # restructured: the core, plus the files below
+SPLIT_FILES=(routing-rare.md location.md shared-lines.md requirement-lines.md)
 TEST_RUN_SKILLS=(build test)
 SAVING_SKILLS=(analyze deconstruct design build test scaffolding-registry indexing-registry)
 FACTS_SKILLS=(analyze deconstruct design build test scaffolding-registry applying-skill-best-practices auditing-agent-skills)
@@ -52,7 +69,7 @@ BEGIN_MARKER='<!-- routing.md: begin -->'
 END_MARKER='<!-- routing.md: end -->'
 
 usage() {
-  sed -n '15,24p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//' >&2
+  sed -n '35,44p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//' >&2
   exit 2
 }
 
@@ -88,7 +105,20 @@ sync_copies() {
     dest="$SKILLS_DIR/$skill/references/routing.md"
     mkdir -p "$(dirname "$dest")"
     cp "$CANON_ROUTING" "$dest"
+    echo "  copied  routing-full.md -> skills/$skill/references/routing.md"
+  done
+  local name
+  for skill in "${SPLIT_SKILLS[@]}"; do
+    [ -d "$SKILLS_DIR/$skill" ] || { echo "Error: skill folder missing: $SKILLS_DIR/$skill" >&2; exit 2; }
+    mkdir -p "$SKILLS_DIR/$skill/references"
+    [ -f "$CANON_ROUTING_CORE" ] || { echo "Error: $CANON_ROUTING_CORE not found — nothing to sync." >&2; exit 2; }
+    cp "$CANON_ROUTING_CORE" "$SKILLS_DIR/$skill/references/routing.md"
     echo "  copied  routing.md  -> skills/$skill/references/routing.md"
+    for name in "${SPLIT_FILES[@]}"; do
+      [ -f "$CANON_DIR/$name" ] || { echo "Error: $CANON_DIR/$name not found — nothing to sync." >&2; exit 2; }
+      cp "$CANON_DIR/$name" "$SKILLS_DIR/$skill/references/$name"
+      echo "  copied  $name -> skills/$skill/references/$name"
+    done
   done
   [ -f "$CANON_SAVING" ] || { echo "Error: $CANON_SAVING not found — nothing to sync." >&2; exit 2; }
   for skill in "${SAVING_SKILLS[@]}"; do
@@ -136,6 +166,25 @@ check_copies() {
     else
       echo "  ok       skills/$skill/references/routing.md"
     fi
+  done
+
+  local name canon_file
+  for skill in "${SPLIT_SKILLS[@]}"; do
+    for name in routing.md "${SPLIT_FILES[@]}"; do
+      canon_file="$CANON_DIR/$name"
+      copy="$SKILLS_DIR/$skill/references/$name"
+      if [ ! -f "$canon_file" ]; then
+        echo "Error: $canon_file not found." >&2; return 2
+      elif [ ! -f "$copy" ]; then
+        echo "  MISSING  skills/$skill/references/$name"; drift=1
+      elif ! cmp -s "$canon_file" "$copy"; then
+        echo "  DIFFERS  skills/$skill/references/$name"
+        diff "$canon_file" "$copy" | sed 's/^/           /' | head -20 || true
+        drift=1
+      else
+        echo "  ok       skills/$skill/references/$name"
+      fi
+    done
   done
 
   if [ ! -f "$CANON_SAVING" ]; then
@@ -193,9 +242,9 @@ check_copies() {
     extract_block "$spec" > "$tmp" || rc=$?
     if [ "$rc" -ne 0 ]; then rm -f "$tmp"; return 2; fi
     if cmp -s "$tmp" "$CANON_ROUTING"; then
-      echo "  ok       scripts/framework/routing.md matches the spec's routing.md block"
+      echo "  ok       scripts/framework/routing-full.md matches the spec's routing.md block"
     else
-      echo "  DIFFERS  scripts/framework/routing.md vs the spec's routing.md block ($spec)"
+      echo "  DIFFERS  scripts/framework/routing-full.md vs the spec's routing.md block ($spec)"
       diff "$tmp" "$CANON_ROUTING" | sed 's/^/           /' | head -20 || true
       echo "           To take the spec's wording: bash scripts/sync-routing.sh --update-from \"$spec\""
       drift=1
@@ -257,7 +306,7 @@ case "$MODE" in
     if [ "$RC" -ne 0 ]; then rm -f "$TMP"; exit 2; fi
     cat "$TMP" > "$CANON_ROUTING"
     rm -f "$TMP"
-    echo "Wrote scripts/framework/routing.md from $2"
+    echo "Wrote scripts/framework/routing-full.md from $2 (routing.md, routing-rare.md and location.md are not rewritten: bring them into line by hand)"
     sync_copies
     echo
     echo "Checking"
