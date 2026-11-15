@@ -16783,18 +16783,18 @@
           "must": true
         },
         {
-          "text": "The leader's own start (\"after each call\") is recorded or stated, never asked as a schedule question once given",
+          "text": "The leader's own start (the card's \"You finish a client call and paste in your notes\") is stated, never asked as a schedule question (a start the leader does is stated, not asked)",
           "kind": "scripted",
           "check": {
-            "type": "any",
+            "type": "all",
             "checks": [
               {
-                "type": "quote",
+                "type": "quote_absent",
                 "id": "deconstruct:starts"
               },
               {
-                "type": "leader_regex",
-                "pattern": "(?i)start it myself"
+                "type": "ai_regex",
+                "pattern": "(?i)\\byou(?:'ll| will)? start (?:it|each run|every run|each one)\\b[^.\\n]{0,60}\\byourself\\b"
               }
             ]
           }
@@ -18741,7 +18741,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -18858,7 +18858,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19002,7 +19002,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19120,7 +19120,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19237,7 +19237,7 @@
           "must": true
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19359,7 +19359,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19445,7 +19445,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19541,7 +19541,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19627,7 +19627,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19719,7 +19719,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -19811,7 +19811,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -20011,7 +20011,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },
@@ -20102,7 +20102,7 @@
           }
         },
         {
-          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'",
+          "text": "The count is never said in two messages in a row (N-D17's main form and the light line count as carrying one), and never as 'a few more' or 'nearly done'. One pair is by the spec and passes: the light line, then N-D17's main form in the next message, when the leader answers the light line's message with 'make it the full version'",
           "kind": "judged",
           "must": true
         },

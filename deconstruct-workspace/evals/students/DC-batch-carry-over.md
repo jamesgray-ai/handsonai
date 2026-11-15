@@ -8,6 +8,7 @@ Dana Reyes again (see the facts below).
 
 ## How you answer
 Answer each question in a sentence or two from the facts above, except where these override them:
+- **Your Analyze report's summary** (if it's played back and you're asked what to change or clarify): "One change: it doesn't start after each call. It runs every Friday at 4pm, for all of the week's calls at once. The rest is right."
 - **How runs start:** "On a schedule: every Friday at 4pm, for all of the week's calls at once."
 - **Company rules on client data:** "Not sure, I'd have to check our contracts."
 - **Remembering earlier runs:** "Yes, which calls it has already followed up, so it never writes two emails for one call."

@@ -187,7 +187,8 @@ BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approv
                              "'Let me…', 'I need…'), no bare .md file name outside code formatting, and no line ID (N-…)"}
 # core round-1 fixes (2026-11-12): a paragraph that opens like a note to itself, or names a Markdown file
 # outside backticks, is the AI narrating its own work to the leader
-NARRATION = re.compile(r"^(Now (the|I'll|writing|update)|Read |Ask N-|Let me |I need )")
+# core batch 2 (2026-11-14): "Let me suggest one, then: …" offers the leader a suggestion; it is not a note to itself
+NARRATION = re.compile(r"^(Now (the|I'll|writing|update)|Read |Ask N-|Let me (?!suggest\b)|I need )")
 # a file named on its own; a path with folders (the close's report path, a fill) is left out
 BARE_MD = re.compile(r"(?<![\w/.-])[\w.-]*\w\.md\b(?![\w/])")
 # core round-2 fixes (2026-11-12): two moments get approved words instead of silence. The saving line (N-A30)
@@ -202,6 +203,17 @@ BEFORE_F22_ID = "N-F24"
 # needs a connection") isn't the AI saying it is saving; a verb of that kind later in the clause marks it
 SAVING_LIKE = re.compile(r"(?i)^(?:now |still )?saving\b(?!\s+[^.!?:;…\n]{0,80}?\b(?:needs?|requires?|also|"
                          r"works?|means|isn't|doesn't|can't|won't|only)\b)")
+# core batch 2 (2026-11-14): a "Saving…" paragraph is the AI saying it is saving when it is short, or names its
+# own act, itself or the framework's files; otherwise it plays back what the workflow does ("Saving it as a
+# draft in your Outlook Drafts folder, and you send it yourself."), which is not narration
+SAVING_SELF = re.compile(r"(?i)\b(?:now|still|moment|silently|requirements|progress|inputs?|files?|reports?|"
+                         r"workflows?|I|I'm|I'll|we|we'll)\b|…|\.\.\.")
+
+
+def is_saving_playback(para):
+    return len(para.split()) > 6 and not SAVING_SELF.search(para)
+
+
 LEAD_IN_LIKE = re.compile(r"(?i)^[^\n]{0,200}, so the next step is\b[^\n]{0,60}$")
 # core round-4 fixes (2026-11-13): a line ID said to the leader ("It's a general folder, so N-F15.") is the AI
 # naming its own rule; flagged wherever it stands, outside code formatting
@@ -261,10 +273,19 @@ def leader_text(message):
 
 # ---------------------------------------------------------------- wording checks
 
-def vocabulary_hits(message):
+def leader_never_words(run):
+    """The Never-column names the leader used in their own messages: the framework never calls its own things
+    by them, but a leader's own word for their own thing ("the cheapest that meets the spec") may be played back."""
+    said = " ".join(t["text"] for s in run["sessions"] for t in s["turns"] if t["role"] != "ai")
+    return frozenset(name for name, rx in NEVER if rx.search(said))
+
+
+def vocabulary_hits(message, allowed=frozenset()):
     text = corpus().strip_approved(leader_text(message))
     hits = []
     for name, rx in NEVER:
+        if name in allowed:
+            continue
         for m in rx.finditer(text):
             if name == "connector":
                 before, after = text[max(0, m.start() - 1):m.start()], text[m.end():m.end() + 1]
@@ -278,7 +299,7 @@ NUM_WORDS = {"a": "1", "an": "1", "one": "1", "two": "2", "three": "3", "four": 
              "seven": "7", "eight": "8", "nine": "9", "ten": "10", "fifteen": "15", "twenty": "20",
              "thirty": "30", "forty": "40", "forty-five": "45", "fifty": "50", "sixty": "60", "ninety": "90"}
 SIZE = re.compile(r"(?i)\b(\d+(?:\.\d+)?|" + "|".join(sorted(NUM_WORDS, key=len, reverse=True)) + r")"
-                  r"(?:\s*(?:-|to)\s*(\d+(?:\.\d+)?))?\s*-?\s*(minute|min|hour|hr|second|sec)s?\b")
+                  r"(?:\s*(?:-|to)\s*(\d+(?:\.\d+)?))?\s*-?\s*(?:working\s+|business\s+)?(minute|min|hour|hr|second|sec|day|week)s?\b")
 
 
 def sizes(text):
@@ -306,7 +327,9 @@ def leader_sizes(run):
     # Deconstruct 3.3 (R-D3, B-M3): the leader's own schedule, as a brought requirements.md's Metadata
     # `Starts` row records it ("event: … · checked every 30 minutes"), may be played back (Design quotes it)
     schedule = [sizes(starts_row(body)) for p, body in brought if p.endswith("requirements.md")]
-    noted = [sizes(body) for p, body in brought if p.endswith("analyze-in-progress.md")]
+    # core batch 2 (2026-11-14): a Deconstruct progress file the leader brought holds what they said in an
+    # earlier chat too (Part 5's target question plays Part 1's aim back from it)
+    noted = [sizes(body) for p, body in brought if p.endswith(("analyze-in-progress.md", "deconstruct-in-progress.md"))]
     return set().union(*said, *written, *schedule, *noted)
 
 
@@ -423,7 +446,7 @@ def narration_hits(message):
             continue
         if NARRATION.match(p):
             hits.append(("note to itself", p[:120]))
-        elif SAVING_LIKE.match(p):
+        elif SAVING_LIKE.match(p) and not is_saving_playback(p):
             hits.append(("the saving line reworded", p[:120]))
         elif LEAD_IN_LIKE.match(p):
             hits.append(("the routing lead-in reworded", p[:120]))
@@ -859,7 +882,8 @@ def check(c, run):
         skill = c.get("skill") or run.get("skill")
         return _scan(run, n, lambda m: quote_hits(m, skill), "scripted line said with words changed")
     if t == "vocabulary":
-        return _scan(run, n, vocabulary_hits, "Never-column word")
+        said = leader_never_words(run)
+        return _scan(run, n, lambda m: vocabulary_hits(m, said), "Never-column word")
     if t == "narration":
         return _scan(run, n, narration_hits, "narration")
     if t == "opens_with":

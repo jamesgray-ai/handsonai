@@ -138,7 +138,10 @@ def grade(rnd, root, ev, run, evals_dir=None):
     base = Path(evals_dir) if evals_dir else HERE
     paths = [ev["student"]] if ev.get("student") else []
     paths += [s["student"] for s in ev.get("sessions", []) if isinstance(s.get("student"), str)]
-    script = "\n\n---\n\n".join((base / p).read_text() for p in dict.fromkeys(paths) if (base / p).exists()) or None
+    # core batch 2 (2026-11-14): the script as the leader got it, with each include-facts line expanded;
+    # the raw file left the judge unable to trace shared facts, so valid runs were marked invalid
+    import run_eval as RE
+    script = "\n\n---\n\n".join(RE.load_script(base, p) for p in dict.fromkeys(paths) if (base / p).exists()) or None
     res, rec = _call_json(rnd, root, build_prompt(ev, run, items, script), GRADER, "results", len(items))
     return [{**x, "passed": bool(r.get("passed")), "evidence": r.get("evidence", "")} for x, r in zip(items, res)], rec
 

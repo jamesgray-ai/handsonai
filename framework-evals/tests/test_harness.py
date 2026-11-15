@@ -1805,5 +1805,64 @@ class NoAddedFiles(unittest.TestCase):
                            run_of("hi", files_start=start, files_end=end)))
 
 
+class CoreBatch2Fixes(unittest.TestCase):
+    """Deconstruct core batch 2 (2026-11-14): checks that misfired on what the skill is meant to say."""
+
+    def test_a_saving_playback_is_not_narration(self):
+        for good in ("Saving it as a draft in your Outlook Drafts folder, and you send it yourself.",
+                     "Saving the list in your own folder, then, nothing sent or changed elsewhere."):
+            self.assertTrue(ok({"type": "narration"}, run_of(good)), good)
+        for bad in ("Now saving the inputs silently.", "Saving it now.", "Saving your Workflow Requirements now.",
+                    "Saving the practice inputs to the folder for this one.", "Saving that as we go, so we can stop any time.",
+                    "Saving it to your folder before I carry on with the rest."):
+            self.assertFalse(ok({"type": "narration"}, run_of(bad)), bad)
+
+    def test_let_me_suggest_is_said_to_the_leader(self):
+        self.assertTrue(ok({"type": "narration"}, run_of("Let me suggest one, then: ready by Sunday evening.")))
+        for bad in ("Let me read the report first.", "Let me check the folder.", "Now the maintenance pass and moving the progress file."):
+            self.assertFalse(ok({"type": "narration"}, run_of(bad)), bad)
+
+    def test_the_leaders_own_never_word_may_be_played_back(self):
+        said = "So you pick the cheapest that meets the spec."
+        run = run_of(said)
+        self.assertFalse(ok({"type": "vocabulary"}, run))
+        run["sessions"][0]["turns"][0]["text"] = "I pick the cheapest that meets the spec."
+        self.assertTrue(ok({"type": "vocabulary"}, run))
+        # only the word the leader used: another Never word still fails
+        run["sessions"][0]["turns"][1]["text"] = said + " That's one scenario."
+        self.assertFalse(ok({"type": "vocabulary"}, run))
+
+    def test_sizes_from_a_brought_deconstruct_progress_file_and_in_days(self):
+        prog = {"framework/x/deconstruct-in-progress.md": "## Part 1\n- Aim: each follow-up down from about 20 minutes to 5.\n"}
+        said = "You'd like each follow-up down from about 20 minutes to 5, as you said before."
+        self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run_of(said, files_start=prog)))
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run_of(said)))
+        run = run_of("That's fine; today it takes about six working days from the signed letter.")
+        self.assertFalse(ok({"type": "no_time_or_step_numbers"}, run))
+        run["sessions"][0]["turns"][0]["text"] = "About six working days."
+        self.assertTrue(ok({"type": "no_time_or_step_numbers"}, run))
+
+    def test_the_fidelity_judge_gets_the_expanded_script(self):
+        import tempfile, grade_eval as G
+        with tempfile.TemporaryDirectory() as d:
+            base = Path(d); (base / "students").mkdir()
+            (base / "students" / "facts.md").write_text("# Facts\n\n## What you know\n- **Today:** about two days.\n")
+            (base / "students" / "s.md").write_text("# Leader\n\n## What you know\n<!-- include-facts: students/facts.md -->\n")
+            seen = {}
+            real = G._call_json
+
+            def fake(rnd, root, prompt, system, key, n_expected):
+                seen["p"] = prompt
+                return [{"passed": True}] * n_expected, None
+            G._call_json = fake
+            try:
+                ev = {"id": "x", "student": "students/s.md", "expectations": [{"text": "judged thing", "kind": "judged"}]}
+                G.grade(None, base, ev, run_of("hi"), evals_dir=base)
+            finally:
+                G._call_json = real
+            self.assertIn("about two days", seen["p"])
+            self.assertNotIn("include-facts", seen["p"])
+
+
 if __name__ == "__main__":
     unittest.main()
