@@ -14,6 +14,32 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   ("…, keeping…"): the line said with it in
                                                                   place of its closing mark
   quote_absent     {id, form?, session?}                          no AI message says it
+  opens_with       {ids: [...], lead_in?: bool, session?}         the session's first AI message opens with one of
+                                                                  these approved lines (its first paragraph); with
+                                                                  lead_in, it may open with the routing lead-in
+                                                                  (N-F23, its [state] one of the line's phrases) as
+                                                                  its whole first paragraph, then one of them
+  said_before      {id, anchor, opens?, session?}                 the AI message where `anchor` (a regex, multiline)
+                                                                  first matches holds, before it, exactly that
+                                                                  approved line and nothing else, and no other AI
+                                                                  message of the session says it (N-A30, the saving
+                                                                  line, before the close); with opens, the line is
+                                                                  that message's first paragraph and other text may
+                                                                  follow it before the anchor (N-D24, then the notes)
+  inputs_shown     {id, anchor, path?, allow_none?, session?}     the proposed practice inputs were shown before
+                                                                  saving (N-D25, approved 2026-11-14): `path` (default
+                                                                  framework/*/requirements.md) has Example Scenarios
+                                                                  rows marked "(proposed"; exactly one AI message says
+                                                                  the approved line `id`, before the first AI message
+                                                                  `anchor` matches (the preview); a line said in two
+                                                                  parts (N-D25: a placeholder between its sentences)
+                                                                  has its last part end that message, and the
+                                                                  inputs are looked for between its parts; each proposed
+                                                                  row's saved input (its body: header lines and any
+                                                                  `Earlier run:` paragraph left out) has its first line
+                                                                  in that message, or in a later message before the
+                                                                  anchor's (the leader's correction). No proposed row
+                                                                  fails, unless allow_none (then the line is never said)
   scripted_lines   {session?}                                     every scripted line said is word for word
                                                                   (the quote check; built in)
   vocabulary       {session?}                                     no word from rules 2.2's Never column in
@@ -21,10 +47,20 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
   no_time_or_step_numbers {session?}                              no time estimate and no framework step
                                                                   number (rules 2.1 items 4-5; built in); a size
                                                                   the leader gave for their own work ("about
-                                                                  20 minutes per follow-up") may be played back
+                                                                  20 minutes per follow-up") may be played back,
+                                                                  and so may the leader's own schedule as a
+                                                                  brought requirements.md's `Starts` row records
+                                                                  it ("checked every 30 minutes"; Deconstruct 3.3,
+                                                                  R-D3's time-word exception)
   signposts        {skill?, of?, session?}                        the skill's "Part k of N" signposts, in
                                                                   order: deconstruct 5 (default), design 4,
                                                                   test 4, build 3; `of` for a later entry
+  max_words        {max, turn: "first", session?}                 each session's first AI message is at most
+                   {max, containing: <line ID>, form?, session?}  `max` words; or every AI message that says
+                                                                  that approved line is (none said: fails).
+                                                                  Words as word_count counts them (Deconstruct
+                                                                  T1: 200 on the first turn; T2: the N-L1
+                                                                  message, 150 full, 170 light)
   file_exists      {path, session?}                               a file matching the glob exists at session end
   file_absent      {path, session?}                               no file matches at session end (a fixture's
                                                                   own file counts: for "nothing written",
@@ -83,6 +119,11 @@ Built-in checks the runner adds to every run (an evals file's `builtin_checks`, 
 `skip_builtin`, can narrow them): the quote check (`scripted_lines`), `vocabulary` and
 `no_time_or_step_numbers` on every AI message; and, for runs with a simulated leader, the fidelity
 check (no listed framework term in a leader turn before an AI turn used it) and the turn cap.
+An evals file's `core_builtin_checks` adds built-in checks to its core evals only (Analyze: `narration`,
+an AI paragraph that is a note to itself, or a bare `.md` file name outside code formatting; a paragraph that is
+exactly the saving line, N-A30, the routing lead-in, N-F23, in its approved form, or N-F24 (the one sentence allowed
+before N-F22), is not narration, and one that says any of them another way is; a line ID such as N-F15 in
+anything the leader reads, outside code formatting, is narration too).
 """
 import fnmatch
 import hashlib
@@ -134,10 +175,38 @@ STEP_NUMBER = re.compile(
 SIGNPOST_IDS = {"deconstruct": (5, ["deconstruct:signpost-part-1", "deconstruct:signpost-part-2",
                                     "deconstruct:signpost-part-3", "deconstruct:signpost-part-4", "N-D9"]),
                 "design": (4, ["N-0"]), "test": (4, ["N-T1"]), "build": (3, ["N-B1"])}
-BUILTIN = ("scripted_lines", "vocabulary", "no_time_or_step_numbers")
+# Deconstruct 3.3 (R-C4): the count line, "About [M] questions left.", is its own line, never a signpost; N-D17's
+# main form and the light line carry a count too (R-C1, R-C2). leader.replies_by_part reads them as count points
+COUNT_LINE_ID = "deconstruct:questions-left"
+COUNT_CARRIERS = [("N-D17", "main"), ("deconstruct:light-line", "main")]
+BUILTIN =("scripted_lines", "vocabulary", "no_time_or_step_numbers")
 BUILTIN_TEXT = {"scripted_lines": "Every scripted line the AI says is the approved line, word for word (the quote check)",
                 "vocabulary": "No word from the vocabulary's Never column in anything the leader reads",
-                "no_time_or_step_numbers": "No time estimate and no framework step number in anything the leader reads"}
+                "no_time_or_step_numbers": "No time estimate and no framework step number in anything the leader reads",
+                "narration": "No narration: no AI paragraph that is a note to itself ('Now the…', 'Read …', 'Ask N-…', "
+                             "'Let me…', 'I need…'), no bare .md file name outside code formatting, and no line ID (N-…)"}
+# core round-1 fixes (2026-11-12): a paragraph that opens like a note to itself, or names a Markdown file
+# outside backticks, is the AI narrating its own work to the leader
+NARRATION = re.compile(r"^(Now (the|I'll|writing|update)|Read |Ask N-|Let me |I need )")
+# a file named on its own; a path with folders (the close's report path, a fill) is left out
+BARE_MD = re.compile(r"(?<![\w/.-])[\w.-]*\w\.md\b(?![\w/])")
+# core round-2 fixes (2026-11-12): two moments get approved words instead of silence. The saving line (N-A30)
+# and the routing lead-in (N-F23) said exactly are not narration; a paragraph that says either another way is
+SAVING_ID, LEAD_IN_ID = "N-A30", "N-F23"
+# Deconstruct's saving line (approved by James, 2026-11-14): "Saving your Workflow Requirements now; this takes a moment.", the one exception to its narration rule
+SAVING_IDS = (SAVING_ID, "N-D24")
+# core round-3 fixes (2026-11-12): N-F24, "Your registry has no workflows yet, so the next step is Analyze.", the one
+# sentence allowed before N-F22; and "Still saving: …" is the saving line reworded too
+BEFORE_F22_ID = "N-F24"
+# smoke-1 fix (2026-11-14): "Saving" as the subject of a sentence about the work ("Saving drafts in Outlook also
+# needs a connection") isn't the AI saying it is saving; a verb of that kind later in the clause marks it
+SAVING_LIKE = re.compile(r"(?i)^(?:now |still )?saving\b(?!\s+[^.!?:;…\n]{0,80}?\b(?:needs?|requires?|also|"
+                         r"works?|means|isn't|doesn't|can't|won't|only)\b)")
+LEAD_IN_LIKE = re.compile(r"(?i)^[^\n]{0,200}, so the next step is\b[^\n]{0,60}$")
+# core round-4 fixes (2026-11-13): a line ID said to the leader ("It's a general folder, so N-F15.") is the AI
+# naming its own rule; flagged wherever it stands, outside code formatting
+LINE_ID = re.compile(r"\bN-[A-Z]{1,2}\d+[a-z]?\b")
+LEAD_IN_SHAPE = re.compile(r"(.+?), so the next step is (Analyze|Deconstruct|Design|Build|Test)\.")
 
 
 def norm(s):
@@ -234,8 +303,48 @@ def leader_sizes(run):
     said = [sizes(t["text"]) for s in run["sessions"] for t in s["turns"] if t["role"] != "ai"]
     brought = leader_files(run)
     written = [sizes(ST.section(body, "Value & Measurement")) for p, body in brought if p.endswith("requirements.md")]
+    # Deconstruct 3.3 (R-D3, B-M3): the leader's own schedule, as a brought requirements.md's Metadata
+    # `Starts` row records it ("event: … · checked every 30 minutes"), may be played back (Design quotes it)
+    schedule = [sizes(starts_row(body)) for p, body in brought if p.endswith("requirements.md")]
     noted = [sizes(body) for p, body in brought if p.endswith("analyze-in-progress.md")]
-    return set().union(*said, *written, *noted)
+    return set().union(*said, *written, *schedule, *noted)
+
+
+def starts_row(body):
+    """The value of a requirements file's Metadata `Starts` row ("" when it has none)."""
+    for t in ST.tables(ST.section(body, "Metadata")):
+        for row in t:
+            if len(row) >= 2 and row[0].strip("* ") == "Starts":
+                return row[1]
+    return ""
+
+
+def word_count(message):
+    """Words in a message as the leader reads it: Markdown's bold, italic and code marks dropped, then every
+    whitespace-separated token holding a letter or digit (a list's "-" or a lone dash isn't a word; "1." is).
+    The count T1 and T2 are measured with (framework-evals/tools/wc_deconstruct.py uses it too)."""
+    text = norm(message).replace("**", " ").replace("`", " ")
+    return sum(1 for tok in text.split() if re.search(r"[A-Za-z0-9]", tok))
+
+
+def _max_words(c, run):
+    """max_words: each session's first AI message (turn: first), or every AI message saying the line
+    `containing` (form optional), is at most `max` words. Nothing to count fails (fail closed)."""
+    cap = c["max"]
+    counted = []
+    for s in _sessions(run, c.get("session")):
+        if c.get("containing"):
+            forms = [f for f in corpus().get(c["containing"], c.get("form")) if f.text]
+            msgs = [(i, m) for i, m in enumerate(_ai_turns(s), 1) if any(f.matches(m) for f in forms)]
+        else:
+            msgs = [(1, m) for m in _ai_turns(s, "first")]
+        counted += [(s["n"], i, word_count(m)) for i, m in msgs]
+    if not counted:
+        what = f"no AI message says {c['containing']}" if c.get("containing") else "no AI message"
+        return False, what
+    over = [x for x in counted if x[2] > cap]
+    where = ", ".join(f"session {n} AI message {i}: {w} words" for n, i, w in (over or counted)[:4])
+    return (not over, (f"over {cap}: " if over else f"at most {cap}: ") + where)
 
 
 def leader_files(run):
@@ -270,6 +379,201 @@ def quote_hits(message, skill=None):
     paste carries approved lines word for word."""
     message = re.sub(r"(?m)^[ \t]*>.*$", " ", message)
     return [(ln.label(), exp, got) for ln, exp, got in corpus().near_misses(message, skill=skill)]
+
+
+def is_saving_line(para):
+    """The paragraph is exactly a saving line (Analyze's N-A30, Deconstruct's N-D24), in an approved form."""
+    p = AL.norm(para)
+    return any(ln.regex.fullmatch(p) for i in SAVING_IDS for ln in corpus().get(i) if ln.text)
+
+
+def is_lead_in(para):
+    """The paragraph is exactly the routing lead-in (N-F23) in its approved form: "[Workflow] [state], so the
+    next step is [step].", [state] one of the line's own phrases, [step] a step's name, and [Workflow] a name
+    (no sentence of its own)."""
+    p = AL.norm(para)
+    for ln in corpus().get(LEAD_IN_ID):
+        if not (ln.text and ln.regex.fullmatch(p)):
+            continue
+        m = LEAD_IN_SHAPE.fullmatch(p)
+        if not m:
+            continue
+        head = m.group(1)
+        for s in ln.states:
+            name = head[:-len(s)].strip() if head.endswith(" " + s) else ""
+            if name and not re.search(r"[.!?:;]", name) and len(name.split()) <= 8:
+                return True
+    return False
+
+
+def is_before_f22(para):
+    """The paragraph is exactly N-F24, the one sentence allowed before N-F22."""
+    p = AL.norm(para)
+    return any(ln.regex.fullmatch(p) for ln in corpus().get(BEFORE_F22_ID) if ln.text)
+
+
+def narration_hits(message):
+    """Paragraphs of an AI message that narrate the AI's own work: one opening like a note to itself, or a
+    Markdown file named bare (outside code formatting; code blocks and block quotes left out). The saving line
+    and the routing lead-in, said exactly, are approved words, not narration; either said another way is."""
+    hits = []
+    for para in re.split(r"\n\s*\n", norm(message)):
+        p = para.strip()
+        if is_saving_line(p) or is_lead_in(p) or is_before_f22(p):
+            continue
+        if NARRATION.match(p):
+            hits.append(("note to itself", p[:120]))
+        elif SAVING_LIKE.match(p):
+            hits.append(("the saving line reworded", p[:120]))
+        elif LEAD_IN_LIKE.match(p):
+            hits.append(("the routing lead-in reworded", p[:120]))
+    for m in BARE_MD.finditer(leader_text(norm(message))):
+        hits.append(("bare file name", m.group(0)))
+    for m in LINE_ID.finditer(leader_text(norm(message))):
+        hits.append(("line ID", m.group(0)))
+    return hits
+
+
+def _opens_with(c, run):
+    """The session's first AI message opens with one of the approved lines `ids` (anchored at its start);
+    with `lead_in`, its first paragraph may instead be the routing lead-in (N-F23) in its approved form,
+    followed by one of them. A direct start's hand-off: the lead-in, then the owner's own opening."""
+    forms = [f for i in c["ids"] for f in corpus().get(i) if f.text and not f.fragment]
+    if not forms:
+        return False, f"no approved line among {c['ids']}"
+    why = "no AI message"
+    for s in _sessions(run, c.get("session")):
+        first = _ai_turns(s, "first")
+        if not first:
+            continue
+        paras = [p.strip() for p in re.split(r"\n\s*\n", norm(first[0])) if p.strip()]
+        lead = bool(paras) and c.get("lead_in") and is_lead_in(paras[0])
+        rest = AL.norm("\n\n".join(paras[1:] if lead else paras))
+        hit = next((f for f in forms if f.regex.match(rest)), None)
+        if hit:
+            return True, f"session {s['n']}: " + ("the routing lead-in, then " if lead else "") + hit.label()
+        why = f"session {s['n']}: first paragraph {paras[0][:120]!r}" if paras else f"session {s['n']}: empty"
+    return False, why
+
+
+def _said_before(c, run):
+    """In the AI message where `anchor` first matches, the text before it is exactly the approved line `id`
+    (said once there), and no other AI message of the session says it."""
+    forms = [f for f in corpus().get(c["id"]) if f.text and not f.fragment]
+    if not forms:
+        return False, f"no approved line {c['id']}"
+    anchor = re.compile(norm(c["anchor"]), re.M)
+    why = f"{c['anchor']!r} never matched"
+    for s in _sessions(run, c.get("session")):
+        msgs = _ai_turns(s)
+        at = next(((i, m) for i, m in enumerate(msgs) if anchor.search(norm(m))), None)
+        if at is None:
+            continue
+        i, m = at
+        before = norm(m)[:anchor.search(norm(m)).start()].strip()
+        if c.get("opens"):
+            # the line opens the message (its first paragraph); notes may follow it before the anchor
+            before = re.split(r"\n\s*\n", before)[0].strip() if before else ""
+        others = [k + 1 for k, x in enumerate(msgs) if k != i and any(f.matches(x) for f in forms)]
+        if others:
+            return False, f"session {s['n']}: {c['id']} also said in AI message(s) {others}"
+        if not before:
+            return False, f"session {s['n']} AI message {i + 1}: nothing before the anchor ({c['id']} not said)"
+        if not any(f.regex.fullmatch(AL.norm(before)) for f in forms):
+            return False, f"session {s['n']} AI message {i + 1}: before the anchor: {before[-200:]!r}"
+        return True, f"session {s['n']} AI message {i + 1}: {c['id']}, then the anchor"
+    return False, why
+
+
+INPUT_HEADER = re.compile(r"(?:source|tests|expect):")
+
+
+def input_body(text):
+    """A practice input's body as a run sees it: the leading header lines (source:, tests:, expect:) and a
+    leading `Earlier run:` paragraph left out."""
+    lines = text.splitlines()
+    i = 0
+    while i < len(lines) and INPUT_HEADER.match(lines[i]):
+        i += 1
+    paras = [p for p in re.split(r"\n\s*\n", "\n".join(lines[i:]).strip()) if p.strip()]
+    if paras and paras[0].lstrip().startswith("Earlier run:"):
+        paras = paras[1:]
+    return "\n\n".join(paras)
+
+
+def proposed_inputs(sess, req_glob):
+    """(input path, its saved text or None) for each Example Scenarios row marked "(proposed" in the
+    requirements file(s) matching `req_glob`; the Input cell's first `inputs/...` path, relative to that file."""
+    out = []
+    for rp, body in sorted(_files(sess, req_glob).items()):
+        folder = rp.rsplit("/", 1)[0] + "/" if "/" in rp else ""
+        lines = norm(body).splitlines()
+        start = next((i for i, l in enumerate(lines) if l.strip() == "## Example Scenarios"), None)
+        if start is None:
+            continue
+        end = next((i for i in range(start + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+        for row in lines[start + 1:end]:
+            cells = [x.strip() for x in row.strip().strip("|").split("|")] if row.lstrip().startswith("|") else []
+            if len(cells) < 3 or "(proposed" not in cells[1]:
+                continue
+            m = re.search(r"`(inputs/[^`]+)`", cells[2])
+            ip = folder + m.group(1) if m else None
+            out.append((ip or f"{rp}: {cells[0]} (no input path)", sess["files_end"].get(ip) if ip else None))
+    return out
+
+
+def _flat(s):
+    """For a text-shown check: block-quote marks, quote styles, code and bold marks and spacing ignored."""
+    return " ".join(qnorm(re.sub(r"(?m)^[ \t]*>[ \t]?", "", s)).split())
+
+
+def _inputs_shown(c, run):
+    forms = [f for f in corpus().get(c["id"]) if f.text and not f.fragment]
+    if not forms:
+        return False, f"no approved line {c['id']}"
+    sess = _sessions(run, c.get("session"))
+    seq = [(t["role"], t["text"]) for s in sess for t in s["turns"]]
+    said = [k for k, (r, m) in enumerate(seq) if r == "ai" and any(f.matches(m) for f in forms)]
+    rows = proposed_inputs(_file_session(run, c.get("session")), c.get("path", "framework/*/requirements.md"))
+    if not rows:
+        if c.get("allow_none"):
+            return (not said, "no proposed row, and " + (f"{c['id']} said anyway" if said else f"{c['id']} not said"))
+        return False, "no Example Scenarios row marked (proposed)"
+    if len(said) != 1:
+        return False, f"{c['id']} said in {len(said)} AI messages (one wanted)"
+    k = said[0]
+    anchor = re.compile(norm(c["anchor"]), re.M)
+    at = next((j for j, (r, m) in enumerate(seq) if r == "ai" and anchor.search(norm(m))), None)
+    if at is None:
+        return False, f"{c['anchor']!r} never matched"
+    if at <= k:
+        return False, f"{c['id']} said at or after the anchor's message"
+    shown, later = _flat(seq[k][1]), [_flat(m) for _, m in seq[k + 1:at]]
+    # A line said in two parts around the inputs (N-D25: a placeholder between its sentences): its first
+    # part opens the inputs, its last part follows them and ends the message, so the message ends on
+    # the question. The inputs are looked for between the two parts.
+    segs = [_flat(x) for x in AL.literal_segments(forms[0].toks) if _flat(x)]
+    if len(segs) >= 2:
+        a, b = shown.find(segs[0]), shown.rfind(segs[-1])
+        if a < 0 or b < 0 or b < a + len(segs[0]):
+            return False, f"{c['id']}'s two parts not found in order in turn {k + 1}"
+        if not shown.endswith(segs[-1]):
+            return False, f"turn {k + 1} doesn't end with {c['id']}'s last part {segs[-1]!r}"
+        shown = shown[a + len(segs[0]):b]
+    misses = []
+    for ip, text in rows:
+        if text is None:
+            misses.append(f"{ip}: not saved")
+            continue
+        first = next((l for l in input_body(text).splitlines() if l.strip()), "")
+        f1 = _flat(first)
+        if not f1:
+            misses.append(f"{ip}: empty body")
+        elif f1 not in shown and not any(f1 in m for m in later):
+            misses.append(f"{ip}: first line {first[:80]!r} not shown" + (" between its two parts" if len(segs) >= 2 else ""))
+    if misses:
+        return False, "; ".join(misses[:4])
+    return True, f"{c['id']} in turn {k + 1}, before the anchor; {len(rows)} proposed input(s) shown"
 
 
 def _scan(run, n, fn, what):
@@ -540,8 +844,12 @@ def check(c, run):
                                "text": re.sub(r"[.?!]\s*$", "", f.text) + t}) for f in forms for t in tails]
         which = c.get("turn", "any")
         for s in _sessions(run, n):
+            # a named form's Claude Code and Codex form (no location, routing.md) is the same line there
+            local = forms + ([f for f in corpus().get(c["id"]) if f.text and c.get("form") and not c.get("ending")
+                              and f.form == f"{c['form']}, Claude Code and Codex (no location)"]
+                             if s.get("platform") in ("claude-code", "codex") else [])
             for i, m in enumerate(_ai_turns(s, which), 1):
-                hit = next((f for f in forms if f.matches(m)), None)
+                hit = next((f for f in local if f.matches(m)), None)
                 if hit:
                     if t == "quote":
                         return True, f"{hit.label()} in session {s['n']} AI message {i}"
@@ -552,6 +860,14 @@ def check(c, run):
         return _scan(run, n, lambda m: quote_hits(m, skill), "scripted line said with words changed")
     if t == "vocabulary":
         return _scan(run, n, vocabulary_hits, "Never-column word")
+    if t == "narration":
+        return _scan(run, n, narration_hits, "narration")
+    if t == "opens_with":
+        return _opens_with(c, run)
+    if t == "said_before":
+        return _said_before(c, run)
+    if t == "inputs_shown":
+        return _inputs_shown(c, run)
     if t == "no_time_or_step_numbers":
         allowed = leader_sizes(run)
         return _scan(run, n, lambda m: time_or_step_hits(m, allowed), "time estimate or step number")
@@ -563,19 +879,20 @@ def check(c, run):
         for lid in ids:
             want += [f.text for f in corpus().get(lid) if f.text and not f.derived and re.match(r"Part \d of \d", f.text)]
         want = [w for w in want if re.match(rf"Part \d of {total}\b", w)] or [f"Part {k} of {total}" for k in range(1, total + 1)]
-        missing = want[0]
-        for s in _sessions(run, n):
-            text = AL.norm("\n".join(_ai_turns(s)))
-            pos, ok = 0, True
-            for w in want:
-                j = text.find(AL.norm(w).rstrip("."), pos)
-                if j < 0:
-                    ok, missing = False, w
-                    break
-                pos = j
-            if ok:
-                return True, f"{skill}'s {len(want)} signposts in order (session {s['n']})"
-        return False, f"{missing!r} missing or out of order"
+        # smoke-1 fix (2026-11-14): in order across the sessions joined, so a stop and resume between two
+        # parts counts (each signpost is said once, in whichever session reaches that part)
+        sess = _sessions(run, n)
+        text = AL.norm("\n".join(m for s in sess for m in _ai_turns(s)))
+        pos = 0
+        for w in want:
+            j = text.find(AL.norm(w).rstrip("."), pos)
+            if j < 0:
+                return False, f"{w!r} missing or out of order"
+            pos = j
+        return True, f"{skill}'s {len(want)} signposts in order (session{'s' if len(sess) > 1 else ''} " \
+                     f"{', '.join(str(s['n']) for s in sess)})"
+    if t == "max_words":
+        return _max_words(c, run)
     if t == "fill_check":
         return _fill_check(c, run)
     if t == "file_existed_during":
@@ -770,7 +1087,10 @@ def fidelity(run):
 
 
 def builtins_for(ev, evals_data=None):
-    on = list((evals_data or {}).get("builtin_checks", BUILTIN))
+    data = evals_data or {}
+    on = list(data.get("builtin_checks", BUILTIN))
+    if (ev.get("tier") or data.get("default_tier") or "regression") == "core":
+        on += [b for b in data.get("core_builtin_checks", []) if b not in on]
     return [b for b in on if b not in ev.get("skip_builtin", [])]
 
 

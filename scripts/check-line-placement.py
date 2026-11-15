@@ -124,7 +124,14 @@ def main():
                 r["missing"].append((ln.label(), rel, "not in file"))
                 continue
             if rx is None:
-                rx = re.compile(bounded_regex(ln.toks), re.S | re.I)
+                # a hole at either end can match nothing, so dropping it changes no result; kept, it
+                # makes the search try every start (N-F23 opens with two holes: minutes per file)
+                toks = list(ln.toks)
+                while toks and toks[0][0] == "hole":
+                    toks.pop(0)
+                while toks and toks[-1][0] == "hole":
+                    toks.pop()
+                rx = re.compile(bounded_regex(toks), re.S | re.I)
             if rx.search(text):
                 r["ok"] += 1
             else:

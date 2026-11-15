@@ -49,12 +49,56 @@ def items_for(ev):
     return items
 
 
+HISTORY_LABEL = ("## Requests the leader typed into Claude Code before this session (its HOME history, "
+                 "which the evidence pass may read; context, not graded)")
+
+
+def typed_history(run):
+    """The typed-request history in each Claude Code session's temp HOME: the harness's own line
+    (harness.reset_home) and any the fixture planted (leader.take_planted), one request a line."""
+    out = []
+    many = len(run["sessions"]) > 1
+    for k, s in enumerate(run["sessions"], 1):
+        if s.get("platform") != "claude-code":
+            continue
+        shown = [f"{H.HISTORY_MARKER} draft the weekly status report"]
+        for ln in (s.get("typed_history") or "").splitlines():
+            try:
+                shown.append(json.loads(ln).get("display", ""))
+            except ValueError:
+                continue
+        out += [f"- {x}" + (f" (session {k})" if many else "") for x in shown if x]
+    return "\n".join(out)
+
+
+GROUNDING_LABEL = ("## Content the platform added to the chat on its own, without the leader or the skill "
+                   "asking (Cowork's mail and Teams grounding, a connector's results; the AI saw it, so a line "
+                   "saying it was set aside is true; context, not graded)")
+
+
+def platform_supplied(run):
+    """The content a fixture planted for the platform to supply unasked (leader.take_planted), per session."""
+    out = []
+    many = len(run["sessions"]) > 1
+    for k, s in enumerate(run["sessions"], 1):
+        g = (s.get("grounding") or "").strip()
+        if g:
+            out.append((f"### Session {k}\n\n" if many else "") + g)
+    return "\n\n".join(out)
+
+
 def build_prompt(ev, run, items, script):
     parts = [f"# Eval {ev['id']} — {ev.get('name', '')}", "", f"Expected: {ev.get('expected_output', '')}", ""]
     if script:
         parts += ["## The leader's script (for the fidelity item only)", "", script, ""]
     parts += ["## Items to grade", ""]
     parts += [f"{i}. {x['text']}" for i, x in enumerate(items, 1)]
+    hist = typed_history(run)
+    if hist:
+        parts += ["", HISTORY_LABEL, "", hist]
+    supplied = platform_supplied(run)
+    if supplied:
+        parts += ["", GROUNDING_LABEL, "", supplied]
     for s in run["sessions"]:
         parts += ["", f"# Session {s['n']}", "", "## Transcript", ""]
         for t in s["turns"]:
@@ -267,6 +311,15 @@ def _read_rank(rel):
         return 0
     if rel.endswith(("requirements.md", "design-plan.md")):  # the plan's changes: back what Build says
         return 1
+    # Analyze's evidence: the knowledge graph, SOPs, process guides, a folder the leader named, and the
+    # project instructions file (core round-1 fixes, E11), so a detail the AI took from them is shown
+    core = rel.split("/")
+    core = core[1:] if core[0] in ("drive", "onedrive") and len(core) > 1 else core
+    core = core[1:] if core[0] == "ai-workspace" and len(core) > 1 else core
+    if any(p in ("knowledge", "sops", "process-guides") for p in core[:-1]) or core[-1] in ("CLAUDE.md", "AGENTS.md"):
+        return 1
+    if len(core) > 1 and core[0] not in ("registry", "framework", "history") and not core[0].startswith("."):
+        return 1  # a folder the leader named (a Playbooks folder, say)
     if "opportunity-report" in rel or "backlog" in rel:
         return 2
     return 3 if "registry/" in rel and not rel.endswith(("index.md", "log.md")) else 4
@@ -290,6 +343,58 @@ def ai_written(run):
             continue
         out |= {(k, rel) for rel, text in start.items() if brought.get(rel) != text}
     return out
+
+
+READ_PICKED_CAP = 1500  # of a cut file's share: the picked workflow's own card and summary row
+
+
+def _slug(text):
+    return "-" + re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-") + "-"
+
+
+def picked_slugs(run):
+    """The workflows the run worked on: a framework/<slug>/ folder or a registry/workflows/<slug>.md node a
+    session created or changed."""
+    out = set()
+    for s in run["sessions"]:
+        start, end = s.get("files_start") or {}, s.get("files_end") or {}
+        for rel in end:
+            if start.get(rel) == end[rel]:
+                continue
+            p = rel.split("/")
+            if len(p) >= 3 and p[0] == "framework":
+                out.add(p[1])
+            elif len(p) == 3 and p[:2] == ["registry", "workflows"] and p[2].endswith(".md"):
+                out.add(p[2][:-3])
+    return out
+
+
+def picked_blocks(text, slugs, shown):
+    """The blocks of a cut file that name a picked workflow and aren't already shown: each table (a run of
+    `|` lines) and each stretch between `---` rules and headings (an Analyze card). smoke-1 fix (2026-11-14):
+    N-D23's rows (How often from the card's Frequency) were judged invented when the row sat past the cut."""
+    if not slugs:
+        return ""
+    blocks, cur, kind = [], [], None
+    for ln in text.splitlines() + ["---"]:
+        s = ln.strip()
+        k = "rule" if re.match(r"^(?:---+|#{1,6} .*)$", s) else "table" if s.startswith("|") else "text" if s else None
+        if k == "rule" or (k and kind and k != kind) or (k is None and kind == "table"):
+            if "".join(cur).strip():
+                blocks.append("\n".join(cur).strip())
+            cur, kind = [], None
+        if k in ("table", "text") or (k is None and kind):
+            cur.append(ln)
+            kind = k or kind
+    out, size = [], 0
+    # smoke-2 fix (2026-11-14): tables first, since the Candidate Summary row holds what N-D23 plays back
+    # (Trigger, Deliverable, Frequency); the card's prose came first and filled the cap ("one-page" judged invented)
+    for b in sorted(blocks, key=lambda b: not b.lstrip().startswith("|")):
+        if b and b not in shown and any(sl in _slug(b) for sl in {f"-{x}-" for x in slugs}) \
+                and size + len(b) + 1 <= READ_PICKED_CAP:
+            out.append(b)
+            size += len(b) + 1
+    return "\n\n".join(out)
 
 
 def files_read(run, msgs=()):
@@ -334,6 +439,7 @@ def files_read(run, msgs=()):
             first = set(text.splitlines())
             now[rel] = [ln for ln in (end_text or "").splitlines() if ln.strip() and ln not in first]
     parts, total = [], 0
+    picked = picked_slugs(run)
     for rel in sorted(found, key=lambda r: (_read_rank(r), r)):
         k, body = found[rel][0], found[rel][1].strip()
         gone = []
@@ -350,6 +456,9 @@ def files_read(run, msgs=()):
                     gone.append(ln)
             body = (body[:head] + "\n[…cut; lines past the cut the session later changed, or that its messages speak of:]\n"
                     + "\n".join(gone) if gone else body[:READ_FILE_CAP] + "\n[…cut]")
+            extra = picked_blocks(found[rel][1], picked, body)
+            if extra:
+                body += "\n[the picked workflow's own card and Candidate Summary row, past the cut:]\n" + extra
         if now.get(rel):
             new = now[rel]
             keep, size = set(), 0
@@ -359,10 +468,13 @@ def files_read(run, msgs=()):
             shown_gone = {lead(ln) for ln in changed.get(rel, []) if ln in body and lead(ln)}
             # the replacements of lines listed past a cut (picked as the ones the messages speak of) first,
             # shortest first (a field's value), then the other replacements the messages speak of most
-            picked = {lead(ln) for ln in gone if lead(ln)}
+            # smoke-2 fix (2026-11-14): its own name, so the picked workflows (picked_slugs, above) aren't
+            # overwritten for the files after it (a changed node ranks before the report, so the report's card
+            # past the cut was never shown)
+            gone_leads = {lead(ln) for ln in gone if lead(ln)}
             first_new = sorted((ln for ln in new if lead(ln) in shown_gone),
-                               key=lambda ln: (lead(ln) not in picked, -len(said & set(WORD.findall(ln.lower())))
-                                               if lead(ln) not in picked else len(ln)))
+                               key=lambda ln: (lead(ln) not in gone_leads, -len(said & set(WORD.findall(ln.lower())))
+                                               if lead(ln) not in gone_leads else len(ln)))
             for ln in first_new + sorted((ln for ln in new if ln not in first_new),
                                          key=lambda ln: -len(said & set(WORD.findall(ln.lower())))):
                 if size + len(ln) + 1 <= READ_CHANGED_CAP:
@@ -652,6 +764,10 @@ def rubric_prompt(run):
     read = files_read(run, msgs)
     read = (f"## What the AI read from the leader's files (context, not graded)\n\n{read}\n\n"
             if read else "")
+    hist = typed_history(run)
+    read += f"{HISTORY_LABEL}\n\n{hist}\n\n" if hist else ""
+    supplied = platform_supplied(run)
+    read += f"{GROUNDING_LABEL}\n\n{supplied}\n\n" if supplied else ""
     tools = tool_lines(run, msgs)
     shared = shared_lines(run, msgs, tools)
     tools = "\n".join(x for x in (state_lines(run), tools, shared, name_lines(run, msgs)) if x)

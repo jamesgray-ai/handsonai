@@ -14,6 +14,7 @@
   },
   "frozen": "2026-10-24, after the line approval (3c-DJ); change only through T03's route",
   "placeholders": "[...] is filled when the line is said and matches anything; [Label: '...'] is a clause said only in that case (optional); ... and … are elisions",
+  "retired": "an entry with \"retired\" (when and why) is no longer approved and is kept as a record only: approved_lines.Corpus leaves it out, so it is never matched, placed or quoted",
   "kinds": [
    "question",
    "safety or promise",
@@ -24,7 +25,8 @@
   "files": "per skill, the one file that holds the line (analyze 3 and 6, deconstruct 17, design 13, build 15, test 15); references/routing.md for the lines rules 4.2 gives; build's references/carried-lines.md for the carried lines",
   "extraction_warnings": [
    "N-8: no wording in design.md 12 (the row is a rule, not a line): 'No intro line: the opening, N-3, the first question and N-4 serve'"
-  ]
+  ],
+  "deconstruct_3_3": "2026-11-13: Deconstruct 3.3's lines edited in by hand (retired, reworded, added; the 23 uncatalogued lines catalogued as deconstruct:<section>:l<n>), as the Analyze 3.1 build did; not a re-extraction, which would drop curated forms"
  },
  "lines": [
   {
@@ -39,7 +41,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/storage.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
@@ -57,7 +59,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/storage.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
@@ -75,7 +77,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/storage.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24)",
@@ -93,11 +95,29 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/storage.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-EH (2026-10-28)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-F15b",
+   "form": "main",
+   "text": "Is this a folder you set up for your AI work?",
+   "kind": "question",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "scaffolding-registry"
+   ],
+   "files": {
+    "analyze": "SKILL.md",
+    "deconstruct": "references/storage.md",
+    "scaffolding-registry": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the web, Claude desktop and Cowork only (R18)"
   },
   {
    "id": "N-F2",
@@ -239,12 +259,14 @@
    "text": "Start [step] in a new chat with: '[start phrase].' Then attach the latest zip I gave you, or paste or attach the files you saved.",
    "kind": "safety or promise",
    "skills": [
-    "analyze"
+    "analyze",
+    "deconstruct"
    ],
    "files": {
-    "analyze": "SKILL.md"
+    "analyze": "SKILL.md",
+    "deconstruct": "SKILL.md"
    },
-   "source": "3c-DX (2026-10-24)"
+   "source": "3c-DX (2026-10-24); said by Deconstruct too (R11), approved by James, 2026-11-12 (core round-1 fixes)"
   },
   {
    "id": "N-F3",
@@ -650,7 +672,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/storage.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
@@ -668,7 +690,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/storage.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
@@ -737,6 +759,26 @@
    },
    "source": "framework-rules.md 12; 3c-DJ (2026-10-24), with the line review's change",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); design: inferred from design 13 by section"
+  },
+  {
+   "id": "N-F14",
+   "form": "document form",
+   "text": "Your [document kind] has what looks like a password or key in it, so I haven't saved it or repeated it. Anyone who can open that file can see it, so please change it in [service] and take it out of the file.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "SKILL.md",
+    "deconstruct": "SKILL.md",
+    "build": "SKILL.md",
+    "test": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "for a secret found in a document, a memory file or the project instructions file; [service] is 'the service it belongs to' when the document doesn't show it (rules 8.9, 8.11)"
   },
   {
    "id": "N-L1",
@@ -1421,7 +1463,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24), with the line review's change; text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24), with the line review's change; text from lines-to-approve.md",
+   "retired": "2026-11-12 (3c-EP, Analyze 3.1): retired; the opening is N-A10, the registry clause, N-A11, N-A2 and N-A12 (E1)"
   },
   {
    "id": "N-A1",
@@ -1434,7 +1477,8 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "3c-EC (2026-10-28)"
+   "source": "3c-EC (2026-10-28)",
+   "retired": "2026-11-12 (3c-EP, Analyze 3.1): retired; the opening is N-A10, the registry clause, N-A11, N-A2 and N-A14's opening form (E1)"
   },
   {
    "id": "N-A2",
@@ -1448,6 +1492,19 @@
     "analyze": "SKILL.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24)"
+  },
+  {
+   "id": "N-A2",
+   "form": "Claude Code and Codex, pick-up sentence",
+   "text": "To pick up, start a new session in this project and say 'run the analyze skill.'",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
   },
   {
    "id": "N-A3",
@@ -1486,7 +1543,8 @@
    "files": {
     "analyze": "references/the-walk.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; 3c-EM (2026-11-08)"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; 3c-EM (2026-11-08)",
+   "retired": "2026-11-12 (3c-EP, Analyze 3.1): retired; no process choice and no walk of every process: the open question, then N-A17's offer (D3)"
   },
   {
    "id": "N-A4",
@@ -1500,7 +1558,8 @@
     "analyze": "references/the-walk.md"
    },
    "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md",
-   "fragment": true
+   "fragment": true,
+   "retired": "2026-11-12 (3c-EP, Analyze 3.1): retired; with N-A4's main form"
   },
   {
    "id": "N-A4",
@@ -1513,7 +1572,8 @@
    "files": {
     "analyze": "references/the-walk.md"
    },
-   "source": "analyze.md 3; 3c-EM (2026-11-08), approved by James"
+   "source": "analyze.md 3; 3c-EM (2026-11-08), approved by James",
+   "retired": "2026-11-12 (3c-EP, Analyze 3.1): retired; the open question is always asked; the walk is N-A17's offer (D3)"
   },
   {
    "id": "N-A5",
@@ -1526,7 +1586,8 @@
    "files": {
     "analyze": "references/the-walk.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md",
+   "retired": "2026-11-12 (3c-EP, Analyze 3.1): retired; no size questions (D1, R10)"
   },
   {
    "id": "N-A6",
@@ -1544,7 +1605,7 @@
   {
    "id": "N-A6",
    "form": "Then",
-   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat. Add your [storage service] to it, then say \"run the deconstruct skill. My files are in [location].\" (you can also type `/deconstruct` in a new session and pick it from the list).",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat. Add your [storage service] to it, then say 'run the deconstruct skill. My files are in [location].' (you can also type `/deconstruct` in a new session and pick it from the list).",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1552,12 +1613,90 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; the `/deconstruct` clause without \"in Claude Code\", 3c-EB (2026-10-25)"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; the `/deconstruct` clause without \"in Claude Code\", 3c-EB (2026-10-25); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then, Claude Code",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.' (you can also type `/deconstruct` in a new session and pick it from the list).",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then, Codex",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new session in this project and say 'run the deconstruct skill.'",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then, Claude desktop",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with your working folder selected: 'run the deconstruct skill. My files are in [location].'",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then, Microsoft 365",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new Cowork chat with: 'run the deconstruct skill. My files are in OneDrive, in ai-workspace.'",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then, print-to-save",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your backlog, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then, print-to-save, no registry",
+   "text": "**Next: Deconstruct.** You'll choose one workflow from your report, and we'll pin down what it must produce and how it should go. Start Deconstruct in a new chat with: 'run the deconstruct skill.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "N-A6's Then paragraph with N-F2's approved start line for this platform, quoted in full (no new wording); approved by James, 2026-11-12 (core round-2 fixes)"
   },
   {
    "id": "N-A6",
    "form": "Then-2",
-   "text": "**Later, if you want:** you looked at [k] of your [P] processes. Say \"run the analyze skill. My files are in [location].\" any time to pick up the rest. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say \"run the analyze skill with the individual lens. My files are in [location].\"",
+   "text": "**Later, if you want:** say 'run the analyze skill. My files are in [location].' any time to find more, including in the processes that have no workflows yet. The **individual lens** looks at the work you personally do each day, such as your inbox, prep and admin, and can find different workflows. Say 'run the analyze skill with the individual lens. My files are in [location].'",
    "kind": "teaching",
    "skills": [
     "analyze"
@@ -1565,7 +1704,7 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; reworded, 02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP) (N-A6 paragraph 3); single quotes throughout, approved by James, 2026-11-12 (3c-EP round-2 fixes)"
   },
   {
    "id": "N-A6",
@@ -1596,7 +1735,7 @@
   {
    "id": "N-A7",
    "form": "main",
-   "text": "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill. My files are in [location].' (in Claude Code, you can also type `/analyze` and pick it from the list).",
+   "text": "Next is Analyze. With your permission, it looks through what you've given your AI and what it already knows about your work, asks you a few questions, and aims to save 3 to 5 workflows worth building to your backlog. When you're ready, say 'run the analyze skill. My files are in [location].'",
    "kind": "teaching",
    "skills": [
     "scaffolding-registry"
@@ -1604,13 +1743,13 @@
    "files": {
     "scaffolding-registry": "references/interview-guide.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24), with the line review's change; text from lines-to-approve.md",
+   "source": "analyze.md 9; 3c-DJ (2026-10-24), with the line review's change; text from lines-to-approve.md; reworded, 02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP) (E8)",
    "note": "scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
   },
   {
    "id": "N-A7",
-   "form": "Claude Code and Codex",
-   "text": "Next is Analyze. With your permission, it starts from what your AI already knows about your work, then looks for opportunities to create more value in your processes and adds every workflow it finds to your backlog. You can look at one process or all of them. When you're ready, say 'run the analyze skill.' (in Claude Code, you can also type `/analyze` and pick it from the list).",
+   "form": "Claude Code",
+   "text": "Next is Analyze. With your permission, it looks through what you've given your AI and what it already knows about your work, asks you a few questions, and aims to save 3 to 5 workflows worth building to your backlog. When you're ready, say 'run the analyze skill.' (in Claude Code, you can also type `/analyze` and pick it from the list)",
    "kind": "teaching",
    "skills": [
     "scaffolding-registry"
@@ -1618,8 +1757,22 @@
    "files": {
     "scaffolding-registry": "references/interview-guide.md"
    },
-   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
+   "source": "3c-EL; approved by James, 2026-11-08 (3c-EN); reworded and split from the Codex form, 02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP) (E8)",
    "note": "scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-A7",
+   "form": "Codex",
+   "text": "Next is Analyze. With your permission, it looks through what you've given your AI and what it already knows about your work, asks you a few questions, and aims to save 3 to 5 workflows worth building to your backlog. When you're ready, say 'run the analyze skill.'",
+   "kind": "teaching",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the Work tab in a local folder too, treated as Codex"
   },
   {
    "id": "N-A8",
@@ -1632,7 +1785,8 @@
    "files": {
     "analyze": "references/report-format.md"
    },
-   "source": "analyze.md 9; 3c-DQ (2026-10-24), the report card's Size for a workflow not yet sized; text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DQ (2026-10-24), the report card's Size for a workflow not yet sized; text from lines-to-approve.md",
+   "retired": "2026-11-12 (3c-EP, Analyze 3.1): retired; no Size line on the card (D1, R10)"
   },
   {
    "id": "N-A9",
@@ -1650,7 +1804,7 @@
   {
    "id": "analyze:description",
    "form": "main",
-   "text": "This skill should be used when the user wants to analyze AI workflow opportunities, run a workflow audit, find automation candidates, or says \"where can AI help\". With the user's permission, looks through their saved memory and past chats for opportunities, walks their processes, then registers every candidate as a backlog Workflow node in the AI Registry (work that already runs as in production), or lists it with the report where there is no registry, ready for the Deconstruct step. Also use when the user says \"continue my workflow\" and Analyze's progress file (analyze-in-progress.md) exists. It stays strategic: it names the work, the pain, and the value, never the tools or integrations. This is the Analyze step of the AI Workflow Framework.",
+   "text": "This skill should be used when the user wants to analyze AI workflow opportunities, run a workflow audit, find automation candidates, or says \"where can AI help\". With the user's permission, looks through what they have given it (documents in their working folder, files attached to the chat, folders they name) and their saved memory and past chats, asks a few open questions about their work, then registers the candidates it finds (usually 3 to 5) as backlog Workflow nodes in the AI Registry (work that already runs as in production), or lists it with the report where there is no registry, ready for the Deconstruct step. Also use when the user says \"continue my workflow\" (pick it before reading files) and Analyze's progress file (analyze-in-progress.md) exists, nothing is in progress yet, or several workflows are. It stays strategic: it names the work, the pain, and the value, never the tools or integrations. This is the Analyze step of the AI Workflow Framework.",
    "kind": "structure",
    "skills": [
     "analyze"
@@ -1658,12 +1812,1366 @@
    "files": {
     "analyze": "SKILL.md"
    },
-   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md"
+   "source": "analyze.md 9; 3c-DJ (2026-10-24); text from lines-to-approve.md; reworded, 02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP) (E8); reworded (the \"pick it before reading files\" clause), approved by James, 2026-11-12 (core round-1 fixes); extended to several workflows in progress, approved by James, 2026-11-14 (Deconstruct core batch 1 fixes)",
+   "note": "as built: 'or lists it with the report' kept from the earlier description (James to confirm)"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then-2, organizational lens",
+   "text": "The **organizational lens** looks at the processes across the business, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens. My files are in [location].'",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "after the individual lens, for a solo founder or a company or unit lead"
+  },
+  {
+   "id": "N-A6",
+   "form": "Then-2, organizational lens, team",
+   "text": "The **organizational lens** looks at the processes your team runs, end to end, and can find different workflows. Say 'run the analyze skill with the organizational lens. My files are in [location].'",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "after the individual lens, for a team leader or team member"
+  },
+  {
+   "id": "N-A10",
+   "form": "main",
+   "text": "This step aims to find 3 to 5 **candidate workflows**: pieces of work worth building with AI, such as work that eats time or slips, or work you'd do more of if you could. They're saved to your **backlog** (your list of workflows to build). Then Deconstruct works out what the one you choose must do.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the no-registry form is the same, 'your backlog' being backlog.md"
+  },
+  {
+   "id": "N-A10",
+   "form": "later run",
+   "text": "This step aims to find 3 to 5 **candidate workflows**: pieces of work worth building with AI, such as work that eats time or slips, or work you'd do more of if you could.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A10",
+   "form": "print-to-save, no registry",
+   "text": "your list of workflows",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "for 'your **backlog** (your list of workflows to build)'",
+   "fragment": true
+  },
+  {
+   "id": "N-A11",
+   "form": "business",
+   "text": "I'll look at this from the business's point of view: the processes that drive your goals.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/part-1-reading-and-the-lens.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A11",
+   "form": "company or unit",
+   "text": "I'll look at this from [your company's / [unit name]'s] point of view: the processes that drive your goals.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/part-1-reading-and-the-lens.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A11",
+   "form": "team",
+   "text": "I'll look at this from your team's point of view: the processes your team runs.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/part-1-reading-and-the-lens.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A11",
+   "form": "team member",
+   "text": "I'll look at this from your point of view: your part of your team's work.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/part-1-reading-and-the-lens.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A11",
+   "form": "individual",
+   "text": "I'll look at this from your point of view: the work you personally do each day.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/part-1-reading-and-the-lens.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A11",
+   "form": "personal life",
+   "text": "This registry is about your own life, so we'll look at the routines you run each day.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/part-1-reading-and-the-lens.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the personal-life lens line, kept as today"
+  },
+  {
+   "id": "N-A12",
+   "form": "Claude Code",
+   "text": "Besides your registry, may I look through your knowledge graph, SOPs and process guides in this folder, your memory files, and the requests you've typed into Claude Code in any project? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones, or name another folder to add.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "Codex and the Work tab in a local folder",
+   "text": "Besides your registry, may I look through your knowledge graph, SOPs and process guides in this folder, and your project instructions file? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones, or name another folder to add.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "cloud session",
+   "text": "Besides your registry, may I look through your knowledge graph, SOPs and process guides in this repository, and its project instructions file? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones, or name another folder to add.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "web",
+   "text": "Besides your registry, may I look through the [n] other documents in your working folder ([kinds]) and your saved memory and past chats in your [Claude/ChatGPT] account (not your drive)? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "Claude desktop",
+   "text": "Besides your registry, may I look through the [n] other documents in your working folder ([kinds]) and your saved memory and past chats in your Claude account? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "Microsoft 365",
+   "text": "Besides your registry, may I look through the [n] other documents in your working folder ([kinds])? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "memory only",
+   "text": "May I look through your saved memory and past chats in your [Claude/ChatGPT] account (not your drive)? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes or no. You can also attach a document that shows the work.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "print-to-save with nothing attached too; on Claude desktop, without '(not your drive)'"
+  },
+  {
+   "id": "N-A12",
+   "form": "attached folder or zip",
+   "text": "Besides your registry, may I look through the [n] other documents in the folder you attached ([kinds]) and your saved memory and past chats in your [Claude/ChatGPT] account? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "Cowork's N-F13 fallback, print-to-save's zip; without memory it ends the question at '([kinds])?'"
+  },
+  {
+   "id": "N-A12",
+   "form": "general folder",
+   "text": "[Folder] holds a lot besides your AI work, so I'd look only in [your knowledge graph][ and ][your saved memory and past chats], plus any folder in it you name. May I? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or name a folder to add.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the web, Claude desktop and Cowork only"
+  },
+  {
+   "id": "N-A12",
+   "form": "later run, Claude Code",
+   "text": "Besides your registry, may I look through the [n] files added or changed since [month] in your knowledge graph, SOPs and process guides, your memory files, and the requests you've typed into Claude Code since then? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones, or name another folder to add.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "later run, Claude Code, no changed files",
+   "text": "Besides your registry, may I look through your memory files and the requests you've typed into Claude Code since [month]? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones, or name another folder to add.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "later run, Codex, the Work tab and cloud sessions",
+   "text": "Besides your registry, may I look through the [n] files added or changed since [month] in your knowledge graph, SOPs and process guides, and your project instructions file? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones, or name another folder to add.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A12",
+   "form": "later run, Codex, the Work tab and cloud sessions, no changed files",
+   "text": "…may I look through your project instructions file? …",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "fragment": true
+  },
+  {
+   "id": "N-A12",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5 and evidence-pass.md ('drop the clause for a source it doesn't have'); added 2026-11-12 (3c-EP build)",
+   "form": "local folder or cloud session, a source dropped",
+   "text": "Besides your registry, may I look through [sources]? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones, or name another folder to add.",
+   "note": "Claude Code, Codex, the Work tab in a local folder and cloud sessions when the folder lacks a source in its form (no sops/ or process-guides/, no knowledge/, no memory files, no project instructions file): the platform form with that clause dropped"
+  },
+  {
+   "id": "N-A12",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5 and evidence-pass.md ('drop the clause for a source it doesn't have'); added 2026-11-12 (3c-EP build)",
+   "form": "working folder, a source dropped",
+   "text": "Besides your registry, may I look through [sources]? I'll keep only [scope], leave out names and confidential details, and save only what you keep. Say yes, no, or which ones.",
+   "note": "the web, Claude desktop, Cowork and an attached folder when a source in the form is absent (no past chats, no memory): the platform form with that clause dropped"
+  },
+  {
+   "id": "N-A12",
+   "form": "later run, the web, Claude desktop and Cowork",
+   "text": "the [n] documents added or changed in your working folder since [month] ([kinds])",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "replaces the documents clause",
+   "fragment": true
+  },
+  {
+   "id": "N-A12",
+   "form": "no registry",
+   "text": "May I look through…",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "as built (James to confirm): every form drops 'Besides your registry, ' with no registry; [scope] is 'your work'",
+   "fragment": true
+  },
+  {
+   "id": "N-A12",
+   "form": "personal life",
+   "text": "other people's names and private details",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "for 'names and confidential details' in the promise; [scope] is 'what fits your [areas]'",
+   "fragment": true
+  },
+  {
+   "id": "N-A13",
+   "form": "main",
+   "text": "Which of these are worth working on? Keep them by number (for example 'keep 1 and 3'), tell me if AI already does any of them, and correct any problem I got wrong.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A13",
+   "form": "not-sure",
+   "text": "Keep anything you'd be glad to stop doing by hand, or would do more of with the time.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "organizational, business or company",
+   "text": "Think of the last few weeks across [lines of business / your company's work], including anything that only comes around now and then, like a launch. Where did time go, or things slip, that you'd rather hadn't? Two or three is plenty; 'not sure' is fine too.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "organizational, unit",
+   "text": "Think of the last few weeks across [unit name]'s work, including anything that only comes around now and then, like a launch. Where did [unit name]'s time go, or things slip, that you'd rather hadn't? Two or three is plenty; 'not sure' is fine too.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "organizational, team",
+   "text": "Think of the last few weeks, including anything that only comes around now and then. Where did your team's time go, or things slip, that you'd rather hadn't? Two or three is plenty; 'not sure' is fine too.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "individual",
+   "text": "Think of the last few weeks, including anything that only comes around now and then. What took your time, or slipped, that you'd hand to someone else tomorrow? Two or three is plenty; 'not sure' is fine too.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "personal life",
+   "text": "Think of the last few weeks in [areas]. Where did time go, or things slip, that you'd rather hadn't? Two or three is plenty; 'not sure' is fine too.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "no registry",
+   "text": "Think of the last few weeks in your work, including anything that only comes around now and then. Where did time go, or things slip, that you'd rather hadn't? Two or three is plenty; 'not sure' is fine too.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "why",
+   "text": "The places where time or results are lost are where a workflow is worth building.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "not-sure",
+   "text": "Tell me one task you'd hand to someone else tomorrow if you could. Or attach a document that shows how the work goes, and I'll read just that.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A14",
+   "form": "not-sure follow-up",
+   "text": "For example, in [process], is there a [report / check / message] [your team rebuilds / you rebuild] by hand each time?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
+  },
+  {
+   "id": "N-A14",
+   "form": "opening form",
+   "text": "You can also attach a document that shows the work.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "said after the question in place of the Why, when there's nothing to scan"
+  },
+  {
+   "id": "N-A14",
+   "form": "after a scan",
+   "text": "Beyond those, think of the last few weeks…",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the form's first word in lower case",
+   "fragment": true
+  },
+  {
+   "id": "N-A14",
+   "form": "after a scan, one item kept",
+   "text": "Beyond that, think of the last few weeks…",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "the form's first word in lower case; said after a scan that kept one item (\"Beyond those, …\" when two or more were kept)",
+   "fragment": true
+  },
+  {
+   "id": "N-A15",
+   "form": "main",
+   "text": "That's [k], enough to choose from. Anything to add, rename, reword, move, or leave out before I save them?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A15",
+   "form": "fewer than 3",
+   "text": "Anything to add, rename, reword, move, or leave out before I save them?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "also the backlog.md hand-over beside a registry"
+  },
+  {
+   "id": "N-A15",
+   "form": "why",
+   "text": "the name and description are what you'll see on your dashboard, and what Deconstruct starts from later.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the catalog question's Why, kept"
+  },
+  {
+   "id": "N-A15",
+   "form": "not-sure",
+   "text": "Say \"looks good.\" You can edit any workflow later.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the catalog question's Not sure?, kept"
+  },
+  {
+   "id": "analyze:value-lever-line",
+   "form": "main",
+   "text": "Each workflow names its **value lever**: the kind of value AI creates here — Streamline, Automate, Accelerate, or Create value.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP); reworded, approved by James, 2026-11-12 (3c-EP re-run fixes)",
+   "note": "kept as today"
+  },
+  {
+   "id": "N-A16",
+   "form": "main",
+   "text": "Does a skill or agent you set up do any of these? Say which.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A16",
+   "form": "single item",
+   "text": "Does a skill or agent you set up do that?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "single-item form kept word for word"
+  },
+  {
+   "id": "N-A16",
+   "form": "regular use",
+   "text": "Which of these do you use regularly?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A16",
+   "form": "regular use, single item",
+   "text": "Do you use it regularly?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "single-item form kept word for word"
+  },
+  {
+   "id": "N-A16",
+   "form": "regular use, why",
+   "text": "only work you use regularly is recorded as running.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A16",
+   "form": "works well",
+   "text": "Do they work well, or could any be better?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A16",
+   "form": "works well, single item",
+   "text": "Does it work well, or could it be better?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "single-item form kept word for word"
+  },
+  {
+   "id": "N-A16",
+   "form": "works well, why",
+   "text": "if it could be better, your report says what to improve.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A16",
+   "form": "name and home",
+   "text": "I'll record [item] as run by [name], [home].",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A16",
+   "form": "name, no home seen",
+   "text": "I'll record [item] as run by [name].",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "N-A16's name-and-home statement with its \", [home]\" left out when no home was seen (no new wording); core round-3 fixes (2026-11-12), item 5; derived, flagged for James"
+  },
+  {
+   "id": "N-A16",
+   "form": "name and home, joined",
+   "text": "I'll record [item] as run by [name], [home], and [item] as run by [name], [home].",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A17",
+   "form": "main",
+   "text": "Want to look at one process more closely? I'd pick [process], because it serves your goal: [goal], and nothing's been found there yet. Say 'go ahead', 'show my processes', or 'that's enough'.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP); reworded, approved by James, 2026-11-12 (3c-EP re-run fixes)"
+  },
+  {
+   "id": "N-A17",
+   "form": "no goals",
+   "text": "Want to look at one process more closely? I'd pick [process], where the work you've described seems slowest and nothing's been found there yet. Say 'go ahead', 'show my processes', or 'that's enough'.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "as built (James to confirm)"
+  },
+  {
+   "id": "N-A17",
+   "form": "after a walk",
+   "text": "Want to look at another process? I'd pick [process], because it serves your goal: [goal], and nothing's been found there yet. Say 'go ahead', 'show my processes', or 'that's enough'.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-3 fixes)",
+   "note": "the second offer, right after a walk, in place of \"Want to look at one process more closely?\""
+  },
+  {
+   "id": "N-A17",
+   "form": "after a walk, no goals",
+   "text": "Want to look at another process? I'd pick [process], where the work you've described seems slowest and nothing's been found there yet. Say 'go ahead', 'show my processes', or 'that's enough'.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-3 fixes)",
+   "note": "the second offer, right after a walk, with no goals"
+  },
+  {
+   "id": "N-A17",
+   "form": "no registry",
+   "text": "Want to look at one area of your work more closely? Name it, or say 'that's enough'.",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "also a registry with no Process nodes"
+  },
+  {
+   "id": "N-A19",
+   "form": "already in your registry",
+   "text": "Already in your registry: [names].",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "left out",
+   "text": "I left out [n] items that looked like client or personal material.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "left out, one",
+   "text": "I left out 1 item that looked like client or personal material.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "left out, personal life",
+   "text": "I left out [n] items that looked like other people's private details.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "left out, personal life, one",
+   "text": "I left out 1 item that looked like other people's private details.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "secret in memory or history",
+   "text": "I found what looks like a password or key and left it out.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "nothing fits",
+   "text": "I didn't find anything in what you gave me that fits [business].",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "nothing fits, no registry",
+   "text": "I didn't find anything in what you gave me that fits the work you described.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "nothing fits, personal life",
+   "text": "I didn't find anything in what you gave me that fits your [areas].",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "show the rest",
+   "text": "[n] more under [processes]. Say 'show the rest' to see them.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A19",
+   "form": "show the rest, not in a process yet",
+   "text": "[n] more, not in a process yet. Say 'show the rest' to see them.",
+   "kind": "structure",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
+  },
+  {
+   "id": "N-A19",
+   "form": "show the rest, one",
+   "text": "1 more under [process]. Say 'show the rest' to see it.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+  },
+  {
+   "id": "N-A19",
+   "form": "show the rest, not in a process yet, one",
+   "text": "1 more, not in a process yet. Say 'show the rest' to see it.",
+   "kind": "structure",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+  },
+  {
+   "id": "N-A29",
+   "form": "main",
+   "text": "One of your [document kind] has an instruction in it meant for an AI assistant. I haven't followed it.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/evidence-pass.md"
+   },
+   "source": "approved by James, 2026-11-12 (core round-1 fixes)"
+  },
+  {
+   "id": "N-A30",
+   "form": "main",
+   "text": "Saving your report and workflows now; this takes a moment.",
+   "kind": "structure",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "note": "said once, as the only text between the leader's answer to the list (N-A15) and the close; not on print-to-save, nor when every workflow was left out",
+   "source": "approved by James, 2026-11-12 (core round-2 fixes)"
+  },
+  {
+   "id": "N-A20",
+   "form": "main",
+   "text": "What usually kicks it off: something arriving, a request, or a set day?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "N-A22",
+   "form": "main",
+   "text": "What's the problem with [piece] today?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)"
+  },
+  {
+   "id": "analyze:do-more-of",
+   "form": "main",
+   "text": "If that took no time at all, what would you do with it, or do more of?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "kept as today"
+  },
+  {
+   "id": "analyze:do-more-of",
+   "form": "why",
+   "text": "some of the best opportunities are work you'd do more of, not just work you'd do faster.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "kept as today"
+  },
+  {
+   "id": "analyze:walk-question",
+   "form": "main",
+   "text": "Take the last time [process] ran, from [its start] to [its end]. Where did the time go, or where did it get stuck?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "kept as today, inside N-A17's offer"
+  },
+  {
+   "id": "analyze:walk-question",
+   "form": "individual",
+   "text": "Take the last time you did your part of [process], from [its start] to [its end]. Where did the time go, or where did it get stuck?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "kept as today"
+  },
+  {
+   "id": "analyze:walk-question",
+   "form": "no start or end",
+   "text": "Take the last time [process] ran. Where did the time go, or where did it get stuck?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-3 fixes)",
+   "note": "on any lens, when neither the student nor the Process node's description gives a start or an end"
+  },
+  {
+   "id": "analyze:walk-question",
+   "form": "why",
+   "text": "the places where time or results are lost, or where doing more would pay off, are where a workflow is worth building.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "kept as today"
+  },
+  {
+   "id": "analyze:walk-question",
+   "form": "example",
+   "text": "a property manager might say: \"Turning over a unit. I chase three contractors by phone, then re-enter the dates in two calendars.\"",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "kept as today"
+  },
+  {
+   "id": "analyze:walk-question",
+   "form": "not-sure",
+   "text": "Tell me the one part you'd hand to someone else tomorrow if you could.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "kept as today"
+  },
+  {
+   "id": "N-A21",
+   "form": "main",
+   "text": "Nothing's stood out yet, and that's fine. When something eats your time or slips this week, come back: [N-F2's platform form, for Analyze]. Or name one process now and I'll look again.",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "02-analyze-requirements.md v3.1 §5; approved by James, 2026-11-12 (3c-EP)",
+   "note": "the zero close"
+  },
+  {
+   "id": "N-A24",
+   "form": "main",
+   "text": "It goes under [process], which serves your goal: [goal].",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "the playback's goal tie; [goal] as written, without its final full stop"
+  },
+  {
+   "id": "N-A24",
+   "form": "several pieces",
+   "text": "[Piece] goes under [process], which serves your goal: [goal].",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "one sentence per piece"
+  },
+  {
+   "id": "N-A24",
+   "form": "no goal",
+   "text": "It goes under [process].",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+  },
+  {
+   "id": "N-A25",
+   "form": "main",
+   "text": "I'll leave that one for now.",
+   "kind": "structure",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/the-walk.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "starts the second offer's message after a walk that found nothing"
+  },
+  {
+   "id": "N-A26",
+   "form": "main",
+   "text": "[Workflow] is your team's work, but it sits in [process], which [function] owns. Keep it there, or put it under one of your team's processes or a new one?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "team lens only: a kept candidate of the team's own work in a process another function owns; asked once, before the list"
+  },
+  {
+   "id": "N-A26",
+   "form": "several",
+   "text": "[Workflow] and [Workflow] are your team's work, but they sit in processes other teams own: [process] ([function]) and [process] ([function]). Keep them there, or put them under your team's processes or new ones?",
+   "kind": "question",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+  },
+  {
+   "id": "N-A26",
+   "form": "why",
+   "text": "every workflow sits under one process, and the process's owner owns the workflow too.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "the same Why as the no-process question"
+  },
+  {
+   "id": "N-A26",
+   "form": "not-sure",
+   "text": "Say 'keep it there.' You can move it later.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)"
+  },
+  {
+   "id": "N-A27",
+   "form": "main",
+   "text": "I'll put [process] under [line of business]; say if it belongs elsewhere.",
+   "kind": "teaching",
+   "skills": [
+    "analyze",
+    "naming-workflows"
+   ],
+   "files": {
+    "analyze": "references/registering-candidates.md",
+    "naming-workflows": "SKILL.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "a new process that fits more than one line of business (one that spans the whole business): placed under the line it serves most, with no question"
+  },
+  {
+   "id": "N-A28",
+   "form": "main",
+   "text": "This report covers the [lens just run] lens only. [The close's lens sentence.]",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "references/report-format.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "the report's other-lens note, under the header table; [lens just run] is organizational or individual; the lens sentence is the close's, word for word, in the platform's form"
   },
   {
    "id": "N-D2",
    "form": "main",
-   "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements. Design reads it next to decide how the workflow gets built.",
+   "text": "Deconstruct turns this workflow into a clear, testable description of what it must do. You'll finish with your Workflow Requirements.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
@@ -1671,13 +3179,13 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-O5, D1: third sentence dropped)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
    "id": "N-D17",
    "form": "main",
-   "text": "It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts: (1) what this is worth, (2) where it starts and ends, and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs.",
+   "text": "It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts, about [M] questions from here: (1) what this is worth, (2) where it starts and ends, and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
@@ -1685,13 +3193,13 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); part 2 retitled, 3c-EB (2026-10-25)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); part 2 retitled, 3c-EB (2026-10-25); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-C1, D4: the count added)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
    "id": "N-D3",
    "form": "main",
-   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. To pick up, say 'run the deconstruct skill. My files are in [location].'",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, say 'run the deconstruct skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -1699,13 +3207,13 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-O2, D1: middle sentence added)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
    "id": "N-D3",
-   "form": "On Claude desktop",
-   "text": "To pick up, open a new chat with your working folder selected and say 'run the deconstruct skill. My files are in [location].'",
+   "form": "Claude desktop, files in a local folder",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, open a new chat with your working folder selected and say 'run the deconstruct skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -1713,13 +3221,13 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-O2, D1: written in full)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
    "id": "N-D3",
-   "form": "On Microsoft 365",
-   "text": "To pick up, open a new Cowork chat and say 'run the deconstruct skill. My files are in [location].'",
+   "form": "Microsoft 365",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, open a new Cowork chat and say 'run the deconstruct skill. My files are in [location].'",
    "kind": "safety or promise",
    "skills": [
     "deconstruct"
@@ -1727,7 +3235,7 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-O2, D1: written in full)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
@@ -1971,7 +3479,7 @@
   {
    "id": "N-D13",
    "form": "main",
-   "text": "Each practice run is checked against the lines we've written: what every [deliverable] must get right, its rules[ and where it asks first]. The workflow is ready when every line is met on the inputs that test it — or when you've looked at a miss on a line that isn't a must-have and decided you can live with it.",
+   "text": "Each practice run is checked against the lines we've written: what every [deliverable] must get right, its rules[ and where it asks first]. The workflow is ready when every line is met on the inputs that test it — or when you've looked at a miss on a line that isn't a must-have and decided you can live with it. Anything it must never do counts like a must-have: one miss always sends it back.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
@@ -1979,7 +3487,7 @@
    "files": {
     "deconstruct": "references/requirements-template.md"
    },
-   "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
+   "source": "deconstruct.md 19; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-D2, D8: the safety must-have sentence added, said always)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
@@ -2274,7 +3782,7 @@
     "deconstruct": "SKILL.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
-   "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
+   "note": "deconstruct: inferred from deconstruct 17 by section (table row); Deconstruct 3.3 (R-O6, D1b): said among the close's notes, not after the opening; wording unchanged"
   },
   {
    "id": "N-D22",
@@ -4841,7 +6349,7 @@
   {
    "id": "N-T6+N-T7",
    "form": "main",
-   "text": "[N] inputs cover all [M] of your requirements[, including one I added for [the line in plain words]]. It's ready when every requirement is met on the inputs that test it. Missing one you can't live without always sends it back; any other miss, you decide whether to fix or accept. Anything to add or drop before we start?",
+   "text": "[N] inputs cover all [M] of your requirements[, including one I added for [the line in plain words]]. It's ready when every requirement is met on the inputs that test it. Missing one you can't live without, or anything it must never do, always sends it back; any other miss, you decide whether to fix or accept. Anything to add or drop before we start?",
    "kind": "question",
    "skills": [
     "test"
@@ -4849,7 +6357,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 12; 3c-DJ (2026-10-24)"
+   "source": "test.md 12; 3c-DJ (2026-10-24); reworded, 03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3) (R-D2, D8f: \"or anything it must never do\" added, said always)"
   },
   {
    "id": "N-T6+N-T7",
@@ -6070,6 +7578,19 @@
    "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
   },
   {
+   "id": "deconstruct:3.3:q1",
+   "form": "Two workflows",
+   "text": "You have 2 workflows partway through Deconstruct: [Name 1] (next: Part [N]) and [Name 2] (next: Part [N]). Which one do you want to continue?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "deconstruct.md 3.3; approved by James 2026-11-14 (core batch 1: the two-item form)"
+  },
+  {
    "id": "deconstruct:3.3:q2",
    "form": "main",
    "text": "Your last Analyze session stopped partway, so those workflows aren't in your backlog yet. Finish it first, or carry on here?",
@@ -6099,7 +7620,7 @@
   },
   {
    "id": "deconstruct:map-backlog-question",
-   "form": "why",
+   "form": "why (before 3.3)",
    "text": "for your first one, pick something small so you learn the whole loop before taking on something big. A good first workflow (1) has a handful of steps, (2) starts when you decide to start it, and (3) works from material you already have. Among those, pick the one that would help you most.",
    "kind": "teaching",
    "skills": [
@@ -6110,11 +7631,12 @@
    },
    "source": "deconstruct.md 5.1 (line 160); approved: 'every other quoted line in this document is approved' (19)",
    "fragment": true,
-   "note": "deconstruct: inferred from deconstruct 17 by section 5.1"
+   "note": "deconstruct: inferred from deconstruct 17 by section 5.1",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; replaced by the shorter first- and later-workflow forms (R-O3, D1)"
   },
   {
    "id": "deconstruct:map-backlog-question",
-   "form": "not-sure",
+   "form": "not-sure (before 3.3)",
    "text": "I'll use those three tests on your backlog and suggest one, with the reason.",
    "kind": "teaching",
    "skills": [
@@ -6124,7 +7646,8 @@
     "deconstruct": "references/choosing-a-workflow.md"
    },
    "source": "deconstruct.md 5.1 (line 161); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 5.1"
+   "note": "deconstruct: inferred from deconstruct 17 by section 5.1",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; replaced by \"I'll suggest one, with the reason.\" (R-O4, D1)"
   },
   {
    "id": "deconstruct:5.1:q2",
@@ -6236,7 +7759,7 @@
     "deconstruct": "references/part-1-what-this-is-worth.md"
    },
    "source": "deconstruct.md 8.part-1 (line 276); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-1; Deconstruct 3.3 (R-T1, D2): asked only for a backlog pick whose card has a Business Objective but no Goal row (an earlier report)"
   },
   {
    "id": "deconstruct:signpost-part-2",
@@ -7231,7 +8754,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 468); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; decision types are inferred (R-S2, D3)"
   },
   {
    "id": "deconstruct:8.part-4:q22",
@@ -7245,7 +8769,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 469); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; with q22 (R-S2, D3)"
   },
   {
    "id": "deconstruct:8.part-4:q22",
@@ -7259,7 +8784,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 470); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; with q22 (R-S2, D3)"
   },
   {
    "id": "deconstruct:8.part-4:q23",
@@ -7362,7 +8888,7 @@
   {
    "id": "deconstruct:8.part-4:q26",
    "form": "not-sure",
-   "text": "One sentence is enough; you'll paste real notes later.",
+   "text": "One sentence is enough; you'll paste a real one later.",
    "kind": "teaching",
    "skills": [
     "deconstruct"
@@ -7370,7 +8896,7 @@
    "files": {
     "deconstruct": "references/part-4-the-path.md"
    },
-   "source": "deconstruct.md 8.part-4 (line 488); approved: 'every other quoted line in this document is approved' (19)",
+   "source": "deconstruct.md 8.part-4 (line 488); approved: 'every other quoted line in this document is approved' (19); reworded 2026-11-14, approved by James (Deconstruct pre-eval review, M6: the input isn't always notes; lines-to-approve.md, 2026-11-14 note)",
    "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
   },
   {
@@ -7498,7 +9024,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 504); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; the detail table runs whenever any step needs detail (R-S6, D3b)"
   },
   {
    "id": "deconstruct:8.part-4:q31",
@@ -7512,7 +9039,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 505); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; with q31 (R-S6, D3b)"
   },
   {
    "id": "deconstruct:8.part-4:q31",
@@ -7526,7 +9054,8 @@
     "deconstruct": "references/part-4-the-path.md"
    },
    "source": "deconstruct.md 8.part-4 (line 506); approved: 'every other quoted line in this document is approved' (19)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-4",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; with q31 (R-S6, D3b)"
   },
   {
    "id": "deconstruct:8.part-5:q1",
@@ -7656,6 +9185,34 @@
   },
   {
    "id": "deconstruct:8.part-5:q7",
+   "form": "batch",
+   "text": "When it hits a case it can't confidently handle — for example, [the leader's tricky case] — should it stop and ask you, do its best and flag it, or skip that item?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "deconstruct.md 8.part-5 (lines 678, 682): the main form with \"or skip that item\" added, when one run handles several items (`Per run` a batch)",
+   "note": "smoke-1 fix (2026-11-14): the batch form, as the spec gives it; placed in the skill file as q8's plural form is"
+  },
+  {
+   "id": "deconstruct:8.part-5:q7",
+   "form": "batch, without you",
+   "text": "When it hits a case it can't confidently handle — for example, [the leader's tricky case] — should it do its best and flag it, or skip that item?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "deconstruct.md 8.part-5 (lines 678, 682): the batch form with \"stop and ask you\" left out, when it runs without the leader",
+   "note": "smoke-1 follow-up (2026-11-14): the batch form on `Runs: without you`, as the spec gives it; placed in the skill file as q8's plural form is"
+  },
+  {
+   "id": "deconstruct:8.part-5:q7",
    "form": "why",
    "text": "This becomes a rule the workflow follows every time a case doesn't fit.",
    "kind": "teaching",
@@ -7776,7 +9333,8 @@
     "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
    },
    "source": "deconstruct.md 8.part-5 (line 580); approved: 'every other quoted line in this document is approved' (19); reworded, 3c-EB (2026-10-25)",
-   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5"
+   "note": "deconstruct: inferred from deconstruct 17 by section 8.part-5",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; no reference per real row on the full track (R-S4, D3)"
   },
   {
    "id": "deconstruct:8.part-5:q11",
@@ -7978,7 +9536,7 @@
   {
    "id": "deconstruct:description",
    "form": "main",
-   "text": "This skill should be used when the user wants to deconstruct a workflow, break down a business process, capture requirements for an AI workflow, or turn a workflow from their backlog into a clear, testable description of what it must do. It starts from anything already written down, shapes the outcome first (a goal and yes-or-no checks), then how the work gets done, the rules, where a person checks or approves the work, the sources it uses and practice inputs, and saves them as the workflow's requirements for the Design step; small, low-risk workflows get a shorter version. Also use when the user says \"continue my workflow\" and the workflow needs its requirements: none yet, an unfinished Deconstruct interview, or a big change sent back from Design; and when the user asks to run the deconstruct skill on work that already runs outside the framework (an in-production Workflow node with no workflow folder), to bring it in. This is the Deconstruct step of the AI Workflow Framework.",
+   "text": "This skill should be used when the user wants to deconstruct a workflow, break down a business process, capture requirements for an AI workflow, or turn a workflow from their backlog into a clear, testable description of what it must do. It starts from anything already written down, shapes the outcome first (a goal and yes-or-no checks), then how the work gets done, the rules, where a person checks or approves the work, the sources it uses and practice inputs, and saves them as the workflow's requirements for the Design step; small, low-risk workflows get a shorter version. Also use when the user says \"continue my workflow\" (pick it before reading files) and the workflow needs its requirements: none yet, an unfinished Deconstruct interview, or a big change sent back from Design; and when the user asks to run the deconstruct skill on work that already runs outside the framework (an in-production Workflow node with no workflow folder), to bring it in. This is the Deconstruct step of the AI Workflow Framework.",
    "kind": "structure",
    "skills": [
     "deconstruct"
@@ -7986,13 +9544,13 @@
    "files": {
     "deconstruct": "SKILL.md"
    },
-   "source": "deconstruct.md 17\\. (the description); approved (James, 2026-10-24)",
+   "source": "deconstruct.md 17\\. (the description); approved (James, 2026-10-24); reworded (the \"pick it before reading files\" clause), approved by James, 2026-11-12 (core round-1 fixes)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
    "id": "design:description",
    "form": "main",
-   "text": "This skill should be used when the user has a workflow's requirements and wants to plan how AI will do the work: which parts are skills or agents, how much the AI decides at each step, where a person checks, what it connects to, and how each part will be checked. It writes a plan the Build step follows, task by task, and asks the user only what only they can decide. Also use when the user says \"continue my workflow\" and the workflow needs its plan, a plan was stopped partway, or Build sent back a question; and when the user says \"change my workflow\" to change one that's planned, built or live. This is the Design step of the AI Workflow Framework.",
+   "text": "This skill should be used when the user has a workflow's requirements and wants to plan how AI will do the work: which parts are skills or agents, how much the AI decides at each step, where a person checks, what it connects to, and how each part will be checked. It writes a plan the Build step follows, task by task, and asks the user only what only they can decide. Also use when the user says \"continue my workflow\" (pick it before reading files) and the workflow needs its plan, a plan was stopped partway, or Build sent back a question; and when the user says \"change my workflow\" to change one that's planned, built or live. This is the Design step of the AI Workflow Framework.",
    "kind": "structure",
    "skills": [
     "design"
@@ -8000,13 +9558,13 @@
    "files": {
     "design": "SKILL.md"
    },
-   "source": "3c-DQ",
+   "source": "3c-DQ; reworded (the \"pick it before reading files\" clause), approved by James, 2026-11-12 (core round-1 fixes)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
   },
   {
    "id": "build:description",
    "form": "main",
-   "text": "This skill should be used when the user has an approved Design Plan and wants to build their AI workflow. It sets up the workflow's place with the user, builds each task in the plan (skills, agents, connections and any schedule), checks each one against what it must do without making any real change, then saves or installs the workflow where it runs and writes a build record that says what was built and what it can access. Also use when the user says \"continue my workflow\" and the workflow needs building: an approved plan not built yet, a build that stopped partway, misses from a test round for Build to fix, or an approved change to a workflow that's already live. Not for \"build my knowledge graph\": that is the building-knowledge-graph skill. This is the Build step of the AI Workflow Framework.",
+   "text": "This skill should be used when the user has an approved Design Plan and wants to build their AI workflow. It sets up the workflow's place with the user, builds each task in the plan (skills, agents, connections and any schedule), checks each one against what it must do without making any real change, then saves or installs the workflow where it runs and writes a build record that says what was built and what it can access. Also use when the user says \"continue my workflow\" (pick it before reading files) and the workflow needs building: an approved plan not built yet, a build that stopped partway, misses from a test round for Build to fix, or an approved change to a workflow that's already live. Not for \"build my knowledge graph\": that is the building-knowledge-graph skill. This is the Build step of the AI Workflow Framework.",
    "kind": "structure",
    "skills": [
     "build"
@@ -8014,13 +9572,13 @@
    "files": {
     "build": "SKILL.md"
    },
-   "source": "build.md 15\\. (the description); approved (James, 2026-10-24)",
+   "source": "build.md 15\\. (the description); approved (James, 2026-10-24); reworded (the \"pick it before reading files\" clause), approved by James, 2026-11-12 (core round-1 fixes)",
    "note": "build: not in build 15's table; SKILL.md (said throughout)"
   },
   {
    "id": "test:description",
    "form": "main",
-   "text": "This skill should be used when the user has built an AI workflow and wants to test it before relying on it, says \"test the workflow I built\", or wants to re-check a workflow that's already live. It runs the workflow cold on practice inputs, including one real example it hasn't seen, never sends or changes anything real, checks every requirement with the proof, and lets the user decide what to fix or accept; when it's ready, it takes the workflow live and sets when to re-check it. Also use when the user says \"continue my workflow\" and the workflow is built and waiting for its first test round, a round is in progress or waiting on access, a fix or change has been built and needs testing again, or the workflow is live, whether or not its re-check is due. This is the Test step of the AI Workflow Framework.",
+   "text": "This skill should be used when the user has built an AI workflow and wants to test it before relying on it, says \"test the workflow I built\", or wants to re-check a workflow that's already live. It runs the workflow cold on practice inputs, including one real example it hasn't seen, never sends or changes anything real, checks every requirement with the proof, and lets the user decide what to fix or accept; when it's ready, it takes the workflow live and sets when to re-check it. Also use when the user says \"continue my workflow\" (pick it before reading files) and the workflow is built and waiting for its first test round, a round is in progress or waiting on access, a fix or change has been built and needs testing again, or the workflow is live, whether or not its re-check is due. This is the Test step of the AI Workflow Framework.",
    "kind": "structure",
    "skills": [
     "test"
@@ -8028,7 +9586,7 @@
    "files": {
     "test": "SKILL.md"
    },
-   "source": "test.md 15\\. (the description); approved (James, 2026-10-24); widened to any live workflow, 3c-EA (2026-10-24)",
+   "source": "test.md 15\\. (the description); approved (James, 2026-10-24); widened to any live workflow, 3c-EA (2026-10-24); reworded (the \"pick it before reading files\" clause), approved by James, 2026-11-12 (core round-1 fixes)",
    "note": "test: not in test 15's table; SKILL.md (said throughout)"
   },
   {
@@ -8073,7 +9631,7 @@
   {
    "id": "N-C2",
    "form": "main",
-   "text": "When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only.",
+   "text": "When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only. Where you're given a practice copy of what the workflow remembers, read that copy, never the real one.",
    "kind": "carried",
    "skills": [
     "built-workflow"
@@ -8132,7 +9690,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/storage.md",
     "scaffolding-registry": "SKILL.md"
    },
    "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
@@ -8165,6 +9723,98 @@
    },
    "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-SR4",
+   "form": "main",
+   "text": "This sets up your registry: a map of what your business offers and the processes that deliver it. Every step of the framework builds on it. I'll draft it from what you tell me, and nothing is saved until you confirm it.",
+   "kind": "teaching",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-EO; approved by James, 2026-11-11 (student test pass 1)"
+  },
+  {
+   "id": "N-SR5",
+   "form": "main",
+   "text": "To start, tell me about the work this registry is for, whether that's a business you own, a company or team you lead or work in, or your personal life. In a few sentences: what it offers, who does the work (just you, or which roles), and the two or three goals that matter most this year. Or paste your website's About or Services text, and I'll draft from that.",
+   "kind": "question",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-EO; approved by James, 2026-11-11 (student test pass 1)"
+  },
+  {
+   "id": "N-SR6",
+   "form": "main",
+   "text": "Shall I save this? Change anything first.",
+   "kind": "question",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-EO; approved by James, 2026-11-11 (student test pass 1)"
+  },
+  {
+   "id": "N-SR7",
+   "form": "main",
+   "text": "Line 1 of [N]: [line]. A **process** is a set of related work that delivers part of a line of business, and its **owner** is who does it (for you, the hat you wear). Here's what I'd suggest, in the order the work flows:",
+   "kind": "teaching",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-EO; approved by James, 2026-11-11 (student test pass 1)"
+  },
+  {
+   "id": "N-SR7",
+   "form": "two lines",
+   "text": "Lines 1 and 2 of [N]: [line] and [line]. A **process** is a set of related work that delivers part of a line of business, and its **owner** is who does it (for you, the hat you wear). Here's what I'd suggest for each, in the order the work flows:",
+   "kind": "teaching",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-EO round 2; approved by James, 2026-11-11"
+  },
+  {
+   "id": "N-SR8",
+   "form": "main",
+   "text": "Say 'open my dashboard' and I'll open it in your browser[, or 'make it a Claude page' for a private link you can open any time].",
+   "kind": "teaching",
+   "skills": [
+    "scaffolding-registry"
+   ],
+   "files": {
+    "scaffolding-registry": "references/interview-guide.md"
+   },
+   "source": "3c-EO; approved by James, 2026-11-11 (student test pass 1)"
+  },
+  {
+   "id": "N-SR8",
+   "form": "Analyze's close, Claude Code and Codex",
+   "text": "Say 'open my dashboard' and I'll open it in your browser.",
+   "kind": "teaching",
+   "skills": [
+    "analyze"
+   ],
+   "files": {
+    "analyze": "SKILL.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP round-2 fixes)",
+   "note": "N-SR8 without its Claude-page clause (never offered on a maintenance pass at another step's close), after the dashboard sentence"
   },
   {
    "id": "N-F18",
@@ -8213,6 +9863,1104 @@
    },
    "source": "3c-EL; approved by James, 2026-11-08 (3c-EN)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); scaffolding-registry: asked before it writes anything (analyze 6 item 3); SKILL.md inferred"
+  },
+  {
+   "id": "N-F20",
+   "form": "main",
+   "text": "Your dashboard wasn't refreshed this time, because something in your registry needs fixing first. To fix it, say 'update my registry. My files are in [location].'",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "SKILL.md",
+    "deconstruct": "SKILL.md",
+    "design": "SKILL.md",
+    "build": "SKILL.md",
+    "test": "SKILL.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
+  },
+  {
+   "id": "N-F20",
+   "form": "Claude Code and Codex",
+   "text": "Your dashboard wasn't refreshed this time, because something in your registry needs fixing first. To fix it, say 'update my registry.'",
+   "kind": "safety or promise",
+   "skills": [
+    "analyze",
+    "deconstruct"
+   ],
+   "files": {
+    "analyze": "SKILL.md",
+    "deconstruct": "SKILL.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
+  },
+  {
+   "id": "N-F21",
+   "form": "main",
+   "text": "[Step] picks this up from here. Say '[start phrase]. My files are in [location].' in this chat to start it.",
+   "kind": "structure",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
+  },
+  {
+   "id": "N-F21",
+   "form": "Claude Code and Codex",
+   "text": "[Step] picks this up from here. Say '[start phrase].' in this chat to start it.",
+   "kind": "structure",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
+  },
+  {
+   "id": "N-F22",
+   "form": "main",
+   "text": "There's nothing to continue yet. To find workflows worth building, say 'run the analyze skill. My files are in [location].'",
+   "kind": "structure",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "source": "approved by James, 2026-11-12 (core round-1 fixes)"
+  },
+  {
+   "id": "N-F22",
+   "form": "Claude Code and Codex, and print-to-save",
+   "text": "There's nothing to continue yet. To find workflows worth building, say 'run the analyze skill.'",
+   "kind": "structure",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "source": "approved by James, 2026-11-12 (core round-1 fixes)"
+  },
+  {
+   "id": "N-F23",
+   "form": "main",
+   "text": "[Workflow] [state], so the next step is [step].",
+   "kind": "structure",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "states": [
+    "has its requirements",
+    "has its plan",
+    "is built",
+    "already runs",
+    "is live",
+    "is retired",
+    "is in your backlog"
+   ],
+   "note": "optional; only as the single sentence before a fixed routing line that names the next step (the running-work message, the bring-in line, N-F21) or before another step's skill is started directly; never before N-F22 (where only N-F24 may come), the retired line, N-T19, N-T22, the open-item line or N-F9; \"is in your backlog\": no workflow folder that isn't retired and a backlog, [Workflow] the one the leader named, else the first in the backlog choice's order (core round-3 fixes)",
+   "source": "approved by James, 2026-11-12 (core round-2 fixes); \"is in your backlog\" approved by James, 2026-11-12 (core round-3 fixes)"
+  },
+  {
+   "id": "N-F24",
+   "form": "main",
+   "text": "Your registry has no workflows yet, so the next step is Analyze.",
+   "kind": "structure",
+   "skills": [
+    "analyze",
+    "deconstruct",
+    "design",
+    "build",
+    "test"
+   ],
+   "files": {
+    "analyze": "references/routing.md",
+    "deconstruct": "references/routing.md",
+    "design": "references/routing.md",
+    "build": "references/routing.md",
+    "test": "references/routing.md"
+   },
+   "note": "optional; before N-F22 only, as its own paragraph, when the registry has no Workflow nodes at all; the only sentence ever allowed before N-F22",
+   "source": "approved by James, 2026-11-12 (core round-3 fixes)"
+  },
+  {
+   "id": "N-D3",
+   "form": "Claude Code and Codex",
+   "text": "Stopping early is safe: once the workflow has a name, progress is saved after each part. 'Not sure' is always a fine answer. To pick up, start a new session in this project and say 'run the deconstruct skill.'",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "N-D17",
+   "form": "switch form",
+   "text": "It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts; we've already covered some of it: (1) what this is worth, (2) where it starts and ends, and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:map-backlog-question",
+   "form": "why",
+   "text": "Start small to learn the whole loop. Pick one that has a handful of steps, starts when you decide, uses material you have, and helps you.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/choosing-a-workflow.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:map-backlog-question",
+   "form": "why, later workflows",
+   "text": "A good next one has a handful of steps, starts when you decide, uses material you already have, and would help you.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/choosing-a-workflow.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:map-backlog-question",
+   "form": "not-sure",
+   "text": "I'll suggest one, with the reason.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/choosing-a-workflow.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:ready-line",
+   "form": "main",
+   "text": "Ready to start Part 1?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:light-line",
+   "form": "main",
+   "text": "After this, the shorter version asks a few safety questions, then covers what it's for, what it must get right, what it works from, its rules and a few practice runs: about [M] questions from here.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "said in light-track.md's flow too; one home, SKILL.md (the track), as N-D17"
+  },
+  {
+   "id": "deconstruct:questions-left",
+   "form": "main",
+   "text": "About [M] questions left.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:part-1-card",
+   "form": "main",
+   "text": "Your Analyze report ties this to your business goal: [goal]. What changes for the business: [what changes].",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-1-what-this-is-worth.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "N-D23",
+   "form": "main",
+   "text": "Here's what your Analyze report has for this workflow:",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "the five rows and the ending follow in the same message; said as light item 0 too (light-track.md points to part 2)"
+  },
+  {
+   "id": "N-D23",
+   "form": "Starts when",
+   "text": "Starts when: [trigger]",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "one of N-D23's five rows"
+  },
+  {
+   "id": "N-D23",
+   "form": "Ends with",
+   "text": "Ends with: [deliverable]",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "one of N-D23's five rows"
+  },
+  {
+   "id": "N-D23",
+   "form": "Name",
+   "text": "Name: [name] (rename it here if you like)",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "one of N-D23's five rows"
+  },
+  {
+   "id": "N-D23",
+   "form": "Description",
+   "text": "Description: [description]",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "one of N-D23's five rows"
+  },
+  {
+   "id": "N-D23",
+   "form": "How often",
+   "text": "How often: [frequency, in plain words]",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "one of N-D23's five rows; only when known"
+  },
+  {
+   "id": "N-D23",
+   "form": "ending",
+   "text": "What would you change or clarify? The start and the end matter most, because everything else builds on them.",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "N-D24",
+   "form": "main",
+   "text": "Saving your Workflow Requirements now; this takes a moment.",
+   "kind": "structure",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "note": "said once, as the whole text of the go-ahead's turn after the preview (N-D13), before the batch of writes and the close; not on print-to-save",
+   "source": "approved by James, 2026-11-14 (Deconstruct smoke-2 fixes; mirrors N-A30)"
+  },
+  {
+   "id": "N-D25",
+   "form": "main",
+   "text": "Here are the practice inputs I wrote. [Every input I wrote, in full, each under a plain label naming its run.] Does each look like what you'd really get?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "approved by James, 2026-11-14 (Deconstruct smoke-2 fixes); said in two parts around the inputs (Deconstruct smoke-3 fixes, 2026-11-14): the approved words are unchanged, the placeholder marks where the inputs go, as N-B3 and N-T11 mark theirs",
+   "note": "both tracks, when a kept practice run is a proposed one: once the runs are confirmed (N-D11's reply and any re-ask) and the real inputs are in, its own message: N-D25's first sentence, then every input the AI wrote, in full, each under a plain label naming its run, then its second sentence, which ends the message; before the confidential check and the save"
+  },
+  {
+   "id": "deconstruct:15:q2",
+   "form": "Organizational",
+   "text": "What should come out at the end?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "the \"Not clear yet\" deliverable question on the Organizational lens, outside personal life (R-T2)"
+  },
+  {
+   "id": "deconstruct:description-redraft",
+   "form": "main",
+   "text": "So the description now reads: [description].",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "N-D22",
+   "form": "Status form",
+   "text": "Your Analyze report says it runs with [skill or agent][, in [where]]. Tell me what happens in it, from what kicks it off to what comes out the other end, and whether it runs on a schedule. Rough is fine.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:starts",
+   "form": "main",
+   "text": "Will you start each run yourself, or should it run on a set schedule, such as every Monday morning?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:starts",
+   "form": "why",
+   "text": "A workflow on a schedule starts at set times on its own, so it's built and checked differently.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:starts",
+   "form": "not-sure",
+   "text": "Say you'll start it; you can put it on a schedule later.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:starts-event",
+   "form": "main",
+   "text": "When [event], will you start it yourself, or should it check for new ones on a schedule?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:how-soon",
+   "form": "main",
+   "text": "How soon after [event] does it need to start?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:how-soon",
+   "form": "not-sure",
+   "text": "Say the same day; you can make it sooner later.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:carry-over",
+   "form": "main",
+   "text": "Does it need to remember anything from earlier runs, such as which [cases] it has already handled, or the last [deliverable]?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "on the light track asked after item 3 (light-track.md points to part 4)"
+  },
+  {
+   "id": "deconstruct:carry-over",
+   "form": "why",
+   "text": "If it builds on its own past work, it needs to keep that work where it can find it.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:carry-over",
+   "form": "not-sure",
+   "text": "Say not sure; the next stage of building it checks it.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:policy",
+   "form": "main",
+   "text": "Do your company's rules, or your agreements with clients, allow [what you said these hold] to go into an AI tool?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "asked where its source first shows (Parts 2 to 5); one home, part 2"
+  },
+  {
+   "id": "deconstruct:policy",
+   "form": "why",
+   "text": "Some companies and contracts limit what goes into AI tools, so it's better to know before it's built.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:policy",
+   "form": "not-sure",
+   "text": "Say not sure; I'll note it, and it won't go live until you've checked.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:policy-no",
+   "form": "main",
+   "text": "Then it can't use [source] as it is. I can leave it out, add a step where someone removes [those details] before the AI sees it, or keep it from going live until it's approved. Which would you like?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:policy-no",
+   "form": "not-sure",
+   "text": "Say keep it from going live; you can change that once you've checked.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:file-glosses",
+   "form": "Context Inventory",
+   "text": "*The sources it uses, what we call its context.*",
+   "kind": "structure",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/requirements-template.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "file text the leader reads, under its heading in requirements.md (R-S11)"
+  },
+  {
+   "id": "deconstruct:file-glosses",
+   "form": "Example Scenarios",
+   "text": "*The practice runs: each input it's tested on, and what should happen.*",
+   "kind": "structure",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/requirements-template.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "file text the leader reads, under its heading in requirements.md (R-S11)"
+  },
+  {
+   "id": "deconstruct:file-glosses",
+   "form": "Rules & Constraints",
+   "text": "*Its rules: what it always does, never does, and does when something happens.*",
+   "kind": "structure",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/requirements-template.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "file text the leader reads, under its heading in requirements.md (R-S11)"
+  },
+  {
+   "id": "deconstruct:file-glosses",
+   "form": "Human Gates",
+   "text": "*The checkpoints: where a person checks or approves the work.*",
+   "kind": "structure",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/requirements-template.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "file text the leader reads, under its heading in requirements.md (R-S11)"
+  },
+  {
+   "id": "test:policy-confirm",
+   "form": "main",
+   "text": "Before it goes live: have you confirmed that your company's rules and client agreements allow [what these hold] to go into an AI tool?",
+   "kind": "question",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "test:policy-not-ready",
+   "form": "Web, Claude desktop and Microsoft 365",
+   "text": "Not ready yet: it waits on your check that [what these hold] can go into an AI tool. Once it's confirmed, say 'test the workflow I built. My files are in [location].'",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "test:policy-not-ready",
+   "form": "Claude Code and Codex",
+   "text": "Not ready yet: it waits on your check that [what these hold] can go into an AI tool. Once it's confirmed, say 'test the workflow I built.'",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "test:policy-not-ready",
+   "form": "Print-to-save",
+   "text": "Not ready yet: it waits on your check that [what these hold] can go into an AI tool. Once it's confirmed, start Test in a new chat with: 'test the workflow I built.' Then attach the latest zip I gave you, or paste or attach the files you saved.",
+   "kind": "safety or promise",
+   "skills": [
+    "test"
+   ],
+   "files": {
+    "test": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
+  },
+  {
+   "id": "deconstruct:8.part-2:l1",
+   "form": "main",
+   "text": "Everything for this workflow goes in its own folder.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged except the folder line, changed (R-S8, D11)"
+  },
+  {
+   "id": "deconstruct:8.part-3:l1",
+   "form": "main",
+   "text": "Whenever I ask for an example, an output or an input, don't paste real client names, personal details or anything confidential. Swap them for made-up ones, or tell me what it looks like and I'll draft a made-up example. What matters is that it looks like your real work.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-3-the-outcome.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-3:l2",
+   "form": "main",
+   "text": "We'll describe a good [deliverable] in three steps: say it, sharpen it, then make it checkable.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-3-the-outcome.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-3:l4",
+   "form": "main",
+   "text": "Here's what every [deliverable] must get right:",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-3-the-outcome.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-3:l5",
+   "form": "main",
+   "text": "That makes '[item]' a must-have: a miss always sends it back.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-3-the-outcome.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l1",
+   "form": "main",
+   "text": "Those steps sound fixed, so I'll note this as some of each: those steps stay the same, and the AI works out the rest. Does that match?",
+   "kind": "question",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l2",
+   "form": "main",
+   "text": "Every step you picked stays fixed, so I'll note this as the same way every time.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l3",
+   "form": "main",
+   "text": "None of these needs to stay fixed, so I'll note this as the AI working it out each time.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l4",
+   "form": "main",
+   "text": "Here are the steps:",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l5",
+   "form": "main",
+   "text": "Here's what it must always and never do:",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l6",
+   "form": "main",
+   "text": "**Fixed** means a step always happens exactly as written, in this order. **Flexible** means it can be adapted to fit each case. A step you do yourself can be fixed too.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l7",
+   "form": "main",
+   "text": "Here's why I think each one is fixed; keep or change: Step [N], [name]: [your own call | required by a regulation | required by company policy] *(my suggestion)* …",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l8",
+   "form": "main",
+   "text": "Step [N], your review, becomes a checkpoint: the workflow stops there until you've approved the [deliverable].",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l9",
+   "form": "main",
+   "text": "Because the rules set some steps, those stay fixed; the AI works out the rest.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l10",
+   "form": "main",
+   "text": "Here's what each step must get right. Rules are what it must follow; checks are where someone confirms the work. Keep or change each of my suggestions.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-4:l11",
+   "form": "main",
+   "text": "That's how the work gets done. Next: the rules it follows, the sources it uses, and the cases we'll test it on.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-4-the-path.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-5:l1",
+   "form": "main",
+   "text": "Last part: I'll draft the rules it follows, where you check its work, the sources it uses and the cases we'll test it on. You correct each one.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-5:l2",
+   "form": "main",
+   "text": "You review every [deliverable] before it's sent, so this runs with you.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-5:l3",
+   "form": "main",
+   "text": "Since it runs without you, when it isn't sure it'll do its best and flag it for you.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-5:l4",
+   "form": "main",
+   "text": "These are the sources it uses, what we call its **context**: any information a step needs to do its job, such as documents, spreadsheets, emails, style guides, or knowledge that lives in someone's head.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-5:l5",
+   "form": "main",
+   "text": "Saving drafts in [system] also needs a connection; we'll set that up when it's built.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-5:l6",
+   "form": "main",
+   "text": "Here are the practice runs we'll test it on.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-5-rules-sources-and-practice-runs.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "note": "catalogued with Deconstruct 3.3 (R-T5); wording unchanged"
+  },
+  {
+   "id": "deconstruct:8.part-3:l3",
+   "form": "main",
+   "text": "A few of your words need pinning down so anyone could check them. Keep or change each: '[word]' → [concrete version] *(my suggestion)* …",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-3-the-outcome.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; the separate vague-words message on the full track; the concrete versions go inside the list's playback (R-S3, D3). Catalogued as a record (R-T5)"
+  },
+  {
+   "id": "deconstruct:8.part-2:l1",
+   "form": "before 3.3",
+   "text": "Everything for this workflow will go in a folder called `[id]`.",
+   "kind": "safety or promise",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "references/part-2-scope-and-a-name.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; replaced by \"Everything for this workflow goes in its own folder.\" (R-S8, D11, T9)"
+  },
+  {
+   "id": "deconstruct:4:l1",
+   "form": "main",
+   "text": "I'll explain the questions that need it, and 'not sure' is always a fine answer. If you've done this before, say 'skip the explanations'.",
+   "kind": "teaching",
+   "skills": [
+    "deconstruct"
+   ],
+   "files": {
+    "deconstruct": "SKILL.md"
+   },
+   "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)",
+   "retired": "2026-11-13 (Deconstruct 3.3): retired; the explanations line; 'not sure' moves into N-D3, 'skip the explanations' still works (R-O1, D1). Catalogued as a record"
   }
  ]
 }

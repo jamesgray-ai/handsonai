@@ -11,10 +11,11 @@ A marketing manager at a 50-person B2B software company, leading a team of three
 
 ## How you answer
 - If told you don't have an AI Registry yet and offered to set one up first, say "start without one".
-- On the point of view (lens), take the AI's recommendation.
+- If asked whether it's your own business or you work inside an organization, answer from who you are.
+- If the AI says which point of view it will take, go along with it.
 - If asked to look through what your AI already knows, say yes.
 - Answer each question from the facts, in a sentence or two; say you're not sure when they don't cover it.
-- If asked whether there's anything to add, say no. When shown the list of workflows, say "looks good". If offered to save a point in your folder's history, say "no thanks".
+- If offered to look at one area of your work more closely, say "that's enough". If asked whether there's anything to add, say no. When shown the list of workflows, say "looks good". If offered to save a point in your folder's history, say "no thanks".
 - If asked which area of work something belongs to: draft reviews are Content; the Monday numbers and board slides are Reporting.
 
 ## When to stop

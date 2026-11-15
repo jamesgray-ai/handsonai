@@ -11,7 +11,8 @@ The owner of Brightline Advisory, a four-person analytics consulting firm. You k
 - If asked where your working folder is (or where to keep your files), say "It's my folder called My Stuff."
 - If told that folder holds a lot besides your AI work and offered a new, clean folder instead, say "use it anyway".
 - If told you don't have an AI Registry yet and offered to set one up first, say "start without one".
-- On the point of view (lens), take the AI's recommendation.
+- If asked whether it's your own business or you work inside an organization, say it's your own business. If asked your role, say you're the owner, accountable for client work.
+- If the AI says which point of view it will take, go along with it.
 - If asked to look through what your AI already knows, say "no thanks".
 - To the next question the AI asks after that, whatever it is, say: "I have to go. Stop here for now."
 

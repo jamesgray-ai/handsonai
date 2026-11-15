@@ -6,6 +6,7 @@ Never reads the skills: scripted lines are checked against the corpus only (rule
 - `[...]` in a line's text is a placeholder, filled when the line is said: it matches anything.
 - `[Label: '…']` is a clause said only in that case: it matches its own text or nothing.
 - `…` (and `...`) is an elision: it matches anything.
+- An entry with `"retired"` (when and why) is no longer approved: the corpus leaves it out.
 - A list of options where some are marked "only where…" (N-14) is said with only the options that
   apply, so the whole list is one placeholder.
 - Text is compared after `norm`: curly and straight quotes alike, single and double quotes alike,
@@ -133,7 +134,12 @@ def _collapse_option_lists(toks):
     return out
 
 
-def _lit_regex(lit):
+# After a hole, a literal "." also matches a fill that ends in a quote with its own mark inside it
+# ("…say 'is it ready?'" for "…say [question]."): the full stop is then said inside the quote.
+AFTER_HOLE_STOP = r"(?:\.|[.?!]['\"’”])"
+
+
+def _lit_regex(lit, after_hole=False):
     n = norm(lit)
     if not n:
         return r"\s*" if lit.strip() == "" and lit else ""
@@ -147,6 +153,8 @@ def _lit_regex(lit):
             parts.append(re.escape(p[:-1]) + "[.;]")
         else:
             parts.append(re.escape(p))
+    if after_hole and not lit[:1].isspace() and parts and parts[0].startswith(r"\."):
+        parts[0] = AFTER_HOLE_STOP + parts[0][2:]
     lead = r"\s*" if lit[:1].isspace() else ""
     trail = r"\s*" if lit[-1:].isspace() else ""
     return lead + r"\s+".join(parts) + trail
@@ -154,9 +162,9 @@ def _lit_regex(lit):
 
 def to_regex(toks):
     out = []
-    for t in toks:
+    for k, t in enumerate(toks):
         if t[0] == "lit":
-            out.append(_lit_regex(t[1]))
+            out.append(_lit_regex(t[1], after_hole=k > 0 and toks[k - 1][0] == "hole"))
         elif t[0] == "hole":
             out.append(r".*?")
         else:
@@ -168,9 +176,9 @@ def capture_regex(toks, names):
     """A regex for a line whose holes named in `names` ({bracket text: group name}) capture what
     filled them; other holes and optional clauses match as usual."""
     out = []
-    for t in toks:
+    for k, t in enumerate(toks):
         if t[0] == "lit":
-            out.append(_lit_regex(t[1]))
+            out.append(_lit_regex(t[1], after_hole=k > 0 and toks[k - 1][0] == "hole"))
         elif t[0] == "hole":
             g = names.get(t[1])
             out.append(f"(?P<{g}>.+?)" if g else r".*?")
@@ -204,6 +212,8 @@ class Line:
         self.kind, self.skills, self.files = e.get("kind"), e.get("skills", []), e.get("files", {})
         self.fragment = bool(e.get("fragment"))
         self.derived = bool(e.get("derived"))  # built here from another form, never placed in a skill file
+        # a line whose [state] takes only listed phrases (N-F23, the routing lead-in, core round-2 fixes)
+        self.states = list(e.get("states", []))
         self.toks = tokens(self.text) if self.text else []
         self._rx = None
         self.segments = [s for s in (words(x) for x in literal_segments(self.toks)) if s]
@@ -254,6 +264,10 @@ class Corpus:
     def __init__(self, path=DEFAULT_CORPUS):
         data = json.loads(Path(path).read_text())
         self.meta = data.get("meta", {})
+        # a "retired" entry (its value says when and why) stays in the file as a record only: it is no
+        # longer approved, so it is never matched, placed or quoted, and an eval that still names it fails
+        self.retired = [e for e in data["lines"] if e.get("retired")]
+        data["lines"] = [e for e in data["lines"] if not e.get("retired")]
         # a "clause" entry is part of another line (N-B4's count-one OK clause): only the whole lines
         # built from it below are matched, so it never passes or fails a quote check on its own
         self.lines = [Line(e) for e in data["lines"] if not e.get("clause")]
@@ -282,10 +296,29 @@ class Corpus:
                 continue
             text = (main["text"].replace("in a new chat with:", frag.rstrip(":") + ":") if " with" in frag
                     else main["text"].replace("in a new chat with:", frag + " with:"))
+            if frag == "in a new session":
+                # Claude Code and Codex: N-F2's form there ("in a new session in this project", no location),
+                # as the no-location forms below make it; never "in a new session" with the location kept
+                text = _no_location(text)
             if any(m["id"] == e["id"] and m.get("text") == text for m in data["lines"]):
                 continue  # already approved as a whole line (N-F2's Claude Code and Codex form)
             label = re.sub(r"^In N-F2's platform forms \(", "", e["form"])
             self.lines.append(Line(dict(main, form=f"{label}, whole line", text=text, files={}, derived=True)))
+        # On Claude Code and Codex a start phrase carries no location, and "in a new session" reads "in a new
+        # session in this project" (rules 4.2): every line that gives '[start phrase]. My files are in
+        # [location].' has that form, derived here, unless it is already approved as it is
+        for e in data["lines"]:
+            src = e.get("text") or ""
+            if e.get("fragment") or e.get("clause") or LOCATION_TAIL not in src:
+                continue
+            # only the platform-neutral forms: a web, desktop or Microsoft 365 form keeps its location
+            if re.search(r"(?i)desktop|microsoft 365|cowork|on the web|chatgpt|gemini|cloud", e.get("form") or ""):
+                continue
+            text = _no_location(src)
+            if any(m["id"] == e["id"] and m.get("text") == text for m in data["lines"]):
+                continue
+            self.lines.append(Line(dict(e, form=f"{e['form']}, Claude Code and Codex (no location)", text=text,
+                                        files={}, derived=True)))
         # N-B4's "First I'll need you to … connect [tools], check [a draft] and OK [L] quick real checks
         # and setup changes": "A clause with nothing in it is left out" (build SKILL.md, *The opening*,
         # "Its clauses"). With no draft to check, no tool to connect or nothing to OK, the clause goes and
@@ -327,6 +360,11 @@ class Corpus:
     def checkable(self):
         return [ln for ln in self.lines if ln.text and not ln.fragment]
 
+    def spannable(self):
+        """Every form whose exact saying marks a span as approved: the whole lines, and the fragment forms
+        (a fragment said word for word is approved there, so near-miss detection must not flag it)."""
+        return [ln for ln in self.lines if ln.text]
+
     # -- the index of fixed runs, for near misses
     def index(self):
         if self._index is None:
@@ -341,7 +379,7 @@ class Corpus:
         return self._index
 
     def exact_spans(self, ws):
-        """Word spans in ws where some fixed run of some line appears exactly."""
+        """Word spans in ws where some fixed run of some line (or of a fragment form) appears exactly."""
         spans = []
         idx = self.index()
         for i in range(len(ws) - 2):
@@ -349,6 +387,15 @@ class Corpus:
                 seg = ln.segments[k]
                 if ws[i:i + len(seg)] == seg:
                     spans.append((i, i + len(seg)))
+        for ln in self.lines:
+            if not (ln.fragment and ln.text):
+                continue
+            for seg in ln.segments:
+                if len(seg) < 3:
+                    continue
+                for i in range(len(ws) - len(seg) + 1):
+                    if ws[i:i + len(seg)] == seg:
+                        spans.append((i, i + len(seg)))
         return spans
 
     def said_spans(self, message):
@@ -357,7 +404,7 @@ class Corpus:
         low = nm.lower()
         starts = [m.start() for m in WORD.finditer(nm)]
         spans = []
-        for ln in self.checkable():
+        for ln in self.spannable():
             longest = ln.longest
             if not longest or _pre(longest) not in _pre(low):
                 continue
@@ -430,6 +477,15 @@ class Corpus:
             nm = ln.regex.sub(lambda m: _holes_only(ln, m.group(0)) if keep_fills else " ", nm)
             low = nm.lower()
         return nm
+
+
+LOCATION_TAIL = ". My files are in [location].'"
+
+
+def _no_location(text):
+    """A line's Claude Code and Codex form: its start phrases end at the phrase, and a new session is in this project."""
+    text = text.replace(LOCATION_TAIL, ".'")
+    return re.sub(r" in a new session(?! in this project)", " in a new session in this project", text)
 
 
 def _pre(s):

@@ -607,7 +607,30 @@ def fx_agent_failed_check(t):  # Build's request after an Agent Builder agent fa
                           "why: \"Failed check: the carried lines must be word for word\", tasks: [T2, KW], after_round: 1 }")
 
 
+# ---------- the fields Deconstruct 3.3 adds (stage 9) ----------
+# Lead Follow-Up: started by an event, checked on a schedule (`Starts: event: … · checked every 30 minutes`), one lead
+# per run, remembers the leads it has handled, runs without the leader, writes only a draft (place recorded) and the
+# flag W line (`· send a flag · after each run`). The shared fixture with every new field on Client Follow-Up is
+# framework-fixtures/edge/e-new-fields (pointed at directly).
+LFU = "lead-follow-up"
+fx_event_30min = on_s04(
+    LFU, "Lead Follow-Up",
+    "Drafts a first reply to each new inbound lead in HubSpot, from the lead's form and your reply guide, for you to read and send.",
+    "A new lead arrives in HubSpot")
+
+
+def fx_event_as_often(t):  # "right away": the platform's shortest schedule, never a figure said to the leader (B-M3)
+    fx_event_30min(t)
+    sub(wf_dir(t, LFU) / "requirements.md", "· checked every 30 minutes |", "· checked as often as it can |")
+
+
+def fx_place_to_confirm(t):  # a write place the leader didn't know: a visible unknown inside [system] (R-D4)
+    fx_event_30min(t)
+    sub(wf_dir(t, LFU) / "requirements.md", "- W1 · Gmail (your Drafts folder) ·", "- W1 · Gmail (which mailbox to confirm) ·")
+
+
 FIXTURES = {
+    "event-30min": fx_event_30min, "event-as-often": fx_event_as_often, "place-to-confirm": fx_place_to_confirm,
     "regulated-same-way": fx_regulated_same_way, "regulated-some-of-each": fx_regulated_some_of_each,
     "split-part": fx_split_part, "domains": fx_domains, "planned-steps": fx_planned_steps,
     "reuse": fx_reuse, "regime-unchecked": fx_regime_unchecked, "cannot-meet": fx_cannot_meet,

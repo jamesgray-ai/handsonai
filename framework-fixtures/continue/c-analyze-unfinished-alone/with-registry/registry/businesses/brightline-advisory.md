@@ -9,6 +9,11 @@ status: active
 
 A small consulting firm that runs analytics projects for mid-size companies.
 
+## Objectives
+
+- Keep every client renewal on time
+- Win two new clients a quarter
+
 # Lines of Business
 
 - [Client Services](/lines-of-business/client-services.md)

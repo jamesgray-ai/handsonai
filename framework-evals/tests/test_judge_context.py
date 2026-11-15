@@ -219,5 +219,42 @@ class NameLinesLeaderFilesOnly(unittest.TestCase):
         self.assertIn("Northwind call.", G.name_lines(run, [msg]))
 
 
+class PickedCard(unittest.TestCase):
+    """smoke-1 fix: a cut Analyze report still shows the picked workflow's card and summary row."""
+    REPORT = ("# AI Opportunity Report\n\n" + "Filler line that pads the report head out past the cut.\n" * 60
+              + "\n### Detailed Opportunity Cards\n\n---\n\n**1 Client Follow-Up**\n\n**Goal:** Keep renewals on time\n\n---\n\n"
+              "**2 Weekly Pipeline Summary**\n\n**Goal:** Win two clients\n\n---\n\n## Workflow Candidate Summary\n\n"
+              "| Field | Content |\n|-------|---------|\n| **Workflow** | Client Follow-Up |\n| **Frequency** | Daily |\n\n"
+              "| Field | Content |\n|-------|---------|\n| **Workflow** | Weekly Pipeline Summary |\n| **Frequency** | Weekly |\n")
+
+    def test_picked_slugs_and_blocks(self):
+        run = {"sessions": [{"files_start": {"framework/ai-opportunity-report.md": self.REPORT},
+                             "files_end": {"framework/ai-opportunity-report.md": self.REPORT,
+                                           "framework/client-follow-up/deconstruct-in-progress.md": "x"}}]}
+        slugs = G.picked_slugs(run)
+        self.assertEqual(slugs, {"client-follow-up"})
+        out = G.picked_blocks(self.REPORT, slugs, self.REPORT[:G.READ_FILE_CAP])
+        self.assertIn("**1 Client Follow-Up**", out)
+        self.assertIn("| **Frequency** | Daily |", out)
+        self.assertNotIn("Weekly", out)
+        self.assertEqual(G.picked_blocks(self.REPORT, set(), ""), "")
+
+    def test_summary_row_first_and_after_a_changed_node(self):
+        # smoke-2 fix (M-light-scheduled): "Ends with: A one-page priorities note" was judged invented. The card's
+        # prose filled the cap ahead of its summary table, and a changed Workflow node (ranked before the report)
+        # overwrote the picked workflows, so no card was shown past the cut at all
+        prose = "**1 Client Follow-Up**\n\n" + "**Note:** A long line of card prose about the follow-up work.\n" * 23
+        report = self.REPORT.replace("**1 Client Follow-Up**\n\n**Goal:** Keep renewals on time\n", prose)
+        report = report.replace("| **Frequency** | Daily |", "| **Deliverable** | A one-page follow-up email |\n| **Frequency** | Daily |")
+        self.assertIn("A one-page follow-up email", G.picked_blocks(report, {"client-follow-up"}, report[:G.READ_FILE_CAP]))
+        node = "registry/workflows/client-follow-up.md"
+        before = "---\ntitle: Client Follow-Up\nstatus: backlog\ndescription: Drafts the follow-up email after each client call.\n---\n"
+        after = before.replace("status: backlog", "status: under-development")
+        run = run_with([tool_result(report + "\n" + before)],
+                       {"framework/ai-opportunity-report.md": report, node: before})
+        run["sessions"][0]["files_end"] = {"framework/ai-opportunity-report.md": report, node: after}
+        self.assertIn("A one-page follow-up email", G.files_read(run, ["x"]))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -53,6 +53,10 @@ Expected values are the routing rule's (rules 4.2): the state number and its own
 | `edge/e-interrupted-redo-with-progress/` | 3 · Deconstruct | 3 · Deconstruct |
 | `edge/e-interrupted-redo-no-progress/` | 3 · Deconstruct | 3 · Deconstruct |
 | `edge/e-run-guide-not-a-sign/` | 11 · Test | 11 · Test |
+| `edge/e-policy-wait/` | 8 · Test | 8 · Test |
+| `edge/e-policy-confirmed/` | 10 · Test | 10 · Test |
+| `edge/e-safety-input/` | 10 · Test | 10 · Test |
+| `edge/e-new-fields/` | 4 · Design | 4 · Design |
 
 ## State 1: earlier versions
 

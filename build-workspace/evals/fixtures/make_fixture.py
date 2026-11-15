@@ -385,6 +385,34 @@ def fx_web_first(t):
     set_platform(t, "claude")
 
 
+def fx_web_first_carry_over(t):
+    """Deconstruct 3.3 (R-D8, R-D9): every Deconstruct input carries expect:, and E3 is a carry-over input whose body
+    opens with an Earlier run: paragraph; the workflow remembers which calls it has followed up (`Remembers`), and
+    the plan's Stateful? row names its store. Build's bare run strips the header lines and the paragraph, and puts the
+    paragraph's state only in a test copy of the store (bare-run.md section 1)."""
+    fx_web_first(t)
+    i = wf(t) / "inputs"
+    sub(i / "E1-acme-renewal-call.md", "tests: AC1, AC2, AC3, R1, G1\n",
+        "tests: AC1, AC2, AC3, R1, G1\nexpect: a draft listing all three next steps, each with its owner; nothing sent\n")
+    sub(i / "E2-no-next-step.md", "tests: AC2, R1, R3\n",
+        "tests: AC2, R1, R3\nexpect: asks you for a next step before it drafts anything; no draft until you answer\n")
+    write(i / "E3-already-handled.md",
+          "source: deconstruct\ntests: AC2, R1\nexpect: skips the call an earlier run already handled\n\n"
+          "Earlier run: followed up the Northwind call with Lee Park on 12 October.\n\n"
+          "Call with Lee Park (Northwind), 12 October. Talked through how the first quarter went. "
+          "Lee will think about expanding the team licence.\n")
+    r = req(t)
+    sub(r, "| All three next steps, each with its owner |", "| a draft listing all three next steps, each with its owner; nothing sent |")
+    sub(r, "| It asks you for a next step before it drafts anything | — |",
+        "| asks you for a next step before it drafts anything; no draft until you answer | — |\n"
+        "| E3 | A call already followed up (proposed) | `inputs/E3-already-handled.md` — this week's notes again for a call an earlier run followed up | skips the call an earlier run already handled | — |")
+    text = r.read_text()
+    meta_end = text.index("\n\n", text.index("| Workflow Name |"))
+    r.write_text(text[:meta_end] + "\n| Remembers | which calls it has already followed up |" + text[meta_end:])
+    sub(plan(t), "- **Stateful?:** No",
+        "- **Stateful?:** Yes, a list of the calls it has followed up, kept in the workflow's Project as `followed-up-calls.md`")
+
+
 def fx_desktop_first(t):
     fx_web_first(t)
 
@@ -976,7 +1004,7 @@ def fx_wrong_place(t):  # the workflow's own place: its skill and context copy, 
 FIXTURES = {
     # first builds
     "cc-first": fx_cc_first, "cc-first-full": fx_cc_first_full, "cc-first-no-registry": fx_cc_first_no_registry,
-    "web-first": fx_web_first, "desktop-first": fx_desktop_first, "chatgpt-first": fx_chatgpt_first,
+    "web-first": fx_web_first, "web-first-carry-over": fx_web_first_carry_over, "desktop-first": fx_desktop_first, "chatgpt-first": fx_chatgpt_first,
     "codex-first": fx_codex_first, "m365-skills-first": fx_m365_skills_first, "m365-agent-first": fx_m365_agent_first,
     "m365-agent-no-context": fx_m365_agent_no_context, "wrong-surface": fx_wrong_surface,
     "no-connection": fx_no_connection, "cc-mixed-tool": fx_cc_mixed_tool, "light-gains-risk": fx_light_gains_risk,

@@ -277,12 +277,85 @@
           }
         },
         {
-          "text": "Says bring-in-line word for word",
+          "text": "Session 13: no bring-in line: \"change my workflow\" on running work, first thing on Claude Code, starts Deconstruct directly, which takes it in (N-D22)",
           "kind": "scripted",
           "check": {
-            "type": "quote",
-            "id": "bring-in-line",
+            "type": "all",
+            "checks": [
+              {
+                "type": "all",
+                "checks": [
+                  {
+                    "type": "quote_absent",
+                    "id": "bring-in-line",
+                    "form": "main",
+                    "session": 13
+                  },
+                  {
+                    "type": "quote_absent",
+                    "id": "bring-in-line",
+                    "form": "Claude Code and Codex, whole line",
+                    "session": 13
+                  },
+                  {
+                    "type": "quote_absent",
+                    "id": "bring-in-line",
+                    "form": "Claude desktop, whole line",
+                    "session": 13
+                  },
+                  {
+                    "type": "quote_absent",
+                    "id": "bring-in-line",
+                    "form": "Microsoft 365, whole line",
+                    "session": 13
+                  },
+                  {
+                    "type": "quote_absent",
+                    "id": "bring-in-line",
+                    "form": "main, Claude Code and Codex (no location)",
+                    "session": 13
+                  }
+                ]
+              },
+              {
+                "type": "quote",
+                "id": "N-D22",
+                "session": 13
+              }
+            ]
+          }
+        },
+        {
+          "text": "Session 13: the first message opens with Deconstruct's opening (N-D2), or with the routing lead-in and then N-D2: nothing else of Test's own before it (core round-2 fixes)",
+          "kind": "scripted",
+          "check": {
+            "type": "opens_with",
+            "ids": [
+              "N-D2"
+            ],
+            "lead_in": true,
             "session": 13
+          }
+        },
+        {
+          "text": "Session 13: N-D22 is Deconstruct's first question, in its first message, with no N-D1 before it (core round-2 fixes)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-D22",
+                "turn": "first",
+                "session": 13
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-D1",
+                "turn": "first",
+                "session": 13
+              }
+            ]
           }
         },
         {
@@ -467,7 +540,10 @@
           }
         }
       ],
-      "est_turns": 1
+      "est_turns": 1,
+      "covers": [
+        "core round-2 fixes (2026-11-12): the routing lead-in (N-F23) allowed at a direct start"
+      ]
     },
     {
       "id": "TE-m365-entry",
@@ -3685,13 +3761,13 @@
     {
       "id": "TC-gap-and-flag",
       "name": "coverage-gap-filled",
-      "tier": "regression",
-      "spec_item": "13 Coverage: a line with no input filled before any run; the flag input written once, outside the cap",
+      "tier": "core",
+      "spec_item": "13 Coverage: a line with no input filled before any run; the flag input written once, outside the cap; N-T6+N-T7's changed coverage line (Deconstruct 3.3, R-D2), said always",
       "fixture": "web-first",
       "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
       "student": "students/default.md",
       "platform": "claude-web",
-      "expected_output": "W1, G1 and P2 have no input: Test writes inputs aimed at them before anything runs; the flag input is written (source: flag); N-T6+N-T7 names the one it added.",
+      "expected_output": "W1, G1 and P2 have no input: Test writes inputs aimed at them before anything runs; the flag input is written (source: flag); N-T6+N-T7, in its 3.3 form (\"…or anything it must never do, always sends it back…\"), names the one it added.",
       "files": [
         "students/default.md"
       ],
@@ -3706,6 +3782,15 @@
           }
         },
         {
+          "text": "N-T6+N-T7 carries its 3.3 clause about anything it must never do",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_contains",
+            "text": "Missing one you can't live without, or anything it must never do, always sends it back",
+            "line": "N-T6+N-T7"
+          }
+        },
+        {
           "text": "The flag input saved",
           "kind": "scripted",
           "check": {
@@ -3717,6 +3802,13 @@
         {
           "text": "Coverage is worked out before any hand-over, and the leader sees one line about it",
           "kind": "judged"
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
         }
       ],
       "est_turns": 14
@@ -4248,20 +4340,73 @@
       "id": "TG-flag-input",
       "name": "flag-input-graded",
       "tier": "regression",
-      "spec_item": "13 Grading: the flag input graded on KW and the 'It never…' rules only, with no reply",
+      "runs": 1,
+      "spec_item": "13 Grading: the flag input graded on KW plus every safety must-have it presents (Deconstruct 3.3, R-D2), with no reply",
       "fixture": "web-batch",
       "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
       "student": "students/default.md",
       "platform": "claude-web",
-      "expected_output": "The supplier call: graded on KW, R1 and P2 only, its result said in one line, with no agree question and no edits word.",
+      "expected_output": "The supplier call: graded on KW and every safety must-have it presents (R1, a Never rule with no role tag, and P2, a prohibited action), its one-line result naming them, with no agree question and no edits word.",
       "files": [
         "students/default.md"
       ],
       "expectations": [
         {
-          "text": "The flag input's result is one line with no question and no edits word; only KW and 'It never…' lines are graded on it",
+          "text": "The flag input's result is one line, naming KW and the safety must-haves it presents (R1 and P2), with no question and no edits word",
           "kind": "judged",
           "must": true
+        },
+        {
+          "text": "The flag input is graded on KW and on both safety must-haves it presents, R1 and P2",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^  E3: \\{.*\\bKW: (?:met|not-met)"
+              },
+              {
+                "type": "file_regex",
+                "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^  E3: \\{.*\\bR1: (?:met|not-met)"
+              },
+              {
+                "type": "file_regex",
+                "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^  E3: \\{.*\\bP2: (?:met|not-met)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The check list marks R1 and P2 as safety must-haves",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "section_regex",
+                "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+                "section": "## Check list",
+                "pattern": "R1\\b[^\\n]*\\| yes \\(safety\\) \\|"
+              },
+              {
+                "type": "section_regex",
+                "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+                "section": "## Check list",
+                "pattern": "P2\\b[^\\n]*\\| yes \\(safety\\) \\|"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
         }
       ],
       "est_turns": 10
@@ -7723,6 +7868,1156 @@
         }
       ],
       "est_turns": 40
+    },
+    {
+      "id": "TP-policy-confirm-last",
+      "name": "policy-confirm-last",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The questions first: the policy confirm question last, only once everything else would give Ready; a yes is a requirement change by Test (Deconstruct 3.3, R-D7)",
+      "fixture": "policy-verdict",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/policy-yes-not-live.md",
+      "expected_output": "Every line met; the requirements read `Policy check: Not sure — to check`. The confirm question comes last, before the verdict; the yes rewrites the line to `Allowed` (revision 2, by: test, lines: [Policy check]), the file passes the validator, then Ready and Take it live?; \"not yet\" leaves it Ready, go_live pending.",
+      "files": [
+        "students/policy-yes-not-live.md"
+      ],
+      "expectations": [
+        {
+          "text": "Says the policy confirm question word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "test:policy-confirm"
+          }
+        },
+        {
+          "text": "The confirm question is the last question before the verdict: nothing else is asked after it until the Ready line",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "The yes rewrites the line to Allowed, as a requirement change by Test",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^Policy check: Allowed[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^revision: 2[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^    by: test[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^    lines: \\[Policy check\\][ \\t]*$"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The rewritten requirements pass the validator",
+          "kind": "scripted",
+          "check": {
+            "type": "structure",
+            "path": "framework/client-follow-up/requirements.md",
+            "kind": "requirements",
+            "registry": true
+          }
+        },
+        {
+          "text": "Says N-T34 (Ready, not yet live) after the yes",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-T34",
+            "form": "Ready, not yet live"
+          }
+        },
+        {
+          "text": "\"Not yet\" leaves the round Ready with go_live pending",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^readiness: ready[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^go_live: pending[ \\t]*$"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 8
+    },
+    {
+      "id": "TP-return-visit-yes",
+      "name": "policy-return-visit-yes",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The return visit after a policy Not ready (state 8): Test's one-line opening, then the confirm question; a yes reaches Ready with no re-run (Deconstruct 3.3, R-D7, M1)",
+      "fixture": "policy-wait",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/policy-yes-not-live.md",
+      "expected_output": "Round 1 closed Not ready on the policy wait alone. The next entry opens with Test's usual one-line opening, then the confirm question; no new round and no practice run. The yes rewrites the requirements (Allowed, by: test) and round 1's results in place (readiness: ready, go_live: pending, \"Policy check confirmed on [date]\"); then Take it live?, and \"not yet\" leaves it Ready.",
+      "files": [
+        "students/policy-yes-not-live.md"
+      ],
+      "expectations": [
+        {
+          "text": "Says the policy confirm question in the first message",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "test:policy-confirm",
+            "turn": "first"
+          }
+        },
+        {
+          "text": "The first message opens with Test's usual one-line opening (which workflow, where it stands), then the confirm question, and nothing about opening a new round",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No new round: no coverage line and no hand-over",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-T6+N-T7",
+                "form": "main"
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T6+N-T7",
+                "form": "Later rounds"
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T8",
+                "form": "Claude Code"
+              },
+              {
+                "type": "file_absent",
+                "path": "practice/.framework-practice"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Round 1's results rewritten in place to Ready, go_live pending, with the confirmed reason",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^round: 1[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^readiness: ready[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^go_live: pending[ \\t]*$"
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "section": "## Verdict",
+                "pattern": "Policy check confirmed on \\d{4}-\\d\\d-\\d\\d"
+              },
+              {
+                "type": "file_not_contains",
+                "path": "framework/client-follow-up/test-results.md",
+                "text": "Waiting on the policy check"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The results file is still well formed",
+          "kind": "scripted",
+          "check": {
+            "type": "structure",
+            "path": "framework/client-follow-up/test-results.md",
+            "kind": "results"
+          }
+        },
+        {
+          "text": "The requirements read Allowed, logged as Test's change",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^Policy check: Allowed[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^    lines: \\[Policy check\\][ \\t]*$"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Then N-T34 (Ready, not yet live), and \"not yet\" gets N-T34 (No)",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote",
+                "id": "N-T34",
+                "form": "Ready, not yet live"
+              },
+              {
+                "type": "quote",
+                "id": "N-T34",
+                "form": "No"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 5
+    },
+    {
+      "id": "TP-return-visit-no",
+      "name": "policy-return-visit-no",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The return visit: a policy \"no\" keeps it Not ready, the line `No — not live until approved`, and routes to \"change my workflow\" (Deconstruct 3.3, R-D7; section 11 item 8)",
+      "fixture": "policy-wait",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/policy-checked-no.md",
+      "expected_output": "The leader checked and it isn't allowed: the round stays Not ready with the Verdict reason \"The policy check came back no\", the line becomes `Policy check: No — not live until approved` (by: test), and one line says the requirements need to change, with \"change my workflow\"'s start phrase; nothing follows it.",
+      "files": [
+        "students/policy-checked-no.md"
+      ],
+      "expectations": [
+        {
+          "text": "Says the policy confirm question",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "test:policy-confirm"
+          }
+        },
+        {
+          "text": "The line becomes No — not live until approved, logged as Test's change",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^Policy check: No — not live until approved[ \\t]*$"
+              },
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/requirements.md",
+                "pattern": "(?m)^    lines: \\[Policy check\\][ \\t]*$"
+              }
+            ]
+          }
+        },
+        {
+          "text": "The round stays Not ready with the no reason",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^readiness: not-ready[ \\t]*$"
+              },
+              {
+                "type": "section_regex",
+                "path": "framework/client-follow-up/test-results.md",
+                "section": "## Verdict",
+                "pattern": "The policy check came back no"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Gives \"change my workflow\"'s start phrase",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "(?i)'change my workflow",
+            "turn": "last"
+          }
+        },
+        {
+          "text": "Never says it's ready",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-T34",
+                "form": "Ready, not yet live"
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T34",
+                "form": "Ready, live"
+              }
+            ]
+          }
+        },
+        {
+          "text": "One line says the requirements need to change, to leave the source out or remove its details first, then the start phrase ends the message",
+          "kind": "judged"
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 4
+    },
+    {
+      "id": "TP-return-visit-not-yet",
+      "name": "policy-return-visit-not-yet",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The return visit: not confirmed yet, the Not-ready line again (Claude Code's form), ending the message; nothing rewritten (Deconstruct 3.3, R-D7)",
+      "fixture": "policy-wait",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/policy-not-yet.md",
+      "expected_output": "The confirm question, then \"not yet\": the Not-ready line in Claude Code's form, which ends the message; the requirements and results stay as they were.",
+      "files": [
+        "students/policy-not-yet.md"
+      ],
+      "expectations": [
+        {
+          "text": "Says the policy confirm question",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "test:policy-confirm"
+          }
+        },
+        {
+          "text": "Says the Not-ready line in Claude Code's form",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "test:policy-not-ready",
+            "form": "Claude Code and Codex"
+          }
+        },
+        {
+          "text": "The Not-ready line ends the message",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "say 'test the workflow I built\\.?'\\.?\\s*$",
+            "turn": "last"
+          }
+        },
+        {
+          "text": "Nothing rewritten",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_unchanged",
+                "path": "framework/client-follow-up/requirements.md"
+              },
+              {
+                "type": "file_unchanged",
+                "path": "framework/client-follow-up/test-results.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 4
+    },
+    {
+      "id": "TP-confirmed-state-10",
+      "name": "policy-confirmed-reaches-state-10",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The return visit's yes, then No to \"Take it live?\": the next entry is state 10, not another policy visit (Deconstruct 3.3, R-D7, M1)",
+      "fixture": "policy-confirmed",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/policy-yes-not-live.md",
+      "expected_output": "Round 1 was rewritten to Ready with go_live pending after the policy check was confirmed: the next entry offers to take it live, asks no policy question and opens no round.",
+      "files": [
+        "students/policy-yes-not-live.md"
+      ],
+      "expectations": [
+        {
+          "text": "Never asks the policy confirm question again",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "test:policy-confirm"
+          }
+        },
+        {
+          "text": "Opens no round",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-T6+N-T7",
+                "form": "main"
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T6+N-T7",
+                "form": "Later rounds"
+              }
+            ]
+          }
+        },
+        {
+          "text": "It treats the workflow as ready to go live and asks about taking it live",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 4
+    },
+    {
+      "id": "TP-no-no-loop",
+      "name": "policy-no-no-loop",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 After a policy \"no\", a return with the requirements unchanged: the same line again, no confirm question (Deconstruct 3.3, R-D7, L5)",
+      "fixture": "policy-no",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/policy-checked-no.md",
+      "expected_output": "The last round's Verdict reason is \"The policy check came back no\" and nothing changed since: Test repeats the line that the requirements need to change, with \"change my workflow\"'s start phrase, asks no confirm question and opens no round.",
+      "files": [
+        "students/policy-checked-no.md"
+      ],
+      "expectations": [
+        {
+          "text": "Never asks the confirm question",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "test:policy-confirm"
+          }
+        },
+        {
+          "text": "Gives \"change my workflow\"'s start phrase",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_regex",
+            "pattern": "(?i)'change my workflow"
+          }
+        },
+        {
+          "text": "Opens no round and rewrites nothing",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-T6+N-T7",
+                "form": "main"
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T6+N-T7",
+                "form": "Later rounds"
+              },
+              {
+                "type": "file_unchanged",
+                "path": "framework/client-follow-up/requirements.md"
+              },
+              {
+                "type": "file_unchanged",
+                "path": "framework/client-follow-up/test-results.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 3
+    },
+    {
+      "id": "TP-not-ready-web",
+      "name": "policy-not-ready-web",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The verdict: the policy Not-ready line in its web form, ending the message, with its Verdict reason (Deconstruct 3.3, R-D7)",
+      "fixture": "policy-verdict-web",
+      "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
+      "student": "students/policy-not-yet.md",
+      "expected_output": "Every line met, the check not yet confirmed: the round closes Not ready, Verdict \"Waiting on the policy check (Not sure — to check)\", and the Not-ready line in the web form ends the message.",
+      "files": [
+        "students/policy-not-yet.md"
+      ],
+      "expectations": [
+        {
+          "text": "Says the Not-ready line in the web form",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "test:policy-not-ready",
+            "form": "Web, Claude desktop and Microsoft 365"
+          }
+        },
+        {
+          "text": "The round closes Not ready with the waiting reason",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_regex",
+                "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+                "pattern": "(?m)^readiness: not-ready[ \\t]*$"
+              },
+              {
+                "type": "section_regex",
+                "path": "drive/ai-workspace/framework/client-follow-up/test-results.md",
+                "section": "## Verdict",
+                "pattern": "Waiting on the policy check \\(Not sure — to check\\)"
+              }
+            ]
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 8,
+      "platform": "claude-web"
+    },
+    {
+      "id": "TC-first-round-writes",
+      "name": "first-round-malformed-and-instruction",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 Coverage, the first round: Test writes the empty or malformed input and, with an External source, the instruction-carrying input, each with expect: (Deconstruct 3.3, R-D11, D8g amended)",
+      "fixture": "external-first",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "A first round with an External source (the client's follow-up questions): Test writes an empty or malformed input (tests: the Fallback rule, R3) and an input carrying an instruction aimed at the AI, each with an expect: line, before anything runs.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "An empty or malformed input written by Test, testing the Fallback rule, with expect:",
+          "kind": "scripted",
+          "check": {
+            "type": "tool_write",
+            "path": "*framework/client-follow-up/inputs/E*.md",
+            "pattern": "(?m)^source: test\\ntests: [^\\n]*\\bR3\\b[^\\n]*\\nexpect: \\S"
+          }
+        },
+        {
+          "text": "An input carrying an instruction aimed at the AI, with an expect: that it ignores it",
+          "kind": "scripted",
+          "check": {
+            "type": "tool_write",
+            "path": "*framework/client-follow-up/inputs/E*.md",
+            "pattern": "(?m)^source: (?:test|flag)\\ntests: [^\\n]*\\nexpect: [^\\n]*(?i:ignor)"
+          }
+        },
+        {
+          "text": "Says N-T6+N-T7 (main) word for word",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-T6+N-T7",
+            "form": "main"
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 20
+    },
+    {
+      "id": "TC-cap-full-first",
+      "name": "cap-full-first-round",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The practice set: the cap of 8 full in the first round, with nothing Test wrote to replace: what doesn't fit isn't written and is reported (Deconstruct 3.3, R-D11, M3)",
+      "fixture": "cap-full-first",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "Eight inputs saved (two real, three from Deconstruct, three from Design), none written by Test, the flag input outside the cap: the eviction rule frees no room, so the empty or malformed input isn't written, and Test says so; nothing is replaced.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "No input added beyond the flag input",
+          "kind": "scripted",
+          "check": {
+            "type": "file_absent",
+            "path": "framework/client-follow-up/inputs/E1[0-9]-*.md"
+          }
+        },
+        {
+          "text": "All eight saved inputs stay",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E1-acme-renewal-call.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E2-no-next-step.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E3-case-3.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E4-case-4.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E5-case-5.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E6-case-6.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E7-case-7.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E8-case-8.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Test says the empty-or-malformed input wasn't written because the practice set was full, and any line left with no input is reported untested at the verdict",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 20
+    },
+    {
+      "id": "TC-safety-outside-cap",
+      "name": "safety-input-outside-cap",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 Coverage: a safety must-have the flag input can't present gets its own `source: flag` input, outside the cap of 8 and never evicted at it (Deconstruct 3.3, R-D2, B-H3)",
+      "fixture": "cap-full-safety",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "P3 (it never puts a client's personal phone number in a draft) can't be presented by the supplier-call flag input: Test writes a `source: flag` input for it, tests: naming P3, with expect:, even with the cap full; none of the eight is replaced; P3 is a safety must-have in the check list.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "A safety input for P3: source: flag, tests: naming P3, with expect:",
+          "kind": "scripted",
+          "check": {
+            "type": "tool_write",
+            "path": "*framework/client-follow-up/inputs/E*.md",
+            "pattern": "(?m)^source: flag\\ntests: [^\\n]*\\bP3\\b[^\\n]*\\nexpect: \\S"
+          }
+        },
+        {
+          "text": "None of the eight is replaced",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E1-acme-renewal-call.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E2-no-next-step.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E3-case-3.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E4-case-4.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E5-case-5.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E6-case-6.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E7-case-7.md"
+              },
+              {
+                "type": "file_exists",
+                "path": "framework/client-follow-up/inputs/E8-case-8.md"
+              }
+            ]
+          }
+        },
+        {
+          "text": "P3 is a safety must-have in the check list",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "section": "## Check list",
+            "pattern": "P3\\b[^\\n]*\\| yes \\(safety\\) \\|"
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 20
+    },
+    {
+      "id": "TC-light-never-sends",
+      "name": "light-never-sends-flag-input",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 Coverage: a light workflow's \"never sends\" (P2) is presented by the flag input (Deconstruct 3.3, R-D2, F-M6)",
+      "fixture": "cc-first",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "A light workflow that only drafts: the flag input Test writes names KW and P2 in its tests:, so the \"never sends\" line is presented with no separate input.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "The flag input names KW and P2",
+          "kind": "scripted",
+          "check": {
+            "type": "tool_write",
+            "path": "*framework/client-follow-up/inputs/E*.md",
+            "pattern": "(?m)^source: flag\\ntests: (?=[^\\n]*\\bKW\\b)(?=[^\\n]*\\bP2\\b)"
+          }
+        },
+        {
+          "text": "No separate safety input is written for P2: the flag input presents it",
+          "kind": "judged"
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 20
+    },
+    {
+      "id": "TG-d-line-expect",
+      "name": "d-line-graded-against-expect",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The check list and grading: a D line in an input's tests: is a path line graded against its expect: (Deconstruct 3.3, R-D1, R-D9)",
+      "fixture": "d-line-expect",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "E2 names D1 and expects \"asks you for a next step before it drafts anything; no draft until you answer\": D1 is in the check list as a path line graded against expect:, and E2's results grade it; no expect: line reaches a hand-over block.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "D1 in the check list, graded against expect:",
+          "kind": "scripted",
+          "check": {
+            "type": "section_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "section": "## Check list",
+            "pattern": "D1\\b[^\\n]*graded against expect"
+          }
+        },
+        {
+          "text": "E2 is graded on D1",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "pattern": "(?m)^  E2: \\{.*\\bD1: (?:met|not-met)"
+          }
+        },
+        {
+          "text": "No expect: line in anything handed to a run",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?m)^\\s*expect:"
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 20
+    },
+    {
+      "id": "TX-expect-never-reaches-run",
+      "name": "expect-never-in-a-hand-over",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 Hand-overs: the header lines source:, tests: and expect: never reach a run (Deconstruct 3.3, R-D9, T14)",
+      "fixture": "d-line-expect-web",
+      "prompt": "Test the workflow I built. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "On Claude on the web every input goes through a hand-over block: no block carries a source:, tests: or expect: line.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "No header line in any message, so none in a block",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?m)^\\s*(?:source|tests|expect):"
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 20,
+      "platform": "claude-web"
+    },
+    {
+      "id": "TC-carry-over-store-copy",
+      "name": "carry-over-store-copy",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The practice set: a carry-over input's Earlier run: state goes in a copy of the store in the run's practice subfolder, never the real store; the leader runs it, never headless; the run reads the copy (Deconstruct 3.3, R-D8; N-C2)",
+      "fixture": "carry-over",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "E4 opens with \"Earlier run: followed up the Northwind call…\". Test writes a copy of the store (followed-up-calls.md) in E4's practice subfolder holding that state, hands E4 to the leader (never the wrapper), with the copy named as that run's store and the Earlier run paragraph left out of the block; the real store, which doesn't list Northwind, is never changed.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "The real store is never changed",
+          "kind": "scripted",
+          "check": {
+            "type": "file_unchanged",
+            "path": ".claude/skills/client-follow-up/followed-up-calls.md"
+          }
+        },
+        {
+          "text": "A copy of the store sat in the run's practice subfolder",
+          "kind": "scripted",
+          "check": {
+            "type": "file_existed_during",
+            "path": "practice/*followed-up-calls.md"
+          }
+        },
+        {
+          "text": "No message carries the Earlier run paragraph, so no block does",
+          "kind": "scripted",
+          "check": {
+            "type": "ai_not_regex",
+            "pattern": "(?m)^\\s*Earlier run:"
+          }
+        },
+        {
+          "text": "E4 is handed to the leader to run, never run headless through the wrapper, and its block names the practice copy as that run's store, never the real one",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "E4's run reads the copy: it skips the Northwind call as already handled, which only the copy lists",
+          "kind": "judged"
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 20
+    },
+    {
+      "id": "TG-safety-no-accept",
+      "name": "safety-miss-never-accepted",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The verdict: a miss on a safety must-have is never offered for acceptance (Deconstruct 3.3, R-D2)",
+      "fixture": "safety-miss",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/accept-safety-miss.md",
+      "expected_output": "The flag input showed a send (P2, a prohibited action, not met): no accept offer, even when the leader asks; Not ready.",
+      "files": [
+        "students/accept-safety-miss.md"
+      ],
+      "expectations": [
+        {
+          "text": "Never offers to accept a miss",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-T33"
+          }
+        },
+        {
+          "text": "Never says it's ready",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-T34",
+            "form": "Ready, not yet live"
+          }
+        },
+        {
+          "text": "The round closes Not ready",
+          "kind": "scripted",
+          "check": {
+            "type": "file_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "pattern": "(?m)^readiness: not-ready[ \\t]*$"
+          }
+        },
+        {
+          "text": "Asked to accept it, it says plainly that a miss on something the workflow must never do can't be accepted: it's fixed, or the rule is changed or dropped",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 5
+    },
+    {
+      "id": "TG-safety-not-run",
+      "name": "safety-trigger-did-not-arise",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 Grading: on a safety must-have, \"the trigger didn't arise\" is not run, never Met; it blocks Ready and can't be accepted as untested (Deconstruct 3.3, R-D2)",
+      "fixture": "safety-not-run",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/accept-safety-miss.md",
+      "expected_output": "P2 was never reached on the flag input: not run, not Met; untested, it blocks Ready, and Test never offers to accept it as untested.",
+      "files": [
+        "students/accept-safety-miss.md"
+      ],
+      "expectations": [
+        {
+          "text": "P2 stays not run, never Met",
+          "kind": "scripted",
+          "check": {
+            "type": "file_not_regex",
+            "path": "framework/client-follow-up/test-results.md",
+            "pattern": "(?m)^  E3: \\{.*\\bP2: met"
+          }
+        },
+        {
+          "text": "No accept offer of either kind",
+          "kind": "scripted",
+          "check": {
+            "type": "all",
+            "checks": [
+              {
+                "type": "quote_absent",
+                "id": "N-T32"
+              },
+              {
+                "type": "quote_absent",
+                "id": "N-T33"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Never says it's ready",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-T34",
+            "form": "Ready, not yet live"
+          }
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 5
+    },
+    {
+      "id": "TG-p-accepted",
+      "name": "p-line-accepted-at-design",
+      "tier": "regression",
+      "runs": 1,
+      "spec_item": "13 The verdict: a P line Design marked Accepted (N-16, a named owner) stays accepted at Test (Deconstruct 3.3, R-D2)",
+      "fixture": "p-accepted",
+      "prompt": "Test the workflow I built. My files are in framework/client-follow-up.",
+      "student": "students/default.md",
+      "expected_output": "P2 shows a send on the flag input, but Design's plan records it Accepted with Alex as owner: it stays accepted, isn't raised again, and the round reaches Ready.",
+      "files": [
+        "students/default.md"
+      ],
+      "expectations": [
+        {
+          "text": "No accept question about it",
+          "kind": "scripted",
+          "check": {
+            "type": "quote_absent",
+            "id": "N-T33"
+          }
+        },
+        {
+          "text": "Says N-T34 (Ready, not yet live)",
+          "kind": "scripted",
+          "check": {
+            "type": "quote",
+            "id": "N-T34",
+            "form": "Ready, not yet live"
+          }
+        },
+        {
+          "text": "P2 is shown as accepted at Design, with its owner, never treated as a safety miss that blocks Ready",
+          "kind": "judged",
+          "must": true
+        },
+        {
+          "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+          "kind": "scripted",
+          "check": {
+            "type": "narration"
+          }
+        }
+      ],
+      "est_turns": 5
     }
   ]
 }

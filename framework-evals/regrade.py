@@ -236,6 +236,8 @@ def rebuild_run(rdir, evals_dir, data, work):
                                 "files_by_turn": None, "files_start": start, "files_end": end,
                                 "cap_hit": "Stopped at the turn cap." in transcript,
                                 "root": str(wroot / "workspace"), "platform": platform.key,
+                                "typed_history": platform.state.get("typed_history", ""),
+                                "grounding": platform.state.get("grounding", ""),
                                 "script_quotes": CS.script_quotes(script), "fixture": fresh})
         prev_end = end
     return run
@@ -308,7 +310,7 @@ def regrade_run(rnd, rdir, ev, data, evals_dir, tag, scripted_only):
            "regrade": {"tag": tag, "scripted_only": scripted_only, "judged_carried": scripted_only,
                        "round_status": old_res.get("status"), "round_passed": old_res.get("passed"),
                        "round_total": old_res.get("total")},
-           "usd": round(sum(c.get("total_cost_usd") or 0 for c in calls), 4)}
+           "usd": round(H.calls_usd(calls), 4)}
     (rdir / f"scripted-{tag}.json").write_text(json.dumps(scripted, indent=2, ensure_ascii=False))
     if not scripted_only:
         (rdir / f"grading-{tag}.json").write_text(json.dumps({"expectations": judged}, indent=2, ensure_ascii=False))
@@ -400,8 +402,8 @@ def main():
     smoke = args.smoke if args.smoke is not None else (
         (out / "summary.md").exists() and "SMOKE " in (out / "summary.md").read_text())
 
-    per_run = [sum(c.get("total_cost_usd") or 0 for c in json.loads((rdir / "calls.json").read_text())
-                   if c.get("role") in ("grader", "rubric"))
+    per_run = [H.calls_usd([c for c in json.loads((rdir / "calls.json").read_text())
+                            if c.get("role") in ("grader", "rubric")])
                for _, rdir in jobs if (rdir / "calls.json").exists()]
     if per_run and any(per_run):
         est, basis = sum(per_run) / len(per_run) * len(jobs), "the round's own grader and rubric calls"

@@ -28,14 +28,15 @@ import leader as L
 
 REQUIRED = {
     "ai_contains": ["text"], "ai_not_contains": ["text"], "ai_regex": ["pattern"], "ai_not_regex": ["pattern"], "leader_regex": ["pattern"],
-    "quote": ["id"], "quote_absent": ["id"], "scripted_lines": [], "vocabulary": [], "no_time_or_step_numbers": [],
+    "quote": ["id"], "quote_absent": ["id"], "scripted_lines": [], "vocabulary": [], "no_time_or_step_numbers": [], "narration": [],
     "signposts": [], "file_exists": ["path"], "file_absent": ["path"], "file_existed_during": ["path"],
     "file_contains": ["path", "text"], "file_not_contains": ["path", "text"], "file_regex": ["path", "pattern"],
     "file_not_regex": ["path", "pattern"], "sections_in_order": ["path", "headings"], "yaml_keys": ["path", "keys"],
     "structure": ["path", "kind"], "fill_check": ["kind"],
     "file_unchanged": ["path"], "no_added_files": [], "file_line": ["path", "line", "pattern"],
     "section_regex": ["path", "section", "pattern"], "all": ["checks"], "any": ["checks"],
-    "release_check": ["ids", "passed", "open"], "tool_write": ["path", "pattern"],
+    "release_check": ["ids", "passed", "open"], "tool_write": ["path", "pattern"], "max_words": ["max"],
+    "opens_with": ["ids"], "said_before": ["id", "anchor"], "inputs_shown": ["id", "anchor"],
 }
 RETIRED = {"no_yaml": "retired: use yaml_keys (every framework file has frontmatter now)"}
 FAULTS = {"no_folder_added", "cowork_cannot_read_onedrive", "attach_fails", "agent_builder_missing_context_file",
@@ -67,6 +68,25 @@ def check_check(c, where, errs, nsessions, corpus):
         errs.append(f"{where}: no approved line {c['id']} ({c.get('form', 'any form')})")
     if t == "quote" and c.get("ending") and not [x for x in corpus.get(c["id"], c["ending"]) if x.text and x.fragment]:
         errs.append(f"{where}: no fragment form {c['ending']!r} of {c['id']}")
+    if t == "opens_with" and not all(corpus.get(i) for i in c.get("ids", [])):
+        errs.append(f"{where}: opens_with names an unknown line among {c.get('ids')}")
+    if t in ("said_before", "inputs_shown"):
+        if "id" in c and not corpus.get(c["id"]):
+            errs.append(f"{where}: {t} names unknown line {c['id']}")
+        try:
+            re.compile(c.get("anchor", ""))
+        except re.error as e:
+            errs.append(f"{where}: bad anchor regex {c.get('anchor')!r}: {e}")
+    if t == "max_words":
+        # Deconstruct 3.3 (T1, T2): {max, turn: "first"} or {max, containing: <line ID>, form?}, exactly one of the two
+        if not (isinstance(c.get("max"), int) and not isinstance(c.get("max"), bool) and c["max"] > 0):
+            errs.append(f"{where}: max_words max must be a positive whole number")
+        if ("turn" in c) == ("containing" in c):
+            errs.append(f"{where}: max_words takes exactly one of turn: \"first\" or containing: <line ID>")
+        elif "turn" in c and c["turn"] != "first":
+            errs.append(f"{where}: max_words turn must be \"first\"")
+        elif "containing" in c and not [x for x in corpus.get(c["containing"], c.get("form")) if x.text]:
+            errs.append(f"{where}: max_words containing names no approved line {c['containing']} ({c.get('form', 'any form')})")
     if t == "ai_contains" and c.get("line") and not corpus.get(c["line"]):
         errs.append(f"{where}: ai_contains names unknown line {c['line']}")
     if t == "structure" and c.get("kind") not in ("plan", "build_record", "results", "requirements"):
@@ -120,6 +140,9 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
             errs.append(f"{path.name}: missing {k}")
     if data.get("default_tier") not in (None, "core", "regression"):
         errs.append(f"{path.name}: default_tier {data['default_tier']!r}")
+    for b in data.get("core_builtin_checks", []):
+        if b not in CS.BUILTIN_TEXT:
+            errs.append(f"{path.name}: core_builtin_checks names unknown built-in check {b!r}")
     maker, names = fixture_names(d, data.get("fixture_builder"))
     seen, used = set(), set()
     for ev in data.get("evals", []):
@@ -162,9 +185,10 @@ def validate_file(path, build=False, strict_tiers=False, only=None, warnings=Non
             for tool in x.get("stub_tools", []):
                 if tool not in H.STUB_EXTRA_TOOLS:
                     errs.append(f"{w}: unknown stub_tools entry {tool!r} (one of {sorted(H.STUB_EXTRA_TOOLS)})")
-        for f in ev.get("platform_faults", []):
-            if f not in FAULTS:
-                errs.append(f"{w}: unknown platform fault {f!r}")
+        for x in [ev] + sessions:
+            for f in x.get("platform_faults", []):
+                if f not in FAULTS:
+                    errs.append(f"{w}: unknown platform fault {f!r}")
         at = ev.get("action_target")
         if at is not None and not (isinstance(at, dict) and isinstance(at.get("figure"), (int, float)) and at.get("journey")):
             errs.append(f"{w}: action_target must be {{figure: number, journey: text}}")

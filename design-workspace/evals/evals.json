@@ -1107,40 +1107,96 @@
    "spec_item": "1",
    "fixture": "dir:../../framework-fixtures/states/s00-running-work/with-registry",
    "prompt": "Change my workflow: Client Follow-Up. My files are in framework.",
-   "expected_output": "\"Change my workflow\" on running work Analyze recorded: the bring-in line with the framework folder as the location, never the running-work message, then stop.",
+   "expected_output": "\"Change my workflow\" on running work Analyze recorded, the first thing asked on Claude Code: Design starts Deconstruct directly, with no text first; never the bring-in line or the running-work message.",
    "files": [],
    "expectations": [
     {
-     "text": "The bring-in line in its Claude Code form; never the running-work message",
+     "text": "No bring-in line and never the running-work message: Deconstruct is started directly, and takes the running work in (N-D22)",
      "kind": "scripted",
      "check": {
       "type": "all",
       "checks": [
        {
-        "type": "ai_contains",
-        "text": "start Deconstruct in a new session in this project and say 'run the deconstruct skill on Client Follow-Up.'"
+        "type": "all",
+        "checks": [
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "main"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "Claude Code and Codex, whole line"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "Claude desktop, whole line"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "Microsoft 365, whole line"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "main, Claude Code and Codex (no location)"
+         }
+        ]
        },
        {
         "type": "quote_absent",
         "id": "running-work"
+       },
+       {
+        "type": "quote",
+        "id": "N-D22"
        }
       ]
      }
     },
     {
-     "text": "Nothing written",
+     "text": "Design starts Deconstruct directly in this session, with nothing of its own before it but, optionally, the routing lead-in in its approved form (\"[Workflow] [state], so the next step is [step].\", [state] one of routing.md's phrases), as the single sentence before the skill call, and writes nothing itself; Deconstruct's own opening for running work follows; no offer of \"change my workflow\"; Deconstruct's own opening for running work (N-D2, then its one line, in its own words, that this brings the workflow into the framework and the version that runs today keeps running until Build installs the new one, which may also say the change asked for is noted, then N-D22) is not the running-work message, which is the fixed line \"This workflow already runs outside the framework. To bring it in, say…\" (core round-3 fixes)",
+     "kind": "judged",
+     "must": true
+    },
+    {
+     "text": "The first message opens with Deconstruct's opening (N-D2), or with the routing lead-in ('[Workflow] already runs, so the next step is Deconstruct.') and then N-D2 (core round-2 fixes)",
      "kind": "scripted",
      "check": {
-      "type": "no_added_files"
+      "type": "opens_with",
+      "ids": [
+       "N-D2"
+      ],
+      "lead_in": true
      }
     },
     {
-     "text": "Nothing follows the line: no opening, no offer of \"change my workflow\"",
-     "kind": "judged",
-     "must": true
+     "text": "N-D22 is Deconstruct's first question, in its first message, with no N-D1 asked before it (core round-2 fixes)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-D22",
+        "turn": "first"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-D1",
+        "turn": "first"
+       }
+      ]
+     }
     }
    ],
-   "est_turns": 1
+   "est_turns": 1,
+   "covers": [
+    "core round-2 fixes (2026-11-12): the routing lead-in (N-F23) allowed at a direct start"
+   ]
   },
   {
    "id": "EN-wrong-place",
@@ -8959,6 +9015,638 @@
      "text": "The requirements file passes requirements-check when it is run on the saved file afterwards",
      "kind": "judged",
      "must": true
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "NF-reads-new-fields",
+   "name": "new-fields-read-never-asked",
+   "tier": "regression",
+   "runs": 1,
+   "spec_item": "Deconstruct 3.3: T11, R-D3, R-D4, R-D5, R-D7, R-D8, R-D10",
+   "fixture": "dir:../../framework-fixtures/edge/e-new-fields/with-registry",
+   "prompt": "Run the design skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "A requirements file with every field Deconstruct 3.3 adds: Design reads Starts (a Friday schedule), Per run (a batch), Remembers, the write place (Gmail's Drafts folder), the flag W line and the decision criteria, and asks no fact question about any of them; the Policy check goes to Test unchanged; D1's criteria (settled by your criteria) become its Guided step's Decision Logic.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "No fact question (N-11) about how runs start: the requirements record it (T11)",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)Your requirements leave[^.\\n]*(start|schedule|Friday|how often)"
+     }
+    },
+    {
+     "text": "No fact question (N-11) about where the draft goes or where flags go: the requirements record it (T11)",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)Your requirements leave[^.\\n]*(Drafts|mailbox|flag)"
+     }
+    },
+    {
+     "text": "No fact question (N-11) about what it remembers between runs: the requirements record it (T11)",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)Your requirements leave[^.\\n]*(remember|earlier run|already (handled|followed))"
+     }
+    },
+    {
+     "text": "The Policy check is never asked about, and the requirements are left unchanged (it goes to Test as written)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_not_regex",
+        "pattern": "(?i)(company'?s rules|client agreements|allowed to go into an AI)"
+       },
+       {
+        "type": "file_unchanged",
+        "path": "framework/client-follow-up/requirements.md"
+       }
+      ]
+     }
+    },
+    {
+     "text": "A schedule from Starts: an SCH task, and the Trigger row reads the leader's Friday cadence",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "section_regex",
+        "path": "framework/client-follow-up/design-plan.md",
+        "section": "## Tasks",
+        "pattern": "(?m)^### SCH — "
+       },
+       {
+        "type": "file_regex",
+        "path": "framework/client-follow-up/design-plan.md",
+        "pattern": "(?i)^\\|\\s*Trigger\\s*\\|[^\\n]*Friday"
+       }
+      ]
+     }
+    },
+    {
+     "text": "Remembers sets a blueprint's Stateful? to Yes, naming where it keeps the calls already followed up",
+     "kind": "scripted",
+     "check": {
+      "type": "file_regex",
+      "path": "framework/client-follow-up/design-plan.md",
+      "pattern": "(?i)\\*\\*Stateful\\?:\\*\\*\\s*Yes"
+     }
+    },
+    {
+     "text": "The flag W line's destination (an email to you) is in the blueprints' Failure Modes",
+     "kind": "scripted",
+     "check": {
+      "type": "section_regex",
+      "path": "framework/client-follow-up/design-plan.md",
+      "section": "## Component Blueprints",
+      "pattern": "(?i)Failure Modes:[^\\n]*email"
+     }
+    },
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/client-follow-up/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/client-follow-up/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "Counted over the whole session, Design asks no question whose answer the requirements already record: the write's place (Gmail, Drafts folder), how runs start (every Friday afternoon), where flags go (an email to you), or what it remembers between runs. The count of such questions is 0 (Design's safety questions D5, D5″, N-14, D4′ and D7 aren't counted)",
+     "kind": "judged",
+     "must": true
+    },
+    {
+     "text": "D1's criteria (\"no line in the notes says who does what next\", settled by: your criteria) appear in the Decision Logic of the Guided step that drafts the email; D2's and D3's criteria (after a rule on a value and open judgment) are kept as the leader's wording and not turned into a method",
+     "kind": "judged"
+    },
+    {
+     "text": "The removal step (Step 1, fixed (policy), done by you) is planned like any fixed step the leader performs; nothing treats the Policy check as approval to use the call notes unredacted",
+     "kind": "judged"
+    },
+    {
+     "text": "No narration: no note to itself, no bare .md file name, no line ID, no 'Saving…' (Deconstruct 3.3: every new eval)",
+     "kind": "scripted",
+     "check": {
+      "type": "narration"
+     }
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "NF-event-every-30",
+   "name": "event-start-checked-every-30-minutes",
+   "tier": "regression",
+   "runs": 1,
+   "spec_item": "Deconstruct 3.3: R-D3, B-M3",
+   "fixture": "event-30min",
+   "prompt": "Run the design skill. My files are in framework/lead-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "Starts: event: a new lead arrives in HubSpot · checked every 30 minutes. Design plans a schedule at that interval (an SCH task), may quote the leader's own 30 minutes back, and the built-in time check passes on it; no question about how runs start.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "No time estimate in anything the leader reads: the leader's own '30 minutes' (the brought Starts row) may be played back (R-D3's time-word exception)",
+     "kind": "scripted",
+     "check": {
+      "type": "no_time_or_step_numbers"
+     }
+    },
+    {
+     "text": "An SCH task at the leader's interval: the plan names 30 minutes",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "section_regex",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "section": "## Tasks",
+        "pattern": "(?m)^### SCH — "
+       },
+       {
+        "type": "file_regex",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "pattern": "(?i)30 minutes"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No fact question (N-11) about how runs start or how often it checks: the requirements record it (T11)",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)Your requirements leave[^.\\n]*(start|schedule|how often|how soon|check)"
+     }
+    },
+    {
+     "text": "Per run (one lead) sizes the actions-per-run cap to one lead's actions",
+     "kind": "judged"
+    },
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No narration: no note to itself, no bare .md file name, no line ID, no 'Saving…' (Deconstruct 3.3: every new eval)",
+     "kind": "scripted",
+     "check": {
+      "type": "narration"
+     }
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "NF-event-as-often",
+   "name": "event-start-as-often-as-it-can",
+   "tier": "regression",
+   "runs": 1,
+   "spec_item": "Deconstruct 3.3: R-D3, B-M3",
+   "fixture": "event-as-often",
+   "prompt": "Run the design skill. My files are in framework/lead-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "Starts: event … · checked as often as it can. Design picks the platform's shortest schedule and writes its figure in the plan only; what the leader hears is 'as often as [platform] allows', among the consequential points, with no figure and no promise of an instant start.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "The leader hears 'as often as [platform] allows'",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_regex",
+      "pattern": "(?i)as often as [^.\\n]{0,40}allows"
+     }
+    },
+    {
+     "text": "No figure said with it: no minutes or hours near 'as often', and no 'every N minutes/hours' in what the leader reads",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_not_regex",
+        "pattern": "(?i)as often as[^.\\n]{0,80}\\b(\\d+|one|two|five|ten|fifteen|thirty|sixty)[ -]*(minutes?|mins?|hours?|hrs?)\\b"
+       },
+       {
+        "type": "ai_not_regex",
+        "pattern": "(?i)\\b(every|each)\\s+(\\d+|one|two|five|ten|fifteen|thirty|sixty)?\\s*(minutes?|mins?|hours?|hrs?)\\b"
+       },
+       {
+        "type": "ai_not_regex",
+        "pattern": "(?i)\\b(instantly|immediately|the moment|right away)\\b"
+       }
+      ]
+     }
+    },
+    {
+     "text": "The figure is in the plan only: the Trigger row or the SCH task names the shortest schedule with a number",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "section_regex",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "section": "## Tasks",
+        "pattern": "(?m)^### SCH — "
+       },
+       {
+        "type": "file_regex",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "pattern": "(?i)\\b\\d+\\s*(minutes?|mins?|hours?)\\b"
+       }
+      ]
+     }
+    },
+    {
+     "text": "The start is among the consequential points (N-5)",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-5"
+     }
+    },
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No narration: no note to itself, no bare .md file name, no line ID, no 'Saving…' (Deconstruct 3.3: every new eval)",
+     "kind": "scripted",
+     "check": {
+      "type": "narration"
+     }
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "NF-flag-without-you",
+   "name": "flag-w-line-no-checkpoint-question",
+   "tier": "regression",
+   "runs": 1,
+   "spec_item": "Deconstruct 3.3: R-D5, D8c, B-M2",
+   "fixture": "event-30min",
+   "prompt": "Run the design skill. My files are in framework/lead-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "A without-you workflow whose only writes are a draft and the flag W line (an email to the leader after a run that needs one). The flag is classed a send and listed among the consequential points; the checkpoint question is never asked about it, and the plan check stays clean.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "No checkpoint question (neither D5 nor D5″): the draft is exempt and the flag sent only to the leader is a consequential point instead",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote_absent",
+        "id": "D5"
+       },
+       {
+        "type": "quote_absent",
+        "id": "D5″"
+       }
+      ]
+     }
+    },
+    {
+     "text": "Consequential points are listed (N-5, either form)",
+     "kind": "scripted",
+     "check": {
+      "type": "quote",
+      "id": "N-5"
+     }
+    },
+    {
+     "text": "The writes table carries the flag (W2)",
+     "kind": "scripted",
+     "check": {
+      "type": "section_regex",
+      "path": "framework/lead-follow-up/design-plan.md",
+      "section": "## Architecture",
+      "pattern": "(?m)^\\|\\s*W2\\s*\\|"
+     }
+    },
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "One consequential point says plainly that it emails the leader a flag after a run that needs one, which they kept; the session never asks whether to add a checkpoint before that email",
+     "kind": "judged",
+     "must": true
+    },
+    {
+     "text": "The Self-Test Summary and the plan check raise nothing about a change that can't be undone with no checkpoint: the flag W line is the named exception",
+     "kind": "judged"
+    },
+    {
+     "text": "No narration: no note to itself, no bare .md file name, no line ID, no 'Saving…' (Deconstruct 3.3: every new eval)",
+     "kind": "scripted",
+     "check": {
+      "type": "narration"
+     }
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "NF-place-to-confirm",
+   "name": "unknown-write-place-fact-or-open-item",
+   "tier": "regression",
+   "runs": 1,
+   "spec_item": "Deconstruct 3.3: R-D4, T11",
+   "fixture": "place-to-confirm",
+   "prompt": "Run the design skill. My files are in framework/lead-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "The write's place is recorded as a visible unknown, `Gmail (which mailbox to confirm)`: Design treats it as today, a fact question (N-11) or an open item; it still asks nothing about how runs start or where flags go.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "The unknown mailbox is a fact question or an open item",
+     "kind": "scripted",
+     "check": {
+      "type": "any",
+      "checks": [
+       {
+        "type": "ai_regex",
+        "pattern": "(?i)Your requirements leave[^.\\n]*mailbox"
+       },
+       {
+        "type": "section_regex",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "section": "## Open items",
+        "pattern": "(?i)mailbox"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No fact question (N-11) about how runs start or where flags go: the requirements record it (T11)",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)Your requirements leave[^.\\n]*(start|schedule|how often|flag)"
+     }
+    },
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/lead-follow-up/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No narration: no note to itself, no bare .md file name, no line ID, no 'Saving…' (Deconstruct 3.3: every new eval)",
+     "kind": "scripted",
+     "check": {
+      "type": "narration"
+     }
+    }
+   ],
+   "est_turns": 12
+  },
+  {
+   "id": "EN-old-format-entry",
+   "name": "old-format-requirements-pass-the-entry-gate",
+   "tier": "core",
+   "spec_item": "Deconstruct 3.3: T13",
+   "fixture": "dir:../../framework-fixtures/states/s04-plan-needed/with-registry",
+   "prompt": "Run the design skill. My files are in framework/client-follow-up.",
+   "student": "students/default.md",
+   "expected_output": "A requirements file and inputs written before Deconstruct 3.3 (no Starts, Per run or Remembers rows, no criteria, inputs with no expect: line) pass Design's entry check: Design plans as usual, reading the Trigger, and never sends the leader back to Deconstruct.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "Design's four parts run (its entry check passed)",
+     "kind": "scripted",
+     "check": {
+      "type": "signposts",
+      "skill": "design"
+     }
+    },
+    {
+     "text": "Never routed back to Deconstruct, and the requirements and inputs are left as they were",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "ai_not_regex",
+        "pattern": "(?i)run the deconstruct skill"
+       },
+       {
+        "type": "file_unchanged",
+        "path": "framework/client-follow-up/requirements.md"
+       },
+       {
+        "type": "file_unchanged",
+        "path": "framework/client-follow-up/inputs/*"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No fact question about the fields the old file doesn't have (Starts, Per run, Remembers): their absence is read as before",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?i)Your requirements leave[^.\\n]*(remember|per run|how many|batch)"
+     }
+    },
+    {
+     "text": "The plan passes the plan-structure check (design.md 11; rules 6.3)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "yaml_keys",
+        "path": "framework/client-follow-up/design-plan.md",
+        "keys": [
+         "workflow",
+         "requirements_revision",
+         "approved",
+         "autonomy",
+         "decomposition",
+         "mechanism",
+         "involvement",
+         "platform",
+         "platform_mode",
+         "packaging",
+         "changes"
+        ],
+        "exact": true
+       },
+       {
+        "type": "structure",
+        "path": "framework/client-follow-up/design-plan.md",
+        "kind": "plan"
+       }
+      ]
+     }
+    },
+    {
+     "text": "No narration: no note to itself, no bare .md file name, no line ID, no 'Saving…' (Deconstruct 3.3: every new eval)",
+     "kind": "scripted",
+     "check": {
+      "type": "narration"
+     }
     }
    ],
    "est_turns": 12

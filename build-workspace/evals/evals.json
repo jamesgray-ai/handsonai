@@ -467,20 +467,50 @@
    "tier": "core",
    "spec_item": "rules 14 routing: running work by \"change my workflow\"",
    "fixture": "dir:../../framework-fixtures/states/s00-running-work/with-registry",
-   "prompt": "Change my workflow: client follow-up. My files are in framework.",
-   "student": "students/default.md",
-   "expected_output": "\"Change my workflow\" on running work Analyze recorded reaches Build: the bring-in line with Deconstruct's phrase, never the running-work message, then stop.",
-   "files": [
-    "students/default.md"
-   ],
+   "expected_output": "\"Change my workflow\" on running work Analyze recorded reaches Build as the first thing asked on Claude Code: Build starts Deconstruct directly, with no text first; never the bring-in line or the running-work message.",
+   "files": [],
    "expectations": [
     {
-     "text": "The bring-in line",
+     "text": "No bring-in line: Deconstruct is started directly, and takes the running work in (N-D22)",
      "kind": "scripted",
      "check": {
-      "type": "quote",
-      "id": "bring-in-line",
-      "form": "Claude Code and Codex, whole line"
+      "type": "all",
+      "checks": [
+       {
+        "type": "all",
+        "checks": [
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "main"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "Claude Code and Codex, whole line"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "Claude desktop, whole line"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "Microsoft 365, whole line"
+         },
+         {
+          "type": "quote_absent",
+          "id": "bring-in-line",
+          "form": "main, Claude Code and Codex (no location)"
+         }
+        ]
+       },
+       {
+        "type": "quote",
+        "id": "N-D22"
+       }
+      ]
      }
     },
     {
@@ -498,9 +528,53 @@
       "type": "ai_not_contains",
       "text": "say 'change my workflow"
      }
+    },
+    {
+     "text": "Build starts Deconstruct directly in this session, with nothing of its own before it but, optionally, the routing lead-in in its approved form (\"[Workflow] [state], so the next step is [step].\", [state] one of routing.md's phrases), as the single sentence before the skill call, and writes nothing itself; Deconstruct's own opening for running work follows; Deconstruct's own opening for running work (N-D2, then its one line, in its own words, that this brings the workflow into the framework and the version that runs today keeps running until Build installs the new one, which may also say the change asked for is noted, then N-D22) is not the running-work message, which is the fixed line \"This workflow already runs outside the framework. To bring it in, say…\" (core round-3 fixes)",
+     "kind": "judged",
+     "must": true
+    },
+    {
+     "text": "The first message opens with Deconstruct's opening (N-D2), or with the routing lead-in ('[Workflow] already runs, so the next step is Deconstruct.') and then N-D2 (core round-2 fixes)",
+     "kind": "scripted",
+     "check": {
+      "type": "opens_with",
+      "ids": [
+       "N-D2"
+      ],
+      "lead_in": true
+     }
+    },
+    {
+     "text": "N-D22 is Deconstruct's first question, in its first message, with no N-D1 asked before it (core round-2 fixes)",
+     "kind": "scripted",
+     "check": {
+      "type": "all",
+      "checks": [
+       {
+        "type": "quote",
+        "id": "N-D22",
+        "turn": "first"
+       },
+       {
+        "type": "quote_absent",
+        "id": "N-D1",
+        "turn": "first"
+       }
+      ]
+     }
     }
    ],
-   "est_turns": 2
+   "est_turns": 2,
+   "sessions": [
+    {
+     "prompt": "Change my workflow: client follow-up. My files are in framework.",
+     "max_turns": 1
+    }
+   ],
+   "covers": [
+    "core round-2 fixes (2026-11-12): the routing lead-in (N-F23) allowed at a direct start"
+   ]
   },
   {
    "id": "EN-earlier-design-owns",
@@ -8889,6 +8963,59 @@
     {
      "text": "Build treats the renamed workflow as the same live running work: the pause comes before any change, whatever the new name",
      "kind": "judged"
+    }
+   ],
+   "est_turns": 30
+  },
+  {
+   "id": "P2-bare-carry-over",
+   "name": "bare-run-strips-headers-and-earlier-run",
+   "tier": "regression",
+   "runs": 1,
+   "spec_item": "13 Part 2: the bare run's input loses its header lines (source:, tests:, expect:) and a carry-over input's Earlier run: paragraph, whose state goes only in a test copy of the store (Deconstruct 3.3, R-D8, R-D9, T14)",
+   "fixture": "web-first-carry-over",
+   "prompt": "Run the build skill. My files are in Google Drive, in ai-workspace/framework/client-follow-up.",
+   "student": "students/default.md",
+   "platform": "claude-web",
+   "expected_output": "Every input carries expect:, and E3 opens with an Earlier run: paragraph. No block or message carries a header line or the paragraph; where the bare run runs, the leader is asked to point it at a test copy of the store, never the real one; while Claude's bare-run check is open it's skipped with its reason.",
+   "files": [
+    "students/default.md"
+   ],
+   "expectations": [
+    {
+     "text": "No header line (source:, tests:, expect:) in any message, so none in a block",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?m)^\\s*(?:source|tests|expect):"
+     }
+    },
+    {
+     "text": "No message carries the Earlier run paragraph",
+     "kind": "scripted",
+     "check": {
+      "type": "ai_not_regex",
+      "pattern": "(?m)^\\s*Earlier run:"
+     }
+    },
+    {
+     "text": "The bare run and the store copy",
+     "kind": "judged",
+     "must": true,
+     "release_check": {
+      "ids": [
+       13
+      ],
+      "passed": "Before the bare run's block, one sentence asks you to point the run at a test copy of the list of calls already followed up, holding the earlier run's state, never the real one; the block holds neither the header nor the Earlier run paragraph",
+      "open": "The bare run is skipped with its reason in one clause (Claude's own bare-run check isn't confirmed yet), recorded under bare_run:, and no message asks you to change or seed the real list of calls already followed up"
+     }
+    },
+    {
+     "text": "No narration: no line IDs, no 'Saving…', no notes to itself",
+     "kind": "scripted",
+     "check": {
+      "type": "narration"
+     }
     }
    ],
    "est_turns": 30

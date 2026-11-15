@@ -52,6 +52,13 @@ USAGE_LIMIT_RE = re.compile(r"usage limit|limit reached|rate.?limit|resets? (at|
 TRANSIENT_RE = re.compile(r"overloaded|API Error: 5\d\d|ECONNRESET|socket hang up|timed? ?out|network", re.I)
 
 
+# Skills the CLI itself ships, which a session can list even when the round's no-plugin control call
+# didn't (a gradual rollout: seen 2026-11-12, `send-to-project`, in some sessions of one round and not
+# its control). Allowed only by name and only when no SKILL.md in the run root carries that name, so a
+# planted or leaked skill of the same name still stops the run.
+CLI_BUILTIN_SKILLS = {"send-to-project"}
+
+
 class HarnessFailure(Exception):
     """An isolation or harness problem: never a skill result."""
 
@@ -453,7 +460,8 @@ def check_init(rnd, role, init, root, tools, cwd, plugin, mcp_servers=(), own_be
         # version can) and those there now. Nowhere else: not the temp HOME, not a nested folder.
         own = set(own_before) | own_skills(cwd)
         extra = [s for s in skills if s not in rnd.bundled_skills and s not in own
-                 and not (plugin and s.startswith("handsonai:"))]
+                 and not (plugin and s.startswith("handsonai:"))
+                 and not (s in CLI_BUILTIN_SKILLS and where_skill(root, s) == ["nowhere in the run root"])]
         if extra:
             found = "; ".join(f"{s} at {', '.join(where_skill(root, s))}" for s in extra)
             bad.append(f"unexpected skills {extra} (found: {found})")
@@ -543,7 +551,8 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         "model_used": list((result.get("modelUsage") or {}).keys()),
         "permission_denials": result.get("permission_denials") or [],
         "usage": result.get("usage"),
-        "total_cost_usd": result.get("total_cost_usd"),
+        "total_cost_usd": result.get("total_cost_usd"),  # running total when resumed: see calls_usd()
+        "resumed": bool(resume),
         "num_turns": result.get("num_turns"),
         "duration_ms": result.get("duration_ms"),
         "attempts": attempt,
@@ -553,6 +562,26 @@ def call(rnd, role, root, prompt, *, cwd, tools, plugin=None, resume=None, sessi
         # a signpost said before the tool calls of the same turn counts as said.
         text = shown_text(events) or text
     return text.strip(), record
+
+
+def calls_usd(calls):
+    """The real API-equivalent cost of a run's calls. `claude -p --resume` reports total_cost_usd as
+    the running total of the whole resumed conversation, not the call's own cost (seen 2026-11-14:
+    summing it counted a 66-turn skill session ~33 times). So a resumed call counts only its increment
+    over the previous call of the same conversation; a fresh call (student, grader, rubric, control,
+    run_chat, a session's first skill turn) counts whole, and a drop in the running total counts as a
+    new conversation (whole). A conversation is (role, session); calls saved before the `resumed`
+    field was recorded count as resumed when they are skill turns after their session's first."""
+    last, usd = {}, 0.0
+    for c in calls:
+        v = c.get("total_cost_usd") or 0
+        key = (c.get("role"), c.get("session"))
+        resumed = c["resumed"] if "resumed" in c else (
+            c.get("role") == "skill" and c.get("session") is not None and (c.get("turn") or 1) > 1)
+        prev = last.get(key) if resumed else None
+        usd += v - prev if prev is not None and v >= prev else v
+        last[key] = v
+    return usd
 
 
 def shown_text(events):
@@ -610,6 +639,19 @@ def _account_field(name):
         return None
 
 
+# Anthropic's own built-in skills (source "anthropic" or "anthropic-example") are updated by the
+# account sync on Anthropic's schedule (2026-11-12: xlsx, pptx, docx and google-workspace mid-round
+# voided a core round). For those, a new updatedAt alone isn't a change; a skill added, removed or
+# renamed still is, and every other skill is compared in full.
+ANTHROPIC_SYNC_SOURCES = {"anthropic", "anthropic-example"}
+
+
+def _synced_fields(x):
+    if x.get("source") in ANTHROPIC_SYNC_SOURCES:
+        return ("skillId", "name", "source")
+    return ("skillId", "name", "source", "updatedAt")
+
+
 def _synced_skills():
     """~/.claude/skills/synced/ is the account skill sync that James's own Claude Code sessions
     rewrite on their schedule (its manifest's lastUpdated and .last-complete-round change on
@@ -627,7 +669,7 @@ def _synced_skills():
             skills = ["unreadable manifest"]
         out[acct.name] = {
             "folders": sorted(p.name for p in acct.iterdir() if p.is_dir()),
-            "skills": sorted(json.dumps({k: x.get(k) for k in ("skillId", "name", "source", "updatedAt")},
+            "skills": sorted(json.dumps({k: x.get(k) for k in _synced_fields(x)},
                                         sort_keys=True) if isinstance(x, dict) else str(x) for x in skills),
         }
     return hashlib.sha256(json.dumps(out, sort_keys=True).encode()).hexdigest()

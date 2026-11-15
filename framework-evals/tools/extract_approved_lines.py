@@ -255,10 +255,20 @@ DESIGN_FILES = {  # design 13: SKILL.md holds the entry, opening, four parts, qu
     "N-29": "references/updating-the-plan.md",
     "D10": "references/capability-domains.md",  # the Autonomy Summary for decomposition: domains
 }
-ANALYZE_REFERENCE_FILES = {
-    "N-A4": "references/the-walk.md",
-    "N-A5": "references/the-walk.md",
-    "N-A8": "references/report-format.md",
+ANALYZE_REFERENCE_FILES = {  # Analyze 3.1 (3c-EP): N-A4, N-A5 and N-A8 retired; every other line in SKILL.md
+    "N-A11": "references/part-1-reading-and-the-lens.md",
+    "N-A12": "references/evidence-pass.md",
+    "N-A13": "references/evidence-pass.md",
+    "N-A16": "references/evidence-pass.md",
+    "N-A19": "references/evidence-pass.md",
+    "N-A14": "references/the-walk.md",
+    "N-A17": "references/the-walk.md",
+    "N-A20": "references/the-walk.md",
+    "N-A22": "references/the-walk.md",
+    "analyze:do-more-of": "references/the-walk.md",
+    "analyze:walk-question": "references/the-walk.md",
+    "N-A15": "references/registering-candidates.md",
+    "analyze:value-lever-line": "references/registering-candidates.md",
 }
 ANALYZE_FILES = {"N-A7": ("scaffolding-registry", "references/interview-guide.md")}
 

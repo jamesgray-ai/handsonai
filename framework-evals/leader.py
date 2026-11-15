@@ -44,7 +44,10 @@ answer off the leader's screen (`scripted_runs`), so the planted block is the on
 The leader-action counter (`count_actions`) reports leader actions per run (each message the leader
 sends, plus each action a simulation counts on the leader's screen: opening a chat, pasting, adding
 a file under Knowledge, choosing Create) against the spec's journey figures. It never measures time.
+`replies_by_part` splits the leader's replies at the skill's signposts and reports, at each count Deconstruct
+says, the replies still to come (Deconstruct 3.3, T3 and T4).
 """
+import json
 import re
 import shutil
 import subprocess
@@ -104,17 +107,29 @@ class Platform:
         self.state = {}
 
     def preamble(self):
-        return None
+        return self.with_planted(None)
 
     def run_preamble(self):
         """The system-prompt addition for a run the leader starts from a hand-over."""
         return self.preamble()
+
+    def with_planted(self, p):
+        """The preamble, plus any content a fixture planted for the platform to supply unasked
+        (`.sim-grounding.md`: Cowork's mail and Teams grounding, a connector's results). Analyze sets
+        it aside (R5); an eval checks it never becomes evidence."""
+        g = self.state.get("grounding")
+        if not g:
+            return p
+        note = ("Simulated platform: content this platform added to the chat on its own, without the leader "
+                "or the skill asking for it:\n" + g)
+        return f"{p}\n\n{note}" if p else note
 
     def leader_notes(self):
         return ""
 
     def prepare(self, ws):
         """Lay the workspace out the way this platform keeps the leader's files."""
+        take_planted(self, ws)
 
     def on_leader(self, msg, ws):
         """React to what the leader typed (an attach, say). Returns platform actions to count."""
@@ -134,15 +149,49 @@ class Platform:
         return out
 
 
+PLANTED_HISTORY = ".sim-history.jsonl"
+PLANTED_GROUNDING = ".sim-grounding.md"
+
+
+def take_planted(platform, ws):
+    """Take the hidden files a fixture plants for the simulation, before the session starts (and
+    before the workspace is snapshotted), so the skill never sees them as files:
+    - `.sim-history.jsonl`: requests typed into Claude Code (one JSON object per line, as
+      ~/.claude/history.jsonl holds them; "WORKSPACE" as the project is this workspace), added to
+      the temp HOME's history, which the evidence pass's typed-request clause reads;
+    - `.sim-grounding.md`: content the platform supplies unasked, added to the platform preamble
+      (with_planted)."""
+    ws = Path(ws)
+    hist = ws / PLANTED_HISTORY
+    if hist.exists():
+        home_hist = ws.parent / "home" / ".claude" / "history.jsonl"
+        text = hist.read_text().replace('"WORKSPACE"', json.dumps(str(ws)))
+        platform.state["typed_history"] = text  # shown to the judges as its own context block (grade_eval)
+        if home_hist.parent.is_dir():
+            with home_hist.open("a") as f:
+                f.write(text if text.endswith("\n") else text + "\n")
+        hist.unlink()
+    grounding = ws / PLANTED_GROUNDING
+    if grounding.exists():
+        platform.state["grounding"] = grounding.read_text().strip()
+        grounding.unlink()
+
+
+# The working folder's own folders: the framework's, and the documents Analyze's evidence pass reads
+# (knowledge/, sops/, process-guides/; requirements 3.1 R4).
+WORKING_FOLDER_DIRS = ("framework", "registry", "knowledge", "sops", "process-guides")
+
+
 def _move_into(ws, sub):
     """Move the workspace's framework files into a working folder, ws/sub/ai-workspace (on a drive) or
     ws/ai-workspace (the folder selected on Claude desktop), keeping the workspace's layout: framework/,
-    registry/, knowledge/ and the registry views at its root, framework-level files in framework/. The
-    registry's links are relative to its parent folder (registry-bundle.md rule 4), the working folder
-    here as in the workspace, so `framework/<slug>/...` links carry over unchanged."""
+    registry/, knowledge/, the evidence pass's documents (sops/, process-guides/) and the registry views
+    at its root, framework-level files in framework/. The registry's links are relative to its parent
+    folder (registry-bundle.md rule 4), the working folder here as in the workspace, so
+    `framework/<slug>/...` links carry over unchanged."""
     ws = Path(ws)
     target = ws / sub / "ai-workspace" if sub else ws / "ai-workspace"
-    dirs = [d for d in ("framework", "registry", "knowledge") if (ws / d).exists()]
+    dirs = [d for d in WORKING_FOLDER_DIRS if (ws / d).exists()]
     views = [f for f in ("REGISTRY.md", "registry-dashboard.html") if (ws / f).exists()]
     level = [f for f in ("backlog.md", "ai-opportunity-report.md", "analyze-in-progress.md") if (ws / f).exists()]
     if not (dirs or views or level):
@@ -186,9 +235,10 @@ class Codex(Platform):
     run_opening = "You opened a new Codex session in the folder and pasted the block"
 
     def preamble(self):
-        return ("Simulated platform: you are running as Codex (the CLI) in this workspace, not Claude Code. "
-                "Name the platform as Codex wherever you'd name it, use Codex's own steps, and say 'a new session' "
-                "for a new chat. The framework folder is framework/ in this workspace.")
+        return self.with_planted(
+            "Simulated platform: you are running as Codex (the CLI) in this workspace, not Claude Code. "
+            "Name the platform as Codex wherever you'd name it, use Codex's own steps, and say 'a new session' "
+            "for a new chat. The framework folder is framework/ in this workspace.")
 
     def run_preamble(self):
         return ("Simulated platform: you are running as Codex (the CLI) in this workspace, not Claude Code; say "
@@ -197,7 +247,8 @@ class Codex(Platform):
 
 
 # Chat platforms keep the leader's history the way the real products do: saved memory, and past chats
-# searched on request. The fixtures hold none about the leader's work, so a history pass finds nothing.
+# searched on request. The fixtures hold none about the leader's work, so the evidence pass finds
+# nothing there (Cowork's memory is never offered: requirements 3.1 R4, fail closed).
 CHAT_HISTORY = (" This chat has the platform's saved memory and can search the leader's past chats on request; "
                 "in this simulation neither holds anything about the leader's work.")
 
@@ -228,9 +279,10 @@ class _Drive(Platform):
              f"(./drive/ai-workspace is '{svc}, in ai-workspace'). No other storage service is connected. Read and save the leader's files "
              "only through it. You have no terminal of your own for the leader's work and no local folder: anything "
              "the leader must run in a new chat, give them to paste, and they paste back what it says.")
-        return p + CHAT_HISTORY
+        return self.with_planted(p + CHAT_HISTORY)
 
     def prepare(self, ws):
+        take_planted(self, ws)
         _move_into(ws, "drive")
 
 
@@ -248,11 +300,13 @@ class ClaudeDesktop(Platform):
     paste_back = True
 
     def preamble(self):
-        return ("Simulated platform: Claude desktop, with the leader's working folder selected in this chat; in this "
-                "simulation it is the folder ./ai-workspace here. If ./ai-workspace isn't there, no folder is selected "
-                "in this chat. Anything the leader must run in a new chat, give them to paste, and they paste back." + CHAT_HISTORY)
+        return self.with_planted(
+            "Simulated platform: Claude desktop, with the leader's working folder selected in this chat; in this "
+            "simulation it is the folder ./ai-workspace here. If ./ai-workspace isn't there, no folder is selected "
+            "in this chat. Anything the leader must run in a new chat, give them to paste, and they paste back." + CHAT_HISTORY)
 
     def prepare(self, ws):
+        take_planted(self, ws)
         target = _move_into(ws, "")
         if "no_folder_added" in self.faults:
             target.mkdir(parents=True, exist_ok=True)  # the leader's folder exists; it isn't selected in the chat
@@ -288,9 +342,10 @@ class Microsoft365(Platform):
              "new chat, give them to paste, and they paste back what it says." + CHAT_HISTORY)
         if "skill_cannot_read_by_path" in self.faults:
             p += " In this tenant a Cowork skill can't read a file by its path."
-        return p
+        return self.with_planted(p)
 
     def prepare(self, ws):
+        take_planted(self, ws)
         target = _move_into(ws, "onedrive")
         (Path(ws) / "onedrive" / "Documents" / "Cowork").mkdir(parents=True, exist_ok=True)
         if "cowork_cannot_read_onedrive" in self.faults:
@@ -409,7 +464,8 @@ def platform_for(ev, session=None):
     key = (session or {}).get("platform", ev.get("platform", "claude-code"))
     if key not in PLATFORMS:
         raise ValueError(f"unknown platform {key!r}: one of {sorted(PLATFORMS)}")
-    return PLATFORMS[key](ev.get("platform_faults", []))
+    # a session's own platform_faults win (one session of an eval on print-to-save, say), as run_eval reads them
+    return PLATFORMS[key]((session or {}).get("platform_faults", ev.get("platform_faults", [])))
 
 
 LEADER_RUN_MODES = ("simulated", "scripted")
@@ -450,6 +506,42 @@ def count_actions(sessions):
                if t["role"] == "student" and not t.get("end") and t["text"].strip() != "END")
     screen = sum(t.get("actions", 0) for s in sessions for t in s["turns"] if t["role"] == "student")
     return {"messages": msgs, "screen_actions": screen, "actions": msgs + screen}
+
+
+def _is_reply(t):
+    return t["role"] == "student" and not t.get("end") and t["text"].strip() != "END"
+
+
+def replies_by_part(sessions, skill="deconstruct"):
+    """Leader replies per part, on top of count_actions (Deconstruct 3.3, T3 and T4): every reply count_actions
+    counts as a message, split at the skill's "Part k of N" signposts (check_scripted.SIGNPOST_IDS; replies
+    before the first signpost are "entry"), plus, at each AI message that carries a count (the count line,
+    N-D17's main form or the light line), the replies still to come after it: what that count's [M] promises.
+    A skill with no signposts has only "entry". Never measures time."""
+    import check_scripted as CS  # lazily: check_scripted doesn't import this module, but keep loading cheap
+    total = CS.SIGNPOST_IDS.get(skill, (0, []))[0]
+    signpost = re.compile(rf"\bPart ([1-9]) of {total}\b") if total else None
+    corpus = AL.load()
+    carriers = [(f, f"{lid}") for lid, form in CS.COUNT_CARRIERS for f in corpus.get(lid, form) if f.text]
+    count_line = [f for f in corpus.get(CS.COUNT_LINE_ID) if f.text]
+    flat = [(s.get("n", k), t) for k, s in enumerate(sessions, 1) for t in s["turns"]]
+    by_part, part, points, ai_no = {"entry": 0}, "entry", [], {}
+    for at, (n, t) in enumerate(flat):
+        if t["role"] == "ai":
+            ai_no[n] = ai_no.get(n, 0) + 1
+            hit = signpost.search(AL.norm(t["text"])) if signpost else None
+            if hit:
+                part = f"Part {hit.group(1)}"
+                by_part.setdefault(part, 0)
+            said = [lid for f, lid in carriers if f.matches(t["text"])]
+            if any(f.matches(t["text"]) for f in count_line):
+                said.append(f"{part} signpost" if hit else "the count line")
+            if said:
+                still = sum(1 for _, x in flat[at + 1:] if _is_reply(x))
+                points.append({"at": said[0], "session": n, "message": ai_no[n], "still_to_come": still})
+        elif _is_reply(t):
+            by_part[part] += 1
+    return {"by_part": by_part, "replies": sum(by_part.values()), "count_points": points}
 
 
 def action_report(counts, target):

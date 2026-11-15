@@ -80,7 +80,13 @@ SMOKE = False  # --smoke: one run each, verdicts marked SMOKE and never counted 
 
 # Rough API-equivalent cost per call (USD), for the estimate printed before each round. A subscription
 # isn't billed it; --cost-from replaces it with a previous round's measured usage.
-EST_USD = {"skill_turn": 0.30, "leader_turn": 0.04, "grader": 0.50, "rubric": 0.40, "control": 0.05, "run_chat": 0.30}
+# Basis (2026-11-14): the deconstruct-smoke-1 round (5 runs, 7 skill sessions, 278 skill turns, Opus 5.5),
+# costed with harness.calls_usd. A session's first skill turn loads the skill (avg 0.435); each later,
+# resumed turn adds avg 0.064; a leader call (fresh, the whole transcript each time) avg 0.038; grader
+# 0.215 and rubric 0.217 per run. Analyze's shorter rounds measured less per leader and grader call
+# (0.012, 0.06), so these lean high for the shorter steps.
+EST_USD = {"skill_first": 0.44, "skill_turn": 0.064, "leader_turn": 0.038, "grader": 0.22, "rubric": 0.22,
+           "control": 0.05, "run_chat": 0.30}
 EST_TURNS_WITH_LEADER = 25
 
 
@@ -361,6 +367,8 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
                                     "files_start": start, "files_end": end, "cap_hit": cap_hit,
                                     "fixture": fresh,  # its start tree is the files the leader brought
                                     "root": str(sdir / "workspace"), "platform": platform.key,
+                                    "typed_history": platform.state.get("typed_history", ""),
+                                    "grounding": platform.state.get("grounding", ""),
                                     "script_quotes": CS.script_quotes(script)})
             again = restart_session(ev, data, platform, turns, sessions)
             if again:
@@ -408,9 +416,12 @@ def run_once(rnd, ev, k, out, args, evals_dir, data):
            "expectations": exp,
            "passed": sum(1 for e in exp if e["passed"]), "total": len(exp),
            "leader_actions": {**counts, "report": L.action_report(counts, ev.get("action_target")),
-                              "target": ev.get("action_target")},
+                              "target": ev.get("action_target"),
+                              # Deconstruct 3.3 (T3, T4): replies per part and still to come at each count said
+                              **({"replies_by_part": L.replies_by_part(run["sessions"], data.get("skill_name"))}
+                                 if data.get("skill_name") == "deconstruct" else {})},
            "denials": [d for c in calls for d in c["permission_denials"]],
-           "usd": round(sum(c.get("total_cost_usd") or 0 for c in calls), 4)}
+           "usd": round(H.calls_usd(calls), 4)}
     for sess in run["sessions"]:  # copy back named outputs only
         n = sess["n"]
         out_s = rdir / f"session-{n}"
@@ -548,8 +559,10 @@ def estimate(evs, args, data):
     if args.cost_from:
         for f in Path(args.cost_from).glob("*/run-*/result.json"):
             r = json.loads(f.read_text())
-            if r.get("usd"):
-                measured.setdefault(r["eval"], []).append(r["usd"])
+            calls = f.parent / "calls.json"  # recomputed: rounds before 2026-11-14 summed running totals
+            usd = H.calls_usd(json.loads(calls.read_text())) if calls.exists() else r.get("usd")
+            if usd:
+                measured.setdefault(r["eval"], []).append(usd)
     rows, total = [], 0.0
     for ev in evs:
         runs = runs_for(ev, args, data)
@@ -562,7 +575,8 @@ def estimate(evs, args, data):
             for s in sessions:
                 leads = bool(s.get("student")) or bool(s.get("replies"))
                 turns = ev.get("est_turns") or (EST_TURNS_WITH_LEADER if leads else 1)
-                per += turns * EST_USD["skill_turn"] + (turns * EST_USD["leader_turn"] if s.get("student") else 0)
+                per += EST_USD["skill_first"] + (turns - 1) * EST_USD["skill_turn"] \
+                    + (turns * EST_USD["leader_turn"] if s.get("student") else 0)
             per += EST_USD["grader"] + (EST_USD["rubric"] if data.get("judge_rubric", True) and ev.get("judge_rubric", True) else 0)
             basis = "rough, per-call rates"
         cost = per * runs

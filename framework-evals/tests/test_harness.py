@@ -128,11 +128,14 @@ class QuoteCheck(unittest.TestCase):
             self.assertIn("N-D1", out.getvalue())
 
     def test_bring_in_line_platform_forms_are_whole_lines(self):
-        # lines-to-approve: the bring-in line in N-F2's platform forms ("in a new session" on Claude Code
-        # and Codex); the whole line each fragment makes is checkable, and a changed word still fails
+        # lines-to-approve: the bring-in line in N-F2's platform forms ("in a new session in this project", no
+        # location, on Claude Code and Codex: core round-1 fixes, 2026-11-12); the whole line each fragment makes
+        # is checkable, and a changed word still fails
         cc = {"type": "quote", "id": "bring-in-line", "form": "Claude Code and Codex, whole line"}
-        said = "To bring Client Follow-Up into the framework, start Deconstruct in a new session with: 'run the deconstruct skill on Client Follow-Up. My files are in framework.'"
+        said = "To bring Client Follow-Up into the framework, start Deconstruct in a new session in this project with: 'run the deconstruct skill on Client Follow-Up.'"
         self.assertTrue(ok(cc, run_of(said)))
+        old = "To bring Client Follow-Up into the framework, start Deconstruct in a new session with: 'run the deconstruct skill on Client Follow-Up. My files are in framework.'"
+        self.assertFalse(ok(cc, run_of(old)))  # the old derivation: location kept, "in this project" dropped
         self.assertFalse(ok({"type": "quote", "id": "bring-in-line", "form": "main"}, run_of(said)))
         self.assertFalse(ok(cc, run_of(said.replace("start Deconstruct", "open Deconstruct"))))
         desk = {"type": "quote", "id": "bring-in-line", "form": "Claude desktop, whole line"}
@@ -272,6 +275,17 @@ class WordingChecks(unittest.TestCase):
         bld = ["Part 1 of 3 — your setup", "Part 2 of 3 — building and checking", "Part 3 of 3 — save it and test"]
         self.assertTrue(ok({"type": "signposts", "skill": "build"}, run_of(*bld)))
         self.assertFalse(ok({"type": "signposts", "skill": "build"}, run_of(bld[0], "Part 2 of 3 — building", bld[2])))
+
+    def test_signposts_across_sessions(self):
+        # smoke-1 fix: a stop after Part 3 and a resume that says Parts 4 and 5 count, in order across sessions
+        dec = ["Part 1 of 5 — what this is worth.", "Part 2 of 5 — where it starts and ends, and a name.", "Part 3 of 5 — the outcome.",
+               "Part 4 of 5 — how the work gets done.", "Part 5 of 5 — rules, sources and practice runs."]
+        a, b = run_of(*dec[:3]), run_of(*dec[3:])
+        run = {"sessions": a["sessions"] + [dict(b["sessions"][0], n=2)]}
+        self.assertTrue(ok({"type": "signposts", "skill": "deconstruct"}, run))
+        swapped = {"sessions": [dict(b["sessions"][0], n=1), dict(a["sessions"][0], n=2)]}
+        self.assertFalse(ok({"type": "signposts", "skill": "deconstruct"}, swapped))
+        self.assertFalse(ok({"type": "signposts", "skill": "deconstruct", "session": 2}, run))
 
     def test_rubric_judge_sees_tool_lines_behind_a_figure(self):
         # a version the AI read with `claude --version` isn't invented: the judge sees that output line
@@ -1311,7 +1325,9 @@ class Corpus(unittest.TestCase):
                      "D5", "D10", "practice-run-line"):
             self.assertIn(must, ids)
         for e in json.loads(AL.DEFAULT_CORPUS.read_text())["lines"]:
-            self.assertEqual(set(e) - {"fragment", "note", "clause"}, {"id", "form", "text", "kind", "skills", "files", "source"})
+            # "states": the phrases a line's [state] takes (N-F23, the routing lead-in)
+            self.assertEqual(set(e) - {"fragment", "note", "clause", "retired", "states"},
+                             {"id", "form", "text", "kind", "skills", "files", "source"})
             self.assertIn(e["kind"], ["question", "safety or promise", "teaching", "carried", "structure"])
         self.assertEqual(c.get("N-F13")[0].files["build"], "references/routing.md")
         self.assertEqual(c.get("N-T20")[0].files, {"build": "references/carried-lines.md"})
@@ -1319,6 +1335,209 @@ class Corpus(unittest.TestCase):
         self.assertIn("3c-DI", c.get("N-B54")[0].__dict__.get("source", "") or
                       json.dumps([e for e in json.loads(AL.DEFAULT_CORPUS.read_text())["lines"] if e["id"] == "N-B54"]))
 
+    def test_retired_lines_are_left_out(self):
+        """A retired entry stays in the file as a record, but is never matched, placed or quoted."""
+        entries = json.loads(AL.DEFAULT_CORPUS.read_text())["lines"]
+        retired = [e for e in entries if e.get("retired")]
+        self.assertTrue(retired)
+        c = AL.Corpus(AL.DEFAULT_CORPUS)
+        for e in retired:
+            self.assertFalse([ln for ln in c.get(e["id"], e["form"]) if ln.text == e["text"]], e["id"])
+        self.assertEqual(c.get("N-A1"), [])  # Analyze 3.1 (3c-EP): the opening's old first paragraph
+        with tempfile.TemporaryDirectory() as t:
+            p = Path(t, "corpus.json")
+            line = {"id": "N-X1", "form": "main", "text": "A line that was approved once and then retired.",
+                    "kind": "teaching", "skills": ["analyze"], "files": {"analyze": "SKILL.md"}, "source": "test"}
+            p.write_text(json.dumps({"lines": [dict(line, retired="test: retired")]}))
+            self.assertEqual(AL.Corpus(p).get("N-X1"), [])
+            p.write_text(json.dumps({"lines": [line]}))
+            self.assertEqual(len(AL.Corpus(p).get("N-X1")), 1)
+
+
+
+class CoreRound1Corpus(unittest.TestCase):
+    """Core round-1 fixes (2026-11-12): the no-location forms, fragments said exactly, a quoted fill's stop."""
+
+    def test_no_location_form_is_derived(self):
+        c = AL.load()
+        t19 = c.get("N-T19", "main, Claude Code and Codex (no location)")
+        self.assertEqual(len(t19), 1)
+        self.assertTrue(t19[0].matches("This workflow is live. To change it, say 'change my workflow.' "
+                                       "To re-check it, say 'test the workflow I built.'"))
+        self.assertEqual(t19[0].files, {})  # derived: never placed in a skill file
+
+    def test_bring_in_line_claude_code_form(self):
+        (ln,) = AL.load().get("bring-in-line", "Claude Code and Codex, whole line")
+        self.assertEqual(ln.text, "To bring [workflow] into the framework, start Deconstruct in a new session in this "
+                                  "project with: 'run the deconstruct skill on [workflow].'")
+
+    def test_fragment_said_exactly_is_no_near_miss(self):
+        c = AL.load()
+        frag = next(ln for ln in c.lines if ln.fragment and ln.text and ln.segments and len(ln.segments[0]) >= 3)
+        msg = "Thanks. " + frag.text.strip("…").strip() + " Then we go on."
+        ws = AL.words(msg)
+        seg = frag.segments[0]
+        i = next(k for k in range(len(ws)) if ws[k:k + len(seg)] == seg)
+        self.assertIn((i, i + len(seg)), c.exact_spans(ws))
+
+    def test_quoted_fill_ending_in_its_own_mark(self):
+        toks = AL.tokens("Ask them [question]. Then wait.")
+        rx = re.compile(AL.to_regex(toks), re.S | re.I)
+        self.assertTrue(rx.search(AL.norm("Ask them 'is it ready?' Then wait.")))
+        self.assertTrue(rx.search(AL.norm("Ask them “is it done.” Then wait.")))
+        self.assertTrue(rx.search(AL.norm("Ask them is it ready. Then wait.")))
+        self.assertFalse(rx.search(AL.norm("Ask them is it ready, then wait.")))
+
+    def test_narration_check_runs_on_core_evals_only(self):
+        data = {"default_tier": "regression", "core_builtin_checks": ["narration"]}
+        self.assertIn("narration", CS.builtins_for({"tier": "core"}, data))
+        self.assertNotIn("narration", CS.builtins_for({"tier": "regression"}, data))
+        self.assertNotIn("narration", CS.builtins_for({"tier": "core", "skip_builtin": ["narration"]}, data))
+        self.assertFalse(ok({"type": "narration"}, run_of("Now the Workflow nodes.")))
+        self.assertFalse(ok({"type": "narration"}, run_of("Saved it to ai-opportunity-report.md for you.")))
+        self.assertTrue(ok({"type": "narration"}, run_of("Your report: `framework/ai-opportunity-report.md`.")))
+
+    def test_line_id_is_narration(self):
+        # core round-4 fixes (2026-11-13): A19 run 3 said "It's a general folder, so N-F15."
+        self.assertFalse(ok({"type": "narration"}, run_of("It's a general folder, so N-F15.")))
+        self.assertFalse(ok({"type": "narration"}, run_of("I'll ask N-A12 next, then the shortlist.")))
+        self.assertFalse(ok({"type": "narration"}, run_of("That follows N-F3a.")))
+        self.assertTrue(ok({"type": "narration"}, run_of("Run `check N-F15` to see it.")))
+        self.assertTrue(ok({"type": "narration"}, run_of("Your notes cover the N-95 mask order.")))
+
+    def test_judge_sees_platform_supplied_content(self):
+        import grade_eval as G
+        run = {"sessions": [{"platform": "microsoft-365", "grounding": "An email from a client about renewal pricing."}]}
+        self.assertIn("renewal pricing", G.platform_supplied(run))
+        self.assertEqual(G.platform_supplied({"sessions": [{"platform": "claude-code"}]}), "")
+
+    def test_saving_line_and_lead_in_are_not_narration(self):
+        self.assertTrue(ok({"type": "narration"}, run_of("Saving your report and workflows now; this takes a moment.")))
+        self.assertFalse(ok({"type": "narration"}, run_of("Saving your workflows and report now; one moment.")))
+        self.assertTrue(ok({"type": "narration"}, run_of("Client Follow-Up has its requirements, so the next step is Design.")))
+        self.assertFalse(ok({"type": "narration"}, run_of("Your registry is set up but has no workflows yet, so the next step is Analyze.")))
+        self.assertFalse(ok({"type": "narration"}, run_of("Client Follow-Up is waiting, so the next step is Design.")))
+
+    def test_saving_as_a_subject_is_not_the_saving_line(self):
+        # smoke-1 fix: "Saving" that starts a sentence about the work passes; the AI saying it is saving fails
+        self.assertTrue(ok({"type": "narration"}, run_of(
+            "Saving drafts in Outlook also needs a connection; we'll set that up when it's built.")))
+        self.assertTrue(ok({"type": "narration"}, run_of("Saving to the shared drive requires sign-in from IT.")))
+        for bad in ("Saving…", "Saving your progress", "Saving your progress now.", "Still saving: the file is nearly done.",
+                    "Now saving the requirements."):
+            self.assertFalse(ok({"type": "narration"}, run_of(bad)), bad)
+
+    def test_core_round3_lines(self):
+        # N-F24 said exactly is approved words; the backlog [state]; "Still saving" is the saving line reworded;
+        # the saving line's "a moment" is no time estimate
+        self.assertTrue(ok({"type": "narration"}, run_of("Your registry has no workflows yet, so the next step is Analyze.")))
+        self.assertTrue(ok({"type": "narration"}, run_of("Client Follow-Up is in your backlog, so the next step is Deconstruct.")))
+        self.assertFalse(ok({"type": "narration"}, run_of("Still saving: the report is written, and your workflows are next.")))
+        self.assertEqual(CS.time_or_step_hits("Saving your report and workflows now; this takes a moment."), [])
+        d2 = next(f for f in AL.load().get("N-D2") if f.text).text
+        c = {"type": "opens_with", "ids": ["N-D2"], "lead_in": True}
+        self.assertTrue(ok(c, run_of("Client Follow-Up is in your backlog, so the next step is Deconstruct.\n\n" + d2)))
+        self.assertFalse(ok(c, run_of("Two workflows are waiting in your backlog, so the next step is Deconstruct.\n\n" + d2)))
+
+    def test_opens_with_allows_the_lead_in_only(self):
+        d2 = next(f for f in AL.load().get("N-D2") if f.text).text
+        c = {"type": "opens_with", "ids": ["N-D2"], "lead_in": True}
+        self.assertTrue(ok(c, run_of(d2 + "\n\nMore.")))
+        self.assertTrue(ok(c, run_of("Client Follow-Up already runs, so the next step is Deconstruct.\n\n" + d2)))
+        self.assertFalse(ok(c, run_of("Client Follow-Up already runs outside the framework, so I'm handing it to Deconstruct.\n\n" + d2)))
+        self.assertFalse(ok(dict(c, lead_in=False), run_of("Client Follow-Up already runs, so the next step is Deconstruct.\n\n" + d2)))
+
+    def test_said_before_the_close(self):
+        c = {"type": "said_before", "id": "N-A30", "anchor": "^You now have "}
+        line = "Saving your report and workflows now; this takes a moment."
+        self.assertTrue(ok(c, run_of("Here's the list.", line + "\n\nYou now have 3 workflows.")))
+        self.assertFalse(ok(c, run_of("Here's the list.", line + "\n\nNow the stubs.\n\nYou now have 3 workflows.")))
+        self.assertFalse(ok(c, run_of("Here's the list.", "You now have 3 workflows.")))
+        self.assertFalse(ok(c, run_of(line, line + "\n\nYou now have 3 workflows.")))
+
+    def test_deconstruct_saving_line(self):
+        line = "Saving your Workflow Requirements now; this takes a moment."
+        self.assertTrue(ok({"type": "narration"}, run_of(line)))
+        self.assertFalse(ok({"type": "narration"}, run_of("Saving your Workflow Requirements now.")))
+        self.assertEqual(CS.time_or_step_hits(line), [])
+        c = {"type": "said_before", "id": "N-D24", "anchor": "^Workflow Requirements saved to ", "opens": True}
+        close = "Workflow Requirements saved to `framework/x/requirements.md`."
+        self.assertTrue(ok(c, run_of("go?", line + "\n\nOne thing is still open.\n\n" + close)))
+        self.assertTrue(ok(c, run_of("go?", line + "\n\n" + close)))
+        self.assertFalse(ok(c, run_of("go?", "One thing is still open.\n\n" + line + "\n\n" + close)))
+        self.assertFalse(ok(c, run_of("go?", close)))
+        self.assertFalse(ok(c, run_of(line, line + "\n\n" + close)))
+        self.assertFalse(ok(dict(c, opens=False), run_of("go?", line + "\n\nOne thing is still open.\n\n" + close)))
+
+    def test_deconstruct_inputs_shown(self):
+        # N-D25 (approved 2026-11-14): every proposed practice input is shown in full before saving
+        # said in two parts around the inputs (smoke-3 fixes), so the message ends on the question
+        lead, ask = "Here are the practice inputs I wrote.", "Does each look like what you'd really get?"
+        line = lead + " " + ask
+        preview = "Each practice run is checked against the lines we've written: what every report must get right."
+        c = {"type": "inputs_shown", "id": "N-D25", "anchor": "^Each practice run is checked against the lines we've written"}
+        req = ("# X\n\n## Example Scenarios\n\n| ID | Scenario | Input | What to look for in the output | Golden Example |\n"
+               "|---|---|---|---|---|\n"
+               "| E1 | Typical week (real) | `inputs/E1-typical-week.md` — last week | a report; no gaps | — |\n"
+               "| E2 | Late invoice (proposed, hard) | `inputs/E2-late-invoice.md` — late one | flags it; no send | — |\n"
+               "| E3 | Repeat client (proposed) | `inputs/E3-repeat-client.md` — repeat | skips it; no resend | — |\n\n"
+               "## Rules & Constraints\n")
+        files = {"framework/x/requirements.md": req,
+                 "framework/x/inputs/E1-typical-week.md": "source: deconstruct\ntests: AC1\nexpect: a\n\nReal pasted notes.\n",
+                 "framework/x/inputs/E2-late-invoice.md": "source: deconstruct\ntests: AC1\nexpect: b\n\nInvoice 114 from Acme, 40 days late.\nSecond line.\n",
+                 "framework/x/inputs/E3-repeat-client.md": ("source: deconstruct\ntests: R2\nexpect: c\n\nEarlier run: handled Dana's "
+                                                            "request on Monday.\n\nDana asks again for the Q3 numbers.\n")}
+        inputs = ("**The late invoice run:**\n> Invoice 114 from Acme, 40 days late.\n> Second line.\n\n"
+                  "**The repeat client run** (as if an earlier run already handled Dana's request):\n"
+                  "> Dana asks again for the Q3 numbers.")
+        shown = lead + "\n\n" + inputs + "\n\n" + ask
+
+        def run(*msgs):
+            return run_of(*msgs, files_end=files)
+        self.assertTrue(ok(c, run("Here are the practice runs we'll test it on.", shown, preview)))
+        # the whole line first, then the inputs: the message ends on the inputs, not the question: fails
+        self.assertFalse(ok(c, run(line + "\n\n" + inputs, preview)))
+        # anything after the question: fails
+        self.assertFalse(ok(c, run(shown + " Anything else?", preview)))
+        # the two parts swapped: fails
+        self.assertFalse(ok(c, run(ask + "\n\n" + inputs + "\n\n" + lead, preview)))
+        # the split form is the approved line, word for word; a word changed in either part is a near miss
+        self.assertTrue(ok({"type": "quote", "id": "N-D25"}, run_of(shown)))
+        self.assertFalse(ok({"type": "scripted_lines", "skill": "deconstruct"},
+                            run_of(shown.replace("practice inputs", "sample inputs"))))
+        self.assertFalse(ok({"type": "scripted_lines", "skill": "deconstruct"},
+                            run_of(shown.replace("really get?", "actually get?"))))
+        # never shown, shown after the preview, or said twice: fails
+        self.assertFalse(ok(c, run("Here are the practice runs we'll test it on.", preview)))
+        self.assertFalse(ok(c, run(preview, shown)))
+        self.assertFalse(ok(c, run(shown, shown, preview)))
+        # one input left out: fails; a later message (the corrected text played back) before the preview: passes
+        partial = lead + "\n\n> Invoice 114 from Acme, 40 days late.\n\n" + ask
+        self.assertFalse(ok(c, run(partial, preview)))
+        self.assertTrue(ok(c, run(partial, "So that one reads: Dana asks again for the Q3 numbers.", preview)))
+        # the header and the Earlier run paragraph are never what's matched
+        self.assertEqual(CS.input_body(files["framework/x/inputs/E3-repeat-client.md"]), "Dana asks again for the Q3 numbers.")
+        # no proposed row: fails unless allow_none, and then the line must not be said
+        real_only = dict(files, **{"framework/x/requirements.md": req.replace("(proposed, hard)", "(real, hard)").replace("(proposed)", "(real)")})
+        self.assertFalse(ok(c, run_of(preview, files_end=real_only)))
+        self.assertTrue(ok(dict(c, allow_none=True), run_of(preview, files_end=real_only)))
+        self.assertFalse(ok(dict(c, allow_none=True), run_of(shown, preview, files_end=real_only)))
+        # the line itself is not narration, not a time estimate, and not a near miss of the practice runs' opening
+        self.assertTrue(ok({"type": "narration"}, run_of(shown)))
+        self.assertEqual(CS.time_or_step_hits(line), [])
+        self.assertTrue(ok({"type": "scripted_lines", "skill": "deconstruct"}, run_of(shown)))
+
+    def test_judge_sees_typed_history_and_ranks_documents_first(self):
+        import grade_eval as G
+        line = json.dumps({"display": "help me write the renewal email", "project": "x"})
+        run = {"sessions": [{"platform": "claude-code", "typed_history": line + "\n"}]}
+        self.assertIn("help me write the renewal email", G.typed_history(run))
+        self.assertEqual(G.typed_history({"sessions": [{"platform": "claude-web", "typed_history": line}]}), "")
+        for rel in ("knowledge/clients.md", "sops/onboarding.md", "drive/ai-workspace/process-guides/x.md",
+                    "CLAUDE.md", "Playbooks/checklist.md"):
+            self.assertEqual(G._read_rank(rel), 1, rel)
+        self.assertEqual(G._read_rank("registry/processes/x.md"), 3)
+        self.assertEqual(G._read_rank("framework/ai-opportunity-report.md"), 2)
 
 
 RUNNING_WORK = ("This workflow already runs outside the framework. To bring it in, say 'run the deconstruct skill "
