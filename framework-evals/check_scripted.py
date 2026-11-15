@@ -52,7 +52,7 @@ Each `scripted` expectation in an evals.json carries a `check` object. Check typ
                                                                   brought requirements.md's `Starts` row records
                                                                   it ("checked every 30 minutes"; Deconstruct 3.3,
                                                                   R-D3's time-word exception)
-  signposts        {skill?, of?, session?}                        the skill's "Part k of N" signposts, in
+  signposts        {skill?, of?, optional?, session?}             the skill's "Part k of N" signposts, in
                                                                   order: deconstruct 5 (default), design 4,
                                                                   test 4, build 3; `of` for a later entry
   max_words        {max, turn: "first", session?}                 each session's first AI message is at most
@@ -908,8 +908,13 @@ def check(c, run):
         sess = _sessions(run, n)
         text = AL.norm("\n".join(m for s in sess for m in _ai_turns(s)))
         pos = 0
+        # Design baseline fix (2026-11-14): `optional` lists part numbers that may be left out (Design's
+        # Part 3 when there is nothing to ask: Part 4 follows with no announcement and keeps its number)
+        optional = {f"Part {k} of {total}" for k in c.get("optional", [])}
         for w in want:
             j = text.find(AL.norm(w).rstrip("."), pos)
+            if j < 0 and w[:11] in optional:
+                continue
             if j < 0:
                 return False, f"{w!r} missing or out of order"
             pos = j

@@ -50,7 +50,7 @@
        {
         "type": "quote",
         "id": "N-F10",
-        "form": "main",
+        "form": "Claude Code and Codex",
         "turn": "first"
        },
        {
@@ -1789,7 +1789,7 @@
    "files": [],
    "expectations": [
     {
-     "text": "The opening, with the location",
+     "text": "The opening, with the location confirmed in N-F3's Claude Code clause (which names no path: the files are in this folder)",
      "kind": "scripted",
      "check": {
       "type": "all",
@@ -1801,8 +1801,9 @@
         "turn": "first"
        },
        {
-        "type": "ai_contains",
-        "text": "framework/client-follow-up",
+        "type": "quote",
+        "id": "N-F3",
+        "form": "On Claude Code",
         "turn": "first"
        }
       ]
@@ -7434,7 +7435,7 @@
        {
         "type": "quote",
         "id": "N-F10",
-        "form": "main",
+        "form": "Claude Code and Codex",
         "turn": "first"
        }
       ]
@@ -7592,7 +7593,7 @@
        {
         "type": "quote",
         "id": "N-F10",
-        "form": "main",
+        "form": "Claude Code and Codex",
         "turn": "first"
        }
       ]
@@ -9573,11 +9574,14 @@
    ],
    "expectations": [
     {
-     "text": "Design's four parts run (its entry check passed)",
+     "text": "Design's parts run (its entry check passed); Part 3 may be left out when there is nothing to ask",
      "kind": "scripted",
      "check": {
       "type": "signposts",
-      "skill": "design"
+      "skill": "design",
+      "optional": [
+       3
+      ]
      }
     },
     {

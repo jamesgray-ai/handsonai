@@ -1864,5 +1864,33 @@ class CoreBatch2Fixes(unittest.TestCase):
             self.assertNotIn("include-facts", seen["p"])
 
 
+class DesignBaselineFixes(unittest.TestCase):
+    """Design baseline round (2026-11-14): checks that misfired on what the skill is meant to do."""
+
+    def test_an_optional_signpost_may_be_left_out(self):
+        said = "Part 1 of 4 — where it runs\n\nPart 2 of 4 — the plan\n\nPart 4 of 4 — review and approve"
+        self.assertFalse(ok({"type": "signposts", "skill": "design"}, run_of(said)))
+        self.assertTrue(ok({"type": "signposts", "skill": "design", "optional": [3]}, run_of(said)))
+        # only the listed part: Part 2 missing still fails
+        self.assertFalse(ok({"type": "signposts", "skill": "design", "optional": [3]},
+                            run_of("Part 1 of 4 — where it runs\n\nPart 4 of 4 — review and approve")))
+
+    def test_the_rubric_judge_sees_the_fixed_step_lines_and_the_requirements_first(self):
+        import tempfile, grade_eval as G
+        req = ("# Requirements\n" + "".join(f"- filler line number {k} about the outcome and its checks\n" for k in range(80))
+               + "- Step 3 — Review and send · produces the sent email · fixed (your judgment) · (you)\n")
+        plan = "# Plan\n" + "".join(f"- plan line number {k} about the tasks and their checks\n" for k in range(80))
+        files = {"framework/x/design-plan.md": plan, "framework/x/requirements.md": req}
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d) / "workspace"; root.mkdir()
+            (Path(d) / "events.jsonl").write_text(json.dumps({"type": "user", "message": {"content": [
+                {"type": "tool_result", "content": req + plan}]}}) + "\n")
+            run = run_of("Guided, keeping the steps you fixed exactly as they are.", files_start=files)
+            run["sessions"][0].update(root=str(root), files_end=dict(files))
+            shown = G.files_read(run, ["Guided, keeping the steps you fixed exactly as they are."])
+        self.assertIn("fixed (your judgment)", shown)
+        self.assertLess(shown.index("requirements.md"), shown.index("design-plan.md"))
+
+
 if __name__ == "__main__":
     unittest.main()

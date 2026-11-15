@@ -213,7 +213,10 @@ def mark_scripted(message, corpus=None):
     return out
 
 
-READ_CAP = 7000  # characters of the leader's files shown to the rubric judge, in all
+# Design baseline fix (2026-11-14): 7000 left no room for the requirements once a plan was shown
+READ_CAP = 10000  # characters of the leader's files shown to the rubric judge, in all
+# a step line the leader fixed ("· fixed (your judgment)"): what N-10's "keeping the steps you fixed" rests on
+FIXED_STEP = re.compile(r"· fixed \((?:regulation|policy|your judgment)\)")
 READ_FILE_CAP = 2500
 READ_CHANGED_CAP = 800  # of a cut file's share: the lines the session later changed or removed
 
@@ -443,7 +446,9 @@ def files_read(run, msgs=()):
             now[rel] = [ln for ln in (end_text or "").splitlines() if ln.strip() and ln not in first]
     parts, total = [], 0
     picked = picked_slugs(run)
-    for rel in sorted(found, key=lambda r: (_read_rank(r), r)):
+    # Design baseline fix (2026-11-14): the requirements before the plan (same rank), so the plan can't use
+    # the budget and leave the requirements out
+    for rel in sorted(found, key=lambda r: (_read_rank(r), not r.endswith("requirements.md"), r)):
         k, body = found[rel][0], found[rel][1].strip()
         gone = []
         if len(body) > READ_FILE_CAP:
@@ -454,6 +459,9 @@ def files_read(run, msgs=()):
             ranked = sorted((ln for ln in changed.get(rel, []) if body.find(ln) >= head), key=lambda ln: -overlap(ln))
             ranked += sorted((ln for ln in past if ln.strip() and ln not in ranked and overlap(ln) >= 2),
                              key=lambda ln: -overlap(ln))
+            if "fixed" in said:  # the messages speak of fixed steps: the step lines marked fixed come first
+                ranked = ([ln for ln in past if FIXED_STEP.search(ln)]
+                          + [ln for ln in ranked if not FIXED_STEP.search(ln)])
             for ln in ranked:
                 if overlap(ln) and sum(len(x) + 1 for x in gone) + len(ln) <= READ_CHANGED_CAP:
                     gone.append(ln)
