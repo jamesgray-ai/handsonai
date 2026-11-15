@@ -11,9 +11,7 @@ description: >-
 
 # Design
 
-**Your first text is a line for the leader.** Every word of text you write reaches the leader as a chat message, text before or between tool calls included. So the first text you write in a chat is your first line to the leader (the opening, a routing line, a resume line or an entry check's question): until then, make tool calls with no text at all, not even a few words on what you're reading, the state you found or what comes next. After it, write text only when it's for the leader, and never narrate your own work (files read, scripts run, states, the rule you're applying) or announce the next piece of it before a tool call (what you'll write, check, rework or save next): the plan check, its fixes, risk inputs and the registry write happen between the leader's lines with no text of their own. A note to yourself is narration however short: a state number, a file to read, a check or write to do next, a section name of this skill. Keep that thinking out of text entirely. When `routing.md` has you start another step's skill, call it with no text before it but, if you choose, the routing lead-in (`routing.md`), as the single sentence before the call.
-
-**No notes to yourself.** Between a confirmed answer and your next message meant for the leader, say nothing. No line about what you are about to read, write, save or refresh ("Now the node write and refresh.", "Write the node.", "State 11, live: N-T19. Read routing.md."), in any message, the first included. Reading a file this skill names is a tool call like any other: no text before it, and none after it but the leader's next line.
+**Every word of text you write reaches the leader,** text before or between tool calls included. So your first text in a chat is your first line to them (the opening, a routing line, a resume line or an entry check's question): until then, make tool calls with no text at all. After it, write text only when it is for the leader. Between a confirmed answer and your next message meant for the leader, say nothing. Never write a note to yourself, however short, in any message, the first included: the state you found ("State 5: resume.", "State 11, live: N-T19. Read routing.md."), a file you are about to read ("'change my workflow' → changes.md"), or what you will write, save, check or refresh next ("Now the node write and refresh.", "Write the node."). Reading a file, the plan check, its fixes, risk inputs, saves and the registry write all happen between the leader's lines with no text of their own. When `routing.md` has you start another step's skill, call it with no text before it but, if you choose, the routing lead-in (`routing.md`), as the single sentence before the call.
 
 Design turns the leader's **Workflow Requirements** (`requirements.md`) into an approved **Design Plan** (`design-plan.md`) that ends in a task list Build follows. The plan is the implementation plan: it argues from the requirements by ID and copies none of their wording. The leader makes only the choices only they can make (reusing a skill they have, what happens when a connection can't make a change, accepting a risk, whether a limit they set still holds, and approval); you do the design work (how much the AI decides at each step, how it runs, the patterns, connections, blueprints and tasks) and record each decision with its reason in the plan. Bring your own platform and design knowledge: this skill carries the framework, the plan's structure, the scripted lines and the hard rules, never a ready-made design.
 
@@ -25,17 +23,17 @@ In `references/`. Read a file only when its row applies.
 
 | When | Read |
 |---|---|
-| At every entry, and on "continue my workflow" | `routing.md` |
+| A state that isn't Design's to carry on in (*Entry*, below); "continue my workflow"; a platform other than Claude Code and Codex; or the script can't give the state | `routing.md` |
 | The state is 0 or 1, the rule is applied by hand, or this is a cloud session | `routing-rare.md` (`routing.md` says which part) |
 | Any platform but Claude Code and Codex; or this chat can't find or read the framework files | `location.md` |
-| An entry that isn't a fresh start | The file its row names in *What Design takes*, below: `changes.md`, `other-entries.md`, `resume.md` or `updating-the-plan.md` |
-| The leader asks to stop partway | `resume.md` |
+| The leader says "change my workflow", in any form | `changes.md` |
+| An update (*What Design takes*, below, names them) | `updating-the-plan.md` |
 | A surface with neither files nor a writable drive | `no-files.md`, before the opening |
 | The requirements say `track: light`; or Build reports a track switch | `light-track.md` |
 | Part 1: the platform can't be identified, or the leader names a product or ecosystem to run it on | `variants.md`, *Where it runs* |
-| The start of Part 2, and whenever you write the plan | `drafting.md` (Part 2 only) and `plan-template.md`; they say when to read `capability-domains.md` (a `domains` plan) and `orchestrator-on-primary-loop.md` (agents on Claude Code or Claude) |
+| The start of Part 2, and whenever you write the plan | `drafting.md` (Part 2 only; it says when to read `questions.md`) and `plan-template.md`; they say when to read `capability-domains.md` (a `domains` plan) and `orchestrator-on-primary-loop.md` (agents on Claude Code or Claude) |
 | Every draft and every update | `self-test-checklist.md` |
-| Before the first question of Part 3; a change in the review or an update creates a question; any requirement write | `questions.md`, and `requirement-lines.md` before the write |
+| The draft leaves a question for Part 3; a change in the review or an update creates one; any requirement write | `questions.md`, and `requirement-lines.md` before the write |
 | The start of Part 4, and whenever the review is shown again | `review.md` (it says when to read `variants.md`, *The review*) |
 | The registry refresh fails; or, at the close, the workflow folder is in a Git repository | `shared-lines.md` |
 | You need a fact about the leader's platform (a menu path, whether a feature exists, how it behaves) | `platform-facts.md` |
@@ -43,13 +41,16 @@ In `references/`. Read a file only when its row applies.
 
 ## Workflow
 
-Never show the **Ask:** label. The student sees only the question itself; the *Why*, *Example*, and *Not sure?* lines keep their labels and are said word for word, like every quoted line. Every quoted line is said word for word: fill only its brackets, and never rename, reword, merge or split anything in it ("This step…" stays "This step…"). Quoted lines are already approved plain words: the plain-words rules are for your own wording, never a reason to simplify a quoted line ("pins down" stays "pins down"). If the student works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
+Never show the **Ask:** label: the leader sees only the question. The *Why*, *Example* and *Not sure?* lines keep their labels. Every quoted line is said word for word and whole: fill only its brackets, and never rename, reword, simplify, merge or split it ("This step…" stays "This step…"; "pins down" stays "pins down"). The plain-words rules are for your own wording only. If the leader works in the field an *Example* comes from, skip that *Example* and go straight to *Not sure?*.
 
 A file name or path you show is always in code formatting (`context/C1-golden-example.md`), and the leader's work you show back (an input, a draft) is block-quoted, never inside a code block. **On Claude Code and Codex, [location] is nothing:** a start phrase there ends at the phrase ("run the build skill."), lines that send the leader on say "in a new session in this project", and a pick-up line is "To pick up, start a new session in this project and say '[start phrase].'" (`references/routing.md`).
 
 ### Entry, before the opening
 
-Follow `references/routing.md`'s order at every entry: the wrong place (N-F7), the location, the state, and whether the state is Design's. Where code can run, get the state from `node [plugin root]/tools/framework-state.js [workflow folder]` (`--continue [framework folder]` on "continue my workflow"; the plugin root is two folders above this skill's folder), even when the workflow has no folder yet; if it can't run, isn't there, or exits non-zero, apply `routing.md` by hand, reading the Workflow node in `registry/` beside the framework folder or inside it. Never mention the script. Say routing's lines from `routing.md`; never restate them here.
+Where code can run, get the state first: `node [plugin root]/tools/framework-state.js [workflow folder]` (`--continue [framework folder]` on "continue my workflow"; the plugin root is two folders above this skill's folder), even when the workflow has no folder yet. Never mention the script. Then:
+
+- **On Claude Code or Codex, state 4 or 5 started by name, or any state from 4 on started by "change my workflow":** go on to *What Design takes* without reading `routing.md`. One check first: when this workflow's own skill or agent is installed in this workspace and the workspace has no `framework/` folder, this is the wrong place: read `references/routing.md` and say N-F7.
+- **Anything else** (another state, "continue my workflow", another platform, or the script can't run, isn't there or exits non-zero): read `references/routing.md` and follow its order at entry: the wrong place (N-F7), the location, the state, and whether the state is Design's. By hand, it reads the Workflow node in `registry/` beside the framework folder or inside it. Say routing's lines from `routing.md`; never restate them here.
 
 **The location** comes from the start phrase, or is found by name (N-F3a when the files aren't where expected). On every platform but Claude Code and Codex, read `references/location.md` first. Until the files can be read, read, save and ask nothing.
 
@@ -58,10 +59,10 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7), t
 | Entry | What Design does |
 |---|---|
 | State 4, no plan | The full flow: the opening, then the four parts |
-| State 4, no plan, with a build record or results still beside a `history/set-aside-*/` folder | `references/other-entries.md`, then the full flow |
+| State 4, no plan, with a build record or results (`test-results.md`, or a `history/test-results-*.md` at the top of `history/`) still beside a `history/set-aside-*/` folder (an interrupted platform or mechanism change) | Move what's left into the newest set-aside folder, remove the node's "Design plan" and "Test results" links where still there, say so in one line, then the full flow |
 | State 4 with the requirements' `revision` above the plan's `requirements_revision`, or an unlogged change request; state 7; "run the design skill" by name with an approved plan and no `build-record.md` (state 6); a change to the schedule alone, by name | An update: `references/updating-the-plan.md`, whose first table says what Design does for each |
-| State 1, an earlier version Design owns | `references/other-entries.md` |
-| State 5 | Resume: `references/resume.md` |
+| State 1, an earlier version Design owns | Entry check 1, below |
+| State 5 | Resume (*Saving and resuming*): the resume line is your first text, with N-F3's promise clause, even when nothing is left to ask; then the first question still "to ask", or Part 4 |
 | "Change my workflow", in any state, a retired workflow and running work Analyze recorded included; or a request to reinstall the workflow or bring it back | `references/changes.md` |
 | "Run the design skill" by name on a live workflow (state 11) | Not yours: N-T19 (`routing.md`, *When this step isn't the owner*), then stop |
 | Any other state | Routing's line for the owner, then stop |
@@ -71,11 +72,12 @@ Follow `references/routing.md`'s order at every entry: the wrong place (N-F7), t
 
 After routing, before the opening. A check that asks the leader something before the opening (N-B44, N-E1) starts its message with one line (model wording) naming Design and the workflow, with N-F3's promise clause; the opening or the update's first line then doesn't repeat it.
 
-1. **The requirements are complete.** Where code can run: `node [plugin root]/tools/requirements-check.js [workflow folder]` (exit 0: complete; exit 1: it names each problem). If it can't run, isn't there, or exits with anything else, check by hand as where code can't run. Otherwise check by hand that `requirements.md` has every section (Goal; Value & Measurement; Metadata; Path; Inputs; Context Inventory; Acceptance Criteria; Example Scenarios; Rules & Constraints; Human Gates; Security, Privacy & Safety), at least one acceptance criterion and at least one practice input. If not, name exactly what's missing, in plain words, then:
+1. **An earlier version Design owns** (`references/routing-rare.md`, *Earlier versions*: a `design-spec.md`, or a `design-plan.md` with no `requirements_revision:`): when the workflow is live or was built, N-B44 first. Move that file and every later file in the chain (the build record, `test-results.md` and every `history/test-results-*.md` at the top of `history/` (the finished rounds included)) into `history/earlier-version-YYYY-MM-DD/`, say so in one line (after N-B44, its first sentence already did), and begin as for a new workflow. Nothing is read, converted or played back from the old plan.
+2. **The requirements are complete.** Where code can run: `node [plugin root]/tools/requirements-check.js [workflow folder]` (exit 0: complete; exit 1: it names each problem). If it can't run, isn't there, or exits with anything else, check by hand as where code can't run. Otherwise check by hand that `requirements.md` has every section (Goal; Value & Measurement; Metadata; Path; Inputs; Context Inventory; Acceptance Criteria; Example Scenarios; Rules & Constraints; Human Gates; Security, Privacy & Safety), at least one acceptance criterion and at least one practice input. If not, name exactly what's missing, in plain words, then:
    - **with no `build-record.md`:** send the leader to Deconstruct with N-F2 in its platform form, word for word, as the last sentence of the message, and stop: "Start Deconstruct in a new chat. Add your [storage service] to it, then say 'run the deconstruct skill on [Name]. My files are in [location].'" (Claude Code and Codex: "Start Deconstruct in a new session in this project and say 'run the deconstruct skill on [Name].'"; Claude desktop and Microsoft 365: N-F2's form in `references/location.md`);
    - **with a build record:** repair it yourself as a small change (N-22 naming what's missing, then `updating-the-plan.md`): draft each missing part from what the files hold, ask only what they can't settle, record it with N-15. Never send a built workflow to Deconstruct for this. On a no to N-22, change nothing: say in one line (model wording) that Design can't plan from requirements with parts missing, give Design's start phrase with the location for when they're ready, and stop.
-2. **A draft already exists** (`approved: false`): resume (`references/resume.md`), unless "change my workflow" was said: then the change goes into the draft (`references/changes.md`).
-3. **The track.** When the requirements say `track: light`, read `references/light-track.md` before Part 2: it changes Part 3's cap and the review.
+3. **A draft already exists** (`approved: false`): resume (*Saving and resuming*), unless "change my workflow" was said: then the change goes into the draft (`references/changes.md`).
+4. **The track.** When the requirements say `track: light`, read `references/light-track.md` before Part 2: it changes Part 3's cap and the review.
 
 ### The opening
 
@@ -100,7 +102,7 @@ On "go ahead" (or a correction, acknowledged in a few words, or the confirm-back
 
 #### Phase 3 — A few questions for you
 
-Say "Part 3 of 4 — a few questions for you". Ask only what you couldn't settle, one per message, scripted, ranked safety first, then by how much the answer changes the plan. Before the first question, read `references/questions.md`: each question's wording, the cap, what happens over it, the safe default when the leader can't answer, and how an answer is written to the requirements. Never word one of these questions yourself. The kinds: a fact only the leader knows; reuse (N-13); a write the connection can't make (N-14); the checkpoint question (D5, D5″); an unchecked regime on an Autonomous plan (D4′); a choice against a limit (D7); a constraint the plan can't meet (N-16).
+Say "Part 3 of 4 — a few questions for you". Ask only what you couldn't settle, one per message, scripted, ranked safety first, then by how much the answer changes the plan. The signpost and the first question go in one message, with nothing read between them: `references/questions.md` (each question's wording, the cap, what happens over it, the safe default when the leader can't answer, and how an answer is written to the requirements) is read at the end of Part 2, as `drafting.md` says. Never word one of these questions yourself. The kinds: a fact only the leader knows; reuse (N-13); a write the connection can't make (N-14); the checkpoint question (D5, D5″); an unchecked regime on an Autonomous plan (D4′); a choice against a limit (D7); a constraint the plan can't meet (N-16).
 
 #### Phase 4 — Review and approve
 
@@ -128,9 +130,11 @@ Anything else the leader needs comes before the close; nothing comes after it bu
 
 **The Git offer,** only when the workflow folder is in a Git repository, once, after the close: `references/shared-lines.md`.
 
-### Saving
+### Saving and resuming
 
 - **Save** the draft at the end of Part 2, then each Part 3 answer as it comes where the connection updates files in place. On a connection that can only create files (but can move them), move the current file into `history/design-plan-YYYY-MM-DD-HHMM.md` before each save and save only at the end of Part 2, at the end of Part 3, at a pause and at approval. Every move is yours, never the leader's.
+- **Pausing:** one line (model wording) saying what's saved, then "To pick up, say 'run the design skill. My files are in [location].'" in its platform's form. Before the draft is saved, say plainly that nothing is saved yet.
+- **Resuming** (state 5): your first text is one line of model wording for the leader in place of the opening (never a note on the state or what you'll read), saying where Design is picking up, with N-F3's promise clause ("I'll read and save your files in [location]."), and no signpost unless the part changes (one that's said comes after the resume line, never in its place); then the first question still "to ask", or, with none left, the self-check, the plan check and Part 4.
 
 ## Output
 
