@@ -25,9 +25,10 @@
 #                                  path when a fact can't be confirmed
 #
 # Copies:
-#   plugins/handsonai/skills/{analyze,deconstruct,build,test}/references/routing.md   (routing-full.md)
-#   plugins/handsonai/skills/design/references/routing.md                             (routing.md)
-#   plugins/handsonai/skills/design/references/{routing-rare,location,shared-lines,requirement-lines}.md
+#   plugins/handsonai/skills/{analyze,build,test}/references/routing.md               (routing-full.md)
+#   plugins/handsonai/skills/{design,deconstruct}/references/routing.md               (routing.md)
+#   plugins/handsonai/skills/{design,deconstruct}/references/{routing-rare,location}.md
+#   plugins/handsonai/skills/design/references/{shared-lines,requirement-lines}.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,applying-skill-best-practices,auditing-agent-skills}/references/platform-facts.md
@@ -59,9 +60,10 @@ CANON_TEST_RUN="$CANON_DIR/test-run.sh"
 CANON_SAVING="$CANON_DIR/saving.md"
 CANON_FACTS="$CANON_DIR/platform-facts.md"
 SKILLS_DIR="$ROOT/plugins/handsonai/skills"
-ROUTING_SKILLS=(analyze deconstruct build test)   # the whole rule in one file
-SPLIT_SKILLS=(design)                              # restructured: the core, plus the files below
-SPLIT_FILES=(routing-rare.md location.md shared-lines.md requirement-lines.md)
+ROUTING_SKILLS=(analyze build test)   # the whole rule in one file
+SPLIT_SKILLS=(design deconstruct)                  # restructured: the core, plus the files below
+# Every restructured skill gets routing-rare.md and location.md; Design also gets its two.
+split_files() { case "$1" in design) echo "routing-rare.md location.md shared-lines.md requirement-lines.md" ;; *) echo "routing-rare.md location.md" ;; esac; }
 TEST_RUN_SKILLS=(build test)
 SAVING_SKILLS=(analyze deconstruct design build test scaffolding-registry indexing-registry)
 FACTS_SKILLS=(analyze deconstruct design build test scaffolding-registry applying-skill-best-practices auditing-agent-skills)
@@ -114,7 +116,7 @@ sync_copies() {
     [ -f "$CANON_ROUTING_CORE" ] || { echo "Error: $CANON_ROUTING_CORE not found — nothing to sync." >&2; exit 2; }
     cp "$CANON_ROUTING_CORE" "$SKILLS_DIR/$skill/references/routing.md"
     echo "  copied  routing.md  -> skills/$skill/references/routing.md"
-    for name in "${SPLIT_FILES[@]}"; do
+    for name in $(split_files "$skill"); do
       [ -f "$CANON_DIR/$name" ] || { echo "Error: $CANON_DIR/$name not found — nothing to sync." >&2; exit 2; }
       cp "$CANON_DIR/$name" "$SKILLS_DIR/$skill/references/$name"
       echo "  copied  $name -> skills/$skill/references/$name"
@@ -170,7 +172,7 @@ check_copies() {
 
   local name canon_file
   for skill in "${SPLIT_SKILLS[@]}"; do
-    for name in routing.md "${SPLIT_FILES[@]}"; do
+    for name in routing.md $(split_files "$skill"); do
       canon_file="$CANON_DIR/$name"
       copy="$SKILLS_DIR/$skill/references/$name"
       if [ ! -f "$canon_file" ]; then

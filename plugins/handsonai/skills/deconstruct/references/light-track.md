@@ -87,10 +87,23 @@ Then the preview (the requirements template), the file and the close, as on the 
 ## Switching to full
 
 - **"Make it the full version" in reply to the N-L1 message,** with item 0 unanswered: the interview is full from the start. N-D17's main form with its count, then the ready line, as on the full track (SKILL.md, *The track*); N-D23 is asked when Part 2 opens.
-- **After the light items have begun** (N-L2 fires, or the leader says "make it the full version"): the switch message, and how each later part opens, are in SKILL.md, *Switching* (stated there once). No ready line, and no count at the signposts after a switch. Then the full parts run in order from Part 1. A qualifying source already known gets the policy question at the end of Part 2's opening sequence; when Part 2 has nothing else left to ask, the policy question is Part 2's one question, right after its signpost and playback line. The progress file's `Track:` becomes `full`.
+- **After the light items have begun** (N-L2 fires, or the leader says "make it the full version"): the switch message, and how each later part opens, are below, in *A switch to full after the light items have begun* (stated there once). No ready line, and no count at the signposts after a switch. Then the full parts run in order from Part 1. A qualifying source already known gets the policy question at the end of Part 2's opening sequence; when Part 2 has nothing else left to ask, the policy question is Part 2's one question, right after its signpost and playback line. The progress file's `Track:` becomes `full`.
 
 "Keep it light" in reply to the ready line, with no sign of risk known, gives the light line and item 0's message in one message. "Keep it light" later on the full track, with no sign of risk known, does the reverse of a switch: the remaining light items run, and defaults fill the rest. With a sign of risk known, say N-L2 and the track stays full.
 
 ## Resuming an old light progress file
 
 A progress file saved before this release, `Next: Light — [an item after item 0]`, with no safety answers recorded: on resume, after the resume line, the three safety questions come first, then the item it names. The count goes before the first safety question, with the first safety question's figure, and isn't repeated before that item.
+
+## A switch to full after the light items have begun
+
+Moved here from SKILL.md, word for word. It also sets how each later part opens once the track has turned full, on a resume too (the progress file's `Said:` line shows `switched to full`).
+
+   **A switch to full after the light items have begun** (an answer shows a sign of risk, "keep it light" meets a known one, or the leader says "make it the full version"), stated here once:
+   - **The switch message,** one message, in this order: N-D6, when it's due (the law question's yes); N-L2 where it fires; N-D17's switch form, word for word, with no number:
+
+     > It's the most thorough conversation in the framework, because everything built later comes from what we capture here. It runs in five parts; we've already covered some of it: (1) what this is worth, (2) where it starts and ends, and a name, (3) the outcome, (4) how the work gets done, and (5) rules, sources and practice runs.
+
+     then Part 1's signpost, Part 1's lead-in and Part 1's first message (`part-1-what-this-is-worth.md`; the light items never ask what Part 1 asks). No ready line, and no count. N-D17 is said once, the first time the track turns full, never again at a later refusal of "keep it light". The switch message comes before any other question, even when the answer that showed the risk contradicts an earlier one: then it ends with rule 10's question in place of Part 1's first message, and Part 1's first message follows the answer.
+   - **Each later part** opens with N-D6 when it's due, then its signpost (no count after a switch, including on a resume: the `Said:` line shows `switched to full`); then its lead-in, only when the part still asks what the lead-in describes; then one line (model wording) playing back what earlier answers settle; then the questions those answers don't settle. Nothing already captured is asked again as a block. **A part with nothing left to ask** says its signpost and its playback line, then goes straight on to the next part in the same message.
+

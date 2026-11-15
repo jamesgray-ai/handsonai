@@ -133,7 +133,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/entries.md",
     "design": "SKILL.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
@@ -178,7 +178,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/entries.md",
     "design": "references/location.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
@@ -200,7 +200,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/saving-the-requirements.md",
     "design": "references/location.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
@@ -222,7 +222,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/choosing-a-workflow.md",
     "design": "references/changes.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
@@ -264,7 +264,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/entries.md"
    },
    "source": "3c-DX (2026-10-24); said by Deconstruct too (R11), approved by James, 2026-11-12 (core round-1 fixes)"
   },
@@ -710,7 +710,7 @@
    ],
    "files": {
     "analyze": "references/routing.md",
-    "deconstruct": "references/routing.md",
+    "deconstruct": "SKILL.md",
     "design": "references/location.md",
     "build": "references/routing.md",
     "test": "references/routing.md"
@@ -731,7 +731,7 @@
    ],
    "files": {
     "analyze": "references/routing.md",
-    "deconstruct": "references/routing.md",
+    "deconstruct": "SKILL.md",
     "design": "references/location.md",
     "build": "references/routing.md",
     "test": "references/routing.md"
@@ -3247,7 +3247,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/entries.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3513,7 +3513,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3527,7 +3527,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3541,7 +3541,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3555,7 +3555,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3569,7 +3569,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3583,7 +3583,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3597,7 +3597,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24); forms added from lines-to-approve.md: none`, the second sentence, On print-to-save, main-4 (lines-to-approve)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -3779,7 +3779,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row); Deconstruct 3.3 (R-O6, D1b): said among the close's notes, not after the opening; wording unchanged"
@@ -3793,7 +3793,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/running-work.md"
    },
    "source": "deconstruct.md 19; 3c-DJ (2026-10-24)",
    "note": "deconstruct: inferred from deconstruct 17 by section (table row)"
@@ -7572,7 +7572,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/entries.md"
    },
    "source": "deconstruct.md 3.3 (line 86); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
@@ -7586,7 +7586,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/entries.md"
    },
    "source": "deconstruct.md 3.3; approved by James 2026-11-14 (core batch 1: the two-item form)"
   },
@@ -7599,7 +7599,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/entries.md"
    },
    "source": "deconstruct.md 3.3 (line 90); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
@@ -7613,7 +7613,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/entries.md"
    },
    "source": "deconstruct.md 3.3 (line 90); approved: 'every other quoted line in this document is approved' (19)",
    "note": "deconstruct: inferred from deconstruct 17 by section 3.3"
@@ -9669,7 +9669,7 @@
    ],
    "files": {
     "analyze": "references/routing.md",
-    "deconstruct": "references/routing.md",
+    "deconstruct": "references/location.md",
     "design": "references/location.md",
     "build": "references/routing.md",
     "test": "references/routing.md",
@@ -9831,7 +9831,7 @@
    ],
    "files": {
     "analyze": "references/routing.md",
-    "deconstruct": "references/routing.md",
+    "deconstruct": "references/routing-rare.md",
     "design": "references/routing-rare.md",
     "build": "references/routing.md",
     "test": "references/routing.md",
@@ -9855,7 +9855,7 @@
    ],
    "files": {
     "analyze": "references/routing.md",
-    "deconstruct": "references/routing.md",
+    "deconstruct": "references/routing-rare.md",
     "design": "references/routing-rare.md",
     "build": "references/routing.md",
     "test": "references/routing.md",
@@ -9878,7 +9878,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md",
+    "deconstruct": "references/saving-the-requirements.md",
     "design": "references/shared-lines.md",
     "build": "SKILL.md",
     "test": "SKILL.md"
@@ -9896,7 +9896,7 @@
    ],
    "files": {
     "analyze": "SKILL.md",
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/saving-the-requirements.md"
    },
    "source": "approved by James, 2026-11-12 (3c-EP re-run fixes)"
   },
@@ -10059,7 +10059,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/light-track.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
@@ -10316,7 +10316,7 @@
     "deconstruct"
    ],
    "files": {
-    "deconstruct": "SKILL.md"
+    "deconstruct": "references/running-work.md"
    },
    "source": "03-deconstruct-requirements.md v3.3 §5; approved by James, 2026-11-13 (Deconstruct 3.3)"
   },
