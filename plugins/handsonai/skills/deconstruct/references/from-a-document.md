@@ -13,7 +13,7 @@ Read on a yes to N-D1, once the leader has pasted or attached what they have wri
 
 - **Tag what comes from it** *(from your [document])*, naming it as the leader would ("from your onboarding SOP"). These lines count as the leader's own, like *(you said)*. Anything you infer beyond the document's words is *(my suggestion)*.
 - **Each part opens with one playback** of what the document settles for that part (on the light track, for each of the five things), in plain words, ending "What would you change or clarify?". Then ask only the questions the document leaves open, as written.
-- **Asked even when the document answers them,** because only the leader can say: the consistency question, the send-back test, "What decides which way it goes?", the when-unsure question, the safety questions (live writes in its confirmation form; taking part, stated when a checkpoint settles it; the law question) and the target.
+- **Asked even when the document answers them,** because only the leader can say: the questions SKILL.md's rule 1 lists as always asked.
 - **On cold entry with a named workflow,** the document stands in for the cold-entry question: play back the trigger, the work and the deliverable from it.
 
 ## By kind of document

@@ -74,7 +74,7 @@ Four short messages, and a fifth, the security limits, when a sensitivity test t
    With a plural [source]: **Ask:** "When this runs, can the workflow reach [source] itself, for example through a connection to [tool], or will you paste them in each time?"
    - *Not sure?* Say you'll paste them. You can connect them later.
 
-   The answer sets the source's `AI Accessible`, and its Inputs line follows it ("from C1, through the Google Drive connection"). When a write's system needs a connection, say once, after the access questions: "Saving drafts in [system] also needs a connection; we'll set that up when it's built." (naming what it writes). A write trips only the Prohibited actions and Traceability categories, never this question, which is about sources.
+   The answer sets the source's `AI Accessible`, and its Inputs line follows it ("from C1, through the [storage service] connection"). When a write's system needs a connection, say once, after the access questions: "Saving drafts in [system] also needs a connection; we'll set that up when it's built." (naming what it writes). A write trips only the Prohibited actions and Traceability categories, never this question, which is about sources.
 
    A row saved as `Regulated` when the law answer was no or not sure: say you marked [source] as regulated, then **Ask:** "Which one? A name or a description is fine." once; if it stays unknown, `Governing regime: Not sure — to check`. This doesn't switch on the detail table.
 
@@ -95,7 +95,7 @@ Three to five in total. **Which inputs, in this order, stopping at five in all:*
   4. out of bounds, when an "out" rule exists;
   5. carry-over, when Part 4 recorded `Remembers: [what]`: [a case] an earlier run already handled;
   6. a decision branch, when a decision exists.
-- **Never proposed here:** an empty or malformed input, or an input carrying an instruction aimed at the AI. Testing writes those later. Propose only inputs the leader could actually get hold of.
+- **Never proposed here:** an empty or malformed input, or an input carrying an instruction aimed at the AI. Test writes those. Propose only inputs the leader could actually get hold of.
 
 Open with "Here are the practice runs we'll test it on.", word for word on both tracks ("we'll", never "I'd" or "I'll": the leader confirms these runs too), play each back in plain words (never the `(real)` or `hard` tags, never a line's label), and end with N-D11's full form, word for word: "Change, replace or drop any; keep three to five, including your typical and tricky [cases]. When we test it, each of these is run and checked against your requirements." Each playback says what the input is and **what should happen with it, in plain words**: the leader is confirming the result it will be checked against. For illustration only (use the leader's own case and rule): "this one checks it never contacts someone it has already contacted" for a rule; "this one checks that [the case, in the leader's words] [the branch's path, in the leader's words]" for a decision branch.
 
