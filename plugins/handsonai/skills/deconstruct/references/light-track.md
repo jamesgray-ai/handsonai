@@ -97,7 +97,7 @@ A progress file saved before this release, `Next: Light — [an item after item 
 
 ## A switch to full after the light items have begun
 
-Moved here from SKILL.md, word for word. It also sets how each later part opens once the track has turned full, on a resume too (the progress file's `Said:` line shows `switched to full`).
+This also sets how each later part opens once the track has turned full, on a resume too (the progress file's `Said:` line shows `switched to full`).
 
    **A switch to full after the light items have begun** (an answer shows a sign of risk, "keep it light" meets a known one, or the leader says "make it the full version"), stated here once:
    - **The switch message,** one message, in this order: N-D6, when it's due (the law question's yes); N-L2 where it fires; N-D17's switch form, word for word, with no number:
