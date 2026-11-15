@@ -2,7 +2,7 @@
 
 Read when you open a round after the first, re-check a live workflow, or find a round left behind or waiting on access. A round is one pass of Test: open, run, verdict, and go live when it's ready. One round, one results file.
 
-**Contents:** 1. Finding the earlier rounds · 2. Which kind of round · 3. Carried results · 4. Re-checking a live workflow · 5. A round that pauses or is set aside
+**Contents:** 1. Finding the earlier rounds · 2. Which kind of round · 3. Carried results · 4. Re-checking a live workflow · 5. A round that pauses, is set aside or waits on the policy check
 
 ## 1. Finding the earlier rounds
 
@@ -38,8 +38,10 @@ An input's result carries from the round it last ran in only when every line gra
 - **On Claude Code,** every round on a live workflow adds the wrapper's allow back at the start of Part 2, with N-T47, and removes it at its close (`claude-code-runs.md`).
 - **Ready:** `going-live.md` section 4. **Not ready:** SKILL.md's live verdict lines.
 
-## 5. A round that pauses or is set aside
+## 5. A round that pauses, is set aside or waits on the policy check
 
 - **Set aside.** A round `in-progress` whose `plan_revision` isn't the current plan revision (the plan changed mid-round: a kept direct edit, a requirement change the plan had to catch up with, "change my workflow"), or whose number is at or below the build record's `last_close_after_round` (Build closed while it was open, as after a direct edit undone at Test): move it to `history/test-results-round-[n].md` with `round_status: abandoned`, and open a fresh round as round n+1, its kind by section 2. On Claude Code, clear its practice folder and run folders as at any close. So a Build close only ever follows a finished round.
 - **Waiting on access** is a pause, not an end. When the connection passes its read check, the same round goes back to `round_status: in-progress`, keeps its number and its results, and runs only the inputs that couldn't run. If Build closed in the meantime, the round isn't reopened: an `after-fix` round opens instead. After a fix to a permission, rewrite the build record's "What it can access" for that connection.
+- **The return visit after a policy wait is not a new round.** When the last round's only blocker was the policy wait (Verdict reason "Waiting on the policy check ([value])"), the requirements still read `Policy check: Not sure — to check` or `Policy check: No — not live until approved`, and nothing else changed since that round (its `plan_revision` is the plan's current one, no Build close since it, no other requirement revision since it): open no round, write no new results file, re-run nothing. Open with one line naming the workflow and where it stands (model wording, with N-F3's promise clause), then the policy confirm question, in the same message. On a yes: *Changing a requirement* step 7 (SKILL.md), then rewrite the last round's results to Ready, `readiness: ready` and `go_live: pending`, its Verdict reason replaced with "Policy check confirmed on [date]" (`results-template.md` section 2). The plan is unchanged and the revision is `plan_unaffected: true`, so routing returns state 10. Then N-T34's Ready form with "Take it live?"; a no or a stop leaves the round Ready, and the next entry is state 10. With no yes, the policy Not-ready line again, and stop; a "no" takes the "no" route (SKILL.md, the verdict). If anything else changed, the visit is an ordinary round of the kind section 2 sets, with the confirm question last.
+- **After a policy "no":** while the last round's Verdict reason is "The policy check came back no" and the requirements haven't changed since, say that round's "no" line again and stop, with no confirm question. Once the requirements change, the next round is an ordinary one.
 - **A requirement change in Part 1 that the plan must catch up with:** no round file is written; the change is in the requirements' `revisions:`, and the next round's file copies it under Requirement changes.
