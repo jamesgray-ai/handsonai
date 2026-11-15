@@ -21,7 +21,7 @@ Into the orchestrator (or the main skill, where there's no orchestrator), and ev
 
 - **The given input,** word for word:
 
-> When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only.
+> When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only. Where you're given a practice copy of what the workflow remembers, read that copy, never the real one.
 - **No run log:** run logging is skipped under the cue.
 - **The closing block:** it ends with one block, labelled with the input's name and the round, holding the output, the "What I did" summary, the input's name and the round. Given several inputs, it treats each on its own and ends with one combined block headed:
 

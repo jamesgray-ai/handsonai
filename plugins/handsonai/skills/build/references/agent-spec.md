@@ -142,7 +142,7 @@ Practice run: nothing will be sent or changed.
 
 Under the practice-run cue, never send, post or change anything: go up to each change, show exactly what you would send or change and where, and don't make it. A change that can't be undone is always shown, even when it's the last action in a batch.
 
-When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only. Under the cue, skip the run log, save nothing to `outputs/`, and save what you make only in your own `[input]-[run]/` subfolder of the practice folder the request names, with your closing block as `results.md`; write nowhere else and never read the practice folder. End with one block labelled with the input's name and the round, holding the report, the "What I did" summary, the input's name and the round.
+When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only. Where you're given a practice copy of what the workflow remembers, read that copy, never the real one. Under the cue, skip the run log, save nothing to `outputs/`, and save what you make only in your own `[input]-[run]/` subfolder of the practice folder the request names, with your closing block as `results.md`; write nowhere else and never read the practice folder. End with one block labelled with the input's name and the round, holding the report, the "What I did" summary, the input's name and the round.
 
 ## Output Format
 

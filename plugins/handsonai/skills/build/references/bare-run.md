@@ -4,7 +4,11 @@ Read before each main skill's task: once per main skill (the part, a skill or an
 
 ## 1. The input
 
-One practice input from `inputs/` whose `tests:` lines the main skill's task meets, never the flag input. Remove its `source:` and `tests:` header before anything sees it.
+One practice input from `inputs/` whose `tests:` lines the main skill's task meets, never the flag input. Before anything sees it:
+
+- **Strip the header.** The header lines are one explicit list, `source:`, `tests:` and `expect:`: remove them only while they lead the file, then one blank line, then stop. A line further down that reads like one (`expect: …` in the input's own text) stays.
+- **A carry-over input's `Earlier run:` paragraph** (the paragraph that then opens the body, and the blank line after it) is set-up, never input, and a practice run never touches the workflow's real store. Remove it from the input, and put its state in a copy of the store the plan's `Stateful?` row names, handed to the run as one of the context files the main skill reads. On Claude Code, write the copy's text in the bare run's prompt file yourself, beside the input, named as the store's content. On Claude desktop the block carries it with the context; on Claude on the web, ChatGPT and Codex, one sentence in model wording before the block asks the leader to point the run at a test copy of [the store, in plain words] holding [that state, in plain words], never the real one. The block holds neither the header nor the paragraph.
+- **A known edge:** a real input whose own text opens with a paragraph starting "Earlier run:" loses it, since the strip can't tell it from a carry-over input's set-up.
 
 ## 2. The run
 
