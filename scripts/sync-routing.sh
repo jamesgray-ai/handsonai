@@ -25,9 +25,8 @@
 #                                  path when a fact can't be confirmed
 #
 # Copies:
-#   plugins/handsonai/skills/analyze/references/routing.md                            (routing-full.md)
-#   plugins/handsonai/skills/{design,deconstruct,build,test}/references/routing.md    (routing.md)
-#   plugins/handsonai/skills/{design,deconstruct,build,test}/references/{routing-rare,location}.md
+#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test}/references/routing.md   (routing.md)
+#   plugins/handsonai/skills/{analyze,deconstruct,design,build,test}/references/{routing-rare,location}.md
 #   plugins/handsonai/skills/design/references/{shared-lines,requirement-lines}.md
 #   plugins/handsonai/skills/{build,test}/scripts/test-run.sh
 #   plugins/handsonai/skills/{analyze,deconstruct,design,build,test,scaffolding-registry,indexing-registry}/references/saving.md
@@ -60,8 +59,8 @@ CANON_TEST_RUN="$CANON_DIR/test-run.sh"
 CANON_SAVING="$CANON_DIR/saving.md"
 CANON_FACTS="$CANON_DIR/platform-facts.md"
 SKILLS_DIR="$ROOT/plugins/handsonai/skills"
-ROUTING_SKILLS=(analyze)   # the whole rule in one file
-SPLIT_SKILLS=(design deconstruct build test)                  # restructured: the core, plus the files below
+ROUTING_SKILLS=()          # no skill reads the whole rule in one file any more; routing-full.md is kept only for the spec comparison
+SPLIT_SKILLS=(analyze deconstruct design build test)                  # restructured: the core, plus the files below
 # Every restructured skill gets routing-rare.md and location.md; Design also gets its two.
 split_files() { case "$1" in design) echo "routing-rare.md location.md shared-lines.md requirement-lines.md" ;; *) echo "routing-rare.md location.md" ;; esac; }
 TEST_RUN_SKILLS=(build test)
@@ -102,7 +101,7 @@ extract_named() {
 sync_copies() {
   local skill dest
   [ -f "$CANON_ROUTING" ] || { echo "Error: $CANON_ROUTING not found — nothing to sync." >&2; exit 2; }
-  for skill in "${ROUTING_SKILLS[@]}"; do
+  for skill in ${ROUTING_SKILLS[@]+"${ROUTING_SKILLS[@]}"}; do
     [ -d "$SKILLS_DIR/$skill" ] || { echo "Error: skill folder missing: $SKILLS_DIR/$skill" >&2; exit 2; }
     dest="$SKILLS_DIR/$skill/references/routing.md"
     mkdir -p "$(dirname "$dest")"
@@ -157,7 +156,7 @@ check_copies() {
   local spec="${1:-}" skill copy drift=0 tmp rc
   [ -f "$CANON_ROUTING" ] || { echo "Error: $CANON_ROUTING not found." >&2; return 2; }
 
-  for skill in "${ROUTING_SKILLS[@]}"; do
+  for skill in ${ROUTING_SKILLS[@]+"${ROUTING_SKILLS[@]}"}; do
     copy="$SKILLS_DIR/$skill/references/routing.md"
     if [ ! -f "$copy" ]; then
       echo "  MISSING  skills/$skill/references/routing.md"; drift=1

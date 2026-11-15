@@ -709,7 +709,7 @@
     "test"
    ],
    "files": {
-    "analyze": "references/routing.md",
+    "analyze": "references/location.md",
     "deconstruct": "SKILL.md",
     "design": "references/location.md",
     "build": "references/location.md",
@@ -730,7 +730,7 @@
     "test"
    ],
    "files": {
-    "analyze": "references/routing.md",
+    "analyze": "references/location.md",
     "deconstruct": "SKILL.md",
     "design": "references/location.md",
     "build": "references/location.md",
@@ -9668,7 +9668,7 @@
     "scaffolding-registry"
    ],
    "files": {
-    "analyze": "references/routing.md",
+    "analyze": "references/location.md",
     "deconstruct": "references/location.md",
     "design": "references/location.md",
     "build": "references/location.md",
@@ -9830,7 +9830,7 @@
     "scaffolding-registry"
    ],
    "files": {
-    "analyze": "references/routing.md",
+    "analyze": "references/routing-rare.md",
     "deconstruct": "references/routing-rare.md",
     "design": "references/routing-rare.md",
     "build": "references/routing-rare.md",
@@ -9854,7 +9854,7 @@
     "scaffolding-registry"
    ],
    "files": {
-    "analyze": "references/routing.md",
+    "analyze": "SKILL.md",
     "deconstruct": "references/routing-rare.md",
     "design": "references/routing-rare.md",
     "build": "references/routing-rare.md",

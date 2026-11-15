@@ -21,7 +21,7 @@ With only memory and past chats (the web, Claude desktop), N-A12 uses its memory
 | Cloud session | The repository's `knowledge/`, `sops/` and `process-guides/`, plus anything the student names | The repository's `CLAUDE.md` or `AGENTS.md`; no typed requests |
 | Print-to-save | What the student pastes or attaches | Saved memory and past chats, where the platform has them |
 
-The Work tab on the web follows the web row; in a folder on the student's computer it follows Codex everywhere, as `routing.md` step 2 decides. The registry views (`REGISTRY.md`, `registry-dashboard.html`) are never evidence.
+The Work tab on the web follows the web row; in a folder on the student's computer it follows Codex everywhere, as `location.md` decides (the routing rule's location step). The registry views (`REGISTRY.md`, `registry-dashboard.html`) are never evidence.
 
 **Source names.** Use exactly these names in N-A12's "which ones", in **Sources**, in the progress file and on a later run, and name only the ones this platform's row reads:
 - working-folder documents;
