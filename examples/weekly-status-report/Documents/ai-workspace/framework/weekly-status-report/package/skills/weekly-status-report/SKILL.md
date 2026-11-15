@@ -21,7 +21,7 @@ Practice run: nothing will be sent or changed.
 
 Under the practice-run cue, never send, post or change anything: go up to each change, show exactly what you would send or change and where, and don't make it. A change that can't be undone is always shown, even when it's the last action in a batch.
 
-When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only.
+When a practice run is given its input, work from that input; don't fetch it from its usual source, and make any lookup you still need read-only. Where you're given a practice copy of what the workflow remembers, read that copy, never the real one.
 
 Under the cue, save nothing: show the report in the closing block instead. End with one
 block, labelled with the input's name and the round, holding the report, the "What I

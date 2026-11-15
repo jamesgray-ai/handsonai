@@ -15,7 +15,7 @@ Design works in four parts:
 
 1. **Where it runs** — Design plans for the platform you're running it in, so run Design where the workflow will run (you can name another platform instead). It also confirms where your files are.
 2. **The plan** — Design drafts the whole plan from your requirements, then checks it a second time, the way a stranger would read it (on Claude Code, in a separate session), for anything that would break a requirement, a rule or checkpoint, safety, or the build.
-3. **A few questions for you** — only the questions Design couldn't settle itself, one at a time, with a recommendation and its reason wherever there's an option to choose.
+3. **A few questions for you** — only the questions Design couldn't settle itself, one at a time, with a recommendation and its reason wherever there's an option to choose. What Deconstruct already recorded (how runs start, where each change goes, where it tells you about a case it couldn't handle, what it remembers between runs) is read from your requirements, never asked again.
 4. **Review and approve** — you read the plan in plain words and approve it. It ends in the task list Build follows.
 
 ## What You Get
@@ -30,7 +30,7 @@ Design is also where changes start. To change a workflow that's planned, built o
 
 ## Worth Knowing
 
-- **Few questions, and safety comes first.** Design asks at most five questions (three on the light track). Safety questions come first, are never dropped, and are asked even past that limit. Over that limit, Design takes the safe or recommended answer and lists it in the review as an assumption you can change. A fact nobody can answer yet, such as where a write should go, becomes a named open item, and only the tasks it blocks wait.
+- **Few questions, and safety comes first.** Design asks at most five questions (three on the light track). Safety questions come first, are never dropped, and are asked even past that limit. Over that limit, Design takes the safe or recommended answer and lists it in the review as an assumption you can change. A fact nobody can answer yet, such as where a write should go, becomes a named open item, and only the tasks it blocks wait. When you asked for a run as soon as something happens, Design checks for it as often as your platform allows and says so among the points you review, without promising an instant start.
 - **Simple first.** Design starts with the simplest thing that works: one agent before several, a limit on every loop, and a person before any change that can't be undone, unless you choose to accept that risk. The plan names the design pattern it uses, with the playbook page and its original source.
 
 **Next:** [Build](../build/) builds the workflow from your approved plan, task by task.

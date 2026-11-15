@@ -149,7 +149,9 @@ Discriminator, exact:
   directories or a root file — lint errors otherwise.
 - **No leading slash, not a URL** = relative to the registry's parent folder, never `../`. That is
   the working folder on every platform (e.g. `framework/course-improvement/requirements.md`). A
-  trailing `/` marks a directory target.
+  trailing `/` marks a directory target. An older link that doesn't resolve as written (e.g.
+  `course-improvement/requirements.md`) is still valid when `framework/` plus the same path does;
+  nothing rewrites it.
 - **Full URLs** = external.
 
 Links into gitignored paths (e.g. `outputs/`, where a workflow's own output may land) are
@@ -182,7 +184,8 @@ each directory's `index.md`, and GENERATED blocks inside nodes — hash-less pai
 markers.
 
 These views are regenerated, and this bundle is linted, **by your AI assistant reading the bundle
-against this SCHEMA** — there is no separate compose or lint program to run. The rules it checks:
+against this SCHEMA**, or, where code can run, by the framework's own compose and lint scripts,
+which follow these same rules. The rules it checks:
 required frontmatter present · single-line values · directory↔type agreement · enum values ·
 banned fields absent · link targets resolve · curated-list membership (exactly one parent per
 child) · owner validity (Process `owner:` names a real Function) · Function `# Owns` block

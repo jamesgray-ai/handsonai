@@ -6,7 +6,7 @@ skills_on: yes
 write_block: "off"
 schedule: none
 fingerprints:
-  weekly-status-report (Claude skills): sha256:c69dd5737e3609d7ef3affcdb2386aaf2d6aab5304be6cd0927a51847d9d23d7
+  weekly-status-report (Claude skills): sha256:b1345f916f5d984826985776277e5f51d2da309cd33872785200789314520f6c
 bare_run:
   weekly-status-report: done
 run_folders: []
