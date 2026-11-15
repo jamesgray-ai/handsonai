@@ -26,7 +26,7 @@ Write comprehensive Business Process Guide documentation and save as markdown fi
    - **From conversation**: If no artifacts exist, gather process details interactively (name, component workflows, sequence, triggers).
 2. **Gather strategic context** from user — frequency, timing, decision points between workflows, success criteria
 3. **Write Process Guide** using template
-4. **Write process guide markdown file** with YAML frontmatter. Default path: `process-guides/<name>.md`, beside `registry/` in its parent folder (the workspace on Claude Code and Codex; the framework folder on Claude desktop, and on the web and in Microsoft 365 through the drive connection). Ask the user where process guides live if their project has a different convention.
+4. **Write process guide markdown file** with YAML frontmatter. Default path: `process-guides/<name>.md`, beside `registry/` in its parent folder, the working folder, on every platform (the workspace on Claude Code and Codex; the selected working folder on Claude desktop; on the web and in Microsoft 365, the working folder through the drive connection). Ask the user where process guides live if their project has a different convention.
 5. **Create or update `REGISTRY.md`** beside `registry/`, in its parent folder, so the process appears with its workflows — follow the `indexing-registry` procedure if available, otherwise update its tables directly from the guide and registry data (only with no files and no drive connection that can write, give it complete with its location and say it's unsaved — never silently). Then invoke the `indexing-registry` skill for a maintenance pass (best-effort — a failed refresh never fails this step).
 
 ## Template Overview
@@ -58,7 +58,7 @@ The `title` is the join key: it's the Process node's own title, and the Process 
 
 ## SOP Cross-References
 
-In the Workflow Sequence section, SOP links should use **relative paths** pointing to the SOP markdown files. Take each SOP's path from its Workflow node's `SOP` link and make it relative to the guide: a workflow taken through the AI Workflow Framework keeps its SOP in its folder in the framework folder (`../framework/<slug>/<slug>-sop.md` from `process-guides/` on Claude Code and Codex; `../<slug>/<slug>-sop.md` on the web and Claude desktop); any other SOP is usually in `sops/`:
+In the Workflow Sequence section, SOP links should use **relative paths** pointing to the SOP markdown files. Take each SOP's path from its Workflow node's `SOP` link and make it relative to the guide: a workflow taken through the AI Workflow Framework keeps its SOP in its folder in the framework folder (`../framework/<slug>/<slug>-sop.md` from `process-guides/`, on every platform); any other SOP is usually in `sops/`. A node's `SOP` link that doesn't resolve as written (an older `<slug>/<slug>-sop.md`) resolves at `framework/` plus the same path. An existing guide may hold an older `../<slug>/<slug>-sop.md` link; when one doesn't resolve, take the SOP from the Workflow node's own `SOP` link instead:
 
 ```markdown
 > SOP: [<Workflow Name> SOP](../sops/<workflow-name>-sop.md)

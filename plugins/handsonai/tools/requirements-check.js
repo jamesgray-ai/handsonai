@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // registry-template/tools/requirements-check.js
 // Check a workflow's requirements.md against Deconstruct's requirements
-// template (AI Workflow Framework 10.0.0). Deconstruct runs it before it saves
+// template (AI Workflow Framework 10.5.0). Deconstruct runs it before it saves
 // the file; Design runs it on entry. Deconstruct's self-check is its
 // specification and its written fallback, so every check here has a line there.
 //
@@ -30,7 +30,27 @@ const PATH_NONE = 'Path: none — the AI plans each run from the goal';
 const AI_PLANS = '- The AI plans this part';
 const VALUE_ROWS = ['Business Objective', 'Desired Outcome', 'Measure', 'Baseline', 'Target'];
 const META_ROWS = ['Workflow Name', 'Description', 'Trigger', 'Owner', 'Lens'];
-const META_OPTIONAL = ['Stakeholders', 'Runs today'];
+const META_OPTIONAL = ['Starts', 'Per run', 'Stakeholders', 'Runs today', 'Remembers'];
+// The rows' one order, required and optional together (deconstruct 12.2): a Starts row sits
+// right after Trigger, so ordering required rows before optional ones would fail it.
+const META_ORDER = ['Workflow Name', 'Description', 'Trigger', 'Starts', 'Per run', 'Owner', 'Lens', 'Stakeholders', 'Runs today', 'Remembers'];
+const STARTS_FORMS = /^(you|you, when \S.*|schedule: \S.*|event: \S.*? · checked \S.*)$/;
+const PER_RUN_FORMS = /^(one \S.*|a batch of \S.*)$/;
+const SETTLED_BY = ['a rule on a value', 'your criteria', 'open judgment'];
+// A decision line, with `settled by:` anchored to its three values so a following tag can't be
+// swallowed into it, then the optional `· criteria:` tag, then the optional `· value read by AI`.
+const DECISION = /^- D(\d+)(?: \(Step (\d+)\))?: (.+?) · settled by: (a rule on a value|your criteria|open judgment)(?: · criteria:(.*?))?( · value read by AI)?$/;
+const DECISION_LOOSE = /^- D(\d+)(?: \(Step (\d+)\))?: (.+?) · settled by: (.+)$/;
+const POLICY_VALUES = /^(Allowed|No — \S.* left out|No — details removed first \((Step (\d+)|R(\d+))\)|No — not live until approved|Not sure — to check)$/;
+const POLICY_TOKEN = 'Policy check'; // Test's confirmation names no ID: `lines: [Policy check]` (rules 6.2)
+const AFTER_EACH_RUN = 'after each run'; // a flag sent to the leader after each run, allowed with steps
+// The plain glosses (deconstruct 12.2): optional, fixed text, the first line under their heading.
+const GLOSSES = {
+  'Context Inventory': '*The sources it uses, what we call its context.*',
+  'Example Scenarios': "*The practice runs: each input it's tested on, and what should happen.*",
+  'Rules & Constraints': '*Its rules: what it always does, never does, and does when something happens.*',
+  'Human Gates': '*The checkpoints: where a person checks or approves the work.*',
+};
 const CTX_HEADER = ['ID', 'Artifact', 'Used By', 'Status', 'Sensitivity', 'Provenance', 'AI Accessible', 'Location / Source', 'Key Contents'];
 const EX_HEADER = ['ID', 'Scenario', 'Input', 'What to look for in the output', 'Golden Example'];
 const RULES_HEADER = ['ID', 'Kind', 'Rule'];
@@ -173,6 +193,7 @@ function check(file, opts = {}) {
         if (!lm || !lm[1].trim()) add(r.line, FM, `revisions entry ${rv}: \`lines\` must list the IDs added, changed or removed, as [AC3, R2]`);
         else {
           for (const id of lm[1].split(',').map((s) => s.trim())) {
+            if (id === POLICY_TOKEN) continue;
             revisedIds.add(id);
             if (/^(M|RF)\d+$/.test(id)) add(r.line, FM, `revisions entry ${rv} names \`${id}\`: there are no M or RF lines (a must-always or must-never line is an R line)`);
             else if (!ID_FAMILIES.test(id)) add(r.line, FM, `revisions entry ${rv} names \`${id}\`, which isn't a label in this file's families`);
@@ -236,6 +257,16 @@ function check(file, opts = {}) {
     sec[h.name] = [];
     for (let j = h.index + 1; j < stop; j++) sec[h.name].push({ n: j + 1, t: lines[j] });
   });
+  for (const [name, gloss] of Object.entries(GLOSSES)) {
+    const first = (sec[name] || []).find((l) => l.t.trim());
+    if (!first) continue;
+    const t = first.t.trim();
+    if (t === gloss) sec[name] = sec[name].filter((l) => l !== first);
+    else if (/^\*[^*].*\*$/.test(t)) {
+      add(first.n, `## ${name}`, `the line under \`## ${name}\` is its fixed gloss, word for word: \`${gloss}\` (or no line)`);
+      sec[name] = sec[name].filter((l) => l !== first);
+    }
+  }
   const body = (name) => (sec[name] || []).filter((l) => l.t.trim());
 
   // ---- whole-file sweeps: M and RF lines, absolute paths, secrets
@@ -258,7 +289,7 @@ function check(file, opts = {}) {
   if (sec.Goal && !body('Goal').length) add(heads.find((h) => h.name === 'Goal').index + 1, '## Goal', 'the goal is empty');
 
   // ---- Value & Measurement, Metadata (field tables)
-  const fieldTable = (name, required, optional) => {
+  const fieldTable = (name, required, optional, rowOrder) => {
     const rows = body(name);
     if (!sec[name]) return {};
     const where = `## ${name}`;
@@ -276,7 +307,7 @@ function check(file, opts = {}) {
       out[c[0]] = { v: c[1], n: r.n };
       seenRows.push(c[0]);
     }
-    const order = [...required, ...optional];
+    const order = rowOrder || [...required, ...optional];
     const ordered = seenRows.filter((x) => order.includes(x));
     for (let i = 1; i < ordered.length; i++) {
       if (order.indexOf(ordered[i]) < order.indexOf(ordered[i - 1])) add(out[ordered[i]].n, where, `row "${ordered[i]}" is out of order (rows: ${order.join(', ')})`);
@@ -286,7 +317,9 @@ function check(file, opts = {}) {
   };
   const vm = fieldTable('Value & Measurement', VALUE_ROWS, []);
   if (vm.Baseline && !/ · (Measured|Estimated|Unknown)$/.test(vm.Baseline.v)) add(vm.Baseline.n, '## Value & Measurement', 'Baseline must end `· Measured`, `· Estimated` or `· Unknown`');
-  const meta = fieldTable('Metadata', META_ROWS, META_OPTIONAL);
+  const meta = fieldTable('Metadata', META_ROWS, META_OPTIONAL, META_ORDER);
+  if (meta.Starts && meta.Starts.v && !STARTS_FORMS.test(meta.Starts.v)) add(meta.Starts.n, '## Metadata', '"Starts" must read `you`, `you, when [event]`, `schedule: [when]` or `event: [event] · checked [interval]`');
+  if (meta['Per run'] && meta['Per run'].v && !PER_RUN_FORMS.test(meta['Per run'].v)) add(meta['Per run'].n, '## Metadata', '"Per run" must read `one [case]` or `a batch of [cases]`');
   if (meta.Lens && !['Individual', 'Organizational'].includes(meta.Lens.v)) add(meta.Lens.n, '## Metadata', `Lens "${meta.Lens.v}" must be Individual or Organizational`);
   if (meta.Stakeholders && meta.Lens && meta.Lens.v !== 'Organizational') add(meta.Stakeholders.n, '## Metadata', 'the Stakeholders row belongs to the Organizational lens only');
   if (title && meta['Workflow Name'] && title.text !== `${meta['Workflow Name'].v} — Workflow Requirements`) {
@@ -351,13 +384,23 @@ function check(file, opts = {}) {
         }
         add(n, P, 'expected a step line (`- Step N — [Name] · produces …`) or `- The AI plans this part`');
       } else if (phase === 'decisions') {
-        const d = t.match(/^- D(\d+)(?: \(Step (\d+)\))?: (.+?) · settled by: (.+?)( · value read by AI)?$/);
-        if (!d) { add(n, P, 'decision lines read `- D1 (Step 3): When [condition], it [path] · settled by: …`'); continue; }
-        if (decisions.has(d[1])) add(n, P, `D${d[1]} is used twice`);
-        decisions.add(d[1]);
-        if (d[2]) stepRefs.push({ num: Number(d[2]), n, where: P });
-        if (!/^When .+?, it /.test(d[3])) add(n, P, `D${d[1]} isn't in the "When…, it…" shape`);
-        if (!['a rule on a value', 'your criteria', 'open judgment'].includes(d[4])) add(n, P, `D${d[1]}: \`settled by:\` must be a rule on a value, your criteria or open judgment`);
+        const d = t.match(DECISION);
+        const loose = d ? null : t.match(DECISION_LOOSE);
+        if (!d && !loose) { add(n, P, 'decision lines read `- D1 (Step 3): When [condition], it [path] · settled by: …`'); continue; }
+        const [, dn, dstep, dtext] = d || loose;
+        if (decisions.has(dn)) add(n, P, `D${dn} is used twice`);
+        decisions.add(dn);
+        if (dstep) stepRefs.push({ num: Number(dstep), n, where: P });
+        if (!/^When .+?, it /.test(dtext)) add(n, P, `D${dn} isn't in the "When…, it…" shape`);
+        if (loose) {
+          if (!SETTLED_BY.some((v) => loose[4].startsWith(`${v} · `))) add(n, P, `D${dn}: \`settled by:\` must be a rule on a value, your criteria or open judgment`);
+          else add(n, P, `D${dn}: after \`settled by:\`, only \`· criteria: [the leader's words]\`, then \`· value read by AI\`, in that order`);
+        } else if (d[5] !== undefined) {
+          const crit = d[5];
+          if (!crit.trim()) add(n, P, `D${dn}: \`· criteria:\` has no text`);
+          else if (!/^ \S/.test(crit)) add(n, P, `D${dn}: write \`· criteria: [the leader's words]\`, one space after the colon`);
+          else if (crit.includes(' · ')) add(n, P, `D${dn}: the criteria text can't contain " · " (the tag separator); reword it`);
+        }
       } else if (phase === 'detail') {
         if (!/^\*\*[^*]+:\*\* \S/.test(t)) add(n, P, `detail block for Step ${detailStep}: each line is one bold-labelled field (\`**Rule:** …\`)`);
       }
@@ -521,6 +564,7 @@ function check(file, opts = {}) {
     const worked = [];
     let lastTable = -1;
     let regime = null;
+    let policy = null;
     let writesAt = null;
     let oneLine = null;
     let i = 0;
@@ -566,8 +610,19 @@ function check(file, opts = {}) {
         if (!regime.v) add(n, W, '`Governing regime:` names the regime, None, or Not sure — to check');
         continue;
       }
+      if (t.startsWith('Policy check:')) {
+        flush();
+        if (policy) { add(n, W, 'a second `Policy check:` line (it appears once)'); continue; }
+        policy = { n, v: t.replace(/^Policy check:\s*/, '').trim() };
+        if (!regime) add(n, W, 'the `Policy check:` line comes after the `Governing regime:` line');
+        const pm = policy.v.match(POLICY_VALUES);
+        if (!pm) add(n, W, '`Policy check:` reads Allowed; No — [source] left out; No — details removed first (Step N) or (R n), as `(Step 2)` or `(R4)`; No — not live until approved; or Not sure — to check');
+        else if (pm[3]) stepRefs.push({ num: Number(pm[3]), n, where: W });
+        else if (pm[4] && !rIds.has(`R${pm[4]}`)) add(n, W, `\`Policy check:\` names R${pm[4]}, which isn't in Rules & Constraints`);
+        continue;
+      }
       if (current) { tableBuf.push(rows[i]); continue; }
-      add(n, W, t.startsWith('*Scope:') ? 'the `*Scope:*` line comes first' : 'unexpected line (a constraint table, `Governing regime:` or `### Writes`)');
+      add(n, W, t.startsWith('*Scope:') ? 'the `*Scope:*` line comes first' : 'unexpected line (a constraint table, `Governing regime:`, `Policy check:` or `### Writes`)');
     }
     flush();
     const secHead = heads.find((h) => h.name === 'Security, Privacy & Safety').index + 1;
@@ -579,13 +634,15 @@ function check(file, opts = {}) {
       else if (!(wrows.length === 1 && wrows[0].t === 'None')) {
         for (const { n, t } of wrows) {
           const m = t.match(/^- W(\d+) · (.+?) · (.+?) · (.+)$/);
-          if (!m) { add(n, `${W} › ### Writes`, 'write lines read `- W1 · [system] · [action] · Step 3` (or `· after [moment]` with no steps)'); continue; }
+          if (/^Policy check:/.test(t)) { add(n, `${W} › ### Writes`, 'the `Policy check:` line comes before `### Writes`, right after `Governing regime:`'); continue; }
+          if (!m) { add(n, `${W} › ### Writes`, 'write lines read `- W1 · [system] · [action] · Step 3` (or `· after each run`; `· after [moment]` with no steps)'); continue; }
           if (writes.has(`W${m[1]}`)) add(n, `${W} › ### Writes`, `W${m[1]} is used twice`);
           writes.add(`W${m[1]}`);
           const sm = m[4].match(STEP_REF);
           if (sm) stepRefs.push({ num: Number(sm[1]), n, where: `${W} › ### Writes` });
-          else if (!/^after .+/.test(m[4])) add(n, `${W} › ### Writes`, `W${m[1]} ends with \`Step N\` or \`after [moment]\``);
-          else if (steps.size) add(n, `${W} › ### Writes`, `W${m[1]}: name the step that writes (\`Step N\`); \`after [moment]\` is for a path with no steps`);
+          else if (m[4] === AFTER_EACH_RUN) { /* a flag after each run: allowed with or without steps */ }
+          else if (!/^after .+/.test(m[4])) add(n, `${W} › ### Writes`, `W${m[1]} ends with \`Step N\`, \`after each run\` or \`after [moment]\``);
+          else if (steps.size) add(n, `${W} › ### Writes`, `W${m[1]}: name the step that writes (\`Step N\`); \`after [moment]\` is for a path with no steps (a flag sent after every run reads \`after each run\`)`);
         }
       }
     }
@@ -622,7 +679,7 @@ function check(file, opts = {}) {
   }
 
   // ---- practice inputs on disk: header lines, tests IDs, no secrets
-  const allIds = new Set([...acIds, ...rIds, ...gIds]);
+  const allIds = new Set([...acIds, ...rIds, ...gIds, ...[...decisions].map((d) => `D${d}`)]);
   for (const ic of inputChecks) {
     const W = '## Example Scenarios';
     const abs = path.join(folder, ic.rel);
@@ -630,17 +687,29 @@ function check(file, opts = {}) {
     const il = fs.readFileSync(abs, 'utf8').replace(/\r\n/g, '\n').split('\n');
     if (!/^source: \S+/.test(il[0] || '')) add(ic.n, W, `${ic.id}: \`${ic.rel}\` line 1 must be the \`source:\` header`);
     const tm = (il[1] || '').match(/^tests: (.+)$/);
-    if (!tm) add(ic.n, W, `${ic.id}: \`${ic.rel}\` line 2 must be the \`tests:\` header (the AC, R and G lines it exercises)`);
+    if (!tm) add(ic.n, W, `${ic.id}: \`${ic.rel}\` line 2 must be the \`tests:\` header (the AC, R, G and D lines it exercises)`);
     else {
       for (const id of tm[1].split(',').map((s) => s.trim())) {
-        if (!/^(AC|R|G)\d+$/.test(id)) add(ic.n, W, `${ic.id}: \`${ic.rel}\` tests "${id}"; \`tests:\` names AC, R and G lines only`);
+        if (!/^(AC|R|G|D)\d+$/.test(id)) add(ic.n, W, `${ic.id}: \`${ic.rel}\` tests "${id}"; \`tests:\` names AC, R, G and D lines only`);
         else if (!allIds.has(id) && revisedIds.has(id) && !opts.beforeSave) {
           notes.push({ line: ic.n, section: W, msg: `${ic.id}: \`${ic.rel}\` tests ${id}, a line a revision removed; take ${id} out of its \`tests:\` header` });
         } else if (!allIds.has(id)) add(ic.n, W, `${ic.id}: \`${ic.rel}\` tests ${id}, which isn't in the file`);
       }
     }
-    if ((il[2] || '') !== '') add(ic.n, W, `${ic.id}: \`${ic.rel}\` line 3 must be blank, after the two header lines`);
-    if (!il.slice(3).some((l) => l.trim())) add(ic.n, W, `${ic.id}: \`${ic.rel}\` holds no input under its headers`);
+    // An optional third header line, `expect:` (R-D9): then the blank line is line 4 and the
+    // input starts at line 5. Required on Deconstruct's own inputs when it saves.
+    const hasExpect = /^expect:/.test(il[2] || '');
+    if (hasExpect && !/^expect: \S/.test(il[2])) add(ic.n, W, `${ic.id}: \`${ic.rel}\` line 3, \`expect:\`, is empty: it says what should happen, in plain words`);
+    if (!hasExpect && opts.beforeSave && /^source: deconstruct\s*$/.test(il[0] || '')) {
+      add(ic.n, W, `${ic.id}: \`${ic.rel}\` has no \`expect:\` line (line 3): every input Deconstruct writes says what should happen, from the practice-run playback`);
+    }
+    const blankAt = hasExpect ? 3 : 2;
+    if ((il[blankAt] || '') !== '') {
+      add(ic.n, W, hasExpect
+        ? `${ic.id}: \`${ic.rel}\` line 4 must be blank, after the three header lines`
+        : `${ic.id}: \`${ic.rel}\` line 3 must be blank, or the \`expect:\` header, after the \`source:\` and \`tests:\` lines`);
+    }
+    if (!il.slice(blankAt + 1).some((l) => l.trim())) add(ic.n, W, `${ic.id}: \`${ic.rel}\` holds no input under its headers`);
     il.forEach((l, k) => { if (SECRET_PATTERNS.some((re) => re.test(l))) add(ic.n, W, `${ic.id}: \`${ic.rel}\` line ${k + 1} looks like it holds a password or key`); });
   }
 

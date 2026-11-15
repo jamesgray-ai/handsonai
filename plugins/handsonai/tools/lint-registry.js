@@ -107,6 +107,8 @@ function lint(bundleDir) {
 
   // 2. Links: in-bundle first-segment + resolution; repo-relative existence
   //    (with gitignore tolerance for a workflow's own output, e.g. outputs/).
+  //    A repo link resolves as written, else through framework/ (an old
+  //    relative link; lib.resolveRepoLink).
   for (const [relPath, n] of nodes) {
     const links = lib.classifyLinks(n.raw);
     for (const href of links.inBundle) {
@@ -119,11 +121,8 @@ function lint(bundleDir) {
       if (href.endsWith('.md') && !nodes.has(href)) errors.push(`${relPath}: broken in-bundle link ${href}`);
     }
     for (const href of links.repo) {
-      const target = path.join(workspaceRoot, href);
       const isDirLink = href.endsWith('/');
-      const exists = isDirLink
-        ? (fs.existsSync(target) && fs.statSync(target).isDirectory())
-        : fs.existsSync(target);
+      const exists = lib.resolveRepoLink(href, workspaceRoot) !== null;
       if (!exists && !lib.isGitIgnored(href, workspaceRoot)) {
         errors.push(`${relPath}: repo link ${href} -- ${isDirLink ? 'directory' : 'file'} not found`);
       }
@@ -202,9 +201,12 @@ function lint(bundleDir) {
     if (lobFolder && w.fm) {
       const folderPrefix = lobFolder.replace(/\/$/, '');
       const repoLinks = lib.classifyLinks(w.raw).repo;
-      for (const h of repoLinks) {
+      for (const href of repoLinks) {
         // Shared layers: SOPs, a workflow's own output, and the framework folder's
-        // workflow folders (framework/<slug>/ in a workspace; <slug>/ beside registry/).
+        // workflow folders (framework/ on every platform; the legacy layout with
+        // registry/ inside the framework folder still reads <slug>/; an old
+        // relative link resolves through framework/).
+        const h = lib.resolveRepoLink(href, workspaceRoot) || href;
         if (h.startsWith('sops/') || h.startsWith('outputs/') || h.startsWith('framework/')) continue;
         if (workflowFolderPaths.some((f) => h === f || h.startsWith(f + '/'))) continue;
         if (!h.startsWith(folderPrefix)) {
@@ -277,7 +279,9 @@ function lint(bundleDir) {
     // twice in its prose (e.g. once in `# Artifacts`, once in free text) is
     // one claim, not two, so it must never register as "claimed by 2
     // Workflow nodes" against itself.
-    const keysInThisWorkflow = new Set(lib.classifyLinks(w.raw).repo.map((href) => href.replace(/\/$/, '')));
+    // An old relative link claims what it resolves to through framework/.
+    const keysInThisWorkflow = new Set(lib.classifyLinks(w.raw).repo
+      .map((href) => (lib.resolveRepoLink(href, workspaceRoot) || href).replace(/\/$/, '')));
     for (const key of keysInThisWorkflow) {
       if (!claims.has(key)) claims.set(key, []);
       claims.get(key).push(w.relPath);

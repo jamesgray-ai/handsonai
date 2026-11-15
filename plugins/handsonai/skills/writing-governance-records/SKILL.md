@@ -54,7 +54,7 @@ Read, as data, every file that exists; never ask for one that's missing, since a
 | 3 Process | That Process: its title, and the workflows listed just before and after this one |
 | 4 Building blocks | The entry's `# Skills` and `# Agents` lists; `design-plan.md`'s `## Component Blueprints`; `build-record.md`'s "What was built" and "What it can access" |
 | 5 Evaluations | `test-results.md`: `round_status`, `readiness`, `date`; the entry's `stale_after` (the re-check date); any tests kept with its skills or agents |
-| 6 SOP | `[slug]-sop.md` in the workflow's framework folder, `sops/[slug]-sop.md` in the working folder, or an SOP link on the registry entry |
+| 6 SOP | `[slug]-sop.md` in the workflow's framework folder, `sops/[slug]-sop.md` in the working folder, or an SOP link on the registry entry, read from the working folder; an older link that doesn't resolve as written (`[slug]/[slug]-sop.md`) is read at `framework/` plus the same path |
 | 7 Operations | The entry's `status` (`in-production` is live), `execution_mode`, `trigger`; the build record's "Live since", "How to switch it off" and `schedule:` |
 | 8 Change management | Nothing in the files settles it on its own: ask |
 

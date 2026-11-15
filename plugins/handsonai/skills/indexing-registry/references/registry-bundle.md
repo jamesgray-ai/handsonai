@@ -70,6 +70,10 @@ skill sets a registry up when the leader wants one.
    - No leading slash, not a URL: relative to the registry's parent folder (section 1), never
      `../`. That is the working folder on every platform, so a workflow's files read
      `framework/<slug>/requirements.md` everywhere.
+   - An older relative link that doesn't resolve as written (`<slug>/requirements.md`, written
+     before `framework/` was the form on every platform) is valid when `framework/` plus the same
+     path resolves. The lint scripts apply this, and so does the AI-performed check, on a drive and
+     on a pasted print-to-save copy: accept the link as it is, never rewrite it, never report it.
    - A full URL: external.
 5. **A workflow joins exactly one Process** through that Process's curated, ordered `# Workflows`
    list (`registry/processes/<process-slug>.md`); the list is both the Workflow→Process edge and
@@ -115,7 +119,7 @@ skill sets a registry up when the leader wants one.
 
 | Skill | Writes |
 |---|---|
-| `analyze` | A Workflow node stub per registered candidate: `title`, `description` (outcome-first), `status: backlog`, `trigger` (provisional); its line in the confirmed Process's `# Workflows` list; `# Artifacts` → Opportunity report (`framework/ai-opportunity-report.md` on Claude Code and Codex, `ai-opportunity-report.md` on the web and Claude desktop). Work the leader already runs: `status: in-production` and its `# Skills` / `# Agents` entry (a link when the file is in the workspace, otherwise its name as plain text). A new process follows the same owning-function rule as `naming-workflows`. |
+| `analyze` | A Workflow node stub per registered candidate: `title`, `description` (outcome-first), `status: backlog`, `trigger` (provisional); its line in the confirmed Process's `# Workflows` list; `# Artifacts` → Opportunity report (`framework/ai-opportunity-report.md`, on every platform), and → SOP (`sops/<file>.md`) when the candidate came from the leader's own SOP that no other node claims. Work the leader already runs: `status: in-production` and its `# Skills` / `# Agents` entry (a link when the file is in the workspace, otherwise its name as plain text). A new process follows the same owning-function rule as `naming-workflows`. |
 | `naming-workflows` | A Workflow node stub: `title`, `description` (outcome-first), `status: backlog`, `trigger`; its line in the chosen Process's `# Workflows` list. **A new process → asks which function owns it** and writes a complete minimal Process node (owner required). |
 | `deconstruct` | `status`: `backlog` to `under-development` only (it never resets another status, on a re-run, a redo or running work brought in, which stays `in-production`); the refined `trigger`; the `description` the leader accepted, word for word; `# Artifacts` → Requirements; `big_change` removed when a redo is saved (the registry-log line stays). A cold-entry workflow with no node gets a new one in `naming-workflows`' stub format with `status: under-development`, listed in its Process's `# Workflows`. Finishing a set-aside that stopped partway, it removes any "Design plan" or "Test results" link still there; calling a big change off, it restores those links for the files moved back, each only if absent. |
 | `design` | `execution_mode`, `autonomy`, on approval; `# Artifacts` → Design plan. A big change: `big_change` and one registry-log line (section 7). A set-aside (a big change, or a change of platform or mechanism, which writes no `big_change`): removes the "Design plan" and "Test results" links; finishing a set-aside that stopped partway, before a fresh plan, it removes any of those links still there. A retired workflow brought back by "change my workflow": `retired` to `under-development`. |
@@ -267,7 +271,9 @@ the two.
   ("capture the workflow")
 - Stale GENERATED content: regenerate (a Function `# Owns` block whose content no longer matches
   the derived owners list; hand-editing between the markers is still prohibited, but a stale
-  block is a maintenance-pass warning, never a lint blocker)
+  block is a maintenance-pass warning, never a lint blocker). Writing the block in its derived
+  form isn't hand-editing: a step that creates a Process writes it into its owner's `# Owns`
+  block itself, in the form under the indexing-registry skill's *Regenerate GENERATED blocks*
 
 **Gitignore tolerance:** links into gitignored paths (such as a folder where the workflow's own
 output lands) are declarations, not guarantees: existence-checked locally when the target is

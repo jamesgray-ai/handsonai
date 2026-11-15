@@ -83,7 +83,10 @@ expect_ok() {  # <description> <workflow dir> [options...]
 echo "Valid variants"
 wf=$(plant base); expect_ok "base fixture (no registry)" "$wf"
 wf=$(plant base-reg with-registry); expect_ok "base fixture (with registry)" "$wf"
-wf=$(plant base-save); expect_ok "base fixture, --before-save" "$wf" --before-save
+# An earlier file's inputs carry no expect: line. They pass Design's entry check (T13); Deconstruct's
+# own pre-save run requires the line on its inputs, so a re-run fills it first (R-D9, B-M4).
+wf=$(plant base-save)
+expect "base fixture, --before-save: Deconstruct's inputs need their expect: line (R-D9)" "$wf" "^requirements\.md:72 · ## Example Scenarios · E1: \`inputs/E1-acme-renewal-call\.md\` has no \`expect:\` line" --before-save
 
 # A: goal-driven, Path: none, no gates, nothing tripped, revisions log with plan_unaffected
 mkdir -p "$TMP/goal/framework/market-scan/inputs" "$TMP/goal/framework/market-scan/context"
@@ -395,6 +398,130 @@ expect "frontmatter: a flow-map revisions entry names the block form" "$wf" "^$R
 
 wf=$(plant secret); edit "$wf/inputs/E2-no-next-step.md" 's/\z/\nAPI key: sk-live0123456789abcdefghijklmnop\n/'
 expect "no saved file holds a password or key" "$wf" "^$R:73 · ## Example Scenarios · E2: \`inputs/E2-no-next-step.md\` line [0-9]+ looks like it holds a password or key"
+
+# ---------------------------------------------------------------- 3b. the fields Deconstruct 3.3 adds
+# Deconstruct requirements v3.3, section 6 (Validator and tools), items 1-7. One committed
+# fixture (framework-fixtures/edge/e-new-fields) carries every new field; each item then gets its valid forms and its planted misses.
+# Every field is optional, so the earlier fixtures above keep passing (T13).
+echo "New fields (Deconstruct v3.3: Starts, Per run, Remembers, criteria, D lines in tests, expect, after each run, Policy check, glosses)"
+NEWF_ROOT="$TMP/newf"
+NEWF="$NEWF_ROOT/framework/client-follow-up"
+# the shared committed fixture (stage 10), also read by the Design and Test evals: revision 1, as Deconstruct
+# writes it. Section 3b's revision cases need Test's policy confirmation on top (revision 2, `by: test`,
+# `lines: [Policy check]`), so the copy gets that entry here, as the inline fixture of stage 3 had it.
+mkdir -p "$NEWF_ROOT"
+cp -R "$FIXTURES/edge/e-new-fields/no-registry/." "$NEWF_ROOT/"
+edit "$NEWF/requirements.md" 's/\A---\nrevision: 1\ntrack: full\nrevisions: \[\]\n---\n/---\nrevision: 2\ntrack: full\nrevisions:\n  - revision: 2\n    by: test\n    lines: [Policy check]\n    plan_unaffected: true\n---\n/'
+newf() {  # <case name>: a fresh copy of the new-fields workspace; echoes the workflow folder
+  local d="$TMP/nf-$1"
+  rm -rf "$d"; cp -R "$NEWF_ROOT" "$d"
+  echo "$d/framework/client-follow-up"
+}
+R=requirements.md
+wf=$(newf ok); expect_ok "a file with every new field passes" "$wf"
+expect_ok "...and passes Deconstruct's pre-save run (every Deconstruct input has expect:)" "$wf" --before-save
+
+# 1. Metadata: Starts, Per run, Remembers (optional, in the explicit order)
+for v in 'you' 'you, when a client asks for a summary' 'schedule: on the 1st of each month' \
+         'event: a new form reply arrives · checked every 30 minutes' 'event: a new form reply arrives · checked as often as it can'; do
+  wf=$(newf starts-ok); edit "$wf/$R" "s/\\| Starts \\| schedule: every Friday afternoon \\|/| Starts | $v |/"
+  expect_ok "Starts: \"$v\" passes" "$wf"
+done
+wf=$(newf perrun-one); edit "$wf/$R" 's/\| Per run \| a batch of the week.s client calls \|/| Per run | one client call |/'
+expect_ok "Per run: \"one …\" passes" "$wf"
+wf=$(newf starts-bad); edit "$wf/$R" 's/\| Starts \| schedule: every Friday afternoon \|/| Starts | sometimes |/'
+expect "Metadata: a Starts value outside its four forms" "$wf" "^$R:[0-9]+ · ## Metadata · \"Starts\" must read"
+wf=$(newf starts-event-no-check); edit "$wf/$R" 's/\| Starts \| schedule: every Friday afternoon \|/| Starts | event: a new form reply arrives |/'
+expect "Metadata: an event Starts with no checking interval" "$wf" "^$R:[0-9]+ · ## Metadata · \"Starts\" must read"
+wf=$(newf perrun-bad); edit "$wf/$R" 's/\| Per run \| a batch of the week.s client calls \|/| Per run | 40 a week |/'
+expect "Metadata: a Per run value outside its two forms" "$wf" "^$R:[0-9]+ · ## Metadata · \"Per run\" must read"
+wf=$(newf remembers-empty); edit "$wf/$R" 's/\| Remembers \| which calls it has already followed up \|/| Remembers |  |/'
+expect "Metadata: an empty Remembers row" "$wf" "^$R:[0-9]+ · ## Metadata · \"Remembers\" has no value"
+wf=$(newf starts-order); edit "$wf/$R" 's/(\| Trigger \| [^\n]*\n)(\| Starts \| [^\n]*\n)/$2$1/'
+expect "Metadata: Starts before Trigger is out of order" "$wf" "^$R:[0-9]+ · ## Metadata · row \"Trigger\" is out of order"
+wf=$(newf remembers-order); edit "$wf/$R" 's/(\| Owner \| [^\n]*\n)/| Remembers | which calls it has already followed up |\n$1/; s/(\| Runs today \| [^\n]*\n)\| Remembers \| [^\n]*\n/$1/'
+expect "Metadata: Remembers before Owner is out of order" "$wf" "^$R:[0-9]+ · ## Metadata · row \"Owner\" is out of order"
+
+# 2. Decision lines: criteria after any settled-by value, never with " · " inside
+wf=$(newf crit-sep); edit "$wf/$R" 's/criteria: no line in the notes says who does what next/criteria: no owner · no date/'
+expect "decision: criteria text holding \" · \"" "$wf" "^$R:[0-9]+ · ## Path · D1: the criteria text can't contain \" · \""
+wf=$(newf crit-order); edit "$wf/$R" 's/ · criteria: no line in the notes says who does what next · value read by AI/ · value read by AI · criteria: no line in the notes says who does what next/'
+expect "decision: criteria after value read by AI" "$wf" "^$R:[0-9]+ · ## Path · D1: after \`settled by:\`, only"
+wf=$(newf crit-empty); edit "$wf/$R" 's/ · criteria: no line in the notes says who does what next/ · criteria:/'
+expect "decision: an empty criteria tag" "$wf" "^$R:[0-9]+ · ## Path · D1: \`· criteria:\` has no text"
+wf=$(newf crit-unknown); edit "$wf/$R" 's/ · criteria: no line in the notes says who does what next · value read by AI/ · urgent · value read by AI/'
+expect "decision: an unknown tag after settled by" "$wf" "^$R:[0-9]+ · ## Path · D1: after \`settled by:\`, only"
+wf=$(newf crit-settled); edit "$wf/$R" 's/settled by: open judgment · criteria/settled by: gut feel · criteria/'
+expect "decision: a settled-by value outside the three, with criteria after it" "$wf" "^$R:[0-9]+ · ## Path · D3: \`settled by:\` must be"
+
+# 3. tests: may name D lines, which must exist in ### Decisions
+wf=$(newf tests-d9); edit "$wf/inputs/E3-already-handled.md" 's/^tests: D2$/tests: D9/m'
+expect "practice input: tests a D line ### Decisions doesn't have" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E3: \`inputs/E3-already-handled.md\` tests D9, which isn't in the file"
+wf=$(newf tests-p); edit "$wf/inputs/E1-renewal-call.md" 's/^tests: AC1, AC2, R1, G1$/tests: AC1, P4/m'
+expect "practice input: a listed input names a P line" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E1: \`inputs/E1-renewal-call.md\` tests \"P4\"; \`tests:\` names AC, R, G and D lines only"
+wf=$(newf d-removed)
+edit "$wf/$R" 's/^revision: 2$/revision: 3/m; s/(    plan_unaffected: true\n)---/$1  - revision: 3\n    by: test\n    lines: [D2]\n    plan_unaffected: true\n---/'
+edit "$wf/$R" 's/^- D2 \(Step 3\)[^\n]*\n//m'
+out=$(run_check "$wf"); rc=$?
+if [ $rc -eq 0 ] && grep -q "note: E3: \`inputs/E3-already-handled.md\` tests D2, a line a revision removed" <<<"$out"; then
+  ok "practice input: a D line a revision removed is a note, exit 0"
+else bad "practice input: a removed D line should be a note with exit 0 (exit $rc)"; echo "$out" | sed 's/^/        /'; fi
+expect "practice input: a removed D line still fails before Deconstruct saves" "$wf" "tests D2, which isn't in the file" --before-save
+
+# 4. Input headers: an optional expect: line 3, the blank line 4, content from line 5
+wf=$(newf expect-empty); edit "$wf/inputs/E1-renewal-call.md" 's/^expect: [^\n]*$/expect:/m'
+expect "practice input: an empty expect: line" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E1: \`inputs/E1-renewal-call.md\` line 3, \`expect:\`, is empty"
+wf=$(newf expect-no-blank); edit "$wf/inputs/E1-renewal-call.md" 's/(^expect: [^\n]*\n)\n/$1/m'
+expect "practice input: no blank line after expect:" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E1: \`inputs/E1-renewal-call.md\` line 4 must be blank, after the three header lines"
+wf=$(newf expect-no-content); printf 'source: deconstruct\ntests: AC1\nexpect: a draft\n\n' > "$wf/inputs/E1-renewal-call.md"
+expect "practice input: expect: but no input under the headers" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E1: \`inputs/E1-renewal-call.md\` holds no input under its headers"
+wf=$(newf expect-line3); edit "$wf/inputs/E1-renewal-call.md" 's/^expect: [^\n]*\n\n/Notes:\n/m'
+expect "practice input: line 3 neither expect: nor blank" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E1: \`inputs/E1-renewal-call.md\` line 3 must be blank, or the \`expect:\` header"
+wf=$(newf expect-missing-save); edit "$wf/inputs/E2-no-next-step.md" 's/^expect: [^\n]*\n//m'
+expect_ok "practice input: expect: is optional outside Deconstruct's pre-save run" "$wf"
+expect "practice input: --before-save requires expect: on a Deconstruct input" "$wf" "^$R:[0-9]+ · ## Example Scenarios · E2: \`inputs/E2-no-next-step.md\` has no \`expect:\` line" --before-save
+wf=$(newf expect-test-source); edit "$wf/inputs/E2-no-next-step.md" 's/^expect: [^\n]*\n//m; s/^source: deconstruct$/source: test/m'
+expect_ok "practice input: --before-save leaves expect: optional on an input Test wrote" "$wf" --before-save
+
+# 5. Writes: after each run with steps (the flag W line); nothing else after a moment
+wf=$(newf write-after-other); edit "$wf/$R" 's/send a flag · after each run/send a flag · after the run/'
+expect "Writes: after [moment] other than after each run, with steps" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety › ### Writes · W2: name the step that writes"
+wf=$(newf write-after-case); edit "$wf/$R" 's/send a flag · after each run/send a flag · After each run/'
+expect "Writes: after each run is that exact phrase" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety › ### Writes · W2 ends with"
+
+# 6. Policy check: once, after Governing regime, before ### Writes, five values, its reference cross-checked
+for v in 'Allowed' 'No — C2 left out' 'No — not live until approved' 'Not sure — to check' 'No — details removed first (R2)'; do
+  wf=$(newf policy-ok); edit "$wf/$R" "s/^Policy check: No — details removed first \\(Step 1\\)\$/Policy check: $v/m"
+  expect_ok "Policy check: \"$v\" passes" "$wf"
+done
+wf=$(newf policy-none); edit "$wf/$R" 's/^Policy check: [^\n]*\n//m'
+expect_ok "Policy check: no line (the question wasn't asked)" "$wf"
+wf=$(newf policy-value); edit "$wf/$R" 's/^Policy check: No — details removed first \(Step 1\)$/Policy check: Fine/m'
+expect "Policy check: a value outside the five" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety · \`Policy check:\` reads"
+wf=$(newf policy-form); edit "$wf/$R" 's/^Policy check: No — details removed first \(Step 1\)$/Policy check: No — details removed first (step 1)/m'
+expect "Policy check: the step reference in another form" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety · \`Policy check:\` reads"
+wf=$(newf policy-step); edit "$wf/$R" 's/\(Step 1\)$/(Step 9)/m'
+expect "Policy check: names a step the path doesn't have" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety · \"Step 9\" matches no step line"
+wf=$(newf policy-rule); edit "$wf/$R" 's/\(Step 1\)$/(R9)/m'
+expect "Policy check: names a rule the file doesn't have" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety · \`Policy check:\` names R9, which isn't in Rules & Constraints"
+wf=$(newf policy-before); edit "$wf/$R" 's/Governing regime: None\nPolicy check: ([^\n]*)\n/Policy check: $1\nGoverning regime: None\n/'
+expect "Policy check: before Governing regime" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety · the \`Policy check:\` line comes after the \`Governing regime:\` line"
+wf=$(newf policy-twice); edit "$wf/$R" 's/(Policy check: [^\n]*\n)/$1$1/'
+expect "Policy check: twice" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety · a second \`Policy check:\` line"
+wf=$(newf policy-after); edit "$wf/$R" 's/(Policy check: [^\n]*\n)\n### Writes\n/\n### Writes\n$1/'
+expect "Policy check: after ### Writes" "$wf" "^$R:[0-9]+ · ## Security, Privacy & Safety › ### Writes · the \`Policy check:\` line comes before \`### Writes\`"
+wf=$(newf policy-token-ids); edit "$wf/$R" 's/lines: \[Policy check\]/lines: [Policy check, R2]/'
+expect_ok "revisions: lines may hold the Policy check token alongside IDs" "$wf"
+wf=$(newf policy-token-case); edit "$wf/$R" 's/lines: \[Policy check\]/lines: [policy check]/'
+expect "revisions: the token is exactly \"Policy check\"" "$wf" "^$R:[0-9]+ · frontmatter · revisions entry 2 names \`policy check\`, which isn't a label"
+
+# 7. Glosses: optional, fixed text, right under their four headings
+wf=$(newf gloss-none); edit "$wf/$R" 's/^\*(The sources it uses|The practice runs|Its rules|The checkpoints)[^\n]*\*\n//mg'
+expect_ok "glosses: optional (a file without them passes)" "$wf"
+wf=$(newf gloss-reworded); edit "$wf/$R" 's/^\*The sources it uses, what we call its context\.\*$/*The sources it uses.*/m'
+expect "glosses: reworded" "$wf" "^$R:[0-9]+ · ## Context Inventory · the line under \`## Context Inventory\` is its fixed gloss"
+wf=$(newf gloss-moved); edit "$wf/$R" 's/^\*Its rules: what it always does, never does, and does when something happens\.\*\n//m; s/^(## Human Gates\n)\*The checkpoints[^\n]*\*\n/$1*Its rules: what it always does, never does, and does when something happens.*\n/m'
+expect "glosses: one under the wrong heading" "$wf" "^$R:[0-9]+ · ## Human Gates · the line under \`## Human Gates\` is its fixed gloss"
 
 # ---------------------------------------------------------------- 4. usage and the plugin copy
 echo "Usage and the plugin copy"
