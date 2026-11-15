@@ -1,10 +1,14 @@
 # Part 3: The outcome
 
-Read when Part 3 starts, right after its signpost; on the light track, read it for the goal and what it must get right. Every quoted line is said exactly; each question is its own message. `[deliverable]` is what Part 2 named ("follow-up email").
+Read when Part 3 starts, before its first message; on the light track, read it for the goal and what it must get right. Every quoted line is said exactly; each question is its own message. `[deliverable]` is what Part 2 named (for illustration only; use the leader's own: "invoice summary").
 
-Say first: "Next, we'll describe what a good [deliverable] looks like, so every draft can be checked against it."
+Say first, after the signpost and the count line, in the same message: "Next, we'll describe what a good [deliverable] looks like, so every draft can be checked against it."
 
-**The privacy line** (SKILL.md) is said once, before the leader is first asked to paste anything: here, unless N-D1's yes already used it.
+**The privacy line** is said once, before the leader is first asked to paste anything: here, unless N-D1's yes already used it. Word for word:
+
+> Whenever I ask for an example, an output or an input, don't paste real client names, personal details or anything confidential. Swap them for made-up ones, or tell me what it looks like and I'll draft a made-up example. What matters is that it looks like your real work.
+
+**The policy question** (full track only), for a source this part first shows (a real example, a reply): in the next message, right after the reply that showed it; when a paste triggers both, the confidential check first, then, once the paste is saved, the policy question (`part-2-scope-and-a-name.md`, *The policy question*, its wording and its "no" question word for word).
 
 ## 1. A real example first
 
@@ -43,7 +47,7 @@ The goal sentence merges the deliverable and its format into one phrase, names t
 
 *For each [trigger], a [format] [deliverable] to [who], ready for you to [review] [when].*
 
-("For each scoping call that ends, a short, easy-to-skim follow-up email to the prospect, a few paragraphs long, ready for you to review and send the same day.") It keeps the leader's own words; numbers live only in the list. It has no "containing [parts]" blank: the parts live only in the list, so each is graded once. Never invent a sample output for the leader to react to; questions sharpen it.
+(For illustration only; use the leader's own trigger, deliverable and reader: "For each supplier invoice that arrives, a short, easy-to-skim approval summary to the finance manager, one page long, ready for you to check and approve the same day.") It keeps the leader's own words; numbers live only in the list. It has no "containing [parts]" blank: the parts live only in the list, so each is graded once. Never invent a sample output for the leader to react to; questions sharpen it.
 
 **On the full track,** say the goal as a statement, with no question of its own (it's confirmed once, after the send-back test): "Here's your goal: [sentence]." followed by "(The [parts they named in 'say it'] become the list we write next.)" "Make it checkable" follows in the same message.
 
@@ -55,9 +59,9 @@ The goal sentence merges the deliverable and its format into one phrase, names t
 - *Why:* Each point you'd check becomes a yes-or-no check on every draft.
 - *Example:* a finance analyst might say: "Every number ties to the ledger, and any change over 5% has a reason."
 
-**The vague words** (full track). Put every vague word left in the answers (*good, engaging, thorough, clear, professional, short, easy to skim, key points* and the like) into one message, each with a concrete version: "A few of your words need pinning down so anyone could check them. Keep or change each: '[word]' → [concrete version] *(my suggestion)* …", ending "What would you change or add?" A concrete version the leader already gave (a number, a length) is theirs, *(you said)*. A follow-up here asks what a phrase means, never which miss would send it back: that's question 5, asked as written even when an earlier answer already named one. (On the light track there's no separate message: each concrete version sits inside the list's playback.)
-
 Each answer becomes a yes-or-no check, kept only if someone else could check it without asking the leader; never a scale word ("mostly", "somewhat", "1–5"). Play the list back numbered, in plain words, opening "Here's what every [deliverable] must get right:" and ending "What would you change or add?"
+
+**The vague words go inside that list,** on both tracks: there's no separate vague-words message. Every vague word left in the answers (*good, engaging, thorough, clear, professional, short, easy to skim, key points* and the like) is already replaced in the list by a concrete version, tagged *(my suggestion)*; a concrete version the leader already gave (a number, a length) is theirs, *(you said)*. The rubber-stamp guard applies to those suggestions. A follow-up here asks what a phrase means, never which miss would send it back: that's question 5, asked as written even when an earlier answer already named one.
 
 ## 5. The send-back test
 
@@ -66,7 +70,9 @@ Picking from the list just played back:
 **Ask:** "Which of these could you never let go out wrong — the ones where a single miss sends it back?"
 - *Why:* Every draft is checked against all of these. Missing one you can't live without always sends it back; any other miss, you decide whether to fix or accept.
 
-After the answer, say: "That makes '[item]' a must-have: a miss always sends it back." (naming each). It never ends a reply on its own: what comes next (the full goal below; on the light track, the next item) follows in the same reply. These are the must-haves, at most two. A prohibition the leader volunteers here ("never names a client before they've approved it") becomes a rule ("It never…"), not a check: must-haves are qualities of the output.
+After the answer, say: "That makes '[item]' a must-have: a miss always sends it back." (naming each). Say it once, when the must-have is set; a later playback marks the item "(must-have)" instead of saying the line again in other words. It never ends a reply on its own: what comes next (the full goal below; on the light track, the next item) follows in the same reply. These are the must-haves, at most two. A prohibition the leader volunteers here ("never names a client before they've approved it") becomes a rule ("It never…"), not a check: must-haves are qualities of the output.
+
+**Safety must-haves** are separate and need no answer here: every `Never` rule with no role tag, and every Prohibited-actions P line, counts like a must-have when it's tested (a miss always sends it back, and it's never accepted). Don't ask about them, and don't add them to the must-haves; the preview says so (N-D13). Light workflows have them too.
 
 **On the full track,** then the full goal once more, nothing removed, in its own message, as the goal's one confirmation:
 
